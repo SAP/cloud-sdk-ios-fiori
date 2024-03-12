@@ -129,6 +129,7 @@
 		C18868D32B32580800F865F7 /* ColorEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18868D22B32580800F865F7 /* ColorEntity.swift */; };
 		C1A0FDB32AD893FA0001738E /* SortFilterView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A0FDB22AD893FA0001738E /* SortFilterView+Extensions.swift */; };
 		C1C764882A818BEC00BCB0F7 /* SortFilterExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C764872A818BEC00BCB0F7 /* SortFilterExample.swift */; };
+		E99A025F2B9EC055008A4B77 /* SearchIconAndPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99A025E2B9EC055008A4B77 /* SearchIconAndPlaceholder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -298,6 +299,7 @@
 		C18868D22B32580800F865F7 /* ColorEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorEntity.swift; sourceTree = "<group>"; };
 		C1A0FDB22AD893FA0001738E /* SortFilterView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SortFilterView+Extensions.swift"; sourceTree = "<group>"; };
 		C1C764872A818BEC00BCB0F7 /* SortFilterExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortFilterExample.swift; sourceTree = "<group>"; };
+		E99A025E2B9EC055008A4B77 /* SearchIconAndPlaceholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchIconAndPlaceholder.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -721,6 +723,7 @@
 				C106AD492B33970500FE8B35 /* SearchPromptFontAndColor.swift */,
 				C18868D22B32580800F865F7 /* ColorEntity.swift */,
 				C167183B2B477A81005E2629 /* SearchDemos.swift */,
+				E99A025E2B9EC055008A4B77 /* SearchIconAndPlaceholder.swift */,
 			);
 			path = SearchBar;
 			sourceTree = "<group>";
@@ -913,6 +916,7 @@
 				8A5579D124C1293C0098003A /* Settings.swift in Sources */,
 				8AD9DFB025D49967007448EC /* ContactItemActionItemsExample.swift in Sources */,
 				8A6D64B125AE658300D2D76C /* ExpHeaderView.swift in Sources */,
+				E99A025F2B9EC055008A4B77 /* SearchIconAndPlaceholder.swift in Sources */,
 				B1BA1F922B19AAEE00E6C052 /* TabViewDetailView.swift in Sources */,
 				B1DD864F2B07441C00D7EDFD /* UIFont+Fiori.swift in Sources */,
 				B8D4376F25F980340024EE7D /* ObjectCell_Spec_Jan2018.swift in Sources */,
