@@ -10,6 +10,12 @@ struct SearchDemos: View {
             }
             
             NavigationLink {
+                SearchIconAndPlaceholder()
+            } label: {
+                Text("Search icon and placeholder")
+            }
+            
+            NavigationLink {
                 SearchWithSuggestion()
             } label: {
                 Text("Search with suggestions")
