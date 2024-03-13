@@ -4,6 +4,10 @@ import SourceryRuntime
 // Handling default values for variables
 public extension Dictionary where Key == String, Value == NSObject {
     var defaultValue: NSObject? {
+        if let defaultValue = self["defaultValue"] {
+            return defaultValue
+        }
+        
         guard let defaultValue = self["default.value"] else {
             return nil
         }

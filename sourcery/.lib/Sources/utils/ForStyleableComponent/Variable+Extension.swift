@@ -7,7 +7,7 @@ extension Variable {
             return ""
         } else {
             if let defaultValue = annotations.defaultValue {
-                return " = \(defaultValue)"
+                return "\(defaultValue)"
             }
             
             if isOptional {
