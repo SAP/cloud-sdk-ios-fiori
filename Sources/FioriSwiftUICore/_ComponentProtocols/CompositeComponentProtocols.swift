@@ -33,7 +33,9 @@ protocol _CardHeaderComponent: _CardMediaComponent, _CardMainHeaderComponent, _C
 protocol _CardComponent: _CardHeaderComponent, _CardBodyComponent, _CardFooterComponent {}
 
 // sourcery: CompositeComponent
-protocol _IllustratedMessageComponent: _DetailImageComponent, _TitleComponent, _DescriptionComponent, _ActionComponent {}
+protocol _IllustratedMessageComponent: _DetailImageComponent, _TitleComponent, _DescriptionComponent, _ActionComponent {
+    var imageSize: ImageSize? { get }
+}
 
 // sourcery: CompositeComponent
 protocol _InformationViewComponent: _IconComponent, _DescriptionComponent {}

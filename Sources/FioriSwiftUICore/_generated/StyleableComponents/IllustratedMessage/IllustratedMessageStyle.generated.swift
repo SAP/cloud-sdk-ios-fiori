@@ -1,4 +1,4 @@
-// Generated using Sourcery 2.1.3 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import Foundation
 import SwiftUI
@@ -26,6 +26,7 @@ public struct IllustratedMessageConfiguration {
     public let title: Title
     public let description: Description
     public let action: Action
+    public let imageSize: ImageSize?
 
     public typealias DetailImage = ConfigurationViewWrapper
     public typealias Title = ConfigurationViewWrapper

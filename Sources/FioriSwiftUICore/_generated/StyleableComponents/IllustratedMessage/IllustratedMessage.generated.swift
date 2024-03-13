@@ -1,4 +1,4 @@
-// Generated using Sourcery 2.1.3 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import Foundation
 import SwiftUI
@@ -8,6 +8,7 @@ public struct IllustratedMessage {
     let title: any View
     let description: any View
     let action: any View
+    let imageSize: ImageSize?
 
     @Environment(\.illustratedMessageStyle) var style
 
@@ -16,12 +17,14 @@ public struct IllustratedMessage {
     public init(@ViewBuilder detailImage: () -> any View = { EmptyView() },
                 @ViewBuilder title: () -> any View,
                 @ViewBuilder description: () -> any View = { EmptyView() },
-                @ViewBuilder action: () -> any View = { EmptyView() })
+                @ViewBuilder action: () -> any View = { EmptyView() },
+                imageSize: ImageSize? = nil)
     {
         self.detailImage = DetailImage { detailImage() }
         self.title = Title { title() }
         self.description = Description { description() }
         self.action = Action { action() }
+        self.imageSize = imageSize
     }
 }
 
@@ -29,9 +32,10 @@ public extension IllustratedMessage {
     init(detailImage: Image? = nil,
          title: AttributedString,
          description: AttributedString? = nil,
-         action: FioriButton? = nil)
+         action: FioriButton? = nil,
+         imageSize: ImageSize? = nil)
     {
-        self.init(detailImage: { detailImage }, title: { Text(title) }, description: { OptionalText(description) }, action: { action })
+        self.init(detailImage: { detailImage }, title: { Text(title) }, description: { OptionalText(description) }, action: { action }, imageSize: imageSize)
     }
 }
 
@@ -41,16 +45,17 @@ public extension IllustratedMessage {
         self.title = configuration.title
         self.description = configuration.description
         self.action = configuration.action
+        self.imageSize = configuration.imageSize
         self._shouldApplyDefaultStyle = false
     }
 }
 
 extension IllustratedMessage: View {
     public var body: some View {
-        if _shouldApplyDefaultStyle {
+        if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            style.resolve(configuration: .init(detailImage: .init(self.detailImage), title: .init(self.title), description: .init(self.description), action: .init(self.action))).typeErased
+            self.style.resolve(configuration: .init(detailImage: .init(self.detailImage), title: .init(self.title), description: .init(self.description), action: .init(self.action), imageSize: self.imageSize)).typeErased
                 .transformEnvironment(\.illustratedMessageStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -68,7 +73,7 @@ private extension IllustratedMessage {
     }
         
     func defaultStyle() -> some View {
-        IllustratedMessage(.init(detailImage: .init(self.detailImage), title: .init(self.title), description: .init(self.description), action: .init(self.action)))
+        IllustratedMessage(.init(detailImage: .init(self.detailImage), title: .init(self.title), description: .init(self.description), action: .init(self.action), imageSize: self.imageSize))
             .shouldApplyDefaultStyle(false)
             .illustratedMessageStyle(IllustratedMessageFioriStyle.ContentFioriStyle())
             .typeErased
