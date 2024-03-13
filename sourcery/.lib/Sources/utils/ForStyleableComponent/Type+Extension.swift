@@ -86,7 +86,7 @@ extension Type {
                 let name = variable.name
                 if variable.isResultBuilder {
                     return "\(name): { self.\(name) }"
-                } else if variable.isConvertedToBinding {
+                } else if variable.isBinding {
                     return "\(name): self.$\(name)"
                 } else {
                     return "\(name): self.\(name)"
