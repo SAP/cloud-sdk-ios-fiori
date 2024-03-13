@@ -42,10 +42,10 @@ extension TextInputInfoView {
 
 extension TextInputInfoView: View {
     public var body: some View {
-        if _shouldApplyDefaultStyle {
+        if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            style.resolve(configuration: .init(icon: .init(self.icon), description: .init(self.description), counter: .init(self.counter))).typeErased
+            self.style.resolve(configuration: .init(icon: .init(self.icon), description: .init(self.description), counter: .init(self.counter))).typeErased
                 .transformEnvironment(\.textInputInfoViewStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()

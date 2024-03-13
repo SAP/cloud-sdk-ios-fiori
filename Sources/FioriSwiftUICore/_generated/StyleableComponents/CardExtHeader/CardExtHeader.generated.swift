@@ -52,10 +52,10 @@ public extension CardExtHeader {
 
 extension CardExtHeader: View {
     public var body: some View {
-        if _shouldApplyDefaultStyle {
+        if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            style.resolve(configuration: .init(row1: .init(self.row1), row2: .init(self.row2), row3: .init(self.row3), kpi: .init(self.kpi), kpiCaption: .init(self.kpiCaption))).typeErased
+            self.style.resolve(configuration: .init(row1: .init(self.row1), row2: .init(self.row2), row3: .init(self.row3), kpi: .init(self.kpi), kpiCaption: .init(self.kpiCaption))).typeErased
                 .transformEnvironment(\.cardExtHeaderStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()

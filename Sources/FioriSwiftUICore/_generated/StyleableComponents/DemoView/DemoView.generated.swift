@@ -52,10 +52,10 @@ extension DemoView {
 
 extension DemoView: View {
     public var body: some View {
-        if _shouldApplyDefaultStyle {
+        if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            style.resolve(configuration: .init(title: .init(self.title), subtitle: .init(self.subtitle), status: .init(self.status), action: .init(self.action), isOn: self.$isOn)).typeErased
+            self.style.resolve(configuration: .init(title: .init(self.title), subtitle: .init(self.subtitle), status: .init(self.status), action: .init(self.action), isOn: self.$isOn)).typeErased
                 .transformEnvironment(\.demoViewStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()

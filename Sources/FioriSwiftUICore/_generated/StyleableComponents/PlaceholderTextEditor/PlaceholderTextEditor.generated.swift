@@ -37,10 +37,10 @@ public extension PlaceholderTextEditor {
 
 extension PlaceholderTextEditor: View {
     public var body: some View {
-        if _shouldApplyDefaultStyle {
+        if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            style.resolve(configuration: .init(text: self.$text, placeholder: .init(self.placeholder))).typeErased
+            self.style.resolve(configuration: .init(text: self.$text, placeholder: .init(self.placeholder))).typeErased
                 .transformEnvironment(\.placeholderTextEditorStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
