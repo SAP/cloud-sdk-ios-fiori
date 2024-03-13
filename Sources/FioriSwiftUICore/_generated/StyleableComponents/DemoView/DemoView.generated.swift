@@ -3,7 +3,7 @@
 import Foundation
 import SwiftUI
 
-public struct DemoView {
+struct DemoView {
     let title: any View
     let subtitle: any View
     let status: any View
@@ -28,7 +28,7 @@ public struct DemoView {
     }
 }
 
-public extension DemoView {
+extension DemoView {
     init(title: AttributedString,
          subtitle: AttributedString? = nil,
          status: TextOrIcon? = nil,
@@ -39,7 +39,7 @@ public extension DemoView {
     }
 }
 
-public extension DemoView {
+extension DemoView {
     init(_ configuration: DemoViewConfiguration) {
         self.title = configuration.title
         self.subtitle = configuration.subtitle

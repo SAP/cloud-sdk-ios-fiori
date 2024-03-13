@@ -291,14 +291,14 @@ public extension CounterStyle {
 // MARK: DemoViewStyle
 
 extension ModifiedStyle: DemoViewStyle where Style: DemoViewStyle {
-    public func makeBody(_ configuration: DemoViewConfiguration) -> some View {
+    func makeBody(_ configuration: DemoViewConfiguration) -> some View {
         DemoView(configuration)
             .demoViewStyle(self.style)
             .modifier(self.modifier)
     }
 }
 
-public struct DemoViewStyleModifier<Style: DemoViewStyle>: ViewModifier {
+struct DemoViewStyleModifier<Style: DemoViewStyle>: ViewModifier {
     let style: Style
 
     public func body(content: Content) -> some View {
@@ -306,7 +306,7 @@ public struct DemoViewStyleModifier<Style: DemoViewStyle>: ViewModifier {
     }
 }
 
-public extension DemoViewStyle {
+extension DemoViewStyle {
     func modifier(_ modifier: some ViewModifier) -> some DemoViewStyle {
         ModifiedStyle(style: self, modifier: modifier)
     }
@@ -1159,14 +1159,14 @@ public extension TagsStyle {
 // MARK: TextInputInfoViewStyle
 
 extension ModifiedStyle: TextInputInfoViewStyle where Style: TextInputInfoViewStyle {
-    public func makeBody(_ configuration: TextInputInfoViewConfiguration) -> some View {
+    func makeBody(_ configuration: TextInputInfoViewConfiguration) -> some View {
         TextInputInfoView(configuration)
             .textInputInfoViewStyle(self.style)
             .modifier(self.modifier)
     }
 }
 
-public struct TextInputInfoViewStyleModifier<Style: TextInputInfoViewStyle>: ViewModifier {
+struct TextInputInfoViewStyleModifier<Style: TextInputInfoViewStyle>: ViewModifier {
     let style: Style
 
     public func body(content: Content) -> some View {
@@ -1174,7 +1174,7 @@ public struct TextInputInfoViewStyleModifier<Style: TextInputInfoViewStyle>: Vie
     }
 }
 
-public extension TextInputInfoViewStyle {
+extension TextInputInfoViewStyle {
     func modifier(_ modifier: some ViewModifier) -> some TextInputInfoViewStyle {
         ModifiedStyle(style: self, modifier: modifier)
     }

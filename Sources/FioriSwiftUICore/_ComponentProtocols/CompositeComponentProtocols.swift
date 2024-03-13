@@ -5,7 +5,7 @@ import SwiftUI
 // sourcery: CompositeComponent
 protocol _ObjectItemComponent: _TitleComponent, _SubtitleComponent, _FootnoteComponent, _DescriptionComponent, _StatusComponent, _SubstatusComponent, _DetailImageComponent, _IconsComponent, _AvatarsComponent, _FootnoteIconsComponent, _TagsComponent, _ActionComponent {}
 
-// sourcery: CompositeComponent
+// sourcery: CompositeComponent, InternalComponent
 protocol _DemoViewComponent: _TitleComponent, _SubtitleComponent, _StatusComponent, _ActionComponent, _SwitchComponent {}
 
 // sourcery: CompositeComponent
@@ -38,7 +38,7 @@ protocol _IllustratedMessageComponent: _DetailImageComponent, _TitleComponent, _
 // sourcery: CompositeComponent
 protocol _InformationViewComponent: _IconComponent, _DescriptionComponent {}
 
-// sourcery: CompositeComponent
+// sourcery: CompositeComponent, InternalComponent
 protocol _TextInputInfoViewComponent: _InformationViewComponent, _CounterComponent {}
 
 // sourcery: CompositeComponent

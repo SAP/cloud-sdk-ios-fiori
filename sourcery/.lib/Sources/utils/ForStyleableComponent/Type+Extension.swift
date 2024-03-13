@@ -5,7 +5,7 @@ extension Type {
     var componentDecl: String {
         """
         \(docText)
-        public struct \(componentName) {
+        \(accessLevelDecl)struct \(componentName) {
             \(allStoredVariables.propertyListDecl)
         
             @Environment(\\.\(componentName.lowercasingFirst())Style) var style
@@ -39,7 +39,7 @@ extension Type {
         }
         
         return """
-        public extension \(componentName) {
+        \(accessLevelDecl)extension \(componentName) {
             init(\(allStoredVariables.dataInitParams)) {
                 \(allStoredVariables.dataInitBody)
             }
@@ -49,7 +49,7 @@ extension Type {
     
     var configurationInitExtension: String {
         """
-        public extension \(componentName) {
+        \(accessLevelDecl)extension \(componentName) {
             init(_ configuration: \(configurationName)) {
                 \(allStoredVariables.configurationInitBody)
                 self._shouldApplyDefaultStyle = false
@@ -155,7 +155,7 @@ extension Type {
     
     var configurationDecl: String {
         """
-        public struct \(componentName)Configuration {
+        \(accessLevelDecl)struct \(componentName)Configuration {
             \(allStoredVariables.configurationPropertyListDecl)
         }
         """
@@ -163,7 +163,7 @@ extension Type {
     
     var styleProtocolDecl: String {
         """
-        public protocol \(styleProtocolName): DynamicProperty {
+        \(accessLevelDecl)protocol \(styleProtocolName): DynamicProperty {
             associatedtype Body: View
 
             func makeBody(_ configuration: \(configurationName)) -> Body
@@ -177,13 +177,13 @@ extension Type {
             return """
             // MARK: \(styleProtocolName)
                 
-            public extension \(styleProtocolName) where Self == \(baseStyleName) {
+            \(accessLevelDecl)extension \(styleProtocolName) where Self == \(baseStyleName) {
                 static var base: \(baseStyleName) {
                     \(baseStyleName)()
                 }
             }
 
-            public extension \(styleProtocolName) where Self == \(fioriStyleName) {
+            \(accessLevelDecl)extension \(styleProtocolName) where Self == \(fioriStyleName) {
                 static var fiori: \(fioriStyleName) {
                     \(fioriStyleName)()
                 }
@@ -193,13 +193,13 @@ extension Type {
             return """
             // MARK: \(styleProtocolName)
                 
-            public extension \(styleProtocolName) where Self == \(baseStyleName) {
+            \(accessLevelDecl)extension \(styleProtocolName) where Self == \(baseStyleName) {
                 static var base: \(baseStyleName) {
                     \(baseStyleName)()
                 }
             }
 
-            public extension \(styleProtocolName) where Self == \(fioriStyleName) {
+            \(accessLevelDecl)extension \(styleProtocolName) where Self == \(fioriStyleName) {
                 static var fiori: \(fioriStyleName) {
                     \(fioriStyleName)()
                 }
@@ -218,7 +218,7 @@ extension Type {
             let styleModifierFuncName = "\(type.styleProtocolName.lowercasingFirst())"
             let styleModifierExpr = ".\(styleModifierFuncName)"
             return """
-            public struct \(baseComponentStyleDecl): \(self.styleProtocolName) {
+            \(accessLevelDecl)struct \(baseComponentStyleDecl): \(self.styleProtocolName) {
                 let style: any \(type.styleProtocolName)
                     
                 public func makeBody(_ configuration: \(self.configurationName)) -> some View {
@@ -228,7 +228,7 @@ extension Type {
                 }
             }
                 
-            public extension \(self.styleProtocolName) where Self == \(baseComponentStyleDecl) {
+            \(accessLevelDecl)extension \(self.styleProtocolName) where Self == \(baseComponentStyleDecl) {
                 static func \(styleModifierFuncName)<Style: \(type.styleProtocolName)>(_ style: Style) -> \(baseComponentStyleDecl) {
                     \(baseComponentStyleDecl)(style: style)
                 }
@@ -245,7 +245,7 @@ extension Type {
     
     var fioriStyleDecl: String {
         """
-        public struct \(fioriStyleName): \(styleProtocolName) {
+        \(accessLevelDecl)struct \(fioriStyleName): \(styleProtocolName) {
             public func makeBody(_ configuration: \(configurationName)) -> some View {
                 \(componentName)(configuration)
                     \(self.componentFioriStyleModifierList)
@@ -277,7 +277,7 @@ extension Type {
              */
 
             // Base Layout style
-            public struct \(baseStyleName): \(styleProtocolName) {
+            \(accessLevelDecl)struct \(baseStyleName): \(styleProtocolName) {
                 @ViewBuilder
                 public func makeBody(_ configuration: \(configurationName)) -> some View {
                     // Add default layout here
@@ -286,7 +286,7 @@ extension Type {
             }
 
             // Default fiori styles
-            public struct \(fioriStyleName): \(styleProtocolName) {
+            \(accessLevelDecl)struct \(fioriStyleName): \(styleProtocolName) {
                 @ViewBuilder
                 public func makeBody(_ configuration: \(configurationName)) -> some View {
                     \(componentName)(configuration)
@@ -309,7 +309,7 @@ extension Type {
              */
 
             // Base Layout style
-            public struct \(baseStyleName): \(styleProtocolName) {
+            \(accessLevelDecl)struct \(baseStyleName): \(styleProtocolName) {
                 public func makeBody(_ configuration: \(configurationName)) -> some View {
                     // Add default layout here
                     \(allStoredVariables.configurationResultBuilderPropertyListDecl)
@@ -431,14 +431,14 @@ extension Type {
         // MARK: \(styleProtocolName)
         
         extension ModifiedStyle: \(styleProtocolName) where Style: \(styleProtocolName) {
-            public func makeBody(_ configuration: \(configurationName)) -> some View {
+            \(accessLevelDecl)func makeBody(_ configuration: \(configurationName)) -> some View {
                 \(componentName)(configuration)
                     .\(styleProtocolName.lowercasingFirst())(self.style)
                     .modifier(self.modifier)
             }
         }
         
-        public struct \(styleModifierName)<Style: \(styleProtocolName)>: ViewModifier {
+        \(accessLevelDecl)struct \(styleModifierName)<Style: \(styleProtocolName)>: ViewModifier {
             let style: Style
         
             public func body(content: Content) -> some View {
@@ -446,7 +446,7 @@ extension Type {
             }
         }
         
-        public extension \(styleProtocolName) {
+        \(accessLevelDecl)extension \(styleProtocolName) {
             func modifier(_ modifier: some ViewModifier) -> some \(styleProtocolName) {
                 ModifiedStyle(style: self, modifier: modifier)
             }
@@ -462,7 +462,7 @@ extension Type {
         """
         // MARK: \(styleProtocolName)
         
-        public extension View {
+        \(accessLevelDecl)extension View {
             func \(styleProtocolName.lowercasingFirst())(_ style: some \(styleProtocolName)) -> some View {
                 self.transformEnvironment(\(styleStackKeyPathExpr)) { stack in
                     stack.append(style)
@@ -554,6 +554,10 @@ extension Type {
         }
     }
     
+    var accessLevelDecl: String {
+        self.isInternalComponent ? "" : "public "
+    }
+    
     var isComponent: Bool {
         self.isBaseComponent || self.isCompositeComponent
     }
@@ -564,6 +568,10 @@ extension Type {
     
     var isCompositeComponent: Bool {
         annotations.isCompositeComponent
+    }
+    
+    var isInternalComponent: Bool {
+        annotations.isInternalComponent
     }
 }
 

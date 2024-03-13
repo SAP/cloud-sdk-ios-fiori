@@ -1174,19 +1174,19 @@ public extension CounterStyle where Self == CounterFioriStyle {
 
 // MARK: DemoViewStyle
     
-public extension DemoViewStyle where Self == DemoViewBaseStyle {
+extension DemoViewStyle where Self == DemoViewBaseStyle {
     static var base: DemoViewBaseStyle {
         DemoViewBaseStyle()
     }
 }
 
-public extension DemoViewStyle where Self == DemoViewFioriStyle {
+extension DemoViewStyle where Self == DemoViewFioriStyle {
     static var fiori: DemoViewFioriStyle {
         DemoViewFioriStyle()
     }
 }
     
-public struct DemoViewTitleStyle: DemoViewStyle {
+struct DemoViewTitleStyle: DemoViewStyle {
     let style: any TitleStyle
         
     public func makeBody(_ configuration: DemoViewConfiguration) -> some View {
@@ -1196,7 +1196,7 @@ public struct DemoViewTitleStyle: DemoViewStyle {
     }
 }
     
-public extension DemoViewStyle where Self == DemoViewTitleStyle {
+extension DemoViewStyle where Self == DemoViewTitleStyle {
     static func titleStyle<Style: TitleStyle>(_ style: Style) -> DemoViewTitleStyle {
         DemoViewTitleStyle(style: style)
     }
@@ -1207,7 +1207,7 @@ public extension DemoViewStyle where Self == DemoViewTitleStyle {
     }
 }
 
-public struct DemoViewSubtitleStyle: DemoViewStyle {
+struct DemoViewSubtitleStyle: DemoViewStyle {
     let style: any SubtitleStyle
         
     public func makeBody(_ configuration: DemoViewConfiguration) -> some View {
@@ -1217,7 +1217,7 @@ public struct DemoViewSubtitleStyle: DemoViewStyle {
     }
 }
     
-public extension DemoViewStyle where Self == DemoViewSubtitleStyle {
+extension DemoViewStyle where Self == DemoViewSubtitleStyle {
     static func subtitleStyle<Style: SubtitleStyle>(_ style: Style) -> DemoViewSubtitleStyle {
         DemoViewSubtitleStyle(style: style)
     }
@@ -1228,7 +1228,7 @@ public extension DemoViewStyle where Self == DemoViewSubtitleStyle {
     }
 }
 
-public struct DemoViewStatusStyle: DemoViewStyle {
+struct DemoViewStatusStyle: DemoViewStyle {
     let style: any StatusStyle
         
     public func makeBody(_ configuration: DemoViewConfiguration) -> some View {
@@ -1238,7 +1238,7 @@ public struct DemoViewStatusStyle: DemoViewStyle {
     }
 }
     
-public extension DemoViewStyle where Self == DemoViewStatusStyle {
+extension DemoViewStyle where Self == DemoViewStatusStyle {
     static func statusStyle<Style: StatusStyle>(_ style: Style) -> DemoViewStatusStyle {
         DemoViewStatusStyle(style: style)
     }
@@ -1249,7 +1249,7 @@ public extension DemoViewStyle where Self == DemoViewStatusStyle {
     }
 }
 
-public struct DemoViewActionStyle: DemoViewStyle {
+struct DemoViewActionStyle: DemoViewStyle {
     let style: any ActionStyle
         
     public func makeBody(_ configuration: DemoViewConfiguration) -> some View {
@@ -1259,7 +1259,7 @@ public struct DemoViewActionStyle: DemoViewStyle {
     }
 }
     
-public extension DemoViewStyle where Self == DemoViewActionStyle {
+extension DemoViewStyle where Self == DemoViewActionStyle {
     static func actionStyle<Style: ActionStyle>(_ style: Style) -> DemoViewActionStyle {
         DemoViewActionStyle(style: style)
     }
@@ -1270,7 +1270,7 @@ public extension DemoViewStyle where Self == DemoViewActionStyle {
     }
 }
 
-public struct DemoViewSwitchStyle: DemoViewStyle {
+struct DemoViewSwitchStyle: DemoViewStyle {
     let style: any SwitchStyle
         
     public func makeBody(_ configuration: DemoViewConfiguration) -> some View {
@@ -1280,7 +1280,7 @@ public struct DemoViewSwitchStyle: DemoViewStyle {
     }
 }
     
-public extension DemoViewStyle where Self == DemoViewSwitchStyle {
+extension DemoViewStyle where Self == DemoViewSwitchStyle {
     static func switchStyle<Style: SwitchStyle>(_ style: Style) -> DemoViewSwitchStyle {
         DemoViewSwitchStyle(style: style)
     }
@@ -2406,19 +2406,19 @@ public extension TagsStyle where Self == TagsFioriStyle {
 
 // MARK: TextInputInfoViewStyle
     
-public extension TextInputInfoViewStyle where Self == TextInputInfoViewBaseStyle {
+extension TextInputInfoViewStyle where Self == TextInputInfoViewBaseStyle {
     static var base: TextInputInfoViewBaseStyle {
         TextInputInfoViewBaseStyle()
     }
 }
 
-public extension TextInputInfoViewStyle where Self == TextInputInfoViewFioriStyle {
+extension TextInputInfoViewStyle where Self == TextInputInfoViewFioriStyle {
     static var fiori: TextInputInfoViewFioriStyle {
         TextInputInfoViewFioriStyle()
     }
 }
     
-public struct TextInputInfoViewIconStyle: TextInputInfoViewStyle {
+struct TextInputInfoViewIconStyle: TextInputInfoViewStyle {
     let style: any IconStyle
         
     public func makeBody(_ configuration: TextInputInfoViewConfiguration) -> some View {
@@ -2428,7 +2428,7 @@ public struct TextInputInfoViewIconStyle: TextInputInfoViewStyle {
     }
 }
     
-public extension TextInputInfoViewStyle where Self == TextInputInfoViewIconStyle {
+extension TextInputInfoViewStyle where Self == TextInputInfoViewIconStyle {
     static func iconStyle<Style: IconStyle>(_ style: Style) -> TextInputInfoViewIconStyle {
         TextInputInfoViewIconStyle(style: style)
     }
@@ -2439,7 +2439,7 @@ public extension TextInputInfoViewStyle where Self == TextInputInfoViewIconStyle
     }
 }
 
-public struct TextInputInfoViewDescriptionStyle: TextInputInfoViewStyle {
+struct TextInputInfoViewDescriptionStyle: TextInputInfoViewStyle {
     let style: any DescriptionStyle
         
     public func makeBody(_ configuration: TextInputInfoViewConfiguration) -> some View {
@@ -2449,7 +2449,7 @@ public struct TextInputInfoViewDescriptionStyle: TextInputInfoViewStyle {
     }
 }
     
-public extension TextInputInfoViewStyle where Self == TextInputInfoViewDescriptionStyle {
+extension TextInputInfoViewStyle where Self == TextInputInfoViewDescriptionStyle {
     static func descriptionStyle<Style: DescriptionStyle>(_ style: Style) -> TextInputInfoViewDescriptionStyle {
         TextInputInfoViewDescriptionStyle(style: style)
     }
@@ -2460,7 +2460,7 @@ public extension TextInputInfoViewStyle where Self == TextInputInfoViewDescripti
     }
 }
 
-public struct TextInputInfoViewCounterStyle: TextInputInfoViewStyle {
+struct TextInputInfoViewCounterStyle: TextInputInfoViewStyle {
     let style: any CounterStyle
         
     public func makeBody(_ configuration: TextInputInfoViewConfiguration) -> some View {
@@ -2470,7 +2470,7 @@ public struct TextInputInfoViewCounterStyle: TextInputInfoViewStyle {
     }
 }
     
-public extension TextInputInfoViewStyle where Self == TextInputInfoViewCounterStyle {
+extension TextInputInfoViewStyle where Self == TextInputInfoViewCounterStyle {
     static func counterStyle<Style: CounterStyle>(_ style: Style) -> TextInputInfoViewCounterStyle {
         TextInputInfoViewCounterStyle(style: style)
     }
@@ -2481,7 +2481,7 @@ public extension TextInputInfoViewStyle where Self == TextInputInfoViewCounterSt
     }
 }
 
-public struct TextInputInfoViewInformationViewStyle: TextInputInfoViewStyle {
+struct TextInputInfoViewInformationViewStyle: TextInputInfoViewStyle {
     let style: any InformationViewStyle
         
     public func makeBody(_ configuration: TextInputInfoViewConfiguration) -> some View {
@@ -2491,7 +2491,7 @@ public struct TextInputInfoViewInformationViewStyle: TextInputInfoViewStyle {
     }
 }
     
-public extension TextInputInfoViewStyle where Self == TextInputInfoViewInformationViewStyle {
+extension TextInputInfoViewStyle where Self == TextInputInfoViewInformationViewStyle {
     static func informationViewStyle<Style: InformationViewStyle>(_ style: Style) -> TextInputInfoViewInformationViewStyle {
         TextInputInfoViewInformationViewStyle(style: style)
     }

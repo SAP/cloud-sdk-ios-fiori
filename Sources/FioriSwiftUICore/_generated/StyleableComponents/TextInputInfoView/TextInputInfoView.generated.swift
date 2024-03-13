@@ -3,7 +3,7 @@
 import Foundation
 import SwiftUI
 
-public struct TextInputInfoView {
+struct TextInputInfoView {
     let icon: any View
     let description: any View
     let counter: any View
@@ -22,7 +22,7 @@ public struct TextInputInfoView {
     }
 }
 
-public extension TextInputInfoView {
+extension TextInputInfoView {
     init(icon: Image? = nil,
          description: AttributedString? = nil,
          counter: AttributedString? = nil)
@@ -31,7 +31,7 @@ public extension TextInputInfoView {
     }
 }
 
-public extension TextInputInfoView {
+extension TextInputInfoView {
     init(_ configuration: TextInputInfoViewConfiguration) {
         self.icon = configuration.icon
         self.description = configuration.description
