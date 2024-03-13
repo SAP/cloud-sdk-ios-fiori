@@ -114,7 +114,9 @@ extension Array where Element == Variable {
     }
     
     var viewEmptyCheckingBody: String {
-        let ret = compactMap { variable in
+        let ret = self.filter { variable in
+            variable.isResultBuilder
+        }.compactMap { variable in
             let name = variable.name
             if variable.isResultBuilder {
                 return "\(name).isEmpty"
@@ -124,7 +126,7 @@ extension Array where Element == Variable {
                 return nil
             }
         }
-        .joined(separator: " ||\n")
+        .joined(separator: " &&\n")
         
         return ret.isEmpty ? "false" : ret
     }
