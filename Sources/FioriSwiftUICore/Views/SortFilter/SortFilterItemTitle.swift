@@ -10,7 +10,7 @@ struct SortFilterItemTitle: TitleComponent, View {
     }
     
     public var body: some View {
-        Text(title)
+        Text(self.title)
             .font(.body)
             .fontWeight(/*@START_MENU_TOKEN@*/ .bold/*@END_MENU_TOKEN@*/)
             .foregroundStyle(Color.preferredColor(.primaryLabel))

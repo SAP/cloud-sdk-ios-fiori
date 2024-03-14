@@ -11,13 +11,13 @@ struct SearchWithToken: View {
 
     var body: some View {
         NavigationStack {
-            List(ColorEntity.filterColors(queryString, tokens: tokens)) { color in
+            List(ColorEntity.filterColors(self.queryString, tokens: self.tokens)) { color in
                 Text(color.name)
                     .foregroundColor(color.fioriColor)
             }
             .navigationTitle("Colors")
         }
-        .searchable(text: $queryString, tokens: $tokens) { token in
+        .searchable(text: self.$queryString, tokens: self.$tokens) { token in
             Text(token.name)
 //                .foregroundColor(token.fioriColor) // cannot customize text color
 //                .font(.fiori(forTextStyle: .body)) // cannot use different font

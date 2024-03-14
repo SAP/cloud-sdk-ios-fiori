@@ -22,8 +22,8 @@ struct SignatureCaptureViewExample2: View {
     let tapAction = _Action(model: _TapToSignActionDefault())
     var body: some View {
         SignatureCaptureView(title: "Long Long Long Long Long Long Long Signature",
-                             startAction: startAction,
-                             restartAction: restartAction,
+                             startAction: self.startAction,
+                             restartAction: self.restartAction,
                              cancelAction: _Action(actionText: "Cancel2"),
                              clearAction: _Action(actionText: "ClearClear"),
                              saveAction: _Action(actionText: "Save Image"),
@@ -32,29 +32,29 @@ struct SignatureCaptureViewExample2: View {
                                  let imgSaver = ImageSaver()
                                  imgSaver.writeToPhotoAlbum(image: uiImage)
                              })
-            .titleFont(.callout)
-            .titleColor(.red)
-            .cropsImage(true)
-            .strokeWidth(10)
-            .strokeColor(.red)
-            .drawingViewBackgroundColor(.yellow)
-            .xmarkColor(.green)
-            .signatureLineColor(.orange)
-            .hidesXmark(false)
-            .hidesSignatureLine(true)
-            .addsTimestampInImage(true)
-            .timestampFormatter(customFormatter())
-            .watermarkText("A bird in the hand is worth two in the bush. Behind every great man there's a great woman.")
-            .watermarkTextAlignment(.right)
-            .watermarkTextFont(.preferredFont(forTextStyle: .body))
-            .watermarkTextColor(.green)
-            ._drawingViewMaxHeight(300)
-            .restartActionModifier {
-                $0.font(.callout).foregroundColor(.red)
-            }
-            .startActionModifier { content in
-                content.font(nil).foregroundColor(.green)
-            }
+                             .titleFont(.callout)
+                             .titleColor(.red)
+                             .cropsImage(true)
+                             .strokeWidth(10)
+                             .strokeColor(.red)
+                             .drawingViewBackgroundColor(.yellow)
+                             .xmarkColor(.green)
+                             .signatureLineColor(.orange)
+                             .hidesXmark(false)
+                             .hidesSignatureLine(true)
+                             .addsTimestampInImage(true)
+                             .timestampFormatter(self.customFormatter())
+                             .watermarkText("A bird in the hand is worth two in the bush. Behind every great man there's a great woman.")
+                             .watermarkTextAlignment(.right)
+                             .watermarkTextFont(.preferredFont(forTextStyle: .body))
+                             .watermarkTextColor(.green)
+                             ._drawingViewMaxHeight(300)
+                             .restartActionModifier {
+                                 $0.font(.callout).foregroundColor(.red)
+                             }
+                             .startActionModifier { content in
+                                 content.font(nil).foregroundColor(.green)
+                             }
     }
 
     func customFormatter() -> DateFormatter {

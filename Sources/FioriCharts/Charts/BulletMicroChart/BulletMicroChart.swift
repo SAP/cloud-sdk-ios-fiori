@@ -10,8 +10,8 @@ struct BulletMicroChart: View {
     @State var mode: Mode? = .standard
     
     public var body: some View {
-        let tmp = model.dataItemsIn(seriesIndex: 0)
-        let thresholds = model.dataItemsIn(seriesIndex: 1)
+        let tmp = self.model.dataItemsIn(seriesIndex: 0)
+        let thresholds = self.model.dataItemsIn(seriesIndex: 1)
         
         return GeometryReader { proxy in
             ZStack(alignment: .leading) {

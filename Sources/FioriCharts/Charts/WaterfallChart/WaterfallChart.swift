@@ -4,7 +4,7 @@ struct WaterfallChart: View {
     @ObservedObject var model: ChartModel
     
     var body: some View {
-        XYAxisChart(model: model,
+        XYAxisChart(model: self.model,
                     chartContext: WaterfallChartContext(),
                     chartView: WaterfallView(),
                     indicatorView: EmptyView())
@@ -179,9 +179,9 @@ class WaterfallChartContext: StackedColumnChartContext {
         let isTop = (isTotal && item.value > 0) || (isStart && item.value > 0) || (!isStart && !isTotal && item.value < 0)
             
         if isTop {
-            return (1.0 - item.rect.maxY)
+            return 1.0 - item.rect.maxY
         } else {
-            return (1.0 - item.rect.minY)
+            return 1.0 - item.rect.minY
         }
     }
     

@@ -26,16 +26,16 @@ struct CancellableResettableDialogForm<Title: View, CancelAction: View, ResetAct
     var body: some View {
         VStack(spacing: UIDevice.current.userInterfaceIdiom == .pad ? 8 : 16) {
             HStack {
-                cancelAction
+                self.cancelAction
                 Spacer()
-                title
+                self.title
                 Spacer()
-                resetAction
+                self.resetAction
             }
             .padding([.leading, .trailing], UIDevice.current.userInterfaceIdiom == .pad ? 13 : 16)
 
-            components
-            applyAction
+            self.components
+            self.applyAction
         }
         .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? 375 : Screen.bounds.size.width)
         .padding([.top, .bottom], UIDevice.current.userInterfaceIdiom == .pad ? 13 : 16)

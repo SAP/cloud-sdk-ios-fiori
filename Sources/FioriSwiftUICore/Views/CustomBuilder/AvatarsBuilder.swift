@@ -36,11 +36,11 @@ public extension AvatarList {
     var body: some View {
         Group {
             if count == 1 {
-                buildAvatar(view(at: 0))
+                self.buildAvatar(view(at: 0))
             } else if count >= 2 {
                 ZStack(alignment: .topLeading) {
-                    buildAvatar(view(at: 0))
-                    buildAvatar(view(at: 1))
+                    self.buildAvatar(view(at: 0))
+                    self.buildAvatar(view(at: 1))
                         .position(x: size.width, y: size.height)
                 }
                 .frame(width: size.width * 1.5, height: size.height * 1.5)
@@ -108,10 +108,10 @@ public struct ConditionalSingleAvatar<TrueContent: View, FalseContent: View>: Av
     
     public func view(at index: Int) -> some View {
         Group {
-            if first == nil {
-                second
+            if self.first == nil {
+                self.second
             } else {
-                first
+                self.first
             }
         }
     }
@@ -150,9 +150,9 @@ public struct PairAvatar<First: View, Second: AvatarList>: AvatarList {
     public func view(at index: Int) -> some View {
         Group {
             if index == 0 {
-                first
+                self.first
             } else {
-                remainder.view(at: index - 1)
+                self.remainder.view(at: index - 1)
             }
         }
     }
@@ -192,19 +192,19 @@ public enum AvatarsBuilder {
     ///
     /// An example of a single view written as a child view is
     /// `{ Text("Hello") }`
-    public static func buildBlock<Content>(_ content: Content) -> some AvatarList where Content: View {
+    public static func buildBlock(_ content: some View) -> some AvatarList {
         SingleAvatar(view: content)
     }
     
     /// :nodoc:
-    public static func buildBlock<C0, C1>(_ c0: C0, _ c1: C1) -> some AvatarList where C0: View, C1: View {
+    public static func buildBlock(_ c0: some View, _ c1: some View) -> some AvatarList {
         PairAvatar(first: c0, remainder: SingleAvatar(view: c1))
     }
     
     /// Provides support for “if” statements in multi-statement closures,
     /// producing an optional view that is visible only when the condition
     /// evaluates to `true`.
-    public static func buildIf<Content>(_ content: Content?) -> some AvatarList where Content: View {
+    public static func buildIf(_ content: (some View)?) -> some AvatarList {
         SingleAvatar(view: content == nil ? AnyView(EmptyView()) : AnyView(content!))
     }
     

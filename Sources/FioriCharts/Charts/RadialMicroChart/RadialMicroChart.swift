@@ -32,7 +32,7 @@ struct RadialMicroChart: View {
                 Spacer()
                 ZStack {
                     self.chartView(in: size)
-                    if mode == .inside {
+                    if self.mode == .inside {
                         Text(str)
                             .font(.fiori(forTextStyle: .largeTitle))
                             .foregroundColor(percentage!.color)

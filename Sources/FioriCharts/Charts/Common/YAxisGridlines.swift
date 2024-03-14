@@ -42,7 +42,7 @@ struct YAxisGridlines: View {
         var isShowLabels = [Bool]()
         var preYPos: CGFloat = -10000
         for label in labels {
-            if label.pos.y >= -1 && label.pos.y <= rect.size.height + 1 && label.pos.y - preYPos > label.size.height + ChartViewLayout.minSpacingBtwYAxisLabels {
+            if label.pos.y >= -1, label.pos.y <= rect.size.height + 1, label.pos.y - preYPos > label.size.height + ChartViewLayout.minSpacingBtwYAxisLabels {
                 isShowLabels.append(true)
                 preYPos = label.pos.y
             } else {

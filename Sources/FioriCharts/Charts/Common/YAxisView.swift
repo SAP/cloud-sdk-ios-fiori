@@ -26,7 +26,7 @@ struct YAxisView: View {
         var isShowLabels = [Bool]()
         var preYPos: CGFloat = -10000
         for label in labels {
-            if label.pos.y >= -1 && label.pos.y <= rect.size.height + 1 && label.pos.y - preYPos > label.size.height + ChartViewLayout.minSpacingBtwYAxisLabels {
+            if label.pos.y >= -1, label.pos.y <= rect.size.height + 1, label.pos.y - preYPos > label.size.height + ChartViewLayout.minSpacingBtwYAxisLabels {
                 isShowLabels.append(true)
                 preYPos = label.pos.y
             } else {
@@ -74,7 +74,7 @@ struct YAxisView: View {
             if !axis.baseline.isHidden {
                 // left base line
                 LineShape(pos1: CGPoint(x: 0, y: 0),
-                          pos2: CGPoint(x: 0, y: rect.size.height + model.categoryAxis.baseline.width))
+                          pos2: CGPoint(x: 0, y: rect.size.height + self.model.categoryAxis.baseline.width))
                     .stroke(axis.baseline.color,
                             style: StrokeStyle(lineWidth: axis.baseline.width,
                                                dash: [axis.baseline.dashPatternLength, axis.baseline.dashPatternGap]))

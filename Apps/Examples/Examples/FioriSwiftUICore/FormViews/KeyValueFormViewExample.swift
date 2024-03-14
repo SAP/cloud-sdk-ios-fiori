@@ -40,35 +40,35 @@ struct KeyValueFormViewExample: View {
         VStack {
             Text("KeyValueFormViewExample")
             List {
-                Toggle("Shows Hint Text", isOn: $showsHintText)
+                Toggle("Shows Hint Text", isOn: self.$showsHintText)
                     .padding(.leading, 16)
                     .padding(.trailing, 16)
-                Toggle("Shows Error Message", isOn: $showsErrorMessage)
+                Toggle("Shows Error Message", isOn: self.$showsErrorMessage)
                     .padding(.leading, 16)
                     .padding(.trailing, 16)
-                Toggle("Shows Char Count", isOn: $showsCharCount)
+                Toggle("Shows Char Count", isOn: self.$showsCharCount)
                     .padding(.leading, 16)
                     .padding(.trailing, 16)
-                Toggle("Allows Beyond Limit", isOn: $allowsBeyondLimit)
+                Toggle("Allows Beyond Limit", isOn: self.$allowsBeyondLimit)
                     .padding(.leading, 16)
                     .padding(.trailing, 16)
                 
                 Text("Default KeyValueFormView")
-                KeyValueFormView(title: key1, text: $valueText1, placeholder: "KeyValueFormView", errorMessage: getErrorMessage(), maxTextLength: getMaxTextLength(), hintText: getHintText(), isCharCountEnabled: showsCharCount, allowsBeyondLimit: allowsBeyondLimit)
+                KeyValueFormView(title: self.key1, text: self.$valueText1, placeholder: "KeyValueFormView", errorMessage: self.getErrorMessage(), maxTextLength: self.getMaxTextLength(), hintText: self.getHintText(), isCharCountEnabled: self.showsCharCount, allowsBeyondLimit: self.allowsBeyondLimit)
 
                 Text("Existing Text")
                     .italic()
-                KeyValueFormView(title: key2, text: $valueText2, placeholder: "KeyValueFormView", errorMessage: getErrorMessage(), maxTextLength: getMaxTextLength(), hintText: getHintText(), isCharCountEnabled: showsCharCount, allowsBeyondLimit: allowsBeyondLimit)
+                KeyValueFormView(title: self.key2, text: self.$valueText2, placeholder: "KeyValueFormView", errorMessage: self.getErrorMessage(), maxTextLength: self.getMaxTextLength(), hintText: self.getHintText(), isCharCountEnabled: self.showsCharCount, allowsBeyondLimit: self.allowsBeyondLimit)
 
                 Text("minHeight 50, maxHeight 200")
                     .italic()
-                KeyValueFormView(title: key3, text: $valueText3, placeholder: "Please enter something", errorMessage: getErrorMessage(), minTextEditorHeight: 50, maxTextEditorHeight: 200, hintText: getHintText(), allowsBeyondLimit: allowsBeyondLimit)
+                KeyValueFormView(title: self.key3, text: self.$valueText3, placeholder: "Please enter something", errorMessage: self.getErrorMessage(), minTextEditorHeight: 50, maxTextEditorHeight: 200, hintText: self.getHintText(), allowsBeyondLimit: self.allowsBeyondLimit)
 
                 Text("Disabled")
-                KeyValueFormView(title: "Disabled", text: $disabledText, placeholder: "Disabled", controlState: .disabled, minTextEditorHeight: 50, maxTextEditorHeight: 200)
+                KeyValueFormView(title: "Disabled", text: self.$disabledText, placeholder: "Disabled", controlState: .disabled, minTextEditorHeight: 50, maxTextEditorHeight: 200)
                 
                 Text("Read-Only")
-                KeyValueFormView(title: "Read-Only", text: $readOnlyText, placeholder: "Read-Only", controlState: .readOnly, minTextEditorHeight: 50, maxTextLength: 200)
+                KeyValueFormView(title: "Read-Only", text: self.$readOnlyText, placeholder: "Read-Only", controlState: .readOnly, minTextEditorHeight: 50, maxTextLength: 200)
             }
             .scrollDismissesKeyboard(.immediately)
         }

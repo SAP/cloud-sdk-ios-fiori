@@ -99,11 +99,11 @@ private extension ButtonContainerStyle {
         @Environment(\.isEnabled) var isEnabled
         let configuration: ButtonContainerStyle.Configuration
         var body: some View {
-            if isEnabled {
-                return configuration.label
-                    .foregroundColor(configuration.isPressed ? .preferredColor(.tintColorTapState) : .preferredColor(.tintColor))
+            if self.isEnabled {
+                return self.configuration.label
+                    .foregroundColor(self.configuration.isPressed ? .preferredColor(.tintColorTapState) : .preferredColor(.tintColor))
             } else {
-                return configuration.label
+                return self.configuration.label
                     .foregroundColor(.preferredColor(.primaryLabel))
             }
         }

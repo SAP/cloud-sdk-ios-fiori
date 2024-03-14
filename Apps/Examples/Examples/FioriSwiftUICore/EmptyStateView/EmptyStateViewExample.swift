@@ -6,7 +6,7 @@ struct EmptyStateViewExample: View {
     
     var body: some View {
         Group {
-            List(data, id: \.self) { item in
+            List(self.data, id: \.self) { item in
                 NavigationLink(
                     destination: EmptyContentViewExample(type: item),
                     label: {
@@ -52,12 +52,12 @@ struct EmptyContentViewExample: View {
     
     var body: some View {
         Group {
-            if isEmpty == false {
-                List(oceans) { ocean in
+            if self.isEmpty == false {
+                List(self.oceans) { ocean in
                     Text(ocean.name)
                 }
             } else {
-                switch type {
+                switch self.type {
                 case .title:
                     EmptyStateView(title: "This is a placeholder title")
                 case .titleAndIcon:

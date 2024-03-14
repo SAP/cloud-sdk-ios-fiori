@@ -8,7 +8,8 @@ struct ObjectHeaderExample: View {
             }
             
             NavigationLink(
-                destination: ObjectItemListView(title: "Object Header Spec - Regular", listDataType: ObjectHeaderSpec.self, changeLeftMargin: false, showEditButton: false)) {
+                destination: ObjectItemListView(title: "Object Header Spec - Regular", listDataType: ObjectHeaderSpec.self, changeLeftMargin: false, showEditButton: false))
+            {
                 Text("Object Header Spec - Regular")
             }
             
@@ -17,17 +18,20 @@ struct ObjectHeaderExample: View {
             }
             
             NavigationLink(
-                destination: ObjectItemListView(title: "ObjectHeaderViewScenarios", listDataType: ObjectHeaderViewScenarios.self, changeLeftMargin: false, showEditButton: false)) {
+                destination: ObjectItemListView(title: "ObjectHeaderViewScenarios", listDataType: ObjectHeaderViewScenarios.self, changeLeftMargin: false, showEditButton: false))
+            {
                 Text("ObjectHeaderViewScenarios")
             }
             
             NavigationLink(
-                destination: ObjectHeaderTestApp()) {
+                destination: ObjectHeaderTestApp())
+            {
                 Text("Object Header Test App")
             }
             
             NavigationLink(
-                destination: ObjectItemListView(title: "Tags Example", listDataType: ObjectHeaderDeveloperExample.self, changeLeftMargin: false, showEditButton: false)) {
+                destination: ObjectItemListView(title: "Tags Example", listDataType: ObjectHeaderDeveloperExample.self, changeLeftMargin: false, showEditButton: false))
+            {
                 Text("Tags Example")
             }
         }.background(Color.preferredColor(.secondaryGroupedBackground))

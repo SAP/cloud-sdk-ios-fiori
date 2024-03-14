@@ -23,10 +23,10 @@ struct SearchableListViewExample: View {
                 Text("empty first")
                 Spacer()
                 NavigationLink {
-                    pickerView($selection1)
+                    self.pickerView(self.$selection1)
                         .navigationTitle("Title: Pick One")
                 } label: {
-                    let str = selectedValues(Array(selection1))
+                    let str = self.selectedValues(Array(self.selection1))
                     Text(str.isEmpty ? "pick one" : str)
                         .frame(minWidth: 100, minHeight: 40)
                         .background(Color.black.opacity(0.1))
@@ -37,10 +37,10 @@ struct SearchableListViewExample: View {
                 Text("with pre-selection")
                 Spacer()
                 NavigationLink {
-                    pickerView($selection2)
+                    self.pickerView(self.$selection2)
                         .navigationTitle("Title: Pick One")
                 } label: {
-                    let str = selectedValues(Array(selection2))
+                    let str = self.selectedValues(Array(self.selection2))
                     Text(str)
                         .frame(minWidth: 100, minHeight: 40)
                         .background(Color.black.opacity(0.1))
@@ -51,7 +51,7 @@ struct SearchableListViewExample: View {
                 Text("allow multi-selections")
                 Spacer()
                 NavigationLink {
-                    pickerView($selection3, true, false)
+                    self.pickerView(self.$selection3, true, false)
                         .cancelActionModifier {
                             $0.font(.callout).foregroundColor(Color.red)
                         }
@@ -60,7 +60,7 @@ struct SearchableListViewExample: View {
                         }
                         .navigationTitle("Title: Pick Any Values")
                 } label: {
-                    let str = selectedValues(Array(selection3))
+                    let str = self.selectedValues(Array(self.selection3))
                     Text(str)
                         .frame(minWidth: 100, minHeight: 40)
                         .background(Color.black.opacity(0.1))
@@ -71,11 +71,11 @@ struct SearchableListViewExample: View {
                 Text("empty search filter")
                 Spacer()
                 NavigationLink {
-                    pickerView($selection4, false, true, useActions: true)
+                    self.pickerView(self.$selection4, false, true, useActions: true)
                         .navigationTitle("Title: Pick A Value")
                         .listBackground(Color.cyan)
                 } label: {
-                    let str = selectedValues(Array(selection4))
+                    let str = self.selectedValues(Array(self.selection4))
                     Text(str)
                         .frame(minWidth: 100, minHeight: 40)
                         .background(Color.black.opacity(0.1))
@@ -85,16 +85,16 @@ struct SearchableListViewExample: View {
             HStack {
                 Text("sheet present")
                 Spacer()
-                let str = selectedValues(Array(selection5))
+                let str = self.selectedValues(Array(self.selection5))
                 Text(str)
                     .frame(minWidth: 100, minHeight: 40)
                     .background(Color.black.opacity(0.1))
                     .onTapGesture {
-                        presentingModal = true
+                        self.presentingModal = true
                     }
-                    .sheet(isPresented: $presentingModal) {
+                    .sheet(isPresented: self.$presentingModal) {
                         NavigationView {
-                            pickerView($selection5, useActions: true)
+                            self.pickerView(self.$selection5, useActions: true)
                                 .listStyle(.plain)
                                 .listBackground(Color.cyan)
                                 .cancelActionModifier {
@@ -111,16 +111,16 @@ struct SearchableListViewExample: View {
             HStack {
                 Text("simple string list")
                 Spacer()
-                Text(selection6.joined(separator: ","))
+                Text(self.selection6.joined(separator: ","))
                     .frame(minWidth: 100, minHeight: 40)
                     .background(Color.black.opacity(0.1))
                     .onTapGesture {
-                        stringPresentingModal = true
+                        self.stringPresentingModal = true
                     }
-                    .sheet(isPresented: $stringPresentingModal) {
+                    .sheet(isPresented: self.$stringPresentingModal) {
                         NavigationView {
                             SearchableListView(data: ["1", "2", "3", "4"],
-                                               selection: $selection6,
+                                               selection: self.$selection6,
                                                searchFilter: { f, s in f.contains(s) },
                                                rowBackground: { _ in Color.green })
                                 .listStyle(.grouped)
@@ -191,7 +191,8 @@ struct SearchableListViewExample: View {
             return SearchableListView(data: self.model, id: \.id, children: \.children,
                                       selection: selection,
                                       allowsMultipleSelection: allowsMultipleSelection,
-                                      searchFilter: emptySearch ? nil : filter) { framework in
+                                      searchFilter: emptySearch ? nil : filter)
+            { framework in
                 ObjectItem {
                     Text(framework.name)
                 } description: {

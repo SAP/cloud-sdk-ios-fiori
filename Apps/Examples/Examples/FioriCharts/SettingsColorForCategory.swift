@@ -22,7 +22,7 @@ struct SettingsColorForOneCategory: View {
     var colors: [Int: Color]
     
     var body: some View {
-        let colorTuples: [(Int, Color)] = colors.map { (arg0) -> (Int, Color) in
+        let colorTuples: [(Int, Color)] = self.colors.map { arg0 -> (Int, Color) in
             let (key, value) = arg0
             return (key, value)
         }.sorted { $0.0 < $1.0 }

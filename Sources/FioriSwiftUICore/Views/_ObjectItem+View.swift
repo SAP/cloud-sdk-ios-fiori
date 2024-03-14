@@ -158,14 +158,14 @@ extension _ObjectItem: View {
         Group {
             if !isActionEmptyView {
                 // When only the headline label is used, everything in the cell is center aligned. Only 1 status can be used.
-                if isCenterAligned {
+                if self.isCenterAligned {
                     self.makeOneLineSingleActionView()
                 } else {
                     self.makeRegularSingleActionView()
                 }
             } else if horizontalSizeClass == nil || horizontalSizeClass == .some(.compact) || splitPercent == nil {
                 // When only the headline label is used, everything in the cell is center aligned. Only 1 status can be used.
-                if isCenterAligned {
+                if self.isCenterAligned {
                     self.makeCompactOneLineView()
                 }
                 // If only 1 status is being used with either a chevron or with no accessory view, the body and subhead labels in the main content area should extend to the full width of the cell below the status.
@@ -177,7 +177,7 @@ extension _ObjectItem: View {
                 }
             } else { // horizontalSizeClass is Regular
                 // When only the headline label is used, everything in the cell is center aligned. Only 1 status can be used.
-                if isCenterAligned {
+                if self.isCenterAligned {
                     self.makeRegularCenterView()
                 } else {
                     self.makeRegularGeneralView()
@@ -200,8 +200,8 @@ extension _ObjectItem: View {
             HStack {
                 if horizontalSizeClass == .some(.compact) || splitPercent == nil {
                     HStack(alignment: .center, spacing: 0) {
-                        if !shouldShowAvatar {
-                            avatarView.clipped()
+                        if !self.shouldShowAvatar {
+                            self.avatarView.clipped()
                             Spacer().frame(width: 12)
                         }
                         title.lineLimit(1)
@@ -210,8 +210,8 @@ extension _ObjectItem: View {
                 } else {
                     HStack(alignment: .center, spacing: 0) {
                         HStack(alignment: .center) {
-                            if !shouldShowAvatar {
-                                avatarView.clipped()
+                            if !self.shouldShowAvatar {
+                                self.avatarView.clipped()
                                 Spacer().frame(width: 12)
                             }
                             
@@ -245,15 +245,15 @@ extension _ObjectItem: View {
         ZStack(alignment: .topLeading) {
             if !isIconsEmptyView {
                 icons
-                    .environment(\.numberOfLines, numberOfLinesAllowedToShow())
+                    .environment(\.numberOfLines, self.numberOfLinesAllowedToShow())
                     .offset(x: -22, y: 0)
             }
             
             if horizontalSizeClass == .some(.compact) || splitPercent == nil {
                 HStack(alignment: .center) {
                     HStack(alignment: .top) {
-                        if shouldShowAvatar {
-                            avatarView.clipped()
+                        if self.shouldShowAvatar {
+                            self.avatarView.clipped()
                             Spacer().frame(width: 12)
                         }
                         
@@ -274,8 +274,8 @@ extension _ObjectItem: View {
                 HStack(alignment: .center) {
                     HStack(alignment: .iconStackAlignmentGuide) {
                         HStack(alignment: .top) {
-                            if shouldShowAvatar {
-                                avatarView
+                            if self.shouldShowAvatar {
+                                self.avatarView
                                     .clipped()
                                     .anchorPreference(key: MyViewPreferenceKey.self, value: .bounds, transform: {
                                         [MyViewPreferenceData(element: .detailImage, bounds: $0)]
@@ -306,7 +306,7 @@ extension _ObjectItem: View {
                             }
                             
                             descriptionText
-                                .lineLimit(numberOfLinesAllowedToShow())
+                                .lineLimit(self.numberOfLinesAllowedToShow())
                                 .alignmentGuide(.iconStackAlignmentGuide) { dimension in
                                     dimension[.firstTextBaseline]
                                 }
@@ -340,8 +340,8 @@ extension _ObjectItem: View {
             }
             
             HStack {
-                if shouldShowAvatar {
-                    avatarView.clipped()
+                if self.shouldShowAvatar {
+                    self.avatarView.clipped()
                     Spacer().frame(width: 12)
                 }
                 
@@ -360,13 +360,13 @@ extension _ObjectItem: View {
         ZStack(alignment: .topLeading) {
             if !isIconsEmptyView {
                 icons
-                    .environment(\.numberOfLines, numberOfLinesAllowedToShow())
+                    .environment(\.numberOfLines, self.numberOfLinesAllowedToShow())
                     .offset(x: -22, y: 0)
             }
             
             HStack(alignment: .top) {
-                if shouldShowAvatar {
-                    avatarView.clipped()
+                if self.shouldShowAvatar {
+                    self.avatarView.clipped()
                     Spacer().frame(width: 12)
                 }
                 
@@ -395,13 +395,13 @@ extension _ObjectItem: View {
         ZStack(alignment: .topLeading) {
             if !isIconsEmptyView {
                 icons
-                    .environment(\.numberOfLines, numberOfLinesAllowedToShow())
+                    .environment(\.numberOfLines, self.numberOfLinesAllowedToShow())
                     .offset(x: -22, y: 0)
             }
             
             HStack(alignment: .top) {
-                if shouldShowAvatar {
-                    avatarView.clipped()
+                if self.shouldShowAvatar {
+                    self.avatarView.clipped()
                     Spacer().frame(width: 12)
                 }
                 
@@ -435,8 +435,8 @@ extension _ObjectItem: View {
             
             HStack(alignment: .center, spacing: 0) {
                 HStack(alignment: .center) {
-                    if shouldShowAvatar {
-                        avatarView.clipped()
+                    if self.shouldShowAvatar {
+                        self.avatarView.clipped()
                         Spacer().frame(width: 12)
                     }
                     
@@ -467,14 +467,14 @@ extension _ObjectItem: View {
         ZStack(alignment: .topLeading) {
             if !isIconsEmptyView {
                 icons
-                    .environment(\.numberOfLines, numberOfLinesAllowedToShow())
+                    .environment(\.numberOfLines, self.numberOfLinesAllowedToShow())
                     .offset(x: -22, y: 0)
             }
             
             HStack(alignment: .iconStackAlignmentGuide) {
                 HStack(alignment: .top) {
-                    if shouldShowAvatar {
-                        avatarView
+                    if self.shouldShowAvatar {
+                        self.avatarView
                             .clipped()
                             .anchorPreference(key: MyViewPreferenceKey.self, value: .bounds, transform: {
                                 [MyViewPreferenceData(element: .detailImage, bounds: $0)]
@@ -504,7 +504,7 @@ extension _ObjectItem: View {
                     }
                     
                     descriptionText
-                        .lineLimit(numberOfLinesAllowedToShow())
+                        .lineLimit(self.numberOfLinesAllowedToShow())
                         .alignmentGuide(.iconStackAlignmentGuide) { dimension in
                             dimension[.firstTextBaseline]
                         }
@@ -542,7 +542,7 @@ extension _ObjectItem: View {
 //        print("global frame is \(globalFrame)")
         
         return ZStack {
-            avatarView
+            self.avatarView
                 .clipped()
                 .position(x: (boundDetail.minX + boundDetail.maxX) / 2, y: boundDetail.size.height / 2)
             
@@ -661,9 +661,9 @@ struct ObjectItem_Previews: PreviewProvider {
                     .font(.system(size: 32, weight: .bold, design: .serif))
                     .border(Color.black, width: 1)
             })
-                .previewLayout(.fixed(width: 390, height: 150))
-                .environment(\.horizontalSizeClass, .compact)
-                .previewDisplayName("When only the headline label is used, everything in the cell is center aligned. Only 1 status can be used.")
+            .previewLayout(.fixed(width: 390, height: 150))
+            .environment(\.horizontalSizeClass, .compact)
+            .previewDisplayName("When only the headline label is used, everything in the cell is center aligned. Only 1 status can be used.")
             
             _ObjectItem(title: {
                 Text("Transformer Overheating")
@@ -683,9 +683,9 @@ struct ObjectItem_Previews: PreviewProvider {
                 Circle().fill(Color.blue).frame(width: 14, height: 14)
                 Image(systemName: "paperclip").font(.system(size: 14))
             })
-                .previewLayout(.fixed(width: 390, height: 150))
-                .environment(\.horizontalSizeClass, .compact)
-                .previewDisplayName("If only 1 status is being used, the body and subhead labels in the main content area should extend to the full width of the cell below the status.")
+            .previewLayout(.fixed(width: 390, height: 150))
+            .environment(\.horizontalSizeClass, .compact)
+            .previewDisplayName("If only 1 status is being used, the body and subhead labels in the main content area should extend to the full width of the cell below the status.")
             
             _ObjectItem(title: {
                 Text("Transformer Overheating")
@@ -709,9 +709,9 @@ struct ObjectItem_Previews: PreviewProvider {
                 Circle().fill(Color.blue).frame(width: 14, height: 14)
                 Image(systemName: "paperclip").font(.system(size: 14))
             })
-                .previewLayout(.fixed(width: 390, height: 150))
-                .environment(\.horizontalSizeClass, .compact)
-                .previewDisplayName("All elements, Compact")
+            .previewLayout(.fixed(width: 390, height: 150))
+            .environment(\.horizontalSizeClass, .compact)
+            .previewDisplayName("All elements, Compact")
             
             _ObjectItem(title: {
                 Text("Transformer Overheating")
@@ -734,10 +734,10 @@ struct ObjectItem_Previews: PreviewProvider {
                 Image(systemName: "circle.fill").foregroundColor(.blue)
                 Image(systemName: "paperclip").font(.system(size: 14))
             })
-                .previewDevice(PreviewDevice(rawValue: "iPad Pro (12.9-inch) (4th generation)"))
-                .previewLayout(.fixed(width: 844, height: 120))
-                .environment(\.horizontalSizeClass, .regular)
-                .previewDisplayName("Regular, 1st is text, init with ViewBuilder")
+            .previewDevice(PreviewDevice(rawValue: "iPad Pro (12.9-inch) (4th generation)"))
+            .previewLayout(.fixed(width: 844, height: 120))
+            .environment(\.horizontalSizeClass, .regular)
+            .previewDisplayName("Regular, 1st is text, init with ViewBuilder")
             
             _ObjectItem(title: {
                 Text("Transformer Overheating When After Being on for 1 Hour or Longer")
@@ -760,11 +760,11 @@ struct ObjectItem_Previews: PreviewProvider {
                 Text("1")
                 Image(systemName: "paperclip").font(.system(size: 14))
             })
-                .splitPercent(nil)
-                .previewDevice(PreviewDevice(rawValue: "iPad Pro (12.9-inch) (4th generation)"))
-                .previewLayout(.fixed(width: 844, height: 120))
-                .environment(\.horizontalSizeClass, .regular)
-                .previewDisplayName("Regular, 1st is icon, splitPercent to nil, init with ViewBuilder")
+            .splitPercent(nil)
+            .previewDevice(PreviewDevice(rawValue: "iPad Pro (12.9-inch) (4th generation)"))
+            .previewLayout(.fixed(width: 844, height: 120))
+            .environment(\.horizontalSizeClass, .regular)
+            .previewDisplayName("Regular, 1st is icon, splitPercent to nil, init with ViewBuilder")
             
             _ObjectItem(title: "Transformer Overheating",
                         subtitle: "Three Phase Pad Mounted Transformer (533423)", footnote: "1000 - Hamburg, MECHANIK",
@@ -801,11 +801,11 @@ struct ObjectItem_Previews: PreviewProvider {
                 Circle().fill(Color.blue).frame(width: 14, height: 14)
                 Image(systemName: "paperclip").font(.system(size: 14))
             })
-                .previewDevice(PreviewDevice(rawValue: "iPad Pro (12.9-inch) (4th generation)"))
-                .previewLayout(.fixed(width: 844, height: 200))
-                .environment(\.horizontalSizeClass, .regular)
-                .previewDisplayName("Accessibility AX1 and larger- no description text")
-                .environment(\.sizeCategory, .accessibilityExtraLarge)
+            .previewDevice(PreviewDevice(rawValue: "iPad Pro (12.9-inch) (4th generation)"))
+            .previewLayout(.fixed(width: 844, height: 200))
+            .environment(\.horizontalSizeClass, .regular)
+            .previewDisplayName("Accessibility AX1 and larger- no description text")
+            .environment(\.sizeCategory, .accessibilityExtraLarge)
             
             _ObjectItem(title: {
                 Text("Rouja Pakiman")
@@ -832,9 +832,9 @@ struct ObjectItem_Previews: PreviewProvider {
                     Text("Follow")
                 }.buttonStyle(PlainButtonStyle())
             })
-                .previewLayout(.fixed(width: 390, height: 150))
-                .environment(\.horizontalSizeClass, .compact)
-                .previewDisplayName("Single Action")
+            .previewLayout(.fixed(width: 390, height: 150))
+            .environment(\.horizontalSizeClass, .compact)
+            .previewDisplayName("Single Action")
         }
     }
 }

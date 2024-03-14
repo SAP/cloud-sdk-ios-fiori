@@ -499,9 +499,9 @@ public extension SortFilterItem {
         
         var label: String {
             if let value = self.value {
-                return "\(name): \(value)"
+                return "\(self.name): \(value)"
             }
-            return name
+            return self.name
         }
         
         mutating func setValue(newValue: SliderItem) {

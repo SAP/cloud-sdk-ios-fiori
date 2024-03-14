@@ -160,9 +160,9 @@ extension ObjectHeader: View {
     public var body: some View {
         Group {
             if horizontalSizeClass == .some(.compact) {
-                compactView
+                self.compactView
             } else { // horizontalSizeClass is Regular
-                regularView
+                self.regularView
                     .padding(.vertical, 18)
             }
         }
@@ -187,7 +187,7 @@ extension ObjectHeader: View {
             
             HStack(alignment: .iconStackAlignmentGuide) {
                 HStack {
-                    leftViewInRegular
+                    self.leftViewInRegular
                     Spacer(minLength: 0)
                 }
                 .layoutPriority(0)
@@ -195,8 +195,8 @@ extension ObjectHeader: View {
                 
                 Spacer(minLength: 48)
                 
-                if !isMiddleViewInRegularEmpty {
-                    middleViewInRegular
+                if !self.isMiddleViewInRegularEmpty {
+                    self.middleViewInRegular
                         .layoutPriority(1)
                         .modifier(SizeModifier())
                         .onPreferenceChange(SizePreferenceKey.self) { size in
@@ -207,11 +207,11 @@ extension ObjectHeader: View {
                         .frame(width: min(312, self.middleViewSize.width))
                 }
                 
-                if !isMiddleViewInRegularEmpty && (!isStatusEmptyView || !isSubstatusEmptyView) {
+                if !self.isMiddleViewInRegularEmpty, !isStatusEmptyView || !isSubstatusEmptyView {
                     Spacer().frame(width: 40)
                 }
                 
-                rightViewInRegular
+                self.rightViewInRegular
                     .layoutPriority(2)
                     .modifier(SizeModifier())
                     .onPreferenceChange(SizePreferenceKey.self) { size in
@@ -237,10 +237,10 @@ extension ObjectHeader: View {
                 })
             subtitle
             
-            if (!isDetailContentEmpty || !isDescriptionTextEmptyView) && !isAdditionalInfoViewEmpty {
+            if !self.isDetailContentEmpty || !isDescriptionTextEmptyView, !self.isAdditionalInfoViewEmpty {
                 Spacer().frame(height: 16)
-                additionalInfoView
-            } else if !isDetailContentEmpty && isAdditionalInfoViewEmpty && !isDescriptionTextEmptyView {
+                self.additionalInfoView
+            } else if !self.isDetailContentEmpty, self.isAdditionalInfoViewEmpty, !isDescriptionTextEmptyView {
                 Spacer().frame(height: 16)
                 descriptionText
             }
@@ -249,7 +249,7 @@ extension ObjectHeader: View {
     
     @ViewBuilder
     var middleViewInRegular: some View {
-        if !isDetailContentEmpty {
+        if !self.isDetailContentEmpty {
             VStack {
                 Spacer(minLength: 0)
                 detailContent
@@ -264,8 +264,8 @@ extension ObjectHeader: View {
                         return dimension[.top]
                     }
                 })
-        } else if !isAdditionalInfoViewEmpty {
-            additionalInfoView
+        } else if !self.isAdditionalInfoViewEmpty {
+            self.additionalInfoView
         } else {
             EmptyView()
         }
@@ -289,9 +289,9 @@ extension ObjectHeader: View {
     }
     
     var isBaselineAligned: Bool {
-        if self.isDetailContentEmpty && !isDescriptionTextEmptyView {
+        if self.isDetailContentEmpty, !isDescriptionTextEmptyView {
             return true
-        } else if self.isMiddleViewInRegularEmpty && !isStatusEmptyView {
+        } else if self.isMiddleViewInRegularEmpty, !isStatusEmptyView {
             return true
         }
         
@@ -307,7 +307,7 @@ extension ObjectHeader: View {
     }
     
     var isMiddleViewInRegularEmpty: Bool {
-        if self.isDetailContentEmpty && isDescriptionTextEmptyView && self.isAdditionalInfoViewEmpty {
+        if self.isDetailContentEmpty, isDescriptionTextEmptyView, self.isAdditionalInfoViewEmpty {
             return true
         }
         
@@ -315,7 +315,7 @@ extension ObjectHeader: View {
     }
     
     var isAdditionalInfoViewEmpty: Bool {
-        if isTagsEmptyView && isBodyTextEmptyView && isFootnoteEmptyView {
+        if isTagsEmptyView, isBodyTextEmptyView, isFootnoteEmptyView {
             return true
         } else {
             return false
@@ -342,26 +342,26 @@ extension ObjectHeader: View {
     
     var compactView: some View {
         VStack {
-            if numberOfTabs == 1 {
+            if self.numberOfTabs == 1 {
                 Spacer().frame(height: 8)
             }
             
             ZStack(alignment: Alignment(horizontal: .leading, vertical: .top)) {
-                tabView
+                self.tabView
                 
-                tab1
+                self.tab1
                     .opacity(0)
                     .disabled(true)
                 
-                tab2
+                self.tab2
                     .opacity(0)
                     .disabled(true)
                 
-                tab3
+                self.tab3
                     .opacity(0)
                     .disabled(true)
                 
-                statusViewInCompact
+                self.statusViewInCompact
                     .modifier(SizeModifier())
                     .onPreferenceChange(SizePreferenceKey.self) { size in
                         DispatchQueue.main.async {
@@ -370,7 +370,7 @@ extension ObjectHeader: View {
                     }.hidden()
             }
             
-            if #available(iOS 14.0, *), numberOfTabs > 1 {
+            if #available(iOS 14.0, *), self.numberOfTabs > 1 {
                 Spacer().frame(height: 8)
                 
                 HStack {
@@ -382,7 +382,7 @@ extension ObjectHeader: View {
                 }
             }
             
-            if numberOfTabs == 1 {
+            if self.numberOfTabs == 1 {
                 Spacer().frame(height: 8)
             }
         }
@@ -396,11 +396,11 @@ extension ObjectHeader: View {
     
     var tabView: some View {
         let tabView = TabView(selection: $currentTabIndex) {
-            tab1.tag(0)
+            self.tab1.tag(0)
             
-            tab2.tag(realTabIndex(for: 1))
+            self.tab2.tag(self.realTabIndex(for: 1))
             
-            tab3.tag(realTabIndex(for: 2))
+            self.tab3.tag(self.realTabIndex(for: 2))
         }
         
         if #available(iOS 14.0, *) {
@@ -419,10 +419,10 @@ extension ObjectHeader: View {
     /// Chart and description are center-aligned horizontally and vertically in the container.
     @ViewBuilder
     var tab1: some View {
-        if isSizeCategoryGreatThanLarge {
-            tab1WhenSizeCategoryGreatThanLarge
+        if self.isSizeCategoryGreatThanLarge {
+            self.tab1WhenSizeCategoryGreatThanLarge
         } else {
-            tab1InGeneral
+            self.tab1InGeneral
         }
     }
     
@@ -448,10 +448,10 @@ extension ObjectHeader: View {
                 subtitle
             }
             
-            if !isAdditionalInfoViewEmpty {
+            if !self.isAdditionalInfoViewEmpty {
                 Spacer().frame(height: 8)
                 
-                additionalInfoView
+                self.additionalInfoView
             } else {
                 if !isDescriptionTextEmptyView {
                     Spacer().frame(height: 8)
@@ -483,14 +483,14 @@ extension ObjectHeader: View {
                     if !isStatusEmptyView || !isSubstatusEmptyView {
                         Spacer(minLength: 8)
                         
-                        statusViewInCompact
+                        self.statusViewInCompact
                             .layoutPriority(2)
                             .frame(width: self.statusViewSize.width == 0 ? nil : min(self.statusViewSize.width, self.mainViewSize.width * 0.23))
                     }
                 }
                 
-                if !isAdditionalInfoViewEmpty {
-                    additionalInfoView
+                if !self.isAdditionalInfoViewEmpty {
+                    self.additionalInfoView
                 } else {
                     descriptionText
                 }
@@ -516,7 +516,7 @@ extension ObjectHeader: View {
     
     @ViewBuilder
     var tab3: some View {
-        if !isAdditionalInfoViewEmpty {
+        if !self.isAdditionalInfoViewEmpty {
             descriptionText
         }
     }
@@ -527,7 +527,7 @@ extension ObjectHeader: View {
             count += 1
         }
         
-        if !self.isAdditionalInfoViewEmpty && !isDescriptionTextEmptyView {
+        if !self.isAdditionalInfoViewEmpty, !isDescriptionTextEmptyView {
             count += 1
         }
         
@@ -536,7 +536,7 @@ extension ObjectHeader: View {
     
     func realTabIndex(for index: Int) -> Int {
         if index == 2 {
-            if !self.isAdditionalInfoViewEmpty && !isDescriptionTextEmptyView {
+            if !self.isAdditionalInfoViewEmpty, !isDescriptionTextEmptyView {
                 if DetailContent.self != EmptyView.self {
                     return 2
                 } else {
@@ -640,9 +640,9 @@ struct ObjectHeader_Preview: PreviewProvider {
                     ChartView(chartModel)
                 })
             })
-                .previewLayout(.fixed(width: 1024, height: 200))
-                .environment(\.horizontalSizeClass, .regular)
-                .environment(\.colorScheme, .dark)
+            .previewLayout(.fixed(width: 1024, height: 200))
+            .environment(\.horizontalSizeClass, .regular)
+            .environment(\.colorScheme, .dark)
             
             ObjectHeader(title: {
                 Text("Inspect Electric Pump Motor Long Job Title Example Wrapping Two Lines")
@@ -653,9 +653,9 @@ struct ObjectHeader_Preview: PreviewProvider {
             }, detailImage: {
                 Image(systemName: "person").font(Font.system(size: 70))
             })
-                .previewLayout(.fixed(width: 1024, height: 200))
-                .environment(\.horizontalSizeClass, .regular)
-                .environment(\.colorScheme, .dark)
+            .previewLayout(.fixed(width: 1024, height: 200))
+            .environment(\.horizontalSizeClass, .regular)
+            .environment(\.colorScheme, .dark)
             
             ObjectHeader(title: {
                 Text("Inspect Electric Pump Motor Long Job Title Example Wrapping Two Lines")
@@ -676,9 +676,9 @@ struct ObjectHeader_Preview: PreviewProvider {
             }, substatus: {
                 Text("Scheduled")
             })
-                .previewLayout(.fixed(width: 1024, height: 200))
-                .environment(\.horizontalSizeClass, .regular)
-                .environment(\.colorScheme, .dark)
+            .previewLayout(.fixed(width: 1024, height: 200))
+            .environment(\.horizontalSizeClass, .regular)
+            .environment(\.colorScheme, .dark)
             
             ObjectHeader(title: {
                 Text("Inspect Electric Pump Motor Long Job Title Example Wrapping Two Lines")
@@ -693,9 +693,9 @@ struct ObjectHeader_Preview: PreviewProvider {
             }, footnote: {
                 Text("Due on 12/31/16")
             })
-                .previewLayout(.fixed(width: 1024, height: 200))
-                .environment(\.horizontalSizeClass, .regular)
-                .environment(\.colorScheme, .dark)
+            .previewLayout(.fixed(width: 1024, height: 200))
+            .environment(\.horizontalSizeClass, .regular)
+            .environment(\.colorScheme, .dark)
             
             ObjectHeader(title: {
                 Text("Inspect Electric Pump Motor Long Job Title Example Wrapping Two Lines Accessibility Settings Testing")
@@ -708,10 +708,10 @@ struct ObjectHeader_Preview: PreviewProvider {
             }, substatus: {
                 Text("Scheduled")
             })
-                .previewLayout(.fixed(width: 1024, height: 200))
-                .environment(\.horizontalSizeClass, .regular)
-                .environment(\.colorScheme, .dark)
-                .environment(\.sizeCategory, .extraExtraLarge)
+            .previewLayout(.fixed(width: 1024, height: 200))
+            .environment(\.horizontalSizeClass, .regular)
+            .environment(\.colorScheme, .dark)
+            .environment(\.sizeCategory, .extraExtraLarge)
             
             ObjectHeader(title: {
                 Text("Inspect Electric Pump Motor Long Job Title Example Wrapping Two Lines Accessibility Settings Testing")
@@ -742,10 +742,10 @@ struct ObjectHeader_Preview: PreviewProvider {
                     KPIItem(data: .components([.metric("79"), .unit("°F")]), subtitle: "").disabled(true)
                 })
             })
-                .previewLayout(.fixed(width: 1024, height: 300))
-                .environment(\.horizontalSizeClass, .regular)
-                .environment(\.colorScheme, .dark)
-                .environment(\.sizeCategory, .extraExtraLarge)
+            .previewLayout(.fixed(width: 1024, height: 300))
+            .environment(\.horizontalSizeClass, .regular)
+            .environment(\.colorScheme, .dark)
+            .environment(\.sizeCategory, .extraExtraLarge)
         }
     }
 }

@@ -37,11 +37,11 @@ public struct StatefulButtonStyle: PrimitiveButtonStyle {
         StatefulButton(configuration: configuration, isSelectionPersistent: self.isSelectionPersistent) { state in
             switch state {
             case .normal:
-                return FioriButtonConfiguration(foregroundColor: .white, backgroundColor: color)
+                return FioriButtonConfiguration(foregroundColor: .white, backgroundColor: self.color)
             case .highlighted, .selected:
-                return FioriButtonConfiguration(foregroundColor: .white, backgroundColor: depressedColor)
+                return FioriButtonConfiguration(foregroundColor: .white, backgroundColor: self.depressedColor)
             default:
-                return FioriButtonConfiguration(foregroundColor: .white, backgroundColor: disabledColor)
+                return FioriButtonConfiguration(foregroundColor: .white, backgroundColor: self.disabledColor)
             }
         }
     }
@@ -86,7 +86,7 @@ public struct SecondaryButtonStyle: PrimitiveButtonStyle {
     /// - Parameter configuration : The properties of the button.
     public func makeBody(configuration: PrimitiveButtonStyle.Configuration) -> some View {
         StatefulButton(configuration: configuration, isSelectionPersistent: self.isSelectionPersistent) { state in
-            FioriButtonStyleProvider.getSecondaryButtonStyle(colorStyle: colorStyle, for: state)
+            FioriButtonStyleProvider.getSecondaryButtonStyle(colorStyle: self.colorStyle, for: state)
         }
     }
 }
@@ -109,7 +109,7 @@ public struct TertiaryButtonStyle: PrimitiveButtonStyle {
     /// - Parameter configuration : The properties of the button.
     public func makeBody(configuration: PrimitiveButtonStyle.Configuration) -> some View {
         StatefulButton(configuration: configuration, isSelectionPersistent: self.isSelectionPersistent) { state in
-            FioriButtonStyleProvider.getTertiaryButtonStyle(colorStyle: colorStyle, for: state)
+            FioriButtonStyleProvider.getTertiaryButtonStyle(colorStyle: self.colorStyle, for: state)
         }
     }
 }
@@ -130,9 +130,9 @@ private struct StatefulButton: View {
     let fioriButtonConfiguration: (UIControl.State) -> FioriButtonConfiguration
     
     var body: some View {
-        configuration.label
-            .fioriButtonConfiguration(fioriButtonConfiguration(state))
-            .gesture(createGesture())
+        self.configuration.label
+            .fioriButtonConfiguration(self.fioriButtonConfiguration(self.state))
+            .gesture(self.createGesture())
     }
     
     func createGesture() -> _EndedGesture<_ChangedGesture<DragGesture>> {

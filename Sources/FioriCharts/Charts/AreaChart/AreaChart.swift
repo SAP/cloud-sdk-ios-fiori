@@ -4,7 +4,7 @@ struct AreaChart: View {
     @ObservedObject var model: ChartModel
   
     var body: some View {
-        XYAxisChart(model: model,
+        XYAxisChart(model: self.model,
                     chartContext: LineChartContext(),
                     chartView: LinesView(fill: true),
                     indicatorView: LineIndicatorView())

@@ -47,24 +47,24 @@ struct SPIModelExample: View {
     var body: some View {
         VStack(alignment: .leading) {
             Text("Initialized by Model").bold()
-            StepProgressIndicator(model: model)
+            StepProgressIndicator(model: self.model)
                 .stepStyle { id in
                     CustomModelStyleExample(isLast: id == "f")
                 }
             Spacer().padding(20)
             Button {
-                completeStep()
+                self.completeStep()
             } label: {
                 Text("Mark as Completed")
             }
             .padding(20)
         }
         .padding()
-        .onChange(of: model.selection, perform: { _ in
-            updateCurrentStepName()
+        .onChange(of: self.model.selection, perform: { _ in
+            self.updateCurrentStepName()
         })
         .onAppear {
-            updateCurrentStepName()
+            self.updateCurrentStepName()
         }
     }
     

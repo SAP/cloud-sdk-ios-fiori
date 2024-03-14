@@ -50,8 +50,8 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
         }
         .contentShape(Rectangle())
         .clipped()
-        .environmentObject(model)
-        .environment(\.chartContext, chartContext)
+        .environmentObject(self.model)
+        .environment(\.chartContext, self.chartContext)
     }
     
     func makeBody(in rect: CGRect) -> some View {
@@ -120,7 +120,7 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
                     Spacer().frame(height: yAxisRect.origin.y)
                 
                     if yAxisRect.width > 0 {
-                        if model.userInteractionEnabled {
+                        if self.model.userInteractionEnabled {
                             YAxisView(plotViewSize: chartRect.size)
                                 .frame(height: yAxisRect.size.height)
                                 .contentShape(Rectangle())
@@ -137,31 +137,31 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
                 
                 // plot view
                 VStack(alignment: .leading, spacing: 0) {
-                    if model.chartType == .bar || model.chartType == .stackedBar || model.valueType == .allPositive {
+                    if self.model.chartType == .bar || self.model.chartType == .stackedBar || self.model.valueType == .allPositive {
                         gridLinesAndChartView
                         
                         XAxisView(plotViewSize: chartRect.size)
                             .frame(width: xAxisRect.width, height: xAxisRect.height)
-                    } else if model.valueType == .allNegative {
-                        XAxisView(isShowBaselineOnly: model.xAxisLabelsPosition == .fixedBottom ? true : false, plotViewSize: chartRect.size)
+                    } else if self.model.valueType == .allNegative {
+                        XAxisView(isShowBaselineOnly: self.model.xAxisLabelsPosition == .fixedBottom ? true : false, plotViewSize: chartRect.size)
                             .frame(height: xAxisRect.height)
                         
                         gridLinesAndChartView
                         
-                        if model.xAxisLabelsPosition == .fixedBottom {
+                        if self.model.xAxisLabelsPosition == .fixedBottom {
                             XAxisView(isShowLabelsOnly: true, plotViewSize: chartRect.size)
                                 .frame(height: xAxisLabelsRect.height)
                         }
                     } else {
                         ZStack {
-                            XAxisView(isShowBaselineOnly: model.xAxisLabelsPosition == .fixedBottom ? true : false, plotViewSize: chartRect.size)
+                            XAxisView(isShowBaselineOnly: self.model.xAxisLabelsPosition == .fixedBottom ? true : false, plotViewSize: chartRect.size)
                                 .frame(width: xAxisRect.width, height: xAxisRect.height)
                                 .position(x: xAxisRect.size.width / 2, y: xAxisRect.origin.y + xAxisRect.size.height / 2)
                             
                             gridLinesAndChartView
                         }.zIndex(3)
                         
-                        if model.xAxisLabelsPosition == .fixedBottom {
+                        if self.model.xAxisLabelsPosition == .fixedBottom {
                             XAxisView(isShowLabelsOnly: true, plotViewSize: chartRect.size)
                                 .frame(height: xAxisLabelsRect.height)
                         }
@@ -634,7 +634,7 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
             }
         }
         
-        if self.model.userInteractionEnabled && self.model.selectionEnabled {
+        if self.model.userInteractionEnabled, self.model.selectionEnabled {
             padding += ChartViewLayout.extraSelectedPointRadiusWidth + ChartViewLayout.extraSelectedPointWhiteBoderRadiusWidth
         }
         

@@ -32,13 +32,13 @@ public struct FioriButtonStyleConfiguration {
     public struct Label: View {
         let view: AnyView
         
-        init<V: View>(_ view: V) {
+        init(_ view: some View) {
             self.view = AnyView(view)
         }
         
         /// The content of the label.
         public var body: some View {
-            view
+            self.view
         }
     }
 
@@ -139,7 +139,7 @@ public extension View {
     ///
     /// - Parameter style: A Fiori button style instance.
     /// - Returns: A view that uses the style provided.
-    func fioriButtonStyle<S>(_ style: S) -> some View where S: FioriButtonStyle {
+    func fioriButtonStyle(_ style: some FioriButtonStyle) -> some View {
         self.environment(\.fioriButtonStyle, AnyFioriButtonStyle(style))
     }
 }
@@ -159,7 +159,7 @@ extension EnvironmentValues {
 public struct AnyFioriButtonStyle: FioriButtonStyle {
     let view: (FioriButtonStyleConfiguration) -> AnyView
     
-    public init<S: FioriButtonStyle>(_ style: S) {
+    public init(_ style: some FioriButtonStyle) {
         self.view = {
             AnyView(style.makeBody(configuration: $0))
         }

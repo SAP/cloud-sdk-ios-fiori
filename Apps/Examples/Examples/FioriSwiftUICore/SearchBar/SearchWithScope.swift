@@ -7,14 +7,14 @@ struct SearchWithScope: View {
 
     var body: some View {
         NavigationStack {
-            List(ColorEntity.filterColors(queryString, scope: searchScope)) { color in
+            List(ColorEntity.filterColors(self.queryString, scope: self.searchScope)) { color in
                 Text(color.name)
                     .foregroundColor(color.fioriColor)
             }
             .navigationTitle("Colors")
         }
-        .searchable(text: $queryString, prompt: "Color name")
-        .searchScopes($searchScope) { // , activation: .onSearchPresentation) { // onSearchPresentation is only available with iOS 16.4+
+        .searchable(text: self.$queryString, prompt: "Color name")
+        .searchScopes(self.$searchScope) { // , activation: .onSearchPresentation) { // onSearchPresentation is only available with iOS 16.4+
             // cannot customize search scopes
             ForEach(SearchScope.allCases, id: \.self) { scope in
                 switch scope {

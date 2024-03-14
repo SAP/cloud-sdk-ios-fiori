@@ -286,7 +286,7 @@ class DefaultChartContext: ChartContext {
     
     private func abbreviatedString(for num: Double, useSuffix: Bool, abbreviatedFormatter: NumberFormatter) -> String {
         var aNum = abs(num)
-        var multiplier: Double = 100.0
+        var multiplier = 100.0
         
         if abbreviatedFormatter.numberStyle == .percent {
             if let multi = abbreviatedFormatter.multiplier {

@@ -98,10 +98,10 @@ public struct ConditionalSingleFootnoteIcon<TrueContent: View, FalseContent: Vie
     
     public func view(at index: Int) -> some View {
         Group {
-            if first == nil {
-                second
+            if self.first == nil {
+                self.second
             } else {
-                first
+                self.first
             }
         }
     }
@@ -139,9 +139,9 @@ public struct PairFootnoteIcon<First: View, Second: FootnoteIconList>: FootnoteI
     public func view(at index: Int) -> some View {
         Group {
             if index == 0 {
-                first
+                self.first
             } else {
-                remainder.view(at: index - 1)
+                self.remainder.view(at: index - 1)
             }
         }
     }
@@ -180,59 +180,59 @@ public enum FootnoteIconsBuilder {
     ///
     /// An example of a single view written as a child view is
     /// `{ Text("Hello") }`
-    public static func buildBlock<Content>(_ content: Content) -> some FootnoteIconList where Content: View {
+    public static func buildBlock(_ content: some View) -> some FootnoteIconList {
         SingleFootnoteIcon(view: content)
     }
     
     /// :nodoc:
-    public static func buildBlock<C0, C1>(_ c0: C0, _ c1: C1) -> some FootnoteIconList where C0: View, C1: View {
+    public static func buildBlock(_ c0: some View, _ c1: some View) -> some FootnoteIconList {
         PairFootnoteIcon(first: c0, remainder: SingleFootnoteIcon(view: c1))
     }
     
     /// :nodoc:
-    public static func buildBlock<C0, C1, C2>(_ c0: C0, _ c1: C1, _ c2: C2) -> some FootnoteIconList where C0: View, C1: View, C2: View {
+    public static func buildBlock(_ c0: some View, _ c1: some View, _ c2: some View) -> some FootnoteIconList {
         PairFootnoteIcon(first: c0, remainder: PairFootnoteIcon(first: c1, remainder: SingleFootnoteIcon(view: c2)))
     }
     
     /// :nodoc:
-    public static func buildBlock<C0, C1, C2, C3>(_ c0: C0, _ c1: C1, _ c2: C2, _ c3: C3) -> some FootnoteIconList where C0: View, C1: View, C2: View, C3: View {
+    public static func buildBlock(_ c0: some View, _ c1: some View, _ c2: some View, _ c3: some View) -> some FootnoteIconList {
         PairFootnoteIcon(first: c0, remainder: PairFootnoteIcon(first: c1, remainder: PairFootnoteIcon(first: c2, remainder: SingleFootnoteIcon(view: c3))))
     }
     
     /// :nodoc:
-    public static func buildBlock<C0, C1, C2, C3, C4>(_ c0: C0, _ c1: C1, _ c2: C2, _ c3: C3, _ c4: C4) -> some FootnoteIconList where C0: View, C1: View, C2: View, C3: View, C4: View {
+    public static func buildBlock(_ c0: some View, _ c1: some View, _ c2: some View, _ c3: some View, _ c4: some View) -> some FootnoteIconList {
         PairFootnoteIcon(first: c0, remainder: PairFootnoteIcon(first: c1, remainder: PairFootnoteIcon(first: c2, remainder: PairFootnoteIcon(first: c3, remainder: SingleFootnoteIcon(view: c4)))))
     }
     
     /// :nodoc:
-    public static func buildBlock<C0, C1, C2, C3, C4, C5>(_ c0: C0, _ c1: C1, _ c2: C2, _ c3: C3, _ c4: C4, _ c5: C5) -> some FootnoteIconList where C0: View, C1: View, C2: View, C3: View, C4: View, C5: View {
+    public static func buildBlock(_ c0: some View, _ c1: some View, _ c2: some View, _ c3: some View, _ c4: some View, _ c5: some View) -> some FootnoteIconList {
         PairFootnoteIcon(first: c0, remainder: PairFootnoteIcon(first: c1, remainder: PairFootnoteIcon(first: c2, remainder: PairFootnoteIcon(first: c3, remainder: PairFootnoteIcon(first: c4, remainder: SingleFootnoteIcon(view: c5))))))
     }
     
     /// :nodoc:
-    public static func buildBlock<C0, C1, C2, C3, C4, C5, C6>(_ c0: C0, _ c1: C1, _ c2: C2, _ c3: C3, _ c4: C4, _ c5: C5, _ c6: C6) -> some FootnoteIconList where C0: View, C1: View, C2: View, C3: View, C4: View, C5: View, C6: View {
+    public static func buildBlock(_ c0: some View, _ c1: some View, _ c2: some View, _ c3: some View, _ c4: some View, _ c5: some View, _ c6: some View) -> some FootnoteIconList {
         PairFootnoteIcon(first: c0, remainder: PairFootnoteIcon(first: c1, remainder: PairFootnoteIcon(first: c2, remainder: PairFootnoteIcon(first: c3, remainder: PairFootnoteIcon(first: c4, remainder: PairFootnoteIcon(first: c5, remainder: SingleFootnoteIcon(view: c6)))))))
     }
     
     /// :nodoc:
-    public static func buildBlock<C0, C1, C2, C3, C4, C5, C6, C7>(_ c0: C0, _ c1: C1, _ c2: C2, _ c3: C3, _ c4: C4, _ c5: C5, _ c6: C6, _ c7: C7) -> some FootnoteIconList where C0: View, C1: View, C2: View, C3: View, C4: View, C5: View, C6: View, C7: View {
+    public static func buildBlock(_ c0: some View, _ c1: some View, _ c2: some View, _ c3: some View, _ c4: some View, _ c5: some View, _ c6: some View, _ c7: some View) -> some FootnoteIconList {
         PairFootnoteIcon(first: c0, remainder: PairFootnoteIcon(first: c1, remainder: PairFootnoteIcon(first: c2, remainder: PairFootnoteIcon(first: c3, remainder: PairFootnoteIcon(first: c4, remainder: PairFootnoteIcon(first: c5, remainder: PairFootnoteIcon(first: c6, remainder: SingleFootnoteIcon(view: c7))))))))
     }
     
     /// :nodoc:
-    public static func buildBlock<C0, C1, C2, C3, C4, C5, C6, C7, C8>(_ c0: C0, _ c1: C1, _ c2: C2, _ c3: C3, _ c4: C4, _ c5: C5, _ c6: C6, _ c7: C7, _ c8: C8) -> some FootnoteIconList where C0: View, C1: View, C2: View, C3: View, C4: View, C5: View, C6: View, C7: View, C8: View {
+    public static func buildBlock(_ c0: some View, _ c1: some View, _ c2: some View, _ c3: some View, _ c4: some View, _ c5: some View, _ c6: some View, _ c7: some View, _ c8: some View) -> some FootnoteIconList {
         PairFootnoteIcon(first: c0, remainder: PairFootnoteIcon(first: c1, remainder: PairFootnoteIcon(first: c2, remainder: PairFootnoteIcon(first: c3, remainder: PairFootnoteIcon(first: c4, remainder: PairFootnoteIcon(first: c5, remainder: PairFootnoteIcon(first: c6, remainder: PairFootnoteIcon(first: c7, remainder: SingleFootnoteIcon(view: c8)))))))))
     }
     
     /// :nodoc:
-    public static func buildBlock<C0, C1, C2, C3, C4, C5, C6, C7, C8, C9>(_ c0: C0, _ c1: C1, _ c2: C2, _ c3: C3, _ c4: C4, _ c5: C5, _ c6: C6, _ c7: C7, _ c8: C8, _ c9: C9) -> some FootnoteIconList where C0: View, C1: View, C2: View, C3: View, C4: View, C5: View, C6: View, C7: View, C8: View, C9: View {
+    public static func buildBlock(_ c0: some View, _ c1: some View, _ c2: some View, _ c3: some View, _ c4: some View, _ c5: some View, _ c6: some View, _ c7: some View, _ c8: some View, _ c9: some View) -> some FootnoteIconList {
         PairFootnoteIcon(first: c0, remainder: PairFootnoteIcon(first: c1, remainder: PairFootnoteIcon(first: c2, remainder: PairFootnoteIcon(first: c3, remainder: PairFootnoteIcon(first: c4, remainder: PairFootnoteIcon(first: c5, remainder: PairFootnoteIcon(first: c6, remainder: PairFootnoteIcon(first: c7, remainder: PairFootnoteIcon(first: c8, remainder: SingleFootnoteIcon(view: c9))))))))))
     }
     
     /// Provides support for “if” statements in multi-statement closures,
     /// producing an optional view that is visible only when the condition
     /// evaluates to `true`.
-    public static func buildIf<Content>(_ content: Content?) -> some FootnoteIconList where Content: View {
+    public static func buildIf(_ content: (some View)?) -> some FootnoteIconList {
         SingleFootnoteIcon(view: content == nil ? AnyView(EmptyView()) : AnyView(content!))
     }
     

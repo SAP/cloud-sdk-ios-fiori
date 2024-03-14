@@ -108,7 +108,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, detailImage: {
                     Image("person_square4").resizable().frame(width: 45, height: 45).clipShape(Circle())
                 })
-                    .splitPercent(0.33)
+                .splitPercent(0.33)
             } else {
                 oi = _ObjectItem(title: {
                     Text("Rouja Pakiman")
@@ -120,7 +120,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, detailImage: {
                     Image("person_square4").resizable().frame(width: 45, height: 45).clipShape(Circle())
                 })
-                    .splitPercent(0.33)
+                .splitPercent(0.33)
             }
             
         case (0, 1):
@@ -148,7 +148,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, detailImage: {
                     Image("person_square4").resizable().frame(width: 45, height: 45).clipShape(Circle())
                 })
-                    .splitPercent(0.33)
+                .splitPercent(0.33)
             } else {
                 oi = _ObjectItem(title: {
                     Text("Rouja Pakiman")
@@ -162,7 +162,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, detailImage: {
                     Image("person_square4").resizable().frame(width: 45, height: 45).clipShape(Circle())
                 })
-                    .splitPercent(0.33)
+                .splitPercent(0.33)
             }
          
         case (0, 2):
@@ -185,7 +185,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                     // Image(systemName: "circle.fill").foregroundColor(.preferredColor(.tintColorDark))
                     Circle().fill(Color.preferredColor(.tintColor)).frame(width: 14, height: 14)
                 })
-                    .splitPercent(0.43)
+                .splitPercent(0.43)
             } else {
                 oi = _ObjectItem(title: {
                     Text("Transformer Overheating")
@@ -197,7 +197,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                     // Image(systemName: "circle.fill").foregroundColor(.preferredColor(.tintColorDark))
                     Circle().fill(Color.preferredColor(.tintColor)).frame(width: 14, height: 14)
                 })
-                    .splitPercent(0.43)
+                .splitPercent(0.43)
             }
             
         case (0, 3):
@@ -226,7 +226,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, detailImage: {
                     Image("person_square4").resizable().frame(width: 45, height: 45).clipShape(Circle())
                 })
-                    .splitPercent(0.33)
+                .splitPercent(0.33)
             } else {
                 oi = _ObjectItem(title: {
                     Text("Rouja Pakiman Rouja Pakiman Rouja Pakiman Rouja Pakiman Rouja Pakiman Rouja Pakiman Rouja Pakiman Rouja Pakiman")
@@ -240,7 +240,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, detailImage: {
                     Image("person_square4").resizable().frame(width: 45, height: 45).clipShape(Circle())
                 })
-                    .splitPercent(0.33)
+                .splitPercent(0.33)
             }
 
         case (0, 4):
@@ -266,7 +266,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, detailImage: {
                     Image("person_square4").resizable().frame(width: 45, height: 45).clipShape(Circle())
                 })
-                    .splitPercent(0.33)
+                .splitPercent(0.33)
             } else {
                 oi = _ObjectItem(title: {
                     Text("Rouja Pakiman")
@@ -278,7 +278,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, detailImage: {
                     Image("person_square4").resizable().frame(width: 45, height: 45).clipShape(Circle())
                 })
-                    .splitPercent(0.33)
+                .splitPercent(0.33)
             }
             
         case (1, 0):
@@ -441,7 +441,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, detailImage: {
                     Image("attachment009").resizable().frame(width: 45, height: 45)
                 })
-                    .splitPercent(nil)
+                .splitPercent(nil)
             } else {
                 oi = _ObjectItem(title: {
                     Text("Transformer Overheating")
@@ -456,7 +456,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, detailImage: {
                     Image("attachment009").resizable().frame(width: 45, height: 45)
                 })
-                    .splitPercent(nil)
+                .splitPercent(nil)
             }
             
         case (1, 4):
@@ -484,7 +484,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, detailImage: {
                     Image("attachment009").resizable().frame(width: 45, height: 45)
                 })
-                    .splitPercent(nil)
+                .splitPercent(nil)
             } else {
                 oi = _ObjectItem(title: {
                     Text("Transformer Overheating")
@@ -499,7 +499,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, detailImage: {
                     Image("attachment009").resizable().frame(width: 45, height: 45)
                 })
-                    .splitPercent(nil)
+                .splitPercent(nil)
             }
             
         case (1, 5):
@@ -522,7 +522,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                     //                Image(systemName: "circle.fill").foregroundColor(.preferredColor(.tintColorDark))
                     Circle().fill(Color.preferredColor(.tintColor)).frame(width: 14, height: 14)
                 })
-                    .splitPercent(0.43)
+                .splitPercent(0.43)
             } else {
                 oi = _ObjectItem(title: {
                     Text("Transformer Overheating")
@@ -534,7 +534,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                     //                Image(systemName: "circle.fill").foregroundColor(.preferredColor(.tintColorDark))
                     Circle().fill(Color.preferredColor(.tintColor)).frame(width: 14, height: 14)
                 })
-                    .splitPercent(0.43)
+                .splitPercent(0.43)
             }
             
         case (1, 6):
@@ -562,7 +562,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, detailImage: {
                     Image("attachment009").resizable().frame(width: 45, height: 45)
                 })
-                    .splitPercent(nil)
+                .splitPercent(nil)
             } else {
                 oi = _ObjectItem(title: {
                     Text("Transformer Overheating")
@@ -577,7 +577,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, detailImage: {
                     Image("attachment009").resizable().frame(width: 45, height: 45)
                 })
-                    .splitPercent(nil)
+                .splitPercent(nil)
             }
             
         case (1, 7):
@@ -605,7 +605,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, detailImage: {
                     Image("attachment009").resizable().frame(width: 45, height: 45)
                 })
-                    .splitPercent(nil)
+                .splitPercent(nil)
             } else {
                 oi = _ObjectItem(title: {
                     Text("Transformer Overheating")
@@ -620,7 +620,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, detailImage: {
                     Image("attachment009").resizable().frame(width: 45, height: 45)
                 })
-                    .splitPercent(nil)
+                .splitPercent(nil)
             }
             
         case (1, 8):
@@ -648,7 +648,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, detailImage: {
                     Image("person_square4").resizable().frame(width: 45, height: 45).clipShape(Circle())
                 })
-                    .splitPercent(0.33)
+                .splitPercent(0.33)
             } else {
                 oi = _ObjectItem(title: {
                     Text("Rouja Pakiman")
@@ -662,7 +662,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, detailImage: {
                     Image("person_square4").resizable().frame(width: 45, height: 45).clipShape(Circle())
                 })
-                    .splitPercent(0.33)
+                .splitPercent(0.33)
             }
             
         case (1, 9):
@@ -743,7 +743,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                     Circle().fill(Color.preferredColor(.tintColor)).frame(width: 14, height: 14)
                     Image(systemName: "paperclip").font(.system(size: 14))
                 })
-                    .splitPercent(nil)
+                .splitPercent(nil)
             } else {
                 oi = _ObjectItem(title: {
                     Text("Transformer Overheating").lineLimit(1)
@@ -764,7 +764,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                     Circle().fill(Color.preferredColor(.tintColor)).frame(width: 14, height: 14)
                     Image(systemName: "paperclip").font(.system(size: 14))
                 })
-                    .splitPercent(nil)
+                .splitPercent(nil)
             }
             
         case (1, 11):
@@ -795,7 +795,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, detailImage: {
                     Image("attachment009").resizable().frame(width: 45, height: 45)
                 })
-                    .splitPercent(nil)
+                .splitPercent(nil)
             } else {
                 oi = _ObjectItem(title: {
                     Text("Transformer Overheating")
@@ -812,7 +812,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, detailImage: {
                     Image("attachment009").resizable().frame(width: 45, height: 45)
                 })
-                    .splitPercent(nil)
+                .splitPercent(nil)
             }
             
         case (1, 12):
@@ -842,7 +842,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, detailImage: {
                     Image("attachment009").resizable().frame(width: 45, height: 45)
                 })
-                    .splitPercent(nil)
+                .splitPercent(nil)
             } else {
                 oi = _ObjectItem(title: {
                     Text("Transformer Overheating")
@@ -859,7 +859,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, detailImage: {
                     Image("attachment009").resizable().frame(width: 45, height: 45)
                 })
-                    .splitPercent(nil)
+                .splitPercent(nil)
             }
             
         case (1, 13):
@@ -929,7 +929,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, detailImage: {
                     Image("person_square4").resizable().frame(width: 45, height: 45).clipShape(Circle())
                 })
-                    .splitPercent(0.33)
+                .splitPercent(0.33)
             } else {
                 oi = _ObjectItem(title: {
                     Text("Rouja Pakiman")
@@ -940,7 +940,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, detailImage: {
                     Image("person_square4").resizable().frame(width: 45, height: 45).clipShape(Circle())
                 })
-                    .splitPercent(0.33)
+                .splitPercent(0.33)
             }
             
         case (2, 1):
@@ -967,7 +967,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, detailImage: {
                     Image("person_square4").resizable().frame(width: 45, height: 45).clipShape(Circle())
                 })
-                    .splitPercent(0.33)
+                .splitPercent(0.33)
             } else {
                 oi = _ObjectItem(title: {
                     Text("Rouja Pakiman")
@@ -980,7 +980,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, detailImage: {
                     Image("person_square4").resizable().frame(width: 45, height: 45).clipShape(Circle())
                 })
-                    .splitPercent(0.33)
+                .splitPercent(0.33)
             }
             
         case (2, 2):
@@ -1009,7 +1009,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, detailImage: {
                     Image("generic-file_28px").resizable().frame(width: 32, height: 32).clipShape(Circle())
                 })
-                    .splitPercent(0.33)
+                .splitPercent(0.33)
             } else {
                 oi = _ObjectItem(title: {
                     Text("Rouja Pakiman")
@@ -1022,7 +1022,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, detailImage: {
                     Image("generic-file_28px").resizable().frame(width: 32, height: 32).clipShape(Circle())
                 })
-                    .splitPercent(0.33)
+                .splitPercent(0.33)
             }
             
         case (2, 3):
@@ -1049,7 +1049,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, detailImage: {
                     Image("person_square4").resizable().frame(width: 45, height: 45).clipShape(Circle())
                 })
-                    .splitPercent(0.33)
+                .splitPercent(0.33)
             } else {
                 oi = _ObjectItem(title: {
                     Text("Rouja Pakiman")
@@ -1062,7 +1062,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, detailImage: {
                     Image("person_square4").resizable().frame(width: 45, height: 45).clipShape(Circle())
                 })
-                    .splitPercent(0.33)
+                .splitPercent(0.33)
             }
             
         case (2, 4):
@@ -1215,7 +1215,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                     Circle().fill(Color.preferredColor(.tintColor)).frame(width: 14, height: 14)
                     Image(systemName: "paperclip").font(.system(size: 14))
                 })
-                    .splitPercent(0.33)
+                .splitPercent(0.33)
             } else {
                 oi = _ObjectItem(title: {
                     Text("Rouja Pakiman")
@@ -1234,7 +1234,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                     Circle().fill(Color.preferredColor(.tintColor)).frame(width: 14, height: 14)
                     Image(systemName: "paperclip").font(.system(size: 14))
                 })
-                    .splitPercent(0.33)
+                .splitPercent(0.33)
             }
             
         case (3, 0):
@@ -1334,7 +1334,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, detailImage: {
                     Image("person_square4").resizable().frame(width: 45, height: 45).clipShape(Circle())
                 })
-                    .splitPercent(nil)
+                .splitPercent(nil)
             } else {
                 oi = _ObjectItem(title: {
                     Text("Rouja Pakiman")
@@ -1347,7 +1347,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, detailImage: {
                     Image("person_square4").resizable().frame(width: 45, height: 45).clipShape(Circle())
                 })
-                    .splitPercent(nil)
+                .splitPercent(nil)
             }
         
         // section: "Pages 16-18: IMAGE/ICON STACK"
@@ -1411,7 +1411,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                     Circle().fill(Color.preferredColor(.tintColor)).frame(width: 14, height: 14)
                     Image(systemName: "paperclip").font(.system(size: 14))
                 })
-                    .splitPercent(0.33)
+                .splitPercent(0.33)
             } else {
                 oi = _ObjectItem(title: {
                     Text("Rouja Pakiman")
@@ -1428,7 +1428,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                     Circle().fill(Color.preferredColor(.tintColor)).frame(width: 14, height: 14)
                     Image(systemName: "paperclip").font(.system(size: 14))
                 })
-                    .splitPercent(0.33)
+                .splitPercent(0.33)
             }
             
         case (4, 2):
@@ -1489,7 +1489,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                     Image(systemName: "paperclip").font(.system(size: 14))
                     Circle().fill(Color.preferredColor(.tintColor)).frame(width: 14, height: 14)
                 })
-                    .splitPercent(0.33)
+                .splitPercent(0.33)
             } else {
                 oi = _ObjectItem(title: {
                     Text("Rouja Pakiman")
@@ -1505,7 +1505,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                     Image(systemName: "paperclip").font(.system(size: 14))
                     Circle().fill(Color.preferredColor(.tintColor)).frame(width: 14, height: 14)
                 })
-                    .splitPercent(0.33)
+                .splitPercent(0.33)
             }
             
         case (4, 4):
@@ -1547,7 +1547,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                     Image(systemName: "paperclip").font(.system(size: 14))
                     Circle().fill(Color.preferredColor(.tintColor)).frame(width: 14, height: 14)
                 })
-                    .splitPercent(0.33)
+                .splitPercent(0.33)
             } else {
                 oi = _ObjectItem(title: {
                     Text("Rouja Pakiman")
@@ -1573,7 +1573,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                     Image(systemName: "paperclip").font(.system(size: 14))
                     Circle().fill(Color.preferredColor(.tintColor)).frame(width: 14, height: 14)
                 })
-                    .splitPercent(0.33)
+                .splitPercent(0.33)
             }
             
         case (5, 0):
@@ -1597,7 +1597,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, detailImage: {
                     Image("person_square4").resizable().frame(width: 45, height: 45).clipShape(Circle())
                 })
-                    .splitPercent(0.33)
+                .splitPercent(0.33)
             } else {
                 oi = _ObjectItem(title: {
                     Text("Rouja Pakiman")
@@ -1608,7 +1608,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, detailImage: {
                     Image("person_square4").resizable().frame(width: 45, height: 45).clipShape(Circle())
                 })
-                    .splitPercent(0.33)
+                .splitPercent(0.33)
             }
             
         case (5, 1):
@@ -1635,7 +1635,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, detailImage: {
                     Image("person_square4").resizable().frame(width: 45, height: 45).clipShape(Circle())
                 })
-                    .splitPercent(0.33)
+                .splitPercent(0.33)
             } else {
                 oi = _ObjectItem(title: {
                     Text("Rouja Pakiman")
@@ -1648,7 +1648,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, detailImage: {
                     Image("person_square4").resizable().frame(width: 45, height: 45).clipShape(Circle())
                 })
-                    .splitPercent(0.33)
+                .splitPercent(0.33)
             }
             
         case (5, 2):

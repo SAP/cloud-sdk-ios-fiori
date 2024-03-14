@@ -7,7 +7,7 @@ public struct ActivityControlLayoutContainer<Data, ID, Content>: View where Data
 
     public var body: some View {
         HStack(spacing: 0) {
-            ForEach(data, id: self.dataId) { element in
+            ForEach(self.data, id: self.dataId) { element in
                 self.content(element)
             }
         }

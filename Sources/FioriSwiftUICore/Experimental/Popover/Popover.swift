@@ -20,16 +20,16 @@ struct Popover {
 
 extension Popover {
     func present(in window: UIWindow?) {
-        guard let window = window else { return }
+        guard let window else { return }
         self.context.windowFrame = window.bounds
         let containerView = PopoverContainerView(popView: popView, context: context)
         let container = PopoverGestureContainer(popView: AnyView(containerView), context: context)
-        context.dismiss = {
-            dismiss()
+        self.context.dismiss = {
+            self.dismiss()
         }
 
         self.context.onDisappear = {
-            removeContainer()
+            self.removeContainer()
         }
 
         self.context.updatePopoverFrame = { rect in
@@ -40,15 +40,15 @@ extension Popover {
         window.bringSubviewToFront(container)
         self.context.presentedPopoverContainer = container
         withTransaction(Transaction(animation: self.context.presentAnimation)) {
-            context.showPopover = true
-            context.reload()
+            self.context.showPopover = true
+            self.context.reload()
         }
     }
 
     func dismiss() {
         withTransaction(Transaction(animation: self.context.dismissAnimation)) {
-            isPresented = false
-            context.showPopover = false
+            self.isPresented = false
+            self.context.showPopover = false
         }
     }
 
@@ -93,7 +93,7 @@ class PopoverContext: ObservableObject {
     func updateFrame(with size: CGSize) {
         self.popSize = size
         let position = calculateFrame()
-        frame = position.0
+        self.frame = position.0
         self.scaleAnchor = position.1
 
         if self.showPopover {

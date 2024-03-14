@@ -3,7 +3,7 @@ import SwiftUI
 
 public extension View {
     @ViewBuilder
-    func ifApply<Content: View>(_ condition: Bool, content: (Self) -> Content) -> some View {
+    func ifApply(_ condition: Bool, content: (Self) -> some View) -> some View {
         if condition {
             content(self)
         } else {

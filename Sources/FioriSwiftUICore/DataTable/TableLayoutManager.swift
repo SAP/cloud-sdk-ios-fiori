@@ -356,7 +356,7 @@ class TableLayoutManager: ObservableObject {
     /// - Parameter isRelativeToContentOffset: subtract ScrollView's contentOffset if it is true
     /// - Returns: Return the rect
     func rectForCell(at rowIndex: Int, columnIndex: Int, isRelativeToContentOffset: Bool = false) -> CGRect {
-        guard let layoutData = layoutData, rowIndex < layoutData.allDataItems.count, columnIndex < layoutData.allDataItems[rowIndex].count else { return .zero }
+        guard let layoutData, rowIndex < layoutData.allDataItems.count, columnIndex < layoutData.allDataItems[rowIndex].count else { return .zero }
         
         let dataItem = layoutData.allDataItems[rowIndex][columnIndex]
         let tmpScaleX = self.scaleX(size: self.size)

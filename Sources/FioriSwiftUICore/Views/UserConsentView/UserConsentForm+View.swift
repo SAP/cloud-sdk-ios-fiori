@@ -44,8 +44,8 @@ extension Fiori {
 extension UserConsentForm: View {
     public var body: some View {
         VStack {
-            makeBody()
-            toolBar
+            self.makeBody()
+            self.toolBar
         }
     }
     

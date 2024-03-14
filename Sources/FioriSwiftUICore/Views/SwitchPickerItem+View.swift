@@ -63,23 +63,23 @@ public struct FioriToggleStyle: ToggleStyle {
         HStack {
             configuration.label
                 .font(.fiori(forTextStyle: .subheadline, weight: .bold, isItalic: false, isCondensed: false))
-                .foregroundColor(labelColor)
+                .foregroundColor(self.labelColor)
     
             Spacer()
             ZStack {
-                RoundedRectangle(cornerRadius: 16 * scale, style: .circular)
-                    .stroke(configuration.isOn ? onBorderColor : offBorderColor, lineWidth: 0.5 * scale)
-                    .frame(width: 51 * scale, height: 30 * scale)
+                RoundedRectangle(cornerRadius: 16 * self.scale, style: .circular)
+                    .stroke(configuration.isOn ? self.onBorderColor : self.offBorderColor, lineWidth: 0.5 * self.scale)
+                    .frame(width: 51 * self.scale, height: 30 * self.scale)
 
-                RoundedRectangle(cornerRadius: 16 * scale, style: .circular)
-                    .fill(configuration.isOn ? onColor : offColor)
-                    .frame(width: 51 * scale, height: 30 * scale)
+                RoundedRectangle(cornerRadius: 16 * self.scale, style: .circular)
+                    .fill(configuration.isOn ? self.onColor : self.offColor)
+                    .frame(width: 51 * self.scale, height: 30 * self.scale)
                     .overlay(
                         Circle()
-                            .fill(configuration.isOn ? onThumbColor : offThumbColor)
-                            .shadow(radius: 1 * scale, x: 0, y: 1 * scale)
-                            .padding(1.5 * scale)
-                            .offset(x: configuration.isOn ? 10 * scale : -10 * scale))
+                            .fill(configuration.isOn ? self.onThumbColor : self.offThumbColor)
+                            .shadow(radius: 1 * self.scale, x: 0, y: 1 * self.scale)
+                            .padding(1.5 * self.scale)
+                            .offset(x: configuration.isOn ? 10 * self.scale : -10 * self.scale))
                     .animation(Animation.easeInOut(duration: 0.2), value: configuration.isOn)
                     .frame(minHeight: 44)
                     .onTapGesture { configuration.isOn.toggle() }
@@ -122,9 +122,9 @@ private struct TestSwitchPicker: View {
     
     var body: some View {
         VStack {
-            SwitchPickerItem(value: $v1, hint: nil)
-            SwitchPickerItem(value: $v2, hint: nil)
-            SwitchPickerItem(value: $v3, hint: nil)
+            SwitchPickerItem(value: self.$v1, hint: nil)
+            SwitchPickerItem(value: self.$v2, hint: nil)
+            SwitchPickerItem(value: self.$v3, hint: nil)
         }
     }
 }

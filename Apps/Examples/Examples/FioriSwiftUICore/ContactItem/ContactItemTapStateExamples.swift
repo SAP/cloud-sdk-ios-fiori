@@ -18,7 +18,7 @@ struct ContactItemTapStateExamples: View {
     @State var singleSelection: UUID?
     
     var body: some View {
-        List(models, selection: $singleSelection) { model in
+        List(self.models, selection: self.$singleSelection) { model in
             ContactItem(model: model)
         }
         .navigationBarItems(trailing: EditButton())

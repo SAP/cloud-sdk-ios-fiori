@@ -29,20 +29,20 @@ struct SettingsSeries: View {
             }
             
             Section(header: Text("Point")) {
-                NavigationLink(destination: SettingsPoint(point: $seriesAttr.point)) {
+                NavigationLink(destination: SettingsPoint(point: self.$seriesAttr.point)) {
                     Text("Point")
                 }
             }
             
             Section(header: Text("Line")) {
-                Text("Line Width: \(nf.string(from: NSNumber(value: Double(seriesAttr.lineWidth))) ?? "")")
-                Slider(value: $seriesAttr.lineWidth, in: 1 ... 10, step: 1)
+                Text("Line Width: \(nf.string(from: NSNumber(value: Double(self.seriesAttr.lineWidth))) ?? "")")
+                Slider(value: self.$seriesAttr.lineWidth, in: 1 ... 10, step: 1)
                 
-                Text("First Line Cap Diameter: \(nf.string(from: NSNumber(value: Double(seriesAttr.firstLineCapDiameter))) ?? "")")
-                Slider(value: $seriesAttr.firstLineCapDiameter, in: 0 ... 10, step: 1)
+                Text("First Line Cap Diameter: \(nf.string(from: NSNumber(value: Double(self.seriesAttr.firstLineCapDiameter))) ?? "")")
+                Slider(value: self.$seriesAttr.firstLineCapDiameter, in: 0 ... 10, step: 1)
 
-                Text("Last Line Cap Diameter: \(nf.string(from: NSNumber(value: Double(seriesAttr.lastLineCapDiameter))) ?? "")")
-                Slider(value: $seriesAttr.lastLineCapDiameter, in: 0 ... 10, step: 1)
+                Text("Last Line Cap Diameter: \(nf.string(from: NSNumber(value: Double(self.seriesAttr.lastLineCapDiameter))) ?? "")")
+                Slider(value: self.$seriesAttr.lastLineCapDiameter, in: 0 ... 10, step: 1)
             }
         }.navigationBarTitle("Series")
     }
@@ -55,7 +55,8 @@ struct SettingsSeriesCollection: View {
         Form {
             ForEach(0 ..< self.model.seriesAttributes.count, id: \.self) { i in
                 NavigationLink(destination:
-                    SettingsSeries(seriesAttr: self.$model.seriesAttributes[i])) {
+                    SettingsSeries(seriesAttr: self.$model.seriesAttributes[i]))
+                {
                     Text("Series \(i)")
                 }
             }

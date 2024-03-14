@@ -117,7 +117,7 @@ struct InlineEditingView: View {
         .frame(width: cellWidth, height: cellHeight)
         .border(isValid.0 ? Color.preferredColor(.tintColor) : Color.preferredColor(.negativeLabel), width: 2)
         .toolbar {
-            ToolbarItemGroup(placement: toolbarItemPlacement) {
+            ToolbarItemGroup(placement: self.toolbarItemPlacement) {
                 Spacer()
                 
                 Button {

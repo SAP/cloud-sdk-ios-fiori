@@ -8,8 +8,9 @@ struct Colors: View {
 
     var body: some View {
         List {
-            ForEach(Array(paletteVersion.supportedStyles()).sorted { $0.rawValue < $1.rawValue },
-                    id: \.self) { colorStyle in
+            ForEach(Array(self.paletteVersion.supportedStyles()).sorted { $0.rawValue < $1.rawValue },
+                    id: \.self)
+            { colorStyle in
                 ColorView(colorStyle: colorStyle)
             }
         }
@@ -31,19 +32,20 @@ struct CustomColors: View {
     
     var body: some View {
         List {
-            switch testData {
+            switch self.testData {
             case .customPalette:
                 Text("Here a custom palette provides random colors for all ColorStyles")
             case .programmatic(_), .styleSheet:
                 Text("ℹ️ primaryLabel color was overriden (other colors come from .latest palette)")
             }
-            ForEach(colorStyles,
-                    id: \.self) { colorStyle in
+            ForEach(self.colorStyles,
+                    id: \.self)
+            { colorStyle in
                 ColorViewWithNoHexDescription(colorStyle: colorStyle)
             }
         }
         .onAppear(perform: {
-            switch testData {
+            switch self.testData {
             case .customPalette(let provider):
                 StyleSheetSettings.reset()
                 ThemeManager.shared.setPalette(Palette(provider))
@@ -75,12 +77,12 @@ struct ColorView: View {
     var body: some View {
         HStack {
             Circle()
-                .fill(Color.preferredColor(colorStyle))
+                .fill(Color.preferredColor(self.colorStyle))
                 .frame(width: 50, height: 50)
                 .padding()
             VStack {
-                Text(colorStyle.rawValue)
-                Text(Color.preferredColor(colorStyle, background: backgroundColorScheme).toHex() ?? "N/A").italic()
+                Text(self.colorStyle.rawValue)
+                Text(Color.preferredColor(self.colorStyle, background: self.backgroundColorScheme).toHex() ?? "N/A").italic()
             }
         }
     }
@@ -92,11 +94,11 @@ struct ColorViewWithNoHexDescription: View {
     var body: some View {
         HStack {
             Circle()
-                .fill(Color.preferredColor(colorStyle))
+                .fill(Color.preferredColor(self.colorStyle))
                 .frame(width: 50, height: 50)
                 .padding()
             VStack {
-                Text(colorStyle.rawValue)
+                Text(self.colorStyle.rawValue)
             }
         }
     }

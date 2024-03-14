@@ -65,9 +65,9 @@ public struct ScribbleView: View {
         if self.isSaved {
             DispatchQueue.main.async {
                 if let image = getUIImage() {
-                    isSaved = false
-                    isEditing = false
-                    onSave?(image)
+                    self.isSaved = false
+                    self.isEditing = false
+                    self.onSave?(image)
                 }
             }
         }
@@ -114,7 +114,7 @@ extension ScribbleView {
         let color = UIColor.clear
         color.setFill()
 
-        if let origin = origin {
+        if let origin {
             path.apply(CGAffineTransform(translationX: -1 * origin.x, y: -1 * origin.y))
         }
 

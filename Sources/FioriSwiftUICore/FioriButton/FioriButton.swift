@@ -122,18 +122,18 @@ public struct FioriButton: View {
         }
         
         return Group {
-            if isSelectionPersistent {
+            if self.isSelectionPersistent {
                 self.fioriButtonStyle.makeBody(configuration: config)
                     .overlay(GeometryReader { proxy in
-                        Color.clear.contentShape(Rectangle()).gesture(createGesture(proxy.size))
+                        Color.clear.contentShape(Rectangle()).gesture(self.createGesture(proxy.size))
                     })
             } else {
                 Button {
-                    action?(.normal)
+                    self.action?(.normal)
                 } label: {
                     EmptyView()
                 }
-                .buttonStyle(_ButtonStyleImpl(fioriButtonStyle: fioriButtonStyle, label: label, isEnabled: isEnabled))
+                .buttonStyle(_ButtonStyleImpl(fioriButtonStyle: self.fioriButtonStyle, label: self.label, isEnabled: self.isEnabled))
             }
         }
     }
@@ -162,7 +162,7 @@ public struct FioriButton: View {
                 }
                 
                 self._state = self.state == .normal ? .selected : .normal
-                self.action?(state)
+                self.action?(self.state)
             }
     }
 }
@@ -174,9 +174,9 @@ public extension FioriButton {
     ///   - isSelectionPersistent: A boolean value determines whether the button should be persistent or not.
     ///   - action: Action triggered when tap on button.
     ///   - title: A closure that returns a title text for each state. For a button with non-persistent selection, `.normal`, `.disabled`, `.highlighted` are supported. For a button with persistent selection, use `.selected` instead of `.highlighted`.
-    init<S: StringProtocol>(isSelectionPersistent: Bool = false,
-                            action: ((UIControl.State) -> Void)? = nil,
-                            title: @escaping (UIControl.State) -> S)
+    init(isSelectionPersistent: Bool = false,
+         action: ((UIControl.State) -> Void)? = nil,
+         title: @escaping (UIControl.State) -> some StringProtocol)
     {
         self.isSelectionPersistent = isSelectionPersistent
         self.action = action
@@ -199,7 +199,7 @@ private struct _ButtonStyleImpl: ButtonStyle {
         }
         
         return ZStack {
-            fioriButtonStyle.makeBody(configuration: config)
+            self.fioriButtonStyle.makeBody(configuration: config)
             
             configuration.label.hidden()
         }

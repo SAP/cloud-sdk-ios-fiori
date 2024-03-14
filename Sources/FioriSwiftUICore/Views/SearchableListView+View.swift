@@ -32,7 +32,7 @@ extension Fiori {
 @available(iOS 15.0, macOS 12.0, *)
 extension SearchableListView: View {
     public var body: some View {
-        if let contentView = contentView {
+        if let contentView {
             contentView
                 .listStyle(.plain)
                 .environment(\.listBackground, listBackground)
@@ -72,15 +72,15 @@ public extension SearchableListView where CancelActionView == _ConditionalConten
     ///   - searchFilter: The closure to filter the `data` in searching process. Request a boolen by the element and the filter key.
     ///   - rowContent: The view builder which returns the content of each row in the list picker.
     ///   - rowBackground: The background for the list row.
-    init<Data: RandomAccessCollection, ID: Hashable, RowContent: View, RowBackground: View>(
+    init<Data: RandomAccessCollection, ID: Hashable>(
         data: Data,
         id: KeyPath<Data.Element, ID>,
         children: KeyPath<Data.Element, Data?>?,
         selection: Binding<Set<ID>>?,
         allowsMultipleSelection: Bool = false,
         searchFilter: ((Data.Element, String) -> Bool)?,
-        @ViewBuilder rowContent: @escaping (Data.Element) -> RowContent,
-        rowBackground: ((Data.Element) -> RowBackground)? = nil
+        @ViewBuilder rowContent: @escaping (Data.Element) -> some View,
+        rowBackground: ((Data.Element) -> some View)? = nil
     ) {
         self.init(data: data, id: id, children: children, selection: selection,
                   allowsMultipleSelection: allowsMultipleSelection,
@@ -112,11 +112,11 @@ public extension SearchableListView where CancelActionView == _ConditionalConten
     ///   - allowsMultipleSelection: A boolean value to indicate to allow multiple selections or not.
     ///   - searchFilter: The closure to filter the `data` in searching process. Request a boolen by the element and the filter key.
     ///   - rowBackground: The background for the list row.
-    init<RowBackground: View>(data: [String],
-                              selection: Binding<Set<String>>?,
-                              allowsMultipleSelection: Bool = false,
-                              searchFilter: ((String, String) -> Bool)?,
-                              rowBackground: ((String) -> RowBackground)? = nil)
+    init(data: [String],
+         selection: Binding<Set<String>>?,
+         allowsMultipleSelection: Bool = false,
+         searchFilter: ((String, String) -> Bool)?,
+         rowBackground: ((String) -> some View)? = nil)
     {
         self.init(data: data, id: \.self, children: nil, selection: selection,
                   searchFilter: searchFilter, rowContent: { Text($0) }, rowBackground: rowBackground,
@@ -133,14 +133,14 @@ public extension SearchableListView where CancelActionView == _ConditionalConten
     ///   - allowsMultipleSelection: A boolean value to indicate to allow multiple selections or not.
     ///   - searchFilter: The closure to filter the `data` in searching process. Request a boolen by the element and the filter key.
     ///   - rowContent: The view builder which returns the content of each row in the list picker.
-    init<Data: RandomAccessCollection, ID: Hashable, RowContent: View>(
+    init<Data: RandomAccessCollection, ID: Hashable>(
         data: Data,
         id: KeyPath<Data.Element, ID>,
         children: KeyPath<Data.Element, Data?>?,
         selection: Binding<Set<ID>>?,
         allowsMultipleSelection: Bool = false,
         searchFilter: ((Data.Element, String) -> Bool)?,
-        @ViewBuilder rowContent: @escaping (Data.Element) -> RowContent
+        @ViewBuilder rowContent: @escaping (Data.Element) -> some View
     ) {
         self.init(data: data, id: id, children: children, selection: selection, searchFilter: searchFilter,
                   rowContent: rowContent, rowBackground: { _ in Color.preferredColor(.primaryBackground) },
@@ -160,15 +160,15 @@ public extension SearchableListView where CancelActionView == _ConditionalConten
     ///   - rowBackground: The background for the list row.
     ///   - cancelAction: Customzation searchable list cancel action.
     ///   - doneAction: Customzation searchable list done action.
-    init<Data: RandomAccessCollection, ID: Hashable, RowContent: View, RowBackground: View>(
+    init<Data: RandomAccessCollection, ID: Hashable>(
         data: Data,
         id: KeyPath<Data.Element, ID>,
         children: KeyPath<Data.Element, Data?>?,
         selection: Binding<Set<ID>>?,
         allowsMultipleSelection: Bool = false,
         searchFilter: ((Data.Element, String) -> Bool)?,
-        @ViewBuilder rowContent: @escaping (Data.Element) -> RowContent,
-        rowBackground: ((Data.Element) -> RowBackground)? = nil,
+        @ViewBuilder rowContent: @escaping (Data.Element) -> some View,
+        rowBackground: ((Data.Element) -> some View)? = nil,
         cancelAction: _Action? = _Action(model: _CancelActionDefault()),
         doneAction: _Action? = _Action(model: _DoneActionDefault())
     ) {
@@ -192,7 +192,7 @@ public extension SearchableListView where CancelActionView == _ConditionalConten
         contentView = content.typeErased
     }
     
-    internal init<Data: RandomAccessCollection, ID: Hashable, RowContent: View, RowBackground: View>(
+    init<Data: RandomAccessCollection, ID: Hashable>(
         data: Data,
         id: KeyPath<Data.Element, ID>,
         children: KeyPath<Data.Element, Data?>?,
@@ -200,8 +200,8 @@ public extension SearchableListView where CancelActionView == _ConditionalConten
         isTopLevel: Bool,
         allowsMultipleSelection: Bool = false,
         searchFilter: ((Data.Element, String) -> Bool)?,
-        @ViewBuilder rowContent: @escaping (Data.Element) -> RowContent,
-        rowBackground: ((Data.Element) -> RowBackground)? = nil
+        @ViewBuilder rowContent: @escaping (Data.Element) -> some View,
+        rowBackground: ((Data.Element) -> some View)? = nil
     ) {
         self.init()
         self.isTopLevel = isTopLevel

@@ -268,7 +268,7 @@ public class ChartNumericAxisAttributes: ChartAxisAttributes {
                 formatter: NumberFormatter?,
                 abbreviatedFormatter: NumberFormatter?)
     {
-        if let formatter = formatter {
+        if let formatter {
             self._formatter = Published(initialValue: formatter)
         } else {
             let formatter = NumberFormatter()
@@ -277,9 +277,9 @@ public class ChartNumericAxisAttributes: ChartAxisAttributes {
             self._formatter = Published(initialValue: formatter)
         }
         
-        if let abbreviatedFormatter = abbreviatedFormatter {
+        if let abbreviatedFormatter {
             self._abbreviatedFormatter = Published(initialValue: abbreviatedFormatter)
-        } else if let formatter = formatter {
+        } else if let formatter {
             self._abbreviatedFormatter = Published(initialValue: formatter)
         } else {
             let formatter = NumberFormatter()

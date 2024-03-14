@@ -10,8 +10,8 @@ struct SettingColor: View {
     let colorOptions: [Color] = ColorStyle.allCases.map { .preferredColor($0) }
     
     var body: some View {
-        Picker(selection: $color, label: Text(title ?? "Select Color")) {
-            ForEach(0 ..< colorOptions.count, id: \.self) { index in
+        Picker(selection: self.$color, label: Text(self.title ?? "Select Color")) {
+            ForEach(0 ..< self.colorOptions.count, id: \.self) { index in
                 Rectangle()
                     .fill(self.colorOptions[index])
                     .tag(self.colorOptions[index])

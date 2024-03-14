@@ -15,7 +15,7 @@ struct LineLineIndicatorView: View {
             LineShape(pos1: CGPoint(x: 4.5,
                                     y: 0),
                       pos2: CGPoint(x: 4.5,
-                                    y: max(0, height - 8)))
+                                    y: max(0, self.height - 8)))
                 .stroke(selectionIndicatorColor, lineWidth: 1)
 
             SelectionAnchorShape()

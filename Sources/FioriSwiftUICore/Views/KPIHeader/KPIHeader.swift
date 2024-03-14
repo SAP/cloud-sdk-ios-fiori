@@ -9,7 +9,7 @@ public struct KPIHeader<Content: View>: View {
     }
     
     public var body: some View {
-        content
+        self.content
     }
 }
 

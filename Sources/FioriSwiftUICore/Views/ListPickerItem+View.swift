@@ -54,7 +54,7 @@ public extension ListPickerItem {
     ) {
         self.init(key: key, value: value)
         
-        if let configuration = configuration {
+        if let configuration {
             destinationView = configuration.destinationView
         }
     }
@@ -75,30 +75,30 @@ public struct ListPickerItemConfiguration {
     ///   - rowContent: The view builder which returns the content of each row in the list picker.
     ///   - rowBackground: `listRowBackground` for each row.
     @available(iOS 15.0, macOS 12.0, *)
-    public init<Data, ID, RowContent, RowBackground>(
+    public init<Data, ID>(
         _ data: Data,
         id: KeyPath<Data.Element, ID>,
         children: KeyPath<Data.Element, Data?>?,
         selection: Binding<Set<ID>>?,
         allowsMultipleSelection: Bool = true,
         searchFilter: ((Data.Element, String) -> Bool)?,
-        @ViewBuilder rowContent: @escaping (Data.Element) -> RowContent,
-        rowBackground: ((Data.Element) -> RowBackground)? = nil
+        @ViewBuilder rowContent: @escaping (Data.Element) -> some View,
+        rowBackground: ((Data.Element) -> some View)? = nil
     )
-        where Data: RandomAccessCollection, RowContent: View, ID: Hashable, RowBackground: View
+        where Data: RandomAccessCollection, ID: Hashable
     {
         self.init(data, id: id, children: children, selection: selection, isTopLevel: true, allowsMultipleSelection: allowsMultipleSelection, searchFilter: searchFilter, rowContent: rowContent, rowBackground: rowBackground)
     }
     
     @available(iOS 15.0, macOS 12.0, *)
-    public init<Data, ID, RowContent>(_ data: Data,
-                                      id: KeyPath<Data.Element, ID>,
-                                      children: KeyPath<Data.Element, Data?>?,
-                                      selection: Binding<Set<ID>>?,
-                                      allowsMultipleSelection: Bool = true,
-                                      searchFilter: ((Data.Element, String) -> Bool)?,
-                                      @ViewBuilder rowContent: @escaping (Data.Element) -> RowContent)
-        where Data: RandomAccessCollection, RowContent: View, ID: Hashable
+    public init<Data, ID>(_ data: Data,
+                          id: KeyPath<Data.Element, ID>,
+                          children: KeyPath<Data.Element, Data?>?,
+                          selection: Binding<Set<ID>>?,
+                          allowsMultipleSelection: Bool = true,
+                          searchFilter: ((Data.Element, String) -> Bool)?,
+                          @ViewBuilder rowContent: @escaping (Data.Element) -> some View)
+        where Data: RandomAccessCollection, ID: Hashable
     {
         self.init(data, id: id, children: children, selection: selection, isTopLevel: true, allowsMultipleSelection: allowsMultipleSelection, searchFilter: searchFilter, rowContent: rowContent, rowBackground: { _ in Color.preferredColor(.primaryBackground) })
     }
@@ -122,7 +122,7 @@ public struct ListPickerItemConfiguration {
                 let row = rowContent(element)
                 let id_value = element[keyPath: id]
                 
-                if let children = children, let childrenData = element[keyPath: children] {
+                if let children, let childrenData = element[keyPath: children] {
                     ListPickerItem<RowContent, EmptyView>(key: {
                         row
                     }, value: {
@@ -141,11 +141,11 @@ public struct ListPickerItemConfiguration {
     ///   - children: The key path to the optional property of a data element whose value indicates the children of that element.
     ///   - selection: A binding to a set which stores the selected items.
     ///   - rowContent: The view builder which returns the content of each row in the list picker.
-    public init<Data, ID, RowContent>(_ data: Data,
-                                      children: KeyPath<Data.Element, Data?>?,
-                                      selection: Binding<Set<ID>>?,
-                                      @ViewBuilder rowContent: @escaping (Data.Element) -> RowContent)
-        where Data: RandomAccessCollection, RowContent: View, Data.Element: Identifiable, ID == Data.Element.ID
+    public init<Data, ID>(_ data: Data,
+                          children: KeyPath<Data.Element, Data?>?,
+                          selection: Binding<Set<ID>>?,
+                          @ViewBuilder rowContent: @escaping (Data.Element) -> some View)
+        where Data: RandomAccessCollection, Data.Element: Identifiable, ID == Data.Element.ID
     {
         let id = \Data.Element.id
         self.init(data, id: id, children: children, selection: selection, rowContent: rowContent)
@@ -164,9 +164,9 @@ public extension ListPickerItemConfiguration {
     }
 }
 
-internal extension ListPickerItemConfiguration {
+extension ListPickerItemConfiguration {
     @available(iOS 15.0, macOS 12.0, *)
-    init<Data, ID, RowContent, RowBackground>(
+    init<Data, ID>(
         _ data: Data,
         id: KeyPath<Data.Element, ID>,
         children: KeyPath<Data.Element, Data?>?,
@@ -174,10 +174,10 @@ internal extension ListPickerItemConfiguration {
         isTopLevel: Bool,
         allowsMultipleSelection: Bool,
         searchFilter: ((Data.Element, String) -> Bool)?,
-        @ViewBuilder rowContent: @escaping (Data.Element) -> RowContent,
-        rowBackground: ((Data.Element) -> RowBackground)? = nil
+        @ViewBuilder rowContent: @escaping (Data.Element) -> some View,
+        rowBackground: ((Data.Element) -> some View)? = nil
     )
-        where Data: RandomAccessCollection, RowContent: View, ID: Hashable, RowBackground: View
+        where Data: RandomAccessCollection, ID: Hashable
     {
         self.destinationView = SearchableListView(data: data,
                                                   id: id,
@@ -208,10 +208,10 @@ extension ListPickerItem {
         }
         
         var body: some View {
-            let isSelected = selection.contains(id)
+            let isSelected = self.selection.contains(self.id)
             
             HStack {
-                content
+                self.content
                 
                 Spacer()
                 
@@ -223,12 +223,12 @@ extension ListPickerItem {
             .contentShape(Rectangle())
             .onTapGesture {
                 if isSelected {
-                    selection.remove(id)
+                    self.selection.remove(self.id)
                 } else {
-                    if !allowsMultipleSelection {
-                        selection.removeAll()
+                    if !self.allowsMultipleSelection {
+                        self.selection.removeAll()
                     }
-                    selection.insert(id)
+                    self.selection.insert(self.id)
                 }
             }
         }

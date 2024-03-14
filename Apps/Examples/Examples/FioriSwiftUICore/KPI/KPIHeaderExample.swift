@@ -73,22 +73,22 @@ struct KPIHeaderExample: View {
                     KPIProgressItem(data: .percent(0.88), subtitle: "Completed")
                     KPIProgressItem(data: .percent(0.66), footnote: "Completed")
                 }
-                KPIHeader(data)
+                KPIHeader(self.data)
                 KPIHeader {
-                    createItem(120)
-                    createItem(200)
-                    createItem(400)
-                    createItem(200)
+                    self.createItem(120)
+                    self.createItem(200)
+                    self.createItem(400)
+                    self.createItem(200)
                 }
                 .frame(height: 100)
                 Text("Group may break the max count limitation and pages organization")
                 KPIHeader {
-                    createItem(120)
+                    self.createItem(120)
                     Group {
-                        createItem(200)
-                        createItem(400)
-                        createItem(200)
-                        createItem(222)
+                        self.createItem(200)
+                        self.createItem(400)
+                        self.createItem(200)
+                        self.createItem(222)
                     }
                 }
                 .frame(height: 100)

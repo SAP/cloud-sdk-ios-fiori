@@ -12,7 +12,7 @@ struct MicroChartDataItem: Identifiable {
         self.value = value
         self.displayValue = displayValue
         self.label = label
-        if let color = color {
+        if let color {
             self.color = color
         } else {
             self.color = .preferredColor(.secondaryLabel)

@@ -13,18 +13,18 @@ struct NavigationBarPopover: View {
             Text("Standard title font & color")
             Text("Long press on navigation bar can show full title")
         }
-        .navigationTitle(title)
+        .navigationTitle(self.title)
         .toolbar {
             ToolbarItem(placement: .principal) {
                 VStack {
-                    Text(title)
+                    Text(self.title)
                         .font(.fiori(forTextStyle: .subheadline)).fontWeight(.black)
                     HStack {
                         Image(systemName: "lock")
-                        Text(subtitle)
+                        Text(self.subtitle)
                     }.font(.fiori(forTextStyle: .caption1))
                 }
-                .popover(isPresented: $isPopoverPresented, content: {
+                .popover(isPresented: self.$isPopoverPresented, content: {
                     if #available(iOS 16.4, *) {
                         VStack {
                             Text(title)
@@ -41,36 +41,36 @@ struct NavigationBarPopover: View {
                     }
                 })
                 .onLongPressGesture {
-                    isPopoverPresented.toggle()
+                    self.isPopoverPresented.toggle()
                 }
             }
             ToolbarItem(placement: .topBarTrailing) {
                 HStack {
                     Menu {
                         Button(action: {
-                            title = "Title goes here"
-                            subtitle = "Subtitle goes here"
+                            self.title = "Title goes here"
+                            self.subtitle = "Subtitle goes here"
                         }, label: {
                             Text("Shot Title & Short Subtitle")
                         })
                         
                         Button(action: {
-                            title = "Title with a very long long text wraps up to two lines"
-                            subtitle = "Subtitle goes here"
+                            self.title = "Title with a very long long text wraps up to two lines"
+                            self.subtitle = "Subtitle goes here"
                         }, label: {
                             Text("Long Title & Short Subtitle")
                         })
                         
                         Button(action: {
-                            title = "Title goes here"
-                            subtitle = "Subtitle with a very long long long long long long text wraps up to two lines"
+                            self.title = "Title goes here"
+                            self.subtitle = "Subtitle with a very long long long long long long text wraps up to two lines"
                         }, label: {
                             Text("Shot Title & Long Subtitle")
                         })
                         
                         Button(action: {
-                            title = "Title with a very long long text wraps up to two lines"
-                            subtitle = "Subtitle with a very long long long long long long text wraps up to two lines"
+                            self.title = "Title with a very long long text wraps up to two lines"
+                            self.subtitle = "Subtitle with a very long long long long long long text wraps up to two lines"
                         }, label: {
                             Text("Long Title & Long Subtitle")
                         })
