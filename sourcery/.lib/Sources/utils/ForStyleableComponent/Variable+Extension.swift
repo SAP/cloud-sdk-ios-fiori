@@ -3,11 +3,11 @@ import SourceryRuntime
 
 extension Variable {
     var defaultValue: String {
-        if isConvertedToBinding {
+        if isBinding {
             return ""
         } else {
             if let defaultValue = annotations.defaultValue {
-                return " = \(defaultValue)"
+                return "\(defaultValue)"
             }
             
             if isOptional {
@@ -26,6 +26,12 @@ extension Variable {
     
     var shouldHaveIntrinsicDefaultValue: Bool {
         isOptional || isArray
+    }
+}
+
+extension Variable {
+    var isBinding: Bool {
+        annotations.isBinding
     }
 }
 

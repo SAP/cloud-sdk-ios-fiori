@@ -30,10 +30,10 @@ public extension Status {
 
 extension Status: View {
     public var body: some View {
-        if _shouldApplyDefaultStyle {
+        if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            style.resolve(configuration: .init(status: .init(self.status))).typeErased
+            self.style.resolve(configuration: .init(status: .init(self.status))).typeErased
                 .transformEnvironment(\.statusStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()

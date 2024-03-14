@@ -39,4 +39,8 @@ extension Dictionary where Key == String, Value == NSObject {
     var isCompositeComponent: Bool {
         self["CompositeComponent"] != nil ? true : false
     }
+    
+    var isInternalComponent: Bool {
+        self["InternalComponent"] != nil ? true : false
+    }
 }

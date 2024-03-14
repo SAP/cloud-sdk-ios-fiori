@@ -43,10 +43,10 @@ public extension LabelItem {
 
 extension LabelItem: View {
     public var body: some View {
-        if _shouldApplyDefaultStyle {
+        if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            style.resolve(configuration: .init(icon: .init(self.icon), title: .init(self.title), alignment: self.alignment)).typeErased
+            self.style.resolve(configuration: .init(icon: .init(self.icon), title: .init(self.title), alignment: self.alignment)).typeErased
                 .transformEnvironment(\.labelItemStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()

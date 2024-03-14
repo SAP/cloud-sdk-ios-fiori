@@ -30,10 +30,10 @@ public extension HeaderAction {
 
 extension HeaderAction: View {
     public var body: some View {
-        if _shouldApplyDefaultStyle {
+        if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            style.resolve(configuration: .init(headerAction: .init(self.headerAction))).typeErased
+            self.style.resolve(configuration: .init(headerAction: .init(self.headerAction))).typeErased
                 .transformEnvironment(\.headerActionStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()

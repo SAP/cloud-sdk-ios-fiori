@@ -12,7 +12,7 @@ import SwiftUI
  */
 
 // Base Layout style
-public struct DemoViewBaseStyle: DemoViewStyle {
+struct DemoViewBaseStyle: DemoViewStyle {
     public func makeBody(_ configuration: DemoViewConfiguration) -> some View {
         // Add default layout here
         VStack(spacing: 10) {
@@ -66,7 +66,7 @@ extension DemoViewFioriStyle {
 }
 
 /// Show contents in a scrollable horizontal stack
-public struct DemoViewHorizontalStyle: DemoViewStyle {
+struct DemoViewHorizontalStyle: DemoViewStyle {
     public func makeBody(_ configuration: DemoViewConfiguration) -> some View {
         HStack(spacing: 10) {
             configuration.title
@@ -80,7 +80,7 @@ public struct DemoViewHorizontalStyle: DemoViewStyle {
 }
 
 /// Card style
-public struct DemoViewCardStyle: DemoViewStyle {
+struct DemoViewCardStyle: DemoViewStyle {
     public func makeBody(_ configuration: DemoViewConfiguration) -> some View {
         DemoView(configuration)
             .padding()
@@ -91,13 +91,13 @@ public struct DemoViewCardStyle: DemoViewStyle {
     }
 }
 
-public extension DemoViewStyle where Self == DemoViewHorizontalStyle {
+extension DemoViewStyle where Self == DemoViewHorizontalStyle {
     static var horizontal: Self {
         DemoViewHorizontalStyle()
     }
 }
 
-public extension DemoViewStyle where Self == DemoViewCardStyle {
+extension DemoViewStyle where Self == DemoViewCardStyle {
     static var card: Self {
         DemoViewCardStyle()
     }

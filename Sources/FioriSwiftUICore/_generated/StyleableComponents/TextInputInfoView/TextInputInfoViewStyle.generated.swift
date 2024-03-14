@@ -3,7 +3,7 @@
 import Foundation
 import SwiftUI
 
-public protocol TextInputInfoViewStyle: DynamicProperty {
+protocol TextInputInfoViewStyle: DynamicProperty {
     associatedtype Body: View
 
     func makeBody(_ configuration: TextInputInfoViewConfiguration) -> Body
@@ -21,7 +21,7 @@ struct AnyTextInputInfoViewStyle: TextInputInfoViewStyle {
     }
 }
     
-public struct TextInputInfoViewConfiguration {
+struct TextInputInfoViewConfiguration {
     public let icon: Icon
     public let description: Description
     public let counter: Counter
@@ -31,7 +31,7 @@ public struct TextInputInfoViewConfiguration {
     public typealias Counter = ConfigurationViewWrapper
 }
     
-public struct TextInputInfoViewFioriStyle: TextInputInfoViewStyle {
+struct TextInputInfoViewFioriStyle: TextInputInfoViewStyle {
     public func makeBody(_ configuration: TextInputInfoViewConfiguration) -> some View {
         TextInputInfoView(configuration)
             .iconStyle(IconFioriStyle())

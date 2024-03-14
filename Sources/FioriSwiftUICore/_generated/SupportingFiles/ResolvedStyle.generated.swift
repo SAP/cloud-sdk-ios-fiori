@@ -9,7 +9,7 @@ struct ResolvedActionStyle<Style: ActionStyle>: View {
     let style: Style
     let configuration: ActionConfiguration
     var body: some View {
-        style.makeBody(configuration)
+        self.style.makeBody(self.configuration)
     }
 }
 
@@ -25,7 +25,7 @@ struct ResolvedAvatarsStyle<Style: AvatarsStyle>: View {
     let style: Style
     let configuration: AvatarsConfiguration
     var body: some View {
-        style.makeBody(configuration)
+        self.style.makeBody(self.configuration)
     }
 }
 
@@ -41,7 +41,7 @@ struct ResolvedCardBodyStyle<Style: CardBodyStyle>: View {
     let style: Style
     let configuration: CardBodyConfiguration
     var body: some View {
-        style.makeBody(configuration)
+        self.style.makeBody(self.configuration)
     }
 }
 
@@ -57,7 +57,7 @@ struct ResolvedCardStyle<Style: CardStyle>: View {
     let style: Style
     let configuration: CardConfiguration
     var body: some View {
-        style.makeBody(configuration)
+        self.style.makeBody(self.configuration)
     }
 }
 
@@ -73,7 +73,7 @@ struct ResolvedCardExtHeaderStyle<Style: CardExtHeaderStyle>: View {
     let style: Style
     let configuration: CardExtHeaderConfiguration
     var body: some View {
-        style.makeBody(configuration)
+        self.style.makeBody(self.configuration)
     }
 }
 
@@ -89,7 +89,7 @@ struct ResolvedCardFooterStyle<Style: CardFooterStyle>: View {
     let style: Style
     let configuration: CardFooterConfiguration
     var body: some View {
-        style.makeBody(configuration)
+        self.style.makeBody(self.configuration)
     }
 }
 
@@ -105,7 +105,7 @@ struct ResolvedCardHeaderStyle<Style: CardHeaderStyle>: View {
     let style: Style
     let configuration: CardHeaderConfiguration
     var body: some View {
-        style.makeBody(configuration)
+        self.style.makeBody(self.configuration)
     }
 }
 
@@ -121,7 +121,7 @@ struct ResolvedCardMainHeaderStyle<Style: CardMainHeaderStyle>: View {
     let style: Style
     let configuration: CardMainHeaderConfiguration
     var body: some View {
-        style.makeBody(configuration)
+        self.style.makeBody(self.configuration)
     }
 }
 
@@ -137,7 +137,7 @@ struct ResolvedCardMediaStyle<Style: CardMediaStyle>: View {
     let style: Style
     let configuration: CardMediaConfiguration
     var body: some View {
-        style.makeBody(configuration)
+        self.style.makeBody(self.configuration)
     }
 }
 
@@ -153,7 +153,7 @@ struct ResolvedCounterStyle<Style: CounterStyle>: View {
     let style: Style
     let configuration: CounterConfiguration
     var body: some View {
-        style.makeBody(configuration)
+        self.style.makeBody(self.configuration)
     }
 }
 
@@ -169,7 +169,7 @@ struct ResolvedDemoViewStyle<Style: DemoViewStyle>: View {
     let style: Style
     let configuration: DemoViewConfiguration
     var body: some View {
-        style.makeBody(configuration)
+        self.style.makeBody(self.configuration)
     }
 }
 
@@ -185,7 +185,7 @@ struct ResolvedDescriptionStyle<Style: DescriptionStyle>: View {
     let style: Style
     let configuration: DescriptionConfiguration
     var body: some View {
-        style.makeBody(configuration)
+        self.style.makeBody(self.configuration)
     }
 }
 
@@ -201,7 +201,7 @@ struct ResolvedDetailImageStyle<Style: DetailImageStyle>: View {
     let style: Style
     let configuration: DetailImageConfiguration
     var body: some View {
-        style.makeBody(configuration)
+        self.style.makeBody(self.configuration)
     }
 }
 
@@ -217,7 +217,7 @@ struct ResolvedFootnoteStyle<Style: FootnoteStyle>: View {
     let style: Style
     let configuration: FootnoteConfiguration
     var body: some View {
-        style.makeBody(configuration)
+        self.style.makeBody(self.configuration)
     }
 }
 
@@ -233,7 +233,7 @@ struct ResolvedFootnoteIconsStyle<Style: FootnoteIconsStyle>: View {
     let style: Style
     let configuration: FootnoteIconsConfiguration
     var body: some View {
-        style.makeBody(configuration)
+        self.style.makeBody(self.configuration)
     }
 }
 
@@ -249,7 +249,7 @@ struct ResolvedFormViewStyle<Style: FormViewStyle>: View {
     let style: Style
     let configuration: FormViewConfiguration
     var body: some View {
-        style.makeBody(configuration)
+        self.style.makeBody(self.configuration)
     }
 }
 
@@ -265,7 +265,7 @@ struct ResolvedHeaderActionStyle<Style: HeaderActionStyle>: View {
     let style: Style
     let configuration: HeaderActionConfiguration
     var body: some View {
-        style.makeBody(configuration)
+        self.style.makeBody(self.configuration)
     }
 }
 
@@ -281,7 +281,7 @@ struct ResolvedIconStyle<Style: IconStyle>: View {
     let style: Style
     let configuration: IconConfiguration
     var body: some View {
-        style.makeBody(configuration)
+        self.style.makeBody(self.configuration)
     }
 }
 
@@ -297,7 +297,7 @@ struct ResolvedIconsStyle<Style: IconsStyle>: View {
     let style: Style
     let configuration: IconsConfiguration
     var body: some View {
-        style.makeBody(configuration)
+        self.style.makeBody(self.configuration)
     }
 }
 
@@ -313,7 +313,7 @@ struct ResolvedIllustratedMessageStyle<Style: IllustratedMessageStyle>: View {
     let style: Style
     let configuration: IllustratedMessageConfiguration
     var body: some View {
-        style.makeBody(configuration)
+        self.style.makeBody(self.configuration)
     }
 }
 
@@ -329,7 +329,7 @@ struct ResolvedInformationViewStyle<Style: InformationViewStyle>: View {
     let style: Style
     let configuration: InformationViewConfiguration
     var body: some View {
-        style.makeBody(configuration)
+        self.style.makeBody(self.configuration)
     }
 }
 
@@ -345,7 +345,7 @@ struct ResolvedKeyValueFormViewStyle<Style: KeyValueFormViewStyle>: View {
     let style: Style
     let configuration: KeyValueFormViewConfiguration
     var body: some View {
-        style.makeBody(configuration)
+        self.style.makeBody(self.configuration)
     }
 }
 
@@ -361,7 +361,7 @@ struct ResolvedKpiCaptionStyle<Style: KpiCaptionStyle>: View {
     let style: Style
     let configuration: KpiCaptionConfiguration
     var body: some View {
-        style.makeBody(configuration)
+        self.style.makeBody(self.configuration)
     }
 }
 
@@ -377,7 +377,7 @@ struct ResolvedKpiStyle<Style: KpiStyle>: View {
     let style: Style
     let configuration: KpiConfiguration
     var body: some View {
-        style.makeBody(configuration)
+        self.style.makeBody(self.configuration)
     }
 }
 
@@ -393,7 +393,7 @@ struct ResolvedLabelItemStyle<Style: LabelItemStyle>: View {
     let style: Style
     let configuration: LabelItemConfiguration
     var body: some View {
-        style.makeBody(configuration)
+        self.style.makeBody(self.configuration)
     }
 }
 
@@ -409,7 +409,7 @@ struct ResolvedLinearProgressIndicatorStyle<Style: LinearProgressIndicatorStyle>
     let style: Style
     let configuration: LinearProgressIndicatorConfiguration
     var body: some View {
-        style.makeBody(configuration)
+        self.style.makeBody(self.configuration)
     }
 }
 
@@ -425,7 +425,7 @@ struct ResolvedLinearProgressIndicatorViewStyle<Style: LinearProgressIndicatorVi
     let style: Style
     let configuration: LinearProgressIndicatorViewConfiguration
     var body: some View {
-        style.makeBody(configuration)
+        self.style.makeBody(self.configuration)
     }
 }
 
@@ -441,7 +441,7 @@ struct ResolvedMediaImageStyle<Style: MediaImageStyle>: View {
     let style: Style
     let configuration: MediaImageConfiguration
     var body: some View {
-        style.makeBody(configuration)
+        self.style.makeBody(self.configuration)
     }
 }
 
@@ -457,7 +457,7 @@ struct ResolvedNoteFormViewStyle<Style: NoteFormViewStyle>: View {
     let style: Style
     let configuration: NoteFormViewConfiguration
     var body: some View {
-        style.makeBody(configuration)
+        self.style.makeBody(self.configuration)
     }
 }
 
@@ -473,7 +473,7 @@ struct ResolvedObjectItemStyle<Style: ObjectItemStyle>: View {
     let style: Style
     let configuration: ObjectItemConfiguration
     var body: some View {
-        style.makeBody(configuration)
+        self.style.makeBody(self.configuration)
     }
 }
 
@@ -489,7 +489,7 @@ struct ResolvedPlaceholderStyle<Style: PlaceholderStyle>: View {
     let style: Style
     let configuration: PlaceholderConfiguration
     var body: some View {
-        style.makeBody(configuration)
+        self.style.makeBody(self.configuration)
     }
 }
 
@@ -505,7 +505,7 @@ struct ResolvedPlaceholderTextEditorStyle<Style: PlaceholderTextEditorStyle>: Vi
     let style: Style
     let configuration: PlaceholderTextEditorConfiguration
     var body: some View {
-        style.makeBody(configuration)
+        self.style.makeBody(self.configuration)
     }
 }
 
@@ -521,7 +521,7 @@ struct ResolvedRow1Style<Style: Row1Style>: View {
     let style: Style
     let configuration: Row1Configuration
     var body: some View {
-        style.makeBody(configuration)
+        self.style.makeBody(self.configuration)
     }
 }
 
@@ -537,7 +537,7 @@ struct ResolvedRow2Style<Style: Row2Style>: View {
     let style: Style
     let configuration: Row2Configuration
     var body: some View {
-        style.makeBody(configuration)
+        self.style.makeBody(self.configuration)
     }
 }
 
@@ -553,7 +553,7 @@ struct ResolvedRow3Style<Style: Row3Style>: View {
     let style: Style
     let configuration: Row3Configuration
     var body: some View {
-        style.makeBody(configuration)
+        self.style.makeBody(self.configuration)
     }
 }
 
@@ -569,7 +569,7 @@ struct ResolvedSecondaryActionStyle<Style: SecondaryActionStyle>: View {
     let style: Style
     let configuration: SecondaryActionConfiguration
     var body: some View {
-        style.makeBody(configuration)
+        self.style.makeBody(self.configuration)
     }
 }
 
@@ -585,7 +585,7 @@ struct ResolvedStatusStyle<Style: StatusStyle>: View {
     let style: Style
     let configuration: StatusConfiguration
     var body: some View {
-        style.makeBody(configuration)
+        self.style.makeBody(self.configuration)
     }
 }
 
@@ -601,7 +601,7 @@ struct ResolvedSubstatusStyle<Style: SubstatusStyle>: View {
     let style: Style
     let configuration: SubstatusConfiguration
     var body: some View {
-        style.makeBody(configuration)
+        self.style.makeBody(self.configuration)
     }
 }
 
@@ -617,7 +617,7 @@ struct ResolvedSubtitleStyle<Style: SubtitleStyle>: View {
     let style: Style
     let configuration: SubtitleConfiguration
     var body: some View {
-        style.makeBody(configuration)
+        self.style.makeBody(self.configuration)
     }
 }
 
@@ -633,7 +633,7 @@ struct ResolvedSwitchStyle<Style: SwitchStyle>: View {
     let style: Style
     let configuration: SwitchConfiguration
     var body: some View {
-        style.makeBody(configuration)
+        self.style.makeBody(self.configuration)
     }
 }
 
@@ -649,7 +649,7 @@ struct ResolvedTagsStyle<Style: TagsStyle>: View {
     let style: Style
     let configuration: TagsConfiguration
     var body: some View {
-        style.makeBody(configuration)
+        self.style.makeBody(self.configuration)
     }
 }
 
@@ -665,7 +665,7 @@ struct ResolvedTextInputInfoViewStyle<Style: TextInputInfoViewStyle>: View {
     let style: Style
     let configuration: TextInputInfoViewConfiguration
     var body: some View {
-        style.makeBody(configuration)
+        self.style.makeBody(self.configuration)
     }
 }
 
@@ -681,7 +681,7 @@ struct ResolvedTextViewStyle<Style: TextViewStyle>: View {
     let style: Style
     let configuration: TextViewConfiguration
     var body: some View {
-        style.makeBody(configuration)
+        self.style.makeBody(self.configuration)
     }
 }
 
@@ -697,7 +697,7 @@ struct ResolvedTitleStyle<Style: TitleStyle>: View {
     let style: Style
     let configuration: TitleConfiguration
     var body: some View {
-        style.makeBody(configuration)
+        self.style.makeBody(self.configuration)
     }
 }
 
