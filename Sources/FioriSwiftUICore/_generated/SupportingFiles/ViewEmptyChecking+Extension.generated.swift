@@ -160,11 +160,10 @@ extension Icons: _ViewEmptyChecking {
 
 extension IllustratedMessage: _ViewEmptyChecking {
     public var isEmpty: Bool {
-        detailImage.isEmpty ||
-            title.isEmpty ||
-            description.isEmpty ||
-            action.isEmpty ||
-            detailImageSize == nil
+        detailImage.isEmpty &&
+            title.isEmpty &&
+            description.isEmpty &&
+            action.isEmpty
     }
 }
 

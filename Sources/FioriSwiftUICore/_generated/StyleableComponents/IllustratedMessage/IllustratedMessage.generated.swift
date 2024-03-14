@@ -8,7 +8,7 @@ public struct IllustratedMessage {
     let title: any View
     let description: any View
     let action: any View
-    let detailImageSize: DetailImageSize?
+    let detailImageSize: IllustratedMessage.DetailImageSize?
 
     @Environment(\.illustratedMessageStyle) var style
 
@@ -18,7 +18,7 @@ public struct IllustratedMessage {
                 @ViewBuilder title: () -> any View,
                 @ViewBuilder description: () -> any View = { EmptyView() },
                 @ViewBuilder action: () -> any View = { EmptyView() },
-                detailImageSize: DetailImageSize? = nil)
+                detailImageSize: IllustratedMessage.DetailImageSize? = nil)
     {
         self.detailImage = DetailImage { detailImage() }
         self.title = Title { title() }
@@ -33,7 +33,7 @@ public extension IllustratedMessage {
          title: AttributedString,
          description: AttributedString? = nil,
          action: FioriButton? = nil,
-         detailImageSize: DetailImageSize? = nil)
+         detailImageSize: IllustratedMessage.DetailImageSize? = nil)
     {
         self.init(detailImage: { detailImage }, title: { Text(title) }, description: { OptionalText(description) }, action: { action }, detailImageSize: detailImageSize)
     }

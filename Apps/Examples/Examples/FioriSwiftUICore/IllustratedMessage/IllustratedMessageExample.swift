@@ -1,3 +1,8 @@
+🌱 Cloning SwiftFormat 0.53.4
+🌱 Resolving package
+🌱 Building product swiftformat
+🌱 Installed SwiftFormat 0.53.4
+🌱 Running swiftformat 0.53.4...
 import FioriSwiftUICore
 import SwiftUI
 
@@ -15,7 +20,7 @@ let sizeOptions: [SizeOption] = [.init(100), .init(200), .init(300), .init(500),
 struct IllustratedMessageExample: View {
     @State var selectedWidth: CGFloat = sizeOptions[2].value
     @State var selectedHeight: CGFloat = sizeOptions[1].value
-    @State var selectedDetailImageSize: DetailImageSize?
+    @State var selectedDetailImageSize: IllustratedMessage.DetailImageSize?
     
     var body: some View {
         HStack {
@@ -33,12 +38,12 @@ struct IllustratedMessageExample: View {
             }
             Text("Image Size:")
             Picker("Image Size", selection: self.$selectedDetailImageSize) {
-                Text("No Selection").tag(DetailImageSize?(nil))
-                Text("Extra Small").tag(DetailImageSize?(.extraSmall))
-                Text("Small").tag(DetailImageSize?(.small))
-                Text("Medium").tag(DetailImageSize?(.medium))
-                Text("Large").tag(DetailImageSize?(.large))
-                Text("Extra Large").tag(DetailImageSize?(.extraLarge))
+                Text("No Selection").tag(IllustratedMessage.DetailImageSize?(nil))
+                Text("Extra Small").tag(IllustratedMessage.DetailImageSize?(.extraSmall))
+                Text("Small").tag(IllustratedMessage.DetailImageSize?(.small))
+                Text("Medium").tag(IllustratedMessage.DetailImageSize?(.medium))
+                Text("Large").tag(IllustratedMessage.DetailImageSize?(.large))
+                Text("Extra Large").tag(IllustratedMessage.DetailImageSize?(.extraLarge))
             }
         }
         List {
