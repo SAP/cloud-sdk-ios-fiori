@@ -4,7 +4,7 @@ struct BarChart: View {
     @ObservedObject var model: ChartModel
     
     var body: some View {
-        XYAxisChart(model: model,
+        XYAxisChart(model: self.model,
                     chartContext: BarChartContext(),
                     chartView: ColumnView(),
                     indicatorView: EmptyView())
@@ -58,7 +58,7 @@ class BarChartContext: ColumnChartContext {
         let tmpScaleX = scaleX(model, plotViewSize: plotViewSize)
         let tmpStartPosition = startPosition(model, plotViewSize: plotViewSize)
         let startX = tmpStartPosition.x * tmpScaleX * rect.size.width
-        let labels = tmpLabels.compactMap { (label) -> AxisTitle? in
+        let labels = tmpLabels.compactMap { label -> AxisTitle? in
             let x = label.pos.x * tmpScaleX * rect.size.width - startX
             if x >= 0, x <= rect.size.width + 0.1 {
                 return label

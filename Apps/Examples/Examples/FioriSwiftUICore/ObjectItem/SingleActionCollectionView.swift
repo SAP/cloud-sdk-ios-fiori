@@ -75,7 +75,7 @@ struct SingleActionCollectionView: View {
         return ScrollView {
             LazyVGrid(columns: columns) {
                 ForEach(0 ..< 4) { _ in
-                    getObjectItem()
+                    self.getObjectItem()
                 }
             }
             .padding(EdgeInsets(top: 8, leading: 32, bottom: 8, trailing: 32))

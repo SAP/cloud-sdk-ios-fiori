@@ -65,8 +65,8 @@ struct TextInputInfoViewModifier: ViewModifier {
         VStack {
             content
             
-            if isPresented {
-                TextInputInfoView(icon: icon, description: description, counter: counter)
+            if self.isPresented {
+                TextInputInfoView(icon: self.icon, description: self.description, counter: self.counter)
             }
         }
     }

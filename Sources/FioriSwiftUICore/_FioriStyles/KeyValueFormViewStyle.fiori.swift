@@ -30,7 +30,7 @@ extension KeyValueFormViewFioriStyle {
             KeyValueFormView(configuration)
                 .titleStyle { titleConf in
                     Title(titleConf)
-                        .foregroundStyle(getTitleColor(configuration))
+                        .foregroundStyle(self.getTitleColor(configuration))
                         .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
                 }
                 .noteFormViewStyle(FioriSwiftUICore.NoteFormViewFioriStyle.ContentFioriStyle())

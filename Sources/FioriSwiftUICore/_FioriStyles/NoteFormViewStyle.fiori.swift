@@ -18,8 +18,8 @@ public struct NoteFormViewBaseStyle: NoteFormViewStyle {
     public func makeBody(_ configuration: NoteFormViewConfiguration) -> some View {
         VStack(alignment: .leading) {
             configuration._placeholderTextEditor
-                .focused($isFocused)
-                .disabled(getDisabled(configuration))
+                .focused(self.$isFocused)
+                .disabled(self.getDisabled(configuration))
         }
         .textInputInfoView(isPresented: Binding(get: { isInfoViewNeeded(configuration) }, set: { _ in }), description: self.getInfoString(configuration, isFocused: self.isFocused), counter: self.getCounterString(configuration, isFocused: self.isFocused))
     }
@@ -95,9 +95,9 @@ extension NoteFormViewFioriStyle {
                 .foregroundStyle(self.getTextColor(configuration))
                 .font(.fiori(forTextStyle: .body))
                 .accentColor(self.getCursorColor(configuration))
-                .focused($isFocused)
+                .focused(self.$isFocused)
                 .textInputInfoViewStyle { config in
-                    let isError = isErrorStyle(configuration)
+                    let isError = self.isErrorStyle(configuration)
                     let style: any TextInputInfoViewStyle = isError ? .error : .fiori
                     TextInputInfoView(config)
                         .textInputInfoViewStyle(style)
@@ -105,11 +105,11 @@ extension NoteFormViewFioriStyle {
                 }
                 .placeholderTextEditorStyle { config in
                     PlaceholderTextEditor(config)
-                        .frame(minHeight: getMinHeight(configuration))
-                        .frame(maxHeight: getMaxHeight(configuration))
-                        .background(RoundedRectangle(cornerRadius: 8).stroke(getBorderColor(configuration), lineWidth: getBorderWidth(configuration)).background(getBackgroundColor(configuration)))
+                        .frame(minHeight: self.getMinHeight(configuration))
+                        .frame(maxHeight: self.getMaxHeight(configuration))
+                        .background(RoundedRectangle(cornerRadius: 8).stroke(self.getBorderColor(configuration), lineWidth: self.getBorderWidth(configuration)).background(self.getBackgroundColor(configuration)))
                         .onChange(of: configuration.text) { s in
-                            checkCharCount(configuration, textString: s)
+                            self.checkCharCount(configuration, textString: s)
                         }
                         .padding(.bottom, isInfoViewNeeded(configuration) ? 0 : 9)
                 }

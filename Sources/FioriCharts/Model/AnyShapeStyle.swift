@@ -6,7 +6,7 @@ public struct AnyShapeStyle {
     public let base: Any
     
     /// Create an instance that type-erases ShapeStyle
-    public init<S>(_ base: S) where S: ShapeStyle {
+    public init(_ base: some ShapeStyle) {
         self.base = base
     }
 }

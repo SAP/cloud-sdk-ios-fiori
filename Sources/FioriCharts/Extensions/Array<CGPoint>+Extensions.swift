@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
 
-extension Array where Element == CGPoint {
+extension [CGPoint] {
     var maxX: CGFloat { reduce(CGFloat.leastNormalMagnitude) { Swift.max($0, $1.x) } }
     var minX: CGFloat { reduce(CGFloat.greatestFiniteMagnitude) { Swift.min($0, $1.x) } }
     var maxY: CGFloat { reduce(CGFloat.leastNormalMagnitude) { Swift.max($0, $1.y) } }
@@ -16,7 +16,7 @@ extension Array where Element == CGPoint {
     
     func normalized(in size: CGSize, boundingBox: CGRect? = nil) -> [CGPoint] {
         let box: CGRect
-        if let boundingBox = boundingBox, boundingBox != .zero {
+        if let boundingBox, boundingBox != .zero {
             box = boundingBox
         } else {
             box = self.boundingBox()

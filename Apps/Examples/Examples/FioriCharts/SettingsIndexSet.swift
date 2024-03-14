@@ -6,9 +6,9 @@ struct SettingsIndexSet: View {
     let num: Int
     
     var body: some View {
-        let combinations = combine(n: num)
+        let combinations = self.combine(n: self.num)
     
-        return Picker(selection: $indexSet, label: Text("Index set")) {
+        return Picker(selection: self.$indexSet, label: Text("Index set")) {
             ForEach(0 ..< combinations.count, id: \.self) { index in
                 Text("\(String(describing: combinations[index].sorted()))").tag(IndexSet(combinations[index]))
             }

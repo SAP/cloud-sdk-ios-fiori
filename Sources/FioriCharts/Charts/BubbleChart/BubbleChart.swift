@@ -4,7 +4,7 @@ struct BubbleChart: View {
     @ObservedObject var model: ChartModel
     
     var body: some View {
-        XYAxisChart(model: model,
+        XYAxisChart(model: self.model,
                     chartContext: BubbleChartContext(),
                     chartView: BubbleView(),
                     indicatorView: BubbleIndicatorView())
@@ -367,7 +367,7 @@ class BubbleChartContext: DefaultChartContext {
         let zDataMinimumValue = model.zDataMinimumValue ?? 0
         let zDataMaximumValue = model.zDataMaximumValue ?? 0
         
-        let dataRange: ClosedRange<CGFloat> = IndexSet(integersIn: 0 ..< seriesCount).reduce(model.ranges[0]) { (result, i) -> ClosedRange<CGFloat> in
+        let dataRange: ClosedRange<CGFloat> = IndexSet(integersIn: 0 ..< seriesCount).reduce(model.ranges[0]) { result, i -> ClosedRange<CGFloat> in
             let seriesMin = min(result.lowerBound, model.ranges[i].lowerBound)
             let seriesMax = max(result.upperBound, model.ranges[i].upperBound)
             return seriesMin ... seriesMax

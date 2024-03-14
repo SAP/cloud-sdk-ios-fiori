@@ -185,18 +185,18 @@ struct DurationPickerViewWrapper: UIViewRepresentable {
         }
         
         lazy var hourSize: CGSize = {
-            let size = hourLabel.sizeThatFits(.zero)
+            let size = self.hourLabel.sizeThatFits(.zero)
             return CGSize(width: ceil(size.width), height: ceil(size.height))
         }()
         
         lazy var minuteSize: CGSize = {
-            let size = minuteLabel.sizeThatFits(.zero)
+            let size = self.minuteLabel.sizeThatFits(.zero)
             return CGSize(width: ceil(size.width), height: ceil(size.height))
         }()
         
         lazy var hourLabel: UILabel = {
             let label = UILabel()
-            label.text = parent.hourText
+            label.text = self.parent.hourText
             label.font = UIFont.preferredFioriFont(fixedSize: 17)
             label.textColor = Color.preferredColor(.base1).uiColor()
             label.translatesAutoresizingMaskIntoConstraints = false
@@ -205,7 +205,7 @@ struct DurationPickerViewWrapper: UIViewRepresentable {
         
         lazy var minuteLabel: UILabel = {
             let label = UILabel()
-            label.text = parent.minuteText
+            label.text = self.parent.minuteText
             label.font = UIFont.preferredFioriFont(fixedSize: 17)
             label.textColor = Color.preferredColor(.base1).uiColor()
             label.translatesAutoresizingMaskIntoConstraints = false
@@ -214,7 +214,7 @@ struct DurationPickerViewWrapper: UIViewRepresentable {
         
         lazy var componentValueWidth: CGFloat = {
             let label = UILabel()
-            label.font = pickerFont
+            label.font = self.pickerFont
             var maxWidth: CGFloat = 0
             for item in 0 ... 59 {
                 label.text = item.description

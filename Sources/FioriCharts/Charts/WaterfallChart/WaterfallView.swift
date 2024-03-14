@@ -40,7 +40,7 @@ struct WaterfallView: View {
             }
             
             // connecting lines
-            WaterfallChartConnectingLinesShape(path: model.path,
+            WaterfallChartConnectingLinesShape(path: self.model.path,
                                                seriesIndex: 0,
                                                startIndex: categoryIndexRange.lowerBound,
                                                endIndex: categoryIndexRange.upperBound)

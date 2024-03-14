@@ -42,13 +42,13 @@ public struct MHStack<T: TagViewList>: View {
     }
     
     public var body: some View {
-        if tagCount == 0 {
+        if self.tagCount == 0 {
             EmptyView()
         } else {
             GeometryReader { geometry in
                 self.makeBody(in: geometry)
             }
-            .frame(height: mainViewSize.height < 0 ? nil : mainViewSize.height)
+            .frame(height: self.mainViewSize.height < 0 ? nil : self.mainViewSize.height)
         }
     }
     
@@ -70,9 +70,9 @@ public struct MHStack<T: TagViewList>: View {
         var tmpMainViewSize: CGSize = .zero
         
         return ZStack(alignment: .topLeading) {
-            ForEach(0 ..< tagCount, id: \.self) { index in
-                tags.view(at: index)
-                    .padding(EdgeInsets(top: 0, leading: 1, bottom: 0, trailing: spacing))
+            ForEach(0 ..< self.tagCount, id: \.self) { index in
+                self.tags.view(at: index)
+                    .padding(EdgeInsets(top: 0, leading: 1, bottom: 0, trailing: self.spacing))
                     .alignmentGuide(.leading, computeValue: { d in
                         if index == 0 {
                             tmpMainViewSize = .zero
@@ -80,10 +80,10 @@ public struct MHStack<T: TagViewList>: View {
                         
                         if abs(width - d.width) > g.size.width {
                             width = 0
-                            height = -(tmpMainViewSize.height + lineSpacing)
+                            height = -(tmpMainViewSize.height + self.lineSpacing)
                         }
                         let result = width
-                        if index + 1 == tagCount {
+                        if index + 1 == self.tagCount {
                             width = 0 // last item
                         } else {
                             width -= d.width
@@ -101,11 +101,11 @@ public struct MHStack<T: TagViewList>: View {
                     })
                     .alignmentGuide(.top, computeValue: { _ in
                         let result = height
-                        if index + 1 == tagCount {
+                        if index + 1 == self.tagCount {
                             height = 0 // last item
                             
                             DispatchQueue.main.async {
-                                mainViewSize = tmpMainViewSize
+                                self.mainViewSize = tmpMainViewSize
                             }
                         }
                         

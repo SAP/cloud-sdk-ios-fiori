@@ -29,7 +29,7 @@ extension Font {
 
         var error: Unmanaged<CFError>?
         CTFontManagerRegisterFontsForURL(fontURL as CFURL, .process, &error)
-        if let error = error {
+        if let error {
             os_log("Error registering font: %@", log: OSLog.fontLogger, type: .default, "\(error)")
         } else {
             os_log("Successfully registered font: %@", log: OSLog.fontLogger, type: .info, name)

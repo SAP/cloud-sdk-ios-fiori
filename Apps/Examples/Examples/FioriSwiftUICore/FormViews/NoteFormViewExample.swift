@@ -27,35 +27,35 @@ struct NoteFormViewExample: View {
         VStack {
             Text("NoteFormViewExample")
             List {
-                Toggle("Shows Hint Text", isOn: $showsHintText)
+                Toggle("Shows Hint Text", isOn: self.$showsHintText)
                     .padding(.leading, 16)
                     .padding(.trailing, 16)
-                Toggle("Shows Error Message", isOn: $showsErrorMessage)
+                Toggle("Shows Error Message", isOn: self.$showsErrorMessage)
                     .padding(.leading, 16)
                     .padding(.trailing, 16)
-                Toggle("Shows Char Count", isOn: $showsCharCount)
+                Toggle("Shows Char Count", isOn: self.$showsCharCount)
                     .padding(.leading, 16)
                     .padding(.trailing, 16)
-                Toggle("Allows Beyond Limit", isOn: $allowsBeyondLimit)
+                Toggle("Allows Beyond Limit", isOn: self.$allowsBeyondLimit)
                     .padding(.leading, 16)
                     .padding(.trailing, 16)
 
                 Text("Default NoteForm")
-                NoteFormView(text: $valueText1, placeholder: "NoteFormView", errorMessage: getErrorMessage(), maxTextLength: getMaxTextLength(), hintText: getHintText(), isCharCountEnabled: showsCharCount, allowsBeyondLimit: allowsBeyondLimit)
+                NoteFormView(text: self.$valueText1, placeholder: "NoteFormView", errorMessage: self.getErrorMessage(), maxTextLength: self.getMaxTextLength(), hintText: self.getHintText(), isCharCountEnabled: self.showsCharCount, allowsBeyondLimit: self.allowsBeyondLimit)
 
                 Text("Existing Text")
                     .italic()
-                NoteFormView(text: $valueText2, placeholder: "NoteFormView", errorMessage: getErrorMessage(), maxTextLength: getMaxTextLength(), hintText: getHintText(), isCharCountEnabled: showsCharCount, allowsBeyondLimit: allowsBeyondLimit)
+                NoteFormView(text: self.$valueText2, placeholder: "NoteFormView", errorMessage: self.getErrorMessage(), maxTextLength: self.getMaxTextLength(), hintText: self.getHintText(), isCharCountEnabled: self.showsCharCount, allowsBeyondLimit: self.allowsBeyondLimit)
 
                 Text("minHeight 50, maxHeight 100")
                     .italic()
-                NoteFormView(text: $valueText3, placeholder: "Please enter something", errorMessage: getErrorMessage(), minTextEditorHeight: 50, maxTextEditorHeight: 100, maxTextLength: getMaxTextLength(), hintText: getHintText(), isCharCountEnabled: showsCharCount, allowsBeyondLimit: allowsBeyondLimit)
+                NoteFormView(text: self.$valueText3, placeholder: "Please enter something", errorMessage: self.getErrorMessage(), minTextEditorHeight: 50, maxTextEditorHeight: 100, maxTextLength: self.getMaxTextLength(), hintText: self.getHintText(), isCharCountEnabled: self.showsCharCount, allowsBeyondLimit: self.allowsBeyondLimit)
 
                 Text("Disabled")
-                NoteFormView(text: $disabledText, placeholder: "Disabled", controlState: .disabled, minTextEditorHeight: 50, maxTextEditorHeight: 100)
+                NoteFormView(text: self.$disabledText, placeholder: "Disabled", controlState: .disabled, minTextEditorHeight: 50, maxTextEditorHeight: 100)
 
                 Text("Read-Only")
-                NoteFormView(text: $readOnlyText, placeholder: "Read-Only", controlState: .readOnly, minTextEditorHeight: 50, maxTextEditorHeight: 200)
+                NoteFormView(text: self.$readOnlyText, placeholder: "Read-Only", controlState: .readOnly, minTextEditorHeight: 50, maxTextEditorHeight: 200)
             }
             .scrollDismissesKeyboard(.immediately)
         }

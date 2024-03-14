@@ -25,7 +25,7 @@ public struct StyleSheetSettings {
     static var shared = StyleSheetSettings()
     private init() {}
     
-    internal private(set) var globalDefinitions = StyleSheetGlobalDefinitions()
+    private(set) var globalDefinitions = StyleSheetGlobalDefinitions()
     
     public static func reset() {
         StyleSheetSettings.shared.globalDefinitions = StyleSheetGlobalDefinitions()

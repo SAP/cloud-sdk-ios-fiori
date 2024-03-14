@@ -57,7 +57,7 @@ extension EULAView: View {
     public var body: some View {
         VStack {
             self.makeBody()
-            toolbar
+            self.toolbar
         }
     }
     

@@ -46,7 +46,7 @@ struct InfoViewSample: View {
     
     var body: some View {
         VStack {
-            InfoView(model: model)
+            InfoView(model: self.model)
         }
     }
 }
@@ -58,7 +58,7 @@ struct InfoViewWithLoadingLabel: View {
     
     var body: some View {
         VStack {
-            InfoView(model: model)
+            InfoView(model: self.model)
         }
     }
 }
@@ -83,7 +83,7 @@ struct InfoViewCustomized: View {
             }
         } else {
             VStack {
-                InfoView(model: model)
+                InfoView(model: self.model)
                     .descriptionTextModifier { $0.font(.fiori(forTextStyle: .subheadline)).foregroundColor(.blue) }
                     .actionModifier { $0.foregroundColor(.blue) }
                     .progressIndicatorTextModifier { $0.scaleEffect(x: 2, y: 2, anchor: .center) }

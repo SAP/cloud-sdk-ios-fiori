@@ -8,41 +8,43 @@ struct SettingsCategoryAxis: View {
     var body: some View {
         Form {
             Section(header: Text("Basic")) {
-                Toggle(isOn: $axis.isZeroBased) {
+                Toggle(isOn: self.$axis.isZeroBased) {
                     Text("Is Zero Based")
                 }
                 
-                Toggle(isOn: $axis.abbreviatesLabels) {
+                Toggle(isOn: self.$axis.abbreviatesLabels) {
                     Text("Is Abbreviated Labels")
                 }
                 
-                Toggle(isOn: $axis.isMagnitudedDisplayed) {
+                Toggle(isOn: self.$axis.isMagnitudedDisplayed) {
                     Text("Is Magnituded Displayed")
                 }
             }
                 
             Section(header: Text("Line")) {
                 NavigationLink(destination:
-                    SettingsBaseline(line: $axis.baseline)) {
+                    SettingsBaseline(line: self.$axis.baseline))
+                {
                     Text("Baseline")
                 }
                 
                 NavigationLink(destination:
-                    SettingsLine(line: $axis.gridlines)) {
+                    SettingsLine(line: self.$axis.gridlines))
+                {
                     Text("Gridlines")
                 }
             }
             
             Section(header: Text("Label")) {
-                NavigationLink(destination: SettingsLabel(label: $axis.labels)) {
+                NavigationLink(destination: SettingsLabel(label: self.$axis.labels)) {
                     Text("Axis Gridline Label")
                 }
                 
-                NavigationLink(destination: SettingsLabel(label: $axis.titleLabel)) {
+                NavigationLink(destination: SettingsLabel(label: self.$axis.titleLabel)) {
                     Text("Axis Title Label")
                 }
                 
-                Picker(selection: $axis.labelLayoutStyle, label: Text("Axis Label Layout Style")) {
+                Picker(selection: self.$axis.labelLayoutStyle, label: Text("Axis Label Layout Style")) {
                     Text("All or Nothing").tag(ChartCategoryAxisLabelLayoutStyle.allOrNothing)
                     Text("Range").tag(ChartCategoryAxisLabelLayoutStyle.range)
                 }

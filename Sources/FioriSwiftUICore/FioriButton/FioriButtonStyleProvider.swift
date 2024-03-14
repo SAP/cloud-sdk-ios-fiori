@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
 
-struct FioriButtonStyleProvider {
+enum FioriButtonStyleProvider {
     static func getPlainButtonStyle(state: UIControl.State) -> FioriButtonConfiguration {
         let backgroundColor: Color = .preferredColor(.primaryBackground)
         let foregroundColor: Color

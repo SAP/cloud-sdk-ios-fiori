@@ -26,7 +26,7 @@ public class ChartSeriesAttributes: ObservableObject, Identifiable, NSCopying {
                 firstLineCapDiameter: Double = 0,
                 lastLineCapDiameter: Double = 0)
     {
-        if let palette = palette {
+        if let palette {
             self._palette = Published(initialValue: palette)
         } else {
             self._palette = Published(initialValue: ChartSeriesPalette(colors: []))
@@ -34,7 +34,7 @@ public class ChartSeriesAttributes: ObservableObject, Identifiable, NSCopying {
         
         self._lineWidth = PublishedConstrainedValue(wrappedValue: CGFloat(lineWidth), 0 ... 100)
         
-        if let point = point {
+        if let point {
             self._point = Published(initialValue: point)
         } else {
             self._point = Published(initialValue: ChartPointAttributes())

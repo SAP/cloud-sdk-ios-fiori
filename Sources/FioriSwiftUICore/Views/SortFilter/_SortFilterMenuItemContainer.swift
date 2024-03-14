@@ -22,29 +22,29 @@ extension _SortFilterMenuItemContainer: View {
     public var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 10) {
-                if fullCFGButton.positon == .leading {
-                    FullCFGMenuItem(items: $_items, onUpdate: onUpdate)
+                if self.fullCFGButton.positon == .leading {
+                    FullCFGMenuItem(items: self.$_items, onUpdate: self.onUpdate)
                 }
-                ForEach(0 ..< _items.count) { r in
-                    ForEach(0 ..< _items[r].count) { c in
-                        if _items[r][c].showsOnFilterFeedbackBar {
-                            switch _items[r][c] {
+                ForEach(0 ..< self._items.count) { r in
+                    ForEach(0 ..< self._items[r].count) { c in
+                        if self._items[r][c].showsOnFilterFeedbackBar {
+                            switch self._items[r][c] {
                             case .picker:
-                                PickerMenuItem(item: Binding<SortFilterItem.PickerItem>(get: { _items[r][c].picker }, set: { _items[r][c].picker = $0 }), onUpdate: onUpdate)
+                                PickerMenuItem(item: Binding<SortFilterItem.PickerItem>(get: { self._items[r][c].picker }, set: { self._items[r][c].picker = $0 }), onUpdate: self.onUpdate)
                             case .filterfeedback:
-                                FilterFeedbackMenuItem(item: Binding<SortFilterItem.PickerItem>(get: { _items[r][c].filterfeedback }, set: { _items[r][c].filterfeedback = $0 }), onUpdate: onUpdate)
+                                FilterFeedbackMenuItem(item: Binding<SortFilterItem.PickerItem>(get: { self._items[r][c].filterfeedback }, set: { self._items[r][c].filterfeedback = $0 }), onUpdate: self.onUpdate)
                             case .switch:
-                                SwitchMenuItem(item: Binding<SortFilterItem.SwitchItem>(get: { _items[r][c].switch }, set: { _items[r][c].switch = $0 }), onUpdate: onUpdate)
+                                SwitchMenuItem(item: Binding<SortFilterItem.SwitchItem>(get: { self._items[r][c].switch }, set: { self._items[r][c].switch = $0 }), onUpdate: self.onUpdate)
                             case .slider:
-                                SliderMenuItem(item: Binding<SortFilterItem.SliderItem>(get: { _items[r][c].slider }, set: { _items[r][c].slider = $0 }), onUpdate: onUpdate)
+                                SliderMenuItem(item: Binding<SortFilterItem.SliderItem>(get: { self._items[r][c].slider }, set: { self._items[r][c].slider = $0 }), onUpdate: self.onUpdate)
                             case .datetime:
-                                DateTimeMenuItem(item: Binding<SortFilterItem.DateTimeItem>(get: { _items[r][c].datetime }, set: { _items[r][c].datetime = $0 }), onUpdate: onUpdate)
+                                DateTimeMenuItem(item: Binding<SortFilterItem.DateTimeItem>(get: { self._items[r][c].datetime }, set: { self._items[r][c].datetime = $0 }), onUpdate: self.onUpdate)
                             }
                         }
                     }
                 }
-                if fullCFGButton.positon == .trailing {
-                    FullCFGMenuItem(items: $_items, onUpdate: onUpdate)
+                if self.fullCFGButton.positon == .trailing {
+                    FullCFGMenuItem(items: self.$_items, onUpdate: self.onUpdate)
                 }
             }
         }

@@ -17,8 +17,8 @@ public struct KPIProgressExample: View {
                 KPIProgressItem(data: .percent(0.75), subtitle: "Long Long Long Completed")
                 KPIProgressItem(data: .percent(0.66), footnote: "Completed")
                 KPIProgressItem(data: .percent(0.45), footnote: "Very Long Long Long Long Completed")
-                KPIProgressItem(data: .fraction(76, 90, nf), subtitle: "Completed")
-                KPIProgressItem(data: .fraction(76000, 90000, nf), subtitle: "Long Long Long Completed")
+                KPIProgressItem(data: .fraction(76, 90, self.nf), subtitle: "Completed")
+                KPIProgressItem(data: .fraction(76000, 90000, self.nf), subtitle: "Long Long Long Completed")
             }.padding(EdgeInsets(top: 16, leading: 16, bottom: 16, trailing: 16))
         })
     }

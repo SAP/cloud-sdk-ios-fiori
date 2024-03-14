@@ -160,7 +160,7 @@ struct MobileCardExample: View {
                                         print("\(dataType)")
                                     }))
                         
-                        Map(coordinateRegion: $region).frame(height: 200)
+                        Map(coordinateRegion: self.$region).frame(height: 200)
                     }
                 }
             } label: {
@@ -230,7 +230,7 @@ struct MobileCardExample: View {
                             Spacer(minLength: 0)
                         }
                         
-                        ChartView(chartModel).frame(height: 200)
+                        ChartView(self.chartModel).frame(height: 200)
                         
                         HStack(alignment: .center, spacing: 8) {
                             HStack {
@@ -314,7 +314,7 @@ struct MobileCardExample: View {
                     KPIItem(data: .components([.unit("$"), .metric("8,888"), .unit("M")]), subtitle: "").cornerRadius(8)
                 } cardBody: {
                     VStack(alignment: .leading, spacing: 4) {
-                        DataTable(model: tableCard)
+                        DataTable(model: self.tableCard)
                             .frame(height: 80)
                         
                         Divider()
@@ -393,7 +393,7 @@ struct MobileCardExample: View {
                     ScrollView {
                         LazyVStack(alignment: .leading, spacing: 4) {
                             // List {
-                            DataTable(model: tableCard)
+                            DataTable(model: self.tableCard)
                                 .frame(height: 76)
                             
                             HStack {
@@ -402,7 +402,7 @@ struct MobileCardExample: View {
                                 Tag("Tag")
                             }
                             
-                            ChartView(chartModel).frame(height: 200)
+                            ChartView(self.chartModel).frame(height: 200)
                             
                             ContactItem(title: "Title",
                                         subtitle: "Subtitle",
@@ -423,7 +423,7 @@ struct MobileCardExample: View {
                                 Spacer()
                             }
                             
-                            Map(coordinateRegion: $region).frame(height: 200)
+                            Map(coordinateRegion: self.$region).frame(height: 200)
                         }
                     }
                 } action: {
@@ -439,10 +439,10 @@ struct MobileCardExample: View {
                 Card {
                     KPIItem(data: .components([.unit("$"), .metric("8,888"), .unit("M")]), subtitle: "").frame(width: 200, alignment: .trailing)
                 } subtitle: {
-                    DataTable(model: tableCard)
+                    DataTable(model: self.tableCard)
                         .frame(height: 76)
                 } detailImage: {
-                    Map(coordinateRegion: $region).frame(width: 100, height: 100).border(Color.gray)
+                    Map(coordinateRegion: self.$region).frame(width: 100, height: 100).border(Color.gray)
                 } cardBody: {
                     CardFooter(action: FioriButton(title: "Approve"), secondaryAction: FioriButton(title: "Decline"))
                 } action: {

@@ -33,14 +33,14 @@ public struct _DefaultSteps: IndexedViewContainer {
         Group {
             DefaultSingleStep(index: index,
                               stepItem: data,
-                              selection: $selection,
-                              isSubstep: isSubstep,
+                              selection: self.$selection,
+                              isSubstep: self.isSubstep,
                               showLine: showLine)
                 .id(data.id)
             if !data.substeps.isEmpty {
-                StepProgressIndicatorContainer(selection: $selection,
+                StepProgressIndicatorContainer(selection: self.$selection,
                                                steps: _DefaultSteps(stepItems: data.substeps,
-                                                                    selection: $selection,
+                                                                    selection: self.$selection,
                                                                     isSubstep: true,
                                                                     allowLastLine: isNotLastStep))
             }
@@ -74,14 +74,14 @@ struct DefaultSingleStep: View {
     
     var body: some View {
         Group {
-            if isSubstep {
-                singleSubstep()
+            if self.isSubstep {
+                self.singleSubstep()
             } else {
-                singleStep()
+                self.singleStep()
             }
         }
         .frameReader(in: .named("SPICoordinateSpace")) { rect in
-            stepFrames.wrappedValue[stepItem.id] = rect
+            self.stepFrames.wrappedValue[self.stepItem.id] = rect
         }
     }
     
@@ -97,15 +97,15 @@ struct DefaultSingleStep: View {
                 }
             } node: {
                 ZStack {
-                    node(by: stepItem.state, isSelected: isSelected)
-                    Text("\(index + 1)")
+                    self.node(by: self.stepItem.state, isSelected: isSelected)
+                    Text("\(self.index + 1)")
                         .font(Font.fiori(forTextStyle: .footnote))
                 }
-                .frame(width: sideLength, height: sideLength)
+                .frame(width: self.sideLength, height: self.sideLength)
                 .overlay {
-                    if stepItem.state == .error {
+                    if self.stepItem.state == .error {
                         Image(systemName: "exclamationmark.circle.fill")
-                            .position(x: sideLength, y: 2)
+                            .position(x: self.sideLength, y: 2)
                     }
                 }
             }
@@ -133,8 +133,8 @@ struct DefaultSingleStep: View {
                     EmptyView()
                 }
             } node: {
-                subnode(by: stepItem.state, isSelected: isSelected)
-                    .frame(width: subnodeSideLength, height: subnodeSideLength)
+                self.subnode(by: self.stepItem.state, isSelected: isSelected)
+                    .frame(width: self.subnodeSideLength, height: self.subnodeSideLength)
             }
             .lineSize(self.lineSize)
             .update(self.stepItem.state, !self.showLine)
@@ -176,7 +176,7 @@ struct DefaultSingleStep: View {
                 .resizable()
         case (.normal, true):
             ZStack {
-                node(by: state, isSelected: isSelected)
+                self.node(by: state, isSelected: isSelected)
                 Circle().padding(4)
             }
         default:

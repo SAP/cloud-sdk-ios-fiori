@@ -16,19 +16,19 @@ struct DurationPickerExample: View {
     
     var body: some View {
         VStack {
-            DurationPicker(selection: $selection1)
+            DurationPicker(selection: self.$selection1)
             Divider()
-            Text("Total \(selection1) minutes")
-            Text("\(selection1 / 60) Hrs, \(selection1 % 60) Min")
+            Text("Total \(self.selection1) minutes")
+            Text("\(self.selection1 / 60) Hrs, \(self.selection1 % 60) Min")
             
-            DurationPicker(selection: $selection2, minimumMinutes: 1, minuteInterval: 2)
+            DurationPicker(selection: self.$selection2, minimumMinutes: 1, minuteInterval: 2)
             Divider()
-            Text("Total \(selection2) minutes")
+            Text("Total \(self.selection2) minutes")
             
-            DurationPicker(selection: $selection3, maximumMinutes: 124, minimumMinutes: 60, minuteInterval: 2)
-                .measurementFormatter(formatter)
+            DurationPicker(selection: self.$selection3, maximumMinutes: 124, minimumMinutes: 60, minuteInterval: 2)
+                .measurementFormatter(self.formatter)
             Divider()
-            Text("Total \(selection3) minutes")
+            Text("Total \(self.selection3) minutes")
         }
     }
 }

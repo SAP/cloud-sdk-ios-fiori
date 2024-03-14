@@ -20,94 +20,102 @@ struct ToolbarView: View {
     @Binding var buttonType: ItemStyle
 
     var body: some View {
-        if !useFioriToolbar {
+        if !self.useFioriToolbar {
             Color.preferredColor(.grey7)
                 .toolbar {
                     ToolbarItemGroup(placement: .bottomBar) {
-                        Text("\(helperText)")
-                        ForEach(0 ..< numberOfButtons, id: \.self) { index in
-                            createButton(at: index)
+                        Text("\(self.helperText)")
+                        ForEach(0 ..< self.numberOfButtons, id: \.self) { index in
+                            self.createButton(at: index)
                         }
                     }
                 }
         } else {
-            switch numberOfButtons {
+            switch self.numberOfButtons {
             case 1:
                 Color.preferredColor(.grey7)
-                    .fioriToolbar(helperText: createHelperText(),
-                                  customOverflow: customOverflowIcon ? Image(systemName: "person") : nil) {
-                        createButton(at: 0)
-                    }
+                    .fioriToolbar(helperText: self.createHelperText(),
+                                  customOverflow: self.customOverflowIcon ? Image(systemName: "person") : nil)
+                {
+                    self.createButton(at: 0)
+                }
             case 2:
                 Color.preferredColor(.grey7)
-                    .fioriToolbar(helperText: createHelperText(),
-                                  customOverflow: customOverflowIcon ? Image(systemName: "person") : nil) {
-                        createButton(at: 0)
-                        createButton(at: 1)
-                    }
+                    .fioriToolbar(helperText: self.createHelperText(),
+                                  customOverflow: self.customOverflowIcon ? Image(systemName: "person") : nil)
+                {
+                    self.createButton(at: 0)
+                    self.createButton(at: 1)
+                }
             case 3:
                 Color.preferredColor(.grey7)
-                    .fioriToolbar(helperText: createHelperText(),
-                                  customOverflow: customOverflowIcon ? Image(systemName: "person") : nil) {
-                        createButton(at: 0)
-                        createButton(at: 1)
-                        createButton(at: 2)
-                    }
+                    .fioriToolbar(helperText: self.createHelperText(),
+                                  customOverflow: self.customOverflowIcon ? Image(systemName: "person") : nil)
+                {
+                    self.createButton(at: 0)
+                    self.createButton(at: 1)
+                    self.createButton(at: 2)
+                }
             case 4:
                 Color.preferredColor(.grey7)
-                    .fioriToolbar(helperText: createHelperText(),
-                                  customOverflow: customOverflowIcon ? Image(systemName: "person") : nil) {
-                        createButton(at: 0)
-                        createButton(at: 1)
-                        createButton(at: 2)
-                        createButton(at: 3)
-                    }
+                    .fioriToolbar(helperText: self.createHelperText(),
+                                  customOverflow: self.customOverflowIcon ? Image(systemName: "person") : nil)
+                {
+                    self.createButton(at: 0)
+                    self.createButton(at: 1)
+                    self.createButton(at: 2)
+                    self.createButton(at: 3)
+                }
             case 5:
                 Color.preferredColor(.grey7)
-                    .fioriToolbar(helperText: createHelperText(),
-                                  customOverflow: customOverflowIcon ? Image(systemName: "person") : nil) {
-                        createButton(at: 0)
-                        createButton(at: 1)
-                        createButton(at: 2)
-                        createButton(at: 3)
-                        createButton(at: 4)
-                    }
+                    .fioriToolbar(helperText: self.createHelperText(),
+                                  customOverflow: self.customOverflowIcon ? Image(systemName: "person") : nil)
+                {
+                    self.createButton(at: 0)
+                    self.createButton(at: 1)
+                    self.createButton(at: 2)
+                    self.createButton(at: 3)
+                    self.createButton(at: 4)
+                }
             case 6:
                 Color.preferredColor(.grey7)
-                    .fioriToolbar(helperText: createHelperText(),
-                                  customOverflow: customOverflowIcon ? Image(systemName: "person") : nil) {
-                        createButton(at: 0)
-                        createButton(at: 1)
-                        createButton(at: 2)
-                        createButton(at: 3)
-                        createButton(at: 4)
-                        createButton(at: 5)
-                    }
+                    .fioriToolbar(helperText: self.createHelperText(),
+                                  customOverflow: self.customOverflowIcon ? Image(systemName: "person") : nil)
+                {
+                    self.createButton(at: 0)
+                    self.createButton(at: 1)
+                    self.createButton(at: 2)
+                    self.createButton(at: 3)
+                    self.createButton(at: 4)
+                    self.createButton(at: 5)
+                }
             case 7:
                 Color.preferredColor(.grey7)
-                    .fioriToolbar(helperText: createHelperText(),
-                                  customOverflow: customOverflowIcon ? Image(systemName: "person") : nil) {
-                        createButton(at: 0)
-                        createButton(at: 1)
-                        createButton(at: 2)
-                        createButton(at: 3)
-                        createButton(at: 4)
-                        createButton(at: 5)
-                        createButton(at: 6)
-                    }
+                    .fioriToolbar(helperText: self.createHelperText(),
+                                  customOverflow: self.customOverflowIcon ? Image(systemName: "person") : nil)
+                {
+                    self.createButton(at: 0)
+                    self.createButton(at: 1)
+                    self.createButton(at: 2)
+                    self.createButton(at: 3)
+                    self.createButton(at: 4)
+                    self.createButton(at: 5)
+                    self.createButton(at: 6)
+                }
             case 8:
                 Color.preferredColor(.grey7)
-                    .fioriToolbar(helperText: createHelperText(),
-                                  customOverflow: customOverflowIcon ? Image(systemName: "person") : nil) {
-                        createButton(at: 0)
-                        createButton(at: 1)
-                        createButton(at: 2)
-                        createButton(at: 3)
-                        createButton(at: 4)
-                        createButton(at: 5)
-                        createButton(at: 6)
-                        createButton(at: 7)
-                    }
+                    .fioriToolbar(helperText: self.createHelperText(),
+                                  customOverflow: self.customOverflowIcon ? Image(systemName: "person") : nil)
+                {
+                    self.createButton(at: 0)
+                    self.createButton(at: 1)
+                    self.createButton(at: 2)
+                    self.createButton(at: 3)
+                    self.createButton(at: 4)
+                    self.createButton(at: 5)
+                    self.createButton(at: 6)
+                    self.createButton(at: 7)
+                }
             default:
                 Color.preferredColor(.grey7)
             }

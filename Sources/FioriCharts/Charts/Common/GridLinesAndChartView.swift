@@ -159,10 +159,10 @@ struct GridLinesAndChartView<Content: View, Indicator: View>: View {
             
             YAxisGridlines(plotViewSize: rect.size)
             
-            chartView
+            self.chartView
                 .opacity(self.alpha())
             
-            indicatorView
+            self.indicatorView
             
             if self.model.userInteractionEnabled {
                 Background(tappedCallback: { point, chartRect, _ in // single selection

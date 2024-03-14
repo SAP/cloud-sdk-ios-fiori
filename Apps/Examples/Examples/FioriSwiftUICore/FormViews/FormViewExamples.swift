@@ -4,11 +4,13 @@ struct FormViewExamples: View {
     var body: some View {
         List {
             NavigationLink(
-                destination: NoteFormViewExample()) {
+                destination: NoteFormViewExample())
+            {
                 Text("NoteFormView Example")
             }
             NavigationLink(
-                destination: KeyValueFormViewExample()) {
+                destination: KeyValueFormViewExample())
+            {
                 Text("KeyValueFormView Example")
             }
         }

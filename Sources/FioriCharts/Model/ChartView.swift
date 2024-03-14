@@ -51,40 +51,40 @@ public struct ChartView<Content: View>: View {
     
     public var body: some View {
         Group {
-            if chartModel.data.isEmpty || chartModel.data.first?.isEmpty ?? true {
+            if self.chartModel.data.isEmpty || self.chartModel.data.first?.isEmpty ?? true {
                 self.noDataView
-            } else if chartModel.chartType == .micro_bullet {
-                BulletMicroChart(model: chartModel)
-            } else if chartModel.chartType == .micro_harvey_ball {
-                HarveyBallMicroChart(model: chartModel)
-            } else if chartModel.chartType == .micro_radial {
-                RadialMicroChart(model: chartModel)
-            } else if chartModel.chartType == .micro_column {
-                ColumnMicroChart(model: chartModel)
-            } else if chartModel.chartType == .stock {
-                StockMicroChart(model: chartModel)
-            } else if chartModel.chartType == .donut {
-                DonutChart(model: chartModel)
-            } else if chartModel.chartType == .line {
-                LineChart(model: chartModel)
-            } else if chartModel.chartType == .area {
-                AreaChart(model: chartModel)
-            } else if chartModel.chartType == .column {
-                ColumnChart(model: chartModel)
-            } else if chartModel.chartType == .stackedColumn {
-                StackedColumnChart(model: chartModel)
-            } else if chartModel.chartType == .waterfall {
-                WaterfallChart(model: chartModel)
-            } else if chartModel.chartType == .combo {
-                ComboChart(model: chartModel)
-            } else if chartModel.chartType == .bar {
-                BarChart(model: chartModel)
-            } else if chartModel.chartType == .stackedBar {
-                StackedBarChart(model: chartModel)
-            } else if chartModel.chartType == .bubble {
-                BubbleChart(model: chartModel)
-            } else if chartModel.chartType == .scatter {
-                ScatterChart(model: chartModel)
+            } else if self.chartModel.chartType == .micro_bullet {
+                BulletMicroChart(model: self.chartModel)
+            } else if self.chartModel.chartType == .micro_harvey_ball {
+                HarveyBallMicroChart(model: self.chartModel)
+            } else if self.chartModel.chartType == .micro_radial {
+                RadialMicroChart(model: self.chartModel)
+            } else if self.chartModel.chartType == .micro_column {
+                ColumnMicroChart(model: self.chartModel)
+            } else if self.chartModel.chartType == .stock {
+                StockMicroChart(model: self.chartModel)
+            } else if self.chartModel.chartType == .donut {
+                DonutChart(model: self.chartModel)
+            } else if self.chartModel.chartType == .line {
+                LineChart(model: self.chartModel)
+            } else if self.chartModel.chartType == .area {
+                AreaChart(model: self.chartModel)
+            } else if self.chartModel.chartType == .column {
+                ColumnChart(model: self.chartModel)
+            } else if self.chartModel.chartType == .stackedColumn {
+                StackedColumnChart(model: self.chartModel)
+            } else if self.chartModel.chartType == .waterfall {
+                WaterfallChart(model: self.chartModel)
+            } else if self.chartModel.chartType == .combo {
+                ComboChart(model: self.chartModel)
+            } else if self.chartModel.chartType == .bar {
+                BarChart(model: self.chartModel)
+            } else if self.chartModel.chartType == .stackedBar {
+                StackedBarChart(model: self.chartModel)
+            } else if self.chartModel.chartType == .bubble {
+                BubbleChart(model: self.chartModel)
+            } else if self.chartModel.chartType == .scatter {
+                ScatterChart(model: self.chartModel)
             } else {
                 self.noDataView
             }

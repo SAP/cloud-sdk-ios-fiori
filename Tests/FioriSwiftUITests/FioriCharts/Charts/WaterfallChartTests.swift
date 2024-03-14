@@ -77,7 +77,7 @@ class WaterfallChartTests: XCTestCase {
         self.measure {
             // Put the code you want to measure the time of here.
             for _ in 0 ..< 1000 {
-                _ = dataSource.plotData(model)
+                _ = dataSource.plotData(self.model)
             }
         }
     }

@@ -9,7 +9,7 @@ public struct ConfigurationViewWrapper: View {
     }
     
     public var body: some View {
-        v.typeErased
+        self.v.typeErased
     }
 }
 

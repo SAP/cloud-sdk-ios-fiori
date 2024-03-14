@@ -73,7 +73,7 @@ struct EULAViewSample: View {
     let model = EULAViewDataModel.HTML
     
     var body: some View {
-        EULAView(title: model.title, bodyAttributedText: model.bodyAttributedText, didAgree: model.didAgree, didDisagree: model.didDisagree) {
+        EULAView(title: self.model.title, bodyAttributedText: self.model.bodyAttributedText, didAgree: self.model.didAgree, didDisagree: self.model.didDisagree) {
             self.presentationMode.wrappedValue.dismiss()
         }
     }
@@ -85,7 +85,7 @@ struct EULALongHtmlSample: View {
     let model = EULAViewDataModel.LongHTML
     
     var body: some View {
-        EULAView(title: model.title, bodyAttributedText: model.bodyAttributedText, didAgree: model.didAgree, didDisagree: model.didDisagree) {
+        EULAView(title: self.model.title, bodyAttributedText: self.model.bodyAttributedText, didAgree: self.model.didAgree, didDisagree: self.model.didDisagree) {
             self.presentationMode.wrappedValue.dismiss()
         }
     }
@@ -97,7 +97,7 @@ struct EULAShortHtmlSample: View {
     let model = EULAViewDataModel.ShortHTML
     
     var body: some View {
-        EULAView(title: model.title, bodyAttributedText: model.bodyAttributedText, didAgree: model.didAgree, didDisagree: model.didDisagree) {
+        EULAView(title: self.model.title, bodyAttributedText: self.model.bodyAttributedText, didAgree: self.model.didAgree, didDisagree: self.model.didDisagree) {
             self.presentationMode.wrappedValue.dismiss()
         }
     }
@@ -109,7 +109,7 @@ struct EULAConcatSample: View {
     let model = EULAViewDataModel.ConcatAttributedStrings
     
     var body: some View {
-        EULAView(title: model.title, bodyAttributedText: model.bodyAttributedText, didAgree: model.didAgree, didDisagree: model.didDisagree) {
+        EULAView(title: self.model.title, bodyAttributedText: self.model.bodyAttributedText, didAgree: self.model.didAgree, didDisagree: self.model.didDisagree) {
             self.presentationMode.wrappedValue.dismiss()
         }
     }
@@ -121,7 +121,7 @@ struct EULAWithLinkSample: View {
     let model = EULAViewDataModel.ShortStringWithLink
     
     var body: some View {
-        EULAView(title: model.title, bodyAttributedText: model.bodyAttributedText, didAgree: model.didAgree, didDisagree: model.didDisagree) {
+        EULAView(title: self.model.title, bodyAttributedText: self.model.bodyAttributedText, didAgree: self.model.didAgree, didDisagree: self.model.didDisagree) {
             self.presentationMode.wrappedValue.dismiss()
         }
     }
@@ -133,7 +133,7 @@ struct EULAShortWithLinkSample: View {
     let model = EULAViewDataModel.ShortAttributedStringWithLink
     
     var body: some View {
-        EULAView(title: model.title, bodyAttributedText: model.bodyAttributedText, didAgree: model.didAgree, didDisagree: model.didDisagree) {
+        EULAView(title: self.model.title, bodyAttributedText: self.model.bodyAttributedText, didAgree: self.model.didAgree, didDisagree: self.model.didDisagree) {
             self.presentationMode.wrappedValue.dismiss()
         }
     }
@@ -145,7 +145,7 @@ struct EULAViewCustomized: View {
     let model = EULAViewDataModel.HTML
     
     var body: some View {
-        EULAView(title: model.title, bodyAttributedText: model.bodyAttributedText, didAgree: model.didAgree, didDisagree: model.didDisagree) {
+        EULAView(title: self.model.title, bodyAttributedText: self.model.bodyAttributedText, didAgree: self.model.didAgree, didDisagree: self.model.didDisagree) {
             self.presentationMode.wrappedValue.dismiss()
         }
         .titleModifier { $0.font(.headline).foregroundColor(.green) }

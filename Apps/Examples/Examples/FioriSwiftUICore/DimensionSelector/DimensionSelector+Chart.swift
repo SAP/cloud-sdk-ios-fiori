@@ -25,15 +25,15 @@ struct DimensionSelector_Chart: View {
 
     var body: some View {
         VStack(alignment: .center, spacing: 30) {
-            dimensionSelector
+            self.dimensionSelector
 
-            chartView
+            self.chartView
         }
     }
     
     var chartView: some View {
-        if stockModel.numOfSeries() > 0 {
-            return AnyView(ChartView(stockModel))
+        if self.stockModel.numOfSeries() > 0 {
+            return AnyView(ChartView(self.stockModel))
                 
         } else {
             return AnyView(NoDataView())

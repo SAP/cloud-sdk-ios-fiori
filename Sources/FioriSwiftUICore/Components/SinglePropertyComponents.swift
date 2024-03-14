@@ -1,8 +1,8 @@
 import SwiftUI
 
-internal protocol _ComponentGenerating {}
+protocol _ComponentGenerating {}
 
-internal struct _Component: _ComponentGenerating {
+struct _Component: _ComponentGenerating {
     let title_: String
     let subtitle_: String?
     // sourcery: backingComponent=TagStack

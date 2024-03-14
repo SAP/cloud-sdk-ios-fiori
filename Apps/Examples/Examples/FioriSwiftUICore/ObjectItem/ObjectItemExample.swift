@@ -9,25 +9,29 @@ struct ObjectItemExample: View {
             NavigationLink("Object Cell_Single Action_May2018.pdf", destination: ObjectItemSingleActionView(isNewObjectItem: self._isNewObjectItem))
 
             NavigationLink(
-                destination: ObjectItemListView(title: "ObjectCell_Spec_Jan2018", listDataType: ObjectCell_Spec_Jan2018.self, isNewObjectItem: self._isNewObjectItem)) {
+                destination: ObjectItemListView(title: "ObjectCell_Spec_Jan2018", listDataType: ObjectCell_Spec_Jan2018.self, isNewObjectItem: self._isNewObjectItem))
+            {
                 Text("Object Cell Specifications_Jan2018.pdf")
             }
             
             NavigationLink(
-                destination: ObjectItemListView(title: "ObjectCell_Rules_&_Alignment.pdf", listDataType: ObjectCell_Rules_Alignment.self, isNewObjectItem: self._isNewObjectItem)) {
+                destination: ObjectItemListView(title: "ObjectCell_Rules_&_Alignment.pdf", listDataType: ObjectCell_Rules_Alignment.self, isNewObjectItem: self._isNewObjectItem))
+            {
                 Text("ObjectCell_Rules_&_Alignment.pdf")
             }
             
             NavigationLink(
-                destination: ObjectItemListView(title: "Init tests", listDataType: ObjectItemInitExamples.self, isNewObjectItem: self._isNewObjectItem)) {
+                destination: ObjectItemListView(title: "Init tests", listDataType: ObjectItemInitExamples.self, isNewObjectItem: self._isNewObjectItem))
+            {
                 Text("Init tests")
             }
             
             NavigationLink(
-                destination: ObjectItemListView(title: "Avatars and Icons Tests", listDataType: ObjectItemAvatarsExample.self, isNewObjectItem: self._isNewObjectItem)) {
+                destination: ObjectItemListView(title: "Avatars and Icons Tests", listDataType: ObjectItemAvatarsExample.self, isNewObjectItem: self._isNewObjectItem))
+            {
                 Text("Avatars and Icons Tests")
             }
-        }.navigationBarTitle(_isNewObjectItem ? "ObjectItem" : "_ObjectItem", displayMode: .inline)
+        }.navigationBarTitle(self._isNewObjectItem ? "ObjectItem" : "_ObjectItem", displayMode: .inline)
     }
 }
 

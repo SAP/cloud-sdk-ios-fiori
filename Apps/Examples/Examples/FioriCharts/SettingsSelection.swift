@@ -26,28 +26,28 @@ struct SettingsSelection: View {
     var body: some View {
         Form {
             Section(header: Text("Main Switch")) {
-                Toggle(isOn: $model.userInteractionEnabled) {
+                Toggle(isOn: self.$model.userInteractionEnabled) {
                     Text("User Interaction Enabled")
                 }
             }
             
             Section(header: Text("Zoom")) {
-                Toggle(isOn: $model.scaleXEnabled, label: {
+                Toggle(isOn: self.$model.scaleXEnabled, label: {
                     Text("Scale X Enabled")
                 })
                 
-                Toggle(isOn: $model.scaleYEnabled, label: {
+                Toggle(isOn: self.$model.scaleYEnabled, label: {
                     Text("Scale Y Enabled")
                 })
                 
-                Toggle(isOn: $model.readableScaleEnabled, label: {
+                Toggle(isOn: self.$model.readableScaleEnabled, label: {
                     Text("Readable Scale Enabled")
                 })
                 
                 HStack(alignment: .center) {
                     Text("Scale X: ")
                     
-                    TextField("", text: $textScaleX, onCommit: {
+                    TextField("", text: self.$textScaleX, onCommit: {
                         var value: CGFloat = 1
                         if let n = NumberFormatter().number(from: self.textScaleX) {
                             value = CGFloat(truncating: n)
@@ -60,7 +60,7 @@ struct SettingsSelection: View {
                 HStack(alignment: .center) {
                     Text("Scale Y: ")
                     
-                    TextField("", text: $textScaleY, onCommit: {
+                    TextField("", text: self.$textScaleY, onCommit: {
                         var value: CGFloat = 1
                         if let n = NumberFormatter().number(from: self.textScaleY) {
                             value = CGFloat(truncating: n)
@@ -73,9 +73,9 @@ struct SettingsSelection: View {
             
             Section(header: Text("Pan")) {
                 HStack(alignment: .center) {
-                    Text("Pivot X: \(model.centerPosition?.x ?? 0.5)")
+                    Text("Pivot X: \(self.model.centerPosition?.x ?? 0.5)")
                     
-                    TextField("", text: $textPositionX, onCommit: {
+                    TextField("", text: self.$textPositionX, onCommit: {
                         var point = CGPoint(x: 0.5, y: 0.5)
                         if let pt = self.model.centerPosition {
                             point = pt
@@ -94,9 +94,9 @@ struct SettingsSelection: View {
                 }
                 
                 HStack(alignment: .center) {
-                    Text("Pivot Y: \(model.centerPosition?.y ?? 0.5)")
+                    Text("Pivot Y: \(self.model.centerPosition?.y ?? 0.5)")
                     
-                    TextField("", text: $textPositionY, onCommit: {
+                    TextField("", text: self.$textPositionY, onCommit: {
                         var point = CGPoint(x: 0.5, y: 0.5)
                         if let pt = self.model.centerPosition {
                             point = pt
@@ -114,17 +114,17 @@ struct SettingsSelection: View {
                     }).textFieldStyle(RoundedBorderTextFieldStyle())
                 }
                 
-                Toggle(isOn: $model.snapToPoint) {
+                Toggle(isOn: self.$model.snapToPoint) {
                     Text("Snap to point only")
                 }
             }
             
             Section(header: Text("Selection")) {
-                Toggle(isOn: $model.selectionEnabled, label: {
+                Toggle(isOn: self.$model.selectionEnabled, label: {
                     Text("Selection Enabled")
                 })
                 
-                Picker(selection: $model.selectionMode, label: Text("Selection Mode")) {
+                Picker(selection: self.$model.selectionMode, label: Text("Selection Mode")) {
                     Text("Single").tag(ChartSelectionMode.single)
                     Text("All").tag(ChartSelectionMode.all)
                     Text("Multiple").tag(ChartSelectionMode.multiple)

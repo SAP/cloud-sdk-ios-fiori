@@ -27,7 +27,7 @@ extension FilterFeedbackBarItem: View {
 private extension View {
     func icon(name: String?, isVisible: Bool) -> Image? {
         if isVisible {
-            if let name = name {
+            if let name {
                 return Image(systemName: name)
             }
         }
@@ -46,12 +46,12 @@ struct FilterFeedbackMenuItem: View {
 
     var body: some View {
         Group {
-            ForEach($item.valueOptions.wrappedValue, id: \.self) { opt in
-                FilterFeedbackBarItem(leftIcon: item.isOptionSelected(opt) ? icon(name: item.icon, isVisible: true) : nil, title: opt, isSelected: item.isOptionSelected(opt))
+            ForEach(self.$item.valueOptions.wrappedValue, id: \.self) { opt in
+                FilterFeedbackBarItem(leftIcon: self.item.isOptionSelected(opt) ? icon(name: self.item.icon, isVisible: true) : nil, title: opt, isSelected: self.item.isOptionSelected(opt))
                     .onTapGesture {
-                        item.onTap(option: opt)
-                        item.apply()
-                        onUpdate()
+                        self.item.onTap(option: opt)
+                        self.item.apply()
+                        self.onUpdate()
                     }
             }
         }
@@ -73,35 +73,35 @@ struct SliderMenuItem: View {
     }
     
     var body: some View {
-        FilterFeedbackBarItem(leftIcon: icon(name: item.icon, isVisible: true), title: item.label, rightIcon: Image(systemName: "chevron.down"), isSelected: item.isChecked)
+        FilterFeedbackBarItem(leftIcon: icon(name: self.item.icon, isVisible: true), title: self.item.label, rightIcon: Image(systemName: "chevron.down"), isSelected: self.item.isChecked)
             .onTapGesture {
-                isSheetVisible.toggle()
+                self.isSheetVisible.toggle()
             }
-            .popover(isPresented: $isSheetVisible, attachmentAnchor: .point(.bottom), arrowEdge: .bottom) {
+            .popover(isPresented: self.$isSheetVisible, attachmentAnchor: .point(.bottom), arrowEdge: .bottom) {
                 CancellableResettableDialogForm {
-                    SortFilterItemTitle(title: item.name)
+                    SortFilterItemTitle(title: self.item.name)
                 } cancelAction: {
                     _Action(actionText: NSLocalizedString("Cancel", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
-                        item.cancel()
-                        isSheetVisible.toggle()
+                        self.item.cancel()
+                        self.isSheetVisible.toggle()
                     })
-                        .buttonStyle(CancelButtonStyle())
+                    .buttonStyle(CancelButtonStyle())
                 } resetAction: {
                     _Action(actionText: NSLocalizedString("Reset", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
-                        item.reset()
+                        self.item.reset()
                     })
-                        .buttonStyle(ResetButtonStyle())
-                        .disabled(self.item.isOriginal)
+                    .buttonStyle(ResetButtonStyle())
+                    .disabled(self.item.isOriginal)
                 } applyAction: {
                     _Action(actionText: NSLocalizedString("Apply", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
-                        item.apply()
-                        onUpdate()
-                        isSheetVisible.toggle()
+                        self.item.apply()
+                        self.onUpdate()
+                        self.isSheetVisible.toggle()
                     })
-                        .buttonStyle(ApplyButtonStyle())
+                    .buttonStyle(ApplyButtonStyle())
 
                 } components: {
-                    SliderPickerItem(value: Binding<Int?>(get: { item.workingValue }, set: { item.workingValue = $0 }), formatter: item.formatter, minimumValue: item.minimumValue, maximumValue: item.maximumValue)
+                    SliderPickerItem(value: Binding<Int?>(get: { self.item.workingValue }, set: { self.item.workingValue = $0 }), formatter: self.item.formatter, minimumValue: self.item.minimumValue, maximumValue: self.item.maximumValue)
                         .padding([.leading, .trailing], UIDevice.current.userInterfaceIdiom == .pad ? 13 : 16)
                 }
                 .readHeight()
@@ -129,44 +129,44 @@ struct PickerMenuItem: View {
     }
     
     var body: some View {
-        if item.valueOptions.count > 4 {
-            button
+        if self.item.valueOptions.count > 4 {
+            self.button
         } else {
-            menu
+            self.menu
         }
     }
 
     @ViewBuilder
     var button: some View {
-        FilterFeedbackBarItem(leftIcon: icon(name: item.icon, isVisible: true), title: item.label, rightIcon: Image(systemName: "chevron.down"), isSelected: item.isChecked)
+        FilterFeedbackBarItem(leftIcon: icon(name: self.item.icon, isVisible: true), title: self.item.label, rightIcon: Image(systemName: "chevron.down"), isSelected: self.item.isChecked)
             .onTapGesture {
-                isSheetVisible.toggle()
+                self.isSheetVisible.toggle()
             }
-            .popover(isPresented: $isSheetVisible, attachmentAnchor: .point(.bottom), arrowEdge: .bottom) {
+            .popover(isPresented: self.$isSheetVisible, attachmentAnchor: .point(.bottom), arrowEdge: .bottom) {
                 CancellableResettableDialogForm {
-                    SortFilterItemTitle(title: item.name)
+                    SortFilterItemTitle(title: self.item.name)
                 } cancelAction: {
                     _Action(actionText: NSLocalizedString("Cancel", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
-                        item.cancel()
-                        isSheetVisible.toggle()
+                        self.item.cancel()
+                        self.isSheetVisible.toggle()
                     })
-                        .buttonStyle(CancelButtonStyle())
+                    .buttonStyle(CancelButtonStyle())
                 } resetAction: {
                     _Action(actionText: NSLocalizedString("Reset", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
-                        item.reset()
+                        self.item.reset()
                     })
-                        .buttonStyle(ResetButtonStyle())
-                        .disabled(self.item.isOriginal)
+                    .buttonStyle(ResetButtonStyle())
+                    .disabled(self.item.isOriginal)
                 } applyAction: {
                     _Action(actionText: NSLocalizedString("Apply", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
-                        item.apply()
-                        onUpdate()
-                        isSheetVisible.toggle()
+                        self.item.apply()
+                        self.onUpdate()
+                        self.isSheetVisible.toggle()
                     })
-                        .buttonStyle(ApplyButtonStyle())
+                    .buttonStyle(ApplyButtonStyle())
                 } components: {
-                    OptionListPickerItem(value: $item.workingValue, valueOptions: item.valueOptions, hint: nil) { index in
-                        item.onTap(option: item.valueOptions[index])
+                    OptionListPickerItem(value: self.$item.workingValue, valueOptions: self.item.valueOptions, hint: nil) { index in
+                        self.item.onTap(option: self.item.valueOptions[index])
                     }
                     .padding([.leading, .trailing], UIDevice.current.userInterfaceIdiom == .pad ? 13 : 16)
                 }
@@ -184,25 +184,25 @@ struct PickerMenuItem: View {
     var menu: some View {
         HStack {
             Menu {
-                ForEach(item.valueOptions.indices) { idx in
-                    if item.isOptionSelected(index: idx) {
+                ForEach(self.item.valueOptions.indices) { idx in
+                    if self.item.isOptionSelected(index: idx) {
                         Button {
-                            item.onTap(option: item.valueOptions[idx])
-                            item.apply()
-                            onUpdate()
+                            self.item.onTap(option: self.item.valueOptions[idx])
+                            self.item.apply()
+                            self.onUpdate()
                         } label: {
-                            Label { Text(item.valueOptions[idx]) } icon: { Image(fioriName: "fiori.accept") }
+                            Label { Text(self.item.valueOptions[idx]) } icon: { Image(fioriName: "fiori.accept") }
                         }
                     } else {
-                        Button(item.valueOptions[idx]) {
-                            item.onTap(option: item.valueOptions[idx])
-                            item.apply()
-                            onUpdate()
+                        Button(self.item.valueOptions[idx]) {
+                            self.item.onTap(option: self.item.valueOptions[idx])
+                            self.item.apply()
+                            self.onUpdate()
                         }
                     }
                 }
             } label: {
-                FilterFeedbackBarItem(leftIcon: icon(name: item.icon, isVisible: true), title: item.label, isSelected: item.isChecked)
+                FilterFeedbackBarItem(leftIcon: icon(name: self.item.icon, isVisible: true), title: self.item.label, isSelected: self.item.isChecked)
             }
         }
     }
@@ -250,32 +250,32 @@ struct DateTimeMenuItem: View {
     }
         
     var body: some View {
-        FilterFeedbackBarItem(leftIcon: icon(name: item.icon, isVisible: true), title: item.label, rightIcon: Image(systemName: "chevron.down"), isSelected: item.isChecked)
+        FilterFeedbackBarItem(leftIcon: icon(name: self.item.icon, isVisible: true), title: self.item.label, rightIcon: Image(systemName: "chevron.down"), isSelected: self.item.isChecked)
             .onTapGesture {
-                isSheetVisible.toggle()
+                self.isSheetVisible.toggle()
             }
-            .popover(isPresented: $isSheetVisible, attachmentAnchor: .point(.bottom), arrowEdge: .bottom) {
+            .popover(isPresented: self.$isSheetVisible, attachmentAnchor: .point(.bottom), arrowEdge: .bottom) {
                 CancellableResettableDialogForm {
-                    SortFilterItemTitle(title: item.name)
+                    SortFilterItemTitle(title: self.item.name)
                 } cancelAction: {
                     _Action(actionText: NSLocalizedString("Cancel", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
-                        item.cancel()
-                        isSheetVisible.toggle()
+                        self.item.cancel()
+                        self.isSheetVisible.toggle()
                     })
-                        .buttonStyle(CancelButtonStyle())
+                    .buttonStyle(CancelButtonStyle())
                 } resetAction: {
                     _Action(actionText: NSLocalizedString("Reset", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
-                        item.reset()
+                        self.item.reset()
                     })
-                        .buttonStyle(ResetButtonStyle())
-                        .disabled(self.item.isOriginal)
+                    .buttonStyle(ResetButtonStyle())
+                    .disabled(self.item.isOriginal)
                 } applyAction: {
                     _Action(actionText: NSLocalizedString("Apply", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
-                        item.apply()
-                        onUpdate()
-                        isSheetVisible.toggle()
+                        self.item.apply()
+                        self.onUpdate()
+                        self.isSheetVisible.toggle()
                     })
-                        .buttonStyle(ApplyButtonStyle())
+                    .buttonStyle(ApplyButtonStyle())
                 } components: {
                     VStack {
                         HStack {
@@ -285,7 +285,7 @@ struct DateTimeMenuItem: View {
                             Spacer()
                             DatePicker(
                                 "",
-                                selection: Binding<Date>(get: { item.workingValue ?? Date() }, set: { item.workingValue = $0 }),
+                                selection: Binding<Date>(get: { self.item.workingValue ?? Date() }, set: { self.item.workingValue = $0 }),
                                 displayedComponents: [.hourAndMinute]
                             )
                             .labelsHidden()
@@ -293,8 +293,8 @@ struct DateTimeMenuItem: View {
                         .padding([.leading, .trailing], UIDevice.current.userInterfaceIdiom == .pad ? 13 : 16)
 
                         DatePicker(
-                            item.label,
-                            selection: Binding<Date>(get: { item.workingValue ?? Date() }, set: { item.workingValue = $0 }),
+                            self.item.label,
+                            selection: Binding<Date>(get: { self.item.workingValue ?? Date() }, set: { self.item.workingValue = $0 }),
                             displayedComponents: [.date]
                         )
                         .datePickerStyle(.graphical)
@@ -329,16 +329,16 @@ struct SwitchMenuItem: View {
     }
         
     var body: some View {
-        FilterFeedbackBarItem(leftIcon: icon(name: item.icon, isVisible: true), title: item.name, isSelected: item.isChecked)
+        FilterFeedbackBarItem(leftIcon: icon(name: self.item.icon, isVisible: true), title: self.item.name, isSelected: self.item.isChecked)
             .onTapGesture {
-                if item.value != nil {
-                    item.workingValue?.toggle()
-                    item.apply()
-                    onUpdate()
+                if self.item.value != nil {
+                    self.item.workingValue?.toggle()
+                    self.item.apply()
+                    self.onUpdate()
                 } else {
-                    item.workingValue = true
-                    item.apply()
-                    onUpdate()
+                    self.item.workingValue = true
+                    self.item.apply()
+                    self.onUpdate()
                 }
 //            isSheetVisible.toggle()
             }
@@ -385,11 +385,11 @@ struct FullCFGMenuItem: View {
     }
     
     var body: some View {
-        FilterFeedbackBarItem(leftIcon: icon(name: fullCFGButton.icon, isVisible: true), title: fullCFGButton.name ?? "", isSelected: true)
+        FilterFeedbackBarItem(leftIcon: icon(name: self.fullCFGButton.icon, isVisible: true), title: self.fullCFGButton.name ?? "", isSelected: true)
             .onTapGesture {
-                isSheetVisible.toggle()
+                self.isSheetVisible.toggle()
             }
-            .popover(isPresented: $isSheetVisible, attachmentAnchor: .point(.bottom), arrowEdge: .bottom) {
+            .popover(isPresented: self.$isSheetVisible, attachmentAnchor: .point(.bottom), arrowEdge: .bottom) {
                 SortFilterView(
                     title: {
                         if let title = fullCFGButton.name {
@@ -399,28 +399,28 @@ struct FullCFGMenuItem: View {
                         }
                     },
                     items: {
-                        _SortFilterCFGItemContainer(items: $items)
+                        _SortFilterCFGItemContainer(items: self.$items)
                     },
                     cancelAction: {
                         _Action(actionText: NSLocalizedString("Cancel", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
                             // item.apply()
-                            onUpdate()
-                            isSheetVisible.toggle()
+                            self.onUpdate()
+                            self.isSheetVisible.toggle()
                         })
-                            .buttonStyle(CancelButtonStyle())
+                        .buttonStyle(CancelButtonStyle())
                     },
                     resetAction: {
                         _Action(actionText: NSLocalizedString("Reset", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
                             // item.cancel()
-                            isSheetVisible.toggle()
+                            self.isSheetVisible.toggle()
                         })
-                            .buttonStyle(ResetButtonStyle())
+                        .buttonStyle(ResetButtonStyle())
                     },
                     applyAction: {
                         _Action(actionText: NSLocalizedString("Apply", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
                             // item.reset()
                         })
-                            .buttonStyle(ApplyButtonStyle())
+                        .buttonStyle(ApplyButtonStyle())
                     },
                     onUpdate: {}
                 )

@@ -1,8 +1,8 @@
 import SwiftUI
 
 extension View {
-    func popover<PopView: View>(_ presented: Binding<Bool>,
-                                @ViewBuilder popView: @escaping () -> PopView) -> some View
+    func popover(_ presented: Binding<Bool>,
+                 @ViewBuilder popView: @escaping () -> some View) -> some View
     {
         modifier(PopoverModifier(isPresented: presented, popView: popView))
     }

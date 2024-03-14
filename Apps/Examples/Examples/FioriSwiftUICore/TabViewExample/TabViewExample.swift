@@ -11,33 +11,33 @@ struct TabViewExample: View {
 
     var body: some View {
         Form {
-            if isModalPresentation {
+            if self.isModalPresentation {
                 HStack {
                     Text("Selecte to Test")
                     Spacer()
                 }
                 .contentShape(Rectangle())
                 .onTapGesture {
-                    isPresented.toggle()
+                    self.isPresented.toggle()
                 }
-                .sheet(isPresented: $isPresented) {
-                    TabViewDetailView(numberOfTabs: $numberOfTabs,
-                                      isCustomColor: $isCustomColor,
-                                      isCustomSelectionIndicatorImage: $isCustomSelectionIndicatorImage,
-                                      isCustomBackgroundImage: $isCustomBackgroundImage)
+                .sheet(isPresented: self.$isPresented) {
+                    TabViewDetailView(numberOfTabs: self.$numberOfTabs,
+                                      isCustomColor: self.$isCustomColor,
+                                      isCustomSelectionIndicatorImage: self.$isCustomSelectionIndicatorImage,
+                                      isCustomBackgroundImage: self.$isCustomBackgroundImage)
                 }
             } else {
                 NavigationLink {
-                    TabViewDetailView(numberOfTabs: $numberOfTabs,
-                                      isCustomColor: $isCustomColor,
-                                      isCustomSelectionIndicatorImage: $isCustomSelectionIndicatorImage,
-                                      isCustomBackgroundImage: $isCustomBackgroundImage)
+                    TabViewDetailView(numberOfTabs: self.$numberOfTabs,
+                                      isCustomColor: self.$isCustomColor,
+                                      isCustomSelectionIndicatorImage: self.$isCustomSelectionIndicatorImage,
+                                      isCustomBackgroundImage: self.$isCustomBackgroundImage)
                 } label: {
                     Text("Selecte to Test")
                 }
             }
             
-            Picker("Number of Tabs", selection: $numberOfTabs) {
+            Picker("Number of Tabs", selection: self.$numberOfTabs) {
                 Text("2").tag(2)
                 Text("3").tag(3)
                 Text("4").tag(4)
@@ -45,10 +45,10 @@ struct TabViewExample: View {
                 Text("6").tag(6)
             }
             
-            Toggle("Modal Presentation", isOn: $isModalPresentation)
-            Toggle("Custom Colors", isOn: $isCustomColor)
-            Toggle("Custom Selection Indicator Image", isOn: $isCustomSelectionIndicatorImage)
-            Toggle("Custom Background Image", isOn: $isCustomBackgroundImage)
+            Toggle("Modal Presentation", isOn: self.$isModalPresentation)
+            Toggle("Custom Colors", isOn: self.$isCustomColor)
+            Toggle("Custom Selection Indicator Image", isOn: self.$isCustomSelectionIndicatorImage)
+            Toggle("Custom Background Image", isOn: self.$isCustomBackgroundImage)
         }
         .navigationTitle("TabView Example")
     }

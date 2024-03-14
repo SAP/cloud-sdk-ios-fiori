@@ -12,9 +12,9 @@ struct NavigationBarExample: View {
             }
             .contentShape(Rectangle())
             .onTapGesture {
-                isPresented.toggle()
+                self.isPresented.toggle()
             }
-            .sheet(isPresented: $isPresented) {
+            .sheet(isPresented: self.$isPresented) {
                 NavigationBarFioriStyle()
             }
             

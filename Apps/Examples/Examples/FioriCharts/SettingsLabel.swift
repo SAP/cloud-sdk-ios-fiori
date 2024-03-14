@@ -12,17 +12,17 @@ struct SettingsLabel: View {
         
         return Form {
             Section {
-                Toggle(isOn: $label.isHidden) {
+                Toggle(isOn: self.$label.isHidden) {
                     Text("Is Hidden")
                 }
                 
-                Text("Font Size: \(nf.string(from: NSNumber(value: Double(label.fontSize))) ?? "")")
-                Slider(value: $label.fontSize, in: 5 ... 20, step: 1)
+                Text("Font Size: \(nf.string(from: NSNumber(value: Double(self.label.fontSize))) ?? "")")
+                Slider(value: self.$label.fontSize, in: 5 ... 20, step: 1)
                 
-                Text("Font offset: \(nf.string(from: NSNumber(value: Double(label.offset))) ?? "")")
-                Slider(value: $label.offset, in: 0 ... 10, step: 1)
+                Text("Font offset: \(nf.string(from: NSNumber(value: Double(self.label.offset))) ?? "")")
+                Slider(value: self.$label.offset, in: 0 ... 10, step: 1)
                 
-                SettingColor(color: $label.color)
+                SettingColor(color: self.$label.color)
             }
         }.navigationBarTitle("Label Attributes")
     }

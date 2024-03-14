@@ -12,11 +12,13 @@ struct ContentView: View {
                     Text("Charts")
                 }
                 NavigationLink(
-                    destination: CoreContentView()) {
+                    destination: CoreContentView())
+                {
                     Text("Core Elements")
                 }
                 NavigationLink(
-                    destination: FioriThemeManagerContentView()) {
+                    destination: FioriThemeManagerContentView())
+                {
                     Text("Theme Manager")
                 }
             }

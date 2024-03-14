@@ -29,31 +29,31 @@ struct SortFilterExample: View {
 
     var body: some View {
         VStack {
-            if isCustomStyle {
-                FilterFeedbackBar(items: $items, onUpdate: performSortAndFilter)
+            if self.isCustomStyle {
+                FilterFeedbackBar(items: self.$items, onUpdate: self.performSortAndFilter)
                     .filterFeedbackBarStyle(font: .subheadline, foregroundColorSelected: .red, strokeColorSelected: .red, cornerRadius: 25)
                     .optionListPickerStyle(font: .footnote, foregroundColorUnselected: .green, strokeColorSelected: .black)
 //                    .trailingFullConfigurationMenuItem(icon: "command")
 //                    .leadingFullConfigurationMenuItem(icon: "command")
 //                    .leadingFullConfigurationMenuItem(name: "All")
             } else {
-                FilterFeedbackBar(items: $items, onUpdate: performSortAndFilter)
+                FilterFeedbackBar(items: self.$items, onUpdate: self.performSortAndFilter)
             }
             
             List {
-                ForEach(sortFilterList, id: \.self) { line in
+                ForEach(self.sortFilterList, id: \.self) { line in
                     Text(line)
                 }
             }
             .listStyle(PlainListStyle())
             
             HStack {
-                Toggle("Custom Style", isOn: $isCustomStyle)
+                Toggle("Custom Style", isOn: self.$isCustomStyle)
                     .fixedSize()
                     .toggleStyle(FioriToggleStyle())
 
                 Button("Print") {
-                    for line in sortFilterList {
+                    for line in self.sortFilterList {
                         print(line)
                     }
                 }
@@ -61,28 +61,28 @@ struct SortFilterExample: View {
         }
         .navigationTitle("Sort & Filter")
         .toolbar {
-            Button(sortFilterButtonLabel) {
-                isShowingFullCFG.toggle()
+            Button(self.sortFilterButtonLabel) {
+                self.isShowingFullCFG.toggle()
             }
-            .popover(isPresented: $isShowingFullCFG, arrowEdge: .leading) {
-                if isCustomStyle {
+            .popover(isPresented: self.$isShowingFullCFG, arrowEdge: .leading) {
+                if self.isCustomStyle {
                     SortFilterView(
                         title: "Configuration",
-                        items: $items,
-                        onUpdate: performSortAndFilter
+                        items: self.$items,
+                        onUpdate: self.performSortAndFilter
                     )
                     .optionListPickerStyle(font: .footnote, foregroundColorUnselected: .green, strokeColorSelected: .black)
                 } else {
                     SortFilterView(
                         title: "Configuration",
-                        items: $items,
-                        onUpdate: performSortAndFilter
+                        items: self.$items,
+                        onUpdate: self.performSortAndFilter
                     )
                 }
             }
         }
         .onAppear {
-            performSortAndFilter()
+            self.performSortAndFilter()
         }
     }
     

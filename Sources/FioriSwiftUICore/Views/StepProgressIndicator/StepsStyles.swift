@@ -216,7 +216,7 @@ struct DefaultStepStyle: StepStyle {
                         _ isSelected: Bool,
                         _ isPressed: Bool) -> Color
     {
-        guard let state = state else { return Color.preferredColor(.primaryBackground) }
+        guard let state else { return Color.preferredColor(.primaryBackground) }
         switch (state, isSelected) {
         case (.completed, _):
             return Color.preferredColor(isPressed ? .tintColorTapState : .tintColor)
@@ -233,7 +233,7 @@ struct DefaultStepStyle: StepStyle {
                         _ isSelected: Bool,
                         _ isPressed: Bool) -> Color
     {
-        guard let state = state else { return Color.preferredColor(.tertiaryLabel) }
+        guard let state else { return Color.preferredColor(.tertiaryLabel) }
         switch (state, isSelected) {
         case (.normal, true):
             return Color.preferredColor(isPressed ? .tintColorTapState : .tintColor)
@@ -250,7 +250,7 @@ struct DefaultStepStyle: StepStyle {
                    _ isSelected: Bool,
                    _ isPressed: Bool) -> Color
     {
-        guard let state = state else { return Color.preferredColor(.primaryLabel) }
+        guard let state else { return Color.preferredColor(.primaryLabel) }
         switch (state, isSelected) {
         case (.disabled, _):
             return Color.preferredColor(.tertiaryLabel)
@@ -262,7 +262,7 @@ struct DefaultStepStyle: StepStyle {
     }
     
     func nameFont(_ state: StepProgressIndicatorState?, _ isSelected: Bool, _ axis: Axis) -> Font {
-        guard let state = state else { return Font.fiori(forTextStyle: .body) }
+        guard let state else { return Font.fiori(forTextStyle: .body) }
         let useSemibold: Bool
         switch (state, isSelected) {
         case (.normal, true), (.error, true):
@@ -279,7 +279,7 @@ struct DefaultStepStyle: StepStyle {
                    _ isPressed: Bool,
                    _ showLine: Bool) -> Color
     {
-        guard let state = state else { return Color.preferredColor(.separator) }
+        guard let state else { return Color.preferredColor(.separator) }
         if showLine {
             return self.line(state, isSelected, isPressed)
         } else {

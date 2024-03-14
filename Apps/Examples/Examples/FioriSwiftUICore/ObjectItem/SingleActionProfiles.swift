@@ -151,7 +151,7 @@ struct SingleActionProfiles: ObjectItemListDataProtocol {
                 }, action: {
                     actionBtn
                 })
-                    .splitPercent(0.25)
+                .splitPercent(0.25)
             }
             
         case (0, 2):
@@ -186,7 +186,7 @@ struct SingleActionProfiles: ObjectItemListDataProtocol {
                 }, action: {
                     actionBtn
                 })
-                    .splitPercent(0.25)
+                .splitPercent(0.25)
             }
              
         case (0, 3):
@@ -213,7 +213,7 @@ struct SingleActionProfiles: ObjectItemListDataProtocol {
                 }, action: {
                     actionBtn
                 })
-                    .splitPercent(0.25)
+                .splitPercent(0.25)
             }
             
         case (0, 4):
@@ -312,11 +312,11 @@ struct SingleActionProfiles: ObjectItemListDataProtocol {
                 }, action: {
                     actionBtn
                 })
-                    .splitPercent(0.25)
-                    .onTapGesture {
-                        print("tapped the cell")
-                        self.cellTapped = true
-                    }
+                .splitPercent(0.25)
+                .onTapGesture {
+                    print("tapped the cell")
+                    self.cellTapped = true
+                }
             }
             
         default:

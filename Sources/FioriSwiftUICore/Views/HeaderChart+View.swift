@@ -74,9 +74,9 @@ extension HeaderChart: View {
             Spacer().frame(height: 8)
             
             if !isTrendEmptyView || !isTrendImageEmptyView, isKpiEmptyView, Chart.self != EmptyView.self {
-                makeTrendandChartView()
+                self.makeTrendandChartView()
             } else {
-                makeRegularView()
+                self.makeRegularView()
             }
         }
         .modifier(SizeModifier())

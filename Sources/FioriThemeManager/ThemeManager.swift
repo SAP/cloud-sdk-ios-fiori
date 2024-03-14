@@ -96,17 +96,17 @@ public class ThemeManager {
         self.styleSheetOverrides.removeAll()
     }
     
-    internal var compatibilityMap: ColorCompatibilityMap? {
+    var compatibilityMap: ColorCompatibilityMap? {
         self.paletteVersion?.compatibilityMap
     }
     
-    internal var paletteVersion: PaletteVersion? = PaletteVersion.latest
+    var paletteVersion: PaletteVersion? = PaletteVersion.latest
     
-    internal private(set) var developerOverrides: [ColorStyle: [ColorVariant: Color]] = [:]
-    internal private(set) var styleSheetOverrides: [ColorStyle: [ColorVariant: Color]] = [:]
+    private(set) var developerOverrides: [ColorStyle: [ColorVariant: Color]] = [:]
+    private(set) var styleSheetOverrides: [ColorStyle: [ColorVariant: Color]] = [:]
     
     /// :nodoc:
-    internal func hexColor(for style: ColorStyle) -> HexColor? {
+    func hexColor(for style: ColorStyle) -> HexColor? {
         switch self.paletteVersion {
         #if !os(watchOS)
             case .v3_x, .v3_2, .v4, .v5, .v6, .v7, .v8:
@@ -132,7 +132,7 @@ public class ThemeManager {
     
     /// Merges deprecated styles till the `current` palette.
     private func mergedDeprecatedDefinitions() -> [ColorStyle: HexColor] {
-        guard let paletteVersion = paletteVersion else { return self.palette.colorDefinitions }
+        guard let paletteVersion else { return self.palette.colorDefinitions }
         var current = paletteVersion
         var result = paletteVersion.palette.colorDefinitions
         var cumulative = [ColorStyle: HexColor]()
@@ -146,7 +146,7 @@ public class ThemeManager {
     
     /// Merges new styles that are not existed in current palette till the `latest` palette.
     private func mergedCompatibleDefinitions() -> [ColorStyle: ColorStyle] {
-        guard let paletteVersion = paletteVersion,
+        guard let paletteVersion,
               let map = paletteVersion.compatibilityMap
         else {
             return [ColorStyle: ColorStyle]()
@@ -163,7 +163,7 @@ public class ThemeManager {
     }
     
     /// :nodoc:
-    internal func color(for style: ColorStyle, background scheme: BackgroundColorScheme?, interface level: InterfaceLevel?, display mode: ColorDisplayMode?) -> Color {
+    func color(for style: ColorStyle, background scheme: BackgroundColorScheme?, interface level: InterfaceLevel?, display mode: ColorDisplayMode?) -> Color {
         let uiColor = self.uiColor(for: style, background: scheme, interface: level, display: mode)
         let color = Color(uiColor)
         return color
@@ -173,7 +173,7 @@ public class ThemeManager {
         guard let hc = self.hexColor(for: style) else { return .clear }
         #if os(iOS) || os(visionOS)
             let uc = UIColor { [weak self] traitCollection in
-                guard let self = self else { return .clear }
+                guard let self else { return .clear }
                 guard let hexColor = self.hexColor(for: style) else { return .clear }
                 let variant = hexColor.getVariant(traits: traitCollection, background: scheme, interface: level, display: mode)
                 return self.color(for: style, hexColor: hc, variant: variant)?.uiColor() ?? .clear

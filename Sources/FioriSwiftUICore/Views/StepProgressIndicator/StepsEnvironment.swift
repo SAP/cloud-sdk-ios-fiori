@@ -26,7 +26,7 @@ public extension View {
     /// Step style for `StepProgressIndicator`.
     /// - Parameter style: Style for `StepProgressIndicator`.
     /// - Returns: A new `StepProgressIndicator` with specific style.
-    func stepStyle<T: StepStyle>(_ style: @escaping ((_ id: String) -> T?)) -> some View {
+    func stepStyle(_ style: @escaping ((_ id: String) -> (some StepStyle)?)) -> some View {
         let anyStyle: (_ id: String) -> AnyStepStyle? = { id in
             if let s = style(id) {
                 return AnyStepStyle(s)
@@ -55,7 +55,7 @@ public extension View {
     /// Modifier for step separator line.
     /// - Parameter transform: Any transform.
     /// - Returns: A new view with modified line.
-    @ViewBuilder func stepLineModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
+    @ViewBuilder func stepLineModifier(_ transform: @escaping (AnyViewModifier.Content) -> some View) -> some View {
         self.environment(\.stepLineModifier, AnyViewModifier(transform))
     }
 }
@@ -93,7 +93,7 @@ struct AnyStepStyle: StepStyle {
     let title: (StepConfiguration) -> AnyView
     let line: (StepConfiguration) -> AnyView
     
-    init<S: StepStyle>(_ style: S) {
+    init(_ style: some StepStyle) {
         self.node = {
             AnyView(style.makeNode(configuration: $0))
         }

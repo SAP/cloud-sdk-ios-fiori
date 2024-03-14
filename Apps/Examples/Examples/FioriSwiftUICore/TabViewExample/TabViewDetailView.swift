@@ -29,19 +29,19 @@ struct TabViewDetailView: View {
     var handler: Binding<Int> { Binding(
         get: { self.selection },
         set: {
-            if selection != $0 {
+            if self.selection != $0 {
                 self.selection = $0
-                accendColor = Color.random
+                self.accendColor = Color.random
             }
             
-            selectionAudioPlayer?.play()
+            self.selectionAudioPlayer?.play()
         }
     ) }
     
     var body: some View {
-        TabView(selection: handler) {
-            ForEach(0 ..< numberOfTabs, id: \.self) { index in
-                let t = tabs[index]
+        TabView(selection: self.handler) {
+            ForEach(0 ..< self.numberOfTabs, id: \.self) { index in
+                let t = self.tabs[index]
                 Group {
                     if index.isMultiple(of: 2) {
                         Color.random
@@ -62,37 +62,37 @@ struct TabViewDetailView: View {
             }
         }
         .navigationTitle("Customized TabView")
-        .accentColor(accendColor)
+        .accentColor(self.accendColor)
         .onAppear {
             if let path = Bundle.main.path(forResource: "08 Tap", ofType: "wav") {
                 let url = URL(fileURLWithPath: path)
                 do {
-                    selectionAudioPlayer = try AVAudioPlayer(contentsOf: url)
-                    selectionAudioPlayer.prepareToPlay()
+                    self.selectionAudioPlayer = try AVAudioPlayer(contentsOf: url)
+                    self.selectionAudioPlayer.prepareToPlay()
                 } catch let error as NSError {
                     print("Error creating AVAudioPlayer \(error)")
                 }
             }
 
-            if isCustomColor {
-                customTabColor()
+            if self.isCustomColor {
+                self.customTabColor()
             } else {
-                resetTabColor()
+                self.resetTabColor()
             }
-            if isCustomSelectionIndicatorImage {
+            if self.isCustomSelectionIndicatorImage {
                 UITabBar.appearance().selectionIndicatorImage = UIImage(systemName: "car")
             } else {
                 UITabBar.appearance().selectionIndicatorImage = nil
             }
             
-            if isCustomBackgroundImage {
+            if self.isCustomBackgroundImage {
                 UITabBar.appearance().backgroundImage = UIImage(named: "SAPLogo")?.stretchableImage(withLeftCapWidth: 0, topCapHeight: 0)
             } else {
                 UITabBar.appearance().backgroundImage = nil
             }
         }
         .onDisappear {
-            resetTabColor()
+            self.resetTabColor()
             UITabBar.appearance().selectionIndicatorImage = nil
             UITabBar.appearance().backgroundImage = nil
         }

@@ -4,7 +4,7 @@ struct StockMicroChart: View {
     @ObservedObject var model: ChartModel
     
     var body: some View {
-        XYAxisChart(model: model,
+        XYAxisChart(model: self.model,
                     chartContext: StockChartContext(),
                     chartView: StockLinesView(),
                     indicatorView: LineIndicatorView())
@@ -107,7 +107,7 @@ class StockChartContext: LineChartContext {
         let endIndex = Int((startPosX + rect.size.width) / unitWidth).clamp(low: startIndex, high: count - 1)
         let catIndexRange = startIndex ... endIndex
         
-        let ret = tmpRet.compactMap { (label) -> AxisTitle? in
+        let ret = tmpRet.compactMap { label -> AxisTitle? in
             let x = label.pos.x * tmpScaleX * width - startPosX
             if label.index >= startIndex, label.index <= endIndex, x >= 0, x <= width {
                 return label
@@ -234,7 +234,7 @@ class StockChartContext: LineChartContext {
             
         case .day:
             let components = Calendar.current.dateComponents([.month, .day], from: date)
-            var title: String = ""
+            var title = ""
             if let month = components.month {
                 title.append(String(month))
             }
@@ -250,7 +250,7 @@ class StockChartContext: LineChartContext {
             
         case .hour, .minute:
             let components = Calendar.current.dateComponents([.hour, .minute], from: date)
-            var title: String = ""
+            var title = ""
             if let hour = components.hour {
                 title.append(String(hour))
             }

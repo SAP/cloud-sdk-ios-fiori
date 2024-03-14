@@ -37,51 +37,52 @@ struct FioriToolbar<Items: IndexedViewContainer>: ViewModifier {
     func body(content: Content) -> some View {
         content.toolbar {
             ToolbarItemGroup(placement: .bottomBar) {
-                if sizeHandler.needLayoutSubviews {
+                if self.sizeHandler.needLayoutSubviews {
                     HStack(spacing: 0) {
-                        ForEach(0 ..< sizeHandler.itemsWidth.count, id: \.self) { index in
-                            let itemIndex = sizeHandler.itemsWidth[index].0
-                            let itemWidth = sizeHandler.itemsWidth[index].1
+                        ForEach(0 ..< self.sizeHandler.itemsWidth.count, id: \.self) { index in
+                            let itemIndex = self.sizeHandler.itemsWidth[index].0
+                            let itemWidth = self.sizeHandler.itemsWidth[index].1
                             if itemIndex >= 0 {
-                                items.view(at: itemIndex)
+                                self.items.view(at: itemIndex)
                                     .frame(width: itemWidth)
                             } else {
                                 if itemIndex == -1 {
-                                    helperTextView()
+                                    self.helperTextView()
                                         .frame(width: abs(itemWidth))
                                 } else if itemIndex == -2 {
-                                    moreAction()
+                                    self.moreAction()
                                         .frame(width: itemWidth)
                                 }
                             }
-                            if index < sizeHandler.itemsWidth.count - 1 {
-                                if itemIndex == -1 || !sizeHandler.useFixedPadding {
+                            if index < self.sizeHandler.itemsWidth.count - 1 {
+                                if itemIndex == -1 || !self.sizeHandler.useFixedPadding {
                                     Spacer().frame(minWidth: 8)
                                 } else {
-                                    Spacer().frame(width: sizeHandler.defaultFixedPadding)
+                                    Spacer().frame(width: self.sizeHandler.defaultFixedPadding)
                                 }
                             }
                         }
                     }
                 } else {
-                    HStack(spacing: sizeHandler.defaultFixedPadding) {
-                        if helperText != nil {
-                            helperTextView()
+                    HStack(spacing: self.sizeHandler.defaultFixedPadding) {
+                        if self.helperText != nil {
+                            self.helperTextView()
                                 .sizeReader { size in
-                                    sizeHandler.helperTextWidth = size.width
+                                    self.sizeHandler.helperTextWidth = size.width
                                 }
                         }
-                        ForEach(0 ..< items.count,
-                                id: \.self) { index in
-                            items.view(at: index)
+                        ForEach(0 ..< self.items.count,
+                                id: \.self)
+                        { index in
+                            self.items.view(at: index)
                                 .sizeReader { size in
-                                    sizeHandler.itemsSize[index] = size
+                                    self.sizeHandler.itemsSize[index] = size
                                 }
                         }.background {
-                            moreAction()
+                            self.moreAction()
                                 .sizeReader(size: { size in
-                                    sizeHandler.totalItemsCount = items.count
-                                    sizeHandler.moreActionWidth = size.width
+                                    self.sizeHandler.totalItemsCount = self.items.count
+                                    self.sizeHandler.moreActionWidth = size.width
                                 })
                                 .hidden()
                         }
@@ -90,11 +91,11 @@ struct FioriToolbar<Items: IndexedViewContainer>: ViewModifier {
             }
         }
         .sizeReader { size in
-            sizeHandler.containerSize = size
-            if horizontalSizeClass == .compact || UIDevice.current.userInterfaceIdiom == .pad {
-                sizeHandler.rtlMargin = 40
+            self.sizeHandler.containerSize = size
+            if self.horizontalSizeClass == .compact || UIDevice.current.userInterfaceIdiom == .pad {
+                self.sizeHandler.rtlMargin = 40
             } else {
-                sizeHandler.rtlMargin = 160
+                self.sizeHandler.rtlMargin = 160
             }
         }
     }
@@ -102,13 +103,13 @@ struct FioriToolbar<Items: IndexedViewContainer>: ViewModifier {
     @ViewBuilder
     func moreAction() -> some View {
         Menu {
-            if !sizeHandler.moreActionsIndex.isEmpty {
-                ForEach(sizeHandler.moreActionsIndex, id: \.self) { index in
-                    items.view(at: index)
+            if !self.sizeHandler.moreActionsIndex.isEmpty {
+                ForEach(self.sizeHandler.moreActionsIndex, id: \.self) { index in
+                    self.items.view(at: index)
                 }
             } else {
-                ForEach(0 ..< items.count, id: \.self) { index in
-                    items.view(at: index)
+                ForEach(0 ..< self.items.count, id: \.self) { index in
+                    self.items.view(at: index)
                 }
             }
         } label: {

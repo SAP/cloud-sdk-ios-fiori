@@ -73,7 +73,7 @@ enum StyleSheetConverter {
             self.getCapturedStrings(content: cString, withPattern: "(?:0X|#)([0-9A-F]{6})") ??
             // example of such a value: #A59, which is equal to #AA5599, where "AA" is R in hex; "55" is G in hex; "99" is B in hex; alpha is default to 1.0
             self.getCapturedStrings(content: cString, withPattern: "(?:0X|#)([0-9A-F]{3})")
-        if let hexAlphaStrings = hexAlphaStrings {
+        if let hexAlphaStrings {
             return Color(hex: hexAlphaStrings[1])
         }
         
@@ -104,7 +104,7 @@ enum StyleSheetConverter {
             //            let capturedRange = result.range(at: i).toRange()
             let capturedRange = Range(result.range(at: i))
             
-            if let capturedRange = capturedRange {
+            if let capturedRange {
                 let start = content.index(content.startIndex, offsetBy: capturedRange.lowerBound)
                 let end = content.index(content.startIndex, offsetBy: capturedRange.upperBound)
                 let range = start ..< end
