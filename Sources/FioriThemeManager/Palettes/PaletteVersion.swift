@@ -163,7 +163,9 @@ public extension PaletteVersion {
         #endif
         }
     }
-    
+}
+
+extension PaletteVersion {
     var compatibilityMap: ColorCompatibilityMap? {
         switch self {
         #if !os(watchOS)
