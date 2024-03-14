@@ -161,12 +161,7 @@ struct CoreContentView: View {
                     Text("InformationViewExample")
                 }
             )
-            NavigationLink(
-                destination: TextInputInfoViewExample(),
-                label: {
-                    Text("TextInputInfoViewExample")
-                }
-            )
+     
             NavigationLink(
                 destination: LinearProgressIndicatorExample(),
                 label: {

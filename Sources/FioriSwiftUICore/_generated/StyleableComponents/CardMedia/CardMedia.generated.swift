@@ -37,10 +37,10 @@ public extension CardMedia {
 
 extension CardMedia: View {
     public var body: some View {
-        if _shouldApplyDefaultStyle {
+        if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            style.resolve(configuration: .init(mediaImage: .init(self.mediaImage), description: .init(self.description))).typeErased
+            self.style.resolve(configuration: .init(mediaImage: .init(self.mediaImage), description: .init(self.description))).typeErased
                 .transformEnvironment(\.cardMediaStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()

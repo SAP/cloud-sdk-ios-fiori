@@ -175,7 +175,7 @@ public extension View {
 
 // MARK: DemoViewStyle
 
-public extension View {
+extension View {
     func demoViewStyle(_ style: some DemoViewStyle) -> some View {
         self.transformEnvironment(\.demoViewStyleStack) { stack in
             stack.append(style)
@@ -702,7 +702,7 @@ public extension View {
 
 // MARK: TextInputInfoViewStyle
 
-public extension View {
+extension View {
     func textInputInfoViewStyle(_ style: some TextInputInfoViewStyle) -> some View {
         self.transformEnvironment(\.textInputInfoViewStyleStack) { stack in
             stack.append(style)

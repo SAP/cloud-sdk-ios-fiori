@@ -1,9 +1,9 @@
-// Generated using Sourcery 2.1.3 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import Foundation
 import SwiftUI
 
-public protocol DemoViewStyle: DynamicProperty {
+protocol DemoViewStyle: DynamicProperty {
     associatedtype Body: View
 
     func makeBody(_ configuration: DemoViewConfiguration) -> Body
@@ -21,7 +21,7 @@ struct AnyDemoViewStyle: DemoViewStyle {
     }
 }
     
-public struct DemoViewConfiguration {
+struct DemoViewConfiguration {
     public let title: Title
     public let subtitle: Subtitle
     public let status: Status
@@ -34,7 +34,7 @@ public struct DemoViewConfiguration {
     public typealias Action = ConfigurationViewWrapper
 }
     
-public struct DemoViewFioriStyle: DemoViewStyle {
+struct DemoViewFioriStyle: DemoViewStyle {
     public func makeBody(_ configuration: DemoViewConfiguration) -> some View {
         DemoView(configuration)
             .titleStyle(TitleFioriStyle())

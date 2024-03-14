@@ -15,7 +15,7 @@ extension Array where Element == Variable {
             } else if variable.hasResultBuilderAttribute {
                 let type = variable.closureReturnType ?? variable.typeName.name
                 varDecl += "let \(variable.name): \(type)"
-            } else if variable.isConvertedToBinding {
+            } else if variable.isBinding {
                 varDecl += "@Binding var \(variable.name): \(variable.typeName)"
             } else {
                 let letOrVar = variable.isMutable ? "var" : "let"
@@ -34,7 +34,7 @@ extension Array where Element == Variable {
                 return "\(name) \(variable.name): () -> \(returnType)\(defaultValue.prependAssignmentIfNeeded())"
             } else if variable.hasResultBuilderAttribute {
                 return variable.resultBuilderInitParamDecl
-            } else if variable.isConvertedToBinding {
+            } else if variable.isBinding {
                 return "\(variable.name): Binding<\(variable.typeName)>"
             } else {
                 return "\(variable.name): \(variable.typeName)\(variable.defaultValue.prependAssignmentIfNeeded())"
@@ -49,7 +49,7 @@ extension Array where Element == Variable {
             if variable.isResultBuilder {
                 let assignment = isBaseComponent || !variable.isStyleable ? "\(name)()" : "\(name.capitalizingFirst()) { \(name)() }"
                 return "self.\(name) = \(assignment)"
-            } else if variable.isConvertedToBinding {
+            } else if variable.isBinding {
                 return "self._\(name) = \(name)"
             } else {
                 return "self.\(name) = \(name)"
@@ -61,7 +61,7 @@ extension Array where Element == Variable {
     var dataInitParams: String {
         map { variable in
             let decl: String
-            if variable.isConvertedToBinding {
+            if variable.isBinding {
                 return "\(variable.name): Binding<\(variable.typeName)>"
             } else if variable.hasResultBuilderAttribute {
                 return variable.resultBuilderInitParamDecl
@@ -90,7 +90,7 @@ extension Array where Element == Variable {
     var configurationInitBody: String {
         map { variable in
             let name = variable.name
-            if variable.isConvertedToBinding {
+            if variable.isBinding {
                 return "self._\(name) = configuration.$\(name)"
             } else {
                 return "self.\(name) = configuration.\(name)"
@@ -104,7 +104,7 @@ extension Array where Element == Variable {
             let name = variable.name
             if variable.isResultBuilder {
                 return "\(name): .init(self.\(name))"
-            } else if variable.isConvertedToBinding {
+            } else if variable.isBinding {
                 return "\(name): self.$\(name)"
             } else {
                 return "\(name): self.\(name)"
@@ -114,7 +114,9 @@ extension Array where Element == Variable {
     }
     
     var viewEmptyCheckingBody: String {
-        let ret = compactMap { variable in
+        let ret = self.filter { variable in
+            variable.isResultBuilder
+        }.compactMap { variable in
             let name = variable.name
             if variable.isResultBuilder {
                 return "\(name).isEmpty"
@@ -124,7 +126,7 @@ extension Array where Element == Variable {
                 return nil
             }
         }
-        .joined(separator: " ||\n")
+        .joined(separator: " &&\n")
         
         return ret.isEmpty ? "false" : ret
     }
@@ -137,7 +139,7 @@ extension Array where Element == Variable {
             if variable.isResultBuilder {
                 props.append("public let \(name): \(name.capitalizingFirst())")
                 `typealias`.append("public typealias \(name.capitalizingFirst()) = ConfigurationViewWrapper")
-            } else if variable.isConvertedToBinding {
+            } else if variable.isBinding {
                 props.append("@Binding public var \(name): \(variable.typeName)")
             } else {
                 props.append("public let \(name): \(variable.typeName)")

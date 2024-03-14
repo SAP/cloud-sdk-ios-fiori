@@ -24,10 +24,10 @@ public extension Row2 {
 
 extension Row2: View {
     public var body: some View {
-        if _shouldApplyDefaultStyle {
+        if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            style.resolve(configuration: .init(row2: .init(self.row2))).typeErased
+            self.style.resolve(configuration: .init(row2: .init(self.row2))).typeErased
                 .transformEnvironment(\.row2StyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()

@@ -23,74 +23,74 @@ extension CardBody: _ViewEmptyChecking {
 
 extension Card: _ViewEmptyChecking {
     public var isEmpty: Bool {
-        mediaImage.isEmpty ||
-            description.isEmpty ||
-            title.isEmpty ||
-            subtitle.isEmpty ||
-            icons.isEmpty ||
-            detailImage.isEmpty ||
-            headerAction.isEmpty ||
-            counter.isEmpty ||
-            row1.isEmpty ||
-            row2.isEmpty ||
-            row3.isEmpty ||
-            kpi.isEmpty ||
-            kpiCaption.isEmpty ||
-            cardBody.isEmpty ||
-            action.isEmpty ||
+        mediaImage.isEmpty &&
+            description.isEmpty &&
+            title.isEmpty &&
+            subtitle.isEmpty &&
+            icons.isEmpty &&
+            detailImage.isEmpty &&
+            headerAction.isEmpty &&
+            counter.isEmpty &&
+            row1.isEmpty &&
+            row2.isEmpty &&
+            row3.isEmpty &&
+            kpi.isEmpty &&
+            kpiCaption.isEmpty &&
+            cardBody.isEmpty &&
+            action.isEmpty &&
             secondaryAction.isEmpty
     }
 }
 
 extension CardExtHeader: _ViewEmptyChecking {
     public var isEmpty: Bool {
-        row1.isEmpty ||
-            row2.isEmpty ||
-            row3.isEmpty ||
-            kpi.isEmpty ||
+        row1.isEmpty &&
+            row2.isEmpty &&
+            row3.isEmpty &&
+            kpi.isEmpty &&
             kpiCaption.isEmpty
     }
 }
 
 extension CardFooter: _ViewEmptyChecking {
     public var isEmpty: Bool {
-        action.isEmpty ||
+        action.isEmpty &&
             secondaryAction.isEmpty
     }
 }
 
 extension CardHeader: _ViewEmptyChecking {
     public var isEmpty: Bool {
-        mediaImage.isEmpty ||
-            description.isEmpty ||
-            title.isEmpty ||
-            subtitle.isEmpty ||
-            icons.isEmpty ||
-            detailImage.isEmpty ||
-            headerAction.isEmpty ||
-            counter.isEmpty ||
-            row1.isEmpty ||
-            row2.isEmpty ||
-            row3.isEmpty ||
-            kpi.isEmpty ||
+        mediaImage.isEmpty &&
+            description.isEmpty &&
+            title.isEmpty &&
+            subtitle.isEmpty &&
+            icons.isEmpty &&
+            detailImage.isEmpty &&
+            headerAction.isEmpty &&
+            counter.isEmpty &&
+            row1.isEmpty &&
+            row2.isEmpty &&
+            row3.isEmpty &&
+            kpi.isEmpty &&
             kpiCaption.isEmpty
     }
 }
 
 extension CardMainHeader: _ViewEmptyChecking {
     public var isEmpty: Bool {
-        title.isEmpty ||
-            subtitle.isEmpty ||
-            icons.isEmpty ||
-            detailImage.isEmpty ||
-            headerAction.isEmpty ||
+        title.isEmpty &&
+            subtitle.isEmpty &&
+            icons.isEmpty &&
+            detailImage.isEmpty &&
+            headerAction.isEmpty &&
             counter.isEmpty
     }
 }
 
 extension CardMedia: _ViewEmptyChecking {
     public var isEmpty: Bool {
-        mediaImage.isEmpty ||
+        mediaImage.isEmpty &&
             description.isEmpty
     }
 }
@@ -103,9 +103,9 @@ extension Counter: _ViewEmptyChecking {
 
 extension DemoView: _ViewEmptyChecking {
     public var isEmpty: Bool {
-        title.isEmpty ||
-            subtitle.isEmpty ||
-            status.isEmpty ||
+        title.isEmpty &&
+            subtitle.isEmpty &&
+            status.isEmpty &&
             action.isEmpty
     }
 }
@@ -136,8 +136,7 @@ extension FootnoteIcons: _ViewEmptyChecking {
 
 extension FormView: _ViewEmptyChecking {
     public var isEmpty: Bool {
-        controlState == nil ||
-            errorMessage == nil
+        false
     }
 }
 
@@ -161,35 +160,24 @@ extension Icons: _ViewEmptyChecking {
 
 extension IllustratedMessage: _ViewEmptyChecking {
     public var isEmpty: Bool {
-        detailImage.isEmpty ||
-            title.isEmpty ||
-            description.isEmpty ||
+        detailImage.isEmpty &&
+            title.isEmpty &&
+            description.isEmpty &&
             action.isEmpty
     }
 }
 
 extension InformationView: _ViewEmptyChecking {
     public var isEmpty: Bool {
-        icon.isEmpty ||
+        icon.isEmpty &&
             description.isEmpty
     }
 }
 
 extension KeyValueFormView: _ViewEmptyChecking {
     public var isEmpty: Bool {
-        title.isEmpty ||
-            placeholder.isEmpty ||
-            controlState == nil ||
-            errorMessage == nil ||
-            minTextEditorHeight == nil ||
-            maxTextEditorHeight == nil ||
-            maxTextLength == nil ||
-            hintText == nil ||
-            hidesReadOnlyHint == nil ||
-            isCharCountEnabled == nil ||
-            allowsBeyondLimit == nil ||
-            charCountReachLimitMessage == nil ||
-            charCountBeyondLimitMsg == nil
+        title.isEmpty &&
+            placeholder.isEmpty
     }
 }
 
@@ -207,9 +195,8 @@ extension Kpi: _ViewEmptyChecking {
 
 extension LabelItem: _ViewEmptyChecking {
     public var isEmpty: Bool {
-        icon.isEmpty ||
-            title.isEmpty ||
-            alignment == nil
+        icon.isEmpty &&
+            title.isEmpty
     }
 }
 
@@ -221,7 +208,7 @@ extension LinearProgressIndicator: _ViewEmptyChecking {
 
 extension LinearProgressIndicatorView: _ViewEmptyChecking {
     public var isEmpty: Bool {
-        icon.isEmpty ||
+        icon.isEmpty &&
             description.isEmpty
     }
 }
@@ -234,34 +221,23 @@ extension MediaImage: _ViewEmptyChecking {
 
 extension NoteFormView: _ViewEmptyChecking {
     public var isEmpty: Bool {
-        placeholder.isEmpty ||
-            controlState == nil ||
-            errorMessage == nil ||
-            minTextEditorHeight == nil ||
-            maxTextEditorHeight == nil ||
-            maxTextLength == nil ||
-            hintText == nil ||
-            hidesReadOnlyHint == nil ||
-            isCharCountEnabled == nil ||
-            allowsBeyondLimit == nil ||
-            charCountReachLimitMessage == nil ||
-            charCountBeyondLimitMsg == nil
+        placeholder.isEmpty
     }
 }
 
 extension ObjectItem: _ViewEmptyChecking {
     public var isEmpty: Bool {
-        title.isEmpty ||
-            subtitle.isEmpty ||
-            footnote.isEmpty ||
-            description.isEmpty ||
-            status.isEmpty ||
-            substatus.isEmpty ||
-            detailImage.isEmpty ||
-            icons.isEmpty ||
-            avatars.isEmpty ||
-            footnoteIcons.isEmpty ||
-            tags.isEmpty ||
+        title.isEmpty &&
+            subtitle.isEmpty &&
+            footnote.isEmpty &&
+            description.isEmpty &&
+            status.isEmpty &&
+            substatus.isEmpty &&
+            detailImage.isEmpty &&
+            icons.isEmpty &&
+            avatars.isEmpty &&
+            footnoteIcons.isEmpty &&
+            tags.isEmpty &&
             action.isEmpty
     }
 }
@@ -334,8 +310,8 @@ extension Tags: _ViewEmptyChecking {
 
 extension TextInputInfoView: _ViewEmptyChecking {
     public var isEmpty: Bool {
-        icon.isEmpty ||
-            description.isEmpty ||
+        icon.isEmpty &&
+            description.isEmpty &&
             counter.isEmpty
     }
 }

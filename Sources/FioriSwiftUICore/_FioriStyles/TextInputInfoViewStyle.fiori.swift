@@ -3,7 +3,7 @@ import Foundation
 import SwiftUI
 
 // Base Layout style
-public struct TextInputInfoViewBaseStyle: TextInputInfoViewStyle {
+struct TextInputInfoViewBaseStyle: TextInputInfoViewStyle {
     public func makeBody(_ configuration: TextInputInfoViewConfiguration) -> some View {
         HStack(alignment: .top, spacing: 8) {
             configuration.icon
@@ -72,7 +72,7 @@ struct TextInputInfoViewModifier: ViewModifier {
     }
 }
 
-public extension View {
+extension View {
     /// To show the TextInputInfoView at the bottom of the view. It includes an icon and text. It is used in error handling to show error / warning / informational / success confirmation message.
     func textInputInfoView(isPresented: Binding<Bool>, icon: Image? = nil, description: AttributedString? = nil, counter: AttributedString? = nil) -> some View {
         self.modifier(TextInputInfoViewModifier(isPresented: isPresented, icon: icon, description: description, counter: counter))
@@ -80,7 +80,7 @@ public extension View {
 }
 
 /// Error style
-public struct TextInputInfoViewErrorStyle: TextInputInfoViewStyle {
+struct TextInputInfoViewErrorStyle: TextInputInfoViewStyle {
     public func makeBody(_ configuration: TextInputInfoViewConfiguration) -> some View {
         TextInputInfoView(configuration)
             .iconStyle(content: { IconConfiguration in
@@ -107,7 +107,7 @@ public struct TextInputInfoViewErrorStyle: TextInputInfoViewStyle {
 }
 
 /// Warning style
-public struct TextInputInfoViewWarningStyle: TextInputInfoViewStyle {
+struct TextInputInfoViewWarningStyle: TextInputInfoViewStyle {
     public func makeBody(_ configuration: TextInputInfoViewConfiguration) -> some View {
         TextInputInfoView(configuration)
             .iconStyle(content: { IconConfiguration in
@@ -127,7 +127,7 @@ public struct TextInputInfoViewWarningStyle: TextInputInfoViewStyle {
 }
 
 /// Informational Style
-public struct TextInputInfoViewInformationalStyle: TextInputInfoViewStyle {
+struct TextInputInfoViewInformationalStyle: TextInputInfoViewStyle {
     public func makeBody(_ configuration: TextInputInfoViewConfiguration) -> some View {
         TextInputInfoView(configuration)
             .iconStyle(content: { IconConfiguration in
@@ -147,7 +147,7 @@ public struct TextInputInfoViewInformationalStyle: TextInputInfoViewStyle {
 }
 
 /// Success Style
-public struct TextInputInfoViewSuccessStyle: TextInputInfoViewStyle {
+struct TextInputInfoViewSuccessStyle: TextInputInfoViewStyle {
     public func makeBody(_ configuration: TextInputInfoViewConfiguration) -> some View {
         TextInputInfoView(configuration)
             .iconStyle(content: { IconConfiguration in
@@ -167,29 +167,81 @@ public struct TextInputInfoViewSuccessStyle: TextInputInfoViewStyle {
 }
 
 /// Error style of the TextInputInfoView. It is used to show error message.
-public extension TextInputInfoViewStyle where Self == TextInputInfoViewErrorStyle {
+extension TextInputInfoViewStyle where Self == TextInputInfoViewErrorStyle {
     static var error: TextInputInfoViewErrorStyle {
         TextInputInfoViewErrorStyle()
     }
 }
 
 /// Warning style of the TextInputInfoView. It is used to show warning message.
-public extension TextInputInfoViewStyle where Self == TextInputInfoViewWarningStyle {
+extension TextInputInfoViewStyle where Self == TextInputInfoViewWarningStyle {
     static var warning: TextInputInfoViewWarningStyle {
         TextInputInfoViewWarningStyle()
     }
 }
 
 /// Informationalstyle of the TextInputInfoView. It is used to show informational message.
-public extension TextInputInfoViewStyle where Self == TextInputInfoViewInformationalStyle {
+extension TextInputInfoViewStyle where Self == TextInputInfoViewInformationalStyle {
     static var informational: TextInputInfoViewInformationalStyle {
         TextInputInfoViewInformationalStyle()
     }
 }
 
 /// Success style of the TextInputInfoView. It is used to show success message.
-public extension TextInputInfoViewStyle where Self == TextInputInfoViewSuccessStyle {
+extension TextInputInfoViewStyle where Self == TextInputInfoViewSuccessStyle {
     static var success: TextInputInfoViewSuccessStyle {
         TextInputInfoViewSuccessStyle()
     }
 }
+
+#Preview(body: {
+    VStack(alignment: .leading) {
+        Text("Default Fiori style, no icon")
+            .textInputInfoView(isPresented: Binding(get: { true }, set: { _ in }), description: AttributedString("test message"), counter: AttributedString("10/100"))
+        
+        Text("Default Fiori style, no message")
+            .textInputInfoView(isPresented: Binding(get: { true }, set: { _ in }), counter: AttributedString("10/100"))
+        
+        Text("Default Fiori style, no counter")
+            .textInputInfoView(isPresented: Binding(get: { true }, set: { _ in }), description: AttributedString("test message"))
+        
+        Text("Error style")
+            .textInputInfoView(isPresented: Binding(get: { true }, set: { _ in }), description: AttributedString("test message, long messag  long message  long message  long message  long message  long message long message  long message"), counter: AttributedString("12/10"))
+            .textInputInfoViewStyle(.error)
+        
+        Text("Warning style")
+            .textInputInfoView(isPresented: Binding(get: { true }, set: { _ in }), description: AttributedString("test message, long messag  long message  long message  long message  long message  long message long message  long message"), counter: AttributedString("10/10"))
+            .textInputInfoViewStyle(.warning)
+        
+        Text("Informational style")
+            .textInputInfoView(isPresented: Binding(get: { true }, set: { _ in }), description: AttributedString("test message"), counter: AttributedString("0/10"))
+            .textInputInfoViewStyle(.informational)
+        
+        Text("Success style")
+            .textInputInfoView(isPresented: Binding(get: { true }, set: { _ in }), description: AttributedString("test message"), counter: AttributedString("10/100"))
+            .textInputInfoViewStyle(.success)
+        
+        Text("Customized icon")
+            .textInputInfoView(isPresented: Binding(get: { true }, set: { _ in }), icon: Image(systemName: "heart"), description: AttributedString("test message, long messag  long message  long message  long message  long message  long message long message  long message"), counter: AttributedString("10/100"))
+        
+        Text("Customized font and color")
+            .textInputInfoView(isPresented: Binding(get: { true }, set: { _ in }), icon: Image(systemName: "diamond"), description: AttributedString("test message"), counter: AttributedString("10/100"))
+            .iconStyle(content: { iconConfiguration in
+                iconConfiguration.icon
+                    .foregroundStyle(Color.preferredColor(.tintColor))
+            })
+            .descriptionStyle(content: { descriptionConfiguration in
+                descriptionConfiguration.description
+                    .foregroundStyle(Color.preferredColor(.criticalLabel))
+                    .font(.fiori(forTextStyle: .title2))
+            })
+            .counterStyle(content: { counterConfiguration in
+                counterConfiguration.counter
+                    .foregroundStyle(Color.preferredColor(.criticalLabel))
+                    .font(.fiori(forTextStyle: .title2))
+            })
+        
+        Spacer()
+    }
+    .padding()
+})

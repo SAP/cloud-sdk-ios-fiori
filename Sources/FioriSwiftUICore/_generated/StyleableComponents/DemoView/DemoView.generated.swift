@@ -3,7 +3,7 @@
 import Foundation
 import SwiftUI
 
-public struct DemoView {
+struct DemoView {
     let title: any View
     let subtitle: any View
     let status: any View
@@ -28,7 +28,7 @@ public struct DemoView {
     }
 }
 
-public extension DemoView {
+extension DemoView {
     init(title: AttributedString,
          subtitle: AttributedString? = nil,
          status: TextOrIcon? = nil,
@@ -39,7 +39,7 @@ public extension DemoView {
     }
 }
 
-public extension DemoView {
+extension DemoView {
     init(_ configuration: DemoViewConfiguration) {
         self.title = configuration.title
         self.subtitle = configuration.subtitle
@@ -52,10 +52,10 @@ public extension DemoView {
 
 extension DemoView: View {
     public var body: some View {
-        if _shouldApplyDefaultStyle {
+        if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            style.resolve(configuration: .init(title: .init(self.title), subtitle: .init(self.subtitle), status: .init(self.status), action: .init(self.action), isOn: self.$isOn)).typeErased
+            self.style.resolve(configuration: .init(title: .init(self.title), subtitle: .init(self.subtitle), status: .init(self.status), action: .init(self.action), isOn: self.$isOn)).typeErased
                 .transformEnvironment(\.demoViewStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()

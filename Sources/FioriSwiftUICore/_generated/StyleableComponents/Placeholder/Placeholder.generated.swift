@@ -30,10 +30,10 @@ public extension Placeholder {
 
 extension Placeholder: View {
     public var body: some View {
-        if _shouldApplyDefaultStyle {
+        if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            style.resolve(configuration: .init(placeholder: .init(self.placeholder))).typeErased
+            self.style.resolve(configuration: .init(placeholder: .init(self.placeholder))).typeErased
                 .transformEnvironment(\.placeholderStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()

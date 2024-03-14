@@ -57,10 +57,10 @@ public extension CardMainHeader {
 
 extension CardMainHeader: View {
     public var body: some View {
-        if _shouldApplyDefaultStyle {
+        if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            style.resolve(configuration: .init(title: .init(self.title), subtitle: .init(self.subtitle), icons: .init(self.icons), detailImage: .init(self.detailImage), headerAction: .init(self.headerAction), counter: .init(self.counter))).typeErased
+            self.style.resolve(configuration: .init(title: .init(self.title), subtitle: .init(self.subtitle), icons: .init(self.icons), detailImage: .init(self.detailImage), headerAction: .init(self.headerAction), counter: .init(self.counter))).typeErased
                 .transformEnvironment(\.cardMainHeaderStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
