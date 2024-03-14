@@ -11,7 +11,7 @@ import SwiftUI
  4. Move this file to `_FioriStyles` folder under `FioriSwiftUICore`.
  */
 
-public enum ImageSize {
+public enum DetailImageSize {
     case extraSmall
     case small
     case medium
@@ -23,7 +23,7 @@ public enum ImageSize {
 public struct IllustratedMessageBaseStyle: IllustratedMessageStyle {
     public func makeBody(_ configuration: IllustratedMessageConfiguration) -> some View {
         VStack(spacing: 0) {
-            getResizedImage(detailImage: configuration.detailImage, size: configuration.imageSize ?? ImageSize.medium)
+            getResizedDetailImage(detailImage: configuration.detailImage, size: configuration.detailImageSize ?? DetailImageSize.medium)
                 .padding(.bottom, 16)
             configuration.title
             configuration.description
@@ -77,7 +77,7 @@ public typealias IllustratedMessageVerticalLayoutStyle = IllustratedMessageBaseS
 public struct IllustratedMessageHorizontalLayoutStyle: IllustratedMessageStyle {
     public func makeBody(_ configuration: IllustratedMessageConfiguration) -> some View {
         HStack(spacing: 0) {
-            getResizedImage(detailImage: configuration.detailImage, size: configuration.imageSize ?? ImageSize.medium)
+            getResizedDetailImage(detailImage: configuration.detailImage, size: configuration.detailImageSize ?? DetailImageSize.medium)
                 .padding(.leading, 16)
             VStack(alignment: .leading, spacing: 0) {
                 configuration.title
@@ -104,7 +104,7 @@ public extension IllustratedMessageStyle where Self == IllustratedMessageHorizon
     }
 }
 
-func getResizedImage(detailImage: IllustratedMessageConfiguration.DetailImage, size: ImageSize) -> some View {
+func getResizedDetailImage(detailImage: IllustratedMessageConfiguration.DetailImage, size: DetailImageSize) -> some View {
     switch size {
     case .extraSmall:
         return detailImage

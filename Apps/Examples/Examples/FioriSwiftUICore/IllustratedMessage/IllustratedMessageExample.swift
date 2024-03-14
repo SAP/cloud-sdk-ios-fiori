@@ -15,7 +15,7 @@ let sizeOptions: [SizeOption] = [.init(100), .init(200), .init(300), .init(500),
 struct IllustratedMessageExample: View {
     @State var selectedWidth: CGFloat = sizeOptions[2].value
     @State var selectedHeight: CGFloat = sizeOptions[1].value
-    @State var selectedImageSize: ImageSize?
+    @State var selectedDetailImageSize: DetailImageSize?
     
     var body: some View {
         HStack {
@@ -32,13 +32,13 @@ struct IllustratedMessageExample: View {
                 }
             }
             Text("Image Size:")
-            Picker("Image Size", selection: self.$selectedImageSize) {
-                Text("No Selection").tag(ImageSize?(nil))
-                Text("Extra Small").tag(ImageSize?(.extraSmall))
-                Text("Small").tag(ImageSize?(.small))
-                Text("Medium").tag(ImageSize?(.medium))
-                Text("Large").tag(ImageSize?(.large))
-                Text("Extra Large").tag(ImageSize?(.extraLarge))
+            Picker("Image Size", selection: self.$selectedDetailImageSize) {
+                Text("No Selection").tag(DetailImageSize?(nil))
+                Text("Extra Small").tag(DetailImageSize?(.extraSmall))
+                Text("Small").tag(DetailImageSize?(.small))
+                Text("Medium").tag(DetailImageSize?(.medium))
+                Text("Large").tag(DetailImageSize?(.large))
+                Text("Extra Large").tag(DetailImageSize?(.extraLarge))
             }
         }
         List {
@@ -56,7 +56,7 @@ struct IllustratedMessageExample: View {
                         subcomponentConfiguration & 0b010 == 2 ? Text("IllustratedMessage Description") : nil
                     }, action: {
                         subcomponentConfiguration & 0b001 == 1 ? FioriButton(title: "ActionTitle", action: { _ in print("Action tapped") }) : nil
-                    }, imageSize: self.selectedImageSize)
+                    }, detailImageSize: self.selectedDetailImageSize)
                         .border(Color.gray)
                         .frame(width: self.selectedWidth, height: self.selectedHeight)
                         .ifApply(layoutOrientation == 1) { $0.illustratedMessageStyle(.vertical) }

@@ -8,7 +8,7 @@ public struct IllustratedMessage {
     let title: any View
     let description: any View
     let action: any View
-    let imageSize: ImageSize?
+    let detailImageSize: DetailImageSize?
 
     @Environment(\.illustratedMessageStyle) var style
 
@@ -18,13 +18,13 @@ public struct IllustratedMessage {
                 @ViewBuilder title: () -> any View,
                 @ViewBuilder description: () -> any View = { EmptyView() },
                 @ViewBuilder action: () -> any View = { EmptyView() },
-                imageSize: ImageSize? = nil)
+                detailImageSize: DetailImageSize? = nil)
     {
         self.detailImage = DetailImage { detailImage() }
         self.title = Title { title() }
         self.description = Description { description() }
         self.action = Action { action() }
-        self.imageSize = imageSize
+        self.detailImageSize = detailImageSize
     }
 }
 
@@ -33,9 +33,9 @@ public extension IllustratedMessage {
          title: AttributedString,
          description: AttributedString? = nil,
          action: FioriButton? = nil,
-         imageSize: ImageSize? = nil)
+         detailImageSize: DetailImageSize? = nil)
     {
-        self.init(detailImage: { detailImage }, title: { Text(title) }, description: { OptionalText(description) }, action: { action }, imageSize: imageSize)
+        self.init(detailImage: { detailImage }, title: { Text(title) }, description: { OptionalText(description) }, action: { action }, detailImageSize: detailImageSize)
     }
 }
 
@@ -45,7 +45,7 @@ public extension IllustratedMessage {
         self.title = configuration.title
         self.description = configuration.description
         self.action = configuration.action
-        self.imageSize = configuration.imageSize
+        self.detailImageSize = configuration.detailImageSize
         self._shouldApplyDefaultStyle = false
     }
 }
@@ -55,7 +55,7 @@ extension IllustratedMessage: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(detailImage: .init(self.detailImage), title: .init(self.title), description: .init(self.description), action: .init(self.action), imageSize: self.imageSize)).typeErased
+            self.style.resolve(configuration: .init(detailImage: .init(self.detailImage), title: .init(self.title), description: .init(self.description), action: .init(self.action), detailImageSize: self.detailImageSize)).typeErased
                 .transformEnvironment(\.illustratedMessageStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -73,7 +73,7 @@ private extension IllustratedMessage {
     }
         
     func defaultStyle() -> some View {
-        IllustratedMessage(.init(detailImage: .init(self.detailImage), title: .init(self.title), description: .init(self.description), action: .init(self.action), imageSize: self.imageSize))
+        IllustratedMessage(.init(detailImage: .init(self.detailImage), title: .init(self.title), description: .init(self.description), action: .init(self.action), detailImageSize: self.detailImageSize))
             .shouldApplyDefaultStyle(false)
             .illustratedMessageStyle(IllustratedMessageFioriStyle.ContentFioriStyle())
             .typeErased

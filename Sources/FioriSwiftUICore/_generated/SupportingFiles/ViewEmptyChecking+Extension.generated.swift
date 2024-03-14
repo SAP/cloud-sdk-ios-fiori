@@ -165,7 +165,7 @@ extension IllustratedMessage: _ViewEmptyChecking {
             title.isEmpty ||
             description.isEmpty ||
             action.isEmpty ||
-            imageSize == nil
+            detailImageSize == nil
     }
 }
 
