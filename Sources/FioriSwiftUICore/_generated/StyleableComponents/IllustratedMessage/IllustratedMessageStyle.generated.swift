@@ -26,6 +26,7 @@ public struct IllustratedMessageConfiguration {
     public let title: Title
     public let description: Description
     public let action: Action
+    public let detailImageSize: IllustratedMessage.DetailImageSize?
 
     public typealias DetailImage = ConfigurationViewWrapper
     public typealias Title = ConfigurationViewWrapper
