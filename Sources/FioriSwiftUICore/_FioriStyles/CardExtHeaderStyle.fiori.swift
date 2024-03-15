@@ -20,7 +20,7 @@ public struct CardExtHeaderBaseStyle: CardExtHeaderStyle {
                 .frame(maxWidth: .infinity, alignment: .leading)
             
             HStack {
-                if !configuration.row2.isEmpty && !configuration.row3.isEmpty {
+                if !configuration.row2.isEmpty, !configuration.row3.isEmpty {
                     VStack(alignment: .leading, spacing: 6) {
                         configuration.row2
                         configuration.row3
@@ -104,7 +104,7 @@ extension CardExtHeaderFioriStyle {
     }, kpi: {
         EmptyView()
     })
-        .border(Color.blue)
+    .border(Color.blue)
 }
 
 #Preview("Base") {

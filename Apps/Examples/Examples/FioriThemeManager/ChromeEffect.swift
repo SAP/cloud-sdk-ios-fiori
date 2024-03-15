@@ -106,7 +106,7 @@ struct ChromeEffect: View {
     """
     var body: some View {
         ZStack {
-            Text(text)
+            Text(self.text)
                 .background(Color.preferredColor(.primaryGroupedBackground))
             VStack {
                 Spacer()

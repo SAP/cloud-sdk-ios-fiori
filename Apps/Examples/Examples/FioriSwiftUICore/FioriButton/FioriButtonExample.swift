@@ -23,27 +23,27 @@ struct FioriButtonExample: View {
     
     var body: some View {
         Group {
-            if _withCustomStyle {
-                makeBody()
+            if self._withCustomStyle {
+                self.makeBody()
                     .fioriButtonStyle(CustomFioriButtonStyle())
             } else {
-                makeBody()
-                    .fioriButtonStyle(fioriButtonStyle)
+                self.makeBody()
+                    .fioriButtonStyle(self.fioriButtonStyle)
             }
         }
-        .settingsSheet(isPresented: $_showSettings) {
+        .settingsSheet(isPresented: self.$_showSettings) {
             Toggle("isEnabled", isOn: self.$_isEnabled)
             Toggle("isSelectionPersistent", isOn: self.$_isSelectionPersistent)
-            if !_withCustomStyle {
-                Picker(selection: $_buttonStyle) {
+            if !self._withCustomStyle {
+                Picker(selection: self.$_buttonStyle) {
                     Text("Primary Button").tag("Primary")
                     Text("Secondary Button").tag("Secondary")
                     Text("Tertiary Button").tag("Tertiary")
                 } label: {
                     Text("button style")
                 }
-                if _buttonStyle != "Primary" {
-                    Picker(selection: $_colorStyle) {
+                if self._buttonStyle != "Primary" {
+                    Picker(selection: self.$_colorStyle) {
                         Text("tint").tag(FioriButtonColorStyle.tint)
                         Text("normal").tag(FioriButtonColorStyle.normal)
                         Text("negative").tag(FioriButtonColorStyle.negative)
@@ -79,7 +79,7 @@ struct FioriButtonExample: View {
                             Text("Disabled")
                         }
                     })
-            .disabled(!self._isEnabled)
+                    .disabled(!self._isEnabled)
     }
 }
 
@@ -127,28 +127,28 @@ struct StatefulButtonStyleExample: View {
                 Text("Add")
             }
         })
-            .buttonStyle(primitiveButtonStyle)
-            .disabled(!_isEnabled)
-            .settingsSheet(isPresented: $_showSettings) {
-                Toggle("isEnabled", isOn: self.$_isEnabled)
-                Toggle("isSelectionPersistent", isOn: self.$_isSelectionPersistent)
-                Picker(selection: $_buttonStyle) {
-                    Text("Primary Button").tag("Primary")
-                    Text("Secondary Button").tag("Secondary")
-                    Text("Tertiary Button").tag("Tertiary")
+        .buttonStyle(self.primitiveButtonStyle)
+        .disabled(!self._isEnabled)
+        .settingsSheet(isPresented: self.$_showSettings) {
+            Toggle("isEnabled", isOn: self.$_isEnabled)
+            Toggle("isSelectionPersistent", isOn: self.$_isSelectionPersistent)
+            Picker(selection: self.$_buttonStyle) {
+                Text("Primary Button").tag("Primary")
+                Text("Secondary Button").tag("Secondary")
+                Text("Tertiary Button").tag("Tertiary")
+            } label: {
+                Text("button style")
+            }
+            if self._buttonStyle != "Primary" {
+                Picker(selection: self.$_colorStyle) {
+                    Text("tint").tag(FioriButtonColorStyle.tint)
+                    Text("normal").tag(FioriButtonColorStyle.normal)
+                    Text("negative").tag(FioriButtonColorStyle.negative)
                 } label: {
-                    Text("button style")
-                }
-                if _buttonStyle != "Primary" {
-                    Picker(selection: $_colorStyle) {
-                        Text("tint").tag(FioriButtonColorStyle.tint)
-                        Text("normal").tag(FioriButtonColorStyle.normal)
-                        Text("negative").tag(FioriButtonColorStyle.negative)
-                    } label: {
-                        Text("color style")
-                    }
+                    Text("color style")
                 }
             }
+        }
     }
 }
 
@@ -156,7 +156,7 @@ struct StatefulButtonStyleExample: View {
 struct AnyPrimitiveButtonStyle: PrimitiveButtonStyle {
     let view: (PrimitiveButtonStyleConfiguration) -> AnyView
     
-    public init<S: PrimitiveButtonStyle>(_ style: S) {
+    public init(_ style: some PrimitiveButtonStyle) {
         self.view = {
             AnyView(style.makeBody(configuration: $0))
         }

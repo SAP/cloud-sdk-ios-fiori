@@ -24,7 +24,7 @@ struct XAxisView: View {
         let labels: [AxisTitle] = self.chartContext.xAxisLabels(self.model, rect: rect, plotViewSize: self.plotViewSize)
         var isShowLabels = [Bool]()
         for label in labels {
-            if label.pos.x >= -1 && label.pos.x <= rect.size.width + 1 {
+            if label.pos.x >= -1, label.pos.x <= rect.size.width + 1 {
                 isShowLabels.append(true)
             } else {
                 isShowLabels.append(false)
@@ -47,7 +47,7 @@ struct XAxisView: View {
         let isEnoughSpaceToShowXAxisLables = self.isEnoughSpaceToShowXAxisLables(labels: labels)
         
         return ZStack {
-            if isEnoughSpaceToShowXAxisLables && !axis.labels.isHidden && !isShowBaselineOnly {
+            if isEnoughSpaceToShowXAxisLables, !axis.labels.isHidden, !self.isShowBaselineOnly {
                 ForEach(0 ..< labels.count, id: \.self) { index in
                     Group {
                         if isShowLabels[index] {
@@ -64,7 +64,7 @@ struct XAxisView: View {
             }
             
             // base line
-            if !axis.baseline.isHidden && !isShowLabelsOnly {
+            if !axis.baseline.isHidden, !self.isShowLabelsOnly {
                 LineShape(pos1: .zero,
                           pos2: CGPoint(x: rect.size.width, y: 0))
                     .offset(x: 0, y: baselineYPos)
@@ -110,7 +110,7 @@ struct XAxisView: View {
         totalWidth -= 4
         
         // show nothing
-        if self.model.chartType != .stock && self.model.categoryAxis.labelLayoutStyle == .allOrNothing && totalWidth > self.plotViewSize.width {
+        if self.model.chartType != .stock, self.model.categoryAxis.labelLayoutStyle == .allOrNothing, totalWidth > self.plotViewSize.width {
             return false
         } else {
             return true

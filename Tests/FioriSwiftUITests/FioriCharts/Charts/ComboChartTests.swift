@@ -121,7 +121,7 @@ class ComboChartTests: XCTestCase {
     
     func testColumnWithDifferentAxisMixedValues() throws {
         let model = ChartModel(chartType: .combo,
-                               data: [[200, 120, 165, 143, 166, 130, 110].map { $0 * ($0 > 150 ? 1 : (-1)) },
+                               data: [[200, 120, 165, 143, 166, 130, 110].map { $0 * ($0 > 150 ? 1 : -1) },
                                       [150, 120, 130, 135, 120, 138, 137]],
                                titlesForCategory: [["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"]],
                                indexesOfSecondaryValueAxis: [1],
@@ -208,7 +208,7 @@ class ComboChartTests: XCTestCase {
         self.measure {
             // Put the code you want to measure the time of here.
             for _ in 0 ..< 1000 {
-                _ = dataSource.plotData(model2)
+                _ = dataSource.plotData(self.model2)
             }
         }
     }

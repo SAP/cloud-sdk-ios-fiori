@@ -1,4 +1,5 @@
 import SwiftUI
+
 // import FioriSwiftUICore
 
 struct LineRangeIndicatorView: View {
@@ -21,19 +22,19 @@ struct LineRangeIndicatorView: View {
     
     // swiftlint:disable force_unwrapping
     var body: some View {
-        let mirror = layoutDirection == .rightToLeft ? CGAffineTransform(a: -1, b: 0, c: 0, d: 1, tx: size.width, ty: 0) : CGAffineTransform.identity
+        let mirror = self.layoutDirection == .rightToLeft ? CGAffineTransform(a: -1, b: 0, c: 0, d: 1, tx: self.size.width, ty: 0) : CGAffineTransform.identity
         let translateX: CGFloat
-        let startPosition = chartContext.startPosition(model, plotViewSize: size)
-        let scaleX = chartContext.scaleX(model, plotViewSize: size)
-        let scaleY = chartContext.scaleY(model, plotViewSize: size)
+        let startPosition = self.chartContext.startPosition(self.model, plotViewSize: self.size)
+        let scaleX = self.chartContext.scaleX(self.model, plotViewSize: self.size)
+        let scaleY = self.chartContext.scaleY(self.model, plotViewSize: self.size)
         
         // calculate CGAffineTransform for layoutDirection
-        if layoutDirection == .rightToLeft {
-            translateX = -(1 - 1 / scaleX - startPosition.x) * scaleX * size.width
+        if self.layoutDirection == .rightToLeft {
+            translateX = -(1 - 1 / scaleX - startPosition.x) * scaleX * self.size.width
         } else {
-            translateX = -startPosition.x * scaleX * size.width
+            translateX = -startPosition.x * scaleX * self.size.width
         }
-        let translateY = -startPosition.y * scaleY * size.height
+        let translateY = -startPosition.y * scaleY * self.size.height
                     
         var linearGradient: LinearGradient?
         var angularGradient: AngularGradient?
@@ -55,19 +56,19 @@ struct LineRangeIndicatorView: View {
             }
         }
         
-        let lineWidth = model.seriesAttributes[seriesIndex].lineWidth
-        let strokeLineShape = LineChartSeriesLineShape(path: model.path, seriesIndex: seriesIndex, startIndex: startIndex + 1, endIndex: endIndex)
+        let lineWidth = self.model.seriesAttributes[self.seriesIndex].lineWidth
+        let strokeLineShape = LineChartSeriesLineShape(path: model.path, seriesIndex: self.seriesIndex, startIndex: self.startIndex + 1, endIndex: self.endIndex)
             .transform(mirror) // apply layoutDirection
             .transform(CGAffineTransform(scaleX: scaleX, y: scaleY)) // apply zoom
             .transform(CGAffineTransform(translationX: translateX, y: translateY)) // aplly pan
         
         return ZStack {
             // range fill
-            LineChartSeriesFillShape(path: self.model.path, seriesIndex: seriesIndex, startIndex: startIndex + 1, endIndex: endIndex)
+            LineChartSeriesFillShape(path: self.model.path, seriesIndex: self.seriesIndex, startIndex: self.startIndex + 1, endIndex: self.endIndex)
                 .transform(mirror) // apply layoutDirection
                 .transform(CGAffineTransform(scaleX: scaleX, y: scaleY)) // apply zoom
                 .transform(CGAffineTransform(translationX: translateX, y: translateY)) // aplly pan
-                .fill(lineFillColor)
+                .fill(self.lineFillColor)
                 .opacity(0.4)
             
             // range stroke line
@@ -82,16 +83,16 @@ struct LineRangeIndicatorView: View {
             } else if imagePaint != nil {
                 strokeLineShape.stroke(imagePaint!, lineWidth: lineWidth)
             } else {
-                strokeLineShape.stroke(lineStrokeColor, lineWidth: lineWidth)
+                strokeLineShape.stroke(self.lineStrokeColor, lineWidth: lineWidth)
             }
             
-            if !self.model.seriesAttributes[seriesIndex].point.isHidden {
-                PointsShape(model: model,
-                            chartContext: chartContext,
-                            seriesIndex: seriesIndex,
-                            categoryIndexRange: startIndex ... endIndex,
-                            layoutDirection: layoutDirection)
-                    .fill(pointStrokeColor)
+            if !self.model.seriesAttributes[self.seriesIndex].point.isHidden {
+                PointsShape(model: self.model,
+                            chartContext: self.chartContext,
+                            seriesIndex: self.seriesIndex,
+                            categoryIndexRange: self.startIndex ... self.endIndex,
+                            layoutDirection: self.layoutDirection)
+                    .fill(self.pointStrokeColor)
             }
         }
     }

@@ -18,8 +18,8 @@ public struct PlaceholderTextEditorBaseStyle: PlaceholderTextEditorStyle {
     public func makeBody(_ configuration: PlaceholderTextEditorConfiguration) -> some View {
         ZStack(alignment: .topLeading) {
             configuration._textView.body
-                .focused($isFocused)
-            if configuration.text.isEmpty, !isFocused, !configuration.placeholder.isEmpty {
+                .focused(self.$isFocused)
+            if configuration.text.isEmpty, !self.isFocused, !configuration.placeholder.isEmpty {
                 configuration.placeholder.body
             }
         }

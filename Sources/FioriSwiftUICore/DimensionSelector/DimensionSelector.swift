@@ -126,9 +126,7 @@ public struct DimensionSelector: View {
     }
     
     /// A `Publisher` which signals selection change.
-    public private(set) lazy var selectionDidChangePublisher: AnyPublisher<Int?, Never> = {
-        self.model.$selectedIndex.eraseToAnyPublisher()
-    }()
+    public private(set) lazy var selectionDidChangePublisher: AnyPublisher<Int?, Never> = self.model.$selectedIndex.eraseToAnyPublisher()
     
     /// :nodoc:
     public private(set) var _heightDidChangePublisher = CurrentValueSubject<CGFloat, Never>(0)
@@ -166,11 +164,11 @@ public struct DimensionSelector: View {
     
     public var body: some View {
         Group {
-            if model.segmentWidthMode == .equal {
-                getHStack()
+            if self.model.segmentWidthMode == .equal {
+                self.getHStack()
             } else {
                 ScrollView(.horizontal, showsIndicators: false) {
-                    getHStack()
+                    self.getHStack()
                 }
                 .onPreferenceChange(SegmentPreferenceKey.self) { sizes in
                     switch self.model.segmentWidthMode {
@@ -183,7 +181,7 @@ public struct DimensionSelector: View {
                 }
             }
         }
-        .frame(width: nil, height: _height)
+        .frame(width: nil, height: self._height)
         .onPreferenceChange(HStackPreferenceKey.self) { heights in
             guard let height = heights.first, self._height != height else {
                 return
@@ -205,16 +203,16 @@ public struct DimensionSelector: View {
             ForEach(self.model.titles.indices, id: \.self) { index in
                 Text(self.model.titles[index])
                     .padding(self.titleInsets)
-                    .font(segmentAttributes(for: index)?.font)
-                    .foregroundColor(segmentAttributes(for: index)?.textColor)
+                    .font(self.segmentAttributes(for: index)?.font)
+                    .foregroundColor(self.segmentAttributes(for: index)?.textColor)
                     .background(SegmentPreferenceSetter())
                     .modifier(SegmentFrame(segmentWidthMode: self.model.segmentWidthMode, width: self._segmentWidth))
                     .background(
                         RoundedRectangle(cornerRadius: 10, style: .continuous)
-                            .inset(by: segmentAttributes(for: index)!.borderWidth! / 2.0)
-                            .stroke(segmentAttributes(for: index)!.borderColor!, lineWidth: segmentAttributes(for: index)!.borderWidth!)
+                            .inset(by: self.segmentAttributes(for: index)!.borderWidth! / 2.0)
+                            .stroke(self.segmentAttributes(for: index)!.borderColor!, lineWidth: self.segmentAttributes(for: index)!.borderWidth!)
                     )
-                    .background(RoundedRectangle(cornerRadius: 10, style: .continuous).fill(segmentAttributes(for: index)!.backgroundColor!))
+                    .background(RoundedRectangle(cornerRadius: 10, style: .continuous).fill(self.segmentAttributes(for: index)!.backgroundColor!))
                     .onTapGesture {
                         if self.model.isEnable {
                             self.selectionDidChange(index: index)
@@ -326,12 +324,12 @@ extension DimensionSelector {
         
         func body(content: Content) -> some View {
             Group {
-                if segmentWidthMode == .equal {
+                if self.segmentWidthMode == .equal {
                     content.frame(minWidth: 0, maxWidth: .infinity)
-                } else if segmentWidthMode == .maximum {
-                    content.fixedSize().frame(width: width)
+                } else if self.segmentWidthMode == .maximum {
+                    content.fixedSize().frame(width: self.width)
                 } else {
-                    content.frame(width: width)
+                    content.frame(width: self.width)
                 }
             }
         }

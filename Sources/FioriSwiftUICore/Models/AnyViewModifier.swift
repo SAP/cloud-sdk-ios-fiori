@@ -8,7 +8,7 @@ public struct AnyViewModifier: ViewModifier {
     var apply: (Content) -> AnyView
     var _concat: ((AnyViewModifier) -> AnyView)?
     
-    public init<V: View>(_ transform: @escaping (Content) -> V) {
+    public init(_ transform: @escaping (Content) -> some View) {
         self.apply = { AnyView(transform($0)) }
     }
 

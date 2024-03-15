@@ -22,29 +22,29 @@ struct ToolbarExample: View {
             }
             .contentShape(Rectangle())
             .onTapGesture {
-                isPresented.toggle()
+                self.isPresented.toggle()
             }
-            .sheet(isPresented: $isPresented) {
+            .sheet(isPresented: self.$isPresented) {
                 NavigationStack {
-                    ToolbarView(numberOfButtons: $numberOfButtons, useFioriToolbar: $useFioriToolbar, helperText: $helperText, customHelperText: $customHelperText, customOverflowIcon: $customOverflowIcon, primaryButtonText: $primaryButton, secondaryButtonText: $secondaryButton, thirdButtonText: $thirdButton, buttonType: $buttonType)
+                    ToolbarView(numberOfButtons: self.$numberOfButtons, useFioriToolbar: self.$useFioriToolbar, helperText: self.$helperText, customHelperText: self.$customHelperText, customOverflowIcon: self.$customOverflowIcon, primaryButtonText: self.$primaryButton, secondaryButtonText: self.$secondaryButton, thirdButtonText: self.$thirdButton, buttonType: self.$buttonType)
                 }
             }
             
-            Picker("Number of Buttons", selection: $numberOfButtons) {
+            Picker("Number of Buttons", selection: self.$numberOfButtons) {
                 ForEach(0 ..< 8, id: \.self) { index in
                     Text("\(index + 1)").tag(index + 1)
                 }
             }
                         
-            Toggle("Use FioriToolbar", isOn: $useFioriToolbar)
+            Toggle("Use FioriToolbar", isOn: self.$useFioriToolbar)
             
-            Picker("Button Type", selection: $buttonType) {
+            Picker("Button Type", selection: self.$buttonType) {
                 Text("Fiori Button").tag(ItemStyle.fiori)
                 Text("Icon").tag(ItemStyle.icon)
                 Text("SiwftUI Button").tag(ItemStyle.button)
             }
             
-            Picker("Helper Text", selection: $helperText) {
+            Picker("Helper Text", selection: self.$helperText) {
                 Text("None").tag("")
                 Text("Short").tag("Helper Text")
                 Text("Long").tag("Long Long Long Long Long Helper Text")
@@ -53,24 +53,24 @@ struct ToolbarExample: View {
             }
             
             Group {
-                Toggle("Custom Helper Text Color & Font", isOn: $customHelperText)
+                Toggle("Custom Helper Text Color & Font", isOn: self.$customHelperText)
                 
-                Toggle("Custom Overflow Icon", isOn: $customOverflowIcon)
+                Toggle("Custom Overflow Icon", isOn: self.$customOverflowIcon)
             }
             
-            Picker("Primary Button", selection: $primaryButton) {
+            Picker("Primary Button", selection: self.$primaryButton) {
                 Text("None").tag("")
                 Text("Long Primary Button").tag("Long Long Primary Button Title")
                 Text("Extra Long Primary Button").tag("Extra Long Long Long Long Long Long Long Long Long Long Long Long Primary Button Title")
             }
             
-            Picker("Secondary Button", selection: $secondaryButton) {
+            Picker("Secondary Button", selection: self.$secondaryButton) {
                 Text("None").tag("")
                 Text("Long Secondary Button").tag("Long Secondary Button Title")
                 Text("Extra Long Secondary Button").tag("Extra Long Long Long Long Long Long Long LongLong Long Secondary Button Title")
             }
             
-            Picker("3rd Button", selection: $thirdButton) {
+            Picker("3rd Button", selection: self.$thirdButton) {
                 Text("None").tag("")
                 Text("Long 3rd Button").tag("Long Long Long Button Title")
                 Text("Extra Long 3rd Button").tag("Extra Long Long Long Long Long Long Long LongLong Long Long Button Title")
@@ -83,9 +83,9 @@ struct ToolbarExample: View {
                 }
                 .contentShape(Rectangle())
                 .onTapGesture {
-                    isPresented2.toggle()
+                    self.isPresented2.toggle()
                 }
-                .sheet(isPresented: $isPresented2) {
+                .sheet(isPresented: self.$isPresented2) {
                     NavigationStack {
                         Color.preferredColor(.grey7)
                             .overlay {

@@ -10,21 +10,21 @@ struct LinearProgressIndicatorExample: View {
     var body: some View {
         VStack {
             Text("Determinate without Label")
-            LinearProgressIndicator(indicatorProgress: $progress1)
+            LinearProgressIndicator(indicatorProgress: self.$progress1)
                 .linearProgressIndicatorStyle(.determinate)
                 .padding(.bottom, 20)
             
             Text("Determinate with Label")
-            LinearProgressIndicatorView(indicatorProgress: $progress2, icon: Image(systemName: "heart"), description: AttributedString("Loading..."))
+            LinearProgressIndicatorView(indicatorProgress: self.$progress2, icon: Image(systemName: "heart"), description: AttributedString("Loading..."))
                 .linearProgressIndicatorStyle(.determinate)
                 .padding(.bottom, 20)
             
             FioriButton(
                 action: { _ in
-                    if progress2 > 0.9 {
-                        progress2 = 0
+                    if self.progress2 > 0.9 {
+                        self.progress2 = 0
                     } else {
-                        progress2 += 0.1
+                        self.progress2 += 0.1
                     }
                 },
                 label: { _ in
@@ -36,27 +36,27 @@ struct LinearProgressIndicatorExample: View {
             .padding(.bottom, 20)
             
             Text("Error style")
-            LinearProgressIndicatorView(indicatorProgress: $progress4, description: AttributedString("Loading..."))
+            LinearProgressIndicatorView(indicatorProgress: self.$progress4, description: AttributedString("Loading..."))
                 .linearProgressIndicatorViewStyle(.error)
                 .padding(.bottom, 20)
             
             Text("Success style")
-            LinearProgressIndicatorView(indicatorProgress: $progress4, description: AttributedString("Loading complete successfully. Please see the user registration view for more detail information."))
+            LinearProgressIndicatorView(indicatorProgress: self.$progress4, description: AttributedString("Loading complete successfully. Please see the user registration view for more detail information."))
                 .linearProgressIndicatorViewStyle(.success)
                 .padding(.bottom, 20)
             
             Text("Indeterminate without Label")
-            LinearProgressIndicator(indicatorProgress: $progress3)
+            LinearProgressIndicator(indicatorProgress: self.$progress3)
                 .linearProgressIndicatorStyle(.indeterminate)
                 .padding(.bottom, 20)
             
             Text("Indeterminate with Label")
-            LinearProgressIndicatorView(indicatorProgress: $progress3, icon: Image(systemName: "heart"), description: AttributedString("Loading..."))
+            LinearProgressIndicatorView(indicatorProgress: self.$progress3, icon: Image(systemName: "heart"), description: AttributedString("Loading..."))
                 .linearProgressIndicatorStyle(.indeterminate)
                 .padding(.bottom, 20)
             
             Text("Indeterminate customized")
-            LinearProgressIndicatorView(indicatorProgress: $progress3, icon: Image(systemName: "clock"), description: AttributedString("Downloading..."))
+            LinearProgressIndicatorView(indicatorProgress: self.$progress3, icon: Image(systemName: "clock"), description: AttributedString("Downloading..."))
                 .iconStyle { iconConfiguration in
                     iconConfiguration.icon
                         .font(.fiori(forTextStyle: .headline)).bold()

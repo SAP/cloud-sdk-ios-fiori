@@ -52,8 +52,8 @@ struct InformationViewModifier: ViewModifier {
         VStack {
             content
             
-            if isPresented {
-                InformationView(icon: icon, description: description)
+            if self.isPresented {
+                InformationView(icon: self.icon, description: self.description)
             }
         }
     }

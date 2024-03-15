@@ -91,14 +91,14 @@ public struct DataTable: View {
             self.layoutManager.keyboardHeight = 0
         }
         #if !os(visionOS)
-            .onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) { _ in
-                // save text changes
-                self.layoutManager.saveEditingTextChange()
+        .onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) { _ in
+            // save text changes
+            self.layoutManager.saveEditingTextChange()
             
-                if self.layoutManager.currentCell != nil {
-                    self.layoutManager.currentCell = nil
-                }
+            if self.layoutManager.currentCell != nil {
+                self.layoutManager.currentCell = nil
             }
+        }
         #endif
         .onChange(of: self.dynamicTypeSize) { newValue in
             self.layoutManager.dynamicTypeSize = newValue

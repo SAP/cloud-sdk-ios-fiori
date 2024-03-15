@@ -12,8 +12,8 @@ public struct AttributedText: View {
     }
 
     public var body: some View {
-        UITextViewContainer(attributedText: Binding.constant(attributedText), height: $height, configuration: configuration)
-            .frame(height: height)
+        UITextViewContainer(attributedText: Binding.constant(self.attributedText), height: self.$height, configuration: self.configuration)
+            .frame(height: self.height)
     }
 }
 

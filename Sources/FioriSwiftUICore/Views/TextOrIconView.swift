@@ -23,8 +23,8 @@ public struct TextOrIconView: View {
     
     @ViewBuilder
     public var body: some View {
-        if content != nil {
-            switch content! {
+        if self.content != nil {
+            switch self.content! {
             case .text(let txt):
                 Text(txt)
                 

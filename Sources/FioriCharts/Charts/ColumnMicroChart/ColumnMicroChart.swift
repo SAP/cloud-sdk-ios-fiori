@@ -43,7 +43,7 @@ struct ColumnMicroChart: View {
                         VStack(alignment: .center, spacing: 0) {
                             Spacer(minLength: 0)
                             
-                            if positiveLablesHeight > 0 && self.columnLabel(for: item, positive: true) != nil {
+                            if positiveLablesHeight > 0, self.columnLabel(for: item, positive: true) != nil {
                                 Text(self.columnLabel(for: item, positive: true) ?? "")
                                     .lineLimit(1)
                                     .font(.fiori(forTextStyle: .caption1))
@@ -67,7 +67,7 @@ struct ColumnMicroChart: View {
                                     .fill(item.value > 0 ? Color.clear : item.color)
                                     .frame(width: barWidth, height: wholeBarsHeight * abs(item.value) / valueRange)
                                 
-                                if negativeLabelsHeight > 0 && self.columnLabel(for: item, positive: false) != nil {
+                                if negativeLabelsHeight > 0, self.columnLabel(for: item, positive: false) != nil {
                                     Text(self.columnLabel(for: item, positive: false) ?? "")
                                         .lineLimit(1)
                                         .font(.fiori(forTextStyle: .caption1))

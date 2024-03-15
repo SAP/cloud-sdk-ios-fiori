@@ -9,7 +9,7 @@ extension View {
     }
     
     // In order to fix an issue where the simultaneous gesture is not activated in voice over.
-    func accessibilitySimultaneousGesture<T>(_ gesture: T, including mask: GestureMask = .all) -> some View where T: Gesture {
+    func accessibilitySimultaneousGesture(_ gesture: some Gesture, including mask: GestureMask = .all) -> some View {
         simultaneousGesture(gesture, including: mask)
             .accessibilityElement()
     }

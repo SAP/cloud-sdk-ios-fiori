@@ -59,7 +59,7 @@ struct ObjectItemAvatarsExample: ObjectItemListDataProtocol {
                 Color.red
                 Color.blue
             })
-                .isAvatarCircular(false)
+            .isAvatarCircular(false)
             return AnyView(oi)
         case (0, 1):
             let oi = ObjectItem(title: {
@@ -97,12 +97,12 @@ struct ObjectItemAvatarsExample: ObjectItemListDataProtocol {
                 Tag("PM01")
                 Tag("103-Repair")
             })
-                .isAvatarCircular(false)
-                .avatarBorderWidth(2)
-                .avatarBorderColor(Color.yellow)
-                .avatarSize(CGSize(width: 40, height: 40))
-                .splitPercent(0.5)
-                .footnoteIconsMaxCount(-2)
+            .isAvatarCircular(false)
+            .avatarBorderWidth(2)
+            .avatarBorderColor(Color.yellow)
+            .avatarSize(CGSize(width: 40, height: 40))
+            .splitPercent(0.5)
+            .footnoteIconsMaxCount(-2)
             return AnyView(oi)
         case (0, 2):
             let oi = ObjectItem(title: {
@@ -135,11 +135,11 @@ struct ObjectItemAvatarsExample: ObjectItemListDataProtocol {
                 Color.red
                 Color.blue
             })
-                .isAvatarCircular(true)
-                .avatarBorderWidth(1)
-                .avatarBorderColor(Color.black)
-                .splitPercent(0.5)
-                .footnoteIconsSpacing(2)
+            .isAvatarCircular(true)
+            .avatarBorderWidth(1)
+            .avatarBorderColor(Color.black)
+            .splitPercent(0.5)
+            .footnoteIconsSpacing(2)
             return AnyView(oi)
             
         case (0, 3):
@@ -183,13 +183,13 @@ struct ObjectItemAvatarsExample: ObjectItemListDataProtocol {
                 Color.red
                 Color.blue
             })
-                .isAvatarCircular(true)
-                .avatarBorderWidth(3)
-                .avatarBorderColor(Color.blue)
-                .avatarSize(CGSize(width: 30, height: 30))
-                .footnoteIconsMaxCount(4)
-                .footnoteIconsSize(CGSize(width: 20, height: 20))
-                .isFootnoteIconsCircular(false)
+            .isAvatarCircular(true)
+            .avatarBorderWidth(3)
+            .avatarBorderColor(Color.blue)
+            .avatarSize(CGSize(width: 30, height: 30))
+            .footnoteIconsMaxCount(4)
+            .footnoteIconsSize(CGSize(width: 20, height: 20))
+            .isFootnoteIconsCircular(false)
             return AnyView(oi)
         default:
             return AnyView(_ObjectItem(title: "Lorem ipseum dolor"))
@@ -229,7 +229,7 @@ struct ObjectItemAvatarsExample: ObjectItemListDataProtocol {
                 Color.red
                 Color.blue
             })
-                .isAvatarCircular(false)
+            .isAvatarCircular(false)
             return AnyView(oi)
         case (0, 1):
             let oi = _ObjectItem(title: {
@@ -267,12 +267,12 @@ struct ObjectItemAvatarsExample: ObjectItemListDataProtocol {
                 Tag("PM01")
                 Tag("103-Repair")
             })
-                .isAvatarCircular(false)
-                .avatarBorderWidth(2)
-                .avatarBorderColor(Color.yellow)
-                .avatarSize(CGSize(width: 40, height: 40))
-                .splitPercent(0.5)
-                .footnoteIconsMaxCount(-2)
+            .isAvatarCircular(false)
+            .avatarBorderWidth(2)
+            .avatarBorderColor(Color.yellow)
+            .avatarSize(CGSize(width: 40, height: 40))
+            .splitPercent(0.5)
+            .footnoteIconsMaxCount(-2)
             return AnyView(oi)
         case (0, 2):
             let oi = _ObjectItem(title: {
@@ -305,11 +305,11 @@ struct ObjectItemAvatarsExample: ObjectItemListDataProtocol {
                 Color.red
                 Color.blue
             })
-                .isAvatarCircular(true)
-                .avatarBorderWidth(1)
-                .avatarBorderColor(Color.black)
-                .splitPercent(0.5)
-                .footnoteIconsSpacing(2)
+            .isAvatarCircular(true)
+            .avatarBorderWidth(1)
+            .avatarBorderColor(Color.black)
+            .splitPercent(0.5)
+            .footnoteIconsSpacing(2)
             return AnyView(oi)
             
         case (0, 3):
@@ -353,13 +353,13 @@ struct ObjectItemAvatarsExample: ObjectItemListDataProtocol {
                 Color.red
                 Color.blue
             })
-                .isAvatarCircular(true)
-                .avatarBorderWidth(3)
-                .avatarBorderColor(Color.blue)
-                .avatarSize(CGSize(width: 30, height: 30))
-                .footnoteIconsMaxCount(4)
-                .footnoteIconsSize(CGSize(width: 20, height: 20))
-                .isFootnoteIconsCircular(false)
+            .isAvatarCircular(true)
+            .avatarBorderWidth(3)
+            .avatarBorderColor(Color.blue)
+            .avatarSize(CGSize(width: 30, height: 30))
+            .footnoteIconsMaxCount(4)
+            .footnoteIconsSize(CGSize(width: 20, height: 20))
+            .isFootnoteIconsCircular(false)
             return AnyView(oi)
         default:
             return AnyView(_ObjectItem(title: "Lorem ipseum dolor"))

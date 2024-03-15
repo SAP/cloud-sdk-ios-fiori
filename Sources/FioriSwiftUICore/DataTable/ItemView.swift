@@ -322,8 +322,8 @@ struct FocusedEditingView: View {
                 
                                               self.layoutManager.model.valueDidChange?(DataTableChange(rowIndex: rowIndex, columnIndex: columnIndex, value: .text(editingText), text: editingText, selectedIndex: selectedIndex))
                                           })
-                    .listBackground(Color.preferredColor(.primaryBackground))
-                    .navigationTitle(data.1)
+                                          .listBackground(Color.preferredColor(.primaryBackground))
+                                          .navigationTitle(data.1)
             } else {
                 return EmptyView()
             }
@@ -437,9 +437,9 @@ struct ItemView: View {
                         return
                     }
                     
-                    if dataItem.isReadonly && dataItem.type != .image {
+                    if dataItem.isReadonly, dataItem.type != .image {
                         let message = NSLocalizedString("Tapped cell is read-only.", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
-                        toast = Toast(message: message)
+                        self.toast = Toast(message: message)
                         if self.layoutManager.currentCell != nil {
                             self.layoutManager.currentCell = nil
                         }
@@ -583,7 +583,7 @@ struct ItemView: View {
             }
         } else {
             /// Read-only background color for these cells only
-            if dataItem.isReadonly && dataItem.type != .image && !isHeader && self.layoutManager.model.editMode == .inline {
+            if dataItem.isReadonly, dataItem.type != .image, !isHeader, self.layoutManager.model.editMode == .inline {
                 return Color.preferredColor(.tertiaryFill)
             } else {
                 return Color.clear

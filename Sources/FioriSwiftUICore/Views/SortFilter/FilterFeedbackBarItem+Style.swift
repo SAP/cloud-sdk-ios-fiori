@@ -69,10 +69,10 @@ public struct DefaultFilterFeedbackBarStyle: FilterFeedbackBarStyle {
             .frame(minHeight: self.minHeight)
             .background(
                 ZStack {
-                    RoundedRectangle(cornerRadius: cornerRadius)
-                        .fill(configuration.isSelected ? fillColorSelected : fillColorUnselected)
-                    RoundedRectangle(cornerRadius: cornerRadius)
-                        .stroke(configuration.isSelected ? strokeColorSelected : strokeColorUnselected, lineWidth: borderWidth)
+                    RoundedRectangle(cornerRadius: self.cornerRadius)
+                        .fill(configuration.isSelected ? self.fillColorSelected : self.fillColorUnselected)
+                    RoundedRectangle(cornerRadius: self.cornerRadius)
+                        .stroke(configuration.isSelected ? self.strokeColorSelected : self.strokeColorUnselected, lineWidth: self.borderWidth)
                 }
             )
         )
@@ -97,7 +97,7 @@ extension EnvironmentValues {
 /// Experimental filter feedback bar styling
 public extension View {
     /// Experimental filter feedback bar styling
-    func filterFeedbackBarStyle<S>(_ style: S) -> some View where S: FilterFeedbackBarStyle {
+    func filterFeedbackBarStyle(_ style: some FilterFeedbackBarStyle) -> some View {
         self.environment(\.filterFeedbackBarStyle, style)
     }
     

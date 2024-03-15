@@ -146,7 +146,7 @@ struct ObjectCell_Spec_Jan2018: ObjectItemListDataProtocol {
                 }, detailImage: {
                     Image("ProfilePic").resizable().frame(width: 45, height: 45).clipShape(Circle())
                 })
-                    .splitPercent(0.5)
+                .splitPercent(0.5)
             } else {
                 oi = _ObjectItem(title: {
                     Text("John Jacob Jingleheimer Schmidt")
@@ -157,7 +157,7 @@ struct ObjectCell_Spec_Jan2018: ObjectItemListDataProtocol {
                 }, detailImage: {
                     Image("ProfilePic").resizable().frame(width: 45, height: 45).clipShape(Circle())
                 })
-                    .splitPercent(0.5)
+                .splitPercent(0.5)
             }
             
         case (1, 0):
@@ -189,7 +189,7 @@ struct ObjectCell_Spec_Jan2018: ObjectItemListDataProtocol {
                 }, detailImage: {
                     Image("ProfilePic").resizable().frame(width: 45, height: 45).clipShape(Circle())
                 })
-                    .splitPercent(0.5)
+                .splitPercent(0.5)
             } else {
                 oi = _ObjectItem(title: {
                     Text("Rouja Pakiman")
@@ -202,7 +202,7 @@ struct ObjectCell_Spec_Jan2018: ObjectItemListDataProtocol {
                 }, detailImage: {
                     Image("ProfilePic").resizable().frame(width: 45, height: 45).clipShape(Circle())
                 })
-                    .splitPercent(0.5)
+                .splitPercent(0.5)
             }
             
         case (1, 1):
@@ -284,7 +284,7 @@ struct ObjectCell_Spec_Jan2018: ObjectItemListDataProtocol {
                 }, detailImage: {
                     Image("ProfilePic").resizable().frame(width: 45, height: 45).clipShape(Circle())
                 })
-                    .splitPercent(0.5)
+                .splitPercent(0.5)
             } else {
                 oi = _ObjectItem(title: {
                     Text("Rouja Pakiman")
@@ -301,7 +301,7 @@ struct ObjectCell_Spec_Jan2018: ObjectItemListDataProtocol {
                 }, detailImage: {
                     Image("ProfilePic").resizable().frame(width: 45, height: 45).clipShape(Circle())
                 })
-                    .splitPercent(0.5)
+                .splitPercent(0.5)
             }
             
         case (2, 0):
@@ -340,7 +340,7 @@ struct ObjectCell_Spec_Jan2018: ObjectItemListDataProtocol {
                 }, detailImage: {
                     Image("ProfilePic").resizable().frame(width: 45, height: 45).clipShape(Circle())
                 })
-                    .splitPercent(0.5)
+                .splitPercent(0.5)
             } else {
                 oi = _ObjectItem(title: {
                     Text("Rouja Pakiman")
@@ -357,7 +357,7 @@ struct ObjectCell_Spec_Jan2018: ObjectItemListDataProtocol {
                 }, detailImage: {
                     Image("ProfilePic").resizable().frame(width: 45, height: 45).clipShape(Circle())
                 })
-                    .splitPercent(0.5)
+                .splitPercent(0.5)
             }
         
         case (3, 0):

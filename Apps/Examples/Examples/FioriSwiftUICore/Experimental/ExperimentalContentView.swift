@@ -9,7 +9,7 @@ struct ExperimentalContentView: View {
         .init(view: StylingModifierExample().asAnyView, label: "🔬 Styling (Modifier)")
     ]
     var body: some View {
-        List(experiments, id: \.id) { e in
+        List(self.experiments, id: \.id) { e in
             NavigationLink(
                 destination: e.view,
                 label: {

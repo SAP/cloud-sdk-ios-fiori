@@ -45,7 +45,7 @@ public class TableModel: ObservableObject {
     /// `TableRowItem`, header data for displaying.
     @Published public var headerData: TableRowItem?
     
-    internal var hasHeader: Bool {
+    var hasHeader: Bool {
         if let header = self.headerData, !header.data.isEmpty {
             return true
         }
@@ -164,7 +164,7 @@ public class TableModel: ObservableObject {
     /// Selected Indexes.
     @Published public var selectedIndexes: [Int] = []
     
-    @Published internal var _rowData: [TableRowItem] = []
+    @Published var _rowData: [TableRowItem] = []
     
     /// show row dividers in every number of Rows; The values must be >= 1; The default is 1.
     @Published public var everyNumOfRowsToShowDivider: Int = 1

@@ -4,12 +4,14 @@ struct OnboardingExamples: View {
     var body: some View {
         List {
             NavigationLink(
-                destination: WelcomeExamples()) {
+                destination: WelcomeExamples())
+            {
                 Text("WelcomeScreen Examples")
             }
             
             NavigationLink(
-                destination: ActivationScreenExamples()) {
+                destination: ActivationScreenExamples())
+            {
                 Text("ActivationScreen")
             }
             
@@ -21,12 +23,14 @@ struct OnboardingExamples: View {
             )
             
             NavigationLink(
-                destination: EULAExamples()) {
+                destination: EULAExamples())
+            {
                 Text("EULA Examples")
             }
             
             NavigationLink(
-                destination: UserConsentExamples()) {
+                destination: UserConsentExamples())
+            {
                 Text("User Consent Form Examples")
             }
             
@@ -38,15 +42,18 @@ struct WelcomeExamples: View {
     var body: some View {
         List {
             NavigationLink(
-                destination: WelcomeScreenSample()) {
+                destination: WelcomeScreenSample())
+            {
                 Text("WelcomeScreen")
             }
             NavigationLink(
-                destination: WelcomeScreenCustomized()) {
+                destination: WelcomeScreenCustomized())
+            {
                 Text("WelcomeScreen customized")
             }
             NavigationLink(
-                destination: WelcomeScreenDiscoveryService()) {
+                destination: WelcomeScreenDiscoveryService())
+            {
                 Text("WelcomeScreen with Discovery Service")
             }
         }.navigationBarTitle("Welcome Examples", displayMode: .inline)
@@ -57,12 +64,14 @@ struct ActivationScreenExamples: View {
     var body: some View {
         List {
             NavigationLink(
-                destination: ActivationScreenSample()) {
+                destination: ActivationScreenSample())
+            {
                 Text("ActivationScreen")
             }
             
             NavigationLink(
-                destination: ActivationScreenCustomizedSample()) {
+                destination: ActivationScreenCustomizedSample())
+            {
                 Text("Customized")
             }
         }.navigationBarTitle("Onboarding", displayMode: .inline)
@@ -79,12 +88,14 @@ struct InfoViewExamples: View {
                 }
             )
             NavigationLink(
-                destination: InfoViewWithLoadingLabel()) {
+                destination: InfoViewWithLoadingLabel())
+            {
                 Text("InfoView With Loading Label")
             }
             
             NavigationLink(
-                destination: InfoViewCustomized()) {
+                destination: InfoViewCustomized())
+            {
                 Text("InfoView Customized")
             }
         }.navigationBarTitle("InfoView Examples", displayMode: .inline)
@@ -95,37 +106,44 @@ struct EULAExamples: View {
     var body: some View {
         List {
             NavigationLink(
-                destination: EULAViewSample()) {
+                destination: EULAViewSample())
+            {
                 Text("EULA Example")
             }
             
             NavigationLink(
-                destination: EULALongHtmlSample()) {
+                destination: EULALongHtmlSample())
+            {
                 Text("Long HTML")
             }
             
             NavigationLink(
-                destination: EULAShortHtmlSample()) {
+                destination: EULAShortHtmlSample())
+            {
                 Text("Short HTML")
             }
             
             NavigationLink(
-                destination: EULAConcatSample()) {
+                destination: EULAConcatSample())
+            {
                 Text("Concat Attributed Strings")
             }
             
             NavigationLink(
-                destination: EULAWithLinkSample()) {
+                destination: EULAWithLinkSample())
+            {
                 Text("Short HTML with Link")
             }
             
             NavigationLink(
-                destination: EULAShortWithLinkSample()) {
+                destination: EULAShortWithLinkSample())
+            {
                 Text("Short Attributed Strings with Link")
             }
             
             NavigationLink(
-                destination: EULAViewCustomized()) {
+                destination: EULAViewCustomized())
+            {
                 Text("Customized EULA Example")
             }
             
@@ -137,22 +155,26 @@ struct UserConsentExamples: View {
     var body: some View {
         List {
             NavigationLink(
-                destination: UserConsentSinglePageM()) {
+                destination: UserConsentSinglePageM())
+            {
                 Text("Single Page Form(Mandatory)")
             }
             
             NavigationLink(
-                destination: UserConsentSinglePageO()) {
+                destination: UserConsentSinglePageO())
+            {
                 Text("Single Page Form(Optional, Long RTF)")
             }
             
             NavigationLink(
-                destination: UserConsentViewBuilderExample()) {
+                destination: UserConsentViewBuilderExample())
+            {
                 Text("Multiple Forms(ViewBuilder)")
             }
             
             NavigationLink(
-                destination: UserConsentCustomized()) {
+                destination: UserConsentCustomized())
+            {
                 Text("Multiple Forms(Customized)")
             }
             

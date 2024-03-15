@@ -61,7 +61,7 @@ struct WelcomeScreenSample: View {
     
     var body: some View {
         VStack {
-            WelcomeScreen(model: model)
+            WelcomeScreen(model: self.model)
         }
     }
 }
@@ -72,7 +72,7 @@ struct WelcomeScreenCustomized: View {
     
     var body: some View {
         VStack {
-            WelcomeScreen(model: model)
+            WelcomeScreen(model: self.model)
                 .footnoteModifier { $0.font(.fiori(forTextStyle: .headline)).foregroundColor(.green) }
                 .actionTextModifier { $0.background(LinearGradient(gradient: Gradient(colors: [Color.red, Color.orange]), startPoint: .leading, endPoint: .trailing)) }
         }
@@ -85,11 +85,11 @@ struct WelcomeScreenDiscoveryService: View {
     
     var body: some View {
         VStack {
-            WelcomeScreen(model: model)
+            WelcomeScreen(model: self.model)
                 .footnoteModifier { $0.font(.fiori(forTextStyle: .headline)).foregroundColor(.green) }
                 .actionTextModifier { content in
                     content.background(LinearGradient(gradient: Gradient(colors: [Color.red, Color.orange]), startPoint: .leading, endPoint: .trailing))
-                        .disabled(model.textInput?.textInputValue.isEmpty ?? true)
+                        .disabled(self.model.textInput?.textInputValue.isEmpty ?? true)
                 }
                 .textInputModifier { $0.disableAutocorrection(true) }
         }

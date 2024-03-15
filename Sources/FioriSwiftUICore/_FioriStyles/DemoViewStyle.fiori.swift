@@ -128,7 +128,7 @@ struct CustomTagDemoViewStyle: DemoViewStyle {
             }
         }
         .overlay(alignment: .topLeading) {
-            Text(tag)
+            Text(self.tag)
                 .border(.red)
         }
         .padding()

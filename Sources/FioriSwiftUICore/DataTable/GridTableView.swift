@@ -421,7 +421,7 @@ struct InternalGridTableView: View {
                 ZStack(alignment: .top) {
                     self.makeBody(size)
                         .banner(isPresented: self.$showBanner, data: BannerData(title: self.layoutManager.isValid.1 ?? ""))
-                        .toast(toast: $toast)
+                        .toast(toast: self.$toast)
                     
                     // show the focused textfield or other type of inline editing view
                     if let cellIndex = layoutManager.currentCell, let ld = layoutManager.layoutData, layoutManager.model.editMode == .inline, !ld.allDataItems[cellIndex.0][cellIndex.1].isReadonly {
@@ -543,7 +543,7 @@ struct InternalGridTableView: View {
                         let x: CGFloat = (leadingAccessoryViewWidth + currentItem.pos.x) * tmpScaleX - offsetX
                         
                         // cell
-                        ItemView(rowIndex: rowIndex, columnIndex: columnIndex, layoutManager: self.layoutManager, layoutData: layoutData, showBanner: self.$showBanner, showToast: $toast)
+                        ItemView(rowIndex: rowIndex, columnIndex: columnIndex, layoutManager: self.layoutManager, layoutData: layoutData, showBanner: self.$showBanner, showToast: self.$toast)
                             .id(self.itemViewId(rowIndex: rowIndex, columnIndex: columnIndex))
                             .position(x: x, y: y)
                             .accessibilityElement(children: .ignore)

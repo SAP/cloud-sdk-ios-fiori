@@ -270,7 +270,7 @@ struct ObjectHeaderSpec: ListDataProtocol {
                 HeaderChart(title: {
                     Text("")
                 }, kpi: {
-                    KPIItem(data: .duration(22500, df), subtitle: "Working Hours").disabled(true)
+                    KPIItem(data: .duration(22500, self.df), subtitle: "Working Hours").disabled(true)
                 })
             })
             

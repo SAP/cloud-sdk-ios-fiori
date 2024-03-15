@@ -10,7 +10,7 @@ struct ContactItemInitViewBuilderExample: View {
                           back: .green, textColor: .white)
 
             ContactItem {
-                if useDifferentView {
+                if self.useDifferentView {
                     Image(systemName: "person.crop.circle.badge.exclamationmark")
                 } else {
                     Text("Title")
@@ -20,7 +20,7 @@ struct ContactItemInitViewBuilderExample: View {
             } descriptionText: {
                 Text("Description")
             } detailImage: {
-                if useDifferentView {
+                if self.useDifferentView {
                     Text("Not an image")
                 } else {
                     Image(systemName: "person.crop.circle")
@@ -28,7 +28,7 @@ struct ContactItemInitViewBuilderExample: View {
             }
             .exampleHighlighting()
 
-            Toggle(isOn: $useDifferentView) {
+            Toggle(isOn: self.$useDifferentView) {
                 Text("Use different views")
             }.padding()
         }

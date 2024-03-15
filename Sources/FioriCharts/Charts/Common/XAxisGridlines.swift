@@ -22,7 +22,7 @@ struct XAxisGridlines: View {
         
         var isShowLabels = [Bool]()
         for label in labels {
-            if label.pos.x >= -1 && label.pos.x <= rect.size.width + 1 {
+            if label.pos.x >= -1, label.pos.x <= rect.size.width + 1 {
                 isShowLabels.append(true)
             } else {
                 isShowLabels.append(false)
@@ -56,7 +56,7 @@ struct XAxisGridlines: View {
             }
             
             // a vertical line between negative bars and positive bars in Bar Chart
-            if model.chartType == .bar && valueType == .mixed {
+            if self.model.chartType == .bar, valueType == .mixed {
                 LineShape(pos1: .zero,
                           pos2: CGPoint(x: 0, y: rect.size.height),
                           layoutDirection: self.layoutDirection)
@@ -69,7 +69,7 @@ struct XAxisGridlines: View {
     }
     
     func dashGap(label: AxisTitle, gap: CGFloat) -> CGFloat {
-        if self.model.chartType == .bar && abs(label.value) < 0.0001 {
+        if self.model.chartType == .bar, abs(label.value) < 0.0001 {
             return 0
         } else {
             return gap

@@ -11,14 +11,14 @@ struct LinePointIndicatorView: View {
         
         return ZStack {
             Circle()
-                .fill(strokeColr)
-                .frame(width: pointRadius * 2 + extraSelectedPointDiameterWidth,
-                       height: pointRadius * 2 + extraSelectedPointDiameterWidth)
+                .fill(self.strokeColr)
+                .frame(width: self.pointRadius * 2 + extraSelectedPointDiameterWidth,
+                       height: self.pointRadius * 2 + extraSelectedPointDiameterWidth)
 
             Circle()
                 .stroke(circleColor, style: StrokeStyle(lineWidth: 4))
-                .frame(width: pointRadius * 2 + extraSelectedPointAndBorderDiameter,
-                       height: pointRadius * 2 + extraSelectedPointAndBorderDiameter)
+                .frame(width: self.pointRadius * 2 + extraSelectedPointAndBorderDiameter,
+                       height: self.pointRadius * 2 + extraSelectedPointAndBorderDiameter)
         }
     }
 }

@@ -1,4 +1,5 @@
 import FioriThemeManager
+
 //  _SortFilterMenuItemContainer.swift
 //
 //
@@ -22,20 +23,20 @@ extension _SortFilterCFGItemContainer: View {
     public var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack(spacing: 30) {
-                ForEach(0 ..< _items.count) { r in
+                ForEach(0 ..< self._items.count) { r in
                     VStack {
-                        ForEach(0 ..< _items[r].count) { c in
-                            switch _items[r][c] {
+                        ForEach(0 ..< self._items[r].count) { c in
+                            switch self._items[r][c] {
                             case .picker:
-                                picker(row: r, column: c)
+                                self.picker(row: r, column: c)
                             case .filterfeedback:
-                                filterfeedback(row: r, column: c)
+                                self.filterfeedback(row: r, column: c)
                             case .switch:
-                                switcher(row: r, column: c)
+                                self.switcher(row: r, column: c)
                             case .slider:
-                                slider(row: r, column: c)
+                                self.slider(row: r, column: c)
                             case .datetime:
-                                datetimePicker(row: r, column: c)
+                                self.datetimePicker(row: r, column: c)
                                     .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? 375 : Screen.bounds.size.width)
                             }
                         }
@@ -49,35 +50,35 @@ extension _SortFilterCFGItemContainer: View {
             .background(Color.preferredColor(.primaryGroupedBackground))
         }
         .background(Color.preferredColor(.primaryGroupedBackground))
-        .onChange(of: _items) { _ in
-            checkUpdateButtonState()
+        .onChange(of: self._items) { _ in
+            self.checkUpdateButtonState()
         }
         .onAppear {
-            context.handleCancel = {
-                for r in 0 ..< _items.count {
-                    for c in 0 ..< _items[r].count {
-                        _items[r][c].cancel()
+            self.context.handleCancel = {
+                for r in 0 ..< self._items.count {
+                    for c in 0 ..< self._items[r].count {
+                        self._items[r][c].cancel()
                     }
                 }
             }
     
-            context.handleReset = {
-                for r in 0 ..< _items.count {
-                    for c in 0 ..< _items[r].count {
-                        _items[r][c].reset()
+            self.context.handleReset = {
+                for r in 0 ..< self._items.count {
+                    for c in 0 ..< self._items[r].count {
+                        self._items[r][c].reset()
                     }
                 }
             }
     
-            context.handleApply = {
-                for r in 0 ..< _items.count {
-                    for c in 0 ..< _items[r].count {
-                        _items[r][c].apply()
+            self.context.handleApply = {
+                for r in 0 ..< self._items.count {
+                    for c in 0 ..< self._items[r].count {
+                        self._items[r][c].apply()
                     }
                 }
             }
             
-            checkUpdateButtonState()
+            self.checkUpdateButtonState()
         }
     }
     
@@ -102,16 +103,16 @@ extension _SortFilterCFGItemContainer: View {
     func picker(row r: Int, column c: Int) -> some View {
         VStack {
             HStack {
-                Text(_items[r][c].picker.name)
+                Text(self._items[r][c].picker.name)
                     .font(.fiori(forTextStyle: .subheadline, weight: .bold, isItalic: false, isCondensed: false))
                     .foregroundColor(Color.preferredColor(.primaryLabel))
                 Spacer()
             }
             OptionListPickerItem(
-                value: Binding<[Int]>(get: { _items[r][c].picker.workingValue }, set: { _items[r][c].picker.workingValue = $0 }),
-                valueOptions: _items[r][c].picker.valueOptions,
+                value: Binding<[Int]>(get: { self._items[r][c].picker.workingValue }, set: { self._items[r][c].picker.workingValue = $0 }),
+                valueOptions: self._items[r][c].picker.valueOptions,
                 onTap: { index in
-                    _items[r][c].picker.onTap(option: _items[r][c].picker.valueOptions[index])
+                    self._items[r][c].picker.onTap(option: self._items[r][c].picker.valueOptions[index])
                 }
             )
         }
@@ -120,16 +121,16 @@ extension _SortFilterCFGItemContainer: View {
     func filterfeedback(row r: Int, column c: Int) -> some View {
         VStack {
             HStack {
-                Text(_items[r][c].filterfeedback.name)
+                Text(self._items[r][c].filterfeedback.name)
                     .font(.fiori(forTextStyle: .subheadline, weight: .bold, isItalic: false, isCondensed: false))
                     .foregroundColor(Color.preferredColor(.primaryLabel))
                 Spacer()
             }
             OptionListPickerItem(
-                value: Binding<[Int]>(get: { _items[r][c].filterfeedback.workingValue }, set: { _items[r][c].filterfeedback.workingValue = $0 }),
-                valueOptions: _items[r][c].filterfeedback.valueOptions,
+                value: Binding<[Int]>(get: { self._items[r][c].filterfeedback.workingValue }, set: { self._items[r][c].filterfeedback.workingValue = $0 }),
+                valueOptions: self._items[r][c].filterfeedback.valueOptions,
                 onTap: { index in
-                    _items[r][c].filterfeedback.onTap(option: _items[r][c].filterfeedback.valueOptions[index])
+                    self._items[r][c].filterfeedback.onTap(option: self._items[r][c].filterfeedback.valueOptions[index])
                 }
             )
         }
@@ -137,22 +138,22 @@ extension _SortFilterCFGItemContainer: View {
     
     func switcher(row r: Int, column c: Int) -> some View {
         VStack {
-            SwitchPickerItem(value: Binding<Bool?>(get: { _items[r][c].switch.workingValue }, set: { _items[r][c].switch.workingValue = $0 }), name: _items[r][c].switch.name, hint: nil)
+            SwitchPickerItem(value: Binding<Bool?>(get: { self._items[r][c].switch.workingValue }, set: { self._items[r][c].switch.workingValue = $0 }), name: self._items[r][c].switch.name, hint: nil)
         }
     }
     
     func slider(row r: Int, column c: Int) -> some View {
         VStack {
             HStack {
-                Text(_items[r][c].slider.name)
+                Text(self._items[r][c].slider.name)
                     .font(.headline)
                 Spacer()
             }
             SliderPickerItem(
-                value: Binding<Int?>(get: { _items[r][c].slider.workingValue }, set: { _items[r][c].slider.workingValue = $0 }),
-                formatter: _items[r][c].slider.formatter,
-                minimumValue: _items[r][c].slider.minimumValue,
-                maximumValue: _items[r][c].slider.maximumValue
+                value: Binding<Int?>(get: { self._items[r][c].slider.workingValue }, set: { self._items[r][c].slider.workingValue = $0 }),
+                formatter: self._items[r][c].slider.formatter,
+                minimumValue: self._items[r][c].slider.minimumValue,
+                maximumValue: self._items[r][c].slider.maximumValue
             )
         }
     }
@@ -160,7 +161,7 @@ extension _SortFilterCFGItemContainer: View {
     func datetimePicker(row r: Int, column c: Int) -> some View {
         VStack {
             HStack {
-                Text(_items[r][c].datetime.name)
+                Text(self._items[r][c].datetime.name)
                     .font(.fiori(forTextStyle: .headline, weight: .bold, isItalic: false, isCondensed: false))
                     .foregroundColor(Color.preferredColor(.primaryLabel))
                 Spacer()
@@ -174,7 +175,7 @@ extension _SortFilterCFGItemContainer: View {
                 Spacer()
                 DatePicker(
                     "",
-                    selection: Binding<Date>(get: { _items[r][c].datetime.workingValue ?? Date() }, set: { _items[r][c].datetime.workingValue = $0 }),
+                    selection: Binding<Date>(get: { self._items[r][c].datetime.workingValue ?? Date() }, set: { self._items[r][c].datetime.workingValue = $0 }),
                     displayedComponents: [.hourAndMinute]
                 )
                 .labelsHidden()
@@ -183,7 +184,7 @@ extension _SortFilterCFGItemContainer: View {
             
             DatePicker(
                 "",
-                selection: Binding<Date>(get: { _items[r][c].datetime.workingValue ?? Date() }, set: { _items[r][c].datetime.workingValue = $0 }),
+                selection: Binding<Date>(get: { self._items[r][c].datetime.workingValue ?? Date() }, set: { self._items[r][c].datetime.workingValue = $0 }),
                 displayedComponents: [.date]
             )
             .datePickerStyle(.graphical)

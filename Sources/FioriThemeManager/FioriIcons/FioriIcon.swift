@@ -2412,7 +2412,7 @@ extension Image {
     }
     
     var uiImage: UIImage? {
-        guard let name = name else {
+        guard let name else {
             return nil
         }
         

@@ -827,11 +827,11 @@ struct SystemProvider: FontProvider {
                 .size: self.size
             ])
         
-        if let design = design, let tmpFd = fd.withDesign(design) {
+        if let design, let tmpFd = fd.withDesign(design) {
             fd = tmpFd
         }
         
-        if let weight = weight {
+        if let weight {
             fd = fd.addingAttributes([UIFontDescriptor.AttributeName.traits: [UIFontDescriptor.TraitKey.weight: weight]])
             return UIFontInfo(fontDescriptor: fd, weight: weight)
         }
@@ -847,11 +847,11 @@ struct TextStyleProvider: FontProvider {
     
     func fontInfo(with traitCollection: UITraitCollection?) -> UIFontInfo {
         var fd = UIFontDescriptor.preferredFontDescriptor(withTextStyle: self.textStyle ?? .body, compatibleWith: traitCollection)
-        if let design = design, let tmpFd = fd.withDesign(design) {
+        if let design, let tmpFd = fd.withDesign(design) {
             fd = tmpFd
         }
 
-        if let weight = weight {
+        if let weight {
             fd = fd.addingAttributes([UIFontDescriptor.AttributeName.traits: [UIFontDescriptor.TraitKey.weight: weight]])
             return UIFontInfo(fontDescriptor: fd, textStyle: self.textStyle, weight: weight)
         }
@@ -866,7 +866,7 @@ struct NamedProvider: FontProvider {
     var textStyle: UIFont.TextStyle?
     
     func fontInfo(with traitCollection: UITraitCollection?) -> UIFontInfo {
-        if let textStyle = textStyle, size <= 34 {
+        if let textStyle, size <= 34 {
             let metrics = UIFontMetrics(forTextStyle: textStyle)
             let fd = UIFontDescriptor(fontAttributes: [
                 .name: name,

@@ -71,21 +71,21 @@ struct SingleActionFollowButton: ObjectItemListDataProtocol {
         case (0, 2):
             if self.isNewObjectItem {
                 oi = ObjectItem(title: {
-                    Text(isLongText ? longHeadline : "Cafe Food Title That Is So Long It Has To Wrap")
+                    Text(self.isLongText ? longHeadline : "Cafe Food Title That Is So Long It Has To Wrap")
                 }, footnote: {
                     Text("3493 followers")
                 }, action: { FioriButton(title: AttributedString(stringLiteral: self.isLongText ? longText : "Follow"), action: { _ in print("Tapped Follow") }) })
                     .buttonStyle(PlainButtonStyle())
             } else {
                 oi = _ObjectItem(title: {
-                    Text(isLongText ? longHeadline : "Cafe Food Title That Is So Long It Has To Wrap")
+                    Text(self.isLongText ? longHeadline : "Cafe Food Title That Is So Long It Has To Wrap")
                 }, footnote: {
                     Text("3493 followers")
                 }, action: {
                     Button {
                         print("Tapped Follow")
                     } label: {
-                        Text(isLongText ? longText : "Follow")
+                        Text(self.isLongText ? longText : "Follow")
                             .font(.callout)
                             .lineLimit(2)
                             .foregroundColor(Color.preferredColor(.tintColor))
@@ -138,14 +138,14 @@ struct SingleActionFollowButton: ObjectItemListDataProtocol {
         case (1, 0):
             if self.isNewObjectItem {
                 oi = ObjectItem(title: {
-                    Text(isLongText ? longHeadline : "Cafe Food Title That Is So Long It Has To Wrap")
+                    Text(self.isLongText ? longHeadline : "Cafe Food Title That Is So Long It Has To Wrap")
                 }, footnote: {
                     Text("3493 followers")
                 }, action: { FioriButton(action: { _ in print("Tapped Follow") }, label: { _ in Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi viverra libero et mauris gravida tempor.") }) })
                     .buttonStyle(PlainButtonStyle())
             } else {
                 oi = _ObjectItem(title: {
-                    Text(isLongText ? longHeadline : "Cafe Food Title That Is So Long It Has To Wrap")
+                    Text(self.isLongText ? longHeadline : "Cafe Food Title That Is So Long It Has To Wrap")
                 }, footnote: {
                     Text("3493 followers")
                 }, action: {

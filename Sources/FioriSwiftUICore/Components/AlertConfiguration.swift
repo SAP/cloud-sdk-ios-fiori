@@ -17,10 +17,10 @@ public struct AlertConfiguration {
     ///   - message: A view builder returns a view to be shown as message.
     ///   - action: Action object.
     ///   - secondaryAction: Secondary action object.
-    public init<M: View>(title: Text,
-                         @ViewBuilder message: () -> M,
-                         action: Action,
-                         secondaryAction: Action)
+    public init(title: Text,
+                @ViewBuilder message: () -> some View,
+                action: Action,
+                secondaryAction: Action)
     {
         self.title = title
         self.message = message().typeErased
@@ -95,7 +95,7 @@ public extension AlertConfiguration {
         /// - Parameters:
         ///   - label: A view that describes the purpose of the action.
         ///   - didSelect: The closure to be called when a user triggers the action.
-        public init<V: View>(@ViewBuilder label: () -> V, didSelect: (() -> Void)? = nil) {
+        public init(@ViewBuilder label: () -> some View, didSelect: (() -> Void)? = nil) {
             self.label = label().typeErased
             self.label_ = nil
             self.didSelect = didSelect

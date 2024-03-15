@@ -9,13 +9,13 @@ struct SearchIconAndPlaceholder: View {
     // reference issue: https://developer.apple.com/forums/thread/709773
     var body: some View {
         NavigationStack {
-            List(ColorEntity.filterColors(queryString)) { color in
+            List(ColorEntity.filterColors(self.queryString)) { color in
                 Text(color.name)
                     .foregroundColor(color.fioriColor)
             }
             .navigationTitle("Colors")
         }
-        .searchable(text: $queryString, prompt: "Color name")
+        .searchable(text: self.$queryString, prompt: "Color name")
         .navigationBarTitleDisplayMode(.inline)
         .onAppear {
             UISearchTextField.appearance().backgroundColor = UIColor(Color.preferredColor(.quaternaryFill))

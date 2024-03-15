@@ -75,21 +75,21 @@ struct CustomLinearProgressViewStyle: ProgressViewStyle {
             GeometryReader { geometry in
                 ZStack(alignment: .leading) {
                     Capsule()
-                        .frame(width: geometry.size.width, height: height)
+                        .frame(width: geometry.size.width, height: self.height)
                         .opacity(0.85)
                         .foregroundColor(.preferredColor(.separator))
                     Capsule()
-                        .frame(width: (type == .error || type == .success) ? geometry.size.width : (geometry.size.width * CGFloat(configuration.fractionCompleted ?? 0)), height: height)
-                        .foregroundColor(type == .error ? .preferredColor(.negativeLabel) : color)
+                        .frame(width: (self.type == .error || self.type == .success) ? geometry.size.width : (geometry.size.width * CGFloat(configuration.fractionCompleted ?? 0)), height: self.height)
+                        .foregroundColor(self.type == .error ? .preferredColor(.negativeLabel) : self.color)
                     
                     Capsule()
-                        .frame(width: geometry.size.width * getWidth(completed: CGFloat(configuration.fractionCompleted ?? 0), type: type), height: height)
+                        .frame(width: geometry.size.width * self.getWidth(completed: CGFloat(configuration.fractionCompleted ?? 0), type: self.type), height: self.height)
                         .foregroundColor(.preferredColor(.secondaryBackground))
-                        .opacity(type == .indeterminate ? 1 : 0)
+                        .opacity(self.type == .indeterminate ? 1 : 0)
                     
                     Capsule()
-                        .frame(width: geometry.size.width * getWidth(completed: CGFloat(configuration.fractionCompleted ?? 0), type: type), height: height)
-                        .opacity(type == .indeterminate ? 0.85 : 0)
+                        .frame(width: geometry.size.width * self.getWidth(completed: CGFloat(configuration.fractionCompleted ?? 0), type: self.type), height: self.height)
+                        .opacity(self.type == .indeterminate ? 0.85 : 0)
                         .foregroundColor(.preferredColor(.separator))
                 }
             }
@@ -102,7 +102,7 @@ struct CustomLinearProgressViewStyle: ProgressViewStyle {
             return 0
         }
         if completed >= 0.5 {
-            return (completed - 0.5)
+            return completed - 0.5
         } else {
             return 0
         }

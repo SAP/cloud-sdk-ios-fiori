@@ -27,7 +27,7 @@ struct ToastView: View {
                 Spacer()
                 HStack {
                     Spacer()
-                    makeBody(reader.size)
+                    self.makeBody(reader.size)
                     Spacer()
                 }
                 Spacer()
@@ -37,14 +37,14 @@ struct ToastView: View {
     
     func makeBody(_ size: CGSize) -> some View {
         HStack(alignment: .center, spacing: 8) {
-            if let image = image {
+            if let image {
                 image
             } else {
                 Image(systemName: "checkmark.circle")
                     .foregroundColor(Color.preferredColor(.primaryLabel))
             }
             
-            Text(message)
+            Text(self.message)
                 .font(Font.fiori(forTextStyle: .subheadline))
                 .foregroundColor(Color.preferredColor(.primaryLabel))
         }
@@ -71,7 +71,7 @@ struct ToastModifier: ViewModifier {
         content
             .overlay(
                 ZStack {
-                    if let toast = toast {
+                    if let toast {
                         ToastView(message: toast.message,
                                   image: toast.image)
                             .animation(.easeInOut, value: toast)
@@ -79,21 +79,21 @@ struct ToastModifier: ViewModifier {
                 }
             )
             .onChange(of: self.toast) { _ in
-                showToast()
+                self.showToast()
             }
     }
     
     private func showToast() {
-        guard let toast = toast else { return }
+        guard let toast else { return }
         
         if toast.duration > 0 {
             self.workItem?.cancel()
             
             let task = DispatchWorkItem {
-                dismissToast()
+                self.dismissToast()
             }
          
-            if UIAccessibility.isVoiceOverRunning && !toast.message.isEmpty {
+            if UIAccessibility.isVoiceOverRunning, !toast.message.isEmpty {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                     UIAccessibility.post(notification: .announcement, argument: toast.message)
                 }
@@ -106,7 +106,7 @@ struct ToastModifier: ViewModifier {
     
     private func dismissToast() {
         withAnimation(.easeInOut) {
-            toast = nil
+            self.toast = nil
         }
         
         self.workItem?.cancel()

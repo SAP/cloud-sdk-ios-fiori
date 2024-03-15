@@ -26,7 +26,7 @@ public struct TagStyleConfiguration {
 public struct AnyTagStyle {
     var apply: (TagStyleConfiguration) -> AnyView
     
-    public init<T: TagStyle>(_ t: T) {
+    public init(_ t: some TagStyle) {
         self.apply = {
             AnyView(t.makeBody(configuration: $0))
         }
@@ -118,8 +118,8 @@ public struct CustomTagStyle: TagStyle {
             .foregroundColor(self.textColor)
             .padding(self.contentInsets)
             .background(ZStack {
-                RoundedRectangle(cornerRadius: cornerRadius).fill(fillColor)
-                RoundedRectangle(cornerRadius: cornerRadius).stroke(borderColor, lineWidth: borderWidth)
+                RoundedRectangle(cornerRadius: self.cornerRadius).fill(self.fillColor)
+                RoundedRectangle(cornerRadius: self.cornerRadius).stroke(self.borderColor, lineWidth: self.borderWidth)
             })
     }
 }
@@ -168,7 +168,7 @@ public extension View {
     ///         Tag("Tag2")
     ///     }
     ///     .tagStyle(DarkTagStyle())
-    func tagStyle<S>(_ style: S) -> some View where S: TagStyle {
+    func tagStyle(_ style: some TagStyle) -> some View {
         self.environment(\.tagStyle, AnyTagStyle(style))
     }
     
@@ -275,12 +275,12 @@ public struct Tag: View {
     /// triggers the ``Tag/init(_:tableName:bundle:comment:)`` method instead.
     ///
     /// - Parameter content: The string value to display without localization.
-    public init<S>(_ content: S) where S: StringProtocol {
+    public init(_ content: some StringProtocol) {
         self.content = Text(content)
     }
     
     public var body: some View {
-        tagStyle.apply(TagStyleConfiguration(label: content))
+        self.tagStyle.apply(TagStyleConfiguration(label: self.content))
     }
 }
 

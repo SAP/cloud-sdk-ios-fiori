@@ -11,11 +11,21 @@ import SwiftUI
  4. Move this file to `_FioriStyles` folder under `FioriSwiftUICore`.
  */
 
+public extension IllustratedMessage {
+    enum DetailImageSize {
+        case extraSmall
+        case small
+        case medium
+        case large
+        case extraLarge
+    }
+}
+
 // Base Layout style
 public struct IllustratedMessageBaseStyle: IllustratedMessageStyle {
     public func makeBody(_ configuration: IllustratedMessageConfiguration) -> some View {
         VStack(spacing: 0) {
-            configuration.detailImage
+            getResizedDetailImage(detailImage: configuration.detailImage, size: configuration.detailImageSize ?? IllustratedMessage.DetailImageSize.medium)
                 .padding(.bottom, 16)
             configuration.title
             configuration.description
@@ -69,7 +79,7 @@ public typealias IllustratedMessageVerticalLayoutStyle = IllustratedMessageBaseS
 public struct IllustratedMessageHorizontalLayoutStyle: IllustratedMessageStyle {
     public func makeBody(_ configuration: IllustratedMessageConfiguration) -> some View {
         HStack(spacing: 0) {
-            configuration.detailImage
+            getResizedDetailImage(detailImage: configuration.detailImage, size: configuration.detailImageSize ?? IllustratedMessage.DetailImageSize.medium)
                 .padding(.leading, 16)
             VStack(alignment: .leading, spacing: 0) {
                 configuration.title
@@ -93,5 +103,25 @@ public extension IllustratedMessageStyle where Self == IllustratedMessageVertica
 public extension IllustratedMessageStyle where Self == IllustratedMessageHorizontalLayoutStyle {
     static var horizontal: some IllustratedMessageStyle {
         IllustratedMessageHorizontalLayoutStyle().concat(.fiori)
+    }
+}
+
+func getResizedDetailImage(detailImage: IllustratedMessageConfiguration.DetailImage, size: IllustratedMessage.DetailImageSize) -> some View {
+    switch size {
+    case .extraSmall:
+        return detailImage
+            .frame(width: 48, height: 48)
+    case .small:
+        return detailImage
+            .frame(width: 64, height: 64)
+    case .medium:
+        return detailImage
+            .frame(width: 92, height: 92)
+    case .large:
+        return detailImage
+            .frame(width: 160, height: 160)
+    case .extraLarge:
+        return detailImage
+            .frame(width: 320, height: 240)
     }
 }

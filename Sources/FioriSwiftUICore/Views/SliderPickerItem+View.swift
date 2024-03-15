@@ -140,50 +140,50 @@ private struct SliderPickeTestView: View {
         VStack {
             Spacer()
             HStack {
-                Text("Value 1: \($value1.wrappedValue ?? 0)")
+                Text("Value 1: \(self.$value1.wrappedValue ?? 0)")
                     .font(.largeTitle)
-                    .foregroundColor(value1 != nil ? .blue : .gray)
+                    .foregroundColor(self.value1 != nil ? .blue : .gray)
                 Spacer()
             }
             SliderPickerItem(value: Binding<Int?>(
                 get: {
-                    value1
+                    self.value1
                 },
                 set: {
-                    value1 = $0
+                    self.value1 = $0
                 }
             ), minimumValue: 0, maximumValue: 1000, hint: nil)
             Spacer()
             HStack {
-                Text("Value 2: \(value2 ?? 0)")
+                Text("Value 2: \(self.value2 ?? 0)")
                     .font(.largeTitle)
-                    .foregroundColor(value2 != nil ? .blue : .gray)
+                    .foregroundColor(self.value2 != nil ? .blue : .gray)
 
                 Spacer()
             }
 
             SliderPickerItem(value: Binding<Int?>(
                 get: {
-                    value2
+                    self.value2
                 },
                 set: {
-                    value2 = $0
+                    self.value2 = $0
                 }
             ), minimumValue: 0, maximumValue: 100, hint: "Pick an integer value")
             Spacer()
             HStack {
-                Text("Value 3: \(value3 ?? 0)")
+                Text("Value 3: \(self.value3 ?? 0)")
                     .font(.largeTitle)
-                    .foregroundColor(value3 != nil ? .blue : .gray)
+                    .foregroundColor(self.value3 != nil ? .blue : .gray)
 
                 Spacer()
             }
             SliderPickerItem(value: Binding<Int?>(
                 get: {
-                    value3
+                    self.value3
                 },
                 set: {
-                    value3 = $0
+                    self.value3 = $0
                 }
             ), minimumValue: 0, maximumValue: 100, hint: "Pick an integer value")
             Spacer()

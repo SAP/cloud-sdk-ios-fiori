@@ -29,7 +29,7 @@ struct TextFieldClearButton: ViewModifier {
     func body(content: Content) -> some View {
         HStack {
             content
-            if !textValue.isEmpty {
+            if !self.textValue.isEmpty {
                 Button(
                     action: { self.textValue = "" },
                     label: {
@@ -51,7 +51,7 @@ struct BottomTextFieldStyle: TextFieldStyle {
         VStack {
             configuration
             Rectangle()
-                .fill(LinearGradient(gradient: Gradient(colors: [color1, color2, color1]), startPoint: .leading, endPoint: .topTrailing))
+                .fill(LinearGradient(gradient: Gradient(colors: [self.color1, self.color2, self.color1]), startPoint: .leading, endPoint: .topTrailing))
                 .frame(height: 1, alignment: .bottom)
         }
     }

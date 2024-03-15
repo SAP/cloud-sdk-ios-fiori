@@ -94,10 +94,10 @@ public struct DefaultOptionListPickerStyle: OptionListPickerStyle {
             .frame(maxWidth: .infinity, minHeight: self.minHeight)
             .background(
                 ZStack {
-                    RoundedRectangle(cornerRadius: cornerRadius)
-                        .fill(configuration.isSelected ? fillColorSelected : fillColorUnselected)
-                    RoundedRectangle(cornerRadius: cornerRadius)
-                        .stroke(configuration.isSelected ? strokeColorSelected : strokeColorUnselected, lineWidth: borderWidth)
+                    RoundedRectangle(cornerRadius: self.cornerRadius)
+                        .fill(configuration.isSelected ? self.fillColorSelected : self.fillColorUnselected)
+                    RoundedRectangle(cornerRadius: self.cornerRadius)
+                        .stroke(configuration.isSelected ? self.strokeColorSelected : self.strokeColorUnselected, lineWidth: self.borderWidth)
                 }
             )
             .frame(minHeight: self.minTouchHeight)
@@ -123,7 +123,7 @@ extension EnvironmentValues {
 /// Experiemental option list picker styling
 public extension View {
     /// Experiemental option list picker styling
-    func optionListPickerStyle<S>(_ style: S) -> some View where S: OptionListPickerStyle {
+    func optionListPickerStyle(_ style: some OptionListPickerStyle) -> some View {
         self.environment(\.optionListPickerStyle, style)
     }
     

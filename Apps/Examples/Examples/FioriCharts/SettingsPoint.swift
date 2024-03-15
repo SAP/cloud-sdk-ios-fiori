@@ -12,17 +12,17 @@ struct SettingsPoint: View {
         
         return Form {
             Section {
-                Toggle(isOn: $point.isHidden) {
+                Toggle(isOn: self.$point.isHidden) {
                     Text("Is Hidden")
                 }
                 
-                Text("Diameter of the point: \(nf.string(from: NSNumber(value: Double(point.diameter))) ?? "")")
-                Slider(value: $point.diameter, in: 0 ... 20, step: 1)
+                Text("Diameter of the point: \(nf.string(from: NSNumber(value: Double(self.point.diameter))) ?? "")")
+                Slider(value: self.$point.diameter, in: 0 ... 20, step: 1)
                 
-                Text("Allowed gap between dots before they run into each other and are hidden: \(nf.string(from: NSNumber(value: Double(point.gap))) ?? "")")
-                Slider(value: $point.gap, in: 0 ... 10, step: 1)
+                Text("Allowed gap between dots before they run into each other and are hidden: \(nf.string(from: NSNumber(value: Double(self.point.gap))) ?? "")")
+                Slider(value: self.$point.gap, in: 0 ... 10, step: 1)
                 
-                SettingColor(color: $point.strokeColor)
+                SettingColor(color: self.$point.strokeColor)
             }
         }.navigationBarTitle("Point Attributes")
     }

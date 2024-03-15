@@ -66,7 +66,7 @@ public enum PaletteVersion: Int {
     
     /// FUIPalette version which should be adopted by developer, if creating a custom palette from scratch.
     /// - Note: Creating a custom palette from scratch is very uncommon and not generally recommended: it is more typical and convenient to override specific colors of the current system-provided palette, using the `ThemeManager.shared.setColor(...)` or `ThemeManager.shared.setHexColor(...)` APIs.
-    public static let latest: PaletteVersion = { allCases.last! }()
+    public static let latest: PaletteVersion = allCases.last!
     
     /// Palette version which previous being adopted by developer, if exists.
     public func previous() -> PaletteVersion? {
@@ -163,8 +163,10 @@ public extension PaletteVersion {
         #endif
         }
     }
-    
-    internal var compatibilityMap: ColorCompatibilityMap? {
+}
+
+extension PaletteVersion {
+    var compatibilityMap: ColorCompatibilityMap? {
         switch self {
         #if !os(watchOS)
             case .v7:

@@ -20,10 +20,10 @@ struct ChartDetailConfigView: View {
     var body: some View {
         GeometryReader { _ in
             ChartView(self.model)
-                .ifApply(seriesShapeStyleEnable) {
+                .ifApply(self.seriesShapeStyleEnable) {
                     $0.chartSeriesShapeStyle([0: AnyShapeStyle(linearGradient)])
                 }
-                .ifApply(categoryShapeStyleEnable) {
+                .ifApply(self.categoryShapeStyleEnable) {
                     $0.chartCategoryShapeStyle([0: [0: AnyShapeStyle(linearGradient), 1: AnyShapeStyle(Color.yellow), 2: AnyShapeStyle(angularGradient)],
                                                 1: [3: AnyShapeStyle(radialGradient), 4: AnyShapeStyle(imagePaint)]])
                 }
@@ -33,8 +33,8 @@ struct ChartDetailConfigView: View {
             self.showingSettings.toggle()
         })
         .navigationBarTitle("Detail", displayMode: .inline)
-        .sheet(isPresented: $showingSettings) {
-            Settings(seriesShapeStyleEnable: $seriesShapeStyleEnable, categoryShapeStyleEnable: $categoryShapeStyleEnable).environmentObject(self.model)
+        .sheet(isPresented: self.$showingSettings) {
+            Settings(seriesShapeStyleEnable: self.$seriesShapeStyleEnable, categoryShapeStyleEnable: self.$categoryShapeStyleEnable).environmentObject(self.model)
         }
     }
 }
@@ -71,10 +71,10 @@ struct ChartDetailView: View {
                     VStack(alignment: .center, spacing: 0) {
                         HStack(alignment: .center) {
                             ChartView(self.model)
-                                .ifApply(seriesShapeStyleEnable) {
+                                .ifApply(self.seriesShapeStyleEnable) {
                                     $0.chartSeriesShapeStyle([0: AnyShapeStyle(linearGradient)])
                                 }
-                                .ifApply(categoryShapeStyleEnable) {
+                                .ifApply(self.categoryShapeStyleEnable) {
                                     $0.chartCategoryShapeStyle([0: [0: AnyShapeStyle(linearGradient), 1: AnyShapeStyle(Color.yellow), 2: AnyShapeStyle(angularGradient)],
                                                                 1: [3: AnyShapeStyle(radialGradient), 4: AnyShapeStyle(imagePaint)]])
                                 }
@@ -85,7 +85,7 @@ struct ChartDetailView: View {
                         if !self.isFullScreen {
                             Divider().edgesIgnoringSafeArea(.all)
                             
-                            Settings(seriesShapeStyleEnable: $seriesShapeStyleEnable, categoryShapeStyleEnable: $categoryShapeStyleEnable).environmentObject(self.model)
+                            Settings(seriesShapeStyleEnable: self.$seriesShapeStyleEnable, categoryShapeStyleEnable: self.$categoryShapeStyleEnable).environmentObject(self.model)
                         }
                     }
                 }
@@ -93,10 +93,10 @@ struct ChartDetailView: View {
                 HStack(spacing: 0) {
                     ZStack(alignment: .topLeading) {
                         ChartView(self.model)
-                            .ifApply(seriesShapeStyleEnable) {
+                            .ifApply(self.seriesShapeStyleEnable) {
                                 $0.chartSeriesShapeStyle([0: AnyShapeStyle(linearGradient)])
                             }
-                            .ifApply(categoryShapeStyleEnable) {
+                            .ifApply(self.categoryShapeStyleEnable) {
                                 $0.chartCategoryShapeStyle([0: [0: AnyShapeStyle(linearGradient), 1: AnyShapeStyle(Color.yellow), 2: AnyShapeStyle(angularGradient)],
                                                             1: [3: AnyShapeStyle(radialGradient), 4: AnyShapeStyle(imagePaint)]])
                             }
@@ -114,7 +114,7 @@ struct ChartDetailView: View {
                     if !self.isFullScreen {
                         Divider().edgesIgnoringSafeArea(.all)
 
-                        Settings(seriesShapeStyleEnable: $seriesShapeStyleEnable, categoryShapeStyleEnable: $categoryShapeStyleEnable).environmentObject(self.model)
+                        Settings(seriesShapeStyleEnable: self.$seriesShapeStyleEnable, categoryShapeStyleEnable: self.$categoryShapeStyleEnable).environmentObject(self.model)
                     }
                 }
             }

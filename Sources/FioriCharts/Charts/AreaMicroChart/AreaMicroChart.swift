@@ -9,24 +9,24 @@ struct AreaMicroChart: View {
     @State var mode: Mode? = .standard
     
     public var body: some View {
-        if model.chartPoints == nil {
+        if self.model.chartPoints == nil {
             return AnyView(NoDataView())
         } else {
             return AnyView(
                 HStack(alignment: .center, spacing: 2) {
                     VStack(alignment: .center, spacing: 2) {
                         ZStack {
-                            upperLabelsBody()
-                            AnyView(model.maxLabel)
+                            self.upperLabelsBody()
+                            AnyView(self.model.maxLabel)
                         }
                         HStack {
-                            leadingLabelsBody()
-                            plotBody()
-                            trailingLabelsBody()
+                            self.leadingLabelsBody()
+                            self.plotBody()
+                            self.trailingLabelsBody()
                         }
                         ZStack {
-                            lowerLabelsBody()
-                            AnyView(model.minLabel)
+                            self.lowerLabelsBody()
+                            AnyView(self.model.minLabel)
                         }
                     }
                 }
@@ -36,44 +36,44 @@ struct AreaMicroChart: View {
     
     private func leadingLabelsBody() -> some View {
         self.mode == .wide ? AnyView(VStack(alignment: .trailing) {
-            AnyView(model.firstYLabel)
+            AnyView(self.model.firstYLabel)
             Spacer()
-            AnyView(model.firstXLabel)
+            AnyView(self.model.firstXLabel)
         }) : EmptyView.any
     }
     
     private func upperLabelsBody() -> some View {
         self.mode == .wide ? EmptyView.any : AnyView(HStack {
-            AnyView(model.firstYLabel)
+            AnyView(self.model.firstYLabel)
             Spacer()
-            AnyView(model.lastYLabel)
+            AnyView(self.model.lastYLabel)
         })
     }
     
     private func trailingLabelsBody() -> some View {
         self.mode == .wide ? AnyView(VStack(alignment: .leading) {
-            AnyView(model.lastYLabel)
+            AnyView(self.model.lastYLabel)
             Spacer()
-            AnyView(model.lastXLabel)
+            AnyView(self.model.lastXLabel)
         }) : EmptyView.any
     }
     
     private func lowerLabelsBody() -> some View {
         self.mode == .wide ? EmptyView.any : AnyView(HStack {
-            AnyView(model.firstXLabel)
+            AnyView(self.model.firstXLabel)
             Spacer()
-            AnyView(model.lastXLabel)
+            AnyView(self.model.lastXLabel)
         })
     }
     
     private func plotBody() -> some View {
         ZStack {
             // AnyView(model.innerMaxThreshold?.environment(\.chartBoundingBox, model.boundary)
-            AnyView(model.maxThreshold?.environment(\.chartBoundingBox, model.boundary))
-            AnyView(model.innerMinThreshold?.environment(\.chartBoundingBox, model.boundary))
-            AnyView(model.minThreshold?.environment(\.chartBoundingBox, model.boundary))
-            AnyView(model.targetPoints?.environment(\.chartBoundingBox, model.boundary))
-            AnyView(model.chartPoints?.environment(\.chartBoundingBox, model.boundary))
+            AnyView(self.model.maxThreshold?.environment(\.chartBoundingBox, self.model.boundary))
+            AnyView(self.model.innerMinThreshold?.environment(\.chartBoundingBox, self.model.boundary))
+            AnyView(self.model.minThreshold?.environment(\.chartBoundingBox, self.model.boundary))
+            AnyView(self.model.targetPoints?.environment(\.chartBoundingBox, self.model.boundary))
+            AnyView(self.model.chartPoints?.environment(\.chartBoundingBox, self.model.boundary))
         }
     }
 }

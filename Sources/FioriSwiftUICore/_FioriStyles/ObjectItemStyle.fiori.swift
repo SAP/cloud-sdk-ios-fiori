@@ -50,7 +50,7 @@ public struct ObjectItemBaseStyle: ObjectItemStyle {
                 } else {
                     self.makeRegularSingleActionView(context)
                 }
-            } else if horizontalSizeClass == nil || horizontalSizeClass == .some(.compact) || splitPercent == nil {
+            } else if self.horizontalSizeClass == nil || self.horizontalSizeClass == .some(.compact) || self.splitPercent == nil {
                 // When only the headline label is used, everything in the cell is center aligned. Only 1 status can be used.
                 if isCenterAligned {
                     self.makeCompactOneLineView(context)
@@ -93,7 +93,7 @@ extension ObjectItemBaseStyle {
             }
             
             HStack {
-                if horizontalSizeClass == .compact || splitPercent == nil {
+                if self.horizontalSizeClass == .compact || self.splitPercent == nil {
                     HStack(alignment: .center, spacing: 0) {
                         if !context.shouldShowAvatar {
                             context.avatarView.typeErased
@@ -114,7 +114,7 @@ extension ObjectItemBaseStyle {
                             
                             Spacer(minLength: 16)
                         }
-                        .frame(width: self.doesShowDescription(context) ? self.mainViewSize.width * splitPercent! : self.mainViewSize.width)
+                        .frame(width: self.doesShowDescription(context) ? self.mainViewSize.width * self.splitPercent! : self.mainViewSize.width)
                         
                         HStack(alignment: .center) {
                             if !context.configuration.description.isEmpty {
@@ -125,10 +125,10 @@ extension ObjectItemBaseStyle {
                             
                             Spacer(minLength: 24)
                         }
-                        .frame(width: self.doesShowDescription(context) ? self.mainViewSize.width * (1 - splitPercent!) : 0)
+                        .frame(width: self.doesShowDescription(context) ? self.mainViewSize.width * (1 - self.splitPercent!) : 0)
                     }
                     .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-                    .background(GeometrySizeView(size: $mainViewSize))
+                    .background(GeometrySizeView(size: self.$mainViewSize))
                 }
                 
                 context.configuration.action
@@ -140,11 +140,11 @@ extension ObjectItemBaseStyle {
         ZStack(alignment: .topLeading) {
             if !context.configuration.icons.isEmpty {
                 context.configuration.icons
-                    .environment(\.numberOfLines, numberOfLinesAllowedToShow(context))
+                    .environment(\.numberOfLines, self.numberOfLinesAllowedToShow(context))
                     .offset(x: -22, y: 0)
             }
             
-            if horizontalSizeClass == .some(.compact) || splitPercent == nil {
+            if self.horizontalSizeClass == .some(.compact) || self.splitPercent == nil {
                 HStack(alignment: .center) {
                     HStack(alignment: .top) {
                         if context.shouldShowAvatar {
@@ -193,7 +193,7 @@ extension ObjectItemBaseStyle {
                             
                             Spacer(minLength: 16)
                         }
-                        .frame(width: self.doesShowDescription(context) ? self.mainViewSize.width * splitPercent! : self.mainViewSize.width)
+                        .frame(width: self.doesShowDescription(context) ? self.mainViewSize.width * self.splitPercent! : self.mainViewSize.width)
                         
                         HStack(alignment: .top) {
                             if !context.configuration.description.isEmpty {
@@ -201,17 +201,17 @@ extension ObjectItemBaseStyle {
                             }
                             
                             context.configuration.description
-                                .lineLimit(numberOfLinesAllowedToShow(context))
+                                .lineLimit(self.numberOfLinesAllowedToShow(context))
                                 .alignmentGuide(.iconStackAlignmentGuide) { dimension in
                                     dimension[.firstTextBaseline]
                                 }
                             
                             Spacer(minLength: 24)
                         }
-                        .frame(width: self.doesShowDescription(context) ? self.mainViewSize.width * (1 - splitPercent!) : 0)
+                        .frame(width: self.doesShowDescription(context) ? self.mainViewSize.width * (1 - self.splitPercent!) : 0)
                     }
                     .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-                    .background(GeometrySizeView(size: $mainViewSize))
+                    .background(GeometrySizeView(size: self.$mainViewSize))
                     .overlayPreferenceValue(MyViewPreferenceKey.self) { preferences in
                         GeometryReader { geometry in
                             self.repositionDetailImageAndStatus(geometry, preferences: preferences, showStatus: false, context: context) // reposition the detail image and status to top(geometry, preferences)
@@ -252,7 +252,7 @@ extension ObjectItemBaseStyle {
         ZStack(alignment: .topLeading) {
             if !context.configuration.icons.isEmpty {
                 context.configuration.icons
-                    .environment(\.numberOfLines, numberOfLinesAllowedToShow(context))
+                    .environment(\.numberOfLines, self.numberOfLinesAllowedToShow(context))
                     .offset(x: -22, y: 0)
             }
             
@@ -287,7 +287,7 @@ extension ObjectItemBaseStyle {
         ZStack(alignment: .topLeading) {
             if !context.configuration.icons.isEmpty {
                 context.configuration.icons
-                    .environment(\.numberOfLines, numberOfLinesAllowedToShow(context))
+                    .environment(\.numberOfLines, self.numberOfLinesAllowedToShow(context))
                     .offset(x: -22, y: 0)
             }
             
@@ -334,7 +334,7 @@ extension ObjectItemBaseStyle {
                     context.configuration.title.lineLimit(1)
                     Spacer(minLength: 16)
                 }
-                .frame(width: self.doesShowDescriptionOrStatus(context) ? self.mainViewSize.width * splitPercent! : self.mainViewSize.width)
+                .frame(width: self.doesShowDescriptionOrStatus(context) ? self.mainViewSize.width * self.splitPercent! : self.mainViewSize.width)
                 
                 HStack(alignment: .center) {
                     if !context.configuration.description.isEmpty {
@@ -347,10 +347,10 @@ extension ObjectItemBaseStyle {
                     
                     context.configuration.status
                 }
-                .frame(width: self.doesShowDescriptionOrStatus(context) ? self.mainViewSize.width * (1 - splitPercent!) : 0)
+                .frame(width: self.doesShowDescriptionOrStatus(context) ? self.mainViewSize.width * (1 - self.splitPercent!) : 0)
             }
             .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-            .background(GeometrySizeView(size: $mainViewSize))
+            .background(GeometrySizeView(size: self.$mainViewSize))
         }
     }
     
@@ -358,7 +358,7 @@ extension ObjectItemBaseStyle {
         ZStack(alignment: .topLeading) {
             if !context.configuration.icons.isEmpty {
                 context.configuration.icons
-                    .environment(\.numberOfLines, numberOfLinesAllowedToShow(context))
+                    .environment(\.numberOfLines, self.numberOfLinesAllowedToShow(context))
                     .offset(x: -22, y: 0)
             }
             
@@ -387,14 +387,14 @@ extension ObjectItemBaseStyle {
                     }
                     Spacer(minLength: 16)
                 }
-                .frame(width: self.doesShowDescriptionOrStatus(context) ? self.mainViewSize.width * splitPercent! : self.mainViewSize.width)
+                .frame(width: self.doesShowDescriptionOrStatus(context) ? self.mainViewSize.width * self.splitPercent! : self.mainViewSize.width)
                 
                 HStack(alignment: .top) {
                     if !context.configuration.description.isEmpty {
                         Spacer().frame(width: 8)
                     }
                     
-                    context.configuration.description.lineLimit(numberOfLinesAllowedToShow(context))
+                    context.configuration.description.lineLimit(self.numberOfLinesAllowedToShow(context))
                         .alignmentGuide(.iconStackAlignmentGuide) { dimension in
                             dimension[.firstTextBaseline]
                         }
@@ -410,10 +410,10 @@ extension ObjectItemBaseStyle {
                     })
                     .hidden()
                 }
-                .frame(width: self.doesShowDescriptionOrStatus(context) ? self.mainViewSize.width * (1 - splitPercent!) : 0)
+                .frame(width: self.doesShowDescriptionOrStatus(context) ? self.mainViewSize.width * (1 - self.splitPercent!) : 0)
             }
             .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-            .background(GeometrySizeView(size: $mainViewSize))
+            .background(GeometrySizeView(size: self.$mainViewSize))
             .overlayPreferenceValue(MyViewPreferenceKey.self) { preferences in
                 GeometryReader { geometry in
                     self.repositionDetailImageAndStatus(geometry, preferences: preferences, context: context) // reposition the detail image and status to top
@@ -648,9 +648,9 @@ public struct ObjectItemBorderedAction: ActionStyle {
             Circle().fill(Color.preferredColor(.tintColor)).frame(width: 14, height: 14)
             Image(systemName: "paperclip").font(.system(size: 14))
         })
-            .titleStyle { config in
-                config.title
-                    .foregroundStyle(.blue) // take effect
-            }
+        .titleStyle { config in
+            config.title
+                .foregroundStyle(.blue) // take effect
+        }
     }
 })

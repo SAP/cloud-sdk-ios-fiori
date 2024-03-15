@@ -23,14 +23,14 @@ struct ObjectItemListView<T: ListDataProtocol>: View {
     func createInstance(typeThing: T.Type) -> ListDataProtocol {
         if let objectItemListData = typeThing as? ObjectItemListDataProtocol.Type {
             print("ObjectItem: \(self._isNewObjectItem)")
-            return objectItemListData.init(cellTapped: $cellTapped, isNewObjectItem: self._isNewObjectItem)
+            return objectItemListData.init(cellTapped: self.$cellTapped, isNewObjectItem: self._isNewObjectItem)
         } else {
-            return typeThing.init(cellTapped: $cellTapped)
+            return typeThing.init(cellTapped: self.$cellTapped)
         }
     }
     
     var body: some View {
-        let listData = createInstance(typeThing: listDataType)
+        let listData = self.createInstance(typeThing: self.listDataType)
         
         return List {
             ForEach(0 ..< listData.numberOfSections(), id: \.self) { sectionIndex in
@@ -50,18 +50,18 @@ struct ObjectItemListView<T: ListDataProtocol>: View {
                 }
             }
             .listRowBackground(Color.preferredColor(.secondaryGroupedBackground))
-            .ifApply(horizontalSizeClass == .some(.compact) && changeLeftMargin) {
+            .ifApply(self.horizontalSizeClass == .some(.compact) && self.changeLeftMargin) {
                 $0.listRowInsets(EdgeInsets(top: 0, leading: 32, bottom: 0, trailing: 32))
             }
             .objectItemStyle(.actionStyle(ObjectItemBorderedAction()))
         }
         .navigationBarItems(trailing: HStack {
-            if showEditButton {
+            if self.showEditButton {
                 EditButton()
             }
         })
-        .navigationBarTitle(title, displayMode: .inline)
-        .sheet(isPresented: $cellTapped) {
+        .navigationBarTitle(self.title, displayMode: .inline)
+        .sheet(isPresented: self.$cellTapped) {
             Text("Tapped the cell").padding()
             
             VStack {

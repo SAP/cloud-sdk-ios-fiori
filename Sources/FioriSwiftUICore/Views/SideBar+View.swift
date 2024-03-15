@@ -45,11 +45,10 @@ public extension SideBar where Detail == AnyView {
     ///   - subtitle: The view builder which returns the subtitle view.
     ///   - footer: The view builder which returns the footer view.
     ///   - list: The configuration for constructing an expandable list of side bar items.
-    init<Data, Row, Destination>(@ViewBuilder subtitle: @escaping () -> Subtitle,
-                                 @ViewBuilder footer: @escaping () -> Footer,
-                                 list: ExpandableList<Data, Row, Destination>)
-        where Data: RandomAccessCollection, Data.Element: Identifiable & Hashable,
-        Row: View, Destination: View
+    init<Data>(@ViewBuilder subtitle: @escaping () -> Subtitle,
+               @ViewBuilder footer: @escaping () -> Footer,
+               list: ExpandableList<Data, some View, some View>)
+        where Data: RandomAccessCollection, Data.Element: Identifiable & Hashable
     {
         self.init(subtitle: subtitle, footer: footer, detail: { AnyView(list) })
     }
@@ -62,11 +61,10 @@ public extension SideBar where Subtitle == _ConditionalContent<Text, EmptyView>,
     ///   - subtitle: The subtitle string.
     ///   - footer: The view builder which returns the footer view.
     ///   - list: The configuration for constructing an expandable list of side bar items.
-    init<Data, Row, Destination>(subtitle: String? = nil,
-                                 @ViewBuilder footer: @escaping () -> Footer,
-                                 list: ExpandableList<Data, Row, Destination>)
-        where Data: RandomAccessCollection, Data.Element: Identifiable & Hashable,
-        Row: View, Destination: View
+    init<Data>(subtitle: String? = nil,
+               @ViewBuilder footer: @escaping () -> Footer,
+               list: ExpandableList<Data, some View, some View>)
+        where Data: RandomAccessCollection, Data.Element: Identifiable & Hashable
     {
         self.init(subtitle: { subtitle != nil ? ViewBuilder.buildEither(first: Text(subtitle!)) : ViewBuilder.buildEither(second: EmptyView()) },
                   footer: footer,
@@ -84,11 +82,10 @@ public extension SideBar where Subtitle == _ConditionalContent<Text, EmptyView>,
     ///   - subtitle: The subtitle string of a side bar.
     ///   - footerModel: Object item model for the footer view.
     ///   - list: The configuration for constructing an expandable list of side bar items.
-    init<Data, Row, Destination>(subtitle: String? = nil,
-                                 footerModel: _ObjectItemModel? = nil,
-                                 list: ExpandableList<Data, Row, Destination>? = nil)
-        where Data: RandomAccessCollection, Data.Element: Identifiable & Hashable,
-        Row: View, Destination: View
+    init<Data>(subtitle: String? = nil,
+               footerModel: _ObjectItemModel? = nil,
+               list: ExpandableList<Data, some View, some View>? = nil)
+        where Data: RandomAccessCollection, Data.Element: Identifiable & Hashable
     {
         self._subtitle = subtitle != nil ? ViewBuilder.buildEither(first: Text(subtitle!)) : ViewBuilder.buildEither(second: EmptyView())
         self._footer = footerModel != nil ?
@@ -162,7 +159,7 @@ public struct ExpandableList<Data, Row, Destination>: View where Data: RandomAcc
     }
     
     public var body: some View {
-        contentView
+        self.contentView
     }
 }
 
@@ -254,26 +251,26 @@ struct ExpandableSection<Header, ListContent>: View where Header: View, ListCont
     var body: some View {
         VStack(spacing: 0) {
             HStack {
-                header()
+                self.header()
                 Spacer()
-                Image(systemName: isExpanded ? "chevron.down" : "chevron.right")
+                Image(systemName: self.isExpanded ? "chevron.down" : "chevron.right")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 15, height: 15)
-                    .padding(.trailing, isModelInit ? 0 : 16)
+                    .padding(.trailing, self.isModelInit ? 0 : 16)
                     .foregroundColor(.preferredColor(.primaryLabel))
                     .onTapGesture {
-                        isExpanded.toggle()
+                        self.isExpanded.toggle()
                     }
-            }.padding(isModelInit ? EdgeInsets(top: 11, leading: 11, bottom: 11, trailing: 11) : EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
-            if !isExpanded {
+            }.padding(self.isModelInit ? EdgeInsets(top: 11, leading: 11, bottom: 11, trailing: 11) : EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+            if !self.isExpanded {
                 Rectangle()
                     .fill(Color.preferredColor(.separator))
                     .frame(height: 0.5)
             }
         }
-        if isExpanded {
-            list()
+        if self.isExpanded {
+            self.list()
         }
     }
 }
@@ -293,18 +290,18 @@ struct RowContentContainer<Data, Row>: View where Data: RandomAccessCollection, 
     var selectionBinding: Binding<Data.Element?>
     
     var body: some View {
-        if item == selectionBinding.wrappedValue {
-            rowContent
+        if self.item == self.selectionBinding.wrappedValue {
+            self.rowContent
                 .modifier(ListItemBackgroundSelectionStyle())
                 .contentShape(Rectangle())
                 .onTapGesture {
-                    selectionBinding.wrappedValue = item
+                    self.selectionBinding.wrappedValue = self.item
                 }
         } else {
-            rowContent
+            self.rowContent
                 .contentShape(Rectangle())
                 .onTapGesture {
-                    selectionBinding.wrappedValue = item
+                    self.selectionBinding.wrappedValue = self.item
                 }
         }
     }

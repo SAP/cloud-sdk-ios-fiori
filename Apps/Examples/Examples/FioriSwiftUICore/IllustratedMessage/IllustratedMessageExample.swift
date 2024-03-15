@@ -15,183 +15,54 @@ let sizeOptions: [SizeOption] = [.init(100), .init(200), .init(300), .init(500),
 struct IllustratedMessageExample: View {
     @State var selectedWidth: CGFloat = sizeOptions[2].value
     @State var selectedHeight: CGFloat = sizeOptions[1].value
+    @State var selectedDetailImageSize: IllustratedMessage.DetailImageSize?
     
     var body: some View {
         HStack {
             Text("Size:")
-            Picker("Width", selection: $selectedWidth) {
+            Picker("Width", selection: self.$selectedWidth) {
                 ForEach(sizeOptions) { option in
                     Text("\(Int(option.value))").tag(option.value)
                 }
             }
             Text("by")
-            Picker("Height", selection: $selectedHeight) {
+            Picker("Height", selection: self.$selectedHeight) {
                 ForEach(sizeOptions) { option in
                     Text("\(Int(option.value))").tag(option.value)
                 }
             }
+            Text("Image Size:")
+            Picker("Image Size", selection: self.$selectedDetailImageSize) {
+                Text("No Selection").tag(IllustratedMessage.DetailImageSize?(nil))
+                Text("Extra Small").tag(IllustratedMessage.DetailImageSize?(.extraSmall))
+                Text("Small").tag(IllustratedMessage.DetailImageSize?(.small))
+                Text("Medium").tag(IllustratedMessage.DetailImageSize?(.medium))
+                Text("Large").tag(IllustratedMessage.DetailImageSize?(.large))
+                Text("Extra Large").tag(IllustratedMessage.DetailImageSize?(.extraLarge))
+            }
         }
         List {
-            // MARK: vertical orientation
-
-            // no image and no action
-            IllustratedMessage(title: {
-                Text("This is an IllustratedMessageView with no image or action button")
-            }, description: {
-                Text("Subtitle")
-            })
-                .border(Color.gray)
-                .frame(width: selectedWidth, height: selectedHeight)
-
-            // no image and no action; vertical layout manually selected
-            IllustratedMessage(title: {
-                Text("This is an IllustratedMessageView with no image or action button")
-            }, description: {
-                Text("Subtitle")
-            })
-                .illustratedMessageStyle(.vertical)
-                .border(Color.gray)
-                .frame(width: selectedWidth, height: selectedHeight)
-            
-            // action but no image
-            IllustratedMessage(title: {
-                Text("IllustratedMessage Title")
-            }, description: {
-                Text("Subtitle: abc def ghi jkl mno pqr stu vwx yz abc def ghi jkl mno pqr stu vwx yz")
-            }, action: {
-                FioriButton(title: "ActionTitle", action: { _ in print("Action tapped") })
-            })
-                .border(Color.gray)
-                .frame(width: selectedWidth, height: selectedHeight)
-
-            // action but no image; vertical layout manually selected
-            IllustratedMessage(title: {
-                Text("IllustratedMessage Title")
-            }, description: {
-                Text("Subtitle: abc def ghi jkl mno pqr stu vwx yz abc def ghi jkl mno pqr stu vwx yz")
-            }, action: {
-                FioriButton(title: "ActionTitle", action: { _ in print("Action tapped") })
-            })
-                .illustratedMessageStyle(.vertical)
-                .border(Color.gray)
-                .frame(width: selectedWidth, height: selectedHeight)
-
-            // image but no action
-            IllustratedMessage(detailImage: {
-                Image("wheel")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 50)
-            }, title: {
-                Text("IllustratedMessage Title")
-            }, description: {
-                Text("Subtitle")
-            })
-                .border(Color.gray)
-                .frame(width: selectedWidth, height: selectedHeight)
-
-            // image but no action; vertical layout manually selected
-            IllustratedMessage(detailImage: {
-                Image("wheel")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 50)
-            }, title: {
-                Text("IllustratedMessage Title")
-            }, description: {
-                Text("Subtitle")
-            })
-                .illustratedMessageStyle(.vertical)
-                .border(Color.gray)
-                .frame(width: selectedWidth, height: selectedHeight)
-
-            // all components
-            IllustratedMessage(detailImage: {
-                Image("wheel")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 100)
-            }, title: {
-                Text("Unable to load data")
-            }, description: {
-                Text("Reload to try again or contact your administrator to update your permission.")
-            }, action: {
-                FioriButton(title: "ActionTitle", action: { _ in print("Action tapped") })
-            })
-                .border(Color.gray)
-                .frame(width: selectedWidth, height: selectedHeight)
-
-            // all components; vertical layout manually selected
-            IllustratedMessage(detailImage: {
-                Image("wheel")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 100)
-            }, title: {
-                Text("Unable to load data")
-            }, description: {
-                Text("Reload to try again or contact your administrator to update your permission.")
-            }, action: {
-                FioriButton(title: "ActionTitle", action: { _ in print("Action tapped") })
-            })
-                .illustratedMessageStyle(.vertical)
-                .border(Color.gray)
-                .frame(width: selectedWidth, height: selectedHeight)
-
-            // MARK: horizontal orientation
-
-            // no image and no action
-            IllustratedMessage(title: {
-                Text("IllustratedMessage Title")
-            }, description: {
-                Text("Subtitle")
-            })
-                .illustratedMessageStyle(.horizontal)
-                .border(Color.gray)
-                .frame(width: selectedWidth, height: selectedHeight)
-
-            // action but no image
-            IllustratedMessage(title: {
-                Text("IllustratedMessage Title")
-            }, description: {
-                Text("Subtitle")
-            }, action: {
-                FioriButton(title: "ActionTitle", action: { _ in print("Action tapped") })
-            })
-                .illustratedMessageStyle(.horizontal)
-                .border(Color.gray)
-                .frame(width: selectedWidth, height: selectedHeight)
-
-            // image but no action
-            IllustratedMessage(detailImage: {
-                Image("wheel")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-            }, title: {
-                Text("IllustratedMessage Title")
-            }, description: {
-                Text("Subtitle")
-            })
-                .illustratedMessageStyle(.horizontal)
-                .border(Color.gray)
-                .frame(width: selectedWidth, height: selectedHeight)
-
-            // all components
-            IllustratedMessage(detailImage: {
-                Image("wheel")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 100)
-            }, title: {
-                Text("IllustratedMessage Title")
-            }, description: {
-                Text("Subtitle")
-            }, action: {
-                FioriButton(title: "ActionTitle", action: { _ in print("Action tapped") })
-            })
-                .illustratedMessageStyle(.horizontal)
-                .border(Color.gray)
-                .frame(width: selectedWidth, height: selectedHeight)
+            ForEach(0 ... 2, id: \.self) { layoutOrientation in // 0 == unspecified (vertical); 1 == vertical; 2 == horizontal
+                ForEach(0 ... 7, id: \.self) { subcomponentConfiguration in
+                    IllustratedMessage(detailImage: {
+                        subcomponentConfiguration & 0b100 == 4 ?
+                            Image("wheel")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            : nil
+                    }, title: {
+                        Text("IllustratedMessage Title")
+                    }, description: {
+                        subcomponentConfiguration & 0b010 == 2 ? Text("IllustratedMessage Description") : nil
+                    }, action: {
+                        subcomponentConfiguration & 0b001 == 1 ? FioriButton(title: "ActionTitle", action: { _ in print("Action tapped") }) : nil
+                    }, detailImageSize: self.selectedDetailImageSize)
+                        .border(Color.gray)
+                        .frame(width: self.selectedWidth, height: self.selectedHeight)
+                        .ifApply(layoutOrientation == 1) { $0.illustratedMessageStyle(.vertical) }
+                        .ifApply(layoutOrientation == 2) { $0.illustratedMessageStyle(.horizontal) }
+                }
+            }
         }
     }
 }

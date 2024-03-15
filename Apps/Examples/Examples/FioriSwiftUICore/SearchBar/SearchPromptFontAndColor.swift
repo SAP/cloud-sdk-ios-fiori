@@ -6,14 +6,14 @@ struct SearchPromptFontAndColor: View {
     
     var body: some View {
         NavigationStack {
-            List(ColorEntity.filterColors(queryString)) { color in
+            List(ColorEntity.filterColors(self.queryString)) { color in
                 Text(color.name)
                     .foregroundColor(color.fioriColor)
             }
             .navigationTitle("Colors")
         }
         .searchable(
-            text: $queryString,
+            text: self.$queryString,
             
             prompt: Text("Color name")
                 .foregroundColor(.red) // SwiftUI does not support prompt text color
