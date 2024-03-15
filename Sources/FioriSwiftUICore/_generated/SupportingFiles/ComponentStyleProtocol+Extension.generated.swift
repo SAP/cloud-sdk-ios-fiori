@@ -1375,6 +1375,20 @@ public extension HeaderActionStyle where Self == HeaderActionFioriStyle {
     }
 }
 
+// MARK: HelperTextStyle
+    
+public extension HelperTextStyle where Self == HelperTextBaseStyle {
+    static var base: HelperTextBaseStyle {
+        HelperTextBaseStyle()
+    }
+}
+
+public extension HelperTextStyle where Self == HelperTextFioriStyle {
+    static var fiori: HelperTextFioriStyle {
+        HelperTextFioriStyle()
+    }
+}
+
 // MARK: IconStyle
     
 public extension IconStyle where Self == IconBaseStyle {
@@ -1841,6 +1855,20 @@ public extension MediaImageStyle where Self == MediaImageBaseStyle {
 public extension MediaImageStyle where Self == MediaImageFioriStyle {
     static var fiori: MediaImageFioriStyle {
         MediaImageFioriStyle()
+    }
+}
+
+// MARK: MoreActionOverflowStyle
+    
+public extension MoreActionOverflowStyle where Self == MoreActionOverflowBaseStyle {
+    static var base: MoreActionOverflowBaseStyle {
+        MoreActionOverflowBaseStyle()
+    }
+}
+
+public extension MoreActionOverflowStyle where Self == MoreActionOverflowFioriStyle {
+    static var fiori: MoreActionOverflowFioriStyle {
+        MoreActionOverflowFioriStyle()
     }
 }
 

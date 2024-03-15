@@ -13,7 +13,7 @@ struct ToolbarView: View {
     @Binding var useFioriToolbar: Bool
     @Binding var helperText: String
     @Binding var customHelperText: Bool
-    @Binding var customOverflowIcon: Bool
+    @Binding var moreActionOverflowIcon: Bool
     @Binding var primaryButtonText: String
     @Binding var secondaryButtonText: String
     @Binding var thirdButtonText: String
@@ -31,93 +31,109 @@ struct ToolbarView: View {
                     }
                 }
         } else {
-            switch self.numberOfButtons {
-            case 1:
-                Color.preferredColor(.grey7)
-                    .fioriToolbar(helperText: self.createHelperText(),
-                                  customOverflow: self.customOverflowIcon ? Image(systemName: "person") : nil)
-                {
-                    self.createButton(at: 0)
+            Group {
+                switch self.numberOfButtons {
+                case 1:
+                    Color.preferredColor(.grey7)
+                        .fioriToolbar(helperText: self.createHelperText(),
+                                      moreActionOverflow: self.moreActionOverflowIcon ? Image(systemName: "person") : nil)
+                    {
+                        self.createButton(at: 0)
+                    }
+                case 2:
+                    Color.preferredColor(.grey7)
+                        .fioriToolbar(helperText: self.createHelperText(),
+                                      moreActionOverflow: self.moreActionOverflowIcon ? Image(systemName: "person") : nil)
+                    {
+                        self.createButton(at: 0)
+                        self.createButton(at: 1)
+                    }
+                case 3:
+                    Color.preferredColor(.grey7)
+                        .fioriToolbar(helperText: self.createHelperText(),
+                                      moreActionOverflow: self.moreActionOverflowIcon ? Image(systemName: "person") : nil)
+                    {
+                        self.createButton(at: 0)
+                        self.createButton(at: 1)
+                        self.createButton(at: 2)
+                    }
+                case 4:
+                    Color.preferredColor(.grey7)
+                        .fioriToolbar(helperText: self.createHelperText(),
+                                      moreActionOverflow: self.moreActionOverflowIcon ? Image(systemName: "person") : nil)
+                    {
+                        self.createButton(at: 0)
+                        self.createButton(at: 1)
+                        self.createButton(at: 2)
+                        self.createButton(at: 3)
+                    }
+                case 5:
+                    Color.preferredColor(.grey7)
+                        .fioriToolbar(helperText: self.createHelperText(),
+                                      moreActionOverflow: self.moreActionOverflowIcon ? Image(systemName: "person") : nil)
+                    {
+                        self.createButton(at: 0)
+                        self.createButton(at: 1)
+                        self.createButton(at: 2)
+                        self.createButton(at: 3)
+                        self.createButton(at: 4)
+                    }
+                case 6:
+                    Color.preferredColor(.grey7)
+                        .fioriToolbar(helperText: self.createHelperText(),
+                                      moreActionOverflow: self.moreActionOverflowIcon ? Image(systemName: "person") : nil)
+                    {
+                        self.createButton(at: 0)
+                        self.createButton(at: 1)
+                        self.createButton(at: 2)
+                        self.createButton(at: 3)
+                        self.createButton(at: 4)
+                        self.createButton(at: 5)
+                    }
+                case 7:
+                    Color.preferredColor(.grey7)
+                        .fioriToolbar(helperText: self.createHelperText(),
+                                      moreActionOverflow: self.moreActionOverflowIcon ? Image(systemName: "person") : nil)
+                    {
+                        self.createButton(at: 0)
+                        self.createButton(at: 1)
+                        self.createButton(at: 2)
+                        self.createButton(at: 3)
+                        self.createButton(at: 4)
+                        self.createButton(at: 5)
+                        self.createButton(at: 6)
+                    }
+                case 8:
+                    Color.preferredColor(.grey7)
+                        .fioriToolbar(helperText: self.createHelperText(),
+                                      moreActionOverflow: self.moreActionOverflowIcon ? Image(systemName: "person") : nil)
+                    {
+                        self.createButton(at: 0)
+                        self.createButton(at: 1)
+                        self.createButton(at: 2)
+                        self.createButton(at: 3)
+                        self.createButton(at: 4)
+                        self.createButton(at: 5)
+                        self.createButton(at: 6)
+                        self.createButton(at: 7)
+                    }
+                default:
+                    Color.preferredColor(.grey7)
                 }
-            case 2:
-                Color.preferredColor(.grey7)
-                    .fioriToolbar(helperText: self.createHelperText(),
-                                  customOverflow: self.customOverflowIcon ? Image(systemName: "person") : nil)
-                {
-                    self.createButton(at: 0)
-                    self.createButton(at: 1)
+            }
+            .helperTextStyle { config in
+                if self.customHelperText {
+                    config.helperText.foregroundStyle(Color.red)
+                } else {
+                    config.helperText
                 }
-            case 3:
-                Color.preferredColor(.grey7)
-                    .fioriToolbar(helperText: self.createHelperText(),
-                                  customOverflow: self.customOverflowIcon ? Image(systemName: "person") : nil)
-                {
-                    self.createButton(at: 0)
-                    self.createButton(at: 1)
-                    self.createButton(at: 2)
+            }
+            .moreActionOverflowStyle { config in
+                if self.moreActionOverflowIcon {
+                    Image(systemName: "person").foregroundStyle(Color.green)
+                } else {
+                    config.moreActionOverflow
                 }
-            case 4:
-                Color.preferredColor(.grey7)
-                    .fioriToolbar(helperText: self.createHelperText(),
-                                  customOverflow: self.customOverflowIcon ? Image(systemName: "person") : nil)
-                {
-                    self.createButton(at: 0)
-                    self.createButton(at: 1)
-                    self.createButton(at: 2)
-                    self.createButton(at: 3)
-                }
-            case 5:
-                Color.preferredColor(.grey7)
-                    .fioriToolbar(helperText: self.createHelperText(),
-                                  customOverflow: self.customOverflowIcon ? Image(systemName: "person") : nil)
-                {
-                    self.createButton(at: 0)
-                    self.createButton(at: 1)
-                    self.createButton(at: 2)
-                    self.createButton(at: 3)
-                    self.createButton(at: 4)
-                }
-            case 6:
-                Color.preferredColor(.grey7)
-                    .fioriToolbar(helperText: self.createHelperText(),
-                                  customOverflow: self.customOverflowIcon ? Image(systemName: "person") : nil)
-                {
-                    self.createButton(at: 0)
-                    self.createButton(at: 1)
-                    self.createButton(at: 2)
-                    self.createButton(at: 3)
-                    self.createButton(at: 4)
-                    self.createButton(at: 5)
-                }
-            case 7:
-                Color.preferredColor(.grey7)
-                    .fioriToolbar(helperText: self.createHelperText(),
-                                  customOverflow: self.customOverflowIcon ? Image(systemName: "person") : nil)
-                {
-                    self.createButton(at: 0)
-                    self.createButton(at: 1)
-                    self.createButton(at: 2)
-                    self.createButton(at: 3)
-                    self.createButton(at: 4)
-                    self.createButton(at: 5)
-                    self.createButton(at: 6)
-                }
-            case 8:
-                Color.preferredColor(.grey7)
-                    .fioriToolbar(helperText: self.createHelperText(),
-                                  customOverflow: self.customOverflowIcon ? Image(systemName: "person") : nil)
-                {
-                    self.createButton(at: 0)
-                    self.createButton(at: 1)
-                    self.createButton(at: 2)
-                    self.createButton(at: 3)
-                    self.createButton(at: 4)
-                    self.createButton(at: 5)
-                    self.createButton(at: 6)
-                    self.createButton(at: 7)
-                }
-            default:
-                Color.preferredColor(.grey7)
             }
         }
     }
@@ -188,12 +204,7 @@ struct ToolbarView: View {
         if self.helperText.isEmpty {
             EmptyView()
         } else {
-            if self.customHelperText {
-                Text(self.helperText).font(Font.fiori(forTextStyle: .headline)).foregroundStyle(Color.preferredColor(.red7))
-            } else {
-                Text(self.helperText).font(Font.fiori(forTextStyle: .caption1))
-                    .foregroundStyle(Color.preferredColor(.tertiaryLabel).opacity(0.9))
-            }
+            Text(self.helperText)
         }
     }
 }
@@ -201,6 +212,6 @@ struct ToolbarView: View {
 #Preview {
     NavigationStack {
         let a = "Extra Extra Extra Long Long Long Long Long Helper Text"
-        ToolbarView(numberOfButtons: .constant(1), useFioriToolbar: .constant(true), helperText: .constant(""), customHelperText: .constant(true), customOverflowIcon: .constant(false), primaryButtonText: .constant(""), secondaryButtonText: .constant(""), thirdButtonText: .constant(""), buttonType: .constant(.fiori))
+        ToolbarView(numberOfButtons: .constant(2), useFioriToolbar: .constant(true), helperText: .constant("6768"), customHelperText: .constant(true), moreActionOverflowIcon: .constant(false), primaryButtonText: .constant(""), secondaryButtonText: .constant(""), thirdButtonText: .constant(""), buttonType: .constant(.fiori))
     }
 }

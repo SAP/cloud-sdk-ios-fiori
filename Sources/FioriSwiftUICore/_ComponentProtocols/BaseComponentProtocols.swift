@@ -171,3 +171,15 @@ protocol _TextViewComponent {
     // sourcery: @Binding
     var text: String { get }
 }
+
+// sourcery: BaseComponent
+protocol _HelperTextComponent {
+    // sourcery: @ViewBuilder
+    var helperText: AttributedString? { get }
+}
+
+// sourcery: BaseComponent
+protocol _MoreActionOverflowComponent {
+    @ViewBuilder
+    var moreActionOverflow: (() -> any View)? { get }
+}

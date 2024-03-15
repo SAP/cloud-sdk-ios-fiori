@@ -275,6 +275,22 @@ extension HeaderActionStyle {
     }
 }
 
+// MARK: HelperTextStyle
+
+struct ResolvedHelperTextStyle<Style: HelperTextStyle>: View {
+    let style: Style
+    let configuration: HelperTextConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension HelperTextStyle {
+    func resolve(configuration: HelperTextConfiguration) -> some View {
+        ResolvedHelperTextStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: IconStyle
 
 struct ResolvedIconStyle<Style: IconStyle>: View {
@@ -448,6 +464,22 @@ struct ResolvedMediaImageStyle<Style: MediaImageStyle>: View {
 extension MediaImageStyle {
     func resolve(configuration: MediaImageConfiguration) -> some View {
         ResolvedMediaImageStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: MoreActionOverflowStyle
+
+struct ResolvedMoreActionOverflowStyle<Style: MoreActionOverflowStyle>: View {
+    let style: Style
+    let configuration: MoreActionOverflowConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension MoreActionOverflowStyle {
+    func resolve(configuration: MoreActionOverflowConfiguration) -> some View {
+        ResolvedMoreActionOverflowStyle(style: self, configuration: configuration)
     }
 }
 

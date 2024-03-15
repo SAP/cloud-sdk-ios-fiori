@@ -484,6 +484,34 @@ public extension HeaderActionStyle {
     }
 }
 
+// MARK: HelperTextStyle
+
+extension ModifiedStyle: HelperTextStyle where Style: HelperTextStyle {
+    public func makeBody(_ configuration: HelperTextConfiguration) -> some View {
+        HelperText(configuration)
+            .helperTextStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct HelperTextStyleModifier<Style: HelperTextStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.helperTextStyle(self.style)
+    }
+}
+
+public extension HelperTextStyle {
+    func modifier(_ modifier: some ViewModifier) -> some HelperTextStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some HelperTextStyle) -> some HelperTextStyle {
+        style.modifier(HelperTextStyleModifier(style: self))
+    }
+}
+
 // MARK: IconStyle
 
 extension ModifiedStyle: IconStyle where Style: IconStyle {
@@ -789,6 +817,34 @@ public extension MediaImageStyle {
 
     func concat(_ style: some MediaImageStyle) -> some MediaImageStyle {
         style.modifier(MediaImageStyleModifier(style: self))
+    }
+}
+
+// MARK: MoreActionOverflowStyle
+
+extension ModifiedStyle: MoreActionOverflowStyle where Style: MoreActionOverflowStyle {
+    public func makeBody(_ configuration: MoreActionOverflowConfiguration) -> some View {
+        MoreActionOverflow(configuration)
+            .moreActionOverflowStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct MoreActionOverflowStyleModifier<Style: MoreActionOverflowStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.moreActionOverflowStyle(self.style)
+    }
+}
+
+public extension MoreActionOverflowStyle {
+    func modifier(_ modifier: some ViewModifier) -> some MoreActionOverflowStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some MoreActionOverflowStyle) -> some MoreActionOverflowStyle {
+        style.modifier(MoreActionOverflowStyleModifier(style: self))
     }
 }
 

@@ -2,35 +2,45 @@ import FioriThemeManager
 import SwiftUI
 
 struct FioriToolbar<Items: IndexedViewContainer>: ViewModifier {
-    var helperText: (any View)?
+    var helperText: any View
+    var moreActionOverflow: any View
     let items: Items
-    var customOverflow: (any View)?
+    
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @ObservedObject var sizeHandler = FioriToolbarHandler()
     
+    @Environment(\.helperTextStyle) var helperTextStyle
+    @Environment(\.moreActionOverflowStyle) var moreActionOverflowStyle
+    
     init(helperText: (any View)? = nil,
-         customOverflow: (any View)? = nil,
+         moreActionOverflow: (any View)? = nil,
          @IndexedViewBuilder items: () -> Items)
     {
-        self.helperText = helperText
-        self.customOverflow = customOverflow
+        self.helperText = HelperText { helperText?.typeErased }
+        self.moreActionOverflow = MoreActionOverflow {
+            if let action = moreActionOverflow {
+                action.typeErased
+            } else {
+                Image(systemName: "ellipsis")
+            }
+        }
         self.items = items()
     }
     
     init(helperText: String,
-         customOverflow: (any View)? = nil,
+         moreActionOverflow: (any View)? = nil,
          @IndexedViewBuilder items: () -> Items)
     {
-        self.init(helperText: helperText.isEmpty ? nil : Text(helperText).foregroundStyle(Color.preferredColor(.tertiaryLabel).opacity(0.9)).font(Font.fiori(forTextStyle: .caption1)),
-                  customOverflow: customOverflow,
+        self.init(helperText: helperText.isEmpty ? nil : Text(helperText),
+                  moreActionOverflow: moreActionOverflow,
                   items: items)
     }
     
-    init(customOverflow: (any View)? = nil,
+    init(moreActionOverflow: (any View)? = nil,
          @IndexedViewBuilder items: () -> Items)
     {
         self.init(helperText: nil,
-                  customOverflow: customOverflow,
+                  moreActionOverflow: moreActionOverflow,
                   items: items)
     }
     
@@ -48,7 +58,7 @@ struct FioriToolbar<Items: IndexedViewContainer>: ViewModifier {
                             } else {
                                 if itemIndex == -1 {
                                     self.helperTextView()
-                                        .frame(width: abs(itemWidth))
+                                        .frame(width: itemWidth)
                                 } else if itemIndex == -2 {
                                     self.moreAction()
                                         .frame(width: itemWidth)
@@ -64,13 +74,11 @@ struct FioriToolbar<Items: IndexedViewContainer>: ViewModifier {
                         }
                     }
                 } else {
-                    HStack(spacing: self.sizeHandler.defaultFixedPadding) {
-                        if self.helperText != nil {
-                            self.helperTextView()
-                                .sizeReader { size in
-                                    self.sizeHandler.helperTextWidth = size.width
-                                }
-                        }
+                    LazyHStack(spacing: self.sizeHandler.defaultFixedPadding) {
+                        self.helperTextView()
+                            .sizeReader { size in
+                                self.sizeHandler.helperTextWidth = size.width
+                            }
                         ForEach(0 ..< self.items.count,
                                 id: \.self)
                         { index in
@@ -113,23 +121,13 @@ struct FioriToolbar<Items: IndexedViewContainer>: ViewModifier {
                 }
             }
         } label: {
-            if let overflowView = customOverflow {
-                overflowView.typeErased
-            } else {
-                Image(systemName: "ellipsis")
-            }
+            self.moreActionOverflow.typeErased
         }
     }
     
     @ViewBuilder
     func helperTextView() -> some View {
-        Group {
-            if let text = helperText {
-                text.typeErased.lineLimit(2)
-            } else {
-                EmptyView()
-            }
-        }.frame(height: 44)
+        self.helperText.typeErased.frame(height: 44)
     }
 }
 
@@ -187,7 +185,7 @@ class FioriToolbarHandler: ObservableObject {
     let defaultFixedPadding: CGFloat = 8
     private let minHelperTextWidth: CGFloat = 64
     // [index: width] when index is -1, helper text, -2 is overflow action
-    var itemsWidth: [(Int, CGFloat)] = []
+    var itemsWidth: [(Int, CGFloat?)] = []
     
     // swiftlint:disable:next cyclomatic_complexity function_body_length
     func calculateItemsSize() {
@@ -201,22 +199,27 @@ class FioriToolbarHandler: ObservableObject {
         } else {
             availableItemWidth = self.containerSize.width - self.rtlMargin
         }
-
         switch self.itemsSize.count {
         case 0:
-            return
+            if self.helperTextWidth > 0 {
+                self.itemsWidth = [(-1, nil)]
+                self.needLayoutSubviews = true
+                objectWillChange.send()
+            } else {
+                return
+            }
         case 1:
             if self.helperTextWidth > 0 {
                 if let itemWidth = itemsSize[0]?.width {
                     if itemWidth > availableItemWidth {
                         self.itemsWidth = [(-1, min(self.minHelperTextWidth, self.helperTextWidth)), (0, availableItemWidth)]
                     } else {
-                        self.itemsWidth = [(-1, .infinity), (0, itemWidth)]
+                        self.itemsWidth = [(-1, min(self.containerSize.width - self.rtlMargin - itemWidth - self.defaultFixedPadding, self.helperTextWidth)), (0, itemWidth)]
                     }
                 }
                 self.useFixedPadding = false
             } else {
-                self.itemsWidth = [(0, .infinity)]
+                self.itemsWidth = [(0, nil)]
             }
             self.needLayoutSubviews = true
             objectWillChange.send()

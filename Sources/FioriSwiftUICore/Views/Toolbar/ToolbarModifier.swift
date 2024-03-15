@@ -7,11 +7,11 @@ public extension View {
     ///   - customOverflow: A custom overflow label for wrapped items menu.
     ///   - items: Indexed views for toolbar items
     /// - Returns: A new view with a bottom tool bar.
-    func fioriToolbar<Items: IndexedViewContainer>(helperText: String? = nil, customOverflow: (any View)? = nil, @IndexedViewBuilder items: () -> Items) -> some View {
+    func fioriToolbar<Items: IndexedViewContainer>(helperText: String? = nil, moreActionOverflow: (any View)? = nil, @IndexedViewBuilder items: () -> Items) -> some View {
         if let text = helperText, !text.isEmpty {
-            self.modifier(FioriToolbar<Items>(helperText: text, customOverflow: customOverflow, items: items))
+            self.modifier(FioriToolbar<Items>(helperText: text, moreActionOverflow: moreActionOverflow, items: items))
         } else {
-            self.modifier(FioriToolbar<Items>(customOverflow: customOverflow, items: items))
+            self.modifier(FioriToolbar<Items>(moreActionOverflow: moreActionOverflow, items: items))
         }
     }
     
@@ -21,8 +21,8 @@ public extension View {
     ///   - customOverflow: A custom overflow label for wrapped items menu.
     ///   - items: Indexed views for toolbar items
     /// - Returns: A new view with a bottom tool bar.
-    func fioriToolbar<Items: IndexedViewContainer>(helperText: (any View)?, customOverflow: (any View)? = nil, @IndexedViewBuilder items: () -> Items) -> some View {
-        self.modifier(FioriToolbar<Items>(helperText: helperText, customOverflow: customOverflow, items: items))
+    func fioriToolbar<Items: IndexedViewContainer>(helperText: (any View)?, moreActionOverflow: (any View)? = nil, @IndexedViewBuilder items: () -> Items) -> some View {
+        self.modifier(FioriToolbar<Items>(helperText: helperText, moreActionOverflow: moreActionOverflow, items: items))
     }
     
     /// A toolbar modifier for fiori style.
@@ -30,7 +30,7 @@ public extension View {
     ///   - customOverflow: A custom overflow label for wrapped items menu.
     ///   - items: Indexed views for toolbar items
     /// - Returns: A new view with a bottom tool bar.
-    func fioriToolbar<Items: IndexedViewContainer>(customOverflow: (any View)? = nil, @IndexedViewBuilder items: () -> Items) -> some View {
-        self.modifier(FioriToolbar<Items>(customOverflow: customOverflow, items: items))
+    func fioriToolbar<Items: IndexedViewContainer>(moreActionOverflow: (any View)? = nil, @IndexedViewBuilder items: () -> Items) -> some View {
+        self.modifier(FioriToolbar<Items>(moreActionOverflow: moreActionOverflow, items: items))
     }
 }

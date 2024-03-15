@@ -360,6 +360,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: HelperTextStyle
+
+struct HelperTextStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any HelperTextStyle] = []
+}
+
+extension EnvironmentValues {
+    var helperTextStyle: any HelperTextStyle {
+        self.helperTextStyleStack.last ?? .base
+    }
+
+    var helperTextStyleStack: [any HelperTextStyle] {
+        get {
+            self[HelperTextStyleStackKey.self]
+        }
+        set {
+            self[HelperTextStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: IconStyle
 
 struct IconStyleStackKey: EnvironmentKey {
@@ -587,6 +608,27 @@ extension EnvironmentValues {
         }
         set {
             self[MediaImageStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: MoreActionOverflowStyle
+
+struct MoreActionOverflowStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any MoreActionOverflowStyle] = []
+}
+
+extension EnvironmentValues {
+    var moreActionOverflowStyle: any MoreActionOverflowStyle {
+        self.moreActionOverflowStyleStack.last ?? .base
+    }
+
+    var moreActionOverflowStyleStack: [any MoreActionOverflowStyle] {
+        get {
+            self[MoreActionOverflowStyleStackKey.self]
+        }
+        set {
+            self[MoreActionOverflowStyleStackKey.self] = newValue
         }
     }
 }

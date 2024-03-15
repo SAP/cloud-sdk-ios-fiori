@@ -292,6 +292,23 @@ public extension View {
     }
 }
 
+// MARK: HelperTextStyle
+
+public extension View {
+    func helperTextStyle(_ style: some HelperTextStyle) -> some View {
+        self.transformEnvironment(\.helperTextStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+    
+    func helperTextStyle(@ViewBuilder content: @escaping (HelperTextConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.helperTextStyleStack) { stack in
+            let style = AnyHelperTextStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: IconStyle
 
 public extension View {
@@ -474,6 +491,23 @@ public extension View {
     func mediaImageStyle(@ViewBuilder content: @escaping (MediaImageConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.mediaImageStyleStack) { stack in
             let style = AnyMediaImageStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: MoreActionOverflowStyle
+
+public extension View {
+    func moreActionOverflowStyle(_ style: some MoreActionOverflowStyle) -> some View {
+        self.transformEnvironment(\.moreActionOverflowStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+    
+    func moreActionOverflowStyle(@ViewBuilder content: @escaping (MoreActionOverflowConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.moreActionOverflowStyleStack) { stack in
+            let style = AnyMoreActionOverflowStyle(content)
             stack.append(style)
         }
     }
