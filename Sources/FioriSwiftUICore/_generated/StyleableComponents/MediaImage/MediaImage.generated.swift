@@ -17,7 +17,7 @@ public struct MediaImage {
 
 public extension MediaImage {
     init(mediaImage: Image? = nil) {
-        self.init(mediaImage: { mediaImage })
+        self.init(mediaImage: { OptionalImage(mediaImage) })
     }
 }
 

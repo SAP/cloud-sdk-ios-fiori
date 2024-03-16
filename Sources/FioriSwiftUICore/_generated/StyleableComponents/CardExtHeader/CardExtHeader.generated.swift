@@ -35,7 +35,7 @@ public extension CardExtHeader {
          kpi: KPIItemData? = nil,
          kpiCaption: AttributedString? = nil)
     {
-        self.init(row1: row1, row2: row2, row3: row3, kpi: { KPIItem(kpi) }, kpiCaption: { OptionalText(kpiCaption) })
+        self.init(row1: row1, row2: row2, row3: row3, kpi: { OptionalKPIItem(kpi) }, kpiCaption: { OptionalText(kpiCaption) })
     }
 }
 

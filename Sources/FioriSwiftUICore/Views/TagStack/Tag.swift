@@ -42,7 +42,7 @@ public struct LightTagStyle: TagStyle {
             .font(.fiori(forTextStyle: .footnote))
             .foregroundColor(.preferredColor(.secondaryLabel))
             .padding(EdgeInsets(top: 2, leading: 3, bottom: 2, trailing: 3))
-            .background(RoundedRectangle(cornerRadius: 4).stroke(Color.preferredColor(.quarternaryLabel), lineWidth: 0.5))
+            .background(RoundedRectangle(cornerRadius: 4).stroke(Color.preferredColor(.quaternaryLabel), lineWidth: 0.5))
     }
 }
 
@@ -56,6 +56,28 @@ public struct DarkTagStyle: TagStyle {
             .foregroundColor(.preferredColor(.primaryLabel, background: .darkConstant))
             .padding(EdgeInsets(top: 2, leading: 3, bottom: 2, trailing: 3))
             .background(RoundedRectangle(cornerRadius: 4).fill(Color.preferredColor(.tertiaryLabel)))
+    }
+}
+
+public struct ColorTagStyle: TagStyle {
+    /// text color
+    var textColor: Color = .preferredColor(.secondaryLabel)
+
+    /// Color inside the tag
+    var fillColor: Color = .clear
+    
+    public init(textColor: Color, fillColor: Color) {
+        self.textColor = textColor
+        self.fillColor = fillColor
+    }
+    
+    public func makeBody(configuration: Self.Configuration) -> some View {
+        configuration
+            .label
+            .font(.fiori(forTextStyle: .footnote))
+            .foregroundColor(self.textColor)
+            .padding(EdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4))
+            .background(RoundedRectangle(cornerRadius: 8).fill(self.fillColor))
     }
 }
 
@@ -79,7 +101,7 @@ public struct CustomTagStyle: TagStyle {
     var borderWidth: CGFloat = 0.5
 
     /// Color around the perimeter of the tag
-    var borderColor: Color = .preferredColor(.quarternaryLabel)
+    var borderColor: Color = .preferredColor(.quaternaryLabel)
 
     public init(textColor: Color? = nil, font: Font? = nil, fillColor: Color? = nil, contentInsets: EdgeInsets? = nil, cornerRadius: CGFloat? = nil, borderWidth: CGFloat? = nil, borderColor: Color? = nil) {
         if let tc = textColor {
