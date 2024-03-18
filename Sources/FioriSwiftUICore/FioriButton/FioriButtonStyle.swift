@@ -75,11 +75,13 @@ public struct FioriPlainButtonStyle: FioriButtonStyle {
 
 /// A Fiori button style for the primary button.
 public struct FioriPrimaryButtonStyle: FioriButtonStyle {
+    private let maxWidth: CGFloat?
+    
     /// Create a `FioriPrimaryButtonStyle` instance.
-    public init() {}
+    public init(_ maxWidth: CGFloat? = nil) { self.maxWidth = maxWidth }
     
     public func makeBody(configuration: Configuration) -> some View {
-        let config = FioriButtonStyleProvider.getPrimaryButtonStyle(state: configuration.state)
+        let config = FioriButtonStyleProvider.getPrimaryButtonStyle(state: configuration.state).withMaxWidth(self.maxWidth)
         
         return configuration.label
             .fioriButtonConfiguration(config)
@@ -89,15 +91,17 @@ public struct FioriPrimaryButtonStyle: FioriButtonStyle {
 /// A Fiori button style for the secondary button.
 public struct FioriSecondaryButtonStyle: FioriButtonStyle {
     private let colorStyle: FioriButtonColorStyle
+    private let maxWidth: CGFloat?
     
     /// Create a `FioriSecondaryButtonStyle` instance.
     /// - Parameter colorStyle: The color style used for this button style.
-    public init(colorStyle: FioriButtonColorStyle = .tint) {
+    public init(colorStyle: FioriButtonColorStyle = .tint, maxWidth: CGFloat? = nil) {
         self.colorStyle = colorStyle
+        self.maxWidth = maxWidth
     }
     
     public func makeBody(configuration: Configuration) -> some View {
-        let config = FioriButtonStyleProvider.getSecondaryButtonStyle(colorStyle: self.colorStyle, for: configuration.state)
+        let config = FioriButtonStyleProvider.getSecondaryButtonStyle(colorStyle: self.colorStyle, for: configuration.state).withMaxWidth(self.maxWidth)
         
         return configuration.label
             .fioriButtonConfiguration(config)
@@ -107,15 +111,17 @@ public struct FioriSecondaryButtonStyle: FioriButtonStyle {
 /// A Fiori button style for the tertiary button.
 public struct FioriTertiaryButtonStyle: FioriButtonStyle {
     private let colorStyle: FioriButtonColorStyle
+    private let maxWidth: CGFloat?
     
     /// Create a `FioriTertiaryButtonStyle` instance.
     /// - Parameter colorStyle: The color style used for this button style.
-    public init(colorStyle: FioriButtonColorStyle = .tint) {
+    public init(colorStyle: FioriButtonColorStyle = .tint, maxWidth: CGFloat? = nil) {
         self.colorStyle = colorStyle
+        self.maxWidth = maxWidth
     }
     
     public func makeBody(configuration: Configuration) -> some View {
-        let config = FioriButtonStyleProvider.getTertiaryButtonStyle(colorStyle: self.colorStyle, for: configuration.state)
+        let config = FioriButtonStyleProvider.getTertiaryButtonStyle(colorStyle: self.colorStyle, for: configuration.state).withMaxWidth(self.maxWidth)
         
         return configuration.label
             .fioriButtonConfiguration(config)

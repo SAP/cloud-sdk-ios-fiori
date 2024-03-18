@@ -16,11 +16,13 @@ public struct CardMediaBaseStyle: CardMediaStyle {
     @ViewBuilder
     public func makeBody(_ configuration: CardMediaConfiguration) -> some View {
         // Add default layout here
-        configuration.mediaImage
-            .overlay(alignment: .bottomLeading) {
-                configuration.description
-                    .padding(EdgeInsets(top: 16, leading: 16, bottom: 16, trailing: 16))
-            }
+        ZStack(alignment: .bottomLeading) {
+            configuration.mediaImage
+                .clipped()
+            
+            configuration.description
+                .padding(EdgeInsets(top: 16, leading: 16, bottom: 16, trailing: 16))
+        }
     }
 }
 
@@ -37,8 +39,6 @@ extension CardMediaFioriStyle {
     struct MediaImageFioriStyle: MediaImageStyle {
         func makeBody(_ configuration: MediaImageConfiguration) -> some View {
             MediaImage(configuration)
-                .frame(maxWidth: .infinity)
-                .clipped()
         }
     }
     
@@ -47,35 +47,144 @@ extension CardMediaFioriStyle {
             Description(configuration)
                 // Add default style for Description
                 .font(.fiori(forTextStyle: .title1, weight: .bold))
-                .foregroundColor(.preferredColor(.primaryLabel))
+                .foregroundColor(.preferredColor(.primaryLabel, background: .darkConstant))
+                .lineLimit(3)
         }
     }
 }
 
-#Preview("Data Base") {
-    CardMedia(mediaImage: Image(systemName: "sportscourt"), description: "Title")
-}
-
-#Preview("VB Base") {
-    CardMedia {
-        Image(systemName: "sportscourt")
+#Preview("Image") {
+    ZStack(alignment: .bottomLeading) {
+        Image("card_image")
             .resizable()
             .aspectRatio(contentMode: .fill)
-    } description: {
+            //            .frame(height: 125)
+        
+            .frame(maxWidth: .infinity, maxHeight: 145)
+            .clipped()
+        
         Text("Title")
-            .foregroundColor(.purple)
+            .font(.fiori(forTextStyle: .title1, weight: .bold))
+            .foregroundColor(.preferredColor(.primaryLabel))
+            .lineLimit(3)
+            .padding(EdgeInsets(top: 16, leading: 16, bottom: 16, trailing: 16))
     }
-    .frame(height: 415)
 }
 
-#Preview("VB Fiori") {
+#Preview("Image2") {
+    ZStack(alignment: .bottomLeading) {
+        Image("attachment009")
+            .resizable()
+            .aspectRatio(contentMode: .fill)
+            .frame(height: 745)
+            //            .frame(maxWidth: .infinity, minHeight: 72, maxHeight: 442)
+            .clipped()
+        
+        Text("Title")
+            .font(.fiori(forTextStyle: .title1, weight: .bold))
+            .foregroundColor(.preferredColor(.primaryLabel))
+            .lineLimit(3)
+            .padding(EdgeInsets(top: 16, leading: 16, bottom: 16, trailing: 16))
+    }.border(Color.green)
+}
+
+#Preview("Header") {
+    CardHeader(mediaImage: Image("attachment009"),
+               description: "Title",
+               title: "Title",
+               subtitle: "Subtitle",
+               icons: [],
+               detailImage: Image(systemName: "person.crop.circle"),
+               headerAction: FioriButton(title: "Action"),
+               counter: "1 of 3",
+               row1: {
+                   HStack {
+                       LabelItem(icon: Image(systemName: "exclamationmark.triangle.fill"), title: "Negative")
+                           .titleStyle { config in
+                               config.title.foregroundStyle(Color.preferredColor(.negativeLabel))
+                           }
+                       LabelItem(title: "Critical")
+                           .titleStyle { config in
+                               config.title.foregroundStyle(Color.preferredColor(.criticalLabel))
+                           }
+                       LabelItem(icon: Image(systemName: "checkmark.circle"), title: "Positive")
+                           .titleStyle { config in
+                               config.title.foregroundStyle(Color.preferredColor(.positiveLabel))
+                           }
+                   }
+               },
+               row2: {
+                   HStack {
+                       Text("256 reviews")
+                   }
+               },
+               row3: {
+                   HStack {
+                       Tag(verbatim: "Tag")
+                       Tag(verbatim: "Tag")
+                       Tag(verbatim: "Tag")
+                   }
+               },
+               kpi: KPIItemData.components([.icon(Image(systemName: "arrowtriangle.up.fill")),
+                                            .unit("$"),
+                                            .metric("26.9"),
+                                            .unit("M")]),
+               kpiCaption: "Revenue")
+        .mediaImageStyle { config in
+            config.mediaImage
+                .aspectRatio(contentMode: .fill)
+                .frame(height: 145)
+        }
+}
+
+#Preview("Data SF") {
+    CardMedia(mediaImage: Image(systemName: "sportscourt"), description: "Title")
+        .border(Color.green)
+}
+
+#Preview("Data Image") {
+    CardMedia(mediaImage: Image("attachment009"), description: "Title")
+        .border(Color.green)
+        .mediaImageStyle { config in
+            config.mediaImage
+                .aspectRatio(contentMode: .fill)
+                .frame(height: 145)
+                .clipped()
+        }
+}
+
+#Preview("VB") {
     CardMedia {
-        Color.purple
-            .frame(width: 300, height: 145)
+        Image("attachment009")
+            .resizable()
+            .aspectRatio(contentMode: .fill)
+            .frame(maxWidth: .infinity, maxHeight: 245)
+            .border(Color.blue, width: 3)
     } description: {
         Text("Title")
     }
-    .frame(height: 600)
+    .border(Color.green)
+}
+
+#Preview {
+    CardMedia {
+        Image("card_image")
+            .resizable()
+            .aspectRatio(contentMode: .fill)
+            .frame(maxWidth: .infinity, maxHeight: 145)
+    } description: {
+        Text("Subtitle that goes to multiple lines before truncating just like that")
+    }
+}
+
+#Preview("Color") {
+    CardMedia {
+        Color.purple
+            .frame(height: 145)
+    } description: {
+        Text("Title")
+    }
+    .border(Color.green)
 }
 
 #Preview("M") {
@@ -84,8 +193,10 @@ extension CardMediaFioriStyle {
         .foregroundColor(Color.red)
         .font(.largeTitle)
         .font(.footnote)
-        .frame(height: 172)
+        .frame(height: 500)
         .frame(width: 200)
+        .frame(height: 200)
         .frame(height: 70)
         .border(Color.black)
+        .border(Color.green)
 }

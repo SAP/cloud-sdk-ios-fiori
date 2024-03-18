@@ -13,18 +13,15 @@ import SwiftUI
 
 // Base Layout style
 public struct CardExtHeaderBaseStyle: CardExtHeaderStyle {
+    @ViewBuilder
     public func makeBody(_ configuration: CardExtHeaderConfiguration) -> some View {
         // Add default layout here
-        VStack(alignment: .leading, spacing: 6) {
-            configuration.row1
-                .frame(maxWidth: .infinity, alignment: .leading)
-            
-            HStack {
-                if !configuration.row2.isEmpty, !configuration.row3.isEmpty {
-                    VStack(alignment: .leading, spacing: 6) {
-                        configuration.row2
-                        configuration.row3
-                    }
+        if configuration.row1.isEmpty || configuration.row2.isEmpty || configuration.row3.isEmpty {
+            HStack(alignment: .top, spacing: 0) {
+                VStack(alignment: .leading, spacing: 6) {
+                    configuration.row1
+                    configuration.row2
+                    configuration.row3
                 }
                 
                 Spacer(minLength: 12)
@@ -32,6 +29,27 @@ public struct CardExtHeaderBaseStyle: CardExtHeaderStyle {
                 VStack(alignment: .trailing, spacing: 0) {
                     configuration.kpi
                     configuration.kpiCaption
+                }
+            }
+        } else {
+            VStack(alignment: .leading, spacing: 6) {
+                configuration.row1
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                
+                HStack {
+                    if !configuration.row2.isEmpty || !configuration.row3.isEmpty {
+                        VStack(alignment: .leading, spacing: 6) {
+                            configuration.row2
+                            configuration.row3
+                        }
+                    }
+                    
+                    Spacer(minLength: 12)
+                    
+                    VStack(alignment: .trailing, spacing: 0) {
+                        configuration.kpi
+                        configuration.kpiCaption
+                    }
                 }
             }
         }
@@ -87,14 +105,15 @@ extension CardExtHeaderFioriStyle {
     struct KpiCaptionFioriStyle: KpiCaptionStyle {
         func makeBody(_ configuration: KpiCaptionConfiguration) -> some View {
             KpiCaption(configuration)
-            // Add default style for KpiCaption
-            // .foregroundStyle(Color.preferredColor(<#fiori color#>))
-            // .font(.fiori(forTextStyle: <#fiori font#>))
+                // Add default style for KpiCaption
+                .foregroundStyle(Color.preferredColor(.secondaryLabel))
+                .font(.fiori(forTextStyle: .caption2))
+                .lineLimit(1)
         }
     }
 }
 
-#Preview("Base") {
+#Preview("Empty") {
     CardExtHeader(row1: {
         EmptyView()
     }, row2: {
@@ -107,7 +126,50 @@ extension CardExtHeaderFioriStyle {
     .border(Color.blue)
 }
 
-#Preview("Base") {
+#Preview("Full") {
+    CardExtHeader(row1: {
+        HStack {
+            LabelItem(icon: Image(systemName: "exclamationmark.triangle.fill"), title: "Negative")
+                .titleStyle { config in
+                    config.title.foregroundStyle(Color.preferredColor(.negativeLabel))
+                }
+            LabelItem(title: "Critical")
+                .titleStyle { config in
+                    config.title.foregroundStyle(Color.preferredColor(.criticalLabel))
+                }
+            LabelItem(icon: Image(systemName: "checkmark.circle"), title: "Positive")
+                .titleStyle { config in
+                    config.title.foregroundStyle(Color.preferredColor(.positiveLabel))
+                }
+            Tag("Tag")
+            
+            Tag("Tag")
+            
+            Text("Long long long label").lineLimit(1)
+        }
+    }, row2: {
+        HStack {
+            Text("256 reviews")
+        }
+    }, row3: {
+        HStack {
+            Tag("Tag")
+            
+            Tag("Tag")
+            
+            Tag("Tag")
+            
+            Tag("Tag")
+        }
+    }, kpi: {
+        KPIItem(data: KPIItemData.components([.icon(Image(systemName: "arrowtriangle.up.fill")), .unit("$"), .metric("26.9")]), subtitle: "test")
+    }, kpiCaption: {
+        Text("test")
+    })
+    .border(Color.gray)
+}
+
+#Preview("data") {
     CardExtHeader(row1: {
         HStack {
             LabelItem(icon: Image(systemName: "exclamationmark.triangle.fill"), title: "Negative")
@@ -127,11 +189,93 @@ extension CardExtHeaderFioriStyle {
         HStack {
             Text("256 reviews")
         }
+    }, kpi: KPIItemData.components([.icon(Image(systemName: "arrowtriangle.up.fill")), .unit("$"), .metric("26.9"), .unit("M")]),
+    kpiCaption: "Revenue Subtitle that goes to multiple lines before truncating just like that")
+        .border(Color.gray)
+}
+
+#Preview("Tow row") {
+    CardExtHeader(row1: {
+        HStack {
+            LabelItem(icon: Image(systemName: "exclamationmark.triangle.fill"), title: "Negative")
+                .titleStyle { config in
+                    config.title.foregroundStyle(Color.preferredColor(.negativeLabel))
+                }
+            LabelItem(title: "Critical")
+                .titleStyle { config in
+                    config.title.foregroundStyle(Color.preferredColor(.criticalLabel))
+                }
+            LabelItem(icon: Image(systemName: "checkmark.circle"), title: "Positive")
+                .titleStyle { config in
+                    config.title.foregroundStyle(Color.preferredColor(.positiveLabel))
+                }
+        }
     }, row3: {
         HStack {
-            Tag(verbatim: "Tag")
-            Tag(verbatim: "Tag")
-            Tag(verbatim: "Tag")
+            Text("256 reviews")
         }
-    }, kpi: KPIItemData.components([.icon(Image(systemName: "arrowtriangle.up.fill")), .unit("$"), .metric("26.9"), .unit("M")]), kpiCaption: "Revenue")
+    }, kpi: {
+        KPIItem(data: KPIItemData.components([.icon(Image(systemName: "arrowtriangle.up.fill")), .unit("$"), .metric("26.9")]))
+    }, kpiCaption: {
+        Text("Revenue")
+    })
+    .border(Color.gray)
+}
+
+#Preview("One row") {
+    CardExtHeader(row3: {
+        HStack {
+            LabelItem(icon: Image(systemName: "exclamationmark.triangle.fill"), title: "Negative")
+                .titleStyle { config in
+                    config.title.foregroundStyle(Color.preferredColor(.negativeLabel))
+                }
+            LabelItem(title: "Critical")
+                .titleStyle { config in
+                    config.title.foregroundStyle(Color.preferredColor(.criticalLabel))
+                }
+            LabelItem(icon: Image(systemName: "checkmark.circle"), title: "Positive")
+                .titleStyle { config in
+                    config.title.foregroundStyle(Color.preferredColor(.positiveLabel))
+                }
+        }
+    }, kpi: KPIItemData.components([.icon(Image(systemName: "arrowtriangle.up.fill")), .unit("$"), .metric("26.9"), .unit("M")]),
+    kpiCaption: "Revenue")
+}
+
+#Preview("No KPI") {
+    CardExtHeader(row1: {
+        HStack {
+            LabelItem(icon: Image(systemName: "exclamationmark.triangle.fill"), title: "Negative")
+                .titleStyle { config in
+                    config.title.foregroundStyle(Color.preferredColor(.negativeLabel))
+                }
+            LabelItem(title: "Critical")
+                .titleStyle { config in
+                    config.title.foregroundStyle(Color.preferredColor(.criticalLabel))
+                }
+            LabelItem(icon: Image(systemName: "checkmark.circle"), title: "Positive")
+                .titleStyle { config in
+                    config.title.foregroundStyle(Color.preferredColor(.positiveLabel))
+                }
+        }
+    }, row2: {
+        HStack(spacing: 2) {
+            Image(systemName: "star.fill")
+            Image(systemName: "star.fill")
+            Image(systemName: "star")
+            Image(systemName: "star")
+            Image(systemName: "star")
+            Spacer().frame(width: 8)
+            Text("Long long long long long long long text").lineLimit(1)
+        }
+    }, row3: {
+        HStack(spacing: 4) {
+            Tag("Tag")
+            Circle().frame(width: 2).foregroundColor(Color.preferredColor(.tertiaryLabel).opacity(0.9))
+            Tag("Tag").tagStyle(DarkTagStyle())
+            Circle().frame(width: 2).foregroundColor(Color.preferredColor(.tertiaryLabel).opacity(0.9))
+            Tag("Tag")
+        }
+    }, kpi: nil)
+        .border(Color.gray)
 }

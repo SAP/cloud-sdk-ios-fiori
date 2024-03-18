@@ -13,13 +13,13 @@ import SwiftUI
 
 // Base Layout style
 public struct CardFooterBaseStyle: CardFooterStyle {
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    
     @ViewBuilder
     public func makeBody(_ configuration: CardFooterConfiguration) -> some View {
         // Add default layout here
-        HStack {
+        EqualWidthWithMaxWidthHStackLayout(spacing: 8, alignment: .center, maxWidth: 170, horizontalSizeClass: self.horizontalSizeClass) {
             configuration.secondaryAction
-            
-            Spacer()
             
             configuration.action
         }
@@ -29,6 +29,8 @@ public struct CardFooterBaseStyle: CardFooterStyle {
 // Default fiori styles
 extension CardFooterFioriStyle {
     struct ContentFioriStyle: CardFooterStyle {
+        @Environment(\.horizontalSizeClass) var horizontalSizeClass
+        
         func makeBody(_ configuration: CardFooterConfiguration) -> some View {
             CardFooter(configuration)
             // Add default style for its content
@@ -39,26 +41,55 @@ extension CardFooterFioriStyle {
     struct ActionFioriStyle: ActionStyle {
         func makeBody(_ configuration: ActionConfiguration) -> some View {
             Action(configuration)
-                .fioriButtonStyle(FioriPrimaryButtonStyle())
+                .frame(maxWidth: .infinity)
+                .fioriButtonStyle(FioriPrimaryButtonStyle(.infinity))
         }
     }
     
     struct SecondaryActionFioriStyle: SecondaryActionStyle {
         func makeBody(_ configuration: SecondaryActionConfiguration) -> some View {
             SecondaryAction(configuration)
-                .fioriButtonStyle(FioriSecondaryButtonStyle())
-            // Add default style for SecondaryAction
-            // .foregroundStyle(Color.preferredColor(<#fiori color#>))
-            // .font(.fiori(forTextStyle: <#fiori font#>))
+                .frame(maxWidth: .infinity)
+                .fioriButtonStyle(FioriSecondaryButtonStyle(colorStyle: .normal, maxWidth: .infinity))
         }
     }
 }
 
-#Preview("Base") {
-    CardFooter(action: FioriButton(title: "Primary"), secondaryAction: FioriButton(title: "Secondary"))
+#Preview("Model") {
+    CardFooter(action: FioriButton(title: "Primary"), secondaryAction: FioriButton(title: "Save"))
 }
 
-#Preview("Fiori") {
-    CardFooter(action: FioriButton(title: "Primary"), secondaryAction: FioriButton(title: "Secondary"))
-        .cardFooterStyle(.fiori)
+#Preview("VB FioriButton") {
+    CardFooter {
+        FioriButton(title: "Save")
+    } secondaryAction: {
+        FioriButton(title: "Decline")
+    }
+}
+
+#Preview("VB FioriButton") {
+    CardFooter(action: {
+        FioriButton(title: "Save")
+    })
+}
+
+#Preview("VB Button") {
+    CardFooter {
+        Button {
+            print("Tapped")
+        } label: {
+            Text("Save")
+                .frame(maxWidth: .infinity)
+        }
+        .buttonStyle(.bordered)
+        
+    } secondaryAction: {
+        Button {
+            print("Tapped")
+        } label: {
+            Text("Decline")
+                .frame(maxWidth: .infinity)
+        }
+        .buttonStyle(.bordered)
+    }
 }

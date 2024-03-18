@@ -55,6 +55,7 @@ extension LabelItemFioriStyle {
                 // Add default style for Title
                 .foregroundColor(.preferredColor(.tertiaryLabel))
                 .font(.fiori(forTextStyle: .subheadline))
+                .lineLimit(1)
         }
     }
 }

@@ -14,27 +14,35 @@ import SwiftUI
 // Base Layout style
 public struct CardMainHeaderBaseStyle: CardMainHeaderStyle {
     public func makeBody(_ configuration: CardMainHeaderConfiguration) -> some View {
-        HStack(spacing: 0) {
-            configuration.detailImage
-                .padding(.trailing, 8)
-            
-            VStack(alignment: .leading) {
-                configuration.title
-                    .lineLimit(configuration.subtitle.isEmpty ? 3 : 2)
+        HStack(alignment: .top, spacing: 0) {
+            HStack(spacing: 8) {
+                if !configuration.icons.isEmpty {
+                    configuration.icons
+                        .accessibilityHidden(true)
+                }
                 
-                configuration.subtitle
-                    .lineLimit(configuration.title.isEmpty ? 3 : 2)
+                configuration.detailImage
+                    .accessibilityHidden(true)
+                
+                VStack(alignment: .leading) {
+                    configuration.title
+                    
+                    configuration.subtitle
+                        .lineLimit(configuration.title.isEmpty ? 3 : 2)
+                }
+                .accessibilitySortPriority(2)
             }
             
-            Spacer(minLength: 0)
+            if !configuration.headerAction.isEmpty || !configuration.counter.isEmpty {
+                Spacer(minLength: 12)
+            }
             
             VStack(alignment: .trailing) {
                 configuration.headerAction
-                    .frame(minWidth: 44, minHeight: 44)
                 
                 configuration.counter
             }
-            .padding(.leading, 12)
+            .accessibilitySortPriority(1)
         }
     }
 }
@@ -54,7 +62,8 @@ extension CardMainHeaderFioriStyle {
             Title(configuration)
                 // Add default style for Title
                 .foregroundStyle(Color.preferredColor(.primaryLabel))
-                .font(.fiori(forTextStyle: .title3))
+                .font(.fiori(forTextStyle: .title3, weight: .bold))
+                .environment(\.numberOfLines, 3)
         }
     }
     
@@ -64,6 +73,7 @@ extension CardMainHeaderFioriStyle {
                 // Add default style for Subtitle
                 .foregroundStyle(Color.preferredColor(.secondaryLabel))
                 .font(.fiori(forTextStyle: .body))
+                .environment(\.numberOfLines, 2)
         }
     }
     
@@ -76,12 +86,37 @@ extension CardMainHeaderFioriStyle {
         }
     }
     
+    /*
+     struct DetailImageFioriStyle: DetailImageStyle {
+         @ViewBuilder
+         func makeBody(_ configuration: DetailImageConfiguration) -> some View {
+             if let image = configuration.detailImage.v as? Image {
+                 DetailImage(detailImage: {
+                     image
+                         .resizable()
+                         .aspectRatio(contentMode: .fill)
+                         .frame(minWidth: 16, maxWidth: 60, minHeight: 16, maxHeight: 60)
+                         .clipped()
+                 })
+             } else {
+                 DetailImage(configuration)
+                     .aspectRatio(contentMode: .fill)
+                     .frame(minWidth: 16, maxWidth: 60, minHeight: 16, maxHeight: 60)
+                     .clipped()
+             }
+             // Add default style for DetailImage
+             // .foregroundStyle(Color.preferredColor(<#fiori color#>))
+             // .font(.fiori(forTextStyle: <#fiori font#>))
+         }
+     }
+     */
     struct DetailImageFioriStyle: DetailImageStyle {
         func makeBody(_ configuration: DetailImageConfiguration) -> some View {
             DetailImage(configuration)
-            // Add default style for DetailImage
-            // .foregroundStyle(Color.preferredColor(<#fiori color#>))
-            // .font(.fiori(forTextStyle: <#fiori font#>))
+//                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(minWidth: 16, maxWidth: 60, minHeight: 16, maxHeight: 60)
+                .clipped()
         }
     }
     
@@ -89,6 +124,7 @@ extension CardMainHeaderFioriStyle {
         func makeBody(_ configuration: HeaderActionConfiguration) -> some View {
             HeaderAction(configuration)
                 .fioriButtonStyle(FioriTertiaryButtonStyle())
+                .frame(minWidth: 44, minHeight: 44)
         }
     }
     
@@ -103,30 +139,38 @@ extension CardMainHeaderFioriStyle {
     }
 }
 
-#Preview("Base") {
+#Preview("Title") {
+    CardMainHeader {
+        Text("Title that goes to multiple lines before truncating just like that")
+    } headerAction: {
+        Button {
+            print("tapped")
+        } label: {
+            Image(systemName: "ellipsis").foregroundColor(.preferredColor(.primaryLabel))
+        }
+    }.border(Color.gray)
+}
+
+#Preview("Model") {
     CardMainHeader(title: "Title",
-                   subtitle: "Subtitle",
-                   detailImage: Image(systemName: "person.crop.circle"),
-                   headerAction: FioriButton(title: "Action"),
-                   counter: "1 of 3")
-        //    .frame(width: 300)
-        //    .fioriButtonStyle(FioriPlainButtonStyle())
-        .cardMainHeaderStyle(.base)
+                   subtitle: "Subtitle that goes to multiple lines be a truncating just like that",
+                   icons: [TextOrIcon.icon(Image(systemName: "circle.fill")), TextOrIcon.icon(Image(systemName: "paperclip")), TextOrIcon.text("2")],
+                   detailImage: Image("ProfilePic"))
         .border(Color.gray)
 }
 
-#Preview("Base") {
+#Preview("TitleStyle") {
     CardMainHeader(title: "Title",
                    subtitle: "Subtitle",
                    detailImage: Image(systemName: "person.crop.circle"),
-                   headerAction: FioriButton(isSelectionPersistent: false,
-                                             action: { state in
-                                                 print("Button \(state)")
-                                             }, label: { _ in
-                                                 Image(systemName: "ellipsis")
-                                             }),
                    counter: "1 of 3")
-    //    .fioriButtonStyle(FioriPlainButtonStyle())
+        .cardMainHeaderStyle(.titleStyle(content: { config in
+            Title(config).foregroundColor(.green)
+        }))
+        .cardMainHeaderStyle(.titleStyle(content: { config in
+            Title(config).foregroundColor(.blue)
+        }))
+        .border(Color.gray)
 }
 
 // #Preview("") {
@@ -138,15 +182,19 @@ extension CardMainHeaderFioriStyle {
 //    .border(Color.gray)
 // }
 
-#Preview("") {
+#Preview("Icons") {
     CardMainHeader {
-        Text("Title")
+        Text("Title that goes to two lines before truncating just like that long")
+//        EmptyView()
     } subtitle: {
-        Text("Subtitle that goes to two lines before truncating just like that")
+        Text("Subtitle that goes to two lines before truncating just like that long long")
+    } icons: {
+        IconStack(icons: [TextOrIcon.text("1"), TextOrIcon.icon(Image(systemName: "paperclip")), TextOrIcon.text("2"), TextOrIcon.text("3"), TextOrIcon.text("4"), TextOrIcon.text("5")])
     } detailImage: {
-        Image(systemName: "person.crop.circle")
-            .frame(width: 60, height: 60)
-            .background(Color.gray)
+        Image("ProfilePic")
+            .resizable()
+            .frame(width: 160, height: 160)
+            .clipShape(Circle())
     } headerAction: {
         Button {
             print("tapped")
@@ -156,6 +204,7 @@ extension CardMainHeaderFioriStyle {
     } counter: {
         Text("1 of 3")
     }
+    .environment(\.numberOfLines, 6)
     .border(Color.gray)
 }
 
@@ -164,10 +213,6 @@ extension CardMainHeaderFioriStyle {
         Text("Title that goes to two lines before truncating just like that")
     } subtitle: {
         Text("Subtitle that goes to two lines before truncating just like that")
-    } detailImage: {
-        Image(systemName: "person.crop.circle")
-            .frame(width: 120, height: 120)
-            .background(Color.gray)
     } headerAction: {
         Button {
             print("tapped")
@@ -184,9 +229,9 @@ extension CardMainHeaderFioriStyle {
     CardMainHeader {
         Text("Title that goes to two lines before truncating just like that")
     } detailImage: {
-        Image(systemName: "person.crop.circle")
-            .frame(width: 120, height: 120)
-            .background(Color.gray)
+        Image("attachment009")
+            .resizable()
+//            .frame(width: 60, height: 60)
     } headerAction: {
         Button {
             print("tapped")
@@ -199,7 +244,7 @@ extension CardMainHeaderFioriStyle {
     .border(Color.gray)
 }
 
-#Preview() {
+#Preview("Wild") {
     CardMainHeader {
         Image(systemName: "figure.elliptical")
             .frame(width: 120, height: 80)
@@ -208,6 +253,8 @@ extension CardMainHeaderFioriStyle {
         Image(systemName: "person.crop.circle")
             .frame(width: 120, height: 120)
             .background(Color.gray)
+    } icons: {
+        IconStack(icons: [TextOrIcon.icon(Image(systemName: "circle.fill")), TextOrIcon.icon(Image(systemName: "paperclip")), TextOrIcon.text("2")])
     } detailImage: {
         Text("Not an image")
     } counter: {
@@ -216,16 +263,4 @@ extension CardMainHeaderFioriStyle {
             .cornerRadius(16)
     }
     .border(Color.gray)
-}
-
-#Preview() {
-    CardMainHeader {
-        Text("Card title that wraps to two lines")
-    } headerAction: {
-        Button {
-            print("tapped")
-        } label: {
-            Image(systemName: "ellipsis").foregroundColor(.preferredColor(.primaryLabel))
-        }
-    }.border(Color.gray)
 }

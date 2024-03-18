@@ -131,12 +131,18 @@ struct FioriButtonConfiguration {
     let backgroundColor: Color
     let font: Font
     let padding: EdgeInsets
+    let maxWidth: CGFloat?
     
-    init(foregroundColor: Color, backgroundColor: Color, font: Font = .fiori(forTextStyle: .body).weight(.bold), padding: EdgeInsets = EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16)) {
+    init(foregroundColor: Color, backgroundColor: Color, font: Font = .fiori(forTextStyle: .body).weight(.bold), padding: EdgeInsets = EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16), maxWidth: CGFloat? = nil) {
         self.foregroundColor = foregroundColor
         self.backgroundColor = backgroundColor
         self.font = font
         self.padding = padding
+        self.maxWidth = maxWidth
+    }
+    
+    func withMaxWidth(_ maxWidth: CGFloat?) -> FioriButtonConfiguration {
+        FioriButtonConfiguration(foregroundColor: self.foregroundColor, backgroundColor: self.backgroundColor, font: self.font, padding: self.padding, maxWidth: maxWidth)
     }
 }
 
@@ -146,8 +152,8 @@ extension View {
             .font(config.font)
             .foregroundColor(config.foregroundColor)
             .padding(config.padding)
+            .frame(minWidth: 44, maxWidth: config.maxWidth, minHeight: 44)
             .background(RoundedRectangle(cornerRadius: 5).fill(config.backgroundColor))
-            .frame(minWidth: 44, minHeight: 44)
             .contentShape(Rectangle())
     }
 }

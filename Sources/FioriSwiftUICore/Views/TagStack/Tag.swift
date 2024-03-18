@@ -42,7 +42,7 @@ public struct LightTagStyle: TagStyle {
             .font(.fiori(forTextStyle: .footnote))
             .foregroundColor(.preferredColor(.secondaryLabel))
             .padding(EdgeInsets(top: 2, leading: 3, bottom: 2, trailing: 3))
-            .background(RoundedRectangle(cornerRadius: 4).stroke(Color.preferredColor(.quarternaryLabel), lineWidth: 0.5))
+            .background(RoundedRectangle(cornerRadius: 4).stroke(Color.preferredColor(.quaternaryLabel), lineWidth: 0.5))
     }
 }
 
@@ -79,7 +79,7 @@ public struct CustomTagStyle: TagStyle {
     var borderWidth: CGFloat = 0.5
 
     /// Color around the perimeter of the tag
-    var borderColor: Color = .preferredColor(.quarternaryLabel)
+    var borderColor: Color = .preferredColor(.quaternaryLabel)
 
     public init(textColor: Color? = nil, font: Font? = nil, fillColor: Color? = nil, contentInsets: EdgeInsets? = nil, cornerRadius: CGFloat? = nil, borderWidth: CGFloat? = nil, borderColor: Color? = nil) {
         if let tc = textColor {
