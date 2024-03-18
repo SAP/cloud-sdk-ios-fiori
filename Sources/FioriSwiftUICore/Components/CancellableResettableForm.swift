@@ -34,11 +34,12 @@ struct CancellableResettableDialogForm<Title: View, CancelAction: View, ResetAct
             }
             .padding([.leading, .trailing], UIDevice.current.userInterfaceIdiom == .pad ? 13 : 16)
 
-            self.components
+            self.components.background(Color.preferredColor(.secondaryGroupedBackground))
             self.applyAction
         }
         .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? 375 : Screen.bounds.size.width)
         .padding([.top, .bottom], UIDevice.current.userInterfaceIdiom == .pad ? 13 : 16)
+        .background(Color.preferredColor(.chromeSecondary))
     }
 }
 
