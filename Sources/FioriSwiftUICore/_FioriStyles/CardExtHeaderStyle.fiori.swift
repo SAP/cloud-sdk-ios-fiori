@@ -141,9 +141,9 @@ extension CardExtHeaderFioriStyle {
                 .titleStyle { config in
                     config.title.foregroundStyle(Color.preferredColor(.positiveLabel))
                 }
-            Tag("Tag").tagStyle(ColorTagStyle(textColor: .preferredColor(.teal8), fillColor: .preferredColor(.teal2)))
+            Tag("Tag")
             
-            Tag("Tag").tagStyle(ColorTagStyle(textColor: .preferredColor(.green9), fillColor: .preferredColor(.green2)))
+            Tag("Tag")
             
             Text("Long long long label").lineLimit(1)
         }
@@ -154,13 +154,12 @@ extension CardExtHeaderFioriStyle {
     }, row3: {
         HStack {
             Tag("Tag")
-                .tagStyle(ColorTagStyle(textColor: .preferredColor(.grey9), fillColor: .preferredColor(.grey2)))
             
-            Tag("Tag").tagStyle(ColorTagStyle(textColor: .preferredColor(.blue9), fillColor: .preferredColor(.blue2)))
+            Tag("Tag")
             
-            Tag("Tag").tagStyle(ColorTagStyle(textColor: .preferredColor(.teal8), fillColor: .preferredColor(.teal2)))
+            Tag("Tag")
             
-            Tag("Tag").tagStyle(ColorTagStyle(textColor: .preferredColor(.green9), fillColor: .preferredColor(.green2)))
+            Tag("Tag")
         }
     }, kpi: {
         KPIItem(data: KPIItemData.components([.icon(Image(systemName: "arrowtriangle.up.fill")), .unit("$"), .metric("26.9")]), subtitle: "test")

@@ -3,6 +3,28 @@ import FioriSwiftUICore
 import MapKit
 import SwiftUI
 
+struct ColorTagStyle: TagStyle {
+    /// text color
+    var textColor: Color = .preferredColor(.secondaryLabel)
+
+    /// Color inside the tag
+    var fillColor: Color = .clear
+    
+    public init(textColor: Color, fillColor: Color) {
+        self.textColor = textColor
+        self.fillColor = fillColor
+    }
+    
+    public func makeBody(configuration: Self.Configuration) -> some View {
+        configuration
+            .label
+            .font(.fiori(forTextStyle: .footnote))
+            .foregroundColor(self.textColor)
+            .padding(EdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4))
+            .background(RoundedRectangle(cornerRadius: 8).fill(self.fillColor))
+    }
+}
+
 struct TagExample: View {
     var tagData: [(String, Color, Color)] = [
         ("Tag", .preferredColor(.grey9), .preferredColor(.grey2)),
@@ -415,11 +437,7 @@ struct MobileCardExample: View {
             } row2: {
                 RattingViewExample()
             } row3: {
-                HStack {
-                    Tag("Tag")
-                    Tag("Tag").tagStyle(DarkTagStyle())
-                    Tag("Tag")
-                }
+                TagExample(num: 3)
             } kpi: {
                 KPIItem(data: .components([.unit("$"), .metric("8,888"), .unit("M")]), subtitle: "").cornerRadius(8)
             } cardBody: {
@@ -429,11 +447,7 @@ struct MobileCardExample: View {
                     
                     Divider()
                     
-                    HStack {
-                        Tag("Tag")
-                        Tag("Tag").tagStyle(DarkTagStyle())
-                        Tag("Tag")
-                    }
+                    TagExample(num: 4, withDot: true)
                 }
             } action: {
                 FioriButton(title: "Approve")

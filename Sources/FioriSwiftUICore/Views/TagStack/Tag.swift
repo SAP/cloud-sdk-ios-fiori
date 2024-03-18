@@ -59,28 +59,6 @@ public struct DarkTagStyle: TagStyle {
     }
 }
 
-public struct ColorTagStyle: TagStyle {
-    /// text color
-    var textColor: Color = .preferredColor(.secondaryLabel)
-
-    /// Color inside the tag
-    var fillColor: Color = .clear
-    
-    public init(textColor: Color, fillColor: Color) {
-        self.textColor = textColor
-        self.fillColor = fillColor
-    }
-    
-    public func makeBody(configuration: Self.Configuration) -> some View {
-        configuration
-            .label
-            .font(.fiori(forTextStyle: .footnote))
-            .foregroundColor(self.textColor)
-            .padding(EdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4))
-            .background(RoundedRectangle(cornerRadius: 8).fill(self.fillColor))
-    }
-}
-
 public struct CustomTagStyle: TagStyle {
     /// text color
     var textColor: Color = .preferredColor(.secondaryLabel)
