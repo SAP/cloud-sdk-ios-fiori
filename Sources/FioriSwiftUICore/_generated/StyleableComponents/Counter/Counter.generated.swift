@@ -23,8 +23,12 @@ public extension Counter {
 
 public extension Counter {
     init(_ configuration: CounterConfiguration) {
+        self.init(configuration, shouldApplyDefaultStyle: false)
+    }
+
+    internal init(_ configuration: CounterConfiguration, shouldApplyDefaultStyle: Bool) {
         self.counter = configuration.counter
-        self._shouldApplyDefaultStyle = false
+        self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
     }
 }
 

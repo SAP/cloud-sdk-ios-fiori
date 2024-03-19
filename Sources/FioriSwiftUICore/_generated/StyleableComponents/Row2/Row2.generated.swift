@@ -17,8 +17,12 @@ public struct Row2 {
 
 public extension Row2 {
     init(_ configuration: Row2Configuration) {
+        self.init(configuration, shouldApplyDefaultStyle: false)
+    }
+
+    internal init(_ configuration: Row2Configuration, shouldApplyDefaultStyle: Bool) {
         self.row2 = configuration.row2
-        self._shouldApplyDefaultStyle = false
+        self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
     }
 }
 

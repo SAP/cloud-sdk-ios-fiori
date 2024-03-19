@@ -23,8 +23,12 @@ public extension SecondaryAction {
 
 public extension SecondaryAction {
     init(_ configuration: SecondaryActionConfiguration) {
+        self.init(configuration, shouldApplyDefaultStyle: false)
+    }
+
+    internal init(_ configuration: SecondaryActionConfiguration, shouldApplyDefaultStyle: Bool) {
         self.secondaryAction = configuration.secondaryAction
-        self._shouldApplyDefaultStyle = false
+        self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
     }
 }
 

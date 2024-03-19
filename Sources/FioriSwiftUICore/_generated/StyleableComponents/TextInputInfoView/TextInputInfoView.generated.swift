@@ -33,10 +33,14 @@ extension TextInputInfoView {
 
 extension TextInputInfoView {
     init(_ configuration: TextInputInfoViewConfiguration) {
+        self.init(configuration, shouldApplyDefaultStyle: false)
+    }
+
+    init(_ configuration: TextInputInfoViewConfiguration, shouldApplyDefaultStyle: Bool) {
         self.icon = configuration.icon
         self.description = configuration.description
         self.counter = configuration.counter
-        self._shouldApplyDefaultStyle = false
+        self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
     }
 }
 

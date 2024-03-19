@@ -17,8 +17,12 @@ public struct LinearProgressIndicator {
 
 public extension LinearProgressIndicator {
     init(_ configuration: LinearProgressIndicatorConfiguration) {
+        self.init(configuration, shouldApplyDefaultStyle: false)
+    }
+
+    internal init(_ configuration: LinearProgressIndicatorConfiguration, shouldApplyDefaultStyle: Bool) {
         self._indicatorProgress = configuration.$indicatorProgress
-        self._shouldApplyDefaultStyle = false
+        self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
     }
 }
 

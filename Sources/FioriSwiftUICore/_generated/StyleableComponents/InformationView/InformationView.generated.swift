@@ -29,9 +29,13 @@ public extension InformationView {
 
 public extension InformationView {
     init(_ configuration: InformationViewConfiguration) {
+        self.init(configuration, shouldApplyDefaultStyle: false)
+    }
+
+    internal init(_ configuration: InformationViewConfiguration, shouldApplyDefaultStyle: Bool) {
         self.icon = configuration.icon
         self.description = configuration.description
-        self._shouldApplyDefaultStyle = false
+        self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
     }
 }
 

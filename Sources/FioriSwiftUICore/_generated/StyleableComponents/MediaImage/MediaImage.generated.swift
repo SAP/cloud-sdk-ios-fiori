@@ -23,8 +23,12 @@ public extension MediaImage {
 
 public extension MediaImage {
     init(_ configuration: MediaImageConfiguration) {
+        self.init(configuration, shouldApplyDefaultStyle: false)
+    }
+
+    internal init(_ configuration: MediaImageConfiguration, shouldApplyDefaultStyle: Bool) {
         self.mediaImage = configuration.mediaImage
-        self._shouldApplyDefaultStyle = false
+        self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
     }
 }
 

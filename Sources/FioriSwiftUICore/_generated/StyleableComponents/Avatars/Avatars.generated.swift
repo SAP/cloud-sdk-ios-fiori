@@ -23,8 +23,12 @@ public extension Avatars {
 
 public extension Avatars {
     init(_ configuration: AvatarsConfiguration) {
+        self.init(configuration, shouldApplyDefaultStyle: false)
+    }
+
+    internal init(_ configuration: AvatarsConfiguration, shouldApplyDefaultStyle: Bool) {
         self.avatars = configuration.avatars
-        self._shouldApplyDefaultStyle = false
+        self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
     }
 }
 

@@ -23,8 +23,12 @@ public extension Substatus {
 
 public extension Substatus {
     init(_ configuration: SubstatusConfiguration) {
+        self.init(configuration, shouldApplyDefaultStyle: false)
+    }
+
+    internal init(_ configuration: SubstatusConfiguration, shouldApplyDefaultStyle: Bool) {
         self.substatus = configuration.substatus
-        self._shouldApplyDefaultStyle = false
+        self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
     }
 }
 

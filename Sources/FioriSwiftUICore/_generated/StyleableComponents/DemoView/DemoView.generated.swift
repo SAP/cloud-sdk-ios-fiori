@@ -41,12 +41,16 @@ extension DemoView {
 
 extension DemoView {
     init(_ configuration: DemoViewConfiguration) {
+        self.init(configuration, shouldApplyDefaultStyle: false)
+    }
+
+    init(_ configuration: DemoViewConfiguration, shouldApplyDefaultStyle: Bool) {
         self.title = configuration.title
         self.subtitle = configuration.subtitle
         self.status = configuration.status
         self.action = configuration.action
         self._isOn = configuration.$isOn
-        self._shouldApplyDefaultStyle = false
+        self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
     }
 }
 

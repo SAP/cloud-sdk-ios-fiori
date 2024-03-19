@@ -33,10 +33,14 @@ public extension LinearProgressIndicatorView {
 
 public extension LinearProgressIndicatorView {
     init(_ configuration: LinearProgressIndicatorViewConfiguration) {
+        self.init(configuration, shouldApplyDefaultStyle: false)
+    }
+
+    internal init(_ configuration: LinearProgressIndicatorViewConfiguration, shouldApplyDefaultStyle: Bool) {
         self._indicatorProgress = configuration.$indicatorProgress
         self.icon = configuration.icon
         self.description = configuration.description
-        self._shouldApplyDefaultStyle = false
+        self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
     }
 }
 

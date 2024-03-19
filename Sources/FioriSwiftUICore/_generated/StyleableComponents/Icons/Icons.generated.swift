@@ -23,8 +23,12 @@ public extension Icons {
 
 public extension Icons {
     init(_ configuration: IconsConfiguration) {
+        self.init(configuration, shouldApplyDefaultStyle: false)
+    }
+
+    internal init(_ configuration: IconsConfiguration, shouldApplyDefaultStyle: Bool) {
         self.icons = configuration.icons
-        self._shouldApplyDefaultStyle = false
+        self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
     }
 }
 
