@@ -23,8 +23,12 @@ public extension Tags {
 
 public extension Tags {
     init(_ configuration: TagsConfiguration) {
+        self.init(configuration, shouldApplyDefaultStyle: false)
+    }
+
+    internal init(_ configuration: TagsConfiguration, shouldApplyDefaultStyle: Bool) {
         self.tags = configuration.tags
-        self._shouldApplyDefaultStyle = false
+        self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
     }
 }
 

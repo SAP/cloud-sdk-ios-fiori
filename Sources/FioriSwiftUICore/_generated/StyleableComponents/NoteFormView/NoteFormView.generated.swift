@@ -73,6 +73,10 @@ public extension NoteFormView {
 
 public extension NoteFormView {
     init(_ configuration: NoteFormViewConfiguration) {
+        self.init(configuration, shouldApplyDefaultStyle: false)
+    }
+
+    internal init(_ configuration: NoteFormViewConfiguration, shouldApplyDefaultStyle: Bool) {
         self._text = configuration.$text
         self.placeholder = configuration.placeholder
         self.controlState = configuration.controlState
@@ -86,7 +90,7 @@ public extension NoteFormView {
         self.allowsBeyondLimit = configuration.allowsBeyondLimit
         self.charCountReachLimitMessage = configuration.charCountReachLimitMessage
         self.charCountBeyondLimitMsg = configuration.charCountBeyondLimitMsg
-        self._shouldApplyDefaultStyle = false
+        self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
     }
 }
 

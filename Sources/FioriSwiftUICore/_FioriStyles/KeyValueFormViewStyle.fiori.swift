@@ -33,7 +33,6 @@ extension KeyValueFormViewFioriStyle {
                         .foregroundStyle(self.getTitleColor(configuration))
                         .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
                 }
-                .noteFormViewStyle(FioriSwiftUICore.NoteFormViewFioriStyle.ContentFioriStyle())
         }
         
         func isDisabled(_ configuration: KeyValueFormViewConfiguration) -> Bool {

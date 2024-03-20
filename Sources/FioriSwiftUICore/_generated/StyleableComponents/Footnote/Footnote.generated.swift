@@ -23,8 +23,12 @@ public extension Footnote {
 
 public extension Footnote {
     init(_ configuration: FootnoteConfiguration) {
+        self.init(configuration, shouldApplyDefaultStyle: false)
+    }
+
+    internal init(_ configuration: FootnoteConfiguration, shouldApplyDefaultStyle: Bool) {
         self.footnote = configuration.footnote
-        self._shouldApplyDefaultStyle = false
+        self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
     }
 }
 

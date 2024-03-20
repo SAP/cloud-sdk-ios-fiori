@@ -23,8 +23,12 @@ public extension KpiCaption {
 
 public extension KpiCaption {
     init(_ configuration: KpiCaptionConfiguration) {
+        self.init(configuration, shouldApplyDefaultStyle: false)
+    }
+
+    internal init(_ configuration: KpiCaptionConfiguration, shouldApplyDefaultStyle: Bool) {
         self.kpiCaption = configuration.kpiCaption
-        self._shouldApplyDefaultStyle = false
+        self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
     }
 }
 

@@ -29,9 +29,13 @@ public extension PlaceholderTextEditor {
 
 public extension PlaceholderTextEditor {
     init(_ configuration: PlaceholderTextEditorConfiguration) {
+        self.init(configuration, shouldApplyDefaultStyle: false)
+    }
+
+    internal init(_ configuration: PlaceholderTextEditorConfiguration, shouldApplyDefaultStyle: Bool) {
         self._text = configuration.$text
         self.placeholder = configuration.placeholder
-        self._shouldApplyDefaultStyle = false
+        self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
     }
 }
 

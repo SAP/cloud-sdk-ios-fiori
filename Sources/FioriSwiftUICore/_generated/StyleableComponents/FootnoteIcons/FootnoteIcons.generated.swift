@@ -23,8 +23,12 @@ public extension FootnoteIcons {
 
 public extension FootnoteIcons {
     init(_ configuration: FootnoteIconsConfiguration) {
+        self.init(configuration, shouldApplyDefaultStyle: false)
+    }
+
+    internal init(_ configuration: FootnoteIconsConfiguration, shouldApplyDefaultStyle: Bool) {
         self.footnoteIcons = configuration.footnoteIcons
-        self._shouldApplyDefaultStyle = false
+        self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
     }
 }
 

@@ -23,8 +23,12 @@ public extension Title {
 
 public extension Title {
     init(_ configuration: TitleConfiguration) {
+        self.init(configuration, shouldApplyDefaultStyle: false)
+    }
+
+    internal init(_ configuration: TitleConfiguration, shouldApplyDefaultStyle: Bool) {
         self.title = configuration.title
-        self._shouldApplyDefaultStyle = false
+        self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
     }
 }
 

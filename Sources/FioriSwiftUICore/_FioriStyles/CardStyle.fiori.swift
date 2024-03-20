@@ -18,16 +18,18 @@ public struct CardBaseStyle: CardStyle {
         VStack(alignment: .leading, spacing: 12) {
             configuration._cardHeader
             
-            configuration.cardBody
-                .frame(maxWidth: .infinity)
-                .padding(.horizontal, 16)
-            
-            if !configuration._cardFooter.isEmpty {
-                configuration._cardFooter
-                    .padding(.horizontal, 16)
+            if !configuration.cardBody.isEmpty {
+                configuration.cardBody
+                    .frame(maxWidth: .infinity)
+                    .padding(EdgeInsets(top: 6, leading: 16, bottom: 6, trailing: 16))
             }
-        }.padding(EdgeInsets(top: 0, leading: 0, bottom: 16, trailing: 0))
-            .border(Color.black)
+            
+            if !(configuration._cardFooter.action.isEmpty && configuration._cardFooter.secondaryAction.isEmpty) {
+                configuration._cardFooter
+                    .padding(EdgeInsets(top: 6, leading: 16, bottom: 6, trailing: 16))
+            }
+        }
+        .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
     }
 }
 
@@ -36,8 +38,8 @@ extension CardFioriStyle {
     struct ContentFioriStyle: CardStyle {
         func makeBody(_ configuration: CardConfiguration) -> some View {
             Card(configuration)
-            // Add default style for its content
-            // .background()
+                // Add default style for its content
+                .background(Color.preferredColor(.secondaryGroupedBackground))
         }
     }
     
@@ -204,6 +206,27 @@ extension CardFioriStyle {
     }
 }
 
+public struct CardCardStyle: CardStyle {
+    public func makeBody(_ configuration: CardConfiguration) -> some View {
+        Card(configuration)
+            .background(Color.preferredColor(.secondaryGroupedBackground))
+            //            .cornerRadius(16)
+            .overlay(
+                RoundedRectangle(cornerRadius: 16)
+                    .inset(by: 0.3)
+                    .stroke(Color.preferredColor(.tertiaryLabel).opacity(0.24), lineWidth: 0.3)
+            )
+            .shadow(color: Color.preferredColor(.cardShadow).opacity(0.92), radius: 8, x: 0, y: 2)
+            .clipShape(RoundedRectangle(cornerRadius: 16))
+    }
+}
+
+public extension CardStyle where Self == CardCardStyle {
+    static var card: Self {
+        CardCardStyle()
+    }
+}
+
 let row1 = TableRowItem(data: [DataTextItem("Need Attention", Font.subheadline.weight(.medium), Color.preferredColor(.criticalLabel)), DataTextItem("Yesterday", Font.caption, Color.preferredColor(.tertiaryLabel))])
 let row2 = TableRowItem(data: [DataTextItem("Stable", Font.subheadline), DataTextItem("Jul 5, 2021", Font.caption, Color.preferredColor(.tertiaryLabel))])
 let row3 = TableRowItem(data: [DataTextItem("Need Attention", Font.subheadline), DataTextItem("Jul 4, 2021", Font.caption, Color.preferredColor(.tertiaryLabel))])
@@ -226,7 +249,7 @@ let tableCard = TableModel(headerData: nil,
 }
 
 #Preview("Base") {
-    Card(mediaImage: Image(systemName: "sportscourt"),
+    Card(mediaImage: Image("card_image"),
          description: "Title",
          title: "Title",
          subtitle: "Subtitle",
@@ -272,12 +295,14 @@ let tableCard = TableModel(headerData: nil,
          },
          action: FioriButton(title: "Primary"),
          secondaryAction: FioriButton(title: "Secondary"))
+        .padding()
+        .cardStyle(.card)
 }
 
 #Preview("VB") {
     Card {
         Color.purple
-//            .frame(height: 145)
+            .frame(height: 84)
     } description: {
         Text("Title")
     } title: {
@@ -293,11 +318,20 @@ let tableCard = TableModel(headerData: nil,
     } counter: {
         Text("1 of 3")
     } row1: {
-//        HStack {
-//            LabelItem(item: Image(systemName: "exclamationmark.triangle.fill"), label: Text("Negative").foregroundColor(Color.preferredColor(.negativeLabel)))
-//            LabelItem(label: Text("Critical").foregroundColor(.preferredColor(.criticalLabel)))
-//            LabelItem(item: Image(systemName: "checkmark.circle"), label: Text("Positive").foregroundColor(.preferredColor(.positiveLabel)))
-//        }
+        HStack(spacing: 8) {
+            LabelItem(icon: Image(systemName: "exclamationmark.triangle.fill"), title: "Negative")
+                .titleStyle { config in
+                    config.title.foregroundStyle(Color.preferredColor(.negativeLabel))
+                }
+            LabelItem(title: "Critical")
+                .titleStyle { config in
+                    config.title.foregroundStyle(Color.preferredColor(.criticalLabel))
+                }
+            LabelItem(icon: Image(systemName: "checkmark.circle"), title: "Positive", alignment: .trailing)
+                .titleStyle { config in
+                    config.title.foregroundStyle(Color.preferredColor(.positiveLabel))
+                }
+        }
     } row2: {
         HStack {
             Text("256 reviews")
@@ -322,49 +356,8 @@ let tableCard = TableModel(headerData: nil,
     } secondaryAction: {
         FioriButton(title: "Secondary")
     }
-}
-
-#Preview("VB") {
-    Card {
-        Color.purple
-//            .frame(height: 145)
-    } description: {
-        Text("Title")
-    } title: {
-        Text("Title")
-    } subtitle: {
-        Text("Subtitle")
-    } icons: {
-        Text("1")
-    } detailImage: {
-        Image(systemName: "person.crop.circle")
-    } headerAction: {
-        FioriButton(title: "Action")
-    } counter: {
-        Text("1 of 3")
-    } row1: {
-//        HStack {
-//            LabelItem(item: Image(systemName: "exclamationmark.triangle.fill"), label: Text("Negative").foregroundColor(Color.preferredColor(.negativeLabel)))
-//            LabelItem(label: Text("Critical").foregroundColor(.preferredColor(.criticalLabel)))
-//            LabelItem(item: Image(systemName: "checkmark.circle"), label: Text("Positive").foregroundColor(.preferredColor(.positiveLabel)))
-//        }
-    } row2: {
-        HStack {
-            Text("256 reviews")
-        }
-    } row3: {
-        HStack {
-            Tag(verbatim: "Tag")
-            Tag(verbatim: "Tag")
-            Tag(verbatim: "Tag")
-        }
-    } cardBody: {
-        Text("Body")
-    } action: {
-        FioriButton(title: "Primary")
-    } secondaryAction: {
-        FioriButton(title: "Secondary")
-    }
+    .padding()
+    .cardStyle(.card)
 }
 
 #Preview("MainHeader + KPI") {
@@ -377,6 +370,8 @@ let tableCard = TableModel(headerData: nil,
             KPIItem(data: .components([.metric("10"), .unit("h")]), subtitle: "").cornerRadius(8)
         }.frame(maxWidth: .infinity)
     }
+    .padding()
+    .cardStyle(.card)
 }
 
 #Preview("Main & Ext Header + DataTable + Footer") {

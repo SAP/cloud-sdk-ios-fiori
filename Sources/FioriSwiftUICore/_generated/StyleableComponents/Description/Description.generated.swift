@@ -23,8 +23,12 @@ public extension Description {
 
 public extension Description {
     init(_ configuration: DescriptionConfiguration) {
+        self.init(configuration, shouldApplyDefaultStyle: false)
+    }
+
+    internal init(_ configuration: DescriptionConfiguration, shouldApplyDefaultStyle: Bool) {
         self.description = configuration.description
-        self._shouldApplyDefaultStyle = false
+        self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
     }
 }
 

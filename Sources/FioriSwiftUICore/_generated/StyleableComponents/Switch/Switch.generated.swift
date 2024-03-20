@@ -17,8 +17,12 @@ public struct Switch {
 
 public extension Switch {
     init(_ configuration: SwitchConfiguration) {
+        self.init(configuration, shouldApplyDefaultStyle: false)
+    }
+
+    internal init(_ configuration: SwitchConfiguration, shouldApplyDefaultStyle: Bool) {
         self._isOn = configuration.$isOn
-        self._shouldApplyDefaultStyle = false
+        self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
     }
 }
 

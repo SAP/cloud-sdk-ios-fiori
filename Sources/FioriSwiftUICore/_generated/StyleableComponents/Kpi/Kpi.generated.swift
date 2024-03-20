@@ -17,14 +17,18 @@ public struct Kpi {
 
 public extension Kpi {
     init(kpi: KPIItemData? = nil) {
-        self.init(kpi: { KPIItem(kpi) })
+        self.init(kpi: { OptionalKPIItem(kpi) })
     }
 }
 
 public extension Kpi {
     init(_ configuration: KpiConfiguration) {
+        self.init(configuration, shouldApplyDefaultStyle: false)
+    }
+
+    internal init(_ configuration: KpiConfiguration, shouldApplyDefaultStyle: Bool) {
         self.kpi = configuration.kpi
-        self._shouldApplyDefaultStyle = false
+        self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
     }
 }
 

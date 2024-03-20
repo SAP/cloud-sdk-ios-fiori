@@ -17,8 +17,12 @@ public struct TextView {
 
 public extension TextView {
     init(_ configuration: TextViewConfiguration) {
+        self.init(configuration, shouldApplyDefaultStyle: false)
+    }
+
+    internal init(_ configuration: TextViewConfiguration, shouldApplyDefaultStyle: Bool) {
         self._text = configuration.$text
-        self._shouldApplyDefaultStyle = false
+        self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
     }
 }
 
