@@ -55,7 +55,7 @@ public struct LinearProgressIndicatorViewErrorStyle: LinearProgressIndicatorView
         LinearProgressIndicatorView(configuration)
             .linearProgressIndicatorStyle(.error)
             .iconStyle(content: { iconConfiguration in
-                if iconConfiguration.icon.isEmpty {
+                if iconConfiguration.icon.isEmpty, !configuration.description.isEmpty {
                     Image(systemName: "exclamationmark.circle")
                         .foregroundStyle(Color.preferredColor(.negativeLabel))
                 } else {
@@ -84,7 +84,7 @@ public struct LinearProgressIndicatorViewSuccessStyle: LinearProgressIndicatorVi
         LinearProgressIndicatorView(configuration)
             .linearProgressIndicatorStyle(.success)
             .iconStyle(content: { iconConfiguration in
-                if iconConfiguration.icon.isEmpty {
+                if iconConfiguration.icon.isEmpty, !configuration.description.isEmpty {
                     Image(systemName: "checkmark.circle")
                         .foregroundStyle(Color.preferredColor(.tintColor))
                 } else {
@@ -99,5 +99,35 @@ public struct LinearProgressIndicatorViewSuccessStyle: LinearProgressIndicatorVi
 public extension LinearProgressIndicatorViewStyle where Self == LinearProgressIndicatorViewSuccessStyle {
     static var success: LinearProgressIndicatorViewSuccessStyle {
         LinearProgressIndicatorViewSuccessStyle()
+    }
+}
+
+/// Determinate style
+public struct LinearProgressIndicatorViewDeterminateStyle: LinearProgressIndicatorViewStyle {
+    public func makeBody(_ configuration: LinearProgressIndicatorViewConfiguration) -> some View {
+        LinearProgressIndicatorView(configuration)
+            .linearProgressIndicatorStyle(.determinate)
+    }
+}
+
+/// Determinate style
+public extension LinearProgressIndicatorViewStyle where Self == LinearProgressIndicatorViewDeterminateStyle {
+    static var determinate: LinearProgressIndicatorViewDeterminateStyle {
+        LinearProgressIndicatorViewDeterminateStyle()
+    }
+}
+
+/// Indeterminate style
+public struct LinearProgressIndicatorViewIndeterminateStyle: LinearProgressIndicatorViewStyle {
+    public func makeBody(_ configuration: LinearProgressIndicatorViewConfiguration) -> some View {
+        LinearProgressIndicatorView(configuration)
+            .linearProgressIndicatorStyle(.indeterminate)
+    }
+}
+
+/// Indeterminate style
+public extension LinearProgressIndicatorViewStyle where Self == LinearProgressIndicatorViewIndeterminateStyle {
+    static var indeterminate: LinearProgressIndicatorViewIndeterminateStyle {
+        LinearProgressIndicatorViewIndeterminateStyle()
     }
 }
