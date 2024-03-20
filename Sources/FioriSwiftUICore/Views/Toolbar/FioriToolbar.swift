@@ -12,34 +12,34 @@ struct FioriToolbar<Items: IndexedViewContainer>: ViewModifier {
     @Environment(\.helperTextStyle) var helperTextStyle
     @Environment(\.moreActionOverflowStyle) var moreActionOverflowStyle
     
-    init(helperText: (any View)? = nil,
-         moreActionOverflow: (any View)? = nil,
+    init(@ViewBuilder helperText: () -> any View = { EmptyView() },
+         moreActionOverflow: () -> any View = { EmptyView() },
          @IndexedViewBuilder items: () -> Items)
     {
-        self.helperText = HelperText { helperText?.typeErased }
+        self.helperText = HelperText { helperText().typeErased }
         self.moreActionOverflow = MoreActionOverflow {
-            if let action = moreActionOverflow {
-                action.typeErased
-            } else {
+            if moreActionOverflow().isEmpty {
                 Image(systemName: "ellipsis")
+            } else {
+                moreActionOverflow().typeErased
             }
         }
         self.items = items()
     }
     
     init(helperText: String,
-         moreActionOverflow: (any View)? = nil,
+         @ViewBuilder moreActionOverflow: () -> any View = { EmptyView() },
          @IndexedViewBuilder items: () -> Items)
     {
-        self.init(helperText: helperText.isEmpty ? nil : Text(helperText),
+        self.init(helperText: { HelperText { helperText.isEmpty ? nil : Text(helperText) } },
                   moreActionOverflow: moreActionOverflow,
                   items: items)
     }
     
-    init(moreActionOverflow: (any View)? = nil,
+    init(@ViewBuilder moreActionOverflow: () -> any View = { EmptyView() },
          @IndexedViewBuilder items: () -> Items)
     {
-        self.init(helperText: nil,
+        self.init(helperText: { EmptyView() },
                   moreActionOverflow: moreActionOverflow,
                   items: items)
     }

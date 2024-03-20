@@ -35,88 +35,72 @@ struct ToolbarView: View {
                 switch self.numberOfButtons {
                 case 1:
                     Color.preferredColor(.grey7)
-                        .fioriToolbar(helperText: self.createHelperText(),
-                                      moreActionOverflow: self.moreActionOverflowIcon ? Image(systemName: "person") : nil)
-                    {
-                        self.createButton(at: 0)
-                    }
+                        .fioriToolbar(helperText: self.helperText) {
+                            self.createButton(at: 0)
+                        }
                 case 2:
                     Color.preferredColor(.grey7)
-                        .fioriToolbar(helperText: self.createHelperText(),
-                                      moreActionOverflow: self.moreActionOverflowIcon ? Image(systemName: "person") : nil)
-                    {
-                        self.createButton(at: 0)
-                        self.createButton(at: 1)
-                    }
+                        .fioriToolbar(helperText: self.helperText) {
+                            self.createButton(at: 0)
+                            self.createButton(at: 1)
+                        }
                 case 3:
                     Color.preferredColor(.grey7)
-                        .fioriToolbar(helperText: self.createHelperText(),
-                                      moreActionOverflow: self.moreActionOverflowIcon ? Image(systemName: "person") : nil)
-                    {
-                        self.createButton(at: 0)
-                        self.createButton(at: 1)
-                        self.createButton(at: 2)
-                    }
+                        .fioriToolbar(helperText: self.helperText) {
+                            self.createButton(at: 0)
+                            self.createButton(at: 1)
+                            self.createButton(at: 2)
+                        }
                 case 4:
                     Color.preferredColor(.grey7)
-                        .fioriToolbar(helperText: self.createHelperText(),
-                                      moreActionOverflow: self.moreActionOverflowIcon ? Image(systemName: "person") : nil)
-                    {
-                        self.createButton(at: 0)
-                        self.createButton(at: 1)
-                        self.createButton(at: 2)
-                        self.createButton(at: 3)
-                    }
+                        .fioriToolbar(helperText: self.helperText) {
+                            self.createButton(at: 0)
+                            self.createButton(at: 1)
+                            self.createButton(at: 2)
+                            self.createButton(at: 3)
+                        }
                 case 5:
                     Color.preferredColor(.grey7)
-                        .fioriToolbar(helperText: self.createHelperText(),
-                                      moreActionOverflow: self.moreActionOverflowIcon ? Image(systemName: "person") : nil)
-                    {
-                        self.createButton(at: 0)
-                        self.createButton(at: 1)
-                        self.createButton(at: 2)
-                        self.createButton(at: 3)
-                        self.createButton(at: 4)
-                    }
+                        .fioriToolbar(helperText: self.helperText) {
+                            self.createButton(at: 0)
+                            self.createButton(at: 1)
+                            self.createButton(at: 2)
+                            self.createButton(at: 3)
+                            self.createButton(at: 4)
+                        }
                 case 6:
                     Color.preferredColor(.grey7)
-                        .fioriToolbar(helperText: self.createHelperText(),
-                                      moreActionOverflow: self.moreActionOverflowIcon ? Image(systemName: "person") : nil)
-                    {
-                        self.createButton(at: 0)
-                        self.createButton(at: 1)
-                        self.createButton(at: 2)
-                        self.createButton(at: 3)
-                        self.createButton(at: 4)
-                        self.createButton(at: 5)
-                    }
+                        .fioriToolbar(helperText: self.helperText) {
+                            self.createButton(at: 0)
+                            self.createButton(at: 1)
+                            self.createButton(at: 2)
+                            self.createButton(at: 3)
+                            self.createButton(at: 4)
+                            self.createButton(at: 5)
+                        }
                 case 7:
                     Color.preferredColor(.grey7)
-                        .fioriToolbar(helperText: self.createHelperText(),
-                                      moreActionOverflow: self.moreActionOverflowIcon ? Image(systemName: "person") : nil)
-                    {
-                        self.createButton(at: 0)
-                        self.createButton(at: 1)
-                        self.createButton(at: 2)
-                        self.createButton(at: 3)
-                        self.createButton(at: 4)
-                        self.createButton(at: 5)
-                        self.createButton(at: 6)
-                    }
+                        .fioriToolbar(helperText: self.helperText) {
+                            self.createButton(at: 0)
+                            self.createButton(at: 1)
+                            self.createButton(at: 2)
+                            self.createButton(at: 3)
+                            self.createButton(at: 4)
+                            self.createButton(at: 5)
+                            self.createButton(at: 6)
+                        }
                 case 8:
                     Color.preferredColor(.grey7)
-                        .fioriToolbar(helperText: self.createHelperText(),
-                                      moreActionOverflow: self.moreActionOverflowIcon ? Image(systemName: "person") : nil)
-                    {
-                        self.createButton(at: 0)
-                        self.createButton(at: 1)
-                        self.createButton(at: 2)
-                        self.createButton(at: 3)
-                        self.createButton(at: 4)
-                        self.createButton(at: 5)
-                        self.createButton(at: 6)
-                        self.createButton(at: 7)
-                    }
+                        .fioriToolbar(helperText: self.helperText) {
+                            self.createButton(at: 0)
+                            self.createButton(at: 1)
+                            self.createButton(at: 2)
+                            self.createButton(at: 3)
+                            self.createButton(at: 4)
+                            self.createButton(at: 5)
+                            self.createButton(at: 6)
+                            self.createButton(at: 7)
+                        }
                 default:
                     Color.preferredColor(.grey7)
                 }
