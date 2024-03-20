@@ -23,8 +23,12 @@ public extension DetailImage {
 
 public extension DetailImage {
     init(_ configuration: DetailImageConfiguration) {
+        self.init(configuration, shouldApplyDefaultStyle: false)
+    }
+
+    internal init(_ configuration: DetailImageConfiguration, shouldApplyDefaultStyle: Bool) {
         self.detailImage = configuration.detailImage
-        self._shouldApplyDefaultStyle = false
+        self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
     }
 }
 

@@ -51,8 +51,12 @@ extension Type {
         """
         \(accessLevelDecl)extension \(componentName) {
             init(_ configuration: \(configurationName)) {
+                self.init(configuration, shouldApplyDefaultStyle: false)
+            }
+        
+            internal init(_ configuration: \(configurationName), shouldApplyDefaultStyle: Bool) {
                 \(allStoredVariables.configurationInitBody)
-                self._shouldApplyDefaultStyle = false
+                self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
             }
         }
         """
@@ -107,7 +111,7 @@ extension Type {
                 s._shouldApplyDefaultStyle = bool
                 return s
             }
-                
+        
             func defaultStyle() -> some View {
                 \(initDecl)
                 .shouldApplyDefaultStyle(false)
@@ -135,19 +139,19 @@ extension Type {
         case .base:
             return """
             \(self.styleProtocolDecl)
-                
+            
             \(self.styleTypeEraserDecl)
-                
+            
             \(self.configurationDecl)
             """
         case .composite:
             return """
             \(self.styleProtocolDecl)
-                
+            
             \(self.styleTypeEraserDecl)
-                
+            
             \(self.configurationDecl)
-                
+            
             \(self.fioriStyleDecl)
             """
         }
@@ -176,7 +180,7 @@ extension Type {
         case .base:
             return """
             // MARK: \(styleProtocolName)
-                
+            
             \(accessLevelDecl)extension \(styleProtocolName) where Self == \(baseStyleName) {
                 static var base: \(baseStyleName) {
                     \(baseStyleName)()
@@ -192,7 +196,7 @@ extension Type {
         case .composite:
             return """
             // MARK: \(styleProtocolName)
-                
+            
             \(accessLevelDecl)extension \(styleProtocolName) where Self == \(baseStyleName) {
                 static var base: \(baseStyleName) {
                     \(baseStyleName)()
@@ -204,7 +208,7 @@ extension Type {
                     \(fioriStyleName)()
                 }
             }
-                
+            
             \(self.childComponentStyleExtentionList)
             """
         }
@@ -220,19 +224,19 @@ extension Type {
             return """
             \(accessLevelDecl)struct \(baseComponentStyleDecl): \(self.styleProtocolName) {
                 let style: any \(type.styleProtocolName)
-                    
+            
                 public func makeBody(_ configuration: \(self.configurationName)) -> some View {
                     \(self.componentName)(configuration)
                         \(styleModifierExpr)(self.style)
                         .typeErased
                 }
             }
-                
+            
             \(accessLevelDecl)extension \(self.styleProtocolName) where Self == \(baseComponentStyleDecl) {
                 static func \(styleModifierFuncName)<Style: \(type.styleProtocolName)>(_ style: Style) -> \(baseComponentStyleDecl) {
                     \(baseComponentStyleDecl)(style: style)
                 }
-                    
+            
                 static func \(styleModifierFuncName)(@ViewBuilder content: @escaping (\(type.configurationName)) -> some View) -> \(baseComponentStyleDecl) {
                     let style = Any\(type.styleProtocolName)(content)
                     return \(baseComponentStyleDecl)(style: style)
@@ -269,7 +273,7 @@ extension Type {
             return """
             /**
              This file provides default fiori style for the component.
-             
+            
              1. Uncomment the following code.
              2. Implement layout and style in corresponding places.
              3. Delete `.generated` from file name.
@@ -301,7 +305,7 @@ extension Type {
             return """
             /**
              This file provides default fiori style for the component.
-             
+            
              1. Uncomment fhe following code.
              2. Implement layout and style in corresponding places.
              3. Delete `.generated` from file name.
@@ -315,7 +319,7 @@ extension Type {
                     \(allStoredVariables.configurationResultBuilderPropertyListDecl)
                 }
             }
-                
+            
             // Default fiori styles
             extension \(fioriStyleName) {
                 \(self.compositeComponentContentFioriStyleDecl)
@@ -468,7 +472,7 @@ extension Type {
                     stack.append(style)
                 }
             }
-            
+        
             func \(styleProtocolName.lowercasingFirst())(@ViewBuilder content: @escaping (\(configurationName)) -> some View) -> some View {
                 self.transformEnvironment(\(styleStackKeyPathExpr)) { stack in
                     let style = Any\(styleProtocolName)(content)
@@ -488,7 +492,7 @@ extension Type {
         let memberList = protocols.map { type in
             """
             var _\(type.componentName.lowercasingFirst()): \(type.componentName) {
-                \(type.componentName)(.init(\(type.allStoredVariables.configurationInitArgs)))
+                \(type.componentName)(.init(\(type.allStoredVariables.configurationInitArgs)), shouldApplyDefaultStyle: true)
             }
             """
         }

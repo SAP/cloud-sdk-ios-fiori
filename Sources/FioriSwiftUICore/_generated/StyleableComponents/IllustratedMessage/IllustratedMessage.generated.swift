@@ -41,12 +41,16 @@ public extension IllustratedMessage {
 
 public extension IllustratedMessage {
     init(_ configuration: IllustratedMessageConfiguration) {
+        self.init(configuration, shouldApplyDefaultStyle: false)
+    }
+
+    internal init(_ configuration: IllustratedMessageConfiguration, shouldApplyDefaultStyle: Bool) {
         self.detailImage = configuration.detailImage
         self.title = configuration.title
         self.description = configuration.description
         self.action = configuration.action
         self.detailImageSize = configuration.detailImageSize
-        self._shouldApplyDefaultStyle = false
+        self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
     }
 }
 

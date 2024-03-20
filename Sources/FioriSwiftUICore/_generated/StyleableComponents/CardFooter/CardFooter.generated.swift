@@ -29,9 +29,13 @@ public extension CardFooter {
 
 public extension CardFooter {
     init(_ configuration: CardFooterConfiguration) {
+        self.init(configuration, shouldApplyDefaultStyle: false)
+    }
+
+    internal init(_ configuration: CardFooterConfiguration, shouldApplyDefaultStyle: Bool) {
         self.action = configuration.action
         self.secondaryAction = configuration.secondaryAction
-        self._shouldApplyDefaultStyle = false
+        self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
     }
 }
 

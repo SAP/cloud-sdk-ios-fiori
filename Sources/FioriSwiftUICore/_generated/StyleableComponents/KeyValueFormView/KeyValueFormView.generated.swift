@@ -77,6 +77,10 @@ public extension KeyValueFormView {
 
 public extension KeyValueFormView {
     init(_ configuration: KeyValueFormViewConfiguration) {
+        self.init(configuration, shouldApplyDefaultStyle: false)
+    }
+
+    internal init(_ configuration: KeyValueFormViewConfiguration, shouldApplyDefaultStyle: Bool) {
         self.title = configuration.title
         self._text = configuration.$text
         self.placeholder = configuration.placeholder
@@ -91,7 +95,7 @@ public extension KeyValueFormView {
         self.allowsBeyondLimit = configuration.allowsBeyondLimit
         self.charCountReachLimitMessage = configuration.charCountReachLimitMessage
         self.charCountBeyondLimitMsg = configuration.charCountBeyondLimitMsg
-        self._shouldApplyDefaultStyle = false
+        self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
     }
 }
 

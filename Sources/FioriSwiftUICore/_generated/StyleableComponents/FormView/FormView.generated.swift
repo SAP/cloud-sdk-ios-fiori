@@ -21,9 +21,13 @@ public struct FormView {
 
 public extension FormView {
     init(_ configuration: FormViewConfiguration) {
+        self.init(configuration, shouldApplyDefaultStyle: false)
+    }
+
+    internal init(_ configuration: FormViewConfiguration, shouldApplyDefaultStyle: Bool) {
         self.controlState = configuration.controlState
         self.errorMessage = configuration.errorMessage
-        self._shouldApplyDefaultStyle = false
+        self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
     }
 }
 

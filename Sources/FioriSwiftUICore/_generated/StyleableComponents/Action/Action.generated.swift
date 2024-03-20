@@ -23,8 +23,12 @@ public extension Action {
 
 public extension Action {
     init(_ configuration: ActionConfiguration) {
+        self.init(configuration, shouldApplyDefaultStyle: false)
+    }
+
+    internal init(_ configuration: ActionConfiguration, shouldApplyDefaultStyle: Bool) {
         self.action = configuration.action
-        self._shouldApplyDefaultStyle = false
+        self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
     }
 }
 

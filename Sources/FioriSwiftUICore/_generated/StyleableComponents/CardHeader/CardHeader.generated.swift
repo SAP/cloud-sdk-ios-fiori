@@ -73,6 +73,10 @@ public extension CardHeader {
 
 public extension CardHeader {
     init(_ configuration: CardHeaderConfiguration) {
+        self.init(configuration, shouldApplyDefaultStyle: false)
+    }
+
+    internal init(_ configuration: CardHeaderConfiguration, shouldApplyDefaultStyle: Bool) {
         self.mediaImage = configuration.mediaImage
         self.description = configuration.description
         self.title = configuration.title
@@ -86,7 +90,7 @@ public extension CardHeader {
         self.row3 = configuration.row3
         self.kpi = configuration.kpi
         self.kpiCaption = configuration.kpiCaption
-        self._shouldApplyDefaultStyle = false
+        self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
     }
 }
 

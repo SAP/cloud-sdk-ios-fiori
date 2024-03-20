@@ -23,8 +23,12 @@ public extension Status {
 
 public extension Status {
     init(_ configuration: StatusConfiguration) {
+        self.init(configuration, shouldApplyDefaultStyle: false)
+    }
+
+    internal init(_ configuration: StatusConfiguration, shouldApplyDefaultStyle: Bool) {
         self.status = configuration.status
-        self._shouldApplyDefaultStyle = false
+        self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
     }
 }
 

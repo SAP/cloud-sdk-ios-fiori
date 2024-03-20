@@ -23,8 +23,12 @@ public extension Subtitle {
 
 public extension Subtitle {
     init(_ configuration: SubtitleConfiguration) {
+        self.init(configuration, shouldApplyDefaultStyle: false)
+    }
+
+    internal init(_ configuration: SubtitleConfiguration, shouldApplyDefaultStyle: Bool) {
         self.subtitle = configuration.subtitle
-        self._shouldApplyDefaultStyle = false
+        self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
     }
 }
 

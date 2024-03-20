@@ -45,13 +45,17 @@ public extension CardMainHeader {
 
 public extension CardMainHeader {
     init(_ configuration: CardMainHeaderConfiguration) {
+        self.init(configuration, shouldApplyDefaultStyle: false)
+    }
+
+    internal init(_ configuration: CardMainHeaderConfiguration, shouldApplyDefaultStyle: Bool) {
         self.title = configuration.title
         self.subtitle = configuration.subtitle
         self.icons = configuration.icons
         self.detailImage = configuration.detailImage
         self.headerAction = configuration.headerAction
         self.counter = configuration.counter
-        self._shouldApplyDefaultStyle = false
+        self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
     }
 }
 

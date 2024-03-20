@@ -17,8 +17,12 @@ public struct CardBody {
 
 public extension CardBody {
     init(_ configuration: CardBodyConfiguration) {
+        self.init(configuration, shouldApplyDefaultStyle: false)
+    }
+
+    internal init(_ configuration: CardBodyConfiguration, shouldApplyDefaultStyle: Bool) {
         self.cardBody = configuration.cardBody
-        self._shouldApplyDefaultStyle = false
+        self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
     }
 }
 

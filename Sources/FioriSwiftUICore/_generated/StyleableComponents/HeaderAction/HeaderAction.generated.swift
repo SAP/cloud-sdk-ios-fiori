@@ -23,8 +23,12 @@ public extension HeaderAction {
 
 public extension HeaderAction {
     init(_ configuration: HeaderActionConfiguration) {
+        self.init(configuration, shouldApplyDefaultStyle: false)
+    }
+
+    internal init(_ configuration: HeaderActionConfiguration, shouldApplyDefaultStyle: Bool) {
         self.headerAction = configuration.headerAction
-        self._shouldApplyDefaultStyle = false
+        self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
     }
 }
 

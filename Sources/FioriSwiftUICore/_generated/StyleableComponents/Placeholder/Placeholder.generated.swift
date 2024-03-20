@@ -23,8 +23,12 @@ public extension Placeholder {
 
 public extension Placeholder {
     init(_ configuration: PlaceholderConfiguration) {
+        self.init(configuration, shouldApplyDefaultStyle: false)
+    }
+
+    internal init(_ configuration: PlaceholderConfiguration, shouldApplyDefaultStyle: Bool) {
         self.placeholder = configuration.placeholder
-        self._shouldApplyDefaultStyle = false
+        self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
     }
 }
 

@@ -29,9 +29,13 @@ public extension CardMedia {
 
 public extension CardMedia {
     init(_ configuration: CardMediaConfiguration) {
+        self.init(configuration, shouldApplyDefaultStyle: false)
+    }
+
+    internal init(_ configuration: CardMediaConfiguration, shouldApplyDefaultStyle: Bool) {
         self.mediaImage = configuration.mediaImage
         self.description = configuration.description
-        self._shouldApplyDefaultStyle = false
+        self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
     }
 }
 

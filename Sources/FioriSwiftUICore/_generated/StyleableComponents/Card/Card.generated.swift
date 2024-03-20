@@ -85,6 +85,10 @@ public extension Card {
 
 public extension Card {
     init(_ configuration: CardConfiguration) {
+        self.init(configuration, shouldApplyDefaultStyle: false)
+    }
+
+    internal init(_ configuration: CardConfiguration, shouldApplyDefaultStyle: Bool) {
         self.mediaImage = configuration.mediaImage
         self.description = configuration.description
         self.title = configuration.title
@@ -101,7 +105,7 @@ public extension Card {
         self.cardBody = configuration.cardBody
         self.action = configuration.action
         self.secondaryAction = configuration.secondaryAction
-        self._shouldApplyDefaultStyle = false
+        self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
     }
 }
 

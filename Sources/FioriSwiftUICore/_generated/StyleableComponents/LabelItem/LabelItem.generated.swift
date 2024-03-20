@@ -34,10 +34,14 @@ public extension LabelItem {
 
 public extension LabelItem {
     init(_ configuration: LabelItemConfiguration) {
+        self.init(configuration, shouldApplyDefaultStyle: false)
+    }
+
+    internal init(_ configuration: LabelItemConfiguration, shouldApplyDefaultStyle: Bool) {
         self.icon = configuration.icon
         self.title = configuration.title
         self.alignment = configuration.alignment
-        self._shouldApplyDefaultStyle = false
+        self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
     }
 }
 

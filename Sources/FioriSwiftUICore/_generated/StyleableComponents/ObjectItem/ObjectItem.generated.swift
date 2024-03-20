@@ -70,6 +70,10 @@ public extension ObjectItem {
 
 public extension ObjectItem {
     init(_ configuration: ObjectItemConfiguration) {
+        self.init(configuration, shouldApplyDefaultStyle: false)
+    }
+
+    internal init(_ configuration: ObjectItemConfiguration, shouldApplyDefaultStyle: Bool) {
         self.title = configuration.title
         self.subtitle = configuration.subtitle
         self.footnote = configuration.footnote
@@ -82,7 +86,7 @@ public extension ObjectItem {
         self.footnoteIcons = configuration.footnoteIcons
         self.tags = configuration.tags
         self.action = configuration.action
-        self._shouldApplyDefaultStyle = false
+        self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
     }
 }
 

@@ -41,12 +41,16 @@ public extension CardExtHeader {
 
 public extension CardExtHeader {
     init(_ configuration: CardExtHeaderConfiguration) {
+        self.init(configuration, shouldApplyDefaultStyle: false)
+    }
+
+    internal init(_ configuration: CardExtHeaderConfiguration, shouldApplyDefaultStyle: Bool) {
         self.row1 = configuration.row1
         self.row2 = configuration.row2
         self.row3 = configuration.row3
         self.kpi = configuration.kpi
         self.kpiCaption = configuration.kpiCaption
-        self._shouldApplyDefaultStyle = false
+        self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
     }
 }
 
