@@ -19,10 +19,17 @@ public struct CardHeaderBaseStyle: CardHeaderStyle {
             configuration._cardMedia
             
             configuration._cardMainHeader
-                .padding(EdgeInsets(top: 16, leading: 16, bottom: 16, trailing: 12))
+                .padding(EdgeInsets(top: 16, leading: 16, bottom: 6, trailing: 16))
             
-            configuration._cardExtHeader
-                .padding(.horizontal, 16)
+            if !(configuration._cardExtHeader.row1.isEmpty &&
+                configuration._cardExtHeader.row2.isEmpty &&
+                configuration._cardExtHeader.row3.isEmpty &&
+                configuration._cardExtHeader.kpi.isEmpty &&
+                configuration._cardExtHeader.kpiCaption.isEmpty)
+            {
+                configuration._cardExtHeader
+                    .padding(EdgeInsets(top: 6, leading: 16, bottom: 6, trailing: 16))
+            }
         }
     }
 }
@@ -189,7 +196,23 @@ extension CardHeaderFioriStyle {
 }
 
 #Preview("") {
-    CardHeader(mediaImage: Image(systemName: "sportscourt"),
+    CardHeader(mediaImage: Image("ProfilePic"),
+               description: "Meida title",
+               title: "Title",
+               subtitle: "Subtitle",
+               icons: [],
+               detailImage: Image(systemName: "person.crop.circle"),
+               headerAction: FioriButton(title: "Action"),
+               counter: "1 of 3")
+        .mediaImageStyle { config in
+            config.mediaImage
+                .aspectRatio(contentMode: .fill)
+                .frame(height: 145)
+        }
+}
+
+#Preview("") {
+    CardHeader(mediaImage: Image("attachment009"),
                description: "Title",
                title: "Title",
                subtitle: "Subtitle",
@@ -235,7 +258,7 @@ extension CardHeaderFioriStyle {
 #Preview("VB") {
     CardHeader {
         Color.purple
-        //            .frame(height: 145)
+            .frame(height: 145)
     } description: {
         Text("Title")
     } title: {
@@ -245,7 +268,9 @@ extension CardHeaderFioriStyle {
     } icons: {
         Text("1")
     } detailImage: {
-        Image(systemName: "person.crop.circle")
+        Image("ProfilePic")
+            .resizable()
+            .clipShape(Circle())
     } headerAction: {
         FioriButton(title: "Action")
     } counter: {
@@ -283,4 +308,48 @@ extension CardHeaderFioriStyle {
     } kpiCaption: {
         Text("Revenue")
     }
+}
+
+#Preview("") {
+    CardHeader(mediaImage: Image("attachment009"),
+               description: "Title",
+               title: "Title",
+               subtitle: "Subtitle",
+               icons: [],
+               detailImage: Image(systemName: "person.crop.circle"),
+               headerAction: FioriButton(title: "Action"),
+               counter: "1 of 3",
+               row1: {
+                   HStack {
+                       LabelItem(icon: Image(systemName: "exclamationmark.triangle.fill"), title: "Negative")
+                           .titleStyle { config in
+                               config.title.foregroundStyle(Color.preferredColor(.negativeLabel))
+                           }
+                       LabelItem(title: "Critical")
+                           .titleStyle { config in
+                               config.title.foregroundStyle(Color.preferredColor(.criticalLabel))
+                           }
+                       LabelItem(icon: Image(systemName: "checkmark.circle"), title: "Positive")
+                           .titleStyle { config in
+                               config.title.foregroundStyle(Color.preferredColor(.positiveLabel))
+                           }
+                   }
+               },
+               row2: {
+                   HStack {
+                       Text("256 reviews")
+                   }
+               },
+               row3: {
+                   HStack {
+                       Tag(verbatim: "Tag")
+                       Tag(verbatim: "Tag")
+                       Tag(verbatim: "Tag")
+                   }
+               },
+               kpi: KPIItemData.components([.icon(Image(systemName: "arrowtriangle.up.fill")),
+                                            .unit("$"),
+                                            .metric("26.9"),
+                                            .unit("M")]),
+               kpiCaption: "Revenue")
 }

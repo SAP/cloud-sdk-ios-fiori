@@ -47,8 +47,9 @@ extension _SortFilterCFGItemContainer: View {
                     .background(Color.preferredColor(.secondaryGroupedBackground))
                 }
             }
-            .background(Color.preferredColor(.secondaryBackground))
+            .background(Color.preferredColor(.primaryGroupedBackground))
         }
+        .background(Color.preferredColor(.primaryGroupedBackground))
         .onChange(of: self._items) { _ in
             self.checkUpdateButtonState()
         }

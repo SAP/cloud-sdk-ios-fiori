@@ -17,7 +17,7 @@ public struct Kpi {
 
 public extension Kpi {
     init(kpi: KPIItemData? = nil) {
-        self.init(kpi: { KPIItem(kpi) })
+        self.init(kpi: { OptionalKPIItem(kpi) })
     }
 }
 

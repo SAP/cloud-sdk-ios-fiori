@@ -1,3 +1,4 @@
+import FioriThemeManager
 import SwiftUI
 
 extension Fiori {
@@ -75,6 +76,7 @@ extension SortFilterView: View {
             _items
                 .environmentObject(context)
         }
+        .background(Color.preferredColor(.chromeSecondary))
     }
 }
 

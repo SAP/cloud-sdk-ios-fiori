@@ -144,13 +144,13 @@ protocol _CardBodyComponent {
 
 // sourcery: BaseComponent
 protocol _MediaImageComponent {
-    // sourcery: @ViewBuilder
+    // sourcery: @ViewBuilder, resultBuilder.backingComponent = OptionalImage
     var mediaImage: Image? { get }
 }
 
 // sourcery: BaseComponent
 protocol _KpiComponent {
-    // sourcery: @ViewBuilder, resultBuilder.backingComponent = KPIItem
+    // sourcery: @ViewBuilder, resultBuilder.backingComponent = OptionalKPIItem
     var kpi: KPIItemData? { get }
 }
 

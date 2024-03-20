@@ -23,7 +23,7 @@ public extension CardMedia {
     init(mediaImage: Image? = nil,
          description: AttributedString? = nil)
     {
-        self.init(mediaImage: { mediaImage }, description: { OptionalText(description) })
+        self.init(mediaImage: { OptionalImage(mediaImage) }, description: { OptionalText(description) })
     }
 }
 
