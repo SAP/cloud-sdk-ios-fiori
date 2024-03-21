@@ -15,5 +15,7 @@ public struct TextViewFioriStyle: TextViewStyle {
     @ViewBuilder
     public func makeBody(_ configuration: TextViewConfiguration) -> some View {
         TextView(configuration)
+            .foregroundStyle(Color.preferredColor(.primaryLabel))
+            .font(.fiori(forTextStyle: .body))
     }
 }

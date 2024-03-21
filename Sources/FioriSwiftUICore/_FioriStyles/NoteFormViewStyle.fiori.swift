@@ -40,8 +40,6 @@ extension NoteFormViewFioriStyle {
         @ViewBuilder
         func makeBody(_ configuration: NoteFormViewConfiguration) -> some View {
             NoteFormView(configuration)
-                .foregroundStyle(self.getTextColor(configuration))
-                .font(.fiori(forTextStyle: .body))
                 .accentColor(self.getCursorColor(configuration))
                 .focused(self.$isFocused)
                 .textInputInfoViewStyle { config in
@@ -61,6 +59,11 @@ extension NoteFormViewFioriStyle {
                             self.checkCharCount(configuration, textString: s)
                         }
                         .padding(.bottom, self.isInfoViewNeeded(configuration) ? 0 : 9)
+                }
+                .textViewStyle { config in
+                    TextView(config)
+                        .foregroundStyle(self.getTextColor(configuration))
+                        .font(.fiori(forTextStyle: .body))
                 }
                 .padding(.top, 9)
         }
