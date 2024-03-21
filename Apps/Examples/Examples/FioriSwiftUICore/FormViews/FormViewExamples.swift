@@ -13,6 +13,16 @@ struct FormViewExamples: View {
             {
                 Text("KeyValueFormView Example")
             }
+            NavigationLink(
+                destination: TitleFormViewExample())
+            {
+                Text("TitleFormView Example")
+            }
+            NavigationLink(
+                destination: TextFieldFormViewExample())
+            {
+                Text("TextFieldFormView Example")
+            }
         }
     }
 }

@@ -3,31 +3,29 @@
 import Foundation
 import SwiftUI
 
-public protocol NoteFormViewStyle: DynamicProperty {
+public protocol TitleFormViewStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: NoteFormViewConfiguration) -> Body
+    func makeBody(_ configuration: TitleFormViewConfiguration) -> Body
 }
 
-struct AnyNoteFormViewStyle: NoteFormViewStyle {
-    let content: (NoteFormViewConfiguration) -> any View
+struct AnyTitleFormViewStyle: TitleFormViewStyle {
+    let content: (TitleFormViewConfiguration) -> any View
 
-    init(@ViewBuilder _ content: @escaping (NoteFormViewConfiguration) -> any View) {
+    init(@ViewBuilder _ content: @escaping (TitleFormViewConfiguration) -> any View) {
         self.content = content
     }
 
-    public func makeBody(_ configuration: NoteFormViewConfiguration) -> some View {
+    public func makeBody(_ configuration: TitleFormViewConfiguration) -> some View {
         self.content(configuration).typeErased
     }
 }
 
-public struct NoteFormViewConfiguration {
+public struct TitleFormViewConfiguration {
     @Binding public var text: String
     public let placeholder: Placeholder
     public let controlState: ControlState
     public let errorMessage: AttributedString?
-    public let minTextEditorHeight: CGFloat?
-    public let maxTextEditorHeight: CGFloat?
     public let maxTextLength: Int?
     public let hintText: AttributedString?
     public let hidesReadOnlyHint: Bool
@@ -39,12 +37,12 @@ public struct NoteFormViewConfiguration {
     public typealias Placeholder = ConfigurationViewWrapper
 }
 
-public struct NoteFormViewFioriStyle: NoteFormViewStyle {
-    public func makeBody(_ configuration: NoteFormViewConfiguration) -> some View {
-        NoteFormView(configuration)
-            .textViewStyle(TextViewFioriStyle())
+public struct TitleFormViewFioriStyle: TitleFormViewStyle {
+    public func makeBody(_ configuration: TitleFormViewConfiguration) -> some View {
+        TitleFormView(configuration)
+            .textInputFieldStyle(TextInputFieldFioriStyle())
             .placeholderStyle(PlaceholderFioriStyle())
-            .placeholderTextEditorStyle(PlaceholderTextEditorFioriStyle())
+            .placeholderTextFieldStyle(PlaceholderTextFieldFioriStyle())
             .formViewStyle(FormViewFioriStyle())
     }
 }

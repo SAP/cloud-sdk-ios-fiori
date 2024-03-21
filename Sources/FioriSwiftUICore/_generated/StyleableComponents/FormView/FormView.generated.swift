@@ -4,14 +4,16 @@ import Foundation
 import SwiftUI
 
 public struct FormView {
-    let controlState: ControlState?
+    /// The `ControlState` of the form view. The default is `normal`
+    let controlState: ControlState
+    /// The error message of the form view.
     let errorMessage: AttributedString?
 
     @Environment(\.formViewStyle) var style
 
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(controlState: ControlState? = nil,
+    public init(controlState: ControlState = .normal,
                 errorMessage: AttributedString? = nil)
     {
         self.controlState = controlState
@@ -52,7 +54,7 @@ private extension FormView {
         s._shouldApplyDefaultStyle = bool
         return s
     }
-        
+
     func defaultStyle() -> some View {
         FormView(.init(controlState: self.controlState, errorMessage: self.errorMessage))
             .shouldApplyDefaultStyle(false)

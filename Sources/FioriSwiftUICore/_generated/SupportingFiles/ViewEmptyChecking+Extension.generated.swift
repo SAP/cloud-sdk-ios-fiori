@@ -266,6 +266,12 @@ extension PlaceholderTextEditor: _ViewEmptyChecking {
     }
 }
 
+extension PlaceholderTextField: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        placeholder.isEmpty
+    }
+}
+
 extension Row1: _ViewEmptyChecking {
     public var isEmpty: Bool {
         row1.isEmpty
@@ -320,6 +326,19 @@ extension Tags: _ViewEmptyChecking {
     }
 }
 
+extension TextFieldFormView: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        title.isEmpty &&
+            placeholder.isEmpty
+    }
+}
+
+extension TextInputField: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        false
+    }
+}
+
 extension TextInputInfoView: _ViewEmptyChecking {
     public var isEmpty: Bool {
         icon.isEmpty &&
@@ -337,5 +356,11 @@ extension TextView: _ViewEmptyChecking {
 extension Title: _ViewEmptyChecking {
     public var isEmpty: Bool {
         title.isEmpty
+    }
+}
+
+extension TitleFormView: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        placeholder.isEmpty
     }
 }

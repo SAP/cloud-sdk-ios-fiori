@@ -20,6 +20,7 @@ struct NoteFormViewExample: View {
     @State var showsErrorMessage = false
     @State var showsCharCount = false
     @State var allowsBeyondLimit = false
+    @State var hidesReadonlyHint = false
 
     @State var text = ""
 
@@ -39,6 +40,9 @@ struct NoteFormViewExample: View {
                 Toggle("Allows Beyond Limit", isOn: self.$allowsBeyondLimit)
                     .padding(.leading, 16)
                     .padding(.trailing, 16)
+                Toggle("Hides Read-Only Hint", isOn: self.$hidesReadonlyHint)
+                    .padding(.leading, 16)
+                    .padding(.trailing, 16)
 
                 Text("Default NoteForm")
                 NoteFormView(text: self.$valueText1, placeholder: "NoteFormView", errorMessage: self.getErrorMessage(), maxTextLength: self.getMaxTextLength(), hintText: self.getHintText(), isCharCountEnabled: self.showsCharCount, allowsBeyondLimit: self.allowsBeyondLimit)
@@ -55,7 +59,7 @@ struct NoteFormViewExample: View {
                 NoteFormView(text: self.$disabledText, placeholder: "Disabled", controlState: .disabled, minTextEditorHeight: 50, maxTextEditorHeight: 100)
 
                 Text("Read-Only")
-                NoteFormView(text: self.$readOnlyText, placeholder: "Read-Only", controlState: .readOnly, minTextEditorHeight: 50, maxTextEditorHeight: 200)
+                NoteFormView(text: self.$readOnlyText, placeholder: "Read-Only", controlState: .readOnly, minTextEditorHeight: 50, maxTextEditorHeight: 200, hidesReadOnlyHint: self.hidesReadonlyHint)
             }
             .scrollDismissesKeyboard(.immediately)
         }

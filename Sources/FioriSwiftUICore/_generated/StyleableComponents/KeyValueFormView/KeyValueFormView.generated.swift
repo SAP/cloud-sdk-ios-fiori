@@ -7,16 +7,27 @@ public struct KeyValueFormView {
     let title: any View
     @Binding var text: String
     let placeholder: any View
-    let controlState: ControlState?
+    /// The `ControlState` of the form view. The default is `normal`
+    let controlState: ControlState
+    /// The error message of the form view.
     let errorMessage: AttributedString?
+    /// The minimum height of the TextEditor. It needs to be greater than 44. Otherwise, it is ignored.
     let minTextEditorHeight: CGFloat?
+    /// The maximum height of the TextEditor.
     let maxTextEditorHeight: CGFloat?
+    /// The maximum length of the text.
     let maxTextLength: Int?
+    /// The maximum length of the text. Default is no limit.
     let hintText: AttributedString?
-    let hidesReadOnlyHint: Bool?
-    let isCharCountEnabled: Bool?
-    let allowsBeyondLimit: Bool?
+    /// This property indicates if the read-only hint is to be hidden or not. Default is `false`.
+    let hidesReadOnlyHint: Bool
+    /// If `isCharCountEnabled` is true and `maxTextLenght` is not `nil`, the character count number and the `maxValueTextLength` will be shown. The character count number will be updated during editing. The default is `false`.
+    let isCharCountEnabled: Bool
+    /// If `allowsBeyondLimit` is `true`, it will allow the user to input continuously even after `maxValueTextLength` is reached. It will be in an error state with an error message and a semantic negative color. The default is false.
+    let allowsBeyondLimit: Bool
+    /// The custom error message when the character count limitation is reached. If this property is `nil`, the default localized message will be used.
     let charCountReachLimitMessage: String?
+    /// The custom error message when the character count exceeds the limitation. If this property is `nil`, the default localized message will be used.
     let charCountBeyondLimitMsg: String?
 
     @Environment(\.keyValueFormViewStyle) var style
@@ -26,15 +37,15 @@ public struct KeyValueFormView {
     public init(@ViewBuilder title: () -> any View,
                 text: Binding<String>,
                 @ViewBuilder placeholder: () -> any View = { EmptyView() },
-                controlState: ControlState? = nil,
+                controlState: ControlState = .normal,
                 errorMessage: AttributedString? = nil,
                 minTextEditorHeight: CGFloat? = nil,
                 maxTextEditorHeight: CGFloat? = nil,
                 maxTextLength: Int? = nil,
                 hintText: AttributedString? = nil,
-                hidesReadOnlyHint: Bool? = nil,
-                isCharCountEnabled: Bool? = nil,
-                allowsBeyondLimit: Bool? = nil,
+                hidesReadOnlyHint: Bool = false,
+                isCharCountEnabled: Bool = false,
+                allowsBeyondLimit: Bool = false,
                 charCountReachLimitMessage: String? = nil,
                 charCountBeyondLimitMsg: String? = nil)
     {
@@ -59,15 +70,15 @@ public extension KeyValueFormView {
     init(title: AttributedString,
          text: Binding<String>,
          placeholder: AttributedString? = nil,
-         controlState: ControlState? = nil,
+         controlState: ControlState = .normal,
          errorMessage: AttributedString? = nil,
          minTextEditorHeight: CGFloat? = nil,
          maxTextEditorHeight: CGFloat? = nil,
          maxTextLength: Int? = nil,
          hintText: AttributedString? = nil,
-         hidesReadOnlyHint: Bool? = nil,
-         isCharCountEnabled: Bool? = nil,
-         allowsBeyondLimit: Bool? = nil,
+         hidesReadOnlyHint: Bool = false,
+         isCharCountEnabled: Bool = false,
+         allowsBeyondLimit: Bool = false,
          charCountReachLimitMessage: String? = nil,
          charCountBeyondLimitMsg: String? = nil)
     {
@@ -120,7 +131,7 @@ private extension KeyValueFormView {
         s._shouldApplyDefaultStyle = bool
         return s
     }
-        
+
     func defaultStyle() -> some View {
         KeyValueFormView(.init(title: .init(self.title), text: self.$text, placeholder: .init(self.placeholder), controlState: self.controlState, errorMessage: self.errorMessage, minTextEditorHeight: self.minTextEditorHeight, maxTextEditorHeight: self.maxTextEditorHeight, maxTextLength: self.maxTextLength, hintText: self.hintText, hidesReadOnlyHint: self.hidesReadOnlyHint, isCharCountEnabled: self.isCharCountEnabled, allowsBeyondLimit: self.allowsBeyondLimit, charCountReachLimitMessage: self.charCountReachLimitMessage, charCountBeyondLimitMsg: self.charCountBeyondLimitMsg))
             .shouldApplyDefaultStyle(false)

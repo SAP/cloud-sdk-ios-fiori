@@ -3,20 +3,16 @@
 import Foundation
 import SwiftUI
 
-public struct NoteFormView {
+public struct TitleFormView {
     @Binding var text: String
     let placeholder: any View
     /// The `ControlState` of the form view. The default is `normal`
     let controlState: ControlState
     /// The error message of the form view.
     let errorMessage: AttributedString?
-    /// The minimum height of the TextEditor. It needs to be greater than 44. Otherwise, it is ignored.
-    let minTextEditorHeight: CGFloat?
-    /// The maximum height of the TextEditor.
-    let maxTextEditorHeight: CGFloat?
-    /// The maximum length of the text.
-    let maxTextLength: Int?
     /// The maximum length of the text. Default is no limit.
+    let maxTextLength: Int?
+    /// The hint text.
     let hintText: AttributedString?
     /// This property indicates if the read-only hint is to be hidden or not. Default is `false`.
     let hidesReadOnlyHint: Bool
@@ -29,7 +25,7 @@ public struct NoteFormView {
     /// The custom error message when the character count exceeds the limitation. If this property is `nil`, the default localized message will be used.
     let charCountBeyondLimitMsg: String?
 
-    @Environment(\.noteFormViewStyle) var style
+    @Environment(\.titleFormViewStyle) var style
 
     fileprivate var _shouldApplyDefaultStyle = true
 
@@ -37,8 +33,6 @@ public struct NoteFormView {
                 @ViewBuilder placeholder: () -> any View = { EmptyView() },
                 controlState: ControlState = .normal,
                 errorMessage: AttributedString? = nil,
-                minTextEditorHeight: CGFloat? = nil,
-                maxTextEditorHeight: CGFloat? = nil,
                 maxTextLength: Int? = nil,
                 hintText: AttributedString? = nil,
                 hidesReadOnlyHint: Bool = false,
@@ -51,8 +45,6 @@ public struct NoteFormView {
         self.placeholder = Placeholder { placeholder() }
         self.controlState = controlState
         self.errorMessage = errorMessage
-        self.minTextEditorHeight = minTextEditorHeight
-        self.maxTextEditorHeight = maxTextEditorHeight
         self.maxTextLength = maxTextLength
         self.hintText = hintText
         self.hidesReadOnlyHint = hidesReadOnlyHint
@@ -63,13 +55,11 @@ public struct NoteFormView {
     }
 }
 
-public extension NoteFormView {
+public extension TitleFormView {
     init(text: Binding<String>,
          placeholder: AttributedString? = nil,
          controlState: ControlState = .normal,
          errorMessage: AttributedString? = nil,
-         minTextEditorHeight: CGFloat? = nil,
-         maxTextEditorHeight: CGFloat? = nil,
          maxTextLength: Int? = nil,
          hintText: AttributedString? = nil,
          hidesReadOnlyHint: Bool = false,
@@ -78,22 +68,20 @@ public extension NoteFormView {
          charCountReachLimitMessage: String? = nil,
          charCountBeyondLimitMsg: String? = nil)
     {
-        self.init(text: text, placeholder: { OptionalText(placeholder) }, controlState: controlState, errorMessage: errorMessage, minTextEditorHeight: minTextEditorHeight, maxTextEditorHeight: maxTextEditorHeight, maxTextLength: maxTextLength, hintText: hintText, hidesReadOnlyHint: hidesReadOnlyHint, isCharCountEnabled: isCharCountEnabled, allowsBeyondLimit: allowsBeyondLimit, charCountReachLimitMessage: charCountReachLimitMessage, charCountBeyondLimitMsg: charCountBeyondLimitMsg)
+        self.init(text: text, placeholder: { OptionalText(placeholder) }, controlState: controlState, errorMessage: errorMessage, maxTextLength: maxTextLength, hintText: hintText, hidesReadOnlyHint: hidesReadOnlyHint, isCharCountEnabled: isCharCountEnabled, allowsBeyondLimit: allowsBeyondLimit, charCountReachLimitMessage: charCountReachLimitMessage, charCountBeyondLimitMsg: charCountBeyondLimitMsg)
     }
 }
 
-public extension NoteFormView {
-    init(_ configuration: NoteFormViewConfiguration) {
+public extension TitleFormView {
+    init(_ configuration: TitleFormViewConfiguration) {
         self.init(configuration, shouldApplyDefaultStyle: false)
     }
 
-    internal init(_ configuration: NoteFormViewConfiguration, shouldApplyDefaultStyle: Bool) {
+    internal init(_ configuration: TitleFormViewConfiguration, shouldApplyDefaultStyle: Bool) {
         self._text = configuration.$text
         self.placeholder = configuration.placeholder
         self.controlState = configuration.controlState
         self.errorMessage = configuration.errorMessage
-        self.minTextEditorHeight = configuration.minTextEditorHeight
-        self.maxTextEditorHeight = configuration.maxTextEditorHeight
         self.maxTextLength = configuration.maxTextLength
         self.hintText = configuration.hintText
         self.hidesReadOnlyHint = configuration.hidesReadOnlyHint
@@ -105,13 +93,13 @@ public extension NoteFormView {
     }
 }
 
-extension NoteFormView: View {
+extension TitleFormView: View {
     public var body: some View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(text: self.$text, placeholder: .init(self.placeholder), controlState: self.controlState, errorMessage: self.errorMessage, minTextEditorHeight: self.minTextEditorHeight, maxTextEditorHeight: self.maxTextEditorHeight, maxTextLength: self.maxTextLength, hintText: self.hintText, hidesReadOnlyHint: self.hidesReadOnlyHint, isCharCountEnabled: self.isCharCountEnabled, allowsBeyondLimit: self.allowsBeyondLimit, charCountReachLimitMessage: self.charCountReachLimitMessage, charCountBeyondLimitMsg: self.charCountBeyondLimitMsg)).typeErased
-                .transformEnvironment(\.noteFormViewStyleStack) { stack in
+            self.style.resolve(configuration: .init(text: self.$text, placeholder: .init(self.placeholder), controlState: self.controlState, errorMessage: self.errorMessage, maxTextLength: self.maxTextLength, hintText: self.hintText, hidesReadOnlyHint: self.hidesReadOnlyHint, isCharCountEnabled: self.isCharCountEnabled, allowsBeyondLimit: self.allowsBeyondLimit, charCountReachLimitMessage: self.charCountReachLimitMessage, charCountBeyondLimitMsg: self.charCountBeyondLimitMsg)).typeErased
+                .transformEnvironment(\.titleFormViewStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
                     }
@@ -120,7 +108,7 @@ extension NoteFormView: View {
     }
 }
 
-private extension NoteFormView {
+private extension TitleFormView {
     func shouldApplyDefaultStyle(_ bool: Bool) -> some View {
         var s = self
         s._shouldApplyDefaultStyle = bool
@@ -128,9 +116,9 @@ private extension NoteFormView {
     }
 
     func defaultStyle() -> some View {
-        NoteFormView(.init(text: self.$text, placeholder: .init(self.placeholder), controlState: self.controlState, errorMessage: self.errorMessage, minTextEditorHeight: self.minTextEditorHeight, maxTextEditorHeight: self.maxTextEditorHeight, maxTextLength: self.maxTextLength, hintText: self.hintText, hidesReadOnlyHint: self.hidesReadOnlyHint, isCharCountEnabled: self.isCharCountEnabled, allowsBeyondLimit: self.allowsBeyondLimit, charCountReachLimitMessage: self.charCountReachLimitMessage, charCountBeyondLimitMsg: self.charCountBeyondLimitMsg))
+        TitleFormView(.init(text: self.$text, placeholder: .init(self.placeholder), controlState: self.controlState, errorMessage: self.errorMessage, maxTextLength: self.maxTextLength, hintText: self.hintText, hidesReadOnlyHint: self.hidesReadOnlyHint, isCharCountEnabled: self.isCharCountEnabled, allowsBeyondLimit: self.allowsBeyondLimit, charCountReachLimitMessage: self.charCountReachLimitMessage, charCountBeyondLimitMsg: self.charCountBeyondLimitMsg))
             .shouldApplyDefaultStyle(false)
-            .noteFormViewStyle(NoteFormViewFioriStyle.ContentFioriStyle())
+            .titleFormViewStyle(TitleFormViewFioriStyle.ContentFioriStyle())
             .typeErased
     }
 }

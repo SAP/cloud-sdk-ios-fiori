@@ -2,16 +2,7 @@ import FioriThemeManager
 import Foundation
 import SwiftUI
 
-/**
- This file provides default fiori style for the component.
- 
- 1. Uncomment fhe following code.
- 2. Implement layout and style in corresponding places.
- 3. Delete `.generated` from file name.
- 4. Move this file to `_FioriStyles` folder under `FioriSwiftUICore`.
- */
-
-// Base Layout style
+/// The base layout style for `NoteFormView`.
 public struct NoteFormViewBaseStyle: NoteFormViewStyle {
     @FocusState var isFocused: Bool
 
@@ -21,66 +12,23 @@ public struct NoteFormViewBaseStyle: NoteFormViewStyle {
                 .focused(self.$isFocused)
                 .disabled(self.getDisabled(configuration))
         }
-        .textInputInfoView(isPresented: Binding(get: { isInfoViewNeeded(configuration) }, set: { _ in }), description: self.getInfoString(configuration, isFocused: self.isFocused), counter: self.getCounterString(configuration, isFocused: self.isFocused))
+        .textInputInfoView(isPresented: Binding(get: { self.isInfoViewNeeded(configuration) }, set: { _ in }), description: self.getInfoString(configuration), counter: self.getCounterString(configuration))
     }
 
     func getDisabled(_ configuration: NoteFormViewConfiguration) -> Bool {
-        switch getControlState(configuration) {
-        case .disabled, .readOnly:
-            return true
-        default:
-            return false
-        }
+        !TextInputFormViewConfiguration(configuration, isFocused: self.isFocused).getEditable()
     }
 
-    func getCounterString(_ configuration: NoteFormViewConfiguration, isFocused: Bool) -> AttributedString? {
-        guard configuration.isCharCountEnabled == true else {
-            return nil
-        }
-
-        guard let limit = configuration.maxTextLength, limit > 0 else {
-            return nil
-        }
-
-        var hasError = false
-        if let errorMessage = configuration.errorMessage, !errorMessage.characters.isEmpty {
-            hasError = true
-        }
-
-        let charCount = configuration.text.count
-        var charCountString = AttributedString((!isFocused && charCount == 0) ? "-" : "\(charCount)")
-        if (isFocused && !hasError) || (checkMaxLength(configuration) == .onLimit) {
-            charCountString.foregroundColor = .preferredColor(.tintColor)
-        }
-        var limitString = AttributedString("/\(limit)")
-        limitString.foregroundColor = .preferredColor(.primaryLabel)
-        var counterString = charCountString + limitString
-        counterString.font = .fiori(forTextStyle: .footnote)
-        return counterString
+    func getCounterString(_ configuration: NoteFormViewConfiguration) -> AttributedString? {
+        TextInputFormViewConfiguration(configuration, isFocused: self.isFocused).getCounterString()
     }
 
-    func getInfoString(_ configuration: NoteFormViewConfiguration, isFocused: Bool) -> AttributedString? {
-        let lengthCondition = checkMaxLength(configuration)
+    func getInfoString(_ configuration: NoteFormViewConfiguration) -> AttributedString? {
+        TextInputFormViewConfiguration(configuration, isFocused: self.isFocused).getInfoString()
+    }
 
-        if let errorMessage = configuration.errorMessage, !errorMessage.characters.isEmpty {
-            return errorMessage
-        }
-
-        if lengthCondition == .onLimit {
-            let infoString = AttributedString(configuration.charCountReachLimitMessage ?? NSLocalizedString("No more characters remaining", tableName: "FioriSwiftUICore", bundle: fioriSwiftUICoreBundle, comment: ""))
-            return infoString
-        }
-
-        if lengthCondition == .overLimit {
-            let infoString = AttributedString(configuration.charCountReachLimitMessage ?? NSLocalizedString("Reduce the number of characters", tableName: "FioriSwiftUICore", bundle: fioriSwiftUICoreBundle, comment: ""))
-            return infoString
-        }
-
-        if let hintText = configuration.hintText {
-            return hintText
-        }
-
-        return nil
+    func isInfoViewNeeded(_ configuration: NoteFormViewConfiguration) -> Bool {
+        TextInputFormViewConfiguration(configuration, isFocused: self.isFocused).isInfoViewNeeded()
     }
 }
 
@@ -108,70 +56,41 @@ extension NoteFormViewFioriStyle {
                         .frame(minHeight: self.getMinHeight(configuration))
                         .frame(maxHeight: self.getMaxHeight(configuration))
                         .background(RoundedRectangle(cornerRadius: 8).stroke(self.getBorderColor(configuration), lineWidth: self.getBorderWidth(configuration)).background(self.getBackgroundColor(configuration)))
+                        .cornerRadius(8)
                         .onChange(of: configuration.text) { s in
                             self.checkCharCount(configuration, textString: s)
                         }
-                        .padding(.bottom, isInfoViewNeeded(configuration) ? 0 : 9)
+                        .padding(.bottom, self.isInfoViewNeeded(configuration) ? 0 : 9)
                 }
                 .padding(.top, 9)
         }
 
         func getTextColor(_ configuration: NoteFormViewConfiguration) -> Color {
-            switch getControlState(configuration) {
-            case .disabled:
-                return .preferredColor(.separator) // .opacity(0.37)
-            default:
-                return .preferredColor(.primaryLabel)
-            }
+            TextInputFormViewConfiguration(configuration, isFocused: self.isFocused).getTextColor()
         }
 
         func getCursorColor(_ configuration: NoteFormViewConfiguration) -> Color {
-            hasErrorMessage(configuration) ? .preferredColor(.negativeLabel) : .preferredColor(.tintColor)
+            TextInputFormViewConfiguration(configuration, isFocused: self.isFocused).getCursorColor()
         }
         
         func getBorderColor(_ configuration: NoteFormViewConfiguration) -> Color {
-            guard !hasErrorMessage(configuration) else {
-                return .preferredColor(.negativeLabel)
-            }
-
-            if self.isFocused {
-                return .preferredColor(.tintColor)
-            }
-
-            switch getControlState(configuration) {
-            case .disabled:
-                return .preferredColor(.tertiaryFill)
-            case .readOnly:
-                return .clear
-            default:
-                return .preferredColor(.separatorOpaque)
-            }
+            TextInputFormViewConfiguration(configuration, isFocused: self.isFocused).getBorderColor()
         }
 
         func getBackgroundColor(_ configuration: NoteFormViewConfiguration) -> Color {
-            switch getControlState(configuration) {
-            case .disabled, .readOnly:
-                return .preferredColor(.tertiaryFill)
-            default:
-                return .clear
-            }
+            TextInputFormViewConfiguration(configuration, isFocused: self.isFocused).getBackgroundColor()
         }
 
         func getBorderWidth(_ configuration: NoteFormViewConfiguration) -> CGFloat {
-            self.isFocused ? 2.0 : 0.5
+            TextInputFormViewConfiguration(configuration, isFocused: self.isFocused).getBorderWidth()
         }
 
-        func isErrorStyle(_ configuration: NoteFormViewConfiguration, isFocused: Bool = false) -> Bool {
-            let lengthCondition = checkMaxLength(configuration)
+        func isErrorStyle(_ configuration: NoteFormViewConfiguration) -> Bool {
+            TextInputFormViewConfiguration(configuration, isFocused: self.isFocused).isErrorStyle()
+        }
 
-            if let errorMessage = configuration.errorMessage, !errorMessage.characters.isEmpty {
-                return true
-            } else if lengthCondition == .onLimit {
-                return false
-            } else if lengthCondition == .overLimit {
-                return true
-            }
-            return false
+        func isInfoViewNeeded(_ configuration: NoteFormViewConfiguration) -> Bool {
+            TextInputFormViewConfiguration(configuration, isFocused: self.isFocused).isInfoViewNeeded()
         }
 
         func getMinHeight(_ configuration: NoteFormViewConfiguration) -> CGFloat {
@@ -180,7 +99,7 @@ extension NoteFormViewFioriStyle {
             guard let minHeight = configuration.minTextEditorHeight else {
                 return 88 - minHeightAdjustMent
             }
-            guard minHeight > 0 else {
+            guard minHeight > 44 else {
                 return 88 - minHeightAdjustMent
             }
             return minHeight - minHeightAdjustMent
@@ -227,92 +146,4 @@ extension NoteFormViewFioriStyle {
             FormView(configuration)
         }
     }
-}
-
-func getControlState(_ configuration: NoteFormViewConfiguration) -> ControlState {
-    guard let controlState = configuration.controlState else {
-        return .normal
-    }
-    return controlState
-}
-
-extension View {
-    func getCounterString(_ configuration: NoteFormViewConfiguration, isFocused: Bool) -> AttributedString? {
-        guard configuration.isCharCountEnabled == true else {
-            return nil
-        }
-
-        guard let limit = configuration.maxTextLength, limit > 0 else {
-            return nil
-        }
-
-        var hasError = false
-        if let errorMessage = configuration.errorMessage, !errorMessage.characters.isEmpty {
-            hasError = true
-        }
-
-        let charCount = configuration.text.count
-        var charCountString = AttributedString((!isFocused && charCount == 0) ? "-" : "\(charCount)")
-        if (isFocused && !hasError) || (checkMaxLength(configuration) == .onLimit) {
-            charCountString.foregroundColor = .preferredColor(.tintColor)
-        }
-        var limitString = AttributedString("/\(limit)")
-        limitString.foregroundColor = .preferredColor(.primaryLabel)
-        return charCountString + limitString
-    }
-}
-
-private let fioriSwiftUICoreBundle = Bundle.accessor
-
-private func hasErrorMessage(_ configuration: NoteFormViewConfiguration) -> Bool {
-    if let errorMessage = configuration.errorMessage, !errorMessage.characters.isEmpty {
-        // Has non-empty error message
-        return true
-    }
-
-    guard let maxTextLength = configuration.maxTextLength, maxTextLength > 0 else {
-        // No limit
-        return false
-    }
-
-    if configuration.text.count > maxTextLength {
-        return true
-    }
-
-    return false
-}
-
-enum LengthCondition {
-    case underLimit, onLimit, overLimit
-}
-
-private func checkMaxLength(_ configuration: NoteFormViewConfiguration) -> LengthCondition {
-    guard let maxTextLength = configuration.maxTextLength, maxTextLength > 0 else {
-        return .underLimit
-    }
-
-    let count = configuration.text.count
-
-    if count < maxTextLength {
-        return .underLimit
-    }
-
-    if count == maxTextLength || configuration.allowsBeyondLimit != true {
-        return .onLimit
-    }
-
-    return .overLimit
-}
-
-private func isInfoViewNeeded(_ configuration: NoteFormViewConfiguration) -> Bool {
-    if let errorMessage = configuration.errorMessage, !errorMessage.characters.isEmpty {
-        return true
-    }
-    if let hintText = configuration.hintText, !hintText.characters.isEmpty {
-        return true
-    }
-    if let isCharCountEnabled = configuration.isCharCountEnabled, isCharCountEnabled {
-        return true
-    }
-    return false
 }

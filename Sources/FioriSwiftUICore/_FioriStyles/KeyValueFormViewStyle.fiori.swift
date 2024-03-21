@@ -2,16 +2,7 @@ import FioriThemeManager
 import Foundation
 import SwiftUI
 
-/**
- This file provides default fiori style for the component.
- 
- 1. Uncomment fhe following code.
- 2. Implement layout and style in corresponding places.
- 3. Delete `.generated` from file name.
- 4. Move this file to `_FioriStyles` folder under `FioriSwiftUICore`.
- */
-
-// Base Layout style
+/// The base layout style for `KeyValueFormView`.
 public struct KeyValueFormViewBaseStyle: KeyValueFormViewStyle {
     public func makeBody(_ configuration: KeyValueFormViewConfiguration) -> some View {
         VStack(alignment: .leading) {
@@ -24,8 +15,6 @@ public struct KeyValueFormViewBaseStyle: KeyValueFormViewStyle {
 // Default fiori styles
 extension KeyValueFormViewFioriStyle {
     struct ContentFioriStyle: KeyValueFormViewStyle {
-        @FocusState var isFocused: Bool
-        
         func makeBody(_ configuration: KeyValueFormViewConfiguration) -> some View {
             KeyValueFormView(configuration)
                 .titleStyle { titleConf in
@@ -40,7 +29,14 @@ extension KeyValueFormViewFioriStyle {
         }
 
         func getTitleColor(_ configuration: KeyValueFormViewConfiguration) -> Color {
-            self.isDisabled(configuration) ? .preferredColor(.separator) : .preferredColor(.primaryLabel)
+            guard !(configuration.controlState == .disabled) else {
+                return .preferredColor(.separator)
+            }
+            return self.isErrorStyle(configuration) ? .preferredColor(.negativeLabel) : .preferredColor(.primaryLabel)
+        }
+
+        func isErrorStyle(_ configuration: KeyValueFormViewConfiguration) -> Bool {
+            TextInputFormViewConfiguration(configuration, isFocused: false).isErrorStyle()
         }
     }
 
@@ -55,8 +51,6 @@ extension KeyValueFormViewFioriStyle {
     struct TextViewFioriStyle: TextViewStyle {
         func makeBody(_ configuration: TextViewConfiguration) -> some View {
             TextView(configuration)
-                .padding(.top, -7)
-                .padding(.bottom, 0)
         }
     }
 
