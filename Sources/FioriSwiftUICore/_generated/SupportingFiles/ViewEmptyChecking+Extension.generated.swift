@@ -146,6 +146,12 @@ extension HeaderAction: _ViewEmptyChecking {
     }
 }
 
+extension HelperText: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        helperText.isEmpty
+    }
+}
+
 extension Icon: _ViewEmptyChecking {
     public var isEmpty: Bool {
         icon.isEmpty
@@ -216,6 +222,12 @@ extension LinearProgressIndicatorView: _ViewEmptyChecking {
 extension MediaImage: _ViewEmptyChecking {
     public var isEmpty: Bool {
         mediaImage.isEmpty
+    }
+}
+
+extension MoreActionOverflow: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        moreActionOverflow.isEmpty
     }
 }
 

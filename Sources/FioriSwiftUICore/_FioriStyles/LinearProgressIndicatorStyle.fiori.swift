@@ -33,14 +33,15 @@ public struct LinearProgressIndicatorDeterminateStyle: LinearProgressIndicatorSt
 
 /// Indeterminate styles
 public struct LinearProgressIndicatorIndeterminateStyle: LinearProgressIndicatorStyle {
+    @State var progress = 0.0
     public func makeBody(_ configuration: LinearProgressIndicatorConfiguration) -> some View {
-        ProgressView(value: configuration.indicatorProgress, total: 1.0)
+        ProgressView(value: self.progress, total: 1.0)
             .progressViewStyle(CustomLinearProgressViewStyle(color: .preferredColor(.tintColor), type: .indeterminate))
             .onAppear {
                 let timer = Timer.scheduledTimer(withTimeInterval: 0.02, repeats: true) { _ in
-                    configuration.indicatorProgress += 0.01
-                    if configuration.indicatorProgress >= 1.0 {
-                        configuration.indicatorProgress = 0.0
+                    self.progress += 0.01
+                    if self.progress >= 1.0 {
+                        self.progress = 0.0
                     }
                 }
                 RunLoop.current.add(timer, forMode: .common)
@@ -117,7 +118,7 @@ public extension LinearProgressIndicatorStyle where Self == LinearProgressIndica
 }
 
 /// Indeterminate style of the Linear Progress Indicator.
-public extension LinearProgressIndicatorStyle where Self == LinearProgressIndicatorDeterminateStyle {
+public extension LinearProgressIndicatorStyle where Self == LinearProgressIndicatorIndeterminateStyle {
     static var indeterminate: LinearProgressIndicatorIndeterminateStyle {
         LinearProgressIndicatorIndeterminateStyle()
     }

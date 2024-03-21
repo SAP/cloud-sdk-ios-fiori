@@ -26,7 +26,7 @@ struct ToolbarExample: View {
             }
             .sheet(isPresented: self.$isPresented) {
                 NavigationStack {
-                    ToolbarView(numberOfButtons: self.$numberOfButtons, useFioriToolbar: self.$useFioriToolbar, helperText: self.$helperText, customHelperText: self.$customHelperText, customOverflowIcon: self.$customOverflowIcon, primaryButtonText: self.$primaryButton, secondaryButtonText: self.$secondaryButton, thirdButtonText: self.$thirdButton, buttonType: self.$buttonType)
+                    ToolbarView(numberOfButtons: self.$numberOfButtons, useFioriToolbar: self.$useFioriToolbar, helperText: self.$helperText, customHelperText: self.$customHelperText, moreActionOverflowIcon: self.$customOverflowIcon, primaryButtonText: self.$primaryButton, secondaryButtonText: self.$secondaryButton, thirdButtonText: self.$thirdButton, buttonType: self.$buttonType)
                 }
             }
             
