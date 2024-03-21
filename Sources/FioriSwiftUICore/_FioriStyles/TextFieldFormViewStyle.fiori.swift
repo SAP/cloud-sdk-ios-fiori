@@ -36,9 +36,9 @@ extension TextFieldFormViewFioriStyle {
                             }
                             .frame(minHeight: 44)
                             .padding(EdgeInsets(top: 0, leading: 8, bottom: 0, trailing: 8))
-                        if self.showsActionButton(configuration) {
-                            Button(action: self.getAction(configuration)!) {
-                                self.getActionIcon(configuration)!
+                        if self.showsActionButton(configuration), let action = getAction(configuration), let actionIcon = self.getActionIcon(configuration) {
+                            Button(action: action) {
+                                actionIcon
                             }
                             .padding(.trailing, 8)
                         }
