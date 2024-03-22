@@ -72,6 +72,8 @@
 		9996CD00262EB4E8001B99AE /* EULAViewSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9996CCFE262EB4E7001B99AE /* EULAViewSample.swift */; };
 		9996CD03262FFEBE001B99AE /* EULA2.html in Resources */ = {isa = PBXBuildFile; fileRef = 9996CD02262FFEBD001B99AE /* EULA2.html */; };
 		99B6EF8C2672224D00515E8E /* UserConsentSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B6EF8B2672224C00515E8E /* UserConsentSample.swift */; };
+		9D0086692BA8F6820004BE15 /* TitleFormViewExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0086672BA8F6810004BE15 /* TitleFormViewExample.swift */; };
+		9D00866A2BA8F6820004BE15 /* TextFieldFormViewExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0086682BA8F6820004BE15 /* TextFieldFormViewExample.swift */; };
 		9D0B26082B9BA5C0004278A5 /* FormViewExamples.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0B26042B9BA5C0004278A5 /* FormViewExamples.swift */; };
 		9D0B26092B9BA5C0004278A5 /* KeyValueFormViewExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0B26052B9BA5C0004278A5 /* KeyValueFormViewExample.swift */; };
 		9D0B260A2B9BA5C0004278A5 /* NoteFormViewExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0B26062B9BA5C0004278A5 /* NoteFormViewExample.swift */; };
@@ -241,6 +243,8 @@
 		9996CCFE262EB4E7001B99AE /* EULAViewSample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EULAViewSample.swift; sourceTree = "<group>"; };
 		9996CD02262FFEBD001B99AE /* EULA2.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = EULA2.html; sourceTree = "<group>"; };
 		99B6EF8B2672224C00515E8E /* UserConsentSample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserConsentSample.swift; sourceTree = "<group>"; };
+		9D0086672BA8F6810004BE15 /* TitleFormViewExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleFormViewExample.swift; sourceTree = "<group>"; };
+		9D0086682BA8F6820004BE15 /* TextFieldFormViewExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldFormViewExample.swift; sourceTree = "<group>"; };
 		9D0B26042B9BA5C0004278A5 /* FormViewExamples.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormViewExamples.swift; sourceTree = "<group>"; };
 		9D0B26052B9BA5C0004278A5 /* KeyValueFormViewExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyValueFormViewExample.swift; sourceTree = "<group>"; };
 		9D0B26062B9BA5C0004278A5 /* NoteFormViewExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteFormViewExample.swift; sourceTree = "<group>"; };
@@ -581,6 +585,8 @@
 				9D0B26042B9BA5C0004278A5 /* FormViewExamples.swift */,
 				9D0B26052B9BA5C0004278A5 /* KeyValueFormViewExample.swift */,
 				9D0B26062B9BA5C0004278A5 /* NoteFormViewExample.swift */,
+				9D0086682BA8F6820004BE15 /* TextFieldFormViewExample.swift */,
+				9D0086672BA8F6810004BE15 /* TitleFormViewExample.swift */,
 			);
 			path = FormViews;
 			sourceTree = "<group>";
@@ -939,6 +945,7 @@
 				1F26DCFA261A5CD9006C43B1 /* FioriButtonContentView.swift in Sources */,
 				B86F02AA267983870049DDA7 /* ObjectItemListView.swift in Sources */,
 				B846F94826815DE50085044B /* ContactItemRegularExamples.swift in Sources */,
+				9D00866A2BA8F6820004BE15 /* TextFieldFormViewExample.swift in Sources */,
 				3C180C282B858CF6007CE79A /* IllustratedMessageExample.swift in Sources */,
 				8AD9DFB425D49967007448EC /* ContactItemInitViewBuilderExample.swift in Sources */,
 				B8D4376D25F97F140024EE7D /* ObjectItemExample.swift in Sources */,
@@ -947,6 +954,7 @@
 				B1D9D22A2991E056008FF5BC /* ObjectItemAvatarsExample.swift in Sources */,
 				B80DA9C72612A54E00C0B2E9 /* WelcomeScreenSample.swift in Sources */,
 				8A5579D724C1293C0098003A /* SettingsCategoryAxis.swift in Sources */,
+				9D0086692BA8F6820004BE15 /* TitleFormViewExample.swift in Sources */,
 				B141D6BB29261F9E008A8BD6 /* SearchableListViewExample.swift in Sources */,
 				C106AD482B33940600FE8B35 /* SearchWithBookmark.swift in Sources */,
 				975CB76B256C5A7400DB7A15 /* SignatureCaptureViewExample.swift in Sources */,

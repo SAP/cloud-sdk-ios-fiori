@@ -48,7 +48,10 @@ protocol _LinearProgressIndicatorViewComponent: _LinearProgressIndicatorComponen
 
 // sourcery: CompositeComponent
 protocol _FormViewComponent {
-    var controlState: ControlState? { get }
+    // sourcery: defaultValue = .normal
+    /// The `ControlState` of the form view. The default is `normal`
+    var controlState: ControlState { get }
+    /// The error message of the form view.
     var errorMessage: AttributedString? { get }
 }
 
@@ -57,16 +60,60 @@ protocol _PlaceholderTextEditorComponent: _TextViewComponent, _PlaceholderCompon
 
 // sourcery: CompositeComponent
 protocol _NoteFormViewComponent: _PlaceholderTextEditorComponent, _FormViewComponent {
+    /// The minimum height of the TextEditor. It needs to be greater than 44. Otherwise, it is ignored.
     var minTextEditorHeight: CGFloat? { get }
+    /// The maximum height of the TextEditor.
     var maxTextEditorHeight: CGFloat? { get }
+    /// The maximum length of the text.
     var maxTextLength: Int? { get }
+    /// The maximum length of the text. Default is no limit.
     var hintText: AttributedString? { get }
-    var hidesReadOnlyHint: Bool? { get }
-    var isCharCountEnabled: Bool? { get }
-    var allowsBeyondLimit: Bool? { get }
+    // sourcery: defaultValue = false
+    /// This property indicates if the read-only hint is to be hidden or not. Default is `false`.
+    var hidesReadOnlyHint: Bool { get }
+    // sourcery: defaultValue = false
+    /// If `isCharCountEnabled` is true and `maxTextLenght` is not `nil`, the character count number and the `maxValueTextLength` will be shown. The character count number will be updated during editing. The default is `false`.
+    var isCharCountEnabled: Bool { get }
+    // sourcery: defaultValue = false
+    /// If `allowsBeyondLimit` is `true`, it will allow the user to input continuously even after `maxValueTextLength` is reached. It will be in an error state with an error message and a semantic negative color. The default is false.
+    var allowsBeyondLimit: Bool { get }
+    /// The custom error message when the character count limitation is reached. If this property is `nil`, the default localized message will be used.
     var charCountReachLimitMessage: String? { get }
+    /// The custom error message when the character count exceeds the limitation. If this property is `nil`, the default localized message will be used.
     var charCountBeyondLimitMsg: String? { get }
 }
 
 // sourcery: CompositeComponent
 protocol _KeyValueFormViewComponent: _TitleComponent, _NoteFormViewComponent {}
+
+// sourcery: CompositeComponent
+protocol _PlaceholderTextFieldComponent: _TextInputFieldComponent, _PlaceholderComponent {}
+
+// sourcery: CompositeComponent
+protocol _TitleFormViewComponent: _PlaceholderTextFieldComponent, _FormViewComponent {
+    /// The maximum length of the text. Default is no limit.
+    var maxTextLength: Int? { get }
+    /// The hint text.
+    var hintText: AttributedString? { get }
+    // sourcery: defaultValue = false
+    /// This property indicates if the read-only hint is to be hidden or not. Default is `false`.
+    var hidesReadOnlyHint: Bool { get }
+    // sourcery: defaultValue = false
+    /// If `isCharCountEnabled` is true and `maxTextLenght` is not `nil`, the character count number and the `maxValueTextLength` will be shown. The character count number will be updated during editing. The default is `false`.
+    var isCharCountEnabled: Bool { get }
+    // sourcery: defaultValue = false
+    /// If `allowsBeyondLimit` is `true`, it will allow the user to input continuously even after `maxValueTextLength` is reached. It will be in an error state with an error message and a semantic negative color. The default is false.
+    var allowsBeyondLimit: Bool { get }
+    /// The custom error message when the character count limitation is reached. If this property is `nil`, the default localized message will be used.
+    var charCountReachLimitMessage: String? { get }
+    /// The custom error message when the character count exceeds the limitation. If this property is `nil`, the default localized message will be used.
+    var charCountBeyondLimitMsg: String? { get }
+}
+
+// sourcery: CompositeComponent
+protocol _TextFieldFormViewComponent: _TitleComponent, _TitleFormViewComponent {
+    /// The icon for the action button.
+    var actionIcon: Image? { get }
+    /// The action to be performed when the action button is tapped.
+    var action: (() -> Void)? { get }
+}

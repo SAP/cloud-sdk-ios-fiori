@@ -2,25 +2,33 @@ import FioriThemeManager
 import Foundation
 import SwiftUI
 
-/**
- This file provides default fiori style for the component.
- 
- 1. Uncomment fhe following code.
- 2. Implement layout and style in corresponding places.
- 3. Delete `.generated` from file name.
- 4. Move this file to `_FioriStyles` folder under `FioriSwiftUICore`.
- */
-
-// Base Layout style
+/// The base layout style for `PlaceholderTextEditor`.
 public struct PlaceholderTextEditorBaseStyle: PlaceholderTextEditorStyle {
     @FocusState var isFocused: Bool
+    @State var isKeyboardShown: Bool = false
 
     public func makeBody(_ configuration: PlaceholderTextEditorConfiguration) -> some View {
         ZStack(alignment: .topLeading) {
             configuration._textView.body
                 .focused(self.$isFocused)
+                .focused(self.$isFocused)
+                .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardDidHideNotification)) { _ in
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        self.isKeyboardShown = false
+                    }
+                }
+                .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)) { _ in
+                    DispatchQueue.main.async {
+                        self.isKeyboardShown = true
+                    }
+                }
             if configuration.text.isEmpty, !self.isFocused, !configuration.placeholder.isEmpty {
                 configuration.placeholder.body
+                    .onTapGesture {
+                        DispatchQueue.main.async {
+                            self.isFocused = true
+                        }
+                    }
             }
         }
     }
