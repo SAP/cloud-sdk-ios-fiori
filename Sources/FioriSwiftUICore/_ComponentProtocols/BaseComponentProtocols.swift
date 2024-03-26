@@ -183,3 +183,9 @@ protocol _MoreActionOverflowComponent {
     @ViewBuilder
     var moreActionOverflow: (() -> any View)? { get }
 }
+
+// sourcery: BaseComponent
+protocol _TextInputFieldComponent {
+    // sourcery: @Binding
+    var text: String { get }
+}

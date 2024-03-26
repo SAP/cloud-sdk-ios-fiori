@@ -11,7 +11,7 @@ public extension View {
             stack.append(style)
         }
     }
-    
+
     func actionStyle(@ViewBuilder content: @escaping (ActionConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.actionStyleStack) { stack in
             let style = AnyActionStyle(content)
@@ -28,7 +28,7 @@ public extension View {
             stack.append(style)
         }
     }
-    
+
     func avatarsStyle(@ViewBuilder content: @escaping (AvatarsConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.avatarsStyleStack) { stack in
             let style = AnyAvatarsStyle(content)
@@ -45,7 +45,7 @@ public extension View {
             stack.append(style)
         }
     }
-    
+
     func cardBodyStyle(@ViewBuilder content: @escaping (CardBodyConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.cardBodyStyleStack) { stack in
             let style = AnyCardBodyStyle(content)
@@ -62,7 +62,7 @@ public extension View {
             stack.append(style)
         }
     }
-    
+
     func cardStyle(@ViewBuilder content: @escaping (CardConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.cardStyleStack) { stack in
             let style = AnyCardStyle(content)
@@ -79,7 +79,7 @@ public extension View {
             stack.append(style)
         }
     }
-    
+
     func cardExtHeaderStyle(@ViewBuilder content: @escaping (CardExtHeaderConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.cardExtHeaderStyleStack) { stack in
             let style = AnyCardExtHeaderStyle(content)
@@ -96,7 +96,7 @@ public extension View {
             stack.append(style)
         }
     }
-    
+
     func cardFooterStyle(@ViewBuilder content: @escaping (CardFooterConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.cardFooterStyleStack) { stack in
             let style = AnyCardFooterStyle(content)
@@ -113,7 +113,7 @@ public extension View {
             stack.append(style)
         }
     }
-    
+
     func cardHeaderStyle(@ViewBuilder content: @escaping (CardHeaderConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.cardHeaderStyleStack) { stack in
             let style = AnyCardHeaderStyle(content)
@@ -130,7 +130,7 @@ public extension View {
             stack.append(style)
         }
     }
-    
+
     func cardMainHeaderStyle(@ViewBuilder content: @escaping (CardMainHeaderConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.cardMainHeaderStyleStack) { stack in
             let style = AnyCardMainHeaderStyle(content)
@@ -147,7 +147,7 @@ public extension View {
             stack.append(style)
         }
     }
-    
+
     func cardMediaStyle(@ViewBuilder content: @escaping (CardMediaConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.cardMediaStyleStack) { stack in
             let style = AnyCardMediaStyle(content)
@@ -164,7 +164,7 @@ public extension View {
             stack.append(style)
         }
     }
-    
+
     func counterStyle(@ViewBuilder content: @escaping (CounterConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.counterStyleStack) { stack in
             let style = AnyCounterStyle(content)
@@ -181,7 +181,7 @@ extension View {
             stack.append(style)
         }
     }
-    
+
     func demoViewStyle(@ViewBuilder content: @escaping (DemoViewConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.demoViewStyleStack) { stack in
             let style = AnyDemoViewStyle(content)
@@ -198,7 +198,7 @@ public extension View {
             stack.append(style)
         }
     }
-    
+
     func descriptionStyle(@ViewBuilder content: @escaping (DescriptionConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.descriptionStyleStack) { stack in
             let style = AnyDescriptionStyle(content)
@@ -215,7 +215,7 @@ public extension View {
             stack.append(style)
         }
     }
-    
+
     func detailImageStyle(@ViewBuilder content: @escaping (DetailImageConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.detailImageStyleStack) { stack in
             let style = AnyDetailImageStyle(content)
@@ -232,7 +232,7 @@ public extension View {
             stack.append(style)
         }
     }
-    
+
     func footnoteStyle(@ViewBuilder content: @escaping (FootnoteConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.footnoteStyleStack) { stack in
             let style = AnyFootnoteStyle(content)
@@ -249,7 +249,7 @@ public extension View {
             stack.append(style)
         }
     }
-    
+
     func footnoteIconsStyle(@ViewBuilder content: @escaping (FootnoteIconsConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.footnoteIconsStyleStack) { stack in
             let style = AnyFootnoteIconsStyle(content)
@@ -266,7 +266,7 @@ public extension View {
             stack.append(style)
         }
     }
-    
+
     func formViewStyle(@ViewBuilder content: @escaping (FormViewConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.formViewStyleStack) { stack in
             let style = AnyFormViewStyle(content)
@@ -283,7 +283,7 @@ public extension View {
             stack.append(style)
         }
     }
-    
+
     func headerActionStyle(@ViewBuilder content: @escaping (HeaderActionConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.headerActionStyleStack) { stack in
             let style = AnyHeaderActionStyle(content)
@@ -317,7 +317,7 @@ public extension View {
             stack.append(style)
         }
     }
-    
+
     func iconStyle(@ViewBuilder content: @escaping (IconConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.iconStyleStack) { stack in
             let style = AnyIconStyle(content)
@@ -334,7 +334,7 @@ public extension View {
             stack.append(style)
         }
     }
-    
+
     func iconsStyle(@ViewBuilder content: @escaping (IconsConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.iconsStyleStack) { stack in
             let style = AnyIconsStyle(content)
@@ -351,7 +351,7 @@ public extension View {
             stack.append(style)
         }
     }
-    
+
     func illustratedMessageStyle(@ViewBuilder content: @escaping (IllustratedMessageConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.illustratedMessageStyleStack) { stack in
             let style = AnyIllustratedMessageStyle(content)
@@ -368,7 +368,7 @@ public extension View {
             stack.append(style)
         }
     }
-    
+
     func informationViewStyle(@ViewBuilder content: @escaping (InformationViewConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.informationViewStyleStack) { stack in
             let style = AnyInformationViewStyle(content)
@@ -385,7 +385,7 @@ public extension View {
             stack.append(style)
         }
     }
-    
+
     func keyValueFormViewStyle(@ViewBuilder content: @escaping (KeyValueFormViewConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.keyValueFormViewStyleStack) { stack in
             let style = AnyKeyValueFormViewStyle(content)
@@ -402,7 +402,7 @@ public extension View {
             stack.append(style)
         }
     }
-    
+
     func kpiCaptionStyle(@ViewBuilder content: @escaping (KpiCaptionConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.kpiCaptionStyleStack) { stack in
             let style = AnyKpiCaptionStyle(content)
@@ -419,7 +419,7 @@ public extension View {
             stack.append(style)
         }
     }
-    
+
     func kpiStyle(@ViewBuilder content: @escaping (KpiConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.kpiStyleStack) { stack in
             let style = AnyKpiStyle(content)
@@ -436,7 +436,7 @@ public extension View {
             stack.append(style)
         }
     }
-    
+
     func labelItemStyle(@ViewBuilder content: @escaping (LabelItemConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.labelItemStyleStack) { stack in
             let style = AnyLabelItemStyle(content)
@@ -453,7 +453,7 @@ public extension View {
             stack.append(style)
         }
     }
-    
+
     func linearProgressIndicatorStyle(@ViewBuilder content: @escaping (LinearProgressIndicatorConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.linearProgressIndicatorStyleStack) { stack in
             let style = AnyLinearProgressIndicatorStyle(content)
@@ -470,7 +470,7 @@ public extension View {
             stack.append(style)
         }
     }
-    
+
     func linearProgressIndicatorViewStyle(@ViewBuilder content: @escaping (LinearProgressIndicatorViewConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.linearProgressIndicatorViewStyleStack) { stack in
             let style = AnyLinearProgressIndicatorViewStyle(content)
@@ -487,7 +487,7 @@ public extension View {
             stack.append(style)
         }
     }
-    
+
     func mediaImageStyle(@ViewBuilder content: @escaping (MediaImageConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.mediaImageStyleStack) { stack in
             let style = AnyMediaImageStyle(content)
@@ -521,7 +521,7 @@ public extension View {
             stack.append(style)
         }
     }
-    
+
     func noteFormViewStyle(@ViewBuilder content: @escaping (NoteFormViewConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.noteFormViewStyleStack) { stack in
             let style = AnyNoteFormViewStyle(content)
@@ -538,7 +538,7 @@ public extension View {
             stack.append(style)
         }
     }
-    
+
     func objectItemStyle(@ViewBuilder content: @escaping (ObjectItemConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.objectItemStyleStack) { stack in
             let style = AnyObjectItemStyle(content)
@@ -555,7 +555,7 @@ public extension View {
             stack.append(style)
         }
     }
-    
+
     func placeholderStyle(@ViewBuilder content: @escaping (PlaceholderConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.placeholderStyleStack) { stack in
             let style = AnyPlaceholderStyle(content)
@@ -572,10 +572,27 @@ public extension View {
             stack.append(style)
         }
     }
-    
+
     func placeholderTextEditorStyle(@ViewBuilder content: @escaping (PlaceholderTextEditorConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.placeholderTextEditorStyleStack) { stack in
             let style = AnyPlaceholderTextEditorStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: PlaceholderTextFieldStyle
+
+public extension View {
+    func placeholderTextFieldStyle(_ style: some PlaceholderTextFieldStyle) -> some View {
+        self.transformEnvironment(\.placeholderTextFieldStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func placeholderTextFieldStyle(@ViewBuilder content: @escaping (PlaceholderTextFieldConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.placeholderTextFieldStyleStack) { stack in
+            let style = AnyPlaceholderTextFieldStyle(content)
             stack.append(style)
         }
     }
@@ -589,7 +606,7 @@ public extension View {
             stack.append(style)
         }
     }
-    
+
     func row1Style(@ViewBuilder content: @escaping (Row1Configuration) -> some View) -> some View {
         self.transformEnvironment(\.row1StyleStack) { stack in
             let style = AnyRow1Style(content)
@@ -606,7 +623,7 @@ public extension View {
             stack.append(style)
         }
     }
-    
+
     func row2Style(@ViewBuilder content: @escaping (Row2Configuration) -> some View) -> some View {
         self.transformEnvironment(\.row2StyleStack) { stack in
             let style = AnyRow2Style(content)
@@ -623,7 +640,7 @@ public extension View {
             stack.append(style)
         }
     }
-    
+
     func row3Style(@ViewBuilder content: @escaping (Row3Configuration) -> some View) -> some View {
         self.transformEnvironment(\.row3StyleStack) { stack in
             let style = AnyRow3Style(content)
@@ -640,7 +657,7 @@ public extension View {
             stack.append(style)
         }
     }
-    
+
     func secondaryActionStyle(@ViewBuilder content: @escaping (SecondaryActionConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.secondaryActionStyleStack) { stack in
             let style = AnySecondaryActionStyle(content)
@@ -657,7 +674,7 @@ public extension View {
             stack.append(style)
         }
     }
-    
+
     func statusStyle(@ViewBuilder content: @escaping (StatusConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.statusStyleStack) { stack in
             let style = AnyStatusStyle(content)
@@ -674,7 +691,7 @@ public extension View {
             stack.append(style)
         }
     }
-    
+
     func substatusStyle(@ViewBuilder content: @escaping (SubstatusConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.substatusStyleStack) { stack in
             let style = AnySubstatusStyle(content)
@@ -691,7 +708,7 @@ public extension View {
             stack.append(style)
         }
     }
-    
+
     func subtitleStyle(@ViewBuilder content: @escaping (SubtitleConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.subtitleStyleStack) { stack in
             let style = AnySubtitleStyle(content)
@@ -708,7 +725,7 @@ public extension View {
             stack.append(style)
         }
     }
-    
+
     func switchStyle(@ViewBuilder content: @escaping (SwitchConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.switchStyleStack) { stack in
             let style = AnySwitchStyle(content)
@@ -725,10 +742,44 @@ public extension View {
             stack.append(style)
         }
     }
-    
+
     func tagsStyle(@ViewBuilder content: @escaping (TagsConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.tagsStyleStack) { stack in
             let style = AnyTagsStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: TextFieldFormViewStyle
+
+public extension View {
+    func textFieldFormViewStyle(_ style: some TextFieldFormViewStyle) -> some View {
+        self.transformEnvironment(\.textFieldFormViewStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func textFieldFormViewStyle(@ViewBuilder content: @escaping (TextFieldFormViewConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.textFieldFormViewStyleStack) { stack in
+            let style = AnyTextFieldFormViewStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: TextInputFieldStyle
+
+public extension View {
+    func textInputFieldStyle(_ style: some TextInputFieldStyle) -> some View {
+        self.transformEnvironment(\.textInputFieldStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func textInputFieldStyle(@ViewBuilder content: @escaping (TextInputFieldConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.textInputFieldStyleStack) { stack in
+            let style = AnyTextInputFieldStyle(content)
             stack.append(style)
         }
     }
@@ -742,7 +793,7 @@ extension View {
             stack.append(style)
         }
     }
-    
+
     func textInputInfoViewStyle(@ViewBuilder content: @escaping (TextInputInfoViewConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.textInputInfoViewStyleStack) { stack in
             let style = AnyTextInputInfoViewStyle(content)
@@ -759,7 +810,7 @@ public extension View {
             stack.append(style)
         }
     }
-    
+
     func textViewStyle(@ViewBuilder content: @escaping (TextViewConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.textViewStyleStack) { stack in
             let style = AnyTextViewStyle(content)
@@ -776,10 +827,27 @@ public extension View {
             stack.append(style)
         }
     }
-    
+
     func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.titleStyleStack) { stack in
             let style = AnyTitleStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: TitleFormViewStyle
+
+public extension View {
+    func titleFormViewStyle(_ style: some TitleFormViewStyle) -> some View {
+        self.transformEnvironment(\.titleFormViewStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func titleFormViewStyle(@ViewBuilder content: @escaping (TitleFormViewConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.titleFormViewStyleStack) { stack in
+            let style = AnyTitleFormViewStyle(content)
             stack.append(style)
         }
     }

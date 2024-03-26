@@ -717,6 +717,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: PlaceholderTextFieldStyle
+
+struct PlaceholderTextFieldStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any PlaceholderTextFieldStyle] = []
+}
+
+extension EnvironmentValues {
+    var placeholderTextFieldStyle: any PlaceholderTextFieldStyle {
+        self.placeholderTextFieldStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var placeholderTextFieldStyleStack: [any PlaceholderTextFieldStyle] {
+        get {
+            self[PlaceholderTextFieldStyleStackKey.self]
+        }
+        set {
+            self[PlaceholderTextFieldStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: Row1Style
 
 struct Row1StyleStackKey: EnvironmentKey {
@@ -906,6 +927,48 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: TextFieldFormViewStyle
+
+struct TextFieldFormViewStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any TextFieldFormViewStyle] = []
+}
+
+extension EnvironmentValues {
+    var textFieldFormViewStyle: any TextFieldFormViewStyle {
+        self.textFieldFormViewStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var textFieldFormViewStyleStack: [any TextFieldFormViewStyle] {
+        get {
+            self[TextFieldFormViewStyleStackKey.self]
+        }
+        set {
+            self[TextFieldFormViewStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: TextInputFieldStyle
+
+struct TextInputFieldStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any TextInputFieldStyle] = []
+}
+
+extension EnvironmentValues {
+    var textInputFieldStyle: any TextInputFieldStyle {
+        self.textInputFieldStyleStack.last ?? .base
+    }
+
+    var textInputFieldStyleStack: [any TextInputFieldStyle] {
+        get {
+            self[TextInputFieldStyleStackKey.self]
+        }
+        set {
+            self[TextInputFieldStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: TextInputInfoViewStyle
 
 struct TextInputInfoViewStyleStackKey: EnvironmentKey {
@@ -965,6 +1028,27 @@ extension EnvironmentValues {
         }
         set {
             self[TitleStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: TitleFormViewStyle
+
+struct TitleFormViewStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any TitleFormViewStyle] = []
+}
+
+extension EnvironmentValues {
+    var titleFormViewStyle: any TitleFormViewStyle {
+        self.titleFormViewStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var titleFormViewStyleStack: [any TitleFormViewStyle] {
+        get {
+            self[TitleFormViewStyleStackKey.self]
+        }
+        set {
+            self[TitleFormViewStyleStackKey.self] = newValue
         }
     }
 }

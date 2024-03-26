@@ -547,6 +547,22 @@ extension PlaceholderTextEditorStyle {
     }
 }
 
+// MARK: PlaceholderTextFieldStyle
+
+struct ResolvedPlaceholderTextFieldStyle<Style: PlaceholderTextFieldStyle>: View {
+    let style: Style
+    let configuration: PlaceholderTextFieldConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension PlaceholderTextFieldStyle {
+    func resolve(configuration: PlaceholderTextFieldConfiguration) -> some View {
+        ResolvedPlaceholderTextFieldStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: Row1Style
 
 struct ResolvedRow1Style<Style: Row1Style>: View {
@@ -691,6 +707,38 @@ extension TagsStyle {
     }
 }
 
+// MARK: TextFieldFormViewStyle
+
+struct ResolvedTextFieldFormViewStyle<Style: TextFieldFormViewStyle>: View {
+    let style: Style
+    let configuration: TextFieldFormViewConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension TextFieldFormViewStyle {
+    func resolve(configuration: TextFieldFormViewConfiguration) -> some View {
+        ResolvedTextFieldFormViewStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: TextInputFieldStyle
+
+struct ResolvedTextInputFieldStyle<Style: TextInputFieldStyle>: View {
+    let style: Style
+    let configuration: TextInputFieldConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension TextInputFieldStyle {
+    func resolve(configuration: TextInputFieldConfiguration) -> some View {
+        ResolvedTextInputFieldStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: TextInputInfoViewStyle
 
 struct ResolvedTextInputInfoViewStyle<Style: TextInputInfoViewStyle>: View {
@@ -736,5 +784,21 @@ struct ResolvedTitleStyle<Style: TitleStyle>: View {
 extension TitleStyle {
     func resolve(configuration: TitleConfiguration) -> some View {
         ResolvedTitleStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: TitleFormViewStyle
+
+struct ResolvedTitleFormViewStyle<Style: TitleFormViewStyle>: View {
+    let style: Style
+    let configuration: TitleFormViewConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension TitleFormViewStyle {
+    func resolve(configuration: TitleFormViewConfiguration) -> some View {
+        ResolvedTitleFormViewStyle(style: self, configuration: configuration)
     }
 }

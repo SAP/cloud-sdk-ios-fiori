@@ -2,7 +2,7 @@ import FioriThemeManager
 import Foundation
 import SwiftUI
 
-// Base Layout style
+/// The base layout style for `TextInputInfoView`.
 struct TextInputInfoViewBaseStyle: TextInputInfoViewStyle {
     public func makeBody(_ configuration: TextInputInfoViewConfiguration) -> some View {
         HStack(alignment: .top, spacing: 8) {
@@ -13,6 +13,7 @@ struct TextInputInfoViewBaseStyle: TextInputInfoViewStyle {
         }
         .padding(.top, 4)
         .padding(.bottom, 11)
+        .padding(.trailing, 12)
     }
 }
 
@@ -191,6 +192,256 @@ extension TextInputInfoViewStyle where Self == TextInputInfoViewInformationalSty
 extension TextInputInfoViewStyle where Self == TextInputInfoViewSuccessStyle {
     static var success: TextInputInfoViewSuccessStyle {
         TextInputInfoViewSuccessStyle()
+    }
+}
+
+enum LengthCondition {
+    case underLimit, onLimit, overLimit
+}
+
+// internal utilities
+private let fioriSwiftUICoreBundle = Bundle.accessor
+
+struct TextInputFormViewConfiguration {
+    let text: String
+    let controlState: ControlState
+    let errorMessage: AttributedString?
+    let maxTextLength: Int?
+    let hintText: AttributedString?
+    let hidesReadOnlyHint: Bool
+    let isCharCountEnabled: Bool
+    let allowsBeyondLimit: Bool
+    let charCountReachLimitMessage: String?
+    let charCountBeyondLimitMsg: String?
+    let isFocused: Bool
+
+    init(_ noteFormViewConfiguration: NoteFormViewConfiguration, isFocused: Bool) {
+        self.text = noteFormViewConfiguration.text
+        self.controlState = noteFormViewConfiguration.controlState
+        self.errorMessage = noteFormViewConfiguration.errorMessage
+        self.maxTextLength = noteFormViewConfiguration.maxTextLength
+        self.hintText = noteFormViewConfiguration.hintText
+        self.hidesReadOnlyHint = noteFormViewConfiguration.hidesReadOnlyHint
+        self.isCharCountEnabled = noteFormViewConfiguration.isCharCountEnabled
+        self.allowsBeyondLimit = noteFormViewConfiguration.allowsBeyondLimit
+        self.charCountReachLimitMessage = noteFormViewConfiguration.charCountReachLimitMessage
+        self.charCountBeyondLimitMsg = noteFormViewConfiguration.charCountBeyondLimitMsg
+        self.isFocused = isFocused
+    }
+
+    init(_ titleFormViewConfiguration: TitleFormViewConfiguration, isFocused: Bool) {
+        self.text = titleFormViewConfiguration.text
+        self.controlState = titleFormViewConfiguration.controlState
+        self.errorMessage = titleFormViewConfiguration.errorMessage
+        self.maxTextLength = titleFormViewConfiguration.maxTextLength
+        self.hintText = titleFormViewConfiguration.hintText
+        self.hidesReadOnlyHint = titleFormViewConfiguration.hidesReadOnlyHint
+        self.isCharCountEnabled = titleFormViewConfiguration.isCharCountEnabled
+        self.allowsBeyondLimit = titleFormViewConfiguration.allowsBeyondLimit
+        self.charCountReachLimitMessage = titleFormViewConfiguration.charCountReachLimitMessage
+        self.charCountBeyondLimitMsg = titleFormViewConfiguration.charCountBeyondLimitMsg
+        self.isFocused = isFocused
+    }
+
+    init(_ textFieldFormViewConfiguration: TextFieldFormViewConfiguration, isFocused: Bool) {
+        self.text = textFieldFormViewConfiguration.text
+        self.controlState = textFieldFormViewConfiguration.controlState
+        self.errorMessage = textFieldFormViewConfiguration.errorMessage
+        self.maxTextLength = textFieldFormViewConfiguration.maxTextLength
+        self.hintText = textFieldFormViewConfiguration.hintText
+        self.hidesReadOnlyHint = textFieldFormViewConfiguration.hidesReadOnlyHint
+        self.isCharCountEnabled = textFieldFormViewConfiguration.isCharCountEnabled
+        self.allowsBeyondLimit = textFieldFormViewConfiguration.allowsBeyondLimit
+        self.charCountReachLimitMessage = textFieldFormViewConfiguration.charCountReachLimitMessage
+        self.charCountBeyondLimitMsg = textFieldFormViewConfiguration.charCountBeyondLimitMsg
+        self.isFocused = isFocused
+    }
+
+    init(_ keyValueFormViewConfiguration: KeyValueFormViewConfiguration, isFocused: Bool) {
+        self.text = keyValueFormViewConfiguration.text
+        self.controlState = keyValueFormViewConfiguration.controlState
+        self.errorMessage = keyValueFormViewConfiguration.errorMessage
+        self.maxTextLength = keyValueFormViewConfiguration.maxTextLength
+        self.hintText = keyValueFormViewConfiguration.hintText
+        self.hidesReadOnlyHint = keyValueFormViewConfiguration.hidesReadOnlyHint
+        self.isCharCountEnabled = keyValueFormViewConfiguration.isCharCountEnabled
+        self.allowsBeyondLimit = keyValueFormViewConfiguration.allowsBeyondLimit
+        self.charCountReachLimitMessage = keyValueFormViewConfiguration.charCountReachLimitMessage
+        self.charCountBeyondLimitMsg = keyValueFormViewConfiguration.charCountBeyondLimitMsg
+        self.isFocused = isFocused
+    }
+
+    func getControlState() -> ControlState {
+        self.controlState
+    }
+
+    func getEditable() -> Bool {
+        switch self.getControlState() {
+        case .disabled, .readOnly:
+            return false
+        default:
+            return true
+        }
+    }
+
+    func getCounterString() -> AttributedString? {
+        guard self.isCharCountEnabled == true else {
+            return nil
+        }
+
+        guard let limit = maxTextLength, limit > 0 else {
+            return nil
+        }
+
+        var hasError = false
+        if let errorMessage, !errorMessage.characters.isEmpty {
+            hasError = true
+        }
+
+        let charCount = self.text.count
+        var charCountString = AttributedString((!self.isFocused && charCount == 0) ? "-" : "\(charCount)")
+        if (self.isFocused && !hasError) || (self.checkMaxLength() == .onLimit) {
+            charCountString.foregroundColor = .preferredColor(.tintColor)
+        }
+        var limitString = AttributedString("/\(limit)")
+        limitString.foregroundColor = .preferredColor(.primaryLabel)
+        var counterString = charCountString + limitString
+        counterString.font = .fiori(forTextStyle: .footnote)
+        return counterString
+    }
+
+    func checkMaxLength() -> LengthCondition {
+        guard let maxTextLength, maxTextLength > 0 else {
+            return .underLimit
+        }
+
+        let count = self.text.count
+
+        if count < maxTextLength {
+            return .underLimit
+        }
+
+        if count == maxTextLength || self.allowsBeyondLimit != true {
+            return .onLimit
+        }
+
+        return .overLimit
+    }
+
+    func getInfoString() -> AttributedString? {
+        let lengthCondition = self.checkMaxLength()
+
+        if let errorMessage, !errorMessage.characters.isEmpty {
+            return errorMessage
+        }
+
+        if lengthCondition == .onLimit {
+            let infoString = AttributedString(charCountReachLimitMessage ?? NSLocalizedString("No more characters remaining", tableName: "FioriSwiftUICore", bundle: fioriSwiftUICoreBundle, comment: ""))
+            return infoString
+        }
+
+        if lengthCondition == .overLimit {
+            let infoString = AttributedString(charCountReachLimitMessage ?? NSLocalizedString("Reduce the number of characters", tableName: "FioriSwiftUICore", bundle: fioriSwiftUICoreBundle, comment: ""))
+            return infoString
+        }
+
+        if let hintText {
+            return hintText
+        }
+
+        if self.getControlState() == .readOnly, self.hidesReadOnlyHint == false {
+            let readOnlyHint = AttributedString(NSLocalizedString("Read-only field", tableName: "FioriSwiftUICore", bundle: fioriSwiftUICoreBundle, comment: ""))
+            return readOnlyHint
+        }
+
+        return nil
+    }
+
+    func hasErrorMessage() -> Bool {
+        if let errorMessage, !errorMessage.characters.isEmpty {
+            // Has non-empty error message
+            return true
+        }
+
+        guard let maxTextLength, maxTextLength > 0 else {
+            // No limit
+            return false
+        }
+
+        if self.text.count > maxTextLength {
+            return true
+        }
+
+        return false
+    }
+
+    func getTextColor() -> Color {
+        switch self.getControlState() {
+        case .disabled:
+            return .preferredColor(.separator)
+        default:
+            return .preferredColor(.primaryLabel)
+        }
+    }
+
+    func getCursorColor() -> Color {
+        self.hasErrorMessage() ? .preferredColor(.negativeLabel) : .preferredColor(.tintColor)
+    }
+
+    func getBorderColor() -> Color {
+        guard !self.hasErrorMessage() else {
+            return .preferredColor(.negativeLabel)
+        }
+
+        if self.isFocused {
+            return .preferredColor(.tintColor)
+        }
+
+        switch self.getControlState() {
+        case .disabled:
+            return .preferredColor(.tertiaryFill)
+        case .readOnly:
+            return .clear
+        default:
+            return .preferredColor(.separatorOpaque)
+        }
+    }
+
+    func getBackgroundColor() -> Color {
+        self.getEditable() ? .clear : .preferredColor(.tertiaryFill)
+    }
+
+    func getBorderWidth() -> CGFloat {
+        self.isFocused ? 2.0 : 0.5
+    }
+
+    func isErrorStyle() -> Bool {
+        let lengthCondition = self.checkMaxLength()
+
+        if let errorMessage, !errorMessage.characters.isEmpty {
+            return true
+        } else if lengthCondition == .onLimit {
+            return false
+        } else if lengthCondition == .overLimit {
+            return true
+        }
+        return false
+    }
+
+    func isInfoViewNeeded() -> Bool {
+        if let errorMessage, !errorMessage.characters.isEmpty {
+            return true
+        }
+        if let hintText, !hintText.characters.isEmpty {
+            return true
+        }
+        if self.isCharCountEnabled {
+            return true
+        }
+        if self.controlState == .readOnly, self.hidesReadOnlyHint != true {
+            return true
+        }
+        return false
     }
 }
 

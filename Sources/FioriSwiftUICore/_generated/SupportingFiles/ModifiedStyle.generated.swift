@@ -960,6 +960,34 @@ public extension PlaceholderTextEditorStyle {
     }
 }
 
+// MARK: PlaceholderTextFieldStyle
+
+extension ModifiedStyle: PlaceholderTextFieldStyle where Style: PlaceholderTextFieldStyle {
+    public func makeBody(_ configuration: PlaceholderTextFieldConfiguration) -> some View {
+        PlaceholderTextField(configuration)
+            .placeholderTextFieldStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct PlaceholderTextFieldStyleModifier<Style: PlaceholderTextFieldStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.placeholderTextFieldStyle(self.style)
+    }
+}
+
+public extension PlaceholderTextFieldStyle {
+    func modifier(_ modifier: some ViewModifier) -> some PlaceholderTextFieldStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some PlaceholderTextFieldStyle) -> some PlaceholderTextFieldStyle {
+        style.modifier(PlaceholderTextFieldStyleModifier(style: self))
+    }
+}
+
 // MARK: Row1Style
 
 extension ModifiedStyle: Row1Style where Style: Row1Style {
@@ -1212,6 +1240,62 @@ public extension TagsStyle {
     }
 }
 
+// MARK: TextFieldFormViewStyle
+
+extension ModifiedStyle: TextFieldFormViewStyle where Style: TextFieldFormViewStyle {
+    public func makeBody(_ configuration: TextFieldFormViewConfiguration) -> some View {
+        TextFieldFormView(configuration)
+            .textFieldFormViewStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct TextFieldFormViewStyleModifier<Style: TextFieldFormViewStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.textFieldFormViewStyle(self.style)
+    }
+}
+
+public extension TextFieldFormViewStyle {
+    func modifier(_ modifier: some ViewModifier) -> some TextFieldFormViewStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some TextFieldFormViewStyle) -> some TextFieldFormViewStyle {
+        style.modifier(TextFieldFormViewStyleModifier(style: self))
+    }
+}
+
+// MARK: TextInputFieldStyle
+
+extension ModifiedStyle: TextInputFieldStyle where Style: TextInputFieldStyle {
+    public func makeBody(_ configuration: TextInputFieldConfiguration) -> some View {
+        TextInputField(configuration)
+            .textInputFieldStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct TextInputFieldStyleModifier<Style: TextInputFieldStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.textInputFieldStyle(self.style)
+    }
+}
+
+public extension TextInputFieldStyle {
+    func modifier(_ modifier: some ViewModifier) -> some TextInputFieldStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some TextInputFieldStyle) -> some TextInputFieldStyle {
+        style.modifier(TextInputFieldStyleModifier(style: self))
+    }
+}
+
 // MARK: TextInputInfoViewStyle
 
 extension ModifiedStyle: TextInputInfoViewStyle where Style: TextInputInfoViewStyle {
@@ -1293,5 +1377,33 @@ public extension TitleStyle {
 
     func concat(_ style: some TitleStyle) -> some TitleStyle {
         style.modifier(TitleStyleModifier(style: self))
+    }
+}
+
+// MARK: TitleFormViewStyle
+
+extension ModifiedStyle: TitleFormViewStyle where Style: TitleFormViewStyle {
+    public func makeBody(_ configuration: TitleFormViewConfiguration) -> some View {
+        TitleFormView(configuration)
+            .titleFormViewStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct TitleFormViewStyleModifier<Style: TitleFormViewStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.titleFormViewStyle(self.style)
+    }
+}
+
+public extension TitleFormViewStyle {
+    func modifier(_ modifier: some ViewModifier) -> some TitleFormViewStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some TitleFormViewStyle) -> some TitleFormViewStyle {
+        style.modifier(TitleFormViewStyleModifier(style: self))
     }
 }

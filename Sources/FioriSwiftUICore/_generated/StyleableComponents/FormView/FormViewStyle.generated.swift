@@ -8,7 +8,7 @@ public protocol FormViewStyle: DynamicProperty {
 
     func makeBody(_ configuration: FormViewConfiguration) -> Body
 }
-    
+
 struct AnyFormViewStyle: FormViewStyle {
     let content: (FormViewConfiguration) -> any View
 
@@ -20,12 +20,12 @@ struct AnyFormViewStyle: FormViewStyle {
         self.content(configuration).typeErased
     }
 }
-    
+
 public struct FormViewConfiguration {
-    public let controlState: ControlState?
+    public let controlState: ControlState
     public let errorMessage: AttributedString?
 }
-    
+
 public struct FormViewFioriStyle: FormViewStyle {
     public func makeBody(_ configuration: FormViewConfiguration) -> some View {
         FormView(configuration)
