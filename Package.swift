@@ -28,7 +28,7 @@ let package = Package(
     targets: [
         .target(
             name: "FioriSwiftUI",
-            dependencies: [.target(name: "FioriSwiftUICore", condition: .when(platforms: [.iOS, .visionOS]))]
+            dependencies: [.target(name: "FioriSwiftUICore", condition: .when(platforms: [.iOS, .macCatalyst, .visionOS]))]
         ),
         .target(
             name: "FioriCharts",
@@ -38,8 +38,8 @@ let package = Package(
         .target(
             name: "FioriSwiftUICore",
             dependencies: [
-                .target(name: "FioriThemeManager", condition: .when(platforms: [.iOS, .visionOS])),
-                .target(name: "FioriCharts", condition: .when(platforms: [.iOS, .visionOS]))
+                .target(name: "FioriThemeManager", condition: .when(platforms: [.iOS, .macCatalyst, .visionOS])),
+                .target(name: "FioriCharts", condition: .when(platforms: [.iOS, .macCatalyst, .visionOS]))
             ],
             resources: [.process("_localization")]
         ),
