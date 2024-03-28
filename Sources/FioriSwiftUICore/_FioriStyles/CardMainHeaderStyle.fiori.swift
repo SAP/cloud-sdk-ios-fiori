@@ -86,34 +86,9 @@ extension CardMainHeaderFioriStyle {
         }
     }
     
-    /*
-     struct DetailImageFioriStyle: DetailImageStyle {
-         @ViewBuilder
-         func makeBody(_ configuration: DetailImageConfiguration) -> some View {
-             if let image = configuration.detailImage.v as? Image {
-                 DetailImage(detailImage: {
-                     image
-                         .resizable()
-                         .aspectRatio(contentMode: .fill)
-                         .frame(minWidth: 16, maxWidth: 60, minHeight: 16, maxHeight: 60)
-                         .clipped()
-                 })
-             } else {
-                 DetailImage(configuration)
-                     .aspectRatio(contentMode: .fill)
-                     .frame(minWidth: 16, maxWidth: 60, minHeight: 16, maxHeight: 60)
-                     .clipped()
-             }
-             // Add default style for DetailImage
-             // .foregroundStyle(Color.preferredColor(<#fiori color#>))
-             // .font(.fiori(forTextStyle: <#fiori font#>))
-         }
-     }
-     */
     struct DetailImageFioriStyle: DetailImageStyle {
         func makeBody(_ configuration: DetailImageConfiguration) -> some View {
             DetailImage(configuration)
-//                .resizable()
                 .aspectRatio(contentMode: .fill)
                 .frame(minWidth: 16, maxWidth: 60, minHeight: 16, maxHeight: 60)
                 .clipped()
@@ -152,6 +127,10 @@ extension CardMainHeaderFioriStyle {
 }
 
 #Preview("Model") {
+    CardMainHeader(title: "Title")
+}
+
+#Preview("Model") {
     CardMainHeader(title: "Title",
                    subtitle: "Subtitle that goes to multiple lines be a truncating just like that",
                    icons: [TextOrIcon.icon(Image(systemName: "circle.fill")), TextOrIcon.icon(Image(systemName: "paperclip")), TextOrIcon.text("2")],
@@ -173,19 +152,18 @@ extension CardMainHeaderFioriStyle {
         .border(Color.gray)
 }
 
-// #Preview("") {
-//    CardMainHeader(title: "Title",
-//                   subtitle: "Subtitle",
-//                   detailImage: Image(systemName: "person.crop.circle"),
-//                   headerAction: FioriButton("long long button"))
-//    .frame(width: 300)
-//    .border(Color.gray)
-// }
+#Preview("") {
+    CardMainHeader(title: "Title",
+                   subtitle: "Subtitle",
+                   detailImage: Image(systemName: "person.crop.circle"),
+                   headerAction: FioriButton(title: "long long button"))
+        .frame(width: 300)
+        .border(Color.gray)
+}
 
 #Preview("Icons") {
     CardMainHeader {
         Text("Title that goes to two lines before truncating just like that long")
-//        EmptyView()
     } subtitle: {
         Text("Subtitle that goes to two lines before truncating just like that long long")
     } icons: {
