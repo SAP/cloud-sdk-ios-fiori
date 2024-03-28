@@ -147,7 +147,7 @@ struct CoreContentView: View {
                 }
                 
                 NavigationLink(destination: MobileCardExample()) {
-                    Text("Cards")
+                    Text("Cards and Layouts")
                 }
                 
                 NavigationLink(
