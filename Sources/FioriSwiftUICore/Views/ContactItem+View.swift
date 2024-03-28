@@ -69,6 +69,7 @@ extension ContactItem: View {
                 self.bodyInCompact
             }
         }
+        .background(Color.preferredColor(.secondaryGroupedBackground))
     }
     
     var bodyInRegular: some View {
