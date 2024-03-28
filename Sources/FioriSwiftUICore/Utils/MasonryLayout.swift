@@ -128,10 +128,8 @@ public struct MasonryLayout: Layout {
     }
     
     func nextColumn(_ columns: [[(Int, CGRect)]]) -> Int {
-        for (i, column) in columns.enumerated() {
-            if column.isEmpty {
-                return i
-            }
+        for (i, column) in columns.enumerated() where column.isEmpty {
+            return i
         }
         
         if self.viewOrder == .topMost {
@@ -146,10 +144,8 @@ public struct MasonryLayout: Layout {
             
             return index
         } else { // .leftMost
-            for i in 0 ..< self.numberOfColumns {
-                if i < self.numberOfColumns - 1, columns[i].count > columns[i + 1].count {
-                    return i + 1
-                }
+            for i in 0 ..< self.numberOfColumns where i < self.numberOfColumns - 1 && columns[i].count > columns[i + 1].count {
+                return i + 1
             }
             
             return 0

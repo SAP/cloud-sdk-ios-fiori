@@ -375,6 +375,7 @@ struct RattingViewExample: View {
     }
 }
 
+/// Card Tests
 public enum CardTests {
     static let region = MKCoordinateRegion(
         center: CLLocationCoordinate2D(latitude: 37.766_241,
@@ -532,12 +533,6 @@ public enum CardTests {
                                   counter: "1 of 3",
                                   action: FioriButton(title: "Primary"),
                                   secondaryAction: FioriButton(title: "Secondary"))
-//        .cardStyle(.detailImageStyle { config in
-//            config.detailImage
-//                .aspectRatio(contentMode: .fit)
-//                .clipShape(RoundedRectangle(cornerRadius: 8))
-//                .border(Color.green, width: 2)
-//        })
     
     static let sampleCard6 = Card(title: "Title", subtitle: "Subtitle that goes to multiple lines before truncating just like that", headerAction: FioriButton(title: "..."), counter: "1 of 3", action: FioriButton(title: "Primary"))
     
@@ -643,7 +638,6 @@ public enum CardTests {
                             print("\(dataType)")
                         }))
             
-//            Map(coordinateRegion: self.$region)
             Map(coordinateRegion: .constant(CardTests.region))
                 .frame(height: 200)
         }
@@ -824,7 +818,6 @@ public enum CardTests {
         Text("1 of 3")
     } row1: {
         FlowLayout(spacing: 8, lineSpacing: 2, lineLimit: 3) {
-//        HStack {
             LabelItem(icon: Image(systemName: "exclamationmark.triangle.fill"), title: "Negative")
                 .titleStyle { config in
                     config.title.foregroundStyle(Color.preferredColor(.negativeLabel))
@@ -874,10 +867,11 @@ public enum CardTests {
     static let headerOnly = Card(mediaImage: Image("card_image"), title: "Title")
     
     static let titleOnly = Card(title: "Title")
+    
+    /// Sample cards for testing
     public static let cardSamples = [sampleCard1, sampleCard2, sampleCard3, sampleCard4, sampleCard5, sampleCard6, sampleCard7, sampleCard8, sampleCard9, sampleCard10, sampleCard11, vbCard, fullCard]
-//    public static let cardSamples = [sampleCard1, sampleCard2]
-//    public static let cardSamples = [titleOnly]
-    public static let previewCardSamples = [sampleCard1, sampleCard2, sampleCard3, sampleCard4, sampleCard5, sampleCard6, sampleCard7, sampleCard8, sampleCard9, sampleCard10, sampleCard11, vbCard, fullCard, headerOnly, titleOnly]
+    
+    static let previewCardSamples = [sampleCard1, sampleCard2, sampleCard3, sampleCard4, sampleCard5, sampleCard6, sampleCard7, sampleCard8, sampleCard9, sampleCard10, sampleCard11, vbCard, fullCard, headerOnly, titleOnly]
 }
 
 struct CardPreview: PreviewProvider {
