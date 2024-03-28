@@ -18,7 +18,6 @@ public struct CardMediaBaseStyle: CardMediaStyle {
         // Add default layout here
         ZStack(alignment: .bottomLeading) {
             configuration.mediaImage
-                .clipped()
             
             configuration.description
                 .padding(EdgeInsets(top: 16, leading: 16, bottom: 16, trailing: 16))

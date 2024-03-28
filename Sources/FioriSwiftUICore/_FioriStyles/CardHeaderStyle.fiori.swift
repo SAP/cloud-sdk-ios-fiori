@@ -15,8 +15,9 @@ import SwiftUI
 public struct CardHeaderBaseStyle: CardHeaderStyle {
     public func makeBody(_ configuration: CardHeaderConfiguration) -> some View {
         // Add default layout here
-        VStack(alignment: .leading, spacing: 0) {
+        CardLayout(lineSpacing: 0) {
             configuration._cardMedia
+                .clipped()
             
             configuration._cardMainHeader
                 .padding(EdgeInsets(top: 16, leading: 16, bottom: 6, trailing: 16))

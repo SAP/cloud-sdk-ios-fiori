@@ -41,6 +41,7 @@ public struct LightTagStyle: TagStyle {
             .label
             .font(.fiori(forTextStyle: .footnote))
             .foregroundColor(.preferredColor(.secondaryLabel))
+            .lineLimit(1)
             .padding(EdgeInsets(top: 2, leading: 3, bottom: 2, trailing: 3))
             .background(RoundedRectangle(cornerRadius: 4).stroke(Color.preferredColor(.quaternaryLabel), lineWidth: 0.5))
     }
@@ -54,6 +55,7 @@ public struct DarkTagStyle: TagStyle {
             .label
             .font(.fiori(forTextStyle: .footnote))
             .foregroundColor(.preferredColor(.primaryLabel, background: .darkConstant))
+            .lineLimit(1)
             .padding(EdgeInsets(top: 2, leading: 3, bottom: 2, trailing: 3))
             .background(RoundedRectangle(cornerRadius: 4).fill(Color.preferredColor(.tertiaryLabel)))
     }
@@ -116,6 +118,7 @@ public struct CustomTagStyle: TagStyle {
             .label
             .font(self.font)
             .foregroundColor(self.textColor)
+            .lineLimit(1)
             .padding(self.contentInsets)
             .background(ZStack {
                 RoundedRectangle(cornerRadius: self.cornerRadius).fill(self.fillColor)
