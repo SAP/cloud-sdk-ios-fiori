@@ -8,7 +8,7 @@ public protocol FootnoteStyle: DynamicProperty {
 
     func makeBody(_ configuration: FootnoteConfiguration) -> Body
 }
-    
+
 struct AnyFootnoteStyle: FootnoteStyle {
     let content: (FootnoteConfiguration) -> any View
 
@@ -20,7 +20,7 @@ struct AnyFootnoteStyle: FootnoteStyle {
         self.content(configuration).typeErased
     }
 }
-    
+
 public struct FootnoteConfiguration {
     public let footnote: Footnote
 

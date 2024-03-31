@@ -8,7 +8,7 @@ public protocol CardMainHeaderStyle: DynamicProperty {
 
     func makeBody(_ configuration: CardMainHeaderConfiguration) -> Body
 }
-    
+
 struct AnyCardMainHeaderStyle: CardMainHeaderStyle {
     let content: (CardMainHeaderConfiguration) -> any View
 
@@ -20,7 +20,7 @@ struct AnyCardMainHeaderStyle: CardMainHeaderStyle {
         self.content(configuration).typeErased
     }
 }
-    
+
 public struct CardMainHeaderConfiguration {
     public let title: Title
     public let subtitle: Subtitle
@@ -36,7 +36,7 @@ public struct CardMainHeaderConfiguration {
     public typealias HeaderAction = ConfigurationViewWrapper
     public typealias Counter = ConfigurationViewWrapper
 }
-    
+
 public struct CardMainHeaderFioriStyle: CardMainHeaderStyle {
     public func makeBody(_ configuration: CardMainHeaderConfiguration) -> some View {
         CardMainHeader(configuration)

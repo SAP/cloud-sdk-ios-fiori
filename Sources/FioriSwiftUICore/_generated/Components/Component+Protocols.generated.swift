@@ -1,4 +1,7 @@
+// Generated using Sourcery 1.2.0 — https://github.com/krzysztofzablocki/Sourcery
+// DO NOT EDIT
 import SwiftUI
+
 
 public protocol TitleComponent {
     var title: String { get }
@@ -16,10 +19,6 @@ public protocol TagsComponent {
 
 public protocol FootnoteComponent {
     var footnote: String? { get }
-}
-
-public protocol DescriptionComponent {
-    var description: String? { get }
 }
 
 public protocol DescriptionTextComponent {
@@ -168,12 +167,6 @@ public protocol RightIconComponent {
 }
 
 
-public protocol ActionComponent {
-    var actionText: String? { get }
-	// sourcery: no_view
-    var didSelectAction: (() -> Void)? { get }
-}
-
 public protocol ActionItemsComponent {
     var actionItems: [ActivityItemDataType]? { get }
 	// sourcery: no_view
@@ -253,4 +246,10 @@ public protocol TextInputComponent : AnyObject {
     var textInputValue: String { get set }
 	// sourcery: no_view
     var onCommit: (() -> Void)? { get }
+}
+
+public protocol ActionComponent {
+    var actionText: String? { get }
+	// sourcery: no_view
+    var didSelectAction: (() -> Void)? { get }
 }

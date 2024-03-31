@@ -75,7 +75,7 @@ private extension DemoView {
         s._shouldApplyDefaultStyle = bool
         return s
     }
-        
+
     func defaultStyle() -> some View {
         DemoView(.init(title: .init(self.title), subtitle: .init(self.subtitle), status: .init(self.status), action: .init(self.action), isOn: self.$isOn))
             .shouldApplyDefaultStyle(false)

@@ -23,8 +23,12 @@ public extension HelperText {
 
 public extension HelperText {
     init(_ configuration: HelperTextConfiguration) {
+        self.init(configuration, shouldApplyDefaultStyle: false)
+    }
+
+    internal init(_ configuration: HelperTextConfiguration, shouldApplyDefaultStyle: Bool) {
         self.helperText = configuration.helperText
-        self._shouldApplyDefaultStyle = false
+        self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
     }
 }
 
@@ -49,7 +53,7 @@ private extension HelperText {
         s._shouldApplyDefaultStyle = bool
         return s
     }
-        
+
     func defaultStyle() -> some View {
         HelperText(helperText: { self.helperText })
             .shouldApplyDefaultStyle(false)

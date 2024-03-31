@@ -154,10 +154,6 @@ struct RightIconModifierKey: EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-struct ActionTextModifierKey: EnvironmentKey {
-    public static let defaultValue = AnyViewModifier { $0 }
-}
-
 struct ActionItemsModifierKey: EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
@@ -167,6 +163,10 @@ struct ProgressIndicatorTextModifierKey: EnvironmentKey {
 }
 
 struct TextInputValueModifierKey: EnvironmentKey {
+    public static let defaultValue = AnyViewModifier { $0 }
+}
+
+struct ActionTextModifierKey: EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 

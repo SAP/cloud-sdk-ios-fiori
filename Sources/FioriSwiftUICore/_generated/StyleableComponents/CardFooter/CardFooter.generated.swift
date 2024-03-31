@@ -60,7 +60,7 @@ private extension CardFooter {
         s._shouldApplyDefaultStyle = bool
         return s
     }
-        
+
     func defaultStyle() -> some View {
         CardFooter(.init(action: .init(self.action), secondaryAction: .init(self.secondaryAction)))
             .shouldApplyDefaultStyle(false)

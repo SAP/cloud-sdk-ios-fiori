@@ -8,7 +8,7 @@ public protocol DescriptionStyle: DynamicProperty {
 
     func makeBody(_ configuration: DescriptionConfiguration) -> Body
 }
-    
+
 struct AnyDescriptionStyle: DescriptionStyle {
     let content: (DescriptionConfiguration) -> any View
 
@@ -20,7 +20,7 @@ struct AnyDescriptionStyle: DescriptionStyle {
         self.content(configuration).typeErased
     }
 }
-    
+
 public struct DescriptionConfiguration {
     public let description: Description
 

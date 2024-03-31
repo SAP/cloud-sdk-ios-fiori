@@ -8,7 +8,7 @@ public protocol SecondaryActionStyle: DynamicProperty {
 
     func makeBody(_ configuration: SecondaryActionConfiguration) -> Body
 }
-    
+
 struct AnySecondaryActionStyle: SecondaryActionStyle {
     let content: (SecondaryActionConfiguration) -> any View
 
@@ -20,7 +20,7 @@ struct AnySecondaryActionStyle: SecondaryActionStyle {
         self.content(configuration).typeErased
     }
 }
-    
+
 public struct SecondaryActionConfiguration {
     public let secondaryAction: SecondaryAction
 

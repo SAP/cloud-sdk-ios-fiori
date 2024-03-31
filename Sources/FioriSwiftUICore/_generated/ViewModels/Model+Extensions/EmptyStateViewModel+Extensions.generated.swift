@@ -4,6 +4,6 @@ import SwiftUI
 
 public extension EmptyStateViewModel {
     var action: _ActionModel? {
-        nil
+        return nil
     }
 }

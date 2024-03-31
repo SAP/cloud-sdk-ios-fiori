@@ -8,7 +8,7 @@ public protocol DetailImageStyle: DynamicProperty {
 
     func makeBody(_ configuration: DetailImageConfiguration) -> Body
 }
-    
+
 struct AnyDetailImageStyle: DetailImageStyle {
     let content: (DetailImageConfiguration) -> any View
 
@@ -20,7 +20,7 @@ struct AnyDetailImageStyle: DetailImageStyle {
         self.content(configuration).typeErased
     }
 }
-    
+
 public struct DetailImageConfiguration {
     public let detailImage: DetailImage
 

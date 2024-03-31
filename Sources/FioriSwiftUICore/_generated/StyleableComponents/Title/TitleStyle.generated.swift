@@ -8,7 +8,7 @@ public protocol TitleStyle: DynamicProperty {
 
     func makeBody(_ configuration: TitleConfiguration) -> Body
 }
-    
+
 struct AnyTitleStyle: TitleStyle {
     let content: (TitleConfiguration) -> any View
 
@@ -20,7 +20,7 @@ struct AnyTitleStyle: TitleStyle {
         self.content(configuration).typeErased
     }
 }
-    
+
 public struct TitleConfiguration {
     public let title: Title
 

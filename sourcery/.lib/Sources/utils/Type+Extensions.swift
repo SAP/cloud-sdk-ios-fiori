@@ -7,8 +7,8 @@ public extension Type {
         var ret: [Variable] = []
         
         for superType in type.inheritedTypes {
-            if case let context = ProcessInfo().context.type, let type = context[superType] {
-                ret.append(contentsOf: getAllStoredVariables(for: type))
+            if let type = ProcessInfo.processInfo.context.type[superType] {
+                ret.append(contentsOf: self.getAllStoredVariables(for: type))
             }
         }
         
@@ -68,6 +68,11 @@ extension Type {
 public extension Type {
     var componentName: String {
         var name = name
+        
+        if name == "_ActionModel" || name == "_ObjectItemModel" {
+            return name.replacingOccurrences(of: "Model", with: "")
+        }
+        
         if name.hasSuffix("Model") {
             name = name.replacingOccurrences(of: "Model", with: "")
         } else if name.hasSuffix("Component") {
@@ -129,7 +134,7 @@ public extension Type {
 
     func optionalPropertySequences(includingAddViewBuilderParams: Bool = true) -> [[Variable]] {
         var sequences: [[Variable]] = []
-        var optionalProperties = self.allStoredVariables.filter { $0.isRepresentableByView }.filter { $0.isOptional }
+        var optionalProperties = self.allStoredVariables.filter(\.isRepresentableByView).filter(\.isOptional)
         if includingAddViewBuilderParams {
             optionalProperties.append(contentsOf: self.addViewBuilderParamsAsVariables)
         }
@@ -254,7 +259,7 @@ public extension Type {
     }
 
     internal func closureProperties(contextType: [String: Type]) -> [Variable] {
-        inheritedTypes.compactMap { contextType[$0] }.flatMap(\.allMethods).map { (method) -> Variable in
+        inheritedTypes.compactMap { contextType[$0] }.flatMap(\.allMethods).map { method -> Variable in
 
             let name = "\(method.name.components(separatedBy: "(").first ?? method.selectorName)"
 
@@ -311,7 +316,7 @@ extension Type {
     func extensionModelInitParamsAssignments(for viewModelsWhichWillBeBacked: [Type], contextType: [String: Type], allTypes: Types) -> [String] {
         var statements: [String] = []
 
-        let componentTypesWhichWillBeBacked = viewModelsWhichWillBeBacked.map { (model) -> Type in
+        let componentTypesWhichWillBeBacked = viewModelsWhichWillBeBacked.map { model -> Type in
             allTypes.protocols.filter { $0.name == model.inheritedTypes.first! }.first!
         }
 
@@ -379,7 +384,7 @@ extension Array where Element: Type {
     }
 }
 
-extension Array where Element == String {
+extension [String] {
     func inheritedTypes(contextType: [String: Type]) -> [Type] {
         self.compactMap { contextType[$0] }.compactMap { $0 }
     }
@@ -401,10 +406,10 @@ extension Type {
         let context = ProcessInfo().context!
         let contextType = context.type
 
-        if inheritedTypes.contains("ObservableObject") {
+        if self.inheritedTypes.contains("ObservableObject") {
             return true
-        } else if inheritedTypes.count > 0 {
-            let inheritedTypeDefs = inheritedTypes.compactMap { contextType[$0] }.compactMap { $0 }
+        } else if self.inheritedTypes.count > 0 {
+            let inheritedTypeDefs = self.inheritedTypes.compactMap { contextType[$0] }.compactMap { $0 }
             let results = inheritedTypeDefs.map { aType in
                 aType.isObservableObjectConform
             }
@@ -471,7 +476,7 @@ public extension Type {
         let context = ProcessInfo().context.type
         var ret: [String] = []
         
-        for inheritedType in inheritedTypes {
+        for inheritedType in self.inheritedTypes {
             guard let type = context[inheritedType] else { continue }
             
             if type.annotations.isGeneratedComponentNotConfigurable || type.annotations.backingComponent != nil {

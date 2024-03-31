@@ -60,7 +60,7 @@ private extension CardMedia {
         s._shouldApplyDefaultStyle = bool
         return s
     }
-        
+
     func defaultStyle() -> some View {
         CardMedia(.init(mediaImage: .init(self.mediaImage), description: .init(self.description)))
             .shouldApplyDefaultStyle(false)

@@ -53,7 +53,7 @@ private extension Title {
         s._shouldApplyDefaultStyle = bool
         return s
     }
-        
+
     func defaultStyle() -> some View {
         Title(title: { self.title })
             .shouldApplyDefaultStyle(false)

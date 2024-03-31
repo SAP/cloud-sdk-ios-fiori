@@ -8,7 +8,7 @@ public protocol IllustratedMessageStyle: DynamicProperty {
 
     func makeBody(_ configuration: IllustratedMessageConfiguration) -> Body
 }
-    
+
 struct AnyIllustratedMessageStyle: IllustratedMessageStyle {
     let content: (IllustratedMessageConfiguration) -> any View
 
@@ -20,7 +20,7 @@ struct AnyIllustratedMessageStyle: IllustratedMessageStyle {
         self.content(configuration).typeErased
     }
 }
-    
+
 public struct IllustratedMessageConfiguration {
     public let detailImage: DetailImage
     public let title: Title
@@ -33,7 +33,7 @@ public struct IllustratedMessageConfiguration {
     public typealias Description = ConfigurationViewWrapper
     public typealias Action = ConfigurationViewWrapper
 }
-    
+
 public struct IllustratedMessageFioriStyle: IllustratedMessageStyle {
     public func makeBody(_ configuration: IllustratedMessageConfiguration) -> some View {
         IllustratedMessage(configuration)

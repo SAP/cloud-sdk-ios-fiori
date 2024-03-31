@@ -4,14 +4,14 @@ import SwiftUI
 
 public extension ActivationScreenModel {
     var action: _ActionModel? {
-        nil
+        return nil
     }
 
-    var secondaryAction: _ActionModel? {
-        nil
+	var secondaryAction: _ActionModel? {
+        return nil
     }
 
-    var textInput: TextInputModel? {
-        nil
+	var textInput: TextInputModel? {
+        return nil
     }
 }

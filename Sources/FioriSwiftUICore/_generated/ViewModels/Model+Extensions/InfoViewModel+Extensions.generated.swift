@@ -4,14 +4,14 @@ import SwiftUI
 
 public extension InfoViewModel {
     var progressIndicator: ProgressIndicatorModel? {
-        nil
+        return nil
     }
 
-    var action: _ActionModel? {
-        nil
+	var action: _ActionModel? {
+        return nil
     }
 
-    var secondaryAction: _ActionModel? {
-        nil
+	var secondaryAction: _ActionModel? {
+        return nil
     }
 }

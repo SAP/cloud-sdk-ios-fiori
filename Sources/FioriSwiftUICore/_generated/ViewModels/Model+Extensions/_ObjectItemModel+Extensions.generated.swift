@@ -4,6 +4,6 @@ import SwiftUI
 
 public extension _ObjectItemModel {
     var action: _ActionModel? {
-        nil
+        return nil
     }
 }
