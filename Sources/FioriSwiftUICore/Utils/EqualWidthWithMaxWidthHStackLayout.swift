@@ -16,19 +16,24 @@ struct EqualWidthWithMaxWidthHStackLayout: Layout {
     var horizontalSizeClass: UserInterfaceSizeClass? = .compact
     
     func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) -> CGSize {
-        guard let containerWidth = proposal.width, containerWidth > 0, !subviews.isEmpty else { return .zero }
+        guard !subviews.isEmpty else { return .zero }
+        
         let subViewSizes = subviews.map {
             $0.sizeThatFits(.unspecified)
         }
+        let width: CGFloat = subViewSizes.reduce(0) { curr, subviewSize in
+            curr + subviewSize.width
+        }
+        let idealWidth = width + CGFloat(subViewSizes.count - 1) * (self.spacing ?? 0)
         let maxHeight: CGFloat = subViewSizes.reduce(0) { curr, subviewSize in
             max(curr, subviewSize.height)
         }
 
-        return CGSize(width: containerWidth, height: maxHeight)
+        return CGSize(width: proposal.width ?? idealWidth, height: maxHeight)
     }
     
     func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) {
-        guard let containerWidth = proposal.width, containerWidth > 0, !subviews.isEmpty else { return }
+        guard !subviews.isEmpty else { return }
         
         let subViewSizes = subviews.map {
             $0.sizeThatFits(.unspecified)
@@ -38,7 +43,13 @@ struct EqualWidthWithMaxWidthHStackLayout: Layout {
         }
         let theSpacing: CGFloat = self.spacing ?? 0
         let totalSpacing = theSpacing * CGFloat(subviews.count - 1)
-        let theMaxWidth = self.horizontalSizeClass == .compact ? CGFloat.greatestFiniteMagnitude : self.maxWidth ?? CGFloat.greatestFiniteMagnitude
+        let width: CGFloat = subViewSizes.reduce(0) { curr, subviewSize in
+            curr + subviewSize.width
+        }
+        let idealWidth = width + totalSpacing
+        let containerWidth = proposal.width ?? idealWidth
+        
+        let theMaxWidth = containerWidth <= 430 ? CGFloat.greatestFiniteMagnitude : self.maxWidth ?? CGFloat.greatestFiniteMagnitude
         let subviewWidth: CGFloat = min(theMaxWidth, (containerWidth - CGFloat(subviews.count - 1) * theSpacing) / CGFloat(subviews.count))
         
         // align trailing

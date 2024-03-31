@@ -148,3 +148,15 @@
 /* XBUT: slider default value label formatter for integer */
 "Value: %d" = "값: %d";
 
+/* XMSG: a toast message for read-only cell in DataTable */
+"Tapped cell is read-only." = "탭한 셀은 읽기 전용입니다.";
+
+/* Default hint text for Read-only Field for NoteFormView and TextFieldFormView */
+"Read-only field" = "읽기 전용 필드";
+
+/* Default error text for when the character count reaches the maximum limit for NoteFormView and TextFieldFormView */
+"No more characters remaining" = "더 이상 남아 있는 문자가 없습니다.";
+
+/* Default error text for when the character count exceeds the maximum limit for NoteFormView and TextFieldFormView */
+"Reduce the number of characters" = "문자 수를 줄이십시오.";
+

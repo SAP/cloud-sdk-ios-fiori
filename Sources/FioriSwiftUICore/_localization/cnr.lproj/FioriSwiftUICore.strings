@@ -1,162 +1,162 @@
 /* XMSG: Placeholder text in chart when there is no data */
-"No Data" = "Nav datu";
+"No Data" = "Nema podataka";
 
 /* XBUT: Save action in inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
-"Save" = "Saglabāt";
+"Save" = "Sačuvaj";
 
 /* XBUT: Re-enter action available in saved state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
-"Re-enter Signature" = "Atkārtoti ievadīt parakstu";
+"Re-enter Signature" = "Ponovo unesite potpis";
 
 /* XBUT: Clear action of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
-"Clear" = "Notīrīt";
+"Clear" = "Izbriši";
 
 /* XBUT: Cancel action of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
-"Cancel" = "Atcelt";
+"Cancel" = "Odustani";
 
 /* XTIT: Title of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
-"Signature" = "Paraksts";
+"Signature" = "Potpis";
 
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
-"Tap to Sign" = "Pieskarieties, lai parakstītu";
+"Tap to Sign" = "Dodirnite da biste potpisali";
 
 /* XACT: The accessibility label for the signature area */
-"Signature Area" = "Parakstu apgabals";
+"Signature Area" = "Oblast potpisa";
 
 /* XACT: The accessibility hint for the signature area */
-"Double tap and drag to sign" = "Veiciet dubultskārienu un velciet, lai parakstītu";
+"Double tap and drag to sign" = "Dodirnite dvaput i prevucite da potpišete";
 
 /* XACT: The accessibility label for the signature image */
-"Signature Image" = "Paraksta attēls";
+"Signature Image" = "Slika potpisa";
 
 /* XACT: The accessibility label for the signature line */
-"Signature Line" = "Paraksta līnija";
+"Signature Line" = "Red potpisa";
 
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
-"Canceled" = "Atcelts";
+"Canceled" = "Otkazano";
 
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
-"Next" = "Nākamais";
+"Next" = "Sljedeće";
 
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
-"Ok" = "Labi";
+"Ok" = "Ok";
 
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
-"Status" = "Statuss";
+"Status" = "Status";
 
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
-"User canceled Onboarding" = "Lietotājs atcēla integrāciju";
+"User canceled Onboarding" = "Korisnik otkazao integraciju";
 
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
-"Without consent you will not be able to continue onboarding." = "Bez piekrišanas nevarēsit turpināt integrāciju.";
+"Without consent you will not be able to continue onboarding." = "Bez saglasnosti nećete moći da nastavite integraciju.";
 
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
-"Give Consent" = "Sniegt piekrišanu";
+"Give Consent" = "Dajte saglasnost";
 
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
-"Quit" = "Iziet";
+"Quit" = "Izađi";
 
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
-"Back" = "Atpakaļ";
+"Back" = "Nazad";
 
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
-"Step" = "Solis";
+"Step" = "Korak";
 
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
-"of" = "no";
+"of" = "od";
 
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
-"Are you sure you want to quit the onboarding process?" = "Vai tiešām vēlaties beigt integrācijas procesu?";
+"Are you sure you want to quit the onboarding process?" = "Da li sigurno želite da napustite proces integracije?";
 
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
-"Want Data Privacy?" = "Vai vēlaties datu konfidencialitāti?";
+"Want Data Privacy?" = "Da li želite privatnost podataka?";
 
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
-"Be wise about your data" = "Ar datiem rīkojieties pārdomāti";
+"Be wise about your data" = "Budite oprezni sa vašim podacima";
 
 /* XBUT: Not Now action title in UserConsentForm */
-"Not Now" = "Ne tagad";
+"Not Now" = "Ne sada";
 
 /* XBUT: Allow action title in UserConsentForm */
-"Allow" = "Atļaut";
+"Allow" = "Dozvoli";
 
 /* XBUT: Deny action title in UserConsentForm */
-"Deny" = "Noraidīt";
+"Deny" = "Odbij";
 
 /* XBUT: Agree action title in EULAView */
-"Agree" = "Piekrist";
+"Agree" = "Saglasan sam";
 
 /* XBUT: Disagree action title in EULAView */
-"Disagree" = "Nepiekrist";
+"Disagree" = "Nijesam saglasan";
 
 /* XMSG: Placeholder text in DataTable for loading state */
-"Loading..." = "Ielāde...";
+"Loading..." = "Učitavanje...";
 
 /* XMSG: Placeholder text in DataTable when there is no data */
-"There is nothing to display yet" = "Vēl nav nekā, ko parādīt";
+"There is nothing to display yet" = "Nema još ništa za prikaz";
 
 /* XBUT: Default duration foramtter in DataTable */
-"%d Hrs %d Min" = "%d h %d min";
+"%d Hrs %d Min" = "%d sata/i %d min.";
 
 /* XBUT: Done action in keyboard toolbar for a Textfield in DataTable */
-"Done" = "Pabeigts";
+"Done" = "Izvršeno";
 
 /* XBUT: Error messages shown to users in DataTable */
-"There are %d errors in the data table." = "Datu tabulā ir %d kļūda(s).";
+"There are %d errors in the data table." = "%d grešaka u tabeli podataka.";
 
 /* XBUT: voice over label for row header in DataTable */
-"row header" = "rindas galvene";
+"row header" = "zaglavlje reda";
 
 /* XBUT: voice over label for row %d in DataTable */
-"row %d" = "rinda %d";
+"row %d" = "red %d";
 
 /* XBUT: voice over label for column %d in DataTable */
-"column %d" = "kolonna %d";
+"column %d" = "kolona %d";
 
 /* XBUT: voice over label for cell type of `leading accessory` in DataTable */
-"leading accessory" = "vadošais aksesuārs";
+"leading accessory" = "vodeći dodatak";
 
 /* XBUT: voice over label for cell type of `trailing accessory` in DataTable */
-"trailing accessory" = "noslēdzošais aksesuārs";
+"trailing accessory" = "prateći dodatak";
 
 /* XBUT: voice over label for cell type of `text` in DataTable */
-"text" = "teksts";
+"text" = "tekst";
 
 /* XBUT: voice over label for cell type of `image` in DataTable */
-"image" = "attēls";
+"image" = "slika";
 
 /* XBUT: voice over label for cell type of `date` in DataTable */
-"date" = "datums";
+"date" = "datum";
 
 /* XBUT: voice over label for cell type of `time` in DataTable */
-"time" = "laiks";
+"time" = "vrijeme";
 
 /* XBUT: voice over label for cell type of `duration` in DataTable */
-"duration" = "ilgums";
+"duration" = "trajanje";
 
 /* XBUT: voice over label for cell type of `list item` in DataTable */
-"list item" = "saraksta elements";
+"list item" = "stavka liste";
 
 /* XBUT: voice over label for row selection status in DataTable */
-"selected" = "atlasīts";
+"selected" = "odabrano";
 
 /* XBUT: voice over label for row selection status in DataTable */
-"not selected" = "nav atlasīts";
+"not selected" = "nije odabrano";
 
 /* XBUT: calendar time component label */
-"Time" = "Laiks";
+"Time" = "Vrijeme";
 
 /* XBUT: slider default value label formatter for integer */
-"Value: %d" = "Vērtība: %d";
+"Value: %d" = "Vrijednost: %d";
 
 /* XMSG: a toast message for read-only cell in DataTable */
-"Tapped cell is read-only." = "Šūna, kam pieskārāties, ir tikai lasāma.";
+"Tapped cell is read-only." = "Dodirnuta ćelija je samo za čitanje.";
 
 /* Default hint text for Read-only Field for NoteFormView and TextFieldFormView */
-"Read-only field" = "Tikai lasāms lauks";
+"Read-only field" = "Polje samo za čitanje";
 
 /* Default error text for when the character count reaches the maximum limit for NoteFormView and TextFieldFormView */
-"No more characters remaining" = "Vairs nav atlikusi neviena rakstzīme";
+"No more characters remaining" = "Nema preostalih znakova";
 
 /* Default error text for when the character count exceeds the maximum limit for NoteFormView and TextFieldFormView */
-"Reduce the number of characters" = "Samaziniet rakstzīmju skaitu";
+"Reduce the number of characters" = "Smanji broj znakova";
 

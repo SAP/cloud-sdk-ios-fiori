@@ -44,10 +44,10 @@
 "Status" = "Status";
 
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
-"User canceled Onboarding" = "Korisnik otkazao Onboarding";
+"User canceled Onboarding" = "Korisnik otkazao integraciju";
 
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
-"Without consent you will not be able to continue onboarding." = "Bez saglasnosti nećete moći da nastavite onboarding.";
+"Without consent you will not be able to continue onboarding." = "Bez saglasnosti nećete moći da nastavite integraciju.";
 
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
 "Give Consent" = "Dajte saglasnost";
@@ -65,10 +65,10 @@
 "of" = "od";
 
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
-"Are you sure you want to quit the onboarding process?" = "Da li sigurno želite da napustite proces pripreme radnog mesta za novog zaposlenog?";
+"Are you sure you want to quit the onboarding process?" = "Da li sigurno želite da napustite proces integracije?";
 
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
-"Want Data Privacy?" = "Žalite privatnost podataka?";
+"Want Data Privacy?" = "Da li želite privatnost podataka?";
 
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
 "Be wise about your data" = "Budite oprezni sa vašim podacima";
@@ -147,4 +147,16 @@
 
 /* XBUT: slider default value label formatter for integer */
 "Value: %d" = "Vrednost: %d";
+
+/* XMSG: a toast message for read-only cell in DataTable */
+"Tapped cell is read-only." = "Dodirnuta ćelija je samo za čitanje.";
+
+/* Default hint text for Read-only Field for NoteFormView and TextFieldFormView */
+"Read-only field" = "Polje samo za čitanje";
+
+/* Default error text for when the character count reaches the maximum limit for NoteFormView and TextFieldFormView */
+"No more characters remaining" = "Nema preostalih znakova";
+
+/* Default error text for when the character count exceeds the maximum limit for NoteFormView and TextFieldFormView */
+"Reduce the number of characters" = "Smanji broj znakova";
 
