@@ -1,4 +1,4 @@
-// Generated using Sourcery 1.2.0 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 //TODO: Copy commented code to new file: `FioriSwiftUICore/Views/SortFilterView+View.swift`
 //TODO: Implement default Fiori style definitions as `ViewModifier`

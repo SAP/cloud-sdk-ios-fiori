@@ -99,7 +99,7 @@ public extension Type {
     // add_view_builder_params are no Swift properties and therefore `Variable` property values are faked and cannot be relied on other than `name`
     var addViewBuilderParamsAsVariables: [Variable] {
         self.resolvedAnnotations("add_view_builder_params").map {
-            Variable(name: $0, typeName: TypeName("String?"), type: nil, accessLevel: (read: SourceryRuntime.AccessLevel.public, write: SourceryRuntime.AccessLevel.public), isComputed: false, isStatic: false, defaultValue: nil, attributes: [:], annotations: [:], definedInTypeName: nil)
+            Variable(name: $0, typeName: .init(name: "String", isOptional: true), type: nil, accessLevel: (read: SourceryRuntime.AccessLevel.public, write: SourceryRuntime.AccessLevel.public), isComputed: false, isStatic: false, defaultValue: nil, attributes: [:], annotations: [:], definedInTypeName: nil)
         }
     }
 

@@ -5,5 +5,5 @@ templates:
   - ./../sourcery/stencils/phase_four/component_extension_decl.swifttemplate
 output:
   ./../Sources/FioriSwiftUICore/_generated/Components
-force-parse:
+forceParse:
   - generated

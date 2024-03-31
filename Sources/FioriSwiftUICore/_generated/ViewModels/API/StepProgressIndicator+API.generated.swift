@@ -1,4 +1,4 @@
-// Generated using Sourcery 1.2.0 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import SwiftUI
 
@@ -13,11 +13,11 @@ public struct StepProgressIndicator<Title: View, ActionView: View, Steps: Indexe
 	let _action: ActionView
 	let _steps: Steps
 	let _cancelAction: CancelActionView
+	@State var isPresented: Bool = false
 	@State var scrollBounds: CGRect = .zero
 	var stepItems: [StepItem] = []
-	@State var stepFrames: [String: CGRect] = [:]
 	var axis: Axis = .horizontal
-	@State var isPresented: Bool = false
+	@State var stepFrames: [String: CGRect] = [:]
 
     private var isModelInit: Bool = false
 	private var isTitleNil: Bool = false
