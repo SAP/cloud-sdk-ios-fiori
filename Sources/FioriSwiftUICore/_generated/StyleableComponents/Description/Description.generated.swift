@@ -53,7 +53,7 @@ private extension Description {
         s._shouldApplyDefaultStyle = bool
         return s
     }
-        
+
     func defaultStyle() -> some View {
         Description(description: { self.description })
             .shouldApplyDefaultStyle(false)

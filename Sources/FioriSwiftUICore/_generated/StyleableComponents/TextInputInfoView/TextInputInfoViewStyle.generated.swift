@@ -8,7 +8,7 @@ protocol TextInputInfoViewStyle: DynamicProperty {
 
     func makeBody(_ configuration: TextInputInfoViewConfiguration) -> Body
 }
-    
+
 struct AnyTextInputInfoViewStyle: TextInputInfoViewStyle {
     let content: (TextInputInfoViewConfiguration) -> any View
 
@@ -20,7 +20,7 @@ struct AnyTextInputInfoViewStyle: TextInputInfoViewStyle {
         self.content(configuration).typeErased
     }
 }
-    
+
 struct TextInputInfoViewConfiguration {
     public let icon: Icon
     public let description: Description
@@ -30,7 +30,7 @@ struct TextInputInfoViewConfiguration {
     public typealias Description = ConfigurationViewWrapper
     public typealias Counter = ConfigurationViewWrapper
 }
-    
+
 struct TextInputInfoViewFioriStyle: TextInputInfoViewStyle {
     public func makeBody(_ configuration: TextInputInfoViewConfiguration) -> some View {
         TextInputInfoView(configuration)

@@ -8,7 +8,7 @@ public protocol PlaceholderTextEditorStyle: DynamicProperty {
 
     func makeBody(_ configuration: PlaceholderTextEditorConfiguration) -> Body
 }
-    
+
 struct AnyPlaceholderTextEditorStyle: PlaceholderTextEditorStyle {
     let content: (PlaceholderTextEditorConfiguration) -> any View
 
@@ -20,14 +20,14 @@ struct AnyPlaceholderTextEditorStyle: PlaceholderTextEditorStyle {
         self.content(configuration).typeErased
     }
 }
-    
+
 public struct PlaceholderTextEditorConfiguration {
     @Binding public var text: String
     public let placeholder: Placeholder
 
     public typealias Placeholder = ConfigurationViewWrapper
 }
-    
+
 public struct PlaceholderTextEditorFioriStyle: PlaceholderTextEditorStyle {
     public func makeBody(_ configuration: PlaceholderTextEditorConfiguration) -> some View {
         PlaceholderTextEditor(configuration)

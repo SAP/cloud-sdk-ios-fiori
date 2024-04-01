@@ -8,7 +8,7 @@ public protocol TextViewStyle: DynamicProperty {
 
     func makeBody(_ configuration: TextViewConfiguration) -> Body
 }
-    
+
 struct AnyTextViewStyle: TextViewStyle {
     let content: (TextViewConfiguration) -> any View
 
@@ -20,7 +20,7 @@ struct AnyTextViewStyle: TextViewStyle {
         self.content(configuration).typeErased
     }
 }
-    
+
 public struct TextViewConfiguration {
     @Binding public var text: String
 }

@@ -8,7 +8,7 @@ public protocol SubtitleStyle: DynamicProperty {
 
     func makeBody(_ configuration: SubtitleConfiguration) -> Body
 }
-    
+
 struct AnySubtitleStyle: SubtitleStyle {
     let content: (SubtitleConfiguration) -> any View
 
@@ -20,7 +20,7 @@ struct AnySubtitleStyle: SubtitleStyle {
         self.content(configuration).typeErased
     }
 }
-    
+
 public struct SubtitleConfiguration {
     public let subtitle: Subtitle
 

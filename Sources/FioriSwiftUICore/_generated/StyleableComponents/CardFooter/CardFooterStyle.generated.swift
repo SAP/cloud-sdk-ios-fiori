@@ -8,7 +8,7 @@ public protocol CardFooterStyle: DynamicProperty {
 
     func makeBody(_ configuration: CardFooterConfiguration) -> Body
 }
-    
+
 struct AnyCardFooterStyle: CardFooterStyle {
     let content: (CardFooterConfiguration) -> any View
 
@@ -20,7 +20,7 @@ struct AnyCardFooterStyle: CardFooterStyle {
         self.content(configuration).typeErased
     }
 }
-    
+
 public struct CardFooterConfiguration {
     public let action: Action
     public let secondaryAction: SecondaryAction
@@ -28,7 +28,7 @@ public struct CardFooterConfiguration {
     public typealias Action = ConfigurationViewWrapper
     public typealias SecondaryAction = ConfigurationViewWrapper
 }
-    
+
 public struct CardFooterFioriStyle: CardFooterStyle {
     public func makeBody(_ configuration: CardFooterConfiguration) -> some View {
         CardFooter(configuration)

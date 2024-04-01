@@ -1,4 +1,4 @@
-// Generated using Sourcery 1.2.0 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import SwiftUI
 
@@ -154,10 +154,6 @@ struct RightIconModifierKey: EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-struct ActionTextModifierKey: EnvironmentKey {
-    public static let defaultValue = AnyViewModifier { $0 }
-}
-
 struct ActionItemsModifierKey: EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
@@ -167,6 +163,10 @@ struct ProgressIndicatorTextModifierKey: EnvironmentKey {
 }
 
 struct TextInputValueModifierKey: EnvironmentKey {
+    public static let defaultValue = AnyViewModifier { $0 }
+}
+
+struct ActionTextModifierKey: EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 

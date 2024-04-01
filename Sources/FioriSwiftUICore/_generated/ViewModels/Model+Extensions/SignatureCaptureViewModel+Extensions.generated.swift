@@ -1,41 +1,41 @@
-// Generated using Sourcery 1.2.0 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import SwiftUI
 
 public extension SignatureCaptureViewModel {
     var title: String? {
-        nil
+        return nil
     }
 
-    var startAction: _ActionModel? {
-        _TapToSignActionDefault()
+	var startAction: _ActionModel? {
+        return _TapToSignActionDefault()
     }
 
-    var restartAction: _ActionModel? {
-        _ReEnterSignatureActionDefault()
+	var restartAction: _ActionModel? {
+        return _ReEnterSignatureActionDefault()
     }
 
-    var cancelAction: _ActionModel? {
-        _CancelActionDefault()
+	var cancelAction: _ActionModel? {
+        return _CancelActionDefault()
     }
 
-    var clearAction: _ActionModel? {
-        _ClearActionDefault()
+	var clearAction: _ActionModel? {
+        return _ClearActionDefault()
     }
 
-    var saveAction: _ActionModel? {
-        _SaveActionDefault()
+	var saveAction: _ActionModel? {
+        return _SaveActionDefault()
     }
 
-    var signatureImage: UIImage? {
-        nil
+	var signatureImage: UIImage? {
+        return nil
     }
 
-    var onSave: ((UIImage) -> Void)? {
-        nil
+	var onSave: ((UIImage) -> Void)? {
+        return nil
     }
 
-    var onDelete: (() -> Void)? {
-        nil
+	var onDelete: (() -> Void)? {
+        return nil
     }
 }

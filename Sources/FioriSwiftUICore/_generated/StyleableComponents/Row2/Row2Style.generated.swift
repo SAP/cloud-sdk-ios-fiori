@@ -8,7 +8,7 @@ public protocol Row2Style: DynamicProperty {
 
     func makeBody(_ configuration: Row2Configuration) -> Body
 }
-    
+
 struct AnyRow2Style: Row2Style {
     let content: (Row2Configuration) -> any View
 
@@ -20,7 +20,7 @@ struct AnyRow2Style: Row2Style {
         self.content(configuration).typeErased
     }
 }
-    
+
 public struct Row2Configuration {
     public let row2: Row2
 

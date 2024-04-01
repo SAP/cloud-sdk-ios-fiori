@@ -53,7 +53,7 @@ private extension FootnoteIcons {
         s._shouldApplyDefaultStyle = bool
         return s
     }
-        
+
     func defaultStyle() -> some View {
         FootnoteIcons(footnoteIcons: { self.footnoteIcons })
             .shouldApplyDefaultStyle(false)

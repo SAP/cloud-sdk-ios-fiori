@@ -8,7 +8,7 @@ public protocol CardExtHeaderStyle: DynamicProperty {
 
     func makeBody(_ configuration: CardExtHeaderConfiguration) -> Body
 }
-    
+
 struct AnyCardExtHeaderStyle: CardExtHeaderStyle {
     let content: (CardExtHeaderConfiguration) -> any View
 
@@ -20,7 +20,7 @@ struct AnyCardExtHeaderStyle: CardExtHeaderStyle {
         self.content(configuration).typeErased
     }
 }
-    
+
 public struct CardExtHeaderConfiguration {
     public let row1: Row1
     public let row2: Row2
@@ -34,7 +34,7 @@ public struct CardExtHeaderConfiguration {
     public typealias Kpi = ConfigurationViewWrapper
     public typealias KpiCaption = ConfigurationViewWrapper
 }
-    
+
 public struct CardExtHeaderFioriStyle: CardExtHeaderStyle {
     public func makeBody(_ configuration: CardExtHeaderConfiguration) -> some View {
         CardExtHeader(configuration)

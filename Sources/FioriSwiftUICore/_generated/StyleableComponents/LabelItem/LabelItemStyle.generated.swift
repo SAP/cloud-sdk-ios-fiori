@@ -8,7 +8,7 @@ public protocol LabelItemStyle: DynamicProperty {
 
     func makeBody(_ configuration: LabelItemConfiguration) -> Body
 }
-    
+
 struct AnyLabelItemStyle: LabelItemStyle {
     let content: (LabelItemConfiguration) -> any View
 
@@ -20,7 +20,7 @@ struct AnyLabelItemStyle: LabelItemStyle {
         self.content(configuration).typeErased
     }
 }
-    
+
 public struct LabelItemConfiguration {
     public let icon: Icon
     public let title: Title
@@ -29,7 +29,7 @@ public struct LabelItemConfiguration {
     public typealias Icon = ConfigurationViewWrapper
     public typealias Title = ConfigurationViewWrapper
 }
-    
+
 public struct LabelItemFioriStyle: LabelItemStyle {
     public func makeBody(_ configuration: LabelItemConfiguration) -> some View {
         LabelItem(configuration)

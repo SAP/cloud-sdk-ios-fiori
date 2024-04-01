@@ -53,7 +53,7 @@ private extension Tags {
         s._shouldApplyDefaultStyle = bool
         return s
     }
-        
+
     func defaultStyle() -> some View {
         Tags(tags: { self.tags })
             .shouldApplyDefaultStyle(false)

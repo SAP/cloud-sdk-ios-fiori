@@ -8,7 +8,7 @@ public protocol HelperTextStyle: DynamicProperty {
 
     func makeBody(_ configuration: HelperTextConfiguration) -> Body
 }
-    
+
 struct AnyHelperTextStyle: HelperTextStyle {
     let content: (HelperTextConfiguration) -> any View
 
@@ -20,7 +20,7 @@ struct AnyHelperTextStyle: HelperTextStyle {
         self.content(configuration).typeErased
     }
 }
-    
+
 public struct HelperTextConfiguration {
     public let helperText: HelperText
 

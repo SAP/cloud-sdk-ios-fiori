@@ -32,8 +32,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/krzysztofzablocki/Sourcery.git",
       "state" : {
-        "branch" : "2.1.3",
-        "revision" : "23179e872a15f172f3737ae91d6f1b764e670ec7"
+        "branch" : "2.1.7",
+        "revision" : "5c47257aa4a85e824e1654b4833f19a188c77877"
       }
     },
     {

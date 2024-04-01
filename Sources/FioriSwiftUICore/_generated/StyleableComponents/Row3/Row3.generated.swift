@@ -47,7 +47,7 @@ private extension Row3 {
         s._shouldApplyDefaultStyle = bool
         return s
     }
-        
+
     func defaultStyle() -> some View {
         Row3(row3: { self.row3 })
             .shouldApplyDefaultStyle(false)

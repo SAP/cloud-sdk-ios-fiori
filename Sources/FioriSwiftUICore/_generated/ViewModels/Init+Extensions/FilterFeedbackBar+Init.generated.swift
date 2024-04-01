@@ -1,3 +1,3 @@
-// Generated using Sourcery 1.2.0 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import SwiftUI

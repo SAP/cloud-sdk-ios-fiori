@@ -53,7 +53,7 @@ private extension Placeholder {
         s._shouldApplyDefaultStyle = bool
         return s
     }
-        
+
     func defaultStyle() -> some View {
         Placeholder(placeholder: { self.placeholder })
             .shouldApplyDefaultStyle(false)

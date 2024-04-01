@@ -8,7 +8,7 @@ public protocol LinearProgressIndicatorViewStyle: DynamicProperty {
 
     func makeBody(_ configuration: LinearProgressIndicatorViewConfiguration) -> Body
 }
-    
+
 struct AnyLinearProgressIndicatorViewStyle: LinearProgressIndicatorViewStyle {
     let content: (LinearProgressIndicatorViewConfiguration) -> any View
 
@@ -20,7 +20,7 @@ struct AnyLinearProgressIndicatorViewStyle: LinearProgressIndicatorViewStyle {
         self.content(configuration).typeErased
     }
 }
-    
+
 public struct LinearProgressIndicatorViewConfiguration {
     @Binding public var indicatorProgress: Double
     public let icon: Icon
@@ -29,7 +29,7 @@ public struct LinearProgressIndicatorViewConfiguration {
     public typealias Icon = ConfigurationViewWrapper
     public typealias Description = ConfigurationViewWrapper
 }
-    
+
 public struct LinearProgressIndicatorViewFioriStyle: LinearProgressIndicatorViewStyle {
     public func makeBody(_ configuration: LinearProgressIndicatorViewConfiguration) -> some View {
         LinearProgressIndicatorView(configuration)

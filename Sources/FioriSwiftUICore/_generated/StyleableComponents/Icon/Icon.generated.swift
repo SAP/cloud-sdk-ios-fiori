@@ -53,7 +53,7 @@ private extension Icon {
         s._shouldApplyDefaultStyle = bool
         return s
     }
-        
+
     func defaultStyle() -> some View {
         Icon(icon: { self.icon })
             .shouldApplyDefaultStyle(false)

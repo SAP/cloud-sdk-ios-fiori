@@ -8,7 +8,7 @@ public protocol KpiCaptionStyle: DynamicProperty {
 
     func makeBody(_ configuration: KpiCaptionConfiguration) -> Body
 }
-    
+
 struct AnyKpiCaptionStyle: KpiCaptionStyle {
     let content: (KpiCaptionConfiguration) -> any View
 
@@ -20,7 +20,7 @@ struct AnyKpiCaptionStyle: KpiCaptionStyle {
         self.content(configuration).typeErased
     }
 }
-    
+
 public struct KpiCaptionConfiguration {
     public let kpiCaption: KpiCaption
 
