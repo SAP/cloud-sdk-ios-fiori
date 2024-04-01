@@ -8,7 +8,7 @@ public protocol CardMediaStyle: DynamicProperty {
 
     func makeBody(_ configuration: CardMediaConfiguration) -> Body
 }
-    
+
 struct AnyCardMediaStyle: CardMediaStyle {
     let content: (CardMediaConfiguration) -> any View
 
@@ -20,7 +20,7 @@ struct AnyCardMediaStyle: CardMediaStyle {
         self.content(configuration).typeErased
     }
 }
-    
+
 public struct CardMediaConfiguration {
     public let mediaImage: MediaImage
     public let description: Description
@@ -28,7 +28,7 @@ public struct CardMediaConfiguration {
     public typealias MediaImage = ConfigurationViewWrapper
     public typealias Description = ConfigurationViewWrapper
 }
-    
+
 public struct CardMediaFioriStyle: CardMediaStyle {
     public func makeBody(_ configuration: CardMediaConfiguration) -> some View {
         CardMedia(configuration)

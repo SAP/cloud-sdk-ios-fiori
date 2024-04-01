@@ -8,5 +8,5 @@ templates:
   - ./../sourcery/stencils/phase_two/composite_model_decl.swifttemplate
 output:
   ./../Sources/FioriSwiftUICore/_generated/
-force-parse:
+forceParse:
   - generated

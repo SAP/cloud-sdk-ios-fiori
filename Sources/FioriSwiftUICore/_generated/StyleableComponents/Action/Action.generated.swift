@@ -53,7 +53,7 @@ private extension Action {
         s._shouldApplyDefaultStyle = bool
         return s
     }
-        
+
     func defaultStyle() -> some View {
         Action(action: { self.action })
             .shouldApplyDefaultStyle(false)

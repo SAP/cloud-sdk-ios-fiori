@@ -65,7 +65,7 @@ private extension TextInputInfoView {
         s._shouldApplyDefaultStyle = bool
         return s
     }
-        
+
     func defaultStyle() -> some View {
         TextInputInfoView(.init(icon: .init(self.icon), description: .init(self.description), counter: .init(self.counter)))
             .shouldApplyDefaultStyle(false)

@@ -8,7 +8,7 @@ public protocol CardBodyStyle: DynamicProperty {
 
     func makeBody(_ configuration: CardBodyConfiguration) -> Body
 }
-    
+
 struct AnyCardBodyStyle: CardBodyStyle {
     let content: (CardBodyConfiguration) -> any View
 
@@ -20,7 +20,7 @@ struct AnyCardBodyStyle: CardBodyStyle {
         self.content(configuration).typeErased
     }
 }
-    
+
 public struct CardBodyConfiguration {
     public let cardBody: CardBody
 

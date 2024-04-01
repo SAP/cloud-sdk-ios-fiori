@@ -66,7 +66,7 @@ private extension LabelItem {
         s._shouldApplyDefaultStyle = bool
         return s
     }
-        
+
     func defaultStyle() -> some View {
         LabelItem(.init(icon: .init(self.icon), title: .init(self.title), alignment: self.alignment))
             .shouldApplyDefaultStyle(false)

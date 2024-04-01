@@ -8,7 +8,7 @@ public protocol IconStyle: DynamicProperty {
 
     func makeBody(_ configuration: IconConfiguration) -> Body
 }
-    
+
 struct AnyIconStyle: IconStyle {
     let content: (IconConfiguration) -> any View
 
@@ -20,7 +20,7 @@ struct AnyIconStyle: IconStyle {
         self.content(configuration).typeErased
     }
 }
-    
+
 public struct IconConfiguration {
     public let icon: Icon
 

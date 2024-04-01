@@ -8,7 +8,7 @@ protocol DemoViewStyle: DynamicProperty {
 
     func makeBody(_ configuration: DemoViewConfiguration) -> Body
 }
-    
+
 struct AnyDemoViewStyle: DemoViewStyle {
     let content: (DemoViewConfiguration) -> any View
 
@@ -20,7 +20,7 @@ struct AnyDemoViewStyle: DemoViewStyle {
         self.content(configuration).typeErased
     }
 }
-    
+
 struct DemoViewConfiguration {
     public let title: Title
     public let subtitle: Subtitle
@@ -33,7 +33,7 @@ struct DemoViewConfiguration {
     public typealias Status = ConfigurationViewWrapper
     public typealias Action = ConfigurationViewWrapper
 }
-    
+
 struct DemoViewFioriStyle: DemoViewStyle {
     public func makeBody(_ configuration: DemoViewConfiguration) -> some View {
         DemoView(configuration)

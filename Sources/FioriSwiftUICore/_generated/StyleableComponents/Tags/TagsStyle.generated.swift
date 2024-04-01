@@ -8,7 +8,7 @@ public protocol TagsStyle: DynamicProperty {
 
     func makeBody(_ configuration: TagsConfiguration) -> Body
 }
-    
+
 struct AnyTagsStyle: TagsStyle {
     let content: (TagsConfiguration) -> any View
 
@@ -20,7 +20,7 @@ struct AnyTagsStyle: TagsStyle {
         self.content(configuration).typeErased
     }
 }
-    
+
 public struct TagsConfiguration {
     public let tags: Tags
 

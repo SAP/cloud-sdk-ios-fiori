@@ -8,7 +8,7 @@ public protocol StatusStyle: DynamicProperty {
 
     func makeBody(_ configuration: StatusConfiguration) -> Body
 }
-    
+
 struct AnyStatusStyle: StatusStyle {
     let content: (StatusConfiguration) -> any View
 
@@ -20,7 +20,7 @@ struct AnyStatusStyle: StatusStyle {
         self.content(configuration).typeErased
     }
 }
-    
+
 public struct StatusConfiguration {
     public let status: Status
 

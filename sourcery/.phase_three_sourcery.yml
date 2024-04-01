@@ -7,5 +7,5 @@ templates:
   - ./../sourcery/stencils/phase_three/view_modifier_decl.swifttemplate
 output:
   ./../Sources/FioriSwiftUICore/_generated/Components
-force-parse:
+forceParse:
   - generated

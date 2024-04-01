@@ -60,7 +60,7 @@ private extension PlaceholderTextEditor {
         s._shouldApplyDefaultStyle = bool
         return s
     }
-        
+
     func defaultStyle() -> some View {
         PlaceholderTextEditor(.init(text: self.$text, placeholder: .init(self.placeholder)))
             .shouldApplyDefaultStyle(false)

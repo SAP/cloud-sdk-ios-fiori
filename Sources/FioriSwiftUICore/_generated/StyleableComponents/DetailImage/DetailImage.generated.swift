@@ -53,7 +53,7 @@ private extension DetailImage {
         s._shouldApplyDefaultStyle = bool
         return s
     }
-        
+
     func defaultStyle() -> some View {
         DetailImage(detailImage: { self.detailImage })
             .shouldApplyDefaultStyle(false)

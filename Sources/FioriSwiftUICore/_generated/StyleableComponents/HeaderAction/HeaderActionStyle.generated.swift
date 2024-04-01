@@ -8,7 +8,7 @@ public protocol HeaderActionStyle: DynamicProperty {
 
     func makeBody(_ configuration: HeaderActionConfiguration) -> Body
 }
-    
+
 struct AnyHeaderActionStyle: HeaderActionStyle {
     let content: (HeaderActionConfiguration) -> any View
 
@@ -20,7 +20,7 @@ struct AnyHeaderActionStyle: HeaderActionStyle {
         self.content(configuration).typeErased
     }
 }
-    
+
 public struct HeaderActionConfiguration {
     public let headerAction: HeaderAction
 

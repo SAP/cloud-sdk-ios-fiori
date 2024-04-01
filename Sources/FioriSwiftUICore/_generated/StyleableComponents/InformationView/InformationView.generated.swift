@@ -60,7 +60,7 @@ private extension InformationView {
         s._shouldApplyDefaultStyle = bool
         return s
     }
-        
+
     func defaultStyle() -> some View {
         InformationView(.init(icon: .init(self.icon), description: .init(self.description)))
             .shouldApplyDefaultStyle(false)

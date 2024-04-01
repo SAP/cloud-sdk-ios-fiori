@@ -8,7 +8,7 @@ public protocol ObjectItemStyle: DynamicProperty {
 
     func makeBody(_ configuration: ObjectItemConfiguration) -> Body
 }
-    
+
 struct AnyObjectItemStyle: ObjectItemStyle {
     let content: (ObjectItemConfiguration) -> any View
 
@@ -20,7 +20,7 @@ struct AnyObjectItemStyle: ObjectItemStyle {
         self.content(configuration).typeErased
     }
 }
-    
+
 public struct ObjectItemConfiguration {
     public let title: Title
     public let subtitle: Subtitle
@@ -48,7 +48,7 @@ public struct ObjectItemConfiguration {
     public typealias Tags = ConfigurationViewWrapper
     public typealias Action = ConfigurationViewWrapper
 }
-    
+
 public struct ObjectItemFioriStyle: ObjectItemStyle {
     public func makeBody(_ configuration: ObjectItemConfiguration) -> some View {
         ObjectItem(configuration)

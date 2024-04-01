@@ -53,7 +53,7 @@ private extension SecondaryAction {
         s._shouldApplyDefaultStyle = bool
         return s
     }
-        
+
     func defaultStyle() -> some View {
         SecondaryAction(secondaryAction: { self.secondaryAction })
             .shouldApplyDefaultStyle(false)

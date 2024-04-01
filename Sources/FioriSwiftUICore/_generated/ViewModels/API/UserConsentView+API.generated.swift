@@ -1,4 +1,4 @@
-// Generated using Sourcery 1.2.0 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import SwiftUI
 
@@ -10,8 +10,8 @@ public struct UserConsentView<UserConsentForms: IndexedViewContainer> {
 	let _didDeny: ((Int, Bool) -> Void)?
 	let _didCancel: ((Int) -> Void)?
 	let _didFinish: (([Int]) -> Void)?
-	@State var _allowedFormIndexes: [Int] = []
 	@State var _formIndex = 0
+	@State var _allowedFormIndexes: [Int] = []
 
     private var isModelInit: Bool = false
 	private var isDidAllowNil: Bool = false

@@ -8,7 +8,7 @@ public protocol MediaImageStyle: DynamicProperty {
 
     func makeBody(_ configuration: MediaImageConfiguration) -> Body
 }
-    
+
 struct AnyMediaImageStyle: MediaImageStyle {
     let content: (MediaImageConfiguration) -> any View
 
@@ -20,7 +20,7 @@ struct AnyMediaImageStyle: MediaImageStyle {
         self.content(configuration).typeErased
     }
 }
-    
+
 public struct MediaImageConfiguration {
     public let mediaImage: MediaImage
 

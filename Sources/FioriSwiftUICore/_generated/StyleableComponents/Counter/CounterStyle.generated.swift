@@ -8,7 +8,7 @@ public protocol CounterStyle: DynamicProperty {
 
     func makeBody(_ configuration: CounterConfiguration) -> Body
 }
-    
+
 struct AnyCounterStyle: CounterStyle {
     let content: (CounterConfiguration) -> any View
 
@@ -20,7 +20,7 @@ struct AnyCounterStyle: CounterStyle {
         self.content(configuration).typeErased
     }
 }
-    
+
 public struct CounterConfiguration {
     public let counter: Counter
 

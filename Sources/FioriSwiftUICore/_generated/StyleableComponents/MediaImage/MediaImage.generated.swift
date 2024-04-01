@@ -53,7 +53,7 @@ private extension MediaImage {
         s._shouldApplyDefaultStyle = bool
         return s
     }
-        
+
     func defaultStyle() -> some View {
         MediaImage(mediaImage: { self.mediaImage })
             .shouldApplyDefaultStyle(false)

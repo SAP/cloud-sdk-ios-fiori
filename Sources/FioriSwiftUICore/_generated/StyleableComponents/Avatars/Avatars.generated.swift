@@ -53,7 +53,7 @@ private extension Avatars {
         s._shouldApplyDefaultStyle = bool
         return s
     }
-        
+
     func defaultStyle() -> some View {
         Avatars(avatars: { self.avatars })
             .shouldApplyDefaultStyle(false)

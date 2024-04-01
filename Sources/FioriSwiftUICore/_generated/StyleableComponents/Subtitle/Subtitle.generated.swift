@@ -53,7 +53,7 @@ private extension Subtitle {
         s._shouldApplyDefaultStyle = bool
         return s
     }
-        
+
     func defaultStyle() -> some View {
         Subtitle(subtitle: { self.subtitle })
             .shouldApplyDefaultStyle(false)

@@ -53,7 +53,7 @@ private extension Counter {
         s._shouldApplyDefaultStyle = bool
         return s
     }
-        
+
     func defaultStyle() -> some View {
         Counter(counter: { self.counter })
             .shouldApplyDefaultStyle(false)

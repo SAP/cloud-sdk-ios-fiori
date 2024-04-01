@@ -1,8 +1,8 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
-//TODO: Copy commented code to new file: `FioriSwiftUICore/Views/ObjectHeader+View.swift`
+//TODO: Copy commented code to new file: `FioriSwiftUICore/Views/_ObjectItem+View.swift`
 //TODO: Implement default Fiori style definitions as `ViewModifier`
-//TODO: Implement ObjectHeader `View` body
+//TODO: Implement _ObjectItem `View` body
 //TODO: Implement LibraryContentProvider
 
 /// - Important: to make `@Environment` properties (e.g. `horizontalSizeClass`), internally accessible
@@ -16,15 +16,11 @@ import SwiftUI
 // FIXME: - Implement Fiori style definitions
 
 extension Fiori {
-    enum ObjectHeader {
+    enum _ObjectItem {
         typealias Title = EmptyModifier
         typealias TitleCumulative = EmptyModifier
 		typealias Subtitle = EmptyModifier
         typealias SubtitleCumulative = EmptyModifier
-		typealias Tags = EmptyModifier
-        typealias TagsCumulative = EmptyModifier
-		typealias BodyText = EmptyModifier
-        typealias BodyTextCumulative = EmptyModifier
 		typealias Footnote = EmptyModifier
         typealias FootnoteCumulative = EmptyModifier
 		typealias DescriptionText = EmptyModifier
@@ -35,6 +31,16 @@ extension Fiori {
         typealias SubstatusCumulative = EmptyModifier
 		typealias DetailImage = EmptyModifier
         typealias DetailImageCumulative = EmptyModifier
+		typealias Icons = EmptyModifier
+        typealias IconsCumulative = EmptyModifier
+		typealias Avatars = EmptyModifier
+        typealias AvatarsCumulative = EmptyModifier
+		typealias FootnoteIcons = EmptyModifier
+        typealias FootnoteIconsCumulative = EmptyModifier
+		typealias Tags = EmptyModifier
+        typealias TagsCumulative = EmptyModifier
+		typealias Action = EmptyModifier
+        typealias ActionCumulative = EmptyModifier
 
         // TODO: - substitute type-specific ViewModifier for EmptyModifier
         /*
@@ -50,40 +56,46 @@ extension Fiori {
         */
         static let title = Title()
 		static let subtitle = Subtitle()
-		static let tags = Tags()
-		static let bodyText = BodyText()
 		static let footnote = Footnote()
 		static let descriptionText = DescriptionText()
 		static let status = Status()
 		static let substatus = Substatus()
 		static let detailImage = DetailImage()
+		static let icons = Icons()
+		static let avatars = Avatars()
+		static let footnoteIcons = FootnoteIcons()
+		static let tags = Tags()
+		static let action = Action()
         static let titleCumulative = TitleCumulative()
 		static let subtitleCumulative = SubtitleCumulative()
-		static let tagsCumulative = TagsCumulative()
-		static let bodyTextCumulative = BodyTextCumulative()
 		static let footnoteCumulative = FootnoteCumulative()
 		static let descriptionTextCumulative = DescriptionTextCumulative()
 		static let statusCumulative = StatusCumulative()
 		static let substatusCumulative = SubstatusCumulative()
 		static let detailImageCumulative = DetailImageCumulative()
+		static let iconsCumulative = IconsCumulative()
+		static let avatarsCumulative = AvatarsCumulative()
+		static let footnoteIconsCumulative = FootnoteIconsCumulative()
+		static let tagsCumulative = TagsCumulative()
+		static let actionCumulative = ActionCumulative()
     }
 }
 
-// FIXME: - Implement ObjectHeader View body
+// FIXME: - Implement _ObjectItem View body
 
-extension ObjectHeader: View {
+extension _ObjectItem: View {
     public var body: some View {
         <# View body #>
     }
 }
 
-// FIXME: - Implement ObjectHeader specific LibraryContentProvider
+// FIXME: - Implement _ObjectItem specific LibraryContentProvider
 
 @available(iOS 14.0, macOS 11.0, *)
-struct ObjectHeaderLibraryContent: LibraryContentProvider {
+struct _ObjectItemLibraryContent: LibraryContentProvider {
     @LibraryContentBuilder
     var views: [LibraryItem] {
-        LibraryItem(ObjectHeader(model: LibraryPreviewData.Person.laurelosborn),
+        LibraryItem(_ObjectItem(model: LibraryPreviewData.Person.laurelosborn),
                     category: .control)
     }
 }

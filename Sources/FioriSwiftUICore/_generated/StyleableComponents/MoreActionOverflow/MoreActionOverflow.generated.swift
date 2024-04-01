@@ -17,8 +17,12 @@ public struct MoreActionOverflow {
 
 public extension MoreActionOverflow {
     init(_ configuration: MoreActionOverflowConfiguration) {
+        self.init(configuration, shouldApplyDefaultStyle: false)
+    }
+
+    internal init(_ configuration: MoreActionOverflowConfiguration, shouldApplyDefaultStyle: Bool) {
         self.moreActionOverflow = configuration.moreActionOverflow
-        self._shouldApplyDefaultStyle = false
+        self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
     }
 }
 
@@ -43,7 +47,7 @@ private extension MoreActionOverflow {
         s._shouldApplyDefaultStyle = bool
         return s
     }
-        
+
     func defaultStyle() -> some View {
         MoreActionOverflow(moreActionOverflow: { self.moreActionOverflow })
             .shouldApplyDefaultStyle(false)

@@ -1,21 +1,21 @@
-// Generated using Sourcery 1.2.0 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import SwiftUI
 
 public extension SortFilterViewModel {
     var cancelAction: _ActionModel? {
-        _CancelActionDefault()
+        return _CancelActionDefault()
     }
 
-    var resetAction: _ActionModel? {
-        _ResetActionDefault()
+	var resetAction: _ActionModel? {
+        return _ResetActionDefault()
     }
 
-    var applyAction: _ActionModel? {
-        _ApplyActionDefault()
+	var applyAction: _ActionModel? {
+        return _ApplyActionDefault()
     }
 
-    var onUpdate: (() -> Void)? {
-        nil
+	var onUpdate: (() -> Void)? {
+        return nil
     }
 }

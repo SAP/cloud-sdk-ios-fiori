@@ -8,7 +8,7 @@ public protocol InformationViewStyle: DynamicProperty {
 
     func makeBody(_ configuration: InformationViewConfiguration) -> Body
 }
-    
+
 struct AnyInformationViewStyle: InformationViewStyle {
     let content: (InformationViewConfiguration) -> any View
 
@@ -20,7 +20,7 @@ struct AnyInformationViewStyle: InformationViewStyle {
         self.content(configuration).typeErased
     }
 }
-    
+
 public struct InformationViewConfiguration {
     public let icon: Icon
     public let description: Description
@@ -28,7 +28,7 @@ public struct InformationViewConfiguration {
     public typealias Icon = ConfigurationViewWrapper
     public typealias Description = ConfigurationViewWrapper
 }
-    
+
 public struct InformationViewFioriStyle: InformationViewStyle {
     public func makeBody(_ configuration: InformationViewConfiguration) -> some View {
         InformationView(configuration)

@@ -8,7 +8,7 @@ public protocol AvatarsStyle: DynamicProperty {
 
     func makeBody(_ configuration: AvatarsConfiguration) -> Body
 }
-    
+
 struct AnyAvatarsStyle: AvatarsStyle {
     let content: (AvatarsConfiguration) -> any View
 
@@ -20,7 +20,7 @@ struct AnyAvatarsStyle: AvatarsStyle {
         self.content(configuration).typeErased
     }
 }
-    
+
 public struct AvatarsConfiguration {
     public let avatars: Avatars
 
