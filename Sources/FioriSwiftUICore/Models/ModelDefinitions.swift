@@ -107,7 +107,7 @@ public protocol ActivityItemsModel: ActionItemsComponent {}
 
 // sourcery: generated_component
 // sourcery: add_env_props = "listBackground"
-// sourcery: add_env_props = "destinationListStyle"
+// sourcery: add_env_props = "listpickerListStyle"
 // sourcery: virtualPropDestinationView = "var destinationView: AnyView? = nil"
 public protocol ListPickerItemModel: KeyComponent, ValueComponent {}
 
@@ -366,7 +366,7 @@ public protocol DurationPickerModel: DurationPickerComponent {}
 // sourcery: availableAttributeContent = "iOS 15.0, macOS 12.0, *"
 // sourcery: add_env_props = "presentationMode"
 // sourcery: add_env_props = "listBackground"
-// sourcery: add_env_props = "destinationListStyle"
+// sourcery: add_env_props = "listpickerListStyle"
 // sourcery: virtualPropContentView = "var contentView: AnyView? = nil"
 // sourcery: virtualPropIsTopLevel = "var isTopLevel: Bool = true"
 // sourcery: virtualPropDataHandler = "var dataHandler: (() -> ())? = nil"

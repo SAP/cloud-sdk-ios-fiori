@@ -127,7 +127,7 @@ struct ListPickerItemDataNonIdentifiableExample: View {
                 Text(framework.name)
             }))
         }
-        .destinationStyle(.inset)
+        .listPickerListStyle(.inset)
         .navigationBarTitle(Text("Form"))
     }
 }

@@ -29,7 +29,7 @@ extension Fiori {
 extension ListPickerItem: View {
     public var body: some View {
         NavigationLink(
-            destination: destinationView?.listStyle(destinationListStyle).listBackground(listBackground).typeErased,
+            destination: destinationView?.listStyle(listpickerListStyle).listPickerListStyle(listpickerListStyle).listBackground(listBackground).typeErased,
             label: {
                 KeyValueItem {
                     key
@@ -234,15 +234,15 @@ extension ListPickerItem {
     }
 }
 
-struct DestinationListStyleKey: EnvironmentKey {
+struct ListpickerListStyleKey: EnvironmentKey {
     static let defaultValue: any ListStyle = .automatic
 }
 
 extension EnvironmentValues {
-    /// destinationListStyle environment value.
-    var destinationListStyle: any ListStyle {
-        get { self[DestinationListStyleKey.self] }
-        set { self[DestinationListStyleKey.self] = newValue }
+    /// listpickerListStyle environment value.
+    var listpickerListStyle: any ListStyle {
+        get { self[ListpickerListStyleKey.self] }
+        set { self[ListpickerListStyleKey.self] = newValue }
     }
 }
 
@@ -250,7 +250,7 @@ public extension View {
     /// List style for destination list in list picker.
     /// - Parameter style: some `ListStyle`.
     /// - Returns: New destination list style for list picker.
-    func destinationStyle(_ style: any ListStyle) -> some View {
-        self.environment(\.destinationListStyle, style)
+    func listPickerListStyle(_ style: some ListStyle) -> some View {
+        self.environment(\.listpickerListStyle, style)
     }
 }

@@ -7,7 +7,7 @@ public struct SearchableListView<CancelActionView: View, DoneActionView: View> {
     @Environment(\.cancelActionModifier) private var cancelActionModifier
     @Environment(\.doneActionModifier) private var doneActionModifier
     @Environment(\.listBackground) var listBackground
-    @Environment(\.destinationListStyle) var destinationListStyle
+    @Environment(\.listpickerListStyle) var listpickerListStyle
     @Environment(\.presentationMode) var presentationMode
 
     let _cancelAction: CancelActionView

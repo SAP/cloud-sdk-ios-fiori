@@ -5,7 +5,7 @@ import SwiftUI
 public struct ListPickerItem<Key: View, Value: View> {
     @Environment(\.keyModifier) private var keyModifier
 	@Environment(\.valueModifier) private var valueModifier
-	@Environment(\.destinationListStyle) var destinationListStyle
+	@Environment(\.listpickerListStyle) var listpickerListStyle
 	@Environment(\.listBackground) var listBackground
 
     let _key: Key
