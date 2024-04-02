@@ -8,7 +8,7 @@ public protocol SubstatusStyle: DynamicProperty {
 
     func makeBody(_ configuration: SubstatusConfiguration) -> Body
 }
-    
+
 struct AnySubstatusStyle: SubstatusStyle {
     let content: (SubstatusConfiguration) -> any View
 
@@ -20,7 +20,7 @@ struct AnySubstatusStyle: SubstatusStyle {
         self.content(configuration).typeErased
     }
 }
-    
+
 public struct SubstatusConfiguration {
     public let substatus: Substatus
 

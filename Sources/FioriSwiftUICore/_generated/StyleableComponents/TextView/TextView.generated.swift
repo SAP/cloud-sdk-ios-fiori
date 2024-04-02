@@ -47,7 +47,7 @@ private extension TextView {
         s._shouldApplyDefaultStyle = bool
         return s
     }
-        
+
     func defaultStyle() -> some View {
         TextView(text: self.$text)
             .shouldApplyDefaultStyle(false)

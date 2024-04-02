@@ -1376,7 +1376,7 @@ public extension HeaderActionStyle where Self == HeaderActionFioriStyle {
 }
 
 // MARK: HelperTextStyle
-    
+
 public extension HelperTextStyle where Self == HelperTextBaseStyle {
     static var base: HelperTextBaseStyle {
         HelperTextBaseStyle()
@@ -1859,7 +1859,7 @@ public extension MediaImageStyle where Self == MediaImageFioriStyle {
 }
 
 // MARK: MoreActionOverflowStyle
-    
+
 public extension MoreActionOverflowStyle where Self == MoreActionOverflowBaseStyle {
     static var base: MoreActionOverflowBaseStyle {
         MoreActionOverflowBaseStyle()

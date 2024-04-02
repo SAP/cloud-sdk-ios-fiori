@@ -8,7 +8,7 @@ public protocol CardHeaderStyle: DynamicProperty {
 
     func makeBody(_ configuration: CardHeaderConfiguration) -> Body
 }
-    
+
 struct AnyCardHeaderStyle: CardHeaderStyle {
     let content: (CardHeaderConfiguration) -> any View
 
@@ -20,7 +20,7 @@ struct AnyCardHeaderStyle: CardHeaderStyle {
         self.content(configuration).typeErased
     }
 }
-    
+
 public struct CardHeaderConfiguration {
     public let mediaImage: MediaImage
     public let description: Description
@@ -50,7 +50,7 @@ public struct CardHeaderConfiguration {
     public typealias Kpi = ConfigurationViewWrapper
     public typealias KpiCaption = ConfigurationViewWrapper
 }
-    
+
 public struct CardHeaderFioriStyle: CardHeaderStyle {
     public func makeBody(_ configuration: CardHeaderConfiguration) -> some View {
         CardHeader(configuration)

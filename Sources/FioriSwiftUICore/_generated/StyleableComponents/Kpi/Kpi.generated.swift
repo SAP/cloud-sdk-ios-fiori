@@ -53,7 +53,7 @@ private extension Kpi {
         s._shouldApplyDefaultStyle = bool
         return s
     }
-        
+
     func defaultStyle() -> some View {
         Kpi(kpi: { self.kpi })
             .shouldApplyDefaultStyle(false)

@@ -1,0 +1,162 @@
+/* XMSG: Placeholder text in chart when there is no data */
+"No Data" = "Нема податоци";
+
+/* XBUT: Save action in inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
+"Save" = "Зачувај";
+
+/* XBUT: Re-enter action available in saved state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
+"Re-enter Signature" = "Повторно внесете Потпис";
+
+/* XBUT: Clear action of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
+"Clear" = "Исчисти";
+
+/* XBUT: Cancel action of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
+"Cancel" = "Откажи";
+
+/* XTIT: Title of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
+"Signature" = "Потпис";
+
+/* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
+"Tap to Sign" = "Допрете за да се потпишете";
+
+/* XACT: The accessibility label for the signature area */
+"Signature Area" = "Место за потпис";
+
+/* XACT: The accessibility hint for the signature area */
+"Double tap and drag to sign" = "Допрете двапати и повлечете за да се потпишете";
+
+/* XACT: The accessibility label for the signature image */
+"Signature Image" = "Слика на потпис";
+
+/* XACT: The accessibility label for the signature line */
+"Signature Line" = "Линија за потпис";
+
+/* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
+"Canceled" = "Откажано";
+
+/* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
+"Next" = "Следно";
+
+/* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
+"Ok" = "Во ред";
+
+/* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
+"Status" = "Статус";
+
+/* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
+"User canceled Onboarding" = "Корисникот го откажа воведувањето во компанијата";
+
+/* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
+"Without consent you will not be able to continue onboarding." = "Без согласност нема да можете да продолжите со воведувањето во компанијата.";
+
+/* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
+"Give Consent" = "Дајте согласност";
+
+/* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
+"Quit" = "Откажи";
+
+/* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
+"Back" = "Назад";
+
+/* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
+"Step" = "Чекор";
+
+/* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
+"of" = "од";
+
+/* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
+"Are you sure you want to quit the onboarding process?" = "Дали сигурно сакате да го напуштите воведувањето во компанијата?";
+
+/* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
+"Want Data Privacy?" = "Сакате приватност на податоците?";
+
+/* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
+"Be wise about your data" = "Бидете внимателни со вашите податоци";
+
+/* XBUT: Not Now action title in UserConsentForm */
+"Not Now" = "Не сега";
+
+/* XBUT: Allow action title in UserConsentForm */
+"Allow" = "Дозволи";
+
+/* XBUT: Deny action title in UserConsentForm */
+"Deny" = "Одбиј";
+
+/* XBUT: Agree action title in EULAView */
+"Agree" = "Се согласувам";
+
+/* XBUT: Disagree action title in EULAView */
+"Disagree" = "Не се согласувам";
+
+/* XMSG: Placeholder text in DataTable for loading state */
+"Loading..." = "Се вчитува...";
+
+/* XMSG: Placeholder text in DataTable when there is no data */
+"There is nothing to display yet" = "Сè уште нема ништо за приказ";
+
+/* XBUT: Default duration foramtter in DataTable */
+"%d Hrs %d Min" = "%d Часови %d Минути";
+
+/* XBUT: Done action in keyboard toolbar for a Textfield in DataTable */
+"Done" = "Готово";
+
+/* XBUT: Error messages shown to users in DataTable */
+"There are %d errors in the data table." = "Има %d грешки во табелата со податоци.";
+
+/* XBUT: voice over label for row header in DataTable */
+"row header" = "заглавие на редот";
+
+/* XBUT: voice over label for row %d in DataTable */
+"row %d" = "ред %d";
+
+/* XBUT: voice over label for column %d in DataTable */
+"column %d" = "колона %d";
+
+/* XBUT: voice over label for cell type of `leading accessory` in DataTable */
+"leading accessory" = "водечки додаток";
+
+/* XBUT: voice over label for cell type of `trailing accessory` in DataTable */
+"trailing accessory" = "краен додаток";
+
+/* XBUT: voice over label for cell type of `text` in DataTable */
+"text" = "текст";
+
+/* XBUT: voice over label for cell type of `image` in DataTable */
+"image" = "слика";
+
+/* XBUT: voice over label for cell type of `date` in DataTable */
+"date" = "датум";
+
+/* XBUT: voice over label for cell type of `time` in DataTable */
+"time" = "време";
+
+/* XBUT: voice over label for cell type of `duration` in DataTable */
+"duration" = "времетраење";
+
+/* XBUT: voice over label for cell type of `list item` in DataTable */
+"list item" = "ставка од списокот";
+
+/* XBUT: voice over label for row selection status in DataTable */
+"selected" = "избран";
+
+/* XBUT: voice over label for row selection status in DataTable */
+"not selected" = "не е избран";
+
+/* XBUT: calendar time component label */
+"Time" = "Време";
+
+/* XBUT: slider default value label formatter for integer */
+"Value: %d" = "Вредност: %d";
+
+/* XMSG: a toast message for read-only cell in DataTable */
+"Tapped cell is read-only." = "Допрената ќелија е само за читање.";
+
+/* Default hint text for Read-only Field for NoteFormView and TextFieldFormView */
+"Read-only field" = "Поле само за читање";
+
+/* Default error text for when the character count reaches the maximum limit for NoteFormView and TextFieldFormView */
+"No more characters remaining" = "Нема преостанати знаци";
+
+/* Default error text for when the character count exceeds the maximum limit for NoteFormView and TextFieldFormView */
+"Reduce the number of characters" = "Намалете го бројот на знаци";
+

@@ -53,7 +53,7 @@ private extension HeaderAction {
         s._shouldApplyDefaultStyle = bool
         return s
     }
-        
+
     func defaultStyle() -> some View {
         HeaderAction(headerAction: { self.headerAction })
             .shouldApplyDefaultStyle(false)

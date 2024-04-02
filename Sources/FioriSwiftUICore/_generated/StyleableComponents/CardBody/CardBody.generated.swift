@@ -47,7 +47,7 @@ private extension CardBody {
         s._shouldApplyDefaultStyle = bool
         return s
     }
-        
+
     func defaultStyle() -> some View {
         CardBody(cardBody: { self.cardBody })
             .shouldApplyDefaultStyle(false)

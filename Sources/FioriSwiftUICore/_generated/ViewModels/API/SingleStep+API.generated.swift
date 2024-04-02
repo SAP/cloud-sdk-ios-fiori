@@ -1,4 +1,4 @@
-// Generated using Sourcery 1.2.0 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import SwiftUI
 
@@ -15,14 +15,14 @@ public struct SingleStep<Title: View, Node: View, Substeps: IndexedViewContainer
 	var _node: Node
 	var _substeps: Substeps
 	var state: StepProgressIndicatorState?
-	var horizontalSpacing: CGFloat = 8
-	var lineSize: CGSize? = nil
-	var trailing: CGFloat = 8
-	var leading: CGFloat = 8
-	var top: CGFloat = 8
-	var verticalSpacing: CGFloat = 8
-	var isLastStep: Bool = false
 	var bottom: CGFloat = 8
+	var lineSize: CGSize? = nil
+	var top: CGFloat = 8
+	var leading: CGFloat = 8
+	var horizontalSpacing: CGFloat = 8
+	var trailing: CGFloat = 8
+	var isLastStep: Bool = false
+	var verticalSpacing: CGFloat = 8
 
     private var isModelInit: Bool = false
 	private var isTitleNil: Bool = false

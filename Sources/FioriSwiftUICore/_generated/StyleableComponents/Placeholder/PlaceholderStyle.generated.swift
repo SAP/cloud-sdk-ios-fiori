@@ -8,7 +8,7 @@ public protocol PlaceholderStyle: DynamicProperty {
 
     func makeBody(_ configuration: PlaceholderConfiguration) -> Body
 }
-    
+
 struct AnyPlaceholderStyle: PlaceholderStyle {
     let content: (PlaceholderConfiguration) -> any View
 
@@ -20,7 +20,7 @@ struct AnyPlaceholderStyle: PlaceholderStyle {
         self.content(configuration).typeErased
     }
 }
-    
+
 public struct PlaceholderConfiguration {
     public let placeholder: Placeholder
 

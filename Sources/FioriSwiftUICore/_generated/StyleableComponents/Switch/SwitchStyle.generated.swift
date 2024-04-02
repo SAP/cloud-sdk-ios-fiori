@@ -8,7 +8,7 @@ public protocol SwitchStyle: DynamicProperty {
 
     func makeBody(_ configuration: SwitchConfiguration) -> Body
 }
-    
+
 struct AnySwitchStyle: SwitchStyle {
     let content: (SwitchConfiguration) -> any View
 
@@ -20,7 +20,7 @@ struct AnySwitchStyle: SwitchStyle {
         self.content(configuration).typeErased
     }
 }
-    
+
 public struct SwitchConfiguration {
     @Binding public var isOn: Bool
 }

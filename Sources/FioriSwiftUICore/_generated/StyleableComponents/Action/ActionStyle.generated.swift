@@ -8,7 +8,7 @@ public protocol ActionStyle: DynamicProperty {
 
     func makeBody(_ configuration: ActionConfiguration) -> Body
 }
-    
+
 struct AnyActionStyle: ActionStyle {
     let content: (ActionConfiguration) -> any View
 
@@ -20,7 +20,7 @@ struct AnyActionStyle: ActionStyle {
         self.content(configuration).typeErased
     }
 }
-    
+
 public struct ActionConfiguration {
     public let action: Action
 

@@ -300,7 +300,7 @@ public extension View {
             stack.append(style)
         }
     }
-    
+
     func helperTextStyle(@ViewBuilder content: @escaping (HelperTextConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.helperTextStyleStack) { stack in
             let style = AnyHelperTextStyle(content)
@@ -504,7 +504,7 @@ public extension View {
             stack.append(style)
         }
     }
-    
+
     func moreActionOverflowStyle(@ViewBuilder content: @escaping (MoreActionOverflowConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.moreActionOverflowStyleStack) { stack in
             let style = AnyMoreActionOverflowStyle(content)

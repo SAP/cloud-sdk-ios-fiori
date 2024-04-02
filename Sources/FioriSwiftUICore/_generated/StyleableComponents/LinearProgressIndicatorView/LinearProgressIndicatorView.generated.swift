@@ -65,7 +65,7 @@ private extension LinearProgressIndicatorView {
         s._shouldApplyDefaultStyle = bool
         return s
     }
-        
+
     func defaultStyle() -> some View {
         LinearProgressIndicatorView(.init(indicatorProgress: self.$indicatorProgress, icon: .init(self.icon), description: .init(self.description)))
             .shouldApplyDefaultStyle(false)

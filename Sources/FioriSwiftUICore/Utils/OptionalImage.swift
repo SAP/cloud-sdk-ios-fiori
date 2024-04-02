@@ -11,6 +11,7 @@ struct OptionalImage: View {
         if let image {
             image
                 .resizable()
+                .aspectRatio(contentMode: .fill)
         } else {
             EmptyView()
         }

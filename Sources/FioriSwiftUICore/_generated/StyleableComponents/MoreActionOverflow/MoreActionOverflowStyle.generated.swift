@@ -8,7 +8,7 @@ public protocol MoreActionOverflowStyle: DynamicProperty {
 
     func makeBody(_ configuration: MoreActionOverflowConfiguration) -> Body
 }
-    
+
 struct AnyMoreActionOverflowStyle: MoreActionOverflowStyle {
     let content: (MoreActionOverflowConfiguration) -> any View
 
@@ -20,7 +20,7 @@ struct AnyMoreActionOverflowStyle: MoreActionOverflowStyle {
         self.content(configuration).typeErased
     }
 }
-    
+
 public struct MoreActionOverflowConfiguration {
     public let moreActionOverflow: MoreActionOverflow
 

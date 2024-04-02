@@ -53,7 +53,7 @@ private extension KpiCaption {
         s._shouldApplyDefaultStyle = bool
         return s
     }
-        
+
     func defaultStyle() -> some View {
         KpiCaption(kpiCaption: { self.kpiCaption })
             .shouldApplyDefaultStyle(false)

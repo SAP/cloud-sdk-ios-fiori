@@ -53,7 +53,7 @@ private extension Substatus {
         s._shouldApplyDefaultStyle = bool
         return s
     }
-        
+
     func defaultStyle() -> some View {
         Substatus(substatus: { self.substatus })
             .shouldApplyDefaultStyle(false)

@@ -53,7 +53,7 @@ private extension Status {
         s._shouldApplyDefaultStyle = bool
         return s
     }
-        
+
     func defaultStyle() -> some View {
         Status(status: { self.status })
             .shouldApplyDefaultStyle(false)

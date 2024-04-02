@@ -75,7 +75,7 @@ private extension IllustratedMessage {
         s._shouldApplyDefaultStyle = bool
         return s
     }
-        
+
     func defaultStyle() -> some View {
         IllustratedMessage(.init(detailImage: .init(self.detailImage), title: .init(self.title), description: .init(self.description), action: .init(self.action), detailImageSize: self.detailImageSize))
             .shouldApplyDefaultStyle(false)

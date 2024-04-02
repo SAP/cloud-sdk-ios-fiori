@@ -47,7 +47,7 @@ private extension Switch {
         s._shouldApplyDefaultStyle = bool
         return s
     }
-        
+
     func defaultStyle() -> some View {
         Switch(isOn: self.$isOn)
             .shouldApplyDefaultStyle(false)
