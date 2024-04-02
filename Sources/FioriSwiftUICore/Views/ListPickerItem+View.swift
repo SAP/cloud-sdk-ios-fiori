@@ -29,7 +29,7 @@ extension Fiori {
 extension ListPickerItem: View {
     public var body: some View {
         NavigationLink(
-            destination: destinationView?.environment(\.listBackground, listBackground),
+            destination: destinationView?.listStyle(listpickerListStyle).listPickerListStyle(listpickerListStyle).listBackground(listBackground).typeErased,
             label: {
                 KeyValueItem {
                     key
@@ -188,7 +188,6 @@ extension ListPickerItemConfiguration {
                                                   searchFilter: searchFilter,
                                                   rowContent: rowContent,
                                                   rowBackground: rowBackground)
-            .listStyle(.plain)
             .typeErased
     }
 }
@@ -232,5 +231,26 @@ extension ListPickerItem {
                 }
             }
         }
+    }
+}
+
+struct ListpickerListStyleKey: EnvironmentKey {
+    static let defaultValue: any ListStyle = .automatic
+}
+
+extension EnvironmentValues {
+    /// listpickerListStyle environment value.
+    var listpickerListStyle: any ListStyle {
+        get { self[ListpickerListStyleKey.self] }
+        set { self[ListpickerListStyleKey.self] = newValue }
+    }
+}
+
+public extension View {
+    /// List style for destination list in list picker.
+    /// - Parameter style: some `ListStyle`.
+    /// - Returns: New destination list style for list picker.
+    func listPickerListStyle(_ style: some ListStyle) -> some View {
+        self.environment(\.listpickerListStyle, style)
     }
 }
