@@ -24,6 +24,8 @@ struct SearchableListViewExample: View {
                 Spacer()
                 NavigationLink {
                     self.pickerView(self.$selection1)
+                        .listStyle(.insetGrouped)
+                        .listPickerListStyle(.grouped)
                         .navigationTitle("Title: Pick One")
                 } label: {
                     let str = self.selectedValues(Array(self.selection1))

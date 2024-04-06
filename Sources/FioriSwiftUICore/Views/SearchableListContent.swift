@@ -6,7 +6,8 @@ import SwiftUI
 
 struct SearchableListContent<Data: RandomAccessCollection, ID: Hashable, RowContent: View, RowBackground: View>: View {
     @Environment(\.listBackground) var listBackground
-    
+    @Environment(\.listpickerListStyle) var listpickerListStyle
+
     @State var searchText = ""
     @State var selectionBuffer: Set<ID>
     
