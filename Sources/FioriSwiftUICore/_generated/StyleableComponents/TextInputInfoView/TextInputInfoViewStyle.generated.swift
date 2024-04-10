@@ -34,9 +34,9 @@ struct TextInputInfoViewConfiguration {
 struct TextInputInfoViewFioriStyle: TextInputInfoViewStyle {
     public func makeBody(_ configuration: TextInputInfoViewConfiguration) -> some View {
         TextInputInfoView(configuration)
-            .iconStyle(IconFioriStyle())
-            .descriptionStyle(DescriptionFioriStyle())
-            .counterStyle(CounterFioriStyle())
-            .informationViewStyle(InformationViewFioriStyle())
+            .iconStyle(IconFioriStyle(textInputInfoViewConfiguration: configuration))
+            .descriptionStyle(DescriptionFioriStyle(textInputInfoViewConfiguration: configuration))
+            .counterStyle(CounterFioriStyle(textInputInfoViewConfiguration: configuration))
+            .informationViewStyle(InformationViewFioriStyle(textInputInfoViewConfiguration: configuration))
     }
 }

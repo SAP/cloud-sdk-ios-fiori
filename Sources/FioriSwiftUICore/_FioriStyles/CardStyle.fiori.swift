@@ -116,6 +116,8 @@ extension CardFioriStyle {
     }
     
     struct MediaImageFioriStyle: MediaImageStyle {
+        let cardConfiguration: CardConfiguration
+        
         func makeBody(_ configuration: MediaImageConfiguration) -> some View {
             MediaImage(configuration)
             // Add default style for MediaImage
@@ -125,6 +127,8 @@ extension CardFioriStyle {
     }
     
     struct DescriptionFioriStyle: DescriptionStyle {
+        let cardConfiguration: CardConfiguration
+        
         func makeBody(_ configuration: DescriptionConfiguration) -> some View {
             Description(configuration)
             // Add default style for Description
@@ -134,6 +138,8 @@ extension CardFioriStyle {
     }
     
     struct TitleFioriStyle: TitleStyle {
+        let cardConfiguration: CardConfiguration
+        
         func makeBody(_ configuration: TitleConfiguration) -> some View {
             Title(configuration)
             // Add default style for Title
@@ -143,6 +149,8 @@ extension CardFioriStyle {
     }
     
     struct SubtitleFioriStyle: SubtitleStyle {
+        let cardConfiguration: CardConfiguration
+        
         func makeBody(_ configuration: SubtitleConfiguration) -> some View {
             Subtitle(configuration)
             // Add default style for Subtitle
@@ -152,6 +160,8 @@ extension CardFioriStyle {
     }
     
     struct IconsFioriStyle: IconsStyle {
+        let cardConfiguration: CardConfiguration
+        
         func makeBody(_ configuration: IconsConfiguration) -> some View {
             Icons(configuration)
             // Add default style for Icons
@@ -161,6 +171,8 @@ extension CardFioriStyle {
     }
     
     struct DetailImageFioriStyle: DetailImageStyle {
+        let cardConfiguration: CardConfiguration
+        
         func makeBody(_ configuration: DetailImageConfiguration) -> some View {
             DetailImage(configuration)
             // Add default style for DetailImage
@@ -170,6 +182,8 @@ extension CardFioriStyle {
     }
     
     struct HeaderActionFioriStyle: HeaderActionStyle {
+        let cardConfiguration: CardConfiguration
+        
         func makeBody(_ configuration: HeaderActionConfiguration) -> some View {
             HeaderAction(configuration)
             // Add default style for HeaderAction
@@ -179,6 +193,8 @@ extension CardFioriStyle {
     }
     
     struct CounterFioriStyle: CounterStyle {
+        let cardConfiguration: CardConfiguration
+        
         func makeBody(_ configuration: CounterConfiguration) -> some View {
             Counter(configuration)
             // Add default style for Counter
@@ -188,6 +204,8 @@ extension CardFioriStyle {
     }
     
     struct Row1FioriStyle: Row1Style {
+        let cardConfiguration: CardConfiguration
+        
         func makeBody(_ configuration: Row1Configuration) -> some View {
             Row1(configuration)
             // Add default style for Row1
@@ -197,6 +215,8 @@ extension CardFioriStyle {
     }
     
     struct Row2FioriStyle: Row2Style {
+        let cardConfiguration: CardConfiguration
+        
         func makeBody(_ configuration: Row2Configuration) -> some View {
             Row2(configuration)
             // Add default style for Row2
@@ -206,6 +226,8 @@ extension CardFioriStyle {
     }
     
     struct Row3FioriStyle: Row3Style {
+        let cardConfiguration: CardConfiguration
+        
         func makeBody(_ configuration: Row3Configuration) -> some View {
             Row3(configuration)
             // Add default style for Row3
@@ -215,6 +237,8 @@ extension CardFioriStyle {
     }
     
     struct KpiFioriStyle: KpiStyle {
+        let cardConfiguration: CardConfiguration
+        
         func makeBody(_ configuration: KpiConfiguration) -> some View {
             Kpi(configuration)
             // Add default style for Kpi
@@ -224,6 +248,8 @@ extension CardFioriStyle {
     }
     
     struct KpiCaptionFioriStyle: KpiCaptionStyle {
+        let cardConfiguration: CardConfiguration
+        
         func makeBody(_ configuration: KpiCaptionConfiguration) -> some View {
             KpiCaption(configuration)
             // Add default style for KpiCaption
@@ -233,6 +259,8 @@ extension CardFioriStyle {
     }
     
     struct CardBodyFioriStyle: CardBodyStyle {
+        let cardConfiguration: CardConfiguration
+        
         func makeBody(_ configuration: CardBodyConfiguration) -> some View {
             CardBody(configuration)
             // Add default style for CardBody
@@ -242,6 +270,8 @@ extension CardFioriStyle {
     }
     
     struct ActionFioriStyle: ActionStyle {
+        let cardConfiguration: CardConfiguration
+        
         func makeBody(_ configuration: ActionConfiguration) -> some View {
             Action(configuration)
             // Add default style for NewAction
@@ -251,6 +281,8 @@ extension CardFioriStyle {
     }
     
     struct SecondaryActionFioriStyle: SecondaryActionStyle {
+        let cardConfiguration: CardConfiguration
+        
         func makeBody(_ configuration: SecondaryActionConfiguration) -> some View {
             SecondaryAction(configuration)
             // Add default style for SecondaryAction
@@ -260,6 +292,8 @@ extension CardFioriStyle {
     }
     
     struct CardHeaderFioriStyle: CardHeaderStyle {
+        let cardConfiguration: CardConfiguration
+        
         func makeBody(_ configuration: CardHeaderConfiguration) -> some View {
             CardHeader(configuration)
             // Add default style for CardHeader
@@ -269,6 +303,8 @@ extension CardFioriStyle {
     }
     
     struct CardFooterFioriStyle: CardFooterStyle {
+        let cardConfiguration: CardConfiguration
+        
         func makeBody(_ configuration: CardFooterConfiguration) -> some View {
             CardFooter(configuration)
             // Add default style for CardFooter

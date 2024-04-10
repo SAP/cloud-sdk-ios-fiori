@@ -40,9 +40,9 @@ public struct TitleFormViewConfiguration {
 public struct TitleFormViewFioriStyle: TitleFormViewStyle {
     public func makeBody(_ configuration: TitleFormViewConfiguration) -> some View {
         TitleFormView(configuration)
-            .textInputFieldStyle(TextInputFieldFioriStyle())
-            .placeholderStyle(PlaceholderFioriStyle())
-            .placeholderTextFieldStyle(PlaceholderTextFieldFioriStyle())
-            .formViewStyle(FormViewFioriStyle())
+            .textInputFieldStyle(TextInputFieldFioriStyle(titleFormViewConfiguration: configuration))
+            .placeholderStyle(PlaceholderFioriStyle(titleFormViewConfiguration: configuration))
+            .placeholderTextFieldStyle(PlaceholderTextFieldFioriStyle(titleFormViewConfiguration: configuration))
+            .formViewStyle(FormViewFioriStyle(titleFormViewConfiguration: configuration))
     }
 }

@@ -41,6 +41,8 @@ extension LabelItemFioriStyle {
     }
     
     struct IconFioriStyle: IconStyle {
+        let labelItemConfiguration: LabelItemConfiguration
+        
         func makeBody(_ configuration: IconConfiguration) -> some View {
             Icon(configuration)
                 // Add default style for Icon
@@ -50,6 +52,8 @@ extension LabelItemFioriStyle {
     }
     
     struct TitleFioriStyle: TitleStyle {
+        let labelItemConfiguration: LabelItemConfiguration
+        
         func makeBody(_ configuration: TitleConfiguration) -> some View {
             Title(configuration)
                 // Add default style for Title

@@ -27,6 +27,8 @@ extension TextInputInfoViewFioriStyle {
     }
     
     struct IconFioriStyle: IconStyle {
+        let textInputInfoViewConfiguration: TextInputInfoViewConfiguration
+        
         func makeBody(_ configuration: IconConfiguration) -> some View {
             Icon(configuration)
                 .foregroundStyle(Color.preferredColor(.primaryLabel))
@@ -35,6 +37,8 @@ extension TextInputInfoViewFioriStyle {
     }
     
     struct DescriptionFioriStyle: DescriptionStyle {
+        let textInputInfoViewConfiguration: TextInputInfoViewConfiguration
+        
         func makeBody(_ configuration: DescriptionConfiguration) -> some View {
             Description(configuration)
                 .foregroundStyle(Color.preferredColor(.primaryLabel))
@@ -43,6 +47,8 @@ extension TextInputInfoViewFioriStyle {
     }
     
     struct CounterFioriStyle: CounterStyle {
+        let textInputInfoViewConfiguration: TextInputInfoViewConfiguration
+        
         func makeBody(_ configuration: CounterConfiguration) -> some View {
             Counter(configuration)
                 .font(.fiori(forTextStyle: .footnote))
@@ -50,6 +56,8 @@ extension TextInputInfoViewFioriStyle {
     }
     
     struct InformationViewFioriStyle: InformationViewStyle {
+        let textInputInfoViewConfiguration: TextInputInfoViewConfiguration
+        
         func makeBody(_ configuration: InformationViewConfiguration) -> some View {
             InformationView(configuration)
         }

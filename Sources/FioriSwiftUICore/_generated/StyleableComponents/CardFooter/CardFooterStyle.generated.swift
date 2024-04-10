@@ -32,7 +32,7 @@ public struct CardFooterConfiguration {
 public struct CardFooterFioriStyle: CardFooterStyle {
     public func makeBody(_ configuration: CardFooterConfiguration) -> some View {
         CardFooter(configuration)
-            .actionStyle(ActionFioriStyle())
-            .secondaryActionStyle(SecondaryActionFioriStyle())
+            .actionStyle(ActionFioriStyle(cardFooterConfiguration: configuration))
+            .secondaryActionStyle(SecondaryActionFioriStyle(cardFooterConfiguration: configuration))
     }
 }

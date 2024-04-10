@@ -42,9 +42,9 @@ public struct NoteFormViewConfiguration {
 public struct NoteFormViewFioriStyle: NoteFormViewStyle {
     public func makeBody(_ configuration: NoteFormViewConfiguration) -> some View {
         NoteFormView(configuration)
-            .textViewStyle(TextViewFioriStyle())
-            .placeholderStyle(PlaceholderFioriStyle())
-            .placeholderTextEditorStyle(PlaceholderTextEditorFioriStyle())
-            .formViewStyle(FormViewFioriStyle())
+            .textViewStyle(TextViewFioriStyle(noteFormViewConfiguration: configuration))
+            .placeholderStyle(PlaceholderFioriStyle(noteFormViewConfiguration: configuration))
+            .placeholderTextEditorStyle(PlaceholderTextEditorFioriStyle(noteFormViewConfiguration: configuration))
+            .formViewStyle(FormViewFioriStyle(noteFormViewConfiguration: configuration))
     }
 }

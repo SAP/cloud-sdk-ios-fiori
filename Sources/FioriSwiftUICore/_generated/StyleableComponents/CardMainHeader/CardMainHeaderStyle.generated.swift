@@ -40,11 +40,11 @@ public struct CardMainHeaderConfiguration {
 public struct CardMainHeaderFioriStyle: CardMainHeaderStyle {
     public func makeBody(_ configuration: CardMainHeaderConfiguration) -> some View {
         CardMainHeader(configuration)
-            .titleStyle(TitleFioriStyle())
-            .subtitleStyle(SubtitleFioriStyle())
-            .iconsStyle(IconsFioriStyle())
-            .detailImageStyle(DetailImageFioriStyle())
-            .headerActionStyle(HeaderActionFioriStyle())
-            .counterStyle(CounterFioriStyle())
+            .titleStyle(TitleFioriStyle(cardMainHeaderConfiguration: configuration))
+            .subtitleStyle(SubtitleFioriStyle(cardMainHeaderConfiguration: configuration))
+            .iconsStyle(IconsFioriStyle(cardMainHeaderConfiguration: configuration))
+            .detailImageStyle(DetailImageFioriStyle(cardMainHeaderConfiguration: configuration))
+            .headerActionStyle(HeaderActionFioriStyle(cardMainHeaderConfiguration: configuration))
+            .counterStyle(CounterFioriStyle(cardMainHeaderConfiguration: configuration))
     }
 }

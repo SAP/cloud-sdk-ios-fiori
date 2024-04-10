@@ -39,6 +39,8 @@ extension CardFooterFioriStyle {
     }
     
     struct ActionFioriStyle: ActionStyle {
+        let cardFooterConfiguration: CardFooterConfiguration
+        
         func makeBody(_ configuration: ActionConfiguration) -> some View {
             Action(configuration)
                 .frame(maxWidth: .infinity)
@@ -47,6 +49,8 @@ extension CardFooterFioriStyle {
     }
     
     struct SecondaryActionFioriStyle: SecondaryActionStyle {
+        let cardFooterConfiguration: CardFooterConfiguration
+        
         func makeBody(_ configuration: SecondaryActionConfiguration) -> some View {
             SecondaryAction(configuration)
                 .frame(maxWidth: .infinity)

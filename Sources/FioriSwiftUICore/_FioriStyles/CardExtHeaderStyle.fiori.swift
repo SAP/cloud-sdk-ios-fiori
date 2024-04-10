@@ -67,6 +67,8 @@ extension CardExtHeaderFioriStyle {
     }
     
     struct Row1FioriStyle: Row1Style {
+        let cardExtHeaderConfiguration: CardExtHeaderConfiguration
+        
         func makeBody(_ configuration: Row1Configuration) -> some View {
             Row1(configuration)
             // Add default style for Row1
@@ -76,6 +78,8 @@ extension CardExtHeaderFioriStyle {
     }
     
     struct Row2FioriStyle: Row2Style {
+        let cardExtHeaderConfiguration: CardExtHeaderConfiguration
+        
         func makeBody(_ configuration: Row2Configuration) -> some View {
             Row2(configuration)
             // Add default style for Row2
@@ -85,6 +89,8 @@ extension CardExtHeaderFioriStyle {
     }
     
     struct Row3FioriStyle: Row3Style {
+        let cardExtHeaderConfiguration: CardExtHeaderConfiguration
+        
         func makeBody(_ configuration: Row3Configuration) -> some View {
             Row3(configuration)
             // Add default style for Row3
@@ -94,6 +100,8 @@ extension CardExtHeaderFioriStyle {
     }
     
     struct KpiFioriStyle: KpiStyle {
+        let cardExtHeaderConfiguration: CardExtHeaderConfiguration
+        
         func makeBody(_ configuration: KpiConfiguration) -> some View {
             Kpi(configuration)
             // Add default style for Kpi
@@ -103,6 +111,8 @@ extension CardExtHeaderFioriStyle {
     }
     
     struct KpiCaptionFioriStyle: KpiCaptionStyle {
+        let cardExtHeaderConfiguration: CardExtHeaderConfiguration
+        
         func makeBody(_ configuration: KpiCaptionConfiguration) -> some View {
             KpiCaption(configuration)
                 // Add default style for KpiCaption

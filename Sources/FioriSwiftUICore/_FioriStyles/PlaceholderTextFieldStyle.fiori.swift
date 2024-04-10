@@ -47,6 +47,8 @@ extension PlaceholderTextFieldFioriStyle {
     }
 
     struct TextInputFieldFioriStyle: TextInputFieldStyle {
+        let placeholderTextFieldConfiguration: PlaceholderTextFieldConfiguration
+        
         func makeBody(_ configuration: TextInputFieldConfiguration) -> some View {
             TextInputField(configuration)
                 .zIndex(1.0)
@@ -55,6 +57,8 @@ extension PlaceholderTextFieldFioriStyle {
     }
 
     struct PlaceholderFioriStyle: PlaceholderStyle {
+        let placeholderTextFieldConfiguration: PlaceholderTextFieldConfiguration
+        
         func makeBody(_ configuration: PlaceholderConfiguration) -> some View {
             Placeholder(configuration)
         }

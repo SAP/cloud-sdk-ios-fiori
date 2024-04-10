@@ -31,7 +31,7 @@ public struct PlaceholderTextFieldConfiguration {
 public struct PlaceholderTextFieldFioriStyle: PlaceholderTextFieldStyle {
     public func makeBody(_ configuration: PlaceholderTextFieldConfiguration) -> some View {
         PlaceholderTextField(configuration)
-            .textInputFieldStyle(TextInputFieldFioriStyle())
-            .placeholderStyle(PlaceholderFioriStyle())
+            .textInputFieldStyle(TextInputFieldFioriStyle(placeholderTextFieldConfiguration: configuration))
+            .placeholderStyle(PlaceholderFioriStyle(placeholderTextFieldConfiguration: configuration))
     }
 }

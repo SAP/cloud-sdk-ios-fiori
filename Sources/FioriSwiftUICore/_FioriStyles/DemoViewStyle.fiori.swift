@@ -37,6 +37,8 @@ extension DemoViewFioriStyle {
     }
     
     struct TitleFioriStyle: TitleStyle {
+        let demoViewConfiguration: DemoViewConfiguration
+        
         func makeBody(_ configuration: TitleConfiguration) -> some View {
             Title(configuration)
             // Add default style here
@@ -44,6 +46,8 @@ extension DemoViewFioriStyle {
     }
 
     struct SubtitleFioriStyle: SubtitleStyle {
+        let demoViewConfiguration: DemoViewConfiguration
+        
         func makeBody(_ configuration: SubtitleConfiguration) -> some View {
             Subtitle(configuration)
             // Add default style here
@@ -51,6 +55,8 @@ extension DemoViewFioriStyle {
     }
 
     struct StatusFioriStyle: StatusStyle {
+        let demoViewConfiguration: DemoViewConfiguration
+        
         func makeBody(_ configuration: StatusConfiguration) -> some View {
             Status(configuration)
             // Add default style here
@@ -58,9 +64,22 @@ extension DemoViewFioriStyle {
     }
 
     struct ActionFioriStyle: ActionStyle {
+        let demoViewConfiguration: DemoViewConfiguration
+        
         func makeBody(_ configuration: ActionConfiguration) -> some View {
             Action(configuration)
             // Add default style here
+        }
+    }
+    
+    struct SwitchFioriStyle: SwitchStyle {
+        let demoViewConfiguration: DemoViewConfiguration
+    
+        func makeBody(_ configuration: SwitchConfiguration) -> some View {
+            Switch(configuration)
+            // Add default style for Switch
+            // .foregroundStyle(Color.preferredColor(<#fiori color#>))
+            // .font(.fiori(forTextStyle: <#fiori font#>))
         }
     }
 }

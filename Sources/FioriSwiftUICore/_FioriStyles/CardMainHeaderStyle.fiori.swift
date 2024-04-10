@@ -58,6 +58,8 @@ extension CardMainHeaderFioriStyle {
     }
     
     struct TitleFioriStyle: TitleStyle {
+        let cardMainHeaderConfiguration: CardMainHeaderConfiguration
+        
         func makeBody(_ configuration: TitleConfiguration) -> some View {
             Title(configuration)
                 // Add default style for Title
@@ -68,6 +70,8 @@ extension CardMainHeaderFioriStyle {
     }
     
     struct SubtitleFioriStyle: SubtitleStyle {
+        let cardMainHeaderConfiguration: CardMainHeaderConfiguration
+        
         func makeBody(_ configuration: SubtitleConfiguration) -> some View {
             Subtitle(configuration)
                 // Add default style for Subtitle
@@ -78,6 +82,8 @@ extension CardMainHeaderFioriStyle {
     }
     
     struct IconsFioriStyle: IconsStyle {
+        let cardMainHeaderConfiguration: CardMainHeaderConfiguration
+        
         func makeBody(_ configuration: IconsConfiguration) -> some View {
             Icons(configuration)
             // Add default style for Icons
@@ -87,6 +93,8 @@ extension CardMainHeaderFioriStyle {
     }
     
     struct DetailImageFioriStyle: DetailImageStyle {
+        let cardMainHeaderConfiguration: CardMainHeaderConfiguration
+        
         func makeBody(_ configuration: DetailImageConfiguration) -> some View {
             DetailImage(configuration)
                 .aspectRatio(contentMode: .fill)
@@ -96,6 +104,8 @@ extension CardMainHeaderFioriStyle {
     }
     
     struct HeaderActionFioriStyle: HeaderActionStyle {
+        let cardMainHeaderConfiguration: CardMainHeaderConfiguration
+        
         func makeBody(_ configuration: HeaderActionConfiguration) -> some View {
             HeaderAction(configuration)
                 .fioriButtonStyle(FioriTertiaryButtonStyle())
@@ -104,6 +114,8 @@ extension CardMainHeaderFioriStyle {
     }
     
     struct CounterFioriStyle: CounterStyle {
+        let cardMainHeaderConfiguration: CardMainHeaderConfiguration
+        
         func makeBody(_ configuration: CounterConfiguration) -> some View {
             Counter(configuration)
                 // Add default style for Counter

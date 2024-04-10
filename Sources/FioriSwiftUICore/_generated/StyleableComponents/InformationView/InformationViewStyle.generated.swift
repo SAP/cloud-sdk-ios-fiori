@@ -32,7 +32,7 @@ public struct InformationViewConfiguration {
 public struct InformationViewFioriStyle: InformationViewStyle {
     public func makeBody(_ configuration: InformationViewConfiguration) -> some View {
         InformationView(configuration)
-            .iconStyle(IconFioriStyle())
-            .descriptionStyle(DescriptionFioriStyle())
+            .iconStyle(IconFioriStyle(informationViewConfiguration: configuration))
+            .descriptionStyle(DescriptionFioriStyle(informationViewConfiguration: configuration))
     }
 }

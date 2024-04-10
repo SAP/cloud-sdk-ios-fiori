@@ -32,7 +32,7 @@ public struct CardMediaConfiguration {
 public struct CardMediaFioriStyle: CardMediaStyle {
     public func makeBody(_ configuration: CardMediaConfiguration) -> some View {
         CardMedia(configuration)
-            .mediaImageStyle(MediaImageFioriStyle())
-            .descriptionStyle(DescriptionFioriStyle())
+            .mediaImageStyle(MediaImageFioriStyle(cardMediaConfiguration: configuration))
+            .descriptionStyle(DescriptionFioriStyle(cardMediaConfiguration: configuration))
     }
 }
