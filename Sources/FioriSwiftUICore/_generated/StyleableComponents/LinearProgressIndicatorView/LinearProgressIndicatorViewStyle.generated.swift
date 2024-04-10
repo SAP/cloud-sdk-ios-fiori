@@ -33,8 +33,8 @@ public struct LinearProgressIndicatorViewConfiguration {
 public struct LinearProgressIndicatorViewFioriStyle: LinearProgressIndicatorViewStyle {
     public func makeBody(_ configuration: LinearProgressIndicatorViewConfiguration) -> some View {
         LinearProgressIndicatorView(configuration)
-            .linearProgressIndicatorStyle(LinearProgressIndicatorFioriStyle())
-            .iconStyle(IconFioriStyle())
-            .descriptionStyle(DescriptionFioriStyle())
+            .linearProgressIndicatorStyle(LinearProgressIndicatorFioriStyle(linearProgressIndicatorViewConfiguration: configuration))
+            .iconStyle(IconFioriStyle(linearProgressIndicatorViewConfiguration: configuration))
+            .descriptionStyle(DescriptionFioriStyle(linearProgressIndicatorViewConfiguration: configuration))
     }
 }

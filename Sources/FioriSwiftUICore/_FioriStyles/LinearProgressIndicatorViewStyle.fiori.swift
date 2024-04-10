@@ -27,12 +27,16 @@ extension LinearProgressIndicatorViewFioriStyle {
     }
     
     struct LinearProgressIndicatorFioriStyle: LinearProgressIndicatorStyle {
+        let linearProgressIndicatorViewConfiguration: LinearProgressIndicatorViewConfiguration
+        
         func makeBody(_ configuration: LinearProgressIndicatorConfiguration) -> some View {
             LinearProgressIndicator(configuration)
         }
     }
     
     struct IconFioriStyle: IconStyle {
+        let linearProgressIndicatorViewConfiguration: LinearProgressIndicatorViewConfiguration
+        
         func makeBody(_ configuration: IconConfiguration) -> some View {
             Icon(configuration)
                 .foregroundStyle(Color.preferredColor(.primaryLabel))
@@ -41,6 +45,8 @@ extension LinearProgressIndicatorViewFioriStyle {
     }
     
     struct DescriptionFioriStyle: DescriptionStyle {
+        let linearProgressIndicatorViewConfiguration: LinearProgressIndicatorViewConfiguration
+        
         func makeBody(_ configuration: DescriptionConfiguration) -> some View {
             Description(configuration)
                 .foregroundStyle(Color.preferredColor(.tertiaryLabel))

@@ -505,6 +505,8 @@ extension ObjectItemFioriStyle {
     }
     
     struct TitleFioriStyle: TitleStyle {
+        let objectItemConfiguration: ObjectItemConfiguration
+        
         func makeBody(_ configuration: TitleConfiguration) -> some View {
             Title(configuration)
             // Add default style here
@@ -512,6 +514,8 @@ extension ObjectItemFioriStyle {
     }
 
     struct SubtitleFioriStyle: SubtitleStyle {
+        let objectItemConfiguration: ObjectItemConfiguration
+        
         func makeBody(_ configuration: SubtitleConfiguration) -> some View {
             Subtitle(configuration)
                 // Add default style here
@@ -520,6 +524,8 @@ extension ObjectItemFioriStyle {
     }
 
     struct FootnoteFioriStyle: FootnoteStyle {
+        let objectItemConfiguration: ObjectItemConfiguration
+        
         func makeBody(_ configuration: FootnoteConfiguration) -> some View {
             Footnote(configuration)
                 // Add default style here
@@ -528,6 +534,8 @@ extension ObjectItemFioriStyle {
     }
 
     struct DescriptionFioriStyle: DescriptionStyle {
+        let objectItemConfiguration: ObjectItemConfiguration
+        
         func makeBody(_ configuration: DescriptionConfiguration) -> some View {
             Description(configuration)
             // Add default style here
@@ -535,6 +543,8 @@ extension ObjectItemFioriStyle {
     }
 
     struct StatusFioriStyle: StatusStyle {
+        let objectItemConfiguration: ObjectItemConfiguration
+        
         func makeBody(_ configuration: StatusConfiguration) -> some View {
             Status(configuration)
                 // Add default style here
@@ -543,6 +553,8 @@ extension ObjectItemFioriStyle {
     }
 
     struct SubstatusFioriStyle: SubstatusStyle {
+        let objectItemConfiguration: ObjectItemConfiguration
+        
         func makeBody(_ configuration: SubstatusConfiguration) -> some View {
             Substatus(configuration)
                 // Add default style here
@@ -551,6 +563,8 @@ extension ObjectItemFioriStyle {
     }
 
     struct DetailImageFioriStyle: DetailImageStyle {
+        let objectItemConfiguration: ObjectItemConfiguration
+        
         func makeBody(_ configuration: DetailImageConfiguration) -> some View {
             DetailImage(configuration)
                 // Add default style here
@@ -560,6 +574,8 @@ extension ObjectItemFioriStyle {
     }
 
     struct IconsFioriStyle: IconsStyle {
+        let objectItemConfiguration: ObjectItemConfiguration
+        
         func makeBody(_ configuration: IconsConfiguration) -> some View {
             Icons(configuration)
             // Add default style here
@@ -567,6 +583,8 @@ extension ObjectItemFioriStyle {
     }
 
     struct AvatarsFioriStyle: AvatarsStyle {
+        let objectItemConfiguration: ObjectItemConfiguration
+        
         func makeBody(_ configuration: AvatarsConfiguration) -> some View {
             Avatars(configuration)
                 // Add default style here
@@ -575,6 +593,8 @@ extension ObjectItemFioriStyle {
     }
 
     struct FootnoteIconsFioriStyle: FootnoteIconsStyle {
+        let objectItemConfiguration: ObjectItemConfiguration
+        
         func makeBody(_ configuration: FootnoteIconsConfiguration) -> some View {
             FootnoteIcons(configuration)
             // Add default style here
@@ -582,6 +602,8 @@ extension ObjectItemFioriStyle {
     }
 
     struct TagsFioriStyle: TagsStyle {
+        let objectItemConfiguration: ObjectItemConfiguration
+        
         func makeBody(_ configuration: TagsConfiguration) -> some View {
             Tags(configuration)
             // Add default style here
@@ -589,6 +611,8 @@ extension ObjectItemFioriStyle {
     }
 
     struct ActionFioriStyle: ActionStyle {
+        let objectItemConfiguration: ObjectItemConfiguration
+        
         func makeBody(_ configuration: ActionConfiguration) -> some View {
             Action(configuration)
                 // Add default style here

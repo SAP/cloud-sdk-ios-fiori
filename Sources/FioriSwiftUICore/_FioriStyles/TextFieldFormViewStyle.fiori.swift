@@ -129,24 +129,32 @@ extension TextFieldFormViewFioriStyle {
     }
 
     struct TitleFioriStyle: TitleStyle {
+        let textFieldFormViewConfiguration: TextFieldFormViewConfiguration
+        
         func makeBody(_ configuration: TitleConfiguration) -> some View {
             Title(configuration)
         }
     }
 
     struct TextInputFieldFioriStyle: TextInputFieldStyle {
+        let textFieldFormViewConfiguration: TextFieldFormViewConfiguration
+        
         func makeBody(_ configuration: TextInputFieldConfiguration) -> some View {
             TextInputField(configuration)
         }
     }
 
     struct PlaceholderFioriStyle: PlaceholderStyle {
+        let textFieldFormViewConfiguration: TextFieldFormViewConfiguration
+        
         func makeBody(_ configuration: PlaceholderConfiguration) -> some View {
             Placeholder(configuration)
         }
     }
 
     struct TitleFormViewFioriStyle: TitleFormViewStyle {
+        let textFieldFormViewConfiguration: TextFieldFormViewConfiguration
+        
         func makeBody(_ configuration: TitleFormViewConfiguration) -> some View {
             TitleFormView(configuration)
         }

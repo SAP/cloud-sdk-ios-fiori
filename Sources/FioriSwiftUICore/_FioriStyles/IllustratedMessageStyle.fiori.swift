@@ -45,12 +45,16 @@ extension IllustratedMessageFioriStyle {
     }
 
     struct DetailImageFioriStyle: DetailImageStyle {
+        let illustratedMessageConfiguration: IllustratedMessageConfiguration
+        
         func makeBody(_ configuration: DetailImageConfiguration) -> some View {
             DetailImage(configuration)
         }
     }
 
     struct TitleFioriStyle: TitleStyle {
+        let illustratedMessageConfiguration: IllustratedMessageConfiguration
+        
         func makeBody(_ configuration: TitleConfiguration) -> some View {
             Title(configuration)
                 .padding(.horizontal, 16)
@@ -59,6 +63,8 @@ extension IllustratedMessageFioriStyle {
     }
 
     struct DescriptionFioriStyle: DescriptionStyle {
+        let illustratedMessageConfiguration: IllustratedMessageConfiguration
+        
         func makeBody(_ configuration: DescriptionConfiguration) -> some View {
             Description(configuration)
                 .padding(.horizontal, 16)
@@ -66,6 +72,8 @@ extension IllustratedMessageFioriStyle {
     }
 
     struct ActionFioriStyle: ActionStyle {
+        let illustratedMessageConfiguration: IllustratedMessageConfiguration
+        
         func makeBody(_ configuration: ActionConfiguration) -> some View {
             Action(configuration)
         }

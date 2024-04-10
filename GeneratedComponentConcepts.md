@@ -1,155 +1,115 @@
 # Concepts and Proposals
 
-## ViewModel initializers
+## Styleable Component
 
-A control has up to three types of initializers (with multiple conditional implementations)
-- @ViewBuilder based initializer
-- Type-based initializer (e.g. passing `String` for title, `[ActivityItem]` for actionItems or `(ActivityItem) -> Void` as action handler)
-- Protocol-based initializer (i.e. passing a model conforming to model protocol(s), for example `ContactItemModel`)
+*Doc in progress*
 
-### @ViewBuilder based initializer
+## Initialization patterns
 
-@ViewBuilder based initializers allow app developers to use any control(s), e.g. title can be an image
+A UI component has two types of initializers
 
-API:
+- ResultBuilder (e.g. ViewBuilder) based initializer
+- Type-based initializer
 
-```swift
-public struct ContactItem<Title: View, Subtitle: View, DescriptionText: View, DetailImage: View, ActionItems: View> {
+### ResultBuilder based initializer
 
-    let _title: Title
-	let _subtitle: Subtitle
-	let _descriptionText: DescriptionText
-	let _detailImage: DetailImage
-	let _actionItems: ActionItems
-
-    public init(
-        @ViewBuilder title: () -> Title,
-		@ViewBuilder subtitle: () -> Subtitle,
-		@ViewBuilder descriptionText: () -> DescriptionText,
-		@ViewBuilder detailImage: () -> DetailImage,
-		@ViewBuilder actionItems: () -> ActionItems
-        ) {
-            self._title = title()
-			self._subtitle = subtitle()
-			self._descriptionText = descriptionText()
-			self._detailImage = detailImage()
-			self._actionItems = actionItems()
-    }
-}
-```
-
-Usage:
+ResultBuilder based initializers allow app developers to create components from closures. It provides great flexibity when app developers want to fully control the appearance of each field of the component. For example, a title field can also be an image.
 
 ```swift
-ContactItem {
-    Image(systemName: "square.and.pencil") // not a text
-}
-subtitle: {
-    Text("SubTitle")
-}
-footnote: {
-    Text("Footnote")
-}
-descriptionText: {
-    Text("Description")
-}
-detailImage: {
-    Text("Not a detailed image :)")
-}
-actionItems: {
-    HStack {
-        EmailButtonView() {
-            print("emailPressed handled in action of button passed to control")
-        }
-    }
-}
-```
+/// A view that displays information of an object.
+public struct ObjectItem {
+    let title: any View
+    let subtitle: any View
+    let footnote: any View
+    let description: any View
+    let status: any View
+    let substatus: any View
+    let detailImage: any View
+    let icons: any View
+    let avatars: any View
+    let footnoteIcons: any View
+    let tags: any View
+    let action: any View
 
-### Default SDK controls when using type-based / protocol-based initializer
-
-Any @ViewBuilder init argument should be backed by a default SDK control when the app developers users either type-based or protocol-based initializer.
-
-API:
-
-```swift
-extension ContactItem where Title == Text,
-		Subtitle == _ConditionalContent<Text, EmptyView>,
-		DescriptionText == _ConditionalContent<Text, EmptyView>,
-		DetailImage == _ConditionalContent<Image, EmptyView>,
-		ActionItems == _ConditionalContent<ActivityItems, EmptyView> {
-
-    public init(model: ContactItemModel) {
-        self.init(title: model.title, subtitle: model.subtitle, descriptionText: model.descriptionText, detailImage: model.detailImage, actionItems: model.actionItems != nil ? ActivityItems(model: model.actionItems!) : nil)
-    }
-
-    public init(title: String, subtitle: String? = nil, descriptionText: String? = nil, detailImage: Image? = nil, actionItems: ActivityItems? = nil) {
-        self._title = Text(title)
-		self._subtitle = subtitle != nil ? ViewBuilder.buildEither(first: Text(subtitle!)) : ViewBuilder.buildEither(second: EmptyView())
-		self._descriptionText = descriptionText != nil ? ViewBuilder.buildEither(first: Text(descriptionText!)) : ViewBuilder.buildEither(second: EmptyView())
-		self._detailImage = detailImage != nil ? ViewBuilder.buildEither(first: detailImage!) : ViewBuilder.buildEither(second: EmptyView())
-		self._actionItems = actionItems != nil ? ViewBuilder.buildEither(first: actionItems!) : ViewBuilder.buildEither(second: EmptyView())
-    }
-}
-
-```
-
-Here is an example of using a composite control (`ActivityItems`) within a control (`ContactItem`)
-
-```swift
-ContactItem(title: "aString", actionItems: ActionItems(actionItems: [.init(type: .email, data: "address@gmail.com")], didSelectActivityItem: { selectedActionItem in
-    print(selectedActionItem)
-}))
-```
-
-Note: An app developer can conform the data model to the ViewModel protocol but it is more likely that the app developer prefers to back this with a custom view model or even prefers the @ViewBuilder based initializer overall (to interact with local view state easily). 
-
-## Conditional Initializers
-
- A container / control shall support optionality, e.g. activityItems @ViewBuilder property does not need to be supplied by an app developer). This can be archived by conditional initializers on the extension of container/control. Sourcery-based code generation already supports this, see ContactItem+Init.generated.swift as example of such output
-
-API: 
-
-```swift
-extension ContactItem where ActionItems == EmptyView {
-    public init(
-        @ViewBuilder title: @escaping () -> Title,
-        @ViewBuilder subtitle: @escaping () -> Subtitle,
-        @ViewBuilder footnote: @escaping () -> Footnote,
-        @ViewBuilder descriptionText: @escaping () -> DescriptionText,
-        @ViewBuilder detailImage: @escaping () -> DetailImage)
+    public init(@ViewBuilder title: () -> any View,
+                @ViewBuilder subtitle: () -> any View = { EmptyView() },
+                @ViewBuilder footnote: () -> any View = { EmptyView() },
+                @ViewBuilder description: () -> any View = { EmptyView() },
+                @ViewBuilder status: () -> any View = { EmptyView() },
+                @ViewBuilder substatus: () -> any View = { EmptyView() },
+                @ViewBuilder detailImage: () -> any View = { EmptyView() },
+                @IconBuilder icons: () -> any View = { EmptyView() },
+                @AvatarsBuilder avatars: () -> any View = { EmptyView() },
+                @FootnoteIconsBuilder footnoteIcons: () -> any View = { EmptyView() },
+                @TagBuilder tags: () -> any View = { EmptyView() },
+                @ViewBuilder action: () -> any View = { EmptyView() })
     {
-        self.init(
-            title: title,
-            subtitle: subtitle,
-            footnote: footnote,
-            descriptionText: descriptionText,
-            detailImage: detailImage,
-            email: email,
-            actionItems: {
-                EmptyView()
-            })
+        self.title = Title { title() }
+        self.subtitle = Subtitle { subtitle() }
+        self.footnote = Footnote { footnote() }
+        self.description = Description { description() }
+        self.status = Status { status() }
+        self.substatus = Substatus { substatus() }
+        self.detailImage = DetailImage { detailImage() }
+        self.icons = Icons { icons() }
+        self.avatars = Avatars { avatars() }
+        self.footnoteIcons = FootnoteIcons { footnoteIcons() }
+        self.tags = Tags { tags() }
+        self.action = Action { action() }
     }
 }
 ```
 
-Usage:
+Usage
 
 ```swift
-ContactItem {
-    Image(systemName: "square.and.pencil")
+ObjectItem(title: {
+    Text("Rouja Pakiman")
+}, description: {
+    Text("Rouja has worked for the company for ten years and has all of the skills that would be necessary for developing quality applications.  She is proficient in Java as well as CSS, Bootstrap, and Swift.")
+}, status: {
+    Text("Available")
+}, detailImage: {
+    Image("person_square4").resizable().frame(width: 45, height: 45).clipShape(Circle())
+})
+```
+
+### Type based initializer
+
+Type based initializers allow for easy data binding. It is useful when app developers need to create the component from data model and want to adopt the default styles from SDK.
+
+```swift
+public extension ObjectItem {
+    init(title: AttributedString,
+         subtitle: AttributedString? = nil,
+         footnote: AttributedString? = nil,
+         description: AttributedString? = nil,
+         status: TextOrIcon? = nil,
+         substatus: TextOrIcon? = nil,
+         detailImage: Image? = nil,
+         icons: [TextOrIcon] = [],
+         avatars: [TextOrIcon] = [],
+         footnoteIcons: [TextOrIcon] = [],
+         tags: [AttributedString] = [],
+         action: FioriButton? = nil)
+    {
+        self.init(title: { Text(title) }, subtitle: { OptionalText(subtitle) }, footnote: { OptionalText(footnote) }, description: { OptionalText(description) }, status: { TextOrIconView(status) }, substatus: { TextOrIconView(substatus) }, detailImage: { detailImage }, icons: { IconStack(icons) }, avatars: { AvatarStack(avatars) }, footnoteIcons: { FootnoteIconStack(footnoteIcons) }, tags: { TagStack(tags) }, action: { action })
+    }
 }
-subtitle: {
-    Text("SubTitle")
-}
-footnote: {
-    Text("Footnote")
-}
-descriptionText: {
-    Text("Description")
-}
-detailImage: {
-    Text("Not a detailed image :)")
-}
+```
+
+Usage
+
+```swift
+ObjectItem(title: "Transformer Overheating When After Being on for 1 Hour or Longer",
+            subtitle: "Three Phase Pad Mounted Transformer (533423)", footnote: "1000 - Hamburg, MECHANIK",
+            description: "Customer noticed that the transformer started to over heat within 45 minutes each time he turned it on at 7:30am.  The first technician who looked at this did not have the correct additional tools to complete the job.",
+            status: TextOrIcon.text("High"),
+            detailImage: Image(systemName: "person"),
+            icons: [TextOrIcon.text("1"),
+                    TextOrIcon.icon(Image(systemName: "circle.fill")),
+                    TextOrIcon.icon(Image(systemName: "mail"))]
+        )
 ```
 
 ## Collection containers (Experimental)

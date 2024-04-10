@@ -17,50 +17,55 @@ extension KeyValueFormViewFioriStyle {
     struct ContentFioriStyle: KeyValueFormViewStyle {
         func makeBody(_ configuration: KeyValueFormViewConfiguration) -> some View {
             KeyValueFormView(configuration)
-                .titleStyle { titleConf in
-                    Title(titleConf)
-                        .foregroundStyle(self.getTitleColor(configuration))
-                        .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
-                }
+        }
+    }
+
+    struct TitleFioriStyle: TitleStyle {
+        let keyValueFormViewConfiguration: KeyValueFormViewConfiguration
+        
+        func makeBody(_ configuration: TitleConfiguration) -> some View {
+            Title(configuration)
+                .foregroundStyle(self.getTitleColor(self.keyValueFormViewConfiguration))
+                .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
+                .padding(.bottom, -4)
+                .padding(.top, 11)
         }
         
-        func isDisabled(_ configuration: KeyValueFormViewConfiguration) -> Bool {
-            configuration.controlState == .disabled
-        }
-
-        func getTitleColor(_ configuration: KeyValueFormViewConfiguration) -> Color {
+        private func getTitleColor(_ configuration: KeyValueFormViewConfiguration) -> Color {
             guard !(configuration.controlState == .disabled) else {
                 return .preferredColor(.separator)
             }
             return self.isErrorStyle(configuration) ? .preferredColor(.negativeLabel) : .preferredColor(.primaryLabel)
         }
+        
+        private func isDisabled(_ configuration: KeyValueFormViewConfiguration) -> Bool {
+            configuration.controlState == .disabled
+        }
 
-        func isErrorStyle(_ configuration: KeyValueFormViewConfiguration) -> Bool {
+        private func isErrorStyle(_ configuration: KeyValueFormViewConfiguration) -> Bool {
             TextInputFormViewConfiguration(configuration, isFocused: false).isErrorStyle()
         }
     }
 
-    struct TitleFioriStyle: TitleStyle {
-        func makeBody(_ configuration: TitleConfiguration) -> some View {
-            Title(configuration)
-                .padding(.bottom, -4)
-                .padding(.top, 11)
-        }
-    }
-
     struct TextViewFioriStyle: TextViewStyle {
+        let keyValueFormViewConfiguration: KeyValueFormViewConfiguration
+        
         func makeBody(_ configuration: TextViewConfiguration) -> some View {
             TextView(configuration)
         }
     }
 
     struct PlaceholderFioriStyle: PlaceholderStyle {
+        let keyValueFormViewConfiguration: KeyValueFormViewConfiguration
+        
         func makeBody(_ configuration: PlaceholderConfiguration) -> some View {
             Placeholder(configuration)
         }
     }
 
     struct NoteFormViewFioriStyle: NoteFormViewStyle {
+        let keyValueFormViewConfiguration: KeyValueFormViewConfiguration
+        
         func makeBody(_ configuration: NoteFormViewConfiguration) -> some View {
             NoteFormView(configuration)
         }

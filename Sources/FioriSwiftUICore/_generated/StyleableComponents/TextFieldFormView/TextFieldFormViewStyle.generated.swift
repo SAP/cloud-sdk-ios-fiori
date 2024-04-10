@@ -44,9 +44,9 @@ public struct TextFieldFormViewConfiguration {
 public struct TextFieldFormViewFioriStyle: TextFieldFormViewStyle {
     public func makeBody(_ configuration: TextFieldFormViewConfiguration) -> some View {
         TextFieldFormView(configuration)
-            .titleStyle(TitleFioriStyle())
-            .textInputFieldStyle(TextInputFieldFioriStyle())
-            .placeholderStyle(PlaceholderFioriStyle())
-            .titleFormViewStyle(TitleFormViewFioriStyle())
+            .titleStyle(TitleFioriStyle(textFieldFormViewConfiguration: configuration))
+            .textInputFieldStyle(TextInputFieldFioriStyle(textFieldFormViewConfiguration: configuration))
+            .placeholderStyle(PlaceholderFioriStyle(textFieldFormViewConfiguration: configuration))
+            .titleFormViewStyle(TitleFormViewFioriStyle(textFieldFormViewConfiguration: configuration))
     }
 }

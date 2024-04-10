@@ -38,10 +38,10 @@ public struct CardExtHeaderConfiguration {
 public struct CardExtHeaderFioriStyle: CardExtHeaderStyle {
     public func makeBody(_ configuration: CardExtHeaderConfiguration) -> some View {
         CardExtHeader(configuration)
-            .row1Style(Row1FioriStyle())
-            .row2Style(Row2FioriStyle())
-            .row3Style(Row3FioriStyle())
-            .kpiStyle(KpiFioriStyle())
-            .kpiCaptionStyle(KpiCaptionFioriStyle())
+            .row1Style(Row1FioriStyle(cardExtHeaderConfiguration: configuration))
+            .row2Style(Row2FioriStyle(cardExtHeaderConfiguration: configuration))
+            .row3Style(Row3FioriStyle(cardExtHeaderConfiguration: configuration))
+            .kpiStyle(KpiFioriStyle(cardExtHeaderConfiguration: configuration))
+            .kpiCaptionStyle(KpiCaptionFioriStyle(cardExtHeaderConfiguration: configuration))
     }
 }

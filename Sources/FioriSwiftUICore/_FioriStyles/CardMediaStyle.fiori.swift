@@ -36,12 +36,16 @@ extension CardMediaFioriStyle {
     }
     
     struct MediaImageFioriStyle: MediaImageStyle {
+        let cardMediaConfiguration: CardMediaConfiguration
+        
         func makeBody(_ configuration: MediaImageConfiguration) -> some View {
             MediaImage(configuration)
         }
     }
     
     struct DescriptionFioriStyle: DescriptionStyle {
+        let cardMediaConfiguration: CardMediaConfiguration
+        
         func makeBody(_ configuration: DescriptionConfiguration) -> some View {
             Description(configuration)
                 // Add default style for Description

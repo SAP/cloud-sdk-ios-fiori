@@ -37,9 +37,9 @@ public struct IllustratedMessageConfiguration {
 public struct IllustratedMessageFioriStyle: IllustratedMessageStyle {
     public func makeBody(_ configuration: IllustratedMessageConfiguration) -> some View {
         IllustratedMessage(configuration)
-            .detailImageStyle(DetailImageFioriStyle())
-            .titleStyle(TitleFioriStyle())
-            .descriptionStyle(DescriptionFioriStyle())
-            .actionStyle(ActionFioriStyle())
+            .detailImageStyle(DetailImageFioriStyle(illustratedMessageConfiguration: configuration))
+            .titleStyle(TitleFioriStyle(illustratedMessageConfiguration: configuration))
+            .descriptionStyle(DescriptionFioriStyle(illustratedMessageConfiguration: configuration))
+            .actionStyle(ActionFioriStyle(illustratedMessageConfiguration: configuration))
     }
 }

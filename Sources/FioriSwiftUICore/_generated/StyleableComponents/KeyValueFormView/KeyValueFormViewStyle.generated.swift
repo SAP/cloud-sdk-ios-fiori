@@ -44,9 +44,9 @@ public struct KeyValueFormViewConfiguration {
 public struct KeyValueFormViewFioriStyle: KeyValueFormViewStyle {
     public func makeBody(_ configuration: KeyValueFormViewConfiguration) -> some View {
         KeyValueFormView(configuration)
-            .titleStyle(TitleFioriStyle())
-            .textViewStyle(TextViewFioriStyle())
-            .placeholderStyle(PlaceholderFioriStyle())
-            .noteFormViewStyle(NoteFormViewFioriStyle())
+            .titleStyle(TitleFioriStyle(keyValueFormViewConfiguration: configuration))
+            .textViewStyle(TextViewFioriStyle(keyValueFormViewConfiguration: configuration))
+            .placeholderStyle(PlaceholderFioriStyle(keyValueFormViewConfiguration: configuration))
+            .noteFormViewStyle(NoteFormViewFioriStyle(keyValueFormViewConfiguration: configuration))
     }
 }

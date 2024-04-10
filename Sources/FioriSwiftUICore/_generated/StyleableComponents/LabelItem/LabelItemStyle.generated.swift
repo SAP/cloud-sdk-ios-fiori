@@ -33,7 +33,7 @@ public struct LabelItemConfiguration {
 public struct LabelItemFioriStyle: LabelItemStyle {
     public func makeBody(_ configuration: LabelItemConfiguration) -> some View {
         LabelItem(configuration)
-            .iconStyle(IconFioriStyle())
-            .titleStyle(TitleFioriStyle())
+            .iconStyle(IconFioriStyle(labelItemConfiguration: configuration))
+            .titleStyle(TitleFioriStyle(labelItemConfiguration: configuration))
     }
 }

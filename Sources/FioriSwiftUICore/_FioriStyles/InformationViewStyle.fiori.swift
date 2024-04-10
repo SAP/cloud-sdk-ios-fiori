@@ -27,6 +27,8 @@ extension InformationViewFioriStyle {
     }
     
     struct IconFioriStyle: IconStyle {
+        let informationViewConfiguration: InformationViewConfiguration
+        
         func makeBody(_ configuration: IconConfiguration) -> some View {
             Icon(configuration)
                 .foregroundStyle(Color.preferredColor(.primaryLabel))
@@ -35,6 +37,8 @@ extension InformationViewFioriStyle {
     }
     
     struct DescriptionFioriStyle: DescriptionStyle {
+        let informationViewConfiguration: InformationViewConfiguration
+        
         func makeBody(_ configuration: DescriptionConfiguration) -> some View {
             Description(configuration)
                 .foregroundStyle(Color.preferredColor(.primaryLabel))

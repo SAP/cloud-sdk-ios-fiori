@@ -43,6 +43,8 @@ extension PlaceholderTextEditorFioriStyle {
     }
 
     struct TextViewFioriStyle: TextViewStyle {
+        let placeholderTextEditorConfiguration: PlaceholderTextEditorConfiguration
+        
         func makeBody(_ configuration: TextViewConfiguration) -> some View {
             TextView(configuration)
                 .zIndex(1.0)
@@ -51,6 +53,8 @@ extension PlaceholderTextEditorFioriStyle {
     }
 
     struct PlaceholderFioriStyle: PlaceholderStyle {
+        let placeholderTextEditorConfiguration: PlaceholderTextEditorConfiguration
+        
         func makeBody(_ configuration: PlaceholderConfiguration) -> some View {
             Placeholder(configuration)
                 .padding(.top, 8)

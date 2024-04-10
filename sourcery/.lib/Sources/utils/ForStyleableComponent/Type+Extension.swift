@@ -262,7 +262,7 @@ extension Type {
         let protocols = self.conformingBaseComponentProtocols + self.parentCompositeComponentProtocols
         
         return protocols.map { type in
-            ".\(type.styleProtocolName.lowercasingFirst())(\(type.fioriStyleName)())"
+            ".\(type.styleProtocolName.lowercasingFirst())(\(type.fioriStyleName)(\(self.configurationName.lowercasingFirst()): configuration))"
         }
         .joined(separator: "\n")
     }
@@ -349,6 +349,8 @@ extension Type {
         return protocols.map { type in
             """
             struct \(type.fioriStyleName): \(type.styleProtocolName) {
+                let \(self.configurationName.lowercasingFirst()): \(self.configurationName)
+            
                 func makeBody(_ configuration: \(type.configurationName)) -> some View {
                     \(type.componentName)(configuration)
                     // Add default style for \(type.componentName)

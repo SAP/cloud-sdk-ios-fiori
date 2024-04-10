@@ -31,7 +31,7 @@ public struct PlaceholderTextEditorConfiguration {
 public struct PlaceholderTextEditorFioriStyle: PlaceholderTextEditorStyle {
     public func makeBody(_ configuration: PlaceholderTextEditorConfiguration) -> some View {
         PlaceholderTextEditor(configuration)
-            .textViewStyle(TextViewFioriStyle())
-            .placeholderStyle(PlaceholderFioriStyle())
+            .textViewStyle(TextViewFioriStyle(placeholderTextEditorConfiguration: configuration))
+            .placeholderStyle(PlaceholderFioriStyle(placeholderTextEditorConfiguration: configuration))
     }
 }

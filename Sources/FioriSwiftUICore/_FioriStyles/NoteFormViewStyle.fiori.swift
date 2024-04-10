@@ -127,24 +127,32 @@ extension NoteFormViewFioriStyle {
     }
 
     struct TextViewFioriStyle: TextViewStyle {
+        let noteFormViewConfiguration: NoteFormViewConfiguration
+        
         func makeBody(_ configuration: TextViewConfiguration) -> some View {
             TextView(configuration)
         }
     }
 
     struct PlaceholderFioriStyle: PlaceholderStyle {
+        let noteFormViewConfiguration: NoteFormViewConfiguration
+        
         func makeBody(_ configuration: PlaceholderConfiguration) -> some View {
             Placeholder(configuration)
         }
     }
 
     struct PlaceholderTextEditorFioriStyle: PlaceholderTextEditorStyle {
+        let noteFormViewConfiguration: NoteFormViewConfiguration
+        
         func makeBody(_ configuration: PlaceholderTextEditorConfiguration) -> some View {
             PlaceholderTextEditor(configuration)
         }
     }
 
     struct FormViewFioriStyle: FormViewStyle {
+        let noteFormViewConfiguration: NoteFormViewConfiguration
+        
         func makeBody(_ configuration: FormViewConfiguration) -> some View {
             FormView(configuration)
         }
