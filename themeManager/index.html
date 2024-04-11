@@ -48,11 +48,11 @@
 <p>72 is a SAP patent typeface that delivers great reading experience to our users. You can get these fonts using <code>Font.fiori(forTextStyle:)</code> or <code>Font.fioriCondensed(forTextStyle:)</code>. Note that these fonts support Dynamic Type out of the box. If you want the fonts with fixed size, use <code>Font.fiori(fixedSize:)</code> or <code>Font.fioriCondensed(fixedSize:)</code> instead.</p>
 
 <blockquote>
-<p>Custom fonts need to be loaded and registered during App&rsquo;s runtime. Make sure you call <code><a href="Extensions/Font.html#/s:7SwiftUI4FontV17FioriThemeManagerE08registerD5FontsyyFZ">Font.registerFioriFonts()</a></code> inside <code>application(_:didFinishLaunchingWithOptions:)</code> of your <code>AppDelegate</code>.</p>
+<p>Custom fonts need to be loaded and registered during App&rsquo;s runtime. Make sure you call <code>Font.registerFioriFonts()</code> inside <code>application(_:didFinishLaunchingWithOptions:)</code> of your <code>AppDelegate</code>.</p>
 </blockquote>
 <h2 id='color-palette-customization' class='heading'>Color Palette Customization</h2>
 
-<p>The cases of the <code><a href="Enums/ColorStyle.html">ColorStyle</a></code> enum correspond to the colors of the <a href="https://experience.sap.com/fiori-design-ios/article/colors/">Fiori for iOS Design Guidelines palette</a>.</p>
+<p>The cases of the <code>ColorStyle</code> enum correspond to the colors of the <a href="https://experience.sap.com/fiori-design-ios/article/colors/">Fiori for iOS Design Guidelines palette</a>.</p>
 
 <p>Any <code>FioriSwiftUICore</code> or <code>FioriCharts</code> views will request a color for a given color style through calling an extension method</p>
 
@@ -60,7 +60,7 @@
 <pre class="highlight swift"><code><span class="kt">Color</span><span class="o">.</span><span class="nf">preferredColor</span><span class="p">(</span><span class="o">.</span><span class="n">primaryLabel</span><span class="p">)</span>
 </code></pre>
 
-<p>You can override the global constants used for the <code><a href="Enums/ColorStyle.html">ColorStyle</a></code> case</p>
+<p>You can override the global constants used for the <code>ColorStyle</code> case</p>
 
 <ul>
 <li>programmatically</li>
@@ -71,8 +71,8 @@
 <p>Use one of the following methods:</p>
 
 <ul>
-<li><code><a href="Classes/ThemeManager.html#/s:17FioriThemeManager0bC0C8setColor_3for7varianty7SwiftUI0E0V_AA0E5StyleOAA0E7VariantOSgtF">ThemeManager.setColor(_:for:variant:)</a></code></li>
-<li><code><a href="Classes/ThemeManager.html#/s:17FioriThemeManager0bC0C11setHexColor_3for7variantySS_AA0F5StyleOAA0F7VariantOtF">ThemeManager.setHexColor(_:for:variant:)</a></code></li>
+<li><code>ThemeManager.setColor(_:for:variant:)</code></li>
+<li><code>ThemeManager.setHexColor(_:for:variant:)</code></li>
 </ul>
 
 <p>Example:</p>
@@ -89,7 +89,7 @@
 <span class="kd">@tintColorTapState_darkBackground</span> <span class="p">:</span> <span class="n">purple</span><span class="p">;</span>
 </code></pre>
 
-<p>The strings used as the variable name should match the string values of the <code><a href="Enums/ColorStyle.html">ColorStyle</a></code> enums, and optionally append <code>_lightBackground</code> or <code>_darkBackground</code>, to specialize the <code>background</code> parameter passed to the <code>static Color.preferredColor(_:background:interface:display:)</code> invocation.</p>
+<p>The strings used as the variable name should match the string values of the <code>ColorStyle</code> enums, and optionally append <code>_lightBackground</code> or <code>_darkBackground</code>, to specialize the <code>background</code> parameter passed to the <code>static Color.preferredColor(_:background:interface:display:)</code> invocation.</p>
 
 <p>Global color definitions in the style sheet file modify their corresponding attributes. All other color definitions for which an override is not provided retain their original values.  </p>
 
@@ -117,149 +117,13 @@ Similarly <code>tintColorTapStateDark</code> is equivalent to <code>tintColorTap
       <div class="nav-wrapper">
         <nav class="nav-bottom">
           <ul class="nav-groups">
-            <li class="nav-group-name">
-              <a href="Classes.html">Classes</a>
-              <ul class="nav-group-tasks">
-                <li class="nav-group-task">
-                  <a href="Classes/ThemeManager.html">ThemeManager</a>
-                </li>
-              </ul>
-            </li>
-            <li class="nav-group-name">
-              <a href="Enums.html">Enumerations</a>
-              <ul class="nav-group-tasks">
-                <li class="nav-group-task">
-                  <a href="Enums/BackgroundColorScheme.html">BackgroundColorScheme</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="Enums/ColorDisplayMode.html">ColorDisplayMode</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="Enums/ColorStyle.html">ColorStyle</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="Enums/ColorVariant.html">ColorVariant</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="Enums/FioriIcon.html">FioriIcon</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="Enums/FioriIcon/actions.html">– actions</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="Enums/FioriIcon/arrows.html">– arrows</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="Enums/FioriIcon/calendars.html">– calendars</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="Enums/FioriIcon/callout.html">– callout</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="Enums/FioriIcon/charts.html">– charts</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="Enums/FioriIcon/clipboards.html">– clipboards</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="Enums/FioriIcon/device.html">– device</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="Enums/FioriIcon/documents.html">– documents</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="Enums/FioriIcon/folder.html">– folder</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="Enums/FioriIcon/form.html">– form</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="Enums/FioriIcon/medical.html">– medical</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="Enums/FioriIcon/money.html">– money</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="Enums/FioriIcon/objects.html">– objects</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="Enums/FioriIcon/people.html">– people</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="Enums/FioriIcon/places.html">– places</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="Enums/FioriIcon/shopping.html">– shopping</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="Enums/FioriIcon/status.html">– status</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="Enums/FioriIcon/time.html">– time</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="Enums/FioriIcon/transport.html">– transport</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="Enums/FioriIcon/travel.html">– travel</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="Enums/InterfaceLevel.html">InterfaceLevel</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="Enums/PaletteVersion.html">PaletteVersion</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="Enums/StyleSheetParsingError.html">StyleSheetParsingError</a>
-                </li>
-              </ul>
-            </li>
-            <li class="nav-group-name">
-              <a href="Extensions.html">Extensions</a>
-              <ul class="nav-group-tasks">
-                <li class="nav-group-task">
-                  <a href="Extensions/Color.html">Color</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="Extensions/Font.html">Font</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="Extensions/Font/FioriTextStyle.html">– FioriTextStyle</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="Extensions/Image.html">Image</a>
-                </li>
-              </ul>
-            </li>
-            <li class="nav-group-name">
-              <a href="Protocols.html">Protocols</a>
-              <ul class="nav-group-tasks">
-                <li class="nav-group-task">
-                  <a href="Protocols/PaletteProvider.html">PaletteProvider</a>
-                </li>
-              </ul>
-            </li>
-            <li class="nav-group-name">
-              <a href="Structs.html">Structures</a>
-              <ul class="nav-group-tasks">
-                <li class="nav-group-task">
-                  <a href="Structs/HexColor.html">HexColor</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="Structs/Palette.html">Palette</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="Structs/StyleSheetSettings.html">StyleSheetSettings</a>
-                </li>
-              </ul>
-            </li>
           </ul>
         </nav>
       </div>
       <div class="footer-wrapper">
         <section id="footer">
-          <p>&copy; 2023 <a class="link" href="https://www.sap.com" target="_blank" rel="external noopener">SAP SE</a>. All rights reserved. (Last updated: 2023-08-31)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
+          <p>&copy; 2024 <a class="link" href="https://www.sap.com" target="_blank" rel="external noopener">SAP SE</a>. All rights reserved. (Last updated: 2024-04-11)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </div>
     </div>
