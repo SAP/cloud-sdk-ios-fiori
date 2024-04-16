@@ -905,7 +905,7 @@ public enum CardTests {
     static let titleOnly = Card(title: "Title")
     
     /// Sample cards for testing
-    public static let cardSamples = [sampleCard1, sampleCard2, sampleCard3, sampleCard4, sampleCard5, sampleCard6, sampleCard7, sampleCard8, sampleCard9, sampleCard10, sampleCard11, vbCard, fullCard]
+    public static let cardSamples = [sampleCard1, sampleCard2, sampleCard3, sampleCard4, sampleCard5, sampleCard6, sampleCard7, sampleCard9, sampleCard10, vbCard, sampleCard11, sampleCard8, fullCard]
     
     static let previewCardSamples = [sampleCard1, sampleCard2, sampleCard3, sampleCard4, sampleCard5, sampleCard6, sampleCard7, sampleCard8, sampleCard9, sampleCard10, sampleCard11, vbCard, fullCard, headerOnly, titleOnly]
 }
