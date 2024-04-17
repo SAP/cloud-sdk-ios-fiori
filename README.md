@@ -72,6 +72,13 @@ We plan to progressively bring more Fiori UI components into this module in the 
 | Signature Capture | :white_check_mark: |
 | DurationPicker | :white_check_mark: |
 | StepProgressIndicator | :white_check_mark: |
+| Text Input | :white_check_mark: |
+| Validation View | :white_check_mark: |
+| Card | :white_check_mark: |
+| Toolbar | :white_check_mark: |
+| Search | :white_check_mark: |
+| Tab Bar | :white_check_mark: |
+| Navigation Bar | :white_check_mark: |
 | KeyValueItem | :x: |
 | TimelineItem | :x: |
 | TimelinePreviewItem | :x: |
