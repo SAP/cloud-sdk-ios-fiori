@@ -15,6 +15,11 @@ struct FioriThemeManagerContentView: View {
                 Text("Colors - latest")
             }
             NavigationLink(
+                destination: ColorGradient())
+            {
+                Text("Colors - Gradient")
+            }
+            NavigationLink(
                 destination: ChromeEffect())
             {
                 Text("Chrome effects")

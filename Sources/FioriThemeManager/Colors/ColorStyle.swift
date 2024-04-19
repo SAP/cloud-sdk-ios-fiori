@@ -1264,6 +1264,42 @@ public enum ColorStyle: String, CaseIterable {
     @available(watchOS, unavailable)
     case esriEdit
     
+    /// jouleBrand
+    /// (dark variant) ![](https://dummyimage.com/48x18/714FFF.png&text=+)          Hex value: 714FFF
+    /// (light variant) ![](https://dummyimage.com/48x18/5D36FF.png&text=+)          Hex value: 5D36FF
+    @available(watchOS, unavailable)
+    case jouleBrand
+    
+    /// jouleAccent1
+    /// (dark variant) ![](https://dummyimage.com/48x18/A100C2.png&text=+)          Hex value: A100C2
+    /// (light variant) ![](https://dummyimage.com/48x18/D522BF.png&text=+)          Hex value: D522BF
+    @available(watchOS, unavailable)
+    case jouleAccent1
+    
+    /// jouleAccent2
+    /// (dark variant) ![](https://dummyimage.com/48x18/7458FF.png&text=+)          Hex value: 7458FF
+    /// (light variant) ![](https://dummyimage.com/48x18/7458FF.png&text=+)          Hex value: 7458FF
+    @available(watchOS, unavailable)
+    case jouleAccent2
+    
+    /// jouleAccent3
+    /// (dark variant) ![](https://dummyimage.com/48x18/7458FF.png&text=+)          Hex value: 7458FF
+    /// (light variant) ![](https://dummyimage.com/48x18/9D85FF.png&text=+)          Hex value: 9D85FF
+    @available(watchOS, unavailable)
+    case jouleAccent3
+    
+    /// jouleGradien1
+    /// (dark variant) ![](https://dummyimage.com/48x18/5D36FF.png&text=+)          Hex value: 5D36FF
+    /// (light variant) ![](https://dummyimage.com/48x18/714FFF.png&text=+)          Hex value: 714FFF
+    @available(watchOS, unavailable)
+    case jouleGradient1
+    
+    /// jouleGradient2
+    /// (dark variant) ![](https://dummyimage.com/48x18/A100C2.png&text=+)          Hex value: A100C2
+    /// (light variant) ![](https://dummyimage.com/48x18/D522BF.png&text=+)          Hex value: D522BF
+    @available(watchOS, unavailable)
+    case jouleGradient2
+    
     // MARK: - Deprecated Basic Colors
     
     /// Standard color for quaternary label.
@@ -1577,7 +1613,8 @@ public enum ColorStyle: String, CaseIterable {
                                                     .footer, .cellBackground, .chrome, .chromeSecondary, .chart1, .chart2, .chart3, .chart4,
                                                     .chart5, .chart6, .chart7, .chart8, .chart9, .chart10, .chart11,
                                                     .stockUpStroke, .stockDownStroke, .map1, .map2, .map3, .map4,
-                                                    .map5, .map6, .map7, .map8, .map9, .map10, .customColor1, .customColor2, .customColor3, .customColor4, .customColor5, .customColor6, .esriEdit]
+                                                    .map5, .map6, .map7, .map8, .map9, .map10, .customColor1, .customColor2, .customColor3, .customColor4, .customColor5, .customColor6,
+                                                    .esriEdit, .jouleBrand, .jouleAccent1, .jouleAccent2, .jouleAccent3, .jouleGradient1, .jouleGradient2]
     #else
         public static var allCases: [ColorStyle] = [.primaryLabel, .secondaryLabel, .tertiaryLabel, .quaternaryLabel, .primaryBackground, .secondaryBackground, .tertiaryBackground, .tintColor, .tintColorTapState, .negativeLabel, .negativeLabelTapState, .criticalLabel, .criticalLabelTapState, .positiveLabel, .positiveLabelTapState, .separator, .separatorOpaque, .accent1, .accent2, .accent3, .accent4, .accent5, .accent6, .accent7, .accent8, .accent9]
     #endif

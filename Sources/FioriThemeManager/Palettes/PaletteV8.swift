@@ -230,7 +230,13 @@ struct PaletteV8: PaletteProvider {
         .customColor4: HexColor(lightColor: "256F3AFF", darkColor: "36A41DFF", contrastLightColor: "1B502AFF", contrastDarkColor: "39AD1FFF"),
         .customColor5: HexColor(lightColor: "A93E00FF", darkColor: "F58B00FF", contrastLightColor: "7A2D00FF", contrastDarkColor: "F58B00FF"),
         .customColor6: HexColor(lightColor: "D20A0AFF", darkColor: "D20A0AFF", contrastLightColor: "B40909FF", contrastDarkColor: "B40909FF"),
-        .esriEdit: HexColor(lightColor: "FFF114", darkColor: "1B6DD2")
+        .esriEdit: HexColor(lightColor: "FFF114", darkColor: "1B6DD2"),
+        .jouleBrand: HexColor(lightColor: "714FFFFF", darkColor: "5D36FFFF", contrastLightColor: "5633E1FF", contrastDarkColor: "5633E1FF"),
+        .jouleAccent1: HexColor(lightColor: "D522BFFF", darkColor: "A100C2FF", contrastLightColor: "FF70EDFF", contrastDarkColor: "9505B3FF"),
+        .jouleAccent2: HexColor(lightColor: "7458FFFF", darkColor: "7458FFFF", contrastLightColor: "5133E6FF", contrastDarkColor: "5133E6FF"),
+        .jouleAccent3: HexColor(lightColor: "9D85FFFF", darkColor: "7458FFFF", contrastLightColor: "AD99FFFF", contrastDarkColor: "5633E1FF"),
+        .jouleGradient1: HexColor(lightColor: "714FFFFF", darkColor: "5D36FFFF", contrastLightColor: "AD99FFFF", contrastDarkColor: "5633E1FF"),
+        .jouleGradient2: HexColor(lightColor: "D522BFFF", darkColor: "A100C2FF", contrastLightColor: "FF70EDFF", contrastDarkColor: "9505B3FF")
     ]
     
     func hexColor(for colorStyle: ColorStyle) -> HexColor? {
