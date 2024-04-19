@@ -1,3 +1,8 @@
+🌱 Cloning SwiftFormat 0.53.4
+🌱 Resolving package
+🌱 Building product swiftformat
+🌱 Installed SwiftFormat 0.53.4
+🌱 Running swiftformat 0.53.4...
 import FioriThemeManager
 import SwiftUI
 
@@ -19,6 +24,82 @@ struct Colors: View {
         })
     }
 }
+
+#if !os(watchOS)
+    struct ColorGradient: View {
+        @State var paletteVersion: PaletteVersion = .latest
+    
+        var body: some View {
+            VStack {
+                Button {} label: {
+                    Text("Round Button with Gradient Color for border line")
+                        .font(.headline)
+                        .padding()
+                }
+                .frame(height: 60)
+                .overlay(Capsule().stroke(LinearGradient(gradient: Gradient(colors: [Color.preferredColor(.jouleGradient1), Color.preferredColor(.jouleGradient2)]), startPoint: .top, endPoint: .bottom)))
+                .onAppear(perform: {
+                    ThemeManager.shared.setPaletteVersion(.latest)
+                })
+            
+                Spacer()
+            
+                Button {} label: {
+                    Text("Rectangle Button with Gradient Color for border line")
+                        .font(.headline)
+                        .padding()
+                }
+                .frame(height: 60)
+                .overlay(Rectangle().stroke(LinearGradient(gradient: Gradient(colors: [Color.preferredColor(.jouleGradient1), Color.preferredColor(.jouleGradient2)]), startPoint: .leading, endPoint: .trailing)))
+                .onAppear(perform: {
+                    ThemeManager.shared.setPaletteVersion(.latest)
+                })
+            
+                Spacer()
+            
+                Button {} label: {
+                    Text("Rounded Rectangle Button with Gradient Color for border line")
+                        .font(.headline)
+                        .padding()
+                }
+                .frame(height: 60)
+                .overlay(RoundedRectangle(cornerRadius: 15).stroke(LinearGradient(gradient: Gradient(colors: [Color.preferredColor(.jouleGradient1), Color.preferredColor(.jouleGradient2)]), startPoint: .topLeading, endPoint: .bottomTrailing)))
+                .onAppear(perform: {
+                    ThemeManager.shared.setPaletteVersion(.latest)
+                })
+            
+                Spacer()
+            
+                Text("Text with Gradient Color for border line")
+                    .font(.body)
+                    .padding()
+                    .overlay(Capsule().stroke(LinearGradient(gradient: Gradient(colors: [Color.preferredColor(.jouleGradient1), Color.preferredColor(.jouleGradient2)]), startPoint: .top, endPoint: .bottom)))
+            }
+        
+            Spacer()
+        
+            VStack {
+                Text("Text Background Color with Gradient Effect, starting from top left corner of the text view, to the bottom right corner. SAP Design Principles: Based on user roles and business processes, SAP Fiori simplifies doing business. To accelerate the transformation of the world’s digital economy, SAP is applying this design language to leading technology platforms. SAP Fiori sets the standard for enterprise user experience by removing unnecessary complexity. SAP Design Principles: Based on user roles and business processes, SAP Fiori simplifies doing business. To accelerate the transformation of the world’s digital economy, SAP is applying this design language to leading technology platforms. SAP Fiori sets the standard for enterprise user experience by removing unnecessary complexity.")
+                    .font(.title)
+            
+                Button {} label: {
+                    Text("Button Clickable")
+                }
+                .frame(height: 60)
+            }
+            .background(
+                LinearGradient(
+                    gradient: Gradient(colors: [Color.preferredColor(.jouleGradient1), Color.preferredColor(.jouleGradient2)]),
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                ))
+            .onAppear(perform: {
+                ThemeManager.shared.setPaletteVersion(.latest)
+            })
+            .padding(.all, 40)
+        }
+    }
+#endif
 
 // MARK: Custom Color Palette & StyleSheet (Example)
 
@@ -80,7 +161,7 @@ struct ColorView: View {
                 .fill(Color.preferredColor(self.colorStyle))
                 .frame(width: 50, height: 50)
                 .padding()
-            VStack {
+            VStack(alignment: .leading) {
                 Text(self.colorStyle.rawValue)
                 Text(Color.preferredColor(self.colorStyle, background: self.backgroundColorScheme).toHex() ?? "N/A").italic()
             }

@@ -10,16 +10,16 @@ class ThemeManagerTests: XCTestCase {
     
     #if !os(watchOS)
         func testLatestColorStyle() throws {
-            XCTAssertEqual(ColorStyle.allCases.count, 205)
+            XCTAssertEqual(ColorStyle.allCases.count, 211)
         }
     
         func testPalette8() throws {
             let tm = ThemeManager.shared
             tm.setPaletteVersion(.v8)
             // followings are same as v7
-            XCTAssertEqual(tm.paletteVersion?.supportedStyles().count, 207)
+            XCTAssertEqual(tm.paletteVersion?.supportedStyles().count, 213)
             XCTAssertEqual(tm.paletteVersion?.obsoletedStyles().count, 0)
-            XCTAssertEqual(tm.paletteVersion?.newStyles().count, 10)
+            XCTAssertEqual(tm.paletteVersion?.newStyles().count, 16)
             let newStyle_grey1 = tm.hexColor(for: .grey1)
             XCTAssertEqual(newStyle_grey1, HexColor(lightColor: "12171CFF", darkColor: "F5F6F7FF", contrastLightColor: "1C242BFF", contrastDarkColor: "EAECEEFF"))
             let newStyle_primaryLabel = tm.hexColor(for: .primaryLabel)
