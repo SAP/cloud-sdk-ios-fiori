@@ -1,7 +1,7 @@
 import Foundation
 import SourceryRuntime
 
-extension Array where Element == Variable {
+extension [Variable] {
     /// ```
     /// let title: any View
     /// let subtitle: any View
@@ -29,7 +29,6 @@ extension Array where Element == Variable {
     
     var viewBuilderInitParams: String {
         map { variable in
-            let decl: String
             if let (name, returnType, defaultValue, _) = variable.resultBuilderAttrs {
                 return "\(name) \(variable.name): () -> \(returnType)\(defaultValue.prependAssignmentIfNeeded())"
             } else if variable.hasResultBuilderAttribute {
@@ -37,7 +36,7 @@ extension Array where Element == Variable {
             } else if variable.isBinding {
                 return "\(variable.name): Binding<\(variable.typeName)>"
             } else {
-                return "\(variable.name): \(variable.typeName)\(variable.defaultValue.prependAssignmentIfNeeded())"
+                return variable.regular_initParamDecl
             }
         }
         .joined(separator: ",\n")
@@ -66,7 +65,7 @@ extension Array where Element == Variable {
             } else if variable.hasResultBuilderAttribute {
                 return variable.resultBuilderInitParamDecl
             } else {
-                return "\(variable.name): \(variable.typeName)\(variable.defaultValue.prependAssignmentIfNeeded())"
+                return variable.regular_initParamDecl
             }
         }
         .joined(separator: ",\n")
