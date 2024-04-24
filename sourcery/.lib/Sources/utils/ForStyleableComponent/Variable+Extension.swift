@@ -179,3 +179,13 @@ extension Variable {
         self.typeName.closure?.actualReturnTypeName.name
     }
 }
+
+extension Variable {
+    var regular_initParamDecl: String {
+        let escapingAttr = !self.isResultBuilder &&
+            typeName.isClosure &&
+            !typeName.isOptional
+            ? "@escaping " : ""
+        return "\(name): \(escapingAttr)\(typeName)\(self.defaultValue.prependAssignmentIfNeeded())"
+    }
+}
