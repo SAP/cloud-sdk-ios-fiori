@@ -29,7 +29,7 @@ extension Fiori {
 extension ListPickerItem: View {
     public var body: some View {
         NavigationLink(
-            destination: destinationView?.listStyle(listpickerListStyle).listPickerListStyle(listpickerListStyle).listBackground(listBackground).typeErased,
+            destination: self.destinationView,
             label: {
                 KeyValueItem {
                     key
@@ -38,6 +38,18 @@ extension ListPickerItem: View {
                 }
             }
         )
+    }
+    
+    @ViewBuilder
+    var destinationView: some View {
+        destinationConfiguration?
+            .destinationView
+            .modifier(listPickerListViewModifier)
+            .listStyle(listpickerListStyle)
+            .listPickerListStyle(listpickerListStyle)
+            .listBackground(listBackground)
+            .environment(\.listPickerListViewModifier, listPickerListViewModifier)
+            .typeErased
     }
 }
 
@@ -53,10 +65,7 @@ public extension ListPickerItem {
         configuration: ListPickerItemConfiguration? = nil
     ) {
         self.init(key: key, value: value)
-        
-        if let configuration {
-            destinationView = configuration.destinationView
-        }
+        self.destinationConfiguration = configuration
     }
 }
 
@@ -252,5 +261,27 @@ public extension View {
     /// - Returns: New destination list style for list picker.
     func listPickerListStyle(_ style: some ListStyle) -> some View {
         self.environment(\.listpickerListStyle, style)
+    }
+}
+
+struct ListPickerListViewModifierKey: EnvironmentKey {
+    public static let defaultValue = AnyViewModifier { $0 }
+}
+
+public extension EnvironmentValues {
+    /// :nodoc:
+    var listPickerListViewModifier: AnyViewModifier {
+        get { self[ListPickerListViewModifierKey.self] }
+        set { self[ListPickerListViewModifierKey.self] = newValue }
+    }
+}
+
+public extension View {
+    @ViewBuilder
+    /// List picker trasfomation if you want any customization for destination view.
+    /// - Parameter transform: Any transformation.
+    /// - Returns: A new transformed `View`.
+    func listPickerListView(_ transform: @escaping (AnyViewModifier.Content) -> some View) -> some View {
+        self.environment(\.listPickerListViewModifier, AnyViewModifier(transform))
     }
 }

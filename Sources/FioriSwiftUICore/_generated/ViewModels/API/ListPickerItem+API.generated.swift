@@ -5,12 +5,13 @@ import SwiftUI
 public struct ListPickerItem<Key: View, Value: View> {
     @Environment(\.keyModifier) private var keyModifier
 	@Environment(\.valueModifier) private var valueModifier
+	@Environment(\.listPickerListViewModifier) var listPickerListViewModifier
 	@Environment(\.listpickerListStyle) var listpickerListStyle
 	@Environment(\.listBackground) var listBackground
 
     let _key: Key
 	let _value: Value
-	var destinationView: AnyView? = nil
+	var destinationConfiguration: ListPickerItemConfiguration? = nil
     private var isModelInit: Bool = false
 	private var isValueNil: Bool = false
 
