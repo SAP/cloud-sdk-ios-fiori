@@ -127,6 +127,17 @@ struct ListPickerItemDataNonIdentifiableExample: View {
                 Text(framework.name)
             }))
         }
+        .listPickerListView { c in
+            c.toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        print("Tool bar item tapped.")
+                    } label: {
+                        Image(systemName: "person")
+                    }
+                }
+            }.listStyle(.inset)
+        }
         .navigationBarTitle(Text("Form"))
     }
 }
