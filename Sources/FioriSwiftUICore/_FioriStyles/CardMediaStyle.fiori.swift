@@ -49,7 +49,7 @@ extension CardMediaFioriStyle {
         func makeBody(_ configuration: DescriptionConfiguration) -> some View {
             Description(configuration)
                 // Add default style for Description
-                .font(.fiori(forTextStyle: .title1, weight: .bold))
+                .font(.fiori(forTextStyle: .title1, weight: .semibold))
                 .foregroundColor(.preferredColor(.primaryLabel, background: .darkConstant))
                 .lineLimit(3)
         }
@@ -67,7 +67,7 @@ extension CardMediaFioriStyle {
             .clipped()
         
         Text("Title")
-            .font(.fiori(forTextStyle: .title1, weight: .bold))
+            .font(.fiori(forTextStyle: .title1, weight: .semibold))
             .foregroundColor(.preferredColor(.primaryLabel))
             .lineLimit(3)
             .padding(EdgeInsets(top: 16, leading: 16, bottom: 16, trailing: 16))
@@ -84,7 +84,7 @@ extension CardMediaFioriStyle {
             .clipped()
         
         Text("Title")
-            .font(.fiori(forTextStyle: .title1, weight: .bold))
+            .font(.fiori(forTextStyle: .title1, weight: .semibold))
             .foregroundColor(.preferredColor(.primaryLabel))
             .lineLimit(3)
             .padding(EdgeInsets(top: 16, leading: 16, bottom: 16, trailing: 16))
