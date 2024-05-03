@@ -12,7 +12,7 @@ extension Fiori {
         struct Title: ViewModifier {
             func body(content: Content) -> some View {
                 content
-                    .font(.fiori(forTextStyle: .title1).weight(.black))
+                    .font(.fiori(forTextStyle: .title1).weight(.bold))
                     .foregroundColor(.preferredColor(.primaryLabel))
                     .multilineTextAlignment(.center)
             }
