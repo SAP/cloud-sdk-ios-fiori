@@ -8,6 +8,7 @@ extension Fiori {
             func body(content: Content) -> some View {
                 content
                     .font(.fiori(forTextStyle: .body))
+                    .fontWeight(.semibold)
                     .accentColor(.preferredColor(.tintColor))
             }
         }
@@ -18,6 +19,7 @@ extension Fiori {
             func body(content: Content) -> some View {
                 content
                     .font(.fiori(forTextStyle: .body))
+                    .fontWeight(.semibold)
                     .accentColor(.preferredColor(.tintColor))
             }
         }
@@ -28,6 +30,7 @@ extension Fiori {
             func body(content: Content) -> some View {
                 content
                     .font(.fiori(forTextStyle: .body))
+                    .fontWeight(.semibold)
                     .accentColor(.preferredColor(.tintColor))
             }
         }
@@ -38,6 +41,7 @@ extension Fiori {
             func body(content: Content) -> some View {
                 content
                     .font(.fiori(forTextStyle: .body))
+                    .fontWeight(.semibold)
                     .accentColor(.preferredColor(.tintColor))
             }
         }
@@ -48,6 +52,7 @@ extension Fiori {
             func body(content: Content) -> some View {
                 content
                     .font(.fiori(forTextStyle: .body))
+                    .fontWeight(.semibold)
                     .accentColor(.preferredColor(.tintColor))
             }
         }
