@@ -107,7 +107,9 @@ public protocol ActivityItemsModel: ActionItemsComponent {}
 
 // sourcery: generated_component
 // sourcery: add_env_props = "listBackground"
-// sourcery: virtualPropDestinationView = "var destinationView: AnyView? = nil"
+// sourcery: add_env_props = "listpickerListStyle"
+// sourcery: add_env_props = "listPickerListViewModifier"
+// sourcery: virtualPropDestinationConfiguration = "var destinationConfiguration: ListPickerItemConfiguration? = nil"
 public protocol ListPickerItemModel: KeyComponent, ValueComponent {}
 
 // sourcery: generated_component_not_configurable
