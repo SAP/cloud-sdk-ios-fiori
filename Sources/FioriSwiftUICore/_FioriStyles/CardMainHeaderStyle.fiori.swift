@@ -64,7 +64,7 @@ extension CardMainHeaderFioriStyle {
             Title(configuration)
                 // Add default style for Title
                 .foregroundStyle(Color.preferredColor(.primaryLabel))
-                .font(.fiori(forTextStyle: .title3, weight: .bold))
+                .font(.fiori(forTextStyle: .title3, weight: .semibold))
                 .environment(\.numberOfLines, 3)
         }
     }

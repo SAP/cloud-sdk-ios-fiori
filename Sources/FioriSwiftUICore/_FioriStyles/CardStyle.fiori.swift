@@ -529,7 +529,7 @@ public enum CardTests {
     }
     
     static let sampleCard4 = Card {
-        Text("Alex Kilgo").font(.fiori(forTextStyle: .title2, weight: .bold)).lineSpacing(25)
+        Text("Alex Kilgo").font(.fiori(forTextStyle: .title2, weight: .semibold)).lineSpacing(25)
     } subtitle: {
         Text("UX Designer")
     } detailImage: {
@@ -544,7 +544,7 @@ public enum CardTests {
             print("Tapped")
         } label: {
             Text("Approve")
-                .font(Font.fiori(forTextStyle: .body).weight(.bold))
+                .font(Font.fiori(forTextStyle: .body).weight(.semibold))
                 .foregroundColor(Color.preferredColor(.tintColor2))
                 .padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
                 .frame(minWidth: 44, maxWidth: .infinity, minHeight: 44)
@@ -553,7 +553,7 @@ public enum CardTests {
         }
     } secondaryAction: {
         Text("Decline")
-            .font(Font.fiori(forTextStyle: .body).weight(.bold))
+            .font(Font.fiori(forTextStyle: .body).weight(.semibold))
             .foregroundColor(Color.preferredColor(.negativeLabel))
             .padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
             .frame(minWidth: 44, maxWidth: .infinity, minHeight: 44)
@@ -573,7 +573,7 @@ public enum CardTests {
     static let sampleCard6 = Card(title: "Title", subtitle: "Subtitle that goes to multiple lines before truncating just like that", headerAction: FioriButton(title: "..."), counter: "1 of 3", action: FioriButton(title: "Primary"))
     
     static let sampleCard7 = Card {
-        Text("Bad Schoenborn, Sued").font(.fiori(forTextStyle: .title2, weight: .bold)).lineSpacing(25)
+        Text("Bad Schoenborn, Sued").font(.fiori(forTextStyle: .title2, weight: .semibold)).lineSpacing(25)
     } subtitle: {
         Text("Local Public Transport")
     } detailImage: {
@@ -587,7 +587,7 @@ public enum CardTests {
             }
     } cardBody: {
         VStack(alignment: .leading) {
-            Text("Mannheim Hauptbahnbof").font(.fiori(forTextStyle: .headline, weight: .bold))
+            Text("Mannheim Hauptbahnbof").font(.fiori(forTextStyle: .headline, weight: .semibold))
             HStack(spacing: 4) {
                 Text("04:19").foregroundColor(.preferredColor(.secondaryLabel))
                 Circle().foregroundColor(.gray).frame(width: 4)
@@ -602,7 +602,7 @@ public enum CardTests {
             
             Divider()
             
-            Text("Heidelberg Hauptbahnbof").font(.fiori(forTextStyle: .headline, weight: .bold))
+            Text("Heidelberg Hauptbahnbof").font(.fiori(forTextStyle: .headline, weight: .semibold))
             HStack(spacing: 4) {
                 Text("04:37").foregroundColor(.preferredColor(.secondaryLabel))
                 Circle().foregroundColor(.gray).frame(width: 4)
@@ -617,7 +617,7 @@ public enum CardTests {
             
             Divider()
             
-            Text("Wiesloch - Walldorf").font(.fiori(forTextStyle: .headline, weight: .bold))
+            Text("Wiesloch - Walldorf").font(.fiori(forTextStyle: .headline, weight: .semibold))
             HStack(spacing: 4) {
                 Text("04:37").foregroundColor(.preferredColor(.secondaryLabel))
                 Circle().foregroundColor(.gray).frame(width: 4)
@@ -659,7 +659,7 @@ public enum CardTests {
     }
     
     static let sampleCard9 = Card {
-        Text("Coyote Hill Rd").font(.fiori(forTextStyle: .title1, weight: .black))
+        Text("Coyote Hill Rd").font(.fiori(forTextStyle: .title1, weight: .bold))
     } headerAction: {
         Button {
             print("tapped")
