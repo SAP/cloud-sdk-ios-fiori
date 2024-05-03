@@ -127,7 +127,7 @@ struct ListPickerItemDataNonIdentifiableExample: View {
                 Text(framework.name)
             }))
         }
-        .listPickerListView { c in
+        .listPickerListViewModifier { c in
             c.toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {

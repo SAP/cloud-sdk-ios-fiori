@@ -281,7 +281,7 @@ public extension View {
     /// List picker trasfomation if you want any customization for destination view.
     /// - Parameter transform: Any transformation.
     /// - Returns: A new transformed `View`.
-    func listPickerListView(_ transform: @escaping (AnyViewModifier.Content) -> some View) -> some View {
+    func listPickerListViewModifier(_ transform: @escaping (AnyViewModifier.Content) -> some View) -> some View {
         self.environment(\.listPickerListViewModifier, AnyViewModifier(transform))
     }
 }
