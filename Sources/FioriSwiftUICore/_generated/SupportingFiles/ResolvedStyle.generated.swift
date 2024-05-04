@@ -259,6 +259,22 @@ extension FormViewStyle {
     }
 }
 
+// MARK: GreetingTextStyle
+
+struct ResolvedGreetingTextStyle<Style: GreetingTextStyle>: View {
+    let style: Style
+    let configuration: GreetingTextConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension GreetingTextStyle {
+    func resolve(configuration: GreetingTextConfiguration) -> some View {
+        ResolvedGreetingTextStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: HeaderActionStyle
 
 struct ResolvedHeaderActionStyle<Style: HeaderActionStyle>: View {
@@ -352,6 +368,22 @@ struct ResolvedInformationViewStyle<Style: InformationViewStyle>: View {
 extension InformationViewStyle {
     func resolve(configuration: InformationViewConfiguration) -> some View {
         ResolvedInformationViewStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: JouleWelcomeScreenStyle
+
+struct ResolvedJouleWelcomeScreenStyle<Style: JouleWelcomeScreenStyle>: View {
+    let style: Style
+    let configuration: JouleWelcomeScreenConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension JouleWelcomeScreenStyle {
+    func resolve(configuration: JouleWelcomeScreenConfiguration) -> some View {
+        ResolvedJouleWelcomeScreenStyle(style: self, configuration: configuration)
     }
 }
 
@@ -464,6 +496,22 @@ struct ResolvedMediaImageStyle<Style: MediaImageStyle>: View {
 extension MediaImageStyle {
     func resolve(configuration: MediaImageConfiguration) -> some View {
         ResolvedMediaImageStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: MessageContentStyle
+
+struct ResolvedMessageContentStyle<Style: MessageContentStyle>: View {
+    let style: Style
+    let configuration: MessageContentConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension MessageContentStyle {
+    func resolve(configuration: MessageContentConfiguration) -> some View {
+        ResolvedMessageContentStyle(style: self, configuration: configuration)
     }
 }
 

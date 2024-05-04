@@ -275,6 +275,23 @@ public extension View {
     }
 }
 
+// MARK: GreetingTextStyle
+
+public extension View {
+    func greetingTextStyle(_ style: some GreetingTextStyle) -> some View {
+        self.transformEnvironment(\.greetingTextStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func greetingTextStyle(@ViewBuilder content: @escaping (GreetingTextConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.greetingTextStyleStack) { stack in
+            let style = AnyGreetingTextStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: HeaderActionStyle
 
 public extension View {
@@ -372,6 +389,23 @@ public extension View {
     func informationViewStyle(@ViewBuilder content: @escaping (InformationViewConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.informationViewStyleStack) { stack in
             let style = AnyInformationViewStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: JouleWelcomeScreenStyle
+
+public extension View {
+    func jouleWelcomeScreenStyle(_ style: some JouleWelcomeScreenStyle) -> some View {
+        self.transformEnvironment(\.jouleWelcomeScreenStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func jouleWelcomeScreenStyle(@ViewBuilder content: @escaping (JouleWelcomeScreenConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.jouleWelcomeScreenStyleStack) { stack in
+            let style = AnyJouleWelcomeScreenStyle(content)
             stack.append(style)
         }
     }
@@ -491,6 +525,23 @@ public extension View {
     func mediaImageStyle(@ViewBuilder content: @escaping (MediaImageConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.mediaImageStyleStack) { stack in
             let style = AnyMediaImageStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: MessageContentStyle
+
+public extension View {
+    func messageContentStyle(_ style: some MessageContentStyle) -> some View {
+        self.transformEnvironment(\.messageContentStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func messageContentStyle(@ViewBuilder content: @escaping (MessageContentConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.messageContentStyleStack) { stack in
+            let style = AnyMessageContentStyle(content)
             stack.append(style)
         }
     }

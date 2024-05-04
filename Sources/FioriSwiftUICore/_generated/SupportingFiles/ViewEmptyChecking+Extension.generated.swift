@@ -140,6 +140,12 @@ extension FormView: _ViewEmptyChecking {
     }
 }
 
+extension GreetingText: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        greetingText.isEmpty
+    }
+}
+
 extension HeaderAction: _ViewEmptyChecking {
     public var isEmpty: Bool {
         headerAction.isEmpty
@@ -177,6 +183,16 @@ extension InformationView: _ViewEmptyChecking {
     public var isEmpty: Bool {
         icon.isEmpty &&
             description.isEmpty
+    }
+}
+
+extension JouleWelcomeScreen: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        mediaImage.isEmpty &&
+            greetingText.isEmpty &&
+            title.isEmpty &&
+            footnote.isEmpty &&
+            messageContent.isEmpty
     }
 }
 
@@ -222,6 +238,12 @@ extension LinearProgressIndicatorView: _ViewEmptyChecking {
 extension MediaImage: _ViewEmptyChecking {
     public var isEmpty: Bool {
         mediaImage.isEmpty
+    }
+}
+
+extension MessageContent: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        messageContent.isEmpty
     }
 }
 
