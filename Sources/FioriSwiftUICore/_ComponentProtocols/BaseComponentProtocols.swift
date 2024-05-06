@@ -189,3 +189,15 @@ protocol _TextInputFieldComponent {
     // sourcery: @Binding
     var text: String { get }
 }
+
+// sourcery: BaseComponent
+protocol _GreetingTextComponent {
+    // sourcery: @ViewBuilder
+    var greetingText: AttributedString { get }
+}
+
+// sourcery: BaseComponent
+protocol _MessageContentComponent {
+    @ViewBuilder
+    var messageContent: (() -> any View)? { get }
+}

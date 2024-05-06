@@ -5,7 +5,7 @@ extension SliderPickerItem: View {
         VStack {
             HStack {
                 Text(String(format: self._formatter ?? NSLocalizedString("Value: %d", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), _value.wrappedValue ?? _minimumValue))
-                    .font(.fiori(forTextStyle: .subheadline, weight: .bold, isItalic: false, isCondensed: false))
+                    .font(.fiori(forTextStyle: .subheadline, weight: .semibold, isItalic: false, isCondensed: false))
                     .foregroundColor(Color.preferredColor(.primaryLabel))
                 Spacer()
             }
@@ -31,7 +31,7 @@ extension SliderPickerItem: View {
             if let hint = _hint {
                 HStack {
                     Text(hint)
-                        .font(.fiori(forTextStyle: .subheadline, weight: .bold, isItalic: false, isCondensed: false))
+                        .font(.fiori(forTextStyle: .subheadline, weight: .semibold, isItalic: false, isCondensed: false))
                         .foregroundColor(Color.preferredColor(.primaryLabel))
                     Spacer()
                 }

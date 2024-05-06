@@ -1361,6 +1361,20 @@ public extension FormViewStyle where Self == FormViewFioriStyle {
     }
 }
 
+// MARK: GreetingTextStyle
+
+public extension GreetingTextStyle where Self == GreetingTextBaseStyle {
+    static var base: GreetingTextBaseStyle {
+        GreetingTextBaseStyle()
+    }
+}
+
+public extension GreetingTextStyle where Self == GreetingTextFioriStyle {
+    static var fiori: GreetingTextFioriStyle {
+        GreetingTextFioriStyle()
+    }
+}
+
 // MARK: HeaderActionStyle
 
 public extension HeaderActionStyle where Self == HeaderActionBaseStyle {
@@ -1568,6 +1582,125 @@ public extension InformationViewStyle where Self == InformationViewDescriptionSt
     static func descriptionStyle(@ViewBuilder content: @escaping (DescriptionConfiguration) -> some View) -> InformationViewDescriptionStyle {
         let style = AnyDescriptionStyle(content)
         return InformationViewDescriptionStyle(style: style)
+    }
+}
+
+// MARK: JouleWelcomeScreenStyle
+
+public extension JouleWelcomeScreenStyle where Self == JouleWelcomeScreenBaseStyle {
+    static var base: JouleWelcomeScreenBaseStyle {
+        JouleWelcomeScreenBaseStyle()
+    }
+}
+
+public extension JouleWelcomeScreenStyle where Self == JouleWelcomeScreenFioriStyle {
+    static var fiori: JouleWelcomeScreenFioriStyle {
+        JouleWelcomeScreenFioriStyle()
+    }
+}
+
+public struct JouleWelcomeScreenMediaImageStyle: JouleWelcomeScreenStyle {
+    let style: any MediaImageStyle
+
+    public func makeBody(_ configuration: JouleWelcomeScreenConfiguration) -> some View {
+        JouleWelcomeScreen(configuration)
+            .mediaImageStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension JouleWelcomeScreenStyle where Self == JouleWelcomeScreenMediaImageStyle {
+    static func mediaImageStyle(_ style: some MediaImageStyle) -> JouleWelcomeScreenMediaImageStyle {
+        JouleWelcomeScreenMediaImageStyle(style: style)
+    }
+
+    static func mediaImageStyle(@ViewBuilder content: @escaping (MediaImageConfiguration) -> some View) -> JouleWelcomeScreenMediaImageStyle {
+        let style = AnyMediaImageStyle(content)
+        return JouleWelcomeScreenMediaImageStyle(style: style)
+    }
+}
+
+public struct JouleWelcomeScreenGreetingTextStyle: JouleWelcomeScreenStyle {
+    let style: any GreetingTextStyle
+
+    public func makeBody(_ configuration: JouleWelcomeScreenConfiguration) -> some View {
+        JouleWelcomeScreen(configuration)
+            .greetingTextStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension JouleWelcomeScreenStyle where Self == JouleWelcomeScreenGreetingTextStyle {
+    static func greetingTextStyle(_ style: some GreetingTextStyle) -> JouleWelcomeScreenGreetingTextStyle {
+        JouleWelcomeScreenGreetingTextStyle(style: style)
+    }
+
+    static func greetingTextStyle(@ViewBuilder content: @escaping (GreetingTextConfiguration) -> some View) -> JouleWelcomeScreenGreetingTextStyle {
+        let style = AnyGreetingTextStyle(content)
+        return JouleWelcomeScreenGreetingTextStyle(style: style)
+    }
+}
+
+public struct JouleWelcomeScreenTitleStyle: JouleWelcomeScreenStyle {
+    let style: any TitleStyle
+
+    public func makeBody(_ configuration: JouleWelcomeScreenConfiguration) -> some View {
+        JouleWelcomeScreen(configuration)
+            .titleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension JouleWelcomeScreenStyle where Self == JouleWelcomeScreenTitleStyle {
+    static func titleStyle(_ style: some TitleStyle) -> JouleWelcomeScreenTitleStyle {
+        JouleWelcomeScreenTitleStyle(style: style)
+    }
+
+    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> JouleWelcomeScreenTitleStyle {
+        let style = AnyTitleStyle(content)
+        return JouleWelcomeScreenTitleStyle(style: style)
+    }
+}
+
+public struct JouleWelcomeScreenFootnoteStyle: JouleWelcomeScreenStyle {
+    let style: any FootnoteStyle
+
+    public func makeBody(_ configuration: JouleWelcomeScreenConfiguration) -> some View {
+        JouleWelcomeScreen(configuration)
+            .footnoteStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension JouleWelcomeScreenStyle where Self == JouleWelcomeScreenFootnoteStyle {
+    static func footnoteStyle(_ style: some FootnoteStyle) -> JouleWelcomeScreenFootnoteStyle {
+        JouleWelcomeScreenFootnoteStyle(style: style)
+    }
+
+    static func footnoteStyle(@ViewBuilder content: @escaping (FootnoteConfiguration) -> some View) -> JouleWelcomeScreenFootnoteStyle {
+        let style = AnyFootnoteStyle(content)
+        return JouleWelcomeScreenFootnoteStyle(style: style)
+    }
+}
+
+public struct JouleWelcomeScreenMessageContentStyle: JouleWelcomeScreenStyle {
+    let style: any MessageContentStyle
+
+    public func makeBody(_ configuration: JouleWelcomeScreenConfiguration) -> some View {
+        JouleWelcomeScreen(configuration)
+            .messageContentStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension JouleWelcomeScreenStyle where Self == JouleWelcomeScreenMessageContentStyle {
+    static func messageContentStyle(_ style: some MessageContentStyle) -> JouleWelcomeScreenMessageContentStyle {
+        JouleWelcomeScreenMessageContentStyle(style: style)
+    }
+
+    static func messageContentStyle(@ViewBuilder content: @escaping (MessageContentConfiguration) -> some View) -> JouleWelcomeScreenMessageContentStyle {
+        let style = AnyMessageContentStyle(content)
+        return JouleWelcomeScreenMessageContentStyle(style: style)
     }
 }
 
@@ -1855,6 +1988,20 @@ public extension MediaImageStyle where Self == MediaImageBaseStyle {
 public extension MediaImageStyle where Self == MediaImageFioriStyle {
     static var fiori: MediaImageFioriStyle {
         MediaImageFioriStyle()
+    }
+}
+
+// MARK: MessageContentStyle
+
+public extension MessageContentStyle where Self == MessageContentBaseStyle {
+    static var base: MessageContentBaseStyle {
+        MessageContentBaseStyle()
+    }
+}
+
+public extension MessageContentStyle where Self == MessageContentFioriStyle {
+    static var fiori: MessageContentFioriStyle {
+        MessageContentFioriStyle()
     }
 }
 

@@ -133,7 +133,7 @@ struct FioriButtonConfiguration {
     let padding: EdgeInsets
     let maxWidth: CGFloat?
     
-    init(foregroundColor: Color, backgroundColor: Color, font: Font = .fiori(forTextStyle: .body).weight(.bold), padding: EdgeInsets = EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16), maxWidth: CGFloat? = nil) {
+    init(foregroundColor: Color, backgroundColor: Color, font: Font = .fiori(forTextStyle: .body, weight: .semibold), padding: EdgeInsets = EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16), maxWidth: CGFloat? = nil) {
         self.foregroundColor = foregroundColor
         self.backgroundColor = backgroundColor
         self.font = font

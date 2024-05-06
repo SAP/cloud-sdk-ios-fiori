@@ -1,0 +1,28 @@
+// Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
+// DO NOT EDIT
+import Foundation
+import SwiftUI
+
+public protocol GreetingTextStyle: DynamicProperty {
+    associatedtype Body: View
+
+    func makeBody(_ configuration: GreetingTextConfiguration) -> Body
+}
+
+struct AnyGreetingTextStyle: GreetingTextStyle {
+    let content: (GreetingTextConfiguration) -> any View
+
+    init(@ViewBuilder _ content: @escaping (GreetingTextConfiguration) -> any View) {
+        self.content = content
+    }
+
+    public func makeBody(_ configuration: GreetingTextConfiguration) -> some View {
+        self.content(configuration).typeErased
+    }
+}
+
+public struct GreetingTextConfiguration {
+    public let greetingText: GreetingText
+
+    public typealias GreetingText = ConfigurationViewWrapper
+}

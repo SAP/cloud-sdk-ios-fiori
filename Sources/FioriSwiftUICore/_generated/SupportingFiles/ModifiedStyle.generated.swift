@@ -456,6 +456,34 @@ public extension FormViewStyle {
     }
 }
 
+// MARK: GreetingTextStyle
+
+extension ModifiedStyle: GreetingTextStyle where Style: GreetingTextStyle {
+    public func makeBody(_ configuration: GreetingTextConfiguration) -> some View {
+        GreetingText(configuration)
+            .greetingTextStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct GreetingTextStyleModifier<Style: GreetingTextStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.greetingTextStyle(self.style)
+    }
+}
+
+public extension GreetingTextStyle {
+    func modifier(_ modifier: some ViewModifier) -> some GreetingTextStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some GreetingTextStyle) -> some GreetingTextStyle {
+        style.modifier(GreetingTextStyleModifier(style: self))
+    }
+}
+
 // MARK: HeaderActionStyle
 
 extension ModifiedStyle: HeaderActionStyle where Style: HeaderActionStyle {
@@ -621,6 +649,34 @@ public extension InformationViewStyle {
 
     func concat(_ style: some InformationViewStyle) -> some InformationViewStyle {
         style.modifier(InformationViewStyleModifier(style: self))
+    }
+}
+
+// MARK: JouleWelcomeScreenStyle
+
+extension ModifiedStyle: JouleWelcomeScreenStyle where Style: JouleWelcomeScreenStyle {
+    public func makeBody(_ configuration: JouleWelcomeScreenConfiguration) -> some View {
+        JouleWelcomeScreen(configuration)
+            .jouleWelcomeScreenStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct JouleWelcomeScreenStyleModifier<Style: JouleWelcomeScreenStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.jouleWelcomeScreenStyle(self.style)
+    }
+}
+
+public extension JouleWelcomeScreenStyle {
+    func modifier(_ modifier: some ViewModifier) -> some JouleWelcomeScreenStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some JouleWelcomeScreenStyle) -> some JouleWelcomeScreenStyle {
+        style.modifier(JouleWelcomeScreenStyleModifier(style: self))
     }
 }
 
@@ -817,6 +873,34 @@ public extension MediaImageStyle {
 
     func concat(_ style: some MediaImageStyle) -> some MediaImageStyle {
         style.modifier(MediaImageStyleModifier(style: self))
+    }
+}
+
+// MARK: MessageContentStyle
+
+extension ModifiedStyle: MessageContentStyle where Style: MessageContentStyle {
+    public func makeBody(_ configuration: MessageContentConfiguration) -> some View {
+        MessageContent(configuration)
+            .messageContentStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct MessageContentStyleModifier<Style: MessageContentStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.messageContentStyle(self.style)
+    }
+}
+
+public extension MessageContentStyle {
+    func modifier(_ modifier: some ViewModifier) -> some MessageContentStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some MessageContentStyle) -> some MessageContentStyle {
+        style.modifier(MessageContentStyleModifier(style: self))
     }
 }
 

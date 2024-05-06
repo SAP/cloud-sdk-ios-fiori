@@ -62,7 +62,7 @@ public struct FioriToggleStyle: ToggleStyle {
     public func makeBody(configuration: Self.Configuration) -> some View {
         HStack {
             configuration.label
-                .font(.fiori(forTextStyle: .subheadline, weight: .bold, isItalic: false, isCondensed: false))
+                .font(.fiori(forTextStyle: .subheadline, weight: .semibold, isItalic: false, isCondensed: false))
                 .foregroundColor(self.labelColor)
     
             Spacer()
