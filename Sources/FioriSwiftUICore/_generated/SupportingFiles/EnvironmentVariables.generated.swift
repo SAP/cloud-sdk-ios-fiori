@@ -339,6 +339,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: GreetingTextStyle
+
+struct GreetingTextStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any GreetingTextStyle] = []
+}
+
+extension EnvironmentValues {
+    var greetingTextStyle: any GreetingTextStyle {
+        self.greetingTextStyleStack.last ?? .base
+    }
+
+    var greetingTextStyleStack: [any GreetingTextStyle] {
+        get {
+            self[GreetingTextStyleStackKey.self]
+        }
+        set {
+            self[GreetingTextStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: HeaderActionStyle
 
 struct HeaderActionStyleStackKey: EnvironmentKey {
@@ -461,6 +482,27 @@ extension EnvironmentValues {
         }
         set {
             self[InformationViewStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: JouleWelcomeScreenStyle
+
+struct JouleWelcomeScreenStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any JouleWelcomeScreenStyle] = []
+}
+
+extension EnvironmentValues {
+    var jouleWelcomeScreenStyle: any JouleWelcomeScreenStyle {
+        self.jouleWelcomeScreenStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var jouleWelcomeScreenStyleStack: [any JouleWelcomeScreenStyle] {
+        get {
+            self[JouleWelcomeScreenStyleStackKey.self]
+        }
+        set {
+            self[JouleWelcomeScreenStyleStackKey.self] = newValue
         }
     }
 }
@@ -608,6 +650,27 @@ extension EnvironmentValues {
         }
         set {
             self[MediaImageStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: MessageContentStyle
+
+struct MessageContentStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any MessageContentStyle] = []
+}
+
+extension EnvironmentValues {
+    var messageContentStyle: any MessageContentStyle {
+        self.messageContentStyleStack.last ?? .base
+    }
+
+    var messageContentStyleStack: [any MessageContentStyle] {
+        get {
+            self[MessageContentStyleStackKey.self]
+        }
+        set {
+            self[MessageContentStyleStackKey.self] = newValue
         }
     }
 }

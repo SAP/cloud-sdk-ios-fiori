@@ -117,3 +117,7 @@ protocol _TextFieldFormViewComponent: _TitleComponent, _TitleFormViewComponent {
     /// The action to be performed when the action button is tapped.
     var action: (() -> Void)? { get }
 }
+
+// sourcery: CompositeComponent
+protocol _JouleWelcomeScreen: _MediaImageComponent, _GreetingTextComponent, _TitleComponent, _FootnoteComponent, _MessageContentComponent {}
+                                    
