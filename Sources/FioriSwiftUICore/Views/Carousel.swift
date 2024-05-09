@@ -1,7 +1,39 @@
 import SwiftUI
 
-/// Internal use only
-struct CarouselLayout: Layout {
+/// It only works properly for one subview
+private struct CarouselViewLayout: Layout {
+    func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) -> CGSize {
+        guard let containerWidth = proposal.width else {
+            return .zero
+        }
+           
+        let size: CGSize = subviews.map {
+            $0.sizeThatFits(ProposedViewSize(width: containerWidth, height: nil))
+        }.reduce(.zero) { partial, size in
+            CGSize(width: max(partial.width, size.width), height: max(partial.height, size.height))
+        }
+
+        return CGSize(width: containerWidth, height: size.height)
+    }
+    
+    func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) {
+        guard let containerWidth = proposal.width else {
+            return
+        }
+        
+        let size: CGSize = subviews.map {
+            $0.sizeThatFits(ProposedViewSize(width: containerWidth, height: nil))
+        }.reduce(.zero) { partial, size in
+            CGSize(width: max(partial.width, size.width), height: max(partial.height, size.height))
+        }
+        
+        for view in subviews {
+            view.place(at: bounds.origin, proposal: ProposedViewSize(width: containerWidth, height: nil))
+        }
+    }
+}
+
+private struct CarouselLayout: Layout {
     struct CacheData {
         var width: CGFloat
         var height: CGFloat
@@ -23,31 +55,19 @@ struct CarouselLayout: Layout {
     /// Vertical alignment in each column
     let alignment: VerticalAlignment
     
-    /// The point at which the origin of the content view is offset from the origin of the container view.
-    let contentOffset: CGPoint
-    
-    let isSizeOnly: Bool
-    
-    init(numberOfColumns: Int = 1, spacing: CGFloat = 8, alignment: VerticalAlignment = .top, contentOffset: CGPoint = .zero, isSizeOnly: Bool = false) {
+    init(numberOfColumns: Int = 1, spacing: CGFloat = 8, alignment: VerticalAlignment = .top) {
         self.numberOfColumns = max(1, numberOfColumns)
         self.spacing = spacing
         self.alignment = alignment
-        self.contentOffset = contentOffset
-        self.isSizeOnly = isSizeOnly
     }
     
     func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout CacheData) -> CGSize {
         guard let containerWidth = proposal.width else {
             return .zero
         }
-        
         self.calculateLayout(for: subviews, containerWidth: containerWidth, cache: &cache)
         
-        if self.isSizeOnly {
-            return CGSize(width: cache.columns.last?.maxX ?? containerWidth, height: cache.height)
-        } else {
-            return CGSize(width: containerWidth, height: cache.height)
-        }
+        return CGSize(width: cache.columns.last?.maxX ?? containerWidth, height: cache.height)
     }
     
     func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout CacheData) {
@@ -67,7 +87,7 @@ struct CarouselLayout: Layout {
                 y = (cache.height - column.size.height) / 2
             }
             
-            let pt = CGPoint(x: column.origin.x + bounds.origin.x - self.contentOffset.x, y: y + bounds.origin.y)
+            let pt = CGPoint(x: column.origin.x + bounds.origin.x, y: y + bounds.origin.y)
             
             subviews[i].place(at: pt, proposal: ProposedViewSize(width: column.size.width, height: nil))
         }
@@ -84,7 +104,12 @@ struct CarouselLayout: Layout {
         cache.clear()
         cache.width = containerWidth
 
-        let itemWidth: CGFloat = (containerWidth - CGFloat(self.numberOfColumns + 2) * self.spacing) / CGFloat(self.numberOfColumns)
+        let itemWidth: CGFloat
+        if subviews.count > self.numberOfColumns {
+            itemWidth = (containerWidth - CGFloat(self.numberOfColumns + 2) * self.spacing) / CGFloat(self.numberOfColumns)
+        } else {
+            itemWidth = (containerWidth - CGFloat(self.numberOfColumns) * self.spacing + self.spacing) / CGFloat(self.numberOfColumns)
+        }
         
         let sizes = subviews.map {
             $0.sizeThatFits(ProposedViewSize(width: itemWidth, height: nil))
@@ -101,6 +126,44 @@ struct CarouselLayout: Layout {
             cache.height = max(cache.height, size.height)
             cache.columns.append(CGRect(origin: pt, size: size))
         }
+    }
+}
+
+private struct CarouselSizePreferenceKey: PreferenceKey {
+    typealias Value = CGSize
+    
+    static var defaultValue: CGSize = .zero
+    
+    static func reduce(value: inout CGSize, nextValue: () -> CGSize) {
+        value = CGSize(width: max(value.width, nextValue().width),
+                       height: max(value.height, nextValue().height))
+    }
+}
+
+private struct CarouselSizeModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        content.background(GeometryReader { proxy in
+            Color.clear.preference(key: CarouselSizePreferenceKey.self, value: proxy.size)
+        })
+    }
+}
+
+private struct CarouselContentSizePreferenceKey: PreferenceKey {
+    typealias Value = CGSize
+    
+    static var defaultValue: CGSize = .zero
+    
+    static func reduce(value: inout CGSize, nextValue: () -> CGSize) {
+        value = CGSize(width: max(value.width, nextValue().width),
+                       height: max(value.height, nextValue().height))
+    }
+}
+
+private struct CarouselContentSizeModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        content.background(GeometryReader { proxy in
+            Color.clear.preference(key: CarouselContentSizePreferenceKey.self, value: proxy.size)
+        })
     }
 }
 
@@ -169,50 +232,51 @@ public struct Carousel<Content>: View where Content: View {
     }
 
     public var body: some View {
-        CarouselLayout(numberOfColumns: self.numberOfColumns, spacing: self.spacing, alignment: self.alignment, contentOffset: self.contentOffset, isSizeOnly: false) {
-            self.content()
-        }
-        .modifier(SizeModifier())
-        .onPreferenceChange(SizePreferenceKey.self) { size in
-            DispatchQueue.main.async {
-                self.viewSize = size
+        CarouselViewLayout {
+            HStack {
+                CarouselLayout(numberOfColumns: self.numberOfColumns, spacing: self.spacing, alignment: self.alignment) {
+                    self.content()
+                }
             }
-        }
-        .background {
-            CarouselLayout(numberOfColumns: self.numberOfColumns, spacing: self.spacing, alignment: self.alignment, isSizeOnly: true) {
-                self.content()
-            }
-            .opacity(0.0)
-            .modifier(SizeModifier())
-            .onPreferenceChange(SizePreferenceKey.self) { size in
+            .offset(x: -self.contentOffset.x)
+            .modifier(CarouselContentSizeModifier())
+            .onPreferenceChange(CarouselContentSizePreferenceKey.self) { size in
                 DispatchQueue.main.async {
                     self.contentSize = size
                 }
             }
+            .contentShape(Rectangle())
+            .gesture(
+                DragGesture()
+                    .onChanged { value in
+                        self.contentOffset.x = self.preContentOffset.x + (self.layoutDirection == .leftToRight ? -1 : 1) * value.translation.width
+                    }
+                    .onEnded { value in
+                        withAnimation(.easeOut(duration: 0.5)) {
+                            let maxX = max(0, contentSize.width - self.viewSize.width)
+                            let expectedX = max(0, preContentOffset.x + (self.layoutDirection == .leftToRight ? -1 : 1) * value.predictedEndTranslation.width)
+                            var finalX = min(maxX, expectedX)
+                            
+                            if self.isSnapping {
+                                let itemWidth: CGFloat = (viewSize.width - CGFloat(self.numberOfColumns + 2) * self.spacing) / CGFloat(self.numberOfColumns)
+                                let index = (expectedX / (itemWidth + self.spacing)).rounded()
+                                //                                finalX = max(0, min(maxX, index * (itemWidth + self.spacing) - self.spacing))
+                                finalX = max(0, min(maxX, index * (itemWidth + self.spacing)))
+                            }
+                            
+                            self.contentOffset.x = finalX
+                            self.preContentOffset = self.contentOffset
+                        }
+                    }
+            )
         }
         .clipped()
-        .contentShape(Rectangle())
-        .gesture(
-            DragGesture()
-                .onChanged { value in
-                    self.contentOffset.x = self.preContentOffset.x + (self.layoutDirection == .leftToRight ? -1 : 1) * value.translation.width
-                }
-                .onEnded { value in
-                    withAnimation(.easeOut(duration: 0.5)) {
-                        let maxX = max(0, contentSize.width - self.viewSize.width)
-                        let expectedX = max(0, preContentOffset.x + (self.layoutDirection == .leftToRight ? -1 : 1) * value.predictedEndTranslation.width)
-                        var finalX = min(maxX, expectedX)
-                        if self.isSnapping {
-                            let itemWidth: CGFloat = (viewSize.width - CGFloat(self.numberOfColumns + 2) * self.spacing) / CGFloat(self.numberOfColumns)
-                            let index = (expectedX / (itemWidth + self.spacing)).rounded()
-                            finalX = max(0, min(maxX, index * (itemWidth + self.spacing) - self.spacing))
-                        }
-                        
-                        self.contentOffset.x = finalX
-                        self.preContentOffset = self.contentOffset
-                    }
-                }
-        )
+        .modifier(CarouselSizeModifier())
+        .onPreferenceChange(CarouselSizePreferenceKey.self) { size in
+            DispatchQueue.main.async {
+                self.viewSize = size
+            }
+        }
     }
 }
 
