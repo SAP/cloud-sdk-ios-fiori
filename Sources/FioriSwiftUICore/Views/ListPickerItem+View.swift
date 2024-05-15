@@ -28,16 +28,20 @@ extension Fiori {
 
 extension ListPickerItem: View {
     public var body: some View {
-        NavigationLink(
-            destination: self.destinationView,
-            label: {
-                KeyValueItem {
-                    key
-                } value: {
-                    value
+        if let isActive = destinationConfiguration?.isActive, isActive.wrappedValue {
+            self.destinationView
+        } else {
+            NavigationLink(
+                destination: self.destinationView,
+                label: {
+                    KeyValueItem {
+                        key
+                    } value: {
+                        value
+                    }
                 }
-            }
-        )
+            )
+        }
     }
     
     @ViewBuilder
@@ -72,6 +76,9 @@ public extension ListPickerItem {
 /// The configuration for constructing the list picker.
 public struct ListPickerItemConfiguration {
     let destinationView: AnyView
+    
+    // A boolean that indicates whether show the children directly.
+    var isActive: Binding<Bool>?
     
     /// Creates a searchable configuration object from a collection of data which supports single-level picker with the ability to select.
     /// - Parameters:
@@ -118,16 +125,18 @@ public struct ListPickerItemConfiguration {
     ///   - id: The key path to the data model's unique identifier.
     ///   - children: The key path to the optional property of a data element whose value indicates the children of that element.
     ///   - selection: A binding to a set which stores the selected items.
+    ///   - isActive: A binding to a bool that decide if show children directly, Default value is nil.
     ///   - rowContent: The view builder which returns the content of each row in the list picker.
     public init<Data, ID, RowContent>(_ data: Data,
                                       id: KeyPath<Data.Element, ID>,
                                       children: KeyPath<Data.Element, Data?>?,
                                       selection: Binding<Set<ID>>?,
+                                      isActive: Binding<Bool>? = nil,
                                       @ViewBuilder rowContent: @escaping (Data.Element) -> RowContent)
         where Data: RandomAccessCollection, RowContent: View, ID: Hashable
     {
-        self.destinationView = List {
-            ForEach(data, id: id) { element in
+        if let isActive, isActive.wrappedValue {
+            self.destinationView = ForEach(data, id: id) { element in
                 let row = rowContent(element)
                 let id_value = element[keyPath: id]
                 
@@ -140,8 +149,26 @@ public struct ListPickerItemConfiguration {
                 } else {
                     ListPickerItem.Row(content: row, id: id_value, selection: selection)
                 }
-            }
-        }.typeErased
+            }.typeErased
+        } else {
+            self.destinationView = List {
+                ForEach(data, id: id) { element in
+                    let row = rowContent(element)
+                    let id_value = element[keyPath: id]
+                    
+                    if let children, let childrenData = element[keyPath: children] {
+                        ListPickerItem<RowContent, EmptyView>(key: {
+                            row
+                        }, value: {
+                            EmptyView()
+                        }, configuration: ListPickerItemConfiguration(childrenData, id: id, children: children, selection: selection, rowContent: rowContent))
+                    } else {
+                        ListPickerItem.Row(content: row, id: id_value, selection: selection)
+                    }
+                }
+            }.typeErased
+        }
+        self.isActive = isActive
     }
     
     /// Creates a configuration object from a collection of data (conforms to `Identifiable`) which supports both single-level and multi-level picker with the ability to select multiple items.
@@ -149,15 +176,17 @@ public struct ListPickerItemConfiguration {
     ///   - data: The data for constructing the list picker.
     ///   - children: The key path to the optional property of a data element whose value indicates the children of that element.
     ///   - selection: A binding to a set which stores the selected items.
+    ///   - isActive: A binding to a bool that decide if show children directly, Default value is nil.
     ///   - rowContent: The view builder which returns the content of each row in the list picker.
     public init<Data, ID>(_ data: Data,
                           children: KeyPath<Data.Element, Data?>?,
                           selection: Binding<Set<ID>>?,
+                          isActive: Binding<Bool>? = nil,
                           @ViewBuilder rowContent: @escaping (Data.Element) -> some View)
         where Data: RandomAccessCollection, Data.Element: Identifiable, ID == Data.Element.ID
     {
         let id = \Data.Element.id
-        self.init(data, id: id, children: children, selection: selection, rowContent: rowContent)
+        self.init(data, id: id, children: children, selection: selection, isActive: isActive, rowContent: rowContent)
     }
 }
 
@@ -166,8 +195,9 @@ public extension ListPickerItemConfiguration {
     /// - Parameters:
     ///   - data: An array of strings for constructing the list.
     ///   - selection: A binding to a set which stores the selected items.
-    init(_ data: [String], selection: Binding<Set<String>>?) {
-        self.init(data, id: \.self, children: nil, selection: selection) { str in
+    ///   - isActive: A binding to a bool that decide if show children directly, Default value is nil.
+    init(_ data: [String], selection: Binding<Set<String>>?, isActive: Binding<Bool>? = nil) {
+        self.init(data, id: \.self, children: nil, selection: selection, isActive: isActive) { str in
             Text(str)
         }
     }

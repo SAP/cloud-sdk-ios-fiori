@@ -51,6 +51,7 @@ struct ListPickerItemExample: View {
         case identifiable
         case objectItem
         case stringItem
+        case activeChildren
         case searchable
         case searchableListView
         var id: Self { self }
@@ -84,6 +85,12 @@ struct ListPickerItemExample: View {
                     destination: ListPickerItemWithStringExample())
                 {
                     Text("StringItem")
+                }
+            case .activeChildren:
+                NavigationLink(
+                    destination: ListPickerItemActiveChildrenExample())
+                {
+                    Text("Active Children Directly")
                 }
             case .searchable:
                 NavigationLink(
@@ -299,8 +306,48 @@ public struct ListPickerItemWithStringExample: View {
     }
 }
 
+struct ListPickerItemActiveChildrenExample: View {
+    private let model = ListPickerItemDataModel.data
+    
+    @State var selections: Set<String> = []
+    @State var isActive: Bool = true
+    
+    public init() {}
+
+    public var body: some View {
+        List {
+            ListPickerItem(key: {
+                Text("Frameworks")
+            }, value: {
+                let str = Array(selections).joined(separator: ", ")
+                Text(str)
+            }, configuration:
+            ListPickerItemConfiguration(self.model, id: \.name, children: \.children, selection: self.$selections, isActive: self.$isActive, rowContent: { framework in
+                Text(framework.name)
+            }))
+        }
+        .listPickerListViewModifier { c in
+            c.navigationBarTitle(Text("Children"))
+        }
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button {
+                    self.isActive.toggle()
+                } label: {
+                    Image(systemName: "switch.2")
+                }
+            }
+        }
+        .navigationBarTitle(Text("Parent"))
+    }
+}
+
 struct ListPickerItemPreview: PreviewProvider {
     static var previews: some View {
+        NavigationStack {
+            ListPickerItemActiveChildrenExample()
+        }
+        
         NavigationView {
             ListPickerItemDataNonIdentifiableExample()
         }
