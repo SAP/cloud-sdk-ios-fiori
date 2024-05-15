@@ -163,6 +163,22 @@ extension CounterStyle {
     }
 }
 
+// MARK: DecrementActionStyle
+
+struct ResolvedDecrementActionStyle<Style: DecrementActionStyle>: View {
+    let style: Style
+    let configuration: DecrementActionConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension DecrementActionStyle {
+    func resolve(configuration: DecrementActionConfiguration) -> some View {
+        ResolvedDecrementActionStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: DemoViewStyle
 
 struct ResolvedDemoViewStyle<Style: DemoViewStyle>: View {
@@ -352,6 +368,22 @@ struct ResolvedIllustratedMessageStyle<Style: IllustratedMessageStyle>: View {
 extension IllustratedMessageStyle {
     func resolve(configuration: IllustratedMessageConfiguration) -> some View {
         ResolvedIllustratedMessageStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: IncrementActionStyle
+
+struct ResolvedIncrementActionStyle<Style: IncrementActionStyle>: View {
+    let style: Style
+    let configuration: IncrementActionConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension IncrementActionStyle {
+    func resolve(configuration: IncrementActionConfiguration) -> some View {
+        ResolvedIncrementActionStyle(style: self, configuration: configuration)
     }
 }
 
@@ -688,6 +720,38 @@ struct ResolvedStatusStyle<Style: StatusStyle>: View {
 extension StatusStyle {
     func resolve(configuration: StatusConfiguration) -> some View {
         ResolvedStatusStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: StepperFieldStyle
+
+struct ResolvedStepperFieldStyle<Style: StepperFieldStyle>: View {
+    let style: Style
+    let configuration: StepperFieldConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension StepperFieldStyle {
+    func resolve(configuration: StepperFieldConfiguration) -> some View {
+        ResolvedStepperFieldStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: StepperViewStyle
+
+struct ResolvedStepperViewStyle<Style: StepperViewStyle>: View {
+    let style: Style
+    let configuration: StepperViewConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension StepperViewStyle {
+    func resolve(configuration: StepperViewConfiguration) -> some View {
+        ResolvedStepperViewStyle(style: self, configuration: configuration)
     }
 }
 
