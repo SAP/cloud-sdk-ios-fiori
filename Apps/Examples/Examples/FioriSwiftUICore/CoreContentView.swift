@@ -185,6 +185,13 @@ struct CoreContentView: View {
                     Text("Linear Progress Indicator")
                 }
             )
+            
+            NavigationLink(
+                destination: StepperViewExample(),
+                label: {
+                    Text("Stepper")
+                }
+            )
         }.navigationBarTitle("FioriSwiftUICore")
     }
 }

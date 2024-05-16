@@ -173,6 +173,23 @@ public extension View {
     }
 }
 
+// MARK: DecrementActionStyle
+
+public extension View {
+    func decrementActionStyle(_ style: some DecrementActionStyle) -> some View {
+        self.transformEnvironment(\.decrementActionStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func decrementActionStyle(@ViewBuilder content: @escaping (DecrementActionConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.decrementActionStyleStack) { stack in
+            let style = AnyDecrementActionStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: DemoViewStyle
 
 extension View {
@@ -372,6 +389,23 @@ public extension View {
     func illustratedMessageStyle(@ViewBuilder content: @escaping (IllustratedMessageConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.illustratedMessageStyleStack) { stack in
             let style = AnyIllustratedMessageStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: IncrementActionStyle
+
+public extension View {
+    func incrementActionStyle(_ style: some IncrementActionStyle) -> some View {
+        self.transformEnvironment(\.incrementActionStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func incrementActionStyle(@ViewBuilder content: @escaping (IncrementActionConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.incrementActionStyleStack) { stack in
+            let style = AnyIncrementActionStyle(content)
             stack.append(style)
         }
     }
@@ -729,6 +763,40 @@ public extension View {
     func statusStyle(@ViewBuilder content: @escaping (StatusConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.statusStyleStack) { stack in
             let style = AnyStatusStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: StepperFieldStyle
+
+public extension View {
+    func stepperFieldStyle(_ style: some StepperFieldStyle) -> some View {
+        self.transformEnvironment(\.stepperFieldStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func stepperFieldStyle(@ViewBuilder content: @escaping (StepperFieldConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.stepperFieldStyleStack) { stack in
+            let style = AnyStepperFieldStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: StepperViewStyle
+
+public extension View {
+    func stepperViewStyle(_ style: some StepperViewStyle) -> some View {
+        self.transformEnvironment(\.stepperViewStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func stepperViewStyle(@ViewBuilder content: @escaping (StepperViewConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.stepperViewStyleStack) { stack in
+            let style = AnyStepperViewStyle(content)
             stack.append(style)
         }
     }

@@ -101,6 +101,12 @@ extension Counter: _ViewEmptyChecking {
     }
 }
 
+extension DecrementAction: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        decrementAction.isEmpty
+    }
+}
+
 extension DemoView: _ViewEmptyChecking {
     public var isEmpty: Bool {
         title.isEmpty &&
@@ -176,6 +182,12 @@ extension IllustratedMessage: _ViewEmptyChecking {
             title.isEmpty &&
             description.isEmpty &&
             action.isEmpty
+    }
+}
+
+extension IncrementAction: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        incrementAction.isEmpty
     }
 }
 
@@ -321,6 +333,23 @@ extension SecondaryAction: _ViewEmptyChecking {
 extension Status: _ViewEmptyChecking {
     public var isEmpty: Bool {
         status.isEmpty
+    }
+}
+
+extension StepperField: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        decrementAction.isEmpty &&
+            incrementAction.isEmpty
+    }
+}
+
+extension StepperView: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        title.isEmpty &&
+            decrementAction.isEmpty &&
+            incrementAction.isEmpty &&
+            icon.isEmpty &&
+            description.isEmpty
     }
 }
 

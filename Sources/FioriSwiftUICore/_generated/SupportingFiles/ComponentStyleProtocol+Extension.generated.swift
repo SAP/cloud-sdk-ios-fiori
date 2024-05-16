@@ -1172,6 +1172,20 @@ public extension CounterStyle where Self == CounterFioriStyle {
     }
 }
 
+// MARK: DecrementActionStyle
+
+public extension DecrementActionStyle where Self == DecrementActionBaseStyle {
+    static var base: DecrementActionBaseStyle {
+        DecrementActionBaseStyle()
+    }
+}
+
+public extension DecrementActionStyle where Self == DecrementActionFioriStyle {
+    static var fiori: DecrementActionFioriStyle {
+        DecrementActionFioriStyle()
+    }
+}
+
 // MARK: DemoViewStyle
 
 extension DemoViewStyle where Self == DemoViewBaseStyle {
@@ -1526,6 +1540,20 @@ public extension IllustratedMessageStyle where Self == IllustratedMessageActionS
     static func actionStyle(@ViewBuilder content: @escaping (ActionConfiguration) -> some View) -> IllustratedMessageActionStyle {
         let style = AnyActionStyle(content)
         return IllustratedMessageActionStyle(style: style)
+    }
+}
+
+// MARK: IncrementActionStyle
+
+public extension IncrementActionStyle where Self == IncrementActionBaseStyle {
+    static var base: IncrementActionBaseStyle {
+        IncrementActionBaseStyle()
+    }
+}
+
+public extension IncrementActionStyle where Self == IncrementActionFioriStyle {
+    static var fiori: IncrementActionFioriStyle {
+        IncrementActionFioriStyle()
     }
 }
 
@@ -2576,6 +2604,265 @@ public extension StatusStyle where Self == StatusBaseStyle {
 public extension StatusStyle where Self == StatusFioriStyle {
     static var fiori: StatusFioriStyle {
         StatusFioriStyle()
+    }
+}
+
+// MARK: StepperFieldStyle
+
+public extension StepperFieldStyle where Self == StepperFieldBaseStyle {
+    static var base: StepperFieldBaseStyle {
+        StepperFieldBaseStyle()
+    }
+}
+
+public extension StepperFieldStyle where Self == StepperFieldFioriStyle {
+    static var fiori: StepperFieldFioriStyle {
+        StepperFieldFioriStyle()
+    }
+}
+
+public struct StepperFieldDecrementActionStyle: StepperFieldStyle {
+    let style: any DecrementActionStyle
+
+    public func makeBody(_ configuration: StepperFieldConfiguration) -> some View {
+        StepperField(configuration)
+            .decrementActionStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension StepperFieldStyle where Self == StepperFieldDecrementActionStyle {
+    static func decrementActionStyle(_ style: some DecrementActionStyle) -> StepperFieldDecrementActionStyle {
+        StepperFieldDecrementActionStyle(style: style)
+    }
+
+    static func decrementActionStyle(@ViewBuilder content: @escaping (DecrementActionConfiguration) -> some View) -> StepperFieldDecrementActionStyle {
+        let style = AnyDecrementActionStyle(content)
+        return StepperFieldDecrementActionStyle(style: style)
+    }
+}
+
+public struct StepperFieldTextInputFieldStyle: StepperFieldStyle {
+    let style: any TextInputFieldStyle
+
+    public func makeBody(_ configuration: StepperFieldConfiguration) -> some View {
+        StepperField(configuration)
+            .textInputFieldStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension StepperFieldStyle where Self == StepperFieldTextInputFieldStyle {
+    static func textInputFieldStyle(_ style: some TextInputFieldStyle) -> StepperFieldTextInputFieldStyle {
+        StepperFieldTextInputFieldStyle(style: style)
+    }
+
+    static func textInputFieldStyle(@ViewBuilder content: @escaping (TextInputFieldConfiguration) -> some View) -> StepperFieldTextInputFieldStyle {
+        let style = AnyTextInputFieldStyle(content)
+        return StepperFieldTextInputFieldStyle(style: style)
+    }
+}
+
+public struct StepperFieldIncrementActionStyle: StepperFieldStyle {
+    let style: any IncrementActionStyle
+
+    public func makeBody(_ configuration: StepperFieldConfiguration) -> some View {
+        StepperField(configuration)
+            .incrementActionStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension StepperFieldStyle where Self == StepperFieldIncrementActionStyle {
+    static func incrementActionStyle(_ style: some IncrementActionStyle) -> StepperFieldIncrementActionStyle {
+        StepperFieldIncrementActionStyle(style: style)
+    }
+
+    static func incrementActionStyle(@ViewBuilder content: @escaping (IncrementActionConfiguration) -> some View) -> StepperFieldIncrementActionStyle {
+        let style = AnyIncrementActionStyle(content)
+        return StepperFieldIncrementActionStyle(style: style)
+    }
+}
+
+// MARK: StepperViewStyle
+
+public extension StepperViewStyle where Self == StepperViewBaseStyle {
+    static var base: StepperViewBaseStyle {
+        StepperViewBaseStyle()
+    }
+}
+
+public extension StepperViewStyle where Self == StepperViewFioriStyle {
+    static var fiori: StepperViewFioriStyle {
+        StepperViewFioriStyle()
+    }
+}
+
+public struct StepperViewTitleStyle: StepperViewStyle {
+    let style: any TitleStyle
+
+    public func makeBody(_ configuration: StepperViewConfiguration) -> some View {
+        StepperView(configuration)
+            .titleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension StepperViewStyle where Self == StepperViewTitleStyle {
+    static func titleStyle(_ style: some TitleStyle) -> StepperViewTitleStyle {
+        StepperViewTitleStyle(style: style)
+    }
+
+    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> StepperViewTitleStyle {
+        let style = AnyTitleStyle(content)
+        return StepperViewTitleStyle(style: style)
+    }
+}
+
+public struct StepperViewDecrementActionStyle: StepperViewStyle {
+    let style: any DecrementActionStyle
+
+    public func makeBody(_ configuration: StepperViewConfiguration) -> some View {
+        StepperView(configuration)
+            .decrementActionStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension StepperViewStyle where Self == StepperViewDecrementActionStyle {
+    static func decrementActionStyle(_ style: some DecrementActionStyle) -> StepperViewDecrementActionStyle {
+        StepperViewDecrementActionStyle(style: style)
+    }
+
+    static func decrementActionStyle(@ViewBuilder content: @escaping (DecrementActionConfiguration) -> some View) -> StepperViewDecrementActionStyle {
+        let style = AnyDecrementActionStyle(content)
+        return StepperViewDecrementActionStyle(style: style)
+    }
+}
+
+public struct StepperViewTextInputFieldStyle: StepperViewStyle {
+    let style: any TextInputFieldStyle
+
+    public func makeBody(_ configuration: StepperViewConfiguration) -> some View {
+        StepperView(configuration)
+            .textInputFieldStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension StepperViewStyle where Self == StepperViewTextInputFieldStyle {
+    static func textInputFieldStyle(_ style: some TextInputFieldStyle) -> StepperViewTextInputFieldStyle {
+        StepperViewTextInputFieldStyle(style: style)
+    }
+
+    static func textInputFieldStyle(@ViewBuilder content: @escaping (TextInputFieldConfiguration) -> some View) -> StepperViewTextInputFieldStyle {
+        let style = AnyTextInputFieldStyle(content)
+        return StepperViewTextInputFieldStyle(style: style)
+    }
+}
+
+public struct StepperViewIncrementActionStyle: StepperViewStyle {
+    let style: any IncrementActionStyle
+
+    public func makeBody(_ configuration: StepperViewConfiguration) -> some View {
+        StepperView(configuration)
+            .incrementActionStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension StepperViewStyle where Self == StepperViewIncrementActionStyle {
+    static func incrementActionStyle(_ style: some IncrementActionStyle) -> StepperViewIncrementActionStyle {
+        StepperViewIncrementActionStyle(style: style)
+    }
+
+    static func incrementActionStyle(@ViewBuilder content: @escaping (IncrementActionConfiguration) -> some View) -> StepperViewIncrementActionStyle {
+        let style = AnyIncrementActionStyle(content)
+        return StepperViewIncrementActionStyle(style: style)
+    }
+}
+
+public struct StepperViewIconStyle: StepperViewStyle {
+    let style: any IconStyle
+
+    public func makeBody(_ configuration: StepperViewConfiguration) -> some View {
+        StepperView(configuration)
+            .iconStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension StepperViewStyle where Self == StepperViewIconStyle {
+    static func iconStyle(_ style: some IconStyle) -> StepperViewIconStyle {
+        StepperViewIconStyle(style: style)
+    }
+
+    static func iconStyle(@ViewBuilder content: @escaping (IconConfiguration) -> some View) -> StepperViewIconStyle {
+        let style = AnyIconStyle(content)
+        return StepperViewIconStyle(style: style)
+    }
+}
+
+public struct StepperViewDescriptionStyle: StepperViewStyle {
+    let style: any DescriptionStyle
+
+    public func makeBody(_ configuration: StepperViewConfiguration) -> some View {
+        StepperView(configuration)
+            .descriptionStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension StepperViewStyle where Self == StepperViewDescriptionStyle {
+    static func descriptionStyle(_ style: some DescriptionStyle) -> StepperViewDescriptionStyle {
+        StepperViewDescriptionStyle(style: style)
+    }
+
+    static func descriptionStyle(@ViewBuilder content: @escaping (DescriptionConfiguration) -> some View) -> StepperViewDescriptionStyle {
+        let style = AnyDescriptionStyle(content)
+        return StepperViewDescriptionStyle(style: style)
+    }
+}
+
+public struct StepperViewStepperFieldStyle: StepperViewStyle {
+    let style: any StepperFieldStyle
+
+    public func makeBody(_ configuration: StepperViewConfiguration) -> some View {
+        StepperView(configuration)
+            .stepperFieldStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension StepperViewStyle where Self == StepperViewStepperFieldStyle {
+    static func stepperFieldStyle(_ style: some StepperFieldStyle) -> StepperViewStepperFieldStyle {
+        StepperViewStepperFieldStyle(style: style)
+    }
+
+    static func stepperFieldStyle(@ViewBuilder content: @escaping (StepperFieldConfiguration) -> some View) -> StepperViewStepperFieldStyle {
+        let style = AnyStepperFieldStyle(content)
+        return StepperViewStepperFieldStyle(style: style)
+    }
+}
+
+public struct StepperViewInformationViewStyle: StepperViewStyle {
+    let style: any InformationViewStyle
+
+    public func makeBody(_ configuration: StepperViewConfiguration) -> some View {
+        StepperView(configuration)
+            .informationViewStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension StepperViewStyle where Self == StepperViewInformationViewStyle {
+    static func informationViewStyle(_ style: some InformationViewStyle) -> StepperViewInformationViewStyle {
+        StepperViewInformationViewStyle(style: style)
+    }
+
+    static func informationViewStyle(@ViewBuilder content: @escaping (InformationViewConfiguration) -> some View) -> StepperViewInformationViewStyle {
+        let style = AnyInformationViewStyle(content)
+        return StepperViewInformationViewStyle(style: style)
     }
 }
 

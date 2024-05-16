@@ -288,6 +288,34 @@ public extension CounterStyle {
     }
 }
 
+// MARK: DecrementActionStyle
+
+extension ModifiedStyle: DecrementActionStyle where Style: DecrementActionStyle {
+    public func makeBody(_ configuration: DecrementActionConfiguration) -> some View {
+        DecrementAction(configuration)
+            .decrementActionStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct DecrementActionStyleModifier<Style: DecrementActionStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.decrementActionStyle(self.style)
+    }
+}
+
+public extension DecrementActionStyle {
+    func modifier(_ modifier: some ViewModifier) -> some DecrementActionStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some DecrementActionStyle) -> some DecrementActionStyle {
+        style.modifier(DecrementActionStyleModifier(style: self))
+    }
+}
+
 // MARK: DemoViewStyle
 
 extension ModifiedStyle: DemoViewStyle where Style: DemoViewStyle {
@@ -621,6 +649,34 @@ public extension IllustratedMessageStyle {
 
     func concat(_ style: some IllustratedMessageStyle) -> some IllustratedMessageStyle {
         style.modifier(IllustratedMessageStyleModifier(style: self))
+    }
+}
+
+// MARK: IncrementActionStyle
+
+extension ModifiedStyle: IncrementActionStyle where Style: IncrementActionStyle {
+    public func makeBody(_ configuration: IncrementActionConfiguration) -> some View {
+        IncrementAction(configuration)
+            .incrementActionStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct IncrementActionStyleModifier<Style: IncrementActionStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.incrementActionStyle(self.style)
+    }
+}
+
+public extension IncrementActionStyle {
+    func modifier(_ modifier: some ViewModifier) -> some IncrementActionStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some IncrementActionStyle) -> some IncrementActionStyle {
+        style.modifier(IncrementActionStyleModifier(style: self))
     }
 }
 
@@ -1209,6 +1265,62 @@ public extension StatusStyle {
 
     func concat(_ style: some StatusStyle) -> some StatusStyle {
         style.modifier(StatusStyleModifier(style: self))
+    }
+}
+
+// MARK: StepperFieldStyle
+
+extension ModifiedStyle: StepperFieldStyle where Style: StepperFieldStyle {
+    public func makeBody(_ configuration: StepperFieldConfiguration) -> some View {
+        StepperField(configuration)
+            .stepperFieldStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct StepperFieldStyleModifier<Style: StepperFieldStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.stepperFieldStyle(self.style)
+    }
+}
+
+public extension StepperFieldStyle {
+    func modifier(_ modifier: some ViewModifier) -> some StepperFieldStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some StepperFieldStyle) -> some StepperFieldStyle {
+        style.modifier(StepperFieldStyleModifier(style: self))
+    }
+}
+
+// MARK: StepperViewStyle
+
+extension ModifiedStyle: StepperViewStyle where Style: StepperViewStyle {
+    public func makeBody(_ configuration: StepperViewConfiguration) -> some View {
+        StepperView(configuration)
+            .stepperViewStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct StepperViewStyleModifier<Style: StepperViewStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.stepperViewStyle(self.style)
+    }
+}
+
+public extension StepperViewStyle {
+    func modifier(_ modifier: some ViewModifier) -> some StepperViewStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some StepperViewStyle) -> some StepperViewStyle {
+        style.modifier(StepperViewStyleModifier(style: self))
     }
 }
 

@@ -201,3 +201,19 @@ protocol _MessageContentComponent {
     @ViewBuilder
     var messageContent: (() -> any View)? { get }
 }
+
+// sourcery: BaseComponent
+protocol _DecrementActionComponent {
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "FioriButton { _ in Image(systemName: "minus") }"
+    // sourcery: resultBuilder.defaultValue = "{ FioriButton { _ in Image(systemName: "minus") } }"
+    var decrementAction: FioriButton? { get }
+}
+
+// sourcery: BaseComponent
+protocol _IncrementActionComponent {
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "FioriButton { _ in Image(systemName: "plus") }"
+    // sourcery: resultBuilder.defaultValue = "{ FioriButton { _ in Image(systemName: "plus") } }"
+    var incrementAction: FioriButton? { get }
+}
