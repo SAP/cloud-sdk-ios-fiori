@@ -95,6 +95,7 @@ We plan to progressively bring more Fiori UI components into this module in the 
 | MultiUserPasscodeView | :x: |
 | TouchIDErrorView | :x: |
 | Skeleton Loading | :x: |
+| Rating Control | :x: |
 
 ## FioriCharts
 ![FioriCharts platform support: iOS and visionOS](https://img.shields.io/badge/platform-ios%20%7C%20visionos-lightgray)
