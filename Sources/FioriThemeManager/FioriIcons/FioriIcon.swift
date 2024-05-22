@@ -2847,13 +2847,13 @@ public enum FioriIcon {
         ///
         public static let tntCalculatorSpot = Image(fioriName: "fiori.ill.tnt.calculator.spot")
         ///
-        public static let tntCharDoughnutDialog = Image(fioriName: "fiori.ill.tnt.char.doughnut.dialog")
+        public static let tntChartDoughnutDialog = Image(fioriName: "fiori.ill.tnt.chart.doughnut.dialog")
         ///
-        public static let tntCharDoughnutDot = Image(fioriName: "fiori.ill.tnt.char.doughnut.dot")
+        public static let tntChartDoughnutDot = Image(fioriName: "fiori.ill.tnt.chart.doughnut.dot")
         ///
-        public static let tntCharDoughnutScene = Image(fioriName: "fiori.ill.tnt.char.doughnut.scene")
+        public static let tntChartDoughnutScene = Image(fioriName: "fiori.ill.tnt.chart.doughnut.scene")
         ///
-        public static let tntCharDoughnutSpot = Image(fioriName: "fiori.ill.tnt.char.doughnut.spot")
+        public static let tntChartDoughnutSpot = Image(fioriName: "fiori.ill.tnt.chart.doughnut.spot")
         ///
         public static let tntChartAreaDialog = Image(fioriName: "fiori.ill.tnt.chart.area.dialog")
         ///
@@ -2983,13 +2983,13 @@ public enum FioriIcon {
         ///
         public static let tntFaceIdSpot = Image(fioriName: "fiori.ill.tnt.face.id.spot")
         ///
-        public static let tntFingerPrintDialog = Image(fioriName: "fiori.ill.tnt.finger.print.dialog")
+        public static let tntFingerprintDialog = Image(fioriName: "fiori.ill.tnt.fingerprint.dialog")
         ///
-        public static let tntFingerPrintDot = Image(fioriName: "fiori.ill.tnt.finger.print.dot")
+        public static let tntFingerprintDot = Image(fioriName: "fiori.ill.tnt.fingerprint.dot")
         ///
-        public static let tntFingerPrintScene = Image(fioriName: "fiori.ill.tnt.finger.print.scene")
+        public static let tntFingerprintScene = Image(fioriName: "fiori.ill.tnt.fingerprint.scene")
         ///
-        public static let tntFingerPrintSpot = Image(fioriName: "fiori.ill.tnt.finger.print.spot")
+        public static let tntFingerprintSpot = Image(fioriName: "fiori.ill.tnt.fingerprint.spot")
         ///
         public static let tntHandshakeDialog = Image(fioriName: "fiori.ill.tnt.handshake.dialog")
         ///
