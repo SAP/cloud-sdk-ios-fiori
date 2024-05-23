@@ -52,8 +52,9 @@ struct XAxisView: View {
                     Group {
                         if isShowLabels[index] {
                             Text(labels[index].title)
-                                .font(.fiori(fixedSize: axis.labels.fontSize))
+                                .font(axis.labels.targetFont)
                                 .foregroundColor(axis.labels.color)
+                                .background(axis.labels.backgroundColor)
                                 .frame(maxWidth: rect.size.width / 2)
                                 .position(x: labels[index].pos.x, y: labelYPos)
                         } else {

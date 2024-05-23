@@ -57,8 +57,9 @@ struct YAxisView: View {
                     Group {
                         if isShowLabels[index] {
                             Text(labels[index].title)
-                                .font(.fiori(fixedSize: axis.labels.fontSize))
+                                .font(axis.labels.targetFont)
                                 .foregroundColor(axis.labels.color)
+                                .background(axis.labels.backgroundColor)
                                 .position(x: labels[index].pos.x,
                                           y: labels[index].pos.y)
                                 .frame(maxWidth: rect.size.width)
