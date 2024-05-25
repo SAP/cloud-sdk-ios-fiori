@@ -2783,7 +2783,7 @@ public enum FioriIcon {
         ///
         public static let sortColumnSpot = Image(fioriName: "fiori.ill.sort.column.spot")
         ///
-        public static let successBallonScene = Image(fioriName: "fiori.ill.success.ballon.scene")
+        public static let successBalloonScene = Image(fioriName: "fiori.ill.success.balloon.scene")
         ///
         public static let successBalloonDialog = Image(fioriName: "fiori.ill.success.balloon.dialog")
         ///
@@ -3182,6 +3182,14 @@ public enum FioriIcon {
         public static let tntUnsuccessfulAuthScene = Image(fioriName: "fiori.ill.tnt.unsuccessful.auth.scene")
         ///
         public static let tntUnsuccessfulAuthSpot = Image(fioriName: "fiori.ill.tnt.unsuccessful.auth.spot")
+        ///
+        public static let tntUser2Dialog = Image(fioriName: "fiori.ill.tnt.user2.dialog")
+        ///
+        public static let tntUser2Dot = Image(fioriName: "fiori.ill.tnt.user2.dot")
+        ///
+        public static let tntUser2Scene = Image(fioriName: "fiori.ill.tnt.user2.scene")
+        ///
+        public static let tntUser2Spot = Image(fioriName: "fiori.ill.tnt.user2.spot")
         ///
         public static let unableToLoadDialog = Image(fioriName: "fiori.ill.unable.to.load.dialog")
         ///
