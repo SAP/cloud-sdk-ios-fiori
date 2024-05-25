@@ -95,7 +95,7 @@ public extension SideBar where Subtitle == _ConditionalContent<Text, EmptyView>,
                     }
                     .titleModifier { $0.foregroundColor(.preferredColor(.primaryLabel)) }
                     .subtitleModifier { $0.foregroundColor(.preferredColor(.tertiaryLabel)) }
-                    .background(Color.preferredColor(.quarternaryFill))))
+                    .background(Color.preferredColor(.quaternaryFill))))
             : ViewBuilder.buildEither(second: EmptyView())
         self._detail = list != nil ? ViewBuilder.buildEither(first: AnyView(list)) : ViewBuilder.buildEither(second: EmptyView())
     }
