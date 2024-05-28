@@ -1312,7 +1312,7 @@ public enum ColorStyle: String, CaseIterable {
     /// Standard color for quaternary fill.
     /// (dark variant - normal) ![](https://dummyimage.com/48x18/5B738B.png&text=+)          Hex value: 5B738B14
     /// (light variant - normal) ![](https://dummyimage.com/48x18/8396A8.png&text=+)          Hex value: 8396A814
-    @available(*, deprecated, renamed: "quaternaryFill")
+    @available(*, unavailable, renamed: "quaternaryFill")
     @available(watchOS, unavailable)
     case quarternaryFill
     
