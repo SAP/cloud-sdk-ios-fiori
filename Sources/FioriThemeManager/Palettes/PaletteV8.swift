@@ -152,14 +152,12 @@ struct PaletteV8: PaletteProvider {
         .primaryLabel: HexColor(lightColor: "F5F6F7FF", darkColor: "223548FF", contrastLightColor: "FFFFFFFF", contrastDarkColor: "000000FF"),
         .secondaryLabel: HexColor(lightColor: "D5DADDFF", darkColor: "475E75FF", contrastLightColor: "EAECEEFF", contrastDarkColor: "223548FF"),
         .tertiaryLabel: HexColor(lightColor: "A9B4BEFF", darkColor: "5B738BFF", contrastLightColor: "D5DADDFF", contrastDarkColor: "354A5FFF"),
-        .quarternaryLabel: HexColor(lightColor: "A9B4BE4D", darkColor: "8396A875", contrastLightColor: "A9B4BE80", contrastDarkColor: "354A5F57"),
         .quaternaryLabel: HexColor(lightColor: "A9B4BE4D", darkColor: "8396A875", contrastLightColor: "A9B4BE80", contrastDarkColor: "354A5F57"),
         .quinaryLabel: HexColor(lightColor: "000000FF", darkColor: "FFFFFFFF", contrastLightColor: "000000FF", contrastDarkColor: "FFFFFFFF"),
         /// Fill Colors
         .primaryFill: HexColor(lightColor: "8396A84D", darkColor: "8396A83D", contrastLightColor: "8396A866", contrastDarkColor: "8799AB57"),
         .secondaryFill: HexColor(lightColor: "8396A847", darkColor: "8396A833", contrastLightColor: "8396A861", contrastDarkColor: "8799AB4D"),
         .tertiaryFill: HexColor(lightColor: "8396A833", darkColor: "8396A826", contrastLightColor: "8396A84D", contrastDarkColor: "8799AB40"),
-        .quarternaryFill: HexColor(lightColor: "8396A829", darkColor: "8396A817", contrastLightColor: "8396A838", contrastDarkColor: "8799AB1A"),
         .quaternaryFill: HexColor(lightColor: "8396A829", darkColor: "8396A817", contrastLightColor: "8396A838", contrastDarkColor: "8799AB1A"),
         /// Tint Colors
         .tintColor: HexColor(lightColor: "4DB1FFFF", darkColor: "0070F2FF", contrastLightColor: "5CB7FFFF", contrastDarkColor: "0046A8FF"),

@@ -16,7 +16,7 @@ struct ColorCompatibilityMapV4: ColorStyleCompatibilityProvider {
         .tertiaryLabel: .primary3,
         .secondaryFill: .primary4,
         .secondaryGroupedBackground: .primary6,
-        .quarternaryLabel: .primary7,
+        .quaternaryLabel: .primary7,
         .barTransparent: .primary8,
         .separator: .primary9,
         .headerBlended: .backgroundGradientTop,
