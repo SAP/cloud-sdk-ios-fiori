@@ -1305,7 +1305,7 @@ public enum ColorStyle: String, CaseIterable {
     /// Standard color for quaternary label.
     /// (dark variant - normal) ![](https://dummyimage.com/48x18/5B738B.png&text=+)          Hex value: 5B738BD4
     /// (light variant - normal) ![](https://dummyimage.com/48x18/8396A8.png&text=+)          Hex value: 8396A8FF
-    @available(*, deprecated, renamed: "quaternaryLabel")
+    @available(*, unavailable, renamed: "quaternaryLabel")
     @available(watchOS, unavailable)
     case quarternaryLabel
     

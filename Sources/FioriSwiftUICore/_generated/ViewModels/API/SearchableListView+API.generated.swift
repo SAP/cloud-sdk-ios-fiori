@@ -5,16 +5,16 @@ import SwiftUI
 @available(iOS 15.0, macOS 12.0, *)
 public struct SearchableListView<CancelActionView: View, DoneActionView: View> {
     @Environment(\.cancelActionModifier) private var cancelActionModifier
-    @Environment(\.doneActionModifier) private var doneActionModifier
-    @Environment(\.listBackground) var listBackground
-    @Environment(\.listpickerListStyle) var listpickerListStyle
-    @Environment(\.presentationMode) var presentationMode
+	@Environment(\.doneActionModifier) private var doneActionModifier
+	@Environment(\.listpickerListStyle) var listpickerListStyle
+	@Environment(\.listBackground) var listBackground
+	@Environment(\.presentationMode) var presentationMode
 
     let _cancelAction: CancelActionView
 	let _doneAction: DoneActionView
-	var contentView: AnyView? = nil
 	var isTopLevel: Bool = true
 	var dataHandler: (() -> ())? = nil
+	var contentView: AnyView? = nil
 
     private var isModelInit: Bool = false
 	private var isCancelActionNil: Bool = false

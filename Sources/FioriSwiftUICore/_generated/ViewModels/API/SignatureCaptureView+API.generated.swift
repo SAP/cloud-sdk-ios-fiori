@@ -19,32 +19,32 @@ public struct SignatureCaptureView<StartActionView: View, RestartActionView: Vie
 	let _signatureImage: UIImage?
 	let _onSave: ((UIImage) -> Void)?
 	let _onDelete: (() -> Void)?
-	var cropsImage = false
-	var hidesXmark = false
-	var signatureLineColor = Color.preferredColor(.quarternaryLabel)
-	@State var isEditing = false
-	@State var currentDrawing = Drawing()
-	@State var isSaved = false
-	var addsTimestampInImage: Bool = false
+	@State var fullSignatureImage: UIImage?
 	@State var isReenterTapped = false
-	var appliesTintColorToImage = true
-	var watermarkTextColor: Color = .preferredColor(.tertiaryLabel)
+	var watermarkText: String?
+	@State var currentDrawing = Drawing()
+	var strokeWidth: CGFloat = 3.0
+	var hidesXmark = false
+	public private(set) var _heightDidChangePublisher = CurrentValueSubject<CGFloat, Never>(0)
 	var watermarkTextFont: UIFont = .preferredFont(forTextStyle: .caption1)
-	let _drawingViewMinHeight: CGFloat = 256
+	var timestampFormatter: DateFormatter?
 	var drawingViewBackgroundColor = Color.preferredColor(.primaryBackground)
-	var titleColor = Color.preferredColor(.primaryLabel)
 	var hidesSignatureLine = false
-	var xmarkColor = Color.preferredColor(.quarternaryLabel)
+	let _drawingViewMinHeight: CGFloat = 256
+	var titleColor = Color.preferredColor(.primaryLabel)
+	var appliesTintColorToImage = true
 	@State var drawings = [Drawing]()
 	var strokeColor = Color.preferredColor(.primaryLabel)
-	var watermarkTextAlignment: NSTextAlignment = .natural
-	public private(set) var _heightDidChangePublisher = CurrentValueSubject<CGFloat, Never>(0)
+	var signatureLineColor = Color.preferredColor(.quaternaryLabel)
+	var addsTimestampInImage: Bool = false
 	var _drawingViewMaxHeight: CGFloat?
-	var strokeWidth: CGFloat = 3.0
-	var watermarkText: String?
+	var watermarkTextAlignment: NSTextAlignment = .natural
+	var cropsImage = false
+	var watermarkTextColor: Color = .preferredColor(.tertiaryLabel)
 	var titleFont = Font.fiori(forTextStyle: .subheadline).weight(.semibold)
-	@State var fullSignatureImage: UIImage?
-	var timestampFormatter: DateFormatter?
+	@State var isSaved = false
+	var xmarkColor = Color.preferredColor(.quaternaryLabel)
+	@State var isEditing = false
 
     private var isModelInit: Bool = false
 	private var isTitleNil: Bool = false
