@@ -229,7 +229,7 @@ struct PaletteV8: PaletteProvider {
         .customColor5: HexColor(lightColor: "A93E00FF", darkColor: "F58B00FF", contrastLightColor: "7A2D00FF", contrastDarkColor: "F58B00FF"),
         .customColor6: HexColor(lightColor: "D20A0AFF", darkColor: "D20A0AFF", contrastLightColor: "B40909FF", contrastDarkColor: "B40909FF"),
         .esriEdit: HexColor(lightColor: "FFF114", darkColor: "1B6DD2"),
-        .jouleBrand: HexColor(lightColor: "714FFFFF", darkColor: "5D36FFFF", contrastLightColor: "5633E1FF", contrastDarkColor: "5633E1FF"),
+        .jouleBrand: HexColor(lightColor: "714FFFFF", darkColor: "5D36FFFF", contrastLightColor: "5633E1FF", contrastDarkColor: "5238D6FF"),
         .jouleAccent1: HexColor(lightColor: "D522BFFF", darkColor: "A100C2FF", contrastLightColor: "FF70EDFF", contrastDarkColor: "9505B3FF"),
         .jouleAccent2: HexColor(lightColor: "7458FFFF", darkColor: "7458FFFF", contrastLightColor: "5133E6FF", contrastDarkColor: "5133E6FF"),
         .jouleAccent3: HexColor(lightColor: "9D85FFFF", darkColor: "7458FFFF", contrastLightColor: "AD99FFFF", contrastDarkColor: "5633E1FF"),
