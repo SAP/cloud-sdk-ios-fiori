@@ -35,7 +35,7 @@ extension KeyValueFormViewFioriStyle {
             guard !(configuration.controlState == .disabled) else {
                 return .preferredColor(.separator)
             }
-            return self.isErrorStyle(configuration) ? .preferredColor(.negativeLabel) : .preferredColor(.primaryLabel)
+            return .preferredColor(.primaryLabel)
         }
         
         private func isDisabled(_ configuration: KeyValueFormViewConfiguration) -> Bool {
