@@ -40,7 +40,7 @@ struct TextFieldFormViewExample: View {
 
     var body: some View {
         VStack {
-            Text("TitleFormViewExample")
+            Text("TextFieldFormViewExample")
             List {
                 Toggle("Shows Hint Text", isOn: self.$showsHintText)
                     .padding(.leading, 16)
