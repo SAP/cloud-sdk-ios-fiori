@@ -63,7 +63,7 @@ extension TextFieldFormViewFioriStyle {
             guard !self.isDisabled(configuration) else {
                 return .preferredColor(.separator)
             }
-            return self.isErrorStyle(configuration) ? .preferredColor(.negativeLabel) : .preferredColor(.primaryLabel)
+            return .preferredColor(.primaryLabel)
         }
 
         func getTextColor(_ configuration: TextFieldFormViewConfiguration) -> Color {
