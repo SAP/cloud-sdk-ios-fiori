@@ -2,7 +2,7 @@ import Foundation
 import SwiftUI
 
 extension Fiori {
-    enum SideBar {
+    enum _SideBar {
         struct Subtitle: ViewModifier {
             func body(content: Content) -> some View {
                 content
@@ -23,7 +23,7 @@ extension Fiori {
 }
 
 @available(iOS 14, *)
-extension SideBar: View {
+extension _SideBar: View {
     public var body: some View {
         VStack(spacing: 0) {
             subtitle
@@ -39,7 +39,7 @@ extension SideBar: View {
 }
 
 @available(iOS 14, *)
-public extension SideBar where Detail == AnyView {
+public extension _SideBar where Detail == AnyView {
     /// Returns a side bar view with given configuration.
     /// - Parameters:
     ///   - subtitle: The view builder which returns the subtitle view.
@@ -55,7 +55,7 @@ public extension SideBar where Detail == AnyView {
 }
 
 @available(iOS 14, *)
-public extension SideBar where Subtitle == _ConditionalContent<Text, EmptyView>, Detail == AnyView {
+public extension _SideBar where Subtitle == _ConditionalContent<Text, EmptyView>, Detail == AnyView {
     /// Returns a side bar view with given configuration.
     /// - Parameters:
     ///   - subtitle: The subtitle string.
@@ -73,7 +73,7 @@ public extension SideBar where Subtitle == _ConditionalContent<Text, EmptyView>,
 }
 
 @available(iOS 14, *)
-public extension SideBar where Subtitle == _ConditionalContent<Text, EmptyView>,
+public extension _SideBar where Subtitle == _ConditionalContent<Text, EmptyView>,
     Footer == _ConditionalContent<AnyView, EmptyView>,
     Detail == _ConditionalContent<AnyView, EmptyView>
 {
@@ -164,7 +164,7 @@ public struct ExpandableList<Data, Row, Destination>: View where Data: RandomAcc
 }
 
 @available(iOS 14, *)
-public extension ExpandableList where Row == SideBarListItem<_ConditionalContent<Image, EmptyView>, Text, _ConditionalContent<Text, EmptyView>, _ConditionalContent<Image, EmptyView>> {
+public extension ExpandableList where Row == _SideBarListItem<_ConditionalContent<Image, EmptyView>, Text, _ConditionalContent<Text, EmptyView>, _ConditionalContent<Image, EmptyView>> {
     /// Creates an expandable list from a collection of data which supports multi-level hierarchy with the ability to select a single item.
     /// - Parameters:
     ///   - data: The data for constructing the list.
@@ -175,7 +175,7 @@ public extension ExpandableList where Row == SideBarListItem<_ConditionalContent
     init(data: Data,
          children: KeyPath<Data.Element, Data?>,
          selection: Binding<Data.Element?>,
-         rowModel: @escaping (Data.Element) -> SideBarListItemModel,
+         rowModel: @escaping (Data.Element) -> _SideBarListItemModel,
          destination: @escaping (Data.Element) -> Destination)
     {
         self.contentView = ScrollView(.vertical, showsIndicators: false, content: {
@@ -197,7 +197,7 @@ public extension ExpandableList where Row == SideBarListItem<_ConditionalContent
                         }, isModelInit: true)
                     } else {
                         if item == selection.wrappedValue {
-                            SideBarListItem(model: rowModel(item))
+                            _SideBarListItem(model: rowModel(item))
                                 .modifier(ListItemBackgroundSelectionStyle())
                                 .environment(\.sideBarListItemConfigMode, SideBarListItemConfig(isSelected: true, isHeaderContent: false))
                                 .overlay(NavigationLink(destination: destination(item),
@@ -210,7 +210,7 @@ public extension ExpandableList where Row == SideBarListItem<_ConditionalContent
                                     selection.wrappedValue = item
                                 }
                         } else {
-                            SideBarListItem(model: rowModel(item))
+                            _SideBarListItem(model: rowModel(item))
                                 .environment(\.sideBarListItemConfigMode, SideBarListItemConfig(isSelected: false, isHeaderContent: false))
                                 .contentShape(Rectangle())
                                 .onTapGesture {

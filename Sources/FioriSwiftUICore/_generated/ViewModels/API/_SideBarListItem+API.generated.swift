@@ -2,7 +2,7 @@
 // DO NOT EDIT
 import SwiftUI
 
-public struct SideBarListItem<Icon: View, Title: View, Subtitle: View, AccessoryIcon: View> {
+public struct _SideBarListItem<Icon: View, Title: View, Subtitle: View, AccessoryIcon: View> {
     @Environment(\.iconModifier) private var iconModifier
 	@Environment(\.titleModifier) private var titleModifier
 	@Environment(\.subtitleModifier) private var subtitleModifier
@@ -34,30 +34,30 @@ public struct SideBarListItem<Icon: View, Title: View, Subtitle: View, Accessory
 
     @ViewBuilder var icon: some View {
         if isModelInit {
-            _icon.modifier(iconModifier.concat(Fiori.SideBarListItem.icon).concat(Fiori.SideBarListItem.iconCumulative))
+            _icon.modifier(iconModifier.concat(Fiori._SideBarListItem.icon).concat(Fiori._SideBarListItem.iconCumulative))
         } else {
-            _icon.modifier(iconModifier.concat(Fiori.SideBarListItem.icon))
+            _icon.modifier(iconModifier.concat(Fiori._SideBarListItem.icon))
         }
     }
 	@ViewBuilder var title: some View {
         if isModelInit {
-            _title.modifier(titleModifier.concat(Fiori.SideBarListItem.title).concat(Fiori.SideBarListItem.titleCumulative))
+            _title.modifier(titleModifier.concat(Fiori._SideBarListItem.title).concat(Fiori._SideBarListItem.titleCumulative))
         } else {
-            _title.modifier(titleModifier.concat(Fiori.SideBarListItem.title))
+            _title.modifier(titleModifier.concat(Fiori._SideBarListItem.title))
         }
     }
 	@ViewBuilder var subtitle: some View {
         if isModelInit {
-            _subtitle.modifier(subtitleModifier.concat(Fiori.SideBarListItem.subtitle).concat(Fiori.SideBarListItem.subtitleCumulative))
+            _subtitle.modifier(subtitleModifier.concat(Fiori._SideBarListItem.subtitle).concat(Fiori._SideBarListItem.subtitleCumulative))
         } else {
-            _subtitle.modifier(subtitleModifier.concat(Fiori.SideBarListItem.subtitle))
+            _subtitle.modifier(subtitleModifier.concat(Fiori._SideBarListItem.subtitle))
         }
     }
 	@ViewBuilder var accessoryIcon: some View {
         if isModelInit {
-            _accessoryIcon.modifier(accessoryIconModifier.concat(Fiori.SideBarListItem.accessoryIcon).concat(Fiori.SideBarListItem.accessoryIconCumulative))
+            _accessoryIcon.modifier(accessoryIconModifier.concat(Fiori._SideBarListItem.accessoryIcon).concat(Fiori._SideBarListItem.accessoryIconCumulative))
         } else {
-            _accessoryIcon.modifier(accessoryIconModifier.concat(Fiori.SideBarListItem.accessoryIcon))
+            _accessoryIcon.modifier(accessoryIconModifier.concat(Fiori._SideBarListItem.accessoryIcon))
         }
     }
     
@@ -74,12 +74,12 @@ public struct SideBarListItem<Icon: View, Title: View, Subtitle: View, Accessory
     }
 }
 
-extension SideBarListItem where Icon == _ConditionalContent<Image, EmptyView>,
+extension _SideBarListItem where Icon == _ConditionalContent<Image, EmptyView>,
 		Title == Text,
 		Subtitle == _ConditionalContent<Text, EmptyView>,
 		AccessoryIcon == _ConditionalContent<Image, EmptyView> {
 
-    public init(model: SideBarListItemModel) {
+    public init(model: _SideBarListItemModel) {
         self.init(icon: model.icon, title: model.title, subtitle: model.subtitle, accessoryIcon: model.accessoryIcon)
     }
 

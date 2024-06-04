@@ -1,7 +1,7 @@
 import SwiftUI
 
 extension Fiori {
-    enum SideBarListItem {
+    enum _SideBarListItem {
         struct Title: ViewModifier {
             func body(content: Content) -> some View {
                 content
@@ -36,7 +36,7 @@ extension Fiori {
     }
 }
 
-extension SideBarListItem: View {
+extension _SideBarListItem: View {
     public var body: some View {
         Group {
             if sizeCategory.isAccessibilityCategory {
