@@ -675,6 +675,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: MandatoryIndicatorStyle
+
+struct MandatoryIndicatorStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any MandatoryIndicatorStyle] = []
+}
+
+extension EnvironmentValues {
+    var mandatoryIndicatorStyle: any MandatoryIndicatorStyle {
+        self.mandatoryIndicatorStyleStack.last ?? .base
+    }
+
+    var mandatoryIndicatorStyleStack: [any MandatoryIndicatorStyle] {
+        get {
+            self[MandatoryIndicatorStyleStackKey.self]
+        }
+        set {
+            self[MandatoryIndicatorStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: MediaImageStyle
 
 struct MediaImageStyleStackKey: EnvironmentKey {

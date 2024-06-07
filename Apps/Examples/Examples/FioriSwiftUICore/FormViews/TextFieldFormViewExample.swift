@@ -35,6 +35,7 @@ struct TextFieldFormViewExample: View {
     @State var allowsBeyondLimit = false
     @State var hidesReadonlyHint = false
     @State var showsAction = false
+    @State var isRequired = false
 
     @State var text = ""
 
@@ -60,23 +61,26 @@ struct TextFieldFormViewExample: View {
                 Toggle("Shows Action", isOn: self.$showsAction)
                     .padding(.leading, 16)
                     .padding(.trailing, 16)
+                Toggle("Mandatory Field", isOn: self.$isRequired)
+                    .padding(.leading, 16)
+                    .padding(.trailing, 16)
 
                 Text("Default TitleForm")
-                TextFieldFormView(title: self.key1, text: self.$valueText1, placeholder: "TextFieldFormView", errorMessage: self.getErrorMessage(), maxTextLength: self.getMaxTextLength(), hintText: self.getHintText(), isCharCountEnabled: self.showsCharCount, allowsBeyondLimit: self.allowsBeyondLimit, actionIcon: self.getActionIcon(), action: self.getAction())
+                TextFieldFormView(title: self.key1, text: self.$valueText1, placeholder: "TextFieldFormView", errorMessage: self.getErrorMessage(), maxTextLength: self.getMaxTextLength(), hintText: self.getHintText(), isCharCountEnabled: self.showsCharCount, allowsBeyondLimit: self.allowsBeyondLimit, isRequired: self.isRequired, actionIcon: self.getActionIcon(), action: self.getAction())
 
                 Text("Existing Text")
                     .italic()
-                TextFieldFormView(title: self.key2, text: self.$valueText2, placeholder: "TextFieldFormView", errorMessage: self.getErrorMessage(), maxTextLength: self.getMaxTextLength(), hintText: self.getHintText(), isCharCountEnabled: self.showsCharCount, allowsBeyondLimit: self.allowsBeyondLimit, actionIcon: self.getActionIcon(), action: self.getAction())
+                TextFieldFormView(title: self.key2, text: self.$valueText2, placeholder: "TextFieldFormView", errorMessage: self.getErrorMessage(), maxTextLength: self.getMaxTextLength(), hintText: self.getHintText(), isCharCountEnabled: self.showsCharCount, allowsBeyondLimit: self.allowsBeyondLimit, isRequired: self.isRequired, actionIcon: self.getActionIcon(), action: self.getAction())
 
                 Text("Empty Text")
                     .italic()
-                TextFieldFormView(title: self.key3, text: self.$valueText3, placeholder: "Please enter something", errorMessage: self.getErrorMessage(), maxTextLength: self.getMaxTextLength(), hintText: self.getHintText(), isCharCountEnabled: self.showsCharCount, allowsBeyondLimit: self.allowsBeyondLimit, actionIcon: self.getActionIcon(), action: self.getAction())
+                TextFieldFormView(title: self.key3, text: self.$valueText3, placeholder: "Please enter something", errorMessage: self.getErrorMessage(), maxTextLength: self.getMaxTextLength(), hintText: self.getHintText(), isCharCountEnabled: self.showsCharCount, allowsBeyondLimit: self.allowsBeyondLimit, isRequired: self.isRequired, actionIcon: self.getActionIcon(), action: self.getAction())
 
                 Text("Disabled")
-                TextFieldFormView(title: "Disabled Cell", text: self.$disabledText, placeholder: "Disabled", controlState: .disabled, actionIcon: self.getActionIcon(), action: self.getAction())
+                TextFieldFormView(title: "Disabled Cell", text: self.$disabledText, placeholder: "Disabled", controlState: .disabled, isRequired: self.isRequired, actionIcon: self.getActionIcon(), action: self.getAction())
 
                 Text("Read-Only")
-                TextFieldFormView(title: "Read-Only Cell", text: self.$readOnlyText, placeholder: "Read-Only", controlState: .readOnly, hidesReadOnlyHint: self.hidesReadonlyHint, actionIcon: self.getActionIcon(), action: self.getAction())
+                TextFieldFormView(title: "Read-Only Cell", text: self.$readOnlyText, placeholder: "Read-Only", controlState: .readOnly, hidesReadOnlyHint: self.hidesReadonlyHint, isRequired: self.isRequired, actionIcon: self.getActionIcon(), action: self.getAction())
             }
             .scrollDismissesKeyboard(.immediately)
         }

@@ -547,6 +547,23 @@ public extension View {
     }
 }
 
+// MARK: MandatoryIndicatorStyle
+
+public extension View {
+    func mandatoryIndicatorStyle(_ style: some MandatoryIndicatorStyle) -> some View {
+        self.transformEnvironment(\.mandatoryIndicatorStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func mandatoryIndicatorStyle(@ViewBuilder content: @escaping (MandatoryIndicatorConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.mandatoryIndicatorStyleStack) { stack in
+            let style = AnyMandatoryIndicatorStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: MediaImageStyle
 
 public extension View {

@@ -6,7 +6,13 @@ import SwiftUI
 public struct TextFieldFormViewBaseStyle: TextFieldFormViewStyle {
     public func makeBody(_ configuration: TextFieldFormViewConfiguration) -> some View {
         VStack(alignment: .leading) {
-            configuration.title
+            HStack(spacing: 0) {
+                configuration.title
+                if configuration.isRequired {
+                    configuration.mandatoryIndicator
+                }
+                Spacer()
+            }
             configuration._titleFormView
         }
     }
@@ -23,6 +29,12 @@ extension TextFieldFormViewFioriStyle {
                     Title(titleConf)
                         .foregroundStyle(self.getTitleColor(configuration))
                         .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
+                }
+                .mandatoryIndicatorStyle { indicatorConf in
+                    MandatoryIndicator(indicatorConf)
+                        .foregroundStyle(self.getTitleColor(configuration))
+                        .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
+                        .accessibilityLabel(self.getIndicatorAccessibilityLabel(configuration))
                 }
                 .placeholderTextFieldStyle { config in
                     HStack {
@@ -126,6 +138,15 @@ extension TextFieldFormViewFioriStyle {
             }
             return configuration.actionIcon
         }
+        
+        func getIndicatorAccessibilityLabel(_ configuration: TextFieldFormViewConfiguration) -> String {
+            var accString = ""
+            if configuration.isRequired {
+                let requiredText = NSLocalizedString("Required Field", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Required Field")
+                accString = requiredText
+            }
+            return accString
+        }
     }
 
     struct TitleFioriStyle: TitleStyle {
@@ -157,6 +178,16 @@ extension TextFieldFormViewFioriStyle {
         
         func makeBody(_ configuration: TitleFormViewConfiguration) -> some View {
             TitleFormView(configuration)
+        }
+    }
+    
+    struct MandatoryIndicatorFioriStyle: MandatoryIndicatorStyle {
+        let textFieldFormViewConfiguration: TextFieldFormViewConfiguration
+        
+        func makeBody(_ configuration: MandatoryIndicatorConfiguration) -> some View {
+            MandatoryIndicator(configuration)
+                .foregroundStyle(Color.preferredColor(self.textFieldFormViewConfiguration.controlState == .disabled ? .separator : .primaryLabel))
+                .font(.fiori(forTextStyle: .headline))
         }
     }
 }

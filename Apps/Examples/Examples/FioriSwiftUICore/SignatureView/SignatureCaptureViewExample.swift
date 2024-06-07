@@ -43,6 +43,7 @@ struct SignatureCaptureViewExample2: View {
                              .hidesXmark(false)
                              .hidesSignatureLine(true)
                              .addsTimestampInImage(true)
+                             .isRequired(true)
                              .timestampFormatter(self.customFormatter())
                              .watermarkText("A bird in the hand is worth two in the bush. Behind every great man there's a great woman.")
                              .watermarkTextAlignment(.right)

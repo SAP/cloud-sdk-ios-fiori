@@ -84,7 +84,11 @@ protocol _NoteFormViewComponent: _PlaceholderTextEditorComponent, _FormViewCompo
 }
 
 // sourcery: CompositeComponent
-protocol _KeyValueFormViewComponent: _TitleComponent, _NoteFormViewComponent {}
+protocol _KeyValueFormViewComponent: _TitleComponent, _NoteFormViewComponent, _MandatoryIndicatorComponent {
+    // sourcery: defaultValue = false
+    ///  Indicates whether the cell is a mandatory field. The default value is `false`.
+    var isRequired: Bool { get }
+}
 
 // sourcery: CompositeComponent
 protocol _PlaceholderTextFieldComponent: _TextInputFieldComponent, _PlaceholderComponent {}
@@ -111,7 +115,10 @@ protocol _TitleFormViewComponent: _PlaceholderTextFieldComponent, _FormViewCompo
 }
 
 // sourcery: CompositeComponent
-protocol _TextFieldFormViewComponent: _TitleComponent, _TitleFormViewComponent {
+protocol _TextFieldFormViewComponent: _TitleComponent, _TitleFormViewComponent, _MandatoryIndicatorComponent {
+    // sourcery: defaultValue = false
+    ///  Indicates whether the cell is a mandatory field. The default value is `false`.
+    var isRequired: Bool { get }
     /// The icon for the action button.
     var actionIcon: Image? { get }
     /// The action to be performed when the action button is tapped.

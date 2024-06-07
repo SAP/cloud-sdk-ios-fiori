@@ -18,6 +18,13 @@ protocol _SubtitleComponent {
 }
 
 // sourcery: BaseComponent
+protocol _MandatoryIndicatorComponent {
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = AttributedString("*")
+    var mandatoryIndicator: AttributedString? { get }
+}
+
+// sourcery: BaseComponent
 protocol _TagsComponent {
     // sourcery: resultBuilder.name = @TagBuilder, resultBuilder.backingComponent = TagStack
     var tags: [AttributedString] { get }

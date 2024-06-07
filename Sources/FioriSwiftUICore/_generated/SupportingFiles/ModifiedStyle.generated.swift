@@ -904,6 +904,34 @@ public extension LinearProgressIndicatorViewStyle {
     }
 }
 
+// MARK: MandatoryIndicatorStyle
+
+extension ModifiedStyle: MandatoryIndicatorStyle where Style: MandatoryIndicatorStyle {
+    public func makeBody(_ configuration: MandatoryIndicatorConfiguration) -> some View {
+        MandatoryIndicator(configuration)
+            .mandatoryIndicatorStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct MandatoryIndicatorStyleModifier<Style: MandatoryIndicatorStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.mandatoryIndicatorStyle(self.style)
+    }
+}
+
+public extension MandatoryIndicatorStyle {
+    func modifier(_ modifier: some ViewModifier) -> some MandatoryIndicatorStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some MandatoryIndicatorStyle) -> some MandatoryIndicatorStyle {
+        style.modifier(MandatoryIndicatorStyleModifier(style: self))
+    }
+}
+
 // MARK: MediaImageStyle
 
 extension ModifiedStyle: MediaImageStyle where Style: MediaImageStyle {

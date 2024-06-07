@@ -6,7 +6,13 @@ import SwiftUI
 public struct KeyValueFormViewBaseStyle: KeyValueFormViewStyle {
     public func makeBody(_ configuration: KeyValueFormViewConfiguration) -> some View {
         VStack(alignment: .leading) {
-            configuration.title
+            HStack(spacing: 0) {
+                configuration.title
+                if configuration.isRequired {
+                    configuration.mandatoryIndicator
+                }
+                Spacer()
+            }
             configuration._noteFormView
         }
     }
@@ -68,6 +74,26 @@ extension KeyValueFormViewFioriStyle {
         
         func makeBody(_ configuration: NoteFormViewConfiguration) -> some View {
             NoteFormView(configuration)
+        }
+    }
+    
+    struct MandatoryIndicatorFioriStyle: MandatoryIndicatorStyle {
+        let keyValueFormViewConfiguration: KeyValueFormViewConfiguration
+        
+        func makeBody(_ configuration: MandatoryIndicatorConfiguration) -> some View {
+            MandatoryIndicator(configuration)
+                .foregroundStyle(Color.preferredColor(self.keyValueFormViewConfiguration.controlState == .disabled ? .separator : .primaryLabel))
+                .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
+                .accessibilityLabel(self.getIndicatorAccessibilityLabel(self.keyValueFormViewConfiguration))
+        }
+    
+        func getIndicatorAccessibilityLabel(_ configuration: KeyValueFormViewConfiguration) -> String {
+            var accString = ""
+            if configuration.isRequired {
+                let requiredText = NSLocalizedString("Required Field", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Required Field")
+                accString = requiredText
+            }
+            return accString
         }
     }
 }

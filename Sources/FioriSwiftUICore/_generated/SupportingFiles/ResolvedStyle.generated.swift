@@ -515,6 +515,22 @@ extension LinearProgressIndicatorViewStyle {
     }
 }
 
+// MARK: MandatoryIndicatorStyle
+
+struct ResolvedMandatoryIndicatorStyle<Style: MandatoryIndicatorStyle>: View {
+    let style: Style
+    let configuration: MandatoryIndicatorConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension MandatoryIndicatorStyle {
+    func resolve(configuration: MandatoryIndicatorConfiguration) -> some View {
+        ResolvedMandatoryIndicatorStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: MediaImageStyle
 
 struct ResolvedMediaImageStyle<Style: MediaImageStyle>: View {
