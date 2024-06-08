@@ -252,7 +252,7 @@ extension SignatureCaptureView: View {
     
     func getKeyName() -> String {
         var titleString = _title
-        if (titleString?.isEmpty) != nil {
+        if (titleString?.isEmpty) == nil {
             titleString = NSLocalizedString("Signature", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
         }
         if isRequired {
