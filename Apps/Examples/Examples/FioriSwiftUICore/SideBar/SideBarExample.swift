@@ -1,7 +1,7 @@
 import FioriSwiftUICore
 import SwiftUI
 
-public struct SideBarExample: View {
+public struct OutdatedSideBarExample: View {
     public var body: some View {
         NavigationView {
             SideBarView()
@@ -41,7 +41,7 @@ struct BarItem: Identifiable, Hashable {
 }
 
 public struct SideBarView: View {
-    struct DevRowModel: Identifiable, SideBarListItemModel {
+    struct DevRowModel: Identifiable, _SideBarListItemModel {
         var id = UUID()
         
         var accessoryIcon: Image?
@@ -114,17 +114,17 @@ public struct SideBarView: View {
     public init() {}
     
     public var body: some View {
-        SideBar(footerModel: DevObjectItemModel(title: "Title", subtitle: "Subtitle", detailImage: Image(systemName: "person")),
-                list: ExpandableList(data: self.items,
-                                     children: \.children,
-                                     selection: self.$selectedItem,
-                                     rowModel: { item in
-                                         DevRowModel(icon: item.icon, title: item.title, subtitle: item.subtitle, accessory: item.status)
-                                     },
-                                     destination: { item in
-                                         DevDetailView(title: item.title)
-                                     }))
-                                     .background(Color.preferredColor(.header))
+        _SideBar(footerModel: DevObjectItemModel(title: "Title", subtitle: "Subtitle", detailImage: Image(systemName: "person")),
+                 list: ExpandableList(data: self.items,
+                                      children: \.children,
+                                      selection: self.$selectedItem,
+                                      rowModel: { item in
+                                          DevRowModel(icon: item.icon, title: item.title, subtitle: item.subtitle, accessory: item.status)
+                                      },
+                                      destination: { item in
+                                          DevDetailView(title: item.title)
+                                      }))
+                                      .background(Color.preferredColor(.header))
     }
 }
 

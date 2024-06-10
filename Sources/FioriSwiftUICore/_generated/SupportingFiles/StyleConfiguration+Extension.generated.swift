@@ -85,6 +85,14 @@ extension PlaceholderTextFieldConfiguration {
     }
 }
 
+// MARK: SideBarListItemConfiguration
+
+extension SideBarListItemConfiguration {
+    var _switch: Switch {
+        Switch(.init(isOn: self.$isOn), shouldApplyDefaultStyle: true)
+    }
+}
+
 // MARK: StepperFieldConfiguration
 
 extension StepperFieldConfiguration {

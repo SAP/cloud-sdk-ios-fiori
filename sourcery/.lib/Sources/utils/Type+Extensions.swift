@@ -69,7 +69,7 @@ public extension Type {
     var componentName: String {
         var name = name
         
-        if name == "_ActionModel" || name == "_ObjectItemModel" {
+        if name == "_ActionModel" || name == "_ObjectItemModel" || name == "_SideBarModel" || name == "_SideBarListItemModel"{
             return name.replacingOccurrences(of: "Model", with: "")
         }
         

@@ -2,7 +2,7 @@
 // DO NOT EDIT
 import SwiftUI
 
-extension SideBarListItem where Icon == EmptyView {
+extension _SideBarListItem where Icon == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -17,7 +17,7 @@ extension SideBarListItem where Icon == EmptyView {
     }
 }
 
-extension SideBarListItem where Subtitle == EmptyView {
+extension _SideBarListItem where Subtitle == EmptyView {
     public init(
     @ViewBuilder icon: () -> Icon,
 		@ViewBuilder title: () -> Title,
@@ -32,7 +32,7 @@ extension SideBarListItem where Subtitle == EmptyView {
     }
 }
 
-extension SideBarListItem where AccessoryIcon == EmptyView {
+extension _SideBarListItem where AccessoryIcon == EmptyView {
     public init(
     @ViewBuilder icon: () -> Icon,
 		@ViewBuilder title: () -> Title,
@@ -47,7 +47,7 @@ extension SideBarListItem where AccessoryIcon == EmptyView {
     }
 }
 
-extension SideBarListItem where Icon == EmptyView, Subtitle == EmptyView {
+extension _SideBarListItem where Icon == EmptyView, Subtitle == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder accessoryIcon: () -> AccessoryIcon
@@ -61,7 +61,7 @@ extension SideBarListItem where Icon == EmptyView, Subtitle == EmptyView {
     }
 }
 
-extension SideBarListItem where Icon == EmptyView, AccessoryIcon == EmptyView {
+extension _SideBarListItem where Icon == EmptyView, AccessoryIcon == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle
@@ -75,7 +75,7 @@ extension SideBarListItem where Icon == EmptyView, AccessoryIcon == EmptyView {
     }
 }
 
-extension SideBarListItem where Subtitle == EmptyView, AccessoryIcon == EmptyView {
+extension _SideBarListItem where Subtitle == EmptyView, AccessoryIcon == EmptyView {
     public init(
     @ViewBuilder icon: () -> Icon,
 		@ViewBuilder title: () -> Title
@@ -89,7 +89,7 @@ extension SideBarListItem where Subtitle == EmptyView, AccessoryIcon == EmptyVie
     }
 }
 
-extension SideBarListItem where Icon == EmptyView, Subtitle == EmptyView, AccessoryIcon == EmptyView {
+extension _SideBarListItem where Icon == EmptyView, Subtitle == EmptyView, AccessoryIcon == EmptyView {
     public init(
     @ViewBuilder title: () -> Title
     ) {

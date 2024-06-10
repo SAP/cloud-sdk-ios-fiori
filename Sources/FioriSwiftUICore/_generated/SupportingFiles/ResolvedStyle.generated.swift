@@ -3,6 +3,22 @@
 import Foundation
 import SwiftUI
 
+// MARK: AccessoryIconStyle
+
+struct ResolvedAccessoryIconStyle<Style: AccessoryIconStyle>: View {
+    let style: Style
+    let configuration: AccessoryIconConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension AccessoryIconStyle {
+    func resolve(configuration: AccessoryIconConfiguration) -> some View {
+        ResolvedAccessoryIconStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: ActionStyle
 
 struct ResolvedActionStyle<Style: ActionStyle>: View {
@@ -224,6 +240,22 @@ struct ResolvedDetailImageStyle<Style: DetailImageStyle>: View {
 extension DetailImageStyle {
     func resolve(configuration: DetailImageConfiguration) -> some View {
         ResolvedDetailImageStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: FilledIconStyle
+
+struct ResolvedFilledIconStyle<Style: FilledIconStyle>: View {
+    let style: Style
+    let configuration: FilledIconConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension FilledIconStyle {
+    func resolve(configuration: FilledIconConfiguration) -> some View {
+        ResolvedFilledIconStyle(style: self, configuration: configuration)
     }
 }
 
@@ -704,6 +736,38 @@ struct ResolvedSecondaryActionStyle<Style: SecondaryActionStyle>: View {
 extension SecondaryActionStyle {
     func resolve(configuration: SecondaryActionConfiguration) -> some View {
         ResolvedSecondaryActionStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: SideBarStyle
+
+struct ResolvedSideBarStyle<Style: SideBarStyle>: View {
+    let style: Style
+    let configuration: SideBarConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension SideBarStyle {
+    func resolve(configuration: SideBarConfiguration) -> some View {
+        ResolvedSideBarStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: SideBarListItemStyle
+
+struct ResolvedSideBarListItemStyle<Style: SideBarListItemStyle>: View {
+    let style: Style
+    let configuration: SideBarListItemConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension SideBarListItemStyle {
+    func resolve(configuration: SideBarListItemConfiguration) -> some View {
+        ResolvedSideBarListItemStyle(style: self, configuration: configuration)
     }
 }
 
