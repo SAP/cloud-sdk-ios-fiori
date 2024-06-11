@@ -256,13 +256,7 @@ extension SignatureCaptureView: View {
             titleString = NSLocalizedString("Signature", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
         }
         if isRequired {
-            if titleString?.suffix(1) != "*" {
-                return (titleString ?? "") + "*"
-            }
-        } else {
-            if titleString?.suffix(1) == "*" {
-                return String(titleString?.dropLast(1) ?? "")
-            }
+            return (titleString ?? "") + "*"
         }
         return titleString ?? ""
     }
