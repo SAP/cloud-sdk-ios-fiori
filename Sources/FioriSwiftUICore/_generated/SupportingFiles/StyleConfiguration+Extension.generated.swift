@@ -85,6 +85,34 @@ extension PlaceholderTextFieldConfiguration {
     }
 }
 
+// MARK: SideBarListItemConfiguration
+
+extension SideBarListItemConfiguration {
+    var _switch: Switch {
+        Switch(.init(isOn: self.$isOn), shouldApplyDefaultStyle: true)
+    }
+}
+
+// MARK: StepperFieldConfiguration
+
+extension StepperFieldConfiguration {
+    var _textInputField: TextInputField {
+        TextInputField(.init(text: self.$text), shouldApplyDefaultStyle: true)
+    }
+}
+
+// MARK: StepperViewConfiguration
+
+extension StepperViewConfiguration {
+    var _stepperField: StepperField {
+        StepperField(.init(decrementAction: .init(self.decrementAction), text: self.$text, incrementAction: .init(self.incrementAction), step: self.step, stepRange: self.stepRange), shouldApplyDefaultStyle: true)
+    }
+
+    var _informationView: InformationView {
+        InformationView(.init(icon: .init(self.icon), description: .init(self.description)), shouldApplyDefaultStyle: true)
+    }
+}
+
 // MARK: TextFieldFormViewConfiguration
 
 extension TextFieldFormViewConfiguration {

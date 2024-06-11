@@ -3,6 +3,12 @@
 import Foundation
 import SwiftUI
 
+extension AccessoryIcon: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        accessoryIcon.isEmpty
+    }
+}
+
 extension Action: _ViewEmptyChecking {
     public var isEmpty: Bool {
         action.isEmpty
@@ -101,6 +107,12 @@ extension Counter: _ViewEmptyChecking {
     }
 }
 
+extension DecrementAction: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        decrementAction.isEmpty
+    }
+}
+
 extension DemoView: _ViewEmptyChecking {
     public var isEmpty: Bool {
         title.isEmpty &&
@@ -119,6 +131,12 @@ extension Description: _ViewEmptyChecking {
 extension DetailImage: _ViewEmptyChecking {
     public var isEmpty: Bool {
         detailImage.isEmpty
+    }
+}
+
+extension FilledIcon: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        filledIcon.isEmpty
     }
 }
 
@@ -176,6 +194,12 @@ extension IllustratedMessage: _ViewEmptyChecking {
             title.isEmpty &&
             description.isEmpty &&
             action.isEmpty
+    }
+}
+
+extension IncrementAction: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        incrementAction.isEmpty
     }
 }
 
@@ -318,9 +342,43 @@ extension SecondaryAction: _ViewEmptyChecking {
     }
 }
 
+extension SideBar: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        footer.isEmpty &&
+            editButton.isEmpty
+    }
+}
+
+extension SideBarListItem: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        icon.isEmpty &&
+            filledIcon.isEmpty &&
+            title.isEmpty &&
+            subtitle.isEmpty &&
+            accessoryIcon.isEmpty
+    }
+}
+
 extension Status: _ViewEmptyChecking {
     public var isEmpty: Bool {
         status.isEmpty
+    }
+}
+
+extension StepperField: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        decrementAction.isEmpty &&
+            incrementAction.isEmpty
+    }
+}
+
+extension StepperView: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        title.isEmpty &&
+            decrementAction.isEmpty &&
+            incrementAction.isEmpty &&
+            icon.isEmpty &&
+            description.isEmpty
     }
 }
 

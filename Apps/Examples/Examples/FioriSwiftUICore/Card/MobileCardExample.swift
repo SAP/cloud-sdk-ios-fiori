@@ -92,7 +92,7 @@ struct CarouselTestView: View {
     var body: some View {
         Carousel(numberOfColumns: Int(self.numberOfColumns), spacing: self.spacing, alignment: self.alignment == 0 ? .top : (self.alignment == 1 ? .center : .bottom), isSnapping: self.isSnapping) {
             if self.contentType == 0 {
-                ForEach(0 ..< max(3, CardTests.cardSamples.count - 3), id: \.self) { i in
+                ForEach(0 ..< CardTests.cardSamples.count, id: \.self) { i in
                     CardTests.cardSamples[i]
                 }
             } else {

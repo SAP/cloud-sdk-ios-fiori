@@ -79,6 +79,11 @@ We plan to progressively bring more Fiori UI components into this module in the 
 | Search | :white_check_mark: |
 | Tab Bar | :white_check_mark: |
 | Navigation Bar | :white_check_mark: |
+| Stepper | :white_check_mark: |
+| Switch | :white_check_mark: |
+| Tag | :white_check_mark: |
+| Avatar | :white_check_mark: |
+| Toast Message | :white_check_mark: |
 | KeyValueItem | :x: |
 | TimelineItem | :x: |
 | TimelinePreviewItem | :x: |
@@ -89,6 +94,8 @@ We plan to progressively bring more Fiori UI components into this module in the 
 | PasscodeView | :x: |
 | MultiUserPasscodeView | :x: |
 | TouchIDErrorView | :x: |
+| Skeleton Loading | :x: |
+| Rating Control | :x: |
 
 ## FioriCharts
 ![FioriCharts platform support: iOS and visionOS](https://img.shields.io/badge/platform-ios%20%7C%20visionos-lightgray)

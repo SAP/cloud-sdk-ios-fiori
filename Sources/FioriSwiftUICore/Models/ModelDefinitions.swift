@@ -115,17 +115,27 @@ public protocol ListPickerItemModel: KeyComponent, ValueComponent {}
 // sourcery: generated_component_not_configurable
 public protocol ProgressIndicatorModel: ProgressIndicatorComponent {}
 
+/// Deprecated SideBarListItem
 // sourcery: add_env_props = "sideBarListItemConfigMode"
 // sourcery: add_env_props = "sizeCategory"
 // sourcery: virtualPropSidebarIconScaleMetric = "@ScaledMetric var scale: CGFloat = 1"
 // sourcery: generated_component
-public protocol SideBarListItemModel: IconComponent, TitleComponent, SubtitleComponent, AccessoryIconComponent {}
+public protocol _SideBarListItemModel: IconComponent, TitleComponent, SubtitleComponent, AccessoryIconComponent {}
 
+/// Deprecated SideBarListItem
+@available(*, unavailable, renamed: "_SideBarListItemModel", message: "Will be removed in the future release. Please create SideBarListItem with other initializers instead.")
+public protocol SideBarListItemModel {}
+
+/// Deprecated SideBar
 // sourcery: availableAttributeContent = "iOS 14, *"
 // sourcery: add_view_builder_params = "detail"
 // sourcery: add_view_builder_params = "footer"
 // sourcery: generated_component
-public protocol SideBarModel: SubtitleComponent {}
+public protocol _SideBarModel: SubtitleComponent {}
+
+/// Deprecated SideBar
+@available(*, unavailable, renamed: "_SideBarModel", message: "Will be removed in the future release. Please create SideBar with other initializers instead.")
+public protocol SideBarModel {}
 
 // sourcery: add_env_props = "horizontalSizeClass"
 // sourcery: add_env_props = "sizeCategory"
@@ -302,8 +312,8 @@ public protocol UserConsentPageModel: TitleComponent, BodyAttributedTextComponen
 // sourcery: virtualPropStrokeWidth = "var strokeWidth: CGFloat = 3.0"
 // sourcery: virtualPropStrokeColor = "var strokeColor = Color.preferredColor(.primaryLabel)"
 // sourcery: virtualPropDrawingViewBackgroundColor = "var drawingViewBackgroundColor = Color.preferredColor(.primaryBackground)"
-// sourcery: virtualPropXmarkColor = "var xmarkColor = Color.preferredColor(.quarternaryLabel)"
-// sourcery: virtualPropSignatureLineColor = "var signatureLineColor = Color.preferredColor(.quarternaryLabel)"
+// sourcery: virtualPropXmarkColor = "var xmarkColor = Color.preferredColor(.quaternaryLabel)"
+// sourcery: virtualPropSignatureLineColor = "var signatureLineColor = Color.preferredColor(.quaternaryLabel)"
 // sourcery: virtualPropCropsImage = "var cropsImage = false"
 // sourcery: virtualPropDrawingViewMinHeight = "let _drawingViewMinHeight: CGFloat = 256"
 // sourcery: virtualPropDrawingViewMaxHeight = "var _drawingViewMaxHeight: CGFloat?"

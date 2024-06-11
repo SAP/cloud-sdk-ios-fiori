@@ -3,6 +3,27 @@
 import Foundation
 import SwiftUI
 
+// MARK: AccessoryIconStyle
+
+struct AccessoryIconStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any AccessoryIconStyle] = []
+}
+
+extension EnvironmentValues {
+    var accessoryIconStyle: any AccessoryIconStyle {
+        self.accessoryIconStyleStack.last ?? .base
+    }
+
+    var accessoryIconStyleStack: [any AccessoryIconStyle] {
+        get {
+            self[AccessoryIconStyleStackKey.self]
+        }
+        set {
+            self[AccessoryIconStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: ActionStyle
 
 struct ActionStyleStackKey: EnvironmentKey {
@@ -213,6 +234,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: DecrementActionStyle
+
+struct DecrementActionStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any DecrementActionStyle] = []
+}
+
+extension EnvironmentValues {
+    var decrementActionStyle: any DecrementActionStyle {
+        self.decrementActionStyleStack.last ?? .base
+    }
+
+    var decrementActionStyleStack: [any DecrementActionStyle] {
+        get {
+            self[DecrementActionStyleStackKey.self]
+        }
+        set {
+            self[DecrementActionStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: DemoViewStyle
 
 struct DemoViewStyleStackKey: EnvironmentKey {
@@ -272,6 +314,27 @@ extension EnvironmentValues {
         }
         set {
             self[DetailImageStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: FilledIconStyle
+
+struct FilledIconStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any FilledIconStyle] = []
+}
+
+extension EnvironmentValues {
+    var filledIconStyle: any FilledIconStyle {
+        self.filledIconStyleStack.last ?? .base
+    }
+
+    var filledIconStyleStack: [any FilledIconStyle] {
+        get {
+            self[FilledIconStyleStackKey.self]
+        }
+        set {
+            self[FilledIconStyleStackKey.self] = newValue
         }
     }
 }
@@ -461,6 +524,27 @@ extension EnvironmentValues {
         }
         set {
             self[IllustratedMessageStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: IncrementActionStyle
+
+struct IncrementActionStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any IncrementActionStyle] = []
+}
+
+extension EnvironmentValues {
+    var incrementActionStyle: any IncrementActionStyle {
+        self.incrementActionStyleStack.last ?? .base
+    }
+
+    var incrementActionStyleStack: [any IncrementActionStyle] {
+        get {
+            self[IncrementActionStyleStackKey.self]
+        }
+        set {
+            self[IncrementActionStyleStackKey.self] = newValue
         }
     }
 }
@@ -885,6 +969,48 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: SideBarStyle
+
+struct SideBarStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any SideBarStyle] = []
+}
+
+extension EnvironmentValues {
+    var sideBarStyle: any SideBarStyle {
+        self.sideBarStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var sideBarStyleStack: [any SideBarStyle] {
+        get {
+            self[SideBarStyleStackKey.self]
+        }
+        set {
+            self[SideBarStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: SideBarListItemStyle
+
+struct SideBarListItemStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any SideBarListItemStyle] = []
+}
+
+extension EnvironmentValues {
+    var sideBarListItemStyle: any SideBarListItemStyle {
+        self.sideBarListItemStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var sideBarListItemStyleStack: [any SideBarListItemStyle] {
+        get {
+            self[SideBarListItemStyleStackKey.self]
+        }
+        set {
+            self[SideBarListItemStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: StatusStyle
 
 struct StatusStyleStackKey: EnvironmentKey {
@@ -902,6 +1028,48 @@ extension EnvironmentValues {
         }
         set {
             self[StatusStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: StepperFieldStyle
+
+struct StepperFieldStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any StepperFieldStyle] = []
+}
+
+extension EnvironmentValues {
+    var stepperFieldStyle: any StepperFieldStyle {
+        self.stepperFieldStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var stepperFieldStyleStack: [any StepperFieldStyle] {
+        get {
+            self[StepperFieldStyleStackKey.self]
+        }
+        set {
+            self[StepperFieldStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: StepperViewStyle
+
+struct StepperViewStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any StepperViewStyle] = []
+}
+
+extension EnvironmentValues {
+    var stepperViewStyle: any StepperViewStyle {
+        self.stepperViewStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var stepperViewStyleStack: [any StepperViewStyle] {
+        get {
+            self[StepperViewStyleStackKey.self]
+        }
+        set {
+            self[StepperViewStyleStackKey.self] = newValue
         }
     }
 }

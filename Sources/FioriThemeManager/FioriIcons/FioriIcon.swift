@@ -2388,6 +2388,849 @@ public enum FioriIcon {
         ///
         public static let world = Image(fioriName: "fiori.world")
     }
+    
+    public enum illustrations {
+        ///
+        public static let addColumnDialog = Image(fioriName: "fiori.ill.add.column.dialog")
+        ///
+        public static let addColumnDot = Image(fioriName: "fiori.ill.add.column.dot")
+        ///
+        public static let addColumnScene = Image(fioriName: "fiori.ill.add.column.scene")
+        ///
+        public static let addColumnSpot = Image(fioriName: "fiori.ill.add.column.spot")
+        ///
+        public static let addDimensionsDialog = Image(fioriName: "fiori.ill.add.dimensions.dialog")
+        ///
+        public static let addDimensionsDot = Image(fioriName: "fiori.ill.add.dimensions.dot")
+        ///
+        public static let addDimensionsScene = Image(fioriName: "fiori.ill.add.dimensions.scene")
+        ///
+        public static let addDimensionsSpot = Image(fioriName: "fiori.ill.add.dimensions.spot")
+        ///
+        public static let addPeopleDialog = Image(fioriName: "fiori.ill.add.people.dialog")
+        ///
+        public static let addPeopleDot = Image(fioriName: "fiori.ill.add.people.dot")
+        ///
+        public static let addPeopleScene = Image(fioriName: "fiori.ill.add.people.scene")
+        ///
+        public static let addPeopleSpot = Image(fioriName: "fiori.ill.add.people.spot")
+        ///
+        public static let balloonSkyDialog = Image(fioriName: "fiori.ill.balloon.sky.dialog")
+        ///
+        public static let balloonSkyDot = Image(fioriName: "fiori.ill.balloon.sky.dot")
+        ///
+        public static let balloonSkyScene = Image(fioriName: "fiori.ill.balloon.sky.scene")
+        ///
+        public static let balloonSkySpot = Image(fioriName: "fiori.ill.balloon.sky.spot")
+        ///
+        public static let beforeSearchDialog = Image(fioriName: "fiori.ill.before.search.dialog")
+        ///
+        public static let beforeSearchDot = Image(fioriName: "fiori.ill.before.search.dot")
+        ///
+        public static let beforeSearchScene = Image(fioriName: "fiori.ill.before.search.scene")
+        ///
+        public static let beforeSearchSpot = Image(fioriName: "fiori.ill.before.search.spot")
+        ///
+        public static let connectionDialog = Image(fioriName: "fiori.ill.connection.dialog")
+        ///
+        public static let connectionDot = Image(fioriName: "fiori.ill.connection.dot")
+        ///
+        public static let connectionScene = Image(fioriName: "fiori.ill.connection.scene")
+        ///
+        public static let connectionSpot = Image(fioriName: "fiori.ill.connection.spot")
+        ///
+        public static let emptyCalendarDialog = Image(fioriName: "fiori.ill.empty.calendar.dialog")
+        ///
+        public static let emptyCalendarDot = Image(fioriName: "fiori.ill.empty.calendar.dot")
+        ///
+        public static let emptyCalendarScene = Image(fioriName: "fiori.ill.empty.calendar.scene")
+        ///
+        public static let emptyCalendarSpot = Image(fioriName: "fiori.ill.empty.calendar.spot")
+        ///
+        public static let emptyListDialog = Image(fioriName: "fiori.ill.empty.list.dialog")
+        ///
+        public static let emptyListDot = Image(fioriName: "fiori.ill.empty.list.dot")
+        ///
+        public static let emptyListScene = Image(fioriName: "fiori.ill.empty.list.scene")
+        ///
+        public static let emptyListSpot = Image(fioriName: "fiori.ill.empty.list.spot")
+        ///
+        public static let emptyPlanningCalendarDialog = Image(fioriName: "fiori.ill.empty.planning.calendar.dialog")
+        ///
+        public static let emptyPlanningCalendarDot = Image(fioriName: "fiori.ill.empty.planning.calendar.dot")
+        ///
+        public static let emptyPlanningCalendarScene = Image(fioriName: "fiori.ill.empty.planning.calendar.scene")
+        ///
+        public static let emptyPlanningCalendarSpot = Image(fioriName: "fiori.ill.empty.planning.calendar.spot")
+        ///
+        public static let errorScreenDialog = Image(fioriName: "fiori.ill.error.screen.dialog")
+        ///
+        public static let errorScreenDot = Image(fioriName: "fiori.ill.error.screen.dot")
+        ///
+        public static let errorScreenScene = Image(fioriName: "fiori.ill.error.screen.scene")
+        ///
+        public static let errorScreenSpot = Image(fioriName: "fiori.ill.error.screen.spot")
+        ///
+        public static let filterTableDialog = Image(fioriName: "fiori.ill.filter.table.dialog")
+        ///
+        public static let filterTableDot = Image(fioriName: "fiori.ill.filter.table.dot")
+        ///
+        public static let filterTableScene = Image(fioriName: "fiori.ill.filter.table.scene")
+        ///
+        public static let filterTableSpot = Image(fioriName: "fiori.ill.filter.table.spot")
+        ///
+        public static let groupTableDialog = Image(fioriName: "fiori.ill.group.table.dialog")
+        ///
+        public static let groupTableDot = Image(fioriName: "fiori.ill.group.table.dot")
+        ///
+        public static let groupTableScene = Image(fioriName: "fiori.ill.group.table.scene")
+        ///
+        public static let groupTableSpot = Image(fioriName: "fiori.ill.group.table.spot")
+        ///
+        public static let newMailDialog = Image(fioriName: "fiori.ill.new.mail.dialog")
+        ///
+        public static let newMailDot = Image(fioriName: "fiori.ill.new.mail.dot")
+        ///
+        public static let newMailScene = Image(fioriName: "fiori.ill.new.mail.scene")
+        ///
+        public static let newMailSpot = Image(fioriName: "fiori.ill.new.mail.spot")
+        ///
+        public static let noActivitiesDialog = Image(fioriName: "fiori.ill.no.activities.dialog")
+        ///
+        public static let noActivitiesDot = Image(fioriName: "fiori.ill.no.activities.dot")
+        ///
+        public static let noActivitiesScene = Image(fioriName: "fiori.ill.no.activities.scene")
+        ///
+        public static let noActivitiesSpot = Image(fioriName: "fiori.ill.no.activities.spot")
+        ///
+        public static let noColumnsSetDialog = Image(fioriName: "fiori.ill.no.columns.set.dialog")
+        ///
+        public static let noColumnsSetDot = Image(fioriName: "fiori.ill.no.columns.set.dot")
+        ///
+        public static let noColumnsSetScene = Image(fioriName: "fiori.ill.no.columns.set.scene")
+        ///
+        public static let noColumnsSetSpot = Image(fioriName: "fiori.ill.no.columns.set.spot")
+        ///
+        public static let noDataDialog = Image(fioriName: "fiori.ill.no.data.dialog")
+        ///
+        public static let noDataDot = Image(fioriName: "fiori.ill.no.data.dot")
+        ///
+        public static let noDataScene = Image(fioriName: "fiori.ill.no.data.scene")
+        ///
+        public static let noDataSpot = Image(fioriName: "fiori.ill.no.data.spot")
+        ///
+        public static let noDimensionsSetDialog = Image(fioriName: "fiori.ill.no.dimensions.set.dialog")
+        ///
+        public static let noDimensionsSetDot = Image(fioriName: "fiori.ill.no.dimensions.set.dot")
+        ///
+        public static let noDimensionsSetScene = Image(fioriName: "fiori.ill.no.dimensions.set.scene")
+        ///
+        public static let noDimensionsSetSpot = Image(fioriName: "fiori.ill.no.dimensions.set.spot")
+        ///
+        public static let noEntriesDialog = Image(fioriName: "fiori.ill.no.entries.dialog")
+        ///
+        public static let noEntriesDot = Image(fioriName: "fiori.ill.no.entries.dot")
+        ///
+        public static let noEntriesScene = Image(fioriName: "fiori.ill.no.entries.scene")
+        ///
+        public static let noEntriesSpot = Image(fioriName: "fiori.ill.no.entries.spot")
+        ///
+        public static let noFilterResultsDialog = Image(fioriName: "fiori.ill.no.filter.results.dialog")
+        ///
+        public static let noFilterResultsDot = Image(fioriName: "fiori.ill.no.filter.results.dot")
+        ///
+        public static let noFilterResultsScene = Image(fioriName: "fiori.ill.no.filter.results.scene")
+        ///
+        public static let noFilterResultsSpot = Image(fioriName: "fiori.ill.no.filter.results.spot")
+        ///
+        public static let noMailDialog = Image(fioriName: "fiori.ill.no.mail.dialog")
+        ///
+        public static let noMailDot = Image(fioriName: "fiori.ill.no.mail.dot")
+        ///
+        public static let noMailScene = Image(fioriName: "fiori.ill.no.mail.scene")
+        ///
+        public static let noMailSpot = Image(fioriName: "fiori.ill.no.mail.spot")
+        ///
+        public static let noMailV1Dialog = Image(fioriName: "fiori.ill.no.mail.v1.dialog")
+        ///
+        public static let noMailV1Dot = Image(fioriName: "fiori.ill.no.mail.v1.dot")
+        ///
+        public static let noMailV1Scene = Image(fioriName: "fiori.ill.no.mail.v1.scene")
+        ///
+        public static let noMailV1Spot = Image(fioriName: "fiori.ill.no.mail.v1.spot")
+        ///
+        public static let noNotificationsDialog = Image(fioriName: "fiori.ill.no.notifications.dialog")
+        ///
+        public static let noNotificationsDot = Image(fioriName: "fiori.ill.no.notifications.dot")
+        ///
+        public static let noNotificationsScene = Image(fioriName: "fiori.ill.no.notifications.scene")
+        ///
+        public static let noNotificationsSpot = Image(fioriName: "fiori.ill.no.notifications.spot")
+        ///
+        public static let noSavedItemsDialog = Image(fioriName: "fiori.ill.no.saved.items.dialog")
+        ///
+        public static let noSavedItemsDot = Image(fioriName: "fiori.ill.no.saved.items.dot")
+        ///
+        public static let noSavedItemsScene = Image(fioriName: "fiori.ill.no.saved.items.scene")
+        ///
+        public static let noSavedItemsSpot = Image(fioriName: "fiori.ill.no.saved.items.spot")
+        ///
+        public static let noSavedItemsV1Dialog = Image(fioriName: "fiori.ill.no.saved.items.v1.dialog")
+        ///
+        public static let noSavedItemsV1Dot = Image(fioriName: "fiori.ill.no.saved.items.v1.dot")
+        ///
+        public static let noSavedItemsV1Scene = Image(fioriName: "fiori.ill.no.saved.items.v1.scene")
+        ///
+        public static let noSavedItemsV1Spot = Image(fioriName: "fiori.ill.no.saved.items.v1.spot")
+        ///
+        public static let noSearchResultsDialog = Image(fioriName: "fiori.ill.no.search.results.dialog")
+        ///
+        public static let noSearchResultsDot = Image(fioriName: "fiori.ill.no.search.results.dot")
+        ///
+        public static let noSearchResultsScene = Image(fioriName: "fiori.ill.no.search.results.scene")
+        ///
+        public static let noSearchResultsSpot = Image(fioriName: "fiori.ill.no.search.results.spot")
+        ///
+        public static let noTasksDialog = Image(fioriName: "fiori.ill.no.tasks.dialog")
+        ///
+        public static let noTasksDot = Image(fioriName: "fiori.ill.no.tasks.dot")
+        ///
+        public static let noTasksScene = Image(fioriName: "fiori.ill.no.tasks.scene")
+        ///
+        public static let noTasksSpot = Image(fioriName: "fiori.ill.no.tasks.spot")
+        ///
+        public static let noTasksV1Dialog = Image(fioriName: "fiori.ill.no.tasks.v1.dialog")
+        ///
+        public static let noTasksV1Dot = Image(fioriName: "fiori.ill.no.tasks.v1.dot")
+        ///
+        public static let noTasksV1Scene = Image(fioriName: "fiori.ill.no.tasks.v1.scene")
+        ///
+        public static let noTasksV1Spot = Image(fioriName: "fiori.ill.no.tasks.v1.spot")
+        ///
+        public static let pageNotFoundDialog = Image(fioriName: "fiori.ill.page.not.found.dialog")
+        ///
+        public static let pageNotFoundDot = Image(fioriName: "fiori.ill.page.not.found.dot")
+        ///
+        public static let pageNotFoundScene = Image(fioriName: "fiori.ill.page.not.found.scene")
+        ///
+        public static let pageNotFoundSpot = Image(fioriName: "fiori.ill.page.not.found.spot")
+        ///
+        public static let reloadScreenDialog = Image(fioriName: "fiori.ill.reload.screen.dialog")
+        ///
+        public static let reloadScreenDot = Image(fioriName: "fiori.ill.reload.screen.dot")
+        ///
+        public static let reloadScreenScene = Image(fioriName: "fiori.ill.reload.screen.scene")
+        ///
+        public static let reloadScreenSpot = Image(fioriName: "fiori.ill.reload.screen.spot")
+        ///
+        public static let resizeColumnDialog = Image(fioriName: "fiori.ill.resize.column.dialog")
+        ///
+        public static let resizeColumnDot = Image(fioriName: "fiori.ill.resize.column.dot")
+        ///
+        public static let resizeColumnScene = Image(fioriName: "fiori.ill.resize.column.scene")
+        ///
+        public static let resizeColumnSpot = Image(fioriName: "fiori.ill.resize.column.spot")
+        ///
+        public static let searchEarthDialog = Image(fioriName: "fiori.ill.search.earth.dialog")
+        ///
+        public static let searchEarthDot = Image(fioriName: "fiori.ill.search.earth.dot")
+        ///
+        public static let searchEarthScene = Image(fioriName: "fiori.ill.search.earth.scene")
+        ///
+        public static let searchEarthSpot = Image(fioriName: "fiori.ill.search.earth.spot")
+        ///
+        public static let searchFolderDialog = Image(fioriName: "fiori.ill.search.folder.dialog")
+        ///
+        public static let searchFolderDot = Image(fioriName: "fiori.ill.search.folder.dot")
+        ///
+        public static let searchFolderScene = Image(fioriName: "fiori.ill.search.folder.scene")
+        ///
+        public static let searchFolderSpot = Image(fioriName: "fiori.ill.search.folder.spot")
+        ///
+        public static let signOutDialog = Image(fioriName: "fiori.ill.sign.out.dialog")
+        ///
+        public static let signOutDot = Image(fioriName: "fiori.ill.sign.out.dot")
+        ///
+        public static let signOutScene = Image(fioriName: "fiori.ill.sign.out.scene")
+        ///
+        public static let signOutSpot = Image(fioriName: "fiori.ill.sign.out.spot")
+        ///
+        public static let simpleBalloonDialog = Image(fioriName: "fiori.ill.simple.balloon.dialog")
+        ///
+        public static let simpleBalloonDot = Image(fioriName: "fiori.ill.simple.balloon.dot")
+        ///
+        public static let simpleBalloonScene = Image(fioriName: "fiori.ill.simple.balloon.scene")
+        ///
+        public static let simpleBalloonSpot = Image(fioriName: "fiori.ill.simple.balloon.spot")
+        ///
+        public static let simpleBellDialog = Image(fioriName: "fiori.ill.simple.bell.dialog")
+        ///
+        public static let simpleBellDot = Image(fioriName: "fiori.ill.simple.bell.dot")
+        ///
+        public static let simpleBellScene = Image(fioriName: "fiori.ill.simple.bell.scene")
+        ///
+        public static let simpleBellSpot = Image(fioriName: "fiori.ill.simple.bell.spot")
+        ///
+        public static let simpleCalendarDialog = Image(fioriName: "fiori.ill.simple.calendar.dialog")
+        ///
+        public static let simpleCalendarDot = Image(fioriName: "fiori.ill.simple.calendar.dot")
+        ///
+        public static let simpleCalendarScene = Image(fioriName: "fiori.ill.simple.calendar.scene")
+        ///
+        public static let simpleCalendarSpot = Image(fioriName: "fiori.ill.simple.calendar.spot")
+        ///
+        public static let simpleCheckMarkDialog = Image(fioriName: "fiori.ill.simple.check.mark.dialog")
+        ///
+        public static let simpleCheckMarkDot = Image(fioriName: "fiori.ill.simple.check.mark.dot")
+        ///
+        public static let simpleCheckMarkScene = Image(fioriName: "fiori.ill.simple.check.mark.scene")
+        ///
+        public static let simpleCheckMarkSpot = Image(fioriName: "fiori.ill.simple.check.mark.spot")
+        ///
+        public static let simpleConnectionDialog = Image(fioriName: "fiori.ill.simple.connection.dialog")
+        ///
+        public static let simpleConnectionDot = Image(fioriName: "fiori.ill.simple.connection.dot")
+        ///
+        public static let simpleConnectionScene = Image(fioriName: "fiori.ill.simple.connection.scene")
+        ///
+        public static let simpleConnectionSpot = Image(fioriName: "fiori.ill.simple.connection.spot")
+        ///
+        public static let simpleEmptyDocDialog = Image(fioriName: "fiori.ill.simple.empty.doc.dialog")
+        ///
+        public static let simpleEmptyDocDot = Image(fioriName: "fiori.ill.simple.empty.doc.dot")
+        ///
+        public static let simpleEmptyDocScene = Image(fioriName: "fiori.ill.simple.empty.doc.scene")
+        ///
+        public static let simpleEmptyDocSpot = Image(fioriName: "fiori.ill.simple.empty.doc.spot")
+        ///
+        public static let simpleEmptyListDialog = Image(fioriName: "fiori.ill.simple.empty.list.dialog")
+        ///
+        public static let simpleEmptyListDot = Image(fioriName: "fiori.ill.simple.empty.list.dot")
+        ///
+        public static let simpleEmptyListScene = Image(fioriName: "fiori.ill.simple.empty.list.scene")
+        ///
+        public static let simpleEmptyListSpot = Image(fioriName: "fiori.ill.simple.empty.list.spot")
+        ///
+        public static let simpleErrorDialog = Image(fioriName: "fiori.ill.simple.error.dialog")
+        ///
+        public static let simpleErrorDot = Image(fioriName: "fiori.ill.simple.error.dot")
+        ///
+        public static let simpleErrorScene = Image(fioriName: "fiori.ill.simple.error.scene")
+        ///
+        public static let simpleErrorSpot = Image(fioriName: "fiori.ill.simple.error.spot")
+        ///
+        public static let simpleMagnifierDialog = Image(fioriName: "fiori.ill.simple.magnifier.dialog")
+        ///
+        public static let simpleMagnifierDot = Image(fioriName: "fiori.ill.simple.magnifier.dot")
+        ///
+        public static let simpleMagnifierScene = Image(fioriName: "fiori.ill.simple.magnifier.scene")
+        ///
+        public static let simpleMagnifierSpot = Image(fioriName: "fiori.ill.simple.magnifier.spot")
+        ///
+        public static let simpleMailDialog = Image(fioriName: "fiori.ill.simple.mail.dialog")
+        ///
+        public static let simpleMailDot = Image(fioriName: "fiori.ill.simple.mail.dot")
+        ///
+        public static let simpleMailScene = Image(fioriName: "fiori.ill.simple.mail.scene")
+        ///
+        public static let simpleMailSpot = Image(fioriName: "fiori.ill.simple.mail.spot")
+        ///
+        public static let simpleNoSavedItemsDialog = Image(fioriName: "fiori.ill.simple.no.saved.items.dialog")
+        ///
+        public static let simpleNoSavedItemsDot = Image(fioriName: "fiori.ill.simple.no.saved.items.dot")
+        ///
+        public static let simpleNoSavedItemsScene = Image(fioriName: "fiori.ill.simple.no.saved.items.scene")
+        ///
+        public static let simpleNoSavedItemsSpot = Image(fioriName: "fiori.ill.simple.no.saved.items.spot")
+        ///
+        public static let simpleNotFoundMagnifierDialog = Image(fioriName: "fiori.ill.simple.not.found.magnifier.dialog")
+        ///
+        public static let simpleNotFoundMagnifierDot = Image(fioriName: "fiori.ill.simple.not.found.magnifier.dot")
+        ///
+        public static let simpleNotFoundMagnifierScene = Image(fioriName: "fiori.ill.simple.not.found.magnifier.scene")
+        ///
+        public static let simpleNotFoundMagnifierSpot = Image(fioriName: "fiori.ill.simple.not.found.magnifier.spot")
+        ///
+        public static let simpleReloadDialog = Image(fioriName: "fiori.ill.simple.reload.dialog")
+        ///
+        public static let simpleReloadDot = Image(fioriName: "fiori.ill.simple.reload.dot")
+        ///
+        public static let simpleReloadScene = Image(fioriName: "fiori.ill.simple.reload.scene")
+        ///
+        public static let simpleReloadSpot = Image(fioriName: "fiori.ill.simple.reload.spot")
+        ///
+        public static let simpleTaskDialog = Image(fioriName: "fiori.ill.simple.task.dialog")
+        ///
+        public static let simpleTaskDot = Image(fioriName: "fiori.ill.simple.task.dot")
+        ///
+        public static let simpleTaskScene = Image(fioriName: "fiori.ill.simple.task.scene")
+        ///
+        public static let simpleTaskSpot = Image(fioriName: "fiori.ill.simple.task.spot")
+        ///
+        public static let sleepingBellDialog = Image(fioriName: "fiori.ill.sleeping.bell.dialog")
+        ///
+        public static let sleepingBellDot = Image(fioriName: "fiori.ill.sleeping.bell.dot")
+        ///
+        public static let sleepingBellScene = Image(fioriName: "fiori.ill.sleeping.bell.scene")
+        ///
+        public static let sleepingBellSpot = Image(fioriName: "fiori.ill.sleeping.bell.spot")
+        ///
+        public static let sortColumnDialog = Image(fioriName: "fiori.ill.sort.column.dialog")
+        ///
+        public static let sortColumnDot = Image(fioriName: "fiori.ill.sort.column.dot")
+        ///
+        public static let sortColumnScene = Image(fioriName: "fiori.ill.sort.column.scene")
+        ///
+        public static let sortColumnSpot = Image(fioriName: "fiori.ill.sort.column.spot")
+        ///
+        public static let successBalloonScene = Image(fioriName: "fiori.ill.success.balloon.scene")
+        ///
+        public static let successBalloonDialog = Image(fioriName: "fiori.ill.success.balloon.dialog")
+        ///
+        public static let successBalloonDot = Image(fioriName: "fiori.ill.success.balloon.dot")
+        ///
+        public static let successBalloonSpot = Image(fioriName: "fiori.ill.success.balloon.spot")
+        ///
+        public static let successCheckMarkDialog = Image(fioriName: "fiori.ill.success.check.mark.dialog")
+        ///
+        public static let successCheckMarkDot = Image(fioriName: "fiori.ill.success.check.mark.dot")
+        ///
+        public static let successCheckMarkScene = Image(fioriName: "fiori.ill.success.check.mark.scene")
+        ///
+        public static let successCheckMarkSpot = Image(fioriName: "fiori.ill.success.check.mark.spot")
+        ///
+        public static let successHighFiveDialog = Image(fioriName: "fiori.ill.success.high.five.dialog")
+        ///
+        public static let successHighFiveDot = Image(fioriName: "fiori.ill.success.high.five.dot")
+        ///
+        public static let successHighFiveScene = Image(fioriName: "fiori.ill.success.high.five.scene")
+        ///
+        public static let successHighFiveSpot = Image(fioriName: "fiori.ill.success.high.five.spot")
+        ///
+        public static let successScreenDialog = Image(fioriName: "fiori.ill.success.screen.dialog")
+        ///
+        public static let successScreenDot = Image(fioriName: "fiori.ill.success.screen.dot")
+        ///
+        public static let successScreenScene = Image(fioriName: "fiori.ill.success.screen.scene")
+        ///
+        public static let successScreenSpot = Image(fioriName: "fiori.ill.success.screen.spot")
+        ///
+        public static let surveyDialog = Image(fioriName: "fiori.ill.survey.dialog")
+        ///
+        public static let surveyDot = Image(fioriName: "fiori.ill.survey.dot")
+        ///
+        public static let surveyScene = Image(fioriName: "fiori.ill.survey.scene")
+        ///
+        public static let surveySpot = Image(fioriName: "fiori.ill.survey.spot")
+        ///
+        public static let tentDialog = Image(fioriName: "fiori.ill.tent.dialog")
+        ///
+        public static let tentDot = Image(fioriName: "fiori.ill.tent.dot")
+        ///
+        public static let tentScene = Image(fioriName: "fiori.ill.tent.scene")
+        ///
+        public static let tentSpot = Image(fioriName: "fiori.ill.tent.spot")
+        ///
+        public static let tntAvatarDialog = Image(fioriName: "fiori.ill.tnt.avatar.dialog")
+        ///
+        public static let tntAvatarDot = Image(fioriName: "fiori.ill.tnt.avatar.dot")
+        ///
+        public static let tntAvatarScene = Image(fioriName: "fiori.ill.tnt.avatar.scene")
+        ///
+        public static let tntAvatarSpot = Image(fioriName: "fiori.ill.tnt.avatar.spot")
+        ///
+        public static let tntCalculatorDialog = Image(fioriName: "fiori.ill.tnt.calculator.dialog")
+        ///
+        public static let tntCalculatorDot = Image(fioriName: "fiori.ill.tnt.calculator.dot")
+        ///
+        public static let tntCalculatorScene = Image(fioriName: "fiori.ill.tnt.calculator.scene")
+        ///
+        public static let tntCalculatorSpot = Image(fioriName: "fiori.ill.tnt.calculator.spot")
+        ///
+        public static let tntChartDoughnutDialog = Image(fioriName: "fiori.ill.tnt.chart.doughnut.dialog")
+        ///
+        public static let tntChartDoughnutDot = Image(fioriName: "fiori.ill.tnt.chart.doughnut.dot")
+        ///
+        public static let tntChartDoughnutScene = Image(fioriName: "fiori.ill.tnt.chart.doughnut.scene")
+        ///
+        public static let tntChartDoughnutSpot = Image(fioriName: "fiori.ill.tnt.chart.doughnut.spot")
+        ///
+        public static let tntChartAreaDialog = Image(fioriName: "fiori.ill.tnt.chart.area.dialog")
+        ///
+        public static let tntChartAreaDot = Image(fioriName: "fiori.ill.tnt.chart.area.dot")
+        ///
+        public static let tntChartAreaScene = Image(fioriName: "fiori.ill.tnt.chart.area.scene")
+        ///
+        public static let tntChartAreaSpot = Image(fioriName: "fiori.ill.tnt.chart.area.spot")
+        ///
+        public static let tntChartArea2Dialog = Image(fioriName: "fiori.ill.tnt.chart.area2.dialog")
+        ///
+        public static let tntChartArea2Dot = Image(fioriName: "fiori.ill.tnt.chart.area2.dot")
+        ///
+        public static let tntChartArea2Scene = Image(fioriName: "fiori.ill.tnt.chart.area2.scene")
+        ///
+        public static let tntChartArea2Spot = Image(fioriName: "fiori.ill.tnt.chart.area2.spot")
+        ///
+        public static let tntChartBarDialog = Image(fioriName: "fiori.ill.tnt.chart.bar.dialog")
+        ///
+        public static let tntChartBarDot = Image(fioriName: "fiori.ill.tnt.chart.bar.dot")
+        ///
+        public static let tntChartBarScene = Image(fioriName: "fiori.ill.tnt.chart.bar.scene")
+        ///
+        public static let tntChartBarSpot = Image(fioriName: "fiori.ill.tnt.chart.bar.spot")
+        ///
+        public static let tntChartBpmnFlowDialog = Image(fioriName: "fiori.ill.tnt.chart.bpmn.flow.dialog")
+        ///
+        public static let tntChartBpmnFlowDot = Image(fioriName: "fiori.ill.tnt.chart.bpmn.flow.dot")
+        ///
+        public static let tntChartBpmnFlowScene = Image(fioriName: "fiori.ill.tnt.chart.bpmn.flow.scene")
+        ///
+        public static let tntChartBpmnFlowSpot = Image(fioriName: "fiori.ill.tnt.chart.bpmn.flow.spot")
+        ///
+        public static let tntChartBulletDialog = Image(fioriName: "fiori.ill.tnt.chart.bullet.dialog")
+        ///
+        public static let tntChartBulletDot = Image(fioriName: "fiori.ill.tnt.chart.bullet.dot")
+        ///
+        public static let tntChartBulletScene = Image(fioriName: "fiori.ill.tnt.chart.bullet.scene")
+        ///
+        public static let tntChartBulletSpot = Image(fioriName: "fiori.ill.tnt.chart.bullet.spot")
+        ///
+        public static let tntChartFlowDialog = Image(fioriName: "fiori.ill.tnt.chart.flow.dialog")
+        ///
+        public static let tntChartFlowDot = Image(fioriName: "fiori.ill.tnt.chart.flow.dot")
+        ///
+        public static let tntChartFlowScene = Image(fioriName: "fiori.ill.tnt.chart.flow.scene")
+        ///
+        public static let tntChartFlowSpot = Image(fioriName: "fiori.ill.tnt.chart.flow.spot")
+        ///
+        public static let tntChartGanttDialog = Image(fioriName: "fiori.ill.tnt.chart.gantt.dialog")
+        ///
+        public static let tntChartGanttDot = Image(fioriName: "fiori.ill.tnt.chart.gantt.dot")
+        ///
+        public static let tntChartGanttScene = Image(fioriName: "fiori.ill.tnt.chart.gantt.scene")
+        ///
+        public static let tntChartGanttSpot = Image(fioriName: "fiori.ill.tnt.chart.gantt.spot")
+        ///
+        public static let tntChartOrgDialog = Image(fioriName: "fiori.ill.tnt.chart.org.dialog")
+        ///
+        public static let tntChartOrgDot = Image(fioriName: "fiori.ill.tnt.chart.org.dot")
+        ///
+        public static let tntChartOrgScene = Image(fioriName: "fiori.ill.tnt.chart.org.scene")
+        ///
+        public static let tntChartOrgSpot = Image(fioriName: "fiori.ill.tnt.chart.org.spot")
+        ///
+        public static let tntChartPieDialog = Image(fioriName: "fiori.ill.tnt.chart.pie.dialog")
+        ///
+        public static let tntChartPieDot = Image(fioriName: "fiori.ill.tnt.chart.pie.dot")
+        ///
+        public static let tntChartPieScene = Image(fioriName: "fiori.ill.tnt.chart.pie.scene")
+        ///
+        public static let tntChartPieSpot = Image(fioriName: "fiori.ill.tnt.chart.pie.spot")
+        ///
+        public static let tntCodePlaceholderDialog = Image(fioriName: "fiori.ill.tnt.code.placeholder.dialog")
+        ///
+        public static let tntCodePlaceholderDot = Image(fioriName: "fiori.ill.tnt.code.placeholder.dot")
+        ///
+        public static let tntCodePlaceholderScene = Image(fioriName: "fiori.ill.tnt.code.placeholder.scene")
+        ///
+        public static let tntCodePlaceholderSpot = Image(fioriName: "fiori.ill.tnt.code.placeholder.spot")
+        ///
+        public static let tntCompanyDialog = Image(fioriName: "fiori.ill.tnt.company.dialog")
+        ///
+        public static let tntCompanyDot = Image(fioriName: "fiori.ill.tnt.company.dot")
+        ///
+        public static let tntCompanyScene = Image(fioriName: "fiori.ill.tnt.company.scene")
+        ///
+        public static let tntCompanySpot = Image(fioriName: "fiori.ill.tnt.company.spot")
+        ///
+        public static let tntCompassDialog = Image(fioriName: "fiori.ill.tnt.compass.dialog")
+        ///
+        public static let tntCompassDot = Image(fioriName: "fiori.ill.tnt.compass.dot")
+        ///
+        public static let tntCompassScene = Image(fioriName: "fiori.ill.tnt.compass.scene")
+        ///
+        public static let tntCompassSpot = Image(fioriName: "fiori.ill.tnt.compass.spot")
+        ///
+        public static let tntComponentsDialog = Image(fioriName: "fiori.ill.tnt.components.dialog")
+        ///
+        public static let tntComponentsDot = Image(fioriName: "fiori.ill.tnt.components.dot")
+        ///
+        public static let tntComponentsScene = Image(fioriName: "fiori.ill.tnt.components.scene")
+        ///
+        public static let tntComponentsSpot = Image(fioriName: "fiori.ill.tnt.components.spot")
+        ///
+        public static let tntDialogDialog = Image(fioriName: "fiori.ill.tnt.dialog.dialog")
+        ///
+        public static let tntDialogDot = Image(fioriName: "fiori.ill.tnt.dialog.dot")
+        ///
+        public static let tntDialogScene = Image(fioriName: "fiori.ill.tnt.dialog.scene")
+        ///
+        public static let tntDialogSpot = Image(fioriName: "fiori.ill.tnt.dialog.spot")
+        ///
+        public static let tntExternalLinkDialog = Image(fioriName: "fiori.ill.tnt.external.link.dialog")
+        ///
+        public static let tntExternalLinkDot = Image(fioriName: "fiori.ill.tnt.external.link.dot")
+        ///
+        public static let tntExternalLinkScene = Image(fioriName: "fiori.ill.tnt.external.link.scene")
+        ///
+        public static let tntExternalLinkSpot = Image(fioriName: "fiori.ill.tnt.external.link.spot")
+        ///
+        public static let tntFaceIdDialog = Image(fioriName: "fiori.ill.tnt.face.id.dialog")
+        ///
+        public static let tntFaceIdDot = Image(fioriName: "fiori.ill.tnt.face.id.dot")
+        ///
+        public static let tntFaceIdScene = Image(fioriName: "fiori.ill.tnt.face.id.scene")
+        ///
+        public static let tntFaceIdSpot = Image(fioriName: "fiori.ill.tnt.face.id.spot")
+        ///
+        public static let tntFingerprintDialog = Image(fioriName: "fiori.ill.tnt.fingerprint.dialog")
+        ///
+        public static let tntFingerprintDot = Image(fioriName: "fiori.ill.tnt.fingerprint.dot")
+        ///
+        public static let tntFingerprintScene = Image(fioriName: "fiori.ill.tnt.fingerprint.scene")
+        ///
+        public static let tntFingerprintSpot = Image(fioriName: "fiori.ill.tnt.fingerprint.spot")
+        ///
+        public static let tntHandshakeDialog = Image(fioriName: "fiori.ill.tnt.handshake.dialog")
+        ///
+        public static let tntHandshakeDot = Image(fioriName: "fiori.ill.tnt.handshake.dot")
+        ///
+        public static let tntHandshakeScene = Image(fioriName: "fiori.ill.tnt.handshake.scene")
+        ///
+        public static let tntHandshakeSpot = Image(fioriName: "fiori.ill.tnt.handshake.spot")
+        ///
+        public static let tntHelpDialog = Image(fioriName: "fiori.ill.tnt.help.dialog")
+        ///
+        public static let tntHelpDot = Image(fioriName: "fiori.ill.tnt.help.dot")
+        ///
+        public static let tntHelpScene = Image(fioriName: "fiori.ill.tnt.help.scene")
+        ///
+        public static let tntHelpSpot = Image(fioriName: "fiori.ill.tnt.help.spot")
+        ///
+        public static let tntLockDialog = Image(fioriName: "fiori.ill.tnt.lock.dialog")
+        ///
+        public static let tntLockDot = Image(fioriName: "fiori.ill.tnt.lock.dot")
+        ///
+        public static let tntLockScene = Image(fioriName: "fiori.ill.tnt.lock.scene")
+        ///
+        public static let tntLockSpot = Image(fioriName: "fiori.ill.tnt.lock.spot")
+        ///
+        public static let tntMissionDialog = Image(fioriName: "fiori.ill.tnt.mission.dialog")
+        ///
+        public static let tntMissionDot = Image(fioriName: "fiori.ill.tnt.mission.dot")
+        ///
+        public static let tntMissionFailedDialog = Image(fioriName: "fiori.ill.tnt.mission.failed.dialog")
+        ///
+        public static let tntMissionFailedDot = Image(fioriName: "fiori.ill.tnt.mission.failed.dot")
+        ///
+        public static let tntMissionFailedScene = Image(fioriName: "fiori.ill.tnt.mission.failed.scene")
+        ///
+        public static let tntMissionFailedSpot = Image(fioriName: "fiori.ill.tnt.mission.failed.spot")
+        ///
+        public static let tntMissionScene = Image(fioriName: "fiori.ill.tnt.mission.scene")
+        ///
+        public static let tntMissionSpot = Image(fioriName: "fiori.ill.tnt.mission.spot")
+        ///
+        public static let tntNoApplicationsDialog = Image(fioriName: "fiori.ill.tnt.no.applications.dialog")
+        ///
+        public static let tntNoApplicationsDot = Image(fioriName: "fiori.ill.tnt.no.applications.dot")
+        ///
+        public static let tntNoApplicationsScene = Image(fioriName: "fiori.ill.tnt.no.applications.scene")
+        ///
+        public static let tntNoApplicationsSpot = Image(fioriName: "fiori.ill.tnt.no.applications.spot")
+        ///
+        public static let tntNoFlowsDialog = Image(fioriName: "fiori.ill.tnt.no.flows.dialog")
+        ///
+        public static let tntNoFlowsDot = Image(fioriName: "fiori.ill.tnt.no.flows.dot")
+        ///
+        public static let tntNoFlowsScene = Image(fioriName: "fiori.ill.tnt.no.flows.scene")
+        ///
+        public static let tntNoFlowsSpot = Image(fioriName: "fiori.ill.tnt.no.flows.spot")
+        ///
+        public static let tntNoUsersDialog = Image(fioriName: "fiori.ill.tnt.no.users.dialog")
+        ///
+        public static let tntNoUsersDot = Image(fioriName: "fiori.ill.tnt.no.users.dot")
+        ///
+        public static let tntNoUsersScene = Image(fioriName: "fiori.ill.tnt.no.users.scene")
+        ///
+        public static let tntNoUsersSpot = Image(fioriName: "fiori.ill.tnt.no.users.spot")
+        ///
+        public static let tntRadarDialog = Image(fioriName: "fiori.ill.tnt.radar.dialog")
+        ///
+        public static let tntRadarDot = Image(fioriName: "fiori.ill.tnt.radar.dot")
+        ///
+        public static let tntRadarScene = Image(fioriName: "fiori.ill.tnt.radar.scene")
+        ///
+        public static let tntRadarSpot = Image(fioriName: "fiori.ill.tnt.radar.spot")
+        ///
+        public static let tntRoadMapDialog = Image(fioriName: "fiori.ill.tnt.road.map.dialog")
+        ///
+        public static let tntRoadMapDot = Image(fioriName: "fiori.ill.tnt.road.map.dot")
+        ///
+        public static let tntRoadMapScene = Image(fioriName: "fiori.ill.tnt.road.map.scene")
+        ///
+        public static let tntRoadMapSpot = Image(fioriName: "fiori.ill.tnt.road.map.spot")
+        ///
+        public static let tntSecretsDialog = Image(fioriName: "fiori.ill.tnt.secrets.dialog")
+        ///
+        public static let tntSecretsDot = Image(fioriName: "fiori.ill.tnt.secrets.dot")
+        ///
+        public static let tntSecretsScene = Image(fioriName: "fiori.ill.tnt.secrets.scene")
+        ///
+        public static let tntSecretsSpot = Image(fioriName: "fiori.ill.tnt.secrets.spot")
+        ///
+        public static let tntServicesDialog = Image(fioriName: "fiori.ill.tnt.services.dialog")
+        ///
+        public static let tntServicesDot = Image(fioriName: "fiori.ill.tnt.services.dot")
+        ///
+        public static let tntServicesScene = Image(fioriName: "fiori.ill.tnt.services.scene")
+        ///
+        public static let tntServicesSpot = Image(fioriName: "fiori.ill.tnt.services.spot")
+        ///
+        public static let tntSessionExpiredDialog = Image(fioriName: "fiori.ill.tnt.session.expired.dialog")
+        ///
+        public static let tntSessionExpiredDot = Image(fioriName: "fiori.ill.tnt.session.expired.dot")
+        ///
+        public static let tntSessionExpiredScene = Image(fioriName: "fiori.ill.tnt.session.expired.scene")
+        ///
+        public static let tntSessionExpiredSpot = Image(fioriName: "fiori.ill.tnt.session.expired.spot")
+        ///
+        public static let tntSessionExpiringDialog = Image(fioriName: "fiori.ill.tnt.session.expiring.dialog")
+        ///
+        public static let tntSessionExpiringDot = Image(fioriName: "fiori.ill.tnt.session.expiring.dot")
+        ///
+        public static let tntSessionExpiringScene = Image(fioriName: "fiori.ill.tnt.session.expiring.scene")
+        ///
+        public static let tntSessionExpiringSpot = Image(fioriName: "fiori.ill.tnt.session.expiring.spot")
+        ///
+        public static let tntSettingsDialog = Image(fioriName: "fiori.ill.tnt.settings.dialog")
+        ///
+        public static let tntSettingsDot = Image(fioriName: "fiori.ill.tnt.settings.dot")
+        ///
+        public static let tntSettingsScene = Image(fioriName: "fiori.ill.tnt.settings.scene")
+        ///
+        public static let tntSettingsSpot = Image(fioriName: "fiori.ill.tnt.settings.spot")
+        ///
+        public static let tntSuccessDialog = Image(fioriName: "fiori.ill.tnt.success.dialog")
+        ///
+        public static let tntSuccessDot = Image(fioriName: "fiori.ill.tnt.success.dot")
+        ///
+        public static let tntSuccessScene = Image(fioriName: "fiori.ill.tnt.success.scene")
+        ///
+        public static let tntSuccessSpot = Image(fioriName: "fiori.ill.tnt.success.spot")
+        ///
+        public static let tntSuccessfulAuthDialog = Image(fioriName: "fiori.ill.tnt.successful.auth.dialog")
+        ///
+        public static let tntSuccessfulAuthDot = Image(fioriName: "fiori.ill.tnt.successful.auth.dot")
+        ///
+        public static let tntSuccessfulAuthScene = Image(fioriName: "fiori.ill.tnt.successful.auth.scene")
+        ///
+        public static let tntSuccessfulAuthSpot = Image(fioriName: "fiori.ill.tnt.successful.auth.spot")
+        ///
+        public static let tntSystemsDialog = Image(fioriName: "fiori.ill.tnt.systems.dialog")
+        ///
+        public static let tntSystemsDot = Image(fioriName: "fiori.ill.tnt.systems.dot")
+        ///
+        public static let tntSystemsScene = Image(fioriName: "fiori.ill.tnt.systems.scene")
+        ///
+        public static let tntSystemsSpot = Image(fioriName: "fiori.ill.tnt.systems.spot")
+        ///
+        public static let tntTeamsDialog = Image(fioriName: "fiori.ill.tnt.teams.dialog")
+        ///
+        public static let tntTeamsDot = Image(fioriName: "fiori.ill.tnt.teams.dot")
+        ///
+        public static let tntTeamsScene = Image(fioriName: "fiori.ill.tnt.teams.scene")
+        ///
+        public static let tntTeamsSpot = Image(fioriName: "fiori.ill.tnt.teams.spot")
+        ///
+        public static let tntToolsDialog = Image(fioriName: "fiori.ill.tnt.tools.dialog")
+        ///
+        public static let tntToolsDot = Image(fioriName: "fiori.ill.tnt.tools.dot")
+        ///
+        public static let tntToolsScene = Image(fioriName: "fiori.ill.tnt.tools.scene")
+        ///
+        public static let tntToolsSpot = Image(fioriName: "fiori.ill.tnt.tools.spot")
+        ///
+        public static let tntTutorialsDialog = Image(fioriName: "fiori.ill.tnt.tutorials.dialog")
+        ///
+        public static let tntTutorialsDot = Image(fioriName: "fiori.ill.tnt.tutorials.dot")
+        ///
+        public static let tntTutorialsScene = Image(fioriName: "fiori.ill.tnt.tutorials.scene")
+        ///
+        public static let tntTutorialsSpot = Image(fioriName: "fiori.ill.tnt.tutorials.spot")
+        ///
+        public static let tntUnableToLoadDialog = Image(fioriName: "fiori.ill.tnt.unable.to.load.dialog")
+        ///
+        public static let tntUnableToLoadDot = Image(fioriName: "fiori.ill.tnt.unable.to.load.dot")
+        ///
+        public static let tntUnableToLoadScene = Image(fioriName: "fiori.ill.tnt.unable.to.load.scene")
+        ///
+        public static let tntUnableToLoadSpot = Image(fioriName: "fiori.ill.tnt.unable.to.load.spot")
+        ///
+        public static let tntUnlockDialog = Image(fioriName: "fiori.ill.tnt.unlock.dialog")
+        ///
+        public static let tntUnlockDot = Image(fioriName: "fiori.ill.tnt.unlock.dot")
+        ///
+        public static let tntUnlockScene = Image(fioriName: "fiori.ill.tnt.unlock.scene")
+        ///
+        public static let tntUnlockSpot = Image(fioriName: "fiori.ill.tnt.unlock.spot")
+        ///
+        public static let tntUnsuccessfulAuthDialog = Image(fioriName: "fiori.ill.tnt.unsuccessful.auth.dialog")
+        ///
+        public static let tntUnsuccessfulAuthDot = Image(fioriName: "fiori.ill.tnt.unsuccessful.auth.dot")
+        ///
+        public static let tntUnsuccessfulAuthScene = Image(fioriName: "fiori.ill.tnt.unsuccessful.auth.scene")
+        ///
+        public static let tntUnsuccessfulAuthSpot = Image(fioriName: "fiori.ill.tnt.unsuccessful.auth.spot")
+        ///
+        public static let tntUser2Dialog = Image(fioriName: "fiori.ill.tnt.user2.dialog")
+        ///
+        public static let tntUser2Dot = Image(fioriName: "fiori.ill.tnt.user2.dot")
+        ///
+        public static let tntUser2Scene = Image(fioriName: "fiori.ill.tnt.user2.scene")
+        ///
+        public static let tntUser2Spot = Image(fioriName: "fiori.ill.tnt.user2.spot")
+        ///
+        public static let unableToLoadDialog = Image(fioriName: "fiori.ill.unable.to.load.dialog")
+        ///
+        public static let unableToLoadDot = Image(fioriName: "fiori.ill.unable.to.load.dot")
+        ///
+        public static let unableToLoadImageDialog = Image(fioriName: "fiori.ill.unable.to.load.image.dialog")
+        ///
+        public static let unableToLoadImageDot = Image(fioriName: "fiori.ill.unable.to.load.image.dot")
+        ///
+        public static let unableToLoadImageScene = Image(fioriName: "fiori.ill.unable.to.load.image.scene")
+        ///
+        public static let unableToLoadImageSpot = Image(fioriName: "fiori.ill.unable.to.load.image.spot")
+        ///
+        public static let unableToLoadScene = Image(fioriName: "fiori.ill.unable.to.load.scene")
+        ///
+        public static let unableToLoadSpot = Image(fioriName: "fiori.ill.unable.to.load.spot")
+        ///
+        public static let unableToUploadDialog = Image(fioriName: "fiori.ill.unable.to.upload.dialog")
+        ///
+        public static let unableToUploadDot = Image(fioriName: "fiori.ill.unable.to.upload.dot")
+        ///
+        public static let unableToUploadScene = Image(fioriName: "fiori.ill.unable.to.upload.scene")
+        ///
+        public static let unableToUploadSpot = Image(fioriName: "fiori.ill.unable.to.upload.spot")
+        ///
+        public static let uploadCollectionDialog = Image(fioriName: "fiori.ill.upload.collection.dialog")
+        ///
+        public static let uploadCollectionDot = Image(fioriName: "fiori.ill.upload.collection.dot")
+        ///
+        public static let uploadCollectionScene = Image(fioriName: "fiori.ill.upload.collection.scene")
+        ///
+        public static let uploadCollectionSpot = Image(fioriName: "fiori.ill.upload.collection.spot")
+        ///
+        public static let uploadToCloudDialog = Image(fioriName: "fiori.ill.upload.to.cloud.dialog")
+        ///
+        public static let uploadToCloudDot = Image(fioriName: "fiori.ill.upload.to.cloud.dot")
+        ///
+        public static let uploadToCloudScene = Image(fioriName: "fiori.ill.upload.to.cloud.scene")
+        ///
+        public static let uploadToCloudSpot = Image(fioriName: "fiori.ill.upload.to.cloud.spot")
+    }
 }
 
 extension Image {

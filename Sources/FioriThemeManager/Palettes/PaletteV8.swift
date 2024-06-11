@@ -152,14 +152,12 @@ struct PaletteV8: PaletteProvider {
         .primaryLabel: HexColor(lightColor: "F5F6F7FF", darkColor: "223548FF", contrastLightColor: "FFFFFFFF", contrastDarkColor: "000000FF"),
         .secondaryLabel: HexColor(lightColor: "D5DADDFF", darkColor: "475E75FF", contrastLightColor: "EAECEEFF", contrastDarkColor: "223548FF"),
         .tertiaryLabel: HexColor(lightColor: "A9B4BEFF", darkColor: "5B738BFF", contrastLightColor: "D5DADDFF", contrastDarkColor: "354A5FFF"),
-        .quarternaryLabel: HexColor(lightColor: "A9B4BE4D", darkColor: "8396A875", contrastLightColor: "A9B4BE80", contrastDarkColor: "354A5F57"),
         .quaternaryLabel: HexColor(lightColor: "A9B4BE4D", darkColor: "8396A875", contrastLightColor: "A9B4BE80", contrastDarkColor: "354A5F57"),
         .quinaryLabel: HexColor(lightColor: "000000FF", darkColor: "FFFFFFFF", contrastLightColor: "000000FF", contrastDarkColor: "FFFFFFFF"),
         /// Fill Colors
         .primaryFill: HexColor(lightColor: "8396A84D", darkColor: "8396A83D", contrastLightColor: "8396A866", contrastDarkColor: "8799AB57"),
         .secondaryFill: HexColor(lightColor: "8396A847", darkColor: "8396A833", contrastLightColor: "8396A861", contrastDarkColor: "8799AB4D"),
         .tertiaryFill: HexColor(lightColor: "8396A833", darkColor: "8396A826", contrastLightColor: "8396A84D", contrastDarkColor: "8799AB40"),
-        .quarternaryFill: HexColor(lightColor: "8396A829", darkColor: "8396A817", contrastLightColor: "8396A838", contrastDarkColor: "8799AB1A"),
         .quaternaryFill: HexColor(lightColor: "8396A829", darkColor: "8396A817", contrastLightColor: "8396A838", contrastDarkColor: "8799AB1A"),
         /// Tint Colors
         .tintColor: HexColor(lightColor: "4DB1FFFF", darkColor: "0070F2FF", contrastLightColor: "5CB7FFFF", contrastDarkColor: "0046A8FF"),
@@ -231,7 +229,7 @@ struct PaletteV8: PaletteProvider {
         .customColor5: HexColor(lightColor: "A93E00FF", darkColor: "F58B00FF", contrastLightColor: "7A2D00FF", contrastDarkColor: "F58B00FF"),
         .customColor6: HexColor(lightColor: "D20A0AFF", darkColor: "D20A0AFF", contrastLightColor: "B40909FF", contrastDarkColor: "B40909FF"),
         .esriEdit: HexColor(lightColor: "FFF114", darkColor: "1B6DD2"),
-        .jouleBrand: HexColor(lightColor: "714FFFFF", darkColor: "5D36FFFF", contrastLightColor: "5633E1FF", contrastDarkColor: "5633E1FF"),
+        .jouleBrand: HexColor(lightColor: "714FFFFF", darkColor: "5D36FFFF", contrastLightColor: "5633E1FF", contrastDarkColor: "5238D6FF"),
         .jouleAccent1: HexColor(lightColor: "D522BFFF", darkColor: "A100C2FF", contrastLightColor: "FF70EDFF", contrastDarkColor: "9505B3FF"),
         .jouleAccent2: HexColor(lightColor: "7458FFFF", darkColor: "7458FFFF", contrastLightColor: "5133E6FF", contrastDarkColor: "5133E6FF"),
         .jouleAccent3: HexColor(lightColor: "9D85FFFF", darkColor: "7458FFFF", contrastLightColor: "AD99FFFF", contrastDarkColor: "5633E1FF"),

@@ -159,3 +159,18 @@
 
 /* Default error text for when the character count exceeds the maximum limit for NoteFormView and TextFieldFormView */
 "Reduce the number of characters" = "Reduce the number of characters";
+
+/* XBUT: voice over label for decrement action in stepper */
+"Stepper decrease" = "Stepper decrease";
+
+/* XBUT: voice over description for decrement action in stepper */
+"Decrease the value by %d" = "Decrease the value by %d";
+
+/* XBUT: voice over label for increment action in stepper */
+"Stepper increase" = "Stepper increase";
+
+/* XBUT: voice over description for increment action in stepper */
+"Increase the value by %d" = "Increase the value by %d";
+
+/* XBUT: voice over label for test field in stepper */
+"Select specific value" = "Select specific value";
