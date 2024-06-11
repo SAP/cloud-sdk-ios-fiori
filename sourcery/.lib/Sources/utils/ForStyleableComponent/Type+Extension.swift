@@ -102,6 +102,8 @@ extension Type {
         case .composite:
             initDecl = "\(componentName)(.init(\(allStoredVariables.configurationInitArgs)))"
             fioriStyle = "\(self.fioriStyleName).ContentFioriStyle()"
+        case .none:
+            return ""
         }
         
         return """
@@ -154,6 +156,8 @@ extension Type {
             
             \(self.fioriStyleDecl)
             """
+        case .none:
+            return ""
         }
     }
     
@@ -211,6 +215,8 @@ extension Type {
             
             \(self.childComponentStyleExtentionList)
             """
+        case .none:
+            return ""
         }
     }
     
@@ -328,6 +334,8 @@ extension Type {
             }
             """
             .commented()
+        case .none:
+            return ""
         }
     }
     
@@ -406,6 +414,8 @@ extension Type {
             defaultStyle = ".base"
         case .composite:
             defaultStyle = ".base.concat(.fiori)"
+        case .none:
+            return ""
         }
         
         return """
@@ -548,6 +558,7 @@ extension Type {
     enum ComponentType {
         case base
         case composite
+        case none
     }
     
     var componentType: ComponentType {
@@ -556,7 +567,7 @@ extension Type {
         } else if self.isCompositeComponent {
             return .composite
         } else {
-            return .base
+            return .none
         }
     }
     
@@ -608,19 +619,17 @@ extension Type {
     }
     
     private func traverse(_ type: Type, _ root: Type, _ result: inout [Type], _ set: inout Set<Type>) {
-        guard type.isComponent else {
-            return
+        if set.contains(type) {
+            fatalError("Protocol \(root.name) implements \(type.name) twice in its declaration, which is not allowed.")
+        }
+        
+        if type.isComponent {
+            result.append(type)
+            set.insert(type)
         }
         
         for p in type.directInheritedTypes {
             self.traverse(p, root, &result, &set)
-        }
-        
-        if set.contains(type) {
-            fatalError("Protocol \(root.name) implements \(type.name) twice in its declaration, which is not allowed.")
-        } else {
-            result.append(type)
-            set.insert(type)
         }
     }
 }
