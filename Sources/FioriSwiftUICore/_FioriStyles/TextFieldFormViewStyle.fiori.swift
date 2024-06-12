@@ -33,6 +33,7 @@ extension TextFieldFormViewFioriStyle {
                 .mandatoryFieldIndicatorStyle { indicatorConf in
                     MandatoryFieldIndicator(indicatorConf)
                         .foregroundStyle(self.getTitleColor(configuration))
+                        .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
                 }
                 .placeholderTextFieldStyle { config in
                     HStack {

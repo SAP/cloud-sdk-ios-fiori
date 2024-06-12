@@ -23,10 +23,6 @@ extension KeyValueFormViewFioriStyle {
     struct ContentFioriStyle: KeyValueFormViewStyle {
         func makeBody(_ configuration: KeyValueFormViewConfiguration) -> some View {
             KeyValueFormView(configuration)
-                .mandatoryFieldIndicatorStyle { indicatorConf in
-                    MandatoryFieldIndicator(indicatorConf)
-                        .foregroundStyle(Color.preferredColor(configuration.controlState == .disabled ? .separator : .primaryLabel))
-                }
         }
     }
 
@@ -87,6 +83,7 @@ extension KeyValueFormViewFioriStyle {
         func makeBody(_ configuration: MandatoryFieldIndicatorConfiguration) -> some View {
             MandatoryFieldIndicator(configuration)
                 .foregroundStyle(Color.preferredColor(self.keyValueFormViewConfiguration.controlState == .disabled ? .separator : .primaryLabel))
+                .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
                 .padding(.bottom, -4)
                 .padding(.top, 11)
         }
