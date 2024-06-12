@@ -11,25 +11,25 @@ struct ColorCompatibilityMapV5: ColorStyleCompatibilityProvider {
     private init() {}
     
     var compatibleColorDefinitions: [ColorStyle: ColorStyle] = [
-        .separatorOpaque: .line,
-        .contrastElement: .primary10,
-        .tintColor2: .tintColorDark,
-        .cardShadow: .shadow,
-        .mango3: .accent1,
-        .mango4: .accent1b,
-        .red4: .accent2,
-        .red5: .accent2b,
-        .pink5: .accent3,
-        .pink6: .accent4,
-        .indigo6: .accent5,
-        .blue6: .accent6,
-        .blue7: .accent6b,
-        .teal4: .accent7,
-        .teal5: .accent7b,
-        .green4: .accent8,
-        .indigo5: .accent9,
-        .grey5: .accent10,
-        .grey4: .accent10b
+        .separatorOpaque: .separatorOpaque,
+        .contrastElement: .contrastElement,
+        .tintColor2: .tintColor2,
+        .cardShadow: .cardShadow,
+        .mango3: .mango3,
+        .mango4: .mango4,
+        .red4: .red4,
+        .red5: .red5,
+        .pink5: .pink5,
+        .pink6: .pink6,
+        .indigo6: .indigo6,
+        .blue6: .blue6,
+        .blue7: .blue7,
+        .teal4: .teal4,
+        .teal5: .teal5,
+        .green4: .green4,
+        .indigo5: .indigo5,
+        .grey5: .grey5,
+        .grey4: .grey4
     ]
     
     func compatibleStyle(from style: ColorStyle) -> ColorStyle? {

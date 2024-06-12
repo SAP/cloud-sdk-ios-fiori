@@ -11,17 +11,17 @@ struct ColorCompatibilityMapV4: ColorStyleCompatibilityProvider {
     private init() {}
     
     var compatibleColorDefinitions: [ColorStyle: ColorStyle] = [
-        .primaryLabel: .primary1,
-        .secondaryLabel: .primary2,
-        .tertiaryLabel: .primary3,
-        .secondaryFill: .primary4,
-        .secondaryGroupedBackground: .primary6,
-        .quaternaryLabel: .primary7,
-        .barTransparent: .primary8,
-        .separator: .primary9,
-        .headerBlended: .backgroundGradientTop,
-        .footer: .backgroundGradientBottom,
-        .primaryGroupedBackground: .backgroundBase
+        .primaryLabel: .primaryLabel,
+        .secondaryLabel: .secondaryLabel,
+        .tertiaryLabel: .tertiaryLabel,
+        .secondaryFill: .secondaryFill,
+        .secondaryGroupedBackground: .secondaryGroupedBackground,
+        .quaternaryLabel: .quaternaryLabel,
+        .barTransparent: .barTransparent,
+        .separator: .separator,
+        .headerBlended: .header,
+        .footer: .header,
+        .primaryGroupedBackground: .primaryBackground
     ]
     
     func compatibleStyle(from style: ColorStyle) -> ColorStyle? {
