@@ -1,6 +1,18 @@
 import Foundation
 import SwiftUI
 
+public extension View {
+    /// Set max number of items that can be displayed in a component.
+    /// - Parameter num: Max number of items that can be displayed
+    /// - Returns: A view that uses given value.
+    ///
+    /// Supported components:
+    /// - MenuSelection
+    func maxNumberOfItems(_ num: Int) -> some View {
+        self.environment(\.maxNumberOfItems, num)
+    }
+}
+
 extension View {
     func onSimultaneousTapGesture(count: Int = 1, perform action: @escaping () -> Void) -> some View {
         self.accessibilitySimultaneousGesture(TapGesture(count: count).onEnded {

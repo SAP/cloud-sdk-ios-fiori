@@ -1016,6 +1016,62 @@ public extension MediaImageStyle {
     }
 }
 
+// MARK: MenuSelectionStyle
+
+extension ModifiedStyle: MenuSelectionStyle where Style: MenuSelectionStyle {
+    public func makeBody(_ configuration: MenuSelectionConfiguration) -> some View {
+        MenuSelection(configuration)
+            .menuSelectionStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct MenuSelectionStyleModifier<Style: MenuSelectionStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.menuSelectionStyle(self.style)
+    }
+}
+
+public extension MenuSelectionStyle {
+    func modifier(_ modifier: some ViewModifier) -> some MenuSelectionStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some MenuSelectionStyle) -> some MenuSelectionStyle {
+        style.modifier(MenuSelectionStyleModifier(style: self))
+    }
+}
+
+// MARK: MenuSelectionItemStyle
+
+extension ModifiedStyle: MenuSelectionItemStyle where Style: MenuSelectionItemStyle {
+    public func makeBody(_ configuration: MenuSelectionItemConfiguration) -> some View {
+        MenuSelectionItem(configuration)
+            .menuSelectionItemStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct MenuSelectionItemStyleModifier<Style: MenuSelectionItemStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.menuSelectionItemStyle(self.style)
+    }
+}
+
+public extension MenuSelectionItemStyle {
+    func modifier(_ modifier: some ViewModifier) -> some MenuSelectionItemStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some MenuSelectionItemStyle) -> some MenuSelectionItemStyle {
+        style.modifier(MenuSelectionItemStyleModifier(style: self))
+    }
+}
+
 // MARK: MessageContentStyle
 
 extension ModifiedStyle: MessageContentStyle where Style: MessageContentStyle {

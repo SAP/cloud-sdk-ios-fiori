@@ -2082,6 +2082,97 @@ public extension MediaImageStyle where Self == MediaImageFioriStyle {
     }
 }
 
+// MARK: MenuSelectionStyle
+
+public extension MenuSelectionStyle where Self == MenuSelectionBaseStyle {
+    static var base: MenuSelectionBaseStyle {
+        MenuSelectionBaseStyle()
+    }
+}
+
+public extension MenuSelectionStyle where Self == MenuSelectionFioriStyle {
+    static var fiori: MenuSelectionFioriStyle {
+        MenuSelectionFioriStyle()
+    }
+}
+
+public struct MenuSelectionActionStyle: MenuSelectionStyle {
+    let style: any ActionStyle
+
+    public func makeBody(_ configuration: MenuSelectionConfiguration) -> some View {
+        MenuSelection(configuration)
+            .actionStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension MenuSelectionStyle where Self == MenuSelectionActionStyle {
+    static func actionStyle(_ style: some ActionStyle) -> MenuSelectionActionStyle {
+        MenuSelectionActionStyle(style: style)
+    }
+
+    static func actionStyle(@ViewBuilder content: @escaping (ActionConfiguration) -> some View) -> MenuSelectionActionStyle {
+        let style = AnyActionStyle(content)
+        return MenuSelectionActionStyle(style: style)
+    }
+}
+
+// MARK: MenuSelectionItemStyle
+
+public extension MenuSelectionItemStyle where Self == MenuSelectionItemBaseStyle {
+    static var base: MenuSelectionItemBaseStyle {
+        MenuSelectionItemBaseStyle()
+    }
+}
+
+public extension MenuSelectionItemStyle where Self == MenuSelectionItemFioriStyle {
+    static var fiori: MenuSelectionItemFioriStyle {
+        MenuSelectionItemFioriStyle()
+    }
+}
+
+public struct MenuSelectionItemIconStyle: MenuSelectionItemStyle {
+    let style: any IconStyle
+
+    public func makeBody(_ configuration: MenuSelectionItemConfiguration) -> some View {
+        MenuSelectionItem(configuration)
+            .iconStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension MenuSelectionItemStyle where Self == MenuSelectionItemIconStyle {
+    static func iconStyle(_ style: some IconStyle) -> MenuSelectionItemIconStyle {
+        MenuSelectionItemIconStyle(style: style)
+    }
+
+    static func iconStyle(@ViewBuilder content: @escaping (IconConfiguration) -> some View) -> MenuSelectionItemIconStyle {
+        let style = AnyIconStyle(content)
+        return MenuSelectionItemIconStyle(style: style)
+    }
+}
+
+public struct MenuSelectionItemTitleStyle: MenuSelectionItemStyle {
+    let style: any TitleStyle
+
+    public func makeBody(_ configuration: MenuSelectionItemConfiguration) -> some View {
+        MenuSelectionItem(configuration)
+            .titleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension MenuSelectionItemStyle where Self == MenuSelectionItemTitleStyle {
+    static func titleStyle(_ style: some TitleStyle) -> MenuSelectionItemTitleStyle {
+        MenuSelectionItemTitleStyle(style: style)
+    }
+
+    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> MenuSelectionItemTitleStyle {
+        let style = AnyTitleStyle(content)
+        return MenuSelectionItemTitleStyle(style: style)
+    }
+}
+
 // MARK: MessageContentStyle
 
 public extension MessageContentStyle where Self == MessageContentBaseStyle {
