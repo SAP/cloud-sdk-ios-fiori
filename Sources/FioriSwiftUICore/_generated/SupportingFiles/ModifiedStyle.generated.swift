@@ -8,6 +8,34 @@ public struct ModifiedStyle<Style, Modifier: ViewModifier>: DynamicProperty {
     var modifier: Modifier
 }
 
+// MARK: AccessoryIconStyle
+
+extension ModifiedStyle: AccessoryIconStyle where Style: AccessoryIconStyle {
+    public func makeBody(_ configuration: AccessoryIconConfiguration) -> some View {
+        AccessoryIcon(configuration)
+            .accessoryIconStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct AccessoryIconStyleModifier<Style: AccessoryIconStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.accessoryIconStyle(self.style)
+    }
+}
+
+public extension AccessoryIconStyle {
+    func modifier(_ modifier: some ViewModifier) -> some AccessoryIconStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some AccessoryIconStyle) -> some AccessoryIconStyle {
+        style.modifier(AccessoryIconStyleModifier(style: self))
+    }
+}
+
 // MARK: ActionStyle
 
 extension ModifiedStyle: ActionStyle where Style: ActionStyle {
@@ -397,6 +425,34 @@ public extension DetailImageStyle {
 
     func concat(_ style: some DetailImageStyle) -> some DetailImageStyle {
         style.modifier(DetailImageStyleModifier(style: self))
+    }
+}
+
+// MARK: FilledIconStyle
+
+extension ModifiedStyle: FilledIconStyle where Style: FilledIconStyle {
+    public func makeBody(_ configuration: FilledIconConfiguration) -> some View {
+        FilledIcon(configuration)
+            .filledIconStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct FilledIconStyleModifier<Style: FilledIconStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.filledIconStyle(self.style)
+    }
+}
+
+public extension FilledIconStyle {
+    func modifier(_ modifier: some ViewModifier) -> some FilledIconStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some FilledIconStyle) -> some FilledIconStyle {
+        style.modifier(FilledIconStyleModifier(style: self))
     }
 }
 
@@ -1265,6 +1321,62 @@ public extension SecondaryActionStyle {
 
     func concat(_ style: some SecondaryActionStyle) -> some SecondaryActionStyle {
         style.modifier(SecondaryActionStyleModifier(style: self))
+    }
+}
+
+// MARK: SideBarStyle
+
+extension ModifiedStyle: SideBarStyle where Style: SideBarStyle {
+    public func makeBody(_ configuration: SideBarConfiguration) -> some View {
+        SideBar(configuration)
+            .sideBarStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct SideBarStyleModifier<Style: SideBarStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.sideBarStyle(self.style)
+    }
+}
+
+public extension SideBarStyle {
+    func modifier(_ modifier: some ViewModifier) -> some SideBarStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some SideBarStyle) -> some SideBarStyle {
+        style.modifier(SideBarStyleModifier(style: self))
+    }
+}
+
+// MARK: SideBarListItemStyle
+
+extension ModifiedStyle: SideBarListItemStyle where Style: SideBarListItemStyle {
+    public func makeBody(_ configuration: SideBarListItemConfiguration) -> some View {
+        SideBarListItem(configuration)
+            .sideBarListItemStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct SideBarListItemStyleModifier<Style: SideBarListItemStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.sideBarListItemStyle(self.style)
+    }
+}
+
+public extension SideBarListItemStyle {
+    func modifier(_ modifier: some ViewModifier) -> some SideBarListItemStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some SideBarListItemStyle) -> some SideBarListItemStyle {
+        style.modifier(SideBarListItemStyleModifier(style: self))
     }
 }
 

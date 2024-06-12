@@ -3,7 +3,7 @@
 import SwiftUI
 
 @available(iOS 14, *)
-public struct SideBar<Subtitle: View, Footer: View, Detail: View> {
+public struct _SideBar<Subtitle: View, Footer: View, Detail: View> {
     @Environment(\.subtitleModifier) private var subtitleModifier
 
     let _subtitle: Subtitle
@@ -25,9 +25,9 @@ public struct SideBar<Subtitle: View, Footer: View, Detail: View> {
 
     @ViewBuilder var subtitle: some View {
         if isModelInit {
-            _subtitle.modifier(subtitleModifier.concat(Fiori.SideBar.subtitle).concat(Fiori.SideBar.subtitleCumulative))
+            _subtitle.modifier(subtitleModifier.concat(Fiori._SideBar.subtitle).concat(Fiori._SideBar.subtitleCumulative))
         } else {
-            _subtitle.modifier(subtitleModifier.concat(Fiori.SideBar.subtitle))
+            _subtitle.modifier(subtitleModifier.concat(Fiori._SideBar.subtitle))
         }
     }
     var footer: some View {
@@ -42,9 +42,9 @@ public struct SideBar<Subtitle: View, Footer: View, Detail: View> {
 }
 
 @available(iOS 14, *)
-extension SideBar where Subtitle == _ConditionalContent<Text, EmptyView> {
+extension _SideBar where Subtitle == _ConditionalContent<Text, EmptyView> {
 
-    public init(model: SideBarModel, @ViewBuilder footer: () -> Footer, @ViewBuilder detail: () -> Detail) {
+    public init(model: _SideBarModel, @ViewBuilder footer: () -> Footer, @ViewBuilder detail: () -> Detail) {
         self.init(subtitle: model.subtitle, footer: footer, detail: detail)
     }
 

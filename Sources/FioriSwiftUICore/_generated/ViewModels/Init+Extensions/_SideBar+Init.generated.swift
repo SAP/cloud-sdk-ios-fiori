@@ -3,7 +3,7 @@
 import SwiftUI
 
 @available(iOS 14, *)
-extension SideBar where Subtitle == EmptyView {
+extension _SideBar where Subtitle == EmptyView {
     public init(
     @ViewBuilder footer: () -> Footer,
 		@ViewBuilder detail: () -> Detail
@@ -17,7 +17,7 @@ extension SideBar where Subtitle == EmptyView {
 }
 
 @available(iOS 14, *)
-extension SideBar where Footer == EmptyView {
+extension _SideBar where Footer == EmptyView {
     public init(
     @ViewBuilder subtitle: () -> Subtitle,
 		@ViewBuilder detail: () -> Detail
@@ -31,7 +31,7 @@ extension SideBar where Footer == EmptyView {
 }
 
 @available(iOS 14, *)
-extension SideBar where Detail == EmptyView {
+extension _SideBar where Detail == EmptyView {
     public init(
     @ViewBuilder subtitle: () -> Subtitle,
 		@ViewBuilder footer: () -> Footer
@@ -45,7 +45,7 @@ extension SideBar where Detail == EmptyView {
 }
 
 @available(iOS 14, *)
-extension SideBar where Subtitle == EmptyView, Footer == EmptyView {
+extension _SideBar where Subtitle == EmptyView, Footer == EmptyView {
     public init(
     @ViewBuilder detail: () -> Detail
     ) {
@@ -58,7 +58,7 @@ extension SideBar where Subtitle == EmptyView, Footer == EmptyView {
 }
 
 @available(iOS 14, *)
-extension SideBar where Subtitle == EmptyView, Detail == EmptyView {
+extension _SideBar where Subtitle == EmptyView, Detail == EmptyView {
     public init(
     @ViewBuilder footer: () -> Footer
     ) {
@@ -71,7 +71,7 @@ extension SideBar where Subtitle == EmptyView, Detail == EmptyView {
 }
 
 @available(iOS 14, *)
-extension SideBar where Footer == EmptyView, Detail == EmptyView {
+extension _SideBar where Footer == EmptyView, Detail == EmptyView {
     public init(
     @ViewBuilder subtitle: () -> Subtitle
     ) {
@@ -84,7 +84,7 @@ extension SideBar where Footer == EmptyView, Detail == EmptyView {
 }
 
 @available(iOS 14, *)
-extension SideBar where Subtitle == EmptyView, Footer == EmptyView, Detail == EmptyView {
+extension _SideBar where Subtitle == EmptyView, Footer == EmptyView, Detail == EmptyView {
     public init(
     
     ) {

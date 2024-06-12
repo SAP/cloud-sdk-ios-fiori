@@ -72,6 +72,18 @@ protocol _IconsComponent {
 }
 
 // sourcery: BaseComponent
+protocol _FilledIconComponent {
+    // sourcery: @ViewBuilder
+    var filledIcon: Image? { get }
+}
+
+// sourcery: BaseComponent
+protocol _AccessoryIconComponent {
+    // sourcery: @ViewBuilder
+    var accessoryIcon: Image? { get }
+}
+
+// sourcery: BaseComponent
 protocol _FootnoteIconsComponent {
     // sourcery: resultBuilder.name = @FootnoteIconsBuilder, resultBuilder.backingComponent = FootnoteIconStack
     var footnoteIcons: [TextOrIcon] { get }

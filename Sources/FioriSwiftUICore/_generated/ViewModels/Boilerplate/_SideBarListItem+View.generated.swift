@@ -1,8 +1,8 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
-//TODO: Copy commented code to new file: `FioriSwiftUICore/Views/SideBarListItem+View.swift`
+//TODO: Copy commented code to new file: `FioriSwiftUICore/Views/_SideBarListItem+View.swift`
 //TODO: Implement default Fiori style definitions as `ViewModifier`
-//TODO: Implement SideBarListItem `View` body
+//TODO: Implement _SideBarListItem `View` body
 //TODO: Implement LibraryContentProvider
 
 /// - Important: to make `@Environment` properties (e.g. `horizontalSizeClass`), internally accessible
@@ -16,7 +16,7 @@ import SwiftUI
 // FIXME: - Implement Fiori style definitions
 
 extension Fiori {
-    enum SideBarListItem {
+    enum _SideBarListItem {
         typealias Icon = EmptyModifier
         typealias IconCumulative = EmptyModifier
 		typealias Title = EmptyModifier
@@ -49,21 +49,21 @@ extension Fiori {
     }
 }
 
-// FIXME: - Implement SideBarListItem View body
+// FIXME: - Implement _SideBarListItem View body
 
-extension SideBarListItem: View {
+extension _SideBarListItem: View {
     public var body: some View {
         <# View body #>
     }
 }
 
-// FIXME: - Implement SideBarListItem specific LibraryContentProvider
+// FIXME: - Implement _SideBarListItem specific LibraryContentProvider
 
 @available(iOS 14.0, macOS 11.0, *)
-struct SideBarListItemLibraryContent: LibraryContentProvider {
+struct _SideBarListItemLibraryContent: LibraryContentProvider {
     @LibraryContentBuilder
     var views: [LibraryItem] {
-        LibraryItem(SideBarListItem(model: LibraryPreviewData.Person.laurelosborn),
+        LibraryItem(_SideBarListItem(model: LibraryPreviewData.Person.laurelosborn),
                     category: .control)
     }
 }

@@ -3,6 +3,12 @@
 import Foundation
 import SwiftUI
 
+extension AccessoryIcon: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        accessoryIcon.isEmpty
+    }
+}
+
 extension Action: _ViewEmptyChecking {
     public var isEmpty: Bool {
         action.isEmpty
@@ -125,6 +131,12 @@ extension Description: _ViewEmptyChecking {
 extension DetailImage: _ViewEmptyChecking {
     public var isEmpty: Bool {
         detailImage.isEmpty
+    }
+}
+
+extension FilledIcon: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        filledIcon.isEmpty
     }
 }
 
@@ -334,6 +346,23 @@ extension Row3: _ViewEmptyChecking {
 extension SecondaryAction: _ViewEmptyChecking {
     public var isEmpty: Bool {
         secondaryAction.isEmpty
+    }
+}
+
+extension SideBar: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        footer.isEmpty &&
+            editButton.isEmpty
+    }
+}
+
+extension SideBarListItem: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        icon.isEmpty &&
+            filledIcon.isEmpty &&
+            title.isEmpty &&
+            subtitle.isEmpty &&
+            accessoryIcon.isEmpty
     }
 }
 

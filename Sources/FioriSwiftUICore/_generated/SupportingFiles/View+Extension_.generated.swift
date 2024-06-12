@@ -3,6 +3,23 @@
 import Foundation
 import SwiftUI
 
+// MARK: AccessoryIconStyle
+
+public extension View {
+    func accessoryIconStyle(_ style: some AccessoryIconStyle) -> some View {
+        self.transformEnvironment(\.accessoryIconStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func accessoryIconStyle(@ViewBuilder content: @escaping (AccessoryIconConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.accessoryIconStyleStack) { stack in
+            let style = AnyAccessoryIconStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: ActionStyle
 
 public extension View {
@@ -236,6 +253,23 @@ public extension View {
     func detailImageStyle(@ViewBuilder content: @escaping (DetailImageConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.detailImageStyleStack) { stack in
             let style = AnyDetailImageStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: FilledIconStyle
+
+public extension View {
+    func filledIconStyle(_ style: some FilledIconStyle) -> some View {
+        self.transformEnvironment(\.filledIconStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func filledIconStyle(@ViewBuilder content: @escaping (FilledIconConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.filledIconStyleStack) { stack in
+            let style = AnyFilledIconStyle(content)
             stack.append(style)
         }
     }
@@ -763,6 +797,40 @@ public extension View {
     func secondaryActionStyle(@ViewBuilder content: @escaping (SecondaryActionConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.secondaryActionStyleStack) { stack in
             let style = AnySecondaryActionStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: SideBarStyle
+
+public extension View {
+    func sideBarStyle(_ style: some SideBarStyle) -> some View {
+        self.transformEnvironment(\.sideBarStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func sideBarStyle(@ViewBuilder content: @escaping (SideBarConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.sideBarStyleStack) { stack in
+            let style = AnySideBarStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: SideBarListItemStyle
+
+public extension View {
+    func sideBarListItemStyle(_ style: some SideBarListItemStyle) -> some View {
+        self.transformEnvironment(\.sideBarListItemStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func sideBarListItemStyle(@ViewBuilder content: @escaping (SideBarListItemConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.sideBarListItemStyleStack) { stack in
+            let style = AnySideBarListItemStyle(content)
             stack.append(style)
         }
     }

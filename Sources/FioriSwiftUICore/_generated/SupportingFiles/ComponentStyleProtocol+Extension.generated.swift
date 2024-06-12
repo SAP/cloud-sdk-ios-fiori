@@ -3,6 +3,20 @@
 import Foundation
 import SwiftUI
 
+// MARK: AccessoryIconStyle
+
+public extension AccessoryIconStyle where Self == AccessoryIconBaseStyle {
+    static var base: AccessoryIconBaseStyle {
+        AccessoryIconBaseStyle()
+    }
+}
+
+public extension AccessoryIconStyle where Self == AccessoryIconFioriStyle {
+    static var fiori: AccessoryIconFioriStyle {
+        AccessoryIconFioriStyle()
+    }
+}
+
 // MARK: ActionStyle
 
 public extension ActionStyle where Self == ActionBaseStyle {
@@ -1333,6 +1347,20 @@ public extension DetailImageStyle where Self == DetailImageFioriStyle {
     }
 }
 
+// MARK: FilledIconStyle
+
+public extension FilledIconStyle where Self == FilledIconBaseStyle {
+    static var base: FilledIconBaseStyle {
+        FilledIconBaseStyle()
+    }
+}
+
+public extension FilledIconStyle where Self == FilledIconFioriStyle {
+    static var fiori: FilledIconFioriStyle {
+        FilledIconFioriStyle()
+    }
+}
+
 // MARK: FootnoteStyle
 
 public extension FootnoteStyle where Self == FootnoteBaseStyle {
@@ -2625,6 +2653,160 @@ public extension SecondaryActionStyle where Self == SecondaryActionBaseStyle {
 public extension SecondaryActionStyle where Self == SecondaryActionFioriStyle {
     static var fiori: SecondaryActionFioriStyle {
         SecondaryActionFioriStyle()
+    }
+}
+
+// MARK: SideBarStyle
+
+public extension SideBarStyle where Self == SideBarBaseStyle {
+    static var base: SideBarBaseStyle {
+        SideBarBaseStyle()
+    }
+}
+
+public extension SideBarStyle where Self == SideBarFioriStyle {
+    static var fiori: SideBarFioriStyle {
+        SideBarFioriStyle()
+    }
+}
+
+// MARK: SideBarListItemStyle
+
+public extension SideBarListItemStyle where Self == SideBarListItemBaseStyle {
+    static var base: SideBarListItemBaseStyle {
+        SideBarListItemBaseStyle()
+    }
+}
+
+public extension SideBarListItemStyle where Self == SideBarListItemFioriStyle {
+    static var fiori: SideBarListItemFioriStyle {
+        SideBarListItemFioriStyle()
+    }
+}
+
+public struct SideBarListItemIconStyle: SideBarListItemStyle {
+    let style: any IconStyle
+
+    public func makeBody(_ configuration: SideBarListItemConfiguration) -> some View {
+        SideBarListItem(configuration)
+            .iconStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension SideBarListItemStyle where Self == SideBarListItemIconStyle {
+    static func iconStyle(_ style: some IconStyle) -> SideBarListItemIconStyle {
+        SideBarListItemIconStyle(style: style)
+    }
+
+    static func iconStyle(@ViewBuilder content: @escaping (IconConfiguration) -> some View) -> SideBarListItemIconStyle {
+        let style = AnyIconStyle(content)
+        return SideBarListItemIconStyle(style: style)
+    }
+}
+
+public struct SideBarListItemFilledIconStyle: SideBarListItemStyle {
+    let style: any FilledIconStyle
+
+    public func makeBody(_ configuration: SideBarListItemConfiguration) -> some View {
+        SideBarListItem(configuration)
+            .filledIconStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension SideBarListItemStyle where Self == SideBarListItemFilledIconStyle {
+    static func filledIconStyle(_ style: some FilledIconStyle) -> SideBarListItemFilledIconStyle {
+        SideBarListItemFilledIconStyle(style: style)
+    }
+
+    static func filledIconStyle(@ViewBuilder content: @escaping (FilledIconConfiguration) -> some View) -> SideBarListItemFilledIconStyle {
+        let style = AnyFilledIconStyle(content)
+        return SideBarListItemFilledIconStyle(style: style)
+    }
+}
+
+public struct SideBarListItemTitleStyle: SideBarListItemStyle {
+    let style: any TitleStyle
+
+    public func makeBody(_ configuration: SideBarListItemConfiguration) -> some View {
+        SideBarListItem(configuration)
+            .titleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension SideBarListItemStyle where Self == SideBarListItemTitleStyle {
+    static func titleStyle(_ style: some TitleStyle) -> SideBarListItemTitleStyle {
+        SideBarListItemTitleStyle(style: style)
+    }
+
+    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> SideBarListItemTitleStyle {
+        let style = AnyTitleStyle(content)
+        return SideBarListItemTitleStyle(style: style)
+    }
+}
+
+public struct SideBarListItemSubtitleStyle: SideBarListItemStyle {
+    let style: any SubtitleStyle
+
+    public func makeBody(_ configuration: SideBarListItemConfiguration) -> some View {
+        SideBarListItem(configuration)
+            .subtitleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension SideBarListItemStyle where Self == SideBarListItemSubtitleStyle {
+    static func subtitleStyle(_ style: some SubtitleStyle) -> SideBarListItemSubtitleStyle {
+        SideBarListItemSubtitleStyle(style: style)
+    }
+
+    static func subtitleStyle(@ViewBuilder content: @escaping (SubtitleConfiguration) -> some View) -> SideBarListItemSubtitleStyle {
+        let style = AnySubtitleStyle(content)
+        return SideBarListItemSubtitleStyle(style: style)
+    }
+}
+
+public struct SideBarListItemAccessoryIconStyle: SideBarListItemStyle {
+    let style: any AccessoryIconStyle
+
+    public func makeBody(_ configuration: SideBarListItemConfiguration) -> some View {
+        SideBarListItem(configuration)
+            .accessoryIconStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension SideBarListItemStyle where Self == SideBarListItemAccessoryIconStyle {
+    static func accessoryIconStyle(_ style: some AccessoryIconStyle) -> SideBarListItemAccessoryIconStyle {
+        SideBarListItemAccessoryIconStyle(style: style)
+    }
+
+    static func accessoryIconStyle(@ViewBuilder content: @escaping (AccessoryIconConfiguration) -> some View) -> SideBarListItemAccessoryIconStyle {
+        let style = AnyAccessoryIconStyle(content)
+        return SideBarListItemAccessoryIconStyle(style: style)
+    }
+}
+
+public struct SideBarListItemSwitchStyle: SideBarListItemStyle {
+    let style: any SwitchStyle
+
+    public func makeBody(_ configuration: SideBarListItemConfiguration) -> some View {
+        SideBarListItem(configuration)
+            .switchStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension SideBarListItemStyle where Self == SideBarListItemSwitchStyle {
+    static func switchStyle(_ style: some SwitchStyle) -> SideBarListItemSwitchStyle {
+        SideBarListItemSwitchStyle(style: style)
+    }
+
+    static func switchStyle(@ViewBuilder content: @escaping (SwitchConfiguration) -> some View) -> SideBarListItemSwitchStyle {
+        let style = AnySwitchStyle(content)
+        return SideBarListItemSwitchStyle(style: style)
     }
 }
 
