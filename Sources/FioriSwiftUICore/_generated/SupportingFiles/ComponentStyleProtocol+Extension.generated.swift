@@ -409,6 +409,48 @@ public extension CardStyle where Self == CardSecondaryActionStyle {
     }
 }
 
+public struct CardTertiaryActionStyle: CardStyle {
+    let style: any TertiaryActionStyle
+
+    public func makeBody(_ configuration: CardConfiguration) -> some View {
+        Card(configuration)
+            .tertiaryActionStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension CardStyle where Self == CardTertiaryActionStyle {
+    static func tertiaryActionStyle(_ style: some TertiaryActionStyle) -> CardTertiaryActionStyle {
+        CardTertiaryActionStyle(style: style)
+    }
+
+    static func tertiaryActionStyle(@ViewBuilder content: @escaping (TertiaryActionConfiguration) -> some View) -> CardTertiaryActionStyle {
+        let style = AnyTertiaryActionStyle(content)
+        return CardTertiaryActionStyle(style: style)
+    }
+}
+
+public struct CardOverflowActionStyle: CardStyle {
+    let style: any OverflowActionStyle
+
+    public func makeBody(_ configuration: CardConfiguration) -> some View {
+        Card(configuration)
+            .overflowActionStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension CardStyle where Self == CardOverflowActionStyle {
+    static func overflowActionStyle(_ style: some OverflowActionStyle) -> CardOverflowActionStyle {
+        CardOverflowActionStyle(style: style)
+    }
+
+    static func overflowActionStyle(@ViewBuilder content: @escaping (OverflowActionConfiguration) -> some View) -> CardOverflowActionStyle {
+        let style = AnyOverflowActionStyle(content)
+        return CardOverflowActionStyle(style: style)
+    }
+}
+
 public struct CardCardHeaderStyle: CardStyle {
     let style: any CardHeaderStyle
 
@@ -623,6 +665,48 @@ public extension CardFooterStyle where Self == CardFooterSecondaryActionStyle {
     static func secondaryActionStyle(@ViewBuilder content: @escaping (SecondaryActionConfiguration) -> some View) -> CardFooterSecondaryActionStyle {
         let style = AnySecondaryActionStyle(content)
         return CardFooterSecondaryActionStyle(style: style)
+    }
+}
+
+public struct CardFooterTertiaryActionStyle: CardFooterStyle {
+    let style: any TertiaryActionStyle
+
+    public func makeBody(_ configuration: CardFooterConfiguration) -> some View {
+        CardFooter(configuration)
+            .tertiaryActionStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension CardFooterStyle where Self == CardFooterTertiaryActionStyle {
+    static func tertiaryActionStyle(_ style: some TertiaryActionStyle) -> CardFooterTertiaryActionStyle {
+        CardFooterTertiaryActionStyle(style: style)
+    }
+
+    static func tertiaryActionStyle(@ViewBuilder content: @escaping (TertiaryActionConfiguration) -> some View) -> CardFooterTertiaryActionStyle {
+        let style = AnyTertiaryActionStyle(content)
+        return CardFooterTertiaryActionStyle(style: style)
+    }
+}
+
+public struct CardFooterOverflowActionStyle: CardFooterStyle {
+    let style: any OverflowActionStyle
+
+    public func makeBody(_ configuration: CardFooterConfiguration) -> some View {
+        CardFooter(configuration)
+            .overflowActionStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension CardFooterStyle where Self == CardFooterOverflowActionStyle {
+    static func overflowActionStyle(_ style: some OverflowActionStyle) -> CardFooterOverflowActionStyle {
+        CardFooterOverflowActionStyle(style: style)
+    }
+
+    static func overflowActionStyle(@ViewBuilder content: @escaping (OverflowActionConfiguration) -> some View) -> CardFooterOverflowActionStyle {
+        let style = AnyOverflowActionStyle(content)
+        return CardFooterOverflowActionStyle(style: style)
     }
 }
 
@@ -2474,6 +2558,20 @@ public extension ObjectItemStyle where Self == ObjectItemActionStyle {
     }
 }
 
+// MARK: OverflowActionStyle
+
+public extension OverflowActionStyle where Self == OverflowActionBaseStyle {
+    static var base: OverflowActionBaseStyle {
+        OverflowActionBaseStyle()
+    }
+}
+
+public extension OverflowActionStyle where Self == OverflowActionFioriStyle {
+    static var fiori: OverflowActionFioriStyle {
+        OverflowActionFioriStyle()
+    }
+}
+
 // MARK: PlaceholderStyle
 
 public extension PlaceholderStyle where Self == PlaceholderBaseStyle {
@@ -3136,6 +3234,20 @@ public extension TagsStyle where Self == TagsBaseStyle {
 public extension TagsStyle where Self == TagsFioriStyle {
     static var fiori: TagsFioriStyle {
         TagsFioriStyle()
+    }
+}
+
+// MARK: TertiaryActionStyle
+
+public extension TertiaryActionStyle where Self == TertiaryActionBaseStyle {
+    static var base: TertiaryActionBaseStyle {
+        TertiaryActionBaseStyle()
+    }
+}
+
+public extension TertiaryActionStyle where Self == TertiaryActionFioriStyle {
+    static var fiori: TertiaryActionFioriStyle {
+        TertiaryActionFioriStyle()
     }
 }
 

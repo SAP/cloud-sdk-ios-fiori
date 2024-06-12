@@ -24,9 +24,13 @@ struct AnyCardFooterStyle: CardFooterStyle {
 public struct CardFooterConfiguration {
     public let action: Action
     public let secondaryAction: SecondaryAction
+    public let tertiaryAction: TertiaryAction
+    public let overflowAction: OverflowAction
 
     public typealias Action = ConfigurationViewWrapper
     public typealias SecondaryAction = ConfigurationViewWrapper
+    public typealias TertiaryAction = ConfigurationViewWrapper
+    public typealias OverflowAction = ConfigurationViewWrapper
 }
 
 public struct CardFooterFioriStyle: CardFooterStyle {
@@ -34,5 +38,7 @@ public struct CardFooterFioriStyle: CardFooterStyle {
         CardFooter(configuration)
             .actionStyle(ActionFioriStyle(cardFooterConfiguration: configuration))
             .secondaryActionStyle(SecondaryActionFioriStyle(cardFooterConfiguration: configuration))
+            .tertiaryActionStyle(TertiaryActionFioriStyle(cardFooterConfiguration: configuration))
+            .overflowActionStyle(OverflowActionFioriStyle(cardFooterConfiguration: configuration))
     }
 }

@@ -13,7 +13,7 @@ extension CardConfiguration {
     }
 
     var _cardFooter: CardFooter {
-        CardFooter(.init(action: .init(self.action), secondaryAction: .init(self.secondaryAction)), shouldApplyDefaultStyle: true)
+        CardFooter(.init(action: .init(self.action), secondaryAction: .init(self.secondaryAction), tertiaryAction: .init(self.tertiaryAction), overflowAction: .init(self.overflowAction)), shouldApplyDefaultStyle: true)
     }
 }
 

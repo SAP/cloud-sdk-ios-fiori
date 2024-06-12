@@ -38,6 +38,8 @@ public struct CardConfiguration {
     public let cardBody: CardBody
     public let action: Action
     public let secondaryAction: SecondaryAction
+    public let tertiaryAction: TertiaryAction
+    public let overflowAction: OverflowAction
 
     public typealias MediaImage = ConfigurationViewWrapper
     public typealias Description = ConfigurationViewWrapper
@@ -55,6 +57,8 @@ public struct CardConfiguration {
     public typealias CardBody = ConfigurationViewWrapper
     public typealias Action = ConfigurationViewWrapper
     public typealias SecondaryAction = ConfigurationViewWrapper
+    public typealias TertiaryAction = ConfigurationViewWrapper
+    public typealias OverflowAction = ConfigurationViewWrapper
 }
 
 public struct CardFioriStyle: CardStyle {
@@ -76,6 +80,8 @@ public struct CardFioriStyle: CardStyle {
             .cardBodyStyle(CardBodyFioriStyle(cardConfiguration: configuration))
             .actionStyle(ActionFioriStyle(cardConfiguration: configuration))
             .secondaryActionStyle(SecondaryActionFioriStyle(cardConfiguration: configuration))
+            .tertiaryActionStyle(TertiaryActionFioriStyle(cardConfiguration: configuration))
+            .overflowActionStyle(OverflowActionFioriStyle(cardConfiguration: configuration))
             .cardHeaderStyle(CardHeaderFioriStyle(cardConfiguration: configuration))
             .cardFooterStyle(CardFooterFioriStyle(cardConfiguration: configuration))
     }
