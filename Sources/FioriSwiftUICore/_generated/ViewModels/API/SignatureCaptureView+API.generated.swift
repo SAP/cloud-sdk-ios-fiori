@@ -19,32 +19,33 @@ public struct SignatureCaptureView<StartActionView: View, RestartActionView: Vie
 	let _signatureImage: UIImage?
 	let _onSave: ((UIImage) -> Void)?
 	let _onDelete: (() -> Void)?
-	@State var fullSignatureImage: UIImage?
-	@State var isReenterTapped = false
-	var watermarkText: String?
-	@State var currentDrawing = Drawing()
-	var strokeWidth: CGFloat = 3.0
-	var hidesXmark = false
-	public private(set) var _heightDidChangePublisher = CurrentValueSubject<CGFloat, Never>(0)
-	var watermarkTextFont: UIFont = .preferredFont(forTextStyle: .caption1)
+	var isRequired = false
 	var timestampFormatter: DateFormatter?
-	var drawingViewBackgroundColor = Color.preferredColor(.primaryBackground)
-	var hidesSignatureLine = false
-	let _drawingViewMinHeight: CGFloat = 256
-	var titleColor = Color.preferredColor(.primaryLabel)
 	var appliesTintColorToImage = true
-	@State var drawings = [Drawing]()
-	var strokeColor = Color.preferredColor(.primaryLabel)
-	var signatureLineColor = Color.preferredColor(.quaternaryLabel)
-	var addsTimestampInImage: Bool = false
-	var _drawingViewMaxHeight: CGFloat?
 	var watermarkTextAlignment: NSTextAlignment = .natural
-	var cropsImage = false
 	var watermarkTextColor: Color = .preferredColor(.tertiaryLabel)
-	var titleFont = Font.fiori(forTextStyle: .subheadline).weight(.semibold)
-	@State var isSaved = false
+	var watermarkTextFont: UIFont = .preferredFont(forTextStyle: .caption1)
+	let _drawingViewMinHeight: CGFloat = 256
+	var watermarkText: String?
 	var xmarkColor = Color.preferredColor(.quaternaryLabel)
+	var hidesXmark = false
+	var signatureLineColor = Color.preferredColor(.quaternaryLabel)
+	@State var isReenterTapped = false
+	var hidesSignatureLine = false
+	var strokeWidth: CGFloat = 3.0
+	var titleColor = Color.preferredColor(.primaryLabel)
+	var strokeColor = Color.preferredColor(.primaryLabel)
 	@State var isEditing = false
+	@State var isSaved = false
+	var titleFont = Font.fiori(forTextStyle: .subheadline).weight(.semibold)
+	@State var currentDrawing = Drawing()
+	@State var drawings = [Drawing]()
+	var drawingViewBackgroundColor = Color.preferredColor(.primaryBackground)
+	@State var fullSignatureImage: UIImage?
+	var cropsImage = false
+	var _drawingViewMaxHeight: CGFloat?
+	public private(set) var _heightDidChangePublisher = CurrentValueSubject<CGFloat, Never>(0)
+	var addsTimestampInImage: Bool = false
 
     private var isModelInit: Bool = false
 	private var isTitleNil: Bool = false

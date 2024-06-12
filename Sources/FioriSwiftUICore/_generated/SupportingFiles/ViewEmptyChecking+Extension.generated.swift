@@ -223,7 +223,8 @@ extension JouleWelcomeScreen: _ViewEmptyChecking {
 extension KeyValueFormView: _ViewEmptyChecking {
     public var isEmpty: Bool {
         title.isEmpty &&
-            placeholder.isEmpty
+            placeholder.isEmpty &&
+            mandatoryFieldIndicator.isEmpty
     }
 }
 
@@ -256,6 +257,12 @@ extension LinearProgressIndicatorView: _ViewEmptyChecking {
     public var isEmpty: Bool {
         icon.isEmpty &&
             description.isEmpty
+    }
+}
+
+extension MandatoryFieldIndicator: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        mandatoryFieldIndicator.isEmpty
     }
 }
 
@@ -409,7 +416,8 @@ extension Tags: _ViewEmptyChecking {
 extension TextFieldFormView: _ViewEmptyChecking {
     public var isEmpty: Bool {
         title.isEmpty &&
-            placeholder.isEmpty
+            placeholder.isEmpty &&
+            mandatoryFieldIndicator.isEmpty
     }
 }
 

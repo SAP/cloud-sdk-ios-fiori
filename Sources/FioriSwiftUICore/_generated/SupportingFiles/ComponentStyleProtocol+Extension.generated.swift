@@ -1837,6 +1837,27 @@ public extension KeyValueFormViewStyle where Self == KeyValueFormViewPlaceholder
     }
 }
 
+public struct KeyValueFormViewMandatoryFieldIndicatorStyle: KeyValueFormViewStyle {
+    let style: any MandatoryFieldIndicatorStyle
+
+    public func makeBody(_ configuration: KeyValueFormViewConfiguration) -> some View {
+        KeyValueFormView(configuration)
+            .mandatoryFieldIndicatorStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension KeyValueFormViewStyle where Self == KeyValueFormViewMandatoryFieldIndicatorStyle {
+    static func mandatoryFieldIndicatorStyle(_ style: some MandatoryFieldIndicatorStyle) -> KeyValueFormViewMandatoryFieldIndicatorStyle {
+        KeyValueFormViewMandatoryFieldIndicatorStyle(style: style)
+    }
+
+    static func mandatoryFieldIndicatorStyle(@ViewBuilder content: @escaping (MandatoryFieldIndicatorConfiguration) -> some View) -> KeyValueFormViewMandatoryFieldIndicatorStyle {
+        let style = AnyMandatoryFieldIndicatorStyle(content)
+        return KeyValueFormViewMandatoryFieldIndicatorStyle(style: style)
+    }
+}
+
 public struct KeyValueFormViewNoteFormViewStyle: KeyValueFormViewStyle {
     let style: any NoteFormViewStyle
 
@@ -2030,6 +2051,20 @@ public extension LinearProgressIndicatorViewStyle where Self == LinearProgressIn
     static func descriptionStyle(@ViewBuilder content: @escaping (DescriptionConfiguration) -> some View) -> LinearProgressIndicatorViewDescriptionStyle {
         let style = AnyDescriptionStyle(content)
         return LinearProgressIndicatorViewDescriptionStyle(style: style)
+    }
+}
+
+// MARK: MandatoryFieldIndicatorStyle
+
+public extension MandatoryFieldIndicatorStyle where Self == MandatoryFieldIndicatorBaseStyle {
+    static var base: MandatoryFieldIndicatorBaseStyle {
+        MandatoryFieldIndicatorBaseStyle()
+    }
+}
+
+public extension MandatoryFieldIndicatorStyle where Self == MandatoryFieldIndicatorFioriStyle {
+    static var fiori: MandatoryFieldIndicatorFioriStyle {
+        MandatoryFieldIndicatorFioriStyle()
     }
 }
 
@@ -3178,6 +3213,27 @@ public extension TextFieldFormViewStyle where Self == TextFieldFormViewPlacehold
     static func placeholderStyle(@ViewBuilder content: @escaping (PlaceholderConfiguration) -> some View) -> TextFieldFormViewPlaceholderStyle {
         let style = AnyPlaceholderStyle(content)
         return TextFieldFormViewPlaceholderStyle(style: style)
+    }
+}
+
+public struct TextFieldFormViewMandatoryFieldIndicatorStyle: TextFieldFormViewStyle {
+    let style: any MandatoryFieldIndicatorStyle
+
+    public func makeBody(_ configuration: TextFieldFormViewConfiguration) -> some View {
+        TextFieldFormView(configuration)
+            .mandatoryFieldIndicatorStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension TextFieldFormViewStyle where Self == TextFieldFormViewMandatoryFieldIndicatorStyle {
+    static func mandatoryFieldIndicatorStyle(_ style: some MandatoryFieldIndicatorStyle) -> TextFieldFormViewMandatoryFieldIndicatorStyle {
+        TextFieldFormViewMandatoryFieldIndicatorStyle(style: style)
+    }
+
+    static func mandatoryFieldIndicatorStyle(@ViewBuilder content: @escaping (MandatoryFieldIndicatorConfiguration) -> some View) -> TextFieldFormViewMandatoryFieldIndicatorStyle {
+        let style = AnyMandatoryFieldIndicatorStyle(content)
+        return TextFieldFormViewMandatoryFieldIndicatorStyle(style: style)
     }
 }
 

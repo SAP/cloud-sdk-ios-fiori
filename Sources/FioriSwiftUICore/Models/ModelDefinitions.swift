@@ -327,6 +327,7 @@ public protocol UserConsentPageModel: TitleComponent, BodyAttributedTextComponen
 // sourcery: virtualPropWatermarkTextColor = "var watermarkTextColor: Color = .preferredColor(.tertiaryLabel)"
 // sourcery: virtualPropAppliesTintColorToImage = "var appliesTintColorToImage = true"
 // sourcery: generated_component_composite
+// sourcery: virtualPropIsRequired = "var isRequired = false"
 public protocol SignatureCaptureViewModel: AnyObject {
     // sourcery: default.value = nil
     // sourcery: no_view

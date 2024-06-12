@@ -84,7 +84,7 @@ protocol _NoteFormViewComponent: _PlaceholderTextEditorComponent, _FormViewCompo
 }
 
 // sourcery: CompositeComponent
-protocol _KeyValueFormViewComponent: _TitleComponent, _NoteFormViewComponent {}
+protocol _KeyValueFormViewComponent: _TitleComponent, _NoteFormViewComponent, _MandatoryField {}
 
 // sourcery: CompositeComponent
 protocol _PlaceholderTextFieldComponent: _TextInputFieldComponent, _PlaceholderComponent {}
@@ -111,7 +111,7 @@ protocol _TitleFormViewComponent: _PlaceholderTextFieldComponent, _FormViewCompo
 }
 
 // sourcery: CompositeComponent
-protocol _TextFieldFormViewComponent: _TitleComponent, _TitleFormViewComponent {
+protocol _TextFieldFormViewComponent: _TitleComponent, _TitleFormViewComponent, _MandatoryField {
     /// The icon for the action button.
     var actionIcon: Image? { get }
     /// The action to be performed when the action button is tapped.
