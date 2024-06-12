@@ -192,6 +192,12 @@ struct CoreContentView: View {
                     Text("Stepper")
                 }
             )
+            
+            NavigationLink(
+                destination: MenuSelectionExample())
+            {
+                Text("Menu Selection")
+            }
         }.navigationBarTitle("FioriSwiftUICore")
     }
 }

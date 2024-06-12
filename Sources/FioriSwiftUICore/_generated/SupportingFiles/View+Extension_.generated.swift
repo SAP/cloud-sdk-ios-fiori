@@ -615,6 +615,40 @@ public extension View {
     }
 }
 
+// MARK: MenuSelectionStyle
+
+public extension View {
+    func menuSelectionStyle(_ style: some MenuSelectionStyle) -> some View {
+        self.transformEnvironment(\.menuSelectionStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func menuSelectionStyle(@ViewBuilder content: @escaping (MenuSelectionConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.menuSelectionStyleStack) { stack in
+            let style = AnyMenuSelectionStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: MenuSelectionItemStyle
+
+public extension View {
+    func menuSelectionItemStyle(_ style: some MenuSelectionItemStyle) -> some View {
+        self.transformEnvironment(\.menuSelectionItemStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func menuSelectionItemStyle(@ViewBuilder content: @escaping (MenuSelectionItemConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.menuSelectionItemStyleStack) { stack in
+            let style = AnyMenuSelectionItemStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: MessageContentStyle
 
 public extension View {

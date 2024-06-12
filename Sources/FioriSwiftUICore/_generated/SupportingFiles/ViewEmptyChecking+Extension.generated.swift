@@ -272,6 +272,20 @@ extension MediaImage: _ViewEmptyChecking {
     }
 }
 
+extension MenuSelection: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        action.isEmpty &&
+            items.isEmpty
+    }
+}
+
+extension MenuSelectionItem: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        icon.isEmpty &&
+            title.isEmpty
+    }
+}
+
 extension MessageContent: _ViewEmptyChecking {
     public var isEmpty: Bool {
         messageContent.isEmpty

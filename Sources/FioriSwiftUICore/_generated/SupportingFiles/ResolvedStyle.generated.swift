@@ -579,6 +579,38 @@ extension MediaImageStyle {
     }
 }
 
+// MARK: MenuSelectionStyle
+
+struct ResolvedMenuSelectionStyle<Style: MenuSelectionStyle>: View {
+    let style: Style
+    let configuration: MenuSelectionConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension MenuSelectionStyle {
+    func resolve(configuration: MenuSelectionConfiguration) -> some View {
+        ResolvedMenuSelectionStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: MenuSelectionItemStyle
+
+struct ResolvedMenuSelectionItemStyle<Style: MenuSelectionItemStyle>: View {
+    let style: Style
+    let configuration: MenuSelectionItemConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension MenuSelectionItemStyle {
+    func resolve(configuration: MenuSelectionItemConfiguration) -> some View {
+        ResolvedMenuSelectionItemStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: MessageContentStyle
 
 struct ResolvedMessageContentStyle<Style: MessageContentStyle>: View {

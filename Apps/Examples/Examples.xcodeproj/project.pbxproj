@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		108E43D5292DAB7C006532F3 /* EmptyStateViewExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 108E43D4292DAB7C006532F3 /* EmptyStateViewExample.swift */; };
+		1F1A1FFA2C0BDA54007109D8 /* MenuSelectionExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1A1FF92C0BDA54007109D8 /* MenuSelectionExample.swift */; };
 		1F26DCFA261A5CD9006C43B1 /* FioriButtonContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F26DCF9261A5CD9006C43B1 /* FioriButtonContentView.swift */; };
 		1F3C92F125DF12C100A99A07 /* ListPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3C92F025DF12C100A99A07 /* ListPicker.swift */; };
 		1F55FEF32AC941FF00D7A1BE /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F55FEF22AC941FF00D7A1BE /* View+Extensions.swift */; };
@@ -183,6 +184,7 @@
 
 /* Begin PBXFileReference section */
 		108E43D4292DAB7C006532F3 /* EmptyStateViewExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateViewExample.swift; sourceTree = "<group>"; };
+		1F1A1FF92C0BDA54007109D8 /* MenuSelectionExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuSelectionExample.swift; sourceTree = "<group>"; };
 		1F26DCF9261A5CD9006C43B1 /* FioriButtonContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FioriButtonContentView.swift; sourceTree = "<group>"; };
 		1F3C92F025DF12C100A99A07 /* ListPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListPicker.swift; sourceTree = "<group>"; };
 		1F55FEF22AC941FF00D7A1BE /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
@@ -334,6 +336,14 @@
 				108E43D4292DAB7C006532F3 /* EmptyStateViewExample.swift */,
 			);
 			path = EmptyStateView;
+			sourceTree = "<group>";
+		};
+		1F1A1FF82C0BDA42007109D8 /* MenuSelection */ = {
+			isa = PBXGroup;
+			children = (
+				1F1A1FF92C0BDA54007109D8 /* MenuSelectionExample.swift */,
+			);
+			path = MenuSelection;
 			sourceTree = "<group>";
 		};
 		1F3C92EF25DF12A100A99A07 /* FormCells */ = {
@@ -501,6 +511,7 @@
 		8A5579C824C1293C0098003A /* FioriSwiftUICore */ = {
 			isa = PBXGroup;
 			children = (
+				1F1A1FF82C0BDA42007109D8 /* MenuSelection */,
 				3C180C262B858CBE007CE79A /* IllustratedMessage */,
 				99658F862B7C35630026A743 /* Indicator */,
 				B88CB6102B716C0300013B37 /* Card */,
@@ -913,6 +924,7 @@
 				C1A0FDB32AD893FA0001738E /* SortFilterView+Extensions.swift in Sources */,
 				B84D24ED2652F343007F2373 /* HeaderChartExample.swift in Sources */,
 				B100639329C0624D00AF0CA2 /* StepProgressIndicatorExample.swift in Sources */,
+				1F1A1FFA2C0BDA54007109D8 /* MenuSelectionExample.swift in Sources */,
 				B846F94626815CC90085044B /* ContactItemExample.swift in Sources */,
 				8A5579CC24C1293C0098003A /* SettingsColorForCategory.swift in Sources */,
 				C18868D12B32535100F865F7 /* SearchFontAndColor.swift in Sources */,
