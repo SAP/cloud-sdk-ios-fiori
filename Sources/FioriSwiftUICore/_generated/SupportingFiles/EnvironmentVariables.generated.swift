@@ -675,23 +675,23 @@ extension EnvironmentValues {
     }
 }
 
-// MARK: MandatoryIndicatorStyle
+// MARK: MandatoryFieldIndicatorStyle
 
-struct MandatoryIndicatorStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any MandatoryIndicatorStyle] = []
+struct MandatoryFieldIndicatorStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any MandatoryFieldIndicatorStyle] = []
 }
 
 extension EnvironmentValues {
-    var mandatoryIndicatorStyle: any MandatoryIndicatorStyle {
-        self.mandatoryIndicatorStyleStack.last ?? .base
+    var mandatoryFieldIndicatorStyle: any MandatoryFieldIndicatorStyle {
+        self.mandatoryFieldIndicatorStyleStack.last ?? .base
     }
 
-    var mandatoryIndicatorStyleStack: [any MandatoryIndicatorStyle] {
+    var mandatoryFieldIndicatorStyleStack: [any MandatoryFieldIndicatorStyle] {
         get {
-            self[MandatoryIndicatorStyleStackKey.self]
+            self[MandatoryFieldIndicatorStyleStackKey.self]
         }
         set {
-            self[MandatoryIndicatorStyleStackKey.self] = newValue
+            self[MandatoryFieldIndicatorStyleStackKey.self] = newValue
         }
     }
 }

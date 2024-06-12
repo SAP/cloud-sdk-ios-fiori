@@ -18,10 +18,15 @@ protocol _SubtitleComponent {
 }
 
 // sourcery: BaseComponent
-protocol _MandatoryIndicatorComponent {
-    // sourcery: @ViewBuilder
-    // sourcery: defaultValue = AttributedString("*")
-    var mandatoryIndicator: AttributedString? { get }
+protocol _MandatoryFieldIndicator {
+    // sourcery: resultBuilder.name = @ViewBuilder, resultBuilder.backingComponent = TextOrIconView
+    // sourcery: defaultValue = .text("*")
+    var mandatoryFieldIndicator: TextOrIcon? { get }
+}
+ 
+protocol _MandatoryField: _MandatoryFieldIndicator {
+    // sourcery: defaultValue = false
+    var isRequired: Bool { get }
 }
 
 // sourcery: BaseComponent

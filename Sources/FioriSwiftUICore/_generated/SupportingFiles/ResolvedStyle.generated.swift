@@ -515,19 +515,19 @@ extension LinearProgressIndicatorViewStyle {
     }
 }
 
-// MARK: MandatoryIndicatorStyle
+// MARK: MandatoryFieldIndicatorStyle
 
-struct ResolvedMandatoryIndicatorStyle<Style: MandatoryIndicatorStyle>: View {
+struct ResolvedMandatoryFieldIndicatorStyle<Style: MandatoryFieldIndicatorStyle>: View {
     let style: Style
-    let configuration: MandatoryIndicatorConfiguration
+    let configuration: MandatoryFieldIndicatorConfiguration
     var body: some View {
         self.style.makeBody(self.configuration)
     }
 }
 
-extension MandatoryIndicatorStyle {
-    func resolve(configuration: MandatoryIndicatorConfiguration) -> some View {
-        ResolvedMandatoryIndicatorStyle(style: self, configuration: configuration)
+extension MandatoryFieldIndicatorStyle {
+    func resolve(configuration: MandatoryFieldIndicatorConfiguration) -> some View {
+        ResolvedMandatoryFieldIndicatorStyle(style: self, configuration: configuration)
     }
 }
 

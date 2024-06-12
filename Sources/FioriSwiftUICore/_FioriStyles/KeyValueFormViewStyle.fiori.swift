@@ -9,7 +9,7 @@ public struct KeyValueFormViewBaseStyle: KeyValueFormViewStyle {
             HStack(spacing: 0) {
                 configuration.title
                 if configuration.isRequired {
-                    configuration.mandatoryIndicator
+                    configuration.mandatoryFieldIndicator
                 }
                 Spacer()
             }
@@ -23,6 +23,10 @@ extension KeyValueFormViewFioriStyle {
     struct ContentFioriStyle: KeyValueFormViewStyle {
         func makeBody(_ configuration: KeyValueFormViewConfiguration) -> some View {
             KeyValueFormView(configuration)
+                .mandatoryFieldIndicatorStyle { indicatorConf in
+                    MandatoryFieldIndicator(indicatorConf)
+                        .foregroundStyle(Color.preferredColor(configuration.controlState == .disabled ? .separator : .primaryLabel))
+                }
         }
     }
 
@@ -77,23 +81,14 @@ extension KeyValueFormViewFioriStyle {
         }
     }
     
-    struct MandatoryIndicatorFioriStyle: MandatoryIndicatorStyle {
+    struct MandatoryFieldIndicatorFioriStyle: MandatoryFieldIndicatorStyle {
         let keyValueFormViewConfiguration: KeyValueFormViewConfiguration
         
-        func makeBody(_ configuration: MandatoryIndicatorConfiguration) -> some View {
-            MandatoryIndicator(configuration)
+        func makeBody(_ configuration: MandatoryFieldIndicatorConfiguration) -> some View {
+            MandatoryFieldIndicator(configuration)
                 .foregroundStyle(Color.preferredColor(self.keyValueFormViewConfiguration.controlState == .disabled ? .separator : .primaryLabel))
-                .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
-                .accessibilityLabel(self.getIndicatorAccessibilityLabel(self.keyValueFormViewConfiguration))
-        }
-    
-        func getIndicatorAccessibilityLabel(_ configuration: KeyValueFormViewConfiguration) -> String {
-            var accString = ""
-            if configuration.isRequired {
-                let requiredText = NSLocalizedString("Required Field", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Required Field")
-                accString = requiredText
-            }
-            return accString
+                .padding(.bottom, -4)
+                .padding(.top, 11)
         }
     }
 }

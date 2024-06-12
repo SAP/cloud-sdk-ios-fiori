@@ -212,7 +212,7 @@ extension KeyValueFormView: _ViewEmptyChecking {
     public var isEmpty: Bool {
         title.isEmpty &&
             placeholder.isEmpty &&
-            mandatoryIndicator.isEmpty
+            mandatoryFieldIndicator.isEmpty
     }
 }
 
@@ -248,9 +248,9 @@ extension LinearProgressIndicatorView: _ViewEmptyChecking {
     }
 }
 
-extension MandatoryIndicator: _ViewEmptyChecking {
+extension MandatoryFieldIndicator: _ViewEmptyChecking {
     public var isEmpty: Bool {
-        mandatoryIndicator.isEmpty
+        mandatoryFieldIndicator.isEmpty
     }
 }
 
@@ -388,7 +388,7 @@ extension TextFieldFormView: _ViewEmptyChecking {
     public var isEmpty: Bool {
         title.isEmpty &&
             placeholder.isEmpty &&
-            mandatoryIndicator.isEmpty
+            mandatoryFieldIndicator.isEmpty
     }
 }
 

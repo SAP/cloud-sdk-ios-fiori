@@ -904,31 +904,31 @@ public extension LinearProgressIndicatorViewStyle {
     }
 }
 
-// MARK: MandatoryIndicatorStyle
+// MARK: MandatoryFieldIndicatorStyle
 
-extension ModifiedStyle: MandatoryIndicatorStyle where Style: MandatoryIndicatorStyle {
-    public func makeBody(_ configuration: MandatoryIndicatorConfiguration) -> some View {
-        MandatoryIndicator(configuration)
-            .mandatoryIndicatorStyle(self.style)
+extension ModifiedStyle: MandatoryFieldIndicatorStyle where Style: MandatoryFieldIndicatorStyle {
+    public func makeBody(_ configuration: MandatoryFieldIndicatorConfiguration) -> some View {
+        MandatoryFieldIndicator(configuration)
+            .mandatoryFieldIndicatorStyle(self.style)
             .modifier(self.modifier)
     }
 }
 
-public struct MandatoryIndicatorStyleModifier<Style: MandatoryIndicatorStyle>: ViewModifier {
+public struct MandatoryFieldIndicatorStyleModifier<Style: MandatoryFieldIndicatorStyle>: ViewModifier {
     let style: Style
 
     public func body(content: Content) -> some View {
-        content.mandatoryIndicatorStyle(self.style)
+        content.mandatoryFieldIndicatorStyle(self.style)
     }
 }
 
-public extension MandatoryIndicatorStyle {
-    func modifier(_ modifier: some ViewModifier) -> some MandatoryIndicatorStyle {
+public extension MandatoryFieldIndicatorStyle {
+    func modifier(_ modifier: some ViewModifier) -> some MandatoryFieldIndicatorStyle {
         ModifiedStyle(style: self, modifier: modifier)
     }
 
-    func concat(_ style: some MandatoryIndicatorStyle) -> some MandatoryIndicatorStyle {
-        style.modifier(MandatoryIndicatorStyleModifier(style: self))
+    func concat(_ style: some MandatoryFieldIndicatorStyle) -> some MandatoryFieldIndicatorStyle {
+        style.modifier(MandatoryFieldIndicatorStyleModifier(style: self))
     }
 }
 

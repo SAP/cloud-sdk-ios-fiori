@@ -547,18 +547,18 @@ public extension View {
     }
 }
 
-// MARK: MandatoryIndicatorStyle
+// MARK: MandatoryFieldIndicatorStyle
 
 public extension View {
-    func mandatoryIndicatorStyle(_ style: some MandatoryIndicatorStyle) -> some View {
-        self.transformEnvironment(\.mandatoryIndicatorStyleStack) { stack in
+    func mandatoryFieldIndicatorStyle(_ style: some MandatoryFieldIndicatorStyle) -> some View {
+        self.transformEnvironment(\.mandatoryFieldIndicatorStyleStack) { stack in
             stack.append(style)
         }
     }
 
-    func mandatoryIndicatorStyle(@ViewBuilder content: @escaping (MandatoryIndicatorConfiguration) -> some View) -> some View {
-        self.transformEnvironment(\.mandatoryIndicatorStyleStack) { stack in
-            let style = AnyMandatoryIndicatorStyle(content)
+    func mandatoryFieldIndicatorStyle(@ViewBuilder content: @escaping (MandatoryFieldIndicatorConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.mandatoryFieldIndicatorStyleStack) { stack in
+            let style = AnyMandatoryFieldIndicatorStyle(content)
             stack.append(style)
         }
     }
