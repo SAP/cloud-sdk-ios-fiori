@@ -66,6 +66,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: BannerMessageStyle
+
+struct BannerMessageStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any BannerMessageStyle] = []
+}
+
+extension EnvironmentValues {
+    var bannerMessageStyle: any BannerMessageStyle {
+        self.bannerMessageStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var bannerMessageStyleStack: [any BannerMessageStyle] {
+        get {
+            self[BannerMessageStyleStackKey.self]
+        }
+        set {
+            self[BannerMessageStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: CardBodyStyle
 
 struct CardBodyStyleStackKey: EnvironmentKey {
@@ -209,6 +230,27 @@ extension EnvironmentValues {
         }
         set {
             self[CardMediaStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: CloseActionStyle
+
+struct CloseActionStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any CloseActionStyle] = []
+}
+
+extension EnvironmentValues {
+    var closeActionStyle: any CloseActionStyle {
+        self.closeActionStyleStack.last ?? .base
+    }
+
+    var closeActionStyleStack: [any CloseActionStyle] {
+        get {
+            self[CloseActionStyleStackKey.self]
+        }
+        set {
+            self[CloseActionStyleStackKey.self] = newValue
         }
     }
 }
@@ -1343,6 +1385,27 @@ extension EnvironmentValues {
         }
         set {
             self[TitleFormViewStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: TopDividerStyle
+
+struct TopDividerStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any TopDividerStyle] = []
+}
+
+extension EnvironmentValues {
+    var topDividerStyle: any TopDividerStyle {
+        self.topDividerStyleStack.last ?? .base
+    }
+
+    var topDividerStyleStack: [any TopDividerStyle] {
+        get {
+            self[TopDividerStyleStackKey.self]
+        }
+        set {
+            self[TopDividerStyleStackKey.self] = newValue
         }
     }
 }

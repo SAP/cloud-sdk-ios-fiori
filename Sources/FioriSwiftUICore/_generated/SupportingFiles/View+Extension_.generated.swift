@@ -54,6 +54,23 @@ public extension View {
     }
 }
 
+// MARK: BannerMessageStyle
+
+public extension View {
+    func bannerMessageStyle(_ style: some BannerMessageStyle) -> some View {
+        self.transformEnvironment(\.bannerMessageStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func bannerMessageStyle(@ViewBuilder content: @escaping (BannerMessageConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.bannerMessageStyleStack) { stack in
+            let style = AnyBannerMessageStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: CardBodyStyle
 
 public extension View {
@@ -168,6 +185,23 @@ public extension View {
     func cardMediaStyle(@ViewBuilder content: @escaping (CardMediaConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.cardMediaStyleStack) { stack in
             let style = AnyCardMediaStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: CloseActionStyle
+
+public extension View {
+    func closeActionStyle(_ style: some CloseActionStyle) -> some View {
+        self.transformEnvironment(\.closeActionStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func closeActionStyle(@ViewBuilder content: @escaping (CloseActionConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.closeActionStyleStack) { stack in
+            let style = AnyCloseActionStyle(content)
             stack.append(style)
         }
     }
@@ -1086,6 +1120,23 @@ public extension View {
     func titleFormViewStyle(@ViewBuilder content: @escaping (TitleFormViewConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.titleFormViewStyleStack) { stack in
             let style = AnyTitleFormViewStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: TopDividerStyle
+
+public extension View {
+    func topDividerStyle(_ style: some TopDividerStyle) -> some View {
+        self.transformEnvironment(\.topDividerStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func topDividerStyle(@ViewBuilder content: @escaping (TopDividerConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.topDividerStyleStack) { stack in
+            let style = AnyTopDividerStyle(content)
             stack.append(style)
         }
     }

@@ -45,6 +45,83 @@ public extension AvatarsStyle where Self == AvatarsFioriStyle {
     }
 }
 
+// MARK: BannerMessageStyle
+
+public extension BannerMessageStyle where Self == BannerMessageBaseStyle {
+    static var base: BannerMessageBaseStyle {
+        BannerMessageBaseStyle()
+    }
+}
+
+public extension BannerMessageStyle where Self == BannerMessageFioriStyle {
+    static var fiori: BannerMessageFioriStyle {
+        BannerMessageFioriStyle()
+    }
+}
+
+public struct BannerMessageTitleStyle: BannerMessageStyle {
+    let style: any TitleStyle
+
+    public func makeBody(_ configuration: BannerMessageConfiguration) -> some View {
+        BannerMessage(configuration)
+            .titleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension BannerMessageStyle where Self == BannerMessageTitleStyle {
+    static func titleStyle(_ style: some TitleStyle) -> BannerMessageTitleStyle {
+        BannerMessageTitleStyle(style: style)
+    }
+
+    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> BannerMessageTitleStyle {
+        let style = AnyTitleStyle(content)
+        return BannerMessageTitleStyle(style: style)
+    }
+}
+
+public struct BannerMessageCloseActionStyle: BannerMessageStyle {
+    let style: any CloseActionStyle
+
+    public func makeBody(_ configuration: BannerMessageConfiguration) -> some View {
+        BannerMessage(configuration)
+            .closeActionStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension BannerMessageStyle where Self == BannerMessageCloseActionStyle {
+    static func closeActionStyle(_ style: some CloseActionStyle) -> BannerMessageCloseActionStyle {
+        BannerMessageCloseActionStyle(style: style)
+    }
+
+    static func closeActionStyle(@ViewBuilder content: @escaping (CloseActionConfiguration) -> some View) -> BannerMessageCloseActionStyle {
+        let style = AnyCloseActionStyle(content)
+        return BannerMessageCloseActionStyle(style: style)
+    }
+}
+
+public struct BannerMessageTopDividerStyle: BannerMessageStyle {
+    let style: any TopDividerStyle
+
+    public func makeBody(_ configuration: BannerMessageConfiguration) -> some View {
+        BannerMessage(configuration)
+            .topDividerStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension BannerMessageStyle where Self == BannerMessageTopDividerStyle {
+    static func topDividerStyle(_ style: some TopDividerStyle) -> BannerMessageTopDividerStyle {
+        BannerMessageTopDividerStyle(style: style)
+    }
+
+    static func topDividerStyle(@ViewBuilder content: @escaping (TopDividerConfiguration) -> some View) -> BannerMessageTopDividerStyle {
+        let style = AnyTopDividerStyle(content)
+        return BannerMessageTopDividerStyle(style: style)
+    }
+}
+
 // MARK: CardBodyStyle
 
 public extension CardBodyStyle where Self == CardBodyBaseStyle {
@@ -1169,6 +1246,20 @@ public extension CardMediaStyle where Self == CardMediaDescriptionStyle {
     static func descriptionStyle(@ViewBuilder content: @escaping (DescriptionConfiguration) -> some View) -> CardMediaDescriptionStyle {
         let style = AnyDescriptionStyle(content)
         return CardMediaDescriptionStyle(style: style)
+    }
+}
+
+// MARK: CloseActionStyle
+
+public extension CloseActionStyle where Self == CloseActionBaseStyle {
+    static var base: CloseActionBaseStyle {
+        CloseActionBaseStyle()
+    }
+}
+
+public extension CloseActionStyle where Self == CloseActionFioriStyle {
+    static var fiori: CloseActionFioriStyle {
+        CloseActionFioriStyle()
     }
 }
 
@@ -3584,5 +3675,19 @@ public extension TitleFormViewStyle where Self == TitleFormViewFormViewStyle {
     static func formViewStyle(@ViewBuilder content: @escaping (FormViewConfiguration) -> some View) -> TitleFormViewFormViewStyle {
         let style = AnyFormViewStyle(content)
         return TitleFormViewFormViewStyle(style: style)
+    }
+}
+
+// MARK: TopDividerStyle
+
+public extension TopDividerStyle where Self == TopDividerBaseStyle {
+    static var base: TopDividerBaseStyle {
+        TopDividerBaseStyle()
+    }
+}
+
+public extension TopDividerStyle where Self == TopDividerFioriStyle {
+    static var fiori: TopDividerFioriStyle {
+        TopDividerFioriStyle()
     }
 }
