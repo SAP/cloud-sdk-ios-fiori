@@ -66,6 +66,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: BannerMessageStyle
+
+struct BannerMessageStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any BannerMessageStyle] = []
+}
+
+extension EnvironmentValues {
+    var bannerMessageStyle: any BannerMessageStyle {
+        self.bannerMessageStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var bannerMessageStyleStack: [any BannerMessageStyle] {
+        get {
+            self[BannerMessageStyleStackKey.self]
+        }
+        set {
+            self[BannerMessageStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: CardBodyStyle
 
 struct CardBodyStyleStackKey: EnvironmentKey {
@@ -209,6 +230,27 @@ extension EnvironmentValues {
         }
         set {
             self[CardMediaStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: CloseActionStyle
+
+struct CloseActionStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any CloseActionStyle] = []
+}
+
+extension EnvironmentValues {
+    var closeActionStyle: any CloseActionStyle {
+        self.closeActionStyleStack.last ?? .base
+    }
+
+    var closeActionStyleStack: [any CloseActionStyle] {
+        get {
+            self[CloseActionStyleStackKey.self]
+        }
+        set {
+            self[CloseActionStyleStackKey.self] = newValue
         }
     }
 }
@@ -755,6 +797,48 @@ extension EnvironmentValues {
         }
         set {
             self[MediaImageStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: MenuSelectionStyle
+
+struct MenuSelectionStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any MenuSelectionStyle] = []
+}
+
+extension EnvironmentValues {
+    var menuSelectionStyle: any MenuSelectionStyle {
+        self.menuSelectionStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var menuSelectionStyleStack: [any MenuSelectionStyle] {
+        get {
+            self[MenuSelectionStyleStackKey.self]
+        }
+        set {
+            self[MenuSelectionStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: MenuSelectionItemStyle
+
+struct MenuSelectionItemStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any MenuSelectionItemStyle] = []
+}
+
+extension EnvironmentValues {
+    var menuSelectionItemStyle: any MenuSelectionItemStyle {
+        self.menuSelectionItemStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var menuSelectionItemStyleStack: [any MenuSelectionItemStyle] {
+        get {
+            self[MenuSelectionItemStyleStackKey.self]
+        }
+        set {
+            self[MenuSelectionItemStyleStackKey.self] = newValue
         }
     }
 }
@@ -1343,6 +1427,27 @@ extension EnvironmentValues {
         }
         set {
             self[TitleFormViewStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: TopDividerStyle
+
+struct TopDividerStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any TopDividerStyle] = []
+}
+
+extension EnvironmentValues {
+    var topDividerStyle: any TopDividerStyle {
+        self.topDividerStyleStack.last ?? .base
+    }
+
+    var topDividerStyleStack: [any TopDividerStyle] {
+        get {
+            self[TopDividerStyleStackKey.self]
+        }
+        set {
+            self[TopDividerStyleStackKey.self] = newValue
         }
     }
 }

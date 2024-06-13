@@ -51,6 +51,22 @@ extension AvatarsStyle {
     }
 }
 
+// MARK: BannerMessageStyle
+
+struct ResolvedBannerMessageStyle<Style: BannerMessageStyle>: View {
+    let style: Style
+    let configuration: BannerMessageConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension BannerMessageStyle {
+    func resolve(configuration: BannerMessageConfiguration) -> some View {
+        ResolvedBannerMessageStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: CardBodyStyle
 
 struct ResolvedCardBodyStyle<Style: CardBodyStyle>: View {
@@ -160,6 +176,22 @@ struct ResolvedCardMediaStyle<Style: CardMediaStyle>: View {
 extension CardMediaStyle {
     func resolve(configuration: CardMediaConfiguration) -> some View {
         ResolvedCardMediaStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: CloseActionStyle
+
+struct ResolvedCloseActionStyle<Style: CloseActionStyle>: View {
+    let style: Style
+    let configuration: CloseActionConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension CloseActionStyle {
+    func resolve(configuration: CloseActionConfiguration) -> some View {
+        ResolvedCloseActionStyle(style: self, configuration: configuration)
     }
 }
 
@@ -576,6 +608,38 @@ struct ResolvedMediaImageStyle<Style: MediaImageStyle>: View {
 extension MediaImageStyle {
     func resolve(configuration: MediaImageConfiguration) -> some View {
         ResolvedMediaImageStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: MenuSelectionStyle
+
+struct ResolvedMenuSelectionStyle<Style: MenuSelectionStyle>: View {
+    let style: Style
+    let configuration: MenuSelectionConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension MenuSelectionStyle {
+    func resolve(configuration: MenuSelectionConfiguration) -> some View {
+        ResolvedMenuSelectionStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: MenuSelectionItemStyle
+
+struct ResolvedMenuSelectionItemStyle<Style: MenuSelectionItemStyle>: View {
+    let style: Style
+    let configuration: MenuSelectionItemConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension MenuSelectionItemStyle {
+    func resolve(configuration: MenuSelectionItemConfiguration) -> some View {
+        ResolvedMenuSelectionItemStyle(style: self, configuration: configuration)
     }
 }
 
@@ -1024,5 +1088,21 @@ struct ResolvedTitleFormViewStyle<Style: TitleFormViewStyle>: View {
 extension TitleFormViewStyle {
     func resolve(configuration: TitleFormViewConfiguration) -> some View {
         ResolvedTitleFormViewStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: TopDividerStyle
+
+struct ResolvedTopDividerStyle<Style: TopDividerStyle>: View {
+    let style: Style
+    let configuration: TopDividerConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension TopDividerStyle {
+    func resolve(configuration: TopDividerConfiguration) -> some View {
+        ResolvedTopDividerStyle(style: self, configuration: configuration)
     }
 }

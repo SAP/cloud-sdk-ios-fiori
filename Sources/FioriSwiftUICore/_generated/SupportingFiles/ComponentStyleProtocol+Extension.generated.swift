@@ -45,6 +45,83 @@ public extension AvatarsStyle where Self == AvatarsFioriStyle {
     }
 }
 
+// MARK: BannerMessageStyle
+
+public extension BannerMessageStyle where Self == BannerMessageBaseStyle {
+    static var base: BannerMessageBaseStyle {
+        BannerMessageBaseStyle()
+    }
+}
+
+public extension BannerMessageStyle where Self == BannerMessageFioriStyle {
+    static var fiori: BannerMessageFioriStyle {
+        BannerMessageFioriStyle()
+    }
+}
+
+public struct BannerMessageTitleStyle: BannerMessageStyle {
+    let style: any TitleStyle
+
+    public func makeBody(_ configuration: BannerMessageConfiguration) -> some View {
+        BannerMessage(configuration)
+            .titleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension BannerMessageStyle where Self == BannerMessageTitleStyle {
+    static func titleStyle(_ style: some TitleStyle) -> BannerMessageTitleStyle {
+        BannerMessageTitleStyle(style: style)
+    }
+
+    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> BannerMessageTitleStyle {
+        let style = AnyTitleStyle(content)
+        return BannerMessageTitleStyle(style: style)
+    }
+}
+
+public struct BannerMessageCloseActionStyle: BannerMessageStyle {
+    let style: any CloseActionStyle
+
+    public func makeBody(_ configuration: BannerMessageConfiguration) -> some View {
+        BannerMessage(configuration)
+            .closeActionStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension BannerMessageStyle where Self == BannerMessageCloseActionStyle {
+    static func closeActionStyle(_ style: some CloseActionStyle) -> BannerMessageCloseActionStyle {
+        BannerMessageCloseActionStyle(style: style)
+    }
+
+    static func closeActionStyle(@ViewBuilder content: @escaping (CloseActionConfiguration) -> some View) -> BannerMessageCloseActionStyle {
+        let style = AnyCloseActionStyle(content)
+        return BannerMessageCloseActionStyle(style: style)
+    }
+}
+
+public struct BannerMessageTopDividerStyle: BannerMessageStyle {
+    let style: any TopDividerStyle
+
+    public func makeBody(_ configuration: BannerMessageConfiguration) -> some View {
+        BannerMessage(configuration)
+            .topDividerStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension BannerMessageStyle where Self == BannerMessageTopDividerStyle {
+    static func topDividerStyle(_ style: some TopDividerStyle) -> BannerMessageTopDividerStyle {
+        BannerMessageTopDividerStyle(style: style)
+    }
+
+    static func topDividerStyle(@ViewBuilder content: @escaping (TopDividerConfiguration) -> some View) -> BannerMessageTopDividerStyle {
+        let style = AnyTopDividerStyle(content)
+        return BannerMessageTopDividerStyle(style: style)
+    }
+}
+
 // MARK: CardBodyStyle
 
 public extension CardBodyStyle where Self == CardBodyBaseStyle {
@@ -1256,6 +1333,20 @@ public extension CardMediaStyle where Self == CardMediaDescriptionStyle {
     }
 }
 
+// MARK: CloseActionStyle
+
+public extension CloseActionStyle where Self == CloseActionBaseStyle {
+    static var base: CloseActionBaseStyle {
+        CloseActionBaseStyle()
+    }
+}
+
+public extension CloseActionStyle where Self == CloseActionFioriStyle {
+    static var fiori: CloseActionFioriStyle {
+        CloseActionFioriStyle()
+    }
+}
+
 // MARK: CounterStyle
 
 public extension CounterStyle where Self == CounterBaseStyle {
@@ -2163,6 +2254,97 @@ public extension MediaImageStyle where Self == MediaImageBaseStyle {
 public extension MediaImageStyle where Self == MediaImageFioriStyle {
     static var fiori: MediaImageFioriStyle {
         MediaImageFioriStyle()
+    }
+}
+
+// MARK: MenuSelectionStyle
+
+public extension MenuSelectionStyle where Self == MenuSelectionBaseStyle {
+    static var base: MenuSelectionBaseStyle {
+        MenuSelectionBaseStyle()
+    }
+}
+
+public extension MenuSelectionStyle where Self == MenuSelectionFioriStyle {
+    static var fiori: MenuSelectionFioriStyle {
+        MenuSelectionFioriStyle()
+    }
+}
+
+public struct MenuSelectionActionStyle: MenuSelectionStyle {
+    let style: any ActionStyle
+
+    public func makeBody(_ configuration: MenuSelectionConfiguration) -> some View {
+        MenuSelection(configuration)
+            .actionStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension MenuSelectionStyle where Self == MenuSelectionActionStyle {
+    static func actionStyle(_ style: some ActionStyle) -> MenuSelectionActionStyle {
+        MenuSelectionActionStyle(style: style)
+    }
+
+    static func actionStyle(@ViewBuilder content: @escaping (ActionConfiguration) -> some View) -> MenuSelectionActionStyle {
+        let style = AnyActionStyle(content)
+        return MenuSelectionActionStyle(style: style)
+    }
+}
+
+// MARK: MenuSelectionItemStyle
+
+public extension MenuSelectionItemStyle where Self == MenuSelectionItemBaseStyle {
+    static var base: MenuSelectionItemBaseStyle {
+        MenuSelectionItemBaseStyle()
+    }
+}
+
+public extension MenuSelectionItemStyle where Self == MenuSelectionItemFioriStyle {
+    static var fiori: MenuSelectionItemFioriStyle {
+        MenuSelectionItemFioriStyle()
+    }
+}
+
+public struct MenuSelectionItemIconStyle: MenuSelectionItemStyle {
+    let style: any IconStyle
+
+    public func makeBody(_ configuration: MenuSelectionItemConfiguration) -> some View {
+        MenuSelectionItem(configuration)
+            .iconStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension MenuSelectionItemStyle where Self == MenuSelectionItemIconStyle {
+    static func iconStyle(_ style: some IconStyle) -> MenuSelectionItemIconStyle {
+        MenuSelectionItemIconStyle(style: style)
+    }
+
+    static func iconStyle(@ViewBuilder content: @escaping (IconConfiguration) -> some View) -> MenuSelectionItemIconStyle {
+        let style = AnyIconStyle(content)
+        return MenuSelectionItemIconStyle(style: style)
+    }
+}
+
+public struct MenuSelectionItemTitleStyle: MenuSelectionItemStyle {
+    let style: any TitleStyle
+
+    public func makeBody(_ configuration: MenuSelectionItemConfiguration) -> some View {
+        MenuSelectionItem(configuration)
+            .titleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension MenuSelectionItemStyle where Self == MenuSelectionItemTitleStyle {
+    static func titleStyle(_ style: some TitleStyle) -> MenuSelectionItemTitleStyle {
+        MenuSelectionItemTitleStyle(style: style)
+    }
+
+    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> MenuSelectionItemTitleStyle {
+        let style = AnyTitleStyle(content)
+        return MenuSelectionItemTitleStyle(style: style)
     }
 }
 
@@ -3605,5 +3787,19 @@ public extension TitleFormViewStyle where Self == TitleFormViewFormViewStyle {
     static func formViewStyle(@ViewBuilder content: @escaping (FormViewConfiguration) -> some View) -> TitleFormViewFormViewStyle {
         let style = AnyFormViewStyle(content)
         return TitleFormViewFormViewStyle(style: style)
+    }
+}
+
+// MARK: TopDividerStyle
+
+public extension TopDividerStyle where Self == TopDividerBaseStyle {
+    static var base: TopDividerBaseStyle {
+        TopDividerBaseStyle()
+    }
+}
+
+public extension TopDividerStyle where Self == TopDividerFioriStyle {
+    static var fiori: TopDividerFioriStyle {
+        TopDividerFioriStyle()
     }
 }
