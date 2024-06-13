@@ -266,7 +266,7 @@ extension SignatureCaptureView: View {
         if isRequired {
             let requiredText = NSLocalizedString("Required Field", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Required Field")
             let labelString = _title?.suffix(1) == "*" ? String(_title?.dropLast(1) ?? "") : (_title ?? "")
-            accString = labelString + (labelString.isEmpty != nil ? ", " : "") + requiredText
+            accString = labelString + (labelString.isEmpty ? ", " : "") + requiredText
         } else {
             accString = _title ?? ""
         }
