@@ -64,6 +64,11 @@ struct TextFieldFormViewExample: View {
                 Toggle("Mandatory Field", isOn: self.$isRequired)
                     .padding(.leading, 16)
                     .padding(.trailing, 16)
+                Button("Dismiss Keyboard") {
+                    hideKeyboard()
+                }
+                .padding(.leading, 16)
+                .padding(.trailing, 16)
 
                 Text("Default TitleForm")
                 TextFieldFormView(title: self.key1, text: self.$valueText1, placeholder: "TextFieldFormView", errorMessage: self.getErrorMessage(), maxTextLength: self.getMaxTextLength(), hintText: self.getHintText(), isCharCountEnabled: self.showsCharCount, allowsBeyondLimit: self.allowsBeyondLimit, isRequired: self.isRequired, actionIcon: self.getActionIcon(), action: self.getAction())

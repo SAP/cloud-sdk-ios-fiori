@@ -27,7 +27,7 @@ public struct PlaceholderTextFieldBaseStyle: PlaceholderTextFieldStyle {
                 Button(action: {
                     configuration.text = ""
                 }) {
-                    Image(systemName: "xmark.circle.fill")
+                    Image(systemName: "xmark.circle")
                         .font(.fiori(forTextStyle: .body))
                         .foregroundColor(.preferredColor(.tertiaryLabel))
                         .padding(.trailing, 8)
