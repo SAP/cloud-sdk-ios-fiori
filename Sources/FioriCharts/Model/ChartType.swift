@@ -1,7 +1,7 @@
 import Foundation
 
 /// Available chart types. Use this enum to define chart type to present.
-public enum ChartType: String {
+public enum ChartType: String, Sendable {
     /// Line Chart
     case line
 

@@ -2,7 +2,7 @@ import Combine
 import Foundation
 import SwiftUI
 
-protocol ChartContext: AnyObject {
+protocol ChartContext: AnyObject, Sendable {
     func scaleX(_ model: ChartModel, plotViewSize: CGSize) -> CGFloat
     
     func scaleY(_ model: ChartModel, plotViewSize: CGSize) -> CGFloat
@@ -41,6 +41,8 @@ protocol ChartContext: AnyObject {
     // range selection
     func closestSelectedPlotItems(_ model: ChartModel, atPoints: [CGPoint], rect: CGRect, layoutDirection: LayoutDirection) -> [(Int, Int)]
 }
+
+extension DefaultChartContext: @unchecked Sendable {}
 
 class DefaultChartContext: ChartContext {
     /// top left position

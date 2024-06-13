@@ -1855,6 +1855,8 @@ extension ChartModel: CustomStringConvertible {
     }
 }
 
+extension ChartModel: @unchecked Sendable {}
+
 /**
  * X Axis Labels Position
  */
