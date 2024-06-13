@@ -273,3 +273,9 @@ protocol _MenuSelectionComponent: _ActionComponent {
     // sourcery: resultBuilder.name = @ViewBuilder, resultBuilder.backingComponent = _MenuSelectionContainer
     var items: [MenuSelectionItemProtocol] { get }
 }
+
+// sourcery: CompositeComponent
+protocol _BannerMessageComponent: _TitleComponent, _CloseActionComponent, _TopDividerComponent {
+    /// The action to be performed when the banner is tapped.
+    var bannerTapAction: (() -> Void)? { get }
+}

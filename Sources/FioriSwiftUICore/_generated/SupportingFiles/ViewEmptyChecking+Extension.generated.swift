@@ -21,6 +21,14 @@ extension Avatars: _ViewEmptyChecking {
     }
 }
 
+extension BannerMessage: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        title.isEmpty &&
+            closeAction.isEmpty &&
+            topDivider.isEmpty
+    }
+}
+
 extension CardBody: _ViewEmptyChecking {
     public var isEmpty: Bool {
         cardBody.isEmpty
@@ -98,6 +106,12 @@ extension CardMedia: _ViewEmptyChecking {
     public var isEmpty: Bool {
         mediaImage.isEmpty &&
             description.isEmpty
+    }
+}
+
+extension CloseAction: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        closeAction.isEmpty
     }
 }
 
@@ -464,5 +478,11 @@ extension Title: _ViewEmptyChecking {
 extension TitleFormView: _ViewEmptyChecking {
     public var isEmpty: Bool {
         placeholder.isEmpty
+    }
+}
+
+extension TopDivider: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        topDivider.isEmpty
     }
 }

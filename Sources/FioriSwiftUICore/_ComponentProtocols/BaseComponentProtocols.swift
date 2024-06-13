@@ -241,3 +241,18 @@ protocol _IncrementActionComponent {
     // sourcery: resultBuilder.defaultValue = "{ FioriButton { _ in Image(systemName: "plus") } }"
     var incrementAction: FioriButton? { get }
 }
+
+// sourcery: BaseComponent
+protocol _TopDividerComponent {
+    // sourcery: defaultValue = "{ Rectangle().fill(Color.clear) }"
+    @ViewBuilder
+    var topDivider: (() -> any View)? { get }
+}
+
+// sourcery: BaseComponent
+protocol _CloseActionComponent {
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "FioriButton { _ in Image(systemName: "xmark") }"
+    // sourcery: resultBuilder.defaultValue = "{ FioriButton { _ in Image(systemName: "xmark") } }"
+    var closeAction: FioriButton? { get }
+}
