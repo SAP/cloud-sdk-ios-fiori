@@ -1,5 +1,6 @@
 import Foundation
 import SwiftUI
+import Combine
 
 /// Each series has its own ChartSeriesAttributes
 public class ChartSeriesAttributes: ObservableObject, Identifiable, NSCopying {

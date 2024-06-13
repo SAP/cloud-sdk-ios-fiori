@@ -1,6 +1,7 @@
 import Foundation
 import SwiftUI
 import FioriThemeManager
+import Combine
 
 public class ChartPointAttributes: ObservableObject, Identifiable, NSCopying {
     /// Indicates if the point is hidden or visible.

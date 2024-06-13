@@ -1,6 +1,7 @@
 import FioriThemeManager
 import Foundation
 import SwiftUI
+import Combine
 
 public class ChartSeriesPalette: ObservableObject, Identifiable, NSCopying {
     public init(colors: [Color],

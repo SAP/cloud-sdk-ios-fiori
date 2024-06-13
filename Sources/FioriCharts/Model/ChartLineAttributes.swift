@@ -1,6 +1,7 @@
 import Foundation
 import SwiftUI
 import FioriThemeManager
+import Combine
 
 /// Gridline properties for an Axis.
 public class ChartGridlineAttributes: ObservableObject, Identifiable, NSCopying, CustomStringConvertible {

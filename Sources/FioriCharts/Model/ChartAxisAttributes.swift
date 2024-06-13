@@ -1,5 +1,6 @@
 import Foundation
 import SwiftUI
+import Combine
 
 /**
  Identifiers for different axes presented by the chart.
