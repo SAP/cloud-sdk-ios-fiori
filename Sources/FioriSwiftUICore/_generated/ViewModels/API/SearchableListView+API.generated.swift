@@ -12,8 +12,8 @@ public struct SearchableListView<CancelActionView: View, DoneActionView: View> {
 
     let _cancelAction: CancelActionView
 	let _doneAction: DoneActionView
-	var isTopLevel: Bool = true
 	var dataHandler: (() -> ())? = nil
+	var isTopLevel: Bool = true
 	var contentView: AnyView? = nil
 
     private var isModelInit: Bool = false

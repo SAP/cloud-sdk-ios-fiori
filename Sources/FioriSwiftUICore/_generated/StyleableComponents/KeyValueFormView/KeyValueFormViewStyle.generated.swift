@@ -36,9 +36,12 @@ public struct KeyValueFormViewConfiguration {
     public let allowsBeyondLimit: Bool
     public let charCountReachLimitMessage: String?
     public let charCountBeyondLimitMsg: String?
+    public let mandatoryFieldIndicator: MandatoryFieldIndicator
+    public let isRequired: Bool
 
     public typealias Title = ConfigurationViewWrapper
     public typealias Placeholder = ConfigurationViewWrapper
+    public typealias MandatoryFieldIndicator = ConfigurationViewWrapper
 }
 
 public struct KeyValueFormViewFioriStyle: KeyValueFormViewStyle {
@@ -47,6 +50,7 @@ public struct KeyValueFormViewFioriStyle: KeyValueFormViewStyle {
             .titleStyle(TitleFioriStyle(keyValueFormViewConfiguration: configuration))
             .textViewStyle(TextViewFioriStyle(keyValueFormViewConfiguration: configuration))
             .placeholderStyle(PlaceholderFioriStyle(keyValueFormViewConfiguration: configuration))
+            .mandatoryFieldIndicatorStyle(MandatoryFieldIndicatorFioriStyle(keyValueFormViewConfiguration: configuration))
             .noteFormViewStyle(NoteFormViewFioriStyle(keyValueFormViewConfiguration: configuration))
     }
 }

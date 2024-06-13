@@ -76,11 +76,12 @@ extension SignatureCaptureView: View {
     public var body: some View {
         VStack(spacing: 0) {
             HStack {
-                Text(_title ?? NSLocalizedString("Signature", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""))
+                Text(self.getKeyName())
                     .font(titleFont)
                     .foregroundColor(titleColor)
                     .padding(.top, 11)
                     .padding(.bottom, 11)
+                    .accessibilityLabel(self.getTitleAccessibilityLabel())
                 Spacer()
                 cancelAction
                     .simultaneousGesture(
@@ -248,7 +249,30 @@ extension SignatureCaptureView: View {
             }
         }
     }
-
+    
+    func getKeyName() -> String {
+        var titleString = _title
+        if (titleString?.isEmpty) == nil {
+            titleString = NSLocalizedString("Signature", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
+        }
+        if isRequired {
+            return (titleString ?? "") + "*"
+        }
+        return titleString ?? ""
+    }
+    
+    func getTitleAccessibilityLabel() -> String {
+        var accString = ""
+        if isRequired {
+            let requiredText = NSLocalizedString("Required Field", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Required Field")
+            let labelString = _title?.suffix(1) == "*" ? String(_title?.dropLast(1) ?? "") : (_title ?? "")
+            accString = labelString + (labelString.isEmpty != nil ? ", " : "") + requiredText
+        } else {
+            accString = _title ?? ""
+        }
+        return accString
+    }
+    
     func setEditing() {
         self.isEditing = true
     }
@@ -506,6 +530,18 @@ public extension SignatureCaptureView {
     func appliesTintColorToImage(_ appliesTintColorToImage: Bool) -> Self {
         var newSelf = self
         newSelf.appliesTintColorToImage = appliesTintColorToImage
+        return newSelf
+    }
+    
+    /**
+     A view modifier to indicate if the component is a mandatory field.
+
+     - parameter `isRequired`: A boolean variable to indicate if the cell is a mandatory field.
+     The default value is `false`.
+     */
+    func isRequired(_ isRequired: Bool) -> Self {
+        var newSelf = self
+        newSelf.isRequired = isRequired
         return newSelf
     }
 }

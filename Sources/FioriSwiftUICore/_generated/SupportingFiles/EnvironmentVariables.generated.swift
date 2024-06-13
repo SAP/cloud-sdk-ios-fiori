@@ -717,6 +717,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: MandatoryFieldIndicatorStyle
+
+struct MandatoryFieldIndicatorStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any MandatoryFieldIndicatorStyle] = []
+}
+
+extension EnvironmentValues {
+    var mandatoryFieldIndicatorStyle: any MandatoryFieldIndicatorStyle {
+        self.mandatoryFieldIndicatorStyleStack.last ?? .base
+    }
+
+    var mandatoryFieldIndicatorStyleStack: [any MandatoryFieldIndicatorStyle] {
+        get {
+            self[MandatoryFieldIndicatorStyleStackKey.self]
+        }
+        set {
+            self[MandatoryFieldIndicatorStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: MediaImageStyle
 
 struct MediaImageStyleStackKey: EnvironmentKey {
@@ -734,6 +755,48 @@ extension EnvironmentValues {
         }
         set {
             self[MediaImageStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: MenuSelectionStyle
+
+struct MenuSelectionStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any MenuSelectionStyle] = []
+}
+
+extension EnvironmentValues {
+    var menuSelectionStyle: any MenuSelectionStyle {
+        self.menuSelectionStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var menuSelectionStyleStack: [any MenuSelectionStyle] {
+        get {
+            self[MenuSelectionStyleStackKey.self]
+        }
+        set {
+            self[MenuSelectionStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: MenuSelectionItemStyle
+
+struct MenuSelectionItemStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any MenuSelectionItemStyle] = []
+}
+
+extension EnvironmentValues {
+    var menuSelectionItemStyle: any MenuSelectionItemStyle {
+        self.menuSelectionItemStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var menuSelectionItemStyleStack: [any MenuSelectionItemStyle] {
+        get {
+            self[MenuSelectionItemStyleStackKey.self]
+        }
+        set {
+            self[MenuSelectionItemStyleStackKey.self] = newValue
         }
     }
 }

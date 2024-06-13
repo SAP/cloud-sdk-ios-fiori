@@ -581,6 +581,23 @@ public extension View {
     }
 }
 
+// MARK: MandatoryFieldIndicatorStyle
+
+public extension View {
+    func mandatoryFieldIndicatorStyle(_ style: some MandatoryFieldIndicatorStyle) -> some View {
+        self.transformEnvironment(\.mandatoryFieldIndicatorStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func mandatoryFieldIndicatorStyle(@ViewBuilder content: @escaping (MandatoryFieldIndicatorConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.mandatoryFieldIndicatorStyleStack) { stack in
+            let style = AnyMandatoryFieldIndicatorStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: MediaImageStyle
 
 public extension View {
@@ -593,6 +610,40 @@ public extension View {
     func mediaImageStyle(@ViewBuilder content: @escaping (MediaImageConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.mediaImageStyleStack) { stack in
             let style = AnyMediaImageStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: MenuSelectionStyle
+
+public extension View {
+    func menuSelectionStyle(_ style: some MenuSelectionStyle) -> some View {
+        self.transformEnvironment(\.menuSelectionStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func menuSelectionStyle(@ViewBuilder content: @escaping (MenuSelectionConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.menuSelectionStyleStack) { stack in
+            let style = AnyMenuSelectionStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: MenuSelectionItemStyle
+
+public extension View {
+    func menuSelectionItemStyle(_ style: some MenuSelectionItemStyle) -> some View {
+        self.transformEnvironment(\.menuSelectionItemStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func menuSelectionItemStyle(@ViewBuilder content: @escaping (MenuSelectionItemConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.menuSelectionItemStyleStack) { stack in
+            let style = AnyMenuSelectionItemStyle(content)
             stack.append(style)
         }
     }

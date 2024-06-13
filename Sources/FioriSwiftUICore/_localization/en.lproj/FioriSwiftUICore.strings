@@ -31,6 +31,9 @@
 /* XACT: The accessibility label for the signature line */
 "Signature Line" = "Signature Line";
 
+/* XACT: The accessibility label for the mandatory field */
+"Required Field" = "Required Field";
+
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
 "Canceled" = "Canceled";
 
@@ -174,3 +177,6 @@
 
 /* XBUT: voice over label for test field in stepper */
 "Select specific value" = "Select specific value";
+
+/* XBUT: View all action in MenuSelection */
+"View All (%d)" = "View All (%d)";

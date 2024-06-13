@@ -101,7 +101,7 @@ extension [Variable] {
     var configurationInitArgs: String {
         map { variable in
             let name = variable.name
-            if variable.isResultBuilder {
+            if variable.isResultBuilder, variable.annotations.resultBuilderReturnType == nil {
                 return "\(name): .init(self.\(name))"
             } else if variable.isBinding {
                 return "\(name): self.$\(name)"
@@ -137,7 +137,11 @@ extension [Variable] {
             let name = variable.name
             if variable.isResultBuilder {
                 props.append("public let \(name): \(name.capitalizingFirst())")
-                `typealias`.append("public typealias \(name.capitalizingFirst()) = ConfigurationViewWrapper")
+                var type = "ConfigurationViewWrapper"
+                if let returnType = variable.annotations.resultBuilderReturnType {
+                    type = returnType
+                }
+                `typealias`.append("public typealias \(name.capitalizingFirst()) = \(type)")
             } else if variable.isBinding {
                 props.append("@Binding public var \(name): \(variable.typeName)")
             } else {

@@ -11,6 +11,12 @@ public protocol IndexedViewContainer {
     func view(at index: Int) -> V
 }
 
+extension IndexedViewContainer {
+    var isEmpty: Bool {
+        count == 0
+    }
+}
+
 /// SingleView
 public struct SingleView<Content: View>: IndexedViewContainer {
     let view: Content
@@ -65,7 +71,7 @@ public struct PairView<First: View, Second: IndexedViewContainer>: IndexedViewCo
 
 /// A custom view builder that return instance of type `IndexedViewContainer`.
 @available(iOS 13.0, macOS 10.15, tvOS 13.0, watchOS 6.0, *)
-@_functionBuilder
+@resultBuilder
 public enum IndexedViewBuilder {
     /// Builds an empty view from a block containing no statements.
     public static func buildBlock() -> some IndexedViewContainer {

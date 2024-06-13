@@ -547,6 +547,22 @@ extension LinearProgressIndicatorViewStyle {
     }
 }
 
+// MARK: MandatoryFieldIndicatorStyle
+
+struct ResolvedMandatoryFieldIndicatorStyle<Style: MandatoryFieldIndicatorStyle>: View {
+    let style: Style
+    let configuration: MandatoryFieldIndicatorConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension MandatoryFieldIndicatorStyle {
+    func resolve(configuration: MandatoryFieldIndicatorConfiguration) -> some View {
+        ResolvedMandatoryFieldIndicatorStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: MediaImageStyle
 
 struct ResolvedMediaImageStyle<Style: MediaImageStyle>: View {
@@ -560,6 +576,38 @@ struct ResolvedMediaImageStyle<Style: MediaImageStyle>: View {
 extension MediaImageStyle {
     func resolve(configuration: MediaImageConfiguration) -> some View {
         ResolvedMediaImageStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: MenuSelectionStyle
+
+struct ResolvedMenuSelectionStyle<Style: MenuSelectionStyle>: View {
+    let style: Style
+    let configuration: MenuSelectionConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension MenuSelectionStyle {
+    func resolve(configuration: MenuSelectionConfiguration) -> some View {
+        ResolvedMenuSelectionStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: MenuSelectionItemStyle
+
+struct ResolvedMenuSelectionItemStyle<Style: MenuSelectionItemStyle>: View {
+    let style: Style
+    let configuration: MenuSelectionItemConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension MenuSelectionItemStyle {
+    func resolve(configuration: MenuSelectionItemConfiguration) -> some View {
+        ResolvedMenuSelectionItemStyle(style: self, configuration: configuration)
     }
 }
 

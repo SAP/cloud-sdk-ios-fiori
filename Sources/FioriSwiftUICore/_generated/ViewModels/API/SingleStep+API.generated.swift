@@ -14,15 +14,15 @@ public struct SingleStep<Title: View, Node: View, Substeps: IndexedViewContainer
 	var _title: Title
 	var _node: Node
 	var _substeps: Substeps
-	var horizontalSpacing: CGFloat = 8
-	var verticalSpacing: CGFloat = 8
-	var isLastStep: Bool = false
-	var trailing: CGFloat = 8
-	var state: StepProgressIndicatorState?
-	var bottom: CGFloat = 8
-	var lineSize: CGSize? = nil
 	var top: CGFloat = 8
+	var state: StepProgressIndicatorState?
+	var trailing: CGFloat = 8
+	var bottom: CGFloat = 8
+	var isLastStep: Bool = false
+	var lineSize: CGSize? = nil
+	var horizontalSpacing: CGFloat = 8
 	var leading: CGFloat = 8
+	var verticalSpacing: CGFloat = 8
 
     private var isModelInit: Bool = false
 	private var isTitleNil: Bool = false
