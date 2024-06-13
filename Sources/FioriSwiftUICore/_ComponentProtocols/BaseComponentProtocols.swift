@@ -139,6 +139,20 @@ protocol _SecondaryActionComponent {
 }
 
 // sourcery: BaseComponent
+protocol _TertiaryActionComponent {
+    // sourcery: @ViewBuilder
+    var tertiaryAction: FioriButton? { get }
+}
+
+// sourcery: BaseComponent
+protocol _OverflowActionComponent {
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "FioriButton { _ in Image(systemName: "ellipsis") }"
+    // sourcery: resultBuilder.defaultValue = "{ FioriButton { _ in Image(systemName: "ellipsis") } }"
+    var overflowAction: FioriButton? { get }
+}
+
+// sourcery: BaseComponent
 protocol _Row1Component {
 //    var numberOfLines: Int { get set }
     

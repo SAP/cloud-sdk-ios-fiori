@@ -707,6 +707,22 @@ extension ObjectItemStyle {
     }
 }
 
+// MARK: OverflowActionStyle
+
+struct ResolvedOverflowActionStyle<Style: OverflowActionStyle>: View {
+    let style: Style
+    let configuration: OverflowActionConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension OverflowActionStyle {
+    func resolve(configuration: OverflowActionConfiguration) -> some View {
+        ResolvedOverflowActionStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: PlaceholderStyle
 
 struct ResolvedPlaceholderStyle<Style: PlaceholderStyle>: View {
@@ -960,6 +976,22 @@ struct ResolvedTagsStyle<Style: TagsStyle>: View {
 extension TagsStyle {
     func resolve(configuration: TagsConfiguration) -> some View {
         ResolvedTagsStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: TertiaryActionStyle
+
+struct ResolvedTertiaryActionStyle<Style: TertiaryActionStyle>: View {
+    let style: Style
+    let configuration: TertiaryActionConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension TertiaryActionStyle {
+    func resolve(configuration: TertiaryActionConfiguration) -> some View {
+        ResolvedTertiaryActionStyle(style: self, configuration: configuration)
     }
 }
 

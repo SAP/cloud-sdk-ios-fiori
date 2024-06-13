@@ -52,7 +52,9 @@ extension Card: _ViewEmptyChecking {
             kpiCaption.isEmpty &&
             cardBody.isEmpty &&
             action.isEmpty &&
-            secondaryAction.isEmpty
+            secondaryAction.isEmpty &&
+            tertiaryAction.isEmpty &&
+            overflowAction.isEmpty
     }
 }
 
@@ -69,7 +71,9 @@ extension CardExtHeader: _ViewEmptyChecking {
 extension CardFooter: _ViewEmptyChecking {
     public var isEmpty: Bool {
         action.isEmpty &&
-            secondaryAction.isEmpty
+            secondaryAction.isEmpty &&
+            tertiaryAction.isEmpty &&
+            overflowAction.isEmpty
     }
 }
 
@@ -335,6 +339,12 @@ extension ObjectItem: _ViewEmptyChecking {
     }
 }
 
+extension OverflowAction: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        overflowAction.isEmpty
+    }
+}
+
 extension Placeholder: _ViewEmptyChecking {
     public var isEmpty: Bool {
         placeholder.isEmpty
@@ -438,6 +448,12 @@ extension Switch: _ViewEmptyChecking {
 extension Tags: _ViewEmptyChecking {
     public var isEmpty: Bool {
         tags.isEmpty
+    }
+}
+
+extension TertiaryAction: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        tertiaryAction.isEmpty
     }
 }
 

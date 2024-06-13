@@ -19,13 +19,15 @@ public struct CardBaseStyle: CardStyle {
         CardLayout(lineSpacing: 0) {
             configuration._cardHeader
                 .padding(EdgeInsets(top: 0, leading: 0, bottom: 6, trailing: 0))
-                
+            
             if !configuration.cardBody.isEmpty {
                 configuration.cardBody
                     .padding(EdgeInsets(top: 6, leading: 16, bottom: 6, trailing: 16))
             }
             
-            if !(configuration._cardFooter.action.isEmpty && configuration._cardFooter.secondaryAction.isEmpty) {
+            if !(configuration._cardFooter.action.isEmpty && configuration._cardFooter.secondaryAction.isEmpty &&
+                configuration._cardFooter.tertiaryAction.isEmpty)
+            {
                 configuration._cardFooter
                     .padding(EdgeInsets(top: 6, leading: 16, bottom: 6, trailing: 16))
             }
@@ -47,7 +49,7 @@ struct CardLayout: Layout {
             self.rows.removeAll()
         }
     }
-
+    
     let lineSpacing: CGFloat
     
     public init(lineSpacing: CGFloat = 8) {
@@ -61,28 +63,28 @@ struct CardLayout: Layout {
         
         return CGSize(width: finalWidth, height: height)
     }
-
+    
     public func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout CacheData) {
         self.calculateLayout(for: subviews, containerWidth: proposal.width, cache: &cache)
-
+        
         for (i, subview) in subviews.enumerated() {
             let item = cache.rows[i]
             let pt = CGPoint(x: item.origin.x + bounds.origin.x, y: item.origin.y + bounds.origin.y)
             subview.place(at: pt, proposal: ProposedViewSize(width: item.size.width, height: nil))
         }
     }
-
+    
     public func makeCache(subviews: Subviews) -> CacheData {
         CacheData(width: nil, maxWidth: 0, rows: [])
     }
-
+    
     func calculateLayout(for subviews: Subviews, containerWidth: CGFloat?, cache: inout CacheData) {
-        guard !subviews.isEmpty else {
+        if subviews.isEmpty || (cache.width == containerWidth && !cache.rows.isEmpty) {
             return
         }
         cache.clear()
         cache.width = containerWidth
-
+        
         let maxContainerWidth = containerWidth ?? CGFloat.greatestFiniteMagnitude
         let proposal = containerWidth == nil ? ProposedViewSize.unspecified : ProposedViewSize(width: containerWidth, height: nil)
         let sizes = subviews.map {
@@ -291,6 +293,28 @@ extension CardFioriStyle {
         }
     }
     
+    struct TertiaryActionFioriStyle: TertiaryActionStyle {
+        let cardConfiguration: CardConfiguration
+        
+        func makeBody(_ configuration: TertiaryActionConfiguration) -> some View {
+            TertiaryAction(configuration)
+            // Add default style for TertiaryAction
+            // .foregroundStyle(Color.preferredColor(<#fiori color#>))
+            // .font(.fiori(forTextStyle: <#fiori font#>))
+        }
+    }
+    
+    struct OverflowActionFioriStyle: OverflowActionStyle {
+        let cardConfiguration: CardConfiguration
+        
+        func makeBody(_ configuration: OverflowActionConfiguration) -> some View {
+            OverflowAction(configuration)
+            // Add default style for OverflowAction
+            // .foregroundStyle(Color.preferredColor(<#fiori color#>))
+            // .font(.fiori(forTextStyle: <#fiori font#>))
+        }
+    }
+    
     struct CardHeaderFioriStyle: CardHeaderStyle {
         let cardConfiguration: CardConfiguration
         
@@ -337,7 +361,7 @@ public extension CardStyle where Self == CardCardStyle {
 struct ColorTagStyle: TagStyle {
     /// text color
     var textColor: Color = .preferredColor(.secondaryLabel)
-
+    
     /// Color inside the tag
     var fillColor: Color = .clear
     
@@ -423,7 +447,7 @@ public enum CardTests {
     static let row1 = TableRowItem(data: [DataTextItem("Need Attention", Font.subheadline.weight(.medium), Color.preferredColor(.criticalLabel)), DataTextItem("Yesterday", Font.caption, Color.preferredColor(.tertiaryLabel))])
     static let row2 = TableRowItem(data: [DataTextItem("Stable", Font.subheadline), DataTextItem("Jul 5, 2021", Font.caption, Color.preferredColor(.tertiaryLabel))])
     static let row3 = TableRowItem(data: [DataTextItem("Need Attention", Font.subheadline), DataTextItem("Jul 4, 2021", Font.caption, Color.preferredColor(.tertiaryLabel))])
-
+    
     static let tableCard = TableModel(headerData: nil,
                                       rowData: [row1, row2, row3],
                                       isHeaderSticky: false,
@@ -904,9 +928,150 @@ public enum CardTests {
     
     static let titleOnly = Card(title: "Title")
     
-    /// Sample cards for testing
-    public static let cardSamples = [sampleCard1, sampleCard2, sampleCard3, sampleCard4, sampleCard5, sampleCard6, sampleCard7, sampleCard9, sampleCard10, vbCard, sampleCard11, sampleCard8, fullCard]
+    static let sampleCard12 = Card(title: "Title",
+                                   subtitle: "Subtitle that goes to multiple lines before truncating just like that",
+                                   icons: [TextOrIcon.icon(Image(systemName: "circle.fill")), TextOrIcon.icon(Image(systemName: "paperclip")), TextOrIcon.text("1")],
+                                   headerAction: FioriButton(title: "..."),
+                                   counter: "1 of 3",
+                                   action: FioriButton(title: "Primary"),
+                                   secondaryAction: FioriButton(title: "Secondary"))
     
+    static let sampleCard13 = Card(title: "Title",
+                                   subtitle: "Subtitle that goes to multiple lines before truncating just like that",
+                                   icons: [TextOrIcon.icon(Image(systemName: "circle.fill")), TextOrIcon.icon(Image(systemName: "paperclip")), TextOrIcon.text("1")],
+                                   headerAction: FioriButton(title: "..."),
+                                   counter: "1 of 3",
+                                   action: FioriButton(title: "Primary"),
+                                   secondaryAction: FioriButton(title: "Secondary"), tertiaryAction: FioriButton(title: "Tertiary"))
+    
+    static let sampleCard14 = Card(title: "Title",
+                                   subtitle: "Subtitle that goes to multiple lines before truncating just like that",
+                                   icons: [TextOrIcon.icon(Image(systemName: "circle.fill")), TextOrIcon.icon(Image(systemName: "paperclip")), TextOrIcon.text("1")],
+                                   headerAction: FioriButton(title: "..."),
+                                   counter: "1 of 3",
+                                   action: FioriButton(title: "Primary long long long long long"),
+                                   secondaryAction: FioriButton(title: "Secondary"), tertiaryAction: FioriButton(title: "Tertiary"))
+    
+    static let sampleCard15 = Card(title: "Title",
+                                   subtitle: "Subtitle that goes to multiple lines before truncating just like that",
+                                   icons: [TextOrIcon.icon(Image(systemName: "circle.fill")), TextOrIcon.icon(Image(systemName: "paperclip")), TextOrIcon.text("1")],
+                                   headerAction: FioriButton(title: "..."),
+                                   counter: "1 of 3",
+                                   action: FioriButton(title: "Primary"),
+                                   secondaryAction: FioriButton(title: "Secondary long long long long long a b c long long long long"), tertiaryAction: FioriButton(title: "Tertiary"),
+                                   overflowAction: FioriButton(title: "Overflow"))
+
+    static let sampleCard20 = Card(title: "Title",
+                                   subtitle: "Subtitle that goes to multiple lines before truncating just like that",
+                                   icons: [TextOrIcon.icon(Image(systemName: "circle.fill")), TextOrIcon.icon(Image(systemName: "paperclip")), TextOrIcon.text("1")],
+                                   headerAction: FioriButton(title: "..."),
+                                   counter: "1 of 3",
+                                   action: FioriButton(title: "Primary long long long long long long long long"),
+                                   secondaryAction: FioriButton(title: "Secondary long long long long long long long long long long long"), tertiaryAction: FioriButton(title: "Tertiary"),
+                                   overflowAction: FioriButton(title: "Overflow"))
+    
+    static let sampleCard16 = Card(title: "Title",
+                                   subtitle: "Subtitle that goes to multiple lines before truncating just like that",
+                                   icons: [TextOrIcon.icon(Image(systemName: "circle.fill")), TextOrIcon.icon(Image(systemName: "paperclip")), TextOrIcon.text("1")],
+                                   headerAction: FioriButton(title: "..."),
+                                   counter: "1 of 3",
+                                   secondaryAction: FioriButton(title: "Secondary"))
+    
+    static let sampleCard17 = Card(title: "Title",
+                                   subtitle: "Subtitle that goes to multiple lines before truncating just like that",
+                                   icons: [TextOrIcon.icon(Image(systemName: "circle.fill")), TextOrIcon.icon(Image(systemName: "paperclip")), TextOrIcon.text("1")],
+                                   headerAction: FioriButton(title: "..."),
+                                   counter: "1 of 3",
+                                   tertiaryAction: FioriButton(title: "Tertiary"),
+                                   overflowAction: FioriButton(title: "Overflow"))
+    
+    static let sampleCard18 = Card {
+        Text("Standard Room, 2 Single Beds")
+    } subtitle: {
+        Text("Gbt")
+    } row1: {
+        HStack {
+            RattingViewExample()
+            LabelItem(title: "Free Breakfast")
+        }
+    } row2: {
+        Tag("Business Rate")
+            .tagStyle(ColorTagStyle(textColor: .preferredColor(.grey9), fillColor: .preferredColor(.grey2)))
+    } kpi: {
+        KPIItem(data: .components([.unit("$"), .metric("90")]), subtitle: "avg. per night")
+            .frame(height: 20)
+    } action: {
+        FioriButton { state in
+            print("primaryAction \(state)")
+        } label: { _ in
+            HStack {
+                Image(systemName: "tray")
+                Text("Reserve")
+            }
+        }
+    } secondaryAction: {
+        RoundedRectangle(cornerRadius: 10)
+            .foregroundColor(Color.purple)
+            .frame(width: 120, height: 80)
+            .onTapGesture {
+                print("secondaryAction tapped")
+            }
+    } tertiaryAction: {
+        Image(systemName: "doc")
+            .onTapGesture {
+                print("tertiaryAction tapped")
+            }
+    } overflowAction: {
+        RoundedRectangle(cornerRadius: 10)
+            .foregroundColor(Color.green)
+            .frame(width: 40, height: 40)
+            .onTapGesture {
+                print("overflowAction tapped")
+            }
+    }
+    
+    static let sampleCard19 = Card {
+        Text("Standard Room, 2 Single Beds")
+    } subtitle: {
+        Text("Gbt")
+    } row1: {
+        HStack {
+            RattingViewExample()
+            LabelItem(title: "Free Breakfast")
+        }
+    } row2: {
+        Tag("Business Rate")
+            .tagStyle(ColorTagStyle(textColor: .preferredColor(.grey9), fillColor: .preferredColor(.grey2)))
+    } kpi: {
+        KPIItem(data: .components([.unit("$"), .metric("90")]), subtitle: "avg. per night")
+            .frame(height: 20)
+    } action: {
+        Button {
+            print("Tapped")
+        } label: {
+            Text("Save")
+                .frame(maxWidth: .infinity)
+        }
+        .buttonStyle(.bordered)
+    } secondaryAction: {
+        Image(systemName: "doc")
+            .onTapGesture {
+                print("secondaryAction tapped")
+            }
+    } tertiaryAction: {
+        RoundedRectangle(cornerRadius: 10)
+            .foregroundColor(Color.purple)
+            .frame(width: 200, height: 80)
+            .onTapGesture {
+                print("tertiaryAction tapped")
+            }
+    } overflowAction: {
+        FioriButton(title: "Overflow")
+    }
+
+    /// Sample cards for testing
+    public static let cardSamples = [sampleCard1, sampleCard13, sampleCard2, sampleCard3, sampleCard4, sampleCard5, sampleCard6, sampleCard7, sampleCard9, sampleCard10, vbCard, sampleCard11, sampleCard8, fullCard]
+    public static let cardFooterSamples = [sampleCard6, sampleCard16, sampleCard17, sampleCard12, sampleCard13, sampleCard14, sampleCard15, sampleCard20, sampleCard18, sampleCard19]
     static let previewCardSamples = [sampleCard1, sampleCard2, sampleCard3, sampleCard4, sampleCard5, sampleCard6, sampleCard7, sampleCard8, sampleCard9, sampleCard10, sampleCard11, vbCard, fullCard, headerOnly, titleOnly]
 }
 

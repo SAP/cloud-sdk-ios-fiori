@@ -1240,6 +1240,34 @@ public extension ObjectItemStyle {
     }
 }
 
+// MARK: OverflowActionStyle
+
+extension ModifiedStyle: OverflowActionStyle where Style: OverflowActionStyle {
+    public func makeBody(_ configuration: OverflowActionConfiguration) -> some View {
+        OverflowAction(configuration)
+            .overflowActionStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct OverflowActionStyleModifier<Style: OverflowActionStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.overflowActionStyle(self.style)
+    }
+}
+
+public extension OverflowActionStyle {
+    func modifier(_ modifier: some ViewModifier) -> some OverflowActionStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some OverflowActionStyle) -> some OverflowActionStyle {
+        style.modifier(OverflowActionStyleModifier(style: self))
+    }
+}
+
 // MARK: PlaceholderStyle
 
 extension ModifiedStyle: PlaceholderStyle where Style: PlaceholderStyle {
@@ -1685,6 +1713,34 @@ public extension TagsStyle {
 
     func concat(_ style: some TagsStyle) -> some TagsStyle {
         style.modifier(TagsStyleModifier(style: self))
+    }
+}
+
+// MARK: TertiaryActionStyle
+
+extension ModifiedStyle: TertiaryActionStyle where Style: TertiaryActionStyle {
+    public func makeBody(_ configuration: TertiaryActionConfiguration) -> some View {
+        TertiaryAction(configuration)
+            .tertiaryActionStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct TertiaryActionStyleModifier<Style: TertiaryActionStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.tertiaryActionStyle(self.style)
+    }
+}
+
+public extension TertiaryActionStyle {
+    func modifier(_ modifier: some ViewModifier) -> some TertiaryActionStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some TertiaryActionStyle) -> some TertiaryActionStyle {
+        style.modifier(TertiaryActionStyleModifier(style: self))
     }
 }
 

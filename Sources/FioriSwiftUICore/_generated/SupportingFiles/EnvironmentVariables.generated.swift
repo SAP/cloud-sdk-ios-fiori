@@ -927,6 +927,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: OverflowActionStyle
+
+struct OverflowActionStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any OverflowActionStyle] = []
+}
+
+extension EnvironmentValues {
+    var overflowActionStyle: any OverflowActionStyle {
+        self.overflowActionStyleStack.last ?? .base
+    }
+
+    var overflowActionStyleStack: [any OverflowActionStyle] {
+        get {
+            self[OverflowActionStyleStackKey.self]
+        }
+        set {
+            self[OverflowActionStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: PlaceholderStyle
 
 struct PlaceholderStyleStackKey: EnvironmentKey {
@@ -1259,6 +1280,27 @@ extension EnvironmentValues {
         }
         set {
             self[TagsStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: TertiaryActionStyle
+
+struct TertiaryActionStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any TertiaryActionStyle] = []
+}
+
+extension EnvironmentValues {
+    var tertiaryActionStyle: any TertiaryActionStyle {
+        self.tertiaryActionStyleStack.last ?? .base
+    }
+
+    var tertiaryActionStyleStack: [any TertiaryActionStyle] {
+        get {
+            self[TertiaryActionStyleStackKey.self]
+        }
+        set {
+            self[TertiaryActionStyleStackKey.self] = newValue
         }
     }
 }

@@ -751,6 +751,23 @@ public extension View {
     }
 }
 
+// MARK: OverflowActionStyle
+
+public extension View {
+    func overflowActionStyle(_ style: some OverflowActionStyle) -> some View {
+        self.transformEnvironment(\.overflowActionStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func overflowActionStyle(@ViewBuilder content: @escaping (OverflowActionConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.overflowActionStyleStack) { stack in
+            let style = AnyOverflowActionStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: PlaceholderStyle
 
 public extension View {
@@ -1018,6 +1035,23 @@ public extension View {
     func tagsStyle(@ViewBuilder content: @escaping (TagsConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.tagsStyleStack) { stack in
             let style = AnyTagsStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: TertiaryActionStyle
+
+public extension View {
+    func tertiaryActionStyle(_ style: some TertiaryActionStyle) -> some View {
+        self.transformEnvironment(\.tertiaryActionStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func tertiaryActionStyle(@ViewBuilder content: @escaping (TertiaryActionConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.tertiaryActionStyleStack) { stack in
+            let style = AnyTertiaryActionStyle(content)
             stack.append(style)
         }
     }
