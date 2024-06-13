@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		108E43D5292DAB7C006532F3 /* EmptyStateViewExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 108E43D4292DAB7C006532F3 /* EmptyStateViewExample.swift */; };
+		1F1A1FFA2C0BDA54007109D8 /* MenuSelectionExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1A1FF92C0BDA54007109D8 /* MenuSelectionExample.swift */; };
 		1F26DCFA261A5CD9006C43B1 /* FioriButtonContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F26DCF9261A5CD9006C43B1 /* FioriButtonContentView.swift */; };
 		1F3C92F125DF12C100A99A07 /* ListPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3C92F025DF12C100A99A07 /* ListPicker.swift */; };
 		1F55FEF32AC941FF00D7A1BE /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F55FEF22AC941FF00D7A1BE /* View+Extensions.swift */; };
@@ -85,6 +86,9 @@
 		B141D6BB29261F9E008A8BD6 /* SearchableListViewExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B141D6BA29261F9E008A8BD6 /* SearchableListViewExample.swift */; };
 		B18D2E9F2988B07B000A1821 /* KPIHeaderExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18D2E9E2988B07B000A1821 /* KPIHeaderExample.swift */; };
 		B18D593C2B0C52C700ABB1AD /* TabViewExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18D593B2B0C52C700ABB1AD /* TabViewExample.swift */; };
+		B1A98FF22C11592B00FC9998 /* BannerMessageExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A98FF12C11592B00FC9998 /* BannerMessageExample.swift */; };
+		B1A98FF52C12E9A000FC9998 /* BannerMessageModifierExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A98FF42C12E9A000FC9998 /* BannerMessageModifierExample.swift */; };
+		B1A98FF72C12EA1600FC9998 /* BannerMessageCustomInitExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A98FF62C12EA1600FC9998 /* BannerMessageCustomInitExample.swift */; };
 		B1BA1F922B19AAEE00E6C052 /* TabViewDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1BA1F912B19AAEE00E6C052 /* TabViewDetailView.swift */; };
 		B1BA1F942B1EC36100E6C052 /* 08 Tap.wav in Resources */ = {isa = PBXBuildFile; fileRef = B1BA1F932B1EC36100E6C052 /* 08 Tap.wav */; };
 		B1BA1F972B2167DC00E6C052 /* ToolbarExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1BA1F962B2167DC00E6C052 /* ToolbarExample.swift */; };
@@ -183,6 +187,7 @@
 
 /* Begin PBXFileReference section */
 		108E43D4292DAB7C006532F3 /* EmptyStateViewExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateViewExample.swift; sourceTree = "<group>"; };
+		1F1A1FF92C0BDA54007109D8 /* MenuSelectionExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuSelectionExample.swift; sourceTree = "<group>"; };
 		1F26DCF9261A5CD9006C43B1 /* FioriButtonContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FioriButtonContentView.swift; sourceTree = "<group>"; };
 		1F3C92F025DF12C100A99A07 /* ListPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListPicker.swift; sourceTree = "<group>"; };
 		1F55FEF22AC941FF00D7A1BE /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
@@ -258,6 +263,9 @@
 		B141D6BA29261F9E008A8BD6 /* SearchableListViewExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchableListViewExample.swift; sourceTree = "<group>"; };
 		B18D2E9E2988B07B000A1821 /* KPIHeaderExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KPIHeaderExample.swift; sourceTree = "<group>"; };
 		B18D593B2B0C52C700ABB1AD /* TabViewExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabViewExample.swift; sourceTree = "<group>"; };
+		B1A98FF12C11592B00FC9998 /* BannerMessageExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerMessageExample.swift; sourceTree = "<group>"; };
+		B1A98FF42C12E9A000FC9998 /* BannerMessageModifierExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerMessageModifierExample.swift; sourceTree = "<group>"; };
+		B1A98FF62C12EA1600FC9998 /* BannerMessageCustomInitExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerMessageCustomInitExample.swift; sourceTree = "<group>"; };
 		B1BA1F912B19AAEE00E6C052 /* TabViewDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewDetailView.swift; sourceTree = "<group>"; };
 		B1BA1F932B1EC36100E6C052 /* 08 Tap.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "08 Tap.wav"; sourceTree = "<group>"; };
 		B1BA1F962B2167DC00E6C052 /* ToolbarExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarExample.swift; sourceTree = "<group>"; };
@@ -334,6 +342,14 @@
 				108E43D4292DAB7C006532F3 /* EmptyStateViewExample.swift */,
 			);
 			path = EmptyStateView;
+			sourceTree = "<group>";
+		};
+		1F1A1FF82C0BDA42007109D8 /* MenuSelection */ = {
+			isa = PBXGroup;
+			children = (
+				1F1A1FF92C0BDA54007109D8 /* MenuSelectionExample.swift */,
+			);
+			path = MenuSelection;
 			sourceTree = "<group>";
 		};
 		1F3C92EF25DF12A100A99A07 /* FormCells */ = {
@@ -501,6 +517,8 @@
 		8A5579C824C1293C0098003A /* FioriSwiftUICore */ = {
 			isa = PBXGroup;
 			children = (
+				1F1A1FF82C0BDA42007109D8 /* MenuSelection */,
+				B1A98FF02C11591B00FC9998 /* BannerMessage */,
 				3C180C262B858CBE007CE79A /* IllustratedMessage */,
 				99658F862B7C35630026A743 /* Indicator */,
 				B88CB6102B716C0300013B37 /* Card */,
@@ -612,6 +630,16 @@
 				B1C7DC8029FBB13F00DC5EEB /* SPIModelExample.swift */,
 			);
 			path = StepProgressIndicator;
+			sourceTree = "<group>";
+		};
+		B1A98FF02C11591B00FC9998 /* BannerMessage */ = {
+			isa = PBXGroup;
+			children = (
+				B1A98FF12C11592B00FC9998 /* BannerMessageExample.swift */,
+				B1A98FF42C12E9A000FC9998 /* BannerMessageModifierExample.swift */,
+				B1A98FF62C12EA1600FC9998 /* BannerMessageCustomInitExample.swift */,
+			);
+			path = BannerMessage;
 			sourceTree = "<group>";
 		};
 		B1BA1F902B19A8B500E6C052 /* TabViewExample */ = {
@@ -898,6 +926,7 @@
 				3B62AB7E2C0EE257003262EB /* EditableSideBarExample.swift in Sources */,
 				B1DD86552B0759DD00D7EDFD /* NavigationBarCustomItem.swift in Sources */,
 				B84D24EE2652F343007F2373 /* ObjectHeaderViewScenarios.swift in Sources */,
+				B1A98FF72C12EA1600FC9998 /* BannerMessageCustomInitExample.swift in Sources */,
 				9D0B26082B9BA5C0004278A5 /* FormViewExamples.swift in Sources */,
 				108E43D5292DAB7C006532F3 /* EmptyStateViewExample.swift in Sources */,
 				B13408922B01FA0700600331 /* NavigationBarExample.swift in Sources */,
@@ -913,6 +942,7 @@
 				C1A0FDB32AD893FA0001738E /* SortFilterView+Extensions.swift in Sources */,
 				B84D24ED2652F343007F2373 /* HeaderChartExample.swift in Sources */,
 				B100639329C0624D00AF0CA2 /* StepProgressIndicatorExample.swift in Sources */,
+				1F1A1FFA2C0BDA54007109D8 /* MenuSelectionExample.swift in Sources */,
 				B846F94626815CC90085044B /* ContactItemExample.swift in Sources */,
 				8A5579CC24C1293C0098003A /* SettingsColorForCategory.swift in Sources */,
 				C18868D12B32535100F865F7 /* SearchFontAndColor.swift in Sources */,
@@ -927,12 +957,14 @@
 				8AD9DFB025D49967007448EC /* ContactItemActionItemsExample.swift in Sources */,
 				8A6D64B125AE658300D2D76C /* ExpHeaderView.swift in Sources */,
 				E99A025F2B9EC055008A4B77 /* SearchIconAndPlaceholder.swift in Sources */,
+				B1A98FF52C12E9A000FC9998 /* BannerMessageModifierExample.swift in Sources */,
 				B1BA1F922B19AAEE00E6C052 /* TabViewDetailView.swift in Sources */,
 				B1DD864F2B07441C00D7EDFD /* UIFont+Fiori.swift in Sources */,
 				B8D4376F25F980340024EE7D /* ObjectCell_Spec_Jan2018.swift in Sources */,
 				8A5579CF24C1293C0098003A /* SettingsAxis.swift in Sources */,
 				B80DA9BC260BED9400C0B2E9 /* SingleActionCollectionView.swift in Sources */,
 				8A5579D924C1293C0098003A /* SettingsSelection.swift in Sources */,
+				B1A98FF22C11592B00FC9998 /* BannerMessageExample.swift in Sources */,
 				B80DA9C62612A54E00C0B2E9 /* ActivationScreenSample.swift in Sources */,
 				B8D437732609479E0024EE7D /* SingleActionFollowButton.swift in Sources */,
 				C18868D32B32580800F865F7 /* ColorEntity.swift in Sources */,

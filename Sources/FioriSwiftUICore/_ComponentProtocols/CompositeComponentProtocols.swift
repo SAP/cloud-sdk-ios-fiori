@@ -260,3 +260,22 @@ protocol _SideBarListItemComponent: _IconComponent, _FilledIconComponent, _Title
     /// Whether the item is selected or not
     var isSelected: Bool { get }
 }
+
+// sourcery: CompositeComponent
+protocol _MenuSelectionItemComponent: _IconComponent, _TitleComponent {
+    var action: (() -> Void)? { get }
+}
+
+// sourcery: CompositeComponent
+protocol _MenuSelectionComponent: _ActionComponent {
+    // sourcery: @Binding
+    var isExpanded: Bool { get }
+    // sourcery: resultBuilder.name = @ViewBuilder, resultBuilder.backingComponent = _MenuSelectionContainer
+    var items: [MenuSelectionItemProtocol] { get }
+}
+
+// sourcery: CompositeComponent
+protocol _BannerMessageComponent: _TitleComponent, _CloseActionComponent, _TopDividerComponent {
+    /// The action to be performed when the banner is tapped.
+    var bannerTapAction: (() -> Void)? { get }
+}

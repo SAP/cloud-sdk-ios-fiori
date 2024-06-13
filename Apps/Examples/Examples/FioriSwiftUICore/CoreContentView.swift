@@ -13,6 +13,12 @@ struct CoreContentView: View {
             }
             
             NavigationLink(
+                destination: BannerMessageExample())
+            {
+                Text("Banner Message")
+            }
+            
+            NavigationLink(
                 destination: SideBarExample(),
                 label: {
                     Text("Side Bar Example")
@@ -192,6 +198,12 @@ struct CoreContentView: View {
                     Text("Stepper")
                 }
             )
+            
+            NavigationLink(
+                destination: MenuSelectionExample())
+            {
+                Text("Menu Selection")
+            }
         }.navigationBarTitle("FioriSwiftUICore")
     }
 }

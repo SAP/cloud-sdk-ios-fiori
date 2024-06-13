@@ -92,6 +92,34 @@ public extension AvatarsStyle {
     }
 }
 
+// MARK: BannerMessageStyle
+
+extension ModifiedStyle: BannerMessageStyle where Style: BannerMessageStyle {
+    public func makeBody(_ configuration: BannerMessageConfiguration) -> some View {
+        BannerMessage(configuration)
+            .bannerMessageStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct BannerMessageStyleModifier<Style: BannerMessageStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.bannerMessageStyle(self.style)
+    }
+}
+
+public extension BannerMessageStyle {
+    func modifier(_ modifier: some ViewModifier) -> some BannerMessageStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some BannerMessageStyle) -> some BannerMessageStyle {
+        style.modifier(BannerMessageStyleModifier(style: self))
+    }
+}
+
 // MARK: CardBodyStyle
 
 extension ModifiedStyle: CardBodyStyle where Style: CardBodyStyle {
@@ -285,6 +313,34 @@ public extension CardMediaStyle {
 
     func concat(_ style: some CardMediaStyle) -> some CardMediaStyle {
         style.modifier(CardMediaStyleModifier(style: self))
+    }
+}
+
+// MARK: CloseActionStyle
+
+extension ModifiedStyle: CloseActionStyle where Style: CloseActionStyle {
+    public func makeBody(_ configuration: CloseActionConfiguration) -> some View {
+        CloseAction(configuration)
+            .closeActionStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct CloseActionStyleModifier<Style: CloseActionStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.closeActionStyle(self.style)
+    }
+}
+
+public extension CloseActionStyle {
+    func modifier(_ modifier: some ViewModifier) -> some CloseActionStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some CloseActionStyle) -> some CloseActionStyle {
+        style.modifier(CloseActionStyleModifier(style: self))
     }
 }
 
@@ -1016,6 +1072,62 @@ public extension MediaImageStyle {
     }
 }
 
+// MARK: MenuSelectionStyle
+
+extension ModifiedStyle: MenuSelectionStyle where Style: MenuSelectionStyle {
+    public func makeBody(_ configuration: MenuSelectionConfiguration) -> some View {
+        MenuSelection(configuration)
+            .menuSelectionStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct MenuSelectionStyleModifier<Style: MenuSelectionStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.menuSelectionStyle(self.style)
+    }
+}
+
+public extension MenuSelectionStyle {
+    func modifier(_ modifier: some ViewModifier) -> some MenuSelectionStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some MenuSelectionStyle) -> some MenuSelectionStyle {
+        style.modifier(MenuSelectionStyleModifier(style: self))
+    }
+}
+
+// MARK: MenuSelectionItemStyle
+
+extension ModifiedStyle: MenuSelectionItemStyle where Style: MenuSelectionItemStyle {
+    public func makeBody(_ configuration: MenuSelectionItemConfiguration) -> some View {
+        MenuSelectionItem(configuration)
+            .menuSelectionItemStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct MenuSelectionItemStyleModifier<Style: MenuSelectionItemStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.menuSelectionItemStyle(self.style)
+    }
+}
+
+public extension MenuSelectionItemStyle {
+    func modifier(_ modifier: some ViewModifier) -> some MenuSelectionItemStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some MenuSelectionItemStyle) -> some MenuSelectionItemStyle {
+        style.modifier(MenuSelectionItemStyleModifier(style: self))
+    }
+}
+
 // MARK: MessageContentStyle
 
 extension ModifiedStyle: MessageContentStyle where Style: MessageContentStyle {
@@ -1741,5 +1853,33 @@ public extension TitleFormViewStyle {
 
     func concat(_ style: some TitleFormViewStyle) -> some TitleFormViewStyle {
         style.modifier(TitleFormViewStyleModifier(style: self))
+    }
+}
+
+// MARK: TopDividerStyle
+
+extension ModifiedStyle: TopDividerStyle where Style: TopDividerStyle {
+    public func makeBody(_ configuration: TopDividerConfiguration) -> some View {
+        TopDivider(configuration)
+            .topDividerStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct TopDividerStyleModifier<Style: TopDividerStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.topDividerStyle(self.style)
+    }
+}
+
+public extension TopDividerStyle {
+    func modifier(_ modifier: some ViewModifier) -> some TopDividerStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some TopDividerStyle) -> some TopDividerStyle {
+        style.modifier(TopDividerStyleModifier(style: self))
     }
 }

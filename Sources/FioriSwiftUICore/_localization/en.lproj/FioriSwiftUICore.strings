@@ -177,3 +177,6 @@
 
 /* XBUT: voice over label for test field in stepper */
 "Select specific value" = "Select specific value";
+
+/* XBUT: View all action in MenuSelection */
+"View All (%d)" = "View All (%d)";
