@@ -1,4 +1,5 @@
 import SwiftUI
+import FioriThemeManager
 
 extension Fiori {
     enum FilterFeedbackBarButton {
