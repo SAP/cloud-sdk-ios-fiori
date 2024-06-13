@@ -381,7 +381,7 @@ struct TagExample: View {
     
     var body: some View {
         HStack(spacing: self.withDot ? 4 : 8) {
-            ForEach(0 ..< self.num) { i in
+            ForEach(0 ..< self.num, id: \.self) { i in
                 if self.tagData[i].0 == "" {
                     Tag("Tag")
                 } else {

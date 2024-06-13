@@ -184,7 +184,7 @@ struct PickerMenuItem: View {
     var menu: some View {
         HStack {
             Menu {
-                ForEach(self.item.valueOptions.indices) { idx in
+                ForEach(self.item.valueOptions.indices, id: \.self) { idx in
                     if self.item.isOptionSelected(index: idx) {
                         Button {
                             self.item.onTap(option: self.item.valueOptions[idx])
