@@ -83,7 +83,7 @@ struct YAxisView: View {
                     .position(x: baselineX, y: rect.size.height / 2)
             }
         }
-        .animation(nil)
+        .transaction { $0.animation = nil }
     }
 }
 
