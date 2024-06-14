@@ -54,6 +54,23 @@ public extension View {
     }
 }
 
+// MARK: BannerMessageStyle
+
+public extension View {
+    func bannerMessageStyle(_ style: some BannerMessageStyle) -> some View {
+        self.transformEnvironment(\.bannerMessageStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func bannerMessageStyle(@ViewBuilder content: @escaping (BannerMessageConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.bannerMessageStyleStack) { stack in
+            let style = AnyBannerMessageStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: CardBodyStyle
 
 public extension View {
@@ -168,6 +185,23 @@ public extension View {
     func cardMediaStyle(@ViewBuilder content: @escaping (CardMediaConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.cardMediaStyleStack) { stack in
             let style = AnyCardMediaStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: CloseActionStyle
+
+public extension View {
+    func closeActionStyle(_ style: some CloseActionStyle) -> some View {
+        self.transformEnvironment(\.closeActionStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func closeActionStyle(@ViewBuilder content: @escaping (CloseActionConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.closeActionStyleStack) { stack in
+            let style = AnyCloseActionStyle(content)
             stack.append(style)
         }
     }
@@ -717,6 +751,23 @@ public extension View {
     }
 }
 
+// MARK: OverflowActionStyle
+
+public extension View {
+    func overflowActionStyle(_ style: some OverflowActionStyle) -> some View {
+        self.transformEnvironment(\.overflowActionStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func overflowActionStyle(@ViewBuilder content: @escaping (OverflowActionConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.overflowActionStyleStack) { stack in
+            let style = AnyOverflowActionStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: PlaceholderStyle
 
 public extension View {
@@ -989,6 +1040,23 @@ public extension View {
     }
 }
 
+// MARK: TertiaryActionStyle
+
+public extension View {
+    func tertiaryActionStyle(_ style: some TertiaryActionStyle) -> some View {
+        self.transformEnvironment(\.tertiaryActionStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func tertiaryActionStyle(@ViewBuilder content: @escaping (TertiaryActionConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.tertiaryActionStyleStack) { stack in
+            let style = AnyTertiaryActionStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: TextFieldFormViewStyle
 
 public extension View {
@@ -1086,6 +1154,23 @@ public extension View {
     func titleFormViewStyle(@ViewBuilder content: @escaping (TitleFormViewConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.titleFormViewStyleStack) { stack in
             let style = AnyTitleFormViewStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: TopDividerStyle
+
+public extension View {
+    func topDividerStyle(_ style: some TopDividerStyle) -> some View {
+        self.transformEnvironment(\.topDividerStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func topDividerStyle(@ViewBuilder content: @escaping (TopDividerConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.topDividerStyleStack) { stack in
+            let style = AnyTopDividerStyle(content)
             stack.append(style)
         }
     }

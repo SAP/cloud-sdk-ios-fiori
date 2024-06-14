@@ -45,6 +45,83 @@ public extension AvatarsStyle where Self == AvatarsFioriStyle {
     }
 }
 
+// MARK: BannerMessageStyle
+
+public extension BannerMessageStyle where Self == BannerMessageBaseStyle {
+    static var base: BannerMessageBaseStyle {
+        BannerMessageBaseStyle()
+    }
+}
+
+public extension BannerMessageStyle where Self == BannerMessageFioriStyle {
+    static var fiori: BannerMessageFioriStyle {
+        BannerMessageFioriStyle()
+    }
+}
+
+public struct BannerMessageTitleStyle: BannerMessageStyle {
+    let style: any TitleStyle
+
+    public func makeBody(_ configuration: BannerMessageConfiguration) -> some View {
+        BannerMessage(configuration)
+            .titleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension BannerMessageStyle where Self == BannerMessageTitleStyle {
+    static func titleStyle(_ style: some TitleStyle) -> BannerMessageTitleStyle {
+        BannerMessageTitleStyle(style: style)
+    }
+
+    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> BannerMessageTitleStyle {
+        let style = AnyTitleStyle(content)
+        return BannerMessageTitleStyle(style: style)
+    }
+}
+
+public struct BannerMessageCloseActionStyle: BannerMessageStyle {
+    let style: any CloseActionStyle
+
+    public func makeBody(_ configuration: BannerMessageConfiguration) -> some View {
+        BannerMessage(configuration)
+            .closeActionStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension BannerMessageStyle where Self == BannerMessageCloseActionStyle {
+    static func closeActionStyle(_ style: some CloseActionStyle) -> BannerMessageCloseActionStyle {
+        BannerMessageCloseActionStyle(style: style)
+    }
+
+    static func closeActionStyle(@ViewBuilder content: @escaping (CloseActionConfiguration) -> some View) -> BannerMessageCloseActionStyle {
+        let style = AnyCloseActionStyle(content)
+        return BannerMessageCloseActionStyle(style: style)
+    }
+}
+
+public struct BannerMessageTopDividerStyle: BannerMessageStyle {
+    let style: any TopDividerStyle
+
+    public func makeBody(_ configuration: BannerMessageConfiguration) -> some View {
+        BannerMessage(configuration)
+            .topDividerStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension BannerMessageStyle where Self == BannerMessageTopDividerStyle {
+    static func topDividerStyle(_ style: some TopDividerStyle) -> BannerMessageTopDividerStyle {
+        BannerMessageTopDividerStyle(style: style)
+    }
+
+    static func topDividerStyle(@ViewBuilder content: @escaping (TopDividerConfiguration) -> some View) -> BannerMessageTopDividerStyle {
+        let style = AnyTopDividerStyle(content)
+        return BannerMessageTopDividerStyle(style: style)
+    }
+}
+
 // MARK: CardBodyStyle
 
 public extension CardBodyStyle where Self == CardBodyBaseStyle {
@@ -409,6 +486,48 @@ public extension CardStyle where Self == CardSecondaryActionStyle {
     }
 }
 
+public struct CardTertiaryActionStyle: CardStyle {
+    let style: any TertiaryActionStyle
+
+    public func makeBody(_ configuration: CardConfiguration) -> some View {
+        Card(configuration)
+            .tertiaryActionStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension CardStyle where Self == CardTertiaryActionStyle {
+    static func tertiaryActionStyle(_ style: some TertiaryActionStyle) -> CardTertiaryActionStyle {
+        CardTertiaryActionStyle(style: style)
+    }
+
+    static func tertiaryActionStyle(@ViewBuilder content: @escaping (TertiaryActionConfiguration) -> some View) -> CardTertiaryActionStyle {
+        let style = AnyTertiaryActionStyle(content)
+        return CardTertiaryActionStyle(style: style)
+    }
+}
+
+public struct CardOverflowActionStyle: CardStyle {
+    let style: any OverflowActionStyle
+
+    public func makeBody(_ configuration: CardConfiguration) -> some View {
+        Card(configuration)
+            .overflowActionStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension CardStyle where Self == CardOverflowActionStyle {
+    static func overflowActionStyle(_ style: some OverflowActionStyle) -> CardOverflowActionStyle {
+        CardOverflowActionStyle(style: style)
+    }
+
+    static func overflowActionStyle(@ViewBuilder content: @escaping (OverflowActionConfiguration) -> some View) -> CardOverflowActionStyle {
+        let style = AnyOverflowActionStyle(content)
+        return CardOverflowActionStyle(style: style)
+    }
+}
+
 public struct CardCardHeaderStyle: CardStyle {
     let style: any CardHeaderStyle
 
@@ -623,6 +742,48 @@ public extension CardFooterStyle where Self == CardFooterSecondaryActionStyle {
     static func secondaryActionStyle(@ViewBuilder content: @escaping (SecondaryActionConfiguration) -> some View) -> CardFooterSecondaryActionStyle {
         let style = AnySecondaryActionStyle(content)
         return CardFooterSecondaryActionStyle(style: style)
+    }
+}
+
+public struct CardFooterTertiaryActionStyle: CardFooterStyle {
+    let style: any TertiaryActionStyle
+
+    public func makeBody(_ configuration: CardFooterConfiguration) -> some View {
+        CardFooter(configuration)
+            .tertiaryActionStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension CardFooterStyle where Self == CardFooterTertiaryActionStyle {
+    static func tertiaryActionStyle(_ style: some TertiaryActionStyle) -> CardFooterTertiaryActionStyle {
+        CardFooterTertiaryActionStyle(style: style)
+    }
+
+    static func tertiaryActionStyle(@ViewBuilder content: @escaping (TertiaryActionConfiguration) -> some View) -> CardFooterTertiaryActionStyle {
+        let style = AnyTertiaryActionStyle(content)
+        return CardFooterTertiaryActionStyle(style: style)
+    }
+}
+
+public struct CardFooterOverflowActionStyle: CardFooterStyle {
+    let style: any OverflowActionStyle
+
+    public func makeBody(_ configuration: CardFooterConfiguration) -> some View {
+        CardFooter(configuration)
+            .overflowActionStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension CardFooterStyle where Self == CardFooterOverflowActionStyle {
+    static func overflowActionStyle(_ style: some OverflowActionStyle) -> CardFooterOverflowActionStyle {
+        CardFooterOverflowActionStyle(style: style)
+    }
+
+    static func overflowActionStyle(@ViewBuilder content: @escaping (OverflowActionConfiguration) -> some View) -> CardFooterOverflowActionStyle {
+        let style = AnyOverflowActionStyle(content)
+        return CardFooterOverflowActionStyle(style: style)
     }
 }
 
@@ -1169,6 +1330,20 @@ public extension CardMediaStyle where Self == CardMediaDescriptionStyle {
     static func descriptionStyle(@ViewBuilder content: @escaping (DescriptionConfiguration) -> some View) -> CardMediaDescriptionStyle {
         let style = AnyDescriptionStyle(content)
         return CardMediaDescriptionStyle(style: style)
+    }
+}
+
+// MARK: CloseActionStyle
+
+public extension CloseActionStyle where Self == CloseActionBaseStyle {
+    static var base: CloseActionBaseStyle {
+        CloseActionBaseStyle()
+    }
+}
+
+public extension CloseActionStyle where Self == CloseActionFioriStyle {
+    static var fiori: CloseActionFioriStyle {
+        CloseActionFioriStyle()
     }
 }
 
@@ -2565,6 +2740,20 @@ public extension ObjectItemStyle where Self == ObjectItemActionStyle {
     }
 }
 
+// MARK: OverflowActionStyle
+
+public extension OverflowActionStyle where Self == OverflowActionBaseStyle {
+    static var base: OverflowActionBaseStyle {
+        OverflowActionBaseStyle()
+    }
+}
+
+public extension OverflowActionStyle where Self == OverflowActionFioriStyle {
+    static var fiori: OverflowActionFioriStyle {
+        OverflowActionFioriStyle()
+    }
+}
+
 // MARK: PlaceholderStyle
 
 public extension PlaceholderStyle where Self == PlaceholderBaseStyle {
@@ -3230,6 +3419,20 @@ public extension TagsStyle where Self == TagsFioriStyle {
     }
 }
 
+// MARK: TertiaryActionStyle
+
+public extension TertiaryActionStyle where Self == TertiaryActionBaseStyle {
+    static var base: TertiaryActionBaseStyle {
+        TertiaryActionBaseStyle()
+    }
+}
+
+public extension TertiaryActionStyle where Self == TertiaryActionFioriStyle {
+    static var fiori: TertiaryActionFioriStyle {
+        TertiaryActionFioriStyle()
+    }
+}
+
 // MARK: TextFieldFormViewStyle
 
 public extension TextFieldFormViewStyle where Self == TextFieldFormViewBaseStyle {
@@ -3584,5 +3787,19 @@ public extension TitleFormViewStyle where Self == TitleFormViewFormViewStyle {
     static func formViewStyle(@ViewBuilder content: @escaping (FormViewConfiguration) -> some View) -> TitleFormViewFormViewStyle {
         let style = AnyFormViewStyle(content)
         return TitleFormViewFormViewStyle(style: style)
+    }
+}
+
+// MARK: TopDividerStyle
+
+public extension TopDividerStyle where Self == TopDividerBaseStyle {
+    static var base: TopDividerBaseStyle {
+        TopDividerBaseStyle()
+    }
+}
+
+public extension TopDividerStyle where Self == TopDividerFioriStyle {
+    static var fiori: TopDividerFioriStyle {
+        TopDividerFioriStyle()
     }
 }
