@@ -42,6 +42,8 @@ public enum FioriIcon {
         ///
         public static let add = Image(fioriName: "fiori.add")
         ///
+        public static let ai = Image(fioriName: "fiori.ai")
+        ///
         public static let alphabeticalOrder = Image(fioriName: "fiori.alphabetical.order")
         ///
         public static let attachment = Image(fioriName: "fiori.attachment")
@@ -181,6 +183,8 @@ public enum FioriIcon {
         public static let generateShortcut = Image(fioriName: "fiori.generate.shortcut")
         ///
         public static let group2 = Image(fioriName: "fiori.group.2")
+        ///
+        public static let halfStar = Image(fioriName: "fiori.half.star")
         ///
         public static let heading1 = Image(fioriName: "fiori.heading1")
         ///
@@ -1361,6 +1365,10 @@ public enum FioriIcon {
         public static let cursorArrow = Image(fioriName: "fiori.cursor.arrow")
         ///
         public static let customerView = Image(fioriName: "fiori.customer.view")
+        ///
+        public static let daFill = Image(fioriName: "fiori.da.fill")
+        ///
+        public static let da = Image(fioriName: "fiori.da")
         ///
         public static let database = Image(fioriName: "fiori.database")
         ///

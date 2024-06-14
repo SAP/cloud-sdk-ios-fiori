@@ -21,14 +21,25 @@ public struct KeyValueFormViewBaseStyle: KeyValueFormViewStyle {
 // Default fiori styles
 extension KeyValueFormViewFioriStyle {
     struct ContentFioriStyle: KeyValueFormViewStyle {
+        @FocusState var isFocused: Bool
         func makeBody(_ configuration: KeyValueFormViewConfiguration) -> some View {
             KeyValueFormView(configuration)
+                .titleStyle { titleConf in
+                    Title(titleConf)
+                        .foregroundStyle(self.getTitleColor(configuration))
+                        .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
+                }
+                .focused(self.$isFocused)
+        }
+
+        private func getTitleColor(_ configuration: KeyValueFormViewConfiguration) -> Color {
+            TextInputFormViewConfiguration(configuration, isFocused: self.isFocused).getTitleColor()
         }
     }
 
     struct TitleFioriStyle: TitleStyle {
         let keyValueFormViewConfiguration: KeyValueFormViewConfiguration
-        
+
         func makeBody(_ configuration: TitleConfiguration) -> some View {
             Title(configuration)
                 .foregroundStyle(self.getTitleColor(self.keyValueFormViewConfiguration))
@@ -38,10 +49,7 @@ extension KeyValueFormViewFioriStyle {
         }
         
         private func getTitleColor(_ configuration: KeyValueFormViewConfiguration) -> Color {
-            guard !(configuration.controlState == .disabled) else {
-                return .preferredColor(.separator)
-            }
-            return .preferredColor(.primaryLabel)
+            TextInputFormViewConfiguration(configuration, isFocused: false).getTitleColor()
         }
         
         private func isDisabled(_ configuration: KeyValueFormViewConfiguration) -> Bool {
