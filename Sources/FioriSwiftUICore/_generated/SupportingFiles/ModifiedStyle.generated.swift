@@ -92,6 +92,34 @@ public extension AvatarsStyle {
     }
 }
 
+// MARK: BannerMessageStyle
+
+extension ModifiedStyle: BannerMessageStyle where Style: BannerMessageStyle {
+    public func makeBody(_ configuration: BannerMessageConfiguration) -> some View {
+        BannerMessage(configuration)
+            .bannerMessageStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct BannerMessageStyleModifier<Style: BannerMessageStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.bannerMessageStyle(self.style)
+    }
+}
+
+public extension BannerMessageStyle {
+    func modifier(_ modifier: some ViewModifier) -> some BannerMessageStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some BannerMessageStyle) -> some BannerMessageStyle {
+        style.modifier(BannerMessageStyleModifier(style: self))
+    }
+}
+
 // MARK: CardBodyStyle
 
 extension ModifiedStyle: CardBodyStyle where Style: CardBodyStyle {
@@ -285,6 +313,34 @@ public extension CardMediaStyle {
 
     func concat(_ style: some CardMediaStyle) -> some CardMediaStyle {
         style.modifier(CardMediaStyleModifier(style: self))
+    }
+}
+
+// MARK: CloseActionStyle
+
+extension ModifiedStyle: CloseActionStyle where Style: CloseActionStyle {
+    public func makeBody(_ configuration: CloseActionConfiguration) -> some View {
+        CloseAction(configuration)
+            .closeActionStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct CloseActionStyleModifier<Style: CloseActionStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.closeActionStyle(self.style)
+    }
+}
+
+public extension CloseActionStyle {
+    func modifier(_ modifier: some ViewModifier) -> some CloseActionStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some CloseActionStyle) -> some CloseActionStyle {
+        style.modifier(CloseActionStyleModifier(style: self))
     }
 }
 
@@ -1184,6 +1240,34 @@ public extension ObjectItemStyle {
     }
 }
 
+// MARK: OverflowActionStyle
+
+extension ModifiedStyle: OverflowActionStyle where Style: OverflowActionStyle {
+    public func makeBody(_ configuration: OverflowActionConfiguration) -> some View {
+        OverflowAction(configuration)
+            .overflowActionStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct OverflowActionStyleModifier<Style: OverflowActionStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.overflowActionStyle(self.style)
+    }
+}
+
+public extension OverflowActionStyle {
+    func modifier(_ modifier: some ViewModifier) -> some OverflowActionStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some OverflowActionStyle) -> some OverflowActionStyle {
+        style.modifier(OverflowActionStyleModifier(style: self))
+    }
+}
+
 // MARK: PlaceholderStyle
 
 extension ModifiedStyle: PlaceholderStyle where Style: PlaceholderStyle {
@@ -1632,6 +1716,34 @@ public extension TagsStyle {
     }
 }
 
+// MARK: TertiaryActionStyle
+
+extension ModifiedStyle: TertiaryActionStyle where Style: TertiaryActionStyle {
+    public func makeBody(_ configuration: TertiaryActionConfiguration) -> some View {
+        TertiaryAction(configuration)
+            .tertiaryActionStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct TertiaryActionStyleModifier<Style: TertiaryActionStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.tertiaryActionStyle(self.style)
+    }
+}
+
+public extension TertiaryActionStyle {
+    func modifier(_ modifier: some ViewModifier) -> some TertiaryActionStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some TertiaryActionStyle) -> some TertiaryActionStyle {
+        style.modifier(TertiaryActionStyleModifier(style: self))
+    }
+}
+
 // MARK: TextFieldFormViewStyle
 
 extension ModifiedStyle: TextFieldFormViewStyle where Style: TextFieldFormViewStyle {
@@ -1797,5 +1909,33 @@ public extension TitleFormViewStyle {
 
     func concat(_ style: some TitleFormViewStyle) -> some TitleFormViewStyle {
         style.modifier(TitleFormViewStyleModifier(style: self))
+    }
+}
+
+// MARK: TopDividerStyle
+
+extension ModifiedStyle: TopDividerStyle where Style: TopDividerStyle {
+    public func makeBody(_ configuration: TopDividerConfiguration) -> some View {
+        TopDivider(configuration)
+            .topDividerStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct TopDividerStyleModifier<Style: TopDividerStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.topDividerStyle(self.style)
+    }
+}
+
+public extension TopDividerStyle {
+    func modifier(_ modifier: some ViewModifier) -> some TopDividerStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some TopDividerStyle) -> some TopDividerStyle {
+        style.modifier(TopDividerStyleModifier(style: self))
     }
 }

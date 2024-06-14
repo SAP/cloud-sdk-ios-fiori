@@ -76,7 +76,7 @@ struct XAxisView: View {
                             ))
             }
         }
-        .animation(nil)
+        .transaction { $0.animation = nil }
     }
     
     func isEnoughSpaceToShowXAxisLables(labels: [AxisTitle]) -> Bool {

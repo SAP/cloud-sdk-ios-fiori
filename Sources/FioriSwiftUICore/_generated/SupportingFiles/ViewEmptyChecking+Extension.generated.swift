@@ -21,6 +21,14 @@ extension Avatars: _ViewEmptyChecking {
     }
 }
 
+extension BannerMessage: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        title.isEmpty &&
+            closeAction.isEmpty &&
+            topDivider.isEmpty
+    }
+}
+
 extension CardBody: _ViewEmptyChecking {
     public var isEmpty: Bool {
         cardBody.isEmpty
@@ -44,7 +52,9 @@ extension Card: _ViewEmptyChecking {
             kpiCaption.isEmpty &&
             cardBody.isEmpty &&
             action.isEmpty &&
-            secondaryAction.isEmpty
+            secondaryAction.isEmpty &&
+            tertiaryAction.isEmpty &&
+            overflowAction.isEmpty
     }
 }
 
@@ -61,7 +71,9 @@ extension CardExtHeader: _ViewEmptyChecking {
 extension CardFooter: _ViewEmptyChecking {
     public var isEmpty: Bool {
         action.isEmpty &&
-            secondaryAction.isEmpty
+            secondaryAction.isEmpty &&
+            tertiaryAction.isEmpty &&
+            overflowAction.isEmpty
     }
 }
 
@@ -98,6 +110,12 @@ extension CardMedia: _ViewEmptyChecking {
     public var isEmpty: Bool {
         mediaImage.isEmpty &&
             description.isEmpty
+    }
+}
+
+extension CloseAction: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        closeAction.isEmpty
     }
 }
 
@@ -321,6 +339,12 @@ extension ObjectItem: _ViewEmptyChecking {
     }
 }
 
+extension OverflowAction: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        overflowAction.isEmpty
+    }
+}
+
 extension Placeholder: _ViewEmptyChecking {
     public var isEmpty: Bool {
         placeholder.isEmpty
@@ -427,6 +451,12 @@ extension Tags: _ViewEmptyChecking {
     }
 }
 
+extension TertiaryAction: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        tertiaryAction.isEmpty
+    }
+}
+
 extension TextFieldFormView: _ViewEmptyChecking {
     public var isEmpty: Bool {
         title.isEmpty &&
@@ -464,5 +494,11 @@ extension Title: _ViewEmptyChecking {
 extension TitleFormView: _ViewEmptyChecking {
     public var isEmpty: Bool {
         placeholder.isEmpty
+    }
+}
+
+extension TopDivider: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        topDivider.isEmpty
     }
 }

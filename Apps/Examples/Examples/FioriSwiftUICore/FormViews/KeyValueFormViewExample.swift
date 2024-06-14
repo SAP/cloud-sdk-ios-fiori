@@ -3,26 +3,26 @@ import SwiftUI
 
 struct KeyValueFormViewExample: View {
     var key1: AttributedString {
-        var aString = AttributedString("Key 1")
+        let aString = AttributedString("Key 1")
         return aString
     }
 
     var key1Long: AttributedString {
-        var aString = AttributedString("Long Key 1 Long Key 1 Long Key 1 Long Key 1 Long Key 1 Long Key 1 Long Key 1 Long Key 1 Long Key 1 Long Key 1 ")
+        let aString = AttributedString("Long Key 1 Long Key 1 Long Key 1 Long Key 1 Long Key 1 Long Key 1 Long Key 1 Long Key 1 Long Key 1 Long Key 1 ")
         return aString
     }
 
     @State var valueText1: String = "1234567890 12345678"
 
     var key2: AttributedString {
-        var aString = AttributedString("Key 2")
+        let aString = AttributedString("Key 2")
         return aString
     }
 
     @State var valueText2: String = "This is a test"
 
     var key3: AttributedString {
-        var aString = AttributedString("Key 3")
+        let aString = AttributedString("Key 3")
         return aString
     }
 
@@ -65,8 +65,13 @@ struct KeyValueFormViewExample: View {
                 Toggle("Mandatory Field", isOn: self.$isRequired)
                     .padding(.leading, 16)
                     .padding(.trailing, 16)
+                Button("Dismiss Keyboard") {
+                    hideKeyboard()
+                }
+                .padding(.leading, 16)
+                .padding(.trailing, 16)
 
-                Text("Default KeyValueFormView")
+                Text("Default KeyValueForm")
                 KeyValueFormView(title: self.key1, text: self.$valueText1, placeholder: "KeyValueFormView", errorMessage: self.getErrorMessage(), maxTextLength: self.getMaxTextLength(), hintText: self.getHintText(), isCharCountEnabled: self.showsCharCount, allowsBeyondLimit: self.allowsBeyondLimit, isRequired: self.isRequired)
 
                 Text("Existing Text")
@@ -103,6 +108,14 @@ struct KeyValueFormViewExample: View {
         self.showsCharCount ? true : nil
     }
 }
+
+#if canImport(UIKit)
+    extension View {
+        func hideKeyboard() {
+            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+        }
+    }
+#endif
 
 // #Preview {
 //    KeyValueFormViewExample()
