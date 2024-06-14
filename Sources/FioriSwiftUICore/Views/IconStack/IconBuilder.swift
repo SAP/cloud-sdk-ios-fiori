@@ -21,7 +21,7 @@ public protocol ViewList: View, _ViewEmptyChecking {
 public extension ViewList {
     var body: some View {
         VStack(alignment: .center, spacing: 6) {
-            ForEach(0 ..< min(numberOfIconsToShow(), count)) { index in
+            ForEach(0 ..< min(numberOfIconsToShow(), count), id: \.self) { index in
                 view(at: index)
                     .lineLimit(1)
                     .minimumScaleFactor(0.1)

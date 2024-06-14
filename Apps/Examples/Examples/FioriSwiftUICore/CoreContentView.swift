@@ -13,6 +13,12 @@ struct CoreContentView: View {
             }
             
             NavigationLink(
+                destination: BannerMessageExample())
+            {
+                Text("Banner Message")
+            }
+            
+            NavigationLink(
                 destination: SideBarExample(),
                 label: {
                     Text("Side Bar Example")

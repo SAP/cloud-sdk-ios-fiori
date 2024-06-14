@@ -20,6 +20,8 @@ public struct Card {
     let cardBody: any View
     let action: any View
     let secondaryAction: any View
+    let tertiaryAction: any View
+    let overflowAction: any View
 
     @Environment(\.cardStyle) var style
 
@@ -40,7 +42,9 @@ public struct Card {
                 @ViewBuilder kpiCaption: () -> any View = { EmptyView() },
                 @ViewBuilder cardBody: () -> any View = { EmptyView() },
                 @ViewBuilder action: () -> any View = { EmptyView() },
-                @ViewBuilder secondaryAction: () -> any View = { EmptyView() })
+                @ViewBuilder secondaryAction: () -> any View = { EmptyView() },
+                @ViewBuilder tertiaryAction: () -> any View = { EmptyView() },
+                @ViewBuilder overflowAction: () -> any View = { FioriButton { _ in Image(systemName: "ellipsis") } })
     {
         self.mediaImage = MediaImage { mediaImage() }
         self.description = Description { description() }
@@ -58,6 +62,8 @@ public struct Card {
         self.cardBody = CardBody { cardBody() }
         self.action = Action { action() }
         self.secondaryAction = SecondaryAction { secondaryAction() }
+        self.tertiaryAction = TertiaryAction { tertiaryAction() }
+        self.overflowAction = OverflowAction { overflowAction() }
     }
 }
 
@@ -77,9 +83,11 @@ public extension Card {
          kpiCaption: AttributedString? = nil,
          @ViewBuilder cardBody: () -> any View = { EmptyView() },
          action: FioriButton? = nil,
-         secondaryAction: FioriButton? = nil)
+         secondaryAction: FioriButton? = nil,
+         tertiaryAction: FioriButton? = nil,
+         overflowAction: FioriButton? = FioriButton { _ in Image(systemName: "ellipsis") })
     {
-        self.init(mediaImage: { OptionalImage(mediaImage) }, description: { OptionalText(description) }, title: { Text(title) }, subtitle: { OptionalText(subtitle) }, icons: { IconStack(icons) }, detailImage: { detailImage }, headerAction: { headerAction }, counter: { OptionalText(counter) }, row1: row1, row2: row2, row3: row3, kpi: { OptionalKPIItem(kpi) }, kpiCaption: { OptionalText(kpiCaption) }, cardBody: cardBody, action: { action }, secondaryAction: { secondaryAction })
+        self.init(mediaImage: { OptionalImage(mediaImage) }, description: { OptionalText(description) }, title: { Text(title) }, subtitle: { OptionalText(subtitle) }, icons: { IconStack(icons) }, detailImage: { detailImage }, headerAction: { headerAction }, counter: { OptionalText(counter) }, row1: row1, row2: row2, row3: row3, kpi: { OptionalKPIItem(kpi) }, kpiCaption: { OptionalText(kpiCaption) }, cardBody: cardBody, action: { action }, secondaryAction: { secondaryAction }, tertiaryAction: { tertiaryAction }, overflowAction: { overflowAction })
     }
 }
 
@@ -105,6 +113,8 @@ public extension Card {
         self.cardBody = configuration.cardBody
         self.action = configuration.action
         self.secondaryAction = configuration.secondaryAction
+        self.tertiaryAction = configuration.tertiaryAction
+        self.overflowAction = configuration.overflowAction
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
     }
 }
@@ -114,7 +124,7 @@ extension Card: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(mediaImage: .init(self.mediaImage), description: .init(self.description), title: .init(self.title), subtitle: .init(self.subtitle), icons: .init(self.icons), detailImage: .init(self.detailImage), headerAction: .init(self.headerAction), counter: .init(self.counter), row1: .init(self.row1), row2: .init(self.row2), row3: .init(self.row3), kpi: .init(self.kpi), kpiCaption: .init(self.kpiCaption), cardBody: .init(self.cardBody), action: .init(self.action), secondaryAction: .init(self.secondaryAction))).typeErased
+            self.style.resolve(configuration: .init(mediaImage: .init(self.mediaImage), description: .init(self.description), title: .init(self.title), subtitle: .init(self.subtitle), icons: .init(self.icons), detailImage: .init(self.detailImage), headerAction: .init(self.headerAction), counter: .init(self.counter), row1: .init(self.row1), row2: .init(self.row2), row3: .init(self.row3), kpi: .init(self.kpi), kpiCaption: .init(self.kpiCaption), cardBody: .init(self.cardBody), action: .init(self.action), secondaryAction: .init(self.secondaryAction), tertiaryAction: .init(self.tertiaryAction), overflowAction: .init(self.overflowAction))).typeErased
                 .transformEnvironment(\.cardStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -132,7 +142,7 @@ private extension Card {
     }
 
     func defaultStyle() -> some View {
-        Card(.init(mediaImage: .init(self.mediaImage), description: .init(self.description), title: .init(self.title), subtitle: .init(self.subtitle), icons: .init(self.icons), detailImage: .init(self.detailImage), headerAction: .init(self.headerAction), counter: .init(self.counter), row1: .init(self.row1), row2: .init(self.row2), row3: .init(self.row3), kpi: .init(self.kpi), kpiCaption: .init(self.kpiCaption), cardBody: .init(self.cardBody), action: .init(self.action), secondaryAction: .init(self.secondaryAction)))
+        Card(.init(mediaImage: .init(self.mediaImage), description: .init(self.description), title: .init(self.title), subtitle: .init(self.subtitle), icons: .init(self.icons), detailImage: .init(self.detailImage), headerAction: .init(self.headerAction), counter: .init(self.counter), row1: .init(self.row1), row2: .init(self.row2), row3: .init(self.row3), kpi: .init(self.kpi), kpiCaption: .init(self.kpiCaption), cardBody: .init(self.cardBody), action: .init(self.action), secondaryAction: .init(self.secondaryAction), tertiaryAction: .init(self.tertiaryAction), overflowAction: .init(self.overflowAction)))
             .shouldApplyDefaultStyle(false)
             .cardStyle(CardFioriStyle.ContentFioriStyle())
             .typeErased

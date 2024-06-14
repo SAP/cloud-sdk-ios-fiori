@@ -13,7 +13,7 @@ struct FioriFonts: View {
     
     var body: some View {
         List {
-            ForEach(0 ..< self.textStyles.count) { index in
+            ForEach(0 ..< self.textStyles.count, id: \.self) { index in
                 let textStyle = self.textStyles[index]
                 Text(String(describing: textStyle))
                     .font(.fiori(forTextStyle: textStyle, weight: self.fontWeight, isItalic: self.isItalic, isCondensed: self.isCondensed))
@@ -46,7 +46,7 @@ extension FioriFonts {
             NavigationView {
                 List {
                     Picker("Font Weight", selection: self.$fontWeight) {
-                        ForEach(0 ..< Font.FioriWeight.allCases.count) { index in
+                        ForEach(0 ..< Font.FioriWeight.allCases.count, id: \.self) { index in
                             let weight = Font.FioriWeight.allCases[index]
                             Text(String(describing: weight))
                                 .tag(weight)
@@ -58,7 +58,7 @@ extension FioriFonts {
                     Toggle("Condensed", isOn: self.$isCondensed)
                     
                     Picker("Dynamic Type", selection: self.$sizeCategory) {
-                        ForEach(0 ..< ContentSizeCategory.allCases.count) { index in
+                        ForEach(0 ..< ContentSizeCategory.allCases.count, id: \.self) { index in
                             let sizeCategory = ContentSizeCategory.allCases[index]
                             Text(String(describing: sizeCategory))
                                 .tag(sizeCategory)

@@ -23,9 +23,9 @@ extension _SortFilterCFGItemContainer: View {
     public var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack(spacing: 30) {
-                ForEach(0 ..< self._items.count) { r in
+                ForEach(0 ..< self._items.count, id: \.self) { r in
                     VStack {
-                        ForEach(0 ..< self._items[r].count) { c in
+                        ForEach(0 ..< self._items[r].count, id: \.self) { c in
                             switch self._items[r][c] {
                             case .picker:
                                 self.picker(row: r, column: c)

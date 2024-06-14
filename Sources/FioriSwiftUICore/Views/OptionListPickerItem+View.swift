@@ -3,7 +3,7 @@ import SwiftUI
 extension OptionListPickerItem: View {
     public var body: some View {
         Grid(horizontalSpacing: 16) {
-            ForEach(0 ..< Int(ceil(Double(_valueOptions.count) / 2.0))) { rowIndex in
+            ForEach(0 ..< Int(ceil(Double(_valueOptions.count) / 2.0)), id: \.self) { rowIndex in
                 GridRow {
                     FilterFeedbackBarButton(
                         leftIcon: _value.wrappedValue.contains(rowIndex * 2) ? Image(systemName: "checkmark") : nil,
