@@ -25,8 +25,5 @@ public struct SecondaryActionFioriStyle: SecondaryActionStyle {
     @ViewBuilder
     public func makeBody(_ configuration: SecondaryActionConfiguration) -> some View {
         SecondaryAction(configuration)
-        // Add default style here
-        // .foregroundStyle(Color.preferredColor(<#fiori color#>))
-        // .font(.fiori(forTextStyle: <#fiori font#>))
     }
 }

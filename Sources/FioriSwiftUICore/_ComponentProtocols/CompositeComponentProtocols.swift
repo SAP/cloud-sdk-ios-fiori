@@ -24,7 +24,7 @@ protocol _CardMainHeaderComponent: _TitleComponent, _SubtitleComponent, _IconsCo
 protocol _CardExtHeaderComponent: _Row1Component, _Row2Component, _Row3Component, _KpiComponent, _KpiCaptionComponent {}
 
 // sourcery: CompositeComponent
-protocol _CardFooterComponent: _ActionComponent, _SecondaryActionComponent {}
+protocol _CardFooterComponent: _ActionComponent, _SecondaryActionComponent, _TertiaryActionComponent, _OverflowActionComponent {}
 
 // sourcery: CompositeComponent
 protocol _CardHeaderComponent: _CardMediaComponent, _CardMainHeaderComponent, _CardExtHeaderComponent {}
@@ -272,4 +272,10 @@ protocol _MenuSelectionComponent: _ActionComponent {
     var isExpanded: Bool { get }
     // sourcery: resultBuilder.name = @ViewBuilder, resultBuilder.backingComponent = _MenuSelectionContainer
     var items: [MenuSelectionItemProtocol] { get }
+}
+
+// sourcery: CompositeComponent
+protocol _BannerMessageComponent: _TitleComponent, _CloseActionComponent, _TopDividerComponent {
+    /// The action to be performed when the banner is tapped.
+    var bannerTapAction: (() -> Void)? { get }
 }

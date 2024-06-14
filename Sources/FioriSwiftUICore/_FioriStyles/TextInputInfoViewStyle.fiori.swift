@@ -22,7 +22,7 @@ extension TextInputInfoViewFioriStyle {
     struct ContentFioriStyle: TextInputInfoViewStyle {
         func makeBody(_ configuration: TextInputInfoViewConfiguration) -> some View {
             TextInputInfoView(configuration)
-                .foregroundColor(.preferredColor(.primaryLabel))
+                .foregroundColor(.preferredColor(.tertiaryLabel))
         }
     }
     
@@ -31,7 +31,7 @@ extension TextInputInfoViewFioriStyle {
         
         func makeBody(_ configuration: IconConfiguration) -> some View {
             Icon(configuration)
-                .foregroundStyle(Color.preferredColor(.primaryLabel))
+                .foregroundStyle(Color.preferredColor(.tertiaryLabel))
                 .font(.fiori(forTextStyle: .footnote))
         }
     }
@@ -41,7 +41,7 @@ extension TextInputInfoViewFioriStyle {
         
         func makeBody(_ configuration: DescriptionConfiguration) -> some View {
             Description(configuration)
-                .foregroundStyle(Color.preferredColor(.primaryLabel))
+                .foregroundStyle(Color.preferredColor(.tertiaryLabel))
                 .font(.fiori(forTextStyle: .footnote))
         }
     }
@@ -51,6 +51,7 @@ extension TextInputInfoViewFioriStyle {
         
         func makeBody(_ configuration: CounterConfiguration) -> some View {
             Counter(configuration)
+                .foregroundStyle(Color.preferredColor(.tertiaryLabel))
                 .font(.fiori(forTextStyle: .footnote))
         }
     }
@@ -142,15 +143,15 @@ struct TextInputInfoViewInformationalStyle: TextInputInfoViewStyle {
             .iconStyle(content: { IconConfiguration in
                 if IconConfiguration.icon.isEmpty {
                     Image(systemName: "info.circle")
-                        .foregroundStyle(Color.preferredColor(.primaryLabel))
+                        .foregroundStyle(Color.preferredColor(.tertiaryLabel))
                 } else {
                     IconConfiguration.icon
-                        .foregroundStyle(Color.preferredColor(.primaryLabel))
+                        .foregroundStyle(Color.preferredColor(.tertiaryLabel))
                 }
             })
             .descriptionStyle(content: { descriptionConfiguration in
                 descriptionConfiguration.description
-                    .foregroundStyle(Color.preferredColor(.primaryLabel))
+                    .foregroundStyle(Color.preferredColor(.tertiaryLabel))
             })
     }
 }
@@ -312,7 +313,7 @@ struct TextInputFormViewConfiguration {
             charCountString.foregroundColor = .preferredColor(.tintColor)
         }
         var limitString = AttributedString("/\(limit)")
-        limitString.foregroundColor = .preferredColor(.primaryLabel)
+        limitString.foregroundColor = .preferredColor(.tertiaryLabel)
         var counterString = charCountString + limitString
         counterString.font = .fiori(forTextStyle: .footnote)
         return counterString
@@ -450,6 +451,15 @@ struct TextInputFormViewConfiguration {
             return true
         }
         return false
+    }
+
+    func getTitleColor() -> Color {
+        switch self.getControlState() {
+        case .disabled:
+            return .preferredColor(.quaternaryLabel)
+        default:
+            return self.isFocused ? .preferredColor(.tintColor) : .preferredColor(.primaryLabel)
+        }
     }
 }
 

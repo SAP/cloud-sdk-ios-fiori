@@ -72,7 +72,7 @@ struct YAxisGridlines: View {
                 }
             }
         }
-        .animation(nil)
+        .transaction { $0.animation = nil }
         .clipped()
     }
 }

@@ -65,7 +65,7 @@ struct XAxisGridlines: View {
                                                dash: [axis.gridlines.dashPatternLength, 0]))
                     .offset(x: zeroX)
             }
-        }.animation(nil)
+        }.transaction { $0.animation = nil }
     }
     
     func dashGap(label: AxisTitle, gap: CGFloat) -> CGFloat {

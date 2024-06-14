@@ -20,6 +20,19 @@ struct MobileCardExample: View {
             } label: {
                 Text("Cards")
             }
+            
+            NavigationLink {
+                List {
+                    ForEach(0 ..< CardTests.cardFooterSamples.count, id: \.self) { i in
+                        CardTests.cardFooterSamples[i]
+                    }
+                }
+                .cardStyle(.card)
+                .listStyle(.plain)
+                .navigationBarTitle("Footers", displayMode: .inline)
+            } label: {
+                Text("Footers")
+            }
 
             NavigationLink {
                 MasonryTestView()
@@ -90,24 +103,26 @@ struct CarouselTestView: View {
     }
     
     var body: some View {
-        Carousel(numberOfColumns: Int(self.numberOfColumns), spacing: self.spacing, alignment: self.alignment == 0 ? .top : (self.alignment == 1 ? .center : .bottom), isSnapping: self.isSnapping) {
-            if self.contentType == 0 {
-                ForEach(0 ..< CardTests.cardSamples.count, id: \.self) { i in
-                    CardTests.cardSamples[i]
-                }
-            } else {
-                ForEach(0 ..< 20, id: \.self) { i in
-                    Text("Text \(i)")
-                        .font(.title)
-                        .padding()
-                        .frame(height: 100)
-                        .background(Color.gray)
+        ScrollView(.vertical) {
+            Carousel(numberOfColumns: Int(self.numberOfColumns), spacing: self.spacing, alignment: self.alignment == 0 ? .top : (self.alignment == 1 ? .center : .bottom), isSnapping: self.isSnapping) {
+                if self.contentType == 0 {
+                    ForEach(0 ..< CardTests.cardSamples.count, id: \.self) { i in
+                        CardTests.cardSamples[i]
+                    }
+                } else {
+                    ForEach(0 ..< 20, id: \.self) { i in
+                        Text("Text \(i)")
+                            .font(.title)
+                            .padding()
+                            .frame(height: 100)
+                            .background(Color.gray)
+                    }
                 }
             }
+            .cardStyle(.card)
+            .padding(self.padding)
+            .border(Color.gray)
         }
-        .cardStyle(.card)
-        .padding(self.padding)
-        .border(Color.gray)
         .sheet(isPresented: self.$isPresented, content: {
             VStack {
                 HStack {
