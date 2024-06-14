@@ -21,7 +21,7 @@ private struct CarouselViewLayout: Layout {
             return
         }
         
-        let size: CGSize = subviews.map {
+        let _: CGSize = subviews.map {
             $0.sizeThatFits(ProposedViewSize(width: containerWidth, height: nil))
         }.reduce(.zero) { partial, size in
             CGSize(width: max(partial.width, size.width), height: max(partial.height, size.height))
