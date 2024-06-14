@@ -115,7 +115,7 @@ extension TextFieldFormViewFioriStyle {
             guard configuration.controlState == .normal, !self.isFocused else {
                 return false
             }
-            guard let actionIcon = configuration.actionIcon, let action = configuration.action else {
+            guard configuration.actionIcon != nil, configuration.action != nil else {
                 return false
             }
             return true
