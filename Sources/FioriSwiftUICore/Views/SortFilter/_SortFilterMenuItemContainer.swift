@@ -25,8 +25,8 @@ extension _SortFilterMenuItemContainer: View {
                 if self.fullCFGButton.positon == .leading {
                     FullCFGMenuItem(items: self.$_items, onUpdate: self.onUpdate)
                 }
-                ForEach(0 ..< self._items.count) { r in
-                    ForEach(0 ..< self._items[r].count) { c in
+                ForEach(0 ..< self._items.count, id: \.self) { r in
+                    ForEach(0 ..< self._items[r].count, id: \.self) { c in
                         if self._items[r][c].showsOnFilterFeedbackBar {
                             switch self._items[r][c] {
                             case .picker:

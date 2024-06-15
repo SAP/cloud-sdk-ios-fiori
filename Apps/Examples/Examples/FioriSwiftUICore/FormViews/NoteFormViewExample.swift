@@ -43,6 +43,11 @@ struct NoteFormViewExample: View {
                 Toggle("Hides Read-Only Hint", isOn: self.$hidesReadonlyHint)
                     .padding(.leading, 16)
                     .padding(.trailing, 16)
+                Button("Dismiss Keyboard") {
+                    hideKeyboard()
+                }
+                .padding(.leading, 16)
+                .padding(.trailing, 16)
 
                 Text("Default NoteForm")
                 NoteFormView(text: self.$valueText1, placeholder: "NoteFormView", errorMessage: self.getErrorMessage(), maxTextLength: self.getMaxTextLength(), hintText: self.getHintText(), isCharCountEnabled: self.showsCharCount, allowsBeyondLimit: self.allowsBeyondLimit)

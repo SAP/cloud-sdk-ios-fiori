@@ -71,10 +71,7 @@ extension TextFieldFormViewFioriStyle {
         }
 
         func getTitleColor(_ configuration: TextFieldFormViewConfiguration) -> Color {
-            guard !self.isDisabled(configuration) else {
-                return .preferredColor(.separator)
-            }
-            return .preferredColor(.primaryLabel)
+            TextInputFormViewConfiguration(configuration, isFocused: self.isFocused).getTitleColor()
         }
 
         func getTextColor(_ configuration: TextFieldFormViewConfiguration) -> Color {
@@ -118,7 +115,7 @@ extension TextFieldFormViewFioriStyle {
             guard configuration.controlState == .normal, !self.isFocused else {
                 return false
             }
-            guard let actionIcon = configuration.actionIcon, let action = configuration.action else {
+            guard configuration.actionIcon != nil, configuration.action != nil else {
                 return false
             }
             return true

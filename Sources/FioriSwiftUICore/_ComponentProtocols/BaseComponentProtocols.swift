@@ -139,6 +139,20 @@ protocol _SecondaryActionComponent {
 }
 
 // sourcery: BaseComponent
+protocol _TertiaryActionComponent {
+    // sourcery: @ViewBuilder
+    var tertiaryAction: FioriButton? { get }
+}
+
+// sourcery: BaseComponent
+protocol _OverflowActionComponent {
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "FioriButton { _ in Image(systemName: "ellipsis") }"
+    // sourcery: resultBuilder.defaultValue = "{ FioriButton { _ in Image(systemName: "ellipsis") } }"
+    var overflowAction: FioriButton? { get }
+}
+
+// sourcery: BaseComponent
 protocol _Row1Component {
 //    var numberOfLines: Int { get set }
     
@@ -240,4 +254,19 @@ protocol _IncrementActionComponent {
     // sourcery: defaultValue = "FioriButton { _ in Image(systemName: "plus") }"
     // sourcery: resultBuilder.defaultValue = "{ FioriButton { _ in Image(systemName: "plus") } }"
     var incrementAction: FioriButton? { get }
+}
+
+// sourcery: BaseComponent
+protocol _TopDividerComponent {
+    // sourcery: defaultValue = "{ Rectangle().fill(Color.clear) }"
+    @ViewBuilder
+    var topDivider: (() -> any View)? { get }
+}
+
+// sourcery: BaseComponent
+protocol _CloseActionComponent {
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "FioriButton { _ in Image(systemName: "xmark") }"
+    // sourcery: resultBuilder.defaultValue = "{ FioriButton { _ in Image(systemName: "xmark") } }"
+    var closeAction: FioriButton? { get }
 }
