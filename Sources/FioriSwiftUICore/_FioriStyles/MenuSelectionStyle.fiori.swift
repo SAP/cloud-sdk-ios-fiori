@@ -37,9 +37,7 @@ public struct MenuSelectionBaseStyle: MenuSelectionStyle {
                     }
                 }
                 .onSimultaneousTapGesture {
-                    withAnimation {
-                        configuration.isExpanded = true
-                    }
+                    configuration.isExpanded = true
                 }
             }
         }
