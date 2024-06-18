@@ -17,18 +17,18 @@ import SwiftUI
 // Base Layout style
 public struct MenuSelectionBaseStyle: MenuSelectionStyle {
     @Environment(\.maxNumberOfItems) var maxNumberOfItems
-    @State var itemCount = 0
+    @State private var itemCount = 0
     
     public func makeBody(_ configuration: MenuSelectionConfiguration) -> some View {
         VStack(alignment: .leading) {
-            _CountableView(maxNumberOfItems: configuration.isExpanded ? 0 : self.maxNumberOfItems) {
+            _CountableView(maxNumberOfItems: !self.isListCollapsed(configuration) ? 0 : self.maxNumberOfItems) {
                 configuration.items
             }
             .onPreferenceChange(ItemCountPreferenceKey.self, perform: { value in
                 self.itemCount = value
             })
            
-            if self.shouldShowAction(configuration) {
+            if self.isListCollapsed(configuration) {
                 Group {
                     if configuration.action.isEmpty {
                         self.defaultAction
@@ -46,7 +46,7 @@ public struct MenuSelectionBaseStyle: MenuSelectionStyle {
         .frame(maxWidth: .infinity, alignment: .leading)
     }
     
-    private func shouldShowAction(_ config: MenuSelectionConfiguration) -> Bool {
+    private func isListCollapsed(_ config: MenuSelectionConfiguration) -> Bool {
         self.maxNumberOfItems > 0 && !config.isExpanded && self.itemCount > self.maxNumberOfItems
     }
     
