@@ -35,5 +35,7 @@ struct NavigationBarExample: View {
 }
 
 #Preview {
-    NavigationBarExample()
+    NavigationStack {
+        NavigationBarExample()
+    }
 }
