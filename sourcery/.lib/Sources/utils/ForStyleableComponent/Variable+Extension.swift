@@ -4,7 +4,11 @@ import SourceryRuntime
 extension Variable {
     var defaultValue: String {
         if isBinding {
-            return ""
+            if let defaultValue = annotations.defaultValue {
+                return "\(defaultValue)"
+            } else {
+                return ""
+            }
         } else {
             if let defaultValue = annotations.defaultValue {
                 return "\(defaultValue)"

@@ -279,3 +279,15 @@ protocol _BannerMessageComponent: _TitleComponent, _CloseActionComponent, _TopDi
     /// The action to be performed when the banner is tapped.
     var bannerTapAction: (() -> Void)? { get }
 }
+
+// sourcery: CompositeComponent
+protocol _ProfileHeaderComponent: _DetailImageComponent, _TitleComponent, _SubtitleComponent, _DescriptionComponent {
+    // sourcery: @Binding
+    // sourcery: defaultValue = .constant(0)
+    /// A binding float for transition of profile header. Value should be in range of 0 to 1. Default value is 0.
+    var transitionProgress: CGFloat { get }
+    
+    @ViewBuilder
+    /// The detail content for the profile header.
+    var detailContent: (() -> any View)? { get }
+}
