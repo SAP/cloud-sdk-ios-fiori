@@ -819,6 +819,23 @@ public extension View {
     }
 }
 
+// MARK: ProfileHeaderStyle
+
+public extension View {
+    func profileHeaderStyle(_ style: some ProfileHeaderStyle) -> some View {
+        self.transformEnvironment(\.profileHeaderStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func profileHeaderStyle(@ViewBuilder content: @escaping (ProfileHeaderConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.profileHeaderStyleStack) { stack in
+            let style = AnyProfileHeaderStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: RatingControlStyle
 
 public extension View {

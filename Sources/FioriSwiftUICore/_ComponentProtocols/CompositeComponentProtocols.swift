@@ -317,3 +317,14 @@ protocol _RatingControlComponent {
     /// The custom spacing between images.
     var interItemSpacing: CGFloat? { get }
 }
+
+// sourcery: CompositeComponent
+protocol _ProfileHeaderComponent: _DetailImageComponent, _TitleComponent, _SubtitleComponent, _DescriptionComponent {
+    // sourcery: defaultValue = "false"
+    /// Indicate whether the profile header was animatable in scroll view. The default was false.
+    var animatable: Bool { get }
+    
+    @ViewBuilder
+    /// The detail content for the profile header.
+    var detailContent: (() -> any View)? { get }
+}
