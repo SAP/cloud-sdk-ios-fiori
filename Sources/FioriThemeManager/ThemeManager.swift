@@ -105,25 +105,33 @@ public class ThemeManager {
     private(set) var developerOverrides: [ColorStyle: [ColorVariant: Color]] = [:]
     private(set) var styleSheetOverrides: [ColorStyle: [ColorVariant: Color]] = [:]
     
+    private static let mergedDeprecatedDefinitions: [ColorStyle: HexColor] = {
+        return shared.mergedDeprecatedDefinitions()
+    }()
+    
+    private static let mergedCompatibleDefinitions: [ColorStyle: ColorStyle] = {
+        return shared.mergedCompatibleDefinitions()
+    }()
+
     /// :nodoc:
     func hexColor(for style: ColorStyle) -> HexColor? {
         switch self.paletteVersion {
         #if !os(watchOS)
             case .v3_x, .v3_2, .v4, .v5, .v6, .v7, .v8:
-                let compatibleDefinitions = self.mergedCompatibleDefinitions()
+                let compatibleDefinitions = ThemeManager.mergedCompatibleDefinitions
                 guard !compatibleDefinitions.isEmpty else {
-                    return self.mergedDeprecatedDefinitions()[style]
+                    return ThemeManager.mergedDeprecatedDefinitions[style]
                 }
                 let _style = compatibleDefinitions[style] ?? style
-                return self.mergedDeprecatedDefinitions()[_style]
+                return ThemeManager.mergedDeprecatedDefinitions[_style]
         #else
             case .v1:
-                let compatibleDefinitions = self.mergedCompatibleDefinitions()
+                let compatibleDefinitions = ThemeManager.mergedCompatibleDefinitions
                 guard !compatibleDefinitions.isEmpty else {
-                    return self.mergedDeprecatedDefinitions()[style]
+                    return ThemeManager.mergedDeprecatedDefinitions[style]
                 }
                 let _style = compatibleDefinitions[style] ?? style
-                return self.mergedDeprecatedDefinitions()[_style]
+                return ThemeManager.mergedDeprecatedDefinitions[_style]
         #endif
         default:
             return self.palette.hexColor(for: style)
