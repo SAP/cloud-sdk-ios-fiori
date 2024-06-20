@@ -94,6 +94,9 @@ public class ThemeManager {
     public func reset() {
         self.developerOverrides.removeAll()
         self.styleSheetOverrides.removeAll()
+        
+        self.mergedCompatibleColorDefinitions.removeAll()
+        self.mergedDeprecatedColorDefinitions.removeAll()
     }
     
     var compatibilityMap: ColorCompatibilityMap? {
@@ -104,6 +107,10 @@ public class ThemeManager {
     
     private(set) var developerOverrides: [ColorStyle: [ColorVariant: Color]] = [:]
     private(set) var styleSheetOverrides: [ColorStyle: [ColorVariant: Color]] = [:]
+    
+    private var mergedDeprecatedColorDefinitions: [ColorStyle: HexColor] = [:]
+    
+    private var mergedCompatibleColorDefinitions: [ColorStyle: ColorStyle] = [:]
     
     /// :nodoc:
     func hexColor(for style: ColorStyle) -> HexColor? {
@@ -132,6 +139,9 @@ public class ThemeManager {
     
     /// Merges deprecated styles till the `current` palette.
     private func mergedDeprecatedDefinitions() -> [ColorStyle: HexColor] {
+        guard mergedDeprecatedColorDefinitions.count == 0 else {
+            return mergedDeprecatedColorDefinitions
+        }
         guard let paletteVersion else { return self.palette.colorDefinitions }
         var current = paletteVersion
         var result = paletteVersion.palette.colorDefinitions
@@ -141,11 +151,15 @@ public class ThemeManager {
             current = previous
         }
         result.merge(cumulative) { curr, _ in curr }
+        mergedDeprecatedColorDefinitions = result
         return result
     }
     
     /// Merges new styles that are not existed in current palette till the `latest` palette.
     private func mergedCompatibleDefinitions() -> [ColorStyle: ColorStyle] {
+        guard mergedCompatibleColorDefinitions.count == 0 else {
+            return mergedCompatibleColorDefinitions
+        }
         guard let paletteVersion,
               let map = paletteVersion.compatibilityMap
         else {
@@ -159,6 +173,7 @@ public class ThemeManager {
             current = next
         }
         result.merge(cumulative) { curr, _ in curr }
+        mergedCompatibleColorDefinitions = result
         return result
     }
     
