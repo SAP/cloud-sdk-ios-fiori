@@ -78,7 +78,7 @@ struct NavigationBarPopover: View {
                         Text("Edit")
                     }
                 }
-                .font(.fiori(forTextStyle: .headline)).fontWeight(.black)
+                .font(.fiori(forTextStyle: .headline)).fontWeight(.bold)
             }
         }
     }

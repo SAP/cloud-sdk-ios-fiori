@@ -7,7 +7,7 @@ struct NavigationBarExample: View {
     var body: some View {
         List {
             HStack {
-                Text("FioriStyle")
+                Text("FioriStyle Version")
                 Spacer()
             }
             .contentShape(Rectangle())
@@ -21,13 +21,13 @@ struct NavigationBarExample: View {
             NavigationLink {
                 NavigationBarPopover()
             } label: {
-                Text("Title & Subtitle for TitleView(Long press to show popover)")
+                Text("Long title and subtitle for TitleView (Long press to show popover)")
             }
             
             NavigationLink {
                 NavigationBarCustomItem()
             } label: {
-                Text("BarButtonItem with Expandable Touch Area & Highlighted State")
+                Text("Custom Nav Bar with custom buttons (expanded touch area and highlighted state)")
             }
         }
         .navigationTitle("NavigationBar Test")
