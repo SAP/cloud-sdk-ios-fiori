@@ -3,17 +3,17 @@ import SwiftUI
 
 struct NavigationBarPopover: View {
     @Environment(\.presentationMode) var presentationMode
-    @State private var title: String = "Title goes here"
-    @State private var subtitle: String = "Subtitle goes here"
+    @State private var title: String = "Title with a very long long text wraps up to two lines"
+    @State private var subtitle: String = "Subtitle with a very long long long long long long text wraps up to two lines"
     @State private var isPopoverPresented = false
     
     var body: some View {
         List {
             Text("NavigationBar Background")
             Text("Standard title font & color")
-            Text("Long press on navigation bar can show full title")
+            Text("Info: Long press on a truncated navigation bar title can show the full title")
         }
-        .navigationTitle(self.title)
+        .navigationTitle("Popover Navigation Bar")
         .toolbar {
             ToolbarItem(placement: .principal) {
                 VStack {
@@ -75,15 +75,17 @@ struct NavigationBarPopover: View {
                             Text("Long Title & Long Subtitle")
                         })
                     } label: {
-                        Text("Title")
+                        Text("Edit")
                     }
                 }
-                .font(.fiori(forTextStyle: .headline)).fontWeight(.black)
+                .font(.fiori(forTextStyle: .headline)).fontWeight(.bold)
             }
         }
     }
 }
 
 #Preview {
-    NavigationBarPopover()
+    NavigationStack {
+        NavigationBarPopover()
+    }
 }
