@@ -138,8 +138,8 @@ public class ThemeManager {
     
     /// Merges deprecated styles till the `current` palette.
     private func mergedDeprecatedDefinitions() -> [ColorStyle: HexColor] {
-        guard mergedDeprecatedColorDefinitions.isEmpty else {
-            return mergedDeprecatedColorDefinitions
+        guard self.mergedDeprecatedColorDefinitions.isEmpty else {
+            return self.mergedDeprecatedColorDefinitions
         }
         guard let paletteVersion else { return self.palette.colorDefinitions }
         var current = paletteVersion
@@ -150,14 +150,14 @@ public class ThemeManager {
             current = previous
         }
         result.merge(cumulative) { curr, _ in curr }
-        mergedDeprecatedColorDefinitions = result
+        self.mergedDeprecatedColorDefinitions = result
         return result
     }
     
     /// Merges new styles that are not existed in current palette till the `latest` palette.
     private func mergedCompatibleDefinitions() -> [ColorStyle: ColorStyle] {
-        guard mergedCompatibleColorDefinitions.isEmpty else {
-            return mergedCompatibleColorDefinitions
+        guard self.mergedCompatibleColorDefinitions.isEmpty else {
+            return self.mergedCompatibleColorDefinitions
         }
         guard let paletteVersion,
               let map = paletteVersion.compatibilityMap
@@ -172,7 +172,7 @@ public class ThemeManager {
             current = next
         }
         result.merge(cumulative) { curr, _ in curr }
-        mergedCompatibleColorDefinitions = result
+        self.mergedCompatibleColorDefinitions = result
         return result
     }
     
