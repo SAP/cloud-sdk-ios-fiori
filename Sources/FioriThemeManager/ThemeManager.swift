@@ -109,7 +109,6 @@ public class ThemeManager {
     private(set) var styleSheetOverrides: [ColorStyle: [ColorVariant: Color]] = [:]
     
     private var mergedDeprecatedColorDefinitions: [ColorStyle: HexColor] = [:]
-    
     private var mergedCompatibleColorDefinitions: [ColorStyle: ColorStyle] = [:]
     
     /// :nodoc:
@@ -139,7 +138,7 @@ public class ThemeManager {
     
     /// Merges deprecated styles till the `current` palette.
     private func mergedDeprecatedDefinitions() -> [ColorStyle: HexColor] {
-        guard mergedDeprecatedColorDefinitions.count == 0 else {
+        guard mergedDeprecatedColorDefinitions.isEmpty else {
             return mergedDeprecatedColorDefinitions
         }
         guard let paletteVersion else { return self.palette.colorDefinitions }
@@ -157,7 +156,7 @@ public class ThemeManager {
     
     /// Merges new styles that are not existed in current palette till the `latest` palette.
     private func mergedCompatibleDefinitions() -> [ColorStyle: ColorStyle] {
-        guard mergedCompatibleColorDefinitions.count == 0 else {
+        guard mergedCompatibleColorDefinitions.isEmpty else {
             return mergedCompatibleColorDefinitions
         }
         guard let paletteVersion,
