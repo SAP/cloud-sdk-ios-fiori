@@ -22,7 +22,9 @@ struct MenuSelectionExample: View {
                 .border(.red)
                 .toolbar(content: {
                     Button("ScrollToBottom") {
-                        scrollView.scrollTo("MenuSelection", anchor: .bottom)
+                        withAnimation {
+                            scrollView.scrollTo("MenuSelection", anchor: .bottom)
+                        }
                     }
                 })
                 .onChange(of: self.isExpanded) { _ in
