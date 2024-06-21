@@ -109,7 +109,6 @@ public class ThemeManager {
     private(set) var styleSheetOverrides: [ColorStyle: [ColorVariant: Color]] = [:]
     
     private var mergedDeprecatedColorDefinitions: [ColorStyle: HexColor] = [:]
-    
     private var mergedCompatibleColorDefinitions: [ColorStyle: ColorStyle] = [:]
     
     /// :nodoc:
