@@ -51,6 +51,7 @@ public struct MenuSelectionBaseStyle: MenuSelectionStyle {
     private var defaultAction: some View {
         FioriButton(title: .init("View All (%d)", args: self.itemCount))
             .fioriButtonStyle(FioriSecondaryButtonStyle(colorStyle: .normal))
+            .accessibilityIdentifier("FioriSwiftUICore.MenuSelection.ViewAllButton")
     }
 }
 
