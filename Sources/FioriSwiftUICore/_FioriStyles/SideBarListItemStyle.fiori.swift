@@ -92,40 +92,29 @@ extension SideBarListItemFioriStyle {
         @EnvironmentObject private var modelObject: SideBarModelObject
         
         func makeBody(_ configuration: SideBarListItemConfiguration) -> some View {
-            Group {
-                if !configuration.isSelected || self.editMode?.wrappedValue == .active { // Present normal style for item in edit mode or it was NOT selected
-                    SideBarListItem(configuration)
-                } else { // Present active style for item when it was selected in view mode
-                    SideBarListItem(configuration)
-                        .background(RoundedRectangle(cornerRadius: 10, style: .continuous).fill(Color.preferredColor(.tintColor)))
-                        .titleStyle { configuration in
-                            configuration.title.foregroundStyle(Color.preferredColor(.quinaryLabel))
-                                .font(.fiori(forTextStyle: .body, weight: .bold))
-                        }
-                        .subtitleStyle { configuration in
-                            configuration.subtitle.foregroundStyle(Color.preferredColor(.quinaryLabel))
-                                .font(.fiori(forTextStyle: .subheadline, weight: .bold))
-                        }
-                        .iconStyle { configuration in
-                            configuration.icon.foregroundStyle(Color.preferredColor(.quinaryLabel))
-                                .fontWeight(.bold)
-                        }
-                        .accessoryIconStyle { configuration in
-                            configuration.accessoryIcon.foregroundStyle(Color.preferredColor(.quinaryLabel))
-                                .fontWeight(.bold)
-                        }
-                        .accessibilityAddTraits(.isSelected)
-                }
-            }
+            SideBarListItem(configuration)
+                .background(RoundedRectangle(cornerRadius: 10, style: .continuous).fill((configuration.isSelected && self.editMode?.wrappedValue == .inactive) ? Color.preferredColor(.tintColor) : Color.clear))
+                .accessibilityAddTraits((configuration.isSelected && self.editMode?.wrappedValue == .inactive) ? .isSelected : .isButton)
+                .environmentObject(SideBarListItemModelObject(isSelected: configuration.isSelected))
         }
     }
 
     struct IconFioriStyle: IconStyle {
         let sideBarListItemConfiguration: SideBarListItemConfiguration
-    
+        @EnvironmentObject private var modelObject: SideBarListItemModelObject
+        @Environment(\.editMode) private var editMode
+        
         func makeBody(_ configuration: IconConfiguration) -> some View {
-            Icon(configuration)
-                .foregroundStyle(Color.preferredColor(.tintColor))
+            Group {
+                if self.modelObject.isSelected, self.editMode?.wrappedValue == .inactive {
+                    Icon(configuration)
+                        .fontWeight(.bold)
+                        .foregroundStyle(Color.preferredColor(.quinaryLabel))
+                } else {
+                    Icon(configuration)
+                        .foregroundStyle(Color.preferredColor(.tintColor))
+                }
+            }
         }
     }
 
@@ -140,30 +129,56 @@ extension SideBarListItemFioriStyle {
     
     struct TitleFioriStyle: TitleStyle {
         let sideBarListItemConfiguration: SideBarListItemConfiguration
-    
+        @EnvironmentObject private var modelObject: SideBarListItemModelObject
+        @Environment(\.editMode) private var editMode
+        
         func makeBody(_ configuration: TitleConfiguration) -> some View {
-            Title(configuration)
-                .font(.fiori(forTextStyle: .body, weight: .regular))
-                .foregroundStyle(Color.preferredColor(.primaryLabel))
+            if self.modelObject.isSelected, self.editMode?.wrappedValue == .inactive {
+                Title(configuration)
+                    .font(.fiori(forTextStyle: .body, weight: .bold))
+                    .foregroundStyle(Color.preferredColor(.quinaryLabel))
+            } else {
+                Title(configuration)
+                    .font(.fiori(forTextStyle: .body, weight: .regular))
+                    .foregroundStyle(Color.preferredColor(.primaryLabel))
+            }
         }
     }
 
     struct SubtitleFioriStyle: SubtitleStyle {
         let sideBarListItemConfiguration: SideBarListItemConfiguration
+        @EnvironmentObject private var modelObject: SideBarListItemModelObject
+        @Environment(\.editMode) private var editMode
     
         func makeBody(_ configuration: SubtitleConfiguration) -> some View {
-            Subtitle(configuration)
-                .font(.fiori(forTextStyle: .subheadline, weight: .regular))
-                .foregroundStyle(Color.preferredColor(.tertiaryLabel))
+            if self.modelObject.isSelected, self.editMode?.wrappedValue == .inactive {
+                Subtitle(configuration)
+                    .font(.fiori(forTextStyle: .subheadline, weight: .bold))
+                    .foregroundStyle(Color.preferredColor(.quinaryLabel))
+            } else {
+                Subtitle(configuration)
+                    .font(.fiori(forTextStyle: .subheadline, weight: .regular))
+                    .foregroundStyle(Color.preferredColor(.tertiaryLabel))
+            }
         }
     }
 
     struct AccessoryIconFioriStyle: AccessoryIconStyle {
         let sideBarListItemConfiguration: SideBarListItemConfiguration
+        @EnvironmentObject private var modelObject: SideBarListItemModelObject
+        @Environment(\.editMode) private var editMode
     
         func makeBody(_ configuration: AccessoryIconConfiguration) -> some View {
-            AccessoryIcon(configuration)
-                .foregroundStyle(Color.preferredColor(.tertiaryLabel))
+            Group {
+                if self.modelObject.isSelected, self.editMode?.wrappedValue == .inactive {
+                    AccessoryIcon(configuration)
+                        .fontWeight(.bold)
+                        .foregroundStyle(Color.preferredColor(.quinaryLabel))
+                } else {
+                    AccessoryIcon(configuration)
+                        .foregroundStyle(Color.preferredColor(.tertiaryLabel))
+                }
+            }
         }
     }
 
@@ -173,5 +188,13 @@ extension SideBarListItemFioriStyle {
         func makeBody(_ configuration: SwitchConfiguration) -> some View {
             Switch(configuration)
         }
+    }
+}
+
+class SideBarListItemModelObject: ObservableObject {
+    @Published var isSelected: Bool
+    
+    init(isSelected: Bool) {
+        self.isSelected = isSelected
     }
 }

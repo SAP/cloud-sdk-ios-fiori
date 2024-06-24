@@ -29,6 +29,11 @@ public struct SideBarExample: View {
                     } label: {
                         Text("Customized Sidebar")
                     }
+                    NavigationLink {
+                        EditableSideBarExample(isPartialCustom: true)
+                    } label: {
+                        Text("Customized Sidebar-2")
+                    }
                 }
                 .navigationBarHidden(false)
             } label: {
@@ -41,6 +46,7 @@ public struct SideBarExample: View {
 struct EditableSideBarExample: View {
     var allowEdit: Bool = true
     var isCustom: Bool = false
+    var isPartialCustom: Bool = false
     let isPad: Bool = UIDevice.current.userInterfaceIdiom == .pad
 
     var deviceModelObject = DeviceExampleModelObject()
@@ -135,8 +141,13 @@ struct EditableSideBarExample: View {
                 }
             }
             .titleStyle { configuration in
-                configuration.title.foregroundColor(self.isEditing ? .green : .indigo)
-                    .font(.fiori(forTextStyle: .title3, weight: .regular))
+                if self.selection == item.wrappedValue {
+                    configuration.title.foregroundColor(.cyan)
+                        .font(.fiori(forTextStyle: .title3, weight: .regular))
+                } else {
+                    configuration.title.foregroundColor(self.isEditing ? .green : .red)
+                        .font(.fiori(forTextStyle: .title3, weight: .regular))
+                }
             }
             .iconStyle { configuration in
                 configuration.icon.foregroundColor(!self.isEditing ? .red : .pink)
@@ -150,6 +161,30 @@ struct EditableSideBarExample: View {
             }
             .accessoryIconStyle { configuration in
                 configuration.accessoryIcon.foregroundColor(.accentColor)
+            }
+        } else if self.isPartialCustom {
+            return barItem.titleStyle { configuration in
+                if self.selection == item.wrappedValue {
+                    configuration.title.foregroundColor(.red)
+                        .font(.fiori(forTextStyle: .title3, weight: .regular))
+                } else {
+                    configuration.title
+                }
+            }
+            .subtitleStyle { configuration in
+                if self.selection == item.wrappedValue {
+                    configuration.subtitle.foregroundColor(.green)
+                        .font(.fiori(forTextStyle: .title3, weight: .regular))
+                } else {
+                    configuration.subtitle.foregroundColor(.brown)
+                }
+            }
+            .accessoryIconStyle { configuration in
+                if self.selection == item.wrappedValue {
+                    configuration.accessoryIcon.foregroundColor(.red)
+                } else {
+                    configuration.accessoryIcon.foregroundColor(.yellow)
+                }
             }
         } else {
             return barItem
