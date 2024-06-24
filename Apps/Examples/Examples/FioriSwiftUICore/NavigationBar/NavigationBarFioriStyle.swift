@@ -11,13 +11,12 @@ struct NavigationBarFioriStyle: View {
             List {
                 Text("NavigationBar Background")
                 Text("Standard title font & color")
-                Text("Long press on navigation bar can show full title")
             }
             .navigationTitle("FioriStyle")
             .toolbar {
                 ToolbarItem(placement: .principal) {
                     VStack {
-                        Text("Title goes here")
+                        Text("FioriStyle")
                             .font(.fiori(forTextStyle: .subheadline)).fontWeight(.black)
                         Text("Subtitle goes here")
                             .font(.fiori(forTextStyle: .caption1))
@@ -33,10 +32,11 @@ struct NavigationBarFioriStyle: View {
                             Image(systemName: "camera")
                         })
                     }
-                    .font(.fiori(forTextStyle: .headline)).fontWeight(.black)
+                    .font(.fiori(forTextStyle: .headline)).fontWeight(.bold)
                 }
             }
         }
+        .presentationDragIndicator(.visible)
     }
 }
 
