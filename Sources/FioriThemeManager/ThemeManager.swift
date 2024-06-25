@@ -94,6 +94,9 @@ public class ThemeManager {
     public func reset() {
         self.developerOverrides.removeAll()
         self.styleSheetOverrides.removeAll()
+        
+        self.mergedDeprecatedColorDefinitions.removeAll()
+        self.mergedCompatibleColorDefinitions.removeAll()
     }
     
     internal var compatibilityMap: ColorCompatibilityMap? {
@@ -105,6 +108,9 @@ public class ThemeManager {
     internal private(set) var developerOverrides: [ColorStyle: [ColorVariant: Color]] = [:]
     internal private(set) var styleSheetOverrides: [ColorStyle: [ColorVariant: Color]] = [:]
     
+    private var mergedDeprecatedColorDefinitions: [ColorStyle: HexColor] = [:]
+    private var mergedCompatibleColorDefinitions: [ColorStyle: ColorStyle] = [:]
+
     /// :nodoc:
     internal func hexColor(for style: ColorStyle) -> HexColor? {
         switch self.paletteVersion {
@@ -132,7 +138,10 @@ public class ThemeManager {
     
     /// Merges deprecated styles till the `current` palette.
     private func mergedDeprecatedDefinitions() -> [ColorStyle: HexColor] {
-        guard let paletteVersion = paletteVersion else { return self.palette.colorDefinitions }
+        guard self.mergedDeprecatedColorDefinitions.isEmpty else {
+            return self.mergedDeprecatedColorDefinitions
+        }
+        guard let paletteVersion else { return self.palette.colorDefinitions }
         var current = paletteVersion
         var result = paletteVersion.palette.colorDefinitions
         var cumulative = [ColorStyle: HexColor]()
@@ -141,12 +150,16 @@ public class ThemeManager {
             current = previous
         }
         result.merge(cumulative) { curr, _ in curr }
+        self.mergedDeprecatedColorDefinitions = result
         return result
     }
     
     /// Merges new styles that are not existed in current palette till the `latest` palette.
     private func mergedCompatibleDefinitions() -> [ColorStyle: ColorStyle] {
-        guard let paletteVersion = paletteVersion,
+        guard self.mergedCompatibleColorDefinitions.isEmpty else {
+            return self.mergedCompatibleColorDefinitions
+        }
+        guard let paletteVersion,
               let map = paletteVersion.compatibilityMap
         else {
             return [ColorStyle: ColorStyle]()
@@ -159,6 +172,7 @@ public class ThemeManager {
             current = next
         }
         result.merge(cumulative) { curr, _ in curr }
+        self.mergedCompatibleColorDefinitions = result
         return result
     }
     
