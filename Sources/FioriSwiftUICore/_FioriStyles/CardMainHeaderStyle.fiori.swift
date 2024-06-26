@@ -126,6 +126,13 @@ extension CardMainHeaderFioriStyle {
     }
 }
 
+#Preview("Empty Header") {
+    CardMainHeader {
+        EmptyView()
+    }
+    .border(Color.green)
+}
+
 #Preview("Title") {
     CardMainHeader {
         Text("Title that goes to multiple lines before truncating just like that")
