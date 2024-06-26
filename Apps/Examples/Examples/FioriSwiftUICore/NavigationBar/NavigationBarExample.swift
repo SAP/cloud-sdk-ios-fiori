@@ -9,6 +9,11 @@ struct NavigationBarExample: View {
             HStack {
                 Text("FioriStyle Version")
                 Spacer()
+                NavigationLink {
+                    EmptyView()
+                } label: {
+                    EmptyView()
+                }
             }
             .contentShape(Rectangle())
             .onTapGesture {
