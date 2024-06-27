@@ -17,8 +17,12 @@ public struct CardBaseStyle: CardStyle {
     public func makeBody(_ configuration: CardConfiguration) -> some View {
         // Add default layout here
         CardLayout(lineSpacing: 0) {
-            configuration._cardHeader
-                .padding(EdgeInsets(top: 0, leading: 0, bottom: 6, trailing: 0))
+            if !configuration._cardHeader.isEmpty {
+                configuration._cardHeader
+                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 6, trailing: 0))
+            } else {
+                Spacer().frame(width: 1, height: 10)
+            }
             
             if !configuration.cardBody.isEmpty {
                 configuration.cardBody
@@ -1069,10 +1073,16 @@ public enum CardTests {
         FioriButton(title: "Overflow")
     }
 
+    static let noHeader = Card {
+        EmptyView()
+    } cardBody: {
+        Text("Single Beds").font(.footnote)
+    }
+    
     /// Sample cards for testing
     public static let cardSamples = [sampleCard1, sampleCard13, sampleCard2, sampleCard3, sampleCard4, sampleCard5, sampleCard6, sampleCard7, sampleCard9, sampleCard10, vbCard, sampleCard11, sampleCard8, fullCard]
     public static let cardFooterSamples = [sampleCard6, sampleCard16, sampleCard17, sampleCard12, sampleCard13, sampleCard14, sampleCard15, sampleCard20, sampleCard18, sampleCard19]
-    static let previewCardSamples = [sampleCard1, sampleCard2, sampleCard3, sampleCard4, sampleCard5, sampleCard6, sampleCard7, sampleCard8, sampleCard9, sampleCard10, sampleCard11, vbCard, fullCard, headerOnly, titleOnly]
+    static let previewCardSamples = [sampleCard1, sampleCard2, sampleCard3, sampleCard4, sampleCard5, sampleCard6, sampleCard7, sampleCard8, sampleCard9, sampleCard10, sampleCard11, vbCard, fullCard, headerOnly, titleOnly, noHeader]
 }
 
 struct CardPreview: PreviewProvider {
