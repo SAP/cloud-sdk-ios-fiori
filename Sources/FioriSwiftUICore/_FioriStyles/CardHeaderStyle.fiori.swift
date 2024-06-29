@@ -19,8 +19,10 @@ public struct CardHeaderBaseStyle: CardHeaderStyle {
             configuration._cardMedia
                 .clipped()
             
-            configuration._cardMainHeader
-                .padding(EdgeInsets(top: 16, leading: 16, bottom: 6, trailing: 16))
+            if !configuration._cardMainHeader.isEmpty {
+                configuration._cardMainHeader
+                    .padding(EdgeInsets(top: 16, leading: 16, bottom: 6, trailing: 16))
+            }
             
             if !(configuration._cardExtHeader.row1.isEmpty &&
                 configuration._cardExtHeader.row2.isEmpty &&
@@ -220,6 +222,17 @@ extension CardHeaderFioriStyle {
             // .font(.fiori(forTextStyle: <#fiori font#>))
         }
     }
+}
+
+#Preview("Empty main header") {
+    CardHeader {
+        EmptyView()
+    } row1: {
+        HStack {
+            Text("256 reviews")
+        }
+    }
+    .border(Color.green)
 }
 
 #Preview("") {
