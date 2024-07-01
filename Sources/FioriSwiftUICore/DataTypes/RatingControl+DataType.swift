@@ -1,13 +1,10 @@
 import SwiftUI
 
-/**
- The data type for Rating Control.
- */
-public struct RatingControlConfig {
+public extension RatingControl {
     /**
      The available style for the `FUIRatingControl`.
      */
-    public enum Style {
+    enum Style {
         /**
          Editable style.
 
@@ -37,89 +34,11 @@ public struct RatingControlConfig {
          */
         case accented
     }
+}
 
-    /**
-     The style of this `RatingControlDataType`.
-
-     The default is `.editable`
-     */
-    public var style: Style = .editable
-
-    /**
-     The range of the rating values.
-
-     The default is 0 through 5. This means that there will be 5 images.
-     If rating is 0, all five images will be using the off image.
-     */
-    public var ratingBounds: ClosedRange<Int> = 0 ... 5
-
-    /**
-     The custom image to be used for "On".
-
-     If this property is not set, the default filled star image will be used.
-     */
-    public var onImage: Image?
-
-    /**
-     The custom image to be used for "Off".
-
-     If this property is not set, the default empty star image will be used.
-     */
-    public var offImage: Image?
-
-    /**
-     The custom fixed size of each item image view.
-
-     If this property is not set, the default size is used.
-     */
-    public var itemSize: CGSize?
-
-    /**
-     The custom color for the ON image.
-
-     If this property is not set, the default color is used.
-     */
-    public var onColor: Color?
-
-    /**
-     The custom color for the OFF image.
-
-     If this property is not set, the default color is used.
-     */
-    public var offColor: Color?
-
-    /**
-     The custom spacing between item images.
-
-     If this property is not set, the default spacing is used.
-     - For styles `.readOnlyStandard` `.readOnlyAccented`, the spacing is 2px.
-     - For styles `.editableEnabled` and `.editableDisabled`, the spacing is 4px.
-     */
-    public var interItemSpacing: CGFloat?
-
-    /**
-     The public constructor.
-
-     - parameter style: The style for this `RatingControl`. Default is `editable`
-     - parameter ratingBounds: The bounds for this rating control. Default is from 0 to 5.
-     - parameter onImage: The image for the ON state. The default is `nil`, meaning the default image is used.
-     - parameter offImage: The image for the OFF state. The default is `nil`, meaning the default image is used.
-     - parameter itemSize: The customized item size. The default is `nil`, meaning the default size is used.
-     - parameter interItemSpacing: The spacing between items. The default is `nil`, meaning the default spacing is used.
-     */
-    public init(style: Style = .editable, ratingBounds: ClosedRange<Int> = 0 ... 5, onImage: Image? = nil, offImage: Image? = nil, onColor: Color? = nil, offColor: Color? = nil, itemSize: CGSize? = nil, interItemSpacing: CGFloat? = nil) {
-        self.style = style
-        self.ratingBounds = ratingBounds
-        self.onImage = onImage
-        self.offImage = offImage
-        self.onColor = onColor
-        self.offColor = offColor
-        self.itemSize = itemSize
-        self.interItemSpacing = interItemSpacing
-    }
-
+extension RatingControlConfiguration {
     struct RatingItem: Identifiable {
-        let id = UUID()
+        public let id = UUID()
         let isOn: Bool
     }
 
@@ -138,7 +57,7 @@ public struct RatingControlConfig {
         if let onColor {
             return onColor
         }
-        switch self.style {
+        switch self.ratingControlStyle {
         case .editable:
             return .preferredColor(.tintColor)
         case .editableDisabled:
@@ -154,7 +73,7 @@ public struct RatingControlConfig {
         if let offColor {
             return offColor
         }
-        switch self.style {
+        switch self.ratingControlStyle {
         case .editable:
             return .preferredColor(.tintColor)
         case .editableDisabled:
@@ -199,7 +118,7 @@ public struct RatingControlConfig {
     }
 
     func getScale() -> Image.Scale {
-        switch self.style {
+        switch self.ratingControlStyle {
         case .editable, .editableDisabled:
             return .large
         case .standard, .accented:
@@ -211,7 +130,7 @@ public struct RatingControlConfig {
         if let itemSize {
             return itemSize
         }
-        switch self.style {
+        switch self.ratingControlStyle {
         case .editable, .editableDisabled:
             return CGSize(width: 28, height: 28)
         case .standard, .accented:
@@ -223,7 +142,7 @@ public struct RatingControlConfig {
         if let interItemSpacing {
             return interItemSpacing
         }
-        switch self.style {
+        switch self.ratingControlStyle {
         case .editable, .editableDisabled:
             return CGFloat(4)
         case .standard, .accented:

@@ -23,7 +23,14 @@ struct AnyRatingControlStyle: RatingControlStyle {
 
 public struct RatingControlConfiguration {
     @Binding public var rating: Int
-    public let ratingControlConfig: RatingControlConfig
+    public let ratingControlStyle: RatingControl.Style
+    public let ratingBounds: ClosedRange<Int>
+    public let onImage: Image?
+    public let offImage: Image?
+    public let itemSize: CGSize?
+    public let onColor: Color?
+    public let offColor: Color?
+    public let interItemSpacing: CGFloat?
 }
 
 public struct RatingControlFioriStyle: RatingControlStyle {

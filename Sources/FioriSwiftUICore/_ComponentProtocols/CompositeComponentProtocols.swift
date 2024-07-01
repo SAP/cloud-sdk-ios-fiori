@@ -291,6 +291,29 @@ protocol _RatingControlComponent {
     /// The rating value.
     var rating: Int { get }
 
-    /// The rating conrol configuration parameters.
-    var ratingControlConfig: RatingControlConfig { get }
+    /// The style of this `RatingControl`.
+    // sourcery: defaultValue = ".editable"
+    var ratingControlStyle: RatingControl.Style { get }
+
+    /// The range of the rating values. The default is `0...5`.
+    // sourcery: defaultValue = 0...5
+    var ratingBounds: ClosedRange<Int> { get }
+
+    /// The custom image to be used for "On".
+    var onImage: Image? { get }
+
+    /// The custom image to be used for "Off".
+    var offImage: Image? { get }
+
+    /// The custom fixed size of each item image view.
+    var itemSize: CGSize? { get }
+
+    /// The custom color for the ON image.
+    var onColor: Color? { get }
+
+    /// The custom color for the OFF image.
+    var offColor: Color? { get }
+
+    /// The custom spacing between images.
+    var interItemSpacing: CGFloat? { get }
 }

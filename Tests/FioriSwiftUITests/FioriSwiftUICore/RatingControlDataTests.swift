@@ -11,8 +11,9 @@ final class RatingControlDataTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
+    @State var rating = 2
     func testEditable() throws {
-        let ratingConfig = RatingControlConfig(style: .editable)
+        let ratingConfig = RatingControlConfiguration(rating: $rating, ratingControlStyle: .editable, ratingBounds: 0 ... 5, onImage: nil, offImage: nil, itemSize: nil, onColor: nil, offColor: nil, interItemSpacing: nil)
         XCTAssertEqual(ratingConfig.getOnColor().cgColor, Color.preferredColor(.tintColor).cgColor)
         XCTAssertEqual(ratingConfig.getOffColor().cgColor, Color.preferredColor(.tintColor).cgColor)
         XCTAssertEqual(ratingConfig.getScale(), Image.Scale.large)
@@ -21,7 +22,7 @@ final class RatingControlDataTests: XCTestCase {
     }
 
     func testEditableDisabled() throws {
-        let ratingConfig = RatingControlConfig(style: .editableDisabled)
+        let ratingConfig = RatingControlConfiguration(rating: $rating, ratingControlStyle: .editableDisabled, ratingBounds: 0 ... 5, onImage: nil, offImage: nil, itemSize: nil, onColor: nil, offColor: nil, interItemSpacing: nil)
         XCTAssertEqual(ratingConfig.getOnColor().cgColor, Color.preferredColor(.tintColor).cgColor)
         XCTAssertEqual(ratingConfig.getOffColor().cgColor, Color.preferredColor(.tintColor).cgColor)
         XCTAssertEqual(ratingConfig.getScale(), Image.Scale.large)
@@ -30,7 +31,7 @@ final class RatingControlDataTests: XCTestCase {
     }
 
     func testStandard() throws {
-        let ratingConfig = RatingControlConfig(style: .standard)
+        let ratingConfig = RatingControlConfiguration(rating: $rating, ratingControlStyle: .standard, ratingBounds: 0 ... 5, onImage: nil, offImage: nil, itemSize: nil, onColor: nil, offColor: nil, interItemSpacing: nil)
         XCTAssertEqual(ratingConfig.getOnColor().cgColor, Color.preferredColor(.tertiaryLabel).cgColor)
         XCTAssertEqual(ratingConfig.getOffColor().cgColor, Color.preferredColor(.tertiaryLabel).cgColor)
         XCTAssertEqual(ratingConfig.getScale(), Image.Scale.small)
@@ -39,7 +40,7 @@ final class RatingControlDataTests: XCTestCase {
     }
 
     func testAccented() throws {
-        let ratingConfig = RatingControlConfig(style: .accented)
+        let ratingConfig = RatingControlConfiguration(rating: $rating, ratingControlStyle: .accented, ratingBounds: 0 ... 5, onImage: nil, offImage: nil, itemSize: nil, onColor: nil, offColor: nil, interItemSpacing: nil)
         XCTAssertEqual(ratingConfig.getOnColor().cgColor, Color.preferredColor(.mango4).cgColor)
         XCTAssertEqual(ratingConfig.getOffColor().cgColor, Color.preferredColor(.mango4).cgColor)
         XCTAssertEqual(ratingConfig.getScale(), Image.Scale.small)
@@ -48,7 +49,7 @@ final class RatingControlDataTests: XCTestCase {
     }
 
     func testRatingItems() throws {
-        let ratingConfig = RatingControlConfig(style: .editable)
+        let ratingConfig = RatingControlConfiguration(rating: $rating, ratingControlStyle: .editable, ratingBounds: 0 ... 5, onImage: nil, offImage: nil, itemSize: nil, onColor: nil, offColor: nil, interItemSpacing: nil)
         let items = ratingConfig.ratingItems(2)
         XCTAssertEqual(items.count, 5)
         XCTAssertEqual(items[0].isOn, true)
@@ -57,7 +58,7 @@ final class RatingControlDataTests: XCTestCase {
         XCTAssertEqual(items[3].isOn, false)
         XCTAssertEqual(items[4].isOn, false)
 
-        let ratingConfig2 = RatingControlConfig(style: .editable, ratingBounds: -5 ... 5)
+        let ratingConfig2 = RatingControlConfiguration(rating: $rating, ratingControlStyle: .accented, ratingBounds: -5 ... 5, onImage: nil, offImage: nil, itemSize: nil, onColor: nil, offColor: nil, interItemSpacing: nil)
         let items2 = ratingConfig2.ratingItems(2)
         XCTAssertEqual(items2.count, 10)
         XCTAssertEqual(items2[0].isOn, true)
