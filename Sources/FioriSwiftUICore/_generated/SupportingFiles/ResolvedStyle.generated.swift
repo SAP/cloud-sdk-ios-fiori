@@ -771,6 +771,22 @@ extension PlaceholderTextFieldStyle {
     }
 }
 
+// MARK: RatingControlStyle
+
+struct ResolvedRatingControlStyle<Style: RatingControlStyle>: View {
+    let style: Style
+    let configuration: RatingControlConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension RatingControlStyle {
+    func resolve(configuration: RatingControlConfiguration) -> some View {
+        ResolvedRatingControlStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: Row1Style
 
 struct ResolvedRow1Style<Style: Row1Style>: View {

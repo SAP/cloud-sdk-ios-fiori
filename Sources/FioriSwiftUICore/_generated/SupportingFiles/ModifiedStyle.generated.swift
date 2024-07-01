@@ -1352,6 +1352,34 @@ public extension PlaceholderTextFieldStyle {
     }
 }
 
+// MARK: RatingControlStyle
+
+extension ModifiedStyle: RatingControlStyle where Style: RatingControlStyle {
+    public func makeBody(_ configuration: RatingControlConfiguration) -> some View {
+        RatingControl(configuration)
+            .ratingControlStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct RatingControlStyleModifier<Style: RatingControlStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.ratingControlStyle(self.style)
+    }
+}
+
+public extension RatingControlStyle {
+    func modifier(_ modifier: some ViewModifier) -> some RatingControlStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some RatingControlStyle) -> some RatingControlStyle {
+        style.modifier(RatingControlStyleModifier(style: self))
+    }
+}
+
 // MARK: Row1Style
 
 extension ModifiedStyle: Row1Style where Style: Row1Style {

@@ -77,6 +77,7 @@
 		99B6EF8C2672224D00515E8E /* UserConsentSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B6EF8B2672224C00515E8E /* UserConsentSample.swift */; };
 		9D0086692BA8F6820004BE15 /* TitleFormViewExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0086672BA8F6810004BE15 /* TitleFormViewExample.swift */; };
 		9D00866A2BA8F6820004BE15 /* TextFieldFormViewExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0086682BA8F6820004BE15 /* TextFieldFormViewExample.swift */; };
+		9D057DAB2C2F260200F5331C /* RatingControlExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D057DAA2C2F260200F5331C /* RatingControlExample.swift */; };
 		9D0B26082B9BA5C0004278A5 /* FormViewExamples.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0B26042B9BA5C0004278A5 /* FormViewExamples.swift */; };
 		9D0B26092B9BA5C0004278A5 /* KeyValueFormViewExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0B26052B9BA5C0004278A5 /* KeyValueFormViewExample.swift */; };
 		9D0B260A2B9BA5C0004278A5 /* NoteFormViewExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0B26062B9BA5C0004278A5 /* NoteFormViewExample.swift */; };
@@ -254,6 +255,7 @@
 		99B6EF8B2672224C00515E8E /* UserConsentSample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserConsentSample.swift; sourceTree = "<group>"; };
 		9D0086672BA8F6810004BE15 /* TitleFormViewExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleFormViewExample.swift; sourceTree = "<group>"; };
 		9D0086682BA8F6820004BE15 /* TextFieldFormViewExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldFormViewExample.swift; sourceTree = "<group>"; };
+		9D057DAA2C2F260200F5331C /* RatingControlExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingControlExample.swift; sourceTree = "<group>"; };
 		9D0B26042B9BA5C0004278A5 /* FormViewExamples.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormViewExamples.swift; sourceTree = "<group>"; };
 		9D0B26052B9BA5C0004278A5 /* KeyValueFormViewExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyValueFormViewExample.swift; sourceTree = "<group>"; };
 		9D0B26062B9BA5C0004278A5 /* NoteFormViewExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteFormViewExample.swift; sourceTree = "<group>"; };
@@ -611,6 +613,7 @@
 				9D0B26062B9BA5C0004278A5 /* NoteFormViewExample.swift */,
 				9D0086682BA8F6820004BE15 /* TextFieldFormViewExample.swift */,
 				9D0086672BA8F6810004BE15 /* TitleFormViewExample.swift */,
+				9D057DAA2C2F260200F5331C /* RatingControlExample.swift */,
 			);
 			path = FormViews;
 			sourceTree = "<group>";
@@ -947,6 +950,7 @@
 				8A5579CC24C1293C0098003A /* SettingsColorForCategory.swift in Sources */,
 				C18868D12B32535100F865F7 /* SearchFontAndColor.swift in Sources */,
 				9D0B26092B9BA5C0004278A5 /* KeyValueFormViewExample.swift in Sources */,
+				9D057DAB2C2F260200F5331C /* RatingControlExample.swift in Sources */,
 				8A557A1A24C12C820098003A /* ChartsContentView.swift in Sources */,
 				8A5579CE24C1293C0098003A /* SettingColor.swift in Sources */,
 				1F55FEF32AC941FF00D7A1BE /* View+Extensions.swift in Sources */,

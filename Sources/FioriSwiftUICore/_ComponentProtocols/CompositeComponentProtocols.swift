@@ -279,3 +279,13 @@ protocol _BannerMessageComponent: _TitleComponent, _CloseActionComponent, _TopDi
     /// The action to be performed when the banner is tapped.
     var bannerTapAction: (() -> Void)? { get }
 }
+
+// sourcery: CompositeComponent
+protocol _RatingControlComponent {
+    // sourcery: @Binding
+    /// The rating value.
+    var rating: Int { get }
+
+    /// The rating conrol configuration parameters.
+    var ratingControlConfig: RatingControlConfig { get }
+}
