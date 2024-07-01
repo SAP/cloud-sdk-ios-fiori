@@ -46,6 +46,7 @@ struct FrameReaderModifier: ViewModifier {
                                 abs(newValue.origin.x - self.lastFrame.origin.x) > 0.001 ||
                                 abs(newValue.origin.y - self.lastFrame.origin.y) > 0.001
                             {
+                                self.lastFrame = newValue
                                 self.rect(newValue)
                             }
                         }
