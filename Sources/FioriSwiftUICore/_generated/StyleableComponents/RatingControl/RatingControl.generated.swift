@@ -3,6 +3,11 @@
 import Foundation
 import SwiftUI
 
+/// `RatingControl` uses images to represent a rating.
+///
+/// The number of "On" images denotes the rating.
+/// The default "On" image is a filled star while the default "Off" inmage
+/// is an unfilled star.
 public struct RatingControl {
     /// The rating value.
     @Binding var rating: Int

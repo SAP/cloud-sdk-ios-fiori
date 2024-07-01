@@ -280,6 +280,11 @@ protocol _BannerMessageComponent: _TitleComponent, _CloseActionComponent, _TopDi
     var bannerTapAction: (() -> Void)? { get }
 }
 
+/// `RatingControl` uses images to represent a rating.
+///
+/// The number of "On" images denotes the rating.
+/// The default "On" image is a filled star while the default "Off" inmage
+/// is an unfilled star.
 // sourcery: CompositeComponent
 protocol _RatingControlComponent {
     // sourcery: @Binding
