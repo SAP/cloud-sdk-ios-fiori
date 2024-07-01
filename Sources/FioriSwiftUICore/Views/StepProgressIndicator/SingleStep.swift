@@ -190,16 +190,6 @@ extension SingleStep: View {
     }
 }
 
-extension CGSize {
-    func different(with size: CGSize) -> Bool {
-        if abs(self.width - size.width) > 0.01 || abs(self.height - size.height) > 0.01 {
-            return true
-        } else {
-            return false
-        }
-    }
-}
-
 extension EmptyView: IndexedViewContainer {
     /// :nodoc:
     public var count: Int {
@@ -250,9 +240,7 @@ struct InnerSingleStep<Title: View, Node: View, Line: View>: View {
                     self.node
                     self.line.frame(width: self.lineWidth, height: self.lineHeight)
                 }.sizeReader { size in
-                    if self.nodeAndLineSize.different(with: size) {
-                        self.nodeAndLineSize = size
-                    }
+                    self.nodeAndLineSize = size
                 }
                 if self.isTitleEmptyView {
                     Spacer().frame(height: abs(self.bottom))
