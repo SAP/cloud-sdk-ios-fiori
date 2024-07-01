@@ -1011,6 +1011,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: RatingControlStyle
+
+struct RatingControlStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any RatingControlStyle] = []
+}
+
+extension EnvironmentValues {
+    var ratingControlStyle: any RatingControlStyle {
+        self.ratingControlStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var ratingControlStyleStack: [any RatingControlStyle] {
+        get {
+            self[RatingControlStyleStackKey.self]
+        }
+        set {
+            self[RatingControlStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: Row1Style
 
 struct Row1StyleStackKey: EnvironmentKey {

@@ -363,6 +363,12 @@ extension PlaceholderTextField: _ViewEmptyChecking {
     }
 }
 
+extension RatingControl: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        false
+    }
+}
+
 extension Row1: _ViewEmptyChecking {
     public var isEmpty: Bool {
         row1.isEmpty
