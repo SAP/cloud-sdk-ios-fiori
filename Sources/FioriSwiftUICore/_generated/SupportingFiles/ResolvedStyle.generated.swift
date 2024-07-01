@@ -771,6 +771,22 @@ extension PlaceholderTextFieldStyle {
     }
 }
 
+// MARK: ProfileHeaderStyle
+
+struct ResolvedProfileHeaderStyle<Style: ProfileHeaderStyle>: View {
+    let style: Style
+    let configuration: ProfileHeaderConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension ProfileHeaderStyle {
+    func resolve(configuration: ProfileHeaderConfiguration) -> some View {
+        ResolvedProfileHeaderStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: Row1Style
 
 struct ResolvedRow1Style<Style: Row1Style>: View {
