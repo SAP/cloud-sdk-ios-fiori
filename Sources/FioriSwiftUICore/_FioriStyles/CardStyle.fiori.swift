@@ -989,90 +989,6 @@ public enum CardTests {
                                    tertiaryAction: FioriButton(title: "Tertiary"),
                                    overflowAction: FioriButton(title: "Overflow"))
     
-    static let sampleCard18 = Card {
-        Text("Standard Room, 2 Single Beds")
-    } subtitle: {
-        Text("Gbt")
-    } row1: {
-        HStack {
-            RattingViewExample()
-            LabelItem(title: "Free Breakfast")
-        }
-    } row2: {
-        Tag("Business Rate")
-            .tagStyle(ColorTagStyle(textColor: .preferredColor(.grey9), fillColor: .preferredColor(.grey2)))
-    } kpi: {
-        KPIItem(data: .components([.unit("$"), .metric("90")]), subtitle: "avg. per night")
-            .frame(height: 20)
-    } action: {
-        FioriButton { state in
-            print("primaryAction \(state)")
-        } label: { _ in
-            HStack {
-                Image(systemName: "tray")
-                Text("Reserve")
-            }
-        }
-    } secondaryAction: {
-        RoundedRectangle(cornerRadius: 10)
-            .foregroundColor(Color.purple)
-            .frame(width: 120, height: 80)
-            .onTapGesture {
-                print("secondaryAction tapped")
-            }
-    } tertiaryAction: {
-        Image(systemName: "doc")
-            .onTapGesture {
-                print("tertiaryAction tapped")
-            }
-    } overflowAction: {
-        RoundedRectangle(cornerRadius: 10)
-            .foregroundColor(Color.green)
-            .frame(width: 40, height: 40)
-            .onTapGesture {
-                print("overflowAction tapped")
-            }
-    }
-    
-    static let sampleCard19 = Card {
-        Text("Standard Room, 2 Single Beds")
-    } subtitle: {
-        Text("Gbt")
-    } row1: {
-        HStack {
-            RattingViewExample()
-            LabelItem(title: "Free Breakfast")
-        }
-    } row2: {
-        Tag("Business Rate")
-            .tagStyle(ColorTagStyle(textColor: .preferredColor(.grey9), fillColor: .preferredColor(.grey2)))
-    } kpi: {
-        KPIItem(data: .components([.unit("$"), .metric("90")]), subtitle: "avg. per night")
-            .frame(height: 20)
-    } action: {
-        Button {
-            print("Tapped")
-        } label: {
-            Text("Save")
-                .frame(maxWidth: .infinity)
-        }
-        .buttonStyle(.bordered)
-    } secondaryAction: {
-        Image(systemName: "doc")
-            .onTapGesture {
-                print("secondaryAction tapped")
-            }
-    } tertiaryAction: {
-        RoundedRectangle(cornerRadius: 10)
-            .foregroundColor(Color.purple)
-            .frame(width: 200, height: 80)
-            .onTapGesture {
-                print("tertiaryAction tapped")
-            }
-    } overflowAction: {
-        FioriButton(title: "Overflow")
-    }
-
     static let noHeader = Card {
         EmptyView()
     } cardBody: {
@@ -1081,7 +997,7 @@ public enum CardTests {
     
     /// Sample cards for testing
     public static let cardSamples = [sampleCard1, sampleCard13, sampleCard2, sampleCard3, sampleCard4, sampleCard5, sampleCard6, sampleCard7, sampleCard9, sampleCard10, vbCard, sampleCard11, sampleCard8, fullCard]
-    public static let cardFooterSamples = [sampleCard6, sampleCard16, sampleCard17, sampleCard12, sampleCard13, sampleCard14, sampleCard15, sampleCard20, sampleCard18, sampleCard19]
+    public static let cardFooterSamples = [sampleCard6, sampleCard16, sampleCard17, sampleCard12, sampleCard13, sampleCard14, sampleCard15, sampleCard20]
     static let previewCardSamples = [sampleCard1, sampleCard2, sampleCard3, sampleCard4, sampleCard5, sampleCard6, sampleCard7, sampleCard8, sampleCard9, sampleCard10, sampleCard11, vbCard, fullCard, headerOnly, titleOnly, noHeader]
 }
 
