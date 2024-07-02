@@ -9,6 +9,10 @@ struct NavigationBarExample: View {
             HStack {
                 Text("FioriStyle Version")
                 Spacer()
+                Image(systemName: "chevron.right")
+                    .font(.footnote)
+                    .fontWeight(.bold)
+                    .foregroundColor(Color(UIColor.tertiaryLabel))
             }
             .contentShape(Rectangle())
             .onTapGesture {
