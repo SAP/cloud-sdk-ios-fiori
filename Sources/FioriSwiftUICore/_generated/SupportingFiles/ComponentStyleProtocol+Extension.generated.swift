@@ -2880,6 +2880,20 @@ public extension PlaceholderTextFieldStyle where Self == PlaceholderTextFieldPla
     }
 }
 
+// MARK: RatingControlStyle
+
+public extension RatingControlStyle where Self == RatingControlBaseStyle {
+    static var base: RatingControlBaseStyle {
+        RatingControlBaseStyle()
+    }
+}
+
+public extension RatingControlStyle where Self == RatingControlFioriStyle {
+    static var fiori: RatingControlFioriStyle {
+        RatingControlFioriStyle()
+    }
+}
+
 // MARK: Row1Style
 
 public extension Row1Style where Self == Row1BaseStyle {
