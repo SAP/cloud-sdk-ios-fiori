@@ -116,8 +116,7 @@ extension CardFioriStyle {
     struct ContentFioriStyle: CardStyle {
         func makeBody(_ configuration: CardConfiguration) -> some View {
             Card(configuration)
-                // Add default style for its content
-                .background(Color.preferredColor(.secondaryGroupedBackground))
+            // Add default style for its content
         }
     }
     
@@ -351,8 +350,8 @@ public struct CardCardStyle: CardStyle {
                     .inset(by: 0.3)
                     .stroke(Color.preferredColor(.tertiaryLabel).opacity(0.24), lineWidth: 0.3)
             )
-            .shadow(color: Color.preferredColor(.cardShadow).opacity(0.92), radius: 8, x: 0, y: 2)
             .clipShape(RoundedRectangle(cornerRadius: 16))
+            .shadow(color: Color.preferredColor(.cardShadow).opacity(0.92), radius: 8, x: 0, y: 2)
     }
 }
 
@@ -1004,7 +1003,13 @@ public enum CardTests {
 struct CardPreview: PreviewProvider {
     static var previews: some View {
         ForEach(0 ..< CardTests.previewCardSamples.count, id: \.self) { i in
-            CardTests.previewCardSamples[i]
+            VStack {
+                CardTests.previewCardSamples[i]
+                    .cardStyle(.card)
+                    .padding(32)
+            }
+            .background(Color.green)
+            .environment(\.colorScheme, .dark)
         }
     }
 }
