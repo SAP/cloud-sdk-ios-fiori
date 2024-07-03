@@ -35,6 +35,22 @@ extension ActionStyle {
     }
 }
 
+// MARK: AttributeStyle
+
+struct ResolvedAttributeStyle<Style: AttributeStyle>: View {
+    let style: Style
+    let configuration: AttributeConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension AttributeStyle {
+    func resolve(configuration: AttributeConfiguration) -> some View {
+        ResolvedAttributeStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: AvatarsStyle
 
 struct ResolvedAvatarsStyle<Style: AvatarsStyle>: View {
@@ -579,6 +595,22 @@ extension LinearProgressIndicatorViewStyle {
     }
 }
 
+// MARK: LowerVerticalLineStyle
+
+struct ResolvedLowerVerticalLineStyle<Style: LowerVerticalLineStyle>: View {
+    let style: Style
+    let configuration: LowerVerticalLineConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension LowerVerticalLineStyle {
+    func resolve(configuration: LowerVerticalLineConfiguration) -> some View {
+        ResolvedLowerVerticalLineStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: MandatoryFieldIndicatorStyle
 
 struct ResolvedMandatoryFieldIndicatorStyle<Style: MandatoryFieldIndicatorStyle>: View {
@@ -675,6 +707,22 @@ extension MoreActionOverflowStyle {
     }
 }
 
+// MARK: NodeImageStyle
+
+struct ResolvedNodeImageStyle<Style: NodeImageStyle>: View {
+    let style: Style
+    let configuration: NodeImageConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension NodeImageStyle {
+    func resolve(configuration: NodeImageConfiguration) -> some View {
+        ResolvedNodeImageStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: NoteFormViewStyle
 
 struct ResolvedNoteFormViewStyle<Style: NoteFormViewStyle>: View {
@@ -688,6 +736,22 @@ struct ResolvedNoteFormViewStyle<Style: NoteFormViewStyle>: View {
 extension NoteFormViewStyle {
     func resolve(configuration: NoteFormViewConfiguration) -> some View {
         ResolvedNoteFormViewStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: NowIndicatorNodeStyle
+
+struct ResolvedNowIndicatorNodeStyle<Style: NowIndicatorNodeStyle>: View {
+    let style: Style
+    let configuration: NowIndicatorNodeConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension NowIndicatorNodeStyle {
+    func resolve(configuration: NowIndicatorNodeConfiguration) -> some View {
+        ResolvedNowIndicatorNodeStyle(style: self, configuration: configuration)
     }
 }
 
@@ -851,6 +915,38 @@ extension SecondaryActionStyle {
     }
 }
 
+// MARK: SecondaryTimestampImageStyle
+
+struct ResolvedSecondaryTimestampImageStyle<Style: SecondaryTimestampImageStyle>: View {
+    let style: Style
+    let configuration: SecondaryTimestampImageConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension SecondaryTimestampImageStyle {
+    func resolve(configuration: SecondaryTimestampImageConfiguration) -> some View {
+        ResolvedSecondaryTimestampImageStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: SecondaryTimestampLabelStyle
+
+struct ResolvedSecondaryTimestampLabelStyle<Style: SecondaryTimestampLabelStyle>: View {
+    let style: Style
+    let configuration: SecondaryTimestampLabelConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension SecondaryTimestampLabelStyle {
+    func resolve(configuration: SecondaryTimestampLabelConfiguration) -> some View {
+        ResolvedSecondaryTimestampLabelStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: SideBarStyle
 
 struct ResolvedSideBarStyle<Style: SideBarStyle>: View {
@@ -928,6 +1024,22 @@ struct ResolvedStepperViewStyle<Style: StepperViewStyle>: View {
 extension StepperViewStyle {
     func resolve(configuration: StepperViewConfiguration) -> some View {
         ResolvedStepperViewStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: SubAttributeStyle
+
+struct ResolvedSubAttributeStyle<Style: SubAttributeStyle>: View {
+    let style: Style
+    let configuration: SubAttributeConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension SubAttributeStyle {
+    func resolve(configuration: SubAttributeConfiguration) -> some View {
+        ResolvedSubAttributeStyle(style: self, configuration: configuration)
     }
 }
 
@@ -1075,6 +1187,150 @@ extension TextViewStyle {
     }
 }
 
+// MARK: TimelineStyle
+
+struct ResolvedTimelineStyle<Style: TimelineStyle>: View {
+    let style: Style
+    let configuration: TimelineConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension TimelineStyle {
+    func resolve(configuration: TimelineConfiguration) -> some View {
+        ResolvedTimelineStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: TimelineMainStackStyle
+
+struct ResolvedTimelineMainStackStyle<Style: TimelineMainStackStyle>: View {
+    let style: Style
+    let configuration: TimelineMainStackConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension TimelineMainStackStyle {
+    func resolve(configuration: TimelineMainStackConfiguration) -> some View {
+        ResolvedTimelineMainStackStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: TimelineMarkerStyle
+
+struct ResolvedTimelineMarkerStyle<Style: TimelineMarkerStyle>: View {
+    let style: Style
+    let configuration: TimelineMarkerConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension TimelineMarkerStyle {
+    func resolve(configuration: TimelineMarkerConfiguration) -> some View {
+        ResolvedTimelineMarkerStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: TimelineMarkerMainStackStyle
+
+struct ResolvedTimelineMarkerMainStackStyle<Style: TimelineMarkerMainStackStyle>: View {
+    let style: Style
+    let configuration: TimelineMarkerMainStackConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension TimelineMarkerMainStackStyle {
+    func resolve(configuration: TimelineMarkerMainStackConfiguration) -> some View {
+        ResolvedTimelineMarkerMainStackStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: TimelineMarkerNodeStyle
+
+struct ResolvedTimelineMarkerNodeStyle<Style: TimelineMarkerNodeStyle>: View {
+    let style: Style
+    let configuration: TimelineMarkerNodeConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension TimelineMarkerNodeStyle {
+    func resolve(configuration: TimelineMarkerNodeConfiguration) -> some View {
+        ResolvedTimelineMarkerNodeStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: TimelineNodeStyle
+
+struct ResolvedTimelineNodeStyle<Style: TimelineNodeStyle>: View {
+    let style: Style
+    let configuration: TimelineNodeConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension TimelineNodeStyle {
+    func resolve(configuration: TimelineNodeConfiguration) -> some View {
+        ResolvedTimelineNodeStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: TimelineNowIndicatorStyle
+
+struct ResolvedTimelineNowIndicatorStyle<Style: TimelineNowIndicatorStyle>: View {
+    let style: Style
+    let configuration: TimelineNowIndicatorConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension TimelineNowIndicatorStyle {
+    func resolve(configuration: TimelineNowIndicatorConfiguration) -> some View {
+        ResolvedTimelineNowIndicatorStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: TimelineTimeStackStyle
+
+struct ResolvedTimelineTimeStackStyle<Style: TimelineTimeStackStyle>: View {
+    let style: Style
+    let configuration: TimelineTimeStackConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension TimelineTimeStackStyle {
+    func resolve(configuration: TimelineTimeStackConfiguration) -> some View {
+        ResolvedTimelineTimeStackStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: TimestampLabelStyle
+
+struct ResolvedTimestampLabelStyle<Style: TimestampLabelStyle>: View {
+    let style: Style
+    let configuration: TimestampLabelConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension TimestampLabelStyle {
+    func resolve(configuration: TimestampLabelConfiguration) -> some View {
+        ResolvedTimestampLabelStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: TitleStyle
 
 struct ResolvedTitleStyle<Style: TitleStyle>: View {
@@ -1120,5 +1376,37 @@ struct ResolvedTopDividerStyle<Style: TopDividerStyle>: View {
 extension TopDividerStyle {
     func resolve(configuration: TopDividerConfiguration) -> some View {
         ResolvedTopDividerStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: TrailingHorizontalLineStyle
+
+struct ResolvedTrailingHorizontalLineStyle<Style: TrailingHorizontalLineStyle>: View {
+    let style: Style
+    let configuration: TrailingHorizontalLineConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension TrailingHorizontalLineStyle {
+    func resolve(configuration: TrailingHorizontalLineConfiguration) -> some View {
+        ResolvedTrailingHorizontalLineStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: UpperVerticalLineStyle
+
+struct ResolvedUpperVerticalLineStyle<Style: UpperVerticalLineStyle>: View {
+    let style: Style
+    let configuration: UpperVerticalLineConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension UpperVerticalLineStyle {
+    func resolve(configuration: UpperVerticalLineConfiguration) -> some View {
+        ResolvedUpperVerticalLineStyle(style: self, configuration: configuration)
     }
 }

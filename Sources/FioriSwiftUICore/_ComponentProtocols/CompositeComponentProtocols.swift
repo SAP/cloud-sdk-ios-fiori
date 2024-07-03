@@ -317,3 +317,81 @@ protocol _RatingControlComponent {
     /// The custom spacing between images.
     var interItemSpacing: CGFloat? { get }
 }
+
+// sourcery: CompositeComponent
+protocol _TimelineTimeStackComponent: _TimestampLabelComponent, _SecondaryTimestampLabelComponent, _SecondaryTimestampImageComponent {}
+
+// sourcery: CompositeComponent
+protocol _TimelineMarkerNodeComponent: _UpperVerticalLineComponent, _NodeImageComponent, _LowerVerticalLineComponent {
+    // sourcery: defaultValue = true
+    /// check if show upper vertical line
+    var showUpperVerticalLine: Bool { get }
+
+    // sourcery: defaultValue = true
+    /// check if show lower vertical line
+    var showLowerVerticalLine: Bool { get }
+}
+
+// sourcery: CompositeComponent
+protocol _TimelineMarkerMainStackComponent: _TitleComponent {}
+
+/// `TimelineMarker` is a non-selectable view intended for timelineMarkers that require beforeStart, start, beforeEnd and end status that displays timelineMarker details.
+/// It uses a vertical line and `nodeImage` as a separator. To the left of the vertical line is the timeline timestamp stack view that contains `timestampLabel` and `secondaryTimestampLabel` or ‘secondaryTimestampImage’. To the right of the vertical line is the main stack view that contains  `title`. There is a divider line as separator under main stack.
+///
+/// ## Notes
+/// ### Separator between TimelineMarker Items in the List
+/// SwiftUI all list styles include separators by default. Because of this default setting, there can be a divider line or a separator in between each item on the timelineMarker in the list. This is not an issue in timelineMarker. To get rid of the separator, set ‘listRowSeparator’ modifier to hidden.
+///
+/// ## Usage
+/// ```swift
+/// TimelineMarker(timestampLabel: "06/20/24", secondaryTimestampImage: { Image(systemName: "sun.max")}(), nodeImage: .predefine(TimelineNodeStatus.beforeStart), showUpperVerticalLine: false, title: "Before Start", isPast: true)
+/// TimelineMarker(timestampLabel: "06/04/24", secondaryTimestampLabel: "Sunny", nodeImage: .custom(Image(systemName: "s.circle")), title: "Project Start", isPresent: true)
+/// ```
+// sourcery: CompositeComponent
+protocol _TimelineMarkerComponent: _TimelineTimeStackComponent, _TimelineMarkerNodeComponent, _TimelineMarkerMainStackComponent {
+    // sourcery: defaultValue = false
+    /// check if event is past
+    var isPast: Bool { get }
+    
+    // sourcery: defaultValue = false
+    /// check if event is present
+    var isPresent: Bool { get }
+}
+
+// sourcery: CompositeComponent
+protocol _TimelineNodeComponent: _UpperVerticalLineComponent, _NodeImageComponent, _LowerVerticalLineComponent {}
+
+// sourcery: CompositeComponent
+protocol _TimelineMainStackComponent: _TitleComponent, _SubtitleComponent, _AttributeComponent, _StatusComponent, _SubstatusComponent, _SubAttributeComponent {}
+
+/// `Timeline` is a selectable view intended for timelines that require open, inProgress and complete status that displays timeline details.
+///  It uses a vertical line and `nodeImage` as a separator. To the left of the vertical line is the timeline timestamp stack view that contains `timestampLabel` and `secondaryTimestampLabel` or ‘secondaryTimestampImage’. To the right of the vertical line is the main stack view that contains  title view and attribute view. Title view contains `title`, ‘subtitle’, ‘status’, ‘substatus’, below the title view is an attribute view with ‘ attribute’ and ‘subAttribute’. There is a divider line as separator under main stack.
+///
+///  ## Notes
+/// ### Separator between Timeline Items in the List
+/// SwiftUI all list styles include separators by default. Because of this default setting, there can be a divider line or a separator in between each item on the timeline in the list. This is not an issue in timeline. To get rid of the separator, set ‘listRowSeparator’ modifier to hidden.
+///
+/// ## Usage
+/// ```swift
+/// Timeline(timestampLabel: "06/21/24", secondaryTimestampImage: { Image(systemName: "sun.max")}(), nodeImage: .predefine(TimelineNodeStatus.inProgress), title: "Inprogress Event", subtitle: "abc", attribute: "attr", status: .text("Info"), substatus: .icon(Image(systemName: "exclamationmark.circle")), subAttribute: "subAttr", isPresent: true)
+/// Timeline(timestampLabel: "06/23/24", secondaryTimestampLabel: "Sunny", nodeImage: .custom(Image(systemName: "timer")), title: "Title", subtitle: "subTitle", attribute: "attr", status: .text("Pending"), substatus: .icon(Image(systemName: "p.circle")), subAttribute: "subAttr")
+/// ```
+// sourcery: CompositeComponent
+protocol _TimelineComponent: _TimelineTimeStackComponent, _TimelineNodeComponent, _TimelineMainStackComponent {
+    // sourcery: defaultValue = false
+    /// check if event is past
+    var isPast: Bool { get }
+
+    // sourcery: defaultValue = false
+    /// check if event is present
+    var isPresent: Bool { get }
+}
+
+/// `TimelineNowIndicator` designed to present now indicator in a Timeline view.
+/// It uses a node view and  horizontal line to present now indicator.
+///
+/// ## Notes
+/// ### Minimum list row height between Timeline Items in the List
+/// Since the default size of node image on the TimelineNowIndicator is 7, in order to display TimelineNowIndicator correctly in the List, set the minimum height for all row in a List using the .environment(\.defaultMinListRowHeight, value) modifier on the List, the value should be less than or equal to 7.
+// sourcery: CompositeComponent
+protocol _TimelineNowIndicatorComponent: _NowIndicatorNodeComponent, _TrailingHorizontalLineComponent {}

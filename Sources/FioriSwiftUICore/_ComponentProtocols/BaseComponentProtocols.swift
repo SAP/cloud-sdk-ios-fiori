@@ -270,3 +270,67 @@ protocol _CloseActionComponent {
     // sourcery: resultBuilder.defaultValue = "{ FioriButton { _ in Image(systemName: "xmark") } }"
     var closeAction: FioriButton? { get }
 }
+
+// sourcery: BaseComponent
+protocol _TimestampLabelComponent {
+    // sourcery: @ViewBuilder
+    var timestampLabel: AttributedString? { get }
+}
+
+// sourcery: BaseComponent
+protocol _SecondaryTimestampLabelComponent {
+    // sourcery: @ViewBuilder
+    var secondaryTimestampLabel: AttributedString? { get }
+}
+
+// sourcery: BaseComponent
+protocol _SecondaryTimestampImageComponent {
+    // sourcery: @ViewBuilder
+    var secondaryTimestampImage: Image? { get }
+}
+
+// sourcery: BaseComponent
+protocol _NodeImageComponent {
+    // sourcery: resultBuilder.name = @ViewBuilder, resultBuilder.backingComponent = TimelineNodesView
+    var nodeImage: TimelineNodeType { get }
+}
+
+// sourcery: BaseComponent
+protocol _AttributeComponent {
+    // sourcery: @ViewBuilder
+    var attribute: AttributedString? { get }
+}
+
+// sourcery: BaseComponent
+protocol _SubAttributeComponent {
+    // sourcery: @ViewBuilder
+    var subAttribute: AttributedString? { get }
+}
+
+// sourcery: BaseComponent
+protocol _UpperVerticalLineComponent {
+    // sourcery: defaultValue = "{ Rectangle().fill(Color.clear) }"
+    @ViewBuilder
+    var upperVerticalLine: (() -> any View)? { get }
+}
+
+// sourcery: BaseComponent
+protocol _LowerVerticalLineComponent {
+    // sourcery: defaultValue = "{ Rectangle().fill(Color.clear) }"
+    @ViewBuilder
+    var lowerVerticalLine: (() -> any View)? { get }
+}
+
+// sourcery: BaseComponent
+protocol _NowIndicatorNodeComponent {
+    // sourcery: defaultValue = "{ Image(systemName: "circle.fill") }"
+    @ViewBuilder
+    var nowIndicatorNode: (() -> any View)? { get }
+}
+
+// sourcery: BaseComponent
+protocol _TrailingHorizontalLineComponent {
+    // sourcery: defaultValue = "{ Rectangle().fill(Color.clear) }"
+    @ViewBuilder
+    var trailingHorizontalLine: (() -> any View)? { get }
+}
