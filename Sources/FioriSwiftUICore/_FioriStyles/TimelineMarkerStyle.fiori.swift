@@ -20,7 +20,7 @@ public struct TimelineMarkerBaseStyle: TimelineMarkerStyle {
                 configuration._timelineMarkerNode
                 configuration._timelineMarkerMainStack
             }
-            .fixedSize(horizontal: false, vertical: /*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/)
+            .fixedSize(horizontal: false, vertical: true)
             .overlay {
                 GeometryReader { proxy in
                     Color.clear

@@ -4,7 +4,7 @@ import SwiftUI
 struct CustomTimelineExample: View {
     var body: some View {
         List {
-            Section(header: Text("Simple Timeline Example")) {
+            Section(header: Text("Custom Timeline Example")) {
                 TimelineMarker(timestampLabel: "06/03/24", secondaryTimestampImage: Image(systemName: "sun.max"), nodeImage: .predefine(TimelineNodeStatus.beforeStart), showUpperVerticalLine: false, title: "POC", isPast: true)
                     .modifier(CustomListRowModifier())
                     .secondaryTimestampImageStyle(content: { config in

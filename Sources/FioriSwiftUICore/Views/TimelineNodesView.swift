@@ -1,8 +1,9 @@
 import SwiftUI
 
-/// display timeline node image
+/// 'TImelineNodesView' displays an image representing a timeline node.
 public struct TimelineNodesView: View {
-    var content: TimelineNodeType?
+    /// The type of timeline node content to display
+    public var content: TimelineNodeType?
 
     /// init with node image
     public init(_ content: TimelineNodeType?) {
@@ -11,8 +12,8 @@ public struct TimelineNodesView: View {
     
     @ViewBuilder
     public var body: some View {
-        if self.content != nil {
-            switch self.content! {
+        if let content = self.content {
+            switch content {
             case .predefine(let nodeStatus):
                 if nodeStatus == TimelineNodeStatus.beforeEnd || nodeStatus == TimelineNodeStatus.beforeStart {
                     Image(systemName: "diamond")
@@ -32,19 +33,28 @@ public struct TimelineNodesView: View {
     }
 }
 
-/// Timeline node status
+/// The status of a timeline node
 public enum TimelineNodeStatus: String {
+    /// timeline event before start
     case beforeStart
+    /// timeline event start
     case start
+    /// timeline event open
     case open
+    /// timeline event inprogress
     case inProgress
+    /// timeline event complete
     case complete
+    /// timeline event before end
     case beforeEnd
+    /// timeline event end
     case end
 }
 
-/// Timeline node types
+/// The type of content to display in a timeline node view
 public enum TimelineNodeType {
+    /// A predefined image representing a timeline node.
     case predefine(TimelineNodeStatus)
+    /// Dev provide a custom image to display for the timeline node
     case custom(Image)
 }
