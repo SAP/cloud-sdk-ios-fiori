@@ -70,7 +70,7 @@ struct CustomTimelineExample: View {
                     .nodeImageStyle(content: { config in
                         config.nodeImage.foregroundColor(.cyan)
                     })
-                TimelineMarker(timestampLabel: "07/05/24", nodeImage: .custom(Image(systemName: "a.circle")), title: "Accept Test")
+                TimelineMarker(timestampLabel: "07/06/24", nodeImage: .custom(Image(systemName: "a.circle")), title: "Accept Test")
                     .modifier(CustomListRowModifier())
                     .nodeImageStyle(content: { config in
                         config.nodeImage.foregroundColor(.red)
