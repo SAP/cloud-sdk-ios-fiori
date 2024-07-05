@@ -17,7 +17,7 @@ public struct NodeImage {
 
 public extension NodeImage {
     init(nodeImage: TimelineNodeType) {
-        self.init(nodeImage: { TimelineNodesView(nodeImage) })
+        self.init(nodeImage: { TimelineNodeView(nodeImage) })
     }
 }
 

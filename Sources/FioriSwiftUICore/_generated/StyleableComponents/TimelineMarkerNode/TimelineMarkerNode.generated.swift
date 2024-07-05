@@ -37,7 +37,7 @@ public extension TimelineMarkerNode {
          showUpperVerticalLine: Bool = true,
          showLowerVerticalLine: Bool = true)
     {
-        self.init(upperVerticalLine: upperVerticalLine, nodeImage: { TimelineNodesView(nodeImage) }, lowerVerticalLine: lowerVerticalLine, showUpperVerticalLine: showUpperVerticalLine, showLowerVerticalLine: showLowerVerticalLine)
+        self.init(upperVerticalLine: upperVerticalLine, nodeImage: { TimelineNodeView(nodeImage) }, lowerVerticalLine: lowerVerticalLine, showUpperVerticalLine: showUpperVerticalLine, showLowerVerticalLine: showLowerVerticalLine)
     }
 }
 

@@ -291,7 +291,7 @@ protocol _SecondaryTimestampImageComponent {
 
 // sourcery: BaseComponent
 protocol _NodeImageComponent {
-    // sourcery: resultBuilder.name = @ViewBuilder, resultBuilder.backingComponent = TimelineNodesView
+    // sourcery: resultBuilder.name = @ViewBuilder, resultBuilder.backingComponent = TimelineNodeView
     var nodeImage: TimelineNodeType { get }
 }
 

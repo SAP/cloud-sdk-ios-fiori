@@ -75,7 +75,7 @@ public extension TimelineMarker {
          isPast: Bool = false,
          isPresent: Bool = false)
     {
-        self.init(timestampLabel: { OptionalText(timestampLabel) }, secondaryTimestampLabel: { OptionalText(secondaryTimestampLabel) }, secondaryTimestampImage: { secondaryTimestampImage }, upperVerticalLine: upperVerticalLine, nodeImage: { TimelineNodesView(nodeImage) }, lowerVerticalLine: lowerVerticalLine, showUpperVerticalLine: showUpperVerticalLine, showLowerVerticalLine: showLowerVerticalLine, title: { Text(title) }, isPast: isPast, isPresent: isPresent)
+        self.init(timestampLabel: { OptionalText(timestampLabel) }, secondaryTimestampLabel: { OptionalText(secondaryTimestampLabel) }, secondaryTimestampImage: { secondaryTimestampImage }, upperVerticalLine: upperVerticalLine, nodeImage: { TimelineNodeView(nodeImage) }, lowerVerticalLine: lowerVerticalLine, showUpperVerticalLine: showUpperVerticalLine, showLowerVerticalLine: showLowerVerticalLine, title: { Text(title) }, isPast: isPast, isPresent: isPresent)
     }
 }
 

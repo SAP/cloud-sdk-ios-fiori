@@ -85,7 +85,7 @@ public extension Timeline {
          isPast: Bool = false,
          isPresent: Bool = false)
     {
-        self.init(timestampLabel: { OptionalText(timestampLabel) }, secondaryTimestampLabel: { OptionalText(secondaryTimestampLabel) }, secondaryTimestampImage: { secondaryTimestampImage }, upperVerticalLine: upperVerticalLine, nodeImage: { TimelineNodesView(nodeImage) }, lowerVerticalLine: lowerVerticalLine, title: { Text(title) }, subtitle: { OptionalText(subtitle) }, attribute: { OptionalText(attribute) }, status: { TextOrIconView(status) }, substatus: { TextOrIconView(substatus) }, subAttribute: { OptionalText(subAttribute) }, isPast: isPast, isPresent: isPresent)
+        self.init(timestampLabel: { OptionalText(timestampLabel) }, secondaryTimestampLabel: { OptionalText(secondaryTimestampLabel) }, secondaryTimestampImage: { secondaryTimestampImage }, upperVerticalLine: upperVerticalLine, nodeImage: { TimelineNodeView(nodeImage) }, lowerVerticalLine: lowerVerticalLine, title: { Text(title) }, subtitle: { OptionalText(subtitle) }, attribute: { OptionalText(attribute) }, status: { TextOrIconView(status) }, substatus: { TextOrIconView(substatus) }, subAttribute: { OptionalText(subAttribute) }, isPast: isPast, isPresent: isPresent)
     }
 }
 

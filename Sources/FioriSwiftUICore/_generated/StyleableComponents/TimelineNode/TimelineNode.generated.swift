@@ -27,7 +27,7 @@ public extension TimelineNode {
          nodeImage: TimelineNodeType,
          @ViewBuilder lowerVerticalLine: () -> any View = { Rectangle().fill(Color.clear) })
     {
-        self.init(upperVerticalLine: upperVerticalLine, nodeImage: { TimelineNodesView(nodeImage) }, lowerVerticalLine: lowerVerticalLine)
+        self.init(upperVerticalLine: upperVerticalLine, nodeImage: { TimelineNodeView(nodeImage) }, lowerVerticalLine: lowerVerticalLine)
     }
 }
 

@@ -58,7 +58,7 @@ extension TimelineFioriStyle {
         func makeBody(_ configuration: TimestampLabelConfiguration) -> some View {
             TimestampLabel(configuration)
                 .font(.fiori(forTextStyle: .caption1))
-                .foregroundColor(self.isEnabled ? Color.preferredColor(.primaryLabel) : Color.preferredColor(.separator))
+                .foregroundColor(self.isEnabled ? Color.preferredColor(.primaryLabel) : Color.preferredColor(.quaternaryLabel))
         }
     }
 
@@ -69,7 +69,7 @@ extension TimelineFioriStyle {
         func makeBody(_ configuration: SecondaryTimestampLabelConfiguration) -> some View {
             SecondaryTimestampLabel(configuration)
                 .font(.fiori(forTextStyle: .caption1))
-                .foregroundColor(self.isEnabled ? Color.preferredColor(.primaryLabel) : Color.preferredColor(.separator))
+                .foregroundColor(self.isEnabled ? Color.preferredColor(.primaryLabel) : Color.preferredColor(.quaternaryLabel))
         }
     }
 
@@ -79,7 +79,7 @@ extension TimelineFioriStyle {
 
         func makeBody(_ configuration: SecondaryTimestampImageConfiguration) -> some View {
             SecondaryTimestampImage(configuration)
-                .foregroundColor(self.isEnabled ? Color.preferredColor(.tertiaryLabel) : Color.preferredColor(.separator))
+                .foregroundColor(self.isEnabled ? Color.preferredColor(.tertiaryLabel) : Color.preferredColor(.quaternaryLabel))
         }
     }
 
@@ -120,7 +120,7 @@ extension TimelineFioriStyle {
         func makeBody(_ configuration: TitleConfiguration) -> some View {
             Title(configuration)
                 .font(.fiori(forTextStyle: .headline))
-                .foregroundColor(self.isEnabled ? Color.preferredColor(.primaryLabel) : Color.preferredColor(.separator))
+                .foregroundColor(self.isEnabled ? Color.preferredColor(.primaryLabel) : Color.preferredColor(.quaternaryLabel))
         }
     }
 
@@ -131,7 +131,7 @@ extension TimelineFioriStyle {
         func makeBody(_ configuration: SubtitleConfiguration) -> some View {
             Subtitle(configuration)
                 .font(.fiori(forTextStyle: .subheadline))
-                .foregroundColor(self.isEnabled ? Color.preferredColor(.secondaryLabel) : Color.preferredColor(.separator))
+                .foregroundColor(self.isEnabled ? Color.preferredColor(.secondaryLabel) : Color.preferredColor(.quaternaryLabel))
         }
     }
 
@@ -142,7 +142,7 @@ extension TimelineFioriStyle {
         func makeBody(_ configuration: AttributeConfiguration) -> some View {
             Attribute(configuration)
                 .font(.fiori(forTextStyle: .footnote))
-                .foregroundColor(self.isEnabled ? Color.preferredColor(.secondaryLabel) : Color.preferredColor(.separator))
+                .foregroundColor(self.isEnabled ? Color.preferredColor(.secondaryLabel) : Color.preferredColor(.quaternaryLabel))
         }
     }
 
@@ -153,7 +153,7 @@ extension TimelineFioriStyle {
         func makeBody(_ configuration: StatusConfiguration) -> some View {
             Status(configuration)
                 .font(.fiori(forTextStyle: .footnote))
-                .foregroundColor(self.isEnabled ? Color.preferredColor(.secondaryLabel) : Color.preferredColor(.separator))
+                .foregroundColor(self.isEnabled ? Color.preferredColor(.secondaryLabel) : Color.preferredColor(.quaternaryLabel))
         }
     }
 
@@ -164,7 +164,7 @@ extension TimelineFioriStyle {
         func makeBody(_ configuration: SubstatusConfiguration) -> some View {
             Substatus(configuration)
                 .font(.fiori(forTextStyle: .footnote))
-                .foregroundColor(self.isEnabled ? Color.preferredColor(.secondaryLabel) : Color.preferredColor(.separator))
+                .foregroundColor(self.isEnabled ? Color.preferredColor(.secondaryLabel) : Color.preferredColor(.quaternaryLabel))
         }
     }
 
@@ -175,7 +175,7 @@ extension TimelineFioriStyle {
         func makeBody(_ configuration: SubAttributeConfiguration) -> some View {
             SubAttribute(configuration)
                 .font(.fiori(forTextStyle: .footnote))
-                .foregroundColor(self.isEnabled ? Color.preferredColor(.secondaryLabel) : Color.preferredColor(.separator))
+                .foregroundColor(self.isEnabled ? Color.preferredColor(.secondaryLabel) : Color.preferredColor(.quaternaryLabel))
         }
     }
 

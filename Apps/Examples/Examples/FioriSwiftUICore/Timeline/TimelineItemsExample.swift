@@ -5,35 +5,35 @@ struct TimelineItemsExample: View {
     var body: some View {
         List {
             Section(header: Text("TimelineMarker")) {
-                TimelineMarker(timestampLabel: "06/20/24", secondaryTimestampImage: Image(systemName: "sun.max"), nodeImage: .predefine(TimelineNodeStatus.beforeStart), showUpperVerticalLine: false, title: "Before Start", isPast: true)
+                TimelineMarker(timestampLabel: "06/20/24", secondaryTimestampImage: Image(systemName: "sun.max"), nodeImage: .beforeStart(), showUpperVerticalLine: false, title: "Before Start", isPast: true)
                     .modifier(CustomListRowModifier())
                     .secondaryTimestampImageStyle(content: { config in
                         config.secondaryTimestampImage.foregroundColor(.yellow)
                     })
-                TimelineMarker(timestampLabel: "06/20/24", secondaryTimestampLabel: "Sunny", nodeImage: .predefine(TimelineNodeStatus.start), title: "Start", isPresent: true)
+                TimelineMarker(timestampLabel: "06/20/24", secondaryTimestampLabel: "Sunny", nodeImage: .start(), title: "Start", isPresent: true)
                     .modifier(CustomListRowModifier())
-                TimelineMarker(timestampLabel: "06/20/24", secondaryTimestampLabel: "Sunny", nodeImage: .predefine(TimelineNodeStatus.beforeEnd), title: "Before End", isPresent: true)
+                TimelineMarker(timestampLabel: "06/20/24", secondaryTimestampLabel: "Sunny", nodeImage: .beforeEnd(), title: "Before End", isPresent: true)
                     .modifier(CustomListRowModifier())
-                TimelineMarker(timestampLabel: "06/20/24", secondaryTimestampImage: Image(systemName: "sun.max"), nodeImage: .predefine(TimelineNodeStatus.end), showLowerVerticalLine: true, title: "End")
+                TimelineMarker(timestampLabel: "06/20/24", secondaryTimestampImage: Image(systemName: "sun.max"), nodeImage: .end(), showLowerVerticalLine: true, title: "End")
                     .modifier(CustomListRowModifier())
                     .secondaryTimestampImageStyle(content: { config in
                         config.secondaryTimestampImage.foregroundColor(.yellow)
                     })
             }
             Section(header: Text("Timeline")) {
-                Timeline(timestampLabel: "06/21/24", secondaryTimestampImage: Image(systemName: "sun.max"), nodeImage: .predefine(TimelineNodeStatus.complete), title: "Complete", subtitle: "abc", attribute: "attr", status: .text("Info"), substatus: .icon(Image(systemName: "exclamationmark.circle")), subAttribute: "subAttr", isPast: true)
+                Timeline(timestampLabel: "06/21/24", secondaryTimestampImage: Image(systemName: "sun.max"), nodeImage: .complete(), title: "Complete", subtitle: "abc", attribute: "attr", status: .text("Info"), substatus: .icon(Image(systemName: "exclamationmark.circle")), subAttribute: "subAttr", isPast: true)
                     .modifier(CustomListRowModifier())
-                Timeline(timestampLabel: "06/21/24", secondaryTimestampImage: Image(systemName: "sun.max"), nodeImage: .predefine(TimelineNodeStatus.complete), title: "Complete(Disabled)", subtitle: "abc", attribute: "attr", status: .text("Info"), substatus: .icon(Image(systemName: "exclamationmark.circle")), subAttribute: "subAttr", isPast: true)
-                    .modifier(CustomListRowModifier())
-                    .disabled(/*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/)
-                Timeline(timestampLabel: "06/21/24", secondaryTimestampLabel: "Sunny", nodeImage: .predefine(TimelineNodeStatus.inProgress), title: "Inprogress", subtitle: "abc", attribute: "attr", status: .text("Info"), substatus: .icon(Image(systemName: "exclamationmark.circle")), subAttribute: "subAttr", isPresent: true)
-                    .modifier(CustomListRowModifier())
-                Timeline(timestampLabel: "06/21/24", secondaryTimestampLabel: "Sunny", nodeImage: .predefine(TimelineNodeStatus.inProgress), title: "Inprogress(Disabled)", subtitle: "abc", attribute: "attr", status: .text("Info"), substatus: .icon(Image(systemName: "exclamationmark.circle")), subAttribute: "subAttr", isPresent: true)
+                Timeline(timestampLabel: "06/21/24", secondaryTimestampImage: Image(systemName: "sun.max"), nodeImage: .complete(), title: "Complete(Disabled)", subtitle: "abc", attribute: "attr", status: .text("Info"), substatus: .icon(Image(systemName: "exclamationmark.circle")), subAttribute: "subAttr", isPast: true)
                     .modifier(CustomListRowModifier())
                     .disabled(/*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/)
-                Timeline(timestampLabel: "06/21/24", secondaryTimestampLabel: "Sunny", nodeImage: .predefine(TimelineNodeStatus.open), title: "Open", subtitle: "abc", attribute: "attr", status: .text("Info"), substatus: .icon(Image(systemName: "exclamationmark.circle")), subAttribute: "subAttr")
+                Timeline(timestampLabel: "06/21/24", secondaryTimestampLabel: "Sunny", nodeImage: .inProgress(), title: "Inprogress", subtitle: "abc", attribute: "attr", status: .text("Info"), substatus: .icon(Image(systemName: "exclamationmark.circle")), subAttribute: "subAttr", isPresent: true)
                     .modifier(CustomListRowModifier())
-                Timeline(timestampLabel: "06/21/24", secondaryTimestampLabel: "Sunny", nodeImage: .predefine(TimelineNodeStatus.open), title: "Open(Disabled)", subtitle: "abc", attribute: "attr", status: .text("Info"), substatus: .icon(Image(systemName: "exclamationmark.circle")), subAttribute: "subAttr")
+                Timeline(timestampLabel: "06/21/24", secondaryTimestampLabel: "Sunny", nodeImage: .inProgress(), title: "Inprogress(Disabled)", subtitle: "abc", attribute: "attr", status: .text("Info"), substatus: .icon(Image(systemName: "exclamationmark.circle")), subAttribute: "subAttr", isPresent: true)
+                    .modifier(CustomListRowModifier())
+                    .disabled(/*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/)
+                Timeline(timestampLabel: "06/21/24", secondaryTimestampLabel: "Sunny", nodeImage: .open(), title: "Open", subtitle: "abc", attribute: "attr", status: .text("Info"), substatus: .icon(Image(systemName: "exclamationmark.circle")), subAttribute: "subAttr")
+                    .modifier(CustomListRowModifier())
+                Timeline(timestampLabel: "06/21/24", secondaryTimestampLabel: "Sunny", nodeImage: .open(), title: "Open(Disabled)", subtitle: "abc", attribute: "attr", status: .text("Info"), substatus: .icon(Image(systemName: "exclamationmark.circle")), subAttribute: "subAttr")
                     .modifier(CustomListRowModifier())
                     .disabled(/*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/)
             }
