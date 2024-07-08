@@ -177,7 +177,14 @@ struct CoreContentView: View {
                     }
                 )
             }
-            
+
+            NavigationLink(
+                destination: RatingControlExample(),
+                label: {
+                    Text("RatingControl")
+                }
+            )
+
             NavigationLink(
                 destination: InformationViewExample(),
                 label: {

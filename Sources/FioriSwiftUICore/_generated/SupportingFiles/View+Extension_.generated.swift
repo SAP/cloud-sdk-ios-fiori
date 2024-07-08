@@ -836,6 +836,23 @@ public extension View {
     }
 }
 
+// MARK: RatingControlFormViewStyle
+
+public extension View {
+    func ratingControlFormViewStyle(_ style: some RatingControlFormViewStyle) -> some View {
+        self.transformEnvironment(\.ratingControlFormViewStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func ratingControlFormViewStyle(@ViewBuilder content: @escaping (RatingControlFormViewConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.ratingControlFormViewStyleStack) { stack in
+            let style = AnyRatingControlFormViewStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: Row1Style
 
 public extension View {

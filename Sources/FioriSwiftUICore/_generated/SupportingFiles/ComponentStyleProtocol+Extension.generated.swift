@@ -2894,6 +2894,104 @@ public extension RatingControlStyle where Self == RatingControlFioriStyle {
     }
 }
 
+// MARK: RatingControlFormViewStyle
+
+public extension RatingControlFormViewStyle where Self == RatingControlFormViewBaseStyle {
+    static var base: RatingControlFormViewBaseStyle {
+        RatingControlFormViewBaseStyle()
+    }
+}
+
+public extension RatingControlFormViewStyle where Self == RatingControlFormViewFioriStyle {
+    static var fiori: RatingControlFormViewFioriStyle {
+        RatingControlFormViewFioriStyle()
+    }
+}
+
+public struct RatingControlFormViewTitleStyle: RatingControlFormViewStyle {
+    let style: any TitleStyle
+
+    public func makeBody(_ configuration: RatingControlFormViewConfiguration) -> some View {
+        RatingControlFormView(configuration)
+            .titleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension RatingControlFormViewStyle where Self == RatingControlFormViewTitleStyle {
+    static func titleStyle(_ style: some TitleStyle) -> RatingControlFormViewTitleStyle {
+        RatingControlFormViewTitleStyle(style: style)
+    }
+
+    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> RatingControlFormViewTitleStyle {
+        let style = AnyTitleStyle(content)
+        return RatingControlFormViewTitleStyle(style: style)
+    }
+}
+
+public struct RatingControlFormViewSubtitleStyle: RatingControlFormViewStyle {
+    let style: any SubtitleStyle
+
+    public func makeBody(_ configuration: RatingControlFormViewConfiguration) -> some View {
+        RatingControlFormView(configuration)
+            .subtitleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension RatingControlFormViewStyle where Self == RatingControlFormViewSubtitleStyle {
+    static func subtitleStyle(_ style: some SubtitleStyle) -> RatingControlFormViewSubtitleStyle {
+        RatingControlFormViewSubtitleStyle(style: style)
+    }
+
+    static func subtitleStyle(@ViewBuilder content: @escaping (SubtitleConfiguration) -> some View) -> RatingControlFormViewSubtitleStyle {
+        let style = AnySubtitleStyle(content)
+        return RatingControlFormViewSubtitleStyle(style: style)
+    }
+}
+
+public struct RatingControlFormViewRatingControlStyle: RatingControlFormViewStyle {
+    let style: any RatingControlStyle
+
+    public func makeBody(_ configuration: RatingControlFormViewConfiguration) -> some View {
+        RatingControlFormView(configuration)
+            .ratingControlStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension RatingControlFormViewStyle where Self == RatingControlFormViewRatingControlStyle {
+    static func ratingControlStyle(_ style: some RatingControlStyle) -> RatingControlFormViewRatingControlStyle {
+        RatingControlFormViewRatingControlStyle(style: style)
+    }
+
+    static func ratingControlStyle(@ViewBuilder content: @escaping (RatingControlConfiguration) -> some View) -> RatingControlFormViewRatingControlStyle {
+        let style = AnyRatingControlStyle(content)
+        return RatingControlFormViewRatingControlStyle(style: style)
+    }
+}
+
+public struct RatingControlFormViewFormViewStyle: RatingControlFormViewStyle {
+    let style: any FormViewStyle
+
+    public func makeBody(_ configuration: RatingControlFormViewConfiguration) -> some View {
+        RatingControlFormView(configuration)
+            .formViewStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension RatingControlFormViewStyle where Self == RatingControlFormViewFormViewStyle {
+    static func formViewStyle(_ style: some FormViewStyle) -> RatingControlFormViewFormViewStyle {
+        RatingControlFormViewFormViewStyle(style: style)
+    }
+
+    static func formViewStyle(@ViewBuilder content: @escaping (FormViewConfiguration) -> some View) -> RatingControlFormViewFormViewStyle {
+        let style = AnyFormViewStyle(content)
+        return RatingControlFormViewFormViewStyle(style: style)
+    }
+}
+
 // MARK: Row1Style
 
 public extension Row1Style where Self == Row1BaseStyle {

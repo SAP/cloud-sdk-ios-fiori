@@ -317,3 +317,11 @@ protocol _RatingControlComponent {
     /// The custom spacing between images.
     var interItemSpacing: CGFloat? { get }
 }
+
+/// The form view which contains a title, rating control, and a subtitle
+// sourcery: CompositeComponent
+protocol _RatingControlFormViewComponent: _TitleComponent, _RatingControlComponent, _SubtitleComponent, _FormViewComponent {
+    /// Indicates if the title and rating control is on a single horizontal row or not.
+    // sourcery: defaultValue = "false"
+    var isStacked: Bool { get }
+}

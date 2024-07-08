@@ -34,6 +34,11 @@ public extension RatingControl {
          */
         case accented
     }
+
+    static func getAccessibilityLabelString(_ rating: Int, ratingBounds: ClosedRange<Int>) -> String {
+        let labelFormat = NSLocalizedString("%d out of %d stars", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
+        return String(format: labelFormat, rating, ratingBounds.count - 1)
+    }
 }
 
 extension RatingControlConfiguration {
@@ -87,7 +92,8 @@ extension RatingControlConfiguration {
 
     func getOnImageView() -> some View {
         self.getOnImage()
-            .resizable(resizingMode: .stretch)
+            .resizable()
+            .scaledToFit()
             .frame(width: self.getItemSize().width, height: self.getItemSize().height)
             .font(.body)
             .fontWeight(.light)
@@ -97,7 +103,8 @@ extension RatingControlConfiguration {
 
     func getOffImageView() -> some View {
         self.getOffImage()
-            .resizable(resizingMode: .stretch)
+            .resizable()
+            .scaledToFit()
             .frame(width: self.getItemSize().width, height: self.getItemSize().height)
             .font(.body)
             .fontWeight(.light)
