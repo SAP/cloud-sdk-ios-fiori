@@ -84,7 +84,7 @@ We plan to progressively bring more Fiori UI components into this module in the 
 | Tag | :white_check_mark: |
 | Avatar | :white_check_mark: |
 | Toast Message | :white_check_mark: |
-| KeyValueItem | :x: |
+| KeyValueItem | :white_check_mark: |
 | TimelineItem | :x: |
 | TimelinePreviewItem | :x: |
 | ChartFloorplan | :x: |
