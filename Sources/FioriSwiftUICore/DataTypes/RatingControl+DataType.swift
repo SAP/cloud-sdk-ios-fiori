@@ -2,7 +2,7 @@ import SwiftUI
 
 public extension RatingControl {
     /**
-     The available style for the `FUIRatingControl`.
+     The available styles for the `FUIRatingControl`.
      */
     enum Style {
         /**
@@ -35,7 +35,7 @@ public extension RatingControl {
         case accented
     }
 
-    static func getAccessibilityLabelString(_ rating: Int, ratingBounds: ClosedRange<Int>) -> String {
+    internal static func getAccessibilityLabelString(_ rating: Int, ratingBounds: ClosedRange<Int>) -> String {
         let labelFormat = NSLocalizedString("%d out of %d stars", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
         return String(format: labelFormat, rating, ratingBounds.count - 1)
     }
