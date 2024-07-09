@@ -35,7 +35,7 @@ public struct RatingControlFormViewConfiguration {
     public let subtitle: Subtitle
     public let controlState: ControlState
     public let errorMessage: AttributedString?
-    public let isStacked: Bool
+    public let axis: Axis
 
     public typealias Title = ConfigurationViewWrapper
     public typealias Subtitle = ConfigurationViewWrapper

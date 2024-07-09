@@ -29,8 +29,8 @@ public struct RatingControlFormView {
     let controlState: ControlState
     /// The error message of the form view.
     let errorMessage: AttributedString?
-    /// Indicates if the title and rating control is on a single horizontal row or not.
-    let isStacked: Bool
+    /// Indicates if the axis for displaying the title and rating control.
+    let axis: Axis
 
     @Environment(\.ratingControlFormViewStyle) var style
 
@@ -49,7 +49,7 @@ public struct RatingControlFormView {
                 @ViewBuilder subtitle: () -> any View = { EmptyView() },
                 controlState: ControlState = .normal,
                 errorMessage: AttributedString? = nil,
-                isStacked: Bool = false)
+                axis: Axis = .horizontal)
     {
         self.title = Title { title() }
         self._rating = rating
@@ -64,7 +64,7 @@ public struct RatingControlFormView {
         self.subtitle = Subtitle { subtitle() }
         self.controlState = controlState
         self.errorMessage = errorMessage
-        self.isStacked = isStacked
+        self.axis = axis
     }
 }
 
@@ -82,9 +82,9 @@ public extension RatingControlFormView {
          subtitle: AttributedString? = nil,
          controlState: ControlState = .normal,
          errorMessage: AttributedString? = nil,
-         isStacked: Bool = false)
+         axis: Axis = .horizontal)
     {
-        self.init(title: { Text(title) }, rating: rating, ratingControlStyle: ratingControlStyle, ratingBounds: ratingBounds, onImage: onImage, offImage: offImage, itemSize: itemSize, onColor: onColor, offColor: offColor, interItemSpacing: interItemSpacing, subtitle: { OptionalText(subtitle) }, controlState: controlState, errorMessage: errorMessage, isStacked: isStacked)
+        self.init(title: { Text(title) }, rating: rating, ratingControlStyle: ratingControlStyle, ratingBounds: ratingBounds, onImage: onImage, offImage: offImage, itemSize: itemSize, onColor: onColor, offColor: offColor, interItemSpacing: interItemSpacing, subtitle: { OptionalText(subtitle) }, controlState: controlState, errorMessage: errorMessage, axis: axis)
     }
 }
 
@@ -107,7 +107,7 @@ public extension RatingControlFormView {
         self.subtitle = configuration.subtitle
         self.controlState = configuration.controlState
         self.errorMessage = configuration.errorMessage
-        self.isStacked = configuration.isStacked
+        self.axis = configuration.axis
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
     }
 }
@@ -117,7 +117,7 @@ extension RatingControlFormView: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(title: .init(self.title), rating: self.$rating, ratingControlStyle: self.ratingControlStyle, ratingBounds: self.ratingBounds, onImage: self.onImage, offImage: self.offImage, itemSize: self.itemSize, onColor: self.onColor, offColor: self.offColor, interItemSpacing: self.interItemSpacing, subtitle: .init(self.subtitle), controlState: self.controlState, errorMessage: self.errorMessage, isStacked: self.isStacked)).typeErased
+            self.style.resolve(configuration: .init(title: .init(self.title), rating: self.$rating, ratingControlStyle: self.ratingControlStyle, ratingBounds: self.ratingBounds, onImage: self.onImage, offImage: self.offImage, itemSize: self.itemSize, onColor: self.onColor, offColor: self.offColor, interItemSpacing: self.interItemSpacing, subtitle: .init(self.subtitle), controlState: self.controlState, errorMessage: self.errorMessage, axis: self.axis)).typeErased
                 .transformEnvironment(\.ratingControlFormViewStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -135,7 +135,7 @@ private extension RatingControlFormView {
     }
 
     func defaultStyle() -> some View {
-        RatingControlFormView(.init(title: .init(self.title), rating: self.$rating, ratingControlStyle: self.ratingControlStyle, ratingBounds: self.ratingBounds, onImage: self.onImage, offImage: self.offImage, itemSize: self.itemSize, onColor: self.onColor, offColor: self.offColor, interItemSpacing: self.interItemSpacing, subtitle: .init(self.subtitle), controlState: self.controlState, errorMessage: self.errorMessage, isStacked: self.isStacked))
+        RatingControlFormView(.init(title: .init(self.title), rating: self.$rating, ratingControlStyle: self.ratingControlStyle, ratingBounds: self.ratingBounds, onImage: self.onImage, offImage: self.offImage, itemSize: self.itemSize, onColor: self.onColor, offColor: self.offColor, interItemSpacing: self.interItemSpacing, subtitle: .init(self.subtitle), controlState: self.controlState, errorMessage: self.errorMessage, axis: self.axis))
             .shouldApplyDefaultStyle(false)
             .ratingControlFormViewStyle(RatingControlFormViewFioriStyle.ContentFioriStyle())
             .typeErased

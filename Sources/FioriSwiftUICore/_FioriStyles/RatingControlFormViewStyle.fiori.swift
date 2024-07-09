@@ -16,7 +16,7 @@ public struct RatingControlFormViewBaseStyle: RatingControlFormViewStyle {
                         .frame(maxWidth: .infinity)
                         .frame(alignment: .center)
                 }
-            } else if configuration.isStacked {
+            } else if configuration.axis == .vertical {
                 VStack(spacing: 4.0) {
                     HStack {
                         configuration.title
@@ -94,34 +94,6 @@ extension RatingControlFormViewFioriStyle {
     struct ContentFioriStyle: RatingControlFormViewStyle {
         func makeBody(_ configuration: RatingControlFormViewConfiguration) -> some View {
             RatingControlFormView(configuration)
-                .titleStyle { titleConf in
-                    Title(titleConf)
-                        .foregroundStyle(self.getTitleColor(configuration))
-                        .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
-                }
-                .subtitleStyle { subtitleConf in
-                    Subtitle(subtitleConf)
-                        .foregroundColor(self.getSubtitleColor(configuration))
-                        .font(.fiori(forTextStyle: .footnote))
-                }
-        }
-
-        func getTitleColor(_ configuration: RatingControlFormViewConfiguration) -> Color {
-            switch configuration.controlState {
-            case .disabled:
-                return .preferredColor(.separator)
-            default:
-                return .preferredColor(.primaryLabel)
-            }
-        }
-
-        func getSubtitleColor(_ configuration: RatingControlFormViewConfiguration) -> Color {
-            switch configuration.controlState {
-            case .disabled:
-                return .preferredColor(.separator)
-            default:
-                return .preferredColor(.tertiaryLabel)
-            }
         }
     }
 
@@ -130,6 +102,17 @@ extension RatingControlFormViewFioriStyle {
 
         func makeBody(_ configuration: TitleConfiguration) -> some View {
             Title(configuration)
+                .foregroundStyle(self.getTitleColor())
+                .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
+        }
+
+        func getTitleColor() -> Color {
+            switch self.ratingControlFormViewConfiguration.controlState {
+            case .disabled:
+                return .preferredColor(.separator)
+            default:
+                return .preferredColor(.primaryLabel)
+            }
         }
     }
 
@@ -138,6 +121,17 @@ extension RatingControlFormViewFioriStyle {
 
         func makeBody(_ configuration: SubtitleConfiguration) -> some View {
             Subtitle(configuration)
+                .foregroundColor(self.getSubtitleColor())
+                .font(.fiori(forTextStyle: .footnote))
+        }
+
+        func getSubtitleColor() -> Color {
+            switch self.ratingControlFormViewConfiguration.controlState {
+            case .disabled:
+                return .preferredColor(.separator)
+            default:
+                return .preferredColor(.tertiaryLabel)
+            }
         }
     }
 

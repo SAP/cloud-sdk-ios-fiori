@@ -51,10 +51,10 @@ struct RatingControlFormViewExample: View {
             RatingControlFormView(title: "Rating 4 (Highlighted)", rating: self.$rating4, onImage: self.getOnImage(), offImage: self.getOffImage(), onColor: self.getOnColor(.highlighted), offColor: self.getOffColor(), controlState: .highlighted, errorMessage: self.getErrorMessage())
 
             Text("Stacked")
-            RatingControlFormView(title: "Rating 5", rating: self.$rating5, onImage: self.getOnImage(), offImage: self.getOffImage(), onColor: self.getOnColor(.normal), offColor: self.getOffColor(), errorMessage: self.getErrorMessage(), isStacked: true)
-            RatingControlFormView(title: "Rating 6 (Disabled)", rating: self.$rating6, onImage: self.getOnImage(), offImage: self.getOffImage(), onColor: self.getOnColor(.disabled), offColor: self.getOffColor(), controlState: .disabled, errorMessage: self.getErrorMessage(), isStacked: true)
-            RatingControlFormView(title: "Rating 7 (Read Only)", rating: self.$rating7, onImage: self.getOnImage(), offImage: self.getOffImage(), onColor: self.getOnColor(.readOnly), offColor: self.getOffColor(), controlState: .readOnly, errorMessage: self.getErrorMessage(), isStacked: true)
-            RatingControlFormView(title: "Rating 8 (Highlighted)", rating: self.$rating8, onImage: self.getOnImage(), offImage: self.getOffImage(), onColor: self.getOnColor(.highlighted), offColor: self.getOffColor(), controlState: .highlighted, errorMessage: self.getErrorMessage(), isStacked: true)
+            RatingControlFormView(title: "Rating 5", rating: self.$rating5, onImage: self.getOnImage(), offImage: self.getOffImage(), onColor: self.getOnColor(.normal), offColor: self.getOffColor(), errorMessage: self.getErrorMessage(), axis: .vertical)
+            RatingControlFormView(title: "Rating 6 (Disabled)", rating: self.$rating6, onImage: self.getOnImage(), offImage: self.getOffImage(), onColor: self.getOnColor(.disabled), offColor: self.getOffColor(), controlState: .disabled, errorMessage: self.getErrorMessage(), axis: .vertical)
+            RatingControlFormView(title: "Rating 7 (Read Only)", rating: self.$rating7, onImage: self.getOnImage(), offImage: self.getOffImage(), onColor: self.getOnColor(.readOnly), offColor: self.getOffColor(), controlState: .readOnly, errorMessage: self.getErrorMessage(), axis: .vertical)
+            RatingControlFormView(title: "Rating 8 (Highlighted)", rating: self.$rating8, onImage: self.getOnImage(), offImage: self.getOffImage(), onColor: self.getOnColor(.highlighted), offColor: self.getOffColor(), controlState: .highlighted, errorMessage: self.getErrorMessage(), axis: .vertical)
 
             Text("With Subtitle")
             RatingControlFormView(title: "Rating 9", rating: self.$rating9, onImage: self.getOnImage(), offImage: self.getOffImage(), onColor: self.getOnColor(.normal), offColor: self.getOffColor(), subtitle: "Rating 9 Subtitle", errorMessage: self.getErrorMessage())
