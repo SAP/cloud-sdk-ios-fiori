@@ -153,7 +153,7 @@ extension View {
             .foregroundColor(config.foregroundColor)
             .padding(config.padding)
             .frame(minWidth: 44, maxWidth: config.maxWidth, minHeight: 44)
-            .background(RoundedRectangle(cornerRadius: 5).fill(config.backgroundColor))
+            .background(RoundedRectangle(cornerRadius: 8).fill(config.backgroundColor))
             .contentShape(Rectangle())
     }
 }
