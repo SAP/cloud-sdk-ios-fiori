@@ -1011,6 +1011,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: ProfileHeaderStyle
+
+struct ProfileHeaderStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any ProfileHeaderStyle] = []
+}
+
+extension EnvironmentValues {
+    var profileHeaderStyle: any ProfileHeaderStyle {
+        self.profileHeaderStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var profileHeaderStyleStack: [any ProfileHeaderStyle] {
+        get {
+            self[ProfileHeaderStyleStackKey.self]
+        }
+        set {
+            self[ProfileHeaderStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: RatingControlStyle
 
 struct RatingControlStyleStackKey: EnvironmentKey {
