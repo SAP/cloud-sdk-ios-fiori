@@ -18,7 +18,7 @@ extension Bundle {
         
             return Bundle.module
         #else
-            return Bundle.main
+            return Bundle(for: CurrentBundleFinder.self)
         #endif
     }
     
