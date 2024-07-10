@@ -2,7 +2,7 @@ import SwiftUI
 
 public extension RatingControl {
     /**
-     The available style for the `FUIRatingControl`.
+     The available styles for the `FUIRatingControl`.
      */
     enum Style {
         /**
@@ -33,6 +33,11 @@ public extension RatingControl {
          This `FUIRatingControl` is read-only with accented color. Each rating star is the same as in `standard` style.
          */
         case accented
+    }
+
+    internal static func getAccessibilityLabelString(_ rating: Int, ratingBounds: ClosedRange<Int>) -> String {
+        let labelFormat = NSLocalizedString("%d out of %d stars", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
+        return String(format: labelFormat, rating, ratingBounds.count - 1)
     }
 }
 
@@ -87,7 +92,8 @@ extension RatingControlConfiguration {
 
     func getOnImageView() -> some View {
         self.getOnImage()
-            .resizable(resizingMode: .stretch)
+            .resizable()
+            .scaledToFit()
             .frame(width: self.getItemSize().width, height: self.getItemSize().height)
             .font(.body)
             .fontWeight(.light)
@@ -97,7 +103,8 @@ extension RatingControlConfiguration {
 
     func getOffImageView() -> some View {
         self.getOffImage()
-            .resizable(resizingMode: .stretch)
+            .resizable()
+            .scaledToFit()
             .frame(width: self.getItemSize().width, height: self.getItemSize().height)
             .font(.body)
             .fontWeight(.light)

@@ -27,13 +27,40 @@ public struct RatingControlBaseStyle: RatingControlStyle {
                     }
                 }
         )
+        .accessibilityElement()
+        .accessibilityLabel(self.getAccessibilityLabel(configuration))
+        .setAccessibilityAdjustable(configuration.ratingControlStyle == .editable) { direction in
+            if configuration.ratingControlStyle == .editable {
+                switch direction {
+                case .increment:
+                    let incrementValue = configuration.rating + 1
+                    let newRating = min(configuration.ratingBounds.upperBound, incrementValue)
+                    self.setRatingValue(configuration, newRating: newRating)
+                case .decrement:
+                    let decrementValue = configuration.rating - 1
+                    let newRating = max(configuration.ratingBounds.lowerBound, decrementValue)
+                    self.setRatingValue(configuration, newRating: newRating)
+                @unknown default:
+                    break
+                }
+            }
+        }
     }
 
     func setRatingValue(_ configuration: RatingControlConfiguration, location: CGPoint) {
         let newValue = configuration.getRatingValue(location)
-        if configuration.rating != newValue {
-            configuration.rating = newValue
+        self.setRatingValue(configuration, newRating: newValue)
+    }
+
+    func setRatingValue(_ configuration: RatingControlConfiguration, newRating: Int) {
+        if configuration.rating != newRating {
+            configuration.rating = newRating
+            UIAccessibility.post(notification: .announcement, argument: self.getAccessibilityLabel(configuration))
         }
+    }
+
+    func getAccessibilityLabel(_ configuration: RatingControlConfiguration) -> String {
+        RatingControl.getAccessibilityLabelString(configuration.rating, ratingBounds: configuration.ratingBounds)
     }
 }
 
@@ -42,8 +69,16 @@ extension RatingControlFioriStyle {
     struct ContentFioriStyle: RatingControlStyle {
         func makeBody(_ configuration: RatingControlConfiguration) -> some View {
             RatingControl(configuration)
-            // Add default style for its content
-            // .background()
+        }
+    }
+}
+
+extension View {
+    @ViewBuilder func setAccessibilityAdjustable(_ isAdjustable: Bool, handler: @escaping (AccessibilityAdjustmentDirection) -> Void) -> some View {
+        if isAdjustable {
+            self.accessibilityAdjustableAction(handler)
+        } else {
+            self
         }
     }
 }

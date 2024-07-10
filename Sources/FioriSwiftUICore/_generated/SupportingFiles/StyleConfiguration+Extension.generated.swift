@@ -85,6 +85,18 @@ extension PlaceholderTextFieldConfiguration {
     }
 }
 
+// MARK: RatingControlFormViewConfiguration
+
+extension RatingControlFormViewConfiguration {
+    var _ratingControl: RatingControl {
+        RatingControl(.init(rating: self.$rating, ratingControlStyle: self.ratingControlStyle, ratingBounds: self.ratingBounds, onImage: self.onImage, offImage: self.offImage, itemSize: self.itemSize, onColor: self.onColor, offColor: self.offColor, interItemSpacing: self.interItemSpacing), shouldApplyDefaultStyle: true)
+    }
+
+    var _formView: FormView {
+        FormView(.init(controlState: self.controlState, errorMessage: self.errorMessage), shouldApplyDefaultStyle: true)
+    }
+}
+
 // MARK: SideBarListItemConfiguration
 
 extension SideBarListItemConfiguration {

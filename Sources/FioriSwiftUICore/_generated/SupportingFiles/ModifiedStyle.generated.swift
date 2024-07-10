@@ -1408,6 +1408,34 @@ public extension RatingControlStyle {
     }
 }
 
+// MARK: RatingControlFormViewStyle
+
+extension ModifiedStyle: RatingControlFormViewStyle where Style: RatingControlFormViewStyle {
+    public func makeBody(_ configuration: RatingControlFormViewConfiguration) -> some View {
+        RatingControlFormView(configuration)
+            .ratingControlFormViewStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct RatingControlFormViewStyleModifier<Style: RatingControlFormViewStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.ratingControlFormViewStyle(self.style)
+    }
+}
+
+public extension RatingControlFormViewStyle {
+    func modifier(_ modifier: some ViewModifier) -> some RatingControlFormViewStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some RatingControlFormViewStyle) -> some RatingControlFormViewStyle {
+        style.modifier(RatingControlFormViewStyleModifier(style: self))
+    }
+}
+
 // MARK: Row1Style
 
 extension ModifiedStyle: Row1Style where Style: Row1Style {

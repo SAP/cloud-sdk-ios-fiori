@@ -318,6 +318,14 @@ protocol _RatingControlComponent {
     var interItemSpacing: CGFloat? { get }
 }
 
+/// The form view which contains a title, rating control, and a subtitle
+// sourcery: CompositeComponent
+protocol _RatingControlFormViewComponent: _TitleComponent, _RatingControlComponent, _SubtitleComponent, _FormViewComponent {
+    /// Indicates if the axis for displaying the title and rating control.
+    // sourcery: defaultValue = .horizontal
+    var axis: Axis { get }
+}
+
 // sourcery: CompositeComponent
 protocol _ProfileHeaderComponent: _DetailImageComponent, _TitleComponent, _SubtitleComponent, _DescriptionComponent {
     // sourcery: defaultValue = "false"

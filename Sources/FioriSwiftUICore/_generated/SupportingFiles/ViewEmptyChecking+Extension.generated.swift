@@ -379,6 +379,13 @@ extension RatingControl: _ViewEmptyChecking {
     }
 }
 
+extension RatingControlFormView: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        title.isEmpty &&
+            subtitle.isEmpty
+    }
+}
+
 extension Row1: _ViewEmptyChecking {
     public var isEmpty: Bool {
         row1.isEmpty

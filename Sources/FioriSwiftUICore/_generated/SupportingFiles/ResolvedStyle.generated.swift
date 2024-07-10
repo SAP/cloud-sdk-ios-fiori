@@ -803,6 +803,22 @@ extension RatingControlStyle {
     }
 }
 
+// MARK: RatingControlFormViewStyle
+
+struct ResolvedRatingControlFormViewStyle<Style: RatingControlFormViewStyle>: View {
+    let style: Style
+    let configuration: RatingControlFormViewConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension RatingControlFormViewStyle {
+    func resolve(configuration: RatingControlFormViewConfiguration) -> some View {
+        ResolvedRatingControlFormViewStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: Row1Style
 
 struct ResolvedRow1Style<Style: Row1Style>: View {

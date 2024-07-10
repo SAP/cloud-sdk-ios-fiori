@@ -1053,6 +1053,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: RatingControlFormViewStyle
+
+struct RatingControlFormViewStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any RatingControlFormViewStyle] = []
+}
+
+extension EnvironmentValues {
+    var ratingControlFormViewStyle: any RatingControlFormViewStyle {
+        self.ratingControlFormViewStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var ratingControlFormViewStyleStack: [any RatingControlFormViewStyle] {
+        get {
+            self[RatingControlFormViewStyleStackKey.self]
+        }
+        set {
+            self[RatingControlFormViewStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: Row1Style
 
 struct Row1StyleStackKey: EnvironmentKey {
