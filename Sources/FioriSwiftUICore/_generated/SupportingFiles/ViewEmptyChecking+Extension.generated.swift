@@ -363,6 +363,16 @@ extension PlaceholderTextField: _ViewEmptyChecking {
     }
 }
 
+extension ProfileHeader: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        detailImage.isEmpty &&
+            title.isEmpty &&
+            subtitle.isEmpty &&
+            description.isEmpty &&
+            detailContent.isEmpty
+    }
+}
+
 extension RatingControl: _ViewEmptyChecking {
     public var isEmpty: Bool {
         false

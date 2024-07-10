@@ -88,12 +88,15 @@
 		B141D6BB29261F9E008A8BD6 /* SearchableListViewExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B141D6BA29261F9E008A8BD6 /* SearchableListViewExample.swift */; };
 		B18D2E9F2988B07B000A1821 /* KPIHeaderExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18D2E9E2988B07B000A1821 /* KPIHeaderExample.swift */; };
 		B18D593C2B0C52C700ABB1AD /* TabViewExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18D593B2B0C52C700ABB1AD /* TabViewExample.swift */; };
+		B190065A2C201BBE000C8B10 /* ProfileHeaderExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19006592C201BBE000C8B10 /* ProfileHeaderExample.swift */; };
 		B1A98FF22C11592B00FC9998 /* BannerMessageExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A98FF12C11592B00FC9998 /* BannerMessageExample.swift */; };
 		B1A98FF52C12E9A000FC9998 /* BannerMessageModifierExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A98FF42C12E9A000FC9998 /* BannerMessageModifierExample.swift */; };
 		B1A98FF72C12EA1600FC9998 /* BannerMessageCustomInitExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A98FF62C12EA1600FC9998 /* BannerMessageCustomInitExample.swift */; };
 		B1BA1F922B19AAEE00E6C052 /* TabViewDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1BA1F912B19AAEE00E6C052 /* TabViewDetailView.swift */; };
 		B1BA1F942B1EC36100E6C052 /* 08 Tap.wav in Resources */ = {isa = PBXBuildFile; fileRef = B1BA1F932B1EC36100E6C052 /* 08 Tap.wav */; };
 		B1BA1F972B2167DC00E6C052 /* ToolbarExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1BA1F962B2167DC00E6C052 /* ToolbarExample.swift */; };
+		B1BCB6E12C2EB362008AC070 /* ProfileHeaderStaticExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1BCB6E02C2EB362008AC070 /* ProfileHeaderStaticExample.swift */; };
+		B1BCB6E32C2EB3CD008AC070 /* ProfileHeaderAnimatableExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1BCB6E22C2EB3CD008AC070 /* ProfileHeaderAnimatableExample.swift */; };
 		B1C7DC8129FBB13F00DC5EEB /* SPIModelExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1C7DC8029FBB13F00DC5EEB /* SPIModelExample.swift */; };
 		B1D41B20291A2D97004E64A5 /* DurationPickerExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D41B1F291A2D97004E64A5 /* DurationPickerExample.swift */; };
 		B1D9D22A2991E056008FF5BC /* ObjectItemAvatarsExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D9D2292991E056008FF5BC /* ObjectItemAvatarsExample.swift */; };
@@ -267,12 +270,15 @@
 		B141D6BA29261F9E008A8BD6 /* SearchableListViewExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchableListViewExample.swift; sourceTree = "<group>"; };
 		B18D2E9E2988B07B000A1821 /* KPIHeaderExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KPIHeaderExample.swift; sourceTree = "<group>"; };
 		B18D593B2B0C52C700ABB1AD /* TabViewExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabViewExample.swift; sourceTree = "<group>"; };
+		B19006592C201BBE000C8B10 /* ProfileHeaderExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderExample.swift; sourceTree = "<group>"; };
 		B1A98FF12C11592B00FC9998 /* BannerMessageExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerMessageExample.swift; sourceTree = "<group>"; };
 		B1A98FF42C12E9A000FC9998 /* BannerMessageModifierExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerMessageModifierExample.swift; sourceTree = "<group>"; };
 		B1A98FF62C12EA1600FC9998 /* BannerMessageCustomInitExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerMessageCustomInitExample.swift; sourceTree = "<group>"; };
 		B1BA1F912B19AAEE00E6C052 /* TabViewDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewDetailView.swift; sourceTree = "<group>"; };
 		B1BA1F932B1EC36100E6C052 /* 08 Tap.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "08 Tap.wav"; sourceTree = "<group>"; };
 		B1BA1F962B2167DC00E6C052 /* ToolbarExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarExample.swift; sourceTree = "<group>"; };
+		B1BCB6E02C2EB362008AC070 /* ProfileHeaderStaticExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderStaticExample.swift; sourceTree = "<group>"; };
+		B1BCB6E22C2EB3CD008AC070 /* ProfileHeaderAnimatableExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderAnimatableExample.swift; sourceTree = "<group>"; };
 		B1C7DC8029FBB13F00DC5EEB /* SPIModelExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SPIModelExample.swift; sourceTree = "<group>"; };
 		B1D41B1F291A2D97004E64A5 /* DurationPickerExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DurationPickerExample.swift; sourceTree = "<group>"; };
 		B1D9D2292991E056008FF5BC /* ObjectItemAvatarsExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectItemAvatarsExample.swift; sourceTree = "<group>"; };
@@ -521,6 +527,7 @@
 		8A5579C824C1293C0098003A /* FioriSwiftUICore */ = {
 			isa = PBXGroup;
 			children = (
+				B19006582C201BAC000C8B10 /* ProfileHeader */,
 				1F1A1FF82C0BDA42007109D8 /* MenuSelection */,
 				B1A98FF02C11591B00FC9998 /* BannerMessage */,
 				3C180C262B858CBE007CE79A /* IllustratedMessage */,
@@ -644,6 +651,16 @@
 				B1C7DC8029FBB13F00DC5EEB /* SPIModelExample.swift */,
 			);
 			path = StepProgressIndicator;
+			sourceTree = "<group>";
+		};
+		B19006582C201BAC000C8B10 /* ProfileHeader */ = {
+			isa = PBXGroup;
+			children = (
+				B19006592C201BBE000C8B10 /* ProfileHeaderExample.swift */,
+				B1BCB6E02C2EB362008AC070 /* ProfileHeaderStaticExample.swift */,
+				B1BCB6E22C2EB3CD008AC070 /* ProfileHeaderAnimatableExample.swift */,
+			);
+			path = ProfileHeader;
 			sourceTree = "<group>";
 		};
 		B1A98FF02C11591B00FC9998 /* BannerMessage */ = {
@@ -997,6 +1014,7 @@
 				1FF3662E264C662A00AB8BD8 /* DimensionSelector+Chart.swift in Sources */,
 				8A55795B24C1286E0098003A /* ContentView.swift in Sources */,
 				1F26DCFA261A5CD9006C43B1 /* FioriButtonContentView.swift in Sources */,
+				B1BCB6E32C2EB3CD008AC070 /* ProfileHeaderAnimatableExample.swift in Sources */,
 				B86F02AA267983870049DDA7 /* ObjectItemListView.swift in Sources */,
 				9D057DAD2C34826700F5331C /* RatingControlFormViewExample.swift in Sources */,
 				B846F94826815DE50085044B /* ContactItemRegularExamples.swift in Sources */,
@@ -1016,6 +1034,7 @@
 				975CB76B256C5A7400DB7A15 /* SignatureCaptureViewExample.swift in Sources */,
 				8AD9DFB125D49967007448EC /* ContactItemStateAndDataBindingExample.swift in Sources */,
 				C150CCCC2B86B78E00118DF7 /* ChromeEffect.swift in Sources */,
+				B190065A2C201BBE000C8B10 /* ProfileHeaderExample.swift in Sources */,
 				B86F02A82679835F0049DDA7 /* ObjectItemInitExamples.swift in Sources */,
 				692F338B26556A6A009B98DA /* SideBarExample.swift in Sources */,
 				8A5579D324C1293C0098003A /* SettingsPoint.swift in Sources */,
@@ -1027,6 +1046,7 @@
 				8A5579D524C1293C0098003A /* SettingsSeries.swift in Sources */,
 				8A557A2224C12C9B0098003A /* CoreContentView.swift in Sources */,
 				8A5579D224C1293C0098003A /* Color+Extensions.swift in Sources */,
+				B1BCB6E12C2EB362008AC070 /* ProfileHeaderStaticExample.swift in Sources */,
 				C1C764882A818BEC00BCB0F7 /* SortFilterExample.swift in Sources */,
 				B1F6FC302B22BDDA005190F9 /* ToolbarView.swift in Sources */,
 				B84D24EF2652F343007F2373 /* ObjectHeaderTestApp.swift in Sources */,

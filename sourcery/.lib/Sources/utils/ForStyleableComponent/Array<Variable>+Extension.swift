@@ -34,7 +34,11 @@ extension [Variable] {
             } else if variable.hasResultBuilderAttribute {
                 return variable.resultBuilderInitParamDecl
             } else if variable.isBinding {
-                return "\(variable.name): Binding<\(variable.typeName)>"
+                if variable.defaultValue.isEmpty {
+                    return "\(variable.name): Binding<\(variable.typeName)>"
+                } else {
+                    return "\(variable.name): Binding<\(variable.typeName)>\(variable.defaultValue.prependAssignmentIfNeeded())"
+                }
             } else {
                 return variable.regular_initParamDecl
             }
