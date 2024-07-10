@@ -1352,6 +1352,34 @@ public extension PlaceholderTextFieldStyle {
     }
 }
 
+// MARK: ProfileHeaderStyle
+
+extension ModifiedStyle: ProfileHeaderStyle where Style: ProfileHeaderStyle {
+    public func makeBody(_ configuration: ProfileHeaderConfiguration) -> some View {
+        ProfileHeader(configuration)
+            .profileHeaderStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct ProfileHeaderStyleModifier<Style: ProfileHeaderStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.profileHeaderStyle(self.style)
+    }
+}
+
+public extension ProfileHeaderStyle {
+    func modifier(_ modifier: some ViewModifier) -> some ProfileHeaderStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some ProfileHeaderStyle) -> some ProfileHeaderStyle {
+        style.modifier(ProfileHeaderStyleModifier(style: self))
+    }
+}
+
 // MARK: RatingControlStyle
 
 extension ModifiedStyle: RatingControlStyle where Style: RatingControlStyle {
