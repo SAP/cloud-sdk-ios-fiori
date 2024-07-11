@@ -82,6 +82,8 @@
 		9D0B26092B9BA5C0004278A5 /* KeyValueFormViewExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0B26052B9BA5C0004278A5 /* KeyValueFormViewExample.swift */; };
 		9D0B260A2B9BA5C0004278A5 /* NoteFormViewExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0B26062B9BA5C0004278A5 /* NoteFormViewExample.swift */; };
 		9DEC27992C3C5C620070B571 /* RatingControlExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DEC27982C3C5C620070B571 /* RatingControlExample.swift */; };
+		9DEC27B52C3F3DB30070B571 /* KeyValueItemExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DEC27B42C3F3DB30070B571 /* KeyValueItemExample.swift */; };
+		9DEC27B72C3F3DE70070B571 /* OtherViewExamples.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DEC27B62C3F3DE70070B571 /* OtherViewExamples.swift */; };
 		AB988B102631270300483D87 /* DataTableExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB988B0F2631270300483D87 /* DataTableExample.swift */; };
 		B100639329C0624D00AF0CA2 /* StepProgressIndicatorExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B100639229C0624D00AF0CA2 /* StepProgressIndicatorExample.swift */; };
 		B13408922B01FA0700600331 /* NavigationBarExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B13408912B01FA0700600331 /* NavigationBarExample.swift */; };
@@ -264,6 +266,8 @@
 		9D0B26052B9BA5C0004278A5 /* KeyValueFormViewExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyValueFormViewExample.swift; sourceTree = "<group>"; };
 		9D0B26062B9BA5C0004278A5 /* NoteFormViewExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteFormViewExample.swift; sourceTree = "<group>"; };
 		9DEC27982C3C5C620070B571 /* RatingControlExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RatingControlExample.swift; sourceTree = "<group>"; };
+		9DEC27B42C3F3DB30070B571 /* KeyValueItemExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyValueItemExample.swift; sourceTree = "<group>"; };
+		9DEC27B62C3F3DE70070B571 /* OtherViewExamples.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherViewExamples.swift; sourceTree = "<group>"; };
 		AB988B0F2631270300483D87 /* DataTableExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTableExample.swift; sourceTree = "<group>"; };
 		B100639229C0624D00AF0CA2 /* StepProgressIndicatorExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepProgressIndicatorExample.swift; sourceTree = "<group>"; };
 		B13408912B01FA0700600331 /* NavigationBarExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarExample.swift; sourceTree = "<group>"; };
@@ -555,6 +559,7 @@
 				9D0B26072B9BA5C0004278A5 /* FormViews */,
 				8A6D64AF25AE656400D2D76C /* Experimental */,
 				B80DA9C32612A54E00C0B2E9 /* Onboarding */,
+				9DEC27B32C3F3D750070B571 /* Views */,
 				8A557A2124C12C9B0098003A /* CoreContentView.swift */,
 			);
 			path = FioriSwiftUICore;
@@ -634,6 +639,15 @@
 				9DEC27982C3C5C620070B571 /* RatingControlExample.swift */,
 			);
 			path = RatingControl;
+			sourceTree = "<group>";
+		};
+		9DEC27B32C3F3D750070B571 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				9DEC27B42C3F3DB30070B571 /* KeyValueItemExample.swift */,
+				9DEC27B62C3F3DE70070B571 /* OtherViewExamples.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		AB988B11263128C400483D87 /* DataTable */ = {
@@ -985,6 +999,7 @@
 				8A6DE30B28DD27F9003222E3 /* Colors.swift in Sources */,
 				8AD9DFB225D49967007448EC /* StylingModifierExample.swift in Sources */,
 				9D0B260A2B9BA5C0004278A5 /* NoteFormViewExample.swift in Sources */,
+				9DEC27B72C3F3DE70070B571 /* OtherViewExamples.swift in Sources */,
 				8A5579D124C1293C0098003A /* Settings.swift in Sources */,
 				8AD9DFB025D49967007448EC /* ContactItemActionItemsExample.swift in Sources */,
 				8A6D64B125AE658300D2D76C /* ExpHeaderView.swift in Sources */,
@@ -1044,6 +1059,7 @@
 				1F90888C261A59820015A84D /* FioriButtonExample.swift in Sources */,
 				B8D4377125F983730024EE7D /* ObjectCell_Rules_Alignment.swift in Sources */,
 				8A5579D524C1293C0098003A /* SettingsSeries.swift in Sources */,
+				9DEC27B52C3F3DB30070B571 /* KeyValueItemExample.swift in Sources */,
 				8A557A2224C12C9B0098003A /* CoreContentView.swift in Sources */,
 				8A5579D224C1293C0098003A /* Color+Extensions.swift in Sources */,
 				B1BCB6E12C2EB362008AC070 /* ProfileHeaderStaticExample.swift in Sources */,
