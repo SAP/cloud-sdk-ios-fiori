@@ -36,11 +36,19 @@ extension Fiori {
 
 extension KeyValueItem: View {
     public var body: some View {
-        HStack {
-            key
-            Spacer()
-            value
+        VStack(alignment: .leading) {
+            if _axis == .horizontal {
+                HStack {
+                    key
+                    Spacer()
+                    value
+                }
+                .frame(maxWidth: .infinity)
+            } else {
+                key
+                    .padding(.bottom, 3)
+                value
+            }
         }
-        .frame(maxWidth: .infinity)
     }
 }

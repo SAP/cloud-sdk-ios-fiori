@@ -8,16 +8,19 @@ public struct KeyValueItem<Key: View, Value: View> {
 
     let _key: Key
 	let _value: Value
+	let _axis: Axis
 	
     private var isModelInit: Bool = false
 	private var isValueNil: Bool = false
 
     public init(
         @ViewBuilder key: () -> Key,
-		@ViewBuilder value: () -> Value
+		@ViewBuilder value: () -> Value,
+		axis: Axis = .horizontal
         ) {
             self._key = key()
 			self._value = value()
+			self._axis = axis
     }
 
     @ViewBuilder var key: some View {
@@ -44,12 +47,13 @@ extension KeyValueItem where Key == Text,
 		Value == _ConditionalContent<Text, EmptyView> {
 
     public init(model: KeyValueItemModel) {
-        self.init(key: model.key, value: model.value)
+        self.init(key: model.key, value: model.value, axis: model.axis)
     }
 
-    public init(key: String, value: String? = nil) {
+    public init(key: String, value: String? = nil, axis: Axis = .horizontal) {
         self._key = Text(key)
 		self._value = value != nil ? ViewBuilder.buildEither(first: Text(value!)) : ViewBuilder.buildEither(second: EmptyView())
+		self._axis = axis
 
 		isModelInit = true
 		isValueNil = value == nil ? true : false
