@@ -31,6 +31,7 @@ public struct SideBarBaseStyle: SideBarStyle {
                     
                     configuration.footer.typeErased
                 })
+                .background(Color.preferredColor(.secondaryBackground))
                 .environment(\.editMode, .constant(configuration.isEditing ? EditMode.active : EditMode.inactive))
             } else {
                 let onEditButtonClicked = {
@@ -62,10 +63,12 @@ public struct SideBarBaseStyle: SideBarStyle {
     
                     configuration.footer.typeErased
                 }
+                .background(Color.preferredColor(.secondaryBackground))
                 .navigationDestination(for: SideBarItemModel.self) { item in
                     destinationCallback(item, configuration).typeErased
                 }
                 .navigationTitle(String(configuration.title?.characters ?? AttributedString("").characters))
+                .navigationBarTitleDisplayMode(.large)
                 .environment(\.editMode, .constant(configuration.isEditing ? EditMode.active : EditMode.inactive))
                 .navigationBarItems(trailing: configuration.editButton
                     .simultaneousGesture(TapGesture().onEnded {
@@ -417,10 +420,11 @@ private struct SideBarListSectionDisclosureStyle: DisclosureGroupStyle {
                     .font(.fiori(fixedSize: 17, weight: .semibold))
                     .foregroundColor(.preferredColor(.tintColor))
             }
+            .padding(EdgeInsets(top: 0, leading: 0, bottom: 11, trailing: 0))
             
             if !configuration.isExpanded {
                 Rectangle()
-                    .fill(Color.gray)
+                    .fill(Color.preferredColor(.separator))
                     .frame(height: 0.5)
             }
         }
