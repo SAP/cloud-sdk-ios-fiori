@@ -23,6 +23,7 @@ public struct SideBarListItemBaseStyle: SideBarListItemStyle {
         Group {
             let dragImage = Image(systemName: "line.horizontal.3")
                 .frame(width: 22 * self.scale, height: 22 * self.scale)
+                .foregroundStyle(Color.preferredColor(.secondaryLabel))
             
             if self.sizeCategory.isAccessibilityCategory {
                 VStack {
@@ -34,14 +35,14 @@ public struct SideBarListItemBaseStyle: SideBarListItemStyle {
                             configuration.icon
                                 .frame(width: 22 * self.scale, height: 22 * self.scale)
                         }
-                        configuration.title
+                        configuration.title.multilineTextAlignment(.leading)
                         Spacer()
                     }
                     
                     HStack(spacing: 11) {
                         Spacer()
                         if self.editMode?.wrappedValue == .inactive {
-                            configuration.subtitle
+                            configuration.subtitle.multilineTextAlignment(.trailing)
                             configuration.accessoryIcon
                                 .frame(width: 22 * self.scale, height: 22 * self.scale)
                         } else if self.editMode?.wrappedValue == .active {
@@ -61,15 +62,17 @@ public struct SideBarListItemBaseStyle: SideBarListItemStyle {
                             .frame(width: 22 * self.scale, height: 22 * self.scale)
                     }
                     
-                    configuration.title.frame(height: 44, alignment: .leading)
+                    configuration.title.frame(height: 44, alignment: .leading).multilineTextAlignment(.leading)
                     Spacer()
                     if self.editMode?.wrappedValue == .inactive {
-                        configuration.subtitle.frame(height: 44, alignment: .leading)
+                        configuration.subtitle.frame(height: 44, alignment: .leading).multilineTextAlignment(.trailing)
                         configuration.accessoryIcon
                             .frame(width: 22 * self.scale, height: 22 * self.scale)
                     } else if self.editMode?.wrappedValue == .active {
                         configuration._switch
-                            .frame(width: 60 * self.scale, height: 22 * self.scale)
+                            .frame(width: 50, height: 35)
+                            .tint(Color.preferredColor(configuration.isOn ? .tintColor : .secondaryFill))
+                            .opacity(1.0)
                         dragImage
                     }
                 }
@@ -92,10 +95,20 @@ extension SideBarListItemFioriStyle {
         @EnvironmentObject private var modelObject: SideBarModelObject
         
         func makeBody(_ configuration: SideBarListItemConfiguration) -> some View {
-            SideBarListItem(configuration)
-                .background(RoundedRectangle(cornerRadius: 10, style: .continuous).fill((configuration.isSelected && self.editMode?.wrappedValue == .inactive) ? Color.preferredColor(.tintColor) : Color.clear))
-                .accessibilityAddTraits((configuration.isSelected && self.editMode?.wrappedValue == .inactive) ? .isSelected : .isButton)
-                .environmentObject(SideBarListItemModelObject(isSelected: configuration.isSelected))
+            Group {
+                if configuration.isSelected, self.editMode?.wrappedValue == .inactive {
+                    SideBarListItem(configuration)
+                        .accessibilityAddTraits(.isSelected)
+                        .environmentObject(SideBarListItemModelObject(isSelected: configuration.isSelected))
+                        .background(RoundedRectangle(cornerRadius: 10, style: .continuous)
+                            .fill(Color.preferredColor(.tintColor)))
+                } else {
+                    SideBarListItem(configuration)
+                        .accessibilityAddTraits(.isButton)
+                        .environmentObject(SideBarListItemModelObject(isSelected: configuration.isSelected))
+                        .background(Color.preferredColor(.secondaryBackground))
+                }
+            }
         }
     }
 
@@ -123,6 +136,7 @@ extension SideBarListItemFioriStyle {
     
         func makeBody(_ configuration: FilledIconConfiguration) -> some View {
             FilledIcon(configuration)
+                .fontWeight(.bold)
                 .foregroundStyle(Color.preferredColor(.quinaryLabel))
         }
     }
@@ -153,12 +167,12 @@ extension SideBarListItemFioriStyle {
         func makeBody(_ configuration: SubtitleConfiguration) -> some View {
             if self.modelObject.isSelected, self.editMode?.wrappedValue == .inactive {
                 Subtitle(configuration)
-                    .font(.fiori(forTextStyle: .subheadline, weight: .bold))
+                    .font(.fiori(forTextStyle: .body, weight: .bold))
                     .foregroundStyle(Color.preferredColor(.quinaryLabel))
             } else {
                 Subtitle(configuration)
-                    .font(.fiori(forTextStyle: .subheadline, weight: .regular))
-                    .foregroundStyle(Color.preferredColor(.tertiaryLabel))
+                    .font(.fiori(forTextStyle: .body, weight: .regular))
+                    .foregroundStyle(Color.preferredColor(.secondaryLabel))
             }
         }
     }

@@ -59,11 +59,21 @@ struct EditableSideBarExample: View {
     @State private var selection: SideBarItemModel?
     
     public var body: some View {
-        let footer = UIDevice.current.userInterfaceIdiom == .pad ? ObjectItem(title: "Title", subtitle: "SubTitle", detailImage: Image(systemName: "person"))
-            .objectItemStyle(content: { configuration in
-                ObjectItem(configuration)
-                    .background(Color.preferredColor(.quaternaryFill))
-            }) : nil
+        let footer = UIDevice.current.userInterfaceIdiom == .pad ?
+            VStack {
+                ObjectItem(
+                    title: { Text("Sean Long") },
+                    subtitle: { Text("Maintenance Lead") },
+                    detailImage: { Image("ProfilePic")
+                        .resizable()
+                        .frame(width: 45, height: 45)
+                        .clipShape(Circle())
+                    }
+                )
+                .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
+            }
+            .background(Color.preferredColor(.quaternaryFill))
+            .frame(width: 320) : nil
         
         let view = NavigationSplitView {
             SideBar(
@@ -89,7 +99,10 @@ struct EditableSideBarExample: View {
                             }
                         }
                     }
-                }, label: { Text(self.isEditing ? "Done" : "Edit") }) : nil },
+                }, label: { Text(self.isEditing ? "Done" : "Edit")
+                    .font(.fiori(forTextStyle: .body, weight: .bold))
+                    .foregroundStyle(Color.preferredColor(.tintColor))
+                }) : nil },
 //                editButton: { EditButton() }, // Also can use system EditButton here if you don't want to check the updated data or customize the button's label
                 destination: { model in
                     if let device = getDevice(item: model) {
@@ -105,13 +118,16 @@ struct EditableSideBarExample: View {
             )
             .navigationBarItems(leading: Button(action: {
                 self.presentationMode.wrappedValue.dismiss()
-            }, label: { Text("Back") }))
+            }, label: { Text("Back")
+                .font(.fiori(forTextStyle: .body, weight: .bold))
+                .foregroundStyle(Color.preferredColor(.tintColor))
+            }))
         } detail: {
             DevDetailView(title: "Home Page - Starting From Here")
         }
         .navigationBarHidden(true)
         
-        if !self.isCustom {
+        if !self.isCustom, !self.isPartialCustom {
             view.searchable(text: Binding<String>(get: { self.queryString ?? "" }, set: { newValue in self.queryString = newValue }), prompt: "Search")
                 .onAppear {
                     let searchImage = UIImage(systemName: "magnifyingglass")?
@@ -196,7 +212,7 @@ func loadItemModelData() -> [SideBarItemModel] {
     var barItems: [SideBarItemModel] = []
     var groupdedItems: [DeviceCategory: [SideBarItemModel]] = Dictionary()
     for item in devices {
-        var sideBarItem = SideBarItemModel(title: item.name, icon: Image(systemName: "square.dashed"), filledIcon: Image(systemName: "square.dashed.inset.filled"), subtitle: item.description, accessoryIcon: Image(systemName: "chevron.right"))
+        var sideBarItem = SideBarItemModel(title: item.name, icon: Image(systemName: "square.dashed"), filledIcon: Image(systemName: "square.dashed.inset.filled"), subtitle: item.description, accessoryIcon: item.name == "iPad Pro" || item.name == "iPhone 14 Pro Max" || item.name == "iPhone 15 Pro" ? nil : Image(systemName: "square.dashed"))
         sideBarItem.id = item.id
         
         if let category = item.category {
