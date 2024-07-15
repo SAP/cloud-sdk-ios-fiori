@@ -17,67 +17,9 @@ public struct TimelineBaseStyle: TimelineStyle {
                         .frame(width: self.timelineMainStackWidth - 92.5)
                 }
                 HStack(alignment: .top, spacing: 0) {
-                    VStack(alignment: .trailing) {
-                        HStack {
-                            Spacer()
-                            configuration.timestamp
-                        }
-                        HStack {
-                            Spacer()
-                            configuration.secondaryTimestamp
-                        }
-                    }
-                    .frame(width: 60)
-                    .background(configuration.isPresent ? Color.preferredColor(.secondaryGroupedBackground) : Color.clear)
-                    .padding(EdgeInsets(top: 16, leading: 16, bottom: 16, trailing: 0))
-                    .alignmentGuide(.top) { _ in
-                        16
-                    }
-                    VStack(alignment: .center, spacing: 0) {
-                        Rectangle()
-                            .frame(width: 2, height: 16)
-                            .foregroundColor(configuration.isPast || configuration.isPresent ? Color.preferredColor(.tintColor) : Color.preferredColor(.grey3))
-                        if configuration.icon.isEmpty {
-                            configuration.timelineNode
-                        } else {
-                            configuration.icon
-                        }
-                        Rectangle()
-                            .frame(width: 2)
-                            .foregroundColor(configuration.isPast || configuration.isPresent ? Color.preferredColor(.tintColor) : Color.preferredColor(.grey3))
-                    }
-                    .frame(width: 15)
-                    .padding(EdgeInsets(top: 0, leading: 9, bottom: 0, trailing: 8))
-                    .alignmentGuide(.top) { _ in
-                        16
-                    }
-                    VStack(alignment: .leading) {
-                        HStack(alignment: .top) {
-                            VStack(alignment: .leading) {
-                                configuration.title
-                                configuration.subtitle
-                            }
-                            Spacer()
-                            VStack(alignment: .trailing) {
-                                configuration.status
-                                configuration.substatus
-                            }
-                        }
-                        HStack(alignment: .top) {
-                            configuration.attribute
-                            Spacer()
-                            configuration.subAttribute
-                        }
-                        Divider()
-                            .foregroundColor(Color.preferredColor(.separator).opacity(0.41))
-                            .frame(height: 0.33)
-                            .padding(EdgeInsets(top: 0, leading: 9, bottom: 0, trailing: -16))
-                            .offset(y: 16)
-                    }
-                    .padding(EdgeInsets(top: 16, leading: 0, bottom: 16, trailing: 16))
-                    .alignmentGuide(.top) { _ in
-                        16
-                    }
+                    TimelineTimestampStack(configuration: configuration)
+                    TimelineNodeStack(configuration: configuration)
+                    TimelineMainStack(configuration: configuration)
                 }
                 .fixedSize(horizontal: false, vertical: true)
                 .overlay {
@@ -89,6 +31,88 @@ public struct TimelineBaseStyle: TimelineStyle {
             .onPreferenceChange(TMSSizePreferenceKey.self) { newValue in
                 self.timelineMainStackWidth = newValue.width
             }
+        }
+    }
+}
+
+struct TimelineTimestampStack: View {
+    let configuration: TimelineConfiguration
+
+    var body: some View {
+        VStack(alignment: .trailing) {
+            HStack {
+                Spacer()
+                self.configuration.timestamp
+            }
+            HStack {
+                Spacer()
+                self.configuration.secondaryTimestamp
+            }
+        }
+        .frame(width: 60)
+        .background(self.configuration.isPresent ? Color.preferredColor(.secondaryGroupedBackground) : Color.clear)
+        .padding(EdgeInsets(top: 16, leading: 16, bottom: 16, trailing: 0))
+        .alignmentGuide(.top) { _ in
+            16
+        }
+    }
+}
+
+struct TimelineNodeStack: View {
+    let configuration: TimelineConfiguration
+    
+    var body: some View {
+        VStack(alignment: .center, spacing: 0) {
+            Rectangle()
+                .frame(width: 2, height: 16)
+                .foregroundColor(self.configuration.isPast || self.configuration.isPresent ? Color.preferredColor(.tintColor) : Color.preferredColor(.grey3))
+            if self.configuration.icon.isEmpty {
+                self.configuration.timelineNode
+            } else {
+                self.configuration.icon
+            }
+            Rectangle()
+                .frame(width: 2)
+                .foregroundColor(self.configuration.isPast || self.configuration.isPresent ? Color.preferredColor(.tintColor) : Color.preferredColor(.grey3))
+        }
+        .frame(width: 15)
+        .padding(EdgeInsets(top: 0, leading: 9, bottom: 0, trailing: 8))
+        .alignmentGuide(.top) { _ in
+            16
+        }
+    }
+}
+
+struct TimelineMainStack: View {
+    let configuration: TimelineConfiguration
+    
+    var body: some View {
+        VStack(alignment: .leading) {
+            HStack(alignment: .top) {
+                VStack(alignment: .leading) {
+                    self.configuration.title
+                    self.configuration.subtitle
+                }
+                Spacer()
+                VStack(alignment: .trailing) {
+                    self.configuration.status
+                    self.configuration.substatus
+                }
+            }
+            HStack(alignment: .top) {
+                self.configuration.attribute
+                Spacer()
+                self.configuration.subAttribute
+            }
+            Divider()
+                .foregroundColor(Color.preferredColor(.separator).opacity(0.41))
+                .frame(height: 0.33)
+                .padding(EdgeInsets(top: 0, leading: 9, bottom: 0, trailing: -16))
+                .offset(y: 16)
+        }
+        .padding(EdgeInsets(top: 16, leading: 0, bottom: 16, trailing: 16))
+        .alignmentGuide(.top) { _ in
+            16
         }
     }
 }
