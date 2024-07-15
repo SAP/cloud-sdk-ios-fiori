@@ -85,6 +85,16 @@ We plan to progressively bring more Fiori UI components into this module in the 
 | Avatar | :white_check_mark: |
 | Toast Message | :white_check_mark: |
 | KeyValueItem | :white_check_mark: |
+| LinearProgressIndicator | :white_check_mark: |
+| Information View | :white_check_mark: |
+| TextFieldFormView | :white_check_mark: |
+| NoteFormView | :white_check_mark: |
+| KeyValueFormView | :white_check_mark: |
+| TitleFormView | :white_check_mark: |
+| Rating Control | :white_check_mark: |
+| RatingControlFormView | :white_check_mark: |
+| SortFilter | :white_check_mark: |
+| Menu Selection | :white_check_mark: |
 | TimelineItem | :x: |
 | TimelinePreviewItem | :x: |
 | ChartFloorplan | :x: |
@@ -95,7 +105,6 @@ We plan to progressively bring more Fiori UI components into this module in the 
 | MultiUserPasscodeView | :x: |
 | TouchIDErrorView | :x: |
 | Skeleton Loading | :x: |
-| Rating Control | :x: |
 
 ## FioriCharts
 ![FioriCharts platform support: iOS and visionOS](https://img.shields.io/badge/platform-ios%20%7C%20visionos-lightgray)
