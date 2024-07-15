@@ -24,9 +24,9 @@ struct FormViewExamples: View {
                 Text("TextFieldFormView Example")
             }
             NavigationLink(
-                destination: RatingControlExample())
+                destination: RatingControlFormViewExample())
             {
-                Text("RatingControl Example")
+                Text("RatingControlFormView Example")
             }
         }
     }

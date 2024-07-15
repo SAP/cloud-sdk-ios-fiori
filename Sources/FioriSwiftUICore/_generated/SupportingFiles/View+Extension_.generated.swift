@@ -853,6 +853,23 @@ public extension View {
     }
 }
 
+// MARK: ProfileHeaderStyle
+
+public extension View {
+    func profileHeaderStyle(_ style: some ProfileHeaderStyle) -> some View {
+        self.transformEnvironment(\.profileHeaderStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func profileHeaderStyle(@ViewBuilder content: @escaping (ProfileHeaderConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.profileHeaderStyleStack) { stack in
+            let style = AnyProfileHeaderStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: RatingControlStyle
 
 public extension View {
@@ -865,6 +882,23 @@ public extension View {
     func ratingControlStyle(@ViewBuilder content: @escaping (RatingControlConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.ratingControlStyleStack) { stack in
             let style = AnyRatingControlStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: RatingControlFormViewStyle
+
+public extension View {
+    func ratingControlFormViewStyle(_ style: some RatingControlFormViewStyle) -> some View {
+        self.transformEnvironment(\.ratingControlFormViewStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func ratingControlFormViewStyle(@ViewBuilder content: @escaping (RatingControlFormViewConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.ratingControlFormViewStyleStack) { stack in
+            let style = AnyRatingControlFormViewStyle(content)
             stack.append(style)
         }
     }

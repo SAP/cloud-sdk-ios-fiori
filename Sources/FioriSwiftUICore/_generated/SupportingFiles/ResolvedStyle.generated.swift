@@ -803,6 +803,22 @@ extension PlaceholderTextFieldStyle {
     }
 }
 
+// MARK: ProfileHeaderStyle
+
+struct ResolvedProfileHeaderStyle<Style: ProfileHeaderStyle>: View {
+    let style: Style
+    let configuration: ProfileHeaderConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension ProfileHeaderStyle {
+    func resolve(configuration: ProfileHeaderConfiguration) -> some View {
+        ResolvedProfileHeaderStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: RatingControlStyle
 
 struct ResolvedRatingControlStyle<Style: RatingControlStyle>: View {
@@ -816,6 +832,22 @@ struct ResolvedRatingControlStyle<Style: RatingControlStyle>: View {
 extension RatingControlStyle {
     func resolve(configuration: RatingControlConfiguration) -> some View {
         ResolvedRatingControlStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: RatingControlFormViewStyle
+
+struct ResolvedRatingControlFormViewStyle<Style: RatingControlFormViewStyle>: View {
+    let style: Style
+    let configuration: RatingControlFormViewConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension RatingControlFormViewStyle {
+    func resolve(configuration: RatingControlFormViewConfiguration) -> some View {
+        ResolvedRatingControlFormViewStyle(style: self, configuration: configuration)
     }
 }
 

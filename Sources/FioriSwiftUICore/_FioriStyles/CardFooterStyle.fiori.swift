@@ -195,86 +195,6 @@ private struct CardFooterLayout: Layout {
     }
 }
 
-private struct FooterPopupLayout: Layout {
-    public struct CacheData {
-        var width: CGFloat?
-        var maxWidth: CGFloat
-        var rows: [CGRect]
-        
-        mutating func clear() {
-            self.width = nil
-            self.maxWidth = 0
-            self.rows.removeAll()
-        }
-    }
-    
-    let lineSpacing: CGFloat
-    
-    public init(lineSpacing: CGFloat = 8) {
-        self.lineSpacing = lineSpacing
-    }
-    
-    public func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout CacheData) -> CGSize {
-        self.calculateLayout(for: subviews, containerWidth: proposal.width, cache: &cache)
-        let finalWidth = min(proposal.width ?? 0, cache.maxWidth)
-        let height: CGFloat = cache.rows.last?.maxY ?? 0
-        
-        return CGSize(width: finalWidth, height: height)
-    }
-    
-    public func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout CacheData) {
-        self.calculateLayout(for: subviews, containerWidth: proposal.width, cache: &cache)
-        
-        for (i, subview) in subviews.enumerated() {
-            let item = cache.rows[i]
-            let pt = CGPoint(x: item.origin.x + bounds.origin.x, y: item.origin.y + bounds.origin.y)
-            subview.place(at: pt, proposal: ProposedViewSize(width: cache.maxWidth, height: item.height))
-        }
-    }
-    
-    public func makeCache(subviews: Subviews) -> CacheData {
-        CacheData(width: nil, maxWidth: 0, rows: [])
-    }
-    
-    func calculateLayout(for subviews: Subviews, containerWidth: CGFloat?, cache: inout CacheData) {
-        if subviews.isEmpty || (cache.width == containerWidth && !cache.rows.isEmpty) {
-            return
-        }
-        cache.clear()
-        cache.width = containerWidth
-        
-        let idealSizes = subviews.map {
-            $0.sizeThatFits(.unspecified)
-        }
-        let idealMaxWidth: CGFloat = idealSizes.reduce(0) { partialResult, size in
-            max(partialResult, size.width)
-        }
-        var finalSizes = idealSizes
-        
-        if let tmpWidth = containerWidth, idealMaxWidth > tmpWidth + 1 {
-            let maxContainerWidth = tmpWidth - 32
-            let proposal = ProposedViewSize(width: maxContainerWidth, height: nil)
-            let sizes = subviews.map {
-                $0.sizeThatFits(proposal)
-            }
-            let maxWidth: CGFloat = sizes.reduce(0) { partialResult, size in
-                max(partialResult, size.width)
-            }
-            if maxWidth < idealMaxWidth {
-                finalSizes = sizes
-            }
-        }
-        
-        var pt = CGPoint.zero
-        
-        for size in finalSizes {
-            cache.rows.append(CGRect(origin: pt, size: size))
-            pt.y += size.height + self.lineSpacing
-            cache.maxWidth = max(cache.maxWidth, size.width)
-        }
-    }
-}
-
 /**
  This file provides default fiori style for the component.
  
@@ -288,59 +208,25 @@ private struct FooterPopupLayout: Layout {
 public struct CardFooterBaseStyle: CardFooterStyle {
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @State var numButtonsDisplayInOverflow: Int = 0
-    @State var showPopover = false
-    var tap: some Gesture {
-        TapGesture(count: 1)
-            .onEnded { _ in
-                self.showPopover = false
-            }
-    }
     
     @ViewBuilder
     public func makeBody(_ configuration: CardFooterConfiguration) -> some View {
         // Add default layout here
         CardFooterLayout(numButtonsDisplayInOverflow: self.$numButtonsDisplayInOverflow, spacing: 8, maxButtonWidth: nil, horizontalSizeClass: self.horizontalSizeClass) {
-            configuration.overflowAction
-                .onSimultaneousTapGesture {
-                    self.showPopover.toggle()
-                }
-                .popover(self.$showPopover) {
-                    FooterPopupLayout(lineSpacing: 3) {
-                        if self.numButtonsDisplayInOverflow == 1 {
-                            if !configuration.tertiaryAction.isEmpty {
-                                configuration.tertiaryAction
-                                    .onSimultaneousTapGesture {
-                                        self.showPopover = false
-                                    }
-                            } else {
-                                configuration.secondaryAction
-                                    .onSimultaneousTapGesture {
-                                        self.showPopover = false
-                                    }
-                            }
-                        } else if self.numButtonsDisplayInOverflow == 2 {
-                            configuration.secondaryAction
-                                .onSimultaneousTapGesture {
-                                    self.showPopover = false
-                                }
-                            
-                            configuration.tertiaryAction
-                                .onSimultaneousTapGesture {
-                                    self.showPopover = false
-                                }
-                        }
+            Menu {
+                if self.numButtonsDisplayInOverflow == 1 {
+                    if !configuration.tertiaryAction.isEmpty {
+                        configuration.tertiaryAction
+                    } else {
+                        configuration.secondaryAction
                     }
-                    .fioriButtonStyle(FioriTertiaryButtonStyle(maxWidth: .infinity))
-                    .multilineTextAlignment(.center)
-                    .padding(EdgeInsets(top: 3, leading: 0, bottom: 3, trailing: 0))
-                    .compositingGroup()
-                    .background(.thinMaterial)
-                    .background(Color.preferredColor(.chrome))
-                    .clipShape(RoundedRectangle(cornerRadius: 14))
-                    .shadow(color: .black.opacity(0.04), radius: 2, x: 0, y: 0)
-                    .shadow(color: .black.opacity(0.04), radius: 16, x: 0, y: 8)
-                    .shadow(color: .black.opacity(0.2), radius: 100, x: 0, y: 10)
+                } else if self.numButtonsDisplayInOverflow == 2 {
+                    configuration.secondaryAction
+                    configuration.tertiaryAction
                 }
+            } label: {
+                configuration.overflowAction
+            }
             
             if !configuration.tertiaryAction.isEmpty {
                 configuration.tertiaryAction

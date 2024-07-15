@@ -2908,6 +2908,104 @@ public extension PlaceholderTextFieldStyle where Self == PlaceholderTextFieldPla
     }
 }
 
+// MARK: ProfileHeaderStyle
+
+public extension ProfileHeaderStyle where Self == ProfileHeaderBaseStyle {
+    static var base: ProfileHeaderBaseStyle {
+        ProfileHeaderBaseStyle()
+    }
+}
+
+public extension ProfileHeaderStyle where Self == ProfileHeaderFioriStyle {
+    static var fiori: ProfileHeaderFioriStyle {
+        ProfileHeaderFioriStyle()
+    }
+}
+
+public struct ProfileHeaderDetailImageStyle: ProfileHeaderStyle {
+    let style: any DetailImageStyle
+
+    public func makeBody(_ configuration: ProfileHeaderConfiguration) -> some View {
+        ProfileHeader(configuration)
+            .detailImageStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension ProfileHeaderStyle where Self == ProfileHeaderDetailImageStyle {
+    static func detailImageStyle(_ style: some DetailImageStyle) -> ProfileHeaderDetailImageStyle {
+        ProfileHeaderDetailImageStyle(style: style)
+    }
+
+    static func detailImageStyle(@ViewBuilder content: @escaping (DetailImageConfiguration) -> some View) -> ProfileHeaderDetailImageStyle {
+        let style = AnyDetailImageStyle(content)
+        return ProfileHeaderDetailImageStyle(style: style)
+    }
+}
+
+public struct ProfileHeaderTitleStyle: ProfileHeaderStyle {
+    let style: any TitleStyle
+
+    public func makeBody(_ configuration: ProfileHeaderConfiguration) -> some View {
+        ProfileHeader(configuration)
+            .titleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension ProfileHeaderStyle where Self == ProfileHeaderTitleStyle {
+    static func titleStyle(_ style: some TitleStyle) -> ProfileHeaderTitleStyle {
+        ProfileHeaderTitleStyle(style: style)
+    }
+
+    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> ProfileHeaderTitleStyle {
+        let style = AnyTitleStyle(content)
+        return ProfileHeaderTitleStyle(style: style)
+    }
+}
+
+public struct ProfileHeaderSubtitleStyle: ProfileHeaderStyle {
+    let style: any SubtitleStyle
+
+    public func makeBody(_ configuration: ProfileHeaderConfiguration) -> some View {
+        ProfileHeader(configuration)
+            .subtitleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension ProfileHeaderStyle where Self == ProfileHeaderSubtitleStyle {
+    static func subtitleStyle(_ style: some SubtitleStyle) -> ProfileHeaderSubtitleStyle {
+        ProfileHeaderSubtitleStyle(style: style)
+    }
+
+    static func subtitleStyle(@ViewBuilder content: @escaping (SubtitleConfiguration) -> some View) -> ProfileHeaderSubtitleStyle {
+        let style = AnySubtitleStyle(content)
+        return ProfileHeaderSubtitleStyle(style: style)
+    }
+}
+
+public struct ProfileHeaderDescriptionStyle: ProfileHeaderStyle {
+    let style: any DescriptionStyle
+
+    public func makeBody(_ configuration: ProfileHeaderConfiguration) -> some View {
+        ProfileHeader(configuration)
+            .descriptionStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension ProfileHeaderStyle where Self == ProfileHeaderDescriptionStyle {
+    static func descriptionStyle(_ style: some DescriptionStyle) -> ProfileHeaderDescriptionStyle {
+        ProfileHeaderDescriptionStyle(style: style)
+    }
+
+    static func descriptionStyle(@ViewBuilder content: @escaping (DescriptionConfiguration) -> some View) -> ProfileHeaderDescriptionStyle {
+        let style = AnyDescriptionStyle(content)
+        return ProfileHeaderDescriptionStyle(style: style)
+    }
+}
+
 // MARK: RatingControlStyle
 
 public extension RatingControlStyle where Self == RatingControlBaseStyle {
@@ -2919,6 +3017,104 @@ public extension RatingControlStyle where Self == RatingControlBaseStyle {
 public extension RatingControlStyle where Self == RatingControlFioriStyle {
     static var fiori: RatingControlFioriStyle {
         RatingControlFioriStyle()
+    }
+}
+
+// MARK: RatingControlFormViewStyle
+
+public extension RatingControlFormViewStyle where Self == RatingControlFormViewBaseStyle {
+    static var base: RatingControlFormViewBaseStyle {
+        RatingControlFormViewBaseStyle()
+    }
+}
+
+public extension RatingControlFormViewStyle where Self == RatingControlFormViewFioriStyle {
+    static var fiori: RatingControlFormViewFioriStyle {
+        RatingControlFormViewFioriStyle()
+    }
+}
+
+public struct RatingControlFormViewTitleStyle: RatingControlFormViewStyle {
+    let style: any TitleStyle
+
+    public func makeBody(_ configuration: RatingControlFormViewConfiguration) -> some View {
+        RatingControlFormView(configuration)
+            .titleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension RatingControlFormViewStyle where Self == RatingControlFormViewTitleStyle {
+    static func titleStyle(_ style: some TitleStyle) -> RatingControlFormViewTitleStyle {
+        RatingControlFormViewTitleStyle(style: style)
+    }
+
+    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> RatingControlFormViewTitleStyle {
+        let style = AnyTitleStyle(content)
+        return RatingControlFormViewTitleStyle(style: style)
+    }
+}
+
+public struct RatingControlFormViewSubtitleStyle: RatingControlFormViewStyle {
+    let style: any SubtitleStyle
+
+    public func makeBody(_ configuration: RatingControlFormViewConfiguration) -> some View {
+        RatingControlFormView(configuration)
+            .subtitleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension RatingControlFormViewStyle where Self == RatingControlFormViewSubtitleStyle {
+    static func subtitleStyle(_ style: some SubtitleStyle) -> RatingControlFormViewSubtitleStyle {
+        RatingControlFormViewSubtitleStyle(style: style)
+    }
+
+    static func subtitleStyle(@ViewBuilder content: @escaping (SubtitleConfiguration) -> some View) -> RatingControlFormViewSubtitleStyle {
+        let style = AnySubtitleStyle(content)
+        return RatingControlFormViewSubtitleStyle(style: style)
+    }
+}
+
+public struct RatingControlFormViewRatingControlStyle: RatingControlFormViewStyle {
+    let style: any RatingControlStyle
+
+    public func makeBody(_ configuration: RatingControlFormViewConfiguration) -> some View {
+        RatingControlFormView(configuration)
+            .ratingControlStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension RatingControlFormViewStyle where Self == RatingControlFormViewRatingControlStyle {
+    static func ratingControlStyle(_ style: some RatingControlStyle) -> RatingControlFormViewRatingControlStyle {
+        RatingControlFormViewRatingControlStyle(style: style)
+    }
+
+    static func ratingControlStyle(@ViewBuilder content: @escaping (RatingControlConfiguration) -> some View) -> RatingControlFormViewRatingControlStyle {
+        let style = AnyRatingControlStyle(content)
+        return RatingControlFormViewRatingControlStyle(style: style)
+    }
+}
+
+public struct RatingControlFormViewFormViewStyle: RatingControlFormViewStyle {
+    let style: any FormViewStyle
+
+    public func makeBody(_ configuration: RatingControlFormViewConfiguration) -> some View {
+        RatingControlFormView(configuration)
+            .formViewStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension RatingControlFormViewStyle where Self == RatingControlFormViewFormViewStyle {
+    static func formViewStyle(_ style: some FormViewStyle) -> RatingControlFormViewFormViewStyle {
+        RatingControlFormViewFormViewStyle(style: style)
+    }
+
+    static func formViewStyle(@ViewBuilder content: @escaping (FormViewConfiguration) -> some View) -> RatingControlFormViewFormViewStyle {
+        let style = AnyFormViewStyle(content)
+        return RatingControlFormViewFormViewStyle(style: style)
     }
 }
 

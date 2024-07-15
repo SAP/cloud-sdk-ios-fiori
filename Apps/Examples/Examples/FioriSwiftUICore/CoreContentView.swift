@@ -6,31 +6,38 @@ import SwiftUI
 struct CoreContentView: View {
     var body: some View {
         List {
-            NavigationLink(
-                destination: DataTableExample())
-            {
-                Text("Data Table")
-            }
-            
-            NavigationLink(
-                destination: BannerMessageExample())
-            {
-                Text("Banner Message")
-            }
-            
-            NavigationLink(
-                destination: SideBarExample(),
-                label: {
-                    Text("Side Bar Example")
+            Group {
+                NavigationLink(
+                    destination: DataTableExample())
+                {
+                    Text("Data Table")
                 }
-            )
-            
-            NavigationLink(
-                destination: DimensionSelector_Chart())
-            {
-                Text("Dimension Selector")
+                
+                NavigationLink(
+                    destination: BannerMessageExample())
+                {
+                    Text("Banner Message")
+                }
+                
+                NavigationLink(
+                    destination: ProfileHeaderExample())
+                {
+                    Text("Profile Header")
+                }
+                
+                NavigationLink(
+                    destination: SideBarExample(),
+                    label: {
+                        Text("Side Bar Example")
+                    }
+                )
+                
+                NavigationLink(
+                    destination: DimensionSelector_Chart())
+                {
+                    Text("Dimension Selector")
+                }
             }
-            
             Group {
                 NavigationLink(
                     destination: StepProgressIndicatorExample())
@@ -177,7 +184,14 @@ struct CoreContentView: View {
                     }
                 )
             }
-            
+
+            NavigationLink(
+                destination: RatingControlExample(),
+                label: {
+                    Text("RatingControl")
+                }
+            )
+
             NavigationLink(
                 destination: InformationViewExample(),
                 label: {
@@ -211,6 +225,12 @@ struct CoreContentView: View {
                     Text("Timeline")
                 }
             )
+            
+            NavigationLink(
+                destination: OtherViewExamples())
+            {
+                Text("Other View Examples")
+            }
         }.navigationBarTitle("FioriSwiftUICore")
     }
 }

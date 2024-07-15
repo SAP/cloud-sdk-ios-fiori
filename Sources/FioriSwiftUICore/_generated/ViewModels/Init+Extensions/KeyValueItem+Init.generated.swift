@@ -4,11 +4,13 @@ import SwiftUI
 
 extension KeyValueItem where Value == EmptyView {
     public init(
-    @ViewBuilder key: () -> Key
+    @ViewBuilder key: () -> Key,
+		axis: Axis = .horizontal
     ) {
         self.init(
             key: key,
-			value: { EmptyView() }
+			value: { EmptyView() },
+			axis: axis
         )
     }
 }

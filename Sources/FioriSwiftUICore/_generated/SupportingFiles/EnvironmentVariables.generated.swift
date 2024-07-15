@@ -1053,6 +1053,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: ProfileHeaderStyle
+
+struct ProfileHeaderStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any ProfileHeaderStyle] = []
+}
+
+extension EnvironmentValues {
+    var profileHeaderStyle: any ProfileHeaderStyle {
+        self.profileHeaderStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var profileHeaderStyleStack: [any ProfileHeaderStyle] {
+        get {
+            self[ProfileHeaderStyleStackKey.self]
+        }
+        set {
+            self[ProfileHeaderStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: RatingControlStyle
 
 struct RatingControlStyleStackKey: EnvironmentKey {
@@ -1070,6 +1091,27 @@ extension EnvironmentValues {
         }
         set {
             self[RatingControlStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: RatingControlFormViewStyle
+
+struct RatingControlFormViewStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any RatingControlFormViewStyle] = []
+}
+
+extension EnvironmentValues {
+    var ratingControlFormViewStyle: any RatingControlFormViewStyle {
+        self.ratingControlFormViewStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var ratingControlFormViewStyleStack: [any RatingControlFormViewStyle] {
+        get {
+            self[RatingControlFormViewStyleStackKey.self]
+        }
+        set {
+            self[RatingControlFormViewStyleStackKey.self] = newValue
         }
     }
 }

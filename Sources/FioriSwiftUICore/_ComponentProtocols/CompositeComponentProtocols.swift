@@ -380,3 +380,22 @@ protocol _TimelineComponent: _TimestampComponent, _SecondaryTimestampComponent, 
 /// Since the default size of node image on the TimelineNowIndicator is 7 pixels, in order to display TimelineNowIndicator correctly in the List, set the minimum height for all row in a List using the .environment(\.defaultMinListRowHeight, value) modifier on the List, the value should be less than or equal to 7.
 // sourcery: CompositeComponent
 protocol _TimelineNowIndicatorComponent: _NowIndicatorNodeComponent {}
+
+/// The form view which contains a title, rating control, and a subtitle
+// sourcery: CompositeComponent
+protocol _RatingControlFormViewComponent: _TitleComponent, _RatingControlComponent, _SubtitleComponent, _FormViewComponent {
+    /// Indicates if the axis for displaying the title and rating control.
+    // sourcery: defaultValue = .horizontal
+    var axis: Axis { get }
+}
+
+// sourcery: CompositeComponent
+protocol _ProfileHeaderComponent: _DetailImageComponent, _TitleComponent, _SubtitleComponent, _DescriptionComponent {
+    // sourcery: defaultValue = "false"
+    /// Indicate whether the profile header was animatable in scroll view. The default was false.
+    var animatable: Bool { get }
+    
+    @ViewBuilder
+    /// The detail content for the profile header.
+    var detailContent: (() -> any View)? { get }
+}

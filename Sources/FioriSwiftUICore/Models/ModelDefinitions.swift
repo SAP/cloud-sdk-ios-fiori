@@ -87,7 +87,11 @@ public protocol KPIItemModel: KpiComponent, SubtitleComponent, KPIHeaderItemMode
 public protocol KPIProgressItemModel: KpiProgressComponent, SubtitleComponent, FootnoteComponent, KPIHeaderItemModel {}
 
 // sourcery: generated_component
-public protocol KeyValueItemModel: KeyComponent, ValueComponent {}
+public protocol KeyValueItemModel: KeyComponent, ValueComponent {
+    // sourcery: default.value = .horizontal
+    // sourcery: no_view
+    var axis: Axis { get }
+}
 
 // sourcery: add_env_props = "sharedAction"
 // sourcery: generated_component_not_configurable

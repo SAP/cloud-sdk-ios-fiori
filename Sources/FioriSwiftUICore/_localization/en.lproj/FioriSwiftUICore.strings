@@ -180,3 +180,6 @@
 
 /* XBUT: View all action in MenuSelection */
 "View All (%d)" = "View All (%d)";
+
+/* XACT: RatingControl accessibility label */
+"%d out of %d stars" = "%d out of %d stars";
