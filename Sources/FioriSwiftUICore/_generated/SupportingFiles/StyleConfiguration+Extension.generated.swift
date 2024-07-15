@@ -129,38 +129,6 @@ extension TextInputInfoViewConfiguration {
     }
 }
 
-// MARK: TimelineConfiguration
-
-extension TimelineConfiguration {
-    var _timelineTimeStack: TimelineTimeStack {
-        TimelineTimeStack(.init(timestampLabel: .init(self.timestampLabel), secondaryTimestampLabel: .init(self.secondaryTimestampLabel), secondaryTimestampImage: .init(self.secondaryTimestampImage)), shouldApplyDefaultStyle: true)
-    }
-
-    var _timelineNode: TimelineNode {
-        TimelineNode(.init(upperVerticalLine: .init(self.upperVerticalLine), nodeImage: .init(self.nodeImage), lowerVerticalLine: .init(self.lowerVerticalLine)), shouldApplyDefaultStyle: true)
-    }
-
-    var _timelineMainStack: TimelineMainStack {
-        TimelineMainStack(.init(title: .init(self.title), subtitle: .init(self.subtitle), attribute: .init(self.attribute), status: .init(self.status), substatus: .init(self.substatus), subAttribute: .init(self.subAttribute)), shouldApplyDefaultStyle: true)
-    }
-}
-
-// MARK: TimelineMarkerConfiguration
-
-extension TimelineMarkerConfiguration {
-    var _timelineTimeStack: TimelineTimeStack {
-        TimelineTimeStack(.init(timestampLabel: .init(self.timestampLabel), secondaryTimestampLabel: .init(self.secondaryTimestampLabel), secondaryTimestampImage: .init(self.secondaryTimestampImage)), shouldApplyDefaultStyle: true)
-    }
-
-    var _timelineMarkerNode: TimelineMarkerNode {
-        TimelineMarkerNode(.init(upperVerticalLine: .init(self.upperVerticalLine), nodeImage: .init(self.nodeImage), lowerVerticalLine: .init(self.lowerVerticalLine), showUpperVerticalLine: self.showUpperVerticalLine, showLowerVerticalLine: self.showLowerVerticalLine), shouldApplyDefaultStyle: true)
-    }
-
-    var _timelineMarkerMainStack: TimelineMarkerMainStack {
-        TimelineMarkerMainStack(.init(title: .init(self.title)), shouldApplyDefaultStyle: true)
-    }
-}
-
 // MARK: TitleFormViewConfiguration
 
 extension TitleFormViewConfiguration {

@@ -22,20 +22,7 @@ struct AnyTimelineNodeStyle: TimelineNodeStyle {
 }
 
 public struct TimelineNodeConfiguration {
-    public let upperVerticalLine: UpperVerticalLine
-    public let nodeImage: NodeImage
-    public let lowerVerticalLine: LowerVerticalLine
+    public let timelineNode: TimelineNode
 
-    public typealias UpperVerticalLine = ConfigurationViewWrapper
-    public typealias NodeImage = ConfigurationViewWrapper
-    public typealias LowerVerticalLine = ConfigurationViewWrapper
-}
-
-public struct TimelineNodeFioriStyle: TimelineNodeStyle {
-    public func makeBody(_ configuration: TimelineNodeConfiguration) -> some View {
-        TimelineNode(configuration)
-            .upperVerticalLineStyle(UpperVerticalLineFioriStyle(timelineNodeConfiguration: configuration))
-            .nodeImageStyle(NodeImageFioriStyle(timelineNodeConfiguration: configuration))
-            .lowerVerticalLineStyle(LowerVerticalLineFioriStyle(timelineNodeConfiguration: configuration))
-    }
+    public typealias TimelineNode = ConfigurationViewWrapper
 }

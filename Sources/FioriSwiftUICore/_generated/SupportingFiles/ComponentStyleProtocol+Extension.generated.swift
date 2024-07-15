@@ -2243,20 +2243,6 @@ public extension LinearProgressIndicatorViewStyle where Self == LinearProgressIn
     }
 }
 
-// MARK: LowerVerticalLineStyle
-
-public extension LowerVerticalLineStyle where Self == LowerVerticalLineBaseStyle {
-    static var base: LowerVerticalLineBaseStyle {
-        LowerVerticalLineBaseStyle()
-    }
-}
-
-public extension LowerVerticalLineStyle where Self == LowerVerticalLineFioriStyle {
-    static var fiori: LowerVerticalLineFioriStyle {
-        LowerVerticalLineFioriStyle()
-    }
-}
-
 // MARK: MandatoryFieldIndicatorStyle
 
 public extension MandatoryFieldIndicatorStyle where Self == MandatoryFieldIndicatorBaseStyle {
@@ -2401,20 +2387,6 @@ public extension MoreActionOverflowStyle where Self == MoreActionOverflowBaseSty
 public extension MoreActionOverflowStyle where Self == MoreActionOverflowFioriStyle {
     static var fiori: MoreActionOverflowFioriStyle {
         MoreActionOverflowFioriStyle()
-    }
-}
-
-// MARK: NodeImageStyle
-
-public extension NodeImageStyle where Self == NodeImageBaseStyle {
-    static var base: NodeImageBaseStyle {
-        NodeImageBaseStyle()
-    }
-}
-
-public extension NodeImageStyle where Self == NodeImageFioriStyle {
-    static var fiori: NodeImageFioriStyle {
-        NodeImageFioriStyle()
     }
 }
 
@@ -3006,31 +2978,17 @@ public extension SecondaryActionStyle where Self == SecondaryActionFioriStyle {
     }
 }
 
-// MARK: SecondaryTimestampImageStyle
+// MARK: SecondaryTimestampStyle
 
-public extension SecondaryTimestampImageStyle where Self == SecondaryTimestampImageBaseStyle {
-    static var base: SecondaryTimestampImageBaseStyle {
-        SecondaryTimestampImageBaseStyle()
+public extension SecondaryTimestampStyle where Self == SecondaryTimestampBaseStyle {
+    static var base: SecondaryTimestampBaseStyle {
+        SecondaryTimestampBaseStyle()
     }
 }
 
-public extension SecondaryTimestampImageStyle where Self == SecondaryTimestampImageFioriStyle {
-    static var fiori: SecondaryTimestampImageFioriStyle {
-        SecondaryTimestampImageFioriStyle()
-    }
-}
-
-// MARK: SecondaryTimestampLabelStyle
-
-public extension SecondaryTimestampLabelStyle where Self == SecondaryTimestampLabelBaseStyle {
-    static var base: SecondaryTimestampLabelBaseStyle {
-        SecondaryTimestampLabelBaseStyle()
-    }
-}
-
-public extension SecondaryTimestampLabelStyle where Self == SecondaryTimestampLabelFioriStyle {
-    static var fiori: SecondaryTimestampLabelFioriStyle {
-        SecondaryTimestampLabelFioriStyle()
+public extension SecondaryTimestampStyle where Self == SecondaryTimestampFioriStyle {
+    static var fiori: SecondaryTimestampFioriStyle {
+        SecondaryTimestampFioriStyle()
     }
 }
 
@@ -3804,129 +3762,87 @@ public extension TimelineStyle where Self == TimelineFioriStyle {
     }
 }
 
-public struct TimelineTimestampLabelStyle: TimelineStyle {
-    let style: any TimestampLabelStyle
+public struct TimelineTimestampStyle: TimelineStyle {
+    let style: any TimestampStyle
 
     public func makeBody(_ configuration: TimelineConfiguration) -> some View {
         Timeline(configuration)
-            .timestampLabelStyle(self.style)
+            .timestampStyle(self.style)
             .typeErased
     }
 }
 
-public extension TimelineStyle where Self == TimelineTimestampLabelStyle {
-    static func timestampLabelStyle(_ style: some TimestampLabelStyle) -> TimelineTimestampLabelStyle {
-        TimelineTimestampLabelStyle(style: style)
+public extension TimelineStyle where Self == TimelineTimestampStyle {
+    static func timestampStyle(_ style: some TimestampStyle) -> TimelineTimestampStyle {
+        TimelineTimestampStyle(style: style)
     }
 
-    static func timestampLabelStyle(@ViewBuilder content: @escaping (TimestampLabelConfiguration) -> some View) -> TimelineTimestampLabelStyle {
-        let style = AnyTimestampLabelStyle(content)
-        return TimelineTimestampLabelStyle(style: style)
+    static func timestampStyle(@ViewBuilder content: @escaping (TimestampConfiguration) -> some View) -> TimelineTimestampStyle {
+        let style = AnyTimestampStyle(content)
+        return TimelineTimestampStyle(style: style)
     }
 }
 
-public struct TimelineSecondaryTimestampLabelStyle: TimelineStyle {
-    let style: any SecondaryTimestampLabelStyle
+public struct TimelineSecondaryTimestampStyle: TimelineStyle {
+    let style: any SecondaryTimestampStyle
 
     public func makeBody(_ configuration: TimelineConfiguration) -> some View {
         Timeline(configuration)
-            .secondaryTimestampLabelStyle(self.style)
+            .secondaryTimestampStyle(self.style)
             .typeErased
     }
 }
 
-public extension TimelineStyle where Self == TimelineSecondaryTimestampLabelStyle {
-    static func secondaryTimestampLabelStyle(_ style: some SecondaryTimestampLabelStyle) -> TimelineSecondaryTimestampLabelStyle {
-        TimelineSecondaryTimestampLabelStyle(style: style)
+public extension TimelineStyle where Self == TimelineSecondaryTimestampStyle {
+    static func secondaryTimestampStyle(_ style: some SecondaryTimestampStyle) -> TimelineSecondaryTimestampStyle {
+        TimelineSecondaryTimestampStyle(style: style)
     }
 
-    static func secondaryTimestampLabelStyle(@ViewBuilder content: @escaping (SecondaryTimestampLabelConfiguration) -> some View) -> TimelineSecondaryTimestampLabelStyle {
-        let style = AnySecondaryTimestampLabelStyle(content)
-        return TimelineSecondaryTimestampLabelStyle(style: style)
+    static func secondaryTimestampStyle(@ViewBuilder content: @escaping (SecondaryTimestampConfiguration) -> some View) -> TimelineSecondaryTimestampStyle {
+        let style = AnySecondaryTimestampStyle(content)
+        return TimelineSecondaryTimestampStyle(style: style)
     }
 }
 
-public struct TimelineSecondaryTimestampImageStyle: TimelineStyle {
-    let style: any SecondaryTimestampImageStyle
+public struct TimelineTimelineNodeStyle: TimelineStyle {
+    let style: any TimelineNodeStyle
 
     public func makeBody(_ configuration: TimelineConfiguration) -> some View {
         Timeline(configuration)
-            .secondaryTimestampImageStyle(self.style)
+            .timelineNodeStyle(self.style)
             .typeErased
     }
 }
 
-public extension TimelineStyle where Self == TimelineSecondaryTimestampImageStyle {
-    static func secondaryTimestampImageStyle(_ style: some SecondaryTimestampImageStyle) -> TimelineSecondaryTimestampImageStyle {
-        TimelineSecondaryTimestampImageStyle(style: style)
+public extension TimelineStyle where Self == TimelineTimelineNodeStyle {
+    static func timelineNodeStyle(_ style: some TimelineNodeStyle) -> TimelineTimelineNodeStyle {
+        TimelineTimelineNodeStyle(style: style)
     }
 
-    static func secondaryTimestampImageStyle(@ViewBuilder content: @escaping (SecondaryTimestampImageConfiguration) -> some View) -> TimelineSecondaryTimestampImageStyle {
-        let style = AnySecondaryTimestampImageStyle(content)
-        return TimelineSecondaryTimestampImageStyle(style: style)
+    static func timelineNodeStyle(@ViewBuilder content: @escaping (TimelineNodeConfiguration) -> some View) -> TimelineTimelineNodeStyle {
+        let style = AnyTimelineNodeStyle(content)
+        return TimelineTimelineNodeStyle(style: style)
     }
 }
 
-public struct TimelineUpperVerticalLineStyle: TimelineStyle {
-    let style: any UpperVerticalLineStyle
+public struct TimelineIconStyle: TimelineStyle {
+    let style: any IconStyle
 
     public func makeBody(_ configuration: TimelineConfiguration) -> some View {
         Timeline(configuration)
-            .upperVerticalLineStyle(self.style)
+            .iconStyle(self.style)
             .typeErased
     }
 }
 
-public extension TimelineStyle where Self == TimelineUpperVerticalLineStyle {
-    static func upperVerticalLineStyle(_ style: some UpperVerticalLineStyle) -> TimelineUpperVerticalLineStyle {
-        TimelineUpperVerticalLineStyle(style: style)
+public extension TimelineStyle where Self == TimelineIconStyle {
+    static func iconStyle(_ style: some IconStyle) -> TimelineIconStyle {
+        TimelineIconStyle(style: style)
     }
 
-    static func upperVerticalLineStyle(@ViewBuilder content: @escaping (UpperVerticalLineConfiguration) -> some View) -> TimelineUpperVerticalLineStyle {
-        let style = AnyUpperVerticalLineStyle(content)
-        return TimelineUpperVerticalLineStyle(style: style)
-    }
-}
-
-public struct TimelineNodeImageStyle: TimelineStyle {
-    let style: any NodeImageStyle
-
-    public func makeBody(_ configuration: TimelineConfiguration) -> some View {
-        Timeline(configuration)
-            .nodeImageStyle(self.style)
-            .typeErased
-    }
-}
-
-public extension TimelineStyle where Self == TimelineNodeImageStyle {
-    static func nodeImageStyle(_ style: some NodeImageStyle) -> TimelineNodeImageStyle {
-        TimelineNodeImageStyle(style: style)
-    }
-
-    static func nodeImageStyle(@ViewBuilder content: @escaping (NodeImageConfiguration) -> some View) -> TimelineNodeImageStyle {
-        let style = AnyNodeImageStyle(content)
-        return TimelineNodeImageStyle(style: style)
-    }
-}
-
-public struct TimelineLowerVerticalLineStyle: TimelineStyle {
-    let style: any LowerVerticalLineStyle
-
-    public func makeBody(_ configuration: TimelineConfiguration) -> some View {
-        Timeline(configuration)
-            .lowerVerticalLineStyle(self.style)
-            .typeErased
-    }
-}
-
-public extension TimelineStyle where Self == TimelineLowerVerticalLineStyle {
-    static func lowerVerticalLineStyle(_ style: some LowerVerticalLineStyle) -> TimelineLowerVerticalLineStyle {
-        TimelineLowerVerticalLineStyle(style: style)
-    }
-
-    static func lowerVerticalLineStyle(@ViewBuilder content: @escaping (LowerVerticalLineConfiguration) -> some View) -> TimelineLowerVerticalLineStyle {
-        let style = AnyLowerVerticalLineStyle(content)
-        return TimelineLowerVerticalLineStyle(style: style)
+    static func iconStyle(@ViewBuilder content: @escaping (IconConfiguration) -> some View) -> TimelineIconStyle {
+        let style = AnyIconStyle(content)
+        return TimelineIconStyle(style: style)
     }
 }
 
@@ -4056,209 +3972,6 @@ public extension TimelineStyle where Self == TimelineSubAttributeStyle {
     }
 }
 
-public struct TimelineTimelineTimeStackStyle: TimelineStyle {
-    let style: any TimelineTimeStackStyle
-
-    public func makeBody(_ configuration: TimelineConfiguration) -> some View {
-        Timeline(configuration)
-            .timelineTimeStackStyle(self.style)
-            .typeErased
-    }
-}
-
-public extension TimelineStyle where Self == TimelineTimelineTimeStackStyle {
-    static func timelineTimeStackStyle(_ style: some TimelineTimeStackStyle) -> TimelineTimelineTimeStackStyle {
-        TimelineTimelineTimeStackStyle(style: style)
-    }
-
-    static func timelineTimeStackStyle(@ViewBuilder content: @escaping (TimelineTimeStackConfiguration) -> some View) -> TimelineTimelineTimeStackStyle {
-        let style = AnyTimelineTimeStackStyle(content)
-        return TimelineTimelineTimeStackStyle(style: style)
-    }
-}
-
-public struct TimelineTimelineNodeStyle: TimelineStyle {
-    let style: any TimelineNodeStyle
-
-    public func makeBody(_ configuration: TimelineConfiguration) -> some View {
-        Timeline(configuration)
-            .timelineNodeStyle(self.style)
-            .typeErased
-    }
-}
-
-public extension TimelineStyle where Self == TimelineTimelineNodeStyle {
-    static func timelineNodeStyle(_ style: some TimelineNodeStyle) -> TimelineTimelineNodeStyle {
-        TimelineTimelineNodeStyle(style: style)
-    }
-
-    static func timelineNodeStyle(@ViewBuilder content: @escaping (TimelineNodeConfiguration) -> some View) -> TimelineTimelineNodeStyle {
-        let style = AnyTimelineNodeStyle(content)
-        return TimelineTimelineNodeStyle(style: style)
-    }
-}
-
-public struct TimelineTimelineMainStackStyle: TimelineStyle {
-    let style: any TimelineMainStackStyle
-
-    public func makeBody(_ configuration: TimelineConfiguration) -> some View {
-        Timeline(configuration)
-            .timelineMainStackStyle(self.style)
-            .typeErased
-    }
-}
-
-public extension TimelineStyle where Self == TimelineTimelineMainStackStyle {
-    static func timelineMainStackStyle(_ style: some TimelineMainStackStyle) -> TimelineTimelineMainStackStyle {
-        TimelineTimelineMainStackStyle(style: style)
-    }
-
-    static func timelineMainStackStyle(@ViewBuilder content: @escaping (TimelineMainStackConfiguration) -> some View) -> TimelineTimelineMainStackStyle {
-        let style = AnyTimelineMainStackStyle(content)
-        return TimelineTimelineMainStackStyle(style: style)
-    }
-}
-
-// MARK: TimelineMainStackStyle
-
-public extension TimelineMainStackStyle where Self == TimelineMainStackBaseStyle {
-    static var base: TimelineMainStackBaseStyle {
-        TimelineMainStackBaseStyle()
-    }
-}
-
-public extension TimelineMainStackStyle where Self == TimelineMainStackFioriStyle {
-    static var fiori: TimelineMainStackFioriStyle {
-        TimelineMainStackFioriStyle()
-    }
-}
-
-public struct TimelineMainStackTitleStyle: TimelineMainStackStyle {
-    let style: any TitleStyle
-
-    public func makeBody(_ configuration: TimelineMainStackConfiguration) -> some View {
-        TimelineMainStack(configuration)
-            .titleStyle(self.style)
-            .typeErased
-    }
-}
-
-public extension TimelineMainStackStyle where Self == TimelineMainStackTitleStyle {
-    static func titleStyle(_ style: some TitleStyle) -> TimelineMainStackTitleStyle {
-        TimelineMainStackTitleStyle(style: style)
-    }
-
-    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> TimelineMainStackTitleStyle {
-        let style = AnyTitleStyle(content)
-        return TimelineMainStackTitleStyle(style: style)
-    }
-}
-
-public struct TimelineMainStackSubtitleStyle: TimelineMainStackStyle {
-    let style: any SubtitleStyle
-
-    public func makeBody(_ configuration: TimelineMainStackConfiguration) -> some View {
-        TimelineMainStack(configuration)
-            .subtitleStyle(self.style)
-            .typeErased
-    }
-}
-
-public extension TimelineMainStackStyle where Self == TimelineMainStackSubtitleStyle {
-    static func subtitleStyle(_ style: some SubtitleStyle) -> TimelineMainStackSubtitleStyle {
-        TimelineMainStackSubtitleStyle(style: style)
-    }
-
-    static func subtitleStyle(@ViewBuilder content: @escaping (SubtitleConfiguration) -> some View) -> TimelineMainStackSubtitleStyle {
-        let style = AnySubtitleStyle(content)
-        return TimelineMainStackSubtitleStyle(style: style)
-    }
-}
-
-public struct TimelineMainStackAttributeStyle: TimelineMainStackStyle {
-    let style: any AttributeStyle
-
-    public func makeBody(_ configuration: TimelineMainStackConfiguration) -> some View {
-        TimelineMainStack(configuration)
-            .attributeStyle(self.style)
-            .typeErased
-    }
-}
-
-public extension TimelineMainStackStyle where Self == TimelineMainStackAttributeStyle {
-    static func attributeStyle(_ style: some AttributeStyle) -> TimelineMainStackAttributeStyle {
-        TimelineMainStackAttributeStyle(style: style)
-    }
-
-    static func attributeStyle(@ViewBuilder content: @escaping (AttributeConfiguration) -> some View) -> TimelineMainStackAttributeStyle {
-        let style = AnyAttributeStyle(content)
-        return TimelineMainStackAttributeStyle(style: style)
-    }
-}
-
-public struct TimelineMainStackStatusStyle: TimelineMainStackStyle {
-    let style: any StatusStyle
-
-    public func makeBody(_ configuration: TimelineMainStackConfiguration) -> some View {
-        TimelineMainStack(configuration)
-            .statusStyle(self.style)
-            .typeErased
-    }
-}
-
-public extension TimelineMainStackStyle where Self == TimelineMainStackStatusStyle {
-    static func statusStyle(_ style: some StatusStyle) -> TimelineMainStackStatusStyle {
-        TimelineMainStackStatusStyle(style: style)
-    }
-
-    static func statusStyle(@ViewBuilder content: @escaping (StatusConfiguration) -> some View) -> TimelineMainStackStatusStyle {
-        let style = AnyStatusStyle(content)
-        return TimelineMainStackStatusStyle(style: style)
-    }
-}
-
-public struct TimelineMainStackSubstatusStyle: TimelineMainStackStyle {
-    let style: any SubstatusStyle
-
-    public func makeBody(_ configuration: TimelineMainStackConfiguration) -> some View {
-        TimelineMainStack(configuration)
-            .substatusStyle(self.style)
-            .typeErased
-    }
-}
-
-public extension TimelineMainStackStyle where Self == TimelineMainStackSubstatusStyle {
-    static func substatusStyle(_ style: some SubstatusStyle) -> TimelineMainStackSubstatusStyle {
-        TimelineMainStackSubstatusStyle(style: style)
-    }
-
-    static func substatusStyle(@ViewBuilder content: @escaping (SubstatusConfiguration) -> some View) -> TimelineMainStackSubstatusStyle {
-        let style = AnySubstatusStyle(content)
-        return TimelineMainStackSubstatusStyle(style: style)
-    }
-}
-
-public struct TimelineMainStackSubAttributeStyle: TimelineMainStackStyle {
-    let style: any SubAttributeStyle
-
-    public func makeBody(_ configuration: TimelineMainStackConfiguration) -> some View {
-        TimelineMainStack(configuration)
-            .subAttributeStyle(self.style)
-            .typeErased
-    }
-}
-
-public extension TimelineMainStackStyle where Self == TimelineMainStackSubAttributeStyle {
-    static func subAttributeStyle(_ style: some SubAttributeStyle) -> TimelineMainStackSubAttributeStyle {
-        TimelineMainStackSubAttributeStyle(style: style)
-    }
-
-    static func subAttributeStyle(@ViewBuilder content: @escaping (SubAttributeConfiguration) -> some View) -> TimelineMainStackSubAttributeStyle {
-        let style = AnySubAttributeStyle(content)
-        return TimelineMainStackSubAttributeStyle(style: style)
-    }
-}
-
 // MARK: TimelineMarkerStyle
 
 public extension TimelineMarkerStyle where Self == TimelineMarkerBaseStyle {
@@ -4273,129 +3986,87 @@ public extension TimelineMarkerStyle where Self == TimelineMarkerFioriStyle {
     }
 }
 
-public struct TimelineMarkerTimestampLabelStyle: TimelineMarkerStyle {
-    let style: any TimestampLabelStyle
+public struct TimelineMarkerTimestampStyle: TimelineMarkerStyle {
+    let style: any TimestampStyle
 
     public func makeBody(_ configuration: TimelineMarkerConfiguration) -> some View {
         TimelineMarker(configuration)
-            .timestampLabelStyle(self.style)
+            .timestampStyle(self.style)
             .typeErased
     }
 }
 
-public extension TimelineMarkerStyle where Self == TimelineMarkerTimestampLabelStyle {
-    static func timestampLabelStyle(_ style: some TimestampLabelStyle) -> TimelineMarkerTimestampLabelStyle {
-        TimelineMarkerTimestampLabelStyle(style: style)
+public extension TimelineMarkerStyle where Self == TimelineMarkerTimestampStyle {
+    static func timestampStyle(_ style: some TimestampStyle) -> TimelineMarkerTimestampStyle {
+        TimelineMarkerTimestampStyle(style: style)
     }
 
-    static func timestampLabelStyle(@ViewBuilder content: @escaping (TimestampLabelConfiguration) -> some View) -> TimelineMarkerTimestampLabelStyle {
-        let style = AnyTimestampLabelStyle(content)
-        return TimelineMarkerTimestampLabelStyle(style: style)
+    static func timestampStyle(@ViewBuilder content: @escaping (TimestampConfiguration) -> some View) -> TimelineMarkerTimestampStyle {
+        let style = AnyTimestampStyle(content)
+        return TimelineMarkerTimestampStyle(style: style)
     }
 }
 
-public struct TimelineMarkerSecondaryTimestampLabelStyle: TimelineMarkerStyle {
-    let style: any SecondaryTimestampLabelStyle
+public struct TimelineMarkerSecondaryTimestampStyle: TimelineMarkerStyle {
+    let style: any SecondaryTimestampStyle
 
     public func makeBody(_ configuration: TimelineMarkerConfiguration) -> some View {
         TimelineMarker(configuration)
-            .secondaryTimestampLabelStyle(self.style)
+            .secondaryTimestampStyle(self.style)
             .typeErased
     }
 }
 
-public extension TimelineMarkerStyle where Self == TimelineMarkerSecondaryTimestampLabelStyle {
-    static func secondaryTimestampLabelStyle(_ style: some SecondaryTimestampLabelStyle) -> TimelineMarkerSecondaryTimestampLabelStyle {
-        TimelineMarkerSecondaryTimestampLabelStyle(style: style)
+public extension TimelineMarkerStyle where Self == TimelineMarkerSecondaryTimestampStyle {
+    static func secondaryTimestampStyle(_ style: some SecondaryTimestampStyle) -> TimelineMarkerSecondaryTimestampStyle {
+        TimelineMarkerSecondaryTimestampStyle(style: style)
     }
 
-    static func secondaryTimestampLabelStyle(@ViewBuilder content: @escaping (SecondaryTimestampLabelConfiguration) -> some View) -> TimelineMarkerSecondaryTimestampLabelStyle {
-        let style = AnySecondaryTimestampLabelStyle(content)
-        return TimelineMarkerSecondaryTimestampLabelStyle(style: style)
+    static func secondaryTimestampStyle(@ViewBuilder content: @escaping (SecondaryTimestampConfiguration) -> some View) -> TimelineMarkerSecondaryTimestampStyle {
+        let style = AnySecondaryTimestampStyle(content)
+        return TimelineMarkerSecondaryTimestampStyle(style: style)
     }
 }
 
-public struct TimelineMarkerSecondaryTimestampImageStyle: TimelineMarkerStyle {
-    let style: any SecondaryTimestampImageStyle
+public struct TimelineMarkerTimelineNodeStyle: TimelineMarkerStyle {
+    let style: any TimelineNodeStyle
 
     public func makeBody(_ configuration: TimelineMarkerConfiguration) -> some View {
         TimelineMarker(configuration)
-            .secondaryTimestampImageStyle(self.style)
+            .timelineNodeStyle(self.style)
             .typeErased
     }
 }
 
-public extension TimelineMarkerStyle where Self == TimelineMarkerSecondaryTimestampImageStyle {
-    static func secondaryTimestampImageStyle(_ style: some SecondaryTimestampImageStyle) -> TimelineMarkerSecondaryTimestampImageStyle {
-        TimelineMarkerSecondaryTimestampImageStyle(style: style)
+public extension TimelineMarkerStyle where Self == TimelineMarkerTimelineNodeStyle {
+    static func timelineNodeStyle(_ style: some TimelineNodeStyle) -> TimelineMarkerTimelineNodeStyle {
+        TimelineMarkerTimelineNodeStyle(style: style)
     }
 
-    static func secondaryTimestampImageStyle(@ViewBuilder content: @escaping (SecondaryTimestampImageConfiguration) -> some View) -> TimelineMarkerSecondaryTimestampImageStyle {
-        let style = AnySecondaryTimestampImageStyle(content)
-        return TimelineMarkerSecondaryTimestampImageStyle(style: style)
+    static func timelineNodeStyle(@ViewBuilder content: @escaping (TimelineNodeConfiguration) -> some View) -> TimelineMarkerTimelineNodeStyle {
+        let style = AnyTimelineNodeStyle(content)
+        return TimelineMarkerTimelineNodeStyle(style: style)
     }
 }
 
-public struct TimelineMarkerUpperVerticalLineStyle: TimelineMarkerStyle {
-    let style: any UpperVerticalLineStyle
+public struct TimelineMarkerIconStyle: TimelineMarkerStyle {
+    let style: any IconStyle
 
     public func makeBody(_ configuration: TimelineMarkerConfiguration) -> some View {
         TimelineMarker(configuration)
-            .upperVerticalLineStyle(self.style)
+            .iconStyle(self.style)
             .typeErased
     }
 }
 
-public extension TimelineMarkerStyle where Self == TimelineMarkerUpperVerticalLineStyle {
-    static func upperVerticalLineStyle(_ style: some UpperVerticalLineStyle) -> TimelineMarkerUpperVerticalLineStyle {
-        TimelineMarkerUpperVerticalLineStyle(style: style)
+public extension TimelineMarkerStyle where Self == TimelineMarkerIconStyle {
+    static func iconStyle(_ style: some IconStyle) -> TimelineMarkerIconStyle {
+        TimelineMarkerIconStyle(style: style)
     }
 
-    static func upperVerticalLineStyle(@ViewBuilder content: @escaping (UpperVerticalLineConfiguration) -> some View) -> TimelineMarkerUpperVerticalLineStyle {
-        let style = AnyUpperVerticalLineStyle(content)
-        return TimelineMarkerUpperVerticalLineStyle(style: style)
-    }
-}
-
-public struct TimelineMarkerNodeImageStyle: TimelineMarkerStyle {
-    let style: any NodeImageStyle
-
-    public func makeBody(_ configuration: TimelineMarkerConfiguration) -> some View {
-        TimelineMarker(configuration)
-            .nodeImageStyle(self.style)
-            .typeErased
-    }
-}
-
-public extension TimelineMarkerStyle where Self == TimelineMarkerNodeImageStyle {
-    static func nodeImageStyle(_ style: some NodeImageStyle) -> TimelineMarkerNodeImageStyle {
-        TimelineMarkerNodeImageStyle(style: style)
-    }
-
-    static func nodeImageStyle(@ViewBuilder content: @escaping (NodeImageConfiguration) -> some View) -> TimelineMarkerNodeImageStyle {
-        let style = AnyNodeImageStyle(content)
-        return TimelineMarkerNodeImageStyle(style: style)
-    }
-}
-
-public struct TimelineMarkerLowerVerticalLineStyle: TimelineMarkerStyle {
-    let style: any LowerVerticalLineStyle
-
-    public func makeBody(_ configuration: TimelineMarkerConfiguration) -> some View {
-        TimelineMarker(configuration)
-            .lowerVerticalLineStyle(self.style)
-            .typeErased
-    }
-}
-
-public extension TimelineMarkerStyle where Self == TimelineMarkerLowerVerticalLineStyle {
-    static func lowerVerticalLineStyle(_ style: some LowerVerticalLineStyle) -> TimelineMarkerLowerVerticalLineStyle {
-        TimelineMarkerLowerVerticalLineStyle(style: style)
-    }
-
-    static func lowerVerticalLineStyle(@ViewBuilder content: @escaping (LowerVerticalLineConfiguration) -> some View) -> TimelineMarkerLowerVerticalLineStyle {
-        let style = AnyLowerVerticalLineStyle(content)
-        return TimelineMarkerLowerVerticalLineStyle(style: style)
+    static func iconStyle(@ViewBuilder content: @escaping (IconConfiguration) -> some View) -> TimelineMarkerIconStyle {
+        let style = AnyIconStyle(content)
+        return TimelineMarkerIconStyle(style: style)
     }
 }
 
@@ -4420,181 +4091,6 @@ public extension TimelineMarkerStyle where Self == TimelineMarkerTitleStyle {
     }
 }
 
-public struct TimelineMarkerTimelineTimeStackStyle: TimelineMarkerStyle {
-    let style: any TimelineTimeStackStyle
-
-    public func makeBody(_ configuration: TimelineMarkerConfiguration) -> some View {
-        TimelineMarker(configuration)
-            .timelineTimeStackStyle(self.style)
-            .typeErased
-    }
-}
-
-public extension TimelineMarkerStyle where Self == TimelineMarkerTimelineTimeStackStyle {
-    static func timelineTimeStackStyle(_ style: some TimelineTimeStackStyle) -> TimelineMarkerTimelineTimeStackStyle {
-        TimelineMarkerTimelineTimeStackStyle(style: style)
-    }
-
-    static func timelineTimeStackStyle(@ViewBuilder content: @escaping (TimelineTimeStackConfiguration) -> some View) -> TimelineMarkerTimelineTimeStackStyle {
-        let style = AnyTimelineTimeStackStyle(content)
-        return TimelineMarkerTimelineTimeStackStyle(style: style)
-    }
-}
-
-public struct TimelineMarkerTimelineMarkerNodeStyle: TimelineMarkerStyle {
-    let style: any TimelineMarkerNodeStyle
-
-    public func makeBody(_ configuration: TimelineMarkerConfiguration) -> some View {
-        TimelineMarker(configuration)
-            .timelineMarkerNodeStyle(self.style)
-            .typeErased
-    }
-}
-
-public extension TimelineMarkerStyle where Self == TimelineMarkerTimelineMarkerNodeStyle {
-    static func timelineMarkerNodeStyle(_ style: some TimelineMarkerNodeStyle) -> TimelineMarkerTimelineMarkerNodeStyle {
-        TimelineMarkerTimelineMarkerNodeStyle(style: style)
-    }
-
-    static func timelineMarkerNodeStyle(@ViewBuilder content: @escaping (TimelineMarkerNodeConfiguration) -> some View) -> TimelineMarkerTimelineMarkerNodeStyle {
-        let style = AnyTimelineMarkerNodeStyle(content)
-        return TimelineMarkerTimelineMarkerNodeStyle(style: style)
-    }
-}
-
-public struct TimelineMarkerTimelineMarkerMainStackStyle: TimelineMarkerStyle {
-    let style: any TimelineMarkerMainStackStyle
-
-    public func makeBody(_ configuration: TimelineMarkerConfiguration) -> some View {
-        TimelineMarker(configuration)
-            .timelineMarkerMainStackStyle(self.style)
-            .typeErased
-    }
-}
-
-public extension TimelineMarkerStyle where Self == TimelineMarkerTimelineMarkerMainStackStyle {
-    static func timelineMarkerMainStackStyle(_ style: some TimelineMarkerMainStackStyle) -> TimelineMarkerTimelineMarkerMainStackStyle {
-        TimelineMarkerTimelineMarkerMainStackStyle(style: style)
-    }
-
-    static func timelineMarkerMainStackStyle(@ViewBuilder content: @escaping (TimelineMarkerMainStackConfiguration) -> some View) -> TimelineMarkerTimelineMarkerMainStackStyle {
-        let style = AnyTimelineMarkerMainStackStyle(content)
-        return TimelineMarkerTimelineMarkerMainStackStyle(style: style)
-    }
-}
-
-// MARK: TimelineMarkerMainStackStyle
-
-public extension TimelineMarkerMainStackStyle where Self == TimelineMarkerMainStackBaseStyle {
-    static var base: TimelineMarkerMainStackBaseStyle {
-        TimelineMarkerMainStackBaseStyle()
-    }
-}
-
-public extension TimelineMarkerMainStackStyle where Self == TimelineMarkerMainStackFioriStyle {
-    static var fiori: TimelineMarkerMainStackFioriStyle {
-        TimelineMarkerMainStackFioriStyle()
-    }
-}
-
-public struct TimelineMarkerMainStackTitleStyle: TimelineMarkerMainStackStyle {
-    let style: any TitleStyle
-
-    public func makeBody(_ configuration: TimelineMarkerMainStackConfiguration) -> some View {
-        TimelineMarkerMainStack(configuration)
-            .titleStyle(self.style)
-            .typeErased
-    }
-}
-
-public extension TimelineMarkerMainStackStyle where Self == TimelineMarkerMainStackTitleStyle {
-    static func titleStyle(_ style: some TitleStyle) -> TimelineMarkerMainStackTitleStyle {
-        TimelineMarkerMainStackTitleStyle(style: style)
-    }
-
-    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> TimelineMarkerMainStackTitleStyle {
-        let style = AnyTitleStyle(content)
-        return TimelineMarkerMainStackTitleStyle(style: style)
-    }
-}
-
-// MARK: TimelineMarkerNodeStyle
-
-public extension TimelineMarkerNodeStyle where Self == TimelineMarkerNodeBaseStyle {
-    static var base: TimelineMarkerNodeBaseStyle {
-        TimelineMarkerNodeBaseStyle()
-    }
-}
-
-public extension TimelineMarkerNodeStyle where Self == TimelineMarkerNodeFioriStyle {
-    static var fiori: TimelineMarkerNodeFioriStyle {
-        TimelineMarkerNodeFioriStyle()
-    }
-}
-
-public struct TimelineMarkerNodeUpperVerticalLineStyle: TimelineMarkerNodeStyle {
-    let style: any UpperVerticalLineStyle
-
-    public func makeBody(_ configuration: TimelineMarkerNodeConfiguration) -> some View {
-        TimelineMarkerNode(configuration)
-            .upperVerticalLineStyle(self.style)
-            .typeErased
-    }
-}
-
-public extension TimelineMarkerNodeStyle where Self == TimelineMarkerNodeUpperVerticalLineStyle {
-    static func upperVerticalLineStyle(_ style: some UpperVerticalLineStyle) -> TimelineMarkerNodeUpperVerticalLineStyle {
-        TimelineMarkerNodeUpperVerticalLineStyle(style: style)
-    }
-
-    static func upperVerticalLineStyle(@ViewBuilder content: @escaping (UpperVerticalLineConfiguration) -> some View) -> TimelineMarkerNodeUpperVerticalLineStyle {
-        let style = AnyUpperVerticalLineStyle(content)
-        return TimelineMarkerNodeUpperVerticalLineStyle(style: style)
-    }
-}
-
-public struct TimelineMarkerNodeNodeImageStyle: TimelineMarkerNodeStyle {
-    let style: any NodeImageStyle
-
-    public func makeBody(_ configuration: TimelineMarkerNodeConfiguration) -> some View {
-        TimelineMarkerNode(configuration)
-            .nodeImageStyle(self.style)
-            .typeErased
-    }
-}
-
-public extension TimelineMarkerNodeStyle where Self == TimelineMarkerNodeNodeImageStyle {
-    static func nodeImageStyle(_ style: some NodeImageStyle) -> TimelineMarkerNodeNodeImageStyle {
-        TimelineMarkerNodeNodeImageStyle(style: style)
-    }
-
-    static func nodeImageStyle(@ViewBuilder content: @escaping (NodeImageConfiguration) -> some View) -> TimelineMarkerNodeNodeImageStyle {
-        let style = AnyNodeImageStyle(content)
-        return TimelineMarkerNodeNodeImageStyle(style: style)
-    }
-}
-
-public struct TimelineMarkerNodeLowerVerticalLineStyle: TimelineMarkerNodeStyle {
-    let style: any LowerVerticalLineStyle
-
-    public func makeBody(_ configuration: TimelineMarkerNodeConfiguration) -> some View {
-        TimelineMarkerNode(configuration)
-            .lowerVerticalLineStyle(self.style)
-            .typeErased
-    }
-}
-
-public extension TimelineMarkerNodeStyle where Self == TimelineMarkerNodeLowerVerticalLineStyle {
-    static func lowerVerticalLineStyle(_ style: some LowerVerticalLineStyle) -> TimelineMarkerNodeLowerVerticalLineStyle {
-        TimelineMarkerNodeLowerVerticalLineStyle(style: style)
-    }
-
-    static func lowerVerticalLineStyle(@ViewBuilder content: @escaping (LowerVerticalLineConfiguration) -> some View) -> TimelineMarkerNodeLowerVerticalLineStyle {
-        let style = AnyLowerVerticalLineStyle(content)
-        return TimelineMarkerNodeLowerVerticalLineStyle(style: style)
-    }
-}
-
 // MARK: TimelineNodeStyle
 
 public extension TimelineNodeStyle where Self == TimelineNodeBaseStyle {
@@ -4606,69 +4102,6 @@ public extension TimelineNodeStyle where Self == TimelineNodeBaseStyle {
 public extension TimelineNodeStyle where Self == TimelineNodeFioriStyle {
     static var fiori: TimelineNodeFioriStyle {
         TimelineNodeFioriStyle()
-    }
-}
-
-public struct TimelineNodeUpperVerticalLineStyle: TimelineNodeStyle {
-    let style: any UpperVerticalLineStyle
-
-    public func makeBody(_ configuration: TimelineNodeConfiguration) -> some View {
-        TimelineNode(configuration)
-            .upperVerticalLineStyle(self.style)
-            .typeErased
-    }
-}
-
-public extension TimelineNodeStyle where Self == TimelineNodeUpperVerticalLineStyle {
-    static func upperVerticalLineStyle(_ style: some UpperVerticalLineStyle) -> TimelineNodeUpperVerticalLineStyle {
-        TimelineNodeUpperVerticalLineStyle(style: style)
-    }
-
-    static func upperVerticalLineStyle(@ViewBuilder content: @escaping (UpperVerticalLineConfiguration) -> some View) -> TimelineNodeUpperVerticalLineStyle {
-        let style = AnyUpperVerticalLineStyle(content)
-        return TimelineNodeUpperVerticalLineStyle(style: style)
-    }
-}
-
-public struct TimelineNodeNodeImageStyle: TimelineNodeStyle {
-    let style: any NodeImageStyle
-
-    public func makeBody(_ configuration: TimelineNodeConfiguration) -> some View {
-        TimelineNode(configuration)
-            .nodeImageStyle(self.style)
-            .typeErased
-    }
-}
-
-public extension TimelineNodeStyle where Self == TimelineNodeNodeImageStyle {
-    static func nodeImageStyle(_ style: some NodeImageStyle) -> TimelineNodeNodeImageStyle {
-        TimelineNodeNodeImageStyle(style: style)
-    }
-
-    static func nodeImageStyle(@ViewBuilder content: @escaping (NodeImageConfiguration) -> some View) -> TimelineNodeNodeImageStyle {
-        let style = AnyNodeImageStyle(content)
-        return TimelineNodeNodeImageStyle(style: style)
-    }
-}
-
-public struct TimelineNodeLowerVerticalLineStyle: TimelineNodeStyle {
-    let style: any LowerVerticalLineStyle
-
-    public func makeBody(_ configuration: TimelineNodeConfiguration) -> some View {
-        TimelineNode(configuration)
-            .lowerVerticalLineStyle(self.style)
-            .typeErased
-    }
-}
-
-public extension TimelineNodeStyle where Self == TimelineNodeLowerVerticalLineStyle {
-    static func lowerVerticalLineStyle(_ style: some LowerVerticalLineStyle) -> TimelineNodeLowerVerticalLineStyle {
-        TimelineNodeLowerVerticalLineStyle(style: style)
-    }
-
-    static func lowerVerticalLineStyle(@ViewBuilder content: @escaping (LowerVerticalLineConfiguration) -> some View) -> TimelineNodeLowerVerticalLineStyle {
-        let style = AnyLowerVerticalLineStyle(content)
-        return TimelineNodeLowerVerticalLineStyle(style: style)
     }
 }
 
@@ -4707,115 +4140,17 @@ public extension TimelineNowIndicatorStyle where Self == TimelineNowIndicatorNow
     }
 }
 
-public struct TimelineNowIndicatorTrailingHorizontalLineStyle: TimelineNowIndicatorStyle {
-    let style: any TrailingHorizontalLineStyle
+// MARK: TimestampStyle
 
-    public func makeBody(_ configuration: TimelineNowIndicatorConfiguration) -> some View {
-        TimelineNowIndicator(configuration)
-            .trailingHorizontalLineStyle(self.style)
-            .typeErased
+public extension TimestampStyle where Self == TimestampBaseStyle {
+    static var base: TimestampBaseStyle {
+        TimestampBaseStyle()
     }
 }
 
-public extension TimelineNowIndicatorStyle where Self == TimelineNowIndicatorTrailingHorizontalLineStyle {
-    static func trailingHorizontalLineStyle(_ style: some TrailingHorizontalLineStyle) -> TimelineNowIndicatorTrailingHorizontalLineStyle {
-        TimelineNowIndicatorTrailingHorizontalLineStyle(style: style)
-    }
-
-    static func trailingHorizontalLineStyle(@ViewBuilder content: @escaping (TrailingHorizontalLineConfiguration) -> some View) -> TimelineNowIndicatorTrailingHorizontalLineStyle {
-        let style = AnyTrailingHorizontalLineStyle(content)
-        return TimelineNowIndicatorTrailingHorizontalLineStyle(style: style)
-    }
-}
-
-// MARK: TimelineTimeStackStyle
-
-public extension TimelineTimeStackStyle where Self == TimelineTimeStackBaseStyle {
-    static var base: TimelineTimeStackBaseStyle {
-        TimelineTimeStackBaseStyle()
-    }
-}
-
-public extension TimelineTimeStackStyle where Self == TimelineTimeStackFioriStyle {
-    static var fiori: TimelineTimeStackFioriStyle {
-        TimelineTimeStackFioriStyle()
-    }
-}
-
-public struct TimelineTimeStackTimestampLabelStyle: TimelineTimeStackStyle {
-    let style: any TimestampLabelStyle
-
-    public func makeBody(_ configuration: TimelineTimeStackConfiguration) -> some View {
-        TimelineTimeStack(configuration)
-            .timestampLabelStyle(self.style)
-            .typeErased
-    }
-}
-
-public extension TimelineTimeStackStyle where Self == TimelineTimeStackTimestampLabelStyle {
-    static func timestampLabelStyle(_ style: some TimestampLabelStyle) -> TimelineTimeStackTimestampLabelStyle {
-        TimelineTimeStackTimestampLabelStyle(style: style)
-    }
-
-    static func timestampLabelStyle(@ViewBuilder content: @escaping (TimestampLabelConfiguration) -> some View) -> TimelineTimeStackTimestampLabelStyle {
-        let style = AnyTimestampLabelStyle(content)
-        return TimelineTimeStackTimestampLabelStyle(style: style)
-    }
-}
-
-public struct TimelineTimeStackSecondaryTimestampLabelStyle: TimelineTimeStackStyle {
-    let style: any SecondaryTimestampLabelStyle
-
-    public func makeBody(_ configuration: TimelineTimeStackConfiguration) -> some View {
-        TimelineTimeStack(configuration)
-            .secondaryTimestampLabelStyle(self.style)
-            .typeErased
-    }
-}
-
-public extension TimelineTimeStackStyle where Self == TimelineTimeStackSecondaryTimestampLabelStyle {
-    static func secondaryTimestampLabelStyle(_ style: some SecondaryTimestampLabelStyle) -> TimelineTimeStackSecondaryTimestampLabelStyle {
-        TimelineTimeStackSecondaryTimestampLabelStyle(style: style)
-    }
-
-    static func secondaryTimestampLabelStyle(@ViewBuilder content: @escaping (SecondaryTimestampLabelConfiguration) -> some View) -> TimelineTimeStackSecondaryTimestampLabelStyle {
-        let style = AnySecondaryTimestampLabelStyle(content)
-        return TimelineTimeStackSecondaryTimestampLabelStyle(style: style)
-    }
-}
-
-public struct TimelineTimeStackSecondaryTimestampImageStyle: TimelineTimeStackStyle {
-    let style: any SecondaryTimestampImageStyle
-
-    public func makeBody(_ configuration: TimelineTimeStackConfiguration) -> some View {
-        TimelineTimeStack(configuration)
-            .secondaryTimestampImageStyle(self.style)
-            .typeErased
-    }
-}
-
-public extension TimelineTimeStackStyle where Self == TimelineTimeStackSecondaryTimestampImageStyle {
-    static func secondaryTimestampImageStyle(_ style: some SecondaryTimestampImageStyle) -> TimelineTimeStackSecondaryTimestampImageStyle {
-        TimelineTimeStackSecondaryTimestampImageStyle(style: style)
-    }
-
-    static func secondaryTimestampImageStyle(@ViewBuilder content: @escaping (SecondaryTimestampImageConfiguration) -> some View) -> TimelineTimeStackSecondaryTimestampImageStyle {
-        let style = AnySecondaryTimestampImageStyle(content)
-        return TimelineTimeStackSecondaryTimestampImageStyle(style: style)
-    }
-}
-
-// MARK: TimestampLabelStyle
-
-public extension TimestampLabelStyle where Self == TimestampLabelBaseStyle {
-    static var base: TimestampLabelBaseStyle {
-        TimestampLabelBaseStyle()
-    }
-}
-
-public extension TimestampLabelStyle where Self == TimestampLabelFioriStyle {
-    static var fiori: TimestampLabelFioriStyle {
-        TimestampLabelFioriStyle()
+public extension TimestampStyle where Self == TimestampFioriStyle {
+    static var fiori: TimestampFioriStyle {
+        TimestampFioriStyle()
     }
 }
 
@@ -4942,33 +4277,5 @@ public extension TopDividerStyle where Self == TopDividerBaseStyle {
 public extension TopDividerStyle where Self == TopDividerFioriStyle {
     static var fiori: TopDividerFioriStyle {
         TopDividerFioriStyle()
-    }
-}
-
-// MARK: TrailingHorizontalLineStyle
-
-public extension TrailingHorizontalLineStyle where Self == TrailingHorizontalLineBaseStyle {
-    static var base: TrailingHorizontalLineBaseStyle {
-        TrailingHorizontalLineBaseStyle()
-    }
-}
-
-public extension TrailingHorizontalLineStyle where Self == TrailingHorizontalLineFioriStyle {
-    static var fiori: TrailingHorizontalLineFioriStyle {
-        TrailingHorizontalLineFioriStyle()
-    }
-}
-
-// MARK: UpperVerticalLineStyle
-
-public extension UpperVerticalLineStyle where Self == UpperVerticalLineBaseStyle {
-    static var base: UpperVerticalLineBaseStyle {
-        UpperVerticalLineBaseStyle()
-    }
-}
-
-public extension UpperVerticalLineStyle where Self == UpperVerticalLineFioriStyle {
-    static var fiori: UpperVerticalLineFioriStyle {
-        UpperVerticalLineFioriStyle()
     }
 }

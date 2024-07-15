@@ -5,7 +5,7 @@ import SwiftUI
 // Base Layout style
 public struct TimelineMarkerBaseStyle: TimelineMarkerStyle {
     @State var timelineMarkerWidth: CGFloat = 100
-    @Environment(\.isEnabled) var isEnabled: Bool
+
     public func makeBody(_ configuration: TimelineMarkerConfiguration) -> some View {
         ZStack {
             HStack {
@@ -16,9 +16,57 @@ public struct TimelineMarkerBaseStyle: TimelineMarkerStyle {
                     .frame(width: self.timelineMarkerWidth - 92.5)
             }
             HStack(alignment: .top, spacing: 0) {
-                configuration._timelineTimeStack
-                configuration._timelineMarkerNode
-                configuration._timelineMarkerMainStack
+                VStack(alignment: .trailing) {
+                    HStack {
+                        Spacer()
+                        configuration.timestamp
+                    }
+                    HStack {
+                        Spacer()
+                        configuration.secondaryTimestamp
+                    }
+                }
+                .frame(width: 60)
+                .background(configuration.isPresent ? Color.preferredColor(.secondaryGroupedBackground) : Color.clear)
+                .padding(EdgeInsets(top: 16, leading: 16, bottom: 16, trailing: 0))
+                .alignmentGuide(.top) { _ in
+                    16
+                }
+                VStack(alignment: .center, spacing: 0) {
+                    Rectangle()
+                        .frame(width: 2, height: 16)
+                        .foregroundColor(configuration.isPast || configuration.isPresent ? Color.preferredColor(.tintColor) : Color.preferredColor(.grey3))
+                        .opacity(configuration.showUpperVerticalLine ? 1 : 0)
+                    if configuration.icon.isEmpty {
+                        configuration.timelineNode
+                    } else {
+                        configuration.icon
+                    }
+                    Rectangle()
+                        .frame(width: 2)
+                        .foregroundColor(configuration.isPast || configuration.isPresent ? Color.preferredColor(.tintColor) : Color.preferredColor(.grey3))
+                        .opacity(configuration.showLowerVerticalLine ? 1 : 0)
+                }
+                .frame(width: 15)
+                .padding(EdgeInsets(top: 0, leading: 9, bottom: 0, trailing: 8))
+                .alignmentGuide(.top) { _ in
+                    16
+                }
+                VStack(alignment: .leading) {
+                    HStack {
+                        configuration.title
+                        Spacer()
+                    }
+                    Divider()
+                        .foregroundColor(Color.preferredColor(.separator).opacity(0.41))
+                        .frame(height: 0.33)
+                        .padding(EdgeInsets(top: 0, leading: 9, bottom: 0, trailing: -16))
+                        .offset(y: 16)
+                }
+                .padding(EdgeInsets(top: 16, leading: 0, bottom: 16, trailing: 16))
+                .alignmentGuide(.top) { _ in
+                    16
+                }
             }
             .fixedSize(horizontal: false, vertical: true)
             .overlay {
@@ -52,116 +100,53 @@ extension TimelineMarkerFioriStyle {
         }
     }
 
-    struct TimestampLabelFioriStyle: TimestampLabelStyle {
+    struct TimestampFioriStyle: TimestampStyle {
         let timelineMarkerConfiguration: TimelineMarkerConfiguration
-        @Environment(\.isEnabled) var isEnabled: Bool
 
-        func makeBody(_ configuration: TimestampLabelConfiguration) -> some View {
-            TimestampLabel(configuration)
+        func makeBody(_ configuration: TimestampConfiguration) -> some View {
+            Timestamp(configuration)
                 .font(.fiori(forTextStyle: .caption1))
-                .foregroundColor(self.isEnabled ? Color.preferredColor(.primaryLabel) : Color.preferredColor(.separator))
+                .foregroundColor(Color.preferredColor(.primaryLabel))
         }
     }
 
-    struct SecondaryTimestampLabelFioriStyle: SecondaryTimestampLabelStyle {
+    struct SecondaryTimestampFioriStyle: SecondaryTimestampStyle {
         let timelineMarkerConfiguration: TimelineMarkerConfiguration
-        @Environment(\.isEnabled) var isEnabled: Bool
 
-        func makeBody(_ configuration: SecondaryTimestampLabelConfiguration) -> some View {
-            SecondaryTimestampLabel(configuration)
+        func makeBody(_ configuration: SecondaryTimestampConfiguration) -> some View {
+            SecondaryTimestamp(configuration)
                 .font(.fiori(forTextStyle: .caption1))
-                .foregroundColor(self.isEnabled ? Color.preferredColor(.primaryLabel) : Color.preferredColor(.separator))
+                .foregroundColor(Color.preferredColor(.primaryLabel))
         }
     }
 
-    struct SecondaryTimestampImageFioriStyle: SecondaryTimestampImageStyle {
-        let timelineMarkerConfiguration: TimelineMarkerConfiguration
-        @Environment(\.isEnabled) var isEnabled: Bool
-
-        func makeBody(_ configuration: SecondaryTimestampImageConfiguration) -> some View {
-            SecondaryTimestampImage(configuration)
-                .font(.fiori(forTextStyle: .caption1))
-                .foregroundColor(self.isEnabled ? Color.preferredColor(.tertiaryLabel) : Color.preferredColor(.separator))
-        }
-    }
-
-    struct UpperVerticalLineFioriStyle: UpperVerticalLineStyle {
-        let timelineMarkerConfiguration: TimelineMarkerConfiguration
-    
-        func makeBody(_ configuration: UpperVerticalLineConfiguration) -> some View {
-            UpperVerticalLine(configuration)
-                .frame(width: 2, height: 16)
-                .background(self.timelineMarkerConfiguration.isPast || self.timelineMarkerConfiguration.isPresent ? Color.preferredColor(.tintColor) : Color.preferredColor(.grey3))
-        }
-    }
-    
-    struct NodeImageFioriStyle: NodeImageStyle {
+    struct TimelineNodeFioriStyle: TimelineNodeStyle {
         let timelineMarkerConfiguration: TimelineMarkerConfiguration
 
-        func makeBody(_ configuration: NodeImageConfiguration) -> some View {
-            NodeImage(configuration)
+        func makeBody(_ configuration: TimelineNodeConfiguration) -> some View {
+            TimelineNode(configuration)
                 .foregroundColor(self.timelineMarkerConfiguration.isPast || self.timelineMarkerConfiguration.isPresent ? Color.preferredColor(.tintColor) : Color.preferredColor(.separatorOpaque))
                 .font(.system(size: 9, weight: .bold))
         }
     }
 
-    struct LowerVerticalLineFioriStyle: LowerVerticalLineStyle {
+    struct IconFioriStyle: IconStyle {
         let timelineMarkerConfiguration: TimelineMarkerConfiguration
     
-        func makeBody(_ configuration: LowerVerticalLineConfiguration) -> some View {
-            LowerVerticalLine(configuration)
-                .frame(width: 2)
-                .background(self.timelineMarkerConfiguration.isPast || self.timelineMarkerConfiguration.isPresent ? Color.preferredColor(.tintColor) : Color.preferredColor(.grey3))
+        func makeBody(_ configuration: IconConfiguration) -> some View {
+            Icon(configuration)
+                .foregroundColor(self.timelineMarkerConfiguration.isPast || self.timelineMarkerConfiguration.isPresent ? Color.preferredColor(.tintColor) : Color.preferredColor(.separatorOpaque))
+                .font(.system(size: 9, weight: .bold))
         }
     }
 
     struct TitleFioriStyle: TitleStyle {
         let timelineMarkerConfiguration: TimelineMarkerConfiguration
-        @Environment(\.isEnabled) var isEnabled: Bool
 
         func makeBody(_ configuration: TitleConfiguration) -> some View {
             Title(configuration)
                 .font(.fiori(forTextStyle: .subheadline))
-                .foregroundColor(self.isEnabled ? Color.preferredColor(.primaryLabel) : Color.preferredColor(.separator))
-        }
-    }
-
-    struct TimelineTimeStackFioriStyle: TimelineTimeStackStyle {
-        let timelineMarkerConfiguration: TimelineMarkerConfiguration
-
-        func makeBody(_ configuration: TimelineTimeStackConfiguration) -> some View {
-            TimelineTimeStack(configuration)
-                .frame(width: 60)
-                .background(self.timelineMarkerConfiguration.isPresent ? Color.preferredColor(.secondaryGroupedBackground) : Color.clear)
-                .padding(EdgeInsets(top: 16, leading: 16, bottom: 16, trailing: 0))
-                .alignmentGuide(.top) { _ in
-                    16
-                }
-        }
-    }
-
-    struct TimelineMarkerNodeFioriStyle: TimelineMarkerNodeStyle {
-        let timelineMarkerConfiguration: TimelineMarkerConfiguration
-
-        func makeBody(_ configuration: TimelineMarkerNodeConfiguration) -> some View {
-            TimelineMarkerNode(configuration)
-                .frame(width: 15)
-                .padding(EdgeInsets(top: 0, leading: 9, bottom: 0, trailing: 8))
-                .alignmentGuide(.top) { _ in
-                    16
-                }
-        }
-    }
-
-    struct TimelineMarkerMainStackFioriStyle: TimelineMarkerMainStackStyle {
-        let timelineMarkerConfiguration: TimelineMarkerConfiguration
-
-        func makeBody(_ configuration: TimelineMarkerMainStackConfiguration) -> some View {
-            TimelineMarkerMainStack(configuration)
-                .padding(EdgeInsets(top: 16, leading: 0, bottom: 16, trailing: 16))
-                .alignmentGuide(.top) { _ in
-                    16
-                }
+                .foregroundColor(Color.preferredColor(.primaryLabel))
         }
     }
 }

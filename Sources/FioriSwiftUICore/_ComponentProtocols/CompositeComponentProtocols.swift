@@ -318,11 +318,28 @@ protocol _RatingControlComponent {
     var interItemSpacing: CGFloat? { get }
 }
 
+/// `TimelineMarker` is a non-selectable view intended for timelineMarkers that require beforeStart, start, beforeEnd and end status that displays timelineMarker details.
+/// It uses a vertical line and `timelineNode` as a separator. To the left of the vertical line is the timeline timestamp stack view that contains `timestamp` and `secondaryTimestamp`. To the right of the vertical line is the main stack view that contains  `title`. There is a divider line as separator under main stack.
+///
+/// ## Notes
+/// ### Separator between TimelineMarker Items in the List
+/// All list styles in SwiftUI include separators by default. This is why there is a separator between two timelineMarker items in the list. To get rid of the separator, set ‘listRowSeparator’ modifier to hidden.
+///
+/// ## Usage
+/// ```swift
+/// TimelineMarker(timestamp: "06/20/24", secondaryTimestamp: .icon(Image(systemName: "sun.max")), timelineNode: .beforeStart, title: "Before Start", isPast: true, showUpperVerticalLine: false)
+/// TimelineMarker(timestamp: "06/20/24", secondaryTimestamp: .text("Sunny"), timelineNode: .beforeEnd, title: "Before End", isPresent: true)
+/// ```
 // sourcery: CompositeComponent
-protocol _TimelineTimeStackComponent: _TimestampLabelComponent, _SecondaryTimestampLabelComponent, _SecondaryTimestampImageComponent {}
-
-// sourcery: CompositeComponent
-protocol _TimelineMarkerNodeComponent: _UpperVerticalLineComponent, _NodeImageComponent, _LowerVerticalLineComponent {
+protocol _TimelineMarkerComponent: _TimestampComponent, _SecondaryTimestampComponent, _TimelineNodeComponent, _IconComponent, _TitleComponent {
+    // sourcery: defaultValue = false
+    /// check if event is past
+    var isPast: Bool { get }
+    
+    // sourcery: defaultValue = false
+    /// check if event is present
+    var isPresent: Bool { get }
+    
     // sourcery: defaultValue = true
     /// Show upper vertical line or not. Default is to show.
     var showUpperVerticalLine: Bool { get }
@@ -332,40 +349,8 @@ protocol _TimelineMarkerNodeComponent: _UpperVerticalLineComponent, _NodeImageCo
     var showLowerVerticalLine: Bool { get }
 }
 
-// sourcery: CompositeComponent
-protocol _TimelineMarkerMainStackComponent: _TitleComponent {}
-
-/// `TimelineMarker` is a non-selectable view intended for timelineMarkers that require beforeStart, start, beforeEnd and end status that displays timelineMarker details.
-/// It uses a vertical line and `nodeImage` as a separator. To the left of the vertical line is the timeline timestamp stack view that contains `timestampLabel` and `secondaryTimestampLabel` or ‘secondaryTimestampImage’. To the right of the vertical line is the main stack view that contains  `title`. There is a divider line as separator under main stack.
-///
-/// ## Notes
-/// ### Separator between TimelineMarker Items in the List
-/// All list styles in SwiftUI include separators by default. This is why there is a separator between two timelineMarker items in the list. To get rid of the separator, set ‘listRowSeparator’ modifier to hidden.
-///
-/// ## Usage
-/// ```swift
-/// TimelineMarker(timestampLabel: "06/20/24", secondaryTimestampImage: { Image(systemName: "sun.max")}(), nodeImage: .beforeEnd(), showUpperVerticalLine: false, title: "Before Start", isPast: true)
-/// TimelineMarker(timestampLabel: "06/04/24", secondaryTimestampLabel: "Sunny", nodeImage: .open(Image(systemName: "a.circle")), title: "Project Start", isPresent: true)
-/// ```
-// sourcery: CompositeComponent
-protocol _TimelineMarkerComponent: _TimelineTimeStackComponent, _TimelineMarkerNodeComponent, _TimelineMarkerMainStackComponent {
-    // sourcery: defaultValue = false
-    /// check if event is past
-    var isPast: Bool { get }
-    
-    // sourcery: defaultValue = false
-    /// check if event is present
-    var isPresent: Bool { get }
-}
-
-// sourcery: CompositeComponent
-protocol _TimelineNodeComponent: _UpperVerticalLineComponent, _NodeImageComponent, _LowerVerticalLineComponent {}
-
-// sourcery: CompositeComponent
-protocol _TimelineMainStackComponent: _TitleComponent, _SubtitleComponent, _AttributeComponent, _StatusComponent, _SubstatusComponent, _SubAttributeComponent {}
-
 /// `Timeline` is a selectable view intended for timelines that require open, inProgress and complete status that displays timeline details.
-///  It uses a vertical line and `nodeImage` as a separator. To the left of the vertical line is the timeline timestamp stack view that contains `timestampLabel` and `secondaryTimestampLabel` or ‘secondaryTimestampImage’. To the right of the vertical line is the main stack view that contains  title view and attribute view. Title view contains `title`, ‘subtitle’, ‘status’, ‘substatus’, below the title view is an attribute view with ‘ attribute’ and ‘subAttribute’. There is a divider line as separator under main stack.
+///  It uses a vertical line and `timelineNode` as a separator. To the left of the vertical line is the timeline timestamp stack view that contains `timestamp` and `secondaryTimestamp`. To the right of the vertical line is the main stack view that contains  title view and attribute view. Title view contains `title`, ‘subtitle’, ‘status’, ‘substatus’, below the title view is an attribute view with ‘ attribute’ and ‘subAttribute’. There is a divider line as separator under main stack.
 ///
 ///  ## Notes
 /// ### Separator between Timeline Items in the List
@@ -373,11 +358,11 @@ protocol _TimelineMainStackComponent: _TitleComponent, _SubtitleComponent, _Attr
 ///
 /// ## Usage
 /// ```swift
-/// Timeline(timestampLabel: "06/21/24", secondaryTimestampImage: { Image(systemName: "sun.max")}(), nodeImage: .inProgress(), title: "Inprogress Event", subtitle: "abc", attribute: "attr", status: .text("Info"), substatus: .icon(Image(systemName: "exclamationmark.circle")), subAttribute: "subAttr", isPresent: true)
-/// Timeline(timestampLabel: "06/23/24", secondaryTimestampLabel: "Sunny", nodeImage: .open(Image(systemName: "p.circle")), title: "Title", subtitle: "subTitle", attribute: "attr", status: .text("Pending"), substatus: .icon(Image(systemName: "p.circle")), subAttribute: "subAttr")
+/// Timeline(timestamp: "06/21/24", secondaryTimestamp: .icon(Image(systemName: "sun.max")), timelineNode: .complete, title: "Complete(Disabled)", subtitle: "abc", attribute: "attr", status: .text("Info"), substatus: .icon(Image(systemName: "exclamationmark.circle")), subAttribute: "subAttr", isPast: true)
+/// Timeline(timestamp: "06/21/24", secondaryTimestamp: .text("Sunny"), timelineNode: .open, title: "Open", subtitle: "abc", attribute: "attr", status: .text("Info"), substatus: .icon(Image(systemName: "exclamationmark.circle")), subAttribute: "subAttr")
 /// ```
 // sourcery: CompositeComponent
-protocol _TimelineComponent: _TimelineTimeStackComponent, _TimelineNodeComponent, _TimelineMainStackComponent {
+protocol _TimelineComponent: _TimestampComponent, _SecondaryTimestampComponent, _TimelineNodeComponent, _IconComponent, _TitleComponent, _SubtitleComponent, _AttributeComponent, _StatusComponent, _SubstatusComponent, _SubAttributeComponent {
     // sourcery: defaultValue = false
     /// check if event is past
     var isPast: Bool { get }
@@ -394,4 +379,4 @@ protocol _TimelineComponent: _TimelineTimeStackComponent, _TimelineNodeComponent
 /// ### Minimum list row height between Timeline Items in the List
 /// Since the default size of node image on the TimelineNowIndicator is 7 pixels, in order to display TimelineNowIndicator correctly in the List, set the minimum height for all row in a List using the .environment(\.defaultMinListRowHeight, value) modifier on the List, the value should be less than or equal to 7.
 // sourcery: CompositeComponent
-protocol _TimelineNowIndicatorComponent: _NowIndicatorNodeComponent, _TrailingHorizontalLineComponent {}
+protocol _TimelineNowIndicatorComponent: _NowIndicatorNodeComponent {}

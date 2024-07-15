@@ -780,27 +780,6 @@ extension EnvironmentValues {
     }
 }
 
-// MARK: LowerVerticalLineStyle
-
-struct LowerVerticalLineStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any LowerVerticalLineStyle] = []
-}
-
-extension EnvironmentValues {
-    var lowerVerticalLineStyle: any LowerVerticalLineStyle {
-        self.lowerVerticalLineStyleStack.last ?? .base
-    }
-
-    var lowerVerticalLineStyleStack: [any LowerVerticalLineStyle] {
-        get {
-            self[LowerVerticalLineStyleStackKey.self]
-        }
-        set {
-            self[LowerVerticalLineStyleStackKey.self] = newValue
-        }
-    }
-}
-
 // MARK: MandatoryFieldIndicatorStyle
 
 struct MandatoryFieldIndicatorStyleStackKey: EnvironmentKey {
@@ -923,27 +902,6 @@ extension EnvironmentValues {
         }
         set {
             self[MoreActionOverflowStyleStackKey.self] = newValue
-        }
-    }
-}
-
-// MARK: NodeImageStyle
-
-struct NodeImageStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any NodeImageStyle] = []
-}
-
-extension EnvironmentValues {
-    var nodeImageStyle: any NodeImageStyle {
-        self.nodeImageStyleStack.last ?? .base
-    }
-
-    var nodeImageStyleStack: [any NodeImageStyle] {
-        get {
-            self[NodeImageStyleStackKey.self]
-        }
-        set {
-            self[NodeImageStyleStackKey.self] = newValue
         }
     }
 }
@@ -1200,44 +1158,23 @@ extension EnvironmentValues {
     }
 }
 
-// MARK: SecondaryTimestampImageStyle
+// MARK: SecondaryTimestampStyle
 
-struct SecondaryTimestampImageStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any SecondaryTimestampImageStyle] = []
+struct SecondaryTimestampStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any SecondaryTimestampStyle] = []
 }
 
 extension EnvironmentValues {
-    var secondaryTimestampImageStyle: any SecondaryTimestampImageStyle {
-        self.secondaryTimestampImageStyleStack.last ?? .base
+    var secondaryTimestampStyle: any SecondaryTimestampStyle {
+        self.secondaryTimestampStyleStack.last ?? .base
     }
 
-    var secondaryTimestampImageStyleStack: [any SecondaryTimestampImageStyle] {
+    var secondaryTimestampStyleStack: [any SecondaryTimestampStyle] {
         get {
-            self[SecondaryTimestampImageStyleStackKey.self]
+            self[SecondaryTimestampStyleStackKey.self]
         }
         set {
-            self[SecondaryTimestampImageStyleStackKey.self] = newValue
-        }
-    }
-}
-
-// MARK: SecondaryTimestampLabelStyle
-
-struct SecondaryTimestampLabelStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any SecondaryTimestampLabelStyle] = []
-}
-
-extension EnvironmentValues {
-    var secondaryTimestampLabelStyle: any SecondaryTimestampLabelStyle {
-        self.secondaryTimestampLabelStyleStack.last ?? .base
-    }
-
-    var secondaryTimestampLabelStyleStack: [any SecondaryTimestampLabelStyle] {
-        get {
-            self[SecondaryTimestampLabelStyleStackKey.self]
-        }
-        set {
-            self[SecondaryTimestampLabelStyleStackKey.self] = newValue
+            self[SecondaryTimestampStyleStackKey.self] = newValue
         }
     }
 }
@@ -1578,27 +1515,6 @@ extension EnvironmentValues {
     }
 }
 
-// MARK: TimelineMainStackStyle
-
-struct TimelineMainStackStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any TimelineMainStackStyle] = []
-}
-
-extension EnvironmentValues {
-    var timelineMainStackStyle: any TimelineMainStackStyle {
-        self.timelineMainStackStyleStack.last ?? .base.concat(.fiori)
-    }
-
-    var timelineMainStackStyleStack: [any TimelineMainStackStyle] {
-        get {
-            self[TimelineMainStackStyleStackKey.self]
-        }
-        set {
-            self[TimelineMainStackStyleStackKey.self] = newValue
-        }
-    }
-}
-
 // MARK: TimelineMarkerStyle
 
 struct TimelineMarkerStyleStackKey: EnvironmentKey {
@@ -1620,48 +1536,6 @@ extension EnvironmentValues {
     }
 }
 
-// MARK: TimelineMarkerMainStackStyle
-
-struct TimelineMarkerMainStackStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any TimelineMarkerMainStackStyle] = []
-}
-
-extension EnvironmentValues {
-    var timelineMarkerMainStackStyle: any TimelineMarkerMainStackStyle {
-        self.timelineMarkerMainStackStyleStack.last ?? .base.concat(.fiori)
-    }
-
-    var timelineMarkerMainStackStyleStack: [any TimelineMarkerMainStackStyle] {
-        get {
-            self[TimelineMarkerMainStackStyleStackKey.self]
-        }
-        set {
-            self[TimelineMarkerMainStackStyleStackKey.self] = newValue
-        }
-    }
-}
-
-// MARK: TimelineMarkerNodeStyle
-
-struct TimelineMarkerNodeStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any TimelineMarkerNodeStyle] = []
-}
-
-extension EnvironmentValues {
-    var timelineMarkerNodeStyle: any TimelineMarkerNodeStyle {
-        self.timelineMarkerNodeStyleStack.last ?? .base.concat(.fiori)
-    }
-
-    var timelineMarkerNodeStyleStack: [any TimelineMarkerNodeStyle] {
-        get {
-            self[TimelineMarkerNodeStyleStackKey.self]
-        }
-        set {
-            self[TimelineMarkerNodeStyleStackKey.self] = newValue
-        }
-    }
-}
-
 // MARK: TimelineNodeStyle
 
 struct TimelineNodeStyleStackKey: EnvironmentKey {
@@ -1670,7 +1544,7 @@ struct TimelineNodeStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var timelineNodeStyle: any TimelineNodeStyle {
-        self.timelineNodeStyleStack.last ?? .base.concat(.fiori)
+        self.timelineNodeStyleStack.last ?? .base
     }
 
     var timelineNodeStyleStack: [any TimelineNodeStyle] {
@@ -1704,44 +1578,23 @@ extension EnvironmentValues {
     }
 }
 
-// MARK: TimelineTimeStackStyle
+// MARK: TimestampStyle
 
-struct TimelineTimeStackStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any TimelineTimeStackStyle] = []
+struct TimestampStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any TimestampStyle] = []
 }
 
 extension EnvironmentValues {
-    var timelineTimeStackStyle: any TimelineTimeStackStyle {
-        self.timelineTimeStackStyleStack.last ?? .base.concat(.fiori)
+    var timestampStyle: any TimestampStyle {
+        self.timestampStyleStack.last ?? .base
     }
 
-    var timelineTimeStackStyleStack: [any TimelineTimeStackStyle] {
+    var timestampStyleStack: [any TimestampStyle] {
         get {
-            self[TimelineTimeStackStyleStackKey.self]
+            self[TimestampStyleStackKey.self]
         }
         set {
-            self[TimelineTimeStackStyleStackKey.self] = newValue
-        }
-    }
-}
-
-// MARK: TimestampLabelStyle
-
-struct TimestampLabelStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any TimestampLabelStyle] = []
-}
-
-extension EnvironmentValues {
-    var timestampLabelStyle: any TimestampLabelStyle {
-        self.timestampLabelStyleStack.last ?? .base
-    }
-
-    var timestampLabelStyleStack: [any TimestampLabelStyle] {
-        get {
-            self[TimestampLabelStyleStackKey.self]
-        }
-        set {
-            self[TimestampLabelStyleStackKey.self] = newValue
+            self[TimestampStyleStackKey.self] = newValue
         }
     }
 }
@@ -1805,48 +1658,6 @@ extension EnvironmentValues {
         }
         set {
             self[TopDividerStyleStackKey.self] = newValue
-        }
-    }
-}
-
-// MARK: TrailingHorizontalLineStyle
-
-struct TrailingHorizontalLineStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any TrailingHorizontalLineStyle] = []
-}
-
-extension EnvironmentValues {
-    var trailingHorizontalLineStyle: any TrailingHorizontalLineStyle {
-        self.trailingHorizontalLineStyleStack.last ?? .base
-    }
-
-    var trailingHorizontalLineStyleStack: [any TrailingHorizontalLineStyle] {
-        get {
-            self[TrailingHorizontalLineStyleStackKey.self]
-        }
-        set {
-            self[TrailingHorizontalLineStyleStackKey.self] = newValue
-        }
-    }
-}
-
-// MARK: UpperVerticalLineStyle
-
-struct UpperVerticalLineStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any UpperVerticalLineStyle] = []
-}
-
-extension EnvironmentValues {
-    var upperVerticalLineStyle: any UpperVerticalLineStyle {
-        self.upperVerticalLineStyleStack.last ?? .base
-    }
-
-    var upperVerticalLineStyleStack: [any UpperVerticalLineStyle] {
-        get {
-            self[UpperVerticalLineStyleStackKey.self]
-        }
-        set {
-            self[UpperVerticalLineStyleStackKey.self] = newValue
         }
     }
 }

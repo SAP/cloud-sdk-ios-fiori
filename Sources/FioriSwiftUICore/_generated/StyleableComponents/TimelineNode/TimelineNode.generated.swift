@@ -4,30 +4,20 @@ import Foundation
 import SwiftUI
 
 public struct TimelineNode {
-    let upperVerticalLine: any View
-    let nodeImage: any View
-    let lowerVerticalLine: any View
+    let timelineNode: any View
 
     @Environment(\.timelineNodeStyle) var style
 
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder upperVerticalLine: () -> any View = { Rectangle().fill(Color.clear) },
-                @ViewBuilder nodeImage: () -> any View,
-                @ViewBuilder lowerVerticalLine: () -> any View = { Rectangle().fill(Color.clear) })
-    {
-        self.upperVerticalLine = UpperVerticalLine { upperVerticalLine() }
-        self.nodeImage = NodeImage { nodeImage() }
-        self.lowerVerticalLine = LowerVerticalLine { lowerVerticalLine() }
+    public init(@ViewBuilder timelineNode: () -> any View) {
+        self.timelineNode = timelineNode()
     }
 }
 
 public extension TimelineNode {
-    init(@ViewBuilder upperVerticalLine: () -> any View = { Rectangle().fill(Color.clear) },
-         nodeImage: TimelineNodeType,
-         @ViewBuilder lowerVerticalLine: () -> any View = { Rectangle().fill(Color.clear) })
-    {
-        self.init(upperVerticalLine: upperVerticalLine, nodeImage: { TimelineNodeView(nodeImage) }, lowerVerticalLine: lowerVerticalLine)
+    init(timelineNode: TimelineNodeType) {
+        self.init(timelineNode: { TimelineNodeView(timelineNode) })
     }
 }
 
@@ -37,9 +27,7 @@ public extension TimelineNode {
     }
 
     internal init(_ configuration: TimelineNodeConfiguration, shouldApplyDefaultStyle: Bool) {
-        self.upperVerticalLine = configuration.upperVerticalLine
-        self.nodeImage = configuration.nodeImage
-        self.lowerVerticalLine = configuration.lowerVerticalLine
+        self.timelineNode = configuration.timelineNode
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
     }
 }
@@ -49,7 +37,7 @@ extension TimelineNode: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(upperVerticalLine: .init(self.upperVerticalLine), nodeImage: .init(self.nodeImage), lowerVerticalLine: .init(self.lowerVerticalLine))).typeErased
+            self.style.resolve(configuration: .init(timelineNode: .init(self.timelineNode))).typeErased
                 .transformEnvironment(\.timelineNodeStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -67,9 +55,9 @@ private extension TimelineNode {
     }
 
     func defaultStyle() -> some View {
-        TimelineNode(.init(upperVerticalLine: .init(self.upperVerticalLine), nodeImage: .init(self.nodeImage), lowerVerticalLine: .init(self.lowerVerticalLine)))
+        TimelineNode(timelineNode: { self.timelineNode })
             .shouldApplyDefaultStyle(false)
-            .timelineNodeStyle(TimelineNodeFioriStyle.ContentFioriStyle())
+            .timelineNodeStyle(.fiori)
             .typeErased
     }
 }

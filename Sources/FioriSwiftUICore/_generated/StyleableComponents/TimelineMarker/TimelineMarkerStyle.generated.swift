@@ -22,39 +22,30 @@ struct AnyTimelineMarkerStyle: TimelineMarkerStyle {
 }
 
 public struct TimelineMarkerConfiguration {
-    public let timestampLabel: TimestampLabel
-    public let secondaryTimestampLabel: SecondaryTimestampLabel
-    public let secondaryTimestampImage: SecondaryTimestampImage
-    public let upperVerticalLine: UpperVerticalLine
-    public let nodeImage: NodeImage
-    public let lowerVerticalLine: LowerVerticalLine
-    public let showUpperVerticalLine: Bool
-    public let showLowerVerticalLine: Bool
+    public let timestamp: Timestamp
+    public let secondaryTimestamp: SecondaryTimestamp
+    public let timelineNode: TimelineNode
+    public let icon: Icon
     public let title: Title
     public let isPast: Bool
     public let isPresent: Bool
+    public let showUpperVerticalLine: Bool
+    public let showLowerVerticalLine: Bool
 
-    public typealias TimestampLabel = ConfigurationViewWrapper
-    public typealias SecondaryTimestampLabel = ConfigurationViewWrapper
-    public typealias SecondaryTimestampImage = ConfigurationViewWrapper
-    public typealias UpperVerticalLine = ConfigurationViewWrapper
-    public typealias NodeImage = ConfigurationViewWrapper
-    public typealias LowerVerticalLine = ConfigurationViewWrapper
+    public typealias Timestamp = ConfigurationViewWrapper
+    public typealias SecondaryTimestamp = ConfigurationViewWrapper
+    public typealias TimelineNode = ConfigurationViewWrapper
+    public typealias Icon = ConfigurationViewWrapper
     public typealias Title = ConfigurationViewWrapper
 }
 
 public struct TimelineMarkerFioriStyle: TimelineMarkerStyle {
     public func makeBody(_ configuration: TimelineMarkerConfiguration) -> some View {
         TimelineMarker(configuration)
-            .timestampLabelStyle(TimestampLabelFioriStyle(timelineMarkerConfiguration: configuration))
-            .secondaryTimestampLabelStyle(SecondaryTimestampLabelFioriStyle(timelineMarkerConfiguration: configuration))
-            .secondaryTimestampImageStyle(SecondaryTimestampImageFioriStyle(timelineMarkerConfiguration: configuration))
-            .upperVerticalLineStyle(UpperVerticalLineFioriStyle(timelineMarkerConfiguration: configuration))
-            .nodeImageStyle(NodeImageFioriStyle(timelineMarkerConfiguration: configuration))
-            .lowerVerticalLineStyle(LowerVerticalLineFioriStyle(timelineMarkerConfiguration: configuration))
+            .timestampStyle(TimestampFioriStyle(timelineMarkerConfiguration: configuration))
+            .secondaryTimestampStyle(SecondaryTimestampFioriStyle(timelineMarkerConfiguration: configuration))
+            .timelineNodeStyle(TimelineNodeFioriStyle(timelineMarkerConfiguration: configuration))
+            .iconStyle(IconFioriStyle(timelineMarkerConfiguration: configuration))
             .titleStyle(TitleFioriStyle(timelineMarkerConfiguration: configuration))
-            .timelineTimeStackStyle(TimelineTimeStackFioriStyle(timelineMarkerConfiguration: configuration))
-            .timelineMarkerNodeStyle(TimelineMarkerNodeFioriStyle(timelineMarkerConfiguration: configuration))
-            .timelineMarkerMainStackStyle(TimelineMarkerMainStackFioriStyle(timelineMarkerConfiguration: configuration))
     }
 }

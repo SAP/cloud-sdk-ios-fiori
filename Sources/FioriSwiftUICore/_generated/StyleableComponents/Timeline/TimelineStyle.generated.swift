@@ -22,12 +22,10 @@ struct AnyTimelineStyle: TimelineStyle {
 }
 
 public struct TimelineConfiguration {
-    public let timestampLabel: TimestampLabel
-    public let secondaryTimestampLabel: SecondaryTimestampLabel
-    public let secondaryTimestampImage: SecondaryTimestampImage
-    public let upperVerticalLine: UpperVerticalLine
-    public let nodeImage: NodeImage
-    public let lowerVerticalLine: LowerVerticalLine
+    public let timestamp: Timestamp
+    public let secondaryTimestamp: SecondaryTimestamp
+    public let timelineNode: TimelineNode
+    public let icon: Icon
     public let title: Title
     public let subtitle: Subtitle
     public let attribute: Attribute
@@ -37,12 +35,10 @@ public struct TimelineConfiguration {
     public let isPast: Bool
     public let isPresent: Bool
 
-    public typealias TimestampLabel = ConfigurationViewWrapper
-    public typealias SecondaryTimestampLabel = ConfigurationViewWrapper
-    public typealias SecondaryTimestampImage = ConfigurationViewWrapper
-    public typealias UpperVerticalLine = ConfigurationViewWrapper
-    public typealias NodeImage = ConfigurationViewWrapper
-    public typealias LowerVerticalLine = ConfigurationViewWrapper
+    public typealias Timestamp = ConfigurationViewWrapper
+    public typealias SecondaryTimestamp = ConfigurationViewWrapper
+    public typealias TimelineNode = ConfigurationViewWrapper
+    public typealias Icon = ConfigurationViewWrapper
     public typealias Title = ConfigurationViewWrapper
     public typealias Subtitle = ConfigurationViewWrapper
     public typealias Attribute = ConfigurationViewWrapper
@@ -54,20 +50,15 @@ public struct TimelineConfiguration {
 public struct TimelineFioriStyle: TimelineStyle {
     public func makeBody(_ configuration: TimelineConfiguration) -> some View {
         Timeline(configuration)
-            .timestampLabelStyle(TimestampLabelFioriStyle(timelineConfiguration: configuration))
-            .secondaryTimestampLabelStyle(SecondaryTimestampLabelFioriStyle(timelineConfiguration: configuration))
-            .secondaryTimestampImageStyle(SecondaryTimestampImageFioriStyle(timelineConfiguration: configuration))
-            .upperVerticalLineStyle(UpperVerticalLineFioriStyle(timelineConfiguration: configuration))
-            .nodeImageStyle(NodeImageFioriStyle(timelineConfiguration: configuration))
-            .lowerVerticalLineStyle(LowerVerticalLineFioriStyle(timelineConfiguration: configuration))
+            .timestampStyle(TimestampFioriStyle(timelineConfiguration: configuration))
+            .secondaryTimestampStyle(SecondaryTimestampFioriStyle(timelineConfiguration: configuration))
+            .timelineNodeStyle(TimelineNodeFioriStyle(timelineConfiguration: configuration))
+            .iconStyle(IconFioriStyle(timelineConfiguration: configuration))
             .titleStyle(TitleFioriStyle(timelineConfiguration: configuration))
             .subtitleStyle(SubtitleFioriStyle(timelineConfiguration: configuration))
             .attributeStyle(AttributeFioriStyle(timelineConfiguration: configuration))
             .statusStyle(StatusFioriStyle(timelineConfiguration: configuration))
             .substatusStyle(SubstatusFioriStyle(timelineConfiguration: configuration))
             .subAttributeStyle(SubAttributeFioriStyle(timelineConfiguration: configuration))
-            .timelineTimeStackStyle(TimelineTimeStackFioriStyle(timelineConfiguration: configuration))
-            .timelineNodeStyle(TimelineNodeFioriStyle(timelineConfiguration: configuration))
-            .timelineMainStackStyle(TimelineMainStackFioriStyle(timelineConfiguration: configuration))
     }
 }

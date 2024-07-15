@@ -8,74 +8,66 @@ import SwiftUI
 ///
 /// ## Notes
 /// ### Separator between TimelineMarker Items in the List
-/// SwiftUI all list styles include separators by default. Because of this default setting, there can be a divider line or a separator in between each item on the timelineMarker in the list. This is not an issue in timelineMarker. To get rid of the separator, set ‘listRowSeparator’ modifier to hidden.
+/// All list styles in SwiftUI include separators by default. This is why there is a separator between two timelineMarker items in the list. To get rid of the separator, set ‘listRowSeparator’ modifier to hidden.
 ///
 /// ## Usage
 /// ```swift
-/// TimelineMarker(timestampLabel: "06/20/24", secondaryTimestampImage: { Image(systemName: "sun.max")}(), nodeImage: .predefine(TimelineNodeStatus.beforeStart), showUpperVerticalLine: false, title: "Before Start", isPast: true)
-/// TimelineMarker(timestampLabel: "06/04/24", secondaryTimestampLabel: "Sunny", nodeImage: .custom(Image(systemName: "s.circle")), title: "Project Start", isPresent: true)
+/// TimelineMarker(timestampLabel: "06/20/24", secondaryTimestampImage: { Image(systemName: "sun.max")}(), nodeImage: .beforeEnd(), showUpperVerticalLine: false, title: "Before Start", isPast: true)
+/// TimelineMarker(timestampLabel: "06/04/24", secondaryTimestampLabel: "Sunny", nodeImage: .open(Image(systemName: "a.circle")), title: "Project Start", isPresent: true)
 /// ```
 public struct TimelineMarker {
-    let timestampLabel: any View
-    let secondaryTimestampLabel: any View
-    let secondaryTimestampImage: any View
-    let upperVerticalLine: any View
-    let nodeImage: any View
-    let lowerVerticalLine: any View
-    /// check if show upper vertical line
-    let showUpperVerticalLine: Bool
-    /// check if show lower vertical line
-    let showLowerVerticalLine: Bool
+    let timestamp: any View
+    let secondaryTimestamp: any View
+    let timelineNode: any View
+    let icon: any View
     let title: any View
     /// check if event is past
     let isPast: Bool
     /// check if event is present
     let isPresent: Bool
+    /// Show upper vertical line or not. Default is to show.
+    let showUpperVerticalLine: Bool
+    /// Show lower vertical line or not. Default is to show.
+    let showLowerVerticalLine: Bool
 
     @Environment(\.timelineMarkerStyle) var style
 
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder timestampLabel: () -> any View = { EmptyView() },
-                @ViewBuilder secondaryTimestampLabel: () -> any View = { EmptyView() },
-                @ViewBuilder secondaryTimestampImage: () -> any View = { EmptyView() },
-                @ViewBuilder upperVerticalLine: () -> any View = { Rectangle().fill(Color.clear) },
-                @ViewBuilder nodeImage: () -> any View,
-                @ViewBuilder lowerVerticalLine: () -> any View = { Rectangle().fill(Color.clear) },
-                showUpperVerticalLine: Bool = true,
-                showLowerVerticalLine: Bool = true,
+    public init(@ViewBuilder timestamp: () -> any View = { EmptyView() },
+                @ViewBuilder secondaryTimestamp: () -> any View = { EmptyView() },
+                @ViewBuilder timelineNode: () -> any View,
+                @ViewBuilder icon: () -> any View = { EmptyView() },
                 @ViewBuilder title: () -> any View,
                 isPast: Bool = false,
-                isPresent: Bool = false)
+                isPresent: Bool = false,
+                showUpperVerticalLine: Bool = true,
+                showLowerVerticalLine: Bool = true)
     {
-        self.timestampLabel = TimestampLabel { timestampLabel() }
-        self.secondaryTimestampLabel = SecondaryTimestampLabel { secondaryTimestampLabel() }
-        self.secondaryTimestampImage = SecondaryTimestampImage { secondaryTimestampImage() }
-        self.upperVerticalLine = UpperVerticalLine { upperVerticalLine() }
-        self.nodeImage = NodeImage { nodeImage() }
-        self.lowerVerticalLine = LowerVerticalLine { lowerVerticalLine() }
-        self.showUpperVerticalLine = showUpperVerticalLine
-        self.showLowerVerticalLine = showLowerVerticalLine
+        self.timestamp = Timestamp { timestamp() }
+        self.secondaryTimestamp = SecondaryTimestamp { secondaryTimestamp() }
+        self.timelineNode = TimelineNode { timelineNode() }
+        self.icon = Icon { icon() }
         self.title = Title { title() }
         self.isPast = isPast
         self.isPresent = isPresent
+        self.showUpperVerticalLine = showUpperVerticalLine
+        self.showLowerVerticalLine = showLowerVerticalLine
     }
 }
 
 public extension TimelineMarker {
-    init(timestampLabel: AttributedString? = nil,
-         secondaryTimestampLabel: AttributedString? = nil,
-         secondaryTimestampImage: Image? = nil,
-         @ViewBuilder upperVerticalLine: () -> any View = { Rectangle().fill(Color.clear) },
-         nodeImage: TimelineNodeType,
-         @ViewBuilder lowerVerticalLine: () -> any View = { Rectangle().fill(Color.clear) },
-         showUpperVerticalLine: Bool = true,
-         showLowerVerticalLine: Bool = true,
+    init(timestamp: AttributedString? = nil,
+         secondaryTimestamp: TextOrIcon? = nil,
+         timelineNode: TimelineNodeType,
+         icon: Image? = nil,
          title: AttributedString,
          isPast: Bool = false,
-         isPresent: Bool = false)
+         isPresent: Bool = false,
+         showUpperVerticalLine: Bool = true,
+         showLowerVerticalLine: Bool = true)
     {
-        self.init(timestampLabel: { OptionalText(timestampLabel) }, secondaryTimestampLabel: { OptionalText(secondaryTimestampLabel) }, secondaryTimestampImage: { secondaryTimestampImage }, upperVerticalLine: upperVerticalLine, nodeImage: { TimelineNodeView(nodeImage) }, lowerVerticalLine: lowerVerticalLine, showUpperVerticalLine: showUpperVerticalLine, showLowerVerticalLine: showLowerVerticalLine, title: { Text(title) }, isPast: isPast, isPresent: isPresent)
+        self.init(timestamp: { OptionalText(timestamp) }, secondaryTimestamp: { TextOrIconView(secondaryTimestamp) }, timelineNode: { TimelineNodeView(timelineNode) }, icon: { icon }, title: { Text(title) }, isPast: isPast, isPresent: isPresent, showUpperVerticalLine: showUpperVerticalLine, showLowerVerticalLine: showLowerVerticalLine)
     }
 }
 
@@ -85,17 +77,15 @@ public extension TimelineMarker {
     }
 
     internal init(_ configuration: TimelineMarkerConfiguration, shouldApplyDefaultStyle: Bool) {
-        self.timestampLabel = configuration.timestampLabel
-        self.secondaryTimestampLabel = configuration.secondaryTimestampLabel
-        self.secondaryTimestampImage = configuration.secondaryTimestampImage
-        self.upperVerticalLine = configuration.upperVerticalLine
-        self.nodeImage = configuration.nodeImage
-        self.lowerVerticalLine = configuration.lowerVerticalLine
-        self.showUpperVerticalLine = configuration.showUpperVerticalLine
-        self.showLowerVerticalLine = configuration.showLowerVerticalLine
+        self.timestamp = configuration.timestamp
+        self.secondaryTimestamp = configuration.secondaryTimestamp
+        self.timelineNode = configuration.timelineNode
+        self.icon = configuration.icon
         self.title = configuration.title
         self.isPast = configuration.isPast
         self.isPresent = configuration.isPresent
+        self.showUpperVerticalLine = configuration.showUpperVerticalLine
+        self.showLowerVerticalLine = configuration.showLowerVerticalLine
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
     }
 }
@@ -105,7 +95,7 @@ extension TimelineMarker: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(timestampLabel: .init(self.timestampLabel), secondaryTimestampLabel: .init(self.secondaryTimestampLabel), secondaryTimestampImage: .init(self.secondaryTimestampImage), upperVerticalLine: .init(self.upperVerticalLine), nodeImage: .init(self.nodeImage), lowerVerticalLine: .init(self.lowerVerticalLine), showUpperVerticalLine: self.showUpperVerticalLine, showLowerVerticalLine: self.showLowerVerticalLine, title: .init(self.title), isPast: self.isPast, isPresent: self.isPresent)).typeErased
+            self.style.resolve(configuration: .init(timestamp: .init(self.timestamp), secondaryTimestamp: .init(self.secondaryTimestamp), timelineNode: .init(self.timelineNode), icon: .init(self.icon), title: .init(self.title), isPast: self.isPast, isPresent: self.isPresent, showUpperVerticalLine: self.showUpperVerticalLine, showLowerVerticalLine: self.showLowerVerticalLine)).typeErased
                 .transformEnvironment(\.timelineMarkerStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -123,7 +113,7 @@ private extension TimelineMarker {
     }
 
     func defaultStyle() -> some View {
-        TimelineMarker(.init(timestampLabel: .init(self.timestampLabel), secondaryTimestampLabel: .init(self.secondaryTimestampLabel), secondaryTimestampImage: .init(self.secondaryTimestampImage), upperVerticalLine: .init(self.upperVerticalLine), nodeImage: .init(self.nodeImage), lowerVerticalLine: .init(self.lowerVerticalLine), showUpperVerticalLine: self.showUpperVerticalLine, showLowerVerticalLine: self.showLowerVerticalLine, title: .init(self.title), isPast: self.isPast, isPresent: self.isPresent))
+        TimelineMarker(.init(timestamp: .init(self.timestamp), secondaryTimestamp: .init(self.secondaryTimestamp), timelineNode: .init(self.timelineNode), icon: .init(self.icon), title: .init(self.title), isPast: self.isPast, isPresent: self.isPresent, showUpperVerticalLine: self.showUpperVerticalLine, showLowerVerticalLine: self.showLowerVerticalLine))
             .shouldApplyDefaultStyle(false)
             .timelineMarkerStyle(TimelineMarkerFioriStyle.ContentFioriStyle())
             .typeErased

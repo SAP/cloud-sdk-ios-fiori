@@ -595,22 +595,6 @@ extension LinearProgressIndicatorViewStyle {
     }
 }
 
-// MARK: LowerVerticalLineStyle
-
-struct ResolvedLowerVerticalLineStyle<Style: LowerVerticalLineStyle>: View {
-    let style: Style
-    let configuration: LowerVerticalLineConfiguration
-    var body: some View {
-        self.style.makeBody(self.configuration)
-    }
-}
-
-extension LowerVerticalLineStyle {
-    func resolve(configuration: LowerVerticalLineConfiguration) -> some View {
-        ResolvedLowerVerticalLineStyle(style: self, configuration: configuration)
-    }
-}
-
 // MARK: MandatoryFieldIndicatorStyle
 
 struct ResolvedMandatoryFieldIndicatorStyle<Style: MandatoryFieldIndicatorStyle>: View {
@@ -704,22 +688,6 @@ struct ResolvedMoreActionOverflowStyle<Style: MoreActionOverflowStyle>: View {
 extension MoreActionOverflowStyle {
     func resolve(configuration: MoreActionOverflowConfiguration) -> some View {
         ResolvedMoreActionOverflowStyle(style: self, configuration: configuration)
-    }
-}
-
-// MARK: NodeImageStyle
-
-struct ResolvedNodeImageStyle<Style: NodeImageStyle>: View {
-    let style: Style
-    let configuration: NodeImageConfiguration
-    var body: some View {
-        self.style.makeBody(self.configuration)
-    }
-}
-
-extension NodeImageStyle {
-    func resolve(configuration: NodeImageConfiguration) -> some View {
-        ResolvedNodeImageStyle(style: self, configuration: configuration)
     }
 }
 
@@ -915,35 +883,19 @@ extension SecondaryActionStyle {
     }
 }
 
-// MARK: SecondaryTimestampImageStyle
+// MARK: SecondaryTimestampStyle
 
-struct ResolvedSecondaryTimestampImageStyle<Style: SecondaryTimestampImageStyle>: View {
+struct ResolvedSecondaryTimestampStyle<Style: SecondaryTimestampStyle>: View {
     let style: Style
-    let configuration: SecondaryTimestampImageConfiguration
+    let configuration: SecondaryTimestampConfiguration
     var body: some View {
         self.style.makeBody(self.configuration)
     }
 }
 
-extension SecondaryTimestampImageStyle {
-    func resolve(configuration: SecondaryTimestampImageConfiguration) -> some View {
-        ResolvedSecondaryTimestampImageStyle(style: self, configuration: configuration)
-    }
-}
-
-// MARK: SecondaryTimestampLabelStyle
-
-struct ResolvedSecondaryTimestampLabelStyle<Style: SecondaryTimestampLabelStyle>: View {
-    let style: Style
-    let configuration: SecondaryTimestampLabelConfiguration
-    var body: some View {
-        self.style.makeBody(self.configuration)
-    }
-}
-
-extension SecondaryTimestampLabelStyle {
-    func resolve(configuration: SecondaryTimestampLabelConfiguration) -> some View {
-        ResolvedSecondaryTimestampLabelStyle(style: self, configuration: configuration)
+extension SecondaryTimestampStyle {
+    func resolve(configuration: SecondaryTimestampConfiguration) -> some View {
+        ResolvedSecondaryTimestampStyle(style: self, configuration: configuration)
     }
 }
 
@@ -1203,22 +1155,6 @@ extension TimelineStyle {
     }
 }
 
-// MARK: TimelineMainStackStyle
-
-struct ResolvedTimelineMainStackStyle<Style: TimelineMainStackStyle>: View {
-    let style: Style
-    let configuration: TimelineMainStackConfiguration
-    var body: some View {
-        self.style.makeBody(self.configuration)
-    }
-}
-
-extension TimelineMainStackStyle {
-    func resolve(configuration: TimelineMainStackConfiguration) -> some View {
-        ResolvedTimelineMainStackStyle(style: self, configuration: configuration)
-    }
-}
-
 // MARK: TimelineMarkerStyle
 
 struct ResolvedTimelineMarkerStyle<Style: TimelineMarkerStyle>: View {
@@ -1232,38 +1168,6 @@ struct ResolvedTimelineMarkerStyle<Style: TimelineMarkerStyle>: View {
 extension TimelineMarkerStyle {
     func resolve(configuration: TimelineMarkerConfiguration) -> some View {
         ResolvedTimelineMarkerStyle(style: self, configuration: configuration)
-    }
-}
-
-// MARK: TimelineMarkerMainStackStyle
-
-struct ResolvedTimelineMarkerMainStackStyle<Style: TimelineMarkerMainStackStyle>: View {
-    let style: Style
-    let configuration: TimelineMarkerMainStackConfiguration
-    var body: some View {
-        self.style.makeBody(self.configuration)
-    }
-}
-
-extension TimelineMarkerMainStackStyle {
-    func resolve(configuration: TimelineMarkerMainStackConfiguration) -> some View {
-        ResolvedTimelineMarkerMainStackStyle(style: self, configuration: configuration)
-    }
-}
-
-// MARK: TimelineMarkerNodeStyle
-
-struct ResolvedTimelineMarkerNodeStyle<Style: TimelineMarkerNodeStyle>: View {
-    let style: Style
-    let configuration: TimelineMarkerNodeConfiguration
-    var body: some View {
-        self.style.makeBody(self.configuration)
-    }
-}
-
-extension TimelineMarkerNodeStyle {
-    func resolve(configuration: TimelineMarkerNodeConfiguration) -> some View {
-        ResolvedTimelineMarkerNodeStyle(style: self, configuration: configuration)
     }
 }
 
@@ -1299,35 +1203,19 @@ extension TimelineNowIndicatorStyle {
     }
 }
 
-// MARK: TimelineTimeStackStyle
+// MARK: TimestampStyle
 
-struct ResolvedTimelineTimeStackStyle<Style: TimelineTimeStackStyle>: View {
+struct ResolvedTimestampStyle<Style: TimestampStyle>: View {
     let style: Style
-    let configuration: TimelineTimeStackConfiguration
+    let configuration: TimestampConfiguration
     var body: some View {
         self.style.makeBody(self.configuration)
     }
 }
 
-extension TimelineTimeStackStyle {
-    func resolve(configuration: TimelineTimeStackConfiguration) -> some View {
-        ResolvedTimelineTimeStackStyle(style: self, configuration: configuration)
-    }
-}
-
-// MARK: TimestampLabelStyle
-
-struct ResolvedTimestampLabelStyle<Style: TimestampLabelStyle>: View {
-    let style: Style
-    let configuration: TimestampLabelConfiguration
-    var body: some View {
-        self.style.makeBody(self.configuration)
-    }
-}
-
-extension TimestampLabelStyle {
-    func resolve(configuration: TimestampLabelConfiguration) -> some View {
-        ResolvedTimestampLabelStyle(style: self, configuration: configuration)
+extension TimestampStyle {
+    func resolve(configuration: TimestampConfiguration) -> some View {
+        ResolvedTimestampStyle(style: self, configuration: configuration)
     }
 }
 
@@ -1376,37 +1264,5 @@ struct ResolvedTopDividerStyle<Style: TopDividerStyle>: View {
 extension TopDividerStyle {
     func resolve(configuration: TopDividerConfiguration) -> some View {
         ResolvedTopDividerStyle(style: self, configuration: configuration)
-    }
-}
-
-// MARK: TrailingHorizontalLineStyle
-
-struct ResolvedTrailingHorizontalLineStyle<Style: TrailingHorizontalLineStyle>: View {
-    let style: Style
-    let configuration: TrailingHorizontalLineConfiguration
-    var body: some View {
-        self.style.makeBody(self.configuration)
-    }
-}
-
-extension TrailingHorizontalLineStyle {
-    func resolve(configuration: TrailingHorizontalLineConfiguration) -> some View {
-        ResolvedTrailingHorizontalLineStyle(style: self, configuration: configuration)
-    }
-}
-
-// MARK: UpperVerticalLineStyle
-
-struct ResolvedUpperVerticalLineStyle<Style: UpperVerticalLineStyle>: View {
-    let style: Style
-    let configuration: UpperVerticalLineConfiguration
-    var body: some View {
-        self.style.makeBody(self.configuration)
-    }
-}
-
-extension UpperVerticalLineStyle {
-    func resolve(configuration: UpperVerticalLineConfiguration) -> some View {
-        ResolvedUpperVerticalLineStyle(style: self, configuration: configuration)
     }
 }

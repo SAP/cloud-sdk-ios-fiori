@@ -3,42 +3,42 @@
 import Foundation
 import SwiftUI
 
-public struct NodeImage {
-    let nodeImage: any View
+public struct Timestamp {
+    let timestamp: any View
 
-    @Environment(\.nodeImageStyle) var style
+    @Environment(\.timestampStyle) var style
 
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder nodeImage: () -> any View) {
-        self.nodeImage = nodeImage()
+    public init(@ViewBuilder timestamp: () -> any View = { EmptyView() }) {
+        self.timestamp = timestamp()
     }
 }
 
-public extension NodeImage {
-    init(nodeImage: TimelineNodeType) {
-        self.init(nodeImage: { TimelineNodeView(nodeImage) })
+public extension Timestamp {
+    init(timestamp: AttributedString? = nil) {
+        self.init(timestamp: { OptionalText(timestamp) })
     }
 }
 
-public extension NodeImage {
-    init(_ configuration: NodeImageConfiguration) {
+public extension Timestamp {
+    init(_ configuration: TimestampConfiguration) {
         self.init(configuration, shouldApplyDefaultStyle: false)
     }
 
-    internal init(_ configuration: NodeImageConfiguration, shouldApplyDefaultStyle: Bool) {
-        self.nodeImage = configuration.nodeImage
+    internal init(_ configuration: TimestampConfiguration, shouldApplyDefaultStyle: Bool) {
+        self.timestamp = configuration.timestamp
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
     }
 }
 
-extension NodeImage: View {
+extension Timestamp: View {
     public var body: some View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(nodeImage: .init(self.nodeImage))).typeErased
-                .transformEnvironment(\.nodeImageStyleStack) { stack in
+            self.style.resolve(configuration: .init(timestamp: .init(self.timestamp))).typeErased
+                .transformEnvironment(\.timestampStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
                     }
@@ -47,7 +47,7 @@ extension NodeImage: View {
     }
 }
 
-private extension NodeImage {
+private extension Timestamp {
     func shouldApplyDefaultStyle(_ bool: Bool) -> some View {
         var s = self
         s._shouldApplyDefaultStyle = bool
@@ -55,9 +55,9 @@ private extension NodeImage {
     }
 
     func defaultStyle() -> some View {
-        NodeImage(nodeImage: { self.nodeImage })
+        Timestamp(timestamp: { self.timestamp })
             .shouldApplyDefaultStyle(false)
-            .nodeImageStyle(.fiori)
+            .timestampStyle(.fiori)
             .typeErased
     }
 }

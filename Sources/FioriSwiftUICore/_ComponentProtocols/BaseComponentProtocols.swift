@@ -272,27 +272,21 @@ protocol _CloseActionComponent {
 }
 
 // sourcery: BaseComponent
-protocol _TimestampLabelComponent {
+protocol _TimestampComponent {
     // sourcery: @ViewBuilder
-    var timestampLabel: AttributedString? { get }
+    var timestamp: AttributedString? { get }
 }
 
 // sourcery: BaseComponent
-protocol _SecondaryTimestampLabelComponent {
+protocol _SecondaryTimestampComponent {
     // sourcery: @ViewBuilder
-    var secondaryTimestampLabel: AttributedString? { get }
+    var secondaryTimestamp: TextOrIcon? { get }
 }
 
 // sourcery: BaseComponent
-protocol _SecondaryTimestampImageComponent {
-    // sourcery: @ViewBuilder
-    var secondaryTimestampImage: Image? { get }
-}
-
-// sourcery: BaseComponent
-protocol _NodeImageComponent {
+protocol _TimelineNodeComponent {
     // sourcery: resultBuilder.name = @ViewBuilder, resultBuilder.backingComponent = TimelineNodeView
-    var nodeImage: TimelineNodeType { get }
+    var timelineNode: TimelineNodeType { get }
 }
 
 // sourcery: BaseComponent
@@ -308,29 +302,8 @@ protocol _SubAttributeComponent {
 }
 
 // sourcery: BaseComponent
-protocol _UpperVerticalLineComponent {
-    // sourcery: defaultValue = "{ Rectangle().fill(Color.clear) }"
-    @ViewBuilder
-    var upperVerticalLine: (() -> any View)? { get }
-}
-
-// sourcery: BaseComponent
-protocol _LowerVerticalLineComponent {
-    // sourcery: defaultValue = "{ Rectangle().fill(Color.clear) }"
-    @ViewBuilder
-    var lowerVerticalLine: (() -> any View)? { get }
-}
-
-// sourcery: BaseComponent
 protocol _NowIndicatorNodeComponent {
     // sourcery: defaultValue = "{ Image(systemName: "circle.fill") }"
     @ViewBuilder
     var nowIndicatorNode: (() -> any View)? { get }
-}
-
-// sourcery: BaseComponent
-protocol _TrailingHorizontalLineComponent {
-    // sourcery: defaultValue = "{ Rectangle().fill(Color.clear) }"
-    @ViewBuilder
-    var trailingHorizontalLine: (() -> any View)? { get }
 }

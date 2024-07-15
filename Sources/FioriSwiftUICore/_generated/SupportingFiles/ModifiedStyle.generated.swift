@@ -1044,34 +1044,6 @@ public extension LinearProgressIndicatorViewStyle {
     }
 }
 
-// MARK: LowerVerticalLineStyle
-
-extension ModifiedStyle: LowerVerticalLineStyle where Style: LowerVerticalLineStyle {
-    public func makeBody(_ configuration: LowerVerticalLineConfiguration) -> some View {
-        LowerVerticalLine(configuration)
-            .lowerVerticalLineStyle(self.style)
-            .modifier(self.modifier)
-    }
-}
-
-public struct LowerVerticalLineStyleModifier<Style: LowerVerticalLineStyle>: ViewModifier {
-    let style: Style
-
-    public func body(content: Content) -> some View {
-        content.lowerVerticalLineStyle(self.style)
-    }
-}
-
-public extension LowerVerticalLineStyle {
-    func modifier(_ modifier: some ViewModifier) -> some LowerVerticalLineStyle {
-        ModifiedStyle(style: self, modifier: modifier)
-    }
-
-    func concat(_ style: some LowerVerticalLineStyle) -> some LowerVerticalLineStyle {
-        style.modifier(LowerVerticalLineStyleModifier(style: self))
-    }
-}
-
 // MARK: MandatoryFieldIndicatorStyle
 
 extension ModifiedStyle: MandatoryFieldIndicatorStyle where Style: MandatoryFieldIndicatorStyle {
@@ -1237,34 +1209,6 @@ public extension MoreActionOverflowStyle {
 
     func concat(_ style: some MoreActionOverflowStyle) -> some MoreActionOverflowStyle {
         style.modifier(MoreActionOverflowStyleModifier(style: self))
-    }
-}
-
-// MARK: NodeImageStyle
-
-extension ModifiedStyle: NodeImageStyle where Style: NodeImageStyle {
-    public func makeBody(_ configuration: NodeImageConfiguration) -> some View {
-        NodeImage(configuration)
-            .nodeImageStyle(self.style)
-            .modifier(self.modifier)
-    }
-}
-
-public struct NodeImageStyleModifier<Style: NodeImageStyle>: ViewModifier {
-    let style: Style
-
-    public func body(content: Content) -> some View {
-        content.nodeImageStyle(self.style)
-    }
-}
-
-public extension NodeImageStyle {
-    func modifier(_ modifier: some ViewModifier) -> some NodeImageStyle {
-        ModifiedStyle(style: self, modifier: modifier)
-    }
-
-    func concat(_ style: some NodeImageStyle) -> some NodeImageStyle {
-        style.modifier(NodeImageStyleModifier(style: self))
     }
 }
 
@@ -1604,59 +1548,31 @@ public extension SecondaryActionStyle {
     }
 }
 
-// MARK: SecondaryTimestampImageStyle
+// MARK: SecondaryTimestampStyle
 
-extension ModifiedStyle: SecondaryTimestampImageStyle where Style: SecondaryTimestampImageStyle {
-    public func makeBody(_ configuration: SecondaryTimestampImageConfiguration) -> some View {
-        SecondaryTimestampImage(configuration)
-            .secondaryTimestampImageStyle(self.style)
+extension ModifiedStyle: SecondaryTimestampStyle where Style: SecondaryTimestampStyle {
+    public func makeBody(_ configuration: SecondaryTimestampConfiguration) -> some View {
+        SecondaryTimestamp(configuration)
+            .secondaryTimestampStyle(self.style)
             .modifier(self.modifier)
     }
 }
 
-public struct SecondaryTimestampImageStyleModifier<Style: SecondaryTimestampImageStyle>: ViewModifier {
+public struct SecondaryTimestampStyleModifier<Style: SecondaryTimestampStyle>: ViewModifier {
     let style: Style
 
     public func body(content: Content) -> some View {
-        content.secondaryTimestampImageStyle(self.style)
+        content.secondaryTimestampStyle(self.style)
     }
 }
 
-public extension SecondaryTimestampImageStyle {
-    func modifier(_ modifier: some ViewModifier) -> some SecondaryTimestampImageStyle {
+public extension SecondaryTimestampStyle {
+    func modifier(_ modifier: some ViewModifier) -> some SecondaryTimestampStyle {
         ModifiedStyle(style: self, modifier: modifier)
     }
 
-    func concat(_ style: some SecondaryTimestampImageStyle) -> some SecondaryTimestampImageStyle {
-        style.modifier(SecondaryTimestampImageStyleModifier(style: self))
-    }
-}
-
-// MARK: SecondaryTimestampLabelStyle
-
-extension ModifiedStyle: SecondaryTimestampLabelStyle where Style: SecondaryTimestampLabelStyle {
-    public func makeBody(_ configuration: SecondaryTimestampLabelConfiguration) -> some View {
-        SecondaryTimestampLabel(configuration)
-            .secondaryTimestampLabelStyle(self.style)
-            .modifier(self.modifier)
-    }
-}
-
-public struct SecondaryTimestampLabelStyleModifier<Style: SecondaryTimestampLabelStyle>: ViewModifier {
-    let style: Style
-
-    public func body(content: Content) -> some View {
-        content.secondaryTimestampLabelStyle(self.style)
-    }
-}
-
-public extension SecondaryTimestampLabelStyle {
-    func modifier(_ modifier: some ViewModifier) -> some SecondaryTimestampLabelStyle {
-        ModifiedStyle(style: self, modifier: modifier)
-    }
-
-    func concat(_ style: some SecondaryTimestampLabelStyle) -> some SecondaryTimestampLabelStyle {
-        style.modifier(SecondaryTimestampLabelStyleModifier(style: self))
+    func concat(_ style: some SecondaryTimestampStyle) -> some SecondaryTimestampStyle {
+        style.modifier(SecondaryTimestampStyleModifier(style: self))
     }
 }
 
@@ -2108,34 +2024,6 @@ public extension TimelineStyle {
     }
 }
 
-// MARK: TimelineMainStackStyle
-
-extension ModifiedStyle: TimelineMainStackStyle where Style: TimelineMainStackStyle {
-    public func makeBody(_ configuration: TimelineMainStackConfiguration) -> some View {
-        TimelineMainStack(configuration)
-            .timelineMainStackStyle(self.style)
-            .modifier(self.modifier)
-    }
-}
-
-public struct TimelineMainStackStyleModifier<Style: TimelineMainStackStyle>: ViewModifier {
-    let style: Style
-
-    public func body(content: Content) -> some View {
-        content.timelineMainStackStyle(self.style)
-    }
-}
-
-public extension TimelineMainStackStyle {
-    func modifier(_ modifier: some ViewModifier) -> some TimelineMainStackStyle {
-        ModifiedStyle(style: self, modifier: modifier)
-    }
-
-    func concat(_ style: some TimelineMainStackStyle) -> some TimelineMainStackStyle {
-        style.modifier(TimelineMainStackStyleModifier(style: self))
-    }
-}
-
 // MARK: TimelineMarkerStyle
 
 extension ModifiedStyle: TimelineMarkerStyle where Style: TimelineMarkerStyle {
@@ -2161,62 +2049,6 @@ public extension TimelineMarkerStyle {
 
     func concat(_ style: some TimelineMarkerStyle) -> some TimelineMarkerStyle {
         style.modifier(TimelineMarkerStyleModifier(style: self))
-    }
-}
-
-// MARK: TimelineMarkerMainStackStyle
-
-extension ModifiedStyle: TimelineMarkerMainStackStyle where Style: TimelineMarkerMainStackStyle {
-    public func makeBody(_ configuration: TimelineMarkerMainStackConfiguration) -> some View {
-        TimelineMarkerMainStack(configuration)
-            .timelineMarkerMainStackStyle(self.style)
-            .modifier(self.modifier)
-    }
-}
-
-public struct TimelineMarkerMainStackStyleModifier<Style: TimelineMarkerMainStackStyle>: ViewModifier {
-    let style: Style
-
-    public func body(content: Content) -> some View {
-        content.timelineMarkerMainStackStyle(self.style)
-    }
-}
-
-public extension TimelineMarkerMainStackStyle {
-    func modifier(_ modifier: some ViewModifier) -> some TimelineMarkerMainStackStyle {
-        ModifiedStyle(style: self, modifier: modifier)
-    }
-
-    func concat(_ style: some TimelineMarkerMainStackStyle) -> some TimelineMarkerMainStackStyle {
-        style.modifier(TimelineMarkerMainStackStyleModifier(style: self))
-    }
-}
-
-// MARK: TimelineMarkerNodeStyle
-
-extension ModifiedStyle: TimelineMarkerNodeStyle where Style: TimelineMarkerNodeStyle {
-    public func makeBody(_ configuration: TimelineMarkerNodeConfiguration) -> some View {
-        TimelineMarkerNode(configuration)
-            .timelineMarkerNodeStyle(self.style)
-            .modifier(self.modifier)
-    }
-}
-
-public struct TimelineMarkerNodeStyleModifier<Style: TimelineMarkerNodeStyle>: ViewModifier {
-    let style: Style
-
-    public func body(content: Content) -> some View {
-        content.timelineMarkerNodeStyle(self.style)
-    }
-}
-
-public extension TimelineMarkerNodeStyle {
-    func modifier(_ modifier: some ViewModifier) -> some TimelineMarkerNodeStyle {
-        ModifiedStyle(style: self, modifier: modifier)
-    }
-
-    func concat(_ style: some TimelineMarkerNodeStyle) -> some TimelineMarkerNodeStyle {
-        style.modifier(TimelineMarkerNodeStyleModifier(style: self))
     }
 }
 
@@ -2276,59 +2108,31 @@ public extension TimelineNowIndicatorStyle {
     }
 }
 
-// MARK: TimelineTimeStackStyle
+// MARK: TimestampStyle
 
-extension ModifiedStyle: TimelineTimeStackStyle where Style: TimelineTimeStackStyle {
-    public func makeBody(_ configuration: TimelineTimeStackConfiguration) -> some View {
-        TimelineTimeStack(configuration)
-            .timelineTimeStackStyle(self.style)
+extension ModifiedStyle: TimestampStyle where Style: TimestampStyle {
+    public func makeBody(_ configuration: TimestampConfiguration) -> some View {
+        Timestamp(configuration)
+            .timestampStyle(self.style)
             .modifier(self.modifier)
     }
 }
 
-public struct TimelineTimeStackStyleModifier<Style: TimelineTimeStackStyle>: ViewModifier {
+public struct TimestampStyleModifier<Style: TimestampStyle>: ViewModifier {
     let style: Style
 
     public func body(content: Content) -> some View {
-        content.timelineTimeStackStyle(self.style)
+        content.timestampStyle(self.style)
     }
 }
 
-public extension TimelineTimeStackStyle {
-    func modifier(_ modifier: some ViewModifier) -> some TimelineTimeStackStyle {
+public extension TimestampStyle {
+    func modifier(_ modifier: some ViewModifier) -> some TimestampStyle {
         ModifiedStyle(style: self, modifier: modifier)
     }
 
-    func concat(_ style: some TimelineTimeStackStyle) -> some TimelineTimeStackStyle {
-        style.modifier(TimelineTimeStackStyleModifier(style: self))
-    }
-}
-
-// MARK: TimestampLabelStyle
-
-extension ModifiedStyle: TimestampLabelStyle where Style: TimestampLabelStyle {
-    public func makeBody(_ configuration: TimestampLabelConfiguration) -> some View {
-        TimestampLabel(configuration)
-            .timestampLabelStyle(self.style)
-            .modifier(self.modifier)
-    }
-}
-
-public struct TimestampLabelStyleModifier<Style: TimestampLabelStyle>: ViewModifier {
-    let style: Style
-
-    public func body(content: Content) -> some View {
-        content.timestampLabelStyle(self.style)
-    }
-}
-
-public extension TimestampLabelStyle {
-    func modifier(_ modifier: some ViewModifier) -> some TimestampLabelStyle {
-        ModifiedStyle(style: self, modifier: modifier)
-    }
-
-    func concat(_ style: some TimestampLabelStyle) -> some TimestampLabelStyle {
-        style.modifier(TimestampLabelStyleModifier(style: self))
+    func concat(_ style: some TimestampStyle) -> some TimestampStyle {
+        style.modifier(TimestampStyleModifier(style: self))
     }
 }
 
@@ -2413,61 +2217,5 @@ public extension TopDividerStyle {
 
     func concat(_ style: some TopDividerStyle) -> some TopDividerStyle {
         style.modifier(TopDividerStyleModifier(style: self))
-    }
-}
-
-// MARK: TrailingHorizontalLineStyle
-
-extension ModifiedStyle: TrailingHorizontalLineStyle where Style: TrailingHorizontalLineStyle {
-    public func makeBody(_ configuration: TrailingHorizontalLineConfiguration) -> some View {
-        TrailingHorizontalLine(configuration)
-            .trailingHorizontalLineStyle(self.style)
-            .modifier(self.modifier)
-    }
-}
-
-public struct TrailingHorizontalLineStyleModifier<Style: TrailingHorizontalLineStyle>: ViewModifier {
-    let style: Style
-
-    public func body(content: Content) -> some View {
-        content.trailingHorizontalLineStyle(self.style)
-    }
-}
-
-public extension TrailingHorizontalLineStyle {
-    func modifier(_ modifier: some ViewModifier) -> some TrailingHorizontalLineStyle {
-        ModifiedStyle(style: self, modifier: modifier)
-    }
-
-    func concat(_ style: some TrailingHorizontalLineStyle) -> some TrailingHorizontalLineStyle {
-        style.modifier(TrailingHorizontalLineStyleModifier(style: self))
-    }
-}
-
-// MARK: UpperVerticalLineStyle
-
-extension ModifiedStyle: UpperVerticalLineStyle where Style: UpperVerticalLineStyle {
-    public func makeBody(_ configuration: UpperVerticalLineConfiguration) -> some View {
-        UpperVerticalLine(configuration)
-            .upperVerticalLineStyle(self.style)
-            .modifier(self.modifier)
-    }
-}
-
-public struct UpperVerticalLineStyleModifier<Style: UpperVerticalLineStyle>: ViewModifier {
-    let style: Style
-
-    public func body(content: Content) -> some View {
-        content.upperVerticalLineStyle(self.style)
-    }
-}
-
-public extension UpperVerticalLineStyle {
-    func modifier(_ modifier: some ViewModifier) -> some UpperVerticalLineStyle {
-        ModifiedStyle(style: self, modifier: modifier)
-    }
-
-    func concat(_ style: some UpperVerticalLineStyle) -> some UpperVerticalLineStyle {
-        style.modifier(UpperVerticalLineStyleModifier(style: self))
     }
 }

@@ -632,23 +632,6 @@ public extension View {
     }
 }
 
-// MARK: LowerVerticalLineStyle
-
-public extension View {
-    func lowerVerticalLineStyle(_ style: some LowerVerticalLineStyle) -> some View {
-        self.transformEnvironment(\.lowerVerticalLineStyleStack) { stack in
-            stack.append(style)
-        }
-    }
-
-    func lowerVerticalLineStyle(@ViewBuilder content: @escaping (LowerVerticalLineConfiguration) -> some View) -> some View {
-        self.transformEnvironment(\.lowerVerticalLineStyleStack) { stack in
-            let style = AnyLowerVerticalLineStyle(content)
-            stack.append(style)
-        }
-    }
-}
-
 // MARK: MandatoryFieldIndicatorStyle
 
 public extension View {
@@ -746,23 +729,6 @@ public extension View {
     func moreActionOverflowStyle(@ViewBuilder content: @escaping (MoreActionOverflowConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.moreActionOverflowStyleStack) { stack in
             let style = AnyMoreActionOverflowStyle(content)
-            stack.append(style)
-        }
-    }
-}
-
-// MARK: NodeImageStyle
-
-public extension View {
-    func nodeImageStyle(_ style: some NodeImageStyle) -> some View {
-        self.transformEnvironment(\.nodeImageStyleStack) { stack in
-            stack.append(style)
-        }
-    }
-
-    func nodeImageStyle(@ViewBuilder content: @escaping (NodeImageConfiguration) -> some View) -> some View {
-        self.transformEnvironment(\.nodeImageStyleStack) { stack in
-            let style = AnyNodeImageStyle(content)
             stack.append(style)
         }
     }
@@ -972,35 +938,18 @@ public extension View {
     }
 }
 
-// MARK: SecondaryTimestampImageStyle
+// MARK: SecondaryTimestampStyle
 
 public extension View {
-    func secondaryTimestampImageStyle(_ style: some SecondaryTimestampImageStyle) -> some View {
-        self.transformEnvironment(\.secondaryTimestampImageStyleStack) { stack in
+    func secondaryTimestampStyle(_ style: some SecondaryTimestampStyle) -> some View {
+        self.transformEnvironment(\.secondaryTimestampStyleStack) { stack in
             stack.append(style)
         }
     }
 
-    func secondaryTimestampImageStyle(@ViewBuilder content: @escaping (SecondaryTimestampImageConfiguration) -> some View) -> some View {
-        self.transformEnvironment(\.secondaryTimestampImageStyleStack) { stack in
-            let style = AnySecondaryTimestampImageStyle(content)
-            stack.append(style)
-        }
-    }
-}
-
-// MARK: SecondaryTimestampLabelStyle
-
-public extension View {
-    func secondaryTimestampLabelStyle(_ style: some SecondaryTimestampLabelStyle) -> some View {
-        self.transformEnvironment(\.secondaryTimestampLabelStyleStack) { stack in
-            stack.append(style)
-        }
-    }
-
-    func secondaryTimestampLabelStyle(@ViewBuilder content: @escaping (SecondaryTimestampLabelConfiguration) -> some View) -> some View {
-        self.transformEnvironment(\.secondaryTimestampLabelStyleStack) { stack in
-            let style = AnySecondaryTimestampLabelStyle(content)
+    func secondaryTimestampStyle(@ViewBuilder content: @escaping (SecondaryTimestampConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.secondaryTimestampStyleStack) { stack in
+            let style = AnySecondaryTimestampStyle(content)
             stack.append(style)
         }
     }
@@ -1278,23 +1227,6 @@ public extension View {
     }
 }
 
-// MARK: TimelineMainStackStyle
-
-public extension View {
-    func timelineMainStackStyle(_ style: some TimelineMainStackStyle) -> some View {
-        self.transformEnvironment(\.timelineMainStackStyleStack) { stack in
-            stack.append(style)
-        }
-    }
-
-    func timelineMainStackStyle(@ViewBuilder content: @escaping (TimelineMainStackConfiguration) -> some View) -> some View {
-        self.transformEnvironment(\.timelineMainStackStyleStack) { stack in
-            let style = AnyTimelineMainStackStyle(content)
-            stack.append(style)
-        }
-    }
-}
-
 // MARK: TimelineMarkerStyle
 
 public extension View {
@@ -1307,40 +1239,6 @@ public extension View {
     func timelineMarkerStyle(@ViewBuilder content: @escaping (TimelineMarkerConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.timelineMarkerStyleStack) { stack in
             let style = AnyTimelineMarkerStyle(content)
-            stack.append(style)
-        }
-    }
-}
-
-// MARK: TimelineMarkerMainStackStyle
-
-public extension View {
-    func timelineMarkerMainStackStyle(_ style: some TimelineMarkerMainStackStyle) -> some View {
-        self.transformEnvironment(\.timelineMarkerMainStackStyleStack) { stack in
-            stack.append(style)
-        }
-    }
-
-    func timelineMarkerMainStackStyle(@ViewBuilder content: @escaping (TimelineMarkerMainStackConfiguration) -> some View) -> some View {
-        self.transformEnvironment(\.timelineMarkerMainStackStyleStack) { stack in
-            let style = AnyTimelineMarkerMainStackStyle(content)
-            stack.append(style)
-        }
-    }
-}
-
-// MARK: TimelineMarkerNodeStyle
-
-public extension View {
-    func timelineMarkerNodeStyle(_ style: some TimelineMarkerNodeStyle) -> some View {
-        self.transformEnvironment(\.timelineMarkerNodeStyleStack) { stack in
-            stack.append(style)
-        }
-    }
-
-    func timelineMarkerNodeStyle(@ViewBuilder content: @escaping (TimelineMarkerNodeConfiguration) -> some View) -> some View {
-        self.transformEnvironment(\.timelineMarkerNodeStyleStack) { stack in
-            let style = AnyTimelineMarkerNodeStyle(content)
             stack.append(style)
         }
     }
@@ -1380,35 +1278,18 @@ public extension View {
     }
 }
 
-// MARK: TimelineTimeStackStyle
+// MARK: TimestampStyle
 
 public extension View {
-    func timelineTimeStackStyle(_ style: some TimelineTimeStackStyle) -> some View {
-        self.transformEnvironment(\.timelineTimeStackStyleStack) { stack in
+    func timestampStyle(_ style: some TimestampStyle) -> some View {
+        self.transformEnvironment(\.timestampStyleStack) { stack in
             stack.append(style)
         }
     }
 
-    func timelineTimeStackStyle(@ViewBuilder content: @escaping (TimelineTimeStackConfiguration) -> some View) -> some View {
-        self.transformEnvironment(\.timelineTimeStackStyleStack) { stack in
-            let style = AnyTimelineTimeStackStyle(content)
-            stack.append(style)
-        }
-    }
-}
-
-// MARK: TimestampLabelStyle
-
-public extension View {
-    func timestampLabelStyle(_ style: some TimestampLabelStyle) -> some View {
-        self.transformEnvironment(\.timestampLabelStyleStack) { stack in
-            stack.append(style)
-        }
-    }
-
-    func timestampLabelStyle(@ViewBuilder content: @escaping (TimestampLabelConfiguration) -> some View) -> some View {
-        self.transformEnvironment(\.timestampLabelStyleStack) { stack in
-            let style = AnyTimestampLabelStyle(content)
+    func timestampStyle(@ViewBuilder content: @escaping (TimestampConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.timestampStyleStack) { stack in
+            let style = AnyTimestampStyle(content)
             stack.append(style)
         }
     }
@@ -1460,40 +1341,6 @@ public extension View {
     func topDividerStyle(@ViewBuilder content: @escaping (TopDividerConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.topDividerStyleStack) { stack in
             let style = AnyTopDividerStyle(content)
-            stack.append(style)
-        }
-    }
-}
-
-// MARK: TrailingHorizontalLineStyle
-
-public extension View {
-    func trailingHorizontalLineStyle(_ style: some TrailingHorizontalLineStyle) -> some View {
-        self.transformEnvironment(\.trailingHorizontalLineStyleStack) { stack in
-            stack.append(style)
-        }
-    }
-
-    func trailingHorizontalLineStyle(@ViewBuilder content: @escaping (TrailingHorizontalLineConfiguration) -> some View) -> some View {
-        self.transformEnvironment(\.trailingHorizontalLineStyleStack) { stack in
-            let style = AnyTrailingHorizontalLineStyle(content)
-            stack.append(style)
-        }
-    }
-}
-
-// MARK: UpperVerticalLineStyle
-
-public extension View {
-    func upperVerticalLineStyle(_ style: some UpperVerticalLineStyle) -> some View {
-        self.transformEnvironment(\.upperVerticalLineStyleStack) { stack in
-            stack.append(style)
-        }
-    }
-
-    func upperVerticalLineStyle(@ViewBuilder content: @escaping (UpperVerticalLineConfiguration) -> some View) -> some View {
-        self.transformEnvironment(\.upperVerticalLineStyleStack) { stack in
-            let style = AnyUpperVerticalLineStyle(content)
             stack.append(style)
         }
     }

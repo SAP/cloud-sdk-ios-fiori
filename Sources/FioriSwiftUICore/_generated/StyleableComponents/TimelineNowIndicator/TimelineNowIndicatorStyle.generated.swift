@@ -23,16 +23,13 @@ struct AnyTimelineNowIndicatorStyle: TimelineNowIndicatorStyle {
 
 public struct TimelineNowIndicatorConfiguration {
     public let nowIndicatorNode: NowIndicatorNode
-    public let trailingHorizontalLine: TrailingHorizontalLine
 
     public typealias NowIndicatorNode = ConfigurationViewWrapper
-    public typealias TrailingHorizontalLine = ConfigurationViewWrapper
 }
 
 public struct TimelineNowIndicatorFioriStyle: TimelineNowIndicatorStyle {
     public func makeBody(_ configuration: TimelineNowIndicatorConfiguration) -> some View {
         TimelineNowIndicator(configuration)
             .nowIndicatorNodeStyle(NowIndicatorNodeFioriStyle(timelineNowIndicatorConfiguration: configuration))
-            .trailingHorizontalLineStyle(TrailingHorizontalLineFioriStyle(timelineNowIndicatorConfiguration: configuration))
     }
 }

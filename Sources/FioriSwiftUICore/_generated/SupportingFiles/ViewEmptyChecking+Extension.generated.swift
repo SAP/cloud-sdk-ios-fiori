@@ -284,12 +284,6 @@ extension LinearProgressIndicatorView: _ViewEmptyChecking {
     }
 }
 
-extension LowerVerticalLine: _ViewEmptyChecking {
-    public var isEmpty: Bool {
-        lowerVerticalLine.isEmpty
-    }
-}
-
 extension MandatoryFieldIndicator: _ViewEmptyChecking {
     public var isEmpty: Bool {
         mandatoryFieldIndicator.isEmpty
@@ -325,12 +319,6 @@ extension MessageContent: _ViewEmptyChecking {
 extension MoreActionOverflow: _ViewEmptyChecking {
     public var isEmpty: Bool {
         moreActionOverflow.isEmpty
-    }
-}
-
-extension NodeImage: _ViewEmptyChecking {
-    public var isEmpty: Bool {
-        nodeImage.isEmpty
     }
 }
 
@@ -417,15 +405,9 @@ extension SecondaryAction: _ViewEmptyChecking {
     }
 }
 
-extension SecondaryTimestampImage: _ViewEmptyChecking {
+extension SecondaryTimestamp: _ViewEmptyChecking {
     public var isEmpty: Bool {
-        secondaryTimestampImage.isEmpty
-    }
-}
-
-extension SecondaryTimestampLabel: _ViewEmptyChecking {
-    public var isEmpty: Bool {
-        secondaryTimestampLabel.isEmpty
+        secondaryTimestamp.isEmpty
     }
 }
 
@@ -535,24 +517,11 @@ extension TextView: _ViewEmptyChecking {
 
 extension Timeline: _ViewEmptyChecking {
     public var isEmpty: Bool {
-        timestampLabel.isEmpty &&
-            secondaryTimestampLabel.isEmpty &&
-            secondaryTimestampImage.isEmpty &&
-            upperVerticalLine.isEmpty &&
-            nodeImage.isEmpty &&
-            lowerVerticalLine.isEmpty &&
+        timestamp.isEmpty &&
+            secondaryTimestamp.isEmpty &&
+            timelineNode.isEmpty &&
+            icon.isEmpty &&
             title.isEmpty &&
-            subtitle.isEmpty &&
-            attribute.isEmpty &&
-            status.isEmpty &&
-            substatus.isEmpty &&
-            subAttribute.isEmpty
-    }
-}
-
-extension TimelineMainStack: _ViewEmptyChecking {
-    public var isEmpty: Bool {
-        title.isEmpty &&
             subtitle.isEmpty &&
             attribute.isEmpty &&
             status.isEmpty &&
@@ -563,56 +532,29 @@ extension TimelineMainStack: _ViewEmptyChecking {
 
 extension TimelineMarker: _ViewEmptyChecking {
     public var isEmpty: Bool {
-        timestampLabel.isEmpty &&
-            secondaryTimestampLabel.isEmpty &&
-            secondaryTimestampImage.isEmpty &&
-            upperVerticalLine.isEmpty &&
-            nodeImage.isEmpty &&
-            lowerVerticalLine.isEmpty &&
+        timestamp.isEmpty &&
+            secondaryTimestamp.isEmpty &&
+            timelineNode.isEmpty &&
+            icon.isEmpty &&
             title.isEmpty
-    }
-}
-
-extension TimelineMarkerMainStack: _ViewEmptyChecking {
-    public var isEmpty: Bool {
-        title.isEmpty
-    }
-}
-
-extension TimelineMarkerNode: _ViewEmptyChecking {
-    public var isEmpty: Bool {
-        upperVerticalLine.isEmpty &&
-            nodeImage.isEmpty &&
-            lowerVerticalLine.isEmpty
     }
 }
 
 extension TimelineNode: _ViewEmptyChecking {
     public var isEmpty: Bool {
-        upperVerticalLine.isEmpty &&
-            nodeImage.isEmpty &&
-            lowerVerticalLine.isEmpty
+        timelineNode.isEmpty
     }
 }
 
 extension TimelineNowIndicator: _ViewEmptyChecking {
     public var isEmpty: Bool {
-        nowIndicatorNode.isEmpty &&
-            trailingHorizontalLine.isEmpty
+        nowIndicatorNode.isEmpty
     }
 }
 
-extension TimelineTimeStack: _ViewEmptyChecking {
+extension Timestamp: _ViewEmptyChecking {
     public var isEmpty: Bool {
-        timestampLabel.isEmpty &&
-            secondaryTimestampLabel.isEmpty &&
-            secondaryTimestampImage.isEmpty
-    }
-}
-
-extension TimestampLabel: _ViewEmptyChecking {
-    public var isEmpty: Bool {
-        timestampLabel.isEmpty
+        timestamp.isEmpty
     }
 }
 
@@ -631,17 +573,5 @@ extension TitleFormView: _ViewEmptyChecking {
 extension TopDivider: _ViewEmptyChecking {
     public var isEmpty: Bool {
         topDivider.isEmpty
-    }
-}
-
-extension TrailingHorizontalLine: _ViewEmptyChecking {
-    public var isEmpty: Bool {
-        trailingHorizontalLine.isEmpty
-    }
-}
-
-extension UpperVerticalLine: _ViewEmptyChecking {
-    public var isEmpty: Bool {
-        upperVerticalLine.isEmpty
     }
 }
