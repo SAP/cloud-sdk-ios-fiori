@@ -4,7 +4,7 @@ import Foundation
 import SwiftUI
 
 /// `Timeline` is a selectable view intended for timelines that require open, inProgress and complete status that displays timeline details.
-///  It uses a vertical line and `nodeImage` as a separator. To the left of the vertical line is the timeline timestamp stack view that contains `timestampLabel` and `secondaryTimestampLabel` or ‘secondaryTimestampImage’. To the right of the vertical line is the main stack view that contains  title view and attribute view. Title view contains `title`, ‘subtitle’, ‘status’, ‘substatus’, below the title view is an attribute view with ‘ attribute’ and ‘subAttribute’. There is a divider line as separator under main stack.
+///  It uses a vertical line and `timelineNode` as a separator. To the left of the vertical line is the timeline timestamp stack view that contains `timestamp` and `secondaryTimestamp`. To the right of the vertical line is the main stack view that contains  title view and attribute view. Title view contains `title`, ‘subtitle’, ‘status’, ‘substatus’, below the title view is an attribute view with ‘ attribute’ and ‘subAttribute’. There is a divider line as separator under main stack.
 ///
 ///  ## Notes
 /// ### Separator between Timeline Items in the List
@@ -12,8 +12,8 @@ import SwiftUI
 ///
 /// ## Usage
 /// ```swift
-/// Timeline(timestampLabel: "06/21/24", secondaryTimestampImage: { Image(systemName: "sun.max")}(), nodeImage: .inProgress(), title: "Inprogress Event", subtitle: "abc", attribute: "attr", status: .text("Info"), substatus: .icon(Image(systemName: "exclamationmark.circle")), subAttribute: "subAttr", isPresent: true)
-/// Timeline(timestampLabel: "06/23/24", secondaryTimestampLabel: "Sunny", nodeImage: .open(Image(systemName: "p.circle")), title: "Title", subtitle: "subTitle", attribute: "attr", status: .text("Pending"), substatus: .icon(Image(systemName: "p.circle")), subAttribute: "subAttr")
+/// Timeline(timestamp: "06/21/24", secondaryTimestamp: .icon(Image(systemName: "sun.max")), timelineNode: .complete, title: "Complete(Disabled)", subtitle: "abc", attribute: "attr", status: .text("Info"), substatus: .icon(Image(systemName: "exclamationmark.circle")), subAttribute: "subAttr", isPast: true)
+/// Timeline(timestamp: "06/21/24", secondaryTimestamp: .text("Sunny"), timelineNode: .open, title: "Open", subtitle: "abc", attribute: "attr", status: .text("Info"), substatus: .icon(Image(systemName: "exclamationmark.circle")), subAttribute: "subAttr")
 /// ```
 public struct Timeline {
     let timestamp: any View

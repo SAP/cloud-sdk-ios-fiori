@@ -279,7 +279,7 @@ protocol _TimestampComponent {
 
 // sourcery: BaseComponent
 protocol _SecondaryTimestampComponent {
-    // sourcery: @ViewBuilder
+    // sourcery: resultBuilder.name = @ViewBuilder, resultBuilder.backingComponent = TextOrIconView
     var secondaryTimestamp: TextOrIcon? { get }
 }
 

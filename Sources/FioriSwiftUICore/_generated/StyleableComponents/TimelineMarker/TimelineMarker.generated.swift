@@ -4,7 +4,7 @@ import Foundation
 import SwiftUI
 
 /// `TimelineMarker` is a non-selectable view intended for timelineMarkers that require beforeStart, start, beforeEnd and end status that displays timelineMarker details.
-/// It uses a vertical line and `nodeImage` as a separator. To the left of the vertical line is the timeline timestamp stack view that contains `timestampLabel` and `secondaryTimestampLabel` or ‘secondaryTimestampImage’. To the right of the vertical line is the main stack view that contains  `title`. There is a divider line as separator under main stack.
+/// It uses a vertical line and `timelineNode` as a separator. To the left of the vertical line is the timeline timestamp stack view that contains `timestamp` and `secondaryTimestamp`. To the right of the vertical line is the main stack view that contains  `title`. There is a divider line as separator under main stack.
 ///
 /// ## Notes
 /// ### Separator between TimelineMarker Items in the List
@@ -12,8 +12,8 @@ import SwiftUI
 ///
 /// ## Usage
 /// ```swift
-/// TimelineMarker(timestampLabel: "06/20/24", secondaryTimestampImage: { Image(systemName: "sun.max")}(), nodeImage: .beforeEnd(), showUpperVerticalLine: false, title: "Before Start", isPast: true)
-/// TimelineMarker(timestampLabel: "06/04/24", secondaryTimestampLabel: "Sunny", nodeImage: .open(Image(systemName: "a.circle")), title: "Project Start", isPresent: true)
+/// TimelineMarker(timestamp: "06/20/24", secondaryTimestamp: .icon(Image(systemName: "sun.max")), timelineNode: .beforeStart, title: "Before Start", isPast: true, showUpperVerticalLine: false)
+/// TimelineMarker(timestamp: "06/20/24", secondaryTimestamp: .text("Sunny"), timelineNode: .beforeEnd, title: "Before End", isPresent: true)
 /// ```
 public struct TimelineMarker {
     let timestamp: any View
