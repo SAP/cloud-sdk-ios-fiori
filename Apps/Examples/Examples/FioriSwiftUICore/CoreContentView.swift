@@ -218,7 +218,14 @@ struct CoreContentView: View {
             {
                 Text("Menu Selection")
             }
-
+            
+            NavigationLink(
+                destination: TimelineExample(),
+                label: {
+                    Text("Timeline")
+                }
+            )
+            
             NavigationLink(
                 destination: OtherViewExamples())
             {
