@@ -29,6 +29,10 @@
 		691DE21925F2A30B00094D4A /* KPIViewExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691DE21825F2A30B00094D4A /* KPIViewExample.swift */; };
 		692F338B26556A6A009B98DA /* SideBarExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 692F338A26556A6A009B98DA /* SideBarExample.swift */; };
 		69B2B5D9268A333C009AC6B3 /* KPIProgressViewExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B2B5D8268A333C009AC6B3 /* KPIProgressViewExample.swift */; };
+		8732C2C52C350957002110E9 /* TimelineExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8732C2C42C350957002110E9 /* TimelineExample.swift */; };
+		8732C2C72C3524B6002110E9 /* TimelineItemsExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8732C2C62C3524B6002110E9 /* TimelineItemsExample.swift */; };
+		8732C2C92C3524C9002110E9 /* SimpleTimelineExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8732C2C82C3524C9002110E9 /* SimpleTimelineExample.swift */; };
+		8732C2CB2C3524D9002110E9 /* CustomTimelineExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8732C2CA2C3524D9002110E9 /* CustomTimelineExample.swift */; };
 		878219C42BEE128E002FDFBC /* StepperViewExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 878219C32BEE128E002FDFBC /* StepperViewExample.swift */; };
 		8A55795724C1286E0098003A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A55795624C1286E0098003A /* AppDelegate.swift */; };
 		8A55795924C1286E0098003A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A55795824C1286E0098003A /* SceneDelegate.swift */; };
@@ -212,6 +216,10 @@
 		691DE21825F2A30B00094D4A /* KPIViewExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KPIViewExample.swift; sourceTree = "<group>"; };
 		692F338A26556A6A009B98DA /* SideBarExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideBarExample.swift; sourceTree = "<group>"; };
 		69B2B5D8268A333C009AC6B3 /* KPIProgressViewExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KPIProgressViewExample.swift; sourceTree = "<group>"; };
+		8732C2C42C350957002110E9 /* TimelineExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineExample.swift; sourceTree = "<group>"; };
+		8732C2C62C3524B6002110E9 /* TimelineItemsExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineItemsExample.swift; sourceTree = "<group>"; };
+		8732C2C82C3524C9002110E9 /* SimpleTimelineExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTimelineExample.swift; sourceTree = "<group>"; };
+		8732C2CA2C3524D9002110E9 /* CustomTimelineExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTimelineExample.swift; sourceTree = "<group>"; };
 		878219C32BEE128E002FDFBC /* StepperViewExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepperViewExample.swift; sourceTree = "<group>"; };
 		8A1E99AD24D59C8000ED8A39 /* cloud-sdk-ios-fiori */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "cloud-sdk-ios-fiori"; path = ../..; sourceTree = "<group>"; };
 		8A55795324C1286E0098003A /* Examples.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Examples.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -460,6 +468,17 @@
 			path = SideBar;
 			sourceTree = "<group>";
 		};
+		8732C2C32C35092D002110E9 /* Timeline */ = {
+			isa = PBXGroup;
+			children = (
+				8732C2C42C350957002110E9 /* TimelineExample.swift */,
+				8732C2C62C3524B6002110E9 /* TimelineItemsExample.swift */,
+				8732C2C82C3524C9002110E9 /* SimpleTimelineExample.swift */,
+				8732C2CA2C3524D9002110E9 /* CustomTimelineExample.swift */,
+			);
+			path = Timeline;
+			sourceTree = "<group>";
+		};
 		8A55794A24C1286E0098003A = {
 			isa = PBXGroup;
 			children = (
@@ -531,6 +550,7 @@
 		8A5579C824C1293C0098003A /* FioriSwiftUICore */ = {
 			isa = PBXGroup;
 			children = (
+				8732C2C32C35092D002110E9 /* Timeline */,
 				B19006582C201BAC000C8B10 /* ProfileHeader */,
 				1F1A1FF82C0BDA42007109D8 /* MenuSelection */,
 				B1A98FF02C11591B00FC9998 /* BannerMessage */,
@@ -966,6 +986,7 @@
 				1FC30414270541BF004BEE00 /* FioriThemeManagerContentView.swift in Sources */,
 				C106AD422B336EA400FE8B35 /* SearchWithSuggestion.swift in Sources */,
 				99942D59261698FC001912C5 /* InfoViewSample.swift in Sources */,
+				8732C2C72C3524B6002110E9 /* TimelineItemsExample.swift in Sources */,
 				993B55BE29DF7EC70002B065 /* IconLibraryExample.swift in Sources */,
 				B80DA9BE260C1CC200C0B2E9 /* ListDataProtocol.swift in Sources */,
 				B1DD86532B0758F000D7EDFD /* NavigationBarPopover.swift in Sources */,
@@ -993,6 +1014,8 @@
 				8A5579CC24C1293C0098003A /* SettingsColorForCategory.swift in Sources */,
 				C18868D12B32535100F865F7 /* SearchFontAndColor.swift in Sources */,
 				9D0B26092B9BA5C0004278A5 /* KeyValueFormViewExample.swift in Sources */,
+				8732C2C52C350957002110E9 /* TimelineExample.swift in Sources */,
+				9D057DAB2C2F260200F5331C /* RatingControlExample.swift in Sources */,
 				8A557A1A24C12C820098003A /* ChartsContentView.swift in Sources */,
 				8A5579CE24C1293C0098003A /* SettingColor.swift in Sources */,
 				1F55FEF32AC941FF00D7A1BE /* View+Extensions.swift in Sources */,
@@ -1010,6 +1033,7 @@
 				B8D4376F25F980340024EE7D /* ObjectCell_Spec_Jan2018.swift in Sources */,
 				8A5579CF24C1293C0098003A /* SettingsAxis.swift in Sources */,
 				B80DA9BC260BED9400C0B2E9 /* SingleActionCollectionView.swift in Sources */,
+				8732C2CB2C3524D9002110E9 /* CustomTimelineExample.swift in Sources */,
 				8A5579D924C1293C0098003A /* SettingsSelection.swift in Sources */,
 				B1A98FF22C11592B00FC9998 /* BannerMessageExample.swift in Sources */,
 				B80DA9C62612A54E00C0B2E9 /* ActivationScreenSample.swift in Sources */,
@@ -1049,6 +1073,7 @@
 				975CB76B256C5A7400DB7A15 /* SignatureCaptureViewExample.swift in Sources */,
 				8AD9DFB125D49967007448EC /* ContactItemStateAndDataBindingExample.swift in Sources */,
 				C150CCCC2B86B78E00118DF7 /* ChromeEffect.swift in Sources */,
+				8732C2C92C3524C9002110E9 /* SimpleTimelineExample.swift in Sources */,
 				B190065A2C201BBE000C8B10 /* ProfileHeaderExample.swift in Sources */,
 				B86F02A82679835F0049DDA7 /* ObjectItemInitExamples.swift in Sources */,
 				692F338B26556A6A009B98DA /* SideBarExample.swift in Sources */,
