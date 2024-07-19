@@ -270,3 +270,40 @@ protocol _CloseActionComponent {
     // sourcery: resultBuilder.defaultValue = "{ FioriButton { _ in Image(systemName: "xmark") } }"
     var closeAction: FioriButton? { get }
 }
+
+// sourcery: BaseComponent
+protocol _TimestampComponent {
+    // sourcery: @ViewBuilder
+    var timestamp: AttributedString? { get }
+}
+
+// sourcery: BaseComponent
+protocol _SecondaryTimestampComponent {
+    // sourcery: resultBuilder.name = @ViewBuilder, resultBuilder.backingComponent = TextOrIconView
+    var secondaryTimestamp: TextOrIcon? { get }
+}
+
+// sourcery: BaseComponent
+protocol _TimelineNodeComponent {
+    // sourcery: resultBuilder.name = @ViewBuilder, resultBuilder.backingComponent = TimelineNodeView
+    var timelineNode: TimelineNodeType { get }
+}
+
+// sourcery: BaseComponent
+protocol _AttributeComponent {
+    // sourcery: @ViewBuilder
+    var attribute: AttributedString? { get }
+}
+
+// sourcery: BaseComponent
+protocol _SubAttributeComponent {
+    // sourcery: @ViewBuilder
+    var subAttribute: AttributedString? { get }
+}
+
+// sourcery: BaseComponent
+protocol _NowIndicatorNodeComponent {
+    // sourcery: defaultValue = "{ Image(systemName: "circle.fill") }"
+    @ViewBuilder
+    var nowIndicatorNode: (() -> any View)? { get }
+}
