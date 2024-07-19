@@ -411,12 +411,13 @@ private struct SideBarListSectionDisclosureStyle: DisclosureGroupStyle {
         VStack(spacing: 0) {
             HStack {
                 configuration.label
-                    .font(.fiori(forTextStyle: .title3, weight: .regular))
+                    .font(.fiori(forTextStyle: .title3))
+                    .foregroundColor(.preferredColor(.primaryLabel))
                 Spacer()
                 Image(systemName: configuration.isExpanded ? "chevron.down" : "chevron.right")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: 18 * self.scale, height: 18 * self.scale)
+                    .frame(width: 14 * self.scale, height: 14 * self.scale)
                     .font(.fiori(fixedSize: 17, weight: .semibold))
                     .foregroundColor(.preferredColor(.tintColor))
             }
