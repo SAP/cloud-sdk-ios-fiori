@@ -36,6 +36,7 @@ public struct TextInputFieldNumberStyle: TextInputFieldStyle {
 
 /// Number style
 public extension TextInputFieldStyle where Self == TextInputFieldNumberStyle {
+    /// The `number` style is applied for the case that the `TextInputField` allows only numeric input. It will filter out any non-digit characters and removes any decimal points.
     static var number: TextInputFieldNumberStyle {
         TextInputFieldNumberStyle()
     }
