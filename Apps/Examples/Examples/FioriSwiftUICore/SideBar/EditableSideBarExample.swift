@@ -5,6 +5,10 @@ import MapKit
 import SwiftUI
 
 public struct SideBarExample: View {
+    init() {
+        UINavigationBar.appearance().largeTitleTextAttributes = [.font: UIFont.preferredFioriFont(forTextStyle: .largeTitle, weight: .black)]
+    }
+    
     public var body: some View {
         List {
             NavigationLink {
@@ -62,8 +66,12 @@ struct EditableSideBarExample: View {
         let footer = UIDevice.current.userInterfaceIdiom == .pad ?
             VStack {
                 ObjectItem(
-                    title: { Text("Sean Long") },
-                    subtitle: { Text("Maintenance Lead") },
+                    title: { Text("Sean Long").font(.fiori(forTextStyle: .body, weight: .bold))
+                        .foregroundStyle(Color.preferredColor(.primaryLabel))
+                    },
+                    subtitle: { Text("Maintenance Lead").font(.fiori(forTextStyle: .subheadline))
+                        .foregroundStyle(Color.preferredColor(.secondaryLabel))
+                    },
                     detailImage: { Image("ProfilePic")
                         .resizable()
                         .frame(width: 45, height: 45)
@@ -126,6 +134,7 @@ struct EditableSideBarExample: View {
             DevDetailView(title: "Home Page - Starting From Here")
         }
         .navigationBarHidden(true)
+        .tint(Color.preferredColor(.tintColor))
         
         if !self.isCustom, !self.isPartialCustom {
             view.searchable(text: Binding<String>(get: { self.queryString ?? "" }, set: { newValue in self.queryString = newValue }), prompt: "Search")
