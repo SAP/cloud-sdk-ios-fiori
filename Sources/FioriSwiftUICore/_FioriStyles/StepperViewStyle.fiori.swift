@@ -177,6 +177,7 @@ public struct StepperViewFocusedStyle: StepperViewStyle {
 
 /// Style for disable the increment and decrement button when editing.
 public extension StepperViewStyle where Self == StepperViewFocusedStyle {
+    /// The `focus` style is applied in the case that the increment and decrement button are disabled when the text field is selected and editing.
     static var focus: StepperViewFocusedStyle {
         StepperViewFocusedStyle()
     }
