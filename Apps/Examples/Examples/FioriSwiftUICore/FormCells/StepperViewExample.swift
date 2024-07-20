@@ -57,11 +57,12 @@ struct StepperViewExample: View {
                 description: { Text("Increment/decrement 3 each step") }
             )
             StepperView(
-                title: { Text("Value") },
+                title: { Text("Disable increment/decrement button when editing") },
                 text: self.$noHintStepValue,
                 step: 1,
                 stepRange: 0 ... 100
             )
+            .stepperViewStyle(.focus)
             StepperView(
                 title: { Text("Value") },
                 text: self.$customStyleStepValue,

@@ -27,6 +27,15 @@ public struct StepperFieldBaseStyle: StepperFieldStyle {
                     }
                 }
             configuration._textInputField
+                .textInputFieldStyle(.number)
+                .onChange(of: configuration.text) { newValue in
+                    let value = Int(newValue)
+                    if value ?? 0 > configuration.stepRange.upperBound {
+                        configuration.text = String(configuration.stepRange.upperBound)
+                    } else if value ?? 0 < configuration.stepRange.lowerBound {
+                        configuration.text = String(configuration.stepRange.lowerBound)
+                    }
+                }
             configuration.incrementAction
                 .onSimultaneousTapGesture {
                     if let stepValue = configuration.step, var currentTextValue = Int(configuration.text) {

@@ -51,11 +51,11 @@ extension StepperViewFioriStyle {
 
         func makeBody(_ configuration: StepperViewConfiguration) -> some View {
             StepperView(configuration)
-                .padding(EdgeInsets(top: 9, leading: 16, bottom: 11, trailing: 0))
+//                .padding(EdgeInsets(top: 9, leading: 16, bottom: 11, trailing: 0))
                 .titleStyle(content: { titleConfiguration in
                     Title(titleConfiguration)
                         .foregroundColor(.preferredColor(self.isEnabled ? (self.isFocused ? .tintColor : .primaryLabel) : .separator))
-                        .font(self.isFocused ? .subheadline.bold() : .subheadline)
+                        .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
                 })
                 .stepperFieldStyle { config in
                     StepperField(config)
@@ -152,5 +152,33 @@ extension StepperViewFioriStyle {
         func makeBody(_ configuration: InformationViewConfiguration) -> some View {
             InformationView(configuration)
         }
+    }
+}
+
+public struct StepperViewFocusedStyle: StepperViewStyle {
+    @Environment(\.isEnabled) var isEnabled: Bool
+    @FocusState var isFocused: Bool
+    public func makeBody(_ configuration: StepperViewConfiguration) -> some View {
+        StepperView(configuration)
+            .stepperFieldStyle { config in
+                StepperField(config)
+                    .focused(self.$isFocused)
+            }
+            .decrementActionStyle(content: { config in
+                config.decrementAction
+                    .disabled(self.isEnabled ? self.isFocused : true)
+            })
+            .incrementActionStyle(content: { config in
+                config.incrementAction
+                    .disabled(self.isEnabled ? self.isFocused : true)
+            })
+    }
+}
+
+/// Style for disable the increment and decrement button when editing.
+public extension StepperViewStyle where Self == StepperViewFocusedStyle {
+    /// The `focus` style is applied in the case that the increment and decrement button are disabled when the text field is selected and editing.
+    static var focus: StepperViewFocusedStyle {
+        StepperViewFocusedStyle()
     }
 }
