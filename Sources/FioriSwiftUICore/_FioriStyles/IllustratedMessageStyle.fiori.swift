@@ -28,7 +28,9 @@ public struct IllustratedMessageBaseStyle: IllustratedMessageStyle {
             getResizedDetailImage(detailImage: configuration.detailImage, size: configuration.detailImageSize ?? IllustratedMessage.DetailImageSize.medium)
                 .padding(.bottom, 16)
             configuration.title
+                .multilineTextAlignment(.center)
             configuration.description
+                .multilineTextAlignment(.center)
             configuration.action
                 .padding(.top, 24)
         }
