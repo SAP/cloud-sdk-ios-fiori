@@ -95,11 +95,11 @@ We plan to progressively bring more Fiori UI components into this module in the 
 | RatingControlFormView | :white_check_mark: |
 | SortFilter | :white_check_mark: |
 | Menu Selection | :white_check_mark: |
+| ProfileHeader | :white_check_mark: |
+| TimelineItem | :white_check_mark: |
 | Segmented Control | :x: |
-| TimelineItem | :x: |
 | TimelinePreviewItem | :x: |
 | ChartFloorplan | :x: |
-| ProfileHeader | :x: |
 | CollectionItem | :x: |
 | BarcodeScanner | :x: |
 | PasscodeView | :x: |
