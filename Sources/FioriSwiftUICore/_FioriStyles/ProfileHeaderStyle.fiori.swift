@@ -195,6 +195,7 @@ extension ProfileHeaderFioriStyle {
         
         func makeBody(_ configuration: TitleConfiguration) -> some View {
             Title(configuration)
+                .foregroundStyle(Color.preferredColor(.primaryLabel))
                 .font(.fiori(forTextStyle: .title3, weight: .bold))
         }
     }
@@ -204,7 +205,8 @@ extension ProfileHeaderFioriStyle {
         
         func makeBody(_ configuration: SubtitleConfiguration) -> some View {
             Subtitle(configuration)
-                .font(.fiori(forTextStyle: .body))
+                .foregroundStyle(Color.preferredColor(.secondaryLabel))
+                .font(.fiori(forTextStyle: .headline))
         }
     }
     
