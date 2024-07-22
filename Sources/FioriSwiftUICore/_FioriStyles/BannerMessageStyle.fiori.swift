@@ -4,12 +4,12 @@ import SwiftUI
 
 // Base Layout style
 public struct BannerMessageBaseStyle: BannerMessageStyle {
-    @Namespace var namespace
     public func makeBody(_ configuration: BannerMessageConfiguration) -> some View {
         VStack(spacing: 0) {
             configuration.topDivider.frame(height: 4)
             HStack {
                 Spacer()
+                configuration.icon
                 configuration.title
                     .padding([.top, .bottom], 13)
                 Spacer()
@@ -32,6 +32,14 @@ extension BannerMessageFioriStyle {
         }
     }
     
+    struct IconFioriStyle: IconStyle {
+        let bannerMessageConfiguration: BannerMessageConfiguration
+        
+        func makeBody(_ configuration: IconConfiguration) -> some View {
+            Icon(configuration)
+        }
+    }
+
     struct TitleFioriStyle: TitleStyle {
         let bannerMessageConfiguration: BannerMessageConfiguration
         
