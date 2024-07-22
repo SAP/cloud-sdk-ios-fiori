@@ -2,16 +2,14 @@ import FioriSwiftUICore
 import SwiftUI
 
 struct ProfileHeaderStaticExample: View {
-    var profileHeader: some View {
-        ProfileHeader(detailImage: {
-            Image("ProfilePic").resizable()
-        }, title: {
-            Text("Title")
-        }, subtitle: {
-            Text("This is a subtitle.")
-        }, description: {
-            Text("This is a description.")
-        }) {
+    @State var useButtonForDetails = false
+    
+    @ViewBuilder var detailContent: some View {
+        if self.useButtonForDetails {
+            FioriButton { _ in
+                Text("Label")
+            }
+        } else {
             HStack(spacing: 30) {
                 Button(action: {}, label: {
                     Image(systemName: "mail")
@@ -23,6 +21,33 @@ struct ProfileHeaderStaticExample: View {
                 Button(action: {}, label: {
                     Image(systemName: "phone")
                 })
+            }
+        }
+    }
+    
+    var profileHeader: some View {
+        ProfileHeader(detailImage: {
+            Image("ProfilePic").resizable()
+        }, title: {
+            Text("Title")
+        }, subtitle: {
+            Text("This is a subtitle.")
+        }, description: {
+            Text("This is a description.")
+        }) {
+            self.detailContent
+        }
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Menu {
+                    Button(action: {
+                        self.useButtonForDetails.toggle()
+                    }, label: {
+                        Text("Icons / Button")
+                    })
+                } label: {
+                    Text("Styles")
+                }
             }
         }
     }
