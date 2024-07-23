@@ -485,9 +485,7 @@ class LayoutData {
         }
         
         if let padding = dataCellPadding {
-            if columnIndex == 0 {
-                return EdgeInsets(top: padding.top, leading: 0, bottom: padding.bottom, trailing: padding.trailing)
-            } else if columnIndex == numOfColumns - 1 {
+            if columnIndex == numOfColumns - 1 {
                 return EdgeInsets(top: padding.top, leading: padding.leading, bottom: padding.bottom, trailing: 0)
             } else {
                 return padding
@@ -501,10 +499,10 @@ class LayoutData {
         if numOfColumns < 1 {
             return EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
         } else if numOfColumns == 1 {
-            return EdgeInsets(top: vPadding, leading: 0, bottom: vPadding, trailing: 0)
+            return EdgeInsets(top: vPadding, leading: contentInset, bottom: vPadding, trailing: 0)
         } else {
             if columnIndex == 0 {
-                return EdgeInsets(top: vPadding, leading: 0, bottom: vPadding, trailing: contentInset)
+                return EdgeInsets(top: vPadding, leading: contentInset, bottom: vPadding, trailing: contentInset)
             } else if columnIndex == numOfColumns - 1 {
                 return EdgeInsets(top: vPadding, leading: contentInset, bottom: vPadding, trailing: 0)
             } else {
