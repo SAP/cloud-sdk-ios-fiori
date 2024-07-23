@@ -59,7 +59,7 @@ public struct DataTable: View {
     }
     
     func makeBody(in rect: CGRect) -> some View {
-        self.layoutManager.sizeClass = horizontalSizeClass ?? .compact
+        self.layoutManager.sizeClass = self.horizontalSizeClass ?? .compact
         // it only layouts when necessary
         self.layoutManager.layout(rect.size)
         
