@@ -241,18 +241,20 @@ protocol _MessageContentComponent {
 }
 
 // sourcery: BaseComponent
+// sourcery: importFrameworks = ["FioriThemeManager"]
 protocol _DecrementActionComponent {
     // sourcery: @ViewBuilder
-    // sourcery: defaultValue = "FioriButton { _ in Image(systemName: "minus") }"
-    // sourcery: resultBuilder.defaultValue = "{ FioriButton { _ in Image(systemName: "minus") } }"
+    // sourcery: defaultValue = "FioriButton { _ in FioriIcon.actions.less }"
+    // sourcery: resultBuilder.defaultValue = "{ FioriButton { _ in FioriIcon.actions.less } }"
     var decrementAction: FioriButton? { get }
 }
 
 // sourcery: BaseComponent
+// sourcery: importFrameworks = ["FioriThemeManager"]
 protocol _IncrementActionComponent {
     // sourcery: @ViewBuilder
-    // sourcery: defaultValue = "FioriButton { _ in Image(systemName: "plus") }"
-    // sourcery: resultBuilder.defaultValue = "{ FioriButton { _ in Image(systemName: "plus") } }"
+    // sourcery: defaultValue = "FioriButton { _ in FioriIcon.actions.add }"
+    // sourcery: resultBuilder.defaultValue = "{ FioriButton { _ in FioriIcon.actions.add } }"
     var incrementAction: FioriButton? { get }
 }
 

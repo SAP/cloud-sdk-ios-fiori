@@ -3,6 +3,8 @@
 import Foundation
 import SwiftUI
 
+import FioriThemeManager
+
 public struct StepperView {
     let title: any View
     let decrementAction: any View
@@ -20,9 +22,9 @@ public struct StepperView {
     fileprivate var _shouldApplyDefaultStyle = true
 
     public init(@ViewBuilder title: () -> any View,
-                @ViewBuilder decrementAction: () -> any View = { FioriButton { _ in Image(systemName: "minus") } },
+                @ViewBuilder decrementAction: () -> any View = { FioriButton { _ in FioriIcon.actions.less } },
                 text: Binding<String>,
-                @ViewBuilder incrementAction: () -> any View = { FioriButton { _ in Image(systemName: "plus") } },
+                @ViewBuilder incrementAction: () -> any View = { FioriButton { _ in FioriIcon.actions.add } },
                 step: Int? = nil,
                 stepRange: ClosedRange<Int>,
                 @ViewBuilder icon: () -> any View = { EmptyView() },
@@ -41,9 +43,9 @@ public struct StepperView {
 
 public extension StepperView {
     init(title: AttributedString,
-         decrementAction: FioriButton? = FioriButton { _ in Image(systemName: "minus") },
+         decrementAction: FioriButton? = FioriButton { _ in FioriIcon.actions.less },
          text: Binding<String>,
-         incrementAction: FioriButton? = FioriButton { _ in Image(systemName: "plus") },
+         incrementAction: FioriButton? = FioriButton { _ in FioriIcon.actions.add },
          step: Int? = nil,
          stepRange: ClosedRange<Int>,
          icon: Image? = nil,

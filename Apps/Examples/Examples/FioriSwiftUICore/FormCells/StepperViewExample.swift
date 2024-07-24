@@ -118,3 +118,7 @@ struct DecrementBtnStyle: FioriButtonStyle {
         configuration.label.foregroundColor(Color.purple)
     }
 }
+
+#Preview {
+    StepperViewExample()
+}

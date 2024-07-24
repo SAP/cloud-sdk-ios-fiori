@@ -1,31 +1,19 @@
 import FioriThemeManager
-
-// Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
-// DO NOT EDIT
 import Foundation
 import SwiftUI
-
-/**
- This file provides default fiori style for the component.
-
- 1. Uncomment fhe following code.
- 2. Implement layout and style in corresponding places.
- 3. Delete `.generated` from file name.
- 4. Move this file to `_FioriStyles` folder under `FioriSwiftUICore`.
- */
 
 // Base Layout style
 public struct StepperViewBaseStyle: StepperViewStyle {
     public func makeBody(_ configuration: StepperViewConfiguration) -> some View {
         @State var showDescription = !configuration.description.isEmpty
-        return VStack {
+        return VStack(spacing: 0) {
             ViewThatFits {
-                HStack {
+                HStack(spacing: 0) {
                     configuration.title
                     Spacer().layoutPriority(1)
                     configuration._stepperField
                 }
-                VStack(alignment: .leading) {
+                VStack(alignment: .leading, spacing: 0) {
                     configuration.title
                     HStack {
                         Spacer()
@@ -34,7 +22,7 @@ public struct StepperViewBaseStyle: StepperViewStyle {
                 }
             }
             if showDescription {
-                HStack {
+                HStack(spacing: 0) {
                     configuration._informationView
                     Spacer()
                 }.padding(.top, 4)
@@ -47,11 +35,12 @@ public struct StepperViewBaseStyle: StepperViewStyle {
 extension StepperViewFioriStyle {
     struct ContentFioriStyle: StepperViewStyle {
         @Environment(\.isEnabled) var isEnabled: Bool
+        @Environment(\.horizontalSizeClass) var horizontalSizeClass: UserInterfaceSizeClass?
         @FocusState var isFocused: Bool
 
         func makeBody(_ configuration: StepperViewConfiguration) -> some View {
             StepperView(configuration)
-//                .padding(EdgeInsets(top: 9, leading: 16, bottom: 11, trailing: 0))
+                .padding(EdgeInsets(top: 9, leading: self.getPadding(), bottom: 11, trailing: self.getPadding()))
                 .titleStyle(content: { titleConfiguration in
                     Title(titleConfiguration)
                         .foregroundColor(.preferredColor(self.isEnabled ? (self.isFocused ? .tintColor : .primaryLabel) : .separator))
@@ -66,6 +55,11 @@ extension StepperViewFioriStyle {
                         )
                         .focused(self.$isFocused)
                 }
+        }
+        
+        func getPadding() -> CGFloat {
+            let padding: CGFloat = self.horizontalSizeClass == .compact ? 16 : (self.horizontalSizeClass == .regular ? (UIScreen.main.bounds.width > 768 ? 48 : 24) : 16)
+            return padding
         }
     }
 
@@ -85,9 +79,6 @@ extension StepperViewFioriStyle {
     
         func makeBody(_ configuration: DecrementActionConfiguration) -> some View {
             DecrementAction(configuration)
-            // Add default style for DecrementAction
-            // .foregroundStyle(Color.preferredColor(fiori color))
-            // .font(.fiori(forTextStyle: <#fiori font#>))
         }
     }
 
@@ -100,7 +91,7 @@ extension StepperViewFioriStyle {
                 .foregroundColor(.preferredColor(self.isEnabled ? .primaryLabel : .separator))
                 .font(.fiori(forTextStyle: .body))
                 .padding(EdgeInsets(top: 0, leading: 2, bottom: 0, trailing: 2))
-                .frame(minWidth: 30)
+                .frame(minWidth: 44)
                 .multilineTextAlignment(.center)
                 .textFieldStyle(PlainTextFieldStyle())
                 .fixedSize(horizontal: true, vertical: false)
@@ -112,9 +103,6 @@ extension StepperViewFioriStyle {
     
         func makeBody(_ configuration: IncrementActionConfiguration) -> some View {
             IncrementAction(configuration)
-            // Add default style for IncrementAction
-            // .foregroundStyle(Color.preferredColor(fiori color))
-            // .font(.fiori(forTextStyle: <#fiori font#>))
         }
     }
     
@@ -134,7 +122,7 @@ extension StepperViewFioriStyle {
     
         func makeBody(_ configuration: StepperFieldConfiguration) -> some View {
             StepperField(configuration)
-                .frame(minWidth: 150, minHeight: 44)
+                .frame(minWidth: 136, minHeight: 44)
         }
     }
     
@@ -167,10 +155,12 @@ public struct StepperViewFocusedStyle: StepperViewStyle {
             .decrementActionStyle(content: { config in
                 config.decrementAction
                     .disabled(self.isEnabled ? self.isFocused : true)
+                    .allowsHitTesting(self.isEnabled && !self.isFocused)
             })
             .incrementActionStyle(content: { config in
                 config.incrementAction
                     .disabled(self.isEnabled ? self.isFocused : true)
+                    .allowsHitTesting(self.isEnabled && !self.isFocused)
             })
     }
 }

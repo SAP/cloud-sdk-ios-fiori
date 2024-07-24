@@ -122,6 +122,7 @@ protocol _TextFieldFormViewComponent: _TitleComponent, _TitleFormViewComponent, 
 protocol _JouleWelcomeScreen: _MediaImageComponent, _GreetingTextComponent, _TitleComponent, _FootnoteComponent, _MessageContentComponent {}
 
 // sourcery: CompositeComponent
+// sourcery: importFrameworks = ["FioriThemeManager"]
 protocol _StepperFieldComponent: _DecrementActionComponent, _TextInputFieldComponent, _IncrementActionComponent {
     /// The step value
     var step: Int? { get }
@@ -131,6 +132,7 @@ protocol _StepperFieldComponent: _DecrementActionComponent, _TextInputFieldCompo
 }
 
 // sourcery: CompositeComponent
+// sourcery: importFrameworks = ["FioriThemeManager"]
 protocol _StepperViewComponent: _TitleComponent, _StepperFieldComponent, _InformationViewComponent {}
 
 /// SideBar: SwiftUI View
