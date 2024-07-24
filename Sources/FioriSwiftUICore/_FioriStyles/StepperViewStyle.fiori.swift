@@ -167,10 +167,12 @@ public struct StepperViewFocusedStyle: StepperViewStyle {
             .decrementActionStyle(content: { config in
                 config.decrementAction
                     .disabled(self.isEnabled ? self.isFocused : true)
+                    .allowsHitTesting(self.isEnabled && !self.isFocused)
             })
             .incrementActionStyle(content: { config in
                 config.incrementAction
                     .disabled(self.isEnabled ? self.isFocused : true)
+                    .allowsHitTesting(self.isEnabled && !self.isFocused)
             })
     }
 }
