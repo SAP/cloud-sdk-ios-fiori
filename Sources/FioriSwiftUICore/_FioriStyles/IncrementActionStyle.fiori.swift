@@ -33,3 +33,37 @@ public struct IncrementActionFioriStyle: IncrementActionStyle {
         // .font(.fiori(forTextStyle: <#fiori font#>))
     }
 }
+
+public struct IncrementActionActivateStyle: IncrementActionStyle {
+    @Environment(\.isEnabled) var isEnabled: Bool
+    public func makeBody(_ configuration: IncrementActionConfiguration) -> some View {
+        IncrementAction(configuration)
+            .disabled(!self.isEnabled)
+            .foregroundColor(.preferredColor(self.isEnabled ? .tertiaryLabel : .separator))
+            .allowsHitTesting(self.isEnabled)
+    }
+}
+
+public struct IncrementActionDeactivateStyle: IncrementActionStyle {
+    @Environment(\.isEnabled) var isEnabled: Bool
+    public func makeBody(_ configuration: IncrementActionConfiguration) -> some View {
+        IncrementAction(configuration)
+            .disabled(true)
+            .foregroundColor(.preferredColor(.separator))
+            .allowsHitTesting(false)
+    }
+}
+
+public extension IncrementActionStyle where Self == IncrementActionActivateStyle {
+    /// The `activate` style is applied in the case that the increment button is disabled.
+    static var activate: IncrementActionActivateStyle {
+        IncrementActionActivateStyle()
+    }
+}
+
+public extension IncrementActionStyle where Self == IncrementActionDeactivateStyle {
+    /// The `deactivate` style is applied in the case that the increment button is disabled.
+    static var deactivate: IncrementActionDeactivateStyle {
+        IncrementActionDeactivateStyle()
+    }
+}
