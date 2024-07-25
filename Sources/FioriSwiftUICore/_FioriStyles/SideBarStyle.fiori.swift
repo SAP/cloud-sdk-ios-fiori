@@ -148,6 +148,7 @@ public struct SideBarBaseStyle: SideBarStyle {
                     }
                 } else if configuration.isEditing { // For edit-mode
                     configuration.item(bindableItem).typeErased
+                        .background(Color.preferredColor(.secondaryBackground))
                         .simultaneousGesture(TapGesture().onEnded {}) // To capture the Tap Gesture on the Item Row in Edit mode and to do nothing to avoid the Tap Gesture was captured by section expending logic
                         .background(Color.white)
                         .overlay(

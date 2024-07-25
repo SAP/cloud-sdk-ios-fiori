@@ -22,7 +22,7 @@ public struct SideBarListItemBaseStyle: SideBarListItemStyle {
     public func makeBody(_ configuration: SideBarListItemConfiguration) -> some View {
         Group {
             let dragImage = Image(systemName: "line.horizontal.3")
-                .frame(width: 22 * self.scale, height: 22 * self.scale)
+                .font(.fiori(forTextStyle: .title3))
                 .foregroundStyle(Color.preferredColor(.secondaryLabel))
             
             if self.sizeCategory.isAccessibilityCategory {
@@ -30,10 +30,8 @@ public struct SideBarListItemBaseStyle: SideBarListItemStyle {
                     HStack(spacing: 11) {
                         if configuration.isSelected, self.editMode?.wrappedValue == .inactive {
                             configuration.filledIcon
-                                .frame(width: 22 * self.scale, height: 22 * self.scale)
                         } else {
                             configuration.icon
-                                .frame(width: 22 * self.scale, height: 22 * self.scale)
                         }
                         configuration.title.multilineTextAlignment(.leading)
                         Spacer()
@@ -44,7 +42,6 @@ public struct SideBarListItemBaseStyle: SideBarListItemStyle {
                         if self.editMode?.wrappedValue == .inactive {
                             configuration.subtitle.multilineTextAlignment(.trailing)
                             configuration.accessoryIcon
-                                .frame(width: 22 * self.scale, height: 22 * self.scale)
                         } else if self.editMode?.wrappedValue == .active {
                             configuration._switch
                                 .frame(width: 60 * self.scale, height: 22 * self.scale)
@@ -56,10 +53,8 @@ public struct SideBarListItemBaseStyle: SideBarListItemStyle {
                 HStack(spacing: 11) {
                     if configuration.isSelected, self.editMode?.wrappedValue == .inactive {
                         configuration.filledIcon
-                            .frame(width: 22 * self.scale, height: 22 * self.scale)
                     } else {
                         configuration.icon
-                            .frame(width: 22 * self.scale, height: 22 * self.scale)
                     }
                     
                     configuration.title.frame(height: 44, alignment: .leading).multilineTextAlignment(.leading)
@@ -67,7 +62,6 @@ public struct SideBarListItemBaseStyle: SideBarListItemStyle {
                     if self.editMode?.wrappedValue == .inactive {
                         configuration.subtitle.frame(height: 44, alignment: .leading).multilineTextAlignment(.trailing)
                         configuration.accessoryIcon
-                            .frame(width: 22 * self.scale, height: 22 * self.scale)
                     } else if self.editMode?.wrappedValue == .active {
                         configuration._switch
                             .frame(width: 50, height: 35)
@@ -121,10 +115,12 @@ extension SideBarListItemFioriStyle {
             Group {
                 if self.modelObject.isSelected, self.editMode?.wrappedValue == .inactive {
                     Icon(configuration)
+                        .font(.fiori(forTextStyle: .body))
                         .fontWeight(.bold)
                         .foregroundStyle(Color.preferredColor(.quinaryLabel))
                 } else {
                     Icon(configuration)
+                        .font(.fiori(forTextStyle: .body))
                         .foregroundStyle(Color.preferredColor(.tintColor))
                 }
             }
@@ -136,6 +132,7 @@ extension SideBarListItemFioriStyle {
     
         func makeBody(_ configuration: FilledIconConfiguration) -> some View {
             FilledIcon(configuration)
+                .font(.fiori(forTextStyle: .body))
                 .fontWeight(.bold)
                 .foregroundStyle(Color.preferredColor(.quinaryLabel))
         }
@@ -186,10 +183,12 @@ extension SideBarListItemFioriStyle {
             Group {
                 if self.modelObject.isSelected, self.editMode?.wrappedValue == .inactive {
                     AccessoryIcon(configuration)
+                        .font(.fiori(forTextStyle: .body))
                         .fontWeight(.bold)
                         .foregroundStyle(Color.preferredColor(.quinaryLabel))
                 } else {
                     AccessoryIcon(configuration)
+                        .font(.fiori(forTextStyle: .body))
                         .foregroundStyle(Color.preferredColor(.tertiaryLabel))
                 }
             }

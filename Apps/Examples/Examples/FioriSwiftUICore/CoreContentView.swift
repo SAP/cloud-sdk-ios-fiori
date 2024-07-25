@@ -6,99 +6,32 @@ import SwiftUI
 struct CoreContentView: View {
     var body: some View {
         List {
-            Group {
-                NavigationLink(
-                    destination: DataTableExample())
-                {
-                    Text("Data Table")
-                }
-                
-                NavigationLink(
-                    destination: BannerMessageExample())
-                {
-                    Text("Banner Message")
-                }
-                
-                NavigationLink(
-                    destination: ProfileHeaderExample())
-                {
-                    Text("Profile Header")
-                }
-                
-                NavigationLink(
-                    destination: SideBarExample(),
-                    label: {
-                        Text("Side Bar Example")
-                    }
-                )
-                
-                NavigationLink(
-                    destination: DimensionSelector_Chart())
-                {
-                    Text("Dimension Selector")
-                }
-            }
-            Group {
-                NavigationLink(
-                    destination: StepProgressIndicatorExample())
-                {
-                    Text("Step Progress Indicator")
-                }
-                
-                NavigationLink(
-                    destination: SignatureCaptureViewExample())
-                {
-                    Text("Signature Inline View")
-                }
-
-                NavigationLink(
-                    destination: SignatureCaptureViewExample2())
-                {
-                    Text("Customized Signature Inline View")
-                }
-                
-                NavigationLink(
-                    destination: NavigationBarExample())
-                {
-                    Text("Customized NavigationBar")
-                }
-                
-                NavigationLink(
-                    destination: TabViewExample())
-                {
-                    Text("Customized TabView")
-                }
-                
-                NavigationLink(
-                    destination: ToolbarExample())
-                {
-                    Text("Customized Toolbar")
-                }
-            }
-            
-            NavigationLink(
-                destination: ExperimentalContentView())
-            {
-                Text("🚧 Experimental 🚧")
-            }
-
-            Group {
-                NavigationLink(
-                    destination: ListPickerItemExample())
-                {
-                    Text("ListPickerItem")
-                }
-                
-                NavigationLink(
-                    destination: DurationPickerExample())
-                {
-                    Text("DurationPicker")
-                }
-                
+            Section(header: Text("Views")) {
                 NavigationLink(
                     destination: FioriButtonContentView(),
                     label: {
                         Text("FioriButton")
+                    }
+                )
+                
+                NavigationLink(destination: MobileCardExample()) {
+                    Text("Cards and Layouts")
+                }
+                
+                NavigationLink(destination: ContactItemExample()) {
+                    Text("ContactItem")
+                }
+                
+                NavigationLink(
+                    destination: EmptyStateViewExample())
+                {
+                    Text("EmptyStateViewExample")
+                }
+                
+                NavigationLink(
+                    destination: FormViewExamples(),
+                    label: {
+                        Text("FormView")
                     }
                 )
                 
@@ -107,32 +40,13 @@ struct CoreContentView: View {
                 {
                     Text("IllustratedMessage")
                 }
-                
-                Group {
-                    NavigationLink(
-                        destination: KPIExample())
-                    {
-                        Text("KPI")
-                    }
-                    
-                    NavigationLink(
-                        destination: KPIProgressExample())
-                    {
-                        Text("KPIProgressItem")
-                    }
-                    
-                    NavigationLink(
-                        destination: KPIHeaderExample())
-                    {
-                        Text("KPIHeader")
-                    }
-                }
-                
+               
                 NavigationLink(
-                    destination: OnboardingExamples())
-                {
-                    Text("Onboarding")
-                }
+                    destination: InformationViewExample(),
+                    label: {
+                        Text("InformationViewExample")
+                    }
+                )
                 
                 NavigationLink(
                     destination: ObjectItemExample(_isNewObjectItem: true),
@@ -144,9 +58,50 @@ struct CoreContentView: View {
                 NavigationLink(
                     destination: ObjectItemExample(),
                     label: {
-                        Text("_ObjectItem")
+                        Text("_ObjectItem: deprecated")
                     }
                 )
+                
+                NavigationLink(
+                    destination: OtherViewExamples())
+                {
+                    Text("Other View Examples")
+                }
+                
+                NavigationLink(
+                    destination: SignatureCaptureViewExample())
+                {
+                    Text("Signature Inline View")
+                }
+                
+                NavigationLink(
+                    destination: SignatureCaptureViewExample2())
+                {
+                    Text("Customized Signature Inline View")
+                }
+            }
+            
+            Section(header: Text("Timeline")) {
+                NavigationLink(
+                    destination: TimelineExample(),
+                    label: {
+                        Text("Timeline")
+                    }
+                )
+            }
+            
+            Section(header: Text("Headers")) {
+                NavigationLink(
+                    destination: ProfileHeaderExample())
+                {
+                    Text("Profile Header")
+                }
+                
+                NavigationLink(
+                    destination: KPIHeaderExample())
+                {
+                    Text("KPIHeader")
+                }
                 
                 NavigationLink(
                     destination: ObjectHeaderExample(),
@@ -154,83 +109,146 @@ struct CoreContentView: View {
                         Text("ObjectHeader")
                     }
                 )
-                
-                NavigationLink(destination: ContactItemExample()) {
-                    Text("ContactItem")
-                }
-                
-                NavigationLink(destination: MobileCardExample()) {
-                    Text("Cards and Layouts")
+            }
+            
+            Section(header: Text("Controls")) {
+                NavigationLink(
+                    destination: TabViewExample())
+                {
+                    Text("Customized TabView")
                 }
                 
                 NavigationLink(
-                    destination: EmptyStateViewExample())
+                    destination: ToolbarExample())
                 {
-                    Text("EmptyStateViewExample")
+                    Text("Customized Toolbar")
                 }
+                
+                NavigationLink(
+                    destination: DimensionSelector_Chart())
+                {
+                    Text("Dimension Selector")
+                }
+                
+                NavigationLink(
+                    destination: LinearProgressIndicatorExample(),
+                    label: {
+                        Text("Linear Progress Indicator")
+                    }
+                )
+                
+                NavigationLink(
+                    destination: MenuSelectionExample())
+                {
+                    Text("Menu Selection")
+                }
+                
+                NavigationLink(
+                    destination: RatingControlExample(),
+                    label: {
+                        Text("RatingControl")
+                    }
+                )
+                
+                NavigationLink(
+                    destination: SideBarExample(),
+                    label: {
+                        Text("Side Bar Example")
+                    }
+                )
                 
                 NavigationLink(destination: SortFilterExample()) {
                     Text("SortFilterExample")
                 }
                 
+                NavigationLink(
+                    destination: StepperViewExample(),
+                    label: {
+                        Text("Stepper")
+                    }
+                )
+                
+                NavigationLink(
+                    destination: StepProgressIndicatorExample())
+                {
+                    Text("Step Progress Indicator")
+                }
+            }
+            
+            Section(header: Text("Pickers")) {
+                NavigationLink(
+                    destination: ListPickerItemExample())
+                {
+                    Text("ListPickerItem")
+                }
+                
+                NavigationLink(
+                    destination: DurationPickerExample())
+                {
+                    Text("DurationPicker")
+                }
+            }
+            
+            Section(header: Text("Onboarding")) {
+                NavigationLink(
+                    destination: OnboardingExamples())
+                {
+                    Text("Onboarding")
+                }
+            }
+            
+            Section(header: Text("Banner Message")) {
+                NavigationLink(
+                    destination: BannerMessageExample())
+                {
+                    Text("Banner Message")
+                }
+            }
+            
+            Section(header: Text("Navigation Bar")) {
+                NavigationLink(
+                    destination: NavigationBarExample())
+                {
+                    Text("Customized NavigationBar")
+                }
+            }
+            
+            Section(header: Text("KPI")) {
+                NavigationLink(
+                    destination: KPIExample())
+                {
+                    Text("KPI")
+                }
+                
+                NavigationLink(
+                    destination: KPIProgressExample())
+                {
+                    Text("KPIProgressItem")
+                }
+            }
+            
+            Section(header: Text("Search")) {
                 NavigationLink(destination: SearchDemos()) {
                     Text("Search Demos")
                 }
-
+            }
+            
+            Section(header: Text("Data Table")) {
                 NavigationLink(
-                    destination: FormViewExamples(),
-                    label: {
-                        Text("FormView")
-                    }
-                )
-            }
-
-            NavigationLink(
-                destination: RatingControlExample(),
-                label: {
-                    Text("RatingControl")
+                    destination: DataTableExample())
+                {
+                    Text("Data Table")
                 }
-            )
-
-            NavigationLink(
-                destination: InformationViewExample(),
-                label: {
-                    Text("InformationViewExample")
-                }
-            )
-     
-            NavigationLink(
-                destination: LinearProgressIndicatorExample(),
-                label: {
-                    Text("Linear Progress Indicator")
-                }
-            )
-            
-            NavigationLink(
-                destination: StepperViewExample(),
-                label: {
-                    Text("Stepper")
-                }
-            )
-            
-            NavigationLink(
-                destination: MenuSelectionExample())
-            {
-                Text("Menu Selection")
             }
             
-            NavigationLink(
-                destination: TimelineExample(),
-                label: {
-                    Text("Timeline")
+            Section(header: Text("ExperimentalContentView")) {
+                NavigationLink(
+                    destination: ExperimentalContentView())
+                {
+                    Text("🚧 Experimental 🚧")
                 }
-            )
-            
-            NavigationLink(
-                destination: OtherViewExamples())
-            {
-                Text("Other View Examples")
             }
+            
         }.navigationBarTitle("FioriSwiftUICore")
     }
 }
