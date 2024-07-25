@@ -73,6 +73,27 @@ public extension BannerMessageStyle where Self == BannerMessageFioriStyle {
     }
 }
 
+public struct BannerMessageIconStyle: BannerMessageStyle {
+    let style: any IconStyle
+
+    public func makeBody(_ configuration: BannerMessageConfiguration) -> some View {
+        BannerMessage(configuration)
+            .iconStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension BannerMessageStyle where Self == BannerMessageIconStyle {
+    static func iconStyle(_ style: some IconStyle) -> BannerMessageIconStyle {
+        BannerMessageIconStyle(style: style)
+    }
+
+    static func iconStyle(@ViewBuilder content: @escaping (IconConfiguration) -> some View) -> BannerMessageIconStyle {
+        let style = AnyIconStyle(content)
+        return BannerMessageIconStyle(style: style)
+    }
+}
+
 public struct BannerMessageTitleStyle: BannerMessageStyle {
     let style: any TitleStyle
 

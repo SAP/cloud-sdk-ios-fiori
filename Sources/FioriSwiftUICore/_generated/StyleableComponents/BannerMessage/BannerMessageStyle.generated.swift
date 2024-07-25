@@ -22,11 +22,13 @@ struct AnyBannerMessageStyle: BannerMessageStyle {
 }
 
 public struct BannerMessageConfiguration {
+    public let icon: Icon
     public let title: Title
     public let closeAction: CloseAction
     public let topDivider: TopDivider
     public let bannerTapAction: (() -> Void)?
 
+    public typealias Icon = ConfigurationViewWrapper
     public typealias Title = ConfigurationViewWrapper
     public typealias CloseAction = ConfigurationViewWrapper
     public typealias TopDivider = ConfigurationViewWrapper
@@ -35,6 +37,7 @@ public struct BannerMessageConfiguration {
 public struct BannerMessageFioriStyle: BannerMessageStyle {
     public func makeBody(_ configuration: BannerMessageConfiguration) -> some View {
         BannerMessage(configuration)
+            .iconStyle(IconFioriStyle(bannerMessageConfiguration: configuration))
             .titleStyle(TitleFioriStyle(bannerMessageConfiguration: configuration))
             .closeActionStyle(CloseActionFioriStyle(bannerMessageConfiguration: configuration))
             .topDividerStyle(TopDividerFioriStyle(bannerMessageConfiguration: configuration))
