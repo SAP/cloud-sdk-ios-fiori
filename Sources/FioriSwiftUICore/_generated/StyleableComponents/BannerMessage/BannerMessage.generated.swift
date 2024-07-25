@@ -4,6 +4,7 @@ import Foundation
 import SwiftUI
 
 public struct BannerMessage {
+    let icon: any View
     let title: any View
     let closeAction: any View
     let topDivider: any View
@@ -14,11 +15,13 @@ public struct BannerMessage {
 
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder title: () -> any View,
+    public init(@ViewBuilder icon: () -> any View = { EmptyView() },
+                @ViewBuilder title: () -> any View,
                 @ViewBuilder closeAction: () -> any View = { FioriButton { _ in Image(systemName: "xmark") } },
                 @ViewBuilder topDivider: () -> any View = { Rectangle().fill(Color.clear) },
                 bannerTapAction: (() -> Void)? = nil)
     {
+        self.icon = Icon { icon() }
         self.title = Title { title() }
         self.closeAction = CloseAction { closeAction() }
         self.topDivider = TopDivider { topDivider() }
@@ -27,12 +30,13 @@ public struct BannerMessage {
 }
 
 public extension BannerMessage {
-    init(title: AttributedString,
+    init(icon: Image? = nil,
+         title: AttributedString,
          closeAction: FioriButton? = FioriButton { _ in Image(systemName: "xmark") },
          @ViewBuilder topDivider: () -> any View = { Rectangle().fill(Color.clear) },
          bannerTapAction: (() -> Void)? = nil)
     {
-        self.init(title: { Text(title) }, closeAction: { closeAction }, topDivider: topDivider, bannerTapAction: bannerTapAction)
+        self.init(icon: { icon }, title: { Text(title) }, closeAction: { closeAction }, topDivider: topDivider, bannerTapAction: bannerTapAction)
     }
 }
 
@@ -42,6 +46,7 @@ public extension BannerMessage {
     }
 
     internal init(_ configuration: BannerMessageConfiguration, shouldApplyDefaultStyle: Bool) {
+        self.icon = configuration.icon
         self.title = configuration.title
         self.closeAction = configuration.closeAction
         self.topDivider = configuration.topDivider
@@ -55,7 +60,7 @@ extension BannerMessage: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(title: .init(self.title), closeAction: .init(self.closeAction), topDivider: .init(self.topDivider), bannerTapAction: self.bannerTapAction)).typeErased
+            self.style.resolve(configuration: .init(icon: .init(self.icon), title: .init(self.title), closeAction: .init(self.closeAction), topDivider: .init(self.topDivider), bannerTapAction: self.bannerTapAction)).typeErased
                 .transformEnvironment(\.bannerMessageStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -73,7 +78,7 @@ private extension BannerMessage {
     }
 
     func defaultStyle() -> some View {
-        BannerMessage(.init(title: .init(self.title), closeAction: .init(self.closeAction), topDivider: .init(self.topDivider), bannerTapAction: self.bannerTapAction))
+        BannerMessage(.init(icon: .init(self.icon), title: .init(self.title), closeAction: .init(self.closeAction), topDivider: .init(self.topDivider), bannerTapAction: self.bannerTapAction))
             .shouldApplyDefaultStyle(false)
             .bannerMessageStyle(BannerMessageFioriStyle.ContentFioriStyle())
             .typeErased

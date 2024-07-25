@@ -29,7 +29,8 @@ extension Avatars: _ViewEmptyChecking {
 
 extension BannerMessage: _ViewEmptyChecking {
     public var isEmpty: Bool {
-        title.isEmpty &&
+        icon.isEmpty &&
+            title.isEmpty &&
             closeAction.isEmpty &&
             topDivider.isEmpty
     }
