@@ -37,6 +37,7 @@ extension BannerMessageFioriStyle {
         
         func makeBody(_ configuration: IconConfiguration) -> some View {
             Icon(configuration)
+                .foregroundStyle(Color.preferredColor(.negativeLabel))
         }
     }
 
@@ -78,10 +79,12 @@ public extension View {
     /// - Returns: A new `View` with banner message.
     func bannerMessageView(isPresented: Binding<Bool>,
                            pushContentDown: Binding<Bool> = .constant(false),
+                           @ViewBuilder icon: () -> any View = { EmptyView() },
                            title: AttributedString,
                            bannerTapped: (() -> Void)? = nil) -> some View
     {
-        self.modifier(BannerMessageModifier(title: Text(title),
+        self.modifier(BannerMessageModifier(icon: icon(),
+                                            title: Text(title),
                                             isPresented: isPresented,
                                             pushContentDown: pushContentDown,
                                             bannerTapped: bannerTapped))
@@ -96,10 +99,12 @@ public extension View {
     /// - Returns: A new `View` with banner message.
     func bannerMessageView(isPresented: Binding<Bool>,
                            pushContentDown: Binding<Bool> = .constant(false),
+                           @ViewBuilder icon: () -> any View = { EmptyView() },
                            title: String,
                            bannerTapped: (() -> Void)? = nil) -> some View
     {
-        self.modifier(BannerMessageModifier(title: Text(title),
+        self.modifier(BannerMessageModifier(icon: icon(),
+                                            title: Text(title),
                                             isPresented: isPresented,
                                             pushContentDown: pushContentDown,
                                             bannerTapped: bannerTapped))
@@ -114,11 +119,12 @@ public extension View {
     /// - Returns: A new `View` with banner message.
     func bannerMessageView(isPresented: Binding<Bool>,
                            pushContentDown: Binding<Bool> = .constant(false),
+                           @ViewBuilder icon: () -> any View = { EmptyView() },
                            @ViewBuilder title: () -> any View,
-                           @ViewBuilder action: () -> any View = { EmptyView() },
                            bannerTapped: (() -> Void)? = nil) -> some View
     {
-        self.modifier(BannerMessageModifier(title: title(),
+        self.modifier(BannerMessageModifier(icon: icon(),
+                                            title: title(),
                                             isPresented: isPresented,
                                             pushContentDown: pushContentDown,
                                             bannerTapped: bannerTapped))
@@ -126,6 +132,7 @@ public extension View {
 }
 
 struct BannerMessageModifier: ViewModifier {
+    let icon: any View
     let title: any View
     @Binding var isPresented: Bool
     @Binding var pushContentDown: Bool
@@ -133,7 +140,9 @@ struct BannerMessageModifier: ViewModifier {
     @State var offset: CGFloat = 0
     
     @ViewBuilder var bannerMessage: some View {
-        BannerMessage(title: {
+        BannerMessage(icon: {
+            self.icon
+        }, title: {
             self.title
         }, closeAction: {
             FioriButton { state in
