@@ -33,3 +33,36 @@ public struct DecrementActionFioriStyle: DecrementActionStyle {
         // .font(.fiori(forTextStyle: <#fiori font#>))
     }
 }
+
+public struct DecrementActionActivateStyle: DecrementActionStyle {
+    @Environment(\.isEnabled) var isEnabled: Bool
+    public func makeBody(_ configuration: DecrementActionConfiguration) -> some View {
+        DecrementAction(configuration)
+            .disabled(!self.isEnabled)
+            .foregroundColor(.preferredColor(self.isEnabled ? .tertiaryLabel : .separator))
+            .allowsHitTesting(self.isEnabled)
+    }
+}
+
+public struct DecrementActionDeactivateStyle: DecrementActionStyle {
+    public func makeBody(_ configuration: DecrementActionConfiguration) -> some View {
+        DecrementAction(configuration)
+            .disabled(true)
+            .foregroundColor(.preferredColor(.separator))
+            .allowsHitTesting(false)
+    }
+}
+
+public extension DecrementActionStyle where Self == DecrementActionActivateStyle {
+    /// The `activate` style is applied in the case that the decrement button is disabled.
+    static var activate: DecrementActionActivateStyle {
+        DecrementActionActivateStyle()
+    }
+}
+
+public extension DecrementActionStyle where Self == DecrementActionDeactivateStyle {
+    /// The `deactivate` style is applied in the case that the decrement button is disabled.
+    static var deactivate: DecrementActionDeactivateStyle {
+        DecrementActionDeactivateStyle()
+    }
+}
