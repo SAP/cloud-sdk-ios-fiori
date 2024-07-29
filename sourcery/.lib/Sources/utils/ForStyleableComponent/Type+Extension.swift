@@ -4,6 +4,7 @@ import SourceryRuntime
 extension Type {
     var componentDecl: String {
         """
+        \(importStatement)
         \(docText)
         \(accessLevelDecl)struct \(componentName) {
             \(allStoredVariables.propertyListDecl)

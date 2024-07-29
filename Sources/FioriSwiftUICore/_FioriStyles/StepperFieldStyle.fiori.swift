@@ -17,7 +17,7 @@ import SwiftUI
 // Base Layout style
 public struct StepperFieldBaseStyle: StepperFieldStyle {
     public func makeBody(_ configuration: StepperFieldConfiguration) -> some View {
-        HStack {
+        HStack(spacing: 0) {
             configuration.decrementAction
                 .onSimultaneousTapGesture {
                     if let stepValue = configuration.step, var currentTextValue = Int(configuration.text) {
