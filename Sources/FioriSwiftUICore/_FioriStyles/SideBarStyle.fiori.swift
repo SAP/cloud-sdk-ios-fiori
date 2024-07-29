@@ -27,11 +27,11 @@ public struct SideBarBaseStyle: SideBarStyle {
                             self.buildSideBarList(configuration)
                         }
                         .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
+                        .background(Color.preferredColor(.secondaryBackground))
                     })
                     
                     configuration.footer.typeErased
                 })
-                .background(Color.preferredColor(.secondaryBackground))
                 .environment(\.editMode, .constant(configuration.isEditing ? EditMode.active : EditMode.inactive))
             } else {
                 let onEditButtonClicked = {

@@ -11,8 +11,12 @@ struct BannerMessageCustomInitExample: View {
     @State var isCustomStyle: Bool = false
     @State var headerSelection: BannerHeader = .object
     
+    let customColor = Color.preferredColor(.blue7)
+    
     var bannerView: some View {
         BannerMessage {
+            Image(systemName: "info.circle")
+        } title: {
             Text("This is a banner message")
         } closeAction: {
             Button(action: {
@@ -25,13 +29,16 @@ struct BannerMessageCustomInitExample: View {
         }
         .ifApply(self.isCustomStyle, content: { v in
             v.topDividerStyle { c in
-                c.topDivider.background(Color.preferredColor(.blue7))
+                c.topDivider.background(self.customColor)
+            }
+            .iconStyle { c in
+                c.icon.foregroundStyle(self.customColor)
             }
             .titleStyle { c in
-                c.title.foregroundStyle(Color.preferredColor(.blue7))
+                c.title.foregroundStyle(self.customColor)
             }
             .closeActionStyle { c in
-                c.closeAction.foregroundStyle(Color.preferredColor(.blue7))
+                c.closeAction.foregroundStyle(self.customColor)
             }
         })
     }

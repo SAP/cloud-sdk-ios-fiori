@@ -79,9 +79,10 @@ extension StepperFieldFioriStyle {
 
     struct TextInputFieldFioriStyle: TextInputFieldStyle {
         let stepperFieldConfiguration: StepperFieldConfiguration
-
+        @Environment(\.isEnabled) var isEnabled: Bool
         func makeBody(_ configuration: TextInputFieldConfiguration) -> some View {
             TextInputField(configuration)
+                .foregroundColor(.preferredColor(self.isEnabled ? .tertiaryLabel : .separator))
                 .accessibilityLabel(NSLocalizedString("Select specific value", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""))
         }
     }
