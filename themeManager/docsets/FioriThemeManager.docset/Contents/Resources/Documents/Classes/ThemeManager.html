@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>ThemeManager Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+	<meta name="viewport" content="width=device-width, viewport-fit=cover, initial-scale=1.0" />
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Class/ThemeManager" class="dashAnchor"></a>
+    <a title="ThemeManager Class Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p>
+          <a href="../index.html">FioriThemeManager Docs</a>
+          <span class="no-mobile"></span>
+        </p>
+    
+    
+      </div>
+    </header>
+    <div id="breadcrumbs-container">
+      <div class="content-wrapper">
+        <p id="breadcrumbs">
+          <span class="no-mobile">
+            <a href="../index.html">FioriThemeManager</a>
+            <img id="carat" src="../img/carat.png" alt=""/>
+            <a href="../Classes.html">Classes</a>
+            <img id="carat" src="../img/carat.png" alt=""/>
+            ThemeManager Class Reference
+          </span>
+        </p>
+      </div>
+    </div>
+    <div class="wrapper">
+      <div class="article-wrapper">
+        <article class="main-content">
+          <section>
+            <section class="section">
+              <h1>ThemeManager</h1>
+                <div class="declaration">
+                  <div class="language">
+                    
+                    <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">ThemeManager</span></code></pre>
+
+                  </div>
+                </div>
+              <p>Manager class which supplies color palette values to Fiori components, and the <code><a href="../Extensions/Color.html#/s:7SwiftUI5ColorV17FioriThemeManagerE09preferredC0_10background9interface7displayAcD0C5StyleO_AD010BackgroundC6SchemeOSgAD14InterfaceLevelOSgAD0C11DisplayModeOSgtFZ">Color.preferredColor(_:background:interface:display:)</a></code> API.</p>
+
+<p>Changes made to the manager affect all future calls to <code><a href="../Extensions/Color.html#/s:7SwiftUI5ColorV17FioriThemeManagerE09preferredC0_10background9interface7displayAcD0C5StyleO_AD010BackgroundC6SchemeOSgAD14InterfaceLevelOSgAD0C11DisplayModeOSgtFZ">Color.preferredColor(_:background:interface:display:)</a></code>. Most components do not reload dynamically, so calls to the <code>ThemeManager</code> should happen at the beginning of the application lifecycle.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <code>AppDelegate.didFinishLaunching(withOptions...)</code> is the recommended location.
+
+</div>
+
+<p><strong>Example Usage</strong></p>
+<pre class="highlight swift"><code><span class="c1">// Pin palette version used by application to a specific version (defaults to `.latest`)</span>
+<span class="kt">ThemeManager</span><span class="o">.</span><span class="n">shared</span><span class="o">.</span><span class="nf">setPaletteVersion</span><span class="p">(</span><span class="o">.</span><span class="n">v7</span><span class="p">)</span>
+
+<span class="c1">// Override some color definitions to match your application palette</span>
+<span class="kt">ThemeManager</span><span class="o">.</span><span class="n">shared</span><span class="o">.</span><span class="nf">setColor</span><span class="p">(</span><span class="o">.</span><span class="n">darkGray</span><span class="p">,</span> <span class="nv">for</span><span class="p">:</span> <span class="o">.</span><span class="n">primary2</span><span class="p">,</span> <span class="nv">background</span><span class="p">:</span> <span class="o">.</span><span class="n">light</span><span class="p">)</span>
+<span class="kt">ThemeManager</span><span class="o">.</span><span class="n">shared</span><span class="o">.</span><span class="nf">setHexColor</span><span class="p">(</span><span class="s">"1b931d"</span><span class="p">,</span> <span class="nv">for</span><span class="p">:</span> <span class="o">.</span><span class="n">positive</span><span class="p">,</span> <span class="nv">background</span><span class="p">:</span> <span class="o">.</span><span class="n">light</span><span class="p">)</span>
+</code></pre>
+
+            </section>
+            <section class="section task-group-section">
+              <div class="task-group">
+                <ul>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:17FioriThemeManager0bC0C6sharedACvpZ"></a>
+                      <a name="//apple_ref/swift/Variable/shared" class="dashAnchor"></a>
+                      <a class="token" href="#/s:17FioriThemeManager0bC0C6sharedACvpZ">shared</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Singleton instance shared by all application components.</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">shared</span><span class="p">:</span> <span class="kt">ThemeManager</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:17FioriThemeManager0bC0C17setPaletteVersionyyAA0eF0OF"></a>
+                      <a name="//apple_ref/swift/Method/setPaletteVersion(_:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:17FioriThemeManager0bC0C17setPaletteVersionyyAA0eF0OF">setPaletteVersion(_:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Method to allow selecting a specific version of the palette.  Defaults to <code>latest</code>.</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">setPaletteVersion</span><span class="p">(</span><span class="n">_</span> <span class="nv">version</span><span class="p">:</span> <span class="kt"><a href="../Enums/PaletteVersion.html">PaletteVersion</a></span><span class="p">)</span></code></pre>
+
+                          </div>
+                        </div>
+                        <div>
+                          <h4>Parameters</h4>
+                          <table class="graybox">
+                            <tbody>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>version</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>Major version of the color palette.</p>
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:17FioriThemeManager0bC0C10setPaletteyyAA0E0VF"></a>
+                      <a name="//apple_ref/swift/Method/setPalette(_:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:17FioriThemeManager0bC0C10setPaletteyyAA0E0VF">setPalette(_:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Method to allow supplying a complete custom palette implementation.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>It is more typical to use <code><a href="../Classes/ThemeManager.html#/s:17FioriThemeManager0bC0C8setColor_3fory7SwiftUI0E0V_AA0E5StyleOtF">setColor(...)</a></code>, or <code><a href="../Classes/ThemeManager.html#/s:17FioriThemeManager0bC0C11setHexColor_3forySS_AA0F5StyleOtF">setHexColor(...)</a></code> to override specific palette values than to provide a full implementation.</p>
+
+</div>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">setPalette</span><span class="p">(</span><span class="n">_</span> <span class="nv">palette</span><span class="p">:</span> <span class="kt"><a href="../Structs/Palette.html">Palette</a></span><span class="p">)</span></code></pre>
+
+                          </div>
+                        </div>
+                        <div>
+                          <h4>Parameters</h4>
+                          <table class="graybox">
+                            <tbody>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>palette</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>Complete palette implementation. Should include definitions for all consumed <code><a href="../Enums/ColorStyle.html">ColorStyle</a></code> types.</p>
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:17FioriThemeManager0bC0C7paletteAA7PaletteVvp"></a>
+                      <a name="//apple_ref/swift/Property/palette" class="dashAnchor"></a>
+                      <a class="token" href="#/s:17FioriThemeManager0bC0C7paletteAA7PaletteVvp">palette</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Accessor to current palette.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    It is unusual to need to read from the palette directly; generally, use the <code><a href="../Extensions/Color.html#/s:7SwiftUI5ColorV17FioriThemeManagerE09preferredC0_10background9interface7displayAcD0C5StyleO_AD010BackgroundC6SchemeOSgAD14InterfaceLevelOSgAD0C11DisplayModeOSgtFZ">Color.preferredColor(...)</a></code> API.
+
+</div>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">private(set)</span> <span class="k">var</span> <span class="nv">palette</span><span class="p">:</span> <span class="kt"><a href="../Structs/Palette.html">Palette</a></span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:17FioriThemeManager0bC0C8setColor_3fory7SwiftUI0E0V_AA0E5StyleOtF"></a>
+                      <a name="//apple_ref/swift/Method/setColor(_:for:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:17FioriThemeManager0bC0C8setColor_3fory7SwiftUI0E0V_AA0E5StyleOtF">setColor(_:<wbr>for:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Method to supply a custom definition for a particular <code><a href="../Enums/ColorStyle.html">ColorStyle</a></code>. Will be applied to <code>.light</code> background color scheme.</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">setColor</span><span class="p">(</span><span class="n">_</span> <span class="nv">color</span><span class="p">:</span> <span class="kt">Color</span><span class="p">,</span> <span class="k">for</span> <span class="nv">style</span><span class="p">:</span> <span class="kt"><a href="../Enums/ColorStyle.html">ColorStyle</a></span><span class="p">)</span></code></pre>
+
+                          </div>
+                        </div>
+                        <div>
+                          <h4>Parameters</h4>
+                          <table class="graybox">
+                            <tbody>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>color</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>Color definition to override the base definition in the palette.</p>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>style</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>Reference of <code><a href="../Enums/ColorStyle.html">ColorStyle</a></code> to which color is bound.</p>
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:17FioriThemeManager0bC0C8setColor_3for7varianty7SwiftUI0E0V_AA0E5StyleOAA0E7VariantOSgtF"></a>
+                      <a name="//apple_ref/swift/Method/setColor(_:for:variant:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:17FioriThemeManager0bC0C8setColor_3for7varianty7SwiftUI0E0V_AA0E5StyleOAA0E7VariantOSgtF">setColor(_:<wbr>for:<wbr>variant:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Method to supply a custom definition for a particular <code><a href="../Enums/ColorStyle.html">ColorStyle</a></code> and <code><a href="../Enums/ColorVariant.html">ColorVariant</a></code> combination.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>A <code>nil</code> value for <code>background</code> will default to <code>.light</code>.</p>
+
+</div>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">setColor</span><span class="p">(</span><span class="n">_</span> <span class="nv">color</span><span class="p">:</span> <span class="kt">Color</span><span class="p">,</span> <span class="k">for</span> <span class="nv">style</span><span class="p">:</span> <span class="kt"><a href="../Enums/ColorStyle.html">ColorStyle</a></span><span class="p">,</span> <span class="nv">variant</span><span class="p">:</span> <span class="kt"><a href="../Enums/ColorVariant.html">ColorVariant</a></span><span class="p">?)</span></code></pre>
+
+                          </div>
+                        </div>
+                        <div>
+                          <h4>Parameters</h4>
+                          <table class="graybox">
+                            <tbody>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>color</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>Color definition to override the base definition in the palette.</p>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>style</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>Reference of <code><a href="../Enums/ColorStyle.html">ColorStyle</a></code> to which color is bound.</p>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>variant</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>Reference of <code><a href="../Enums/ColorVariant.html">ColorVariant</a></code> to which color is bound.  Defaults to <code>.light</code>. If no value is supplied for <code>.dark</code>, the value for <code>.light</code> will be read as a fallback.</p>
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:17FioriThemeManager0bC0C11setHexColor_3forySS_AA0F5StyleOtF"></a>
+                      <a name="//apple_ref/swift/Method/setHexColor(_:for:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:17FioriThemeManager0bC0C11setHexColor_3forySS_AA0F5StyleOtF">setHexColor(_:<wbr>for:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Method to supply a custom definition for a particular <code><a href="../Enums/ColorStyle.html">ColorStyle</a></code>. Will applied to <code>.light</code> background color scheme.</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">setHexColor</span><span class="p">(</span><span class="n">_</span> <span class="nv">hex</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="k">for</span> <span class="nv">style</span><span class="p">:</span> <span class="kt"><a href="../Enums/ColorStyle.html">ColorStyle</a></span><span class="p">)</span></code></pre>
+
+                          </div>
+                        </div>
+                        <div>
+                          <h4>Parameters</h4>
+                          <table class="graybox">
+                            <tbody>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>hex</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>Color definition as hexidecimal string to override the base definition in the palette.</p>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>style</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>Reference of <code><a href="../Enums/ColorStyle.html">ColorStyle</a></code> to which color is bound.</p>
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:17FioriThemeManager0bC0C11setHexColor_3for7variantySS_AA0F5StyleOAA0F7VariantOtF"></a>
+                      <a name="//apple_ref/swift/Method/setHexColor(_:for:variant:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:17FioriThemeManager0bC0C11setHexColor_3for7variantySS_AA0F5StyleOAA0F7VariantOtF">setHexColor(_:<wbr>for:<wbr>variant:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Method to supply a custom definition for a particular <code><a href="../Enums/ColorStyle.html">ColorStyle</a></code> and <code><a href="../Enums/ColorVariant.html">ColorVariant</a></code> combination.</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">setHexColor</span><span class="p">(</span><span class="n">_</span> <span class="nv">hex</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="k">for</span> <span class="nv">style</span><span class="p">:</span> <span class="kt"><a href="../Enums/ColorStyle.html">ColorStyle</a></span><span class="p">,</span> <span class="nv">variant</span><span class="p">:</span> <span class="kt"><a href="../Enums/ColorVariant.html">ColorVariant</a></span><span class="p">)</span></code></pre>
+
+                          </div>
+                        </div>
+                        <div>
+                          <h4>Parameters</h4>
+                          <table class="graybox">
+                            <tbody>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>hex</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>Color definition as hexidecimal string to override the base definition in the palette.</p>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>style</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>Reference of <code><a href="../Enums/ColorStyle.html">ColorStyle</a></code> to which color is bound.</p>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>variant</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>Reference of <code><a href="../Enums/ColorVariant.html">ColorVariant</a></code> to which color is bound.  Defaults to <code>.light</code>. If no value is supplied for <code>.dark</code>, the value for <code>.light</code> will be read as a fallback.</p>
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:17FioriThemeManager0bC0C5resetyyF"></a>
+                      <a name="//apple_ref/swift/Method/reset()" class="dashAnchor"></a>
+                      <a class="token" href="#/s:17FioriThemeManager0bC0C5resetyyF">reset()</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Helper method, to clear any override colors set via <code><a href="../Classes/ThemeManager.html#/s:17FioriThemeManager0bC0C8setColor_3fory7SwiftUI0E0V_AA0E5StyleOtF">setColor(...)</a></code> or <code><a href="../Classes/ThemeManager.html#/s:17FioriThemeManager0bC0C11setHexColor_3forySS_AA0F5StyleOtF">setHexColor(...)</a></code>. Does not affect the base definition of the current palette.</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">reset</span><span class="p">()</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </section>
+          </section>
+        </article>
+      </div>
+      <div class="nav-wrapper">
+        <nav class="nav-bottom">
+          <ul class="nav-groups">
+            <li class="nav-group-name">
+              <a href="../Classes.html">Classes</a>
+              <ul class="nav-group-tasks">
+                <li class="nav-group-task">
+                  <a href="../Classes/ThemeManager.html">ThemeManager</a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-group-name">
+              <a href="../Enums.html">Enumerations</a>
+              <ul class="nav-group-tasks">
+                <li class="nav-group-task">
+                  <a href="../Enums/BackgroundColorScheme.html">BackgroundColorScheme</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/ColorDisplayMode.html">ColorDisplayMode</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/ColorStyle.html">ColorStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/ColorVariant.html">ColorVariant</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/FioriIcon.html">FioriIcon</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/FioriIcon/actions.html">– actions</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/FioriIcon/arrows.html">– arrows</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/FioriIcon/calendars.html">– calendars</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/FioriIcon/callout.html">– callout</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/FioriIcon/charts.html">– charts</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/FioriIcon/clipboards.html">– clipboards</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/FioriIcon/devices.html">– devices</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/FioriIcon/documents.html">– documents</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/FioriIcon/folder.html">– folder</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/FioriIcon/form.html">– form</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/FioriIcon/medical.html">– medical</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/FioriIcon/money.html">– money</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/FioriIcon/objects.html">– objects</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/FioriIcon/people.html">– people</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/FioriIcon/places.html">– places</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/FioriIcon/shopping.html">– shopping</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/FioriIcon/status.html">– status</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/FioriIcon/tables.html">– tables</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/FioriIcon/text.html">– text</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/FioriIcon/things.html">– things</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/FioriIcon/time.html">– time</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/FioriIcon/transport.html">– transport</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/FioriIcon/travel.html">– travel</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/FioriIcon/illustrations.html">– illustrations</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/InterfaceLevel.html">InterfaceLevel</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/PaletteVersion.html">PaletteVersion</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/StyleSheetParsingError.html">StyleSheetParsingError</a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-group-name">
+              <a href="../Extensions.html">Extensions</a>
+              <ul class="nav-group-tasks">
+                <li class="nav-group-task">
+                  <a href="../Extensions.html#/AppKit">AppKit</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Extensions/Color.html">Color</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Extensions/Font.html">Font</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Extensions/Font/FioriWeight.html">– FioriWeight</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Extensions/Font/FioriTextStyle.html">– FioriTextStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Extensions/Image.html">Image</a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-group-name">
+              <a href="../Protocols.html">Protocols</a>
+              <ul class="nav-group-tasks">
+                <li class="nav-group-task">
+                  <a href="../Protocols/PaletteProvider.html">PaletteProvider</a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-group-name">
+              <a href="../Structs.html">Structures</a>
+              <ul class="nav-group-tasks">
+                <li class="nav-group-task">
+                  <a href="../Structs/HexColor.html">HexColor</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/Palette.html">Palette</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/StyleSheetSettings.html">StyleSheetSettings</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+      </div>
+      <div class="footer-wrapper">
+        <section id="footer">
+          <p>&copy; 2024 <a class="link" href="https://www.sap.com" target="_blank" rel="external noopener">SAP SE</a>. All rights reserved. (Last updated: 2024-07-31)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.1</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
+        </section>
+      </div>
+    </div>
+  </body>
+</html>

@@ -292,10 +292,11 @@ header {
     text-decoration: line-through; }
   .item .token-open {
     margin-left: 45px; }
-  .item .declaration-note {
-    font-size: .85em;
-    color: gray;
-    font-style: italic; }
+
+.declaration-note {
+  font-size: .85em;
+  color: gray;
+  font-style: italic; }
 
 .pointer-container {
   left: -23px;
