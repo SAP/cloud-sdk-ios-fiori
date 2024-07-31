@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.1.1](https://github.com/SAP/cloud-sdk-ios-fiori/compare/4.1.0...4.1.1) (2024-07-31)
+
+
+### Bug Fixes
+
+* fix compilation error caused by StepperView ([#754](https://github.com/SAP/cloud-sdk-ios-fiori/issues/754)) ([277d17d](https://github.com/SAP/cloud-sdk-ios-fiori/commit/277d17d17475836298ee6a8992c3f00d83a227ec))
+
 ## [4.1.0](https://github.com/SAP/cloud-sdk-ios-fiori/compare/4.0.0...4.1.0) (2024-07-31)
 
 
