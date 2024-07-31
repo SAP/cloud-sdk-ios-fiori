@@ -61,7 +61,9 @@ struct TitleFormViewExample: View {
                 Text("Read-Only")
                 TitleFormView(text: self.$readOnlyText, placeholder: "Read-Only", controlState: .readOnly, hidesReadOnlyHint: self.hidesReadonlyHint)
             }
+            #if !os(visionOS)
             .scrollDismissesKeyboard(.immediately)
+            #endif
         }
     }
     

@@ -59,7 +59,7 @@ extension StepperViewFioriStyle {
         
         // Compact, regular, and full-width regular containers have leading and trailing padding of 16pt, 24pt, and 48pt, respectively. Fiori defines containers exceeding 768pt in width as full-width regular.
         func getPadding() -> CGFloat {
-            let padding: CGFloat = self.horizontalSizeClass == .compact ? 16 : (self.horizontalSizeClass == .regular ? (UIScreen.main.bounds.width > 768 ? 48 : 24) : 16)
+            let padding: CGFloat = self.horizontalSizeClass == .compact ? 16 : (self.horizontalSizeClass == .regular ? (Screen.bounds.width > 768 ? 48 : 24) : 16)
             return padding
         }
     }
