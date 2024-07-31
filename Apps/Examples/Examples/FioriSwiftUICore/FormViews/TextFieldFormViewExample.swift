@@ -87,7 +87,9 @@ struct TextFieldFormViewExample: View {
                 Text("Read-Only")
                 TextFieldFormView(title: "Read-Only Cell", text: self.$readOnlyText, placeholder: "Read-Only", controlState: .readOnly, hidesReadOnlyHint: self.hidesReadonlyHint, isRequired: self.isRequired, actionIcon: self.getActionIcon(), action: self.getAction())
             }
+            #if !os(visionOS)
             .scrollDismissesKeyboard(.immediately)
+            #endif
         }
     }
 
