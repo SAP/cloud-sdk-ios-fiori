@@ -2,6 +2,60 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.1.0](https://github.com/SAP/cloud-sdk-ios-fiori/compare/4.0.0...4.1.0) (2024-07-31)
+
+
+### Features
+
+* [JIRA: HCPSDKFIORIUIKIT-2542] Semibold System Update ([#686](https://github.com/SAP/cloud-sdk-ios-fiori/issues/686)) ([fde3dd8](https://github.com/SAP/cloud-sdk-ios-fiori/commit/fde3dd8cbb420e53e1014772973ab041cb6d58fe))
+* 🎸 [HCPSDKFIORIUIKIT-2457] Sidebar ([#699](https://github.com/SAP/cloud-sdk-ios-fiori/issues/699)) ([7ba8bdb](https://github.com/SAP/cloud-sdk-ios-fiori/commit/7ba8bdbf70ddee08a4c3996fa7f6f275504b7847))
+* 🎸 [HCPSDKFIORIUIKIT-2601]Add additional color style to V8 ([#681](https://github.com/SAP/cloud-sdk-ios-fiori/issues/681)) ([efae28d](https://github.com/SAP/cloud-sdk-ios-fiori/commit/efae28d6e58e6682f0a7f7895697d15719320413))
+* 🎸 [IOSSDKBUG-187] Fiori SDK icons have different height than in Figma ([#703](https://github.com/SAP/cloud-sdk-ios-fiori/issues/703)) ([fda2d4a](https://github.com/SAP/cloud-sdk-ios-fiori/commit/fda2d4a211bb93fcef97ef098c3c4d579561275c))
+* 🎸 [JIRA-HCPSDKFIORIUIKIT-2606] Form Cells: Mandator Field ([#701](https://github.com/SAP/cloud-sdk-ios-fiori/issues/701)) ([2a2d97f](https://github.com/SAP/cloud-sdk-ios-fiori/commit/2a2d97f5f00746b3a7fcaf30ba10321dda300203))
+* 🎸 [jira: 2572] new card footer for Joule Object Card ([#706](https://github.com/SAP/cloud-sdk-ios-fiori/issues/706)) ([b6aea46](https://github.com/SAP/cloud-sdk-ios-fiori/commit/b6aea4607e2c7aa6090c35462a37d7278b6c30f8))
+* 🎸 [JIRA: HCPSDKFIORIUIKIT-1940] profile header ([#731](https://github.com/SAP/cloud-sdk-ios-fiori/issues/731)) ([c51c888](https://github.com/SAP/cloud-sdk-ios-fiori/commit/c51c8881f45440ad2cbfef57f7d59305ca9ec545))
+* 🎸 [JIRA: HCPSDKFIORIUIKIT-2478] banner message ([#704](https://github.com/SAP/cloud-sdk-ios-fiori/issues/704)) ([7bffffc](https://github.com/SAP/cloud-sdk-ios-fiori/commit/7bffffc74ebc3d0d4f9f20ef88ab738f9cef5cf2))
+* 🎸 [JIRA: HCPSDKFIORIUIKIT-2480] Carousel layout ([#680](https://github.com/SAP/cloud-sdk-ios-fiori/issues/680)) ([6d7c145](https://github.com/SAP/cloud-sdk-ios-fiori/commit/6d7c1451915e49c1cc4ca3427e3dd59eb5576e52))
+* 🎸 [JIRA: HCPSDKFIORIUIKIT-2605] Add illustrations ([#691](https://github.com/SAP/cloud-sdk-ios-fiori/issues/691)) ([e4c5ffe](https://github.com/SAP/cloud-sdk-ios-fiori/commit/e4c5ffe7f5076fff8717f260a0fc31dde8929cd3))
+* 🎸 [JIRA:HCPSDKFIORIUIKIT-1933]SwiftUI Timeline ([#734](https://github.com/SAP/cloud-sdk-ios-fiori/issues/734)) ([d457091](https://github.com/SAP/cloud-sdk-ios-fiori/commit/d457091b0d3b111029c7cdd63f6365ba8ad8bbd8))
+* 🎸 [JIRA:HCPSDKFIORIUIKIT-2631] RatingControlFormView SwiftUI implementation ([#735](https://github.com/SAP/cloud-sdk-ios-fiori/issues/735)) ([0ef9e65](https://github.com/SAP/cloud-sdk-ios-fiori/commit/0ef9e6520160278d90262b740413c49e7af28693))
+* 🎸 [JIRA:HCPSDKFIORIUIKIT-2631] SwiftUI RatingControl ([#732](https://github.com/SAP/cloud-sdk-ios-fiori/issues/732)) ([a7c41dd](https://github.com/SAP/cloud-sdk-ios-fiori/commit/a7c41dd64797468776103464d222860532bc1d09))
+* 🎸 [JIRA:HCPSDKFIORIUIKIT-2635]SwiftUI Stepper enhancement ([#743](https://github.com/SAP/cloud-sdk-ios-fiori/issues/743)) ([7c10e69](https://github.com/SAP/cloud-sdk-ios-fiori/commit/7c10e69c94b7bbfd68a82a257432f28176e5d663))
+* 🎸 [JIRA:HCPSDKFIORIUIKIT-2635]SwiftUI Stepper enhancement ([#750](https://github.com/SAP/cloud-sdk-ios-fiori/issues/750)) ([ea6cb14](https://github.com/SAP/cloud-sdk-ios-fiori/commit/ea6cb1453d210f07fc2abc61b4ad1c2ad64eeede))
+* 🎸 [JIRA:IOSSDKBUG-256]KeyValueItem: vertical aligned ([#739](https://github.com/SAP/cloud-sdk-ios-fiori/issues/739)) ([18429dc](https://github.com/SAP/cloud-sdk-ios-fiori/commit/18429dc02c386838dbe49f0720d8579a8fe1be0d))
+* 🎸 [JIRA:IOSSDKBUG-5] add variables to ChartLabelAttributes ([#692](https://github.com/SAP/cloud-sdk-ios-fiori/issues/692)) ([777008e](https://github.com/SAP/cloud-sdk-ios-fiori/commit/777008eb6cef3b443570196a66974f936878416f))
+* 🎸 HCPSDKFIORIUIKIT-2479 SwiftUI FUIStepper migration ([#689](https://github.com/SAP/cloud-sdk-ios-fiori/issues/689)) ([fefbb49](https://github.com/SAP/cloud-sdk-ios-fiori/commit/fefbb494946d012fc64ce4eb42f25df8330abb5d))
+* 🎸 JouleWelcomeScreen implementation ([#687](https://github.com/SAP/cloud-sdk-ios-fiori/issues/687)) ([c5c20d6](https://github.com/SAP/cloud-sdk-ios-fiori/commit/c5c20d6ad528350a350e3e89d23e6b9db9bc58e9))
+* 🎸 list picker enhancement ([#683](https://github.com/SAP/cloud-sdk-ios-fiori/issues/683)) ([762f7ea](https://github.com/SAP/cloud-sdk-ios-fiori/commit/762f7eab1b547eabcb5c47e14bd40de05554b663))
+* 🎸 MenuSelection implementation ([#705](https://github.com/SAP/cloud-sdk-ios-fiori/issues/705)) ([a04eba4](https://github.com/SAP/cloud-sdk-ios-fiori/commit/a04eba4cbbf2ecef8a1943df1fefd787d0ab5567))
+* 🎸 rename extension name for list picker modifier ([#685](https://github.com/SAP/cloud-sdk-ios-fiori/issues/685)) ([0d1ba5b](https://github.com/SAP/cloud-sdk-ios-fiori/commit/0d1ba5b5fb5a02cd96f8c79c6ec93d70ba72b53b))
+
+
+### Bug Fixes
+
+* 🐛 [JIRA: FIORIDESIGN-12263] fix UI review issues ([#752](https://github.com/SAP/cloud-sdk-ios-fiori/issues/752)) ([c0efd8b](https://github.com/SAP/cloud-sdk-ios-fiori/commit/c0efd8bc64d580b6be601883c5b0c13d483657ee))
+* 🐛 [JIRA: HCPSDKFIORIUIKIT-1940] profile header style ([#744](https://github.com/SAP/cloud-sdk-ios-fiori/issues/744)) ([585f412](https://github.com/SAP/cloud-sdk-ios-fiori/commit/585f412b963e3ec0b9b24bd34a5977a00e87d6c0))
+* 🐛 [JIRA: HCPSDKFIORIUIKIT-2478] banner message style ([#746](https://github.com/SAP/cloud-sdk-ios-fiori/issues/746)) ([011cf26](https://github.com/SAP/cloud-sdk-ios-fiori/commit/011cf26517f15a0d8e9ed4dca0c5d7323991ed64))
+* 🐛 [JIRA: IOSSDKBUG-157] isActive needed for ListPickerItem ([#690](https://github.com/SAP/cloud-sdk-ios-fiori/issues/690)) ([ba834a1](https://github.com/SAP/cloud-sdk-ios-fiori/commit/ba834a1768c74a4090223648331984fefe3a48fe))
+* 🐛 [JIRA:0] KeyValue and TextFIeld formcell title color fix ([#697](https://github.com/SAP/cloud-sdk-ios-fiori/issues/697)) ([c5b4586](https://github.com/SAP/cloud-sdk-ios-fiori/commit/c5b45867a7f7fa46c51736891b6698082f960d55))
+* 🐛 [JIRA:0] TextInput form views matching UIKit side colors ([#707](https://github.com/SAP/cloud-sdk-ios-fiori/issues/707)) ([dd49399](https://github.com/SAP/cloud-sdk-ios-fiori/commit/dd49399d8306e96d6b5b383f9ab5078adf52d7b2))
+* 🐛 [JIRA:0] ThemeManager merge color definitions should not be called frequently ([#718](https://github.com/SAP/cloud-sdk-ios-fiori/issues/718)) ([fb2d496](https://github.com/SAP/cloud-sdk-ios-fiori/commit/fb2d49662d3a43fba091f69fc517a3df5ab33d43))
+* 🐛 [JIRA:0] Update FioriButton cornerRadius ([#738](https://github.com/SAP/cloud-sdk-ios-fiori/issues/738)) ([7671883](https://github.com/SAP/cloud-sdk-ios-fiori/commit/7671883527868bcb7d4ecd792c657fe761f6f89c))
+* 🐛 [JIRA:0] Update Illustrated Message based on UX feedback ([#745](https://github.com/SAP/cloud-sdk-ios-fiori/issues/745)) ([6b0e860](https://github.com/SAP/cloud-sdk-ios-fiori/commit/6b0e860af1844c41e441e6609b2e7fc92b19b7e9))
+* 🐛 [JIRA:IOSSDKBUG-264] No left padding for the 1st column in DataTable ([#748](https://github.com/SAP/cloud-sdk-ios-fiori/issues/748)) ([7103a1f](https://github.com/SAP/cloud-sdk-ios-fiori/commit/7103a1fff75b06d8aa60f90e346bf05d150d08e6))
+* 🐛 add a discloure icon for navigation test ([#726](https://github.com/SAP/cloud-sdk-ios-fiori/issues/726)) ([bb9ff8c](https://github.com/SAP/cloud-sdk-ios-fiori/commit/bb9ff8ccc58ade45134e919e199fa96b18c6e363))
+* 🐛 addressing UX review comments for SideBar ([#740](https://github.com/SAP/cloud-sdk-ios-fiori/issues/740)) ([d63e3dc](https://github.com/SAP/cloud-sdk-ios-fiori/commit/d63e3dca521c83f10fa7b867c837118b838333bf))
+* 🐛 addressing UX review comments for SideBar ([#742](https://github.com/SAP/cloud-sdk-ios-fiori/issues/742)) ([825f0d0](https://github.com/SAP/cloud-sdk-ios-fiori/commit/825f0d06081db1399904ecdc685ce9722d0749c9))
+* 🐛 change overflow popup to menu in card footer ([#733](https://github.com/SAP/cloud-sdk-ios-fiori/issues/733)) ([78fbec6](https://github.com/SAP/cloud-sdk-ios-fiori/commit/78fbec63ecd83690127786c24e8df8319a45f613))
+* 🐛 fix customization supporting issue in SideBar ([#721](https://github.com/SAP/cloud-sdk-ios-fiori/issues/721)) ([d3ff911](https://github.com/SAP/cloud-sdk-ios-fiori/commit/d3ff91166764d0538d4c16b5d3f866a5e3386a5a))
+* 🐛 Fix Image size issue on SideBar ([#749](https://github.com/SAP/cloud-sdk-ios-fiori/issues/749)) ([785577d](https://github.com/SAP/cloud-sdk-ios-fiori/commit/785577d2c5ce74b9b8fb5a41137be7dcb23c13ae))
+* 🐛 Fix scroll issue on SideBar ([#751](https://github.com/SAP/cloud-sdk-ios-fiori/issues/751)) ([217a91a](https://github.com/SAP/cloud-sdk-ios-fiori/commit/217a91a62e4b72349ed8ae73913c870f29c19068))
+* 🐛 fix scrolling animation issue in MenuSelection ([#719](https://github.com/SAP/cloud-sdk-ios-fiori/issues/719)) ([e0e5001](https://github.com/SAP/cloud-sdk-ios-fiori/commit/e0e5001ead679430316c41095c9bc2dc83e2869d))
+* 🐛 HCPSDKFIORIUIKIT-2641 Joule Color Hex Value update ([#696](https://github.com/SAP/cloud-sdk-ios-fiori/issues/696)) ([4861283](https://github.com/SAP/cloud-sdk-ios-fiori/commit/486128323ec0ca8e36aab29662396128cefa091b))
+* 🐛 suppport no main header and update footer ui in Card ([#727](https://github.com/SAP/cloud-sdk-ios-fiori/issues/727)) ([dd7f5db](https://github.com/SAP/cloud-sdk-ios-fiori/commit/dd7f5dbdb4793a3e103eb4e35b76c6dbb2c090f9))
+* 🐛 update navigation bar style ([#717](https://github.com/SAP/cloud-sdk-ios-fiori/issues/717)) ([d490634](https://github.com/SAP/cloud-sdk-ios-fiori/commit/d4906345f0f648f23dc10456118f2118b1c0c498))
+* accessing resources from pre-compiled binaries ([#737](https://github.com/SAP/cloud-sdk-ios-fiori/issues/737)) ([4ec3d5e](https://github.com/SAP/cloud-sdk-ios-fiori/commit/4ec3d5e70cd687ff6c514e926329a20355692be7))
+
 ## [4.0.0](https://github.com/SAP/cloud-sdk-ios-fiori/compare/3.3.0...4.0.0) (2024-04-11)
 
 ### ⚠ BREAKING CHANGES
