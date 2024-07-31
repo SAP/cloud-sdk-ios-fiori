@@ -5,10 +5,13 @@ struct StepperViewExample: View {
     @State var normalStepValue = "3"
     @State var longTitleStepValue = "3"
     @State var customStyleStepValue = "3"
-    @State var noHintStepValue = "79"
+    @State var noFocusValue = "79"
     @State var negativeValue = "80"
-    @State var disabledValue = "63"
+    @State var activateValue = "63"
     @State var isInputValueValid: Bool = true
+    
+    @State var isDisabled: Bool = false
+    @State var toggleDecrementActivate: Bool = true
     
     var newStyle: any InformationViewStyle {
         if self.isInputValueValid {
@@ -20,6 +23,12 @@ struct StepperViewExample: View {
 
     var body: some View {
         List {
+            Toggle("Disabled State", isOn: self.$isDisabled)
+                .padding(.leading, 16)
+                .padding(.trailing, 16)
+            Toggle("Activate increment decrement button separately", isOn: self.$toggleDecrementActivate)
+                .padding(.leading, 16)
+                .padding(.trailing, 16)
             StepperView(
                 title: { Text("Value") },
                 text: self.$normalStepValue,
@@ -27,6 +36,8 @@ struct StepperViewExample: View {
                 stepRange: 0 ... 100,
                 description: { Text("Hint Text") }
             )
+            .disabled(self.isDisabled)
+            
             StepperView(
                 title: { Text("Value") },
                 text: self.$negativeValue,
@@ -41,14 +52,8 @@ struct StepperViewExample: View {
                 }
             })
             .informationViewStyle(self.newStyle).typeErased
-            StepperView(
-                title: { Text("Value") },
-                text: self.$disabledValue,
-                step: 1,
-                stepRange: 0 ... 100,
-                description: { Text("Disabled Stepper") }
-            )
-            .disabled(true)
+            .disabled(self.isDisabled)
+            
             StepperView(
                 title: { Text("loooooooooooooooooooooongTitle") },
                 text: self.$longTitleStepValue,
@@ -56,12 +61,39 @@ struct StepperViewExample: View {
                 stepRange: 0 ... 100,
                 description: { Text("Increment/decrement 3 each step") }
             )
+            .disabled(self.isDisabled)
+            
             StepperView(
-                title: { Text("Value") },
-                text: self.$noHintStepValue,
+                title: { Text("Disable increment/decrement button when editing") },
+                text: self.$noFocusValue,
                 step: 1,
                 stepRange: 0 ... 100
             )
+            .stepperViewStyle(.focus)
+            .disabled(self.isDisabled)
+            
+            if self.toggleDecrementActivate {
+                StepperView(
+                    title: { Text("Deactivate increment Activate decrement") },
+                    text: self.$activateValue,
+                    step: 1,
+                    stepRange: 0 ... 100
+                )
+                .decrementActionStyle(.activate)
+                .incrementActionStyle(.deactivate)
+                .disabled(self.isDisabled)
+            } else {
+                StepperView(
+                    title: { Text("Deactivate decrement Activate increment") },
+                    text: self.$activateValue,
+                    step: 1,
+                    stepRange: 0 ... 100
+                )
+                .decrementActionStyle(.deactivate)
+                .incrementActionStyle(.activate)
+                .disabled(self.isDisabled)
+            }
+            
             StepperView(
                 title: { Text("Value") },
                 text: self.$customStyleStepValue,
@@ -93,6 +125,7 @@ struct StepperViewExample: View {
             .decrementActionStyle(content: { config in
                 config.decrementAction.fioriButtonStyle(DecrementBtnStyle())
             })
+            .disabled(self.isDisabled)
             Spacer()
         }
     }
@@ -116,4 +149,8 @@ struct DecrementBtnStyle: FioriButtonStyle {
     func makeBody(configuration: FioriButtonStyle.Configuration) -> some View {
         configuration.label.foregroundColor(Color.purple)
     }
+}
+
+#Preview {
+    StepperViewExample()
 }

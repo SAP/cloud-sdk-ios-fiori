@@ -17,7 +17,7 @@ import SwiftUI
 // Base Layout style
 public struct StepperFieldBaseStyle: StepperFieldStyle {
     public func makeBody(_ configuration: StepperFieldConfiguration) -> some View {
-        HStack {
+        HStack(spacing: 0) {
             configuration.decrementAction
                 .onSimultaneousTapGesture {
                     if let stepValue = configuration.step, var currentTextValue = Int(configuration.text) {
@@ -27,6 +27,15 @@ public struct StepperFieldBaseStyle: StepperFieldStyle {
                     }
                 }
             configuration._textInputField
+                .textInputFieldStyle(.number)
+                .onChange(of: configuration.text) { newValue in
+                    let value = Int(newValue)
+                    if value ?? 0 > configuration.stepRange.upperBound {
+                        configuration.text = String(configuration.stepRange.upperBound)
+                    } else if value ?? 0 < configuration.stepRange.lowerBound {
+                        configuration.text = String(configuration.stepRange.lowerBound)
+                    }
+                }
             configuration.incrementAction
                 .onSimultaneousTapGesture {
                     if let stepValue = configuration.step, var currentTextValue = Int(configuration.text) {
@@ -70,9 +79,10 @@ extension StepperFieldFioriStyle {
 
     struct TextInputFieldFioriStyle: TextInputFieldStyle {
         let stepperFieldConfiguration: StepperFieldConfiguration
-
+        @Environment(\.isEnabled) var isEnabled: Bool
         func makeBody(_ configuration: TextInputFieldConfiguration) -> some View {
             TextInputField(configuration)
+                .foregroundColor(.preferredColor(self.isEnabled ? .tertiaryLabel : .separator))
                 .accessibilityLabel(NSLocalizedString("Select specific value", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""))
         }
     }

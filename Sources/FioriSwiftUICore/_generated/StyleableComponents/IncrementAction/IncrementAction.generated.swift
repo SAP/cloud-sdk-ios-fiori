@@ -3,6 +3,8 @@
 import Foundation
 import SwiftUI
 
+import FioriThemeManager
+
 public struct IncrementAction {
     let incrementAction: any View
 
@@ -10,13 +12,13 @@ public struct IncrementAction {
 
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder incrementAction: () -> any View = { FioriButton { _ in Image(systemName: "plus") } }) {
+    public init(@ViewBuilder incrementAction: () -> any View = { FioriButton { _ in FioriIcon.actions.add } }) {
         self.incrementAction = incrementAction()
     }
 }
 
 public extension IncrementAction {
-    init(incrementAction: FioriButton? = FioriButton { _ in Image(systemName: "plus") }) {
+    init(incrementAction: FioriButton? = FioriButton { _ in FioriIcon.actions.add }) {
         self.init(incrementAction: { incrementAction })
     }
 }

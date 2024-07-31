@@ -6,7 +6,8 @@ struct BannerMessageModifierExample: View {
     @State var pushContentDown: Bool = false
     @State var withLink: Bool = false
     @State var withAttachedAction: Bool = false
-
+    @State var withLongText: Bool = false
+    
     @ViewBuilder
     var titleView: some View {
         if self.withAttachedAction {
@@ -28,10 +29,11 @@ struct BannerMessageModifierExample: View {
     
     @ViewBuilder
     var messageContent: some View {
+        let text = self.withLongText ? "This is a very very very very very very very very very very very long banner message" : "This is a banner message"
         if self.withLink {
-            Text("This is a banner message with [link](https://www.sap.com)")
+            Text("\(text) with [link](https://www.sap.com)")
         } else {
-            Text("This is a banner message")
+            Text("\(text)")
         }
     }
     
@@ -51,9 +53,13 @@ struct BannerMessageModifierExample: View {
             Toggle("Push Content Down", isOn: self.$pushContentDown)
             Toggle("With Link", isOn: self.$withLink)
             Toggle("With Attached Action", isOn: self.$withAttachedAction)
+            Toggle("Long Text", isOn: self.$withLongText)
         }
         .bannerMessageView(isPresented: self.$show,
                            pushContentDown: self.$pushContentDown,
+                           icon: {
+                               Image(systemName: "info.circle")
+                           },
                            title: {
                                self.titleView
                            }, bannerTapped: {

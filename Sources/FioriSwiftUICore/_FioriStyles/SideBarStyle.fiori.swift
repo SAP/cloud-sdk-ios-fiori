@@ -27,11 +27,11 @@ public struct SideBarBaseStyle: SideBarStyle {
                             self.buildSideBarList(configuration)
                         }
                         .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
+                        .background(Color.preferredColor(.secondaryBackground))
                     })
                     
                     configuration.footer.typeErased
                 })
-                .background(Color.preferredColor(.secondaryBackground))
                 .environment(\.editMode, .constant(configuration.isEditing ? EditMode.active : EditMode.inactive))
             } else {
                 let onEditButtonClicked = {
@@ -148,6 +148,7 @@ public struct SideBarBaseStyle: SideBarStyle {
                     }
                 } else if configuration.isEditing { // For edit-mode
                     configuration.item(bindableItem).typeErased
+                        .background(Color.preferredColor(.secondaryBackground))
                         .simultaneousGesture(TapGesture().onEnded {}) // To capture the Tap Gesture on the Item Row in Edit mode and to do nothing to avoid the Tap Gesture was captured by section expending logic
                         .background(Color.white)
                         .overlay(
@@ -411,12 +412,13 @@ private struct SideBarListSectionDisclosureStyle: DisclosureGroupStyle {
         VStack(spacing: 0) {
             HStack {
                 configuration.label
-                    .font(.fiori(forTextStyle: .title3, weight: .regular))
+                    .font(.fiori(forTextStyle: .title3))
+                    .foregroundColor(.preferredColor(.primaryLabel))
                 Spacer()
                 Image(systemName: configuration.isExpanded ? "chevron.down" : "chevron.right")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: 18 * self.scale, height: 18 * self.scale)
+                    .frame(width: 14 * self.scale, height: 14 * self.scale)
                     .font(.fiori(fixedSize: 17, weight: .semibold))
                     .foregroundColor(.preferredColor(.tintColor))
             }

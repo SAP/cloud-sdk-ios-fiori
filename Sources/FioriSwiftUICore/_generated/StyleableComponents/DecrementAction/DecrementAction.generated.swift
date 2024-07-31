@@ -3,6 +3,8 @@
 import Foundation
 import SwiftUI
 
+import FioriThemeManager
+
 public struct DecrementAction {
     let decrementAction: any View
 
@@ -10,13 +12,13 @@ public struct DecrementAction {
 
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder decrementAction: () -> any View = { FioriButton { _ in Image(systemName: "minus") } }) {
+    public init(@ViewBuilder decrementAction: () -> any View = { FioriButton { _ in FioriIcon.actions.less } }) {
         self.decrementAction = decrementAction()
     }
 }
 
 public extension DecrementAction {
-    init(decrementAction: FioriButton? = FioriButton { _ in Image(systemName: "minus") }) {
+    init(decrementAction: FioriButton? = FioriButton { _ in FioriIcon.actions.less }) {
         self.init(decrementAction: { decrementAction })
     }
 }

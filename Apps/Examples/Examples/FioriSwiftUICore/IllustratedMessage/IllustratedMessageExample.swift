@@ -74,7 +74,7 @@ struct IllustratedMessageExample: View {
                                 .aspectRatio(contentMode: .fit)
                                 : nil
                         }, title: {
-                            Text("Illustrated Message Title")
+                            Text("Illustrated Message Title with long text for two lines")
                         }, description: {
                             hasDescription ? Text("This is description text for the Illustrated Message component") : nil
                         }, action: {
