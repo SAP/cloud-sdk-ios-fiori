@@ -1,8 +1,3 @@
-🌱 Cloning SwiftFormat 0.53.4
-🌱 Resolving package
-🌱 Building product swiftformat
-🌱 Installed SwiftFormat 0.53.4
-🌱 Running swiftformat 0.53.4...
 import FioriThemeManager
 
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
