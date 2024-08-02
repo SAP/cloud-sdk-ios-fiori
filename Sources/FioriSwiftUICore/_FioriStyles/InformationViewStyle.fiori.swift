@@ -20,7 +20,7 @@ extension InformationViewFioriStyle {
     struct ContentFioriStyle: InformationViewStyle {
         func makeBody(_ configuration: InformationViewConfiguration) -> some View {
             InformationView(configuration)
-                .foregroundColor(.preferredColor(.primaryLabel))
+                .foregroundColor(.preferredColor(.tertiaryLabel))
                 .padding(.top, 4)
                 .padding(.bottom, 11)
         }
@@ -31,7 +31,7 @@ extension InformationViewFioriStyle {
         
         func makeBody(_ configuration: IconConfiguration) -> some View {
             Icon(configuration)
-                .foregroundStyle(Color.preferredColor(.primaryLabel))
+                .foregroundStyle(Color.preferredColor(.tertiaryLabel))
                 .font(.fiori(forTextStyle: .footnote))
         }
     }
@@ -41,7 +41,7 @@ extension InformationViewFioriStyle {
         
         func makeBody(_ configuration: DescriptionConfiguration) -> some View {
             Description(configuration)
-                .foregroundStyle(Color.preferredColor(.primaryLabel))
+                .foregroundStyle(Color.preferredColor(.tertiaryLabel))
                 .font(.fiori(forTextStyle: .footnote))
         }
     }
@@ -95,15 +95,15 @@ public struct InformationViewWarningStyle: InformationViewStyle {
             .iconStyle(content: { IconConfiguration in
                 if IconConfiguration.icon.isEmpty {
                     Image(systemName: "exclamationmark.triangle")
-                        .foregroundStyle(Color.preferredColor(.mango5))
+                        .foregroundStyle(Color.preferredColor(.criticalLabel))
                 } else {
                     IconConfiguration.icon
-                        .foregroundStyle(Color.preferredColor(.mango5))
+                        .foregroundStyle(Color.preferredColor(.criticalLabel))
                 }
             })
             .descriptionStyle(content: { descriptionConfiguration in
                 descriptionConfiguration.description
-                    .foregroundStyle(Color.preferredColor(.mango5))
+                    .foregroundStyle(Color.preferredColor(.criticalLabel))
             })
     }
 }
