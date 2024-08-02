@@ -1296,6 +1296,34 @@ public extension ObjectItemStyle {
     }
 }
 
+// MARK: OptionsStyle
+
+extension ModifiedStyle: OptionsStyle where Style: OptionsStyle {
+    public func makeBody(_ configuration: OptionsConfiguration) -> some View {
+        Options(configuration)
+            .optionsStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct OptionsStyleModifier<Style: OptionsStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.optionsStyle(self.style)
+    }
+}
+
+public extension OptionsStyle {
+    func modifier(_ modifier: some ViewModifier) -> some OptionsStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some OptionsStyle) -> some OptionsStyle {
+        style.modifier(OptionsStyleModifier(style: self))
+    }
+}
+
 // MARK: OverflowActionStyle
 
 extension ModifiedStyle: OverflowActionStyle where Style: OverflowActionStyle {
@@ -1629,6 +1657,34 @@ public extension SecondaryTimestampStyle {
 
     func concat(_ style: some SecondaryTimestampStyle) -> some SecondaryTimestampStyle {
         style.modifier(SecondaryTimestampStyleModifier(style: self))
+    }
+}
+
+// MARK: SegmentedControlPickerStyle
+
+extension ModifiedStyle: SegmentedControlPickerStyle where Style: SegmentedControlPickerStyle {
+    public func makeBody(_ configuration: SegmentedControlPickerConfiguration) -> some View {
+        SegmentedControlPicker(configuration)
+            .segmentedControlPickerStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct SegmentedControlPickerStyleModifier<Style: SegmentedControlPickerStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.segmentedControlPickerStyle(self.style)
+    }
+}
+
+public extension SegmentedControlPickerStyle {
+    func modifier(_ modifier: some ViewModifier) -> some SegmentedControlPickerStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some SegmentedControlPickerStyle) -> some SegmentedControlPickerStyle {
+        style.modifier(SegmentedControlPickerStyleModifier(style: self))
     }
 }
 
