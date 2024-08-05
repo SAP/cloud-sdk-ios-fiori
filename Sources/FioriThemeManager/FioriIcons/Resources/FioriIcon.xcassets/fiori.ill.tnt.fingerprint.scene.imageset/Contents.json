@@ -1,7 +1,18 @@
 {
   "images" : [
     {
-      "filename" : "fiori.ill.tnt.finger.print.scene.svg",
+      "filename" : "fiori.ill.tnt.fingerprint.scene.svg",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "fiori.ill.tnt.fingerprint.scene.dark.svg",
       "idiom" : "universal",
       "scale" : "1x"
     },
@@ -10,6 +21,26 @@
       "scale" : "2x"
     },
     {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
       "idiom" : "universal",
       "scale" : "3x"
     }
