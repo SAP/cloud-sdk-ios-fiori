@@ -485,11 +485,7 @@ class LayoutData {
         }
         
         if let padding = dataCellPadding {
-            if columnIndex == numOfColumns - 1 {
-                return EdgeInsets(top: padding.top, leading: padding.leading, bottom: padding.bottom, trailing: 0)
-            } else {
-                return padding
-            }
+            return padding
         }
         
         let vPadding = isHeader ? TableViewLayout.topAndBottomPaddingsForHeader : TableViewLayout.topAndBottomPaddings
@@ -498,16 +494,8 @@ class LayoutData {
         let numOfColumns = self.numberOfColumns()
         if numOfColumns < 1 {
             return EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
-        } else if numOfColumns == 1 {
-            return EdgeInsets(top: vPadding, leading: contentInset, bottom: vPadding, trailing: 0)
         } else {
-            if columnIndex == 0 {
-                return EdgeInsets(top: vPadding, leading: contentInset, bottom: vPadding, trailing: contentInset)
-            } else if columnIndex == numOfColumns - 1 {
-                return EdgeInsets(top: vPadding, leading: contentInset, bottom: vPadding, trailing: 0)
-            } else {
-                return EdgeInsets(top: vPadding, leading: contentInset, bottom: vPadding, trailing: contentInset)
-            }
+            return EdgeInsets(top: vPadding, leading: contentInset, bottom: vPadding, trailing: contentInset)
         }
     }
     
