@@ -37,6 +37,7 @@ public struct DataTable: View {
     @ObservedObject public var model: TableModel
     @ObservedObject var layoutManager: TableLayoutManager
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
     /// Public initializer for DataTable
     /// - Parameter model: TableModel Object.
@@ -58,6 +59,7 @@ public struct DataTable: View {
     }
     
     func makeBody(in rect: CGRect) -> some View {
+        self.layoutManager.sizeClass = self.horizontalSizeClass ?? .compact
         // it only layouts when necessary
         self.layoutManager.layout(rect.size)
         
