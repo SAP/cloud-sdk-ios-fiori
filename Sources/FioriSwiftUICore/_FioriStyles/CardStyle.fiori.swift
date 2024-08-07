@@ -556,7 +556,7 @@ public enum CardTests {
     }
     
     static let sampleCard4 = Card {
-        Text("Alex Kilgo").font(.fiori(forTextStyle: .title2, weight: .semibold)).lineSpacing(25)
+        Text("Alex Kilgo").font(.fiori(forTextStyle: .title2, weight: .bold)).lineSpacing(25)
     } subtitle: {
         Text("UX Designer")
     } detailImage: {
@@ -600,7 +600,7 @@ public enum CardTests {
     static let sampleCard6 = Card(title: "Title", subtitle: "Subtitle that goes to multiple lines before truncating just like that", headerAction: FioriButton(title: "..."), counter: "1 of 3", action: FioriButton(title: "Primary"))
     
     static let sampleCard7 = Card {
-        Text("Bad Schoenborn, Sued").font(.fiori(forTextStyle: .title2, weight: .semibold)).lineSpacing(25)
+        Text("Bad Schoenborn, Sued").font(.fiori(forTextStyle: .title2, weight: .bold)).lineSpacing(25)
     } subtitle: {
         Text("Local Public Transport")
     } detailImage: {
@@ -614,7 +614,7 @@ public enum CardTests {
             }
     } cardBody: {
         VStack(alignment: .leading) {
-            Text("Mannheim Hauptbahnbof").font(.fiori(forTextStyle: .headline, weight: .semibold))
+            Text("Mannheim Hauptbahnbof").font(.fiori(forTextStyle: .headline, weight: .bold))
             HStack(spacing: 4) {
                 Text("04:19").foregroundColor(.preferredColor(.secondaryLabel))
                 Circle().foregroundColor(.gray).frame(width: 4)
@@ -629,7 +629,7 @@ public enum CardTests {
             
             Divider()
             
-            Text("Heidelberg Hauptbahnbof").font(.fiori(forTextStyle: .headline, weight: .semibold))
+            Text("Heidelberg Hauptbahnbof").font(.fiori(forTextStyle: .headline, weight: .bold))
             HStack(spacing: 4) {
                 Text("04:37").foregroundColor(.preferredColor(.secondaryLabel))
                 Circle().foregroundColor(.gray).frame(width: 4)
@@ -644,7 +644,7 @@ public enum CardTests {
             
             Divider()
             
-            Text("Wiesloch - Walldorf").font(.fiori(forTextStyle: .headline, weight: .semibold))
+            Text("Wiesloch - Walldorf").font(.fiori(forTextStyle: .headline, weight: .bold))
             HStack(spacing: 4) {
                 Text("04:37").foregroundColor(.preferredColor(.secondaryLabel))
                 Circle().foregroundColor(.gray).frame(width: 4)
