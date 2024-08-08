@@ -785,6 +785,23 @@ public extension View {
     }
 }
 
+// MARK: OptionsStyle
+
+public extension View {
+    func optionsStyle(_ style: some OptionsStyle) -> some View {
+        self.transformEnvironment(\.optionsStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func optionsStyle(@ViewBuilder content: @escaping (OptionsConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.optionsStyleStack) { stack in
+            let style = AnyOptionsStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: OverflowActionStyle
 
 public extension View {
@@ -984,6 +1001,23 @@ public extension View {
     func secondaryTimestampStyle(@ViewBuilder content: @escaping (SecondaryTimestampConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.secondaryTimestampStyleStack) { stack in
             let style = AnySecondaryTimestampStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: SegmentedControlPickerStyle
+
+public extension View {
+    func segmentedControlPickerStyle(_ style: some SegmentedControlPickerStyle) -> some View {
+        self.transformEnvironment(\.segmentedControlPickerStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func segmentedControlPickerStyle(@ViewBuilder content: @escaping (SegmentedControlPickerConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.segmentedControlPickerStyleStack) { stack in
+            let style = AnySegmentedControlPickerStyle(content)
             stack.append(style)
         }
     }

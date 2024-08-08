@@ -97,6 +97,14 @@ extension RatingControlFormViewConfiguration {
     }
 }
 
+// MARK: SegmentedControlPickerConfiguration
+
+extension SegmentedControlPickerConfiguration {
+    var _options: Options {
+        Options(.init(options: self.options), shouldApplyDefaultStyle: true)
+    }
+}
+
 // MARK: SideBarListItemConfiguration
 
 extension SideBarListItemConfiguration {

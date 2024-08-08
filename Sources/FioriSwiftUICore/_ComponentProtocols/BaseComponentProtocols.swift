@@ -309,3 +309,8 @@ protocol _NowIndicatorNodeComponent {
     @ViewBuilder
     var nowIndicatorNode: (() -> any View)? { get }
 }
+
+// sourcery: BaseComponent
+protocol _OptionsComponent {
+    var options: [AttributedString] { get }
+}
