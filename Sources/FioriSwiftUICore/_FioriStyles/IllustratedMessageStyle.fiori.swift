@@ -59,6 +59,7 @@ extension IllustratedMessageFioriStyle {
         
         func makeBody(_ configuration: TitleConfiguration) -> some View {
             Title(configuration)
+                .font(.fiori(forTextStyle: .headline, weight: .bold))
                 .padding(.horizontal, 16)
                 .padding(.bottom, 4)
         }

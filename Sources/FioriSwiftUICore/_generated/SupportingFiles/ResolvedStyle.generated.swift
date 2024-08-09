@@ -739,6 +739,22 @@ extension ObjectItemStyle {
     }
 }
 
+// MARK: OptionsStyle
+
+struct ResolvedOptionsStyle<Style: OptionsStyle>: View {
+    let style: Style
+    let configuration: OptionsConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension OptionsStyle {
+    func resolve(configuration: OptionsConfiguration) -> some View {
+        ResolvedOptionsStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: OverflowActionStyle
 
 struct ResolvedOverflowActionStyle<Style: OverflowActionStyle>: View {
@@ -928,6 +944,22 @@ struct ResolvedSecondaryTimestampStyle<Style: SecondaryTimestampStyle>: View {
 extension SecondaryTimestampStyle {
     func resolve(configuration: SecondaryTimestampConfiguration) -> some View {
         ResolvedSecondaryTimestampStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: SegmentedControlPickerStyle
+
+struct ResolvedSegmentedControlPickerStyle<Style: SegmentedControlPickerStyle>: View {
+    let style: Style
+    let configuration: SegmentedControlPickerConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension SegmentedControlPickerStyle {
+    func resolve(configuration: SegmentedControlPickerConfiguration) -> some View {
+        ResolvedSegmentedControlPickerStyle(style: self, configuration: configuration)
     }
 }
 

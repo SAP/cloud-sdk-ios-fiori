@@ -401,3 +401,18 @@ protocol _ProfileHeaderComponent: _DetailImageComponent, _TitleComponent, _Subti
     /// The detail content for the profile header.
     var detailContent: (() -> any View)? { get }
 }
+
+/// `SegmentedControlPicker` provides a segmented style `Picker` with Fiori styling.
+///
+/// ## Usage
+/// ```swift
+/// @State var selectedIndex: Int = 0
+///
+/// SegmentedControlPicker(options: ["Segment 1", "Segment 2", "Segment 3"], selectedIndex: $selectedIndex)
+/// ```
+// sourcery: CompositeComponent
+protocol _SegmentedControlPickerComponent: _OptionsComponent {
+    // sourcery: @Binding
+    /// The selected value index of the Picker
+    var selectedIndex: Int { get }
+}

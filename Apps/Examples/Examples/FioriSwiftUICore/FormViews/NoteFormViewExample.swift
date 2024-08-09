@@ -66,7 +66,9 @@ struct NoteFormViewExample: View {
                 Text("Read-Only")
                 NoteFormView(text: self.$readOnlyText, placeholder: "Read-Only", controlState: .readOnly, minTextEditorHeight: 50, maxTextEditorHeight: 200, hidesReadOnlyHint: self.hidesReadonlyHint)
             }
+            #if !os(visionOS)
             .scrollDismissesKeyboard(.immediately)
+            #endif
         }
     }
 

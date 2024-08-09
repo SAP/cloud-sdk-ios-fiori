@@ -2789,6 +2789,20 @@ public extension ObjectItemStyle where Self == ObjectItemActionStyle {
     }
 }
 
+// MARK: OptionsStyle
+
+public extension OptionsStyle where Self == OptionsBaseStyle {
+    static var base: OptionsBaseStyle {
+        OptionsBaseStyle()
+    }
+}
+
+public extension OptionsStyle where Self == OptionsFioriStyle {
+    static var fiori: OptionsFioriStyle {
+        OptionsFioriStyle()
+    }
+}
+
 // MARK: OverflowActionStyle
 
 public extension OverflowActionStyle where Self == OverflowActionBaseStyle {
@@ -3206,6 +3220,41 @@ public extension SecondaryTimestampStyle where Self == SecondaryTimestampBaseSty
 public extension SecondaryTimestampStyle where Self == SecondaryTimestampFioriStyle {
     static var fiori: SecondaryTimestampFioriStyle {
         SecondaryTimestampFioriStyle()
+    }
+}
+
+// MARK: SegmentedControlPickerStyle
+
+public extension SegmentedControlPickerStyle where Self == SegmentedControlPickerBaseStyle {
+    static var base: SegmentedControlPickerBaseStyle {
+        SegmentedControlPickerBaseStyle()
+    }
+}
+
+public extension SegmentedControlPickerStyle where Self == SegmentedControlPickerFioriStyle {
+    static var fiori: SegmentedControlPickerFioriStyle {
+        SegmentedControlPickerFioriStyle()
+    }
+}
+
+public struct SegmentedControlPickerOptionsStyle: SegmentedControlPickerStyle {
+    let style: any OptionsStyle
+
+    public func makeBody(_ configuration: SegmentedControlPickerConfiguration) -> some View {
+        SegmentedControlPicker(configuration)
+            .optionsStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension SegmentedControlPickerStyle where Self == SegmentedControlPickerOptionsStyle {
+    static func optionsStyle(_ style: some OptionsStyle) -> SegmentedControlPickerOptionsStyle {
+        SegmentedControlPickerOptionsStyle(style: style)
+    }
+
+    static func optionsStyle(@ViewBuilder content: @escaping (OptionsConfiguration) -> some View) -> SegmentedControlPickerOptionsStyle {
+        let style = AnyOptionsStyle(content)
+        return SegmentedControlPickerOptionsStyle(style: style)
     }
 }
 

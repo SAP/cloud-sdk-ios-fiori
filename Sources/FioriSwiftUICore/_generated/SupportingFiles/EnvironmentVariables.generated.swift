@@ -969,6 +969,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: OptionsStyle
+
+struct OptionsStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any OptionsStyle] = []
+}
+
+extension EnvironmentValues {
+    var optionsStyle: any OptionsStyle {
+        self.optionsStyleStack.last ?? .base
+    }
+
+    var optionsStyleStack: [any OptionsStyle] {
+        get {
+            self[OptionsStyleStackKey.self]
+        }
+        set {
+            self[OptionsStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: OverflowActionStyle
 
 struct OverflowActionStyleStackKey: EnvironmentKey {
@@ -1217,6 +1238,27 @@ extension EnvironmentValues {
         }
         set {
             self[SecondaryTimestampStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: SegmentedControlPickerStyle
+
+struct SegmentedControlPickerStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any SegmentedControlPickerStyle] = []
+}
+
+extension EnvironmentValues {
+    var segmentedControlPickerStyle: any SegmentedControlPickerStyle {
+        self.segmentedControlPickerStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var segmentedControlPickerStyleStack: [any SegmentedControlPickerStyle] {
+        get {
+            self[SegmentedControlPickerStyleStackKey.self]
+        }
+        set {
+            self[SegmentedControlPickerStyleStackKey.self] = newValue
         }
     }
 }

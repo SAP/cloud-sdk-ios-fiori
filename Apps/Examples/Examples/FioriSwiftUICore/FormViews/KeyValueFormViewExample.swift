@@ -88,7 +88,9 @@ struct KeyValueFormViewExample: View {
                 Text("Read-Only")
                 KeyValueFormView(title: "Read-Only", text: self.$readOnlyText, placeholder: "Read-Only", controlState: .readOnly, minTextEditorHeight: 50, maxTextLength: 200, hidesReadOnlyHint: self.hidesReadonlyHint, isRequired: self.isRequired)
             }
+            #if !os(visionOS)
             .scrollDismissesKeyboard(.immediately)
+            #endif
         }
     }
 

@@ -46,7 +46,8 @@ extension JouleWelcomeScreenFioriStyle {
     struct ContentFioriStyle: JouleWelcomeScreenStyle {
         func makeBody(_ configuration: JouleWelcomeScreenConfiguration) -> some View {
             JouleWelcomeScreen(configuration)
-            // Add default style for its content
+                // Add default style for its content
+                .background(Color.preferredColor(.primaryBackground))
         }
     }
     

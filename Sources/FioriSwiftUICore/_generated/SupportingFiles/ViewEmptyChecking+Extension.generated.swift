@@ -352,6 +352,12 @@ extension ObjectItem: _ViewEmptyChecking {
     }
 }
 
+extension Options: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        false
+    }
+}
+
 extension OverflowAction: _ViewEmptyChecking {
     public var isEmpty: Bool {
         overflowAction.isEmpty
@@ -426,6 +432,12 @@ extension SecondaryAction: _ViewEmptyChecking {
 extension SecondaryTimestamp: _ViewEmptyChecking {
     public var isEmpty: Bool {
         secondaryTimestamp.isEmpty
+    }
+}
+
+extension SegmentedControlPicker: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        false
     }
 }
 
