@@ -31,6 +31,9 @@
 /* XACT: The accessibility label for the signature line */
 "Signature Line" = "Llinell Llofnodi";
 
+/* XACT: The accessibility label for the mandatory field */
+"Required Field" = "Maes Gofynnol";
+
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
 "Canceled" = "Wedi canslo";
 
@@ -159,4 +162,25 @@
 
 /* Default error text for when the character count exceeds the maximum limit for NoteFormView and TextFieldFormView */
 "Reduce the number of characters" = "Lleihau nifer y nodau";
+
+/* XBUT: voice over label for decrement action in stepper */
+"Stepper decrease" = "Gostwng y camwr";
+
+/* XBUT: voice over description for decrement action in stepper */
+"Decrease the value by %d" = "Tynnu %d o'r gwerth";
+
+/* XBUT: voice over label for increment action in stepper */
+"Stepper increase" = "Cynyddu'r camwr";
+
+/* XBUT: voice over description for increment action in stepper */
+"Increase the value by %d" = "Ychwanegu %d at y gwerth";
+
+/* XBUT: voice over label for test field in stepper */
+"Select specific value" = "Dewiswch werth penodol";
+
+/* XBUT: View all action in MenuSelection */
+"View All (%d)" = "Gweld y Cyfan (%d)";
+
+/* XACT: RatingControl accessibility label */
+"%d out of %d stars" = "%d allan o %d seren";
 

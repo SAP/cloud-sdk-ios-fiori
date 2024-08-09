@@ -31,6 +31,9 @@
 /* XACT: The accessibility label for the signature line */
 "Signature Line" = "Ligne de signature";
 
+/* XACT: The accessibility label for the mandatory field */
+"Required Field" = "Zone obligatoire";
+
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
 "Canceled" = "Annulé";
 
@@ -146,7 +149,7 @@
 "Time" = "Heure";
 
 /* XBUT: slider default value label formatter for integer */
-"Value: %d" = "Valeur: %d";
+"Value: %d" = "Valeur : %d";
 
 /* XMSG: a toast message for read-only cell in DataTable */
 "Tapped cell is read-only." = "La cellule touchée est en lecture seule.";
@@ -159,4 +162,25 @@
 
 /* Default error text for when the character count exceeds the maximum limit for NoteFormView and TextFieldFormView */
 "Reduce the number of characters" = "Réduisez le nombre de caractères.";
+
+/* XBUT: voice over label for decrement action in stepper */
+"Stepper decrease" = "Incrémenteur pour réduction";
+
+/* XBUT: voice over description for decrement action in stepper */
+"Decrease the value by %d" = "Réduire la valeur de %d";
+
+/* XBUT: voice over label for increment action in stepper */
+"Stepper increase" = "Incrémenteur pour augmentation";
+
+/* XBUT: voice over description for increment action in stepper */
+"Increase the value by %d" = "Augmenter la valeur de %d";
+
+/* XBUT: voice over label for test field in stepper */
+"Select specific value" = "Sélectionner une valeur spécifique";
+
+/* XBUT: View all action in MenuSelection */
+"View All (%d)" = "Tout afficher (%d)";
+
+/* XACT: RatingControl accessibility label */
+"%d out of %d stars" = "%d étoile(s) sur %d";
 

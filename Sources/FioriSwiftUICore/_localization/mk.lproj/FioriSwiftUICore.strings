@@ -31,6 +31,9 @@
 /* XACT: The accessibility label for the signature line */
 "Signature Line" = "Линија за потпис";
 
+/* XACT: The accessibility label for the mandatory field */
+"Required Field" = "Задолжително поле";
+
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
 "Canceled" = "Откажано";
 
@@ -159,4 +162,25 @@
 
 /* Default error text for when the character count exceeds the maximum limit for NoteFormView and TextFieldFormView */
 "Reduce the number of characters" = "Намалете го бројот на знаци";
+
+/* XBUT: voice over label for decrement action in stepper */
+"Stepper decrease" = "Намалување на регулаторот на вредности";
+
+/* XBUT: voice over description for decrement action in stepper */
+"Decrease the value by %d" = "Намали ја вредноста за %d";
+
+/* XBUT: voice over label for increment action in stepper */
+"Stepper increase" = "Зголемување на регулаторот на вредности";
+
+/* XBUT: voice over description for increment action in stepper */
+"Increase the value by %d" = "Зголеми ја вредноста за %d";
+
+/* XBUT: voice over label for test field in stepper */
+"Select specific value" = "Изберете конкретна вредност";
+
+/* XBUT: View all action in MenuSelection */
+"View All (%d)" = "Прикажи ги сите (%d)";
+
+/* XACT: RatingControl accessibility label */
+"%d out of %d stars" = "%d од %d ѕвездички";
 

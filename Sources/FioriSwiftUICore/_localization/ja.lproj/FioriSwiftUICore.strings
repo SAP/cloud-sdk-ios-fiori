@@ -31,6 +31,9 @@
 /* XACT: The accessibility label for the signature line */
 "Signature Line" = "署名ライン";
 
+/* XACT: The accessibility label for the mandatory field */
+"Required Field" = "必須フィールド";
+
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
 "Canceled" = "キャンセルされました";
 
@@ -159,4 +162,25 @@
 
 /* Default error text for when the character count exceeds the maximum limit for NoteFormView and TextFieldFormView */
 "Reduce the number of characters" = "文字数を削減してください";
+
+/* XBUT: voice over label for decrement action in stepper */
+"Stepper decrease" = "ステッパー減少";
+
+/* XBUT: voice over description for decrement action in stepper */
+"Decrease the value by %d" = "値を %d 減らします";
+
+/* XBUT: voice over label for increment action in stepper */
+"Stepper increase" = "ステッパー増加";
+
+/* XBUT: voice over description for increment action in stepper */
+"Increase the value by %d" = "値を %d 増やします";
+
+/* XBUT: voice over label for test field in stepper */
+"Select specific value" = "特定の値を選択";
+
+/* XBUT: View all action in MenuSelection */
+"View All (%d)" = "すべて表示 (%d)";
+
+/* XACT: RatingControl accessibility label */
+"%d out of %d stars" = "%d つ星 (最高 %d つ星)";
 

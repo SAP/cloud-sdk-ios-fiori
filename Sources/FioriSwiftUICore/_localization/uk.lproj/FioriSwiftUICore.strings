@@ -31,6 +31,9 @@
 /* XACT: The accessibility label for the signature line */
 "Signature Line" = "Рядок підпису";
 
+/* XACT: The accessibility label for the mandatory field */
+"Required Field" = "Обов’язкове поле";
+
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
 "Canceled" = "Скасовано";
 
@@ -158,5 +161,26 @@
 "No more characters remaining" = "Більше не залишилося символів";
 
 /* Default error text for when the character count exceeds the maximum limit for NoteFormView and TextFieldFormView */
-"Reduce the number of characters" = "Зменшіть кількість символів";
+"Reduce the number of characters" = "Зменшити кількість символів";
+
+/* XBUT: voice over label for decrement action in stepper */
+"Stepper decrease" = "Зменшення степпера";
+
+/* XBUT: voice over description for decrement action in stepper */
+"Decrease the value by %d" = "Зменшити значення на %d";
+
+/* XBUT: voice over label for increment action in stepper */
+"Stepper increase" = "Збільшення степпера";
+
+/* XBUT: voice over description for increment action in stepper */
+"Increase the value by %d" = "Збільшити значення на %d";
+
+/* XBUT: voice over label for test field in stepper */
+"Select specific value" = "Вибрати конкретне значення";
+
+/* XBUT: View all action in MenuSelection */
+"View All (%d)" = "Переглянути все (%d)";
+
+/* XACT: RatingControl accessibility label */
+"%d out of %d stars" = "%d з %d зірочок";
 
