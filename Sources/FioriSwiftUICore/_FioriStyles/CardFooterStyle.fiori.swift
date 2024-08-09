@@ -227,6 +227,8 @@ public struct CardFooterBaseStyle: CardFooterStyle {
             } label: {
                 configuration.overflowAction
             }
+            /// set the accessibilityLabel as same as SF symbol "ellipsis" which is "More"
+            .accessibilityLabel(Text(Image(systemName: "ellipsis")))
             
             if !configuration.tertiaryAction.isEmpty {
                 configuration.tertiaryAction
