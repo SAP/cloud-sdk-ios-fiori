@@ -1,3 +1,4 @@
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -42,14 +43,38 @@ public struct FioriButtonStyleConfiguration {
         }
     }
 
+    /// A type-erased Image of a button.
+    public struct Image: View {
+        let view: AnyView
+        init(_ view: some View) {
+            self.view = AnyView(view)
+        }
+
+        /// The content of the Image.
+        public var body: some View {
+            self.view
+        }
+    }
+
     /// The current state of the button.
     public let state: UIControl.State
     
     let _label: (UIControl.State) -> Label
+    let _image: (UIControl.State) -> Image
+    
+    /// Place the image along the top, leading, bottom, or trailing edge of the button.
+    public let imagePosition: FioriButtonImagePosition
+    /// Spacing between image and title.
+    public let imageTitleSpacing: CGFloat
     
     /// The label for the current state.
     public var label: Label {
         label(for: self.state)
+    }
+
+    /// The Image for the current state.
+    public var image: Image {
+        image(for: self.state)
     }
     
     /// Returns the label for the specific state.
@@ -57,6 +82,52 @@ public struct FioriButtonStyleConfiguration {
     /// - Returns: The label for the specific state.
     public func label(for state: UIControl.State) -> Label {
         self._label(state)
+    }
+    
+    /// Returns the Image for the specific state.
+    /// - Parameter state: A valid state for a button. For a Fiori button with non-persistent selection, `.normal`, `.disabled`, and `.highlighted` are supported. For a button with persistent selection, use `.selected` instead of `.highlighted`.
+    /// - Returns: The Image for the specific state.
+    public func image(for state: UIControl.State) -> Image {
+        self._image(state)
+    }
+    
+    @ViewBuilder
+    func containerView(_ loadingState: FioriButtonLoadingState) -> some View {
+        let showImageView = showImageView(loadingState, image: image)
+        switch self.imagePosition {
+        case .top:
+            VStack(spacing: self.imageTitleSpacing, content: {
+                showImageView
+                self.label
+            })
+        case .leading:
+            HStack(spacing: self.imageTitleSpacing, content: {
+                showImageView
+                self.label
+            })
+        case .bottom:
+            VStack(spacing: self.imageTitleSpacing, content: {
+                self.label
+                showImageView
+            })
+        case .trailing:
+            HStack(spacing: self.imageTitleSpacing, content: {
+                self.label
+                showImageView
+            })
+        }
+    }
+    
+    @ViewBuilder
+    private func showImageView(_ loadingState: FioriButtonLoadingState, image: Image) -> some View {
+        switch loadingState {
+        case .unspecified:
+            image
+        case .processing:
+            ProgressView(value: 0).progressViewStyle(.circular)
+        case .success:
+            FioriIcon.status.sysEnter.font(.fiori(forTextStyle: .subheadline))
+        }
     }
 }
 
@@ -76,14 +147,18 @@ public struct FioriPlainButtonStyle: FioriButtonStyle {
 /// A Fiori button style for the primary button.
 public struct FioriPrimaryButtonStyle: FioriButtonStyle {
     private let maxWidth: CGFloat?
+    private let loadingState: FioriButtonLoadingState
     
     /// Create a `FioriPrimaryButtonStyle` instance.
-    public init(_ maxWidth: CGFloat? = nil) { self.maxWidth = maxWidth }
+    public init(_ maxWidth: CGFloat? = nil, loadingState: FioriButtonLoadingState = .unspecified) {
+        self.maxWidth = maxWidth
+        self.loadingState = loadingState
+    }
     
     public func makeBody(configuration: Configuration) -> some View {
-        let config = FioriButtonStyleProvider.getPrimaryButtonStyle(state: configuration.state).withMaxWidth(self.maxWidth)
+        let config = FioriButtonStyleProvider.getPrimaryButtonStyle(state: configuration.state, loadingState: self.loadingState).withMaxWidth(self.maxWidth)
         
-        return configuration.label
+        return configuration.containerView(self.loadingState)
             .fioriButtonConfiguration(config)
     }
 }
@@ -92,18 +167,20 @@ public struct FioriPrimaryButtonStyle: FioriButtonStyle {
 public struct FioriSecondaryButtonStyle: FioriButtonStyle {
     private let colorStyle: FioriButtonColorStyle
     private let maxWidth: CGFloat?
+    private let loadingState: FioriButtonLoadingState
     
     /// Create a `FioriSecondaryButtonStyle` instance.
     /// - Parameter colorStyle: The color style used for this button style.
-    public init(colorStyle: FioriButtonColorStyle = .tint, maxWidth: CGFloat? = nil) {
+    public init(colorStyle: FioriButtonColorStyle = .tint, maxWidth: CGFloat? = nil, loadingState: FioriButtonLoadingState = .unspecified) {
         self.colorStyle = colorStyle
         self.maxWidth = maxWidth
+        self.loadingState = loadingState
     }
     
     public func makeBody(configuration: Configuration) -> some View {
-        let config = FioriButtonStyleProvider.getSecondaryButtonStyle(colorStyle: self.colorStyle, for: configuration.state).withMaxWidth(self.maxWidth)
+        let config = FioriButtonStyleProvider.getSecondaryButtonStyle(colorStyle: self.colorStyle, for: configuration.state, loadingState: self.loadingState).withMaxWidth(self.maxWidth)
         
-        return configuration.label
+        return configuration.containerView(self.loadingState)
             .fioriButtonConfiguration(config)
     }
 }
@@ -112,18 +189,20 @@ public struct FioriSecondaryButtonStyle: FioriButtonStyle {
 public struct FioriTertiaryButtonStyle: FioriButtonStyle {
     private let colorStyle: FioriButtonColorStyle
     private let maxWidth: CGFloat?
+    private let loadingState: FioriButtonLoadingState
     
     /// Create a `FioriTertiaryButtonStyle` instance.
     /// - Parameter colorStyle: The color style used for this button style.
-    public init(colorStyle: FioriButtonColorStyle = .tint, maxWidth: CGFloat? = nil) {
+    public init(colorStyle: FioriButtonColorStyle = .tint, maxWidth: CGFloat? = nil, loadingState: FioriButtonLoadingState = .unspecified) {
         self.colorStyle = colorStyle
         self.maxWidth = maxWidth
+        self.loadingState = loadingState
     }
     
     public func makeBody(configuration: Configuration) -> some View {
-        let config = FioriButtonStyleProvider.getTertiaryButtonStyle(colorStyle: self.colorStyle, for: configuration.state).withMaxWidth(self.maxWidth)
+        let config = FioriButtonStyleProvider.getTertiaryButtonStyle(colorStyle: self.colorStyle, for: configuration.state, loadingState: self.loadingState).withMaxWidth(self.maxWidth)
         
-        return configuration.label
+        return configuration.containerView(self.loadingState)
             .fioriButtonConfiguration(config)
     }
 }

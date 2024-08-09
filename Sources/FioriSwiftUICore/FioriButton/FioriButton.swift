@@ -59,6 +59,9 @@ public struct FioriButton: View {
     let action: ((UIControl.State) -> Void)?
     let label: (UIControl.State) -> any View
     let isSelectionPersistent: Bool
+    let image: (UIControl.State) -> any View
+    let imagePosition: FioriButtonImagePosition
+    let imageTitleSpacing: CGFloat
     private let touchAreaInset: CGFloat = 50
     
     @Environment(\.isEnabled) private var isEnabled
@@ -82,9 +85,32 @@ public struct FioriButton: View {
                 action: ((UIControl.State) -> Void)? = nil,
                 @ViewBuilder label: @escaping (UIControl.State) -> any View)
     {
+        self.init(isSelectionPersistent: isSelectionPersistent, action: action, label: label, image: { _ in
+            EmptyView()
+        }, imagePosition: .leading, imageTitleSpacing: 8.0)
+    }
+    
+    /// Create a fiori button.
+    /// - Parameters:
+    ///   - isSelectionPersistent: A boolean value determines whether the selection should be persistent or not.
+    ///   - action: Action triggered when tap on button.
+    ///   - label: A closure that returns a label for each state. For a button with non-persistent selection, `.normal`, `.disabled`, `.highlighted` are supported. For a button with persistent selection, use `.selected` instead of `.highlighted`.
+    ///   - image: Image of the button.
+    ///   - imagePosition: Place the image along the top, leading, bottom, or trailing edge of the button.
+    ///   - imageTitleSpacing: Spacing between image and title.
+    public init(isSelectionPersistent: Bool = false,
+                action: ((UIControl.State) -> Void)? = nil,
+                @ViewBuilder label: @escaping (UIControl.State) -> any View = { _ in EmptyView() },
+                @ViewBuilder image: @escaping (UIControl.State) -> any View = { _ in EmptyView() },
+                imagePosition: FioriButtonImagePosition = .leading,
+                imageTitleSpacing: CGFloat = 8.0)
+    {
+        self.isSelectionPersistent = isSelectionPersistent
         self.action = action
         self.label = label
-        self.isSelectionPersistent = isSelectionPersistent
+        self.image = image
+        self.imagePosition = imagePosition
+        self.imageTitleSpacing = imageTitleSpacing
     }
     
     /// Create a fiori button.
@@ -96,10 +122,12 @@ public struct FioriButton: View {
                 title: @escaping (UIControl.State) -> AttributedString,
                 action: ((UIControl.State) -> Void)? = nil)
     {
-        self.init(isSelectionPersistent: isSelectionPersistent, action: action, label: {
+        self.init(isSelectionPersistent: isSelectionPersistent, action: action) {
             let text = title($0)
-            return Text(text)
-        })
+            Text(text)
+        } image: { _ in
+            EmptyView()
+        }
     }
     
     /// Create a fiori button.
@@ -111,15 +139,22 @@ public struct FioriButton: View {
                 title: AttributedString,
                 action: ((UIControl.State) -> Void)? = nil)
     {
-        self.init(isSelectionPersistent: isSelectionPersistent, action: action, label: { _ in Text(title) })
+        self.init(isSelectionPersistent: isSelectionPersistent, action: action) { _ in
+            Text(title)
+        } image: { _ in
+            EmptyView()
+        }
     }
 
     /// The content of the button.
     public var body: some View {
-        let config = FioriButtonStyleConfiguration(state: state) { state in
+        let config = FioriButtonStyleConfiguration(state: state, _label: { state in
             let v = self.label(state)
             return FioriButtonStyleConfiguration.Label(v)
-        }
+        }, _image: { state in
+            let v = self.image(state)
+            return FioriButtonStyleConfiguration.Image(v)
+        }, imagePosition: self.imagePosition, imageTitleSpacing: self.imageTitleSpacing)
         
         return Group {
             if self.isSelectionPersistent {
@@ -133,7 +168,7 @@ public struct FioriButton: View {
                 } label: {
                     EmptyView()
                 }
-                .buttonStyle(_ButtonStyleImpl(fioriButtonStyle: self.fioriButtonStyle, label: self.label, isEnabled: self.isEnabled))
+                .buttonStyle(_ButtonStyleImpl(fioriButtonStyle: self.fioriButtonStyle, label: self.label, image: self.image, imagePosition: self.imagePosition, imageTitleSpacing: self.imageTitleSpacing, isEnabled: self.isEnabled))
             }
         }
     }
@@ -183,25 +218,49 @@ public extension FioriButton {
         self.label = {
             Text(title($0))
         }
+        self.image = { _ in
+            EmptyView()
+        }
+        self.imagePosition = .leading
+        self.imageTitleSpacing = 8.0
     }
 }
 
 private struct _ButtonStyleImpl: ButtonStyle {
     let fioriButtonStyle: AnyFioriButtonStyle
     let label: (UIControl.State) -> any View
+    let image: (UIControl.State) -> any View
+    let imagePosition: FioriButtonImagePosition
+    let imageTitleSpacing: CGFloat
     let isEnabled: Bool
     
     func makeBody(configuration: Configuration) -> some View {
         let state: UIControl.State = self.isEnabled ? (configuration.isPressed ? .highlighted : .normal) : .disabled
-        let config = FioriButtonStyleConfiguration(state: state) { state in
+
+        let config = FioriButtonStyleConfiguration(state: state, _label: { state in
             let v = self.label(state)
             return FioriButtonStyleConfiguration.Label(v)
-        }
-        
+        }, _image: { state in
+            let v = self.image(state)
+            return FioriButtonStyleConfiguration.Image(v)
+        }, imagePosition: self.imagePosition, imageTitleSpacing: self.imageTitleSpacing)
+
         return ZStack {
             self.fioriButtonStyle.makeBody(configuration: config)
             
             configuration.label.hidden()
         }
     }
+}
+
+/// Place the image along the top, leading, bottom, or trailing edge of the button.
+public enum FioriButtonImagePosition {
+    /// place the image along the top edge of the button.
+    case top
+    /// place the image along the leading edge of the button.
+    case leading
+    /// place the image along the bottom edge of the button.
+    case bottom
+    /// place the image along the trailing edge of the button.
+    case trailing
 }
