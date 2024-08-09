@@ -31,6 +31,9 @@
 /* XACT: The accessibility label for the signature line */
 "Signature Line" = "서명란";
 
+/* XACT: The accessibility label for the mandatory field */
+"Required Field" = "필수 필드";
+
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
 "Canceled" = "취소됨";
 
@@ -159,4 +162,25 @@
 
 /* Default error text for when the character count exceeds the maximum limit for NoteFormView and TextFieldFormView */
 "Reduce the number of characters" = "문자 수를 줄이십시오.";
+
+/* XBUT: voice over label for decrement action in stepper */
+"Stepper decrease" = "스테퍼 감소";
+
+/* XBUT: voice over description for decrement action in stepper */
+"Decrease the value by %d" = "%d만큼 값 감소";
+
+/* XBUT: voice over label for increment action in stepper */
+"Stepper increase" = "스테퍼 증가";
+
+/* XBUT: voice over description for increment action in stepper */
+"Increase the value by %d" = "%d만큼 값 증가";
+
+/* XBUT: voice over label for test field in stepper */
+"Select specific value" = "특정 값 선택";
+
+/* XBUT: View all action in MenuSelection */
+"View All (%d)" = "모두 보기(%d)";
+
+/* XACT: RatingControl accessibility label */
+"%d out of %d stars" = "별 %d개 중 %d개";
 

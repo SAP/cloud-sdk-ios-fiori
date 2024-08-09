@@ -31,6 +31,9 @@
 /* XACT: The accessibility label for the signature line */
 "Signature Line" = "Allkirjarida";
 
+/* XACT: The accessibility label for the mandatory field */
+"Required Field" = "Nõutud väli";
+
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
 "Canceled" = "Tühistatud";
 
@@ -159,4 +162,25 @@
 
 /* Default error text for when the character count exceeds the maximum limit for NoteFormView and TextFieldFormView */
 "Reduce the number of characters" = "Vähendage märkide arvu";
+
+/* XBUT: voice over label for decrement action in stepper */
+"Stepper decrease" = "Astme vähenemine";
+
+/* XBUT: voice over description for decrement action in stepper */
+"Decrease the value by %d" = "Vähenda väärtust %d võrra";
+
+/* XBUT: voice over label for increment action in stepper */
+"Stepper increase" = "Astme suurenemine";
+
+/* XBUT: voice over description for increment action in stepper */
+"Increase the value by %d" = "Suurenda väärtust %d võrra";
+
+/* XBUT: voice over label for test field in stepper */
+"Select specific value" = "Vali konkreetne väärtus";
+
+/* XBUT: View all action in MenuSelection */
+"View All (%d)" = "Kuva kõik (%d)";
+
+/* XACT: RatingControl accessibility label */
+"%d out of %d stars" = "%d/%d tärni";
 

@@ -31,6 +31,9 @@
 /* XACT: The accessibility label for the signature line */
 "Signature Line" = "İmza satırı";
 
+/* XACT: The accessibility label for the mandatory field */
+"Required Field" = "Zorunlu alan";
+
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
 "Canceled" = "İptal edildi";
 
@@ -159,4 +162,25 @@
 
 /* Default error text for when the character count exceeds the maximum limit for NoteFormView and TextFieldFormView */
 "Reduce the number of characters" = "Karakter sayısını azaltın";
+
+/* XBUT: voice over label for decrement action in stepper */
+"Stepper decrease" = "Adımlayıcı azaltımı";
+
+/* XBUT: voice over description for decrement action in stepper */
+"Decrease the value by %d" = "Değeri %d azalt";
+
+/* XBUT: voice over label for increment action in stepper */
+"Stepper increase" = "Adımlayıcı artırımı";
+
+/* XBUT: voice over description for increment action in stepper */
+"Increase the value by %d" = "Değeri %d artır";
+
+/* XBUT: voice over label for test field in stepper */
+"Select specific value" = "Belirli bir değer seçin";
+
+/* XBUT: View all action in MenuSelection */
+"View All (%d)" = "Tümünü görüntüle (%d)";
+
+/* XACT: RatingControl accessibility label */
+"%d out of %d stars" = "%d yıldız üzerinden %d yıldız";
 
