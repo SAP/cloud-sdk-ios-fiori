@@ -177,7 +177,7 @@ public struct IllustratedMessageMixedLayoutStyle: IllustratedMessageStyle {
                 }
                 
                 if configuration.isActionVerticalAligned {
-                    VStack(alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/) {
+                    VStack(alignment: .center) {
                         configuration.action
                             .frame(width: geometry.size.width * 0.6)
                             .fioriButtonStyle(FioriPrimaryButtonStyle(.infinity))
