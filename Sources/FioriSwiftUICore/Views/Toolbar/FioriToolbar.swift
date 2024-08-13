@@ -7,7 +7,7 @@ struct FioriToolbar<Items: IndexedViewContainer>: ViewModifier {
     let items: Items
     
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
-    @ObservedObject var sizeHandler = FioriToolbarHandler()
+    @StateObject var sizeHandler = FioriToolbarHandler()
     
     @Environment(\.helperTextStyle) var helperTextStyle
     @Environment(\.moreActionOverflowStyle) var moreActionOverflowStyle
