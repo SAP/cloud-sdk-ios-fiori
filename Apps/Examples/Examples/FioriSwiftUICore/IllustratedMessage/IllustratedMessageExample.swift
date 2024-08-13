@@ -15,19 +15,48 @@ let sizeOptions: [SizeOption] = [.init(100), .init(200), .init(300), .init(500),
 enum LayoutAxis {
     case vertical
     case horizontal
+    case mixed
+}
+
+enum ButtonWidthMode {
+    case fixed
+    case fullWidth
+    case flexible
+}
+
+enum AlignmentMode: String, CaseIterable, Identifiable {
+    case center = "Center"
+    case leading = "Leading"
+    case trailing = "Trailing"
+    
+    var id: String { self.rawValue }
+    
+    var alignment: HorizontalAlignment {
+        switch self {
+        case .center:
+            return .center
+        case .leading:
+            return .leading
+        case .trailing:
+            return .trailing
+        }
+    }
 }
 
 struct IllustratedMessageExample: View {
     @State var selectedDetailImageSize: IllustratedMessage.DetailImageSize?
     @State var selectedLayoutAxis: LayoutAxis?
-    @State var selectedWidth: CGFloat = sizeOptions[3].value
+    @State var selectedWidth: CGFloat = sizeOptions[2].value
     @State var selectedHeight: CGFloat = sizeOptions[2].value
+    @State var showSecondButton: Bool = false
+    @State var isActionButtonVertical: Bool = true
+    @State var actionButtonWidth: ButtonWidthMode?
+    @State var contentStackAlignment: AlignmentMode = .leading
     
     var body: some View {
-        VStack(spacing: 0) {
-            HStack(spacing: 0) {
-                Text("Img Size:")
-                Picker("Img Size", selection: self.$selectedDetailImageSize) {
+        List {
+            VStack(spacing: 0) {
+                Picker("Imgage Size", selection: self.$selectedDetailImageSize) {
                     Text("Unset").tag(IllustratedMessage.DetailImageSize?(nil))
                     Text("XS").tag(IllustratedMessage.DetailImageSize?(.extraSmall))
                     Text("S").tag(IllustratedMessage.DetailImageSize?(.small))
@@ -35,34 +64,42 @@ struct IllustratedMessageExample: View {
                     Text("L").tag(IllustratedMessage.DetailImageSize?(.large))
                     Text("XL").tag(IllustratedMessage.DetailImageSize?(.extraLarge))
                 }
-                Text("Layout Axis:")
                 Picker("Layout Axis", selection: self.$selectedLayoutAxis) {
                     Text("Unset").tag(LayoutAxis?(nil))
                     Text("Vertical").tag(LayoutAxis?(.vertical))
                     Text("Horizontal").tag(LayoutAxis?(.horizontal))
+                    Text("Mixed").tag(LayoutAxis?(.mixed))
                 }
-            }
-            HStack(spacing: 0) {
-                Text("Size:")
                 Picker("Width", selection: self.$selectedWidth) {
                     ForEach(sizeOptions) { option in
                         Text("\(Int(option.value))").tag(option.value)
                     }
                 }
-                Text("by")
                 Picker("Height", selection: self.$selectedHeight) {
                     ForEach(sizeOptions) { option in
                         Text("\(Int(option.value))").tag(option.value)
                     }
                 }
+                Picker("Content Alignment in Horizontal Style", selection: self.$contentStackAlignment) {
+                    ForEach(AlignmentMode.allCases) { alignment in
+                        Text(alignment.rawValue).tag(alignment)
+                    }
+                }
+                Picker("Button Width (vertical)", selection: self.$actionButtonWidth) {
+                    Text("Unset").tag(ButtonWidthMode?(nil))
+                    Text("Fixed").tag(ButtonWidthMode?(.fixed))
+                    Text("FullWidth").tag(ButtonWidthMode?(.fullWidth))
+                    Text("Flexible").tag(ButtonWidthMode?(.flexible))
+                }
+                Toggle("Shows the 2nd Action Button", isOn: self.$showSecondButton)
+                Toggle("Action Button vertical Aligned", isOn: self.$isActionButtonVertical)
             }
-        }
-        List {
+            
             ForEach(0 ... 7, id: \.self) { subcomponentConfiguration in
                 let hasImage = subcomponentConfiguration & 0b100 == 4
                 let hasDescription = subcomponentConfiguration & 0b010 == 2
                 let hasAction = subcomponentConfiguration & 0b001 == 1
-
+                
                 HStack(spacing: 0) {
                     Spacer()
                     VStack(spacing: 10) {
@@ -78,16 +115,22 @@ struct IllustratedMessageExample: View {
                         }, description: {
                             hasDescription ? Text("This is description text for the Illustrated Message component") : nil
                         }, action: {
-                            hasAction ? FioriButton(title: "Button", action: { _ in print("Tapped Action") }) : nil
-                        }, detailImageSize: self.selectedDetailImageSize)
+                            hasAction ? FioriButton(title: "Action", action: { _ in print("Tapped Action") }) : nil
+                        }, secondaryAction: {
+                            hasAction && self.showSecondButton ? FioriButton(title: "Secondary Action", action: { _ in print("Tapped Secondary Action") }) : nil
+                        }, detailImageSize: self.selectedDetailImageSize, isActionVerticalAligned: self.isActionButtonVertical, contentAlignment: self.contentStackAlignment.alignment)
                             .frame(width: self.selectedWidth, height: self.selectedHeight)
                             .background(Color.preferredColor(.secondaryBackground))
                             .ifApply(self.selectedLayoutAxis == .vertical) { $0.illustratedMessageStyle(.vertical) }
                             .ifApply(self.selectedLayoutAxis == .horizontal) { $0.illustratedMessageStyle(.horizontal) }
+                            .ifApply(self.selectedLayoutAxis == .mixed) { $0.illustratedMessageStyle(.mixed) }
+                            .ifApply(self.actionButtonWidth == .fixed) { $0.illustratedMessageStyle(.fixedWidthButton) }
+                            .ifApply(self.actionButtonWidth == .flexible) { $0.illustratedMessageStyle(.flexibleButton) }
+                            .ifApply(self.actionButtonWidth == .fullWidth) { $0.illustratedMessageStyle(.fullWidthButton) }
                     }
                     Spacer()
                 }
-                .listRowSeparator(.hidden)
+                .border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/, width: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/)
                 .padding(20)
             }
         }
@@ -95,7 +138,7 @@ struct IllustratedMessageExample: View {
     
     func generateCaptionText(_ hasImage: Bool, _ hasDescription: Bool, _ hasAction: Bool) -> String {
         var subcomponentConfigurationText = ""
-
+        
         if hasImage {
             subcomponentConfigurationText = subcomponentConfigurationText + "Image, "
         }
