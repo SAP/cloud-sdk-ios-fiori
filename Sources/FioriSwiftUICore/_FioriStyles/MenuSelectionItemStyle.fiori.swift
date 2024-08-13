@@ -71,10 +71,11 @@ extension MenuSelectionItemFioriStyle {
                 // Add default style for Title
                 .foregroundStyle(Color.preferredColor(.primaryLabel))
                 .font(.fiori(forTextStyle: .headline))
+                .lineLimit(8)
         }
     }
 }
 
 #Preview(body: {
-    MenuSelectionItem(icon: FioriIcon.documents.attachmentTextFile, title: "1099 Form")
+    MenuSelectionItem(icon: FioriIcon.documents.attachmentTextFile, title: "This is a very long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long text")
 })
