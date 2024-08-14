@@ -4,6 +4,8 @@ import SwiftUI
 
 public struct FootnoteIconStack {
     @Environment(\.footnoteIconsModifier) private var footnoteIconsModifier
+	@Environment(\.footnoteIconsText) var footnoteIconsText
+	@Environment(\.footnoteIconsTextPosition) var footnoteIconsTextPosition
 	@Environment(\.footnoteIconsMaxCount) var footnoteIconsMaxCount
 	@Environment(\.isFootnoteIconsCircular) var isFootnoteIconsCircular
 	@Environment(\.footnoteIconsSpacing) var footnoteIconsSpacing

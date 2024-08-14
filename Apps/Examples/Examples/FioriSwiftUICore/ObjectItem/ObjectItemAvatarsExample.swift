@@ -11,7 +11,7 @@ struct ObjectItemAvatarsExample: ObjectItemListDataProtocol {
     }
     
     func numberOfRowsInSection(_ section: Int) -> Int {
-        4
+        self.isNewObjectItem ? 8 : 4
     }
     
     func titleForHeaderInSection(_ section: Int) -> String {
@@ -168,7 +168,7 @@ struct ObjectItemAvatarsExample: ObjectItemListDataProtocol {
                 Image(systemName: "person")
                     .resizable()
                 Text("XY")
-                    .frame(width: 40, height: 40)
+                    .frame(width: 30, height: 30)
                     .background(Color.red)
                     .foregroundColor(Color.white)
             }, footnoteIcons: {
@@ -190,6 +190,68 @@ struct ObjectItemAvatarsExample: ObjectItemListDataProtocol {
             .footnoteIconsMaxCount(4)
             .footnoteIconsSize(CGSize(width: 20, height: 20))
             .isFootnoteIconsCircular(false)
+            return AnyView(oi)
+        case (0, 4):
+            let oi = ObjectItem {
+                Text("Title: This is a case for for long text with icons")
+            } subtitle: {
+                Text("Subtitle: this is a subtitle")
+            } footnoteIcons: {
+                Color.random
+                Color.random
+                Color.random
+                Color.random
+                Color.random
+                Color.random
+            }.footnoteIconsText("This is a very very very very very very very very very very very very long text layout with footnote icons")
+            return AnyView(oi)
+        case (0, 5):
+            let oi = ObjectItem {
+                Text("This is a case for for short text with icons")
+            } subtitle: {
+                Text("Subtitle: this is a subtitle")
+            } footnoteIcons: {
+                Color.random
+                Color.random
+                Color.random
+                Color.random
+                Color.random
+                Color.random
+            }.footnoteIconsText("This is a short one.")
+            return AnyView(oi)
+        case (0, 6):
+            let oi = ObjectItem {
+                Text("This is a case for for long leading text with icons")
+            } subtitle: {
+                Text("Subtitle: this is a subtitle")
+            } footnoteIcons: {
+                Color.random
+                Color.random
+                Color.random
+                Color.random
+                Color.random
+                Color.random
+            }.footnoteIconsText("This is a very very very very very very very very very very very very long text layout with footnote icons")
+                .footnoteIconsTextPosition(.leading)
+            return AnyView(oi)
+        case (0, 7):
+            let oi = ObjectItem {
+                Text("This is a case for for short leading text with icons")
+            } subtitle: {
+                Text("Subtitle: this is a subtitle")
+            } footnoteIcons: {
+                Color.random
+                Color.random
+                Color.random
+                Color.random
+                Color.random
+                Color.random
+            }.footnoteIconsText {
+                Text("This is text with custom style.")
+                    .font(.fiori(forTextStyle: .headline))
+                    .foregroundStyle(Color.random)
+            }
+            .footnoteIconsTextPosition(.leading)
             return AnyView(oi)
         default:
             return AnyView(_ObjectItem(title: "Lorem ipseum dolor"))
