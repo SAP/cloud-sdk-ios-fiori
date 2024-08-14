@@ -36,8 +36,8 @@ protocol _CardComponent: _CardHeaderComponent, _CardBodyComponent, _CardFooterCo
 protocol _IllustratedMessageComponent: _DetailImageComponent, _TitleComponent, _DescriptionComponent, _ActionComponent, _SecondaryActionComponent {
     /// Specifies the size of the detailImage. This value should be an enum from the DetailImageSize set.
     var detailImageSize: IllustratedMessage.DetailImageSize? { get }
-    // sourcery: defaultValue = true
-    /// Determines the layout of the action buttons. If set to true, the buttons will be arranged vertically. If set to false, they will be arranged horizontally. The default value is true.
+    // sourcery: defaultValue = false
+    /// Determines the layout of the action buttons. If set to true, the buttons will be arranged vertically. If set to false, they will be arranged horizontally. The default value is false.
     var isActionVerticalAligned: Bool { get }
     // sourcery: defaultValue = .leading
     /// Determines the alignment of the title, description and the action buttons in the horizontal mode. The default valu e is `.leading`.

@@ -26,7 +26,7 @@ public struct IllustratedMessage {
                 @ViewBuilder action: () -> any View = { EmptyView() },
                 @ViewBuilder secondaryAction: () -> any View = { EmptyView() },
                 detailImageSize: IllustratedMessage.DetailImageSize? = nil,
-                isActionVerticalAligned: Bool = true,
+                isActionVerticalAligned: Bool = false,
                 contentAlignment: HorizontalAlignment = .leading)
     {
         self.detailImage = DetailImage { detailImage() }
@@ -47,7 +47,7 @@ public extension IllustratedMessage {
          action: FioriButton? = nil,
          secondaryAction: FioriButton? = nil,
          detailImageSize: IllustratedMessage.DetailImageSize? = nil,
-         isActionVerticalAligned: Bool = true,
+         isActionVerticalAligned: Bool = false,
          contentAlignment: HorizontalAlignment = .leading)
     {
         self.init(detailImage: { detailImage }, title: { Text(title) }, description: { OptionalText(description) }, action: { action }, secondaryAction: { secondaryAction }, detailImageSize: detailImageSize, isActionVerticalAligned: isActionVerticalAligned, contentAlignment: contentAlignment)

@@ -49,7 +49,7 @@ struct IllustratedMessageExample: View {
     @State var selectedWidth: CGFloat = sizeOptions[2].value
     @State var selectedHeight: CGFloat = sizeOptions[2].value
     @State var showSecondButton: Bool = false
-    @State var isActionButtonVertical: Bool = true
+    @State var isActionButtonVertical: Bool = false
     @State var actionButtonWidth: ButtonWidthMode?
     @State var contentStackAlignment: AlignmentMode = .leading
     
