@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.1.2](https://github.com/SAP/cloud-sdk-ios-fiori/compare/4.1.1...4.1.2) (2024-08-12)
+
+
+### Features
+
+* 🎸 [JIRA:HCPSDKFIORIUIKIT-2605] Dark theme illustrations ([#760](https://github.com/SAP/cloud-sdk-ios-fiori/issues/760)) ([14eba1f](https://github.com/SAP/cloud-sdk-ios-fiori/commit/14eba1fc8777d76556c23d6c42c1f567b78e45f5))
+* 🎸 [JIRA:HCPSDKFIORIUIKIT-2690] SwiftUI SegmentedControl ([#759](https://github.com/SAP/cloud-sdk-ios-fiori/issues/759)) ([2e08afa](https://github.com/SAP/cloud-sdk-ios-fiori/commit/2e08afa45dc0ac8baf63612717ce95c2fe84861c))
+
+
+### Bug Fixes
+
+* 🐛 [JIRA: IOSSDKBUG-292] Illustrated message bold title ([#758](https://github.com/SAP/cloud-sdk-ios-fiori/issues/758)) ([30677bf](https://github.com/SAP/cloud-sdk-ios-fiori/commit/30677bf6312c038c9035f9f6ad9b07527584f9a2))
+* 🐛 [JIRA:0] Update color based on UX review feedback ([#755](https://github.com/SAP/cloud-sdk-ios-fiori/issues/755)) ([06a58d7](https://github.com/SAP/cloud-sdk-ios-fiori/commit/06a58d74df1d08b049e8ef8f8dc2cd7cac35c96f))
+* 🐛 [JIRA:HCPSDKFIORIUIKIT-2542] Revert Card semibold change ([#764](https://github.com/SAP/cloud-sdk-ios-fiori/issues/764)) ([f247f57](https://github.com/SAP/cloud-sdk-ios-fiori/commit/f247f57bbcefd50956400c069d5ed145541bb259))
+* 🐛 [JIRA:IOSSDKBUG-264] No left padding for the 1st column in DataTable ([#762](https://github.com/SAP/cloud-sdk-ios-fiori/issues/762)) ([6d67ddd](https://github.com/SAP/cloud-sdk-ios-fiori/commit/6d67ddd8f9eb6ab9c1cd1f10b29ffe1059675e31))
+* 🐛 tab bar styles ([#761](https://github.com/SAP/cloud-sdk-ios-fiori/issues/761)) ([2164f8a](https://github.com/SAP/cloud-sdk-ios-fiori/commit/2164f8a8a4adf0374f70c5181b9c69d08fd0e4b6))
+* IOSSDKBUG-282 - JMC welcome screen legal disclaimer bg color ([#757](https://github.com/SAP/cloud-sdk-ios-fiori/issues/757)) ([5e24756](https://github.com/SAP/cloud-sdk-ios-fiori/commit/5e247561008abb68fc0efb82d207093de12b07a0))
+* set the overflow button's accessibilityLabel to "More" in card's footer ([#765](https://github.com/SAP/cloud-sdk-ios-fiori/issues/765)) ([a40f14b](https://github.com/SAP/cloud-sdk-ios-fiori/commit/a40f14b212ecf4f641fc2c70a14240ca1c85ce7b))
+
 ### [4.1.1](https://github.com/SAP/cloud-sdk-ios-fiori/compare/4.1.0...4.1.1) (2024-07-31)
 
 
