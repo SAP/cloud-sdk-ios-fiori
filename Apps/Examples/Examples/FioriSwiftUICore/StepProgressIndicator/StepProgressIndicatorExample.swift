@@ -1,4 +1,5 @@
 import FioriSwiftUICore
+import FioriThemeManager
 import SwiftUI
 
 struct StepProgressIndicatorExample: View {
@@ -121,7 +122,10 @@ struct SPIExampleWithHeader: View {
                 Button {} label: {
                     HStack(spacing: 2) {
                         Text("All Steps(\(self.steps.count)")
-                        Image(systemName: "chevron.right")
+                            .foregroundStyle(Color.preferredColor(.tintColor))
+                        FioriIcon.actions.slimArrowRight
+                            .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
+                            .foregroundStyle(Color.preferredColor(.separator))
                     }
                 }
             }
@@ -210,8 +214,11 @@ struct SPIExampleWithoutName: View {
                                   stepItems: self.steps) {} action: {
                 Button {} label: {
                     HStack(spacing: 2) {
-                        Text("All Steps(\(self.steps.count))")
-                        Image(systemName: "chevron.right")
+                        Text("All Steps(\(self.steps.count)")
+                            .foregroundStyle(Color.preferredColor(.tintColor))
+                        FioriIcon.actions.slimArrowRight
+                            .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
+                            .foregroundStyle(Color.preferredColor(.separator))
                     }
                 }
             }
@@ -250,7 +257,10 @@ struct SPIExampleByBuilder: View {
                 Button {} label: {
                     HStack(spacing: 2) {
                         Text("All Steps(2)")
-                        Image(systemName: "chevron.right")
+                            .foregroundStyle(Color.preferredColor(.tintColor))
+                        FioriIcon.actions.slimArrowRight
+                            .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
+                            .foregroundStyle(Color.preferredColor(.separator))
                     }
                 }
             }, steps: {
@@ -332,7 +342,10 @@ struct SPICustomStyleExample: View {
                 Button {} label: {
                     HStack(spacing: 2) {
                         Text("All Steps(\(self.steps.count)")
-                        Image(systemName: "chevron.right")
+                            .foregroundStyle(Color.preferredColor(.tintColor))
+                        FioriIcon.actions.slimArrowRight
+                            .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
+                            .foregroundStyle(Color.preferredColor(.separator))
                     }
                 }
             }
