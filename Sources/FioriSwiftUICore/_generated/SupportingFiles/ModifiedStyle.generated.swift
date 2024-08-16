@@ -1940,6 +1940,34 @@ public extension SwitchStyle {
     }
 }
 
+// MARK: SwitchViewStyle
+
+extension ModifiedStyle: SwitchViewStyle where Style: SwitchViewStyle {
+    public func makeBody(_ configuration: SwitchViewConfiguration) -> some View {
+        SwitchView(configuration)
+            .switchViewStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct SwitchViewStyleModifier<Style: SwitchViewStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.switchViewStyle(self.style)
+    }
+}
+
+public extension SwitchViewStyle {
+    func modifier(_ modifier: some ViewModifier) -> some SwitchViewStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some SwitchViewStyle) -> some SwitchViewStyle {
+        style.modifier(SwitchViewStyleModifier(style: self))
+    }
+}
+
 // MARK: TagsStyle
 
 extension ModifiedStyle: TagsStyle where Style: TagsStyle {

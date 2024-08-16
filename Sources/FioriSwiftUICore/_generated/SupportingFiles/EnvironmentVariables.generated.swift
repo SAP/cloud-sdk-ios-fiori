@@ -1452,6 +1452,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: SwitchViewStyle
+
+struct SwitchViewStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any SwitchViewStyle] = []
+}
+
+extension EnvironmentValues {
+    var switchViewStyle: any SwitchViewStyle {
+        self.switchViewStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var switchViewStyleStack: [any SwitchViewStyle] {
+        get {
+            self[SwitchViewStyleStackKey.self]
+        }
+        set {
+            self[SwitchViewStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: TagsStyle
 
 struct TagsStyleStackKey: EnvironmentKey {

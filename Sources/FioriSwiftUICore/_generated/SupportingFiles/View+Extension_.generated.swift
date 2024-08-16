@@ -1176,6 +1176,23 @@ public extension View {
     }
 }
 
+// MARK: SwitchViewStyle
+
+public extension View {
+    func switchViewStyle(_ style: some SwitchViewStyle) -> some View {
+        self.transformEnvironment(\.switchViewStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func switchViewStyle(@ViewBuilder content: @escaping (SwitchViewConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.switchViewStyleStack) { stack in
+            let style = AnySwitchViewStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: TagsStyle
 
 public extension View {

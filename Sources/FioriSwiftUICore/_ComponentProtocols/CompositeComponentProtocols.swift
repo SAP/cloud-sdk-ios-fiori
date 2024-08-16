@@ -416,3 +416,6 @@ protocol _SegmentedControlPickerComponent: _OptionsComponent {
     /// The selected value index of the Picker
     var selectedIndex: Int { get }
 }
+
+// sourcery: CompositeComponent
+protocol _SwitchViewComponent: _TitleComponent, _SwitchComponent {}

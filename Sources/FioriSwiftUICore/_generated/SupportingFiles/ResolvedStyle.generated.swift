@@ -1107,6 +1107,22 @@ extension SwitchStyle {
     }
 }
 
+// MARK: SwitchViewStyle
+
+struct ResolvedSwitchViewStyle<Style: SwitchViewStyle>: View {
+    let style: Style
+    let configuration: SwitchViewConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension SwitchViewStyle {
+    func resolve(configuration: SwitchViewConfiguration) -> some View {
+        ResolvedSwitchViewStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: TagsStyle
 
 struct ResolvedTagsStyle<Style: TagsStyle>: View {

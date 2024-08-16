@@ -133,6 +133,14 @@ extension StepperViewConfiguration {
     }
 }
 
+// MARK: SwitchViewConfiguration
+
+extension SwitchViewConfiguration {
+    var _switch: Switch {
+        Switch(.init(isOn: self.$isOn), shouldApplyDefaultStyle: true)
+    }
+}
+
 // MARK: TextFieldFormViewConfiguration
 
 extension TextFieldFormViewConfiguration {

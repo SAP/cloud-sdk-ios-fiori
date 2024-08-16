@@ -3741,6 +3741,62 @@ public extension SwitchStyle where Self == SwitchFioriStyle {
     }
 }
 
+// MARK: SwitchViewStyle
+
+public extension SwitchViewStyle where Self == SwitchViewBaseStyle {
+    static var base: SwitchViewBaseStyle {
+        SwitchViewBaseStyle()
+    }
+}
+
+public extension SwitchViewStyle where Self == SwitchViewFioriStyle {
+    static var fiori: SwitchViewFioriStyle {
+        SwitchViewFioriStyle()
+    }
+}
+
+public struct SwitchViewTitleStyle: SwitchViewStyle {
+    let style: any TitleStyle
+
+    public func makeBody(_ configuration: SwitchViewConfiguration) -> some View {
+        SwitchView(configuration)
+            .titleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension SwitchViewStyle where Self == SwitchViewTitleStyle {
+    static func titleStyle(_ style: some TitleStyle) -> SwitchViewTitleStyle {
+        SwitchViewTitleStyle(style: style)
+    }
+
+    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> SwitchViewTitleStyle {
+        let style = AnyTitleStyle(content)
+        return SwitchViewTitleStyle(style: style)
+    }
+}
+
+public struct SwitchViewSwitchStyle: SwitchViewStyle {
+    let style: any SwitchStyle
+
+    public func makeBody(_ configuration: SwitchViewConfiguration) -> some View {
+        SwitchView(configuration)
+            .switchStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension SwitchViewStyle where Self == SwitchViewSwitchStyle {
+    static func switchStyle(_ style: some SwitchStyle) -> SwitchViewSwitchStyle {
+        SwitchViewSwitchStyle(style: style)
+    }
+
+    static func switchStyle(@ViewBuilder content: @escaping (SwitchConfiguration) -> some View) -> SwitchViewSwitchStyle {
+        let style = AnySwitchStyle(content)
+        return SwitchViewSwitchStyle(style: style)
+    }
+}
+
 // MARK: TagsStyle
 
 public extension TagsStyle where Self == TagsBaseStyle {
