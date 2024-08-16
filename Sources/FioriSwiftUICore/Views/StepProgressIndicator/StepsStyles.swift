@@ -238,7 +238,7 @@ struct DefaultStepStyle: StepStyle {
         case (.normal, true):
             return Color.preferredColor(isPressed ? .tintColorTapState : .tintColor)
         case (.completed, _):
-            return Color.preferredColor(.primaryFill)
+            return Color.preferredColor(.quinaryLabel)
         case (.error, _):
             return Color.preferredColor(isPressed ? .negativeLabelTapState : .negativeLabel)
         default:
