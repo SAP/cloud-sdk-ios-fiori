@@ -28,7 +28,7 @@ public struct IllustratedMessageConfiguration {
     public let action: Action
     public let secondaryAction: SecondaryAction
     public let detailImageSize: IllustratedMessage.DetailImageSize?
-    public let isActionVerticalAligned: Bool
+    public let isActionVerticallyAligned: Bool
     public let contentAlignment: HorizontalAlignment
 
     public typealias DetailImage = ConfigurationViewWrapper

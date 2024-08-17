@@ -20,10 +20,12 @@ public struct IllustratedMessageBaseStyle: IllustratedMessageStyle {
                 .padding(.bottom, 16)
             configuration.title
                 .multilineTextAlignment(.center)
-            configuration.description
-                .multilineTextAlignment(.center)
+            if !configuration.description.isEmpty {
+                configuration.description
+                    .multilineTextAlignment(.center)
+            }
             
-            if configuration.isActionVerticalAligned {
+            if configuration.isActionVerticallyAligned {
                 VStack(spacing: 8) {
                     configuration.action
                         .fioriButtonStyle(FioriPrimaryButtonStyle())
@@ -117,10 +119,11 @@ public struct IllustratedMessageHorizontalLayoutStyle: IllustratedMessageStyle {
             VStack(alignment: configuration.contentAlignment, spacing: 4) {
                 configuration.title
                     .multilineTextAlignment(getTextAlignment(configuration.contentAlignment))
-                configuration.description
-                    .multilineTextAlignment(getTextAlignment(configuration.contentAlignment))
-
-                if configuration.isActionVerticalAligned {
+                if !configuration.description.isEmpty {
+                    configuration.description
+                        .multilineTextAlignment(getTextAlignment(configuration.contentAlignment))
+                }
+                if configuration.isActionVerticallyAligned {
                     VStack(alignment: configuration.contentAlignment) {
                         configuration.action
                             .fioriButtonStyle(FioriPrimaryButtonStyle())
@@ -152,12 +155,14 @@ public struct IllustratedMessageMixedLayoutStyle: IllustratedMessageStyle {
                 VStack(alignment: configuration.contentAlignment, spacing: 4) {
                     configuration.title
                         .multilineTextAlignment(getTextAlignment(configuration.contentAlignment))
-                    configuration.description
-                        .multilineTextAlignment(getTextAlignment(configuration.contentAlignment))
+                    if !configuration.description.isEmpty {
+                        configuration.description
+                            .multilineTextAlignment(getTextAlignment(configuration.contentAlignment))
+                    }
                 }
             }
             
-            if configuration.isActionVerticalAligned {
+            if configuration.isActionVerticallyAligned {
                 VStack(alignment: .center) {
                     configuration.action
                         .fioriButtonStyle(FioriPrimaryButtonStyle())
@@ -204,7 +209,7 @@ public struct IllustratedMessageFlexibleButtonStyle: IllustratedMessageStyle {
             })
             .secondaryActionStyle(content: { secondaryActionConfiguration in
                 secondaryActionConfiguration.secondaryAction
-                    .fioriButtonStyle((configuration.isActionVerticalAligned ? FioriSecondaryButtonStyle(colorStyle: .tint) : FioriSecondaryButtonStyle(colorStyle: .tint, maxWidth: .infinity)).eraseToAnyFioriButtonStyle())
+                    .fioriButtonStyle((configuration.isActionVerticallyAligned ? FioriSecondaryButtonStyle(colorStyle: .tint) : FioriSecondaryButtonStyle(colorStyle: .tint, maxWidth: .infinity)).eraseToAnyFioriButtonStyle())
             })
     }
 }
@@ -233,7 +238,7 @@ public struct IllustratedMessageFullWidthButtonStyle: IllustratedMessageStyle {
     }
     
     func getButtonWidth(_ configuration: IllustratedMessageConfiguration) -> CGFloat {
-        let splitMode = !configuration.isActionVerticalAligned && !configuration.secondaryAction.isEmpty
+        let splitMode = !configuration.isActionVerticallyAligned && !configuration.secondaryAction.isEmpty
         var buttonWidth: CGFloat = .infinity
         if self.buttonSize.width > 0 {
             buttonWidth = splitMode ? (self.buttonSize.width - 16) / 2 : self.buttonSize.width
@@ -266,7 +271,7 @@ public struct IllustratedMessageFixedWidthButtonStyle: IllustratedMessageStyle {
     }
     
     func getButtonWidth(_ configuration: IllustratedMessageConfiguration) -> CGFloat {
-        let splitMode = !configuration.isActionVerticalAligned && !configuration.secondaryAction.isEmpty
+        let splitMode = !configuration.isActionVerticallyAligned && !configuration.secondaryAction.isEmpty
         var buttonWidth: CGFloat = .infinity
         if self.buttonSize.width > 0 {
             buttonWidth = splitMode ? (self.buttonSize.width - 16) / 2 : self.buttonSize.width * 0.6

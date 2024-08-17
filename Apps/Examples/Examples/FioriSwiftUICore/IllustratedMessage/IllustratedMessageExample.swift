@@ -118,7 +118,7 @@ struct IllustratedMessageExample: View {
                             hasAction ? FioriButton(title: "Action", action: { _ in print("Tapped Action") }) : nil
                         }, secondaryAction: {
                             hasAction && self.showSecondButton ? FioriButton(title: "Secondary Action", action: { _ in print("Tapped Secondary Action") }) : nil
-                        }, detailImageSize: self.selectedDetailImageSize, isActionVerticalAligned: self.isActionButtonVertical, contentAlignment: self.contentStackAlignment.alignment)
+                        }, detailImageSize: self.selectedDetailImageSize, isActionVerticallyAligned: self.isActionButtonVertical, contentAlignment: self.contentStackAlignment.alignment)
                             .frame(width: self.selectedWidth, height: self.selectedHeight)
                             .background(Color.preferredColor(.secondaryBackground))
                             .ifApply(self.selectedLayoutAxis == .vertical) { $0.illustratedMessageStyle(.vertical) }

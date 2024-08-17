@@ -38,7 +38,7 @@ protocol _IllustratedMessageComponent: _DetailImageComponent, _TitleComponent, _
     var detailImageSize: IllustratedMessage.DetailImageSize? { get }
     // sourcery: defaultValue = false
     /// Determines the layout of the action buttons. If set to true, the buttons will be arranged vertically. If set to false, they will be arranged horizontally. The default value is false.
-    var isActionVerticalAligned: Bool { get }
+    var isActionVerticallyAligned: Bool { get }
     // sourcery: defaultValue = .leading
     /// Determines the alignment of the title, description and the action buttons in the horizontal mode. The default valu e is `.leading`.
     var contentAlignment: HorizontalAlignment { get }
