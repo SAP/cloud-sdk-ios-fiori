@@ -97,7 +97,7 @@ We plan to progressively bring more Fiori UI components into this module in the 
 | Menu Selection | :white_check_mark: |
 | ProfileHeader | :white_check_mark: |
 | TimelineItem | :white_check_mark: |
-| Segmented Control | :x: |
+| SegmentedControlPicker | :white_check_mark: |
 | TimelinePreviewItem | :x: |
 | ChartFloorplan | :x: |
 | CollectionItem | :x: |
