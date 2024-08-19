@@ -314,3 +314,16 @@ protocol _NowIndicatorNodeComponent {
 protocol _OptionsComponent {
     var options: [AttributedString] { get }
 }
+
+// sourcery: BaseComponent
+protocol _SeeAllActionComponent {
+    // sourcery: defaultValue = "{ Image(systemName: "chevron.forward") }"
+    @ViewBuilder
+    var seeAllAction: (() -> any View)? { get }
+}
+
+// sourcery: BaseComponent
+protocol _HeaderTitleComponent {
+    // sourcery: @ViewBuilder
+    var headerTitle: AttributedString { get }
+}

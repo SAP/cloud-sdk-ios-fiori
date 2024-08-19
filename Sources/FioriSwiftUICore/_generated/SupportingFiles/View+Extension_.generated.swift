@@ -411,6 +411,23 @@ public extension View {
     }
 }
 
+// MARK: HeaderTitleStyle
+
+public extension View {
+    func headerTitleStyle(_ style: some HeaderTitleStyle) -> some View {
+        self.transformEnvironment(\.headerTitleStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func headerTitleStyle(@ViewBuilder content: @escaping (HeaderTitleConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.headerTitleStyleStack) { stack in
+            let style = AnyHeaderTitleStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: HelperTextStyle
 
 public extension View {
@@ -1006,6 +1023,23 @@ public extension View {
     }
 }
 
+// MARK: SeeAllActionStyle
+
+public extension View {
+    func seeAllActionStyle(_ style: some SeeAllActionStyle) -> some View {
+        self.transformEnvironment(\.seeAllActionStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func seeAllActionStyle(@ViewBuilder content: @escaping (SeeAllActionConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.seeAllActionStyleStack) { stack in
+            let style = AnySeeAllActionStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: SegmentedControlPickerStyle
 
 public extension View {
@@ -1341,6 +1375,40 @@ public extension View {
     func timelineNowIndicatorStyle(@ViewBuilder content: @escaping (TimelineNowIndicatorConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.timelineNowIndicatorStyleStack) { stack in
             let style = AnyTimelineNowIndicatorStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: TimelinePreviewStyle
+
+public extension View {
+    func timelinePreviewStyle(_ style: some TimelinePreviewStyle) -> some View {
+        self.transformEnvironment(\.timelinePreviewStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func timelinePreviewStyle(@ViewBuilder content: @escaping (TimelinePreviewConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.timelinePreviewStyleStack) { stack in
+            let style = AnyTimelinePreviewStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: TimelinePreviewItemStyle
+
+public extension View {
+    func timelinePreviewItemStyle(_ style: some TimelinePreviewItemStyle) -> some View {
+        self.transformEnvironment(\.timelinePreviewItemStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func timelinePreviewItemStyle(@ViewBuilder content: @escaping (TimelinePreviewItemConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.timelinePreviewItemStyleStack) { stack in
+            let style = AnyTimelinePreviewItemStyle(content)
             stack.append(style)
         }
     }

@@ -387,6 +387,22 @@ extension HeaderActionStyle {
     }
 }
 
+// MARK: HeaderTitleStyle
+
+struct ResolvedHeaderTitleStyle<Style: HeaderTitleStyle>: View {
+    let style: Style
+    let configuration: HeaderTitleConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension HeaderTitleStyle {
+    func resolve(configuration: HeaderTitleConfiguration) -> some View {
+        ResolvedHeaderTitleStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: HelperTextStyle
 
 struct ResolvedHelperTextStyle<Style: HelperTextStyle>: View {
@@ -947,6 +963,22 @@ extension SecondaryTimestampStyle {
     }
 }
 
+// MARK: SeeAllActionStyle
+
+struct ResolvedSeeAllActionStyle<Style: SeeAllActionStyle>: View {
+    let style: Style
+    let configuration: SeeAllActionConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension SeeAllActionStyle {
+    func resolve(configuration: SeeAllActionConfiguration) -> some View {
+        ResolvedSeeAllActionStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: SegmentedControlPickerStyle
 
 struct ResolvedSegmentedControlPickerStyle<Style: SegmentedControlPickerStyle>: View {
@@ -1264,6 +1296,38 @@ struct ResolvedTimelineNowIndicatorStyle<Style: TimelineNowIndicatorStyle>: View
 extension TimelineNowIndicatorStyle {
     func resolve(configuration: TimelineNowIndicatorConfiguration) -> some View {
         ResolvedTimelineNowIndicatorStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: TimelinePreviewStyle
+
+struct ResolvedTimelinePreviewStyle<Style: TimelinePreviewStyle>: View {
+    let style: Style
+    let configuration: TimelinePreviewConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension TimelinePreviewStyle {
+    func resolve(configuration: TimelinePreviewConfiguration) -> some View {
+        ResolvedTimelinePreviewStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: TimelinePreviewItemStyle
+
+struct ResolvedTimelinePreviewItemStyle<Style: TimelinePreviewItemStyle>: View {
+    let style: Style
+    let configuration: TimelinePreviewItemConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension TimelinePreviewItemStyle {
+    func resolve(configuration: TimelinePreviewItemConfiguration) -> some View {
+        ResolvedTimelinePreviewItemStyle(style: self, configuration: configuration)
     }
 }
 

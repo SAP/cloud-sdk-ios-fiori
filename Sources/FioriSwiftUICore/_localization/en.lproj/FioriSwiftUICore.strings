@@ -183,3 +183,9 @@
 
 /* XACT: RatingControl accessibility label */
 "%d out of %d stars" = "%d out of %d stars";
+
+/* XBUT: timeline preview component see all label */
+"See All (%d)" = "See All (%d)";
+
+/* XACT: Timeline preview item accessibility label */
+"Item %d of %d" = "Item %d of %d";
