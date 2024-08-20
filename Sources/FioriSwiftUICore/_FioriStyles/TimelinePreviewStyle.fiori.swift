@@ -62,23 +62,14 @@ struct BuildTimelinePreviewItem: View {
 
     func filterItems(itemsData: [TimelinePreviewItemModel]) -> [TimelinePreviewItemModel] {
         // flag item with isFuture and isCurrent
-        let updatedItems = itemsData.map { item -> TimelinePreviewItemModel in
+        let updatedItems = itemsData.map { item in
             var mutableItem = item
             mutableItem.isFuture = Date.compareTwoDates(first: mutableItem.due, second: Date()) == .orderedDescending
             mutableItem.isCurrent = Date.compareTwoDates(first: mutableItem.due, second: Date()) == .orderedSame
             return mutableItem
         }
-
-        // sort the data by due
-        let sortedItems = updatedItems.sorted(by: { $0.due < $1.due })
-
-        // filter data by display item count
-        var filteredItems: [TimelinePreviewItemModel] = []
-        for (index, item) in sortedItems.enumerated() {
-            if index < self.displayItems {
-                filteredItems.append(item)
-            }
-        }
+        // sort the data by due and filter data by display item count
+        let filteredItems = Array(updatedItems.sorted(by: { $0.due < $1.due }).prefix(self.displayItems))
         
         return filteredItems
     }
@@ -89,7 +80,7 @@ extension TimelinePreviewFioriStyle {
     struct ContentFioriStyle: TimelinePreviewStyle {
         func makeBody(_ configuration: TimelinePreviewConfiguration) -> some View {
             TimelinePreview(configuration)
-                .fixedSize(horizontal: false, vertical: /*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/)
+                .fixedSize(horizontal: false, vertical: true)
                 .contentShape(.rect)
                 .padding(EdgeInsets(top: 11, leading: 16, bottom: 16, trailing: 16))
         }
