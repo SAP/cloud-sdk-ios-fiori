@@ -26,12 +26,16 @@ public struct IllustratedMessageConfiguration {
     public let title: Title
     public let description: Description
     public let action: Action
+    public let secondaryAction: SecondaryAction
     public let detailImageSize: IllustratedMessage.DetailImageSize?
+    public let isActionVerticallyAligned: Bool
+    public let contentAlignment: HorizontalAlignment
 
     public typealias DetailImage = ConfigurationViewWrapper
     public typealias Title = ConfigurationViewWrapper
     public typealias Description = ConfigurationViewWrapper
     public typealias Action = ConfigurationViewWrapper
+    public typealias SecondaryAction = ConfigurationViewWrapper
 }
 
 public struct IllustratedMessageFioriStyle: IllustratedMessageStyle {
@@ -41,5 +45,6 @@ public struct IllustratedMessageFioriStyle: IllustratedMessageStyle {
             .titleStyle(TitleFioriStyle(illustratedMessageConfiguration: configuration))
             .descriptionStyle(DescriptionFioriStyle(illustratedMessageConfiguration: configuration))
             .actionStyle(ActionFioriStyle(illustratedMessageConfiguration: configuration))
+            .secondaryActionStyle(SecondaryActionFioriStyle(illustratedMessageConfiguration: configuration))
     }
 }
