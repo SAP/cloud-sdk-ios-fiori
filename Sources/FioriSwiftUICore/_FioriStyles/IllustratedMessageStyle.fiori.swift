@@ -20,10 +20,8 @@ public struct IllustratedMessageBaseStyle: IllustratedMessageStyle {
                 .padding(.bottom, 16)
             configuration.title
                 .multilineTextAlignment(.center)
-            if !configuration.description.isEmpty {
-                configuration.description
-                    .multilineTextAlignment(.center)
-            }
+            configuration.description
+                .multilineTextAlignment(.center)
             
             if configuration.isActionVerticallyAligned {
                 VStack(spacing: 8) {
@@ -32,7 +30,7 @@ public struct IllustratedMessageBaseStyle: IllustratedMessageStyle {
                     configuration.secondaryAction
                         .fioriButtonStyle(FioriSecondaryButtonStyle(colorStyle: .tint))
                 }
-                .padding(.top, 16)
+                .padding(.top, (!configuration.action.isEmpty || !configuration.secondaryAction.isEmpty) ? 16 : 0)
             } else {
                 HStack {
                     configuration.secondaryAction
@@ -40,7 +38,7 @@ public struct IllustratedMessageBaseStyle: IllustratedMessageStyle {
                     configuration.action
                         .fioriButtonStyle(FioriPrimaryButtonStyle()) // .infinity))
                 }
-                .padding(.top, 16)
+                .padding(.top, (!configuration.action.isEmpty || !configuration.secondaryAction.isEmpty) ? 16 : 0)
             }
         }
         .padding(.horizontal, 16)
@@ -119,10 +117,8 @@ public struct IllustratedMessageHorizontalLayoutStyle: IllustratedMessageStyle {
             VStack(alignment: configuration.contentAlignment, spacing: 4) {
                 configuration.title
                     .multilineTextAlignment(getTextAlignment(configuration.contentAlignment))
-                if !configuration.description.isEmpty {
-                    configuration.description
-                        .multilineTextAlignment(getTextAlignment(configuration.contentAlignment))
-                }
+                configuration.description
+                    .multilineTextAlignment(getTextAlignment(configuration.contentAlignment))
                 if configuration.isActionVerticallyAligned {
                     VStack(alignment: configuration.contentAlignment) {
                         configuration.action
@@ -130,7 +126,7 @@ public struct IllustratedMessageHorizontalLayoutStyle: IllustratedMessageStyle {
                         configuration.secondaryAction
                             .fioriButtonStyle(FioriSecondaryButtonStyle(colorStyle: .tint))
                     }
-                    .padding(.top, 16)
+                    .padding(.top, (!configuration.action.isEmpty || !configuration.secondaryAction.isEmpty) ? 16 : 0)
                 } else {
                     HStack(spacing: 8) {
                         configuration.secondaryAction
@@ -138,7 +134,7 @@ public struct IllustratedMessageHorizontalLayoutStyle: IllustratedMessageStyle {
                         configuration.action
                             .fioriButtonStyle(FioriPrimaryButtonStyle())
                     }
-                    .padding(.top, 16)
+                    .padding(.top, (!configuration.action.isEmpty || !configuration.secondaryAction.isEmpty) ? 16 : 0)
                 }
             }
         }
@@ -155,10 +151,8 @@ public struct IllustratedMessageMixedLayoutStyle: IllustratedMessageStyle {
                 VStack(alignment: configuration.contentAlignment, spacing: 4) {
                     configuration.title
                         .multilineTextAlignment(getTextAlignment(configuration.contentAlignment))
-                    if !configuration.description.isEmpty {
-                        configuration.description
-                            .multilineTextAlignment(getTextAlignment(configuration.contentAlignment))
-                    }
+                    configuration.description
+                        .multilineTextAlignment(getTextAlignment(configuration.contentAlignment))
                 }
             }
             
@@ -169,7 +163,7 @@ public struct IllustratedMessageMixedLayoutStyle: IllustratedMessageStyle {
                     configuration.secondaryAction
                         .fioriButtonStyle(FioriSecondaryButtonStyle(colorStyle: .tint))
                 }
-                .padding(.top, 16)
+                .padding(.top, (!configuration.action.isEmpty || !configuration.secondaryAction.isEmpty) ? 16 : 0)
             } else {
                 HStack {
                     configuration.secondaryAction
@@ -177,7 +171,7 @@ public struct IllustratedMessageMixedLayoutStyle: IllustratedMessageStyle {
                     configuration.action
                         .fioriButtonStyle(FioriPrimaryButtonStyle())
                 }
-                .padding(.top, 16)
+                .padding(.top, (!configuration.action.isEmpty || !configuration.secondaryAction.isEmpty) ? 16 : 0)
             }
         }
         .padding(.horizontal, 16)
