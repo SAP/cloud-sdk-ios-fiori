@@ -3,6 +3,14 @@
 import Foundation
 import SwiftUI
 
+/// `SwitchView`provides a Fiori style title and`Toggle`.
+///
+/// ## Usage
+/// ```swift
+/// @State var isOn: Bool = true
+///
+/// SwitchView(title: "Switch", isOn: self.$isOn)
+/// ```
 public struct SwitchView {
     let title: any View
     @Binding var isOn: Bool

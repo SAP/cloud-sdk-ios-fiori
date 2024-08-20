@@ -424,5 +424,13 @@ protocol _SegmentedControlPickerComponent: _OptionsComponent {
     var selectedIndex: Int { get }
 }
 
+/// `SwitchView`provides a Fiori style title and`Toggle`.
+///
+/// ## Usage
+/// ```swift
+/// @State var isOn: Bool = true
+///
+/// SwitchView(title: "Switch", isOn: self.$isOn)
+/// ```
 // sourcery: CompositeComponent
 protocol _SwitchViewComponent: _TitleComponent, _SwitchComponent {}

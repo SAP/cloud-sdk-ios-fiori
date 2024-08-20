@@ -6,7 +6,6 @@ struct SwitchExample: View {
     @State var v1: Bool = false
     @State var v2: Bool = true
     @State var v3: Bool = true
-    @State var v4: Bool = true
     
     struct CustomTitleStyle: TitleStyle {
         @Environment(\.isEnabled) var isEnabled
@@ -31,7 +30,6 @@ struct SwitchExample: View {
             SwitchView(title: "Custom Style", isOn: self.$v3)
                 .titleStyle(CustomTitleStyle())
                 .switchStyle(CustomSwitchStyle())
-            Toggle("SwiftUI Toggle", isOn: self.$v4).padding()
         }
     }
 }
