@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.1.3](https://github.com/SAP/cloud-sdk-ios-fiori/compare/4.1.2...4.1.3) (2024-08-19)
+
+### Features
+
+* 🎸 [JIRA:HCPSDKFIORIUIKIT-2686] Button update ([#753](https://github.com/SAP/cloud-sdk-ios-fiori/issues/753)) ([dda6540](https://github.com/SAP/cloud-sdk-ios-fiori/commit/dda65406614490508a93512beb83be872a20bc00))
+
+
+### Bug Fixes
+
+* 🐛 [IOSSDKBUG-291] set line limit for MenuSelectionItem ([#769](https://github.com/SAP/cloud-sdk-ios-fiori/issues/769)) ([2e60eac](https://github.com/SAP/cloud-sdk-ios-fiori/commit/2e60eac32e587c92e33f04c91cf37813b45f78b5))
+* 🐛 [JIRA: IOSSDKBUG-306] toolbar layout issue ([#771](https://github.com/SAP/cloud-sdk-ios-fiori/issues/771)) ([295201e](https://github.com/SAP/cloud-sdk-ios-fiori/commit/295201e5f5adabb4457a1ad39b208df390839055))
+* 🐛 remove cnr which is not recognized by Apple Store ([#777](https://github.com/SAP/cloud-sdk-ios-fiori/issues/777)) ([cfee137](https://github.com/SAP/cloud-sdk-ios-fiori/commit/cfee137f31d18108015cdabee28b492c291880b8))
+* 🐛 step progress indicator styles ([#775](https://github.com/SAP/cloud-sdk-ios-fiori/issues/775)) ([01b43e4](https://github.com/SAP/cloud-sdk-ios-fiori/commit/01b43e407a9cf44fd8de68d2113de3b775421578))
+
 ### [4.1.2](https://github.com/SAP/cloud-sdk-ios-fiori/compare/4.1.1...4.1.2) (2024-08-12)
 
 

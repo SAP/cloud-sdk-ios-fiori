@@ -79,6 +79,7 @@ extension StepProgressIndicator: View {
         } else {
             HStack(alignment: .center) {
                 title
+                    .font(.fiori(forTextStyle: .headline, weight: .semibold))
                 Spacer()
                 action
                     .onSimultaneousTapGesture(perform: {

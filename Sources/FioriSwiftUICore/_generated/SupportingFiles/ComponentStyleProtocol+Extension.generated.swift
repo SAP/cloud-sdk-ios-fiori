@@ -1781,6 +1781,27 @@ public extension IllustratedMessageStyle where Self == IllustratedMessageActionS
     }
 }
 
+public struct IllustratedMessageSecondaryActionStyle: IllustratedMessageStyle {
+    let style: any SecondaryActionStyle
+
+    public func makeBody(_ configuration: IllustratedMessageConfiguration) -> some View {
+        IllustratedMessage(configuration)
+            .secondaryActionStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension IllustratedMessageStyle where Self == IllustratedMessageSecondaryActionStyle {
+    static func secondaryActionStyle(_ style: some SecondaryActionStyle) -> IllustratedMessageSecondaryActionStyle {
+        IllustratedMessageSecondaryActionStyle(style: style)
+    }
+
+    static func secondaryActionStyle(@ViewBuilder content: @escaping (SecondaryActionConfiguration) -> some View) -> IllustratedMessageSecondaryActionStyle {
+        let style = AnySecondaryActionStyle(content)
+        return IllustratedMessageSecondaryActionStyle(style: style)
+    }
+}
+
 // MARK: IncrementActionStyle
 
 public extension IncrementActionStyle where Self == IncrementActionBaseStyle {
