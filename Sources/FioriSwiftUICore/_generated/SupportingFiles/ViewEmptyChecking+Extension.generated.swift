@@ -224,7 +224,8 @@ extension IllustratedMessage: _ViewEmptyChecking {
         detailImage.isEmpty &&
             title.isEmpty &&
             description.isEmpty &&
-            action.isEmpty
+            action.isEmpty &&
+            secondaryAction.isEmpty
     }
 }
 
