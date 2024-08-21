@@ -203,7 +203,9 @@ struct ObjectItemAvatarsExample: ObjectItemListDataProtocol {
                 Color.random
                 Color.random
                 Color.random
-            }.footnoteIconsText("This is a very very very very very very very very very very very very long text layout with footnote icons")
+            } footnoteIconsText: {
+                Text("This is a very very very very very very very very very very very very very very very very very long text layout with footnote icons")
+            }
             return AnyView(oi)
         case (0, 5):
             let oi = ObjectItem {
@@ -217,7 +219,9 @@ struct ObjectItemAvatarsExample: ObjectItemListDataProtocol {
                 Color.random
                 Color.random
                 Color.random
-            }.footnoteIconsText("This is a short one.")
+            } footnoteIconsText: {
+                Text("This is a short one.")
+            }
             return AnyView(oi)
         case (0, 6):
             let oi = ObjectItem {
@@ -231,8 +235,9 @@ struct ObjectItemAvatarsExample: ObjectItemListDataProtocol {
                 Color.random
                 Color.random
                 Color.random
-            }.footnoteIconsText("This is a very very very very very very very very very very very very long text layout with footnote icons")
-                .footnoteIconsTextPosition(.leading)
+            } footnoteIconsText: {
+                Text("This is a very very very very very very very very very very very very very very very very very long text layout with footnote icons")
+            }.footnoteIconsTextPosition(.leading)
             return AnyView(oi)
         case (0, 7):
             let oi = ObjectItem {
@@ -246,12 +251,11 @@ struct ObjectItemAvatarsExample: ObjectItemListDataProtocol {
                 Color.random
                 Color.random
                 Color.random
-            }.footnoteIconsText {
+            } footnoteIconsText: {
                 Text("This is text with custom style.")
                     .font(.fiori(forTextStyle: .headline))
                     .foregroundStyle(Color.random)
-            }
-            .footnoteIconsTextPosition(.leading)
+            }.footnoteIconsTextPosition(.leading)
             return AnyView(oi)
         default:
             return AnyView(_ObjectItem(title: "Lorem ipseum dolor"))

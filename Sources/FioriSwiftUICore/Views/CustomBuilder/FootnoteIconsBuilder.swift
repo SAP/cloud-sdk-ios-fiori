@@ -10,8 +10,6 @@ public protocol FootnoteIconList: View, _ViewEmptyChecking {
     var size: CGSize { get }
     var isCircular: Bool { get }
     var spacing: CGFloat { get }
-    var text: (any View)? { get }
-    var textPosition: TextPosition { get }
 }
 
 public extension FootnoteIconList {
@@ -42,8 +40,6 @@ public struct SingleFootnoteIcon<Content: View>: FootnoteIconList {
     @Environment(\.isFootnoteIconsCircular) var isFootnoteIconsCircular
     @Environment(\.footnoteIconsSpacing) var footnoteIconsSpacing
     @Environment(\.footnoteIconsSize) var footnoteIconsSize
-    @Environment(\.footnoteIconsText) var footnoteIconsText
-    @Environment(\.footnoteIconsTextPosition) var footnoteIconsTextPosition
     public var maxCount: Int {
         self.footnoteIconsMaxCount
     }
@@ -58,14 +54,6 @@ public struct SingleFootnoteIcon<Content: View>: FootnoteIconList {
 
     public var spacing: CGFloat {
         self.footnoteIconsSpacing
-    }
-    
-    public var text: (any View)? {
-        self.footnoteIconsText
-    }
-    
-    public var textPosition: TextPosition {
-        self.footnoteIconsTextPosition
     }
 }
 
@@ -99,8 +87,6 @@ public struct ConditionalSingleFootnoteIcon<TrueContent: View, FalseContent: Vie
     @Environment(\.isFootnoteIconsCircular) var isFootnoteIconsCircular
     @Environment(\.footnoteIconsSpacing) var footnoteIconsSpacing
     @Environment(\.footnoteIconsSize) var footnoteIconsSize
-    @Environment(\.footnoteIconsText) var footnoteIconsText
-    @Environment(\.footnoteIconsTextPosition) var footnoteIconsTextPosition
     public var maxCount: Int {
         self.footnoteIconsMaxCount
     }
@@ -115,14 +101,6 @@ public struct ConditionalSingleFootnoteIcon<TrueContent: View, FalseContent: Vie
 
     public var spacing: CGFloat {
         self.footnoteIconsSpacing
-    }
-    
-    public var text: (any View)? {
-        self.footnoteIconsText
-    }
-    
-    public var textPosition: TextPosition {
-        self.footnoteIconsTextPosition
     }
 }
 
@@ -149,8 +127,6 @@ public struct PairFootnoteIcon<First: View, Second: FootnoteIconList>: FootnoteI
     @Environment(\.isFootnoteIconsCircular) var isFootnoteIconsCircular
     @Environment(\.footnoteIconsSpacing) var footnoteIconsSpacing
     @Environment(\.footnoteIconsSize) var footnoteIconsSize
-    @Environment(\.footnoteIconsText) var footnoteIconsText
-    @Environment(\.footnoteIconsTextPosition) var footnoteIconsTextPosition
     
     public var maxCount: Int {
         self.footnoteIconsMaxCount
@@ -166,14 +142,6 @@ public struct PairFootnoteIcon<First: View, Second: FootnoteIconList>: FootnoteI
 
     public var spacing: CGFloat {
         self.footnoteIconsSpacing
-    }
-    
-    public var text: (any View)? {
-        self.footnoteIconsText
-    }
-    
-    public var textPosition: TextPosition {
-        self.footnoteIconsTextPosition
     }
 }
 
@@ -293,14 +261,6 @@ extension FootnoteIconStack: FootnoteIconList {
     public var spacing: CGFloat {
         footnoteIconsSpacing
     }
-    
-    public var text: (any View)? {
-        self.footnoteIconsText
-    }
-    
-    public var textPosition: TextPosition {
-        self.footnoteIconsTextPosition
-    }
 }
 
 struct FootnoteIconsMaxCount: EnvironmentKey {
@@ -351,18 +311,6 @@ public extension EnvironmentValues {
     }
 }
 
-struct FootnoteIconsText: EnvironmentKey {
-    static let defaultValue: (any View)? = nil
-}
-
-public extension EnvironmentValues {
-    /// Text draw around footnote icons.
-    var footnoteIconsText: (any View)? {
-        get { self[FootnoteIconsText.self] }
-        set { self[FootnoteIconsText.self] = newValue }
-    }
-}
-
 struct FootnoteIconsTextPosition: EnvironmentKey {
     static let defaultValue: TextPosition = .trailing
 }
@@ -376,39 +324,6 @@ public extension EnvironmentValues {
 }
 
 public extension View {
-    /// Text for footnote icons.
-    /// ```swift
-    /// ObjectItem(title: "Object Item",
-    ///             footnoteIcons: {
-    ///                 Image(systemName: "circle.fill")
-    ///                 Image(systemName: "person.fill")
-    ///             })
-    ///             .footnoteIconsText {
-    ///                 Text("Description for footnote icons.")
-    ///             }
-    /// ```
-    /// - Parameter text: Text for footnote icons
-    /// - Returns: A view with a footnote icons text.
-    func footnoteIconsText(@ViewBuilder text: () -> any View) -> some View {
-        environment(\.footnoteIconsText, text())
-    }
-    
-    /// Text for footnote icons by an `AttributedString`.
-    /// ```swift
-    /// ObjectItem(title: "Object Item",
-    ///             footnoteIcons: {
-    ///                 Image(systemName: "circle.fill")
-    ///                 Image(systemName: "person.fill")
-    ///             })
-    ///             .footnoteIconsText("Description for footnote icons.")
-    /// ```
-    /// - Parameter s: An attributed string.
-    /// - Returns: A view with a footnote icons text.
-    func footnoteIconsText(_ s: AttributedString) -> some View {
-        environment(\.footnoteIconsText, Text(s).font(.fiori(forTextStyle: .subheadline)).foregroundStyle(Color.preferredColor(.secondaryLabel)))
-            .lineLimit(2)
-    }
-    
     /// Specific the position of the text that drawn for footnote icons. Default value is `.trailing`.
     /// - Parameter position: Text position.
     /// - Returns: A view that footnote icons text with specific position.

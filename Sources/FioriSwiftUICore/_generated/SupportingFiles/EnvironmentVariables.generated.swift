@@ -444,6 +444,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: FootnoteIconsTextStyle
+
+struct FootnoteIconsTextStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any FootnoteIconsTextStyle] = []
+}
+
+extension EnvironmentValues {
+    var footnoteIconsTextStyle: any FootnoteIconsTextStyle {
+        self.footnoteIconsTextStyleStack.last ?? .base
+    }
+
+    var footnoteIconsTextStyleStack: [any FootnoteIconsTextStyle] {
+        get {
+            self[FootnoteIconsTextStyleStackKey.self]
+        }
+        set {
+            self[FootnoteIconsTextStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: FormViewStyle
 
 struct FormViewStyleStackKey: EnvironmentKey {

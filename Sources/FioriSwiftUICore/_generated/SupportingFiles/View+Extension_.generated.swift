@@ -360,6 +360,23 @@ public extension View {
     }
 }
 
+// MARK: FootnoteIconsTextStyle
+
+public extension View {
+    func footnoteIconsTextStyle(_ style: some FootnoteIconsTextStyle) -> some View {
+        self.transformEnvironment(\.footnoteIconsTextStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func footnoteIconsTextStyle(@ViewBuilder content: @escaping (FootnoteIconsTextConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.footnoteIconsTextStyleStack) { stack in
+            let style = AnyFootnoteIconsTextStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: FormViewStyle
 
 public extension View {

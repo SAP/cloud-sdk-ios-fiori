@@ -339,6 +339,22 @@ extension FootnoteIconsStyle {
     }
 }
 
+// MARK: FootnoteIconsTextStyle
+
+struct ResolvedFootnoteIconsTextStyle<Style: FootnoteIconsTextStyle>: View {
+    let style: Style
+    let configuration: FootnoteIconsTextConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension FootnoteIconsTextStyle {
+    func resolve(configuration: FootnoteIconsTextConfiguration) -> some View {
+        ResolvedFootnoteIconsTextStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: FormViewStyle
 
 struct ResolvedFormViewStyle<Style: FormViewStyle>: View {
