@@ -169,6 +169,13 @@ struct CoreContentView: View {
                 )
                 
                 NavigationLink(
+                    destination: SwitchExample(),
+                    label: {
+                        Text("Switch")
+                    }
+                )
+                
+                NavigationLink(
                     destination: StepProgressIndicatorExample())
                 {
                     Text("Step Progress Indicator")

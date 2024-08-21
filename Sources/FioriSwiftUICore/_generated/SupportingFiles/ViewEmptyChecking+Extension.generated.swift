@@ -506,6 +506,12 @@ extension Switch: _ViewEmptyChecking {
     }
 }
 
+extension SwitchView: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        title.isEmpty
+    }
+}
+
 extension Tags: _ViewEmptyChecking {
     public var isEmpty: Bool {
         tags.isEmpty
