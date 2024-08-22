@@ -387,22 +387,6 @@ extension HeaderActionStyle {
     }
 }
 
-// MARK: HeaderTitleStyle
-
-struct ResolvedHeaderTitleStyle<Style: HeaderTitleStyle>: View {
-    let style: Style
-    let configuration: HeaderTitleConfiguration
-    var body: some View {
-        self.style.makeBody(self.configuration)
-    }
-}
-
-extension HeaderTitleStyle {
-    func resolve(configuration: HeaderTitleConfiguration) -> some View {
-        ResolvedHeaderTitleStyle(style: self, configuration: configuration)
-    }
-}
-
 // MARK: HelperTextStyle
 
 struct ResolvedHelperTextStyle<Style: HelperTextStyle>: View {
@@ -960,22 +944,6 @@ struct ResolvedSecondaryTimestampStyle<Style: SecondaryTimestampStyle>: View {
 extension SecondaryTimestampStyle {
     func resolve(configuration: SecondaryTimestampConfiguration) -> some View {
         ResolvedSecondaryTimestampStyle(style: self, configuration: configuration)
-    }
-}
-
-// MARK: SeeAllActionStyle
-
-struct ResolvedSeeAllActionStyle<Style: SeeAllActionStyle>: View {
-    let style: Style
-    let configuration: SeeAllActionConfiguration
-    var body: some View {
-        self.style.makeBody(self.configuration)
-    }
-}
-
-extension SeeAllActionStyle {
-    func resolve(configuration: SeeAllActionConfiguration) -> some View {
-        ResolvedSeeAllActionStyle(style: self, configuration: configuration)
     }
 }
 

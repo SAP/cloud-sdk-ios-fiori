@@ -58,7 +58,7 @@ extension TimelinePreviewItemFioriStyle {
         
         func makeBody(_ configuration: IconConfiguration) -> some View {
             Icon(configuration)
-                .font(.system(size: TimelineStyleHelpers.getFontSize(for: self.timelinePreviewItemConfiguration), weight: .bold))
+                .font(TimelineStyleHelpers.getFontSize(for: self.timelinePreviewItemConfiguration))
                 .foregroundColor(Color.preferredColor(self.timelinePreviewItemConfiguration.data.isFuture ?? false ? .separatorOpaque : .tintColor))
         }
     }
@@ -68,7 +68,8 @@ extension TimelinePreviewItemFioriStyle {
 
         func makeBody(_ configuration: TimelineNodeConfiguration) -> some View {
             TimelineNode(configuration)
-                .font(.system(size: TimelineStyleHelpers.getFontSize(for: self.timelinePreviewItemConfiguration), weight: .bold))
+                .font(TimelineStyleHelpers.getFontSize(for: self.timelinePreviewItemConfiguration))
+                .fontWeight(.bold)
                 .foregroundColor(Color.preferredColor(self.timelinePreviewItemConfiguration.data.isFuture ?? false ? .separatorOpaque : .tintColor))
         }
     }
@@ -89,14 +90,14 @@ extension TimelinePreviewItemFioriStyle {
     }
 
     enum TimelineStyleHelpers {
-        static func getFontSize(for configuration: TimelinePreviewItemConfiguration) -> CGFloat {
+        static func getFontSize(for configuration: TimelinePreviewItemConfiguration) -> Font {
             let nodeType = configuration.data.timelineNode
 
             switch nodeType {
             case .beforeStart, .start, .beforeEnd, .end:
-                return 9
+                return .fiori(forTextStyle: .caption2)
             default:
-                return 15
+                return .fiori(forTextStyle: .subheadline)
             }
         }
     }

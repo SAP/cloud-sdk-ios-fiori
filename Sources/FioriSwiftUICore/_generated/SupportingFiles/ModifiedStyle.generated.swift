@@ -680,34 +680,6 @@ public extension HeaderActionStyle {
     }
 }
 
-// MARK: HeaderTitleStyle
-
-extension ModifiedStyle: HeaderTitleStyle where Style: HeaderTitleStyle {
-    public func makeBody(_ configuration: HeaderTitleConfiguration) -> some View {
-        HeaderTitle(configuration)
-            .headerTitleStyle(self.style)
-            .modifier(self.modifier)
-    }
-}
-
-public struct HeaderTitleStyleModifier<Style: HeaderTitleStyle>: ViewModifier {
-    let style: Style
-
-    public func body(content: Content) -> some View {
-        content.headerTitleStyle(self.style)
-    }
-}
-
-public extension HeaderTitleStyle {
-    func modifier(_ modifier: some ViewModifier) -> some HeaderTitleStyle {
-        ModifiedStyle(style: self, modifier: modifier)
-    }
-
-    func concat(_ style: some HeaderTitleStyle) -> some HeaderTitleStyle {
-        style.modifier(HeaderTitleStyleModifier(style: self))
-    }
-}
-
 // MARK: HelperTextStyle
 
 extension ModifiedStyle: HelperTextStyle where Style: HelperTextStyle {
@@ -1685,34 +1657,6 @@ public extension SecondaryTimestampStyle {
 
     func concat(_ style: some SecondaryTimestampStyle) -> some SecondaryTimestampStyle {
         style.modifier(SecondaryTimestampStyleModifier(style: self))
-    }
-}
-
-// MARK: SeeAllActionStyle
-
-extension ModifiedStyle: SeeAllActionStyle where Style: SeeAllActionStyle {
-    public func makeBody(_ configuration: SeeAllActionConfiguration) -> some View {
-        SeeAllAction(configuration)
-            .seeAllActionStyle(self.style)
-            .modifier(self.modifier)
-    }
-}
-
-public struct SeeAllActionStyleModifier<Style: SeeAllActionStyle>: ViewModifier {
-    let style: Style
-
-    public func body(content: Content) -> some View {
-        content.seeAllActionStyle(self.style)
-    }
-}
-
-public extension SeeAllActionStyle {
-    func modifier(_ modifier: some ViewModifier) -> some SeeAllActionStyle {
-        ModifiedStyle(style: self, modifier: modifier)
-    }
-
-    func concat(_ style: some SeeAllActionStyle) -> some SeeAllActionStyle {
-        style.modifier(SeeAllActionStyleModifier(style: self))
     }
 }
 

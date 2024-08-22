@@ -507,27 +507,6 @@ extension EnvironmentValues {
     }
 }
 
-// MARK: HeaderTitleStyle
-
-struct HeaderTitleStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any HeaderTitleStyle] = []
-}
-
-extension EnvironmentValues {
-    var headerTitleStyle: any HeaderTitleStyle {
-        self.headerTitleStyleStack.last ?? .base
-    }
-
-    var headerTitleStyleStack: [any HeaderTitleStyle] {
-        get {
-            self[HeaderTitleStyleStackKey.self]
-        }
-        set {
-            self[HeaderTitleStyleStackKey.self] = newValue
-        }
-    }
-}
-
 // MARK: HelperTextStyle
 
 struct HelperTextStyleStackKey: EnvironmentKey {
@@ -1259,27 +1238,6 @@ extension EnvironmentValues {
         }
         set {
             self[SecondaryTimestampStyleStackKey.self] = newValue
-        }
-    }
-}
-
-// MARK: SeeAllActionStyle
-
-struct SeeAllActionStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any SeeAllActionStyle] = []
-}
-
-extension EnvironmentValues {
-    var seeAllActionStyle: any SeeAllActionStyle {
-        self.seeAllActionStyleStack.last ?? .base
-    }
-
-    var seeAllActionStyleStack: [any SeeAllActionStyle] {
-        get {
-            self[SeeAllActionStyleStackKey.self]
-        }
-        set {
-            self[SeeAllActionStyleStackKey.self] = newValue
         }
     }
 }

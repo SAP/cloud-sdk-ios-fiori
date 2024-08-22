@@ -11,31 +11,36 @@ import SwiftUI
 /// TimelinePreview(headerTitle: { Text("Timeline") }, data: self.$items)
 /// ```
 public struct TimelinePreview {
-    let headerTitle: any View
-    let seeAllAction: any View
+    let title: any View
+    let action: any View
     /// The data for all timelinePreviewItems
     @Binding var data: [TimelinePreviewItemModel]
+    /// Show header or not. Default is to show.
+    let showHeader: Bool?
 
     @Environment(\.timelinePreviewStyle) var style
 
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder headerTitle: () -> any View,
-                @ViewBuilder seeAllAction: () -> any View = { Image(systemName: "chevron.forward") },
-                data: Binding<[TimelinePreviewItemModel]>)
+    public init(@ViewBuilder title: () -> any View,
+                @ViewBuilder action: () -> any View = { EmptyView() },
+                data: Binding<[TimelinePreviewItemModel]>,
+                showHeader: Bool? = true)
     {
-        self.headerTitle = HeaderTitle { headerTitle() }
-        self.seeAllAction = SeeAllAction { seeAllAction() }
+        self.title = Title { title() }
+        self.action = Action { action() }
         self._data = data
+        self.showHeader = showHeader
     }
 }
 
 public extension TimelinePreview {
-    init(headerTitle: AttributedString,
-         @ViewBuilder seeAllAction: () -> any View = { Image(systemName: "chevron.forward") },
-         data: Binding<[TimelinePreviewItemModel]>)
+    init(title: AttributedString,
+         action: FioriButton? = nil,
+         data: Binding<[TimelinePreviewItemModel]>,
+         showHeader: Bool? = true)
     {
-        self.init(headerTitle: { Text(headerTitle) }, seeAllAction: seeAllAction, data: data)
+        self.init(title: { Text(title) }, action: { action }, data: data, showHeader: showHeader)
     }
 }
 
@@ -45,9 +50,10 @@ public extension TimelinePreview {
     }
 
     internal init(_ configuration: TimelinePreviewConfiguration, shouldApplyDefaultStyle: Bool) {
-        self.headerTitle = configuration.headerTitle
-        self.seeAllAction = configuration.seeAllAction
+        self.title = configuration.title
+        self.action = configuration.action
         self._data = configuration.$data
+        self.showHeader = configuration.showHeader
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
     }
 }
@@ -57,7 +63,7 @@ extension TimelinePreview: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(headerTitle: .init(self.headerTitle), seeAllAction: .init(self.seeAllAction), data: self.$data)).typeErased
+            self.style.resolve(configuration: .init(title: .init(self.title), action: .init(self.action), data: self.$data, showHeader: self.showHeader)).typeErased
                 .transformEnvironment(\.timelinePreviewStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -75,7 +81,7 @@ private extension TimelinePreview {
     }
 
     func defaultStyle() -> some View {
-        TimelinePreview(.init(headerTitle: .init(self.headerTitle), seeAllAction: .init(self.seeAllAction), data: self.$data))
+        TimelinePreview(.init(title: .init(self.title), action: .init(self.action), data: self.$data, showHeader: self.showHeader))
             .shouldApplyDefaultStyle(false)
             .timelinePreviewStyle(TimelinePreviewFioriStyle.ContentFioriStyle())
             .typeErased

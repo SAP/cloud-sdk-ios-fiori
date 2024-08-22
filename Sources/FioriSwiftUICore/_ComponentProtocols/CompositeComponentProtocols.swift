@@ -432,8 +432,11 @@ protocol _TimelinePreviewItemComponent: _TitleComponent, _IconComponent, _Timeli
 /// TimelinePreview(headerTitle: { Text("Timeline") }, data: self.$items)
 /// ```
 // sourcery: CompositeComponent
-protocol _TimelinePreviewComponent: _HeaderTitleComponent, _SeeAllActionComponent {
+protocol _TimelinePreviewComponent: _TitleComponent, _ActionComponent {
     // sourcery: @Binding
     /// The data for all timelinePreviewItems
     var data: [TimelinePreviewItemModel] { get }
+    // sourcery: defaultValue = true
+    /// Show header or not. Default is to show.
+    var showHeader: Bool? { get }
 }

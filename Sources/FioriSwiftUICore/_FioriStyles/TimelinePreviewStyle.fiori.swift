@@ -6,16 +6,27 @@ import SwiftUI
 public struct TimelinePreviewBaseStyle: TimelinePreviewStyle {
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @State private var itemCount = 0
+    @State private var VSize: CGSize = .zero
     
     public func makeBody(_ configuration: TimelinePreviewConfiguration) -> some View {
         VStack(alignment: .leading, spacing: 0) {
-            BuildHeader(configuration: configuration, itemCount: configuration.data.count)
-            BuildTimelinePreviewItem(configuration: configuration, displayItems: self.getDisplayItemCount())
+            if configuration.showHeader ?? true {
+                BuildHeader(configuration: configuration, itemCount: configuration.data.count)
+            }
+            BuildTimelinePreviewItem(configuration: configuration, displayItems: self.getDisplayItemCount(VSWidth: self.VSize.width))
+        }.readSize { newSize in
+            self.VSize = newSize
         }
     }
     
-    func getDisplayItemCount() -> Int {
-        let itemCount: Int = self.horizontalSizeClass == .compact ? 2 : (self.horizontalSizeClass == .regular ? (UIScreen.main.bounds.width > 768 ? 4 : 3) : 3)
+    func getDisplayItemCount(VSWidth: CGFloat) -> Int {
+        let itemCount: Int
+        switch self.horizontalSizeClass {
+        case .regular:
+            itemCount = VSWidth > 672 ? 4 : 3
+        default:
+            itemCount = 2
+        }
         return itemCount
     }
 }
@@ -26,19 +37,19 @@ struct BuildHeader: View {
     
     var body: some View {
         HStack {
-            self.configuration.headerTitle
+            self.configuration.title
             Spacer()
-            HStack(spacing: 3) {
-                let labelFormat = NSLocalizedString("See All (%d)", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
-                let labelString = String(format: labelFormat, self.itemCount)
-                Text(labelString)
-                    .font(.fiori(forTextStyle: .subheadline))
-                    .foregroundStyle(Color.preferredColor(.tintColor))
-                    .multilineTextAlignment(/*@START_MENU_TOKEN@*/ .leading/*@END_MENU_TOKEN@*/)
-                self.configuration.seeAllAction
-            }
-            .contentShape(.rect)
-            .accessibilityAddTraits(.isButton)
+            self.configuration.action
+                .actionStyle(content: { actionConfig in
+                    if actionConfig.action.isEmpty {
+                        let labelFormat = NSLocalizedString("See All (%d)", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
+                        let labelString = String(format: labelFormat, self.itemCount)
+                        FioriButton(label: { _ in Label(labelString, systemImage: "chevron.forward").labelStyle(SeeAllActionLabelStyle()) })
+                            .fioriButtonStyle(FioriPlainButtonStyle())
+                    } else {
+                        self.configuration.action
+                    }
+                })
         }
         .padding(EdgeInsets(top: 0, leading: 0, bottom: 16, trailing: 0))
     }
@@ -86,24 +97,23 @@ extension TimelinePreviewFioriStyle {
         }
     }
 
-    struct HeaderTitleFioriStyle: HeaderTitleStyle {
+    struct TitleFioriStyle: TitleStyle {
         let timelinePreviewConfiguration: TimelinePreviewConfiguration
     
-        func makeBody(_ configuration: HeaderTitleConfiguration) -> some View {
-            HeaderTitle(configuration)
+        func makeBody(_ configuration: TitleConfiguration) -> some View {
+            Title(configuration)
                 .font(.fiori(forTextStyle: .subheadline))
                 .foregroundColor(Color.preferredColor(.secondaryLabel))
                 .multilineTextAlignment(.leading)
         }
     }
 
-    struct SeeAllActionFioriStyle: SeeAllActionStyle {
+    struct ActionFioriStyle: ActionStyle {
         let timelinePreviewConfiguration: TimelinePreviewConfiguration
-
-        func makeBody(_ configuration: SeeAllActionConfiguration) -> some View {
-            SeeAllAction(configuration)
+    
+        func makeBody(_ configuration: ActionConfiguration) -> some View {
+            Action(configuration)
                 .font(.fiori(forTextStyle: .subheadline))
-                .foregroundColor(Color.preferredColor(.secondaryLabel))
                 .fioriButtonStyle(FioriPlainButtonStyle())
         }
     }
@@ -136,6 +146,19 @@ public struct TimelinePreviewItemModel: Identifiable {
     }
 }
 
+struct SeeAllActionLabelStyle: LabelStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        HStack(alignment: .center) {
+            configuration.title
+                .font(.fiori(forTextStyle: .subheadline))
+                .foregroundColor(Color.preferredColor(.tintColor))
+            configuration.icon
+                .font(.fiori(forTextStyle: .subheadline))
+                .foregroundColor(Color.preferredColor(.secondaryLabel))
+        }
+    }
+}
+
 extension Date {
     static func compareTwoDates(first: Date, second: Date) -> ComparisonResult {
         let calendar = Calendar.current
@@ -163,4 +186,15 @@ extension VerticalAlignment {
     static let timelinePreviewAlignmentGuide = VerticalAlignment(
         TimelinePreviewAlignment.self
     )
+}
+
+extension View {
+    func readSize(onChange: @escaping (CGSize) -> Void) -> some View {
+        background(
+            GeometryReader { geometryProxy in
+                Color.clear.preference(key: SizePreferenceKey.self, value: geometryProxy.size)
+            }
+        )
+        .onPreferenceChange(SizePreferenceKey.self, perform: onChange)
+    }
 }

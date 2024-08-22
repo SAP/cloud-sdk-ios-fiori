@@ -22,18 +22,19 @@ struct AnyTimelinePreviewStyle: TimelinePreviewStyle {
 }
 
 public struct TimelinePreviewConfiguration {
-    public let headerTitle: HeaderTitle
-    public let seeAllAction: SeeAllAction
+    public let title: Title
+    public let action: Action
     @Binding public var data: [TimelinePreviewItemModel]
+    public let showHeader: Bool?
 
-    public typealias HeaderTitle = ConfigurationViewWrapper
-    public typealias SeeAllAction = ConfigurationViewWrapper
+    public typealias Title = ConfigurationViewWrapper
+    public typealias Action = ConfigurationViewWrapper
 }
 
 public struct TimelinePreviewFioriStyle: TimelinePreviewStyle {
     public func makeBody(_ configuration: TimelinePreviewConfiguration) -> some View {
         TimelinePreview(configuration)
-            .headerTitleStyle(HeaderTitleFioriStyle(timelinePreviewConfiguration: configuration))
-            .seeAllActionStyle(SeeAllActionFioriStyle(timelinePreviewConfiguration: configuration))
+            .titleStyle(TitleFioriStyle(timelinePreviewConfiguration: configuration))
+            .actionStyle(ActionFioriStyle(timelinePreviewConfiguration: configuration))
     }
 }

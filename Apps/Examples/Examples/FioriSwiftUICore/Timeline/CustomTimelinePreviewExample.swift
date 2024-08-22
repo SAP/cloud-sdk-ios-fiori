@@ -12,20 +12,42 @@ struct CustomTimelinePreviewExample: View {
     
     var body: some View {
         VStack {
-            TimelinePreview(headerTitle: { Text("Timeline") }, data: self.$items0)
-                .timelinePreviewItemStyle(content: { config in
-                    TimelinePreviewItem(config)
-                        .titleStyle(content: { titleConfig in
-                            titleConfig.title.foregroundColor(.yellow)
-                        })
-                        .timestampStyle(content: { timestampConfig in
-                            timestampConfig.timestamp.foregroundColor(.red)
-                        })
-                })
-                .headerTitleStyle(content: { config in
-                    config.headerTitle.foregroundColor(.yellow)
-                })
+            TimelinePreview(
+                title: { Text("Timeline") },
+                action: {
+                    FioriButton(
+                        label: { _ in
+                            Label("See All (\(self.items0.count))", systemImage: "arrowtriangle.right")
+                                .labelStyle(MyLabelStyle())
+                        }
+                    )
+                },
+                data: self.$items0
+            )
+            .timelinePreviewItemStyle(content: { config in
+                TimelinePreviewItem(config)
+                    .titleStyle(content: { titleConfig in
+                        titleConfig.title.foregroundColor(.yellow)
+                    })
+                    .timestampStyle(content: { timestampConfig in
+                        timestampConfig.timestamp.foregroundColor(.red)
+                    })
+            })
+            .titleStyle(content: { config in
+                config.title.foregroundColor(.purple)
+            })
             Spacer()
+        }
+    }
+}
+
+struct MyLabelStyle: LabelStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        HStack(alignment: .center) {
+            configuration.title
+                .foregroundColor(.purple)
+            configuration.icon
+                .foregroundColor(.green)
         }
     }
 }

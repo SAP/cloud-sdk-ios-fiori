@@ -195,12 +195,6 @@ extension HeaderAction: _ViewEmptyChecking {
     }
 }
 
-extension HeaderTitle: _ViewEmptyChecking {
-    public var isEmpty: Bool {
-        headerTitle.isEmpty
-    }
-}
-
 extension HelperText: _ViewEmptyChecking {
     public var isEmpty: Bool {
         helperText.isEmpty
@@ -441,12 +435,6 @@ extension SecondaryTimestamp: _ViewEmptyChecking {
     }
 }
 
-extension SeeAllAction: _ViewEmptyChecking {
-    public var isEmpty: Bool {
-        seeAllAction.isEmpty
-    }
-}
-
 extension SegmentedControlPicker: _ViewEmptyChecking {
     public var isEmpty: Bool {
         false
@@ -596,8 +584,8 @@ extension TimelineNowIndicator: _ViewEmptyChecking {
 
 extension TimelinePreview: _ViewEmptyChecking {
     public var isEmpty: Bool {
-        headerTitle.isEmpty &&
-            seeAllAction.isEmpty
+        title.isEmpty &&
+            action.isEmpty
     }
 }
 

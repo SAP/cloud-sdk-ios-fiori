@@ -411,23 +411,6 @@ public extension View {
     }
 }
 
-// MARK: HeaderTitleStyle
-
-public extension View {
-    func headerTitleStyle(_ style: some HeaderTitleStyle) -> some View {
-        self.transformEnvironment(\.headerTitleStyleStack) { stack in
-            stack.append(style)
-        }
-    }
-
-    func headerTitleStyle(@ViewBuilder content: @escaping (HeaderTitleConfiguration) -> some View) -> some View {
-        self.transformEnvironment(\.headerTitleStyleStack) { stack in
-            let style = AnyHeaderTitleStyle(content)
-            stack.append(style)
-        }
-    }
-}
-
 // MARK: HelperTextStyle
 
 public extension View {
@@ -1018,23 +1001,6 @@ public extension View {
     func secondaryTimestampStyle(@ViewBuilder content: @escaping (SecondaryTimestampConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.secondaryTimestampStyleStack) { stack in
             let style = AnySecondaryTimestampStyle(content)
-            stack.append(style)
-        }
-    }
-}
-
-// MARK: SeeAllActionStyle
-
-public extension View {
-    func seeAllActionStyle(_ style: some SeeAllActionStyle) -> some View {
-        self.transformEnvironment(\.seeAllActionStyleStack) { stack in
-            stack.append(style)
-        }
-    }
-
-    func seeAllActionStyle(@ViewBuilder content: @escaping (SeeAllActionConfiguration) -> some View) -> some View {
-        self.transformEnvironment(\.seeAllActionStyleStack) { stack in
-            let style = AnySeeAllActionStyle(content)
             stack.append(style)
         }
     }

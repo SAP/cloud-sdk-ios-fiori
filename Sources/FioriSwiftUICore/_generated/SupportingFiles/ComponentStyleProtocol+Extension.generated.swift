@@ -1641,20 +1641,6 @@ public extension HeaderActionStyle where Self == HeaderActionFioriStyle {
     }
 }
 
-// MARK: HeaderTitleStyle
-
-public extension HeaderTitleStyle where Self == HeaderTitleBaseStyle {
-    static var base: HeaderTitleBaseStyle {
-        HeaderTitleBaseStyle()
-    }
-}
-
-public extension HeaderTitleStyle where Self == HeaderTitleFioriStyle {
-    static var fiori: HeaderTitleFioriStyle {
-        HeaderTitleFioriStyle()
-    }
-}
-
 // MARK: HelperTextStyle
 
 public extension HelperTextStyle where Self == HelperTextBaseStyle {
@@ -3237,20 +3223,6 @@ public extension SecondaryTimestampStyle where Self == SecondaryTimestampFioriSt
     }
 }
 
-// MARK: SeeAllActionStyle
-
-public extension SeeAllActionStyle where Self == SeeAllActionBaseStyle {
-    static var base: SeeAllActionBaseStyle {
-        SeeAllActionBaseStyle()
-    }
-}
-
-public extension SeeAllActionStyle where Self == SeeAllActionFioriStyle {
-    static var fiori: SeeAllActionFioriStyle {
-        SeeAllActionFioriStyle()
-    }
-}
-
 // MARK: SegmentedControlPickerStyle
 
 public extension SegmentedControlPickerStyle where Self == SegmentedControlPickerBaseStyle {
@@ -4448,45 +4420,45 @@ public extension TimelinePreviewStyle where Self == TimelinePreviewFioriStyle {
     }
 }
 
-public struct TimelinePreviewHeaderTitleStyle: TimelinePreviewStyle {
-    let style: any HeaderTitleStyle
+public struct TimelinePreviewTitleStyle: TimelinePreviewStyle {
+    let style: any TitleStyle
 
     public func makeBody(_ configuration: TimelinePreviewConfiguration) -> some View {
         TimelinePreview(configuration)
-            .headerTitleStyle(self.style)
+            .titleStyle(self.style)
             .typeErased
     }
 }
 
-public extension TimelinePreviewStyle where Self == TimelinePreviewHeaderTitleStyle {
-    static func headerTitleStyle(_ style: some HeaderTitleStyle) -> TimelinePreviewHeaderTitleStyle {
-        TimelinePreviewHeaderTitleStyle(style: style)
+public extension TimelinePreviewStyle where Self == TimelinePreviewTitleStyle {
+    static func titleStyle(_ style: some TitleStyle) -> TimelinePreviewTitleStyle {
+        TimelinePreviewTitleStyle(style: style)
     }
 
-    static func headerTitleStyle(@ViewBuilder content: @escaping (HeaderTitleConfiguration) -> some View) -> TimelinePreviewHeaderTitleStyle {
-        let style = AnyHeaderTitleStyle(content)
-        return TimelinePreviewHeaderTitleStyle(style: style)
+    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> TimelinePreviewTitleStyle {
+        let style = AnyTitleStyle(content)
+        return TimelinePreviewTitleStyle(style: style)
     }
 }
 
-public struct TimelinePreviewSeeAllActionStyle: TimelinePreviewStyle {
-    let style: any SeeAllActionStyle
+public struct TimelinePreviewActionStyle: TimelinePreviewStyle {
+    let style: any ActionStyle
 
     public func makeBody(_ configuration: TimelinePreviewConfiguration) -> some View {
         TimelinePreview(configuration)
-            .seeAllActionStyle(self.style)
+            .actionStyle(self.style)
             .typeErased
     }
 }
 
-public extension TimelinePreviewStyle where Self == TimelinePreviewSeeAllActionStyle {
-    static func seeAllActionStyle(_ style: some SeeAllActionStyle) -> TimelinePreviewSeeAllActionStyle {
-        TimelinePreviewSeeAllActionStyle(style: style)
+public extension TimelinePreviewStyle where Self == TimelinePreviewActionStyle {
+    static func actionStyle(_ style: some ActionStyle) -> TimelinePreviewActionStyle {
+        TimelinePreviewActionStyle(style: style)
     }
 
-    static func seeAllActionStyle(@ViewBuilder content: @escaping (SeeAllActionConfiguration) -> some View) -> TimelinePreviewSeeAllActionStyle {
-        let style = AnySeeAllActionStyle(content)
-        return TimelinePreviewSeeAllActionStyle(style: style)
+    static func actionStyle(@ViewBuilder content: @escaping (ActionConfiguration) -> some View) -> TimelinePreviewActionStyle {
+        let style = AnyActionStyle(content)
+        return TimelinePreviewActionStyle(style: style)
     }
 }
 
