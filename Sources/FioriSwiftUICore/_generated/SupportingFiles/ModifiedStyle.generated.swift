@@ -596,6 +596,34 @@ public extension FootnoteIconsStyle {
     }
 }
 
+// MARK: FootnoteIconsTextStyle
+
+extension ModifiedStyle: FootnoteIconsTextStyle where Style: FootnoteIconsTextStyle {
+    public func makeBody(_ configuration: FootnoteIconsTextConfiguration) -> some View {
+        FootnoteIconsText(configuration)
+            .footnoteIconsTextStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct FootnoteIconsTextStyleModifier<Style: FootnoteIconsTextStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.footnoteIconsTextStyle(self.style)
+    }
+}
+
+public extension FootnoteIconsTextStyle {
+    func modifier(_ modifier: some ViewModifier) -> some FootnoteIconsTextStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some FootnoteIconsTextStyle) -> some FootnoteIconsTextStyle {
+        style.modifier(FootnoteIconsTextStyleModifier(style: self))
+    }
+}
+
 // MARK: FormViewStyle
 
 extension ModifiedStyle: FormViewStyle where Style: FormViewStyle {

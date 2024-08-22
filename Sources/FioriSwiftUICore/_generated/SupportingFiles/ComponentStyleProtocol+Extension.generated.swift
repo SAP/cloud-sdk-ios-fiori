@@ -1599,6 +1599,20 @@ public extension FootnoteIconsStyle where Self == FootnoteIconsFioriStyle {
     }
 }
 
+// MARK: FootnoteIconsTextStyle
+
+public extension FootnoteIconsTextStyle where Self == FootnoteIconsTextBaseStyle {
+    static var base: FootnoteIconsTextBaseStyle {
+        FootnoteIconsTextBaseStyle()
+    }
+}
+
+public extension FootnoteIconsTextStyle where Self == FootnoteIconsTextFioriStyle {
+    static var fiori: FootnoteIconsTextFioriStyle {
+        FootnoteIconsTextFioriStyle()
+    }
+}
+
 // MARK: FormViewStyle
 
 public extension FormViewStyle where Self == FormViewBaseStyle {
@@ -2765,6 +2779,27 @@ public extension ObjectItemStyle where Self == ObjectItemFootnoteIconsStyle {
     static func footnoteIconsStyle(@ViewBuilder content: @escaping (FootnoteIconsConfiguration) -> some View) -> ObjectItemFootnoteIconsStyle {
         let style = AnyFootnoteIconsStyle(content)
         return ObjectItemFootnoteIconsStyle(style: style)
+    }
+}
+
+public struct ObjectItemFootnoteIconsTextStyle: ObjectItemStyle {
+    let style: any FootnoteIconsTextStyle
+
+    public func makeBody(_ configuration: ObjectItemConfiguration) -> some View {
+        ObjectItem(configuration)
+            .footnoteIconsTextStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension ObjectItemStyle where Self == ObjectItemFootnoteIconsTextStyle {
+    static func footnoteIconsTextStyle(_ style: some FootnoteIconsTextStyle) -> ObjectItemFootnoteIconsTextStyle {
+        ObjectItemFootnoteIconsTextStyle(style: style)
+    }
+
+    static func footnoteIconsTextStyle(@ViewBuilder content: @escaping (FootnoteIconsTextConfiguration) -> some View) -> ObjectItemFootnoteIconsTextStyle {
+        let style = AnyFootnoteIconsTextStyle(content)
+        return ObjectItemFootnoteIconsTextStyle(style: style)
     }
 }
 
