@@ -619,7 +619,7 @@ extension ObjectItemFioriStyle {
             FootnoteIconsText(configuration)
                 .font(.fiori(forTextStyle: .subheadline))
                 .foregroundStyle(Color.preferredColor(.secondaryLabel))
-                .lineLimit(2)
+                .lineLimit(1)
         }
     }
 
