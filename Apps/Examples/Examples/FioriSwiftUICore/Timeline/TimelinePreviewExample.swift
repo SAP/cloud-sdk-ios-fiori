@@ -11,9 +11,9 @@ struct TimelinePreviewExample: View {
     ]
     @State private var items1: [TimelinePreviewItemModel] = [
         TimelinePreviewItemModel(title: "Open", timelineNode: TimelineNodeType.inProgress, due: ISO8601DateFormatter().date(from: "2024-09-21T12:00:00Z")!),
-        TimelinePreviewItemModel(title: "LooooooooooooooooooooooongTitle", timelineNode: TimelineNodeType.start, due: ISO8601DateFormatter().date(from: "2024-07-23T12:00:00Z")!, dateFormat: "EEEE, MMMM dd, yyyy h:mm a"),
+        TimelinePreviewItemModel(title: "LooooooooooooooooooooooongTitle", timelineNode: TimelineNodeType.start, due: ISO8601DateFormatter().date(from: "2024-07-23T12:00:00Z")!),
         TimelinePreviewItemModel(title: "Start", timelineNode: TimelineNodeType.start, due: ISO8601DateFormatter().date(from: "2024-08-29T12:00:00Z")!),
-        TimelinePreviewItemModel(title: "Open", timelineNode: TimelineNodeType.open, due: ISO8601DateFormatter().date(from: "2024-08-25T12:00:00Z")!, dateFormat: "EEEE, MMMM dd, yyyy h:mm a"),
+        TimelinePreviewItemModel(title: "Open", timelineNode: TimelineNodeType.open, due: ISO8601DateFormatter().date(from: "2024-08-27T12:00:00Z")!),
         TimelinePreviewItemModel(title: "Open", timelineNode: TimelineNodeType.open, due: ISO8601DateFormatter().date(from: "2024-09-27T12:00:00Z")!),
         TimelinePreviewItemModel(title: "Open", timelineNode: TimelineNodeType.open, due: ISO8601DateFormatter().date(from: "2024-09-07T12:00:00Z")!)
     ]

@@ -9,8 +9,10 @@ public struct TimelinePreviewItem {
     let icon: any View
     let timelineNode: any View
     let timestamp: any View
-    /// the data of timeline preview item
-    let data: TimelinePreviewItemModel
+    /// The node is in future or not. Default is not in future.
+    let isFuture: Bool
+    /// Timeline node type
+    let nodeType: TimelineNodeType
 
     @Environment(\.timelinePreviewItemStyle) var style
 
@@ -20,13 +22,15 @@ public struct TimelinePreviewItem {
                 @ViewBuilder icon: () -> any View = { EmptyView() },
                 @ViewBuilder timelineNode: () -> any View,
                 @ViewBuilder timestamp: () -> any View = { EmptyView() },
-                data: TimelinePreviewItemModel)
+                isFuture: Bool = false,
+                nodeType: TimelineNodeType)
     {
         self.title = Title { title() }
         self.icon = Icon { icon() }
         self.timelineNode = TimelineNode { timelineNode() }
         self.timestamp = Timestamp { timestamp() }
-        self.data = data
+        self.isFuture = isFuture
+        self.nodeType = nodeType
     }
 }
 
@@ -35,9 +39,10 @@ public extension TimelinePreviewItem {
          icon: Image? = nil,
          timelineNode: TimelineNodeType,
          timestamp: AttributedString? = nil,
-         data: TimelinePreviewItemModel)
+         isFuture: Bool = false,
+         nodeType: TimelineNodeType)
     {
-        self.init(title: { Text(title) }, icon: { icon }, timelineNode: { TimelineNodeView(timelineNode) }, timestamp: { OptionalText(timestamp) }, data: data)
+        self.init(title: { Text(title) }, icon: { icon }, timelineNode: { TimelineNodeView(timelineNode) }, timestamp: { OptionalText(timestamp) }, isFuture: isFuture, nodeType: nodeType)
     }
 }
 
@@ -51,7 +56,8 @@ public extension TimelinePreviewItem {
         self.icon = configuration.icon
         self.timelineNode = configuration.timelineNode
         self.timestamp = configuration.timestamp
-        self.data = configuration.data
+        self.isFuture = configuration.isFuture
+        self.nodeType = configuration.nodeType
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
     }
 }
@@ -61,7 +67,7 @@ extension TimelinePreviewItem: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(title: .init(self.title), icon: .init(self.icon), timelineNode: .init(self.timelineNode), timestamp: .init(self.timestamp), data: self.data)).typeErased
+            self.style.resolve(configuration: .init(title: .init(self.title), icon: .init(self.icon), timelineNode: .init(self.timelineNode), timestamp: .init(self.timestamp), isFuture: self.isFuture, nodeType: self.nodeType)).typeErased
                 .transformEnvironment(\.timelinePreviewItemStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -79,7 +85,7 @@ private extension TimelinePreviewItem {
     }
 
     func defaultStyle() -> some View {
-        TimelinePreviewItem(.init(title: .init(self.title), icon: .init(self.icon), timelineNode: .init(self.timelineNode), timestamp: .init(self.timestamp), data: self.data))
+        TimelinePreviewItem(.init(title: .init(self.title), icon: .init(self.icon), timelineNode: .init(self.timelineNode), timestamp: .init(self.timestamp), isFuture: self.isFuture, nodeType: self.nodeType))
             .shouldApplyDefaultStyle(false)
             .timelinePreviewItemStyle(TimelinePreviewItemFioriStyle.ContentFioriStyle())
             .typeErased

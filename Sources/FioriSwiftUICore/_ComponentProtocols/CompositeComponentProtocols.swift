@@ -420,8 +420,11 @@ protocol _SegmentedControlPickerComponent: _OptionsComponent {
 /// 'TimelinePreviewItem' is an item specialized for placement in TimelinePreview.
 // sourcery: CompositeComponent
 protocol _TimelinePreviewItemComponent: _TitleComponent, _IconComponent, _TimelineNodeComponent, _TimestampComponent {
-    /// the data of timeline preview item
-    var data: TimelinePreviewItemModel { get }
+    // sourcery: defaultValue = false
+    /// The node is in future or not. Default is not in future.
+    var isFuture: Bool { get }
+    /// Timeline node type
+    var nodeType: TimelineNodeType { get }
 }
 
 /// `TimelinePreview` is an view for showing a collection of tasks. It comes with a header and a collection view which uses `TimelinePreviewItem` to represent data items within it.
@@ -429,7 +432,7 @@ protocol _TimelinePreviewItemComponent: _TitleComponent, _IconComponent, _Timeli
 /// ## Usage
 /// ```swift
 /// @State private var items: [TimelinePreviewItemModel] = [TimelinePreviewItemModel(title: "Complete", timelineNode: TimelineNodeType.complete, due: ISO8601DateFormatter().date(from: "2023-07-21T12:00:00Z")!),TimelinePreviewItemModel(title: "End", timelineNode: TimelineNodeType.end, due: ISO8601DateFormatter().date(from: "2023-08-10T12:00:00Z")!)]
-/// TimelinePreview(headerTitle: { Text("Timeline") }, data: self.$items)
+/// TimelinePreview(title: { Text("Timeline") }, data: self.$items)
 /// ```
 // sourcery: CompositeComponent
 protocol _TimelinePreviewComponent: _TitleComponent, _ActionComponent {
@@ -438,5 +441,5 @@ protocol _TimelinePreviewComponent: _TitleComponent, _ActionComponent {
     var data: [TimelinePreviewItemModel] { get }
     // sourcery: defaultValue = true
     /// Show header or not. Default is to show.
-    var showHeader: Bool? { get }
+    var showHeader: Bool { get }
 }

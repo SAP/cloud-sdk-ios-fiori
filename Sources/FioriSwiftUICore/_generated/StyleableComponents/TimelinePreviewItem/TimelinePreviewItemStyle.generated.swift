@@ -26,7 +26,8 @@ public struct TimelinePreviewItemConfiguration {
     public let icon: Icon
     public let timelineNode: TimelineNode
     public let timestamp: Timestamp
-    public let data: TimelinePreviewItemModel
+    public let isFuture: Bool
+    public let nodeType: TimelineNodeType
 
     public typealias Title = ConfigurationViewWrapper
     public typealias Icon = ConfigurationViewWrapper

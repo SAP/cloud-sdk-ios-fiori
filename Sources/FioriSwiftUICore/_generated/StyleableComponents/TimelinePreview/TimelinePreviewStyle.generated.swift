@@ -25,7 +25,7 @@ public struct TimelinePreviewConfiguration {
     public let title: Title
     public let action: Action
     @Binding public var data: [TimelinePreviewItemModel]
-    public let showHeader: Bool?
+    public let showHeader: Bool
 
     public typealias Title = ConfigurationViewWrapper
     public typealias Action = ConfigurationViewWrapper

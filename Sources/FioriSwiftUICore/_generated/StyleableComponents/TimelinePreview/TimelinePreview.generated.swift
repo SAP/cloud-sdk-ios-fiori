@@ -8,7 +8,7 @@ import SwiftUI
 /// ## Usage
 /// ```swift
 /// @State private var items: [TimelinePreviewItemModel] = [TimelinePreviewItemModel(title: "Complete", timelineNode: TimelineNodeType.complete, due: ISO8601DateFormatter().date(from: "2023-07-21T12:00:00Z")!),TimelinePreviewItemModel(title: "End", timelineNode: TimelineNodeType.end, due: ISO8601DateFormatter().date(from: "2023-08-10T12:00:00Z")!)]
-/// TimelinePreview(headerTitle: { Text("Timeline") }, data: self.$items)
+/// TimelinePreview(title: { Text("Timeline") }, data: self.$items)
 /// ```
 public struct TimelinePreview {
     let title: any View
@@ -16,7 +16,7 @@ public struct TimelinePreview {
     /// The data for all timelinePreviewItems
     @Binding var data: [TimelinePreviewItemModel]
     /// Show header or not. Default is to show.
-    let showHeader: Bool?
+    let showHeader: Bool
 
     @Environment(\.timelinePreviewStyle) var style
 
@@ -25,7 +25,7 @@ public struct TimelinePreview {
     public init(@ViewBuilder title: () -> any View,
                 @ViewBuilder action: () -> any View = { EmptyView() },
                 data: Binding<[TimelinePreviewItemModel]>,
-                showHeader: Bool? = true)
+                showHeader: Bool = true)
     {
         self.title = Title { title() }
         self.action = Action { action() }
@@ -38,7 +38,7 @@ public extension TimelinePreview {
     init(title: AttributedString,
          action: FioriButton? = nil,
          data: Binding<[TimelinePreviewItemModel]>,
-         showHeader: Bool? = true)
+         showHeader: Bool = true)
     {
         self.init(title: { Text(title) }, action: { action }, data: data, showHeader: showHeader)
     }

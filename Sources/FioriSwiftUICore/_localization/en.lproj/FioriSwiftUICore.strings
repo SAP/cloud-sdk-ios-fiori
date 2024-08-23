@@ -189,3 +189,6 @@
 
 /* XACT: Timeline preview item accessibility label */
 "Item %d of %d" = "Item %d of %d";
+
+/* XBUT: timeline preview component timestamp label */
+"Today, %d" = "Today, %d";

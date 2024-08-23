@@ -10,7 +10,7 @@ public struct TimelinePreviewBaseStyle: TimelinePreviewStyle {
     
     public func makeBody(_ configuration: TimelinePreviewConfiguration) -> some View {
         VStack(alignment: .leading, spacing: 0) {
-            if configuration.showHeader ?? true {
+            if configuration.showHeader {
                 BuildHeader(configuration: configuration, itemCount: configuration.data.count)
             }
             BuildTimelinePreviewItem(configuration: configuration, displayItems: self.getDisplayItemCount(VSWidth: self.VSize.width))
@@ -64,7 +64,11 @@ struct BuildTimelinePreviewItem: View {
             ForEach(self.filterItems(itemsData: self.configuration.data)) { item in
                 let itemLabelFormat = NSLocalizedString("Item %d of %d", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
                 let itemLabelString = String(format: itemLabelFormat, item.formatter.string(from: item.due), item.title)
-                TimelinePreviewItem(title: AttributedString(item.title), icon: item.icon, timelineNode: item.timelineNode, timestamp: AttributedString(item.formatter.string(from: item.due)), data: item)
+                let dateString = item.formatter.string(from: item.due)
+                let timestampFormat = NSLocalizedString("Today, %d", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
+                let timestampString = String(format: timestampFormat, dateString)
+                let dateAttributedString = AttributedString(Date.compareTwoDates(first: item.due, second: Date()) == .orderedSame ? timestampString : dateString)
+                TimelinePreviewItem(title: AttributedString(item.title), icon: item.icon, timelineNode: item.timelineNode, timestamp: dateAttributedString, isFuture: item.isFuture ?? false, nodeType: item.timelineNode)
                     .accessibilityElement(children: .ignore)
                     .accessibilityLabel(itemLabelString)
             }

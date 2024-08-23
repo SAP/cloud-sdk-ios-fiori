@@ -13,10 +13,10 @@ public struct TimelinePreviewItemBaseStyle: TimelinePreviewItemStyle {
                 } else {
                     configuration.icon
                 }
-                if configuration.data.timelineNode != TimelineNodeType.end {
+                if configuration.nodeType != TimelineNodeType.end {
                     Rectangle()
                         .frame(height: 2)
-                        .foregroundColor(Color.preferredColor(configuration.data.isFuture ?? false ? .separatorOpaque : .tintColor))
+                        .foregroundColor(Color.preferredColor(configuration.isFuture ? .separatorOpaque : .tintColor))
                         .padding(.trailing, -3)
                 } else {
                     Spacer()
@@ -59,7 +59,7 @@ extension TimelinePreviewItemFioriStyle {
         func makeBody(_ configuration: IconConfiguration) -> some View {
             Icon(configuration)
                 .font(TimelineStyleHelpers.getFontSize(for: self.timelinePreviewItemConfiguration))
-                .foregroundColor(Color.preferredColor(self.timelinePreviewItemConfiguration.data.isFuture ?? false ? .separatorOpaque : .tintColor))
+                .foregroundColor(Color.preferredColor(self.timelinePreviewItemConfiguration.isFuture ? .separatorOpaque : .tintColor))
         }
     }
 
@@ -70,7 +70,7 @@ extension TimelinePreviewItemFioriStyle {
             TimelineNode(configuration)
                 .font(TimelineStyleHelpers.getFontSize(for: self.timelinePreviewItemConfiguration))
                 .fontWeight(.bold)
-                .foregroundColor(Color.preferredColor(self.timelinePreviewItemConfiguration.data.isFuture ?? false ? .separatorOpaque : .tintColor))
+                .foregroundColor(Color.preferredColor(self.timelinePreviewItemConfiguration.isFuture ? .separatorOpaque : .tintColor))
         }
     }
 
@@ -91,9 +91,7 @@ extension TimelinePreviewItemFioriStyle {
 
     enum TimelineStyleHelpers {
         static func getFontSize(for configuration: TimelinePreviewItemConfiguration) -> Font {
-            let nodeType = configuration.data.timelineNode
-
-            switch nodeType {
+            switch configuration.nodeType {
             case .beforeStart, .start, .beforeEnd, .end:
                 return .fiori(forTextStyle: .caption2)
             default:
