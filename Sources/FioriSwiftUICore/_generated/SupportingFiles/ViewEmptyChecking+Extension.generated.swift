@@ -177,6 +177,12 @@ extension FootnoteIcons: _ViewEmptyChecking {
     }
 }
 
+extension FootnoteIconsText: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        footnoteIconsText.isEmpty
+    }
+}
+
 extension FormView: _ViewEmptyChecking {
     public var isEmpty: Bool {
         false
@@ -218,7 +224,8 @@ extension IllustratedMessage: _ViewEmptyChecking {
         detailImage.isEmpty &&
             title.isEmpty &&
             description.isEmpty &&
-            action.isEmpty
+            action.isEmpty &&
+            secondaryAction.isEmpty
     }
 }
 
@@ -347,6 +354,7 @@ extension ObjectItem: _ViewEmptyChecking {
             icons.isEmpty &&
             avatars.isEmpty &&
             footnoteIcons.isEmpty &&
+            footnoteIconsText.isEmpty &&
             tags.isEmpty &&
             action.isEmpty
     }
@@ -502,6 +510,12 @@ extension Subtitle: _ViewEmptyChecking {
 extension Switch: _ViewEmptyChecking {
     public var isEmpty: Bool {
         false
+    }
+}
+
+extension SwitchView: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        title.isEmpty
     }
 }
 

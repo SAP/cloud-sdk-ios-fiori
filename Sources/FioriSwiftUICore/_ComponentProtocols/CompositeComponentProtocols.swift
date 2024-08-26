@@ -3,7 +3,7 @@ import SwiftUI
 
 /// A view that displays information of an object.
 // sourcery: CompositeComponent
-protocol _ObjectItemComponent: _TitleComponent, _SubtitleComponent, _FootnoteComponent, _DescriptionComponent, _StatusComponent, _SubstatusComponent, _DetailImageComponent, _IconsComponent, _AvatarsComponent, _FootnoteIconsComponent, _TagsComponent, _ActionComponent {}
+protocol _ObjectItemComponent: _TitleComponent, _SubtitleComponent, _FootnoteComponent, _DescriptionComponent, _StatusComponent, _SubstatusComponent, _DetailImageComponent, _IconsComponent, _AvatarsComponent, _FootnoteIconsComponent, _FootnoteIconsTextComponent, _TagsComponent, _ActionComponent {}
 
 // sourcery: CompositeComponent, InternalComponent
 protocol _DemoViewComponent: _TitleComponent, _SubtitleComponent, _StatusComponent, _ActionComponent, _SwitchComponent {}
@@ -33,8 +33,15 @@ protocol _CardHeaderComponent: _CardMediaComponent, _CardMainHeaderComponent, _C
 protocol _CardComponent: _CardHeaderComponent, _CardBodyComponent, _CardFooterComponent {}
 
 // sourcery: CompositeComponent
-protocol _IllustratedMessageComponent: _DetailImageComponent, _TitleComponent, _DescriptionComponent, _ActionComponent {
+protocol _IllustratedMessageComponent: _DetailImageComponent, _TitleComponent, _DescriptionComponent, _ActionComponent, _SecondaryActionComponent {
+    /// Specifies the size of the detailImage. This value should be an enum from the DetailImageSize set.
     var detailImageSize: IllustratedMessage.DetailImageSize? { get }
+    // sourcery: defaultValue = false
+    /// Determines the layout of the action buttons. If set to true, the buttons will be arranged vertically. If set to false, they will be arranged horizontally. The default value is false.
+    var isActionVerticallyAligned: Bool { get }
+    // sourcery: defaultValue = .leading
+    /// Determines the alignment of the title, description and the action buttons in the horizontal mode. The default valu e is `.leading`.
+    var contentAlignment: HorizontalAlignment { get }
 }
 
 // sourcery: CompositeComponent
@@ -443,3 +450,14 @@ protocol _TimelinePreviewComponent: _TitleComponent, _ActionComponent {
     /// Show header or not. Default is to show.
     var showHeader: Bool { get }
 }
+
+/// `SwitchView`provides a Fiori style title and`Toggle`.
+///
+/// ## Usage
+/// ```swift
+/// @State var isOn: Bool = true
+///
+/// SwitchView(title: "Switch", isOn: self.$isOn)
+/// ```
+// sourcery: CompositeComponent
+protocol _SwitchViewComponent: _TitleComponent, _SwitchComponent {}

@@ -2,6 +2,8 @@ import FioriThemeManager
 import Foundation
 import SwiftUI
 
+// swiftlint:disable file_length
+
 /**
  This file provides default fiori style for the component.
  
@@ -16,7 +18,8 @@ public struct ObjectItemBaseStyle: ObjectItemStyle {
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @Environment(\.splitPercent) var splitPercent
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
-    
+    @Environment(\.footnoteIconsTextPosition) var footnoteIconsTextPosition
+
     @State var mainViewSize: CGSize = .zero
     
     public func makeBody(_ configuration: ObjectItemConfiguration) -> some View {
@@ -157,7 +160,7 @@ extension ObjectItemBaseStyle {
                             context.configuration.subtitle
                             context.configuration.footnote
                             context.configuration.tags
-                            context.configuration.footnoteIcons
+                            self.footnoteIconsView(context)
                         }
                         
                         Spacer(minLength: 16)
@@ -188,7 +191,7 @@ extension ObjectItemBaseStyle {
                                 context.configuration.subtitle
                                 context.configuration.footnote
                                 context.configuration.tags
-                                context.configuration.footnoteIcons
+                                self.footnoteIconsView(context)
                             }
                             
                             Spacer(minLength: 16)
@@ -274,7 +277,7 @@ extension ObjectItemBaseStyle {
                             context.configuration.subtitle
                             context.configuration.footnote
                             context.configuration.tags
-                            context.configuration.footnoteIcons
+                            self.footnoteIconsView(context)
                         }
                         Spacer(minLength: 0)
                     }
@@ -302,7 +305,7 @@ extension ObjectItemBaseStyle {
                     context.configuration.subtitle
                     context.configuration.footnote
                     context.configuration.tags
-                    context.configuration.footnoteIcons
+                    self.footnoteIconsView(context)
                 }
                 
                 Spacer(minLength: 8)
@@ -383,7 +386,7 @@ extension ObjectItemBaseStyle {
                         context.configuration.subtitle
                         context.configuration.footnote
                         context.configuration.tags
-                        context.configuration.footnoteIcons
+                        self.footnoteIconsView(context)
                     }
                     Spacer(minLength: 16)
                 }
@@ -489,6 +492,14 @@ extension ObjectItemBaseStyle {
             return 2
         } else {
             return 3
+        }
+    }
+    
+    @ViewBuilder
+    func footnoteIconsView(_ context: Context) -> some View {
+        FootnoteIconsAndTextLayout(textPosition: self.footnoteIconsTextPosition) {
+            context.configuration.footnoteIconsText
+            context.configuration.footnoteIcons
         }
     }
 }
@@ -600,6 +611,17 @@ extension ObjectItemFioriStyle {
             // Add default style here
         }
     }
+    
+    struct FootnoteIconsTextFioriStyle: FootnoteIconsTextStyle {
+        let objectItemConfiguration: ObjectItemConfiguration
+
+        func makeBody(_ configuration: FootnoteIconsTextConfiguration) -> some View {
+            FootnoteIconsText(configuration)
+                .font(.fiori(forTextStyle: .subheadline))
+                .foregroundStyle(Color.preferredColor(.secondaryLabel))
+                .lineLimit(1)
+        }
+    }
 
     struct TagsFioriStyle: TagsStyle {
         let objectItemConfiguration: ObjectItemConfiguration
@@ -651,7 +673,7 @@ public struct ObjectItemBorderedAction: ActionStyle {
     }
 }
 
-#Preview(body: {
+#Preview {
     List {
         ObjectItem(title: {
             Text("Title")
@@ -671,10 +693,140 @@ public struct ObjectItemBorderedAction: ActionStyle {
             Text("1")
             Circle().fill(Color.preferredColor(.tintColor)).frame(width: 14, height: 14)
             Image(systemName: "paperclip").font(.system(size: 14))
+        }, footnoteIcons: {
+            Color.red
+            Color.green
+            Color.blue
+            Color.red
+            Color.green
+            Color.blue
+            Color.red
+            Color.green
+            Color.blue
+        }, footnoteIconsText: {
+            Text("Footnote icons text.")
         })
         .titleStyle { config in
             config.title
                 .foregroundStyle(.blue) // take effect
         }
     }
-})
+}
+
+struct FootnoteIconsAndTextLayout: Layout {
+    let textPosition: TextPosition
+    let margin = NSDirectionalEdgeInsets(top: 4, leading: 0, bottom: 4, trailing: 0)
+    let textAndIconsSpacing: CGFloat = 6
+    let textMinimumWidth: CGFloat = 60
+    
+    func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout Void) -> CGSize {
+        guard let containerWidth = proposal.width, containerWidth > 0 else {
+            return .zero
+        }
+        if subviews.count == 2,
+           let textView = subviews.first,
+           let iconsView = subviews.last,
+           textView.sizeThatFits(.infinity) != .zero,
+           iconsView.sizeThatFits(.infinity) != .zero
+        {
+            switch self.textPosition {
+            case .top, .bottom:
+                let availableWidth = containerWidth - self.margin.leading - self.margin.trailing
+                let textViewSize = textView.sizeThatFits(ProposedViewSize(width: availableWidth,
+                                                                          height: .infinity))
+                let iconsSize = iconsView.sizeThatFits(ProposedViewSize(width: availableWidth,
+                                                                        height: .infinity))
+                let maxHeight = textViewSize.height + iconsSize.height + self.textAndIconsSpacing + self.margin.top + self.margin.bottom
+                return CGSize(width: containerWidth,
+                              height: maxHeight)
+            case .leading, .trailing:
+                let textActualSize = textView.sizeThatFits(.unspecified)
+                let iconsAvailableWidth = containerWidth - min(textActualSize.width, self.textMinimumWidth) - self.margin.leading - self.margin.trailing
+                let iconsSize = iconsView.sizeThatFits(ProposedViewSize(width: iconsAvailableWidth,
+                                                                        height: .infinity))
+                let textWidth = containerWidth - iconsSize.width - self.margin.leading - self.margin.trailing - self.textAndIconsSpacing
+                let textSize = textView.sizeThatFits(ProposedViewSize(width: textWidth, height: .infinity))
+                let maxHeight = max(iconsSize.height, textSize.height) + self.margin.top + self.margin.bottom
+                let size = CGSize(width: containerWidth, height: maxHeight)
+                return size
+            }
+        } else {
+            var maxHeight: CGFloat = 0
+            let contentWidth = containerWidth - self.margin.leading - self.margin.trailing
+            for subview in subviews {
+                let height = subview.sizeThatFits(ProposedViewSize(width: contentWidth, height: .infinity)).height
+                maxHeight = max(maxHeight, height)
+            }
+            return CGSize(width: containerWidth, height: maxHeight + self.margin.top + self.margin.bottom)
+        }
+    }
+    
+    func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout Void) {
+        guard let containerWidth = proposal.width, containerWidth > 0 else {
+            return
+        }
+        if subviews.count == 2,
+           let textView = subviews.first,
+           let iconsView = subviews.last,
+           textView.sizeThatFits(.infinity) != .zero,
+           iconsView.sizeThatFits(.infinity) != .zero
+        {
+            switch self.textPosition {
+            case .top:
+                textView.place(at: bounds.origin, proposal: .unspecified)
+                let nextOrigin = CGPoint(x: bounds.minX,
+                                         y: bounds.minY + textView.sizeThatFits(.unspecified).height + self.textAndIconsSpacing)
+                iconsView.place(at: nextOrigin, proposal: .unspecified)
+            case .bottom:
+                iconsView.place(at: bounds.origin, proposal: .unspecified)
+                let nextOrigin = CGPoint(x: bounds.minX,
+                                         y: bounds.minY + textView.sizeThatFits(.unspecified).height + self.textAndIconsSpacing)
+                textView.place(at: nextOrigin, proposal: .unspecified)
+            case .leading:
+                let textActualSize = textView.sizeThatFits(.unspecified)
+                let iconsAvailableWidth = containerWidth - min(textActualSize.width, self.textMinimumWidth) - self.textAndIconsSpacing - self.margin.leading - self.margin.trailing
+                let iconsSize = iconsView.sizeThatFits(ProposedViewSize(width: iconsAvailableWidth, height: .infinity))
+                let textMaxWidth = containerWidth - iconsSize.width - self.textAndIconsSpacing - self.margin.leading - self.margin.trailing
+                let textSize: CGSize
+                if textActualSize.width < textMaxWidth {
+                    textSize = textActualSize
+                } else {
+                    textSize = textView.sizeThatFits(ProposedViewSize(CGSize(width: textMaxWidth, height: .infinity)))
+                }
+                let maxHeight = max(textSize.height, iconsSize.height)
+                let iconsY = bounds.minY + (maxHeight - iconsSize.height) / 2 + self.margin.top
+                let textY = bounds.minY + (maxHeight - textSize.height) / 2 + self.margin.top
+                
+                textView.place(at: CGPoint(x: bounds.minX + self.margin.leading, y: textY), proposal: ProposedViewSize(textSize))
+                let iconsX = bounds.origin.x + textSize.width + self.textAndIconsSpacing + self.margin.leading
+                iconsView.place(at: CGPoint(x: iconsX, y: iconsY),
+                                proposal: ProposedViewSize(iconsSize))
+            case .trailing:
+                let textActualSize = textView.sizeThatFits(.unspecified)
+                let iconsAvailableWidth = containerWidth - min(textActualSize.width, self.textMinimumWidth) - self.textAndIconsSpacing - self.margin.leading - self.margin.trailing
+                let iconsSize = iconsView.sizeThatFits(ProposedViewSize(width: iconsAvailableWidth, height: .infinity))
+                let textMaxWidth = containerWidth - iconsSize.width - self.textAndIconsSpacing - self.margin.leading - self.margin.trailing
+                
+                let textX = bounds.minX + iconsSize.width + self.textAndIconsSpacing + self.margin.leading
+                let textSize: CGSize
+                if textActualSize.width < textMaxWidth {
+                    textSize = textActualSize
+                } else {
+                    textSize = textView.sizeThatFits(ProposedViewSize(CGSize(width: textMaxWidth, height: .infinity)))
+                }
+                let maxHeight = max(textSize.height, iconsSize.height)
+                let iconsY = bounds.minY + (maxHeight - iconsSize.height) / 2 + self.margin.top
+                let textY = bounds.minY + (maxHeight - textSize.height) / 2 + self.margin.top
+                iconsView.place(at: CGPoint(x: bounds.minX + self.margin.leading, y: iconsY),
+                                proposal: ProposedViewSize(iconsSize))
+                textView.place(at: CGPoint(x: textX, y: textY), proposal: ProposedViewSize(textSize))
+            }
+        } else {
+            for subview in subviews {
+                subview.place(at: CGPoint(x: bounds.origin.x + self.margin.leading,
+                                          y: bounds.origin.y + self.margin.top),
+                              proposal: ProposedViewSize(CGSize(width: containerWidth - self.margin.leading - self.margin.trailing, height: .infinity)))
+            }
+        }
+    }
+}

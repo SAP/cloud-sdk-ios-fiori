@@ -1599,6 +1599,20 @@ public extension FootnoteIconsStyle where Self == FootnoteIconsFioriStyle {
     }
 }
 
+// MARK: FootnoteIconsTextStyle
+
+public extension FootnoteIconsTextStyle where Self == FootnoteIconsTextBaseStyle {
+    static var base: FootnoteIconsTextBaseStyle {
+        FootnoteIconsTextBaseStyle()
+    }
+}
+
+public extension FootnoteIconsTextStyle where Self == FootnoteIconsTextFioriStyle {
+    static var fiori: FootnoteIconsTextFioriStyle {
+        FootnoteIconsTextFioriStyle()
+    }
+}
+
 // MARK: FormViewStyle
 
 public extension FormViewStyle where Self == FormViewBaseStyle {
@@ -1778,6 +1792,27 @@ public extension IllustratedMessageStyle where Self == IllustratedMessageActionS
     static func actionStyle(@ViewBuilder content: @escaping (ActionConfiguration) -> some View) -> IllustratedMessageActionStyle {
         let style = AnyActionStyle(content)
         return IllustratedMessageActionStyle(style: style)
+    }
+}
+
+public struct IllustratedMessageSecondaryActionStyle: IllustratedMessageStyle {
+    let style: any SecondaryActionStyle
+
+    public func makeBody(_ configuration: IllustratedMessageConfiguration) -> some View {
+        IllustratedMessage(configuration)
+            .secondaryActionStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension IllustratedMessageStyle where Self == IllustratedMessageSecondaryActionStyle {
+    static func secondaryActionStyle(_ style: some SecondaryActionStyle) -> IllustratedMessageSecondaryActionStyle {
+        IllustratedMessageSecondaryActionStyle(style: style)
+    }
+
+    static func secondaryActionStyle(@ViewBuilder content: @escaping (SecondaryActionConfiguration) -> some View) -> IllustratedMessageSecondaryActionStyle {
+        let style = AnySecondaryActionStyle(content)
+        return IllustratedMessageSecondaryActionStyle(style: style)
     }
 }
 
@@ -2744,6 +2779,27 @@ public extension ObjectItemStyle where Self == ObjectItemFootnoteIconsStyle {
     static func footnoteIconsStyle(@ViewBuilder content: @escaping (FootnoteIconsConfiguration) -> some View) -> ObjectItemFootnoteIconsStyle {
         let style = AnyFootnoteIconsStyle(content)
         return ObjectItemFootnoteIconsStyle(style: style)
+    }
+}
+
+public struct ObjectItemFootnoteIconsTextStyle: ObjectItemStyle {
+    let style: any FootnoteIconsTextStyle
+
+    public func makeBody(_ configuration: ObjectItemConfiguration) -> some View {
+        ObjectItem(configuration)
+            .footnoteIconsTextStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension ObjectItemStyle where Self == ObjectItemFootnoteIconsTextStyle {
+    static func footnoteIconsTextStyle(_ style: some FootnoteIconsTextStyle) -> ObjectItemFootnoteIconsTextStyle {
+        ObjectItemFootnoteIconsTextStyle(style: style)
+    }
+
+    static func footnoteIconsTextStyle(@ViewBuilder content: @escaping (FootnoteIconsTextConfiguration) -> some View) -> ObjectItemFootnoteIconsTextStyle {
+        let style = AnyFootnoteIconsTextStyle(content)
+        return ObjectItemFootnoteIconsTextStyle(style: style)
     }
 }
 
@@ -3738,6 +3794,62 @@ public extension SwitchStyle where Self == SwitchBaseStyle {
 public extension SwitchStyle where Self == SwitchFioriStyle {
     static var fiori: SwitchFioriStyle {
         SwitchFioriStyle()
+    }
+}
+
+// MARK: SwitchViewStyle
+
+public extension SwitchViewStyle where Self == SwitchViewBaseStyle {
+    static var base: SwitchViewBaseStyle {
+        SwitchViewBaseStyle()
+    }
+}
+
+public extension SwitchViewStyle where Self == SwitchViewFioriStyle {
+    static var fiori: SwitchViewFioriStyle {
+        SwitchViewFioriStyle()
+    }
+}
+
+public struct SwitchViewTitleStyle: SwitchViewStyle {
+    let style: any TitleStyle
+
+    public func makeBody(_ configuration: SwitchViewConfiguration) -> some View {
+        SwitchView(configuration)
+            .titleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension SwitchViewStyle where Self == SwitchViewTitleStyle {
+    static func titleStyle(_ style: some TitleStyle) -> SwitchViewTitleStyle {
+        SwitchViewTitleStyle(style: style)
+    }
+
+    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> SwitchViewTitleStyle {
+        let style = AnyTitleStyle(content)
+        return SwitchViewTitleStyle(style: style)
+    }
+}
+
+public struct SwitchViewSwitchStyle: SwitchViewStyle {
+    let style: any SwitchStyle
+
+    public func makeBody(_ configuration: SwitchViewConfiguration) -> some View {
+        SwitchView(configuration)
+            .switchStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension SwitchViewStyle where Self == SwitchViewSwitchStyle {
+    static func switchStyle(_ style: some SwitchStyle) -> SwitchViewSwitchStyle {
+        SwitchViewSwitchStyle(style: style)
+    }
+
+    static func switchStyle(@ViewBuilder content: @escaping (SwitchConfiguration) -> some View) -> SwitchViewSwitchStyle {
+        let style = AnySwitchStyle(content)
+        return SwitchViewSwitchStyle(style: style)
     }
 }
 

@@ -444,6 +444,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: FootnoteIconsTextStyle
+
+struct FootnoteIconsTextStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any FootnoteIconsTextStyle] = []
+}
+
+extension EnvironmentValues {
+    var footnoteIconsTextStyle: any FootnoteIconsTextStyle {
+        self.footnoteIconsTextStyleStack.last ?? .base
+    }
+
+    var footnoteIconsTextStyleStack: [any FootnoteIconsTextStyle] {
+        get {
+            self[FootnoteIconsTextStyleStackKey.self]
+        }
+        set {
+            self[FootnoteIconsTextStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: FormViewStyle
 
 struct FormViewStyleStackKey: EnvironmentKey {
@@ -1448,6 +1469,27 @@ extension EnvironmentValues {
         }
         set {
             self[SwitchStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: SwitchViewStyle
+
+struct SwitchViewStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any SwitchViewStyle] = []
+}
+
+extension EnvironmentValues {
+    var switchViewStyle: any SwitchViewStyle {
+        self.switchViewStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var switchViewStyleStack: [any SwitchViewStyle] {
+        get {
+            self[SwitchViewStyleStackKey.self]
+        }
+        set {
+            self[SwitchViewStyleStackKey.self] = newValue
         }
     }
 }

@@ -360,6 +360,23 @@ public extension View {
     }
 }
 
+// MARK: FootnoteIconsTextStyle
+
+public extension View {
+    func footnoteIconsTextStyle(_ style: some FootnoteIconsTextStyle) -> some View {
+        self.transformEnvironment(\.footnoteIconsTextStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func footnoteIconsTextStyle(@ViewBuilder content: @escaping (FootnoteIconsTextConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.footnoteIconsTextStyleStack) { stack in
+            let style = AnyFootnoteIconsTextStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: FormViewStyle
 
 public extension View {
@@ -1171,6 +1188,23 @@ public extension View {
     func switchStyle(@ViewBuilder content: @escaping (SwitchConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.switchStyleStack) { stack in
             let style = AnySwitchStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: SwitchViewStyle
+
+public extension View {
+    func switchViewStyle(_ style: some SwitchViewStyle) -> some View {
+        self.transformEnvironment(\.switchViewStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func switchViewStyle(@ViewBuilder content: @escaping (SwitchViewConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.switchViewStyleStack) { stack in
+            let style = AnySwitchViewStyle(content)
             stack.append(style)
         }
     }

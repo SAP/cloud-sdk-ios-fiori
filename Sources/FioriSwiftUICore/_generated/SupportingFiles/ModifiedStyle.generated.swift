@@ -596,6 +596,34 @@ public extension FootnoteIconsStyle {
     }
 }
 
+// MARK: FootnoteIconsTextStyle
+
+extension ModifiedStyle: FootnoteIconsTextStyle where Style: FootnoteIconsTextStyle {
+    public func makeBody(_ configuration: FootnoteIconsTextConfiguration) -> some View {
+        FootnoteIconsText(configuration)
+            .footnoteIconsTextStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct FootnoteIconsTextStyleModifier<Style: FootnoteIconsTextStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.footnoteIconsTextStyle(self.style)
+    }
+}
+
+public extension FootnoteIconsTextStyle {
+    func modifier(_ modifier: some ViewModifier) -> some FootnoteIconsTextStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some FootnoteIconsTextStyle) -> some FootnoteIconsTextStyle {
+        style.modifier(FootnoteIconsTextStyleModifier(style: self))
+    }
+}
+
 // MARK: FormViewStyle
 
 extension ModifiedStyle: FormViewStyle where Style: FormViewStyle {
@@ -1937,6 +1965,34 @@ public extension SwitchStyle {
 
     func concat(_ style: some SwitchStyle) -> some SwitchStyle {
         style.modifier(SwitchStyleModifier(style: self))
+    }
+}
+
+// MARK: SwitchViewStyle
+
+extension ModifiedStyle: SwitchViewStyle where Style: SwitchViewStyle {
+    public func makeBody(_ configuration: SwitchViewConfiguration) -> some View {
+        SwitchView(configuration)
+            .switchViewStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct SwitchViewStyleModifier<Style: SwitchViewStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.switchViewStyle(self.style)
+    }
+}
+
+public extension SwitchViewStyle {
+    func modifier(_ modifier: some ViewModifier) -> some SwitchViewStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some SwitchViewStyle) -> some SwitchViewStyle {
+        style.modifier(SwitchViewStyleModifier(style: self))
     }
 }
 

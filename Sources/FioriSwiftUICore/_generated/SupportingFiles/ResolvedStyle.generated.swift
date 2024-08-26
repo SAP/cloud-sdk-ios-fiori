@@ -339,6 +339,22 @@ extension FootnoteIconsStyle {
     }
 }
 
+// MARK: FootnoteIconsTextStyle
+
+struct ResolvedFootnoteIconsTextStyle<Style: FootnoteIconsTextStyle>: View {
+    let style: Style
+    let configuration: FootnoteIconsTextConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension FootnoteIconsTextStyle {
+    func resolve(configuration: FootnoteIconsTextConfiguration) -> some View {
+        ResolvedFootnoteIconsTextStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: FormViewStyle
 
 struct ResolvedFormViewStyle<Style: FormViewStyle>: View {
@@ -1104,6 +1120,22 @@ struct ResolvedSwitchStyle<Style: SwitchStyle>: View {
 extension SwitchStyle {
     func resolve(configuration: SwitchConfiguration) -> some View {
         ResolvedSwitchStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: SwitchViewStyle
+
+struct ResolvedSwitchViewStyle<Style: SwitchViewStyle>: View {
+    let style: Style
+    let configuration: SwitchViewConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension SwitchViewStyle {
+    func resolve(configuration: SwitchViewConfiguration) -> some View {
+        ResolvedSwitchViewStyle(style: self, configuration: configuration)
     }
 }
 

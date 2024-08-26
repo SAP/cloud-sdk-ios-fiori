@@ -15,30 +15,7 @@ public protocol FootnoteIconList: View, _ViewEmptyChecking {
 public extension FootnoteIconList {
     /// :nodoc:
     var body: some View {
-        HStack(spacing: spacing) {
-            let itemsCount = maxCount <= 0 ? count : min(count, maxCount)
-            ForEach(0 ..< itemsCount, id: \.self) { index in
-                view(at: index)
-                    .frame(width: size.width, height: size.height)
-                    .ifApply(isCircular) {
-                        $0.clipShape(Capsule())
-                    }
-                    .overlay {
-                        Group {
-                            if isCircular {
-                                Capsule()
-                                    .inset(by: 0.33 / 2.0)
-                                    .stroke(Color.preferredColor(.separator), lineWidth: 0.33)
-                            } else {
-                                Rectangle()
-                                    .inset(by: 0.33 / 2.0)
-                                    .stroke(Color.preferredColor(.separator), lineWidth: 0.33)
-                            }
-                        }
-                    }
-            }
-        }
-        .clipped()
+        FootnoteIconsListView(icons: self)
     }
 }
 
@@ -150,6 +127,7 @@ public struct PairFootnoteIcon<First: View, Second: FootnoteIconList>: FootnoteI
     @Environment(\.isFootnoteIconsCircular) var isFootnoteIconsCircular
     @Environment(\.footnoteIconsSpacing) var footnoteIconsSpacing
     @Environment(\.footnoteIconsSize) var footnoteIconsSize
+    
     public var maxCount: Int {
         self.footnoteIconsMaxCount
     }
@@ -333,7 +311,26 @@ public extension EnvironmentValues {
     }
 }
 
+struct FootnoteIconsTextPosition: EnvironmentKey {
+    static let defaultValue: TextPosition = .trailing
+}
+
+public extension EnvironmentValues {
+    /// Text position for footnote icons.
+    var footnoteIconsTextPosition: TextPosition {
+        get { self[FootnoteIconsTextPosition.self] }
+        set { self[FootnoteIconsTextPosition.self] = newValue }
+    }
+}
+
 public extension View {
+    /// Specific the position of the text that drawn for footnote icons. Default value is `.trailing`.
+    /// - Parameter position: Text position.
+    /// - Returns: A view that footnote icons text with specific position.
+    func footnoteIconsTextPosition(_ position: TextPosition) -> some View {
+        environment(\.footnoteIconsTextPosition, position)
+    }
+
     /// Maximum number of the footnote icons. Default value is 0. When the count is less or equal to 0, means the number is unlimited.
     /// ```swift
     ///  _ObjectItem(title: "Object Item",
@@ -359,7 +356,7 @@ public extension View {
     ///             .isFootnoteIconsCircular(false)
     /// ```
     /// - Parameter isCircular: Boolean denoting whether the footnote icons are circular.
-    /// - Returns: A view that footnote icons are cirlcular or not.
+    /// - Returns: A view that footnote icons are circular or not.
     func isFootnoteIconsCircular(_ isCircular: Bool) -> some View {
         environment(\.isFootnoteIconsCircular, isCircular)
     }
@@ -392,5 +389,30 @@ public extension View {
     /// - Returns: A view that limits the size of footnote icons.
     func footnoteIconsSize(_ size: CGSize) -> some View {
         environment(\.footnoteIconsSize, size)
+    }
+}
+
+/// Text position for icons.
+public enum TextPosition {
+    /// Top position for text.
+    case top
+    /// Bottom position for text.
+    case bottom
+    /// Leading position for text.
+    case leading
+    /// Trailing position for text.
+    case trailing
+    
+    var alignment: Alignment {
+        switch self {
+        case .top:
+            return .top
+        case .bottom:
+            return .bottom
+        case .leading:
+            return .leading
+        case .trailing:
+            return .trailing
+        }
     }
 }
