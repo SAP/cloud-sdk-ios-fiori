@@ -403,6 +403,7 @@ public struct CardIntrinsicHeightStyle: CardStyle {
 }
 
 public extension CardStyle where Self == CardIntrinsicHeightStyle {
+    /// Intrinsic Height card style. When a card is put into a HStack/VStack then this style is recommeded to use.
     static var intrinsicHeightCard: Self {
         CardIntrinsicHeightStyle()
     }
