@@ -14,9 +14,17 @@ import SwiftUI
  */
 // Base Layout style
 public struct CardBaseStyle: CardStyle {
+    /// It means a Card's height use the proposal's height over its intrinsic height if it is true.
+    /// `CarouselLayout` with `isSameHeight` `true` requires `useProposedHeight` to be `true`.
+    let useProposedHeight: Bool
+    
+    init(useProposedHeight: Bool = true) {
+        self.useProposedHeight = useProposedHeight
+    }
+    
     public func makeBody(_ configuration: CardConfiguration) -> some View {
         // Add default layout here
-        CardLayout(lineSpacing: 0) {
+        CardLayout(lineSpacing: 0, useProposedHeight: self.useProposedHeight) {
             if !configuration._cardHeader.isEmpty {
                 configuration._cardHeader
                     .padding(EdgeInsets(top: 0, leading: 0, bottom: 6, trailing: 0))
@@ -34,6 +42,7 @@ public struct CardBaseStyle: CardStyle {
             {
                 configuration._cardFooter
                     .padding(EdgeInsets(top: 6, leading: 16, bottom: 6, trailing: 16))
+                    .layoutPriority(3) // Mark this as the footer in CardLayout
             }
         }
         .clipped()
@@ -45,54 +54,74 @@ struct CardLayout: Layout {
     public struct CacheData {
         var width: CGFloat?
         var maxWidth: CGFloat
+        var height: CGFloat
         var rows: [CGRect]
         
         mutating func clear() {
             self.width = nil
             self.maxWidth = 0
+            self.height = 0
             self.rows.removeAll()
         }
     }
     
     let lineSpacing: CGFloat
     
-    public init(lineSpacing: CGFloat = 8) {
+    /// It means a Card's height use the proposal's height over its intrinsic height if it is true.
+    let useProposedHeight: Bool
+    
+    init(lineSpacing: CGFloat = 8, useProposedHeight: Bool = false) {
         self.lineSpacing = lineSpacing
+        self.useProposedHeight = useProposedHeight
     }
     
-    public func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout CacheData) -> CGSize {
-        self.calculateLayout(for: subviews, containerWidth: proposal.width, cache: &cache)
+    func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout CacheData) -> CGSize {
+        self.calculateLayout(proposal: proposal, subviews: subviews, cache: &cache)
         let finalWidth = max(proposal.width ?? 0, cache.maxWidth)
-        let height: CGFloat = cache.rows.last?.maxY ?? 0
         
-        return CGSize(width: finalWidth, height: height)
+        return CGSize(width: finalWidth, height: cache.height)
     }
     
-    public func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout CacheData) {
-        self.calculateLayout(for: subviews, containerWidth: proposal.width, cache: &cache)
-        
+    func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout CacheData) {
+        self.calculateLayout(proposal: proposal, subviews: subviews, cache: &cache)
+
         for (i, subview) in subviews.enumerated() {
             let item = cache.rows[i]
-            let pt = CGPoint(x: item.origin.x + bounds.origin.x, y: item.origin.y + bounds.origin.y)
+            
+            var pt = CGPoint(x: item.origin.x + bounds.origin.x, y: item.origin.y + bounds.origin.y)
+            /// If it is the footer and there is exessive height for the card then the footer is moved to the bottom
+            if self.useProposedHeight, subview.priority == 3, item.origin.y + item.size.height < cache.height {
+                pt.y = cache.height - item.size.height + bounds.origin.y
+            }
             subview.place(at: pt, proposal: ProposedViewSize(width: item.size.width, height: nil))
         }
     }
     
-    public func makeCache(subviews: Subviews) -> CacheData {
-        CacheData(width: nil, maxWidth: 0, rows: [])
+    func makeCache(subviews: Subviews) -> CacheData {
+        CacheData(width: nil, maxWidth: 0, height: 0, rows: [])
     }
     
-    func calculateLayout(for subviews: Subviews, containerWidth: CGFloat?, cache: inout CacheData) {
-        if subviews.isEmpty || (cache.width == containerWidth && !cache.rows.isEmpty) {
+    func calculateLayout(proposal: ProposedViewSize, subviews: Subviews, cache: inout CacheData) {
+        let containerWidth = proposal.width
+        
+        let height: CGFloat
+        
+        if self.useProposedHeight {
+            height = proposal.height ?? (cache.rows.last?.maxY ?? 0)
+        } else {
+            height = cache.rows.last?.maxY ?? 0
+        }
+        
+        if subviews.isEmpty || (cache.width == containerWidth && !cache.rows.isEmpty && cache.height == height) {
             return
         }
         cache.clear()
         cache.width = containerWidth
         
         let maxContainerWidth = containerWidth ?? CGFloat.greatestFiniteMagnitude
-        let proposal = containerWidth == nil ? ProposedViewSize.unspecified : ProposedViewSize(width: containerWidth, height: nil)
+        let newProposal = containerWidth == nil ? ProposedViewSize.unspecified : ProposedViewSize(width: containerWidth, height: nil)
         let sizes = subviews.map {
-            $0.sizeThatFits(proposal)
+            $0.sizeThatFits(newProposal)
         }.map {
             if $0.width > maxContainerWidth {
                 return CGSize(width: maxContainerWidth, height: $0.height)
@@ -107,6 +136,11 @@ struct CardLayout: Layout {
             cache.rows.append(CGRect(origin: pt, size: size))
             pt.y += size.height + self.lineSpacing
             cache.maxWidth = max(cache.maxWidth, size.width)
+        }
+        
+        cache.height = cache.rows.last?.maxY ?? 0
+        if self.useProposedHeight, let value = proposal.height {
+            cache.height = value
         }
     }
 }
@@ -361,6 +395,19 @@ public extension CardStyle where Self == CardCardStyle {
     }
 }
 
+/// Intrinsic Height card style. When a card is put into a HStack/VStack then this style is recommeded to use.
+public struct CardIntrinsicHeightStyle: CardStyle {
+    public func makeBody(_ configuration: CardConfiguration) -> some View {
+        CardBaseStyle(useProposedHeight: false).makeBody(configuration)
+    }
+}
+
+public extension CardStyle where Self == CardIntrinsicHeightStyle {
+    static var intrinsicHeightCard: Self {
+        CardIntrinsicHeightStyle()
+    }
+}
+
 struct ColorTagStyle: TagStyle {
     /// text color
     var textColor: Color = .preferredColor(.secondaryLabel)
@@ -422,18 +469,6 @@ struct TagExample: View {
                         .frame(width: 2, height: 2)
                 }
             }
-        }
-    }
-}
-
-struct RattingViewExample: View {
-    var body: some View {
-        HStack(spacing: 2) {
-            Image(systemName: "star.fill")
-            Image(systemName: "star.fill")
-            Image(systemName: "star")
-            Image(systemName: "star")
-            Image(systemName: "star")
         }
     }
 }
@@ -506,15 +541,26 @@ public enum CardTests {
         Text("Gbt")
     } row1: {
         HStack {
-            RattingViewExample()
+            RatingControl(rating: .constant(3), ratingControlStyle: .standard)
             LabelItem(title: "Free Breakfast")
         }
     } row2: {
         Tag("Business Rate")
             .tagStyle(ColorTagStyle(textColor: .preferredColor(.grey9), fillColor: .preferredColor(.grey2)))
     } kpi: {
-        KPIItem(data: .components([.unit("$"), .metric("90")]), subtitle: "avg. per night")
-            .frame(height: 20)
+        VStack(alignment: .trailing) {
+            HStack(alignment: .bottom, spacing: 0) {
+                Text("$")
+                    .font(.fiori(forTextStyle: .body, weight: .bold))
+                Text("90")
+                    .font(.fiori(forTextStyle: .title2, weight: .bold))
+            }
+            .foregroundStyle(Color.preferredColor(.primaryLabel))
+            
+            Text("avg. per night")
+                .font(.fiori(forTextStyle: .footnote))
+                .foregroundStyle(Color.preferredColor(.secondaryLabel))
+        }
     } action: {
         FioriButton(title: "Reserve")
     } secondaryAction: {
@@ -588,14 +634,31 @@ public enum CardTests {
             .contentShape(Rectangle())
     }
     
-    static let sampleCard5 = Card(title: "Title",
-                                  subtitle: "Subtitle that goes to multiple lines before truncating just like that",
-                                  icons: [TextOrIcon.icon(Image(systemName: "circle.fill")), TextOrIcon.icon(Image(systemName: "paperclip")), TextOrIcon.text("1")],
-                                  detailImage: Image("ProfilePic"),
-                                  headerAction: FioriButton(title: "..."),
-                                  counter: "1 of 3",
-                                  action: FioriButton(title: "Primary"),
-                                  secondaryAction: FioriButton(title: "Secondary"))
+    static let sampleCard5 = Card {
+        Text("Title")
+    } subtitle: {
+        Text("Subtitle that goes to multiple lines before truncating just like that")
+    } icons: {
+        Image(systemName: "exclamationmark.triangle.fill")
+            .font(.fiori(forTextStyle: .subheadline))
+            .foregroundColor(.preferredColor(.negativeLabel))
+        Image(systemName: "paperclip")
+            .font(.fiori(forTextStyle: .subheadline))
+            .foregroundColor(.preferredColor(.quaternaryLabel))
+        Text("1")
+            .font(.fiori(forTextStyle: .subheadline))
+            .foregroundColor(.preferredColor(.quaternaryLabel))
+    } detailImage: {
+        Image("ProfilePic")
+    } headerAction: {
+        FioriButton(title: "...")
+    } counter: {
+        Text("1 of 3")
+    } action: {
+        FioriButton(title: "Primary")
+    } secondaryAction: {
+        FioriButton(title: "Secondary")
+    }
     
     static let sampleCard6 = Card(title: "Title", subtitle: "Subtitle that goes to multiple lines before truncating just like that", headerAction: FioriButton(title: "..."), counter: "1 of 3", action: FioriButton(title: "Primary"))
     
@@ -686,7 +749,7 @@ public enum CardTests {
     }
     
     static let sampleCard9 = Card {
-        Text("Coyote Hill Rd").font(.fiori(forTextStyle: .title1, weight: .bold))
+        Text("Coyote Hill Rd")
     } headerAction: {
         Button {
             print("tapped")
@@ -780,7 +843,7 @@ public enum CardTests {
                 }
         }
     } row2: {
-        RattingViewExample()
+        RatingControl(rating: .constant(2), ratingControlStyle: .standard)
     } row3: {
         TagExample(num: 3)
     } kpi: {
@@ -899,13 +962,7 @@ public enum CardTests {
             LabelItem(title: "Multiple lines row1")
         }
     } row2: {
-        HStack(spacing: 2) {
-            Image(systemName: "star.fill")
-            Image(systemName: "star.fill")
-            Image(systemName: "star")
-            Image(systemName: "star")
-            Image(systemName: "star")
-        }
+        RatingControl(rating: .constant(2), ratingControlStyle: .standard)
     } row3: {
         TagExample(num: 8, withDot: true)
     } cardBody: {
@@ -939,13 +996,31 @@ public enum CardTests {
                                    action: FioriButton(title: "Primary"),
                                    secondaryAction: FioriButton(title: "Secondary"))
     
-    static let sampleCard13 = Card(title: "Title",
-                                   subtitle: "Subtitle that goes to multiple lines before truncating just like that",
-                                   icons: [TextOrIcon.icon(Image(systemName: "circle.fill")), TextOrIcon.icon(Image(systemName: "paperclip")), TextOrIcon.text("1")],
-                                   headerAction: FioriButton(title: "..."),
-                                   counter: "1 of 3",
-                                   action: FioriButton(title: "Primary"),
-                                   secondaryAction: FioriButton(title: "Secondary"), tertiaryAction: FioriButton(title: "Tertiary"))
+    static let sampleCard13 = Card {
+        Text("Title")
+    } subtitle: {
+        Text("Subtitle that goes to multiple lines before truncating just like that")
+    } icons: {
+        Image(systemName: "exclamationmark.triangle.fill")
+            .font(.fiori(forTextStyle: .subheadline))
+            .foregroundColor(.preferredColor(.negativeLabel))
+        Image(systemName: "paperclip")
+            .font(.fiori(forTextStyle: .subheadline))
+            .foregroundColor(.preferredColor(.quaternaryLabel))
+        Text("1")
+            .font(.fiori(forTextStyle: .subheadline))
+            .foregroundColor(.preferredColor(.quaternaryLabel))
+    } headerAction: {
+        FioriButton(title: "...")
+    } counter: {
+        Text("1 of 3")
+    } action: {
+        FioriButton(title: "Primary")
+    } secondaryAction: {
+        FioriButton(title: "Secondary")
+    } tertiaryAction: {
+        FioriButton(title: "Tertiary")
+    }
     
     static let sampleCard14 = Card(title: "Title",
                                    subtitle: "Subtitle that goes to multiple lines before truncating just like that",
@@ -1000,16 +1075,22 @@ public enum CardTests {
     static let previewCardSamples = [sampleCard1, sampleCard2, sampleCard3, sampleCard4, sampleCard5, sampleCard6, sampleCard7, sampleCard8, sampleCard9, sampleCard10, sampleCard11, vbCard, fullCard, headerOnly, titleOnly, noHeader]
 }
 
-struct CardPreview: PreviewProvider {
-    static var previews: some View {
+#Preview {
+    List {
         ForEach(0 ..< CardTests.previewCardSamples.count, id: \.self) { i in
-            VStack {
-                CardTests.previewCardSamples[i]
-                    .cardStyle(.card)
-                    .padding(32)
-            }
-            .background(Color.green)
-            .environment(\.colorScheme, .dark)
+            CardTests.previewCardSamples[i]
         }
     }
+    .border(Color.green)
+}
+
+#Preview("Intrinsic Height Card") {
+    VStack {
+        CardTests.previewCardSamples[1]
+            .cardStyle(.card)
+            .cardStyle(.intrinsicHeightCard)
+            .padding()
+        Text("Hello")
+    }
+    .background(Color.preferredColor(.primaryGroupedBackground))
 }

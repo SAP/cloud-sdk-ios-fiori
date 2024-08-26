@@ -55,10 +55,14 @@ private struct CarouselLayout: Layout {
     /// Vertical alignment in each column
     let alignment: VerticalAlignment
     
-    init(numberOfColumns: Int = 1, spacing: CGFloat = 8, alignment: VerticalAlignment = .top) {
+    /// Whether all subviews have same height which is the maximum height of all subviews
+    let isSameHeight: Bool
+    
+    init(numberOfColumns: Int = 1, spacing: CGFloat = 8, alignment: VerticalAlignment = .top, isSameHeight: Bool = false) {
         self.numberOfColumns = max(1, numberOfColumns)
         self.spacing = spacing
         self.alignment = alignment
+        self.isSameHeight = isSameHeight
     }
     
     func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout CacheData) -> CGSize {
@@ -66,7 +70,6 @@ private struct CarouselLayout: Layout {
             return .zero
         }
         self.calculateLayout(for: subviews, containerWidth: containerWidth, cache: &cache)
-        
         return CGSize(width: cache.columns.last?.maxX ?? containerWidth, height: cache.height)
     }
     
@@ -78,18 +81,23 @@ private struct CarouselLayout: Layout {
         
         for (i, column) in cache.columns.enumerated() {
             let y: CGFloat
-            switch self.alignment {
-            case .top:
+            
+            if self.isSameHeight {
                 y = 0
-            case .bottom:
-                y = cache.height - column.size.height
-            default:
-                y = (cache.height - column.size.height) / 2
+            } else {
+                switch self.alignment {
+                case .top:
+                    y = 0
+                case .bottom:
+                    y = cache.height - column.size.height
+                default:
+                    y = (cache.height - column.size.height) / 2
+                }
             }
             
             let pt = CGPoint(x: column.origin.x + bounds.origin.x, y: y + bounds.origin.y)
             
-            subviews[i].place(at: pt, proposal: ProposedViewSize(width: column.size.width, height: nil))
+            subviews[i].place(at: pt, proposal: ProposedViewSize(width: column.size.width, height: self.isSameHeight ? cache.height : nil))
         }
     }
     
@@ -199,6 +207,9 @@ public struct Carousel<Content>: View where Content: View {
     /// Whether it stops at a right position that the first visible subview can be displayed fully after scrolling.
     let isSnapping: Bool
     
+    /// Whether all subviews have same height which is the maximum height of all subviews
+    let isSameHeight: Bool
+    
     /// The views representing the content of the Carousel
     var content: () -> Content
     
@@ -222,19 +233,21 @@ public struct Carousel<Content>: View where Content: View {
     ///   - spacing: Horizontal spacing between views. The default is 8.
     ///   - alignment: Vertical alignment in the carousel. The default is `.top`.
     ///   - isSnapping: Whether it stops at a right position that the first visible subview can be displayed fully after scrolling. The default is `true`.
+    ///   - isSameHeight: Whether all subviews have same height which is the maximum height of all subviews
     ///   - content: The views representing the content of the Carousel
-    public init(numberOfColumns: Int = 1, spacing: CGFloat = 8, alignment: VerticalAlignment = .top, isSnapping: Bool = true, @ViewBuilder content: @escaping () -> Content) {
+    public init(numberOfColumns: Int = 1, spacing: CGFloat = 8, alignment: VerticalAlignment = .top, isSnapping: Bool = true, isSameHeight: Bool = false, @ViewBuilder content: @escaping () -> Content) {
         self.numberOfColumns = numberOfColumns
         self.spacing = spacing
         self.alignment = alignment
         self.isSnapping = isSnapping
+        self.isSameHeight = isSameHeight
         self.content = content
     }
 
     public var body: some View {
         CarouselViewLayout {
             HStack {
-                CarouselLayout(numberOfColumns: self.numberOfColumns, spacing: self.spacing, alignment: self.alignment) {
+                CarouselLayout(numberOfColumns: self.numberOfColumns, spacing: self.spacing, alignment: self.alignment, isSameHeight: self.isSameHeight) {
                     self.content()
                 }
             }
