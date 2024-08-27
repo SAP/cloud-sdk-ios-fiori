@@ -10,7 +10,7 @@ public struct TimelinePreviewBaseStyle: TimelinePreviewStyle {
     
     public func makeBody(_ configuration: TimelinePreviewConfiguration) -> some View {
         VStack(alignment: .leading, spacing: 0) {
-            if configuration.showHeader {
+            if !configuration.optionalTitle.isEmpty || !configuration.action.isEmpty {
                 BuildHeader(configuration: configuration, itemCount: configuration.data.count)
             }
             BuildTimelinePreviewItem(configuration: configuration, displayItems: self.getDisplayItemCount(VSWidth: self.VSize.width))
@@ -37,7 +37,7 @@ struct BuildHeader: View {
     
     var body: some View {
         HStack {
-            self.configuration.title
+            self.configuration.optionalTitle
             Spacer()
             self.configuration.action
                 .actionStyle(content: { actionConfig in
@@ -101,11 +101,11 @@ extension TimelinePreviewFioriStyle {
         }
     }
 
-    struct TitleFioriStyle: TitleStyle {
+    struct OptionalTitleFioriStyle: OptionalTitleStyle {
         let timelinePreviewConfiguration: TimelinePreviewConfiguration
     
-        func makeBody(_ configuration: TitleConfiguration) -> some View {
-            Title(configuration)
+        func makeBody(_ configuration: OptionalTitleConfiguration) -> some View {
+            OptionalTitle(configuration)
                 .font(.fiori(forTextStyle: .subheadline))
                 .foregroundColor(Color.preferredColor(.secondaryLabel))
                 .multilineTextAlignment(.leading)

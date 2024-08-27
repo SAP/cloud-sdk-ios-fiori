@@ -360,6 +360,12 @@ extension ObjectItem: _ViewEmptyChecking {
     }
 }
 
+extension OptionalTitle: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        optionalTitle.isEmpty
+    }
+}
+
 extension Options: _ViewEmptyChecking {
     public var isEmpty: Bool {
         false
@@ -598,7 +604,7 @@ extension TimelineNowIndicator: _ViewEmptyChecking {
 
 extension TimelinePreview: _ViewEmptyChecking {
     public var isEmpty: Bool {
-        title.isEmpty &&
+        optionalTitle.isEmpty &&
             action.isEmpty
     }
 }

@@ -2845,6 +2845,20 @@ public extension ObjectItemStyle where Self == ObjectItemActionStyle {
     }
 }
 
+// MARK: OptionalTitleStyle
+
+public extension OptionalTitleStyle where Self == OptionalTitleBaseStyle {
+    static var base: OptionalTitleBaseStyle {
+        OptionalTitleBaseStyle()
+    }
+}
+
+public extension OptionalTitleStyle where Self == OptionalTitleFioriStyle {
+    static var fiori: OptionalTitleFioriStyle {
+        OptionalTitleFioriStyle()
+    }
+}
+
 // MARK: OptionsStyle
 
 public extension OptionsStyle where Self == OptionsBaseStyle {
@@ -4532,24 +4546,24 @@ public extension TimelinePreviewStyle where Self == TimelinePreviewFioriStyle {
     }
 }
 
-public struct TimelinePreviewTitleStyle: TimelinePreviewStyle {
-    let style: any TitleStyle
+public struct TimelinePreviewOptionalTitleStyle: TimelinePreviewStyle {
+    let style: any OptionalTitleStyle
 
     public func makeBody(_ configuration: TimelinePreviewConfiguration) -> some View {
         TimelinePreview(configuration)
-            .titleStyle(self.style)
+            .optionalTitleStyle(self.style)
             .typeErased
     }
 }
 
-public extension TimelinePreviewStyle where Self == TimelinePreviewTitleStyle {
-    static func titleStyle(_ style: some TitleStyle) -> TimelinePreviewTitleStyle {
-        TimelinePreviewTitleStyle(style: style)
+public extension TimelinePreviewStyle where Self == TimelinePreviewOptionalTitleStyle {
+    static func optionalTitleStyle(_ style: some OptionalTitleStyle) -> TimelinePreviewOptionalTitleStyle {
+        TimelinePreviewOptionalTitleStyle(style: style)
     }
 
-    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> TimelinePreviewTitleStyle {
-        let style = AnyTitleStyle(content)
-        return TimelinePreviewTitleStyle(style: style)
+    static func optionalTitleStyle(@ViewBuilder content: @escaping (OptionalTitleConfiguration) -> some View) -> TimelinePreviewOptionalTitleStyle {
+        let style = AnyOptionalTitleStyle(content)
+        return TimelinePreviewOptionalTitleStyle(style: style)
     }
 }
 

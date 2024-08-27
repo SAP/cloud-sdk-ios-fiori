@@ -755,6 +755,22 @@ extension ObjectItemStyle {
     }
 }
 
+// MARK: OptionalTitleStyle
+
+struct ResolvedOptionalTitleStyle<Style: OptionalTitleStyle>: View {
+    let style: Style
+    let configuration: OptionalTitleConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension OptionalTitleStyle {
+    func resolve(configuration: OptionalTitleConfiguration) -> some View {
+        ResolvedOptionalTitleStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: OptionsStyle
 
 struct ResolvedOptionsStyle<Style: OptionsStyle>: View {

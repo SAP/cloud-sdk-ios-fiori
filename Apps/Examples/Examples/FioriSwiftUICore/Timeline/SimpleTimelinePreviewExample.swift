@@ -16,7 +16,7 @@ struct SimpleTimelinePreviewExample: View {
     var body: some View {
         VStack {
             NavigationLink(destination: TimelineView()) {
-                TimelinePreview(title: { Text("Timeline Preview") }, data: self.$items0)
+                TimelinePreview(optionalTitle: { Text("Timeline Preview") }, data: self.$items0)
             }
             Spacer()
         }

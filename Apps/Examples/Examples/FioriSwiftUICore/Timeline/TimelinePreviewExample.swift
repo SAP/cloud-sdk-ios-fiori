@@ -31,15 +31,15 @@ struct TimelinePreviewExample: View {
     var body: some View {
         List {
             Text("TimelinePreview: Future")
-            TimelinePreview(title: { Text("Timeline") }, data: self.$items0)
+            TimelinePreview(optionalTitle: { Text("Timeline") }, data: self.$items0)
             Text("TimelinePreview: Present")
-            TimelinePreview(title: { Text("Timeline") }, data: self.$items1)
+            TimelinePreview(optionalTitle: { Text("Timeline") }, data: self.$items1)
             Text("TimelinePreview: Past")
-            TimelinePreview(title: { Text("Timeline") }, data: self.$items2)
+            TimelinePreview(optionalTitle: { Text("Timeline") }, data: self.$items2)
             Text("TimelinePreview: No Header")
-            TimelinePreview(title: { Text("Timeline") }, data: self.$items2, showHeader: false)
+            TimelinePreview(data: self.$items2)
             Text("TimelinePreview: End")
-            TimelinePreview(title: { Text("Timeline") }, data: self.$items3)
+            TimelinePreview(optionalTitle: { Text("Timeline") }, data: self.$items3)
         }
         .listStyle(.plain)
     }

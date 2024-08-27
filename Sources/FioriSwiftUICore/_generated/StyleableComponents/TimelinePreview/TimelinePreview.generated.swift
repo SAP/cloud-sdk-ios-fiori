@@ -8,39 +8,34 @@ import SwiftUI
 /// ## Usage
 /// ```swift
 /// @State private var items: [TimelinePreviewItemModel] = [TimelinePreviewItemModel(title: "Complete", timelineNode: TimelineNodeType.complete, due: ISO8601DateFormatter().date(from: "2023-07-21T12:00:00Z")!),TimelinePreviewItemModel(title: "End", timelineNode: TimelineNodeType.end, due: ISO8601DateFormatter().date(from: "2023-08-10T12:00:00Z")!)]
-/// TimelinePreview(title: { Text("Timeline") }, data: self.$items)
+/// TimelinePreview(optionalTitle: { Text("Timeline") }, data: self.$items)
 /// ```
 public struct TimelinePreview {
-    let title: any View
+    let optionalTitle: any View
     let action: any View
     /// The data for all timelinePreviewItems
     @Binding var data: [TimelinePreviewItemModel]
-    /// Show header or not. Default is to show.
-    let showHeader: Bool
 
     @Environment(\.timelinePreviewStyle) var style
 
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder title: () -> any View,
+    public init(@ViewBuilder optionalTitle: () -> any View = { EmptyView() },
                 @ViewBuilder action: () -> any View = { EmptyView() },
-                data: Binding<[TimelinePreviewItemModel]>,
-                showHeader: Bool = true)
+                data: Binding<[TimelinePreviewItemModel]>)
     {
-        self.title = Title { title() }
+        self.optionalTitle = OptionalTitle { optionalTitle() }
         self.action = Action { action() }
         self._data = data
-        self.showHeader = showHeader
     }
 }
 
 public extension TimelinePreview {
-    init(title: AttributedString,
+    init(optionalTitle: AttributedString?,
          action: FioriButton? = nil,
-         data: Binding<[TimelinePreviewItemModel]>,
-         showHeader: Bool = true)
+         data: Binding<[TimelinePreviewItemModel]>)
     {
-        self.init(title: { Text(title) }, action: { action }, data: data, showHeader: showHeader)
+        self.init(optionalTitle: { OptionalText(optionalTitle) }, action: { action }, data: data)
     }
 }
 
@@ -50,10 +45,9 @@ public extension TimelinePreview {
     }
 
     internal init(_ configuration: TimelinePreviewConfiguration, shouldApplyDefaultStyle: Bool) {
-        self.title = configuration.title
+        self.optionalTitle = configuration.optionalTitle
         self.action = configuration.action
         self._data = configuration.$data
-        self.showHeader = configuration.showHeader
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
     }
 }
@@ -63,7 +57,7 @@ extension TimelinePreview: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(title: .init(self.title), action: .init(self.action), data: self.$data, showHeader: self.showHeader)).typeErased
+            self.style.resolve(configuration: .init(optionalTitle: .init(self.optionalTitle), action: .init(self.action), data: self.$data)).typeErased
                 .transformEnvironment(\.timelinePreviewStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -81,7 +75,7 @@ private extension TimelinePreview {
     }
 
     func defaultStyle() -> some View {
-        TimelinePreview(.init(title: .init(self.title), action: .init(self.action), data: self.$data, showHeader: self.showHeader))
+        TimelinePreview(.init(optionalTitle: .init(self.optionalTitle), action: .init(self.action), data: self.$data))
             .shouldApplyDefaultStyle(false)
             .timelinePreviewStyle(TimelinePreviewFioriStyle.ContentFioriStyle())
             .typeErased

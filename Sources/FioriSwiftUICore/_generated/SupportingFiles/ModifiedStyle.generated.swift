@@ -1324,6 +1324,34 @@ public extension ObjectItemStyle {
     }
 }
 
+// MARK: OptionalTitleStyle
+
+extension ModifiedStyle: OptionalTitleStyle where Style: OptionalTitleStyle {
+    public func makeBody(_ configuration: OptionalTitleConfiguration) -> some View {
+        OptionalTitle(configuration)
+            .optionalTitleStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct OptionalTitleStyleModifier<Style: OptionalTitleStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.optionalTitleStyle(self.style)
+    }
+}
+
+public extension OptionalTitleStyle {
+    func modifier(_ modifier: some ViewModifier) -> some OptionalTitleStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some OptionalTitleStyle) -> some OptionalTitleStyle {
+        style.modifier(OptionalTitleStyleModifier(style: self))
+    }
+}
+
 // MARK: OptionsStyle
 
 extension ModifiedStyle: OptionsStyle where Style: OptionsStyle {

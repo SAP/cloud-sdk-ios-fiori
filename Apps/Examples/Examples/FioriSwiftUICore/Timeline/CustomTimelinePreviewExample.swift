@@ -13,7 +13,7 @@ struct CustomTimelinePreviewExample: View {
     var body: some View {
         VStack {
             TimelinePreview(
-                title: { Text("Timeline") },
+                optionalTitle: { Text("Timeline") },
                 action: {
                     FioriButton(
                         label: { _ in
@@ -33,8 +33,8 @@ struct CustomTimelinePreviewExample: View {
                         timestampConfig.timestamp.foregroundColor(.red)
                     })
             })
-            .titleStyle(content: { config in
-                config.title.foregroundColor(.purple)
+            .optionalTitleStyle(content: { config in
+                config.optionalTitle.foregroundColor(.purple)
             })
             Spacer()
         }

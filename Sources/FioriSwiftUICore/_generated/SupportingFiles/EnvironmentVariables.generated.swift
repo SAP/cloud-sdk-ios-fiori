@@ -990,6 +990,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: OptionalTitleStyle
+
+struct OptionalTitleStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any OptionalTitleStyle] = []
+}
+
+extension EnvironmentValues {
+    var optionalTitleStyle: any OptionalTitleStyle {
+        self.optionalTitleStyleStack.last ?? .base
+    }
+
+    var optionalTitleStyleStack: [any OptionalTitleStyle] {
+        get {
+            self[OptionalTitleStyleStackKey.self]
+        }
+        set {
+            self[OptionalTitleStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: OptionsStyle
 
 struct OptionsStyleStackKey: EnvironmentKey {

@@ -439,16 +439,13 @@ protocol _TimelinePreviewItemComponent: _TitleComponent, _IconComponent, _Timeli
 /// ## Usage
 /// ```swift
 /// @State private var items: [TimelinePreviewItemModel] = [TimelinePreviewItemModel(title: "Complete", timelineNode: TimelineNodeType.complete, due: ISO8601DateFormatter().date(from: "2023-07-21T12:00:00Z")!),TimelinePreviewItemModel(title: "End", timelineNode: TimelineNodeType.end, due: ISO8601DateFormatter().date(from: "2023-08-10T12:00:00Z")!)]
-/// TimelinePreview(title: { Text("Timeline") }, data: self.$items)
+/// TimelinePreview(optionalTitle: { Text("Timeline") }, data: self.$items)
 /// ```
 // sourcery: CompositeComponent
-protocol _TimelinePreviewComponent: _TitleComponent, _ActionComponent {
+protocol _TimelinePreviewComponent: _OptionalTitleComponent, _ActionComponent {
     // sourcery: @Binding
     /// The data for all timelinePreviewItems
     var data: [TimelinePreviewItemModel] { get }
-    // sourcery: defaultValue = true
-    /// Show header or not. Default is to show.
-    var showHeader: Bool { get }
 }
 
 /// `SwitchView`provides a Fiori style title and`Toggle`.

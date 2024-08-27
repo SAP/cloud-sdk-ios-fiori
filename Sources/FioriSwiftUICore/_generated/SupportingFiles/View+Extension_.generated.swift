@@ -802,6 +802,23 @@ public extension View {
     }
 }
 
+// MARK: OptionalTitleStyle
+
+public extension View {
+    func optionalTitleStyle(_ style: some OptionalTitleStyle) -> some View {
+        self.transformEnvironment(\.optionalTitleStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func optionalTitleStyle(@ViewBuilder content: @escaping (OptionalTitleConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.optionalTitleStyleStack) { stack in
+            let style = AnyOptionalTitleStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: OptionsStyle
 
 public extension View {
