@@ -98,8 +98,12 @@ struct DefaultSingleStep: View {
             } node: {
                 ZStack {
                     self.node(by: self.stepItem.state, isSelected: isSelected)
-                    Text("\(self.index + 1)")
-                        .font(Font.fiori(forTextStyle: .footnote))
+                    if self.stepItem.icon.isEmpty {
+                        Text("\(self.index + 1)")
+                            .font(Font.fiori(forTextStyle: .footnote))
+                    } else {
+                        self.stepItem.icon
+                    }
                 }
                 .frame(width: self.sideLength, height: self.sideLength)
                 .overlay {
