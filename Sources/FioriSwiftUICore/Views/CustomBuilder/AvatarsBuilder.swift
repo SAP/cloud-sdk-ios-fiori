@@ -14,29 +14,37 @@ public protocol AvatarList: View, _ViewEmptyChecking {
 public extension AvatarList {
     /// :nodoc:
     @ViewBuilder func buildAvatar(_ avatar: V) -> some View {
-        Group {
-            if isCircular {
-                avatar
-                    .frame(width: size.width, height: size.height)
-                    .clipShape(Capsule())
-                    .overlay {
-                        Capsule()
-                            .inset(by: borderWidth / 2.0)
-                            .stroke(borderColor, lineWidth: borderWidth)
-                    }
-            } else {
-                avatar
-                    .frame(width: size.width, height: size.height)
-                    .border(borderColor, width: borderWidth)
-            }
+        if isCircular {
+            avatar
+                .frame(width: size.width, height: size.height)
+                .clipShape(Capsule())
+                .overlay {
+                    Capsule()
+                        .inset(by: borderWidth / 2.0)
+                        .stroke(borderColor, lineWidth: borderWidth)
+                }
+        } else {
+            avatar
+                .frame(width: size.width, height: size.height)
+                .border(borderColor, width: borderWidth)
         }
+    }
+    
+    // This condition check if for handle recursive builder issue.
+    private func checkIsNestingAvatars() -> Bool {
+        let typeString = String(describing: V.self)
+        return typeString.contains("SingleAvatar<SingleAvatar") || typeString.contains("SingleAvatar<PairAvatar") || typeString.contains("PairAvatar<")
     }
     
     /// :nodoc:
     var body: some View {
         Group {
             if count == 1 {
-                self.buildAvatar(view(at: 0))
+                if self.checkIsNestingAvatars() {
+                    self.view(at: 0)
+                } else {
+                    self.buildAvatar(view(at: 0))
+                }
             } else if count >= 2 {
                 ZStack(alignment: .topLeading) {
                     self.buildAvatar(view(at: 0))

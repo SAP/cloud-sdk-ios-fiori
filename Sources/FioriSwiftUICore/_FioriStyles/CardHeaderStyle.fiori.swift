@@ -15,7 +15,7 @@ import SwiftUI
 public struct CardHeaderBaseStyle: CardHeaderStyle {
     public func makeBody(_ configuration: CardHeaderConfiguration) -> some View {
         // Add default layout here
-        CardLayout(lineSpacing: 0) {
+        CardLayout(lineSpacing: 0, useProposedHeight: false) {
             configuration._cardMedia
                 .clipped()
             

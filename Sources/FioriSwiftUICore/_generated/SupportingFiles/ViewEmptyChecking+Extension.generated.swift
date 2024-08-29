@@ -177,6 +177,12 @@ extension FootnoteIcons: _ViewEmptyChecking {
     }
 }
 
+extension FootnoteIconsText: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        footnoteIconsText.isEmpty
+    }
+}
+
 extension FormView: _ViewEmptyChecking {
     public var isEmpty: Bool {
         false
@@ -348,6 +354,7 @@ extension ObjectItem: _ViewEmptyChecking {
             icons.isEmpty &&
             avatars.isEmpty &&
             footnoteIcons.isEmpty &&
+            footnoteIconsText.isEmpty &&
             tags.isEmpty &&
             action.isEmpty
     }

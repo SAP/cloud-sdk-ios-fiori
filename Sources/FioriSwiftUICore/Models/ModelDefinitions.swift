@@ -19,6 +19,8 @@ public protocol AvatarStackModel: AvatarsComponent {}
 // sourcery: add_env_props = "footnoteIconsSpacing"
 // sourcery: add_env_props = "isFootnoteIconsCircular"
 // sourcery: add_env_props = "footnoteIconsMaxCount"
+// sourcery: add_env_props = "footnoteIconsTextPosition"
+// sourcery: add_env_props = "footnoteIconsText"
 public protocol FootnoteIconStackModel: FootnoteIconsComponent {}
 
 // sourcery: add_env_props = "horizontalSizeClass"

@@ -90,6 +90,12 @@ protocol _FootnoteIconsComponent {
 }
 
 // sourcery: BaseComponent
+protocol _FootnoteIconsTextComponent {
+    // sourcery: @ViewBuilder
+    var footnoteIconsText: AttributedString? { get }
+}
+
+// sourcery: BaseComponent
 protocol _AvatarsComponent {
     // sourcery: resultBuilder.name = @AvatarsBuilder, resultBuilder.backingComponent = AvatarStack
     var avatars: [TextOrIcon] { get }
