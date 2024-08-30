@@ -95,16 +95,15 @@ struct FootnoteIconsHStack: Layout {
         for (index, subview) in subviews.enumerated() {
             let subviewSize = subview.sizeThatFits(proposal)
             maxHeight = max(maxHeight, subviewSize.height)
-            if subviewSize.width + totalWidth <= contentWidth {
-                totalWidth += subviewSize.width
-                totalWidth += self.spacing
+            let gap = index > 0 ? self.spacing : 0
+            if totalWidth + subviewSize.width + gap <= contentWidth {
+                totalWidth += (subviewSize.width + gap)
             } else {
                 cache.count = index
                 cache.size = CGSize(width: totalWidth, height: maxHeight)
-                break
+                return
             }
         }
-        totalWidth -= self.spacing
         cache.count = subviews.count
         cache.size = CGSize(width: totalWidth, height: maxHeight)
     }
@@ -119,7 +118,9 @@ struct FootnoteIconsHStack: Layout {
                               proposal: ProposedViewSize(CGSize(width: subviewSize.width, height: subviewSize.height)))
                 xOffset += (subviewSize.width + self.spacing)
             } else {
-                break
+                let maxOffset = CGFloat.greatestFiniteMagnitude
+                let offScreen = CGPoint(x: maxOffset, y: maxOffset)
+                subview.place(at: offScreen, proposal: .unspecified)
             }
         }
     }
