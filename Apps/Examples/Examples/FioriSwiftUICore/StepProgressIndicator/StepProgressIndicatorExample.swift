@@ -35,6 +35,11 @@ struct StepProgressIndicatorExample: View {
             } label: {
                 Text("Steps By Model")
             }
+            NavigationLink {
+                SPIExampleWithIcon()
+            } label: {
+                Text("Steps By Icon")
+            }
         }
     }
 }
@@ -42,6 +47,97 @@ struct StepProgressIndicatorExample: View {
 struct StepProgressIndicatorExample_Previews: PreviewProvider {
     static var previews: some View {
         StepProgressIndicatorExample()
+    }
+}
+
+struct SPIExampleWithIcon: View {
+    static let icon = Image(systemName: "app.dashed")
+    @State var title: String = ""
+    @State var steps = [StepItemData(title: "Sign In", icon: FioriIcon.arrows.initiative, state: .completed),
+                        StepItemData(title: "User Info", icon: FioriIcon.people.personPlaceholder, state: .completed),
+                        StepItemData(title: "Account Info", icon: FioriIcon.actions.edit, state: .completed),
+                        StepItemData(title: "Settings", icon: FioriIcon.actions.actionSettings, state: .normal, substeps: [StepItemData(title: "Settings 1")]),
+                        StepItemData(title: "Other0", icon: icon, state: .disabled),
+                        StepItemData(title: "Other1", icon: icon, state: .completed),
+                        StepItemData(title: "other2", icon: icon, state: .error)]
+    @State var selection: String = ""
+    var body: some View {
+        VStack(alignment: .leading) {
+            Text("Icon").bold()
+            StepProgressIndicator(selection: self.$selection,
+                                  stepItems: self.steps)
+            {
+                Text(self.$title.wrappedValue).lineLimit(1)
+            } action: {
+                Button {} label: {
+                    HStack(spacing: 2) {
+                        Text("All Steps(\(self.steps.count))")
+                            .foregroundStyle(Color.preferredColor(.tintColor))
+                        FioriIcon.actions.slimArrowRight
+                            .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
+                            .foregroundStyle(Color.preferredColor(.separator))
+                    }
+                }
+            }
+            Spacer().padding(20)
+            Button {
+                self.completeStep()
+            } label: {
+                Text("Mark as Completed")
+            }
+            .padding(20)
+        }
+        .padding()
+        .onChange(of: self.selection, perform: { _ in
+            self.updateCurrentStepName()
+        })
+        .onAppear {
+            self.updateCurrentStepName()
+        }
+    }
+    
+    func getStep() -> StepItem? {
+        func findStep(in data: [StepItem]) -> StepItem? {
+            for step in data {
+                if step.id == self.selection {
+                    return step
+                }
+                
+                if !step.substeps.isEmpty {
+                    if let foundItem = findStep(in: step.substeps) {
+                        return foundItem
+                    } else {
+                        continue
+                    }
+                }
+            }
+            
+            return nil
+        }
+        return findStep(in: self.steps)
+    }
+    
+    func updateCurrentStepName() {
+        let selectedTitle = "\(getStep()?.title ?? "no title")"
+        if self.title != selectedTitle {
+            self.title = selectedTitle
+        }
+    }
+    
+    func completeStep() {
+        for index in self.steps.indices {
+            if self.steps[index].id == self.selection {
+                self.steps[index].state = .completed
+            } else {
+                let substeps = self.steps[index].substeps
+                guard !substeps.isEmpty else { continue }
+                for subindex in substeps.indices {
+                    if substeps[subindex].id == self.selection {
+                        self.steps[index].substeps[subindex].state = .completed
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -432,6 +528,8 @@ struct StepItemData: StepItem {
     var id: String = UUID().uuidString
     /// Step title.
     var title: String?
+    /// Node icon
+    var icon: Image?
     /// Step state.
     var state: StepProgressIndicatorState = .normal
     /// Sub-steps for this one.
@@ -439,11 +537,13 @@ struct StepItemData: StepItem {
     
     init(id: String = UUID().uuidString,
          title: String? = nil,
+         icon: Image? = nil,
          state: StepProgressIndicatorState = [],
          substeps: [StepItemData] = [])
     {
         self.id = id
         self.title = title
+        self.icon = icon
         self.state = state
         self.substeps = substeps
     }
