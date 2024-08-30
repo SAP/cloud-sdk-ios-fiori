@@ -55,7 +55,7 @@ private extension Kpi {
     }
 
     func defaultStyle() -> some View {
-        Kpi(kpi: { self.kpi })
+        Kpi(.init(kpi: .init(self.kpi)))
             .shouldApplyDefaultStyle(false)
             .kpiStyle(.fiori)
             .typeErased

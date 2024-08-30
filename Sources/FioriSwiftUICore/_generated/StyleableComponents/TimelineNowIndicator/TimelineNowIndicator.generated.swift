@@ -17,7 +17,7 @@ public struct TimelineNowIndicator {
     fileprivate var _shouldApplyDefaultStyle = true
 
     public init(@ViewBuilder nowIndicatorNode: () -> any View = { Image(systemName: "circle.fill") }) {
-        self.nowIndicatorNode = NowIndicatorNode { nowIndicatorNode() }
+        self.nowIndicatorNode = NowIndicatorNode(nowIndicatorNode: nowIndicatorNode)
     }
 }
 

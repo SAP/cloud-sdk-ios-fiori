@@ -49,7 +49,7 @@ private extension TextView {
     }
 
     func defaultStyle() -> some View {
-        TextView(text: self.$text)
+        TextView(.init(text: self.$text))
             .shouldApplyDefaultStyle(false)
             .textViewStyle(.fiori)
             .typeErased

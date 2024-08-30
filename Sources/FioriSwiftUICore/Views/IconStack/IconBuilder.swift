@@ -20,15 +20,14 @@ public protocol ViewList: View, _ViewEmptyChecking {
 /// conform View protocol for IconStack
 public extension ViewList {
     var body: some View {
-        VStack(alignment: .center, spacing: 6) {
+        VStack(spacing: 6) {
             ForEach(0 ..< min(numberOfIconsToShow(), count), id: \.self) { index in
                 view(at: index)
                     .lineLimit(1)
                     .minimumScaleFactor(0.1)
-                    .frame(width: 16)
+                    .frame(width: 14, height: 14)
             }
         }
-        .clipped()
     }
 }
 
@@ -49,8 +48,13 @@ public struct Single<Content: View>: ViewList {
     }
     
     /// the View at Index in the ViewList
+    @ViewBuilder
     public func view(at index: Int) -> some View {
-        self.view
+        if index == 0 {
+            self.view
+        } else {
+            EmptyView()
+        }
     }
     
     /// is first item a text in the ViewList

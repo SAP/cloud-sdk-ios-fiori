@@ -48,16 +48,16 @@ public struct Timeline {
                 isPast: Bool = false,
                 isPresent: Bool = false)
     {
-        self.timestamp = Timestamp { timestamp() }
-        self.secondaryTimestamp = SecondaryTimestamp { secondaryTimestamp() }
-        self.timelineNode = TimelineNode { timelineNode() }
-        self.icon = Icon { icon() }
-        self.title = Title { title() }
-        self.subtitle = Subtitle { subtitle() }
-        self.attribute = Attribute { attribute() }
-        self.status = Status { status() }
-        self.substatus = Substatus { substatus() }
-        self.subAttribute = SubAttribute { subAttribute() }
+        self.timestamp = Timestamp(timestamp: timestamp)
+        self.secondaryTimestamp = SecondaryTimestamp(secondaryTimestamp: secondaryTimestamp)
+        self.timelineNode = TimelineNode(timelineNode: timelineNode)
+        self.icon = Icon(icon: icon)
+        self.title = Title(title: title)
+        self.subtitle = Subtitle(subtitle: subtitle)
+        self.attribute = Attribute(attribute: attribute)
+        self.status = Status(status: status)
+        self.substatus = Substatus(substatus: substatus)
+        self.subAttribute = SubAttribute(subAttribute: subAttribute)
         self.isPast = isPast
         self.isPresent = isPresent
     }

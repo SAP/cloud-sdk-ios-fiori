@@ -51,7 +51,7 @@ public struct RatingControlFormView {
                 errorMessage: AttributedString? = nil,
                 axis: Axis = .horizontal)
     {
-        self.title = Title { title() }
+        self.title = Title(title: title)
         self._rating = rating
         self.ratingControlStyle = ratingControlStyle
         self.ratingBounds = ratingBounds
@@ -61,7 +61,7 @@ public struct RatingControlFormView {
         self.onColor = onColor
         self.offColor = offColor
         self.interItemSpacing = interItemSpacing
-        self.subtitle = Subtitle { subtitle() }
+        self.subtitle = Subtitle(subtitle: subtitle)
         self.controlState = controlState
         self.errorMessage = errorMessage
         self.axis = axis

@@ -57,7 +57,7 @@ private extension IncrementAction {
     }
 
     func defaultStyle() -> some View {
-        IncrementAction(incrementAction: { self.incrementAction })
+        IncrementAction(.init(incrementAction: .init(self.incrementAction)))
             .shouldApplyDefaultStyle(false)
             .incrementActionStyle(.fiori)
             .typeErased

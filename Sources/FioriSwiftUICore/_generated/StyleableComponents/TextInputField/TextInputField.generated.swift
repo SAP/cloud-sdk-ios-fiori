@@ -49,7 +49,7 @@ private extension TextInputField {
     }
 
     func defaultStyle() -> some View {
-        TextInputField(text: self.$text)
+        TextInputField(.init(text: self.$text))
             .shouldApplyDefaultStyle(false)
             .textInputFieldStyle(.fiori)
             .typeErased

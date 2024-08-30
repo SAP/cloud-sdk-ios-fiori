@@ -55,7 +55,7 @@ private extension Subtitle {
     }
 
     func defaultStyle() -> some View {
-        Subtitle(subtitle: { self.subtitle })
+        Subtitle(.init(subtitle: .init(self.subtitle)))
             .shouldApplyDefaultStyle(false)
             .subtitleStyle(.fiori)
             .typeErased

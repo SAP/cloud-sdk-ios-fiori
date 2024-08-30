@@ -55,7 +55,7 @@ private extension Timestamp {
     }
 
     func defaultStyle() -> some View {
-        Timestamp(timestamp: { self.timestamp })
+        Timestamp(.init(timestamp: .init(self.timestamp)))
             .shouldApplyDefaultStyle(false)
             .timestampStyle(.fiori)
             .typeErased

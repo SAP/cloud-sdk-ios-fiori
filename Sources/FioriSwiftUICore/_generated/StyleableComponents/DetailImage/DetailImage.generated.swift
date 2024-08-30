@@ -55,7 +55,7 @@ private extension DetailImage {
     }
 
     func defaultStyle() -> some View {
-        DetailImage(detailImage: { self.detailImage })
+        DetailImage(.init(detailImage: .init(self.detailImage)))
             .shouldApplyDefaultStyle(false)
             .detailImageStyle(.fiori)
             .typeErased

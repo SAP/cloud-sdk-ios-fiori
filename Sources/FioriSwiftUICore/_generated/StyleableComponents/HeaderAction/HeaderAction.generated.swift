@@ -55,7 +55,7 @@ private extension HeaderAction {
     }
 
     func defaultStyle() -> some View {
-        HeaderAction(headerAction: { self.headerAction })
+        HeaderAction(.init(headerAction: .init(self.headerAction)))
             .shouldApplyDefaultStyle(false)
             .headerActionStyle(.fiori)
             .typeErased

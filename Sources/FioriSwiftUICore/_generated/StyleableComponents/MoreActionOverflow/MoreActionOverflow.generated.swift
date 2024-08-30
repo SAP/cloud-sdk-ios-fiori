@@ -49,7 +49,7 @@ private extension MoreActionOverflow {
     }
 
     func defaultStyle() -> some View {
-        MoreActionOverflow(moreActionOverflow: { self.moreActionOverflow })
+        MoreActionOverflow(.init(moreActionOverflow: .init(self.moreActionOverflow)))
             .shouldApplyDefaultStyle(false)
             .moreActionOverflowStyle(.fiori)
             .typeErased

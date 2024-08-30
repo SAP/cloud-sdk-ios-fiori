@@ -16,9 +16,9 @@ struct TextInputInfoView {
                 @ViewBuilder description: () -> any View = { EmptyView() },
                 @ViewBuilder counter: () -> any View = { EmptyView() })
     {
-        self.icon = Icon { icon() }
-        self.description = Description { description() }
-        self.counter = Counter { counter() }
+        self.icon = Icon(icon: icon)
+        self.description = Description(description: description)
+        self.counter = Counter(counter: counter)
     }
 }
 

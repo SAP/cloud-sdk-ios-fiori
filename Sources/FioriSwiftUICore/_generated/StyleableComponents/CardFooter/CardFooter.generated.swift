@@ -18,10 +18,10 @@ public struct CardFooter {
                 @ViewBuilder tertiaryAction: () -> any View = { EmptyView() },
                 @ViewBuilder overflowAction: () -> any View = { FioriButton { _ in Image(systemName: "ellipsis") } })
     {
-        self.action = Action { action() }
-        self.secondaryAction = SecondaryAction { secondaryAction() }
-        self.tertiaryAction = TertiaryAction { tertiaryAction() }
-        self.overflowAction = OverflowAction { overflowAction() }
+        self.action = Action(action: action)
+        self.secondaryAction = SecondaryAction(secondaryAction: secondaryAction)
+        self.tertiaryAction = TertiaryAction(tertiaryAction: tertiaryAction)
+        self.overflowAction = OverflowAction(overflowAction: overflowAction)
     }
 }
 

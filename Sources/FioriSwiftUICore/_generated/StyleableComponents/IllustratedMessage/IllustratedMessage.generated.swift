@@ -29,11 +29,11 @@ public struct IllustratedMessage {
                 isActionVerticallyAligned: Bool = false,
                 contentAlignment: HorizontalAlignment = .leading)
     {
-        self.detailImage = DetailImage { detailImage() }
-        self.title = Title { title() }
-        self.description = Description { description() }
-        self.action = Action { action() }
-        self.secondaryAction = SecondaryAction { secondaryAction() }
+        self.detailImage = DetailImage(detailImage: detailImage)
+        self.title = Title(title: title)
+        self.description = Description(description: description)
+        self.action = Action(action: action)
+        self.secondaryAction = SecondaryAction(secondaryAction: secondaryAction)
         self.detailImageSize = detailImageSize
         self.isActionVerticallyAligned = isActionVerticallyAligned
         self.contentAlignment = contentAlignment
