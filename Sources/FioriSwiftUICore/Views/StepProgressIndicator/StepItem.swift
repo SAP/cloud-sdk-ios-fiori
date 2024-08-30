@@ -1,4 +1,5 @@
 import Foundation
+import SwiftUI
 
 /// Step items data model for `StepProgressIndicator` with a default style.
 public protocol StepItem {
@@ -10,4 +11,6 @@ public protocol StepItem {
     var state: StepProgressIndicatorState { get set }
     /// Substeps for this one.
     var substeps: [StepItem] { get set }
+    /// Node icon.
+    var icon: Image? { get }
 }
