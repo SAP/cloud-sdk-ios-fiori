@@ -590,6 +590,7 @@ extension ObjectItemFioriStyle {
         
         func makeBody(_ configuration: IconsConfiguration) -> some View {
             Icons(configuration)
+                .foregroundStyle(Color.preferredColor(.tertiaryLabel))
         }
     }
 
@@ -638,7 +639,7 @@ extension ObjectItemFioriStyle {
         func makeBody(_ configuration: ActionConfiguration) -> some View {
             Action(configuration)
                 // Add default style here
-                .fioriButtonStyle(FioriSecondaryButtonStyle(colorStyle: .tint))
+                .fioriButtonStyle(FioriPlainButtonStyle())
                 .lineLimit(2)
         }
     }

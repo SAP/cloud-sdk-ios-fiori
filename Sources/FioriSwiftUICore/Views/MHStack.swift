@@ -35,7 +35,7 @@ public struct MHStack<T: TagViewList>: View {
     ///     want the stack to choose a default distance for each pair of
     ///     subviews.
     ///   - content: A view builder that creates the content of this stack.
-    public init(spacing: CGFloat? = 10, lineSpacing: CGFloat? = 10, @TagBuilder content: () -> T) {
+    public init(spacing: CGFloat? = 8, lineSpacing: CGFloat? = 10, @TagBuilder content: () -> T) {
         self.tags = content()
         self.spacing = spacing!
         self.lineSpacing = lineSpacing!
