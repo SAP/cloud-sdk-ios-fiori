@@ -22,6 +22,26 @@ extension EnvironmentValues {
     }
 }
 
+struct StepProgressIndicatorNodeTypeKey: EnvironmentKey {
+    static let defaultValue: StepProgressIndicatorNodeType = .mixture
+}
+
+extension EnvironmentValues {
+    var stepProgressIndicatorNodeType: StepProgressIndicatorNodeType {
+        get { self[StepProgressIndicatorNodeTypeKey.self] }
+        set { self[StepProgressIndicatorNodeTypeKey.self] = newValue }
+    }
+}
+
+public extension View {
+    /// The style of the node of `StepProgressIndicator`.
+    /// - Parameter type: `StepProgressIndicatorNodeType` enum values.
+    /// - Returns: A new `StepProgressIndicator` with specific node.
+    func stepProgressIndicatorNodeType(_ type: StepProgressIndicatorNodeType) -> some View {
+        self.environment(\.stepProgressIndicatorNodeType, type)
+    }
+}
+
 public extension View {
     /// Step style for `StepProgressIndicator`.
     /// - Parameter style: Style for `StepProgressIndicator`.

@@ -79,6 +79,7 @@ struct SPIExampleWithIcon: View {
                     }
                 }
             }
+            .stepProgressIndicatorNodeType(.icon)
             Spacer().padding(20)
             Button {
                 self.completeStep()

@@ -14,3 +14,13 @@ public protocol StepItem {
     /// Node icon.
     var icon: Image? { get }
 }
+
+/// Node of Step Progress Indicator display type, default is `mixture`.
+public enum StepProgressIndicatorNodeType {
+    /// Text and icon.
+    case mixture
+    /// Only text.
+    case text
+    /// Only icon.
+    case icon
+}

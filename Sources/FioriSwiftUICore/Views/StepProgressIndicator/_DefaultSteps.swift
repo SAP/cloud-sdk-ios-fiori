@@ -52,6 +52,7 @@ struct DefaultSingleStep: View {
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
     @Environment(\.stepAxis) var stepAxis
     @Environment(\.stepFrames) var stepFrames
+    @Environment(\.stepProgressIndicatorNodeType) var type
 
     var stepItem: StepItem
     @Binding var selection: String
@@ -98,11 +99,23 @@ struct DefaultSingleStep: View {
             } node: {
                 ZStack {
                     self.node(by: self.stepItem.state, isSelected: isSelected)
-                    if self.stepItem.icon.isEmpty {
+                    switch self.type {
+                    case .mixture:
+                        if self.stepItem.icon.isEmpty {
+                            Text("\(self.index + 1)")
+                                .font(Font.fiori(forTextStyle: .footnote))
+                        } else {
+                            self.stepItem.icon
+                        }
+                    case .icon:
+                        if self.stepItem.icon.isEmpty {
+                            Image(systemName: "app.dashed")
+                        } else {
+                            self.stepItem.icon
+                        }
+                    case .text:
                         Text("\(self.index + 1)")
                             .font(Font.fiori(forTextStyle: .footnote))
-                    } else {
-                        self.stepItem.icon
                     }
                 }
                 .frame(width: self.sideLength, height: self.sideLength)
