@@ -21,9 +21,22 @@ extension Attribute: _ViewEmptyChecking {
     }
 }
 
+extension AvatarStack: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        avatars.isEmpty &&
+            avatarsTitle.isEmpty
+    }
+}
+
 extension Avatars: _ViewEmptyChecking {
     public var isEmpty: Bool {
         avatars.isEmpty
+    }
+}
+
+extension AvatarsTitle: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        avatarsTitle.isEmpty
     }
 }
 
