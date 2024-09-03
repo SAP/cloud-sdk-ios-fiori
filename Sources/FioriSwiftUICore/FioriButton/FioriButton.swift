@@ -62,7 +62,7 @@ public struct FioriButton: View {
     let image: (UIControl.State) -> any View
     let imagePosition: FioriButtonImagePosition
     let imageTitleSpacing: CGFloat
-    private let touchAreaInset: CGFloat = 50
+    private let touchAreaInset: CGFloat = 3
     
     @Environment(\.isEnabled) private var isEnabled
     @Environment(\.fioriButtonStyle) private var fioriButtonStyle
@@ -157,24 +157,15 @@ public struct FioriButton: View {
         }, imagePosition: self.imagePosition, imageTitleSpacing: self.imageTitleSpacing)
         
         return Group {
-            if self.isSelectionPersistent {
-                self.fioriButtonStyle.makeBody(configuration: config)
-                    .overlay(GeometryReader { proxy in
-                        Color.clear.contentShape(Rectangle()).gesture(self.createGesture(proxy.size))
-                    })
-            } else {
-                Button {
-                    self.action?(.normal)
-                } label: {
-                    EmptyView()
-                }
-                .buttonStyle(_ButtonStyleImpl(fioriButtonStyle: self.fioriButtonStyle, label: self.label, image: self.image, imagePosition: self.imagePosition, imageTitleSpacing: self.imageTitleSpacing, isEnabled: self.isEnabled))
-            }
+            self.fioriButtonStyle.makeBody(configuration: config)
+                .overlay(GeometryReader { proxy in
+                    Color.clear.contentShape(Rectangle()).gesture(self.createGesture(proxy.size))
+                })
         }
     }
     
     func createGesture(_ size: CGSize) -> some Gesture {
-        let touchArea = CGRect(origin: .zero, size: size).insetBy(dx: -self.touchAreaInset, dy: -self.touchAreaInset)
+        let touchArea = CGRect(origin: .zero, size: size).insetBy(dx: 0, dy: -self.touchAreaInset)
         var isCancelled = false
         
         return DragGesture(minimumDistance: 0)
@@ -185,6 +176,9 @@ public struct FioriButton: View {
                 
                 if !touchArea.contains(value.location) {
                     isCancelled = true
+                } else if !self.isSelectionPersistent {
+                    self._state = self.state == .normal ? .selected : .normal
+                    self.action?(self.state)
                 }
             }
             .onEnded { _ in
@@ -223,33 +217,6 @@ public extension FioriButton {
         }
         self.imagePosition = .leading
         self.imageTitleSpacing = 8.0
-    }
-}
-
-private struct _ButtonStyleImpl: ButtonStyle {
-    let fioriButtonStyle: AnyFioriButtonStyle
-    let label: (UIControl.State) -> any View
-    let image: (UIControl.State) -> any View
-    let imagePosition: FioriButtonImagePosition
-    let imageTitleSpacing: CGFloat
-    let isEnabled: Bool
-    
-    func makeBody(configuration: Configuration) -> some View {
-        let state: UIControl.State = self.isEnabled ? (configuration.isPressed ? .highlighted : .normal) : .disabled
-
-        let config = FioriButtonStyleConfiguration(state: state, _label: { state in
-            let v = self.label(state)
-            return FioriButtonStyleConfiguration.Label(v)
-        }, _image: { state in
-            let v = self.image(state)
-            return FioriButtonStyleConfiguration.Image(v)
-        }, imagePosition: self.imagePosition, imageTitleSpacing: self.imageTitleSpacing)
-
-        return ZStack {
-            self.fioriButtonStyle.makeBody(configuration: config)
-            
-            configuration.label.hidden()
-        }
     }
 }
 

@@ -13,6 +13,7 @@ struct MobileCardExample: View {
                     ForEach(0 ..< CardTests.cardSamples.count, id: \.self) { i in
                         CardTests.cardSamples[i]
                     }
+                    .listRowBackground(Color.preferredColor(.primaryGroupedBackground))
                 }
                 .cardStyle(.card)
                 .listStyle(.plain)
@@ -26,6 +27,7 @@ struct MobileCardExample: View {
                     ForEach(0 ..< CardTests.cardFooterSamples.count, id: \.self) { i in
                         CardTests.cardFooterSamples[i]
                     }
+                    .listRowBackground(Color.preferredColor(.primaryGroupedBackground))
                 }
                 .cardStyle(.card)
                 .listStyle(.plain)
@@ -77,6 +79,7 @@ struct MasonryTestView: View {
             .cardStyle(.card)
         }
         .padding()
+        .background(Color.preferredColor(.primaryGroupedBackground))
     }
 }
 
@@ -90,12 +93,12 @@ struct CarouselTestView: View {
     let defaultNumberOfColumns: Double
     
     @State var isPresented: Bool = false
+    @State var isSameHeight: Bool = true
     @State var isSnapping: Bool = true
     @State var numberOfColumns: Double
     @State var spacing = 16.0
     @State var padding = 16.0
     @State var alignment = 0
-    @State var contentType = 0
     
     init(_ n: Double = 1) {
         self.defaultNumberOfColumns = n
@@ -104,35 +107,18 @@ struct CarouselTestView: View {
     
     var body: some View {
         ScrollView(.vertical) {
-            Carousel(numberOfColumns: Int(self.numberOfColumns), spacing: self.spacing, alignment: self.alignment == 0 ? .top : (self.alignment == 1 ? .center : .bottom), isSnapping: self.isSnapping) {
-                if self.contentType == 0 {
-                    ForEach(0 ..< CardTests.cardSamples.count, id: \.self) { i in
-                        CardTests.cardSamples[i]
-                    }
-                } else {
-                    ForEach(0 ..< 20, id: \.self) { i in
-                        Text("Text \(i)")
-                            .font(.title)
-                            .padding()
-                            .frame(height: 100)
-                            .background(Color.gray)
-                    }
+            Carousel(numberOfColumns: Int(self.numberOfColumns), spacing: self.spacing, alignment: self.alignment == 0 ? .top : (self.alignment == 1 ? .center : .bottom), isSnapping: self.isSnapping, isSameHeight: self.isSameHeight) {
+                ForEach(0 ..< CardTests.cardSamples.count, id: \.self) { i in
+                    CardTests.cardSamples[i]
                 }
             }
             .cardStyle(.card)
             .padding(self.padding)
-            .border(Color.gray)
         }
+        .background(Color.preferredColor(.primaryGroupedBackground))
         .sheet(isPresented: self.$isPresented, content: {
             VStack {
-                HStack {
-                    Text("Content Type:")
-                    Spacer()
-                    Picker("Content Type", selection: self.$contentType) {
-                        Text("Card").tag(0)
-                        Text("Text").tag(1)
-                    }
-                }
+                Toggle("Same card height", isOn: self.$isSameHeight)
                 
                 HStack {
                     Text("numberOfColumns: \(Int(self.numberOfColumns))")
@@ -143,11 +129,6 @@ struct CarouselTestView: View {
                     Slider(value: self.$spacing, in: 0 ... 20, step: 4)
                 }
                 HStack {
-                    Text("padding: \(Int(self.padding))")
-                    Slider(value: self.$padding, in: 0 ... 20, step: 4)
-                }
-                
-                HStack {
                     Text("Alignment:")
                     Spacer()
                     Picker("Alignment", selection: self.$alignment) {
@@ -156,8 +137,14 @@ struct CarouselTestView: View {
                         Text("Bottom").tag(2)
                     }
                 }
-                
                 Toggle("isSnapping", isOn: self.$isSnapping)
+                
+                Divider()
+                
+                HStack {
+                    Text("Padding around Carousel: \(Int(self.padding))")
+                    Slider(value: self.$padding, in: 0 ... 20, step: 4)
+                }
             }
             .padding()
             .presentationDetents([.medium])
