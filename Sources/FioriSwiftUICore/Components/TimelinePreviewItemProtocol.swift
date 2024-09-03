@@ -24,7 +24,9 @@ extension TimelinePreviewItemModel {
 
 /// Extension to provide an initializer for `TimelinePreviewItem` from a `TimelinePreviewItemModel`.
 public extension TimelinePreviewItem {
+    /// Initialize a `TimelinePreviewItem` from a `TimelinePreviewItemModel`.
     init(model: any TimelinePreviewItemModel) {
+        // Initialize the `TimelinePreviewItem` with values
         self.init(title: AttributedString(model.title), icon: model.icon, timelineNode: model.timelineNode, timestamp: AttributedString(model.formatter.string(from: model.due)), isFuture: model.isFuture ?? false, nodeType: model.timelineNode)
     }
 }
