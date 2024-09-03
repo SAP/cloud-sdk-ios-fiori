@@ -11,7 +11,7 @@ public struct TimelinePreviewBaseStyle: TimelinePreviewStyle {
     public func makeBody(_ configuration: TimelinePreviewConfiguration) -> some View {
         VStack(alignment: .leading, spacing: 0) {
             if !configuration.optionalTitle.isEmpty || !configuration.action.isEmpty {
-                BuildHeader(configuration: configuration, itemCount: configuration.data.count)
+                BuildHeader(configuration: configuration, itemCount: configuration.items.count)
             }
             BuildTimelinePreviewItem(configuration: configuration, displayItems: self.getDisplayItemCount(VSWidth: self.VSize.width))
         }.readSize { newSize in
@@ -61,7 +61,7 @@ struct BuildTimelinePreviewItem: View {
 
     var body: some View {
         HStack(alignment: .timelinePreviewAlignmentGuide, spacing: 4) {
-            ForEach(self.filterItems(itemsData: self.configuration.data)) { item in
+            ForEach(self.filterItems(itemsData: self.configuration.items), id: \.id) { item in
                 let itemLabelFormat = NSLocalizedString("Item %d of %d", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
                 let itemLabelString = String(format: itemLabelFormat, item.formatter.string(from: item.due), item.title)
                 let dateString = item.formatter.string(from: item.due)
@@ -75,7 +75,7 @@ struct BuildTimelinePreviewItem: View {
         }
     }
 
-    func filterItems(itemsData: [TimelinePreviewItemModel]) -> [TimelinePreviewItemModel] {
+    func filterItems(itemsData: [any TimelinePreviewItemModel]) -> [any TimelinePreviewItemModel] {
         // flag item with isFuture and isCurrent
         let updatedItems = itemsData.map { item in
             var mutableItem = item
@@ -120,33 +120,6 @@ extension TimelinePreviewFioriStyle {
                 .font(.fiori(forTextStyle: .subheadline))
                 .fioriButtonStyle(FioriPlainButtonStyle())
         }
-    }
-}
-
-public struct TimelinePreviewItemModel: Identifiable {
-    public var id = UUID()
-    public var title: String
-    public var icon: Image?
-    public var timelineNode: TimelineNodeType
-    public var due: Date
-    public var formatter: DateFormatter
-    public var isFuture: Bool?
-    public var isCurrent: Bool?
-    
-    public init(id: UUID = UUID(), title: String, icon: Image? = nil, timelineNode: TimelineNodeType, due: Date, dateFormat: String? = nil, isFuture: Bool? = false, isCurrent: Bool? = false) {
-        self.id = id
-        self.title = title
-        self.icon = icon
-        self.timelineNode = timelineNode
-        self.due = due
-        self.formatter = DateFormatter()
-        if let dateFormat {
-            self.formatter.dateFormat = dateFormat
-        } else {
-            self.formatter.dateFormat = "MMMM dd yyyy"
-        }
-        self.isFuture = isFuture
-        self.isCurrent = isCurrent
     }
 }
 

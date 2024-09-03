@@ -24,7 +24,7 @@ struct AnyTimelinePreviewStyle: TimelinePreviewStyle {
 public struct TimelinePreviewConfiguration {
     public let optionalTitle: OptionalTitle
     public let action: Action
-    @Binding public var data: [TimelinePreviewItemModel]
+    @Binding public var items: [any TimelinePreviewItemModel]
 
     public typealias OptionalTitle = ConfigurationViewWrapper
     public typealias Action = ConfigurationViewWrapper
