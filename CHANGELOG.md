@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.1.4](https://github.com/SAP/cloud-sdk-ios-fiori/compare/4.1.3...4.1.4) (2024-09-03)
+
+
+### Features
+
+* 🎸 [JIRA:HCPSDKFIORIUIKIT-2702]Illustrated Message ([#782](https://github.com/SAP/cloud-sdk-ios-fiori/issues/782)) ([239d7ae](https://github.com/SAP/cloud-sdk-ios-fiori/commit/239d7aee0ab2c23644c134d2f287d292bb27203b))
+
 ### [4.1.3](https://github.com/SAP/cloud-sdk-ios-fiori/compare/4.1.2...4.1.3) (2024-08-19)
 
 ### Features
