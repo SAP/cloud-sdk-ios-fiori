@@ -520,7 +520,8 @@ extension ObjectItemFioriStyle {
         
         func makeBody(_ configuration: TitleConfiguration) -> some View {
             Title(configuration)
-            // Add default style here
+                .font(.fiori(forTextStyle: .headline, weight: .semibold))
+                .foregroundStyle(Color.preferredColor(.baseBlack))
         }
     }
 
@@ -529,7 +530,7 @@ extension ObjectItemFioriStyle {
         
         func makeBody(_ configuration: SubtitleConfiguration) -> some View {
             Subtitle(configuration)
-                // Add default style here
+                .foregroundStyle(Color.preferredColor(.secondaryLabel))
                 .lineLimit(1)
         }
     }
@@ -558,7 +559,7 @@ extension ObjectItemFioriStyle {
         
         func makeBody(_ configuration: StatusConfiguration) -> some View {
             Status(configuration)
-                // Add default style here
+                .font(.fiori(forTextStyle: .subheadline))
                 .lineLimit(1)
         }
     }
@@ -568,7 +569,7 @@ extension ObjectItemFioriStyle {
         
         func makeBody(_ configuration: SubstatusConfiguration) -> some View {
             Substatus(configuration)
-                // Add default style here
+                .font(.fiori(forTextStyle: .subheadline))
                 .lineLimit(1)
         }
     }
@@ -589,7 +590,7 @@ extension ObjectItemFioriStyle {
         
         func makeBody(_ configuration: IconsConfiguration) -> some View {
             Icons(configuration)
-            // Add default style here
+                .foregroundStyle(Color.preferredColor(.tertiaryLabel))
         }
     }
 
@@ -710,6 +711,45 @@ public struct ObjectItemBorderedAction: ActionStyle {
             config.title
                 .foregroundStyle(.blue) // take effect
         }
+        .padding([.leading, .trailing], 8)
+    }
+}
+
+#Preview("With Action") {
+    List {
+        ObjectItem(title: {
+            Text("Title")
+        }, subtitle: {
+            Text("Subtitle")
+        }, footnote: {
+            Text("Footnote")
+        }, description: {
+            Text("Description")
+        }, status: {
+            Text("Status")
+        }, substatus: {
+            Text("Substatus")
+        }, detailImage: {
+            Image(systemName: "person.circle").resizable().frame(width: 45, height: 45)
+        }, icons: {
+            Text("1")
+            Circle().fill(Color.preferredColor(.tintColor)).frame(width: 14, height: 14)
+            Image(systemName: "paperclip").font(.system(size: 14))
+        }, footnoteIcons: {
+            Color.red
+            Color.green
+            Color.blue
+            Color.red
+            Color.green
+            Color.blue
+            Color.red
+            Color.green
+            Color.blue
+        }, footnoteIconsText: {
+            Text("Footnote icons text.")
+        }, action: {
+            FioriButton(title: "Action")
+        })
     }
 }
 

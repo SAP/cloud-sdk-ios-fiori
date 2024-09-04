@@ -49,7 +49,7 @@ private extension Row1 {
     }
 
     func defaultStyle() -> some View {
-        Row1(row1: { self.row1 })
+        Row1(.init(row1: .init(self.row1)))
             .shouldApplyDefaultStyle(false)
             .row1Style(.fiori)
             .typeErased

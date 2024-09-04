@@ -55,7 +55,7 @@ private extension SubAttribute {
     }
 
     func defaultStyle() -> some View {
-        SubAttribute(subAttribute: { self.subAttribute })
+        SubAttribute(.init(subAttribute: .init(self.subAttribute)))
             .shouldApplyDefaultStyle(false)
             .subAttributeStyle(.fiori)
             .typeErased

@@ -16,7 +16,7 @@ public struct MenuSelection {
                 isExpanded: Binding<Bool>,
                 @ViewBuilder items: () -> any View = { EmptyView() })
     {
-        self.action = Action { action() }
+        self.action = Action(action: action)
         self._isExpanded = isExpanded
         self.items = items()
     }

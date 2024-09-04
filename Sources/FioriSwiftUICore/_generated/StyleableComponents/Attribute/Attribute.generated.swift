@@ -55,7 +55,7 @@ private extension Attribute {
     }
 
     func defaultStyle() -> some View {
-        Attribute(attribute: { self.attribute })
+        Attribute(.init(attribute: .init(self.attribute)))
             .shouldApplyDefaultStyle(false)
             .attributeStyle(.fiori)
             .typeErased

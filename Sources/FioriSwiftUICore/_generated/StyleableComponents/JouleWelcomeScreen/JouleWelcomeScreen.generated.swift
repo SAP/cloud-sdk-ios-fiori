@@ -20,11 +20,11 @@ public struct JouleWelcomeScreen {
                 @ViewBuilder footnote: () -> any View = { EmptyView() },
                 @ViewBuilder messageContent: () -> any View = { EmptyView() })
     {
-        self.mediaImage = MediaImage { mediaImage() }
-        self.greetingText = GreetingText { greetingText() }
-        self.title = Title { title() }
-        self.footnote = Footnote { footnote() }
-        self.messageContent = MessageContent { messageContent() }
+        self.mediaImage = MediaImage(mediaImage: mediaImage)
+        self.greetingText = GreetingText(greetingText: greetingText)
+        self.title = Title(title: title)
+        self.footnote = Footnote(footnote: footnote)
+        self.messageContent = MessageContent(messageContent: messageContent)
     }
 }
 

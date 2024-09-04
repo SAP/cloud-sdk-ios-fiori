@@ -55,7 +55,7 @@ private extension Icon {
     }
 
     func defaultStyle() -> some View {
-        Icon(icon: { self.icon })
+        Icon(.init(icon: .init(self.icon)))
             .shouldApplyDefaultStyle(false)
             .iconStyle(.fiori)
             .typeErased

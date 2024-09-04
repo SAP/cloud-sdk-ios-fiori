@@ -22,12 +22,12 @@ public struct CardMainHeader {
                 @ViewBuilder headerAction: () -> any View = { EmptyView() },
                 @ViewBuilder counter: () -> any View = { EmptyView() })
     {
-        self.title = Title { title() }
-        self.subtitle = Subtitle { subtitle() }
-        self.icons = Icons { icons() }
-        self.detailImage = DetailImage { detailImage() }
-        self.headerAction = HeaderAction { headerAction() }
-        self.counter = Counter { counter() }
+        self.title = Title(title: title)
+        self.subtitle = Subtitle(subtitle: subtitle)
+        self.icons = Icons(icons: icons)
+        self.detailImage = DetailImage(detailImage: detailImage)
+        self.headerAction = HeaderAction(headerAction: headerAction)
+        self.counter = Counter(counter: counter)
     }
 }
 

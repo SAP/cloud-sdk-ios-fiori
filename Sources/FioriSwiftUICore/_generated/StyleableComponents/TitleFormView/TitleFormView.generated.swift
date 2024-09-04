@@ -42,7 +42,7 @@ public struct TitleFormView {
                 charCountBeyondLimitMsg: String? = nil)
     {
         self._text = text
-        self.placeholder = Placeholder { placeholder() }
+        self.placeholder = Placeholder(placeholder: placeholder)
         self.controlState = controlState
         self.errorMessage = errorMessage
         self.maxTextLength = maxTextLength

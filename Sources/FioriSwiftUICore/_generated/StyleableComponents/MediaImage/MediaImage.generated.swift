@@ -55,7 +55,7 @@ private extension MediaImage {
     }
 
     func defaultStyle() -> some View {
-        MediaImage(mediaImage: { self.mediaImage })
+        MediaImage(.init(mediaImage: .init(self.mediaImage)))
             .shouldApplyDefaultStyle(false)
             .mediaImageStyle(.fiori)
             .typeErased

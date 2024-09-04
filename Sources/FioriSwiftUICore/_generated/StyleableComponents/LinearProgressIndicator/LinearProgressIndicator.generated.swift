@@ -49,7 +49,7 @@ private extension LinearProgressIndicator {
     }
 
     func defaultStyle() -> some View {
-        LinearProgressIndicator(indicatorProgress: self.$indicatorProgress)
+        LinearProgressIndicator(.init(indicatorProgress: self.$indicatorProgress))
             .shouldApplyDefaultStyle(false)
             .linearProgressIndicatorStyle(.fiori)
             .typeErased

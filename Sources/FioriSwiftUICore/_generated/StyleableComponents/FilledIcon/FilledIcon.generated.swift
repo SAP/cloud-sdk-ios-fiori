@@ -55,7 +55,7 @@ private extension FilledIcon {
     }
 
     func defaultStyle() -> some View {
-        FilledIcon(filledIcon: { self.filledIcon })
+        FilledIcon(.init(filledIcon: .init(self.filledIcon)))
             .shouldApplyDefaultStyle(false)
             .filledIconStyle(.fiori)
             .typeErased

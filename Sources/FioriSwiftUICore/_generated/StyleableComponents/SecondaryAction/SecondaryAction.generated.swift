@@ -55,7 +55,7 @@ private extension SecondaryAction {
     }
 
     func defaultStyle() -> some View {
-        SecondaryAction(secondaryAction: { self.secondaryAction })
+        SecondaryAction(.init(secondaryAction: .init(self.secondaryAction)))
             .shouldApplyDefaultStyle(false)
             .secondaryActionStyle(.fiori)
             .typeErased

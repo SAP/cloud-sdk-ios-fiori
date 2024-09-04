@@ -20,10 +20,10 @@ struct DemoView {
                 @ViewBuilder action: () -> any View = { EmptyView() },
                 isOn: Binding<Bool>)
     {
-        self.title = Title { title() }
-        self.subtitle = Subtitle { subtitle() }
-        self.status = Status { status() }
-        self.action = Action { action() }
+        self.title = Title(title: title)
+        self.subtitle = Subtitle(subtitle: subtitle)
+        self.status = Status(status: status)
+        self.action = Action(action: action)
         self._isOn = isOn
     }
 }

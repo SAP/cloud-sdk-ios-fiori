@@ -49,7 +49,7 @@ private extension CardBody {
     }
 
     func defaultStyle() -> some View {
-        CardBody(cardBody: { self.cardBody })
+        CardBody(.init(cardBody: .init(self.cardBody)))
             .shouldApplyDefaultStyle(false)
             .cardBodyStyle(.fiori)
             .typeErased

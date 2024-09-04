@@ -17,8 +17,8 @@ public struct LabelItem {
                 @ViewBuilder title: () -> any View,
                 alignment: HorizontalAlignment? = nil)
     {
-        self.icon = Icon { icon() }
-        self.title = Title { title() }
+        self.icon = Icon(icon: icon)
+        self.title = Title(title: title)
         self.alignment = alignment
     }
 }

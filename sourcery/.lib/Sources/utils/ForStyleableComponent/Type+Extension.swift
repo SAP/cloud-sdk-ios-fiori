@@ -83,25 +83,25 @@ extension Type {
     }
     
     var privateHelperExtension: String {
-        let initDecl: String
+        let initDecl = "\(componentName)(.init(\(allStoredVariables.configurationInitArgs)))"
         let fioriStyle: String
         switch self.componentType {
         case .base:
-            let initArgs = allStoredVariables.map { variable in
-                let name = variable.name
-                if variable.isResultBuilder {
-                    return "\(name): { self.\(name) }"
-                } else if variable.isBinding {
-                    return "\(name): self.$\(name)"
-                } else {
-                    return "\(name): self.\(name)"
-                }
-            }
-            .joined(separator: ",\n")
-            initDecl = "\(componentName)(\(initArgs))"
+//            let initArgs = allStoredVariables.map { variable in
+//                let name = variable.name
+//                if variable.isResultBuilder {
+//                    return "\(name): { self.\(name) }"
+//                } else if variable.isBinding {
+//                    return "\(name): self.$\(name)"
+//                } else {
+//                    return "\(name): self.\(name)"
+//                }
+//            }
+//            .joined(separator: ",\n")
+//            initDecl = "\(componentName)(\(initArgs))"
             fioriStyle = ".fiori"
         case .composite:
-            initDecl = "\(componentName)(.init(\(allStoredVariables.configurationInitArgs)))"
+//            initDecl = "\(componentName)(.init(\(allStoredVariables.configurationInitArgs)))"
             fioriStyle = "\(self.fioriStyleName).ContentFioriStyle()"
         case .none:
             return ""
