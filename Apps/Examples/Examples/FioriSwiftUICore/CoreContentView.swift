@@ -260,6 +260,14 @@ struct CoreContentView: View {
                 }
             }
             
+            Section(header: Text("Utilities")) {
+                NavigationLink(
+                    destination: ShadowEffectExample())
+                {
+                    Text("Shadow Effect")
+                }
+            }
+            
             Section(header: Text("ExperimentalContentView")) {
                 NavigationLink(
                     destination: ExperimentalContentView())
