@@ -400,6 +400,34 @@ public extension CounterStyle {
     }
 }
 
+// MARK: DateTimePickerStyle
+
+extension ModifiedStyle: DateTimePickerStyle where Style: DateTimePickerStyle {
+    public func makeBody(_ configuration: DateTimePickerConfiguration) -> some View {
+        DateTimePicker(configuration)
+            .dateTimePickerStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct DateTimePickerStyleModifier<Style: DateTimePickerStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.dateTimePickerStyle(self.style)
+    }
+}
+
+public extension DateTimePickerStyle {
+    func modifier(_ modifier: some ViewModifier) -> some DateTimePickerStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some DateTimePickerStyle) -> some DateTimePickerStyle {
+        style.modifier(DateTimePickerStyleModifier(style: self))
+    }
+}
+
 // MARK: DecrementActionStyle
 
 extension ModifiedStyle: DecrementActionStyle where Style: DecrementActionStyle {
@@ -2385,5 +2413,33 @@ public extension TopDividerStyle {
 
     func concat(_ style: some TopDividerStyle) -> some TopDividerStyle {
         style.modifier(TopDividerStyleModifier(style: self))
+    }
+}
+
+// MARK: ValueLabelStyle
+
+extension ModifiedStyle: ValueLabelStyle where Style: ValueLabelStyle {
+    public func makeBody(_ configuration: ValueLabelConfiguration) -> some View {
+        ValueLabel(configuration)
+            .valueLabelStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct ValueLabelStyleModifier<Style: ValueLabelStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.valueLabelStyle(self.style)
+    }
+}
+
+public extension ValueLabelStyle {
+    func modifier(_ modifier: some ViewModifier) -> some ValueLabelStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some ValueLabelStyle) -> some ValueLabelStyle {
+        style.modifier(ValueLabelStyleModifier(style: self))
     }
 }

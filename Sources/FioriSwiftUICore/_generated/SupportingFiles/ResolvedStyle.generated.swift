@@ -227,6 +227,22 @@ extension CounterStyle {
     }
 }
 
+// MARK: DateTimePickerStyle
+
+struct ResolvedDateTimePickerStyle<Style: DateTimePickerStyle>: View {
+    let style: Style
+    let configuration: DateTimePickerConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension DateTimePickerStyle {
+    func resolve(configuration: DateTimePickerConfiguration) -> some View {
+        ResolvedDateTimePickerStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: DecrementActionStyle
 
 struct ResolvedDecrementActionStyle<Style: DecrementActionStyle>: View {
@@ -1360,5 +1376,21 @@ struct ResolvedTopDividerStyle<Style: TopDividerStyle>: View {
 extension TopDividerStyle {
     func resolve(configuration: TopDividerConfiguration) -> some View {
         ResolvedTopDividerStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: ValueLabelStyle
+
+struct ResolvedValueLabelStyle<Style: ValueLabelStyle>: View {
+    let style: Style
+    let configuration: ValueLabelConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension ValueLabelStyle {
+    func resolve(configuration: ValueLabelConfiguration) -> some View {
+        ResolvedValueLabelStyle(style: self, configuration: configuration)
     }
 }

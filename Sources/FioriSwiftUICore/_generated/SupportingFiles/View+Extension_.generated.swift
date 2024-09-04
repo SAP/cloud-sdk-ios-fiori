@@ -241,6 +241,23 @@ public extension View {
     }
 }
 
+// MARK: DateTimePickerStyle
+
+public extension View {
+    func dateTimePickerStyle(_ style: some DateTimePickerStyle) -> some View {
+        self.transformEnvironment(\.dateTimePickerStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func dateTimePickerStyle(@ViewBuilder content: @escaping (DateTimePickerConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.dateTimePickerStyleStack) { stack in
+            let style = AnyDateTimePickerStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: DecrementActionStyle
 
 public extension View {
@@ -1443,6 +1460,23 @@ public extension View {
     func topDividerStyle(@ViewBuilder content: @escaping (TopDividerConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.topDividerStyleStack) { stack in
             let style = AnyTopDividerStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: ValueLabelStyle
+
+public extension View {
+    func valueLabelStyle(_ style: some ValueLabelStyle) -> some View {
+        self.transformEnvironment(\.valueLabelStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func valueLabelStyle(@ViewBuilder content: @escaping (ValueLabelConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.valueLabelStyleStack) { stack in
+            let style = AnyValueLabelStyle(content)
             stack.append(style)
         }
     }

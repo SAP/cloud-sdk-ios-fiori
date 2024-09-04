@@ -1396,6 +1396,62 @@ public extension CounterStyle where Self == CounterFioriStyle {
     }
 }
 
+// MARK: DateTimePickerStyle
+
+public extension DateTimePickerStyle where Self == DateTimePickerBaseStyle {
+    static var base: DateTimePickerBaseStyle {
+        DateTimePickerBaseStyle()
+    }
+}
+
+public extension DateTimePickerStyle where Self == DateTimePickerFioriStyle {
+    static var fiori: DateTimePickerFioriStyle {
+        DateTimePickerFioriStyle()
+    }
+}
+
+public struct DateTimePickerTitleStyle: DateTimePickerStyle {
+    let style: any TitleStyle
+
+    public func makeBody(_ configuration: DateTimePickerConfiguration) -> some View {
+        DateTimePicker(configuration)
+            .titleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension DateTimePickerStyle where Self == DateTimePickerTitleStyle {
+    static func titleStyle(_ style: some TitleStyle) -> DateTimePickerTitleStyle {
+        DateTimePickerTitleStyle(style: style)
+    }
+
+    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> DateTimePickerTitleStyle {
+        let style = AnyTitleStyle(content)
+        return DateTimePickerTitleStyle(style: style)
+    }
+}
+
+public struct DateTimePickerValueLabelStyle: DateTimePickerStyle {
+    let style: any ValueLabelStyle
+
+    public func makeBody(_ configuration: DateTimePickerConfiguration) -> some View {
+        DateTimePicker(configuration)
+            .valueLabelStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension DateTimePickerStyle where Self == DateTimePickerValueLabelStyle {
+    static func valueLabelStyle(_ style: some ValueLabelStyle) -> DateTimePickerValueLabelStyle {
+        DateTimePickerValueLabelStyle(style: style)
+    }
+
+    static func valueLabelStyle(@ViewBuilder content: @escaping (ValueLabelConfiguration) -> some View) -> DateTimePickerValueLabelStyle {
+        let style = AnyValueLabelStyle(content)
+        return DateTimePickerValueLabelStyle(style: style)
+    }
+}
+
 // MARK: DecrementActionStyle
 
 public extension DecrementActionStyle where Self == DecrementActionBaseStyle {
@@ -4655,5 +4711,19 @@ public extension TopDividerStyle where Self == TopDividerBaseStyle {
 public extension TopDividerStyle where Self == TopDividerFioriStyle {
     static var fiori: TopDividerFioriStyle {
         TopDividerFioriStyle()
+    }
+}
+
+// MARK: ValueLabelStyle
+
+public extension ValueLabelStyle where Self == ValueLabelBaseStyle {
+    static var base: ValueLabelBaseStyle {
+        ValueLabelBaseStyle()
+    }
+}
+
+public extension ValueLabelStyle where Self == ValueLabelFioriStyle {
+    static var fiori: ValueLabelFioriStyle {
+        ValueLabelFioriStyle()
     }
 }

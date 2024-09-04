@@ -320,3 +320,9 @@ protocol _NowIndicatorNodeComponent {
 protocol _OptionsComponent {
     var options: [AttributedString] { get }
 }
+
+// sourcery: BaseComponent
+protocol _ValueLabelComponent {
+    // sourcery: @ViewBuilder
+    var valueLabel: AttributedString? { get }
+}
