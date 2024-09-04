@@ -990,6 +990,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: OptionalTitleStyle
+
+struct OptionalTitleStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any OptionalTitleStyle] = []
+}
+
+extension EnvironmentValues {
+    var optionalTitleStyle: any OptionalTitleStyle {
+        self.optionalTitleStyleStack.last ?? .base
+    }
+
+    var optionalTitleStyleStack: [any OptionalTitleStyle] {
+        get {
+            self[OptionalTitleStyleStackKey.self]
+        }
+        set {
+            self[OptionalTitleStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: OptionsStyle
 
 struct OptionsStyleStackKey: EnvironmentKey {
@@ -1700,6 +1721,48 @@ extension EnvironmentValues {
         }
         set {
             self[TimelineNowIndicatorStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: TimelinePreviewStyle
+
+struct TimelinePreviewStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any TimelinePreviewStyle] = []
+}
+
+extension EnvironmentValues {
+    var timelinePreviewStyle: any TimelinePreviewStyle {
+        self.timelinePreviewStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var timelinePreviewStyleStack: [any TimelinePreviewStyle] {
+        get {
+            self[TimelinePreviewStyleStackKey.self]
+        }
+        set {
+            self[TimelinePreviewStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: TimelinePreviewItemStyle
+
+struct TimelinePreviewItemStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any TimelinePreviewItemStyle] = []
+}
+
+extension EnvironmentValues {
+    var timelinePreviewItemStyle: any TimelinePreviewItemStyle {
+        self.timelinePreviewItemStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var timelinePreviewItemStyleStack: [any TimelinePreviewItemStyle] {
+        get {
+            self[TimelinePreviewItemStyleStackKey.self]
+        }
+        set {
+            self[TimelinePreviewItemStyleStackKey.self] = newValue
         }
     }
 }
