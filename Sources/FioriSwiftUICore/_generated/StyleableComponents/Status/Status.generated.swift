@@ -55,7 +55,7 @@ private extension Status {
     }
 
     func defaultStyle() -> some View {
-        Status(status: { self.status })
+        Status(.init(status: .init(self.status)))
             .shouldApplyDefaultStyle(false)
             .statusStyle(.fiori)
             .typeErased

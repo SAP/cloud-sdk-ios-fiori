@@ -55,7 +55,7 @@ private extension KpiCaption {
     }
 
     func defaultStyle() -> some View {
-        KpiCaption(kpiCaption: { self.kpiCaption })
+        KpiCaption(.init(kpiCaption: .init(self.kpiCaption)))
             .shouldApplyDefaultStyle(false)
             .kpiCaptionStyle(.fiori)
             .typeErased

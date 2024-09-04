@@ -49,7 +49,7 @@ private extension NowIndicatorNode {
     }
 
     func defaultStyle() -> some View {
-        NowIndicatorNode(nowIndicatorNode: { self.nowIndicatorNode })
+        NowIndicatorNode(.init(nowIndicatorNode: .init(self.nowIndicatorNode)))
             .shouldApplyDefaultStyle(false)
             .nowIndicatorNodeStyle(.fiori)
             .typeErased

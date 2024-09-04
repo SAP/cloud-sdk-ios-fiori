@@ -35,7 +35,6 @@ struct SingleActionCollectionView: View {
             }, label: { _ in
                 Image(systemName: "arrow.down.circle")
                     .resizable()
-                    .foregroundColor(Color.preferredColor(.tintColor))
                     .frame(width: 32, height: 32)
             }) })
         } else {

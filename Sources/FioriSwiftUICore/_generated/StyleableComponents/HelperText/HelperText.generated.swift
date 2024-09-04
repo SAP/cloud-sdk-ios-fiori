@@ -55,7 +55,7 @@ private extension HelperText {
     }
 
     func defaultStyle() -> some View {
-        HelperText(helperText: { self.helperText })
+        HelperText(.init(helperText: .init(self.helperText)))
             .shouldApplyDefaultStyle(false)
             .helperTextStyle(.fiori)
             .typeErased

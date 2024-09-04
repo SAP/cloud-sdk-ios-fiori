@@ -55,7 +55,7 @@ private extension MandatoryFieldIndicator {
     }
 
     func defaultStyle() -> some View {
-        MandatoryFieldIndicator(mandatoryFieldIndicator: { self.mandatoryFieldIndicator })
+        MandatoryFieldIndicator(.init(mandatoryFieldIndicator: .init(self.mandatoryFieldIndicator)))
             .shouldApplyDefaultStyle(false)
             .mandatoryFieldIndicatorStyle(.fiori)
             .typeErased

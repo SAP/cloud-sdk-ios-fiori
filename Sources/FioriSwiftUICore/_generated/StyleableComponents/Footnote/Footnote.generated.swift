@@ -55,7 +55,7 @@ private extension Footnote {
     }
 
     func defaultStyle() -> some View {
-        Footnote(footnote: { self.footnote })
+        Footnote(.init(footnote: .init(self.footnote)))
             .shouldApplyDefaultStyle(false)
             .footnoteStyle(.fiori)
             .typeErased

@@ -55,7 +55,7 @@ private extension AccessoryIcon {
     }
 
     func defaultStyle() -> some View {
-        AccessoryIcon(accessoryIcon: { self.accessoryIcon })
+        AccessoryIcon(.init(accessoryIcon: .init(self.accessoryIcon)))
             .shouldApplyDefaultStyle(false)
             .accessoryIconStyle(.fiori)
             .typeErased

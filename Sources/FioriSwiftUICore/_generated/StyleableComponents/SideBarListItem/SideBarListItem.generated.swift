@@ -33,11 +33,11 @@ public struct SideBarListItem {
                 data: SideBarItemModel,
                 isSelected: Binding<Bool>)
     {
-        self.icon = Icon { icon() }
-        self.filledIcon = FilledIcon { filledIcon() }
-        self.title = Title { title() }
-        self.subtitle = Subtitle { subtitle() }
-        self.accessoryIcon = AccessoryIcon { accessoryIcon() }
+        self.icon = Icon(icon: icon)
+        self.filledIcon = FilledIcon(filledIcon: filledIcon)
+        self.title = Title(title: title)
+        self.subtitle = Subtitle(subtitle: subtitle)
+        self.accessoryIcon = AccessoryIcon(accessoryIcon: accessoryIcon)
         self._isOn = isOn
         self.data = data
         self._isSelected = isSelected

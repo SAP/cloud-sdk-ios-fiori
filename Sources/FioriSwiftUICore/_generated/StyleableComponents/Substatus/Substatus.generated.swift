@@ -55,7 +55,7 @@ private extension Substatus {
     }
 
     func defaultStyle() -> some View {
-        Substatus(substatus: { self.substatus })
+        Substatus(.init(substatus: .init(self.substatus)))
             .shouldApplyDefaultStyle(false)
             .substatusStyle(.fiori)
             .typeErased
