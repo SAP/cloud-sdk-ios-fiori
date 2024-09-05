@@ -327,3 +327,9 @@ protocol _OptionalTitleComponent {
     // sourcery: defaultValue = ""
     var optionalTitle: AttributedString? { get }
 }
+
+// sourcery: BaseComponent
+protocol _ValueLabelComponent {
+    // sourcery: @ViewBuilder
+    var valueLabel: AttributedString? { get }
+}

@@ -297,6 +297,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: DateTimePickerStyle
+
+struct DateTimePickerStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any DateTimePickerStyle] = []
+}
+
+extension EnvironmentValues {
+    var dateTimePickerStyle: any DateTimePickerStyle {
+        self.dateTimePickerStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var dateTimePickerStyleStack: [any DateTimePickerStyle] {
+        get {
+            self[DateTimePickerStyleStackKey.self]
+        }
+        set {
+            self[DateTimePickerStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: DecrementActionStyle
 
 struct DecrementActionStyleStackKey: EnvironmentKey {
@@ -1847,6 +1868,27 @@ extension EnvironmentValues {
         }
         set {
             self[TopDividerStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: ValueLabelStyle
+
+struct ValueLabelStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any ValueLabelStyle] = []
+}
+
+extension EnvironmentValues {
+    var valueLabelStyle: any ValueLabelStyle {
+        self.valueLabelStyleStack.last ?? .base
+    }
+
+    var valueLabelStyleStack: [any ValueLabelStyle] {
+        get {
+            self[ValueLabelStyleStackKey.self]
+        }
+        set {
+            self[ValueLabelStyleStackKey.self] = newValue
         }
     }
 }

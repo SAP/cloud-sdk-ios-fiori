@@ -132,6 +132,13 @@ extension Counter: _ViewEmptyChecking {
     }
 }
 
+extension DateTimePicker: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        title.isEmpty &&
+            valueLabel.isEmpty
+    }
+}
+
 extension DecrementAction: _ViewEmptyChecking {
     public var isEmpty: Bool {
         decrementAction.isEmpty
@@ -639,5 +646,11 @@ extension TitleFormView: _ViewEmptyChecking {
 extension TopDivider: _ViewEmptyChecking {
     public var isEmpty: Bool {
         topDivider.isEmpty
+    }
+}
+
+extension ValueLabel: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        valueLabel.isEmpty
     }
 }
