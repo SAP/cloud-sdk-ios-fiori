@@ -11,8 +11,8 @@ public protocol StepItem {
     var state: StepProgressIndicatorState { get set }
     /// Substeps for this one.
     var substeps: [StepItem] { get set }
-    /// Node icon.
-    var icon: Image? { get }
+    /// Step node.
+    var node: TextOrIcon? { get }
 }
 
 /// Node of Step Progress Indicator display type, default is `mixture`.

@@ -1,3 +1,4 @@
+import FioriThemeManager
 import SwiftUI
 
 /// Not used by developers.
@@ -99,23 +100,30 @@ struct DefaultSingleStep: View {
             } node: {
                 ZStack {
                     self.node(by: self.stepItem.state, isSelected: isSelected)
+                    self.noNodeStep()
                     switch self.type {
                     case .mixture:
-                        if self.stepItem.icon.isEmpty {
-                            Text("\(self.index + 1)")
+                        switch self.stepItem.node {
+                        case .text(let string):
+                            Text(string)
                                 .font(Font.fiori(forTextStyle: .footnote))
-                        } else {
-                            self.stepItem.icon
+                        case .icon(let image): image
+                        case .none: EmptyView()
                         }
                     case .icon:
-                        if self.stepItem.icon.isEmpty {
-                            Image(systemName: "app.dashed")
-                        } else {
-                            self.stepItem.icon
+                        switch self.stepItem.node {
+                        case .icon(let image):
+                            image
+                        case .none, .text: EmptyView()
                         }
                     case .text:
-                        Text("\(self.index + 1)")
-                            .font(Font.fiori(forTextStyle: .footnote))
+                        switch self.stepItem.node {
+                        case .text(let string):
+                            Text(string)
+                                .font(Font.fiori(forTextStyle: .footnote))
+                        case .icon, .none:
+                            EmptyView()
+                        }
                     }
                 }
                 .frame(width: self.sideLength, height: self.sideLength)
@@ -136,6 +144,19 @@ struct DefaultSingleStep: View {
                          horizontal: 8)
         } else {
             EmptyView()
+        }
+    }
+    
+    @ViewBuilder
+    func noNodeStep() -> some View {
+        if self.stepItem.node == nil {
+            switch self.type {
+            case .mixture, .text:
+                Text("\(self.index + 1)")
+                    .font(Font.fiori(forTextStyle: .footnote))
+            case .icon:
+                Image(systemName: "app.dashed")
+            }
         }
     }
     
