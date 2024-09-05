@@ -320,3 +320,10 @@ protocol _NowIndicatorNodeComponent {
 protocol _OptionsComponent {
     var options: [AttributedString] { get }
 }
+
+// sourcery: BaseComponent
+protocol _OptionalTitleComponent {
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = ""
+    var optionalTitle: AttributedString? { get }
+}

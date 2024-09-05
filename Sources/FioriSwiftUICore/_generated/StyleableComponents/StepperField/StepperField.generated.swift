@@ -24,9 +24,9 @@ public struct StepperField {
                 step: Int? = nil,
                 stepRange: ClosedRange<Int>)
     {
-        self.decrementAction = DecrementAction { decrementAction() }
+        self.decrementAction = DecrementAction(decrementAction: decrementAction)
         self._text = text
-        self.incrementAction = IncrementAction { incrementAction() }
+        self.incrementAction = IncrementAction(incrementAction: incrementAction)
         self.step = step
         self.stepRange = stepRange
     }

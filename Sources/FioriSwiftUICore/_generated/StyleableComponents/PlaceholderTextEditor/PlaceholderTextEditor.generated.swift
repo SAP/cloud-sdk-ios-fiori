@@ -15,7 +15,7 @@ public struct PlaceholderTextEditor {
                 @ViewBuilder placeholder: () -> any View = { EmptyView() })
     {
         self._text = text
-        self.placeholder = Placeholder { placeholder() }
+        self.placeholder = Placeholder(placeholder: placeholder)
     }
 }
 

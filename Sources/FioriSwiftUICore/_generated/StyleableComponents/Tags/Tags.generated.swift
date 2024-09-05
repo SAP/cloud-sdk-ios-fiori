@@ -55,7 +55,7 @@ private extension Tags {
     }
 
     func defaultStyle() -> some View {
-        Tags(tags: { self.tags })
+        Tags(.init(tags: .init(self.tags)))
             .shouldApplyDefaultStyle(false)
             .tagsStyle(.fiori)
             .typeErased

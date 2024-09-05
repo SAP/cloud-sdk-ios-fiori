@@ -802,6 +802,23 @@ public extension View {
     }
 }
 
+// MARK: OptionalTitleStyle
+
+public extension View {
+    func optionalTitleStyle(_ style: some OptionalTitleStyle) -> some View {
+        self.transformEnvironment(\.optionalTitleStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func optionalTitleStyle(@ViewBuilder content: @escaping (OptionalTitleConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.optionalTitleStyleStack) { stack in
+            let style = AnyOptionalTitleStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: OptionsStyle
 
 public extension View {
@@ -1375,6 +1392,40 @@ public extension View {
     func timelineNowIndicatorStyle(@ViewBuilder content: @escaping (TimelineNowIndicatorConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.timelineNowIndicatorStyleStack) { stack in
             let style = AnyTimelineNowIndicatorStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: TimelinePreviewStyle
+
+public extension View {
+    func timelinePreviewStyle(_ style: some TimelinePreviewStyle) -> some View {
+        self.transformEnvironment(\.timelinePreviewStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func timelinePreviewStyle(@ViewBuilder content: @escaping (TimelinePreviewConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.timelinePreviewStyleStack) { stack in
+            let style = AnyTimelinePreviewStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: TimelinePreviewItemStyle
+
+public extension View {
+    func timelinePreviewItemStyle(_ style: some TimelinePreviewItemStyle) -> some View {
+        self.transformEnvironment(\.timelinePreviewItemStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func timelinePreviewItemStyle(@ViewBuilder content: @escaping (TimelinePreviewItemConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.timelinePreviewItemStyleStack) { stack in
+            let style = AnyTimelinePreviewItemStyle(content)
             stack.append(style)
         }
     }

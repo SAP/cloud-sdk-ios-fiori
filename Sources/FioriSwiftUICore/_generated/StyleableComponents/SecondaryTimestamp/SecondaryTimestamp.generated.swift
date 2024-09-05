@@ -55,7 +55,7 @@ private extension SecondaryTimestamp {
     }
 
     func defaultStyle() -> some View {
-        SecondaryTimestamp(secondaryTimestamp: { self.secondaryTimestamp })
+        SecondaryTimestamp(.init(secondaryTimestamp: .init(self.secondaryTimestamp)))
             .shouldApplyDefaultStyle(false)
             .secondaryTimestampStyle(.fiori)
             .typeErased

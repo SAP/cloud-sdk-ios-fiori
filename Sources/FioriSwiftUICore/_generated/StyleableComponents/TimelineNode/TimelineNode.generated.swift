@@ -55,7 +55,7 @@ private extension TimelineNode {
     }
 
     func defaultStyle() -> some View {
-        TimelineNode(timelineNode: { self.timelineNode })
+        TimelineNode(.init(timelineNode: .init(self.timelineNode)))
             .shouldApplyDefaultStyle(false)
             .timelineNodeStyle(.fiori)
             .typeErased

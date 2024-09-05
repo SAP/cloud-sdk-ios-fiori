@@ -50,7 +50,7 @@ extension [Variable] {
         map { variable in
             let name = variable.name
             if variable.isResultBuilder {
-                let assignment = isBaseComponent || !variable.isStyleable ? "\(name)()" : "\(name.capitalizingFirst()) { \(name)() }"
+                let assignment = isBaseComponent || !variable.isStyleable ? "\(name)()" : "\(name.capitalizingFirst())(\(name): \(name))"
                 return "self.\(name) = \(assignment)"
             } else if variable.isBinding {
                 return "self._\(name) = \(name)"

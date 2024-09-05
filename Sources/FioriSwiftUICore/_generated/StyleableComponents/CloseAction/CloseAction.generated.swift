@@ -55,7 +55,7 @@ private extension CloseAction {
     }
 
     func defaultStyle() -> some View {
-        CloseAction(closeAction: { self.closeAction })
+        CloseAction(.init(closeAction: .init(self.closeAction)))
             .shouldApplyDefaultStyle(false)
             .closeActionStyle(.fiori)
             .typeErased

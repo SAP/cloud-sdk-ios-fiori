@@ -31,10 +31,6 @@
 		691DE21925F2A30B00094D4A /* KPIViewExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691DE21825F2A30B00094D4A /* KPIViewExample.swift */; };
 		692F338B26556A6A009B98DA /* SideBarExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 692F338A26556A6A009B98DA /* SideBarExample.swift */; };
 		69B2B5D9268A333C009AC6B3 /* KPIProgressViewExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B2B5D8268A333C009AC6B3 /* KPIProgressViewExample.swift */; };
-		8732C2C52C350957002110E9 /* TimelineExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8732C2C42C350957002110E9 /* TimelineExample.swift */; };
-		8732C2C72C3524B6002110E9 /* TimelineItemsExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8732C2C62C3524B6002110E9 /* TimelineItemsExample.swift */; };
-		8732C2C92C3524C9002110E9 /* SimpleTimelineExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8732C2C82C3524C9002110E9 /* SimpleTimelineExample.swift */; };
-		8732C2CB2C3524D9002110E9 /* CustomTimelineExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8732C2CA2C3524D9002110E9 /* CustomTimelineExample.swift */; };
 		6D6E86252C50D42000EDB6F4 /* FioriButtonInListExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D6E86242C50D42000EDB6F4 /* FioriButtonInListExample.swift */; };
 		6D6E86292C50E5F900EDB6F4 /* FioriButtonInListMultipleLineExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D6E86282C50E5F900EDB6F4 /* FioriButtonInListMultipleLineExample.swift */; };
 		6D6E86672C50FDBE00EDB6F4 /* FioriButtonInCollectionExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D6E86662C50FDBE00EDB6F4 /* FioriButtonInCollectionExample.swift */; };
@@ -49,7 +45,14 @@
 		6DEC32002C48FB010084DD20 /* LoadingButtonSingleStatusExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DEC31FF2C48FB010084DD20 /* LoadingButtonSingleStatusExample.swift */; };
 		6DEC32022C4A4DC70084DD20 /* CardFullWidthSingleButtonExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DEC32012C4A4DC70084DD20 /* CardFullWidthSingleButtonExample.swift */; };
 		6DEC32042C4E49C70084DD20 /* CardFixedWidthButtonsExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DEC32032C4E49C70084DD20 /* CardFixedWidthButtonsExample.swift */; };
+		8732C2C52C350957002110E9 /* TimelineExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8732C2C42C350957002110E9 /* TimelineExample.swift */; };
+		8732C2C72C3524B6002110E9 /* TimelineItemsExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8732C2C62C3524B6002110E9 /* TimelineItemsExample.swift */; };
+		8732C2C92C3524C9002110E9 /* SimpleTimelineExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8732C2C82C3524C9002110E9 /* SimpleTimelineExample.swift */; };
+		8732C2CB2C3524D9002110E9 /* CustomTimelineExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8732C2CA2C3524D9002110E9 /* CustomTimelineExample.swift */; };
 		878219C42BEE128E002FDFBC /* StepperViewExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 878219C32BEE128E002FDFBC /* StepperViewExample.swift */; };
+		87F492312C73AD99002B8703 /* CustomTimelinePreviewExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87F492302C73AD99002B8703 /* CustomTimelinePreviewExample.swift */; };
+		87F492332C73ADA1002B8703 /* SimpleTimelinePreviewExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87F492322C73ADA1002B8703 /* SimpleTimelinePreviewExample.swift */; };
+		87F492352C73ADAA002B8703 /* TimelinePreviewExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87F492342C73ADAA002B8703 /* TimelinePreviewExample.swift */; };
 		8A55795724C1286E0098003A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A55795624C1286E0098003A /* AppDelegate.swift */; };
 		8A55795924C1286E0098003A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A55795824C1286E0098003A /* SceneDelegate.swift */; };
 		8A55795B24C1286E0098003A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A55795A24C1286E0098003A /* ContentView.swift */; };
@@ -234,10 +237,6 @@
 		691DE21825F2A30B00094D4A /* KPIViewExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KPIViewExample.swift; sourceTree = "<group>"; };
 		692F338A26556A6A009B98DA /* SideBarExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideBarExample.swift; sourceTree = "<group>"; };
 		69B2B5D8268A333C009AC6B3 /* KPIProgressViewExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KPIProgressViewExample.swift; sourceTree = "<group>"; };
-		8732C2C42C350957002110E9 /* TimelineExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineExample.swift; sourceTree = "<group>"; };
-		8732C2C62C3524B6002110E9 /* TimelineItemsExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineItemsExample.swift; sourceTree = "<group>"; };
-		8732C2C82C3524C9002110E9 /* SimpleTimelineExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTimelineExample.swift; sourceTree = "<group>"; };
-		8732C2CA2C3524D9002110E9 /* CustomTimelineExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTimelineExample.swift; sourceTree = "<group>"; };
 		6D6E86242C50D42000EDB6F4 /* FioriButtonInListExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FioriButtonInListExample.swift; sourceTree = "<group>"; };
 		6D6E86282C50E5F900EDB6F4 /* FioriButtonInListMultipleLineExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FioriButtonInListMultipleLineExample.swift; sourceTree = "<group>"; };
 		6D6E86662C50FDBE00EDB6F4 /* FioriButtonInCollectionExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FioriButtonInCollectionExample.swift; sourceTree = "<group>"; };
@@ -252,7 +251,14 @@
 		6DEC31FF2C48FB010084DD20 /* LoadingButtonSingleStatusExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingButtonSingleStatusExample.swift; sourceTree = "<group>"; };
 		6DEC32012C4A4DC70084DD20 /* CardFullWidthSingleButtonExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardFullWidthSingleButtonExample.swift; sourceTree = "<group>"; };
 		6DEC32032C4E49C70084DD20 /* CardFixedWidthButtonsExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardFixedWidthButtonsExample.swift; sourceTree = "<group>"; };
+		8732C2C42C350957002110E9 /* TimelineExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineExample.swift; sourceTree = "<group>"; };
+		8732C2C62C3524B6002110E9 /* TimelineItemsExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineItemsExample.swift; sourceTree = "<group>"; };
+		8732C2C82C3524C9002110E9 /* SimpleTimelineExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTimelineExample.swift; sourceTree = "<group>"; };
+		8732C2CA2C3524D9002110E9 /* CustomTimelineExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTimelineExample.swift; sourceTree = "<group>"; };
 		878219C32BEE128E002FDFBC /* StepperViewExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepperViewExample.swift; sourceTree = "<group>"; };
+		87F492302C73AD99002B8703 /* CustomTimelinePreviewExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTimelinePreviewExample.swift; sourceTree = "<group>"; };
+		87F492322C73ADA1002B8703 /* SimpleTimelinePreviewExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleTimelinePreviewExample.swift; sourceTree = "<group>"; };
+		87F492342C73ADAA002B8703 /* TimelinePreviewExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimelinePreviewExample.swift; sourceTree = "<group>"; };
 		8A1E99AD24D59C8000ED8A39 /* cloud-sdk-ios-fiori */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "cloud-sdk-ios-fiori"; path = ../..; sourceTree = "<group>"; };
 		8A55795324C1286E0098003A /* Examples.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Examples.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A55795624C1286E0098003A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -518,6 +524,9 @@
 		8732C2C32C35092D002110E9 /* Timeline */ = {
 			isa = PBXGroup;
 			children = (
+				87F492342C73ADAA002B8703 /* TimelinePreviewExample.swift */,
+				87F492322C73ADA1002B8703 /* SimpleTimelinePreviewExample.swift */,
+				87F492302C73AD99002B8703 /* CustomTimelinePreviewExample.swift */,
 				8732C2C42C350957002110E9 /* TimelineExample.swift */,
 				8732C2C62C3524B6002110E9 /* TimelineItemsExample.swift */,
 				8732C2C82C3524C9002110E9 /* SimpleTimelineExample.swift */,
@@ -1069,7 +1078,6 @@
 				C18868D12B32535100F865F7 /* SearchFontAndColor.swift in Sources */,
 				9D0B26092B9BA5C0004278A5 /* KeyValueFormViewExample.swift in Sources */,
 				8732C2C52C350957002110E9 /* TimelineExample.swift in Sources */,
-				9D057DAB2C2F260200F5331C /* RatingControlExample.swift in Sources */,
 				8A557A1A24C12C820098003A /* ChartsContentView.swift in Sources */,
 				8A5579CE24C1293C0098003A /* SettingColor.swift in Sources */,
 				1F55FEF32AC941FF00D7A1BE /* View+Extensions.swift in Sources */,
@@ -1078,6 +1086,7 @@
 				8AD9DFB225D49967007448EC /* StylingModifierExample.swift in Sources */,
 				9D0B260A2B9BA5C0004278A5 /* NoteFormViewExample.swift in Sources */,
 				9DEC27B72C3F3DE70070B571 /* OtherViewExamples.swift in Sources */,
+				87F492332C73ADA1002B8703 /* SimpleTimelinePreviewExample.swift in Sources */,
 				8A5579D124C1293C0098003A /* Settings.swift in Sources */,
 				8AD9DFB025D49967007448EC /* ContactItemActionItemsExample.swift in Sources */,
 				8A6D64B125AE658300D2D76C /* ExpHeaderView.swift in Sources */,
@@ -1139,8 +1148,10 @@
 				692F338B26556A6A009B98DA /* SideBarExample.swift in Sources */,
 				8A5579D324C1293C0098003A /* SettingsPoint.swift in Sources */,
 				B80DA9BA260BBF8600C0B2E9 /* SingleActionProfiles.swift in Sources */,
+				87F492352C73ADAA002B8703 /* TimelinePreviewExample.swift in Sources */,
 				B18D593C2B0C52C700ABB1AD /* TabViewExample.swift in Sources */,
 				8A5579D424C1293C0098003A /* SettingsBaseline.swift in Sources */,
+				87F492312C73AD99002B8703 /* CustomTimelinePreviewExample.swift in Sources */,
 				1F90888C261A59820015A84D /* FioriButtonExample.swift in Sources */,
 				6D6E86252C50D42000EDB6F4 /* FioriButtonInListExample.swift in Sources */,
 				B8D4377125F983730024EE7D /* ObjectCell_Rules_Alignment.swift in Sources */,

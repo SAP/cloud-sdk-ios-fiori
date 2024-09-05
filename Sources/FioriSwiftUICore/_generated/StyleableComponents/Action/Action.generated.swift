@@ -55,7 +55,7 @@ private extension Action {
     }
 
     func defaultStyle() -> some View {
-        Action(action: { self.action })
+        Action(.init(action: .init(self.action)))
             .shouldApplyDefaultStyle(false)
             .actionStyle(.fiori)
             .typeErased

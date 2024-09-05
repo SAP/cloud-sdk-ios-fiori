@@ -37,19 +37,19 @@ public struct ObjectItem {
                 @TagBuilder tags: () -> any View = { EmptyView() },
                 @ViewBuilder action: () -> any View = { EmptyView() })
     {
-        self.title = Title { title() }
-        self.subtitle = Subtitle { subtitle() }
-        self.footnote = Footnote { footnote() }
-        self.description = Description { description() }
-        self.status = Status { status() }
-        self.substatus = Substatus { substatus() }
-        self.detailImage = DetailImage { detailImage() }
-        self.icons = Icons { icons() }
-        self.avatars = Avatars { avatars() }
-        self.footnoteIcons = FootnoteIcons { footnoteIcons() }
-        self.footnoteIconsText = FootnoteIconsText { footnoteIconsText() }
-        self.tags = Tags { tags() }
-        self.action = Action { action() }
+        self.title = Title(title: title)
+        self.subtitle = Subtitle(subtitle: subtitle)
+        self.footnote = Footnote(footnote: footnote)
+        self.description = Description(description: description)
+        self.status = Status(status: status)
+        self.substatus = Substatus(substatus: substatus)
+        self.detailImage = DetailImage(detailImage: detailImage)
+        self.icons = Icons(icons: icons)
+        self.avatars = Avatars(avatars: avatars)
+        self.footnoteIcons = FootnoteIcons(footnoteIcons: footnoteIcons)
+        self.footnoteIconsText = FootnoteIconsText(footnoteIconsText: footnoteIconsText)
+        self.tags = Tags(tags: tags)
+        self.action = Action(action: action)
     }
 }
 

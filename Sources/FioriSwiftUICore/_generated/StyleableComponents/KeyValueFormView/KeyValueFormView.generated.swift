@@ -53,9 +53,9 @@ public struct KeyValueFormView {
                 @ViewBuilder mandatoryFieldIndicator: () -> any View = { EmptyView() },
                 isRequired: Bool = false)
     {
-        self.title = Title { title() }
+        self.title = Title(title: title)
         self._text = text
-        self.placeholder = Placeholder { placeholder() }
+        self.placeholder = Placeholder(placeholder: placeholder)
         self.controlState = controlState
         self.errorMessage = errorMessage
         self.minTextEditorHeight = minTextEditorHeight
@@ -67,7 +67,7 @@ public struct KeyValueFormView {
         self.allowsBeyondLimit = allowsBeyondLimit
         self.charCountReachLimitMessage = charCountReachLimitMessage
         self.charCountBeyondLimitMsg = charCountBeyondLimitMsg
-        self.mandatoryFieldIndicator = MandatoryFieldIndicator { mandatoryFieldIndicator() }
+        self.mandatoryFieldIndicator = MandatoryFieldIndicator(mandatoryFieldIndicator: mandatoryFieldIndicator)
         self.isRequired = isRequired
     }
 }

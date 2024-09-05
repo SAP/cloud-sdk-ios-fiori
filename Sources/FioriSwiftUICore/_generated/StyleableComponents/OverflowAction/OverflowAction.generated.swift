@@ -55,7 +55,7 @@ private extension OverflowAction {
     }
 
     func defaultStyle() -> some View {
-        OverflowAction(overflowAction: { self.overflowAction })
+        OverflowAction(.init(overflowAction: .init(self.overflowAction)))
             .shouldApplyDefaultStyle(false)
             .overflowActionStyle(.fiori)
             .typeErased

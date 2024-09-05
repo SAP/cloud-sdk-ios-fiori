@@ -21,10 +21,10 @@ public struct BannerMessage {
                 @ViewBuilder topDivider: () -> any View = { Rectangle().fill(Color.clear) },
                 bannerTapAction: (() -> Void)? = nil)
     {
-        self.icon = Icon { icon() }
-        self.title = Title { title() }
-        self.closeAction = CloseAction { closeAction() }
-        self.topDivider = TopDivider { topDivider() }
+        self.icon = Icon(icon: icon)
+        self.title = Title(title: title)
+        self.closeAction = CloseAction(closeAction: closeAction)
+        self.topDivider = TopDivider(topDivider: topDivider)
         self.bannerTapAction = bannerTapAction
     }
 }

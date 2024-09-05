@@ -36,19 +36,19 @@ public struct CardHeader {
                 @ViewBuilder kpi: () -> any View = { EmptyView() },
                 @ViewBuilder kpiCaption: () -> any View = { EmptyView() })
     {
-        self.mediaImage = MediaImage { mediaImage() }
-        self.description = Description { description() }
-        self.title = Title { title() }
-        self.subtitle = Subtitle { subtitle() }
-        self.icons = Icons { icons() }
-        self.detailImage = DetailImage { detailImage() }
-        self.headerAction = HeaderAction { headerAction() }
-        self.counter = Counter { counter() }
-        self.row1 = Row1 { row1() }
-        self.row2 = Row2 { row2() }
-        self.row3 = Row3 { row3() }
-        self.kpi = Kpi { kpi() }
-        self.kpiCaption = KpiCaption { kpiCaption() }
+        self.mediaImage = MediaImage(mediaImage: mediaImage)
+        self.description = Description(description: description)
+        self.title = Title(title: title)
+        self.subtitle = Subtitle(subtitle: subtitle)
+        self.icons = Icons(icons: icons)
+        self.detailImage = DetailImage(detailImage: detailImage)
+        self.headerAction = HeaderAction(headerAction: headerAction)
+        self.counter = Counter(counter: counter)
+        self.row1 = Row1(row1: row1)
+        self.row2 = Row2(row2: row2)
+        self.row3 = Row3(row3: row3)
+        self.kpi = Kpi(kpi: kpi)
+        self.kpiCaption = KpiCaption(kpiCaption: kpiCaption)
     }
 }
 
