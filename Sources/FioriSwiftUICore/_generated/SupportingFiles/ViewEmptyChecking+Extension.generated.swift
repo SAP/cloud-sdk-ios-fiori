@@ -367,6 +367,12 @@ extension ObjectItem: _ViewEmptyChecking {
     }
 }
 
+extension OptionalTitle: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        optionalTitle.isEmpty
+    }
+}
+
 extension Options: _ViewEmptyChecking {
     public var isEmpty: Bool {
         false
@@ -600,6 +606,22 @@ extension TimelineNode: _ViewEmptyChecking {
 extension TimelineNowIndicator: _ViewEmptyChecking {
     public var isEmpty: Bool {
         nowIndicatorNode.isEmpty
+    }
+}
+
+extension TimelinePreview: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        optionalTitle.isEmpty &&
+            action.isEmpty
+    }
+}
+
+extension TimelinePreviewItem: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        title.isEmpty &&
+            icon.isEmpty &&
+            timelineNode.isEmpty &&
+            timestamp.isEmpty
     }
 }
 

@@ -771,6 +771,22 @@ extension ObjectItemStyle {
     }
 }
 
+// MARK: OptionalTitleStyle
+
+struct ResolvedOptionalTitleStyle<Style: OptionalTitleStyle>: View {
+    let style: Style
+    let configuration: OptionalTitleConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension OptionalTitleStyle {
+    func resolve(configuration: OptionalTitleConfiguration) -> some View {
+        ResolvedOptionalTitleStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: OptionsStyle
 
 struct ResolvedOptionsStyle<Style: OptionsStyle>: View {
@@ -1312,6 +1328,38 @@ struct ResolvedTimelineNowIndicatorStyle<Style: TimelineNowIndicatorStyle>: View
 extension TimelineNowIndicatorStyle {
     func resolve(configuration: TimelineNowIndicatorConfiguration) -> some View {
         ResolvedTimelineNowIndicatorStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: TimelinePreviewStyle
+
+struct ResolvedTimelinePreviewStyle<Style: TimelinePreviewStyle>: View {
+    let style: Style
+    let configuration: TimelinePreviewConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension TimelinePreviewStyle {
+    func resolve(configuration: TimelinePreviewConfiguration) -> some View {
+        ResolvedTimelinePreviewStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: TimelinePreviewItemStyle
+
+struct ResolvedTimelinePreviewItemStyle<Style: TimelinePreviewItemStyle>: View {
+    let style: Style
+    let configuration: TimelinePreviewItemConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension TimelinePreviewItemStyle {
+    func resolve(configuration: TimelinePreviewItemConfiguration) -> some View {
+        ResolvedTimelinePreviewItemStyle(style: self, configuration: configuration)
     }
 }
 

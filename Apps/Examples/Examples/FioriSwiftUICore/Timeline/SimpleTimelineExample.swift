@@ -35,7 +35,7 @@ struct SimpleTimelineExample: View {
             }
         }
         .listStyle(.plain)
-        .environment(\.defaultMinListRowHeight, 7)
+        .environment(\.defaultMinListRowHeight, 5)
     }
 }
 

@@ -17,8 +17,8 @@ public struct LinearProgressIndicatorView {
                 @ViewBuilder description: () -> any View = { EmptyView() })
     {
         self._indicatorProgress = indicatorProgress
-        self.icon = Icon { icon() }
-        self.description = Description { description() }
+        self.icon = Icon(icon: icon)
+        self.description = Description(description: description)
     }
 }
 

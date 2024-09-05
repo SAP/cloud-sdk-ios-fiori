@@ -49,7 +49,7 @@ private extension TopDivider {
     }
 
     func defaultStyle() -> some View {
-        TopDivider(topDivider: { self.topDivider })
+        TopDivider(.init(topDivider: .init(self.topDivider)))
             .shouldApplyDefaultStyle(false)
             .topDividerStyle(.fiori)
             .typeErased

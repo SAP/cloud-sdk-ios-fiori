@@ -55,7 +55,7 @@ private extension Title {
     }
 
     func defaultStyle() -> some View {
-        Title(title: { self.title })
+        Title(.init(title: .init(self.title)))
             .shouldApplyDefaultStyle(false)
             .titleStyle(.fiori)
             .typeErased

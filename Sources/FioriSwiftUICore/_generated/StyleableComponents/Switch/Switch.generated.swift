@@ -49,7 +49,7 @@ private extension Switch {
     }
 
     func defaultStyle() -> some View {
-        Switch(isOn: self.$isOn)
+        Switch(.init(isOn: self.$isOn))
             .shouldApplyDefaultStyle(false)
             .switchStyle(.fiori)
             .typeErased

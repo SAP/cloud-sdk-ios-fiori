@@ -49,7 +49,7 @@ private extension Options {
     }
 
     func defaultStyle() -> some View {
-        Options(options: self.options)
+        Options(.init(options: self.options))
             .shouldApplyDefaultStyle(false)
             .optionsStyle(.fiori)
             .typeErased

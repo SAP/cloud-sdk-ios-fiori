@@ -1352,6 +1352,34 @@ public extension ObjectItemStyle {
     }
 }
 
+// MARK: OptionalTitleStyle
+
+extension ModifiedStyle: OptionalTitleStyle where Style: OptionalTitleStyle {
+    public func makeBody(_ configuration: OptionalTitleConfiguration) -> some View {
+        OptionalTitle(configuration)
+            .optionalTitleStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct OptionalTitleStyleModifier<Style: OptionalTitleStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.optionalTitleStyle(self.style)
+    }
+}
+
+public extension OptionalTitleStyle {
+    func modifier(_ modifier: some ViewModifier) -> some OptionalTitleStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some OptionalTitleStyle) -> some OptionalTitleStyle {
+        style.modifier(OptionalTitleStyleModifier(style: self))
+    }
+}
+
 // MARK: OptionsStyle
 
 extension ModifiedStyle: OptionsStyle where Style: OptionsStyle {
@@ -2301,6 +2329,62 @@ public extension TimelineNowIndicatorStyle {
 
     func concat(_ style: some TimelineNowIndicatorStyle) -> some TimelineNowIndicatorStyle {
         style.modifier(TimelineNowIndicatorStyleModifier(style: self))
+    }
+}
+
+// MARK: TimelinePreviewStyle
+
+extension ModifiedStyle: TimelinePreviewStyle where Style: TimelinePreviewStyle {
+    public func makeBody(_ configuration: TimelinePreviewConfiguration) -> some View {
+        TimelinePreview(configuration)
+            .timelinePreviewStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct TimelinePreviewStyleModifier<Style: TimelinePreviewStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.timelinePreviewStyle(self.style)
+    }
+}
+
+public extension TimelinePreviewStyle {
+    func modifier(_ modifier: some ViewModifier) -> some TimelinePreviewStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some TimelinePreviewStyle) -> some TimelinePreviewStyle {
+        style.modifier(TimelinePreviewStyleModifier(style: self))
+    }
+}
+
+// MARK: TimelinePreviewItemStyle
+
+extension ModifiedStyle: TimelinePreviewItemStyle where Style: TimelinePreviewItemStyle {
+    public func makeBody(_ configuration: TimelinePreviewItemConfiguration) -> some View {
+        TimelinePreviewItem(configuration)
+            .timelinePreviewItemStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct TimelinePreviewItemStyleModifier<Style: TimelinePreviewItemStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.timelinePreviewItemStyle(self.style)
+    }
+}
+
+public extension TimelinePreviewItemStyle {
+    func modifier(_ modifier: some ViewModifier) -> some TimelinePreviewItemStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some TimelinePreviewItemStyle) -> some TimelinePreviewItemStyle {
+        style.modifier(TimelinePreviewItemStyleModifier(style: self))
     }
 }
 

@@ -22,7 +22,7 @@ public struct SwitchView {
     public init(@ViewBuilder title: () -> any View,
                 isOn: Binding<Bool>)
     {
-        self.title = Title { title() }
+        self.title = Title(title: title)
         self._isOn = isOn
     }
 }

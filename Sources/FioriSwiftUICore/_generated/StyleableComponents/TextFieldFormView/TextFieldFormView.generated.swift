@@ -53,9 +53,9 @@ public struct TextFieldFormView {
                 actionIcon: Image? = nil,
                 action: (() -> Void)? = nil)
     {
-        self.title = Title { title() }
+        self.title = Title(title: title)
         self._text = text
-        self.placeholder = Placeholder { placeholder() }
+        self.placeholder = Placeholder(placeholder: placeholder)
         self.controlState = controlState
         self.errorMessage = errorMessage
         self.maxTextLength = maxTextLength
@@ -65,7 +65,7 @@ public struct TextFieldFormView {
         self.allowsBeyondLimit = allowsBeyondLimit
         self.charCountReachLimitMessage = charCountReachLimitMessage
         self.charCountBeyondLimitMsg = charCountBeyondLimitMsg
-        self.mandatoryFieldIndicator = MandatoryFieldIndicator { mandatoryFieldIndicator() }
+        self.mandatoryFieldIndicator = MandatoryFieldIndicator(mandatoryFieldIndicator: mandatoryFieldIndicator)
         self.isRequired = isRequired
         self.actionIcon = actionIcon
         self.action = action
