@@ -27,10 +27,22 @@ public struct RatingControlConfiguration {
     public let ratingBounds: ClosedRange<Int>
     public let onImage: Image?
     public let offImage: Image?
+    public let halfImage: Image?
     public let itemSize: CGSize?
     public let onColor: Color?
     public let offColor: Color?
     public let interItemSpacing: CGFloat?
+    public let ratingValueFormat: String?
+    public let valueLabelFont: Font?
+    public let valueLabelColor: Color?
+    public let showsValueLabel: Bool
+    public let averageRating: CGFloat?
+    public let averageRatingFormat: String
+    public let reviewCount: Int?
+    public let reviewCountFormat: String?
+    public let reviewCountCeiling: Int?
+    public let reviewCountCeilingFormat: String?
+    public let showsReviewCountLabel: Bool
 }
 
 public struct RatingControlFioriStyle: RatingControlStyle {

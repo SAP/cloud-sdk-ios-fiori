@@ -314,6 +314,9 @@ protocol _RatingControlComponent {
     /// The custom image to be used for "Off".
     var offImage: Image? { get }
 
+    /// The custom image to be used for half On image.
+    var halfImage: Image? { get }
+
     /// The custom fixed size of each item image view.
     var itemSize: CGSize? { get }
 
@@ -325,6 +328,51 @@ protocol _RatingControlComponent {
 
     /// The custom spacing between images.
     var interItemSpacing: CGFloat? { get }
+
+    /// The rating format for displaying rating value.
+    /// When this is `nil`, the default format is "%d of %d" where "of" is the localized "of". The first parameter is the rating value while the second parameter is the total number of stars.
+    // sourcery: defaultValue = "nil"
+    var ratingValueFormat: String? { get }
+
+    /// The custom font for value label.
+    // sourcery: defaultValue = "nil"
+    var valueLabelFont: Font? { get }
+
+    /// The custom text color for value label.
+    // sourcery: defaultValue = "nil"
+    var valueLabelColor: Color? { get }
+
+    /// This property indicates if the value label is to be displayed or not. The default value is `false` for backward compatibility.
+    // sourcery: defaultValue = "false"
+    var showsValueLabel: Bool { get }
+
+    /// The average rating for read-only style.
+    // sourcery: defaultValue = "nil"
+    var averageRating: CGFloat? { get }
+
+    /// The format for display the average rating. The default is "%.1f"
+    // sourcery: defaultValue = ""%.1f""
+    var averageRatingFormat: String { get }
+
+    /// The number of reviews.
+    // sourcery: defaultValue = "nil"
+    var reviewCount: Int? { get }
+
+    /// The format for the review count string. The default is "%d reviews" where "reviews" is the localized "reviews" string.
+    // sourcery: defaultValue = "nil"
+    var reviewCountFormat: String? { get }
+
+    /// The ceiling number to be displayed for review count. If the `reviewCount` is larger than this number, this number will be displayed with a "+" sign after the number.
+    // sourcery: defaultValue = "nil"
+    var reviewCountCeiling: Int? { get }
+
+    /// The format for the review count string when the count is over the ceiling. The default is "%d+ reviews" where "reviews" is the localized "reviews" string.
+    // sourcery: defaultValue = "nil"
+    var reviewCountCeilingFormat: String? { get }
+
+    /// This property indicates if the review count label is to be displayed or not. The default value is `false` for backward compatibility.
+    // sourcery: defaultValue = "false"
+    var showsReviewCountLabel: Bool { get }
 }
 
 /// `TimelineMarker` is a non-selectable view intended for timelineMarkers that require beforeStart, start, beforeEnd and end status that displays timelineMarker details.
@@ -392,7 +440,7 @@ protocol _TimelineNowIndicatorComponent: _NowIndicatorNodeComponent {}
 
 /// The form view which contains a title, rating control, and a subtitle
 // sourcery: CompositeComponent
-protocol _RatingControlFormViewComponent: _TitleComponent, _RatingControlComponent, _SubtitleComponent, _FormViewComponent {
+protocol _RatingControlFormViewComponent: _TitleComponent, _RatingControlComponent, _SubtitleComponent {
     /// Indicates if the axis for displaying the title and rating control.
     // sourcery: defaultValue = .horizontal
     var axis: Axis { get }

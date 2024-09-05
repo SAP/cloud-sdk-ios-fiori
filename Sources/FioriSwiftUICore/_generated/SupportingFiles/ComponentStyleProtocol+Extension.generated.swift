@@ -3202,27 +3202,6 @@ public extension RatingControlFormViewStyle where Self == RatingControlFormViewR
     }
 }
 
-public struct RatingControlFormViewFormViewStyle: RatingControlFormViewStyle {
-    let style: any FormViewStyle
-
-    public func makeBody(_ configuration: RatingControlFormViewConfiguration) -> some View {
-        RatingControlFormView(configuration)
-            .formViewStyle(self.style)
-            .typeErased
-    }
-}
-
-public extension RatingControlFormViewStyle where Self == RatingControlFormViewFormViewStyle {
-    static func formViewStyle(_ style: some FormViewStyle) -> RatingControlFormViewFormViewStyle {
-        RatingControlFormViewFormViewStyle(style: style)
-    }
-
-    static func formViewStyle(@ViewBuilder content: @escaping (FormViewConfiguration) -> some View) -> RatingControlFormViewFormViewStyle {
-        let style = AnyFormViewStyle(content)
-        return RatingControlFormViewFormViewStyle(style: style)
-    }
-}
-
 // MARK: Row1Style
 
 public extension Row1Style where Self == Row1BaseStyle {

@@ -28,13 +28,23 @@ public struct RatingControlFormViewConfiguration {
     public let ratingBounds: ClosedRange<Int>
     public let onImage: Image?
     public let offImage: Image?
+    public let halfImage: Image?
     public let itemSize: CGSize?
     public let onColor: Color?
     public let offColor: Color?
     public let interItemSpacing: CGFloat?
+    public let ratingValueFormat: String?
+    public let valueLabelFont: Font?
+    public let valueLabelColor: Color?
+    public let showsValueLabel: Bool
+    public let averageRating: CGFloat?
+    public let averageRatingFormat: String
+    public let reviewCount: Int?
+    public let reviewCountFormat: String?
+    public let reviewCountCeiling: Int?
+    public let reviewCountCeilingFormat: String?
+    public let showsReviewCountLabel: Bool
     public let subtitle: Subtitle
-    public let controlState: ControlState
-    public let errorMessage: AttributedString?
     public let axis: Axis
 
     public typealias Title = ConfigurationViewWrapper
@@ -47,6 +57,5 @@ public struct RatingControlFormViewFioriStyle: RatingControlFormViewStyle {
             .titleStyle(TitleFioriStyle(ratingControlFormViewConfiguration: configuration))
             .subtitleStyle(SubtitleFioriStyle(ratingControlFormViewConfiguration: configuration))
             .ratingControlStyle(RatingControlFioriStyle(ratingControlFormViewConfiguration: configuration))
-            .formViewStyle(FormViewFioriStyle(ratingControlFormViewConfiguration: configuration))
     }
 }
