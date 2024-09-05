@@ -107,14 +107,17 @@ struct DefaultSingleStep: View {
                         case .text(let string):
                             Text(string)
                                 .font(Font.fiori(forTextStyle: .footnote))
-                        case .icon(let image): image
-                        case .none: EmptyView()
+                        case .icon(let image):
+                            image
+                        case .none:
+                            EmptyView()
                         }
                     case .icon:
                         switch self.stepItem.node {
                         case .icon(let image):
                             image
-                        case .none, .text: EmptyView()
+                        case .none, .text:
+                            EmptyView()
                         }
                     case .text:
                         switch self.stepItem.node {
