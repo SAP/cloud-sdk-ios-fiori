@@ -79,7 +79,7 @@ extension JouleWelcomeScreenFioriStyle {
         func makeBody(_ configuration: TitleConfiguration) -> some View {
             Title(configuration)
                 .foregroundStyle(Color.preferredColor(.baseWhite))
-                .font(.fiori(forTextStyle: .title1, weight: .bold))
+                .font(.fiori(forTextStyle: .largeTitle))
                 .lineLimit(2)
         }
     }
