@@ -8,7 +8,7 @@ public struct TimelineNowIndicatorBaseStyle: TimelineNowIndicatorStyle {
         HStack(alignment: .center, spacing: 0) {
             configuration.nowIndicatorNode
             Rectangle()
-                .frame(height: 2)
+                .frame(height: 1)
                 .foregroundColor(Color.preferredColor(.tintColor))
                 .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
         }
@@ -20,7 +20,7 @@ extension TimelineNowIndicatorFioriStyle {
     struct ContentFioriStyle: TimelineNowIndicatorStyle {
         func makeBody(_ configuration: TimelineNowIndicatorConfiguration) -> some View {
             TimelineNowIndicator(configuration)
-                .padding(EdgeInsets(top: 0, leading: 88, bottom: 0, trailing: 0))
+                .padding(EdgeInsets(top: 0, leading: 90, bottom: 0, trailing: 0))
         }
     }
 
@@ -29,7 +29,7 @@ extension TimelineNowIndicatorFioriStyle {
 
         func makeBody(_ configuration: NowIndicatorNodeConfiguration) -> some View {
             NowIndicatorNode(configuration)
-                .font(.system(size: 7))
+                .font(.system(size: 5))
                 .foregroundColor(.preferredColor(.tintColor))
                 .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
         }

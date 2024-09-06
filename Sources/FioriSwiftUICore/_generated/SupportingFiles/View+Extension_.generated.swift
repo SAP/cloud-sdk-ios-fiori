@@ -241,6 +241,23 @@ public extension View {
     }
 }
 
+// MARK: DateTimePickerStyle
+
+public extension View {
+    func dateTimePickerStyle(_ style: some DateTimePickerStyle) -> some View {
+        self.transformEnvironment(\.dateTimePickerStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func dateTimePickerStyle(@ViewBuilder content: @escaping (DateTimePickerConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.dateTimePickerStyleStack) { stack in
+            let style = AnyDateTimePickerStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: DecrementActionStyle
 
 public extension View {
@@ -797,6 +814,23 @@ public extension View {
     func objectItemStyle(@ViewBuilder content: @escaping (ObjectItemConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.objectItemStyleStack) { stack in
             let style = AnyObjectItemStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: OptionalTitleStyle
+
+public extension View {
+    func optionalTitleStyle(_ style: some OptionalTitleStyle) -> some View {
+        self.transformEnvironment(\.optionalTitleStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func optionalTitleStyle(@ViewBuilder content: @escaping (OptionalTitleConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.optionalTitleStyleStack) { stack in
+            let style = AnyOptionalTitleStyle(content)
             stack.append(style)
         }
     }
@@ -1380,6 +1414,40 @@ public extension View {
     }
 }
 
+// MARK: TimelinePreviewStyle
+
+public extension View {
+    func timelinePreviewStyle(_ style: some TimelinePreviewStyle) -> some View {
+        self.transformEnvironment(\.timelinePreviewStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func timelinePreviewStyle(@ViewBuilder content: @escaping (TimelinePreviewConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.timelinePreviewStyleStack) { stack in
+            let style = AnyTimelinePreviewStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: TimelinePreviewItemStyle
+
+public extension View {
+    func timelinePreviewItemStyle(_ style: some TimelinePreviewItemStyle) -> some View {
+        self.transformEnvironment(\.timelinePreviewItemStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func timelinePreviewItemStyle(@ViewBuilder content: @escaping (TimelinePreviewItemConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.timelinePreviewItemStyleStack) { stack in
+            let style = AnyTimelinePreviewItemStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: TimestampStyle
 
 public extension View {
@@ -1443,6 +1511,23 @@ public extension View {
     func topDividerStyle(@ViewBuilder content: @escaping (TopDividerConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.topDividerStyleStack) { stack in
             let style = AnyTopDividerStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: ValueLabelStyle
+
+public extension View {
+    func valueLabelStyle(_ style: some ValueLabelStyle) -> some View {
+        self.transformEnvironment(\.valueLabelStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func valueLabelStyle(@ViewBuilder content: @escaping (ValueLabelConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.valueLabelStyleStack) { stack in
+            let style = AnyValueLabelStyle(content)
             stack.append(style)
         }
     }

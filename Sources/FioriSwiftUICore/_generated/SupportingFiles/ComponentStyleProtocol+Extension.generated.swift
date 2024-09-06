@@ -1396,6 +1396,62 @@ public extension CounterStyle where Self == CounterFioriStyle {
     }
 }
 
+// MARK: DateTimePickerStyle
+
+public extension DateTimePickerStyle where Self == DateTimePickerBaseStyle {
+    static var base: DateTimePickerBaseStyle {
+        DateTimePickerBaseStyle()
+    }
+}
+
+public extension DateTimePickerStyle where Self == DateTimePickerFioriStyle {
+    static var fiori: DateTimePickerFioriStyle {
+        DateTimePickerFioriStyle()
+    }
+}
+
+public struct DateTimePickerTitleStyle: DateTimePickerStyle {
+    let style: any TitleStyle
+
+    public func makeBody(_ configuration: DateTimePickerConfiguration) -> some View {
+        DateTimePicker(configuration)
+            .titleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension DateTimePickerStyle where Self == DateTimePickerTitleStyle {
+    static func titleStyle(_ style: some TitleStyle) -> DateTimePickerTitleStyle {
+        DateTimePickerTitleStyle(style: style)
+    }
+
+    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> DateTimePickerTitleStyle {
+        let style = AnyTitleStyle(content)
+        return DateTimePickerTitleStyle(style: style)
+    }
+}
+
+public struct DateTimePickerValueLabelStyle: DateTimePickerStyle {
+    let style: any ValueLabelStyle
+
+    public func makeBody(_ configuration: DateTimePickerConfiguration) -> some View {
+        DateTimePicker(configuration)
+            .valueLabelStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension DateTimePickerStyle where Self == DateTimePickerValueLabelStyle {
+    static func valueLabelStyle(_ style: some ValueLabelStyle) -> DateTimePickerValueLabelStyle {
+        DateTimePickerValueLabelStyle(style: style)
+    }
+
+    static func valueLabelStyle(@ViewBuilder content: @escaping (ValueLabelConfiguration) -> some View) -> DateTimePickerValueLabelStyle {
+        let style = AnyValueLabelStyle(content)
+        return DateTimePickerValueLabelStyle(style: style)
+    }
+}
+
 // MARK: DecrementActionStyle
 
 public extension DecrementActionStyle where Self == DecrementActionBaseStyle {
@@ -2842,6 +2898,20 @@ public extension ObjectItemStyle where Self == ObjectItemActionStyle {
     static func actionStyle(@ViewBuilder content: @escaping (ActionConfiguration) -> some View) -> ObjectItemActionStyle {
         let style = AnyActionStyle(content)
         return ObjectItemActionStyle(style: style)
+    }
+}
+
+// MARK: OptionalTitleStyle
+
+public extension OptionalTitleStyle where Self == OptionalTitleBaseStyle {
+    static var base: OptionalTitleBaseStyle {
+        OptionalTitleBaseStyle()
+    }
+}
+
+public extension OptionalTitleStyle where Self == OptionalTitleFioriStyle {
+    static var fiori: OptionalTitleFioriStyle {
+        OptionalTitleFioriStyle()
     }
 }
 
@@ -4518,6 +4588,160 @@ public extension TimelineNowIndicatorStyle where Self == TimelineNowIndicatorNow
     }
 }
 
+// MARK: TimelinePreviewStyle
+
+public extension TimelinePreviewStyle where Self == TimelinePreviewBaseStyle {
+    static var base: TimelinePreviewBaseStyle {
+        TimelinePreviewBaseStyle()
+    }
+}
+
+public extension TimelinePreviewStyle where Self == TimelinePreviewFioriStyle {
+    static var fiori: TimelinePreviewFioriStyle {
+        TimelinePreviewFioriStyle()
+    }
+}
+
+public struct TimelinePreviewOptionalTitleStyle: TimelinePreviewStyle {
+    let style: any OptionalTitleStyle
+
+    public func makeBody(_ configuration: TimelinePreviewConfiguration) -> some View {
+        TimelinePreview(configuration)
+            .optionalTitleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension TimelinePreviewStyle where Self == TimelinePreviewOptionalTitleStyle {
+    static func optionalTitleStyle(_ style: some OptionalTitleStyle) -> TimelinePreviewOptionalTitleStyle {
+        TimelinePreviewOptionalTitleStyle(style: style)
+    }
+
+    static func optionalTitleStyle(@ViewBuilder content: @escaping (OptionalTitleConfiguration) -> some View) -> TimelinePreviewOptionalTitleStyle {
+        let style = AnyOptionalTitleStyle(content)
+        return TimelinePreviewOptionalTitleStyle(style: style)
+    }
+}
+
+public struct TimelinePreviewActionStyle: TimelinePreviewStyle {
+    let style: any ActionStyle
+
+    public func makeBody(_ configuration: TimelinePreviewConfiguration) -> some View {
+        TimelinePreview(configuration)
+            .actionStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension TimelinePreviewStyle where Self == TimelinePreviewActionStyle {
+    static func actionStyle(_ style: some ActionStyle) -> TimelinePreviewActionStyle {
+        TimelinePreviewActionStyle(style: style)
+    }
+
+    static func actionStyle(@ViewBuilder content: @escaping (ActionConfiguration) -> some View) -> TimelinePreviewActionStyle {
+        let style = AnyActionStyle(content)
+        return TimelinePreviewActionStyle(style: style)
+    }
+}
+
+// MARK: TimelinePreviewItemStyle
+
+public extension TimelinePreviewItemStyle where Self == TimelinePreviewItemBaseStyle {
+    static var base: TimelinePreviewItemBaseStyle {
+        TimelinePreviewItemBaseStyle()
+    }
+}
+
+public extension TimelinePreviewItemStyle where Self == TimelinePreviewItemFioriStyle {
+    static var fiori: TimelinePreviewItemFioriStyle {
+        TimelinePreviewItemFioriStyle()
+    }
+}
+
+public struct TimelinePreviewItemTitleStyle: TimelinePreviewItemStyle {
+    let style: any TitleStyle
+
+    public func makeBody(_ configuration: TimelinePreviewItemConfiguration) -> some View {
+        TimelinePreviewItem(configuration)
+            .titleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension TimelinePreviewItemStyle where Self == TimelinePreviewItemTitleStyle {
+    static func titleStyle(_ style: some TitleStyle) -> TimelinePreviewItemTitleStyle {
+        TimelinePreviewItemTitleStyle(style: style)
+    }
+
+    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> TimelinePreviewItemTitleStyle {
+        let style = AnyTitleStyle(content)
+        return TimelinePreviewItemTitleStyle(style: style)
+    }
+}
+
+public struct TimelinePreviewItemIconStyle: TimelinePreviewItemStyle {
+    let style: any IconStyle
+
+    public func makeBody(_ configuration: TimelinePreviewItemConfiguration) -> some View {
+        TimelinePreviewItem(configuration)
+            .iconStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension TimelinePreviewItemStyle where Self == TimelinePreviewItemIconStyle {
+    static func iconStyle(_ style: some IconStyle) -> TimelinePreviewItemIconStyle {
+        TimelinePreviewItemIconStyle(style: style)
+    }
+
+    static func iconStyle(@ViewBuilder content: @escaping (IconConfiguration) -> some View) -> TimelinePreviewItemIconStyle {
+        let style = AnyIconStyle(content)
+        return TimelinePreviewItemIconStyle(style: style)
+    }
+}
+
+public struct TimelinePreviewItemTimelineNodeStyle: TimelinePreviewItemStyle {
+    let style: any TimelineNodeStyle
+
+    public func makeBody(_ configuration: TimelinePreviewItemConfiguration) -> some View {
+        TimelinePreviewItem(configuration)
+            .timelineNodeStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension TimelinePreviewItemStyle where Self == TimelinePreviewItemTimelineNodeStyle {
+    static func timelineNodeStyle(_ style: some TimelineNodeStyle) -> TimelinePreviewItemTimelineNodeStyle {
+        TimelinePreviewItemTimelineNodeStyle(style: style)
+    }
+
+    static func timelineNodeStyle(@ViewBuilder content: @escaping (TimelineNodeConfiguration) -> some View) -> TimelinePreviewItemTimelineNodeStyle {
+        let style = AnyTimelineNodeStyle(content)
+        return TimelinePreviewItemTimelineNodeStyle(style: style)
+    }
+}
+
+public struct TimelinePreviewItemTimestampStyle: TimelinePreviewItemStyle {
+    let style: any TimestampStyle
+
+    public func makeBody(_ configuration: TimelinePreviewItemConfiguration) -> some View {
+        TimelinePreviewItem(configuration)
+            .timestampStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension TimelinePreviewItemStyle where Self == TimelinePreviewItemTimestampStyle {
+    static func timestampStyle(_ style: some TimestampStyle) -> TimelinePreviewItemTimestampStyle {
+        TimelinePreviewItemTimestampStyle(style: style)
+    }
+
+    static func timestampStyle(@ViewBuilder content: @escaping (TimestampConfiguration) -> some View) -> TimelinePreviewItemTimestampStyle {
+        let style = AnyTimestampStyle(content)
+        return TimelinePreviewItemTimestampStyle(style: style)
+    }
+}
+
 // MARK: TimestampStyle
 
 public extension TimestampStyle where Self == TimestampBaseStyle {
@@ -4655,5 +4879,19 @@ public extension TopDividerStyle where Self == TopDividerBaseStyle {
 public extension TopDividerStyle where Self == TopDividerFioriStyle {
     static var fiori: TopDividerFioriStyle {
         TopDividerFioriStyle()
+    }
+}
+
+// MARK: ValueLabelStyle
+
+public extension ValueLabelStyle where Self == ValueLabelBaseStyle {
+    static var base: ValueLabelBaseStyle {
+        ValueLabelBaseStyle()
+    }
+}
+
+public extension ValueLabelStyle where Self == ValueLabelFioriStyle {
+    static var fiori: ValueLabelFioriStyle {
+        ValueLabelFioriStyle()
     }
 }

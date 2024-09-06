@@ -132,6 +132,13 @@ extension Counter: _ViewEmptyChecking {
     }
 }
 
+extension DateTimePicker: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        title.isEmpty &&
+            valueLabel.isEmpty
+    }
+}
+
 extension DecrementAction: _ViewEmptyChecking {
     public var isEmpty: Bool {
         decrementAction.isEmpty
@@ -357,6 +364,12 @@ extension ObjectItem: _ViewEmptyChecking {
             footnoteIconsText.isEmpty &&
             tags.isEmpty &&
             action.isEmpty
+    }
+}
+
+extension OptionalTitle: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        optionalTitle.isEmpty
     }
 }
 
@@ -596,6 +609,22 @@ extension TimelineNowIndicator: _ViewEmptyChecking {
     }
 }
 
+extension TimelinePreview: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        optionalTitle.isEmpty &&
+            action.isEmpty
+    }
+}
+
+extension TimelinePreviewItem: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        title.isEmpty &&
+            icon.isEmpty &&
+            timelineNode.isEmpty &&
+            timestamp.isEmpty
+    }
+}
+
 extension Timestamp: _ViewEmptyChecking {
     public var isEmpty: Bool {
         timestamp.isEmpty
@@ -617,5 +646,11 @@ extension TitleFormView: _ViewEmptyChecking {
 extension TopDivider: _ViewEmptyChecking {
     public var isEmpty: Bool {
         topDivider.isEmpty
+    }
+}
+
+extension ValueLabel: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        valueLabel.isEmpty
     }
 }

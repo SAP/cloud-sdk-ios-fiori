@@ -1,7 +1,29 @@
 import FioriSwiftUICore
 import SwiftUI
 
-struct SimpleTimelineExample: View {
+struct SimpleTimelinePreviewExample: View {
+    @State private var items0: [TimelinePreviewItemModelImplementation] = [
+        TimelinePreviewItemModelImplementation(title: "POC", timelineNode: TimelineNodeType.beforeStart, due: ISO8601DateFormatter().date(from: "2024-06-03T12:00:00Z")!),
+        TimelinePreviewItemModelImplementation(title: "Project Phase 3", timelineNode: TimelineNodeType.open, due: ISO8601DateFormatter().date(from: "2024-06-25T12:00:00Z")!),
+        TimelinePreviewItemModelImplementation(title: "Project Phase 2", timelineNode: TimelineNodeType.inProgress, due: ISO8601DateFormatter().date(from: "2024-06-20T12:00:00Z")!),
+        TimelinePreviewItemModelImplementation(title: "Project Phase 1", timelineNode: TimelineNodeType.complete, due: ISO8601DateFormatter().date(from: "2024-06-12T12:00:00Z")!),
+        TimelinePreviewItemModelImplementation(title: "Project Start", timelineNode: TimelineNodeType.start, due: ISO8601DateFormatter().date(from: "2024-06-05T12:00:00Z")!),
+        TimelinePreviewItemModelImplementation(title: "Project End", timelineNode: TimelineNodeType.end, due: ISO8601DateFormatter().date(from: "2024-07-25T12:00:00Z")!),
+        TimelinePreviewItemModelImplementation(title: "Accept Test", timelineNode: TimelineNodeType.beforeEnd, due: ISO8601DateFormatter().date(from: "2024-07-15T12:00:00Z")!),
+        TimelinePreviewItemModelImplementation(title: "Project Phase 4", timelineNode: TimelineNodeType.open, due: ISO8601DateFormatter().date(from: "2024-07-05T12:00:00Z")!)
+    ]
+    
+    var body: some View {
+        VStack {
+            NavigationLink(destination: TimelineView()) {
+                TimelinePreview(optionalTitle: { Text("Timeline Preview") }, items: .constant(self.items0.map { $0 as any TimelinePreviewItemModel }))
+            }
+            Spacer()
+        }
+    }
+}
+
+struct TimelineView: View {
     var body: some View {
         List {
             Section(header: Text("Simple Timeline Example")) {
@@ -35,10 +57,10 @@ struct SimpleTimelineExample: View {
             }
         }
         .listStyle(.plain)
-        .environment(\.defaultMinListRowHeight, 5)
+        .environment(\.defaultMinListRowHeight, 7)
     }
 }
 
 #Preview {
-    SimpleTimelineExample()
+    SimpleTimelinePreviewExample()
 }

@@ -200,6 +200,12 @@ struct CoreContentView: View {
                 {
                     Text("SegmentedControlPicker")
                 }
+                
+                NavigationLink(
+                    destination: DateTimePickerExample())
+                {
+                    Text("DateTimePicker")
+                }
             }
             
             Section(header: Text("Onboarding")) {
