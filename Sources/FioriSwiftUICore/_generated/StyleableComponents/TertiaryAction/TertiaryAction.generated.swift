@@ -55,7 +55,7 @@ private extension TertiaryAction {
     }
 
     func defaultStyle() -> some View {
-        TertiaryAction(tertiaryAction: { self.tertiaryAction })
+        TertiaryAction(.init(tertiaryAction: .init(self.tertiaryAction)))
             .shouldApplyDefaultStyle(false)
             .tertiaryActionStyle(.fiori)
             .typeErased

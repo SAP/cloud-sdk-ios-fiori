@@ -53,7 +53,7 @@ extension MenuSelectionItemFioriStyle {
     
     struct IconFioriStyle: IconStyle {
         let menuSelectionItemConfiguration: MenuSelectionItemConfiguration
-        @ScaledMetric var width: CGFloat = 14
+        @ScaledMetric var width: CGFloat = 18
         
         func makeBody(_ configuration: IconConfiguration) -> some View {
             Icon(configuration)

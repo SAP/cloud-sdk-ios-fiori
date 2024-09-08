@@ -55,7 +55,7 @@ private extension Placeholder {
     }
 
     func defaultStyle() -> some View {
-        Placeholder(placeholder: { self.placeholder })
+        Placeholder(.init(placeholder: .init(self.placeholder)))
             .shouldApplyDefaultStyle(false)
             .placeholderStyle(.fiori)
             .typeErased

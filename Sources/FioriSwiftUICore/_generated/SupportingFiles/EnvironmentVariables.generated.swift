@@ -297,6 +297,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: DateTimePickerStyle
+
+struct DateTimePickerStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any DateTimePickerStyle] = []
+}
+
+extension EnvironmentValues {
+    var dateTimePickerStyle: any DateTimePickerStyle {
+        self.dateTimePickerStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var dateTimePickerStyleStack: [any DateTimePickerStyle] {
+        get {
+            self[DateTimePickerStyleStackKey.self]
+        }
+        set {
+            self[DateTimePickerStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: DecrementActionStyle
 
 struct DecrementActionStyleStackKey: EnvironmentKey {
@@ -986,6 +1007,27 @@ extension EnvironmentValues {
         }
         set {
             self[ObjectItemStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: OptionalTitleStyle
+
+struct OptionalTitleStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any OptionalTitleStyle] = []
+}
+
+extension EnvironmentValues {
+    var optionalTitleStyle: any OptionalTitleStyle {
+        self.optionalTitleStyleStack.last ?? .base
+    }
+
+    var optionalTitleStyleStack: [any OptionalTitleStyle] {
+        get {
+            self[OptionalTitleStyleStackKey.self]
+        }
+        set {
+            self[OptionalTitleStyleStackKey.self] = newValue
         }
     }
 }
@@ -1704,6 +1746,48 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: TimelinePreviewStyle
+
+struct TimelinePreviewStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any TimelinePreviewStyle] = []
+}
+
+extension EnvironmentValues {
+    var timelinePreviewStyle: any TimelinePreviewStyle {
+        self.timelinePreviewStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var timelinePreviewStyleStack: [any TimelinePreviewStyle] {
+        get {
+            self[TimelinePreviewStyleStackKey.self]
+        }
+        set {
+            self[TimelinePreviewStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: TimelinePreviewItemStyle
+
+struct TimelinePreviewItemStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any TimelinePreviewItemStyle] = []
+}
+
+extension EnvironmentValues {
+    var timelinePreviewItemStyle: any TimelinePreviewItemStyle {
+        self.timelinePreviewItemStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var timelinePreviewItemStyleStack: [any TimelinePreviewItemStyle] {
+        get {
+            self[TimelinePreviewItemStyleStackKey.self]
+        }
+        set {
+            self[TimelinePreviewItemStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: TimestampStyle
 
 struct TimestampStyleStackKey: EnvironmentKey {
@@ -1784,6 +1868,27 @@ extension EnvironmentValues {
         }
         set {
             self[TopDividerStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: ValueLabelStyle
+
+struct ValueLabelStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any ValueLabelStyle] = []
+}
+
+extension EnvironmentValues {
+    var valueLabelStyle: any ValueLabelStyle {
+        self.valueLabelStyleStack.last ?? .base
+    }
+
+    var valueLabelStyleStack: [any ValueLabelStyle] {
+        get {
+            self[ValueLabelStyleStackKey.self]
+        }
+        set {
+            self[ValueLabelStyleStackKey.self] = newValue
         }
     }
 }

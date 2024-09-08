@@ -49,7 +49,7 @@ private extension MessageContent {
     }
 
     func defaultStyle() -> some View {
-        MessageContent(messageContent: { self.messageContent })
+        MessageContent(.init(messageContent: .init(self.messageContent)))
             .shouldApplyDefaultStyle(false)
             .messageContentStyle(.fiori)
             .typeErased

@@ -44,11 +44,11 @@ public struct TimelineMarker {
                 showUpperVerticalLine: Bool = true,
                 showLowerVerticalLine: Bool = true)
     {
-        self.timestamp = Timestamp { timestamp() }
-        self.secondaryTimestamp = SecondaryTimestamp { secondaryTimestamp() }
-        self.timelineNode = TimelineNode { timelineNode() }
-        self.icon = Icon { icon() }
-        self.title = Title { title() }
+        self.timestamp = Timestamp(timestamp: timestamp)
+        self.secondaryTimestamp = SecondaryTimestamp(secondaryTimestamp: secondaryTimestamp)
+        self.timelineNode = TimelineNode(timelineNode: timelineNode)
+        self.icon = Icon(icon: icon)
+        self.title = Title(title: title)
         self.isPast = isPast
         self.isPresent = isPresent
         self.showUpperVerticalLine = showUpperVerticalLine

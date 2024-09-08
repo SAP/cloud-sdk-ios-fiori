@@ -55,7 +55,7 @@ private extension Description {
     }
 
     func defaultStyle() -> some View {
-        Description(description: { self.description })
+        Description(.init(description: .init(self.description)))
             .shouldApplyDefaultStyle(false)
             .descriptionStyle(.fiori)
             .typeErased

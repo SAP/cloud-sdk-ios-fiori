@@ -55,7 +55,7 @@ private extension Counter {
     }
 
     func defaultStyle() -> some View {
-        Counter(counter: { self.counter })
+        Counter(.init(counter: .init(self.counter)))
             .shouldApplyDefaultStyle(false)
             .counterStyle(.fiori)
             .typeErased

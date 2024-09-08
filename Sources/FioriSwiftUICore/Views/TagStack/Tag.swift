@@ -43,7 +43,7 @@ public struct LightTagStyle: TagStyle {
             .foregroundColor(.preferredColor(.secondaryLabel))
             .lineLimit(1)
             .padding(EdgeInsets(top: 2, leading: 3, bottom: 2, trailing: 3))
-            .background(RoundedRectangle(cornerRadius: 4).stroke(Color.preferredColor(.quaternaryLabel), lineWidth: 0.5))
+            .background(RoundedRectangle(cornerRadius: 8).stroke(Color.preferredColor(.quaternaryLabel), lineWidth: 0.5))
     }
 }
 
@@ -57,7 +57,7 @@ public struct DarkTagStyle: TagStyle {
             .foregroundColor(.preferredColor(.primaryLabel, background: .darkConstant))
             .lineLimit(1)
             .padding(EdgeInsets(top: 2, leading: 3, bottom: 2, trailing: 3))
-            .background(RoundedRectangle(cornerRadius: 4).fill(Color.preferredColor(.tertiaryLabel)))
+            .background(RoundedRectangle(cornerRadius: 8).fill(Color.preferredColor(.tertiaryLabel)))
     }
 }
 

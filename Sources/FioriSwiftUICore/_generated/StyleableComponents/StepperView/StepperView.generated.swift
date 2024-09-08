@@ -30,14 +30,14 @@ public struct StepperView {
                 @ViewBuilder icon: () -> any View = { EmptyView() },
                 @ViewBuilder description: () -> any View = { EmptyView() })
     {
-        self.title = Title { title() }
-        self.decrementAction = DecrementAction { decrementAction() }
+        self.title = Title(title: title)
+        self.decrementAction = DecrementAction(decrementAction: decrementAction)
         self._text = text
-        self.incrementAction = IncrementAction { incrementAction() }
+        self.incrementAction = IncrementAction(incrementAction: incrementAction)
         self.step = step
         self.stepRange = stepRange
-        self.icon = Icon { icon() }
-        self.description = Description { description() }
+        self.icon = Icon(icon: icon)
+        self.description = Description(description: description)
     }
 }
 

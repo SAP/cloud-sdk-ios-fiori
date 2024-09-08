@@ -14,8 +14,8 @@ public struct InformationView {
     public init(@ViewBuilder icon: () -> any View = { EmptyView() },
                 @ViewBuilder description: () -> any View = { EmptyView() })
     {
-        self.icon = Icon { icon() }
-        self.description = Description { description() }
+        self.icon = Icon(icon: icon)
+        self.description = Description(description: description)
     }
 }
 

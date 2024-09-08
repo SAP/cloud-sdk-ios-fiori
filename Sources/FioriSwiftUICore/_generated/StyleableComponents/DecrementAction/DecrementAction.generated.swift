@@ -57,7 +57,7 @@ private extension DecrementAction {
     }
 
     func defaultStyle() -> some View {
-        DecrementAction(decrementAction: { self.decrementAction })
+        DecrementAction(.init(decrementAction: .init(self.decrementAction)))
             .shouldApplyDefaultStyle(false)
             .decrementActionStyle(.fiori)
             .typeErased

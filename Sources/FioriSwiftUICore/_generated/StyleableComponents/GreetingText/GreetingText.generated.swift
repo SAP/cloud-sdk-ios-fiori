@@ -55,7 +55,7 @@ private extension GreetingText {
     }
 
     func defaultStyle() -> some View {
-        GreetingText(greetingText: { self.greetingText })
+        GreetingText(.init(greetingText: .init(self.greetingText)))
             .shouldApplyDefaultStyle(false)
             .greetingTextStyle(.fiori)
             .typeErased

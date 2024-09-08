@@ -227,6 +227,22 @@ extension CounterStyle {
     }
 }
 
+// MARK: DateTimePickerStyle
+
+struct ResolvedDateTimePickerStyle<Style: DateTimePickerStyle>: View {
+    let style: Style
+    let configuration: DateTimePickerConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension DateTimePickerStyle {
+    func resolve(configuration: DateTimePickerConfiguration) -> some View {
+        ResolvedDateTimePickerStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: DecrementActionStyle
 
 struct ResolvedDecrementActionStyle<Style: DecrementActionStyle>: View {
@@ -752,6 +768,22 @@ struct ResolvedObjectItemStyle<Style: ObjectItemStyle>: View {
 extension ObjectItemStyle {
     func resolve(configuration: ObjectItemConfiguration) -> some View {
         ResolvedObjectItemStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: OptionalTitleStyle
+
+struct ResolvedOptionalTitleStyle<Style: OptionalTitleStyle>: View {
+    let style: Style
+    let configuration: OptionalTitleConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension OptionalTitleStyle {
+    func resolve(configuration: OptionalTitleConfiguration) -> some View {
+        ResolvedOptionalTitleStyle(style: self, configuration: configuration)
     }
 }
 
@@ -1299,6 +1331,38 @@ extension TimelineNowIndicatorStyle {
     }
 }
 
+// MARK: TimelinePreviewStyle
+
+struct ResolvedTimelinePreviewStyle<Style: TimelinePreviewStyle>: View {
+    let style: Style
+    let configuration: TimelinePreviewConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension TimelinePreviewStyle {
+    func resolve(configuration: TimelinePreviewConfiguration) -> some View {
+        ResolvedTimelinePreviewStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: TimelinePreviewItemStyle
+
+struct ResolvedTimelinePreviewItemStyle<Style: TimelinePreviewItemStyle>: View {
+    let style: Style
+    let configuration: TimelinePreviewItemConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension TimelinePreviewItemStyle {
+    func resolve(configuration: TimelinePreviewItemConfiguration) -> some View {
+        ResolvedTimelinePreviewItemStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: TimestampStyle
 
 struct ResolvedTimestampStyle<Style: TimestampStyle>: View {
@@ -1360,5 +1424,21 @@ struct ResolvedTopDividerStyle<Style: TopDividerStyle>: View {
 extension TopDividerStyle {
     func resolve(configuration: TopDividerConfiguration) -> some View {
         ResolvedTopDividerStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: ValueLabelStyle
+
+struct ResolvedValueLabelStyle<Style: ValueLabelStyle>: View {
+    let style: Style
+    let configuration: ValueLabelConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension ValueLabelStyle {
+    func resolve(configuration: ValueLabelConfiguration) -> some View {
+        ResolvedValueLabelStyle(style: self, configuration: configuration)
     }
 }

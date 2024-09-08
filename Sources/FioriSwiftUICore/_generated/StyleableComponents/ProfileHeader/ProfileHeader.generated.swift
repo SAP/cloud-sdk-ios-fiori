@@ -24,10 +24,10 @@ public struct ProfileHeader {
                 animatable: Bool = false,
                 @ViewBuilder detailContent: () -> any View = { EmptyView() })
     {
-        self.detailImage = DetailImage { detailImage() }
-        self.title = Title { title() }
-        self.subtitle = Subtitle { subtitle() }
-        self.description = Description { description() }
+        self.detailImage = DetailImage(detailImage: detailImage)
+        self.title = Title(title: title)
+        self.subtitle = Subtitle(subtitle: subtitle)
+        self.description = Description(description: description)
         self.animatable = animatable
         self.detailContent = detailContent()
     }

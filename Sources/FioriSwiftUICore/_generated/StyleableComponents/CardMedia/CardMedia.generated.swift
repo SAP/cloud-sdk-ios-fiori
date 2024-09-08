@@ -14,8 +14,8 @@ public struct CardMedia {
     public init(@ViewBuilder mediaImage: () -> any View = { EmptyView() },
                 @ViewBuilder description: () -> any View = { EmptyView() })
     {
-        self.mediaImage = MediaImage { mediaImage() }
-        self.description = Description { description() }
+        self.mediaImage = MediaImage(mediaImage: mediaImage)
+        self.description = Description(description: description)
     }
 }
 

@@ -55,7 +55,7 @@ private extension FootnoteIconsText {
     }
 
     func defaultStyle() -> some View {
-        FootnoteIconsText(footnoteIconsText: { self.footnoteIconsText })
+        FootnoteIconsText(.init(footnoteIconsText: .init(self.footnoteIconsText)))
             .shouldApplyDefaultStyle(false)
             .footnoteIconsTextStyle(.fiori)
             .typeErased

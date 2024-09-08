@@ -20,11 +20,11 @@ public struct CardExtHeader {
                 @ViewBuilder kpi: () -> any View = { EmptyView() },
                 @ViewBuilder kpiCaption: () -> any View = { EmptyView() })
     {
-        self.row1 = Row1 { row1() }
-        self.row2 = Row2 { row2() }
-        self.row3 = Row3 { row3() }
-        self.kpi = Kpi { kpi() }
-        self.kpiCaption = KpiCaption { kpiCaption() }
+        self.row1 = Row1(row1: row1)
+        self.row2 = Row2(row2: row2)
+        self.row3 = Row3(row3: row3)
+        self.kpi = Kpi(kpi: kpi)
+        self.kpiCaption = KpiCaption(kpiCaption: kpiCaption)
     }
 }
 
