@@ -54,8 +54,8 @@ struct FioriShadowModifier: ViewModifier {
         case .level3:
             content
                 .shadow(color: self.color1, radius: 1)
-                .shadow(color: self.color2, radius: 16, y: 8)
-                .shadow(color: self.color2, radius: 32, y: 16)
+                .shadow(color: self.color2, radius: 8, y: 8)
+                .shadow(color: self.color2, radius: 16, y: 16)
         case .level4:
             content
                 .shadow(color: self.color2, radius: 1)
