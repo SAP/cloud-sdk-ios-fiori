@@ -312,12 +312,12 @@ public extension EnvironmentValues {
 }
 
 struct FootnoteIconsTextPosition: EnvironmentKey {
-    static let defaultValue: TextPosition = .trailing
+    static let defaultValue: AvatarStack.TextPosition = .trailing
 }
 
 public extension EnvironmentValues {
     /// Text position for footnote icons.
-    var footnoteIconsTextPosition: TextPosition {
+    var footnoteIconsTextPosition: AvatarStack.TextPosition {
         get { self[FootnoteIconsTextPosition.self] }
         set { self[FootnoteIconsTextPosition.self] = newValue }
     }
@@ -327,7 +327,7 @@ public extension View {
     /// Specific the position of the text that drawn for footnote icons. Default value is `.trailing`.
     /// - Parameter position: Text position.
     /// - Returns: A view that footnote icons text with specific position.
-    func footnoteIconsTextPosition(_ position: TextPosition) -> some View {
+    func footnoteIconsTextPosition(_ position: AvatarStack.TextPosition) -> some View {
         environment(\.footnoteIconsTextPosition, position)
     }
 
@@ -392,6 +392,7 @@ public extension View {
     }
 }
 
+@available(*, deprecated, message: "Use AvatarStack.TextPosition instead. And this will be removed in the future release.")
 /// Text position for icons.
 public enum TextPosition {
     /// Top position for text.

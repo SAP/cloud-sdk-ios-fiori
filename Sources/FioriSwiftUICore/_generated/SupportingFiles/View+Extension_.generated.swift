@@ -54,6 +54,23 @@ public extension View {
     }
 }
 
+// MARK: AvatarStackStyle
+
+public extension View {
+    func avatarStackStyle(_ style: some AvatarStackStyle) -> some View {
+        self.transformEnvironment(\.avatarStackStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func avatarStackStyle(@ViewBuilder content: @escaping (AvatarStackConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.avatarStackStyleStack) { stack in
+            let style = AnyAvatarStackStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: AvatarsStyle
 
 public extension View {
@@ -66,6 +83,23 @@ public extension View {
     func avatarsStyle(@ViewBuilder content: @escaping (AvatarsConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.avatarsStyleStack) { stack in
             let style = AnyAvatarsStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: AvatarsTitleStyle
+
+public extension View {
+    func avatarsTitleStyle(_ style: some AvatarsTitleStyle) -> some View {
+        self.transformEnvironment(\.avatarsTitleStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func avatarsTitleStyle(@ViewBuilder content: @escaping (AvatarsTitleConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.avatarsTitleStyleStack) { stack in
+            let style = AnyAvatarsTitleStyle(content)
             stack.append(style)
         }
     }

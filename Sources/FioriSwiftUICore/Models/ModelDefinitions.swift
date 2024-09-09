@@ -8,13 +8,6 @@ import SwiftUI
 public protocol IconStackModel: IconsComponent {}
 
 // sourcery: generated_component_not_configurable
-// sourcery: add_env_props = "avatarSize"
-// sourcery: add_env_props = "isAvatarCircular"
-// sourcery: add_env_props = "avatarBorderWidth"
-// sourcery: add_env_props = "avatarBorderColor"
-public protocol AvatarStackModel: AvatarsComponent {}
-
-// sourcery: generated_component_not_configurable
 // sourcery: add_env_props = "footnoteIconsSize"
 // sourcery: add_env_props = "footnoteIconsSpacing"
 // sourcery: add_env_props = "isFootnoteIconsCircular"
