@@ -51,6 +51,22 @@ extension AttributeStyle {
     }
 }
 
+// MARK: AvatarStackStyle
+
+struct ResolvedAvatarStackStyle<Style: AvatarStackStyle>: View {
+    let style: Style
+    let configuration: AvatarStackConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension AvatarStackStyle {
+    func resolve(configuration: AvatarStackConfiguration) -> some View {
+        ResolvedAvatarStackStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: AvatarsStyle
 
 struct ResolvedAvatarsStyle<Style: AvatarsStyle>: View {
@@ -64,6 +80,22 @@ struct ResolvedAvatarsStyle<Style: AvatarsStyle>: View {
 extension AvatarsStyle {
     func resolve(configuration: AvatarsConfiguration) -> some View {
         ResolvedAvatarsStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: AvatarsTitleStyle
+
+struct ResolvedAvatarsTitleStyle<Style: AvatarsTitleStyle>: View {
+    let style: Style
+    let configuration: AvatarsTitleConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension AvatarsTitleStyle {
+    func resolve(configuration: AvatarsTitleConfiguration) -> some View {
+        ResolvedAvatarsTitleStyle(style: self, configuration: configuration)
     }
 }
 

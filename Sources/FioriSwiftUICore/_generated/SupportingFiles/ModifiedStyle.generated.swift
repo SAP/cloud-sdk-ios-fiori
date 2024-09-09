@@ -92,6 +92,34 @@ public extension AttributeStyle {
     }
 }
 
+// MARK: AvatarStackStyle
+
+extension ModifiedStyle: AvatarStackStyle where Style: AvatarStackStyle {
+    public func makeBody(_ configuration: AvatarStackConfiguration) -> some View {
+        AvatarStack(configuration)
+            .avatarStackStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct AvatarStackStyleModifier<Style: AvatarStackStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.avatarStackStyle(self.style)
+    }
+}
+
+public extension AvatarStackStyle {
+    func modifier(_ modifier: some ViewModifier) -> some AvatarStackStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some AvatarStackStyle) -> some AvatarStackStyle {
+        style.modifier(AvatarStackStyleModifier(style: self))
+    }
+}
+
 // MARK: AvatarsStyle
 
 extension ModifiedStyle: AvatarsStyle where Style: AvatarsStyle {
@@ -117,6 +145,34 @@ public extension AvatarsStyle {
 
     func concat(_ style: some AvatarsStyle) -> some AvatarsStyle {
         style.modifier(AvatarsStyleModifier(style: self))
+    }
+}
+
+// MARK: AvatarsTitleStyle
+
+extension ModifiedStyle: AvatarsTitleStyle where Style: AvatarsTitleStyle {
+    public func makeBody(_ configuration: AvatarsTitleConfiguration) -> some View {
+        AvatarsTitle(configuration)
+            .avatarsTitleStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct AvatarsTitleStyleModifier<Style: AvatarsTitleStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.avatarsTitleStyle(self.style)
+    }
+}
+
+public extension AvatarsTitleStyle {
+    func modifier(_ modifier: some ViewModifier) -> some AvatarsTitleStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some AvatarsTitleStyle) -> some AvatarsTitleStyle {
+        style.modifier(AvatarsTitleStyleModifier(style: self))
     }
 }
 
