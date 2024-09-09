@@ -2,6 +2,7 @@ import FioriSwiftUICore
 import SwiftUI
 
 struct KeyValueFormViewExample: View {
+    @State var isPresented: Bool = false
     var key1: AttributedString {
         let aString = AttributedString("Key 1")
         return aString
@@ -42,11 +43,40 @@ struct KeyValueFormViewExample: View {
     @State var allowsBeyondLimit = false
     @State var hidesReadonlyHint = false
     @State var isRequired = false
+    @State var showList = true
     
     var body: some View {
         VStack {
-            Text("KeyValueFormViewExample")
-            List {
+            if !self.showList {
+                KeyValueFormView(title: "KeyValueFormView", text: self.$valueText1, placeholder: "KeyValueFormView", errorMessage: "", hintText: self.getHintText(), isCharCountEnabled: self.showsCharCount, allowsBeyondLimit: self.allowsBeyondLimit, isRequired: self.isRequired)
+                    .padding(.horizontal, 10)
+            } else {
+                Text("KeyValueFormViewExample")
+                List {
+                    Text("Default KeyValueForm")
+                    KeyValueFormView(title: self.key1, text: self.$valueText1, placeholder: "KeyValueFormView", errorMessage: self.getErrorMessage(), maxTextLength: self.getMaxTextLength(), hintText: self.getHintText(), isCharCountEnabled: self.showsCharCount, allowsBeyondLimit: self.allowsBeyondLimit, isRequired: self.isRequired)
+                    
+                    Text("Existing Text")
+                        .italic()
+                    KeyValueFormView(title: self.key2, text: self.$valueText2, placeholder: "KeyValueFormView", errorMessage: self.getErrorMessage(), maxTextLength: self.getMaxTextLength(), hintText: self.getHintText(), isCharCountEnabled: self.showsCharCount, allowsBeyondLimit: self.allowsBeyondLimit, isRequired: self.isRequired)
+                    
+                    Text("minHeight 50, maxHeight 200")
+                        .italic()
+                    KeyValueFormView(title: self.key3, text: self.$valueText3, placeholder: "Please enter something", errorMessage: self.getErrorMessage(), minTextEditorHeight: 50, maxTextEditorHeight: 200, hintText: self.getHintText(), allowsBeyondLimit: self.allowsBeyondLimit, isRequired: self.isRequired)
+                    
+                    Text("Disabled")
+                    KeyValueFormView(title: "Disabled", text: self.$disabledText, placeholder: "Disabled", controlState: .disabled, minTextEditorHeight: 50, maxTextEditorHeight: 200, isRequired: self.isRequired)
+                    
+                    Text("Read-Only")
+                    KeyValueFormView(title: "Read-Only", text: self.$readOnlyText, placeholder: "Read-Only", controlState: .readOnly, minTextEditorHeight: 50, maxTextLength: 200, hidesReadOnlyHint: self.hidesReadonlyHint, isRequired: self.isRequired)
+                }
+                #if !os(visionOS)
+                .scrollDismissesKeyboard(.immediately)
+                #endif
+            }
+        }
+        .sheet(isPresented: self.$isPresented, content: {
+            VStack {
                 Toggle("Shows Hint Text", isOn: self.$showsHintText)
                     .padding(.leading, 16)
                     .padding(.trailing, 16)
@@ -65,33 +95,21 @@ struct KeyValueFormViewExample: View {
                 Toggle("Mandatory Field", isOn: self.$isRequired)
                     .padding(.leading, 16)
                     .padding(.trailing, 16)
+                Toggle("Show on List", isOn: self.$showList)
+                    .padding(.leading, 16)
+                    .padding(.trailing, 16)
                 Button("Dismiss Keyboard") {
                     hideKeyboard()
                 }
-                .padding(.leading, 16)
-                .padding(.trailing, 16)
-
-                Text("Default KeyValueForm")
-                KeyValueFormView(title: self.key1, text: self.$valueText1, placeholder: "KeyValueFormView", errorMessage: self.getErrorMessage(), maxTextLength: self.getMaxTextLength(), hintText: self.getHintText(), isCharCountEnabled: self.showsCharCount, allowsBeyondLimit: self.allowsBeyondLimit, isRequired: self.isRequired)
-
-                Text("Existing Text")
-                    .italic()
-                KeyValueFormView(title: self.key2, text: self.$valueText2, placeholder: "KeyValueFormView", errorMessage: self.getErrorMessage(), maxTextLength: self.getMaxTextLength(), hintText: self.getHintText(), isCharCountEnabled: self.showsCharCount, allowsBeyondLimit: self.allowsBeyondLimit, isRequired: self.isRequired)
-
-                Text("minHeight 50, maxHeight 200")
-                    .italic()
-                KeyValueFormView(title: self.key3, text: self.$valueText3, placeholder: "Please enter something", errorMessage: self.getErrorMessage(), minTextEditorHeight: 50, maxTextEditorHeight: 200, hintText: self.getHintText(), allowsBeyondLimit: self.allowsBeyondLimit, isRequired: self.isRequired)
-
-                Text("Disabled")
-                KeyValueFormView(title: "Disabled", text: self.$disabledText, placeholder: "Disabled", controlState: .disabled, minTextEditorHeight: 50, maxTextEditorHeight: 200, isRequired: self.isRequired)
-
-                Text("Read-Only")
-                KeyValueFormView(title: "Read-Only", text: self.$readOnlyText, placeholder: "Read-Only", controlState: .readOnly, minTextEditorHeight: 50, maxTextLength: 200, hidesReadOnlyHint: self.hidesReadonlyHint, isRequired: self.isRequired)
             }
-            #if !os(visionOS)
-            .scrollDismissesKeyboard(.immediately)
-            #endif
-        }
+            .padding()
+            .presentationDetents([.medium])
+        })
+        .toolbar(content: {
+            FioriButton(title: "Options") { _ in
+                self.isPresented = true
+            }
+        })
     }
 
     func getHintText() -> AttributedString? {
