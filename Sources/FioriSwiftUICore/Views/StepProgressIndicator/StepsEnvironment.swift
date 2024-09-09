@@ -23,7 +23,7 @@ extension EnvironmentValues {
 }
 
 struct StepProgressIndicatorNodeTypeKey: EnvironmentKey {
-    static let defaultValue: StepProgressIndicatorNodeType = .mixture
+    static let defaultValue: StepProgressIndicatorNodeType = .text
 }
 
 extension EnvironmentValues {

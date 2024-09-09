@@ -59,13 +59,6 @@ struct SPIExampleWithIcon: View {
                             StepItemData(title: "Other0", state: .disabled),
                             StepItemData(title: "Other1", state: .completed),
                             StepItemData(title: "other2", state: .error)]
-    @State var mixtureSteps = [StepItemData(title: "Sign In", node: .text("No.1"), state: .completed),
-                               StepItemData(title: "User Info", state: .completed),
-                               StepItemData(title: "Account Info", node: .icon(FioriIcon.actions.edit), state: .completed),
-                               StepItemData(title: "Settings", node: .icon(FioriIcon.actions.actionSettings), state: .normal, substeps: [StepItemData(title: "Settings 1")]),
-                               StepItemData(title: "Other0", state: .disabled),
-                               StepItemData(title: "Other1", state: .completed),
-                               StepItemData(title: "other2", state: .error)]
     @State var textSteps = [StepItemData(title: "Sign In", state: .completed),
                             StepItemData(title: "User Info", node: .text("AB"), state: .completed),
                             StepItemData(title: "Account Info", state: .completed),
@@ -74,7 +67,6 @@ struct SPIExampleWithIcon: View {
                             StepItemData(title: "Other1", state: .completed),
                             StepItemData(title: "other2", state: .error)]
     @State var iconSelection: String = ""
-    @State var mixtureSelection: String = ""
     @State var textSelection: String = ""
     var body: some View {
         VStack(alignment: .leading) {
@@ -102,15 +94,6 @@ struct SPIExampleWithIcon: View {
             .onAppear {
                 self.updateCurrentStepName()
             }
-            
-            Text("Step: Mixture Node").bold()
-            StepProgressIndicator(selection: self.$mixtureSelection,
-                                  stepItems: self.mixtureSteps)
-            {
-                Text("Invariant title").lineLimit(1)
-            } action: {}
-                .stepProgressIndicatorNodeType(.mixture)
-                .padding()
             
             Text("Step: Only Text Node").bold()
             StepProgressIndicator(selection: self.$textSelection,

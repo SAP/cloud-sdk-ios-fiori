@@ -102,16 +102,6 @@ struct DefaultSingleStep: View {
                     self.node(by: self.stepItem.state, isSelected: isSelected)
                     self.noNodeStep()
                     switch self.type {
-                    case .mixture:
-                        switch self.stepItem.node {
-                        case .text(let string):
-                            Text(string)
-                                .font(Font.fiori(forTextStyle: .footnote))
-                        case .icon(let image):
-                            image
-                        case .none:
-                            EmptyView()
-                        }
                     case .icon:
                         switch self.stepItem.node {
                         case .icon(let image):
@@ -154,7 +144,7 @@ struct DefaultSingleStep: View {
     func noNodeStep() -> some View {
         if self.stepItem.node == nil {
             switch self.type {
-            case .mixture, .text:
+            case .text:
                 Text("\(self.index + 1)")
                     .font(Font.fiori(forTextStyle: .footnote))
             case .icon:
