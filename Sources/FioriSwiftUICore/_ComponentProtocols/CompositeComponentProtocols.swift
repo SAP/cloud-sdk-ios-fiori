@@ -537,3 +537,12 @@ protocol _TimelinePreviewComponent: _OptionalTitleComponent, _ActionComponent {
 /// ```
 // sourcery: CompositeComponent
 protocol _SwitchViewComponent: _TitleComponent, _SwitchComponent {}
+
+// sourcery: CompositeComponent
+protocol _DateTimePickerComponent: _TitleComponent, _ValueLabelComponent {
+    // sourcery: @Binding
+    var selectedDate: Date { get }
+    
+    // sourcery: defaultValue = [.date, .hourAndMinute]
+    var pickerComponents: DatePicker.Components { get }
+}
