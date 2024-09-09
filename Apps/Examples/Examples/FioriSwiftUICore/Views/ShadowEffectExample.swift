@@ -27,19 +27,19 @@ struct ShadowEffectExample: View {
     
     @ViewBuilder func styleDescription(_ style: FioriShadowStyle) -> some View {
         switch style {
-        case .minimal:
+        case .level0:
             Text("Level 0")
-        case .light:
+        case .level1:
             Text("Level 1")
-        case .medium:
+        case .level2:
             Text("Level 2")
-        case .heavy:
+        case .level3:
             Text("Level 3")
-        case .max:
+        case .level4:
             Text("Level 3")
-        case .compact:
+        case .smallElement:
             Text("Small Shape")
-        case .broad:
+        case .mediumElement:
             Text("Medium Shape")
         }
     }

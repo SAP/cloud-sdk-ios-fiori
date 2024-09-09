@@ -3,21 +3,21 @@ import SwiftUI
 
 /// Fiori style shadow.
 public enum FioriShadowStyle: CaseIterable {
-    /// Minimal shadow. Most used in banner, header or previews.
-    case minimal
-    /// Light shadow.
-    case light
-    /// Medium shadow. Most used in cards or modal views.
-    case medium
-    /// Heavy shadow. Most used in toast message or quick sort.
-    case heavy
-    /// Max shadow. Most used in popovers.
-    case max
+    /// Shadow level 0. Most used in banner, header or previews.
+    case level0
+    /// Shadow Level 1.
+    case level1
+    /// Shadow Level 2. Most used in cards or modal views.
+    case level2
+    /// Shadow Level 3. Most used in toast message or quick sort.
+    case level3
+    /// Shadow Level 4. Most used in popovers.
+    case level4
     
-    /// Compact shadow. Most used in switch or slider.
-    case compact
-    /// Broad shadow. Most used in segmented control.
-    case broad
+    /// Shadow for small element. Most used in switch or slider.
+    case smallElement
+    /// Shadow for medium element. Most used in segmented control.
+    case mediumElement
 }
 
 public extension View {
@@ -40,32 +40,32 @@ struct FioriShadowModifier: ViewModifier {
     
     func body(content: Content) -> some View {
         switch self.style {
-        case .minimal:
+        case .level0:
             content
                 .shadow(color: self.color1, radius: 1)
-        case .light:
+        case .level1:
             content
                 .shadow(color: self.color1, radius: 1)
                 .shadow(color: self.color2, radius: 2, y: 1)
-        case .medium:
+        case .level2:
             content
                 .shadow(color: self.color1, radius: 1)
                 .shadow(color: self.color2, radius: 4, y: 2)
-        case .heavy:
+        case .level3:
             content
-                .shadow(color: self.color1, radius: 2)
+                .shadow(color: self.color1, radius: 1)
                 .shadow(color: self.color2, radius: 16, y: 8)
                 .shadow(color: self.color2, radius: 32, y: 16)
-        case .max:
+        case .level4:
             content
                 .shadow(color: self.color2, radius: 1)
                 .shadow(color: self.color2, radius: 8, y: 8)
                 .shadow(color: self.color3, radius: 50, y: 10)
-        case .compact:
+        case .smallElement:
             content
                 .shadow(color: self.color4, radius: 6.5, y: 6)
                 .shadow(color: self.color4, radius: 2, y: 0.5)
-        case .broad:
+        case .mediumElement:
             content
                 .shadow(color: self.color2, radius: 0.5, y: 3)
                 .shadow(color: self.color4, radius: 4, y: 3)
