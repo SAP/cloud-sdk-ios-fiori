@@ -51,6 +51,22 @@ extension AttributeStyle {
     }
 }
 
+// MARK: AvatarStackStyle
+
+struct ResolvedAvatarStackStyle<Style: AvatarStackStyle>: View {
+    let style: Style
+    let configuration: AvatarStackConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension AvatarStackStyle {
+    func resolve(configuration: AvatarStackConfiguration) -> some View {
+        ResolvedAvatarStackStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: AvatarsStyle
 
 struct ResolvedAvatarsStyle<Style: AvatarsStyle>: View {
@@ -64,6 +80,22 @@ struct ResolvedAvatarsStyle<Style: AvatarsStyle>: View {
 extension AvatarsStyle {
     func resolve(configuration: AvatarsConfiguration) -> some View {
         ResolvedAvatarsStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: AvatarsTitleStyle
+
+struct ResolvedAvatarsTitleStyle<Style: AvatarsTitleStyle>: View {
+    let style: Style
+    let configuration: AvatarsTitleConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension AvatarsTitleStyle {
+    func resolve(configuration: AvatarsTitleConfiguration) -> some View {
+        ResolvedAvatarsTitleStyle(style: self, configuration: configuration)
     }
 }
 
@@ -224,6 +256,22 @@ struct ResolvedCounterStyle<Style: CounterStyle>: View {
 extension CounterStyle {
     func resolve(configuration: CounterConfiguration) -> some View {
         ResolvedCounterStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: DateTimePickerStyle
+
+struct ResolvedDateTimePickerStyle<Style: DateTimePickerStyle>: View {
+    let style: Style
+    let configuration: DateTimePickerConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension DateTimePickerStyle {
+    func resolve(configuration: DateTimePickerConfiguration) -> some View {
+        ResolvedDateTimePickerStyle(style: self, configuration: configuration)
     }
 }
 
@@ -1408,5 +1456,21 @@ struct ResolvedTopDividerStyle<Style: TopDividerStyle>: View {
 extension TopDividerStyle {
     func resolve(configuration: TopDividerConfiguration) -> some View {
         ResolvedTopDividerStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: ValueLabelStyle
+
+struct ResolvedValueLabelStyle<Style: ValueLabelStyle>: View {
+    let style: Style
+    let configuration: ValueLabelConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension ValueLabelStyle {
+    func resolve(configuration: ValueLabelConfiguration) -> some View {
+        ResolvedValueLabelStyle(style: self, configuration: configuration)
     }
 }

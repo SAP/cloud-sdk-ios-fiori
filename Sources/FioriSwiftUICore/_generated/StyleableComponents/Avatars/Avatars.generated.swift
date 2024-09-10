@@ -17,7 +17,7 @@ public struct Avatars {
 
 public extension Avatars {
     init(avatars: [TextOrIcon] = []) {
-        self.init(avatars: { AvatarStack(avatars) })
+        self.init(avatars: { AvatarsListStack(avatars) })
     }
 }
 

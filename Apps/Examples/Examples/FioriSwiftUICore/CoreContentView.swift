@@ -8,6 +8,13 @@ struct CoreContentView: View {
         List {
             Section(header: Text("Views")) {
                 NavigationLink(
+                    destination: AvatarStackExample(),
+                    label: {
+                        Text("AvatarStack")
+                    }
+                )
+                
+                NavigationLink(
                     destination: FioriButtonContentView(),
                     label: {
                         Text("FioriButton")
@@ -199,6 +206,12 @@ struct CoreContentView: View {
                     destination: SegmentedControlExample())
                 {
                     Text("SegmentedControlPicker")
+                }
+                
+                NavigationLink(
+                    destination: DateTimePickerExample())
+                {
+                    Text("DateTimePicker")
                 }
             }
             

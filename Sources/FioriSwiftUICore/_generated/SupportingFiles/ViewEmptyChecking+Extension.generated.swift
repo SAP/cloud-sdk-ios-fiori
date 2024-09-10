@@ -21,9 +21,22 @@ extension Attribute: _ViewEmptyChecking {
     }
 }
 
+extension AvatarStack: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        avatars.isEmpty &&
+            avatarsTitle.isEmpty
+    }
+}
+
 extension Avatars: _ViewEmptyChecking {
     public var isEmpty: Bool {
         avatars.isEmpty
+    }
+}
+
+extension AvatarsTitle: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        avatarsTitle.isEmpty
     }
 }
 
@@ -129,6 +142,13 @@ extension CloseAction: _ViewEmptyChecking {
 extension Counter: _ViewEmptyChecking {
     public var isEmpty: Bool {
         counter.isEmpty
+    }
+}
+
+extension DateTimePicker: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        title.isEmpty &&
+            valueLabel.isEmpty
     }
 }
 
@@ -639,5 +659,11 @@ extension TitleFormView: _ViewEmptyChecking {
 extension TopDivider: _ViewEmptyChecking {
     public var isEmpty: Bool {
         topDivider.isEmpty
+    }
+}
+
+extension ValueLabel: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        valueLabel.isEmpty
     }
 }

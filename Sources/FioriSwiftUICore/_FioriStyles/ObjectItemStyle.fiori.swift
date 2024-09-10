@@ -497,7 +497,7 @@ extension ObjectItemBaseStyle {
     
     @ViewBuilder
     func footnoteIconsView(_ context: Context) -> some View {
-        FootnoteIconsAndTextLayout(textPosition: self.footnoteIconsTextPosition) {
+        AvatarsAndTextLayout(textPosition: self.footnoteIconsTextPosition) {
             context.configuration.footnoteIconsText
             context.configuration.footnoteIcons
         }
@@ -753,8 +753,8 @@ public struct ObjectItemBorderedAction: ActionStyle {
     }
 }
 
-struct FootnoteIconsAndTextLayout: Layout {
-    let textPosition: TextPosition
+struct AvatarsAndTextLayout: Layout {
+    let textPosition: AvatarStack.TextPosition
     let margin = NSDirectionalEdgeInsets(top: 4, leading: 0, bottom: 4, trailing: 0)
     let textAndIconsSpacing: CGFloat = 6
     let textMinimumWidth: CGFloat = 60
@@ -820,7 +820,7 @@ struct FootnoteIconsAndTextLayout: Layout {
             case .bottom:
                 iconsView.place(at: bounds.origin, proposal: .unspecified)
                 let nextOrigin = CGPoint(x: bounds.minX,
-                                         y: bounds.minY + textView.sizeThatFits(.unspecified).height + self.textAndIconsSpacing)
+                                         y: bounds.minY + iconsView.sizeThatFits(.unspecified).height + self.textAndIconsSpacing)
                 textView.place(at: nextOrigin, proposal: .unspecified)
             case .leading:
                 let textActualSize = textView.sizeThatFits(.unspecified)

@@ -92,6 +92,34 @@ public extension AttributeStyle {
     }
 }
 
+// MARK: AvatarStackStyle
+
+extension ModifiedStyle: AvatarStackStyle where Style: AvatarStackStyle {
+    public func makeBody(_ configuration: AvatarStackConfiguration) -> some View {
+        AvatarStack(configuration)
+            .avatarStackStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct AvatarStackStyleModifier<Style: AvatarStackStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.avatarStackStyle(self.style)
+    }
+}
+
+public extension AvatarStackStyle {
+    func modifier(_ modifier: some ViewModifier) -> some AvatarStackStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some AvatarStackStyle) -> some AvatarStackStyle {
+        style.modifier(AvatarStackStyleModifier(style: self))
+    }
+}
+
 // MARK: AvatarsStyle
 
 extension ModifiedStyle: AvatarsStyle where Style: AvatarsStyle {
@@ -117,6 +145,34 @@ public extension AvatarsStyle {
 
     func concat(_ style: some AvatarsStyle) -> some AvatarsStyle {
         style.modifier(AvatarsStyleModifier(style: self))
+    }
+}
+
+// MARK: AvatarsTitleStyle
+
+extension ModifiedStyle: AvatarsTitleStyle where Style: AvatarsTitleStyle {
+    public func makeBody(_ configuration: AvatarsTitleConfiguration) -> some View {
+        AvatarsTitle(configuration)
+            .avatarsTitleStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct AvatarsTitleStyleModifier<Style: AvatarsTitleStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.avatarsTitleStyle(self.style)
+    }
+}
+
+public extension AvatarsTitleStyle {
+    func modifier(_ modifier: some ViewModifier) -> some AvatarsTitleStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some AvatarsTitleStyle) -> some AvatarsTitleStyle {
+        style.modifier(AvatarsTitleStyleModifier(style: self))
     }
 }
 
@@ -397,6 +453,34 @@ public extension CounterStyle {
 
     func concat(_ style: some CounterStyle) -> some CounterStyle {
         style.modifier(CounterStyleModifier(style: self))
+    }
+}
+
+// MARK: DateTimePickerStyle
+
+extension ModifiedStyle: DateTimePickerStyle where Style: DateTimePickerStyle {
+    public func makeBody(_ configuration: DateTimePickerConfiguration) -> some View {
+        DateTimePicker(configuration)
+            .dateTimePickerStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct DateTimePickerStyleModifier<Style: DateTimePickerStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.dateTimePickerStyle(self.style)
+    }
+}
+
+public extension DateTimePickerStyle {
+    func modifier(_ modifier: some ViewModifier) -> some DateTimePickerStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some DateTimePickerStyle) -> some DateTimePickerStyle {
+        style.modifier(DateTimePickerStyleModifier(style: self))
     }
 }
 
@@ -2469,5 +2553,33 @@ public extension TopDividerStyle {
 
     func concat(_ style: some TopDividerStyle) -> some TopDividerStyle {
         style.modifier(TopDividerStyleModifier(style: self))
+    }
+}
+
+// MARK: ValueLabelStyle
+
+extension ModifiedStyle: ValueLabelStyle where Style: ValueLabelStyle {
+    public func makeBody(_ configuration: ValueLabelConfiguration) -> some View {
+        ValueLabel(configuration)
+            .valueLabelStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct ValueLabelStyleModifier<Style: ValueLabelStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.valueLabelStyle(self.style)
+    }
+}
+
+public extension ValueLabelStyle {
+    func modifier(_ modifier: some ViewModifier) -> some ValueLabelStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some ValueLabelStyle) -> some ValueLabelStyle {
+        style.modifier(ValueLabelStyleModifier(style: self))
     }
 }

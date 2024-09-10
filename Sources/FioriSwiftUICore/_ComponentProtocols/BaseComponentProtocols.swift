@@ -97,7 +97,7 @@ protocol _FootnoteIconsTextComponent {
 
 // sourcery: BaseComponent
 protocol _AvatarsComponent {
-    // sourcery: resultBuilder.name = @AvatarsBuilder, resultBuilder.backingComponent = AvatarStack
+    // sourcery: resultBuilder.name = @AvatarsBuilder, resultBuilder.backingComponent = AvatarsListStack
     var avatars: [TextOrIcon] { get }
 }
 
@@ -326,4 +326,16 @@ protocol _OptionalTitleComponent {
     // sourcery: @ViewBuilder
     // sourcery: defaultValue = ""
     var optionalTitle: AttributedString? { get }
+}
+
+// sourcery: BaseComponent
+protocol _ValueLabelComponent {
+    // sourcery: @ViewBuilder
+    var valueLabel: AttributedString? { get }
+}
+
+// sourcery: BaseComponent
+protocol _AvatarsTitleComponent {
+    // sourcery: @ViewBuilder
+    var avatarsTitle: AttributedString? { get }
 }

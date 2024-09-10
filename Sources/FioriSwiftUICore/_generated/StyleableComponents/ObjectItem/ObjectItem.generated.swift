@@ -68,7 +68,7 @@ public extension ObjectItem {
          tags: [AttributedString] = [],
          action: FioriButton? = nil)
     {
-        self.init(title: { Text(title) }, subtitle: { OptionalText(subtitle) }, footnote: { OptionalText(footnote) }, description: { OptionalText(description) }, status: { TextOrIconView(status) }, substatus: { TextOrIconView(substatus) }, detailImage: { detailImage }, icons: { IconStack(icons) }, avatars: { AvatarStack(avatars) }, footnoteIcons: { FootnoteIconStack(footnoteIcons) }, footnoteIconsText: { OptionalText(footnoteIconsText) }, tags: { TagStack(tags) }, action: { action })
+        self.init(title: { Text(title) }, subtitle: { OptionalText(subtitle) }, footnote: { OptionalText(footnote) }, description: { OptionalText(description) }, status: { TextOrIconView(status) }, substatus: { TextOrIconView(substatus) }, detailImage: { detailImage }, icons: { IconStack(icons) }, avatars: { AvatarsListStack(avatars) }, footnoteIcons: { FootnoteIconStack(footnoteIcons) }, footnoteIconsText: { OptionalText(footnoteIconsText) }, tags: { TagStack(tags) }, action: { action })
     }
 }
 

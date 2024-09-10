@@ -45,6 +45,62 @@ public extension AttributeStyle where Self == AttributeFioriStyle {
     }
 }
 
+// MARK: AvatarStackStyle
+
+public extension AvatarStackStyle where Self == AvatarStackBaseStyle {
+    static var base: AvatarStackBaseStyle {
+        AvatarStackBaseStyle()
+    }
+}
+
+public extension AvatarStackStyle where Self == AvatarStackFioriStyle {
+    static var fiori: AvatarStackFioriStyle {
+        AvatarStackFioriStyle()
+    }
+}
+
+public struct AvatarStackAvatarsStyle: AvatarStackStyle {
+    let style: any AvatarsStyle
+
+    public func makeBody(_ configuration: AvatarStackConfiguration) -> some View {
+        AvatarStack(configuration)
+            .avatarsStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension AvatarStackStyle where Self == AvatarStackAvatarsStyle {
+    static func avatarsStyle(_ style: some AvatarsStyle) -> AvatarStackAvatarsStyle {
+        AvatarStackAvatarsStyle(style: style)
+    }
+
+    static func avatarsStyle(@ViewBuilder content: @escaping (AvatarsConfiguration) -> some View) -> AvatarStackAvatarsStyle {
+        let style = AnyAvatarsStyle(content)
+        return AvatarStackAvatarsStyle(style: style)
+    }
+}
+
+public struct AvatarStackAvatarsTitleStyle: AvatarStackStyle {
+    let style: any AvatarsTitleStyle
+
+    public func makeBody(_ configuration: AvatarStackConfiguration) -> some View {
+        AvatarStack(configuration)
+            .avatarsTitleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension AvatarStackStyle where Self == AvatarStackAvatarsTitleStyle {
+    static func avatarsTitleStyle(_ style: some AvatarsTitleStyle) -> AvatarStackAvatarsTitleStyle {
+        AvatarStackAvatarsTitleStyle(style: style)
+    }
+
+    static func avatarsTitleStyle(@ViewBuilder content: @escaping (AvatarsTitleConfiguration) -> some View) -> AvatarStackAvatarsTitleStyle {
+        let style = AnyAvatarsTitleStyle(content)
+        return AvatarStackAvatarsTitleStyle(style: style)
+    }
+}
+
 // MARK: AvatarsStyle
 
 public extension AvatarsStyle where Self == AvatarsBaseStyle {
@@ -56,6 +112,20 @@ public extension AvatarsStyle where Self == AvatarsBaseStyle {
 public extension AvatarsStyle where Self == AvatarsFioriStyle {
     static var fiori: AvatarsFioriStyle {
         AvatarsFioriStyle()
+    }
+}
+
+// MARK: AvatarsTitleStyle
+
+public extension AvatarsTitleStyle where Self == AvatarsTitleBaseStyle {
+    static var base: AvatarsTitleBaseStyle {
+        AvatarsTitleBaseStyle()
+    }
+}
+
+public extension AvatarsTitleStyle where Self == AvatarsTitleFioriStyle {
+    static var fiori: AvatarsTitleFioriStyle {
+        AvatarsTitleFioriStyle()
     }
 }
 
@@ -1393,6 +1463,62 @@ public extension CounterStyle where Self == CounterBaseStyle {
 public extension CounterStyle where Self == CounterFioriStyle {
     static var fiori: CounterFioriStyle {
         CounterFioriStyle()
+    }
+}
+
+// MARK: DateTimePickerStyle
+
+public extension DateTimePickerStyle where Self == DateTimePickerBaseStyle {
+    static var base: DateTimePickerBaseStyle {
+        DateTimePickerBaseStyle()
+    }
+}
+
+public extension DateTimePickerStyle where Self == DateTimePickerFioriStyle {
+    static var fiori: DateTimePickerFioriStyle {
+        DateTimePickerFioriStyle()
+    }
+}
+
+public struct DateTimePickerTitleStyle: DateTimePickerStyle {
+    let style: any TitleStyle
+
+    public func makeBody(_ configuration: DateTimePickerConfiguration) -> some View {
+        DateTimePicker(configuration)
+            .titleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension DateTimePickerStyle where Self == DateTimePickerTitleStyle {
+    static func titleStyle(_ style: some TitleStyle) -> DateTimePickerTitleStyle {
+        DateTimePickerTitleStyle(style: style)
+    }
+
+    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> DateTimePickerTitleStyle {
+        let style = AnyTitleStyle(content)
+        return DateTimePickerTitleStyle(style: style)
+    }
+}
+
+public struct DateTimePickerValueLabelStyle: DateTimePickerStyle {
+    let style: any ValueLabelStyle
+
+    public func makeBody(_ configuration: DateTimePickerConfiguration) -> some View {
+        DateTimePicker(configuration)
+            .valueLabelStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension DateTimePickerStyle where Self == DateTimePickerValueLabelStyle {
+    static func valueLabelStyle(_ style: some ValueLabelStyle) -> DateTimePickerValueLabelStyle {
+        DateTimePickerValueLabelStyle(style: style)
+    }
+
+    static func valueLabelStyle(@ViewBuilder content: @escaping (ValueLabelConfiguration) -> some View) -> DateTimePickerValueLabelStyle {
+        let style = AnyValueLabelStyle(content)
+        return DateTimePickerValueLabelStyle(style: style)
     }
 }
 
@@ -4823,5 +4949,19 @@ public extension TopDividerStyle where Self == TopDividerBaseStyle {
 public extension TopDividerStyle where Self == TopDividerFioriStyle {
     static var fiori: TopDividerFioriStyle {
         TopDividerFioriStyle()
+    }
+}
+
+// MARK: ValueLabelStyle
+
+public extension ValueLabelStyle where Self == ValueLabelBaseStyle {
+    static var base: ValueLabelBaseStyle {
+        ValueLabelBaseStyle()
+    }
+}
+
+public extension ValueLabelStyle where Self == ValueLabelFioriStyle {
+    static var fiori: ValueLabelFioriStyle {
+        ValueLabelFioriStyle()
     }
 }

@@ -66,6 +66,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: AvatarStackStyle
+
+struct AvatarStackStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any AvatarStackStyle] = []
+}
+
+extension EnvironmentValues {
+    var avatarStackStyle: any AvatarStackStyle {
+        self.avatarStackStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var avatarStackStyleStack: [any AvatarStackStyle] {
+        get {
+            self[AvatarStackStyleStackKey.self]
+        }
+        set {
+            self[AvatarStackStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: AvatarsStyle
 
 struct AvatarsStyleStackKey: EnvironmentKey {
@@ -83,6 +104,27 @@ extension EnvironmentValues {
         }
         set {
             self[AvatarsStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: AvatarsTitleStyle
+
+struct AvatarsTitleStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any AvatarsTitleStyle] = []
+}
+
+extension EnvironmentValues {
+    var avatarsTitleStyle: any AvatarsTitleStyle {
+        self.avatarsTitleStyleStack.last ?? .base
+    }
+
+    var avatarsTitleStyleStack: [any AvatarsTitleStyle] {
+        get {
+            self[AvatarsTitleStyleStackKey.self]
+        }
+        set {
+            self[AvatarsTitleStyleStackKey.self] = newValue
         }
     }
 }
@@ -293,6 +335,27 @@ extension EnvironmentValues {
         }
         set {
             self[CounterStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: DateTimePickerStyle
+
+struct DateTimePickerStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any DateTimePickerStyle] = []
+}
+
+extension EnvironmentValues {
+    var dateTimePickerStyle: any DateTimePickerStyle {
+        self.dateTimePickerStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var dateTimePickerStyleStack: [any DateTimePickerStyle] {
+        get {
+            self[DateTimePickerStyleStackKey.self]
+        }
+        set {
+            self[DateTimePickerStyleStackKey.self] = newValue
         }
     }
 }
@@ -1847,6 +1910,27 @@ extension EnvironmentValues {
         }
         set {
             self[TopDividerStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: ValueLabelStyle
+
+struct ValueLabelStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any ValueLabelStyle] = []
+}
+
+extension EnvironmentValues {
+    var valueLabelStyle: any ValueLabelStyle {
+        self.valueLabelStyleStack.last ?? .base
+    }
+
+    var valueLabelStyleStack: [any ValueLabelStyle] {
+        get {
+            self[ValueLabelStyleStackKey.self]
+        }
+        set {
+            self[ValueLabelStyleStackKey.self] = newValue
         }
     }
 }
