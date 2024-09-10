@@ -14,11 +14,3 @@ public protocol StepItem {
     /// Step node.
     var node: TextOrIcon? { get }
 }
-
-/// Node of Step Progress Indicator display type, default is `text`.
-public enum StepProgressIndicatorNodeType {
-    /// Only text.
-    case text
-    /// Only icon.
-    case icon
-}

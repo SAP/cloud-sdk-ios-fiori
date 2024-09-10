@@ -53,7 +53,6 @@ struct DefaultSingleStep: View {
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
     @Environment(\.stepAxis) var stepAxis
     @Environment(\.stepFrames) var stepFrames
-    @Environment(\.stepProgressIndicatorNodeType) var type
 
     var stepItem: StepItem
     @Binding var selection: String
@@ -100,23 +99,19 @@ struct DefaultSingleStep: View {
             } node: {
                 ZStack {
                     self.node(by: self.stepItem.state, isSelected: isSelected)
-                    self.noNodeStep()
-                    switch self.type {
-                    case .icon:
+                    if self.stepItem.node != nil {
                         switch self.stepItem.node {
                         case .icon(let image):
                             image
-                        case .none, .text:
-                            EmptyView()
-                        }
-                    case .text:
-                        switch self.stepItem.node {
                         case .text(let string):
                             Text(string)
                                 .font(Font.fiori(forTextStyle: .footnote))
-                        case .icon, .none:
+                        case .none:
                             EmptyView()
                         }
+                    } else {
+                        Text("\(self.index + 1)")
+                            .font(Font.fiori(forTextStyle: .footnote))
                     }
                 }
                 .frame(width: self.sideLength, height: self.sideLength)
@@ -137,19 +132,6 @@ struct DefaultSingleStep: View {
                          horizontal: 8)
         } else {
             EmptyView()
-        }
-    }
-    
-    @ViewBuilder
-    func noNodeStep() -> some View {
-        if self.stepItem.node == nil {
-            switch self.type {
-            case .text:
-                Text("\(self.index + 1)")
-                    .font(Font.fiori(forTextStyle: .footnote))
-            case .icon:
-                Image(systemName: "app.dashed")
-            }
         }
     }
     

@@ -56,9 +56,9 @@ struct SPIExampleWithIcon: View {
                             StepItemData(title: "User Info", node: .icon(FioriIcon.people.personPlaceholder), state: .completed),
                             StepItemData(title: "Account Info", node: .icon(FioriIcon.actions.edit), state: .completed),
                             StepItemData(title: "Settings", node: .icon(FioriIcon.actions.actionSettings), state: .normal, substeps: [StepItemData(title: "Settings 1")]),
-                            StepItemData(title: "Other0", state: .disabled),
-                            StepItemData(title: "Other1", state: .completed),
-                            StepItemData(title: "other2", state: .error)]
+                            StepItemData(title: "Other0", node: .icon(Image(systemName: "app.dashed")), state: .disabled),
+                            StepItemData(title: "Other1", node: .icon(Image(systemName: "app.dashed")), state: .completed),
+                            StepItemData(title: "other2", node: .icon(Image(systemName: "app.dashed")), state: .error)]
     @State var textSteps = [StepItemData(title: "Sign In", state: .completed),
                             StepItemData(title: "User Info", node: .text("AB"), state: .completed),
                             StepItemData(title: "Account Info", state: .completed),
@@ -86,7 +86,6 @@ struct SPIExampleWithIcon: View {
                     }
                 }
             }
-            .stepProgressIndicatorNodeType(.icon)
             .padding()
             .onChange(of: self.iconSelection, perform: { _ in
                 self.updateCurrentStepName()
@@ -101,7 +100,6 @@ struct SPIExampleWithIcon: View {
             {
                 Text("Invariant title").lineLimit(1)
             } action: {}
-                .stepProgressIndicatorNodeType(.text)
                 .padding()
             
             Spacer().padding(20)
