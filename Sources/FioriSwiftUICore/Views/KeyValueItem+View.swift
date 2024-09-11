@@ -1,8 +1,6 @@
 import Foundation
 import SwiftUI
 
-// TODO: - Implement Fiori style definitions
-
 extension Fiori {
     enum KeyValueItem {
         typealias KeyCumulative = EmptyModifier
@@ -32,11 +30,9 @@ extension Fiori {
     }
 }
 
-// TODO: - Implement KeyValueItem View body
-
 extension KeyValueItem: View {
     public var body: some View {
-        VStack(alignment: .leading) {
+        CompactVStack(alignment: .leading) {
             if _axis == .horizontal {
                 HStack {
                     key
@@ -46,7 +42,6 @@ extension KeyValueItem: View {
                 .frame(maxWidth: .infinity)
             } else {
                 key
-                    .padding(.bottom, 3)
                 value
             }
         }

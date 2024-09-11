@@ -51,6 +51,7 @@ struct ListPickerItemExample: View {
         case identifiable
         case objectItem
         case stringItem
+        case differentStyles
         case activeChildren
         case searchable
         case searchableListView
@@ -85,6 +86,12 @@ struct ListPickerItemExample: View {
                     destination: ListPickerItemWithStringExample())
                 {
                     Text("StringItem")
+                }
+            case .differentStyles:
+                NavigationLink(
+                    destination: ListPickerItemStylesExample())
+                {
+                    Text("Different Styles")
                 }
             case .activeChildren:
                 NavigationLink(
@@ -339,6 +346,40 @@ struct ListPickerItemActiveChildrenExample: View {
             }
         }
         .navigationBarTitle(Text("Parent"))
+    }
+}
+
+public struct ListPickerItemStylesExample: View {
+    private let model = ["First", "Second", "Third", "Fourth", "Fifth"]
+    
+    @State var selections: Set<String> = ["Second"]
+    
+    @State var isEnabled: Bool = true
+    @State var axis: Axis = .horizontal
+    
+    public var body: some View {
+        List {
+            Section("List Picker Item") {
+                ListPickerItem(key: {
+                    Text("Choice")
+                }, value: {
+                    let str = Array(selections).joined(separator: ", ")
+                    Text(str)
+                }, axis: self.axis,
+                configuration:
+                ListPickerItemConfiguration(self.model, selection: self.$selections))
+                    .disabled(!self.isEnabled)
+            }
+            
+            Section("Styles Panel") {
+                Toggle("Is Enabled", isOn: self.$isEnabled)
+                Picker("Axis", selection: self.$axis) {
+                    Text("Horizontal").tag(Axis.horizontal)
+                    Text("Vertical").tag(Axis.vertical)
+                }
+            }
+        }
+        .navigationBarTitle(Text("Form"))
     }
 }
 
