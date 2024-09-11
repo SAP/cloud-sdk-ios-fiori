@@ -115,6 +115,7 @@
 		B18D2E9F2988B07B000A1821 /* KPIHeaderExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18D2E9E2988B07B000A1821 /* KPIHeaderExample.swift */; };
 		B18D593C2B0C52C700ABB1AD /* TabViewExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18D593B2B0C52C700ABB1AD /* TabViewExample.swift */; };
 		B190065A2C201BBE000C8B10 /* ProfileHeaderExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19006592C201BBE000C8B10 /* ProfileHeaderExample.swift */; };
+		B1A78D982C88388B00432B0D /* ShadowEffectExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A78D972C88388B00432B0D /* ShadowEffectExample.swift */; };
 		B1A98FF22C11592B00FC9998 /* BannerMessageExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A98FF12C11592B00FC9998 /* BannerMessageExample.swift */; };
 		B1A98FF52C12E9A000FC9998 /* BannerMessageModifierExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A98FF42C12E9A000FC9998 /* BannerMessageModifierExample.swift */; };
 		B1A98FF72C12EA1600FC9998 /* BannerMessageCustomInitExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A98FF62C12EA1600FC9998 /* BannerMessageCustomInitExample.swift */; };
@@ -324,6 +325,7 @@
 		B18D2E9E2988B07B000A1821 /* KPIHeaderExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KPIHeaderExample.swift; sourceTree = "<group>"; };
 		B18D593B2B0C52C700ABB1AD /* TabViewExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabViewExample.swift; sourceTree = "<group>"; };
 		B19006592C201BBE000C8B10 /* ProfileHeaderExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderExample.swift; sourceTree = "<group>"; };
+		B1A78D972C88388B00432B0D /* ShadowEffectExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowEffectExample.swift; sourceTree = "<group>"; };
 		B1A98FF12C11592B00FC9998 /* BannerMessageExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerMessageExample.swift; sourceTree = "<group>"; };
 		B1A98FF42C12E9A000FC9998 /* BannerMessageModifierExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerMessageModifierExample.swift; sourceTree = "<group>"; };
 		B1A98FF62C12EA1600FC9998 /* BannerMessageCustomInitExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerMessageCustomInitExample.swift; sourceTree = "<group>"; };
@@ -727,6 +729,7 @@
 			children = (
 				9DEC27B42C3F3DB30070B571 /* KeyValueItemExample.swift */,
 				9DEC27B62C3F3DE70070B571 /* OtherViewExamples.swift */,
+				B1A78D972C88388B00432B0D /* ShadowEffectExample.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1100,6 +1103,7 @@
 				8A6DE30B28DD27F9003222E3 /* Colors.swift in Sources */,
 				8AD9DFB225D49967007448EC /* StylingModifierExample.swift in Sources */,
 				9D0B260A2B9BA5C0004278A5 /* NoteFormViewExample.swift in Sources */,
+				B1A78D982C88388B00432B0D /* ShadowEffectExample.swift in Sources */,
 				9DEC27B72C3F3DE70070B571 /* OtherViewExamples.swift in Sources */,
 				87F492332C73ADA1002B8703 /* SimpleTimelinePreviewExample.swift in Sources */,
 				8A5579D124C1293C0098003A /* Settings.swift in Sources */,
