@@ -45,6 +45,62 @@ public extension AttributeStyle where Self == AttributeFioriStyle {
     }
 }
 
+// MARK: AvatarStackStyle
+
+public extension AvatarStackStyle where Self == AvatarStackBaseStyle {
+    static var base: AvatarStackBaseStyle {
+        AvatarStackBaseStyle()
+    }
+}
+
+public extension AvatarStackStyle where Self == AvatarStackFioriStyle {
+    static var fiori: AvatarStackFioriStyle {
+        AvatarStackFioriStyle()
+    }
+}
+
+public struct AvatarStackAvatarsStyle: AvatarStackStyle {
+    let style: any AvatarsStyle
+
+    public func makeBody(_ configuration: AvatarStackConfiguration) -> some View {
+        AvatarStack(configuration)
+            .avatarsStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension AvatarStackStyle where Self == AvatarStackAvatarsStyle {
+    static func avatarsStyle(_ style: some AvatarsStyle) -> AvatarStackAvatarsStyle {
+        AvatarStackAvatarsStyle(style: style)
+    }
+
+    static func avatarsStyle(@ViewBuilder content: @escaping (AvatarsConfiguration) -> some View) -> AvatarStackAvatarsStyle {
+        let style = AnyAvatarsStyle(content)
+        return AvatarStackAvatarsStyle(style: style)
+    }
+}
+
+public struct AvatarStackAvatarsTitleStyle: AvatarStackStyle {
+    let style: any AvatarsTitleStyle
+
+    public func makeBody(_ configuration: AvatarStackConfiguration) -> some View {
+        AvatarStack(configuration)
+            .avatarsTitleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension AvatarStackStyle where Self == AvatarStackAvatarsTitleStyle {
+    static func avatarsTitleStyle(_ style: some AvatarsTitleStyle) -> AvatarStackAvatarsTitleStyle {
+        AvatarStackAvatarsTitleStyle(style: style)
+    }
+
+    static func avatarsTitleStyle(@ViewBuilder content: @escaping (AvatarsTitleConfiguration) -> some View) -> AvatarStackAvatarsTitleStyle {
+        let style = AnyAvatarsTitleStyle(content)
+        return AvatarStackAvatarsTitleStyle(style: style)
+    }
+}
+
 // MARK: AvatarsStyle
 
 public extension AvatarsStyle where Self == AvatarsBaseStyle {
@@ -56,6 +112,20 @@ public extension AvatarsStyle where Self == AvatarsBaseStyle {
 public extension AvatarsStyle where Self == AvatarsFioriStyle {
     static var fiori: AvatarsFioriStyle {
         AvatarsFioriStyle()
+    }
+}
+
+// MARK: AvatarsTitleStyle
+
+public extension AvatarsTitleStyle where Self == AvatarsTitleBaseStyle {
+    static var base: AvatarsTitleBaseStyle {
+        AvatarsTitleBaseStyle()
+    }
+}
+
+public extension AvatarsTitleStyle where Self == AvatarsTitleFioriStyle {
+    static var fiori: AvatarsTitleFioriStyle {
+        AvatarsTitleFioriStyle()
     }
 }
 

@@ -38,8 +38,8 @@ struct FootnoteIconsListView<T: FootnoteIconList>: View {
     }
     
     @ViewBuilder
-    func avatarsView(withText: Bool = false) -> some View {
-        FootnoteIconsHStack(spacing: self.spacing) {
+    func avatarsView() -> some View {
+        HorizontalIconsHStack(spacing: self.spacing) {
             let itemsCount = self.maxCount <= 0 ? self.count : min(self.count, self.maxCount)
             ForEach(0 ..< itemsCount, id: \.self) { index in
                 self.icons.view(at: index)
@@ -65,7 +65,7 @@ struct FootnoteIconsListView<T: FootnoteIconList>: View {
     }
 }
 
-struct FootnoteIconsHStack: Layout {
+struct HorizontalIconsHStack: Layout {
     struct CacheData {
         var width: CGFloat
         var count: Int

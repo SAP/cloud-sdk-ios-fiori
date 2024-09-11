@@ -546,3 +546,6 @@ protocol _DateTimePickerComponent: _TitleComponent, _ValueLabelComponent {
     // sourcery: defaultValue = [.date, .hourAndMinute]
     var pickerComponents: DatePicker.Components { get }
 }
+
+// sourcery: CompositeComponent
+protocol _AvatarStackComponent: _AvatarsComponent, _AvatarsTitleComponent {}
