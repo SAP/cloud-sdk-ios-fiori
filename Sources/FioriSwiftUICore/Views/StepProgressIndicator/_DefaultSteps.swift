@@ -99,20 +99,11 @@ struct DefaultSingleStep: View {
             } node: {
                 ZStack {
                     self.node(by: self.stepItem.state, isSelected: isSelected)
-                    if self.stepItem.node != nil {
-                        switch self.stepItem.node {
-                        case .icon(let image):
-                            image
-                        case .text(let string):
-                            Text(string)
-                                .font(Font.fiori(forTextStyle: .footnote))
-                        case .none:
-                            EmptyView()
-                        }
-                    } else {
+                    if self.stepItem.node == nil {
                         Text("\(self.index + 1)")
                             .font(Font.fiori(forTextStyle: .footnote))
                     }
+                    TextOrIconView(self.stepItem.node)
                 }
                 .frame(width: self.sideLength, height: self.sideLength)
                 .overlay {
