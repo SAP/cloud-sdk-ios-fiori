@@ -23,19 +23,17 @@ struct AnyRatingControlFormViewStyle: RatingControlFormViewStyle {
 
 public struct RatingControlFormViewConfiguration {
     public let title: Title
+    public let valueLabel: ValueLabel
+    public let onStarImage: OnStarImage
+    public let offStarImage: OffStarImage
+    public let halfStarImage: HalfStarImage
+    public let reviewCountLabel: ReviewCountLabel
     @Binding public var rating: Int
     public let ratingControlStyle: RatingControl.Style
     public let ratingBounds: ClosedRange<Int>
-    public let onImage: Image?
-    public let offImage: Image?
-    public let halfImage: Image?
     public let itemSize: CGSize?
-    public let onColor: Color?
-    public let offColor: Color?
     public let interItemSpacing: CGFloat?
     public let ratingValueFormat: String?
-    public let valueLabelFont: Font?
-    public let valueLabelColor: Color?
     public let showsValueLabel: Bool
     public let averageRating: CGFloat?
     public let averageRatingFormat: String
@@ -48,6 +46,11 @@ public struct RatingControlFormViewConfiguration {
     public let axis: Axis
 
     public typealias Title = ConfigurationViewWrapper
+    public typealias ValueLabel = ConfigurationViewWrapper
+    public typealias OnStarImage = ConfigurationViewWrapper
+    public typealias OffStarImage = ConfigurationViewWrapper
+    public typealias HalfStarImage = ConfigurationViewWrapper
+    public typealias ReviewCountLabel = ConfigurationViewWrapper
     public typealias Subtitle = ConfigurationViewWrapper
 }
 
@@ -55,6 +58,11 @@ public struct RatingControlFormViewFioriStyle: RatingControlFormViewStyle {
     public func makeBody(_ configuration: RatingControlFormViewConfiguration) -> some View {
         RatingControlFormView(configuration)
             .titleStyle(TitleFioriStyle(ratingControlFormViewConfiguration: configuration))
+            .valueLabelStyle(ValueLabelFioriStyle(ratingControlFormViewConfiguration: configuration))
+            .onStarImageStyle(OnStarImageFioriStyle(ratingControlFormViewConfiguration: configuration))
+            .offStarImageStyle(OffStarImageFioriStyle(ratingControlFormViewConfiguration: configuration))
+            .halfStarImageStyle(HalfStarImageFioriStyle(ratingControlFormViewConfiguration: configuration))
+            .reviewCountLabelStyle(ReviewCountLabelFioriStyle(ratingControlFormViewConfiguration: configuration))
             .subtitleStyle(SubtitleFioriStyle(ratingControlFormViewConfiguration: configuration))
             .ratingControlStyle(RatingControlFioriStyle(ratingControlFormViewConfiguration: configuration))
     }

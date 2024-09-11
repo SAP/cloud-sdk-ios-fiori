@@ -1767,6 +1767,20 @@ public extension GreetingTextStyle where Self == GreetingTextFioriStyle {
     }
 }
 
+// MARK: HalfStarImageStyle
+
+public extension HalfStarImageStyle where Self == HalfStarImageBaseStyle {
+    static var base: HalfStarImageBaseStyle {
+        HalfStarImageBaseStyle()
+    }
+}
+
+public extension HalfStarImageStyle where Self == HalfStarImageFioriStyle {
+    static var fiori: HalfStarImageFioriStyle {
+        HalfStarImageFioriStyle()
+    }
+}
+
 // MARK: HeaderActionStyle
 
 public extension HeaderActionStyle where Self == HeaderActionBaseStyle {
@@ -2971,6 +2985,34 @@ public extension ObjectItemStyle where Self == ObjectItemActionStyle {
     }
 }
 
+// MARK: OffStarImageStyle
+
+public extension OffStarImageStyle where Self == OffStarImageBaseStyle {
+    static var base: OffStarImageBaseStyle {
+        OffStarImageBaseStyle()
+    }
+}
+
+public extension OffStarImageStyle where Self == OffStarImageFioriStyle {
+    static var fiori: OffStarImageFioriStyle {
+        OffStarImageFioriStyle()
+    }
+}
+
+// MARK: OnStarImageStyle
+
+public extension OnStarImageStyle where Self == OnStarImageBaseStyle {
+    static var base: OnStarImageBaseStyle {
+        OnStarImageBaseStyle()
+    }
+}
+
+public extension OnStarImageStyle where Self == OnStarImageFioriStyle {
+    static var fiori: OnStarImageFioriStyle {
+        OnStarImageFioriStyle()
+    }
+}
+
 // MARK: OptionalTitleStyle
 
 public extension OptionalTitleStyle where Self == OptionalTitleBaseStyle {
@@ -3251,6 +3293,111 @@ public extension RatingControlStyle where Self == RatingControlFioriStyle {
     }
 }
 
+public struct RatingControlValueLabelStyle: RatingControlStyle {
+    let style: any ValueLabelStyle
+
+    public func makeBody(_ configuration: RatingControlConfiguration) -> some View {
+        RatingControl(configuration)
+            .valueLabelStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension RatingControlStyle where Self == RatingControlValueLabelStyle {
+    static func valueLabelStyle(_ style: some ValueLabelStyle) -> RatingControlValueLabelStyle {
+        RatingControlValueLabelStyle(style: style)
+    }
+
+    static func valueLabelStyle(@ViewBuilder content: @escaping (ValueLabelConfiguration) -> some View) -> RatingControlValueLabelStyle {
+        let style = AnyValueLabelStyle(content)
+        return RatingControlValueLabelStyle(style: style)
+    }
+}
+
+public struct RatingControlOnStarImageStyle: RatingControlStyle {
+    let style: any OnStarImageStyle
+
+    public func makeBody(_ configuration: RatingControlConfiguration) -> some View {
+        RatingControl(configuration)
+            .onStarImageStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension RatingControlStyle where Self == RatingControlOnStarImageStyle {
+    static func onStarImageStyle(_ style: some OnStarImageStyle) -> RatingControlOnStarImageStyle {
+        RatingControlOnStarImageStyle(style: style)
+    }
+
+    static func onStarImageStyle(@ViewBuilder content: @escaping (OnStarImageConfiguration) -> some View) -> RatingControlOnStarImageStyle {
+        let style = AnyOnStarImageStyle(content)
+        return RatingControlOnStarImageStyle(style: style)
+    }
+}
+
+public struct RatingControlOffStarImageStyle: RatingControlStyle {
+    let style: any OffStarImageStyle
+
+    public func makeBody(_ configuration: RatingControlConfiguration) -> some View {
+        RatingControl(configuration)
+            .offStarImageStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension RatingControlStyle where Self == RatingControlOffStarImageStyle {
+    static func offStarImageStyle(_ style: some OffStarImageStyle) -> RatingControlOffStarImageStyle {
+        RatingControlOffStarImageStyle(style: style)
+    }
+
+    static func offStarImageStyle(@ViewBuilder content: @escaping (OffStarImageConfiguration) -> some View) -> RatingControlOffStarImageStyle {
+        let style = AnyOffStarImageStyle(content)
+        return RatingControlOffStarImageStyle(style: style)
+    }
+}
+
+public struct RatingControlHalfStarImageStyle: RatingControlStyle {
+    let style: any HalfStarImageStyle
+
+    public func makeBody(_ configuration: RatingControlConfiguration) -> some View {
+        RatingControl(configuration)
+            .halfStarImageStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension RatingControlStyle where Self == RatingControlHalfStarImageStyle {
+    static func halfStarImageStyle(_ style: some HalfStarImageStyle) -> RatingControlHalfStarImageStyle {
+        RatingControlHalfStarImageStyle(style: style)
+    }
+
+    static func halfStarImageStyle(@ViewBuilder content: @escaping (HalfStarImageConfiguration) -> some View) -> RatingControlHalfStarImageStyle {
+        let style = AnyHalfStarImageStyle(content)
+        return RatingControlHalfStarImageStyle(style: style)
+    }
+}
+
+public struct RatingControlReviewCountLabelStyle: RatingControlStyle {
+    let style: any ReviewCountLabelStyle
+
+    public func makeBody(_ configuration: RatingControlConfiguration) -> some View {
+        RatingControl(configuration)
+            .reviewCountLabelStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension RatingControlStyle where Self == RatingControlReviewCountLabelStyle {
+    static func reviewCountLabelStyle(_ style: some ReviewCountLabelStyle) -> RatingControlReviewCountLabelStyle {
+        RatingControlReviewCountLabelStyle(style: style)
+    }
+
+    static func reviewCountLabelStyle(@ViewBuilder content: @escaping (ReviewCountLabelConfiguration) -> some View) -> RatingControlReviewCountLabelStyle {
+        let style = AnyReviewCountLabelStyle(content)
+        return RatingControlReviewCountLabelStyle(style: style)
+    }
+}
+
 // MARK: RatingControlFormViewStyle
 
 public extension RatingControlFormViewStyle where Self == RatingControlFormViewBaseStyle {
@@ -3283,6 +3430,111 @@ public extension RatingControlFormViewStyle where Self == RatingControlFormViewT
     static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> RatingControlFormViewTitleStyle {
         let style = AnyTitleStyle(content)
         return RatingControlFormViewTitleStyle(style: style)
+    }
+}
+
+public struct RatingControlFormViewValueLabelStyle: RatingControlFormViewStyle {
+    let style: any ValueLabelStyle
+
+    public func makeBody(_ configuration: RatingControlFormViewConfiguration) -> some View {
+        RatingControlFormView(configuration)
+            .valueLabelStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension RatingControlFormViewStyle where Self == RatingControlFormViewValueLabelStyle {
+    static func valueLabelStyle(_ style: some ValueLabelStyle) -> RatingControlFormViewValueLabelStyle {
+        RatingControlFormViewValueLabelStyle(style: style)
+    }
+
+    static func valueLabelStyle(@ViewBuilder content: @escaping (ValueLabelConfiguration) -> some View) -> RatingControlFormViewValueLabelStyle {
+        let style = AnyValueLabelStyle(content)
+        return RatingControlFormViewValueLabelStyle(style: style)
+    }
+}
+
+public struct RatingControlFormViewOnStarImageStyle: RatingControlFormViewStyle {
+    let style: any OnStarImageStyle
+
+    public func makeBody(_ configuration: RatingControlFormViewConfiguration) -> some View {
+        RatingControlFormView(configuration)
+            .onStarImageStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension RatingControlFormViewStyle where Self == RatingControlFormViewOnStarImageStyle {
+    static func onStarImageStyle(_ style: some OnStarImageStyle) -> RatingControlFormViewOnStarImageStyle {
+        RatingControlFormViewOnStarImageStyle(style: style)
+    }
+
+    static func onStarImageStyle(@ViewBuilder content: @escaping (OnStarImageConfiguration) -> some View) -> RatingControlFormViewOnStarImageStyle {
+        let style = AnyOnStarImageStyle(content)
+        return RatingControlFormViewOnStarImageStyle(style: style)
+    }
+}
+
+public struct RatingControlFormViewOffStarImageStyle: RatingControlFormViewStyle {
+    let style: any OffStarImageStyle
+
+    public func makeBody(_ configuration: RatingControlFormViewConfiguration) -> some View {
+        RatingControlFormView(configuration)
+            .offStarImageStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension RatingControlFormViewStyle where Self == RatingControlFormViewOffStarImageStyle {
+    static func offStarImageStyle(_ style: some OffStarImageStyle) -> RatingControlFormViewOffStarImageStyle {
+        RatingControlFormViewOffStarImageStyle(style: style)
+    }
+
+    static func offStarImageStyle(@ViewBuilder content: @escaping (OffStarImageConfiguration) -> some View) -> RatingControlFormViewOffStarImageStyle {
+        let style = AnyOffStarImageStyle(content)
+        return RatingControlFormViewOffStarImageStyle(style: style)
+    }
+}
+
+public struct RatingControlFormViewHalfStarImageStyle: RatingControlFormViewStyle {
+    let style: any HalfStarImageStyle
+
+    public func makeBody(_ configuration: RatingControlFormViewConfiguration) -> some View {
+        RatingControlFormView(configuration)
+            .halfStarImageStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension RatingControlFormViewStyle where Self == RatingControlFormViewHalfStarImageStyle {
+    static func halfStarImageStyle(_ style: some HalfStarImageStyle) -> RatingControlFormViewHalfStarImageStyle {
+        RatingControlFormViewHalfStarImageStyle(style: style)
+    }
+
+    static func halfStarImageStyle(@ViewBuilder content: @escaping (HalfStarImageConfiguration) -> some View) -> RatingControlFormViewHalfStarImageStyle {
+        let style = AnyHalfStarImageStyle(content)
+        return RatingControlFormViewHalfStarImageStyle(style: style)
+    }
+}
+
+public struct RatingControlFormViewReviewCountLabelStyle: RatingControlFormViewStyle {
+    let style: any ReviewCountLabelStyle
+
+    public func makeBody(_ configuration: RatingControlFormViewConfiguration) -> some View {
+        RatingControlFormView(configuration)
+            .reviewCountLabelStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension RatingControlFormViewStyle where Self == RatingControlFormViewReviewCountLabelStyle {
+    static func reviewCountLabelStyle(_ style: some ReviewCountLabelStyle) -> RatingControlFormViewReviewCountLabelStyle {
+        RatingControlFormViewReviewCountLabelStyle(style: style)
+    }
+
+    static func reviewCountLabelStyle(@ViewBuilder content: @escaping (ReviewCountLabelConfiguration) -> some View) -> RatingControlFormViewReviewCountLabelStyle {
+        let style = AnyReviewCountLabelStyle(content)
+        return RatingControlFormViewReviewCountLabelStyle(style: style)
     }
 }
 
@@ -3325,6 +3577,20 @@ public extension RatingControlFormViewStyle where Self == RatingControlFormViewR
     static func ratingControlStyle(@ViewBuilder content: @escaping (RatingControlConfiguration) -> some View) -> RatingControlFormViewRatingControlStyle {
         let style = AnyRatingControlStyle(content)
         return RatingControlFormViewRatingControlStyle(style: style)
+    }
+}
+
+// MARK: ReviewCountLabelStyle
+
+public extension ReviewCountLabelStyle where Self == ReviewCountLabelBaseStyle {
+    static var base: ReviewCountLabelBaseStyle {
+        ReviewCountLabelBaseStyle()
+    }
+}
+
+public extension ReviewCountLabelStyle where Self == ReviewCountLabelFioriStyle {
+    static var fiori: ReviewCountLabelFioriStyle {
+        ReviewCountLabelFioriStyle()
     }
 }
 

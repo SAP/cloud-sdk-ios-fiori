@@ -1,4 +1,5 @@
 @testable import FioriSwiftUICore
+import FioriThemeManager
 import SwiftUI
 import XCTest
 
@@ -12,7 +13,7 @@ final class RatingControlDataTests: XCTestCase {
     }
 
     func testEditable() throws {
-        let ratingConfig = RatingControlConfiguration(rating: .constant(2), ratingControlStyle: .editable, ratingBounds: 0 ... 5, onImage: nil, offImage: nil, halfImage: nil, itemSize: nil, onColor: nil, offColor: nil, interItemSpacing: nil, ratingValueFormat: nil, valueLabelFont: nil, valueLabelColor: nil, showsValueLabel: false, averageRating: nil, averageRatingFormat: "%.1f", reviewCount: nil, reviewCountFormat: nil, reviewCountCeiling: nil, reviewCountCeilingFormat: nil, showsReviewCountLabel: false)
+        let ratingConfig = RatingControlConfiguration(valueLabel: RatingControlConfiguration.ValueLabel(Text("testLabel")), onStarImage: RatingControlConfiguration.OnStarImage(FioriIcon.actions.favorite.renderingMode(.template).resizable()), offStarImage: RatingControlConfiguration.OffStarImage(FioriIcon.actions.favorite.renderingMode(.template).resizable()), halfStarImage: RatingControlConfiguration.HalfStarImage(FioriIcon.actions.favorite.renderingMode(.template).resizable()), reviewCountLabel: RatingControlConfiguration.ReviewCountLabel(Text("reviews")), rating: .constant(2), ratingControlStyle: .editable, ratingBounds: 0 ... 5, itemSize: nil, interItemSpacing: nil, ratingValueFormat: nil, showsValueLabel: false, averageRating: nil, averageRatingFormat: "%.1f", reviewCount: nil, reviewCountFormat: nil, reviewCountCeiling: nil, reviewCountCeilingFormat: nil, showsReviewCountLabel: false)
         XCTAssertEqual(ratingConfig.getOnColor().cgColor, Color.preferredColor(.tintColor).cgColor)
         XCTAssertEqual(ratingConfig.getOffColor().cgColor, Color.preferredColor(.tintColor).cgColor)
         XCTAssertEqual(ratingConfig.getScale(), Image.Scale.large)
@@ -21,7 +22,7 @@ final class RatingControlDataTests: XCTestCase {
     }
 
     func testEditableDisabled() throws {
-        let ratingConfig = RatingControlConfiguration(rating: .constant(2), ratingControlStyle: .editableDisabled, ratingBounds: 0 ... 5, onImage: nil, offImage: nil, halfImage: nil, itemSize: nil, onColor: nil, offColor: nil, interItemSpacing: nil, ratingValueFormat: nil, valueLabelFont: nil, valueLabelColor: nil, showsValueLabel: false, averageRating: nil, averageRatingFormat: "%.1f", reviewCount: nil, reviewCountFormat: nil, reviewCountCeiling: nil, reviewCountCeilingFormat: nil, showsReviewCountLabel: false)
+        let ratingConfig = RatingControlConfiguration(valueLabel: RatingControlConfiguration.ValueLabel(Text("testLabel")), onStarImage: RatingControlConfiguration.OnStarImage(FioriIcon.actions.favorite.renderingMode(.template).resizable()), offStarImage: RatingControlConfiguration.OffStarImage(FioriIcon.actions.favorite.renderingMode(.template).resizable()), halfStarImage: RatingControlConfiguration.HalfStarImage(FioriIcon.actions.favorite.renderingMode(.template).resizable()), reviewCountLabel: RatingControlConfiguration.ReviewCountLabel(Text("reviews")), rating: .constant(2), ratingControlStyle: .editableDisabled, ratingBounds: 0 ... 5, itemSize: nil, interItemSpacing: nil, ratingValueFormat: nil, showsValueLabel: false, averageRating: nil, averageRatingFormat: "%.1f", reviewCount: nil, reviewCountFormat: nil, reviewCountCeiling: nil, reviewCountCeilingFormat: nil, showsReviewCountLabel: false)
         XCTAssertEqual(ratingConfig.getOnColor().cgColor, Color.preferredColor(.tintColor).cgColor)
         XCTAssertEqual(ratingConfig.getOffColor().cgColor, Color.preferredColor(.tintColor).cgColor)
         XCTAssertEqual(ratingConfig.getScale(), Image.Scale.large)
@@ -30,7 +31,7 @@ final class RatingControlDataTests: XCTestCase {
     }
 
     func testStandard() throws {
-        let ratingConfig = RatingControlConfiguration(rating: .constant(2), ratingControlStyle: .standard, ratingBounds: 0 ... 5, onImage: nil, offImage: nil, halfImage: nil, itemSize: nil, onColor: nil, offColor: nil, interItemSpacing: nil, ratingValueFormat: nil, valueLabelFont: nil, valueLabelColor: nil, showsValueLabel: false, averageRating: nil, averageRatingFormat: "%.1f", reviewCount: nil, reviewCountFormat: nil, reviewCountCeiling: nil, reviewCountCeilingFormat: nil, showsReviewCountLabel: false)
+        let ratingConfig = RatingControlConfiguration(valueLabel: RatingControlConfiguration.ValueLabel(Text("testLabel")), onStarImage: RatingControlConfiguration.OnStarImage(FioriIcon.actions.favorite.renderingMode(.template).resizable()), offStarImage: RatingControlConfiguration.OffStarImage(FioriIcon.actions.favorite.renderingMode(.template).resizable()), halfStarImage: RatingControlConfiguration.HalfStarImage(FioriIcon.actions.favorite.renderingMode(.template).resizable()), reviewCountLabel: RatingControlConfiguration.ReviewCountLabel(Text("reviews")), rating: .constant(2), ratingControlStyle: .standard, ratingBounds: 0 ... 5, itemSize: nil, interItemSpacing: nil, ratingValueFormat: nil, showsValueLabel: false, averageRating: nil, averageRatingFormat: "%.1f", reviewCount: nil, reviewCountFormat: nil, reviewCountCeiling: nil, reviewCountCeilingFormat: nil, showsReviewCountLabel: false)
         XCTAssertEqual(ratingConfig.getOnColor().cgColor, Color.preferredColor(.tertiaryLabel).cgColor)
         XCTAssertEqual(ratingConfig.getOffColor().cgColor, Color.preferredColor(.tertiaryLabel).cgColor)
         XCTAssertEqual(ratingConfig.getScale(), Image.Scale.small)
@@ -39,7 +40,7 @@ final class RatingControlDataTests: XCTestCase {
     }
 
     func testAccented() throws {
-        let ratingConfig = RatingControlConfiguration(rating: .constant(2), ratingControlStyle: .accented, ratingBounds: 0 ... 5, onImage: nil, offImage: nil, halfImage: nil, itemSize: nil, onColor: nil, offColor: nil, interItemSpacing: nil, ratingValueFormat: nil, valueLabelFont: nil, valueLabelColor: nil, showsValueLabel: false, averageRating: nil, averageRatingFormat: "%.1f", reviewCount: nil, reviewCountFormat: nil, reviewCountCeiling: nil, reviewCountCeilingFormat: nil, showsReviewCountLabel: false)
+        let ratingConfig = RatingControlConfiguration(valueLabel: RatingControlConfiguration.ValueLabel(Text("testLabel")), onStarImage: RatingControlConfiguration.OnStarImage(FioriIcon.actions.favorite.renderingMode(.template).resizable()), offStarImage: RatingControlConfiguration.OffStarImage(FioriIcon.actions.favorite.renderingMode(.template).resizable()), halfStarImage: RatingControlConfiguration.HalfStarImage(FioriIcon.actions.favorite.renderingMode(.template).resizable()), reviewCountLabel: RatingControlConfiguration.ReviewCountLabel(Text("reviews")), rating: .constant(2), ratingControlStyle: .accented, ratingBounds: 0 ... 5, itemSize: nil, interItemSpacing: nil, ratingValueFormat: nil, showsValueLabel: false, averageRating: nil, averageRatingFormat: "%.1f", reviewCount: nil, reviewCountFormat: nil, reviewCountCeiling: nil, reviewCountCeilingFormat: nil, showsReviewCountLabel: false)
         XCTAssertEqual(ratingConfig.getOnColor().cgColor, Color.preferredColor(.mango4).cgColor)
         XCTAssertEqual(ratingConfig.getOffColor().cgColor, Color.preferredColor(.mango4).cgColor)
         XCTAssertEqual(ratingConfig.getScale(), Image.Scale.small)
@@ -48,7 +49,7 @@ final class RatingControlDataTests: XCTestCase {
     }
 
     func testRatingItems() throws {
-        let ratingConfig = RatingControlConfiguration(rating: .constant(2), ratingControlStyle: .editable, ratingBounds: 0 ... 5, onImage: nil, offImage: nil, halfImage: nil, itemSize: nil, onColor: nil, offColor: nil, interItemSpacing: nil, ratingValueFormat: nil, valueLabelFont: nil, valueLabelColor: nil, showsValueLabel: false, averageRating: nil, averageRatingFormat: "%.1f", reviewCount: nil, reviewCountFormat: nil, reviewCountCeiling: nil, reviewCountCeilingFormat: nil, showsReviewCountLabel: false)
+        let ratingConfig = RatingControlConfiguration(valueLabel: RatingControlConfiguration.ValueLabel(Text("testLabel")), onStarImage: RatingControlConfiguration.OnStarImage(FioriIcon.actions.favorite.renderingMode(.template).resizable()), offStarImage: RatingControlConfiguration.OffStarImage(FioriIcon.actions.favorite.renderingMode(.template).resizable()), halfStarImage: RatingControlConfiguration.HalfStarImage(FioriIcon.actions.favorite.renderingMode(.template).resizable()), reviewCountLabel: RatingControlConfiguration.ReviewCountLabel(Text("reviews")), rating: .constant(2), ratingControlStyle: .editable, ratingBounds: 0 ... 5, itemSize: nil, interItemSpacing: nil, ratingValueFormat: nil, showsValueLabel: false, averageRating: nil, averageRatingFormat: "%.1f", reviewCount: nil, reviewCountFormat: nil, reviewCountCeiling: nil, reviewCountCeilingFormat: nil, showsReviewCountLabel: false)
         let items = ratingConfig.ratingItems(2)
         XCTAssertEqual(items.count, 5)
         XCTAssertEqual(items[0].isOn, true)
@@ -57,7 +58,7 @@ final class RatingControlDataTests: XCTestCase {
         XCTAssertEqual(items[3].isOn, false)
         XCTAssertEqual(items[4].isOn, false)
 
-        let ratingConfig2 = RatingControlConfiguration(rating: .constant(2), ratingControlStyle: .accented, ratingBounds: -5 ... 5, onImage: nil, offImage: nil, halfImage: nil, itemSize: nil, onColor: nil, offColor: nil, interItemSpacing: nil, ratingValueFormat: nil, valueLabelFont: nil, valueLabelColor: nil, showsValueLabel: false, averageRating: nil, averageRatingFormat: "%.1f", reviewCount: nil, reviewCountFormat: nil, reviewCountCeiling: nil, reviewCountCeilingFormat: nil, showsReviewCountLabel: false)
+        let ratingConfig2 = RatingControlConfiguration(valueLabel: RatingControlConfiguration.ValueLabel(Text("testLabel")), onStarImage: RatingControlConfiguration.OnStarImage(FioriIcon.actions.favorite.renderingMode(.template).resizable()), offStarImage: RatingControlConfiguration.OffStarImage(FioriIcon.actions.favorite.renderingMode(.template).resizable()), halfStarImage: RatingControlConfiguration.HalfStarImage(FioriIcon.actions.favorite.renderingMode(.template).resizable()), reviewCountLabel: RatingControlConfiguration.ReviewCountLabel(Text("reviews")), rating: .constant(2), ratingControlStyle: .accented, ratingBounds: -5 ... 5, itemSize: nil, interItemSpacing: nil, ratingValueFormat: nil, showsValueLabel: false, averageRating: nil, averageRatingFormat: "%.1f", reviewCount: nil, reviewCountFormat: nil, reviewCountCeiling: nil, reviewCountCeilingFormat: nil, showsReviewCountLabel: false)
         let items2 = ratingConfig2.ratingItems(2)
         XCTAssertEqual(items2.count, 10)
         XCTAssertEqual(items2[0].isOn, true)
@@ -71,7 +72,7 @@ final class RatingControlDataTests: XCTestCase {
         XCTAssertEqual(items2[8].isOn, false)
         XCTAssertEqual(items2[9].isOn, false)
 
-        let ratingConfig3 = RatingControlConfiguration(rating: .constant(2), ratingControlStyle: .standard, ratingBounds: 0 ... 5, onImage: nil, offImage: nil, halfImage: nil, itemSize: nil, onColor: nil, offColor: nil, interItemSpacing: nil, ratingValueFormat: nil, valueLabelFont: nil, valueLabelColor: nil, showsValueLabel: false, averageRating: 3.5, averageRatingFormat: "%.1f", reviewCount: nil, reviewCountFormat: nil, reviewCountCeiling: nil, reviewCountCeilingFormat: nil, showsReviewCountLabel: false)
+        let ratingConfig3 = RatingControlConfiguration(valueLabel: RatingControlConfiguration.ValueLabel(Text("testLabel")), onStarImage: RatingControlConfiguration.OnStarImage(FioriIcon.actions.favorite.renderingMode(.template).resizable()), offStarImage: RatingControlConfiguration.OffStarImage(FioriIcon.actions.favorite.renderingMode(.template).resizable()), halfStarImage: RatingControlConfiguration.HalfStarImage(FioriIcon.actions.favorite.renderingMode(.template).resizable()), reviewCountLabel: RatingControlConfiguration.ReviewCountLabel(Text("reviews")), rating: .constant(2), ratingControlStyle: .standard, ratingBounds: 0 ... 5, itemSize: nil, interItemSpacing: nil, ratingValueFormat: nil, showsValueLabel: false, averageRating: 3.5, averageRatingFormat: "%.1f", reviewCount: nil, reviewCountFormat: nil, reviewCountCeiling: nil, reviewCountCeilingFormat: nil, showsReviewCountLabel: false)
         let items3 = ratingConfig3.ratingItems(3.5)
         XCTAssertEqual(items3.count, 5)
         XCTAssertEqual(items3[0].isOn, true)

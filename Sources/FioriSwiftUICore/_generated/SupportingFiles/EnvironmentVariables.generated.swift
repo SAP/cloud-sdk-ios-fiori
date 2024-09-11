@@ -570,6 +570,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: HalfStarImageStyle
+
+struct HalfStarImageStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any HalfStarImageStyle] = []
+}
+
+extension EnvironmentValues {
+    var halfStarImageStyle: any HalfStarImageStyle {
+        self.halfStarImageStyleStack.last ?? .base
+    }
+
+    var halfStarImageStyleStack: [any HalfStarImageStyle] {
+        get {
+            self[HalfStarImageStyleStackKey.self]
+        }
+        set {
+            self[HalfStarImageStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: HeaderActionStyle
 
 struct HeaderActionStyleStackKey: EnvironmentKey {
@@ -1053,6 +1074,48 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: OffStarImageStyle
+
+struct OffStarImageStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any OffStarImageStyle] = []
+}
+
+extension EnvironmentValues {
+    var offStarImageStyle: any OffStarImageStyle {
+        self.offStarImageStyleStack.last ?? .base
+    }
+
+    var offStarImageStyleStack: [any OffStarImageStyle] {
+        get {
+            self[OffStarImageStyleStackKey.self]
+        }
+        set {
+            self[OffStarImageStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: OnStarImageStyle
+
+struct OnStarImageStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any OnStarImageStyle] = []
+}
+
+extension EnvironmentValues {
+    var onStarImageStyle: any OnStarImageStyle {
+        self.onStarImageStyleStack.last ?? .base
+    }
+
+    var onStarImageStyleStack: [any OnStarImageStyle] {
+        get {
+            self[OnStarImageStyleStackKey.self]
+        }
+        set {
+            self[OnStarImageStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: OptionalTitleStyle
 
 struct OptionalTitleStyleStackKey: EnvironmentKey {
@@ -1238,6 +1301,27 @@ extension EnvironmentValues {
         }
         set {
             self[RatingControlFormViewStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: ReviewCountLabelStyle
+
+struct ReviewCountLabelStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any ReviewCountLabelStyle] = []
+}
+
+extension EnvironmentValues {
+    var reviewCountLabelStyle: any ReviewCountLabelStyle {
+        self.reviewCountLabelStyleStack.last ?? .base
+    }
+
+    var reviewCountLabelStyleStack: [any ReviewCountLabelStyle] {
+        get {
+            self[ReviewCountLabelStyleStackKey.self]
+        }
+        set {
+            self[ReviewCountLabelStyleStackKey.self] = newValue
         }
     }
 }

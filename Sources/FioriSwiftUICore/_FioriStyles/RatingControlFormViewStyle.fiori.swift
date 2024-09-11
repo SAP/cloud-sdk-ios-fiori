@@ -91,6 +91,46 @@ extension RatingControlFormViewFioriStyle {
         }
     }
 
+    struct ValueLabelFioriStyle: ValueLabelStyle {
+        let ratingControlFormViewConfiguration: RatingControlFormViewConfiguration
+    
+        func makeBody(_ configuration: ValueLabelConfiguration) -> some View {
+            ValueLabel(configuration)
+        }
+    }
+
+    struct OnStarImageFioriStyle: OnStarImageStyle {
+        let ratingControlFormViewConfiguration: RatingControlFormViewConfiguration
+    
+        func makeBody(_ configuration: OnStarImageConfiguration) -> some View {
+            OnStarImage(configuration)
+        }
+    }
+
+    struct OffStarImageFioriStyle: OffStarImageStyle {
+        let ratingControlFormViewConfiguration: RatingControlFormViewConfiguration
+    
+        func makeBody(_ configuration: OffStarImageConfiguration) -> some View {
+            OffStarImage(configuration)
+        }
+    }
+
+    struct HalfStarImageFioriStyle: HalfStarImageStyle {
+        let ratingControlFormViewConfiguration: RatingControlFormViewConfiguration
+    
+        func makeBody(_ configuration: HalfStarImageConfiguration) -> some View {
+            HalfStarImage(configuration)
+        }
+    }
+
+    struct ReviewCountLabelFioriStyle: ReviewCountLabelStyle {
+        let ratingControlFormViewConfiguration: RatingControlFormViewConfiguration
+    
+        func makeBody(_ configuration: ReviewCountLabelConfiguration) -> some View {
+            ReviewCountLabel(configuration)
+        }
+    }
+
     struct SubtitleFioriStyle: SubtitleStyle {
         let ratingControlFormViewConfiguration: RatingControlFormViewConfiguration
 

@@ -295,7 +295,8 @@ protocol _BannerMessageComponent: _IconComponent, _TitleComponent, _CloseActionC
 /// The default "On" image is a filled star while the default "Off" inmage
 /// is an unfilled star.
 // sourcery: CompositeComponent
-protocol _RatingControlComponent {
+// sourcery: importFrameworks = ["FioriThemeManager"]
+protocol _RatingControlComponent: _ValueLabelComponent, _OnStarImageComponent, _OffStarImageComponent, _HalfStarImageComponent, _ReviewCountLabelComponent {
     // sourcery: @Binding
     /// The rating value.
     var rating: Int { get }
@@ -308,23 +309,8 @@ protocol _RatingControlComponent {
     // sourcery: defaultValue = 0...5
     var ratingBounds: ClosedRange<Int> { get }
 
-    /// The custom image to be used for "On".
-    var onImage: Image? { get }
-
-    /// The custom image to be used for "Off".
-    var offImage: Image? { get }
-
-    /// The custom image to be used for half On image.
-    var halfImage: Image? { get }
-
     /// The custom fixed size of each item image view.
     var itemSize: CGSize? { get }
-
-    /// The custom color for the ON image.
-    var onColor: Color? { get }
-
-    /// The custom color for the OFF image.
-    var offColor: Color? { get }
 
     /// The custom spacing between images.
     var interItemSpacing: CGFloat? { get }
@@ -333,14 +319,6 @@ protocol _RatingControlComponent {
     /// When this is `nil`, the default format is "%d of %d" where "of" is the localized "of". The first parameter is the rating value while the second parameter is the total number of stars.
     // sourcery: defaultValue = "nil"
     var ratingValueFormat: String? { get }
-
-    /// The custom font for value label.
-    // sourcery: defaultValue = "nil"
-    var valueLabelFont: Font? { get }
-
-    /// The custom text color for value label.
-    // sourcery: defaultValue = "nil"
-    var valueLabelColor: Color? { get }
 
     /// This property indicates if the value label is to be displayed or not. The default value is `false` for backward compatibility.
     // sourcery: defaultValue = "false"
@@ -440,6 +418,7 @@ protocol _TimelineNowIndicatorComponent: _NowIndicatorNodeComponent {}
 
 /// The form view which contains a title, rating control, and a subtitle
 // sourcery: CompositeComponent
+// sourcery: importFrameworks = ["FioriThemeManager"]
 protocol _RatingControlFormViewComponent: _TitleComponent, _RatingControlComponent, _SubtitleComponent {
     /// Indicates if the axis for displaying the title and rating control.
     // sourcery: defaultValue = .horizontal

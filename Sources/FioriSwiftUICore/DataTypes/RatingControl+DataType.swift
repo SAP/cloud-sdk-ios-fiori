@@ -81,9 +81,9 @@ extension RatingControlConfiguration {
                 continue
             }
             let diff = averageRating - CGFloat(i)
-            if diff < 0.3 {
+            if diff < 0.25 {
                 items.append(RatingItem(isOn: false, isHalf: false))
-            } else if diff < 0.7 {
+            } else if diff < 0.75 {
                 items.append(RatingItem(isOn: false, isHalf: true))
             } else {
                 items.append(RatingItem(isOn: true, isHalf: false))
@@ -93,9 +93,6 @@ extension RatingControlConfiguration {
     }
 
     func getOnColor() -> Color {
-        if let onColor {
-            return onColor
-        }
         switch self.ratingControlStyle {
         case .editable:
             return .preferredColor(.tintColor)
@@ -109,9 +106,6 @@ extension RatingControlConfiguration {
     }
 
     func getOffColor() -> Color {
-        if let offColor {
-            return offColor
-        }
         switch self.ratingControlStyle {
         case .editable:
             return .preferredColor(.tintColor)
@@ -124,55 +118,24 @@ extension RatingControlConfiguration {
         }
     }
 
-    func getOnImageView() -> some View {
-        self.getOnImage()
-            .resizable()
-            .scaledToFit()
-            .frame(width: self.getItemSize().width, height: self.getItemSize().height)
-            .font(.body)
-            .fontWeight(.light)
-            .imageScale(self.getScale())
-            .foregroundColor(self.getOnColor())
+    func getDefaultLabelFont() -> Font {
+        switch ratingControlStyle {
+        case .editable, .editableDisabled, .standardLarge, .accentedLarge:
+            return .fiori(forTextStyle: .body)
+        case .standard, .accented:
+            return .fiori(forTextStyle: .subheadline)
+        }
     }
 
-    func getOffImageView() -> some View {
-        self.getOffImage()
-            .resizable()
-            .scaledToFit()
-            .frame(width: self.getItemSize().width, height: self.getItemSize().height)
-            .font(.body)
-            .fontWeight(.light)
-            .imageScale(self.getScale())
-            .foregroundColor(self.getOffColor())
-    }
-
-    func getHalfImageView() -> some View {
-        self.getHalfImage()
-            .resizable()
-            .scaledToFit()
-            .frame(width: self.getItemSize().width, height: self.getItemSize().height)
-            .font(.body)
-            .fontWeight(.light)
-            .imageScale(self.getScale())
-            .foregroundColor(self.getOnColor())
-    }
-
-    func getOnImage() -> Image {
-        let image: Image = (onImage ?? FioriIcon.actions.favorite)
-            .renderingMode(.template)
-        return image
-    }
-
-    func getOffImage() -> Image {
-        let image: Image = (offImage ?? FioriIcon.actions.unfavorite)
-            .renderingMode(.template)
-        return image
-    }
-
-    func getHalfImage() -> Image {
-        let image: Image = (halfImage ?? FioriIcon.actions.halfStar)
-            .renderingMode(.template)
-        return image
+    func getDefaultLabelColor() -> Color {
+        switch ratingControlStyle {
+        case .editable:
+            return .preferredColor(.primaryLabel)
+        case .editableDisabled:
+            return .preferredColor(.quaternaryLabel)
+        case .standard, .standardLarge, .accented, .accentedLarge:
+            return .preferredColor(.tertiaryLabel)
+        }
     }
 
     func getScale() -> Image.Scale {
