@@ -24,7 +24,7 @@ jobs:
     - name: Create code coverage report
       run: ./scripts/xccov-to-sonarqube-generic.sh /Users/runner/Library/Developer/Xcode/DerivedData/cloud-sdk-ios-fiori*/Logs/Test/*.xcresult/ > sonarqube-generic-coverage.xml
     - name: Store coverage for sonar job
-      uses: actions/upload-artifact@v1
+      uses: actions/upload-artifact@v4
       with:
         name: coverage
         path: sonarqube-generic-coverage.xml
