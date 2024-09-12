@@ -1,14 +1,15 @@
+import FioriThemeManager
 import SwiftUI
 
 public extension RatingControl {
     /**
-     The available styles for the `FUIRatingControl`.
+     The available styles for the `RatingControl`.
      */
     enum Style {
         /**
          Editable style.
 
-         Each rating star is a SF Symbol body light style (large scale) with tint color.
+         Each rating star is large scale with tint color.
          This is the default style.
          */
         case editable
@@ -16,23 +17,37 @@ public extension RatingControl {
         /**
          Disabled editable style.
 
-         Each rating star is the same as `Editable` style but with grey color.
+         Each rating star is the same as `Editable` style but with grey color. User interaction is disabled.
          */
         case editableDisabled
 
         /**
          Standard style.
 
-         This `FUIRatingControl` is read-only. Each rating star is a SF Symbol body light style (small scale).
+         This `RatingControl` is read-only. Each rating star is in small scale.
          */
         case standard
 
         /**
+         Standard large style.
+
+         This `RatingControl` is read-only. Each rating star is in large scale.
+         */
+        case standardLarge
+
+        /**
          Accented read-only style.
 
-         This `FUIRatingControl` is read-only with accented color. Each rating star is the same as in `standard` style.
+         This `RatingControl` is read-only. Each rating star is in small scale with accented color.
          */
         case accented
+
+        /**
+         Accented read-only style.
+
+         This `RatingControl` is read-only. Each rating star is in large scale with accented color.
+         */
+        case accentedLarge
     }
 
     internal static func getAccessibilityLabelString(_ rating: Int, ratingBounds: ClosedRange<Int>) -> String {
@@ -45,6 +60,7 @@ extension RatingControlConfiguration {
     struct RatingItem: Identifiable {
         public let id = UUID()
         let isOn: Bool
+        let isHalf: Bool
     }
 
     func ratingItems(_ rating: Int) -> [RatingItem] {
@@ -53,80 +69,78 @@ extension RatingControlConfiguration {
             guard i != self.ratingBounds.upperBound else {
                 continue
             }
-            items.append(RatingItem(isOn: i < rating))
+            items.append(RatingItem(isOn: i < rating, isHalf: false))
+        }
+        return items
+    }
+
+    func ratingItems(_ averageRating: CGFloat) -> [RatingItem] {
+        var items: [RatingItem] = []
+        for i in self.ratingBounds {
+            guard i != self.ratingBounds.upperBound else {
+                continue
+            }
+            let diff = averageRating - CGFloat(i)
+            if diff < 0.25 {
+                items.append(RatingItem(isOn: false, isHalf: false))
+            } else if diff < 0.75 {
+                items.append(RatingItem(isOn: false, isHalf: true))
+            } else {
+                items.append(RatingItem(isOn: true, isHalf: false))
+            }
         }
         return items
     }
 
     func getOnColor() -> Color {
-        if let onColor {
-            return onColor
-        }
         switch self.ratingControlStyle {
         case .editable:
             return .preferredColor(.tintColor)
         case .editableDisabled:
             return .preferredColor(.quaternaryLabel)
-        case .standard:
+        case .standard, .standardLarge:
             return .preferredColor(.tertiaryLabel)
-        case .accented:
-            return .preferredColor(.mango3)
+        case .accented, .accentedLarge:
+            return .preferredColor(.mango8)
         }
     }
 
     func getOffColor() -> Color {
-        if let offColor {
-            return offColor
-        }
         switch self.ratingControlStyle {
         case .editable:
             return .preferredColor(.tintColor)
         case .editableDisabled:
             return .preferredColor(.quaternaryLabel)
-        case .standard:
+        case .standard, .standardLarge:
             return .preferredColor(.tertiaryLabel)
-        case .accented:
-            return .preferredColor(.mango4)
+        case .accented, .accentedLarge:
+            return .preferredColor(.mango8)
         }
     }
 
-    func getOnImageView() -> some View {
-        self.getOnImage()
-            .resizable()
-            .scaledToFit()
-            .frame(width: self.getItemSize().width, height: self.getItemSize().height)
-            .font(.body)
-            .fontWeight(.light)
-            .imageScale(self.getScale())
-            .foregroundColor(self.getOnColor())
+    func getDefaultLabelFont() -> Font {
+        switch ratingControlStyle {
+        case .editable, .editableDisabled, .standardLarge, .accentedLarge:
+            return .fiori(forTextStyle: .body)
+        case .standard, .accented:
+            return .fiori(forTextStyle: .subheadline)
+        }
     }
 
-    func getOffImageView() -> some View {
-        self.getOffImage()
-            .resizable()
-            .scaledToFit()
-            .frame(width: self.getItemSize().width, height: self.getItemSize().height)
-            .font(.body)
-            .fontWeight(.light)
-            .imageScale(self.getScale())
-            .foregroundColor(self.getOffColor())
-    }
-
-    func getOnImage() -> Image {
-        let image: Image = (onImage ?? Image(systemName: "star.fill"))
-            .renderingMode(.template)
-        return image
-    }
-
-    func getOffImage() -> Image {
-        let image: Image = (offImage ?? Image(systemName: "star"))
-            .renderingMode(.template)
-        return image
+    func getDefaultLabelColor() -> Color {
+        switch ratingControlStyle {
+        case .editable:
+            return .preferredColor(.primaryLabel)
+        case .editableDisabled:
+            return .preferredColor(.quaternaryLabel)
+        case .standard, .standardLarge, .accented, .accentedLarge:
+            return .preferredColor(.tertiaryLabel)
+        }
     }
 
     func getScale() -> Image.Scale {
         switch self.ratingControlStyle {
-        case .editable, .editableDisabled:
+        case .editable, .editableDisabled, .standardLarge, .accentedLarge:
             return .large
         case .standard, .accented:
             return .small
@@ -138,7 +152,7 @@ extension RatingControlConfiguration {
             return itemSize
         }
         switch self.ratingControlStyle {
-        case .editable, .editableDisabled:
+        case .editable, .editableDisabled, .standardLarge, .accentedLarge:
             return CGSize(width: 28, height: 28)
         case .standard, .accented:
             return CGSize(width: 16, height: 16)
@@ -150,10 +164,10 @@ extension RatingControlConfiguration {
             return interItemSpacing
         }
         switch self.ratingControlStyle {
-        case .editable, .editableDisabled:
-            return CGFloat(4)
+        case .editable, .editableDisabled, .standardLarge, .accentedLarge:
+            return CGFloat(8)
         case .standard, .accented:
-            return CGFloat(2)
+            return CGFloat(6)
         }
     }
 

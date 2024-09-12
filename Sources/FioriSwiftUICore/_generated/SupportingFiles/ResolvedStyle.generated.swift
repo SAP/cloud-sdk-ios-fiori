@@ -435,6 +435,22 @@ extension GreetingTextStyle {
     }
 }
 
+// MARK: HalfStarImageStyle
+
+struct ResolvedHalfStarImageStyle<Style: HalfStarImageStyle>: View {
+    let style: Style
+    let configuration: HalfStarImageConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension HalfStarImageStyle {
+    func resolve(configuration: HalfStarImageConfiguration) -> some View {
+        ResolvedHalfStarImageStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: HeaderActionStyle
 
 struct ResolvedHeaderActionStyle<Style: HeaderActionStyle>: View {
@@ -803,6 +819,38 @@ extension ObjectItemStyle {
     }
 }
 
+// MARK: OffStarImageStyle
+
+struct ResolvedOffStarImageStyle<Style: OffStarImageStyle>: View {
+    let style: Style
+    let configuration: OffStarImageConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension OffStarImageStyle {
+    func resolve(configuration: OffStarImageConfiguration) -> some View {
+        ResolvedOffStarImageStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: OnStarImageStyle
+
+struct ResolvedOnStarImageStyle<Style: OnStarImageStyle>: View {
+    let style: Style
+    let configuration: OnStarImageConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension OnStarImageStyle {
+    func resolve(configuration: OnStarImageConfiguration) -> some View {
+        ResolvedOnStarImageStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: OptionalTitleStyle
 
 struct ResolvedOptionalTitleStyle<Style: OptionalTitleStyle>: View {
@@ -944,6 +992,22 @@ struct ResolvedRatingControlFormViewStyle<Style: RatingControlFormViewStyle>: Vi
 extension RatingControlFormViewStyle {
     func resolve(configuration: RatingControlFormViewConfiguration) -> some View {
         ResolvedRatingControlFormViewStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: ReviewCountLabelStyle
+
+struct ResolvedReviewCountLabelStyle<Style: ReviewCountLabelStyle>: View {
+    let style: Style
+    let configuration: ReviewCountLabelConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension ReviewCountLabelStyle {
+    func resolve(configuration: ReviewCountLabelConfiguration) -> some View {
+        ResolvedReviewCountLabelStyle(style: self, configuration: configuration)
     }
 }
 

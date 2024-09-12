@@ -22,19 +22,40 @@ struct AnyRatingControlStyle: RatingControlStyle {
 }
 
 public struct RatingControlConfiguration {
+    public let valueLabel: ValueLabel
+    public let onStarImage: OnStarImage
+    public let offStarImage: OffStarImage
+    public let halfStarImage: HalfStarImage
+    public let reviewCountLabel: ReviewCountLabel
     @Binding public var rating: Int
     public let ratingControlStyle: RatingControl.Style
     public let ratingBounds: ClosedRange<Int>
-    public let onImage: Image?
-    public let offImage: Image?
     public let itemSize: CGSize?
-    public let onColor: Color?
-    public let offColor: Color?
     public let interItemSpacing: CGFloat?
+    public let ratingValueFormat: String?
+    public let showsValueLabel: Bool
+    public let averageRating: CGFloat?
+    public let averageRatingFormat: String
+    public let reviewCount: Int?
+    public let reviewCountFormat: String?
+    public let reviewCountCeiling: Int?
+    public let reviewCountCeilingFormat: String?
+    public let showsReviewCountLabel: Bool
+
+    public typealias ValueLabel = ConfigurationViewWrapper
+    public typealias OnStarImage = ConfigurationViewWrapper
+    public typealias OffStarImage = ConfigurationViewWrapper
+    public typealias HalfStarImage = ConfigurationViewWrapper
+    public typealias ReviewCountLabel = ConfigurationViewWrapper
 }
 
 public struct RatingControlFioriStyle: RatingControlStyle {
     public func makeBody(_ configuration: RatingControlConfiguration) -> some View {
         RatingControl(configuration)
+            .valueLabelStyle(ValueLabelFioriStyle(ratingControlConfiguration: configuration))
+            .onStarImageStyle(OnStarImageFioriStyle(ratingControlConfiguration: configuration))
+            .offStarImageStyle(OffStarImageFioriStyle(ratingControlConfiguration: configuration))
+            .halfStarImageStyle(HalfStarImageFioriStyle(ratingControlConfiguration: configuration))
+            .reviewCountLabelStyle(ReviewCountLabelFioriStyle(ratingControlConfiguration: configuration))
     }
 }
