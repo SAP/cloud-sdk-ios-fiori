@@ -54,6 +54,23 @@ public extension View {
     }
 }
 
+// MARK: AvatarStackStyle
+
+public extension View {
+    func avatarStackStyle(_ style: some AvatarStackStyle) -> some View {
+        self.transformEnvironment(\.avatarStackStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func avatarStackStyle(@ViewBuilder content: @escaping (AvatarStackConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.avatarStackStyleStack) { stack in
+            let style = AnyAvatarStackStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: AvatarsStyle
 
 public extension View {
@@ -66,6 +83,23 @@ public extension View {
     func avatarsStyle(@ViewBuilder content: @escaping (AvatarsConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.avatarsStyleStack) { stack in
             let style = AnyAvatarsStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: AvatarsTitleStyle
+
+public extension View {
+    func avatarsTitleStyle(_ style: some AvatarsTitleStyle) -> some View {
+        self.transformEnvironment(\.avatarsTitleStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func avatarsTitleStyle(@ViewBuilder content: @escaping (AvatarsTitleConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.avatarsTitleStyleStack) { stack in
+            let style = AnyAvatarsTitleStyle(content)
             stack.append(style)
         }
     }
@@ -423,6 +457,23 @@ public extension View {
     func greetingTextStyle(@ViewBuilder content: @escaping (GreetingTextConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.greetingTextStyleStack) { stack in
             let style = AnyGreetingTextStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: HalfStarImageStyle
+
+public extension View {
+    func halfStarImageStyle(_ style: some HalfStarImageStyle) -> some View {
+        self.transformEnvironment(\.halfStarImageStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func halfStarImageStyle(@ViewBuilder content: @escaping (HalfStarImageConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.halfStarImageStyleStack) { stack in
+            let style = AnyHalfStarImageStyle(content)
             stack.append(style)
         }
     }
@@ -819,6 +870,40 @@ public extension View {
     }
 }
 
+// MARK: OffStarImageStyle
+
+public extension View {
+    func offStarImageStyle(_ style: some OffStarImageStyle) -> some View {
+        self.transformEnvironment(\.offStarImageStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func offStarImageStyle(@ViewBuilder content: @escaping (OffStarImageConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.offStarImageStyleStack) { stack in
+            let style = AnyOffStarImageStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: OnStarImageStyle
+
+public extension View {
+    func onStarImageStyle(_ style: some OnStarImageStyle) -> some View {
+        self.transformEnvironment(\.onStarImageStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func onStarImageStyle(@ViewBuilder content: @escaping (OnStarImageConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.onStarImageStyleStack) { stack in
+            let style = AnyOnStarImageStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: OptionalTitleStyle
 
 public extension View {
@@ -967,6 +1052,23 @@ public extension View {
     func ratingControlFormViewStyle(@ViewBuilder content: @escaping (RatingControlFormViewConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.ratingControlFormViewStyleStack) { stack in
             let style = AnyRatingControlFormViewStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: ReviewCountLabelStyle
+
+public extension View {
+    func reviewCountLabelStyle(_ style: some ReviewCountLabelStyle) -> some View {
+        self.transformEnvironment(\.reviewCountLabelStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func reviewCountLabelStyle(@ViewBuilder content: @escaping (ReviewCountLabelConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.reviewCountLabelStyleStack) { stack in
+            let style = AnyReviewCountLabelStyle(content)
             stack.append(style)
         }
     }

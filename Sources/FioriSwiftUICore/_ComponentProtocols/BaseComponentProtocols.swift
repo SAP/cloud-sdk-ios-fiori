@@ -97,7 +97,7 @@ protocol _FootnoteIconsTextComponent {
 
 // sourcery: BaseComponent
 protocol _AvatarsComponent {
-    // sourcery: resultBuilder.name = @AvatarsBuilder, resultBuilder.backingComponent = AvatarStack
+    // sourcery: resultBuilder.name = @AvatarsBuilder, resultBuilder.backingComponent = AvatarsListStack
     var avatars: [TextOrIcon] { get }
 }
 
@@ -332,4 +332,43 @@ protocol _OptionalTitleComponent {
 protocol _ValueLabelComponent {
     // sourcery: @ViewBuilder
     var valueLabel: AttributedString? { get }
+}
+
+// sourcery: BaseComponent
+protocol _AvatarsTitleComponent {
+    // sourcery: @ViewBuilder
+    var avatarsTitle: AttributedString? { get }
+}
+
+// sourcery: BaseComponent
+protocol _ReviewCountLabelComponent {
+    // sourcery: @ViewBuilder
+    var reviewCountLabel: AttributedString? { get }
+}
+
+// sourcery: BaseComponent
+// sourcery: importFrameworks = ["FioriThemeManager"]
+protocol _OnStarImageComponent {
+    /// The image to be used for "On" rating star.
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "FioriIcon.actions.favorite.renderingMode(.template).resizable()"
+    var onStarImage: Image { get }
+}
+
+// sourcery: BaseComponent
+// sourcery: importFrameworks = ["FioriThemeManager"]
+protocol _OffStarImageComponent {
+    //// The image to be used for "Off" rating star.
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "FioriIcon.actions.unfavorite.renderingMode(.template).resizable()"
+    var offStarImage: Image { get }
+}
+
+// sourcery: BaseComponent
+// sourcery: importFrameworks = ["FioriThemeManager"]
+protocol _HalfStarImageComponent {
+    //// The image to be used for "half" rating star.
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "FioriIcon.actions.halfStar.renderingMode(.template).resizable()"
+    var halfStarImage: Image { get }
 }
