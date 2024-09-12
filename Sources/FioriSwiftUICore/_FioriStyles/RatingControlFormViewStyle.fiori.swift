@@ -9,7 +9,7 @@ public struct RatingControlFormViewBaseStyle: RatingControlFormViewStyle {
         VStack {
             if !configuration.subtitle.isEmpty {
                 VStack(spacing: 4.0) {
-                    self.getRatingControl(configuration)
+                    configuration._ratingControl
                         .frame(maxWidth: .infinity)
                         .frame(alignment: .center)
                     configuration.subtitle
@@ -24,23 +24,22 @@ public struct RatingControlFormViewBaseStyle: RatingControlFormViewStyle {
                     }
                     HStack {
                         Spacer()
-                        self.getRatingControl(configuration)
+                        configuration._ratingControl
                     }
                 }
             } else {
                 HStack {
                     configuration.title
                     Spacer()
-                    self.getRatingControl(configuration)
+                    configuration._ratingControl
+                        .layoutPriority(2)
                 }
             }
         }
-        .informationView(isPresented: Binding(get: { self.isInfoViewNeeded(configuration) }, set: { _ in }), description: configuration.errorMessage ?? "")
-        .informationViewStyle(.error)
-        .padding(.bottom, self.isInfoViewNeeded(configuration) ? -11.0 : 0)
+        .padding(.bottom, 0)
         .accessibilityElement(children: .combine)
-        .setAccessibilityAdjustable(self.getRatingControl(configuration).ratingControlStyle == .editable) { direction in
-            if self.getRatingControl(configuration).ratingControlStyle == .editable {
+        .setAccessibilityAdjustable(configuration.ratingControlStyle == .editable) { direction in
+            if configuration.ratingControlStyle == .editable {
                 switch direction {
                 case .increment:
                     let incrementValue = configuration.rating + 1
@@ -55,30 +54,6 @@ public struct RatingControlFormViewBaseStyle: RatingControlFormViewStyle {
                 }
             }
         }
-    }
-
-    func getRatingControl(_ configuration: RatingControlFormViewConfiguration) -> RatingControl {
-        // the rating control style is based on the controlState
-        let ratingControlStyle: RatingControl.Style
-        switch configuration.controlState {
-        case .disabled:
-            ratingControlStyle = .editableDisabled
-        case .readOnly:
-            ratingControlStyle = .standard
-        case .highlighted:
-            ratingControlStyle = .accented
-        default:
-            ratingControlStyle = .editable
-        }
-
-        return RatingControl(rating: configuration.$rating, ratingControlStyle: ratingControlStyle, ratingBounds: configuration.ratingBounds, onImage: configuration.onImage, offImage: configuration.offImage, itemSize: configuration.itemSize, onColor: configuration.onColor, offColor: configuration.offColor, interItemSpacing: configuration.interItemSpacing)
-    }
-
-    func isInfoViewNeeded(_ configuration: RatingControlFormViewConfiguration) -> Bool {
-        if let errorMessage = configuration.errorMessage, !errorMessage.characters.isEmpty {
-            return true
-        }
-        return false
     }
 
     func setRatingValue(_ configuration: RatingControlFormViewConfiguration, newRating: Int) {
@@ -107,12 +82,52 @@ extension RatingControlFormViewFioriStyle {
         }
 
         func getTitleColor() -> Color {
-            switch self.ratingControlFormViewConfiguration.controlState {
-            case .disabled:
+            switch self.ratingControlFormViewConfiguration.ratingControlStyle {
+            case .editableDisabled:
                 return .preferredColor(.separator)
             default:
                 return .preferredColor(.primaryLabel)
             }
+        }
+    }
+
+    struct ValueLabelFioriStyle: ValueLabelStyle {
+        let ratingControlFormViewConfiguration: RatingControlFormViewConfiguration
+    
+        func makeBody(_ configuration: ValueLabelConfiguration) -> some View {
+            ValueLabel(configuration)
+        }
+    }
+
+    struct OnStarImageFioriStyle: OnStarImageStyle {
+        let ratingControlFormViewConfiguration: RatingControlFormViewConfiguration
+    
+        func makeBody(_ configuration: OnStarImageConfiguration) -> some View {
+            OnStarImage(configuration)
+        }
+    }
+
+    struct OffStarImageFioriStyle: OffStarImageStyle {
+        let ratingControlFormViewConfiguration: RatingControlFormViewConfiguration
+    
+        func makeBody(_ configuration: OffStarImageConfiguration) -> some View {
+            OffStarImage(configuration)
+        }
+    }
+
+    struct HalfStarImageFioriStyle: HalfStarImageStyle {
+        let ratingControlFormViewConfiguration: RatingControlFormViewConfiguration
+    
+        func makeBody(_ configuration: HalfStarImageConfiguration) -> some View {
+            HalfStarImage(configuration)
+        }
+    }
+
+    struct ReviewCountLabelFioriStyle: ReviewCountLabelStyle {
+        let ratingControlFormViewConfiguration: RatingControlFormViewConfiguration
+    
+        func makeBody(_ configuration: ReviewCountLabelConfiguration) -> some View {
+            ReviewCountLabel(configuration)
         }
     }
 
@@ -126,8 +141,8 @@ extension RatingControlFormViewFioriStyle {
         }
 
         func getSubtitleColor() -> Color {
-            switch self.ratingControlFormViewConfiguration.controlState {
-            case .disabled:
+            switch self.ratingControlFormViewConfiguration.ratingControlStyle {
+            case .editableDisabled:
                 return .preferredColor(.separator)
             default:
                 return .preferredColor(.tertiaryLabel)
@@ -140,14 +155,6 @@ extension RatingControlFormViewFioriStyle {
 
         func makeBody(_ configuration: RatingControlConfiguration) -> some View {
             RatingControl(configuration)
-        }
-    }
-
-    struct FormViewFioriStyle: FormViewStyle {
-        let ratingControlFormViewConfiguration: RatingControlFormViewConfiguration
-
-        func makeBody(_ configuration: FormViewConfiguration) -> some View {
-            FormView(configuration)
         }
     }
 }

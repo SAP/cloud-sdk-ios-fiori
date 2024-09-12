@@ -192,3 +192,12 @@
 
 /* XBUT: timeline preview component timestamp label */
 "Today, %d" = "Today, %d";
+
+/* XFLD: RatingControl value label format */
+"%d of %d" = "%d of %d";
+
+/* XFLD: RatingControl review count format */
+"%d reviews" = "%d reviews";
+
+/* XFLD: RatingControl review count over ceiling format */
+"%d+ reviews" = "%d+ reviews";

@@ -89,11 +89,7 @@ extension PlaceholderTextFieldConfiguration {
 
 extension RatingControlFormViewConfiguration {
     var _ratingControl: RatingControl {
-        RatingControl(.init(rating: self.$rating, ratingControlStyle: self.ratingControlStyle, ratingBounds: self.ratingBounds, onImage: self.onImage, offImage: self.offImage, itemSize: self.itemSize, onColor: self.onColor, offColor: self.offColor, interItemSpacing: self.interItemSpacing), shouldApplyDefaultStyle: true)
-    }
-
-    var _formView: FormView {
-        FormView(.init(controlState: self.controlState, errorMessage: self.errorMessage), shouldApplyDefaultStyle: true)
+        RatingControl(.init(valueLabel: .init(self.valueLabel), onStarImage: .init(self.onStarImage), offStarImage: .init(self.offStarImage), halfStarImage: .init(self.halfStarImage), reviewCountLabel: .init(self.reviewCountLabel), rating: self.$rating, ratingControlStyle: self.ratingControlStyle, ratingBounds: self.ratingBounds, itemSize: self.itemSize, interItemSpacing: self.interItemSpacing, ratingValueFormat: self.ratingValueFormat, showsValueLabel: self.showsValueLabel, averageRating: self.averageRating, averageRatingFormat: self.averageRatingFormat, reviewCount: self.reviewCount, reviewCountFormat: self.reviewCountFormat, reviewCountCeiling: self.reviewCountCeiling, reviewCountCeilingFormat: self.reviewCountCeilingFormat, showsReviewCountLabel: self.showsReviewCountLabel), shouldApplyDefaultStyle: true)
     }
 }
 
