@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.1.5](https://github.com/SAP/cloud-sdk-ios-fiori/compare/4.1.4...4.1.5) (2024-09-12)
+
+
+### Bug Fixes
+
+* 🐛 [FIORIDESIGN-13047] Joule Menu Selection Icon Update ([#798](https://github.com/SAP/cloud-sdk-ios-fiori/issues/798)) ([40ff9fe](https://github.com/SAP/cloud-sdk-ios-fiori/commit/40ff9fe310b6efffa807a429e74d8571b6a188f7))
+* 🐛 [JIRA:IOSSDKBUG-324]Usage of SwiftUI KeyValueFormView ([#790](https://github.com/SAP/cloud-sdk-ios-fiori/issues/790)) ([d03f33a](https://github.com/SAP/cloud-sdk-ios-fiori/commit/d03f33a377eb1a7ed0cc8d8b71337bd85e0d1e78))
+* 🐛 [IOSSDKBUG-346] JouleWelcomeScreen title style update ([#795](https://github.com/SAP/cloud-sdk-ios-fiori/issues/795))
+
+### [4.1.4](https://github.com/SAP/cloud-sdk-ios-fiori/compare/4.1.3...4.1.4) (2024-09-03)
+
+
+### Features
+
+* 🎸 [JIRA:HCPSDKFIORIUIKIT-2702]Illustrated Message ([#782](https://github.com/SAP/cloud-sdk-ios-fiori/issues/782)) ([239d7ae](https://github.com/SAP/cloud-sdk-ios-fiori/commit/239d7aee0ab2c23644c134d2f287d292bb27203b))
+
 ### [4.1.3](https://github.com/SAP/cloud-sdk-ios-fiori/compare/4.1.2...4.1.3) (2024-08-19)
 
 ### Features

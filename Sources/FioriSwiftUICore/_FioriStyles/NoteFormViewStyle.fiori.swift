@@ -53,7 +53,11 @@ extension NoteFormViewFioriStyle {
                     PlaceholderTextEditor(config)
                         .frame(minHeight: self.getMinHeight(configuration))
                         .frame(maxHeight: self.getMaxHeight(configuration))
-                        .background(RoundedRectangle(cornerRadius: 8).stroke(self.getBorderColor(configuration), lineWidth: self.getBorderWidth(configuration)).background(self.getBackgroundColor(configuration)))
+                        .background(self.getBackgroundColor(configuration))
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 8)
+                                .stroke(self.getBorderColor(configuration), lineWidth: self.getBorderWidth(configuration))
+                        )
                         .cornerRadius(8)
                         .onChange(of: configuration.text) { s in
                             self.checkCharCount(configuration, textString: s)
