@@ -1,3 +1,4 @@
+import FioriThemeManager
 import SwiftUI
 
 /// Not used by developers.
@@ -98,12 +99,11 @@ struct DefaultSingleStep: View {
             } node: {
                 ZStack {
                     self.node(by: self.stepItem.state, isSelected: isSelected)
-                    if self.stepItem.icon.isEmpty {
+                    if self.stepItem.node == nil {
                         Text("\(self.index + 1)")
                             .font(Font.fiori(forTextStyle: .footnote))
-                    } else {
-                        self.stepItem.icon
                     }
+                    TextOrIconView(self.stepItem.node)
                 }
                 .frame(width: self.sideLength, height: self.sideLength)
                 .overlay {
