@@ -22,7 +22,7 @@ public struct RatingControlBaseStyle: RatingControlStyle {
                     }
             )
             .accessibilityElement()
-            .accessibilityLabel(self.getAccessibilityLabel(configuration))
+            .accessibilityLabel(configuration.getAccessbilityLabelString())
             .setAccessibilityAdjustable(configuration.ratingControlStyle == .editable) { direction in
                 if configuration.ratingControlStyle == .editable {
                     switch direction {
@@ -39,6 +39,7 @@ public struct RatingControlBaseStyle: RatingControlStyle {
                     }
                 }
             }
+            .disabled(configuration.ratingControlStyle == .editableDisabled)
     }
 
     @ViewBuilder func getMainBody(_ configuration: RatingControlConfiguration) -> some View {
@@ -111,12 +112,8 @@ public struct RatingControlBaseStyle: RatingControlStyle {
     func setRatingValue(_ configuration: RatingControlConfiguration, newRating: Int) {
         if configuration.rating != newRating {
             configuration.rating = newRating
-            UIAccessibility.post(notification: .announcement, argument: self.getAccessibilityLabel(configuration))
+            UIAccessibility.post(notification: .announcement, argument: RatingControl.getAccessibilityLabelString(newRating, ratingBounds: configuration.ratingBounds))
         }
-    }
-
-    func getAccessibilityLabel(_ configuration: RatingControlConfiguration) -> String {
-        RatingControl.getAccessibilityLabelString(configuration.rating, ratingBounds: configuration.ratingBounds)
     }
 
     func getReadOnly(_ configuration: RatingControlConfiguration) -> Bool {
