@@ -201,3 +201,18 @@
 
 /* XFLD: RatingControl review count over ceiling format */
 "%d+ reviews" = "%d+ reviews";
+
+/* XACT: RatingControl accessibility label */
+"Rating Control %d of %d" = "Rating Control %d of %d";
+
+/* XACT: read-only RatingControl accessibility label: rating with review count */
+"Rating Control, rating %d of %d, %d reviews" = "Rating Control, rating %d of %d, %d reviews";
+
+/* XACT: read-only RatingControl accessibility label: average rating only */
+"Rating Control, average rating %.1f of %d" = "Rating Control, average rating %.1f of %d";
+
+/* XACT: read-only RatingControl accessibility label: average rating with review count */
+"Rating Control, average rating %.1f of %d, %d reviews" = "Rating Control, average rating %.1f of %d, %d reviews";
+
+/* XACT: read-only RatingControl accessibility label: average rating with review count over ceiling */
+"Rating Control, average rating %.1f of %d, %d plus reviews" = "Rating Control, average rating %.1f of %d, %d plus reviews";
