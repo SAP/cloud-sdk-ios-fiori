@@ -46,20 +46,30 @@ struct TitleFormViewExample: View {
                 
                 Text("Default TitleForm")
                 TitleFormView(text: self.$valueText1, placeholder: "TitleFormView", errorMessage: self.getErrorMessage(), maxTextLength: self.getMaxTextLength(), hintText: self.getHintText(), isCharCountEnabled: self.showsCharCount, allowsBeyondLimit: self.allowsBeyondLimit)
-                
+                    .padding(.leading, -4)
+                    .padding(.trailing, -4)
+
                 Text("Existing Text")
                     .italic()
                 TitleFormView(text: self.$valueText2, placeholder: "TitleFormView", errorMessage: self.getErrorMessage(), maxTextLength: self.getMaxTextLength(), hintText: self.getHintText(), isCharCountEnabled: self.showsCharCount, allowsBeyondLimit: self.allowsBeyondLimit)
+                    .padding(.leading, -4)
+                    .padding(.trailing, -4)
 
                 Text("Empty Text")
                     .italic()
                 TitleFormView(text: self.$valueText3, placeholder: "Please enter something", errorMessage: self.getErrorMessage(), maxTextLength: self.getMaxTextLength(), hintText: self.getHintText(), isCharCountEnabled: self.showsCharCount, allowsBeyondLimit: self.allowsBeyondLimit)
+                    .padding(.leading, -4)
+                    .padding(.trailing, -4)
 
                 Text("Disabled")
                 TitleFormView(text: self.$disabledText, placeholder: "Disabled", controlState: .disabled)
+                    .padding(.leading, -4)
+                    .padding(.trailing, -4)
 
                 Text("Read-Only")
                 TitleFormView(text: self.$readOnlyText, placeholder: "Read-Only", controlState: .readOnly, hidesReadOnlyHint: self.hidesReadonlyHint)
+                    .padding(.leading, -4)
+                    .padding(.trailing, -4)
             }
             #if !os(visionOS)
             .scrollDismissesKeyboard(.immediately)

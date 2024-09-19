@@ -11,7 +11,6 @@ public struct PlaceholderTextEditorBaseStyle: PlaceholderTextEditorStyle {
         ZStack(alignment: .topLeading) {
             configuration._textView.body
                 .focused(self.$isFocused)
-                .focused(self.$isFocused)
                 .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardDidHideNotification)) { _ in
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                         self.isKeyboardShown = false

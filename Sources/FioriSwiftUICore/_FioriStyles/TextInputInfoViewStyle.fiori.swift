@@ -387,7 +387,7 @@ struct TextInputFormViewConfiguration {
     func getTextColor() -> Color {
         switch self.getControlState() {
         case .disabled:
-            return .preferredColor(.separator)
+            return .preferredColor(.quaternaryLabel)
         default:
             return .preferredColor(.primaryLabel)
         }
@@ -417,7 +417,7 @@ struct TextInputFormViewConfiguration {
     }
 
     func getBackgroundColor() -> Color {
-        self.getEditable() ? .clear : .preferredColor(.tertiaryFill)
+        self.getEditable() ? .clear : .preferredColor(.quaternaryFill)
     }
 
     func getBorderWidth() -> CGFloat {
