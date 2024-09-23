@@ -144,11 +144,11 @@ public struct BannerMultiMessageSheet: View {
     }
     
     // List in popover will not expand automatically in iPad. Here, calculate the content height and resize its frame's height, the maximum of the popover height in iPad is 380.
-    @State private var scrollContentHeight: CGFloat? = 40
+    @State private var scrollContentHeight: CGFloat = 40
     @State private var dimensionSelectorHeight: CGFloat = 0
     @State private var messageCountHeight: CGFloat = 65
     private var popoverHeight: CGFloat? {
-        let contentHeight = self.messageCountHeight + self.dimensionSelectorHeight + (self.scrollContentHeight ?? 0)
+        let contentHeight = self.messageCountHeight + self.dimensionSelectorHeight + self.scrollContentHeight
         return !self.isPhone ? min(contentHeight, 380.0) : nil
     }
     
@@ -288,7 +288,8 @@ public struct BannerMultiMessageSheet: View {
         })
         .frame(minWidth: !self.isPhone ? 393 : nil)
         .frame(height: self.popoverHeight)
-        .animation(.spring, value: self.popoverHeight)
+        .animation(self.scrollContentHeight <= 40.0 ? nil : .spring)
+//        .animation(.spring, value: self.popoverHeight)
         .onChange(of: self.bannerMultiMessages) { _ in
             // when datasource is empty, dismiss in 2 seconds
             if self.bannerMultiMessages.isEmpty {
