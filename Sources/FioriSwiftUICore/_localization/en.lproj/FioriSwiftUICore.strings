@@ -253,3 +253,12 @@
 "warnings" = "warnings";
 /* XBUT: banner message type desc in plural form, errors */
 "errors" = "errors";
+
+/* XBUT: Title for apply action in trailing navigation bar */
+"Apply" = "Apply"
+/* XTIT: The alert message for `ListPickerDestination` pulldown dismissal */
+"Are you sure you want to discard your selections?" = "Are you sure you want to discard your selections?";
+/* XBUT: The alert Discard Changes action title for `ListPickerDestination` pulldown dismissal */
+"Discard Changes" = "Discard Changes";
+/* XBUT: The alert Keep Editing action title for `ListPickerDestination` pulldown dismissal */
+"Keep Editing" = "Keep Editing";

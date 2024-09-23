@@ -569,3 +569,37 @@ protocol _DateTimePickerComponent: _TitleComponent, _ValueLabelComponent, _Manda
 
 // sourcery: CompositeComponent
 protocol _AvatarStackComponent: _AvatarsComponent, _AvatarsTitleComponent {}
+
+/// `ListPickerItem` is a view that provide a `NavigationLink` with a title and selected value. And `ListPickerDestination` is recommended to be used as its destination, which selection, search filter and customized rows are supported.
+/// ## Usage
+/// ```swift
+/// let data = ["first", "second", "third"]
+/// var body: some View {
+///     ListPickerItem(title: {
+///         Text("title")
+///     }, value: {
+///         Text("value")
+///     }, axis: .vertical) {
+///         ListPickerDestination(data,
+///                               id: \.self,
+///                               selection: $selection,
+///                               isTrackingLiveChanges: true,
+///                               searchFilter: { f, s in f.contains(s) }, rowContent: {
+///             Text($0)
+///         })
+///     }
+/// }
+/// ```
+// sourcery: CompositeComponent
+protocol _ListPickerItemComponent: _TitleComponent, _ValueComponent {
+    // sourcery: defaultValue = .horizontal
+    var axis: Axis { get }
+    
+    @ViewBuilder
+    var destination: (() -> any View)? { get }
+}
+
+/// `ListPickerDestination` is a view that provides a customizable list for `ListPickerItem` with selection, search filter and  rows.
+///
+// sourcery: CompositeComponent
+protocol _ListPickerDestinationComponent: _CancelActionComponent, _ApplyActionComponent, _SelectedEntriesSectionTitleComponent, _SelectAllActionComponent, _DeselectAllActionComponent, _AllEntriesSectionTitleComponent, _ListPickerContentComponent {}

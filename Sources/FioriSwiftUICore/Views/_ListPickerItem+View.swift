@@ -5,7 +5,7 @@ import SwiftUI
 // FIXME: - Implement Fiori style definitions
 
 extension Fiori {
-    enum ListPickerItem {
+    enum _ListPickerItem {
         struct Key: ViewModifier {
             func body(content: Content) -> some View {
                 content.font(.fiori(forTextStyle: .subheadline, weight: .bold)).foregroundColor(.preferredColor(.primaryLabel))
@@ -26,7 +26,7 @@ extension Fiori {
 
 // FIXME: - Implement ListPickerItem View body
 
-extension ListPickerItem: View {
+extension _ListPickerItem: View {
     public var body: some View {
         if let isActive = destinationConfiguration?.isActive, isActive.wrappedValue {
             self.destinationView
@@ -57,7 +57,7 @@ extension ListPickerItem: View {
     }
 }
 
-public extension ListPickerItem {
+public extension _ListPickerItem {
     /// Returns a list picker item with given configuration.
     /// - Parameters:
     ///   - key: The key view of the list.
@@ -68,7 +68,7 @@ public extension ListPickerItem {
         @ViewBuilder key: @escaping () -> Key,
         @ViewBuilder value: @escaping () -> Value,
         axis: Axis = .horizontal,
-        configuration: ListPickerItemConfiguration? = nil
+        configuration: _ListPickerItemConfiguration? = nil
     ) {
         self.init(key: key, value: value, axis: axis)
         self.destinationConfiguration = configuration
@@ -76,7 +76,7 @@ public extension ListPickerItem {
 }
 
 /// The configuration for constructing the list picker.
-public struct ListPickerItemConfiguration {
+public struct _ListPickerItemConfiguration {
     let destinationView: AnyView
     
     // A boolean that indicates whether show the children directly.
@@ -143,13 +143,13 @@ public struct ListPickerItemConfiguration {
                 let id_value = element[keyPath: id]
                 
                 if let children, let childrenData = element[keyPath: children] {
-                    ListPickerItem<RowContent, EmptyView>(key: {
+                    _ListPickerItem<RowContent, EmptyView>(key: {
                         row
                     }, value: {
                         EmptyView()
-                    }, configuration: ListPickerItemConfiguration(childrenData, id: id, children: children, selection: selection, rowContent: rowContent))
+                    }, configuration: _ListPickerItemConfiguration(childrenData, id: id, children: children, selection: selection, rowContent: rowContent))
                 } else {
-                    ListPickerItem.Row(content: row, id: id_value, selection: selection)
+                    _ListPickerItem.Row(content: row, id: id_value, selection: selection)
                 }
             }.typeErased
         } else {
@@ -159,13 +159,13 @@ public struct ListPickerItemConfiguration {
                     let id_value = element[keyPath: id]
                     
                     if let children, let childrenData = element[keyPath: children] {
-                        ListPickerItem<RowContent, EmptyView>(key: {
+                        _ListPickerItem<RowContent, EmptyView>(key: {
                             row
                         }, value: {
                             EmptyView()
-                        }, configuration: ListPickerItemConfiguration(childrenData, id: id, children: children, selection: selection, rowContent: rowContent))
+                        }, configuration: _ListPickerItemConfiguration(childrenData, id: id, children: children, selection: selection, rowContent: rowContent))
                     } else {
-                        ListPickerItem.Row(content: row, id: id_value, selection: selection)
+                        _ListPickerItem.Row(content: row, id: id_value, selection: selection)
                     }
                 }
             }.typeErased
@@ -192,7 +192,7 @@ public struct ListPickerItemConfiguration {
     }
 }
 
-public extension ListPickerItemConfiguration {
+public extension _ListPickerItemConfiguration {
     /// Creates a configuration object from a collection of `String` which supports both single-level and multi-level picker with the ability to select multiple items.
     /// - Parameters:
     ///   - data: An array of strings for constructing the list.
@@ -205,7 +205,7 @@ public extension ListPickerItemConfiguration {
     }
 }
 
-extension ListPickerItemConfiguration {
+extension _ListPickerItemConfiguration {
     @available(iOS 15.0, macOS 12.0, *)
     init<Data, ID>(
         _ data: Data,
@@ -233,7 +233,7 @@ extension ListPickerItemConfiguration {
     }
 }
 
-extension ListPickerItem {
+extension _ListPickerItem {
     struct Row<ID: Hashable>: View where Value == EmptyView {
         private let content: Key
         private let id: ID
