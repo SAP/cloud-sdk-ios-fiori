@@ -132,7 +132,8 @@ protocol _JouleWelcomeScreen: _MediaImageComponent, _GreetingTextComponent, _Tit
 // sourcery: importFrameworks = ["FioriThemeManager"]
 protocol _StepperFieldComponent: _DecrementActionComponent, _TextInputFieldComponent, _IncrementActionComponent {
     /// The step value
-    var step: Int? { get }
+    // sourcery: defaultValue = 1
+    var step: Int { get }
     
     /// a range of values
     var stepRange: ClosedRange<Int> { get }

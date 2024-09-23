@@ -55,8 +55,8 @@ public struct TimelinePreview {
                 @ViewBuilder action: () -> any View = { EmptyView() },
                 items: Binding<[any TimelinePreviewItemModel]>)
     {
-        self.optionalTitle = OptionalTitle { optionalTitle() }
-        self.action = Action { action() }
+        self.optionalTitle = OptionalTitle(optionalTitle: optionalTitle)
+        self.action = Action(action: action)
         self._items = items
     }
 }

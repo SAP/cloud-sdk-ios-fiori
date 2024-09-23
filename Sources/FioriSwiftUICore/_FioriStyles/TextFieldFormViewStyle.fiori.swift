@@ -5,7 +5,7 @@ import SwiftUI
 /// The base layout style for `TextFieldFormView`.
 public struct TextFieldFormViewBaseStyle: TextFieldFormViewStyle {
     public func makeBody(_ configuration: TextFieldFormViewConfiguration) -> some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: 4) {
             HStack(spacing: 0) {
                 configuration.title
                 if configuration.isRequired {
@@ -15,6 +15,12 @@ public struct TextFieldFormViewBaseStyle: TextFieldFormViewStyle {
             }
             configuration._titleFormView
         }
+        .padding(.top, -1)
+        .padding(.bottom, self.isInfoViewNeeded(configuration) ? 0 : 1)
+    }
+
+    func isInfoViewNeeded(_ configuration: TextFieldFormViewConfiguration) -> Bool {
+        TextInputFormViewConfiguration(configuration, isFocused: false).isInfoViewNeeded()
     }
 }
     
@@ -63,6 +69,7 @@ extension TextFieldFormViewFioriStyle {
                     TextInputInfoView(config)
                         .textInputInfoViewStyle(style)
                         .typeErased
+                        .padding(.top, -3)
                 }
         }
 

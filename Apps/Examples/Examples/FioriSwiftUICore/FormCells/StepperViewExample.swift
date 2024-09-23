@@ -32,7 +32,6 @@ struct StepperViewExample: View {
             StepperView(
                 title: { Text("Value") },
                 text: self.$normalStepValue,
-                step: 1,
                 stepRange: 0 ... 100,
                 description: { Text("Hint Text") }
             )
@@ -41,8 +40,7 @@ struct StepperViewExample: View {
             StepperView(
                 title: { Text("Value") },
                 text: self.$negativeValue,
-                step: 1,
-                stepRange: 0 ... 100,
+                stepRange: 10 ... 100,
                 description: { Text(self.isInputValueValid ? "Hint Text" : "Validation failed.") }
             ).onChange(of: self.negativeValue, perform: { value in
                 if Int(value) ?? 1 > 80 {
@@ -55,7 +53,7 @@ struct StepperViewExample: View {
             .disabled(self.isDisabled)
             
             StepperView(
-                title: { Text("loooooooooooooooooooooongTitle") },
+                title: { Text("loooooooooooooooooooooooooooooooooooongTitle") },
                 text: self.$longTitleStepValue,
                 step: 3,
                 stepRange: 0 ... 100,

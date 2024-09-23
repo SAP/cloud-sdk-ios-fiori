@@ -48,6 +48,7 @@ extension NoteFormViewFioriStyle {
                     TextInputInfoView(config)
                         .textInputInfoViewStyle(style)
                         .typeErased
+                        .padding(.top, -8)
                 }
                 .placeholderTextEditorStyle { config in
                     PlaceholderTextEditor(config)
@@ -62,14 +63,14 @@ extension NoteFormViewFioriStyle {
                         .onChange(of: configuration.text) { s in
                             self.checkCharCount(configuration, textString: s)
                         }
-                        .padding(.bottom, self.isInfoViewNeeded(configuration) ? 0 : 9)
+                        .padding(.bottom, self.isInfoViewNeeded(configuration) ? 0 : 7)
                 }
                 .textViewStyle { config in
                     TextView(config)
                         .foregroundStyle(self.getTextColor(configuration))
                         .font(.fiori(forTextStyle: .body))
                 }
-                .padding(.top, 9)
+                .padding(.top, 7)
         }
 
         func getTextColor(_ configuration: NoteFormViewConfiguration) -> Color {
@@ -101,15 +102,15 @@ extension NoteFormViewFioriStyle {
         }
 
         func getMinHeight(_ configuration: NoteFormViewConfiguration) -> CGFloat {
-            // Somehow, the minHeight is 14pt higher than the specified. Use this adjustment.
-            let minHeightAdjustMent = 14.0
+            // TextEditor will add some other views that the minHeight is 16pt higher than the specified. Use this to adjust.
+            let minHeightAdjustment = 16.0
             guard let minHeight = configuration.minTextEditorHeight else {
-                return 88 - minHeightAdjustMent
+                return 88 - minHeightAdjustment
             }
             guard minHeight > 44 else {
-                return 88 - minHeightAdjustMent
+                return 88 - minHeightAdjustment
             }
-            return minHeight - minHeightAdjustMent
+            return minHeight - minHeightAdjustment
         }
 
         func getMaxHeight(_ configuration: NoteFormViewConfiguration) -> CGFloat {

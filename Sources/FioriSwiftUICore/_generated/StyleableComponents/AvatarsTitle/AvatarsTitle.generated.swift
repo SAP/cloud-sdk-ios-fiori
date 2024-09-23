@@ -55,7 +55,7 @@ private extension AvatarsTitle {
     }
 
     func defaultStyle() -> some View {
-        AvatarsTitle(avatarsTitle: { self.avatarsTitle })
+        AvatarsTitle(.init(avatarsTitle: .init(self.avatarsTitle)))
             .shouldApplyDefaultStyle(false)
             .avatarsTitleStyle(.fiori)
             .typeErased
