@@ -11,7 +11,7 @@ public struct StepperView {
     @Binding var text: String
     let incrementAction: any View
     /// The step value
-    let step: Int?
+    let step: Int
     /// a range of values
     let stepRange: ClosedRange<Int>
     let icon: any View
@@ -25,7 +25,7 @@ public struct StepperView {
                 @ViewBuilder decrementAction: () -> any View = { FioriButton { _ in FioriIcon.actions.less } },
                 text: Binding<String>,
                 @ViewBuilder incrementAction: () -> any View = { FioriButton { _ in FioriIcon.actions.add } },
-                step: Int? = nil,
+                step: Int = 1,
                 stepRange: ClosedRange<Int>,
                 @ViewBuilder icon: () -> any View = { EmptyView() },
                 @ViewBuilder description: () -> any View = { EmptyView() })
@@ -46,7 +46,7 @@ public extension StepperView {
          decrementAction: FioriButton? = FioriButton { _ in FioriIcon.actions.less },
          text: Binding<String>,
          incrementAction: FioriButton? = FioriButton { _ in FioriIcon.actions.add },
-         step: Int? = nil,
+         step: Int = 1,
          stepRange: ClosedRange<Int>,
          icon: Image? = nil,
          description: AttributedString? = nil)
