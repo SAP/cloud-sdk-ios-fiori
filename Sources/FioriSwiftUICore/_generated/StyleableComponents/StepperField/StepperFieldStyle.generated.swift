@@ -25,7 +25,7 @@ public struct StepperFieldConfiguration {
     public let decrementAction: DecrementAction
     @Binding public var text: String
     public let incrementAction: IncrementAction
-    public let step: Int?
+    public let step: Int
     public let stepRange: ClosedRange<Int>
 
     public typealias DecrementAction = ConfigurationViewWrapper

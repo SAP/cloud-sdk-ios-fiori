@@ -10,7 +10,7 @@ public struct StepperField {
     @Binding var text: String
     let incrementAction: any View
     /// The step value
-    let step: Int?
+    let step: Int
     /// a range of values
     let stepRange: ClosedRange<Int>
 
@@ -21,7 +21,7 @@ public struct StepperField {
     public init(@ViewBuilder decrementAction: () -> any View = { FioriButton { _ in FioriIcon.actions.less } },
                 text: Binding<String>,
                 @ViewBuilder incrementAction: () -> any View = { FioriButton { _ in FioriIcon.actions.add } },
-                step: Int? = nil,
+                step: Int = 1,
                 stepRange: ClosedRange<Int>)
     {
         self.decrementAction = DecrementAction { decrementAction() }
@@ -36,7 +36,7 @@ public extension StepperField {
     init(decrementAction: FioriButton? = FioriButton { _ in FioriIcon.actions.less },
          text: Binding<String>,
          incrementAction: FioriButton? = FioriButton { _ in FioriIcon.actions.add },
-         step: Int? = nil,
+         step: Int = 1,
          stepRange: ClosedRange<Int>)
     {
         self.init(decrementAction: { decrementAction }, text: text, incrementAction: { incrementAction }, step: step, stepRange: stepRange)
