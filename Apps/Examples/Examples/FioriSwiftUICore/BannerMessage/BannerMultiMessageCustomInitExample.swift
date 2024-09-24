@@ -72,8 +72,10 @@ struct BannerMultiMessageCustomInitExample: View {
                                 }, title: {
                                     Text(self.attributedMessageTitle(title: message.title, typeDesc: message.typeDesc))
                                 }, closeAction: {
-                                    FioriButton { _ in
-                                        self.removeItem(category: category, at: message.id)
+                                    FioriButton { state in
+                                        if state == .normal {
+                                            self.removeItem(category: category, at: message.id)
+                                        }
                                     } label: { _ in
                                         Image(fioriName: "fiori.decline")
                                     }

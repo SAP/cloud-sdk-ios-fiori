@@ -236,8 +236,10 @@ public struct BannerMultiMessageSheet: View {
                                 }, title: {
                                     Text(self.attributedMessageTitle(title: message.title, typeDesc: message.typeDesc))
                                 }, closeAction: {
-                                    FioriButton { _ in
-                                        self.removeItem(category: element.category, at: message.id)
+                                    FioriButton { state in
+                                        if state == .normal {
+                                            self.removeItem(category: element.category, at: message.id)
+                                        }
                                     } label: { _ in
                                         Image(fioriName: "fiori.decline")
                                     }
@@ -319,16 +321,16 @@ public struct BannerMultiMessageSheet: View {
     
     private func removeItem(category: String, at id: UUID) {
         for i in 0 ..< self.bannerMultiMessages.count {
-            let element = self.bannerMultiMessages[i]
+            var element = self.bannerMultiMessages[i]
             if element.category == category {
-                var messages = self.bannerMultiMessages[i].items
-                for index in 0 ..< messages.count where messages[index].id == id {
-                    messages.remove(at: index)
+                for index in 0 ..< element.items.count where element.items[index].id == id {
+                    element.items.remove(at: index)
                     break
                 }
-                self.bannerMultiMessages[i].items = messages
+                self.bannerMultiMessages.remove(at: i)
+                self.bannerMultiMessages.insert(element, at: i)
                 
-                if messages.isEmpty {
+                if element.items.isEmpty {
                     self.handleRemoveCategory(category)
                 }
                 break
