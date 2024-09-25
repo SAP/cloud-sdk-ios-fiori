@@ -14,8 +14,8 @@ public struct AvatarStack {
     public init(@AvatarsBuilder avatars: () -> any View = { EmptyView() },
                 @ViewBuilder avatarsTitle: () -> any View = { EmptyView() })
     {
-        self.avatars = Avatars { avatars() }
-        self.avatarsTitle = AvatarsTitle { avatarsTitle() }
+        self.avatars = Avatars(avatars: avatars)
+        self.avatarsTitle = AvatarsTitle(avatarsTitle: avatarsTitle)
     }
 }
 

@@ -132,7 +132,8 @@ protocol _JouleWelcomeScreen: _MediaImageComponent, _GreetingTextComponent, _Tit
 // sourcery: importFrameworks = ["FioriThemeManager"]
 protocol _StepperFieldComponent: _DecrementActionComponent, _TextInputFieldComponent, _IncrementActionComponent {
     /// The step value
-    var step: Int? { get }
+    // sourcery: defaultValue = 1
+    var step: Int { get }
     
     /// a range of values
     var stepRange: ClosedRange<Int> { get }
@@ -287,6 +288,22 @@ protocol _MenuSelectionComponent: _ActionComponent {
 protocol _BannerMessageComponent: _IconComponent, _TitleComponent, _CloseActionComponent, _TopDividerComponent {
     /// The action to be performed when the banner is tapped.
     var bannerTapAction: (() -> Void)? { get }
+    
+    /// The icon and title's `HorizontalAlignment`. The default is `center`.
+    // sourcery: defaultValue = .center
+    var alignment: HorizontalAlignment { get }
+    
+    /// Hide bottom separator or not. The default is false.
+    // sourcery: defaultValue = false
+    var hideSeparator: Bool { get }
+    
+    /// The icon and title's type. The default is `neutral`.
+    // sourcery: defaultValue = .neutral
+    var messageType: BannerMultiMessageType { get }
+    
+    /// Show detail link or not. The default is false. When showDetailLink is true, and click the link will perform to popup the detail sheet.
+    // sourcery: defaultValue = false
+    var showDetailLink: Bool { get }
 }
 
 /// `RatingControl` uses images to represent a rating.

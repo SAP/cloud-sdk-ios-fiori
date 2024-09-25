@@ -216,3 +216,37 @@
 
 /* XACT: read-only RatingControl accessibility label: average rating with review count over ceiling */
 "Rating Control, average rating %.1f of %d, %d plus reviews" = "Rating Control, average rating %.1f of %d, %d plus reviews";
+
+/* XBUT: View all messages in message banner sheet */
+"All" = "All";
+
+/* XBUT: messages count in the message banner sheet */
+"Messages (%d)" = "Messages (%d)";
+
+/* XBUT: view details in the message banner*/
+"View Details" = "View Details";
+
+/* XBUT: view different message in the message banner sheet item*/
+"View %@" = "View %@";
+
+/* XBUT: banner message type desc, message */
+"message" = "message";
+/* XBUT: banner message type desc, information */
+"information" = "information";
+/* XBUT: banner message type desc, confirmation*/
+"confirmation" = "confirmation";
+/* XBUT: banner message type desc, warning */
+"warning" = "warning";
+/* XBUT: banner message type desc, error */
+"error" = "error";
+
+/* XBUT: banner message type desc in plural form, messages */
+"messages" = "messages";
+/* XBUT: banner message type desc in plural form, informations */
+"informations" = "informations";
+/* XBUT: banner message type desc in plural form, confirmations */
+"confirmations" = "confirmations";
+/* XBUT: banner message type desc in plural form, warnings */
+"warnings" = "warnings";
+/* XBUT: banner message type desc in plural form, errors */
+"errors" = "errors";

@@ -25,10 +25,10 @@ public struct TimelinePreviewItem {
                 isFuture: Bool = false,
                 nodeType: TimelineNodeType)
     {
-        self.title = Title { title() }
-        self.icon = Icon { icon() }
-        self.timelineNode = TimelineNode { timelineNode() }
-        self.timestamp = Timestamp { timestamp() }
+        self.title = Title(title: title)
+        self.icon = Icon(icon: icon)
+        self.timelineNode = TimelineNode(timelineNode: timelineNode)
+        self.timestamp = Timestamp(timestamp: timestamp)
         self.isFuture = isFuture
         self.nodeType = nodeType
     }

@@ -55,7 +55,7 @@ private extension ValueLabel {
     }
 
     func defaultStyle() -> some View {
-        ValueLabel(valueLabel: { self.valueLabel })
+        ValueLabel(.init(valueLabel: .init(self.valueLabel)))
             .shouldApplyDefaultStyle(false)
             .valueLabelStyle(.fiori)
             .typeErased

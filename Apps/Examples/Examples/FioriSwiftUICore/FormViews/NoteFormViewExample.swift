@@ -61,10 +61,10 @@ struct NoteFormViewExample: View {
                 NoteFormView(text: self.$valueText3, placeholder: "Please enter something", errorMessage: self.getErrorMessage(), minTextEditorHeight: 50, maxTextEditorHeight: 100, maxTextLength: self.getMaxTextLength(), hintText: self.getHintText(), isCharCountEnabled: self.showsCharCount, allowsBeyondLimit: self.allowsBeyondLimit)
 
                 Text("Disabled")
-                NoteFormView(text: self.$disabledText, placeholder: "Disabled", controlState: .disabled, minTextEditorHeight: 50, maxTextEditorHeight: 100)
+                NoteFormView(text: self.$disabledText, placeholder: "Disabled", controlState: .disabled, maxTextEditorHeight: 100)
 
                 Text("Read-Only")
-                NoteFormView(text: self.$readOnlyText, placeholder: "Read-Only", controlState: .readOnly, minTextEditorHeight: 50, maxTextEditorHeight: 200, hidesReadOnlyHint: self.hidesReadonlyHint)
+                NoteFormView(text: self.$readOnlyText, placeholder: "Read-Only", controlState: .readOnly, maxTextEditorHeight: 200, hidesReadOnlyHint: self.hidesReadonlyHint)
             }
             #if !os(visionOS)
             .scrollDismissesKeyboard(.immediately)
