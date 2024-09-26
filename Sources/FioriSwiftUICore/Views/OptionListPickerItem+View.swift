@@ -1,7 +1,10 @@
 import SwiftUI
 
+/// Available OptionListPickerItem layout  types. Use this enum to define item layout type to present.
 public enum OptionListPickerItemLayoutType {
+    /// Fixed width
     case fixed
+    /// Column width will be flexible
     case flexible
 }
 
