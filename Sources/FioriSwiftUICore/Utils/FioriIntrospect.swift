@@ -34,9 +34,14 @@ struct FioriIntrospectModifier<Target: IntrospectType>: ViewModifier {
 }
 
 struct FioriIntrospectionView<Target: IntrospectType>: UIViewControllerRepresentable {
+    typealias UIViewControllerType = FioriIntrospectionViewController
+    
+    @Binding
+    private var observed: Void // workaround for state changes not triggering view updates
     private let introspection: (Target) -> Void
     
     init(introspection: @escaping (Target) -> Void) {
+        self._observed = .constant(())
         self.introspection = introspection
     }
     
@@ -63,10 +68,6 @@ struct FioriIntrospectionView<Target: IntrospectType>: UIViewControllerRepresent
     func updateUIViewController(_ controller: FioriIntrospectionViewController, context: Context) {
         guard let target = context.coordinator.target else { return }
         self.introspection(target)
-    }
-    
-    static func dismantleUIViewController(_ controller: FioriIntrospectionViewController, coordinator: TargetCache) {
-        controller.handler = nil
     }
 }
 

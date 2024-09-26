@@ -10,6 +10,14 @@ public struct BannerMessage {
     let topDivider: any View
     /// The action to be performed when the banner is tapped.
     let bannerTapAction: (() -> Void)?
+    /// The icon and title's `HorizontalAlignment`. The default is `center`.
+    let alignment: HorizontalAlignment
+    /// Hide bottom separator or not. The default is false.
+    let hideSeparator: Bool
+    /// The icon and title's type. The default is `neutral`.
+    let messageType: BannerMultiMessageType
+    /// Show detail link or not. The default is false. When showDetailLink is true, and click the link will perform to popup the detail sheet.
+    let showDetailLink: Bool
 
     @Environment(\.bannerMessageStyle) var style
 
@@ -19,13 +27,21 @@ public struct BannerMessage {
                 @ViewBuilder title: () -> any View,
                 @ViewBuilder closeAction: () -> any View = { FioriButton { _ in Image(systemName: "xmark") } },
                 @ViewBuilder topDivider: () -> any View = { Rectangle().fill(Color.clear) },
-                bannerTapAction: (() -> Void)? = nil)
+                bannerTapAction: (() -> Void)? = nil,
+                alignment: HorizontalAlignment = .center,
+                hideSeparator: Bool = false,
+                messageType: BannerMultiMessageType = .neutral,
+                showDetailLink: Bool = false)
     {
         self.icon = Icon(icon: icon)
         self.title = Title(title: title)
         self.closeAction = CloseAction(closeAction: closeAction)
         self.topDivider = TopDivider(topDivider: topDivider)
         self.bannerTapAction = bannerTapAction
+        self.alignment = alignment
+        self.hideSeparator = hideSeparator
+        self.messageType = messageType
+        self.showDetailLink = showDetailLink
     }
 }
 
@@ -34,9 +50,13 @@ public extension BannerMessage {
          title: AttributedString,
          closeAction: FioriButton? = FioriButton { _ in Image(systemName: "xmark") },
          @ViewBuilder topDivider: () -> any View = { Rectangle().fill(Color.clear) },
-         bannerTapAction: (() -> Void)? = nil)
+         bannerTapAction: (() -> Void)? = nil,
+         alignment: HorizontalAlignment = .center,
+         hideSeparator: Bool = false,
+         messageType: BannerMultiMessageType = .neutral,
+         showDetailLink: Bool = false)
     {
-        self.init(icon: { icon }, title: { Text(title) }, closeAction: { closeAction }, topDivider: topDivider, bannerTapAction: bannerTapAction)
+        self.init(icon: { icon }, title: { Text(title) }, closeAction: { closeAction }, topDivider: topDivider, bannerTapAction: bannerTapAction, alignment: alignment, hideSeparator: hideSeparator, messageType: messageType, showDetailLink: showDetailLink)
     }
 }
 
@@ -51,6 +71,10 @@ public extension BannerMessage {
         self.closeAction = configuration.closeAction
         self.topDivider = configuration.topDivider
         self.bannerTapAction = configuration.bannerTapAction
+        self.alignment = configuration.alignment
+        self.hideSeparator = configuration.hideSeparator
+        self.messageType = configuration.messageType
+        self.showDetailLink = configuration.showDetailLink
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
     }
 }
@@ -60,7 +84,7 @@ extension BannerMessage: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(icon: .init(self.icon), title: .init(self.title), closeAction: .init(self.closeAction), topDivider: .init(self.topDivider), bannerTapAction: self.bannerTapAction)).typeErased
+            self.style.resolve(configuration: .init(icon: .init(self.icon), title: .init(self.title), closeAction: .init(self.closeAction), topDivider: .init(self.topDivider), bannerTapAction: self.bannerTapAction, alignment: self.alignment, hideSeparator: self.hideSeparator, messageType: self.messageType, showDetailLink: self.showDetailLink)).typeErased
                 .transformEnvironment(\.bannerMessageStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -78,7 +102,7 @@ private extension BannerMessage {
     }
 
     func defaultStyle() -> some View {
-        BannerMessage(.init(icon: .init(self.icon), title: .init(self.title), closeAction: .init(self.closeAction), topDivider: .init(self.topDivider), bannerTapAction: self.bannerTapAction))
+        BannerMessage(.init(icon: .init(self.icon), title: .init(self.title), closeAction: .init(self.closeAction), topDivider: .init(self.topDivider), bannerTapAction: self.bannerTapAction, alignment: self.alignment, hideSeparator: self.hideSeparator, messageType: self.messageType, showDetailLink: self.showDetailLink))
             .shouldApplyDefaultStyle(false)
             .bannerMessageStyle(BannerMessageFioriStyle.ContentFioriStyle())
             .typeErased

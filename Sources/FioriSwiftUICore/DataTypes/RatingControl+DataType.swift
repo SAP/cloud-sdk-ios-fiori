@@ -51,7 +51,7 @@ public extension RatingControl {
     }
 
     internal static func getAccessibilityLabelString(_ rating: Int, ratingBounds: ClosedRange<Int>) -> String {
-        let labelFormat = NSLocalizedString("%d out of %d stars", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
+        let labelFormat = NSLocalizedString("Rating Control %d of %d", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
         return String(format: labelFormat, rating, ratingBounds.count - 1)
     }
 }
@@ -182,6 +182,44 @@ extension RatingControlConfiguration {
             return self.ratingBounds.upperBound
         } else {
             return self.ratingBounds.lowerBound + n
+        }
+    }
+
+    func getAccessbilityLabelString() -> String {
+        switch ratingControlStyle {
+        case .editable, .editableDisabled:
+            let format = NSLocalizedString("Rating Control %d of %d", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
+            return String(format: format, rating, ratingBounds.count - 1)
+        default:
+            // read-only
+            if let averageRating {
+                if let reviewCount {
+                    if let reviewCountCeiling, reviewCount > reviewCountCeiling {
+                        // review count > review count ceiling
+                        let format = NSLocalizedString("Rating Control, average rating %.1f of %d, %d plus reviews", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
+                        return String(format: format, averageRating, ratingBounds.count - 1, reviewCountCeiling)
+                    } else {
+                        // review count < review count ceiling
+                        let format = NSLocalizedString("Rating Control, average rating %.1f of %d, %d reviews", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
+                        return String(format: format, averageRating, ratingBounds.count - 1, reviewCount)
+                    }
+                } else {
+                    // no review count
+                    let format = NSLocalizedString("Rating Control, average rating %.1f of %d", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
+                    return String(format: format, averageRating, ratingBounds.count - 1)
+                }
+            } else {
+                // no average rating
+                if let reviewCount {
+                    // has review count
+                    let format = NSLocalizedString("Rating Control, rating %d of %d, %d reviews", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
+                    return String(format: format, rating, ratingBounds.count - 1, reviewCount)
+                } else {
+                    // no review count
+                    let format = NSLocalizedString("Rating Control %d of %d", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
+                    return String(format: format, rating, ratingBounds.count - 1)
+                }
+            }
         }
     }
 }

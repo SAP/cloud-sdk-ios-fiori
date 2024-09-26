@@ -54,6 +54,7 @@ public struct RatingControlFormViewBaseStyle: RatingControlFormViewStyle {
                 }
             }
         }
+        .disabled(configuration.ratingControlStyle == .editableDisabled)
     }
 
     func setRatingValue(_ configuration: RatingControlFormViewConfiguration, newRating: Int) {

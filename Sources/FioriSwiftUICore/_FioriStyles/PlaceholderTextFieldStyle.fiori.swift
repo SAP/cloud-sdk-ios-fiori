@@ -30,7 +30,7 @@ public struct PlaceholderTextFieldBaseStyle: PlaceholderTextFieldStyle {
                     Image(systemName: "xmark.circle")
                         .font(.fiori(forTextStyle: .body))
                         .foregroundColor(.preferredColor(.tertiaryLabel))
-                        .padding(.trailing, 8)
+                        .padding(.trailing, 1)
                 }
             }
         }

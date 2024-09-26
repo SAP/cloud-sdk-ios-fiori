@@ -55,7 +55,7 @@ private extension OptionalTitle {
     }
 
     func defaultStyle() -> some View {
-        OptionalTitle(optionalTitle: { self.optionalTitle })
+        OptionalTitle(.init(optionalTitle: .init(self.optionalTitle)))
             .shouldApplyDefaultStyle(false)
             .optionalTitleStyle(.fiori)
             .typeErased

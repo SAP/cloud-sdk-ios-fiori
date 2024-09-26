@@ -27,6 +27,10 @@ public struct BannerMessageConfiguration {
     public let closeAction: CloseAction
     public let topDivider: TopDivider
     public let bannerTapAction: (() -> Void)?
+    public let alignment: HorizontalAlignment
+    public let hideSeparator: Bool
+    public let messageType: BannerMultiMessageType
+    public let showDetailLink: Bool
 
     public typealias Icon = ConfigurationViewWrapper
     public typealias Title = ConfigurationViewWrapper

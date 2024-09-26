@@ -13,7 +13,8 @@ public struct TitleFormViewBaseStyle: TitleFormViewStyle {
                 .disabled(self.getDisabled(configuration))
         }
         .textInputInfoView(isPresented: Binding(get: { self.isInfoViewNeeded(configuration) }, set: { _ in }), description: self.getInfoString(configuration), counter: self.getCounterString(configuration))
-        .backgroundStyle(.red)
+        .padding(.top, -1)
+        .padding(.bottom, self.isInfoViewNeeded(configuration) ? -12 : -1)
     }
 
     func getDisabled(_ configuration: TitleFormViewConfiguration) -> Bool {
@@ -51,6 +52,7 @@ extension TitleFormViewFioriStyle {
                         TextInputInfoView(config)
                             .textInputInfoViewStyle(style)
                             .typeErased
+                            .padding(.top, -4)
                     }
                     .placeholderTextFieldStyle { config in
                         PlaceholderTextField(config)
@@ -59,8 +61,6 @@ extension TitleFormViewFioriStyle {
                             }
                             .background(self.getBackgroundColor(configuration))
                     }
-                    .padding(.top, 0)
-                    .padding(.bottom, self.isInfoViewNeeded(configuration) ? -9 : 0)
             }
         }
 
