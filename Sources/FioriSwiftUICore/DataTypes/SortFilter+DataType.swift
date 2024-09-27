@@ -310,8 +310,9 @@ public extension SortFilterItem {
         public let allowsMultipleSelection: Bool
         public let allowsEmptySelection: Bool
         public let icon: String?
+        public var itemLayout: OptionListPickerItemLayoutType = .fixed
         
-        public init(id: String = UUID().uuidString, name: String, value: [Int], valueOptions: [String], allowsMultipleSelection: Bool, allowsEmptySelection: Bool, icon: String? = nil) {
+        public init(id: String = UUID().uuidString, name: String, value: [Int], valueOptions: [String], allowsMultipleSelection: Bool, allowsEmptySelection: Bool, icon: String? = nil, itemLayout: OptionListPickerItemLayoutType = .fixed) {
             self.id = id
             self.name = name
             self.value = value
@@ -321,6 +322,7 @@ public extension SortFilterItem {
             self.allowsMultipleSelection = allowsMultipleSelection
             self.allowsEmptySelection = allowsEmptySelection
             self.icon = icon
+            self.itemLayout = itemLayout
         }
         
         mutating func onTap(option: String) {
