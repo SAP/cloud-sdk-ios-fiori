@@ -68,7 +68,7 @@ public struct DefaultOptionListPickerStyle: OptionListPickerStyle {
     let minTouchHeight: CGFloat
     
     /// :nodoc:
-    public init(font: Font = .system(.body), foregroundColorSelected: Color = .preferredColor(.tintColor), foregroundColorUnselected: Color = .preferredColor(.tertiaryLabel), fillColorSelected: Color = .preferredColor(.primaryFill), fillColorUnselected: Color = .preferredColor(.secondaryFill), strokeColorSelected: Color = .preferredColor(.tintColor), strokeColorUnselected: Color = .preferredColor(.separator), cornerRadius: CGFloat = 16, spacing: CGFloat = 6, borderWidth: CGFloat = 1, minHeight: CGFloat = 44, minTouchHeight: CGFloat = 56) {
+    public init(font: Font = .system(.body), foregroundColorSelected: Color = .preferredColor(.tintColor), foregroundColorUnselected: Color = .preferredColor(.tertiaryLabel), fillColorSelected: Color = .preferredColor(.secondaryGroupedBackground), fillColorUnselected: Color = .preferredColor(.tertiaryFill), strokeColorSelected: Color = .preferredColor(.tintColor), strokeColorUnselected: Color = .preferredColor(.separator), cornerRadius: CGFloat = 16, spacing: CGFloat = 4, borderWidth: CGFloat = 1, minHeight: CGFloat = 44, minTouchHeight: CGFloat = 50) {
         self.font = font
         self.foregroundColorSelected = foregroundColorSelected
         self.foregroundColorUnselected = foregroundColorUnselected
@@ -89,7 +89,9 @@ public struct DefaultOptionListPickerStyle: OptionListPickerStyle {
             HStack(spacing: self.spacing) {
                 configuration.leftIcon
                 configuration.title
+                    .lineLimit(1)
             }
+            .padding([.leading, .trailing], configuration.isSelected ? 9 : 20)
             .font(self.font)
             .foregroundColor(configuration.isSelected ? self.foregroundColorSelected : self.foregroundColorUnselected)
             .frame(maxWidth: .infinity, minHeight: self.minHeight)
