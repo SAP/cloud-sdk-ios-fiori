@@ -509,6 +509,10 @@ public protocol FilterFeedbackBarButtonModel: LeftIconComponent, TitleComponent 
 // sourcery: add_env_props = "filterFeedbackBarStyle"
 // sourcery: generated_component_not_configurable
 public protocol OptionListPickerItemModel: OptionListPickerComponent {
+    // sourcery: default.value = .fixed
+    // sourcery: no_view
+    var itemLayout: OptionListPickerItemLayoutType { get set }
+    
     // sourcery: default.value = nil
     // sourcery: no_view
     var onTap: ((_ index: Int) -> Void)? { get }
