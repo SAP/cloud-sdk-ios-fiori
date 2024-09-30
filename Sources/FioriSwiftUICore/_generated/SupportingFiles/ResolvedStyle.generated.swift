@@ -51,6 +51,22 @@ extension AttributeStyle {
     }
 }
 
+// MARK: AvatarStackStyle
+
+struct ResolvedAvatarStackStyle<Style: AvatarStackStyle>: View {
+    let style: Style
+    let configuration: AvatarStackConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension AvatarStackStyle {
+    func resolve(configuration: AvatarStackConfiguration) -> some View {
+        ResolvedAvatarStackStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: AvatarsStyle
 
 struct ResolvedAvatarsStyle<Style: AvatarsStyle>: View {
@@ -64,6 +80,22 @@ struct ResolvedAvatarsStyle<Style: AvatarsStyle>: View {
 extension AvatarsStyle {
     func resolve(configuration: AvatarsConfiguration) -> some View {
         ResolvedAvatarsStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: AvatarsTitleStyle
+
+struct ResolvedAvatarsTitleStyle<Style: AvatarsTitleStyle>: View {
+    let style: Style
+    let configuration: AvatarsTitleConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension AvatarsTitleStyle {
+    func resolve(configuration: AvatarsTitleConfiguration) -> some View {
+        ResolvedAvatarsTitleStyle(style: self, configuration: configuration)
     }
 }
 
@@ -400,6 +432,22 @@ struct ResolvedGreetingTextStyle<Style: GreetingTextStyle>: View {
 extension GreetingTextStyle {
     func resolve(configuration: GreetingTextConfiguration) -> some View {
         ResolvedGreetingTextStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: HalfStarImageStyle
+
+struct ResolvedHalfStarImageStyle<Style: HalfStarImageStyle>: View {
+    let style: Style
+    let configuration: HalfStarImageConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension HalfStarImageStyle {
+    func resolve(configuration: HalfStarImageConfiguration) -> some View {
+        ResolvedHalfStarImageStyle(style: self, configuration: configuration)
     }
 }
 
@@ -771,6 +819,38 @@ extension ObjectItemStyle {
     }
 }
 
+// MARK: OffStarImageStyle
+
+struct ResolvedOffStarImageStyle<Style: OffStarImageStyle>: View {
+    let style: Style
+    let configuration: OffStarImageConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension OffStarImageStyle {
+    func resolve(configuration: OffStarImageConfiguration) -> some View {
+        ResolvedOffStarImageStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: OnStarImageStyle
+
+struct ResolvedOnStarImageStyle<Style: OnStarImageStyle>: View {
+    let style: Style
+    let configuration: OnStarImageConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension OnStarImageStyle {
+    func resolve(configuration: OnStarImageConfiguration) -> some View {
+        ResolvedOnStarImageStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: OptionalTitleStyle
 
 struct ResolvedOptionalTitleStyle<Style: OptionalTitleStyle>: View {
@@ -912,6 +992,22 @@ struct ResolvedRatingControlFormViewStyle<Style: RatingControlFormViewStyle>: Vi
 extension RatingControlFormViewStyle {
     func resolve(configuration: RatingControlFormViewConfiguration) -> some View {
         ResolvedRatingControlFormViewStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: ReviewCountLabelStyle
+
+struct ResolvedReviewCountLabelStyle<Style: ReviewCountLabelStyle>: View {
+    let style: Style
+    let configuration: ReviewCountLabelConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension ReviewCountLabelStyle {
+    func resolve(configuration: ReviewCountLabelConfiguration) -> some View {
+        ResolvedReviewCountLabelStyle(style: self, configuration: configuration)
     }
 }
 

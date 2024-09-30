@@ -132,7 +132,8 @@ protocol _JouleWelcomeScreen: _MediaImageComponent, _GreetingTextComponent, _Tit
 // sourcery: importFrameworks = ["FioriThemeManager"]
 protocol _StepperFieldComponent: _DecrementActionComponent, _TextInputFieldComponent, _IncrementActionComponent {
     /// The step value
-    var step: Int? { get }
+    // sourcery: defaultValue = 1
+    var step: Int { get }
     
     /// a range of values
     var stepRange: ClosedRange<Int> { get }
@@ -287,6 +288,22 @@ protocol _MenuSelectionComponent: _ActionComponent {
 protocol _BannerMessageComponent: _IconComponent, _TitleComponent, _CloseActionComponent, _TopDividerComponent {
     /// The action to be performed when the banner is tapped.
     var bannerTapAction: (() -> Void)? { get }
+    
+    /// The icon and title's `HorizontalAlignment`. The default is `center`.
+    // sourcery: defaultValue = .center
+    var alignment: HorizontalAlignment { get }
+    
+    /// Hide bottom separator or not. The default is false.
+    // sourcery: defaultValue = false
+    var hideSeparator: Bool { get }
+    
+    /// The icon and title's type. The default is `neutral`.
+    // sourcery: defaultValue = .neutral
+    var messageType: BannerMultiMessageType { get }
+    
+    /// Show detail link or not. The default is false. When showDetailLink is true, and click the link will perform to popup the detail sheet.
+    // sourcery: defaultValue = false
+    var showDetailLink: Bool { get }
 }
 
 /// `RatingControl` uses images to represent a rating.
@@ -295,7 +312,8 @@ protocol _BannerMessageComponent: _IconComponent, _TitleComponent, _CloseActionC
 /// The default "On" image is a filled star while the default "Off" inmage
 /// is an unfilled star.
 // sourcery: CompositeComponent
-protocol _RatingControlComponent {
+// sourcery: importFrameworks = ["FioriThemeManager"]
+protocol _RatingControlComponent: _ValueLabelComponent, _OnStarImageComponent, _OffStarImageComponent, _HalfStarImageComponent, _ReviewCountLabelComponent {
     // sourcery: @Binding
     /// The rating value.
     var rating: Int { get }
@@ -308,23 +326,48 @@ protocol _RatingControlComponent {
     // sourcery: defaultValue = 0...5
     var ratingBounds: ClosedRange<Int> { get }
 
-    /// The custom image to be used for "On".
-    var onImage: Image? { get }
-
-    /// The custom image to be used for "Off".
-    var offImage: Image? { get }
-
     /// The custom fixed size of each item image view.
     var itemSize: CGSize? { get }
 
-    /// The custom color for the ON image.
-    var onColor: Color? { get }
-
-    /// The custom color for the OFF image.
-    var offColor: Color? { get }
-
     /// The custom spacing between images.
     var interItemSpacing: CGFloat? { get }
+
+    /// The rating format for displaying rating value.
+    /// When this is `nil`, the default format is "%d of %d" where "of" is the localized "of". The first parameter is the rating value while the second parameter is the total number of stars.
+    // sourcery: defaultValue = "nil"
+    var ratingValueFormat: String? { get }
+
+    /// This property indicates if the value label is to be displayed or not. The default value is `false` for backward compatibility.
+    // sourcery: defaultValue = "false"
+    var showsValueLabel: Bool { get }
+
+    /// The average rating for read-only style.
+    // sourcery: defaultValue = "nil"
+    var averageRating: CGFloat? { get }
+
+    /// The format for display the average rating. The default is "%.1f"
+    // sourcery: defaultValue = ""%.1f""
+    var averageRatingFormat: String { get }
+
+    /// The number of reviews.
+    // sourcery: defaultValue = "nil"
+    var reviewCount: Int? { get }
+
+    /// The format for the review count string. The default is "%d reviews" where "reviews" is the localized "reviews" string.
+    // sourcery: defaultValue = "nil"
+    var reviewCountFormat: String? { get }
+
+    /// The ceiling number to be displayed for review count. If the `reviewCount` is larger than this number, this number will be displayed with a "+" sign after the number.
+    // sourcery: defaultValue = "nil"
+    var reviewCountCeiling: Int? { get }
+
+    /// The format for the review count string when the count is over the ceiling. The default is "%d+ reviews" where "reviews" is the localized "reviews" string.
+    // sourcery: defaultValue = "nil"
+    var reviewCountCeilingFormat: String? { get }
+
+    /// This property indicates if the review count label is to be displayed or not. The default value is `false` for backward compatibility.
+    // sourcery: defaultValue = "false"
+    var showsReviewCountLabel: Bool { get }
 }
 
 /// `TimelineMarker` is a non-selectable view intended for timelineMarkers that require beforeStart, start, beforeEnd and end status that displays timelineMarker details.
@@ -392,7 +435,8 @@ protocol _TimelineNowIndicatorComponent: _NowIndicatorNodeComponent {}
 
 /// The form view which contains a title, rating control, and a subtitle
 // sourcery: CompositeComponent
-protocol _RatingControlFormViewComponent: _TitleComponent, _RatingControlComponent, _SubtitleComponent, _FormViewComponent {
+// sourcery: importFrameworks = ["FioriThemeManager"]
+protocol _RatingControlFormViewComponent: _TitleComponent, _RatingControlComponent, _SubtitleComponent {
     /// Indicates if the axis for displaying the title and rating control.
     // sourcery: defaultValue = .horizontal
     var axis: Axis { get }
@@ -498,3 +542,6 @@ protocol _DateTimePickerComponent: _TitleComponent, _ValueLabelComponent {
     // sourcery: defaultValue = [.date, .hourAndMinute]
     var pickerComponents: DatePicker.Components { get }
 }
+
+// sourcery: CompositeComponent
+protocol _AvatarStackComponent: _AvatarsComponent, _AvatarsTitleComponent {}

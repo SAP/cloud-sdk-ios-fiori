@@ -7,13 +7,21 @@ struct BannerMessageExample: View {
             NavigationLink {
                 BannerMessageModifierExample()
             } label: {
-                Text("Modifer Example")
+                Text("Modifier Example")
             }
             
             NavigationLink {
                 BannerMessageCustomInitExample()
             } label: {
                 Text("Custom Creation Example")
+            }
+            
+            NavigationLink("Multi-Message Handling Banner", destination: BannerMultiMessageExample())
+            
+            NavigationLink {
+                BannerMultiMessageCustomInitExample()
+            } label: {
+                Text("Multi-Message Handling Banner - customized")
             }
         }
     }

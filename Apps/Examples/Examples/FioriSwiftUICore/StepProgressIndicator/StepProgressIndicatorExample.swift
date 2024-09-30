@@ -51,27 +51,34 @@ struct StepProgressIndicatorExample_Previews: PreviewProvider {
 }
 
 struct SPIExampleWithIcon: View {
-    static let icon = Image(systemName: "app.dashed")
     @State var title: String = ""
-    @State var steps = [StepItemData(title: "Sign In", icon: FioriIcon.arrows.initiative, state: .completed),
-                        StepItemData(title: "User Info", icon: FioriIcon.people.personPlaceholder, state: .completed),
-                        StepItemData(title: "Account Info", icon: FioriIcon.actions.edit, state: .completed),
-                        StepItemData(title: "Settings", icon: FioriIcon.actions.actionSettings, state: .normal, substeps: [StepItemData(title: "Settings 1")]),
-                        StepItemData(title: "Other0", icon: icon, state: .disabled),
-                        StepItemData(title: "Other1", icon: icon, state: .completed),
-                        StepItemData(title: "other2", icon: icon, state: .error)]
-    @State var selection: String = ""
+    @State var iconSteps = [StepItemData(title: "Sign In", node: .icon(FioriIcon.arrows.initiative), state: .completed),
+                            StepItemData(title: "User Info", node: .icon(FioriIcon.people.personPlaceholder), state: .completed),
+                            StepItemData(title: "Account Info", node: .icon(FioriIcon.actions.edit), state: .completed),
+                            StepItemData(title: "Settings", node: .icon(FioriIcon.actions.actionSettings), state: .normal, substeps: [StepItemData(title: "Settings 1")]),
+                            StepItemData(title: "Other0", node: .icon(Image(systemName: "app.dashed")), state: .disabled),
+                            StepItemData(title: "Other1", node: .icon(Image(systemName: "app.dashed")), state: .completed),
+                            StepItemData(title: "other2", node: .icon(Image(systemName: "app.dashed")), state: .error)]
+    @State var textSteps = [StepItemData(title: "Sign In", state: .completed),
+                            StepItemData(title: "User Info", node: .text("AB"), state: .completed),
+                            StepItemData(title: "Account Info", state: .completed),
+                            StepItemData(title: "Settings", node: .text("AD"), state: .normal, substeps: [StepItemData(title: "Settings 1")]),
+                            StepItemData(title: "Other0", state: .disabled),
+                            StepItemData(title: "Other1", state: .completed),
+                            StepItemData(title: "other2", state: .error)]
+    @State var iconSelection: String = ""
+    @State var textSelection: String = ""
     var body: some View {
         VStack(alignment: .leading) {
-            Text("Icon").bold()
-            StepProgressIndicator(selection: self.$selection,
-                                  stepItems: self.steps)
+            Text("Step: Only Icon Node").bold()
+            StepProgressIndicator(selection: self.$iconSelection,
+                                  stepItems: self.iconSteps)
             {
                 Text(self.$title.wrappedValue).lineLimit(1)
             } action: {
                 Button {} label: {
                     HStack(spacing: 2) {
-                        Text("All Steps(\(self.steps.count))")
+                        Text("All Steps(\(self.iconSteps.count))")
                             .foregroundStyle(Color.preferredColor(.tintColor))
                         FioriIcon.actions.slimArrowRight
                             .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
@@ -79,6 +86,22 @@ struct SPIExampleWithIcon: View {
                     }
                 }
             }
+            .padding()
+            .onChange(of: self.iconSelection, perform: { _ in
+                self.updateCurrentStepName()
+            })
+            .onAppear {
+                self.updateCurrentStepName()
+            }
+            
+            Text("Step: Only Text Node").bold()
+            StepProgressIndicator(selection: self.$textSelection,
+                                  stepItems: self.textSteps)
+            {
+                Text("Invariant title").lineLimit(1)
+            } action: {}
+                .padding()
+            
             Spacer().padding(20)
             Button {
                 self.completeStep()
@@ -87,19 +110,12 @@ struct SPIExampleWithIcon: View {
             }
             .padding(20)
         }
-        .padding()
-        .onChange(of: self.selection, perform: { _ in
-            self.updateCurrentStepName()
-        })
-        .onAppear {
-            self.updateCurrentStepName()
-        }
     }
     
     func getStep() -> StepItem? {
         func findStep(in data: [StepItem]) -> StepItem? {
             for step in data {
-                if step.id == self.selection {
+                if step.id == self.iconSelection {
                     return step
                 }
                 
@@ -114,7 +130,7 @@ struct SPIExampleWithIcon: View {
             
             return nil
         }
-        return findStep(in: self.steps)
+        return findStep(in: self.iconSteps)
     }
     
     func updateCurrentStepName() {
@@ -125,15 +141,15 @@ struct SPIExampleWithIcon: View {
     }
     
     func completeStep() {
-        for index in self.steps.indices {
-            if self.steps[index].id == self.selection {
-                self.steps[index].state = .completed
+        for index in self.iconSteps.indices {
+            if self.iconSteps[index].id == self.iconSelection {
+                self.iconSteps[index].state = .completed
             } else {
-                let substeps = self.steps[index].substeps
+                let substeps = self.iconSteps[index].substeps
                 guard !substeps.isEmpty else { continue }
                 for subindex in substeps.indices {
-                    if substeps[subindex].id == self.selection {
-                        self.steps[index].substeps[subindex].state = .completed
+                    if substeps[subindex].id == self.iconSelection {
+                        self.iconSteps[index].substeps[subindex].state = .completed
                     }
                 }
             }
@@ -528,8 +544,8 @@ struct StepItemData: StepItem {
     var id: String = UUID().uuidString
     /// Step title.
     var title: String?
-    /// Node icon
-    var icon: Image?
+    /// Step node
+    var node: TextOrIcon?
     /// Step state.
     var state: StepProgressIndicatorState = .normal
     /// Sub-steps for this one.
@@ -537,13 +553,13 @@ struct StepItemData: StepItem {
     
     init(id: String = UUID().uuidString,
          title: String? = nil,
-         icon: Image? = nil,
+         node: TextOrIcon? = nil,
          state: StepProgressIndicatorState = [],
          substeps: [StepItemData] = [])
     {
         self.id = id
         self.title = title
-        self.icon = icon
+        self.node = node
         self.state = state
         self.substeps = substeps
     }

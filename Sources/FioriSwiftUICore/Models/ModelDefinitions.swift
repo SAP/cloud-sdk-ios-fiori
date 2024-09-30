@@ -8,19 +8,10 @@ import SwiftUI
 public protocol IconStackModel: IconsComponent {}
 
 // sourcery: generated_component_not_configurable
-// sourcery: add_env_props = "avatarSize"
-// sourcery: add_env_props = "isAvatarCircular"
-// sourcery: add_env_props = "avatarBorderWidth"
-// sourcery: add_env_props = "avatarBorderColor"
-public protocol AvatarStackModel: AvatarsComponent {}
-
-// sourcery: generated_component_not_configurable
 // sourcery: add_env_props = "footnoteIconsSize"
 // sourcery: add_env_props = "footnoteIconsSpacing"
 // sourcery: add_env_props = "isFootnoteIconsCircular"
 // sourcery: add_env_props = "footnoteIconsMaxCount"
-// sourcery: add_env_props = "footnoteIconsTextPosition"
-// sourcery: add_env_props = "footnoteIconsText"
 public protocol FootnoteIconStackModel: FootnoteIconsComponent {}
 
 // sourcery: add_env_props = "horizontalSizeClass"
@@ -514,6 +505,10 @@ public protocol FilterFeedbackBarButtonModel: LeftIconComponent, TitleComponent 
 // sourcery: add_env_props = "filterFeedbackBarStyle"
 // sourcery: generated_component_not_configurable
 public protocol OptionListPickerItemModel: OptionListPickerComponent {
+    // sourcery: default.value = .fixed
+    // sourcery: no_view
+    var itemLayout: OptionListPickerItemLayoutType { get set }
+    
     // sourcery: default.value = nil
     // sourcery: no_view
     var onTap: ((_ index: Int) -> Void)? { get }

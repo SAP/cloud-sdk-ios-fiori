@@ -92,6 +92,34 @@ public extension AttributeStyle {
     }
 }
 
+// MARK: AvatarStackStyle
+
+extension ModifiedStyle: AvatarStackStyle where Style: AvatarStackStyle {
+    public func makeBody(_ configuration: AvatarStackConfiguration) -> some View {
+        AvatarStack(configuration)
+            .avatarStackStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct AvatarStackStyleModifier<Style: AvatarStackStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.avatarStackStyle(self.style)
+    }
+}
+
+public extension AvatarStackStyle {
+    func modifier(_ modifier: some ViewModifier) -> some AvatarStackStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some AvatarStackStyle) -> some AvatarStackStyle {
+        style.modifier(AvatarStackStyleModifier(style: self))
+    }
+}
+
 // MARK: AvatarsStyle
 
 extension ModifiedStyle: AvatarsStyle where Style: AvatarsStyle {
@@ -117,6 +145,34 @@ public extension AvatarsStyle {
 
     func concat(_ style: some AvatarsStyle) -> some AvatarsStyle {
         style.modifier(AvatarsStyleModifier(style: self))
+    }
+}
+
+// MARK: AvatarsTitleStyle
+
+extension ModifiedStyle: AvatarsTitleStyle where Style: AvatarsTitleStyle {
+    public func makeBody(_ configuration: AvatarsTitleConfiguration) -> some View {
+        AvatarsTitle(configuration)
+            .avatarsTitleStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct AvatarsTitleStyleModifier<Style: AvatarsTitleStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.avatarsTitleStyle(self.style)
+    }
+}
+
+public extension AvatarsTitleStyle {
+    func modifier(_ modifier: some ViewModifier) -> some AvatarsTitleStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some AvatarsTitleStyle) -> some AvatarsTitleStyle {
+        style.modifier(AvatarsTitleStyleModifier(style: self))
     }
 }
 
@@ -705,6 +761,34 @@ public extension GreetingTextStyle {
 
     func concat(_ style: some GreetingTextStyle) -> some GreetingTextStyle {
         style.modifier(GreetingTextStyleModifier(style: self))
+    }
+}
+
+// MARK: HalfStarImageStyle
+
+extension ModifiedStyle: HalfStarImageStyle where Style: HalfStarImageStyle {
+    public func makeBody(_ configuration: HalfStarImageConfiguration) -> some View {
+        HalfStarImage(configuration)
+            .halfStarImageStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct HalfStarImageStyleModifier<Style: HalfStarImageStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.halfStarImageStyle(self.style)
+    }
+}
+
+public extension HalfStarImageStyle {
+    func modifier(_ modifier: some ViewModifier) -> some HalfStarImageStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some HalfStarImageStyle) -> some HalfStarImageStyle {
+        style.modifier(HalfStarImageStyleModifier(style: self))
     }
 }
 
@@ -1352,6 +1436,62 @@ public extension ObjectItemStyle {
     }
 }
 
+// MARK: OffStarImageStyle
+
+extension ModifiedStyle: OffStarImageStyle where Style: OffStarImageStyle {
+    public func makeBody(_ configuration: OffStarImageConfiguration) -> some View {
+        OffStarImage(configuration)
+            .offStarImageStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct OffStarImageStyleModifier<Style: OffStarImageStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.offStarImageStyle(self.style)
+    }
+}
+
+public extension OffStarImageStyle {
+    func modifier(_ modifier: some ViewModifier) -> some OffStarImageStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some OffStarImageStyle) -> some OffStarImageStyle {
+        style.modifier(OffStarImageStyleModifier(style: self))
+    }
+}
+
+// MARK: OnStarImageStyle
+
+extension ModifiedStyle: OnStarImageStyle where Style: OnStarImageStyle {
+    public func makeBody(_ configuration: OnStarImageConfiguration) -> some View {
+        OnStarImage(configuration)
+            .onStarImageStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct OnStarImageStyleModifier<Style: OnStarImageStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.onStarImageStyle(self.style)
+    }
+}
+
+public extension OnStarImageStyle {
+    func modifier(_ modifier: some ViewModifier) -> some OnStarImageStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some OnStarImageStyle) -> some OnStarImageStyle {
+        style.modifier(OnStarImageStyleModifier(style: self))
+    }
+}
+
 // MARK: OptionalTitleStyle
 
 extension ModifiedStyle: OptionalTitleStyle where Style: OptionalTitleStyle {
@@ -1601,6 +1741,34 @@ public extension RatingControlFormViewStyle {
 
     func concat(_ style: some RatingControlFormViewStyle) -> some RatingControlFormViewStyle {
         style.modifier(RatingControlFormViewStyleModifier(style: self))
+    }
+}
+
+// MARK: ReviewCountLabelStyle
+
+extension ModifiedStyle: ReviewCountLabelStyle where Style: ReviewCountLabelStyle {
+    public func makeBody(_ configuration: ReviewCountLabelConfiguration) -> some View {
+        ReviewCountLabel(configuration)
+            .reviewCountLabelStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct ReviewCountLabelStyleModifier<Style: ReviewCountLabelStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.reviewCountLabelStyle(self.style)
+    }
+}
+
+public extension ReviewCountLabelStyle {
+    func modifier(_ modifier: some ViewModifier) -> some ReviewCountLabelStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some ReviewCountLabelStyle) -> some ReviewCountLabelStyle {
+        style.modifier(ReviewCountLabelStyleModifier(style: self))
     }
 }
 

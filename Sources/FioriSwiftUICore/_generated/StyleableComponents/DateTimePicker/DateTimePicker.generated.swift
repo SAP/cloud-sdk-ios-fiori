@@ -18,8 +18,8 @@ public struct DateTimePicker {
                 selectedDate: Binding<Date>,
                 pickerComponents: DatePicker.Components = [.date, .hourAndMinute])
     {
-        self.title = Title { title() }
-        self.valueLabel = ValueLabel { valueLabel() }
+        self.title = Title(title: title)
+        self.valueLabel = ValueLabel(valueLabel: valueLabel)
         self._selectedDate = selectedDate
         self.pickerComponents = pickerComponents
     }

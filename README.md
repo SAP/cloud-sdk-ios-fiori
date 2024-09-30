@@ -98,7 +98,7 @@ We plan to progressively bring more Fiori UI components into this module in the 
 | ProfileHeader | :white_check_mark: |
 | TimelineItem | :white_check_mark: |
 | SegmentedControlPicker | :white_check_mark: |
-| TimelinePreviewItem | :x: |
+| TimelinePreviewItem | :white_check_mark: |
 | ChartFloorplan | :x: |
 | CollectionItem | :x: |
 | BarcodeScanner | :x: |

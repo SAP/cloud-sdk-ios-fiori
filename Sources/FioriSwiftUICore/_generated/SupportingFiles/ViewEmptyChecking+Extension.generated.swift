@@ -21,9 +21,22 @@ extension Attribute: _ViewEmptyChecking {
     }
 }
 
+extension AvatarStack: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        avatars.isEmpty &&
+            avatarsTitle.isEmpty
+    }
+}
+
 extension Avatars: _ViewEmptyChecking {
     public var isEmpty: Bool {
         avatars.isEmpty
+    }
+}
+
+extension AvatarsTitle: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        avatarsTitle.isEmpty
     }
 }
 
@@ -202,6 +215,12 @@ extension GreetingText: _ViewEmptyChecking {
     }
 }
 
+extension HalfStarImage: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        halfStarImage.isEmpty
+    }
+}
+
 extension HeaderAction: _ViewEmptyChecking {
     public var isEmpty: Bool {
         headerAction.isEmpty
@@ -367,6 +386,18 @@ extension ObjectItem: _ViewEmptyChecking {
     }
 }
 
+extension OffStarImage: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        offStarImage.isEmpty
+    }
+}
+
+extension OnStarImage: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        onStarImage.isEmpty
+    }
+}
+
 extension OptionalTitle: _ViewEmptyChecking {
     public var isEmpty: Bool {
         optionalTitle.isEmpty
@@ -415,14 +446,29 @@ extension ProfileHeader: _ViewEmptyChecking {
 
 extension RatingControl: _ViewEmptyChecking {
     public var isEmpty: Bool {
-        false
+        valueLabel.isEmpty &&
+            onStarImage.isEmpty &&
+            offStarImage.isEmpty &&
+            halfStarImage.isEmpty &&
+            reviewCountLabel.isEmpty
     }
 }
 
 extension RatingControlFormView: _ViewEmptyChecking {
     public var isEmpty: Bool {
         title.isEmpty &&
+            valueLabel.isEmpty &&
+            onStarImage.isEmpty &&
+            offStarImage.isEmpty &&
+            halfStarImage.isEmpty &&
+            reviewCountLabel.isEmpty &&
             subtitle.isEmpty
+    }
+}
+
+extension ReviewCountLabel: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        reviewCountLabel.isEmpty
     }
 }
 
