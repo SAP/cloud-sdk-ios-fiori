@@ -112,7 +112,7 @@ struct CustomColors: View {
             case .customPalette:
                 Text("Here a custom palette provides random colors for all ColorStyles")
             case .programmatic(_), .styleSheet:
-                Text("ℹ️ primaryLabel color was overriden (other colors come from .latest palette)")
+                Text("ℹ️ primaryLabel color was overridden (other colors come from .latest palette)")
             }
             ForEach(self.colorStyles,
                     id: \.self)

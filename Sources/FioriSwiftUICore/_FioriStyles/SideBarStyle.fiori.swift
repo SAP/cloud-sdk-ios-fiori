@@ -16,7 +16,7 @@ import SwiftUI
 public struct SideBarBaseStyle: SideBarStyle {
     @Environment(\.editMode) private var editMode
     @EnvironmentObject private var modelObject: SideBarModelObject
-    @State private var collapsedSections: [UUID] = [] // To keep the collasped section ID
+    @State private var collapsedSections: [UUID] = [] // To keep the collapsed section ID
     
     public func makeBody(_ configuration: SideBarConfiguration) -> some View {
         Group {
@@ -37,7 +37,7 @@ public struct SideBarBaseStyle: SideBarStyle {
                 let onEditButtonClicked = {
                     configuration.isEditing.toggle()
                     if !configuration.isEditing {
-                        // to conver the flat list data(for drag&drop supporting) to tree structed list data.
+                        // to conver the flat list data(for drag&drop supporting) to tree structured list data.
                         configuration.data.removeAll()
                         configuration.data.append(contentsOf: self.modelObject.refreshItems())
                     }
@@ -131,13 +131,13 @@ public struct SideBarBaseStyle: SideBarStyle {
                 
                 if !item.isInvisible, !configuration.isEditing { // For view mode
                     if configuration.isUsedInSplitView {
-                        // In NavigationSplieView, the 'select' standard accessibility action can trigger the navigationDestination modifer for the NavigationLink when enter key pressed or double-tapping with VoiceOver.
-                        // However, the custom accessibility action can't execute in the standard accessibility action here. Also, the 'select' standard accessibility action can not let NavigationLink work if add a nother customer accessibility action here. So, we just use 'select' standard accessibility action to tigger navigationDestination modifer and set the selected item in navigationDestination callback.
+                        // In NavigationSplieView, the 'select' standard accessibility action can trigger the navigationDestination modifier for the NavigationLink when enter key pressed or double-tapping with VoiceOver.
+                        // However, the custom accessibility action can't execute in the standard accessibility action here. Also, the 'select' standard accessibility action can not let NavigationLink work if add a nother customer accessibility action here. So, we just use 'select' standard accessibility action to trigger navigationDestination modifier and set the selected item in navigationDestination callback.
                         NavigationLink(value: item) {
                             configuration.item(bindableItem).typeErased
                         }.accessibilityAction(named: "Select") {}
                     } else {
-                        // in case the navigationDestination modifer of the NavigationLink can't work, to set the selection item when the NavigationLink was clicked or enter key pressed or double-tapping with VoiceOver
+                        // in case the navigationDestination modifier of the NavigationLink can't work, to set the selection item when the NavigationLink was clicked or enter key pressed or double-tapping with VoiceOver
                         configuration.item(bindableItem).typeErased
                             .simultaneousGesture(TapGesture().onEnded {
                                 configuration.selection = item
@@ -257,7 +257,7 @@ class SideBarModelObject: ObservableObject {
     @Published var flatListItems: [SideBarItemModel] = [] {
         didSet {
             if let onChanged = configuration.onDataChange {
-                if self.configuration.isEditing, self.flatListItems.count == self.itemCount { // Only fire the data change event when the data items were changed in edit model after they were initilized
+                if self.configuration.isEditing, self.flatListItems.count == self.itemCount { // Only fire the data change event when the data items were changed in edit model after they were initialized
                     onChanged(self.inflateItemModels(flatItemModels: self.flatListItems))
                 }
             }
@@ -287,7 +287,7 @@ class SideBarModelObject: ObservableObject {
                 self.itemCount += 1
             }
         }
-        for section in sections { // Loop the possibile sections and add it and its children to the flat list
+        for section in sections { // Loop the possible sections and add it and its children to the flat list
             self.flatListItems.append(section)
             self.itemCount += 1
             if let children = section.children, !children.isEmpty {
@@ -310,7 +310,7 @@ class SideBarModelObject: ObservableObject {
         var sourceFlatItemModels = flatItemModels // The flatItemModels has values like:[item1, item2, Section1, item1-1. item1-2, Section2, item2-1, item2-2]
         
         for item in sourceFlatItemModels {
-            if !item.isSection, processingSection == nil { // the item is not in any gourp if it is not setion and there is no processing section.
+            if !item.isSection, processingSection == nil { // the item is not in any gourp if it is not section and there is no processing section.
                 targetItemModels.append(item)
             } else if item.isSection { // current item is section
                 if let process = processingSection {

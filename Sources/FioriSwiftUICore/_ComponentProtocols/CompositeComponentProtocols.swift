@@ -40,7 +40,7 @@ protocol _IllustratedMessageComponent: _DetailImageComponent, _TitleComponent, _
     /// Determines the layout of the action buttons. If set to true, the buttons will be arranged vertically. If set to false, they will be arranged horizontally. The default value is false.
     var isActionVerticallyAligned: Bool { get }
     // sourcery: defaultValue = .leading
-    /// Determines the alignment of the title, description and the action buttons in the horizontal mode. The default valu e is `.leading`.
+    /// Determines the alignment of the title, description and the action buttons in the horizontal mode. The default value e is `.leading`.
     var contentAlignment: HorizontalAlignment { get }
 }
 
@@ -147,7 +147,7 @@ protocol _StepperViewComponent: _TitleComponent, _StepperFieldComponent, _Inform
 ///
 /// The `SideBar` SwiftUI view presents a expandable list of items using the `SideBarListItem` SwiftUI view. It has support for both edit and view modes. In edit mode, the listed data can be rearranged, and each item can be toggled as hidden. The hidden items are not shown in view mode.
 ///
-/// This View should be used in `NavigationSplitView` as side bar. How, in case you are NOT using the `NavigationSplitView` for the SideBar, you should observe the change of selected item by property 'selection' of SideBar and handle follow-up logic by youself. Also, you should set 'isUsedInSplitView' of SideBar to true and return EmptyView in 'destination' callback.
+/// This View should be used in `NavigationSplitView` as side bar. How, in case you are NOT using the `NavigationSplitView` for the SideBar, you should observe the change of selected item by property 'selection' of SideBar and handle follow-up logic by yourself. Also, you should set 'isUsedInSplitView' of SideBar to true and return EmptyView in 'destination' callback.
 ///
 /// ## Usage
 ///
@@ -205,7 +205,7 @@ protocol _StepperViewComponent: _TitleComponent, _StepperFieldComponent, _Inform
 ///  ```
 ///  ### Handle Search:
 ///
-/// The binding property `queryString` was used to trigger the searching on SideBar. The `.searchable` modifier on `NavigationSplieView` can be used to bind the @State variable `queryString` which will bind to SideBar. As the same time, an `UISearchBar` can inititalized in `onAppear` modifier and dismissed in `onDisappear` modifier
+/// The binding property `queryString` was used to trigger the searching on SideBar. The `.searchable` modifier on `NavigationSplieView` can be used to bind the @State variable `queryString` which will bind to SideBar. As the same time, an `UISearchBar` can initialized in `onAppear` modifier and dismissed in `onDisappear` modifier
 ///
 /// ```swift
 /// NavigationSplitView {

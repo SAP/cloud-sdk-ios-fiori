@@ -46,7 +46,7 @@ struct WaterfallView: View {
                                                endIndex: categoryIndexRange.upperBound)
                 .transform(mirror) // apply layoutDirection
                 .transform(CGAffineTransform(scaleX: scaleX, y: scaleY)) // apply zoom
-                .transform(CGAffineTransform(translationX: translateX, y: translateY)) // aplly pan
+                .transform(CGAffineTransform(translationX: translateX, y: translateY)) // apply pan
                 .stroke(Color.preferredColor(.secondaryFill), lineWidth: 1)
                 .frame(width: rect.size.width, height: rect.size.height)
         }

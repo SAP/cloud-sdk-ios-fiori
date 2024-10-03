@@ -354,7 +354,7 @@ struct Background: UIViewRepresentable {
                       context: UIViewRepresentableContext<Background>) {}
 }
 
-// Hanlde chart specific gestures that combines interaction for single and range selection and long press delay.
+// Handle chart specific gestures that combines interaction for single and range selection and long press delay.
 private class ChartScrubGestureRecognizer: UIGestureRecognizer {
     override public var state: UIGestureRecognizer.State {
         didSet {

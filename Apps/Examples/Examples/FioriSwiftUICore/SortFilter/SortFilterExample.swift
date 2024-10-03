@@ -87,7 +87,7 @@ struct SortFilterExample: View {
     }
     
     func numberOfItems() -> Int {
-        // randomly padding result to mimic impact of filterring
+        // randomly padding result to mimic impact of filtering
         for i in 0 ... Int.random(in: 0 ... 5) {
             self.sortFilterList.append("padding element \(i + 1)")
         }

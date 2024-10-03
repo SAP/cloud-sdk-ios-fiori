@@ -246,7 +246,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
         case (0, 4):
 //            let data: Test.Object = .rouja
 //            cell.detailImageView.image = data.detailImage?.glyphImage
-//            // FIXEME: Change to Arabic localized string to get _NSLayoutTreeLineFragmentRectForGlyphAtIndex error
+//            // FIXME: Change to Arabic localized string to get _NSLayoutTreeLineFragmentRectForGlyphAtIndex error
 //            cell.headlineLabel.text = data.headline//johnText//Utils.localizedString("John Jacob Jingleheimer Schmidt")
 //            cell.descriptionLabel.text = data.description
 //            cell.statusText = availableText

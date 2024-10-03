@@ -10,7 +10,7 @@ public class ChartPointAttributes: ObservableObject, Identifiable, NSCopying {
     /// Diameter of the point.
     @PublishedConstrainedValue(0 ... 100) public var diameter: CGFloat = 7
     
-    /// Allowed gap between dots before they run into eachother and are hidden.
+    /// Allowed gap between dots before they run into each other and are hidden.
     @PublishedConstrainedValue(0 ... 100) public var gap: CGFloat = 2
     
     /// Stroke color for the point.
