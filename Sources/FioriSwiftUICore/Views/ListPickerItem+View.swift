@@ -8,7 +8,7 @@ extension Fiori {
     enum ListPickerItem {
         struct Key: ViewModifier {
             func body(content: Content) -> some View {
-                content.font(.fiori(forTextStyle: .headline)).foregroundColor(.preferredColor(.primaryLabel))
+                content.font(.fiori(forTextStyle: .subheadline, weight: .bold)).foregroundColor(.preferredColor(.primaryLabel))
             }
         }
 
@@ -34,11 +34,11 @@ extension ListPickerItem: View {
             NavigationLink(
                 destination: self.destinationView,
                 label: {
-                    KeyValueItem {
+                    KeyValueItem(key: {
                         key
-                    } value: {
+                    }, value: {
                         value
-                    }
+                    }, axis: _axis)
                 }
             )
         }
@@ -62,13 +62,15 @@ public extension ListPickerItem {
     /// - Parameters:
     ///   - key: The key view of the list.
     ///   - value: The value view of the list.
+    ///   - axis: Axis for key and value layout.
     ///   - configuration: The configuration for constructing the list picker.
     init(
         @ViewBuilder key: @escaping () -> Key,
         @ViewBuilder value: @escaping () -> Value,
+        axis: Axis = .horizontal,
         configuration: ListPickerItemConfiguration? = nil
     ) {
-        self.init(key: key, value: value)
+        self.init(key: key, value: value, axis: axis)
         self.destinationConfiguration = configuration
     }
 }
