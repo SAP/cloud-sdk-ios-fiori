@@ -106,6 +106,17 @@ We plan to progressively bring more Fiori UI components into this module in the 
 | MultiUserPasscodeView | :x: |
 | TouchIDErrorView | :x: |
 | Skeleton Loading | :x: |
+| Slider(single and range) | :x: |
+| Attachment | :x: |
+| Value Picker | :x: |
+| Hierarchy View | :x: |
+| Calendar | :x: |
+| Search To Select | :x: |
+| Progress Indicator | :x: |
+| Checkout Indicator | :x: |
+| Loading Indicator | :x: |
+| Feedback Screen | :x: |
+| Map | :x: |
 
 ## FioriCharts
 ![FioriCharts platform support: iOS and visionOS](https://img.shields.io/badge/platform-ios%20%7C%20visionos-lightgray)
