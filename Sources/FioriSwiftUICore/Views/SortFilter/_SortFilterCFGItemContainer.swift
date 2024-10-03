@@ -111,6 +111,7 @@ extension _SortFilterCFGItemContainer: View {
             OptionListPickerItem(
                 value: Binding<[Int]>(get: { self._items[r][c].picker.workingValue }, set: { self._items[r][c].picker.workingValue = $0 }),
                 valueOptions: self._items[r][c].picker.valueOptions,
+                itemLayout: self._items[r][c].picker.itemLayout,
                 onTap: { index in
                     self._items[r][c].picker.onTap(option: self._items[r][c].picker.valueOptions[index])
                 }
