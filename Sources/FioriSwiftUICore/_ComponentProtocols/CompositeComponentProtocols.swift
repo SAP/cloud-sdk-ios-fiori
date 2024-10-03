@@ -535,7 +535,7 @@ protocol _TimelinePreviewComponent: _OptionalTitleComponent, _ActionComponent {
 protocol _SwitchViewComponent: _TitleComponent, _SwitchComponent {}
 
 // sourcery: CompositeComponent
-protocol _DateTimePickerComponent: _TitleComponent, _ValueLabelComponent {
+protocol _DateTimePickerComponent: _TitleComponent, _ValueLabelComponent, _MandatoryField, _FormViewComponent {
     // sourcery: @Binding
     var selectedDate: Date { get }
     

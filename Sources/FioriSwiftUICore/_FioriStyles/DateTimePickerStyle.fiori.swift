@@ -4,23 +4,34 @@ import SwiftUI
 
 // Base Layout style
 public struct DateTimePickerBaseStyle: DateTimePickerStyle {
-    @State var dateString: String = "No date selected"
+    @State var dateString: String = NSLocalizedString("No date selected", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
     @State var pickerVisible: Bool = false
     
     public func makeBody(_ configuration: DateTimePickerConfiguration) -> some View {
         VStack {
             HStack {
-                configuration.title
+                HStack(spacing: 0) {
+                    configuration.title
+                    if configuration.isRequired {
+                        configuration.mandatoryFieldIndicator
+                    }
+                    Spacer()
+                }
                 Spacer()
-                ValueLabel(valueLabel: AttributedString(self.dateString))
-                    .foregroundStyle(Color.preferredColor(self.pickerVisible ? .tintColor : .primaryLabel))
+                ValueLabel(valueLabel: AttributedString(self.getValueLabel(configuration)))
+                    .foregroundStyle(self.getFontColor(configuration))
                     .font(.fiori(forTextStyle: .body))
             }
-            .padding(EdgeInsets(top: 12, leading: 16, bottom: 12, trailing: 16))
+            .padding(.vertical, 12)
             .contentShape(Rectangle())
-            .onTapGesture(perform: {
-                self.pickerVisible.toggle()
-            })
+            .ifApply(configuration.controlState != .disabled && configuration.controlState != .readOnly) {
+                $0.onTapGesture(perform: {
+                    if configuration.selectedDate == Date(timeIntervalSince1970: 0.0) {
+                        configuration.selectedDate = Date()
+                    }
+                    self.pickerVisible.toggle()
+                })
+            }
             if self.pickerVisible {
                 Divider()
                     .frame(height: 0.33)
@@ -30,6 +41,31 @@ public struct DateTimePickerBaseStyle: DateTimePickerStyle {
             }
         }
         .accessibilityElement()
+    }
+    
+    func getValueLabel(_ configuration: DateTimePickerConfiguration) -> String {
+        if configuration.selectedDate != Date(timeIntervalSince1970: 0.0) {
+            let formattedDate = configuration.selectedDate.formatted(date: .abbreviated, time: .omitted)
+            let formattedTime = configuration.selectedDate.formatted(date: .omitted, time: .shortened)
+            if configuration.pickerComponents == .date {
+                return formattedDate
+            } else if configuration.pickerComponents == .hourAndMinute {
+                return formattedTime
+            } else {
+                return formattedDate + "   " + formattedTime
+            }
+        }
+        return self.dateString
+    }
+    
+    func getFontColor(_ configuration: DateTimePickerConfiguration) -> Color {
+        if configuration.controlState == .disabled {
+            return .preferredColor(.separator)
+        } else if self.pickerVisible {
+            return .preferredColor(.tintColor)
+        } else {
+            return .preferredColor(.primaryLabel)
+        }
     }
     
     func showPicker(_ configuration: DateTimePickerConfiguration) -> some View {
@@ -68,7 +104,7 @@ extension DateTimePickerFioriStyle {
 
         func makeBody(_ configuration: TitleConfiguration) -> some View {
             Title(configuration)
-                .foregroundStyle(Color.preferredColor(.primaryLabel))
+                .foregroundStyle(Color.preferredColor(self.dateTimePickerConfiguration.controlState == .disabled ? .separator : .primaryLabel))
                 .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
         }
     }
@@ -78,6 +114,23 @@ extension DateTimePickerFioriStyle {
     
         func makeBody(_ configuration: ValueLabelConfiguration) -> some View {
             ValueLabel(configuration)
+        }
+    }
+    
+    struct MandatoryFieldIndicatorFioriStyle: MandatoryFieldIndicatorStyle {
+        let dateTimePickerConfiguration: DateTimePickerConfiguration
+        
+        func makeBody(_ configuration: MandatoryFieldIndicatorConfiguration) -> some View {
+            MandatoryFieldIndicator(configuration)
+                .foregroundStyle(Color.preferredColor(self.dateTimePickerConfiguration.controlState == .disabled ? .separator : .primaryLabel))
+        }
+    }
+    
+    struct FormViewFioriStyle: FormViewStyle {
+        let dateTimePickerConfiguration: DateTimePickerConfiguration
+        
+        func makeBody(_ configuration: FormViewConfiguration) -> some View {
+            FormView(configuration)
         }
     }
 }

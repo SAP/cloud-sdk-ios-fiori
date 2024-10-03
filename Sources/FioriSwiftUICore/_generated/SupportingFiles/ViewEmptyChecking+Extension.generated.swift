@@ -148,7 +148,8 @@ extension Counter: _ViewEmptyChecking {
 extension DateTimePicker: _ViewEmptyChecking {
     public var isEmpty: Bool {
         title.isEmpty &&
-            valueLabel.isEmpty
+            valueLabel.isEmpty &&
+            mandatoryFieldIndicator.isEmpty
     }
 }
 

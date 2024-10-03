@@ -145,6 +145,9 @@
 /* XBUT: voice over label for row selection status in DataTable */
 "not selected" = "not selected";
 
+/* Default value for DateTimePicker */
+"No date selected" = "No date selected";
+
 /* XBUT: calendar time component label */
 "Time" = "Time";
 
