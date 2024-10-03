@@ -107,7 +107,11 @@ public protocol ActivityItemsModel: ActionItemsComponent {}
 // sourcery: add_env_props = "listpickerListStyle"
 // sourcery: add_env_props = "listPickerListViewModifier"
 // sourcery: virtualPropDestinationConfiguration = "var destinationConfiguration: ListPickerItemConfiguration? = nil"
-public protocol ListPickerItemModel: KeyComponent, ValueComponent {}
+public protocol ListPickerItemModel: KeyComponent, ValueComponent {
+    // sourcery: default.value = .horizontal
+    // sourcery: no_view
+    var axis: Axis { get }
+}
 
 // sourcery: generated_component_not_configurable
 public protocol ProgressIndicatorModel: ProgressIndicatorComponent {}
