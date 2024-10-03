@@ -1522,6 +1522,48 @@ public extension DateTimePickerStyle where Self == DateTimePickerValueLabelStyle
     }
 }
 
+public struct DateTimePickerMandatoryFieldIndicatorStyle: DateTimePickerStyle {
+    let style: any MandatoryFieldIndicatorStyle
+
+    public func makeBody(_ configuration: DateTimePickerConfiguration) -> some View {
+        DateTimePicker(configuration)
+            .mandatoryFieldIndicatorStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension DateTimePickerStyle where Self == DateTimePickerMandatoryFieldIndicatorStyle {
+    static func mandatoryFieldIndicatorStyle(_ style: some MandatoryFieldIndicatorStyle) -> DateTimePickerMandatoryFieldIndicatorStyle {
+        DateTimePickerMandatoryFieldIndicatorStyle(style: style)
+    }
+
+    static func mandatoryFieldIndicatorStyle(@ViewBuilder content: @escaping (MandatoryFieldIndicatorConfiguration) -> some View) -> DateTimePickerMandatoryFieldIndicatorStyle {
+        let style = AnyMandatoryFieldIndicatorStyle(content)
+        return DateTimePickerMandatoryFieldIndicatorStyle(style: style)
+    }
+}
+
+public struct DateTimePickerFormViewStyle: DateTimePickerStyle {
+    let style: any FormViewStyle
+
+    public func makeBody(_ configuration: DateTimePickerConfiguration) -> some View {
+        DateTimePicker(configuration)
+            .formViewStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension DateTimePickerStyle where Self == DateTimePickerFormViewStyle {
+    static func formViewStyle(_ style: some FormViewStyle) -> DateTimePickerFormViewStyle {
+        DateTimePickerFormViewStyle(style: style)
+    }
+
+    static func formViewStyle(@ViewBuilder content: @escaping (FormViewConfiguration) -> some View) -> DateTimePickerFormViewStyle {
+        let style = AnyFormViewStyle(content)
+        return DateTimePickerFormViewStyle(style: style)
+    }
+}
+
 // MARK: DecrementActionStyle
 
 public extension DecrementActionStyle where Self == DecrementActionBaseStyle {

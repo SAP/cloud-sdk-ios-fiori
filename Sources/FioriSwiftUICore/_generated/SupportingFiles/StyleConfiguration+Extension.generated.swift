@@ -33,6 +33,14 @@ extension CardHeaderConfiguration {
     }
 }
 
+// MARK: DateTimePickerConfiguration
+
+extension DateTimePickerConfiguration {
+    var _formView: FormView {
+        FormView(.init(controlState: self.controlState, errorMessage: self.errorMessage), shouldApplyDefaultStyle: true)
+    }
+}
+
 // MARK: DemoViewConfiguration
 
 extension DemoViewConfiguration {
