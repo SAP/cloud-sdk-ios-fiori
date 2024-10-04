@@ -119,6 +119,7 @@ We plan to progressively bring more Fiori UI components into this module in the 
 | Loading Indicator | :x: |
 | Feedback Screen | :x: |
 | Map | :x: |
+| Theming support for UI component individual fields | :x: |
 
 ## FioriCharts
 ![FioriCharts platform support: iOS and visionOS](https://img.shields.io/badge/platform-ios%20%7C%20visionos-lightgray)

@@ -49,7 +49,7 @@ extension UIFont {
 }
  
 extension UIFont {
-    // Check if 72 fonts are registed.
+    // Check if 72 fonts are registered.
     static var is72FontsAvailable: Bool {
         UIFont.familyNames.contains("72")
     }

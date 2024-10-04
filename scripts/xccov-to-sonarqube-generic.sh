@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Implmentation is from https://github.com/SonarSource/sonar-scanning-examples/blob/master/swift-coverage/swift-coverage-example/xccov-to-sonarqube-generic.sh
+# Implementation is from https://github.com/SonarSource/sonar-scanning-examples/blob/master/swift-coverage/swift-coverage-example/xccov-to-sonarqube-generic.sh
 # Project-specific modifications added
 
 set -euo pipefail

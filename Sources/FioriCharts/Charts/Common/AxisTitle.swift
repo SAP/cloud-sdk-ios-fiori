@@ -7,7 +7,7 @@ struct AxisTitle: Identifiable, Hashable {
     let value: CGFloat
     let title: String
     
-    // relative postion
+    // relative position
     var pos: CGPoint
     
     // the size of title

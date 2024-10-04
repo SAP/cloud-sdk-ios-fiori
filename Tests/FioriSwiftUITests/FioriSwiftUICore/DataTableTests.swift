@@ -77,7 +77,7 @@ final class DataTableTests: XCTestCase {
         XCTAssertTrue(ld.isReadonlyForCell(rowIsReadonly: true, columnIsReadonly: false, cellIsReadonly: nil) == true)
         XCTAssertTrue(ld.isReadonlyForCell(rowIsReadonly: true, columnIsReadonly: true, cellIsReadonly: nil) == true)
         
-        /// Set differenct values for the row, column, and cell
+        /// Set different values for the row, column, and cell
         XCTAssertTrue(ld.isReadonlyForCell(rowIsReadonly: false, columnIsReadonly: true, cellIsReadonly: false) == false)
         XCTAssertTrue(ld.isReadonlyForCell(rowIsReadonly: true, columnIsReadonly: false, cellIsReadonly: false) == false)
         XCTAssertTrue(ld.isReadonlyForCell(rowIsReadonly: true, columnIsReadonly: true, cellIsReadonly: false) == false)
