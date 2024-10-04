@@ -37,7 +37,7 @@ public struct SideBarBaseStyle: SideBarStyle {
                 let onEditButtonClicked = {
                     configuration.isEditing.toggle()
                     if !configuration.isEditing {
-                        // to conver the flat list data(for drag&drop supporting) to tree structured list data.
+                        // to convert the flat list data (for drag & drop support) to tree structured list data.
                         configuration.data.removeAll()
                         configuration.data.append(contentsOf: self.modelObject.refreshItems())
                     }
