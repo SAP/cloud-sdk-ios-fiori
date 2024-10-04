@@ -287,7 +287,7 @@ class SideBarModelObject: ObservableObject {
                 self.itemCount += 1
             }
         }
-        for section in sections { // Loop the possible sections and add it and its children to the flat list
+        for section in sections { // Loop the possible sections and add them and their children to the flat list
             self.flatListItems.append(section)
             self.itemCount += 1
             if let children = section.children, !children.isEmpty {
