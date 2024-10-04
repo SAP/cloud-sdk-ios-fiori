@@ -310,7 +310,7 @@ class SideBarModelObject: ObservableObject {
         var sourceFlatItemModels = flatItemModels // The flatItemModels has values like:[item1, item2, Section1, item1-1. item1-2, Section2, item2-1, item2-2]
         
         for item in sourceFlatItemModels {
-            if !item.isSection, processingSection == nil { // the item is not in any gourp if it is not section and there is no processing section.
+            if !item.isSection, processingSection == nil { // the item is not in any group if it is not a section and there is no processing section.
                 targetItemModels.append(item)
             } else if item.isSection { // current item is section
                 if let process = processingSection {
