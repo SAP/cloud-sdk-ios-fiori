@@ -234,7 +234,7 @@ struct ContactItemRegularExamples: ListDataProtocol {
             return AnyView(ci)
             
         case (1, 10):
-            let ci = ContactItem(title: "Headline example wraps two lines", subtitle: "Team Lead", descriptionText: "Example showing three lines of text at maximum lipsum ortam at al and thedescription is always still centered here and should.", detailImage: Image("person_square4").resizable(), actionItems: ActivityItems(actionItems: [.init(type: .phone), .init(type: .videoCall), .init(type: .message)], didSelectActivityItem: { dataType in
+            let ci = ContactItem(title: "Headline example wraps two lines", subtitle: "Team Lead", descriptionText: "Example showing three lines of text at maximum lipsum ortam at al and the description is always still centered here and should.", detailImage: Image("person_square4").resizable(), actionItems: ActivityItems(actionItems: [.init(type: .phone), .init(type: .videoCall), .init(type: .message)], didSelectActivityItem: { dataType in
                 print("\(dataType)")
             }))
             .splitPercent(nil)
