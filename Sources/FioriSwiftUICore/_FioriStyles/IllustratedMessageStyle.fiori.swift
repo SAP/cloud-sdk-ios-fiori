@@ -142,7 +142,7 @@ public struct IllustratedMessageHorizontalLayoutStyle: IllustratedMessageStyle {
     }
 }
 
-/// Mixed layout style of the Illustrated Message. Shows content in two columns, with an image on the left, a vertical stack of the title and descrition contents on the right, and the action button stack on the bottom.
+/// Mixed layout style of the Illustrated Message. Shows content in two columns, with an image on the left, a vertical stack of the title and description contents on the right, and the action button stack on the bottom.
 public struct IllustratedMessageMixedLayoutStyle: IllustratedMessageStyle {
     public func makeBody(_ configuration: IllustratedMessageConfiguration) -> some View {
         VStack(spacing: 0) {
@@ -288,9 +288,9 @@ public extension IllustratedMessageStyle where Self == IllustratedMessageHorizon
     }
 }
 
-/// Mixed layout style of the Illustrated Message. Shows content in two columns, with an image on the left, a vertical stack of the title and descrition contents on the right, and the action button stack on the bottom.
+/// Mixed layout style of the Illustrated Message. Shows content in two columns, with an image on the left, a vertical stack of the title and description contents on the right, and the action button stack on the bottom.
 public extension IllustratedMessageStyle where Self == IllustratedMessageMixedLayoutStyle {
-    /// Mixed layout style of the Illustrated Message. Shows content in two columns, with an image on the left, a vertical stack of the title and descrition contents on the right, and the action button stack on the bottom.
+    /// Mixed layout style of the Illustrated Message. Shows content in two columns, with an image on the left, a vertical stack of the title and description contents on the right, and the action button stack on the bottom.
     static var mixed: some IllustratedMessageStyle {
         IllustratedMessageMixedLayoutStyle().concat(.fiori)
     }

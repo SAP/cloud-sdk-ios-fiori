@@ -68,7 +68,7 @@ public extension SearchableListView where CancelActionView == _ConditionalConten
     ///   - children: The key path to the optional property of a data element whose value indicates the children of that element.
     ///   - selection: A binding to a set which stores the selected items.
     ///   - allowsMultipleSelection: A boolean value to indicate to allow multiple selections or not.
-    ///   - searchFilter: The closure to filter the `data` in searching process. Request a boolen by the element and the filter key.
+    ///   - searchFilter: The closure to filter the `data` in searching process. Request a boolean by the element and the filter key.
     ///   - rowContent: The view builder which returns the content of each row in the list picker.
     ///   - rowBackground: The background for the list row.
     init<Data: RandomAccessCollection, ID: Hashable>(
@@ -93,7 +93,7 @@ public extension SearchableListView where CancelActionView == _ConditionalConten
     ///   - data: The data for constructing the list picker.
     ///   - selection: A binding to a set which stores the selected items.
     ///   - allowsMultipleSelection: A boolean value to indicate to allow multiple selections or not.
-    ///   - searchFilter: The closure to filter the `data` in searching process. Request a boolen by the element and the filter key.
+    ///   - searchFilter: The closure to filter the `data` in searching process. Request a boolean by the element and the filter key.
     init(data: [String],
          selection: Binding<Set<String>>?,
          allowsMultipleSelection: Bool = false,
@@ -109,7 +109,7 @@ public extension SearchableListView where CancelActionView == _ConditionalConten
     ///   - data: The data for constructing the list picker.
     ///   - selection: A binding to a set which stores the selected items.
     ///   - allowsMultipleSelection: A boolean value to indicate to allow multiple selections or not.
-    ///   - searchFilter: The closure to filter the `data` in searching process. Request a boolen by the element and the filter key.
+    ///   - searchFilter: The closure to filter the `data` in searching process. Request a boolean by the element and the filter key.
     ///   - rowBackground: The background for the list row.
     init(data: [String],
          selection: Binding<Set<String>>?,
@@ -130,7 +130,7 @@ public extension SearchableListView where CancelActionView == _ConditionalConten
     ///   - children: The key path to the optional property of a data element whose value indicates the children of that element.
     ///   - selection: A binding to a set which stores the selected items.
     ///   - allowsMultipleSelection: A boolean value to indicate to allow multiple selections or not.
-    ///   - searchFilter: The closure to filter the `data` in searching process. Request a boolen by the element and the filter key.
+    ///   - searchFilter: The closure to filter the `data` in searching process. Request a boolean by the element and the filter key.
     ///   - rowContent: The view builder which returns the content of each row in the list picker.
     init<Data: RandomAccessCollection, ID: Hashable>(
         data: Data,
@@ -154,7 +154,7 @@ public extension SearchableListView where CancelActionView == _ConditionalConten
     ///   - children: The key path to the optional property of a data element whose value indicates the children of that element.
     ///   - selection: A binding to a set which stores the selected items.
     ///   - allowsMultipleSelection: A boolean value to indicate to allow multiple selections or not.
-    ///   - searchFilter: The closure to filter the `data` in searching process. Request a boolen by the element and the filter key.
+    ///   - searchFilter: The closure to filter the `data` in searching process. Request a boolean by the element and the filter key.
     ///   - rowContent: The view builder which returns the content of each row in the list picker.
     ///   - rowBackground: The background for the list row.
     ///   - cancelAction: Customzation searchable list cancel action.

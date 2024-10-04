@@ -89,7 +89,7 @@ public struct ListPickerItemConfiguration {
     ///   - children: The key path to the optional property of a data element whose value indicates the children of that element.
     ///   - selection: A binding to a set which stores the selected items.
     ///   - allowsMultipleSelection: A boolean value to indicate to allow multiple selections or not.
-    ///   - searchFilter: The closure to filter the `data` in searching process. Request a boolen by the element and the filter key.
+    ///   - searchFilter: The closure to filter the `data` in searching process. Request a boolean by the element and the filter key.
     ///   - rowContent: The view builder which returns the content of each row in the list picker.
     ///   - rowBackground: `listRowBackground` for each row.
     @available(iOS 15.0, macOS 12.0, *)

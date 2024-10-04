@@ -7,7 +7,7 @@ Not relevant for app developers ("Consumers"). The following information are rel
 To ensure API consistency and to leverage common implementation logic, we use a component generation pattern when possible.  These scripts are located in the `sourcery/` directory, and should be executed as follows:
 
 ```bash
-# Generate comonent protocol declarations
+# Generate component protocol declarations
 sourcery --config .phase_one_sourcery.yml --disableCache
 # Generate component APIs, component view body boilerplate, init extensions, model extensions.
 sourcery --config .phase_two_sourcery.yml --disableCache
@@ -20,7 +20,7 @@ sourcery --config .phase_four_sourcery.yml --disableCache
 The output of the generation is at `Sources/FioriSwiftUICore/_generated`, and should be checked into source control.
 
 - The `phase_one` step should produce the "Component" protocol (e.g. `TitleComponent`) declarations. 
-- `phase_two` should read the set of defined "Models" in order to produce the actual "ViewModel" API.  When adding a new view model, developers should copy the generated "Boilerplate" to `Sources/FioriSwiftUICore/Views`, to implement the actual SwiftUI `View` body and also provide default style attributes in respective view modifier implementation. This is to prevent the generation process from overwriting the body and style implementation. It also generates conditional initializers and default implementaion for optional properties declared in view model so that developers don't have to provide a value if that property is not needed. 
+- `phase_two` should read the set of defined "Models" in order to produce the actual "ViewModel" API.  When adding a new view model, developers should copy the generated "Boilerplate" to `Sources/FioriSwiftUICore/Views`, to implement the actual SwiftUI `View` body and also provide default style attributes in respective view modifier implementation. This is to prevent the generation process from overwriting the body and style implementation. It also generates conditional initializers and default implementation for optional properties declared in view model so that developers don't have to provide a value if that property is not needed. 
 - `phase_three` generates the `EnvironmentKey`, `EnvironmentValue` and a corresponding view modifier function for each view-representable property declared in view models and component protocols. 
 - `phase_four` generates the default implementation for optional properties declared in component protocols.
 
@@ -257,7 +257,7 @@ Define an internal protocol conforming to `_ComponentMultiPropGenerating` in ord
 
 ## Advanced: Non @ViewBuilder injectable ViewModels
 
-Intended for semantic collection containers which are used as defaul implementations by other ViewModels.
+Intended for semantic collection containers which are used as default implementations by other ViewModels.
 
 Use sourcery tag `// sourcery: generated_component_not_configurable` on your ViewModel declaration in `FioriSwiftUICore/Models/ModelDefinitions.swift`.
 
@@ -283,7 +283,7 @@ Use sourcery tag `// sourcery: generated_component_composite` to generate ViewMo
 
 Example is `ContactItemModel` which is composed of primitive components (TitleComponent, ...) but also other ViewModels (here: `ActivityItemsModel`)
 
-To generate a ViewModel (e.g `ContactItem`) on which a property shall be backed by a SDK control implementation (generated or written manually) you have to declare the following sourcery tag `// sourcery: backingComponent = <NameOfBackingView>`, unless the property itself is another ViewModel which has the anotation: `// sourcery: generated_component_not_configurable`.
+To generate a ViewModel (e.g `ContactItem`) on which a property shall be backed by a SDK control implementation (generated or written manually) you have to declare the following sourcery tag `// sourcery: backingComponent = <NameOfBackingView>`, unless the property itself is another ViewModel which has the annotation: `// sourcery: generated_component_not_configurable`.
 
 - No need to specify `backingComponent` for a property if it is a ViewModel used for generating a not configurable view.
 
@@ -567,9 +567,9 @@ public struct _NextActionDefault: ActionModel {
 
 ## Advanced: Customize the name and type constraint for the type parameters of a generic view.
 
-Use annotation `genericParameter.name` and `genericParameter.type` to customize the name and type constraint respectively for the type paramter related to a property.
+Use annotation `genericParameter.name` and `genericParameter.type` to customize the name and type constraint respectively for the type parameter related to a property.
 
-It could happen sometimes that the default name of the type parameter may conflict with the backing component name, which causes a compilation error. To workround this we can use `genericParameter.name` to rename the default type parameter name.
+It could happen sometimes that the default name of the type parameter may conflict with the backing component name, which causes a compilation error. To workaround this we can use `genericParameter.name` to rename the default type parameter name.
 
 ```swift
 // sourcery: generated_component_composite

@@ -60,14 +60,14 @@ struct LineRangeIndicatorView: View {
         let strokeLineShape = LineChartSeriesLineShape(path: model.path, seriesIndex: self.seriesIndex, startIndex: self.startIndex + 1, endIndex: self.endIndex)
             .transform(mirror) // apply layoutDirection
             .transform(CGAffineTransform(scaleX: scaleX, y: scaleY)) // apply zoom
-            .transform(CGAffineTransform(translationX: translateX, y: translateY)) // aplly pan
+            .transform(CGAffineTransform(translationX: translateX, y: translateY)) // apply pan
         
         return ZStack {
             // range fill
             LineChartSeriesFillShape(path: self.model.path, seriesIndex: self.seriesIndex, startIndex: self.startIndex + 1, endIndex: self.endIndex)
                 .transform(mirror) // apply layoutDirection
                 .transform(CGAffineTransform(scaleX: scaleX, y: scaleY)) // apply zoom
-                .transform(CGAffineTransform(translationX: translateX, y: translateY)) // aplly pan
+                .transform(CGAffineTransform(translationX: translateX, y: translateY)) // apply pan
                 .fill(self.lineFillColor)
                 .opacity(0.4)
             

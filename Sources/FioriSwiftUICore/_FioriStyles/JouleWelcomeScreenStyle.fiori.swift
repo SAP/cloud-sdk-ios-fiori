@@ -112,7 +112,7 @@ extension JouleWelcomeScreenFioriStyle {
     }, greetingText: {
         Text("Hello,")
     }, title: {
-        Text("How can I help|guide|assit you?")
+        Text("How can I help|guide|assist you?")
     }, footnote: {
         Text("Powered by SAP Business AI")
     }, messageContent: {

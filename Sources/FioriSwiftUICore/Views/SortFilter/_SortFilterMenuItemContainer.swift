@@ -127,7 +127,7 @@ extension EnvironmentValues {
     }
 }
 
-/// Experiemental feature for adding full list of configuraiton to filter feedback bar
+/// Experimental feature for adding full list of configuration to filter feedback bar
 public extension View {
     /// Place the button at the beginning
     func leadingFullConfigurationMenuItem(name: String) -> some View {

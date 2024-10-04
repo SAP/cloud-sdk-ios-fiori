@@ -22,7 +22,7 @@ struct DataTableItem: Identifiable, Hashable {
     
     var firstBaselineHeight: CGFloat
     
-    // relative center postion in the cell
+    // relative center position in the cell
     var pos: CGPoint
     
     // the size of title in one line
