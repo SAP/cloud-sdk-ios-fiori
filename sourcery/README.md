@@ -3,7 +3,7 @@
 Used for FioriSwiftUICore component generation to ensure API consistency and to leverage common implementation logic
 
 ```bash
-# Generate comonent protocol declarations
+# Generate component protocol declarations
 sourcery --config .phase_one_sourcery.yml --disableCache
 # Generate component APIs, component view body boilerplate, init extensions, model extensions.
 sourcery --config .phase_two_sourcery.yml --disableCache

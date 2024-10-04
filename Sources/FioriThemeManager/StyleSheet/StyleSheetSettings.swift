@@ -43,7 +43,7 @@ public struct StyleSheetSettings {
         }
     }
     
-    /// Load a stylesheet as `String` represetation of style sheet file
+    /// Load a stylesheet as `String` representation of style sheet file
     ///
     /// - Parameter content: the `String` representation of a style sheet file document
     public static func loadStylesheetByString(content: String) throws {

@@ -13,7 +13,7 @@ public struct IllustratedMessage {
     let detailImageSize: IllustratedMessage.DetailImageSize?
     /// Determines the layout of the action buttons. If set to true, the buttons will be arranged vertically. If set to false, they will be arranged horizontally. The default value is false.
     let isActionVerticallyAligned: Bool
-    /// Determines the alignment of the title, description and the action buttons in the horizontal mode. The default valu e is `.leading`.
+    /// Determines the alignment of the title, description and action buttons in the horizontal mode. The default value is `.leading`.
     let contentAlignment: HorizontalAlignment
 
     @Environment(\.illustratedMessageStyle) var style

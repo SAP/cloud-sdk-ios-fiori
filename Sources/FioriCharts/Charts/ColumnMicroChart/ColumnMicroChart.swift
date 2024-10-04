@@ -37,7 +37,7 @@ struct ColumnMicroChart: View {
             if columns.isEmpty {
                 NoDataView()
             } else {
-                // positive value columns and their value column lables
+                // positive value columns and their value column labels
                 HStack(alignment: .bottom, spacing: barSpace) {
                     ForEach(columns) { item in
                         VStack(alignment: .center, spacing: 0) {
@@ -58,7 +58,7 @@ struct ColumnMicroChart: View {
                     }
                 }.frame(width: size.width, height: positiveBarsHeight + positiveLablesHeight)
                 
-                // negative value columns and their value column lables
+                // negative value columns and their value column labels
                 if self.existNegativeValues() {
                     HStack(alignment: .top, spacing: barSpace) {
                         ForEach(columns) { item in
@@ -80,7 +80,7 @@ struct ColumnMicroChart: View {
                     }.frame(width: size.width, height: negativeBarsHeight + negativeLabelsHeight)
                 }
                 
-                // date column lables
+                // date column labels
                 if dateLabelsHeight > 0 {
                     HStack(alignment: .bottom, spacing: barSpace) {
                         ForEach(columns) { item in

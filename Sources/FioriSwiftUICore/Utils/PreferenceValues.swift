@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
 
-// Propogate item count value to the super view.
+// Propagate item count value to the super view.
 // Used by `_CountableView`.
 public struct ItemCountPreferenceKey: PreferenceKey {
     public static var defaultValue = 0

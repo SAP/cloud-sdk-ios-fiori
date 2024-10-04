@@ -51,7 +51,7 @@ struct ObjectCell_Spec_Jan2018: ObjectItemListDataProtocol {
         switch (indexPath.section, indexPath.row) {
         case (0, 0):
             //        cell.headlineText = Utils.localizedString("Lorem ipseum dolor")
-            //        cell.descriptionText = Utils.localizedString("Some descirption")
+            //        cell.descriptionText = Utils.localizedString("Some description")
             //        cell.statusText = Utils.localizedString("Some status")
             //        cell.substatusText = Utils.localizedString("some substatus")
             //        cell.accessoryType = .disclosureIndicator
@@ -63,7 +63,7 @@ struct ObjectCell_Spec_Jan2018: ObjectItemListDataProtocol {
             if self.isNewObjectItem {
                 oi = ObjectItem(title: "Lorem ipseum dolor",
                                 footnote: "Words\nSeparated\nNewLineChars and this is Just some really long text that is here dont worry about it too much",
-                                description: "Some descirption",
+                                description: "Some description",
                                 status: TextOrIcon.text("Some status"),
                                 substatus: TextOrIcon.text("some substatus"))
                     .footnoteStyle {
@@ -73,7 +73,7 @@ struct ObjectCell_Spec_Jan2018: ObjectItemListDataProtocol {
             } else {
                 oi = _ObjectItem(title: "Lorem ipseum dolor",
                                  footnote: "Words\nSeparated\nNewLineChars and this is Just some really long text that is here dont worry about it too much",
-                                 descriptionText: "Some descirption",
+                                 descriptionText: "Some description",
                                  status: TextOrIcon.text("Some status"),
                                  substatus: TextOrIcon.text("some substatus"))
                     .footnoteModifier {
@@ -83,7 +83,7 @@ struct ObjectCell_Spec_Jan2018: ObjectItemListDataProtocol {
             
         case (0, 1):
 //            cell.headlineText = Utils.localizedString("Lorem ipseum dolor")
-//            cell.descriptionText = Utils.localizedString("Some descirption")
+//            cell.descriptionText = Utils.localizedString("Some description")
 //            cell.statusText = Utils.localizedString("Some status")
 //            cell.substatusText = Utils.localizedString("some substatus")
 //            cell.accessoryType = .disclosureIndicator
@@ -99,7 +99,7 @@ struct ObjectCell_Spec_Jan2018: ObjectItemListDataProtocol {
                     Text("NewLineChars and this is Just some really long text that is here dont worry about it too much\nWords\nSeparated")
                         .lineLimit(4)
                 }, description: {
-                    Text("Some descirption")
+                    Text("Some description")
                 }, status: {
                     Text("Some status")
                 }, substatus: {
@@ -112,7 +112,7 @@ struct ObjectCell_Spec_Jan2018: ObjectItemListDataProtocol {
                     Text("NewLineChars and this is Just some really long text that is here dont worry about it too much\nWords\nSeparated")
                         .lineLimit(4)
                 }, descriptionText: {
-                    Text("Some descirption")
+                    Text("Some description")
                 }, status: {
                     Text("Some status")
                 }, substatus: {
@@ -165,7 +165,7 @@ struct ObjectCell_Spec_Jan2018: ObjectItemListDataProtocol {
 //         cell.detailImageView.isCircular = true
 //         cell.headlineLabel.text = Utils.localizedString("Rouja Pakiman")
 //         cell.subheadlineLabel.text = Utils.localizedString("Java Developer")
-//         cell.descriptionLabel.text = Utils.localizedString("Customer discussed he needs a table to accomodate a family of 7.")
+//         cell.descriptionLabel.text = Utils.localizedString("Customer discussed he needs a table to accommodate a family of 7.")
 //         cell.statusLabel.text = Utils.localizedString("Available")
 //         cell.statusLabel.textColor = UIColor.preferredFioriColor(forStyle: .positive)
 //         cell.accessoryType = .disclosureIndicator
@@ -183,7 +183,7 @@ struct ObjectCell_Spec_Jan2018: ObjectItemListDataProtocol {
                 }, subtitle: {
                     Text("Java Developer")
                 }, description: {
-                    Text("Customer discussed he needs a table to accomodate a family of 7.")
+                    Text("Customer discussed he needs a table to accommodate a family of 7.")
                 }, status: {
                     Text("Available").foregroundColor(.preferredColor(.positiveLabel))
                 }, detailImage: {
@@ -196,7 +196,7 @@ struct ObjectCell_Spec_Jan2018: ObjectItemListDataProtocol {
                 }, subtitle: {
                     Text("Java Developer")
                 }, descriptionText: {
-                    Text("Customer discussed he needs a table to accomodate a family of 7.")
+                    Text("Customer discussed he needs a table to accommodate a family of 7.")
                 }, status: {
                     Text("Available").foregroundColor(.preferredColor(.positiveLabel))
                 }, detailImage: {
@@ -276,7 +276,7 @@ struct ObjectCell_Spec_Jan2018: ObjectItemListDataProtocol {
                 }, footnote: {
                     Text("San Carlos, CA. USA")
                 }, description: {
-                    Text("Customer discussed he needs a and chair to table to accomodate a big family.  This is really important so they can all eat dinner at the same time.")
+                    Text("Customer discussed he needs a and chair to table to accommodate a big family.  This is really important so they can all eat dinner at the same time.")
                 }, status: {
                     Text("This is a long status")
                 }, substatus: {
@@ -293,7 +293,7 @@ struct ObjectCell_Spec_Jan2018: ObjectItemListDataProtocol {
                 }, footnote: {
                     Text("San Carlos, CA. USA")
                 }, descriptionText: {
-                    Text("Customer discussed he needs a and chair to table to accomodate a big family.  This is really important so they can all eat dinner at the same time.")
+                    Text("Customer discussed he needs a and chair to table to accommodate a big family.  This is really important so they can all eat dinner at the same time.")
                 }, status: {
                     Text("This is a long status")
                 }, substatus: {
@@ -332,7 +332,7 @@ struct ObjectCell_Spec_Jan2018: ObjectItemListDataProtocol {
                 }, footnote: {
                     Text("San Carlos, CA. USA")
                 }, description: {
-                    Text("Customer discussed he needs a and chair to table to accomodate a big family.  This is really important so they can all eat dinner at the same time.")
+                    Text("Customer discussed he needs a and chair to table to accommodate a big family.  This is really important so they can all eat dinner at the same time.")
                 }, status: {
                     Text("This is a long status").foregroundColor(.preferredColor(.positiveLabel))
                 }, substatus: {
@@ -349,7 +349,7 @@ struct ObjectCell_Spec_Jan2018: ObjectItemListDataProtocol {
                 }, footnote: {
                     Text("San Carlos, CA. USA")
                 }, descriptionText: {
-                    Text("Customer discussed he needs a and chair to table to accomodate a big family.  This is really important so they can all eat dinner at the same time.")
+                    Text("Customer discussed he needs a and chair to table to accommodate a big family.  This is really important so they can all eat dinner at the same time.")
                 }, status: {
                     Text("This is a long status").foregroundColor(.preferredColor(.positiveLabel))
                 }, substatus: {

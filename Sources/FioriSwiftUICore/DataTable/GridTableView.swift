@@ -258,7 +258,7 @@ struct ScrollAndZoomView: UIViewRepresentable {
         let bottomY = y + cellHeight / 2
         let offsetY: CGFloat = self.layoutManager.model.hasHeader && self.layoutManager.model.isHeaderSticky ? layoutData.rowHeights[0] * tmpScaleY : 0
         
-        // need to ajust y pos
+        // need to adjust y pos
         if self.layoutManager.model.keyboardDidShowOrHide == nil {
             // move the cell up
             if bottomY > size.height {
@@ -556,7 +556,7 @@ struct InternalGridTableView: View {
                         .id("\(self.leadingAccessoryViewId(rowIndex))")
                         .position(x: leadingAccessoryViewWidth * tmpScaleX / 2, y: y)
                     
-                    // row trailing accesory view
+                    // row trailing accessory view
                     TrailingAccessoryView(rowIndex: rowIndex, layoutManager: self.layoutManager, layoutData: layoutData)
                         .id("\(rowIndex), \(self.layoutManager.scaleX)")
                         .position(x: rect.maxX - layoutData.trailingAccessoryViewWidth * tmpScaleX / 2, y: y)

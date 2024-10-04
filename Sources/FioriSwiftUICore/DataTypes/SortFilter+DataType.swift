@@ -1,7 +1,7 @@
 import SwiftUI
 import UIKit
 
-/// UI control types supporeted by Sort and Filter configuraiton
+/// UI control types supporeted by Sort and Filter configuration
 public enum SortFilterItem: Identifiable, Hashable {
     /// :nodoc:
     public var id: String {
@@ -19,7 +19,7 @@ public enum SortFilterItem: Identifiable, Hashable {
         }
     }
     
-    /// The type of UI control is used to buid:
+    /// The type of UI control is used to build:
     ///
     /// 1. Sort & Filter's menu item associating with sub-menu items when the number of selectable options is less than 8,
     /// or a popover containing a collection of selectable buttons when the number of selectable options is greater than 7.
@@ -27,31 +27,31 @@ public enum SortFilterItem: Identifiable, Hashable {
     /// 2. A section of view containing a collection of selectable buttons
     case picker(item: PickerItem, showsOnFilterFeedbackBar: Bool)
     
-    /// The type of UI control is used to buid:
+    /// The type of UI control is used to build:
     ///
     /// 1. Sort & Filter's menu items associated with one and another; the number of selectable items, mutual exclusion, and
     /// empty selection can be controlled
     ///
     /// 2. A section of view containing a collection of selectable buttons
     ///
-    /// Note: `filterfeedback` is alwasy to be shown on menu bar
+    /// Note: `filterfeedback` is always to be shown on menu bar
     case filterfeedback(item: PickerItem)
     
-    /// The type of UI control is used to buid:
+    /// The type of UI control is used to build:
     ///
     /// 1. Sort & Filter's menu item to be toggled between selected and unselected states
     ///
     /// 2. A section of view containing a SwiftUI Toggle with Fiori style
     case `switch`(item: SwitchItem, showsOnFilterFeedbackBar: Bool)
     
-    /// The type of UI control is used to buid:
+    /// The type of UI control is used to build:
     ///
     /// 1. Sort & Filter's menu item associated with a popover containing a SwiftUI Toggle with Fiori style
     ///
     /// 2. A section of view containing a SwiftUI Toggle with Fiori style
     case slider(item: SliderItem, showsOnFilterFeedbackBar: Bool)
     
-    /// The type of UI control is used to buid:
+    /// The type of UI control is used to build:
     ///
     /// 1. Sort & Filter's menu item associated with a popover containing a SwiftUI Canlendar
     ///
