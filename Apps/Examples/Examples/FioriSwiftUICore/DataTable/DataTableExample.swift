@@ -56,7 +56,7 @@ struct FontConversionView: View {
 struct DataTableExample: View {
     var body: some View {
         List {
-            NavigationLink("Font to UIFont Conversoin", destination: FontConversionView())
+            NavigationLink("Font to UIFont Conversion", destination: FontConversionView())
             
             Section(header: Text("Width attribute & alignment")) {
                 NavigationLink("One column infinity width trailing alignment",

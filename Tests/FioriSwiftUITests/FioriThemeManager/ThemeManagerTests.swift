@@ -16,7 +16,7 @@ class ThemeManagerTests: XCTestCase {
         func testPalette8() throws {
             let tm = ThemeManager.shared
             tm.setPaletteVersion(.v8)
-            // followings are same as v7
+            // following are same as v7
             XCTAssertEqual(tm.paletteVersion?.supportedStyles().count, 211)
             XCTAssertEqual(tm.paletteVersion?.obsoletedStyles().count, 0)
             XCTAssertEqual(tm.paletteVersion?.newStyles().count, 16)
@@ -29,7 +29,7 @@ class ThemeManagerTests: XCTestCase {
             let obsoletedStyle_negative = tm.hexColor(for: .negative)
             XCTAssertEqual(obsoletedStyle_negative, HexColor(lightColor: "FF8888", darkColor: "BB0000"))
             
-            // followings are changes made to v7 and available starting v8
+            // following are changes made to v7 and available starting v8
             let primaryBackground = tm.hexColor(for: .primaryBackground)
             XCTAssertEqual(primaryBackground, HexColor(lightColor: "000000FF", darkColor: "FFFFFFFF", elevatedLightColor: "171D23FF", contrastLightColor: "000000FF", contrastDarkColor: "FFFFFFFF", elevatedContrastLightColor: "192024FF"))
             let secondaryBackground = tm.hexColor(for: .secondaryBackground)

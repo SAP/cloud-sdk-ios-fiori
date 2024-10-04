@@ -123,14 +123,14 @@ extension EnvironmentValues {
     }
 }
 
-/// Experiemental option list picker styling
+/// Experimental option list picker styling
 public extension View {
-    /// Experiemental option list picker styling
+    /// Experimental option list picker styling
     func optionListPickerStyle(_ style: some OptionListPickerStyle) -> some View {
         self.environment(\.optionListPickerStyle, style)
     }
     
-    /// Experiemental option list picker styling
+    /// Experimental option list picker styling
     func optionListPickerStyle(font: Font = .system(.body), foregroundColorSelected: Color = .preferredColor(.tintColor), foregroundColorUnselected: Color = .preferredColor(.tertiaryLabel), fillColorSelected: Color = .preferredColor(.primaryFill), fillColorUnselected: Color = .preferredColor(.secondaryFill), strokeColorSelected: Color = .preferredColor(.tintColor), strokeColorUnselected: Color = .preferredColor(.separator), cornerRadius: CGFloat = 16, spacing: CGFloat = 6, borderWidth: CGFloat = 1, minHeight: CGFloat = 44) -> some View {
         self.environment(\.optionListPickerStyle,
                          DefaultOptionListPickerStyle(font: font, foregroundColorSelected: foregroundColorSelected, foregroundColorUnselected: foregroundColorUnselected, fillColorSelected: fillColorSelected, fillColorUnselected: fillColorUnselected, strokeColorSelected: strokeColorSelected, strokeColorUnselected: strokeColorUnselected, cornerRadius: cornerRadius, spacing: spacing, borderWidth: borderWidth, minHeight: minHeight))

@@ -1,7 +1,7 @@
 import FioriThemeManager
 import SwiftUI
 
-/// Dialog titile component
+/// Dialog title component
 struct SortFilterItemTitle: TitleComponent, View {
     public let title: String
     

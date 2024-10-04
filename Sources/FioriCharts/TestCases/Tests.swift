@@ -663,7 +663,7 @@ public enum Tests {
     ]
     
     /// descriptions for stock models
-    public static let stockModelsDesc = ["includes intraday: 1min, one day: 1min, 1year:1day, 3years:1week, last series is selected", "simple one", "intraday", "3 dimention data, first value is nil", "typical one", "data: [[nil]]", "data = [[]]"]
+    public static let stockModelsDesc = ["includes intraday: 1min, one day: 1min, 1year:1day, 3years:1week, last series is selected", "simple one", "intraday", "3 dimension data, first value is nil", "typical one", "data: [[nil]]", "data = [[]]"]
     
     /// all test models
     public static let allCases = [stockModels, lineModels, waterfallModels, donutModels, columnModels, harveyBallModels, radialModels, bulletModles].flatMap { $0 }

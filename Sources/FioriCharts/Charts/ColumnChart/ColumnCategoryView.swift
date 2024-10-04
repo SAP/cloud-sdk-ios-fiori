@@ -87,14 +87,14 @@ struct ColumnCategoryView: View {
                         .transformEffect(CGAffineTransform(scaleX: columnRect.size.width, y: columnRect.size.height))
                         .transformEffect(CGAffineTransform(translationX: columnRect.origin.x * rect.size.width, y: columnRect.origin.y * rect.size.height))
                         .transformEffect(CGAffineTransform(scaleX: scaleX, y: scaleY)) // apply zoom
-                        .transformEffect(CGAffineTransform(translationX: translateX, y: translateY)) // aplly pan
+                        .transformEffect(CGAffineTransform(translationX: translateX, y: translateY)) // apply pan
                 } else {
                     Rectangle()
                         .transform(CGAffineTransform(scaleX: columnRect.size.width, y: columnRect.size.height))
                         .transform(CGAffineTransform(translationX: columnRect.origin.x * rect.size.width, y: columnRect.origin.y * rect.size.height))
                         .fill(linearGradient!)
                         .transformEffect(CGAffineTransform(scaleX: scaleX, y: scaleY)) // apply zoom
-                        .transformEffect(CGAffineTransform(translationX: translateX, y: translateY)) // aplly pan
+                        .transformEffect(CGAffineTransform(translationX: translateX, y: translateY)) // apply pan
                 }
             } else if angularGradient != nil {
                 if useLocalUserSpace {
@@ -103,14 +103,14 @@ struct ColumnCategoryView: View {
                         .transformEffect(CGAffineTransform(scaleX: columnRect.size.width, y: columnRect.size.height))
                         .transformEffect(CGAffineTransform(translationX: columnRect.origin.x * rect.size.width, y: columnRect.origin.y * rect.size.height))
                         .transformEffect(CGAffineTransform(scaleX: scaleX, y: scaleY)) // apply zoom
-                        .transformEffect(CGAffineTransform(translationX: translateX, y: translateY)) // aplly pan
+                        .transformEffect(CGAffineTransform(translationX: translateX, y: translateY)) // apply pan
                 } else {
                     Rectangle()
                         .transform(CGAffineTransform(scaleX: columnRect.size.width, y: columnRect.size.height))
                         .transform(CGAffineTransform(translationX: columnRect.origin.x * rect.size.width, y: columnRect.origin.y * rect.size.height))
                         .fill(angularGradient!)
                         .transformEffect(CGAffineTransform(scaleX: scaleX, y: scaleY)) // apply zoom
-                        .transformEffect(CGAffineTransform(translationX: translateX, y: translateY)) // aplly pan
+                        .transformEffect(CGAffineTransform(translationX: translateX, y: translateY)) // apply pan
                 }
                 
             } else if radialGradient != nil {
@@ -120,35 +120,35 @@ struct ColumnCategoryView: View {
                         .transformEffect(CGAffineTransform(scaleX: columnRect.size.width, y: columnRect.size.height))
                         .transformEffect(CGAffineTransform(translationX: columnRect.origin.x * rect.size.width, y: columnRect.origin.y * rect.size.height))
                         .transformEffect(CGAffineTransform(scaleX: scaleX, y: scaleY)) // apply zoom
-                        .transformEffect(CGAffineTransform(translationX: translateX, y: translateY)) // aplly pan
+                        .transformEffect(CGAffineTransform(translationX: translateX, y: translateY)) // apply pan
                 } else {
                     Rectangle()
                         .transform(CGAffineTransform(scaleX: columnRect.size.width, y: columnRect.size.height))
                         .transform(CGAffineTransform(translationX: columnRect.origin.x * rect.size.width, y: columnRect.origin.y * rect.size.height))
                         .fill(radialGradient!)
                         .transformEffect(CGAffineTransform(scaleX: scaleX, y: scaleY)) // apply zoom
-                        .transformEffect(CGAffineTransform(translationX: translateX, y: translateY)) // aplly pan
+                        .transformEffect(CGAffineTransform(translationX: translateX, y: translateY)) // apply pan
                 }
             } else if color != nil {
                 Rectangle()
                     .transform(CGAffineTransform(scaleX: columnRect.size.width, y: columnRect.size.height))
                     .transform(CGAffineTransform(translationX: columnRect.origin.x * rect.size.width, y: columnRect.origin.y * rect.size.height))
                     .transform(CGAffineTransform(scaleX: scaleX, y: scaleY)) // apply zoom
-                    .transform(CGAffineTransform(translationX: translateX, y: translateY)) // aplly pan
+                    .transform(CGAffineTransform(translationX: translateX, y: translateY)) // apply pan
                     .fill(color!)
             } else if imagePaint != nil {
                 Rectangle()
                     .transform(CGAffineTransform(scaleX: columnRect.size.width, y: columnRect.size.height))
                     .transform(CGAffineTransform(translationX: columnRect.origin.x * rect.size.width, y: columnRect.origin.y * rect.size.height))
                     .transform(CGAffineTransform(scaleX: scaleX, y: scaleY)) // apply zoom
-                    .transform(CGAffineTransform(translationX: translateX, y: translateY)) // aplly pan
+                    .transform(CGAffineTransform(translationX: translateX, y: translateY)) // apply pan
                     .fill(imagePaint!)
             } else {
                 Rectangle()
                     .transform(CGAffineTransform(scaleX: columnRect.size.width, y: columnRect.size.height))
                     .transform(CGAffineTransform(translationX: columnRect.origin.x * rect.size.width, y: columnRect.origin.y * rect.size.height))
                     .transform(CGAffineTransform(scaleX: scaleX, y: scaleY)) // apply zoom
-                    .transform(CGAffineTransform(translationX: translateX, y: translateY)) // aplly pan
+                    .transform(CGAffineTransform(translationX: translateX, y: translateY)) // apply pan
                     .fill(fillColor)
             }
         }

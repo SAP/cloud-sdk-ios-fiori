@@ -243,7 +243,7 @@ extension CardHeaderFioriStyle {
 
 #Preview("") {
     CardHeader(mediaImage: Image("ProfilePic"),
-               description: "Meida title",
+               description: "Media title",
                title: "Title",
                subtitle: "Subtitle",
                icons: [],

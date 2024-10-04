@@ -56,7 +56,7 @@ struct IllustratedMessageExample: View {
     var body: some View {
         List {
             VStack(spacing: 0) {
-                Picker("Imgage Size", selection: self.$selectedDetailImageSize) {
+                Picker("Image Size", selection: self.$selectedDetailImageSize) {
                     Text("Unset").tag(IllustratedMessage.DetailImageSize?(nil))
                     Text("XS").tag(IllustratedMessage.DetailImageSize?(.extraSmall))
                     Text("S").tag(IllustratedMessage.DetailImageSize?(.small))
