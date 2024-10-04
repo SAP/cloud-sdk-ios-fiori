@@ -65,7 +65,7 @@ import SwiftUI
 ///  ```
 ///  ### Handle Search:
 ///
-/// The binding property `queryString` was used to trigger the searching on SideBar. The `.searchable` modifier on `NavigationSplieView` can be used to bind the @State variable `queryString` which will bind to SideBar. As the same time, an `UISearchBar` can initialized in `onAppear` modifier and dismissed in `onDisappear` modifier
+/// The binding property `queryString` is used to trigger searches. The `.searchable` modifier on `NavigationSplitView` can be used to bind the @State variable `queryString` which will bind to SideBar. At the same time, a `UISearchBar` can be initialized with the `onAppear` modifier and dismissed with the `onDisappear` modifier
 ///
 /// ```swift
 /// NavigationSplitView {
