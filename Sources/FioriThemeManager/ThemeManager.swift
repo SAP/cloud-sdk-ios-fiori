@@ -73,7 +73,7 @@ public class ThemeManager {
     /// Method to supply a custom definition for a particular `ColorStyle`. Will applied to `.light` background color scheme.
     ///
     /// - Parameters:
-    ///   - hex: Color definition as hexidecimal string to override the base definition in the palette.
+    ///   - hex: Color definition as hexadecimal string to override the base definition in the palette.
     ///   - style: Reference of `ColorStyle` to which color is bound.
     public func setHexColor(_ hex: String, for style: ColorStyle) {
         self.setHexColor(hex, for: style, variant: .light)
@@ -82,7 +82,7 @@ public class ThemeManager {
     /// Method to supply a custom definition for a particular `ColorStyle` and `ColorVariant` combination.
     ///
     /// - Parameters:
-    ///   - hex: Color definition as hexidecimal string to override the base definition in the palette.
+    ///   - hex: Color definition as hexadecimal string to override the base definition in the palette.
     ///   - style: Reference of `ColorStyle` to which color is bound.
     ///   - variant: Reference of `ColorVariant` to which color is bound.  Defaults to `.light`. If no value is supplied for `.dark`, the value for `.light` will be read as a fallback.
     public func setHexColor(_ hex: String, for style: ColorStyle, variant: ColorVariant) {
@@ -229,7 +229,7 @@ public class ThemeManager {
         // In .nss file color is defined using background scheme, so check for inversed color variant
         if !StyleSheetSettings.shared.globalDefinitions.isEmpty {
             // The keys in the .nss file are of the format style_scheme (for example, primary1_darkBackground) or just style (for example, "primary1)
-            // convert the enums into a string to search for the corresponding key-value pairs in the dictionary retreived from the NUISettings.
+            // convert the enums into a string to search for the corresponding key-value pairs in the dictionary retrieved from the NUISettings.
             let keyStringForStyle = String(describing: style) // for example,"primary1"
             let keyStringForScheme: String = {
                 switch variant {

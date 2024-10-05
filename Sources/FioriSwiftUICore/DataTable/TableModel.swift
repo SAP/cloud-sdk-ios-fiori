@@ -97,7 +97,7 @@ public class TableModel: ObservableObject {
     /// Set horizontal scrolling.
     @Published public var horizontalScrolling: Bool = true
     
-    /// Show list view in iPhone protrait mode.
+    /// Show list view in iPhone portrait mode.
     @Published public var showListView: Bool = false
     
     /// Column attribute for each column.
@@ -158,7 +158,7 @@ public class TableModel: ObservableObject {
     /// cell tapped closure to store (rowIndex, columnIndex); rowIndex starts from header if it exists
     public var cellTapped: ((Int, Int) -> Void)?
     
-    /// a closure to call after the keybaord shown or hidden; typically used to ajust the focused text field position when the keyboard is shown
+    /// a closure to call after the keyboard shown or hidden; typically used to adjust the focused text field position when the keyboard is shown
     public var keyboardDidShowOrHide: ((CGRect) -> Void)?
     
     /// Selected Indexes.
@@ -225,7 +225,7 @@ public class TableModel: ObservableObject {
     ///   - isFirstColumnSticky: Set first column to be sticky
     ///   - columnAttributes: Column attribute for each column
     ///   - rowAlignment: Row alighnemt
-    ///   - isPinchZoomEnable: Set if pinch and zoom enble, the default is false.
+    ///   - isPinchZoomEnable: Set if pinch and zoom enable, the default is false.
     ///   - showRowDivider: Show or hide row dividers
     ///   - rowDividerHeight:The row divider height
     ///   - rowDividerColor: The row divider color
@@ -239,7 +239,7 @@ public class TableModel: ObservableObject {
     ///   - minColumnWidth: Min column width
     ///   - allowsPartialRowDisplay: Whether allows to display partial row; For Table Card, set this to false
     ///   - backgroundColor: Background color
-    ///   - showListView: Show list view in iPhone protrait mode
+    ///   - showListView: Show list view in iPhone portrait mode
     ///   - editMode: one of edit mode; The default is `.none`.
     public init(headerData: TableRowItem? = nil,
                 rowData: [TableRowItem] = [],
@@ -413,7 +413,7 @@ public class TableModel: ObservableObject {
         return self.rowData[rowIndex - (self.hasHeader ? 1 : 0)].data[columnIndex]
     }
     
-    /// Save the model after the editing. If chagnes were not valid then those changes are rolled back to original values.
+    /// Save the model after the editing. If changes were not valid then those changes are rolled back to original values.
     /// - Parameter isSave: Save it or not
     /// - Returns: Return an array of changes
     public func onSave(_ isSave: Bool) -> [DataTableChange] {

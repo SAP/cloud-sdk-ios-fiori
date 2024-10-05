@@ -39,7 +39,7 @@ struct PointsShape: Shape {
         
         let pointAttr = self.model.seriesAttributes[self.seriesIndex].point
         let radius = CGFloat(pointAttr.diameter / 2)
-        /// Allowed gap between dots before they run into eachother and are hidden.
+        /// Allowed gap between dots before they run into each other and are hidden.
         let gap = CGFloat(pointAttr.gap)
         
         let tmpScaleX = self.chartContext.scaleX(self.model, plotViewSize: rect.size)

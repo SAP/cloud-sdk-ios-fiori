@@ -730,7 +730,7 @@ extension String {
 /**
   Convert SwiftUI Font to UIFont using Swift's reflection API
   Three types of SwiftUI Font conversion is supported. It includes system fonts, custom fonts and Fiori fonts.
- `DataTable` use UIFont to meaure a String's bounding box
+ `DataTable` use UIFont to measure a String's bounding box
  */
 
 /// used to store UIFont properties dumped from SwiftUI Font
@@ -1159,7 +1159,7 @@ extension UIFont {
 }
  
 extension UIFont {
-    // Check if 72 fonts are registed.
+    // Check if 72 fonts are registered.
     static var is72FontsAvailable: Bool {
         UIFont.familyNames.contains("72")
     }

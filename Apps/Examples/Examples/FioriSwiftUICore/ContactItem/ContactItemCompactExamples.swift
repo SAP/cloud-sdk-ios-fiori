@@ -50,7 +50,7 @@ struct ContactItemCompactExamples: ListDataProtocol {
             return AnyView(ci)
             
         case (0, 3):
-            let ci = ContactItem(title: "Headline example when it wrapps two lines", subtitle: "Team Lead", actionItems: ActivityItems(actionItems: [.init(type: .email), .init(type: .phone)], didSelectActivityItem: { dataType in
+            let ci = ContactItem(title: "Headline example when it wraps two lines", subtitle: "Team Lead", actionItems: ActivityItems(actionItems: [.init(type: .email), .init(type: .phone)], didSelectActivityItem: { dataType in
                 print("\(dataType)")
             }))
             
@@ -65,7 +65,7 @@ struct ContactItemCompactExamples: ListDataProtocol {
             return AnyView(ci)
             
         case (0, 5):
-            let ci = ContactItem(title: "Headline when\n wrapps 2 lines", subtitle: "Team Lead", detailImage: Image("person_square4").resizable(), actionItems: ActivityItems(actionItems: [.init(type: .phone), .init(type: .videoCall), .init(type: .message)], didSelectActivityItem: { dataType in
+            let ci = ContactItem(title: "Headline when\n wraps 2 lines", subtitle: "Team Lead", detailImage: Image("person_square4").resizable(), actionItems: ActivityItems(actionItems: [.init(type: .phone), .init(type: .videoCall), .init(type: .message)], didSelectActivityItem: { dataType in
                 print("\(dataType)")
             }))
             .splitPercent(0.3)
