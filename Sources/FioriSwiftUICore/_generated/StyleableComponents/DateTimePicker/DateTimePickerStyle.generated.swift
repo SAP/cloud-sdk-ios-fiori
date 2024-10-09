@@ -30,6 +30,9 @@ public struct DateTimePickerConfiguration {
     public let errorMessage: AttributedString?
     @Binding public var selectedDate: Date
     public let pickerComponents: DatePicker.Components
+    public let dateStyle: Date.FormatStyle.DateStyle
+    public let timeStyle: Date.FormatStyle.TimeStyle
+    public let noDateSelectedString: String?
 
     public typealias Title = ConfigurationViewWrapper
     public typealias ValueLabel = ConfigurationViewWrapper
