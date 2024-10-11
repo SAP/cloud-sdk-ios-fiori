@@ -17,7 +17,7 @@ struct ToolbarExample: View {
     var body: some View {
         Form {
             HStack {
-                Text("Selecte to Test")
+                Text("Select to Test")
                 Spacer()
             }
             .contentShape(Rectangle())

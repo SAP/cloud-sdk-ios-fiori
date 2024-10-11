@@ -35,7 +35,7 @@ public protocol DataItem {
      */
     var isReadonly: Bool? { get set }
     
-    /// conver itself to a SwiftUI View
+    /// convert itself to a SwiftUI View
     func toView() -> AnyView
 }
 
@@ -141,7 +141,7 @@ extension DataItemTextComponent {
         return uifont
     }
     
-    /// conver itself to a SwiftUI View
+    /// convert itself to a SwiftUI View
     public func toView() -> AnyView {
         AnyView(Text(self.text)
             .font(self.font)
@@ -179,7 +179,7 @@ extension DataItemImageComponent {
                              isReadonly: isReadonly)
     }
     
-    /// conver itself to a SwiftUI View
+    /// convert itself to a SwiftUI View
     public func toView() -> AnyView {
         AnyView(image)
     }
