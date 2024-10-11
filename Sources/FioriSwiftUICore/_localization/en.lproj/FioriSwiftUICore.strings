@@ -258,3 +258,7 @@
 "Select All" = "Select All";
 /* XBUT: The \"Deselect All\" button title on the List Picker header */
 "Deselect All" = "Deselect All";
+/* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
+"Reset" = "Reset";
+/* XBUT: Apply action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
+"Apply" = "Apply";
