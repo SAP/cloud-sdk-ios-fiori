@@ -2,6 +2,15 @@ import SwiftUI
 import UIKit
 
 public extension OptionSearchListPickerItem {
+    /// create a list picker which used in FilterFeedbackBarItem
+    /// - Parameters:
+    ///   - value: Selected value indexs.
+    ///   - valueOptions: The data for constructing the list picker.
+    ///   - hint: Hint message.
+    ///   - allowsMultipleSelection: A boolean value to indicate to allow multiple selections or not.
+    ///   - allowsEmptySelection: A boolean value to indicate to allow empty selection or not.
+    ///   - onTap: The closure when tap on item.
+    ///   - selectAll: The closure when click 'Select All' button.
     init(value: Binding<[Int]>, valueOptions: [String] = [], hint: String? = nil, allowsMultipleSelection: Bool, allowsEmptySelection: Bool, onTap: ((_ index: Int) -> Void)? = nil, selectAll: ((_ isAll: Bool) -> Void)? = nil) {
         self.init(value: value, valueOptions: valueOptions, hint: hint, onTap: onTap)
         
@@ -80,12 +89,7 @@ extension OptionSearchListPickerItem: View {
     }
     
     private func findIndex(of item: String) -> Int? {
-        for (index, value) in _valueOptions.enumerated() {
-            if value == item {
-                return index
-            }
-        }
-        return nil
+        _valueOptions.firstIndex(where: { $0 == item })
     }
 }
 
