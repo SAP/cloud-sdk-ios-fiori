@@ -38,6 +38,8 @@ extension _SortFilterCFGItemContainer: View {
                             case .datetime:
                                 self.datetimePicker(row: r, column: c)
                                     .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? 375 : Screen.bounds.size.width)
+                            case .listPicker:
+                                self.listPicker(row: r, column: c)
                             }
                         }
                     }
@@ -194,6 +196,24 @@ extension _SortFilterCFGItemContainer: View {
 //            .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? 375 : UIScreen.main.bounds.size.width)
             .clipped()
 //            .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? 375 - 13 * 2: UIScreen.main.bounds.size.width)
+        }
+    }
+    
+    func listPicker(row r: Int, column c: Int) -> some View {
+        VStack {
+            HStack {
+                Text(self._items[r][c].listPicker.name)
+                    .font(.fiori(forTextStyle: .subheadline, weight: .bold, isItalic: false, isCondensed: false))
+                    .foregroundColor(Color.preferredColor(.primaryLabel))
+                Spacer()
+            }
+            OptionSearchListPickerItem(
+                value: Binding<[Int]>(get: { self._items[r][c].listPicker.workingValue }, set: { self._items[r][c].listPicker.workingValue = $0 }),
+                valueOptions: self._items[r][c].listPicker.valueOptions,
+                onTap: { index in
+                    self._items[r][c].listPicker.onTap(option: self._items[r][c].listPicker.valueOptions[index])
+                }
+            )
         }
     }
 }

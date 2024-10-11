@@ -253,3 +253,8 @@
 "warnings" = "warnings";
 /* XBUT: banner message type desc in plural form, errors */
 "errors" = "errors";
+
+/* XBUT: The \"Select All\" button title on the List Picker header */
+"Select All" = "Select All";
+/* XBUT: The \"Deselect All\" button title on the List Picker header */
+"Deselect All" = "Deselect All";

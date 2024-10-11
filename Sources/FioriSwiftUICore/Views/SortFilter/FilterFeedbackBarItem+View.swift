@@ -35,6 +35,18 @@ private extension View {
     }
 }
 
+/// Available OptionListPicker modes. Use this enum to define picker mode  to present.
+public enum OptionListPickerMode {
+    /// Decided by options count
+    case automatic
+    /// FilterFormCell
+    case filterFormCell
+    /// Menu
+    case menu
+    /// List
+    case list
+}
+
 struct FilterFeedbackMenuItem: View {
     @Binding var item: SortFilterItem.PickerItem
     var onUpdate: () -> Void
@@ -77,7 +89,7 @@ struct SliderMenuItem: View {
             .onTapGesture {
                 self.isSheetVisible.toggle()
             }
-            .popover(isPresented: self.$isSheetVisible, attachmentAnchor: .point(.bottom), arrowEdge: .bottom) {
+            .popover(isPresented: self.$isSheetVisible, attachmentAnchor: .point(.bottom)) {
                 CancellableResettableDialogForm {
                     SortFilterItemTitle(title: self.item.name)
                 } cancelAction: {
@@ -129,10 +141,21 @@ struct PickerMenuItem: View {
     }
     
     var body: some View {
-        if self.item.valueOptions.count > 4 {
+        switch self.item.listPickerMode {
+        case .automatic:
+            if self.item.valueOptions.count > 8 {
+                self.list
+            } else if self.item.valueOptions.count > 4, self.item.valueOptions.count <= 8 {
+                self.button
+            } else {
+                self.menu
+            }
+        case .filterFormCell:
             self.button
-        } else {
+        case .menu:
             self.menu
+        case .list:
+            self.list
         }
     }
 
@@ -142,7 +165,7 @@ struct PickerMenuItem: View {
             .onTapGesture {
                 self.isSheetVisible.toggle()
             }
-            .popover(isPresented: self.$isSheetVisible, attachmentAnchor: .point(.bottom), arrowEdge: .bottom) {
+            .popover(isPresented: self.$isSheetVisible, attachmentAnchor: .point(.bottom)) {
                 CancellableResettableDialogForm {
                     SortFilterItemTitle(title: self.item.name)
                 } cancelAction: {
@@ -206,6 +229,46 @@ struct PickerMenuItem: View {
             }
         }
     }
+    
+    @ViewBuilder
+    var list: some View {
+        FilterFeedbackBarItem(leftIcon: icon(name: self.item.icon, isVisible: true), title: self.item.label, rightIcon: Image(systemName: "chevron.down"), isSelected: self.item.isChecked)
+            .onTapGesture {
+                self.isSheetVisible.toggle()
+            }
+            .popover(isPresented: self.$isSheetVisible, attachmentAnchor: .point(.bottom)) {
+                CancellableResettableDialogNavigationForm {
+                    SortFilterItemTitle(title: self.item.name)
+                } cancelAction: {
+                    _Action(actionText: NSLocalizedString("Cancel", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
+                        self.item.cancel()
+                        self.isSheetVisible.toggle()
+                    })
+                    .buttonStyle(CancelButtonStyle())
+                } resetAction: {
+                    _Action(actionText: NSLocalizedString("Reset", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
+                        self.item.reset()
+                    })
+                    .buttonStyle(ResetButtonStyle())
+                    .disabled(self.item.isOriginal)
+                } applyAction: {
+                    _Action(actionText: NSLocalizedString("Apply", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
+                        self.item.apply()
+                        self.onUpdate()
+                        self.isSheetVisible.toggle()
+                    })
+                    .buttonStyle(ApplyButtonStyle())
+                } components: {
+                    OptionSearchListPickerItem(value: self.$item.workingValue, valueOptions: self.item.valueOptions, hint: nil, allowsMultipleSelection: self.item.allowsMultipleSelection, allowsEmptySelection: self.item.allowsEmptySelection) { index in
+                        self.item.onTap(option: self.item.valueOptions[index])
+                    } selectAll: { isAll in
+                        self.item.selectAll(isAll)
+                    }
+                    .padding(0)
+                }
+                .presentationDetents([.large])
+            }
+    }
 }
 
 struct HeightPreferenceKey: PreferenceKey {
@@ -254,7 +317,7 @@ struct DateTimeMenuItem: View {
             .onTapGesture {
                 self.isSheetVisible.toggle()
             }
-            .popover(isPresented: self.$isSheetVisible, attachmentAnchor: .point(.bottom), arrowEdge: .bottom) {
+            .popover(isPresented: self.$isSheetVisible, attachmentAnchor: .point(.bottom)) {
                 CancellableResettableDialogForm {
                     SortFilterItemTitle(title: self.item.name)
                 } cancelAction: {
@@ -306,8 +369,10 @@ struct DateTimeMenuItem: View {
                 }
                 .readHeight()
                 .onPreferenceChange(HeightPreferenceKey.self) { height in
-                    if let height {
-                        self.detentHeight = height
+                    DispatchQueue.main.async {
+                        if let height {
+                            self.detentHeight = height
+                        }
                     }
                 }
                 .presentationDetents([.height(self.detentHeight)])
@@ -370,6 +435,59 @@ struct SwitchMenuItem: View {
     }
 }
 
+struct ListPickerMenuItem: View {
+    @Binding var item: SortFilterItem.ListPickerItem
+    var onUpdate: () -> Void
+    
+    @State var isSheetVisible = false
+
+    @State var detentHeight: CGFloat = 0
+    
+    public init(item: Binding<SortFilterItem.ListPickerItem>, onUpdate: @escaping () -> Void) {
+        self._item = item
+        self.onUpdate = onUpdate
+    }
+    
+    var body: some View {
+        FilterFeedbackBarItem(leftIcon: icon(name: self.item.icon, isVisible: true), title: self.item.label, rightIcon: Image(systemName: "chevron.down"), isSelected: self.item.isChecked)
+            .onTapGesture {
+                self.isSheetVisible.toggle()
+            }
+            .popover(isPresented: self.$isSheetVisible, attachmentAnchor: .point(.bottom)) {
+                CancellableResettableDialogNavigationForm {
+                    SortFilterItemTitle(title: self.item.name)
+                } cancelAction: {
+                    _Action(actionText: NSLocalizedString("Cancel", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
+                        self.item.cancel()
+                        self.isSheetVisible.toggle()
+                    })
+                    .buttonStyle(CancelButtonStyle())
+                } resetAction: {
+                    _Action(actionText: NSLocalizedString("Reset", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
+                        self.item.reset()
+                    })
+                    .buttonStyle(ResetButtonStyle())
+                    .disabled(self.item.isOriginal)
+                } applyAction: {
+                    _Action(actionText: NSLocalizedString("Apply", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
+                        self.item.apply()
+                        self.onUpdate()
+                        self.isSheetVisible.toggle()
+                    })
+                    .buttonStyle(ApplyButtonStyle())
+                } components: {
+                    OptionSearchListPickerItem(value: self.$item.workingValue, valueOptions: self.item.valueOptions, hint: nil, allowsMultipleSelection: self.item.allowsMultipleSelection, allowsEmptySelection: self.item.allowsEmptySelection) { index in
+                        self.item.onTap(option: self.item.valueOptions[index])
+                    } selectAll: { isAll in
+                        self.item.selectAll(isAll)
+                    }
+                    .padding(0)
+                }
+                .presentationDetents([.large])
+            }
+    }
+}
+
 struct FullCFGMenuItem: View {
     @Environment(\.sortFilterMenuItemFullConfigurationButton) var fullCFGButton
     
@@ -389,7 +507,7 @@ struct FullCFGMenuItem: View {
             .onTapGesture {
                 self.isSheetVisible.toggle()
             }
-            .popover(isPresented: self.$isSheetVisible, attachmentAnchor: .point(.bottom), arrowEdge: .bottom) {
+            .popover(isPresented: self.$isSheetVisible, attachmentAnchor: .point(.bottom)) {
                 SortFilterView(
                     title: {
                         if let title = fullCFGButton.name {

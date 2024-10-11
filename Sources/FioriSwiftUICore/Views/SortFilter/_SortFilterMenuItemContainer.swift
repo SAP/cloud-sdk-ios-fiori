@@ -39,6 +39,8 @@ extension _SortFilterMenuItemContainer: View {
                                 SliderMenuItem(item: Binding<SortFilterItem.SliderItem>(get: { self._items[r][c].slider }, set: { self._items[r][c].slider = $0 }), onUpdate: self.onUpdate)
                             case .datetime:
                                 DateTimeMenuItem(item: Binding<SortFilterItem.DateTimeItem>(get: { self._items[r][c].datetime }, set: { self._items[r][c].datetime = $0 }), onUpdate: self.onUpdate)
+                            case .listPicker:
+                                ListPickerMenuItem(item: Binding<SortFilterItem.ListPickerItem>(get: { self._items[r][c].listPicker }, set: { self._items[r][c].listPicker = $0 }), onUpdate: self.onUpdate)
                             }
                         }
                     }

@@ -16,6 +16,8 @@ public enum SortFilterItem: Identifiable, Hashable {
             return item.id
         case .datetime(let item, _):
             return item.id
+        case .listPicker(let item, _):
+            return item.id
         }
     }
     
@@ -58,6 +60,8 @@ public enum SortFilterItem: Identifiable, Hashable {
     /// 2. A section of view containing a SwiftUI Canlendar
     case datetime(item: DateTimeItem, showsOnFilterFeedbackBar: Bool)
     
+    case listPicker(item: ListPickerItem, showsOnFilterFeedbackBar: Bool)
+    
     public var showsOnFilterFeedbackBar: Bool {
         switch self {
         case .picker(_, let showsOnFilterFeedbackBar):
@@ -69,6 +73,8 @@ public enum SortFilterItem: Identifiable, Hashable {
         case .slider(_, let showsOnFilterFeedbackBar):
             return showsOnFilterFeedbackBar
         case .datetime(_, let showsOnFilterFeedbackBar):
+            return showsOnFilterFeedbackBar
+        case .listPicker(_, let showsOnFilterFeedbackBar):
             return showsOnFilterFeedbackBar
         }
     }
@@ -97,6 +103,11 @@ public enum SortFilterItem: Identifiable, Hashable {
             hasher.combine(item.workingValue)
             hasher.combine(item.value)
         case .datetime(let item, _):
+            hasher.combine(item.id)
+            hasher.combine(item.originalValue)
+            hasher.combine(item.workingValue)
+            hasher.combine(item.value)
+        case .listPicker(let item, _):
             hasher.combine(item.id)
             hasher.combine(item.originalValue)
             hasher.combine(item.workingValue)
@@ -206,6 +217,26 @@ extension SortFilterItem {
         }
     }
     
+    var listPicker: ListPickerItem {
+        get {
+            switch self {
+            case .listPicker(let item, _):
+                return item
+            default:
+                fatalError("Unexpected value \(self)")
+            }
+        }
+        
+        set {
+            switch self {
+            case .listPicker(_, let showsOnFilterFeedbackBar):
+                self = .listPicker(item: newValue, showsOnFilterFeedbackBar: showsOnFilterFeedbackBar)
+            default:
+                fatalError("Unexpected value \(self)")
+            }
+        }
+    }
+    
     var isChanged: Bool {
         switch self {
         case .picker(let item, _):
@@ -217,6 +248,8 @@ extension SortFilterItem {
         case .datetime(let item, _):
             return item.isChanged
         case .slider(let item, _):
+            return item.isChanged
+        case .listPicker(let item, _):
             return item.isChanged
         }
     }
@@ -232,6 +265,8 @@ extension SortFilterItem {
         case .datetime(let item, _):
             return item.isOriginal
         case .slider(let item, _):
+            return item.isOriginal
+        case .listPicker(let item, _):
             return item.isOriginal
         }
     }
@@ -253,6 +288,9 @@ extension SortFilterItem {
         case .slider(var item, _):
             item.cancel()
             self.slider = item
+        case .listPicker(var item, _):
+            item.cancel()
+            self.listPicker = item
         }
     }
     
@@ -273,6 +311,9 @@ extension SortFilterItem {
         case .slider(var item, _):
             item.reset()
             self.slider = item
+        case .listPicker(var item, _):
+            item.reset()
+            self.listPicker = item
         }
     }
     
@@ -293,6 +334,9 @@ extension SortFilterItem {
         case .slider(var item, _):
             item.apply()
             self.slider = item
+        case .listPicker(var item, _):
+            item.apply()
+            self.listPicker = item
         }
     }
 }
@@ -311,9 +355,11 @@ public extension SortFilterItem {
         public let allowsEmptySelection: Bool
         public var showsValueForSingleSelected: Bool = true
         public let icon: String?
+        /// itemLayout is used when listPickerMode is filterFormCell, otherwise is ignored.
         public var itemLayout: OptionListPickerItemLayoutType = .fixed
+        public var listPickerMode: OptionListPickerMode = .automatic
         
-        public init(id: String = UUID().uuidString, name: String, value: [Int], valueOptions: [String], allowsMultipleSelection: Bool, allowsEmptySelection: Bool, showsValueForSingleSelected: Bool = true, icon: String? = nil, itemLayout: OptionListPickerItemLayoutType = .fixed) {
+        public init(id: String = UUID().uuidString, name: String, value: [Int], valueOptions: [String], allowsMultipleSelection: Bool, allowsEmptySelection: Bool, showsValueForSingleSelected: Bool = true, icon: String? = nil, itemLayout: OptionListPickerItemLayoutType = .fixed, listPickerMode: OptionListPickerMode = .automatic) {
             self.id = id
             self.name = name
             self.value = value
@@ -325,6 +371,7 @@ public extension SortFilterItem {
             self.showsValueForSingleSelected = showsValueForSingleSelected
             self.icon = icon
             self.itemLayout = itemLayout
+            self.listPickerMode = listPickerMode
         }
         
         mutating func onTap(option: String) {
@@ -387,6 +434,15 @@ public extension SortFilterItem {
         
         func isOptionSelected(index: Int) -> Bool {
             self.workingValue.contains(index)
+        }
+        
+        mutating func selectAll(_ isAll: Bool) {
+            self.workingValue.removeAll()
+            if isAll {
+                for i in 0 ..< self.valueOptions.count {
+                    self.workingValue.append(i)
+                }
+            }
         }
         
         var isChecked: Bool {
@@ -568,6 +624,129 @@ public extension SortFilterItem {
                     dateFormatter.dateStyle = .long
                     dateFormatter.timeStyle = .short
                     return dateFormatter.string(from: value)
+                }
+            } else {
+                return self.name
+            }
+        }
+        
+        var isChanged: Bool {
+            self.value != self.workingValue
+        }
+        
+        var isOriginal: Bool {
+            self.workingValue == self.originalValue
+        }
+    }
+    
+    ///  Data structure for filter feedback, option list picker,
+    struct ListPickerItem: Identifiable, Equatable {
+        public let id: String
+        public var name: String
+        public var value: [Int]
+        public var workingValue: [Int]
+        let originalValue: [Int]
+        
+        var valueOptions: [String]
+        public let allowsMultipleSelection: Bool
+        public let allowsEmptySelection: Bool
+        public var showsValueForSingleSelected: Bool = true
+        public let icon: String?
+        
+        public init(id: String = UUID().uuidString, name: String, value: [Int], valueOptions: [String], allowsMultipleSelection: Bool, allowsEmptySelection: Bool, showsValueForSingleSelected: Bool = true, icon: String? = nil) {
+            self.id = id
+            self.name = name
+            self.value = value
+            self.workingValue = value
+            self.originalValue = value
+            self.valueOptions = valueOptions
+            self.allowsMultipleSelection = allowsMultipleSelection
+            self.allowsEmptySelection = allowsEmptySelection
+            self.showsValueForSingleSelected = showsValueForSingleSelected
+            self.icon = icon
+        }
+        
+        mutating func onTap(option: String) {
+            guard let index = valueOptions.firstIndex(of: option) else { return }
+            if self.workingValue.contains(index) {
+                if self.workingValue.count > 1 {
+                    self.workingValue = self.workingValue.filter { $0 != index }
+                } else {
+                    if self.allowsEmptySelection {
+                        self.workingValue = []
+                    } else {
+                        self.workingValue = index == 1 ? [0] : [1]
+                    }
+                }
+            } else {
+                if self.allowsMultipleSelection {
+                    self.workingValue.append(index)
+                } else {
+                    self.workingValue = [index]
+                }
+            }
+        }
+        
+        mutating func optionOnTap(_ index: Int) {
+            if self.workingValue.contains(index) {
+                if self.workingValue.count > 1 {
+                    self.workingValue = self.workingValue.filter { $0 != index }
+                } else {
+                    if self.allowsEmptySelection {
+                        self.workingValue = []
+                    } else {
+                        self.workingValue = index == 1 ? [0] : [1]
+                    }
+                }
+            } else {
+                if self.allowsMultipleSelection {
+                    self.workingValue.append(index)
+                } else {
+                    self.workingValue = [index]
+                }
+            }
+        }
+        
+        mutating func cancel() {
+            self.workingValue = self.value.map { $0 }
+        }
+        
+        mutating func reset() {
+            self.workingValue = self.originalValue.map { $0 }
+        }
+        
+        mutating func apply() {
+            self.value = self.workingValue.map { $0 }
+        }
+        
+        func isOptionSelected(_ option: String) -> Bool {
+            guard let idx = valueOptions.firstIndex(of: option) else { return false }
+            return self.workingValue.contains(idx)
+        }
+        
+        func isOptionSelected(index: Int) -> Bool {
+            self.workingValue.contains(index)
+        }
+        
+        mutating func selectAll(_ isAll: Bool) {
+            self.workingValue.removeAll()
+            if isAll {
+                for i in 0 ..< self.valueOptions.count {
+                    self.workingValue.append(i)
+                }
+            }
+        }
+        
+        var isChecked: Bool {
+            !self.value.isEmpty
+        }
+        
+        var label: String {
+            if self.allowsMultipleSelection, self.value.count >= 1 {
+                if self.value.count == 1, self.showsValueForSingleSelected {
+                    return self.valueOptions[self.value[0]]
+                } else {
+                    return "\(self.name) (\(self.value.count))"
                 }
             } else {
                 return self.name

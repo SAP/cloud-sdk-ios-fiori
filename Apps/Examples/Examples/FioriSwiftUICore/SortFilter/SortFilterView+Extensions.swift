@@ -14,6 +14,8 @@ extension View {
             return self.json(item: v)
         case .switch(let v, _):
             return self.json(item: v)
+        case .listPicker(let v, _):
+            return self.json(item: v)
         }
     }
     
@@ -31,5 +33,9 @@ extension View {
     
     func json(item: SortFilterItem.SwitchItem) -> String {
         "{name: \(item.name), value: \(String(describing: item.value))}"
+    }
+    
+    func json(item: SortFilterItem.ListPickerItem) -> String {
+        "{name: \(item.name), value: \(item.value)}"
     }
 }

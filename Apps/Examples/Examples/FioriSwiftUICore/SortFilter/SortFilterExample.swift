@@ -6,7 +6,7 @@ struct SortFilterExample: View {
         [
             .switch(item: .init(name: "Favorite", value: true, icon: "heart.fill"), showsOnFilterFeedbackBar: true),
             .switch(item: .init(name: "Tagged", value: nil, icon: "tag"), showsOnFilterFeedbackBar: false),
-            .picker(item: .init(name: "JIRA Status", value: [0], valueOptions: ["Received", "Started", "Hold", "Transfer", "Completed", "Pending Review Pending Pending Pending Pending Pending", "Accepted Medium", "Rejected"], allowsMultipleSelection: true, allowsEmptySelection: true, showsValueForSingleSelected: false, icon: "clock", itemLayout: .flexible), showsOnFilterFeedbackBar: true)
+            .picker(item: .init(name: "JIRA Status", value: [0], valueOptions: ["Received", "Started", "Hold", "Transfer", "Completed", "Pending Review Pending Pending Pending Pending Pending", "Accepted Medium", "Pending Medium", "Completed Medium"], allowsMultipleSelection: true, allowsEmptySelection: true, showsValueForSingleSelected: false, icon: "clock", itemLayout: .flexible, listPickerMode: .automatic), showsOnFilterFeedbackBar: true)
         ],
         [
             .picker(item: .init(name: "Priority", value: [0], valueOptions: ["High", "Medium", "Low"], allowsMultipleSelection: true, allowsEmptySelection: true, showsValueForSingleSelected: false, icon: "filemenu.and.cursorarrow"), showsOnFilterFeedbackBar: true),

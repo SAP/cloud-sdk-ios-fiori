@@ -1,4 +1,18 @@
 import SwiftUI
+import UIKit
+
+struct StatusBar {
+    private init() {}
+    
+    static var height: CGFloat {
+        #if os(visionOS)
+            44 // default statusBar height for visionOS
+        #else
+            guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene else { return 0 }
+            return windowScene.statusBarManager?.statusBarFrame.height ?? 0
+        #endif
+    }
+}
 
 /// Available OptionListPickerItem layout  types. Use this enum to define item layout type to present.
 public enum OptionListPickerItemLayoutType {
@@ -18,45 +32,69 @@ extension OptionListPickerItem: View {
     }
     
     private func generateFixedContent() -> some View {
-        Grid(horizontalSpacing: 16) {
-            ForEach(0 ..< Int(ceil(Double(_valueOptions.count) / 2.0)), id: \.self) { rowIndex in
-                GridRow {
-                    FilterFeedbackBarButton(
-                        leftIcon: _value.wrappedValue.contains(rowIndex * 2) ? Image(systemName: "checkmark") : nil,
-                        title: _valueOptions[rowIndex * 2],
-                        isSelected: _value.wrappedValue.contains(rowIndex * 2)
-                    )
-                    .onTapGesture {
-                        _onTap?(rowIndex * 2)
-                    }
-                    if rowIndex * 2 + 1 < _valueOptions.count {
+        ScrollView(.vertical) {
+            Grid(horizontalSpacing: 16) {
+                ForEach(0 ..< Int(ceil(Double(_valueOptions.count) / 2.0)), id: \.self) { rowIndex in
+                    GridRow {
                         FilterFeedbackBarButton(
-                            leftIcon: _value.wrappedValue.contains(rowIndex * 2 + 1) ? Image(systemName: "checkmark") : nil,
-                            title: _valueOptions[rowIndex * 2 + 1],
-                            isSelected: _value.wrappedValue.contains(rowIndex * 2 + 1)
+                            leftIcon: _value.wrappedValue.contains(rowIndex * 2) ? Image(systemName: "checkmark") : nil,
+                            title: _valueOptions[rowIndex * 2],
+                            isSelected: _value.wrappedValue.contains(rowIndex * 2)
                         )
                         .onTapGesture {
-                            _onTap?(rowIndex * 2 + 1)
+                            _onTap?(rowIndex * 2)
+                        }
+                        if rowIndex * 2 + 1 < _valueOptions.count {
+                            FilterFeedbackBarButton(
+                                leftIcon: _value.wrappedValue.contains(rowIndex * 2 + 1) ? Image(systemName: "checkmark") : nil,
+                                title: _valueOptions[rowIndex * 2 + 1],
+                                isSelected: _value.wrappedValue.contains(rowIndex * 2 + 1)
+                            )
+                            .onTapGesture {
+                                _onTap?(rowIndex * 2 + 1)
+                            }
                         }
                     }
                 }
             }
         }
+        .frame(height: _height)
+        .modifier(FioriIntrospectModifier<UIScrollView>(introspection: { scrollView in
+            DispatchQueue.main.async {
+                let popverHeight = Screen.bounds.size.height - StatusBar.height
+                let totalSpacing: CGFloat = (UIDevice.current.userInterfaceIdiom == .pad ? 8 : 16) * 2
+                let totalPadding: CGFloat = (UIDevice.current.userInterfaceIdiom == .pad ? 13 : 16) * 2
+                let maxScrollViewHeight = popverHeight - totalSpacing - totalPadding - 120
+                self._height = min(scrollView.contentSize.height, maxScrollViewHeight)
+            }
+        }))
     }
     
     private func generateFlexibleContent() -> some View {
-        OptionListPickerCustomLayout {
-            ForEach(0 ..< _valueOptions.count, id: \.self) { optionIndex in
-                FilterFeedbackBarButton(
-                    leftIcon: _value.wrappedValue.contains(optionIndex) ? Image(systemName: "checkmark") : nil,
-                    title: _valueOptions[optionIndex],
-                    isSelected: _value.wrappedValue.contains(optionIndex)
-                )
-                .onTapGesture {
-                    _onTap?(optionIndex)
+        ScrollView(.vertical) {
+            OptionListPickerCustomLayout {
+                ForEach(0 ..< _valueOptions.count, id: \.self) { optionIndex in
+                    FilterFeedbackBarButton(
+                        leftIcon: _value.wrappedValue.contains(optionIndex) ? Image(systemName: "checkmark") : nil,
+                        title: _valueOptions[optionIndex],
+                        isSelected: _value.wrappedValue.contains(optionIndex)
+                    )
+                    .onTapGesture {
+                        _onTap?(optionIndex)
+                    }
                 }
             }
         }
+        .frame(height: _height)
+        .modifier(FioriIntrospectModifier<UIScrollView>(introspection: { scrollView in
+            DispatchQueue.main.async {
+                let popverHeight = Screen.bounds.size.height - StatusBar.height
+                let totalSpacing: CGFloat = (UIDevice.current.userInterfaceIdiom == .pad ? 8 : 16) * 2
+                let totalPadding: CGFloat = (UIDevice.current.userInterfaceIdiom == .pad ? 13 : 16) * 2
+                let maxScrollViewHeight = popverHeight - totalSpacing - totalPadding - 120
+                self._height = min(scrollView.contentSize.height, maxScrollViewHeight)
+            }
+        }))
     }
 }
 
@@ -90,18 +128,19 @@ struct OptionListPickerCustomLayout: Layout {
             return .zero
         }
         var containerHeight = 0.0
-        var currentRowX = 16.0
+        var currentRowX = 0.0
+        let padding = UIDevice.current.userInterfaceIdiom == .pad ? 13.0 : 16.0
         for index in 0 ..< subviews.count {
             let subview = subviews[index]
             let subviewSize = subview.sizeThatFits(.unspecified)
-            let subviewWidth = min(subviewSize.width, containerWidth)
+            let subviewWidth = min(subviewSize.width, containerWidth - CGFloat(padding * 2))
             if index == 0 {
                 containerHeight += subviewSize.height
             }
-            if currentRowX + subviewWidth + 16.0 > containerWidth {
+            if currentRowX + subviewWidth + padding > containerWidth - CGFloat(padding * 2) {
                 containerHeight += subviewSize.height
                 containerHeight += 6
-                currentRowX = 16.0
+                currentRowX = 0.0
             }
             currentRowX += subviewWidth + 6.0
         }
@@ -111,14 +150,15 @@ struct OptionListPickerCustomLayout: Layout {
     func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) {
         guard let containerWidth = proposal.width else { return }
         var currentY: CGFloat = bounds.minY
-        var currentRowX = 16.0
+        var currentRowX = 0.0
+        let padding = UIDevice.current.userInterfaceIdiom == .pad ? 13.0 : 16.0
         for subview in subviews {
             let subviewSize = subview.sizeThatFits(.unspecified)
-            let subviewWidth = min(subviewSize.width, containerWidth)
-            if currentRowX + subviewWidth + 16.0 > containerWidth {
+            let subviewWidth = min(subviewSize.width, containerWidth - CGFloat(padding * 2))
+            if currentRowX + subviewWidth + padding > containerWidth - CGFloat(padding * 2) {
                 currentY += subviewSize.height
                 currentY += 6
-                currentRowX = 16.0
+                currentRowX = 0.0
                 subview.place(at: CGPoint(x: currentRowX, y: currentY), proposal: ProposedViewSize(width: subviewWidth, height: subviewSize.height))
             } else {
                 subview.place(at: CGPoint(x: currentRowX, y: currentY), proposal: ProposedViewSize(width: subviewWidth, height: subviewSize.height))
