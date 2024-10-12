@@ -173,7 +173,7 @@ All notable changes to this project will be documented in this file. See [standa
 * 🐛 [BCP:2370082757] Fix SignatureCaptureView VO issues ([#602](https://github.com/SAP/cloud-sdk-ios-fiori/issues/602)) ([6d09d0f](https://github.com/SAP/cloud-sdk-ios-fiori/commit/6d09d0ffc88c47d575770721faa3e4f57f5aca93))
 * 🐛 [IOSSDKBUG-67]DataTable blinks redline when toggling mod ([#643](https://github.com/SAP/cloud-sdk-ios-fiori/issues/643)) ([41309df](https://github.com/SAP/cloud-sdk-ios-fiori/commit/41309dff3b91c0d75a38d4ab88b7ecfc09a30a8d))
 * 🐛 adding missing constants to allCases ([#627](https://github.com/SAP/cloud-sdk-ios-fiori/issues/627)) ([41e3f8d](https://github.com/SAP/cloud-sdk-ios-fiori/commit/41e3f8d8e9b53467bc75fcdfe2029b77dde06af7))
-* 🐛 fix a selectin ui bug and update doc in DataTable ([#629](https://github.com/SAP/cloud-sdk-ios-fiori/issues/629)) ([19a945f](https://github.com/SAP/cloud-sdk-ios-fiori/commit/19a945fce8616acb9faba56bcb61e173d1b55fbf))
+* 🐛 fix a selection ui bug and update doc in DataTable ([#629](https://github.com/SAP/cloud-sdk-ios-fiori/issues/629)) ([19a945f](https://github.com/SAP/cloud-sdk-ios-fiori/commit/19a945fce8616acb9faba56bcb61e173d1b55fbf))
 * 🐛 simultaneous gesture is not triggered in voice over ([#599](https://github.com/SAP/cloud-sdk-ios-fiori/issues/599)) ([24ca365](https://github.com/SAP/cloud-sdk-ios-fiori/commit/24ca3654c5c395e828eb7b9cfe5f934674733298))
 * adding missing macro back ([#628](https://github.com/SAP/cloud-sdk-ios-fiori/issues/628)) ([27e9466](https://github.com/SAP/cloud-sdk-ios-fiori/commit/27e9466760d771ba5f457ee99c53b53263426ddb))
 * re-arrange color definition sequence, asked by designer ([#635](https://github.com/SAP/cloud-sdk-ios-fiori/issues/635)) ([772e488](https://github.com/SAP/cloud-sdk-ios-fiori/commit/772e488b95eed69d2993898f235e6f558a39303f))
@@ -474,7 +474,7 @@ We plan to progressively bring more Fiori UI components into this module in the 
 * 🎸 support .single and .all selection mode for donut chart ([2e2e0d4](https://github.com/SAP/cloud-sdk-ios-fiori/commit/2e2e0d43c7cd974a2659904ec856d552c4df1180))
 * 🎸 support both y axes for column insdex of combo chart ([18d3ac7](https://github.com/SAP/cloud-sdk-ios-fiori/commit/18d3ac7eaa465f78511a5c3c41e46dc608c2778c))
 * 🎸 support more variants of data format in chart model ([a99bd80](https://github.com/SAP/cloud-sdk-ios-fiori/commit/a99bd80b4eac0cb60c7d783615fcc61821e2c571))
-* 🎸 support to display multiple selctions for line charts ([9095261](https://github.com/SAP/cloud-sdk-ios-fiori/commit/9095261d6350a2474f76aa716152356a3536025e))
+* 🎸 support to display multiple selections for line charts ([9095261](https://github.com/SAP/cloud-sdk-ios-fiori/commit/9095261d6350a2474f76aa716152356a3536025e))
 
 
 ### Bug Fixes
