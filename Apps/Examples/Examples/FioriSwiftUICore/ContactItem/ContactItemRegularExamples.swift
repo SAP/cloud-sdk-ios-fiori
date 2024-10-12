@@ -93,7 +93,7 @@ struct ContactItemRegularExamples: ListDataProtocol {
             return AnyView(ci)
             
         case (0, 6):
-            let ci = ContactItem(title: "Headline example is allowd to wrap two lines ok", descriptionText: "One line of text in description is centered here.", actionItems: ActivityItems(actionItems: [.init(type: .phone), .init(type: .videoCall), .init(type: .message)], didSelectActivityItem: { dataType in
+            let ci = ContactItem(title: "Headline example is allowed to wrap two lines ok", descriptionText: "One line of text in description is centered here.", actionItems: ActivityItems(actionItems: [.init(type: .phone), .init(type: .videoCall), .init(type: .message)], didSelectActivityItem: { dataType in
                 print("\(dataType)")
             }))
             .splitPercent(0.4)
@@ -188,7 +188,7 @@ struct ContactItemRegularExamples: ListDataProtocol {
             return AnyView(ci)
             
         case (1, 6):
-            let ci = ContactItem(title: "Headline example is allowd to wrap two lines ok", descriptionText: "One line of text in description is centered here.", actionItems: ActivityItems(actionItems: [.init(type: .phone), .init(type: .videoCall), .init(type: .message)], didSelectActivityItem: { dataType in
+            let ci = ContactItem(title: "Headline example is allowed to wrap two lines ok", descriptionText: "One line of text in description is centered here.", actionItems: ActivityItems(actionItems: [.init(type: .phone), .init(type: .videoCall), .init(type: .message)], didSelectActivityItem: { dataType in
                 print("\(dataType)")
             }))
             .splitPercent(nil)
