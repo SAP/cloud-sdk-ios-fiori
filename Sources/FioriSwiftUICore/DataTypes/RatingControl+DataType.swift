@@ -152,8 +152,10 @@ extension RatingControlConfiguration {
             return itemSize
         }
         switch self.ratingControlStyle {
-        case .editable, .editableDisabled, .standardLarge, .accentedLarge:
+        case .editable, .editableDisabled:
             return CGSize(width: 28, height: 28)
+        case .standardLarge, .accentedLarge:
+            return CGSize(width: 20, height: 20)
         case .standard, .accented:
             return CGSize(width: 16, height: 16)
         }
