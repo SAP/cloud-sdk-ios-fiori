@@ -4,49 +4,63 @@ import SwiftUI
 
 // Base Layout style
 public struct DateTimePickerBaseStyle: DateTimePickerStyle {
-    @State var dateString: String = NSLocalizedString("No date selected", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
     @State var pickerVisible: Bool = false
-    
+    @Environment(\.dynamicTypeSize) var dynamicTypeSize
+   
     public func makeBody(_ configuration: DateTimePickerConfiguration) -> some View {
         VStack {
-            HStack {
-                HStack(spacing: 0) {
-                    configuration.title
-                    if configuration.isRequired {
-                        configuration.mandatoryFieldIndicator
-                    }
-                    Spacer()
+            if self.dynamicTypeSize >= .accessibility3 {
+                self.configureMainStack(configuration, isVertical: true)
+            } else {
+                ViewThatFits {
+                    self.configureMainStack(configuration, isVertical: false)
+                    self.configureMainStack(configuration, isVertical: true)
                 }
-                Spacer()
-                ValueLabel(valueLabel: AttributedString(self.getValueLabel(configuration)))
-                    .foregroundStyle(self.getFontColor(configuration))
-                    .font(.fiori(forTextStyle: .body))
-            }
-            .padding(.vertical, 12)
-            .contentShape(Rectangle())
-            .ifApply(configuration.controlState != .disabled && configuration.controlState != .readOnly) {
-                $0.onTapGesture(perform: {
-                    if configuration.selectedDate == Date(timeIntervalSince1970: 0.0) {
-                        configuration.selectedDate = Date()
-                    }
-                    self.pickerVisible.toggle()
-                })
             }
             if self.pickerVisible {
                 Divider()
                     .frame(height: 0.33)
                     .foregroundStyle(Color.preferredColor(.separatorOpaque))
-                    .padding(.leading, 16)
                 self.showPicker(configuration)
             }
         }
-        .accessibilityElement()
     }
     
+    func configureMainStack(_ configuration: DateTimePickerConfiguration, isVertical: Bool) -> some View {
+        let mainStack = isVertical ? AnyLayout(VStackLayout(alignment: .leading, spacing: 3)) : AnyLayout(HStackLayout())
+        return mainStack {
+            HStack(spacing: 0) {
+                configuration.title
+                if configuration.isRequired {
+                    configuration.mandatoryFieldIndicator
+                }
+            }
+            if !isVertical {
+                Spacer()
+            } else {
+                Divider().hidden()
+            }
+            ValueLabel(valueLabel: AttributedString(self.getValueLabel(configuration)))
+                .foregroundStyle(self.getFontColor(configuration))
+                .font(.fiori(forTextStyle: .body))
+                .accessibilityLabel(self.getValueLabel(configuration))
+        }
+        .accessibilityElement(children: .combine)
+        .contentShape(Rectangle())
+        .ifApply(configuration.controlState != .disabled && configuration.controlState != .readOnly) {
+            $0.onTapGesture(perform: {
+                if configuration.selectedDate == Date(timeIntervalSince1970: 0.0) {
+                    configuration.selectedDate = Date()
+                }
+                self.pickerVisible.toggle()
+            })
+        }
+    }
+
     func getValueLabel(_ configuration: DateTimePickerConfiguration) -> String {
         if configuration.selectedDate != Date(timeIntervalSince1970: 0.0) {
-            let formattedDate = configuration.selectedDate.formatted(date: .abbreviated, time: .omitted)
-            let formattedTime = configuration.selectedDate.formatted(date: .omitted, time: .shortened)
+            let formattedDate = configuration.selectedDate.formatted(date: configuration.dateStyle, time: .omitted)
+            let formattedTime = configuration.selectedDate.formatted(date: .omitted, time: configuration.timeStyle)
             if configuration.pickerComponents == .date {
                 return formattedDate
             } else if configuration.pickerComponents == .hourAndMinute {
@@ -55,7 +69,7 @@ public struct DateTimePickerBaseStyle: DateTimePickerStyle {
                 return formattedDate + "   " + formattedTime
             }
         }
-        return self.dateString
+        return configuration.noDateSelectedString ?? NSLocalizedString("No date selected", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
     }
     
     func getFontColor(_ configuration: DateTimePickerConfiguration) -> Color {
@@ -69,25 +83,11 @@ public struct DateTimePickerBaseStyle: DateTimePickerStyle {
     }
     
     func showPicker(_ configuration: DateTimePickerConfiguration) -> some View {
-        let picker = DatePicker("", selection: configuration.$selectedDate, displayedComponents: configuration.pickerComponents)
+        DatePicker("", selection: configuration.$selectedDate, displayedComponents: configuration.pickerComponents)
             .datePickerStyle(.graphical)
-            .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
             .onChange(of: configuration.selectedDate, perform: { _ in
-                self.formatDate(configuration)
+                _ = self.getValueLabel(configuration)
             })
-        return picker
-    }
-    
-    func formatDate(_ configuration: DateTimePickerConfiguration) {
-        let formattedDate = configuration.selectedDate.formatted(date: .abbreviated, time: .omitted)
-        let formattedTime = configuration.selectedDate.formatted(date: .omitted, time: .shortened)
-        if configuration.pickerComponents == .date {
-            self.dateString = formattedDate
-        } else if configuration.pickerComponents == .hourAndMinute {
-            self.dateString = formattedTime
-        } else {
-            self.dateString = formattedDate + "   " + formattedTime
-        }
     }
 }
 

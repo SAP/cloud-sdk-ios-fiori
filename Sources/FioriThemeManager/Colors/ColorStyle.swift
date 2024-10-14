@@ -1079,84 +1079,114 @@ public enum ColorStyle: String, CaseIterable {
     // MARK: - Chart Colors (13 Styles)
     
     /// Chart 1
-    /// (dark variant) ![](https://dummyimage.com/48x18/1B90FF.png&text=+)          Hex value: 1B90FF
-    /// (light variant) ![](https://dummyimage.com/48x18/4DB1FF.png&text=+)          Hex value: 4DB1FF
+    /// (dark variant) ![](https://dummyimage.com/48x18/3278BE.png&text=+)          Hex value: 3278BEFF
+    /// (light variant) ![](https://dummyimage.com/48x18/3278BE.png&text=+)          Hex value: 3278BEFF
     @available(watchOS, unavailable)
     case chart1
     
     /// Chart 2
-    /// (dark variant) ![](https://dummyimage.com/48x18/E76500.png&text=+)          Hex value: E76500
-    /// (light variant) ![](https://dummyimage.com/48x18/FFB300.png&text=+)          Hex value: FFB300
+    /// (dark variant) ![](https://dummyimage.com/48x18/C87B00.png&text=+)          Hex value: C87B00FF
+    /// (light variant) ![](https://dummyimage.com/48x18/F2A634.png&text=+)          Hex value: F2A634FF
     @available(watchOS, unavailable)
     case chart2
     
     /// Chart 3
-    /// (dark variant) ![](https://dummyimage.com/48x18/36A41D.png&text=+)          Hex value: 36A41D
-    /// (light variant) ![](https://dummyimage.com/48x18/5DC122.png&text=+)          Hex value: 5DC122
+    /// (dark variant) ![](https://dummyimage.com/48x18/75980B.png&text=+)          Hex value: 75980BFF
+    /// (light variant) ![](https://dummyimage.com/48x18/B4CE35.png&text=+)          Hex value: B4CE35FF
     @available(watchOS, unavailable)
     case chart3
     
     /// Chart 4
-    /// (dark variant) ![](https://dummyimage.com/48x18/FA4F96.png&text=+)          Hex value: FA4F96
-    /// (light variant) ![](https://dummyimage.com/48x18/FE83AE.png&text=+)          Hex value: FE83AE
+    /// (dark variant) ![](https://dummyimage.com/48x18/DF1278.png&text=+)          Hex value: DF1278FF
+    /// (light variant) ![](https://dummyimage.com/48x18/FA4F96.png&text=+)          Hex value: FA4F96FF
     @available(watchOS, unavailable)
     case chart4
     
     /// Chart 5
-    /// (dark variant) ![](https://dummyimage.com/48x18/7858FF.png&text=+)          Hex value: 7858FF
-    /// (light variant) ![](https://dummyimage.com/48x18/9B76FF.png&text=+)          Hex value: 9B76FF
+    /// (dark variant) ![](https://dummyimage.com/48x18/8B47D7.png&text=+)          Hex value: 8B47D7FF
+    /// (light variant) ![](https://dummyimage.com/48x18/8B47D7.png&text=+)          Hex value: 8B47D7FF
     @available(watchOS, unavailable)
     case chart5
     
     /// Chart 6
-    /// (dark variant) ![](https://dummyimage.com/48x18/049F9A.png&text=+)          Hex value: 049F9A
-    /// (light variant) ![](https://dummyimage.com/48x18/00CEAC.png&text=+)          Hex value: 00CEAC
+    /// (dark variant) ![](https://dummyimage.com/48x18/049F9A.png&text=+)          Hex value: 049F9AFF
+    /// (light variant) ![](https://dummyimage.com/48x18/049F9A.png&text=+)          Hex value: 049F9AFF
     @available(watchOS, unavailable)
     case chart6
     
     /// Chart 7
-    /// (dark variant) ![](https://dummyimage.com/48x18/F31DED.png&text=+)          Hex value: F31DED
-    /// (light variant) ![](https://dummyimage.com/48x18/F65AF2.png&text=+)          Hex value: F65AF2
+    /// (dark variant) ![](https://dummyimage.com/48x18/0070F2.png&text=+)          Hex value: 0070F2FF
+    /// (light variant) ![](https://dummyimage.com/48x18/0070F2.png&text=+)          Hex value: 0070F2FF
     @available(watchOS, unavailable)
     case chart7
     
     /// Chart 8
-    /// (dark variant) ![](https://dummyimage.com/48x18/5B738B.png&text=+)          Hex value: 5B738B
-    /// (light variant) ![](https://dummyimage.com/48x18/8396A8.png&text=+)          Hex value: 8396A8
+    /// (dark variant) ![](https://dummyimage.com/48x18/CC00DC.png&text=+)          Hex value: CC00DCFF
+    /// (light variant) ![](https://dummyimage.com/48x18/F31DED.png&text=+)          Hex value: F31DEDFF
     @available(watchOS, unavailable)
     case chart8
     
     /// Chart 9
-    /// (dark variant) ![](https://dummyimage.com/48x18/EE3939.png&text=+)          Hex value: EE3939
-    /// (light variant) ![](https://dummyimage.com/48x18/FF5C77.png&text=+)          Hex value: FF5C77
+    /// (dark variant) ![](https://dummyimage.com/48x18/798C77.png&text=+)          Hex value: 798C77FF
+    /// (light variant) ![](https://dummyimage.com/48x18/8EA18C.png&text=+)          Hex value: 8EA18CFF
     @available(watchOS, unavailable)
     case chart9
     
     /// Chart 10
-    /// (dark variant) ![](https://dummyimage.com/48x18/049F9A.png&text=+)          Hex value: 049F9A
-    /// (light variant) ![](https://dummyimage.com/48x18/00CEAC.png&text=+)          Hex value: 00CEAC
+    /// (dark variant) ![](https://dummyimage.com/48x18/DA6C6C.png&text=+)          Hex value: DA6C6CFF
+    /// (light variant) ![](https://dummyimage.com/48x18/F28585.png&text=+)          Hex value: F28585FF
     /// - Note: Removed since Palette V7. Mapping to `chart6`.
     @available(watchOS, unavailable)
     case chart10
     
     /// Chart 11
-    /// (dark variant) ![](https://dummyimage.com/48x18/1B90FF.png&text=+)          Hex value: 1B90FF
-    /// (light variant) ![](https://dummyimage.com/48x18/4DB1FF.png&text=+)          Hex value: 4DB1FF
+    /// (dark variant) ![](https://dummyimage.com/48x18/5D36FF.png&text=+)          Hex value: 5D36FFFF
+    /// (light variant) ![](https://dummyimage.com/48x18/7858FF.png&text=+)          Hex value: 7858FFFF
     /// - Note: Removed since Palette V7. Mapping to `chart1`.
     @available(watchOS, unavailable)
     case chart11
     
+    /// Chart 12
+    /// (dark variant) ![](https://dummyimage.com/48x18/A68A5B.png&text=+)          Hex value: A68A5BFF
+    /// (light variant) ![](https://dummyimage.com/48x18/A68A5B.png&text=+)          Hex value: A68A5BFF
+    @available(watchOS, unavailable)
+    case chart12
+    
     /// StockUpStroke
-    /// (dark variant) ![](https://dummyimage.com/48x18/19A979.png&text=+)          Hex value: 19A979
-    /// (light variant) ![](https://dummyimage.com/48x18/19A979.png&text=+)          Hex value: 19A979
+    /// (dark variant) ![](https://dummyimage.com/48x18/30914C.png&text=+)          Hex value: 30914CFF
+    /// (light variant) ![](https://dummyimage.com/48x18/30914C.png&text=+)          Hex value: 30914CFF
     @available(watchOS, unavailable)
     case stockUpStroke
     
     /// StockDownStroke
-    /// (dark variant) ![](https://dummyimage.com/48x18/EE6868.png&text=+)          Hex value: EE6868
-    /// (light variant) ![](https://dummyimage.com/48x18/EE6868.png&text=+)          Hex value: EE6868
+    /// (dark variant) ![](https://dummyimage.com/48x18/F53232.png&text=+)          Hex value: F53232FF
+    /// (light variant) ![](https://dummyimage.com/48x18/F83030.png&text=+)          Hex value: F83030FF
     @available(watchOS, unavailable)
     case stockDownStroke
+    
+    /// ChartBad
+    /// (dark variant) ![](https://dummyimage.com/48x18/F53232.png&text=+)          Hex value: F53232FF
+    /// (light variant) ![](https://dummyimage.com/48x18/F83030.png&text=+)          Hex value: F83030FF
+    @available(watchOS, unavailable)
+    case chartBad
+    
+    /// ChartCritical
+    /// (dark variant) ![](https://dummyimage.com/48x18/E26300.png&text=+)          Hex value: E26300FF
+    /// (light variant) ![](https://dummyimage.com/48x18/DD6100.png&text=+)          Hex value: DD6100FF
+    @available(watchOS, unavailable)
+    case chartCritical
+    
+    /// ChartGood
+    /// (dark variant) ![](https://dummyimage.com/48x18/30914C.png&text=+)          Hex value: 30914CFF
+    /// (light variant) ![](https://dummyimage.com/48x18/30914C.png&text=+)          Hex value: 30914CFF
+    @available(watchOS, unavailable)
+    case chartGood
+    
+    /// ChartNeutral
+    /// (dark variant) ![](https://dummyimage.com/48x18/6F89A1.png&text=+)          Hex value: 6F89A1FF
+    /// (light variant) ![](https://dummyimage.com/48x18/758CA4.png&text=+)          Hex value: 758CA4FF
+    @available(watchOS, unavailable)
+    case chartNeutral
     
     // MARK: - Map Colors (11 Styles)
     
@@ -1611,8 +1641,8 @@ public enum ColorStyle: String, CaseIterable {
                                                     .neutralBackgroundTapState, .separator, .separatorOpaque,
                                                     .header, .headerBlended, .barTransparent, .contrastElement,
                                                     .footer, .cellBackground, .chrome, .chromeSecondary, .chart1, .chart2, .chart3, .chart4,
-                                                    .chart5, .chart6, .chart7, .chart8, .chart9, .chart10, .chart11,
-                                                    .stockUpStroke, .stockDownStroke, .map1, .map2, .map3, .map4,
+                                                    .chart5, .chart6, .chart7, .chart8, .chart9, .chart10, .chart11, .chart12,
+                                                    .stockUpStroke, .stockDownStroke, .chartBad, .chartCritical, .chartNeutral, .chartGood, .map1, .map2, .map3, .map4,
                                                     .map5, .map6, .map7, .map8, .map9, .map10, .customColor1, .customColor2, .customColor3, .customColor4, .customColor5, .customColor6,
                                                     .esriEdit, .jouleBrand, .jouleAccent1, .jouleAccent2, .jouleAccent3, .jouleGradient1, .jouleGradient2]
     #else

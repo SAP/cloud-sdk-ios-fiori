@@ -534,13 +534,37 @@ protocol _TimelinePreviewComponent: _OptionalTitleComponent, _ActionComponent {
 // sourcery: CompositeComponent
 protocol _SwitchViewComponent: _TitleComponent, _SwitchComponent {}
 
+/// `DateTimePicker`  provides a title and value label with Fiori styling and a `DatePicker`.
+///
+/// ## Usage
+/// ```swift
+/// @State var selection: Date = .init(timeIntervalSince1970: 0.0)
+/// @State var isRequired = false
+/// @State var showsErrorMessage = false
+///
+/// DateTimePicker(title: "Default", isRequired: self.isRequired, selectedDate: self.$selection)
+///    .informationView(isPresented: self.$showsErrorMessage, description: AttributedString("The Date should be before December."))
+///    .informationViewStyle(.informational)
+/// ```
 // sourcery: CompositeComponent
 protocol _DateTimePickerComponent: _TitleComponent, _ValueLabelComponent, _MandatoryField, _FormViewComponent {
     // sourcery: @Binding
     var selectedDate: Date { get }
     
     // sourcery: defaultValue = [.date, .hourAndMinute]
+    /// The components shown in the date picker, default value shows date and time.
     var pickerComponents: DatePicker.Components { get }
+    
+    // sourcery: defaultValue = .abbreviated
+    /// The custom style for displaying the date. The default value is `.abbreviated`, showing for example, "Oct 21, 2015".
+    var dateStyle: Date.FormatStyle.DateStyle { get }
+    
+    // sourcery: defaultValue = .shortened
+    /// The custom style for displaying the time. The default value is `.shortened`, showing for example, "4:29 PM" or "16:29".
+    var timeStyle: Date.FormatStyle.TimeStyle { get }
+    
+    /// The text to be displayed when no date is selected. If this property is `nil`, the localized string “No date selected” will be used.
+    var noDateSelectedString: String? { get }
 }
 
 // sourcery: CompositeComponent

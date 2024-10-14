@@ -22,7 +22,7 @@ extension _SortFilterMenuItemContainer: View {
     public var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 10) {
-                if self.fullCFGButton.positon == .leading {
+                if self.fullCFGButton.position == .leading {
                     FullCFGMenuItem(items: self.$_items, onUpdate: self.onUpdate)
                 }
                 ForEach(0 ..< self._items.count, id: \.self) { r in
@@ -45,7 +45,7 @@ extension _SortFilterMenuItemContainer: View {
                         }
                     }
                 }
-                if self.fullCFGButton.positon == .trailing {
+                if self.fullCFGButton.position == .trailing {
                     FullCFGMenuItem(items: self.$_items, onUpdate: self.onUpdate)
                 }
             }
@@ -66,7 +66,7 @@ public struct SortFilterMenuItemFullConfigurationButton {
     /// SF icon name of the button
     public let icon: String?
     /// Position of the button
-    public let positon: Position
+    public let position: Position
     
     /// Location of the button
     public enum Position {
@@ -78,44 +78,44 @@ public struct SortFilterMenuItemFullConfigurationButton {
         case none
     }
     
-    private init(name: String? = nil, icon: String? = nil, positon: Position) {
+    private init(name: String? = nil, icon: String? = nil, position: Position) {
         self.name = name
         self.icon = icon
-        self.positon = positon
+        self.position = position
     }
     
     /// Place the button at the beginning
     public static func leading(name: String) -> SortFilterMenuItemFullConfigurationButton {
-        SortFilterMenuItemFullConfigurationButton(name: name, positon: .leading)
+        SortFilterMenuItemFullConfigurationButton(name: name, position: .leading)
     }
     
     /// Place the button at the beginning
     public static func leading(icon: String) -> SortFilterMenuItemFullConfigurationButton {
-        SortFilterMenuItemFullConfigurationButton(icon: icon, positon: .leading)
+        SortFilterMenuItemFullConfigurationButton(icon: icon, position: .leading)
     }
     
     /// Place the button at the beginning
     public static func leading(name: String, icon: String) -> SortFilterMenuItemFullConfigurationButton {
-        SortFilterMenuItemFullConfigurationButton(name: name, icon: icon, positon: .leading)
+        SortFilterMenuItemFullConfigurationButton(name: name, icon: icon, position: .leading)
     }
     
     /// Place the button at the end
     public static func trailing(name: String) -> SortFilterMenuItemFullConfigurationButton {
-        SortFilterMenuItemFullConfigurationButton(name: name, positon: .trailing)
+        SortFilterMenuItemFullConfigurationButton(name: name, position: .trailing)
     }
     
     /// Place the button at the end
     public static func trailing(icon: String) -> SortFilterMenuItemFullConfigurationButton {
-        SortFilterMenuItemFullConfigurationButton(icon: icon, positon: .trailing)
+        SortFilterMenuItemFullConfigurationButton(icon: icon, position: .trailing)
     }
     
     /// Place the button at the end
     public static func trailing(name: String, icon: String) -> SortFilterMenuItemFullConfigurationButton {
-        SortFilterMenuItemFullConfigurationButton(name: name, icon: icon, positon: .trailing)
+        SortFilterMenuItemFullConfigurationButton(name: name, icon: icon, position: .trailing)
     }
     
     /// No button for full configuration
-    static var none = SortFilterMenuItemFullConfigurationButton(positon: Position.none)
+    static var none = SortFilterMenuItemFullConfigurationButton(position: Position.none)
 }
 
 extension EnvironmentValues {
