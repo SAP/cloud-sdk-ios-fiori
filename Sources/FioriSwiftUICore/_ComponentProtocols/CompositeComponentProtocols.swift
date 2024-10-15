@@ -570,7 +570,7 @@ protocol _DateTimePickerComponent: _TitleComponent, _ValueLabelComponent, _Manda
 // sourcery: CompositeComponent
 protocol _AvatarStackComponent: _AvatarsComponent, _AvatarsTitleComponent {}
 
-/// `ListPickerItem` is a view that provide a `NavigationLink` with a title and selected value. And `ListPickerDestination` is recommended to be used as its destination, which selection, search filter and customized rows are supported.
+/// `ListPickerItem` is a view that provides a `NavigationLink` with a title and selected value(s). And `ListPickerDestination` is recommended to be used as its destination, for which selection, search filter and customized rows are supported.
 /// ## Usage
 /// ```swift
 /// let data = ["first", "second", "third"]

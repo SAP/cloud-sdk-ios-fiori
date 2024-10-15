@@ -26,7 +26,6 @@ extension ListPickerDestinationFioriStyle {
         func makeBody(_ configuration: CancelActionConfiguration) -> some View {
             CancelAction(configuration)
                 .fioriButtonStyle(ListPickerDestinationButtonStyle(.navigation))
-                .bold()
         }
     }
     
@@ -295,10 +294,11 @@ public extension ListPickerDestination {
 }
 
 public struct ListPickerDestinationContent<Data: RandomAccessCollection, ID: Hashable, RowContent: View>: View {
-    @Environment(\.presentationMode) var presentationMode
+    @Environment(\.dismiss) var dismiss
     @Environment(\.listPickerDestinationConfiguration) var destinationConfiguration
     @Environment(\.disableEntriesSection) var disableEntriesSection
-
+    @Environment(\.autoDismissDestination) var autoDismissDestination
+    
     @Binding private var selections: Set<ID>
     private var isSingleSelection: Bool
     private var allowEmpty: Bool
@@ -369,7 +369,7 @@ public struct ListPickerDestinationContent<Data: RandomAccessCollection, ID: Has
                     self.destinationConfiguration?.applyAction
                         .onSimultaneousTapGesture {
                             self.confirm()
-                            self.presentationMode.wrappedValue.dismiss()
+                            self.dismiss()
                         }
                         .disabled(!self.allowEmpty && self.selectionsPool.isEmpty)
                 }
@@ -379,7 +379,7 @@ public struct ListPickerDestinationContent<Data: RandomAccessCollection, ID: Has
                                 titleVisibility: .visible,
                                 actions: {
                                     Button {
-                                        self.presentationMode.wrappedValue.dismiss()
+                                        self.dismiss()
                                     } label: {
                                         Text("Discard Changes".localizedFioriString())
                                     }
@@ -393,7 +393,7 @@ public struct ListPickerDestinationContent<Data: RandomAccessCollection, ID: Has
         if !(self.selections == self.selectionsPool) {
             self.confirmationSelections.toggle()
         } else {
-            self.presentationMode.wrappedValue.dismiss()
+            self.dismiss()
         }
     }
     
@@ -549,6 +549,9 @@ public struct ListPickerDestinationContent<Data: RandomAccessCollection, ID: Has
             } else {
                 if self.isSingleSelection {
                     self.selections = Set([idValue])
+                    if self.autoDismissDestination, self.isTrackingLiveChanges {
+                        self.dismiss()
+                    }
                 } else {
                     self.selections.insert(idValue)
                 }
@@ -563,6 +566,9 @@ public struct ListPickerDestinationContent<Data: RandomAccessCollection, ID: Has
             } else {
                 if self.isSingleSelection {
                     self.selectionsPool = Set([idValue])
+                    if self.autoDismissDestination, self.isTrackingLiveChanges {
+                        self.dismiss()
+                    }
                 } else {
                     self.selectionsPool.insert(idValue)
                 }
@@ -721,10 +727,19 @@ struct DisableEntriesSectionEnvironment: EnvironmentKey {
     static let defaultValue: Bool = false
 }
 
+struct AutoDismissDestinationEnvironment: EnvironmentKey {
+    static let defaultValue: Bool = false
+}
+
 extension EnvironmentValues {
     var disableEntriesSection: Bool {
         get { self[DisableEntriesSectionEnvironment.self] }
         set { self[DisableEntriesSectionEnvironment.self] = newValue }
+    }
+    
+    var autoDismissDestination: Bool {
+        get { self[AutoDismissDestinationEnvironment.self] }
+        set { self[AutoDismissDestinationEnvironment.self] = newValue }
     }
 }
 
@@ -734,5 +749,12 @@ public extension View {
     /// - Returns: A view that controls whether entries section can be displayed for `ListPickerDestination`.
     func disableEntriesSection(_ disabled: Bool = true) -> some View {
         self.environment(\.disableEntriesSection, disabled)
+    }
+    
+    /// Adds a condition that controls whether `ListPickerDestination` should be dismissed when selection is made. This is only work for single selection and `isTrackingLiveChanges` is `true`.
+    /// - Parameter dismiss: A Boolean value that determines whether `ListPickerDestination` should be dismissed when selection is made.
+    /// - Returns: A view that controls whether `ListPickerDestination` can be dismissed.
+    func autoDismissDestination(_ dismiss: Bool = true) -> some View {
+        self.environment(\.autoDismissDestination, dismiss)
     }
 }

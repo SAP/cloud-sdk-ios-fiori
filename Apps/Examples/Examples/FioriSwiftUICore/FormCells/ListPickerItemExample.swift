@@ -19,6 +19,7 @@ struct ListPickerItemExample: View {
     @State var customDestination: Bool = false
     @State var disableEntriesSection: Bool = false
     @State var allowEmpty: Bool = false
+    @State var autoDismissDestination: Bool = false
 
     var body: some View {
         List {
@@ -30,6 +31,7 @@ struct ListPickerItemExample: View {
             destination: {
                 self.destinationView
                     .disableEntriesSection(self.disableEntriesSection)
+                    .autoDismissDestination(self.autoDismissDestination)
                     .navigationTitle("Destination Title")
                     .ifApply(self.customDestination) {
                         $0.cancelActionStyle { _ in
@@ -86,6 +88,8 @@ struct ListPickerItemExample: View {
                 Toggle("Disable Entries Section", isOn: self.$disableEntriesSection)
                 
                 Toggle("Allow Empty", isOn: self.$allowEmpty)
+                
+                Toggle("Auto Dismiss Destination(Only for Single Selection and isTrackingLiveChanges is true)", isOn: self.$autoDismissDestination)
             }
         }
     }
