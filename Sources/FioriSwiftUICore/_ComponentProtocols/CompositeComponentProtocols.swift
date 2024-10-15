@@ -569,3 +569,10 @@ protocol _DateTimePickerComponent: _TitleComponent, _ValueLabelComponent, _Manda
 
 // sourcery: CompositeComponent
 protocol _AvatarStackComponent: _AvatarsComponent, _AvatarsTitleComponent {}
+
+// sourcery: CompositeComponent
+protocol _ToastMessageComponent: _IconComponent, _TitleComponent {
+    // sourcery: defaultValue = 1
+    /// The duration in seconds for which the toast message is shown. The default is `1`.
+    var duration: Double { get }
+}

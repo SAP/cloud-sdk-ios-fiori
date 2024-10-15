@@ -690,6 +690,13 @@ extension TitleFormView: _ViewEmptyChecking {
     }
 }
 
+extension ToastMessage: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        icon.isEmpty &&
+            title.isEmpty
+    }
+}
+
 extension TopDivider: _ViewEmptyChecking {
     public var isEmpty: Bool {
         topDivider.isEmpty
