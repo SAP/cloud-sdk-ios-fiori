@@ -36,7 +36,7 @@ struct ContactItemCompactExamples: ListDataProtocol {
             return AnyView(ci)
             
         case (0, 1):
-            let ci = ContactItem(title: "Headline example is allowd to wrap two lines ok", actionItems: ActivityItems(actionItems: [.init(type: .message)], didSelectActivityItem: { dataType in
+            let ci = ContactItem(title: "Headline example is allowed to wrap two lines ok", actionItems: ActivityItems(actionItems: [.init(type: .message)], didSelectActivityItem: { dataType in
                 print("\(dataType)")
             }))
             
