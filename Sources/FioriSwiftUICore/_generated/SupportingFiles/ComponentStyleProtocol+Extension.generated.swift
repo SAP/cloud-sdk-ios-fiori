@@ -5225,6 +5225,62 @@ public extension TitleFormViewStyle where Self == TitleFormViewFormViewStyle {
     }
 }
 
+// MARK: ToastMessageStyle
+
+public extension ToastMessageStyle where Self == ToastMessageBaseStyle {
+    static var base: ToastMessageBaseStyle {
+        ToastMessageBaseStyle()
+    }
+}
+
+public extension ToastMessageStyle where Self == ToastMessageFioriStyle {
+    static var fiori: ToastMessageFioriStyle {
+        ToastMessageFioriStyle()
+    }
+}
+
+public struct ToastMessageIconStyle: ToastMessageStyle {
+    let style: any IconStyle
+
+    public func makeBody(_ configuration: ToastMessageConfiguration) -> some View {
+        ToastMessage(configuration)
+            .iconStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension ToastMessageStyle where Self == ToastMessageIconStyle {
+    static func iconStyle(_ style: some IconStyle) -> ToastMessageIconStyle {
+        ToastMessageIconStyle(style: style)
+    }
+
+    static func iconStyle(@ViewBuilder content: @escaping (IconConfiguration) -> some View) -> ToastMessageIconStyle {
+        let style = AnyIconStyle(content)
+        return ToastMessageIconStyle(style: style)
+    }
+}
+
+public struct ToastMessageTitleStyle: ToastMessageStyle {
+    let style: any TitleStyle
+
+    public func makeBody(_ configuration: ToastMessageConfiguration) -> some View {
+        ToastMessage(configuration)
+            .titleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension ToastMessageStyle where Self == ToastMessageTitleStyle {
+    static func titleStyle(_ style: some TitleStyle) -> ToastMessageTitleStyle {
+        ToastMessageTitleStyle(style: style)
+    }
+
+    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> ToastMessageTitleStyle {
+        let style = AnyTitleStyle(content)
+        return ToastMessageTitleStyle(style: style)
+    }
+}
+
 // MARK: TopDividerStyle
 
 public extension TopDividerStyle where Self == TopDividerBaseStyle {

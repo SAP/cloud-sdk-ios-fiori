@@ -1507,6 +1507,22 @@ extension TitleFormViewStyle {
     }
 }
 
+// MARK: ToastMessageStyle
+
+struct ResolvedToastMessageStyle<Style: ToastMessageStyle>: View {
+    let style: Style
+    let configuration: ToastMessageConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension ToastMessageStyle {
+    func resolve(configuration: ToastMessageConfiguration) -> some View {
+        ResolvedToastMessageStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: TopDividerStyle
 
 struct ResolvedTopDividerStyle<Style: TopDividerStyle>: View {
