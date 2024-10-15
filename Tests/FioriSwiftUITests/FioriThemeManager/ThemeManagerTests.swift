@@ -10,7 +10,7 @@ class ThemeManagerTests: XCTestCase {
     
     #if !os(watchOS)
         func testLatestColorStyle() throws {
-            XCTAssertEqual(ColorStyle.allCases.count, 211)
+            XCTAssertEqual(ColorStyle.allCases.count, 216)
         }
     
         func testPalette8() throws {

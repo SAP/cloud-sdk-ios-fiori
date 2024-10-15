@@ -411,10 +411,10 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
       Set / get current selection state for the chart view
       nil means no selection
       format: [seriesIndex: [categoryIndex]]?,
-      selectin mode: single, single selection: [0: [0]]
-      selectin mode: single, range selection: [0: [0,1,2,3,4,5,6]]
-      selectin mode: all, [0: [0], 1: [0]]
-      multiple seletion for donut: [0: [0], 2: [0], 4: [0]]
+      selection mode: single, single selection: [0: [0]]
+      selection mode: single, range selection: [0: [0,1,2,3,4,5,6]]
+      selection mode: all, [0: [0], 1: [0]]
+      multiple selection for donut: [0: [0], 2: [0], 4: [0]]
      */
     public var selections: [Int: [Int]]? {
         get {
@@ -1868,7 +1868,7 @@ public enum XAxisLabelsPosition: String {
 
 /// Enum for available selection modes.
 public enum ChartSelectionMode: String {
-    /// Only a range of category indices in one series selection is allowd
+    /// Only a range of category indices in one series selection is allowed
     case single
     
     /// Only one category index of all sereis selection is allowed

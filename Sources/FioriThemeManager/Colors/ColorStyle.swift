@@ -1641,8 +1641,8 @@ public enum ColorStyle: String, CaseIterable {
                                                     .neutralBackgroundTapState, .separator, .separatorOpaque,
                                                     .header, .headerBlended, .barTransparent, .contrastElement,
                                                     .footer, .cellBackground, .chrome, .chromeSecondary, .chart1, .chart2, .chart3, .chart4,
-                                                    .chart5, .chart6, .chart7, .chart8, .chart9, .chart10, .chart11,
-                                                    .stockUpStroke, .stockDownStroke, .map1, .map2, .map3, .map4,
+                                                    .chart5, .chart6, .chart7, .chart8, .chart9, .chart10, .chart11, .chart12,
+                                                    .stockUpStroke, .stockDownStroke, .chartBad, .chartCritical, .chartNeutral, .chartGood, .map1, .map2, .map3, .map4,
                                                     .map5, .map6, .map7, .map8, .map9, .map10, .customColor1, .customColor2, .customColor3, .customColor4, .customColor5, .customColor6,
                                                     .esriEdit, .jouleBrand, .jouleAccent1, .jouleAccent2, .jouleAccent3, .jouleGradient1, .jouleGradient2]
     #else

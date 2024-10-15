@@ -24,7 +24,7 @@ struct ObjectHeaderTestApp: View {
         }, status: {
             Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel))
         }, substatus: {
-            Text("High Hight excel")
+            Text("High High excel")
         }, detailImage: {
             Image("attachment009").resizable()
         }, detailContent: {
