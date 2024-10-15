@@ -527,7 +527,7 @@ public protocol OptionListPickerItemModel: OptionListPickerComponent {
 // sourcery: virtualPropSelectAll = "var selectAll: ((Bool) -> ())? = nil"
 // sourcery: virtualPropAllowsMultipleSelection = "var allowsMultipleSelection: Bool = false"
 // sourcery: virtualPropAllowsEmptySelection = "var allowsEmptySelection: Bool = false"
-public protocol OptionSearchListPickerItemModel: OptionListPickerComponent {
+public protocol SearchListPickerItemModel: OptionListPickerComponent {
     // sourcery: default.value = nil
     // sourcery: no_view
     var onTap: ((_ index: Int) -> Void)? { get }

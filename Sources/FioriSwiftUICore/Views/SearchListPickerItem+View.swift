@@ -1,7 +1,7 @@
 import SwiftUI
 import UIKit
 
-public extension OptionSearchListPickerItem {
+public extension SearchListPickerItem {
     /// create a list picker which used in FilterFeedbackBarItem
     /// - Parameters:
     ///   - value: Selected value indexs.
@@ -20,7 +20,7 @@ public extension OptionSearchListPickerItem {
     }
 }
 
-extension OptionSearchListPickerItem: View {
+extension SearchListPickerItem: View {
     public var body: some View {
         VStack(spacing: 0) {
             if allowsMultipleSelection {
@@ -96,7 +96,7 @@ extension OptionSearchListPickerItem: View {
 #Preview {
     VStack {
         Spacer()
-        OptionSearchListPickerItem(value: Binding<[Int]>(get: { [0, 1, 2] }, set: { print($0) }), valueOptions: ["Received", "Started", "Hold", "Transfer", "Completed", "Pending Review review", "Accepted", "Rejected"], hint: nil)
+        SearchListPickerItem(value: Binding<[Int]>(get: { [0, 1, 2] }, set: { print($0) }), valueOptions: ["Received", "Started", "Hold", "Transfer", "Completed", "Pending Review review", "Accepted", "Rejected"], hint: nil)
             .frame(width: 375)
         Spacer()
     }

@@ -2,7 +2,7 @@
 // DO NOT EDIT
 import SwiftUI
 
-public extension OptionSearchListPickerItemModel {
+public extension SearchListPickerItemModel {
     var onTap: ((_ index: Int) -> Void)? {
         return nil
     }

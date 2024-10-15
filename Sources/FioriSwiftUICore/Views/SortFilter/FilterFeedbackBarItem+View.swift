@@ -35,18 +35,6 @@ private extension View {
     }
 }
 
-/// Available OptionListPicker modes. Use this enum to define picker mode  to present.
-public enum OptionListPickerMode {
-    /// Decided by options count
-    case automatic
-    /// FilterFormCell
-    case filterFormCell
-    /// Menu
-    case menu
-    /// List
-    case list
-}
-
 struct FilterFeedbackMenuItem: View {
     @Binding var item: SortFilterItem.PickerItem
     var onUpdate: () -> Void
@@ -141,7 +129,7 @@ struct PickerMenuItem: View {
     }
     
     var body: some View {
-        switch self.item.listPickerMode {
+        switch self.item.displayMode {
         case .automatic:
             if self.item.valueOptions.count > 8 {
                 self.list
@@ -259,7 +247,7 @@ struct PickerMenuItem: View {
                     })
                     .buttonStyle(ApplyButtonStyle())
                 } components: {
-                    OptionSearchListPickerItem(value: self.$item.workingValue, valueOptions: self.item.valueOptions, hint: nil, allowsMultipleSelection: self.item.allowsMultipleSelection, allowsEmptySelection: self.item.allowsEmptySelection) { index in
+                    SearchListPickerItem(value: self.$item.workingValue, valueOptions: self.item.valueOptions, hint: nil, allowsMultipleSelection: self.item.allowsMultipleSelection, allowsEmptySelection: self.item.allowsEmptySelection) { index in
                         self.item.onTap(option: self.item.valueOptions[index])
                     } selectAll: { isAll in
                         self.item.selectAll(isAll)
@@ -476,7 +464,7 @@ struct ListPickerMenuItem: View {
                     })
                     .buttonStyle(ApplyButtonStyle())
                 } components: {
-                    OptionSearchListPickerItem(value: self.$item.workingValue, valueOptions: self.item.valueOptions, hint: nil, allowsMultipleSelection: self.item.allowsMultipleSelection, allowsEmptySelection: self.item.allowsEmptySelection) { index in
+                    SearchListPickerItem(value: self.$item.workingValue, valueOptions: self.item.valueOptions, hint: nil, allowsMultipleSelection: self.item.allowsMultipleSelection, allowsEmptySelection: self.item.allowsEmptySelection) { index in
                         self.item.onTap(option: self.item.valueOptions[index])
                     } selectAll: { isAll in
                         self.item.selectAll(isAll)

@@ -1,7 +1,7 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
-//TODO: Copy commented code to new file: `FioriSwiftUICore/Views/OptionSearchListPickerItem+View.swift`
-//TODO: Implement OptionSearchListPickerItem `View` body
+//TODO: Copy commented code to new file: `FioriSwiftUICore/Views/SearchListPickerItem+View.swift`
+//TODO: Implement SearchListPickerItem `View` body
 
 /// - Important: to make `@Environment` properties (e.g. `horizontalSizeClass`), internally accessible
 /// to extensions, add as sourcery annotation in `FioriSwiftUICore/Models/ModelDefinitions.swift`
@@ -13,21 +13,21 @@ import SwiftUI
 
 // FIXME: - Implement Fiori style definitions
 
-// FIXME: - Implement OptionSearchListPickerItem View body
+// FIXME: - Implement SearchListPickerItem View body
 
-extension OptionSearchListPickerItem: View {
+extension SearchListPickerItem: View {
     public var body: some View {
         <# View body #>
     }
 }
 
-// FIXME: - Implement OptionSearchListPickerItem specific LibraryContentProvider
+// FIXME: - Implement SearchListPickerItem specific LibraryContentProvider
 
 @available(iOS 14.0, macOS 11.0, *)
-struct OptionSearchListPickerItemLibraryContent: LibraryContentProvider {
+struct SearchListPickerItemLibraryContent: LibraryContentProvider {
     @LibraryContentBuilder
     var views: [LibraryItem] {
-        LibraryItem(OptionSearchListPickerItem(model: LibraryPreviewData.Person.laurelosborn),
+        LibraryItem(SearchListPickerItem(model: LibraryPreviewData.Person.laurelosborn),
                     category: .control)
     }
 }

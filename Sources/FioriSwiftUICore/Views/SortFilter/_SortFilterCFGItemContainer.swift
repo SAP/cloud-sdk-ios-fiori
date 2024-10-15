@@ -207,7 +207,7 @@ extension _SortFilterCFGItemContainer: View {
                     .foregroundColor(Color.preferredColor(.primaryLabel))
                 Spacer()
             }
-            OptionSearchListPickerItem(
+            SearchListPickerItem(
                 value: Binding<[Int]>(get: { self._items[r][c].listPicker.workingValue }, set: { self._items[r][c].listPicker.workingValue = $0 }),
                 valueOptions: self._items[r][c].listPicker.valueOptions,
                 onTap: { index in

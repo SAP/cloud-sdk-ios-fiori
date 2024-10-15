@@ -357,9 +357,21 @@ public extension SortFilterItem {
         public let icon: String?
         /// itemLayout is used when listPickerMode is filterFormCell, otherwise is ignored.
         public var itemLayout: OptionListPickerItemLayoutType = .fixed
-        public var listPickerMode: OptionListPickerMode = .automatic
+        public var displayMode: DisplayMode = .automatic
+
+        /// Available OptionListPicker modes. Use this enum to define picker mode  to present.
+        public enum DisplayMode {
+            /// Decided by options count
+            case automatic
+            /// FilterFormCell
+            case filterFormCell
+            /// Menu
+            case menu
+            /// List
+            case list
+        }
         
-        public init(id: String = UUID().uuidString, name: String, value: [Int], valueOptions: [String], allowsMultipleSelection: Bool, allowsEmptySelection: Bool, showsValueForSingleSelected: Bool = true, icon: String? = nil, itemLayout: OptionListPickerItemLayoutType = .fixed, listPickerMode: OptionListPickerMode = .automatic) {
+        public init(id: String = UUID().uuidString, name: String, value: [Int], valueOptions: [String], allowsMultipleSelection: Bool, allowsEmptySelection: Bool, showsValueForSingleSelected: Bool = true, icon: String? = nil, itemLayout: OptionListPickerItemLayoutType = .fixed, displayMode: DisplayMode = .automatic) {
             self.id = id
             self.name = name
             self.value = value
@@ -371,7 +383,7 @@ public extension SortFilterItem {
             self.showsValueForSingleSelected = showsValueForSingleSelected
             self.icon = icon
             self.itemLayout = itemLayout
-            self.listPickerMode = listPickerMode
+            self.displayMode = displayMode
         }
         
         mutating func onTap(option: String) {
