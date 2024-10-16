@@ -251,9 +251,15 @@ struct PickerMenuItem: View {
                         self.item.onTap(option: self.item.valueOptions[index])
                     } selectAll: { isAll in
                         self.item.selectAll(isAll)
+                    } updateSearchListPickerHeight: { height in
+                        self.detentHeight = height + 52 + 56 + 70
                     }
                     .padding(0)
+                    Spacer()
                 }
+                .frame(maxWidth: .infinity)
+                .frame(minWidth: UIDevice.current.userInterfaceIdiom != .phone ? 393 : nil)
+                .frame(height: UIDevice.current.userInterfaceIdiom != .phone ? self.detentHeight : nil)
                 .presentationDetents([.large])
             }
     }
@@ -420,59 +426,6 @@ struct SwitchMenuItem: View {
 //                SwitchPicker(value: $item.workingValue)
 //            }
 //        }
-    }
-}
-
-struct ListPickerMenuItem: View {
-    @Binding var item: SortFilterItem.ListPickerItem
-    var onUpdate: () -> Void
-    
-    @State var isSheetVisible = false
-
-    @State var detentHeight: CGFloat = 0
-    
-    public init(item: Binding<SortFilterItem.ListPickerItem>, onUpdate: @escaping () -> Void) {
-        self._item = item
-        self.onUpdate = onUpdate
-    }
-    
-    var body: some View {
-        FilterFeedbackBarItem(leftIcon: icon(name: self.item.icon, isVisible: true), title: self.item.label, rightIcon: Image(systemName: "chevron.down"), isSelected: self.item.isChecked)
-            .onTapGesture {
-                self.isSheetVisible.toggle()
-            }
-            .popover(isPresented: self.$isSheetVisible, attachmentAnchor: .point(.bottom)) {
-                CancellableResettableDialogNavigationForm {
-                    SortFilterItemTitle(title: self.item.name)
-                } cancelAction: {
-                    _Action(actionText: NSLocalizedString("Cancel", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
-                        self.item.cancel()
-                        self.isSheetVisible.toggle()
-                    })
-                    .buttonStyle(CancelButtonStyle())
-                } resetAction: {
-                    _Action(actionText: NSLocalizedString("Reset", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
-                        self.item.reset()
-                    })
-                    .buttonStyle(ResetButtonStyle())
-                    .disabled(self.item.isOriginal)
-                } applyAction: {
-                    _Action(actionText: NSLocalizedString("Apply", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
-                        self.item.apply()
-                        self.onUpdate()
-                        self.isSheetVisible.toggle()
-                    })
-                    .buttonStyle(ApplyButtonStyle())
-                } components: {
-                    SearchListPickerItem(value: self.$item.workingValue, valueOptions: self.item.valueOptions, hint: nil, allowsMultipleSelection: self.item.allowsMultipleSelection, allowsEmptySelection: self.item.allowsEmptySelection) { index in
-                        self.item.onTap(option: self.item.valueOptions[index])
-                    } selectAll: { isAll in
-                        self.item.selectAll(isAll)
-                    }
-                    .padding(0)
-                }
-                .presentationDetents([.large])
-            }
     }
 }
 

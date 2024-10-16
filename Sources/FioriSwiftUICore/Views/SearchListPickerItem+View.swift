@@ -11,12 +11,14 @@ public extension SearchListPickerItem {
     ///   - allowsEmptySelection: A boolean value to indicate to allow empty selection or not.
     ///   - onTap: The closure when tap on item.
     ///   - selectAll: The closure when click 'Select All' button.
-    init(value: Binding<[Int]>, valueOptions: [String] = [], hint: String? = nil, allowsMultipleSelection: Bool, allowsEmptySelection: Bool, onTap: ((_ index: Int) -> Void)? = nil, selectAll: ((_ isAll: Bool) -> Void)? = nil) {
+    ///   - updateSearchListPickerHeight: The closure to update the parent view.
+    init(value: Binding<[Int]>, valueOptions: [String] = [], hint: String? = nil, allowsMultipleSelection: Bool, allowsEmptySelection: Bool, onTap: ((_ index: Int) -> Void)? = nil, selectAll: ((_ isAll: Bool) -> Void)? = nil, updateSearchListPickerHeight: ((CGFloat) -> Void)? = nil) {
         self.init(value: value, valueOptions: valueOptions, hint: hint, onTap: onTap)
         
         self.allowsMultipleSelection = allowsMultipleSelection
         self.allowsEmptySelection = allowsEmptySelection
         self.selectAll = selectAll
+        self.updateSearchListPickerHeight = updateSearchListPickerHeight
     }
 }
 
@@ -57,8 +59,29 @@ extension SearchListPickerItem: View {
                     }
                 }
             }
+            .modifier(FioriIntrospectModifier<UIScrollView> { scrollView in
+                DispatchQueue.main.async {
+                    let popverHeight = Screen.bounds.size.height - StatusBar.height
+                    let totalSpacing: CGFloat = (UIDevice.current.userInterfaceIdiom == .pad ? 8 : 16) * 2
+                    let totalPadding: CGFloat = (UIDevice.current.userInterfaceIdiom == .pad ? 13 : 16) * 2
+                    let maxScrollViewHeight = popverHeight - totalSpacing - totalPadding - 52 - 56 - 120
+                    
+                    self._height = UIDevice.current.userInterfaceIdiom != .phone ? min(scrollView.contentSize.height, 396) : min(min(scrollView.contentSize.height, maxScrollViewHeight), 396)
+                    var isSelectAllViewShow = false
+                    if allowsMultipleSelection {
+                        if _value.count != _valueOptions.count || allowsEmptySelection {
+                            isSelectAllViewShow = true
+                        }
+                    } else if _value.count == _valueOptions.count {
+                        isSelectAllViewShow = true
+                    }
+                    updateSearchListPickerHeight?(isSelectAllViewShow ? self._height + 44 : self._height)
+                }
+            })
             .listStyle(PlainListStyle())
             .frame(maxWidth: .infinity)
+            .frame(minWidth: UIDevice.current.userInterfaceIdiom != .phone ? 393 : nil)
+            .frame(height: self._height)
             .scrollContentBackground(.hidden)
             .padding(0)
             .searchable(text: $_searchText, placement: .automatic)

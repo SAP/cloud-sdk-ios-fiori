@@ -57,17 +57,20 @@ extension OptionListPickerItem: View {
                     }
                 }
             }
+            .background(
+                GeometryReader { geometry in
+                    Color.clear
+                        .onAppear {
+                            let popverHeight = Screen.bounds.size.height - StatusBar.height
+                            let totalSpacing: CGFloat = (UIDevice.current.userInterfaceIdiom == .pad ? 8 : 16) * 2
+                            let totalPadding: CGFloat = (UIDevice.current.userInterfaceIdiom == .pad ? 13 : 16) * 2
+                            let maxScrollViewHeight = popverHeight - totalSpacing - totalPadding - 120
+                            self._height = min(geometry.size.height, maxScrollViewHeight)
+                        }
+                }
+            )
         }
         .frame(height: _height)
-        .modifier(FioriIntrospectModifier<UIScrollView>(introspection: { scrollView in
-            DispatchQueue.main.async {
-                let popverHeight = Screen.bounds.size.height - StatusBar.height
-                let totalSpacing: CGFloat = (UIDevice.current.userInterfaceIdiom == .pad ? 8 : 16) * 2
-                let totalPadding: CGFloat = (UIDevice.current.userInterfaceIdiom == .pad ? 13 : 16) * 2
-                let maxScrollViewHeight = popverHeight - totalSpacing - totalPadding - 120
-                self._height = min(scrollView.contentSize.height, maxScrollViewHeight)
-            }
-        }))
     }
     
     private func generateFlexibleContent() -> some View {
@@ -84,17 +87,20 @@ extension OptionListPickerItem: View {
                     }
                 }
             }
+            .background(
+                GeometryReader { geometry in
+                    Color.clear
+                        .onAppear {
+                            let popverHeight = Screen.bounds.size.height - StatusBar.height
+                            let totalSpacing: CGFloat = (UIDevice.current.userInterfaceIdiom == .pad ? 8 : 16) * 2
+                            let totalPadding: CGFloat = (UIDevice.current.userInterfaceIdiom == .pad ? 13 : 16) * 2
+                            let maxScrollViewHeight = popverHeight - totalSpacing - totalPadding - 120
+                            self._height = min(geometry.size.height, maxScrollViewHeight)
+                        }
+                }
+            )
         }
         .frame(height: _height)
-        .modifier(FioriIntrospectModifier<UIScrollView>(introspection: { scrollView in
-            DispatchQueue.main.async {
-                let popverHeight = Screen.bounds.size.height - StatusBar.height
-                let totalSpacing: CGFloat = (UIDevice.current.userInterfaceIdiom == .pad ? 8 : 16) * 2
-                let totalPadding: CGFloat = (UIDevice.current.userInterfaceIdiom == .pad ? 13 : 16) * 2
-                let maxScrollViewHeight = popverHeight - totalSpacing - totalPadding - 120
-                self._height = min(scrollView.contentSize.height, maxScrollViewHeight)
-            }
-        }))
     }
 }
 

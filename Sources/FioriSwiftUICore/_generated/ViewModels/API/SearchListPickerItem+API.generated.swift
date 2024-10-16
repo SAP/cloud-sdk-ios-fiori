@@ -9,12 +9,13 @@ public struct SearchListPickerItem {
 	var _valueOptions: [String]
 	var _hint: String? = nil
 	var _onTap: ((_ index: Int) -> Void)? = nil
-	var allowsMultipleSelection: Bool = false
 	@State var _searchText: String = ""
 	var allowsEmptySelection: Bool = false
-	@State var _searchViewCornerRadius: CGFloat = 18
 	var selectAll: ((Bool) -> ())? = nil
-	@State var _height: CGFloat = 0
+	@State var _height: CGFloat = 44
+	var allowsMultipleSelection: Bool = false
+	var updateSearchListPickerHeight: ((CGFloat) -> ())? = nil
+	@State var _searchViewCornerRadius: CGFloat = 18
     public init(model: SearchListPickerItemModel) {
         self.init(value: Binding<[Int]>(get: { model.value }, set: { model.value = $0 }), valueOptions: model.valueOptions, hint: model.hint, onTap: model.onTap)
     }
