@@ -26,6 +26,7 @@
 		1FF3662E264C662A00AB8BD8 /* DimensionSelector+Chart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF3662D264C662A00AB8BD8 /* DimensionSelector+Chart.swift */; };
 		3B62AB7E2C0EE257003262EB /* EditableSideBarExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B62AB7C2C0EE257003262EB /* EditableSideBarExample.swift */; };
 		3C180C282B858CF6007CE79A /* IllustratedMessageExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C180C272B858CF6007CE79A /* IllustratedMessageExample.swift */; };
+		3CC870962CB6F4F30081909C /* ToastMessageExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC870952CB6F4F30081909C /* ToastMessageExample.swift */; };
 		6432FFA02C5164F8008ECE89 /* SegmentedControlExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6432FF9F2C5164F8008ECE89 /* SegmentedControlExample.swift */; };
 		64905D072C6D13E20062AAD4 /* SwitchExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64905D062C6D13E20062AAD4 /* SwitchExample.swift */; };
 		64905D092C7693970062AAD4 /* DateTimePickerExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64905D082C7693970062AAD4 /* DateTimePickerExample.swift */; };
@@ -237,6 +238,7 @@
 		1FF3662D264C662A00AB8BD8 /* DimensionSelector+Chart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DimensionSelector+Chart.swift"; sourceTree = "<group>"; };
 		3B62AB7C2C0EE257003262EB /* EditableSideBarExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditableSideBarExample.swift; sourceTree = "<group>"; };
 		3C180C272B858CF6007CE79A /* IllustratedMessageExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IllustratedMessageExample.swift; sourceTree = "<group>"; };
+		3CC870952CB6F4F30081909C /* ToastMessageExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastMessageExample.swift; sourceTree = "<group>"; };
 		6432FF9F2C5164F8008ECE89 /* SegmentedControlExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedControlExample.swift; sourceTree = "<group>"; };
 		64905D062C6D13E20062AAD4 /* SwitchExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchExample.swift; sourceTree = "<group>"; };
 		64905D082C7693970062AAD4 /* DateTimePickerExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTimePickerExample.swift; sourceTree = "<group>"; };
@@ -512,6 +514,14 @@
 			path = IllustratedMessage;
 			sourceTree = "<group>";
 		};
+		3CC870942CB6F4E20081909C /* ToastMessage */ = {
+			isa = PBXGroup;
+			children = (
+				3CC870952CB6F4F30081909C /* ToastMessageExample.swift */,
+			);
+			path = ToastMessage;
+			sourceTree = "<group>";
+		};
 		691DE21725F2A2F000094D4A /* KPI */ = {
 			isa = PBXGroup;
 			children = (
@@ -616,6 +626,7 @@
 		8A5579C824C1293C0098003A /* FioriSwiftUICore */ = {
 			isa = PBXGroup;
 			children = (
+				3CC870942CB6F4E20081909C /* ToastMessage */,
 				B1F384302C815A410090A858 /* AvatarStack */,
 				8732C2C32C35092D002110E9 /* Timeline */,
 				B19006582C201BAC000C8B10 /* ProfileHeader */,
@@ -1097,6 +1108,7 @@
 				B100639329C0624D00AF0CA2 /* StepProgressIndicatorExample.swift in Sources */,
 				1F1A1FFA2C0BDA54007109D8 /* MenuSelectionExample.swift in Sources */,
 				B846F94626815CC90085044B /* ContactItemExample.swift in Sources */,
+				3CC870962CB6F4F30081909C /* ToastMessageExample.swift in Sources */,
 				8A5579CC24C1293C0098003A /* SettingsColorForCategory.swift in Sources */,
 				6D6E866B2C5238A000EDB6F4 /* MultiLoadingButtonStatusChangeExample.swift in Sources */,
 				C18868D12B32535100F865F7 /* SearchFontAndColor.swift in Sources */,
