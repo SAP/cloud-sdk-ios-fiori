@@ -90,8 +90,8 @@ extension BannerMessageFioriStyle {
         let bannerMessageConfiguration: BannerMessageConfiguration
         
         func makeBody(_ configuration: IconConfiguration) -> some View {
-            configuration.icon
-                .foregroundStyle(BannerMessageFioriStyle.titleForegroundColor(type: self.bannerMessageConfiguration.messageType))
+            Icon(configuration)
+                .foregroundStyle(Color.preferredColor(.negativeLabel))
         }
     }
 
@@ -99,8 +99,8 @@ extension BannerMessageFioriStyle {
         let bannerMessageConfiguration: BannerMessageConfiguration
         
         func makeBody(_ configuration: TitleConfiguration) -> some View {
-            configuration.title
-                .foregroundStyle(BannerMessageFioriStyle.titleForegroundColor(type: self.bannerMessageConfiguration.messageType))
+            Title(configuration)
+                .foregroundStyle(Color.preferredColor(.negativeLabel))
                 .font(.fiori(forTextStyle: .footnote))
         }
     }
