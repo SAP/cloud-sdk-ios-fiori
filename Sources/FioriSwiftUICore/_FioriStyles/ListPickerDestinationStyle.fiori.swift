@@ -293,7 +293,188 @@ public extension ListPickerDestination {
     }
 }
 
-public struct ListPickerDestinationContent<Data: RandomAccessCollection, ID: Hashable, RowContent: View>: View {
+// MARK: - Grouped Initializer
+
+public extension ListPickerDestination {
+    /// Create a destination for `ListPickerItem` with grouped sections. Need Data.Element is a `ListPickerSectionModel`
+    /// - Parameters:
+    ///   - data: The data for constructing the list picker.
+    ///   - id: The key path to the data model's unique identifier.
+    ///   - children: The key path to the optional property of a data element whose value indicates the children of that element.
+    ///   - selections: A binding to a set which stores the selected items.
+    ///   - isTrackingLiveChanges: A boolean value to indicate to track the changes live or not.
+    ///   - searchFilter: The closure to filter the `data` in searching process. Request a boolean by the element and the filter key.
+    ///   - rowContent: The view builder which returns the content of each row in the list picker.
+    init<Data: RandomAccessCollection, ID: Hashable>(
+        _ data: Data,
+        id: KeyPath<Data.Element.Data.Element, ID>,
+        children: KeyPath<Data.Element.Data.Element, Data.Element.Data?>? = nil,
+        selection: Binding<ID?>,
+        isTrackingLiveChanges: Bool = true,
+        searchFilter: ((Data.Element.Data.Element, String) -> Bool)? = nil,
+        @ViewBuilder rowContent: @escaping (Data.Element.Data.Element) -> some View
+    ) where Data.Element: ListPickerSectionModel {
+        let s = Binding<Set<ID>>(get: {
+            if let s = selection.wrappedValue {
+                [s]
+            } else {
+                []
+            }
+        }, set: {
+            selection.wrappedValue = $0.first
+        })
+        let content = ListPickerDestinationContent(
+            data.map { ($0.title, $0.items) },
+            id: id,
+            children: children,
+            selections: s,
+            isSingleSelection: true,
+            allowEmpty: true,
+            isTrackingLiveChanges: isTrackingLiveChanges,
+            searchFilter: searchFilter,
+            rowContent: rowContent
+        )
+        self.init {
+            FioriButton { _ in Text("Cancel".localizedFioriString()) }
+        } listPickerContent: {
+            content
+        }
+    }
+    
+    /// Create a destination for `ListPickerItem` with grouped sections. Need Data.Element is a `ListPickerSectionModel`
+    /// - Parameters:
+    ///   - data: The data for constructing the list picker.
+    ///   - id: The key path to the data model's unique identifier.
+    ///   - children: The key path to the optional property of a data element whose value indicates the children of that element.
+    ///   - selection: A binding to an ID which stores the selected items.
+    ///   - isTrackingLiveChanges: A boolean value to indicate to track the changes live or not.
+    ///   - searchFilter: The closure to filter the `data` in searching process. Request a boolean by the element and the filter key.
+    ///   - rowContent: The view builder which returns the content of each row in the list picker.
+    init<Data: RandomAccessCollection, ID: Hashable>(
+        _ data: Data,
+        id: KeyPath<Data.Element.Data.Element, ID>,
+        children: KeyPath<Data.Element.Data.Element, Data.Element.Data?>? = nil,
+        selection: Binding<ID>,
+        isTrackingLiveChanges: Bool = true,
+        searchFilter: ((Data.Element.Data.Element, String) -> Bool)? = nil,
+        @ViewBuilder rowContent: @escaping (Data.Element.Data.Element) -> some View
+    ) where Data.Element: ListPickerSectionModel {
+        let s = Binding(get: {
+            Set([selection.wrappedValue])
+        }, set: {
+            if let s = $0.first {
+                selection.wrappedValue = s
+            } else {
+                fatalError("Selection should not be empty.")
+            }
+        })
+        
+        let content = ListPickerDestinationContent(
+            data.map { ($0.title, $0.items) },
+            id: id,
+            children: children,
+            selections: s,
+            isSingleSelection: true,
+            allowEmpty: false,
+            isTrackingLiveChanges: isTrackingLiveChanges,
+            searchFilter: searchFilter,
+            rowContent: rowContent
+        )
+        self.init {
+            FioriButton { _ in Text("Cancel".localizedFioriString()) }
+        } listPickerContent: {
+            content
+        }
+    }
+    
+    /// Create a destination for `ListPickerItem` with grouped sections. Need Data.Element is a `ListPickerSectionModel`
+    /// - Parameters:
+    ///   - data: The data for constructing the list picker.
+    ///   - id: The key path to the data model's unique identifier.
+    ///   - children: The key path to the optional property of a data element whose value indicates the children of that element.
+    ///   - selections: A binding to a set which stores the selected items.
+    ///   - isTrackingLiveChanges: A boolean value to indicate to track the changes live or not.
+    ///   - searchFilter: The closure to filter the `data` in searching process. Request a boolean by the element and the filter key.
+    ///   - rowContent: The view builder which returns the content of each row in the list picker.
+    init<Data: RandomAccessCollection, ID: Hashable>(
+        _ data: Data,
+        id: KeyPath<Data.Element.Data.Element, ID>,
+        children: KeyPath<Data.Element.Data.Element, Data.Element.Data?>? = nil,
+        selections: Binding<Set<ID>?>,
+        isTrackingLiveChanges: Bool = true,
+        searchFilter: ((Data.Element.Data.Element, String) -> Bool)? = nil,
+        @ViewBuilder rowContent: @escaping (Data.Element.Data.Element) -> some View
+    ) where Data.Element: ListPickerSectionModel {
+        let s = Binding(get: {
+            selections.wrappedValue ?? []
+        }, set: {
+            selections.wrappedValue = $0
+        })
+        let content = ListPickerDestinationContent(
+            data.map { ($0.title, $0.items) },
+            id: id,
+            children: children,
+            selections: s,
+            isSingleSelection: false,
+            allowEmpty: true,
+            isTrackingLiveChanges: isTrackingLiveChanges,
+            searchFilter: searchFilter,
+            rowContent: rowContent
+        )
+        self.init {
+            FioriButton { _ in Text("Cancel".localizedFioriString()) }
+        } listPickerContent: {
+            content
+        }
+    }
+    
+    /// Create a destination for `ListPickerItem` with grouped sections. Need Data.Element is a `ListPickerSectionModel`
+    /// - Parameters:
+    ///   - data: The data for constructing the list picker.
+    ///   - id: The key path to the data model's unique identifier.
+    ///   - children: The key path to the optional property of a data element whose value indicates the children of that element.
+    ///   - selections: A binding to a set which stores the non-optional selected items.
+    ///   - allowEmpty: A boolean value to indicate to allow empty selections.
+    ///   - isTrackingLiveChanges: A boolean value to indicate to track the changes live or not.
+    ///   - searchFilter: The closure to filter the `data` in searching process. Request a boolean by the element and the filter key.
+    ///   - rowContent: The view builder which returns the content of each row in the list picker.
+    init<Data: RandomAccessCollection, ID: Hashable>(
+        _ data: Data,
+        id: KeyPath<Data.Element.Data.Element, ID>,
+        children: KeyPath<Data.Element.Data.Element, Data.Element.Data?>? = nil,
+        selections: Binding<Set<ID>>,
+        allowEmpty: Bool = true,
+        isTrackingLiveChanges: Bool = true,
+        searchFilter: ((Data.Element.Data.Element, String) -> Bool)? = nil,
+        @ViewBuilder rowContent: @escaping (Data.Element.Data.Element) -> some View
+    ) where Data.Element: ListPickerSectionModel {
+        let content = ListPickerDestinationContent(
+            data.map { ($0.title, $0.items) },
+            id: id,
+            children: children,
+            selections: selections,
+            isSingleSelection: false,
+            allowEmpty: allowEmpty,
+            isTrackingLiveChanges: isTrackingLiveChanges,
+            searchFilter: searchFilter,
+            rowContent: rowContent
+        )
+        self.init {
+            FioriButton { _ in Text("Cancel".localizedFioriString()) }
+        } listPickerContent: {
+            content
+        }
+    }
+}
+
+/// Grouped sections data model for `ListPickerDestination`.
+public protocol ListPickerSectionModel {
+    associatedtype Data: RandomAccessCollection
+    var title: String { get }
+    var items: Data { get }
+}
+
+struct ListPickerDestinationContent<Data: RandomAccessCollection, ID: Hashable, RowContent: View>: View {
     @Environment(\.dismiss) var dismiss
     @Environment(\.listPickerDestinationConfiguration) var destinationConfiguration
     @Environment(\.disableEntriesSection) var disableEntriesSection
@@ -303,8 +484,9 @@ public struct ListPickerDestinationContent<Data: RandomAccessCollection, ID: Has
     private var isSingleSelection: Bool
     private var allowEmpty: Bool
     private var isTopLevel: Bool
-
-    let data: Data
+    typealias SectionData = [(title: String, items: Data)]
+    
+    let data: SectionData
     let id: KeyPath<Data.Element, ID>
     let children: KeyPath<Data.Element, Data?>?
     let rowContent: (Data.Element) -> RowContent
@@ -317,6 +499,36 @@ public struct ListPickerDestinationContent<Data: RandomAccessCollection, ID: Has
     @State var searchText = ""
     @State var confirmationSelections: Bool = false
     
+    init(_ sections: SectionData,
+         id: KeyPath<Data.Element, ID>,
+         children: KeyPath<Data.Element, Data?>?,
+         selections: Binding<Set<ID>>,
+         isSingleSelection: Bool,
+         allowEmpty: Bool,
+         isTrackingLiveChanges: Bool,
+         searchFilter: ((Data.Element, String) -> Bool)?,
+         isTopLevel: Bool = true,
+         @ViewBuilder rowContent: @escaping (Data.Element) -> RowContent)
+    {
+        self.data = sections
+        self.id = id
+        self.children = children
+        _selections = selections
+        self.isSingleSelection = isSingleSelection
+        self.allowEmpty = allowEmpty
+        self.isTrackingLiveChanges = isTrackingLiveChanges
+        self.searchFilter = searchFilter
+        
+        self.isTopLevel = isTopLevel
+        self.rowContent = rowContent
+                
+        if !isTrackingLiveChanges {
+            _selectionsPool = State(initialValue: selections.wrappedValue)
+        } else {
+            _selectionsPool = State(initialValue: [])
+        }
+    }
+    
     init(_ data: Data,
          id: KeyPath<Data.Element, ID>,
          children: KeyPath<Data.Element, Data?>?,
@@ -328,7 +540,7 @@ public struct ListPickerDestinationContent<Data: RandomAccessCollection, ID: Has
          isTopLevel: Bool = true,
          @ViewBuilder rowContent: @escaping (Data.Element) -> RowContent)
     {
-        self.data = data
+        self.data = [("", data)]
         self.id = id
         self.children = children
         _selections = selections
@@ -347,7 +559,7 @@ public struct ListPickerDestinationContent<Data: RandomAccessCollection, ID: Has
         }
     }
 
-    public var body: some View {
+    var body: some View {
         Group {
             if self.searchFilter != nil {
                 self.listContent()
@@ -426,63 +638,85 @@ public struct ListPickerDestinationContent<Data: RandomAccessCollection, ID: Has
                 }.textCase(.none)
             }
             
-            Section {
-                ForEach(self.filteredDataOnPage(), id: self.id) { element in
-                    Group {
-                        let id_value = element[keyPath: id]
-                        if let children, let childrenData = element[keyPath: children] {
-                            ListPickerItem {
-                                self.rowContent(element)
-                            } value: {
-                                EmptyView()
-                            } destination: {
-                                ListPickerDestinationContent(childrenData,
-                                                             id: self.id,
-                                                             children: children,
-                                                             selections: self.isTrackingLiveChanges ? self.$selections : self.$selectionsPool,
-                                                             isSingleSelection: self.isSingleSelection,
-                                                             allowEmpty: self.allowEmpty,
-                                                             isTrackingLiveChanges: true,
-                                                             searchFilter: self.searchFilter,
-                                                             isTopLevel: false,
-                                                             rowContent: self.rowContent)
-                            }
-                        } else {
+            let filteredData = self.filteredSectionDataOnPage()
+            
+            if !(self.data.first?.title.isEmpty ?? true) {
+                // grouped sections, no sdk header support
+                ForEach(0 ..< filteredData.count, id: \.self) { index in
+                    Section {
+                        self.generateSection(by: filteredData[index].1)
+                    } header: {
+                        Text(filteredData[index].0)
+                    }.textCase(.none)
+                }
+            } else {
+                // single section
+                if let items = filteredData.first?.1 {
+                    Section {
+                        self.generateSection(by: items)
+                    } header: {
+                        if !self.allEntriesHeaderIsEmpty(), !self.isSingleSelection {
                             HStack {
-                                self.rowContent(element)
-                                Spacer().frame(minWidth: 0)
-                                if self.isItemSelected(id_value) {
-                                    Image(systemName: "checkmark")
-                                        .foregroundColor(.preferredColor(.tintColor))
+                                self.destinationConfiguration?.allEntriesSectionTitle
+                                Spacer()
+                                let selectionsCount = self.isTrackingLiveChanges ? self.selections.count : self.selectionsPool.count
+                                if self.flattenData(data: self.data).count == selectionsCount {
+                                    self.destinationConfiguration?.deselectAllAction
+                                        .onSimultaneousTapGesture {
+                                            self.deselectAll()
+                                        }
+                                } else {
+                                    self.destinationConfiguration?.selectAllAction
+                                        .onSimultaneousTapGesture {
+                                            self.selectAll()
+                                        }
                                 }
                             }
-                            .contentShape(Rectangle())
-                            .onTapGesture {
-                                self.handleSelections(id_value)
-                            }
                         }
-                    }
+                    }.textCase(.none)
+                } else {
+                    EmptyView()
                 }
-            } header: {
-                if !self.allEntriesHeaderIsEmpty(), !self.isSingleSelection {
+            }
+        }
+    }
+        
+    @ViewBuilder func generateSection(by serialData: [Data.Element]) -> some View {
+        ForEach(serialData, id: self.id) { element in
+            Group {
+                let id_value = element[keyPath: id]
+                if let children, let childrenData = element[keyPath: children] {
+                    ListPickerItem {
+                        self.rowContent(element)
+                    } value: {
+                        EmptyView()
+                    } destination: {
+                        ListPickerDestinationContent(childrenData,
+                                                     id: self.id,
+                                                     children: children,
+                                                     selections: self.isTrackingLiveChanges ? self.$selections : self.$selectionsPool,
+                                                     isSingleSelection: self.isSingleSelection,
+                                                     allowEmpty: self.allowEmpty,
+                                                     isTrackingLiveChanges: true,
+                                                     searchFilter: self.searchFilter,
+                                                     isTopLevel: false,
+                                                     rowContent: self.rowContent)
+                    }
+                } else {
                     HStack {
-                        self.destinationConfiguration?.allEntriesSectionTitle
-                        Spacer()
-                        let selectionsCount = self.isTrackingLiveChanges ? self.selections.count : self.selectionsPool.count
-                        if self.flattenData(data: self.data).count == selectionsCount {
-                            self.destinationConfiguration?.deselectAllAction
-                                .onSimultaneousTapGesture {
-                                    self.deselectAll()
-                                }
-                        } else {
-                            self.destinationConfiguration?.selectAllAction
-                                .onSimultaneousTapGesture {
-                                    self.selectAll()
-                                }
+                        self.rowContent(element)
+                        Spacer().frame(minWidth: 0)
+                        if self.isItemSelected(id_value) {
+                            Image(systemName: "checkmark")
+                                .foregroundColor(.preferredColor(.tintColor))
                         }
                     }
+                    .contentShape(Rectangle())
+                    .onTapGesture {
+                        self.handleSelections(id_value)
+                    }
                 }
-            }.textCase(.none)
+            }
         }
     }
     
@@ -510,24 +744,32 @@ public struct ListPickerDestinationContent<Data: RandomAccessCollection, ID: Has
         return self.flattenData(data: self.data).filter { s.contains($0[keyPath: self.id]) }
     }
 
-    func flattenData(data: Data) -> [Data.Element] {
-        data.flatMap { element in
+    func flattenData(data: SectionData) -> [Data.Element] {
+        data.flatMap(\.items).flatMap { element in
             if let children, let childrenData = element[keyPath: children] {
-                return self.flattenData(data: childrenData)
+                return self.flattenData(data: [("", childrenData)])
             } else {
                 return [element]
             }
         }
     }
     
-    func filteredDataOnPage() -> [Data.Element] {
-        self.data.filter { element in
-            if let searchFilter, !searchText.isEmpty {
-                return searchFilter(element, self.searchText)
-            } else {
-                return true
+    func filteredSectionDataOnPage() -> [(String, [Data.Element])] {
+        var filteredResult = [(String, [Data.Element])]()
+        
+        for sectionData in self.data {
+            let filteredValues = sectionData.items.filter { element in
+                if let searchFilter, !searchText.isEmpty {
+                    return searchFilter(element, self.searchText)
+                } else {
+                    return true
+                }
+            }
+            if !filteredValues.isEmpty {
+                filteredResult.append((sectionData.title, filteredValues))
             }
         }
+        return filteredResult
     }
     
     func isItemSelected(_ idValue: ID) -> Bool {
@@ -601,7 +843,7 @@ public struct ListPickerDestinationContent<Data: RandomAccessCollection, ID: Has
     }
 }
 
-public extension ListPickerDestinationContent {
+extension ListPickerDestinationContent {
     /// As content for `ListPickerDestination`
     init(_ data: Data,
          id: KeyPath<Data.Element, ID>,

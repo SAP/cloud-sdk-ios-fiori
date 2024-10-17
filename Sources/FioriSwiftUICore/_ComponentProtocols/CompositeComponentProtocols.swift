@@ -589,6 +589,27 @@ protocol _AvatarStackComponent: _AvatarsComponent, _AvatarsTitleComponent {}
 ///         })
 ///     }
 /// }
+///
+/// // If you want grouped different sections, the protocol `ListPickerSectionModel` is need be implemented for your element of data.
+///
+/// struct ListPickerSection: ListPickerSectionModel {}
+/// let data = [ListPickerSection(title: "Section 1", items: ["first", "second", "third"]),
+///             ListPickerSection(title: "Section 2", items: ["apple", "banana", "orange"])]
+/// var body: some View {
+///     ListPickerItem(title: {
+///         Text("title")
+///     }, value: {
+///         Text("value")
+///     }, axis: .vertical) {
+///         ListPickerDestination(data,
+///                               id: \.self,
+///                               selection: $selection,
+///                               isTrackingLiveChanges: true,
+///                               searchFilter: { f, s in f.contains(s) }, rowContent: {
+///             Text($0)
+///         })
+///     }
+/// }
 /// ```
 // sourcery: CompositeComponent
 protocol _ListPickerItemComponent: _TitleComponent, _ValueComponent {

@@ -1,17 +1,37 @@
 import FioriSwiftUICore
 import SwiftUI
 
+struct ListPickerGroupedItem: ListPickerSectionModel {
+    let title: String
+    let items: [String]
+}
+
 struct ListPickerItemExample: View {
+    enum DataType {
+        case text
+        case frameworks
+        case object
+        case grouped
+    }
+    
     private let model = ListPickerItemDataModel.data
     private let stringsModel = ["First", "Second", "Third", "Fourth", "Fifth"]
     
+    private let groupedModel = [
+        ListPickerGroupedItem(title: "Fruit", items: ["Apple", "Banana", "Orange", "PineApple"]),
+        ListPickerGroupedItem(title: "Number", items: ["First", "Second", "Third", "Fourth", "Fifth"])
+    ]
+    
     @State var selections: Set<String> = []
     @State var selection: String? = nil
-    
     @State var noneEmptySelection: String = "UIKit"
+    
+    @State var uuidSelections: Set<UUID> = []
+    @State var uuidSelection: UUID? = nil
+    @State var uuidNoneEmptySelection: UUID = .init()
 
     @State var axis: Axis = .horizontal
-    @State var useSimpleModel: Bool = false
+    @State var dataType: DataType = .text
     
     @State var multiSelections: Bool = false
     @State var isTrackingLiveChanges: Bool = false
@@ -63,10 +83,21 @@ struct ListPickerItemExample: View {
                         .listStyle(.plain)
                     }
             })
-            .onChange(of: self.useSimpleModel) { _ in
+            .onChange(of: self.dataType) { _ in
                 self.selections.removeAll()
+                self.uuidSelections.removeAll()
                 self.selection = nil
-                self.noneEmptySelection = self.useSimpleModel ? "First" : "UIKit"
+                switch self.dataType {
+                case .text:
+                    self.noneEmptySelection = "First"
+                case .frameworks:
+                    self.noneEmptySelection = "UIKit"
+                case .object:
+                    self.uuidNoneEmptySelection = UUID()
+                    self.noneEmptySelection = "UIKit"
+                case .grouped:
+                    self.noneEmptySelection = "PineApple"
+                }
             }
             
             Section("Pannel") {
@@ -75,7 +106,12 @@ struct ListPickerItemExample: View {
                     Text("Vertical").tag(Axis.vertical)
                 }
                 
-                Toggle("Use simple model", isOn: self.$useSimpleModel)
+                Picker("Data Type", selection: self.$dataType) {
+                    Text("Text").tag(DataType.text)
+                    Text("Frameworks").tag(DataType.frameworks)
+                    Text("Object").tag(DataType.object)
+                    Text("Grouped").tag(DataType.grouped)
+                }
                 
                 Toggle("Multi Selections", isOn: self.$multiSelections)
                 
@@ -96,19 +132,45 @@ struct ListPickerItemExample: View {
     
     @ViewBuilder var valueView: some View {
         if self.multiSelections {
-            let str = Array(selections).joined(separator: ", ")
-            Text(str)
-        } else {
-            if self.allowEmpty {
-                Text(self.selection ?? "No Selection")
+            if self.dataType == .object {
+                let str = Array(uuidSelections).compactMap { uuid in
+                    if let framework = ListPickerItemDataModel.getFramwork(with: uuid) {
+                        return framework.name
+                    }
+                    
+                    return nil
+                }.joined(separator: ", ")
+                Text(str)
             } else {
-                Text(self.noneEmptySelection)
+                let str = Array(selections).joined(separator: ", ")
+                Text(str)
+            }
+        } else {
+            if self.dataType == .object {
+                if self.allowEmpty {
+                    if let uuid = uuidSelection {
+                        let framework = ListPickerItemDataModel.getFramwork(with: uuid)
+                        Text(framework?.name ?? "No Selection")
+                    } else {
+                        Text("No Selection")
+                    }
+                } else {
+                    let framework = ListPickerItemDataModel.getFramwork(with: self.uuidNoneEmptySelection)
+                    Text(framework?.name ?? "Wrong UUID")
+                }
+            } else {
+                if self.allowEmpty {
+                    Text(self.selection ?? "No Selection")
+                } else {
+                    Text(self.noneEmptySelection)
+                }
             }
         }
     }
     
     @ViewBuilder var destinationView: some View {
-        if self.useSimpleModel {
+        switch self.dataType {
+        case .text:
             let filter: (String, String) -> Bool = { f, s in f.contains(s) }
             if self.multiSelections {
                 ListPickerDestination(self.stringsModel,
@@ -116,7 +178,7 @@ struct ListPickerItemExample: View {
                                       selections: self.$selections,
                                       allowEmpty: self.allowEmpty,
                                       isTrackingLiveChanges: self.isTrackingLiveChanges,
-                                      searchFilter: self.allowSearch ? { f, s in f.contains(s) } : nil)
+                                      searchFilter: self.allowSearch ? filter : nil)
                 { e in
                     Text(e)
                 }
@@ -141,7 +203,7 @@ struct ListPickerItemExample: View {
                     }
                 }
             }
-        } else {
+        case .frameworks:
             let filter: ((ListPickerItemDataModel.Framework, String) -> Bool) = { f, s in
                 if s.count > 0 {
                     return f.name.localizedCaseInsensitiveContains(s)
@@ -181,6 +243,106 @@ struct ListPickerItemExample: View {
                                           searchFilter: self.allowSearch ? filter : nil)
                     { e in
                         Text(e.name)
+                    }
+                }
+            }
+        case .object:
+            let filter: ((ListPickerItemDataModel.Framework, String) -> Bool) = { f, s in
+                if s.count > 0 {
+                    return f.name.localizedCaseInsensitiveContains(s)
+                } else {
+                    return true
+                }
+            }
+            
+            if self.multiSelections {
+                ListPickerDestination(self.model,
+                                      id: \.id,
+                                      children: \.children,
+                                      selections: self.$uuidSelections,
+                                      allowEmpty: self.allowEmpty,
+                                      isTrackingLiveChanges: self.isTrackingLiveChanges,
+                                      searchFilter: self.allowSearch ? filter : nil)
+                { framework in
+                    ObjectItem {
+                        Text(framework.name)
+                    } description: {
+                        Text("description")
+                    } status: {
+                        Image(systemName: "sun.min")
+                    } detailImage: {
+                        Image(systemName: "mail")
+                    }
+                }
+            } else {
+                if self.allowEmpty {
+                    ListPickerDestination(self.model,
+                                          id: \.id,
+                                          children: \.children,
+                                          selection: self.$uuidSelection,
+                                          isTrackingLiveChanges: self.isTrackingLiveChanges,
+                                          searchFilter: self.allowSearch ? filter : nil)
+                    { framework in
+                        ObjectItem {
+                            Text(framework.name)
+                        } description: {
+                            Text("description")
+                        } status: {
+                            Image(systemName: "sun.min")
+                        } detailImage: {
+                            Image(systemName: "mail")
+                        }
+                    }
+                } else {
+                    ListPickerDestination(self.model,
+                                          id: \.id,
+                                          children: \.children,
+                                          selection: self.$uuidNoneEmptySelection,
+                                          isTrackingLiveChanges: self.isTrackingLiveChanges,
+                                          searchFilter: self.allowSearch ? filter : nil)
+                    { framework in
+                        ObjectItem {
+                            Text(framework.name)
+                        } description: {
+                            Text("description")
+                        } status: {
+                            Image(systemName: "sun.min")
+                        } detailImage: {
+                            Image(systemName: "mail")
+                        }
+                    }
+                }
+            }
+        case .grouped:
+            let filter: (String, String) -> Bool = { f, s in f.contains(s) }
+            if self.multiSelections {
+                ListPickerDestination(self.groupedModel,
+                                      id: \.self,
+                                      selections: self.$selections,
+                                      allowEmpty: self.allowEmpty,
+                                      isTrackingLiveChanges: self.isTrackingLiveChanges,
+                                      searchFilter: self.allowSearch ? filter : nil)
+                { e in
+                    Text(e)
+                }
+            } else {
+                if self.allowEmpty {
+                    ListPickerDestination(self.groupedModel,
+                                          id: \.self,
+                                          selection: self.$selection,
+                                          isTrackingLiveChanges: self.isTrackingLiveChanges,
+                                          searchFilter: self.allowSearch ? filter : nil)
+                    { e in
+                        Text(e)
+                    }
+                } else {
+                    ListPickerDestination(self.groupedModel,
+                                          id: \.self,
+                                          selection: self.$noneEmptySelection,
+                                          isTrackingLiveChanges: self.isTrackingLiveChanges,
+                                          searchFilter: self.allowSearch ? filter : nil)
+                    { e in
+                        Text(e)
                     }
                 }
             }
