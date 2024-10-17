@@ -248,6 +248,16 @@ public struct BannerMultiMessageSheet: View {
                                 }, bannerTapAction: {
                                     self.showItemDetail(category: element.category, at: message.id)
                                 }, alignment: .leading, hideSeparator: true, messageType: message.messageType)
+                                    .ifApply(true, content: { v in
+                                        v.iconStyle { c in
+                                            c.icon.foregroundStyle(BannerMessageFioriStyle.titleForegroundColor(type: message.messageType))
+                                        }
+                                        .titleStyle { c in
+                                            c.title
+                                                .foregroundStyle(BannerMessageFioriStyle.titleForegroundColor(type: message.messageType))
+                                                .font(.fiori(forTextStyle: .footnote))
+                                        }
+                                    })
                                     .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                                         Button(role: .destructive) {
                                             self.removeItem(category: element.category, at: message.id)
