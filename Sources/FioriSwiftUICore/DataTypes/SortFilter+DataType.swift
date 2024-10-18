@@ -57,7 +57,7 @@ public enum SortFilterItem: Identifiable, Hashable {
     ///
     /// 2. A section of view containing a SwiftUI Canlendar
     case datetime(item: DateTimeItem, showsOnFilterFeedbackBar: Bool)
-    
+        
     public var showsOnFilterFeedbackBar: Bool {
         switch self {
         case .picker(_, let showsOnFilterFeedbackBar):
@@ -311,9 +311,23 @@ public extension SortFilterItem {
         public let allowsEmptySelection: Bool
         public var showsValueForSingleSelected: Bool = true
         public let icon: String?
+        /// itemLayout is used when listPickerMode is filterFormCell, otherwise is ignored.
         public var itemLayout: OptionListPickerItemLayoutType = .fixed
+        public var displayMode: DisplayMode = .automatic
+
+        /// Available OptionListPicker modes. Use this enum to define picker mode  to present.
+        public enum DisplayMode {
+            /// Decided by options count
+            case automatic
+            /// FilterFormCell
+            case filterFormCell
+            /// Menu
+            case menu
+            /// List
+            case list
+        }
         
-        public init(id: String = UUID().uuidString, name: String, value: [Int], valueOptions: [String], allowsMultipleSelection: Bool, allowsEmptySelection: Bool, showsValueForSingleSelected: Bool = true, icon: String? = nil, itemLayout: OptionListPickerItemLayoutType = .fixed) {
+        public init(id: String = UUID().uuidString, name: String, value: [Int], valueOptions: [String], allowsMultipleSelection: Bool, allowsEmptySelection: Bool, showsValueForSingleSelected: Bool = true, icon: String? = nil, itemLayout: OptionListPickerItemLayoutType = .fixed, displayMode: DisplayMode = .automatic) {
             self.id = id
             self.name = name
             self.value = value
@@ -325,6 +339,7 @@ public extension SortFilterItem {
             self.showsValueForSingleSelected = showsValueForSingleSelected
             self.icon = icon
             self.itemLayout = itemLayout
+            self.displayMode = displayMode
         }
         
         mutating func onTap(option: String) {
@@ -387,6 +402,15 @@ public extension SortFilterItem {
         
         func isOptionSelected(index: Int) -> Bool {
             self.workingValue.contains(index)
+        }
+        
+        mutating func selectAll(_ isAll: Bool) {
+            self.workingValue.removeAll()
+            if isAll {
+                for i in 0 ..< self.valueOptions.count {
+                    self.workingValue.append(i)
+                }
+            }
         }
         
         var isChecked: Bool {

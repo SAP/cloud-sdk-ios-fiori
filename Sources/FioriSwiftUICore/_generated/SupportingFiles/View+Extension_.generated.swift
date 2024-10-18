@@ -1754,6 +1754,23 @@ public extension View {
     }
 }
 
+// MARK: ToastMessageStyle
+
+public extension View {
+    func toastMessageStyle(_ style: some ToastMessageStyle) -> some View {
+        self.transformEnvironment(\.toastMessageStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func toastMessageStyle(@ViewBuilder content: @escaping (ToastMessageConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.toastMessageStyleStack) { stack in
+            let style = AnyToastMessageStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: TopDividerStyle
 
 public extension View {

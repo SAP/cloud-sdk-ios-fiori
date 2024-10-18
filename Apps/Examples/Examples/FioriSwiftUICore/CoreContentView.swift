@@ -237,6 +237,14 @@ struct CoreContentView: View {
                 }
             }
             
+            Section(header: Text("Feedback Indicators")) {
+                NavigationLink(
+                    destination: ToastMessageExample())
+                {
+                    Text("Toast Message")
+                }
+            }
+            
             Section(header: Text("Navigation Bar")) {
                 NavigationLink(
                     destination: NavigationBarExample())

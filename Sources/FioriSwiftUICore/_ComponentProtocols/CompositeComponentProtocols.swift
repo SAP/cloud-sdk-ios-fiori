@@ -624,3 +624,10 @@ protocol _ListPickerItemComponent: _TitleComponent, _ValueComponent {
 ///
 // sourcery: CompositeComponent
 protocol _ListPickerDestinationComponent: _CancelActionComponent, _ApplyActionComponent, _SelectedEntriesSectionTitleComponent, _SelectAllActionComponent, _DeselectAllActionComponent, _AllEntriesSectionTitleComponent, _ListPickerContentComponent {}
+
+// sourcery: CompositeComponent
+protocol _ToastMessageComponent: _IconComponent, _TitleComponent {
+    // sourcery: defaultValue = 1
+    /// The duration in seconds for which the toast message is shown. The default is `1`.
+    var duration: Double { get }
+}

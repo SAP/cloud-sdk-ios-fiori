@@ -2166,6 +2166,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: ToastMessageStyle
+
+struct ToastMessageStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any ToastMessageStyle] = []
+}
+
+extension EnvironmentValues {
+    var toastMessageStyle: any ToastMessageStyle {
+        self.toastMessageStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var toastMessageStyleStack: [any ToastMessageStyle] {
+        get {
+            self[ToastMessageStyleStackKey.self]
+        }
+        set {
+            self[ToastMessageStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: TopDividerStyle
 
 struct TopDividerStyleStackKey: EnvironmentKey {

@@ -512,11 +512,27 @@ public protocol FilterFeedbackBarButtonModel: LeftIconComponent, TitleComponent 
 
 // sourcery: add_env_props = "filterFeedbackBarStyle"
 // sourcery: generated_component_not_configurable
+// sourcery: virtualPropHeight = "@State var _height: CGFloat = 0"
 public protocol OptionListPickerItemModel: OptionListPickerComponent {
     // sourcery: default.value = .fixed
     // sourcery: no_view
     var itemLayout: OptionListPickerItemLayoutType { get set }
     
+    // sourcery: default.value = nil
+    // sourcery: no_view
+    var onTap: ((_ index: Int) -> Void)? { get }
+}
+
+// sourcery: add_env_props = "filterFeedbackBarStyle"
+// sourcery: generated_component_not_configurable
+// sourcery: virtualPropHeight = "@State var _height: CGFloat = 44"
+// sourcery: virtualPropSearchText = "@State var _searchText: String = """
+// sourcery: virtualPropSearchViewCornerRadius = "@State var _searchViewCornerRadius: CGFloat = 18"
+// sourcery: virtualPropSelectAll = "var selectAll: ((Bool) -> ())? = nil"
+// sourcery: virtualPropUpdateSearchListPickerHeight = "var updateSearchListPickerHeight: ((CGFloat) -> ())? = nil"
+// sourcery: virtualPropAllowsMultipleSelection = "var allowsMultipleSelection: Bool = false"
+// sourcery: virtualPropAllowsEmptySelection = "var allowsEmptySelection: Bool = false"
+public protocol SearchListPickerItemModel: OptionListPickerComponent {
     // sourcery: default.value = nil
     // sourcery: no_view
     var onTap: ((_ index: Int) -> Void)? { get }

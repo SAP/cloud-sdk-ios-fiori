@@ -2892,6 +2892,34 @@ public extension TitleFormViewStyle {
     }
 }
 
+// MARK: ToastMessageStyle
+
+extension ModifiedStyle: ToastMessageStyle where Style: ToastMessageStyle {
+    public func makeBody(_ configuration: ToastMessageConfiguration) -> some View {
+        ToastMessage(configuration)
+            .toastMessageStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct ToastMessageStyleModifier<Style: ToastMessageStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.toastMessageStyle(self.style)
+    }
+}
+
+public extension ToastMessageStyle {
+    func modifier(_ modifier: some ViewModifier) -> some ToastMessageStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some ToastMessageStyle) -> some ToastMessageStyle {
+        style.modifier(ToastMessageStyleModifier(style: self))
+    }
+}
+
 // MARK: TopDividerStyle
 
 extension ModifiedStyle: TopDividerStyle where Style: TopDividerStyle {
