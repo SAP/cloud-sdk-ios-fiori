@@ -1,8 +1,8 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
-//TODO: Copy commented code to new file: `FioriSwiftUICore/Views/ListPickerItem+View.swift`
+//TODO: Copy commented code to new file: `FioriSwiftUICore/Views/_ListPickerItem+View.swift`
 //TODO: Implement default Fiori style definitions as `ViewModifier`
-//TODO: Implement ListPickerItem `View` body
+//TODO: Implement _ListPickerItem `View` body
 //TODO: Implement LibraryContentProvider
 
 /// - Important: to make `@Environment` properties (e.g. `horizontalSizeClass`), internally accessible
@@ -16,7 +16,7 @@ import SwiftUI
 // FIXME: - Implement Fiori style definitions
 
 extension Fiori {
-    enum ListPickerItem {
+    enum _ListPickerItem {
         typealias Key = EmptyModifier
         typealias KeyCumulative = EmptyModifier
 		typealias Value = EmptyModifier
@@ -41,21 +41,21 @@ extension Fiori {
     }
 }
 
-// FIXME: - Implement ListPickerItem View body
+// FIXME: - Implement _ListPickerItem View body
 
-extension ListPickerItem: View {
+extension _ListPickerItem: View {
     public var body: some View {
         <# View body #>
     }
 }
 
-// FIXME: - Implement ListPickerItem specific LibraryContentProvider
+// FIXME: - Implement _ListPickerItem specific LibraryContentProvider
 
 @available(iOS 14.0, macOS 11.0, *)
-struct ListPickerItemLibraryContent: LibraryContentProvider {
+struct _ListPickerItemLibraryContent: LibraryContentProvider {
     @LibraryContentBuilder
     var views: [LibraryItem] {
-        LibraryItem(ListPickerItem(model: LibraryPreviewData.Person.laurelosborn),
+        LibraryItem(_ListPickerItem(model: LibraryPreviewData.Person.laurelosborn),
                     category: .control)
     }
 }

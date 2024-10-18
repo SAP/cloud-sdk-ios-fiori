@@ -372,3 +372,63 @@ protocol _HalfStarImageComponent {
     // sourcery: defaultValue = "FioriIcon.actions.halfStar.renderingMode(.template).resizable()"
     var halfStarImage: Image { get }
 }
+
+// sourcery: BaseComponent
+protocol _ValueComponent {
+    // sourcery: @ViewBuilder
+    var value: AttributedString? { get }
+}
+
+// sourcery: BaseComponent
+protocol _CancelActionComponent {
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "FioriButton { _ in Text("Cancel".localizedFioriString()) }"
+    // sourcery: resultBuilder.defaultValue = "{ FioriButton { _ in Text("Cancel".localizedFioriString()) } }"
+    var cancelAction: FioriButton? { get }
+}
+
+// sourcery: BaseComponent
+protocol _ApplyActionComponent {
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "FioriButton { _ in Text("Apply".localizedFioriString()) }"
+    // sourcery: resultBuilder.defaultValue = "{ FioriButton { _ in Text("Apply".localizedFioriString()) } }"
+    var applyAction: FioriButton? { get }
+}
+
+// sourcery: BaseComponent
+protocol _SelectedEntriesSectionTitleComponent {
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "AttributedString("Selected".localizedFioriString())"
+    // sourcery: resultBuilder.defaultValue = "{ Text("Selected".localizedFioriString()) }"
+    var selectedEntriesSectionTitle: AttributedString? { get }
+}
+
+// sourcery: BaseComponent
+protocol _AllEntriesSectionTitleComponent {
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "AttributedString("All".localizedFioriString())"
+    // sourcery: resultBuilder.defaultValue = "{ Text("All".localizedFioriString()) }"
+    var allEntriesSectionTitle: AttributedString? { get }
+}
+
+// sourcery: BaseComponent
+protocol _SelectAllActionComponent {
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "FioriButton { _ in Text("Select All".localizedFioriString()) }"
+    // sourcery: resultBuilder.defaultValue = "{ FioriButton { _ in Text("Select All".localizedFioriString()) } }"
+    var selectAllAction: FioriButton? { get }
+}
+
+// sourcery: BaseComponent
+protocol _DeselectAllActionComponent {
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "FioriButton { _ in Text("Deselect All".localizedFioriString()) }"
+    // sourcery: resultBuilder.defaultValue = "{ FioriButton { _ in Text("Deselect All".localizedFioriString()) } }"
+    var deselectAllAction: FioriButton? { get }
+}
+
+// sourcery: BaseComponent
+protocol _ListPickerContentComponent {
+    @ViewBuilder
+    var listPickerContent: (() -> any View)? { get }
+}

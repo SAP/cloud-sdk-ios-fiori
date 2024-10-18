@@ -254,11 +254,18 @@
 /* XBUT: banner message type desc in plural form, errors */
 "errors" = "errors";
 
-/* XBUT: The \"Select All\" button title on the List Picker header */
-"Select All" = "Select All";
-/* XBUT: The \"Deselect All\" button title on the List Picker header */
-"Deselect All" = "Deselect All";
 /* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
 "Reset" = "Reset";
 /* XBUT: Apply action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
 "Apply" = "Apply";
+
+/* XTIT: The alert message for `ListPickerDestination` pulldown dismissal */
+"Are you sure you want to discard your selections?" = "Are you sure you want to discard your selections?";
+/* XBUT: The alert Discard Changes action title for `ListPickerDestination` pulldown dismissal */
+"Discard Changes" = "Discard Changes";
+/* XBUT: The alert Keep Editing action title for `ListPickerDestination` pulldown dismissal */
+"Keep Editing" = "Keep Editing";
+/* XBUT: The \"Select All\" button title on the List Picker header */
+"Select All" = "Select All";
+/* XBUT: The \"Deselect All\" button title on the List Picker header */
+"Deselect All" = "Deselect All";

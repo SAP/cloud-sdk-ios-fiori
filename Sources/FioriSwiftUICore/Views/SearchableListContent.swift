@@ -127,25 +127,25 @@ struct SearchableListContent<Data: RandomAccessCollection, ID: Hashable, RowCont
                 let id_value = element[keyPath: id]
                 
                 if let children, let childrenData = element[keyPath: children] {
-                    ListPickerItem<RowContent, EmptyView>(key: {
+                    _ListPickerItem<RowContent, EmptyView>(key: {
                         row
                     }, value: {
                         EmptyView()
-                    }, configuration: ListPickerItemConfiguration(childrenData,
-                                                                  id: self.id,
-                                                                  children: children,
-                                                                  selection: !self.isTopLevel ? self.selection : self.$selectionBuffer,
-                                                                  isTopLevel: false,
-                                                                  allowsMultipleSelection: self.allowsMultipleSelection,
-                                                                  searchFilter: self.searchFilter,
-                                                                  rowContent: self.rowContent,
-                                                                  rowBackground: self.rowBackground))
+                    }, configuration: _ListPickerItemConfiguration(childrenData,
+                                                                   id: self.id,
+                                                                   children: children,
+                                                                   selection: !self.isTopLevel ? self.selection : self.$selectionBuffer,
+                                                                   isTopLevel: false,
+                                                                   allowsMultipleSelection: self.allowsMultipleSelection,
+                                                                   searchFilter: self.searchFilter,
+                                                                   rowContent: self.rowContent,
+                                                                   rowBackground: self.rowBackground))
                         .environment(\.listBackground, self.listBackground)
                 } else {
-                    ListPickerItem.Row(content: row,
-                                       id: id_value,
-                                       selection: !self.isTopLevel ? self.selection : self.$selectionBuffer,
-                                       allowsMultipleSelection: self.allowsMultipleSelection)
+                    _ListPickerItem.Row(content: row,
+                                        id: id_value,
+                                        selection: !self.isTopLevel ? self.selection : self.$selectionBuffer,
+                                        allowsMultipleSelection: self.allowsMultipleSelection)
                 }
             }
             .listRowBackground(Group {

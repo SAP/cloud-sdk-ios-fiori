@@ -2,7 +2,7 @@
 // DO NOT EDIT
 import SwiftUI
 
-public struct ListPickerItem<Key: View, Value: View> {
+public struct _ListPickerItem<Key: View, Value: View> {
     @Environment(\.keyModifier) private var keyModifier
 	@Environment(\.valueModifier) private var valueModifier
 	@Environment(\.listPickerListViewModifier) var listPickerListViewModifier
@@ -12,7 +12,8 @@ public struct ListPickerItem<Key: View, Value: View> {
     let _key: Key
 	let _value: Value
 	let _axis: Axis
-	var destinationConfiguration: ListPickerItemConfiguration? = nil
+	var destinationConfiguration: _ListPickerItemConfiguration? = nil
+    
     private var isModelInit: Bool = false
 	private var isValueNil: Bool = false
 
@@ -28,16 +29,16 @@ public struct ListPickerItem<Key: View, Value: View> {
 
     @ViewBuilder var key: some View {
         if isModelInit {
-            _key.modifier(keyModifier.concat(Fiori.ListPickerItem.key).concat(Fiori.ListPickerItem.keyCumulative))
+            _key.modifier(keyModifier.concat(Fiori._ListPickerItem.key).concat(Fiori._ListPickerItem.keyCumulative))
         } else {
-            _key.modifier(keyModifier.concat(Fiori.ListPickerItem.key))
+            _key.modifier(keyModifier.concat(Fiori._ListPickerItem.key))
         }
     }
 	@ViewBuilder var value: some View {
         if isModelInit {
-            _value.modifier(valueModifier.concat(Fiori.ListPickerItem.value).concat(Fiori.ListPickerItem.valueCumulative))
+            _value.modifier(valueModifier.concat(Fiori._ListPickerItem.value).concat(Fiori._ListPickerItem.valueCumulative))
         } else {
-            _value.modifier(valueModifier.concat(Fiori.ListPickerItem.value))
+            _value.modifier(valueModifier.concat(Fiori._ListPickerItem.value))
         }
     }
     
@@ -46,11 +47,11 @@ public struct ListPickerItem<Key: View, Value: View> {
     }
 }
 
-extension ListPickerItem where Key == Text,
+extension _ListPickerItem where Key == Text,
 		Value == _ConditionalContent<Text, EmptyView> {
 
-    public init(model: ListPickerItemModel) {
-        self.init(key: model.key, value: model.value, axis: model.axis)
+    public init(model: _ListPickerItemModel) {
+        self.init(key: model.key, value: model.value)
     }
 
     public init(key: String, value: String? = nil, axis: Axis = .horizontal) {
