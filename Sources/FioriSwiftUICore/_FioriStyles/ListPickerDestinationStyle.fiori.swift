@@ -470,7 +470,10 @@ public extension ListPickerDestination {
 /// Grouped sections data model for `ListPickerDestination`.
 public protocol ListPickerSectionModel {
     associatedtype Data: RandomAccessCollection
+    /// Title for grouped section in `ListPickerDestination`.
     var title: String { get }
+    
+    /// Items for grouped section in `ListPickerDestination`.
     var items: Data { get }
 }
 
