@@ -12,6 +12,7 @@ public struct _SortFilterCFGItemContainer {
     @EnvironmentObject var context: SortFilterContext
 
     @Binding var _items: [[SortFilterItem]]
+    @State var height = 44.0
     
     public init(items: Binding<[[SortFilterItem]]>) {
         self.__items = items
@@ -21,35 +22,38 @@ public struct _SortFilterCFGItemContainer {
 extension _SortFilterCFGItemContainer: View {
     /// :nodoc:
     public var body: some View {
-        ScrollView(.vertical, showsIndicators: false) {
-            VStack(spacing: 30) {
-                ForEach(0 ..< self._items.count, id: \.self) { r in
-                    VStack {
-                        ForEach(0 ..< self._items[r].count, id: \.self) { c in
-                            switch self._items[r][c] {
-                            case .picker:
-                                self.picker(row: r, column: c)
-                            case .filterfeedback:
-                                self.filterfeedback(row: r, column: c)
-                            case .switch:
-                                self.switcher(row: r, column: c)
-                            case .slider:
-                                self.slider(row: r, column: c)
-                            case .datetime:
-                                self.datetimePicker(row: r, column: c)
-                                    .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? 375 : Screen.bounds.size.width)
-                            }
-                        }
+        List {
+            ForEach(0 ..< self._items.count, id: \.self) { r in
+                Section {
+                    ForEach(0 ..< self._items[r].count, id: \.self) { c in
+                        self.rowView(row: r, column: c)
+                            .listRowSeparator(c == self._items[r].count - 1 ? .hidden : .visible, edges: .all)
                     }
-                    .padding([.top], 12)
-                    .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? 375 - 13 * 2 : Screen.bounds.size.width - 16 * 2)
-                    .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? 375 : Screen.bounds.size.width)
-                    .background(Color.preferredColor(.secondaryGroupedBackground))
+                } footer: {
+                    Rectangle().fill(Color.preferredColor(.primaryGroupedBackground))
+                        .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? 375 : Screen.bounds.size.width, height: 30)
                 }
+                .listSectionSeparator(.hidden, edges: .all)
+                .listRowInsets(EdgeInsets())
+                .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? 375 - 13 * 2 : Screen.bounds.size.width - 16 * 2)
+                .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? 375 : Screen.bounds.size.width)
+                .background(Color.preferredColor(.secondaryGroupedBackground))
             }
-            .background(Color.preferredColor(.primaryGroupedBackground))
         }
-        .background(Color.preferredColor(.primaryGroupedBackground))
+        .listRowSpacing(0)
+        .listStyle(.plain)
+        .frame(maxWidth: .infinity)
+        .frame(height: self.height)
+        .background(Color.preferredColor(.secondaryGroupedBackground))
+        .modifier(FioriIntrospectModifier<UIScrollView> { scrollView in
+            DispatchQueue.main.async {
+                let popverHeight = Screen.bounds.size.height - StatusBar.height
+                let totalSpacing: CGFloat = (UIDevice.current.userInterfaceIdiom == .pad ? 8 : 16) * 2
+                let totalPadding: CGFloat = (UIDevice.current.userInterfaceIdiom == .pad ? 13 : 16) * 2
+                let maxScrollViewHeight = popverHeight - totalSpacing - totalPadding - 44 - (UIDevice.current.userInterfaceIdiom == .pad ? 150 : 80)
+                self.height = min(scrollView.contentSize.height, maxScrollViewHeight)
+            }
+        })
         .onChange(of: self._items) { _ in
             self.checkUpdateButtonState()
         }
@@ -100,6 +104,63 @@ extension _SortFilterCFGItemContainer: View {
         self.context.isResetButtonEnabled = isResetButtonEnabled
     }
     
+    @ViewBuilder
+    func rowView(row r: Int, column c: Int) -> some View {
+        switch self._items[r][c] {
+        case .picker:
+            if self._items[r][c].picker.displayMode == .list || (self._items[r][c].picker.displayMode == .automatic && self._items[r][c].picker.valueOptions.count > 8) {
+                self.navigationLink(row: r, column: c)
+            } else {
+                self.picker(row: r, column: c)
+                    .padding([.top, .bottom], 12)
+            }
+        case .filterfeedback:
+            self.filterfeedback(row: r, column: c)
+                .padding([.top, .bottom], 12)
+        case .switch:
+            self.switcher(row: r, column: c)
+        case .slider:
+            self.slider(row: r, column: c)
+                .padding([.top], 12)
+        case .datetime:
+            self.datetimePicker(row: r, column: c)
+                .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? 375 : Screen.bounds.size.width)
+                .padding([.top, .bottom], 12)
+        }
+    }
+    
+    func navigationLink(row r: Int, column c: Int) -> some View {
+        NavigationLink {
+            SearchListPickerItem(
+                value: Binding<[Int]>(get: { self._items[r][c].picker.workingValue }, set: { self._items[r][c].picker.workingValue = $0 }),
+                valueOptions: self._items[r][c].picker.valueOptions,
+                allowsMultipleSelection: self._items[r][c].picker.allowsMultipleSelection,
+                allowsEmptySelection: self._items[r][c].picker.allowsEmptySelection
+            ) { index in
+                self._items[r][c].picker.onTap(option: self._items[r][c].picker.valueOptions[index])
+            } selectAll: { isAll in
+                self._items[r][c].picker.selectAll(isAll)
+            } apply‌Instantly‌: {
+                self._items[r][c].picker.apply()
+            }
+            Spacer()
+        } label: {
+            KeyValueItem(key: {
+                Text(self._items[r][c].picker.name)
+                    .font(.fiori(forTextStyle: .subheadline, weight: .bold, isItalic: false, isCondensed: false))
+                    .foregroundColor(Color.preferredColor(.primaryLabel))
+            }, value: {
+                if self._items[r][c].picker.value.count == 1, self._items[r][c].picker.showsValueForSingleSelected {
+                    Text(self._items[r][c].picker.valueOptions[self._items[r][c].picker.value[0]])
+                } else {
+                    Text("\(self._items[r][c].picker.name) (\(self._items[r][c].picker.value.count))")
+                }
+            }, axis: .horizontal)
+        }
+        .listRowBackground(Color.preferredColor(.secondaryGroupedBackground))
+        .frame(height: 44)
+    }
+    
     func picker(row r: Int, column c: Int) -> some View {
         VStack {
             HStack {
@@ -111,16 +172,7 @@ extension _SortFilterCFGItemContainer: View {
             switch self._items[r][c].picker.displayMode {
             case .automatic:
                 if self._items[r][c].picker.valueOptions.count > 8 {
-                    SearchListPickerItem(
-                        value: Binding<[Int]>(get: { self._items[r][c].picker.workingValue }, set: { self._items[r][c].picker.workingValue = $0 }),
-                        valueOptions: self._items[r][c].picker.valueOptions,
-                        allowsMultipleSelection: self._items[r][c].picker.allowsMultipleSelection,
-                        allowsEmptySelection: self._items[r][c].picker.allowsEmptySelection
-                    ) { index in
-                        self._items[r][c].picker.onTap(option: self._items[r][c].picker.valueOptions[index])
-                    } selectAll: { isAll in
-                        self._items[r][c].picker.selectAll(isAll)
-                    }
+                    self.navigationLink(row: r, column: c)
                 } else {
                     self.filterFormCell(row: r, column: c)
                 }
@@ -129,16 +181,7 @@ extension _SortFilterCFGItemContainer: View {
             case .menu:
                 self.filterFormCell(row: r, column: c)
             case .list:
-                SearchListPickerItem(
-                    value: Binding<[Int]>(get: { self._items[r][c].picker.workingValue }, set: { self._items[r][c].picker.workingValue = $0 }),
-                    valueOptions: self._items[r][c].picker.valueOptions,
-                    allowsMultipleSelection: self._items[r][c].picker.allowsMultipleSelection,
-                    allowsEmptySelection: self._items[r][c].picker.allowsEmptySelection
-                ) { index in
-                    self._items[r][c].picker.onTap(option: self._items[r][c].picker.valueOptions[index])
-                } selectAll: { isAll in
-                    self._items[r][c].picker.selectAll(isAll)
-                }
+                self.navigationLink(row: r, column: c)
             }
         }
     }
