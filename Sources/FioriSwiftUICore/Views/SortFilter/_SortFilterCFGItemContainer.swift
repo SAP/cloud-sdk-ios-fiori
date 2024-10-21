@@ -50,8 +50,13 @@ extension _SortFilterCFGItemContainer: View {
                 let popverHeight = Screen.bounds.size.height - StatusBar.height
                 let totalSpacing: CGFloat = (UIDevice.current.userInterfaceIdiom == .pad ? 8 : 16) * 2
                 let totalPadding: CGFloat = (UIDevice.current.userInterfaceIdiom == .pad ? 13 : 16) * 2
-                let maxScrollViewHeight = popverHeight - totalSpacing - totalPadding - 44 - (UIDevice.current.userInterfaceIdiom == .pad ? 150 : 80)
-                self.height = min(scrollView.contentSize.height, maxScrollViewHeight)
+                if UIDevice.current.userInterfaceIdiom == .pad {
+                    let maxScrollViewHeight = popverHeight / 2 - totalSpacing - totalPadding - 44
+                    self.height = min(scrollView.contentSize.height, maxScrollViewHeight)
+                } else {
+                    let maxScrollViewHeight = popverHeight - totalSpacing - totalPadding - 44 - 80
+                    self.height = min(scrollView.contentSize.height, maxScrollViewHeight)
+                }
             }
         })
         .onChange(of: self._items) { _ in
