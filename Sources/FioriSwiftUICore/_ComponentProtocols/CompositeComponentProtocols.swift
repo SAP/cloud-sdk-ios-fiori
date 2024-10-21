@@ -297,8 +297,8 @@ protocol _BannerMessageComponent: _IconComponent, _TitleComponent, _CloseActionC
     // sourcery: defaultValue = false
     var hideSeparator: Bool { get }
     
-    /// The icon and title's type. The default is `neutral`.
-    // sourcery: defaultValue = .neutral
+    /// The icon and title's type. The default is `negative`.
+    // sourcery: defaultValue = .negative
     var messageType: BannerMultiMessageType { get }
     
     /// Show detail link or not. The default is false. When showDetailLink is true, and click the link will perform to popup the detail sheet.

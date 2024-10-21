@@ -85,6 +85,14 @@ struct BannerMultiMessageCustomInitExample: View {
                                     self.showingMessageDetail = false
                                     proxy.scrollTo(id)
                                 }, alignment: .leading, hideSeparator: true, messageType: message.messageType)
+                                    .ifApply(true, content: { v in
+                                        v.iconStyle { c in
+                                            c.icon.foregroundStyle(Color.yellow)
+                                        }
+                                        .titleStyle { c in
+                                            c.title.foregroundStyle(Color.red)
+                                        }
+                                    })
                                     .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                                         Button(role: .destructive) {
                                             self.removeItem(category: category, at: message.id)
@@ -340,7 +348,7 @@ struct BannerMultiMessageCustomInitExample: View {
             self.emailAddressErrorMessage = AttributedString(tips)
             warningMessages.append(BannerMessageItemModel(id: self.emailAddressId, icon: Image(fioriName: "fiori.warning"), title: tips, messageType: .critical))
         } else if self.isEmailInvalid {
-            let tips = "Email address is Invalid!"
+            let tips = "Email address is Invalid! This can be multiple lines. This can be multiple lines. This can be multiple lines. This can be multiple lines. This can be multiple lines. This can be multiple lines. This can be multiple lines. This can be multiple lines."
             self.emailAddressErrorMessage = AttributedString(tips)
             errorMessages.append(BannerMessageItemModel(id: self.emailAddressId, icon: Image(fioriName: "fiori.notification.3"), title: tips, messageType: .negative))
         } else {
