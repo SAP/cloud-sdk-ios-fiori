@@ -38,7 +38,7 @@ extension Fiori {
 
 extension SortFilterView: View {
     public var body: some View {
-        CancellableResettableDialogForm {
+        CancellableResettableDialogNavigationForm {
             title
         } cancelAction: {
             cancelAction
@@ -74,8 +74,17 @@ extension SortFilterView: View {
                 .environment(\.isEnabled, true)
         } components: {
             _items
+                .sizeReader(size: { s in
+                    if size != s {
+                        size = s
+                    }
+                })
                 .environmentObject(context)
         }
+        .frame(maxWidth: .infinity)
+        .frame(minWidth: UIDevice.current.userInterfaceIdiom != .phone ? 375 : nil)
+        .frame(height: UIDevice.current.userInterfaceIdiom != .phone ? size.height + 150 : nil)
+        .presentationDetents([.large])
         .background(Color.preferredColor(.chromeSecondary))
     }
 }
