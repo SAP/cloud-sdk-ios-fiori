@@ -7,7 +7,7 @@ import SwiftUI
 ///
 /// The `SideBar` SwiftUI view presents a expandable list of items using the `SideBarListItem` SwiftUI view. It has support for both edit and view modes. In edit mode, the listed data can be rearranged, and each item can be toggled as hidden. The hidden items are not shown in view mode.
 ///
-/// This View should be used in `NavigationSplitView` as a side bar. How, in case you are NOT using the `NavigationSplitView` for the SideBar, you should observe the change of selected item using SideBar's 'selection' property and handle follow-up logic by yourself. Also, you should set 'isUsedInSplitView' of SideBar to true and return EmptyView in 'destination' callback.
+/// This View should be used in `NavigationSplitView` as side bar. How, in case you are NOT using the `NavigationSplitView` for the SideBar, you should observe the change of selected item by property 'selection' of SideBar and handle follow-up logic by yourself. Also, you should set 'isUsedInSplitView' of SideBar to true and return EmptyView in 'destination' callback.
 ///
 /// ## Usage
 ///
@@ -65,7 +65,7 @@ import SwiftUI
 ///  ```
 ///  ### Handle Search:
 ///
-/// The binding property `queryString` is used to trigger searches. The `.searchable` modifier on `NavigationSplitView` can be used to bind the @State variable `queryString` which will bind to SideBar. At the same time, a `UISearchBar` can be initialized with the `onAppear` modifier and dismissed with the `onDisappear` modifier
+/// The binding property `queryString` was used to trigger the searching on SideBar. The `.searchable` modifier on `NavigationSplieView` can be used to bind the @State variable `queryString` which will bind to SideBar. As the same time, an `UISearchBar` can initialized in `onAppear` modifier and dismissed in `onDisappear` modifier
 ///
 /// ```swift
 /// NavigationSplitView {

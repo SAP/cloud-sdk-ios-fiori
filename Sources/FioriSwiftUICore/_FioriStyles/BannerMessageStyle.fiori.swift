@@ -20,7 +20,7 @@ public enum BannerMultiMessageType: Int {
 public struct BannerMessageBaseStyle: BannerMessageStyle {
     public func makeBody(_ configuration: BannerMessageConfiguration) -> some View {
         VStack(spacing: 0) {
-            configuration.topDivider.frame(height: 4)
+            configuration.topDivider.background(BannerMessageFioriStyle.titleForegroundColor(type: configuration.messageType)).frame(height: 4)
             HStack {
                 HStack(spacing: 6, content: {
                     switch configuration.alignment {
@@ -42,6 +42,7 @@ public struct BannerMessageBaseStyle: BannerMessageStyle {
                             .padding([.top, .bottom], 13)
                     }
                 })
+                .foregroundStyle(BannerMessageFioriStyle.titleForegroundColor(type: configuration.messageType))
                 .padding(.leading, configuration.alignment == .center ? 44 : 16)
                 .padding(.trailing, configuration.alignment == .center ? 0 : 16)
                 .onTapGesture {
@@ -90,8 +91,7 @@ extension BannerMessageFioriStyle {
         let bannerMessageConfiguration: BannerMessageConfiguration
         
         func makeBody(_ configuration: IconConfiguration) -> some View {
-            configuration.icon
-                .foregroundStyle(BannerMessageFioriStyle.titleForegroundColor(type: self.bannerMessageConfiguration.messageType))
+            Icon(configuration)
         }
     }
 
@@ -99,7 +99,7 @@ extension BannerMessageFioriStyle {
         let bannerMessageConfiguration: BannerMessageConfiguration
         
         func makeBody(_ configuration: TitleConfiguration) -> some View {
-            configuration.title
+            Title(configuration)
                 .foregroundStyle(BannerMessageFioriStyle.titleForegroundColor(type: self.bannerMessageConfiguration.messageType))
                 .font(.fiori(forTextStyle: .footnote))
         }
@@ -118,7 +118,6 @@ extension BannerMessageFioriStyle {
     
         func makeBody(_ configuration: TopDividerConfiguration) -> some View {
             TopDivider(configuration)
-                .background(Color.preferredColor(.negativeLabel))
         }
     }
 }
@@ -145,7 +144,7 @@ public extension View {
                                             bannerTapped: bannerTapped,
                                             alignment: alignment ?? .center,
                                             hideSeparator: false,
-                                            messageType: .neutral,
+                                            messageType: .negative,
                                             turnOnSectionHeader: true,
                                             showDetailLink: false,
                                             bannerMultiMessages: Binding<[BannerMessageListModel]>.constant([])))
@@ -172,7 +171,7 @@ public extension View {
                                             bannerTapped: bannerTapped,
                                             alignment: alignment ?? .center,
                                             hideSeparator: false,
-                                            messageType: .neutral,
+                                            messageType: .negative,
                                             turnOnSectionHeader: true,
                                             showDetailLink: false,
                                             bannerMultiMessages: Binding<[BannerMessageListModel]>.constant([])))
@@ -201,7 +200,7 @@ public extension View {
                                             bannerTapped: bannerTapped,
                                             alignment: alignment ?? .center,
                                             hideSeparator: false,
-                                            messageType: .neutral,
+                                            messageType: .negative,
                                             turnOnSectionHeader: true,
                                             showDetailLink: false,
                                             bannerMultiMessages: Binding<[BannerMessageListModel]>.constant([])))
@@ -216,7 +215,7 @@ public extension View {
     ///   - viewDetailAction: View the message detail callback, the parameter is message id, developer can use the id to scroll to the relative item
     ///   - alignment: A alignment for the icon and title.
     ///   - hideSeparator: Hide bottom separator or not.
-    ///   - messageType: The type of message, default is .neutral
+    ///   - messageType: The type of message, default is .negative
     ///   - turnOnSectionHeader: Show message detail section header or not, default is true
     ///   - showDetailLink: Show view details link or not
     ///   - bannerMultiMessages: Multi message data array, [BannerMessageListModel]
@@ -228,12 +227,18 @@ public extension View {
                            viewDetailAction: ((UUID) -> Void)? = nil,
                            alignment: HorizontalAlignment = .center,
                            hideSeparator: Bool = false,
-                           messageType: BannerMultiMessageType = .neutral,
+                           messageType: BannerMultiMessageType = .negative,
                            turnOnSectionHeader: Bool = true,
                            showDetailLink: Bool = false,
                            bannerMultiMessages: Binding<[BannerMessageListModel]> = Binding<[BannerMessageListModel]>.constant([])) -> some View
     {
         var finalMessageType = messageType
+        
+        if !bannerMultiMessages.isEmpty {
+            /// .neutral has the lowest priority, finalMessageType will be figured out from bannerMultiMessages
+            finalMessageType = .neutral
+        }
+        
         for bannerMessageListModel in bannerMultiMessages {
             for singleMessageModel in bannerMessageListModel.wrappedValue.items where singleMessageModel.messageType.rawValue > finalMessageType.rawValue {
                 finalMessageType = singleMessageModel.messageType
