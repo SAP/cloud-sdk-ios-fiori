@@ -90,7 +90,7 @@ struct BannerMultiMessageCustomInitExample: View {
                                             c.icon.foregroundStyle(Color.yellow)
                                         }
                                         .titleStyle { c in
-                                            c.title.foregroundStyle(Color.red)
+                                            c.title.foregroundStyle(Color.yellow)
                                         }
                                     })
                                     .swipeActions(edge: .trailing, allowsFullSwipe: true) {

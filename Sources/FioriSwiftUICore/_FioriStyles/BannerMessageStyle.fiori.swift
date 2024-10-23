@@ -20,7 +20,7 @@ public enum BannerMultiMessageType: Int {
 public struct BannerMessageBaseStyle: BannerMessageStyle {
     public func makeBody(_ configuration: BannerMessageConfiguration) -> some View {
         VStack(spacing: 0) {
-            configuration.topDivider.background(BannerMessageFioriStyle.titleForegroundColor(type: configuration.messageType)).frame(height: 4)
+            configuration.topDivider.frame(height: 4)
             HStack {
                 HStack(spacing: 6, content: {
                     switch configuration.alignment {
@@ -42,7 +42,6 @@ public struct BannerMessageBaseStyle: BannerMessageStyle {
                             .padding([.top, .bottom], 13)
                     }
                 })
-                .foregroundStyle(BannerMessageFioriStyle.titleForegroundColor(type: configuration.messageType))
                 .padding(.leading, configuration.alignment == .center ? 44 : 16)
                 .padding(.trailing, configuration.alignment == .center ? 0 : 16)
                 .onTapGesture {
@@ -92,6 +91,7 @@ extension BannerMessageFioriStyle {
         
         func makeBody(_ configuration: IconConfiguration) -> some View {
             Icon(configuration)
+                .foregroundStyle(BannerMessageFioriStyle.titleForegroundColor(type: self.bannerMessageConfiguration.messageType))
         }
     }
 
@@ -118,6 +118,7 @@ extension BannerMessageFioriStyle {
     
         func makeBody(_ configuration: TopDividerConfiguration) -> some View {
             TopDivider(configuration)
+                .foregroundStyle(BannerMessageFioriStyle.titleForegroundColor(type: self.bannerMessageConfiguration.messageType))
         }
     }
 }
