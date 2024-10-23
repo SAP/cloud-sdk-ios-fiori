@@ -39,7 +39,7 @@ extension ListPickerItemFioriStyle {
         func makeBody(_ configuration: TitleConfiguration) -> some View {
             Title(configuration)
                 .font(.fiori(forTextStyle: .subheadline, weight: .bold))
-                .foregroundColor(.preferredColor(.primaryLabel))
+                .foregroundStyle(Color.preferredColor(.primaryLabel))
         }
     }
 
@@ -48,6 +48,8 @@ extension ListPickerItemFioriStyle {
 
         func makeBody(_ configuration: ValueConfiguration) -> some View {
             Value(configuration)
+                .font(.fiori(forTextStyle: .body, weight: .regular))
+                .foregroundStyle(Color.preferredColor(.primaryLabel))
         }
     }
 }
