@@ -77,7 +77,7 @@ struct SliderMenuItem: View {
             .onTapGesture {
                 self.isSheetVisible.toggle()
             }
-            .popover(isPresented: self.$isSheetVisible, attachmentAnchor: .point(.bottom)) {
+            .popover(isPresented: self.$isSheetVisible, arrowEdge: .leading) {
                 CancellableResettableDialogForm {
                     SortFilterItemTitle(title: self.item.name)
                 } cancelAction: {
@@ -153,7 +153,7 @@ struct PickerMenuItem: View {
             .onTapGesture {
                 self.isSheetVisible.toggle()
             }
-            .popover(isPresented: self.$isSheetVisible, attachmentAnchor: .point(.bottom)) {
+            .popover(isPresented: self.$isSheetVisible, arrowEdge: .leading) {
                 CancellableResettableDialogForm {
                     SortFilterItemTitle(title: self.item.name)
                 } cancelAction: {
@@ -224,7 +224,7 @@ struct PickerMenuItem: View {
             .onTapGesture {
                 self.isSheetVisible.toggle()
             }
-            .popover(isPresented: self.$isSheetVisible, attachmentAnchor: .point(.bottom)) {
+            .popover(isPresented: self.$isSheetVisible, arrowEdge: .leading) {
                 CancellableResettableDialogNavigationForm {
                     SortFilterItemTitle(title: self.item.name)
                 } cancelAction: {
@@ -311,7 +311,7 @@ struct DateTimeMenuItem: View {
             .onTapGesture {
                 self.isSheetVisible.toggle()
             }
-            .popover(isPresented: self.$isSheetVisible, attachmentAnchor: .point(.bottom)) {
+            .popover(isPresented: self.$isSheetVisible, arrowEdge: .leading) {
                 CancellableResettableDialogForm {
                     SortFilterItemTitle(title: self.item.name)
                 } cancelAction: {
@@ -448,7 +448,7 @@ struct FullCFGMenuItem: View {
             .onTapGesture {
                 self.isSheetVisible.toggle()
             }
-            .popover(isPresented: self.$isSheetVisible, attachmentAnchor: .point(.bottom)) {
+            .popover(isPresented: self.$isSheetVisible, arrowEdge: .leading) {
                 SortFilterView(
                     title: {
                         if let title = fullCFGButton.name {
