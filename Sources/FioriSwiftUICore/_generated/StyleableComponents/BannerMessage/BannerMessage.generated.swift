@@ -14,7 +14,7 @@ public struct BannerMessage {
     let alignment: HorizontalAlignment
     /// Hide bottom separator or not. The default is false.
     let hideSeparator: Bool
-    /// The icon and title's type. The default is `neutral`.
+    /// The icon and title's type. The default is `negative`.
     let messageType: BannerMultiMessageType
     /// Show detail link or not. The default is false. When showDetailLink is true, and click the link will perform to popup the detail sheet.
     let showDetailLink: Bool
@@ -30,7 +30,7 @@ public struct BannerMessage {
                 bannerTapAction: (() -> Void)? = nil,
                 alignment: HorizontalAlignment = .center,
                 hideSeparator: Bool = false,
-                messageType: BannerMultiMessageType = .neutral,
+                messageType: BannerMultiMessageType = .negative,
                 showDetailLink: Bool = false)
     {
         self.icon = Icon(icon: icon)
@@ -53,7 +53,7 @@ public extension BannerMessage {
          bannerTapAction: (() -> Void)? = nil,
          alignment: HorizontalAlignment = .center,
          hideSeparator: Bool = false,
-         messageType: BannerMultiMessageType = .neutral,
+         messageType: BannerMultiMessageType = .negative,
          showDetailLink: Bool = false)
     {
         self.init(icon: { icon }, title: { Text(title) }, closeAction: { closeAction }, topDivider: topDivider, bannerTapAction: bannerTapAction, alignment: alignment, hideSeparator: hideSeparator, messageType: messageType, showDetailLink: showDetailLink)
