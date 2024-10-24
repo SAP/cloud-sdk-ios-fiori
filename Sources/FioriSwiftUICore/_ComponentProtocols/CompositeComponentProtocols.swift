@@ -133,10 +133,14 @@ protocol _JouleWelcomeScreen: _MediaImageComponent, _GreetingTextComponent, _Tit
 protocol _StepperFieldComponent: _DecrementActionComponent, _TextInputFieldComponent, _IncrementActionComponent {
     /// The step value
     // sourcery: defaultValue = 1
-    var step: Int { get }
+    var step: Double { get }
     
     /// a range of values
-    var stepRange: ClosedRange<Int> { get }
+    var stepRange: ClosedRange<Double> { get }
+    
+    /// Indicates whether the stepper field  supports decimal values. Default is false.
+    // sourcery: defaultValue = false
+    var isDecimalSupported: Bool { get }
 }
 
 // sourcery: CompositeComponent

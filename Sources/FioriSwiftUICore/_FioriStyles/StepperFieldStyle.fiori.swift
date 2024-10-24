@@ -16,35 +16,56 @@ import SwiftUI
 
 // Base Layout style
 public struct StepperFieldBaseStyle: StepperFieldStyle {
+    @State private var previousValue: String = ""
     public func makeBody(_ configuration: StepperFieldConfiguration) -> some View {
         HStack(spacing: 0) {
             configuration.decrementAction
                 .onSimultaneousTapGesture {
-                    if var currentTextValue = Int(configuration.text) {
-                        currentTextValue -= configuration.step
-                        currentTextValue = currentTextValue < configuration.stepRange.lowerBound ? configuration.stepRange.lowerBound : currentTextValue
-                        configuration.text = String(currentTextValue)
-                    }
+                    self.adjustValue(by: -configuration.step, configuration: configuration)
                 }
             configuration._textInputField
                 .textInputFieldStyle(.number)
                 .onChange(of: configuration.text) { newValue in
-                    let value = Int(newValue)
-                    if value ?? 0 > configuration.stepRange.upperBound {
-                        configuration.text = String(configuration.stepRange.upperBound)
-                    } else if value ?? 0 < configuration.stepRange.lowerBound {
-                        configuration.text = String(configuration.stepRange.lowerBound)
-                    }
+                    self.updateText(for: newValue, configuration: configuration)
                 }
             configuration.incrementAction
                 .onSimultaneousTapGesture {
-                    if var currentTextValue = Int(configuration.text) {
-                        currentTextValue += configuration.step
-                        currentTextValue = currentTextValue > configuration.stepRange.upperBound ? configuration.stepRange.upperBound : currentTextValue
-                        configuration.text = String(currentTextValue)
-                    }
+                    self.adjustValue(by: configuration.step, configuration: configuration)
                 }
         }
+    }
+    
+    private func adjustValue(by step: Double, configuration: StepperFieldConfiguration) {
+        let currentValue = Double(configuration.text)
+        let newValue = currentValue.map { $0 + step } ?? 0.0
+        let clampedValue = self.clampValue(newValue, configuration: configuration)
+        if configuration.isDecimalSupported {
+            configuration.text = String(describing: clampedValue)
+        } else {
+            configuration.text = String(describing: Int(clampedValue))
+        }
+        self.previousValue = configuration.text
+    }
+    
+    private func updateText(for text: String, configuration: StepperFieldConfiguration) {
+        if configuration.isDecimalSupported {
+            if let doubleValue = Double(text) {
+                let clampedValue = self.clampValue(doubleValue, configuration: configuration)
+                configuration.text = String(describing: clampedValue)
+            }
+        } else {
+            if text.contains(".") || text.isEmpty {
+                configuration.text = self.previousValue
+            } else if let doubleValue = Double(text) {
+                let clampedValue = self.clampValue(doubleValue, configuration: configuration)
+                configuration.text = String(Int(clampedValue))
+            }
+        }
+        self.previousValue = configuration.text
+    }
+    
+    private func clampValue(_ value: Double, configuration: StepperFieldConfiguration) -> Double {
+        min(max(value, configuration.stepRange.lowerBound), configuration.stepRange.upperBound)
     }
 }
 
@@ -64,7 +85,7 @@ extension StepperFieldFioriStyle {
         @Environment(\.colorScheme) var colorScheme
 
         func makeBody(_ configuration: DecrementActionConfiguration) -> some View {
-            let isDecrementBtnEnabled: Bool = self.isEnabled ? Int(self.stepperFieldConfiguration.text) ?? self.stepperFieldConfiguration.stepRange.lowerBound > self.stepperFieldConfiguration.stepRange.lowerBound ? true : false : false
+            let isDecrementBtnEnabled: Bool = self.isEnabled ? Double(self.stepperFieldConfiguration.text) ?? self.stepperFieldConfiguration.stepRange.lowerBound > self.stepperFieldConfiguration.stepRange.lowerBound ? true : false : false
             let decrementDescFormat = NSLocalizedString("Decrease the value by %d", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
             let decrementDesc = String(format: decrementDescFormat, stepperFieldConfiguration.step)
             return DecrementAction(configuration)
@@ -93,7 +114,7 @@ extension StepperFieldFioriStyle {
         @Environment(\.colorScheme) var colorScheme
 
         func makeBody(_ configuration: IncrementActionConfiguration) -> some View {
-            let isIncrementBtnEnabled: Bool = self.isEnabled ? Int(self.stepperFieldConfiguration.text) ?? self.stepperFieldConfiguration.stepRange.upperBound < self.stepperFieldConfiguration.stepRange.upperBound ? true : false : false
+            let isIncrementBtnEnabled: Bool = self.isEnabled ? Double(self.stepperFieldConfiguration.text) ?? self.stepperFieldConfiguration.stepRange.upperBound < self.stepperFieldConfiguration.stepRange.upperBound ? true : false : false
             let incrementDescFormat = NSLocalizedString("Increase the value by %d", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
             let incrementDesc = String(format: incrementDescFormat, stepperFieldConfiguration.step)
             return IncrementAction(configuration)

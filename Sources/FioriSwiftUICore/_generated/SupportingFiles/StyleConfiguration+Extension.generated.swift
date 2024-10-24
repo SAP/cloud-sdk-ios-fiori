@@ -129,7 +129,7 @@ extension StepperFieldConfiguration {
 
 extension StepperViewConfiguration {
     var _stepperField: StepperField {
-        StepperField(.init(decrementAction: .init(self.decrementAction), text: self.$text, incrementAction: .init(self.incrementAction), step: self.step, stepRange: self.stepRange), shouldApplyDefaultStyle: true)
+        StepperField(.init(decrementAction: .init(self.decrementAction), text: self.$text, incrementAction: .init(self.incrementAction), step: self.step, stepRange: self.stepRange, isDecimalSupported: self.isDecimalSupported), shouldApplyDefaultStyle: true)
     }
 
     var _informationView: InformationView {
