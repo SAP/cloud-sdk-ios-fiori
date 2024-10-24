@@ -24,7 +24,7 @@ struct ListPickerItemExample: View {
     
     @State var selections: Set<String> = []
     @State var selection: String? = nil
-    @State var noneEmptySelection: String = "UIKit"
+    @State var noneEmptySelection: String = "First"
     
     @State var uuidSelections: Set<UUID> = []
     @State var uuidSelection: UUID? = nil
@@ -43,46 +43,27 @@ struct ListPickerItemExample: View {
 
     var body: some View {
         List {
-            ListPickerItem(title: {
-                Text("Frameworks")
-            }, value: {
-                self.valueView
-            }, axis: self.axis,
-            destination: {
-                self.destinationView
-                    .disableEntriesSection(self.disableEntriesSection)
-                    .autoDismissDestination(self.autoDismissDestination)
-                    .navigationTitle("Destination Title")
-                    .ifApply(self.customDestination) {
-                        $0.cancelActionStyle { _ in
-                            Button {
-                                print("This is dismiss without selections")
-                            } label: {
-                                Image(systemName: "chevron.left")
-                            }
-                        }
-                        .applyActionStyle { _ in
-                            Button {
-                                print("This is dismiss with selections")
-                            } label: {
-                                Image(systemName: "checkmark")
-                            }
-                        }
-                        .allEntriesSectionTitleStyle { _ in
-                            Text("All Entries Title")
-                        }
-                        .selectedEntriesSectionTitleStyle { _ in
-                            Text("Selected Entries Title")
-                        }
-                        .selectAllActionStyle { _ in
-                            FioriButton(title: "Select All Action") { _ in }
-                        }
-                        .deselectAllActionStyle { _ in
-                            FioriButton(title: "Deselect All Action") { _ in }
-                        }
-                        .listStyle(.plain)
-                    }
-            })
+            Group {
+                if self.dataType == .frameworks || self.dataType == .text {
+                    // Use default Value
+                    ListPickerItem(title: {
+                        Text("Title")
+                    }, axis: self.axis,
+                    destination: {
+                        self.destinationViewGroup()
+                    })
+                } else {
+                    // Use custom Value
+                    ListPickerItem(title: {
+                        Text("Title")
+                    }, value: {
+                        self.valueView
+                    }, axis: self.axis,
+                    destination: {
+                        self.destinationViewGroup()
+                    })
+                }
+            }
             .onChange(of: self.dataType) { _ in
                 self.selections.removeAll()
                 self.uuidSelections.removeAll()
@@ -128,6 +109,43 @@ struct ListPickerItemExample: View {
                 Toggle("Auto Dismiss Destination(Only for Single Selection and isTrackingLiveChanges is true)", isOn: self.$autoDismissDestination)
             }
         }
+        .navigationTitle("List Picker Item")
+    }
+    
+    func destinationViewGroup() -> some View {
+        self.destinationView
+            .disableEntriesSection(self.disableEntriesSection)
+            .autoDismissDestination(self.autoDismissDestination)
+            .navigationTitle("Destination Title")
+            .ifApply(self.customDestination) {
+                $0.cancelActionStyle { _ in
+                    Button {
+                        print("This is dismiss without selections")
+                    } label: {
+                        Image(systemName: "chevron.left")
+                    }
+                }
+                .applyActionStyle { _ in
+                    Button {
+                        print("This is dismiss with selections")
+                    } label: {
+                        Image(systemName: "checkmark")
+                    }
+                }
+                .allEntriesSectionTitleStyle { _ in
+                    Text("All Entries Title")
+                }
+                .selectedEntriesSectionTitleStyle { _ in
+                    Text("Selected Entries Title")
+                }
+                .selectAllActionStyle { _ in
+                    FioriButton(title: "Select All Action") { _ in }
+                }
+                .deselectAllActionStyle { _ in
+                    FioriButton(title: "Deselect All Action") { _ in }
+                }
+                .listStyle(.plain)
+            }
     }
     
     @ViewBuilder var valueView: some View {

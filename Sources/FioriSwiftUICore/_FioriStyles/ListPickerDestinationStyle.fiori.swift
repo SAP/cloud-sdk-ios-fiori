@@ -482,6 +482,7 @@ struct ListPickerDestinationContent<Data: RandomAccessCollection, ID: Hashable, 
     @Environment(\.listPickerDestinationConfiguration) var destinationConfiguration
     @Environment(\.disableEntriesSection) var disableEntriesSection
     @Environment(\.autoDismissDestination) var autoDismissDestination
+    @Environment(\.listPickerItemSelections) var listPickerItemSelections
     
     @Binding private var selections: Set<ID>
     private var isSingleSelection: Bool
@@ -530,6 +531,7 @@ struct ListPickerDestinationContent<Data: RandomAccessCollection, ID: Hashable, 
         } else {
             _selectionsPool = State(initialValue: [])
         }
+        self.postSelectionsUpdated()
     }
     
     init(_ data: Data,
@@ -560,6 +562,7 @@ struct ListPickerDestinationContent<Data: RandomAccessCollection, ID: Hashable, 
         } else {
             _selectionsPool = State(initialValue: [])
         }
+        self.postSelectionsUpdated()
     }
 
     var body: some View {
@@ -570,6 +573,9 @@ struct ListPickerDestinationContent<Data: RandomAccessCollection, ID: Hashable, 
             } else {
                 self.listContent()
             }
+        }
+        .onChange(of: self.selections) { _ in
+            self.postSelectionsUpdated()
         }
         .ifApply(!self.isTrackingLiveChanges && self.isTopLevel) {
             $0.toolbar {
@@ -601,6 +607,13 @@ struct ListPickerDestinationContent<Data: RandomAccessCollection, ID: Hashable, 
                                     Button("Keep Editing".localizedFioriString(), role: .cancel) {}
                                 })
             .navigationBarBackButtonHidden()
+        }
+    }
+    
+    func postSelectionsUpdated() {
+        // Use async to support
+        DispatchQueue.main.async {
+            NotificationCenter.default.post(name: Notification.Name.selectionsUpdatedNotification, object: self.selections)
         }
     }
     
@@ -708,7 +721,7 @@ struct ListPickerDestinationContent<Data: RandomAccessCollection, ID: Hashable, 
                 } else {
                     HStack {
                         self.rowContent(element)
-                        Spacer().frame(minWidth: 0)
+                        Spacer()
                         if self.isItemSelected(id_value) {
                             Image(systemName: "checkmark")
                                 .foregroundColor(.preferredColor(.tintColor))
@@ -811,9 +824,6 @@ struct ListPickerDestinationContent<Data: RandomAccessCollection, ID: Hashable, 
             } else {
                 if self.isSingleSelection {
                     self.selectionsPool = Set([idValue])
-                    if self.autoDismissDestination, self.isTrackingLiveChanges {
-                        self.dismiss()
-                    }
                 } else {
                     self.selectionsPool.insert(idValue)
                 }
@@ -1002,4 +1012,8 @@ public extension View {
     func autoDismissDestination(_ dismiss: Bool = true) -> some View {
         self.environment(\.autoDismissDestination, dismiss)
     }
+}
+
+extension Notification.Name {
+    static let selectionsUpdatedNotification = Notification.Name("ListPickerSelectionsUpdatedNotification")
 }

@@ -45,11 +45,24 @@ extension ListPickerItemFioriStyle {
 
     struct ValueFioriStyle: ValueStyle {
         let listPickerItemConfiguration: ListPickerItemConfiguration
-
+        // only used for empty value view
+        @State var selections: Set<String> = Set()
+        
         func makeBody(_ configuration: ValueConfiguration) -> some View {
-            Value(configuration)
-                .font(.fiori(forTextStyle: .body, weight: .regular))
-                .foregroundStyle(Color.preferredColor(.primaryLabel))
+            Group {
+                if configuration.value.isEmpty {
+                    Text(self.selections.joined(separator: ", "))
+                        .onReceive(NotificationCenter.default.publisher(for: Notification.Name.selectionsUpdatedNotification)) { notification in
+                            if let selections = notification.object as? Set<String> {
+                                self.selections = selections
+                            }
+                        }
+                } else {
+                    Value(configuration)
+                }
+            }
+            .font(.fiori(forTextStyle: .body, weight: .regular))
+            .foregroundStyle(Color.preferredColor(.primaryLabel))
         }
     }
 }
