@@ -26,7 +26,7 @@ public struct TextInputFieldNumberStyle: TextInputFieldStyle {
             .frame(minHeight: 44)
             .keyboardType(.numberPad)
             .onChange(of: configuration.text) { newValue in
-                let filtered = newValue.filter(\.isNumber)
+                let filtered = newValue.filter { $0.isNumber || $0 == "." }
                 if filtered != newValue {
                     configuration.text = filtered
                 }
