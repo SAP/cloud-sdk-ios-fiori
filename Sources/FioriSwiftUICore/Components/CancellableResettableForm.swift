@@ -43,6 +43,53 @@ struct CancellableResettableDialogForm<Title: View, CancelAction: View, ResetAct
     }
 }
 
+struct CancellableResettableDialogNavigationForm<Title: View, CancelAction: View, ResetAction: View, ApplyAction: View, Components: View>: View {
+    let title: Title
+    
+    let components: Components
+    
+    var cancelAction: CancelAction
+    var resetAction: ResetAction
+    var applyAction: ApplyAction
+    
+    public init(@ViewBuilder title: () -> Title,
+                @ViewBuilder cancelAction: () -> CancelAction,
+                @ViewBuilder resetAction: () -> ResetAction,
+                @ViewBuilder applyAction: () -> ApplyAction,
+                @ViewBuilder components: () -> Components)
+    {
+        self.title = title()
+        self.cancelAction = cancelAction()
+        self.resetAction = resetAction()
+        self.applyAction = applyAction()
+        self.components = components()
+    }
+    
+    var body: some View {
+        NavigationStack {
+            VStack(spacing: UIDevice.current.userInterfaceIdiom == .pad ? 8 : 16) {
+                self.components.background(Color.preferredColor(.secondaryGroupedBackground))
+                self.applyAction
+            }
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    self.title
+                }
+                ToolbarItem(placement: .topBarLeading) {
+                    self.cancelAction
+                }
+                ToolbarItem(placement: .topBarTrailing) {
+                    self.resetAction
+                }
+            }
+        }
+        .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? 375 : Screen.bounds.size.width)
+        .padding([.bottom], UIDevice.current.userInterfaceIdiom == .pad ? 13 : 16)
+        .background(Color.preferredColor(.chromeSecondary))
+    }
+}
+
 struct ApplyButtonStyle: PrimitiveButtonStyle {
     @Environment(\.isEnabled) private var isEnabled: Bool
 
