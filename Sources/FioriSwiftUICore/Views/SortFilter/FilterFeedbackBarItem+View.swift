@@ -121,7 +121,7 @@ struct PickerMenuItem: View {
     
     @State var isSheetVisible = false
 
-    @State var detentHeight: CGFloat = 0
+    @State var detentHeight: CGFloat = ((UIDevice.current.userInterfaceIdiom == .phone || UIDevice.current.userInterfaceIdiom == .pad) ? 88 : 0)
     
     public init(item: Binding<SortFilterItem.PickerItem>, onUpdate: @escaping () -> Void) {
         self._item = item
