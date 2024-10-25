@@ -64,7 +64,8 @@ extension OptionListPickerItem: View {
                             let popverHeight = Screen.bounds.size.height - StatusBar.height
                             let totalSpacing: CGFloat = (UIDevice.current.userInterfaceIdiom == .pad ? 8 : 16) * 2
                             let totalPadding: CGFloat = (UIDevice.current.userInterfaceIdiom == .pad ? 13 : 16) * 2
-                            let maxScrollViewHeight = popverHeight - totalSpacing - totalPadding - 120
+                            let safeAreaInset = self.getSafeAreaInsets()
+                            let maxScrollViewHeight = popverHeight - totalSpacing - totalPadding - safeAreaInset.top - safeAreaInset.bottom - (UIDevice.current.userInterfaceIdiom == .pad ? 210 : 30)
                             self._height = min(geometry.size.height, maxScrollViewHeight)
                         }
                 }
@@ -91,16 +92,30 @@ extension OptionListPickerItem: View {
                 GeometryReader { geometry in
                     Color.clear
                         .onAppear {
+                            print("getSafeAreaInsets:\(self.getSafeAreaInsets())")
                             let popverHeight = Screen.bounds.size.height - StatusBar.height
                             let totalSpacing: CGFloat = (UIDevice.current.userInterfaceIdiom == .pad ? 8 : 16) * 2
                             let totalPadding: CGFloat = (UIDevice.current.userInterfaceIdiom == .pad ? 13 : 16) * 2
-                            let maxScrollViewHeight = popverHeight - totalSpacing - totalPadding - 120
+                            let safeAreaInset = self.getSafeAreaInsets()
+                            let maxScrollViewHeight = popverHeight - totalSpacing - totalPadding - safeAreaInset.top - safeAreaInset.bottom - (UIDevice.current.userInterfaceIdiom == .pad ? 210 : 0)
                             self._height = min(geometry.size.height, maxScrollViewHeight)
                         }
                 }
             )
         }
         .frame(height: _height)
+    }
+    
+    private func getSafeAreaInsets() -> UIEdgeInsets {
+        guard let keyWindow = UIApplication.shared.connectedScenes
+            .filter({ $0.activationState == .foregroundActive })
+            .compactMap({ $0 as? UIWindowScene })
+            .first?.windows
+            .filter(\.isKeyWindow).first
+        else {
+            return .zero
+        }
+        return keyWindow.safeAreaInsets
     }
 }
 
