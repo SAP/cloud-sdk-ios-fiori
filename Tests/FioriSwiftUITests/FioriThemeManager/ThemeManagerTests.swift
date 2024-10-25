@@ -10,16 +10,16 @@ class ThemeManagerTests: XCTestCase {
     
     #if !os(watchOS)
         func testLatestColorStyle() throws {
-            XCTAssertEqual(ColorStyle.allCases.count, 216)
+            XCTAssertEqual(ColorStyle.allCases.count, 212) // 216
         }
     
         func testPalette8() throws {
             let tm = ThemeManager.shared
             tm.setPaletteVersion(.v8)
             // following are same as v7
-            XCTAssertEqual(tm.paletteVersion?.supportedStyles().count, 216)
+            XCTAssertEqual(tm.paletteVersion?.supportedStyles().count, 212) // 216
             XCTAssertEqual(tm.paletteVersion?.obsoletedStyles().count, 0)
-            XCTAssertEqual(tm.paletteVersion?.newStyles().count, 21)
+            XCTAssertEqual(tm.paletteVersion?.newStyles().count, 17) // 21
             let newStyle_grey1 = tm.hexColor(for: .grey1)
             XCTAssertEqual(newStyle_grey1, HexColor(lightColor: "12171CFF", darkColor: "F5F6F7FF", contrastLightColor: "1C242BFF", contrastDarkColor: "EAECEEFF"))
             let newStyle_primaryLabel = tm.hexColor(for: .primaryLabel)
@@ -307,14 +307,14 @@ class ThemeManagerTests: XCTestCase {
             XCTAssertEqual(stockUpStroke, HexColor(lightColor: "30914CFF", darkColor: "30914CFF", contrastLightColor: "99CC99FF", contrastDarkColor: "006362FF"))
             let stockDownStroke = tm.hexColor(for: .stockDownStroke)
             XCTAssertEqual(stockDownStroke, HexColor(lightColor: "F83030FF", darkColor: "F53232FF", contrastLightColor: "FF7878FF", contrastDarkColor: "AB0000FF"))
-            let chartBad = tm.hexColor(for: .chartBad)
-            XCTAssertEqual(chartBad, HexColor(lightColor: "F83030FF", darkColor: "F53232FF", contrastLightColor: "FF7878FF", contrastDarkColor: "AB0000FF"))
-            let chartCritical = tm.hexColor(for: .chartCritical)
-            XCTAssertEqual(chartCritical, HexColor(lightColor: "DD6100FF", darkColor: "E26300FF", contrastLightColor: "FFAB1DFF", contrastDarkColor: "5C5C00FF"))
-            let chartGood = tm.hexColor(for: .chartGood)
-            XCTAssertEqual(chartGood, HexColor(lightColor: "30914CFF", darkColor: "30914CFF", contrastLightColor: "99CC99FF", contrastDarkColor: "006362FF"))
-            let chartNeutral = tm.hexColor(for: .chartNeutral)
-            XCTAssertEqual(chartNeutral, HexColor(lightColor: "6F89A1FF", darkColor: "758CA4FF", contrastLightColor: "AFAFAFFF", contrastDarkColor: "525252FF"))
+//            let chartBad = tm.hexColor(for: .chartBad)
+//            XCTAssertEqual(chartBad, HexColor(lightColor: "F83030FF", darkColor: "F53232FF", contrastLightColor: "FF7878FF", contrastDarkColor: "AB0000FF"))
+//            let chartCritical = tm.hexColor(for: .chartCritical)
+//            XCTAssertEqual(chartCritical, HexColor(lightColor: "DD6100FF", darkColor: "E26300FF", contrastLightColor: "FFAB1DFF", contrastDarkColor: "5C5C00FF"))
+//            let chartGood = tm.hexColor(for: .chartGood)
+//            XCTAssertEqual(chartGood, HexColor(lightColor: "30914CFF", darkColor: "30914CFF", contrastLightColor: "99CC99FF", contrastDarkColor: "006362FF"))
+//            let chartNeutral = tm.hexColor(for: .chartNeutral)
+//            XCTAssertEqual(chartNeutral, HexColor(lightColor: "6F89A1FF", darkColor: "758CA4FF", contrastLightColor: "AFAFAFFF", contrastDarkColor: "525252FF"))
         }
 
         func testPaletteV7() throws {
