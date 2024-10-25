@@ -48,7 +48,6 @@ extension SearchListPickerItem: View {
                                 .foregroundColor(.preferredColor(.tintColor))
                         }
                     }
-                    .frame(maxWidth: .infinity)
                     .padding(0)
                     .contentShape(Rectangle())
                     .onTapGesture {
@@ -79,9 +78,7 @@ extension SearchListPickerItem: View {
                 }
             })
             .listStyle(PlainListStyle())
-            .frame(maxWidth: .infinity)
             .frame(minWidth: UIDevice.current.userInterfaceIdiom != .phone ? 393 : nil)
-            .frame(height: self._height)
             .scrollContentBackground(.hidden)
             .padding(0)
             .searchable(text: $_searchText, placement: .automatic)
