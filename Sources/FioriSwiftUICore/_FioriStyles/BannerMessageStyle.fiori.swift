@@ -63,6 +63,15 @@ public struct BannerMessageBaseStyle: BannerMessageStyle {
     }
 }
 
+struct BannerMessageErrorStyle: BannerMessageStyle {
+    public func makeBody(_ configuration: BannerMessageConfiguration) -> some View {
+        BannerMessage(configuration)
+            .iconStyle { c in
+                c.icon.foregroundStyle(BannerMessageFioriStyle.titleForegroundColor(type: configuration.messageType))
+            }
+    }
+}
+
 // Default fiori styles
 extension BannerMessageFioriStyle {
     static func titleForegroundColor(type: BannerMultiMessageType) -> Color {

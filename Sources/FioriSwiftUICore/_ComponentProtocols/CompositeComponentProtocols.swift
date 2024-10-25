@@ -631,3 +631,12 @@ protocol _ToastMessageComponent: _IconComponent, _TitleComponent {
     /// The duration in seconds for which the toast message is shown. The default is `1`.
     var duration: Double { get }
 }
+
+protocol _BannerMultiMessageSheet: _TitleComponent, _CloseActionComponent {
+    var closeAction: () -> Void { get }
+    var removeAction: (String, UUID?) -> Void { get }
+    var viewDetailAction: (UUID) -> Void { get }
+    var turnOnSectionHeader: Bool { get }
+//    @ViewBuilder messageItemView: @escaping ((UUID) -> any View)
+//    var bannerMultiMessages: Binding<[BannerMessageListModel]
+}
