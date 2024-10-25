@@ -63,9 +63,9 @@ extension SearchListPickerItem: View {
                     let popverHeight = Screen.bounds.size.height - StatusBar.height
                     let totalSpacing: CGFloat = (UIDevice.current.userInterfaceIdiom == .pad ? 8 : 16) * 2
                     let totalPadding: CGFloat = (UIDevice.current.userInterfaceIdiom == .pad ? 13 : 16) * 2
-                    let maxScrollViewHeight = popverHeight - totalSpacing - totalPadding - 52 - 56 - 120
-                    
-                    self._height = UIDevice.current.userInterfaceIdiom != .phone ? min(scrollView.contentSize.height, 396) : min(min(scrollView.contentSize.height, maxScrollViewHeight), 396)
+                    let safeAreaInset = self.getSafeAreaInsets()
+                    let maxScrollViewHeight = popverHeight - totalSpacing - totalPadding - 52 - 56 - safeAreaInset.top - safeAreaInset.bottom - (UIDevice.current.userInterfaceIdiom == .pad ? 230 : 30)
+                    self._height = min(scrollView.contentSize.height, maxScrollViewHeight)
                     var isSelectAllViewShow = false
                     if allowsMultipleSelection {
                         if _value.count != _valueOptions.count || allowsEmptySelection {
@@ -110,6 +110,17 @@ extension SearchListPickerItem: View {
     
     private func findIndex(of item: String) -> Int? {
         _valueOptions.firstIndex(where: { $0 == item })
+    }
+    
+    private func getSafeAreaInsets() -> UIEdgeInsets {
+        guard let keyWindow = UIApplication.shared.connectedScenes
+            .first(where: { $0.activationState == .foregroundActive })
+            .flatMap({ $0 as? UIWindowScene })?.windows
+            .first(where: \.isKeyWindow)
+        else {
+            return .zero
+        }
+        return keyWindow.safeAreaInsets
     }
 }
 
