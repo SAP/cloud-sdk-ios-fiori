@@ -31,6 +31,34 @@ public extension ActionStyle where Self == ActionFioriStyle {
     }
 }
 
+// MARK: AllEntriesSectionTitleStyle
+
+public extension AllEntriesSectionTitleStyle where Self == AllEntriesSectionTitleBaseStyle {
+    static var base: AllEntriesSectionTitleBaseStyle {
+        AllEntriesSectionTitleBaseStyle()
+    }
+}
+
+public extension AllEntriesSectionTitleStyle where Self == AllEntriesSectionTitleFioriStyle {
+    static var fiori: AllEntriesSectionTitleFioriStyle {
+        AllEntriesSectionTitleFioriStyle()
+    }
+}
+
+// MARK: ApplyActionStyle
+
+public extension ApplyActionStyle where Self == ApplyActionBaseStyle {
+    static var base: ApplyActionBaseStyle {
+        ApplyActionBaseStyle()
+    }
+}
+
+public extension ApplyActionStyle where Self == ApplyActionFioriStyle {
+    static var fiori: ApplyActionFioriStyle {
+        ApplyActionFioriStyle()
+    }
+}
+
 // MARK: AttributeStyle
 
 public extension AttributeStyle where Self == AttributeBaseStyle {
@@ -224,6 +252,20 @@ public extension BannerMessageStyle where Self == BannerMessageTopDividerStyle {
     static func topDividerStyle(@ViewBuilder content: @escaping (TopDividerConfiguration) -> some View) -> BannerMessageTopDividerStyle {
         let style = AnyTopDividerStyle(content)
         return BannerMessageTopDividerStyle(style: style)
+    }
+}
+
+// MARK: CancelActionStyle
+
+public extension CancelActionStyle where Self == CancelActionBaseStyle {
+    static var base: CancelActionBaseStyle {
+        CancelActionBaseStyle()
+    }
+}
+
+public extension CancelActionStyle where Self == CancelActionFioriStyle {
+    static var fiori: CancelActionFioriStyle {
+        CancelActionFioriStyle()
     }
 }
 
@@ -1711,6 +1753,20 @@ public extension DescriptionStyle where Self == DescriptionFioriStyle {
     }
 }
 
+// MARK: DeselectAllActionStyle
+
+public extension DeselectAllActionStyle where Self == DeselectAllActionBaseStyle {
+    static var base: DeselectAllActionBaseStyle {
+        DeselectAllActionBaseStyle()
+    }
+}
+
+public extension DeselectAllActionStyle where Self == DeselectAllActionFioriStyle {
+    static var fiori: DeselectAllActionFioriStyle {
+        DeselectAllActionFioriStyle()
+    }
+}
+
 // MARK: DetailImageStyle
 
 public extension DetailImageStyle where Self == DetailImageBaseStyle {
@@ -2478,6 +2534,237 @@ public extension LinearProgressIndicatorViewStyle where Self == LinearProgressIn
     static func descriptionStyle(@ViewBuilder content: @escaping (DescriptionConfiguration) -> some View) -> LinearProgressIndicatorViewDescriptionStyle {
         let style = AnyDescriptionStyle(content)
         return LinearProgressIndicatorViewDescriptionStyle(style: style)
+    }
+}
+
+// MARK: ListPickerContentStyle
+
+public extension ListPickerContentStyle where Self == ListPickerContentBaseStyle {
+    static var base: ListPickerContentBaseStyle {
+        ListPickerContentBaseStyle()
+    }
+}
+
+public extension ListPickerContentStyle where Self == ListPickerContentFioriStyle {
+    static var fiori: ListPickerContentFioriStyle {
+        ListPickerContentFioriStyle()
+    }
+}
+
+// MARK: ListPickerDestinationStyle
+
+public extension ListPickerDestinationStyle where Self == ListPickerDestinationBaseStyle {
+    static var base: ListPickerDestinationBaseStyle {
+        ListPickerDestinationBaseStyle()
+    }
+}
+
+public extension ListPickerDestinationStyle where Self == ListPickerDestinationFioriStyle {
+    static var fiori: ListPickerDestinationFioriStyle {
+        ListPickerDestinationFioriStyle()
+    }
+}
+
+public struct ListPickerDestinationCancelActionStyle: ListPickerDestinationStyle {
+    let style: any CancelActionStyle
+
+    public func makeBody(_ configuration: ListPickerDestinationConfiguration) -> some View {
+        ListPickerDestination(configuration)
+            .cancelActionStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension ListPickerDestinationStyle where Self == ListPickerDestinationCancelActionStyle {
+    static func cancelActionStyle(_ style: some CancelActionStyle) -> ListPickerDestinationCancelActionStyle {
+        ListPickerDestinationCancelActionStyle(style: style)
+    }
+
+    static func cancelActionStyle(@ViewBuilder content: @escaping (CancelActionConfiguration) -> some View) -> ListPickerDestinationCancelActionStyle {
+        let style = AnyCancelActionStyle(content)
+        return ListPickerDestinationCancelActionStyle(style: style)
+    }
+}
+
+public struct ListPickerDestinationApplyActionStyle: ListPickerDestinationStyle {
+    let style: any ApplyActionStyle
+
+    public func makeBody(_ configuration: ListPickerDestinationConfiguration) -> some View {
+        ListPickerDestination(configuration)
+            .applyActionStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension ListPickerDestinationStyle where Self == ListPickerDestinationApplyActionStyle {
+    static func applyActionStyle(_ style: some ApplyActionStyle) -> ListPickerDestinationApplyActionStyle {
+        ListPickerDestinationApplyActionStyle(style: style)
+    }
+
+    static func applyActionStyle(@ViewBuilder content: @escaping (ApplyActionConfiguration) -> some View) -> ListPickerDestinationApplyActionStyle {
+        let style = AnyApplyActionStyle(content)
+        return ListPickerDestinationApplyActionStyle(style: style)
+    }
+}
+
+public struct ListPickerDestinationSelectedEntriesSectionTitleStyle: ListPickerDestinationStyle {
+    let style: any SelectedEntriesSectionTitleStyle
+
+    public func makeBody(_ configuration: ListPickerDestinationConfiguration) -> some View {
+        ListPickerDestination(configuration)
+            .selectedEntriesSectionTitleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension ListPickerDestinationStyle where Self == ListPickerDestinationSelectedEntriesSectionTitleStyle {
+    static func selectedEntriesSectionTitleStyle(_ style: some SelectedEntriesSectionTitleStyle) -> ListPickerDestinationSelectedEntriesSectionTitleStyle {
+        ListPickerDestinationSelectedEntriesSectionTitleStyle(style: style)
+    }
+
+    static func selectedEntriesSectionTitleStyle(@ViewBuilder content: @escaping (SelectedEntriesSectionTitleConfiguration) -> some View) -> ListPickerDestinationSelectedEntriesSectionTitleStyle {
+        let style = AnySelectedEntriesSectionTitleStyle(content)
+        return ListPickerDestinationSelectedEntriesSectionTitleStyle(style: style)
+    }
+}
+
+public struct ListPickerDestinationSelectAllActionStyle: ListPickerDestinationStyle {
+    let style: any SelectAllActionStyle
+
+    public func makeBody(_ configuration: ListPickerDestinationConfiguration) -> some View {
+        ListPickerDestination(configuration)
+            .selectAllActionStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension ListPickerDestinationStyle where Self == ListPickerDestinationSelectAllActionStyle {
+    static func selectAllActionStyle(_ style: some SelectAllActionStyle) -> ListPickerDestinationSelectAllActionStyle {
+        ListPickerDestinationSelectAllActionStyle(style: style)
+    }
+
+    static func selectAllActionStyle(@ViewBuilder content: @escaping (SelectAllActionConfiguration) -> some View) -> ListPickerDestinationSelectAllActionStyle {
+        let style = AnySelectAllActionStyle(content)
+        return ListPickerDestinationSelectAllActionStyle(style: style)
+    }
+}
+
+public struct ListPickerDestinationDeselectAllActionStyle: ListPickerDestinationStyle {
+    let style: any DeselectAllActionStyle
+
+    public func makeBody(_ configuration: ListPickerDestinationConfiguration) -> some View {
+        ListPickerDestination(configuration)
+            .deselectAllActionStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension ListPickerDestinationStyle where Self == ListPickerDestinationDeselectAllActionStyle {
+    static func deselectAllActionStyle(_ style: some DeselectAllActionStyle) -> ListPickerDestinationDeselectAllActionStyle {
+        ListPickerDestinationDeselectAllActionStyle(style: style)
+    }
+
+    static func deselectAllActionStyle(@ViewBuilder content: @escaping (DeselectAllActionConfiguration) -> some View) -> ListPickerDestinationDeselectAllActionStyle {
+        let style = AnyDeselectAllActionStyle(content)
+        return ListPickerDestinationDeselectAllActionStyle(style: style)
+    }
+}
+
+public struct ListPickerDestinationAllEntriesSectionTitleStyle: ListPickerDestinationStyle {
+    let style: any AllEntriesSectionTitleStyle
+
+    public func makeBody(_ configuration: ListPickerDestinationConfiguration) -> some View {
+        ListPickerDestination(configuration)
+            .allEntriesSectionTitleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension ListPickerDestinationStyle where Self == ListPickerDestinationAllEntriesSectionTitleStyle {
+    static func allEntriesSectionTitleStyle(_ style: some AllEntriesSectionTitleStyle) -> ListPickerDestinationAllEntriesSectionTitleStyle {
+        ListPickerDestinationAllEntriesSectionTitleStyle(style: style)
+    }
+
+    static func allEntriesSectionTitleStyle(@ViewBuilder content: @escaping (AllEntriesSectionTitleConfiguration) -> some View) -> ListPickerDestinationAllEntriesSectionTitleStyle {
+        let style = AnyAllEntriesSectionTitleStyle(content)
+        return ListPickerDestinationAllEntriesSectionTitleStyle(style: style)
+    }
+}
+
+public struct ListPickerDestinationListPickerContentStyle: ListPickerDestinationStyle {
+    let style: any ListPickerContentStyle
+
+    public func makeBody(_ configuration: ListPickerDestinationConfiguration) -> some View {
+        ListPickerDestination(configuration)
+            .listPickerContentStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension ListPickerDestinationStyle where Self == ListPickerDestinationListPickerContentStyle {
+    static func listPickerContentStyle(_ style: some ListPickerContentStyle) -> ListPickerDestinationListPickerContentStyle {
+        ListPickerDestinationListPickerContentStyle(style: style)
+    }
+
+    static func listPickerContentStyle(@ViewBuilder content: @escaping (ListPickerContentConfiguration) -> some View) -> ListPickerDestinationListPickerContentStyle {
+        let style = AnyListPickerContentStyle(content)
+        return ListPickerDestinationListPickerContentStyle(style: style)
+    }
+}
+
+// MARK: ListPickerItemStyle
+
+public extension ListPickerItemStyle where Self == ListPickerItemBaseStyle {
+    static var base: ListPickerItemBaseStyle {
+        ListPickerItemBaseStyle()
+    }
+}
+
+public extension ListPickerItemStyle where Self == ListPickerItemFioriStyle {
+    static var fiori: ListPickerItemFioriStyle {
+        ListPickerItemFioriStyle()
+    }
+}
+
+public struct ListPickerItemTitleStyle: ListPickerItemStyle {
+    let style: any TitleStyle
+
+    public func makeBody(_ configuration: ListPickerItemConfiguration) -> some View {
+        ListPickerItem(configuration)
+            .titleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension ListPickerItemStyle where Self == ListPickerItemTitleStyle {
+    static func titleStyle(_ style: some TitleStyle) -> ListPickerItemTitleStyle {
+        ListPickerItemTitleStyle(style: style)
+    }
+
+    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> ListPickerItemTitleStyle {
+        let style = AnyTitleStyle(content)
+        return ListPickerItemTitleStyle(style: style)
+    }
+}
+
+public struct ListPickerItemValueStyle: ListPickerItemStyle {
+    let style: any ValueStyle
+
+    public func makeBody(_ configuration: ListPickerItemConfiguration) -> some View {
+        ListPickerItem(configuration)
+            .valueStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension ListPickerItemStyle where Self == ListPickerItemValueStyle {
+    static func valueStyle(_ style: some ValueStyle) -> ListPickerItemValueStyle {
+        ListPickerItemValueStyle(style: style)
+    }
+
+    static func valueStyle(@ViewBuilder content: @escaping (ValueConfiguration) -> some View) -> ListPickerItemValueStyle {
+        let style = AnyValueStyle(content)
+        return ListPickerItemValueStyle(style: style)
     }
 }
 
@@ -3738,6 +4025,34 @@ public extension SegmentedControlPickerStyle where Self == SegmentedControlPicke
     static func optionsStyle(@ViewBuilder content: @escaping (OptionsConfiguration) -> some View) -> SegmentedControlPickerOptionsStyle {
         let style = AnyOptionsStyle(content)
         return SegmentedControlPickerOptionsStyle(style: style)
+    }
+}
+
+// MARK: SelectAllActionStyle
+
+public extension SelectAllActionStyle where Self == SelectAllActionBaseStyle {
+    static var base: SelectAllActionBaseStyle {
+        SelectAllActionBaseStyle()
+    }
+}
+
+public extension SelectAllActionStyle where Self == SelectAllActionFioriStyle {
+    static var fiori: SelectAllActionFioriStyle {
+        SelectAllActionFioriStyle()
+    }
+}
+
+// MARK: SelectedEntriesSectionTitleStyle
+
+public extension SelectedEntriesSectionTitleStyle where Self == SelectedEntriesSectionTitleBaseStyle {
+    static var base: SelectedEntriesSectionTitleBaseStyle {
+        SelectedEntriesSectionTitleBaseStyle()
+    }
+}
+
+public extension SelectedEntriesSectionTitleStyle where Self == SelectedEntriesSectionTitleFioriStyle {
+    static var fiori: SelectedEntriesSectionTitleFioriStyle {
+        SelectedEntriesSectionTitleFioriStyle()
     }
 }
 
@@ -5292,6 +5607,20 @@ public extension TopDividerStyle where Self == TopDividerBaseStyle {
 public extension TopDividerStyle where Self == TopDividerFioriStyle {
     static var fiori: TopDividerFioriStyle {
         TopDividerFioriStyle()
+    }
+}
+
+// MARK: ValueStyle
+
+public extension ValueStyle where Self == ValueBaseStyle {
+    static var base: ValueBaseStyle {
+        ValueBaseStyle()
+    }
+}
+
+public extension ValueStyle where Self == ValueFioriStyle {
+    static var fiori: ValueFioriStyle {
+        ValueFioriStyle()
     }
 }
 

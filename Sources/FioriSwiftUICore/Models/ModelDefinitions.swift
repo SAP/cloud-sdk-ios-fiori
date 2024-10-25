@@ -106,12 +106,16 @@ public protocol ActivityItemsModel: ActionItemsComponent {}
 // sourcery: add_env_props = "listBackground"
 // sourcery: add_env_props = "listpickerListStyle"
 // sourcery: add_env_props = "listPickerListViewModifier"
-// sourcery: virtualPropDestinationConfiguration = "var destinationConfiguration: ListPickerItemConfiguration? = nil"
-public protocol ListPickerItemModel: KeyComponent, ValueComponent {
+
+// sourcery: virtualPropDestinationConfiguration = "var destinationConfiguration: _ListPickerItemConfiguration? = nil"
+public protocol _ListPickerItemModel: KeyComponent, ValueComponent {
     // sourcery: default.value = .horizontal
     // sourcery: no_view
     var axis: Axis { get }
 }
+
+@available(*, unavailable, renamed: "_ListPickerItemModel", message: "Will be removed in the future release. Please create ListPickerItem with other initializers instead.")
+public protocol ListPickerItemModel {}
 
 // sourcery: generated_component_not_configurable
 public protocol ProgressIndicatorModel: ProgressIndicatorComponent {}

@@ -68,8 +68,13 @@ extension Type {
 public extension Type {
     var componentName: String {
         var name = name
+        let deprecatedComponents = ["_ListPickerItemModel",
+                                    "_ActionModel",
+                                    "_ObjectItemModel",
+                                    "_SideBarModel",
+                                    "_SideBarListItemModel"]
         
-        if name == "_ActionModel" || name == "_ObjectItemModel" || name == "_SideBarModel" || name == "_SideBarListItemModel"{
+        if deprecatedComponents.contains(name) {
             return name.replacingOccurrences(of: "Model", with: "")
         }
         

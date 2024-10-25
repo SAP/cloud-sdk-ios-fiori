@@ -2,7 +2,7 @@
 // DO NOT EDIT
 import SwiftUI
 
-public extension ListPickerItemModel {
+public extension _ListPickerItemModel {
     var axis: Axis {
         return .horizontal
     }
