@@ -252,14 +252,14 @@ struct PickerMenuItem: View {
                     } selectAll: { isAll in
                         self.item.selectAll(isAll)
                     } updateSearchListPickerHeight: { height in
-                        self.detentHeight = height + 52 + 56 + 70
+                        self.detentHeight = height
                     }
+                    .frame(maxHeight: UIDevice.current.userInterfaceIdiom != .phone ? (self.detentHeight) : nil)
                     .padding(0)
                     Spacer()
                 }
-                .frame(maxWidth: .infinity)
                 .frame(minWidth: UIDevice.current.userInterfaceIdiom != .phone ? 393 : nil)
-                .frame(height: UIDevice.current.userInterfaceIdiom != .phone ? self.detentHeight : nil)
+                .frame(height: UIDevice.current.userInterfaceIdiom != .phone ? self.detentHeight + 52 + 56 + 70 : nil)
                 .presentationDetents([.large])
             }
     }
