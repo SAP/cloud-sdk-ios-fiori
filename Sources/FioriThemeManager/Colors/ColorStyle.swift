@@ -1163,30 +1163,30 @@ public enum ColorStyle: String, CaseIterable {
     /// (light variant) ![](https://dummyimage.com/48x18/F83030.png&text=+)          Hex value: F83030FF
     @available(watchOS, unavailable)
     case stockDownStroke
-    
-    /// ChartBad
-    /// (dark variant) ![](https://dummyimage.com/48x18/F53232.png&text=+)          Hex value: F53232FF
-    /// (light variant) ![](https://dummyimage.com/48x18/F83030.png&text=+)          Hex value: F83030FF
-    @available(watchOS, unavailable)
-    case chartBad
-    
-    /// ChartCritical
-    /// (dark variant) ![](https://dummyimage.com/48x18/E26300.png&text=+)          Hex value: E26300FF
-    /// (light variant) ![](https://dummyimage.com/48x18/DD6100.png&text=+)          Hex value: DD6100FF
-    @available(watchOS, unavailable)
-    case chartCritical
-    
-    /// ChartGood
-    /// (dark variant) ![](https://dummyimage.com/48x18/30914C.png&text=+)          Hex value: 30914CFF
-    /// (light variant) ![](https://dummyimage.com/48x18/30914C.png&text=+)          Hex value: 30914CFF
-    @available(watchOS, unavailable)
-    case chartGood
-    
-    /// ChartNeutral
-    /// (dark variant) ![](https://dummyimage.com/48x18/6F89A1.png&text=+)          Hex value: 6F89A1FF
-    /// (light variant) ![](https://dummyimage.com/48x18/758CA4.png&text=+)          Hex value: 758CA4FF
-    @available(watchOS, unavailable)
-    case chartNeutral
+//
+//    /// ChartBad
+//    /// (dark variant) ![](https://dummyimage.com/48x18/F53232.png&text=+)          Hex value: F53232FF
+//    /// (light variant) ![](https://dummyimage.com/48x18/F83030.png&text=+)          Hex value: F83030FF
+//    @available(watchOS, unavailable)
+//    case chartBad
+//
+//    /// ChartCritical
+//    /// (dark variant) ![](https://dummyimage.com/48x18/E26300.png&text=+)          Hex value: E26300FF
+//    /// (light variant) ![](https://dummyimage.com/48x18/DD6100.png&text=+)          Hex value: DD6100FF
+//    @available(watchOS, unavailable)
+//    case chartCritical
+//
+//    /// ChartGood
+//    /// (dark variant) ![](https://dummyimage.com/48x18/30914C.png&text=+)          Hex value: 30914CFF
+//    /// (light variant) ![](https://dummyimage.com/48x18/30914C.png&text=+)          Hex value: 30914CFF
+//    @available(watchOS, unavailable)
+//    case chartGood
+//
+//    /// ChartNeutral
+//    /// (dark variant) ![](https://dummyimage.com/48x18/6F89A1.png&text=+)          Hex value: 6F89A1FF
+//    /// (light variant) ![](https://dummyimage.com/48x18/758CA4.png&text=+)          Hex value: 758CA4FF
+//    @available(watchOS, unavailable)
+//    case chartNeutral
     
     // MARK: - Map Colors (11 Styles)
     
@@ -1642,7 +1642,9 @@ public enum ColorStyle: String, CaseIterable {
                                                     .header, .headerBlended, .barTransparent, .contrastElement,
                                                     .footer, .cellBackground, .chrome, .chromeSecondary, .chart1, .chart2, .chart3, .chart4,
                                                     .chart5, .chart6, .chart7, .chart8, .chart9, .chart10, .chart11, .chart12,
-                                                    .stockUpStroke, .stockDownStroke, .chartBad, .chartCritical, .chartNeutral, .chartGood, .map1, .map2, .map3, .map4,
+                                                    .stockUpStroke, .stockDownStroke,
+//                                                    .chartBad, .chartCritical, .chartNeutral, .chartGood,
+                                                    .map1, .map2, .map3, .map4,
                                                     .map5, .map6, .map7, .map8, .map9, .map10, .customColor1, .customColor2, .customColor3, .customColor4, .customColor5, .customColor6,
                                                     .esriEdit, .jouleBrand, .jouleAccent1, .jouleAccent2, .jouleAccent3, .jouleGradient1, .jouleGradient2]
     #else
