@@ -117,10 +117,9 @@ extension SearchListPickerItem: View {
     
     private func getSafeAreaInsets() -> UIEdgeInsets {
         guard let keyWindow = UIApplication.shared.connectedScenes
-            .filter({ $0.activationState == .foregroundActive })
-            .compactMap({ $0 as? UIWindowScene })
-            .first?.windows
-            .filter(\.isKeyWindow).first
+            .first(where: { $0.activationState == .foregroundActive })
+            .flatMap({ $0 as? UIWindowScene })?.windows
+            .first(where: \.isKeyWindow)
         else {
             return .zero
         }
