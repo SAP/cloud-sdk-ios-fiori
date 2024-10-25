@@ -482,7 +482,6 @@ struct ListPickerDestinationContent<Data: RandomAccessCollection, ID: Hashable, 
     @Environment(\.listPickerDestinationConfiguration) var destinationConfiguration
     @Environment(\.disableEntriesSection) var disableEntriesSection
     @Environment(\.autoDismissDestination) var autoDismissDestination
-    @Environment(\.listPickerItemSelections) var listPickerItemSelections
     
     @Binding private var selections: Set<ID>
     private var isSingleSelection: Bool

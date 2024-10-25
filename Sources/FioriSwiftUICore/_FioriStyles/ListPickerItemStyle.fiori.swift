@@ -52,7 +52,7 @@ extension ListPickerItemFioriStyle {
         func makeBody(_ configuration: ValueConfiguration) -> some View {
             Group {
                 if configuration.value.isEmpty {
-                    Text(self.selections.joined(separator: ", "))
+                    Value(ValueConfiguration(value: ConfigurationViewWrapper(Text(self.selections.joined(separator: ", ")))))
                         .onReceive(NotificationCenter.default.publisher(for: Notification.Name.selectionsUpdatedNotification)) { notification in
                             if let selections = notification.object as? Set<String> {
                                 self.selections = selections
