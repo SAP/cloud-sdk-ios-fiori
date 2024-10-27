@@ -2,7 +2,7 @@
 // DO NOT EDIT
 import SwiftUI
 
-extension ListPickerItem where Value == EmptyView {
+extension _ListPickerItem where Value == EmptyView {
     public init(
     @ViewBuilder key: () -> Key,
 		axis: Axis = .horizontal

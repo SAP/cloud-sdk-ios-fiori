@@ -10,7 +10,7 @@
 		108E43D5292DAB7C006532F3 /* EmptyStateViewExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 108E43D4292DAB7C006532F3 /* EmptyStateViewExample.swift */; };
 		1F1A1FFA2C0BDA54007109D8 /* MenuSelectionExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1A1FF92C0BDA54007109D8 /* MenuSelectionExample.swift */; };
 		1F26DCFA261A5CD9006C43B1 /* FioriButtonContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F26DCF9261A5CD9006C43B1 /* FioriButtonContentView.swift */; };
-		1F3C92F125DF12C100A99A07 /* ListPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3C92F025DF12C100A99A07 /* ListPicker.swift */; };
+		1F3C92F125DF12C100A99A07 /* _ListPickerExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3C92F025DF12C100A99A07 /* _ListPickerExample.swift */; };
 		1F55FEF32AC941FF00D7A1BE /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F55FEF22AC941FF00D7A1BE /* View+Extensions.swift */; };
 		1F60179729A8439A00DBDCDE /* WatchExamplesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F60179629A8439A00DBDCDE /* WatchExamplesApp.swift */; };
 		1F60179929A8439A00DBDCDE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F60179829A8439A00DBDCDE /* ContentView.swift */; };
@@ -115,6 +115,7 @@
 		B100639329C0624D00AF0CA2 /* StepProgressIndicatorExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B100639229C0624D00AF0CA2 /* StepProgressIndicatorExample.swift */; };
 		B13408922B01FA0700600331 /* NavigationBarExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B13408912B01FA0700600331 /* NavigationBarExample.swift */; };
 		B141D6BB29261F9E008A8BD6 /* SearchableListViewExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B141D6BA29261F9E008A8BD6 /* SearchableListViewExample.swift */; };
+		B153E88E2CAA8EEA0017EB84 /* ListPickerItemExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B153E88D2CAA8EE30017EB84 /* ListPickerItemExample.swift */; };
 		B18D2E9F2988B07B000A1821 /* KPIHeaderExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18D2E9E2988B07B000A1821 /* KPIHeaderExample.swift */; };
 		B18D593C2B0C52C700ABB1AD /* TabViewExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18D593B2B0C52C700ABB1AD /* TabViewExample.swift */; };
 		B190065A2C201BBE000C8B10 /* ProfileHeaderExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19006592C201BBE000C8B10 /* ProfileHeaderExample.swift */; };
@@ -225,7 +226,7 @@
 		108E43D4292DAB7C006532F3 /* EmptyStateViewExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateViewExample.swift; sourceTree = "<group>"; };
 		1F1A1FF92C0BDA54007109D8 /* MenuSelectionExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuSelectionExample.swift; sourceTree = "<group>"; };
 		1F26DCF9261A5CD9006C43B1 /* FioriButtonContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FioriButtonContentView.swift; sourceTree = "<group>"; };
-		1F3C92F025DF12C100A99A07 /* ListPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListPicker.swift; sourceTree = "<group>"; };
+		1F3C92F025DF12C100A99A07 /* _ListPickerExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _ListPickerExample.swift; sourceTree = "<group>"; };
 		1F55FEF22AC941FF00D7A1BE /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
 		1F60179429A8439A00DBDCDE /* WatchExamples Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WatchExamples Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F60179629A8439A00DBDCDE /* WatchExamplesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchExamplesApp.swift; sourceTree = "<group>"; };
@@ -328,6 +329,7 @@
 		B100639229C0624D00AF0CA2 /* StepProgressIndicatorExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepProgressIndicatorExample.swift; sourceTree = "<group>"; };
 		B13408912B01FA0700600331 /* NavigationBarExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarExample.swift; sourceTree = "<group>"; };
 		B141D6BA29261F9E008A8BD6 /* SearchableListViewExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchableListViewExample.swift; sourceTree = "<group>"; };
+		B153E88D2CAA8EE30017EB84 /* ListPickerItemExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListPickerItemExample.swift; sourceTree = "<group>"; };
 		B18D2E9E2988B07B000A1821 /* KPIHeaderExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KPIHeaderExample.swift; sourceTree = "<group>"; };
 		B18D593B2B0C52C700ABB1AD /* TabViewExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabViewExample.swift; sourceTree = "<group>"; };
 		B19006592C201BBE000C8B10 /* ProfileHeaderExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderExample.swift; sourceTree = "<group>"; };
@@ -427,8 +429,9 @@
 		1F3C92EF25DF12A100A99A07 /* FormCells */ = {
 			isa = PBXGroup;
 			children = (
+				B153E88D2CAA8EE30017EB84 /* ListPickerItemExample.swift */,
 				878219C32BEE128E002FDFBC /* StepperViewExample.swift */,
-				1F3C92F025DF12C100A99A07 /* ListPicker.swift */,
+				1F3C92F025DF12C100A99A07 /* _ListPickerExample.swift */,
 				B141D6BA29261F9E008A8BD6 /* SearchableListViewExample.swift */,
 				99193C842B719B8800F33BAF /* InformationViewExample.swift */,
 				64905D062C6D13E20062AAD4 /* SwitchExample.swift */,
@@ -1074,7 +1077,7 @@
 				99B6EF8C2672224D00515E8E /* UserConsentSample.swift in Sources */,
 				B84D24F02652F343007F2373 /* ObjectHeaderExample.swift in Sources */,
 				9996CD00262EB4E8001B99AE /* EULAViewSample.swift in Sources */,
-				1F3C92F125DF12C100A99A07 /* ListPicker.swift in Sources */,
+				1F3C92F125DF12C100A99A07 /* _ListPickerExample.swift in Sources */,
 				B1D41B20291A2D97004E64A5 /* DurationPickerExample.swift in Sources */,
 				1FC30414270541BF004BEE00 /* FioriThemeManagerContentView.swift in Sources */,
 				C106AD422B336EA400FE8B35 /* SearchWithSuggestion.swift in Sources */,
@@ -1135,6 +1138,7 @@
 				6D6E86712C53A0D500EDB6F4 /* CardViewWithTwoButtonsExample.swift in Sources */,
 				B8D4376F25F980340024EE7D /* ObjectCell_Spec_Jan2018.swift in Sources */,
 				8A5579CF24C1293C0098003A /* SettingsAxis.swift in Sources */,
+				B153E88E2CAA8EEA0017EB84 /* ListPickerItemExample.swift in Sources */,
 				B80DA9BC260BED9400C0B2E9 /* SingleActionCollectionView.swift in Sources */,
 				8732C2CB2C3524D9002110E9 /* CustomTimelineExample.swift in Sources */,
 				8A5579D924C1293C0098003A /* SettingsSelection.swift in Sources */,
