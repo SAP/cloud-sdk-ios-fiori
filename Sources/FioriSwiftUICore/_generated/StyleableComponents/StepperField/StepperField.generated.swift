@@ -10,9 +10,11 @@ public struct StepperField {
     @Binding var text: String
     let incrementAction: any View
     /// The step value
-    let step: Int
+    let step: Double
     /// a range of values
-    let stepRange: ClosedRange<Int>
+    let stepRange: ClosedRange<Double>
+    /// Indicates whether the stepper field  supports decimal values. Default is false.
+    let isDecimalSupported: Bool
 
     @Environment(\.stepperFieldStyle) var style
 
@@ -21,14 +23,16 @@ public struct StepperField {
     public init(@ViewBuilder decrementAction: () -> any View = { FioriButton { _ in FioriIcon.actions.less } },
                 text: Binding<String>,
                 @ViewBuilder incrementAction: () -> any View = { FioriButton { _ in FioriIcon.actions.add } },
-                step: Int = 1,
-                stepRange: ClosedRange<Int>)
+                step: Double = 1,
+                stepRange: ClosedRange<Double>,
+                isDecimalSupported: Bool = false)
     {
         self.decrementAction = DecrementAction { decrementAction() }
         self._text = text
         self.incrementAction = IncrementAction { incrementAction() }
         self.step = step
         self.stepRange = stepRange
+        self.isDecimalSupported = isDecimalSupported
     }
 }
 
@@ -36,10 +40,11 @@ public extension StepperField {
     init(decrementAction: FioriButton? = FioriButton { _ in FioriIcon.actions.less },
          text: Binding<String>,
          incrementAction: FioriButton? = FioriButton { _ in FioriIcon.actions.add },
-         step: Int = 1,
-         stepRange: ClosedRange<Int>)
+         step: Double = 1,
+         stepRange: ClosedRange<Double>,
+         isDecimalSupported: Bool = false)
     {
-        self.init(decrementAction: { decrementAction }, text: text, incrementAction: { incrementAction }, step: step, stepRange: stepRange)
+        self.init(decrementAction: { decrementAction }, text: text, incrementAction: { incrementAction }, step: step, stepRange: stepRange, isDecimalSupported: isDecimalSupported)
     }
 }
 
@@ -54,6 +59,7 @@ public extension StepperField {
         self.incrementAction = configuration.incrementAction
         self.step = configuration.step
         self.stepRange = configuration.stepRange
+        self.isDecimalSupported = configuration.isDecimalSupported
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
     }
 }
@@ -63,7 +69,7 @@ extension StepperField: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(decrementAction: .init(self.decrementAction), text: self.$text, incrementAction: .init(self.incrementAction), step: self.step, stepRange: self.stepRange)).typeErased
+            self.style.resolve(configuration: .init(decrementAction: .init(self.decrementAction), text: self.$text, incrementAction: .init(self.incrementAction), step: self.step, stepRange: self.stepRange, isDecimalSupported: self.isDecimalSupported)).typeErased
                 .transformEnvironment(\.stepperFieldStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -81,7 +87,7 @@ private extension StepperField {
     }
 
     func defaultStyle() -> some View {
-        StepperField(.init(decrementAction: .init(self.decrementAction), text: self.$text, incrementAction: .init(self.incrementAction), step: self.step, stepRange: self.stepRange))
+        StepperField(.init(decrementAction: .init(self.decrementAction), text: self.$text, incrementAction: .init(self.incrementAction), step: self.step, stepRange: self.stepRange, isDecimalSupported: self.isDecimalSupported))
             .shouldApplyDefaultStyle(false)
             .stepperFieldStyle(StepperFieldFioriStyle.ContentFioriStyle())
             .typeErased
