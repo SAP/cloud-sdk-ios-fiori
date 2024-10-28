@@ -421,9 +421,9 @@ struct ColorTagStyle: TagStyle {
         self.fillColor = fillColor
     }
     
-    public func makeBody(configuration: Self.Configuration) -> some View {
+    public func makeBody(_ configuration: TagConfiguration) -> some View {
         configuration
-            .label
+            .tag
             .font(.fiori(forTextStyle: .footnote))
             .foregroundColor(self.textColor)
             .lineLimit(1)

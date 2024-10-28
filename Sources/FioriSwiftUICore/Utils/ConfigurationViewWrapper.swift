@@ -8,6 +8,10 @@ public struct ConfigurationViewWrapper: View {
         self.v = view
     }
     
+    init(_ view: any View) {
+        self.v = view
+    }
+    
     public var body: some View {
         self.v.typeErased
     }

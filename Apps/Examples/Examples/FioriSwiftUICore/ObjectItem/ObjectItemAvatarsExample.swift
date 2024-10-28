@@ -94,6 +94,7 @@ struct ObjectItemAvatarsExample: ObjectItemListDataProtocol {
                 Color.blue
             }, tags: {
                 Tag("Started")
+                    .tagStyle(MyTagStyle())
                 Tag("PM01")
                 Tag("103-Repair")
             })
@@ -428,5 +429,13 @@ struct ObjectItemAvatarsExample: ObjectItemListDataProtocol {
     
     func containAccessoryView(_ indexPath: IndexPath) -> Bool {
         false
+    }
+}
+
+struct MyTagStyle: TagStyle {
+    @Environment(\.colorScheme) var colorScheme
+    func makeBody(_ configuration: TagConfiguration) -> some View {
+        configuration.tag
+            .foregroundStyle(self.colorScheme == .dark ? Color.blue : Color.red)
     }
 }
