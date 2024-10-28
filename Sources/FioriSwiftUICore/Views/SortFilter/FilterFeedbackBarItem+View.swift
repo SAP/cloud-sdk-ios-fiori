@@ -252,7 +252,7 @@ struct PickerMenuItem: View {
                     } selectAll: { isAll in
                         self.item.selectAll(isAll)
                     } updateSearchListPickerHeight: { height in
-                        self.detentHeight = height + 52 + 56 + 90
+                        self.detentHeight = max(height, 88)
                     }
                     .padding(0)
                     Spacer()
