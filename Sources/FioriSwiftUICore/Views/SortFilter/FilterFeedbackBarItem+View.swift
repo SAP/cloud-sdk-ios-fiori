@@ -252,7 +252,7 @@ struct PickerMenuItem: View {
                     } selectAll: { isAll in
                         self.item.selectAll(isAll)
                     } updateSearchListPickerHeight: { height in
-                        self.detentHeight = height
+                        self.detentHeight = max(height, 88)
                     }
                     .frame(maxHeight: UIDevice.current.userInterfaceIdiom != .phone ? (self.detentHeight) : nil)
                     .padding(0)
