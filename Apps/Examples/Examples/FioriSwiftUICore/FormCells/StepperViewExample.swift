@@ -3,6 +3,8 @@ import SwiftUI
 
 struct StepperViewExample: View {
     @State var normalStepValue = "3"
+    @State var doubleStepValue = "6.0"
+    @State var multipleDigits = "6.895"
     @State var longTitleStepValue = "3"
     @State var customStyleStepValue = "3"
     @State var noFocusValue = "79"
@@ -39,11 +41,32 @@ struct StepperViewExample: View {
             
             StepperView(
                 title: { Text("Value") },
+                text: self.$doubleStepValue,
+                step: 0.5,
+                stepRange: 0.5 ... 80.5,
+                isDecimalSupported: true,
+                description: { Text("Double Value") }
+            )
+            .disabled(self.isDisabled)
+            
+            StepperView(
+                title: { Text("Value") },
+                text: self.$multipleDigits,
+                step: 0.005,
+                stepRange: 0.005 ... 80.895,
+                isDecimalSupported: true,
+                description: { Text("Multi-digit Double Value") }
+            )
+            .disabled(self.isDisabled)
+            
+            StepperView(
+                title: { Text("Value") },
                 text: self.$negativeValue,
                 stepRange: 10 ... 100,
                 description: { Text(self.isInputValueValid ? "Hint Text" : "Validation failed.") }
             ).onChange(of: self.negativeValue, perform: { value in
-                if Int(value) ?? 1 > 80 {
+                let cValue = Double(value) ?? 10
+                if cValue > 80 || cValue < 20 {
                     self.isInputValueValid = false
                 } else {
                     self.isInputValueValid = true
