@@ -3321,6 +3321,41 @@ public extension ProfileHeaderStyle where Self == ProfileHeaderDescriptionStyle 
     }
 }
 
+// MARK: ProgressIndicatorViewStyle
+
+public extension ProgressIndicatorViewStyle where Self == ProgressIndicatorViewBaseStyle {
+    static var base: ProgressIndicatorViewBaseStyle {
+        ProgressIndicatorViewBaseStyle()
+    }
+}
+
+public extension ProgressIndicatorViewStyle where Self == ProgressIndicatorViewFioriStyle {
+    static var fiori: ProgressIndicatorViewFioriStyle {
+        ProgressIndicatorViewFioriStyle()
+    }
+}
+
+public struct ProgressIndicatorViewLinearProgressIndicatorStyle: ProgressIndicatorViewStyle {
+    let style: any LinearProgressIndicatorStyle
+
+    public func makeBody(_ configuration: ProgressIndicatorViewConfiguration) -> some View {
+        ProgressIndicatorView(configuration)
+            .linearProgressIndicatorStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension ProgressIndicatorViewStyle where Self == ProgressIndicatorViewLinearProgressIndicatorStyle {
+    static func linearProgressIndicatorStyle(_ style: some LinearProgressIndicatorStyle) -> ProgressIndicatorViewLinearProgressIndicatorStyle {
+        ProgressIndicatorViewLinearProgressIndicatorStyle(style: style)
+    }
+
+    static func linearProgressIndicatorStyle(@ViewBuilder content: @escaping (LinearProgressIndicatorConfiguration) -> some View) -> ProgressIndicatorViewLinearProgressIndicatorStyle {
+        let style = AnyLinearProgressIndicatorStyle(content)
+        return ProgressIndicatorViewLinearProgressIndicatorStyle(style: style)
+    }
+}
+
 // MARK: RatingControlStyle
 
 public extension RatingControlStyle where Self == RatingControlBaseStyle {

@@ -1688,6 +1688,34 @@ public extension ProfileHeaderStyle {
     }
 }
 
+// MARK: ProgressIndicatorViewStyle
+
+extension ModifiedStyle: ProgressIndicatorViewStyle where Style: ProgressIndicatorViewStyle {
+    public func makeBody(_ configuration: ProgressIndicatorViewConfiguration) -> some View {
+        ProgressIndicatorView(configuration)
+            .progressIndicatorViewStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct ProgressIndicatorViewStyleModifier<Style: ProgressIndicatorViewStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.progressIndicatorViewStyle(self.style)
+    }
+}
+
+public extension ProgressIndicatorViewStyle {
+    func modifier(_ modifier: some ViewModifier) -> some ProgressIndicatorViewStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some ProgressIndicatorViewStyle) -> some ProgressIndicatorViewStyle {
+        style.modifier(ProgressIndicatorViewStyleModifier(style: self))
+    }
+}
+
 // MARK: RatingControlStyle
 
 extension ModifiedStyle: RatingControlStyle where Style: RatingControlStyle {

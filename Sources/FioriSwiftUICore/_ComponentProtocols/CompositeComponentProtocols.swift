@@ -576,3 +576,19 @@ protocol _ToastMessageComponent: _IconComponent, _TitleComponent {
     /// The duration in seconds for which the toast message is shown. The default is `1`.
     var duration: Double { get }
 }
+
+/// `ProgressIndicatorView` provides a circular progress indicator.
+///
+/// ## Usage
+/// ```swift
+/// @State var progress: Double = 0.0
+/// @State var progressState = ProgressViewState.processing
+///
+/// ProgressIndicatorView(indicatorProgress: self.$progress, progressState: self.$progressState)
+/// ```
+// sourcery: CompositeComponent
+protocol _ProgressIndicatorViewComponent: _LinearProgressIndicatorComponent {
+    // sourcery: @Binding
+    /// The current view state of this progress indicator. Changing this property will result in a different icon and view.
+    var progressState: ProgressViewState { get }
+}

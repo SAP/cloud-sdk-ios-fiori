@@ -1263,6 +1263,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: ProgressIndicatorViewStyle
+
+struct ProgressIndicatorViewStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any ProgressIndicatorViewStyle] = []
+}
+
+extension EnvironmentValues {
+    var progressIndicatorViewStyle: any ProgressIndicatorViewStyle {
+        self.progressIndicatorViewStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var progressIndicatorViewStyleStack: [any ProgressIndicatorViewStyle] {
+        get {
+            self[ProgressIndicatorViewStyleStackKey.self]
+        }
+        set {
+            self[ProgressIndicatorViewStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: RatingControlStyle
 
 struct RatingControlStyleStackKey: EnvironmentKey {

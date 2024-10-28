@@ -1023,6 +1023,23 @@ public extension View {
     }
 }
 
+// MARK: ProgressIndicatorViewStyle
+
+public extension View {
+    func progressIndicatorViewStyle(_ style: some ProgressIndicatorViewStyle) -> some View {
+        self.transformEnvironment(\.progressIndicatorViewStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func progressIndicatorViewStyle(@ViewBuilder content: @escaping (ProgressIndicatorViewConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.progressIndicatorViewStyleStack) { stack in
+            let style = AnyProgressIndicatorViewStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: RatingControlStyle
 
 public extension View {
