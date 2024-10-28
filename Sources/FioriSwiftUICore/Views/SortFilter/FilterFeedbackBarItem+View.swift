@@ -77,7 +77,7 @@ struct SliderMenuItem: View {
             .onTapGesture {
                 self.isSheetVisible.toggle()
             }
-            .popover(isPresented: self.$isSheetVisible, attachmentAnchor: .point(.bottom)) {
+            .popover(isPresented: self.$isSheetVisible) {
                 CancellableResettableDialogForm {
                     SortFilterItemTitle(title: self.item.name)
                 } cancelAction: {
@@ -121,7 +121,7 @@ struct PickerMenuItem: View {
     
     @State var isSheetVisible = false
 
-    @State var detentHeight: CGFloat = 0
+    @State var detentHeight: CGFloat = ((UIDevice.current.userInterfaceIdiom == .phone || UIDevice.current.userInterfaceIdiom == .pad) ? 88 : 0)
     
     public init(item: Binding<SortFilterItem.PickerItem>, onUpdate: @escaping () -> Void) {
         self._item = item
@@ -153,7 +153,7 @@ struct PickerMenuItem: View {
             .onTapGesture {
                 self.isSheetVisible.toggle()
             }
-            .popover(isPresented: self.$isSheetVisible, attachmentAnchor: .point(.bottom)) {
+            .popover(isPresented: self.$isSheetVisible) {
                 CancellableResettableDialogForm {
                     SortFilterItemTitle(title: self.item.name)
                 } cancelAction: {
@@ -224,7 +224,7 @@ struct PickerMenuItem: View {
             .onTapGesture {
                 self.isSheetVisible.toggle()
             }
-            .popover(isPresented: self.$isSheetVisible, attachmentAnchor: .point(.bottom)) {
+            .popover(isPresented: self.$isSheetVisible) {
                 CancellableResettableDialogNavigationForm {
                     SortFilterItemTitle(title: self.item.name)
                 } cancelAction: {
@@ -252,14 +252,14 @@ struct PickerMenuItem: View {
                     } selectAll: { isAll in
                         self.item.selectAll(isAll)
                     } updateSearchListPickerHeight: { height in
-                        self.detentHeight = height + 52 + 56 + 90
+                        self.detentHeight = height
                     }
+                    .frame(maxHeight: UIDevice.current.userInterfaceIdiom != .phone ? (self.detentHeight) : nil)
                     .padding(0)
                     Spacer()
                 }
-                .frame(maxWidth: .infinity)
                 .frame(minWidth: UIDevice.current.userInterfaceIdiom != .phone ? 393 : nil)
-                .frame(height: UIDevice.current.userInterfaceIdiom != .phone ? self.detentHeight : nil)
+                .frame(height: UIDevice.current.userInterfaceIdiom != .phone ? self.detentHeight + 52 + 56 + 70 : nil)
                 .presentationDetents([.large])
             }
     }
@@ -311,7 +311,7 @@ struct DateTimeMenuItem: View {
             .onTapGesture {
                 self.isSheetVisible.toggle()
             }
-            .popover(isPresented: self.$isSheetVisible, attachmentAnchor: .point(.bottom)) {
+            .popover(isPresented: self.$isSheetVisible) {
                 CancellableResettableDialogForm {
                     SortFilterItemTitle(title: self.item.name)
                 } cancelAction: {
@@ -448,7 +448,7 @@ struct FullCFGMenuItem: View {
             .onTapGesture {
                 self.isSheetVisible.toggle()
             }
-            .popover(isPresented: self.$isSheetVisible, attachmentAnchor: .point(.bottom)) {
+            .popover(isPresented: self.$isSheetVisible) {
                 SortFilterView(
                     title: {
                         if let title = fullCFGButton.name {
