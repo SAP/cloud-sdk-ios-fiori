@@ -675,6 +675,22 @@ extension LinearProgressIndicatorViewStyle {
     }
 }
 
+// MARK: LoadingIndicatorViewStyle
+
+struct ResolvedLoadingIndicatorViewStyle<Style: LoadingIndicatorViewStyle>: View {
+    let style: Style
+    let configuration: LoadingIndicatorViewConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension LoadingIndicatorViewStyle {
+    func resolve(configuration: LoadingIndicatorViewConfiguration) -> some View {
+        ResolvedLoadingIndicatorViewStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: MandatoryFieldIndicatorStyle
 
 struct ResolvedMandatoryFieldIndicatorStyle<Style: MandatoryFieldIndicatorStyle>: View {

@@ -319,6 +319,12 @@ extension LinearProgressIndicatorView: _ViewEmptyChecking {
     }
 }
 
+extension LoadingIndicatorView: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        title.isEmpty
+    }
+}
+
 extension MandatoryFieldIndicator: _ViewEmptyChecking {
     public var isEmpty: Bool {
         mandatoryFieldIndicator.isEmpty

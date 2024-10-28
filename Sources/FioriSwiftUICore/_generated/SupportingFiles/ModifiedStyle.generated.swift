@@ -1184,6 +1184,34 @@ public extension LinearProgressIndicatorViewStyle {
     }
 }
 
+// MARK: LoadingIndicatorViewStyle
+
+extension ModifiedStyle: LoadingIndicatorViewStyle where Style: LoadingIndicatorViewStyle {
+    public func makeBody(_ configuration: LoadingIndicatorViewConfiguration) -> some View {
+        LoadingIndicatorView(configuration)
+            .loadingIndicatorViewStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct LoadingIndicatorViewStyleModifier<Style: LoadingIndicatorViewStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.loadingIndicatorViewStyle(self.style)
+    }
+}
+
+public extension LoadingIndicatorViewStyle {
+    func modifier(_ modifier: some ViewModifier) -> some LoadingIndicatorViewStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some LoadingIndicatorViewStyle) -> some LoadingIndicatorViewStyle {
+        style.modifier(LoadingIndicatorViewStyleModifier(style: self))
+    }
+}
+
 // MARK: MandatoryFieldIndicatorStyle
 
 extension ModifiedStyle: MandatoryFieldIndicatorStyle where Style: MandatoryFieldIndicatorStyle {

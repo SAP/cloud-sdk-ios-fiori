@@ -111,6 +111,7 @@
 		9DEC27992C3C5C620070B571 /* RatingControlExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DEC27982C3C5C620070B571 /* RatingControlExample.swift */; };
 		9DEC27B52C3F3DB30070B571 /* KeyValueItemExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DEC27B42C3F3DB30070B571 /* KeyValueItemExample.swift */; };
 		9DEC27B72C3F3DE70070B571 /* OtherViewExamples.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DEC27B62C3F3DE70070B571 /* OtherViewExamples.swift */; };
+		A65036942CC6365C0093086A /* LoadingIndicatorExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = A65036932CC6365C0093086A /* LoadingIndicatorExample.swift */; };
 		AB988B102631270300483D87 /* DataTableExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB988B0F2631270300483D87 /* DataTableExample.swift */; };
 		B100639329C0624D00AF0CA2 /* StepProgressIndicatorExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B100639229C0624D00AF0CA2 /* StepProgressIndicatorExample.swift */; };
 		B13408922B01FA0700600331 /* NavigationBarExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B13408912B01FA0700600331 /* NavigationBarExample.swift */; };
@@ -324,6 +325,7 @@
 		9DEC27982C3C5C620070B571 /* RatingControlExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RatingControlExample.swift; sourceTree = "<group>"; };
 		9DEC27B42C3F3DB30070B571 /* KeyValueItemExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyValueItemExample.swift; sourceTree = "<group>"; };
 		9DEC27B62C3F3DE70070B571 /* OtherViewExamples.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherViewExamples.swift; sourceTree = "<group>"; };
+		A65036932CC6365C0093086A /* LoadingIndicatorExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingIndicatorExample.swift; sourceTree = "<group>"; };
 		AB988B0F2631270300483D87 /* DataTableExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTableExample.swift; sourceTree = "<group>"; };
 		B100639229C0624D00AF0CA2 /* StepProgressIndicatorExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepProgressIndicatorExample.swift; sourceTree = "<group>"; };
 		B13408912B01FA0700600331 /* NavigationBarExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarExample.swift; sourceTree = "<group>"; };
@@ -714,6 +716,7 @@
 			isa = PBXGroup;
 			children = (
 				99658F872B7C359D0026A743 /* LinearProgressIndicatorExample.swift */,
+				A65036932CC6365C0093086A /* LoadingIndicatorExample.swift */,
 			);
 			path = Indicator;
 			sourceTree = "<group>";
@@ -1166,6 +1169,7 @@
 				9D00866A2BA8F6820004BE15 /* TextFieldFormViewExample.swift in Sources */,
 				878219C42BEE128E002FDFBC /* StepperViewExample.swift in Sources */,
 				3C180C282B858CF6007CE79A /* IllustratedMessageExample.swift in Sources */,
+				A65036942CC6365C0093086A /* LoadingIndicatorExample.swift in Sources */,
 				8AD9DFB425D49967007448EC /* ContactItemInitViewBuilderExample.swift in Sources */,
 				B8D4376D25F97F140024EE7D /* ObjectItemExample.swift in Sources */,
 				8A6D64BF25AE7A6D00D2D76C /* ExperimentalContentView.swift in Sources */,

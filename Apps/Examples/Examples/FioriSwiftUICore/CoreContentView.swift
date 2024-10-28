@@ -144,6 +144,10 @@ struct CoreContentView: View {
                     }
                 )
                 
+                NavigationLink(destination: LoadingIndicatorExample()) {
+                    Text("Loading Indicator")
+                }
+                
                 NavigationLink(
                     destination: MenuSelectionExample())
                 {
