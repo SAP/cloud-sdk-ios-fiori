@@ -191,6 +191,12 @@ struct CoreContentView: View {
             
             Section(header: Text("Pickers")) {
                 NavigationLink(
+                    destination: _ListPickerItemExample())
+                {
+                    Text("_ListPickerItem")
+                }
+                
+                NavigationLink(
                     destination: ListPickerItemExample())
                 {
                     Text("ListPickerItem")
