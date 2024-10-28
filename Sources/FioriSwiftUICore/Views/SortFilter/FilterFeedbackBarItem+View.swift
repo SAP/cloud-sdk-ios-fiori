@@ -77,7 +77,7 @@ struct SliderMenuItem: View {
             .onTapGesture {
                 self.isSheetVisible.toggle()
             }
-            .popover(isPresented: self.$isSheetVisible, attachmentAnchor: .point(.bottom)) {
+            .popover(isPresented: self.$isSheetVisible) {
                 CancellableResettableDialogForm {
                     SortFilterItemTitle(title: self.item.name)
                 } cancelAction: {
@@ -153,7 +153,7 @@ struct PickerMenuItem: View {
             .onTapGesture {
                 self.isSheetVisible.toggle()
             }
-            .popover(isPresented: self.$isSheetVisible, attachmentAnchor: .point(.bottom)) {
+            .popover(isPresented: self.$isSheetVisible) {
                 CancellableResettableDialogForm {
                     SortFilterItemTitle(title: self.item.name)
                 } cancelAction: {
@@ -224,7 +224,7 @@ struct PickerMenuItem: View {
             .onTapGesture {
                 self.isSheetVisible.toggle()
             }
-            .popover(isPresented: self.$isSheetVisible, attachmentAnchor: .point(.bottom)) {
+            .popover(isPresented: self.$isSheetVisible) {
                 CancellableResettableDialogNavigationForm {
                     SortFilterItemTitle(title: self.item.name)
                 } cancelAction: {
@@ -252,7 +252,7 @@ struct PickerMenuItem: View {
                     } selectAll: { isAll in
                         self.item.selectAll(isAll)
                     } updateSearchListPickerHeight: { height in
-                        self.detentHeight = height + 52 + 56 + 70
+                        self.detentHeight = height + 52 + 56 + 90
                     }
                     .padding(0)
                     Spacer()
@@ -311,7 +311,7 @@ struct DateTimeMenuItem: View {
             .onTapGesture {
                 self.isSheetVisible.toggle()
             }
-            .popover(isPresented: self.$isSheetVisible, attachmentAnchor: .point(.bottom)) {
+            .popover(isPresented: self.$isSheetVisible) {
                 CancellableResettableDialogForm {
                     SortFilterItemTitle(title: self.item.name)
                 } cancelAction: {
@@ -448,7 +448,7 @@ struct FullCFGMenuItem: View {
             .onTapGesture {
                 self.isSheetVisible.toggle()
             }
-            .popover(isPresented: self.$isSheetVisible, attachmentAnchor: .point(.bottom)) {
+            .popover(isPresented: self.$isSheetVisible) {
                 SortFilterView(
                     title: {
                         if let title = fullCFGButton.name {
