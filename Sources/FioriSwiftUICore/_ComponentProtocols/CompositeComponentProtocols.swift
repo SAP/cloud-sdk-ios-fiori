@@ -297,8 +297,8 @@ protocol _BannerMessageComponent: _IconComponent, _TitleComponent, _CloseActionC
     // sourcery: defaultValue = false
     var hideSeparator: Bool { get }
     
-    /// The icon and title's type. The default is `neutral`.
-    // sourcery: defaultValue = .neutral
+    /// The icon and title's type. The default is `negative`.
+    // sourcery: defaultValue = .negative
     var messageType: BannerMultiMessageType { get }
     
     /// Show detail link or not. The default is false. When showDetailLink is true, and click the link will perform to popup the detail sheet.
@@ -569,6 +569,61 @@ protocol _DateTimePickerComponent: _TitleComponent, _ValueLabelComponent, _Manda
 
 // sourcery: CompositeComponent
 protocol _AvatarStackComponent: _AvatarsComponent, _AvatarsTitleComponent {}
+
+/// `ListPickerItem` is a view that provides a `NavigationLink` with a title and selected value(s). And `ListPickerDestination` is recommended to be used as its destination, for which selection, search filter and customized rows are supported.
+/// ## Usage
+/// ```swift
+/// let data = ["first", "second", "third"]
+/// var body: some View {
+///     ListPickerItem(title: {
+///         Text("title")
+///     }, value: {
+///         Text("value")
+///     }, axis: .vertical) {
+///         ListPickerDestination(data,
+///                               id: \.self,
+///                               selection: $selection,
+///                               isTrackingLiveChanges: true,
+///                               searchFilter: { f, s in f.contains(s) }, rowContent: {
+///             Text($0)
+///         })
+///     }
+/// }
+///
+/// // If you want grouped different sections, the protocol `ListPickerSectionModel` is need be implemented for your element of data.
+///
+/// struct ListPickerSection: ListPickerSectionModel {}
+/// let data = [ListPickerSection(title: "Section 1", items: ["first", "second", "third"]),
+///             ListPickerSection(title: "Section 2", items: ["apple", "banana", "orange"])]
+/// var body: some View {
+///     ListPickerItem(title: {
+///         Text("title")
+///     }, value: {
+///         Text("value")
+///     }, axis: .vertical) {
+///         ListPickerDestination(data,
+///                               id: \.self,
+///                               selection: $selection,
+///                               isTrackingLiveChanges: true,
+///                               searchFilter: { f, s in f.contains(s) }, rowContent: {
+///             Text($0)
+///         })
+///     }
+/// }
+/// ```
+// sourcery: CompositeComponent
+protocol _ListPickerItemComponent: _TitleComponent, _ValueComponent {
+    // sourcery: defaultValue = .horizontal
+    var axis: Axis { get }
+    
+    @ViewBuilder
+    var destination: (() -> any View)? { get }
+}
+
+/// `ListPickerDestination` is a view that provides a customizable list for `ListPickerItem` with selection, search filter and  rows.
+///
+// sourcery: CompositeComponent
+protocol _ListPickerDestinationComponent: _CancelActionComponent, _ApplyActionComponent, _SelectedEntriesSectionTitleComponent, _SelectAllActionComponent, _DeselectAllActionComponent, _AllEntriesSectionTitleComponent, _ListPickerContentComponent {}
 
 // sourcery: CompositeComponent
 protocol _ToastMessageComponent: _IconComponent, _TitleComponent {

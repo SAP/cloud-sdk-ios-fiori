@@ -5,7 +5,7 @@ import SwiftUI
 
 public struct LoadingIndicatorView {
     let title: any View
-    /// The duration in seconds for which the loading indicator is shown. The default is `0`.
+    /// The duration in seconds for which the loading indicator is shown. If set to 0, the loading indicator will be displayed continuously. The default is `0`.
     let duration: Double
     @Binding var isPresented: Bool
 
