@@ -4,6 +4,7 @@ import SwiftUI
 struct StepperViewExample: View {
     @State var normalStepValue = "3"
     @State var doubleStepValue = "6.0"
+    @State var multipleDigits = "6.895"
     @State var longTitleStepValue = "3"
     @State var customStyleStepValue = "3"
     @State var noFocusValue = "79"
@@ -45,6 +46,16 @@ struct StepperViewExample: View {
                 stepRange: 0.5 ... 80.5,
                 isDecimalSupported: true,
                 description: { Text("Double Value") }
+            )
+            .disabled(self.isDisabled)
+            
+            StepperView(
+                title: { Text("Value") },
+                text: self.$multipleDigits,
+                step: 0.005,
+                stepRange: 0.005 ... 80.895,
+                isDecimalSupported: true,
+                description: { Text("Multi-digit Double Value") }
             )
             .disabled(self.isDisabled)
             

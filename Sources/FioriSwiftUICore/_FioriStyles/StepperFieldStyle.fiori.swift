@@ -51,7 +51,8 @@ public struct StepperFieldBaseStyle: StepperFieldStyle {
         if configuration.isDecimalSupported {
             if let doubleValue = Double(text) {
                 let clampedValue = self.clampValue(doubleValue, configuration: configuration)
-                configuration.text = String(describing: clampedValue)
+                let formattedValue = self.numberFormatter(forStep: configuration.step).string(from: NSNumber(value: clampedValue)) ?? ""
+                configuration.text = formattedValue
             }
         } else {
             if text.contains(".") || text.isEmpty {
@@ -66,6 +67,27 @@ public struct StepperFieldBaseStyle: StepperFieldStyle {
     
     private func clampValue(_ value: Double, configuration: StepperFieldConfiguration) -> Double {
         min(max(value, configuration.stepRange.lowerBound), configuration.stepRange.upperBound)
+    }
+    
+    private func getDecimalPlaces(step: Double) -> Int {
+        let stepString = String(step)
+        if let decimalPointIndex = stepString.firstIndex(of: ".") {
+            let decimalPointPosition = stepString.distance(from: stepString.startIndex, to: decimalPointIndex)
+            let endPosition = stepString.distance(from: stepString.startIndex, to: stepString.endIndex)
+            let decimalPlacesCount = endPosition - decimalPointPosition - 1
+            return max(0, decimalPlacesCount)
+        } else {
+            return 0
+        }
+    }
+    
+    private func numberFormatter(forStep step: Double) -> NumberFormatter {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        let decimalPlaces = self.getDecimalPlaces(step: step)
+        formatter.minimumFractionDigits = decimalPlaces
+        formatter.maximumFractionDigits = decimalPlaces
+        return formatter
     }
 }
 
