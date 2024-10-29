@@ -50,13 +50,9 @@ extension _SortFilterCFGItemContainer: View {
                 let popverHeight = Screen.bounds.size.height - StatusBar.height
                 let totalSpacing: CGFloat = (UIDevice.current.userInterfaceIdiom == .pad ? 8 : 16) * 2
                 let totalPadding: CGFloat = (UIDevice.current.userInterfaceIdiom == .pad ? 13 : 16) * 2
-                if UIDevice.current.userInterfaceIdiom == .pad {
-                    let maxScrollViewHeight = popverHeight / 2 - totalSpacing - totalPadding - 44
-                    self.height = min(scrollView.contentSize.height, maxScrollViewHeight)
-                } else {
-                    let maxScrollViewHeight = popverHeight - totalSpacing - totalPadding - 44 - 80
-                    self.height = min(scrollView.contentSize.height, maxScrollViewHeight)
-                }
+                let safeAreaInset = self.getSafeAreaInsets()
+                let maxScrollViewHeight = popverHeight - totalSpacing - totalPadding - safeAreaInset.top - safeAreaInset.bottom - (UIDevice.current.userInterfaceIdiom == .pad ? 150 : 30)
+                self.height = min(scrollView.contentSize.height, maxScrollViewHeight)
             }
         })
         .onChange(of: self._items) { _ in
@@ -311,5 +307,16 @@ extension _SortFilterCFGItemContainer: View {
             }
         }
         return nil
+    }
+    
+    private func getSafeAreaInsets() -> UIEdgeInsets {
+        guard let keyWindow = UIApplication.shared.connectedScenes
+            .first(where: { $0.activationState == .foregroundActive })
+            .flatMap({ $0 as? UIWindowScene })?.windows
+            .first(where: \.isKeyWindow)
+        else {
+            return .zero
+        }
+        return keyWindow.safeAreaInsets
     }
 }

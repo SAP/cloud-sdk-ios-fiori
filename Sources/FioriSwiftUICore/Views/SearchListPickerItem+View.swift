@@ -81,7 +81,7 @@ extension SearchListPickerItem: View {
                 }
             })
             .listStyle(PlainListStyle())
-            .frame(minWidth: UIDevice.current.userInterfaceIdiom != .phone ? 393 : nil)
+            .frame(minWidth: UIDevice.current.userInterfaceIdiom != .phone ? 375 : nil)
             .scrollContentBackground(.hidden)
             .padding(0)
             .searchable(text: $_searchText, placement: .automatic)

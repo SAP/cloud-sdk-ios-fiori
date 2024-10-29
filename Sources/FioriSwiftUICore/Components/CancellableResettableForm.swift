@@ -37,7 +37,7 @@ struct CancellableResettableDialogForm<Title: View, CancelAction: View, ResetAct
             self.components.background(Color.preferredColor(.secondaryGroupedBackground))
             self.applyAction
         }
-        .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? 393 : nil)
+        .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? 375 : nil)
         .padding([.top, .bottom], UIDevice.current.userInterfaceIdiom == .pad ? 13 : 16)
         .background(Color.preferredColor(.chromeSecondary))
     }
@@ -84,7 +84,7 @@ struct CancellableResettableDialogNavigationForm<Title: View, CancelAction: View
                 }
             }
         }
-        .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? 393 : nil)
+        .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? 375 : nil)
         .padding([.bottom], UIDevice.current.userInterfaceIdiom == .pad ? 13 : 16)
         .background(Color.preferredColor(.chromeSecondary))
     }

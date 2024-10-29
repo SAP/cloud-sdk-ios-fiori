@@ -258,7 +258,7 @@ struct PickerMenuItem: View {
                     .padding(0)
                     Spacer()
                 }
-                .frame(minWidth: UIDevice.current.userInterfaceIdiom != .phone ? 393 : nil)
+                .frame(minWidth: UIDevice.current.userInterfaceIdiom != .phone ? 375 : nil)
                 .frame(height: UIDevice.current.userInterfaceIdiom != .phone ? self.detentHeight + 52 + 56 + 70 : nil)
                 .presentationDetents([.large])
             }

@@ -83,7 +83,7 @@ extension SortFilterView: View {
         }
         .frame(maxWidth: .infinity)
         .frame(minWidth: UIDevice.current.userInterfaceIdiom != .phone ? 375 : nil)
-        .frame(height: UIDevice.current.userInterfaceIdiom != .phone ? size.height + 150 : nil)
+        .frame(height: UIDevice.current.userInterfaceIdiom != .phone ? size.height + 120 : nil)
         .presentationDetents([.large])
         .background(Color.preferredColor(.chromeSecondary))
     }
