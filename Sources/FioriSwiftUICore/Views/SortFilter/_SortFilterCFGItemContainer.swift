@@ -12,7 +12,7 @@ public struct _SortFilterCFGItemContainer {
     @EnvironmentObject var context: SortFilterContext
 
     @Binding var _items: [[SortFilterItem]]
-    @State var height = 44.0
+    @State var height = 88.0
     
     public init(items: Binding<[[SortFilterItem]]>) {
         self.__items = items
@@ -42,7 +42,7 @@ extension _SortFilterCFGItemContainer: View {
         }
         .listRowSpacing(0)
         .listStyle(.plain)
-        .frame(maxWidth: .infinity)
+        .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? 375 : nil)
         .frame(height: self.height)
         .background(Color.preferredColor(.secondaryGroupedBackground))
         .modifier(FioriIntrospectModifier<UIScrollView> { scrollView in
