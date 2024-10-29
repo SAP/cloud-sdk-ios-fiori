@@ -72,7 +72,7 @@ public struct DefaultFilterFeedbackBarStyle: FilterFeedbackBarStyle {
                     RoundedRectangle(cornerRadius: self.cornerRadius)
                         .fill(configuration.isSelected ? self.fillColorSelected : self.fillColorUnselected)
                     RoundedRectangle(cornerRadius: self.cornerRadius)
-                        .stroke(configuration.isSelected ? self.strokeColorSelected : self.strokeColorUnselected, lineWidth: self.borderWidth)
+                        .strokeBorder(configuration.isSelected ? self.strokeColorSelected : self.strokeColorUnselected, lineWidth: self.borderWidth)
                 }
             )
         )
