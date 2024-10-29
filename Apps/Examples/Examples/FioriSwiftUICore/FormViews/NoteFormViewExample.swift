@@ -2,7 +2,7 @@ import FioriSwiftUICore
 import SwiftUI
 
 struct NoteFormViewExample: View {
-    @State var valueText1: String = "1234567890 12345678"
+    @State var valueText1: String = "Line 1\nLine 2\nLine 3"
 
     @State var valueText2: String = "This is a test"
 

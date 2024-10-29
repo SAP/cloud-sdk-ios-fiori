@@ -13,7 +13,7 @@ struct KeyValueFormViewExample: View {
         return aString
     }
 
-    @State var valueText1: String = "1234567890 12345678"
+    @State var valueText1: String = "This is default text for one line"
 
     var key2: AttributedString {
         let aString = AttributedString("Key 2")
