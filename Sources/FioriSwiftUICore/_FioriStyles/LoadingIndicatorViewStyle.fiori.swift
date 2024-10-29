@@ -6,7 +6,7 @@ import SwiftUI
 public struct LoadingIndicatorViewBaseStyle: LoadingIndicatorViewStyle {
     @Environment(\.indicatorPosition) var position
     @Environment(\.indicatorTint) var tint
-    @Environment(\.indicatorScaleEffect) var scaleEffect
+    @Environment(\.indicatorControlSize) var controlSize
     private var timerTool = TimerTask()
 
     public func makeBody(_ configuration: LoadingIndicatorViewConfiguration) -> some View {
@@ -31,7 +31,7 @@ public struct LoadingIndicatorViewBaseStyle: LoadingIndicatorViewStyle {
     private func makeBodyForProgressView() -> some View {
         ProgressView()
             .tint(self.tint)
-            .scaleEffect(self.scaleEffect)
+            .controlSize(self.controlSize)
     }
 
     private func layoutBody(_ configuration: LoadingIndicatorViewConfiguration) -> some View {
@@ -83,8 +83,8 @@ struct IndicatorPositionKey: EnvironmentKey {
     public static let defaultValue: LoadingIndicatorView.Layout = .top
 }
 
-struct IndicatorScaleEffectKey: EnvironmentKey {
-    public static let defaultValue: CGFloat = 1
+struct IndicatorControlSizeKey: EnvironmentKey {
+    public static let defaultValue: ControlSize = .regular
 }
 
 struct IndicatorTintKey: EnvironmentKey {
@@ -98,10 +98,10 @@ public extension EnvironmentValues {
         set { self[IndicatorPositionKey.self] = newValue }
     }
 
-    /// The scale effect of the loading indicator. Default value is `1`.
-    var indicatorScaleEffect: CGFloat {
-        get { self[IndicatorScaleEffectKey.self] }
-        set { self[IndicatorScaleEffectKey.self] = newValue }
+    /// The control size of the loading indicator. Default value is `.regular`.
+    var indicatorControlSize: ControlSize {
+        get { self[IndicatorControlSizeKey.self] }
+        set { self[IndicatorControlSizeKey.self] = newValue }
     }
 
     /// The tint color of loading indicator. Default value is `.quaternaryLabel`.
@@ -119,11 +119,11 @@ public extension View {
         self.environment(\.indicatorPosition, position)
     }
 
-    /// Sets the scale effect of the loading indicator.
-    /// - Parameter scaleEffect: A CGFloat value representing the scale effect for the loading indicator.
+    /// Sets the size for the loading indicator.
+    /// - Parameter controlSize: One of the control sizes specified in the ControlSize enumeration.
     /// - Returns: A view that has the indicator scale effect applied.
-    func indicatorScaleEffect(_ scaleEffect: CGFloat) -> some View {
-        self.environment(\.indicatorScaleEffect, scaleEffect)
+    func indicatorControlSize(_ controlSize: ControlSize) -> some View {
+        self.environment(\.indicatorControlSize, controlSize)
     }
 
     /// Sets the tint color of the loading indicator.

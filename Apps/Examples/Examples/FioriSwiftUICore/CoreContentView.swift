@@ -138,17 +138,6 @@ struct CoreContentView: View {
                 }
                 
                 NavigationLink(
-                    destination: LinearProgressIndicatorExample(),
-                    label: {
-                        Text("Linear Progress Indicator")
-                    }
-                )
-                
-                NavigationLink(destination: LoadingIndicatorExample()) {
-                    Text("Loading Indicator")
-                }
-                
-                NavigationLink(
                     destination: MenuSelectionExample())
                 {
                     Text("Menu Selection")
@@ -246,6 +235,17 @@ struct CoreContentView: View {
                     destination: ToastMessageExample())
                 {
                     Text("Toast Message")
+                }
+                
+                NavigationLink(
+                    destination: LinearProgressIndicatorExample(),
+                    label: {
+                        Text("Linear Progress Indicator")
+                    }
+                )
+                
+                NavigationLink(destination: LoadingIndicatorExample()) {
+                    Text("Loading Indicator")
                 }
             }
             
