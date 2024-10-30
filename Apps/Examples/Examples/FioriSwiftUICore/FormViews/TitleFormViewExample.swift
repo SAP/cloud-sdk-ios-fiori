@@ -2,7 +2,7 @@ import FioriSwiftUICore
 import SwiftUI
 
 struct TitleFormViewExample: View {
-    @State var valueText1: String = "1234567890 12345678"
+    @State var valueText1: String = "This is default text for one line"
     
     @State var valueText2: String = "This is a test"
     
