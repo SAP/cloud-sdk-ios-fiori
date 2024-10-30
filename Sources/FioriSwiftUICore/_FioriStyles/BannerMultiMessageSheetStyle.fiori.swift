@@ -200,6 +200,7 @@ public struct BannerMultiMessageSheetBaseStyle: BannerMultiMessageSheetStyle {
         }
     }
     
+    // swiftlint:disable:next function_body_length
     public func makeBody(_ configuration: BannerMultiMessageSheetConfiguration) -> some View {
         VStack(spacing: 0, content: {
             HStack {
