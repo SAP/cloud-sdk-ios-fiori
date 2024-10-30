@@ -1,6 +1,16 @@
 import Combine
 import FioriThemeManager
+import Foundation
 import SwiftUI
+
+/**
+ This file provides default fiori style for the component.
+
+ 1. Uncomment fhe following code.
+ 2. Implement layout and style in corresponding places.
+ 3. Delete `.generated` from file name.
+ 4. Move this file to `_FioriStyles` folder under `FioriSwiftUICore`.
+ */
 
 /// Single Banner Message Model
 public struct BannerMessageItemModel: Identifiable {
@@ -35,6 +45,14 @@ public struct BannerMessageItemModel: Identifiable {
     }
 }
 
+class CategorySelect: ObservableObject {
+    @Published var categorySelectedIndex = 0
+    
+    init(categorySelectedIndex: Int = 0) {
+        self.categorySelectedIndex = categorySelectedIndex
+    }
+}
+
 public struct BannerMessageListModel: Identifiable, Equatable {
     public static func == (lhs: BannerMessageListModel, rhs: BannerMessageListModel) -> Bool {
         lhs.id == rhs.id
@@ -57,26 +75,8 @@ public struct BannerMessageListModel: Identifiable, Equatable {
     }
 }
 
-class CategorySelect: ObservableObject {
-    @Published var categorySelectedIndex = 0
-    
-    init(categorySelectedIndex: Int = 0) {
-        self.categorySelectedIndex = categorySelectedIndex
-    }
-}
-
-public struct BannerMultiMessageSheet: View {
-    // The callback when click the close button.
-    private var closeAction: (() -> Void)? = nil
-    // Remove item action, First parameter is category, and the secondary is the item's id. When the secondary is nil, the entire category was removed.
-    private var removeAction: ((String, UUID?) -> Void)? = nil
-    // View the message detail callback, the parameter is message id, developer can use the id to scroll to the relative item
-    private var viewDetailAction: ((UUID) -> Void)? = nil
-    // Turn on category section header or not
-    private var turnOnSectionHeader = true
-    
-    @Binding private var bannerMultiMessages: [BannerMessageListModel]
-    
+// Base Layout style
+public struct BannerMultiMessageSheetBaseStyle: BannerMultiMessageSheetStyle {
     @StateObject private var categorySelect = CategorySelect()
     @State private var dimensionSelector: DimensionSelector = {
         let all = NSLocalizedString("All", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
@@ -86,56 +86,9 @@ public struct BannerMultiMessageSheet: View {
     @State private var timer: Timer?
     @State private var cancellableSet: Set<AnyCancellable> = []
     
-    /// Public initializer for banner multi-message sheet
-    /// - Parameters:
-    ///   - closeAction: callback when close button is clicked
-    ///   - removeAction: callback when category or single item is removed
-    ///   - viewDetailAction: callback when the link button is clicked
-    ///   - turnOnSectionHeader: the mark to turn on section header or not
-    ///   - bannerMultiMessages: the data source for banner multi-message sheet
-    public init(closeAction: (() -> Void)? = nil,
-                removeAction: ((String, UUID?) -> Void)? = nil,
-                viewDetailAction: ((UUID) -> Void)? = nil,
-                turnOnSectionHeader: Bool = true,
-                bannerMultiMessages: Binding<[BannerMessageListModel]>)
-    {
-        self.closeAction = closeAction
-        self.removeAction = removeAction
-        self.viewDetailAction = viewDetailAction
-        self.turnOnSectionHeader = turnOnSectionHeader
-
-        _bannerMultiMessages = bannerMultiMessages
-        
-        self.resetDimensionSelector()
-    }
-    
-    private var messageItemView: ((UUID) -> any View)? = nil
-    
-    /// Public initializer for banner multi-message sheet
-    /// - Parameters:
-    ///   - closeAction: callback when close button is clicked
-    ///   - removeAction: callback when category or single item is removed
-    ///   - turnOnSectionHeader: the mark to turn on section header or not
-    ///   - bannerMultiMessages: the data source for banner multi-message sheet
-    ///   - messageItemView: view for each item under the category
-    public init(closeAction: (() -> Void)? = nil,
-                removeAction: ((String, UUID?) -> Void)? = nil,
-                turnOnSectionHeader: Bool = true,
-                bannerMultiMessages: Binding<[BannerMessageListModel]>,
-                @ViewBuilder messageItemView: @escaping ((UUID) -> any View))
-    {
-        self.closeAction = closeAction
-        self.removeAction = removeAction
-        self.turnOnSectionHeader = turnOnSectionHeader
-        _bannerMultiMessages = bannerMultiMessages
-        self.messageItemView = messageItemView
-        
-        self.resetDimensionSelector()
-    }
-    
-    private func resetDimensionSelector() {
+    private func resetDimensionSelector(_ configuration: BannerMultiMessageSheetConfiguration) {
         var titles: [String] = []
-        for element in self.bannerMultiMessages {
+        for element in configuration.bannerMultiMessages {
             titles.append(element.category)
         }
         let all = NSLocalizedString("All", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
@@ -156,9 +109,9 @@ public struct BannerMultiMessageSheet: View {
         UIDevice.current.userInterfaceIdiom == .phone
     }
     
-    private var filteredBannerMultiMessages: [BannerMessageListModel] {
+    private func filteredBannerMultiMessages(_ configuration: BannerMultiMessageSheetConfiguration) -> [BannerMessageListModel] {
         let selectedCategory = self.dimensionSelector.titles[self.categorySelect.categorySelectedIndex]
-        let filteredBannerMultiMessages = self.bannerMultiMessages.filter { model in
+        let filteredBannerMultiMessages = configuration.bannerMultiMessages.filter { model in
             if self.categorySelect.categorySelectedIndex == 0 {
                 return true
             } else {
@@ -168,30 +121,109 @@ public struct BannerMultiMessageSheet: View {
         return filteredBannerMultiMessages
     }
     
-    private var messageCountStr: String {
+    private func messageCountStr(_ configuration: BannerMultiMessageSheetConfiguration) -> String {
         var count = 0
-        for element in self.bannerMultiMessages {
+        for element in configuration.bannerMultiMessages {
             count += element.items.count
         }
         return String(format: NSLocalizedString("Messages (%d)", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), count)
     }
     
-    public var body: some View {
+    private func attributedMessageTitle(title: String, typeDesc: String) -> AttributedString {
+        let attributedString = NSMutableAttributedString(string: title)
+        
+        let viewDetailStr = String(format: NSLocalizedString("View %@", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), typeDesc)
+        let viewDetail = NSAttributedString(string: " \(viewDetailStr)", attributes: [.foregroundColor: UIColor(Color.preferredColor(.tintColor))])
+        attributedString.append(viewDetail)
+        return AttributedString(attributedString)
+    }
+    
+    private func removeItem(_ configuration: BannerMultiMessageSheetConfiguration, category: String, at id: UUID) {
+        for i in 0 ..< configuration.bannerMultiMessages.count {
+            var element = configuration.bannerMultiMessages[i]
+            if element.category == category {
+                for index in 0 ..< element.items.count where element.items[index].id == id {
+                    element.items.remove(at: index)
+                    break
+                }
+                configuration.bannerMultiMessages.remove(at: i)
+                configuration.bannerMultiMessages.insert(element, at: i)
+                
+                if element.items.isEmpty {
+                    self.handleRemoveCategory(configuration, category: category)
+                }
+                break
+            }
+        }
+        configuration.removeAction?(category, id)
+    }
+    
+    private func removeCategoryAction(_ configuration: BannerMultiMessageSheetConfiguration, category: String) {
+        self.handleRemoveCategory(configuration, category: category)
+        configuration.removeAction?(category, nil)
+    }
+    
+    private func handleRemoveCategory(_ configuration: BannerMultiMessageSheetConfiguration, category: String) {
+        for i in 0 ..< configuration.bannerMultiMessages.count {
+            let element = configuration.bannerMultiMessages[i]
+            if element.category == category {
+                configuration.bannerMultiMessages.remove(at: i)
+                break
+            }
+        }
+    }
+    
+    private func showItemDetail(_ configuration: BannerMultiMessageSheetConfiguration, category: String, at id: UUID) {
+        configuration.viewDetailAction?(id)
+        self.dismiss(configuration)
+    }
+    
+    private func dismiss(_ configuration: BannerMultiMessageSheetConfiguration) {
+        self.timer?.invalidate()
+        self.timer = nil
+        
+        configuration.dismissAction?()
+    }
+    
+    private func bannerMessageStyle(_ messageType: BannerMultiMessageType) -> any BannerMessageStyle {
+        switch messageType {
+        case .neutral:
+            return BannerMessageNeutralStyle()
+        case .negative:
+            return BannerMessageNegativeStyle()
+        case .critical:
+            return BannerMessageCriticalStyle()
+        case .positive:
+            return BannerMessagePositiveStyle()
+        case .informative:
+            return BannerMessageInformativeStyle()
+        }
+    }
+    
+    public func makeBody(_ configuration: BannerMultiMessageSheetConfiguration) -> some View {
         VStack(spacing: 0, content: {
             HStack {
-                Text(self.messageCountStr)
-                    .foregroundStyle(Color.preferredColor(.primaryLabel))
-                    .font(.fiori(forTextStyle: .headline, weight: .bold))
+                if !configuration.title.isEmpty {
+                    configuration.title
+                } else {
+                    Text(self.messageCountStr(configuration))
+                        .foregroundStyle(Color.preferredColor(.primaryLabel))
+                        .font(.fiori(forTextStyle: .headline, weight: .bold))
+                }
                 
                 if self.isPhone {
                     Spacer()
                     
-                    FioriButton(isSelectionPersistent: false, action: { _ in
-                        self.dismiss()
-                    }, image: { _ in
-                        Image(fioriName: "fiori.error")
-                    })
-                    .fioriButtonStyle(FioriTertiaryButtonStyle(colorStyle: .normal))
+                    if !configuration.closeAction.isEmpty {
+                        configuration.closeAction
+                    } else {
+                        FioriButton(isSelectionPersistent: false, action: { _ in
+                            self.dismiss(configuration)
+                        }, image: { _ in
+                            Image(fioriName: "fiori.error")
+                        })
+                        .fioriButtonStyle(FioriTertiaryButtonStyle(colorStyle: .normal))
+                    }
                 }
             }
             .padding(.leading, self.isPhone ? 16 : 0)
@@ -207,9 +239,9 @@ public struct BannerMultiMessageSheet: View {
                 }
             
             List {
-                ForEach(self.filteredBannerMultiMessages, id: \.id) { element in
+                ForEach(self.filteredBannerMultiMessages(configuration), id: \.id) { element in
                     Section {
-                        if self.turnOnSectionHeader {
+                        if configuration.turnOnSectionHeader {
                             HStack {
                                 Text("\(element.category) (\(element.items.count))")
                                     .font(.fiori(forTextStyle: .subheadline))
@@ -217,7 +249,7 @@ public struct BannerMultiMessageSheet: View {
                                 Spacer()
                                 
                                 _Action(actionText: _ClearActionDefault().actionText, didSelectAction: {
-                                    self.removeCategoryAction(category: element.category)
+                                    self.removeCategoryAction(configuration, category: element.category)
                                 })
                                 .font(.fiori(forTextStyle: .subheadline))
                                 .foregroundStyle(Color.preferredColor(.tintColor))
@@ -228,8 +260,8 @@ public struct BannerMultiMessageSheet: View {
                         ForEach(0 ..< element.items.count, id: \.self) { index in
                             let message = element.items[index]
                             
-                            if let item = self.messageItemView {
-                                AnyView(item(message.id))
+                            if !configuration.messageItemView(message.id).isEmpty {
+                                AnyView(configuration.messageItemView(message.id))
                             } else {
                                 BannerMessage(icon: {
                                     message.icon
@@ -238,7 +270,7 @@ public struct BannerMultiMessageSheet: View {
                                 }, closeAction: {
                                     FioriButton { state in
                                         if state == .normal {
-                                            self.removeItem(category: element.category, at: message.id)
+                                            self.removeItem(configuration, category: element.category, at: message.id)
                                         }
                                     } label: { _ in
                                         Image(fioriName: "fiori.decline")
@@ -246,18 +278,13 @@ public struct BannerMultiMessageSheet: View {
                                 }, topDivider: {
                                     EmptyView()
                                 }, bannerTapAction: {
-                                    self.showItemDetail(category: element.category, at: message.id)
+                                    self.showItemDetail(configuration, category: element.category, at: message.id)
                                 }, alignment: .leading, hideSeparator: true, messageType: message.messageType)
-                                    .bannerMessageStyle(BannerMessageErrorStyle())
-//                                .iconStyle(content: { c in
-//                                    c.icon.foregroundStyle(BannerMessageFioriStyle.titleForegroundColor(type: message.messageType))
-//                                })
-//                                .titleStyle(content: { c in
-//                                    c.title.foregroundStyle(BannerMessageFioriStyle.titleForegroundColor(type: message.messageType))
-//                                })
+                                    .bannerMessageStyle(self.bannerMessageStyle(message.messageType))
+                                    .typeErased
                                     .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                                         Button(role: .destructive) {
-                                            self.removeItem(category: element.category, at: message.id)
+                                            self.removeItem(configuration, category: element.category, at: message.id)
                                         } label: {
                                             Image(fioriName: "fiori.delete")
                                         }
@@ -266,12 +293,12 @@ public struct BannerMultiMessageSheet: View {
                         }
                         
                     } footer: {
-                        if self.turnOnSectionHeader {
+                        if configuration.turnOnSectionHeader {
                             Rectangle().fill(Color.preferredColor(.primaryGroupedBackground))
                                 .frame(height: 30)
                         }
                     }
-                    .listSectionSeparator(self.turnOnSectionHeader ? .hidden : .visible, edges: .bottom)
+                    .listSectionSeparator(configuration.turnOnSectionHeader ? .hidden : .visible, edges: .bottom)
                     .listRowInsets(EdgeInsets())
                     .alignmentGuide(.listRowSeparatorLeading, computeValue: { _ in
                         0
@@ -299,16 +326,17 @@ public struct BannerMultiMessageSheet: View {
         .frame(height: self.popoverHeight)
         .animation(self.scrollContentHeight <= 40.0 ? nil : .spring)
 //        .animation(.spring, value: self.popoverHeight)
-        .onChange(of: self.bannerMultiMessages) { _ in
+        .onChange(of: configuration.bannerMultiMessages) { _ in
             // when datasource is empty, dismiss in 2 seconds
-            if self.bannerMultiMessages.isEmpty {
+            if configuration.bannerMultiMessages.isEmpty {
                 self.timer = Timer.scheduledTimer(withTimeInterval: 2, repeats: false, block: { _ in
-                    self.dismiss()
+                    self.dismiss(configuration)
                 })
             }
-            self.resetDimensionSelector()
+            self.resetDimensionSelector(configuration)
         }
         .onAppear {
+            self.resetDimensionSelector(configuration)
             self.dimensionSelector.selectionDidChangePublisher
                 .sink(receiveValue: { index in
                     self.categorySelect.categorySelectedIndex = index ?? 0
@@ -316,68 +344,37 @@ public struct BannerMultiMessageSheet: View {
                 .store(in: &self.cancellableSet)
         }
     }
-    
-    private func attributedMessageTitle(title: String, typeDesc: String) -> AttributedString {
-        let attributedString = NSMutableAttributedString(string: title)
-        
-        let viewDetailStr = String(format: NSLocalizedString("View %@", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), typeDesc)
-        let viewDetail = NSAttributedString(string: " \(viewDetailStr)", attributes: [.foregroundColor: UIColor(Color.preferredColor(.tintColor))])
-        attributedString.append(viewDetail)
-        return AttributedString(attributedString)
-    }
-    
-    private func removeItem(category: String, at id: UUID) {
-        for i in 0 ..< self.bannerMultiMessages.count {
-            var element = self.bannerMultiMessages[i]
-            if element.category == category {
-                for index in 0 ..< element.items.count where element.items[index].id == id {
-                    element.items.remove(at: index)
-                    break
-                }
-                self.bannerMultiMessages.remove(at: i)
-                self.bannerMultiMessages.insert(element, at: i)
-                
-                if element.items.isEmpty {
-                    self.handleRemoveCategory(category)
-                }
-                break
-            }
-        }
-        self.removeAction?(category, id)
-    }
-    
-    private func removeCategoryAction(category: String) {
-        self.handleRemoveCategory(category)
-        self.removeAction?(category, nil)
-    }
-    
-    private func handleRemoveCategory(_ category: String) {
-        for i in 0 ..< self.bannerMultiMessages.count {
-            let element = self.bannerMultiMessages[i]
-            if element.category == category {
-                self.bannerMultiMessages.remove(at: i)
-                break
-            }
-        }
-    }
-    
-    private func showItemDetail(category: String, at id: UUID) {
-        self.viewDetailAction?(id)
-        self.dismiss()
-    }
-    
-    private func dismiss() {
-        self.timer?.invalidate()
-        self.timer = nil
-        
-        self.closeAction?()
-    }
 }
 
-#Preview {
-    BannerMultiMessageSheet(bannerMultiMessages: Binding<[BannerMessageListModel]>.constant([
-        BannerMessageListModel(category: "Errors", items: [
-            BannerMessageItemModel(icon: Image(fioriName: "fiori.notification.3"), title: "Single-line text for banner.", messageType: .negative)
-        ])
-    ]))
+// Default fiori styles
+extension BannerMultiMessageSheetFioriStyle {
+    struct ContentFioriStyle: BannerMultiMessageSheetStyle {
+        func makeBody(_ configuration: BannerMultiMessageSheetConfiguration) -> some View {
+            BannerMultiMessageSheet(configuration)
+            // Add default style for its content
+            // .background()
+        }
+    }
+
+    struct TitleFioriStyle: TitleStyle {
+        let bannerMultiMessageSheetConfiguration: BannerMultiMessageSheetConfiguration
+
+        func makeBody(_ configuration: TitleConfiguration) -> some View {
+            Title(configuration)
+            // Add default style for Title
+            // .foregroundStyle(Color.preferredColor(<#fiori color#>))
+            // .font(.fiori(forTextStyle: <#fiori font#>))
+        }
+    }
+
+    struct CloseActionFioriStyle: CloseActionStyle {
+        let bannerMultiMessageSheetConfiguration: BannerMultiMessageSheetConfiguration
+
+        func makeBody(_ configuration: CloseActionConfiguration) -> some View {
+            CloseAction(configuration)
+            // Add default style for CloseAction
+            // .foregroundStyle(Color.preferredColor(<#fiori color#>))
+            // .font(.fiori(forTextStyle: <#fiori font#>))
+        }
+    }
 }

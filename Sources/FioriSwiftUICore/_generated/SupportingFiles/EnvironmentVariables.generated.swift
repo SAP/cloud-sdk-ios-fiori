@@ -192,6 +192,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: BannerMultiMessageSheetStyle
+
+struct BannerMultiMessageSheetStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any BannerMultiMessageSheetStyle] = []
+}
+
+extension EnvironmentValues {
+    var bannerMultiMessageSheetStyle: any BannerMultiMessageSheetStyle {
+        self.bannerMultiMessageSheetStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var bannerMultiMessageSheetStyleStack: [any BannerMultiMessageSheetStyle] {
+        get {
+            self[BannerMultiMessageSheetStyleStackKey.self]
+        }
+        set {
+            self[BannerMultiMessageSheetStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: CancelActionStyle
 
 struct CancelActionStyleStackKey: EnvironmentKey {

@@ -632,11 +632,23 @@ protocol _ToastMessageComponent: _IconComponent, _TitleComponent {
     var duration: Double { get }
 }
 
+// sourcery: CompositeComponent
 protocol _BannerMultiMessageSheet: _TitleComponent, _CloseActionComponent {
-    var closeAction: () -> Void { get }
-    var removeAction: (String, UUID?) -> Void { get }
-    var viewDetailAction: (UUID) -> Void { get }
+    /// callback when this component want to dismiss itself
+    var dismissAction: (() -> Void)? { get }
+    /// callback when category or single item is removed
+    var removeAction: ((String, UUID?) -> Void)? { get }
+    /// callback when the link button is clicked
+    var viewDetailAction: ((UUID) -> Void)? { get }
+    // sourcery: defaultValue = true
+    /// the mark to turn on section header or not
     var turnOnSectionHeader: Bool { get }
-//    @ViewBuilder messageItemView: @escaping ((UUID) -> any View)
-//    var bannerMultiMessages: Binding<[BannerMessageListModel]
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "{ _ in EmptyView() }"
+    // sourcery: resultBuilder.defaultValue = "{ _ in EmptyView() }"
+    /// view for each item under the category
+    var messageItemView: (UUID) -> any View { get }
+    // sourcery: @Binding
+    /// the data source for banner multi-message sheet
+    var bannerMultiMessages: [BannerMessageListModel] { get }
 }

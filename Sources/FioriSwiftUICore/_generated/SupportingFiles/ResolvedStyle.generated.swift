@@ -147,6 +147,22 @@ extension BannerMessageStyle {
     }
 }
 
+// MARK: BannerMultiMessageSheetStyle
+
+struct ResolvedBannerMultiMessageSheetStyle<Style: BannerMultiMessageSheetStyle>: View {
+    let style: Style
+    let configuration: BannerMultiMessageSheetConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension BannerMultiMessageSheetStyle {
+    func resolve(configuration: BannerMultiMessageSheetConfiguration) -> some View {
+        ResolvedBannerMultiMessageSheetStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: CancelActionStyle
 
 struct ResolvedCancelActionStyle<Style: CancelActionStyle>: View {

@@ -61,6 +61,13 @@ extension BannerMessage: _ViewEmptyChecking {
     }
 }
 
+extension BannerMultiMessageSheet: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        title.isEmpty &&
+            closeAction.isEmpty
+    }
+}
+
 extension CancelAction: _ViewEmptyChecking {
     public var isEmpty: Bool {
         cancelAction.isEmpty
