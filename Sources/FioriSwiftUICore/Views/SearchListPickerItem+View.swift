@@ -59,6 +59,9 @@ extension SearchListPickerItem: View {
                 }
             }
             .modifier(FioriIntrospectModifier<UIScrollView> { scrollView in
+                if !_searchText.isEmpty {
+                    return
+                }
                 DispatchQueue.main.async {
                     let popverHeight = Screen.bounds.size.height - StatusBar.height
                     let totalSpacing: CGFloat = (UIDevice.current.userInterfaceIdiom == .pad ? 8 : 16) * 2
