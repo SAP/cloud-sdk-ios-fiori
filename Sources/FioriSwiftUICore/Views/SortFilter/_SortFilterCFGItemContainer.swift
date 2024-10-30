@@ -14,6 +14,8 @@ public struct _SortFilterCFGItemContainer {
     @Binding var _items: [[SortFilterItem]]
     @State var height = 88.0
     
+    let popoverWidth = 375.0
+    
     public init(items: Binding<[[SortFilterItem]]>) {
         self.__items = items
     }
@@ -31,18 +33,18 @@ extension _SortFilterCFGItemContainer: View {
                     }
                 } footer: {
                     Rectangle().fill(Color.preferredColor(.primaryGroupedBackground))
-                        .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? 375 : Screen.bounds.size.width, height: 30)
+                        .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? self.popoverWidth : Screen.bounds.size.width, height: 30)
                 }
                 .listSectionSeparator(.hidden, edges: .all)
                 .listRowInsets(EdgeInsets())
-                .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? 375 - 13 * 2 : Screen.bounds.size.width - 16 * 2)
-                .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? 375 : Screen.bounds.size.width)
+                .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? self.popoverWidth - 13 * 2 : Screen.bounds.size.width - 16 * 2)
+                .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? self.popoverWidth : Screen.bounds.size.width)
                 .background(Color.preferredColor(.secondaryGroupedBackground))
             }
         }
         .listRowSpacing(0)
         .listStyle(.plain)
-        .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? 375 : nil)
+        .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? self.popoverWidth : nil)
         .frame(height: self.height)
         .background(Color.preferredColor(.secondaryGroupedBackground))
         .modifier(FioriIntrospectModifier<UIScrollView> { scrollView in
@@ -125,7 +127,7 @@ extension _SortFilterCFGItemContainer: View {
                 .padding([.top], 12)
         case .datetime:
             self.datetimePicker(row: r, column: c)
-                .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? 375 : Screen.bounds.size.width)
+                .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? self.popoverWidth : Screen.bounds.size.width)
                 .padding([.top, .bottom], 12)
         }
     }
@@ -235,7 +237,7 @@ extension _SortFilterCFGItemContainer: View {
                     .foregroundColor(Color.preferredColor(.primaryLabel))
                 Spacer()
             }
-            .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? 375 - 13 * 2 : Screen.bounds.size.width - 16 * 2)
+            .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? self.popoverWidth - 13 * 2 : Screen.bounds.size.width - 16 * 2)
 
             HStack {
                 Text(NSLocalizedString("Time", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""))
@@ -249,7 +251,7 @@ extension _SortFilterCFGItemContainer: View {
                 )
                 .labelsHidden()
             }
-            .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? 375 - 13 * 2 : Screen.bounds.size.width - 16 * 2)
+            .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? self.popoverWidth - 13 * 2 : Screen.bounds.size.width - 16 * 2)
             
             DatePicker(
                 "",
@@ -258,7 +260,7 @@ extension _SortFilterCFGItemContainer: View {
             )
             .datePickerStyle(.graphical)
             .labelsHidden()
-            .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? 375 - 13 : Screen.bounds.size.width - 16)
+            .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? self.popoverWidth - 13 : Screen.bounds.size.width - 16)
 //            .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? 375 : UIScreen.main.bounds.size.width)
             .clipped()
 //            .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? 375 - 13 * 2: UIScreen.main.bounds.size.width)

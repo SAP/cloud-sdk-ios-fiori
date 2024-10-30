@@ -122,6 +122,7 @@ struct PickerMenuItem: View {
     @State var isSheetVisible = false
 
     @State var detentHeight: CGFloat = ((UIDevice.current.userInterfaceIdiom == .phone || UIDevice.current.userInterfaceIdiom == .pad) ? 88 : 0)
+    let popoverWidth = 375.0
     
     public init(item: Binding<SortFilterItem.PickerItem>, onUpdate: @escaping () -> Void) {
         self._item = item
@@ -258,7 +259,7 @@ struct PickerMenuItem: View {
                     .padding(0)
                     Spacer()
                 }
-                .frame(minWidth: UIDevice.current.userInterfaceIdiom != .phone ? 375 : nil)
+                .frame(minWidth: UIDevice.current.userInterfaceIdiom != .phone ? self.popoverWidth : nil)
                 .frame(height: UIDevice.current.userInterfaceIdiom != .phone ? self.detentHeight + 52 + 56 + 70 : nil)
                 .presentationDetents([.large])
             }
@@ -300,6 +301,8 @@ struct DateTimeMenuItem: View {
     @State var detentHeight: CGFloat = 0
     
     var onUpdate: () -> Void
+    
+    let popoverWidth = 375.0
 
     public init(item: Binding<SortFilterItem.DateTimeItem>, onUpdate: @escaping () -> Void) {
         self._item = item
@@ -356,10 +359,10 @@ struct DateTimeMenuItem: View {
                         )
                         .datePickerStyle(.graphical)
                         .labelsHidden()
-                        .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? 375 - 13 : Screen.bounds.size.width - 16)
+                        .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? self.popoverWidth - 13 : Screen.bounds.size.width - 16)
                         .clipped()
                     }
-                    .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? 375 : Screen.bounds.size.width)
+                    .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? self.popoverWidth : Screen.bounds.size.width)
                 }
                 .readHeight()
                 .onPreferenceChange(HeightPreferenceKey.self) { height in
