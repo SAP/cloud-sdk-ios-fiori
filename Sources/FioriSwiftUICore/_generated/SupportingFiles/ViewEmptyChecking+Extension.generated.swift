@@ -647,6 +647,12 @@ extension SwitchView: _ViewEmptyChecking {
     }
 }
 
+extension Tag: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        tag.isEmpty
+    }
+}
+
 extension Tags: _ViewEmptyChecking {
     public var isEmpty: Bool {
         tags.isEmpty
