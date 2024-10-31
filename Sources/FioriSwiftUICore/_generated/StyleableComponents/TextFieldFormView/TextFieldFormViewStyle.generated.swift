@@ -38,6 +38,7 @@ public struct TextFieldFormViewConfiguration {
     public let isRequired: Bool
     public let actionIcon: Image?
     public let action: (() -> Void)?
+    public let actionIconAccessibilityLabel: String?
 
     public typealias Title = ConfigurationViewWrapper
     public typealias Placeholder = ConfigurationViewWrapper
