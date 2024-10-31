@@ -4,7 +4,7 @@ import SwiftUI
 public struct ConfigurationViewWrapper: View {
     var v: any View
     
-    init(_ view: some View) {
+    init(_ view: any View) {
         self.v = view
     }
     

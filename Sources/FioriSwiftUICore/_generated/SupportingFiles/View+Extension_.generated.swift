@@ -1499,6 +1499,23 @@ public extension View {
     }
 }
 
+// MARK: TagStyle
+
+public extension View {
+    func tagStyle(_ style: some TagStyle) -> some View {
+        self.transformEnvironment(\.tagStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func tagStyle(@ViewBuilder content: @escaping (TagConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.tagStyleStack) { stack in
+            let style = AnyTagStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: TagsStyle
 
 public extension View {
