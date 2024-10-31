@@ -36,12 +36,20 @@ struct CancellableResettableDialogForm<Title: View, CancelAction: View, ResetAct
             }
             .padding([.leading, .trailing], UIDevice.current.userInterfaceIdiom == .pad ? 13 : 16)
 
-            self.components.background(Color.preferredColor(.secondaryGroupedBackground))
+            #if !os(visionOS)
+                self.components.background(Color.preferredColor(.secondaryGroupedBackground))
+            #else
+                self.components.background(Color.clear)
+            #endif
             self.applyAction
         }
         .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? self.popoverWidth : nil)
         .padding([.top, .bottom], UIDevice.current.userInterfaceIdiom == .pad ? 13 : 16)
-        .background(Color.preferredColor(.chromeSecondary))
+        #if !os(visionOS)
+            .background(Color.preferredColor(.chromeSecondary))
+        #else
+            .background(Color.clear)
+        #endif
     }
 }
 
@@ -72,7 +80,11 @@ struct CancellableResettableDialogNavigationForm<Title: View, CancelAction: View
     var body: some View {
         NavigationStack {
             VStack(spacing: UIDevice.current.userInterfaceIdiom == .pad ? 8 : 16) {
-                self.components.background(Color.preferredColor(.secondaryGroupedBackground))
+                #if !os(visionOS)
+                    self.components.background(Color.preferredColor(.secondaryGroupedBackground))
+                #else
+                    self.components.background(Color.clear)
+                #endif
                 self.applyAction
             }
             .navigationBarTitleDisplayMode(.inline)
@@ -90,7 +102,11 @@ struct CancellableResettableDialogNavigationForm<Title: View, CancelAction: View
         }
         .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? self.popoverWidth : nil)
         .padding([.bottom], UIDevice.current.userInterfaceIdiom == .pad ? 13 : 16)
-        .background(Color.preferredColor(.chromeSecondary))
+        #if !os(visionOS)
+            .background(Color.preferredColor(.chromeSecondary))
+        #else
+            .background(Color.clear)
+        #endif
     }
 }
 
@@ -106,8 +122,14 @@ struct ApplyButtonStyle: PrimitiveButtonStyle {
                 .padding([.top, .bottom], 8)
                 .font(.body)
                 .fontWeight(.bold)
+            #if !os(visionOS)
                 .foregroundStyle(Color.preferredColor(.base2))
                 .background(RoundedRectangle(cornerRadius: 8).fill(Color.preferredColor(.tintColor)))
+            #else
+                .foregroundStyle(Color.preferredColor(.primaryLabel))
+                .background(RoundedRectangle(cornerRadius: 8).fill(Color.clear))
+            #endif
+            
                 .onTapGesture {
                     configuration.trigger()
                 }
@@ -119,7 +141,11 @@ struct ApplyButtonStyle: PrimitiveButtonStyle {
                 .padding([.top, .bottom], 8)
                 .font(.body)
                 .fontWeight(.bold)
+            #if !os(visionOS)
                 .foregroundStyle(Color.preferredColor(.grey1))
+            #else
+                .foregroundStyle(Color.preferredColor(.primaryLabel))
+            #endif
                 .background(RoundedRectangle(cornerRadius: 8).fill(Color.preferredColor(.grey5)))
                 .padding([.top], UIDevice.current.userInterfaceIdiom == .pad ? 16 : 8)
         }
@@ -131,7 +157,11 @@ struct CancelButtonStyle: PrimitiveButtonStyle {
         configuration.label
             .font(.body)
             .fontWeight(.bold)
+        #if !os(visionOS)
             .foregroundStyle(Color.preferredColor(.tintColor))
+        #else
+            .foregroundStyle(Color.preferredColor(.primaryLabel))
+        #endif
             .onTapGesture {
                 configuration.trigger()
             }
@@ -146,7 +176,11 @@ struct ResetButtonStyle: PrimitiveButtonStyle {
             configuration.label
                 .font(.body)
                 .fontWeight(.bold)
+            #if !os(visionOS)
                 .foregroundStyle(Color.preferredColor(.tintColor))
+            #else
+                .foregroundStyle(Color.preferredColor(.primaryLabel))
+            #endif
                 .onTapGesture {
                     configuration.trigger()
                 }
@@ -154,7 +188,11 @@ struct ResetButtonStyle: PrimitiveButtonStyle {
             configuration.label
                 .font(.body)
                 .fontWeight(.bold)
+            #if !os(visionOS)
                 .foregroundStyle(Color.preferredColor(.separator))
+            #else
+                .foregroundStyle(Color.preferredColor(.primaryLabel))
+            #endif
         }
     }
 }

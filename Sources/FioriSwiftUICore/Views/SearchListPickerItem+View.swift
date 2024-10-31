@@ -46,7 +46,11 @@ extension SearchListPickerItem: View {
                         Spacer()
                         if isSelected {
                             Image(systemName: "checkmark")
-                                .foregroundColor(.preferredColor(.tintColor))
+                            #if !os(visionOS)
+                                .foregroundStyle(Color.preferredColor(.tintColor))
+                            #else
+                                .foregroundStyle(Color.preferredColor(.primaryLabel))
+                            #endif
                         }
                     }
                     .padding(0)
