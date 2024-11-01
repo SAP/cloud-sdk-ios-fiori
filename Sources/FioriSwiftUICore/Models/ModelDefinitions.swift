@@ -474,6 +474,7 @@ public protocol FilterFeedbackBarModel: AnyObject {
 // sourcery: add_env_props = "dismiss"
 // sourcery: generated_component_composite
 // sourcery: virtualPropViewSize = "@State var size: CGSize = .zero"
+// sourcery: virtualPropPopoverWidth = "let popoverWidth = 393.0"
 public protocol SortFilterViewModel: AnyObject, TitleComponent {
     // sourcery: bindingProperty
     // sourcery: backingComponent=_SortFilterCFGItemContainer
@@ -531,9 +532,9 @@ public protocol OptionListPickerItemModel: OptionListPickerComponent {
 // sourcery: virtualPropSearchViewCornerRadius = "@State var _searchViewCornerRadius: CGFloat = 18"
 // sourcery: virtualPropSelectAll = "var selectAll: ((Bool) -> ())? = nil"
 // sourcery: virtualPropUpdateSearchListPickerHeight = "var updateSearchListPickerHeight: ((CGFloat) -> ())? = nil"
-// sourcery: virtualPropUpdateApply‌Instantly‌ = "var apply‌Instantly‌: (() -> ())? = nil"
 // sourcery: virtualPropAllowsMultipleSelection = "var allowsMultipleSelection: Bool = false"
 // sourcery: virtualPropAllowsEmptySelection = "var allowsEmptySelection: Bool = false"
+// sourcery: virtualPropPopoverWidth = "let popoverWidth = 393.0"
 public protocol SearchListPickerItemModel: OptionListPickerComponent {
     // sourcery: default.value = nil
     // sourcery: no_view

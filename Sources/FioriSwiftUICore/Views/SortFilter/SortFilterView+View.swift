@@ -81,7 +81,7 @@ extension SortFilterView: View {
                 })
                 .environmentObject(context)
         }
-        .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? 375 : nil)
+        .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? popoverWidth : nil)
         .frame(height: UIDevice.current.userInterfaceIdiom != .phone ? size.height + 130 : nil)
         .presentationDetents([.large])
         .background(Color.preferredColor(.chromeSecondary))

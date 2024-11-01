@@ -14,7 +14,7 @@ public struct _SortFilterCFGItemContainer {
     @Binding var _items: [[SortFilterItem]]
     @State var height = 88.0
     
-    let popoverWidth = 375.0
+    let popoverWidth = 393.0
     
     public init(items: Binding<[[SortFilterItem]]>) {
         self.__items = items
@@ -143,8 +143,6 @@ extension _SortFilterCFGItemContainer: View {
                 self._items[r][c].picker.onTap(option: self._items[r][c].picker.valueOptions[index])
             } selectAll: { isAll in
                 self._items[r][c].picker.selectAll(isAll)
-            } apply‌Instantly‌: {
-                self._items[r][c].picker.apply()
             }
             Spacer()
         } label: {
@@ -153,10 +151,11 @@ extension _SortFilterCFGItemContainer: View {
                     .font(.fiori(forTextStyle: .subheadline, weight: .bold, isItalic: false, isCondensed: false))
                     .foregroundColor(Color.preferredColor(.primaryLabel))
             }, value: {
-                if self._items[r][c].picker.value.count == 1, self._items[r][c].picker.showsValueForSingleSelected {
-                    Text(self._items[r][c].picker.valueOptions[self._items[r][c].picker.value[0]])
+                let workingValue = Binding<[Int]>(get: { self._items[r][c].picker.workingValue }, set: { self._items[r][c].picker.workingValue = $0 })
+                if workingValue.count == 1, self._items[r][c].picker.showsValueForSingleSelected {
+                    Text(self._items[r][c].picker.valueOptions[self._items[r][c].picker.workingValue[0]])
                 } else {
-                    Text("\(self._items[r][c].picker.name) (\(self._items[r][c].picker.value.count))")
+                    Text("\(self._items[r][c].picker.name) (\(workingValue.count))")
                 }
             }, axis: .horizontal)
         }
@@ -261,9 +260,7 @@ extension _SortFilterCFGItemContainer: View {
             .datePickerStyle(.graphical)
             .labelsHidden()
             .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? self.popoverWidth - 13 : Screen.bounds.size.width - 16)
-//            .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? 375 : UIScreen.main.bounds.size.width)
             .clipped()
-//            .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? 375 - 13 * 2: UIScreen.main.bounds.size.width)
         }
     }
     

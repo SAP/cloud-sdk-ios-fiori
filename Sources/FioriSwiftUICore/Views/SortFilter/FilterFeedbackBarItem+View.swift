@@ -122,7 +122,7 @@ struct PickerMenuItem: View {
     @State var isSheetVisible = false
 
     @State var detentHeight: CGFloat = ((UIDevice.current.userInterfaceIdiom == .phone || UIDevice.current.userInterfaceIdiom == .pad) ? 88 : 0)
-    let popoverWidth = 375.0
+    let popoverWidth = 393.0
     
     public init(item: Binding<SortFilterItem.PickerItem>, onUpdate: @escaping () -> Void) {
         self._item = item
@@ -302,7 +302,7 @@ struct DateTimeMenuItem: View {
     
     var onUpdate: () -> Void
     
-    let popoverWidth = 375.0
+    let popoverWidth = 393.0
 
     public init(item: Binding<SortFilterItem.DateTimeItem>, onUpdate: @escaping () -> Void) {
         self._item = item

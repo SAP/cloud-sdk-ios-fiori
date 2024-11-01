@@ -12,15 +12,13 @@ public extension SearchListPickerItem {
     ///   - onTap: The closure when tap on item.
     ///   - selectAll: The closure when click 'Select All' button.
     ///   - updateSearchListPickerHeight: The closure to update the parent view.
-    ///   - apply‌Instantly‌: The closure to apply the selection instantly.
-    init(value: Binding<[Int]>, valueOptions: [String] = [], hint: String? = nil, allowsMultipleSelection: Bool, allowsEmptySelection: Bool, onTap: ((_ index: Int) -> Void)? = nil, selectAll: ((_ isAll: Bool) -> Void)? = nil, updateSearchListPickerHeight: ((CGFloat) -> Void)? = nil, apply‌Instantly‌: (() -> Void)? = nil) {
+    init(value: Binding<[Int]>, valueOptions: [String] = [], hint: String? = nil, allowsMultipleSelection: Bool, allowsEmptySelection: Bool, onTap: ((_ index: Int) -> Void)? = nil, selectAll: ((_ isAll: Bool) -> Void)? = nil, updateSearchListPickerHeight: ((CGFloat) -> Void)? = nil) {
         self.init(value: value, valueOptions: valueOptions, hint: hint, onTap: onTap)
         
         self.allowsMultipleSelection = allowsMultipleSelection
         self.allowsEmptySelection = allowsEmptySelection
         self.selectAll = selectAll
         self.updateSearchListPickerHeight = updateSearchListPickerHeight
-        self.apply‌Instantly‌ = apply‌Instantly‌
     }
 }
 
@@ -57,7 +55,6 @@ extension SearchListPickerItem: View {
                             return
                         }
                         _onTap?(index)
-                        apply‌Instantly‌?()
                     }
                 }
             }
@@ -84,7 +81,7 @@ extension SearchListPickerItem: View {
                 }
             })
             .listStyle(PlainListStyle())
-            .frame(minWidth: UIDevice.current.userInterfaceIdiom != .phone ? 375 : nil)
+            .frame(minWidth: UIDevice.current.userInterfaceIdiom != .phone ? popoverWidth : nil)
             .scrollContentBackground(.hidden)
             .padding(0)
             .searchable(text: $_searchText, placement: .automatic)
@@ -99,7 +96,6 @@ extension SearchListPickerItem: View {
             Spacer()
             Button(action: {
                 selectAll?(_value.count != _valueOptions.count)
-                apply‌Instantly‌?()
             }) {
                 Text(_value.count == _valueOptions.count ? NSLocalizedString("Deselect All", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "") : NSLocalizedString("Select All", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""))
             }
@@ -135,7 +131,7 @@ extension SearchListPickerItem: View {
     VStack {
         Spacer()
         SearchListPickerItem(value: Binding<[Int]>(get: { [0, 1, 2] }, set: { print($0) }), valueOptions: ["Received", "Started", "Hold", "Transfer", "Completed", "Pending Review review", "Accepted", "Rejected"], hint: nil)
-            .frame(width: 375)
+            .frame(width: 393)
         Spacer()
     }
 }
