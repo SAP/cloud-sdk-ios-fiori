@@ -14,7 +14,8 @@ struct SortFilterExample: View {
         ],
         [
             .picker(item: .init(name: "Priority", value: [0], valueOptions: ["High", "Medium", "Low"], allowsMultipleSelection: false, allowsEmptySelection: true, barItemDisplayMode: .nameAndValue, icon: "filemenu.and.cursorarrow"), showsOnFilterFeedbackBar: true),
-            .filterfeedback(item: .init(name: "Sort Order", value: [0], valueOptions: ["Ascending", "Descending"], allowsMultipleSelection: false, allowsEmptySelection: false, icon: "checkmark"))
+            .filterfeedback(item: .init(name: "Sort Order", value: [0], valueOptions: ["Ascending", "Descending"], allowsMultipleSelection: false, allowsEmptySelection: false, icon: "checkmark")),
+            .stepper(item: .init(name: "Quantity", stepperTitle: "Label", value: 1, step: 1, stepRange: 0 ... 100, isDecimalSupported: false, description: "Hint Text"), showsOnFilterFeedbackBar: true)
         ],
         [
             .slider(item: .init(name: "User Stories", value: 10, minimumValue: 0, maximumValue: 100, formatter: "%2d Stories", icon: "number"), showsOnFilterFeedbackBar: true),
