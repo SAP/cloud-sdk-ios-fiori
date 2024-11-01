@@ -309,7 +309,7 @@ public extension SortFilterItem {
         var valueOptions: [String]
         public let allowsMultipleSelection: Bool
         public let allowsEmptySelection: Bool
-        public var singleSelectedMode: SingleSelectedMode = .showName
+        public var barItemDisplayMode: BarItemDisplayMode = .name
         public let icon: String?
         /// itemLayout is used when listPickerMode is filterFormCell, otherwise is ignored.
         public var itemLayout: OptionListPickerItemLayoutType = .fixed
@@ -328,16 +328,16 @@ public extension SortFilterItem {
         }
         
         /// Enum for display modes of the filter feed bar label when a single item selected
-        public enum SingleSelectedMode {
+        public enum BarItemDisplayMode {
             /// To show the name
-            case showName
+            case name
             /// To show the value
-            case showValue
+            case value
             /// To show both the name and value
-            case showNameValue
+            case nameAndValue
         }
         
-        public init(id: String = UUID().uuidString, name: String, value: [Int], valueOptions: [String], allowsMultipleSelection: Bool, allowsEmptySelection: Bool, singleSelectedMode: SingleSelectedMode = .showName, icon: String? = nil, itemLayout: OptionListPickerItemLayoutType = .fixed, displayMode: DisplayMode = .automatic) {
+        public init(id: String = UUID().uuidString, name: String, value: [Int], valueOptions: [String], allowsMultipleSelection: Bool, allowsEmptySelection: Bool, barItemDisplayMode: BarItemDisplayMode = .name, icon: String? = nil, itemLayout: OptionListPickerItemLayoutType = .fixed, displayMode: DisplayMode = .automatic) {
             self.id = id
             self.name = name
             self.value = value
@@ -346,7 +346,7 @@ public extension SortFilterItem {
             self.valueOptions = valueOptions
             self.allowsMultipleSelection = allowsMultipleSelection
             self.allowsEmptySelection = allowsEmptySelection
-            self.singleSelectedMode = singleSelectedMode
+            self.barItemDisplayMode = barItemDisplayMode
             self.icon = icon
             self.itemLayout = itemLayout
             self.displayMode = displayMode
@@ -429,12 +429,12 @@ public extension SortFilterItem {
         
         var label: String {
             if self.value.count == 1 {
-                switch self.singleSelectedMode {
-                case .showName:
+                switch self.barItemDisplayMode {
+                case .name:
                     return self.name
-                case .showValue:
+                case .value:
                     return self.valueOptions[self.value[0]]
-                case .showNameValue:
+                case .nameAndValue:
                     return self.name + ":" + self.valueOptions[self.value[0]]
                 }
             } else {
