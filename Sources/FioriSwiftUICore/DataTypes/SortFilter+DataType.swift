@@ -363,7 +363,7 @@ public extension SortFilterItem {
         /// itemLayout is used when listPickerMode is filterFormCell, otherwise is ignored.
         public var itemLayout: OptionListPickerItemLayoutType = .fixed
         public var displayMode: DisplayMode = .automatic
-        /// If seachBar in list display mode is shown. Default is `false`.
+        /// If seachBar in lister picker is shown. Default is `false`.
         public var isSearchBarHidden: Bool = false
 
         /// Available OptionListPicker modes. Use this enum to define picker mode  to present.
