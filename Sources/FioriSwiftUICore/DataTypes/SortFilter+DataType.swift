@@ -327,7 +327,9 @@ public extension SortFilterItem {
             case list
         }
         
-        /// Enum for display modes of the filter feed bar label when a single item selected
+        /// Enum for display mode of the FilterFeedbackBar item when only one value is selected for that item.
+        /// This is effective, regardless of that item allowing multiple selection or not
+        ///  The default value is `.name`.
         public enum BarItemDisplayMode {
             /// To show the name
             case name
@@ -435,7 +437,7 @@ public extension SortFilterItem {
                 case .value:
                     return self.valueOptions[self.value[0]]
                 case .nameAndValue:
-                    return self.name + ":" + self.valueOptions[self.value[0]]
+                    return self.name + ": " + self.valueOptions[self.value[0]]
                 }
             } else {
                 if self.allowsMultipleSelection, self.value.count >= 1 {
