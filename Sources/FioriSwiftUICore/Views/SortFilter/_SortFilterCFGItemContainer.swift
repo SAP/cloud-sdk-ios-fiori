@@ -153,7 +153,7 @@ extension _SortFilterCFGItemContainer: View {
             }, value: {
                 let workingValue = Binding<[Int]>(get: { self._items[r][c].picker.workingValue }, set: { self._items[r][c].picker.workingValue = $0 })
                 if workingValue.count == 1, self._items[r][c].picker.showsValueForSingleSelected {
-                    Text(self._items[r][c].picker.valueOptions[self._items[r][c].picker.workingValue[0]])
+                    Text(self._items[r][c].picker.valueOptions[workingValue.wrappedValue[0]])
                 } else {
                     Text("\(self._items[r][c].picker.name) (\(workingValue.count))")
                 }
