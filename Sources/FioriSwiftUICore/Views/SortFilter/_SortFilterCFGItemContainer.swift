@@ -15,6 +15,7 @@ public struct _SortFilterCFGItemContainer {
     @State var height = 88.0
     
     let popoverWidth = 393.0
+    @State var stepperViewHeight: CGFloat = 110
     
     public init(items: Binding<[[SortFilterItem]]>) {
         self.__items = items
@@ -129,6 +130,10 @@ extension _SortFilterCFGItemContainer: View {
             self.datetimePicker(row: r, column: c)
                 .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? self.popoverWidth : Screen.bounds.size.width)
                 .padding([.top, .bottom], 12)
+        case .stepper:
+            self.stepper(row: r, column: c)
+                .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? self.popoverWidth : Screen.bounds.size.width)
+                .padding([.top, .bottom], 12)
         }
     }
     
@@ -152,10 +157,21 @@ extension _SortFilterCFGItemContainer: View {
                     .foregroundColor(Color.preferredColor(.primaryLabel))
             }, value: {
                 let workingValue = Binding<[Int]>(get: { self._items[r][c].picker.workingValue }, set: { self._items[r][c].picker.workingValue = $0 })
-                if workingValue.count == 1, self._items[r][c].picker.showsValueForSingleSelected {
-                    Text(self._items[r][c].picker.valueOptions[workingValue.wrappedValue[0]])
+                if workingValue.count == 1 {
+                    switch self._items[r][c].picker.barItemDisplayMode {
+                    case .name:
+                        Text(self._items[r][c].picker.name)
+                    case .value:
+                        Text(self._items[r][c].picker.valueOptions[workingValue.wrappedValue[0]])
+                    case .nameAndValue:
+                        Text(self._items[r][c].picker.name + ": " + self._items[r][c].picker.valueOptions[workingValue.wrappedValue[0]])
+                    }
                 } else {
-                    Text("\(self._items[r][c].picker.name) (\(workingValue.count))")
+                    if self._items[r][c].picker.allowsMultipleSelection, workingValue.count >= 1 {
+                        Text("\(self._items[r][c].picker.name) (\(workingValue.count))")
+                    } else {
+                        Text(self._items[r][c].picker.name)
+                    }
                 }
             }, axis: .horizontal)
         }
@@ -341,6 +357,11 @@ extension _SortFilterCFGItemContainer: View {
             }
             .ifApply(!self._items[r][c].stepper.incrementActionActive) { v in
                 v.incrementActionStyle(.deactivate)
+            }
+            .frame(minHeight: self.stepperViewHeight)
+            .padding(0)
+            .sizeReader { s in
+                self.stepperViewHeight = max(self.stepperViewHeight, s.height)
             }
         }
     }
