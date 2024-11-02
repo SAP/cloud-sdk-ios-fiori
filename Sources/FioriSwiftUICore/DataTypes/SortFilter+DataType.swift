@@ -16,6 +16,8 @@ public enum SortFilterItem: Identifiable, Hashable {
             return item.id
         case .datetime(let item, _):
             return item.id
+        case .stepper(let item, _):
+            return item.id
         }
     }
     
@@ -57,6 +59,13 @@ public enum SortFilterItem: Identifiable, Hashable {
     ///
     /// 2. A section of view containing a SwiftUI Canlendar
     case datetime(item: DateTimeItem, showsOnFilterFeedbackBar: Bool)
+    
+    /// The type of UI control is used to build:
+    ///
+    /// 1. Sort & Filter's menu item associated with a popover containing a SwiftUI Stepper with Fiori style
+    ///
+    /// 2. A section of view containing a SwiftUI Stepper with Fiori style
+    case stepper(item: StepperItem, showsOnFilterFeedbackBar: Bool)
         
     public var showsOnFilterFeedbackBar: Bool {
         switch self {
@@ -69,6 +78,8 @@ public enum SortFilterItem: Identifiable, Hashable {
         case .slider(_, let showsOnFilterFeedbackBar):
             return showsOnFilterFeedbackBar
         case .datetime(_, let showsOnFilterFeedbackBar):
+            return showsOnFilterFeedbackBar
+        case .stepper(_, let showsOnFilterFeedbackBar):
             return showsOnFilterFeedbackBar
         }
     }
@@ -97,6 +108,11 @@ public enum SortFilterItem: Identifiable, Hashable {
             hasher.combine(item.workingValue)
             hasher.combine(item.value)
         case .datetime(let item, _):
+            hasher.combine(item.id)
+            hasher.combine(item.originalValue)
+            hasher.combine(item.workingValue)
+            hasher.combine(item.value)
+        case .stepper(let item, _):
             hasher.combine(item.id)
             hasher.combine(item.originalValue)
             hasher.combine(item.workingValue)
@@ -206,6 +222,26 @@ extension SortFilterItem {
         }
     }
     
+    var stepper: StepperItem {
+        get {
+            switch self {
+            case .stepper(let item, _):
+                return item
+            default:
+                fatalError("Unexpected value \(self)")
+            }
+        }
+        
+        set {
+            switch self {
+            case .stepper(_, let showsOnFilterFeedbackBar):
+                self = .stepper(item: newValue, showsOnFilterFeedbackBar: showsOnFilterFeedbackBar)
+            default:
+                fatalError("Unexpected value \(self)")
+            }
+        }
+    }
+    
     var isChanged: Bool {
         switch self {
         case .picker(let item, _):
@@ -217,6 +253,8 @@ extension SortFilterItem {
         case .datetime(let item, _):
             return item.isChanged
         case .slider(let item, _):
+            return item.isChanged
+        case .stepper(let item, _):
             return item.isChanged
         }
     }
@@ -232,6 +270,8 @@ extension SortFilterItem {
         case .datetime(let item, _):
             return item.isOriginal
         case .slider(let item, _):
+            return item.isOriginal
+        case .stepper(let item, _):
             return item.isOriginal
         }
     }
@@ -253,6 +293,9 @@ extension SortFilterItem {
         case .slider(var item, _):
             item.cancel()
             self.slider = item
+        case .stepper(var item, _):
+            item.cancel()
+            self.stepper = item
         }
     }
     
@@ -273,6 +316,9 @@ extension SortFilterItem {
         case .slider(var item, _):
             item.reset()
             self.slider = item
+        case .stepper(var item, _):
+            item.reset()
+            self.stepper = item
         }
     }
     
@@ -293,6 +339,9 @@ extension SortFilterItem {
         case .slider(var item, _):
             item.apply()
             self.slider = item
+        case .stepper(var item, _):
+            item.apply()
+            self.stepper = item
         }
     }
 }
@@ -309,7 +358,7 @@ public extension SortFilterItem {
         var valueOptions: [String]
         public let allowsMultipleSelection: Bool
         public let allowsEmptySelection: Bool
-        public var showsValueForSingleSelected: Bool = true
+        public var barItemDisplayMode: BarItemDisplayMode = .name
         public let icon: String?
         /// itemLayout is used when listPickerMode is filterFormCell, otherwise is ignored.
         public var itemLayout: OptionListPickerItemLayoutType = .fixed
@@ -327,7 +376,19 @@ public extension SortFilterItem {
             case list
         }
         
-        public init(id: String = UUID().uuidString, name: String, value: [Int], valueOptions: [String], allowsMultipleSelection: Bool, allowsEmptySelection: Bool, showsValueForSingleSelected: Bool = true, icon: String? = nil, itemLayout: OptionListPickerItemLayoutType = .fixed, displayMode: DisplayMode = .automatic) {
+        /// Enum for display mode of the FilterFeedbackBar item when only one value is selected for that item.
+        /// This is effective, regardless of that item allowing multiple selection or not
+        ///  The default value is `.name`.
+        public enum BarItemDisplayMode {
+            /// To show the name
+            case name
+            /// To show the value
+            case value
+            /// To show both the name and value
+            case nameAndValue
+        }
+        
+        public init(id: String = UUID().uuidString, name: String, value: [Int], valueOptions: [String], allowsMultipleSelection: Bool, allowsEmptySelection: Bool, barItemDisplayMode: BarItemDisplayMode = .name, icon: String? = nil, itemLayout: OptionListPickerItemLayoutType = .fixed, displayMode: DisplayMode = .automatic) {
             self.id = id
             self.name = name
             self.value = value
@@ -336,7 +397,7 @@ public extension SortFilterItem {
             self.valueOptions = valueOptions
             self.allowsMultipleSelection = allowsMultipleSelection
             self.allowsEmptySelection = allowsEmptySelection
-            self.showsValueForSingleSelected = showsValueForSingleSelected
+            self.barItemDisplayMode = barItemDisplayMode
             self.icon = icon
             self.itemLayout = itemLayout
             self.displayMode = displayMode
@@ -418,14 +479,21 @@ public extension SortFilterItem {
         }
         
         var label: String {
-            if self.allowsMultipleSelection, self.value.count >= 1 {
-                if self.value.count == 1, self.showsValueForSingleSelected {
+            if self.value.count == 1 {
+                switch self.barItemDisplayMode {
+                case .name:
+                    return self.name
+                case .value:
                     return self.valueOptions[self.value[0]]
-                } else {
-                    return "\(self.name) (\(self.value.count))"
+                case .nameAndValue:
+                    return self.name + ": " + self.valueOptions[self.value[0]]
                 }
             } else {
-                return self.name
+                if self.allowsMultipleSelection, self.value.count >= 1 {
+                    return "\(self.name) (\(self.value.count))"
+                } else {
+                    return self.name
+                }
             }
         }
         
@@ -596,6 +664,81 @@ public extension SortFilterItem {
             } else {
                 return self.name
             }
+        }
+        
+        var isChanged: Bool {
+            self.value != self.workingValue
+        }
+        
+        var isOriginal: Bool {
+            self.workingValue == self.originalValue
+        }
+    }
+    
+    ///  Data structure for integer type stepper
+    struct StepperItem: Identifiable, Equatable {
+        public let id: String
+        public var name: String
+        public var value: Double
+        var workingValue: Double
+        let originalValue: Double
+        public let icon: String?
+
+        public let stepperTitle: String
+        /// The step value
+        public let step: Double
+        /// a range of values
+        public let stepRange: ClosedRange<Double>
+        /// Indicates whether the stepper field  supports decimal values. Default is false.
+        public let isDecimalSupported: Bool
+        public let incrementActionActive: Bool
+        public let decrementActionActive: Bool
+        public let stepperIcon: UIImage?
+        public let description: String?
+        
+        public init(id: String = UUID().uuidString, name: String, stepperTitle: String, value: Double, step: Double = 1, stepRange: ClosedRange<Double>, isDecimalSupported: Bool = false, incrementActionActive: Bool = true, decrementActionActive: Bool = true, icon: String? = nil, stepperIcon: UIImage? = nil, description: String? = nil) {
+            self.id = id
+            self.name = name
+            self.value = value
+            self.workingValue = value
+            self.originalValue = value
+            self.stepperTitle = stepperTitle
+            self.step = step
+            self.stepRange = stepRange
+            self.isDecimalSupported = isDecimalSupported
+            self.incrementActionActive = incrementActionActive
+            self.decrementActionActive = decrementActionActive
+            self.icon = icon
+            self.stepperIcon = stepperIcon
+            self.description = description
+        }
+        
+        mutating func reset() {
+            self.workingValue = self.originalValue
+        }
+        
+        mutating func cancel() {
+            self.workingValue = self.value
+        }
+        
+        mutating func apply() {
+            self.value = self.workingValue
+        }
+        
+        var isChecked: Bool {
+            true
+        }
+        
+        var label: String {
+            if self.isDecimalSupported {
+                return "\(self.name): \(String(describing: self.value))"
+            } else {
+                return "\(self.name): \(String(describing: Int(self.value)))"
+            }
+        }
+        
+        mutating func setValue(newValue: StepperItem) {
+            self.value = newValue.value
         }
         
         var isChanged: Bool {

@@ -216,7 +216,8 @@ extension _SortFilterCFGItemContainer: View {
         VStack {
             HStack {
                 Text(self._items[r][c].slider.name)
-                    .font(.headline)
+                    .font(.fiori(forTextStyle: .subheadline, weight: .bold, isItalic: false, isCondensed: false))
+                    .foregroundColor(Color.preferredColor(.primaryLabel))
                 Spacer()
             }
             SliderPickerItem(
@@ -232,7 +233,7 @@ extension _SortFilterCFGItemContainer: View {
         VStack {
             HStack {
                 Text(self._items[r][c].datetime.name)
-                    .font(.fiori(forTextStyle: .headline, weight: .bold, isItalic: false, isCondensed: false))
+                    .font(.fiori(forTextStyle: .subheadline, weight: .bold, isItalic: false, isCondensed: false))
                     .foregroundColor(Color.preferredColor(.primaryLabel))
                 Spacer()
             }
@@ -240,7 +241,7 @@ extension _SortFilterCFGItemContainer: View {
 
             HStack {
                 Text(NSLocalizedString("Time", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""))
-                    .font(.fiori(forTextStyle: .headline, weight: .bold, isItalic: false, isCondensed: false))
+                    .font(.fiori(forTextStyle: .subheadline, weight: .bold, isItalic: false, isCondensed: false))
                     .foregroundColor(Color.preferredColor(.primaryLabel))
                 Spacer()
                 DatePicker(
@@ -295,6 +296,51 @@ extension _SortFilterCFGItemContainer: View {
                 }
             } label: {
                 FilterFeedbackBarItem(leftIcon: self.icon(name: self._items[r][c].picker.icon, isVisible: true), title: self._items[r][c].picker.label, isSelected: self._items[r][c].picker.isChecked)
+            }
+        }
+    }
+    
+    private func stepper(row r: Int, column c: Int) -> some View {
+        VStack {
+            HStack {
+                Text(self._items[r][c].stepper.name)
+                    .font(.fiori(forTextStyle: .subheadline, weight: .bold, isItalic: false, isCondensed: false))
+                    .foregroundColor(Color.preferredColor(.primaryLabel))
+                Spacer()
+            }.padding([.leading, .trailing], UIDevice.current.userInterfaceIdiom == .pad ? 13 : 16)
+            
+            StepperView(
+                title: { Text(self._items[r][c].stepper.stepperTitle) },
+                text: Binding<String>(get: {
+                    if self._items[r][c].stepper.isDecimalSupported {
+                        String(describing: self._items[r][c].stepper.workingValue)
+                    } else {
+                        String(describing: Int(self._items[r][c].stepper.workingValue))
+                    }
+                }, set: { self._items[r][c].stepper.workingValue = Double($0) ?? 0 }),
+                step: self._items[r][c].stepper.step,
+                stepRange: self._items[r][c].stepper.stepRange,
+                isDecimalSupported: self._items[r][c].stepper.isDecimalSupported,
+                icon: {
+                    if let stepperIcon = self._items[r][c].stepper.stepperIcon {
+                        Image(uiImage: stepperIcon)
+                    } else {
+                        EmptyView()
+                    }
+                },
+                description: {
+                    if let description = self._items[r][c].stepper.description {
+                        Text(description)
+                    } else {
+                        EmptyView()
+                    }
+                }
+            )
+            .ifApply(!self._items[r][c].stepper.decrementActionActive) { v in
+                v.decrementActionStyle(.deactivate)
+            }
+            .ifApply(!self._items[r][c].stepper.incrementActionActive) { v in
+                v.incrementActionStyle(.deactivate)
             }
         }
     }

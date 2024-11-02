@@ -432,6 +432,101 @@ struct SwitchMenuItem: View {
     }
 }
 
+struct StepperMenuItem: View {
+    @Binding var item: SortFilterItem.StepperItem
+
+    @State var isSheetVisible = false
+
+    @State var detentHeight: CGFloat = 0
+
+    var onUpdate: () -> Void
+    
+    @State var stepperViewHeight: CGFloat = 110
+    
+    public init(item: Binding<SortFilterItem.StepperItem>, onUpdate: @escaping () -> Void) {
+        self._item = item
+        self.onUpdate = onUpdate
+    }
+    
+    var body: some View {
+        FilterFeedbackBarItem(leftIcon: icon(name: self.item.icon, isVisible: true), title: self.item.label, rightIcon: Image(systemName: "chevron.down"), isSelected: self.item.isChecked)
+            .onTapGesture {
+                self.isSheetVisible.toggle()
+            }
+            .popover(isPresented: self.$isSheetVisible) {
+                CancellableResettableDialogForm {
+                    SortFilterItemTitle(title: self.item.name)
+                } cancelAction: {
+                    _Action(actionText: NSLocalizedString("Cancel", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
+                        self.item.cancel()
+                        self.isSheetVisible.toggle()
+                    })
+                    .buttonStyle(CancelButtonStyle())
+                } resetAction: {
+                    _Action(actionText: NSLocalizedString("Reset", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
+                        self.item.reset()
+                    })
+                    .buttonStyle(ResetButtonStyle())
+                    .disabled(self.item.isOriginal)
+                } applyAction: {
+                    _Action(actionText: NSLocalizedString("Apply", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
+                        self.item.apply()
+                        self.onUpdate()
+                        self.isSheetVisible.toggle()
+                    })
+                    .buttonStyle(ApplyButtonStyle())
+
+                } components: {
+                    StepperView(
+                        title: { Text(self.item.stepperTitle) },
+                        text: Binding<String>(get: {
+                            if self.item.isDecimalSupported {
+                                String(describing: self.item.workingValue)
+                            } else {
+                                String(describing: Int(self.item.workingValue))
+                            }
+                        }, set: { self.item.workingValue = Double($0) ?? 0 }),
+                        step: self.item.step,
+                        stepRange: self.item.stepRange,
+                        isDecimalSupported: self.item.isDecimalSupported,
+                        icon: {
+                            if let stepperIcon = self.item.stepperIcon {
+                                Image(uiImage: stepperIcon)
+                            } else {
+                                EmptyView()
+                            }
+                        },
+                        description: {
+                            if let description = self.item.description {
+                                Text(description)
+                            } else {
+                                EmptyView()
+                            }
+                        }
+                    )
+                    .ifApply(!self.item.decrementActionActive) { v in
+                        v.decrementActionStyle(.deactivate)
+                    }
+                    .ifApply(!self.item.incrementActionActive) { v in
+                        v.incrementActionStyle(.deactivate)
+                    }
+                    .frame(minHeight: self.stepperViewHeight)
+                    .padding(0)
+                    .sizeReader { s in
+                        self.stepperViewHeight = max(self.stepperViewHeight, s.height)
+                    }
+                }
+                .readHeight()
+                .onPreferenceChange(HeightPreferenceKey.self) { height in
+                    if let height {
+                        self.detentHeight = height
+                    }
+                }
+                .presentationDetents([.height(self.detentHeight)])
+            }
+    }
+}
+
 struct FullCFGMenuItem: View {
     @Environment(\.sortFilterMenuItemFullConfigurationButton) var fullCFGButton
     
