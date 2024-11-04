@@ -81,6 +81,7 @@ extension ProgressIndicatorViewFioriStyle {
     }
 }
 
+/// Processing style displaying a circular indeterminate indicator
 public struct ProgressIndicatorViewProcessingStyle: ProgressIndicatorViewStyle {
     public func makeBody(_ configuration: ProgressIndicatorViewConfiguration) -> some View {
         ZStack {
@@ -93,12 +94,14 @@ public struct ProgressIndicatorViewProcessingStyle: ProgressIndicatorViewStyle {
     }
 }
 
+/// Processing style
 public extension ProgressIndicatorViewStyle where Self == ProgressIndicatorViewProcessingStyle {
     static var processing: ProgressIndicatorViewProcessingStyle {
         ProgressIndicatorViewProcessingStyle()
     }
 }
 
+/// Loading pausable style displaying current progress and an icon depending on the paused state
 public struct ProgressIndicatorViewPausableStyle: ProgressIndicatorViewStyle {
     @Binding var isPaused: Bool
     public init(isPaused: Binding<Bool>) {
@@ -125,6 +128,7 @@ public struct ProgressIndicatorViewPausableStyle: ProgressIndicatorViewStyle {
     }
 }
 
+/// Loading stoppable style displaying current progress and a stop icon
 public struct ProgressIndicatorViewStoppableStyle: ProgressIndicatorViewStyle {
     public func makeBody(_ configuration: ProgressIndicatorViewConfiguration) -> some View {
         ZStack {
@@ -140,6 +144,7 @@ public struct ProgressIndicatorViewStoppableStyle: ProgressIndicatorViewStyle {
     }
 }
 
+/// Loading stoppable style
 public extension ProgressIndicatorViewStyle where Self == ProgressIndicatorViewStoppableStyle {
     static var stoppable: ProgressIndicatorViewStoppableStyle {
         ProgressIndicatorViewStoppableStyle()
