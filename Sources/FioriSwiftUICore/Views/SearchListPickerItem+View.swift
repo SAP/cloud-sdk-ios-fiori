@@ -68,7 +68,8 @@ extension SearchListPickerItem: View {
                     let totalSpacing: CGFloat = (UIDevice.current.userInterfaceIdiom == .pad ? 8 : 16) * 2
                     let totalPadding: CGFloat = (UIDevice.current.userInterfaceIdiom == .pad ? 13 : 16) * 2
                     let safeAreaInset = self.getSafeAreaInsets()
-                    let maxScrollViewHeight = popverHeight - totalSpacing - totalPadding - (self.isSearchBarHidden ? 0 : 52) - 56 - safeAreaInset.top - safeAreaInset.bottom - (UIDevice.current.userInterfaceIdiom == .pad ? 230 : 30)
+                    var maxScrollViewHeight = popverHeight - totalSpacing - totalPadding - (self.isSearchBarHidden ? 0 : 52) - 56 - safeAreaInset.top - safeAreaInset.bottom - (UIDevice.current.userInterfaceIdiom == .pad ? 250 : 30)
+                    maxScrollViewHeight -= self._keyboardHeight
                     self._height = min(scrollView.contentSize.height, maxScrollViewHeight)
                     var isSelectAllViewShow = false
                     if allowsMultipleSelection {
@@ -87,6 +88,13 @@ extension SearchListPickerItem: View {
             .padding(0)
             .ifApply(!isSearchBarHidden, content: { v in
                 v.searchable(text: $_searchText, placement: .automatic)
+                    .onReceive(NotificationCenter.default.publisher(for: UIApplication.keyboardDidShowNotification)) { notif in
+                        let rect = (notif.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect) ?? .zero
+                        self._keyboardHeight = rect.height
+                    }
+                    .onReceive(NotificationCenter.default.publisher(for: UIApplication.keyboardDidHideNotification)) { _ in
+                        self._keyboardHeight = 0
+                    }
             })
         }
     }

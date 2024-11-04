@@ -16,7 +16,9 @@ public struct _SortFilterCFGItemContainer {
     
     let popoverWidth = 393.0
     @State var stepperViewHeight: CGFloat = 110
-    
+    @State var searchListHeight: CGFloat = 88.0
+    @State var _keyboardHeight: CGFloat = 0.0
+
     public init(items: Binding<[[SortFilterItem]]>) {
         self.__items = items
     }
@@ -54,7 +56,8 @@ extension _SortFilterCFGItemContainer: View {
                 let totalSpacing: CGFloat = (UIDevice.current.userInterfaceIdiom == .pad ? 8 : 16) * 2
                 let totalPadding: CGFloat = (UIDevice.current.userInterfaceIdiom == .pad ? 13 : 16) * 2
                 let safeAreaInset = self.getSafeAreaInsets()
-                let maxScrollViewHeight = popverHeight - totalSpacing - totalPadding - safeAreaInset.top - safeAreaInset.bottom - (UIDevice.current.userInterfaceIdiom == .pad ? 150 : 30)
+                var maxScrollViewHeight = popverHeight - totalSpacing - totalPadding - safeAreaInset.top - safeAreaInset.bottom - (UIDevice.current.userInterfaceIdiom == .pad ? 150 : 30)
+                maxScrollViewHeight -= self._keyboardHeight
                 self.height = min(scrollView.contentSize.height, maxScrollViewHeight)
             }
         })
@@ -149,6 +152,21 @@ extension _SortFilterCFGItemContainer: View {
                 self._items[r][c].picker.onTap(option: self._items[r][c].picker.valueOptions[index])
             } selectAll: { isAll in
                 self._items[r][c].picker.selectAll(isAll)
+            } updateSearchListPickerHeight: { height in
+                if self._keyboardHeight > 0 {
+                    let safeAreaInset = self.getSafeAreaInsets()
+                    self.searchListHeight = height + StatusBar.height + safeAreaInset.top + safeAreaInset.bottom + (UIDevice.current.userInterfaceIdiom == .pad ? 150 : 30)
+                } else {
+                    self.searchListHeight = height + 52 + (UIDevice.current.userInterfaceIdiom == .pad ? 150 : 30)
+                }
+            }
+            .frame(height: self.searchListHeight)
+            .onReceive(NotificationCenter.default.publisher(for: UIApplication.keyboardDidShowNotification)) { notif in
+                let rect = (notif.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect) ?? .zero
+                self._keyboardHeight = rect.height
+            }
+            .onReceive(NotificationCenter.default.publisher(for: UIApplication.keyboardDidHideNotification)) { _ in
+                self._keyboardHeight = 0
             }
             Spacer()
         } label: {
