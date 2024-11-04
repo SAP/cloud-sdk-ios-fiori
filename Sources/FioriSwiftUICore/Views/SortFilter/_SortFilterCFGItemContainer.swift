@@ -115,7 +115,8 @@ extension _SortFilterCFGItemContainer: View {
                         value: Binding<[Int]>(get: { self._items[r][c].picker.workingValue }, set: { self._items[r][c].picker.workingValue = $0 }),
                         valueOptions: self._items[r][c].picker.valueOptions,
                         allowsMultipleSelection: self._items[r][c].picker.allowsMultipleSelection,
-                        allowsEmptySelection: self._items[r][c].picker.allowsEmptySelection
+                        allowsEmptySelection: self._items[r][c].picker.allowsEmptySelection,
+                        isSearchBarHidden: self._items[r][c].picker.isSearchBarHidden
                     ) { index in
                         self._items[r][c].picker.onTap(option: self._items[r][c].picker.valueOptions[index])
                     } selectAll: { isAll in

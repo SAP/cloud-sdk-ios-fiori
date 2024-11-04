@@ -314,6 +314,8 @@ public extension SortFilterItem {
         /// itemLayout is used when listPickerMode is filterFormCell, otherwise is ignored.
         public var itemLayout: OptionListPickerItemLayoutType = .fixed
         public var displayMode: DisplayMode = .automatic
+        /// If seachBar in list display mode is shown. Default is `false`.
+        public var isSearchBarHidden: Bool = false
 
         /// Available OptionListPicker modes. Use this enum to define picker mode  to present.
         public enum DisplayMode {
@@ -327,7 +329,7 @@ public extension SortFilterItem {
             case list
         }
         
-        public init(id: String = UUID().uuidString, name: String, value: [Int], valueOptions: [String], allowsMultipleSelection: Bool, allowsEmptySelection: Bool, showsValueForSingleSelected: Bool = true, icon: String? = nil, itemLayout: OptionListPickerItemLayoutType = .fixed, displayMode: DisplayMode = .automatic) {
+        public init(id: String = UUID().uuidString, name: String, value: [Int], valueOptions: [String], allowsMultipleSelection: Bool, allowsEmptySelection: Bool, showsValueForSingleSelected: Bool = true, isSearchBarHidden: Bool = false, icon: String? = nil, itemLayout: OptionListPickerItemLayoutType = .fixed, displayMode: DisplayMode = .automatic) {
             self.id = id
             self.name = name
             self.value = value
@@ -337,6 +339,7 @@ public extension SortFilterItem {
             self.allowsMultipleSelection = allowsMultipleSelection
             self.allowsEmptySelection = allowsEmptySelection
             self.showsValueForSingleSelected = showsValueForSingleSelected
+            self.isSearchBarHidden = isSearchBarHidden
             self.icon = icon
             self.itemLayout = itemLayout
             self.displayMode = displayMode

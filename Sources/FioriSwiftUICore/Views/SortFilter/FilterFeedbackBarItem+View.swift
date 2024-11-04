@@ -247,7 +247,7 @@ struct PickerMenuItem: View {
                     })
                     .buttonStyle(ApplyButtonStyle())
                 } components: {
-                    SearchListPickerItem(value: self.$item.workingValue, valueOptions: self.item.valueOptions, hint: nil, allowsMultipleSelection: self.item.allowsMultipleSelection, allowsEmptySelection: self.item.allowsEmptySelection) { index in
+                    SearchListPickerItem(value: self.$item.workingValue, valueOptions: self.item.valueOptions, hint: nil, allowsMultipleSelection: self.item.allowsMultipleSelection, allowsEmptySelection: self.item.allowsEmptySelection, isSearchBarHidden: self.item.isSearchBarHidden) { index in
                         self.item.onTap(option: self.item.valueOptions[index])
                     } selectAll: { isAll in
                         self.item.selectAll(isAll)
@@ -259,8 +259,8 @@ struct PickerMenuItem: View {
                     Spacer()
                 }
                 .frame(minWidth: UIDevice.current.userInterfaceIdiom != .phone ? 393 : nil)
-                .frame(height: UIDevice.current.userInterfaceIdiom != .phone ? self.detentHeight + 52 + 56 + 70 : nil)
-                .presentationDetents([.large])
+                .frame(height: UIDevice.current.userInterfaceIdiom != .phone ? self.detentHeight + (self.item.isSearchBarHidden ? 0 : 52) + 56 + 93 : nil)
+                .presentationDetents([.height(self.detentHeight + (self.item.isSearchBarHidden ? 0 : 52) + 56 + 93), .medium, .large])
             }
     }
 }
