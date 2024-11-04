@@ -17,6 +17,8 @@ public struct SearchListPickerItem {
 	@State var _searchViewCornerRadius: CGFloat = 18
 	@State var _searchText: String = ""
 	let popoverWidth = 393.0
+	var isSearchBarHidden: Bool = false
+
     public init(model: SearchListPickerItemModel) {
         self.init(value: Binding<[Int]>(get: { model.value }, set: { model.value = $0 }), valueOptions: model.valueOptions, hint: model.hint, onTap: model.onTap)
     }
