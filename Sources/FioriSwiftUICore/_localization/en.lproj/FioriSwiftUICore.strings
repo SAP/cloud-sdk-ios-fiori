@@ -270,6 +270,15 @@
 /* XBUT: The \"Deselect All\" button title on the List Picker header */
 "Deselect All" = "Deselect All";
 
+/* XACT: The accessibility hint for Text Input Views, editable */
+"Text field, Double tap to edit" = "Text field, Double tap to edit";
+
+/* XACT: The accessibility hint for Text Input Views, editing */
+"Text field, is editing" = "Text field, is editing";
+
+/* XACT: The accessibility hint for Text Input Views, editing, with clear button */
+"Text field, is editing. Double tap to clear text" = "Text field, is editing. Double tap to clear text";
+
 /* Progress Indicator accessibility label: processing */
 "Processing" = "Processing";
 

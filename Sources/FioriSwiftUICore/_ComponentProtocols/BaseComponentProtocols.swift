@@ -36,6 +36,12 @@ protocol _TagsComponent {
 }
 
 // sourcery: BaseComponent
+protocol _TagComponent {
+    // sourcery: resultBuilder.name = @ViewBuilder, resultBuilder.backingComponent = TextOrIconView
+    var tag: TextOrIcon { get }
+}
+
+// sourcery: BaseComponent
 protocol _FootnoteComponent {
     // sourcery: @ViewBuilder
     var footnote: AttributedString? { get }

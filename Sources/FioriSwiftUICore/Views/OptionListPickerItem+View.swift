@@ -132,11 +132,11 @@ extension OptionListPickerItem: View {
     VStack {
         Spacer()
         OptionListPickerItem(value: Binding<[Int]>(get: { [0, 1, 2] }, set: { print($0) }), valueOptions: ["Received", "Started", "Hold", "Transfer", "Completed", "Pending Review review", "Accepted", "Rejected"], hint: nil)
-            .frame(width: 375)
+            .frame(width: 393)
         Spacer()
         OptionListPickerItem(value: Binding<[Int]>(get: { [0, 1, 2] }, set: { print($0) }), valueOptions: ["Received", "Started", "Hold", "Transfer", "Completed", "Pending Review", "Accepted", "Rejected"], hint: nil)
             .optionListPickerStyle(font: .title, foregroundColorSelected: Color.red, strokeColorSelected: Color.red, cornerRadius: 25)
-            .frame(width: 375)
+            .frame(width: 393)
         Spacer()
     }
 }

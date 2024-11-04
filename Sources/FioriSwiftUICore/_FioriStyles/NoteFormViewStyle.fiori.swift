@@ -13,6 +13,8 @@ public struct NoteFormViewBaseStyle: NoteFormViewStyle {
                 .disabled(self.getDisabled(configuration))
         }
         .textInputInfoView(isPresented: Binding(get: { self.isInfoViewNeeded(configuration) }, set: { _ in }), description: self.getInfoString(configuration), counter: self.getCounterString(configuration))
+        .accessibilityElement(children: .combine)
+        .accessibilityHint(configuration.controlState == .normal ? (self.isFocused ? NSLocalizedString("Text field, is editing", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Text field, is editing") : NSLocalizedString("Text field, Double tap to edit", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Text field, Double tap to edit")) : "")
     }
 
     func getDisabled(_ configuration: NoteFormViewConfiguration) -> Bool {

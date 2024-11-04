@@ -1443,6 +1443,22 @@ extension SwitchViewStyle {
     }
 }
 
+// MARK: TagStyle
+
+struct ResolvedTagStyle<Style: TagStyle>: View {
+    let style: Style
+    let configuration: TagConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension TagStyle {
+    func resolve(configuration: TagConfiguration) -> some View {
+        ResolvedTagStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: TagsStyle
 
 struct ResolvedTagsStyle<Style: TagsStyle>: View {

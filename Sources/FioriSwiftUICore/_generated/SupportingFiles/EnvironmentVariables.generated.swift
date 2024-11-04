@@ -1893,6 +1893,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: TagStyle
+
+struct TagStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any TagStyle] = []
+}
+
+extension EnvironmentValues {
+    var tagStyle: any TagStyle {
+        self.tagStyleStack.last ?? .base
+    }
+
+    var tagStyleStack: [any TagStyle] {
+        get {
+            self[TagStyleStackKey.self]
+        }
+        set {
+            self[TagStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: TagsStyle
 
 struct TagsStyleStackKey: EnvironmentKey {

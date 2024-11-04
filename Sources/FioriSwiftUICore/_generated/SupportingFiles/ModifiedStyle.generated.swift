@@ -2528,6 +2528,34 @@ public extension SwitchViewStyle {
     }
 }
 
+// MARK: TagStyle
+
+extension ModifiedStyle: TagStyle where Style: TagStyle {
+    public func makeBody(_ configuration: TagConfiguration) -> some View {
+        Tag(configuration)
+            .tagStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct TagStyleModifier<Style: TagStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.tagStyle(self.style)
+    }
+}
+
+public extension TagStyle {
+    func modifier(_ modifier: some ViewModifier) -> some TagStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some TagStyle) -> some TagStyle {
+        style.modifier(TagStyleModifier(style: self))
+    }
+}
+
 // MARK: TagsStyle
 
 extension ModifiedStyle: TagsStyle where Style: TagsStyle {

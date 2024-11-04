@@ -38,7 +38,7 @@ extension TextFieldFormViewFioriStyle {
                 }
                 .mandatoryFieldIndicatorStyle { indicatorConf in
                     MandatoryFieldIndicator(indicatorConf)
-                        .foregroundStyle(self.getTitleColor(configuration))
+                        .foregroundStyle(self.getMandatoryIndicatorColor(configuration))
                         .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
                 }
                 .placeholderTextFieldStyle { config in
@@ -58,6 +58,7 @@ extension TextFieldFormViewFioriStyle {
                                 actionIcon
                             }
                             .padding(.trailing, 8)
+                            .disabled(UIAccessibility.isVoiceOverRunning)
                         }
                     }
                     .background(RoundedRectangle(cornerRadius: 8).stroke(self.getBorderColor(configuration), lineWidth: self.getBorderWidth(configuration)).background(self.getBackgroundColor(configuration)))
@@ -71,6 +72,7 @@ extension TextFieldFormViewFioriStyle {
                         .typeErased
                         .padding(.top, -3)
                 }
+                .accessibilityElement(children: .combine)
         }
 
         func isDisabled(_ configuration: TextFieldFormViewConfiguration) -> Bool {
@@ -79,6 +81,10 @@ extension TextFieldFormViewFioriStyle {
 
         func getTitleColor(_ configuration: TextFieldFormViewConfiguration) -> Color {
             TextInputFormViewConfiguration(configuration, isFocused: self.isFocused).getTitleColor()
+        }
+
+        func getMandatoryIndicatorColor(_ configuration: TextFieldFormViewConfiguration) -> Color {
+            TextInputFormViewConfiguration(configuration, isFocused: false).getTitleColor()
         }
 
         func getTextColor(_ configuration: TextFieldFormViewConfiguration) -> Color {
