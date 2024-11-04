@@ -131,5 +131,5 @@ private struct TestSwitchPicker: View {
 
 #Preview {
     TestSwitchPicker()
-        .frame(width: 375)
+        .frame(width: 393)
 }
