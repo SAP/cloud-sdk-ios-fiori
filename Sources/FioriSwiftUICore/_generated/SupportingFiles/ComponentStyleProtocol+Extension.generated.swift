@@ -4651,6 +4651,20 @@ public extension SwitchViewStyle where Self == SwitchViewSwitchStyle {
     }
 }
 
+// MARK: TagStyle
+
+public extension TagStyle where Self == TagBaseStyle {
+    static var base: TagBaseStyle {
+        TagBaseStyle()
+    }
+}
+
+public extension TagStyle where Self == TagFioriStyle {
+    static var fiori: TagFioriStyle {
+        TagFioriStyle()
+    }
+}
+
 // MARK: TagsStyle
 
 public extension TagsStyle where Self == TagsBaseStyle {

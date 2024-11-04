@@ -15,6 +15,7 @@ public struct KeyValueFormViewBaseStyle: KeyValueFormViewStyle {
             }
             configuration._noteFormView
         }
+        .accessibilityElement(children: .combine)
     }
 }
     
@@ -31,7 +32,7 @@ extension KeyValueFormViewFioriStyle {
                 }
                 .mandatoryFieldIndicatorStyle { indicatorConf in
                     MandatoryFieldIndicator(indicatorConf)
-                        .foregroundStyle(self.getTitleColor(configuration))
+                        .foregroundStyle(self.getMandatoryIndicatorColor(configuration))
                         .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
                 }
                 .focused(self.$isFocused)
@@ -39,6 +40,10 @@ extension KeyValueFormViewFioriStyle {
 
         private func getTitleColor(_ configuration: KeyValueFormViewConfiguration) -> Color {
             TextInputFormViewConfiguration(configuration, isFocused: self.isFocused).getTitleColor()
+        }
+
+        private func getMandatoryIndicatorColor(_ configuration: KeyValueFormViewConfiguration) -> Color {
+            TextInputFormViewConfiguration(configuration, isFocused: false).getTitleColor()
         }
     }
 

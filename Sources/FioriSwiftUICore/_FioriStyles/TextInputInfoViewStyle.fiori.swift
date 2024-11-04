@@ -77,6 +77,7 @@ struct TextInputInfoViewModifier: ViewModifier {
             
             if self.isPresented {
                 TextInputInfoView(icon: self.icon, description: self.description, counter: self.counter)
+                    .accessibilityElement(children: .combine)
             }
         }
     }
