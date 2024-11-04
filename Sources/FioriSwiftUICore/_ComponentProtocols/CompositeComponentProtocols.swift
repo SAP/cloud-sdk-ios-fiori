@@ -643,10 +643,10 @@ protocol _BannerMultiMessageSheet: _TitleComponent, _CloseActionComponent {
     // sourcery: defaultValue = true
     /// the mark to turn on section header or not
     var turnOnSectionHeader: Bool { get }
-    // sourcery: @ViewBuilder
     // sourcery: defaultValue = "{ _ in EmptyView() }"
     // sourcery: resultBuilder.defaultValue = "{ _ in EmptyView() }"
     /// view for each item under the category
+    @ViewBuilder
     var messageItemView: (UUID) -> any View { get }
     // sourcery: @Binding
     /// the data source for banner multi-message sheet

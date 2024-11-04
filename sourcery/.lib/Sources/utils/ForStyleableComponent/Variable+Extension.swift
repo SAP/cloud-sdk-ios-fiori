@@ -138,7 +138,11 @@ extension Variable {
             let escapingAttr = self.typeName.isClosure &&
                 !self.typeName.isOptional
                 ? "@escaping " : ""
-            ret += "@ViewBuilder \(self.name): \(escapingAttr)\(self.typeName)\(self.defaultValue.prependAssignmentIfNeeded())"
+            if ret.contains("@ViewBuilder") {
+                ret += "\(self.name): \(escapingAttr)\(self.typeName)\(self.defaultValue.prependAssignmentIfNeeded())"
+            } else {
+                ret += "@ViewBuilder \(self.name): \(escapingAttr)\(self.typeName)\(self.defaultValue.prependAssignmentIfNeeded())"
+            }
         }
 
         return ret
