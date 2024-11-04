@@ -188,7 +188,7 @@ private struct SliderPickeTestView: View {
             ), minimumValue: 0, maximumValue: 100, hint: "Pick an integer value")
             Spacer()
         }
-        .frame(width: 375)
+        .frame(width: 393)
     }
 }
 
