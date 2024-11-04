@@ -82,7 +82,7 @@ extension SearchListPickerItem: View {
                 }
             })
             .listStyle(PlainListStyle())
-            .frame(minWidth: UIDevice.current.userInterfaceIdiom != .phone ? 393 : nil)
+            .frame(minWidth: UIDevice.current.userInterfaceIdiom != .phone ? popoverWidth : nil)
             .scrollContentBackground(.hidden)
             .padding(0)
             .ifApply(!isSearchBarHidden, content: { v in
@@ -134,7 +134,7 @@ extension SearchListPickerItem: View {
     VStack {
         Spacer()
         SearchListPickerItem(value: Binding<[Int]>(get: { [0, 1, 2] }, set: { print($0) }), valueOptions: ["Received", "Started", "Hold", "Transfer", "Completed", "Pending Review review", "Accepted", "Rejected"], hint: nil)
-            .frame(width: 375)
+            .frame(width: 393)
         Spacer()
     }
 }

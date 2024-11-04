@@ -10,6 +10,8 @@ struct CancellableResettableDialogForm<Title: View, CancelAction: View, ResetAct
     var resetAction: ResetAction
     var applyAction: ApplyAction
     
+    let popoverWidth = 393.0
+    
     public init(@ViewBuilder title: () -> Title,
                 @ViewBuilder cancelAction: () -> CancelAction,
                 @ViewBuilder resetAction: () -> ResetAction,
@@ -37,7 +39,7 @@ struct CancellableResettableDialogForm<Title: View, CancelAction: View, ResetAct
             self.components.background(Color.preferredColor(.secondaryGroupedBackground))
             self.applyAction
         }
-        .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? 393 : nil)
+        .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? self.popoverWidth : nil)
         .padding([.top, .bottom], UIDevice.current.userInterfaceIdiom == .pad ? 13 : 16)
         .background(Color.preferredColor(.chromeSecondary))
     }
@@ -51,6 +53,8 @@ struct CancellableResettableDialogNavigationForm<Title: View, CancelAction: View
     var cancelAction: CancelAction
     var resetAction: ResetAction
     var applyAction: ApplyAction
+    
+    let popoverWidth = 393.0
     
     public init(@ViewBuilder title: () -> Title,
                 @ViewBuilder cancelAction: () -> CancelAction,
@@ -84,7 +88,7 @@ struct CancellableResettableDialogNavigationForm<Title: View, CancelAction: View
                 }
             }
         }
-        .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? 393 : nil)
+        .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? self.popoverWidth : nil)
         .padding([.bottom], UIDevice.current.userInterfaceIdiom == .pad ? 13 : 16)
         .background(Color.preferredColor(.chromeSecondary))
     }
@@ -92,11 +96,12 @@ struct CancellableResettableDialogNavigationForm<Title: View, CancelAction: View
 
 struct ApplyButtonStyle: PrimitiveButtonStyle {
     @Environment(\.isEnabled) private var isEnabled: Bool
-
+    let popoverWidth = 393.0
+    
     func makeBody(configuration: Configuration) -> some View {
         if self.isEnabled {
             configuration.label
-                .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? 375 - 13 * 2 :
+                .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? self.popoverWidth - 13 * 2 :
                     Screen.bounds.size.width - 16 * 2)
                 .padding([.top, .bottom], 8)
                 .font(.body)
@@ -109,7 +114,7 @@ struct ApplyButtonStyle: PrimitiveButtonStyle {
                 .padding([.top], UIDevice.current.userInterfaceIdiom == .pad ? 16 : 8)
         } else {
             configuration.label
-                .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? 375 - 13 * 2 :
+                .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? self.popoverWidth - 13 * 2 :
                     Screen.bounds.size.width - 16 * 2)
                 .padding([.top, .bottom], 8)
                 .font(.body)
