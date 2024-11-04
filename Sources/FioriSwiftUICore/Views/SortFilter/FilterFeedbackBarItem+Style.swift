@@ -24,6 +24,14 @@ public protocol FilterFeedbackBarStyle {
     func makeBody(configuration: Self.Configuration) -> AnyView
 }
 
+#if !os(visionOS)
+    /// default filter feedbackbar foreground color
+    public let DefaultFilterFeedbackBarForegroundColor = Color.preferredColor(.tintColor)
+#else
+    /// default filter feedbackbar foreground color
+    public let DefaultFilterFeedbackBarForegroundColor = Color.preferredColor(.primaryLabel)
+#endif
+
 /// Default style for sort and filer menu item
 public struct DefaultFilterFeedbackBarStyle: FilterFeedbackBarStyle {
     let font: Font
@@ -40,7 +48,7 @@ public struct DefaultFilterFeedbackBarStyle: FilterFeedbackBarStyle {
     let minHeight: CGFloat
     
     /// :nodoc:
-    public init(font: Font = .system(.body), foregroundColorSelected: Color = .preferredColor(.tintColor), foregroundColorUnselected: Color = .preferredColor(.tertiaryLabel), fillColorSelected: Color = Color.clear, fillColorUnselected: Color = .preferredColor(.tertiaryFill), strokeColorSelected: Color = .preferredColor(.tintColor), strokeColorUnselected: Color = .preferredColor(.separator), cornerRadius: CGFloat = 10, spacing: CGFloat = 6, padding: CGFloat = 8, borderWidth: CGFloat = 1, minHeight: CGFloat = 38) {
+    public init(font: Font = .system(.body), foregroundColorSelected: Color = DefaultFilterFeedbackBarForegroundColor, foregroundColorUnselected: Color = .preferredColor(.tertiaryLabel), fillColorSelected: Color = Color.clear, fillColorUnselected: Color = .preferredColor(.tertiaryFill), strokeColorSelected: Color = DefaultFilterFeedbackBarForegroundColor, strokeColorUnselected: Color = .preferredColor(.separator), cornerRadius: CGFloat = 10, spacing: CGFloat = 6, padding: CGFloat = 8, borderWidth: CGFloat = 1, minHeight: CGFloat = 38) {
         self.font = font
         self.foregroundColorSelected = foregroundColorSelected
         self.foregroundColorUnselected = foregroundColorUnselected
