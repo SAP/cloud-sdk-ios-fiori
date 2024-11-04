@@ -1142,6 +1142,40 @@ public extension View {
     }
 }
 
+// MARK: ProgressIndicatorProtocolStyle
+
+public extension View {
+    func progressIndicatorProtocolStyle(_ style: some ProgressIndicatorProtocolStyle) -> some View {
+        self.transformEnvironment(\.progressIndicatorProtocolStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func progressIndicatorProtocolStyle(@ViewBuilder content: @escaping (ProgressIndicatorProtocolConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.progressIndicatorProtocolStyleStack) { stack in
+            let style = AnyProgressIndicatorProtocolStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: ProgressIndicatorViewStyle
+
+public extension View {
+    func progressIndicatorViewStyle(_ style: some ProgressIndicatorViewStyle) -> some View {
+        self.transformEnvironment(\.progressIndicatorViewStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func progressIndicatorViewStyle(@ViewBuilder content: @escaping (ProgressIndicatorViewConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.progressIndicatorViewStyleStack) { stack in
+            let style = AnyProgressIndicatorViewStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: RatingControlStyle
 
 public extension View {

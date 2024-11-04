@@ -432,3 +432,9 @@ protocol _ListPickerContentComponent {
     @ViewBuilder
     var listPickerContent: (() -> any View)? { get }
 }
+
+// sourcery: BaseComponent
+protocol _ProgressIndicatorProtocol {
+    // sourcery: @Binding
+    var progress: Double { get }
+}

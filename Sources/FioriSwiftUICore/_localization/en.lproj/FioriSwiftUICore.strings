@@ -269,3 +269,15 @@
 "Select All" = "Select All";
 /* XBUT: The \"Deselect All\" button title on the List Picker header */
 "Deselect All" = "Deselect All";
+
+/* Progress Indicator accessibility label: processing */
+"Processing" = "Processing";
+
+/* Progress Indicator accessibility label: loading pausable with indicator progress */
+"In progress with option to pause, %.0f" = "In progress with option to pause, %.0f";
+
+/* Progress Indicator accessibility label: loading stoppable with indicator progress */
+"In progress with option to stop, %.0f" = "In progress with option to stop, %.0f";
+
+/* Progress Indicator accessibility label: progress halted with indicator progress */
+"Progress halted, %.0f" = "Progress halted, %.0f";

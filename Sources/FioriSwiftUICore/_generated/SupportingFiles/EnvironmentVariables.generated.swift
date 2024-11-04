@@ -1410,6 +1410,48 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: ProgressIndicatorProtocolStyle
+
+struct ProgressIndicatorProtocolStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any ProgressIndicatorProtocolStyle] = []
+}
+
+extension EnvironmentValues {
+    var progressIndicatorProtocolStyle: any ProgressIndicatorProtocolStyle {
+        self.progressIndicatorProtocolStyleStack.last ?? .base
+    }
+
+    var progressIndicatorProtocolStyleStack: [any ProgressIndicatorProtocolStyle] {
+        get {
+            self[ProgressIndicatorProtocolStyleStackKey.self]
+        }
+        set {
+            self[ProgressIndicatorProtocolStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: ProgressIndicatorViewStyle
+
+struct ProgressIndicatorViewStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any ProgressIndicatorViewStyle] = []
+}
+
+extension EnvironmentValues {
+    var progressIndicatorViewStyle: any ProgressIndicatorViewStyle {
+        self.progressIndicatorViewStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var progressIndicatorViewStyleStack: [any ProgressIndicatorViewStyle] {
+        get {
+            self[ProgressIndicatorViewStyleStackKey.self]
+        }
+        set {
+            self[ProgressIndicatorViewStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: RatingControlStyle
 
 struct RatingControlStyleStackKey: EnvironmentKey {

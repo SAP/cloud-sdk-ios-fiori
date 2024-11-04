@@ -635,3 +635,18 @@ protocol _ToastMessageComponent: _IconComponent, _TitleComponent {
     /// The duration in seconds for which the toast message is shown. The default is `1`.
     var duration: Double { get }
 }
+
+/// `ProgressIndicatorView` provides a circular progress indicator with custom styles for processing, pausable, and stoppable indicators.
+///
+/// ## Usage
+/// ```swift
+/// @State var progress: Double = 0.0
+/// @State var isPaused: Bool = false
+///
+/// ProgressIndicatorView(progress: $progress)
+///    .progressIndicatorViewStyle(.processing)
+/// ProgressIndicatorView(progress: $progress)
+///     .progressIndicatorViewStyle(ProgressIndicatorViewPausableStyle(isPaused: self.$isPaused))
+/// ```
+// sourcery: CompositeComponent
+protocol _ProgressIndicatorViewComponent: _ProgressIndicatorProtocol {}

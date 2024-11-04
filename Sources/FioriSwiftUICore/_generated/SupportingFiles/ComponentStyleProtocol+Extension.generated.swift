@@ -3608,6 +3608,55 @@ public extension ProfileHeaderStyle where Self == ProfileHeaderDescriptionStyle 
     }
 }
 
+// MARK: ProgressIndicatorProtocolStyle
+
+public extension ProgressIndicatorProtocolStyle where Self == ProgressIndicatorProtocolBaseStyle {
+    static var base: ProgressIndicatorProtocolBaseStyle {
+        ProgressIndicatorProtocolBaseStyle()
+    }
+}
+
+public extension ProgressIndicatorProtocolStyle where Self == ProgressIndicatorProtocolFioriStyle {
+    static var fiori: ProgressIndicatorProtocolFioriStyle {
+        ProgressIndicatorProtocolFioriStyle()
+    }
+}
+
+// MARK: ProgressIndicatorViewStyle
+
+public extension ProgressIndicatorViewStyle where Self == ProgressIndicatorViewBaseStyle {
+    static var base: ProgressIndicatorViewBaseStyle {
+        ProgressIndicatorViewBaseStyle()
+    }
+}
+
+public extension ProgressIndicatorViewStyle where Self == ProgressIndicatorViewFioriStyle {
+    static var fiori: ProgressIndicatorViewFioriStyle {
+        ProgressIndicatorViewFioriStyle()
+    }
+}
+
+public struct ProgressIndicatorViewProgressIndicatorProtocolStyle: ProgressIndicatorViewStyle {
+    let style: any ProgressIndicatorProtocolStyle
+
+    public func makeBody(_ configuration: ProgressIndicatorViewConfiguration) -> some View {
+        ProgressIndicatorView(configuration)
+            .progressIndicatorProtocolStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension ProgressIndicatorViewStyle where Self == ProgressIndicatorViewProgressIndicatorProtocolStyle {
+    static func progressIndicatorProtocolStyle(_ style: some ProgressIndicatorProtocolStyle) -> ProgressIndicatorViewProgressIndicatorProtocolStyle {
+        ProgressIndicatorViewProgressIndicatorProtocolStyle(style: style)
+    }
+
+    static func progressIndicatorProtocolStyle(@ViewBuilder content: @escaping (ProgressIndicatorProtocolConfiguration) -> some View) -> ProgressIndicatorViewProgressIndicatorProtocolStyle {
+        let style = AnyProgressIndicatorProtocolStyle(content)
+        return ProgressIndicatorViewProgressIndicatorProtocolStyle(style: style)
+    }
+}
+
 // MARK: RatingControlStyle
 
 public extension RatingControlStyle where Self == RatingControlBaseStyle {

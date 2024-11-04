@@ -1884,6 +1884,62 @@ public extension ProfileHeaderStyle {
     }
 }
 
+// MARK: ProgressIndicatorProtocolStyle
+
+extension ModifiedStyle: ProgressIndicatorProtocolStyle where Style: ProgressIndicatorProtocolStyle {
+    public func makeBody(_ configuration: ProgressIndicatorProtocolConfiguration) -> some View {
+        ProgressIndicatorProtocol(configuration)
+            .progressIndicatorProtocolStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct ProgressIndicatorProtocolStyleModifier<Style: ProgressIndicatorProtocolStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.progressIndicatorProtocolStyle(self.style)
+    }
+}
+
+public extension ProgressIndicatorProtocolStyle {
+    func modifier(_ modifier: some ViewModifier) -> some ProgressIndicatorProtocolStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some ProgressIndicatorProtocolStyle) -> some ProgressIndicatorProtocolStyle {
+        style.modifier(ProgressIndicatorProtocolStyleModifier(style: self))
+    }
+}
+
+// MARK: ProgressIndicatorViewStyle
+
+extension ModifiedStyle: ProgressIndicatorViewStyle where Style: ProgressIndicatorViewStyle {
+    public func makeBody(_ configuration: ProgressIndicatorViewConfiguration) -> some View {
+        ProgressIndicatorView(configuration)
+            .progressIndicatorViewStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct ProgressIndicatorViewStyleModifier<Style: ProgressIndicatorViewStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.progressIndicatorViewStyle(self.style)
+    }
+}
+
+public extension ProgressIndicatorViewStyle {
+    func modifier(_ modifier: some ViewModifier) -> some ProgressIndicatorViewStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some ProgressIndicatorViewStyle) -> some ProgressIndicatorViewStyle {
+        style.modifier(ProgressIndicatorViewStyleModifier(style: self))
+    }
+}
+
 // MARK: RatingControlStyle
 
 extension ModifiedStyle: RatingControlStyle where Style: RatingControlStyle {
