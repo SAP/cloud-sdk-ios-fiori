@@ -2,6 +2,32 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.2.0](https://github.com/SAP/cloud-sdk-ios-fiori/compare/4.1.5...4.2.0) (2024-11-05)
+
+
+### Features
+
+* 🎸 [HCPSDKFIORIUIKIT-2766] sort & filter enhancement stepper ([#857](https://github.com/SAP/cloud-sdk-ios-fiori/issues/857)) ([745ec18](https://github.com/SAP/cloud-sdk-ios-fiori/commit/745ec1831d96d02e703d658fced725e163ae9b13))
+* 🎸 [HCPSDKFIORIUIKIT-2766] sort & filter enhancement, full filters ([#859](https://github.com/SAP/cloud-sdk-ios-fiori/issues/859)) ([49d1272](https://github.com/SAP/cloud-sdk-ios-fiori/commit/49d1272ef06202d6a72b21a590452ee90e1479e5))
+* 🎸 [HCPSDKFIORIUIKIT-2791]SwiftUI: floating value support ([#834](https://github.com/SAP/cloud-sdk-ios-fiori/issues/834)) ([#849](https://github.com/SAP/cloud-sdk-ios-fiori/issues/849)) ([359d846](https://github.com/SAP/cloud-sdk-ios-fiori/commit/359d846bf67f56d47fa87a8f619abf6979b4805f))
+* 🎸 [JIRA:HCPSDKFIORIUIKIT-2766]Sort & Filter Enhancement 2 ([#833](https://github.com/SAP/cloud-sdk-ios-fiori/issues/833)) ([eddec56](https://github.com/SAP/cloud-sdk-ios-fiori/commit/eddec56298a55922a9c6627d42fdc18c59053867))
+* 🎸 [JIRA:IOSSDKBUG-347] FilterFeedbackBar picker enhance ([#808](https://github.com/SAP/cloud-sdk-ios-fiori/issues/808)) ([277d5bc](https://github.com/SAP/cloud-sdk-ios-fiori/commit/277d5bc404f8b0259fbd8a9dcd15b0698e89aa2a))
+* 🎸 [JIRA:IOSSDKBUG-434] SortFilterFeedbackBar enhancement list height(cherrypick) ([#858](https://github.com/SAP/cloud-sdk-ios-fiori/issues/858)) ([a8e3bfd](https://github.com/SAP/cloud-sdk-ios-fiori/commit/a8e3bfd1f61708a3979d46abf6519845b802e9cd))
+* 🎸 HCPSDKFIORIUIKIT-2783 SwiftUI FilterFeedbackBar ([#810](https://github.com/SAP/cloud-sdk-ios-fiori/issues/810)) ([03b51cc](https://github.com/SAP/cloud-sdk-ios-fiori/commit/03b51ccd005607b79994954840f8aa0168905628))
+
+
+### Bug Fixes
+
+* 🐛 [HCPSDKFIORIUIKIT-2766] sort & filter enhancement list pick search ([#863](https://github.com/SAP/cloud-sdk-ios-fiori/issues/863)) ([c1652f0](https://github.com/SAP/cloud-sdk-ios-fiori/commit/c1652f055537aba20dcd3aafbb97d7c35000667c))
+* 🐛 [IOSSDKBUG-416]FilterFeedbackBar on iPad layout ([#839](https://github.com/SAP/cloud-sdk-ios-fiori/issues/839)) ([ee52618](https://github.com/SAP/cloud-sdk-ios-fiori/commit/ee52618218f25454aa8d9b9aa5e62977859a8cae))
+* 🐛 [IOSSDKBUG-416]Fix FilterFeedbackBar layout ([#847](https://github.com/SAP/cloud-sdk-ios-fiori/issues/847)) ([b204c53](https://github.com/SAP/cloud-sdk-ios-fiori/commit/b204c532b233ece999506e00d295220a735fbc23))
+* 🐛 [JIRA:IOSSDKBUG-347]FilterFeedbackBar picker enhancement ([#814](https://github.com/SAP/cloud-sdk-ios-fiori/issues/814)) ([71730db](https://github.com/SAP/cloud-sdk-ios-fiori/commit/71730db2da03f628bd134484ae102a19024b10ce))
+* 🐛 [JIRA:IOSSDKBUG-413] FilterFeedbackBar in visionOS ([#852](https://github.com/SAP/cloud-sdk-ios-fiori/issues/852)) ([a4a3e06](https://github.com/SAP/cloud-sdk-ios-fiori/commit/a4a3e06f2098679ddd62209af0a9a34cb3393d8f))
+* 🐛 [JIRA:IOSSDKBUG-418] Fix FilterFeedbackBar layout ([#837](https://github.com/SAP/cloud-sdk-ios-fiori/issues/837)) ([#840](https://github.com/SAP/cloud-sdk-ios-fiori/issues/840)) ([a51ee18](https://github.com/SAP/cloud-sdk-ios-fiori/commit/a51ee1894f15d326bc0be54671b35373059018d1))
+* 🐛 IOSSDKBUG-354 StepperView SwiftUI EXC_BAD_ACCESS ([#805](https://github.com/SAP/cloud-sdk-ios-fiori/issues/805)) ([#806](https://github.com/SAP/cloud-sdk-ios-fiori/issues/806)) ([f0333e3](https://github.com/SAP/cloud-sdk-ios-fiori/commit/f0333e36098cf7b46b2402fe42c93dd043fba0ee))
+* 🐛 IOSSDKBUG-425 Fiori FilterFeedbackBar items rendering ([#845](https://github.com/SAP/cloud-sdk-ios-fiori/issues/845)) ([d1b1c04](https://github.com/SAP/cloud-sdk-ios-fiori/commit/d1b1c04ce6da24edecb1fce6245cefcea843e749))
+* 🐛 IOSSDKBUG-430 Fiori FilterFeedbackBar enhancement ([#856](https://github.com/SAP/cloud-sdk-ios-fiori/issues/856)) ([112d07b](https://github.com/SAP/cloud-sdk-ios-fiori/commit/112d07b68949330ae39882ef39f701e9a27345f0))
+
 ### [4.1.5](https://github.com/SAP/cloud-sdk-ios-fiori/compare/4.1.4...4.1.5) (2024-09-12)
 
 
