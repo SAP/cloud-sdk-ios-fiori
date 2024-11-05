@@ -278,3 +278,9 @@
 
 /* XACT: The accessibility hint for Text Input Views, editing, with clear button */
 "Text field, is editing. Double tap to clear text" = "Text field, is editing. Double tap to clear text";
+
+/* XBUT: Error messages shown to users in DocumentScannerView */
+"Failed to create PDF page from images" = "Failed to create PDF page from images.";
+
+/* XBUT: Cancel message shown to users in DocumentScannerView */
+"User cancelled the scan" = "User cancelled the scan.";

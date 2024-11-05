@@ -86,6 +86,12 @@ struct CoreContentView: View {
                 {
                     Text("Customized Signature Inline View")
                 }
+                
+                NavigationLink(
+                    destination: DocumentScannerViewExample())
+                {
+                    Text("Document Scanner View")
+                }
             }
             
             Section(header: Text("Timeline")) {

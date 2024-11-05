@@ -12,7 +12,13 @@ public struct _SortFilterCFGItemContainer {
     @EnvironmentObject var context: SortFilterContext
 
     @Binding var _items: [[SortFilterItem]]
+    @State var height = 88.0
     
+    let popoverWidth = 393.0
+    @State var stepperViewHeight: CGFloat = 110
+    @State var searchListHeight: CGFloat = 88.0
+    @State var _keyboardHeight: CGFloat = 0.0
+
     public init(items: Binding<[[SortFilterItem]]>) {
         self.__items = items
     }
@@ -21,38 +27,40 @@ public struct _SortFilterCFGItemContainer {
 extension _SortFilterCFGItemContainer: View {
     /// :nodoc:
     public var body: some View {
-        ScrollView(.vertical, showsIndicators: false) {
-            VStack(spacing: 30) {
-                ForEach(0 ..< self._items.count, id: \.self) { r in
-                    VStack {
-                        ForEach(0 ..< self._items[r].count, id: \.self) { c in
-                            switch self._items[r][c] {
-                            case .picker:
-                                self.picker(row: r, column: c)
-                            case .filterfeedback:
-                                self.filterfeedback(row: r, column: c)
-                            case .switch:
-                                self.switcher(row: r, column: c)
-                            case .slider:
-                                self.slider(row: r, column: c)
-                            case .datetime:
-                                self.datetimePicker(row: r, column: c)
-                                    .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? 375 : Screen.bounds.size.width)
-                            case .stepper:
-                                self.stepper(row: r, column: c)
-                                    .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? 375 : Screen.bounds.size.width)
-                            }
-                        }
+        List {
+            ForEach(0 ..< self._items.count, id: \.self) { r in
+                Section {
+                    ForEach(0 ..< self._items[r].count, id: \.self) { c in
+                        self.rowView(row: r, column: c)
+                            .listRowSeparator(c == self._items[r].count - 1 ? .hidden : .visible, edges: .all)
                     }
-                    .padding([.top], 12)
-                    .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? 375 - 13 * 2 : Screen.bounds.size.width - 16 * 2)
-                    .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? 375 : Screen.bounds.size.width)
-                    .background(Color.preferredColor(.secondaryGroupedBackground))
+                } footer: {
+                    Rectangle().fill(Color.preferredColor(.primaryGroupedBackground))
+                        .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? self.popoverWidth : Screen.bounds.size.width, height: 30)
                 }
+                .listSectionSeparator(.hidden, edges: .all)
+                .listRowInsets(EdgeInsets())
+                .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? self.popoverWidth - 13 * 2 : Screen.bounds.size.width - 16 * 2)
+                .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? self.popoverWidth : Screen.bounds.size.width)
+                .background(Color.preferredColor(.secondaryGroupedBackground))
             }
-            .background(Color.preferredColor(.primaryGroupedBackground))
         }
-        .background(Color.preferredColor(.primaryGroupedBackground))
+        .listRowSpacing(0)
+        .listStyle(.plain)
+        .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? self.popoverWidth : nil)
+        .frame(height: self.height)
+        .background(Color.preferredColor(.secondaryGroupedBackground))
+        .modifier(FioriIntrospectModifier<UIScrollView> { scrollView in
+            DispatchQueue.main.async {
+                let popverHeight = Screen.bounds.size.height - StatusBar.height
+                let totalSpacing: CGFloat = (UIDevice.current.userInterfaceIdiom == .pad ? 8 : 16) * 2
+                let totalPadding: CGFloat = (UIDevice.current.userInterfaceIdiom == .pad ? 13 : 16) * 2
+                let safeAreaInset = self.getSafeAreaInsets()
+                var maxScrollViewHeight = popverHeight - totalSpacing - totalPadding - safeAreaInset.top - safeAreaInset.bottom - (UIDevice.current.userInterfaceIdiom == .pad ? 150 : 30)
+                maxScrollViewHeight -= self._keyboardHeight
+                self.height = min(scrollView.contentSize.height, maxScrollViewHeight)
+            }
+        })
         .onChange(of: self._items) { _ in
             self.checkUpdateButtonState()
         }
@@ -103,6 +111,93 @@ extension _SortFilterCFGItemContainer: View {
         self.context.isResetButtonEnabled = isResetButtonEnabled
     }
     
+    @ViewBuilder
+    func rowView(row r: Int, column c: Int) -> some View {
+        switch self._items[r][c] {
+        case .picker:
+            if self._items[r][c].picker.displayMode == .list || (self._items[r][c].picker.displayMode == .automatic && self._items[r][c].picker.valueOptions.count > 8) {
+                self.navigationLink(row: r, column: c)
+            } else {
+                self.picker(row: r, column: c)
+                    .padding([.top, .bottom], 12)
+            }
+        case .filterfeedback:
+            self.filterfeedback(row: r, column: c)
+                .padding([.top, .bottom], 12)
+        case .switch:
+            self.switcher(row: r, column: c)
+        case .slider:
+            self.slider(row: r, column: c)
+                .padding([.top], 12)
+        case .datetime:
+            self.datetimePicker(row: r, column: c)
+                .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? self.popoverWidth : Screen.bounds.size.width)
+                .padding([.top, .bottom], 12)
+        case .stepper:
+            self.stepper(row: r, column: c)
+                .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? self.popoverWidth : Screen.bounds.size.width)
+                .padding([.top, .bottom], 12)
+        }
+    }
+    
+    func navigationLink(row r: Int, column c: Int) -> some View {
+        NavigationLink {
+            SearchListPickerItem(
+                value: Binding<[Int]>(get: { self._items[r][c].picker.workingValue }, set: { self._items[r][c].picker.workingValue = $0 }),
+                valueOptions: self._items[r][c].picker.valueOptions,
+                allowsMultipleSelection: self._items[r][c].picker.allowsMultipleSelection,
+                allowsEmptySelection: self._items[r][c].picker.allowsEmptySelection,
+                isSearchBarHidden: self._items[r][c].picker.isSearchBarHidden
+            ) { index in
+                self._items[r][c].picker.onTap(option: self._items[r][c].picker.valueOptions[index])
+            } selectAll: { isAll in
+                self._items[r][c].picker.selectAll(isAll)
+            } updateSearchListPickerHeight: { height in
+                if self._keyboardHeight > 0 {
+                    let safeAreaInset = self.getSafeAreaInsets()
+                    self.searchListHeight = height + StatusBar.height + safeAreaInset.top + safeAreaInset.bottom + (UIDevice.current.userInterfaceIdiom == .pad ? 150 : 30)
+                } else {
+                    self.searchListHeight = height + 52 + (UIDevice.current.userInterfaceIdiom == .pad ? 150 : 30)
+                }
+            }
+            .frame(height: self.searchListHeight)
+            .onReceive(NotificationCenter.default.publisher(for: UIApplication.keyboardDidShowNotification)) { notif in
+                let rect = (notif.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect) ?? .zero
+                self._keyboardHeight = rect.height
+            }
+            .onReceive(NotificationCenter.default.publisher(for: UIApplication.keyboardDidHideNotification)) { _ in
+                self._keyboardHeight = 0
+            }
+            Spacer()
+        } label: {
+            KeyValueItem(key: {
+                Text(self._items[r][c].picker.name)
+                    .font(.fiori(forTextStyle: .subheadline, weight: .bold, isItalic: false, isCondensed: false))
+                    .foregroundColor(Color.preferredColor(.primaryLabel))
+            }, value: {
+                let workingValue = Binding<[Int]>(get: { self._items[r][c].picker.workingValue }, set: { self._items[r][c].picker.workingValue = $0 })
+                if workingValue.count == 1 {
+                    switch self._items[r][c].picker.barItemDisplayMode {
+                    case .name:
+                        Text(self._items[r][c].picker.name)
+                    case .value:
+                        Text(self._items[r][c].picker.valueOptions[workingValue.wrappedValue[0]])
+                    case .nameAndValue:
+                        Text(self._items[r][c].picker.name + ": " + self._items[r][c].picker.valueOptions[workingValue.wrappedValue[0]])
+                    }
+                } else {
+                    if self._items[r][c].picker.allowsMultipleSelection, workingValue.count >= 1 {
+                        Text("\(self._items[r][c].picker.name) (\(workingValue.count))")
+                    } else {
+                        Text(self._items[r][c].picker.name)
+                    }
+                }
+            }, axis: .horizontal)
+        }
+        .listRowBackground(Color.preferredColor(.secondaryGroupedBackground))
+        .frame(height: 44)
+    }
+    
     func picker(row r: Int, column c: Int) -> some View {
         VStack {
             HStack {
@@ -114,16 +209,7 @@ extension _SortFilterCFGItemContainer: View {
             switch self._items[r][c].picker.displayMode {
             case .automatic:
                 if self._items[r][c].picker.valueOptions.count > 8 {
-                    SearchListPickerItem(
-                        value: Binding<[Int]>(get: { self._items[r][c].picker.workingValue }, set: { self._items[r][c].picker.workingValue = $0 }),
-                        valueOptions: self._items[r][c].picker.valueOptions,
-                        allowsMultipleSelection: self._items[r][c].picker.allowsMultipleSelection,
-                        allowsEmptySelection: self._items[r][c].picker.allowsEmptySelection
-                    ) { index in
-                        self._items[r][c].picker.onTap(option: self._items[r][c].picker.valueOptions[index])
-                    } selectAll: { isAll in
-                        self._items[r][c].picker.selectAll(isAll)
-                    }
+                    self.navigationLink(row: r, column: c)
                 } else {
                     self.filterFormCell(row: r, column: c)
                 }
@@ -132,16 +218,7 @@ extension _SortFilterCFGItemContainer: View {
             case .menu:
                 self.filterFormCell(row: r, column: c)
             case .list:
-                SearchListPickerItem(
-                    value: Binding<[Int]>(get: { self._items[r][c].picker.workingValue }, set: { self._items[r][c].picker.workingValue = $0 }),
-                    valueOptions: self._items[r][c].picker.valueOptions,
-                    allowsMultipleSelection: self._items[r][c].picker.allowsMultipleSelection,
-                    allowsEmptySelection: self._items[r][c].picker.allowsEmptySelection
-                ) { index in
-                    self._items[r][c].picker.onTap(option: self._items[r][c].picker.valueOptions[index])
-                } selectAll: { isAll in
-                    self._items[r][c].picker.selectAll(isAll)
-                }
+                self.navigationLink(row: r, column: c)
             }
         }
     }
@@ -195,7 +272,7 @@ extension _SortFilterCFGItemContainer: View {
                     .foregroundColor(Color.preferredColor(.primaryLabel))
                 Spacer()
             }
-            .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? 375 - 13 * 2 : Screen.bounds.size.width - 16 * 2)
+            .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? self.popoverWidth - 13 * 2 : Screen.bounds.size.width - 16 * 2)
 
             HStack {
                 Text(NSLocalizedString("Time", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""))
@@ -209,7 +286,7 @@ extension _SortFilterCFGItemContainer: View {
                 )
                 .labelsHidden()
             }
-            .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? 375 - 13 * 2 : Screen.bounds.size.width - 16 * 2)
+            .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? self.popoverWidth - 13 * 2 : Screen.bounds.size.width - 16 * 2)
             
             DatePicker(
                 "",
@@ -218,10 +295,8 @@ extension _SortFilterCFGItemContainer: View {
             )
             .datePickerStyle(.graphical)
             .labelsHidden()
-            .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? 375 - 13 : Screen.bounds.size.width - 16)
-//            .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? 375 : UIScreen.main.bounds.size.width)
+            .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? self.popoverWidth - 13 : Screen.bounds.size.width - 16)
             .clipped()
-//            .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? 375 - 13 * 2: UIScreen.main.bounds.size.width)
         }
     }
     
@@ -302,6 +377,11 @@ extension _SortFilterCFGItemContainer: View {
             .ifApply(!self._items[r][c].stepper.incrementActionActive) { v in
                 v.incrementActionStyle(.deactivate)
             }
+            .frame(minHeight: self.stepperViewHeight)
+            .padding(0)
+            .sizeReader { s in
+                self.stepperViewHeight = max(self.stepperViewHeight, s.height)
+            }
         }
     }
     
@@ -312,5 +392,16 @@ extension _SortFilterCFGItemContainer: View {
             }
         }
         return nil
+    }
+    
+    private func getSafeAreaInsets() -> UIEdgeInsets {
+        guard let keyWindow = UIApplication.shared.connectedScenes
+            .first(where: { $0.activationState == .foregroundActive })
+            .flatMap({ $0 as? UIWindowScene })?.windows
+            .first(where: \.isKeyWindow)
+        else {
+            return .zero
+        }
+        return keyWindow.safeAreaInsets
     }
 }
