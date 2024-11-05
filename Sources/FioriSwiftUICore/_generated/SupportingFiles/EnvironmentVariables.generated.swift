@@ -1032,6 +1032,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: LoadingIndicatorViewStyle
+
+struct LoadingIndicatorViewStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any LoadingIndicatorViewStyle] = []
+}
+
+extension EnvironmentValues {
+    var loadingIndicatorViewStyle: any LoadingIndicatorViewStyle {
+        self.loadingIndicatorViewStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var loadingIndicatorViewStyleStack: [any LoadingIndicatorViewStyle] {
+        get {
+            self[LoadingIndicatorViewStyleStackKey.self]
+        }
+        set {
+            self[LoadingIndicatorViewStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: MandatoryFieldIndicatorStyle
 
 struct MandatoryFieldIndicatorStyleStackKey: EnvironmentKey {
