@@ -50,7 +50,7 @@ public struct KeyValueFormView {
                 allowsBeyondLimit: Bool = false,
                 charCountReachLimitMessage: String? = nil,
                 charCountBeyondLimitMsg: String? = nil,
-                @ViewBuilder mandatoryFieldIndicator: () -> any View = { EmptyView() },
+                @ViewBuilder mandatoryFieldIndicator: () -> any View = { Text("*") },
                 isRequired: Bool = false)
     {
         self.title = Title(title: title)

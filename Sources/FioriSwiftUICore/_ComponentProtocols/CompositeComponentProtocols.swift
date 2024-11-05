@@ -616,7 +616,7 @@ protocol _AvatarStackComponent: _AvatarsComponent, _AvatarsTitleComponent {}
 /// }
 /// ```
 // sourcery: CompositeComponent
-protocol _ListPickerItemComponent: _TitleComponent, _ValueComponent {
+protocol _ListPickerItemComponent: _TitleComponent, _ValueComponent, _MandatoryField, _FormViewComponent {
     // sourcery: defaultValue = .horizontal
     var axis: Axis { get }
     

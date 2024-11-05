@@ -40,7 +40,7 @@ public struct DateTimePicker {
 
     public init(@ViewBuilder title: () -> any View,
                 @ViewBuilder valueLabel: () -> any View = { EmptyView() },
-                @ViewBuilder mandatoryFieldIndicator: () -> any View = { EmptyView() },
+                @ViewBuilder mandatoryFieldIndicator: () -> any View = { Text("*") },
                 isRequired: Bool = false,
                 controlState: ControlState = .normal,
                 errorMessage: AttributedString? = nil,

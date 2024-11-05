@@ -18,30 +18,33 @@ public struct InformationViewBaseStyle: InformationViewStyle {
 // Default fiori styles
 extension InformationViewFioriStyle {
     struct ContentFioriStyle: InformationViewStyle {
+        @Environment(\.isEnabled) var isEnabled
         func makeBody(_ configuration: InformationViewConfiguration) -> some View {
             InformationView(configuration)
-                .foregroundColor(.preferredColor(.tertiaryLabel))
+                .foregroundColor(.preferredColor(self.isEnabled ? .tertiaryLabel : .separator))
                 .padding(.top, 4)
                 .padding(.bottom, 11)
         }
     }
     
     struct IconFioriStyle: IconStyle {
+        @Environment(\.isEnabled) var isEnabled
         let informationViewConfiguration: InformationViewConfiguration
         
         func makeBody(_ configuration: IconConfiguration) -> some View {
             Icon(configuration)
-                .foregroundStyle(Color.preferredColor(.tertiaryLabel))
+                .foregroundStyle(Color.preferredColor(self.isEnabled ? .tertiaryLabel : .separator))
                 .font(.fiori(forTextStyle: .footnote))
         }
     }
     
     struct DescriptionFioriStyle: DescriptionStyle {
+        @Environment(\.isEnabled) var isEnabled
         let informationViewConfiguration: InformationViewConfiguration
         
         func makeBody(_ configuration: DescriptionConfiguration) -> some View {
             Description(configuration)
-                .foregroundStyle(Color.preferredColor(.tertiaryLabel))
+                .foregroundColor(.preferredColor(self.isEnabled ? .tertiaryLabel : .separator))
                 .font(.fiori(forTextStyle: .footnote))
         }
     }
@@ -71,77 +74,81 @@ public extension View {
 }
 
 public struct InformationViewErrorStyle: InformationViewStyle {
+    @Environment(\.isEnabled) var isEnabled
     public func makeBody(_ configuration: InformationViewConfiguration) -> some View {
         InformationView(configuration)
             .iconStyle(content: { IconConfiguration in
                 if IconConfiguration.icon.isEmpty {
                     Image(systemName: "exclamationmark.circle")
-                        .foregroundStyle(Color.preferredColor(.negativeLabel))
+                        .foregroundStyle(Color.preferredColor(self.isEnabled ? .negativeLabel : .separator))
                 } else {
                     IconConfiguration.icon
-                        .foregroundStyle(Color.preferredColor(.negativeLabel))
+                        .foregroundStyle(Color.preferredColor(self.isEnabled ? .negativeLabel : .separator))
                 }
             })
             .descriptionStyle(content: { descriptionConfiguration in
                 descriptionConfiguration.description
-                    .foregroundStyle(Color.preferredColor(.negativeLabel))
+                    .foregroundStyle(Color.preferredColor(self.isEnabled ? .negativeLabel : .separator))
             })
     }
 }
 
 public struct InformationViewWarningStyle: InformationViewStyle {
+    @Environment(\.isEnabled) var isEnabled
     public func makeBody(_ configuration: InformationViewConfiguration) -> some View {
         InformationView(configuration)
             .iconStyle(content: { IconConfiguration in
                 if IconConfiguration.icon.isEmpty {
                     Image(systemName: "exclamationmark.triangle")
-                        .foregroundStyle(Color.preferredColor(.criticalLabel))
+                        .foregroundStyle(Color.preferredColor(self.isEnabled ? .criticalLabel : .separator))
                 } else {
                     IconConfiguration.icon
-                        .foregroundStyle(Color.preferredColor(.criticalLabel))
+                        .foregroundStyle(Color.preferredColor(self.isEnabled ? .criticalLabel : .separator))
                 }
             })
             .descriptionStyle(content: { descriptionConfiguration in
                 descriptionConfiguration.description
-                    .foregroundStyle(Color.preferredColor(.criticalLabel))
+                    .foregroundStyle(Color.preferredColor(self.isEnabled ? .criticalLabel : .separator))
             })
     }
 }
 
 public struct InformationViewInformationalStyle: InformationViewStyle {
+    @Environment(\.isEnabled) var isEnabled
     public func makeBody(_ configuration: InformationViewConfiguration) -> some View {
         InformationView(configuration)
             .iconStyle(content: { IconConfiguration in
                 if IconConfiguration.icon.isEmpty {
                     Image(systemName: "info.circle")
-                        .foregroundStyle(Color.preferredColor(.primaryLabel))
+                        .foregroundStyle(Color.preferredColor(self.isEnabled ? .primaryLabel : .separator))
                 } else {
                     IconConfiguration.icon
-                        .foregroundStyle(Color.preferredColor(.primaryLabel))
+                        .foregroundStyle(Color.preferredColor(self.isEnabled ? .primaryLabel : .separator))
                 }
             })
             .descriptionStyle(content: { descriptionConfiguration in
                 descriptionConfiguration.description
-                    .foregroundStyle(Color.preferredColor(.primaryLabel))
+                    .foregroundStyle(Color.preferredColor(self.isEnabled ? .primaryLabel : .separator))
             })
     }
 }
 
 public struct InformationViewSuccessStyle: InformationViewStyle {
+    @Environment(\.isEnabled) var isEnabled
     public func makeBody(_ configuration: InformationViewConfiguration) -> some View {
         InformationView(configuration)
             .iconStyle(content: { IconConfiguration in
                 if IconConfiguration.icon.isEmpty {
                     Image(systemName: "checkmark.circle")
-                        .foregroundStyle(Color.preferredColor(.positiveLabel))
+                        .foregroundStyle(Color.preferredColor(self.isEnabled ? .positiveLabel : .separator))
                 } else {
                     IconConfiguration.icon
-                        .foregroundStyle(Color.preferredColor(.positiveLabel))
+                        .foregroundStyle(Color.preferredColor(self.isEnabled ? .positiveLabel : .separator))
                 }
             })
             .descriptionStyle(content: { descriptionConfiguration in
                 descriptionConfiguration.description
-                    .foregroundStyle(Color.preferredColor(.positiveLabel))
+                    .foregroundStyle(Color.preferredColor(self.isEnabled ? .positiveLabel : .separator))
             })
     }
 }

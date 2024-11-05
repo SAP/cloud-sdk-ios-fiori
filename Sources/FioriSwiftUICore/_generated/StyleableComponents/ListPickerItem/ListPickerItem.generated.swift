@@ -47,6 +47,12 @@ import SwiftUI
 public struct ListPickerItem {
     let title: any View
     let value: any View
+    let mandatoryFieldIndicator: any View
+    let isRequired: Bool
+    /// The `ControlState` of the form view. The default is `normal`
+    let controlState: ControlState
+    /// The error message of the form view.
+    let errorMessage: AttributedString?
     let axis: Axis
     let destination: any View
 
@@ -56,11 +62,19 @@ public struct ListPickerItem {
 
     public init(@ViewBuilder title: () -> any View,
                 @ViewBuilder value: () -> any View = { EmptyView() },
+                @ViewBuilder mandatoryFieldIndicator: () -> any View = { Text("*") },
+                isRequired: Bool = false,
+                controlState: ControlState = .normal,
+                errorMessage: AttributedString? = nil,
                 axis: Axis = .horizontal,
                 @ViewBuilder destination: () -> any View = { EmptyView() })
     {
         self.title = Title(title: title)
         self.value = Value(value: value)
+        self.mandatoryFieldIndicator = MandatoryFieldIndicator(mandatoryFieldIndicator: mandatoryFieldIndicator)
+        self.isRequired = isRequired
+        self.controlState = controlState
+        self.errorMessage = errorMessage
         self.axis = axis
         self.destination = destination()
     }
@@ -69,10 +83,14 @@ public struct ListPickerItem {
 public extension ListPickerItem {
     init(title: AttributedString,
          value: AttributedString? = nil,
+         mandatoryFieldIndicator: TextOrIcon? = .text("*"),
+         isRequired: Bool = false,
+         controlState: ControlState = .normal,
+         errorMessage: AttributedString? = nil,
          axis: Axis = .horizontal,
          @ViewBuilder destination: () -> any View = { EmptyView() })
     {
-        self.init(title: { Text(title) }, value: { OptionalText(value) }, axis: axis, destination: destination)
+        self.init(title: { Text(title) }, value: { OptionalText(value) }, mandatoryFieldIndicator: { TextOrIconView(mandatoryFieldIndicator) }, isRequired: isRequired, controlState: controlState, errorMessage: errorMessage, axis: axis, destination: destination)
     }
 }
 
@@ -84,6 +102,10 @@ public extension ListPickerItem {
     internal init(_ configuration: ListPickerItemConfiguration, shouldApplyDefaultStyle: Bool) {
         self.title = configuration.title
         self.value = configuration.value
+        self.mandatoryFieldIndicator = configuration.mandatoryFieldIndicator
+        self.isRequired = configuration.isRequired
+        self.controlState = configuration.controlState
+        self.errorMessage = configuration.errorMessage
         self.axis = configuration.axis
         self.destination = configuration.destination
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
@@ -95,7 +117,7 @@ extension ListPickerItem: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(title: .init(self.title), value: .init(self.value), axis: self.axis, destination: .init(self.destination))).typeErased
+            self.style.resolve(configuration: .init(title: .init(self.title), value: .init(self.value), mandatoryFieldIndicator: .init(self.mandatoryFieldIndicator), isRequired: self.isRequired, controlState: self.controlState, errorMessage: self.errorMessage, axis: self.axis, destination: .init(self.destination))).typeErased
                 .transformEnvironment(\.listPickerItemStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -113,7 +135,7 @@ private extension ListPickerItem {
     }
 
     func defaultStyle() -> some View {
-        ListPickerItem(.init(title: .init(self.title), value: .init(self.value), axis: self.axis, destination: .init(self.destination)))
+        ListPickerItem(.init(title: .init(self.title), value: .init(self.value), mandatoryFieldIndicator: .init(self.mandatoryFieldIndicator), isRequired: self.isRequired, controlState: self.controlState, errorMessage: self.errorMessage, axis: self.axis, destination: .init(self.destination)))
             .shouldApplyDefaultStyle(false)
             .listPickerItemStyle(ListPickerItemFioriStyle.ContentFioriStyle())
             .typeErased

@@ -48,7 +48,7 @@ public struct TextFieldFormView {
                 allowsBeyondLimit: Bool = false,
                 charCountReachLimitMessage: String? = nil,
                 charCountBeyondLimitMsg: String? = nil,
-                @ViewBuilder mandatoryFieldIndicator: () -> any View = { EmptyView() },
+                @ViewBuilder mandatoryFieldIndicator: () -> any View = { Text("*") },
                 isRequired: Bool = false,
                 actionIcon: Image? = nil,
                 action: (() -> Void)? = nil)

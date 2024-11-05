@@ -40,7 +40,11 @@ struct ListPickerItemExample: View {
     @State var disableEntriesSection: Bool = false
     @State var allowEmpty: Bool = false
     @State var autoDismissDestination: Bool = false
-
+    
+    @State var isRequired = false
+    @State var state: ControlState = .normal
+    @State var showsErrorMessage = false
+    
     var body: some View {
         List {
             Group {
@@ -48,18 +52,13 @@ struct ListPickerItemExample: View {
                     // Use default Value
                     ListPickerItem(title: {
                         Text("Title")
-                    }, axis: self.axis,
+                    }, isRequired: self.isRequired, controlState: self.state, axis: self.axis,
                     destination: {
                         self.destinationViewGroup()
                     })
                 } else {
                     // Use custom Value
-                    ListPickerItem(title: {
-                        Text("Title")
-                    }, value: {
-                        self.valueView
-                    }, axis: self.axis,
-                    destination: {
+                    ListPickerItem(title: { Text("Title") }, value: { self.valueView }, isRequired: self.isRequired, controlState: self.state, axis: self.axis, destination: {
                         self.destinationViewGroup()
                     })
                 }
@@ -80,6 +79,9 @@ struct ListPickerItemExample: View {
                     self.noneEmptySelection = "PineApple"
                 }
             }
+            .informationView(isPresented: self.$showsErrorMessage, description: "Validation message")
+            .informationViewStyle(.informational)
+            .disabled(self.state == .disabled)
             
             Section("Pannel") {
                 Picker("Axis", selection: self.$axis) {
@@ -107,6 +109,16 @@ struct ListPickerItemExample: View {
                 Toggle("Allow Empty", isOn: self.$allowEmpty)
                 
                 Toggle("Auto Dismiss Destination(Only for Single Selection and isTrackingLiveChanges is true)", isOn: self.$autoDismissDestination)
+                
+                Toggle("Mandatory Field", isOn: self.$isRequired)
+                
+                Toggle("Shows Error Message", isOn: self.$showsErrorMessage)
+                
+                Picker("State", selection: self.$state) {
+                    Text("Normal").tag(ControlState.normal)
+                    Text("Disabled").tag(ControlState.disabled)
+                    Text("Readonly").tag(ControlState.readOnly)
+                }
             }
         }
         .navigationTitle("List Picker Item")
