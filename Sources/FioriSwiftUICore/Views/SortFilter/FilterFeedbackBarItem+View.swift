@@ -123,6 +123,7 @@ struct PickerMenuItem: View {
 
     @State var detentHeight: CGFloat = ((UIDevice.current.userInterfaceIdiom == .phone || UIDevice.current.userInterfaceIdiom == .pad) ? 88 : 0)
     let popoverWidth = 393.0
+    @State var _keyboardHeight = 0.0
     
     public init(item: Binding<SortFilterItem.PickerItem>, onUpdate: @escaping () -> Void) {
         self._item = item
@@ -255,8 +256,15 @@ struct PickerMenuItem: View {
                     } updateSearchListPickerHeight: { height in
                         self.detentHeight = max(height, 88)
                     }
-                    .frame(maxHeight: UIDevice.current.userInterfaceIdiom != .phone ? (self.detentHeight) : nil)
+                    .frame(maxHeight: UIDevice.current.userInterfaceIdiom != .phone ? (self.detentHeight + (self._keyboardHeight > 0 ? 52 : 0)) : nil)
                     .padding(0)
+                    .onReceive(NotificationCenter.default.publisher(for: UIApplication.keyboardDidShowNotification)) { notif in
+                        let rect = (notif.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect) ?? .zero
+                        self._keyboardHeight = rect.height
+                    }
+                    .onReceive(NotificationCenter.default.publisher(for: UIApplication.keyboardDidHideNotification)) { _ in
+                        self._keyboardHeight = 0
+                    }
                     Spacer()
                 }
                 .frame(minWidth: UIDevice.current.userInterfaceIdiom != .phone ? 393 : nil)
