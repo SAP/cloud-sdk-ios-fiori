@@ -853,6 +853,23 @@ public extension View {
     }
 }
 
+// MARK: LoadingIndicatorViewStyle
+
+public extension View {
+    func loadingIndicatorViewStyle(_ style: some LoadingIndicatorViewStyle) -> some View {
+        self.transformEnvironment(\.loadingIndicatorViewStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func loadingIndicatorViewStyle(@ViewBuilder content: @escaping (LoadingIndicatorViewConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.loadingIndicatorViewStyleStack) { stack in
+            let style = AnyLoadingIndicatorViewStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: MandatoryFieldIndicatorStyle
 
 public extension View {

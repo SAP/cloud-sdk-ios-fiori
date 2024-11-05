@@ -656,3 +656,13 @@ protocol _BannerMultiMessageSheet: _TitleComponent, _CloseActionComponent {
     /// the data source for banner multi-message sheet
     var bannerMultiMessages: [BannerMessageListModel] { get }
 }
+
+// sourcery: CompositeComponent
+protocol _LoadingIndicatorViewComponent: _TitleComponent {
+    // sourcery: defaultValue = 0
+    /// The duration in seconds for which the loading indicator is shown. If set to 0, the loading indicator will be displayed continuously. The default is `0`.
+    var duration: Double { get }
+    
+    // sourcery: @Binding
+    var isPresented: Bool { get }
+}

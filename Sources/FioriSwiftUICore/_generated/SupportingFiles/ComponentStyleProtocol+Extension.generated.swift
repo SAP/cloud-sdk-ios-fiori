@@ -2824,6 +2824,41 @@ public extension ListPickerItemStyle where Self == ListPickerItemValueStyle {
     }
 }
 
+// MARK: LoadingIndicatorViewStyle
+
+public extension LoadingIndicatorViewStyle where Self == LoadingIndicatorViewBaseStyle {
+    static var base: LoadingIndicatorViewBaseStyle {
+        LoadingIndicatorViewBaseStyle()
+    }
+}
+
+public extension LoadingIndicatorViewStyle where Self == LoadingIndicatorViewFioriStyle {
+    static var fiori: LoadingIndicatorViewFioriStyle {
+        LoadingIndicatorViewFioriStyle()
+    }
+}
+
+public struct LoadingIndicatorViewTitleStyle: LoadingIndicatorViewStyle {
+    let style: any TitleStyle
+
+    public func makeBody(_ configuration: LoadingIndicatorViewConfiguration) -> some View {
+        LoadingIndicatorView(configuration)
+            .titleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension LoadingIndicatorViewStyle where Self == LoadingIndicatorViewTitleStyle {
+    static func titleStyle(_ style: some TitleStyle) -> LoadingIndicatorViewTitleStyle {
+        LoadingIndicatorViewTitleStyle(style: style)
+    }
+
+    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> LoadingIndicatorViewTitleStyle {
+        let style = AnyTitleStyle(content)
+        return LoadingIndicatorViewTitleStyle(style: style)
+    }
+}
+
 // MARK: MandatoryFieldIndicatorStyle
 
 public extension MandatoryFieldIndicatorStyle where Self == MandatoryFieldIndicatorBaseStyle {
