@@ -9,6 +9,7 @@ public struct SearchListPickerItem {
 	var _valueOptions: [String]
 	var _hint: String? = nil
 	var _onTap: ((_ index: Int) -> Void)? = nil
+
 	var updateSearchListPickerHeight: ((CGFloat) -> ())? = nil
 	var allowsMultipleSelection: Bool = false
 	var isSearchBarHidden: Bool = false
@@ -18,7 +19,8 @@ public struct SearchListPickerItem {
 	@State var _searchText: String = ""
 	var allowsEmptySelection: Bool = false
 	let popoverWidth = 393.0
-    
+	@State var _keyboardHeight: CGFloat = 0.0
+	
     public init(model: SearchListPickerItemModel) {
         self.init(value: Binding<[Int]>(get: { model.value }, set: { model.value = $0 }), valueOptions: model.valueOptions, hint: model.hint, onTap: model.onTap)
     }
