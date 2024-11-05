@@ -12,11 +12,12 @@ public extension SearchListPickerItem {
     ///   - onTap: The closure when tap on item.
     ///   - selectAll: The closure when click 'Select All' button.
     ///   - updateSearchListPickerHeight: The closure to update the parent view.
-    init(value: Binding<[Int]>, valueOptions: [String] = [], hint: String? = nil, allowsMultipleSelection: Bool, allowsEmptySelection: Bool, onTap: ((_ index: Int) -> Void)? = nil, selectAll: ((_ isAll: Bool) -> Void)? = nil, updateSearchListPickerHeight: ((CGFloat) -> Void)? = nil) {
+    init(value: Binding<[Int]>, valueOptions: [String] = [], hint: String? = nil, allowsMultipleSelection: Bool, allowsEmptySelection: Bool, isSearchBarHidden: Bool = false, onTap: ((_ index: Int) -> Void)? = nil, selectAll: ((_ isAll: Bool) -> Void)? = nil, updateSearchListPickerHeight: ((CGFloat) -> Void)? = nil) {
         self.init(value: value, valueOptions: valueOptions, hint: hint, onTap: onTap)
         
         self.allowsMultipleSelection = allowsMultipleSelection
         self.allowsEmptySelection = allowsEmptySelection
+        self.isSearchBarHidden = isSearchBarHidden
         self.selectAll = selectAll
         self.updateSearchListPickerHeight = updateSearchListPickerHeight
     }
@@ -45,7 +46,11 @@ extension SearchListPickerItem: View {
                         Spacer()
                         if isSelected {
                             Image(systemName: "checkmark")
-                                .foregroundColor(.preferredColor(.tintColor))
+                            #if !os(visionOS)
+                                .foregroundStyle(Color.preferredColor(.tintColor))
+                            #else
+                                .foregroundStyle(Color.preferredColor(.primaryLabel))
+                            #endif
                         }
                     }
                     .padding(0)
@@ -67,7 +72,8 @@ extension SearchListPickerItem: View {
                     let totalSpacing: CGFloat = (UIDevice.current.userInterfaceIdiom == .pad ? 8 : 16) * 2
                     let totalPadding: CGFloat = (UIDevice.current.userInterfaceIdiom == .pad ? 13 : 16) * 2
                     let safeAreaInset = self.getSafeAreaInsets()
-                    let maxScrollViewHeight = popverHeight - totalSpacing - totalPadding - 52 - 56 - safeAreaInset.top - safeAreaInset.bottom - (UIDevice.current.userInterfaceIdiom == .pad ? 230 : 30)
+                    var maxScrollViewHeight = popverHeight - totalSpacing - totalPadding - (self.isSearchBarHidden ? 0 : 52) - 56 - safeAreaInset.top - safeAreaInset.bottom - (UIDevice.current.userInterfaceIdiom == .pad ? 250 : 30)
+                    maxScrollViewHeight -= self._keyboardHeight
                     self._height = min(scrollView.contentSize.height, maxScrollViewHeight)
                     var isSelectAllViewShow = false
                     if allowsMultipleSelection {
@@ -81,10 +87,19 @@ extension SearchListPickerItem: View {
                 }
             })
             .listStyle(PlainListStyle())
-            .frame(minWidth: UIDevice.current.userInterfaceIdiom != .phone ? 393 : nil)
+            .frame(minWidth: UIDevice.current.userInterfaceIdiom != .phone ? popoverWidth : nil)
             .scrollContentBackground(.hidden)
             .padding(0)
-            .searchable(text: $_searchText, placement: .automatic)
+            .ifApply(!isSearchBarHidden, content: { v in
+                v.searchable(text: $_searchText, placement: .automatic)
+                    .onReceive(NotificationCenter.default.publisher(for: UIApplication.keyboardDidShowNotification)) { notif in
+                        let rect = (notif.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect) ?? .zero
+                        self._keyboardHeight = rect.height
+                    }
+                    .onReceive(NotificationCenter.default.publisher(for: UIApplication.keyboardDidHideNotification)) { _ in
+                        self._keyboardHeight = 0
+                    }
+            })
         }
     }
     
@@ -131,7 +146,7 @@ extension SearchListPickerItem: View {
     VStack {
         Spacer()
         SearchListPickerItem(value: Binding<[Int]>(get: { [0, 1, 2] }, set: { print($0) }), valueOptions: ["Received", "Started", "Hold", "Transfer", "Completed", "Pending Review review", "Accepted", "Rejected"], hint: nil)
-            .frame(width: 375)
+            .frame(width: 393)
         Spacer()
     }
 }

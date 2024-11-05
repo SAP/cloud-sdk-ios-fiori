@@ -86,6 +86,12 @@ struct CoreContentView: View {
                 {
                     Text("Customized Signature Inline View")
                 }
+                
+                NavigationLink(
+                    destination: DocumentScannerViewExample())
+                {
+                    Text("Document Scanner View")
+                }
             }
             
             Section(header: Text("Timeline")) {
@@ -136,13 +142,6 @@ struct CoreContentView: View {
                 {
                     Text("Dimension Selector")
                 }
-                
-                NavigationLink(
-                    destination: LinearProgressIndicatorExample(),
-                    label: {
-                        Text("Linear Progress Indicator")
-                    }
-                )
                 
                 NavigationLink(
                     destination: MenuSelectionExample())
@@ -242,6 +241,17 @@ struct CoreContentView: View {
                     destination: ToastMessageExample())
                 {
                     Text("Toast Message")
+                }
+                
+                NavigationLink(
+                    destination: LinearProgressIndicatorExample(),
+                    label: {
+                        Text("Linear Progress Indicator")
+                    }
+                )
+                
+                NavigationLink(destination: LoadingIndicatorExample()) {
+                    Text("Loading Indicator")
                 }
             }
             

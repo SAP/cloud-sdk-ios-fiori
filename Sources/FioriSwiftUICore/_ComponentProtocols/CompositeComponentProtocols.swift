@@ -637,3 +637,34 @@ protocol _ToastMessageComponent: _IconComponent, _TitleComponent {
     /// The duration in seconds for which the toast message is shown. The default is `1`.
     var duration: Double { get }
 }
+
+// sourcery: CompositeComponent
+protocol _BannerMultiMessageSheet: _TitleComponent, _CloseActionComponent {
+    /// callback when this component want to dismiss itself
+    var dismissAction: (() -> Void)? { get }
+    /// callback when category or single item is removed
+    var removeAction: ((String, UUID?) -> Void)? { get }
+    /// callback when the link button is clicked
+    var viewDetailAction: ((UUID) -> Void)? { get }
+    // sourcery: defaultValue = true
+    /// the mark to turn on section header or not
+    var turnOnSectionHeader: Bool { get }
+    // sourcery: defaultValue = "{ _ in EmptyView() }"
+    // sourcery: resultBuilder.defaultValue = "{ _ in EmptyView() }"
+    /// view for each item under the category
+    @ViewBuilder
+    var messageItemView: (UUID) -> any View { get }
+    // sourcery: @Binding
+    /// the data source for banner multi-message sheet
+    var bannerMultiMessages: [BannerMessageListModel] { get }
+}
+
+// sourcery: CompositeComponent
+protocol _LoadingIndicatorViewComponent: _TitleComponent {
+    // sourcery: defaultValue = 0
+    /// The duration in seconds for which the loading indicator is shown. If set to 0, the loading indicator will be displayed continuously. The default is `0`.
+    var duration: Double { get }
+    
+    // sourcery: @Binding
+    var isPresented: Bool { get }
+}

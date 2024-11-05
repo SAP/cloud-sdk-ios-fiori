@@ -6,6 +6,7 @@
 //  Copyright © 2024 SAP. All rights reserved.
 //
 import FioriSwiftUICore
+import FioriThemeManager
 import RegexBuilder
 import SwiftUI
 
@@ -61,11 +62,20 @@ struct BannerMultiMessageCustomInitExample: View {
                         Spacer()
                     }
                     .popover(isPresented: self.$showingMessageDetail) {
-                        BannerMultiMessageSheet(closeAction: {
+                        BannerMultiMessageSheet(title: {
+                            Text("CustomMessagesCount")
+                        }, closeAction: {
+                            FioriButton(isSelectionPersistent: false, action: { _ in
+                                self.showingMessageDetail = false
+                            }, image: { _ in
+                                FioriIcon.tables.circleTaskFill
+                            })
+                            .fioriButtonStyle(FioriTertiaryButtonStyle(colorStyle: .normal))
+                        }, dismissAction: {
                             self.showingMessageDetail = false
                         }, removeAction: { category, _ in
                             self.removeCategory(category: category)
-                        }, turnOnSectionHeader: self.turnOnSectionHeader, bannerMultiMessages: self.$bannerMultiMessages) { id in
+                        }, turnOnSectionHeader: self.turnOnSectionHeader, messageItemView: { id in
                             if let (message, category) = getItemData(with: id) {
                                 BannerMessage(icon: {
                                     message.icon
@@ -103,8 +113,8 @@ struct BannerMultiMessageCustomInitExample: View {
                             } else {
                                 EmptyView()
                             }
-                        }
-                        .presentationDetents([.medium, .large])
+                        }, bannerMultiMessages: self.$bannerMultiMessages)
+                            .presentationDetents([.medium, .large])
                     }
                 }
                 .listRowSeparator(.hidden)

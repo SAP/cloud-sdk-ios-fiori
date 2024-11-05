@@ -122,6 +122,8 @@ struct PickerMenuItem: View {
     @State var isSheetVisible = false
 
     @State var detentHeight: CGFloat = ((UIDevice.current.userInterfaceIdiom == .phone || UIDevice.current.userInterfaceIdiom == .pad) ? 88 : 0)
+    let popoverWidth = 393.0
+    @State var _keyboardHeight = 0.0
     
     public init(item: Binding<SortFilterItem.PickerItem>, onUpdate: @escaping () -> Void) {
         self._item = item
@@ -247,20 +249,27 @@ struct PickerMenuItem: View {
                     })
                     .buttonStyle(ApplyButtonStyle())
                 } components: {
-                    SearchListPickerItem(value: self.$item.workingValue, valueOptions: self.item.valueOptions, hint: nil, allowsMultipleSelection: self.item.allowsMultipleSelection, allowsEmptySelection: self.item.allowsEmptySelection) { index in
+                    SearchListPickerItem(value: self.$item.workingValue, valueOptions: self.item.valueOptions, hint: nil, allowsMultipleSelection: self.item.allowsMultipleSelection, allowsEmptySelection: self.item.allowsEmptySelection, isSearchBarHidden: self.item.isSearchBarHidden) { index in
                         self.item.onTap(option: self.item.valueOptions[index])
                     } selectAll: { isAll in
                         self.item.selectAll(isAll)
                     } updateSearchListPickerHeight: { height in
                         self.detentHeight = max(height, 88)
                     }
-                    .frame(maxHeight: UIDevice.current.userInterfaceIdiom != .phone ? (self.detentHeight) : nil)
+                    .frame(maxHeight: UIDevice.current.userInterfaceIdiom != .phone ? (self.detentHeight + (self._keyboardHeight > 0 ? 52 : 0)) : nil)
                     .padding(0)
+                    .onReceive(NotificationCenter.default.publisher(for: UIApplication.keyboardDidShowNotification)) { notif in
+                        let rect = (notif.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect) ?? .zero
+                        self._keyboardHeight = rect.height
+                    }
+                    .onReceive(NotificationCenter.default.publisher(for: UIApplication.keyboardDidHideNotification)) { _ in
+                        self._keyboardHeight = 0
+                    }
                     Spacer()
                 }
                 .frame(minWidth: UIDevice.current.userInterfaceIdiom != .phone ? 393 : nil)
-                .frame(height: UIDevice.current.userInterfaceIdiom != .phone ? self.detentHeight + 52 + 56 + 70 : nil)
-                .presentationDetents([.large])
+                .frame(height: UIDevice.current.userInterfaceIdiom != .phone ? self.detentHeight + (self.item.isSearchBarHidden ? 0 : 52) + 56 + 93 : nil)
+                .presentationDetents([.height(self.detentHeight + (self.item.isSearchBarHidden ? 0 : 52) + 56 + 93), .medium, .large])
             }
     }
 }
@@ -300,6 +309,8 @@ struct DateTimeMenuItem: View {
     @State var detentHeight: CGFloat = 0
     
     var onUpdate: () -> Void
+    
+    let popoverWidth = 393.0
 
     public init(item: Binding<SortFilterItem.DateTimeItem>, onUpdate: @escaping () -> Void) {
         self._item = item
@@ -356,10 +367,10 @@ struct DateTimeMenuItem: View {
                         )
                         .datePickerStyle(.graphical)
                         .labelsHidden()
-                        .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? 375 - 13 : Screen.bounds.size.width - 16)
+                        .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? self.popoverWidth - 13 : Screen.bounds.size.width - 16)
                         .clipped()
                     }
-                    .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? 375 : Screen.bounds.size.width)
+                    .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? self.popoverWidth : Screen.bounds.size.width)
                 }
                 .readHeight()
                 .onPreferenceChange(HeightPreferenceKey.self) { height in

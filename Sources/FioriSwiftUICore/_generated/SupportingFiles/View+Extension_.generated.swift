@@ -156,6 +156,23 @@ public extension View {
     }
 }
 
+// MARK: BannerMultiMessageSheetStyle
+
+public extension View {
+    func bannerMultiMessageSheetStyle(_ style: some BannerMultiMessageSheetStyle) -> some View {
+        self.transformEnvironment(\.bannerMultiMessageSheetStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func bannerMultiMessageSheetStyle(@ViewBuilder content: @escaping (BannerMultiMessageSheetConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.bannerMultiMessageSheetStyleStack) { stack in
+            let style = AnyBannerMultiMessageSheetStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: CancelActionStyle
 
 public extension View {
@@ -831,6 +848,23 @@ public extension View {
     func listPickerItemStyle(@ViewBuilder content: @escaping (ListPickerItemConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.listPickerItemStyleStack) { stack in
             let style = AnyListPickerItemStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: LoadingIndicatorViewStyle
+
+public extension View {
+    func loadingIndicatorViewStyle(_ style: some LoadingIndicatorViewStyle) -> some View {
+        self.transformEnvironment(\.loadingIndicatorViewStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func loadingIndicatorViewStyle(@ViewBuilder content: @escaping (LoadingIndicatorViewConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.loadingIndicatorViewStyleStack) { stack in
+            let style = AnyLoadingIndicatorViewStyle(content)
             stack.append(style)
         }
     }
