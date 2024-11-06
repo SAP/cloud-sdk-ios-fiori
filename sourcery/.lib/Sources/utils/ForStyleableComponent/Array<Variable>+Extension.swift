@@ -10,9 +10,13 @@ extension [Variable] {
     var propertyListDecl: String {
         map { variable in
             var varDecl = variable.documentation.isEmpty ? "" : variable.docText + "\n"
-            if let (_, returnType, _, _) = variable.resultBuilderAttrs {
+            if let (_, returnType, _, _) = variable.resultBuilderAttrs,
+               variable.closureParameters.isEmpty
+            {
                 varDecl += "let \(variable.name): \(returnType)"
-            } else if variable.hasResultBuilderAttribute {
+            } else if variable.hasResultBuilderAttribute,
+                      variable.closureParameters.isEmpty
+            {
                 let type = variable.closureReturnType ?? variable.typeName.name
                 varDecl += "let \(variable.name): \(type)"
             } else if variable.isBinding {
@@ -30,7 +34,14 @@ extension [Variable] {
     var viewBuilderInitParams: String {
         map { variable in
             if let (name, returnType, defaultValue, _) = variable.resultBuilderAttrs {
-                return "\(name) \(variable.name): () -> \(returnType)\(defaultValue.prependAssignmentIfNeeded())"
+                if variable.closureParameters.isEmpty {
+                    return "\(name) \(variable.name): () -> \(returnType)\(defaultValue.prependAssignmentIfNeeded())"
+                } else {
+                    let escapingAttr = variable.typeName.isClosure &&
+                        !variable.typeName.isOptional
+                        ? "@escaping " : ""
+                    return "\(name) \(variable.name): \(escapingAttr)\(variable.typeName)\(defaultValue.prependAssignmentIfNeeded())"
+                }
             } else if variable.hasResultBuilderAttribute {
                 return variable.resultBuilderInitParamDecl
             } else if variable.isBinding {
@@ -50,8 +61,12 @@ extension [Variable] {
         map { variable in
             let name = variable.name
             if variable.isResultBuilder {
-                let assignment = isBaseComponent || !variable.isStyleable ? "\(name)()" : "\(name.capitalizingFirst())(\(name): \(name))"
-                return "self.\(name) = \(assignment)"
+                if !variable.closureParameters.isEmpty {
+                    return "self.\(name) = \(name)"
+                } else {
+                    let assignment = isBaseComponent || !variable.isStyleable ? "\(name)()" : "\(name.capitalizingFirst())(\(name): \(name))"
+                    return "self.\(name) = \(assignment)"
+                }
             } else if variable.isBinding {
                 return "self._\(name) = \(name)"
             } else {
@@ -64,7 +79,14 @@ extension [Variable] {
     var dataInitParams: String {
         map { variable in
             let decl: String
-            if variable.isBinding {
+            if let (name, returnType, defaultValue, _) = variable.resultBuilderAttrs,
+               !variable.closureParameters.isEmpty
+            {
+                let escapingAttr = variable.typeName.isClosure &&
+                    !variable.typeName.isOptional
+                    ? "@escaping " : ""
+                return "\(name) \(variable.name): \(escapingAttr)\(variable.typeName)\(defaultValue.prependAssignmentIfNeeded())"
+            } else if variable.isBinding {
                 return "\(variable.name): Binding<\(variable.typeName)>"
             } else if variable.hasResultBuilderAttribute {
                 return variable.resultBuilderInitParamDecl
@@ -78,7 +100,9 @@ extension [Variable] {
     var dataInitBody: String {
         let initArgs = map { variable in
             let name = variable.name
-            if let (_, _, _, backingComponent) = variable.resultBuilderAttrs {
+            if let (_, _, _, backingComponent) = variable.resultBuilderAttrs,
+               variable.closureParameters.isEmpty
+            {
                 let arg = backingComponent.isEmpty ? "\(name)" : "\(backingComponent)(\(name))"
                 return "\(name): { \(arg) }"
             } else {
@@ -105,7 +129,10 @@ extension [Variable] {
     var configurationInitArgs: String {
         map { variable in
             let name = variable.name
-            if variable.isResultBuilder, variable.annotations.resultBuilderReturnType == nil {
+            if variable.isResultBuilder,
+               variable.annotations.resultBuilderReturnType == nil,
+               variable.closureParameters.isEmpty
+            {
                 return "\(name): .init(self.\(name))"
             } else if variable.isBinding {
                 return "\(name): self.$\(name)"
@@ -121,7 +148,9 @@ extension [Variable] {
             variable.isResultBuilder
         }.compactMap { variable in
             let name = variable.name
-            if variable.isResultBuilder {
+            if variable.isResultBuilder,
+               variable.closureParameters.isEmpty
+            {
                 return "\(name).isEmpty"
             } else if variable.isOptional {
                 return "\(name) == nil"
@@ -139,7 +168,9 @@ extension [Variable] {
         var `typealias`: [String] = []
         for variable in self {
             let name = variable.name
-            if variable.isResultBuilder {
+            if variable.isResultBuilder,
+               variable.closureParameters.isEmpty
+            {
                 props.append("public let \(name): \(name.capitalizingFirst())")
                 var type = "ConfigurationViewWrapper"
                 if let returnType = variable.annotations.resultBuilderReturnType {

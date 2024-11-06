@@ -260,6 +260,34 @@ public extension BannerMessageStyle {
     }
 }
 
+// MARK: BannerMultiMessageSheetStyle
+
+extension ModifiedStyle: BannerMultiMessageSheetStyle where Style: BannerMultiMessageSheetStyle {
+    public func makeBody(_ configuration: BannerMultiMessageSheetConfiguration) -> some View {
+        BannerMultiMessageSheet(configuration)
+            .bannerMultiMessageSheetStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct BannerMultiMessageSheetStyleModifier<Style: BannerMultiMessageSheetStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.bannerMultiMessageSheetStyle(self.style)
+    }
+}
+
+public extension BannerMultiMessageSheetStyle {
+    func modifier(_ modifier: some ViewModifier) -> some BannerMultiMessageSheetStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some BannerMultiMessageSheetStyle) -> some BannerMultiMessageSheetStyle {
+        style.modifier(BannerMultiMessageSheetStyleModifier(style: self))
+    }
+}
+
 // MARK: CancelActionStyle
 
 extension ModifiedStyle: CancelActionStyle where Style: CancelActionStyle {

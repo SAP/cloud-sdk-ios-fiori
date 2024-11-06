@@ -156,6 +156,23 @@ public extension View {
     }
 }
 
+// MARK: BannerMultiMessageSheetStyle
+
+public extension View {
+    func bannerMultiMessageSheetStyle(_ style: some BannerMultiMessageSheetStyle) -> some View {
+        self.transformEnvironment(\.bannerMultiMessageSheetStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func bannerMultiMessageSheetStyle(@ViewBuilder content: @escaping (BannerMultiMessageSheetConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.bannerMultiMessageSheetStyleStack) { stack in
+            let style = AnyBannerMultiMessageSheetStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: CancelActionStyle
 
 public extension View {
