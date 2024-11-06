@@ -1079,8 +1079,8 @@ public enum ColorStyle: String, CaseIterable {
     // MARK: - Chart Colors (13 Styles)
     
     /// Chart 1
-    /// (dark variant) ![](https://dummyimage.com/48x18/3278BE.png&text=+)          Hex value: 3278BEFF
-    /// (light variant) ![](https://dummyimage.com/48x18/3278BE.png&text=+)          Hex value: 3278BEFF
+    /// (dark variant) ![](https://dummyimage.com/48x18/168EFF.png&text=+)          Hex value: 168EFFFF
+    /// (light variant) ![](https://dummyimage.com/48x18/168EFF.png&text=+)          Hex value: 168EFFFF
     @available(watchOS, unavailable)
     case chart1
     
