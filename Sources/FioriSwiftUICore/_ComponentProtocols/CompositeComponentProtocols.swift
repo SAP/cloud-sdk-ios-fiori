@@ -123,6 +123,8 @@ protocol _TextFieldFormViewComponent: _TitleComponent, _TitleFormViewComponent, 
     var actionIcon: Image? { get }
     /// The action to be performed when the action button is tapped.
     var action: (() -> Void)? { get }
+    /// The accessibility label for the action icon
+    var actionIconAccessibilityLabel: String? { get }
 }
 
 // sourcery: CompositeComponent
