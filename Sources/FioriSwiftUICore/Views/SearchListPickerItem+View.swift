@@ -12,7 +12,8 @@ public extension SearchListPickerItem {
     ///   - onTap: The closure when tap on item.
     ///   - selectAll: The closure when click 'Select All' button.
     ///   - updateSearchListPickerHeight: The closure to update the parent view.
-    init(value: Binding<[Int]>, valueOptions: [String] = [], hint: String? = nil, allowsMultipleSelection: Bool, allowsEmptySelection: Bool, isSearchBarHidden: Bool = false, onTap: ((_ index: Int) -> Void)? = nil, selectAll: ((_ isAll: Bool) -> Void)? = nil, updateSearchListPickerHeight: ((CGFloat) -> Void)? = nil) {
+    ///   - disableListEntriesSection: A boolean value to indicate to disable entries section or not.
+    init(value: Binding<[Int]>, valueOptions: [String] = [], hint: String? = nil, allowsMultipleSelection: Bool, allowsEmptySelection: Bool, isSearchBarHidden: Bool = false, disableListEntriesSection: Bool, onTap: ((_ index: Int) -> Void)? = nil, selectAll: ((_ isAll: Bool) -> Void)? = nil, updateSearchListPickerHeight: ((CGFloat) -> Void)? = nil) {
         self.init(value: value, valueOptions: valueOptions, hint: hint, onTap: onTap)
         
         self.allowsMultipleSelection = allowsMultipleSelection
@@ -20,6 +21,7 @@ public extension SearchListPickerItem {
         self.isSearchBarHidden = isSearchBarHidden
         self.selectAll = selectAll
         self.updateSearchListPickerHeight = updateSearchListPickerHeight
+        self.disableListEntriesSection = disableListEntriesSection
     }
 }
 
@@ -27,7 +29,7 @@ extension SearchListPickerItem: View {
     public var body: some View {
         VStack(spacing: 0) {
             List {
-                if allowsMultipleSelection, _value.count > 0 {
+                if !disableListEntriesSection, _value.count > 0 {
                     self.selectionHeader()
                     
                     Section {
