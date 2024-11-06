@@ -21,6 +21,7 @@ protocol _SubtitleComponent {
 protocol _MandatoryFieldIndicatorComponent {
     // sourcery: resultBuilder.name = @ViewBuilder, resultBuilder.backingComponent = TextOrIconView
     // sourcery: defaultValue = .text("*")
+    // sourcery: resultBuilder.defaultValue = "{ Text("*") }"
     var mandatoryFieldIndicator: TextOrIcon? { get }
 }
  

@@ -65,6 +65,14 @@ extension LinearProgressIndicatorViewConfiguration {
     }
 }
 
+// MARK: ListPickerItemConfiguration
+
+extension ListPickerItemConfiguration {
+    var _formView: FormView {
+        FormView(.init(controlState: self.controlState, errorMessage: self.errorMessage), shouldApplyDefaultStyle: true)
+    }
+}
+
 // MARK: NoteFormViewConfiguration
 
 extension NoteFormViewConfiguration {

@@ -2824,6 +2824,48 @@ public extension ListPickerItemStyle where Self == ListPickerItemValueStyle {
     }
 }
 
+public struct ListPickerItemMandatoryFieldIndicatorStyle: ListPickerItemStyle {
+    let style: any MandatoryFieldIndicatorStyle
+
+    public func makeBody(_ configuration: ListPickerItemConfiguration) -> some View {
+        ListPickerItem(configuration)
+            .mandatoryFieldIndicatorStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension ListPickerItemStyle where Self == ListPickerItemMandatoryFieldIndicatorStyle {
+    static func mandatoryFieldIndicatorStyle(_ style: some MandatoryFieldIndicatorStyle) -> ListPickerItemMandatoryFieldIndicatorStyle {
+        ListPickerItemMandatoryFieldIndicatorStyle(style: style)
+    }
+
+    static func mandatoryFieldIndicatorStyle(@ViewBuilder content: @escaping (MandatoryFieldIndicatorConfiguration) -> some View) -> ListPickerItemMandatoryFieldIndicatorStyle {
+        let style = AnyMandatoryFieldIndicatorStyle(content)
+        return ListPickerItemMandatoryFieldIndicatorStyle(style: style)
+    }
+}
+
+public struct ListPickerItemFormViewStyle: ListPickerItemStyle {
+    let style: any FormViewStyle
+
+    public func makeBody(_ configuration: ListPickerItemConfiguration) -> some View {
+        ListPickerItem(configuration)
+            .formViewStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension ListPickerItemStyle where Self == ListPickerItemFormViewStyle {
+    static func formViewStyle(_ style: some FormViewStyle) -> ListPickerItemFormViewStyle {
+        ListPickerItemFormViewStyle(style: style)
+    }
+
+    static func formViewStyle(@ViewBuilder content: @escaping (FormViewConfiguration) -> some View) -> ListPickerItemFormViewStyle {
+        let style = AnyFormViewStyle(content)
+        return ListPickerItemFormViewStyle(style: style)
+    }
+}
+
 // MARK: LoadingIndicatorViewStyle
 
 public extension LoadingIndicatorViewStyle where Self == LoadingIndicatorViewBaseStyle {
