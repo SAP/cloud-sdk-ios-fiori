@@ -419,6 +419,10 @@ struct BannerMessageModifier: ViewModifier {
                     .environment(\.openURL, OpenURLAction(handler: { url in
                         if url.absoluteString == "ViewDetails" {
                             self.showingMessageDetail = true
+                            
+                            if UIDevice.current.userInterfaceIdiom == .phone {
+                                self.isPresented = false
+                            }
                         }
                         return .handled
                     }))
