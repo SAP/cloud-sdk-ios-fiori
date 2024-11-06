@@ -147,6 +147,22 @@ extension BannerMessageStyle {
     }
 }
 
+// MARK: BannerMultiMessageSheetStyle
+
+struct ResolvedBannerMultiMessageSheetStyle<Style: BannerMultiMessageSheetStyle>: View {
+    let style: Style
+    let configuration: BannerMultiMessageSheetConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension BannerMultiMessageSheetStyle {
+    func resolve(configuration: BannerMultiMessageSheetConfiguration) -> some View {
+        ResolvedBannerMultiMessageSheetStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: CancelActionStyle
 
 struct ResolvedCancelActionStyle<Style: CancelActionStyle>: View {
@@ -784,6 +800,22 @@ struct ResolvedListPickerItemStyle<Style: ListPickerItemStyle>: View {
 extension ListPickerItemStyle {
     func resolve(configuration: ListPickerItemConfiguration) -> some View {
         ResolvedListPickerItemStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: LoadingIndicatorViewStyle
+
+struct ResolvedLoadingIndicatorViewStyle<Style: LoadingIndicatorViewStyle>: View {
+    let style: Style
+    let configuration: LoadingIndicatorViewConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension LoadingIndicatorViewStyle {
+    func resolve(configuration: LoadingIndicatorViewConfiguration) -> some View {
+        ResolvedLoadingIndicatorViewStyle(style: self, configuration: configuration)
     }
 }
 

@@ -281,6 +281,9 @@
 /* XACT: The accessibility hint for Text Input Views, editing, with clear button */
 "Text field, is editing. Double tap to clear text" = "Text field, is editing. Double tap to clear text";
 
+/* XACT: The default accessibility label for the custom action in TextFieldFormView if none was specified */
+"Custom Action" = "Custom Action";
+
 /* XBUT: Error messages shown to users in DocumentScannerView */
 "Failed to create PDF page from images" = "Failed to create PDF page from images.";
 

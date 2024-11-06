@@ -255,6 +255,62 @@ public extension BannerMessageStyle where Self == BannerMessageTopDividerStyle {
     }
 }
 
+// MARK: BannerMultiMessageSheetStyle
+
+public extension BannerMultiMessageSheetStyle where Self == BannerMultiMessageSheetBaseStyle {
+    static var base: BannerMultiMessageSheetBaseStyle {
+        BannerMultiMessageSheetBaseStyle()
+    }
+}
+
+public extension BannerMultiMessageSheetStyle where Self == BannerMultiMessageSheetFioriStyle {
+    static var fiori: BannerMultiMessageSheetFioriStyle {
+        BannerMultiMessageSheetFioriStyle()
+    }
+}
+
+public struct BannerMultiMessageSheetTitleStyle: BannerMultiMessageSheetStyle {
+    let style: any TitleStyle
+
+    public func makeBody(_ configuration: BannerMultiMessageSheetConfiguration) -> some View {
+        BannerMultiMessageSheet(configuration)
+            .titleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension BannerMultiMessageSheetStyle where Self == BannerMultiMessageSheetTitleStyle {
+    static func titleStyle(_ style: some TitleStyle) -> BannerMultiMessageSheetTitleStyle {
+        BannerMultiMessageSheetTitleStyle(style: style)
+    }
+
+    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> BannerMultiMessageSheetTitleStyle {
+        let style = AnyTitleStyle(content)
+        return BannerMultiMessageSheetTitleStyle(style: style)
+    }
+}
+
+public struct BannerMultiMessageSheetCloseActionStyle: BannerMultiMessageSheetStyle {
+    let style: any CloseActionStyle
+
+    public func makeBody(_ configuration: BannerMultiMessageSheetConfiguration) -> some View {
+        BannerMultiMessageSheet(configuration)
+            .closeActionStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension BannerMultiMessageSheetStyle where Self == BannerMultiMessageSheetCloseActionStyle {
+    static func closeActionStyle(_ style: some CloseActionStyle) -> BannerMultiMessageSheetCloseActionStyle {
+        BannerMultiMessageSheetCloseActionStyle(style: style)
+    }
+
+    static func closeActionStyle(@ViewBuilder content: @escaping (CloseActionConfiguration) -> some View) -> BannerMultiMessageSheetCloseActionStyle {
+        let style = AnyCloseActionStyle(content)
+        return BannerMultiMessageSheetCloseActionStyle(style: style)
+    }
+}
+
 // MARK: CancelActionStyle
 
 public extension CancelActionStyle where Self == CancelActionBaseStyle {
@@ -2765,6 +2821,41 @@ public extension ListPickerItemStyle where Self == ListPickerItemValueStyle {
     static func valueStyle(@ViewBuilder content: @escaping (ValueConfiguration) -> some View) -> ListPickerItemValueStyle {
         let style = AnyValueStyle(content)
         return ListPickerItemValueStyle(style: style)
+    }
+}
+
+// MARK: LoadingIndicatorViewStyle
+
+public extension LoadingIndicatorViewStyle where Self == LoadingIndicatorViewBaseStyle {
+    static var base: LoadingIndicatorViewBaseStyle {
+        LoadingIndicatorViewBaseStyle()
+    }
+}
+
+public extension LoadingIndicatorViewStyle where Self == LoadingIndicatorViewFioriStyle {
+    static var fiori: LoadingIndicatorViewFioriStyle {
+        LoadingIndicatorViewFioriStyle()
+    }
+}
+
+public struct LoadingIndicatorViewTitleStyle: LoadingIndicatorViewStyle {
+    let style: any TitleStyle
+
+    public func makeBody(_ configuration: LoadingIndicatorViewConfiguration) -> some View {
+        LoadingIndicatorView(configuration)
+            .titleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension LoadingIndicatorViewStyle where Self == LoadingIndicatorViewTitleStyle {
+    static func titleStyle(_ style: some TitleStyle) -> LoadingIndicatorViewTitleStyle {
+        LoadingIndicatorViewTitleStyle(style: style)
+    }
+
+    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> LoadingIndicatorViewTitleStyle {
+        let style = AnyTitleStyle(content)
+        return LoadingIndicatorViewTitleStyle(style: style)
     }
 }
 

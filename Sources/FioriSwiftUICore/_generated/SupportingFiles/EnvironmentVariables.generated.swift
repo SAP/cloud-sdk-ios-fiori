@@ -192,6 +192,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: BannerMultiMessageSheetStyle
+
+struct BannerMultiMessageSheetStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any BannerMultiMessageSheetStyle] = []
+}
+
+extension EnvironmentValues {
+    var bannerMultiMessageSheetStyle: any BannerMultiMessageSheetStyle {
+        self.bannerMultiMessageSheetStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var bannerMultiMessageSheetStyleStack: [any BannerMultiMessageSheetStyle] {
+        get {
+            self[BannerMultiMessageSheetStyleStackKey.self]
+        }
+        set {
+            self[BannerMultiMessageSheetStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: CancelActionStyle
 
 struct CancelActionStyleStackKey: EnvironmentKey {
@@ -1028,6 +1049,27 @@ extension EnvironmentValues {
         }
         set {
             self[ListPickerItemStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: LoadingIndicatorViewStyle
+
+struct LoadingIndicatorViewStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any LoadingIndicatorViewStyle] = []
+}
+
+extension EnvironmentValues {
+    var loadingIndicatorViewStyle: any LoadingIndicatorViewStyle {
+        self.loadingIndicatorViewStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var loadingIndicatorViewStyleStack: [any LoadingIndicatorViewStyle] {
+        get {
+            self[LoadingIndicatorViewStyleStackKey.self]
+        }
+        set {
+            self[LoadingIndicatorViewStyleStackKey.self] = newValue
         }
     }
 }
