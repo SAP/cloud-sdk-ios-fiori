@@ -10,7 +10,7 @@ public struct MandatoryFieldIndicator {
 
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder mandatoryFieldIndicator: () -> any View = { EmptyView() }) {
+    public init(@ViewBuilder mandatoryFieldIndicator: () -> any View = { Text("*") }) {
         self.mandatoryFieldIndicator = mandatoryFieldIndicator()
     }
 }
