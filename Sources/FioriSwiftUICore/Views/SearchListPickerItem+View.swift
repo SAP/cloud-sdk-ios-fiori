@@ -104,7 +104,7 @@ extension SearchListPickerItem: View {
             .environment(\.defaultMinListRowHeight, 0)
             .environment(\.defaultMinListHeaderHeight, 0)
             .ifApply(!isSearchBarHidden, content: { v in
-                v.searchable(text: $_searchText, placement: .automatic)
+                v.searchable(text: $_searchText, placement: .navigationBarDrawer(displayMode: .always))
                     .onReceive(NotificationCenter.default.publisher(for: UIApplication.keyboardDidShowNotification)) { notif in
                         let rect = (notif.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect) ?? .zero
                         self._keyboardHeight = rect.height
