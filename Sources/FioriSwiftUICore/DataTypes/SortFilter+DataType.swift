@@ -365,6 +365,7 @@ public extension SortFilterItem {
         public var displayMode: DisplayMode = .automatic
         /// If seachBar in list display mode is shown. Default is `false`.
         public var isSearchBarHidden: Bool = false
+        var disableListEntriesSection: Bool = false
 
         /// Available OptionListPicker modes. Use this enum to define picker mode  to present.
         public enum DisplayMode {
@@ -390,7 +391,18 @@ public extension SortFilterItem {
             case nameAndValue
         }
         
-        public init(id: String = UUID().uuidString, name: String, value: [Int], valueOptions: [String], allowsMultipleSelection: Bool, allowsEmptySelection: Bool, barItemDisplayMode: BarItemDisplayMode = .name, isSearchBarHidden: Bool = false, icon: String? = nil, itemLayout: OptionListPickerItemLayoutType = .fixed, displayMode: DisplayMode = .automatic) {
+        /// Enum for list show entries section
+        ///  The default value is `.default`.
+        public enum ListEntriesSectionMode {
+            /// Depend on 'allowsMultipleSelection'
+            case `default`
+            /// Enable
+            case enable
+            /// Disable
+            case disable
+        }
+        
+        public init(id: String = UUID().uuidString, name: String, value: [Int], valueOptions: [String], allowsMultipleSelection: Bool, allowsEmptySelection: Bool, barItemDisplayMode: BarItemDisplayMode = .name, isSearchBarHidden: Bool = false, icon: String? = nil, itemLayout: OptionListPickerItemLayoutType = .fixed, displayMode: DisplayMode = .automatic, listEntriesSectionMode: ListEntriesSectionMode = .default) {
             self.id = id
             self.name = name
             self.value = value
@@ -404,6 +416,15 @@ public extension SortFilterItem {
             self.icon = icon
             self.itemLayout = itemLayout
             self.displayMode = displayMode
+            
+            switch listEntriesSectionMode {
+            case .default:
+                self.disableListEntriesSection = allowsMultipleSelection ? false : true
+            case .disable:
+                self.disableListEntriesSection = true
+            case .enable:
+                self.disableListEntriesSection = false
+            }
         }
         
         mutating func onTap(option: String) {
