@@ -291,6 +291,22 @@ extension CardMediaStyle {
     }
 }
 
+// MARK: CheckoutIndicatorStyle
+
+struct ResolvedCheckoutIndicatorStyle<Style: CheckoutIndicatorStyle>: View {
+    let style: Style
+    let configuration: CheckoutIndicatorConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension CheckoutIndicatorStyle {
+    func resolve(configuration: CheckoutIndicatorConfiguration) -> some View {
+        ResolvedCheckoutIndicatorStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: CloseActionStyle
 
 struct ResolvedCloseActionStyle<Style: CloseActionStyle>: View {

@@ -381,6 +381,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: CheckoutIndicatorStyle
+
+struct CheckoutIndicatorStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any CheckoutIndicatorStyle] = []
+}
+
+extension EnvironmentValues {
+    var checkoutIndicatorStyle: any CheckoutIndicatorStyle {
+        self.checkoutIndicatorStyleStack.last ?? .base
+    }
+
+    var checkoutIndicatorStyleStack: [any CheckoutIndicatorStyle] {
+        get {
+            self[CheckoutIndicatorStyleStackKey.self]
+        }
+        set {
+            self[CheckoutIndicatorStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: CloseActionStyle
 
 struct CloseActionStyleStackKey: EnvironmentKey {
