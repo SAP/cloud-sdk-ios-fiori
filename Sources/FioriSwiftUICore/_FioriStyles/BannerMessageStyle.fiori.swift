@@ -20,7 +20,7 @@ public enum BannerMultiMessageType: Int {
 public struct BannerMessageBaseStyle: BannerMessageStyle {
     public func makeBody(_ configuration: BannerMessageConfiguration) -> some View {
         VStack(spacing: 0) {
-            configuration.topDivider.background(BannerMessageFioriStyle.titleForegroundColor(type: configuration.messageType)).frame(height: 4)
+            configuration.topDivider.frame(height: 4)
             HStack {
                 HStack(spacing: 6, content: {
                     switch configuration.alignment {
@@ -42,7 +42,6 @@ public struct BannerMessageBaseStyle: BannerMessageStyle {
                             .padding([.top, .bottom], 13)
                     }
                 })
-                .foregroundStyle(BannerMessageFioriStyle.titleForegroundColor(type: configuration.messageType))
                 .padding(.leading, configuration.alignment == .center ? 44 : 16)
                 .padding(.trailing, configuration.alignment == .center ? 0 : 16)
                 .onTapGesture {
@@ -60,6 +59,63 @@ public struct BannerMessageBaseStyle: BannerMessageStyle {
         }
         .drawingGroup()
         .background(Color.preferredColor(.tertiaryBackground))
+    }
+}
+
+struct BannerMessageNeutralStyle: BannerMessageStyle {
+    public func makeBody(_ configuration: BannerMessageConfiguration) -> some View {
+        BannerMessage(configuration)
+            .iconStyle { c in
+                c.icon.foregroundStyle(BannerMessageFioriStyle.titleForegroundColor(type: .neutral))
+            }
+    }
+}
+
+struct BannerMessageNegativeStyle: BannerMessageStyle {
+    public func makeBody(_ configuration: BannerMessageConfiguration) -> some View {
+        BannerMessage(configuration)
+            .iconStyle { c in
+                c.icon.foregroundStyle(BannerMessageFioriStyle.titleForegroundColor(type: .negative))
+            }
+            .titleStyle(content: { c in
+                c.title.foregroundStyle(BannerMessageFioriStyle.titleForegroundColor(type: .negative))
+            })
+    }
+}
+
+struct BannerMessageCriticalStyle: BannerMessageStyle {
+    public func makeBody(_ configuration: BannerMessageConfiguration) -> some View {
+        BannerMessage(configuration)
+            .iconStyle { c in
+                c.icon.foregroundStyle(BannerMessageFioriStyle.titleForegroundColor(type: .critical))
+            }
+            .titleStyle(content: { c in
+                c.title.foregroundStyle(BannerMessageFioriStyle.titleForegroundColor(type: .critical))
+            })
+    }
+}
+
+struct BannerMessagePositiveStyle: BannerMessageStyle {
+    public func makeBody(_ configuration: BannerMessageConfiguration) -> some View {
+        BannerMessage(configuration)
+            .iconStyle { c in
+                c.icon.foregroundStyle(BannerMessageFioriStyle.titleForegroundColor(type: .positive))
+            }
+            .titleStyle(content: { c in
+                c.title.foregroundStyle(BannerMessageFioriStyle.titleForegroundColor(type: .positive))
+            })
+    }
+}
+
+struct BannerMessageInformativeStyle: BannerMessageStyle {
+    public func makeBody(_ configuration: BannerMessageConfiguration) -> some View {
+        BannerMessage(configuration)
+            .iconStyle { c in
+                c.icon.foregroundStyle(BannerMessageFioriStyle.titleForegroundColor(type: .informative))
+            }
+            .titleStyle(content: { c in
+                c.title.foregroundStyle(BannerMessageFioriStyle.titleForegroundColor(type: .informative))
+            })
     }
 }
 
@@ -92,6 +148,7 @@ extension BannerMessageFioriStyle {
         
         func makeBody(_ configuration: IconConfiguration) -> some View {
             Icon(configuration)
+                .foregroundStyle(BannerMessageFioriStyle.titleForegroundColor(type: self.bannerMessageConfiguration.messageType))
         }
     }
 
@@ -118,6 +175,7 @@ extension BannerMessageFioriStyle {
     
         func makeBody(_ configuration: TopDividerConfiguration) -> some View {
             TopDivider(configuration)
+                .background(BannerMessageFioriStyle.titleForegroundColor(type: self.bannerMessageConfiguration.messageType))
         }
     }
 }
@@ -366,7 +424,11 @@ struct BannerMessageModifier: ViewModifier {
                     }))
                     .frame(minWidth: (UIDevice.current.userInterfaceIdiom != .phone && self.alignment != .center) ? 393 : nil, alignment: .leading)
                     .popover(isPresented: self.$showingMessageDetail) {
-                        BannerMultiMessageSheet(closeAction: {
+                        BannerMultiMessageSheet(title: {
+                            EmptyView()
+                        }, closeAction: {
+                            EmptyView()
+                        }, dismissAction: {
                             self.showingMessageDetail = false
                         }, removeAction: { _, _ in
                             if self.bannerMultiMessages.isEmpty {
