@@ -3,7 +3,11 @@
 import SwiftUI
 
 public extension InfoViewModel {
-    var progressIndicator: ProgressIndicatorModel? {
+    var showLoadingIndicator: Bool? {
+        return nil
+    }
+
+	var loadingIndicatorText: String? {
         return nil
     }
 
