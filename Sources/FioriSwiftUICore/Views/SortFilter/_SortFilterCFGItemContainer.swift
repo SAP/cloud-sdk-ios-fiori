@@ -33,15 +33,13 @@ extension _SortFilterCFGItemContainer: View {
                     ForEach(0 ..< self._items[r].count, id: \.self) { c in
                         self.rowView(row: r, column: c)
                             .listRowSeparator(c == self._items[r].count - 1 ? .hidden : .visible, edges: .all)
+                            .padding([.leading, .trailing], UIDevice.current.userInterfaceIdiom != .phone ? 13 : 16)
                     }
                 } footer: {
                     Rectangle().fill(Color.preferredColor(.primaryGroupedBackground))
-                        .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? self.popoverWidth : Screen.bounds.size.width, height: 30)
                 }
                 .listSectionSeparator(.hidden, edges: .all)
                 .listRowInsets(EdgeInsets())
-                .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? self.popoverWidth - 13 * 2 : Screen.bounds.size.width - 16 * 2)
-                .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? self.popoverWidth : Screen.bounds.size.width)
                 .background(Color.preferredColor(.secondaryGroupedBackground))
             }
         }
@@ -53,10 +51,10 @@ extension _SortFilterCFGItemContainer: View {
         .modifier(FioriIntrospectModifier<UIScrollView> { scrollView in
             DispatchQueue.main.async {
                 let popverHeight = Screen.bounds.size.height - StatusBar.height
-                let totalSpacing: CGFloat = (UIDevice.current.userInterfaceIdiom == .pad ? 8 : 16) * 2
-                let totalPadding: CGFloat = (UIDevice.current.userInterfaceIdiom == .pad ? 13 : 16) * 2
+                let totalSpacing: CGFloat = (UIDevice.current.userInterfaceIdiom != .phone ? 8 : 16) * 2
+                let totalPadding: CGFloat = (UIDevice.current.userInterfaceIdiom != .phone ? 13 : 16) * 2
                 let safeAreaInset = self.getSafeAreaInsets()
-                var maxScrollViewHeight = popverHeight - totalSpacing - totalPadding - safeAreaInset.top - safeAreaInset.bottom - (UIDevice.current.userInterfaceIdiom == .pad ? 150 : 30)
+                var maxScrollViewHeight = popverHeight - totalSpacing - totalPadding - safeAreaInset.top - safeAreaInset.bottom - (UIDevice.current.userInterfaceIdiom != .phone ? 130 : 30)
                 maxScrollViewHeight -= self._keyboardHeight
                 self.height = min(scrollView.contentSize.height, maxScrollViewHeight)
             }
@@ -131,11 +129,11 @@ extension _SortFilterCFGItemContainer: View {
                 .padding([.top], 12)
         case .datetime:
             self.datetimePicker(row: r, column: c)
-                .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? self.popoverWidth : Screen.bounds.size.width)
+                .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? self.popoverWidth : Screen.bounds.size.width)
                 .padding([.top, .bottom], 12)
         case .stepper:
             self.stepper(row: r, column: c)
-                .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? self.popoverWidth : Screen.bounds.size.width)
+                .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? self.popoverWidth : Screen.bounds.size.width)
                 .padding([.top, .bottom], 12)
         }
     }
@@ -155,10 +153,9 @@ extension _SortFilterCFGItemContainer: View {
                 self._items[r][c].picker.selectAll(isAll)
             } updateSearchListPickerHeight: { height in
                 if self._keyboardHeight > 0 {
-                    let safeAreaInset = self.getSafeAreaInsets()
-                    self.searchListHeight = height + StatusBar.height + safeAreaInset.top + safeAreaInset.bottom + (UIDevice.current.userInterfaceIdiom == .pad ? 150 : 30)
+                    self.searchListHeight = height + (UIDevice.current.userInterfaceIdiom != .phone ? 230 : 150)
                 } else {
-                    self.searchListHeight = height + 52 + (UIDevice.current.userInterfaceIdiom == .pad ? 150 : 30)
+                    self.searchListHeight = self.height
                 }
             }
             .frame(height: self.searchListHeight)
@@ -273,7 +270,7 @@ extension _SortFilterCFGItemContainer: View {
                     .foregroundColor(Color.preferredColor(.primaryLabel))
                 Spacer()
             }
-            .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? self.popoverWidth - 13 * 2 : Screen.bounds.size.width - 16 * 2)
+            .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? self.popoverWidth - 13 * 2 : Screen.bounds.size.width - 16 * 2)
 
             HStack {
                 Text(NSLocalizedString("Time", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""))
@@ -287,7 +284,7 @@ extension _SortFilterCFGItemContainer: View {
                 )
                 .labelsHidden()
             }
-            .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? self.popoverWidth - 13 * 2 : Screen.bounds.size.width - 16 * 2)
+            .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? self.popoverWidth - 13 * 2 : Screen.bounds.size.width - 16 * 2)
             
             DatePicker(
                 "",
@@ -296,7 +293,7 @@ extension _SortFilterCFGItemContainer: View {
             )
             .datePickerStyle(.graphical)
             .labelsHidden()
-            .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? self.popoverWidth - 13 : Screen.bounds.size.width - 16)
+            .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? self.popoverWidth - 13 : Screen.bounds.size.width - 16)
             .clipped()
         }
     }
@@ -343,7 +340,7 @@ extension _SortFilterCFGItemContainer: View {
                     .font(.fiori(forTextStyle: .subheadline, weight: .bold, isItalic: false, isCondensed: false))
                     .foregroundColor(Color.preferredColor(.primaryLabel))
                 Spacer()
-            }.padding([.leading, .trailing], UIDevice.current.userInterfaceIdiom == .pad ? 13 : 16)
+            }.padding([.leading, .trailing], UIDevice.current.userInterfaceIdiom != .phone ? 13 : 16)
             
             StepperView(
                 title: { Text(self._items[r][c].stepper.stepperTitle) },

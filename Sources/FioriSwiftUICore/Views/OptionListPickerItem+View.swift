@@ -62,10 +62,10 @@ extension OptionListPickerItem: View {
                     Color.clear
                         .onAppear {
                             let popverHeight = Screen.bounds.size.height - StatusBar.height
-                            let totalSpacing: CGFloat = (UIDevice.current.userInterfaceIdiom == .pad ? 8 : 16) * 2
-                            let totalPadding: CGFloat = (UIDevice.current.userInterfaceIdiom == .pad ? 13 : 16) * 2
+                            let totalSpacing: CGFloat = (UIDevice.current.userInterfaceIdiom != .phone ? 8 : 16) * 2
+                            let totalPadding: CGFloat = (UIDevice.current.userInterfaceIdiom != .phone ? 13 : 16) * 2
                             let safeAreaInset = self.getSafeAreaInsets()
-                            let maxScrollViewHeight = popverHeight - totalSpacing - totalPadding - safeAreaInset.top - safeAreaInset.bottom - (UIDevice.current.userInterfaceIdiom == .pad ? 210 : 30)
+                            let maxScrollViewHeight = popverHeight - totalSpacing - totalPadding - safeAreaInset.top - safeAreaInset.bottom - (UIDevice.current.userInterfaceIdiom != .phone ? 210 : 30)
                             self._height = min(geometry.size.height, maxScrollViewHeight)
                         }
                 }
@@ -93,10 +93,10 @@ extension OptionListPickerItem: View {
                     Color.clear
                         .onAppear {
                             let popverHeight = Screen.bounds.size.height - StatusBar.height
-                            let totalSpacing: CGFloat = (UIDevice.current.userInterfaceIdiom == .pad ? 8 : 16) * 2
-                            let totalPadding: CGFloat = (UIDevice.current.userInterfaceIdiom == .pad ? 13 : 16) * 2
+                            let totalSpacing: CGFloat = (UIDevice.current.userInterfaceIdiom != .phone ? 8 : 16) * 2
+                            let totalPadding: CGFloat = (UIDevice.current.userInterfaceIdiom != .phone ? 13 : 16) * 2
                             let safeAreaInset = self.getSafeAreaInsets()
-                            let maxScrollViewHeight = popverHeight - totalSpacing - totalPadding - safeAreaInset.top - safeAreaInset.bottom - (UIDevice.current.userInterfaceIdiom == .pad ? 210 : 30)
+                            let maxScrollViewHeight = popverHeight - totalSpacing - totalPadding - safeAreaInset.top - safeAreaInset.bottom - (UIDevice.current.userInterfaceIdiom != .phone ? 210 : 30)
                             self._height = min(geometry.size.height, maxScrollViewHeight)
                         }
                 }
@@ -148,7 +148,7 @@ struct OptionListPickerCustomLayout: Layout {
         }
         var containerHeight = 0.0
         var currentRowX = 0.0
-        let padding = UIDevice.current.userInterfaceIdiom == .pad ? 13.0 : 16.0
+        let padding = UIDevice.current.userInterfaceIdiom != .phone ? 13.0 : 16.0
         for index in 0 ..< subviews.count {
             let subview = subviews[index]
             let subviewSize = subview.sizeThatFits(.unspecified)
@@ -170,7 +170,7 @@ struct OptionListPickerCustomLayout: Layout {
         guard let containerWidth = proposal.width else { return }
         var currentY: CGFloat = bounds.minY
         var currentRowX = 0.0
-        let padding = UIDevice.current.userInterfaceIdiom == .pad ? 13.0 : 16.0
+        let padding = UIDevice.current.userInterfaceIdiom != .phone ? 13.0 : 16.0
         for subview in subviews {
             let subviewSize = subview.sizeThatFits(.unspecified)
             let subviewWidth = min(subviewSize.width, containerWidth - CGFloat(padding * 2))

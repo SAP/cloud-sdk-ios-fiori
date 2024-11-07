@@ -87,16 +87,11 @@ extension SearchListPickerItem: View {
                     let safeAreaInset = self.getSafeAreaInsets()
                     var maxScrollViewHeight = popverHeight - totalSpacing - totalPadding - (self.isSearchBarHidden ? 0 : 52) - 56 - safeAreaInset.top - safeAreaInset.bottom - (UIDevice.current.userInterfaceIdiom != .phone ? 250 : 30)
                     maxScrollViewHeight -= self._keyboardHeight
-                    self._height = min(scrollView.contentSize.height, maxScrollViewHeight)
-                    var isSelectAllViewShow = false
-                    if allowsMultipleSelection {
-                        if _value.count != _valueOptions.count || allowsEmptySelection {
-                            isSelectAllViewShow = true
-                        }
-                    } else if _value.count == _valueOptions.count {
-                        isSelectAllViewShow = true
+                    if self._keyboardHeight > 0 {
+                        maxScrollViewHeight += 56
                     }
-                    updateSearchListPickerHeight?(isSelectAllViewShow ? self._height + 44 : self._height)
+                    self._height = min(scrollView.contentSize.height, maxScrollViewHeight)
+                    updateSearchListPickerHeight?(self._height)
                 }
             })
             .listStyle(PlainListStyle())
