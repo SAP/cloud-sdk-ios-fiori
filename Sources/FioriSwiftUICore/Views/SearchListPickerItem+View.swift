@@ -30,9 +30,8 @@ extension SearchListPickerItem: View {
         VStack(spacing: 0) {
             List {
                 if !disableListEntriesSection, _value.count > 0 {
-                    self.selectionHeader()
-                    
                     Section {
+                        self.selectionHeader()
                         let selectedOptions = _value.wrappedValue.map { _valueOptions[$0] }
                         ForEach(selectedOptions.filter { _searchText.isEmpty || $0.localizedStandardContains(_searchText) }, id: \.self) { item in
                             self.rowView(value: item, isSelected: true)
