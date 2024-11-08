@@ -133,7 +133,6 @@ extension _SortFilterCFGItemContainer: View {
                 .padding([.top, .bottom], 12)
         case .stepper:
             self.stepper(row: r, column: c)
-                .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? self.popoverWidth : Screen.bounds.size.width)
                 .padding([.top, .bottom], 12)
         }
     }
@@ -376,6 +375,7 @@ extension _SortFilterCFGItemContainer: View {
                 v.incrementActionStyle(.deactivate)
             }
             .frame(minHeight: self.stepperViewHeight)
+            .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? self.popoverWidth : Screen.bounds.size.width)
             .padding(0)
             .sizeReader { s in
                 self.stepperViewHeight = max(self.stepperViewHeight, s.height)
