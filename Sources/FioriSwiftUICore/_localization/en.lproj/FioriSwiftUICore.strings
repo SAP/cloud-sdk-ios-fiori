@@ -269,6 +269,8 @@
 "Select All" = "Select All";
 /* XBUT: The \"Deselect All\" button title on the List Picker header */
 "Deselect All" = "Deselect All";
+/* XBUT: The \"Selected\" title on the List Picker header */
+"Selected" = "Selected";
 
 /* XACT: The accessibility hint for Text Input Views, editable */
 "Text field, Double tap to edit" = "Text field, Double tap to edit";

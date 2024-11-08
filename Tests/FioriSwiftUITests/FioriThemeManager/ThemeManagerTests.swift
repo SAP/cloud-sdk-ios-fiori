@@ -280,7 +280,7 @@ class ThemeManagerTests: XCTestCase {
             let raspberry10 = tm.hexColor(for: .raspberry10)
             XCTAssertEqual(raspberry10, HexColor(lightColor: "FFDCE8FF", darkColor: "71014BFF", contrastLightColor: "FFF0F5FF", contrastDarkColor: "320021FF"))
             let chart1 = tm.hexColor(for: .chart1)
-            XCTAssertEqual(chart1, HexColor(lightColor: "3278BEFF", darkColor: "3278BEFF", contrastLightColor: "8BABCBFF", contrastDarkColor: "446E97FF"))
+            XCTAssertEqual(chart1, HexColor(lightColor: "168EFFFF", darkColor: "168EFFFF", contrastLightColor: "8BABCBFF", contrastDarkColor: "446E97FF"))
             let chart2 = tm.hexColor(for: .chart2)
             XCTAssertEqual(chart2, HexColor(lightColor: "F2A634FF", darkColor: "C87B00FF", contrastLightColor: "ED8859FF", contrastDarkColor: "D74114FF"))
             let chart3 = tm.hexColor(for: .chart3)

@@ -198,7 +198,7 @@ struct PaletteV8: PaletteProvider {
         .chrome: HexColor(lightColor: "000000BF", darkColor: "FFFFFFD9", elevatedLightColor: "171D23BF", contrastLightColor: "000000E6", contrastDarkColor: "FFFFFFE6", elevatedContrastLightColor: "192024E6"),
         .chromeSecondary: HexColor(lightColor: "161C21BF", darkColor: "FFFFFFD9", elevatedLightColor: "242D37BF", contrastLightColor: "1D252AE6", contrastDarkColor: "FFFFFFE6", elevatedContrastLightColor: "212B30E6"),
         /// Chart Colors
-        .chart1: HexColor(lightColor: "3278BEFF", darkColor: "3278BEFF", contrastLightColor: "8BABCBFF", contrastDarkColor: "446E97FF"),
+        .chart1: HexColor(lightColor: "168EFFFF", darkColor: "168EFFFF", contrastLightColor: "8BABCBFF", contrastDarkColor: "446E97FF"),
         .chart2: HexColor(lightColor: "F2A634FF", darkColor: "C87B00FF", contrastLightColor: "ED8859FF", contrastDarkColor: "D74114FF"),
         .chart3: HexColor(lightColor: "B4CE35FF", darkColor: "75980BFF", contrastLightColor: "9FB822FF", contrastDarkColor: "2D6F51FF"),
         .chart4: HexColor(lightColor: "FA4F96FF", darkColor: "DF1278FF", contrastLightColor: "FE74AEFF", contrastDarkColor: "DF1278FF"),
