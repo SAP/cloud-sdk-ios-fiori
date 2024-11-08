@@ -796,3 +796,11 @@ extension ValueLabel: _ViewEmptyChecking {
         valueLabel.isEmpty
     }
 }
+
+extension ValuePicker: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        title.isEmpty &&
+            valueLabel.isEmpty &&
+            mandatoryFieldIndicator.isEmpty
+    }
+}
