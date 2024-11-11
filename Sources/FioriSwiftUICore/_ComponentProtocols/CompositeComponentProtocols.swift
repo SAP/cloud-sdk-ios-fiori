@@ -669,7 +669,7 @@ protocol _LoadingIndicatorViewComponent: _TitleComponent {
     var isPresented: Bool { get }
 }
 
-/// `ValuePicker`  provides a title and value label with Fiori styling and a wheel-style`Picker`.
+/// `ValuePicker`  provides a title and value label with Fiori styling and a wheel-style `Picker`.
 ///
 /// ## Usage
 /// ```swift
@@ -687,7 +687,7 @@ protocol _LoadingIndicatorViewComponent: _TitleComponent {
 // sourcery: CompositeComponent
 protocol _ValuePickerComponent: _TitleComponent, _ValueLabelComponent, _MandatoryField, _OptionsComponent {
     // sourcery: @Binding
-    /// The selected value index of the Value Picker
+    /// The index for the selected value in the valueOptions.
     var selectedIndex: Int { get }
 
     /// When `isTrackingLiveChanges` is true, the value will be shown every time a selection is made. If it is set to false, the value will only be displayed when the value picker is collapsed. The default setting is true.
@@ -699,6 +699,6 @@ protocol _ValuePickerComponent: _TitleComponent, _ValueLabelComponent, _Mandator
     var alwaysShowPicker: Bool { get set }
     
     // sourcery: defaultValue = .normal
-    /// The `ControlState` of the  view. The default is `normal`
+    /// The `ControlState` of the  view. Currently, `.disabled`, `.normal` and `.readOnly` are supported. The default is `normal`.
     var controlState: ControlState { get }
 }
