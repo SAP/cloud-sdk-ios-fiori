@@ -183,6 +183,9 @@ struct PickerMenuItem: View {
                     }
                     .padding([.leading, .trailing], UIDevice.current.userInterfaceIdiom == .pad ? 13 : 16)
                 }
+                .ifApply(UIDevice.current.userInterfaceIdiom != .phone, content: { v in
+                    v.frame(minHeight: 155)
+                })
                 .readHeight()
                 .onPreferenceChange(HeightPreferenceKey.self) { height in
                     if let height {
@@ -249,7 +252,7 @@ struct PickerMenuItem: View {
                     })
                     .buttonStyle(ApplyButtonStyle())
                 } components: {
-                    SearchListPickerItem(value: self.$item.workingValue, valueOptions: self.item.valueOptions, hint: nil, allowsMultipleSelection: self.item.allowsMultipleSelection, allowsEmptySelection: self.item.allowsEmptySelection, isSearchBarHidden: self.item.isSearchBarHidden) { index in
+                    SearchListPickerItem(value: self.$item.workingValue, valueOptions: self.item.valueOptions, hint: nil, allowsMultipleSelection: self.item.allowsMultipleSelection, allowsEmptySelection: self.item.allowsEmptySelection, isSearchBarHidden: self.item.isSearchBarHidden, disableListEntriesSection: self.item.disableListEntriesSection) { index in
                         self.item.onTap(option: self.item.valueOptions[index])
                     } selectAll: { isAll in
                         self.item.selectAll(isAll)

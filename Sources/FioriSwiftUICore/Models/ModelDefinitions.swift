@@ -546,6 +546,7 @@ public protocol OptionListPickerItemModel: OptionListPickerComponent {
 // sourcery: virtualPropPopoverWidth = "let popoverWidth = 393.0"
 // sourcery: virtualPropIsSearchBarHidden = "var isSearchBarHidden: Bool = false"
 // sourcery: virtualPropKeyboardHeight = "@State var _keyboardHeight: CGFloat = 0.0"
+// sourcery: virtualPropDisableListEntriesSection = "var disableListEntriesSection: Bool = false"
 public protocol SearchListPickerItemModel: OptionListPickerComponent {
     // sourcery: default.value = nil
     // sourcery: no_view
