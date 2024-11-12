@@ -26,7 +26,7 @@ struct CancellableResettableDialogForm<Title: View, CancelAction: View, ResetAct
     }
     
     var body: some View {
-        VStack(spacing: UIDevice.current.userInterfaceIdiom == .pad ? 8 : 16) {
+        VStack(spacing: UIDevice.current.userInterfaceIdiom != .phone ? 8 : 16) {
             HStack {
                 self.cancelAction
                 Spacer()
@@ -34,7 +34,7 @@ struct CancellableResettableDialogForm<Title: View, CancelAction: View, ResetAct
                 Spacer()
                 self.resetAction
             }
-            .padding([.leading, .trailing], UIDevice.current.userInterfaceIdiom == .pad ? 13 : 16)
+            .padding([.leading, .trailing], UIDevice.current.userInterfaceIdiom != .phone ? 13 : 16)
 
             #if !os(visionOS)
                 self.components.background(Color.preferredColor(.secondaryGroupedBackground))
@@ -44,7 +44,7 @@ struct CancellableResettableDialogForm<Title: View, CancelAction: View, ResetAct
             self.applyAction
         }
         .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? self.popoverWidth : nil)
-        .padding([.top, .bottom], UIDevice.current.userInterfaceIdiom == .pad ? 13 : 16)
+        .padding([.top, .bottom], UIDevice.current.userInterfaceIdiom != .phone ? 13 : 16)
         #if !os(visionOS)
             .background(Color.preferredColor(.chromeSecondary))
         #else
@@ -79,7 +79,7 @@ struct CancellableResettableDialogNavigationForm<Title: View, CancelAction: View
     
     var body: some View {
         NavigationStack {
-            VStack(spacing: UIDevice.current.userInterfaceIdiom == .pad ? 8 : 16) {
+            VStack(spacing: UIDevice.current.userInterfaceIdiom != .phone ? 8 : 16) {
                 #if !os(visionOS)
                     self.components.background(Color.preferredColor(.secondaryGroupedBackground))
                 #else
@@ -101,7 +101,7 @@ struct CancellableResettableDialogNavigationForm<Title: View, CancelAction: View
             }
         }
         .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? self.popoverWidth : nil)
-        .padding([.bottom], UIDevice.current.userInterfaceIdiom == .pad ? 13 : 16)
+        .padding([.bottom], UIDevice.current.userInterfaceIdiom != .phone ? 13 : 16)
         #if !os(visionOS)
             .background(Color.preferredColor(.chromeSecondary))
         #else
@@ -117,7 +117,7 @@ struct ApplyButtonStyle: PrimitiveButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         if self.isEnabled {
             configuration.label
-                .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? self.popoverWidth - 13 * 2 :
+                .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? self.popoverWidth - 13 * 2 :
                     Screen.bounds.size.width - 16 * 2)
                 .padding([.top, .bottom], 8)
                 .font(.body)
@@ -133,10 +133,10 @@ struct ApplyButtonStyle: PrimitiveButtonStyle {
                 .onTapGesture {
                     configuration.trigger()
                 }
-                .padding([.top], UIDevice.current.userInterfaceIdiom == .pad ? 16 : 8)
+                .padding([.top], UIDevice.current.userInterfaceIdiom != .phone ? 16 : 8)
         } else {
             configuration.label
-                .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? self.popoverWidth - 13 * 2 :
+                .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? self.popoverWidth - 13 * 2 :
                     Screen.bounds.size.width - 16 * 2)
                 .padding([.top, .bottom], 8)
                 .font(.body)
@@ -147,7 +147,7 @@ struct ApplyButtonStyle: PrimitiveButtonStyle {
                 .foregroundStyle(Color.preferredColor(.primaryLabel))
             #endif
                 .background(RoundedRectangle(cornerRadius: 8).fill(Color.preferredColor(.grey5)))
-                .padding([.top], UIDevice.current.userInterfaceIdiom == .pad ? 16 : 8)
+                .padding([.top], UIDevice.current.userInterfaceIdiom != .phone ? 16 : 8)
         }
     }
 }
