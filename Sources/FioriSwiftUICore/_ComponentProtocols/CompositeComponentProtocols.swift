@@ -670,7 +670,6 @@ protocol _LoadingIndicatorViewComponent: _TitleComponent {
 }
 
 /// `ValuePicker`  provides a title and value label with Fiori styling and a wheel-style `Picker`.
-///
 /// ## Usage
 /// ```swift
 /// let valueOptions :[AttributedString] = ["1", "20", "300"]
@@ -679,10 +678,7 @@ protocol _LoadingIndicatorViewComponent: _TitleComponent {
 /// @State var stateIndex: Int = 0
 /// @State var isTrackingLiveChanges = true
 /// @State var showsErrorMessage = false
-///
-///  ValuePicker(title: "Picker Title(Default Style)", isRequired: self.isRequired, options: self.valueOptions, selectedIndex: self.$selectedIndex, isTrackingLiveChanges: self.isTrackingLiveChanges)
-///    .informationView(isPresented: self.$showsErrorMessage, description: AttributedString("Please choose one available data"))
-///    .informationViewStyle(.informational)
+//  ValuePicker(title: "Picker Title(Default Style)", isRequired: self.isRequired, options: self.valueOptions, selectedIndex: self.$selectedIndex, isTrackingLiveChanges: self.isTrackingLiveChanges).informationView(isPresented: self.$showsErrorMessage, description: AttributedString("Please choose one available data")).informationViewStyle(.informational)
 /// ```
 // sourcery: CompositeComponent
 protocol _ValuePickerComponent: _TitleComponent, _ValueLabelComponent, _MandatoryField, _OptionsComponent {
