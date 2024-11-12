@@ -372,6 +372,7 @@ extension ListPickerItem: _ViewEmptyChecking {
     public var isEmpty: Bool {
         title.isEmpty &&
             value.isEmpty &&
+            mandatoryFieldIndicator.isEmpty &&
             destination.isEmpty
     }
 }

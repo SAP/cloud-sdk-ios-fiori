@@ -11,14 +11,22 @@ public struct ListPickerItemBaseStyle: ListPickerItemStyle {
         } label: {
             switch configuration.axis {
             case .horizontal:
-                HStack {
+                HStack(spacing: 0) {
                     configuration.title
+                    if configuration.isRequired {
+                        configuration.mandatoryFieldIndicator
+                    }
                     Spacer()
                     configuration.value
                 }
             case .vertical:
                 CompactVStack(alignment: .leading) {
-                    configuration.title
+                    HStack(spacing: 0) {
+                        configuration.title
+                        if configuration.isRequired {
+                            configuration.mandatoryFieldIndicator
+                        }
+                    }
                     configuration.value
                 }
             }
@@ -31,6 +39,7 @@ extension ListPickerItemFioriStyle {
     struct ContentFioriStyle: ListPickerItemStyle {
         func makeBody(_ configuration: ListPickerItemConfiguration) -> some View {
             ListPickerItem(configuration)
+                .disabled(configuration.controlState == .disabled || configuration.controlState == .readOnly)
         }
     }
 
@@ -39,8 +48,17 @@ extension ListPickerItemFioriStyle {
 
         func makeBody(_ configuration: TitleConfiguration) -> some View {
             Title(configuration)
-                .font(.fiori(forTextStyle: .subheadline, weight: .bold))
-                .foregroundStyle(Color.preferredColor(.primaryLabel))
+                .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
+                .foregroundStyle(Color.preferredColor(self.listPickerItemConfiguration.controlState == .disabled ? .separator : .primaryLabel))
+        }
+    }
+    
+    struct MandatoryFieldIndicatorFioriStyle: MandatoryFieldIndicatorStyle {
+        let listPickerItemConfiguration: ListPickerItemConfiguration
+        func makeBody(_ configuration: MandatoryFieldIndicatorConfiguration) -> some View {
+            MandatoryFieldIndicator(configuration)
+                .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
+                .foregroundStyle(Color.preferredColor(self.listPickerItemConfiguration.controlState == .disabled ? .separator : .primaryLabel))
         }
     }
 
@@ -63,7 +81,15 @@ extension ListPickerItemFioriStyle {
                 }
             }
             .font(.fiori(forTextStyle: .body, weight: .regular))
-            .foregroundStyle(Color.preferredColor(.primaryLabel))
+            .foregroundStyle(Color.preferredColor(self.listPickerItemConfiguration.controlState == .disabled ? .separator : .primaryLabel))
+        }
+    }
+    
+    struct FormViewFioriStyle: FormViewStyle {
+        let listPickerItemConfiguration: ListPickerItemConfiguration
+        
+        func makeBody(_ configuration: FormViewConfiguration) -> some View {
+            FormView(configuration)
         }
     }
 }

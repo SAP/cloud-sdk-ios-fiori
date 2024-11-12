@@ -12,7 +12,8 @@ public extension SearchListPickerItem {
     ///   - onTap: The closure when tap on item.
     ///   - selectAll: The closure when click 'Select All' button.
     ///   - updateSearchListPickerHeight: The closure to update the parent view.
-    init(value: Binding<[Int]>, valueOptions: [String] = [], hint: String? = nil, allowsMultipleSelection: Bool, allowsEmptySelection: Bool, isSearchBarHidden: Bool = false, onTap: ((_ index: Int) -> Void)? = nil, selectAll: ((_ isAll: Bool) -> Void)? = nil, updateSearchListPickerHeight: ((CGFloat) -> Void)? = nil) {
+    ///   - disableListEntriesSection: A boolean value to indicate to disable entries section or not.
+    init(value: Binding<[Int]>, valueOptions: [String] = [], hint: String? = nil, allowsMultipleSelection: Bool, allowsEmptySelection: Bool, isSearchBarHidden: Bool = false, disableListEntriesSection: Bool, onTap: ((_ index: Int) -> Void)? = nil, selectAll: ((_ isAll: Bool) -> Void)? = nil, updateSearchListPickerHeight: ((CGFloat) -> Void)? = nil) {
         self.init(value: value, valueOptions: valueOptions, hint: hint, onTap: onTap)
         
         self.allowsMultipleSelection = allowsMultipleSelection
@@ -20,46 +21,57 @@ public extension SearchListPickerItem {
         self.isSearchBarHidden = isSearchBarHidden
         self.selectAll = selectAll
         self.updateSearchListPickerHeight = updateSearchListPickerHeight
+        self.disableListEntriesSection = disableListEntriesSection
     }
 }
 
 extension SearchListPickerItem: View {
     public var body: some View {
         VStack(spacing: 0) {
-            if allowsMultipleSelection {
-                if _value.count != _valueOptions.count || allowsEmptySelection {
-                    self.selectAllView()
-                }
-            } else if _value.count == _valueOptions.count {
-                self.selectAllView()
-            }
-            
-            Divider().edgesIgnoringSafeArea(.all)
             List {
-                ForEach(_valueOptions.filter { _searchText.isEmpty || $0.localizedStandardContains(_searchText) }, id: \.self) { item in
-                    let isSelected = self.isItemSelected(item)
-                    HStack {
-                        Text(item)
-                            .lineLimit(1)
-                            .foregroundStyle(Color.preferredColor(.primaryLabel))
-                            .font(.fiori(forTextStyle: .body, weight: .regular))
-                        Spacer()
-                        if isSelected {
-                            Image(systemName: "checkmark")
-                            #if !os(visionOS)
-                                .foregroundStyle(Color.preferredColor(.tintColor))
-                            #else
-                                .foregroundStyle(Color.preferredColor(.primaryLabel))
-                            #endif
+                if !disableListEntriesSection, _value.count > 0 {
+                    Section {
+                        self.selectionHeader()
+                        let selectedOptions = _value.wrappedValue.map { _valueOptions[$0] }
+                        ForEach(selectedOptions.filter { _searchText.isEmpty || $0.localizedStandardContains(_searchText) }, id: \.self) { item in
+                            self.rowView(value: item, isSelected: true)
+                                .padding(0)
+                                .contentShape(Rectangle())
+                                .onTapGesture {
+                                    guard let index = findIndex(of: item) else {
+                                        return
+                                    }
+                                    _onTap?(index)
+                                }
                         }
+                        
+                        Rectangle().fill(Color.preferredColor(.primaryGroupedBackground))
+                            .frame(height: 30)
+                            .listRowInsets(EdgeInsets())
                     }
-                    .padding(0)
-                    .contentShape(Rectangle())
-                    .onTapGesture {
-                        guard let index = findIndex(of: item) else {
-                            return
+                }
+
+                Section {
+                    if allowsMultipleSelection {
+                        if _value.count != _valueOptions.count || allowsEmptySelection {
+                            self.selectAllView()
                         }
-                        _onTap?(index)
+                    } else if _value.count == _valueOptions.count {
+                        self.selectAllView()
+                    } else {
+                        EmptyView()
+                    }
+                    ForEach(_valueOptions.filter { _searchText.isEmpty || $0.localizedStandardContains(_searchText) }, id: \.self) { item in
+                        let isSelected = self.isItemSelected(item)
+                        self.rowView(value: item, isSelected: isSelected)
+                            .padding(0)
+                            .contentShape(Rectangle())
+                            .onTapGesture {
+                                guard let index = findIndex(of: item) else {
+                                    return
+                                }
+                                _onTap?(index)
+                            }
                     }
                 }
             }
@@ -69,29 +81,26 @@ extension SearchListPickerItem: View {
                 }
                 DispatchQueue.main.async {
                     let popverHeight = Screen.bounds.size.height - StatusBar.height
-                    let totalSpacing: CGFloat = (UIDevice.current.userInterfaceIdiom == .pad ? 8 : 16) * 2
-                    let totalPadding: CGFloat = (UIDevice.current.userInterfaceIdiom == .pad ? 13 : 16) * 2
+                    let totalSpacing: CGFloat = (UIDevice.current.userInterfaceIdiom != .phone ? 8 : 16) * 2
+                    let totalPadding: CGFloat = (UIDevice.current.userInterfaceIdiom != .phone ? 13 : 16) * 2
                     let safeAreaInset = self.getSafeAreaInsets()
-                    var maxScrollViewHeight = popverHeight - totalSpacing - totalPadding - (self.isSearchBarHidden ? 0 : 52) - 56 - safeAreaInset.top - safeAreaInset.bottom - (UIDevice.current.userInterfaceIdiom == .pad ? 250 : 30)
+                    var maxScrollViewHeight = popverHeight - totalSpacing - totalPadding - (self.isSearchBarHidden ? 0 : 52) - 56 - safeAreaInset.top - safeAreaInset.bottom - (UIDevice.current.userInterfaceIdiom != .phone ? 250 : 30)
                     maxScrollViewHeight -= self._keyboardHeight
-                    self._height = min(scrollView.contentSize.height, maxScrollViewHeight)
-                    var isSelectAllViewShow = false
-                    if allowsMultipleSelection {
-                        if _value.count != _valueOptions.count || allowsEmptySelection {
-                            isSelectAllViewShow = true
-                        }
-                    } else if _value.count == _valueOptions.count {
-                        isSelectAllViewShow = true
+                    if self._keyboardHeight > 0 {
+                        maxScrollViewHeight += 56
                     }
-                    updateSearchListPickerHeight?(isSelectAllViewShow ? self._height + 44 : self._height)
+                    self._height = min(scrollView.contentSize.height, maxScrollViewHeight)
+                    updateSearchListPickerHeight?(self._height)
                 }
             })
             .listStyle(PlainListStyle())
             .frame(minWidth: UIDevice.current.userInterfaceIdiom != .phone ? popoverWidth : nil)
             .scrollContentBackground(.hidden)
             .padding(0)
+            .environment(\.defaultMinListRowHeight, 0)
+            .environment(\.defaultMinListHeaderHeight, 0)
             .ifApply(!isSearchBarHidden, content: { v in
-                v.searchable(text: $_searchText, placement: .automatic)
+                v.searchable(text: $_searchText, placement: .navigationBarDrawer(displayMode: .always))
                     .onReceive(NotificationCenter.default.publisher(for: UIApplication.keyboardDidShowNotification)) { notif in
                         let rect = (notif.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect) ?? .zero
                         self._keyboardHeight = rect.height
@@ -100,6 +109,43 @@ extension SearchListPickerItem: View {
                         self._keyboardHeight = 0
                     }
             })
+        }
+    }
+    
+    private func rowView(value: String, isSelected: Bool) -> some View {
+        HStack {
+            Text(value)
+                .lineLimit(1)
+                .foregroundStyle(Color.preferredColor(.primaryLabel))
+                .font(.fiori(forTextStyle: .body, weight: .regular))
+            Spacer()
+            if isSelected {
+                Image(systemName: "checkmark")
+                #if !os(visionOS)
+                    .foregroundStyle(Color.preferredColor(.tintColor))
+                #else
+                    .foregroundStyle(Color.preferredColor(.primaryLabel))
+                #endif
+            }
+        }
+    }
+    
+    private func selectionHeader() -> some View {
+        HStack {
+            Text(NSLocalizedString("Selected", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""))
+                .foregroundStyle(Color.preferredColor(.secondaryLabel))
+                .font(.fiori(forTextStyle: .subheadline, weight: .regular))
+            Spacer()
+        }
+        .padding([.leading, .trailing], UIDevice.current.userInterfaceIdiom != .phone ? 13 : 16)
+        .padding([.top, .bottom], 8)
+        .background(Color.preferredColor(.secondaryGroupedBackground))
+        .listRowInsets(EdgeInsets())
+        .alignmentGuide(.listRowSeparatorLeading) { dimensions in
+            dimensions[.leading]
+        }
+        .alignmentGuide(.listRowSeparatorTrailing) { dimensions in
+            dimensions[.trailing]
         }
     }
     
@@ -113,10 +159,20 @@ extension SearchListPickerItem: View {
                 selectAll?(_value.count != _valueOptions.count)
             }) {
                 Text(_value.count == _valueOptions.count ? NSLocalizedString("Deselect All", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "") : NSLocalizedString("Select All", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""))
-            }
+                    .foregroundStyle(Color.preferredColor(.tintColor))
+                    .font(.fiori(forTextStyle: .subheadline, weight: .regular))
+            }.buttonStyle(PlainButtonStyle())
         }
-        .padding([.leading, .trailing], UIDevice.current.userInterfaceIdiom == .pad ? 13 : 16)
+        .padding([.leading, .trailing], UIDevice.current.userInterfaceIdiom != .phone ? 13 : 16)
         .padding([.top, .bottom], 8)
+        .background(Color.preferredColor(.secondaryGroupedBackground))
+        .listRowInsets(EdgeInsets())
+        .alignmentGuide(.listRowSeparatorLeading) { dimensions in
+            dimensions[.leading]
+        }
+        .alignmentGuide(.listRowSeparatorTrailing) { dimensions in
+            dimensions[.trailing]
+        }
     }
     
     private func isItemSelected(_ item: String) -> Bool {
