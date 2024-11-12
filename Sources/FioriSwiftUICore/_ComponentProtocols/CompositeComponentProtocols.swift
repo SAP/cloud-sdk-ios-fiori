@@ -668,3 +668,33 @@ protocol _LoadingIndicatorViewComponent: _TitleComponent {
     // sourcery: @Binding
     var isPresented: Bool { get }
 }
+
+/// `ValuePicker`  provides a title and value label with Fiori styling and a wheel-style `Picker`.
+/// ## Usage
+/// ```swift
+/// let valueOptions :[AttributedString] = ["1", "20", "300"]
+/// @State var selectedIndex: Int = 0
+/// @State var isRequired = false
+/// @State var stateIndex: Int = 0
+/// @State var isTrackingLiveChanges = true
+/// @State var showsErrorMessage = false
+//  ValuePicker(title: "Picker Title(Default Style)", isRequired: self.isRequired, options: self.valueOptions, selectedIndex: self.$selectedIndex, isTrackingLiveChanges: self.isTrackingLiveChanges).informationView(isPresented: self.$showsErrorMessage, description: AttributedString("Please choose one available data")).informationViewStyle(.informational)
+/// ```
+// sourcery: CompositeComponent
+protocol _ValuePickerComponent: _TitleComponent, _ValueLabelComponent, _MandatoryField, _OptionsComponent {
+    // sourcery: @Binding
+    /// The index for the selected value in the valueOptions.
+    var selectedIndex: Int { get }
+
+    /// When `isTrackingLiveChanges` is true, the value will be shown every time a selection is made. If it is set to false, the value will only be displayed when the value picker is collapsed. The default setting is true.
+    // sourcery: defaultValue = true
+    var isTrackingLiveChanges: Bool { get set }
+
+    /// This property indicates whether the picker is to always be displayed. The default is false.
+    // sourcery: defaultValue = false
+    var alwaysShowPicker: Bool { get set }
+    
+    // sourcery: defaultValue = .normal
+    /// The `ControlState` of the  view. Currently, `.disabled`, `.normal` and `.readOnly` are supported. The default is `normal`.
+    var controlState: ControlState { get }
+}

@@ -2312,3 +2312,24 @@ extension EnvironmentValues {
         }
     }
 }
+
+// MARK: ValuePickerStyle
+
+struct ValuePickerStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any ValuePickerStyle] = []
+}
+
+extension EnvironmentValues {
+    var valuePickerStyle: any ValuePickerStyle {
+        self.valuePickerStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var valuePickerStyleStack: [any ValuePickerStyle] {
+        get {
+            self[ValuePickerStyleStackKey.self]
+        }
+        set {
+            self[ValuePickerStyleStackKey.self] = newValue
+        }
+    }
+}

@@ -1872,3 +1872,20 @@ public extension View {
         }
     }
 }
+
+// MARK: ValuePickerStyle
+
+public extension View {
+    func valuePickerStyle(_ style: some ValuePickerStyle) -> some View {
+        self.transformEnvironment(\.valuePickerStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func valuePickerStyle(@ViewBuilder content: @escaping (ValuePickerConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.valuePickerStyleStack) { stack in
+            let style = AnyValuePickerStyle(content)
+            stack.append(style)
+        }
+    }
+}
