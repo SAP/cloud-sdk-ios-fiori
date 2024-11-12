@@ -512,6 +512,34 @@ public extension CardMediaStyle {
     }
 }
 
+// MARK: CheckoutIndicatorStyle
+
+extension ModifiedStyle: CheckoutIndicatorStyle where Style: CheckoutIndicatorStyle {
+    public func makeBody(_ configuration: CheckoutIndicatorConfiguration) -> some View {
+        CheckoutIndicator(configuration)
+            .checkoutIndicatorStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct CheckoutIndicatorStyleModifier<Style: CheckoutIndicatorStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.checkoutIndicatorStyle(self.style)
+    }
+}
+
+public extension CheckoutIndicatorStyle {
+    func modifier(_ modifier: some ViewModifier) -> some CheckoutIndicatorStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some CheckoutIndicatorStyle) -> some CheckoutIndicatorStyle {
+        style.modifier(CheckoutIndicatorStyleModifier(style: self))
+    }
+}
+
 // MARK: CloseActionStyle
 
 extension ModifiedStyle: CloseActionStyle where Style: CloseActionStyle {

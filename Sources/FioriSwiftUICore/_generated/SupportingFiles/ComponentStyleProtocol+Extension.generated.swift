@@ -1536,6 +1536,20 @@ public extension CardMediaStyle where Self == CardMediaDescriptionStyle {
     }
 }
 
+// MARK: CheckoutIndicatorStyle
+
+public extension CheckoutIndicatorStyle where Self == CheckoutIndicatorBaseStyle {
+    static var base: CheckoutIndicatorBaseStyle {
+        CheckoutIndicatorBaseStyle()
+    }
+}
+
+public extension CheckoutIndicatorStyle where Self == CheckoutIndicatorFioriStyle {
+    static var fiori: CheckoutIndicatorFioriStyle {
+        CheckoutIndicatorFioriStyle()
+    }
+}
+
 // MARK: CloseActionStyle
 
 public extension CloseActionStyle where Self == CloseActionBaseStyle {

@@ -309,6 +309,23 @@ public extension View {
     }
 }
 
+// MARK: CheckoutIndicatorStyle
+
+public extension View {
+    func checkoutIndicatorStyle(_ style: some CheckoutIndicatorStyle) -> some View {
+        self.transformEnvironment(\.checkoutIndicatorStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func checkoutIndicatorStyle(@ViewBuilder content: @escaping (CheckoutIndicatorConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.checkoutIndicatorStyleStack) { stack in
+            let style = AnyCheckoutIndicatorStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: CloseActionStyle
 
 public extension View {
