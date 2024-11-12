@@ -71,7 +71,9 @@ extension OptionListPickerItem: View {
                 }
             )
         }
-        .frame(height: _height)
+        .ifApply(UIDevice.current.userInterfaceIdiom == .phone, content: { v in
+            v.frame(height: _height)
+        })
     }
     
     private func generateFlexibleContent() -> some View {
@@ -102,7 +104,9 @@ extension OptionListPickerItem: View {
                 }
             )
         }
-        .frame(height: _height)
+        .ifApply(UIDevice.current.userInterfaceIdiom == .phone, content: { v in
+            v.frame(height: _height)
+        })
     }
     
     private func getSafeAreaInsets() -> UIEdgeInsets {
