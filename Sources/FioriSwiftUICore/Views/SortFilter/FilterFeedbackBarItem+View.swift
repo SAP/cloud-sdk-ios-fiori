@@ -102,7 +102,7 @@ struct SliderMenuItem: View {
 
                 } components: {
                     SliderPickerItem(value: Binding<Int?>(get: { self.item.workingValue }, set: { self.item.workingValue = $0 }), formatter: self.item.formatter, minimumValue: self.item.minimumValue, maximumValue: self.item.maximumValue)
-                        .padding([.leading, .trailing], UIDevice.current.userInterfaceIdiom == .pad ? 13 : 16)
+                        .padding([.leading, .trailing], UIDevice.current.userInterfaceIdiom != .phone ? 13 : 16)
                 }
                 .readHeight()
                 .onPreferenceChange(HeightPreferenceKey.self) { height in
@@ -121,7 +121,7 @@ struct PickerMenuItem: View {
     
     @State var isSheetVisible = false
 
-    @State var detentHeight: CGFloat = ((UIDevice.current.userInterfaceIdiom == .phone || UIDevice.current.userInterfaceIdiom == .pad) ? 88 : 0)
+    @State var detentHeight: CGFloat = ((UIDevice.current.userInterfaceIdiom == .phone || UIDevice.current.userInterfaceIdiom != .phone) ? 88 : 0)
     let popoverWidth = 393.0
     @State var _keyboardHeight = 0.0
     
@@ -181,7 +181,7 @@ struct PickerMenuItem: View {
                     OptionListPickerItem(value: self.$item.workingValue, valueOptions: self.item.valueOptions, hint: nil, itemLayout: self.item.itemLayout) { index in
                         self.item.onTap(option: self.item.valueOptions[index])
                     }
-                    .padding([.leading, .trailing], UIDevice.current.userInterfaceIdiom == .pad ? 13 : 16)
+                    .padding([.leading, .trailing], UIDevice.current.userInterfaceIdiom != .phone ? 13 : 16)
                 }
                 .ifApply(UIDevice.current.userInterfaceIdiom != .phone, content: { v in
                     v.frame(minHeight: 155)
@@ -259,7 +259,7 @@ struct PickerMenuItem: View {
                     } updateSearchListPickerHeight: { height in
                         self.detentHeight = max(height, 88)
                     }
-                    .frame(maxHeight: UIDevice.current.userInterfaceIdiom != .phone ? (self.detentHeight + (self._keyboardHeight > 0 ? 52 : 0)) : nil)
+                    .frame(maxHeight: UIDevice.current.userInterfaceIdiom != .phone ? self.detentHeight : nil)
                     .padding(0)
                     .onReceive(NotificationCenter.default.publisher(for: UIApplication.keyboardDidShowNotification)) { notif in
                         let rect = (notif.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect) ?? .zero
@@ -271,8 +271,8 @@ struct PickerMenuItem: View {
                     Spacer()
                 }
                 .frame(minWidth: UIDevice.current.userInterfaceIdiom != .phone ? 393 : nil)
-                .frame(height: UIDevice.current.userInterfaceIdiom != .phone ? self.detentHeight + (self.item.isSearchBarHidden ? 0 : 52) + 56 + 93 : nil)
-                .presentationDetents([.height(self.detentHeight + (self.item.isSearchBarHidden ? 0 : 52) + 56 + 93), .medium, .large])
+                .frame(height: UIDevice.current.userInterfaceIdiom != .phone ? self.detentHeight + (self.item.isSearchBarHidden ? 0 : 52) + (self._keyboardHeight == 0 ? 56 : 0) + 93 : nil)
+                .presentationDetents([.height(self.detentHeight + (self.item.isSearchBarHidden ? 0 : 52) + (self._keyboardHeight == 0 ? 56 : 0) + 93), .medium, .large])
             }
     }
 }
@@ -361,7 +361,7 @@ struct DateTimeMenuItem: View {
                             )
                             .labelsHidden()
                         }
-                        .padding([.leading, .trailing], UIDevice.current.userInterfaceIdiom == .pad ? 13 : 16)
+                        .padding([.leading, .trailing], UIDevice.current.userInterfaceIdiom != .phone ? 13 : 16)
 
                         DatePicker(
                             self.item.label,
@@ -370,10 +370,10 @@ struct DateTimeMenuItem: View {
                         )
                         .datePickerStyle(.graphical)
                         .labelsHidden()
-                        .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? self.popoverWidth - 13 : Screen.bounds.size.width - 16)
+                        .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? self.popoverWidth - 13 : Screen.bounds.size.width - 16)
                         .clipped()
                     }
-                    .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? self.popoverWidth : Screen.bounds.size.width)
+                    .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? self.popoverWidth : Screen.bounds.size.width)
                 }
                 .readHeight()
                 .onPreferenceChange(HeightPreferenceKey.self) { height in
