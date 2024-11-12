@@ -5798,3 +5798,101 @@ public extension ValueLabelStyle where Self == ValueLabelFioriStyle {
         ValueLabelFioriStyle()
     }
 }
+
+// MARK: ValuePickerStyle
+
+public extension ValuePickerStyle where Self == ValuePickerBaseStyle {
+    static var base: ValuePickerBaseStyle {
+        ValuePickerBaseStyle()
+    }
+}
+
+public extension ValuePickerStyle where Self == ValuePickerFioriStyle {
+    static var fiori: ValuePickerFioriStyle {
+        ValuePickerFioriStyle()
+    }
+}
+
+public struct ValuePickerTitleStyle: ValuePickerStyle {
+    let style: any TitleStyle
+
+    public func makeBody(_ configuration: ValuePickerConfiguration) -> some View {
+        ValuePicker(configuration)
+            .titleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension ValuePickerStyle where Self == ValuePickerTitleStyle {
+    static func titleStyle(_ style: some TitleStyle) -> ValuePickerTitleStyle {
+        ValuePickerTitleStyle(style: style)
+    }
+
+    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> ValuePickerTitleStyle {
+        let style = AnyTitleStyle(content)
+        return ValuePickerTitleStyle(style: style)
+    }
+}
+
+public struct ValuePickerValueLabelStyle: ValuePickerStyle {
+    let style: any ValueLabelStyle
+
+    public func makeBody(_ configuration: ValuePickerConfiguration) -> some View {
+        ValuePicker(configuration)
+            .valueLabelStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension ValuePickerStyle where Self == ValuePickerValueLabelStyle {
+    static func valueLabelStyle(_ style: some ValueLabelStyle) -> ValuePickerValueLabelStyle {
+        ValuePickerValueLabelStyle(style: style)
+    }
+
+    static func valueLabelStyle(@ViewBuilder content: @escaping (ValueLabelConfiguration) -> some View) -> ValuePickerValueLabelStyle {
+        let style = AnyValueLabelStyle(content)
+        return ValuePickerValueLabelStyle(style: style)
+    }
+}
+
+public struct ValuePickerMandatoryFieldIndicatorStyle: ValuePickerStyle {
+    let style: any MandatoryFieldIndicatorStyle
+
+    public func makeBody(_ configuration: ValuePickerConfiguration) -> some View {
+        ValuePicker(configuration)
+            .mandatoryFieldIndicatorStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension ValuePickerStyle where Self == ValuePickerMandatoryFieldIndicatorStyle {
+    static func mandatoryFieldIndicatorStyle(_ style: some MandatoryFieldIndicatorStyle) -> ValuePickerMandatoryFieldIndicatorStyle {
+        ValuePickerMandatoryFieldIndicatorStyle(style: style)
+    }
+
+    static func mandatoryFieldIndicatorStyle(@ViewBuilder content: @escaping (MandatoryFieldIndicatorConfiguration) -> some View) -> ValuePickerMandatoryFieldIndicatorStyle {
+        let style = AnyMandatoryFieldIndicatorStyle(content)
+        return ValuePickerMandatoryFieldIndicatorStyle(style: style)
+    }
+}
+
+public struct ValuePickerOptionsStyle: ValuePickerStyle {
+    let style: any OptionsStyle
+
+    public func makeBody(_ configuration: ValuePickerConfiguration) -> some View {
+        ValuePicker(configuration)
+            .optionsStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension ValuePickerStyle where Self == ValuePickerOptionsStyle {
+    static func optionsStyle(_ style: some OptionsStyle) -> ValuePickerOptionsStyle {
+        ValuePickerOptionsStyle(style: style)
+    }
+
+    static func optionsStyle(@ViewBuilder content: @escaping (OptionsConfiguration) -> some View) -> ValuePickerOptionsStyle {
+        let style = AnyOptionsStyle(content)
+        return ValuePickerOptionsStyle(style: style)
+    }
+}

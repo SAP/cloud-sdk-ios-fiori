@@ -180,3 +180,11 @@ extension TitleFormViewConfiguration {
         FormView(.init(controlState: self.controlState, errorMessage: self.errorMessage), shouldApplyDefaultStyle: true)
     }
 }
+
+// MARK: ValuePickerConfiguration
+
+extension ValuePickerConfiguration {
+    var _options: Options {
+        Options(.init(options: self.options), shouldApplyDefaultStyle: true)
+    }
+}

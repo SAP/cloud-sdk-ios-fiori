@@ -218,6 +218,12 @@ struct CoreContentView: View {
                 {
                     Text("DateTimePicker")
                 }
+                
+                NavigationLink(
+                    destination: ValuePickerExample())
+                {
+                    Text("ValuePicker")
+                }
             }
             
             Section(header: Text("Onboarding")) {

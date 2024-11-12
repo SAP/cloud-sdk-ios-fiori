@@ -3115,3 +3115,31 @@ public extension ValueLabelStyle {
         style.modifier(ValueLabelStyleModifier(style: self))
     }
 }
+
+// MARK: ValuePickerStyle
+
+extension ModifiedStyle: ValuePickerStyle where Style: ValuePickerStyle {
+    public func makeBody(_ configuration: ValuePickerConfiguration) -> some View {
+        ValuePicker(configuration)
+            .valuePickerStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct ValuePickerStyleModifier<Style: ValuePickerStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.valuePickerStyle(self.style)
+    }
+}
+
+public extension ValuePickerStyle {
+    func modifier(_ modifier: some ViewModifier) -> some ValuePickerStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some ValuePickerStyle) -> some ValuePickerStyle {
+        style.modifier(ValuePickerStyleModifier(style: self))
+    }
+}
