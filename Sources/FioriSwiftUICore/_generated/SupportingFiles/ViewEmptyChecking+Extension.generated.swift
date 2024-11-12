@@ -446,7 +446,8 @@ extension ObjectItem: _ViewEmptyChecking {
             footnoteIcons.isEmpty &&
             footnoteIconsText.isEmpty &&
             tags.isEmpty &&
-            action.isEmpty
+            action.isEmpty &&
+            objectItemButton.isEmpty
     }
 }
 

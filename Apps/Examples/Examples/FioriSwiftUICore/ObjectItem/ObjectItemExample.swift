@@ -31,6 +31,13 @@ struct ObjectItemExample: View {
             {
                 Text("Avatars and Icons Tests")
             }
+            
+            NavigationLink {
+                ObjectCellEnhancementExample()
+            } label: {
+                Text("Object Cell Enhancement")
+            }
+
         }.navigationBarTitle(self._isNewObjectItem ? "ObjectItem" : "_ObjectItem", displayMode: .inline)
     }
 }
