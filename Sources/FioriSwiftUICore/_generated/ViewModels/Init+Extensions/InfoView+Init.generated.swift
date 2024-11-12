@@ -5,31 +5,16 @@ import SwiftUI
 extension InfoView where DescriptionText == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
-		@ViewBuilder progressIndicator: () -> ProgressIndicatorView,
+		showLoadingIndicator: Bool? = nil,
+		loadingIndicatorText: String? = nil,
 		@ViewBuilder action: () -> ActionView,
 		@ViewBuilder secondaryAction: () -> SecondaryActionView
     ) {
         self.init(
             title: title,
 			descriptionText: { EmptyView() },
-			progressIndicator: progressIndicator,
-			action: action,
-			secondaryAction: secondaryAction
-        )
-    }
-}
-
-extension InfoView where ProgressIndicatorView == EmptyView {
-    public init(
-    @ViewBuilder title: () -> Title,
-		@ViewBuilder descriptionText: () -> DescriptionText,
-		@ViewBuilder action: () -> ActionView,
-		@ViewBuilder secondaryAction: () -> SecondaryActionView
-    ) {
-        self.init(
-            title: title,
-			descriptionText: descriptionText,
-			progressIndicator: { EmptyView() },
+			showLoadingIndicator: showLoadingIndicator,
+			loadingIndicatorText: loadingIndicatorText,
 			action: action,
 			secondaryAction: secondaryAction
         )
@@ -40,13 +25,15 @@ extension InfoView where ActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
-		@ViewBuilder progressIndicator: () -> ProgressIndicatorView,
+		showLoadingIndicator: Bool? = nil,
+		loadingIndicatorText: String? = nil,
 		@ViewBuilder secondaryAction: () -> SecondaryActionView
     ) {
         self.init(
             title: title,
 			descriptionText: descriptionText,
-			progressIndicator: progressIndicator,
+			showLoadingIndicator: showLoadingIndicator,
+			loadingIndicatorText: loadingIndicatorText,
 			action: { EmptyView() },
 			secondaryAction: secondaryAction
         )
@@ -57,31 +44,17 @@ extension InfoView where SecondaryActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
-		@ViewBuilder progressIndicator: () -> ProgressIndicatorView,
+		showLoadingIndicator: Bool? = nil,
+		loadingIndicatorText: String? = nil,
 		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
 			descriptionText: descriptionText,
-			progressIndicator: progressIndicator,
+			showLoadingIndicator: showLoadingIndicator,
+			loadingIndicatorText: loadingIndicatorText,
 			action: action,
 			secondaryAction: { EmptyView() }
-        )
-    }
-}
-
-extension InfoView where DescriptionText == EmptyView, ProgressIndicatorView == EmptyView {
-    public init(
-    @ViewBuilder title: () -> Title,
-		@ViewBuilder action: () -> ActionView,
-		@ViewBuilder secondaryAction: () -> SecondaryActionView
-    ) {
-        self.init(
-            title: title,
-			descriptionText: { EmptyView() },
-			progressIndicator: { EmptyView() },
-			action: action,
-			secondaryAction: secondaryAction
         )
     }
 }
@@ -89,13 +62,15 @@ extension InfoView where DescriptionText == EmptyView, ProgressIndicatorView == 
 extension InfoView where DescriptionText == EmptyView, ActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
-		@ViewBuilder progressIndicator: () -> ProgressIndicatorView,
+		showLoadingIndicator: Bool? = nil,
+		loadingIndicatorText: String? = nil,
 		@ViewBuilder secondaryAction: () -> SecondaryActionView
     ) {
         self.init(
             title: title,
 			descriptionText: { EmptyView() },
-			progressIndicator: progressIndicator,
+			showLoadingIndicator: showLoadingIndicator,
+			loadingIndicatorText: loadingIndicatorText,
 			action: { EmptyView() },
 			secondaryAction: secondaryAction
         )
@@ -105,45 +80,15 @@ extension InfoView where DescriptionText == EmptyView, ActionView == EmptyView {
 extension InfoView where DescriptionText == EmptyView, SecondaryActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
-		@ViewBuilder progressIndicator: () -> ProgressIndicatorView,
+		showLoadingIndicator: Bool? = nil,
+		loadingIndicatorText: String? = nil,
 		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
 			descriptionText: { EmptyView() },
-			progressIndicator: progressIndicator,
-			action: action,
-			secondaryAction: { EmptyView() }
-        )
-    }
-}
-
-extension InfoView where ProgressIndicatorView == EmptyView, ActionView == EmptyView {
-    public init(
-    @ViewBuilder title: () -> Title,
-		@ViewBuilder descriptionText: () -> DescriptionText,
-		@ViewBuilder secondaryAction: () -> SecondaryActionView
-    ) {
-        self.init(
-            title: title,
-			descriptionText: descriptionText,
-			progressIndicator: { EmptyView() },
-			action: { EmptyView() },
-			secondaryAction: secondaryAction
-        )
-    }
-}
-
-extension InfoView where ProgressIndicatorView == EmptyView, SecondaryActionView == EmptyView {
-    public init(
-    @ViewBuilder title: () -> Title,
-		@ViewBuilder descriptionText: () -> DescriptionText,
-		@ViewBuilder action: () -> ActionView
-    ) {
-        self.init(
-            title: title,
-			descriptionText: descriptionText,
-			progressIndicator: { EmptyView() },
+			showLoadingIndicator: showLoadingIndicator,
+			loadingIndicatorText: loadingIndicatorText,
 			action: action,
 			secondaryAction: { EmptyView() }
         )
@@ -154,43 +99,15 @@ extension InfoView where ActionView == EmptyView, SecondaryActionView == EmptyVi
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
-		@ViewBuilder progressIndicator: () -> ProgressIndicatorView
+		showLoadingIndicator: Bool? = nil,
+		loadingIndicatorText: String? = nil
     ) {
         self.init(
             title: title,
 			descriptionText: descriptionText,
-			progressIndicator: progressIndicator,
+			showLoadingIndicator: showLoadingIndicator,
+			loadingIndicatorText: loadingIndicatorText,
 			action: { EmptyView() },
-			secondaryAction: { EmptyView() }
-        )
-    }
-}
-
-extension InfoView where DescriptionText == EmptyView, ProgressIndicatorView == EmptyView, ActionView == EmptyView {
-    public init(
-    @ViewBuilder title: () -> Title,
-		@ViewBuilder secondaryAction: () -> SecondaryActionView
-    ) {
-        self.init(
-            title: title,
-			descriptionText: { EmptyView() },
-			progressIndicator: { EmptyView() },
-			action: { EmptyView() },
-			secondaryAction: secondaryAction
-        )
-    }
-}
-
-extension InfoView where DescriptionText == EmptyView, ProgressIndicatorView == EmptyView, SecondaryActionView == EmptyView {
-    public init(
-    @ViewBuilder title: () -> Title,
-		@ViewBuilder action: () -> ActionView
-    ) {
-        self.init(
-            title: title,
-			descriptionText: { EmptyView() },
-			progressIndicator: { EmptyView() },
-			action: action,
 			secondaryAction: { EmptyView() }
         )
     }
@@ -199,41 +116,14 @@ extension InfoView where DescriptionText == EmptyView, ProgressIndicatorView == 
 extension InfoView where DescriptionText == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
-		@ViewBuilder progressIndicator: () -> ProgressIndicatorView
+		showLoadingIndicator: Bool? = nil,
+		loadingIndicatorText: String? = nil
     ) {
         self.init(
             title: title,
 			descriptionText: { EmptyView() },
-			progressIndicator: progressIndicator,
-			action: { EmptyView() },
-			secondaryAction: { EmptyView() }
-        )
-    }
-}
-
-extension InfoView where ProgressIndicatorView == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView {
-    public init(
-    @ViewBuilder title: () -> Title,
-		@ViewBuilder descriptionText: () -> DescriptionText
-    ) {
-        self.init(
-            title: title,
-			descriptionText: descriptionText,
-			progressIndicator: { EmptyView() },
-			action: { EmptyView() },
-			secondaryAction: { EmptyView() }
-        )
-    }
-}
-
-extension InfoView where DescriptionText == EmptyView, ProgressIndicatorView == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView {
-    public init(
-    @ViewBuilder title: () -> Title
-    ) {
-        self.init(
-            title: title,
-			descriptionText: { EmptyView() },
-			progressIndicator: { EmptyView() },
+			showLoadingIndicator: showLoadingIndicator,
+			loadingIndicatorText: loadingIndicatorText,
 			action: { EmptyView() },
 			secondaryAction: { EmptyView() }
         )

@@ -158,6 +158,12 @@ extension CardMedia: _ViewEmptyChecking {
     }
 }
 
+extension CheckoutIndicator: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        false
+    }
+}
+
 extension CloseAction: _ViewEmptyChecking {
     public var isEmpty: Bool {
         closeAction.isEmpty
@@ -794,5 +800,13 @@ extension Value: _ViewEmptyChecking {
 extension ValueLabel: _ViewEmptyChecking {
     public var isEmpty: Bool {
         valueLabel.isEmpty
+    }
+}
+
+extension ValuePicker: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        title.isEmpty &&
+            valueLabel.isEmpty &&
+            mandatoryFieldIndicator.isEmpty
     }
 }

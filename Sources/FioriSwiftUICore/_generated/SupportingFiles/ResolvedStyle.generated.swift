@@ -291,6 +291,22 @@ extension CardMediaStyle {
     }
 }
 
+// MARK: CheckoutIndicatorStyle
+
+struct ResolvedCheckoutIndicatorStyle<Style: CheckoutIndicatorStyle>: View {
+    let style: Style
+    let configuration: CheckoutIndicatorConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension CheckoutIndicatorStyle {
+    func resolve(configuration: CheckoutIndicatorConfiguration) -> some View {
+        ResolvedCheckoutIndicatorStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: CloseActionStyle
 
 struct ResolvedCloseActionStyle<Style: CloseActionStyle>: View {
@@ -1760,5 +1776,21 @@ struct ResolvedValueLabelStyle<Style: ValueLabelStyle>: View {
 extension ValueLabelStyle {
     func resolve(configuration: ValueLabelConfiguration) -> some View {
         ResolvedValueLabelStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: ValuePickerStyle
+
+struct ResolvedValuePickerStyle<Style: ValuePickerStyle>: View {
+    let style: Style
+    let configuration: ValuePickerConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension ValuePickerStyle {
+    func resolve(configuration: ValuePickerConfiguration) -> some View {
+        ResolvedValuePickerStyle(style: self, configuration: configuration)
     }
 }
