@@ -78,7 +78,7 @@ struct BannerMultiMessageCustomInitExample: View {
                         }, turnOnSectionHeader: self.turnOnSectionHeader, messageItemView: { id in
                             if let (message, category) = getItemData(with: id) {
                                 BannerMessage(icon: {
-                                    message.icon
+                                    (message.icon ?? EmptyView()).typeErased
                                 }, title: {
                                     Text(self.attributedMessageTitle(title: message.title, typeDesc: message.typeDesc))
                                 }, closeAction: {
@@ -336,7 +336,9 @@ struct BannerMultiMessageCustomInitExample: View {
         } else {
             let tips = "First name correct."
             self.firstNameErrorMessage = AttributedString()
-            informationMessages.append(BannerMessageItemModel(id: self.firstNameId, icon: Image(fioriName: "fiori.hint"), title: tips, messageType: .positive))
+            informationMessages.append(BannerMessageItemModel(id: self.firstNameId, icon: EmptyView(), title: tips, messageType: .positive))
+            
+            informationMessages.append(BannerMessageItemModel(id: UUID(), icon: EmptyView(), title: tips, messageType: .positive))
         }
         
         if self.lastName.isEmpty {
