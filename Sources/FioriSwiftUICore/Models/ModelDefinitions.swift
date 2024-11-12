@@ -121,7 +121,7 @@ public protocol ListPickerItemModel {}
 // sourcery: generated_component_not_configurable
 public protocol _ProgressIndicatorModel: ProgressIndicatorComponent {}
 
-@available(*, unavailable, renamed: "_ProgressIndicatorModel", message: "Will be removed in the future release. Please create ProgressIndicatorModel with other initializers instead.")
+@available(*, unavailable, renamed: "_ProgressIndicatorModel", message: "Will be removed in the future release. Please use LoadingIndicator instead.")
 public protocol ProgressIndicatorModel {}
     
 /// Deprecated SideBarListItem
