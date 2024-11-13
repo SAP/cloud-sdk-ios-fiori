@@ -81,7 +81,11 @@ extension SortFilterView: View {
                 })
                 .environmentObject(context)
         }
-        .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? popoverWidth : nil)
+        #if !os(visionOS)
+        .frame(minWidth: UIDevice.current.userInterfaceIdiom != .phone ? 393.0 : nil)
+        #else
+        .frame(minWidth: UIDevice.current.userInterfaceIdiom != .phone ? 480.0 : nil)
+        #endif
         .frame(height: UIDevice.current.userInterfaceIdiom != .phone ? size.height + 130 : nil)
         .presentationDetents([.large])
         .background(Color.preferredColor(.chromeSecondary))
