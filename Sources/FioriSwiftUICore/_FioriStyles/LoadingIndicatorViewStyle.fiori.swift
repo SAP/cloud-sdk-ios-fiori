@@ -3,13 +3,13 @@ import Foundation
 import SwiftUI
 
 // Base Layout style
-public struct LoadingIndicatorViewBaseStyle: LoadingIndicatorViewStyle {
+public struct LoadingIndicatorBaseStyle: LoadingIndicatorStyle {
     @Environment(\.indicatorPosition) var position
     @Environment(\.indicatorTint) var tint
     @Environment(\.indicatorControlSize) var controlSize
     private var timerTool = TimerTask()
 
-    public func makeBody(_ configuration: LoadingIndicatorViewConfiguration) -> some View {
+    public func makeBody(_ configuration: LoadingIndicatorConfiguration) -> some View {
         Group {
             if configuration.isPresented {
                 self.layoutBody(configuration)
@@ -34,7 +34,7 @@ public struct LoadingIndicatorViewBaseStyle: LoadingIndicatorViewStyle {
             .controlSize(self.controlSize)
     }
 
-    private func layoutBody(_ configuration: LoadingIndicatorViewConfiguration) -> some View {
+    private func layoutBody(_ configuration: LoadingIndicatorConfiguration) -> some View {
         switch self.position {
         case .leading:
             return AnyView(HStack(spacing: 8) {
@@ -61,15 +61,15 @@ public struct LoadingIndicatorViewBaseStyle: LoadingIndicatorViewStyle {
 }
 
 // Default fiori styles
-extension LoadingIndicatorViewFioriStyle {
-    struct ContentFioriStyle: LoadingIndicatorViewStyle {
-        func makeBody(_ configuration: LoadingIndicatorViewConfiguration) -> some View {
-            LoadingIndicatorView(configuration)
+extension LoadingIndicatorFioriStyle {
+    struct ContentFioriStyle: LoadingIndicatorStyle {
+        func makeBody(_ configuration: LoadingIndicatorConfiguration) -> some View {
+            LoadingIndicator(configuration)
         }
     }
 
     struct TitleFioriStyle: TitleStyle {
-        let loadingIndicatorViewConfiguration: LoadingIndicatorViewConfiguration
+        let loadingIndicatorConfiguration: LoadingIndicatorConfiguration
 
         func makeBody(_ configuration: TitleConfiguration) -> some View {
             Title(configuration)
@@ -80,7 +80,7 @@ extension LoadingIndicatorViewFioriStyle {
 }
 
 struct IndicatorPositionKey: EnvironmentKey {
-    public static let defaultValue: LoadingIndicatorView.Layout = .top
+    public static let defaultValue: LoadingIndicator.Layout = .top
 }
 
 struct IndicatorControlSizeKey: EnvironmentKey {
@@ -93,7 +93,7 @@ struct IndicatorTintKey: EnvironmentKey {
 
 public extension EnvironmentValues {
     /// Title position of loading indicator. Default value is `top`.
-    var indicatorPosition: LoadingIndicatorView.Layout {
+    var indicatorPosition: LoadingIndicator.Layout {
         get { self[IndicatorPositionKey.self] }
         set { self[IndicatorPositionKey.self] = newValue }
     }
@@ -115,7 +115,7 @@ public extension View {
     /// Sets the position of the loading indicator.
     /// - Parameter position: The desired layout position for the loading indicator.
     /// - Returns: A view that has the indicator position applied.
-    func indicatorPosition(_ position: LoadingIndicatorView.Layout) -> some View {
+    func indicatorPosition(_ position: LoadingIndicator.Layout) -> some View {
         self.environment(\.indicatorPosition, position)
     }
 
@@ -135,7 +135,7 @@ public extension View {
 }
 
 /// :nodoc:
-public extension LoadingIndicatorView {
+public extension LoadingIndicator {
     /// Position of the loading indicator
     enum Layout {
         /// Leading position of the loading indicator

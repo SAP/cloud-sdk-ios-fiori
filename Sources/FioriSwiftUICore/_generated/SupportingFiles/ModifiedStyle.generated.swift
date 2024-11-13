@@ -1436,31 +1436,31 @@ public extension ListPickerItemStyle {
     }
 }
 
-// MARK: LoadingIndicatorViewStyle
+// MARK: LoadingIndicatorStyle
 
-extension ModifiedStyle: LoadingIndicatorViewStyle where Style: LoadingIndicatorViewStyle {
-    public func makeBody(_ configuration: LoadingIndicatorViewConfiguration) -> some View {
-        LoadingIndicatorView(configuration)
-            .loadingIndicatorViewStyle(self.style)
+extension ModifiedStyle: LoadingIndicatorStyle where Style: LoadingIndicatorStyle {
+    public func makeBody(_ configuration: LoadingIndicatorConfiguration) -> some View {
+        LoadingIndicator(configuration)
+            .loadingIndicatorStyle(self.style)
             .modifier(self.modifier)
     }
 }
 
-public struct LoadingIndicatorViewStyleModifier<Style: LoadingIndicatorViewStyle>: ViewModifier {
+public struct LoadingIndicatorStyleModifier<Style: LoadingIndicatorStyle>: ViewModifier {
     let style: Style
 
     public func body(content: Content) -> some View {
-        content.loadingIndicatorViewStyle(self.style)
+        content.loadingIndicatorStyle(self.style)
     }
 }
 
-public extension LoadingIndicatorViewStyle {
-    func modifier(_ modifier: some ViewModifier) -> some LoadingIndicatorViewStyle {
+public extension LoadingIndicatorStyle {
+    func modifier(_ modifier: some ViewModifier) -> some LoadingIndicatorStyle {
         ModifiedStyle(style: self, modifier: modifier)
     }
 
-    func concat(_ style: some LoadingIndicatorViewStyle) -> some LoadingIndicatorViewStyle {
-        style.modifier(LoadingIndicatorViewStyleModifier(style: self))
+    func concat(_ style: some LoadingIndicatorStyle) -> some LoadingIndicatorStyle {
+        style.modifier(LoadingIndicatorStyleModifier(style: self))
     }
 }
 

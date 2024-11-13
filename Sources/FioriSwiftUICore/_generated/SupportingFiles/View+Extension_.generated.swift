@@ -870,18 +870,18 @@ public extension View {
     }
 }
 
-// MARK: LoadingIndicatorViewStyle
+// MARK: LoadingIndicatorStyle
 
 public extension View {
-    func loadingIndicatorViewStyle(_ style: some LoadingIndicatorViewStyle) -> some View {
-        self.transformEnvironment(\.loadingIndicatorViewStyleStack) { stack in
+    func loadingIndicatorStyle(_ style: some LoadingIndicatorStyle) -> some View {
+        self.transformEnvironment(\.loadingIndicatorStyleStack) { stack in
             stack.append(style)
         }
     }
 
-    func loadingIndicatorViewStyle(@ViewBuilder content: @escaping (LoadingIndicatorViewConfiguration) -> some View) -> some View {
-        self.transformEnvironment(\.loadingIndicatorViewStyleStack) { stack in
-            let style = AnyLoadingIndicatorViewStyle(content)
+    func loadingIndicatorStyle(@ViewBuilder content: @escaping (LoadingIndicatorConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.loadingIndicatorStyleStack) { stack in
+            let style = AnyLoadingIndicatorStyle(content)
             stack.append(style)
         }
     }
