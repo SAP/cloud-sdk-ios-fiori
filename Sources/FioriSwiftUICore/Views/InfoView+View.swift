@@ -25,15 +25,6 @@ extension Fiori {
             }
         }
         
-        struct ProgressIndicator: ViewModifier {
-            func body(content: Content) -> some View {
-                content
-                    .font(.fiori(forTextStyle: .body))
-                    .foregroundColor(.preferredColor(.primaryLabel))
-                    .multilineTextAlignment(.center)
-            }
-        }
-        
         struct Action: ViewModifier {
             func body(content: Content) -> some View {
                 content
@@ -48,26 +39,22 @@ extension Fiori {
                     .foregroundColor(.preferredColor(.tintColor))
             }
         }
-        
-        typealias ProgressIndicatorStyle = EmptyModifier
-        typealias ProgressIndicatorStyleCumulative = EmptyModifier
-        static let title = Title()
-        static let descriptionText = DescriptionText()
-        static let progressIndicator = ProgressIndicator()
-        static let action = Action()
-        static let secondaryAction = SecondaryAction()
-        static let progressIndicatorStyle = ProgressIndicatorStyle()
-     
+
         typealias TitleCumulative = EmptyModifier
         typealias DescriptionTextCumulative = EmptyModifier
-        typealias ProgressIndicatorCumulative = EmptyModifier
+        typealias LoadingIndicatorText = EmptyModifier
+        typealias LoadingIndicatorTextCumulative = EmptyModifier
         typealias ActionCumulative = EmptyModifier
         typealias SecondaryActionCumulative = EmptyModifier
-
+        
+        static let title = Title()
+        static let descriptionText = DescriptionText()
+        static let loadingIndicatorText = LoadingIndicatorText()
+        static let action = Action()
+        static let secondaryAction = SecondaryAction()
         static let titleCumulative = TitleCumulative()
         static let descriptionTextCumulative = DescriptionTextCumulative()
-        static let progressIndicatorCumulative = ProgressIndicatorCumulative()
-        static let progressIndicatorStyleCumulative = ProgressIndicatorStyleCumulative()
+        static let loadingIndicatorTextCumulative = LoadingIndicatorTextCumulative()
         static let actionCumulative = ActionCumulative()
         static let secondaryActionCumulative = SecondaryActionCumulative()
     }
@@ -75,13 +62,14 @@ extension Fiori {
 
 extension InfoView: View {
     public var body: some View {
-        VStack {
+        @State var isPresented: Bool = _showLoadingIndicator ?? false
+        return VStack {
             title
                 .padding(.top, 80)
                 .padding(.bottom, 40)
             descriptionText
             Spacer()
-            progressIndicator
+            LoadingIndicatorView(title: AttributedString(_loadingIndicatorText ?? ""), isPresented: $isPresented)
             Spacer()
             action
                 .padding(.bottom, 20)
@@ -98,6 +86,6 @@ extension InfoView: View {
 struct InfoViewLibraryContent: LibraryContentProvider {
     @LibraryContentBuilder
     var views: [LibraryItem] {
-        LibraryItem(InfoView(title: "SAP BTP SDK for iOS", descriptionText: "SAP BTP SDK for iOS enables you to quickly develop your own native apps, with Swift. The SDK extends the standard Swift Apple iOS frameworks with the reusable UI components from the SAP Fiori for iOS Design Language, and provides APIs which seamlessly integrate apps with SAP BTP services.", action: _Action(actionText: "Primary Button"), secondaryAction: _Action(actionText: "Secondary Button")))
+        LibraryItem(InfoView(title: "SAP BTP SDK for iOS", descriptionText: "SAP BTP SDK for iOS enables you to quickly develop your own native apps, with Swift. The SDK extends the standard Swift Apple iOS frameworks with the reusable UI components from the SAP Fiori for iOS Design Language, and provides APIs which seamlessly integrate apps with SAP BTP services.", showLoadingIndicator: false, loadingIndicatorText: "", action: _Action(actionText: "Primary Button"), secondaryAction: _Action(actionText: "Secondary Button")))
     }
 }

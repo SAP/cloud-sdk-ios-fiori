@@ -381,6 +381,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: CheckoutIndicatorStyle
+
+struct CheckoutIndicatorStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any CheckoutIndicatorStyle] = []
+}
+
+extension EnvironmentValues {
+    var checkoutIndicatorStyle: any CheckoutIndicatorStyle {
+        self.checkoutIndicatorStyleStack.last ?? .base
+    }
+
+    var checkoutIndicatorStyleStack: [any CheckoutIndicatorStyle] {
+        get {
+            self[CheckoutIndicatorStyleStackKey.self]
+        }
+        set {
+            self[CheckoutIndicatorStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: CloseActionStyle
 
 struct CloseActionStyleStackKey: EnvironmentKey {
@@ -2309,6 +2330,27 @@ extension EnvironmentValues {
         }
         set {
             self[ValueLabelStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: ValuePickerStyle
+
+struct ValuePickerStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any ValuePickerStyle] = []
+}
+
+extension EnvironmentValues {
+    var valuePickerStyle: any ValuePickerStyle {
+        self.valuePickerStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var valuePickerStyleStack: [any ValuePickerStyle] {
+        get {
+            self[ValuePickerStyleStackKey.self]
+        }
+        set {
+            self[ValuePickerStyleStackKey.self] = newValue
         }
     }
 }

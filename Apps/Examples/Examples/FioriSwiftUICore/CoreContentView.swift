@@ -218,6 +218,12 @@ struct CoreContentView: View {
                 {
                     Text("DateTimePicker")
                 }
+                
+                NavigationLink(
+                    destination: ValuePickerExample())
+                {
+                    Text("ValuePicker")
+                }
             }
             
             Section(header: Text("Onboarding")) {
@@ -252,6 +258,12 @@ struct CoreContentView: View {
                 
                 NavigationLink(destination: LoadingIndicatorExample()) {
                     Text("Loading Indicator")
+                }
+
+                NavigationLink(
+                    destination: CheckoutIndicatorExample())
+                {
+                    Text("Checkout Indicator")
                 }
             }
             
