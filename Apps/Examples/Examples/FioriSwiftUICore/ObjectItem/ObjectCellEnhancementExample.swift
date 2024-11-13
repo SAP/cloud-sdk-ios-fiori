@@ -19,7 +19,7 @@ struct ObjectCellEnhancementExample: View {
             }, detailImage: {
                 Image("attachment009").resizable().frame(width: 45, height: 45)
             }, objectItemButton: {
-                FioriButton(title: "Label", action: { _ in
+                FioriButton(title: "Button", action: { _ in
                     print("accessory action button selected")
                 })
                 .fioriButtonStyle(FioriSecondaryButtonStyle(colorStyle: .normal).eraseToAnyFioriButtonStyle())
@@ -38,7 +38,7 @@ struct ObjectCellEnhancementExample: View {
             }, detailImage: {
                 Image("attachment009").resizable().frame(width: 45, height: 45)
             }, objectItemButton: {
-                FioriButton(title: "Label", action: { _ in
+                FioriButton(title: "Button", action: { _ in
                     print("accessory action button selected")
                 })
                 .fioriButtonStyle(FioriSecondaryButtonStyle(colorStyle: .normal).eraseToAnyFioriButtonStyle())
@@ -59,7 +59,7 @@ struct ObjectCellEnhancementExample: View {
             }, detailImage: {
                 Image("attachment009").resizable().frame(width: 45, height: 45)
             }, objectItemButton: {
-                FioriButton(title: "Label", action: { _ in
+                FioriButton(title: "Button", action: { _ in
                     print("accessory action button selected")
                 })
                 .fioriButtonStyle(FioriSecondaryButtonStyle(colorStyle: .normal).eraseToAnyFioriButtonStyle())
@@ -155,6 +155,6 @@ struct ObjectCellEnhancementExample: View {
                 }
             })
         }
-        .navigationTitle("Object Cell Enhancement")
+        .navigationTitle("Object Cell Enhancement for Button")
     }
 }

@@ -5,6 +5,7 @@ import SwiftUI
 // sourcery: CompositeComponent
 protocol _ObjectItemComponent: _TitleComponent, _SubtitleComponent, _FootnoteComponent, _DescriptionComponent, _StatusComponent, _SubstatusComponent, _DetailImageComponent, _IconsComponent, _AvatarsComponent, _FootnoteIconsComponent, _FootnoteIconsTextComponent, _TagsComponent, _ActionComponent {
     // sourcery: @ViewBuilder
+    /// For accessory enhancement
     var objectItemButton: FioriButton? { get }
 }
 
