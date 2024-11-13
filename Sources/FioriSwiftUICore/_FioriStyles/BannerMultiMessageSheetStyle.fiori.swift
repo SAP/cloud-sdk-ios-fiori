@@ -16,7 +16,7 @@ import SwiftUI
 public struct BannerMessageItemModel: Identifiable {
     public var id: UUID
     /// Banner icon
-    public var icon: any View
+    public var icon: (any View)?
     /// Banner title
     public var title: String
     /// Message Type
@@ -37,7 +37,7 @@ public struct BannerMessageItemModel: Identifiable {
         }
     }
     
-    public init(id: UUID = UUID(), icon: any View, title: String, messageType: BannerMultiMessageType) {
+    public init(id: UUID = UUID(), icon: (any View)?, title: String, messageType: BannerMultiMessageType) {
         self.id = id
         self.icon = icon
         self.title = title
@@ -200,6 +200,21 @@ public struct BannerMultiMessageSheetBaseStyle: BannerMultiMessageSheetStyle {
         }
     }
     
+    func defaultIcon(_ messageType: BannerMultiMessageType) -> some View {
+        switch messageType {
+        case .neutral:
+            Image(fioriName: "fiori.hint")
+        case .informative:
+            Image(fioriName: "fiori.hint")
+        case .positive:
+            Image(fioriName: "fiori.hint")
+        case .critical:
+            Image(fioriName: "fiori.warning2")
+        case .negative:
+            Image(fioriName: "fiori.notification.3")
+        }
+    }
+    
     // swiftlint:disable:next function_body_length
     public func makeBody(_ configuration: BannerMultiMessageSheetConfiguration) -> some View {
         VStack(spacing: 0, content: {
@@ -249,9 +264,12 @@ public struct BannerMultiMessageSheetBaseStyle: BannerMultiMessageSheetStyle {
                                     .foregroundStyle(Color.preferredColor(.secondaryLabel))
                                 Spacer()
                                 
-                                _Action(actionText: _ClearActionDefault().actionText, didSelectAction: {
+                                Button {
                                     self.removeCategoryAction(configuration, category: element.category)
-                                })
+                                } label: {
+                                    Text(_ClearActionDefault().actionText ?? "")
+                                }
+                                .buttonStyle(PlainButtonStyle())
                                 .font(.fiori(forTextStyle: .subheadline))
                                 .foregroundStyle(Color.preferredColor(.tintColor))
                             }
@@ -265,7 +283,7 @@ public struct BannerMultiMessageSheetBaseStyle: BannerMultiMessageSheetStyle {
                                 AnyView(configuration.messageItemView(message.id))
                             } else {
                                 BannerMessage(icon: {
-                                    message.icon
+                                    (message.icon ?? self.defaultIcon(message.messageType)).typeErased
                                 }, title: {
                                     Text(self.attributedMessageTitle(title: message.title, typeDesc: message.typeDesc))
                                 }, closeAction: {
