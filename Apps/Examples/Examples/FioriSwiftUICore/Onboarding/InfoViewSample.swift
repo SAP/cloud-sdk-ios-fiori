@@ -74,14 +74,14 @@ struct InfoViewCustomized: View {
             InfoView(model: self.model)
                 .descriptionTextModifier { $0.font(.fiori(forTextStyle: .subheadline)).foregroundColor(.blue) }
                 .actionModifier { $0.foregroundColor(.blue) }
-                .loadingIndicatorViewStyle(CustomLoadingStyle())
+                .loadingIndicatorStyle(CustomLoadingStyle())
         }
     }
 }
 
-struct CustomLoadingStyle: LoadingIndicatorViewStyle {
-    func makeBody(_ configuration: LoadingIndicatorViewConfiguration) -> some View {
-        LoadingIndicatorView(configuration)
+struct CustomLoadingStyle: LoadingIndicatorStyle {
+    func makeBody(_ configuration: LoadingIndicatorConfiguration) -> some View {
+        LoadingIndicator(configuration)
             .indicatorTint(Color.pink)
             .indicatorControlSize(.large)
             .indicatorPosition(.bottom)

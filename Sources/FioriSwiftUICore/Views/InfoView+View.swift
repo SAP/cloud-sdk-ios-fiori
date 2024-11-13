@@ -69,7 +69,7 @@ extension InfoView: View {
                 .padding(.bottom, 40)
             descriptionText
             Spacer()
-            LoadingIndicatorView(title: AttributedString(_loadingIndicatorText ?? ""), isPresented: $isPresented)
+            LoadingIndicator(title: AttributedString(_loadingIndicatorText ?? ""), isPresented: $isPresented)
             Spacer()
             action
                 .padding(.bottom, 20)
