@@ -21,8 +21,6 @@ extension Fiori {
         typealias TitleCumulative = EmptyModifier
 		typealias DescriptionText = EmptyModifier
         typealias DescriptionTextCumulative = EmptyModifier
-		typealias ProgressIndicator = EmptyModifier
-        typealias ProgressIndicatorCumulative = EmptyModifier
 		typealias Action = EmptyModifier
         typealias ActionCumulative = EmptyModifier
 		typealias SecondaryAction = EmptyModifier
@@ -42,12 +40,10 @@ extension Fiori {
         */
         static let title = Title()
 		static let descriptionText = DescriptionText()
-		static let progressIndicator = ProgressIndicator()
 		static let action = Action()
 		static let secondaryAction = SecondaryAction()
         static let titleCumulative = TitleCumulative()
 		static let descriptionTextCumulative = DescriptionTextCumulative()
-		static let progressIndicatorCumulative = ProgressIndicatorCumulative()
 		static let actionCumulative = ActionCumulative()
 		static let secondaryActionCumulative = SecondaryActionCumulative()
     }

@@ -439,3 +439,18 @@ protocol _ListPickerContentComponent {
     @ViewBuilder
     var listPickerContent: (() -> any View)? { get }
 }
+
+/// `CheckoutIndicator` provides a circular indicator that shows the state of a process.
+///
+/// ## Usage
+/// ```swift
+/// @State var displayState = DisplayState.inProgress
+///
+/// CheckoutIndicator(displayState: self.$displayState)
+/// ```
+// sourcery: BaseComponent
+protocol _CheckoutIndicatorComponent {
+    // sourcery: @Binding
+    /// The current state of this view. Changing this property will result in a different icon and view.
+    var displayState: DisplayState { get }
+}

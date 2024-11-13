@@ -512,6 +512,34 @@ public extension CardMediaStyle {
     }
 }
 
+// MARK: CheckoutIndicatorStyle
+
+extension ModifiedStyle: CheckoutIndicatorStyle where Style: CheckoutIndicatorStyle {
+    public func makeBody(_ configuration: CheckoutIndicatorConfiguration) -> some View {
+        CheckoutIndicator(configuration)
+            .checkoutIndicatorStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct CheckoutIndicatorStyleModifier<Style: CheckoutIndicatorStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.checkoutIndicatorStyle(self.style)
+    }
+}
+
+public extension CheckoutIndicatorStyle {
+    func modifier(_ modifier: some ViewModifier) -> some CheckoutIndicatorStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some CheckoutIndicatorStyle) -> some CheckoutIndicatorStyle {
+        style.modifier(CheckoutIndicatorStyleModifier(style: self))
+    }
+}
+
 // MARK: CloseActionStyle
 
 extension ModifiedStyle: CloseActionStyle where Style: CloseActionStyle {
@@ -3085,5 +3113,33 @@ public extension ValueLabelStyle {
 
     func concat(_ style: some ValueLabelStyle) -> some ValueLabelStyle {
         style.modifier(ValueLabelStyleModifier(style: self))
+    }
+}
+
+// MARK: ValuePickerStyle
+
+extension ModifiedStyle: ValuePickerStyle where Style: ValuePickerStyle {
+    public func makeBody(_ configuration: ValuePickerConfiguration) -> some View {
+        ValuePicker(configuration)
+            .valuePickerStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct ValuePickerStyleModifier<Style: ValuePickerStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.valuePickerStyle(self.style)
+    }
+}
+
+public extension ValuePickerStyle {
+    func modifier(_ modifier: some ViewModifier) -> some ValuePickerStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some ValuePickerStyle) -> some ValuePickerStyle {
+        style.modifier(ValuePickerStyleModifier(style: self))
     }
 }

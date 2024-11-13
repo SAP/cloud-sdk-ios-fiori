@@ -309,6 +309,23 @@ public extension View {
     }
 }
 
+// MARK: CheckoutIndicatorStyle
+
+public extension View {
+    func checkoutIndicatorStyle(_ style: some CheckoutIndicatorStyle) -> some View {
+        self.transformEnvironment(\.checkoutIndicatorStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func checkoutIndicatorStyle(@ViewBuilder content: @escaping (CheckoutIndicatorConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.checkoutIndicatorStyleStack) { stack in
+            let style = AnyCheckoutIndicatorStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: CloseActionStyle
 
 public extension View {
@@ -1868,6 +1885,23 @@ public extension View {
     func valueLabelStyle(@ViewBuilder content: @escaping (ValueLabelConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.valueLabelStyleStack) { stack in
             let style = AnyValueLabelStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: ValuePickerStyle
+
+public extension View {
+    func valuePickerStyle(_ style: some ValuePickerStyle) -> some View {
+        self.transformEnvironment(\.valuePickerStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func valuePickerStyle(@ViewBuilder content: @escaping (ValuePickerConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.valuePickerStyleStack) { stack in
+            let style = AnyValuePickerStyle(content)
             stack.append(style)
         }
     }

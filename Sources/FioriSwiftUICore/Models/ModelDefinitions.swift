@@ -117,9 +117,13 @@ public protocol _ListPickerItemModel: KeyComponent, ValueComponent {
 @available(*, unavailable, renamed: "_ListPickerItemModel", message: "Will be removed in the future release. Please create ListPickerItem with other initializers instead.")
 public protocol ListPickerItemModel {}
 
+/// Deprecated ProgressIndicatorModel
 // sourcery: generated_component_not_configurable
-public protocol ProgressIndicatorModel: ProgressIndicatorComponent {}
+public protocol _ProgressIndicatorModel: ProgressIndicatorComponent {}
 
+@available(*, unavailable, renamed: "_ProgressIndicatorModel", message: "Will be removed in the future release. Please use LoadingIndicator instead.")
+public protocol ProgressIndicatorModel {}
+    
 /// Deprecated SideBarListItem
 // sourcery: add_env_props = "sideBarListItemConfigMode"
 // sourcery: add_env_props = "sizeCategory"
@@ -178,8 +182,13 @@ public protocol ActivationScreenModel: TitleComponent, DescriptionTextComponent,
 
 // sourcery: generated_component_composite
 public protocol InfoViewModel: TitleComponent, DescriptionTextComponent {
-    // sourcery: genericParameter.name = ProgressIndicatorView
-    var progressIndicator: ProgressIndicatorModel? { get }
+    // sourcery: default.value = nil
+    // sourcery: no_view
+    var showLoadingIndicator: Bool? { get }
+    
+    // sourcery: default.value = nil
+    // sourcery: no_view
+    var loadingIndicatorText: String? { get }
     
     // sourcery: genericParameter.name = ActionView
     var action: _ActionModel? { get }
