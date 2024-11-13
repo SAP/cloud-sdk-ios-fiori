@@ -78,7 +78,7 @@ struct BannerMultiMessageCustomInitExample: View {
                         }, turnOnSectionHeader: self.turnOnSectionHeader, messageItemView: { id in
                             if let (message, category) = getItemData(with: id) {
                                 BannerMessage(icon: {
-                                    message.icon
+                                    (message.icon ?? EmptyView()).typeErased
                                 }, title: {
                                     Text(self.attributedMessageTitle(title: message.title, typeDesc: message.typeDesc))
                                 }, closeAction: {
@@ -328,7 +328,7 @@ struct BannerMultiMessageCustomInitExample: View {
         if self.firstName.isEmpty {
             let tips = "First name is required."
             self.firstNameErrorMessage = AttributedString(tips)
-            warningMessages.append(BannerMessageItemModel(id: self.firstNameId, icon: Image(fioriName: "fiori.warning"), title: tips, messageType: .critical))
+            warningMessages.append(BannerMessageItemModel(id: self.firstNameId, icon: Image(fioriName: "fiori.warning2"), title: tips, messageType: .critical))
         } else if self.firstName.count > 20 {
             let tips = "First name is too long."
             self.firstNameErrorMessage = AttributedString(tips)
@@ -336,13 +336,15 @@ struct BannerMultiMessageCustomInitExample: View {
         } else {
             let tips = "First name correct."
             self.firstNameErrorMessage = AttributedString()
-            informationMessages.append(BannerMessageItemModel(id: self.firstNameId, icon: Image(fioriName: "fiori.hint"), title: tips, messageType: .positive))
+            informationMessages.append(BannerMessageItemModel(id: self.firstNameId, icon: EmptyView(), title: tips, messageType: .positive))
+            
+            informationMessages.append(BannerMessageItemModel(id: UUID(), icon: EmptyView(), title: tips, messageType: .positive))
         }
         
         if self.lastName.isEmpty {
             let tips = "Last name is required."
             self.lastNameErrorMessage = AttributedString(tips)
-            warningMessages.append(BannerMessageItemModel(id: self.lastNameId, icon: Image(fioriName: "fiori.warning"), title: tips, messageType: .critical))
+            warningMessages.append(BannerMessageItemModel(id: self.lastNameId, icon: Image(fioriName: "fiori.warning2"), title: tips, messageType: .critical))
         } else if self.lastName.count > 20 {
             let tips = "Last name is too long."
             self.lastNameErrorMessage = AttributedString(tips)
@@ -356,7 +358,7 @@ struct BannerMultiMessageCustomInitExample: View {
         if self.emailAddress.isEmpty {
             let tips = "Email address is required!"
             self.emailAddressErrorMessage = AttributedString(tips)
-            warningMessages.append(BannerMessageItemModel(id: self.emailAddressId, icon: Image(fioriName: "fiori.warning"), title: tips, messageType: .critical))
+            warningMessages.append(BannerMessageItemModel(id: self.emailAddressId, icon: Image(fioriName: "fiori.warning2"), title: tips, messageType: .critical))
         } else if self.isEmailInvalid {
             let tips = "Email address is Invalid! This can be multiple lines. This can be multiple lines. This can be multiple lines. This can be multiple lines. This can be multiple lines. This can be multiple lines. This can be multiple lines. This can be multiple lines."
             self.emailAddressErrorMessage = AttributedString(tips)

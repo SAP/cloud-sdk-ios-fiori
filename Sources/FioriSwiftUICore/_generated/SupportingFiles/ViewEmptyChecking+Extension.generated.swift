@@ -383,7 +383,7 @@ extension ListPickerItem: _ViewEmptyChecking {
     }
 }
 
-extension LoadingIndicatorView: _ViewEmptyChecking {
+extension LoadingIndicator: _ViewEmptyChecking {
     public var isEmpty: Bool {
         title.isEmpty
     }

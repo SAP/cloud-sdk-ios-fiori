@@ -2880,38 +2880,38 @@ public extension ListPickerItemStyle where Self == ListPickerItemFormViewStyle {
     }
 }
 
-// MARK: LoadingIndicatorViewStyle
+// MARK: LoadingIndicatorStyle
 
-public extension LoadingIndicatorViewStyle where Self == LoadingIndicatorViewBaseStyle {
-    static var base: LoadingIndicatorViewBaseStyle {
-        LoadingIndicatorViewBaseStyle()
+public extension LoadingIndicatorStyle where Self == LoadingIndicatorBaseStyle {
+    static var base: LoadingIndicatorBaseStyle {
+        LoadingIndicatorBaseStyle()
     }
 }
 
-public extension LoadingIndicatorViewStyle where Self == LoadingIndicatorViewFioriStyle {
-    static var fiori: LoadingIndicatorViewFioriStyle {
-        LoadingIndicatorViewFioriStyle()
+public extension LoadingIndicatorStyle where Self == LoadingIndicatorFioriStyle {
+    static var fiori: LoadingIndicatorFioriStyle {
+        LoadingIndicatorFioriStyle()
     }
 }
 
-public struct LoadingIndicatorViewTitleStyle: LoadingIndicatorViewStyle {
+public struct LoadingIndicatorTitleStyle: LoadingIndicatorStyle {
     let style: any TitleStyle
 
-    public func makeBody(_ configuration: LoadingIndicatorViewConfiguration) -> some View {
-        LoadingIndicatorView(configuration)
+    public func makeBody(_ configuration: LoadingIndicatorConfiguration) -> some View {
+        LoadingIndicator(configuration)
             .titleStyle(self.style)
             .typeErased
     }
 }
 
-public extension LoadingIndicatorViewStyle where Self == LoadingIndicatorViewTitleStyle {
-    static func titleStyle(_ style: some TitleStyle) -> LoadingIndicatorViewTitleStyle {
-        LoadingIndicatorViewTitleStyle(style: style)
+public extension LoadingIndicatorStyle where Self == LoadingIndicatorTitleStyle {
+    static func titleStyle(_ style: some TitleStyle) -> LoadingIndicatorTitleStyle {
+        LoadingIndicatorTitleStyle(style: style)
     }
 
-    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> LoadingIndicatorViewTitleStyle {
+    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> LoadingIndicatorTitleStyle {
         let style = AnyTitleStyle(content)
-        return LoadingIndicatorViewTitleStyle(style: style)
+        return LoadingIndicatorTitleStyle(style: style)
     }
 }
 

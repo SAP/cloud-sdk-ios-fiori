@@ -3,13 +3,13 @@
 import Foundation
 import SwiftUI
 
-public struct LoadingIndicatorView {
+public struct LoadingIndicator {
     let title: any View
     /// The duration in seconds for which the loading indicator is shown. If set to 0, the loading indicator will be displayed continuously. The default is `0`.
     let duration: Double
     @Binding var isPresented: Bool
 
-    @Environment(\.loadingIndicatorViewStyle) var style
+    @Environment(\.loadingIndicatorStyle) var style
 
     fileprivate var _shouldApplyDefaultStyle = true
 
@@ -23,7 +23,7 @@ public struct LoadingIndicatorView {
     }
 }
 
-public extension LoadingIndicatorView {
+public extension LoadingIndicator {
     init(title: AttributedString,
          duration: Double = 0,
          isPresented: Binding<Bool>)
@@ -32,12 +32,12 @@ public extension LoadingIndicatorView {
     }
 }
 
-public extension LoadingIndicatorView {
-    init(_ configuration: LoadingIndicatorViewConfiguration) {
+public extension LoadingIndicator {
+    init(_ configuration: LoadingIndicatorConfiguration) {
         self.init(configuration, shouldApplyDefaultStyle: false)
     }
 
-    internal init(_ configuration: LoadingIndicatorViewConfiguration, shouldApplyDefaultStyle: Bool) {
+    internal init(_ configuration: LoadingIndicatorConfiguration, shouldApplyDefaultStyle: Bool) {
         self.title = configuration.title
         self.duration = configuration.duration
         self._isPresented = configuration.$isPresented
@@ -45,13 +45,13 @@ public extension LoadingIndicatorView {
     }
 }
 
-extension LoadingIndicatorView: View {
+extension LoadingIndicator: View {
     public var body: some View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
             self.style.resolve(configuration: .init(title: .init(self.title), duration: self.duration, isPresented: self.$isPresented)).typeErased
-                .transformEnvironment(\.loadingIndicatorViewStyleStack) { stack in
+                .transformEnvironment(\.loadingIndicatorStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
                     }
@@ -60,7 +60,7 @@ extension LoadingIndicatorView: View {
     }
 }
 
-private extension LoadingIndicatorView {
+private extension LoadingIndicator {
     func shouldApplyDefaultStyle(_ bool: Bool) -> some View {
         var s = self
         s._shouldApplyDefaultStyle = bool
@@ -68,9 +68,9 @@ private extension LoadingIndicatorView {
     }
 
     func defaultStyle() -> some View {
-        LoadingIndicatorView(.init(title: .init(self.title), duration: self.duration, isPresented: self.$isPresented))
+        LoadingIndicator(.init(title: .init(self.title), duration: self.duration, isPresented: self.$isPresented))
             .shouldApplyDefaultStyle(false)
-            .loadingIndicatorViewStyle(LoadingIndicatorViewFioriStyle.ContentFioriStyle())
+            .loadingIndicatorStyle(LoadingIndicatorFioriStyle.ContentFioriStyle())
             .typeErased
     }
 }
