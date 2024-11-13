@@ -1074,23 +1074,23 @@ extension EnvironmentValues {
     }
 }
 
-// MARK: LoadingIndicatorViewStyle
+// MARK: LoadingIndicatorStyle
 
-struct LoadingIndicatorViewStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any LoadingIndicatorViewStyle] = []
+struct LoadingIndicatorStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any LoadingIndicatorStyle] = []
 }
 
 extension EnvironmentValues {
-    var loadingIndicatorViewStyle: any LoadingIndicatorViewStyle {
-        self.loadingIndicatorViewStyleStack.last ?? .base.concat(.fiori)
+    var loadingIndicatorStyle: any LoadingIndicatorStyle {
+        self.loadingIndicatorStyleStack.last ?? .base.concat(.fiori)
     }
 
-    var loadingIndicatorViewStyleStack: [any LoadingIndicatorViewStyle] {
+    var loadingIndicatorStyleStack: [any LoadingIndicatorStyle] {
         get {
-            self[LoadingIndicatorViewStyleStackKey.self]
+            self[LoadingIndicatorStyleStackKey.self]
         }
         set {
-            self[LoadingIndicatorViewStyleStackKey.self] = newValue
+            self[LoadingIndicatorStyleStackKey.self] = newValue
         }
     }
 }

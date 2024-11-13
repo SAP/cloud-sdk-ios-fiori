@@ -819,19 +819,19 @@ extension ListPickerItemStyle {
     }
 }
 
-// MARK: LoadingIndicatorViewStyle
+// MARK: LoadingIndicatorStyle
 
-struct ResolvedLoadingIndicatorViewStyle<Style: LoadingIndicatorViewStyle>: View {
+struct ResolvedLoadingIndicatorStyle<Style: LoadingIndicatorStyle>: View {
     let style: Style
-    let configuration: LoadingIndicatorViewConfiguration
+    let configuration: LoadingIndicatorConfiguration
     var body: some View {
         self.style.makeBody(self.configuration)
     }
 }
 
-extension LoadingIndicatorViewStyle {
-    func resolve(configuration: LoadingIndicatorViewConfiguration) -> some View {
-        ResolvedLoadingIndicatorViewStyle(style: self, configuration: configuration)
+extension LoadingIndicatorStyle {
+    func resolve(configuration: LoadingIndicatorConfiguration) -> some View {
+        ResolvedLoadingIndicatorStyle(style: self, configuration: configuration)
     }
 }
 

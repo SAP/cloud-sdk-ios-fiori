@@ -21,7 +21,7 @@ struct LoadingIndicatorExample: View {
     var body: some View {
         List {
             Section("Default Loading Indicator") {
-                LoadingIndicatorView(title: "Loading...", isPresented: self.$isPresented1)
+                LoadingIndicator(title: "Loading...", isPresented: self.$isPresented1)
                     .frame(maxWidth: .infinity)
                     .multilineTextAlignment(.center)
                     .padding()
@@ -33,7 +33,7 @@ struct LoadingIndicatorExample: View {
                         .fill(Color.preferredColor(.accentBackground10))
                         .frame(height: 150)
                         .overlay(alignment: .center, content: {
-                            LoadingIndicatorView(title: {
+                            LoadingIndicator(title: {
                                 Text(" delay/show/dismiss")
                                     .font(.system(size: 12))
                                     .rainbow()
@@ -48,20 +48,20 @@ struct LoadingIndicatorExample: View {
             }.headerProminence(.increased)
             Section("Control Size") {
                 VStack(alignment: .leading) {
-                    LoadingIndicatorView(title: "mini size indicator", isPresented: self.$isPresented3)
+                    LoadingIndicator(title: "mini size indicator", isPresented: self.$isPresented3)
                         .indicatorPosition(.leading)
                         .indicatorControlSize(.mini)
-                    LoadingIndicatorView(title: "small size indicator", isPresented: self.$isPresented3)
+                    LoadingIndicator(title: "small size indicator", isPresented: self.$isPresented3)
                         .indicatorPosition(.leading)
                         .indicatorControlSize(.small)
-                    LoadingIndicatorView(title: "regular size indicator", isPresented: self.$isPresented3)
+                    LoadingIndicator(title: "regular size indicator", isPresented: self.$isPresented3)
                         .indicatorPosition(.leading)
                         .indicatorControlSize(.regular)
-                    LoadingIndicatorView(title: "large size indicator", isPresented: self.$isPresented6)
+                    LoadingIndicator(title: "large size indicator", isPresented: self.$isPresented6)
                         .indicatorPosition(.leading)
                         .indicatorControlSize(.large)
                     if #available(iOS 17.0, *) {
-                        LoadingIndicatorView(title: "extraLarge size indicator", isPresented: self.$isPresented6)
+                        LoadingIndicator(title: "extraLarge size indicator", isPresented: self.$isPresented6)
                             .indicatorPosition(.leading)
                             .indicatorControlSize(.extraLarge)
                     } else {
@@ -71,12 +71,12 @@ struct LoadingIndicatorExample: View {
             }.headerProminence(.increased)
             Section("Position And Custom Text") {
                 VStack(alignment: .center) {
-                    LoadingIndicatorView(title: "leading indicator", isPresented: self.$isPresented3)
+                    LoadingIndicator(title: "leading indicator", isPresented: self.$isPresented3)
                         .indicatorPosition(.leading)
                         .indicatorTint(Color.random)
                     Spacer()
                     if #available(iOS 17.0, *) {
-                        LoadingIndicatorView(title: {
+                        LoadingIndicator(title: {
                             Text("top indicator")
                                 .font(.system(size: 8))
                                 .foregroundStyle(Color.red)
@@ -87,7 +87,7 @@ struct LoadingIndicatorExample: View {
                         // Fallback on earlier versions
                     }
                     Spacer()
-                    LoadingIndicatorView(title: {
+                    LoadingIndicator(title: {
                         Text("trailing indicator")
                             .font(.largeTitle)
                             .foregroundStyle(Color.green)
@@ -95,7 +95,7 @@ struct LoadingIndicatorExample: View {
                         .indicatorPosition(.trailing)
                         .indicatorTint(Color.random)
                     Spacer()
-                    LoadingIndicatorView(title: self.message, isPresented: self.$isPresented6)
+                    LoadingIndicator(title: self.message, isPresented: self.$isPresented6)
                         .indicatorPosition(.bottom)
                         .indicatorTint(Color.random)
                 }
@@ -107,7 +107,7 @@ struct LoadingIndicatorExample: View {
 
             Section("Delay 10 Seconds Dismiss") {
                 VStack {
-                    LoadingIndicatorView(title: "Loading...", duration: 10, isPresented: self.$isPresented7)
+                    LoadingIndicator(title: "Loading...", duration: 10, isPresented: self.$isPresented7)
                         .indicatorTint(Color.random)
                         .indicatorControlSize(.large)
                     Button("Show") {

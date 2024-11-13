@@ -317,7 +317,7 @@ public extension View {
 }
 
 struct BannerMessageModifier: ViewModifier {
-    let icon: any View
+    let icon: (any View)?
     var title: (any View)?
     @Binding var isPresented: Bool
     @Binding var pushContentDown: Bool
@@ -337,7 +337,7 @@ struct BannerMessageModifier: ViewModifier {
     
     @State private var showingMessageDetail: Bool = false
     
-    init(icon: any View, title: (any View)? = nil, isPresented: Binding<Bool>, pushContentDown: Binding<Bool>, bannerTapped: (() -> Void)? = nil, viewDetailAction: ((UUID) -> Void)? = nil, alignment: HorizontalAlignment, hideSeparator: Bool, messageType: BannerMultiMessageType, turnOnSectionHeader: Bool, showDetailLink: Bool, bannerMultiMessages: Binding<[BannerMessageListModel]>) {
+    init(icon: (any View)? = nil, title: (any View)? = nil, isPresented: Binding<Bool>, pushContentDown: Binding<Bool>, bannerTapped: (() -> Void)? = nil, viewDetailAction: ((UUID) -> Void)? = nil, alignment: HorizontalAlignment, hideSeparator: Bool, messageType: BannerMultiMessageType, turnOnSectionHeader: Bool, showDetailLink: Bool, bannerMultiMessages: Binding<[BannerMessageListModel]>) {
         self.icon = icon
         self.title = title
         _isPresented = isPresented
@@ -408,9 +408,24 @@ struct BannerMessageModifier: ViewModifier {
         return NSLocalizedString(key + (count > 1 ? "s" : ""), tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
     }
     
+    @ViewBuilder var defaultIcon: some View {
+        switch self.messageType {
+        case .neutral:
+            Image(fioriName: "fiori.hint")
+        case .informative:
+            Image(fioriName: "fiori.hint")
+        case .positive:
+            Image(fioriName: "fiori.hint")
+        case .critical:
+            Image(fioriName: "fiori.warning2")
+        case .negative:
+            Image(fioriName: "fiori.notification.3")
+        }
+    }
+    
     @ViewBuilder var bannerMessage: some View {
         BannerMessage(icon: {
-            self.icon
+            (self.icon ?? self.defaultIcon).typeErased
         }, title: {
             if let title = self.title {
                 AnyView(title)
@@ -419,6 +434,10 @@ struct BannerMessageModifier: ViewModifier {
                     .environment(\.openURL, OpenURLAction(handler: { url in
                         if url.absoluteString == "ViewDetails" {
                             self.showingMessageDetail = true
+                            
+                            if UIDevice.current.userInterfaceIdiom == .phone {
+                                self.isPresented = false
+                            }
                         }
                         return .handled
                     }))
