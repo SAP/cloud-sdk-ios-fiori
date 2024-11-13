@@ -265,6 +265,12 @@ struct CoreContentView: View {
                 {
                     Text("Checkout Indicator")
                 }
+                
+                NavigationLink(
+                    destination: ProgressIndicatorExample())
+                {
+                    Text("Progress Indicator")
+                }
             }
             
             Section(header: Text("Navigation Bar")) {

@@ -1968,6 +1968,62 @@ public extension ProfileHeaderStyle {
     }
 }
 
+// MARK: ProgressIndicatorStyle
+
+extension ModifiedStyle: ProgressIndicatorStyle where Style: ProgressIndicatorStyle {
+    public func makeBody(_ configuration: ProgressIndicatorConfiguration) -> some View {
+        ProgressIndicator(configuration)
+            .progressIndicatorStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct ProgressIndicatorStyleModifier<Style: ProgressIndicatorStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.progressIndicatorStyle(self.style)
+    }
+}
+
+public extension ProgressIndicatorStyle {
+    func modifier(_ modifier: some ViewModifier) -> some ProgressIndicatorStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some ProgressIndicatorStyle) -> some ProgressIndicatorStyle {
+        style.modifier(ProgressIndicatorStyleModifier(style: self))
+    }
+}
+
+// MARK: ProgressIndicatorProtocolStyle
+
+extension ModifiedStyle: ProgressIndicatorProtocolStyle where Style: ProgressIndicatorProtocolStyle {
+    public func makeBody(_ configuration: ProgressIndicatorProtocolConfiguration) -> some View {
+        ProgressIndicatorProtocol(configuration)
+            .progressIndicatorProtocolStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct ProgressIndicatorProtocolStyleModifier<Style: ProgressIndicatorProtocolStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.progressIndicatorProtocolStyle(self.style)
+    }
+}
+
+public extension ProgressIndicatorProtocolStyle {
+    func modifier(_ modifier: some ViewModifier) -> some ProgressIndicatorProtocolStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some ProgressIndicatorProtocolStyle) -> some ProgressIndicatorProtocolStyle {
+        style.modifier(ProgressIndicatorProtocolStyleModifier(style: self))
+    }
+}
+
 // MARK: RatingControlStyle
 
 extension ModifiedStyle: RatingControlStyle where Style: RatingControlStyle {
