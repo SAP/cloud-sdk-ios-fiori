@@ -14,7 +14,11 @@ public struct _SortFilterCFGItemContainer {
     @Binding var _items: [[SortFilterItem]]
     @State var height = 88.0
     
-    let popoverWidth = 393.0
+    #if !os(visionOS)
+        let popoverWidth = 393.0
+    #else
+        let popoverWidth = 480.0
+    #endif
     @State var stepperViewHeight: CGFloat = 110
     @State var searchListHeight: CGFloat = 88.0
     @State var _keyboardHeight: CGFloat = 0.0
@@ -34,6 +38,7 @@ extension _SortFilterCFGItemContainer: View {
                         self.rowView(row: r, column: c)
                             .listRowSeparator(c == self._items[r].count - 1 ? .hidden : .visible, edges: .all)
                             .padding([.leading, .trailing], UIDevice.current.userInterfaceIdiom != .phone ? 13 : 16)
+                            .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? self.popoverWidth : nil)
                     }
                 } footer: {
                     Rectangle().fill(Color.preferredColor(.primaryGroupedBackground))
@@ -50,12 +55,12 @@ extension _SortFilterCFGItemContainer: View {
         .background(Color.preferredColor(.secondaryGroupedBackground))
         .modifier(FioriIntrospectModifier<UIScrollView> { scrollView in
             DispatchQueue.main.async {
-                let popverHeight = Screen.bounds.size.height - StatusBar.height
-                let totalSpacing: CGFloat = (UIDevice.current.userInterfaceIdiom != .phone ? 8 : 16) * 2
-                let totalPadding: CGFloat = (UIDevice.current.userInterfaceIdiom != .phone ? 13 : 16) * 2
+                let popverHeight = Screen.bounds.size.height
                 let safeAreaInset = self.getSafeAreaInsets()
-                var maxScrollViewHeight = popverHeight - totalSpacing - totalPadding - safeAreaInset.top - safeAreaInset.bottom - (UIDevice.current.userInterfaceIdiom != .phone ? 130 : 30)
-                maxScrollViewHeight -= self._keyboardHeight
+                var maxScrollViewHeight = popverHeight - safeAreaInset.top - safeAreaInset.bottom - (UIDevice.current.userInterfaceIdiom != .phone ? 190 : 150)
+                if UIDevice.current.userInterfaceIdiom == .pad {
+                    maxScrollViewHeight -= self._keyboardHeight
+                }
                 self.height = min(scrollView.contentSize.height, maxScrollViewHeight)
             }
         })
@@ -129,7 +134,6 @@ extension _SortFilterCFGItemContainer: View {
                 .padding([.top], 12)
         case .datetime:
             self.datetimePicker(row: r, column: c)
-                .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? self.popoverWidth : Screen.bounds.size.width)
                 .padding([.top, .bottom], 12)
         case .stepper:
             self.stepper(row: r, column: c)
@@ -151,13 +155,17 @@ extension _SortFilterCFGItemContainer: View {
             } selectAll: { isAll in
                 self._items[r][c].picker.selectAll(isAll)
             } updateSearchListPickerHeight: { height in
-                if self._keyboardHeight > 0 {
-                    self.searchListHeight = height + (UIDevice.current.userInterfaceIdiom != .phone ? 230 : 150)
-                } else {
-                    self.searchListHeight = self.height
+                if UIDevice.current.userInterfaceIdiom == .pad {
+                    if self._keyboardHeight > 0 {
+                        self.searchListHeight = height + (UIDevice.current.userInterfaceIdiom != .phone ? 190 : 150)
+                    } else {
+                        self.searchListHeight = self.height
+                    }
                 }
             }
-            .frame(height: self.searchListHeight)
+            .ifApply(UIDevice.current.userInterfaceIdiom == .pad, content: { v in
+                v.frame(height: self.searchListHeight)
+            })
             .onReceive(NotificationCenter.default.publisher(for: UIApplication.keyboardDidShowNotification)) { notif in
                 let rect = (notif.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect) ?? .zero
                 self._keyboardHeight = rect.height
@@ -339,7 +347,8 @@ extension _SortFilterCFGItemContainer: View {
                     .font(.fiori(forTextStyle: .subheadline, weight: .bold, isItalic: false, isCondensed: false))
                     .foregroundColor(Color.preferredColor(.primaryLabel))
                 Spacer()
-            }.padding([.leading, .trailing], UIDevice.current.userInterfaceIdiom != .phone ? 13 : 16)
+            }
+            .padding([.leading, .trailing], UIDevice.current.userInterfaceIdiom != .phone ? 0 : 16)
             
             StepperView(
                 title: { Text(self._items[r][c].stepper.stepperTitle) },
