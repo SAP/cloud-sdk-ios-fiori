@@ -265,6 +265,12 @@ struct CoreContentView: View {
                 {
                     Text("Checkout Indicator")
                 }
+
+                NavigationLink(
+                    destination: CheckoutIndicatorModalExample())
+                {
+                    Text("Checkout Indicator Modal")
+                }
             }
             
             Section(header: Text("Navigation Bar")) {
