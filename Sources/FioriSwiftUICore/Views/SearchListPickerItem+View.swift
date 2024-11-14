@@ -28,7 +28,7 @@ public extension SearchListPickerItem {
 extension SearchListPickerItem: View {
     public var body: some View {
         List {
-            if !disableListEntriesSection, _value.count > 0 {
+            if !disableListEntriesSection, !_value.isEmpty {
                 Section {
                     self.selectionHeader()
                     let selectedOptions = _value.wrappedValue.map { _valueOptions[$0] }

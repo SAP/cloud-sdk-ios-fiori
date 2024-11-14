@@ -85,7 +85,7 @@ extension SortFilterView: View {
         .frame(minWidth: UIDevice.current.userInterfaceIdiom != .phone ? 393.0 : nil)
         .background(Color.preferredColor(.chromeSecondary))
         #else
-        .frame(minWidth: UIDevice.current.userInterfaceIdiom != .phone ? 480.0 : nil)
+        .frame(minWidth: 480.0)
         .background(Color.clear)
         #endif
         .frame(height: UIDevice.current.userInterfaceIdiom != .phone ? size.height + 150 : nil)

@@ -347,7 +347,8 @@ extension _SortFilterCFGItemContainer: View {
                     .font(.fiori(forTextStyle: .subheadline, weight: .bold, isItalic: false, isCondensed: false))
                     .foregroundColor(Color.preferredColor(.primaryLabel))
                 Spacer()
-            }.padding([.leading, .trailing], UIDevice.current.userInterfaceIdiom != .phone ? 0 : 16)
+            }
+            .padding([.leading, .trailing], UIDevice.current.userInterfaceIdiom != .phone ? 0 : 16)
             
             StepperView(
                 title: { Text(self._items[r][c].stepper.stepperTitle) },
