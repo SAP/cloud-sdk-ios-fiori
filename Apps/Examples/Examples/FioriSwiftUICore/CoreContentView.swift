@@ -267,6 +267,12 @@ struct CoreContentView: View {
                 }
                 
                 NavigationLink(
+                    destination: CheckoutIndicatorModalExample())
+                {
+                    Text("Checkout Indicator Modal")
+                }
+                
+                NavigationLink(
                     destination: ProgressIndicatorExample())
                 {
                     Text("Progress Indicator")
