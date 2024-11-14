@@ -83,12 +83,13 @@ extension SortFilterView: View {
         }
         #if !os(visionOS)
         .frame(minWidth: UIDevice.current.userInterfaceIdiom != .phone ? 393.0 : nil)
+        .background(Color.preferredColor(.chromeSecondary))
         #else
         .frame(minWidth: UIDevice.current.userInterfaceIdiom != .phone ? 480.0 : nil)
+        .background(Color.clear)
         #endif
-        .frame(height: UIDevice.current.userInterfaceIdiom != .phone ? size.height + 130 : nil)
+        .frame(height: UIDevice.current.userInterfaceIdiom != .phone ? size.height + 150 : nil)
         .presentationDetents([.large])
-        .background(Color.preferredColor(.chromeSecondary))
     }
 }
 

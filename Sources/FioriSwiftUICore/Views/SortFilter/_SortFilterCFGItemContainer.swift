@@ -57,7 +57,7 @@ extension _SortFilterCFGItemContainer: View {
             DispatchQueue.main.async {
                 let popverHeight = Screen.bounds.size.height
                 let safeAreaInset = self.getSafeAreaInsets()
-                var maxScrollViewHeight = popverHeight - safeAreaInset.top - safeAreaInset.bottom - (UIDevice.current.userInterfaceIdiom != .phone ? 180 : 150)
+                var maxScrollViewHeight = popverHeight - safeAreaInset.top - safeAreaInset.bottom - (UIDevice.current.userInterfaceIdiom != .phone ? 190 : 150)
                 if UIDevice.current.userInterfaceIdiom == .pad {
                     maxScrollViewHeight -= self._keyboardHeight
                 }
@@ -157,7 +157,7 @@ extension _SortFilterCFGItemContainer: View {
             } updateSearchListPickerHeight: { height in
                 if UIDevice.current.userInterfaceIdiom == .pad {
                     if self._keyboardHeight > 0 {
-                        self.searchListHeight = height + (UIDevice.current.userInterfaceIdiom != .phone ? 180 : 150)
+                        self.searchListHeight = height + (UIDevice.current.userInterfaceIdiom != .phone ? 190 : 150)
                     } else {
                         self.searchListHeight = self.height
                     }
@@ -347,7 +347,7 @@ extension _SortFilterCFGItemContainer: View {
                     .font(.fiori(forTextStyle: .subheadline, weight: .bold, isItalic: false, isCondensed: false))
                     .foregroundColor(Color.preferredColor(.primaryLabel))
                 Spacer()
-            }.padding([.leading, .trailing], UIDevice.current.userInterfaceIdiom != .phone ? 13 : 16)
+            }.padding([.leading, .trailing], UIDevice.current.userInterfaceIdiom != .phone ? 0 : 16)
             
             StepperView(
                 title: { Text(self._items[r][c].stepper.stepperTitle) },
