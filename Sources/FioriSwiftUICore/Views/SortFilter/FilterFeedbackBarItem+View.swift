@@ -270,7 +270,7 @@ struct PickerMenuItem: View {
                     }
                     Spacer()
                 }
-                .frame(minWidth: UIDevice.current.userInterfaceIdiom != .phone ? 393 : nil)
+                .frame(minWidth: UIDevice.current.userInterfaceIdiom != .phone ? self.popoverWidth : nil)
                 .frame(height: UIDevice.current.userInterfaceIdiom != .phone ? self.detentHeight + (self.item.isSearchBarHidden ? 0 : 52) + (self._keyboardHeight == 0 ? 56 : 0) + 93 : nil)
                 .presentationDetents([.height(self.detentHeight + (self.item.isSearchBarHidden ? 0 : 52) + (self._keyboardHeight == 0 ? 56 : 0) + 93), .medium, .large])
             }
@@ -313,7 +313,11 @@ struct DateTimeMenuItem: View {
     
     var onUpdate: () -> Void
     
-    let popoverWidth = 393.0
+    #if !os(visionOS)
+        let popoverWidth = 393.0
+    #else
+        let popoverWidth = 480.0
+    #endif
 
     public init(item: Binding<SortFilterItem.DateTimeItem>, onUpdate: @escaping () -> Void) {
         self._item = item
