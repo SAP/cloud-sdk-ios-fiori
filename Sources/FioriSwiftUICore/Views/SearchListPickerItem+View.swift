@@ -124,6 +124,8 @@ extension SearchListPickerItem: View {
                 #endif
             }
         }
+        .accessibilityIdentifier(value)
+        .accessibilityElement(children: .combine)
     }
     
     private func selectionHeader() -> some View {
