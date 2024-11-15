@@ -27,43 +27,13 @@ public extension SearchListPickerItem {
 
 extension SearchListPickerItem: View {
     public var body: some View {
-        VStack(spacing: 0) {
-            List {
-                if !disableListEntriesSection, _value.count > 0 {
-                    Section {
-                        self.selectionHeader()
-                        let selectedOptions = _value.wrappedValue.map { _valueOptions[$0] }
-                        ForEach(selectedOptions.filter { _searchText.isEmpty || $0.localizedStandardContains(_searchText) }, id: \.self) { item in
-                            self.rowView(value: item, isSelected: true)
-                                .padding(0)
-                                .contentShape(Rectangle())
-                                .onTapGesture {
-                                    guard let index = findIndex(of: item) else {
-                                        return
-                                    }
-                                    _onTap?(index)
-                                }
-                        }
-                        
-                        Rectangle().fill(Color.preferredColor(.primaryGroupedBackground))
-                            .frame(height: 30)
-                            .listRowInsets(EdgeInsets())
-                    }
-                }
-
+        List {
+            if !disableListEntriesSection, !_value.isEmpty {
                 Section {
-                    if allowsMultipleSelection {
-                        if _value.count != _valueOptions.count || allowsEmptySelection {
-                            self.selectAllView()
-                        }
-                    } else if _value.count == _valueOptions.count {
-                        self.selectAllView()
-                    } else {
-                        EmptyView()
-                    }
-                    ForEach(_valueOptions.filter { _searchText.isEmpty || $0.localizedStandardContains(_searchText) }, id: \.self) { item in
-                        let isSelected = self.isItemSelected(item)
-                        self.rowView(value: item, isSelected: isSelected)
+                    self.selectionHeader()
+                    let selectedOptions = _value.wrappedValue.map { _valueOptions[$0] }
+                    ForEach(selectedOptions.filter { _searchText.isEmpty || $0.localizedStandardContains(_searchText) }, id: \.self) { item in
+                        self.rowView(value: item, isSelected: true)
                             .padding(0)
                             .contentShape(Rectangle())
                             .onTapGesture {
@@ -73,43 +43,69 @@ extension SearchListPickerItem: View {
                                 _onTap?(index)
                             }
                     }
+                    
+                    Rectangle().fill(Color.preferredColor(.primaryGroupedBackground))
+                        .frame(height: 30)
+                        .listRowInsets(EdgeInsets())
                 }
             }
-            .modifier(FioriIntrospectModifier<UIScrollView> { scrollView in
-                if !_searchText.isEmpty {
-                    return
+
+            Section {
+                if allowsMultipleSelection {
+                    if _value.count != _valueOptions.count || allowsEmptySelection {
+                        self.selectAllView()
+                    }
+                } else if _value.count == _valueOptions.count {
+                    self.selectAllView()
+                } else {
+                    EmptyView()
                 }
-                DispatchQueue.main.async {
-                    let popverHeight = Screen.bounds.size.height - StatusBar.height
-                    let totalSpacing: CGFloat = (UIDevice.current.userInterfaceIdiom != .phone ? 8 : 16) * 2
-                    let totalPadding: CGFloat = (UIDevice.current.userInterfaceIdiom != .phone ? 13 : 16) * 2
-                    let safeAreaInset = self.getSafeAreaInsets()
-                    var maxScrollViewHeight = popverHeight - totalSpacing - totalPadding - (self.isSearchBarHidden ? 0 : 52) - 56 - safeAreaInset.top - safeAreaInset.bottom - (UIDevice.current.userInterfaceIdiom != .phone ? 250 : 30)
-                    maxScrollViewHeight -= self._keyboardHeight
-                    if self._keyboardHeight > 0 {
-                        maxScrollViewHeight += 56
-                    }
-                    self._height = min(scrollView.contentSize.height, maxScrollViewHeight)
-                    updateSearchListPickerHeight?(self._height)
+                ForEach(_valueOptions.filter { _searchText.isEmpty || $0.localizedStandardContains(_searchText) }, id: \.self) { item in
+                    let isSelected = self.isItemSelected(item)
+                    self.rowView(value: item, isSelected: isSelected)
+                        .padding(0)
+                        .contentShape(Rectangle())
+                        .onTapGesture {
+                            guard let index = findIndex(of: item) else {
+                                return
+                            }
+                            _onTap?(index)
+                        }
                 }
-            })
-            .listStyle(PlainListStyle())
-            .frame(minWidth: UIDevice.current.userInterfaceIdiom != .phone ? popoverWidth : nil)
-            .scrollContentBackground(.hidden)
-            .padding(0)
-            .environment(\.defaultMinListRowHeight, 0)
-            .environment(\.defaultMinListHeaderHeight, 0)
-            .ifApply(!isSearchBarHidden, content: { v in
-                v.searchable(text: $_searchText, placement: .navigationBarDrawer(displayMode: .always))
-                    .onReceive(NotificationCenter.default.publisher(for: UIApplication.keyboardDidShowNotification)) { notif in
-                        let rect = (notif.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect) ?? .zero
-                        self._keyboardHeight = rect.height
-                    }
-                    .onReceive(NotificationCenter.default.publisher(for: UIApplication.keyboardDidHideNotification)) { _ in
-                        self._keyboardHeight = 0
-                    }
-            })
+            }
         }
+        .modifier(FioriIntrospectModifier<UIScrollView> { scrollView in
+            if !_searchText.isEmpty {
+                return
+            }
+            DispatchQueue.main.async {
+                let popverHeight = Screen.bounds.size.height
+                let safeAreaInset = self.getSafeAreaInsets()
+                var maxScrollViewHeight = popverHeight - (self.isSearchBarHidden ? 0 : 52) - 56 - safeAreaInset.top - safeAreaInset.bottom - (UIDevice.current.userInterfaceIdiom != .phone ? 250 : 30)
+                maxScrollViewHeight -= self._keyboardHeight
+                if self._keyboardHeight > 0 {
+                    maxScrollViewHeight += 56
+                }
+                self._height = min(scrollView.contentSize.height, maxScrollViewHeight)
+                updateSearchListPickerHeight?(self._height)
+            }
+        })
+        .listStyle(PlainListStyle())
+        .frame(minWidth: UIDevice.current.userInterfaceIdiom != .phone ? self.popoverWidth : nil)
+        .scrollContentBackground(.hidden)
+        .padding(0)
+        .environment(\.defaultMinListRowHeight, 0)
+        .environment(\.defaultMinListHeaderHeight, 0)
+        .ifApply(!isSearchBarHidden, content: { v in
+            v.searchable(text: $_searchText, placement: .navigationBarDrawer(displayMode: .always))
+                .onReceive(NotificationCenter.default.publisher(for: UIApplication.keyboardDidShowNotification)) { notif in
+                    let rect = (notif.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect) ?? .zero
+                    self._keyboardHeight = rect.height
+                }
+                .onReceive(NotificationCenter.default.publisher(for: UIApplication.keyboardDidHideNotification)) { _ in
+                    self._keyboardHeight = 0
+                }
+        })
     }
     
     private func rowView(value: String, isSelected: Bool) -> some View {
