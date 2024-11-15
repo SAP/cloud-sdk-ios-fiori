@@ -734,7 +734,6 @@ struct ObjectItem_Previews: PreviewProvider {
                 Image(systemName: "circle.fill").foregroundColor(.blue)
                 Image(systemName: "paperclip").font(.system(size: 14))
             })
-            .previewDevice(PreviewDevice(rawValue: "iPad Pro (12.9-inch) (4th generation)"))
             .previewLayout(.fixed(width: 844, height: 120))
             .environment(\.horizontalSizeClass, .regular)
             .previewDisplayName("Regular, 1st is text, init with ViewBuilder")
@@ -761,7 +760,6 @@ struct ObjectItem_Previews: PreviewProvider {
                 Image(systemName: "paperclip").font(.system(size: 14))
             })
             .splitPercent(nil)
-            .previewDevice(PreviewDevice(rawValue: "iPad Pro (12.9-inch) (4th generation)"))
             .previewLayout(.fixed(width: 844, height: 120))
             .environment(\.horizontalSizeClass, .regular)
             .previewDisplayName("Regular, 1st is icon, splitPercent to nil, init with ViewBuilder")
@@ -775,7 +773,6 @@ struct ObjectItem_Previews: PreviewProvider {
                         icons: [TextOrIcon.text("1"),
                                 TextOrIcon.icon(Image(systemName: "circle.fill")),
                                 TextOrIcon.icon(Image(systemName: "mail"))])
-                .previewDevice(PreviewDevice(rawValue: "iPad Pro (12.9-inch) (4th generation)"))
                 .previewLayout(.fixed(width: 844, height: 120))
                 .environment(\.horizontalSizeClass, .regular)
                 .previewDisplayName("Regular, 1st is text, init with model")
@@ -801,7 +798,6 @@ struct ObjectItem_Previews: PreviewProvider {
                 Circle().fill(Color.blue).frame(width: 14, height: 14)
                 Image(systemName: "paperclip").font(.system(size: 14))
             })
-            .previewDevice(PreviewDevice(rawValue: "iPad Pro (12.9-inch) (4th generation)"))
             .previewLayout(.fixed(width: 844, height: 200))
             .environment(\.horizontalSizeClass, .regular)
             .previewDisplayName("Accessibility AX1 and larger- no description text")

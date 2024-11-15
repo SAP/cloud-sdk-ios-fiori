@@ -31,16 +31,34 @@ extension _SortFilterMenuItemContainer: View {
                             switch self._items[r][c] {
                             case .picker:
                                 PickerMenuItem(item: Binding<SortFilterItem.PickerItem>(get: { self._items[r][c].picker }, set: { self._items[r][c].picker = $0 }), onUpdate: self.onUpdate)
+                                    .accessibilityElement()
+                                    .accessibilityLabel(self._items[r][c].picker.label)
+                                    .accessibilityIdentifier(self._items[r][c].picker.name)
                             case .filterfeedback:
                                 FilterFeedbackMenuItem(item: Binding<SortFilterItem.PickerItem>(get: { self._items[r][c].filterfeedback }, set: { self._items[r][c].filterfeedback = $0 }), onUpdate: self.onUpdate)
+                                    .accessibilityElement()
+                                    .accessibilityLabel(self._items[r][c].filterfeedback.label)
+                                    .accessibilityIdentifier(self._items[r][c].filterfeedback.name)
                             case .switch:
                                 SwitchMenuItem(item: Binding<SortFilterItem.SwitchItem>(get: { self._items[r][c].switch }, set: { self._items[r][c].switch = $0 }), onUpdate: self.onUpdate)
+                                    .accessibilityElement()
+                                    .accessibilityLabel(self.switchItemAccessibilityLabel(switchItem: self._items[r][c].switch))
+                                    .accessibilityIdentifier(self._items[r][c].switch.name)
                             case .slider:
                                 SliderMenuItem(item: Binding<SortFilterItem.SliderItem>(get: { self._items[r][c].slider }, set: { self._items[r][c].slider = $0 }), onUpdate: self.onUpdate)
+                                    .accessibilityElement()
+                                    .accessibilityLabel(self._items[r][c].slider.label)
+                                    .accessibilityIdentifier(self._items[r][c].slider.name)
                             case .datetime:
                                 DateTimeMenuItem(item: Binding<SortFilterItem.DateTimeItem>(get: { self._items[r][c].datetime }, set: { self._items[r][c].datetime = $0 }), onUpdate: self.onUpdate)
+                                    .accessibilityElement()
+                                    .accessibilityLabel(self._items[r][c].datetime.label)
+                                    .accessibilityIdentifier(self._items[r][c].datetime.name)
                             case .stepper:
                                 StepperMenuItem(item: Binding<SortFilterItem.StepperItem>(get: { self._items[r][c].stepper }, set: { self._items[r][c].stepper = $0 }), onUpdate: self.onUpdate)
+                                    .accessibilityElement()
+                                    .accessibilityLabel(self._items[r][c].stepper.label)
+                                    .accessibilityIdentifier(self._items[r][c].stepper.name)
                             }
                         }
                     }
@@ -52,6 +70,16 @@ extension _SortFilterMenuItemContainer: View {
         }
         .frame(minHeight: 44)
         .padding(.leading, 5)
+    }
+    
+    private func switchItemAccessibilityLabel(switchItem: SortFilterItem.SwitchItem) -> String {
+        var accessibilityLabel = switchItem.name
+        if let value = switchItem.value {
+            accessibilityLabel += "\(value ? 1 : 0)"
+        } else {
+            accessibilityLabel += "\(0)"
+        }
+        return accessibilityLabel
     }
 }
 
