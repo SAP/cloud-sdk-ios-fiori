@@ -62,8 +62,6 @@ struct CancellableResettableDialogNavigationForm<Title: View, CancelAction: View
     var resetAction: ResetAction
     var applyAction: ApplyAction
     
-    let popoverWidth = 393.0
-    
     public init(@ViewBuilder title: () -> Title,
                 @ViewBuilder cancelAction: () -> CancelAction,
                 @ViewBuilder resetAction: () -> ResetAction,
@@ -100,7 +98,6 @@ struct CancellableResettableDialogNavigationForm<Title: View, CancelAction: View
                 }
             }
         }
-        .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? self.popoverWidth : nil)
         .padding([.bottom], UIDevice.current.userInterfaceIdiom != .phone ? 13 : 16)
         #if !os(visionOS)
             .background(Color.preferredColor(.chromeSecondary))

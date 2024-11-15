@@ -81,10 +81,15 @@ extension SortFilterView: View {
                 })
                 .environmentObject(context)
         }
-        .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? popoverWidth : nil)
-        .frame(height: UIDevice.current.userInterfaceIdiom != .phone ? size.height + 130 : nil)
-        .presentationDetents([.large])
+        #if !os(visionOS)
+        .frame(minWidth: UIDevice.current.userInterfaceIdiom != .phone ? 393.0 : nil)
         .background(Color.preferredColor(.chromeSecondary))
+        #else
+        .frame(minWidth: 480.0)
+        .background(Color.clear)
+        #endif
+        .frame(height: UIDevice.current.userInterfaceIdiom != .phone ? size.height + 150 : nil)
+        .presentationDetents([.large])
     }
 }
 
