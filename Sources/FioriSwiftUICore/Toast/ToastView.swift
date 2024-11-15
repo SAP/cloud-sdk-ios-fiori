@@ -130,7 +130,6 @@ extension View {
         .background(Color.green)
         .frame(maxWidth: /*@START_MENU_TOKEN@*/ .infinity/*@END_MENU_TOKEN@*/, maxHeight: .infinity)
         .toast(toast: .constant(Toast(message: "Tapped cell is read-only.")))
-        .previewDevice(PreviewDevice(rawValue: "iPhone 15"))
 }
 
 #Preview {
@@ -138,5 +137,4 @@ extension View {
         .background(Color.green)
         .frame(maxWidth: /*@START_MENU_TOKEN@*/ .infinity/*@END_MENU_TOKEN@*/, maxHeight: .infinity)
         .toast(toast: .constant(Toast(message: "Tapped cell is read-only. Tapped cell is read-only. Tapped cell is read-only.", image: Image(systemName: "info.circle.fill"))))
-        .previewDevice(PreviewDevice(rawValue: "iPad Pro (11-inch) (4th generation)"))
 }
