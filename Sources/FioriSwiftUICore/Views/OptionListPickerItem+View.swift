@@ -61,11 +61,11 @@ extension OptionListPickerItem: View {
                 GeometryReader { geometry in
                     Color.clear
                         .onAppear {
-                            let popverHeight = Screen.bounds.size.height - StatusBar.height
+                            let popverHeight = Screen.bounds.size.height
                             let totalSpacing: CGFloat = (UIDevice.current.userInterfaceIdiom != .phone ? 8 : 16) * 2
                             let totalPadding: CGFloat = (UIDevice.current.userInterfaceIdiom != .phone ? 13 : 16) * 2
                             let safeAreaInset = self.getSafeAreaInsets()
-                            let maxScrollViewHeight = popverHeight - totalSpacing - totalPadding - safeAreaInset.top - safeAreaInset.bottom - (UIDevice.current.userInterfaceIdiom != .phone ? 210 : 30)
+                            let maxScrollViewHeight = popverHeight - totalSpacing - totalPadding - safeAreaInset.top - safeAreaInset.bottom - (UIDevice.current.userInterfaceIdiom != .phone ? 210 : 60)
                             self._height = min(geometry.size.height, maxScrollViewHeight)
                         }
                 }
@@ -94,11 +94,11 @@ extension OptionListPickerItem: View {
                 GeometryReader { geometry in
                     Color.clear
                         .onAppear {
-                            let popverHeight = Screen.bounds.size.height - StatusBar.height
+                            let popverHeight = Screen.bounds.size.height
                             let totalSpacing: CGFloat = (UIDevice.current.userInterfaceIdiom != .phone ? 8 : 16) * 2
                             let totalPadding: CGFloat = (UIDevice.current.userInterfaceIdiom != .phone ? 13 : 16) * 2
                             let safeAreaInset = self.getSafeAreaInsets()
-                            let maxScrollViewHeight = popverHeight - totalSpacing - totalPadding - safeAreaInset.top - safeAreaInset.bottom - (UIDevice.current.userInterfaceIdiom != .phone ? 210 : 30)
+                            let maxScrollViewHeight = popverHeight - totalSpacing - totalPadding - safeAreaInset.top - safeAreaInset.bottom - (UIDevice.current.userInterfaceIdiom != .phone ? 210 : 60)
                             self._height = min(geometry.size.height, maxScrollViewHeight)
                         }
                 }
