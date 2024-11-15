@@ -28,7 +28,6 @@ struct KPIProgressPreview: PreviewProvider {
     static var previews: some View {
         Group {
             KPIProgressExample()
-                .previewDevice(PreviewDevice(rawValue: "iPhone 12"))
                 .previewDisplayName("iPhone 12")
         }
     }
