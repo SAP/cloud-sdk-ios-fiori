@@ -265,7 +265,7 @@ struct CoreContentView: View {
                 {
                     Text("Checkout Indicator")
                 }
-                
+              
                 NavigationLink(
                     destination: CheckoutIndicatorModalExample())
                 {

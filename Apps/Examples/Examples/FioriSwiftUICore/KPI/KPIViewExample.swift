@@ -44,7 +44,6 @@ struct KPIPreview: PreviewProvider {
     static var previews: some View {
         Group {
             KPIExample()
-                .previewDevice(PreviewDevice(rawValue: "iPhone 12"))
                 .previewDisplayName("iPhone 12")
         }
     }
