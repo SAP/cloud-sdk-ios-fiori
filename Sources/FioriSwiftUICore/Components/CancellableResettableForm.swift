@@ -28,11 +28,11 @@ struct CancellableResettableDialogForm<Title: View, CancelAction: View, ResetAct
     var body: some View {
         VStack(spacing: UIDevice.current.userInterfaceIdiom != .phone ? 8 : 16) {
             HStack {
-                self.cancelAction
+                self.cancelAction.accessibilityIdentifier("Cancel")
                 Spacer()
                 self.title
                 Spacer()
-                self.resetAction
+                self.resetAction.accessibilityIdentifier("Reset")
             }
             .padding([.leading, .trailing], UIDevice.current.userInterfaceIdiom != .phone ? 13 : 16)
 
@@ -42,6 +42,7 @@ struct CancellableResettableDialogForm<Title: View, CancelAction: View, ResetAct
                 self.components.background(Color.clear)
             #endif
             self.applyAction
+                .accessibilityIdentifier("Apply")
         }
         .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? self.popoverWidth : nil)
         .padding([.top, .bottom], UIDevice.current.userInterfaceIdiom != .phone ? 13 : 16)
@@ -84,6 +85,7 @@ struct CancellableResettableDialogNavigationForm<Title: View, CancelAction: View
                     self.components.background(Color.clear)
                 #endif
                 self.applyAction
+                    .accessibilityIdentifier("Apply")
             }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -91,10 +93,10 @@ struct CancellableResettableDialogNavigationForm<Title: View, CancelAction: View
                     self.title
                 }
                 ToolbarItem(placement: .topBarLeading) {
-                    self.cancelAction
+                    self.cancelAction.accessibilityIdentifier("Cancel")
                 }
                 ToolbarItem(placement: .topBarTrailing) {
-                    self.resetAction
+                    self.resetAction.accessibilityIdentifier("Reset")
                 }
             }
         }
