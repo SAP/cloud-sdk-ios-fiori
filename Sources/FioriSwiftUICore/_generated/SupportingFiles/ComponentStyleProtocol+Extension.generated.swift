@@ -3755,6 +3755,55 @@ public extension ProfileHeaderStyle where Self == ProfileHeaderDescriptionStyle 
     }
 }
 
+// MARK: ProgressIndicatorStyle
+
+public extension ProgressIndicatorStyle where Self == ProgressIndicatorBaseStyle {
+    static var base: ProgressIndicatorBaseStyle {
+        ProgressIndicatorBaseStyle()
+    }
+}
+
+public extension ProgressIndicatorStyle where Self == ProgressIndicatorFioriStyle {
+    static var fiori: ProgressIndicatorFioriStyle {
+        ProgressIndicatorFioriStyle()
+    }
+}
+
+public struct ProgressIndicatorProgressIndicatorProtocolStyle: ProgressIndicatorStyle {
+    let style: any ProgressIndicatorProtocolStyle
+
+    public func makeBody(_ configuration: ProgressIndicatorConfiguration) -> some View {
+        ProgressIndicator(configuration)
+            .progressIndicatorProtocolStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension ProgressIndicatorStyle where Self == ProgressIndicatorProgressIndicatorProtocolStyle {
+    static func progressIndicatorProtocolStyle(_ style: some ProgressIndicatorProtocolStyle) -> ProgressIndicatorProgressIndicatorProtocolStyle {
+        ProgressIndicatorProgressIndicatorProtocolStyle(style: style)
+    }
+
+    static func progressIndicatorProtocolStyle(@ViewBuilder content: @escaping (ProgressIndicatorProtocolConfiguration) -> some View) -> ProgressIndicatorProgressIndicatorProtocolStyle {
+        let style = AnyProgressIndicatorProtocolStyle(content)
+        return ProgressIndicatorProgressIndicatorProtocolStyle(style: style)
+    }
+}
+
+// MARK: ProgressIndicatorProtocolStyle
+
+public extension ProgressIndicatorProtocolStyle where Self == ProgressIndicatorProtocolBaseStyle {
+    static var base: ProgressIndicatorProtocolBaseStyle {
+        ProgressIndicatorProtocolBaseStyle()
+    }
+}
+
+public extension ProgressIndicatorProtocolStyle where Self == ProgressIndicatorProtocolFioriStyle {
+    static var fiori: ProgressIndicatorProtocolFioriStyle {
+        ProgressIndicatorProtocolFioriStyle()
+    }
+}
+
 // MARK: RatingControlStyle
 
 public extension RatingControlStyle where Self == RatingControlBaseStyle {
