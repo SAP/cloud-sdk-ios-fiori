@@ -5,7 +5,7 @@
 
 import SwiftUI
 
-extension ProgressIndicator: View {
+extension _ProgressIndicator: View {
     public var body: some View {
         if #available(iOS 14.0, *) {
             ProgressView(self._progressIndicatorText ?? "")
@@ -37,6 +37,6 @@ struct ActivityIndicator: UIViewRepresentable {
 struct ProgressIndicatorLibraryContent: LibraryContentProvider {
     @LibraryContentBuilder
     var views: [LibraryItem] {
-        LibraryItem(ProgressIndicator(progressIndicatorText: "Loading..."))
+        LibraryItem(_ProgressIndicator(progressIndicatorText: "Loading..."))
     }
 }

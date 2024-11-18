@@ -265,11 +265,17 @@ struct CoreContentView: View {
                 {
                     Text("Checkout Indicator")
                 }
-
+              
                 NavigationLink(
                     destination: CheckoutIndicatorModalExample())
                 {
                     Text("Checkout Indicator Modal")
+                }
+                
+                NavigationLink(
+                    destination: ProgressIndicatorExample())
+                {
+                    Text("Progress Indicator")
                 }
             }
             
