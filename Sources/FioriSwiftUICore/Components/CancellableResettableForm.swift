@@ -83,11 +83,7 @@ struct CancellableResettableDialogNavigationForm<Title: View, CancelAction: View
                 Color.preferredColor(.chromeSecondary)
                     .ignoresSafeArea()
                 VStack(spacing: isNotIphone ? 8 : 16) {
-                    #if !os(visionOS)
-                        self.components
-                    #else
-                        self.components
-                    #endif
+                    self.components
                     
                     VStack(spacing: 0) {
                         self.applyAction
