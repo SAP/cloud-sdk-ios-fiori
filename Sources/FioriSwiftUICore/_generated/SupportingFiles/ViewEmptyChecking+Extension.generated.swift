@@ -516,6 +516,18 @@ extension ProfileHeader: _ViewEmptyChecking {
     }
 }
 
+extension ProgressIndicator: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        false
+    }
+}
+
+extension ProgressIndicatorProtocol: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        false
+    }
+}
+
 extension RatingControl: _ViewEmptyChecking {
     public var isEmpty: Bool {
         valueLabel.isEmpty &&

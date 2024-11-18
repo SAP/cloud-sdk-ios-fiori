@@ -28,7 +28,7 @@ protocol _KpiProgress: KpiComponent, _ComponentMultiPropGenerating {
     var fraction_: Double? { get }
 }
 
-protocol _ProgressIndicator: _ComponentMultiPropGenerating {
+protocol __ProgressIndicator: _ComponentMultiPropGenerating {
     var progressIndicatorText_: String? { get }
 }
 

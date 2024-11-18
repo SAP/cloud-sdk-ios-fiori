@@ -702,3 +702,18 @@ protocol _ValuePickerComponent: _TitleComponent, _ValueLabelComponent, _Mandator
     /// The `ControlState` of the  view. Currently, `.disabled`, `.normal` and `.readOnly` are supported. The default is `normal`.
     var controlState: ControlState { get }
 }
+
+/// `ProgressIndicator` provides a circular progress indicator with custom styles for processing, pausable, and stoppable indicators.
+///
+/// ## Usage
+/// ```swift
+/// @State var progress: Double = 0.0
+/// @State var isPaused: Bool = false
+///
+/// ProgressIndicator(progress: $progress)
+///    .progressIndicatorStyle(.processing)
+/// ProgressIndicator(progress: $progress)
+///     .progressIndicatorStyle(ProgressIndicatorPausableStyle(isPaused: self.$isPaused))
+/// ```
+// sourcery: CompositeComponent
+protocol _ProgressIndicatorComponent: _ProgressIndicatorProtocol {}

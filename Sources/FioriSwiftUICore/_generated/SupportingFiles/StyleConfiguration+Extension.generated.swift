@@ -101,6 +101,14 @@ extension PlaceholderTextFieldConfiguration {
     }
 }
 
+// MARK: ProgressIndicatorConfiguration
+
+extension ProgressIndicatorConfiguration {
+    var _progressIndicatorProtocol: ProgressIndicatorProtocol {
+        ProgressIndicatorProtocol(.init(progress: self.$progress), shouldApplyDefaultStyle: true)
+    }
+}
+
 // MARK: RatingControlFormViewConfiguration
 
 extension RatingControlFormViewConfiguration {

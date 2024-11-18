@@ -1123,6 +1123,38 @@ extension ProfileHeaderStyle {
     }
 }
 
+// MARK: ProgressIndicatorStyle
+
+struct ResolvedProgressIndicatorStyle<Style: ProgressIndicatorStyle>: View {
+    let style: Style
+    let configuration: ProgressIndicatorConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension ProgressIndicatorStyle {
+    func resolve(configuration: ProgressIndicatorConfiguration) -> some View {
+        ResolvedProgressIndicatorStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: ProgressIndicatorProtocolStyle
+
+struct ResolvedProgressIndicatorProtocolStyle<Style: ProgressIndicatorProtocolStyle>: View {
+    let style: Style
+    let configuration: ProgressIndicatorProtocolConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension ProgressIndicatorProtocolStyle {
+    func resolve(configuration: ProgressIndicatorProtocolConfiguration) -> some View {
+        ResolvedProgressIndicatorProtocolStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: RatingControlStyle
 
 struct ResolvedRatingControlStyle<Style: RatingControlStyle>: View {
