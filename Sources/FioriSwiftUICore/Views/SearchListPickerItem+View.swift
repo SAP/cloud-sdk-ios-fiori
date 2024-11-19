@@ -45,7 +45,8 @@ extension SearchListPickerItem: View {
                                 _onTap?(index)
                             }
                     }
-                    
+                    .listRowBackground(Color.preferredColor(.chromeSecondary))
+
                     Rectangle().fill(Color.preferredColor(.primaryGroupedBackground))
                         .frame(height: 30)
                         .listRowInsets(EdgeInsets())
@@ -74,6 +75,7 @@ extension SearchListPickerItem: View {
                             _onTap?(index)
                         }
                 }
+                .listRowBackground(Color.preferredColor(.chromeSecondary))
             }
         }
         .modifier(FioriIntrospectModifier<UIScrollView> { scrollView in

@@ -269,7 +269,10 @@ extension ObjectItemBaseStyle {
                     HStack(alignment: .top) {
                         context.configuration.title.lineLimit(1)
                         Spacer(minLength: 8)
-                        context.configuration.status
+                        
+                        if context.configuration.objectItemButton.isEmpty {
+                            context.configuration.status
+                        }
                     }
                     
                     HStack {
@@ -280,6 +283,14 @@ extension ObjectItemBaseStyle {
                             self.footnoteIconsView(context)
                         }
                         Spacer(minLength: 0)
+                    }
+                }
+                
+                if !context.configuration.objectItemButton.isEmpty {
+                    Spacer(minLength: 8)
+                    VStack(alignment: .trailing, spacing: 4) {
+                        context.configuration.status
+                        context.configuration.objectItemButton
                     }
                 }
             }
@@ -313,6 +324,7 @@ extension ObjectItemBaseStyle {
                 VStack(alignment: .trailing, spacing: 4) {
                     context.configuration.status
                     context.configuration.substatus
+                    context.configuration.objectItemButton
                 }
             }
         }
@@ -348,7 +360,10 @@ extension ObjectItemBaseStyle {
                     
                     Spacer(minLength: 24)
                     
-                    context.configuration.status
+                    VStack(alignment: .trailing, spacing: 4) {
+                        context.configuration.status
+                        context.configuration.objectItemButton
+                    }
                 }
                 .frame(width: self.doesShowDescriptionOrStatus(context) ? self.mainViewSize.width * (1 - self.splitPercent!) : 0)
             }
@@ -407,6 +422,7 @@ extension ObjectItemBaseStyle {
                     VStack(alignment: .trailing, spacing: 4) {
                         context.configuration.status
                         context.configuration.substatus
+                        context.configuration.objectItemButton
                     }
                     .anchorPreference(key: MyViewPreferenceKey.self, value: .bounds, transform: {
                         [MyViewPreferenceData(element: .status, bounds: $0)]
@@ -463,6 +479,7 @@ extension ObjectItemBaseStyle {
                 VStack(alignment: .trailing, spacing: 4) {
                     context.configuration.status
                     context.configuration.substatus
+                    context.configuration.objectItemButton
                 }
                 .position(x: (boundStatus.minX + boundStatus.maxX) / 2, y: boundStatus.size.height / 2)
             }

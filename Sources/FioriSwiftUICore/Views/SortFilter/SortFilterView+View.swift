@@ -89,7 +89,6 @@ extension SortFilterView: View {
         }
         #if !os(visionOS)
         .frame(minWidth: UIDevice.current.userInterfaceIdiom != .phone ? 393.0 : nil)
-        .background(Color.preferredColor(.chromeSecondary))
         #else
         .frame(minWidth: 480.0)
         .background(Color.clear)
