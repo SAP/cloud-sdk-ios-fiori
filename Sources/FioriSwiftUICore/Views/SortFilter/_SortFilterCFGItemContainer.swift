@@ -40,8 +40,9 @@ extension _SortFilterCFGItemContainer: View {
                             .padding([.leading, .trailing], UIDevice.current.userInterfaceIdiom != .phone ? 13 : 16)
                             .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? self.popoverWidth : nil)
                     }
-                } footer: {
                     Rectangle().fill(Color.preferredColor(.primaryGroupedBackground))
+                        .frame(height: 30)
+                        .listRowInsets(EdgeInsets())
                 }
                 .listSectionSeparator(.hidden, edges: .all)
                 .listRowInsets(EdgeInsets())
@@ -53,6 +54,8 @@ extension _SortFilterCFGItemContainer: View {
         .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? self.popoverWidth : nil)
         .frame(height: self.height)
         .background(Color.preferredColor(.secondaryGroupedBackground))
+        .environment(\.defaultMinListRowHeight, 0)
+        .environment(\.defaultMinListHeaderHeight, 0)
         .modifier(FioriIntrospectModifier<UIScrollView> { scrollView in
             DispatchQueue.main.async {
                 let popverHeight = Screen.bounds.size.height
