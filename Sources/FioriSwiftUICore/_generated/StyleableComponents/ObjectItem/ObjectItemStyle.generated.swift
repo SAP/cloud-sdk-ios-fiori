@@ -35,6 +35,7 @@ public struct ObjectItemConfiguration {
     public let footnoteIconsText: FootnoteIconsText
     public let tags: Tags
     public let action: Action
+    public let objectItemButton: ObjectItemButton
 
     public typealias Title = ConfigurationViewWrapper
     public typealias Subtitle = ConfigurationViewWrapper
@@ -49,6 +50,7 @@ public struct ObjectItemConfiguration {
     public typealias FootnoteIconsText = ConfigurationViewWrapper
     public typealias Tags = ConfigurationViewWrapper
     public typealias Action = ConfigurationViewWrapper
+    public typealias ObjectItemButton = ConfigurationViewWrapper
 }
 
 public struct ObjectItemFioriStyle: ObjectItemStyle {
