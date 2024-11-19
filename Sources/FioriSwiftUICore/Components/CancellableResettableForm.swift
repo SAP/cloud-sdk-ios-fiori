@@ -119,7 +119,7 @@ struct ApplyButtonStyle: PrimitiveButtonStyle {
                     Screen.bounds.size.width - 16 * 2)
                 .padding([.top, .bottom], 8)
                 .font(.body)
-                .fontWeight(.bold)
+                .fontWeight(.semibold)
             #if !os(visionOS)
                 .foregroundStyle(Color.preferredColor(.base2))
                 .background(RoundedRectangle(cornerRadius: 8).fill(Color.preferredColor(.tintColor)))
@@ -138,7 +138,7 @@ struct ApplyButtonStyle: PrimitiveButtonStyle {
                     Screen.bounds.size.width - 16 * 2)
                 .padding([.top, .bottom], 8)
                 .font(.body)
-                .fontWeight(.bold)
+                .fontWeight(.semibold)
             #if !os(visionOS)
                 .foregroundStyle(Color.preferredColor(.grey1))
             #else
