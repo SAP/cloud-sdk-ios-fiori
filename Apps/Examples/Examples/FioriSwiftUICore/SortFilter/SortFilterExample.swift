@@ -6,7 +6,9 @@ struct SortFilterExample: View {
         [
             .switch(item: .init(name: "Favorite", value: true, icon: "heart.fill"), showsOnFilterFeedbackBar: true),
             .switch(item: .init(name: "Tagged", value: nil, icon: "tag"), showsOnFilterFeedbackBar: false),
-            .picker(item: .init(name: "List No Search", value: [0], valueOptions: ["Received", "Started", "Hold"], allowsMultipleSelection: true, allowsEmptySelection: true, barItemDisplayMode: .name, isSearchBarHidden: true, icon: "clock", itemLayout: .fixed, displayMode: .list), showsOnFilterFeedbackBar: true),
+            .picker(item: .init(name: "List Multiple", value: [0], valueOptions: ["Received", "Started", "Hold", "Transfer", "Completed"], allowsMultipleSelection: true, allowsEmptySelection: true, barItemDisplayMode: .name, isSearchBarHidden: true, icon: "clock", itemLayout: .fixed, displayMode: .list), showsOnFilterFeedbackBar: true),
+            .picker(item: .init(name: "List Single", value: [0], valueOptions: ["Received", "Started", "Hold", "Transfer", "Completed"], allowsMultipleSelection: false, allowsEmptySelection: true, barItemDisplayMode: .name, isSearchBarHidden: true, icon: "clock", itemLayout: .fixed, displayMode: .list), showsOnFilterFeedbackBar: true),
+            .picker(item: .init(name: "List No Search", value: [0], valueOptions: ["Received", "Started", "Hold"], allowsMultipleSelection: false, allowsEmptySelection: true, barItemDisplayMode: .name, isSearchBarHidden: true, icon: "clock", itemLayout: .fixed, displayMode: .list), showsOnFilterFeedbackBar: true),
             .picker(item: .init(name: "List Status", value: [0], valueOptions: ["Received", "Started", "Hold", "Transfer", "Completed", "Pending Review Pending Pending Pending Pending Pending", "Accepted Medium", "Pending Medium", "Completed Medium"], allowsMultipleSelection: true, allowsEmptySelection: true, barItemDisplayMode: .name, icon: "clock", itemLayout: .fixed, displayMode: .list), showsOnFilterFeedbackBar: true),
             .picker(item: .init(name: "List Many Status", value: [0], valueOptions: ["Received", "Started", "Hold", "Transfer", "Completed", "Pending Review Pending Pending Pending Pending Pending", "Accepted Medium", "Pending Medium", "Completed Medium", "Checked", "Unchecked", "Partially Checked", "Checked and Unchecked", "Checked and Partially Checked", "Unchecked and Partially Checked", "Partially Checked and Unchecked", "Checked and Unchecked and Partially Checked", "Unchecked and Partially Checked and Partially Checked", "Partially Checked and Unchecked and Partially Checked", "Checked Finally", "Unchecked Finally", "Partially Checked Finally", "Checked and Unchecked Finally", "Checked and Partially Checked Finally", "Unchecked and Partially Checked Finally", "Partially Checked and Unchecked Finally", "Checked Finally and Partially Checked Finally", "Unchecked Finally and Partially Checked Finally", "Partially Checked Finally and Partially Checked Finally", "Review", "Reviewed", "To be Reviewed", "Pending for Review", "Booked", "To be Booked", "Will Book", "Booking Canceled"], allowsMultipleSelection: true, allowsEmptySelection: true, barItemDisplayMode: .value, icon: "clock", itemLayout: .fixed, displayMode: .list), showsOnFilterFeedbackBar: true),
             .picker(item: .init(name: "Flexible Filter", value: [0], valueOptions: ["Received", "Started", "Hold", "Transfer", "Completed", "Pending Review Pending Pending Pending Pending Pending", "Accepted Medium", "Pending", "Completed Medium"], allowsMultipleSelection: true, allowsEmptySelection: true, barItemDisplayMode: .nameAndValue, icon: "clock", itemLayout: .flexible, displayMode: .filterFormCell), showsOnFilterFeedbackBar: true),
@@ -33,6 +35,10 @@ struct SortFilterExample: View {
     @State private var sortFilterList: [String] = []
     @State private var sortFilterButtonLabel: String = "Sort & Filter"
 
+    @State private var isResetHidden: Bool = false
+    @State private var resetButtonType: FilterFeedbackBarResetButtonType = .default
+    @State private var resetButtonTypeLabel: String = "default"
+
     var body: some View {
         VStack {
             if self.isCustomStyle {
@@ -44,6 +50,8 @@ struct SortFilterExample: View {
 //                    .leadingFullConfigurationMenuItem(name: "All")
             } else {
                 FilterFeedbackBar(items: self.$items, onUpdate: self.performSortAndFilter)
+                    .resetHidden(self.isResetHidden)
+                    .resetButtonType(self.resetButtonType)
             }
             
             List {
@@ -61,6 +69,29 @@ struct SortFilterExample: View {
                 Button("Print") {
                     for line in self.sortFilterList {
                         print(line)
+                    }
+                }
+            }
+            
+            Toggle("Reset Hidden", isOn: self.$isResetHidden)
+                .fixedSize()
+                .toggleStyle(FioriToggleStyle())
+            
+            HStack {
+                Text("Reset Button Type:")
+                Menu(self.resetButtonTypeLabel) {
+                    Button(action: {
+                        self.resetButtonType = .default
+                        self.resetButtonTypeLabel = "default"
+                    }) {
+                        Text("default")
+                    }
+                    
+                    Button(action: {
+                        self.resetButtonType = .clearAll
+                        self.resetButtonTypeLabel = "clearAll"
+                    }) {
+                        Text("clearAll")
                     }
                 }
             }
@@ -84,6 +115,8 @@ struct SortFilterExample: View {
                         items: self.$items,
                         onUpdate: self.performSortAndFilter
                     )
+                    .resetHidden(self.isResetHidden)
+                    .resetButtonType(self.resetButtonType)
                 }
             }
         }

@@ -366,6 +366,7 @@ public extension SortFilterItem {
         /// If searchBar in list picker is shown. Default is `false`.
         public var isSearchBarHidden: Bool = false
         var disableListEntriesSection: Bool = false
+        var allowsDisplaySelectionCount: Bool = true
 
         /// Available OptionListPicker modes. Use this enum to define picker mode  to present.
         public enum DisplayMode {
@@ -402,7 +403,7 @@ public extension SortFilterItem {
             case disable
         }
         
-        public init(id: String = UUID().uuidString, name: String, value: [Int], valueOptions: [String], allowsMultipleSelection: Bool, allowsEmptySelection: Bool, barItemDisplayMode: BarItemDisplayMode = .name, isSearchBarHidden: Bool = false, icon: String? = nil, itemLayout: OptionListPickerItemLayoutType = .fixed, displayMode: DisplayMode = .automatic, listEntriesSectionMode: ListEntriesSectionMode = .default) {
+        public init(id: String = UUID().uuidString, name: String, value: [Int], valueOptions: [String], allowsMultipleSelection: Bool, allowsEmptySelection: Bool, barItemDisplayMode: BarItemDisplayMode = .name, isSearchBarHidden: Bool = false, icon: String? = nil, itemLayout: OptionListPickerItemLayoutType = .fixed, displayMode: DisplayMode = .automatic, listEntriesSectionMode: ListEntriesSectionMode = .default, allowsDisplaySelectionCount: Bool = true) {
             self.id = id
             self.name = name
             self.value = value
@@ -425,6 +426,8 @@ public extension SortFilterItem {
             case .enable:
                 self.disableListEntriesSection = false
             }
+            
+            self.allowsDisplaySelectionCount = allowsDisplaySelectionCount
         }
         
         mutating func onTap(option: String) {
@@ -474,6 +477,10 @@ public extension SortFilterItem {
         
         mutating func reset() {
             self.workingValue = self.originalValue.map { $0 }
+        }
+        
+        mutating func clearAll() {
+            self.workingValue.removeAll()
         }
         
         mutating func apply() {

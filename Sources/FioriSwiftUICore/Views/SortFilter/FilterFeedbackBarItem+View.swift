@@ -35,6 +35,14 @@ private extension View {
     }
 }
 
+/// Enum for FilterFeedbackBar ResetButton Type.
+public enum FilterFeedbackBarResetButtonType {
+    /// Reset to origin values.
+    case `default`
+    /// Clear selected value, only effective for sinlge selection.
+    case clearAll
+}
+
 struct FilterFeedbackMenuItem: View {
     @Binding var item: SortFilterItem.PickerItem
     var onUpdate: () -> Void
@@ -66,10 +74,12 @@ struct SliderMenuItem: View {
     @State var detentHeight: CGFloat = 0
 
     var onUpdate: () -> Void
-    
-    public init(item: Binding<SortFilterItem.SliderItem>, onUpdate: @escaping () -> Void) {
+    var isResetHidden = false
+
+    public init(item: Binding<SortFilterItem.SliderItem>, onUpdate: @escaping () -> Void, isResetHidden: Bool = false) {
         self._item = item
         self.onUpdate = onUpdate
+        self.isResetHidden = isResetHidden
     }
     
     var body: some View {
@@ -87,11 +97,15 @@ struct SliderMenuItem: View {
                     })
                     .buttonStyle(CancelButtonStyle())
                 } resetAction: {
-                    _Action(actionText: NSLocalizedString("Reset", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
-                        self.item.reset()
-                    })
-                    .buttonStyle(ResetButtonStyle())
-                    .disabled(self.item.isOriginal)
+                    if self.isResetHidden {
+                        EmptyView()
+                    } else {
+                        _Action(actionText: NSLocalizedString("Reset", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
+                            self.item.reset()
+                        })
+                        .buttonStyle(ResetButtonStyle())
+                        .disabled(self.item.isOriginal)
+                    }
                 } applyAction: {
                     _Action(actionText: NSLocalizedString("Apply", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
                         self.item.apply()
@@ -125,9 +139,14 @@ struct PickerMenuItem: View {
     let popoverWidth = 393.0
     @State var _keyboardHeight = 0.0
     
-    public init(item: Binding<SortFilterItem.PickerItem>, onUpdate: @escaping () -> Void) {
+    var isResetHidden = false
+    var resetButtonType = FilterFeedbackBarResetButtonType.default
+    
+    public init(item: Binding<SortFilterItem.PickerItem>, onUpdate: @escaping () -> Void, isResetHidden: Bool = false, resetButtonType: FilterFeedbackBarResetButtonType = .default) {
         self._item = item
         self.onUpdate = onUpdate
+        self.isResetHidden = isResetHidden
+        self.resetButtonType = resetButtonType
     }
     
     var body: some View {
@@ -165,11 +184,23 @@ struct PickerMenuItem: View {
                     })
                     .buttonStyle(CancelButtonStyle())
                 } resetAction: {
-                    _Action(actionText: NSLocalizedString("Reset", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
-                        self.item.reset()
-                    })
-                    .buttonStyle(ResetButtonStyle())
-                    .disabled(self.item.isOriginal)
+                    if self.isResetHidden {
+                        EmptyView()
+                    } else {
+                        if !self.item.allowsMultipleSelection, self.resetButtonType == .clearAll {
+                            _Action(actionText: NSLocalizedString("Clear All", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
+                                self.item.clearAll()
+                            })
+                            .buttonStyle(ResetButtonStyle())
+                            .disabled(self.item.workingValue.count == 0)
+                        } else {
+                            _Action(actionText: NSLocalizedString("Reset", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
+                                self.item.reset()
+                            })
+                            .buttonStyle(ResetButtonStyle())
+                            .disabled(self.item.isOriginal)
+                        }
+                    }
                 } applyAction: {
                     _Action(actionText: NSLocalizedString("Apply", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
                         self.item.apply()
@@ -239,11 +270,23 @@ struct PickerMenuItem: View {
                     })
                     .buttonStyle(CancelButtonStyle())
                 } resetAction: {
-                    _Action(actionText: NSLocalizedString("Reset", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
-                        self.item.reset()
-                    })
-                    .buttonStyle(ResetButtonStyle())
-                    .disabled(self.item.isOriginal)
+                    if self.isResetHidden {
+                        EmptyView()
+                    } else {
+                        if !self.item.allowsMultipleSelection, self.resetButtonType == .clearAll {
+                            _Action(actionText: NSLocalizedString("Clear All", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
+                                self.item.clearAll()
+                            })
+                            .buttonStyle(ResetButtonStyle())
+                            .disabled(self.item.workingValue.count == 0)
+                        } else {
+                            _Action(actionText: NSLocalizedString("Reset", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
+                                self.item.reset()
+                            })
+                            .buttonStyle(ResetButtonStyle())
+                            .disabled(self.item.isOriginal)
+                        }
+                    }
                 } applyAction: {
                     _Action(actionText: NSLocalizedString("Apply", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
                         self.item.apply()
@@ -252,7 +295,7 @@ struct PickerMenuItem: View {
                     })
                     .buttonStyle(ApplyButtonStyle())
                 } components: {
-                    SearchListPickerItem(value: self.$item.workingValue, valueOptions: self.item.valueOptions, hint: nil, allowsMultipleSelection: self.item.allowsMultipleSelection, allowsEmptySelection: self.item.allowsEmptySelection, isSearchBarHidden: self.item.isSearchBarHidden, disableListEntriesSection: self.item.disableListEntriesSection) { index in
+                    SearchListPickerItem(value: self.$item.workingValue, valueOptions: self.item.valueOptions, hint: nil, allowsMultipleSelection: self.item.allowsMultipleSelection, allowsEmptySelection: self.item.allowsEmptySelection, isSearchBarHidden: self.item.isSearchBarHidden, disableListEntriesSection: self.item.disableListEntriesSection, allowsDisplaySelectionCount: self.item.allowsDisplaySelectionCount) { index in
                         self.item.onTap(option: self.item.valueOptions[index])
                     } selectAll: { isAll in
                         self.item.selectAll(isAll)
@@ -319,9 +362,12 @@ struct DateTimeMenuItem: View {
         let popoverWidth = 480.0
     #endif
 
-    public init(item: Binding<SortFilterItem.DateTimeItem>, onUpdate: @escaping () -> Void) {
+    var isResetHidden = false
+    
+    public init(item: Binding<SortFilterItem.DateTimeItem>, onUpdate: @escaping () -> Void, isResetHidden: Bool = false) {
         self._item = item
         self.onUpdate = onUpdate
+        self.isResetHidden = isResetHidden
     }
         
     var body: some View {
@@ -339,11 +385,15 @@ struct DateTimeMenuItem: View {
                     })
                     .buttonStyle(CancelButtonStyle())
                 } resetAction: {
-                    _Action(actionText: NSLocalizedString("Reset", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
-                        self.item.reset()
-                    })
-                    .buttonStyle(ResetButtonStyle())
-                    .disabled(self.item.isOriginal)
+                    if self.isResetHidden {
+                        EmptyView()
+                    } else {
+                        _Action(actionText: NSLocalizedString("Reset", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
+                            self.item.reset()
+                        })
+                        .buttonStyle(ResetButtonStyle())
+                        .disabled(self.item.isOriginal)
+                    }
                 } applyAction: {
                     _Action(actionText: NSLocalizedString("Apply", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
                         self.item.apply()
@@ -458,9 +508,12 @@ struct StepperMenuItem: View {
     
     @State var stepperViewHeight: CGFloat = 110
     
-    public init(item: Binding<SortFilterItem.StepperItem>, onUpdate: @escaping () -> Void) {
+    var isResetHidden = false
+    
+    public init(item: Binding<SortFilterItem.StepperItem>, onUpdate: @escaping () -> Void, isResetHidden: Bool = false) {
         self._item = item
         self.onUpdate = onUpdate
+        self.isResetHidden = isResetHidden
     }
     
     var body: some View {
@@ -478,11 +531,15 @@ struct StepperMenuItem: View {
                     })
                     .buttonStyle(CancelButtonStyle())
                 } resetAction: {
-                    _Action(actionText: NSLocalizedString("Reset", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
-                        self.item.reset()
-                    })
-                    .buttonStyle(ResetButtonStyle())
-                    .disabled(self.item.isOriginal)
+                    if self.isResetHidden {
+                        EmptyView()
+                    } else {
+                        _Action(actionText: NSLocalizedString("Reset", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
+                            self.item.reset()
+                        })
+                        .buttonStyle(ResetButtonStyle())
+                        .disabled(self.item.isOriginal)
+                    }
                 } applyAction: {
                     _Action(actionText: NSLocalizedString("Apply", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
                         self.item.apply()
@@ -551,9 +608,14 @@ struct FullCFGMenuItem: View {
 
     var onUpdate: () -> Void
     
-    public init(items: Binding<[[SortFilterItem]]>, onUpdate: @escaping () -> Void) {
+    var isResetHidden = false
+    var resetButtonType = FilterFeedbackBarResetButtonType.default
+
+    public init(items: Binding<[[SortFilterItem]]>, onUpdate: @escaping () -> Void, isResetHidden: Bool = false, resetButtonType: FilterFeedbackBarResetButtonType = .default) {
         self._items = items
         self.onUpdate = onUpdate
+        self.isResetHidden = isResetHidden
+        self.resetButtonType = resetButtonType
     }
     
     var body: some View {
@@ -572,25 +634,39 @@ struct FullCFGMenuItem: View {
                     },
                     items: {
                         _SortFilterCFGItemContainer(items: self.$items)
+                            .resetHidden(self.isResetHidden)
+                            .resetButtonType(self.resetButtonType)
                     },
                     cancelAction: {
                         _Action(actionText: NSLocalizedString("Cancel", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
-                            // item.apply()
-                            self.onUpdate()
-                            self.isSheetVisible.toggle()
+//                            self.onUpdate()
+                            self.isSheetVisible = false
                         })
                         .buttonStyle(CancelButtonStyle())
                     },
                     resetAction: {
-                        _Action(actionText: NSLocalizedString("Reset", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
-                            // item.cancel()
-                            self.isSheetVisible.toggle()
-                        })
-                        .buttonStyle(ResetButtonStyle())
+                        if self.isResetHidden {
+                            EmptyView()
+                        } else {
+                            _Action(actionText: NSLocalizedString("Reset", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
+                                for r in 0 ..< self.items.count {
+                                    for c in 0 ..< self.items[r].count {
+                                        self.items[r][c].reset()
+                                    }
+                                }
+                            })
+                            .buttonStyle(ResetButtonStyle())
+                        }
                     },
                     applyAction: {
                         _Action(actionText: NSLocalizedString("Apply", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
-                            // item.reset()
+                            for r in 0 ..< self.items.count {
+                                for c in 0 ..< self.items[r].count {
+                                    self.items[r][c].apply()
+                                }
+                            }
+                            self.onUpdate()
+                            self.isSheetVisible = false
                         })
                         .buttonStyle(ApplyButtonStyle())
                     },

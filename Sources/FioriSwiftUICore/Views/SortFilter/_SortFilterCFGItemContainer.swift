@@ -10,7 +10,9 @@ import SwiftUI
 /// :nodoc:
 public struct _SortFilterCFGItemContainer {
     @EnvironmentObject var context: SortFilterContext
-
+    @Environment(\.isResetHidden) var isResetHidden
+    @Environment(\.resetButtonType) var resetButtonType
+    
     @Binding var _items: [[SortFilterItem]]
     @State var height = 88.0
     
@@ -149,7 +151,8 @@ extension _SortFilterCFGItemContainer: View {
                 allowsMultipleSelection: self._items[r][c].picker.allowsMultipleSelection,
                 allowsEmptySelection: self._items[r][c].picker.allowsEmptySelection,
                 isSearchBarHidden: self._items[r][c].picker.isSearchBarHidden,
-                disableListEntriesSection: self._items[r][c].picker.disableListEntriesSection
+                disableListEntriesSection: self._items[r][c].picker.disableListEntriesSection,
+                allowsDisplaySelectionCount: self._items[r][c].picker.allowsDisplaySelectionCount
             ) { index in
                 self._items[r][c].picker.onTap(option: self._items[r][c].picker.valueOptions[index])
             } selectAll: { isAll in
@@ -165,6 +168,25 @@ extension _SortFilterCFGItemContainer: View {
             }
             .ifApply(UIDevice.current.userInterfaceIdiom == .pad, content: { v in
                 v.frame(height: self.searchListHeight)
+            })
+            .ifApply(!self.isResetHidden, content: { v in
+                v.toolbar {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        if !self._items[r][c].picker.allowsMultipleSelection, self.resetButtonType == .clearAll {
+                            _Action(actionText: NSLocalizedString("Clear All", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
+                                self._items[r][c].picker.clearAll()
+                            })
+                            .buttonStyle(ResetButtonStyle())
+                            .disabled(self._items[r][c].picker.workingValue.count == 0)
+                        } else {
+                            _Action(actionText: NSLocalizedString("Reset", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
+                                self._items[r][c].picker.reset()
+                            })
+                            .buttonStyle(ResetButtonStyle())
+                            .disabled(self._items[r][c].picker.isOriginal)
+                        }
+                    }
+                }
             })
             .onReceive(NotificationCenter.default.publisher(for: UIApplication.keyboardDidShowNotification)) { notif in
                 let rect = (notif.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect) ?? .zero

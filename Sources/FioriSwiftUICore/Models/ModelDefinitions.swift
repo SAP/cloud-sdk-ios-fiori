@@ -484,6 +484,8 @@ public protocol FilterFeedbackBarModel: AnyObject {
 // sourcery: generated_component_composite
 // sourcery: virtualPropViewSize = "@State var size: CGSize = .zero"
 // sourcery: virtualPropPopoverWidth = "let popoverWidth = 393.0"
+// sourcery: add_env_props = "isResetHidden"
+// sourcery: add_env_props = "resetButtonType"
 public protocol SortFilterViewModel: AnyObject, TitleComponent {
     // sourcery: bindingProperty
     // sourcery: backingComponent=_SortFilterCFGItemContainer
@@ -547,6 +549,7 @@ public protocol OptionListPickerItemModel: OptionListPickerComponent {
 // sourcery: virtualPropIsSearchBarHidden = "var isSearchBarHidden: Bool = false"
 // sourcery: virtualPropKeyboardHeight = "@State var _keyboardHeight: CGFloat = 0.0"
 // sourcery: virtualPropDisableListEntriesSection = "var disableListEntriesSection: Bool = false"
+// sourcery: virtualPropAllowsDisplaySelectionCount = "var allowsDisplaySelectionCount: Bool = true"
 public protocol SearchListPickerItemModel: OptionListPickerComponent {
     // sourcery: default.value = nil
     // sourcery: no_view
