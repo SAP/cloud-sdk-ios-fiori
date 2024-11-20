@@ -352,7 +352,7 @@ public struct FilterFeedbackBarResetButtonConfiguration: Equatable {
     var title: String
     var isHidden: Bool
     
-    init(type: FilterFeedbackBarResetButtonType = .default, title: String, isHidden: Bool = false) {
+    init(type: FilterFeedbackBarResetButtonType = .reset, title: String, isHidden: Bool = false) {
         self.type = type
         self.title = title
         self.isHidden = isHidden
@@ -360,7 +360,7 @@ public struct FilterFeedbackBarResetButtonConfiguration: Equatable {
     
     /// Default FilterFeedbackBarResetButtonConfiguration
     public init() {
-        self.init(type: .default, title: NSLocalizedString("Reset", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), isHidden: false)
+        self.init(type: .reset, title: NSLocalizedString("Reset", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), isHidden: false)
     }
     
     /// Customize FilterFeedbackBarResetButtonConfiguration
@@ -368,10 +368,11 @@ public struct FilterFeedbackBarResetButtonConfiguration: Equatable {
     ///   - type: Reset button type
     ///   - title: Reset button title
     ///   - isHidden: A Boolean value that determines whether reset button is hidden.
-    public init(with type: FilterFeedbackBarResetButtonType = .default, title: String = "", isHidden: Bool = false) {
+    public init(with type: FilterFeedbackBarResetButtonType = .reset, title: String = "", isHidden: Bool = false) {
         self.init(type: type, title: title == "" ? NSLocalizedString("Reset", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "") : title, isHidden: isHidden)
     }
     
+    /// :nodoc:
     public static func == (lhs: FilterFeedbackBarResetButtonConfiguration, rhs: FilterFeedbackBarResetButtonConfiguration) -> Bool {
         lhs.type == rhs.type && lhs.title == rhs.title && lhs.isHidden == rhs.isHidden
     }

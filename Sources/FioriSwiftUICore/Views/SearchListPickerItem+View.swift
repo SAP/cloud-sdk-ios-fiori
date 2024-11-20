@@ -172,17 +172,13 @@ extension SearchListPickerItem: View {
                 .font(.fiori(forTextStyle: .subheadline, weight: .regular))
             Spacer()
             Button(action: {
-                selectAll?(_value.count != _valueOptions.count)
+                selectAll?(disableListEntriesSection && _value.count == _valueOptions.count ? false : true)
             }) {
-                if disableListEntriesSection {
-                    Text(_value.count == _valueOptions.count ? NSLocalizedString("Deselect All", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "") : NSLocalizedString("Select All", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""))
-                        .foregroundStyle(Color.preferredColor(.tintColor))
-                        .font(.fiori(forTextStyle: .subheadline, weight: .regular))
-                } else {
-                    Text(NSLocalizedString("Select All", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""))
-                        .foregroundStyle(Color.preferredColor(.tintColor))
-                        .font(.fiori(forTextStyle: .subheadline, weight: .regular))
-                }
+                Text(disableListEntriesSection && _value.count == _valueOptions.count ?
+                    NSLocalizedString("Deselect All", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "") :
+                    NSLocalizedString("Select All", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""))
+                    .foregroundStyle(Color.preferredColor(.tintColor))
+                    .font(.fiori(forTextStyle: .subheadline, weight: .regular))
             }.buttonStyle(PlainButtonStyle())
         }
         .padding([.leading, .trailing], UIDevice.current.userInterfaceIdiom != .phone ? 13 : 16)

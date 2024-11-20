@@ -38,7 +38,7 @@ private extension View {
 /// Enum for FilterFeedbackBar ResetButton Type.
 public enum FilterFeedbackBarResetButtonType {
     /// Reset to origin values.
-    case `default`
+    case reset
     /// Clear selected value, only effective for sinlge selection.
     case clearAll
 }
@@ -177,7 +177,7 @@ struct PickerMenuItem: View {
                         EmptyView()
                     } else {
                         _Action(actionText: self.item.resetButtonConfiguration.title, didSelectAction: {
-                            if self.item.resetButtonConfiguration.type == .default {
+                            if self.item.resetButtonConfiguration.type == .reset {
                                 self.item.reset()
                             } else {
                                 self.item.clearAll()
@@ -259,7 +259,7 @@ struct PickerMenuItem: View {
                         EmptyView()
                     } else {
                         _Action(actionText: self.item.resetButtonConfiguration.title, didSelectAction: {
-                            if self.item.resetButtonConfiguration.type == .default {
+                            if self.item.resetButtonConfiguration.type == .reset {
                                 self.item.reset()
                             } else {
                                 self.item.clearAll()
@@ -301,7 +301,7 @@ struct PickerMenuItem: View {
     }
     
     private func resetButtonDisable() -> Bool {
-        if self.item.resetButtonConfiguration.type == .default {
+        if self.item.resetButtonConfiguration.type == .reset {
             return self.item.isOriginal
         } else {
             return self.item.workingValue.isEmpty
@@ -583,7 +583,7 @@ struct FullCFGMenuItem: View {
 
     var onUpdate: () -> Void
     
-    var resetButtonType = FilterFeedbackBarResetButtonType.default
+    var resetButtonType = FilterFeedbackBarResetButtonType.reset
 
     public init(items: Binding<[[SortFilterItem]]>, onUpdate: @escaping () -> Void) {
         self._items = items
@@ -609,7 +609,6 @@ struct FullCFGMenuItem: View {
                     },
                     cancelAction: {
                         _Action(actionText: NSLocalizedString("Cancel", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
-//                            self.onUpdate()
                             self.isSheetVisible = false
                         })
                         .buttonStyle(CancelButtonStyle())

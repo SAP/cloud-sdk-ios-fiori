@@ -178,14 +178,14 @@ extension _SortFilterCFGItemContainer: View {
                             EmptyView()
                         } else {
                             _Action(actionText: item.resetButtonConfiguration.title, didSelectAction: {
-                                if item.resetButtonConfiguration.type == .default {
+                                if item.resetButtonConfiguration.type == .reset {
                                     self._items[r][c].picker.reset()
                                 } else {
                                     self._items[r][c].picker.clearAll()
                                 }
                             })
                             .buttonStyle(ResetButtonStyle())
-                            .disabled(item.resetButtonConfiguration.type == .default ? item.isOriginal : item.workingValue.isEmpty)
+                            .disabled(item.resetButtonConfiguration.type == .reset ? item.isOriginal : item.workingValue.isEmpty)
                         }
                     }
                 }
