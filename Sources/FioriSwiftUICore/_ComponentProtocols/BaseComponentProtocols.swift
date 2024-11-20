@@ -454,3 +454,9 @@ protocol _CheckoutIndicatorComponent {
     /// The current state of this view. Changing this property will result in a different icon and view.
     var displayState: DisplayState { get }
 }
+
+// sourcery: BaseComponent
+protocol _ProgressIndicatorProtocol {
+    // sourcery: @Binding
+    var progress: Double { get }
+}

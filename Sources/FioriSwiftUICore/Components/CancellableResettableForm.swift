@@ -78,15 +78,20 @@ struct CancellableResettableDialogNavigationForm<Title: View, CancelAction: View
     }
     
     var body: some View {
+        let isNotIphone = UIDevice.current.userInterfaceIdiom != .phone
         NavigationStack {
-            VStack(spacing: UIDevice.current.userInterfaceIdiom != .phone ? 8 : 16) {
-                #if !os(visionOS)
-                    self.components.background(Color.preferredColor(.secondaryGroupedBackground))
-                #else
-                    self.components.background(Color.clear)
-                #endif
-                self.applyAction
-                    .accessibilityIdentifier("Apply")
+            ZStack {
+                Color.preferredColor(.chromeSecondary)
+                    .ignoresSafeArea()
+                VStack(spacing: isNotIphone ? 8 : 16) {
+                    self.components
+                    
+                    VStack(spacing: 0) {
+                        self.applyAction
+                            .accessibilityIdentifier("Apply")
+                        Spacer().frame(height: isNotIphone ? 13 : 16)
+                    }
+                }
             }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -101,12 +106,6 @@ struct CancellableResettableDialogNavigationForm<Title: View, CancelAction: View
                 }
             }
         }
-        .padding([.bottom], UIDevice.current.userInterfaceIdiom != .phone ? 13 : 16)
-        #if !os(visionOS)
-            .background(Color.preferredColor(.chromeSecondary))
-        #else
-            .background(Color.clear)
-        #endif
     }
 }
 
@@ -121,7 +120,7 @@ struct ApplyButtonStyle: PrimitiveButtonStyle {
                     Screen.bounds.size.width - 16 * 2)
                 .padding([.top, .bottom], 8)
                 .font(.body)
-                .fontWeight(.bold)
+                .fontWeight(.semibold)
             #if !os(visionOS)
                 .foregroundStyle(Color.preferredColor(.base2))
                 .background(RoundedRectangle(cornerRadius: 8).fill(Color.preferredColor(.tintColor)))
@@ -140,7 +139,7 @@ struct ApplyButtonStyle: PrimitiveButtonStyle {
                     Screen.bounds.size.width - 16 * 2)
                 .padding([.top, .bottom], 8)
                 .font(.body)
-                .fontWeight(.bold)
+                .fontWeight(.semibold)
             #if !os(visionOS)
                 .foregroundStyle(Color.preferredColor(.grey1))
             #else
