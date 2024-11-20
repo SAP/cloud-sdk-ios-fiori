@@ -27,13 +27,14 @@ struct CancellableResettableDialogForm<Title: View, CancelAction: View, ResetAct
     
     var body: some View {
         VStack(spacing: UIDevice.current.userInterfaceIdiom != .phone ? 8 : 16) {
-            HStack {
-                self.cancelAction.accessibilityIdentifier("Cancel")
-                Spacer()
+            ZStack(alignment: .center, content: {
                 self.title
-                Spacer()
-                self.resetAction.accessibilityIdentifier("Reset")
-            }
+                HStack {
+                    self.cancelAction.accessibilityIdentifier("Cancel")
+                    Spacer()
+                    self.resetAction.accessibilityIdentifier("Reset")
+                }
+            })
             .padding([.leading, .trailing], UIDevice.current.userInterfaceIdiom != .phone ? 13 : 16)
 
             #if !os(visionOS)

@@ -10,7 +10,7 @@ import SwiftUI
 /// :nodoc:
 public struct _SortFilterCFGItemContainer {
     @EnvironmentObject var context: SortFilterContext
-
+    
     @Binding var _items: [[SortFilterItem]]
     @State var height = 88.0
     
@@ -152,7 +152,8 @@ extension _SortFilterCFGItemContainer: View {
                 allowsMultipleSelection: self._items[r][c].picker.allowsMultipleSelection,
                 allowsEmptySelection: self._items[r][c].picker.allowsEmptySelection,
                 isSearchBarHidden: self._items[r][c].picker.isSearchBarHidden,
-                disableListEntriesSection: self._items[r][c].picker.disableListEntriesSection
+                disableListEntriesSection: self._items[r][c].picker.disableListEntriesSection,
+                allowsDisplaySelectionCount: self._items[r][c].picker.allowsDisplaySelectionCount
             ) { index in
                 self._items[r][c].picker.onTap(option: self._items[r][c].picker.valueOptions[index])
             } selectAll: { isAll in
@@ -168,6 +169,26 @@ extension _SortFilterCFGItemContainer: View {
             }
             .ifApply(UIDevice.current.userInterfaceIdiom == .pad, content: { v in
                 v.frame(height: self.searchListHeight)
+            })
+            .ifApply(!self._items[r][c].picker.resetButtonConfiguration.isHidden, content: { v in
+                v.toolbar {
+                    let item = self._items[r][c].picker
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        if item.resetButtonConfiguration.isHidden {
+                            EmptyView()
+                        } else {
+                            _Action(actionText: item.resetButtonConfiguration.title, didSelectAction: {
+                                if item.resetButtonConfiguration.type == .reset {
+                                    self._items[r][c].picker.reset()
+                                } else {
+                                    self._items[r][c].picker.clearAll()
+                                }
+                            })
+                            .buttonStyle(ResetButtonStyle())
+                            .disabled(item.resetButtonConfiguration.type == .reset ? item.isOriginal : item.workingValue.isEmpty)
+                        }
+                    }
+                }
             })
             .onReceive(NotificationCenter.default.publisher(for: UIApplication.keyboardDidShowNotification)) { notif in
                 let rect = (notif.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect) ?? .zero

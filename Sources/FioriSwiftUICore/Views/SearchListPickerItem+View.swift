@@ -13,7 +13,8 @@ public extension SearchListPickerItem {
     ///   - selectAll: The closure when click 'Select All' button.
     ///   - updateSearchListPickerHeight: The closure to update the parent view.
     ///   - disableListEntriesSection: A boolean value to indicate to disable entries section or not.
-    init(value: Binding<[Int]>, valueOptions: [String] = [], hint: String? = nil, allowsMultipleSelection: Bool, allowsEmptySelection: Bool, isSearchBarHidden: Bool = false, disableListEntriesSection: Bool, onTap: ((_ index: Int) -> Void)? = nil, selectAll: ((_ isAll: Bool) -> Void)? = nil, updateSearchListPickerHeight: ((CGFloat) -> Void)? = nil) {
+    ///   - allowsDisplaySelectionCount: A boolean value to indicate to display selection count or not.
+    init(value: Binding<[Int]>, valueOptions: [String] = [], hint: String? = nil, allowsMultipleSelection: Bool, allowsEmptySelection: Bool, isSearchBarHidden: Bool = false, disableListEntriesSection: Bool, allowsDisplaySelectionCount: Bool, onTap: ((_ index: Int) -> Void)? = nil, selectAll: ((_ isAll: Bool) -> Void)? = nil, updateSearchListPickerHeight: ((CGFloat) -> Void)? = nil) {
         self.init(value: value, valueOptions: valueOptions, hint: hint, onTap: onTap)
         
         self.allowsMultipleSelection = allowsMultipleSelection
@@ -22,6 +23,7 @@ public extension SearchListPickerItem {
         self.selectAll = selectAll
         self.updateSearchListPickerHeight = updateSearchListPickerHeight
         self.disableListEntriesSection = disableListEntriesSection
+        self.allowsDisplaySelectionCount = allowsDisplaySelectionCount
     }
 }
 
@@ -132,10 +134,24 @@ extension SearchListPickerItem: View {
     
     private func selectionHeader() -> some View {
         HStack {
-            Text(NSLocalizedString("Selected", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""))
-                .foregroundStyle(Color.preferredColor(.secondaryLabel))
-                .font(.fiori(forTextStyle: .subheadline, weight: .regular))
+            if allowsDisplaySelectionCount {
+                Text(NSLocalizedString("Selected", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "") + "(\(_value.count))")
+                    .foregroundStyle(Color.preferredColor(.secondaryLabel))
+                    .font(.fiori(forTextStyle: .subheadline, weight: .regular))
+            } else {
+                Text(NSLocalizedString("Selected", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""))
+                    .foregroundStyle(Color.preferredColor(.secondaryLabel))
+                    .font(.fiori(forTextStyle: .subheadline, weight: .regular))
+            }
+            
             Spacer()
+            Button(action: {
+                selectAll?(false)
+            }) {
+                Text(NSLocalizedString("Deselect All", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""))
+                    .foregroundStyle(Color.preferredColor(.tintColor))
+                    .font(.fiori(forTextStyle: .subheadline, weight: .regular))
+            }.buttonStyle(PlainButtonStyle())
         }
         .padding([.leading, .trailing], UIDevice.current.userInterfaceIdiom != .phone ? 13 : 16)
         .padding([.top, .bottom], 8)
@@ -156,9 +172,11 @@ extension SearchListPickerItem: View {
                 .font(.fiori(forTextStyle: .subheadline, weight: .regular))
             Spacer()
             Button(action: {
-                selectAll?(_value.count != _valueOptions.count)
+                selectAll?(disableListEntriesSection && _value.count == _valueOptions.count ? false : true)
             }) {
-                Text(_value.count == _valueOptions.count ? NSLocalizedString("Deselect All", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "") : NSLocalizedString("Select All", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""))
+                Text(disableListEntriesSection && _value.count == _valueOptions.count ?
+                    NSLocalizedString("Deselect All", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "") :
+                    NSLocalizedString("Select All", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""))
                     .foregroundStyle(Color.preferredColor(.tintColor))
                     .font(.fiori(forTextStyle: .subheadline, weight: .regular))
             }.buttonStyle(PlainButtonStyle())
