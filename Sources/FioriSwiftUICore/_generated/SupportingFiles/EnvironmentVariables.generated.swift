@@ -45,6 +45,48 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: AllEntriesSectionTitleStyle
+
+struct AllEntriesSectionTitleStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any AllEntriesSectionTitleStyle] = []
+}
+
+extension EnvironmentValues {
+    var allEntriesSectionTitleStyle: any AllEntriesSectionTitleStyle {
+        self.allEntriesSectionTitleStyleStack.last ?? .base
+    }
+
+    var allEntriesSectionTitleStyleStack: [any AllEntriesSectionTitleStyle] {
+        get {
+            self[AllEntriesSectionTitleStyleStackKey.self]
+        }
+        set {
+            self[AllEntriesSectionTitleStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: ApplyActionStyle
+
+struct ApplyActionStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any ApplyActionStyle] = []
+}
+
+extension EnvironmentValues {
+    var applyActionStyle: any ApplyActionStyle {
+        self.applyActionStyleStack.last ?? .base
+    }
+
+    var applyActionStyleStack: [any ApplyActionStyle] {
+        get {
+            self[ApplyActionStyleStackKey.self]
+        }
+        set {
+            self[ApplyActionStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: AttributeStyle
 
 struct AttributeStyleStackKey: EnvironmentKey {
@@ -146,6 +188,48 @@ extension EnvironmentValues {
         }
         set {
             self[BannerMessageStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: BannerMultiMessageSheetStyle
+
+struct BannerMultiMessageSheetStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any BannerMultiMessageSheetStyle] = []
+}
+
+extension EnvironmentValues {
+    var bannerMultiMessageSheetStyle: any BannerMultiMessageSheetStyle {
+        self.bannerMultiMessageSheetStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var bannerMultiMessageSheetStyleStack: [any BannerMultiMessageSheetStyle] {
+        get {
+            self[BannerMultiMessageSheetStyleStackKey.self]
+        }
+        set {
+            self[BannerMultiMessageSheetStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: CancelActionStyle
+
+struct CancelActionStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any CancelActionStyle] = []
+}
+
+extension EnvironmentValues {
+    var cancelActionStyle: any CancelActionStyle {
+        self.cancelActionStyleStack.last ?? .base
+    }
+
+    var cancelActionStyleStack: [any CancelActionStyle] {
+        get {
+            self[CancelActionStyleStackKey.self]
+        }
+        set {
+            self[CancelActionStyleStackKey.self] = newValue
         }
     }
 }
@@ -297,6 +381,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: CheckoutIndicatorStyle
+
+struct CheckoutIndicatorStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any CheckoutIndicatorStyle] = []
+}
+
+extension EnvironmentValues {
+    var checkoutIndicatorStyle: any CheckoutIndicatorStyle {
+        self.checkoutIndicatorStyleStack.last ?? .base
+    }
+
+    var checkoutIndicatorStyleStack: [any CheckoutIndicatorStyle] {
+        get {
+            self[CheckoutIndicatorStyleStackKey.self]
+        }
+        set {
+            self[CheckoutIndicatorStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: CloseActionStyle
 
 struct CloseActionStyleStackKey: EnvironmentKey {
@@ -419,6 +524,27 @@ extension EnvironmentValues {
         }
         set {
             self[DescriptionStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: DeselectAllActionStyle
+
+struct DeselectAllActionStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any DeselectAllActionStyle] = []
+}
+
+extension EnvironmentValues {
+    var deselectAllActionStyle: any DeselectAllActionStyle {
+        self.deselectAllActionStyleStack.last ?? .base
+    }
+
+    var deselectAllActionStyleStack: [any DeselectAllActionStyle] {
+        get {
+            self[DeselectAllActionStyleStackKey.self]
+        }
+        set {
+            self[DeselectAllActionStyleStackKey.self] = newValue
         }
     }
 }
@@ -885,6 +1011,90 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: ListPickerContentStyle
+
+struct ListPickerContentStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any ListPickerContentStyle] = []
+}
+
+extension EnvironmentValues {
+    var listPickerContentStyle: any ListPickerContentStyle {
+        self.listPickerContentStyleStack.last ?? .base
+    }
+
+    var listPickerContentStyleStack: [any ListPickerContentStyle] {
+        get {
+            self[ListPickerContentStyleStackKey.self]
+        }
+        set {
+            self[ListPickerContentStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: ListPickerDestinationStyle
+
+struct ListPickerDestinationStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any ListPickerDestinationStyle] = []
+}
+
+extension EnvironmentValues {
+    var listPickerDestinationStyle: any ListPickerDestinationStyle {
+        self.listPickerDestinationStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var listPickerDestinationStyleStack: [any ListPickerDestinationStyle] {
+        get {
+            self[ListPickerDestinationStyleStackKey.self]
+        }
+        set {
+            self[ListPickerDestinationStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: ListPickerItemStyle
+
+struct ListPickerItemStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any ListPickerItemStyle] = []
+}
+
+extension EnvironmentValues {
+    var listPickerItemStyle: any ListPickerItemStyle {
+        self.listPickerItemStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var listPickerItemStyleStack: [any ListPickerItemStyle] {
+        get {
+            self[ListPickerItemStyleStackKey.self]
+        }
+        set {
+            self[ListPickerItemStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: LoadingIndicatorStyle
+
+struct LoadingIndicatorStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any LoadingIndicatorStyle] = []
+}
+
+extension EnvironmentValues {
+    var loadingIndicatorStyle: any LoadingIndicatorStyle {
+        self.loadingIndicatorStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var loadingIndicatorStyleStack: [any LoadingIndicatorStyle] {
+        get {
+            self[LoadingIndicatorStyleStackKey.self]
+        }
+        set {
+            self[LoadingIndicatorStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: MandatoryFieldIndicatorStyle
 
 struct MandatoryFieldIndicatorStyleStackKey: EnvironmentKey {
@@ -1263,6 +1473,48 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: ProgressIndicatorStyle
+
+struct ProgressIndicatorStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any ProgressIndicatorStyle] = []
+}
+
+extension EnvironmentValues {
+    var progressIndicatorStyle: any ProgressIndicatorStyle {
+        self.progressIndicatorStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var progressIndicatorStyleStack: [any ProgressIndicatorStyle] {
+        get {
+            self[ProgressIndicatorStyleStackKey.self]
+        }
+        set {
+            self[ProgressIndicatorStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: ProgressIndicatorProtocolStyle
+
+struct ProgressIndicatorProtocolStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any ProgressIndicatorProtocolStyle] = []
+}
+
+extension EnvironmentValues {
+    var progressIndicatorProtocolStyle: any ProgressIndicatorProtocolStyle {
+        self.progressIndicatorProtocolStyleStack.last ?? .base
+    }
+
+    var progressIndicatorProtocolStyleStack: [any ProgressIndicatorProtocolStyle] {
+        get {
+            self[ProgressIndicatorProtocolStyleStackKey.self]
+        }
+        set {
+            self[ProgressIndicatorProtocolStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: RatingControlStyle
 
 struct RatingControlStyleStackKey: EnvironmentKey {
@@ -1448,6 +1700,48 @@ extension EnvironmentValues {
         }
         set {
             self[SegmentedControlPickerStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: SelectAllActionStyle
+
+struct SelectAllActionStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any SelectAllActionStyle] = []
+}
+
+extension EnvironmentValues {
+    var selectAllActionStyle: any SelectAllActionStyle {
+        self.selectAllActionStyleStack.last ?? .base
+    }
+
+    var selectAllActionStyleStack: [any SelectAllActionStyle] {
+        get {
+            self[SelectAllActionStyleStackKey.self]
+        }
+        set {
+            self[SelectAllActionStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: SelectedEntriesSectionTitleStyle
+
+struct SelectedEntriesSectionTitleStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any SelectedEntriesSectionTitleStyle] = []
+}
+
+extension EnvironmentValues {
+    var selectedEntriesSectionTitleStyle: any SelectedEntriesSectionTitleStyle {
+        self.selectedEntriesSectionTitleStyleStack.last ?? .base
+    }
+
+    var selectedEntriesSectionTitleStyleStack: [any SelectedEntriesSectionTitleStyle] {
+        get {
+            self[SelectedEntriesSectionTitleStyleStackKey.self]
+        }
+        set {
+            self[SelectedEntriesSectionTitleStyleStackKey.self] = newValue
         }
     }
 }
@@ -1658,6 +1952,27 @@ extension EnvironmentValues {
         }
         set {
             self[SwitchViewStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: TagStyle
+
+struct TagStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any TagStyle] = []
+}
+
+extension EnvironmentValues {
+    var tagStyle: any TagStyle {
+        self.tagStyleStack.last ?? .base
+    }
+
+    var tagStyleStack: [any TagStyle] {
+        get {
+            self[TagStyleStackKey.self]
+        }
+        set {
+            self[TagStyleStackKey.self] = newValue
         }
     }
 }
@@ -1977,6 +2292,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: ToastMessageStyle
+
+struct ToastMessageStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any ToastMessageStyle] = []
+}
+
+extension EnvironmentValues {
+    var toastMessageStyle: any ToastMessageStyle {
+        self.toastMessageStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var toastMessageStyleStack: [any ToastMessageStyle] {
+        get {
+            self[ToastMessageStyleStackKey.self]
+        }
+        set {
+            self[ToastMessageStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: TopDividerStyle
 
 struct TopDividerStyleStackKey: EnvironmentKey {
@@ -1998,6 +2334,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: ValueStyle
+
+struct ValueStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any ValueStyle] = []
+}
+
+extension EnvironmentValues {
+    var valueStyle: any ValueStyle {
+        self.valueStyleStack.last ?? .base
+    }
+
+    var valueStyleStack: [any ValueStyle] {
+        get {
+            self[ValueStyleStackKey.self]
+        }
+        set {
+            self[ValueStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: ValueLabelStyle
 
 struct ValueLabelStyleStackKey: EnvironmentKey {
@@ -2015,6 +2372,27 @@ extension EnvironmentValues {
         }
         set {
             self[ValueLabelStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: ValuePickerStyle
+
+struct ValuePickerStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any ValuePickerStyle] = []
+}
+
+extension EnvironmentValues {
+    var valuePickerStyle: any ValuePickerStyle {
+        self.valuePickerStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var valuePickerStyleStack: [any ValuePickerStyle] {
+        get {
+            self[ValuePickerStyleStackKey.self]
+        }
+        set {
+            self[ValuePickerStyleStackKey.self] = newValue
         }
     }
 }

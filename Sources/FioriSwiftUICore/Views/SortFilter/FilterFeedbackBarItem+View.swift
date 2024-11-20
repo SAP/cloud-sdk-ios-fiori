@@ -35,6 +35,14 @@ private extension View {
     }
 }
 
+/// Enum for FilterFeedbackBar ResetButton Type.
+public enum FilterFeedbackBarResetButtonType {
+    /// Reset to origin values.
+    case reset
+    /// Clear selected value, only effective for sinlge selection.
+    case clearAll
+}
+
 struct FilterFeedbackMenuItem: View {
     @Binding var item: SortFilterItem.PickerItem
     var onUpdate: () -> Void
@@ -66,7 +74,7 @@ struct SliderMenuItem: View {
     @State var detentHeight: CGFloat = 0
 
     var onUpdate: () -> Void
-    
+
     public init(item: Binding<SortFilterItem.SliderItem>, onUpdate: @escaping () -> Void) {
         self._item = item
         self.onUpdate = onUpdate
@@ -77,7 +85,7 @@ struct SliderMenuItem: View {
             .onTapGesture {
                 self.isSheetVisible.toggle()
             }
-            .popover(isPresented: self.$isSheetVisible, attachmentAnchor: .point(.bottom), arrowEdge: .bottom) {
+            .popover(isPresented: self.$isSheetVisible) {
                 CancellableResettableDialogForm {
                     SortFilterItemTitle(title: self.item.name)
                 } cancelAction: {
@@ -102,7 +110,7 @@ struct SliderMenuItem: View {
 
                 } components: {
                     SliderPickerItem(value: Binding<Int?>(get: { self.item.workingValue }, set: { self.item.workingValue = $0 }), formatter: self.item.formatter, minimumValue: self.item.minimumValue, maximumValue: self.item.maximumValue)
-                        .padding([.leading, .trailing], UIDevice.current.userInterfaceIdiom == .pad ? 13 : 16)
+                        .padding([.leading, .trailing], UIDevice.current.userInterfaceIdiom != .phone ? 13 : 16)
                 }
                 .readHeight()
                 .onPreferenceChange(HeightPreferenceKey.self) { height in
@@ -121,18 +129,31 @@ struct PickerMenuItem: View {
     
     @State var isSheetVisible = false
 
-    @State var detentHeight: CGFloat = 0
-    
+    @State var detentHeight: CGFloat = ((UIDevice.current.userInterfaceIdiom == .phone || UIDevice.current.userInterfaceIdiom != .phone) ? 88 : 0)
+    let popoverWidth = 393.0
+    @State var _keyboardHeight = 0.0
+        
     public init(item: Binding<SortFilterItem.PickerItem>, onUpdate: @escaping () -> Void) {
         self._item = item
         self.onUpdate = onUpdate
     }
     
     var body: some View {
-        if self.item.valueOptions.count > 4 {
+        switch self.item.displayMode {
+        case .automatic:
+            if self.item.valueOptions.count > 8 {
+                self.list
+            } else if self.item.valueOptions.count > 4, self.item.valueOptions.count <= 8 {
+                self.button
+            } else {
+                self.menu
+            }
+        case .filterFormCell:
             self.button
-        } else {
+        case .menu:
             self.menu
+        case .list:
+            self.list
         }
     }
 
@@ -142,7 +163,7 @@ struct PickerMenuItem: View {
             .onTapGesture {
                 self.isSheetVisible.toggle()
             }
-            .popover(isPresented: self.$isSheetVisible, attachmentAnchor: .point(.bottom), arrowEdge: .bottom) {
+            .popover(isPresented: self.$isSheetVisible) {
                 CancellableResettableDialogForm {
                     SortFilterItemTitle(title: self.item.name)
                 } cancelAction: {
@@ -152,11 +173,19 @@ struct PickerMenuItem: View {
                     })
                     .buttonStyle(CancelButtonStyle())
                 } resetAction: {
-                    _Action(actionText: NSLocalizedString("Reset", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
-                        self.item.reset()
-                    })
-                    .buttonStyle(ResetButtonStyle())
-                    .disabled(self.item.isOriginal)
+                    if self.item.resetButtonConfiguration.isHidden {
+                        EmptyView()
+                    } else {
+                        _Action(actionText: self.item.resetButtonConfiguration.title, didSelectAction: {
+                            if self.item.resetButtonConfiguration.type == .reset {
+                                self.item.reset()
+                            } else {
+                                self.item.clearAll()
+                            }
+                        })
+                        .buttonStyle(ResetButtonStyle())
+                        .disabled(self.resetButtonDisable())
+                    }
                 } applyAction: {
                     _Action(actionText: NSLocalizedString("Apply", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
                         self.item.apply()
@@ -168,8 +197,11 @@ struct PickerMenuItem: View {
                     OptionListPickerItem(value: self.$item.workingValue, valueOptions: self.item.valueOptions, hint: nil, itemLayout: self.item.itemLayout) { index in
                         self.item.onTap(option: self.item.valueOptions[index])
                     }
-                    .padding([.leading, .trailing], UIDevice.current.userInterfaceIdiom == .pad ? 13 : 16)
+                    .padding([.leading, .trailing], UIDevice.current.userInterfaceIdiom != .phone ? 13 : 16)
                 }
+                .ifApply(UIDevice.current.userInterfaceIdiom != .phone, content: { v in
+                    v.frame(minHeight: 155)
+                })
                 .readHeight()
                 .onPreferenceChange(HeightPreferenceKey.self) { height in
                     if let height {
@@ -204,6 +236,75 @@ struct PickerMenuItem: View {
             } label: {
                 FilterFeedbackBarItem(leftIcon: icon(name: self.item.icon, isVisible: true), title: self.item.label, isSelected: self.item.isChecked)
             }
+        }
+    }
+    
+    @ViewBuilder
+    var list: some View {
+        FilterFeedbackBarItem(leftIcon: icon(name: self.item.icon, isVisible: true), title: self.item.label, rightIcon: Image(systemName: "chevron.down"), isSelected: self.item.isChecked)
+            .onTapGesture {
+                self.isSheetVisible.toggle()
+            }
+            .popover(isPresented: self.$isSheetVisible) {
+                CancellableResettableDialogNavigationForm {
+                    SortFilterItemTitle(title: self.item.name)
+                } cancelAction: {
+                    _Action(actionText: NSLocalizedString("Cancel", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
+                        self.item.cancel()
+                        self.isSheetVisible.toggle()
+                    })
+                    .buttonStyle(CancelButtonStyle())
+                } resetAction: {
+                    if self.item.resetButtonConfiguration.isHidden {
+                        EmptyView()
+                    } else {
+                        _Action(actionText: self.item.resetButtonConfiguration.title, didSelectAction: {
+                            if self.item.resetButtonConfiguration.type == .reset {
+                                self.item.reset()
+                            } else {
+                                self.item.clearAll()
+                            }
+                        })
+                        .buttonStyle(ResetButtonStyle())
+                        .disabled(self.resetButtonDisable())
+                    }
+                } applyAction: {
+                    _Action(actionText: NSLocalizedString("Apply", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
+                        self.item.apply()
+                        self.onUpdate()
+                        self.isSheetVisible.toggle()
+                    })
+                    .buttonStyle(ApplyButtonStyle())
+                } components: {
+                    SearchListPickerItem(value: self.$item.workingValue, valueOptions: self.item.valueOptions, hint: nil, allowsMultipleSelection: self.item.allowsMultipleSelection, allowsEmptySelection: self.item.allowsEmptySelection, isSearchBarHidden: self.item.isSearchBarHidden, disableListEntriesSection: self.item.disableListEntriesSection, allowsDisplaySelectionCount: self.item.allowsDisplaySelectionCount) { index in
+                        self.item.onTap(option: self.item.valueOptions[index])
+                    } selectAll: { isAll in
+                        self.item.selectAll(isAll)
+                    } updateSearchListPickerHeight: { height in
+                        self.detentHeight = max(height, 88)
+                    }
+                    .frame(maxHeight: UIDevice.current.userInterfaceIdiom != .phone ? self.detentHeight : nil)
+                    .padding(0)
+                    .onReceive(NotificationCenter.default.publisher(for: UIApplication.keyboardDidShowNotification)) { notif in
+                        let rect = (notif.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect) ?? .zero
+                        self._keyboardHeight = rect.height
+                    }
+                    .onReceive(NotificationCenter.default.publisher(for: UIApplication.keyboardDidHideNotification)) { _ in
+                        self._keyboardHeight = 0
+                    }
+                    Spacer()
+                }
+                .frame(minWidth: UIDevice.current.userInterfaceIdiom != .phone ? self.popoverWidth : nil)
+                .frame(height: UIDevice.current.userInterfaceIdiom != .phone ? self.detentHeight + (self.item.isSearchBarHidden ? 0 : 52) + (self._keyboardHeight == 0 ? 56 : 0) + 93 : nil)
+                .presentationDetents([.height(self.detentHeight + (self.item.isSearchBarHidden ? 0 : 52) + (self._keyboardHeight == 0 ? 56 : 0) + 93), .medium, .large])
+            }
+    }
+    
+    private func resetButtonDisable() -> Bool {
+        if self.item.resetButtonConfiguration.type == .reset {
+            return self.item.isOriginal
+        } else {
+            return self.item.workingValue.isEmpty
         }
     }
 }
@@ -243,7 +344,13 @@ struct DateTimeMenuItem: View {
     @State var detentHeight: CGFloat = 0
     
     var onUpdate: () -> Void
-
+    
+    #if !os(visionOS)
+        let popoverWidth = 393.0
+    #else
+        let popoverWidth = 480.0
+    #endif
+    
     public init(item: Binding<SortFilterItem.DateTimeItem>, onUpdate: @escaping () -> Void) {
         self._item = item
         self.onUpdate = onUpdate
@@ -254,7 +361,7 @@ struct DateTimeMenuItem: View {
             .onTapGesture {
                 self.isSheetVisible.toggle()
             }
-            .popover(isPresented: self.$isSheetVisible, attachmentAnchor: .point(.bottom), arrowEdge: .bottom) {
+            .popover(isPresented: self.$isSheetVisible) {
                 CancellableResettableDialogForm {
                     SortFilterItemTitle(title: self.item.name)
                 } cancelAction: {
@@ -290,7 +397,7 @@ struct DateTimeMenuItem: View {
                             )
                             .labelsHidden()
                         }
-                        .padding([.leading, .trailing], UIDevice.current.userInterfaceIdiom == .pad ? 13 : 16)
+                        .padding([.leading, .trailing], UIDevice.current.userInterfaceIdiom != .phone ? 13 : 16)
 
                         DatePicker(
                             self.item.label,
@@ -299,15 +406,17 @@ struct DateTimeMenuItem: View {
                         )
                         .datePickerStyle(.graphical)
                         .labelsHidden()
-                        .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? 375 - 13 : Screen.bounds.size.width - 16)
+                        .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? self.popoverWidth - 13 : Screen.bounds.size.width - 16)
                         .clipped()
                     }
-                    .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? 375 : Screen.bounds.size.width)
+                    .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? self.popoverWidth : Screen.bounds.size.width)
                 }
                 .readHeight()
                 .onPreferenceChange(HeightPreferenceKey.self) { height in
-                    if let height {
-                        self.detentHeight = height
+                    DispatchQueue.main.async {
+                        if let height {
+                            self.detentHeight = height
+                        }
                     }
                 }
                 .presentationDetents([.height(self.detentHeight)])
@@ -370,6 +479,101 @@ struct SwitchMenuItem: View {
     }
 }
 
+struct StepperMenuItem: View {
+    @Binding var item: SortFilterItem.StepperItem
+
+    @State var isSheetVisible = false
+
+    @State var detentHeight: CGFloat = 0
+
+    var onUpdate: () -> Void
+    
+    @State var stepperViewHeight: CGFloat = 110
+    
+    public init(item: Binding<SortFilterItem.StepperItem>, onUpdate: @escaping () -> Void) {
+        self._item = item
+        self.onUpdate = onUpdate
+    }
+    
+    var body: some View {
+        FilterFeedbackBarItem(leftIcon: icon(name: self.item.icon, isVisible: true), title: self.item.label, rightIcon: Image(systemName: "chevron.down"), isSelected: self.item.isChecked)
+            .onTapGesture {
+                self.isSheetVisible.toggle()
+            }
+            .popover(isPresented: self.$isSheetVisible) {
+                CancellableResettableDialogForm {
+                    SortFilterItemTitle(title: self.item.name)
+                } cancelAction: {
+                    _Action(actionText: NSLocalizedString("Cancel", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
+                        self.item.cancel()
+                        self.isSheetVisible.toggle()
+                    })
+                    .buttonStyle(CancelButtonStyle())
+                } resetAction: {
+                    _Action(actionText: NSLocalizedString("Reset", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
+                        self.item.reset()
+                    })
+                    .buttonStyle(ResetButtonStyle())
+                    .disabled(self.item.isOriginal)
+                } applyAction: {
+                    _Action(actionText: NSLocalizedString("Apply", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
+                        self.item.apply()
+                        self.onUpdate()
+                        self.isSheetVisible.toggle()
+                    })
+                    .buttonStyle(ApplyButtonStyle())
+
+                } components: {
+                    StepperView(
+                        title: { Text(self.item.stepperTitle) },
+                        text: Binding<String>(get: {
+                            if self.item.isDecimalSupported {
+                                String(describing: self.item.workingValue)
+                            } else {
+                                String(describing: Int(self.item.workingValue))
+                            }
+                        }, set: { self.item.workingValue = Double($0) ?? 0 }),
+                        step: self.item.step,
+                        stepRange: self.item.stepRange,
+                        isDecimalSupported: self.item.isDecimalSupported,
+                        icon: {
+                            if let stepperIcon = self.item.stepperIcon {
+                                Image(uiImage: stepperIcon)
+                            } else {
+                                EmptyView()
+                            }
+                        },
+                        description: {
+                            if let description = self.item.description {
+                                Text(description)
+                            } else {
+                                EmptyView()
+                            }
+                        }
+                    )
+                    .ifApply(!self.item.decrementActionActive) { v in
+                        v.decrementActionStyle(.deactivate)
+                    }
+                    .ifApply(!self.item.incrementActionActive) { v in
+                        v.incrementActionStyle(.deactivate)
+                    }
+                    .frame(minHeight: self.stepperViewHeight)
+                    .padding(0)
+                    .sizeReader { s in
+                        self.stepperViewHeight = max(self.stepperViewHeight, s.height)
+                    }
+                }
+                .readHeight()
+                .onPreferenceChange(HeightPreferenceKey.self) { height in
+                    if let height {
+                        self.detentHeight = height
+                    }
+                }
+                .presentationDetents([.height(self.detentHeight)])
+            }
+    }
+}
+
 struct FullCFGMenuItem: View {
     @Environment(\.sortFilterMenuItemFullConfigurationButton) var fullCFGButton
     
@@ -379,6 +583,8 @@ struct FullCFGMenuItem: View {
 
     var onUpdate: () -> Void
     
+    var resetButtonType = FilterFeedbackBarResetButtonType.reset
+
     public init(items: Binding<[[SortFilterItem]]>, onUpdate: @escaping () -> Void) {
         self._items = items
         self.onUpdate = onUpdate
@@ -389,7 +595,7 @@ struct FullCFGMenuItem: View {
             .onTapGesture {
                 self.isSheetVisible.toggle()
             }
-            .popover(isPresented: self.$isSheetVisible, attachmentAnchor: .point(.bottom), arrowEdge: .bottom) {
+            .popover(isPresented: self.$isSheetVisible) {
                 SortFilterView(
                     title: {
                         if let title = fullCFGButton.name {
@@ -403,22 +609,29 @@ struct FullCFGMenuItem: View {
                     },
                     cancelAction: {
                         _Action(actionText: NSLocalizedString("Cancel", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
-                            // item.apply()
-                            self.onUpdate()
-                            self.isSheetVisible.toggle()
+                            self.isSheetVisible = false
                         })
                         .buttonStyle(CancelButtonStyle())
                     },
                     resetAction: {
                         _Action(actionText: NSLocalizedString("Reset", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
-                            // item.cancel()
-                            self.isSheetVisible.toggle()
+                            for r in 0 ..< self.items.count {
+                                for c in 0 ..< self.items[r].count {
+                                    self.items[r][c].reset()
+                                }
+                            }
                         })
                         .buttonStyle(ResetButtonStyle())
                     },
                     applyAction: {
                         _Action(actionText: NSLocalizedString("Apply", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
-                            // item.reset()
+                            for r in 0 ..< self.items.count {
+                                for c in 0 ..< self.items[r].count {
+                                    self.items[r][c].apply()
+                                }
+                            }
+                            self.onUpdate()
+                            self.isSheetVisible = false
                         })
                         .buttonStyle(ApplyButtonStyle())
                     },

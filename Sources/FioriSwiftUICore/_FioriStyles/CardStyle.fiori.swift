@@ -395,7 +395,7 @@ public extension CardStyle where Self == CardCardStyle {
     }
 }
 
-/// Intrinsic Height card style. When a card is put into a HStack/VStack then this style is recommeded to use.
+/// Intrinsic Height card style. When a card is put into a HStack/VStack then this style is recommended to use.
 public struct CardIntrinsicHeightStyle: CardStyle {
     public func makeBody(_ configuration: CardConfiguration) -> some View {
         CardBaseStyle(useProposedHeight: false).makeBody(configuration)
@@ -403,7 +403,7 @@ public struct CardIntrinsicHeightStyle: CardStyle {
 }
 
 public extension CardStyle where Self == CardIntrinsicHeightStyle {
-    /// Intrinsic Height card style. When a card is put into a HStack/VStack then this style is recommeded to use.
+    /// Intrinsic Height card style. When a card is put into a HStack/VStack then this style is recommended to use.
     static var intrinsicHeightCard: Self {
         CardIntrinsicHeightStyle()
     }
@@ -421,9 +421,9 @@ struct ColorTagStyle: TagStyle {
         self.fillColor = fillColor
     }
     
-    public func makeBody(configuration: Self.Configuration) -> some View {
+    public func makeBody(_ configuration: TagConfiguration) -> some View {
         configuration
-            .label
+            .tag
             .font(.fiori(forTextStyle: .footnote))
             .foregroundColor(self.textColor)
             .lineLimit(1)

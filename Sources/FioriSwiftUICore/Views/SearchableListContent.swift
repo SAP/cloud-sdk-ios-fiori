@@ -30,7 +30,7 @@ struct SearchableListContent<Data: RandomAccessCollection, ID: Hashable, RowCont
     ///   - children: The key path to the optional property of a data element whose value indicates the children of that element.
     ///   - selection: A binding to a set which stores the selected items.
     ///   - allowsMultipleSelection: A boolean value to indicate to allow multiple selections or not.
-    ///   - searchFilter: The closure to filter the `data` in searching process. Request a boolen by the element and the filter key.
+    ///   - searchFilter: The closure to filter the `data` in searching process. Request a boolean by the element and the filter key.
     ///   - rowContent: The view builder which returns the content of each row in the list picker.
     init(data: Data,
          id: KeyPath<Data.Element, ID>,
@@ -127,25 +127,25 @@ struct SearchableListContent<Data: RandomAccessCollection, ID: Hashable, RowCont
                 let id_value = element[keyPath: id]
                 
                 if let children, let childrenData = element[keyPath: children] {
-                    ListPickerItem<RowContent, EmptyView>(key: {
+                    _ListPickerItem<RowContent, EmptyView>(key: {
                         row
                     }, value: {
                         EmptyView()
-                    }, configuration: ListPickerItemConfiguration(childrenData,
-                                                                  id: self.id,
-                                                                  children: children,
-                                                                  selection: !self.isTopLevel ? self.selection : self.$selectionBuffer,
-                                                                  isTopLevel: false,
-                                                                  allowsMultipleSelection: self.allowsMultipleSelection,
-                                                                  searchFilter: self.searchFilter,
-                                                                  rowContent: self.rowContent,
-                                                                  rowBackground: self.rowBackground))
+                    }, configuration: _ListPickerItemConfiguration(childrenData,
+                                                                   id: self.id,
+                                                                   children: children,
+                                                                   selection: !self.isTopLevel ? self.selection : self.$selectionBuffer,
+                                                                   isTopLevel: false,
+                                                                   allowsMultipleSelection: self.allowsMultipleSelection,
+                                                                   searchFilter: self.searchFilter,
+                                                                   rowContent: self.rowContent,
+                                                                   rowBackground: self.rowBackground))
                         .environment(\.listBackground, self.listBackground)
                 } else {
-                    ListPickerItem.Row(content: row,
-                                       id: id_value,
-                                       selection: !self.isTopLevel ? self.selection : self.$selectionBuffer,
-                                       allowsMultipleSelection: self.allowsMultipleSelection)
+                    _ListPickerItem.Row(content: row,
+                                        id: id_value,
+                                        selection: !self.isTopLevel ? self.selection : self.$selectionBuffer,
+                                        allowsMultipleSelection: self.allowsMultipleSelection)
                 }
             }
             .listRowBackground(Group {

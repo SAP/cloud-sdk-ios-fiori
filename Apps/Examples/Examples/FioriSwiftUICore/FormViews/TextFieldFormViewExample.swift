@@ -7,7 +7,7 @@ struct TextFieldFormViewExample: View {
         return aString
     }
 
-    @State var valueText1: String = "1234567890 12345678"
+    @State var valueText1: String = "This is default text for one line"
 
     var key2: AttributedString {
         let aString = AttributedString("Key 2")
@@ -70,22 +70,23 @@ struct TextFieldFormViewExample: View {
                 .padding(.leading, 16)
                 .padding(.trailing, 16)
 
-                Text("Default TitleForm")
-                TextFieldFormView(title: self.key1, text: self.$valueText1, placeholder: "TextFieldFormView", errorMessage: self.getErrorMessage(), maxTextLength: self.getMaxTextLength(), hintText: self.getHintText(), isCharCountEnabled: self.showsCharCount, allowsBeyondLimit: self.allowsBeyondLimit, isRequired: self.isRequired, actionIcon: self.getActionIcon(), action: self.getAction())
+                Text("Default TextFieldForm")
+                    .italic()
+                TextFieldFormView(title: self.key1, text: self.$valueText1, placeholder: "TextFieldFormView", errorMessage: self.getErrorMessage(), maxTextLength: self.getMaxTextLength(), hintText: self.getHintText(), isCharCountEnabled: self.showsCharCount, allowsBeyondLimit: self.allowsBeyondLimit, isRequired: self.isRequired, actionIcon: self.getActionIcon(), action: self.getAction1(), actionIconAccessibilityLabel: self.getActionIconAccessibilityLabel())
 
                 Text("Existing Text")
                     .italic()
-                TextFieldFormView(title: self.key2, text: self.$valueText2, placeholder: "TextFieldFormView", errorMessage: self.getErrorMessage(), maxTextLength: self.getMaxTextLength(), hintText: self.getHintText(), isCharCountEnabled: self.showsCharCount, allowsBeyondLimit: self.allowsBeyondLimit, isRequired: self.isRequired, actionIcon: self.getActionIcon(), action: self.getAction())
+                TextFieldFormView(title: self.key2, text: self.$valueText2, placeholder: "TextFieldFormView", errorMessage: self.getErrorMessage(), maxTextLength: self.getMaxTextLength(), hintText: self.getHintText(), isCharCountEnabled: self.showsCharCount, allowsBeyondLimit: self.allowsBeyondLimit, isRequired: self.isRequired, actionIcon: self.getActionIcon(), action: self.getAction2(), actionIconAccessibilityLabel: self.getActionIconAccessibilityLabel())
 
                 Text("Empty Text")
                     .italic()
-                TextFieldFormView(title: self.key3, text: self.$valueText3, placeholder: "Please enter something", errorMessage: self.getErrorMessage(), maxTextLength: self.getMaxTextLength(), hintText: self.getHintText(), isCharCountEnabled: self.showsCharCount, allowsBeyondLimit: self.allowsBeyondLimit, isRequired: self.isRequired, actionIcon: self.getActionIcon(), action: self.getAction())
+                TextFieldFormView(title: self.key3, text: self.$valueText3, placeholder: "Please enter something", errorMessage: self.getErrorMessage(), maxTextLength: self.getMaxTextLength(), hintText: self.getHintText(), isCharCountEnabled: self.showsCharCount, allowsBeyondLimit: self.allowsBeyondLimit, isRequired: self.isRequired, actionIcon: self.getActionIcon(), action: self.getAction3(), actionIconAccessibilityLabel: self.getActionIconAccessibilityLabel())
 
                 Text("Disabled")
-                TextFieldFormView(title: "Disabled Cell", text: self.$disabledText, placeholder: "Disabled", controlState: .disabled, isRequired: self.isRequired, actionIcon: self.getActionIcon(), action: self.getAction())
+                TextFieldFormView(title: "Disabled Cell", text: self.$disabledText, placeholder: "Disabled", controlState: .disabled, isRequired: self.isRequired, actionIcon: self.getActionIcon(), action: self.getAction4())
 
                 Text("Read-Only")
-                TextFieldFormView(title: "Read-Only Cell", text: self.$readOnlyText, placeholder: "Read-Only", controlState: .readOnly, hidesReadOnlyHint: self.hidesReadonlyHint, isRequired: self.isRequired, actionIcon: self.getActionIcon(), action: self.getAction())
+                TextFieldFormView(title: "Read-Only Cell", text: self.$readOnlyText, placeholder: "Read-Only", controlState: .readOnly, hidesReadOnlyHint: self.hidesReadonlyHint, isRequired: self.isRequired, actionIcon: self.getActionIcon(), action: self.getAction4())
             }
             #if !os(visionOS)
             .scrollDismissesKeyboard(.immediately)
@@ -113,12 +114,44 @@ struct TextFieldFormViewExample: View {
         self.showsAction ? Image(systemName: "barcode") : nil
     }
 
-    func getAction() -> (() -> Void)? {
-        self.showsAction ? self.myAction : nil
+    func getActionIconAccessibilityLabel() -> String? {
+        self.showsAction ? "barcode" : nil
     }
 
-    func myAction() {
-        print("*** action button is tapped ***")
+    func getAction1() -> (() -> Void)? {
+        self.showsAction ? self.myAction1 : nil
+    }
+
+    func myAction1() {
+        print("*** action1 button tapped ***")
+        self.valueText1 = "action1 button tapped"
+    }
+
+    func getAction2() -> (() -> Void)? {
+        self.showsAction ? self.myAction2 : nil
+    }
+
+    func myAction2() {
+        print("*** action2 button tapped ***")
+        self.valueText2 = "action2 button tapped"
+    }
+
+    func getAction3() -> (() -> Void)? {
+        self.showsAction ? self.myAction3 : nil
+    }
+
+    func myAction3() {
+        print("*** action3 button tapped ***")
+        self.valueText3 = "action3 button tapped"
+    }
+
+    func getAction4() -> (() -> Void)? {
+        self.showsAction ? self.myAction3 : nil
+    }
+
+    func myAction4() {
+        print("*** action4 button tapped ***")
+        self.valueText3 = "action4 button tapped"
     }
 }
 

@@ -33,6 +33,14 @@ extension CardHeaderConfiguration {
     }
 }
 
+// MARK: DateTimePickerConfiguration
+
+extension DateTimePickerConfiguration {
+    var _formView: FormView {
+        FormView(.init(controlState: self.controlState, errorMessage: self.errorMessage), shouldApplyDefaultStyle: true)
+    }
+}
+
 // MARK: DemoViewConfiguration
 
 extension DemoViewConfiguration {
@@ -54,6 +62,14 @@ extension KeyValueFormViewConfiguration {
 extension LinearProgressIndicatorViewConfiguration {
     var _linearProgressIndicator: LinearProgressIndicator {
         LinearProgressIndicator(.init(indicatorProgress: self.$indicatorProgress), shouldApplyDefaultStyle: true)
+    }
+}
+
+// MARK: ListPickerItemConfiguration
+
+extension ListPickerItemConfiguration {
+    var _formView: FormView {
+        FormView(.init(controlState: self.controlState, errorMessage: self.errorMessage), shouldApplyDefaultStyle: true)
     }
 }
 
@@ -82,6 +98,14 @@ extension PlaceholderTextEditorConfiguration {
 extension PlaceholderTextFieldConfiguration {
     var _textInputField: TextInputField {
         TextInputField(.init(text: self.$text), shouldApplyDefaultStyle: true)
+    }
+}
+
+// MARK: ProgressIndicatorConfiguration
+
+extension ProgressIndicatorConfiguration {
+    var _progressIndicatorProtocol: ProgressIndicatorProtocol {
+        ProgressIndicatorProtocol(.init(progress: self.$progress), shouldApplyDefaultStyle: true)
     }
 }
 
@@ -121,7 +145,7 @@ extension StepperFieldConfiguration {
 
 extension StepperViewConfiguration {
     var _stepperField: StepperField {
-        StepperField(.init(decrementAction: .init(self.decrementAction), text: self.$text, incrementAction: .init(self.incrementAction), step: self.step, stepRange: self.stepRange), shouldApplyDefaultStyle: true)
+        StepperField(.init(decrementAction: .init(self.decrementAction), text: self.$text, incrementAction: .init(self.incrementAction), step: self.step, stepRange: self.stepRange, isDecimalSupported: self.isDecimalSupported), shouldApplyDefaultStyle: true)
     }
 
     var _informationView: InformationView {
@@ -162,5 +186,13 @@ extension TitleFormViewConfiguration {
 
     var _formView: FormView {
         FormView(.init(controlState: self.controlState, errorMessage: self.errorMessage), shouldApplyDefaultStyle: true)
+    }
+}
+
+// MARK: ValuePickerConfiguration
+
+extension ValuePickerConfiguration {
+    var _options: Options {
+        Options(.init(options: self.options), shouldApplyDefaultStyle: true)
     }
 }

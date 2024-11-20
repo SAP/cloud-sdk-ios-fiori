@@ -47,7 +47,7 @@ All Fiori Colors are dynamic colors, which means they will adjust based on iOS A
 
 This module contains SwiftUI implementation for those UIKit-based components existing in [SAPFiori](https://help.sap.com/doc/978e4f6c968c4cc5a30f9d324aa4b1d7/Latest/en-US/Documents/Frameworks/SAPFiori/index.html). It provides you with an easy way to migrate your UIKit project to SwiftUI while delivering the same experience as before.
 
-We plan to progressively bring more Fiori UI components into this module in the future releases. Check the table below for the components that are currectly available and those in the roadmap.
+We plan to progressively bring more Fiori UI components into this module in the future releases. Check the table below for the components that are currently available and those in the roadmap.
 
 > Refer to this [document](./GeneratedComponentConcepts.md) for different ways of initializing the component.
 
@@ -99,6 +99,8 @@ We plan to progressively bring more Fiori UI components into this module in the 
 | TimelineItem | :white_check_mark: |
 | SegmentedControlPicker | :white_check_mark: |
 | TimelinePreviewItem | :white_check_mark: |
+| DateTimePicker | :white_check_mark: |
+| Illustration Message | :white_check_mark: |
 | ChartFloorplan | :x: |
 | CollectionItem | :x: |
 | BarcodeScanner | :x: |
@@ -106,6 +108,19 @@ We plan to progressively bring more Fiori UI components into this module in the 
 | MultiUserPasscodeView | :x: |
 | TouchIDErrorView | :x: |
 | Skeleton Loading | :x: |
+| Slider(single and range) | :x: |
+| Attachment | :x: |
+| Value Picker | :white_check_mark: |
+| Hierarchy View | :x: |
+| Calendar | :x: |
+| Search To Select | :x: |
+| Progress Indicator | :white_check_mark: |
+| Processing Indicator | :x: |
+| Checkout Indicator | :white_check_mark: |
+| Loading Indicator | :white_check_mark: |
+| Feedback Screen | :x: |
+| Map | :x: |
+| Theming support for UI component individual fields | :x: |
 
 ## FioriCharts
 ![FioriCharts platform support: iOS and visionOS](https://img.shields.io/badge/platform-ios%20%7C%20visionos-lightgray)

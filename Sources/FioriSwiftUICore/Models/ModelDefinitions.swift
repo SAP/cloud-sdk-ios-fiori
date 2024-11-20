@@ -106,12 +106,24 @@ public protocol ActivityItemsModel: ActionItemsComponent {}
 // sourcery: add_env_props = "listBackground"
 // sourcery: add_env_props = "listpickerListStyle"
 // sourcery: add_env_props = "listPickerListViewModifier"
-// sourcery: virtualPropDestinationConfiguration = "var destinationConfiguration: ListPickerItemConfiguration? = nil"
-public protocol ListPickerItemModel: KeyComponent, ValueComponent {}
 
+// sourcery: virtualPropDestinationConfiguration = "var destinationConfiguration: _ListPickerItemConfiguration? = nil"
+public protocol _ListPickerItemModel: KeyComponent, ValueComponent {
+    // sourcery: default.value = .horizontal
+    // sourcery: no_view
+    var axis: Axis { get }
+}
+
+@available(*, unavailable, renamed: "_ListPickerItemModel", message: "Will be removed in the future release. Please create ListPickerItem with other initializers instead.")
+public protocol ListPickerItemModel {}
+
+/// Deprecated ProgressIndicatorModel
 // sourcery: generated_component_not_configurable
-public protocol ProgressIndicatorModel: ProgressIndicatorComponent {}
+public protocol _ProgressIndicatorModel: ProgressIndicatorComponent {}
 
+@available(*, unavailable, renamed: "_ProgressIndicatorModel", message: "Will be removed in the future release. Please use LoadingIndicator instead.")
+public protocol ProgressIndicatorModel {}
+    
 /// Deprecated SideBarListItem
 // sourcery: add_env_props = "sideBarListItemConfigMode"
 // sourcery: add_env_props = "sizeCategory"
@@ -170,8 +182,13 @@ public protocol ActivationScreenModel: TitleComponent, DescriptionTextComponent,
 
 // sourcery: generated_component_composite
 public protocol InfoViewModel: TitleComponent, DescriptionTextComponent {
-    // sourcery: genericParameter.name = ProgressIndicatorView
-    var progressIndicator: ProgressIndicatorModel? { get }
+    // sourcery: default.value = nil
+    // sourcery: no_view
+    var showLoadingIndicator: Bool? { get }
+    
+    // sourcery: default.value = nil
+    // sourcery: no_view
+    var loadingIndicatorText: String? { get }
     
     // sourcery: genericParameter.name = ActionView
     var action: _ActionModel? { get }
@@ -465,6 +482,8 @@ public protocol FilterFeedbackBarModel: AnyObject {
 // sourcery: virtualPropActionHelper = "@StateObject var context: SortFilterContext = SortFilterContext()"
 // sourcery: add_env_props = "dismiss"
 // sourcery: generated_component_composite
+// sourcery: virtualPropViewSize = "@State var size: CGSize = .zero"
+// sourcery: virtualPropPopoverWidth = "let popoverWidth = 393.0"
 public protocol SortFilterViewModel: AnyObject, TitleComponent {
     // sourcery: bindingProperty
     // sourcery: backingComponent=_SortFilterCFGItemContainer
@@ -504,11 +523,32 @@ public protocol FilterFeedbackBarButtonModel: LeftIconComponent, TitleComponent 
 
 // sourcery: add_env_props = "filterFeedbackBarStyle"
 // sourcery: generated_component_not_configurable
+// sourcery: virtualPropHeight = "@State var _height: CGFloat = 0"
 public protocol OptionListPickerItemModel: OptionListPickerComponent {
     // sourcery: default.value = .fixed
     // sourcery: no_view
     var itemLayout: OptionListPickerItemLayoutType { get set }
     
+    // sourcery: default.value = nil
+    // sourcery: no_view
+    var onTap: ((_ index: Int) -> Void)? { get }
+}
+
+// sourcery: add_env_props = "filterFeedbackBarStyle"
+// sourcery: generated_component_not_configurable
+// sourcery: virtualPropHeight = "@State var _height: CGFloat = 44"
+// sourcery: virtualPropSearchText = "@State var _searchText: String = """
+// sourcery: virtualPropSearchViewCornerRadius = "@State var _searchViewCornerRadius: CGFloat = 18"
+// sourcery: virtualPropSelectAll = "var selectAll: ((Bool) -> ())? = nil"
+// sourcery: virtualPropUpdateSearchListPickerHeight = "var updateSearchListPickerHeight: ((CGFloat) -> ())? = nil"
+// sourcery: virtualPropAllowsMultipleSelection = "var allowsMultipleSelection: Bool = false"
+// sourcery: virtualPropAllowsEmptySelection = "var allowsEmptySelection: Bool = false"
+// sourcery: virtualPropPopoverWidth = "let popoverWidth = 393.0"
+// sourcery: virtualPropIsSearchBarHidden = "var isSearchBarHidden: Bool = false"
+// sourcery: virtualPropKeyboardHeight = "@State var _keyboardHeight: CGFloat = 0.0"
+// sourcery: virtualPropDisableListEntriesSection = "var disableListEntriesSection: Bool = false"
+// sourcery: virtualPropAllowsDisplaySelectionCount = "var allowsDisplaySelectionCount: Bool = true"
+public protocol SearchListPickerItemModel: OptionListPickerComponent {
     // sourcery: default.value = nil
     // sourcery: no_view
     var onTap: ((_ index: Int) -> Void)? { get }

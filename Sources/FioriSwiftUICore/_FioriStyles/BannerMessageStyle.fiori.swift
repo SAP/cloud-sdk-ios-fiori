@@ -62,6 +62,63 @@ public struct BannerMessageBaseStyle: BannerMessageStyle {
     }
 }
 
+struct BannerMessageNeutralStyle: BannerMessageStyle {
+    public func makeBody(_ configuration: BannerMessageConfiguration) -> some View {
+        BannerMessage(configuration)
+            .iconStyle { c in
+                c.icon.foregroundStyle(BannerMessageFioriStyle.titleForegroundColor(type: .neutral))
+            }
+    }
+}
+
+struct BannerMessageNegativeStyle: BannerMessageStyle {
+    public func makeBody(_ configuration: BannerMessageConfiguration) -> some View {
+        BannerMessage(configuration)
+            .iconStyle { c in
+                c.icon.foregroundStyle(BannerMessageFioriStyle.titleForegroundColor(type: .negative))
+            }
+            .titleStyle(content: { c in
+                c.title.foregroundStyle(BannerMessageFioriStyle.titleForegroundColor(type: .negative))
+            })
+    }
+}
+
+struct BannerMessageCriticalStyle: BannerMessageStyle {
+    public func makeBody(_ configuration: BannerMessageConfiguration) -> some View {
+        BannerMessage(configuration)
+            .iconStyle { c in
+                c.icon.foregroundStyle(BannerMessageFioriStyle.titleForegroundColor(type: .critical))
+            }
+            .titleStyle(content: { c in
+                c.title.foregroundStyle(BannerMessageFioriStyle.titleForegroundColor(type: .critical))
+            })
+    }
+}
+
+struct BannerMessagePositiveStyle: BannerMessageStyle {
+    public func makeBody(_ configuration: BannerMessageConfiguration) -> some View {
+        BannerMessage(configuration)
+            .iconStyle { c in
+                c.icon.foregroundStyle(BannerMessageFioriStyle.titleForegroundColor(type: .positive))
+            }
+            .titleStyle(content: { c in
+                c.title.foregroundStyle(BannerMessageFioriStyle.titleForegroundColor(type: .positive))
+            })
+    }
+}
+
+struct BannerMessageInformativeStyle: BannerMessageStyle {
+    public func makeBody(_ configuration: BannerMessageConfiguration) -> some View {
+        BannerMessage(configuration)
+            .iconStyle { c in
+                c.icon.foregroundStyle(BannerMessageFioriStyle.titleForegroundColor(type: .informative))
+            }
+            .titleStyle(content: { c in
+                c.title.foregroundStyle(BannerMessageFioriStyle.titleForegroundColor(type: .informative))
+            })
+    }
+}
+
 // Default fiori styles
 extension BannerMessageFioriStyle {
     static func titleForegroundColor(type: BannerMultiMessageType) -> Color {
@@ -90,7 +147,7 @@ extension BannerMessageFioriStyle {
         let bannerMessageConfiguration: BannerMessageConfiguration
         
         func makeBody(_ configuration: IconConfiguration) -> some View {
-            configuration.icon
+            Icon(configuration)
                 .foregroundStyle(BannerMessageFioriStyle.titleForegroundColor(type: self.bannerMessageConfiguration.messageType))
         }
     }
@@ -99,7 +156,7 @@ extension BannerMessageFioriStyle {
         let bannerMessageConfiguration: BannerMessageConfiguration
         
         func makeBody(_ configuration: TitleConfiguration) -> some View {
-            configuration.title
+            Title(configuration)
                 .foregroundStyle(BannerMessageFioriStyle.titleForegroundColor(type: self.bannerMessageConfiguration.messageType))
                 .font(.fiori(forTextStyle: .footnote))
         }
@@ -118,7 +175,7 @@ extension BannerMessageFioriStyle {
     
         func makeBody(_ configuration: TopDividerConfiguration) -> some View {
             TopDivider(configuration)
-                .background(Color.preferredColor(.negativeLabel))
+                .background(BannerMessageFioriStyle.titleForegroundColor(type: self.bannerMessageConfiguration.messageType))
         }
     }
 }
@@ -145,7 +202,7 @@ public extension View {
                                             bannerTapped: bannerTapped,
                                             alignment: alignment ?? .center,
                                             hideSeparator: false,
-                                            messageType: .neutral,
+                                            messageType: .negative,
                                             turnOnSectionHeader: true,
                                             showDetailLink: false,
                                             bannerMultiMessages: Binding<[BannerMessageListModel]>.constant([])))
@@ -172,7 +229,7 @@ public extension View {
                                             bannerTapped: bannerTapped,
                                             alignment: alignment ?? .center,
                                             hideSeparator: false,
-                                            messageType: .neutral,
+                                            messageType: .negative,
                                             turnOnSectionHeader: true,
                                             showDetailLink: false,
                                             bannerMultiMessages: Binding<[BannerMessageListModel]>.constant([])))
@@ -201,7 +258,7 @@ public extension View {
                                             bannerTapped: bannerTapped,
                                             alignment: alignment ?? .center,
                                             hideSeparator: false,
-                                            messageType: .neutral,
+                                            messageType: .negative,
                                             turnOnSectionHeader: true,
                                             showDetailLink: false,
                                             bannerMultiMessages: Binding<[BannerMessageListModel]>.constant([])))
@@ -216,7 +273,7 @@ public extension View {
     ///   - viewDetailAction: View the message detail callback, the parameter is message id, developer can use the id to scroll to the relative item
     ///   - alignment: A alignment for the icon and title.
     ///   - hideSeparator: Hide bottom separator or not.
-    ///   - messageType: The type of message, default is .neutral
+    ///   - messageType: The type of message, default is .negative
     ///   - turnOnSectionHeader: Show message detail section header or not, default is true
     ///   - showDetailLink: Show view details link or not
     ///   - bannerMultiMessages: Multi message data array, [BannerMessageListModel]
@@ -228,12 +285,18 @@ public extension View {
                            viewDetailAction: ((UUID) -> Void)? = nil,
                            alignment: HorizontalAlignment = .center,
                            hideSeparator: Bool = false,
-                           messageType: BannerMultiMessageType = .neutral,
+                           messageType: BannerMultiMessageType = .negative,
                            turnOnSectionHeader: Bool = true,
                            showDetailLink: Bool = false,
                            bannerMultiMessages: Binding<[BannerMessageListModel]> = Binding<[BannerMessageListModel]>.constant([])) -> some View
     {
         var finalMessageType = messageType
+        
+        if !bannerMultiMessages.isEmpty {
+            /// .neutral has the lowest priority, finalMessageType will be figured out from bannerMultiMessages
+            finalMessageType = .neutral
+        }
+        
         for bannerMessageListModel in bannerMultiMessages {
             for singleMessageModel in bannerMessageListModel.wrappedValue.items where singleMessageModel.messageType.rawValue > finalMessageType.rawValue {
                 finalMessageType = singleMessageModel.messageType
@@ -254,7 +317,7 @@ public extension View {
 }
 
 struct BannerMessageModifier: ViewModifier {
-    let icon: any View
+    let icon: (any View)?
     var title: (any View)?
     @Binding var isPresented: Bool
     @Binding var pushContentDown: Bool
@@ -274,7 +337,7 @@ struct BannerMessageModifier: ViewModifier {
     
     @State private var showingMessageDetail: Bool = false
     
-    init(icon: any View, title: (any View)? = nil, isPresented: Binding<Bool>, pushContentDown: Binding<Bool>, bannerTapped: (() -> Void)? = nil, viewDetailAction: ((UUID) -> Void)? = nil, alignment: HorizontalAlignment, hideSeparator: Bool, messageType: BannerMultiMessageType, turnOnSectionHeader: Bool, showDetailLink: Bool, bannerMultiMessages: Binding<[BannerMessageListModel]>) {
+    init(icon: (any View)? = nil, title: (any View)? = nil, isPresented: Binding<Bool>, pushContentDown: Binding<Bool>, bannerTapped: (() -> Void)? = nil, viewDetailAction: ((UUID) -> Void)? = nil, alignment: HorizontalAlignment, hideSeparator: Bool, messageType: BannerMultiMessageType, turnOnSectionHeader: Bool, showDetailLink: Bool, bannerMultiMessages: Binding<[BannerMessageListModel]>) {
         self.icon = icon
         self.title = title
         _isPresented = isPresented
@@ -345,9 +408,24 @@ struct BannerMessageModifier: ViewModifier {
         return NSLocalizedString(key + (count > 1 ? "s" : ""), tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
     }
     
+    @ViewBuilder var defaultIcon: some View {
+        switch self.messageType {
+        case .neutral:
+            Image(fioriName: "fiori.hint")
+        case .informative:
+            Image(fioriName: "fiori.hint")
+        case .positive:
+            Image(fioriName: "fiori.hint")
+        case .critical:
+            Image(fioriName: "fiori.warning2")
+        case .negative:
+            Image(fioriName: "fiori.notification.3")
+        }
+    }
+    
     @ViewBuilder var bannerMessage: some View {
         BannerMessage(icon: {
-            self.icon
+            (self.icon ?? self.defaultIcon).typeErased
         }, title: {
             if let title = self.title {
                 AnyView(title)
@@ -356,12 +434,20 @@ struct BannerMessageModifier: ViewModifier {
                     .environment(\.openURL, OpenURLAction(handler: { url in
                         if url.absoluteString == "ViewDetails" {
                             self.showingMessageDetail = true
+                            
+                            if UIDevice.current.userInterfaceIdiom == .phone {
+                                self.isPresented = false
+                            }
                         }
                         return .handled
                     }))
                     .frame(minWidth: (UIDevice.current.userInterfaceIdiom != .phone && self.alignment != .center) ? 393 : nil, alignment: .leading)
                     .popover(isPresented: self.$showingMessageDetail) {
-                        BannerMultiMessageSheet(closeAction: {
+                        BannerMultiMessageSheet(title: {
+                            EmptyView()
+                        }, closeAction: {
+                            EmptyView()
+                        }, dismissAction: {
                             self.showingMessageDetail = false
                         }, removeAction: { _, _ in
                             if self.bannerMultiMessages.isEmpty {

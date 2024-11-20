@@ -37,6 +37,40 @@ public extension View {
     }
 }
 
+// MARK: AllEntriesSectionTitleStyle
+
+public extension View {
+    func allEntriesSectionTitleStyle(_ style: some AllEntriesSectionTitleStyle) -> some View {
+        self.transformEnvironment(\.allEntriesSectionTitleStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func allEntriesSectionTitleStyle(@ViewBuilder content: @escaping (AllEntriesSectionTitleConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.allEntriesSectionTitleStyleStack) { stack in
+            let style = AnyAllEntriesSectionTitleStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: ApplyActionStyle
+
+public extension View {
+    func applyActionStyle(_ style: some ApplyActionStyle) -> some View {
+        self.transformEnvironment(\.applyActionStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func applyActionStyle(@ViewBuilder content: @escaping (ApplyActionConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.applyActionStyleStack) { stack in
+            let style = AnyApplyActionStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: AttributeStyle
 
 public extension View {
@@ -117,6 +151,40 @@ public extension View {
     func bannerMessageStyle(@ViewBuilder content: @escaping (BannerMessageConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.bannerMessageStyleStack) { stack in
             let style = AnyBannerMessageStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: BannerMultiMessageSheetStyle
+
+public extension View {
+    func bannerMultiMessageSheetStyle(_ style: some BannerMultiMessageSheetStyle) -> some View {
+        self.transformEnvironment(\.bannerMultiMessageSheetStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func bannerMultiMessageSheetStyle(@ViewBuilder content: @escaping (BannerMultiMessageSheetConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.bannerMultiMessageSheetStyleStack) { stack in
+            let style = AnyBannerMultiMessageSheetStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: CancelActionStyle
+
+public extension View {
+    func cancelActionStyle(_ style: some CancelActionStyle) -> some View {
+        self.transformEnvironment(\.cancelActionStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func cancelActionStyle(@ViewBuilder content: @escaping (CancelActionConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.cancelActionStyleStack) { stack in
+            let style = AnyCancelActionStyle(content)
             stack.append(style)
         }
     }
@@ -241,6 +309,23 @@ public extension View {
     }
 }
 
+// MARK: CheckoutIndicatorStyle
+
+public extension View {
+    func checkoutIndicatorStyle(_ style: some CheckoutIndicatorStyle) -> some View {
+        self.transformEnvironment(\.checkoutIndicatorStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func checkoutIndicatorStyle(@ViewBuilder content: @escaping (CheckoutIndicatorConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.checkoutIndicatorStyleStack) { stack in
+            let style = AnyCheckoutIndicatorStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: CloseActionStyle
 
 public extension View {
@@ -338,6 +423,23 @@ public extension View {
     func descriptionStyle(@ViewBuilder content: @escaping (DescriptionConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.descriptionStyleStack) { stack in
             let style = AnyDescriptionStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: DeselectAllActionStyle
+
+public extension View {
+    func deselectAllActionStyle(_ style: some DeselectAllActionStyle) -> some View {
+        self.transformEnvironment(\.deselectAllActionStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func deselectAllActionStyle(@ViewBuilder content: @escaping (DeselectAllActionConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.deselectAllActionStyleStack) { stack in
+            let style = AnyDeselectAllActionStyle(content)
             stack.append(style)
         }
     }
@@ -717,6 +819,74 @@ public extension View {
     }
 }
 
+// MARK: ListPickerContentStyle
+
+public extension View {
+    func listPickerContentStyle(_ style: some ListPickerContentStyle) -> some View {
+        self.transformEnvironment(\.listPickerContentStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func listPickerContentStyle(@ViewBuilder content: @escaping (ListPickerContentConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.listPickerContentStyleStack) { stack in
+            let style = AnyListPickerContentStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: ListPickerDestinationStyle
+
+public extension View {
+    func listPickerDestinationStyle(_ style: some ListPickerDestinationStyle) -> some View {
+        self.transformEnvironment(\.listPickerDestinationStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func listPickerDestinationStyle(@ViewBuilder content: @escaping (ListPickerDestinationConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.listPickerDestinationStyleStack) { stack in
+            let style = AnyListPickerDestinationStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: ListPickerItemStyle
+
+public extension View {
+    func listPickerItemStyle(_ style: some ListPickerItemStyle) -> some View {
+        self.transformEnvironment(\.listPickerItemStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func listPickerItemStyle(@ViewBuilder content: @escaping (ListPickerItemConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.listPickerItemStyleStack) { stack in
+            let style = AnyListPickerItemStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: LoadingIndicatorStyle
+
+public extension View {
+    func loadingIndicatorStyle(_ style: some LoadingIndicatorStyle) -> some View {
+        self.transformEnvironment(\.loadingIndicatorStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func loadingIndicatorStyle(@ViewBuilder content: @escaping (LoadingIndicatorConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.loadingIndicatorStyleStack) { stack in
+            let style = AnyLoadingIndicatorStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: MandatoryFieldIndicatorStyle
 
 public extension View {
@@ -1023,6 +1193,40 @@ public extension View {
     }
 }
 
+// MARK: ProgressIndicatorStyle
+
+public extension View {
+    func progressIndicatorStyle(_ style: some ProgressIndicatorStyle) -> some View {
+        self.transformEnvironment(\.progressIndicatorStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func progressIndicatorStyle(@ViewBuilder content: @escaping (ProgressIndicatorConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.progressIndicatorStyleStack) { stack in
+            let style = AnyProgressIndicatorStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: ProgressIndicatorProtocolStyle
+
+public extension View {
+    func progressIndicatorProtocolStyle(_ style: some ProgressIndicatorProtocolStyle) -> some View {
+        self.transformEnvironment(\.progressIndicatorProtocolStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func progressIndicatorProtocolStyle(@ViewBuilder content: @escaping (ProgressIndicatorProtocolConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.progressIndicatorProtocolStyleStack) { stack in
+            let style = AnyProgressIndicatorProtocolStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: RatingControlStyle
 
 public extension View {
@@ -1171,6 +1375,40 @@ public extension View {
     func segmentedControlPickerStyle(@ViewBuilder content: @escaping (SegmentedControlPickerConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.segmentedControlPickerStyleStack) { stack in
             let style = AnySegmentedControlPickerStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: SelectAllActionStyle
+
+public extension View {
+    func selectAllActionStyle(_ style: some SelectAllActionStyle) -> some View {
+        self.transformEnvironment(\.selectAllActionStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func selectAllActionStyle(@ViewBuilder content: @escaping (SelectAllActionConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.selectAllActionStyleStack) { stack in
+            let style = AnySelectAllActionStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: SelectedEntriesSectionTitleStyle
+
+public extension View {
+    func selectedEntriesSectionTitleStyle(_ style: some SelectedEntriesSectionTitleStyle) -> some View {
+        self.transformEnvironment(\.selectedEntriesSectionTitleStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func selectedEntriesSectionTitleStyle(@ViewBuilder content: @escaping (SelectedEntriesSectionTitleConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.selectedEntriesSectionTitleStyleStack) { stack in
+            let style = AnySelectedEntriesSectionTitleStyle(content)
             stack.append(style)
         }
     }
@@ -1341,6 +1579,23 @@ public extension View {
     func switchViewStyle(@ViewBuilder content: @escaping (SwitchViewConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.switchViewStyleStack) { stack in
             let style = AnySwitchViewStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: TagStyle
+
+public extension View {
+    func tagStyle(_ style: some TagStyle) -> some View {
+        self.transformEnvironment(\.tagStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func tagStyle(@ViewBuilder content: @escaping (TagConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.tagStyleStack) { stack in
+            let style = AnyTagStyle(content)
             stack.append(style)
         }
     }
@@ -1601,6 +1856,23 @@ public extension View {
     }
 }
 
+// MARK: ToastMessageStyle
+
+public extension View {
+    func toastMessageStyle(_ style: some ToastMessageStyle) -> some View {
+        self.transformEnvironment(\.toastMessageStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func toastMessageStyle(@ViewBuilder content: @escaping (ToastMessageConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.toastMessageStyleStack) { stack in
+            let style = AnyToastMessageStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: TopDividerStyle
 
 public extension View {
@@ -1618,6 +1890,23 @@ public extension View {
     }
 }
 
+// MARK: ValueStyle
+
+public extension View {
+    func valueStyle(_ style: some ValueStyle) -> some View {
+        self.transformEnvironment(\.valueStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func valueStyle(@ViewBuilder content: @escaping (ValueConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.valueStyleStack) { stack in
+            let style = AnyValueStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: ValueLabelStyle
 
 public extension View {
@@ -1630,6 +1919,23 @@ public extension View {
     func valueLabelStyle(@ViewBuilder content: @escaping (ValueLabelConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.valueLabelStyleStack) { stack in
             let style = AnyValueLabelStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: ValuePickerStyle
+
+public extension View {
+    func valuePickerStyle(_ style: some ValuePickerStyle) -> some View {
+        self.transformEnvironment(\.valuePickerStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func valuePickerStyle(@ViewBuilder content: @escaping (ValuePickerConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.valuePickerStyleStack) { stack in
+            let style = AnyValuePickerStyle(content)
             stack.append(style)
         }
     }

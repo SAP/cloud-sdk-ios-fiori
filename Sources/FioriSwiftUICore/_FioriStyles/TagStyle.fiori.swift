@@ -1,44 +1,58 @@
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
-public protocol TagStyle {
-    /// A view that represents the body of a tag.
-    associatedtype Body: View
-
-    /// Creates a view that represents the body of a tag.
-    ///
-    /// The system calls this method for each ``Tag`` instance in a view
-    /// hierarchy where this style is the current tag style.
-    ///
-    /// - Parameter configuration : The properties of the tag.
-    func makeBody(configuration: Self.Configuration) -> Self.Body
-
-    /// The properties of a tag.
-    typealias Configuration = TagStyleConfiguration
-}
-
-/// The properties of a tag.
-public struct TagStyleConfiguration {
-    /// label
-    public var label: Text
-}
-
-public struct AnyTagStyle {
-    var apply: (TagStyleConfiguration) -> AnyView
-    
-    public init(_ t: some TagStyle) {
-        self.apply = {
-            AnyView(t.makeBody(configuration: $0))
-        }
+// Base Layout style
+public struct TagBaseStyle: TagStyle {
+    @ViewBuilder
+    public func makeBody(_ configuration: TagConfiguration) -> some View {
+        configuration.tag
     }
 }
 
-public struct LightTagStyle: TagStyle {
-    public init() {}
+// Default fiori styles
+public struct TagFioriStyle: TagStyle {
+    @Environment(\.tagLimit) var tagLimit
+    @Environment(\.colorScheme) var colorScheme
+    
+    @ViewBuilder
+    public func makeBody(_ configuration: TagConfiguration) -> some View {
+        let isLight = self.colorScheme == .light
+        let background = isLight ? RoundedRectangle(cornerRadius: 8).stroke(Color.preferredColor(.quaternaryLabel), lineWidth: 0.5).typeErased : RoundedRectangle(cornerRadius: 8).fill(Color.preferredColor(.tertiaryLabel)).typeErased
+        
+        Tag(configuration)
+            .font(.fiori(forTextStyle: .footnote))
+            .foregroundStyle(isLight ? Color.preferredColor(.secondaryLabel) : Color.preferredColor(.primaryLabel, background: .darkConstant))
+            .lineLimit(self.tagLimit)
+            .padding(EdgeInsets(top: 2, leading: 3, bottom: 2, trailing: 3))
+            .background(background)
+    }
+}
 
-    public func makeBody(configuration: Self.Configuration) -> some View {
+/// :nodoc:
+public extension TagStyle where Self == LightTagStyle {
+    /// dark tag style
+    static var light: LightTagStyle {
+        LightTagStyle()
+    }
+}
+
+/// :nodoc:
+public extension TagStyle where Self == DarkTagStyle {
+    /// dark tag style
+    static var dark: DarkTagStyle {
+        DarkTagStyle()
+    }
+}
+
+/// Light tag style
+public struct LightTagStyle: TagStyle {
+    /// :nodoc:
+    public init() {}
+    /// :nodoc:
+    public func makeBody(_ configuration: TagConfiguration) -> some View {
         configuration
-            .label
+            .tag
             .font(.fiori(forTextStyle: .footnote))
             .foregroundColor(.preferredColor(.secondaryLabel))
             .lineLimit(1)
@@ -47,12 +61,14 @@ public struct LightTagStyle: TagStyle {
     }
 }
 
+/// Dark tag style.
 public struct DarkTagStyle: TagStyle {
+    /// :nodoc:
     public init() {}
-    
-    public func makeBody(configuration: Self.Configuration) -> some View {
+    /// :nodoc:
+    public func makeBody(_ configuration: TagConfiguration) -> some View {
         configuration
-            .label
+            .tag
             .font(.fiori(forTextStyle: .footnote))
             .foregroundColor(.preferredColor(.primaryLabel, background: .darkConstant))
             .lineLimit(1)
@@ -61,6 +77,8 @@ public struct DarkTagStyle: TagStyle {
     }
 }
 
+@available(*, deprecated, message: "Use `tagStyle(_ style: some TagStyle)` or `tagStyle(@ViewBuilder content: @escaping (TagConfiguration) -> some View)` to customize the style. We will remove this in the future.")
+/// :nodoc:
 public struct CustomTagStyle: TagStyle {
     /// text color
     var textColor: Color = .preferredColor(.secondaryLabel)
@@ -82,7 +100,8 @@ public struct CustomTagStyle: TagStyle {
 
     /// Color around the perimeter of the tag
     var borderColor: Color = .preferredColor(.quaternaryLabel)
-
+    
+    /// :nodoc:
     public init(textColor: Color? = nil, font: Font? = nil, fillColor: Color? = nil, contentInsets: EdgeInsets? = nil, cornerRadius: CGFloat? = nil, borderWidth: CGFloat? = nil, borderColor: Color? = nil) {
         if let tc = textColor {
             self.textColor = tc
@@ -112,10 +131,11 @@ public struct CustomTagStyle: TagStyle {
             self.borderColor = bc
         }
     }
-
-    public func makeBody(configuration: Self.Configuration) -> some View {
+    
+    // :nodoc:
+    public func makeBody(_ configuration: TagConfiguration) -> some View {
         configuration
-            .label
+            .tag
             .font(self.font)
             .foregroundColor(self.textColor)
             .lineLimit(1)
@@ -127,98 +147,9 @@ public struct CustomTagStyle: TagStyle {
     }
 }
 
-struct TagStyleKey: EnvironmentKey {
-    public static let defaultValue = AnyTagStyle(LightTagStyle())
-}
+// MARK: - Tag convenience initializers
 
-public extension EnvironmentValues {
-    /// Distribution of left and right content columns, when in `.regular` horizontal content mode.  Defaults to `0.5`.
-    var tagStyle: AnyTagStyle {
-        get { self[TagStyleKey.self] }
-        set { self[TagStyleKey.self] = newValue }
-    }
-}
-
-struct TagLimitEnvironmentKey: EnvironmentKey {
-    static let defaultValue: Int? = nil
-}
-
-public extension EnvironmentValues {
-    /// The maximum number of tags that ObjectHeader can allow to display
-    /// The maximum number of tags is 1 if the value is less than 1.
-    /// If the value is nil, it uses as many tags as required. The default is nil.
-    var tagLimit: Int? {
-        get { self[TagLimitEnvironmentKey.self] }
-        set {
-            if let tmpValue = newValue {
-                self[TagLimitEnvironmentKey.self] = max(1, tmpValue)
-            } else {
-                self[TagLimitEnvironmentKey.self] = nil
-            }
-        }
-    }
-}
-
-public extension View {
-    /// Sets the style for tags within this view to a tag style with a
-    /// custom appearance and custom interaction behavior.
-    ///
-    /// To set a specific style for all tag instances within a view, use the
-    /// ``View/tagStyle(_:)-66fbx`` modifier:
-    ///
-    ///     HStack {
-    ///         Tag("Tag1")
-    ///         Tag("Tag2")
-    ///     }
-    ///     .tagStyle(DarkTagStyle())
-    func tagStyle(_ style: some TagStyle) -> some View {
-        self.environment(\.tagStyle, AnyTagStyle(style))
-    }
-    
-    /// Sets the maximum number of tags that a View can display.
-    ///
-    /// Use `tagLimit(_:)` to cap the number of tags that a View can
-    /// display.
-    ///
-    /// The line limit applies to all ``Tag`` instances within a hierarchy.
-    ///
-    ///  ```swift
-    ///  ObjectHeader(title: "Transformer Overheating",
-    ///             subtitle: "Three Phase Pad Mounted Transformer (533423)",
-    ///             tags: ["I am selected", "PM01", "103-Repair", "tag 4", "tag 5", "tag 6"],
-    ///             footnote: "1000 - Hamburg, MECHANIK",
-    ///             descriptionText: "Customer noticed that the transformer started",
-    ///             status: "High",
-    ///             substatus: "Scheduled",
-    ///             detailContent: {
-    ///                 HeaderChart(title: {
-    ///                    Text("Temperature")
-    ///                 }, subtitle: {
-    ///                    Text("20 min ago")
-    ///                 }, chart: {
-    ///                    ChartView(chartModel)
-    ///                 })
-    ///             })
-    ///             .tagLimit(3)
-    /// ```
-    ///
-    /// - Parameter number: The line limit. If `nil`, no line limit applies.
-    ///
-    /// - Returns: A view that limits the number of tags
-    ///
-    func tagLimit(_ number: Int?) -> some View {
-        self.environment(\.tagLimit, number)
-    }
-}
-
-///
-/// The generic tag control displays complementary information that relates to the current page
-///
-public struct Tag: View {
-    @Environment(\.tagStyle) var tagStyle
-    
-    let content: Text
-
+public extension Tag {
     /// Creates a tag view that displays a string literal without localization.
     ///
     /// Use this initializer to create a tag view with a string literal without
@@ -232,8 +163,10 @@ public struct Tag: View {
     /// initializer, which also bypasses localization.
     ///
     /// - Parameter content: A string to display without localization.
-    public init(verbatim content: String) {
-        self.content = Text(verbatim: content)
+    init(verbatim content: String) {
+        self.init {
+            Text(verbatim: content)
+        }
     }
     
     /// Creates a tag view that displays a stored string without localization.
@@ -255,8 +188,10 @@ public struct Tag: View {
     /// triggers the ``Tag/init(_:tableName:bundle:comment:)`` method instead.
     ///
     /// - Parameter content: The attributed string value to display without localization.
-    public init(_ attributedContent: AttributedString) {
-        self.content = Text(attributedContent)
+    init(_ attributedContent: AttributedString) {
+        self.init {
+            Text(attributedContent)
+        }
     }
     
     /// Creates a tag view that displays a stored string without localization.
@@ -278,25 +213,20 @@ public struct Tag: View {
     /// triggers the ``Tag/init(_:tableName:bundle:comment:)`` method instead.
     ///
     /// - Parameter content: The string value to display without localization.
-    public init(_ content: some StringProtocol) {
-        self.content = Text(content)
+    init(_ content: some StringProtocol) {
+        self.init {
+            Text(content)
+        }
     }
     
-    public var body: some View {
-        self.tagStyle.apply(TagStyleConfiguration(label: self.content))
-    }
-}
-
-public extension Tag {
     /// Creates an instance that wraps an `Image`, suitable for concatenating
     /// with other `Text`
-    @available(iOS 14.0, macOS 11.0, tvOS 14.0, watchOS 7.0, *)
     init(_ image: Image) {
-        self.content = Text(image)
+        self.init {
+            image
+        }
     }
-}
-
-public extension Tag {
+    
     /// Creates a Tag view that displays localized content identified by a key.
     ///
     /// Use this initializer to look for the `key` parameter in a localization
@@ -335,12 +265,72 @@ public extension Tag {
     ///     main bundle.
     ///   - comment: Contextual information about this key-value pair.
     init(_ key: LocalizedStringKey, tableName: String? = nil, bundle: Bundle? = nil, comment: StaticString? = nil) {
-        self.content = Text(key, tableName: tableName, bundle: bundle, comment: comment)
+        self.init {
+            Text(key, tableName: tableName, bundle: bundle, comment: comment)
+        }
     }
 }
 
-struct Tag_Previews: PreviewProvider {
-    static var previews: some View {
-        Tag("hello").tagStyle(DarkTagStyle())
+struct TagLimitEnvironmentKey: EnvironmentKey {
+    static let defaultValue: Int? = nil
+}
+
+public extension EnvironmentValues {
+    /// The maximum number of tags that ObjectHeader can allow to display
+    /// The minimum number of tags is 1 if the value is less than 1.
+    /// If the value is nil, it uses as many tags as required. The default is nil.
+    var tagLimit: Int? {
+        get { self[TagLimitEnvironmentKey.self] }
+        set {
+            if let tmpValue = newValue {
+                self[TagLimitEnvironmentKey.self] = max(1, tmpValue)
+            } else {
+                self[TagLimitEnvironmentKey.self] = nil
+            }
+        }
     }
+}
+
+public extension View {
+    /// Sets the maximum number of tags that a View can display.
+    ///
+    /// Use `tagLimit(_:)` to cap the number of tags that a View can
+    /// display.
+    ///
+    /// The line limit applies to all ``Tag`` instances within a hierarchy.
+    ///
+    ///  ```swift
+    ///  ObjectHeader(title: "Transformer Overheating",
+    ///             subtitle: "Three Phase Pad Mounted Transformer (533423)",
+    ///             tags: ["I am selected", "PM01", "103-Repair", "tag 4", "tag 5", "tag 6"],
+    ///             footnote: "1000 - Hamburg, MECHANIK",
+    ///             descriptionText: "Customer noticed that the transformer started",
+    ///             status: "High",
+    ///             substatus: "Scheduled",
+    ///             detailContent: {
+    ///                 HeaderChart(title: {
+    ///                    Text("Temperature")
+    ///                 }, subtitle: {
+    ///                    Text("20 min ago")
+    ///                 }, chart: {
+    ///                    ChartView(chartModel)
+    ///                 })
+    ///             })
+    ///             .tagLimit(3)
+    /// ```
+    ///
+    /// - Parameter number: The line limit. If `nil`, no line limit applies.
+    ///
+    /// - Returns: A view that limits the number of tags
+    ///
+    func tagLimit(_ number: Int?) -> some View {
+        self.environment(\.tagLimit, number)
+    }
+}
+
+@available(*, deprecated, message: "Use `TagConfiguration` instead")
+/// The properties of a tag.
+public struct TagStyleConfiguration {
+    /// label
+    public var label: Text
 }

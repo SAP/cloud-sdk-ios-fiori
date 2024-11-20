@@ -178,7 +178,7 @@ public struct FioriButton: View {
                     isCancelled = true
                 } else if !self.isSelectionPersistent {
                     self._state = self.state == .normal ? .selected : .normal
-                    self.action?(self.state)
+//                    self.action?(self.state)
                 }
             }
             .onEnded { _ in

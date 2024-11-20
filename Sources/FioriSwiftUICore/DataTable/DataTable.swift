@@ -135,7 +135,7 @@ public extension DataTable {
         return self
     }
     
-    /// Set pinch and zoom enble or not.
+    /// Set pinch and zoom enable or not.
     func pinchZoomEnable(_ value: Bool) -> DataTable {
         self.model.isPinchZoomEnable = value
         

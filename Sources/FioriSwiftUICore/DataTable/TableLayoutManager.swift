@@ -238,7 +238,7 @@ class TableLayoutManager: ObservableObject {
         return (newRowData, changes, isThereRejectedErrors)
     }
     
-    /// Save the model after the editing. If chagnes were not valid then those changes are rolled back to original values.
+    /// Save the model after the editing. If changes were not valid then those changes are rolled back to original values.
     /// - Parameter isSave: Save it or not
     /// - Returns: Return an array of changes
     func onSave(_ isSave: Bool) -> [DataTableChange] {

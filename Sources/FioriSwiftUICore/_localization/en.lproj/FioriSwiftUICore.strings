@@ -145,6 +145,9 @@
 /* XBUT: voice over label for row selection status in DataTable */
 "not selected" = "not selected";
 
+/* Default value for DateTimePicker */
+"No date selected" = "No date selected";
+
 /* XBUT: calendar time component label */
 "Time" = "Time";
 
@@ -250,3 +253,51 @@
 "warnings" = "warnings";
 /* XBUT: banner message type desc in plural form, errors */
 "errors" = "errors";
+
+/* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
+"Reset" = "Reset";
+/* XBUT: Apply action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
+"Apply" = "Apply";
+
+/* XTIT: The alert message for `ListPickerDestination` pulldown dismissal */
+"Are you sure you want to discard your selections?" = "Are you sure you want to discard your selections?";
+/* XBUT: The alert Discard Changes action title for `ListPickerDestination` pulldown dismissal */
+"Discard Changes" = "Discard Changes";
+/* XBUT: The alert Keep Editing action title for `ListPickerDestination` pulldown dismissal */
+"Keep Editing" = "Keep Editing";
+/* XBUT: The \"Select All\" button title on the List Picker header */
+"Select All" = "Select All";
+/* XBUT: The \"Deselect All\" button title on the List Picker header */
+"Deselect All" = "Deselect All";
+/* XBUT: The \"Selected\" title on the List Picker header */
+"Selected" = "Selected";
+
+/* XACT: The accessibility hint for Text Input Views, editable */
+"Text field, Double tap to edit" = "Text field, Double tap to edit";
+
+/* XACT: The accessibility hint for Text Input Views, editing */
+"Text field, is editing" = "Text field, is editing";
+
+/* XACT: The accessibility hint for Text Input Views, editing, with clear button */
+"Text field, is editing. Double tap to clear text" = "Text field, is editing. Double tap to clear text";
+
+/* XACT: The default accessibility label for the custom action in TextFieldFormView if none was specified */
+"Custom Action" = "Custom Action";
+
+/* XBUT: Error messages shown to users in DocumentScannerView */
+"Failed to create PDF page from images" = "Failed to create PDF page from images.";
+
+/* XBUT: Cancel message shown to users in DocumentScannerView */
+"User cancelled the scan" = "User cancelled the scan.";
+
+/* Progress Indicator accessibility label: processing */
+"Processing" = "Processing";
+
+/* Progress Indicator accessibility label: loading pausable with indicator progress */
+"In progress with option to pause, %.0f" = "In progress with option to pause, %.0f";
+
+/* Progress Indicator accessibility label: loading stoppable with indicator progress */
+"In progress with option to stop, %.0f" = "In progress with option to stop, %.0f";
+
+/* Progress Indicator accessibility label: progress halted with indicator progress */
+"Progress halted, %.0f" = "Progress halted, %.0f";

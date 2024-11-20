@@ -108,7 +108,7 @@ All notable changes to this project will be documented in this file. See [standa
 * 🐛 Fix scroll issue on SideBar ([#751](https://github.com/SAP/cloud-sdk-ios-fiori/issues/751)) ([217a91a](https://github.com/SAP/cloud-sdk-ios-fiori/commit/217a91a62e4b72349ed8ae73913c870f29c19068))
 * 🐛 fix scrolling animation issue in MenuSelection ([#719](https://github.com/SAP/cloud-sdk-ios-fiori/issues/719)) ([e0e5001](https://github.com/SAP/cloud-sdk-ios-fiori/commit/e0e5001ead679430316c41095c9bc2dc83e2869d))
 * 🐛 HCPSDKFIORIUIKIT-2641 Joule Color Hex Value update ([#696](https://github.com/SAP/cloud-sdk-ios-fiori/issues/696)) ([4861283](https://github.com/SAP/cloud-sdk-ios-fiori/commit/486128323ec0ca8e36aab29662396128cefa091b))
-* 🐛 suppport no main header and update footer ui in Card ([#727](https://github.com/SAP/cloud-sdk-ios-fiori/issues/727)) ([dd7f5db](https://github.com/SAP/cloud-sdk-ios-fiori/commit/dd7f5dbdb4793a3e103eb4e35b76c6dbb2c090f9))
+* 🐛 support no main header and update footer ui in Card ([#727](https://github.com/SAP/cloud-sdk-ios-fiori/issues/727)) ([dd7f5db](https://github.com/SAP/cloud-sdk-ios-fiori/commit/dd7f5dbdb4793a3e103eb4e35b76c6dbb2c090f9))
 * 🐛 update navigation bar style ([#717](https://github.com/SAP/cloud-sdk-ios-fiori/issues/717)) ([d490634](https://github.com/SAP/cloud-sdk-ios-fiori/commit/d4906345f0f648f23dc10456118f2118b1c0c498))
 * accessing resources from pre-compiled binaries ([#737](https://github.com/SAP/cloud-sdk-ios-fiori/issues/737)) ([4ec3d5e](https://github.com/SAP/cloud-sdk-ios-fiori/commit/4ec3d5e70cd687ff6c514e926329a20355692be7))
 
@@ -173,7 +173,7 @@ All notable changes to this project will be documented in this file. See [standa
 * 🐛 [BCP:2370082757] Fix SignatureCaptureView VO issues ([#602](https://github.com/SAP/cloud-sdk-ios-fiori/issues/602)) ([6d09d0f](https://github.com/SAP/cloud-sdk-ios-fiori/commit/6d09d0ffc88c47d575770721faa3e4f57f5aca93))
 * 🐛 [IOSSDKBUG-67]DataTable blinks redline when toggling mod ([#643](https://github.com/SAP/cloud-sdk-ios-fiori/issues/643)) ([41309df](https://github.com/SAP/cloud-sdk-ios-fiori/commit/41309dff3b91c0d75a38d4ab88b7ecfc09a30a8d))
 * 🐛 adding missing constants to allCases ([#627](https://github.com/SAP/cloud-sdk-ios-fiori/issues/627)) ([41e3f8d](https://github.com/SAP/cloud-sdk-ios-fiori/commit/41e3f8d8e9b53467bc75fcdfe2029b77dde06af7))
-* 🐛 fix a selectin ui bug and update doc in DataTable ([#629](https://github.com/SAP/cloud-sdk-ios-fiori/issues/629)) ([19a945f](https://github.com/SAP/cloud-sdk-ios-fiori/commit/19a945fce8616acb9faba56bcb61e173d1b55fbf))
+* 🐛 fix a selection ui bug and update doc in DataTable ([#629](https://github.com/SAP/cloud-sdk-ios-fiori/issues/629)) ([19a945f](https://github.com/SAP/cloud-sdk-ios-fiori/commit/19a945fce8616acb9faba56bcb61e173d1b55fbf))
 * 🐛 simultaneous gesture is not triggered in voice over ([#599](https://github.com/SAP/cloud-sdk-ios-fiori/issues/599)) ([24ca365](https://github.com/SAP/cloud-sdk-ios-fiori/commit/24ca3654c5c395e828eb7b9cfe5f934674733298))
 * adding missing macro back ([#628](https://github.com/SAP/cloud-sdk-ios-fiori/issues/628)) ([27e9466](https://github.com/SAP/cloud-sdk-ios-fiori/commit/27e9466760d771ba5f457ee99c53b53263426ddb))
 * re-arrange color definition sequence, asked by designer ([#635](https://github.com/SAP/cloud-sdk-ios-fiori/issues/635)) ([772e488](https://github.com/SAP/cloud-sdk-ios-fiori/commit/772e488b95eed69d2993898f235e6f558a39303f))
@@ -334,7 +334,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 * [JIRA:HCPSDKFIORIUIKIT-2076] Make icons and texts in SideBarListItem support dynamic type. ([#408](https://github.com/SAP/cloud-sdk-ios-fiori/issues/408)) ([f761e77](https://github.com/SAP/cloud-sdk-ios-fiori/commit/f761e77964284c4f4345698cde2cfe4f1e00bd1b))
 * [SN:CS20220002723901] Changed the critical label color ([#399](https://github.com/SAP/cloud-sdk-ios-fiori/issues/399)) ([1ed4afd](https://github.com/SAP/cloud-sdk-ios-fiori/commit/1ed4afd391753655e57e53ec0873642c605b086c))
-* 🐛 [BCP: 2280078347] Fix color for high constrast, elevated ([#401](https://github.com/SAP/cloud-sdk-ios-fiori/issues/401)) ([0961c5e](https://github.com/SAP/cloud-sdk-ios-fiori/commit/0961c5eab127225660f45c2830314a4e7ad41a56))
+* 🐛 [BCP: 2280078347] Fix color for high contrast, elevated ([#401](https://github.com/SAP/cloud-sdk-ios-fiori/issues/401)) ([0961c5e](https://github.com/SAP/cloud-sdk-ios-fiori/commit/0961c5eab127225660f45c2830314a4e7ad41a56))
 * 🐛 [BCP:0] SignatureCaptureView display image color issue ([#414](https://github.com/SAP/cloud-sdk-ios-fiori/issues/414)) ([125c7a2](https://github.com/SAP/cloud-sdk-ios-fiori/commit/125c7a294499801edcb58af60327ae9b4a3a32d4))
 * 🐛 Add touch area in FioriButton to support action cancellation. ([#415](https://github.com/SAP/cloud-sdk-ios-fiori/issues/415)) ([493496e](https://github.com/SAP/cloud-sdk-ios-fiori/commit/493496efaf708a9c7c507b2a3d3e51d1e2201411))
 * 🐛 Add touch area in FioriButton to support cancel action ([61d35c0](https://github.com/SAP/cloud-sdk-ios-fiori/commit/61d35c035574eabd95ddb66e7580bf5692de18f0))
@@ -393,7 +393,7 @@ public init(..., action: Action? = nil)
 * 🐛 Support chart for iOS Widget ([#329](https://github.com/SAP/cloud-sdk-ios-fiori/issues/329)) ([be896df](https://github.com/SAP/cloud-sdk-ios-fiori/commit/be896df5efc862d25b7a26cabe4b403e49422c42))
 * 🐛 Title of signature capture view use 72-semibold ([#353](https://github.com/SAP/cloud-sdk-ios-fiori/issues/353)) ([0039dc8](https://github.com/SAP/cloud-sdk-ios-fiori/commit/0039dc848676a11c894b1428ce9f6f8434574593))
 * 🐛 Xcode 13 compilation error in TimelineItemView ([13c35b6](https://github.com/SAP/cloud-sdk-ios-fiori/commit/13c35b62087a7b34219a5822bf14fa56898343e6))
-* 🐛 Correct the size talbe for 72 font ([#345](https://github.com/SAP/cloud-sdk-ios-fiori/issues/345)) ([c1f4cf5](https://github.com/SAP/cloud-sdk-ios-fiori/commit/c1f4cf51118bee40ebeb33ab19c39abd20988ace))
+* 🐛 Correct the size table for 72 font ([#345](https://github.com/SAP/cloud-sdk-ios-fiori/issues/345)) ([c1f4cf5](https://github.com/SAP/cloud-sdk-ios-fiori/commit/c1f4cf51118bee40ebeb33ab19c39abd20988ace))
 * 🐛 Data table ios15 crash ([#328](https://github.com/SAP/cloud-sdk-ios-fiori/issues/328)) ([a23964d](https://github.com/SAP/cloud-sdk-ios-fiori/commit/a23964d8404072d67cf94ca2dd9502b9217ef044))
 * 🐛 Data table space issue ([#326](https://github.com/SAP/cloud-sdk-ios-fiori/issues/326)) ([86058d5](https://github.com/SAP/cloud-sdk-ios-fiori/commit/86058d556dca12420b106bdd6f7fe8a15dc01514))
 
@@ -474,7 +474,7 @@ We plan to progressively bring more Fiori UI components into this module in the 
 * 🎸 support .single and .all selection mode for donut chart ([2e2e0d4](https://github.com/SAP/cloud-sdk-ios-fiori/commit/2e2e0d43c7cd974a2659904ec856d552c4df1180))
 * 🎸 support both y axes for column insdex of combo chart ([18d3ac7](https://github.com/SAP/cloud-sdk-ios-fiori/commit/18d3ac7eaa465f78511a5c3c41e46dc608c2778c))
 * 🎸 support more variants of data format in chart model ([a99bd80](https://github.com/SAP/cloud-sdk-ios-fiori/commit/a99bd80b4eac0cb60c7d783615fcc61821e2c571))
-* 🎸 support to display multiple selctions for line charts ([9095261](https://github.com/SAP/cloud-sdk-ios-fiori/commit/9095261d6350a2474f76aa716152356a3536025e))
+* 🎸 support to display multiple selections for line charts ([9095261](https://github.com/SAP/cloud-sdk-ios-fiori/commit/9095261d6350a2474f76aa716152356a3536025e))
 
 
 ### Bug Fixes
@@ -592,4 +592,4 @@ We plan to progressively bring more Fiori UI components into this module in the 
 
 - First public release! 🎉
 - Introducing FioriCharts and FioriIntegrationCards module
-- Software is incomplete (but useable) and remains a work in progress
+- Software is incomplete (but usable) and remains a work in progress

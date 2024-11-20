@@ -239,11 +239,6 @@ extension EnvironmentValues {
         set { self[ItemsModifierKey.self] = newValue }
     }
 
-    public var progressIndicatorModifier: AnyViewModifier {
-        get { return self[ProgressIndicatorModifierKey.self] }
-        set { self[ProgressIndicatorModifierKey.self] = newValue }
-    }
-
     public var doneActionModifier: AnyViewModifier {
         get { return self[DoneActionModifierKey.self] }
         set { self[DoneActionModifierKey.self] = newValue }
@@ -541,11 +536,6 @@ public extension View {
     @ViewBuilder
     func itemsModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
         self.environment(\.itemsModifier, AnyViewModifier(transform))
-    }
-
-    @ViewBuilder
-    func progressIndicatorModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
-        self.environment(\.progressIndicatorModifier, AnyViewModifier(transform))
     }
 
     @ViewBuilder

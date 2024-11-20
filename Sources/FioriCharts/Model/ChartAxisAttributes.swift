@@ -385,7 +385,7 @@ public class ChartNumericAxisAttributes: ChartAxisAttributes {
     @Published var allowLooseLabels = false
     
     /***
-      Flag that indicates wether the Y Axis should be adjusted to better fit the available space.
+      Flag that indicates whether the Y Axis should be adjusted to better fit the available space.
       By default, all column based charts have this enabled and all line based don't.
      */
     @Published var fudgeAxisRange = false

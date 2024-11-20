@@ -19,6 +19,7 @@ public struct PlaceholderTextFieldBaseStyle: PlaceholderTextFieldStyle {
                                     self.isFocused = true
                                 }
                             }
+                            .lineLimit(1)
                         Spacer()
                     }
                 }

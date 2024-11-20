@@ -53,7 +53,7 @@ struct YAxisView: View {
         return ZStack {
             if !axis.labels.isHidden {
                 ForEach(0 ..< labels.count, id: \.self) { index in
-                    // y axis lables
+                    // y axis labels
                     Group {
                         if isShowLabels[index] {
                             Text(labels[index].title)

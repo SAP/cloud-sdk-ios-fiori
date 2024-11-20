@@ -45,12 +45,13 @@ enum ListPickerItemDataModel {
     }
 }
 
-struct ListPickerItemExample: View {
+struct _ListPickerItemExample: View {
     enum ListPickerCases: CaseIterable, Identifiable {
         case nonIdentifiable
         case identifiable
         case objectItem
         case stringItem
+        case differentStyles
         case activeChildren
         case searchable
         case searchableListView
@@ -60,41 +61,47 @@ struct ListPickerItemExample: View {
     private let model = ListPickerItemDataModel.data
     
     var body: some View {
-        List(ListPickerItemExample.ListPickerCases.allCases) { e in
+        List(_ListPickerItemExample.ListPickerCases.allCases) { e in
             switch e {
             case .nonIdentifiable:
                 NavigationLink(
-                    destination: ListPickerItemDataNonIdentifiableExample())
+                    destination: _ListPickerItemDataNonIdentifiableExample())
                 {
                     Text("NonIdentifiable")
                 }
             case .identifiable:
                 NavigationLink(
-                    destination: ListPickerItemDataIdentifiableExample())
+                    destination: _ListPickerItemDataIdentifiableExample())
                 {
                     Text("Identifiable")
                 }
             case .objectItem:
                 NavigationLink(
-                    destination: ListPickerItemWithObjectItemExample())
+                    destination: _ListPickerItemWithObjectItemExample())
                 {
                     Text("ObjectItem")
                 }
             case .stringItem:
                 NavigationLink(
-                    destination: ListPickerItemWithStringExample())
+                    destination: _ListPickerItemWithStringExample())
                 {
                     Text("StringItem")
                 }
+            case .differentStyles:
+                NavigationLink(
+                    destination: _ListPickerItemStylesExample())
+                {
+                    Text("Different Styles")
+                }
             case .activeChildren:
                 NavigationLink(
-                    destination: ListPickerItemActiveChildrenExample())
+                    destination: _ListPickerItemActiveChildrenExample())
                 {
                     Text("Active Children Directly")
                 }
             case .searchable:
                 NavigationLink(
-                    destination: ListPickerItemWithSearchExample())
+                    destination: _ListPickerItemWithSearchExample())
                 {
                     Text("Searchable List Picker Item")
                 }
@@ -115,7 +122,7 @@ struct ListPickerItemExample: View {
 
 // MARK: List picker item examples
 
-struct ListPickerItemDataNonIdentifiableExample: View {
+struct _ListPickerItemDataNonIdentifiableExample: View {
     private let model = ListPickerItemDataModel.data
     
     @State var selections: Set<String> = []
@@ -124,13 +131,13 @@ struct ListPickerItemDataNonIdentifiableExample: View {
 
     public var body: some View {
         List {
-            ListPickerItem(key: {
+            _ListPickerItem(key: {
                 Text("Frameworks")
             }, value: {
                 let str = Array(selections).joined(separator: ", ")
                 Text(str)
             }, configuration:
-            ListPickerItemConfiguration(self.model, id: \.name, children: \.children, selection: self.$selections, rowContent: { framework in
+            _ListPickerItemConfiguration(self.model, id: \.name, children: \.children, selection: self.$selections, rowContent: { framework in
                 Text(framework.name)
             }))
         }
@@ -149,7 +156,7 @@ struct ListPickerItemDataNonIdentifiableExample: View {
     }
 }
 
-struct ListPickerItemDataIdentifiableExample: View {
+struct _ListPickerItemDataIdentifiableExample: View {
     private let model = ListPickerItemDataModel.data
     
     @State var selections: Set<UUID> = []
@@ -158,7 +165,7 @@ struct ListPickerItemDataIdentifiableExample: View {
 
     public var body: some View {
         List {
-            ListPickerItem(key: {
+            _ListPickerItem(key: {
                 Text("Frameworks")
             }, value: {
                 let str = Array(selections).compactMap { uuid in
@@ -171,7 +178,7 @@ struct ListPickerItemDataIdentifiableExample: View {
                 
                 Text(str)
             }, configuration:
-            ListPickerItemConfiguration(self.model, children: \.children, selection: self.$selections, rowContent: { framework in
+            _ListPickerItemConfiguration(self.model, children: \.children, selection: self.$selections, rowContent: { framework in
                 Text(framework.name)
             }))
         }
@@ -179,19 +186,19 @@ struct ListPickerItemDataIdentifiableExample: View {
     }
 }
 
-struct ListPickerItemFormExample: View {
+struct _ListPickerItemFormExample: View {
     private let model = ListPickerItemDataModel.data
     
     @State var selections: Set<String> = []
     
     var body: some View {
         Form {
-            ListPickerItem(key: {
+            _ListPickerItem(key: {
                 Text("Frameworks")
             }, value: {
                 let str = Array(selections).joined(separator: ", ")
                 Text(str)
-            }, configuration: ListPickerItemConfiguration(self.model, id: \.name, children: \.children, selection: self.$selections, rowContent: { framework in
+            }, configuration: _ListPickerItemConfiguration(self.model, id: \.name, children: \.children, selection: self.$selections, rowContent: { framework in
                 Text(framework.name)
             }))
         }
@@ -199,7 +206,7 @@ struct ListPickerItemFormExample: View {
     }
 }
 
-struct ListPickerItemWithSearchExample: View {
+struct _ListPickerItemWithSearchExample: View {
     private let model = ListPickerItemDataModel.data
     
     @State var selections: Set<UUID> = []
@@ -208,7 +215,7 @@ struct ListPickerItemWithSearchExample: View {
     var body: some View {
         List {
             if #available(iOS 15.0, *) {
-                ListPickerItem(key: {
+                _ListPickerItem(key: {
                     Text("Frameworks")
                 }, value: {
                     let str = Array(selections).compactMap { uuid in
@@ -218,7 +225,7 @@ struct ListPickerItemWithSearchExample: View {
                         return nil
                     }.joined(separator: ", ")
                     Text(str)
-                }, configuration: ListPickerItemConfiguration(model, id: \.id, children: \.children, selection: $selections, searchFilter: { framework, searchText in
+                }, configuration: _ListPickerItemConfiguration(model, id: \.id, children: \.children, selection: $selections, searchFilter: { framework, searchText in
                     if searchText.count > 0 {
                         return framework.name.localizedCaseInsensitiveContains(searchText)
                     } else {
@@ -236,7 +243,7 @@ struct ListPickerItemWithSearchExample: View {
                     }
                 }))
             } else {
-                ListPickerItem(key: {
+                _ListPickerItem(key: {
                     Text("Frameworks")
                 }, value: {
                     let str = Array(selections).compactMap { uuid in
@@ -247,7 +254,7 @@ struct ListPickerItemWithSearchExample: View {
                         return nil
                     }.joined(separator: ", ")
                     Text(str)
-                }, configuration: ListPickerItemConfiguration(self.model, id: \.id, children: \.children, selection: self.$selections, rowContent: { framework in
+                }, configuration: _ListPickerItemConfiguration(self.model, id: \.id, children: \.children, selection: self.$selections, rowContent: { framework in
                     Text(framework.name)
                 }))
             }
@@ -255,19 +262,19 @@ struct ListPickerItemWithSearchExample: View {
     }
 }
 
-struct ListPickerItemWithObjectItemExample: View {
+struct _ListPickerItemWithObjectItemExample: View {
     private let model = ListPickerItemDataModel.data
     
     @State var selections: Set<String> = []
     
     var body: some View {
         List {
-            ListPickerItem(key: {
+            _ListPickerItem(key: {
                 Text("Frameworks")
             }, value: {
                 let str = Array(selections).joined(separator: ", ")
                 Text(str)
-            }, configuration: ListPickerItemConfiguration(self.model, id: \.name, children: \.children, selection: self.$selections, rowContent: { framework in
+            }, configuration: _ListPickerItemConfiguration(self.model, id: \.name, children: \.children, selection: self.$selections, rowContent: { framework in
                 
                 ObjectItem {
                     Text(framework.name)
@@ -285,7 +292,7 @@ struct ListPickerItemWithObjectItemExample: View {
     }
 }
 
-public struct ListPickerItemWithStringExample: View {
+public struct _ListPickerItemWithStringExample: View {
     private let model = ["First", "Second", "Third", "Fourth", "Fifth"]
     
     @State var selections: Set<String> = []
@@ -294,19 +301,19 @@ public struct ListPickerItemWithStringExample: View {
 
     public var body: some View {
         List {
-            ListPickerItem(key: {
+            _ListPickerItem(key: {
                 Text("Choice")
             }, value: {
                 let str = Array(selections).joined(separator: ", ")
                 Text(str)
             }, configuration:
-            ListPickerItemConfiguration(self.model, selection: self.$selections))
+            _ListPickerItemConfiguration(self.model, selection: self.$selections))
         }
         .navigationBarTitle(Text("Form"))
     }
 }
 
-struct ListPickerItemActiveChildrenExample: View {
+struct _ListPickerItemActiveChildrenExample: View {
     private let model = ListPickerItemDataModel.data
     
     @State var selections: Set<String> = []
@@ -316,13 +323,13 @@ struct ListPickerItemActiveChildrenExample: View {
 
     public var body: some View {
         List {
-            ListPickerItem(key: {
+            _ListPickerItem(key: {
                 Text("Frameworks")
             }, value: {
                 let str = Array(selections).joined(separator: ", ")
                 Text(str)
             }, configuration:
-            ListPickerItemConfiguration(self.model, id: \.name, children: \.children, selection: self.$selections, isActive: self.$isActive, rowContent: { framework in
+            _ListPickerItemConfiguration(self.model, id: \.name, children: \.children, selection: self.$selections, isActive: self.$isActive, rowContent: { framework in
                 Text(framework.name)
             }))
         }
@@ -342,34 +349,68 @@ struct ListPickerItemActiveChildrenExample: View {
     }
 }
 
-struct ListPickerItemPreview: PreviewProvider {
+public struct _ListPickerItemStylesExample: View {
+    private let model = ["First", "Second", "Third", "Fourth", "Fifth"]
+    
+    @State var selections: Set<String> = ["Second"]
+    
+    @State var isEnabled: Bool = true
+    @State var axis: Axis = .horizontal
+    
+    public var body: some View {
+        List {
+            Section("List Picker Item") {
+                _ListPickerItem(key: {
+                    Text("Choice")
+                }, value: {
+                    let str = Array(selections).joined(separator: ", ")
+                    Text(str)
+                }, axis: self.axis,
+                configuration:
+                _ListPickerItemConfiguration(self.model, selection: self.$selections))
+                    .disabled(!self.isEnabled)
+            }
+            
+            Section("Styles Panel") {
+                Toggle("Is Enabled", isOn: self.$isEnabled)
+                Picker("Axis", selection: self.$axis) {
+                    Text("Horizontal").tag(Axis.horizontal)
+                    Text("Vertical").tag(Axis.vertical)
+                }
+            }
+        }
+        .navigationBarTitle(Text("Form"))
+    }
+}
+
+struct _ListPickerItemPreview: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            ListPickerItemActiveChildrenExample()
+            _ListPickerItemActiveChildrenExample()
         }
         
         NavigationView {
-            ListPickerItemDataNonIdentifiableExample()
+            _ListPickerItemDataNonIdentifiableExample()
         }
         
         NavigationView {
-            ListPickerItemDataIdentifiableExample()
+            _ListPickerItemDataIdentifiableExample()
         }
         
         NavigationView {
-            ListPickerItemFormExample()
+            _ListPickerItemFormExample()
         }
         
         NavigationView {
-            ListPickerItemWithObjectItemExample()
+            _ListPickerItemWithObjectItemExample()
         }
         
         NavigationView {
-            ListPickerItemWithStringExample()
+            _ListPickerItemWithStringExample()
         }
         
         NavigationView {
-            ListPickerItemWithSearchExample()
+            _ListPickerItemWithSearchExample()
         }
     }
 }

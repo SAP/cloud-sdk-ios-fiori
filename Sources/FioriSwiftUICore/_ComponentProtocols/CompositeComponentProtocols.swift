@@ -3,7 +3,11 @@ import SwiftUI
 
 /// A view that displays information of an object.
 // sourcery: CompositeComponent
-protocol _ObjectItemComponent: _TitleComponent, _SubtitleComponent, _FootnoteComponent, _DescriptionComponent, _StatusComponent, _SubstatusComponent, _DetailImageComponent, _IconsComponent, _AvatarsComponent, _FootnoteIconsComponent, _FootnoteIconsTextComponent, _TagsComponent, _ActionComponent {}
+protocol _ObjectItemComponent: _TitleComponent, _SubtitleComponent, _FootnoteComponent, _DescriptionComponent, _StatusComponent, _SubstatusComponent, _DetailImageComponent, _IconsComponent, _AvatarsComponent, _FootnoteIconsComponent, _FootnoteIconsTextComponent, _TagsComponent, _ActionComponent {
+    // sourcery: @ViewBuilder
+    /// For accessory enhancement
+    var objectItemButton: FioriButton? { get }
+}
 
 // sourcery: CompositeComponent, InternalComponent
 protocol _DemoViewComponent: _TitleComponent, _SubtitleComponent, _StatusComponent, _ActionComponent, _SwitchComponent {}
@@ -40,7 +44,7 @@ protocol _IllustratedMessageComponent: _DetailImageComponent, _TitleComponent, _
     /// Determines the layout of the action buttons. If set to true, the buttons will be arranged vertically. If set to false, they will be arranged horizontally. The default value is false.
     var isActionVerticallyAligned: Bool { get }
     // sourcery: defaultValue = .leading
-    /// Determines the alignment of the title, description and the action buttons in the horizontal mode. The default valu e is `.leading`.
+    /// Determines the alignment of the title, description and the action buttons in the horizontal mode. The default value e is `.leading`.
     var contentAlignment: HorizontalAlignment { get }
 }
 
@@ -123,6 +127,8 @@ protocol _TextFieldFormViewComponent: _TitleComponent, _TitleFormViewComponent, 
     var actionIcon: Image? { get }
     /// The action to be performed when the action button is tapped.
     var action: (() -> Void)? { get }
+    /// The accessibility label for the action icon
+    var actionIconAccessibilityLabel: String? { get }
 }
 
 // sourcery: CompositeComponent
@@ -133,10 +139,14 @@ protocol _JouleWelcomeScreen: _MediaImageComponent, _GreetingTextComponent, _Tit
 protocol _StepperFieldComponent: _DecrementActionComponent, _TextInputFieldComponent, _IncrementActionComponent {
     /// The step value
     // sourcery: defaultValue = 1
-    var step: Int { get }
+    var step: Double { get }
     
     /// a range of values
-    var stepRange: ClosedRange<Int> { get }
+    var stepRange: ClosedRange<Double> { get }
+    
+    /// Indicates whether the stepper field  supports decimal values. Default is false.
+    // sourcery: defaultValue = false
+    var isDecimalSupported: Bool { get }
 }
 
 // sourcery: CompositeComponent
@@ -147,7 +157,7 @@ protocol _StepperViewComponent: _TitleComponent, _StepperFieldComponent, _Inform
 ///
 /// The `SideBar` SwiftUI view presents a expandable list of items using the `SideBarListItem` SwiftUI view. It has support for both edit and view modes. In edit mode, the listed data can be rearranged, and each item can be toggled as hidden. The hidden items are not shown in view mode.
 ///
-/// This View should be used in `NavigationSplitView` as side bar. How, in case you are NOT using the `NavigationSplitView` for the SideBar, you should observe the change of selected item by property 'selection' of SideBar and handle follow-up logic by youself. Also, you should set 'isUsedInSplitView' of SideBar to true and return EmptyView in 'destination' callback.
+/// This View should be used in `NavigationSplitView` as side bar. How, in case you are NOT using the `NavigationSplitView` for the SideBar, you should observe the change of selected item by property 'selection' of SideBar and handle follow-up logic by yourself. Also, you should set 'isUsedInSplitView' of SideBar to true and return EmptyView in 'destination' callback.
 ///
 /// ## Usage
 ///
@@ -205,7 +215,7 @@ protocol _StepperViewComponent: _TitleComponent, _StepperFieldComponent, _Inform
 ///  ```
 ///  ### Handle Search:
 ///
-/// The binding property `queryString` was used to trigger the searching on SideBar. The `.searchable` modifier on `NavigationSplieView` can be used to bind the @State variable `queryString` which will bind to SideBar. As the same time, an `UISearchBar` can inititalized in `onAppear` modifier and dismissed in `onDisappear` modifier
+/// The binding property `queryString` was used to trigger the searching on SideBar. The `.searchable` modifier on `NavigationSplieView` can be used to bind the @State variable `queryString` which will bind to SideBar. As the same time, an `UISearchBar` can initialized in `onAppear` modifier and dismissed in `onDisappear` modifier
 ///
 /// ```swift
 /// NavigationSplitView {
@@ -297,8 +307,8 @@ protocol _BannerMessageComponent: _IconComponent, _TitleComponent, _CloseActionC
     // sourcery: defaultValue = false
     var hideSeparator: Bool { get }
     
-    /// The icon and title's type. The default is `neutral`.
-    // sourcery: defaultValue = .neutral
+    /// The icon and title's type. The default is `negative`.
+    // sourcery: defaultValue = .negative
     var messageType: BannerMultiMessageType { get }
     
     /// Show detail link or not. The default is false. When showDetailLink is true, and click the link will perform to popup the detail sheet.
@@ -534,14 +544,176 @@ protocol _TimelinePreviewComponent: _OptionalTitleComponent, _ActionComponent {
 // sourcery: CompositeComponent
 protocol _SwitchViewComponent: _TitleComponent, _SwitchComponent {}
 
+/// `DateTimePicker`  provides a title and value label with Fiori styling and a `DatePicker`.
+///
+/// ## Usage
+/// ```swift
+/// @State var selection: Date = .init(timeIntervalSince1970: 0.0)
+/// @State var isRequired = false
+/// @State var showsErrorMessage = false
+///
+/// DateTimePicker(title: "Default", isRequired: self.isRequired, selectedDate: self.$selection)
+///    .informationView(isPresented: self.$showsErrorMessage, description: AttributedString("The Date should be before December."))
+///    .informationViewStyle(.informational)
+/// ```
 // sourcery: CompositeComponent
-protocol _DateTimePickerComponent: _TitleComponent, _ValueLabelComponent {
+protocol _DateTimePickerComponent: _TitleComponent, _ValueLabelComponent, _MandatoryField, _FormViewComponent {
     // sourcery: @Binding
     var selectedDate: Date { get }
     
     // sourcery: defaultValue = [.date, .hourAndMinute]
+    /// The components shown in the date picker, default value shows date and time.
     var pickerComponents: DatePicker.Components { get }
+    
+    // sourcery: defaultValue = .abbreviated
+    /// The custom style for displaying the date. The default value is `.abbreviated`, showing for example, "Oct 21, 2015".
+    var dateStyle: Date.FormatStyle.DateStyle { get }
+    
+    // sourcery: defaultValue = .shortened
+    /// The custom style for displaying the time. The default value is `.shortened`, showing for example, "4:29 PM" or "16:29".
+    var timeStyle: Date.FormatStyle.TimeStyle { get }
+    
+    /// The text to be displayed when no date is selected. If this property is `nil`, the localized string “No date selected” will be used.
+    var noDateSelectedString: String? { get }
 }
 
 // sourcery: CompositeComponent
 protocol _AvatarStackComponent: _AvatarsComponent, _AvatarsTitleComponent {}
+
+/// `ListPickerItem` is a view that provides a `NavigationLink` with a title and selected value(s). And `ListPickerDestination` is recommended to be used as its destination, for which selection, search filter and customized rows are supported.
+/// ## Usage
+/// ```swift
+/// let data = ["first", "second", "third"]
+/// var body: some View {
+///     ListPickerItem(title: {
+///         Text("title")
+///     }, value: {
+///         Text("value")
+///     }, axis: .vertical) {
+///         ListPickerDestination(data,
+///                               id: \.self,
+///                               selection: $selection,
+///                               isTrackingLiveChanges: true,
+///                               searchFilter: { f, s in f.contains(s) }, rowContent: {
+///             Text($0)
+///         })
+///     }
+/// }
+///
+/// // If you want grouped different sections, the protocol `ListPickerSectionModel` is need be implemented for your element of data.
+///
+/// struct ListPickerSection: ListPickerSectionModel {}
+/// let data = [ListPickerSection(title: "Section 1", items: ["first", "second", "third"]),
+///             ListPickerSection(title: "Section 2", items: ["apple", "banana", "orange"])]
+/// var body: some View {
+///     ListPickerItem(title: {
+///         Text("title")
+///     }, value: {
+///         Text("value")
+///     }, axis: .vertical) {
+///         ListPickerDestination(data,
+///                               id: \.self,
+///                               selection: $selection,
+///                               isTrackingLiveChanges: true,
+///                               searchFilter: { f, s in f.contains(s) }, rowContent: {
+///             Text($0)
+///         })
+///     }
+/// }
+/// ```
+// sourcery: CompositeComponent
+protocol _ListPickerItemComponent: _TitleComponent, _ValueComponent, _MandatoryField, _FormViewComponent {
+    // sourcery: defaultValue = .horizontal
+    var axis: Axis { get }
+    
+    @ViewBuilder
+    var destination: (() -> any View)? { get }
+}
+
+/// `ListPickerDestination` is a view that provides a customizable list for `ListPickerItem` with selection, search filter and  rows.
+///
+// sourcery: CompositeComponent
+protocol _ListPickerDestinationComponent: _CancelActionComponent, _ApplyActionComponent, _SelectedEntriesSectionTitleComponent, _SelectAllActionComponent, _DeselectAllActionComponent, _AllEntriesSectionTitleComponent, _ListPickerContentComponent {}
+
+// sourcery: CompositeComponent
+protocol _ToastMessageComponent: _IconComponent, _TitleComponent {
+    // sourcery: defaultValue = 1
+    /// The duration in seconds for which the toast message is shown. The default is `1`.
+    var duration: Double { get }
+}
+
+// sourcery: CompositeComponent
+protocol _BannerMultiMessageSheet: _TitleComponent, _CloseActionComponent {
+    /// callback when this component want to dismiss itself
+    var dismissAction: (() -> Void)? { get }
+    /// callback when category or single item is removed
+    var removeAction: ((String, UUID?) -> Void)? { get }
+    /// callback when the link button is clicked
+    var viewDetailAction: ((UUID) -> Void)? { get }
+    // sourcery: defaultValue = true
+    /// the mark to turn on section header or not
+    var turnOnSectionHeader: Bool { get }
+    // sourcery: defaultValue = "{ _ in EmptyView() }"
+    // sourcery: resultBuilder.defaultValue = "{ _ in EmptyView() }"
+    /// view for each item under the category
+    @ViewBuilder
+    var messageItemView: (UUID) -> any View { get }
+    // sourcery: @Binding
+    /// the data source for banner multi-message sheet
+    var bannerMultiMessages: [BannerMessageListModel] { get }
+}
+
+// sourcery: CompositeComponent
+protocol _LoadingIndicatorComponent: _TitleComponent {
+    // sourcery: defaultValue = 0
+    /// The duration in seconds for which the loading indicator is shown. If set to 0, the loading indicator will be displayed continuously. The default is `0`.
+    var duration: Double { get }
+    
+    // sourcery: @Binding
+    var isPresented: Bool { get }
+}
+
+/// `ValuePicker`  provides a title and value label with Fiori styling and a wheel-style `Picker`.
+/// ## Usage
+/// ```swift
+/// let valueOptions :[AttributedString] = ["1", "20", "300"]
+/// @State var selectedIndex: Int = 0
+/// @State var isRequired = false
+/// @State var stateIndex: Int = 0
+/// @State var isTrackingLiveChanges = true
+/// @State var showsErrorMessage = false
+//  ValuePicker(title: "Picker Title(Default Style)", isRequired: self.isRequired, options: self.valueOptions, selectedIndex: self.$selectedIndex, isTrackingLiveChanges: self.isTrackingLiveChanges).informationView(isPresented: self.$showsErrorMessage, description: AttributedString("Please choose one available data")).informationViewStyle(.informational)
+/// ```
+// sourcery: CompositeComponent
+protocol _ValuePickerComponent: _TitleComponent, _ValueLabelComponent, _MandatoryField, _OptionsComponent {
+    // sourcery: @Binding
+    /// The index for the selected value in the valueOptions.
+    var selectedIndex: Int { get }
+
+    /// When `isTrackingLiveChanges` is true, the value will be shown every time a selection is made. If it is set to false, the value will only be displayed when the value picker is collapsed. The default setting is true.
+    // sourcery: defaultValue = true
+    var isTrackingLiveChanges: Bool { get set }
+
+    /// This property indicates whether the picker is to always be displayed. The default is false.
+    // sourcery: defaultValue = false
+    var alwaysShowPicker: Bool { get set }
+    
+    // sourcery: defaultValue = .normal
+    /// The `ControlState` of the  view. Currently, `.disabled`, `.normal` and `.readOnly` are supported. The default is `normal`.
+    var controlState: ControlState { get }
+}
+
+/// `ProgressIndicator` provides a circular progress indicator with custom styles for processing, pausable, and stoppable indicators.
+///
+/// ## Usage
+/// ```swift
+/// @State var progress: Double = 0.0
+/// @State var isPaused: Bool = false
+///
+/// ProgressIndicator(progress: $progress)
+///    .progressIndicatorStyle(.processing)
+/// ProgressIndicator(progress: $progress)
+///     .progressIndicatorStyle(ProgressIndicatorPausableStyle(isPaused: self.$isPaused))
+/// ```
+// sourcery: CompositeComponent
+protocol _ProgressIndicatorComponent: _ProgressIndicatorProtocol {}

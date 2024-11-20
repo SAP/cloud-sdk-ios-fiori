@@ -23,7 +23,7 @@ private extension Binding {
     }
 }
 
-/// Experiemental Fiori switch/toggle style
+/// Experimental Fiori switch/toggle style
 public struct FioriToggleStyle: ToggleStyle {
     @ScaledMetric var scale: CGFloat = 1
     
@@ -131,5 +131,5 @@ private struct TestSwitchPicker: View {
 
 #Preview {
     TestSwitchPicker()
-        .frame(width: 375)
+        .frame(width: 393)
 }

@@ -86,6 +86,12 @@ struct CoreContentView: View {
                 {
                     Text("Customized Signature Inline View")
                 }
+                
+                NavigationLink(
+                    destination: DocumentScannerViewExample())
+                {
+                    Text("Document Scanner View")
+                }
             }
             
             Section(header: Text("Timeline")) {
@@ -138,13 +144,6 @@ struct CoreContentView: View {
                 }
                 
                 NavigationLink(
-                    destination: LinearProgressIndicatorExample(),
-                    label: {
-                        Text("Linear Progress Indicator")
-                    }
-                )
-                
-                NavigationLink(
                     destination: MenuSelectionExample())
                 {
                     Text("Menu Selection")
@@ -191,6 +190,12 @@ struct CoreContentView: View {
             
             Section(header: Text("Pickers")) {
                 NavigationLink(
+                    destination: _ListPickerItemExample())
+                {
+                    Text("_ListPickerItem")
+                }
+                
+                NavigationLink(
                     destination: ListPickerItemExample())
                 {
                     Text("ListPickerItem")
@@ -213,6 +218,12 @@ struct CoreContentView: View {
                 {
                     Text("DateTimePicker")
                 }
+                
+                NavigationLink(
+                    destination: ValuePickerExample())
+                {
+                    Text("ValuePicker")
+                }
             }
             
             Section(header: Text("Onboarding")) {
@@ -228,6 +239,43 @@ struct CoreContentView: View {
                     destination: BannerMessageExample())
                 {
                     Text("Banner Message")
+                }
+            }
+            
+            Section(header: Text("Feedback Indicators")) {
+                NavigationLink(
+                    destination: ToastMessageExample())
+                {
+                    Text("Toast Message")
+                }
+                
+                NavigationLink(
+                    destination: LinearProgressIndicatorExample(),
+                    label: {
+                        Text("Linear Progress Indicator")
+                    }
+                )
+                
+                NavigationLink(destination: LoadingIndicatorExample()) {
+                    Text("Loading Indicator")
+                }
+
+                NavigationLink(
+                    destination: CheckoutIndicatorExample())
+                {
+                    Text("Checkout Indicator")
+                }
+              
+                NavigationLink(
+                    destination: CheckoutIndicatorModalExample())
+                {
+                    Text("Checkout Indicator Modal")
+                }
+                
+                NavigationLink(
+                    destination: ProgressIndicatorExample())
+                {
+                    Text("Progress Indicator")
                 }
             }
             

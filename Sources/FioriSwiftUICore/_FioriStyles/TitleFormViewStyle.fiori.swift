@@ -15,6 +15,9 @@ public struct TitleFormViewBaseStyle: TitleFormViewStyle {
         .textInputInfoView(isPresented: Binding(get: { self.isInfoViewNeeded(configuration) }, set: { _ in }), description: self.getInfoString(configuration), counter: self.getCounterString(configuration))
         .padding(.top, -1)
         .padding(.bottom, self.isInfoViewNeeded(configuration) ? -12 : -1)
+        .accessibilityElement(children: .combine)
+        .accessibilityHint(self.getAccessibilityHint(configuration, isFocused: self.isFocused))
+        .disabled(configuration.controlState == .disabled)
     }
 
     func getDisabled(_ configuration: TitleFormViewConfiguration) -> Bool {
@@ -31,6 +34,27 @@ public struct TitleFormViewBaseStyle: TitleFormViewStyle {
 
     func isInfoViewNeeded(_ configuration: TitleFormViewConfiguration) -> Bool {
         TextInputFormViewConfiguration(configuration, isFocused: self.isFocused).isInfoViewNeeded()
+    }
+
+    func getAccessibilityHint(_ configuration: TitleFormViewConfiguration, isFocused: Bool) -> String {
+        var accHintString = ""
+
+        switch configuration.controlState {
+        case .normal:
+            if isFocused {
+                if configuration.text.isEmpty {
+                    accHintString = NSLocalizedString("Text field, is editing", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Text field, is editing")
+                } else {
+                    accHintString = NSLocalizedString("Text field, is editing. Double tap to clear text", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Text field, is editing. Double tap to clear text")
+                }
+            } else {
+                accHintString = NSLocalizedString("Text field, Double tap to edit", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Text field, Double tap to edit")
+            }
+        default:
+            break
+        }
+
+        return accHintString
     }
 }
 

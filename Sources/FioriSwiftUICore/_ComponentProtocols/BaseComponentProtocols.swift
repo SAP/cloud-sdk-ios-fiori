@@ -21,6 +21,7 @@ protocol _SubtitleComponent {
 protocol _MandatoryFieldIndicatorComponent {
     // sourcery: resultBuilder.name = @ViewBuilder, resultBuilder.backingComponent = TextOrIconView
     // sourcery: defaultValue = .text("*")
+    // sourcery: resultBuilder.defaultValue = "{ Text("*") }"
     var mandatoryFieldIndicator: TextOrIcon? { get }
 }
  
@@ -33,6 +34,12 @@ protocol _MandatoryField: _MandatoryFieldIndicatorComponent {
 protocol _TagsComponent {
     // sourcery: resultBuilder.name = @TagBuilder, resultBuilder.backingComponent = TagStack
     var tags: [AttributedString] { get }
+}
+
+// sourcery: BaseComponent
+protocol _TagComponent {
+    // sourcery: resultBuilder.name = @ViewBuilder, resultBuilder.backingComponent = TextOrIconView
+    var tag: TextOrIcon { get }
 }
 
 // sourcery: BaseComponent
@@ -371,4 +378,85 @@ protocol _HalfStarImageComponent {
     // sourcery: @ViewBuilder
     // sourcery: defaultValue = "FioriIcon.actions.halfStar.renderingMode(.template).resizable()"
     var halfStarImage: Image { get }
+}
+
+// sourcery: BaseComponent
+protocol _ValueComponent {
+    // sourcery: @ViewBuilder
+    var value: AttributedString? { get }
+}
+
+// sourcery: BaseComponent
+protocol _CancelActionComponent {
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "FioriButton { _ in Text("Cancel".localizedFioriString()) }"
+    // sourcery: resultBuilder.defaultValue = "{ FioriButton { _ in Text("Cancel".localizedFioriString()) } }"
+    var cancelAction: FioriButton? { get }
+}
+
+// sourcery: BaseComponent
+protocol _ApplyActionComponent {
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "FioriButton { _ in Text("Apply".localizedFioriString()) }"
+    // sourcery: resultBuilder.defaultValue = "{ FioriButton { _ in Text("Apply".localizedFioriString()) } }"
+    var applyAction: FioriButton? { get }
+}
+
+// sourcery: BaseComponent
+protocol _SelectedEntriesSectionTitleComponent {
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "AttributedString("Selected".localizedFioriString())"
+    // sourcery: resultBuilder.defaultValue = "{ Text("Selected".localizedFioriString()) }"
+    var selectedEntriesSectionTitle: AttributedString? { get }
+}
+
+// sourcery: BaseComponent
+protocol _AllEntriesSectionTitleComponent {
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "AttributedString("All".localizedFioriString())"
+    // sourcery: resultBuilder.defaultValue = "{ Text("All".localizedFioriString()) }"
+    var allEntriesSectionTitle: AttributedString? { get }
+}
+
+// sourcery: BaseComponent
+protocol _SelectAllActionComponent {
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "FioriButton { _ in Text("Select All".localizedFioriString()) }"
+    // sourcery: resultBuilder.defaultValue = "{ FioriButton { _ in Text("Select All".localizedFioriString()) } }"
+    var selectAllAction: FioriButton? { get }
+}
+
+// sourcery: BaseComponent
+protocol _DeselectAllActionComponent {
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "FioriButton { _ in Text("Deselect All".localizedFioriString()) }"
+    // sourcery: resultBuilder.defaultValue = "{ FioriButton { _ in Text("Deselect All".localizedFioriString()) } }"
+    var deselectAllAction: FioriButton? { get }
+}
+
+// sourcery: BaseComponent
+protocol _ListPickerContentComponent {
+    @ViewBuilder
+    var listPickerContent: (() -> any View)? { get }
+}
+
+/// `CheckoutIndicator` provides a circular indicator that shows the state of a process.
+///
+/// ## Usage
+/// ```swift
+/// @State var displayState = DisplayState.inProgress
+///
+/// CheckoutIndicator(displayState: self.$displayState)
+/// ```
+// sourcery: BaseComponent
+protocol _CheckoutIndicatorComponent {
+    // sourcery: @Binding
+    /// The current state of this view. Changing this property will result in a different icon and view.
+    var displayState: DisplayState { get }
+}
+
+// sourcery: BaseComponent
+protocol _ProgressIndicatorProtocol {
+    // sourcery: @Binding
+    var progress: Double { get }
 }

@@ -132,13 +132,13 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         }
     }
     
-    /// seires -> category -> dimension (either a single value or an array)
+    /// series -> category -> dimension (either a single value or an array)
     @Published var data: [[DimensionData<CGFloat?>]]
     
-    /// seires attributes
+    /// series attributes
     @Published private var _seriesAttributes = [ChartSeriesAttributes]()
     
-    /// seires attributes
+    /// series attributes
     public var seriesAttributes: [ChartSeriesAttributes] {
         get {
             self._seriesAttributes
@@ -193,7 +193,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
     /// titles for category
     @Published var titlesForCategory: [[String?]]?
     
-    /// labels for demension data
+    /// labels for dimension data
     @Published var labelsForDimension: [[DimensionData<String?>]]?
     
     /// titles for Axis
@@ -411,10 +411,10 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
       Set / get current selection state for the chart view
       nil means no selection
       format: [seriesIndex: [categoryIndex]]?,
-      selectin mode: single, single selection: [0: [0]]
-      selectin mode: single, range selection: [0: [0,1,2,3,4,5,6]]
-      selectin mode: all, [0: [0], 1: [0]]
-      multiple seletion for donut: [0: [0], 2: [0], 4: [0]]
+      selection mode: single, single selection: [0: [0]]
+      selection mode: single, range selection: [0: [0,1,2,3,4,5,6]]
+      selection mode: all, [0: [0], 1: [0]]
+      multiple selection for donut: [0: [0], 2: [0], 4: [0]]
      */
     public var selections: [Int: [Int]]? {
         get {
@@ -464,7 +464,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         .sink(receiveValue: { (selections) in
          if let selections = selections {
              for (seriesIndex, catIndices) in selections {
-                 print("Selected series: \(seriesIndex), selected categoies: \(catIndices)")
+                 print("Selected series: \(seriesIndex), selected categories: \(catIndices)")
              }
          }
          else {
@@ -475,7 +475,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
      */
     public private(set) lazy var selectionDidChangePublisher: AnyPublisher<[Int: [Int]]?, Never> = $_selections.eraseToAnyPublisher()
     
-    /// the center postion of a chart in relative coordinate system, both x and y are range from 0 to 1
+    /// the center position of a chart in relative coordinate system, both x and y are range from 0 to 1
     @Published public var centerPosition: CGPoint? = nil
     
     /// private: X direction scale factor, scale is not allowed to be less than 1.0
@@ -819,14 +819,14 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         - titlesForCategory: labels for x axis
         - colorsForCategory: colors for any category in any series. it is optional. this color overwrite the color from seriesAttributes.
         - titlesForAxis: titles for category and numeric Axis
-        - labelsForDimension: labels for demension data
+        - labelsForDimension: labels for dimension data
         - numberOfGridlines: number of gridlines for numeric axis
         - selectionMode: determines which plot items should be selected for a category. It could be single, all, multiple
-        - selections: preselected categories or seires for the chart view. For example it could be [0: [0,1,2,3,4,5,6]], [0: [0], 1: [0]]
+        - selections: preselected categories or series for the chart view. For example it could be [0: [0,1,2,3,4,5,6]], [0: [0], 1: [0]]
         - userInteractionEnabled: enable or disable user interaction
         - selectionEnabled: enable or disable user interaction for selection including single tap, double tap and two fingers long pressed
         - snapToPoint: snap to point when dragging a chart
-        - seriesAttributes: seires attributes
+        - seriesAttributes: series attributes
         - categoryAxis: attributes for the category axis.
         - numericAxis: attributes for the primary numeric axis.
         - secondaryNumericAxis: attributes for the secondary numeric axis.
@@ -954,14 +954,14 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         - titlesForCategory: labels for x axis
         - colorsForCategory: colors for any category in any series. it is optional. this color overwrite the color from seriesAttributes.
         - titlesForAxis: titles for category and numeric Axis
-        - labelsForDimension: labels for demension data
+        - labelsForDimension: labels for dimension data
         - numberOfGridlines: number of gridlines for numeric axis
         - selectionMode: determines which plot items should be selected for a category. It could be single, all, multiple
-        - selections: preselected categories or seires for the chart view. For example it could be [0: [0,1,2,3,4,5,6]], [0: [0], 1: [0]]
+        - selections: preselected categories or series for the chart view. For example it could be [0: [0,1,2,3,4,5,6]], [0: [0], 1: [0]]
         - userInteractionEnabled: enable or disable user interaction
         - selectionEnabled: enable or disable user interaction for selection including single tap, double tap and two fingers long pressed
         - snapToPoint: snap to point when dragging a chart
-        - seriesAttributes: seires attributes
+        - seriesAttributes: series attributes
         - categoryAxis: attributes for the category axis.
         - numericAxis: attributes for the primary numeric axis.
         - secondaryNumericAxis: attributes for the secondary numeric axis.
@@ -1868,7 +1868,7 @@ public enum XAxisLabelsPosition: String {
 
 /// Enum for available selection modes.
 public enum ChartSelectionMode: String {
-    /// Only a range of category indices in one series selection is allowd
+    /// Only a range of category indices in one series selection is allowed
     case single
     
     /// Only one category index of all sereis selection is allowed
@@ -1878,7 +1878,7 @@ public enum ChartSelectionMode: String {
     case multiple
 }
 
-/// value type for Numberic Axis
+/// value type for Numeric Axis
 enum ChartValueType: String {
     case allPositive
     case allNegative

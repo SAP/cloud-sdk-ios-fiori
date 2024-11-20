@@ -21,3 +21,16 @@ extension ObjectItemListDataProtocol {
         self.isNewObjectItem = isNewObjectItem
     }
 }
+
+protocol ObjectItemListDataEnhancementProtocol: ObjectItemListDataProtocol {
+    var isShowAccessoryMenu: Binding<Bool> { get set }
+    init(cellTapped: Binding<Bool>, isNewObjectItem: Bool, isShowAccessoryMenu: Binding<Bool>)
+}
+
+extension ObjectItemListDataEnhancementProtocol {
+    init(cellTapped: Binding<Bool>, isNewObjectItem: Bool, isShowAccessoryMenu: Binding<Bool> = .constant(false)) {
+        self.init(cellTapped: cellTapped)
+        self.isNewObjectItem = isNewObjectItem
+        self.isShowAccessoryMenu = isShowAccessoryMenu
+    }
+}

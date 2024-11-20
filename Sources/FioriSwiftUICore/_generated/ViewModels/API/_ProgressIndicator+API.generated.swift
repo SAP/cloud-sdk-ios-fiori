@@ -2,12 +2,12 @@
 // DO NOT EDIT
 import SwiftUI
 
-public struct ProgressIndicator {
+public struct _ProgressIndicator {
     @Environment(\.progressIndicatorTextModifier) private var progressIndicatorTextModifier
 
     var _progressIndicatorText: String? = nil
 	
-    public init(model: ProgressIndicatorModel) {
+    public init(model: _ProgressIndicatorModel) {
         self.init(progressIndicatorText: model.progressIndicatorText)
     }
 

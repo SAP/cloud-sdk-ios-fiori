@@ -93,7 +93,7 @@ struct LineSeriesView: View {
         let strokeLineShape = LineChartSeriesLineShape(path: self.model.path, seriesIndex: self.seriesIndex, startIndex: startCategoryIndex, endIndex: endCategoryIndex)
             .transform(mirror) // apply layoutDirection
             .transform(CGAffineTransform(scaleX: scaleX, y: scaleY)) // apply zoom
-            .transform(CGAffineTransform(translationX: translateX, y: translateY)) // aplly pan
+            .transform(CGAffineTransform(translationX: translateX, y: translateY)) // apply pan
         
         return ZStack {
             // filled line area
@@ -101,7 +101,7 @@ struct LineSeriesView: View {
                 LineChartSeriesFillShape(path: self.model.path, seriesIndex: self.seriesIndex, startIndex: startCategoryIndex, endIndex: endCategoryIndex)
                     .transform(mirror) // apply layoutDirection
                     .transform(CGAffineTransform(scaleX: scaleX, y: scaleY)) // apply zoom
-                    .transform(CGAffineTransform(translationX: translateX, y: translateY)) // aplly pan
+                    .transform(CGAffineTransform(translationX: translateX, y: translateY)) // apply pan
                     .fill(lineFillGradient)
                     .frame(width: rect.size.width, height: rect.size.height)
                     .clipped()

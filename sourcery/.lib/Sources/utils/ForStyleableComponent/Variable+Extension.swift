@@ -131,7 +131,20 @@ extension Variable {
     
     var resultBuilderInitParamDecl: String {
         var ret = self.attributes.string + " "
-        ret += "\(self.name): \(self.resultBuilderTypeName ?? self.typeName.name)\(self.defaultValue.prependAssignmentIfNeeded())"
+
+        if self.closureParameters.isEmpty {
+            ret += "\(self.name): \(self.resultBuilderTypeName ?? self.typeName.name)\(self.defaultValue.prependAssignmentIfNeeded())"
+        } else {
+            let escapingAttr = self.typeName.isClosure &&
+                !self.typeName.isOptional
+                ? "@escaping " : ""
+            if ret.contains("@ViewBuilder") {
+                ret += "\(self.name): \(escapingAttr)\(self.typeName)\(self.defaultValue.prependAssignmentIfNeeded())"
+            } else {
+                ret += "@ViewBuilder \(self.name): \(escapingAttr)\(self.typeName)\(self.defaultValue.prependAssignmentIfNeeded())"
+            }
+        }
+
         return ret
     }
     
@@ -182,6 +195,10 @@ extension Variable {
     var closureReturnType: String? {
         self.typeName.closure?.actualReturnTypeName.name
     }
+
+    var closureParameters: [ClosureParameter] {
+        self.typeName.closure?.parameters ?? []
+    }
 }
 
 extension Variable {
@@ -190,6 +207,7 @@ extension Variable {
             typeName.isClosure &&
             !typeName.isOptional
             ? "@escaping " : ""
+
         return "\(name): \(escapingAttr)\(typeName)\(self.defaultValue.prependAssignmentIfNeeded())"
     }
 }

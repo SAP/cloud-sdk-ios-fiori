@@ -52,6 +52,14 @@ public protocol OptionListPickerStyle {
     func makeBody(configuration: OptionListPickerButtonConfiguration) -> AnyView
 }
 
+#if !os(visionOS)
+    /// Default option list picker foreground color
+    public let DefaultOptionListPickerForegroundColor = Color.preferredColor(.tintColor)
+#else
+    /// Default option list picker foreground color
+    public let DefaultOptionListPickerForegroundColor = Color.preferredColor(.primaryLabel)
+#endif
+
 /// Default option list picker style
 public struct DefaultOptionListPickerStyle: OptionListPickerStyle {
     let font: Font
@@ -68,7 +76,7 @@ public struct DefaultOptionListPickerStyle: OptionListPickerStyle {
     let minTouchHeight: CGFloat
     
     /// :nodoc:
-    public init(font: Font = .system(.body), foregroundColorSelected: Color = .preferredColor(.tintColor), foregroundColorUnselected: Color = .preferredColor(.tertiaryLabel), fillColorSelected: Color = .preferredColor(.secondaryGroupedBackground), fillColorUnselected: Color = .preferredColor(.tertiaryFill), strokeColorSelected: Color = .preferredColor(.tintColor), strokeColorUnselected: Color = .preferredColor(.separator), cornerRadius: CGFloat = 16, spacing: CGFloat = 4, borderWidth: CGFloat = 1, minHeight: CGFloat = 44, minTouchHeight: CGFloat = 50) {
+    public init(font: Font = .system(.body), foregroundColorSelected: Color = DefaultOptionListPickerForegroundColor, foregroundColorUnselected: Color = .preferredColor(.tertiaryLabel), fillColorSelected: Color = .preferredColor(.secondaryGroupedBackground), fillColorUnselected: Color = .preferredColor(.tertiaryFill), strokeColorSelected: Color = DefaultOptionListPickerForegroundColor, strokeColorUnselected: Color = .preferredColor(.separator), cornerRadius: CGFloat = 16, spacing: CGFloat = 4, borderWidth: CGFloat = 1, minHeight: CGFloat = 44, minTouchHeight: CGFloat = 50) {
         self.font = font
         self.foregroundColorSelected = foregroundColorSelected
         self.foregroundColorUnselected = foregroundColorUnselected
@@ -123,14 +131,14 @@ extension EnvironmentValues {
     }
 }
 
-/// Experiemental option list picker styling
+/// Experimental option list picker styling
 public extension View {
-    /// Experiemental option list picker styling
+    /// Experimental option list picker styling
     func optionListPickerStyle(_ style: some OptionListPickerStyle) -> some View {
         self.environment(\.optionListPickerStyle, style)
     }
     
-    /// Experiemental option list picker styling
+    /// Experimental option list picker styling
     func optionListPickerStyle(font: Font = .system(.body), foregroundColorSelected: Color = .preferredColor(.tintColor), foregroundColorUnselected: Color = .preferredColor(.tertiaryLabel), fillColorSelected: Color = .preferredColor(.primaryFill), fillColorUnselected: Color = .preferredColor(.secondaryFill), strokeColorSelected: Color = .preferredColor(.tintColor), strokeColorUnselected: Color = .preferredColor(.separator), cornerRadius: CGFloat = 16, spacing: CGFloat = 6, borderWidth: CGFloat = 1, minHeight: CGFloat = 44) -> some View {
         self.environment(\.optionListPickerStyle,
                          DefaultOptionListPickerStyle(font: font, foregroundColorSelected: foregroundColorSelected, foregroundColorUnselected: foregroundColorUnselected, fillColorSelected: fillColorSelected, fillColorUnselected: fillColorUnselected, strokeColorSelected: strokeColorSelected, strokeColorUnselected: strokeColorUnselected, cornerRadius: cornerRadius, spacing: spacing, borderWidth: borderWidth, minHeight: minHeight))
