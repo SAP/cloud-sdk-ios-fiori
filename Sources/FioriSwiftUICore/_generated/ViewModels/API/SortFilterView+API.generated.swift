@@ -8,8 +8,6 @@ public struct SortFilterView<Title: View, Items: View, CancelActionView: View, R
 	@Environment(\.cancelActionModifier) private var cancelActionModifier
 	@Environment(\.resetActionModifier) private var resetActionModifier
 	@Environment(\.applyActionModifier) private var applyActionModifier
-	@Environment(\.resetButtonType) var resetButtonType
-	@Environment(\.isResetHidden) var isResetHidden
 	@Environment(\.dismiss) var dismiss
 
     let _title: Title
@@ -18,9 +16,9 @@ public struct SortFilterView<Title: View, Items: View, CancelActionView: View, R
 	let _resetAction: ResetActionView
 	let _applyAction: ApplyActionView
 	let _onUpdate: (() -> Void)?
-	@StateObject var context: SortFilterContext = SortFilterContext()
 	@State var size: CGSize = .zero
 	let popoverWidth = 393.0
+	@StateObject var context: SortFilterContext = SortFilterContext()
 
     private var isModelInit: Bool = false
 	private var isCancelActionNil: Bool = false

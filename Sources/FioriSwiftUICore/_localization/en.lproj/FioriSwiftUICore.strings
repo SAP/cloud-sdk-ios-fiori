@@ -271,8 +271,6 @@
 "Deselect All" = "Deselect All";
 /* XBUT: The \"Selected\" title on the List Picker header */
 "Selected" = "Selected";
-/* XBUT: The \"Clear All\" button title when reset button type is .clearAll on FilterFeedbackBar */
-"Clear All" = "Clear All";
 
 /* XACT: The accessibility hint for Text Input Views, editable */
 "Text field, Double tap to edit" = "Text field, Double tap to edit";

@@ -346,6 +346,37 @@ extension SortFilterItem {
     }
 }
 
+/// FilterFeedbackBar ResetButton Configuration
+public struct FilterFeedbackBarResetButtonConfiguration: Equatable {
+    var type: FilterFeedbackBarResetButtonType
+    var title: String
+    var isHidden: Bool
+    
+    init(type: FilterFeedbackBarResetButtonType = .default, title: String, isHidden: Bool = false) {
+        self.type = type
+        self.title = title
+        self.isHidden = isHidden
+    }
+    
+    /// Default FilterFeedbackBarResetButtonConfiguration
+    public init() {
+        self.init(type: .default, title: NSLocalizedString("Reset", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), isHidden: false)
+    }
+    
+    /// Customize FilterFeedbackBarResetButtonConfiguration
+    /// - Parameters:
+    ///   - type: Reset button type
+    ///   - title: Reset button title
+    ///   - isHidden: A Boolean value that determines whether reset button is hidden.
+    public init(with type: FilterFeedbackBarResetButtonType = .default, title: String = "", isHidden: Bool = false) {
+        self.init(type: type, title: title == "" ? NSLocalizedString("Reset", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "") : title, isHidden: isHidden)
+    }
+    
+    public static func == (lhs: FilterFeedbackBarResetButtonConfiguration, rhs: FilterFeedbackBarResetButtonConfiguration) -> Bool {
+        lhs.type == rhs.type && lhs.title == rhs.title && lhs.isHidden == rhs.isHidden
+    }
+}
+
 public extension SortFilterItem {
     ///  Data structure for filter feedback, option list picker,
     struct PickerItem: Identifiable, Equatable {
@@ -367,7 +398,8 @@ public extension SortFilterItem {
         public var isSearchBarHidden: Bool = false
         var disableListEntriesSection: Bool = false
         var allowsDisplaySelectionCount: Bool = true
-
+        var resetButtonConfiguration: FilterFeedbackBarResetButtonConfiguration = .init()
+        
         /// Available OptionListPicker modes. Use this enum to define picker mode  to present.
         public enum DisplayMode {
             /// Decided by options count
@@ -403,7 +435,7 @@ public extension SortFilterItem {
             case disable
         }
         
-        public init(id: String = UUID().uuidString, name: String, value: [Int], valueOptions: [String], allowsMultipleSelection: Bool, allowsEmptySelection: Bool, barItemDisplayMode: BarItemDisplayMode = .name, isSearchBarHidden: Bool = false, icon: String? = nil, itemLayout: OptionListPickerItemLayoutType = .fixed, displayMode: DisplayMode = .automatic, listEntriesSectionMode: ListEntriesSectionMode = .default, allowsDisplaySelectionCount: Bool = true) {
+        public init(id: String = UUID().uuidString, name: String, value: [Int], valueOptions: [String], allowsMultipleSelection: Bool, allowsEmptySelection: Bool, barItemDisplayMode: BarItemDisplayMode = .name, isSearchBarHidden: Bool = false, icon: String? = nil, itemLayout: OptionListPickerItemLayoutType = .fixed, displayMode: DisplayMode = .automatic, listEntriesSectionMode: ListEntriesSectionMode = .default, allowsDisplaySelectionCount: Bool = true, resetButtonConfiguration: FilterFeedbackBarResetButtonConfiguration = FilterFeedbackBarResetButtonConfiguration()) {
             self.id = id
             self.name = name
             self.value = value
@@ -428,6 +460,7 @@ public extension SortFilterItem {
             }
             
             self.allowsDisplaySelectionCount = allowsDisplaySelectionCount
+            self.resetButtonConfiguration = resetButtonConfiguration
         }
         
         mutating func onTap(option: String) {

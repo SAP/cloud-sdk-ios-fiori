@@ -51,19 +51,15 @@ extension SortFilterView: View {
                 )
                 .buttonStyle(CancelButtonStyle())
         } resetAction: {
-            if isResetHidden {
-                EmptyView()
-            } else {
-                resetAction
-                    .simultaneousGesture(
-                        TapGesture()
-                            .onEnded { _ in
-                                context.handleReset?()
-                            }
-                    )
-                    .buttonStyle(ResetButtonStyle())
-                    .environment(\.isEnabled, context.isResetButtonEnabled)
-            }
+            resetAction
+                .simultaneousGesture(
+                    TapGesture()
+                        .onEnded { _ in
+                            context.handleReset?()
+                        }
+                )
+                .buttonStyle(ResetButtonStyle())
+                .environment(\.isEnabled, context.isResetButtonEnabled)
         } applyAction: {
             applyAction
                 .simultaneousGesture(
@@ -84,8 +80,6 @@ extension SortFilterView: View {
                     }
                 })
                 .environmentObject(context)
-                .resetHidden(isResetHidden)
-                .resetButtonType(resetButtonType)
         }
         #if !os(visionOS)
         .frame(minWidth: UIDevice.current.userInterfaceIdiom != .phone ? 393.0 : nil)

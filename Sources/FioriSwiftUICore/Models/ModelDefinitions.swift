@@ -484,8 +484,6 @@ public protocol FilterFeedbackBarModel: AnyObject {
 // sourcery: generated_component_composite
 // sourcery: virtualPropViewSize = "@State var size: CGSize = .zero"
 // sourcery: virtualPropPopoverWidth = "let popoverWidth = 393.0"
-// sourcery: add_env_props = "isResetHidden"
-// sourcery: add_env_props = "resetButtonType"
 public protocol SortFilterViewModel: AnyObject, TitleComponent {
     // sourcery: bindingProperty
     // sourcery: backingComponent=_SortFilterCFGItemContainer

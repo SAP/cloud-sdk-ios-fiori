@@ -10,8 +10,6 @@ import SwiftUI
 /// :nodoc:
 public struct _SortFilterCFGItemContainer {
     @EnvironmentObject var context: SortFilterContext
-    @Environment(\.isResetHidden) var isResetHidden
-    @Environment(\.resetButtonType) var resetButtonType
     
     @Binding var _items: [[SortFilterItem]]
     @State var height = 88.0
@@ -169,21 +167,22 @@ extension _SortFilterCFGItemContainer: View {
             .ifApply(UIDevice.current.userInterfaceIdiom == .pad, content: { v in
                 v.frame(height: self.searchListHeight)
             })
-            .ifApply(!self.isResetHidden, content: { v in
+            .ifApply(!self._items[r][c].picker.resetButtonConfiguration.isHidden, content: { v in
                 v.toolbar {
+                    let item = self._items[r][c].picker
                     ToolbarItem(placement: .navigationBarTrailing) {
-                        if !self._items[r][c].picker.allowsMultipleSelection, self.resetButtonType == .clearAll {
-                            _Action(actionText: NSLocalizedString("Clear All", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
-                                self._items[r][c].picker.clearAll()
-                            })
-                            .buttonStyle(ResetButtonStyle())
-                            .disabled(self._items[r][c].picker.workingValue.count == 0)
+                        if item.resetButtonConfiguration.isHidden {
+                            EmptyView()
                         } else {
-                            _Action(actionText: NSLocalizedString("Reset", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
-                                self._items[r][c].picker.reset()
+                            _Action(actionText: item.resetButtonConfiguration.title, didSelectAction: {
+                                if item.resetButtonConfiguration.type == .default {
+                                    self._items[r][c].picker.reset()
+                                } else {
+                                    self._items[r][c].picker.clearAll()
+                                }
                             })
                             .buttonStyle(ResetButtonStyle())
-                            .disabled(self._items[r][c].picker.isOriginal)
+                            .disabled(item.resetButtonConfiguration.type == .default ? item.isOriginal : item.workingValue.isEmpty)
                         }
                     }
                 }

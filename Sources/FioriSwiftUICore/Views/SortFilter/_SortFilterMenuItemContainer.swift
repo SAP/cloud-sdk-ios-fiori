@@ -12,8 +12,6 @@ public struct _SortFilterMenuItemContainer {
 //    @Environment(\.cancelActionView) var _cancelAction
     @Environment(\.sortFilterMenuItemFullConfigurationButton) var fullCFGButton
     @Binding var _items: [[SortFilterItem]]
-    @Environment(\.isResetHidden) var isResetHidden
-    @Environment(\.resetButtonType) var resetButtonType
 
     public init(items: Binding<[[SortFilterItem]]>) {
         self.__items = items
@@ -25,14 +23,14 @@ extension _SortFilterMenuItemContainer: View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 10) {
                 if self.fullCFGButton.position == .leading {
-                    FullCFGMenuItem(items: self.$_items, onUpdate: self.onUpdate, isResetHidden: self.isResetHidden, resetButtonType: self.resetButtonType)
+                    FullCFGMenuItem(items: self.$_items, onUpdate: self.onUpdate)
                 }
                 ForEach(0 ..< self._items.count, id: \.self) { r in
                     ForEach(0 ..< self._items[r].count, id: \.self) { c in
                         if self._items[r][c].showsOnFilterFeedbackBar {
                             switch self._items[r][c] {
                             case .picker:
-                                PickerMenuItem(item: Binding<SortFilterItem.PickerItem>(get: { self._items[r][c].picker }, set: { self._items[r][c].picker = $0 }), onUpdate: self.onUpdate, isResetHidden: self.isResetHidden, resetButtonType: self.resetButtonType)
+                                PickerMenuItem(item: Binding<SortFilterItem.PickerItem>(get: { self._items[r][c].picker }, set: { self._items[r][c].picker = $0 }), onUpdate: self.onUpdate)
                                     .accessibilityElement()
                                     .accessibilityLabel(self._items[r][c].picker.label)
                                     .accessibilityIdentifier(self._items[r][c].picker.name)
@@ -47,17 +45,17 @@ extension _SortFilterMenuItemContainer: View {
                                     .accessibilityLabel(self.switchItemAccessibilityLabel(switchItem: self._items[r][c].switch))
                                     .accessibilityIdentifier(self._items[r][c].switch.name)
                             case .slider:
-                                SliderMenuItem(item: Binding<SortFilterItem.SliderItem>(get: { self._items[r][c].slider }, set: { self._items[r][c].slider = $0 }), onUpdate: self.onUpdate, isResetHidden: self.isResetHidden)
+                                SliderMenuItem(item: Binding<SortFilterItem.SliderItem>(get: { self._items[r][c].slider }, set: { self._items[r][c].slider = $0 }), onUpdate: self.onUpdate)
                                     .accessibilityElement()
                                     .accessibilityLabel(self._items[r][c].slider.label)
                                     .accessibilityIdentifier(self._items[r][c].slider.name)
                             case .datetime:
-                                DateTimeMenuItem(item: Binding<SortFilterItem.DateTimeItem>(get: { self._items[r][c].datetime }, set: { self._items[r][c].datetime = $0 }), onUpdate: self.onUpdate, isResetHidden: self.isResetHidden)
+                                DateTimeMenuItem(item: Binding<SortFilterItem.DateTimeItem>(get: { self._items[r][c].datetime }, set: { self._items[r][c].datetime = $0 }), onUpdate: self.onUpdate)
                                     .accessibilityElement()
                                     .accessibilityLabel(self._items[r][c].datetime.label)
                                     .accessibilityIdentifier(self._items[r][c].datetime.name)
                             case .stepper:
-                                StepperMenuItem(item: Binding<SortFilterItem.StepperItem>(get: { self._items[r][c].stepper }, set: { self._items[r][c].stepper = $0 }), onUpdate: self.onUpdate, isResetHidden: self.isResetHidden)
+                                StepperMenuItem(item: Binding<SortFilterItem.StepperItem>(get: { self._items[r][c].stepper }, set: { self._items[r][c].stepper = $0 }), onUpdate: self.onUpdate)
                                     .accessibilityElement()
                                     .accessibilityLabel(self._items[r][c].stepper.label)
                                     .accessibilityIdentifier(self._items[r][c].stepper.name)
@@ -66,7 +64,7 @@ extension _SortFilterMenuItemContainer: View {
                     }
                 }
                 if self.fullCFGButton.position == .trailing {
-                    FullCFGMenuItem(items: self.$_items, onUpdate: self.onUpdate, isResetHidden: self.isResetHidden, resetButtonType: self.resetButtonType)
+                    FullCFGMenuItem(items: self.$_items, onUpdate: self.onUpdate)
                 }
             }
         }
