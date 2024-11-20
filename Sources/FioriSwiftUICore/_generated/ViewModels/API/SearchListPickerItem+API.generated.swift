@@ -12,15 +12,16 @@ public struct SearchListPickerItem {
 
 	var disableListEntriesSection: Bool = false
 	var updateSearchListPickerHeight: ((CGFloat) -> ())? = nil
+	var selectAll: ((Bool) -> ())? = nil
+	let popoverWidth = 393.0
 	@State var _height: CGFloat = 44
+	@State var _searchViewCornerRadius: CGFloat = 18
+	@State var _searchText: String = ""
 	var allowsEmptySelection: Bool = false
 	var allowsMultipleSelection: Bool = false
+	var allowsDisplaySelectionCount: Bool = true
 	var isSearchBarHidden: Bool = false
-	@State var _searchText: String = ""
-	let popoverWidth = 393.0
-	var selectAll: ((Bool) -> ())? = nil
 	@State var _keyboardHeight: CGFloat = 0.0
-	@State var _searchViewCornerRadius: CGFloat = 18
 
     public init(model: SearchListPickerItemModel) {
         self.init(value: Binding<[Int]>(get: { model.value }, set: { model.value = $0 }), valueOptions: model.valueOptions, hint: model.hint, onTap: model.onTap)
