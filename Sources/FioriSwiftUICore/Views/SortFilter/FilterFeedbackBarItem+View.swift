@@ -292,13 +292,44 @@ struct PickerMenuItem: View {
                     .onReceive(NotificationCenter.default.publisher(for: UIApplication.keyboardDidHideNotification)) { _ in
                         self._keyboardHeight = 0
                     }
-                    Spacer()
                 }
                 .frame(minWidth: UIDevice.current.userInterfaceIdiom != .phone ? self.popoverWidth : nil)
-                .frame(height: UIDevice.current.userInterfaceIdiom != .phone ? self.detentHeight + (self.item.isSearchBarHidden ? 0 : 52) + (self._keyboardHeight == 0 ? 56 : 0) + 93 : nil)
-                .presentationDetents([.height(self.detentHeight + (self.item.isSearchBarHidden ? 0 : 52) + (self._keyboardHeight == 0 ? 56 : 0) + 93), .medium, .large])
+                .frame(height: UIDevice.current.userInterfaceIdiom != .phone ? self.calculateDetentHeight() : nil)
+                .presentationDetents([.height(self.calculateDetentHeight()), .medium, .large])
             }
     }
+    
+    private func calculateDetentHeight() -> CGFloat {
+        let isNotIphone = UIDevice.current.userInterfaceIdiom != .phone
+        var height = self.detentHeight
+        height += isNotIphone ? 13 : 16
+        height += isNotIphone ? 50 : 56
+        if !self.item.isSearchBarHidden {
+            if self._keyboardHeight == 0 {
+                height += 52
+            }
+        }
+        height += 63
+        if height > Screen.bounds.size.height - self.getSafeAreaInsets().top - 30 {
+            return Screen.bounds.size.height / 2
+        }
+        return height
+    }
+    
+    private func getSafeAreaInsets() -> UIEdgeInsets {
+        guard let keyWindow = UIApplication.shared.connectedScenes
+            .first(where: { $0.activationState == .foregroundActive })
+            .flatMap({ $0 as? UIWindowScene })?.windows
+            .first(where: \.isKeyWindow)
+        else {
+            return .zero
+        }
+        return keyWindow.safeAreaInsets
+    }
+    
+//    private func getNavigationBarHeight() -> CGFloat {
+//
+//    }
     
     private func resetButtonDisable() -> Bool {
         if self.item.resetButtonConfiguration.type == .reset {

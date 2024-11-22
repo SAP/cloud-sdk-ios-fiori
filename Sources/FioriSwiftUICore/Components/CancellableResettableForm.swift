@@ -119,8 +119,7 @@ struct ApplyButtonStyle: PrimitiveButtonStyle {
                 .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? self.popoverWidth - 13 * 2 :
                     Screen.bounds.size.width - 16 * 2)
                 .padding([.top, .bottom], 8)
-                .font(.body)
-                .fontWeight(.semibold)
+                .font(.fiori(forTextStyle: .body, weight: .semibold))
             #if !os(visionOS)
                 .foregroundStyle(Color.preferredColor(.base2))
                 .background(RoundedRectangle(cornerRadius: 8).fill(Color.preferredColor(.tintColor)))
@@ -138,8 +137,7 @@ struct ApplyButtonStyle: PrimitiveButtonStyle {
                 .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? self.popoverWidth - 13 * 2 :
                     Screen.bounds.size.width - 16 * 2)
                 .padding([.top, .bottom], 8)
-                .font(.body)
-                .fontWeight(.semibold)
+                .font(.fiori(forTextStyle: .body, weight: .semibold))
             #if !os(visionOS)
                 .foregroundStyle(Color.preferredColor(.grey1))
             #else
@@ -154,8 +152,7 @@ struct ApplyButtonStyle: PrimitiveButtonStyle {
 struct CancelButtonStyle: PrimitiveButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .font(.body)
-            .fontWeight(.bold)
+            .font(.fiori(forTextStyle: .body, weight: .semibold))
         #if !os(visionOS)
             .foregroundStyle(Color.preferredColor(.tintColor))
         #else
@@ -173,8 +170,7 @@ struct ResetButtonStyle: PrimitiveButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         if self.isEnabled {
             configuration.label
-                .font(.body)
-                .fontWeight(.bold)
+                .font(.fiori(forTextStyle: .body, weight: .semibold))
             #if !os(visionOS)
                 .foregroundStyle(Color.preferredColor(.tintColor))
             #else
@@ -185,8 +181,7 @@ struct ResetButtonStyle: PrimitiveButtonStyle {
                 }
         } else {
             configuration.label
-                .font(.body)
-                .fontWeight(.bold)
+                .font(.fiori(forTextStyle: .body, weight: .semibold))
             #if !os(visionOS)
                 .foregroundStyle(Color.preferredColor(.separator))
             #else
