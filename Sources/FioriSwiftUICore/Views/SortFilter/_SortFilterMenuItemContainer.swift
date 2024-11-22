@@ -24,6 +24,10 @@ extension _SortFilterMenuItemContainer: View {
             HStack(spacing: 10) {
                 if self.fullCFGButton.position == .leading {
                     FullCFGMenuItem(items: self.$_items, onUpdate: self.onUpdate)
+                        .accessibilityElement()
+                        .accessibilityLabel(self.fullCFGButton.name ?? "")
+                        .accessibilityIdentifier(self.fullCFGButton.name ?? "")
+                        .accessibility(addTraits: .isButton)
                 }
                 ForEach(0 ..< self._items.count, id: \.self) { r in
                     ForEach(0 ..< self._items[r].count, id: \.self) { c in
@@ -34,21 +38,25 @@ extension _SortFilterMenuItemContainer: View {
                                     .accessibilityElement()
                                     .accessibilityLabel(self._items[r][c].picker.label)
                                     .accessibilityIdentifier(self._items[r][c].picker.name)
+                                    .accessibility(addTraits: .isButton)
                             case .filterfeedback:
                                 FilterFeedbackMenuItem(item: Binding<SortFilterItem.PickerItem>(get: { self._items[r][c].filterfeedback }, set: { self._items[r][c].filterfeedback = $0 }), onUpdate: self.onUpdate)
                                     .accessibilityElement()
                                     .accessibilityLabel(self._items[r][c].filterfeedback.label)
                                     .accessibilityIdentifier(self._items[r][c].filterfeedback.name)
+                                    .accessibility(addTraits: .isButton)
                             case .switch:
                                 SwitchMenuItem(item: Binding<SortFilterItem.SwitchItem>(get: { self._items[r][c].switch }, set: { self._items[r][c].switch = $0 }), onUpdate: self.onUpdate)
                                     .accessibilityElement()
                                     .accessibilityLabel(self.switchItemAccessibilityLabel(switchItem: self._items[r][c].switch))
                                     .accessibilityIdentifier(self._items[r][c].switch.name)
+                                    .accessibility(addTraits: .isButton)
                             case .slider:
                                 SliderMenuItem(item: Binding<SortFilterItem.SliderItem>(get: { self._items[r][c].slider }, set: { self._items[r][c].slider = $0 }), onUpdate: self.onUpdate)
                                     .accessibilityElement()
                                     .accessibilityLabel(self._items[r][c].slider.label)
                                     .accessibilityIdentifier(self._items[r][c].slider.name)
+                                    .accessibility(addTraits: .isButton)
                             case .datetime:
                                 DateTimeMenuItem(item: Binding<SortFilterItem.DateTimeItem>(get: { self._items[r][c].datetime }, set: { self._items[r][c].datetime = $0 }), onUpdate: self.onUpdate)
                                     .accessibilityElement()
@@ -59,12 +67,17 @@ extension _SortFilterMenuItemContainer: View {
                                     .accessibilityElement()
                                     .accessibilityLabel(self._items[r][c].stepper.label)
                                     .accessibilityIdentifier(self._items[r][c].stepper.name)
+                                    .accessibility(addTraits: .isButton)
                             }
                         }
                     }
                 }
                 if self.fullCFGButton.position == .trailing {
                     FullCFGMenuItem(items: self.$_items, onUpdate: self.onUpdate)
+                        .accessibilityElement()
+                        .accessibilityLabel(self.fullCFGButton.name ?? "")
+                        .accessibilityIdentifier(self.fullCFGButton.name ?? "")
+                        .accessibility(addTraits: .isButton)
                 }
             }
         }
