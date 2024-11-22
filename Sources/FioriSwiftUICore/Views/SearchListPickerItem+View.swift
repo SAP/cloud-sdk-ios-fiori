@@ -135,7 +135,7 @@ extension SearchListPickerItem: View {
     private func selectionHeader() -> some View {
         HStack {
             if allowsDisplaySelectionCount {
-                Text(NSLocalizedString("Selected", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "") + "(\(_value.count))")
+                Text(NSLocalizedString("Selected", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "") + " " + "(\(_value.count))")
                     .foregroundStyle(Color.preferredColor(.secondaryLabel))
                     .font(.fiori(forTextStyle: .subheadline, weight: .regular))
             } else {

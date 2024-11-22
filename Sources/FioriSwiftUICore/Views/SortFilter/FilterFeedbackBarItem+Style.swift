@@ -49,7 +49,7 @@ public struct DefaultFilterFeedbackBarStyle: FilterFeedbackBarStyle {
     let maxWidth: CGFloat
     
     /// :nodoc:
-    public init(font: Font = .system(.body), foregroundColorSelected: Color = DefaultFilterFeedbackBarForegroundColor, foregroundColorUnselected: Color = .preferredColor(.tertiaryLabel), fillColorSelected: Color = Color.clear, fillColorUnselected: Color = .preferredColor(.tertiaryFill), strokeColorSelected: Color = DefaultFilterFeedbackBarForegroundColor, strokeColorUnselected: Color = .preferredColor(.separator), cornerRadius: CGFloat = 10, spacing: CGFloat = 6, padding: CGFloat = 8, borderWidth: CGFloat = 1, minHeight: CGFloat = 38, maxWidth: CGFloat = 0) {
+    public init(font: Font = .system(.body), foregroundColorSelected: Color = DefaultFilterFeedbackBarForegroundColor, foregroundColorUnselected: Color = .preferredColor(.tertiaryLabel), fillColorSelected: Color = Color.clear, fillColorUnselected: Color = .preferredColor(.tertiaryFill), strokeColorSelected: Color = DefaultFilterFeedbackBarForegroundColor, strokeColorUnselected: Color = .preferredColor(.separatorOpaque), cornerRadius: CGFloat = 10, spacing: CGFloat = 6, padding: CGFloat = 8, borderWidth: CGFloat = 1, minHeight: CGFloat = 38, maxWidth: CGFloat = 0) {
         self.font = font
         self.foregroundColorSelected = foregroundColorSelected
         self.foregroundColorUnselected = foregroundColorUnselected
