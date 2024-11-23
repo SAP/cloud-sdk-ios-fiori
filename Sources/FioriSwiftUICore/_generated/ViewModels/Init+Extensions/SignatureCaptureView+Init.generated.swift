@@ -5,6 +5,7 @@ import SwiftUI
 extension SignatureCaptureView where StartActionView == _Action {
     public init(
     title: String? = nil,
+		mandatoryIndicator: String? = "*",
 		@ViewBuilder restartAction: () -> RestartActionView,
 		@ViewBuilder cancelAction: () -> CancelActionView,
 		@ViewBuilder clearAction: () -> ClearActionView,
@@ -15,6 +16,7 @@ extension SignatureCaptureView where StartActionView == _Action {
     ) {
         self.init(
             title: title,
+			mandatoryIndicator: mandatoryIndicator,
 			startAction: { _Action(model: _TapToSignActionDefault()) },
 			restartAction: restartAction,
 			cancelAction: cancelAction,
@@ -30,6 +32,7 @@ extension SignatureCaptureView where StartActionView == _Action {
 extension SignatureCaptureView where RestartActionView == _Action {
     public init(
     title: String? = nil,
+		mandatoryIndicator: String? = "*",
 		@ViewBuilder startAction: () -> StartActionView,
 		@ViewBuilder cancelAction: () -> CancelActionView,
 		@ViewBuilder clearAction: () -> ClearActionView,
@@ -40,6 +43,7 @@ extension SignatureCaptureView where RestartActionView == _Action {
     ) {
         self.init(
             title: title,
+			mandatoryIndicator: mandatoryIndicator,
 			startAction: startAction,
 			restartAction: { _Action(model: _ReEnterSignatureActionDefault()) },
 			cancelAction: cancelAction,
@@ -55,6 +59,7 @@ extension SignatureCaptureView where RestartActionView == _Action {
 extension SignatureCaptureView where CancelActionView == _Action {
     public init(
     title: String? = nil,
+		mandatoryIndicator: String? = "*",
 		@ViewBuilder startAction: () -> StartActionView,
 		@ViewBuilder restartAction: () -> RestartActionView,
 		@ViewBuilder clearAction: () -> ClearActionView,
@@ -65,6 +70,7 @@ extension SignatureCaptureView where CancelActionView == _Action {
     ) {
         self.init(
             title: title,
+			mandatoryIndicator: mandatoryIndicator,
 			startAction: startAction,
 			restartAction: restartAction,
 			cancelAction: { _Action(model: _CancelActionDefault()) },
@@ -80,6 +86,7 @@ extension SignatureCaptureView where CancelActionView == _Action {
 extension SignatureCaptureView where ClearActionView == _Action {
     public init(
     title: String? = nil,
+		mandatoryIndicator: String? = "*",
 		@ViewBuilder startAction: () -> StartActionView,
 		@ViewBuilder restartAction: () -> RestartActionView,
 		@ViewBuilder cancelAction: () -> CancelActionView,
@@ -90,6 +97,7 @@ extension SignatureCaptureView where ClearActionView == _Action {
     ) {
         self.init(
             title: title,
+			mandatoryIndicator: mandatoryIndicator,
 			startAction: startAction,
 			restartAction: restartAction,
 			cancelAction: cancelAction,
@@ -105,6 +113,7 @@ extension SignatureCaptureView where ClearActionView == _Action {
 extension SignatureCaptureView where SaveActionView == _Action {
     public init(
     title: String? = nil,
+		mandatoryIndicator: String? = "*",
 		@ViewBuilder startAction: () -> StartActionView,
 		@ViewBuilder restartAction: () -> RestartActionView,
 		@ViewBuilder cancelAction: () -> CancelActionView,
@@ -115,6 +124,7 @@ extension SignatureCaptureView where SaveActionView == _Action {
     ) {
         self.init(
             title: title,
+			mandatoryIndicator: mandatoryIndicator,
 			startAction: startAction,
 			restartAction: restartAction,
 			cancelAction: cancelAction,
@@ -130,6 +140,7 @@ extension SignatureCaptureView where SaveActionView == _Action {
 extension SignatureCaptureView where StartActionView == _Action, RestartActionView == _Action {
     public init(
     title: String? = nil,
+		mandatoryIndicator: String? = "*",
 		@ViewBuilder cancelAction: () -> CancelActionView,
 		@ViewBuilder clearAction: () -> ClearActionView,
 		@ViewBuilder saveAction: () -> SaveActionView,
@@ -139,6 +150,7 @@ extension SignatureCaptureView where StartActionView == _Action, RestartActionVi
     ) {
         self.init(
             title: title,
+			mandatoryIndicator: mandatoryIndicator,
 			startAction: { _Action(model: _TapToSignActionDefault()) },
 			restartAction: { _Action(model: _ReEnterSignatureActionDefault()) },
 			cancelAction: cancelAction,
@@ -154,6 +166,7 @@ extension SignatureCaptureView where StartActionView == _Action, RestartActionVi
 extension SignatureCaptureView where StartActionView == _Action, CancelActionView == _Action {
     public init(
     title: String? = nil,
+		mandatoryIndicator: String? = "*",
 		@ViewBuilder restartAction: () -> RestartActionView,
 		@ViewBuilder clearAction: () -> ClearActionView,
 		@ViewBuilder saveAction: () -> SaveActionView,
@@ -163,6 +176,7 @@ extension SignatureCaptureView where StartActionView == _Action, CancelActionVie
     ) {
         self.init(
             title: title,
+			mandatoryIndicator: mandatoryIndicator,
 			startAction: { _Action(model: _TapToSignActionDefault()) },
 			restartAction: restartAction,
 			cancelAction: { _Action(model: _CancelActionDefault()) },
@@ -178,6 +192,7 @@ extension SignatureCaptureView where StartActionView == _Action, CancelActionVie
 extension SignatureCaptureView where StartActionView == _Action, ClearActionView == _Action {
     public init(
     title: String? = nil,
+		mandatoryIndicator: String? = "*",
 		@ViewBuilder restartAction: () -> RestartActionView,
 		@ViewBuilder cancelAction: () -> CancelActionView,
 		@ViewBuilder saveAction: () -> SaveActionView,
@@ -187,6 +202,7 @@ extension SignatureCaptureView where StartActionView == _Action, ClearActionView
     ) {
         self.init(
             title: title,
+			mandatoryIndicator: mandatoryIndicator,
 			startAction: { _Action(model: _TapToSignActionDefault()) },
 			restartAction: restartAction,
 			cancelAction: cancelAction,
@@ -202,6 +218,7 @@ extension SignatureCaptureView where StartActionView == _Action, ClearActionView
 extension SignatureCaptureView where StartActionView == _Action, SaveActionView == _Action {
     public init(
     title: String? = nil,
+		mandatoryIndicator: String? = "*",
 		@ViewBuilder restartAction: () -> RestartActionView,
 		@ViewBuilder cancelAction: () -> CancelActionView,
 		@ViewBuilder clearAction: () -> ClearActionView,
@@ -211,6 +228,7 @@ extension SignatureCaptureView where StartActionView == _Action, SaveActionView 
     ) {
         self.init(
             title: title,
+			mandatoryIndicator: mandatoryIndicator,
 			startAction: { _Action(model: _TapToSignActionDefault()) },
 			restartAction: restartAction,
 			cancelAction: cancelAction,
@@ -226,6 +244,7 @@ extension SignatureCaptureView where StartActionView == _Action, SaveActionView 
 extension SignatureCaptureView where RestartActionView == _Action, CancelActionView == _Action {
     public init(
     title: String? = nil,
+		mandatoryIndicator: String? = "*",
 		@ViewBuilder startAction: () -> StartActionView,
 		@ViewBuilder clearAction: () -> ClearActionView,
 		@ViewBuilder saveAction: () -> SaveActionView,
@@ -235,6 +254,7 @@ extension SignatureCaptureView where RestartActionView == _Action, CancelActionV
     ) {
         self.init(
             title: title,
+			mandatoryIndicator: mandatoryIndicator,
 			startAction: startAction,
 			restartAction: { _Action(model: _ReEnterSignatureActionDefault()) },
 			cancelAction: { _Action(model: _CancelActionDefault()) },
@@ -250,6 +270,7 @@ extension SignatureCaptureView where RestartActionView == _Action, CancelActionV
 extension SignatureCaptureView where RestartActionView == _Action, ClearActionView == _Action {
     public init(
     title: String? = nil,
+		mandatoryIndicator: String? = "*",
 		@ViewBuilder startAction: () -> StartActionView,
 		@ViewBuilder cancelAction: () -> CancelActionView,
 		@ViewBuilder saveAction: () -> SaveActionView,
@@ -259,6 +280,7 @@ extension SignatureCaptureView where RestartActionView == _Action, ClearActionVi
     ) {
         self.init(
             title: title,
+			mandatoryIndicator: mandatoryIndicator,
 			startAction: startAction,
 			restartAction: { _Action(model: _ReEnterSignatureActionDefault()) },
 			cancelAction: cancelAction,
@@ -274,6 +296,7 @@ extension SignatureCaptureView where RestartActionView == _Action, ClearActionVi
 extension SignatureCaptureView where RestartActionView == _Action, SaveActionView == _Action {
     public init(
     title: String? = nil,
+		mandatoryIndicator: String? = "*",
 		@ViewBuilder startAction: () -> StartActionView,
 		@ViewBuilder cancelAction: () -> CancelActionView,
 		@ViewBuilder clearAction: () -> ClearActionView,
@@ -283,6 +306,7 @@ extension SignatureCaptureView where RestartActionView == _Action, SaveActionVie
     ) {
         self.init(
             title: title,
+			mandatoryIndicator: mandatoryIndicator,
 			startAction: startAction,
 			restartAction: { _Action(model: _ReEnterSignatureActionDefault()) },
 			cancelAction: cancelAction,
@@ -298,6 +322,7 @@ extension SignatureCaptureView where RestartActionView == _Action, SaveActionVie
 extension SignatureCaptureView where CancelActionView == _Action, ClearActionView == _Action {
     public init(
     title: String? = nil,
+		mandatoryIndicator: String? = "*",
 		@ViewBuilder startAction: () -> StartActionView,
 		@ViewBuilder restartAction: () -> RestartActionView,
 		@ViewBuilder saveAction: () -> SaveActionView,
@@ -307,6 +332,7 @@ extension SignatureCaptureView where CancelActionView == _Action, ClearActionVie
     ) {
         self.init(
             title: title,
+			mandatoryIndicator: mandatoryIndicator,
 			startAction: startAction,
 			restartAction: restartAction,
 			cancelAction: { _Action(model: _CancelActionDefault()) },
@@ -322,6 +348,7 @@ extension SignatureCaptureView where CancelActionView == _Action, ClearActionVie
 extension SignatureCaptureView where CancelActionView == _Action, SaveActionView == _Action {
     public init(
     title: String? = nil,
+		mandatoryIndicator: String? = "*",
 		@ViewBuilder startAction: () -> StartActionView,
 		@ViewBuilder restartAction: () -> RestartActionView,
 		@ViewBuilder clearAction: () -> ClearActionView,
@@ -331,6 +358,7 @@ extension SignatureCaptureView where CancelActionView == _Action, SaveActionView
     ) {
         self.init(
             title: title,
+			mandatoryIndicator: mandatoryIndicator,
 			startAction: startAction,
 			restartAction: restartAction,
 			cancelAction: { _Action(model: _CancelActionDefault()) },
@@ -346,6 +374,7 @@ extension SignatureCaptureView where CancelActionView == _Action, SaveActionView
 extension SignatureCaptureView where ClearActionView == _Action, SaveActionView == _Action {
     public init(
     title: String? = nil,
+		mandatoryIndicator: String? = "*",
 		@ViewBuilder startAction: () -> StartActionView,
 		@ViewBuilder restartAction: () -> RestartActionView,
 		@ViewBuilder cancelAction: () -> CancelActionView,
@@ -355,6 +384,7 @@ extension SignatureCaptureView where ClearActionView == _Action, SaveActionView 
     ) {
         self.init(
             title: title,
+			mandatoryIndicator: mandatoryIndicator,
 			startAction: startAction,
 			restartAction: restartAction,
 			cancelAction: cancelAction,
@@ -370,6 +400,7 @@ extension SignatureCaptureView where ClearActionView == _Action, SaveActionView 
 extension SignatureCaptureView where StartActionView == _Action, RestartActionView == _Action, CancelActionView == _Action {
     public init(
     title: String? = nil,
+		mandatoryIndicator: String? = "*",
 		@ViewBuilder clearAction: () -> ClearActionView,
 		@ViewBuilder saveAction: () -> SaveActionView,
 		signatureImage: UIImage? = nil,
@@ -378,6 +409,7 @@ extension SignatureCaptureView where StartActionView == _Action, RestartActionVi
     ) {
         self.init(
             title: title,
+			mandatoryIndicator: mandatoryIndicator,
 			startAction: { _Action(model: _TapToSignActionDefault()) },
 			restartAction: { _Action(model: _ReEnterSignatureActionDefault()) },
 			cancelAction: { _Action(model: _CancelActionDefault()) },
@@ -393,6 +425,7 @@ extension SignatureCaptureView where StartActionView == _Action, RestartActionVi
 extension SignatureCaptureView where StartActionView == _Action, RestartActionView == _Action, ClearActionView == _Action {
     public init(
     title: String? = nil,
+		mandatoryIndicator: String? = "*",
 		@ViewBuilder cancelAction: () -> CancelActionView,
 		@ViewBuilder saveAction: () -> SaveActionView,
 		signatureImage: UIImage? = nil,
@@ -401,6 +434,7 @@ extension SignatureCaptureView where StartActionView == _Action, RestartActionVi
     ) {
         self.init(
             title: title,
+			mandatoryIndicator: mandatoryIndicator,
 			startAction: { _Action(model: _TapToSignActionDefault()) },
 			restartAction: { _Action(model: _ReEnterSignatureActionDefault()) },
 			cancelAction: cancelAction,
@@ -416,6 +450,7 @@ extension SignatureCaptureView where StartActionView == _Action, RestartActionVi
 extension SignatureCaptureView where StartActionView == _Action, RestartActionView == _Action, SaveActionView == _Action {
     public init(
     title: String? = nil,
+		mandatoryIndicator: String? = "*",
 		@ViewBuilder cancelAction: () -> CancelActionView,
 		@ViewBuilder clearAction: () -> ClearActionView,
 		signatureImage: UIImage? = nil,
@@ -424,6 +459,7 @@ extension SignatureCaptureView where StartActionView == _Action, RestartActionVi
     ) {
         self.init(
             title: title,
+			mandatoryIndicator: mandatoryIndicator,
 			startAction: { _Action(model: _TapToSignActionDefault()) },
 			restartAction: { _Action(model: _ReEnterSignatureActionDefault()) },
 			cancelAction: cancelAction,
@@ -439,6 +475,7 @@ extension SignatureCaptureView where StartActionView == _Action, RestartActionVi
 extension SignatureCaptureView where StartActionView == _Action, CancelActionView == _Action, ClearActionView == _Action {
     public init(
     title: String? = nil,
+		mandatoryIndicator: String? = "*",
 		@ViewBuilder restartAction: () -> RestartActionView,
 		@ViewBuilder saveAction: () -> SaveActionView,
 		signatureImage: UIImage? = nil,
@@ -447,6 +484,7 @@ extension SignatureCaptureView where StartActionView == _Action, CancelActionVie
     ) {
         self.init(
             title: title,
+			mandatoryIndicator: mandatoryIndicator,
 			startAction: { _Action(model: _TapToSignActionDefault()) },
 			restartAction: restartAction,
 			cancelAction: { _Action(model: _CancelActionDefault()) },
@@ -462,6 +500,7 @@ extension SignatureCaptureView where StartActionView == _Action, CancelActionVie
 extension SignatureCaptureView where StartActionView == _Action, CancelActionView == _Action, SaveActionView == _Action {
     public init(
     title: String? = nil,
+		mandatoryIndicator: String? = "*",
 		@ViewBuilder restartAction: () -> RestartActionView,
 		@ViewBuilder clearAction: () -> ClearActionView,
 		signatureImage: UIImage? = nil,
@@ -470,6 +509,7 @@ extension SignatureCaptureView where StartActionView == _Action, CancelActionVie
     ) {
         self.init(
             title: title,
+			mandatoryIndicator: mandatoryIndicator,
 			startAction: { _Action(model: _TapToSignActionDefault()) },
 			restartAction: restartAction,
 			cancelAction: { _Action(model: _CancelActionDefault()) },
@@ -485,6 +525,7 @@ extension SignatureCaptureView where StartActionView == _Action, CancelActionVie
 extension SignatureCaptureView where StartActionView == _Action, ClearActionView == _Action, SaveActionView == _Action {
     public init(
     title: String? = nil,
+		mandatoryIndicator: String? = "*",
 		@ViewBuilder restartAction: () -> RestartActionView,
 		@ViewBuilder cancelAction: () -> CancelActionView,
 		signatureImage: UIImage? = nil,
@@ -493,6 +534,7 @@ extension SignatureCaptureView where StartActionView == _Action, ClearActionView
     ) {
         self.init(
             title: title,
+			mandatoryIndicator: mandatoryIndicator,
 			startAction: { _Action(model: _TapToSignActionDefault()) },
 			restartAction: restartAction,
 			cancelAction: cancelAction,
@@ -508,6 +550,7 @@ extension SignatureCaptureView where StartActionView == _Action, ClearActionView
 extension SignatureCaptureView where RestartActionView == _Action, CancelActionView == _Action, ClearActionView == _Action {
     public init(
     title: String? = nil,
+		mandatoryIndicator: String? = "*",
 		@ViewBuilder startAction: () -> StartActionView,
 		@ViewBuilder saveAction: () -> SaveActionView,
 		signatureImage: UIImage? = nil,
@@ -516,6 +559,7 @@ extension SignatureCaptureView where RestartActionView == _Action, CancelActionV
     ) {
         self.init(
             title: title,
+			mandatoryIndicator: mandatoryIndicator,
 			startAction: startAction,
 			restartAction: { _Action(model: _ReEnterSignatureActionDefault()) },
 			cancelAction: { _Action(model: _CancelActionDefault()) },
@@ -531,6 +575,7 @@ extension SignatureCaptureView where RestartActionView == _Action, CancelActionV
 extension SignatureCaptureView where RestartActionView == _Action, CancelActionView == _Action, SaveActionView == _Action {
     public init(
     title: String? = nil,
+		mandatoryIndicator: String? = "*",
 		@ViewBuilder startAction: () -> StartActionView,
 		@ViewBuilder clearAction: () -> ClearActionView,
 		signatureImage: UIImage? = nil,
@@ -539,6 +584,7 @@ extension SignatureCaptureView where RestartActionView == _Action, CancelActionV
     ) {
         self.init(
             title: title,
+			mandatoryIndicator: mandatoryIndicator,
 			startAction: startAction,
 			restartAction: { _Action(model: _ReEnterSignatureActionDefault()) },
 			cancelAction: { _Action(model: _CancelActionDefault()) },
@@ -554,6 +600,7 @@ extension SignatureCaptureView where RestartActionView == _Action, CancelActionV
 extension SignatureCaptureView where RestartActionView == _Action, ClearActionView == _Action, SaveActionView == _Action {
     public init(
     title: String? = nil,
+		mandatoryIndicator: String? = "*",
 		@ViewBuilder startAction: () -> StartActionView,
 		@ViewBuilder cancelAction: () -> CancelActionView,
 		signatureImage: UIImage? = nil,
@@ -562,6 +609,7 @@ extension SignatureCaptureView where RestartActionView == _Action, ClearActionVi
     ) {
         self.init(
             title: title,
+			mandatoryIndicator: mandatoryIndicator,
 			startAction: startAction,
 			restartAction: { _Action(model: _ReEnterSignatureActionDefault()) },
 			cancelAction: cancelAction,
@@ -577,6 +625,7 @@ extension SignatureCaptureView where RestartActionView == _Action, ClearActionVi
 extension SignatureCaptureView where CancelActionView == _Action, ClearActionView == _Action, SaveActionView == _Action {
     public init(
     title: String? = nil,
+		mandatoryIndicator: String? = "*",
 		@ViewBuilder startAction: () -> StartActionView,
 		@ViewBuilder restartAction: () -> RestartActionView,
 		signatureImage: UIImage? = nil,
@@ -585,6 +634,7 @@ extension SignatureCaptureView where CancelActionView == _Action, ClearActionVie
     ) {
         self.init(
             title: title,
+			mandatoryIndicator: mandatoryIndicator,
 			startAction: startAction,
 			restartAction: restartAction,
 			cancelAction: { _Action(model: _CancelActionDefault()) },
@@ -600,6 +650,7 @@ extension SignatureCaptureView where CancelActionView == _Action, ClearActionVie
 extension SignatureCaptureView where StartActionView == _Action, RestartActionView == _Action, CancelActionView == _Action, ClearActionView == _Action {
     public init(
     title: String? = nil,
+		mandatoryIndicator: String? = "*",
 		@ViewBuilder saveAction: () -> SaveActionView,
 		signatureImage: UIImage? = nil,
 		onSave: ((UIImage) -> Void)? = nil,
@@ -607,6 +658,7 @@ extension SignatureCaptureView where StartActionView == _Action, RestartActionVi
     ) {
         self.init(
             title: title,
+			mandatoryIndicator: mandatoryIndicator,
 			startAction: { _Action(model: _TapToSignActionDefault()) },
 			restartAction: { _Action(model: _ReEnterSignatureActionDefault()) },
 			cancelAction: { _Action(model: _CancelActionDefault()) },
@@ -622,6 +674,7 @@ extension SignatureCaptureView where StartActionView == _Action, RestartActionVi
 extension SignatureCaptureView where StartActionView == _Action, RestartActionView == _Action, CancelActionView == _Action, SaveActionView == _Action {
     public init(
     title: String? = nil,
+		mandatoryIndicator: String? = "*",
 		@ViewBuilder clearAction: () -> ClearActionView,
 		signatureImage: UIImage? = nil,
 		onSave: ((UIImage) -> Void)? = nil,
@@ -629,6 +682,7 @@ extension SignatureCaptureView where StartActionView == _Action, RestartActionVi
     ) {
         self.init(
             title: title,
+			mandatoryIndicator: mandatoryIndicator,
 			startAction: { _Action(model: _TapToSignActionDefault()) },
 			restartAction: { _Action(model: _ReEnterSignatureActionDefault()) },
 			cancelAction: { _Action(model: _CancelActionDefault()) },
@@ -644,6 +698,7 @@ extension SignatureCaptureView where StartActionView == _Action, RestartActionVi
 extension SignatureCaptureView where StartActionView == _Action, RestartActionView == _Action, ClearActionView == _Action, SaveActionView == _Action {
     public init(
     title: String? = nil,
+		mandatoryIndicator: String? = "*",
 		@ViewBuilder cancelAction: () -> CancelActionView,
 		signatureImage: UIImage? = nil,
 		onSave: ((UIImage) -> Void)? = nil,
@@ -651,6 +706,7 @@ extension SignatureCaptureView where StartActionView == _Action, RestartActionVi
     ) {
         self.init(
             title: title,
+			mandatoryIndicator: mandatoryIndicator,
 			startAction: { _Action(model: _TapToSignActionDefault()) },
 			restartAction: { _Action(model: _ReEnterSignatureActionDefault()) },
 			cancelAction: cancelAction,
@@ -666,6 +722,7 @@ extension SignatureCaptureView where StartActionView == _Action, RestartActionVi
 extension SignatureCaptureView where StartActionView == _Action, CancelActionView == _Action, ClearActionView == _Action, SaveActionView == _Action {
     public init(
     title: String? = nil,
+		mandatoryIndicator: String? = "*",
 		@ViewBuilder restartAction: () -> RestartActionView,
 		signatureImage: UIImage? = nil,
 		onSave: ((UIImage) -> Void)? = nil,
@@ -673,6 +730,7 @@ extension SignatureCaptureView where StartActionView == _Action, CancelActionVie
     ) {
         self.init(
             title: title,
+			mandatoryIndicator: mandatoryIndicator,
 			startAction: { _Action(model: _TapToSignActionDefault()) },
 			restartAction: restartAction,
 			cancelAction: { _Action(model: _CancelActionDefault()) },
@@ -688,6 +746,7 @@ extension SignatureCaptureView where StartActionView == _Action, CancelActionVie
 extension SignatureCaptureView where RestartActionView == _Action, CancelActionView == _Action, ClearActionView == _Action, SaveActionView == _Action {
     public init(
     title: String? = nil,
+		mandatoryIndicator: String? = "*",
 		@ViewBuilder startAction: () -> StartActionView,
 		signatureImage: UIImage? = nil,
 		onSave: ((UIImage) -> Void)? = nil,
@@ -695,6 +754,7 @@ extension SignatureCaptureView where RestartActionView == _Action, CancelActionV
     ) {
         self.init(
             title: title,
+			mandatoryIndicator: mandatoryIndicator,
 			startAction: startAction,
 			restartAction: { _Action(model: _ReEnterSignatureActionDefault()) },
 			cancelAction: { _Action(model: _CancelActionDefault()) },
@@ -710,12 +770,14 @@ extension SignatureCaptureView where RestartActionView == _Action, CancelActionV
 extension SignatureCaptureView where StartActionView == _Action, RestartActionView == _Action, CancelActionView == _Action, ClearActionView == _Action, SaveActionView == _Action {
     public init(
     title: String? = nil,
+		mandatoryIndicator: String? = "*",
 		signatureImage: UIImage? = nil,
 		onSave: ((UIImage) -> Void)? = nil,
 		onDelete: (() -> Void)? = nil
     ) {
         self.init(
             title: title,
+			mandatoryIndicator: mandatoryIndicator,
 			startAction: { _Action(model: _TapToSignActionDefault()) },
 			restartAction: { _Action(model: _ReEnterSignatureActionDefault()) },
 			cancelAction: { _Action(model: _CancelActionDefault()) },

@@ -7,6 +7,10 @@ public extension SignatureCaptureViewModel {
         return nil
     }
 
+	var mandatoryIndicator: String? {
+        return "*"
+    }
+
 	var startAction: _ActionModel? {
         return _TapToSignActionDefault()
     }
