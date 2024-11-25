@@ -323,6 +323,8 @@ public protocol UserConsentPageModel: TitleComponent, BodyAttributedTextComponen
 // sourcery: virtualPropIsReenterTapped = "@State var isReenterTapped = false"
 // sourcery: virtualPropTitleFont = "var titleFont = Font.fiori(forTextStyle: .subheadline).weight(.semibold)"
 // sourcery: virtualPropTitleColor = "var titleColor = Color.preferredColor(.primaryLabel)"
+// sourcery: virtualPropIndicatorFont = "var indicatorFont = Font.fiori(forTextStyle: .subheadline).weight(.semibold)"
+// sourcery: virtualPropIndicatorColor = "var indicatorColor = Color.preferredColor(.primaryLabel)"
 // sourcery: virtualPropStrokeWidth = "var strokeWidth: CGFloat = 3.0"
 // sourcery: virtualPropStrokeColor = "var strokeColor = Color.preferredColor(.primaryLabel)"
 // sourcery: virtualPropDrawingViewBackgroundColor = "var drawingViewBackgroundColor = Color.preferredColor(.primaryBackground)"
@@ -346,6 +348,10 @@ public protocol SignatureCaptureViewModel: AnyObject {
     // sourcery: default.value = nil
     // sourcery: no_view
     var title: String? { get }
+    
+    // sourcery: default.value = ""*""
+    // sourcery: no_view
+    var mandatoryIndicator: String? { get }
 
     // sourcery: genericParameter.name = StartActionView
     // sourcery: default.value = _TapToSignActionDefault()

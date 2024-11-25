@@ -11,6 +11,7 @@ public struct SignatureCaptureView<StartActionView: View, RestartActionView: Vie
 	@Environment(\.saveActionModifier) private var saveActionModifier
 
     let _title: String?
+	let _mandatoryIndicator: String?
 	let _startAction: StartActionView
 	let _restartAction: RestartActionView
 	let _cancelAction: CancelActionView
@@ -19,36 +20,39 @@ public struct SignatureCaptureView<StartActionView: View, RestartActionView: Vie
 	let _signatureImage: UIImage?
 	let _onSave: ((UIImage) -> Void)?
 	let _onDelete: (() -> Void)?
+	var watermarkText: String?
+	var titleFont = Font.fiori(forTextStyle: .subheadline).weight(.semibold)
+	var xmarkColor = Color.preferredColor(.quaternaryLabel)
 	public private(set) var _heightDidChangePublisher = CurrentValueSubject<CGFloat, Never>(0)
 	var drawingViewBackgroundColor = Color.preferredColor(.primaryBackground)
-	@State var currentDrawing = Drawing()
-	var cropsImage = false
 	var isRequired = false
-	@State var isSaved = false
-	@State var isEditing = false
-	@State var fullSignatureImage: UIImage?
-	let _drawingViewMinHeight: CGFloat = 256
+	var indicatorColor = Color.preferredColor(.primaryLabel)
+	@State var currentDrawing = Drawing()
 	var watermarkTextFont: UIFont = .preferredFont(forTextStyle: .caption1)
 	var hidesSignatureLine = false
-	var titleFont = Font.fiori(forTextStyle: .subheadline).weight(.semibold)
-	var timestampFormatter: DateFormatter?
-	var _drawingViewMaxHeight: CGFloat?
-	var titleColor = Color.preferredColor(.primaryLabel)
-	var addsTimestampInImage: Bool = false
-	var strokeColor = Color.preferredColor(.primaryLabel)
-	@State var isReenterTapped = false
-	var watermarkText: String?
-	var appliesTintColorToImage = true
+	@State var isEditing = false
 	var hidesXmark = false
-	var watermarkTextColor: Color = .preferredColor(.tertiaryLabel)
-	var signatureLineColor = Color.preferredColor(.quaternaryLabel)
 	@State var drawings = [Drawing]()
+	var cropsImage = false
+	@State var isReenterTapped = false
 	var strokeWidth: CGFloat = 3.0
-	var xmarkColor = Color.preferredColor(.quaternaryLabel)
+	let _drawingViewMinHeight: CGFloat = 256
+	var strokeColor = Color.preferredColor(.primaryLabel)
+	var titleColor = Color.preferredColor(.primaryLabel)
+	@State var fullSignatureImage: UIImage?
+	var signatureLineColor = Color.preferredColor(.quaternaryLabel)
+	var timestampFormatter: DateFormatter?
+	var addsTimestampInImage: Bool = false
+	@State var isSaved = false
+	var _drawingViewMaxHeight: CGFloat?
+	var appliesTintColorToImage = true
+	var watermarkTextColor: Color = .preferredColor(.tertiaryLabel)
 	var watermarkTextAlignment: NSTextAlignment = .natural
+	var indicatorFont = Font.fiori(forTextStyle: .subheadline).weight(.semibold)
 
     private var isModelInit: Bool = false
 	private var isTitleNil: Bool = false
+	private var isMandatoryIndicatorNil: Bool = false
 	private var isStartActionNil: Bool = false
 	private var isRestartActionNil: Bool = false
 	private var isCancelActionNil: Bool = false
@@ -60,6 +64,7 @@ public struct SignatureCaptureView<StartActionView: View, RestartActionView: Vie
 
     public init(
         title: String? = nil,
+		mandatoryIndicator: String? = "*",
 		@ViewBuilder startAction: () -> StartActionView,
 		@ViewBuilder restartAction: () -> RestartActionView,
 		@ViewBuilder cancelAction: () -> CancelActionView,
@@ -70,6 +75,7 @@ public struct SignatureCaptureView<StartActionView: View, RestartActionView: Vie
 		onDelete: (() -> Void)? = nil
         ) {
             self._title = title
+			self._mandatoryIndicator = mandatoryIndicator
 			self._startAction = startAction()
 			self._restartAction = restartAction()
 			self._cancelAction = cancelAction()
@@ -144,11 +150,12 @@ extension SignatureCaptureView where StartActionView == _ConditionalContent<_Act
 		SaveActionView == _ConditionalContent<_Action, EmptyView> {
 
     public init(model: SignatureCaptureViewModel) {
-        self.init(title: model.title, startAction: model.startAction != nil ? _Action(model: model.startAction!) : nil, restartAction: model.restartAction != nil ? _Action(model: model.restartAction!) : nil, cancelAction: model.cancelAction != nil ? _Action(model: model.cancelAction!) : nil, clearAction: model.clearAction != nil ? _Action(model: model.clearAction!) : nil, saveAction: model.saveAction != nil ? _Action(model: model.saveAction!) : nil, signatureImage: model.signatureImage, onSave: model.onSave, onDelete: model.onDelete)
+        self.init(title: model.title, mandatoryIndicator: model.mandatoryIndicator, startAction: model.startAction != nil ? _Action(model: model.startAction!) : nil, restartAction: model.restartAction != nil ? _Action(model: model.restartAction!) : nil, cancelAction: model.cancelAction != nil ? _Action(model: model.cancelAction!) : nil, clearAction: model.clearAction != nil ? _Action(model: model.clearAction!) : nil, saveAction: model.saveAction != nil ? _Action(model: model.saveAction!) : nil, signatureImage: model.signatureImage, onSave: model.onSave, onDelete: model.onDelete)
     }
 
-    public init(title: String? = nil, startAction: _Action? = _Action(model: _TapToSignActionDefault()), restartAction: _Action? = _Action(model: _ReEnterSignatureActionDefault()), cancelAction: _Action? = _Action(model: _CancelActionDefault()), clearAction: _Action? = _Action(model: _ClearActionDefault()), saveAction: _Action? = _Action(model: _SaveActionDefault()), signatureImage: UIImage? = nil, onSave: ((UIImage) -> Void)? = nil, onDelete: (() -> Void)? = nil) {
+    public init(title: String? = nil, mandatoryIndicator: String? = "*", startAction: _Action? = _Action(model: _TapToSignActionDefault()), restartAction: _Action? = _Action(model: _ReEnterSignatureActionDefault()), cancelAction: _Action? = _Action(model: _CancelActionDefault()), clearAction: _Action? = _Action(model: _ClearActionDefault()), saveAction: _Action? = _Action(model: _SaveActionDefault()), signatureImage: UIImage? = nil, onSave: ((UIImage) -> Void)? = nil, onDelete: (() -> Void)? = nil) {
         self._title = title
+		self._mandatoryIndicator = mandatoryIndicator
 		self._startAction = startAction != nil ? ViewBuilder.buildEither(first: startAction!) : ViewBuilder.buildEither(second: EmptyView())
 		self._restartAction = restartAction != nil ? ViewBuilder.buildEither(first: restartAction!) : ViewBuilder.buildEither(second: EmptyView())
 		self._cancelAction = cancelAction != nil ? ViewBuilder.buildEither(first: cancelAction!) : ViewBuilder.buildEither(second: EmptyView())
@@ -160,6 +167,7 @@ extension SignatureCaptureView where StartActionView == _ConditionalContent<_Act
 
 		isModelInit = true
 		isTitleNil = title == nil ? true : false
+		isMandatoryIndicatorNil = mandatoryIndicator == nil ? true : false
 		isStartActionNil = startAction == nil ? true : false
 		isRestartActionNil = restartAction == nil ? true : false
 		isCancelActionNil = cancelAction == nil ? true : false
