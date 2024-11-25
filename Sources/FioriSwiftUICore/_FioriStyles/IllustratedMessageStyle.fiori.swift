@@ -319,6 +319,10 @@ public extension IllustratedMessageStyle where Self == IllustratedMessageFixedWi
     }
 }
 
+/// Get the resized detail image as a view based on image size parameter.
+/// - Parameter `detailImage`:  An `Image` for the `IllustratedMessage`.
+/// - Parameter `size`: enum value of `IllustratedMessage.DetailImageSize`.
+/// - Returns: `IllustratedMessageConfiguration.DetailImage`
 public func getResizedDetailImage(detailImage: IllustratedMessageConfiguration.DetailImage, size: IllustratedMessage.DetailImageSize) -> some View {
     switch size {
     case .extraSmall:
