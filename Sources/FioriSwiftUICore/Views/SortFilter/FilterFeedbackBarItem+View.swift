@@ -327,10 +327,6 @@ struct PickerMenuItem: View {
         return keyWindow.safeAreaInsets
     }
     
-//    private func getNavigationBarHeight() -> CGFloat {
-//
-//    }
-    
     private func resetButtonDisable() -> Bool {
         if self.item.resetButtonConfiguration.type == .reset {
             return self.item.isOriginal
