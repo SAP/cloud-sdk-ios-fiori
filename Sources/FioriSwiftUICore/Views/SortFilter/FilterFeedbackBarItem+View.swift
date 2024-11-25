@@ -309,8 +309,8 @@ struct PickerMenuItem: View {
                 height += 52
             }
         }
-        height += 63
-        if height > Screen.bounds.size.height - self.getSafeAreaInsets().top - 30 {
+        height += UIDevice.current.userInterfaceIdiom != .phone ? 63 : 33
+        if height > Screen.bounds.size.height - self.getSafeAreaInsets().top - 60 {
             return Screen.bounds.size.height / 2
         }
         return height

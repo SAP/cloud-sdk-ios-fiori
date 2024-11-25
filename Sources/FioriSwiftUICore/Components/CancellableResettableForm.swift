@@ -83,13 +83,13 @@ struct CancellableResettableDialogNavigationForm<Title: View, CancelAction: View
             ZStack {
                 Color.preferredColor(.chromeSecondary)
                     .ignoresSafeArea()
-                VStack(spacing: isNotIphone ? 8 : 16) {
+                VStack(spacing: 0) {
                     self.components
                     
                     VStack(spacing: 0) {
                         self.applyAction
                             .accessibilityIdentifier("Apply")
-                        Spacer().frame(height: isNotIphone ? 13 : 16)
+                        Spacer().frame(height: isNotIphone ? 16 : 6)
                     }
                 }
             }
@@ -131,7 +131,7 @@ struct ApplyButtonStyle: PrimitiveButtonStyle {
                 .onTapGesture {
                     configuration.trigger()
                 }
-                .padding([.top], UIDevice.current.userInterfaceIdiom != .phone ? 16 : 8)
+                .padding([.top], UIDevice.current.userInterfaceIdiom != .phone ? 16 : 6)
         } else {
             configuration.label
                 .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? self.popoverWidth - 13 * 2 :
@@ -144,7 +144,7 @@ struct ApplyButtonStyle: PrimitiveButtonStyle {
                 .foregroundStyle(Color.preferredColor(.primaryLabel))
             #endif
                 .background(RoundedRectangle(cornerRadius: 8).fill(Color.preferredColor(.grey5)))
-                .padding([.top], UIDevice.current.userInterfaceIdiom != .phone ? 16 : 8)
+                .padding([.top], UIDevice.current.userInterfaceIdiom != .phone ? 16 : 6)
         }
     }
 }
