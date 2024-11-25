@@ -85,10 +85,10 @@ extension SearchListPickerItem: View {
             DispatchQueue.main.async {
                 let popverHeight = Screen.bounds.size.height
                 let safeAreaInset = self.getSafeAreaInsets()
-                var maxScrollViewHeight = popverHeight - (self.isSearchBarHidden ? 0 : 52) - 56 - safeAreaInset.top - safeAreaInset.bottom - (UIDevice.current.userInterfaceIdiom != .phone ? 250 : 30)
+                var maxScrollViewHeight = popverHeight - self.additionalHeight() - safeAreaInset.top - (UIDevice.current.userInterfaceIdiom != .phone ? 250 : 30)
                 maxScrollViewHeight -= self._keyboardHeight
                 if self._keyboardHeight > 0 {
-                    maxScrollViewHeight += 56
+                    maxScrollViewHeight -= 52
                 }
                 self._height = min(scrollView.contentSize.height, maxScrollViewHeight)
                 updateSearchListPickerHeight?(self._height)
@@ -213,6 +213,19 @@ extension SearchListPickerItem: View {
             return .zero
         }
         return keyWindow.safeAreaInsets
+    }
+    
+    private func additionalHeight() -> CGFloat {
+        let isNotIphone = UIDevice.current.userInterfaceIdiom != .phone
+        var height = 0.0
+        height += self.getSafeAreaInsets().bottom + (isNotIphone ? 13 : 16)
+        height += isNotIphone ? 50 : 56
+        if !self.isSearchBarHidden {
+            if self._keyboardHeight == 0 {
+                height += 52
+            }
+        }
+        return height
     }
 }
 

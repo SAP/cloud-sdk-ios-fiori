@@ -11,8 +11,7 @@ struct SortFilterItemTitle: TitleComponent, View {
     
     public var body: some View {
         Text(self.title)
-            .font(.body)
-            .fontWeight(/*@START_MENU_TOKEN@*/ .bold/*@END_MENU_TOKEN@*/)
+            .font(.fiori(forTextStyle: .subheadline, weight: .black))
             .foregroundStyle(Color.preferredColor(.primaryLabel))
             .multilineTextAlignment(.center)
     }
