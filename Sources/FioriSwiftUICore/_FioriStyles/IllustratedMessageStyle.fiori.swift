@@ -86,7 +86,6 @@ extension IllustratedMessageFioriStyle {
         func makeBody(_ configuration: ActionConfiguration) -> some View {
             Action(configuration)
                 .font(.fiori(forTextStyle: .body, weight: .bold))
-                .fioriButtonStyle(FioriPrimaryButtonStyle(.infinity))
         }
     }
     
@@ -96,7 +95,6 @@ extension IllustratedMessageFioriStyle {
         func makeBody(_ configuration: SecondaryActionConfiguration) -> some View {
             SecondaryAction(configuration)
                 .font(.fiori(forTextStyle: .body, weight: .bold))
-                .fioriButtonStyle(FioriSecondaryButtonStyle(colorStyle: .tint, maxWidth: .infinity))
         }
     }
 }
@@ -122,9 +120,9 @@ public struct IllustratedMessageHorizontalLayoutStyle: IllustratedMessageStyle {
                 if configuration.isActionVerticallyAligned {
                     VStack(alignment: configuration.contentAlignment) {
                         configuration.action
-                            .fioriButtonStyle(FioriPrimaryButtonStyle())
+                            .fioriButtonStyle(FioriPrimaryButtonStyle(.infinity))
                         configuration.secondaryAction
-                            .fioriButtonStyle(FioriSecondaryButtonStyle(colorStyle: .tint))
+                            .fioriButtonStyle(FioriSecondaryButtonStyle(colorStyle: .tint, maxWidth: .infinity))
                     }
                     .padding(.top, (!configuration.action.isEmpty || !configuration.secondaryAction.isEmpty) ? 16 : 0)
                 } else {
@@ -132,7 +130,7 @@ public struct IllustratedMessageHorizontalLayoutStyle: IllustratedMessageStyle {
                         configuration.secondaryAction
                             .fioriButtonStyle(FioriSecondaryButtonStyle(colorStyle: .tint, maxWidth: .infinity))
                         configuration.action
-                            .fioriButtonStyle(FioriPrimaryButtonStyle())
+                            .fioriButtonStyle(FioriPrimaryButtonStyle(.infinity))
                     }
                     .padding(.top, (!configuration.action.isEmpty || !configuration.secondaryAction.isEmpty) ? 16 : 0)
                 }
@@ -154,6 +152,7 @@ public struct IllustratedMessageMixedLayoutStyle: IllustratedMessageStyle {
                     configuration.description
                         .multilineTextAlignment(getTextAlignment(configuration.contentAlignment))
                 }
+                .frame(maxWidth: .infinity)
             }
             
             if configuration.isActionVerticallyAligned {
@@ -320,7 +319,7 @@ public extension IllustratedMessageStyle where Self == IllustratedMessageFixedWi
     }
 }
 
-func getResizedDetailImage(detailImage: IllustratedMessageConfiguration.DetailImage, size: IllustratedMessage.DetailImageSize) -> some View {
+public func getResizedDetailImage(detailImage: IllustratedMessageConfiguration.DetailImage, size: IllustratedMessage.DetailImageSize) -> some View {
     switch size {
     case .extraSmall:
         return detailImage
