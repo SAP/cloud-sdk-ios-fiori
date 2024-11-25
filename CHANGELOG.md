@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.2.2](https://github.com/SAP/cloud-sdk-ios-fiori/compare/4.2.1...4.2.2) (2024-11-25)
+
+
+### Bug Fixes
+
+* 🐛 [IOSSDKBUG-449]FilterFeedbackBar list apply space ([#901](https://github.com/SAP/cloud-sdk-ios-fiori/issues/901)) ([9d64b2f](https://github.com/SAP/cloud-sdk-ios-fiori/commit/9d64b2f7e46cc62b424e9ddc4c7d40d25376cf98))
+* 🐛 [IOSSDKBUG-453]FilterFeedbackBar border unselect color ([#898](https://github.com/SAP/cloud-sdk-ios-fiori/issues/898)) ([a47f798](https://github.com/SAP/cloud-sdk-ios-fiori/commit/a47f7983bb0f6f849246d96e9e4e62850195a9e8))
+* 🐛 [JIRA:0]FilterFeedbackBar list selected (count) ([#899](https://github.com/SAP/cloud-sdk-ios-fiori/issues/899)) ([37272dd](https://github.com/SAP/cloud-sdk-ios-fiori/commit/37272dd0d423348aa247b2a7e6dcfc1189ff6db5))
+
 ### [4.2.1](https://github.com/SAP/cloud-sdk-ios-fiori/compare/4.2.0...4.2.1) (2024-11-20)
 
 
