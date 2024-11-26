@@ -554,6 +554,7 @@ public protocol OptionListPickerItemModel: OptionListPickerComponent {
 // sourcery: virtualPropKeyboardHeight = "@State var _keyboardHeight: CGFloat = 0.0"
 // sourcery: virtualPropDisableListEntriesSection = "var disableListEntriesSection: Bool = false"
 // sourcery: virtualPropAllowsDisplaySelectionCount = "var allowsDisplaySelectionCount: Bool = true"
+// sourcery: virtualPropBarItemFrame = "var barItemFrame: CGRect = .zero"
 public protocol SearchListPickerItemModel: OptionListPickerComponent {
     // sourcery: default.value = nil
     // sourcery: no_view
