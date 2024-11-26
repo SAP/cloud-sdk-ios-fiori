@@ -82,7 +82,6 @@ extension _SortFilterMenuItemContainer: View {
             }
         }
         .frame(minHeight: 44)
-        .padding(.leading, 5)
     }
     
     private func switchItemAccessibilityLabel(switchItem: SortFilterItem.SwitchItem) -> String {
