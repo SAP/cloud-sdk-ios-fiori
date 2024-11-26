@@ -1452,6 +1452,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: ProcessingIndicatorStyle
+
+struct ProcessingIndicatorStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any ProcessingIndicatorStyle] = []
+}
+
+extension EnvironmentValues {
+    var processingIndicatorStyle: any ProcessingIndicatorStyle {
+        self.processingIndicatorStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var processingIndicatorStyleStack: [any ProcessingIndicatorStyle] {
+        get {
+            self[ProcessingIndicatorStyleStackKey.self]
+        }
+        set {
+            self[ProcessingIndicatorStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: ProfileHeaderStyle
 
 struct ProfileHeaderStyleStackKey: EnvironmentKey {
