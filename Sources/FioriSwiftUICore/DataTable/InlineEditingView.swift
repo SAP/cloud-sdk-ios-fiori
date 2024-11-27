@@ -134,11 +134,15 @@ struct InlineEditingView: View {
                 self.focusState = true
             }
         }
-        .onChange(of: self.editingText, perform: { _ in
+        .setOnChange(of: self.editingText) {
             self.layoutManager.cacheEditingText = self.editingText
-        })
-        .onChange(of: self.focusState) { newValue in
+        }
+        .setOnChange(of: self.focusState, action1: { newValue in
             // lost focus
+            if !newValue {
+                self.updateText(self.editingText)
+            }
+        }) { _, newValue in
             if !newValue {
                 self.updateText(self.editingText)
             }

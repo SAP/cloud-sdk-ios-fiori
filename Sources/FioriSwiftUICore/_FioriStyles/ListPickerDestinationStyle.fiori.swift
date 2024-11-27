@@ -573,7 +573,7 @@ struct ListPickerDestinationContent<Data: RandomAccessCollection, ID: Hashable, 
                 self.listContent()
             }
         }
-        .onChange(of: self.selections) { _ in
+        .setOnChange(of: self.selections) {
             self.postSelectionsUpdated()
         }
         .ifApply(!self.isTrackingLiveChanges && self.isTopLevel) {

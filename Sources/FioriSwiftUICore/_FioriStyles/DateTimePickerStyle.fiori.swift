@@ -85,9 +85,9 @@ public struct DateTimePickerBaseStyle: DateTimePickerStyle {
     func showPicker(_ configuration: DateTimePickerConfiguration) -> some View {
         DatePicker("", selection: configuration.$selectedDate, displayedComponents: configuration.pickerComponents)
             .datePickerStyle(.graphical)
-            .onChange(of: configuration.selectedDate, perform: { _ in
+            .setOnChange(of: configuration.selectedDate) {
                 _ = self.getValueLabel(configuration)
-            })
+            }
     }
 }
 
