@@ -45,7 +45,9 @@ public struct CheckoutIndicatorBaseStyle: CheckoutIndicatorStyle {
                             self.performAnimation(state: configuration.displayState)
                         }
                     }
-                    .onChange(of: configuration.displayState) { newValue in
+                    .setOnChange(of: configuration.displayState, action1: { newValue in
+                        self.performAnimation(state: newValue)
+                    }) { _, newValue in
                         self.performAnimation(state: newValue)
                     }
                 if configuration.displayState != .inProgress {

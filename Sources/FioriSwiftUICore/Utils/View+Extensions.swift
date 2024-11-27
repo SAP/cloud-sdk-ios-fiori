@@ -54,3 +54,38 @@ extension View {
         return false
     }
 }
+
+extension View {
+    nonisolated func setOnChange<V>(
+        of value: V,
+        initial: Bool = false,
+        action1: @escaping (V) -> Void,
+        action2: @escaping (V, V) -> Void
+    ) -> some View where V: Equatable {
+        if #available(iOS 17.0, *) {
+            return self.onChange(of: value, initial: initial) {
+                action2($0, $1)
+            }
+        } else {
+            return self.onChange(of: value) {
+                action1($0)
+            }
+        }
+    }
+
+    nonisolated func setOnChange(
+        of value: some Equatable,
+        initial: Bool = false,
+        _ action: @escaping () -> Void
+    ) -> some View {
+        if #available(iOS 17.0, *) {
+            return self.onChange(of: value, initial: initial) {
+                action()
+            }
+        } else {
+            return self.onChange(of: value) { _ in
+                action()
+            }
+        }
+    }
+}

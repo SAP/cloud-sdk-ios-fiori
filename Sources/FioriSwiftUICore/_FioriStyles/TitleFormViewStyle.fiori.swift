@@ -80,7 +80,9 @@ extension TitleFormViewFioriStyle {
                     }
                     .placeholderTextFieldStyle { config in
                         PlaceholderTextField(config)
-                            .onChange(of: configuration.text) { s in
+                            .setOnChange(of: configuration.text, action1: { s in
+                                self.checkCharCount(configuration, textString: s)
+                            }) { _, s in
                                 self.checkCharCount(configuration, textString: s)
                             }
                             .background(self.getBackgroundColor(configuration))

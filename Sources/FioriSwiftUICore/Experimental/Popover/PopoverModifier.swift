@@ -13,17 +13,10 @@ struct PopoverModifier<PopView: View>: ViewModifier {
                 .frameReader(rect: { rect in
                     self.sourceFrame = rect
                 })
-                .onChange(of: self.isPresented) { newValue in
-                    if newValue {
-                        let popover = Popover(popView: AnyView(popView()), isPresented: $isPresented)
-                        popover.context.sourceFrame = self.sourceFrame
-                        popover.context.windowFrame = window?.bounds ?? .zero
-                        popover.present(in: window)
-                        self.popover = popover
-                    } else {
-                        guard let popover else { return }
-                        popover.dismiss()
-                    }
+                .setOnChange(of: self.isPresented, action1: { newValue in
+                    self.onIsPresentedChange(newValue, window: window)
+                }) { _, newValue in
+                    self.onIsPresentedChange(newValue, window: window)
                 }
             #if !os(visionOS)
                 .onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) { _ in
@@ -31,6 +24,19 @@ struct PopoverModifier<PopView: View>: ViewModifier {
                     popover.dismiss()
                 }
             #endif
+        }
+    }
+
+    func onIsPresentedChange(_ newValue: Bool, window: UIWindow?) {
+        if newValue {
+            let popover = Popover(popView: AnyView(popView()), isPresented: $isPresented)
+            popover.context.sourceFrame = self.sourceFrame
+            popover.context.windowFrame = window?.bounds ?? .zero
+            popover.present(in: window)
+            self.popover = popover
+        } else {
+            guard let popover else { return }
+            popover.dismiss()
         }
     }
 }
