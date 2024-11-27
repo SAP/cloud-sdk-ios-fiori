@@ -62,7 +62,9 @@ extension NoteFormViewFioriStyle {
                                 .stroke(self.getBorderColor(configuration), lineWidth: self.getBorderWidth(configuration))
                         )
                         .cornerRadius(8)
-                        .onChange(of: configuration.text) { s in
+                        .setOnChange(of: configuration.text, action1: { s in
+                            self.checkCharCount(configuration, textString: s)
+                        }) { _, s in
                             self.checkCharCount(configuration, textString: s)
                         }
                         .padding(.bottom, self.isInfoViewNeeded(configuration) ? 0 : 7)

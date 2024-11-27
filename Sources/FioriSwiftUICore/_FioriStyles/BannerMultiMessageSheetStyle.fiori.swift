@@ -343,9 +343,8 @@ public struct BannerMultiMessageSheetBaseStyle: BannerMultiMessageSheetStyle {
         })
         .frame(minWidth: !self.isPhone ? 393 : nil)
         .frame(height: self.popoverHeight)
-        .animation(self.scrollContentHeight <= 40.0 ? nil : .spring)
-//        .animation(.spring, value: self.popoverHeight)
-        .onChange(of: configuration.bannerMultiMessages) { _ in
+        .animation(self.scrollContentHeight <= 40.0 ? nil : .spring, value: self.scrollContentHeight)
+        .setOnChange(of: configuration.bannerMultiMessages) {
             // when datasource is empty, dismiss in 2 seconds
             if configuration.bannerMultiMessages.isEmpty {
                 self.timer = Timer.scheduledTimer(withTimeInterval: 2, repeats: false, block: { _ in

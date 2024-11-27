@@ -67,7 +67,7 @@ extension _SortFilterCFGItemContainer: View {
                 self.height = min(scrollView.contentSize.height, maxScrollViewHeight)
             }
         })
-        .onChange(of: self._items) { _ in
+        .setOnChange(of: self._items) {
             self.checkUpdateButtonState()
         }
         .onAppear {

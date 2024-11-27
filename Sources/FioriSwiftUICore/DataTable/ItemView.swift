@@ -228,53 +228,65 @@ struct FocusedEditingView: View {
                 EmptyView()
             }
         }
-        .onChange(of: self.editingDate) { newValue in
-            guard let layoutData = self.layoutManager.layoutData else { return }
-            
-            var dataItem = layoutData.allDataItems[self.rowIndex][self.columnIndex]
-            dataItem.date = newValue
-            self.isValid = self.layoutManager.checkIsValid(for: dataItem)
-            let errorChange: Int = dataItem.isValid != self.isValid.0 ? (self.isValid.0 ? -1 : 1) : 0
-            layoutData.numOfErrors += errorChange
-            dataItem.isValid = self.isValid.0
-            if let value = dataItem.string(for: layoutManager.model.columnAttribute(for: columnIndex)) {
-                self.editingText = value
-                dataItem.text = value
-                dataItem.size = layoutData.calcDataItemSize(dataItem)
-            }
-            
-            layoutData.allDataItems[self.rowIndex][self.columnIndex] = dataItem
-            layoutData.updateCellLayout(for: self.rowIndex, columnIndex: self.columnIndex)
-            self.layoutManager.needRefresh.toggle()
-            self.layoutManager.isValid = self.isValid
-            self.showBanner = !self.isValid.0
-            
-            self.layoutManager.model.valueDidChange?(DataTableChange(rowIndex: self.rowIndex, columnIndex: self.columnIndex, value: .date(newValue), text: self.editingText))
+        .setOnChange(of: self.editingDate, action1: { newValue in
+            self.onEditingDateChange(newValue)
+        }) { _, newValue in
+            self.onEditingDateChange(newValue)
         }
-        .onChange(of: self.editingDuration) { newValue in
-            guard let layoutData = self.layoutManager.layoutData else { return }
-            
-            var dataItem = layoutData.allDataItems[self.rowIndex][self.columnIndex]
-            dataItem.ti = TimeInterval(newValue * 60)
-            self.isValid = self.layoutManager.checkIsValid(for: dataItem)
-            let errorChange: Int = dataItem.isValid != self.isValid.0 ? (self.isValid.0 ? -1 : 1) : 0
-            layoutData.numOfErrors += errorChange
-            dataItem.isValid = self.isValid.0
-            if let value = dataItem.string(for: layoutManager.model.columnAttribute(for: columnIndex)) {
-                self.editingText = value
-                dataItem.text = value
-                dataItem.size = layoutData.calcDataItemSize(dataItem)
-            }
-            layoutData.allDataItems[self.rowIndex][self.columnIndex] = dataItem
-            layoutData.updateCellLayout(for: self.rowIndex, columnIndex: self.columnIndex)
-            self.layoutManager.needRefresh.toggle()
-            self.layoutManager.isValid = self.isValid
-            self.showBanner = !self.isValid.0
-            
-            self.layoutManager.model.valueDidChange?(DataTableChange(rowIndex: self.rowIndex, columnIndex: self.columnIndex, value: .duration(TimeInterval(newValue * 60)), text: self.editingText))
+        .setOnChange(of: self.editingDuration, action1: { newValue in
+            self.onEditingDurationChange(newValue)
+        }) { _, newValue in
+            self.onEditingDurationChange(newValue)
         }
     }
-    
+
+    func onEditingDateChange(_ newValue: Date) {
+        guard let layoutData = self.layoutManager.layoutData else { return }
+
+        var dataItem = layoutData.allDataItems[self.rowIndex][self.columnIndex]
+        dataItem.date = newValue
+        self.isValid = self.layoutManager.checkIsValid(for: dataItem)
+        let errorChange: Int = dataItem.isValid != self.isValid.0 ? (self.isValid.0 ? -1 : 1) : 0
+        layoutData.numOfErrors += errorChange
+        dataItem.isValid = self.isValid.0
+        if let value = dataItem.string(for: layoutManager.model.columnAttribute(for: columnIndex)) {
+            self.editingText = value
+            dataItem.text = value
+            dataItem.size = layoutData.calcDataItemSize(dataItem)
+        }
+
+        layoutData.allDataItems[self.rowIndex][self.columnIndex] = dataItem
+        layoutData.updateCellLayout(for: self.rowIndex, columnIndex: self.columnIndex)
+        self.layoutManager.needRefresh.toggle()
+        self.layoutManager.isValid = self.isValid
+        self.showBanner = !self.isValid.0
+
+        self.layoutManager.model.valueDidChange?(DataTableChange(rowIndex: self.rowIndex, columnIndex: self.columnIndex, value: .date(newValue), text: self.editingText))
+    }
+
+    func onEditingDurationChange(_ newValue: Int) {
+        guard let layoutData = self.layoutManager.layoutData else { return }
+
+        var dataItem = layoutData.allDataItems[self.rowIndex][self.columnIndex]
+        dataItem.ti = TimeInterval(newValue * 60)
+        self.isValid = self.layoutManager.checkIsValid(for: dataItem)
+        let errorChange: Int = dataItem.isValid != self.isValid.0 ? (self.isValid.0 ? -1 : 1) : 0
+        layoutData.numOfErrors += errorChange
+        dataItem.isValid = self.isValid.0
+        if let value = dataItem.string(for: layoutManager.model.columnAttribute(for: columnIndex)) {
+            self.editingText = value
+            dataItem.text = value
+            dataItem.size = layoutData.calcDataItemSize(dataItem)
+        }
+        layoutData.allDataItems[self.rowIndex][self.columnIndex] = dataItem
+        layoutData.updateCellLayout(for: self.rowIndex, columnIndex: self.columnIndex)
+        self.layoutManager.needRefresh.toggle()
+        self.layoutManager.isValid = self.isValid
+        self.showBanner = !self.isValid.0
+
+        self.layoutManager.model.valueDidChange?(DataTableChange(rowIndex: self.rowIndex, columnIndex: self.columnIndex, value: .duration(TimeInterval(newValue * 60)), text: self.editingText))
+    }
+
     func pickerView() -> some View {
         let data = self.layoutManager.model.listItemDataAndTitle?(self.rowIndex, self.columnIndex) ?? ([self.editingText], "")
         let indexData: [Int] = (0 ..< data.0.count).map { $0 }
