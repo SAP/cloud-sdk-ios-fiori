@@ -48,7 +48,7 @@ struct ProcessingIndicatorExample: View {
         .padding()
         .fullScreenCover(isPresented: self.$showModalIndicator, content: {
             VStack {
-                ProcessingIndicator(optionalTitle: "Loading")
+                ProcessingIndicator(optionalTitle: AttributedString(self.labelText))
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .background(Color.clear)
                 Button("Dismiss", action: {
