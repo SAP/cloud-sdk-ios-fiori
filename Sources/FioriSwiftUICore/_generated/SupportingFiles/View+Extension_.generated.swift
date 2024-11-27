@@ -1176,6 +1176,23 @@ public extension View {
     }
 }
 
+// MARK: ProcessingIndicatorStyle
+
+public extension View {
+    func processingIndicatorStyle(_ style: some ProcessingIndicatorStyle) -> some View {
+        self.transformEnvironment(\.processingIndicatorStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func processingIndicatorStyle(@ViewBuilder content: @escaping (ProcessingIndicatorConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.processingIndicatorStyleStack) { stack in
+            let style = AnyProcessingIndicatorStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: ProfileHeaderStyle
 
 public extension View {

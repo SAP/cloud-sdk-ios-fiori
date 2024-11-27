@@ -1107,6 +1107,22 @@ extension PlaceholderTextFieldStyle {
     }
 }
 
+// MARK: ProcessingIndicatorStyle
+
+struct ResolvedProcessingIndicatorStyle<Style: ProcessingIndicatorStyle>: View {
+    let style: Style
+    let configuration: ProcessingIndicatorConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension ProcessingIndicatorStyle {
+    func resolve(configuration: ProcessingIndicatorConfiguration) -> some View {
+        ResolvedProcessingIndicatorStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: ProfileHeaderStyle
 
 struct ResolvedProfileHeaderStyle<Style: ProfileHeaderStyle>: View {
