@@ -1940,6 +1940,34 @@ public extension PlaceholderTextFieldStyle {
     }
 }
 
+// MARK: ProcessingIndicatorStyle
+
+extension ModifiedStyle: ProcessingIndicatorStyle where Style: ProcessingIndicatorStyle {
+    public func makeBody(_ configuration: ProcessingIndicatorConfiguration) -> some View {
+        ProcessingIndicator(configuration)
+            .processingIndicatorStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct ProcessingIndicatorStyleModifier<Style: ProcessingIndicatorStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.processingIndicatorStyle(self.style)
+    }
+}
+
+public extension ProcessingIndicatorStyle {
+    func modifier(_ modifier: some ViewModifier) -> some ProcessingIndicatorStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some ProcessingIndicatorStyle) -> some ProcessingIndicatorStyle {
+        style.modifier(ProcessingIndicatorStyleModifier(style: self))
+    }
+}
+
 // MARK: ProfileHeaderStyle
 
 extension ModifiedStyle: ProfileHeaderStyle where Style: ProfileHeaderStyle {

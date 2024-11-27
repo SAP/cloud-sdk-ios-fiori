@@ -3657,6 +3657,41 @@ public extension PlaceholderTextFieldStyle where Self == PlaceholderTextFieldPla
     }
 }
 
+// MARK: ProcessingIndicatorStyle
+
+public extension ProcessingIndicatorStyle where Self == ProcessingIndicatorBaseStyle {
+    static var base: ProcessingIndicatorBaseStyle {
+        ProcessingIndicatorBaseStyle()
+    }
+}
+
+public extension ProcessingIndicatorStyle where Self == ProcessingIndicatorFioriStyle {
+    static var fiori: ProcessingIndicatorFioriStyle {
+        ProcessingIndicatorFioriStyle()
+    }
+}
+
+public struct ProcessingIndicatorOptionalTitleStyle: ProcessingIndicatorStyle {
+    let style: any OptionalTitleStyle
+
+    public func makeBody(_ configuration: ProcessingIndicatorConfiguration) -> some View {
+        ProcessingIndicator(configuration)
+            .optionalTitleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension ProcessingIndicatorStyle where Self == ProcessingIndicatorOptionalTitleStyle {
+    static func optionalTitleStyle(_ style: some OptionalTitleStyle) -> ProcessingIndicatorOptionalTitleStyle {
+        ProcessingIndicatorOptionalTitleStyle(style: style)
+    }
+
+    static func optionalTitleStyle(@ViewBuilder content: @escaping (OptionalTitleConfiguration) -> some View) -> ProcessingIndicatorOptionalTitleStyle {
+        let style = AnyOptionalTitleStyle(content)
+        return ProcessingIndicatorOptionalTitleStyle(style: style)
+    }
+}
+
 // MARK: ProfileHeaderStyle
 
 public extension ProfileHeaderStyle where Self == ProfileHeaderBaseStyle {
