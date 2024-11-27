@@ -72,6 +72,7 @@ struct SliderMenuItem: View {
     @State var isSheetVisible = false
 
     @State var detentHeight: CGFloat = 0
+    @State var barItemFrame: CGRect = .zero
 
     var onUpdate: () -> Void
 
@@ -85,7 +86,7 @@ struct SliderMenuItem: View {
             .onTapGesture {
                 self.isSheetVisible.toggle()
             }
-            .popover(isPresented: self.$isSheetVisible) {
+            .popover(isPresented: self.$isSheetVisible, arrowEdge: self.barItemFrame.arrowDirection()) {
                 CancellableResettableDialogForm {
                     SortFilterItemTitle(title: self.item.name)
                 } cancelAction: {
@@ -120,6 +121,17 @@ struct SliderMenuItem: View {
                 }
                 .presentationDetents([.height(self.detentHeight)])
             }
+            .ifApply(UIDevice.current.userInterfaceIdiom != .phone, content: { v in
+                v.background(GeometryReader { geometry in
+                    Color.clear
+                        .onAppear {
+                            self.barItemFrame = geometry.frame(in: .global)
+                        }
+                        .onChange(of: geometry.frame(in: .global)) { newValue in
+                            self.barItemFrame = newValue
+                        }
+                })
+            })
     }
 }
 
@@ -132,6 +144,7 @@ struct PickerMenuItem: View {
     @State var detentHeight: CGFloat = ((UIDevice.current.userInterfaceIdiom == .phone || UIDevice.current.userInterfaceIdiom != .phone) ? 88 : 0)
     let popoverWidth = 393.0
     @State var _keyboardHeight = 0.0
+    @State var barItemFrame: CGRect = .zero
         
     public init(item: Binding<SortFilterItem.PickerItem>, onUpdate: @escaping () -> Void) {
         self._item = item
@@ -163,7 +176,7 @@ struct PickerMenuItem: View {
             .onTapGesture {
                 self.isSheetVisible.toggle()
             }
-            .popover(isPresented: self.$isSheetVisible) {
+            .popover(isPresented: self.$isSheetVisible, arrowEdge: self.barItemFrame.arrowDirection()) {
                 CancellableResettableDialogForm {
                     SortFilterItemTitle(title: self.item.name)
                 } cancelAction: {
@@ -210,6 +223,17 @@ struct PickerMenuItem: View {
                 }
                 .presentationDetents([.height(self.detentHeight)])
             }
+            .ifApply(UIDevice.current.userInterfaceIdiom != .phone, content: { v in
+                v.background(GeometryReader { geometry in
+                    Color.clear
+                        .onAppear {
+                            self.barItemFrame = geometry.frame(in: .global)
+                        }
+                        .onChange(of: geometry.frame(in: .global)) { newValue in
+                            self.barItemFrame = newValue
+                        }
+                })
+            })
     }
     
     @ViewBuilder
@@ -245,7 +269,7 @@ struct PickerMenuItem: View {
             .onTapGesture {
                 self.isSheetVisible.toggle()
             }
-            .popover(isPresented: self.$isSheetVisible) {
+            .popover(isPresented: self.$isSheetVisible, arrowEdge: self.barItemFrame.arrowDirection()) {
                 CancellableResettableDialogNavigationForm {
                     SortFilterItemTitle(title: self.item.name)
                 } cancelAction: {
@@ -276,7 +300,7 @@ struct PickerMenuItem: View {
                     })
                     .buttonStyle(ApplyButtonStyle())
                 } components: {
-                    SearchListPickerItem(value: self.$item.workingValue, valueOptions: self.item.valueOptions, hint: nil, allowsMultipleSelection: self.item.allowsMultipleSelection, allowsEmptySelection: self.item.allowsEmptySelection, isSearchBarHidden: self.item.isSearchBarHidden, disableListEntriesSection: self.item.disableListEntriesSection, allowsDisplaySelectionCount: self.item.allowsDisplaySelectionCount) { index in
+                    SearchListPickerItem(value: self.$item.workingValue, valueOptions: self.item.valueOptions, hint: nil, allowsMultipleSelection: self.item.allowsMultipleSelection, allowsEmptySelection: self.item.allowsEmptySelection, isSearchBarHidden: self.item.isSearchBarHidden, disableListEntriesSection: self.item.disableListEntriesSection, allowsDisplaySelectionCount: self.item.allowsDisplaySelectionCount, barItemFrame: self.barItemFrame) { index in
                         self.item.onTap(option: self.item.valueOptions[index])
                     } selectAll: { isAll in
                         self.item.selectAll(isAll)
@@ -292,12 +316,50 @@ struct PickerMenuItem: View {
                     .onReceive(NotificationCenter.default.publisher(for: UIApplication.keyboardDidHideNotification)) { _ in
                         self._keyboardHeight = 0
                     }
-                    Spacer()
                 }
                 .frame(minWidth: UIDevice.current.userInterfaceIdiom != .phone ? self.popoverWidth : nil)
-                .frame(height: UIDevice.current.userInterfaceIdiom != .phone ? self.detentHeight + (self.item.isSearchBarHidden ? 0 : 52) + (self._keyboardHeight == 0 ? 56 : 0) + 93 : nil)
-                .presentationDetents([.height(self.detentHeight + (self.item.isSearchBarHidden ? 0 : 52) + (self._keyboardHeight == 0 ? 56 : 0) + 93), .medium, .large])
+                .frame(height: UIDevice.current.userInterfaceIdiom != .phone ? self.calculateDetentHeight() : nil)
+                .presentationDetents([.height(self.calculateDetentHeight()), .medium, .large])
             }
+            .ifApply(UIDevice.current.userInterfaceIdiom != .phone, content: { v in
+                v.background(GeometryReader { geometry in
+                    Color.clear
+                        .onAppear {
+                            self.barItemFrame = geometry.frame(in: .global)
+                        }
+                        .onChange(of: geometry.frame(in: .global)) { newValue in
+                            self.barItemFrame = newValue
+                        }
+                })
+            })
+    }
+    
+    private func calculateDetentHeight() -> CGFloat {
+        let isNotIphone = UIDevice.current.userInterfaceIdiom != .phone
+        var height = self.detentHeight
+        height += isNotIphone ? 13 : 16
+        height += isNotIphone ? 50 : 56
+        if !self.item.isSearchBarHidden {
+            if self._keyboardHeight == 0 {
+                height += 52
+            }
+        }
+        height += UIDevice.current.userInterfaceIdiom != .phone ? 63 : 33
+        if height > Screen.bounds.size.height - self.getSafeAreaInsets().top - 60 {
+            return Screen.bounds.size.height / 2
+        }
+        return height
+    }
+    
+    private func getSafeAreaInsets() -> UIEdgeInsets {
+        guard let keyWindow = UIApplication.shared.connectedScenes
+            .first(where: { $0.activationState == .foregroundActive })
+            .flatMap({ $0 as? UIWindowScene })?.windows
+            .first(where: \.isKeyWindow)
+        else {
+            return .zero
+        }
+        return keyWindow.safeAreaInsets
     }
     
     private func resetButtonDisable() -> Bool {
@@ -342,6 +404,7 @@ struct DateTimeMenuItem: View {
     @State private var isSheetVisible: Bool = false
 
     @State var detentHeight: CGFloat = 0
+    @State var barItemFrame: CGRect = .zero
     
     var onUpdate: () -> Void
     
@@ -361,7 +424,7 @@ struct DateTimeMenuItem: View {
             .onTapGesture {
                 self.isSheetVisible.toggle()
             }
-            .popover(isPresented: self.$isSheetVisible) {
+            .popover(isPresented: self.$isSheetVisible, arrowEdge: self.barItemFrame.arrowDirection()) {
                 CancellableResettableDialogForm {
                     SortFilterItemTitle(title: self.item.name)
                 } cancelAction: {
@@ -421,6 +484,17 @@ struct DateTimeMenuItem: View {
                 }
                 .presentationDetents([.height(self.detentHeight)])
             }
+            .ifApply(UIDevice.current.userInterfaceIdiom != .phone, content: { v in
+                v.background(GeometryReader { geometry in
+                    Color.clear
+                        .onAppear {
+                            self.barItemFrame = geometry.frame(in: .global)
+                        }
+                        .onChange(of: geometry.frame(in: .global)) { newValue in
+                            self.barItemFrame = newValue
+                        }
+                })
+            })
     }
 }
 
@@ -485,6 +559,7 @@ struct StepperMenuItem: View {
     @State var isSheetVisible = false
 
     @State var detentHeight: CGFloat = 0
+    @State var barItemFrame: CGRect = .zero
 
     var onUpdate: () -> Void
     
@@ -500,7 +575,7 @@ struct StepperMenuItem: View {
             .onTapGesture {
                 self.isSheetVisible.toggle()
             }
-            .popover(isPresented: self.$isSheetVisible) {
+            .popover(isPresented: self.$isSheetVisible, arrowEdge: self.barItemFrame.arrowDirection()) {
                 CancellableResettableDialogForm {
                     SortFilterItemTitle(title: self.item.name)
                 } cancelAction: {
@@ -571,6 +646,17 @@ struct StepperMenuItem: View {
                 }
                 .presentationDetents([.height(self.detentHeight)])
             }
+            .ifApply(UIDevice.current.userInterfaceIdiom != .phone, content: { v in
+                v.background(GeometryReader { geometry in
+                    Color.clear
+                        .onAppear {
+                            self.barItemFrame = geometry.frame(in: .global)
+                        }
+                        .onChange(of: geometry.frame(in: .global)) { newValue in
+                            self.barItemFrame = newValue
+                        }
+                })
+            })
     }
 }
 
@@ -638,6 +724,18 @@ struct FullCFGMenuItem: View {
                     onUpdate: {}
                 )
             }
+    }
+}
+
+extension CGRect {
+    /// Popover arrowEdge depends on bar item position,
+    /// only return `.top` or `.bottom` in this case
+    /// - Returns: Edge
+    func arrowDirection() -> Edge {
+        if self.minY > Screen.bounds.size.height / 2 {
+            return .bottom
+        }
+        return .top
     }
 }
 

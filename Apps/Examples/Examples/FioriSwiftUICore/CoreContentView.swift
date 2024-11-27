@@ -277,6 +277,12 @@ struct CoreContentView: View {
                 {
                     Text("Progress Indicator")
                 }
+                
+                NavigationLink(
+                    destination: ProcessingIndicatorExample())
+                {
+                    Text("Processing Indicator")
+                }
             }
             
             Section(header: Text("Navigation Bar")) {

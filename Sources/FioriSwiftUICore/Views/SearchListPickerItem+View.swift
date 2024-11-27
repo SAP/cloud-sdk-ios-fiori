@@ -14,7 +14,8 @@ public extension SearchListPickerItem {
     ///   - updateSearchListPickerHeight: The closure to update the parent view.
     ///   - disableListEntriesSection: A boolean value to indicate to disable entries section or not.
     ///   - allowsDisplaySelectionCount: A boolean value to indicate to display selection count or not.
-    init(value: Binding<[Int]>, valueOptions: [String] = [], hint: String? = nil, allowsMultipleSelection: Bool, allowsEmptySelection: Bool, isSearchBarHidden: Bool = false, disableListEntriesSection: Bool, allowsDisplaySelectionCount: Bool, onTap: ((_ index: Int) -> Void)? = nil, selectAll: ((_ isAll: Bool) -> Void)? = nil, updateSearchListPickerHeight: ((CGFloat) -> Void)? = nil) {
+    ///   - barItemFrame: The frame of the bar item, which toggle to show this view.
+    init(value: Binding<[Int]>, valueOptions: [String] = [], hint: String? = nil, allowsMultipleSelection: Bool, allowsEmptySelection: Bool, isSearchBarHidden: Bool = false, disableListEntriesSection: Bool, allowsDisplaySelectionCount: Bool, barItemFrame: CGRect = .zero, onTap: ((_ index: Int) -> Void)? = nil, selectAll: ((_ isAll: Bool) -> Void)? = nil, updateSearchListPickerHeight: ((CGFloat) -> Void)? = nil) {
         self.init(value: value, valueOptions: valueOptions, hint: hint, onTap: onTap)
         
         self.allowsMultipleSelection = allowsMultipleSelection
@@ -24,6 +25,7 @@ public extension SearchListPickerItem {
         self.updateSearchListPickerHeight = updateSearchListPickerHeight
         self.disableListEntriesSection = disableListEntriesSection
         self.allowsDisplaySelectionCount = allowsDisplaySelectionCount
+        self.barItemFrame = barItemFrame
     }
 }
 
@@ -83,12 +85,25 @@ extension SearchListPickerItem: View {
                 return
             }
             DispatchQueue.main.async {
-                let popverHeight = Screen.bounds.size.height
+                let screenHeight = Screen.bounds.size.height
                 let safeAreaInset = self.getSafeAreaInsets()
-                var maxScrollViewHeight = popverHeight - (self.isSearchBarHidden ? 0 : 52) - 56 - safeAreaInset.top - safeAreaInset.bottom - (UIDevice.current.userInterfaceIdiom != .phone ? 250 : 30)
-                maxScrollViewHeight -= self._keyboardHeight
-                if self._keyboardHeight > 0 {
-                    maxScrollViewHeight += 56
+                var maxScrollViewHeight = screenHeight - self.additionalHeight()
+                if UIDevice.current.userInterfaceIdiom != .phone {
+                    if self.barItemFrame.arrowDirection() == .top {
+                        maxScrollViewHeight -= (self.barItemFrame.maxY + 80)
+                        maxScrollViewHeight -= self._keyboardHeight
+                    } else if self.barItemFrame.arrowDirection() == .bottom {
+                        maxScrollViewHeight -= (screenHeight - self.barItemFrame.minY + 80) + safeAreaInset.bottom + 13
+                        if self._keyboardHeight > 0 {
+                            let keyboardItemHeight = (self._keyboardHeight - (screenHeight - self.barItemFrame.minY))
+                            if keyboardItemHeight > 0 {
+                                maxScrollViewHeight -= keyboardItemHeight
+                            }
+                        }
+                    }
+                } else {
+                    maxScrollViewHeight -= (safeAreaInset.top + 30)
+                    maxScrollViewHeight -= self._keyboardHeight
                 }
                 self._height = min(scrollView.contentSize.height, maxScrollViewHeight)
                 updateSearchListPickerHeight?(self._height)
@@ -213,6 +228,19 @@ extension SearchListPickerItem: View {
             return .zero
         }
         return keyWindow.safeAreaInsets
+    }
+    
+    private func additionalHeight() -> CGFloat {
+        let isNotIphone = UIDevice.current.userInterfaceIdiom != .phone
+        var height = 0.0
+        height += self.getSafeAreaInsets().bottom + (isNotIphone ? 13 : 16)
+        height += isNotIphone ? 50 : 56
+        if !self.isSearchBarHidden {
+            if self._keyboardHeight == 0 {
+                height += 52
+            }
+        }
+        return height
     }
 }
 

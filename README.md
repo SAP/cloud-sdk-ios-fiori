@@ -115,7 +115,7 @@ We plan to progressively bring more Fiori UI components into this module in the 
 | Calendar | :x: |
 | Search To Select | :x: |
 | Progress Indicator | :white_check_mark: |
-| Processing Indicator | :x: |
+| Processing Indicator | :white_check_mark: |
 | Checkout Indicator | :white_check_mark: |
 | Loading Indicator | :white_check_mark: |
 | Feedback Screen | :x: |

@@ -717,3 +717,12 @@ protocol _ValuePickerComponent: _TitleComponent, _ValueLabelComponent, _Mandator
 /// ```
 // sourcery: CompositeComponent
 protocol _ProgressIndicatorComponent: _ProgressIndicatorProtocol {}
+
+/// `ProcessingIndicator` provides a circular indeterminate indicator with an optional title below the indicator.
+///
+/// ## Usage
+/// ```swift
+/// ProcessingIndicator(optionalTitle: "Processing")
+/// ```
+// sourcery: CompositeComponent
+protocol _ProcessingIndicatorComponent: _OptionalTitleComponent {}

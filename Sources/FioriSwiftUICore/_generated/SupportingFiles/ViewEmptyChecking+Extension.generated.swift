@@ -506,6 +506,12 @@ extension PlaceholderTextField: _ViewEmptyChecking {
     }
 }
 
+extension ProcessingIndicator: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        optionalTitle.isEmpty
+    }
+}
+
 extension ProfileHeader: _ViewEmptyChecking {
     public var isEmpty: Bool {
         detailImage.isEmpty &&
