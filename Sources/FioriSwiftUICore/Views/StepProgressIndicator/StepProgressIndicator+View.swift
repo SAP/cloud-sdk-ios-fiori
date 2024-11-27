@@ -48,7 +48,15 @@ extension StepProgressIndicator: View {
                     StepProgressIndicatorContainer(selection: _selection,
                                                    steps: steps)
                         .environment(\.stepFrames, $stepFrames)
-                        .onChange(of: _selection.wrappedValue) { newValue in
+                        .setOnChange(of: _selection.wrappedValue, action1: { newValue in
+                            if let currentFrame = stepFrames[newValue],
+                               !scrollBounds.contains(currentFrame)
+                            {
+                                withAnimation {
+                                    proxy.scrollTo(newValue, anchor: .leading)
+                                }
+                            }
+                        }) { _, newValue in
                             if let currentFrame = stepFrames[newValue],
                                !scrollBounds.contains(currentFrame)
                             {

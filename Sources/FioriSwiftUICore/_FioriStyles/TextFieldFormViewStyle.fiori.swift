@@ -49,7 +49,9 @@ extension TextFieldFormViewFioriStyle {
                             .font(.fiori(forTextStyle: .body))
                             .accentColor(self.getCursorColor(configuration))
                             .focused(self.$isFocused)
-                            .onChange(of: configuration.text) { s in
+                            .setOnChange(of: configuration.text, action1: { s in
+                                self.checkCharCount(configuration, textString: s)
+                            }) { _, s in
                                 self.checkCharCount(configuration, textString: s)
                             }
                             .frame(minHeight: 44)

@@ -25,7 +25,9 @@ public struct StepperFieldBaseStyle: StepperFieldStyle {
                 }
             configuration._textInputField
                 .textInputFieldStyle(.number)
-                .onChange(of: configuration.text) { newValue in
+                .setOnChange(of: configuration.text, action1: { newValue in
+                    self.updateText(for: newValue, configuration: configuration)
+                }) { _, newValue in
                     self.updateText(for: newValue, configuration: configuration)
                 }
             configuration.incrementAction

@@ -163,7 +163,7 @@ struct ToastMessageModifier: ViewModifier {
                     })
                 }
             })
-            .onChange(of: self.isPresented) { _ in
+            .setOnChange(of: self.isPresented) {
                 self.showToast()
             }
     }

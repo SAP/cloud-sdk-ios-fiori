@@ -127,7 +127,9 @@ struct SliderMenuItem: View {
                         .onAppear {
                             self.barItemFrame = geometry.frame(in: .global)
                         }
-                        .onChange(of: geometry.frame(in: .global)) { newValue in
+                        .setOnChange(of: geometry.frame(in: .global), action1: { newValue in
+                            self.barItemFrame = newValue
+                        }) { _, newValue in
                             self.barItemFrame = newValue
                         }
                 })
@@ -229,7 +231,9 @@ struct PickerMenuItem: View {
                         .onAppear {
                             self.barItemFrame = geometry.frame(in: .global)
                         }
-                        .onChange(of: geometry.frame(in: .global)) { newValue in
+                        .setOnChange(of: geometry.frame(in: .global), action1: { newValue in
+                            self.barItemFrame = newValue
+                        }) { _, newValue in
                             self.barItemFrame = newValue
                         }
                 })
@@ -327,7 +331,9 @@ struct PickerMenuItem: View {
                         .onAppear {
                             self.barItemFrame = geometry.frame(in: .global)
                         }
-                        .onChange(of: geometry.frame(in: .global)) { newValue in
+                        .setOnChange(of: geometry.frame(in: .global), action1: { newValue in
+                            self.barItemFrame = newValue
+                        }) { _, newValue in
                             self.barItemFrame = newValue
                         }
                 })
@@ -490,7 +496,9 @@ struct DateTimeMenuItem: View {
                         .onAppear {
                             self.barItemFrame = geometry.frame(in: .global)
                         }
-                        .onChange(of: geometry.frame(in: .global)) { newValue in
+                        .setOnChange(of: geometry.frame(in: .global), action1: { newValue in
+                            self.barItemFrame = newValue
+                        }) { _, newValue in
                             self.barItemFrame = newValue
                         }
                 })
@@ -652,7 +660,9 @@ struct StepperMenuItem: View {
                         .onAppear {
                             self.barItemFrame = geometry.frame(in: .global)
                         }
-                        .onChange(of: geometry.frame(in: .global)) { newValue in
+                        .setOnChange(of: geometry.frame(in: .global), action1: { newValue in
+                            self.barItemFrame = newValue
+                        }) { _, newValue in
                             self.barItemFrame = newValue
                         }
                 })

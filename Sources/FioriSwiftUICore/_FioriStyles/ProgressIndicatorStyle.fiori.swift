@@ -30,13 +30,10 @@ public struct ProgressIndicatorBaseStyle: ProgressIndicatorStyle {
                 .onAppear {
                     self.performAnimation(configuration)
                 }
-                .onChange(of: configuration.progress) { [oldValue = configuration.progress] _ in
-                    self.previousProgress = oldValue
-                    self.performAnimation(configuration)
-                }
+                .onProgressChange(configuration, progressIndicatorBaseStyle: self)
         }
     }
-    
+
     func performAnimation(_ configuration: ProgressIndicatorConfiguration) {
         DispatchQueue.main.async {
             if self.isProcessing {
@@ -49,6 +46,22 @@ public struct ProgressIndicatorBaseStyle: ProgressIndicatorStyle {
                 withAnimation(Animation.easeInOut(duration: 1.3)) {
                     self.drawProgress.toggle()
                 }
+            }
+        }
+    }
+}
+
+extension View {
+    nonisolated func onProgressChange(_ configuration: ProgressIndicatorConfiguration, progressIndicatorBaseStyle: ProgressIndicatorBaseStyle) -> some View {
+        if #available(iOS 17.0, *) {
+            return self.onChange(of: configuration.progress) { oldValue, _ in
+                progressIndicatorBaseStyle.previousProgress = oldValue
+                progressIndicatorBaseStyle.performAnimation(configuration)
+            }
+        } else {
+            return self.onChange(of: configuration.progress) { [oldValue = configuration.progress] _ in
+                progressIndicatorBaseStyle.previousProgress = oldValue
+                progressIndicatorBaseStyle.performAnimation(configuration)
             }
         }
     }

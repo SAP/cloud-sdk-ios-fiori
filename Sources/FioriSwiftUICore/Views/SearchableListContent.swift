@@ -82,7 +82,9 @@ struct SearchableListContent<Data: RandomAccessCollection, ID: Hashable, RowCont
                 }
                 .scrollContentBackground(.hidden)
                 .background(listBackground)
-                .onChange(of: selectionBuffer) { newValue in
+                .setOnChange(of: selectionBuffer, action1: { newValue in
+                    selectionUpdated?(newValue)
+                }) { _, newValue in
                     selectionUpdated?(newValue)
                 }
                 .ifApply(searchFilter != nil, content: {
