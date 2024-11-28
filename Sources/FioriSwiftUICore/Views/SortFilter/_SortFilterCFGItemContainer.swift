@@ -224,7 +224,7 @@ extension _SortFilterCFGItemContainer: View {
             }, axis: .horizontal)
         }
         .listRowBackground(Color.preferredColor(.secondaryGroupedBackground))
-        .frame(height: 44)
+        .frame(minHeight: 44)
     }
     
     func picker(row r: Int, column c: Int) -> some View {
