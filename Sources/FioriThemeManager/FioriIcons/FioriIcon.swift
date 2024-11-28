@@ -2439,6 +2439,14 @@ public enum FioriIcon {
         ///
         public static let beforeSearchSpot = Image(fioriName: "fiori.ill.before.search.spot")
         ///
+        public static let beforeSearch2Dialog = Image(fioriName: "fiori.ill.before.search.2.dialog")
+        ///
+        public static let beforeSearch2Dot = Image(fioriName: "fiori.ill.before.search.2.dot")
+        ///
+        public static let beforeSearch2Scene = Image(fioriName: "fiori.ill.before.search.2.scene")
+        ///
+        public static let beforeSearch2Spot = Image(fioriName: "fiori.ill.before.search.2.spot")
+        ///
         public static let connectionDialog = Image(fioriName: "fiori.ill.connection.dialog")
         ///
         public static let connectionDot = Image(fioriName: "fiori.ill.connection.dot")
