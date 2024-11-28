@@ -31,6 +31,9 @@
 /* XACT: The accessibility label for the signature line */
 "Signature Line" = "Linie de semnătură";
 
+/* XACT: The accessibility label for the mandatory field */
+"Required Field" = "Câmp obligatoriu";
+
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
 "Canceled" = "Anulat";
 
@@ -142,6 +145,9 @@
 /* XBUT: voice over label for row selection status in DataTable */
 "not selected" = "neselectat";
 
+/* Default value for DateTimePicker */
+"No date selected" = "Nicio dată selectată";
+
 /* XBUT: calendar time component label */
 "Time" = "Timp";
 
@@ -159,4 +165,154 @@
 
 /* Default error text for when the character count exceeds the maximum limit for NoteFormView and TextFieldFormView */
 "Reduce the number of characters" = "Reduceți numărul de caractere";
+
+/* XBUT: voice over label for decrement action in stepper */
+"Stepper decrease" = "Scădere control în trepte";
+
+/* XBUT: voice over description for decrement action in stepper */
+"Decrease the value by %d" = "Scădere valoare cu %d";
+
+/* XBUT: voice over label for increment action in stepper */
+"Stepper increase" = "Creștere control în trepte";
+
+/* XBUT: voice over description for increment action in stepper */
+"Increase the value by %d" = "Creștere valoare cu %d";
+
+/* XBUT: voice over label for test field in stepper */
+"Select specific value" = "Selectați o anumită valoare";
+
+/* XBUT: View all action in MenuSelection */
+"View All (%d)" = "Vizualizare toate (%d)";
+
+/* XACT: RatingControl accessibility label */
+"%d out of %d stars" = "%d din %d stele";
+
+/* XBUT: timeline preview component see all label */
+"See All (%d)" = "Afișare tot (%d)";
+
+/* XACT: Timeline preview item accessibility label */
+"Item %d of %d" = "Elementul %d din %d";
+
+/* XBUT: timeline preview component timestamp label */
+"Today, %d" = "Astăzi, %d";
+
+/* XFLD: RatingControl value label format */
+"%d of %d" = "%d din %d";
+
+/* XFLD: RatingControl review count format */
+"%d reviews" = "%d recenzii";
+
+/* XFLD: RatingControl review count over ceiling format */
+"%d+ reviews" = "+%d recenzii";
+
+/* XACT: RatingControl accessibility label */
+"Rating Control %d of %d" = "Control evaluare %d din %d";
+
+/* XACT: read-only RatingControl accessibility label: rating with review count */
+"Rating Control, rating %d of %d, %d reviews" = "Control evaluare, evaluarea %d din %d, %d recenzii";
+
+/* XACT: read-only RatingControl accessibility label: average rating only */
+"Rating Control, average rating %.1f of %d" = "Control evaluare, evaluare medie %.1f din %d";
+
+/* XACT: read-only RatingControl accessibility label: average rating with review count */
+"Rating Control, average rating %.1f of %d, %d reviews" = "Control evaluare, evaluare medie %.1f din %d, %d recenzii";
+
+/* XACT: read-only RatingControl accessibility label: average rating with review count over ceiling */
+"Rating Control, average rating %.1f of %d, %d plus reviews" = "Control evaluare, evaluare medie %.1f din %d, +%d recenzii";
+
+/* XBUT: View all messages in message banner sheet */
+"All" = "Tot";
+
+/* XBUT: messages count in the message banner sheet */
+"Messages (%d)" = "Mesaje (%d)";
+
+/* XBUT: view details in the message banner */
+"View Details" = "Vizualizare detalii";
+
+/* XBUT: view different message in the message banner sheet item */
+"View %@" = "Vizualizare %@";
+
+/* XBUT: banner message type desc, message */
+"message" = "mesaj";
+
+/* XBUT: banner message type desc, information */
+"information" = "informații";
+
+/* XBUT: banner message type desc, confirmation */
+"confirmation" = "confirmare";
+
+/* XBUT: banner message type desc, warning */
+"warning" = "avertizare";
+
+/* XBUT: banner message type desc, error */
+"error" = "eroare";
+
+/* XBUT: banner message type desc in plural form, messages */
+"messages" = "mesaje";
+
+/* XBUT: banner message type desc in plural form, informations */
+"informations" = "informații";
+
+/* XBUT: banner message type desc in plural form, confirmations */
+"confirmations" = "confirmări";
+
+/* XBUT: banner message type desc in plural form, warnings */
+"warnings" = "avertizări";
+
+/* XBUT: banner message type desc in plural form, errors */
+"errors" = "erori";
+
+/* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
+"Reset" = "Resetare";
+
+/* XBUT: Apply action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
+"Apply" = "Aplicare";
+
+/* XTIT: The alert message for `ListPickerDestination` pulldown dismissal */
+"Are you sure you want to discard your selections?" = "Sigur doriți să renunțați la selecțiile dvs.?";
+
+/* XBUT: The alert Discard Changes action title for `ListPickerDestination` pulldown dismissal */
+"Discard Changes" = "Renunțare la modificări";
+
+/* XBUT: The alert Keep Editing action title for `ListPickerDestination` pulldown dismissal */
+"Keep Editing" = "Continuare editare";
+
+/* XBUT: The \"Select All\" button title on the List Picker header */
+"Select All" = "Selectare tot";
+
+/* XBUT: The \"Deselect All\" button title on the List Picker header */
+"Deselect All" = "Deselectare tot";
+
+/* XBUT: The \"Selected\" title on the List Picker header */
+"Selected" = "Selectat";
+
+/* XACT: The accessibility hint for Text Input Views, editable */
+"Text field, Double tap to edit" = "Câmp de text, atingeți de două ori pentru editare";
+
+/* XACT: The accessibility hint for Text Input Views, editing */
+"Text field, is editing" = "Câmp de text, se editează";
+
+/* XACT: The accessibility hint for Text Input Views, editing, with clear button */
+"Text field, is editing. Double tap to clear text" = "Câmp de text, se editează. Atingeți de două ori pentru a reseta textul";
+
+/* XACT: The default accessibility label for the custom action in TextFieldFormView if none was specified */
+"Custom Action" = "Acțiune definită de utilizator";
+
+/* XBUT: Error messages shown to users in DocumentScannerView */
+"Failed to create PDF page from images" = "Eroare la crearea paginii PDF de la imagini.";
+
+/* XBUT: Cancel message shown to users in DocumentScannerView */
+"User cancelled the scan" = "Utilizatorul a anulat scanarea.";
+
+/* Progress Indicator accessibility label: processing */
+"Processing" = "În curs de prelucrare";
+
+/* Progress Indicator accessibility label: loading pausable with indicator progress */
+"In progress with option to pause, %.0f" = "În desfășurare cu opțiune de pauză, %.0f";
+
+/* Progress Indicator accessibility label: loading stoppable with indicator progress */
+"In progress with option to stop, %.0f" = "În desfășurare cu opțiune de oprire, %.0f";
+
+/* Progress Indicator accessibility label: progress halted with indicator progress */
+"Progress halted, %.0f" = "Progres întrerupt, %.0f";
 

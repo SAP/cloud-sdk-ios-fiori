@@ -31,6 +31,9 @@
 /* XACT: The accessibility label for the signature line */
 "Signature Line" = "Llinell Llofnodi";
 
+/* XACT: The accessibility label for the mandatory field */
+"Required Field" = "Maes Gofynnol";
+
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
 "Canceled" = "Wedi canslo";
 
@@ -142,6 +145,9 @@
 /* XBUT: voice over label for row selection status in DataTable */
 "not selected" = "heb ei ddewis";
 
+/* Default value for DateTimePicker */
+"No date selected" = "Dim data wedi'i ddewis";
+
 /* XBUT: calendar time component label */
 "Time" = "Amser";
 
@@ -159,4 +165,154 @@
 
 /* Default error text for when the character count exceeds the maximum limit for NoteFormView and TextFieldFormView */
 "Reduce the number of characters" = "Lleihau nifer y nodau";
+
+/* XBUT: voice over label for decrement action in stepper */
+"Stepper decrease" = "Gostwng y camwr";
+
+/* XBUT: voice over description for decrement action in stepper */
+"Decrease the value by %d" = "Tynnu %d o'r gwerth";
+
+/* XBUT: voice over label for increment action in stepper */
+"Stepper increase" = "Cynyddu'r camwr";
+
+/* XBUT: voice over description for increment action in stepper */
+"Increase the value by %d" = "Ychwanegu %d at y gwerth";
+
+/* XBUT: voice over label for test field in stepper */
+"Select specific value" = "Dewiswch werth penodol";
+
+/* XBUT: View all action in MenuSelection */
+"View All (%d)" = "Gweld y Cyfan (%d)";
+
+/* XACT: RatingControl accessibility label */
+"%d out of %d stars" = "%d allan o %d seren";
+
+/* XBUT: timeline preview component see all label */
+"See All (%d)" = "Gweld pob un (%d)";
+
+/* XACT: Timeline preview item accessibility label */
+"Item %d of %d" = "Eitem %d o %d";
+
+/* XBUT: timeline preview component timestamp label */
+"Today, %d" = "Heddiw, %d";
+
+/* XFLD: RatingControl value label format */
+"%d of %d" = "%d o %d";
+
+/* XFLD: RatingControl review count format */
+"%d reviews" = "%d adolygiad";
+
+/* XFLD: RatingControl review count over ceiling format */
+"%d+ reviews" = "%d+ adolygiad";
+
+/* XACT: RatingControl accessibility label */
+"Rating Control %d of %d" = "Sgorio Rheolaeth %d o %d";
+
+/* XACT: read-only RatingControl accessibility label: rating with review count */
+"Rating Control, rating %d of %d, %d reviews" = "Sgorio Rheolaeth, sgôr %d o %d, %d adolygiad";
+
+/* XACT: read-only RatingControl accessibility label: average rating only */
+"Rating Control, average rating %.1f of %d" = "Sgorio Rheolaeth, sgôr cyfartalog %.1f o %d";
+
+/* XACT: read-only RatingControl accessibility label: average rating with review count */
+"Rating Control, average rating %.1f of %d, %d reviews" = "Sgorio Rheolaeth, sgôr cyfartalog %.1f o %d, %d adolygiad";
+
+/* XACT: read-only RatingControl accessibility label: average rating with review count over ceiling */
+"Rating Control, average rating %.1f of %d, %d plus reviews" = "Sgorio Rheolaeth, sgôr cyfartalog %.1f o %d, %d ac adolygiad";
+
+/* XBUT: View all messages in message banner sheet */
+"All" = "Pob un";
+
+/* XBUT: messages count in the message banner sheet */
+"Messages (%d)" = "Negeseuon (%d)";
+
+/* XBUT: view details in the message banner */
+"View Details" = "Gweld Manylion";
+
+/* XBUT: view different message in the message banner sheet item */
+"View %@" = "Gweld %@";
+
+/* XBUT: banner message type desc, message */
+"message" = "neges";
+
+/* XBUT: banner message type desc, information */
+"information" = "gwybodaeth";
+
+/* XBUT: banner message type desc, confirmation */
+"confirmation" = "cadarnhad";
+
+/* XBUT: banner message type desc, warning */
+"warning" = "rhybudd";
+
+/* XBUT: banner message type desc, error */
+"error" = "gwall";
+
+/* XBUT: banner message type desc in plural form, messages */
+"messages" = "negeseuon";
+
+/* XBUT: banner message type desc in plural form, informations */
+"informations" = "gwybodaeth";
+
+/* XBUT: banner message type desc in plural form, confirmations */
+"confirmations" = "cadarnhad";
+
+/* XBUT: banner message type desc in plural form, warnings */
+"warnings" = "rhybuddion";
+
+/* XBUT: banner message type desc in plural form, errors */
+"errors" = "gwallau";
+
+/* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
+"Reset" = "Ailosod";
+
+/* XBUT: Apply action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
+"Apply" = "Rhoi ar waith";
+
+/* XTIT: The alert message for `ListPickerDestination` pulldown dismissal */
+"Are you sure you want to discard your selections?" = "Ydych chi'n siŵr eich bod chi eisiau gwaredu eich dewisiadau?";
+
+/* XBUT: The alert Discard Changes action title for `ListPickerDestination` pulldown dismissal */
+"Discard Changes" = "Gwaredu Newidiadau";
+
+/* XBUT: The alert Keep Editing action title for `ListPickerDestination` pulldown dismissal */
+"Keep Editing" = "Parhau i Olygu";
+
+/* XBUT: The \"Select All\" button title on the List Picker header */
+"Select All" = "Dewis Pob Un";
+
+/* XBUT: The \"Deselect All\" button title on the List Picker header */
+"Deselect All" = "Dad-ddewis Pob Un";
+
+/* XBUT: The \"Selected\" title on the List Picker header */
+"Selected" = "Wedi dewis";
+
+/* XACT: The accessibility hint for Text Input Views, editable */
+"Text field, Double tap to edit" = "Maes testun, Cliciwch ddwywaith i olygu";
+
+/* XACT: The accessibility hint for Text Input Views, editing */
+"Text field, is editing" = "Maes testun, wrthi'n golygu";
+
+/* XACT: The accessibility hint for Text Input Views, editing, with clear button */
+"Text field, is editing. Double tap to clear text" = "Maes testun, wrthi'n golygu. Cliciwch ddwywaith i gael gwared ar y testun";
+
+/* XACT: The default accessibility label for the custom action in TextFieldFormView if none was specified */
+"Custom Action" = "Gweithred Personol";
+
+/* XBUT: Error messages shown to users in DocumentScannerView */
+"Failed to create PDF page from images" = "Wedi methu creu tudalen PDF o'r delweddau.";
+
+/* XBUT: Cancel message shown to users in DocumentScannerView */
+"User cancelled the scan" = "Y defnyddiwr wedi canslo'r broses sganio.";
+
+/* Progress Indicator accessibility label: processing */
+"Processing" = "Wrthi’n prosesu";
+
+/* Progress Indicator accessibility label: loading pausable with indicator progress */
+"In progress with option to pause, %.0f" = "Ar waith gydag opsiwn i oedi, %.0f";
+
+/* Progress Indicator accessibility label: loading stoppable with indicator progress */
+"In progress with option to stop, %.0f" = "Ar waith gydag opsiwn i stopio, %.0f";
+
+/* Progress Indicator accessibility label: progress halted with indicator progress */
+"Progress halted, %.0f" = "Datblygiad ar stop, %.0f";
 

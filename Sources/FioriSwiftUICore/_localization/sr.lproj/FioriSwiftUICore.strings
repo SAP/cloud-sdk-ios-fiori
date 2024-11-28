@@ -145,6 +145,9 @@
 /* XBUT: voice over label for row selection status in DataTable */
 "not selected" = "није одабрано";
 
+/* Default value for DateTimePicker */
+"No date selected" = "Датум није одабран";
+
 /* XBUT: calendar time component label */
 "Time" = "Време";
 
@@ -183,4 +186,133 @@
 
 /* XACT: RatingControl accessibility label */
 "%d out of %d stars" = "%d од %d звездица";
+
+/* XBUT: timeline preview component see all label */
+"See All (%d)" = "Прикажи све (%d)";
+
+/* XACT: Timeline preview item accessibility label */
+"Item %d of %d" = "Ставка %d од %d";
+
+/* XBUT: timeline preview component timestamp label */
+"Today, %d" = "Данас, %d";
+
+/* XFLD: RatingControl value label format */
+"%d of %d" = "%d од %d";
+
+/* XFLD: RatingControl review count format */
+"%d reviews" = "%d прегледа";
+
+/* XFLD: RatingControl review count over ceiling format */
+"%d+ reviews" = "%d+ прегледа";
+
+/* XACT: RatingControl accessibility label */
+"Rating Control %d of %d" = "Контрола вредновања %d од %d";
+
+/* XACT: read-only RatingControl accessibility label: rating with review count */
+"Rating Control, rating %d of %d, %d reviews" = "Контрола вредновања, вредновање %d од %d, %d прегледа";
+
+/* XACT: read-only RatingControl accessibility label: average rating only */
+"Rating Control, average rating %.1f of %d" = "Контрола вредновања, просечно вредновање %.1f од %d";
+
+/* XACT: read-only RatingControl accessibility label: average rating with review count */
+"Rating Control, average rating %.1f of %d, %d reviews" = "Контрола вредновања, просечно вредновање %.1f од %d, %d прегледа";
+
+/* XACT: read-only RatingControl accessibility label: average rating with review count over ceiling */
+"Rating Control, average rating %.1f of %d, %d plus reviews" = "Контрола вредновања, просечно вредновање %.1f од %d, %d плус прегледа";
+
+/* XBUT: View all messages in message banner sheet */
+"All" = "Све";
+
+/* XBUT: messages count in the message banner sheet */
+"Messages (%d)" = "Поруке (%d)";
+
+/* XBUT: view details in the message banner */
+"View Details" = "Прикажи детаље";
+
+/* XBUT: view different message in the message banner sheet item */
+"View %@" = "Прикажи %@";
+
+/* XBUT: banner message type desc, message */
+"message" = "поруку";
+
+/* XBUT: banner message type desc, information */
+"information" = "информације";
+
+/* XBUT: banner message type desc, confirmation */
+"confirmation" = "потврду";
+
+/* XBUT: banner message type desc, warning */
+"warning" = "упозорење";
+
+/* XBUT: banner message type desc, error */
+"error" = "грешку";
+
+/* XBUT: banner message type desc in plural form, messages */
+"messages" = "поруке";
+
+/* XBUT: banner message type desc in plural form, informations */
+"informations" = "информације";
+
+/* XBUT: banner message type desc in plural form, confirmations */
+"confirmations" = "потврде";
+
+/* XBUT: banner message type desc in plural form, warnings */
+"warnings" = "упозорења";
+
+/* XBUT: banner message type desc in plural form, errors */
+"errors" = "грешке";
+
+/* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
+"Reset" = "Поново постави";
+
+/* XBUT: Apply action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
+"Apply" = "Примени";
+
+/* XTIT: The alert message for `ListPickerDestination` pulldown dismissal */
+"Are you sure you want to discard your selections?" = "Да ли сигурно желите да одбаците одабире?";
+
+/* XBUT: The alert Discard Changes action title for `ListPickerDestination` pulldown dismissal */
+"Discard Changes" = "Одбаци промене";
+
+/* XBUT: The alert Keep Editing action title for `ListPickerDestination` pulldown dismissal */
+"Keep Editing" = "Настави уређивање";
+
+/* XBUT: The \"Select All\" button title on the List Picker header */
+"Select All" = "Одабери све";
+
+/* XBUT: The \"Deselect All\" button title on the List Picker header */
+"Deselect All" = "Поништи све одабире";
+
+/* XBUT: The \"Selected\" title on the List Picker header */
+"Selected" = "Одабрано";
+
+/* XACT: The accessibility hint for Text Input Views, editable */
+"Text field, Double tap to edit" = "Поље текста, додирните двапут за уређивање";
+
+/* XACT: The accessibility hint for Text Input Views, editing */
+"Text field, is editing" = "Поље текста, уређује";
+
+/* XACT: The accessibility hint for Text Input Views, editing, with clear button */
+"Text field, is editing. Double tap to clear text" = "Поље текста, уређује. Додирните двапут за брисање текста";
+
+/* XACT: The default accessibility label for the custom action in TextFieldFormView if none was specified */
+"Custom Action" = "Кориснички дефинисана радња";
+
+/* XBUT: Error messages shown to users in DocumentScannerView */
+"Failed to create PDF page from images" = "Креирање PDF странице на основу слика није успело.";
+
+/* XBUT: Cancel message shown to users in DocumentScannerView */
+"User cancelled the scan" = "Корисник је отказао скенирање.";
+
+/* Progress Indicator accessibility label: processing */
+"Processing" = "Обрада";
+
+/* Progress Indicator accessibility label: loading pausable with indicator progress */
+"In progress with option to pause, %.0f" = "У току са опцијом паузирања, %.0f";
+
+/* Progress Indicator accessibility label: loading stoppable with indicator progress */
+"In progress with option to stop, %.0f" = "У току са опцијом заустављања, %.0f";
+
+/* Progress Indicator accessibility label: progress halted with indicator progress */
+"Progress halted, %.0f" = "Напредак заустављен, %.0f";
 

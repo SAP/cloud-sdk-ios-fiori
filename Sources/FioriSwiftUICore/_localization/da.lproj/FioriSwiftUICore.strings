@@ -31,6 +31,9 @@
 /* XACT: The accessibility label for the signature line */
 "Signature Line" = "Underskriftlinje";
 
+/* XACT: The accessibility label for the mandatory field */
+"Required Field" = "Obligatorisk felt";
+
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
 "Canceled" = "Annulleret";
 
@@ -142,6 +145,9 @@
 /* XBUT: voice over label for row selection status in DataTable */
 "not selected" = "ikke valgt";
 
+/* Default value for DateTimePicker */
+"No date selected" = "Der er ikke valgt en dato";
+
 /* XBUT: calendar time component label */
 "Time" = "Klokkeslæt";
 
@@ -159,4 +165,154 @@
 
 /* Default error text for when the character count exceeds the maximum limit for NoteFormView and TextFieldFormView */
 "Reduce the number of characters" = "Reducer antallet af tegn";
+
+/* XBUT: voice over label for decrement action in stepper */
+"Stepper decrease" = "Værdiskyder reduktion";
+
+/* XBUT: voice over description for decrement action in stepper */
+"Decrease the value by %d" = "Reducer værdien med %d";
+
+/* XBUT: voice over label for increment action in stepper */
+"Stepper increase" = "Værdiskyder forøgelse";
+
+/* XBUT: voice over description for increment action in stepper */
+"Increase the value by %d" = "Forøg værdien med %d";
+
+/* XBUT: voice over label for test field in stepper */
+"Select specific value" = "Vælg specifik værdi";
+
+/* XBUT: View all action in MenuSelection */
+"View All (%d)" = "Vis alle (%d)";
+
+/* XACT: RatingControl accessibility label */
+"%d out of %d stars" = "%d ud af %d stjerner";
+
+/* XBUT: timeline preview component see all label */
+"See All (%d)" = "Se alle (%d)";
+
+/* XACT: Timeline preview item accessibility label */
+"Item %d of %d" = "Element %d af %d";
+
+/* XBUT: timeline preview component timestamp label */
+"Today, %d" = "I dag, %d";
+
+/* XFLD: RatingControl value label format */
+"%d of %d" = "%d af %d";
+
+/* XFLD: RatingControl review count format */
+"%d reviews" = "%d anmeldelser";
+
+/* XFLD: RatingControl review count over ceiling format */
+"%d+ reviews" = "%d+ anmeldelser";
+
+/* XACT: RatingControl accessibility label */
+"Rating Control %d of %d" = "Bedømmelseskontrol %d af %d";
+
+/* XACT: read-only RatingControl accessibility label: rating with review count */
+"Rating Control, rating %d of %d, %d reviews" = "Bedømmelseskontrol , bedømmelse %d af %d, %d anmeldelser";
+
+/* XACT: read-only RatingControl accessibility label: average rating only */
+"Rating Control, average rating %.1f of %d" = "Bedømmelseskontrol, gennemsnitsbedømmelse %.1f af %d";
+
+/* XACT: read-only RatingControl accessibility label: average rating with review count */
+"Rating Control, average rating %.1f of %d, %d reviews" = "Bedømmelseskontrol, gennemsnitsbedømmelse %.1f af %d, %d anmeldelser";
+
+/* XACT: read-only RatingControl accessibility label: average rating with review count over ceiling */
+"Rating Control, average rating %.1f of %d, %d plus reviews" = "Bedømmelseskontrol, gennemsnitsbedømmelse %.1f af %d, %d plus anmeldelser";
+
+/* XBUT: View all messages in message banner sheet */
+"All" = "Alle";
+
+/* XBUT: messages count in the message banner sheet */
+"Messages (%d)" = "Meddelelser (%d)";
+
+/* XBUT: view details in the message banner */
+"View Details" = "Vis detaljer";
+
+/* XBUT: view different message in the message banner sheet item */
+"View %@" = "Vis %@";
+
+/* XBUT: banner message type desc, message */
+"message" = "meddelelse";
+
+/* XBUT: banner message type desc, information */
+"information" = "oplysninger";
+
+/* XBUT: banner message type desc, confirmation */
+"confirmation" = "bekræftelse";
+
+/* XBUT: banner message type desc, warning */
+"warning" = "advarsel";
+
+/* XBUT: banner message type desc, error */
+"error" = "fejl";
+
+/* XBUT: banner message type desc in plural form, messages */
+"messages" = "meddelelser";
+
+/* XBUT: banner message type desc in plural form, informations */
+"informations" = "oplysninger";
+
+/* XBUT: banner message type desc in plural form, confirmations */
+"confirmations" = "bekræftelser";
+
+/* XBUT: banner message type desc in plural form, warnings */
+"warnings" = "advarsler";
+
+/* XBUT: banner message type desc in plural form, errors */
+"errors" = "fejl";
+
+/* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
+"Reset" = "Nulstil";
+
+/* XBUT: Apply action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
+"Apply" = "Anvend";
+
+/* XTIT: The alert message for `ListPickerDestination` pulldown dismissal */
+"Are you sure you want to discard your selections?" = "Er du sikker på, at du vil kassere dine valg?";
+
+/* XBUT: The alert Discard Changes action title for `ListPickerDestination` pulldown dismissal */
+"Discard Changes" = "Kasser ændringer";
+
+/* XBUT: The alert Keep Editing action title for `ListPickerDestination` pulldown dismissal */
+"Keep Editing" = "Fortsæt redigering";
+
+/* XBUT: The \"Select All\" button title on the List Picker header */
+"Select All" = "Marker alle";
+
+/* XBUT: The \"Deselect All\" button title on the List Picker header */
+"Deselect All" = "Afmarker alle";
+
+/* XBUT: The \"Selected\" title on the List Picker header */
+"Selected" = "Valgt";
+
+/* XACT: The accessibility hint for Text Input Views, editable */
+"Text field, Double tap to edit" = "Tekstfelt, dobbelttryk for at redigere";
+
+/* XACT: The accessibility hint for Text Input Views, editing */
+"Text field, is editing" = "Tekstfelt, redigerer";
+
+/* XACT: The accessibility hint for Text Input Views, editing, with clear button */
+"Text field, is editing. Double tap to clear text" = "Tekstfelt, redigerer. Dobbelttryk for at rydde tekst";
+
+/* XACT: The default accessibility label for the custom action in TextFieldFormView if none was specified */
+"Custom Action" = "Brugerdefineret handling";
+
+/* XBUT: Error messages shown to users in DocumentScannerView */
+"Failed to create PDF page from images" = "Kunne ikke oprette PDF fra billeder.";
+
+/* XBUT: Cancel message shown to users in DocumentScannerView */
+"User cancelled the scan" = "Bruger annullerede scanningen.";
+
+/* Progress Indicator accessibility label: processing */
+"Processing" = "Behandler";
+
+/* Progress Indicator accessibility label: loading pausable with indicator progress */
+"In progress with option to pause, %.0f" = "I gang med mulighed for at sætte på pause, %.0f";
+
+/* Progress Indicator accessibility label: loading stoppable with indicator progress */
+"In progress with option to stop, %.0f" = "I gang med mulighed for at stoppe, %.0f";
+
+/* Progress Indicator accessibility label: progress halted with indicator progress */
+"Progress halted, %.0f" = "Behandling standset, %.0f";
 
