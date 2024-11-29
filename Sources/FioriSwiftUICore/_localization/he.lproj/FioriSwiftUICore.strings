@@ -31,6 +31,9 @@
 /* XACT: The accessibility label for the signature line */
 "Signature Line" = "שורת חתימה";
 
+/* XACT: The accessibility label for the mandatory field */
+"Required Field" = "שדה חובה";
+
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
 "Canceled" = "בוטל";
 
@@ -142,6 +145,9 @@
 /* XBUT: voice over label for row selection status in DataTable */
 "not selected" = "לא נבחר";
 
+/* Default value for DateTimePicker */
+"No date selected" = "לא נבחר תאריך";
+
 /* XBUT: calendar time component label */
 "Time" = "שעה";
 
@@ -159,4 +165,154 @@
 
 /* Default error text for when the character count exceeds the maximum limit for NoteFormView and TextFieldFormView */
 "Reduce the number of characters" = "צמצם את מספר התווים";
+
+/* XBUT: voice over label for decrement action in stepper */
+"Stepper decrease" = "הפחתת Stepper ";
+
+/* XBUT: voice over description for decrement action in stepper */
+"Decrease the value by %d" = "הפחת %d מהערך";
+
+/* XBUT: voice over label for increment action in stepper */
+"Stepper increase" = "הגדלת Stepper ";
+
+/* XBUT: voice over description for increment action in stepper */
+"Increase the value by %d" = "הגדל את הערך ב-%d";
+
+/* XBUT: voice over label for test field in stepper */
+"Select specific value" = "בחר ערך ספציפי";
+
+/* XBUT: View all action in MenuSelection */
+"View All (%d)" = "הצג הכול (%d)";
+
+/* XACT: RatingControl accessibility label */
+"%d out of %d stars" = "%d מתוך %d כוכבים";
+
+/* XBUT: timeline preview component see all label */
+"See All (%d)" = "הצג הכול (%d)";
+
+/* XACT: Timeline preview item accessibility label */
+"Item %d of %d" = "פריט %d מתוך %d";
+
+/* XBUT: timeline preview component timestamp label */
+"Today, %d" = "היום, %d";
+
+/* XFLD: RatingControl value label format */
+"%d of %d" = "%d של %d";
+
+/* XFLD: RatingControl review count format */
+"%d reviews" = "%d סקירות";
+
+/* XFLD: RatingControl review count over ceiling format */
+"%d+ reviews" = "%d+ סקירות";
+
+/* XACT: RatingControl accessibility label */
+"Rating Control %d of %d" = "בקרת דירוג %d מתוך %d";
+
+/* XACT: read-only RatingControl accessibility label: rating with review count */
+"Rating Control, rating %d of %d, %d reviews" = "בקרת דירוג, דירוג %d מתוך %d, %d סקירות";
+
+/* XACT: read-only RatingControl accessibility label: average rating only */
+"Rating Control, average rating %.1f of %d" = "בקרת דירוג, דירוג ממוצע %.1f מתוך %d";
+
+/* XACT: read-only RatingControl accessibility label: average rating with review count */
+"Rating Control, average rating %.1f of %d, %d reviews" = "בקרת דירוג, דירוג ממוצע %.1f מתוך %d, %d סקירות";
+
+/* XACT: read-only RatingControl accessibility label: average rating with review count over ceiling */
+"Rating Control, average rating %.1f of %d, %d plus reviews" = "בקרת דירוג, דירוג ממוצע %.1f מתוך %d, %d+ סקירות";
+
+/* XBUT: View all messages in message banner sheet */
+"All" = "הכול";
+
+/* XBUT: messages count in the message banner sheet */
+"Messages (%d)" = "הודעות (%d)";
+
+/* XBUT: view details in the message banner */
+"View Details" = "הצג פרטים";
+
+/* XBUT: view different message in the message banner sheet item */
+"View %@" = "הצג %@";
+
+/* XBUT: banner message type desc, message */
+"message" = "הודעה";
+
+/* XBUT: banner message type desc, information */
+"information" = "מידע";
+
+/* XBUT: banner message type desc, confirmation */
+"confirmation" = "אישור";
+
+/* XBUT: banner message type desc, warning */
+"warning" = "אזהרה";
+
+/* XBUT: banner message type desc, error */
+"error" = "שגיאה";
+
+/* XBUT: banner message type desc in plural form, messages */
+"messages" = "הודעות";
+
+/* XBUT: banner message type desc in plural form, informations */
+"informations" = "פרטים";
+
+/* XBUT: banner message type desc in plural form, confirmations */
+"confirmations" = "אישורים";
+
+/* XBUT: banner message type desc in plural form, warnings */
+"warnings" = "אזהרות";
+
+/* XBUT: banner message type desc in plural form, errors */
+"errors" = "שגיאות";
+
+/* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
+"Reset" = "אפס";
+
+/* XBUT: Apply action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
+"Apply" = "החל";
+
+/* XTIT: The alert message for `ListPickerDestination` pulldown dismissal */
+"Are you sure you want to discard your selections?" = "בטוח שברצונך להסיר את בחירותיך?";
+
+/* XBUT: The alert Discard Changes action title for `ListPickerDestination` pulldown dismissal */
+"Discard Changes" = "בטל שינויים";
+
+/* XBUT: The alert Keep Editing action title for `ListPickerDestination` pulldown dismissal */
+"Keep Editing" = "המשך לערוך";
+
+/* XBUT: The \"Select All\" button title on the List Picker header */
+"Select All" = "בחר הכול";
+
+/* XBUT: The \"Deselect All\" button title on the List Picker header */
+"Deselect All" = "בטל בחירה של הכול";
+
+/* XBUT: The \"Selected\" title on the List Picker header */
+"Selected" = "פרטים נבחרים";
+
+/* XACT: The accessibility hint for Text Input Views, editable */
+"Text field, Double tap to edit" = "שדה טקסט, הקש פעמיים כדי לערוך";
+
+/* XACT: The accessibility hint for Text Input Views, editing */
+"Text field, is editing" = "שדה טקסט, נערך";
+
+/* XACT: The accessibility hint for Text Input Views, editing, with clear button */
+"Text field, is editing. Double tap to clear text" = "שדה טקסט, נערך. הקש פעמיים כדי לנקום טקסט";
+
+/* XACT: The default accessibility label for the custom action in TextFieldFormView if none was specified */
+"Custom Action" = "פעולה מותאמת אישית";
+
+/* XBUT: Error messages shown to users in DocumentScannerView */
+"Failed to create PDF page from images" = "יצירת דף PDF מתמונות נכשלה.";
+
+/* XBUT: Cancel message shown to users in DocumentScannerView */
+"User cancelled the scan" = "המשתמש ביטל את הסריקה.";
+
+/* Progress Indicator accessibility label: processing */
+"Processing" = "בעיבוד";
+
+/* Progress Indicator accessibility label: loading pausable with indicator progress */
+"In progress with option to pause, %.0f" = "בתהליך עם אפשרות להשהות, %.0f";
+
+/* Progress Indicator accessibility label: loading stoppable with indicator progress */
+"In progress with option to stop, %.0f" = "בתהליך עם אפשרות לעצור, %.0f";
+
+/* Progress Indicator accessibility label: progress halted with indicator progress */
+"Progress halted, %.0f" = "תהליך הופסק, %.0f";
 

@@ -31,6 +31,9 @@
 /* XACT: The accessibility label for the signature line */
 "Signature Line" = "Линија за потпис";
 
+/* XACT: The accessibility label for the mandatory field */
+"Required Field" = "Задолжително поле";
+
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
 "Canceled" = "Откажано";
 
@@ -142,6 +145,9 @@
 /* XBUT: voice over label for row selection status in DataTable */
 "not selected" = "не е избран";
 
+/* Default value for DateTimePicker */
+"No date selected" = "Не е избран датум";
+
 /* XBUT: calendar time component label */
 "Time" = "Време";
 
@@ -159,4 +165,154 @@
 
 /* Default error text for when the character count exceeds the maximum limit for NoteFormView and TextFieldFormView */
 "Reduce the number of characters" = "Намалете го бројот на знаци";
+
+/* XBUT: voice over label for decrement action in stepper */
+"Stepper decrease" = "Намалување на регулаторот на вредности";
+
+/* XBUT: voice over description for decrement action in stepper */
+"Decrease the value by %d" = "Намали ја вредноста за %d";
+
+/* XBUT: voice over label for increment action in stepper */
+"Stepper increase" = "Зголемување на регулаторот на вредности";
+
+/* XBUT: voice over description for increment action in stepper */
+"Increase the value by %d" = "Зголеми ја вредноста за %d";
+
+/* XBUT: voice over label for test field in stepper */
+"Select specific value" = "Изберете конкретна вредност";
+
+/* XBUT: View all action in MenuSelection */
+"View All (%d)" = "Прикажи ги сите (%d)";
+
+/* XACT: RatingControl accessibility label */
+"%d out of %d stars" = "%d од %d ѕвездички";
+
+/* XBUT: timeline preview component see all label */
+"See All (%d)" = "Види ги сите (%d)";
+
+/* XACT: Timeline preview item accessibility label */
+"Item %d of %d" = "Ставка %d од %d";
+
+/* XBUT: timeline preview component timestamp label */
+"Today, %d" = "Денес, %d";
+
+/* XFLD: RatingControl value label format */
+"%d of %d" = "%d од %d";
+
+/* XFLD: RatingControl review count format */
+"%d reviews" = "%d прегледи";
+
+/* XFLD: RatingControl review count over ceiling format */
+"%d+ reviews" = "%d+ прегледи";
+
+/* XACT: RatingControl accessibility label */
+"Rating Control %d of %d" = "Контрола за оценување %d од %d";
+
+/* XACT: read-only RatingControl accessibility label: rating with review count */
+"Rating Control, rating %d of %d, %d reviews" = "Контрола за оценување, оцена %d од %d, %d прегледи";
+
+/* XACT: read-only RatingControl accessibility label: average rating only */
+"Rating Control, average rating %.1f of %d" = "Контрола за оценување, просечна оцена %.1f од %d";
+
+/* XACT: read-only RatingControl accessibility label: average rating with review count */
+"Rating Control, average rating %.1f of %d, %d reviews" = "Контрола за оценување, просечна оцена %.1f од %d, %d прегледи";
+
+/* XACT: read-only RatingControl accessibility label: average rating with review count over ceiling */
+"Rating Control, average rating %.1f of %d, %d plus reviews" = "Контрола за оценување, просечна оцена %.1f од %d, повеќе од %d прегледи";
+
+/* XBUT: View all messages in message banner sheet */
+"All" = "Сите";
+
+/* XBUT: messages count in the message banner sheet */
+"Messages (%d)" = "Пораки (%d)";
+
+/* XBUT: view details in the message banner */
+"View Details" = "Прикажи ги деталите";
+
+/* XBUT: view different message in the message banner sheet item */
+"View %@" = "Прикажи %@";
+
+/* XBUT: banner message type desc, message */
+"message" = "порака";
+
+/* XBUT: banner message type desc, information */
+"information" = "информации";
+
+/* XBUT: banner message type desc, confirmation */
+"confirmation" = "потврда";
+
+/* XBUT: banner message type desc, warning */
+"warning" = "предупредување";
+
+/* XBUT: banner message type desc, error */
+"error" = "грешка";
+
+/* XBUT: banner message type desc in plural form, messages */
+"messages" = "пораки";
+
+/* XBUT: banner message type desc in plural form, informations */
+"informations" = "информации";
+
+/* XBUT: banner message type desc in plural form, confirmations */
+"confirmations" = "потврди";
+
+/* XBUT: banner message type desc in plural form, warnings */
+"warnings" = "предупредувања";
+
+/* XBUT: banner message type desc in plural form, errors */
+"errors" = "грешки";
+
+/* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
+"Reset" = "Ресетирај";
+
+/* XBUT: Apply action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
+"Apply" = "Примени";
+
+/* XTIT: The alert message for `ListPickerDestination` pulldown dismissal */
+"Are you sure you want to discard your selections?" = "Дали сигурно сакате да ги отфрлите избраните вредности?";
+
+/* XBUT: The alert Discard Changes action title for `ListPickerDestination` pulldown dismissal */
+"Discard Changes" = "Отфрли ги промените";
+
+/* XBUT: The alert Keep Editing action title for `ListPickerDestination` pulldown dismissal */
+"Keep Editing" = "Продолжи со уредување";
+
+/* XBUT: The \"Select All\" button title on the List Picker header */
+"Select All" = "Избери ги сите";
+
+/* XBUT: The \"Deselect All\" button title on the List Picker header */
+"Deselect All" = "Поништи го изборот на сите";
+
+/* XBUT: The \"Selected\" title on the List Picker header */
+"Selected" = "Избраните";
+
+/* XACT: The accessibility hint for Text Input Views, editable */
+"Text field, Double tap to edit" = "Текстуално поле, допрете двапати за уредување";
+
+/* XACT: The accessibility hint for Text Input Views, editing */
+"Text field, is editing" = "Текстуално поле, се уредува";
+
+/* XACT: The accessibility hint for Text Input Views, editing, with clear button */
+"Text field, is editing. Double tap to clear text" = "Текстуално поле, се уредува. Допрете двапати за да го исчистите текстот";
+
+/* XACT: The default accessibility label for the custom action in TextFieldFormView if none was specified */
+"Custom Action" = "Приспособено дејство";
+
+/* XBUT: Error messages shown to users in DocumentScannerView */
+"Failed to create PDF page from images" = "Создавањето PDF-страница од слики е неуспешно.";
+
+/* XBUT: Cancel message shown to users in DocumentScannerView */
+"User cancelled the scan" = "Корисникот го откажа скенирањето.";
+
+/* Progress Indicator accessibility label: processing */
+"Processing" = "Се обработува";
+
+/* Progress Indicator accessibility label: loading pausable with indicator progress */
+"In progress with option to pause, %.0f" = "Во тек со опција за паузирање, %.0f";
+
+/* Progress Indicator accessibility label: loading stoppable with indicator progress */
+"In progress with option to stop, %.0f" = "Во тек со опција за запирање, %.0f";
+
+/* Progress Indicator accessibility label: progress halted with indicator progress */
+"Progress halted, %.0f" = "Напредокот е запрен, %.0f";
 

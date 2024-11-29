@@ -31,6 +31,9 @@
 /* XACT: The accessibility label for the signature line */
 "Signature Line" = "Aláírásvonal";
 
+/* XACT: The accessibility label for the mandatory field */
+"Required Field" = "Kötelező mező";
+
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
 "Canceled" = "Megszakadt";
 
@@ -142,6 +145,9 @@
 /* XBUT: voice over label for row selection status in DataTable */
 "not selected" = "nem kijelölt";
 
+/* Default value for DateTimePicker */
+"No date selected" = "Nincs kiválasztva dátum";
+
 /* XBUT: calendar time component label */
 "Time" = "Időpont";
 
@@ -159,4 +165,154 @@
 
 /* Default error text for when the character count exceeds the maximum limit for NoteFormView and TextFieldFormView */
 "Reduce the number of characters" = "Csökkentse a karakterek számát";
+
+/* XBUT: voice over label for decrement action in stepper */
+"Stepper decrease" = "Értékszabályzó - csökkentés";
+
+/* XBUT: voice over description for decrement action in stepper */
+"Decrease the value by %d" = "Érték csökkentése a következővel: %d";
+
+/* XBUT: voice over label for increment action in stepper */
+"Stepper increase" = "Értékszabályzó - növelés";
+
+/* XBUT: voice over description for increment action in stepper */
+"Increase the value by %d" = "Érték növelése a következővel: %d";
+
+/* XBUT: voice over label for test field in stepper */
+"Select specific value" = "Specifikus érték kiválasztása";
+
+/* XBUT: View all action in MenuSelection */
+"View All (%d)" = "Összes megtekintése (%d)";
+
+/* XACT: RatingControl accessibility label */
+"%d out of %d stars" = "%d csillagból %d";
+
+/* XBUT: timeline preview component see all label */
+"See All (%d)" = "Összes megjelenítése (%d)";
+
+/* XACT: Timeline preview item accessibility label */
+"Item %d of %d" = "%d/%d tétel";
+
+/* XBUT: timeline preview component timestamp label */
+"Today, %d" = "Ma, %d";
+
+/* XFLD: RatingControl value label format */
+"%d of %d" = "%d / %d";
+
+/* XFLD: RatingControl review count format */
+"%d reviews" = "%d vélemény";
+
+/* XFLD: RatingControl review count over ceiling format */
+"%d+ reviews" = "%d+ vélemény";
+
+/* XACT: RatingControl accessibility label */
+"Rating Control %d of %d" = "Értékelésvezérlő %d / %d";
+
+/* XACT: read-only RatingControl accessibility label: rating with review count */
+"Rating Control, rating %d of %d, %d reviews" = "Értékelésvezérlő, %d / %d értékelés, %d vélemény";
+
+/* XACT: read-only RatingControl accessibility label: average rating only */
+"Rating Control, average rating %.1f of %d" = "Értékelésvezérlő, %.1f / %d átlagos értékelés";
+
+/* XACT: read-only RatingControl accessibility label: average rating with review count */
+"Rating Control, average rating %.1f of %d, %d reviews" = "Értékelésvezérlő, %.1f / %d átlagos értékelés, %d vélemény";
+
+/* XACT: read-only RatingControl accessibility label: average rating with review count over ceiling */
+"Rating Control, average rating %.1f of %d, %d plus reviews" = "Értékelésvezérlő, %.1f / %d átlagos értékelés, több mint %d vélemény";
+
+/* XBUT: View all messages in message banner sheet */
+"All" = "Összes";
+
+/* XBUT: messages count in the message banner sheet */
+"Messages (%d)" = "Üzenetek (%d)";
+
+/* XBUT: view details in the message banner */
+"View Details" = "Részletek megtekintése";
+
+/* XBUT: view different message in the message banner sheet item */
+"View %@" = "%@ megtekintése";
+
+/* XBUT: banner message type desc, message */
+"message" = "üzenet";
+
+/* XBUT: banner message type desc, information */
+"information" = "információ";
+
+/* XBUT: banner message type desc, confirmation */
+"confirmation" = "visszaigazolás";
+
+/* XBUT: banner message type desc, warning */
+"warning" = "figyelmeztetés";
+
+/* XBUT: banner message type desc, error */
+"error" = "hiba";
+
+/* XBUT: banner message type desc in plural form, messages */
+"messages" = "üzenet";
+
+/* XBUT: banner message type desc in plural form, informations */
+"informations" = "információ";
+
+/* XBUT: banner message type desc in plural form, confirmations */
+"confirmations" = "visszaigazolás";
+
+/* XBUT: banner message type desc in plural form, warnings */
+"warnings" = "figyelmeztetés";
+
+/* XBUT: banner message type desc in plural form, errors */
+"errors" = "hiba";
+
+/* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
+"Reset" = "Visszaállítás";
+
+/* XBUT: Apply action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
+"Apply" = "Alkalmazás";
+
+/* XTIT: The alert message for `ListPickerDestination` pulldown dismissal */
+"Are you sure you want to discard your selections?" = "Biztosan elveti a kiválasztásokat?";
+
+/* XBUT: The alert Discard Changes action title for `ListPickerDestination` pulldown dismissal */
+"Discard Changes" = "Módosítások elvetése";
+
+/* XBUT: The alert Keep Editing action title for `ListPickerDestination` pulldown dismissal */
+"Keep Editing" = "Szerkesztés folytatása";
+
+/* XBUT: The \"Select All\" button title on the List Picker header */
+"Select All" = "Összes kiválasztása";
+
+/* XBUT: The \"Deselect All\" button title on the List Picker header */
+"Deselect All" = "Összes kiválasztás törlése";
+
+/* XBUT: The \"Selected\" title on the List Picker header */
+"Selected" = "Kiválasztva";
+
+/* XACT: The accessibility hint for Text Input Views, editable */
+"Text field, Double tap to edit" = "Szövegmező, koppintson duplán a szerkesztéshez";
+
+/* XACT: The accessibility hint for Text Input Views, editing */
+"Text field, is editing" = "Szövegmező, szerkesztés folyamatban";
+
+/* XACT: The accessibility hint for Text Input Views, editing, with clear button */
+"Text field, is editing. Double tap to clear text" = "Szövegmező, szerkesztés folyamatban. Koppintson duplán a szöveg törléséhez";
+
+/* XACT: The default accessibility label for the custom action in TextFieldFormView if none was specified */
+"Custom Action" = "Egyéni művelet";
+
+/* XBUT: Error messages shown to users in DocumentScannerView */
+"Failed to create PDF page from images" = "Nem sikerült PDF-oldalt létrehozni a képekből.";
+
+/* XBUT: Cancel message shown to users in DocumentScannerView */
+"User cancelled the scan" = "A felhasználó megszakította a szkennelést.";
+
+/* Progress Indicator accessibility label: processing */
+"Processing" = "Feldolgozás alatt";
+
+/* Progress Indicator accessibility label: loading pausable with indicator progress */
+"In progress with option to pause, %.0f" = "Folyamatban szüneteltetési lehetőséggel, %.0f";
+
+/* Progress Indicator accessibility label: loading stoppable with indicator progress */
+"In progress with option to stop, %.0f" = "Folyamatban leállítási lehetőséggel, %.0f";
+
+/* Progress Indicator accessibility label: progress halted with indicator progress */
+"Progress halted, %.0f" = "Előrehaladás leállítva, %.0f";
 

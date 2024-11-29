@@ -31,6 +31,9 @@
 /* XACT: The accessibility label for the signature line */
 "Signature Line" = "Allekirjoitusrivi";
 
+/* XACT: The accessibility label for the mandatory field */
+"Required Field" = "Pakollinen kenttä";
+
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
 "Canceled" = "Peruutettu";
 
@@ -142,6 +145,9 @@
 /* XBUT: voice over label for row selection status in DataTable */
 "not selected" = "ei valittu";
 
+/* Default value for DateTimePicker */
+"No date selected" = "Päivämäärää ei ole valittu";
+
 /* XBUT: calendar time component label */
 "Time" = "Kellonaika";
 
@@ -159,4 +165,154 @@
 
 /* Default error text for when the character count exceeds the maximum limit for NoteFormView and TextFieldFormView */
 "Reduce the number of characters" = "Vähennä merkkien määrää";
+
+/* XBUT: voice over label for decrement action in stepper */
+"Stepper decrease" = "Arvojen säätimen vähennys";
+
+/* XBUT: voice over description for decrement action in stepper */
+"Decrease the value by %d" = "Pienennä arvoa %d";
+
+/* XBUT: voice over label for increment action in stepper */
+"Stepper increase" = "Arvojen säätimen lisäys";
+
+/* XBUT: voice over description for increment action in stepper */
+"Increase the value by %d" = "Suurenna arvoa %d";
+
+/* XBUT: voice over label for test field in stepper */
+"Select specific value" = "Valitse tietty arvo";
+
+/* XBUT: View all action in MenuSelection */
+"View All (%d)" = "Näytä kaikki (%d)";
+
+/* XACT: RatingControl accessibility label */
+"%d out of %d stars" = "%d/%d tähteä";
+
+/* XBUT: timeline preview component see all label */
+"See All (%d)" = "Näytä kaikki (%d)";
+
+/* XACT: Timeline preview item accessibility label */
+"Item %d of %d" = "Kohde %d/%d";
+
+/* XBUT: timeline preview component timestamp label */
+"Today, %d" = "Tänään, %d";
+
+/* XFLD: RatingControl value label format */
+"%d of %d" = "%d/%d";
+
+/* XFLD: RatingControl review count format */
+"%d reviews" = "%d arviointia";
+
+/* XFLD: RatingControl review count over ceiling format */
+"%d+ reviews" = "%d+ arviointia";
+
+/* XACT: RatingControl accessibility label */
+"Rating Control %d of %d" = "Luokituksen ohjaus %d/%d";
+
+/* XACT: read-only RatingControl accessibility label: rating with review count */
+"Rating Control, rating %d of %d, %d reviews" = "Luokituksen ohjaus, luokitus %d/%d, %d arviointia";
+
+/* XACT: read-only RatingControl accessibility label: average rating only */
+"Rating Control, average rating %.1f of %d" = "Luokituksen ohjaus, keskimääräinen luokitus %.1f/%d";
+
+/* XACT: read-only RatingControl accessibility label: average rating with review count */
+"Rating Control, average rating %.1f of %d, %d reviews" = "Luokituksen ohjaus, keskimääräinen luokitus %.1f/%d, %d arviointia";
+
+/* XACT: read-only RatingControl accessibility label: average rating with review count over ceiling */
+"Rating Control, average rating %.1f of %d, %d plus reviews" = "Luokituksen ohjaus, keskimääräinen luokitus %.1f/%d, yli %d arviointia";
+
+/* XBUT: View all messages in message banner sheet */
+"All" = "Kaikki";
+
+/* XBUT: messages count in the message banner sheet */
+"Messages (%d)" = "Viestit (%d)";
+
+/* XBUT: view details in the message banner */
+"View Details" = "Näytä lisätiedot";
+
+/* XBUT: view different message in the message banner sheet item */
+"View %@" = "Näytä %@";
+
+/* XBUT: banner message type desc, message */
+"message" = "viesti";
+
+/* XBUT: banner message type desc, information */
+"information" = "tiedot";
+
+/* XBUT: banner message type desc, confirmation */
+"confirmation" = "vahvistus";
+
+/* XBUT: banner message type desc, warning */
+"warning" = "varoitus";
+
+/* XBUT: banner message type desc, error */
+"error" = "virhe";
+
+/* XBUT: banner message type desc in plural form, messages */
+"messages" = "viestit";
+
+/* XBUT: banner message type desc in plural form, informations */
+"informations" = "tiedot";
+
+/* XBUT: banner message type desc in plural form, confirmations */
+"confirmations" = "vahvistukset";
+
+/* XBUT: banner message type desc in plural form, warnings */
+"warnings" = "varoitukset";
+
+/* XBUT: banner message type desc in plural form, errors */
+"errors" = "virheet";
+
+/* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
+"Reset" = "Palauta";
+
+/* XBUT: Apply action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
+"Apply" = "Käytä";
+
+/* XTIT: The alert message for `ListPickerDestination` pulldown dismissal */
+"Are you sure you want to discard your selections?" = "Haluatko varmasti hylätä valintasi?";
+
+/* XBUT: The alert Discard Changes action title for `ListPickerDestination` pulldown dismissal */
+"Discard Changes" = "Hylkää muutokset";
+
+/* XBUT: The alert Keep Editing action title for `ListPickerDestination` pulldown dismissal */
+"Keep Editing" = "Jatka muokkaamista";
+
+/* XBUT: The \"Select All\" button title on the List Picker header */
+"Select All" = "Valitse kaikki";
+
+/* XBUT: The \"Deselect All\" button title on the List Picker header */
+"Deselect All" = "Poista kaikkien valinta";
+
+/* XBUT: The \"Selected\" title on the List Picker header */
+"Selected" = "Valittu";
+
+/* XACT: The accessibility hint for Text Input Views, editable */
+"Text field, Double tap to edit" = "Tekstikenttä, muokkaa kaksoisnapsauttamalla";
+
+/* XACT: The accessibility hint for Text Input Views, editing */
+"Text field, is editing" = "Tekstikenttä, muokkaa";
+
+/* XACT: The accessibility hint for Text Input Views, editing, with clear button */
+"Text field, is editing. Double tap to clear text" = "Tekstikenttä, muokkaa. Tyhjennä teksti kaksoisnapsauttamalla.";
+
+/* XACT: The default accessibility label for the custom action in TextFieldFormView if none was specified */
+"Custom Action" = "Käyttäjän määrittämä toimi";
+
+/* XBUT: Error messages shown to users in DocumentScannerView */
+"Failed to create PDF page from images" = "PDF-sivun luonti kuvista epäonnistui.";
+
+/* XBUT: Cancel message shown to users in DocumentScannerView */
+"User cancelled the scan" = "Käyttäjä peruutti skannauksen.";
+
+/* Progress Indicator accessibility label: processing */
+"Processing" = "Käsitellään";
+
+/* Progress Indicator accessibility label: loading pausable with indicator progress */
+"In progress with option to pause, %.0f" = "Käsiteltävänä - voidaan keskeyttää, %.0f";
+
+/* Progress Indicator accessibility label: loading stoppable with indicator progress */
+"In progress with option to stop, %.0f" = "Käsiteltävänä - voidaan pysäyttää, %.0f";
+
+/* Progress Indicator accessibility label: progress halted with indicator progress */
+"Progress halted, %.0f" = "Eteneminen pysäytetty, %.0f";
 

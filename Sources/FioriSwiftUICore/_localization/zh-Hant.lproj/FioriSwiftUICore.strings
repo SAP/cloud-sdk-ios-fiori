@@ -31,6 +31,9 @@
 /* XACT: The accessibility label for the signature line */
 "Signature Line" = "簽名行";
 
+/* XACT: The accessibility label for the mandatory field */
+"Required Field" = "必要欄位";
+
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
 "Canceled" = "已取消";
 
@@ -142,6 +145,9 @@
 /* XBUT: voice over label for row selection status in DataTable */
 "not selected" = "未選擇";
 
+/* Default value for DateTimePicker */
+"No date selected" = "未選擇日期";
+
 /* XBUT: calendar time component label */
 "Time" = "時間";
 
@@ -159,4 +165,154 @@
 
 /* Default error text for when the character count exceeds the maximum limit for NoteFormView and TextFieldFormView */
 "Reduce the number of characters" = "減少字元數量";
+
+/* XBUT: voice over label for decrement action in stepper */
+"Stepper decrease" = "控制值減少";
+
+/* XBUT: voice over description for decrement action in stepper */
+"Decrease the value by %d" = "按 %d 減少值";
+
+/* XBUT: voice over label for increment action in stepper */
+"Stepper increase" = "控制值增加";
+
+/* XBUT: voice over description for increment action in stepper */
+"Increase the value by %d" = "按 %d 增加值";
+
+/* XBUT: voice over label for test field in stepper */
+"Select specific value" = "選擇特定值";
+
+/* XBUT: View all action in MenuSelection */
+"View All (%d)" = "全部檢視 (%d)";
+
+/* XACT: RatingControl accessibility label */
+"%d out of %d stars" = "%d/%d 顆星";
+
+/* XBUT: timeline preview component see all label */
+"See All (%d)" = "查看全部 (%d)";
+
+/* XACT: Timeline preview item accessibility label */
+"Item %d of %d" = "項目 %d，共 %d 個項目";
+
+/* XBUT: timeline preview component timestamp label */
+"Today, %d" = "今天 %d";
+
+/* XFLD: RatingControl value label format */
+"%d of %d" = "%d/%d";
+
+/* XFLD: RatingControl review count format */
+"%d reviews" = "%d 個評核";
+
+/* XFLD: RatingControl review count over ceiling format */
+"%d+ reviews" = "%d+ 個評核";
+
+/* XACT: RatingControl accessibility label */
+"Rating Control %d of %d" = "評分控制 %d/%d";
+
+/* XACT: read-only RatingControl accessibility label: rating with review count */
+"Rating Control, rating %d of %d, %d reviews" = "評分控制，評分 %d/%d，%d 個評核";
+
+/* XACT: read-only RatingControl accessibility label: average rating only */
+"Rating Control, average rating %.1f of %d" = "評分控制，平均評分 %.1f/%d";
+
+/* XACT: read-only RatingControl accessibility label: average rating with review count */
+"Rating Control, average rating %.1f of %d, %d reviews" = "評分控制，平均評分 %.1f/%d，%d 個評核";
+
+/* XACT: read-only RatingControl accessibility label: average rating with review count over ceiling */
+"Rating Control, average rating %.1f of %d, %d plus reviews" = "評分控制，平均評分 %.1f/%d，%d 個其他評核";
+
+/* XBUT: View all messages in message banner sheet */
+"All" = "全部";
+
+/* XBUT: messages count in the message banner sheet */
+"Messages (%d)" = "訊息 (%d)";
+
+/* XBUT: view details in the message banner */
+"View Details" = "檢視明細";
+
+/* XBUT: view different message in the message banner sheet item */
+"View %@" = "檢視 %@";
+
+/* XBUT: banner message type desc, message */
+"message" = "訊息";
+
+/* XBUT: banner message type desc, information */
+"information" = "資訊";
+
+/* XBUT: banner message type desc, confirmation */
+"confirmation" = "確認";
+
+/* XBUT: banner message type desc, warning */
+"warning" = "警告";
+
+/* XBUT: banner message type desc, error */
+"error" = "錯誤";
+
+/* XBUT: banner message type desc in plural form, messages */
+"messages" = "訊息";
+
+/* XBUT: banner message type desc in plural form, informations */
+"informations" = "資訊";
+
+/* XBUT: banner message type desc in plural form, confirmations */
+"confirmations" = "確認";
+
+/* XBUT: banner message type desc in plural form, warnings */
+"warnings" = "警告";
+
+/* XBUT: banner message type desc in plural form, errors */
+"errors" = "錯誤";
+
+/* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
+"Reset" = "重設";
+
+/* XBUT: Apply action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
+"Apply" = "套用";
+
+/* XTIT: The alert message for `ListPickerDestination` pulldown dismissal */
+"Are you sure you want to discard your selections?" = "是否要捨棄選擇？";
+
+/* XBUT: The alert Discard Changes action title for `ListPickerDestination` pulldown dismissal */
+"Discard Changes" = "捨棄更改";
+
+/* XBUT: The alert Keep Editing action title for `ListPickerDestination` pulldown dismissal */
+"Keep Editing" = "繼續編輯";
+
+/* XBUT: The \"Select All\" button title on the List Picker header */
+"Select All" = "全選";
+
+/* XBUT: The \"Deselect All\" button title on the List Picker header */
+"Deselect All" = "取消全選";
+
+/* XBUT: The \"Selected\" title on the List Picker header */
+"Selected" = "已選擇";
+
+/* XACT: The accessibility hint for Text Input Views, editable */
+"Text field, Double tap to edit" = "內文欄位，點兩下以編輯";
+
+/* XACT: The accessibility hint for Text Input Views, editing */
+"Text field, is editing" = "內文欄位，編輯中";
+
+/* XACT: The accessibility hint for Text Input Views, editing, with clear button */
+"Text field, is editing. Double tap to clear text" = "內文欄位，編輯中。點兩下以清除內文";
+
+/* XACT: The default accessibility label for the custom action in TextFieldFormView if none was specified */
+"Custom Action" = "自訂動作";
+
+/* XBUT: Error messages shown to users in DocumentScannerView */
+"Failed to create PDF page from images" = "無法自圖像建立 PDF 頁面。";
+
+/* XBUT: Cancel message shown to users in DocumentScannerView */
+"User cancelled the scan" = "使用者已取消掃描。";
+
+/* Progress Indicator accessibility label: processing */
+"Processing" = "處理中";
+
+/* Progress Indicator accessibility label: loading pausable with indicator progress */
+"In progress with option to pause, %.0f" = "進行中 (含暫停選項)，%.0f";
+
+/* Progress Indicator accessibility label: loading stoppable with indicator progress */
+"In progress with option to stop, %.0f" = "進行中 (含停止選項)，%.0f";
+
+/* Progress Indicator accessibility label: progress halted with indicator progress */
+"Progress halted, %.0f" = "進度暫停，%.0f";
 

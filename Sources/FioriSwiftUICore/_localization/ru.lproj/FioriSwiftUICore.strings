@@ -31,6 +31,9 @@
 /* XACT: The accessibility label for the signature line */
 "Signature Line" = "Строка подписи";
 
+/* XACT: The accessibility label for the mandatory field */
+"Required Field" = "Обязательное поле";
+
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
 "Canceled" = "Отменено";
 
@@ -142,6 +145,9 @@
 /* XBUT: voice over label for row selection status in DataTable */
 "not selected" = "не выбрано";
 
+/* Default value for DateTimePicker */
+"No date selected" = "Не выбрана дата";
+
 /* XBUT: calendar time component label */
 "Time" = "Время";
 
@@ -159,4 +165,154 @@
 
 /* Default error text for when the character count exceeds the maximum limit for NoteFormView and TextFieldFormView */
 "Reduce the number of characters" = "Уменьшите число символов";
+
+/* XBUT: voice over label for decrement action in stepper */
+"Stepper decrease" = "Уменьшение стрелки";
+
+/* XBUT: voice over description for decrement action in stepper */
+"Decrease the value by %d" = "Уменьшите число на %d";
+
+/* XBUT: voice over label for increment action in stepper */
+"Stepper increase" = "Увеличение стрелки";
+
+/* XBUT: voice over description for increment action in stepper */
+"Increase the value by %d" = "Увеличьте число на %d";
+
+/* XBUT: voice over label for test field in stepper */
+"Select specific value" = "Выберите определенное значение";
+
+/* XBUT: View all action in MenuSelection */
+"View All (%d)" = "Просмотреть все (%d)";
+
+/* XACT: RatingControl accessibility label */
+"%d out of %d stars" = "%d из %d звезд";
+
+/* XBUT: timeline preview component see all label */
+"See All (%d)" = "Просмотреть все (%d)";
+
+/* XACT: Timeline preview item accessibility label */
+"Item %d of %d" = "Элемент %d из %d";
+
+/* XBUT: timeline preview component timestamp label */
+"Today, %d" = "Сегодня, %d";
+
+/* XFLD: RatingControl value label format */
+"%d of %d" = "%d из %d";
+
+/* XFLD: RatingControl review count format */
+"%d reviews" = "Рецензий: %d";
+
+/* XFLD: RatingControl review count over ceiling format */
+"%d+ reviews" = "Рецензий: %d+";
+
+/* XACT: RatingControl accessibility label */
+"Rating Control %d of %d" = "Контроль оценки %d из %d";
+
+/* XACT: read-only RatingControl accessibility label: rating with review count */
+"Rating Control, rating %d of %d, %d reviews" = "Контроль оценки, оценка %d из %d, рецензий: %d";
+
+/* XACT: read-only RatingControl accessibility label: average rating only */
+"Rating Control, average rating %.1f of %d" = "Контроль оценки, средняя оценка %.1f из %d";
+
+/* XACT: read-only RatingControl accessibility label: average rating with review count */
+"Rating Control, average rating %.1f of %d, %d reviews" = "Контроль оценки, средняя оценка %.1f из %d, рецензий: %d";
+
+/* XACT: read-only RatingControl accessibility label: average rating with review count over ceiling */
+"Rating Control, average rating %.1f of %d, %d plus reviews" = "Контроль оценки, средняя оценка %.1f из %d, рецензий: более %d";
+
+/* XBUT: View all messages in message banner sheet */
+"All" = "Все";
+
+/* XBUT: messages count in the message banner sheet */
+"Messages (%d)" = "Сообщения (%d)";
+
+/* XBUT: view details in the message banner */
+"View Details" = "Просмотреть сведения";
+
+/* XBUT: view different message in the message banner sheet item */
+"View %@" = "Просмотреть %@";
+
+/* XBUT: banner message type desc, message */
+"message" = "сообщение";
+
+/* XBUT: banner message type desc, information */
+"information" = "информация";
+
+/* XBUT: banner message type desc, confirmation */
+"confirmation" = "подтверждение";
+
+/* XBUT: banner message type desc, warning */
+"warning" = "предупреждение";
+
+/* XBUT: banner message type desc, error */
+"error" = "ошибка";
+
+/* XBUT: banner message type desc in plural form, messages */
+"messages" = "сообщения";
+
+/* XBUT: banner message type desc in plural form, informations */
+"informations" = "информация";
+
+/* XBUT: banner message type desc in plural form, confirmations */
+"confirmations" = "подтверждения";
+
+/* XBUT: banner message type desc in plural form, warnings */
+"warnings" = "предупреждения";
+
+/* XBUT: banner message type desc in plural form, errors */
+"errors" = "ошибки";
+
+/* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
+"Reset" = "Сбросить";
+
+/* XBUT: Apply action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
+"Apply" = "Применить";
+
+/* XTIT: The alert message for `ListPickerDestination` pulldown dismissal */
+"Are you sure you want to discard your selections?" = "Действительно сбросить выбор?";
+
+/* XBUT: The alert Discard Changes action title for `ListPickerDestination` pulldown dismissal */
+"Discard Changes" = "Сбросить изменения";
+
+/* XBUT: The alert Keep Editing action title for `ListPickerDestination` pulldown dismissal */
+"Keep Editing" = "Продолжить редактирование";
+
+/* XBUT: The \"Select All\" button title on the List Picker header */
+"Select All" = "Выбрать все";
+
+/* XBUT: The \"Deselect All\" button title on the List Picker header */
+"Deselect All" = "Отменить выбор всех";
+
+/* XBUT: The \"Selected\" title on the List Picker header */
+"Selected" = "Выбрано";
+
+/* XACT: The accessibility hint for Text Input Views, editable */
+"Text field, Double tap to edit" = "Текстовое поле, дважды щелкните для редактирования";
+
+/* XACT: The accessibility hint for Text Input Views, editing */
+"Text field, is editing" = "Текстовое поле, редактируется";
+
+/* XACT: The accessibility hint for Text Input Views, editing, with clear button */
+"Text field, is editing. Double tap to clear text" = "Текстовое поле, редактируется. Дважды щелкните для очистки текста";
+
+/* XACT: The default accessibility label for the custom action in TextFieldFormView if none was specified */
+"Custom Action" = "Пользовательская операция";
+
+/* XBUT: Error messages shown to users in DocumentScannerView */
+"Failed to create PDF page from images" = "Не удалось создать страницу PDF из изображений.";
+
+/* XBUT: Cancel message shown to users in DocumentScannerView */
+"User cancelled the scan" = "Сканирование отменено пользователем.";
+
+/* Progress Indicator accessibility label: processing */
+"Processing" = "Обработка";
+
+/* Progress Indicator accessibility label: loading pausable with indicator progress */
+"In progress with option to pause, %.0f" = "Выполняется с опцией приостановки, %.0f";
+
+/* Progress Indicator accessibility label: loading stoppable with indicator progress */
+"In progress with option to stop, %.0f" = "Выполняется с опцией остановки, %.0f";
+
+/* Progress Indicator accessibility label: progress halted with indicator progress */
+"Progress halted, %.0f" = "Выполнение остановлено, %.0f";
 

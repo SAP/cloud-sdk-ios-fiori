@@ -31,6 +31,9 @@
 /* XACT: The accessibility label for the signature line */
 "Signature Line" = "Signature Line";
 
+/* XACT: The accessibility label for the mandatory field */
+"Required Field" = "Required Field";
+
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
 "Canceled" = "Cancelled";
 
@@ -142,6 +145,9 @@
 /* XBUT: voice over label for row selection status in DataTable */
 "not selected" = "not selected";
 
+/* Default value for DateTimePicker */
+"No date selected" = "No date selected";
+
 /* XBUT: calendar time component label */
 "Time" = "Time";
 
@@ -159,4 +165,154 @@
 
 /* Default error text for when the character count exceeds the maximum limit for NoteFormView and TextFieldFormView */
 "Reduce the number of characters" = "Reduce the number of characters";
+
+/* XBUT: voice over label for decrement action in stepper */
+"Stepper decrease" = "Stepper decrease";
+
+/* XBUT: voice over description for decrement action in stepper */
+"Decrease the value by %d" = "Decrease the value by %d";
+
+/* XBUT: voice over label for increment action in stepper */
+"Stepper increase" = "Stepper increase";
+
+/* XBUT: voice over description for increment action in stepper */
+"Increase the value by %d" = "Increase the value by %d";
+
+/* XBUT: voice over label for test field in stepper */
+"Select specific value" = "Select specific value";
+
+/* XBUT: View all action in MenuSelection */
+"View All (%d)" = "View All (%d)";
+
+/* XACT: RatingControl accessibility label */
+"%d out of %d stars" = "%d out of %d stars";
+
+/* XBUT: timeline preview component see all label */
+"See All (%d)" = "See All (%d)";
+
+/* XACT: Timeline preview item accessibility label */
+"Item %d of %d" = "Item %d of %d";
+
+/* XBUT: timeline preview component timestamp label */
+"Today, %d" = "Today, %d";
+
+/* XFLD: RatingControl value label format */
+"%d of %d" = "%d of %d";
+
+/* XFLD: RatingControl review count format */
+"%d reviews" = "%d reviews";
+
+/* XFLD: RatingControl review count over ceiling format */
+"%d+ reviews" = "%d+ reviews";
+
+/* XACT: RatingControl accessibility label */
+"Rating Control %d of %d" = "Rating Control %d of %d";
+
+/* XACT: read-only RatingControl accessibility label: rating with review count */
+"Rating Control, rating %d of %d, %d reviews" = "Rating Control, rating %d of %d, %d reviews";
+
+/* XACT: read-only RatingControl accessibility label: average rating only */
+"Rating Control, average rating %.1f of %d" = "Rating Control, average rating %.1f of %d";
+
+/* XACT: read-only RatingControl accessibility label: average rating with review count */
+"Rating Control, average rating %.1f of %d, %d reviews" = "Rating Control, average rating %.1f of %d, %d reviews";
+
+/* XACT: read-only RatingControl accessibility label: average rating with review count over ceiling */
+"Rating Control, average rating %.1f of %d, %d plus reviews" = "Rating Control, average rating %.1f of %d, %d plus reviews";
+
+/* XBUT: View all messages in message banner sheet */
+"All" = "All";
+
+/* XBUT: messages count in the message banner sheet */
+"Messages (%d)" = "Messages (%d)";
+
+/* XBUT: view details in the message banner */
+"View Details" = "View Details";
+
+/* XBUT: view different message in the message banner sheet item */
+"View %@" = "View %@";
+
+/* XBUT: banner message type desc, message */
+"message" = "message";
+
+/* XBUT: banner message type desc, information */
+"information" = "information";
+
+/* XBUT: banner message type desc, confirmation */
+"confirmation" = "confirmation";
+
+/* XBUT: banner message type desc, warning */
+"warning" = "warning";
+
+/* XBUT: banner message type desc, error */
+"error" = "error";
+
+/* XBUT: banner message type desc in plural form, messages */
+"messages" = "messages";
+
+/* XBUT: banner message type desc in plural form, informations */
+"informations" = "informations";
+
+/* XBUT: banner message type desc in plural form, confirmations */
+"confirmations" = "confirmations";
+
+/* XBUT: banner message type desc in plural form, warnings */
+"warnings" = "warnings";
+
+/* XBUT: banner message type desc in plural form, errors */
+"errors" = "errors";
+
+/* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
+"Reset" = "Reset";
+
+/* XBUT: Apply action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
+"Apply" = "Apply";
+
+/* XTIT: The alert message for `ListPickerDestination` pulldown dismissal */
+"Are you sure you want to discard your selections?" = "Are you sure you want to discard your selections?";
+
+/* XBUT: The alert Discard Changes action title for `ListPickerDestination` pulldown dismissal */
+"Discard Changes" = "Discard Changes";
+
+/* XBUT: The alert Keep Editing action title for `ListPickerDestination` pulldown dismissal */
+"Keep Editing" = "Keep Editing";
+
+/* XBUT: The \"Select All\" button title on the List Picker header */
+"Select All" = "Select All";
+
+/* XBUT: The \"Deselect All\" button title on the List Picker header */
+"Deselect All" = "Deselect All";
+
+/* XBUT: The \"Selected\" title on the List Picker header */
+"Selected" = "Selected";
+
+/* XACT: The accessibility hint for Text Input Views, editable */
+"Text field, Double tap to edit" = "Text field, Double tap to edit";
+
+/* XACT: The accessibility hint for Text Input Views, editing */
+"Text field, is editing" = "Text field, is editing";
+
+/* XACT: The accessibility hint for Text Input Views, editing, with clear button */
+"Text field, is editing. Double tap to clear text" = "Text field, is editing. Double tap to clear text";
+
+/* XACT: The default accessibility label for the custom action in TextFieldFormView if none was specified */
+"Custom Action" = "Custom Action";
+
+/* XBUT: Error messages shown to users in DocumentScannerView */
+"Failed to create PDF page from images" = "Failed to create PDF page from images.";
+
+/* XBUT: Cancel message shown to users in DocumentScannerView */
+"User cancelled the scan" = "User cancelled the scan.";
+
+/* Progress Indicator accessibility label: processing */
+"Processing" = "Processing";
+
+/* Progress Indicator accessibility label: loading pausable with indicator progress */
+"In progress with option to pause, %.0f" = "In progress with option to pause, %.0f";
+
+/* Progress Indicator accessibility label: loading stoppable with indicator progress */
+"In progress with option to stop, %.0f" = "In progress with option to stop, %.0f";
+
+/* Progress Indicator accessibility label: progress halted with indicator progress */
+"Progress halted, %.0f" = "Progress halted, %.0f";
 
