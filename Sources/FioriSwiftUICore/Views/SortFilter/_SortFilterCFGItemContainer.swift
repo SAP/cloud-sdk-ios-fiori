@@ -40,6 +40,9 @@ extension _SortFilterCFGItemContainer: View {
                             .padding([.leading, .trailing], UIDevice.current.userInterfaceIdiom != .phone ? 13 : 16)
                             .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? self.popoverWidth : nil)
                     }
+                } header: {
+                    Color.clear.frame(height: 0).listRowInsets(EdgeInsets())
+                } footer: {
                     Rectangle().fill(Color.preferredColor(.primaryGroupedBackground))
                         .frame(height: 30)
                         .listRowInsets(EdgeInsets())
@@ -50,7 +53,7 @@ extension _SortFilterCFGItemContainer: View {
             }
         }
         .listRowSpacing(0)
-        .listStyle(.plain)
+        .listStyle(.grouped)
         .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? self.popoverWidth : nil)
         .frame(height: self.height)
         .background(Color.preferredColor(.secondaryGroupedBackground))

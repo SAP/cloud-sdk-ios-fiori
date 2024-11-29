@@ -34,7 +34,6 @@ extension SearchListPickerItem: View {
         List {
             if !disableListEntriesSection, !_value.isEmpty {
                 Section {
-                    self.selectionHeader()
                     let selectedOptions = _value.wrappedValue.map { _valueOptions[$0] }
                     ForEach(selectedOptions.filter { _searchText.isEmpty || $0.localizedStandardContains(_searchText) }, id: \.self) { item in
                         self.rowView(value: item, isSelected: true)
@@ -48,7 +47,9 @@ extension SearchListPickerItem: View {
                             }
                     }
                     .listRowBackground(Color.preferredColor(.chromeSecondary))
-
+                } header: {
+                    self.selectionHeader().listRowInsets(EdgeInsets())
+                } footer: {
                     Rectangle().fill(Color.preferredColor(.primaryGroupedBackground))
                         .frame(height: 30)
                         .listRowInsets(EdgeInsets())
@@ -56,15 +57,6 @@ extension SearchListPickerItem: View {
             }
 
             Section {
-                if allowsMultipleSelection {
-                    if _value.count != _valueOptions.count || allowsEmptySelection {
-                        self.selectAllView()
-                    }
-                } else if _value.count == _valueOptions.count {
-                    self.selectAllView()
-                } else {
-                    EmptyView()
-                }
                 ForEach(_valueOptions.filter { _searchText.isEmpty || $0.localizedStandardContains(_searchText) }, id: \.self) { item in
                     let isSelected = self.isItemSelected(item)
                     self.rowView(value: item, isSelected: isSelected)
@@ -78,6 +70,18 @@ extension SearchListPickerItem: View {
                         }
                 }
                 .listRowBackground(Color.preferredColor(.chromeSecondary))
+            } header: {
+                if allowsMultipleSelection {
+                    if _value.count != _valueOptions.count || allowsEmptySelection {
+                        self.selectAllView().listRowInsets(EdgeInsets())
+                    }
+                } else if _value.count == _valueOptions.count {
+                    self.selectAllView().listRowInsets(EdgeInsets())
+                } else {
+                    EmptyView()
+                }
+            } footer: {
+                Color.clear.frame(height: 0).listRowInsets(EdgeInsets())
             }
         }
         .modifier(FioriIntrospectModifier<UIScrollView> { scrollView in
@@ -109,7 +113,7 @@ extension SearchListPickerItem: View {
                 updateSearchListPickerHeight?(self._height)
             }
         })
-        .listStyle(PlainListStyle())
+        .listStyle(.grouped)
         .frame(minWidth: UIDevice.current.userInterfaceIdiom != .phone ? self.popoverWidth : nil)
         .scrollContentBackground(.hidden)
         .padding(0)
