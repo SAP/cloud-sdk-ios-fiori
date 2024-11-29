@@ -31,6 +31,9 @@
 /* XACT: The accessibility label for the signature line */
 "Signature Line" = "Рядок підпису";
 
+/* XACT: The accessibility label for the mandatory field */
+"Required Field" = "Обов’язкове поле";
+
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
 "Canceled" = "Скасовано";
 
@@ -142,6 +145,9 @@
 /* XBUT: voice over label for row selection status in DataTable */
 "not selected" = "не вибрано";
 
+/* Default value for DateTimePicker */
+"No date selected" = "Дата не вибрана";
+
 /* XBUT: calendar time component label */
 "Time" = "Час";
 
@@ -158,5 +164,155 @@
 "No more characters remaining" = "Більше не залишилося символів";
 
 /* Default error text for when the character count exceeds the maximum limit for NoteFormView and TextFieldFormView */
-"Reduce the number of characters" = "Зменшіть кількість символів";
+"Reduce the number of characters" = "Зменшити кількість символів";
+
+/* XBUT: voice over label for decrement action in stepper */
+"Stepper decrease" = "Зменшення степпера";
+
+/* XBUT: voice over description for decrement action in stepper */
+"Decrease the value by %d" = "Зменшити значення на %d";
+
+/* XBUT: voice over label for increment action in stepper */
+"Stepper increase" = "Збільшення степпера";
+
+/* XBUT: voice over description for increment action in stepper */
+"Increase the value by %d" = "Збільшити значення на %d";
+
+/* XBUT: voice over label for test field in stepper */
+"Select specific value" = "Вибрати конкретне значення";
+
+/* XBUT: View all action in MenuSelection */
+"View All (%d)" = "Переглянути все (%d)";
+
+/* XACT: RatingControl accessibility label */
+"%d out of %d stars" = "%d з %d зірочок";
+
+/* XBUT: timeline preview component see all label */
+"See All (%d)" = "Переглянути все (%d)";
+
+/* XACT: Timeline preview item accessibility label */
+"Item %d of %d" = "Позиція %d з %d";
+
+/* XBUT: timeline preview component timestamp label */
+"Today, %d" = "Сьогодні, %d";
+
+/* XFLD: RatingControl value label format */
+"%d of %d" = "%d з %d";
+
+/* XFLD: RatingControl review count format */
+"%d reviews" = "%d перевірок";
+
+/* XFLD: RatingControl review count over ceiling format */
+"%d+ reviews" = "%d+ перевірок";
+
+/* XACT: RatingControl accessibility label */
+"Rating Control %d of %d" = "Контроль рейтингу %d з %d";
+
+/* XACT: read-only RatingControl accessibility label: rating with review count */
+"Rating Control, rating %d of %d, %d reviews" = "Контроль рейтингу, рейтинг %d з %d, %d перевірок";
+
+/* XACT: read-only RatingControl accessibility label: average rating only */
+"Rating Control, average rating %.1f of %d" = "Контроль рейтингу, середній рейтинг %.1f з %d";
+
+/* XACT: read-only RatingControl accessibility label: average rating with review count */
+"Rating Control, average rating %.1f of %d, %d reviews" = "Контроль рейтингу, середній рейтинг %.1f з %d, %d перевірок";
+
+/* XACT: read-only RatingControl accessibility label: average rating with review count over ceiling */
+"Rating Control, average rating %.1f of %d, %d plus reviews" = "Контроль рейтингу, середній рейтинг %.1f з %d, %d+ перевірок";
+
+/* XBUT: View all messages in message banner sheet */
+"All" = "Все";
+
+/* XBUT: messages count in the message banner sheet */
+"Messages (%d)" = "Повідомлення (%d)";
+
+/* XBUT: view details in the message banner */
+"View Details" = "Переглянути подробиці";
+
+/* XBUT: view different message in the message banner sheet item */
+"View %@" = "Переглянути %@";
+
+/* XBUT: banner message type desc, message */
+"message" = "повідомлення";
+
+/* XBUT: banner message type desc, information */
+"information" = "інформація";
+
+/* XBUT: banner message type desc, confirmation */
+"confirmation" = "підтвердження";
+
+/* XBUT: banner message type desc, warning */
+"warning" = "застереження";
+
+/* XBUT: banner message type desc, error */
+"error" = "помилка";
+
+/* XBUT: banner message type desc in plural form, messages */
+"messages" = "повідомлення";
+
+/* XBUT: banner message type desc in plural form, informations */
+"informations" = "інформація";
+
+/* XBUT: banner message type desc in plural form, confirmations */
+"confirmations" = "підтвердження";
+
+/* XBUT: banner message type desc in plural form, warnings */
+"warnings" = "застереження";
+
+/* XBUT: banner message type desc in plural form, errors */
+"errors" = "помилки";
+
+/* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
+"Reset" = "Скинути";
+
+/* XBUT: Apply action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
+"Apply" = "Застосувати";
+
+/* XTIT: The alert message for `ListPickerDestination` pulldown dismissal */
+"Are you sure you want to discard your selections?" = "Ви дійсно бажаєте відхилити свій вибір?";
+
+/* XBUT: The alert Discard Changes action title for `ListPickerDestination` pulldown dismissal */
+"Discard Changes" = "Відхилити зміни";
+
+/* XBUT: The alert Keep Editing action title for `ListPickerDestination` pulldown dismissal */
+"Keep Editing" = "Продовжити редагування";
+
+/* XBUT: The \"Select All\" button title on the List Picker header */
+"Select All" = "Вибрати все";
+
+/* XBUT: The \"Deselect All\" button title on the List Picker header */
+"Deselect All" = "Скасувати вибір";
+
+/* XBUT: The \"Selected\" title on the List Picker header */
+"Selected" = "Вибрано";
+
+/* XACT: The accessibility hint for Text Input Views, editable */
+"Text field, Double tap to edit" = "Текстове поле, торкніться двічі, щоб редагувати";
+
+/* XACT: The accessibility hint for Text Input Views, editing */
+"Text field, is editing" = "Текстове поле, редагується";
+
+/* XACT: The accessibility hint for Text Input Views, editing, with clear button */
+"Text field, is editing. Double tap to clear text" = "Текстове поле, редагується. Торкніться двічі, щоб очистити текст";
+
+/* XACT: The default accessibility label for the custom action in TextFieldFormView if none was specified */
+"Custom Action" = "Користувацька операція";
+
+/* XBUT: Error messages shown to users in DocumentScannerView */
+"Failed to create PDF page from images" = "Не вдалося створити сторінку PDF із зображень.";
+
+/* XBUT: Cancel message shown to users in DocumentScannerView */
+"User cancelled the scan" = "Користувач скасував сканування.";
+
+/* Progress Indicator accessibility label: processing */
+"Processing" = "Обробляється";
+
+/* Progress Indicator accessibility label: loading pausable with indicator progress */
+"In progress with option to pause, %.0f" = "У процесі виконання з опцією призупинення, %.0f";
+
+/* Progress Indicator accessibility label: loading stoppable with indicator progress */
+"In progress with option to stop, %.0f" = "У процесі виконання з опцією зупинки, %.0f";
+
+/* Progress Indicator accessibility label: progress halted with indicator progress */
+"Progress halted, %.0f" = "Процес виконання призупинено, %.0f";
 

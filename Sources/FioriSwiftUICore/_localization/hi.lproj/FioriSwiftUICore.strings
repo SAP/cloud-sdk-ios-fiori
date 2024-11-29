@@ -31,6 +31,9 @@
 /* XACT: The accessibility label for the signature line */
 "Signature Line" = "हस्ताक्षर पंक्ति";
 
+/* XACT: The accessibility label for the mandatory field */
+"Required Field" = "अपेक्षित फ़ील्ड";
+
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
 "Canceled" = "रद्द किया गया";
 
@@ -142,6 +145,9 @@
 /* XBUT: voice over label for row selection status in DataTable */
 "not selected" = "चयनित नहीं";
 
+/* Default value for DateTimePicker */
+"No date selected" = "कोई तिथि चयनित नहीं है";
+
 /* XBUT: calendar time component label */
 "Time" = "समय";
 
@@ -159,4 +165,154 @@
 
 /* Default error text for when the character count exceeds the maximum limit for NoteFormView and TextFieldFormView */
 "Reduce the number of characters" = "वर्ण की संख्या कम करें";
+
+/* XBUT: voice over label for decrement action in stepper */
+"Stepper decrease" = "स्टेपर में कमी";
+
+/* XBUT: voice over description for decrement action in stepper */
+"Decrease the value by %d" = "%d द्वारा मान में कमी";
+
+/* XBUT: voice over label for increment action in stepper */
+"Stepper increase" = "स्टेपर में कमी";
+
+/* XBUT: voice over description for increment action in stepper */
+"Increase the value by %d" = "%d द्वारा वृद्धि मान";
+
+/* XBUT: voice over label for test field in stepper */
+"Select specific value" = "विशिष्ट मान का चयन करें";
+
+/* XBUT: View all action in MenuSelection */
+"View All (%d)" = "सभी (%d) देखें";
+
+/* XACT: RatingControl accessibility label */
+"%d out of %d stars" = "%d में से %d स्टार";
+
+/* XBUT: timeline preview component see all label */
+"See All (%d)" = "सभी (%d) देखें";
+
+/* XACT: Timeline preview item accessibility label */
+"Item %d of %d" = "%d का  %d आइटम";
+
+/* XBUT: timeline preview component timestamp label */
+"Today, %d" = "आज, %d";
+
+/* XFLD: RatingControl value label format */
+"%d of %d" = "%d का %d";
+
+/* XFLD: RatingControl review count format */
+"%d reviews" = "%d समीक्षाएं";
+
+/* XFLD: RatingControl review count over ceiling format */
+"%d+ reviews" = "%d+ समीक्षाएं";
+
+/* XACT: RatingControl accessibility label */
+"Rating Control %d of %d" = "रेटिंग नियंत्रण %d में से %d";
+
+/* XACT: read-only RatingControl accessibility label: rating with review count */
+"Rating Control, rating %d of %d, %d reviews" = "रेटिंग नियंत्रण %d में से %d, %d समीक्षाएं";
+
+/* XACT: read-only RatingControl accessibility label: average rating only */
+"Rating Control, average rating %.1f of %d" = "रेटिंग नियंत्रण, औसत रेटिंग %d में से %.1f";
+
+/* XACT: read-only RatingControl accessibility label: average rating with review count */
+"Rating Control, average rating %.1f of %d, %d reviews" = "रेटिंग नियंत्रण, औसत रेटिंग %.1f में %dसे, %d समीक्षाएं";
+
+/* XACT: read-only RatingControl accessibility label: average rating with review count over ceiling */
+"Rating Control, average rating %.1f of %d, %d plus reviews" = "रेटिंग नियंत्रण, औसत रेटिंग %.1f में %dसे, %d प्लस समीक्षाएं";
+
+/* XBUT: View all messages in message banner sheet */
+"All" = "सभी";
+
+/* XBUT: messages count in the message banner sheet */
+"Messages (%d)" = "संदेश (%d)";
+
+/* XBUT: view details in the message banner */
+"View Details" = "विवरण देखें";
+
+/* XBUT: view different message in the message banner sheet item */
+"View %@" = "%@ देखें";
+
+/* XBUT: banner message type desc, message */
+"message" = "संदेश";
+
+/* XBUT: banner message type desc, information */
+"information" = "जानकारी";
+
+/* XBUT: banner message type desc, confirmation */
+"confirmation" = "पुष्टि करें";
+
+/* XBUT: banner message type desc, warning */
+"warning" = "चेतावनी";
+
+/* XBUT: banner message type desc, error */
+"error" = "त्रुटी";
+
+/* XBUT: banner message type desc in plural form, messages */
+"messages" = "संदेश";
+
+/* XBUT: banner message type desc in plural form, informations */
+"informations" = "जानकारी";
+
+/* XBUT: banner message type desc in plural form, confirmations */
+"confirmations" = "पुष्टि करें";
+
+/* XBUT: banner message type desc in plural form, warnings */
+"warnings" = "चेतावनी ";
+
+/* XBUT: banner message type desc in plural form, errors */
+"errors" = "त्रुटियां";
+
+/* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
+"Reset" = "रीसेट करें";
+
+/* XBUT: Apply action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
+"Apply" = "लागू करें";
+
+/* XTIT: The alert message for `ListPickerDestination` pulldown dismissal */
+"Are you sure you want to discard your selections?" = "क्या आप वाकई अपने चयन निरस्त करना चाहते हैं?";
+
+/* XBUT: The alert Discard Changes action title for `ListPickerDestination` pulldown dismissal */
+"Discard Changes" = "परिवर्तन निरस्त करें";
+
+/* XBUT: The alert Keep Editing action title for `ListPickerDestination` pulldown dismissal */
+"Keep Editing" = "संपादन करते रहें";
+
+/* XBUT: The \"Select All\" button title on the List Picker header */
+"Select All" = "सभी का चयन करें";
+
+/* XBUT: The \"Deselect All\" button title on the List Picker header */
+"Deselect All" = "सभी चयन रद्द करें";
+
+/* XBUT: The \"Selected\" title on the List Picker header */
+"Selected" = "चयनित किया गया";
+
+/* XACT: The accessibility hint for Text Input Views, editable */
+"Text field, Double tap to edit" = "टेक्स्ट फ़ील्ड, संपादित करने के लिए डबल टैप करें";
+
+/* XACT: The accessibility hint for Text Input Views, editing */
+"Text field, is editing" = "टेक्स्ट फ़ील्ड, संपादन है";
+
+/* XACT: The accessibility hint for Text Input Views, editing, with clear button */
+"Text field, is editing. Double tap to clear text" = "टेक्स्ट फ़ील्ड संपादित हो रही है. टेक्स्ट क्लियर करने के लिए डबल टैप करें";
+
+/* XACT: The default accessibility label for the custom action in TextFieldFormView if none was specified */
+"Custom Action" = "कस्टम क्रिया";
+
+/* XBUT: Error messages shown to users in DocumentScannerView */
+"Failed to create PDF page from images" = "छवियों से PDF पृष्ठ बनाने में विफल.";
+
+/* XBUT: Cancel message shown to users in DocumentScannerView */
+"User cancelled the scan" = "उपयोगकर्ता ने स्कैन रद्द कर दिया.";
+
+/* Progress Indicator accessibility label: processing */
+"Processing" = "संसाधित करना";
+
+/* Progress Indicator accessibility label: loading pausable with indicator progress */
+"In progress with option to pause, %.0f" = "रुकने के विकल्प के साथ प्रगति पर है, %.0f";
+
+/* Progress Indicator accessibility label: loading stoppable with indicator progress */
+"In progress with option to stop, %.0f" = "रुकने के विकल्प के साथ प्रगति पर है, %.0f";
+
+/* Progress Indicator accessibility label: progress halted with indicator progress */
+"Progress halted, %.0f" = "प्रगति रोक दी गई है, %.0f";
 

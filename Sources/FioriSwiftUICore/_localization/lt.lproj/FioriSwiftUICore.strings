@@ -31,6 +31,9 @@
 /* XACT: The accessibility label for the signature line */
 "Signature Line" = "Parašo eilutė";
 
+/* XACT: The accessibility label for the mandatory field */
+"Required Field" = "Būtinas laukas";
+
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
 "Canceled" = "Atšaukta";
 
@@ -142,6 +145,9 @@
 /* XBUT: voice over label for row selection status in DataTable */
 "not selected" = "nepasirinkta";
 
+/* Default value for DateTimePicker */
+"No date selected" = "Nepasirinkta data";
+
 /* XBUT: calendar time component label */
 "Time" = "Laikas";
 
@@ -159,4 +165,154 @@
 
 /* Default error text for when the character count exceeds the maximum limit for NoteFormView and TextFieldFormView */
 "Reduce the number of characters" = "Sumažinkite simbolių skaičių";
+
+/* XBUT: voice over label for decrement action in stepper */
+"Stepper decrease" = "Žingsniavimo treniruoklio sumažėjimas";
+
+/* XBUT: voice over description for decrement action in stepper */
+"Decrease the value by %d" = "Sumažinti reikšmę %d";
+
+/* XBUT: voice over label for increment action in stepper */
+"Stepper increase" = "Žingsniavimo treniruoklio padidėjimas";
+
+/* XBUT: voice over description for increment action in stepper */
+"Increase the value by %d" = "Padidinti reikšmę %d";
+
+/* XBUT: voice over label for test field in stepper */
+"Select specific value" = "Pasirinkti konkrečią reikšmę";
+
+/* XBUT: View all action in MenuSelection */
+"View All (%d)" = "Peržiūrėti viską (%d)";
+
+/* XACT: RatingControl accessibility label */
+"%d out of %d stars" = "%d iš %d žvaigždučių";
+
+/* XBUT: timeline preview component see all label */
+"See All (%d)" = "Rodyti viską (%d)";
+
+/* XACT: Timeline preview item accessibility label */
+"Item %d of %d" = "%d pozicija iš %d";
+
+/* XBUT: timeline preview component timestamp label */
+"Today, %d" = "Šiandien, %d";
+
+/* XFLD: RatingControl value label format */
+"%d of %d" = "%d iš %d";
+
+/* XFLD: RatingControl review count format */
+"%d reviews" = "Peržiūrų: %d";
+
+/* XFLD: RatingControl review count over ceiling format */
+"%d+ reviews" = "Peržiūrų: %d+";
+
+/* XACT: RatingControl accessibility label */
+"Rating Control %d of %d" = "Įvertinimo valdymas %d iš %d";
+
+/* XACT: read-only RatingControl accessibility label: rating with review count */
+"Rating Control, rating %d of %d, %d reviews" = "Įvertinimo valdymas, įvertinimas %d iš %d, peržiūrų: %d";
+
+/* XACT: read-only RatingControl accessibility label: average rating only */
+"Rating Control, average rating %.1f of %d" = "Įvertinimo valdymas, vidutinis įvertinimas %.1f iš %d";
+
+/* XACT: read-only RatingControl accessibility label: average rating with review count */
+"Rating Control, average rating %.1f of %d, %d reviews" = "Įvertinimo valdymas, vidutinis įvertinimas %.1f iš %d, peržiūrų: %d";
+
+/* XACT: read-only RatingControl accessibility label: average rating with review count over ceiling */
+"Rating Control, average rating %.1f of %d, %d plus reviews" = "Įvertinimo valdymas, vidutinis įvertinimas %.1f iš %d, dar tiek peržiūrų: %d";
+
+/* XBUT: View all messages in message banner sheet */
+"All" = "Visi";
+
+/* XBUT: messages count in the message banner sheet */
+"Messages (%d)" = "Pranešimai (%d)";
+
+/* XBUT: view details in the message banner */
+"View Details" = "Peržiūrėti išsamią informaciją";
+
+/* XBUT: view different message in the message banner sheet item */
+"View %@" = "Rakursas %@";
+
+/* XBUT: banner message type desc, message */
+"message" = "pranešimas";
+
+/* XBUT: banner message type desc, information */
+"information" = "informacija";
+
+/* XBUT: banner message type desc, confirmation */
+"confirmation" = "patvirtinimas";
+
+/* XBUT: banner message type desc, warning */
+"warning" = "įspėjimas";
+
+/* XBUT: banner message type desc, error */
+"error" = "klaida";
+
+/* XBUT: banner message type desc in plural form, messages */
+"messages" = "pranešimai";
+
+/* XBUT: banner message type desc in plural form, informations */
+"informations" = "informacija";
+
+/* XBUT: banner message type desc in plural form, confirmations */
+"confirmations" = "patvirtinimai";
+
+/* XBUT: banner message type desc in plural form, warnings */
+"warnings" = "įspėjimai";
+
+/* XBUT: banner message type desc in plural form, errors */
+"errors" = "klaidos";
+
+/* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
+"Reset" = "Nustatyti iš naujo";
+
+/* XBUT: Apply action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
+"Apply" = "Taikyti";
+
+/* XTIT: The alert message for `ListPickerDestination` pulldown dismissal */
+"Are you sure you want to discard your selections?" = "Ar tikrai norite atmesti savo pasirinkimus?";
+
+/* XBUT: The alert Discard Changes action title for `ListPickerDestination` pulldown dismissal */
+"Discard Changes" = "Atmesti keitimus";
+
+/* XBUT: The alert Keep Editing action title for `ListPickerDestination` pulldown dismissal */
+"Keep Editing" = "Toliau redaguokite";
+
+/* XBUT: The \"Select All\" button title on the List Picker header */
+"Select All" = "Žymėti viską";
+
+/* XBUT: The \"Deselect All\" button title on the List Picker header */
+"Deselect All" = "Atžymėti viską";
+
+/* XBUT: The \"Selected\" title on the List Picker header */
+"Selected" = "Pasirinkta";
+
+/* XACT: The accessibility hint for Text Input Views, editable */
+"Text field, Double tap to edit" = "Teksto laukas, dukart bakstelėkite, norėdami redaguoti";
+
+/* XACT: The accessibility hint for Text Input Views, editing */
+"Text field, is editing" = "Teksto laukas, redaguojamas";
+
+/* XACT: The accessibility hint for Text Input Views, editing, with clear button */
+"Text field, is editing. Double tap to clear text" = "Teksto laukas, redaguojamas. Dukart bakstelėkite, norėdami išvalyti tekstą";
+
+/* XACT: The default accessibility label for the custom action in TextFieldFormView if none was specified */
+"Custom Action" = "Tinkintas veiksmas";
+
+/* XBUT: Error messages shown to users in DocumentScannerView */
+"Failed to create PDF page from images" = "Nepavyko sukurti PDF puslapio iš vaizdų.";
+
+/* XBUT: Cancel message shown to users in DocumentScannerView */
+"User cancelled the scan" = "Vartotojas atšaukė nuskaitymą.";
+
+/* Progress Indicator accessibility label: processing */
+"Processing" = "Apdorojama";
+
+/* Progress Indicator accessibility label: loading pausable with indicator progress */
+"In progress with option to pause, %.0f" = "Vykdoma su galimybe pristabdyti, %.0f";
+
+/* Progress Indicator accessibility label: loading stoppable with indicator progress */
+"In progress with option to stop, %.0f" = "Vykdoma su galimybe sustabdyti, %.0f";
+
+/* Progress Indicator accessibility label: progress halted with indicator progress */
+"Progress halted, %.0f" = "Eiga sustabdyta, %.0f";
 

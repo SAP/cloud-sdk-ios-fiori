@@ -31,6 +31,9 @@
 /* XACT: The accessibility label for the signature line */
 "Signature Line" = "Signaturrad";
 
+/* XACT: The accessibility label for the mandatory field */
+"Required Field" = "Obligatoriskt fält";
+
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
 "Canceled" = "Annullerad";
 
@@ -142,6 +145,9 @@
 /* XBUT: voice over label for row selection status in DataTable */
 "not selected" = "inte vald";
 
+/* Default value for DateTimePicker */
+"No date selected" = "Inget datum har valts";
+
 /* XBUT: calendar time component label */
 "Time" = "Tid";
 
@@ -159,4 +165,154 @@
 
 /* Default error text for when the character count exceeds the maximum limit for NoteFormView and TextFieldFormView */
 "Reduce the number of characters" = "Minska antalet tecken";
+
+/* XBUT: voice over label for decrement action in stepper */
+"Stepper decrease" = "Stegreglageminskning";
+
+/* XBUT: voice over description for decrement action in stepper */
+"Decrease the value by %d" = "Minska värdet med %d";
+
+/* XBUT: voice over label for increment action in stepper */
+"Stepper increase" = "Stegreglageökning";
+
+/* XBUT: voice over description for increment action in stepper */
+"Increase the value by %d" = "Öka värdet med %d";
+
+/* XBUT: voice over label for test field in stepper */
+"Select specific value" = "Välj specifikt värde";
+
+/* XBUT: View all action in MenuSelection */
+"View All (%d)" = "Visa alla (%d)";
+
+/* XACT: RatingControl accessibility label */
+"%d out of %d stars" = "%d av %d stjärnor";
+
+/* XBUT: timeline preview component see all label */
+"See All (%d)" = "Visa alla (%d)";
+
+/* XACT: Timeline preview item accessibility label */
+"Item %d of %d" = "Objekt %d av %d";
+
+/* XBUT: timeline preview component timestamp label */
+"Today, %d" = "Idag, %d";
+
+/* XFLD: RatingControl value label format */
+"%d of %d" = "%d av %d";
+
+/* XFLD: RatingControl review count format */
+"%d reviews" = "%d recensioner";
+
+/* XFLD: RatingControl review count over ceiling format */
+"%d+ reviews" = "%d+ recensioner";
+
+/* XACT: RatingControl accessibility label */
+"Rating Control %d of %d" = "Bedömningskontroll %d av %d";
+
+/* XACT: read-only RatingControl accessibility label: rating with review count */
+"Rating Control, rating %d of %d, %d reviews" = "Bedömningskontroll, bedömning %d av %d, %d recensioner";
+
+/* XACT: read-only RatingControl accessibility label: average rating only */
+"Rating Control, average rating %.1f of %d" = "Bedömningskontroll, genomsnittlig bedömning %.1f av %d";
+
+/* XACT: read-only RatingControl accessibility label: average rating with review count */
+"Rating Control, average rating %.1f of %d, %d reviews" = "Bedömningskontroll, genomsnittlig bedömning %.1f av %d, %d recensioner";
+
+/* XACT: read-only RatingControl accessibility label: average rating with review count over ceiling */
+"Rating Control, average rating %.1f of %d, %d plus reviews" = "Bedömningskontroll, genomsnittlig bedömning %.1f av %d, %d plus recensioner";
+
+/* XBUT: View all messages in message banner sheet */
+"All" = "Alla";
+
+/* XBUT: messages count in the message banner sheet */
+"Messages (%d)" = "Meddelanden (%d)";
+
+/* XBUT: view details in the message banner */
+"View Details" = "Visa detaljer";
+
+/* XBUT: view different message in the message banner sheet item */
+"View %@" = "Visa %@";
+
+/* XBUT: banner message type desc, message */
+"message" = "meddelande";
+
+/* XBUT: banner message type desc, information */
+"information" = "information";
+
+/* XBUT: banner message type desc, confirmation */
+"confirmation" = "bekräftelse";
+
+/* XBUT: banner message type desc, warning */
+"warning" = "varning";
+
+/* XBUT: banner message type desc, error */
+"error" = "fel";
+
+/* XBUT: banner message type desc in plural form, messages */
+"messages" = "meddelanden";
+
+/* XBUT: banner message type desc in plural form, informations */
+"informations" = "information";
+
+/* XBUT: banner message type desc in plural form, confirmations */
+"confirmations" = "bekräftelser";
+
+/* XBUT: banner message type desc in plural form, warnings */
+"warnings" = "varningar";
+
+/* XBUT: banner message type desc in plural form, errors */
+"errors" = "fel";
+
+/* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
+"Reset" = "Återställ";
+
+/* XBUT: Apply action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
+"Apply" = "Tillämpa";
+
+/* XTIT: The alert message for `ListPickerDestination` pulldown dismissal */
+"Are you sure you want to discard your selections?" = "Förkasta urval?";
+
+/* XBUT: The alert Discard Changes action title for `ListPickerDestination` pulldown dismissal */
+"Discard Changes" = "Förkasta ändringar";
+
+/* XBUT: The alert Keep Editing action title for `ListPickerDestination` pulldown dismissal */
+"Keep Editing" = "Fortsätt redigera";
+
+/* XBUT: The \"Select All\" button title on the List Picker header */
+"Select All" = "Markera alla";
+
+/* XBUT: The \"Deselect All\" button title on the List Picker header */
+"Deselect All" = "Avmarkera alla";
+
+/* XBUT: The \"Selected\" title on the List Picker header */
+"Selected" = "Valda";
+
+/* XACT: The accessibility hint for Text Input Views, editable */
+"Text field, Double tap to edit" = "Textfält, dubbelknacka för att redigera";
+
+/* XACT: The accessibility hint for Text Input Views, editing */
+"Text field, is editing" = "Textfält, redigeras";
+
+/* XACT: The accessibility hint for Text Input Views, editing, with clear button */
+"Text field, is editing. Double tap to clear text" = "Textfält, redigeras. Dubbelknacka för att rensa text";
+
+/* XACT: The default accessibility label for the custom action in TextFieldFormView if none was specified */
+"Custom Action" = "Användardefinierad åtgärd";
+
+/* XBUT: Error messages shown to users in DocumentScannerView */
+"Failed to create PDF page from images" = "Det gick inte att skapa PDF-sida från bilder.";
+
+/* XBUT: Cancel message shown to users in DocumentScannerView */
+"User cancelled the scan" = "Användaren avbröt skanningen.";
+
+/* Progress Indicator accessibility label: processing */
+"Processing" = "Bearbetas";
+
+/* Progress Indicator accessibility label: loading pausable with indicator progress */
+"In progress with option to pause, %.0f" = "Pågår med möjlighet att pausa %.0f";
+
+/* Progress Indicator accessibility label: loading stoppable with indicator progress */
+"In progress with option to stop, %.0f" = "Pågår med möjlighet att stoppa %.0f";
+
+/* Progress Indicator accessibility label: progress halted with indicator progress */
+"Progress halted, %.0f" = "Förlopp pausat %.0f";
 
