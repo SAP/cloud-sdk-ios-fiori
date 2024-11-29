@@ -31,6 +31,9 @@
 /* XACT: The accessibility label for the signature line */
 "Signature Line" = "سطر التوقيع";
 
+/* XACT: The accessibility label for the mandatory field */
+"Required Field" = "حقل مطلوب";
+
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
 "Canceled" = "ملغى";
 
@@ -142,6 +145,9 @@
 /* XBUT: voice over label for row selection status in DataTable */
 "not selected" = "غير محدد";
 
+/* Default value for DateTimePicker */
+"No date selected" = "لم يتم تحديد تاريخ";
+
 /* XBUT: calendar time component label */
 "Time" = "الوقت";
 
@@ -159,4 +165,154 @@
 
 /* Default error text for when the character count exceeds the maximum limit for NoteFormView and TextFieldFormView */
 "Reduce the number of characters" = "تقليل عدد الحروف";
+
+/* XBUT: voice over label for decrement action in stepper */
+"Stepper decrease" = "انخفاض شريط تحديد القيم";
+
+/* XBUT: voice over description for decrement action in stepper */
+"Decrease the value by %d" = "تخفيض القيمة بمقدار %d";
+
+/* XBUT: voice over label for increment action in stepper */
+"Stepper increase" = "زيادة شريط تحديد القيم";
+
+/* XBUT: voice over description for increment action in stepper */
+"Increase the value by %d" = "زيادة القيمة بمقدار %d";
+
+/* XBUT: voice over label for test field in stepper */
+"Select specific value" = "تحديد قيمة محددة";
+
+/* XBUT: View all action in MenuSelection */
+"View All (%d)" = "عرض الكل (%d)";
+
+/* XACT: RatingControl accessibility label */
+"%d out of %d stars" = "%d من أصل %d من النجوم";
+
+/* XBUT: timeline preview component see all label */
+"See All (%d)" = "عرض الكل (%d)";
+
+/* XACT: Timeline preview item accessibility label */
+"Item %d of %d" = "البند %d من %d";
+
+/* XBUT: timeline preview component timestamp label */
+"Today, %d" = "اليوم، %d";
+
+/* XFLD: RatingControl value label format */
+"%d of %d" = "%d من %d";
+
+/* XFLD: RatingControl review count format */
+"%d reviews" = "%d من التقييمات";
+
+/* XFLD: RatingControl review count over ceiling format */
+"%d+ reviews" = "%d+ من التقييمات";
+
+/* XACT: RatingControl accessibility label */
+"Rating Control %d of %d" = "التحكم في المعدل %d من %d";
+
+/* XACT: read-only RatingControl accessibility label: rating with review count */
+"Rating Control, rating %d of %d, %d reviews" = "التحكم في المعدل، المعدل %d من %d، %d من التقييمات";
+
+/* XACT: read-only RatingControl accessibility label: average rating only */
+"Rating Control, average rating %.1f of %d" = "التحكم في المعدل، متوسط المعدل %.1f من %d";
+
+/* XACT: read-only RatingControl accessibility label: average rating with review count */
+"Rating Control, average rating %.1f of %d, %d reviews" = "التحكم في المعدل، متوسط المعدل %.1f من %d، %d من التقييمات";
+
+/* XACT: read-only RatingControl accessibility label: average rating with review count over ceiling */
+"Rating Control, average rating %.1f of %d, %d plus reviews" = "التحكم في المعدل، متوسط المعدل %.1f من %d، %d من التقييمات الإضافية";
+
+/* XBUT: View all messages in message banner sheet */
+"All" = "الكل";
+
+/* XBUT: messages count in the message banner sheet */
+"Messages (%d)" = "الرسائل (%d)";
+
+/* XBUT: view details in the message banner */
+"View Details" = "عرض التفاصيل";
+
+/* XBUT: view different message in the message banner sheet item */
+"View %@" = "عرض %@";
+
+/* XBUT: banner message type desc, message */
+"message" = "رسالة";
+
+/* XBUT: banner message type desc, information */
+"information" = "المعلومات";
+
+/* XBUT: banner message type desc, confirmation */
+"confirmation" = "تأكيد";
+
+/* XBUT: banner message type desc, warning */
+"warning" = "تحذير";
+
+/* XBUT: banner message type desc, error */
+"error" = "خطأ";
+
+/* XBUT: banner message type desc in plural form, messages */
+"messages" = "الرسائل ";
+
+/* XBUT: banner message type desc in plural form, informations */
+"informations" = "المعلومات";
+
+/* XBUT: banner message type desc in plural form, confirmations */
+"confirmations" = "التأكيدات";
+
+/* XBUT: banner message type desc in plural form, warnings */
+"warnings" = "التحذيرات";
+
+/* XBUT: banner message type desc in plural form, errors */
+"errors" = "الأخطاء";
+
+/* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
+"Reset" = "إعادة تعيين";
+
+/* XBUT: Apply action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
+"Apply" = "تطبيق";
+
+/* XTIT: The alert message for `ListPickerDestination` pulldown dismissal */
+"Are you sure you want to discard your selections?" = "هل تريد بالتأكيد تجاهل تحديداتك؟";
+
+/* XBUT: The alert Discard Changes action title for `ListPickerDestination` pulldown dismissal */
+"Discard Changes" = "تجاهل التغييرات";
+
+/* XBUT: The alert Keep Editing action title for `ListPickerDestination` pulldown dismissal */
+"Keep Editing" = "مواصلة التحرير";
+
+/* XBUT: The \"Select All\" button title on the List Picker header */
+"Select All" = "تحديد الكل";
+
+/* XBUT: The \"Deselect All\" button title on the List Picker header */
+"Deselect All" = "إلغاء تحديد الكل";
+
+/* XBUT: The \"Selected\" title on the List Picker header */
+"Selected" = "محدد";
+
+/* XACT: The accessibility hint for Text Input Views, editable */
+"Text field, Double tap to edit" = "حقل النص، انقر مرتين للتحرير";
+
+/* XACT: The accessibility hint for Text Input Views, editing */
+"Text field, is editing" = "حقل النص، قيد التحرير";
+
+/* XACT: The accessibility hint for Text Input Views, editing, with clear button */
+"Text field, is editing. Double tap to clear text" = "حقل النص، قيد التحرير. انقر مرتين لمسح النص";
+
+/* XACT: The default accessibility label for the custom action in TextFieldFormView if none was specified */
+"Custom Action" = "إجراء مخصص";
+
+/* XBUT: Error messages shown to users in DocumentScannerView */
+"Failed to create PDF page from images" = "فشل في إنشاء صفحة PDF من الصور.";
+
+/* XBUT: Cancel message shown to users in DocumentScannerView */
+"User cancelled the scan" = "ألغى المستخدم المسح الضوئي.";
+
+/* Progress Indicator accessibility label: processing */
+"Processing" = "قيد المعالجة";
+
+/* Progress Indicator accessibility label: loading pausable with indicator progress */
+"In progress with option to pause, %.0f" = "قيد التنفيذ مع خيار الإيقاف المؤقت، %.0f";
+
+/* Progress Indicator accessibility label: loading stoppable with indicator progress */
+"In progress with option to stop, %.0f" = "قيد التنفيذ مع خيار الإيقاف، %.0f";
+
+/* Progress Indicator accessibility label: progress halted with indicator progress */
+"Progress halted, %.0f" = "توقف التنفيذ، %.0f";
 
