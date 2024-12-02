@@ -31,6 +31,9 @@
 /* XACT: The accessibility label for the signature line */
 "Signature Line" = "서명란";
 
+/* XACT: The accessibility label for the mandatory field */
+"Required Field" = "필수 필드";
+
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
 "Canceled" = "취소됨";
 
@@ -142,6 +145,9 @@
 /* XBUT: voice over label for row selection status in DataTable */
 "not selected" = "선택되지 않음";
 
+/* Default value for DateTimePicker */
+"No date selected" = "선택된 날짜 없음";
+
 /* XBUT: calendar time component label */
 "Time" = "시간";
 
@@ -159,4 +165,154 @@
 
 /* Default error text for when the character count exceeds the maximum limit for NoteFormView and TextFieldFormView */
 "Reduce the number of characters" = "문자 수를 줄이십시오.";
+
+/* XBUT: voice over label for decrement action in stepper */
+"Stepper decrease" = "스테퍼 감소";
+
+/* XBUT: voice over description for decrement action in stepper */
+"Decrease the value by %d" = "%d만큼 값 감소";
+
+/* XBUT: voice over label for increment action in stepper */
+"Stepper increase" = "스테퍼 증가";
+
+/* XBUT: voice over description for increment action in stepper */
+"Increase the value by %d" = "%d만큼 값 증가";
+
+/* XBUT: voice over label for test field in stepper */
+"Select specific value" = "특정 값 선택";
+
+/* XBUT: View all action in MenuSelection */
+"View All (%d)" = "모두 보기(%d)";
+
+/* XACT: RatingControl accessibility label */
+"%d out of %d stars" = "별 %d개 중 %d개";
+
+/* XBUT: timeline preview component see all label */
+"See All (%d)" = "모두 보기(%d)";
+
+/* XACT: Timeline preview item accessibility label */
+"Item %d of %d" = "항목 %d/%d";
+
+/* XBUT: timeline preview component timestamp label */
+"Today, %d" = "오늘, %d";
+
+/* XFLD: RatingControl value label format */
+"%d of %d" = "%d/%d";
+
+/* XFLD: RatingControl review count format */
+"%d reviews" = " %d개 리뷰";
+
+/* XFLD: RatingControl review count over ceiling format */
+"%d+ reviews" = "%d+ 리뷰";
+
+/* XACT: RatingControl accessibility label */
+"Rating Control %d of %d" = "평점 관리 %d/%d";
+
+/* XACT: read-only RatingControl accessibility label: rating with review count */
+"Rating Control, rating %d of %d, %d reviews" = "평점 관리, 평점 %d/%d, %d개 리뷰";
+
+/* XACT: read-only RatingControl accessibility label: average rating only */
+"Rating Control, average rating %.1f of %d" = "평점 관리, 평균 평점 %.1f/%d";
+
+/* XACT: read-only RatingControl accessibility label: average rating with review count */
+"Rating Control, average rating %.1f of %d, %d reviews" = "평점 관리, 평균 평점 %.1f/%d, %d개 리뷰";
+
+/* XACT: read-only RatingControl accessibility label: average rating with review count over ceiling */
+"Rating Control, average rating %.1f of %d, %d plus reviews" = "평점 관리, 평균 평점 %.1f/%d, %d개 + 리뷰";
+
+/* XBUT: View all messages in message banner sheet */
+"All" = "모두";
+
+/* XBUT: messages count in the message banner sheet */
+"Messages (%d)" = "메시지(%d)";
+
+/* XBUT: view details in the message banner */
+"View Details" = "세부사항 보기";
+
+/* XBUT: view different message in the message banner sheet item */
+"View %@" = "%@ 보기";
+
+/* XBUT: banner message type desc, message */
+"message" = "메시지";
+
+/* XBUT: banner message type desc, information */
+"information" = "정보";
+
+/* XBUT: banner message type desc, confirmation */
+"confirmation" = "확인";
+
+/* XBUT: banner message type desc, warning */
+"warning" = "경고";
+
+/* XBUT: banner message type desc, error */
+"error" = "오류";
+
+/* XBUT: banner message type desc in plural form, messages */
+"messages" = "메시지";
+
+/* XBUT: banner message type desc in plural form, informations */
+"informations" = "정보";
+
+/* XBUT: banner message type desc in plural form, confirmations */
+"confirmations" = "확인";
+
+/* XBUT: banner message type desc in plural form, warnings */
+"warnings" = "경고";
+
+/* XBUT: banner message type desc in plural form, errors */
+"errors" = "오류";
+
+/* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
+"Reset" = "재설정";
+
+/* XBUT: Apply action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
+"Apply" = "적용";
+
+/* XTIT: The alert message for `ListPickerDestination` pulldown dismissal */
+"Are you sure you want to discard your selections?" = "선택사항을 무시하시겠습니까?";
+
+/* XBUT: The alert Discard Changes action title for `ListPickerDestination` pulldown dismissal */
+"Discard Changes" = "변경사항 무시";
+
+/* XBUT: The alert Keep Editing action title for `ListPickerDestination` pulldown dismissal */
+"Keep Editing" = "계속 편집";
+
+/* XBUT: The \"Select All\" button title on the List Picker header */
+"Select All" = "모두 선택";
+
+/* XBUT: The \"Deselect All\" button title on the List Picker header */
+"Deselect All" = "모두 선택 해제";
+
+/* XBUT: The \"Selected\" title on the List Picker header */
+"Selected" = "선택됨";
+
+/* XACT: The accessibility hint for Text Input Views, editable */
+"Text field, Double tap to edit" = "텍스트 필드, 더블 탭으로 편집";
+
+/* XACT: The accessibility hint for Text Input Views, editing */
+"Text field, is editing" = "텍스트 필드, 편집 중";
+
+/* XACT: The accessibility hint for Text Input Views, editing, with clear button */
+"Text field, is editing. Double tap to clear text" = "텍스트 필드, 편집 중. 더블 탭으로 텍스트 지우기";
+
+/* XACT: The default accessibility label for the custom action in TextFieldFormView if none was specified */
+"Custom Action" = "사용자 정의 액션";
+
+/* XBUT: Error messages shown to users in DocumentScannerView */
+"Failed to create PDF page from images" = "이미지에서 PDF 페이지를 생성하지 못했습니다.";
+
+/* XBUT: Cancel message shown to users in DocumentScannerView */
+"User cancelled the scan" = "사용자가 스캔을 취소했습니다.";
+
+/* Progress Indicator accessibility label: processing */
+"Processing" = "처리 중";
+
+/* Progress Indicator accessibility label: loading pausable with indicator progress */
+"In progress with option to pause, %.0f" = "처리 중(일시 중지 옵션 있음), %.0f";
+
+/* Progress Indicator accessibility label: loading stoppable with indicator progress */
+"In progress with option to stop, %.0f" = "처리 중(중지 옵션 있음), %.0f";
+
+/* Progress Indicator accessibility label: progress halted with indicator progress */
+"Progress halted, %.0f" = "진행 중단됨, %.0f";
 

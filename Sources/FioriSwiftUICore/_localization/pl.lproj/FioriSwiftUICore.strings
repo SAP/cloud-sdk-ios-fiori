@@ -31,6 +31,9 @@
 /* XACT: The accessibility label for the signature line */
 "Signature Line" = "Linia podpisu";
 
+/* XACT: The accessibility label for the mandatory field */
+"Required Field" = "Pole wymagane";
+
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
 "Canceled" = "Anulowano";
 
@@ -142,6 +145,9 @@
 /* XBUT: voice over label for row selection status in DataTable */
 "not selected" = "nie wybrane";
 
+/* Default value for DateTimePicker */
+"No date selected" = "Nie wybrano daty";
+
 /* XBUT: calendar time component label */
 "Time" = "Czas";
 
@@ -159,4 +165,154 @@
 
 /* Default error text for when the character count exceeds the maximum limit for NoteFormView and TextFieldFormView */
 "Reduce the number of characters" = "Zredukuj liczbę znaków";
+
+/* XBUT: voice over label for decrement action in stepper */
+"Stepper decrease" = "Zmniejszenie regulatora wartości";
+
+/* XBUT: voice over description for decrement action in stepper */
+"Decrease the value by %d" = "Zmniejsz wartość o %d";
+
+/* XBUT: voice over label for increment action in stepper */
+"Stepper increase" = "Zwiększenie regulatora wartości";
+
+/* XBUT: voice over description for increment action in stepper */
+"Increase the value by %d" = "Zwiększ wartość o %d";
+
+/* XBUT: voice over label for test field in stepper */
+"Select specific value" = "Wybierz określoną wartość";
+
+/* XBUT: View all action in MenuSelection */
+"View All (%d)" = "Wyświetl wszystkie (%d)";
+
+/* XACT: RatingControl accessibility label */
+"%d out of %d stars" = " %d z %d gwiazdek";
+
+/* XBUT: timeline preview component see all label */
+"See All (%d)" = "Zobacz wszystkie (%d)";
+
+/* XACT: Timeline preview item accessibility label */
+"Item %d of %d" = "Pozycja %d z %d";
+
+/* XBUT: timeline preview component timestamp label */
+"Today, %d" = "Dzisiaj, %d";
+
+/* XFLD: RatingControl value label format */
+"%d of %d" = "%d z %d";
+
+/* XFLD: RatingControl review count format */
+"%d reviews" = "Liczba recenzji: %d";
+
+/* XFLD: RatingControl review count over ceiling format */
+"%d+ reviews" = "Liczba recenzji: %d+";
+
+/* XACT: RatingControl accessibility label */
+"Rating Control %d of %d" = "Kontrola oceny %d z %d";
+
+/* XACT: read-only RatingControl accessibility label: rating with review count */
+"Rating Control, rating %d of %d, %d reviews" = "Kontrola oceny, ocena %d z %d, %d recenzji";
+
+/* XACT: read-only RatingControl accessibility label: average rating only */
+"Rating Control, average rating %.1f of %d" = "Kontrola oceny, średnia ocena %.1f z %d";
+
+/* XACT: read-only RatingControl accessibility label: average rating with review count */
+"Rating Control, average rating %.1f of %d, %d reviews" = "Kontrola oceny, średnia ocena %.1f z %d, %d recenzji";
+
+/* XACT: read-only RatingControl accessibility label: average rating with review count over ceiling */
+"Rating Control, average rating %.1f of %d, %d plus reviews" = "Kontrola oceny, średnia ocena %.1f z %d, ponad %d recenzji";
+
+/* XBUT: View all messages in message banner sheet */
+"All" = "Wszystko";
+
+/* XBUT: messages count in the message banner sheet */
+"Messages (%d)" = "Komunikaty (%d)";
+
+/* XBUT: view details in the message banner */
+"View Details" = "Wyświetl szczegóły";
+
+/* XBUT: view different message in the message banner sheet item */
+"View %@" = "Wyświetl %@";
+
+/* XBUT: banner message type desc, message */
+"message" = "komunikat";
+
+/* XBUT: banner message type desc, information */
+"information" = "informacje";
+
+/* XBUT: banner message type desc, confirmation */
+"confirmation" = "potwierdzenie";
+
+/* XBUT: banner message type desc, warning */
+"warning" = "ostrzeżenie";
+
+/* XBUT: banner message type desc, error */
+"error" = "błąd";
+
+/* XBUT: banner message type desc in plural form, messages */
+"messages" = "komunikaty";
+
+/* XBUT: banner message type desc in plural form, informations */
+"informations" = "informacje";
+
+/* XBUT: banner message type desc in plural form, confirmations */
+"confirmations" = "potwierdzenia";
+
+/* XBUT: banner message type desc in plural form, warnings */
+"warnings" = "ostrzeżenia";
+
+/* XBUT: banner message type desc in plural form, errors */
+"errors" = "błędy";
+
+/* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
+"Reset" = "Resetuj";
+
+/* XBUT: Apply action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
+"Apply" = "Zastosuj";
+
+/* XTIT: The alert message for `ListPickerDestination` pulldown dismissal */
+"Are you sure you want to discard your selections?" = "Czy na pewno chcesz odrzucić swoje wybory?";
+
+/* XBUT: The alert Discard Changes action title for `ListPickerDestination` pulldown dismissal */
+"Discard Changes" = "Odrzuć zmiany";
+
+/* XBUT: The alert Keep Editing action title for `ListPickerDestination` pulldown dismissal */
+"Keep Editing" = "Kontynuuj edycję";
+
+/* XBUT: The \"Select All\" button title on the List Picker header */
+"Select All" = "Zaznacz wszystkie";
+
+/* XBUT: The \"Deselect All\" button title on the List Picker header */
+"Deselect All" = "Odznacz wszystkie";
+
+/* XBUT: The \"Selected\" title on the List Picker header */
+"Selected" = "Wybrane";
+
+/* XACT: The accessibility hint for Text Input Views, editable */
+"Text field, Double tap to edit" = "Pole tekstowe, dotknij dwukrotnie, aby edytować";
+
+/* XACT: The accessibility hint for Text Input Views, editing */
+"Text field, is editing" = "Pole tekstowe, jest edytowane";
+
+/* XACT: The accessibility hint for Text Input Views, editing, with clear button */
+"Text field, is editing. Double tap to clear text" = "Pole tekstowe, jest edytowane. Dotknij dwukrotnie, aby usunąć tekst.";
+
+/* XACT: The default accessibility label for the custom action in TextFieldFormView if none was specified */
+"Custom Action" = "Czynność niestandardowa";
+
+/* XBUT: Error messages shown to users in DocumentScannerView */
+"Failed to create PDF page from images" = "Nie udało się utworzyć strony PDF z obrazów.";
+
+/* XBUT: Cancel message shown to users in DocumentScannerView */
+"User cancelled the scan" = "Użytkownik anulował skan.";
+
+/* Progress Indicator accessibility label: processing */
+"Processing" = "W trakcie przetwarzania";
+
+/* Progress Indicator accessibility label: loading pausable with indicator progress */
+"In progress with option to pause, %.0f" = "W toku z opcją wstrzymania, %.0f";
+
+/* Progress Indicator accessibility label: loading stoppable with indicator progress */
+"In progress with option to stop, %.0f" = "W toku z opcją zatrzymania, %.0f";
+
+/* Progress Indicator accessibility label: progress halted with indicator progress */
+"Progress halted, %.0f" = "Postęp zatrzymany, %.0f";
 
