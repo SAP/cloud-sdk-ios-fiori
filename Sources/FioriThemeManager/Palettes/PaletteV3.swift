@@ -1,5 +1,6 @@
 import Foundation
 
+@available(*, deprecated, message: "Intentionally used for backward compatibility.")
 @available(watchOS, unavailable)
 struct PaletteV3: PaletteProvider {
     /// :nodoc:
