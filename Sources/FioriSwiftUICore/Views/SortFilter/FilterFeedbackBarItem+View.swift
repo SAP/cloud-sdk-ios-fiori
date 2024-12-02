@@ -143,7 +143,7 @@ struct PickerMenuItem: View {
     
     @State var isSheetVisible = false
 
-    @State var detentHeight: CGFloat = ((UIDevice.current.userInterfaceIdiom == .phone || UIDevice.current.userInterfaceIdiom != .phone) ? 88 : 0)
+    @State var detentHeight: CGFloat = ((UIDevice.current.userInterfaceIdiom == .phone || UIDevice.current.userInterfaceIdiom == .pad) ? 88 : 0)
     let popoverWidth = 393.0
     @State var _keyboardHeight = 0.0
     @State var barItemFrame: CGRect = .zero
