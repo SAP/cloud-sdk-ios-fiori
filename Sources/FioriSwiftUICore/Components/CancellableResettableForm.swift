@@ -85,7 +85,11 @@ struct CancellableResettableDialogNavigationForm<Title: View, CancelAction: View
                     .ignoresSafeArea()
                 VStack(spacing: 0) {
                     self.components
-                    
+                    #if !os(visionOS)
+                        .listRowBackground(Color.preferredColor(.secondaryGroupedBackground))
+                    #else
+                        .listRowBackground(Color.clear)
+                    #endif
                     VStack(spacing: 0) {
                         self.applyAction
                             .accessibilityIdentifier("Apply")
@@ -106,6 +110,11 @@ struct CancellableResettableDialogNavigationForm<Title: View, CancelAction: View
                 }
             }
         }
+        #if !os(visionOS)
+        .listRowBackground(Color.preferredColor(.chromeSecondary))
+        #else
+        .listRowBackground(Color.clear)
+        #endif
     }
 }
 
