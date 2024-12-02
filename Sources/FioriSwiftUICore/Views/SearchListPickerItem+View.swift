@@ -34,6 +34,7 @@ extension SearchListPickerItem: View {
         List {
             if !disableListEntriesSection, !_value.isEmpty {
                 Section {
+                    self.selectionHeader().listRowInsets(EdgeInsets())
                     let selectedOptions = _value.wrappedValue.map { _valueOptions[$0] }
                     ForEach(selectedOptions.filter { _searchText.isEmpty || $0.localizedStandardContains(_searchText) }, id: \.self) { item in
                         self.rowView(value: item, isSelected: true)
@@ -46,17 +47,30 @@ extension SearchListPickerItem: View {
                                 _onTap?(index)
                             }
                     }
+                    #if !os(visionOS)
                     .listRowBackground(Color.preferredColor(.chromeSecondary))
-                } header: {
-                    self.selectionHeader().listRowInsets(EdgeInsets())
-                } footer: {
-                    Rectangle().fill(Color.preferredColor(.primaryGroupedBackground))
-                        .frame(height: 30)
-                        .listRowInsets(EdgeInsets())
+                    #else
+                    .listRowBackground(Color.clear)
+                    #endif
+                    
+                    #if !os(visionOS)
+                        Rectangle().fill(Color.preferredColor(.primaryGroupedBackground))
+                            .frame(height: 30)
+                            .listRowInsets(EdgeInsets())
+                    #endif
                 }
             }
 
             Section {
+                if allowsMultipleSelection {
+                    if _value.count != _valueOptions.count || allowsEmptySelection {
+                        self.selectAllView().listRowInsets(EdgeInsets())
+                    }
+                } else if _value.count == _valueOptions.count {
+                    self.selectAllView().listRowInsets(EdgeInsets())
+                } else {
+                    EmptyView()
+                }
                 ForEach(_valueOptions.filter { _searchText.isEmpty || $0.localizedStandardContains(_searchText) }, id: \.self) { item in
                     let isSelected = self.isItemSelected(item)
                     self.rowView(value: item, isSelected: isSelected)
@@ -69,19 +83,11 @@ extension SearchListPickerItem: View {
                             _onTap?(index)
                         }
                 }
+                #if !os(visionOS)
                 .listRowBackground(Color.preferredColor(.chromeSecondary))
-            } header: {
-                if allowsMultipleSelection {
-                    if _value.count != _valueOptions.count || allowsEmptySelection {
-                        self.selectAllView().listRowInsets(EdgeInsets())
-                    }
-                } else if _value.count == _valueOptions.count {
-                    self.selectAllView().listRowInsets(EdgeInsets())
-                } else {
-                    EmptyView()
-                }
-            } footer: {
-                Color.clear.frame(height: 0).listRowInsets(EdgeInsets())
+                #else
+                .listRowBackground(Color.clear)
+                #endif
             }
         }
         .modifier(FioriIntrospectModifier<UIScrollView> { scrollView in
@@ -113,7 +119,7 @@ extension SearchListPickerItem: View {
                 updateSearchListPickerHeight?(self._height)
             }
         })
-        .listStyle(.grouped)
+        .listStyle(.plain)
         .frame(minWidth: UIDevice.current.userInterfaceIdiom != .phone ? self.popoverWidth : nil)
         .scrollContentBackground(.hidden)
         .padding(0)
@@ -174,14 +180,18 @@ extension SearchListPickerItem: View {
         }
         .padding([.leading, .trailing], UIDevice.current.userInterfaceIdiom != .phone ? 13 : 16)
         .padding([.top, .bottom], 8)
-        .background(Color.preferredColor(.secondaryGroupedBackground))
-        .listRowInsets(EdgeInsets())
-        .alignmentGuide(.listRowSeparatorLeading) { dimensions in
-            dimensions[.leading]
-        }
-        .alignmentGuide(.listRowSeparatorTrailing) { dimensions in
-            dimensions[.trailing]
-        }
+        #if !os(visionOS)
+            .listRowBackground(Color.preferredColor(.secondaryGroupedBackground))
+        #else
+            .listRowBackground(Color.clear)
+        #endif
+            .listRowInsets(EdgeInsets())
+            .alignmentGuide(.listRowSeparatorLeading) { dimensions in
+                dimensions[.leading]
+            }
+            .alignmentGuide(.listRowSeparatorTrailing) { dimensions in
+                dimensions[.trailing]
+            }
     }
     
     private func selectAllView() -> some View {
@@ -202,14 +212,18 @@ extension SearchListPickerItem: View {
         }
         .padding([.leading, .trailing], UIDevice.current.userInterfaceIdiom != .phone ? 13 : 16)
         .padding([.top, .bottom], 8)
-        .background(Color.preferredColor(.secondaryGroupedBackground))
-        .listRowInsets(EdgeInsets())
-        .alignmentGuide(.listRowSeparatorLeading) { dimensions in
-            dimensions[.leading]
-        }
-        .alignmentGuide(.listRowSeparatorTrailing) { dimensions in
-            dimensions[.trailing]
-        }
+        #if !os(visionOS)
+            .listRowBackground(Color.preferredColor(.secondaryGroupedBackground))
+        #else
+            .listRowBackground(Color.clear)
+        #endif
+            .listRowInsets(EdgeInsets())
+            .alignmentGuide(.listRowSeparatorLeading) { dimensions in
+                dimensions[.leading]
+            }
+            .alignmentGuide(.listRowSeparatorTrailing) { dimensions in
+                dimensions[.trailing]
+            }
     }
     
     private func isItemSelected(_ item: String) -> Bool {

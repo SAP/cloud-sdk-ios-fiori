@@ -40,66 +40,73 @@ extension _SortFilterCFGItemContainer: View {
                             .padding([.leading, .trailing], UIDevice.current.userInterfaceIdiom != .phone ? 13 : 16)
                             .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? self.popoverWidth : nil)
                     }
-                } header: {
-                    Color.clear.frame(height: 0).listRowInsets(EdgeInsets())
-                } footer: {
-                    Rectangle().fill(Color.preferredColor(.primaryGroupedBackground))
-                        .frame(height: 30)
-                        .listRowInsets(EdgeInsets())
+                    #if !os(visionOS)
+                        Rectangle().fill(Color.preferredColor(.primaryGroupedBackground))
+                            .frame(height: 30)
+                            .listRowInsets(EdgeInsets())
+                    #endif
                 }
                 .listSectionSeparator(.hidden, edges: .all)
                 .listRowInsets(EdgeInsets())
-                .background(Color.preferredColor(.secondaryGroupedBackground))
+                #if !os(visionOS)
+                    .listRowBackground(Color.preferredColor(.secondaryGroupedBackground))
+                #else
+                    .listRowBackground(Color.clear)
+                #endif
             }
         }
         .listRowSpacing(0)
-        .listStyle(.grouped)
+        .listStyle(.plain)
         .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? self.popoverWidth : nil)
         .frame(height: self.height)
-        .background(Color.preferredColor(.secondaryGroupedBackground))
-        .environment(\.defaultMinListRowHeight, 0)
-        .environment(\.defaultMinListHeaderHeight, 0)
-        .modifier(FioriIntrospectModifier<UIScrollView> { scrollView in
-            DispatchQueue.main.async {
-                let popverHeight = Screen.bounds.size.height
-                let safeAreaInset = self.getSafeAreaInsets()
-                var maxScrollViewHeight = popverHeight - safeAreaInset.top - safeAreaInset.bottom - (UIDevice.current.userInterfaceIdiom != .phone ? 190 : 150)
-                if UIDevice.current.userInterfaceIdiom == .pad {
-                    maxScrollViewHeight -= self._keyboardHeight
+        #if !os(visionOS)
+            .listRowBackground(Color.preferredColor(.secondaryGroupedBackground))
+        #else
+            .listRowBackground(Color.clear)
+        #endif
+            .environment(\.defaultMinListRowHeight, 0)
+            .environment(\.defaultMinListHeaderHeight, 0)
+            .modifier(FioriIntrospectModifier<UIScrollView> { scrollView in
+                DispatchQueue.main.async {
+                    let popverHeight = Screen.bounds.size.height
+                    let safeAreaInset = self.getSafeAreaInsets()
+                    var maxScrollViewHeight = popverHeight - safeAreaInset.top - safeAreaInset.bottom - (UIDevice.current.userInterfaceIdiom != .phone ? 190 : 150)
+                    if UIDevice.current.userInterfaceIdiom == .pad {
+                        maxScrollViewHeight -= self._keyboardHeight
+                    }
+                    self.height = min(scrollView.contentSize.height, maxScrollViewHeight)
                 }
-                self.height = min(scrollView.contentSize.height, maxScrollViewHeight)
+            })
+            .setOnChange(of: self._items) {
+                self.checkUpdateButtonState()
             }
-        })
-        .setOnChange(of: self._items) {
-            self.checkUpdateButtonState()
-        }
-        .onAppear {
-            self.context.handleCancel = {
-                for r in 0 ..< self._items.count {
-                    for c in 0 ..< self._items[r].count {
-                        self._items[r][c].cancel()
+            .onAppear {
+                self.context.handleCancel = {
+                    for r in 0 ..< self._items.count {
+                        for c in 0 ..< self._items[r].count {
+                            self._items[r][c].cancel()
+                        }
                     }
                 }
-            }
     
-            self.context.handleReset = {
-                for r in 0 ..< self._items.count {
-                    for c in 0 ..< self._items[r].count {
-                        self._items[r][c].reset()
+                self.context.handleReset = {
+                    for r in 0 ..< self._items.count {
+                        for c in 0 ..< self._items[r].count {
+                            self._items[r][c].reset()
+                        }
                     }
                 }
-            }
     
-            self.context.handleApply = {
-                for r in 0 ..< self._items.count {
-                    for c in 0 ..< self._items[r].count {
-                        self._items[r][c].apply()
+                self.context.handleApply = {
+                    for r in 0 ..< self._items.count {
+                        for c in 0 ..< self._items[r].count {
+                            self._items[r][c].apply()
+                        }
                     }
                 }
-            }
             
-            self.checkUpdateButtonState()
-        }
+                self.checkUpdateButtonState()
+            }
     }
     
     func checkUpdateButtonState() {
@@ -226,7 +233,11 @@ extension _SortFilterCFGItemContainer: View {
                 }
             }, axis: .horizontal)
         }
+        #if !os(visionOS)
         .listRowBackground(Color.preferredColor(.secondaryGroupedBackground))
+        #else
+        .listRowBackground(Color.clear)
+        #endif
         .frame(minHeight: 44)
     }
     
