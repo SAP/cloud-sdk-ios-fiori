@@ -201,7 +201,7 @@ let threeRowTwoColumnWithAcc = TableModel(headerData: nil, rowData: [row1WithAcc
 
 let row1WithAlignment = TableRowItem(data: [DataTextItem("Leading", Font.fiori(forTextStyle: .title1)), DataTextItem("C"), DataImageItem(Image("wheel"))])
 let row2WithAlignment = TableRowItem(data: [DataTextItem("Leading", Font.title), DataImageItem(Image("wheel")), DataTextItem("Trailing Trailing")])
-let row3WithAlignment = TableRowItem(data: [DataImageItem(Image("wheel")), DataTextItem("Center Center"), DataTextItem("Trailing Trailing Trailing Trailing Trailing Trailing Trailing Trailing Trailing Trailing end", Font.fioriCondensed(forTextStyle: .title1))])
+let row3WithAlignment = TableRowItem(data: [DataImageItem(Image("wheel")), DataTextItem("Center Center"), DataTextItem("Trailing Trailing Trailing Trailing Trailing Trailing Trailing Trailing Trailing Trailing end", Font.fiori(forTextStyle: .title1))])
 
 let row1WithDate = TableRowItem(data: [DataTextItem("Hello", Font.headline, Color.orange), DataImageItem(Image("wheel")), DataDateItem(Date(timeIntervalSince1970: 1), Font.largeTitle, Color.preferredColor(.chart2)), DataTimeItem(Date(timeIntervalSince1970: 1), Font.headline, Color.purple), DataDurationItem(3000, Font.footnote, Color.preferredColor(.secondaryLabel)), DataListItem("San Jose")])
 let row2WithDate = TableRowItem(data: [DataImageItem(Image("wheel")), DataTextItem("World"), DataDateItem(Date(timeIntervalSinceReferenceDate: 1), Font.title2), DataTimeItem(Date(timeIntervalSinceReferenceDate: 1000)), DataDurationItem(23000), DataListItem("New York", Font.headline)])
