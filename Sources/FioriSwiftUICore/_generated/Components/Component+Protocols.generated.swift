@@ -207,10 +207,6 @@ public protocol OptionListPickerComponent : AnyObject {
     var hint: String? { get }
 }
 
-public protocol ProgressIndicatorComponent {
-    var progressIndicatorText: String? { get }
-}
-
 public protocol SliderPickerComponent : AnyObject {
 	// sourcery: bindingProperty
 	// sourcery: no_view
@@ -252,4 +248,8 @@ public protocol ActionComponent {
     var actionText: String? { get }
 	// sourcery: no_view
     var didSelectAction: (() -> Void)? { get }
+}
+
+public protocol ProgressIndicatorComponent {
+    var progressIndicatorText: String? { get }
 }
