@@ -70,13 +70,13 @@ extension FioriFonts {
     }
 }
 
-extension Font.FioriWeight: CaseIterable {
+extension Font.FioriWeight: @retroactive CaseIterable {
     public static var allCases: [Font.FioriWeight] {
         [.black, .heavy, .bold, .semibold, .semiboldDuplex, .medium, .regular, .light, .thin, .ultraLight]
     }
 }
 
-extension Font.Weight: CustomStringConvertible {
+extension Font.Weight: @retroactive CustomStringConvertible {
     public var description: String {
         let name: String
         
