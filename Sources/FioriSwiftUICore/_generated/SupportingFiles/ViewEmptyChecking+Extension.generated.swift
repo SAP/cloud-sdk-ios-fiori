@@ -385,7 +385,8 @@ extension ListPickerItem: _ViewEmptyChecking {
 
 extension LoadingIndicator: _ViewEmptyChecking {
     public var isEmpty: Bool {
-        title.isEmpty
+        title.isEmpty &&
+            progress.isEmpty
     }
 }
 
@@ -519,6 +520,12 @@ extension ProfileHeader: _ViewEmptyChecking {
             subtitle.isEmpty &&
             description.isEmpty &&
             detailContent.isEmpty
+    }
+}
+
+extension Progress: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        progress.isEmpty
     }
 }
 

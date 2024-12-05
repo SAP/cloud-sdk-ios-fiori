@@ -1494,6 +1494,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: ProgressStyle
+
+struct ProgressStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any ProgressStyle] = []
+}
+
+extension EnvironmentValues {
+    var progressStyle: any ProgressStyle {
+        self.progressStyleStack.last ?? .base
+    }
+
+    var progressStyleStack: [any ProgressStyle] {
+        get {
+            self[ProgressStyleStackKey.self]
+        }
+        set {
+            self[ProgressStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: ProgressIndicatorStyle
 
 struct ProgressIndicatorStyleStackKey: EnvironmentKey {
