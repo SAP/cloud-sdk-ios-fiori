@@ -23,15 +23,18 @@ struct AnyLoadingIndicatorStyle: LoadingIndicatorStyle {
 
 public struct LoadingIndicatorConfiguration {
     public let title: Title
+    public let progress: Progress
     public let duration: Double
     @Binding public var isPresented: Bool
 
     public typealias Title = ConfigurationViewWrapper
+    public typealias Progress = ConfigurationViewWrapper
 }
 
 public struct LoadingIndicatorFioriStyle: LoadingIndicatorStyle {
     public func makeBody(_ configuration: LoadingIndicatorConfiguration) -> some View {
         LoadingIndicator(configuration)
             .titleStyle(TitleFioriStyle(loadingIndicatorConfiguration: configuration))
+            .progressStyle(ProgressFioriStyle(loadingIndicatorConfiguration: configuration))
     }
 }

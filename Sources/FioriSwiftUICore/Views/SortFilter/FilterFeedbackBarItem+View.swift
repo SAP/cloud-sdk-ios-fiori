@@ -73,7 +73,10 @@ struct SliderMenuItem: View {
 
     @State var detentHeight: CGFloat = 0
     @State var barItemFrame: CGRect = .zero
-
+    let popoverWidth = 393.0
+    @Environment(\.dynamicTypeSize) var dynamicTypeSize
+    @State private var geometrySizeHeight: CGFloat = 0
+    
     var onUpdate: () -> Void
 
     public init(item: Binding<SortFilterItem.SliderItem>, onUpdate: @escaping () -> Void) {
@@ -87,7 +90,7 @@ struct SliderMenuItem: View {
                 self.isSheetVisible.toggle()
             }
             .popover(isPresented: self.$isSheetVisible, arrowEdge: self.barItemFrame.arrowDirection()) {
-                CancellableResettableDialogForm {
+                CancellableResettableDialogNavigationForm {
                     SortFilterItemTitle(title: self.item.name)
                 } cancelAction: {
                     _Action(actionText: NSLocalizedString("Cancel", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
@@ -111,14 +114,26 @@ struct SliderMenuItem: View {
 
                 } components: {
                     SliderPickerItem(value: Binding<Int?>(get: { self.item.workingValue }, set: { self.item.workingValue = $0 }), formatter: self.item.formatter, minimumValue: self.item.minimumValue, maximumValue: self.item.maximumValue)
-                        .padding([.leading, .trailing], UIDevice.current.userInterfaceIdiom != .phone ? 13 : 16)
+                        .padding([.leading, .trailing], 16)
+                        .background(GeometryReader { geometry in
+                            Color.clear
+                                .onAppear {
+                                    self.geometrySizeHeight = geometry.size.height
+                                    self.calculateDetentHeight()
+                                }
+                                .onChange(of: geometry.size) { newSize in
+                                    self.geometrySizeHeight = newSize.height
+                                    self.calculateDetentHeight()
+                                }
+                        })
+                        .onChange(of: self.dynamicTypeSize) { _ in
+                            self.calculateDetentHeight()
+                        }
                 }
-                .readHeight()
-                .onPreferenceChange(HeightPreferenceKey.self) { height in
-                    if let height {
-                        self.detentHeight = height
-                    }
-                }
+                .ifApply(UIDevice.current.userInterfaceIdiom != .phone, content: { v in
+                    v.frame(width: self.popoverWidth)
+                })
+                .frame(minHeight: self.detentHeight)
                 .presentationDetents([.height(self.detentHeight)])
             }
             .ifApply(UIDevice.current.userInterfaceIdiom != .phone, content: { v in
@@ -134,6 +149,42 @@ struct SliderMenuItem: View {
                         }
                 })
             })
+    }
+    
+    private func calculateDetentHeight() {
+        let isNotIphone = UIDevice.current.userInterfaceIdiom != .phone
+        var calculateHeight = self.geometrySizeHeight
+        calculateHeight += isNotIphone ? 13 : 16
+        calculateHeight += isNotIphone ? 50 : 56
+        if !isNotIphone {
+            calculateHeight += UIEdgeInsets.getSafeAreaInsets().bottom
+        }
+        calculateHeight += UIDevice.current.userInterfaceIdiom != .phone ? 45 : 0
+        calculateHeight += self.dynamicTypeAddHeight()
+        self.detentHeight = calculateHeight
+    }
+    
+    private func dynamicTypeAddHeight() -> CGFloat {
+        switch self.dynamicTypeSize {
+        case .xLarge:
+            return 15
+        case .xxLarge:
+            return 20
+        case .xxxLarge:
+            return 25
+        case .accessibility1:
+            return 30
+        case .accessibility2:
+            return 35
+        case .accessibility3:
+            return 40
+        case .accessibility4:
+            return 45
+        case .accessibility5:
+            return 55
+        default:
+            return 0
+        }
     }
 }
 
@@ -179,7 +230,7 @@ struct PickerMenuItem: View {
                 self.isSheetVisible.toggle()
             }
             .popover(isPresented: self.$isSheetVisible, arrowEdge: self.barItemFrame.arrowDirection()) {
-                CancellableResettableDialogForm {
+                CancellableResettableDialogNavigationForm {
                     SortFilterItemTitle(title: self.item.name)
                 } cancelAction: {
                     _Action(actionText: NSLocalizedString("Cancel", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
@@ -209,20 +260,25 @@ struct PickerMenuItem: View {
                     })
                     .buttonStyle(ApplyButtonStyle())
                 } components: {
-                    OptionListPickerItem(value: self.$item.workingValue, valueOptions: self.item.valueOptions, hint: nil, itemLayout: self.item.itemLayout) { index in
+                    OptionListPickerItem(value: self.$item.workingValue, valueOptions: self.item.valueOptions, hint: nil, itemLayout: self.item.itemLayout, barItemFrame: self.barItemFrame) { index in
                         self.item.onTap(option: self.item.valueOptions[index])
+                    } updateSearchListPickerHeight: { height in
+                        let isNotIphone = UIDevice.current.userInterfaceIdiom != .phone
+                        var calculateHeight = height
+                        calculateHeight += isNotIphone ? 13 : 16
+                        calculateHeight += isNotIphone ? 50 : 56
+                        if !isNotIphone {
+                            calculateHeight += UIEdgeInsets.getSafeAreaInsets().bottom
+                        }
+                        calculateHeight += UIDevice.current.userInterfaceIdiom != .phone ? 55 : 0
+                        self.detentHeight = calculateHeight
                     }
-                    .padding([.leading, .trailing], UIDevice.current.userInterfaceIdiom != .phone ? 13 : 16)
+                    .padding([.leading, .trailing], 16)
                 }
+                .frame(height: self.detentHeight)
                 .ifApply(UIDevice.current.userInterfaceIdiom != .phone, content: { v in
-                    v.frame(minHeight: 155)
+                    v.frame(width: self.popoverWidth)
                 })
-                .readHeight()
-                .onPreferenceChange(HeightPreferenceKey.self) { height in
-                    if let height {
-                        self.detentHeight = height
-                    }
-                }
                 .presentationDetents([.height(self.detentHeight)])
             }
             .ifApply(UIDevice.current.userInterfaceIdiom != .phone, content: { v in
@@ -350,7 +406,10 @@ struct PickerMenuItem: View {
                 height += 52
             }
         }
-        height += UIDevice.current.userInterfaceIdiom != .phone ? 63 : 33
+        if !isNotIphone {
+            height += UIEdgeInsets.getSafeAreaInsets().bottom
+        }
+        height += UIDevice.current.userInterfaceIdiom != .phone ? 55 : 0
         if height > Screen.bounds.size.height - self.getSafeAreaInsets().top - 60 {
             return Screen.bounds.size.height / 2
         }
@@ -431,7 +490,7 @@ struct DateTimeMenuItem: View {
                 self.isSheetVisible.toggle()
             }
             .popover(isPresented: self.$isSheetVisible, arrowEdge: self.barItemFrame.arrowDirection()) {
-                CancellableResettableDialogForm {
+                CancellableResettableDialogNavigationForm {
                     SortFilterItemTitle(title: self.item.name)
                 } cancelAction: {
                     _Action(actionText: NSLocalizedString("Cancel", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
@@ -466,7 +525,8 @@ struct DateTimeMenuItem: View {
                             )
                             .labelsHidden()
                         }
-                        .padding([.leading, .trailing], UIDevice.current.userInterfaceIdiom != .phone ? 13 : 16)
+                        .padding([.leading, .trailing], 16)
+                        .frame(minHeight: 40)
 
                         DatePicker(
                             self.item.label,
@@ -475,19 +535,30 @@ struct DateTimeMenuItem: View {
                         )
                         .datePickerStyle(.graphical)
                         .labelsHidden()
-                        .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? self.popoverWidth - 13 : Screen.bounds.size.width - 16)
+                        .frame(minHeight: 320)
                         .clipped()
                     }
                     .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? self.popoverWidth : Screen.bounds.size.width)
+                    .frame(minHeight: 440)
+                    .background(GeometryReader { geometry in
+                        Color.clear
+                            .onAppear {
+                                let isNotIphone = UIDevice.current.userInterfaceIdiom != .phone
+                                var calculateHeight = geometry.size.height
+                                calculateHeight += isNotIphone ? 13 : 16
+                                calculateHeight += isNotIphone ? 50 : 56
+                                if !isNotIphone {
+                                    calculateHeight += UIEdgeInsets.getSafeAreaInsets().bottom
+                                }
+                                calculateHeight += UIDevice.current.userInterfaceIdiom != .phone ? 55 : 0
+                                self.detentHeight = calculateHeight
+                            }
+                    })
                 }
-                .readHeight()
-                .onPreferenceChange(HeightPreferenceKey.self) { height in
-                    DispatchQueue.main.async {
-                        if let height {
-                            self.detentHeight = height
-                        }
-                    }
-                }
+                .ifApply(UIDevice.current.userInterfaceIdiom != .phone, content: { v in
+                    v.frame(width: self.popoverWidth)
+                })
+                .frame(minHeight: self.detentHeight)
                 .presentationDetents([.height(self.detentHeight)])
             }
             .ifApply(UIDevice.current.userInterfaceIdiom != .phone, content: { v in
@@ -572,6 +643,9 @@ struct StepperMenuItem: View {
     var onUpdate: () -> Void
     
     @State var stepperViewHeight: CGFloat = 110
+    let popoverWidth = 393.0
+    @Environment(\.dynamicTypeSize) var dynamicTypeSize
+    @State private var geometrySizeHeight: CGFloat = 0
     
     public init(item: Binding<SortFilterItem.StepperItem>, onUpdate: @escaping () -> Void) {
         self._item = item
@@ -584,7 +658,7 @@ struct StepperMenuItem: View {
                 self.isSheetVisible.toggle()
             }
             .popover(isPresented: self.$isSheetVisible, arrowEdge: self.barItemFrame.arrowDirection()) {
-                CancellableResettableDialogForm {
+                CancellableResettableDialogNavigationForm {
                     SortFilterItemTitle(title: self.item.name)
                 } cancelAction: {
                     _Action(actionText: NSLocalizedString("Cancel", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
@@ -641,17 +715,26 @@ struct StepperMenuItem: View {
                         v.incrementActionStyle(.deactivate)
                     }
                     .frame(minHeight: self.stepperViewHeight)
-                    .padding(0)
-                    .sizeReader { s in
-                        self.stepperViewHeight = max(self.stepperViewHeight, s.height)
+                    .background(GeometryReader { geometry in
+                        Color.clear
+                            .onAppear {
+                                self.geometrySizeHeight = geometry.size.height
+                                self.calculateDetentHeight()
+                            }
+                            .onChange(of: geometry.size) { newSize in
+                                self.geometrySizeHeight = newSize.height
+                                self.calculateDetentHeight()
+                            }
+                    })
+                    .onChange(of: self.dynamicTypeSize) { _ in
+                        self.stepperViewHeight = 110 + self.dynamicTypeAddHeight()
+                        self.calculateDetentHeight()
                     }
                 }
-                .readHeight()
-                .onPreferenceChange(HeightPreferenceKey.self) { height in
-                    if let height {
-                        self.detentHeight = height
-                    }
-                }
+                .ifApply(UIDevice.current.userInterfaceIdiom != .phone, content: { v in
+                    v.frame(width: self.popoverWidth)
+                })
+                .frame(minHeight: self.detentHeight)
                 .presentationDetents([.height(self.detentHeight)])
             }
             .ifApply(UIDevice.current.userInterfaceIdiom != .phone, content: { v in
@@ -667,6 +750,42 @@ struct StepperMenuItem: View {
                         }
                 })
             })
+    }
+    
+    private func calculateDetentHeight() {
+        let isNotIphone = UIDevice.current.userInterfaceIdiom != .phone
+        var calculateHeight = self.geometrySizeHeight
+        calculateHeight += isNotIphone ? 13 : 16
+        calculateHeight += isNotIphone ? 50 : 56
+        if !isNotIphone {
+            calculateHeight += UIEdgeInsets.getSafeAreaInsets().bottom
+        }
+        calculateHeight += UIDevice.current.userInterfaceIdiom != .phone ? 45 : 0
+        calculateHeight += self.dynamicTypeAddHeight()
+        self.detentHeight = calculateHeight
+    }
+    
+    private func dynamicTypeAddHeight() -> CGFloat {
+        switch self.dynamicTypeSize {
+        case .xLarge:
+            return 15
+        case .xxLarge:
+            return 20
+        case .xxxLarge:
+            return 25
+        case .accessibility1:
+            return 30
+        case .accessibility2:
+            return 35
+        case .accessibility3:
+            return 40
+        case .accessibility4:
+            return 45
+        case .accessibility5:
+            return 55
+        default:
+            return 0
+        }
     }
 }
 
@@ -746,6 +865,19 @@ extension CGRect {
             return .bottom
         }
         return .top
+    }
+}
+
+extension UIEdgeInsets {
+    static func getSafeAreaInsets() -> UIEdgeInsets {
+        guard let keyWindow = UIApplication.shared.connectedScenes
+            .first(where: { $0.activationState == .foregroundActive })
+            .flatMap({ $0 as? UIWindowScene })?.windows
+            .first(where: \.isKeyWindow)
+        else {
+            return .zero
+        }
+        return keyWindow.safeAreaInsets
     }
 }
 

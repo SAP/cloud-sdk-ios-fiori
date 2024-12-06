@@ -1155,6 +1155,22 @@ extension ProfileHeaderStyle {
     }
 }
 
+// MARK: ProgressStyle
+
+struct ResolvedProgressStyle<Style: ProgressStyle>: View {
+    let style: Style
+    let configuration: ProgressConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension ProgressStyle {
+    func resolve(configuration: ProgressConfiguration) -> some View {
+        ResolvedProgressStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: ProgressIndicatorStyle
 
 struct ResolvedProgressIndicatorStyle<Style: ProgressIndicatorStyle>: View {

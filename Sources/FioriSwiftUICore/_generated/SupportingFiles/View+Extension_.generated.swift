@@ -1227,6 +1227,23 @@ public extension View {
     }
 }
 
+// MARK: ProgressStyle
+
+public extension View {
+    func progressStyle(_ style: some ProgressStyle) -> some View {
+        self.transformEnvironment(\.progressStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func progressStyle(@ViewBuilder content: @escaping (ProgressConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.progressStyleStack) { stack in
+            let style = AnyProgressStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: ProgressIndicatorStyle
 
 public extension View {

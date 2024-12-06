@@ -28,8 +28,8 @@ public struct LoadingIndicatorBaseStyle: LoadingIndicatorStyle {
         }
     }
 
-    private func makeBodyForProgressView() -> some View {
-        ProgressView()
+    private func makeBodyForProgressView(_ configuration: LoadingIndicatorConfiguration) -> some View {
+        configuration.progress
             .tint(self.tint)
             .controlSize(self.controlSize)
     }
@@ -38,22 +38,22 @@ public struct LoadingIndicatorBaseStyle: LoadingIndicatorStyle {
         switch self.position {
         case .leading:
             return AnyView(HStack(spacing: 8) {
-                self.makeBodyForProgressView()
+                self.makeBodyForProgressView(configuration)
                 configuration.title
             })
         case .trailing:
             return AnyView(HStack(spacing: 8) {
                 configuration.title
-                self.makeBodyForProgressView()
+                self.makeBodyForProgressView(configuration)
             })
         case .bottom:
             return AnyView(VStack(spacing: 8) {
                 configuration.title
-                self.makeBodyForProgressView()
+                self.makeBodyForProgressView(configuration)
             })
         case .top:
             return AnyView(VStack(spacing: 8) {
-                self.makeBodyForProgressView()
+                self.makeBodyForProgressView(configuration)
                 configuration.title
             })
         }
@@ -75,6 +75,14 @@ extension LoadingIndicatorFioriStyle {
             Title(configuration)
                 .foregroundStyle(Color.preferredColor(.primaryLabel))
                 .font(.fiori(forTextStyle: .headline))
+        }
+    }
+    
+    struct ProgressFioriStyle: ProgressStyle {
+        let loadingIndicatorConfiguration: LoadingIndicatorConfiguration
+    
+        func makeBody(_ configuration: ProgressConfiguration) -> some View {
+            Progress(configuration)
         }
     }
 }

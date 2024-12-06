@@ -534,6 +534,8 @@ public protocol FilterFeedbackBarButtonModel: LeftIconComponent, TitleComponent 
 // sourcery: add_env_props = "filterFeedbackBarStyle"
 // sourcery: generated_component_not_configurable
 // sourcery: virtualPropHeight = "@State var _height: CGFloat = 0"
+// sourcery: virtualPropUpdateSearchListPickerHeight = "var updateSearchListPickerHeight: ((CGFloat) -> ())? = nil"
+// sourcery: virtualPropBarItemFrame = "var barItemFrame: CGRect = .zero"
 public protocol OptionListPickerItemModel: OptionListPickerComponent {
     // sourcery: default.value = .fixed
     // sourcery: no_view

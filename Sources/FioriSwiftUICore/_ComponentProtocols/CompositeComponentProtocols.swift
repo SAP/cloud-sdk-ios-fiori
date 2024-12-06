@@ -666,7 +666,7 @@ protocol _BannerMultiMessageSheet: _TitleComponent, _CloseActionComponent {
 }
 
 // sourcery: CompositeComponent
-protocol _LoadingIndicatorComponent: _TitleComponent {
+protocol _LoadingIndicatorComponent: _TitleComponent, _ProgressComponent {
     // sourcery: defaultValue = 0
     /// The duration in seconds for which the loading indicator is shown. If set to 0, the loading indicator will be displayed continuously. The default is `0`.
     var duration: Double { get }

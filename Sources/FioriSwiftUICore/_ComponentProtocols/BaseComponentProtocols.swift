@@ -460,3 +460,10 @@ protocol _ProgressIndicatorProtocol {
     // sourcery: @Binding
     var progress: Double { get }
 }
+
+// sourcery: BaseComponent
+protocol _ProgressComponent {
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "ProgressView()"
+    var progress: ProgressView<EmptyView, EmptyView> { get }
+}
