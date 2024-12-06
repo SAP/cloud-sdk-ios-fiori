@@ -37,6 +37,23 @@ public extension View {
     }
 }
 
+// MARK: ActivityItemStyle
+
+public extension View {
+    func activityItemStyle(_ style: some ActivityItemStyle) -> some View {
+        self.transformEnvironment(\.activityItemStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func activityItemStyle(@ViewBuilder content: @escaping (ActivityItemConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.activityItemStyleStack) { stack in
+            let style = AnyActivityItemStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: AllEntriesSectionTitleStyle
 
 public extension View {
