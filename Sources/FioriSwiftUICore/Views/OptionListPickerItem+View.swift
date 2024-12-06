@@ -23,13 +23,13 @@ public enum OptionListPickerItemLayoutType {
 }
 
 public extension OptionListPickerItem {
-    /// create a filter picker which used in FilterFeedbackBarItem
+    /// create a filter picker which is used in FilterFeedbackBarItem
     /// - Parameters:
-    ///   - value: Selected value indexs.
+    ///   - value: Indexes for selected values.
     ///   - valueOptions: The data for constructing the list picker.
     ///   - hint: Hint message.
     ///   - itemLayout: Option item layout type.
-    ///   - barItemFrame: The frame of the bar item, which toggle to show this view.
+    ///   - barItemFrame: The frame of the item in FilterFeedbackBar, which toggle to show this view.
     ///   - onTap: The closure when tap on item.
     ///   - updateSearchListPickerHeight: The closure to update the parent view.
     init(value: Binding<[Int]>, valueOptions: [String] = [], hint: String? = nil, itemLayout: OptionListPickerItemLayoutType = .fixed, barItemFrame: CGRect = .zero, onTap: ((_ index: Int) -> Void)? = nil, updateSearchListPickerHeight: ((CGFloat) -> Void)? = nil) {
