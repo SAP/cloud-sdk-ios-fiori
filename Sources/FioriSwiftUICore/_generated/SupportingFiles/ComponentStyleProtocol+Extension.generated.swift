@@ -31,6 +31,62 @@ public extension ActionStyle where Self == ActionFioriStyle {
     }
 }
 
+// MARK: ActivityItemStyle
+
+public extension ActivityItemStyle where Self == ActivityItemBaseStyle {
+    static var base: ActivityItemBaseStyle {
+        ActivityItemBaseStyle()
+    }
+}
+
+public extension ActivityItemStyle where Self == ActivityItemFioriStyle {
+    static var fiori: ActivityItemFioriStyle {
+        ActivityItemFioriStyle()
+    }
+}
+
+public struct ActivityItemIconStyle: ActivityItemStyle {
+    let style: any IconStyle
+
+    public func makeBody(_ configuration: ActivityItemConfiguration) -> some View {
+        ActivityItem(configuration)
+            .iconStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension ActivityItemStyle where Self == ActivityItemIconStyle {
+    static func iconStyle(_ style: some IconStyle) -> ActivityItemIconStyle {
+        ActivityItemIconStyle(style: style)
+    }
+
+    static func iconStyle(@ViewBuilder content: @escaping (IconConfiguration) -> some View) -> ActivityItemIconStyle {
+        let style = AnyIconStyle(content)
+        return ActivityItemIconStyle(style: style)
+    }
+}
+
+public struct ActivityItemSubtitleStyle: ActivityItemStyle {
+    let style: any SubtitleStyle
+
+    public func makeBody(_ configuration: ActivityItemConfiguration) -> some View {
+        ActivityItem(configuration)
+            .subtitleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension ActivityItemStyle where Self == ActivityItemSubtitleStyle {
+    static func subtitleStyle(_ style: some SubtitleStyle) -> ActivityItemSubtitleStyle {
+        ActivityItemSubtitleStyle(style: style)
+    }
+
+    static func subtitleStyle(@ViewBuilder content: @escaping (SubtitleConfiguration) -> some View) -> ActivityItemSubtitleStyle {
+        let style = AnySubtitleStyle(content)
+        return ActivityItemSubtitleStyle(style: style)
+    }
+}
+
 // MARK: AllEntriesSectionTitleStyle
 
 public extension AllEntriesSectionTitleStyle where Self == AllEntriesSectionTitleBaseStyle {
