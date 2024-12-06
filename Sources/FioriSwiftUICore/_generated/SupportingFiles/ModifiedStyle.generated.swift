@@ -1996,6 +1996,34 @@ public extension ProfileHeaderStyle {
     }
 }
 
+// MARK: ProgressStyle
+
+extension ModifiedStyle: ProgressStyle where Style: ProgressStyle {
+    public func makeBody(_ configuration: ProgressConfiguration) -> some View {
+        Progress(configuration)
+            .progressStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct ProgressStyleModifier<Style: ProgressStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.progressStyle(self.style)
+    }
+}
+
+public extension ProgressStyle {
+    func modifier(_ modifier: some ViewModifier) -> some ProgressStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some ProgressStyle) -> some ProgressStyle {
+        style.modifier(ProgressStyleModifier(style: self))
+    }
+}
+
 // MARK: ProgressIndicatorStyle
 
 extension ModifiedStyle: ProgressIndicatorStyle where Style: ProgressIndicatorStyle {
