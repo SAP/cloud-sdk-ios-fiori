@@ -73,6 +73,7 @@ public extension Type {
                                     "_ObjectItemModel",
                                     "_SideBarModel",
                                     "_SideBarListItemModel",
+                                    "_ActivityItemModel",
                                     "_ProgressIndicatorModel"]
         
         if deprecatedComponents.contains(name) {

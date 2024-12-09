@@ -2,7 +2,7 @@
 // DO NOT EDIT
 import SwiftUI
 
-public struct ActivityItem<Icon: View, Subtitle: View> {
+public struct _ActivityItem<Icon: View, Subtitle: View> {
     @Environment(\.iconModifier) private var iconModifier
 	@Environment(\.subtitleModifier) private var subtitleModifier
 
@@ -23,16 +23,16 @@ public struct ActivityItem<Icon: View, Subtitle: View> {
 
     @ViewBuilder var icon: some View {
         if isModelInit {
-            _icon.modifier(iconModifier.concat(Fiori.ActivityItem.icon).concat(Fiori.ActivityItem.iconCumulative))
+            _icon.modifier(iconModifier.concat(Fiori._ActivityItem.icon).concat(Fiori._ActivityItem.iconCumulative))
         } else {
-            _icon.modifier(iconModifier.concat(Fiori.ActivityItem.icon))
+            _icon.modifier(iconModifier.concat(Fiori._ActivityItem.icon))
         }
     }
 	@ViewBuilder var subtitle: some View {
         if isModelInit {
-            _subtitle.modifier(subtitleModifier.concat(Fiori.ActivityItem.subtitle).concat(Fiori.ActivityItem.subtitleCumulative))
+            _subtitle.modifier(subtitleModifier.concat(Fiori._ActivityItem.subtitle).concat(Fiori._ActivityItem.subtitleCumulative))
         } else {
-            _subtitle.modifier(subtitleModifier.concat(Fiori.ActivityItem.subtitle))
+            _subtitle.modifier(subtitleModifier.concat(Fiori._ActivityItem.subtitle))
         }
     }
     
@@ -45,10 +45,10 @@ public struct ActivityItem<Icon: View, Subtitle: View> {
     }
 }
 
-extension ActivityItem where Icon == _ConditionalContent<Image, EmptyView>,
+extension _ActivityItem where Icon == _ConditionalContent<Image, EmptyView>,
 		Subtitle == _ConditionalContent<Text, EmptyView> {
 
-    public init(model: ActivityItemModel) {
+    public init(model: _ActivityItemModel) {
         self.init(icon: model.icon, subtitle: model.subtitle)
     }
 

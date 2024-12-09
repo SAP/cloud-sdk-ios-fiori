@@ -3,8 +3,7 @@
 import Foundation
 import SwiftUI
 
-/// `ValuePicker`  provides a title and value label with Fiori styling and a wheel-style`Picker`.
-///
+/// `ValuePicker`  provides a title and value label with Fiori styling and a wheel-style `Picker`.
 /// ## Usage
 /// ```swift
 /// let valueOptions :[AttributedString] = ["1", "20", "300"]
@@ -13,10 +12,6 @@ import SwiftUI
 /// @State var stateIndex: Int = 0
 /// @State var isTrackingLiveChanges = true
 /// @State var showsErrorMessage = false
-///
-///  ValuePicker(title: "Picker Title(Default Style)", isRequired: self.isRequired, options: self.valueOptions, selectedIndex: self.$selectedIndex, isTrackingLiveChanges: self.isTrackingLiveChanges)
-///    .informationView(isPresented: self.$showsErrorMessage, description: AttributedString("Please choose one available data"))
-///    .informationViewStyle(.informational)
 /// ```
 public struct ValuePicker {
     let title: any View
@@ -24,13 +19,13 @@ public struct ValuePicker {
     let mandatoryFieldIndicator: any View
     let isRequired: Bool
     let options: [AttributedString]
-    /// The selected value index of the Value Picker
+    /// The index for the selected value in the valueOptions.
     @Binding var selectedIndex: Int
     /// When `isTrackingLiveChanges` is true, the value will be shown every time a selection is made. If it is set to false, the value will only be displayed when the value picker is collapsed. The default setting is true.
     var isTrackingLiveChanges: Bool
     /// This property indicates whether the picker is to always be displayed. The default is false.
     var alwaysShowPicker: Bool
-    /// The `ControlState` of the  view. The default is `normal`
+    /// The `ControlState` of the  view. Currently, `.disabled`, `.normal` and `.readOnly` are supported. The default is `normal`.
     let controlState: ControlState
 
     @Environment(\.valuePickerStyle) var style
