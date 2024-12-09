@@ -243,30 +243,6 @@ public struct Carousel<Content>: View where Content: View {
         self.isSameHeight = isSameHeight
         self.content = content
     }
-
-    func dragGesture() -> some Gesture {
-        DragGesture()
-            .onChanged { value in
-                self.contentOffset.x = self.preContentOffset.x + (self.layoutDirection == .leftToRight ? -1 : 1) * value.translation.width
-            }
-            .onEnded { value in
-                withAnimation(.easeOut(duration: 0.5)) {
-                    let maxX = max(0, contentSize.width - self.viewSize.width)
-                    let expectedX = max(0, preContentOffset.x + (self.layoutDirection == .leftToRight ? -1 : 1) * value.predictedEndTranslation.width)
-                    var finalX = min(maxX, expectedX)
-                    
-                    if self.isSnapping {
-                        let itemWidth: CGFloat = (viewSize.width - CGFloat(self.numberOfColumns + 2) * self.spacing) / CGFloat(self.numberOfColumns)
-                        let index = (expectedX / (itemWidth + self.spacing)).rounded()
-                        //                                finalX = max(0, min(maxX, index * (itemWidth + self.spacing) - self.spacing))
-                        finalX = max(0, min(maxX, index * (itemWidth + self.spacing)))
-                    }
-                    
-                    self.contentOffset.x = finalX
-                    self.preContentOffset = self.contentOffset
-                }
-            }
-    }
     
     public var body: some View {
         CarouselViewLayout {
@@ -283,7 +259,29 @@ public struct Carousel<Content>: View where Content: View {
                 }
             }
             .contentShape(Rectangle())
-            .highPriorityGesture(self.dragGesture(), isEnabled: true)
+            .highPriorityGesture(
+                DragGesture()
+                    .onChanged { value in
+                        self.contentOffset.x = self.preContentOffset.x + (self.layoutDirection == .leftToRight ? -1 : 1) * value.translation.width
+                    }
+                    .onEnded { value in
+                        withAnimation(.easeOut(duration: 0.5)) {
+                            let maxX = max(0, contentSize.width - self.viewSize.width)
+                            let expectedX = max(0, preContentOffset.x + (self.layoutDirection == .leftToRight ? -1 : 1) * value.predictedEndTranslation.width)
+                            var finalX = min(maxX, expectedX)
+                            
+                            if self.isSnapping {
+                                let itemWidth: CGFloat = (viewSize.width - CGFloat(self.numberOfColumns + 2) * self.spacing) / CGFloat(self.numberOfColumns)
+                                let index = (expectedX / (itemWidth + self.spacing)).rounded()
+                                //                                finalX = max(0, min(maxX, index * (itemWidth + self.spacing) - self.spacing))
+                                finalX = max(0, min(maxX, index * (itemWidth + self.spacing)))
+                            }
+                            
+                            self.contentOffset.x = finalX
+                            self.preContentOffset = self.contentOffset
+                        }
+                    }
+            )
         }
         .clipped()
         .modifier(CarouselSizeModifier())
