@@ -2,9 +2,9 @@ import SwiftUI
 import UIKit
 
 public extension SearchListPickerItem {
-    /// create a list picker which used in FilterFeedbackBarItem
+    /// create a list picker which is used in FilterFeedbackBarItem
     /// - Parameters:
-    ///   - value: Selected value indexs.
+    ///   - value: Indexes for selected values.
     ///   - valueOptions: The data for constructing the list picker.
     ///   - hint: Hint message.
     ///   - allowsMultipleSelection: A boolean value to indicate to allow multiple selections or not.
@@ -14,7 +14,7 @@ public extension SearchListPickerItem {
     ///   - updateSearchListPickerHeight: The closure to update the parent view.
     ///   - disableListEntriesSection: A boolean value to indicate to disable entries section or not.
     ///   - allowsDisplaySelectionCount: A boolean value to indicate to display selection count or not.
-    ///   - barItemFrame: The frame of the bar item, which toggle to show this view.
+    ///   - barItemFrame: The frame of the item in FilterFeedbackBar, which toggle to show this view.
     init(value: Binding<[Int]>, valueOptions: [String] = [], hint: String? = nil, allowsMultipleSelection: Bool, allowsEmptySelection: Bool, isSearchBarHidden: Bool = false, disableListEntriesSection: Bool, allowsDisplaySelectionCount: Bool, barItemFrame: CGRect = .zero, onTap: ((_ index: Int) -> Void)? = nil, selectAll: ((_ isAll: Bool) -> Void)? = nil, updateSearchListPickerHeight: ((CGFloat) -> Void)? = nil) {
         self.init(value: value, valueOptions: valueOptions, hint: hint, onTap: onTap)
         
