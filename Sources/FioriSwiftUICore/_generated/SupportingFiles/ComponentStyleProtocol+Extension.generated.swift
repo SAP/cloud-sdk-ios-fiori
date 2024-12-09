@@ -2971,6 +2971,27 @@ public extension LoadingIndicatorStyle where Self == LoadingIndicatorTitleStyle 
     }
 }
 
+public struct LoadingIndicatorProgressStyle: LoadingIndicatorStyle {
+    let style: any ProgressStyle
+
+    public func makeBody(_ configuration: LoadingIndicatorConfiguration) -> some View {
+        LoadingIndicator(configuration)
+            .progressStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension LoadingIndicatorStyle where Self == LoadingIndicatorProgressStyle {
+    static func progressStyle(_ style: some ProgressStyle) -> LoadingIndicatorProgressStyle {
+        LoadingIndicatorProgressStyle(style: style)
+    }
+
+    static func progressStyle(@ViewBuilder content: @escaping (ProgressConfiguration) -> some View) -> LoadingIndicatorProgressStyle {
+        let style = AnyProgressStyle(content)
+        return LoadingIndicatorProgressStyle(style: style)
+    }
+}
+
 // MARK: MandatoryFieldIndicatorStyle
 
 public extension MandatoryFieldIndicatorStyle where Self == MandatoryFieldIndicatorBaseStyle {
@@ -3843,6 +3864,20 @@ public extension ProfileHeaderStyle where Self == ProfileHeaderDescriptionStyle 
     static func descriptionStyle(@ViewBuilder content: @escaping (DescriptionConfiguration) -> some View) -> ProfileHeaderDescriptionStyle {
         let style = AnyDescriptionStyle(content)
         return ProfileHeaderDescriptionStyle(style: style)
+    }
+}
+
+// MARK: ProgressStyle
+
+public extension ProgressStyle where Self == ProgressBaseStyle {
+    static var base: ProgressBaseStyle {
+        ProgressBaseStyle()
+    }
+}
+
+public extension ProgressStyle where Self == ProgressFioriStyle {
+    static var fiori: ProgressFioriStyle {
+        ProgressFioriStyle()
     }
 }
 

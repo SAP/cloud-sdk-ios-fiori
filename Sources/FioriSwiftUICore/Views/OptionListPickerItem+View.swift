@@ -22,6 +22,24 @@ public enum OptionListPickerItemLayoutType {
     case flexible
 }
 
+public extension OptionListPickerItem {
+    /// create a filter picker which is used in FilterFeedbackBarItem
+    /// - Parameters:
+    ///   - value: Indexes for selected values.
+    ///   - valueOptions: The data for constructing the list picker.
+    ///   - hint: Hint message.
+    ///   - itemLayout: Option item layout type.
+    ///   - barItemFrame: The frame of the item in FilterFeedbackBar, which toggle to show this view.
+    ///   - onTap: The closure when tap on item.
+    ///   - updateSearchListPickerHeight: The closure to update the parent view.
+    init(value: Binding<[Int]>, valueOptions: [String] = [], hint: String? = nil, itemLayout: OptionListPickerItemLayoutType = .fixed, barItemFrame: CGRect = .zero, onTap: ((_ index: Int) -> Void)? = nil, updateSearchListPickerHeight: ((CGFloat) -> Void)? = nil) {
+        self.init(value: value, valueOptions: valueOptions, hint: hint, itemLayout: itemLayout, onTap: onTap)
+        
+        self.barItemFrame = barItemFrame
+        self.updateSearchListPickerHeight = updateSearchListPickerHeight
+    }
+}
+
 extension OptionListPickerItem: View {
     public var body: some View {
         if _itemLayout == .flexible {
@@ -61,19 +79,11 @@ extension OptionListPickerItem: View {
                 GeometryReader { geometry in
                     Color.clear
                         .onAppear {
-                            let popverHeight = Screen.bounds.size.height
-                            let totalSpacing: CGFloat = (UIDevice.current.userInterfaceIdiom != .phone ? 8 : 16) * 2
-                            let totalPadding: CGFloat = (UIDevice.current.userInterfaceIdiom != .phone ? 13 : 16) * 2
-                            let safeAreaInset = self.getSafeAreaInsets()
-                            let maxScrollViewHeight = popverHeight - totalSpacing - totalPadding - safeAreaInset.top - safeAreaInset.bottom - (UIDevice.current.userInterfaceIdiom != .phone ? 210 : 60)
-                            self._height = min(geometry.size.height, maxScrollViewHeight)
+                            self.updateSearchListPickerHeight?(self.calculateHeight(scrollViewContentHeight: geometry.size.height))
                         }
                 }
             )
         }
-        .ifApply(UIDevice.current.userInterfaceIdiom == .phone, content: { v in
-            v.frame(height: _height)
-        })
     }
     
     private func generateFlexibleContent() -> some View {
@@ -94,19 +104,14 @@ extension OptionListPickerItem: View {
                 GeometryReader { geometry in
                     Color.clear
                         .onAppear {
-                            let popverHeight = Screen.bounds.size.height
-                            let totalSpacing: CGFloat = (UIDevice.current.userInterfaceIdiom != .phone ? 8 : 16) * 2
-                            let totalPadding: CGFloat = (UIDevice.current.userInterfaceIdiom != .phone ? 13 : 16) * 2
-                            let safeAreaInset = self.getSafeAreaInsets()
-                            let maxScrollViewHeight = popverHeight - totalSpacing - totalPadding - safeAreaInset.top - safeAreaInset.bottom - (UIDevice.current.userInterfaceIdiom != .phone ? 210 : 60)
-                            self._height = min(geometry.size.height, maxScrollViewHeight)
+                            self.updateSearchListPickerHeight?(self.calculateHeight(scrollViewContentHeight: geometry.size.height))
+                        }
+                        .onChange(of: geometry.size) { _ in
+                            self.updateSearchListPickerHeight?(self.calculateHeight(scrollViewContentHeight: geometry.size.height))
                         }
                 }
             )
         }
-        .ifApply(UIDevice.current.userInterfaceIdiom == .phone, content: { v in
-            v.frame(height: _height)
-        })
     }
     
     private func getSafeAreaInsets() -> UIEdgeInsets {
@@ -118,6 +123,30 @@ extension OptionListPickerItem: View {
             return .zero
         }
         return keyWindow.safeAreaInsets
+    }
+    
+    private func calculateHeight(scrollViewContentHeight: CGFloat) -> CGFloat {
+        let screenHeight = Screen.bounds.size.height
+        let safeAreaInset = self.getSafeAreaInsets()
+        var maxScrollViewHeight = screenHeight - self.additionalHeight()
+        if UIDevice.current.userInterfaceIdiom != .phone {
+            if self.barItemFrame.arrowDirection() == .top {
+                maxScrollViewHeight -= (self.barItemFrame.maxY + 80)
+            } else if self.barItemFrame.arrowDirection() == .bottom {
+                maxScrollViewHeight -= (screenHeight - self.barItemFrame.minY + 80) + safeAreaInset.bottom + 13
+            }
+        } else {
+            maxScrollViewHeight -= (safeAreaInset.top + 30)
+        }
+        return min(scrollViewContentHeight, maxScrollViewHeight)
+    }
+    
+    private func additionalHeight() -> CGFloat {
+        let isNotIphone = UIDevice.current.userInterfaceIdiom != .phone
+        var height = 0.0
+        height += self.getSafeAreaInsets().bottom + (isNotIphone ? 13 : 16)
+        height += isNotIphone ? 50 : 56
+        return height
     }
 }
 
