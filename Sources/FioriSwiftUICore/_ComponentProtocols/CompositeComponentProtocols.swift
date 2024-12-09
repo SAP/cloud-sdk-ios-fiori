@@ -729,6 +729,12 @@ protocol _ProgressIndicatorComponent: _ProgressIndicatorProtocol {}
 // sourcery: CompositeComponent
 protocol _ProcessingIndicatorComponent: _OptionalTitleComponent {}
 
+/// `ActivityItem` is a View  that provides a customizable activity item with icon and subtitle.
+///
+/// ## Usage
+/// ```swift
+/// ActivityItem(icon: Image(systemName: "phone"), subtitle: AttributedString("phone"))
+/// ```
 // sourcery: CompositeComponent
 protocol _ActivityItemComponent: _IconComponent, _SubtitleComponent {
     /// Activity item layout. The default is .vertical
