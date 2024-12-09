@@ -159,7 +159,11 @@ struct SliderMenuItem: View {
         if !isNotIphone {
             calculateHeight += UIEdgeInsets.getSafeAreaInsets().bottom
         }
-        calculateHeight += UIDevice.current.userInterfaceIdiom != .phone ? 45 : 0
+        #if !os(visionOS)
+            calculateHeight += UIDevice.current.userInterfaceIdiom != .phone ? 45 : 0
+        #else
+            calculateHeight += 85
+        #endif
         calculateHeight += self.dynamicTypeAddHeight()
         self.detentHeight = calculateHeight
     }
@@ -270,7 +274,11 @@ struct PickerMenuItem: View {
                         if !isNotIphone {
                             calculateHeight += UIEdgeInsets.getSafeAreaInsets().bottom
                         }
-                        calculateHeight += UIDevice.current.userInterfaceIdiom != .phone ? 55 : 0
+                        #if !os(visionOS)
+                            calculateHeight += UIDevice.current.userInterfaceIdiom != .phone ? 55 : 0
+                        #else
+                            calculateHeight += 95
+                        #endif
                         self.detentHeight = calculateHeight
                     }
                     .padding([.leading, .trailing], 16)
@@ -486,7 +494,11 @@ struct PickerMenuItem: View {
         if !isNotIphone {
             height += UIEdgeInsets.getSafeAreaInsets().bottom
         }
-        height += UIDevice.current.userInterfaceIdiom != .phone ? 55 : 0
+        #if !os(visionOS)
+            height += UIDevice.current.userInterfaceIdiom != .phone ? 55 : 0
+        #else
+            height += 75
+        #endif
         if height > Screen.bounds.size.height - self.getSafeAreaInsets().top - 60 {
             return Screen.bounds.size.height / 2
         }
@@ -837,7 +849,11 @@ struct StepperMenuItem: View {
         if !isNotIphone {
             calculateHeight += UIEdgeInsets.getSafeAreaInsets().bottom
         }
-        calculateHeight += UIDevice.current.userInterfaceIdiom != .phone ? 45 : 0
+        #if !os(visionOS)
+            calculateHeight += UIDevice.current.userInterfaceIdiom != .phone ? 45 : 0
+        #else
+            calculateHeight += 85
+        #endif
         calculateHeight += self.dynamicTypeAddHeight()
         self.detentHeight = calculateHeight
     }
