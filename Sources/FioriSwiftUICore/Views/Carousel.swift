@@ -259,7 +259,7 @@ public struct Carousel<Content>: View where Content: View {
                 }
             }
             .contentShape(Rectangle())
-            .gesture(
+            .highPriorityGesture(
                 DragGesture()
                     .onChanged { value in
                         self.contentOffset.x = self.preContentOffset.x + (self.layoutDirection == .leftToRight ? -1 : 1) * value.translation.width
@@ -280,7 +280,8 @@ public struct Carousel<Content>: View where Content: View {
                             self.contentOffset.x = finalX
                             self.preContentOffset = self.contentOffset
                         }
-                    }
+                    },
+                isEnabled: true
             )
         }
         .clipped()
