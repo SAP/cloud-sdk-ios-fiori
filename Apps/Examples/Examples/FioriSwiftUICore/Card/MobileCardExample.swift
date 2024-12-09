@@ -109,7 +109,9 @@ struct CarouselTestView: View {
         ScrollView(.vertical) {
             Carousel(numberOfColumns: Int(self.numberOfColumns), spacing: self.spacing, alignment: self.alignment == 0 ? .top : (self.alignment == 1 ? .center : .bottom), isSnapping: self.isSnapping, isSameHeight: self.isSameHeight) {
                 ForEach(0 ..< CardTests.cardSamples.count, id: \.self) { i in
-                    CardTests.cardSamples[i]
+                    NavigationLink(destination: Text("Detail View")) {
+                        CardTests.cardSamples[i]
+                    }
                 }
             }
             .cardStyle(.card)

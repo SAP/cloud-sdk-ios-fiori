@@ -243,7 +243,7 @@ public struct Carousel<Content>: View where Content: View {
         self.isSameHeight = isSameHeight
         self.content = content
     }
-
+    
     public var body: some View {
         CarouselViewLayout {
             HStack {
@@ -259,7 +259,7 @@ public struct Carousel<Content>: View where Content: View {
                 }
             }
             .contentShape(Rectangle())
-            .gesture(
+            .highPriorityGesture(
                 DragGesture()
                     .onChanged { value in
                         self.contentOffset.x = self.preContentOffset.x + (self.layoutDirection == .leftToRight ? -1 : 1) * value.translation.width
