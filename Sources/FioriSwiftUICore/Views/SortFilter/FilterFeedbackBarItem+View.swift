@@ -333,6 +333,14 @@ struct PickerMenuItem: View {
     
     @ViewBuilder
     var list: some View {
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            self.phoneView()
+        } else {
+            self.padView()
+        }
+    }
+    
+    private func phoneView() -> some View {
         FilterFeedbackBarItem(leftIcon: icon(name: self.item.icon, isVisible: true), title: self.item.label, rightIcon: Image(systemName: "chevron.down"), isSelected: self.item.isChecked)
             .onTapGesture {
                 self.isSheetVisible.toggle()
@@ -375,6 +383,7 @@ struct PickerMenuItem: View {
                     } updateSearchListPickerHeight: { height in
                         self.detentHeight = max(height, 88)
                     }
+                    .animation(.easeInOut)
                     .frame(maxHeight: UIDevice.current.userInterfaceIdiom != .phone ? self.detentHeight : nil)
                     .padding(0)
                     .onReceive(NotificationCenter.default.publisher(for: UIApplication.keyboardDidShowNotification)) { notif in
@@ -389,6 +398,75 @@ struct PickerMenuItem: View {
                 .frame(height: UIDevice.current.userInterfaceIdiom != .phone ? self.calculateDetentHeight() : nil)
                 .presentationDetents([.height(self.calculateDetentHeight()), .medium, .large])
             }
+            .ifApply(UIDevice.current.userInterfaceIdiom != .phone, content: { v in
+                v.background(GeometryReader { geometry in
+                    Color.clear
+                        .onAppear {
+                            self.barItemFrame = geometry.frame(in: .global)
+                        }
+                        .setOnChange(of: geometry.frame(in: .global), action1: { newValue in
+                            self.barItemFrame = newValue
+                        }) { _, newValue in
+                            self.barItemFrame = newValue
+                        }
+                })
+            })
+    }
+    
+    private func padView() -> some View {
+        FilterFeedbackBarItem(leftIcon: icon(name: self.item.icon, isVisible: true), title: self.item.label, rightIcon: Image(systemName: "chevron.down"), isSelected: self.item.isChecked)
+            .contentShape(Rectangle())
+            .onTapGesture {
+                self.isSheetVisible.toggle()
+            }
+            .modifier(PopoverSizeModifier(isPresented: self.$isSheetVisible, arrowEdge: self.barItemFrame.arrowDirection(), popoverSize: CGSize(width: self.popoverWidth, height: self.calculateDetentHeight()), popoverContent: {
+                CancellableResettableDialogNavigationForm {
+                    SortFilterItemTitle(title: self.item.name)
+                } cancelAction: {
+                    _Action(actionText: NSLocalizedString("Cancel", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
+                        self.item.cancel()
+                        self.isSheetVisible.toggle()
+                    })
+                    .buttonStyle(CancelButtonStyle())
+                } resetAction: {
+                    if self.item.resetButtonConfiguration.isHidden {
+                        EmptyView()
+                    } else {
+                        _Action(actionText: self.item.resetButtonConfiguration.title, didSelectAction: {
+                            if self.item.resetButtonConfiguration.type == .reset {
+                                self.item.reset()
+                            } else {
+                                self.item.clearAll()
+                            }
+                        })
+                        .buttonStyle(ResetButtonStyle())
+                        .disabled(self.resetButtonDisable())
+                    }
+                } applyAction: {
+                    _Action(actionText: NSLocalizedString("Apply", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
+                        self.item.apply()
+                        self.onUpdate()
+                        self.isSheetVisible.toggle()
+                    })
+                    .buttonStyle(ApplyButtonStyle())
+                } components: {
+                    SearchListPickerItem(value: self.$item.workingValue, valueOptions: self.item.valueOptions, hint: nil, allowsMultipleSelection: self.item.allowsMultipleSelection, allowsEmptySelection: self.item.allowsEmptySelection, isSearchBarHidden: self.item.isSearchBarHidden, disableListEntriesSection: self.item.disableListEntriesSection, allowsDisplaySelectionCount: self.item.allowsDisplaySelectionCount, barItemFrame: self.barItemFrame) { index in
+                        self.item.onTap(option: self.item.valueOptions[index])
+                    } selectAll: { isAll in
+                        self.item.selectAll(isAll)
+                    } updateSearchListPickerHeight: { height in
+                        self.detentHeight = max(height, 88)
+                    }
+                    .padding(0)
+                    .onReceive(NotificationCenter.default.publisher(for: UIApplication.keyboardDidShowNotification)) { notif in
+                        let rect = (notif.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect) ?? .zero
+                        self._keyboardHeight = rect.height
+                    }
+                    .onReceive(NotificationCenter.default.publisher(for: UIApplication.keyboardDidHideNotification)) { _ in
+                        self._keyboardHeight = 0
+                    }
+                }
+            }))
             .ifApply(UIDevice.current.userInterfaceIdiom != .phone, content: { v in
                 v.background(GeometryReader { geometry in
                     Color.clear
