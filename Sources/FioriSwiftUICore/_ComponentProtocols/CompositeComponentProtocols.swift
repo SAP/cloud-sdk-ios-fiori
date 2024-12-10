@@ -1,6 +1,8 @@
 import Foundation
 import SwiftUI
 
+// swiftlint:disable file_length
+
 /// A view that displays information of an object.
 // sourcery: CompositeComponent
 protocol _ObjectItemComponent: _TitleComponent, _SubtitleComponent, _FootnoteComponent, _DescriptionComponent, _StatusComponent, _SubstatusComponent, _DetailImageComponent, _IconsComponent, _AvatarsComponent, _FootnoteIconsComponent, _FootnoteIconsTextComponent, _TagsComponent, _ActionComponent {
@@ -726,3 +728,16 @@ protocol _ProgressIndicatorComponent: _ProgressIndicatorProtocol {}
 /// ```
 // sourcery: CompositeComponent
 protocol _ProcessingIndicatorComponent: _OptionalTitleComponent {}
+
+/// `ActivityItem` is a View  that provides a customizable activity item with icon and subtitle.
+///
+/// ## Usage
+/// ```swift
+/// ActivityItem(icon: Image(systemName: "phone"), subtitle: AttributedString("phone"))
+/// ```
+// sourcery: CompositeComponent
+protocol _ActivityItemComponent: _IconComponent, _SubtitleComponent {
+    /// Activity item layout. The default is .vertical
+    // sourcery: defaultValue = .vertical
+    var layout: ActivityItemLayout { get }
+}
