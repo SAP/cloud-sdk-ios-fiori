@@ -3,7 +3,7 @@ import SwiftUI
 // FIXME: - Implement Fiori style definitions
 
 extension Fiori {
-    enum ActivityItem {
+    enum _ActivityItem {
         typealias Icon = EmptyModifier
         typealias Subtitle = EmptyModifier
         typealias IconCumulative = EmptyModifier
@@ -30,7 +30,7 @@ extension Fiori {
 
 // FIXME: - Implement ActivityItem View body
 
-extension ActivityItem: View {
+extension _ActivityItem: View {
     public var body: some View {
         VStack {
             icon
