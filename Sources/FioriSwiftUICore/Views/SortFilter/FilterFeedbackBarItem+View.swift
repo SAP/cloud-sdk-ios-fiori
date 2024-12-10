@@ -375,7 +375,7 @@ struct PickerMenuItem: View {
                     } updateSearchListPickerHeight: { height in
                         self.detentHeight = max(height, 88)
                     }
-                    .animation(.spring)
+                    .animation(.easeInOut)
                     .frame(maxHeight: UIDevice.current.userInterfaceIdiom != .phone ? self.detentHeight : nil)
                     .padding(0)
                     .onReceive(NotificationCenter.default.publisher(for: UIApplication.keyboardDidShowNotification)) { notif in
@@ -407,6 +407,7 @@ struct PickerMenuItem: View {
     
     private func padView() -> some View {
         FilterFeedbackBarItem(leftIcon: icon(name: self.item.icon, isVisible: true), title: self.item.label, rightIcon: Image(systemName: "chevron.down"), isSelected: self.item.isChecked)
+            .contentShape(Rectangle())
             .onTapGesture {
                 self.isSheetVisible.toggle()
             }
