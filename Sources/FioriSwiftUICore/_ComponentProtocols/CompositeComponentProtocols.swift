@@ -726,3 +726,22 @@ protocol _ProgressIndicatorComponent: _ProgressIndicatorProtocol {}
 /// ```
 // sourcery: CompositeComponent
 protocol _ProcessingIndicatorComponent: _OptionalTitleComponent {}
+
+/// `KPIProgressItem` enables a developer to present "KPI" information in a formatted manner consistent with the Fiori Design Language
+///
+/// ## Usage
+/// ```swift
+/// let percentData = KPIItemData.percent(0.65)
+/// let fractionData = KPIItemData.fraction(76, 90, numberFormatterProvider.numberFormatter)
+///
+/// KPIProgressItem(kpiCaption: "Completed", data: .constant(percentData))
+/// KPIProgressItem(kpiCaption: "In progress", data: .constant(fractionData), chartSize: .small)
+/// ```
+// sourcery: CompositeComponent
+protocol _KPIProgressItemComponent: _KPIContentComponent, _KpiCaptionComponent, _FootnoteComponent {
+    // sourcery: @Binding
+    var data: KPIItemData { get }
+    
+    // sourcery: defaultValue = .large
+    var chartSize: KPIProgressItemSize { get }
+}

@@ -2,7 +2,7 @@ import FioriThemeManager
 import SwiftUI
 
 extension Fiori {
-    enum KPIProgressItem {
+    enum _KPIProgressItem {
         struct Kpi: ViewModifier {
             func body(content: Content) -> some View {
                 content
@@ -46,7 +46,7 @@ extension Fiori {
     }
 }
 
-extension KPIProgressItem: View {
+extension _KPIProgressItem: View {
     public var body: some View {
         let config = FioriProgressViewStyleConfiguration(kpi: AnyView(kpi),
                                                          subtitle: AnyView(subtitle),
@@ -77,7 +77,7 @@ extension KPIProgressItem: View {
     }
 }
 
-public extension KPIProgressItem where Kpi == Text,
+public extension _KPIProgressItem where Kpi == Text,
     Subtitle == _ConditionalContent<Text, EmptyView>,
     Footnote == _ConditionalContent<Text, EmptyView>
 {
@@ -100,14 +100,14 @@ public extension KPIProgressItem where Kpi == Text,
     }
 }
 
-/// Defines view style APIs for an KPIProgressItem
+/// Defines view style APIs for an _KPIProgressItem
 public protocol KPIProgressViewStyle {
     /// A view that represents the body of a KPI progress item.
     associatedtype Body: View
 
     /// Creates a view that represents the body of a KPI progress item.
     ///
-    /// The system calls this method for each ``KPIProgressItem`` instance in a view
+    /// The system calls this method for each ``_KPIProgressItem`` instance in a view
     /// hierarchy where this style is the current tag style.
     ///
     /// - Parameter configuration : The properties of the KPI progress item.
@@ -278,10 +278,10 @@ public extension View {
 }
 
 @available(iOS 14.0, *)
-struct KPIProgressItemLibraryContent: LibraryContentProvider {
+struct _KPIProgressItemLibraryContent: LibraryContentProvider {
     @LibraryContentBuilder
     var views: [LibraryItem] {
-        LibraryItem(KPIProgressItem(data: .percent(0.88), subtitle: "Completed"),
+        LibraryItem(_KPIProgressItem(data: .percent(0.88), subtitle: "Completed"),
                     category: .control)
     }
 }

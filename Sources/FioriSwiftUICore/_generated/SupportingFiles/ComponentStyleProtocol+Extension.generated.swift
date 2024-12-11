@@ -2313,6 +2313,97 @@ public extension JouleWelcomeScreenStyle where Self == JouleWelcomeScreenMessage
     }
 }
 
+// MARK: KPIContentStyle
+
+public extension KPIContentStyle where Self == KPIContentBaseStyle {
+    static var base: KPIContentBaseStyle {
+        KPIContentBaseStyle()
+    }
+}
+
+public extension KPIContentStyle where Self == KPIContentFioriStyle {
+    static var fiori: KPIContentFioriStyle {
+        KPIContentFioriStyle()
+    }
+}
+
+// MARK: KPIProgressItemStyle
+
+public extension KPIProgressItemStyle where Self == KPIProgressItemBaseStyle {
+    static var base: KPIProgressItemBaseStyle {
+        KPIProgressItemBaseStyle()
+    }
+}
+
+public extension KPIProgressItemStyle where Self == KPIProgressItemFioriStyle {
+    static var fiori: KPIProgressItemFioriStyle {
+        KPIProgressItemFioriStyle()
+    }
+}
+
+public struct KPIProgressItemKPIContentStyle: KPIProgressItemStyle {
+    let style: any KPIContentStyle
+
+    public func makeBody(_ configuration: KPIProgressItemConfiguration) -> some View {
+        KPIProgressItem(configuration)
+            .kPIContentStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension KPIProgressItemStyle where Self == KPIProgressItemKPIContentStyle {
+    static func kPIContentStyle(_ style: some KPIContentStyle) -> KPIProgressItemKPIContentStyle {
+        KPIProgressItemKPIContentStyle(style: style)
+    }
+
+    static func kPIContentStyle(@ViewBuilder content: @escaping (KPIContentConfiguration) -> some View) -> KPIProgressItemKPIContentStyle {
+        let style = AnyKPIContentStyle(content)
+        return KPIProgressItemKPIContentStyle(style: style)
+    }
+}
+
+public struct KPIProgressItemKpiCaptionStyle: KPIProgressItemStyle {
+    let style: any KpiCaptionStyle
+
+    public func makeBody(_ configuration: KPIProgressItemConfiguration) -> some View {
+        KPIProgressItem(configuration)
+            .kpiCaptionStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension KPIProgressItemStyle where Self == KPIProgressItemKpiCaptionStyle {
+    static func kpiCaptionStyle(_ style: some KpiCaptionStyle) -> KPIProgressItemKpiCaptionStyle {
+        KPIProgressItemKpiCaptionStyle(style: style)
+    }
+
+    static func kpiCaptionStyle(@ViewBuilder content: @escaping (KpiCaptionConfiguration) -> some View) -> KPIProgressItemKpiCaptionStyle {
+        let style = AnyKpiCaptionStyle(content)
+        return KPIProgressItemKpiCaptionStyle(style: style)
+    }
+}
+
+public struct KPIProgressItemFootnoteStyle: KPIProgressItemStyle {
+    let style: any FootnoteStyle
+
+    public func makeBody(_ configuration: KPIProgressItemConfiguration) -> some View {
+        KPIProgressItem(configuration)
+            .footnoteStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension KPIProgressItemStyle where Self == KPIProgressItemFootnoteStyle {
+    static func footnoteStyle(_ style: some FootnoteStyle) -> KPIProgressItemFootnoteStyle {
+        KPIProgressItemFootnoteStyle(style: style)
+    }
+
+    static func footnoteStyle(@ViewBuilder content: @escaping (FootnoteConfiguration) -> some View) -> KPIProgressItemFootnoteStyle {
+        let style = AnyFootnoteStyle(content)
+        return KPIProgressItemFootnoteStyle(style: style)
+    }
+}
+
 // MARK: KeyValueFormViewStyle
 
 public extension KeyValueFormViewStyle where Self == KeyValueFormViewBaseStyle {

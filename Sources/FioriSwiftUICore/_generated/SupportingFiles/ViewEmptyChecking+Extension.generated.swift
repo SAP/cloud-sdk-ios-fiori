@@ -316,6 +316,20 @@ extension JouleWelcomeScreen: _ViewEmptyChecking {
     }
 }
 
+extension KPIContent: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        kPIContent.isEmpty
+    }
+}
+
+extension KPIProgressItem: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        kPIContent.isEmpty &&
+            kpiCaption.isEmpty &&
+            footnote.isEmpty
+    }
+}
+
 extension KeyValueFormView: _ViewEmptyChecking {
     public var isEmpty: Bool {
         title.isEmpty &&

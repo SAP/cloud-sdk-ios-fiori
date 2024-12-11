@@ -467,3 +467,9 @@ protocol _ProgressComponent {
     // sourcery: defaultValue = "ProgressView()"
     var progress: ProgressView<EmptyView, EmptyView> { get }
 }
+
+// sourcery: BaseComponent
+protocol _KPIContentComponent {
+    @ViewBuilder
+    var kPIContent: (() -> any View)? { get }
+}
