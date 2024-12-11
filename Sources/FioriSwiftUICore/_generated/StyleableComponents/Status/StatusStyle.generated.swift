@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -22,6 +23,8 @@ struct AnyStatusStyle: StatusStyle {
 }
 
 public struct StatusConfiguration {
+    public let statusIdentifier = "FioriStatus_status"
+
     public let status: Status
 
     public typealias Status = ConfigurationViewWrapper

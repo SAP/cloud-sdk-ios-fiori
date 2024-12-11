@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -22,6 +23,11 @@ struct AnyStepperFieldStyle: StepperFieldStyle {
 }
 
 public struct StepperFieldConfiguration {
+    public let contentIdentifier = "FioriStepperField_content"
+    public let decrementActionIdentifier = "FioriStepperField_decrementAction"
+    public let textInputFieldIdentifier = "FioriStepperField_textInputField"
+    public let incrementActionIdentifier = "FioriStepperField_incrementAction"
+
     public let decrementAction: DecrementAction
     @Binding public var text: String
     public let incrementAction: IncrementAction
@@ -39,5 +45,17 @@ public struct StepperFieldFioriStyle: StepperFieldStyle {
             .decrementActionStyle(DecrementActionFioriStyle(stepperFieldConfiguration: configuration))
             .textInputFieldStyle(TextInputFieldFioriStyle(stepperFieldConfiguration: configuration))
             .incrementActionStyle(IncrementActionFioriStyle(stepperFieldConfiguration: configuration))
+    }
+}
+
+public struct StepperFieldNSSStyle: StepperFieldStyle {
+    var data: NSSStyleData
+
+    public func makeBody(_ configuration: StepperFieldConfiguration) -> some View {
+        StepperField(configuration)
+            .decrementActionStyle(DecrementActionNSSStyle(stepperFieldConfiguration: configuration, nssData: self.data.value(configuration.decrementActionIdentifier)))
+            .textInputFieldStyle(TextInputFieldNSSStyle(stepperFieldConfiguration: configuration, nssData: self.data.value(configuration.textInputFieldIdentifier)))
+            .incrementActionStyle(IncrementActionNSSStyle(stepperFieldConfiguration: configuration, nssData: self.data.value(configuration.incrementActionIdentifier)))
+            .stepperFieldStyle(ContentNSSStyle(stepperFieldConfiguration: configuration, nssData: self.data.value(configuration.contentIdentifier)))
     }
 }

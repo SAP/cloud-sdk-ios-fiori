@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -22,6 +23,8 @@ struct AnyDeselectAllActionStyle: DeselectAllActionStyle {
 }
 
 public struct DeselectAllActionConfiguration {
+    public let deselectAllActionIdentifier = "FioriDeselectAllAction_deselectAllAction"
+
     public let deselectAllAction: DeselectAllAction
 
     public typealias DeselectAllAction = ConfigurationViewWrapper

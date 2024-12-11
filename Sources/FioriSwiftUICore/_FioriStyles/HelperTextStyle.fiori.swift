@@ -30,3 +30,15 @@ public struct HelperTextFioriStyle: HelperTextStyle {
             .lineLimit(2)
     }
 }
+
+// Default nss styles
+public struct HelperTextNSSStyle: HelperTextStyle {
+    var data: NSSStyleData
+
+    public func makeBody(_ configuration: HelperTextConfiguration) -> some View {
+        HelperText(configuration)
+            .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.data.value(configuration.helperTextIdentifier)))
+        // Add custom nss style for its content
+        // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+    }
+}

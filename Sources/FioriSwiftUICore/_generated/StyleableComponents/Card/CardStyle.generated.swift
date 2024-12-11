@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -22,6 +23,28 @@ struct AnyCardStyle: CardStyle {
 }
 
 public struct CardConfiguration {
+    public let contentIdentifier = "FioriCard_content"
+    public let mediaImageIdentifier = "FioriCard_mediaImage"
+    public let descriptionIdentifier = "FioriCard_description"
+    public let titleIdentifier = "FioriCard_title"
+    public let subtitleIdentifier = "FioriCard_subtitle"
+    public let iconsIdentifier = "FioriCard_icons"
+    public let detailImageIdentifier = "FioriCard_detailImage"
+    public let headerActionIdentifier = "FioriCard_headerAction"
+    public let counterIdentifier = "FioriCard_counter"
+    public let row1Identifier = "FioriCard_row1"
+    public let row2Identifier = "FioriCard_row2"
+    public let row3Identifier = "FioriCard_row3"
+    public let kpiIdentifier = "FioriCard_kpi"
+    public let kpiCaptionIdentifier = "FioriCard_kpiCaption"
+    public let cardBodyIdentifier = "FioriCard_cardBody"
+    public let actionIdentifier = "FioriCard_action"
+    public let secondaryActionIdentifier = "FioriCard_secondaryAction"
+    public let tertiaryActionIdentifier = "FioriCard_tertiaryAction"
+    public let overflowActionIdentifier = "FioriCard_overflowAction"
+    public let cardHeaderIdentifier = "FioriCard_cardHeader"
+    public let cardFooterIdentifier = "FioriCard_cardFooter"
+
     public let mediaImage: MediaImage
     public let description: Description
     public let title: Title
@@ -84,5 +107,34 @@ public struct CardFioriStyle: CardStyle {
             .overflowActionStyle(OverflowActionFioriStyle(cardConfiguration: configuration))
             .cardHeaderStyle(CardHeaderFioriStyle(cardConfiguration: configuration))
             .cardFooterStyle(CardFooterFioriStyle(cardConfiguration: configuration))
+    }
+}
+
+public struct CardNSSStyle: CardStyle {
+    var data: NSSStyleData
+
+    public func makeBody(_ configuration: CardConfiguration) -> some View {
+        Card(configuration)
+            .mediaImageStyle(MediaImageNSSStyle(cardConfiguration: configuration, nssData: self.data.value(configuration.mediaImageIdentifier)))
+            .descriptionStyle(DescriptionNSSStyle(cardConfiguration: configuration, nssData: self.data.value(configuration.descriptionIdentifier)))
+            .titleStyle(TitleNSSStyle(cardConfiguration: configuration, nssData: self.data.value(configuration.titleIdentifier)))
+            .subtitleStyle(SubtitleNSSStyle(cardConfiguration: configuration, nssData: self.data.value(configuration.subtitleIdentifier)))
+            .iconsStyle(IconsNSSStyle(cardConfiguration: configuration, nssData: self.data.value(configuration.iconsIdentifier)))
+            .detailImageStyle(DetailImageNSSStyle(cardConfiguration: configuration, nssData: self.data.value(configuration.detailImageIdentifier)))
+            .headerActionStyle(HeaderActionNSSStyle(cardConfiguration: configuration, nssData: self.data.value(configuration.headerActionIdentifier)))
+            .counterStyle(CounterNSSStyle(cardConfiguration: configuration, nssData: self.data.value(configuration.counterIdentifier)))
+            .row1Style(Row1NSSStyle(cardConfiguration: configuration, nssData: self.data.value(configuration.row1Identifier)))
+            .row2Style(Row2NSSStyle(cardConfiguration: configuration, nssData: self.data.value(configuration.row2Identifier)))
+            .row3Style(Row3NSSStyle(cardConfiguration: configuration, nssData: self.data.value(configuration.row3Identifier)))
+            .kpiStyle(KpiNSSStyle(cardConfiguration: configuration, nssData: self.data.value(configuration.kpiIdentifier)))
+            .kpiCaptionStyle(KpiCaptionNSSStyle(cardConfiguration: configuration, nssData: self.data.value(configuration.kpiCaptionIdentifier)))
+            .cardBodyStyle(CardBodyNSSStyle(cardConfiguration: configuration, nssData: self.data.value(configuration.cardBodyIdentifier)))
+            .actionStyle(ActionNSSStyle(cardConfiguration: configuration, nssData: self.data.value(configuration.actionIdentifier)))
+            .secondaryActionStyle(SecondaryActionNSSStyle(cardConfiguration: configuration, nssData: self.data.value(configuration.secondaryActionIdentifier)))
+            .tertiaryActionStyle(TertiaryActionNSSStyle(cardConfiguration: configuration, nssData: self.data.value(configuration.tertiaryActionIdentifier)))
+            .overflowActionStyle(OverflowActionNSSStyle(cardConfiguration: configuration, nssData: self.data.value(configuration.overflowActionIdentifier)))
+            .cardHeaderStyle(CardHeaderNSSStyle(cardConfiguration: configuration, nssData: self.data.value(configuration.cardHeaderIdentifier)))
+            .cardFooterStyle(CardFooterNSSStyle(cardConfiguration: configuration, nssData: self.data.value(configuration.cardFooterIdentifier)))
+            .cardStyle(ContentNSSStyle(cardConfiguration: configuration, nssData: self.data.value(configuration.contentIdentifier)))
     }
 }

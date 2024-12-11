@@ -17,3 +17,15 @@ public struct AttributeFioriStyle: AttributeStyle {
         Attribute(configuration)
     }
 }
+
+// Default nss styles
+public struct AttributeNSSStyle: AttributeStyle {
+    var data: NSSStyleData
+
+    public func makeBody(_ configuration: AttributeConfiguration) -> some View {
+        Attribute(configuration)
+            .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.data.value(configuration.attributeIdentifier)))
+        // Add custom nss style for its content
+        // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+    }
+}

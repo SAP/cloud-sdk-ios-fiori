@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -22,6 +23,15 @@ struct AnyListPickerDestinationStyle: ListPickerDestinationStyle {
 }
 
 public struct ListPickerDestinationConfiguration {
+    public let contentIdentifier = "FioriListPickerDestination_content"
+    public let cancelActionIdentifier = "FioriListPickerDestination_cancelAction"
+    public let applyActionIdentifier = "FioriListPickerDestination_applyAction"
+    public let selectedEntriesSectionTitleIdentifier = "FioriListPickerDestination_selectedEntriesSectionTitle"
+    public let selectAllActionIdentifier = "FioriListPickerDestination_selectAllAction"
+    public let deselectAllActionIdentifier = "FioriListPickerDestination_deselectAllAction"
+    public let allEntriesSectionTitleIdentifier = "FioriListPickerDestination_allEntriesSectionTitle"
+    public let listPickerContentIdentifier = "FioriListPickerDestination_listPickerContent"
+
     public let cancelAction: CancelAction
     public let applyAction: ApplyAction
     public let selectedEntriesSectionTitle: SelectedEntriesSectionTitle
@@ -49,5 +59,21 @@ public struct ListPickerDestinationFioriStyle: ListPickerDestinationStyle {
             .deselectAllActionStyle(DeselectAllActionFioriStyle(listPickerDestinationConfiguration: configuration))
             .allEntriesSectionTitleStyle(AllEntriesSectionTitleFioriStyle(listPickerDestinationConfiguration: configuration))
             .listPickerContentStyle(ListPickerContentFioriStyle(listPickerDestinationConfiguration: configuration))
+    }
+}
+
+public struct ListPickerDestinationNSSStyle: ListPickerDestinationStyle {
+    var data: NSSStyleData
+
+    public func makeBody(_ configuration: ListPickerDestinationConfiguration) -> some View {
+        ListPickerDestination(configuration)
+            .cancelActionStyle(CancelActionNSSStyle(listPickerDestinationConfiguration: configuration, nssData: self.data.value(configuration.cancelActionIdentifier)))
+            .applyActionStyle(ApplyActionNSSStyle(listPickerDestinationConfiguration: configuration, nssData: self.data.value(configuration.applyActionIdentifier)))
+            .selectedEntriesSectionTitleStyle(SelectedEntriesSectionTitleNSSStyle(listPickerDestinationConfiguration: configuration, nssData: self.data.value(configuration.selectedEntriesSectionTitleIdentifier)))
+            .selectAllActionStyle(SelectAllActionNSSStyle(listPickerDestinationConfiguration: configuration, nssData: self.data.value(configuration.selectAllActionIdentifier)))
+            .deselectAllActionStyle(DeselectAllActionNSSStyle(listPickerDestinationConfiguration: configuration, nssData: self.data.value(configuration.deselectAllActionIdentifier)))
+            .allEntriesSectionTitleStyle(AllEntriesSectionTitleNSSStyle(listPickerDestinationConfiguration: configuration, nssData: self.data.value(configuration.allEntriesSectionTitleIdentifier)))
+            .listPickerContentStyle(ListPickerContentNSSStyle(listPickerDestinationConfiguration: configuration, nssData: self.data.value(configuration.listPickerContentIdentifier)))
+            .listPickerDestinationStyle(ContentNSSStyle(listPickerDestinationConfiguration: configuration, nssData: self.data.value(configuration.contentIdentifier)))
     }
 }

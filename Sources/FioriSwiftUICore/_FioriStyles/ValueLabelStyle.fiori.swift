@@ -17,3 +17,15 @@ public struct ValueLabelFioriStyle: ValueLabelStyle {
         ValueLabel(configuration)
     }
 }
+
+// Default nss styles
+public struct ValueLabelNSSStyle: ValueLabelStyle {
+    var data: NSSStyleData
+
+    public func makeBody(_ configuration: ValueLabelConfiguration) -> some View {
+        ValueLabel(configuration)
+            .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.data.value(configuration.valueLabelIdentifier)))
+        // Add custom nss style for its content
+        // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+    }
+}

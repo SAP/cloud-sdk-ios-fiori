@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -22,6 +23,12 @@ struct AnyDateTimePickerStyle: DateTimePickerStyle {
 }
 
 public struct DateTimePickerConfiguration {
+    public let contentIdentifier = "FioriDateTimePicker_content"
+    public let titleIdentifier = "FioriDateTimePicker_title"
+    public let valueLabelIdentifier = "FioriDateTimePicker_valueLabel"
+    public let mandatoryFieldIndicatorIdentifier = "FioriDateTimePicker_mandatoryFieldIndicator"
+    public let formViewIdentifier = "FioriDateTimePicker_formView"
+
     public let title: Title
     public let valueLabel: ValueLabel
     public let mandatoryFieldIndicator: MandatoryFieldIndicator
@@ -46,5 +53,18 @@ public struct DateTimePickerFioriStyle: DateTimePickerStyle {
             .valueLabelStyle(ValueLabelFioriStyle(dateTimePickerConfiguration: configuration))
             .mandatoryFieldIndicatorStyle(MandatoryFieldIndicatorFioriStyle(dateTimePickerConfiguration: configuration))
             .formViewStyle(FormViewFioriStyle(dateTimePickerConfiguration: configuration))
+    }
+}
+
+public struct DateTimePickerNSSStyle: DateTimePickerStyle {
+    var data: NSSStyleData
+
+    public func makeBody(_ configuration: DateTimePickerConfiguration) -> some View {
+        DateTimePicker(configuration)
+            .titleStyle(TitleNSSStyle(dateTimePickerConfiguration: configuration, nssData: self.data.value(configuration.titleIdentifier)))
+            .valueLabelStyle(ValueLabelNSSStyle(dateTimePickerConfiguration: configuration, nssData: self.data.value(configuration.valueLabelIdentifier)))
+            .mandatoryFieldIndicatorStyle(MandatoryFieldIndicatorNSSStyle(dateTimePickerConfiguration: configuration, nssData: self.data.value(configuration.mandatoryFieldIndicatorIdentifier)))
+            .formViewStyle(FormViewNSSStyle(dateTimePickerConfiguration: configuration, nssData: self.data.value(configuration.formViewIdentifier)))
+            .dateTimePickerStyle(ContentNSSStyle(dateTimePickerConfiguration: configuration, nssData: self.data.value(configuration.contentIdentifier)))
     }
 }

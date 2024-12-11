@@ -18,3 +18,15 @@ public struct OffStarImageFioriStyle: OffStarImageStyle {
         OffStarImage(configuration)
     }
 }
+
+// Default nss styles
+public struct OffStarImageNSSStyle: OffStarImageStyle {
+    var data: NSSStyleData
+
+    public func makeBody(_ configuration: OffStarImageConfiguration) -> some View {
+        OffStarImage(configuration)
+            .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.data.value(configuration.offStarImageIdentifier)))
+        // Add custom nss style for its content
+        // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+    }
+}

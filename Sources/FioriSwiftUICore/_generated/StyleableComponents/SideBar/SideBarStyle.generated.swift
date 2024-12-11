@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -22,6 +23,8 @@ struct AnySideBarStyle: SideBarStyle {
 }
 
 public struct SideBarConfiguration {
+    public let contentIdentifier = "FioriSideBar_content"
+
     @Binding public var isEditing: Bool
     @Binding public var queryString: String?
     @Binding public var data: [SideBarItemModel]
@@ -41,5 +44,15 @@ public struct SideBarConfiguration {
 public struct SideBarFioriStyle: SideBarStyle {
     public func makeBody(_ configuration: SideBarConfiguration) -> some View {
         SideBar(configuration)
+    }
+}
+
+public struct SideBarNSSStyle: SideBarStyle {
+    var data: NSSStyleData
+
+    public func makeBody(_ configuration: SideBarConfiguration) -> some View {
+        SideBar(configuration)
+             
+            .sideBarStyle(ContentNSSStyle(sideBarConfiguration: configuration, nssData: self.data.value(configuration.contentIdentifier)))
     }
 }

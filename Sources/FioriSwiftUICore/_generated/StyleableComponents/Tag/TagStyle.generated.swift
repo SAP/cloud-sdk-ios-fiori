@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -22,6 +23,8 @@ struct AnyTagStyle: TagStyle {
 }
 
 public struct TagConfiguration {
+    public let tagIdentifier = "FioriTag_tag"
+
     public let tag: Tag
 
     public typealias Tag = ConfigurationViewWrapper

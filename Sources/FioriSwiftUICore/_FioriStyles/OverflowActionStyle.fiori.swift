@@ -31,3 +31,15 @@ public struct OverflowActionFioriStyle: OverflowActionStyle {
             .fioriButtonStyle(FioriTertiaryButtonStyle())
     }
 }
+
+// Default nss styles
+public struct OverflowActionNSSStyle: OverflowActionStyle {
+    var data: NSSStyleData
+
+    public func makeBody(_ configuration: OverflowActionConfiguration) -> some View {
+        OverflowAction(configuration)
+            .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.data.value(configuration.overflowActionIdentifier)))
+        // Add custom nss style for its content
+        // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+    }
+}

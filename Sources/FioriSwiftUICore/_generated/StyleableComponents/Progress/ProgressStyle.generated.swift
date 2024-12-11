@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -22,6 +23,8 @@ struct AnyProgressStyle: ProgressStyle {
 }
 
 public struct ProgressConfiguration {
+    public let progressIdentifier = "FioriProgress_progress"
+
     public let progress: Progress
 
     public typealias Progress = ConfigurationViewWrapper

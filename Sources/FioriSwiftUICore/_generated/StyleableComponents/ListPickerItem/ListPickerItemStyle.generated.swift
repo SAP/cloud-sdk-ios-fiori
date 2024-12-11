@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -22,6 +23,12 @@ struct AnyListPickerItemStyle: ListPickerItemStyle {
 }
 
 public struct ListPickerItemConfiguration {
+    public let contentIdentifier = "FioriListPickerItem_content"
+    public let titleIdentifier = "FioriListPickerItem_title"
+    public let valueIdentifier = "FioriListPickerItem_value"
+    public let mandatoryFieldIndicatorIdentifier = "FioriListPickerItem_mandatoryFieldIndicator"
+    public let formViewIdentifier = "FioriListPickerItem_formView"
+
     public let title: Title
     public let value: Value
     public let mandatoryFieldIndicator: MandatoryFieldIndicator
@@ -44,5 +51,18 @@ public struct ListPickerItemFioriStyle: ListPickerItemStyle {
             .valueStyle(ValueFioriStyle(listPickerItemConfiguration: configuration))
             .mandatoryFieldIndicatorStyle(MandatoryFieldIndicatorFioriStyle(listPickerItemConfiguration: configuration))
             .formViewStyle(FormViewFioriStyle(listPickerItemConfiguration: configuration))
+    }
+}
+
+public struct ListPickerItemNSSStyle: ListPickerItemStyle {
+    var data: NSSStyleData
+
+    public func makeBody(_ configuration: ListPickerItemConfiguration) -> some View {
+        ListPickerItem(configuration)
+            .titleStyle(TitleNSSStyle(listPickerItemConfiguration: configuration, nssData: self.data.value(configuration.titleIdentifier)))
+            .valueStyle(ValueNSSStyle(listPickerItemConfiguration: configuration, nssData: self.data.value(configuration.valueIdentifier)))
+            .mandatoryFieldIndicatorStyle(MandatoryFieldIndicatorNSSStyle(listPickerItemConfiguration: configuration, nssData: self.data.value(configuration.mandatoryFieldIndicatorIdentifier)))
+            .formViewStyle(FormViewNSSStyle(listPickerItemConfiguration: configuration, nssData: self.data.value(configuration.formViewIdentifier)))
+            .listPickerItemStyle(ContentNSSStyle(listPickerItemConfiguration: configuration, nssData: self.data.value(configuration.contentIdentifier)))
     }
 }

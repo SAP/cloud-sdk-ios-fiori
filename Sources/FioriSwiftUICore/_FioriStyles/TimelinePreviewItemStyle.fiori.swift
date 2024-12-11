@@ -100,3 +100,65 @@ extension TimelinePreviewItemFioriStyle {
         }
     }
 }
+
+// Default nss styles
+extension TimelinePreviewItemNSSStyle {
+    struct ContentNSSStyle: TimelinePreviewItemStyle {
+        let timelinePreviewItemConfiguration: TimelinePreviewItemConfiguration
+        let nssData: NSSStyleData
+        func makeBody(_ configuration: TimelinePreviewItemConfiguration) -> some View {
+            TimelinePreviewItem(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for its content
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct TitleNSSStyle: TitleStyle {
+        let timelinePreviewItemConfiguration: TimelinePreviewItemConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: TitleConfiguration) -> some View {
+            Title(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Title
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct IconNSSStyle: IconStyle {
+        let timelinePreviewItemConfiguration: TimelinePreviewItemConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: IconConfiguration) -> some View {
+            Icon(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Icon
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct TimelineNodeNSSStyle: TimelineNodeStyle {
+        let timelinePreviewItemConfiguration: TimelinePreviewItemConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: TimelineNodeConfiguration) -> some View {
+            TimelineNode(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for TimelineNode
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct TimestampNSSStyle: TimestampStyle {
+        let timelinePreviewItemConfiguration: TimelinePreviewItemConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: TimestampConfiguration) -> some View {
+            Timestamp(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Timestamp
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+}

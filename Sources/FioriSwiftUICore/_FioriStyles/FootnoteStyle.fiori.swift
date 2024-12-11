@@ -26,3 +26,15 @@ public struct FootnoteFioriStyle: FootnoteStyle {
             .font(.fiori(forTextStyle: .subheadline))
     }
 }
+
+// Default nss styles
+public struct FootnoteNSSStyle: FootnoteStyle {
+    var data: NSSStyleData
+
+    public func makeBody(_ configuration: FootnoteConfiguration) -> some View {
+        Footnote(configuration)
+            .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.data.value(configuration.footnoteIdentifier)))
+        // Add custom nss style for its content
+        // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+    }
+}

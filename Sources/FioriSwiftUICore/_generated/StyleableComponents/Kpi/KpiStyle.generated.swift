@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -22,6 +23,8 @@ struct AnyKpiStyle: KpiStyle {
 }
 
 public struct KpiConfiguration {
+    public let kpiIdentifier = "FioriKpi_kpi"
+
     public let kpi: Kpi
 
     public typealias Kpi = ConfigurationViewWrapper

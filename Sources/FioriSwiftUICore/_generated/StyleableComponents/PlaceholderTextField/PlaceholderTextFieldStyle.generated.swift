@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -22,6 +23,10 @@ struct AnyPlaceholderTextFieldStyle: PlaceholderTextFieldStyle {
 }
 
 public struct PlaceholderTextFieldConfiguration {
+    public let contentIdentifier = "FioriPlaceholderTextField_content"
+    public let textInputFieldIdentifier = "FioriPlaceholderTextField_textInputField"
+    public let placeholderIdentifier = "FioriPlaceholderTextField_placeholder"
+
     @Binding public var text: String
     public let placeholder: Placeholder
 
@@ -33,5 +38,16 @@ public struct PlaceholderTextFieldFioriStyle: PlaceholderTextFieldStyle {
         PlaceholderTextField(configuration)
             .textInputFieldStyle(TextInputFieldFioriStyle(placeholderTextFieldConfiguration: configuration))
             .placeholderStyle(PlaceholderFioriStyle(placeholderTextFieldConfiguration: configuration))
+    }
+}
+
+public struct PlaceholderTextFieldNSSStyle: PlaceholderTextFieldStyle {
+    var data: NSSStyleData
+
+    public func makeBody(_ configuration: PlaceholderTextFieldConfiguration) -> some View {
+        PlaceholderTextField(configuration)
+            .textInputFieldStyle(TextInputFieldNSSStyle(placeholderTextFieldConfiguration: configuration, nssData: self.data.value(configuration.textInputFieldIdentifier)))
+            .placeholderStyle(PlaceholderNSSStyle(placeholderTextFieldConfiguration: configuration, nssData: self.data.value(configuration.placeholderIdentifier)))
+            .placeholderTextFieldStyle(ContentNSSStyle(placeholderTextFieldConfiguration: configuration, nssData: self.data.value(configuration.contentIdentifier)))
     }
 }

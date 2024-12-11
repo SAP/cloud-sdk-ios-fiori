@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -22,6 +23,12 @@ struct AnyCardFooterStyle: CardFooterStyle {
 }
 
 public struct CardFooterConfiguration {
+    public let contentIdentifier = "FioriCardFooter_content"
+    public let actionIdentifier = "FioriCardFooter_action"
+    public let secondaryActionIdentifier = "FioriCardFooter_secondaryAction"
+    public let tertiaryActionIdentifier = "FioriCardFooter_tertiaryAction"
+    public let overflowActionIdentifier = "FioriCardFooter_overflowAction"
+
     public let action: Action
     public let secondaryAction: SecondaryAction
     public let tertiaryAction: TertiaryAction
@@ -40,5 +47,18 @@ public struct CardFooterFioriStyle: CardFooterStyle {
             .secondaryActionStyle(SecondaryActionFioriStyle(cardFooterConfiguration: configuration))
             .tertiaryActionStyle(TertiaryActionFioriStyle(cardFooterConfiguration: configuration))
             .overflowActionStyle(OverflowActionFioriStyle(cardFooterConfiguration: configuration))
+    }
+}
+
+public struct CardFooterNSSStyle: CardFooterStyle {
+    var data: NSSStyleData
+
+    public func makeBody(_ configuration: CardFooterConfiguration) -> some View {
+        CardFooter(configuration)
+            .actionStyle(ActionNSSStyle(cardFooterConfiguration: configuration, nssData: self.data.value(configuration.actionIdentifier)))
+            .secondaryActionStyle(SecondaryActionNSSStyle(cardFooterConfiguration: configuration, nssData: self.data.value(configuration.secondaryActionIdentifier)))
+            .tertiaryActionStyle(TertiaryActionNSSStyle(cardFooterConfiguration: configuration, nssData: self.data.value(configuration.tertiaryActionIdentifier)))
+            .overflowActionStyle(OverflowActionNSSStyle(cardFooterConfiguration: configuration, nssData: self.data.value(configuration.overflowActionIdentifier)))
+            .cardFooterStyle(ContentNSSStyle(cardFooterConfiguration: configuration, nssData: self.data.value(configuration.contentIdentifier)))
     }
 }

@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -22,6 +23,8 @@ struct AnyDescriptionStyle: DescriptionStyle {
 }
 
 public struct DescriptionConfiguration {
+    public let descriptionIdentifier = "FioriDescription_description"
+
     public let description: Description
 
     public typealias Description = ConfigurationViewWrapper

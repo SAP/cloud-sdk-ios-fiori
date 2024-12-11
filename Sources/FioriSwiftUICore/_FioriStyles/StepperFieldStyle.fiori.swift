@@ -167,3 +167,53 @@ extension StepperFieldFioriStyle {
         }
     }
 }
+
+// Default nss styles
+extension StepperFieldNSSStyle {
+    struct ContentNSSStyle: StepperFieldStyle {
+        let stepperFieldConfiguration: StepperFieldConfiguration
+        let nssData: NSSStyleData
+        func makeBody(_ configuration: StepperFieldConfiguration) -> some View {
+            StepperField(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for its content
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct DecrementActionNSSStyle: DecrementActionStyle {
+        let stepperFieldConfiguration: StepperFieldConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: DecrementActionConfiguration) -> some View {
+            DecrementAction(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for DecrementAction
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct TextInputFieldNSSStyle: TextInputFieldStyle {
+        let stepperFieldConfiguration: StepperFieldConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: TextInputFieldConfiguration) -> some View {
+            TextInputField(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for TextInputField
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct IncrementActionNSSStyle: IncrementActionStyle {
+        let stepperFieldConfiguration: StepperFieldConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: IncrementActionConfiguration) -> some View {
+            IncrementAction(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for IncrementAction
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+}

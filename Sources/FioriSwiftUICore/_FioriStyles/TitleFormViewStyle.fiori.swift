@@ -152,3 +152,65 @@ extension TitleFormViewFioriStyle {
         }
     }
 }
+
+// Default nss styles
+extension TitleFormViewNSSStyle {
+    struct ContentNSSStyle: TitleFormViewStyle {
+        let titleFormViewConfiguration: TitleFormViewConfiguration
+        let nssData: NSSStyleData
+        func makeBody(_ configuration: TitleFormViewConfiguration) -> some View {
+            TitleFormView(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for its content
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct TextInputFieldNSSStyle: TextInputFieldStyle {
+        let titleFormViewConfiguration: TitleFormViewConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: TextInputFieldConfiguration) -> some View {
+            TextInputField(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for TextInputField
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct PlaceholderNSSStyle: PlaceholderStyle {
+        let titleFormViewConfiguration: TitleFormViewConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: PlaceholderConfiguration) -> some View {
+            Placeholder(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Placeholder
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct PlaceholderTextFieldNSSStyle: PlaceholderTextFieldStyle {
+        let titleFormViewConfiguration: TitleFormViewConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: PlaceholderTextFieldConfiguration) -> some View {
+            PlaceholderTextField(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for PlaceholderTextField
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct FormViewNSSStyle: FormViewStyle {
+        let titleFormViewConfiguration: TitleFormViewConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: FormViewConfiguration) -> some View {
+            FormView(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for FormView
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+}

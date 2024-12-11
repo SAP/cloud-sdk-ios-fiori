@@ -215,6 +215,80 @@ extension RatingControlFioriStyle {
     }
 }
 
+// Default nss styles
+extension RatingControlNSSStyle {
+    struct ContentNSSStyle: RatingControlStyle {
+        let ratingControlConfiguration: RatingControlConfiguration
+        let nssData: NSSStyleData
+        func makeBody(_ configuration: RatingControlConfiguration) -> some View {
+            RatingControl(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for its content
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct ValueLabelNSSStyle: ValueLabelStyle {
+        let ratingControlConfiguration: RatingControlConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: ValueLabelConfiguration) -> some View {
+            ValueLabel(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for ValueLabel
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct OnStarImageNSSStyle: OnStarImageStyle {
+        let ratingControlConfiguration: RatingControlConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: OnStarImageConfiguration) -> some View {
+            OnStarImage(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for OnStarImage
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct OffStarImageNSSStyle: OffStarImageStyle {
+        let ratingControlConfiguration: RatingControlConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: OffStarImageConfiguration) -> some View {
+            OffStarImage(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for OffStarImage
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct HalfStarImageNSSStyle: HalfStarImageStyle {
+        let ratingControlConfiguration: RatingControlConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: HalfStarImageConfiguration) -> some View {
+            HalfStarImage(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for HalfStarImage
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct ReviewCountLabelNSSStyle: ReviewCountLabelStyle {
+        let ratingControlConfiguration: RatingControlConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: ReviewCountLabelConfiguration) -> some View {
+            ReviewCountLabel(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for ReviewCountLabel
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+}
+
 extension View {
     @ViewBuilder func setAccessibilityAdjustable(_ isAdjustable: Bool, handler: @escaping (AccessibilityAdjustmentDirection) -> Void) -> some View {
         if isAdjustable {

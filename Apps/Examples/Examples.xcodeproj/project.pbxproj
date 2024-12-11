@@ -119,6 +119,8 @@
 		9DEC27B52C3F3DB30070B571 /* KeyValueItemExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DEC27B42C3F3DB30070B571 /* KeyValueItemExample.swift */; };
 		9DEC27B72C3F3DE70070B571 /* OtherViewExamples.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DEC27B62C3F3DE70070B571 /* OtherViewExamples.swift */; };
 		A65036942CC6365C0093086A /* LoadingIndicatorExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = A65036932CC6365C0093086A /* LoadingIndicatorExample.swift */; };
+		A65036E92CDA0A9C0093086A /* FioriLoadingIndicatorView.nss in Sources */ = {isa = PBXBuildFile; fileRef = A65036E82CDA0A770093086A /* FioriLoadingIndicatorView.nss */; };
+		A65037092CDB5AF60093086A /* FioriLoadingIndicatorView.nss in Resources */ = {isa = PBXBuildFile; fileRef = A65036E82CDA0A770093086A /* FioriLoadingIndicatorView.nss */; };
 		AB988B102631270300483D87 /* DataTableExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB988B0F2631270300483D87 /* DataTableExample.swift */; };
 		B100639329C0624D00AF0CA2 /* StepProgressIndicatorExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B100639229C0624D00AF0CA2 /* StepProgressIndicatorExample.swift */; };
 		B13408922B01FA0700600331 /* NavigationBarExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B13408912B01FA0700600331 /* NavigationBarExample.swift */; };
@@ -341,6 +343,7 @@
 		9DEC27B42C3F3DB30070B571 /* KeyValueItemExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyValueItemExample.swift; sourceTree = "<group>"; };
 		9DEC27B62C3F3DE70070B571 /* OtherViewExamples.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherViewExamples.swift; sourceTree = "<group>"; };
 		A65036932CC6365C0093086A /* LoadingIndicatorExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingIndicatorExample.swift; sourceTree = "<group>"; };
+		A65036E82CDA0A770093086A /* FioriLoadingIndicatorView.nss */ = {isa = PBXFileReference; lastKnownFileType = text; path = FioriLoadingIndicatorView.nss; sourceTree = "<group>"; };
 		AB988B0F2631270300483D87 /* DataTableExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTableExample.swift; sourceTree = "<group>"; };
 		B100639229C0624D00AF0CA2 /* StepProgressIndicatorExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepProgressIndicatorExample.swift; sourceTree = "<group>"; };
 		B13408912B01FA0700600331 /* NavigationBarExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarExample.swift; sourceTree = "<group>"; };
@@ -755,6 +758,7 @@
 				99658F872B7C359D0026A743 /* LinearProgressIndicatorExample.swift */,
 				A65036932CC6365C0093086A /* LoadingIndicatorExample.swift */,
 				6439F5132CEE892200EF1B42 /* ProcessingIndicatorExample.swift */,
+				A65036E82CDA0A770093086A /* FioriLoadingIndicatorView.nss */,
 			);
 			path = Indicator;
 			sourceTree = "<group>";
@@ -1075,6 +1079,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A65037092CDB5AF60093086A /* FioriLoadingIndicatorView.nss in Resources */,
 				8A55796324C1286F0098003A /* LaunchScreen.storyboard in Resources */,
 				993A122E26A726AC0018028B /* PrivacyText.html in Resources */,
 				8A55796024C1286F0098003A /* Preview Assets.xcassets in Resources */,
@@ -1254,6 +1259,7 @@
 				B1F384322C815A540090A858 /* AvatarStackExample.swift in Sources */,
 				B1BCB6E12C2EB362008AC070 /* ProfileHeaderStaticExample.swift in Sources */,
 				6439F5142CEE892200EF1B42 /* ProcessingIndicatorExample.swift in Sources */,
+				A65036E92CDA0A9C0093086A /* FioriLoadingIndicatorView.nss in Sources */,
 				C1C764882A818BEC00BCB0F7 /* SortFilterExample.swift in Sources */,
 				64905D072C6D13E20062AAD4 /* SwitchExample.swift in Sources */,
 				B1F6FC302B22BDDA005190F9 /* ToolbarView.swift in Sources */,

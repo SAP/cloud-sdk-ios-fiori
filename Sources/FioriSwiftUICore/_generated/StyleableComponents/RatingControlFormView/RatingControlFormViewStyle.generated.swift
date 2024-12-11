@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -22,6 +23,16 @@ struct AnyRatingControlFormViewStyle: RatingControlFormViewStyle {
 }
 
 public struct RatingControlFormViewConfiguration {
+    public let contentIdentifier = "FioriRatingControlFormView_content"
+    public let titleIdentifier = "FioriRatingControlFormView_title"
+    public let valueLabelIdentifier = "FioriRatingControlFormView_valueLabel"
+    public let onStarImageIdentifier = "FioriRatingControlFormView_onStarImage"
+    public let offStarImageIdentifier = "FioriRatingControlFormView_offStarImage"
+    public let halfStarImageIdentifier = "FioriRatingControlFormView_halfStarImage"
+    public let reviewCountLabelIdentifier = "FioriRatingControlFormView_reviewCountLabel"
+    public let subtitleIdentifier = "FioriRatingControlFormView_subtitle"
+    public let ratingControlIdentifier = "FioriRatingControlFormView_ratingControl"
+
     public let title: Title
     public let valueLabel: ValueLabel
     public let onStarImage: OnStarImage
@@ -65,5 +76,22 @@ public struct RatingControlFormViewFioriStyle: RatingControlFormViewStyle {
             .reviewCountLabelStyle(ReviewCountLabelFioriStyle(ratingControlFormViewConfiguration: configuration))
             .subtitleStyle(SubtitleFioriStyle(ratingControlFormViewConfiguration: configuration))
             .ratingControlStyle(RatingControlFioriStyle(ratingControlFormViewConfiguration: configuration))
+    }
+}
+
+public struct RatingControlFormViewNSSStyle: RatingControlFormViewStyle {
+    var data: NSSStyleData
+
+    public func makeBody(_ configuration: RatingControlFormViewConfiguration) -> some View {
+        RatingControlFormView(configuration)
+            .titleStyle(TitleNSSStyle(ratingControlFormViewConfiguration: configuration, nssData: self.data.value(configuration.titleIdentifier)))
+            .valueLabelStyle(ValueLabelNSSStyle(ratingControlFormViewConfiguration: configuration, nssData: self.data.value(configuration.valueLabelIdentifier)))
+            .onStarImageStyle(OnStarImageNSSStyle(ratingControlFormViewConfiguration: configuration, nssData: self.data.value(configuration.onStarImageIdentifier)))
+            .offStarImageStyle(OffStarImageNSSStyle(ratingControlFormViewConfiguration: configuration, nssData: self.data.value(configuration.offStarImageIdentifier)))
+            .halfStarImageStyle(HalfStarImageNSSStyle(ratingControlFormViewConfiguration: configuration, nssData: self.data.value(configuration.halfStarImageIdentifier)))
+            .reviewCountLabelStyle(ReviewCountLabelNSSStyle(ratingControlFormViewConfiguration: configuration, nssData: self.data.value(configuration.reviewCountLabelIdentifier)))
+            .subtitleStyle(SubtitleNSSStyle(ratingControlFormViewConfiguration: configuration, nssData: self.data.value(configuration.subtitleIdentifier)))
+            .ratingControlStyle(RatingControlNSSStyle(ratingControlFormViewConfiguration: configuration, nssData: self.data.value(configuration.ratingControlIdentifier)))
+            .ratingControlFormViewStyle(ContentNSSStyle(ratingControlFormViewConfiguration: configuration, nssData: self.data.value(configuration.contentIdentifier)))
     }
 }

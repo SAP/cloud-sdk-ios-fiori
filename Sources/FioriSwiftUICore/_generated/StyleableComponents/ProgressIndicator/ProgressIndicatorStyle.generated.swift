@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -22,6 +23,9 @@ struct AnyProgressIndicatorStyle: ProgressIndicatorStyle {
 }
 
 public struct ProgressIndicatorConfiguration {
+    public let contentIdentifier = "FioriProgressIndicator_content"
+    public let progressIndicatorProtocolIdentifier = "FioriProgressIndicator_progressIndicatorProtocol"
+
     @Binding public var progress: Double
 }
 
@@ -29,5 +33,15 @@ public struct ProgressIndicatorFioriStyle: ProgressIndicatorStyle {
     public func makeBody(_ configuration: ProgressIndicatorConfiguration) -> some View {
         ProgressIndicator(configuration)
             .progressIndicatorProtocolStyle(ProgressIndicatorProtocolFioriStyle(progressIndicatorConfiguration: configuration))
+    }
+}
+
+public struct ProgressIndicatorNSSStyle: ProgressIndicatorStyle {
+    var data: NSSStyleData
+
+    public func makeBody(_ configuration: ProgressIndicatorConfiguration) -> some View {
+        ProgressIndicator(configuration)
+            .progressIndicatorProtocolStyle(ProgressIndicatorProtocolNSSStyle(progressIndicatorConfiguration: configuration, nssData: self.data.value(configuration.progressIndicatorProtocolIdentifier)))
+            .progressIndicatorStyle(ContentNSSStyle(progressIndicatorConfiguration: configuration, nssData: self.data.value(configuration.contentIdentifier)))
     }
 }
