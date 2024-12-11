@@ -150,7 +150,8 @@ enum LoadingIndicatorNSSType: String, NSSCovert {
             return .top
         case "bottom":
             return .bottom
-        default: return .top
+        default:
+            return .top
         }
     }
 }

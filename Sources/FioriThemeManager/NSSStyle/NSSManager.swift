@@ -1,8 +1,9 @@
-
 import Foundation
 
+/// :nodoc:
 public typealias NSSStyleData = [String: Any]
 
+/// :nodoc:
 public extension NSSStyleData {
     func value(_ key: String) -> Self {
         self[key] as? Self ?? [:]
@@ -36,7 +37,9 @@ class NSSManager {
     }
 }
 
+/// :nodoc:
 public class NSSTool {
+    /// Read style data from the .nss file.
     public static func loadStyles(_ fileName: String) -> NSSStyleData {
         do {
             let styles = try NSSManager.shared.loadNSSFile(fileName)

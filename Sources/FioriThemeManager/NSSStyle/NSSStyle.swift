@@ -1,11 +1,12 @@
-
 import Foundation
 import SwiftUI
 
+/// :nodoc:
 public protocol NSSCovert {
     func apply(value: Any, to view: any View) -> any View
 }
 
+/// Provide the basic style of view.
 public enum NSSBaseStyleType: String {
     case fontStyle = "font-style"
     case fontSize = "font-size"
