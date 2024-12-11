@@ -45,12 +45,52 @@
                 <div class="declaration">
                   <div class="language">
                     
-                    <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">ListPickerItem</span><span class="o">&lt;</span><span class="kt">Key</span><span class="p">,</span> <span class="kt">Value</span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt">Key</span> <span class="p">:</span> <span class="kt">View</span><span class="p">,</span> <span class="kt">Value</span> <span class="p">:</span> <span class="kt">View</span></code></pre>
+                    <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">ListPickerItem</span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ListPickerItem</span><span class="p">:</span> <span class="kt">View</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ListPickerItem</span><span class="p">:</span> <span class="n"><a href="../Protocols/_ViewEmptyChecking.html">_ViewEmptyChecking</a></span></code></pre>
 
                   </div>
                 </div>
-              <p>Undocumented</p>
+              <p><code>ListPickerItem</code> is a view that provides a <code>NavigationLink</code> with a title and selected value(s). And <code><a href="../Structs/ListPickerDestination.html">ListPickerDestination</a></code> is recommended to be used as its destination, for which selection, search filter and customized rows are supported.</p>
+<h2 id='usage' class='heading'>Usage</h2>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">data</span> <span class="o">=</span> <span class="p">[</span><span class="s">"first"</span><span class="p">,</span> <span class="s">"second"</span><span class="p">,</span> <span class="s">"third"</span><span class="p">]</span>
+<span class="k">var</span> <span class="nv">body</span><span class="p">:</span> <span class="n">some</span> <span class="kt">View</span> <span class="p">{</span>
+    <span class="kt">ListPickerItem</span><span class="p">(</span><span class="nv">title</span><span class="p">:</span> <span class="p">{</span>
+        <span class="kt">Text</span><span class="p">(</span><span class="s">"title"</span><span class="p">)</span>
+    <span class="p">},</span> <span class="nv">value</span><span class="p">:</span> <span class="p">{</span>
+        <span class="kt">Text</span><span class="p">(</span><span class="s">"value"</span><span class="p">)</span>
+    <span class="p">},</span> <span class="nv">axis</span><span class="p">:</span> <span class="o">.</span><span class="n">vertical</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">ListPickerDestination</span><span class="p">(</span><span class="n">data</span><span class="p">,</span>
+                              <span class="nv">id</span><span class="p">:</span> <span class="err">\</span><span class="o">.</span><span class="k">self</span><span class="p">,</span>
+                              <span class="nv">selection</span><span class="p">:</span> <span class="err">$</span><span class="n">selection</span><span class="p">,</span>
+                              <span class="nv">isTrackingLiveChanges</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+                              <span class="nv">searchFilter</span><span class="p">:</span> <span class="p">{</span> <span class="n">f</span><span class="p">,</span> <span class="n">s</span> <span class="k">in</span> <span class="n">f</span><span class="o">.</span><span class="nf">contains</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="p">},</span> <span class="nv">rowContent</span><span class="p">:</span> <span class="p">{</span>
+            <span class="kt">Text</span><span class="p">(</span><span class="nv">$0</span><span class="p">)</span>
+        <span class="p">})</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// If you want grouped different sections, the protocol `ListPickerSectionModel` is need be implemented for your element of data.</span>
+
+<span class="kd">struct</span> <span class="kt">ListPickerSection</span><span class="p">:</span> <span class="kt">ListPickerSectionModel</span> <span class="p">{}</span>
+<span class="k">let</span> <span class="nv">data</span> <span class="o">=</span> <span class="p">[</span><span class="kt">ListPickerSection</span><span class="p">(</span><span class="nv">title</span><span class="p">:</span> <span class="s">"Section 1"</span><span class="p">,</span> <span class="nv">items</span><span class="p">:</span> <span class="p">[</span><span class="s">"first"</span><span class="p">,</span> <span class="s">"second"</span><span class="p">,</span> <span class="s">"third"</span><span class="p">]),</span>
+            <span class="kt">ListPickerSection</span><span class="p">(</span><span class="nv">title</span><span class="p">:</span> <span class="s">"Section 2"</span><span class="p">,</span> <span class="nv">items</span><span class="p">:</span> <span class="p">[</span><span class="s">"apple"</span><span class="p">,</span> <span class="s">"banana"</span><span class="p">,</span> <span class="s">"orange"</span><span class="p">])]</span>
+<span class="k">var</span> <span class="nv">body</span><span class="p">:</span> <span class="n">some</span> <span class="kt">View</span> <span class="p">{</span>
+    <span class="kt">ListPickerItem</span><span class="p">(</span><span class="nv">title</span><span class="p">:</span> <span class="p">{</span>
+        <span class="kt">Text</span><span class="p">(</span><span class="s">"title"</span><span class="p">)</span>
+    <span class="p">},</span> <span class="nv">value</span><span class="p">:</span> <span class="p">{</span>
+        <span class="kt">Text</span><span class="p">(</span><span class="s">"value"</span><span class="p">)</span>
+    <span class="p">},</span> <span class="nv">axis</span><span class="p">:</span> <span class="o">.</span><span class="n">vertical</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">ListPickerDestination</span><span class="p">(</span><span class="n">data</span><span class="p">,</span>
+                              <span class="nv">id</span><span class="p">:</span> <span class="err">\</span><span class="o">.</span><span class="k">self</span><span class="p">,</span>
+                              <span class="nv">selection</span><span class="p">:</span> <span class="err">$</span><span class="n">selection</span><span class="p">,</span>
+                              <span class="nv">isTrackingLiveChanges</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+                              <span class="nv">searchFilter</span><span class="p">:</span> <span class="p">{</span> <span class="n">f</span><span class="p">,</span> <span class="n">s</span> <span class="k">in</span> <span class="n">f</span><span class="o">.</span><span class="nf">contains</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="p">},</span> <span class="nv">rowContent</span><span class="p">:</span> <span class="p">{</span>
+            <span class="kt">Text</span><span class="p">(</span><span class="nv">$0</span><span class="p">)</span>
+        <span class="p">})</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
 
             </section>
             <section class="section task-group-section">
@@ -59,9 +99,9 @@
                   <li class="item">
                     <div>
                       <code>
-                      <a name="/s:16FioriSwiftUICore14ListPickerItemV3key5valueACyxq_GxyXE_q_yXEtcfc"></a>
-                      <a name="//apple_ref/swift/Method/init(key:value:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:16FioriSwiftUICore14ListPickerItemV3key5valueACyxq_GxyXE_q_yXEtcfc">init(key:<wbr>value:<wbr>)</a>
+                      <a name="/s:16FioriSwiftUICore14ListPickerItemV5title5value23mandatoryFieldIndicator10isRequired12controlState12errorMessage4axis11destinationAC0B2UI4View_pyXE_AlM_pyXEAlM_pyXESbAA07ControlO0V10Foundation16AttributedStringVSgAL4AxisOAlM_pyXEtcfc"></a>
+                      <a name="//apple_ref/swift/Method/init(title:value:mandatoryFieldIndicator:isRequired:controlState:errorMessage:axis:destination:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore14ListPickerItemV5title5value23mandatoryFieldIndicator10isRequired12controlState12errorMessage4axis11destinationAC0B2UI4View_pyXE_AlM_pyXEAlM_pyXESbAA07ControlO0V10Foundation16AttributedStringVSgAL4AxisOAlM_pyXEtcfc">init(title:<wbr>value:<wbr>mandatoryFieldIndicator:<wbr>isRequired:<wbr>controlState:<wbr>errorMessage:<wbr>axis:<wbr>destination:<wbr>)</a>
                       </code>
                     </div>
                     <div class="height-container">
@@ -76,10 +116,75 @@
                           <h4>Declaration</h4>
                           <div class="language">
                             <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
-      <span class="kd">@ViewBuilder</span> <span class="nv">key</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Key</span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">value</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Value</span>
-      <span class="p">)</span></code></pre>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="kd">@ViewBuilder</span> <span class="nv">title</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="n">any</span> <span class="kt">View</span><span class="p">,</span>
+            <span class="kd">@ViewBuilder</span> <span class="nv">value</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="n">any</span> <span class="kt">View</span> <span class="o">=</span> <span class="p">{</span> <span class="kt">EmptyView</span><span class="p">()</span> <span class="p">},</span>
+            <span class="kd">@ViewBuilder</span> <span class="nv">mandatoryFieldIndicator</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="n">any</span> <span class="kt">View</span> <span class="o">=</span> <span class="p">{</span> <span class="kt">Text</span><span class="p">(</span><span class="s">"*"</span><span class="p">)</span> <span class="p">},</span>
+            <span class="nv">isRequired</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
+            <span class="nv">controlState</span><span class="p">:</span> <span class="kt"><a href="../Structs/ControlState.html">ControlState</a></span> <span class="o">=</span> <span class="o">.</span><span class="n">normal</span><span class="p">,</span>
+            <span class="nv">errorMessage</span><span class="p">:</span> <span class="kt">AttributedString</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+            <span class="nv">axis</span><span class="p">:</span> <span class="kt">Axis</span> <span class="o">=</span> <span class="o">.</span><span class="n">horizontal</span><span class="p">,</span>
+            <span class="kd">@ViewBuilder</span> <span class="nv">destination</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="n">any</span> <span class="kt">View</span> <span class="o">=</span> <span class="p">{</span> <span class="kt">EmptyView</span><span class="p">()</span> <span class="p">})</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore14ListPickerItemV5title5value23mandatoryFieldIndicator10isRequired12controlState12errorMessage4axis11destinationAC10Foundation16AttributedStringV_ANSgAA10TextOrIconOSgSbAA07ControlO0VAO0B2UI4AxisOAU4View_pyXEtcfc"></a>
+                      <a name="//apple_ref/swift/Method/init(title:value:mandatoryFieldIndicator:isRequired:controlState:errorMessage:axis:destination:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore14ListPickerItemV5title5value23mandatoryFieldIndicator10isRequired12controlState12errorMessage4axis11destinationAC10Foundation16AttributedStringV_ANSgAA10TextOrIconOSgSbAA07ControlO0VAO0B2UI4AxisOAU4View_pyXEtcfc">init(title:<wbr>value:<wbr>mandatoryFieldIndicator:<wbr>isRequired:<wbr>controlState:<wbr>errorMessage:<wbr>axis:<wbr>destination:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="nf">init</span><span class="p">(</span><span class="nv">title</span><span class="p">:</span> <span class="kt">AttributedString</span><span class="p">,</span>
+     <span class="nv">value</span><span class="p">:</span> <span class="kt">AttributedString</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+     <span class="nv">mandatoryFieldIndicator</span><span class="p">:</span> <span class="kt"><a href="../Enums/TextOrIcon.html">TextOrIcon</a></span><span class="p">?</span> <span class="o">=</span> <span class="o">.</span><span class="nf">text</span><span class="p">(</span><span class="s">"*"</span><span class="p">),</span>
+     <span class="nv">isRequired</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
+     <span class="nv">controlState</span><span class="p">:</span> <span class="kt"><a href="../Structs/ControlState.html">ControlState</a></span> <span class="o">=</span> <span class="o">.</span><span class="n">normal</span><span class="p">,</span>
+     <span class="nv">errorMessage</span><span class="p">:</span> <span class="kt">AttributedString</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+     <span class="nv">axis</span><span class="p">:</span> <span class="kt">Axis</span> <span class="o">=</span> <span class="o">.</span><span class="n">horizontal</span><span class="p">,</span>
+     <span class="kd">@ViewBuilder</span> <span class="nv">destination</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="n">any</span> <span class="kt">View</span> <span class="o">=</span> <span class="p">{</span> <span class="kt">EmptyView</span><span class="p">()</span> <span class="p">})</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore14ListPickerItemVyAcA0deF13ConfigurationVcfc"></a>
+                      <a name="//apple_ref/swift/Method/init(_:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore14ListPickerItemVyAcA0deF13ConfigurationVcfc">init(_:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="nf">init</span><span class="p">(</span><span class="n">_</span> <span class="nv">configuration</span><span class="p">:</span> <span class="kt"><a href="../Structs/ListPickerItemConfiguration.html">ListPickerItemConfiguration</a></span><span class="p">)</span></code></pre>
 
                           </div>
                         </div>
@@ -115,96 +220,9 @@
                   <li class="item">
                     <div>
                       <code>
-                      <a name="/s:16FioriSwiftUICore14ListPickerItemV3key5value13configurationACyxq_Gxyc_q_ycAA0deF13ConfigurationVSgtcfc"></a>
-                      <a name="//apple_ref/swift/Method/init(key:value:configuration:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:16FioriSwiftUICore14ListPickerItemV3key5value13configurationACyxq_Gxyc_q_ycAA0deF13ConfigurationVSgtcfc">init(key:<wbr>value:<wbr>configuration:<wbr>)</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>Returns a list picker item with given configuration.</p>
-
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="nf">init</span><span class="p">(</span>
-    <span class="kd">@ViewBuilder</span> <span class="nv">key</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Key</span><span class="p">,</span>
-    <span class="kd">@ViewBuilder</span> <span class="nv">value</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Value</span><span class="p">,</span>
-    <span class="nv">configuration</span><span class="p">:</span> <span class="kt"><a href="../Structs/ListPickerItemConfiguration.html">ListPickerItemConfiguration</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span>
-<span class="p">)</span></code></pre>
-
-                          </div>
-                        </div>
-                        <div>
-                          <h4>Parameters</h4>
-                          <table class="graybox">
-                            <tbody>
-                              <tr>
-                                <td>
-                                  <code>
-                                  <em>key</em>
-                                  </code>
-                                </td>
-                                <td>
-                                  <div>
-                                    <p>The key view of the list.</p>
-                                  </div>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <code>
-                                  <em>value</em>
-                                  </code>
-                                </td>
-                                <td>
-                                  <div>
-                                    <p>The value view of the list.</p>
-                                  </div>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <code>
-                                  <em>configuration</em>
-                                  </code>
-                                </td>
-                                <td>
-                                  <div>
-                                    <p>The configuration for constructing the list picker.</p>
-                                  </div>
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-              <div class="task-group">
-                <div class="task-name-container">
-                  <a name="/Available%20where%20%60Key%60%20%3D%3D%20%60Text%60%2C%20%60Value%60%20%3D%3D%20%60_ConditionalContent%3CText%60%2C%20%60EmptyView%60%3E"></a>
-                  <a name="//apple_ref/swift/Section/Available where `Key` == `Text`, `Value` == `_ConditionalContent&lt;Text`, `EmptyView`&gt;" class="dashAnchor"></a>
-                  <div class="section-name-container">
-                    <a class="section-name-link" href="#/Available%20where%20%60Key%60%20%3D%3D%20%60Text%60%2C%20%60Value%60%20%3D%3D%20%60_ConditionalContent%3CText%60%2C%20%60EmptyView%60%3E"></a>
-                    <h3 class="section-name"><span>Available where <code>Key</code> == <code>Text</code>, <code>Value</code> == <code>_ConditionalContent&lt;Text</code>, <code>EmptyView</code>&gt;</span>
-</h3>
-                  </div>
-                </div>
-                <ul>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/s:16FioriSwiftUICore14ListPickerItemVAA0B2UI4TextVRszAD19_ConditionalContentVyAfD9EmptyViewVGRs_rlE5modelACyAfKGAA0deF5Model_p_tcfc"></a>
-                      <a name="//apple_ref/swift/Method/init(model:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:16FioriSwiftUICore14ListPickerItemVAA0B2UI4TextVRszAD19_ConditionalContentVyAfD9EmptyViewVGRs_rlE5modelACyAfKGAA0deF5Model_p_tcfc">init(model:<wbr>)</a>
+                      <a name="/s:16FioriSwiftUICore14ListPickerItemV7isEmptySbvp"></a>
+                      <a name="//apple_ref/swift/Property/isEmpty" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore14ListPickerItemV7isEmptySbvp">isEmpty</a>
                       </code>
                     </div>
                     <div class="height-container">
@@ -219,76 +237,7 @@
                           <h4>Declaration</h4>
                           <div class="language">
                             <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">model</span><span class="p">:</span> <span class="kt"><a href="../Protocols.html#/s:16FioriSwiftUICore19ListPickerItemModelP">ListPickerItemModel</a></span><span class="p">)</span></code></pre>
-
-                          </div>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/s:16FioriSwiftUICore14ListPickerItemVAA0B2UI4TextVRszAD19_ConditionalContentVyAfD9EmptyViewVGRs_rlE3key5valueACyAfKGSS_SSSgtcfc"></a>
-                      <a name="//apple_ref/swift/Method/init(key:value:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:16FioriSwiftUICore14ListPickerItemVAA0B2UI4TextVRszAD19_ConditionalContentVyAfD9EmptyViewVGRs_rlE3key5valueACyAfKGSS_SSSgtcfc">init(key:<wbr>value:<wbr>)</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>Undocumented</p>
-
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">key</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span></code></pre>
-
-                          </div>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-              <div class="task-group">
-                <div class="task-name-container">
-                  <a name="/Available%20where%20%60Value%60%20%3D%3D%20%60EmptyView%60"></a>
-                  <a name="//apple_ref/swift/Section/Available where `Value` == `EmptyView`" class="dashAnchor"></a>
-                  <div class="section-name-container">
-                    <a class="section-name-link" href="#/Available%20where%20%60Value%60%20%3D%3D%20%60EmptyView%60"></a>
-                    <h3 class="section-name"><span>Available where <code>Value</code> == <code>EmptyView</code></span>
-</h3>
-                  </div>
-                </div>
-                <ul>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/s:16FioriSwiftUICore14ListPickerItemVAA0B2UI9EmptyViewVRs_rlE3keyACyxAFGxyXE_tcfc"></a>
-                      <a name="//apple_ref/swift/Method/init(key:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:16FioriSwiftUICore14ListPickerItemVAA0B2UI9EmptyViewVRs_rlE3keyACyxAFGxyXE_tcfc">init(key:<wbr>)</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>Undocumented</p>
-
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">key</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Key</span>
-<span class="p">)</span></code></pre>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">isEmpty</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                           </div>
                         </div>
@@ -351,13 +300,19 @@
                   <a href="../Enums/ActivityItemType.html">ActivityItemType</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Enums/AvatarsBuilder.html">AvatarsBuilder</a>
+                  <a href="../Enums.html#/s:16FioriSwiftUICore14AvatarsBuilderO">AvatarsBuilder</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/BannerMultiMessageType.html">BannerMultiMessageType</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Enums/CardTests.html">CardTests</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Enums/DataItemType.html">DataItemType</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/DisplayState.html">DisplayState</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Enums/FilterFeedbackBarResetButtonType.html">FilterFeedbackBarResetButtonType</a>
@@ -373,6 +328,9 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Enums/FioriButtonLoadingState.html">FioriButtonLoadingState</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/FioriShadowStyle.html">FioriShadowStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Enums/FootnoteIconsBuilder.html">FootnoteIconsBuilder</a>
@@ -414,6 +372,12 @@
                   <a href="../Enums/RowAlignment.html">RowAlignment</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Enums/ScanOutput.html">ScanOutput</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/ScanOutputFormat.html">ScanOutputFormat</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Enums/SegmentWidthMode.html">SegmentWidthMode</a>
                 </li>
                 <li class="nav-group-task">
@@ -441,6 +405,9 @@
                   <a href="../Enums/TextOrIcon.html">TextOrIcon</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Enums/TextPosition.html">TextPosition</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Enums/TimelineNodeType.html">TimelineNodeType</a>
                 </li>
                 <li class="nav-group-task">
@@ -464,10 +431,21 @@
                   <a href="../Extensions/Optional.html">Optional</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Extensions/String.html">String</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Extensions/UIFont.html">UIFont</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Extensions/View.html">View</a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-group-name">
+              <a href="../Functions.html">Functions</a>
+              <ul class="nav-group-tasks">
+                <li class="nav-group-task">
+                  <a href="../Functions.html#/s:16FioriSwiftUICore21getResizedDetailImage06detailG04sizeQrAA24ConfigurationViewWrapperV_AA18IllustratedMessageV0fG4SizeOtF">getResizedDetailImage(detailImage:size:)</a>
                 </li>
               </ul>
             </li>
@@ -502,16 +480,22 @@
                   <a href="../Protocols.html#/s:16FioriSwiftUICore18ActivityItemsModelP">ActivityItemsModel</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Protocols/AllEntriesSectionTitleStyle.html">AllEntriesSectionTitleStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/ApplyActionStyle.html">ApplyActionStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Protocols/AttributeComponent.html">AttributeComponent</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/AttributeStyle.html">AttributeStyle</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Protocols/AvatarList.html">AvatarList</a>
+                  <a href="../Protocols.html#/s:16FioriSwiftUICore16AvatarStackModelP">AvatarStackModel</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Protocols.html#/s:16FioriSwiftUICore16AvatarStackModelP">AvatarStackModel</a>
+                  <a href="../Protocols/AvatarStackStyle.html">AvatarStackStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/AvatarsComponent.html">AvatarsComponent</a>
@@ -520,13 +504,22 @@
                   <a href="../Protocols/AvatarsStyle.html">AvatarsStyle</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Protocols/AvatarsTitleStyle.html">AvatarsTitleStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Protocols/BannerMessageStyle.html">BannerMessageStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/BannerMultiMessageSheetStyle.html">BannerMultiMessageSheetStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/BodyAttributedTextComponent.html">BodyAttributedTextComponent</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/BodyTextComponent.html">BodyTextComponent</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/CancelActionStyle.html">CancelActionStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/CardBodyStyle.html">CardBodyStyle</a>
@@ -553,6 +546,9 @@
                   <a href="../Protocols/CategoryAxisTitleComponent.html">CategoryAxisTitleComponent</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Protocols/CheckoutIndicatorStyle.html">CheckoutIndicatorStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Protocols/CloseActionStyle.html">CloseActionStyle</a>
                 </li>
                 <li class="nav-group-task">
@@ -565,6 +561,9 @@
                   <a href="../Protocols/DataItem.html">DataItem</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Protocols/DateTimePickerStyle.html">DateTimePickerStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Protocols/DecrementActionStyle.html">DecrementActionStyle</a>
                 </li>
                 <li class="nav-group-task">
@@ -572,6 +571,9 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/DescriptionTextComponent.html">DescriptionTextComponent</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/DeselectAllActionStyle.html">DeselectAllActionStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/DetailImageComponent.html">DetailImageComponent</a>
@@ -631,6 +633,9 @@
                   <a href="../Protocols/FootnoteIconsStyle.html">FootnoteIconsStyle</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Protocols/FootnoteIconsTextStyle.html">FootnoteIconsTextStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Protocols/FootnoteStyle.html">FootnoteStyle</a>
                 </li>
                 <li class="nav-group-task">
@@ -638,6 +643,9 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/GreetingTextStyle.html">GreetingTextStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/HalfStarImageStyle.html">HalfStarImageStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/HeaderActionStyle.html">HeaderActionStyle</a>
@@ -727,7 +735,19 @@
                   <a href="../Protocols/LinearProgressIndicatorViewStyle.html">LinearProgressIndicatorViewStyle</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Protocols.html#/s:16FioriSwiftUICore19ListPickerItemModelP">ListPickerItemModel</a>
+                  <a href="../Protocols/ListPickerContentStyle.html">ListPickerContentStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/ListPickerDestinationStyle.html">ListPickerDestinationStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/ListPickerItemStyle.html">ListPickerItemStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/ListPickerSectionModel.html">ListPickerSectionModel</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/LoadingIndicatorStyle.html">LoadingIndicatorStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/LowerBoundTitleComponent.html">LowerBoundTitleComponent</a>
@@ -766,6 +786,12 @@
                   <a href="../Protocols/ObjectItemStyle.html">ObjectItemStyle</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Protocols/OffStarImageStyle.html">OffStarImageStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/OnStarImageStyle.html">OnStarImageStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Protocols/OptionListPickerComponent.html">OptionListPickerComponent</a>
                 </li>
                 <li class="nav-group-task">
@@ -773,6 +799,9 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols.html#/s:16FioriSwiftUICore21OptionListPickerStyleP">OptionListPickerStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/OptionalTitleStyle.html">OptionalTitleStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/OptionsStyle.html">OptionsStyle</a>
@@ -793,19 +822,28 @@
                   <a href="../Protocols/PlaceholderTextFieldStyle.html">PlaceholderTextFieldStyle</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Protocols/ProcessingIndicatorStyle.html">ProcessingIndicatorStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Protocols/ProfileHeaderStyle.html">ProfileHeaderStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/ProgressIndicatorComponent.html">ProgressIndicatorComponent</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Protocols.html#/s:16FioriSwiftUICore22ProgressIndicatorModelP">ProgressIndicatorModel</a>
+                  <a href="../Protocols/ProgressIndicatorProtocolStyle.html">ProgressIndicatorProtocolStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/ProgressIndicatorStyle.html">ProgressIndicatorStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/RatingControlFormViewStyle.html">RatingControlFormViewStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/RatingControlStyle.html">RatingControlStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/ReviewCountLabelStyle.html">ReviewCountLabelStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/RightIconComponent.html">RightIconComponent</a>
@@ -848,6 +886,12 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/SegmentedControlPickerStyle.html">SegmentedControlPickerStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/SelectAllActionStyle.html">SelectAllActionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/SelectedEntriesSectionTitleStyle.html">SelectedEntriesSectionTitleStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/SeriesTitlesComponent.html">SeriesTitlesComponent</a>
@@ -919,6 +963,9 @@
                   <a href="../Protocols/SwitchStyle.html">SwitchStyle</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Protocols/SwitchViewStyle.html">SwitchViewStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Protocols.html#/s:16FioriSwiftUICore13TagStackModelP">TagStackModel</a>
                 </li>
                 <li class="nav-group-task">
@@ -961,6 +1008,15 @@
                   <a href="../Protocols/TimelineNowIndicatorStyle.html">TimelineNowIndicatorStyle</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Protocols/TimelinePreviewItemModel.html">TimelinePreviewItemModel</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/TimelinePreviewItemStyle.html">TimelinePreviewItemStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/TimelinePreviewStyle.html">TimelinePreviewStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Protocols/TimelineStyle.html">TimelineStyle</a>
                 </li>
                 <li class="nav-group-task">
@@ -977,6 +1033,9 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/TitleStyle.html">TitleStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/ToastMessageStyle.html">ToastMessageStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/TopDividerStyle.html">TopDividerStyle</a>
@@ -1006,6 +1065,15 @@
                   <a href="../Protocols/ValueComponent.html">ValueComponent</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Protocols/ValueLabelStyle.html">ValueLabelStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/ValuePickerStyle.html">ValuePickerStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/ValueStyle.html">ValueStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Protocols/ValuesComponent.html">ValuesComponent</a>
                 </li>
                 <li class="nav-group-task">
@@ -1018,7 +1086,13 @@
                   <a href="../Protocols.html#/s:16FioriSwiftUICore12_ActionModelP">_ActionModel</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Protocols/_ListPickerItemModel.html">_ListPickerItemModel</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Protocols/_ObjectItemModel.html">_ObjectItemModel</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols.html#/s:16FioriSwiftUICore23_ProgressIndicatorModelP">_ProgressIndicatorModel</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols.html#/s:16FioriSwiftUICore21_SideBarListItemModelP">_SideBarListItemModel</a>
@@ -1092,16 +1166,43 @@
                   <a href="../Structs/AlertConfiguration/Action.html">– Action</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/AllEntriesSectionTitle.html">AllEntriesSectionTitle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/AllEntriesSectionTitleBaseStyle.html">AllEntriesSectionTitleBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/AllEntriesSectionTitleConfiguration.html">AllEntriesSectionTitleConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/AllEntriesSectionTitleFioriStyle.html">AllEntriesSectionTitleFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/AllEntriesSectionTitleStyleModifier.html">AllEntriesSectionTitleStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/AnyFioriButtonStyle.html">AnyFioriButtonStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/AnyKPIProgressViewStyle.html">AnyKPIProgressViewStyle</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Structs/AnyTagStyle.html">AnyTagStyle</a>
+                  <a href="../Structs/AnyViewModifier.html">AnyViewModifier</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Structs/AnyViewModifier.html">AnyViewModifier</a>
+                  <a href="../Structs/ApplyAction.html">ApplyAction</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ApplyActionBaseStyle.html">ApplyActionBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ApplyActionConfiguration.html">ApplyActionConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ApplyActionFioriStyle.html">ApplyActionFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ApplyActionStyleModifier.html">ApplyActionStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/Attribute.html">Attribute</a>
@@ -1125,6 +1226,24 @@
                   <a href="../Structs/AvatarStack.html">AvatarStack</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/AvatarStackAvatarsStyle.html">AvatarStackAvatarsStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/AvatarStackAvatarsTitleStyle.html">AvatarStackAvatarsTitleStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/AvatarStackBaseStyle.html">AvatarStackBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/AvatarStackConfiguration.html">AvatarStackConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/AvatarStackFioriStyle.html">AvatarStackFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/AvatarStackStyleModifier.html">AvatarStackStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/Avatars.html">Avatars</a>
                 </li>
                 <li class="nav-group-task">
@@ -1138,6 +1257,21 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/AvatarsStyleModifier.html">AvatarsStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/AvatarsTitle.html">AvatarsTitle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/AvatarsTitleBaseStyle.html">AvatarsTitleBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/AvatarsTitleConfiguration.html">AvatarsTitleConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/AvatarsTitleFioriStyle.html">AvatarsTitleFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/AvatarsTitleStyleModifier.html">AvatarsTitleStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/BannerMessage.html">BannerMessage</a>
@@ -1158,6 +1292,12 @@
                   <a href="../Structs/BannerMessageIconStyle.html">BannerMessageIconStyle</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/BannerMessageItemModel.html">BannerMessageItemModel</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/BannerMessageListModel.html">BannerMessageListModel</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/BannerMessageStyleModifier.html">BannerMessageStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
@@ -1165,6 +1305,42 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/BannerMessageTopDividerStyle.html">BannerMessageTopDividerStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/BannerMultiMessageSheet.html">BannerMultiMessageSheet</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/BannerMultiMessageSheetBaseStyle.html">BannerMultiMessageSheetBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/BannerMultiMessageSheetCloseActionStyle.html">BannerMultiMessageSheetCloseActionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/BannerMultiMessageSheetConfiguration.html">BannerMultiMessageSheetConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/BannerMultiMessageSheetFioriStyle.html">BannerMultiMessageSheetFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/BannerMultiMessageSheetStyleModifier.html">BannerMultiMessageSheetStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/BannerMultiMessageSheetTitleStyle.html">BannerMultiMessageSheetTitleStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/CancelAction.html">CancelAction</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/CancelActionBaseStyle.html">CancelActionBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/CancelActionConfiguration.html">CancelActionConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/CancelActionFioriStyle.html">CancelActionFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/CancelActionStyleModifier.html">CancelActionStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/Card.html">Card</a>
@@ -1344,6 +1520,9 @@
                   <a href="../Structs/CardIconsStyle.html">CardIconsStyle</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/CardIntrinsicHeightStyle.html">CardIntrinsicHeightStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/CardKpiCaptionStyle.html">CardKpiCaptionStyle</a>
                 </li>
                 <li class="nav-group-task">
@@ -1437,6 +1616,21 @@
                   <a href="../Structs/Carousel.html">Carousel</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/CheckoutIndicator.html">CheckoutIndicator</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/CheckoutIndicatorBaseStyle.html">CheckoutIndicatorBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/CheckoutIndicatorConfiguration.html">CheckoutIndicatorConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/CheckoutIndicatorFioriStyle.html">CheckoutIndicatorFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/CheckoutIndicatorStyleModifier.html">CheckoutIndicatorStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/CloseAction.html">CloseAction</a>
                 </li>
                 <li class="nav-group-task">
@@ -1459,9 +1653,6 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/ConditionalSingle.html">ConditionalSingle</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/ConditionalSingleAvatar.html">ConditionalSingleAvatar</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/ConditionalSingleFootnoteIcon.html">ConditionalSingleFootnoteIcon</a>
@@ -1500,10 +1691,7 @@
                   <a href="../Structs/CustomNewTitleColorStyle.html">CustomNewTitleColorStyle</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Structs/CustomTagStyle.html">CustomTagStyle</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/DarkTagStyle.html">DarkTagStyle</a>
+                  <a href="../Structs.html#/s:16FioriSwiftUICore12DarkTagStyleV">DarkTagStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/DataDateItem.html">DataDateItem</a>
@@ -1531,6 +1719,33 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/DataTimeItem.html">DataTimeItem</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/DateTimePicker.html">DateTimePicker</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/DateTimePickerBaseStyle.html">DateTimePickerBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/DateTimePickerConfiguration.html">DateTimePickerConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/DateTimePickerFioriStyle.html">DateTimePickerFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/DateTimePickerFormViewStyle.html">DateTimePickerFormViewStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/DateTimePickerMandatoryFieldIndicatorStyle.html">DateTimePickerMandatoryFieldIndicatorStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/DateTimePickerStyleModifier.html">DateTimePickerStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/DateTimePickerTitleStyle.html">DateTimePickerTitleStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/DateTimePickerValueLabelStyle.html">DateTimePickerValueLabelStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/DecrementAction.html">DecrementAction</a>
@@ -1575,6 +1790,21 @@
                   <a href="../Structs/DescriptionStyleModifier.html">DescriptionStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/DeselectAllAction.html">DeselectAllAction</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/DeselectAllActionBaseStyle.html">DeselectAllActionBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/DeselectAllActionConfiguration.html">DeselectAllActionConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/DeselectAllActionFioriStyle.html">DeselectAllActionFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/DeselectAllActionStyleModifier.html">DeselectAllActionStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/DetailImage.html">DetailImage</a>
                 </li>
                 <li class="nav-group-task">
@@ -1591,6 +1821,12 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/DimensionSelector.html">DimensionSelector</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/DocumentScannerView.html">DocumentScannerView</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/DocumentScannerView/Coordinator.html">– Coordinator</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/DurationPicker.html">DurationPicker</a>
@@ -1704,6 +1940,21 @@
                   <a href="../Structs/FootnoteIconsStyleModifier.html">FootnoteIconsStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/FootnoteIconsText.html">FootnoteIconsText</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/FootnoteIconsTextBaseStyle.html">FootnoteIconsTextBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/FootnoteIconsTextConfiguration.html">FootnoteIconsTextConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/FootnoteIconsTextFioriStyle.html">FootnoteIconsTextFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/FootnoteIconsTextStyleModifier.html">FootnoteIconsTextStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/FootnoteStyleModifier.html">FootnoteStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
@@ -1735,6 +1986,21 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/GreetingTextStyleModifier.html">GreetingTextStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/HalfStarImage.html">HalfStarImage</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/HalfStarImageBaseStyle.html">HalfStarImageBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/HalfStarImageConfiguration.html">HalfStarImageConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/HalfStarImageFioriStyle.html">HalfStarImageFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/HalfStarImageStyleModifier.html">HalfStarImageStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/HeaderAction.html">HeaderAction</a>
@@ -2037,7 +2303,7 @@
                   <a href="../Structs/LabelItemTitleStyle.html">LabelItemTitleStyle</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Structs/LightTagStyle.html">LightTagStyle</a>
+                  <a href="../Structs.html#/s:16FioriSwiftUICore13LightTagStyleV">LightTagStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/LinearProgressIndicator.html">LinearProgressIndicator</a>
@@ -2103,10 +2369,100 @@
                   <a href="../Structs/LinearProgressIndicatorViewSuccessStyle.html">LinearProgressIndicatorViewSuccessStyle</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/ListPickerContent.html">ListPickerContent</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ListPickerContentBaseStyle.html">ListPickerContentBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ListPickerContentConfiguration.html">ListPickerContentConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ListPickerContentFioriStyle.html">ListPickerContentFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ListPickerContentStyleModifier.html">ListPickerContentStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ListPickerDestination.html">ListPickerDestination</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ListPickerDestinationAllEntriesSectionTitleStyle.html">ListPickerDestinationAllEntriesSectionTitleStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ListPickerDestinationApplyActionStyle.html">ListPickerDestinationApplyActionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ListPickerDestinationBaseStyle.html">ListPickerDestinationBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ListPickerDestinationCancelActionStyle.html">ListPickerDestinationCancelActionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ListPickerDestinationConfiguration.html">ListPickerDestinationConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ListPickerDestinationDeselectAllActionStyle.html">ListPickerDestinationDeselectAllActionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ListPickerDestinationFioriStyle.html">ListPickerDestinationFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ListPickerDestinationListPickerContentStyle.html">ListPickerDestinationListPickerContentStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ListPickerDestinationSelectAllActionStyle.html">ListPickerDestinationSelectAllActionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ListPickerDestinationSelectedEntriesSectionTitleStyle.html">ListPickerDestinationSelectedEntriesSectionTitleStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ListPickerDestinationStyleModifier.html">ListPickerDestinationStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/ListPickerItem.html">ListPickerItem</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/ListPickerItemBaseStyle.html">ListPickerItemBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/ListPickerItemConfiguration.html">ListPickerItemConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ListPickerItemFioriStyle.html">ListPickerItemFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ListPickerItemFormViewStyle.html">ListPickerItemFormViewStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ListPickerItemMandatoryFieldIndicatorStyle.html">ListPickerItemMandatoryFieldIndicatorStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ListPickerItemStyleModifier.html">ListPickerItemStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ListPickerItemTitleStyle.html">ListPickerItemTitleStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ListPickerItemValueStyle.html">ListPickerItemValueStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/LoadingIndicator.html">LoadingIndicator</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/LoadingIndicatorBaseStyle.html">LoadingIndicatorBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/LoadingIndicatorConfiguration.html">LoadingIndicatorConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/LoadingIndicatorFioriStyle.html">LoadingIndicatorFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/LoadingIndicatorStyleModifier.html">LoadingIndicatorStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/LoadingIndicatorTitleStyle.html">LoadingIndicatorTitleStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/MHStack.html">MHStack</a>
@@ -2304,6 +2660,9 @@
                   <a href="../Structs/ObjectItemFootnoteIconsStyle.html">ObjectItemFootnoteIconsStyle</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/ObjectItemFootnoteIconsTextStyle.html">ObjectItemFootnoteIconsTextStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/ObjectItemFootnoteStyle.html">ObjectItemFootnoteStyle</a>
                 </li>
                 <li class="nav-group-task">
@@ -2328,10 +2687,55 @@
                   <a href="../Structs/ObjectItemTitleStyle.html">ObjectItemTitleStyle</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/OffStarImage.html">OffStarImage</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/OffStarImageBaseStyle.html">OffStarImageBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/OffStarImageConfiguration.html">OffStarImageConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/OffStarImageFioriStyle.html">OffStarImageFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/OffStarImageStyleModifier.html">OffStarImageStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/OnStarImage.html">OnStarImage</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/OnStarImageBaseStyle.html">OnStarImageBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/OnStarImageConfiguration.html">OnStarImageConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/OnStarImageFioriStyle.html">OnStarImageFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/OnStarImageStyleModifier.html">OnStarImageStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs.html#/s:16FioriSwiftUICore35OptionListPickerButtonConfigurationV">OptionListPickerButtonConfiguration</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/OptionListPickerItem.html">OptionListPickerItem</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/OptionalTitle.html">OptionalTitle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/OptionalTitleBaseStyle.html">OptionalTitleBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/OptionalTitleConfiguration.html">OptionalTitleConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/OptionalTitleFioriStyle.html">OptionalTitleFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/OptionalTitleStyleModifier.html">OptionalTitleStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/Options.html">Options</a>
@@ -2368,9 +2772,6 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/Pair.html">Pair</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/PairAvatar.html">PairAvatar</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/PairFootnoteIcon.html">PairFootnoteIcon</a>
@@ -2442,6 +2843,24 @@
                   <a href="../Structs/PrimaryButtonStyle.html">PrimaryButtonStyle</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/ProcessingIndicator.html">ProcessingIndicator</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ProcessingIndicatorBaseStyle.html">ProcessingIndicatorBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ProcessingIndicatorConfiguration.html">ProcessingIndicatorConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ProcessingIndicatorFioriStyle.html">ProcessingIndicatorFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ProcessingIndicatorOptionalTitleStyle.html">ProcessingIndicatorOptionalTitleStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ProcessingIndicatorStyleModifier.html">ProcessingIndicatorStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/ProfileHeader.html">ProfileHeader</a>
                 </li>
                 <li class="nav-group-task">
@@ -2472,6 +2891,45 @@
                   <a href="../Structs/ProgressIndicator.html">ProgressIndicator</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/ProgressIndicatorBaseStyle.html">ProgressIndicatorBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ProgressIndicatorConfiguration.html">ProgressIndicatorConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ProgressIndicatorFioriStyle.html">ProgressIndicatorFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ProgressIndicatorPausableStyle.html">ProgressIndicatorPausableStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ProgressIndicatorProcessingStyle.html">ProgressIndicatorProcessingStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ProgressIndicatorProgressIndicatorProtocolStyle.html">ProgressIndicatorProgressIndicatorProtocolStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ProgressIndicatorProtocol.html">ProgressIndicatorProtocol</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ProgressIndicatorProtocolBaseStyle.html">ProgressIndicatorProtocolBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ProgressIndicatorProtocolConfiguration.html">ProgressIndicatorProtocolConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ProgressIndicatorProtocolFioriStyle.html">ProgressIndicatorProtocolFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ProgressIndicatorProtocolStyleModifier.html">ProgressIndicatorProtocolStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ProgressIndicatorStoppableStyle.html">ProgressIndicatorStoppableStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ProgressIndicatorStyleModifier.html">ProgressIndicatorStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/RatingControl.html">RatingControl</a>
                 </li>
                 <li class="nav-group-task">
@@ -2499,10 +2957,19 @@
                   <a href="../Structs/RatingControlFormViewFioriStyle.html">RatingControlFormViewFioriStyle</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Structs/RatingControlFormViewFormViewStyle.html">RatingControlFormViewFormViewStyle</a>
+                  <a href="../Structs/RatingControlFormViewHalfStarImageStyle.html">RatingControlFormViewHalfStarImageStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/RatingControlFormViewOffStarImageStyle.html">RatingControlFormViewOffStarImageStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/RatingControlFormViewOnStarImageStyle.html">RatingControlFormViewOnStarImageStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/RatingControlFormViewRatingControlStyle.html">RatingControlFormViewRatingControlStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/RatingControlFormViewReviewCountLabelStyle.html">RatingControlFormViewReviewCountLabelStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/RatingControlFormViewStyleModifier.html">RatingControlFormViewStyleModifier</a>
@@ -2514,7 +2981,40 @@
                   <a href="../Structs/RatingControlFormViewTitleStyle.html">RatingControlFormViewTitleStyle</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/RatingControlFormViewValueLabelStyle.html">RatingControlFormViewValueLabelStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/RatingControlHalfStarImageStyle.html">RatingControlHalfStarImageStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/RatingControlOffStarImageStyle.html">RatingControlOffStarImageStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/RatingControlOnStarImageStyle.html">RatingControlOnStarImageStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/RatingControlReviewCountLabelStyle.html">RatingControlReviewCountLabelStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/RatingControlStyleModifier.html">RatingControlStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/RatingControlValueLabelStyle.html">RatingControlValueLabelStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ReviewCountLabel.html">ReviewCountLabel</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ReviewCountLabelBaseStyle.html">ReviewCountLabelBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ReviewCountLabelConfiguration.html">ReviewCountLabelConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ReviewCountLabelFioriStyle.html">ReviewCountLabelFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ReviewCountLabelStyleModifier.html">ReviewCountLabelStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/Row1.html">Row1</a>
@@ -2628,6 +3128,36 @@
                   <a href="../Structs/SegmentedControlPickerStyleModifier.html">SegmentedControlPickerStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/SelectAllAction.html">SelectAllAction</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SelectAllActionBaseStyle.html">SelectAllActionBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SelectAllActionConfiguration.html">SelectAllActionConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SelectAllActionFioriStyle.html">SelectAllActionFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SelectAllActionStyleModifier.html">SelectAllActionStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SelectedEntriesSectionTitle.html">SelectedEntriesSectionTitle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SelectedEntriesSectionTitleBaseStyle.html">SelectedEntriesSectionTitleBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SelectedEntriesSectionTitleConfiguration.html">SelectedEntriesSectionTitleConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SelectedEntriesSectionTitleFioriStyle.html">SelectedEntriesSectionTitleFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SelectedEntriesSectionTitleStyleModifier.html">SelectedEntriesSectionTitleStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/SideBar.html">SideBar</a>
                 </li>
                 <li class="nav-group-task">
@@ -2683,9 +3213,6 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/Single.html">Single</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/SingleAvatar.html">SingleAvatar</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/SingleFootnoteIcon.html">SingleFootnoteIcon</a>
@@ -2874,16 +3401,49 @@
                   <a href="../Structs/SwitchStyleModifier.html">SwitchStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/SwitchView.html">SwitchView</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SwitchViewBaseStyle.html">SwitchViewBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SwitchViewConfiguration.html">SwitchViewConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SwitchViewFioriStyle.html">SwitchViewFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SwitchViewStyleModifier.html">SwitchViewStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SwitchViewSwitchStyle.html">SwitchViewSwitchStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SwitchViewTitleStyle.html">SwitchViewTitleStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/TableRowItem.html">TableRowItem</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/Tag.html">Tag</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/TagBaseStyle.html">TagBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/TagConfiguration.html">TagConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/TagFioriStyle.html">TagFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/TagStack.html">TagStack</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/TagStyleConfiguration.html">TagStyleConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/TagStyleModifier.html">TagStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/Tags.html">Tags</a>
@@ -3072,6 +3632,54 @@
                   <a href="../Structs/TimelineNowIndicatorStyleModifier.html">TimelineNowIndicatorStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/TimelinePreview.html">TimelinePreview</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/TimelinePreviewActionStyle.html">TimelinePreviewActionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/TimelinePreviewBaseStyle.html">TimelinePreviewBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/TimelinePreviewConfiguration.html">TimelinePreviewConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/TimelinePreviewFioriStyle.html">TimelinePreviewFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/TimelinePreviewItem.html">TimelinePreviewItem</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/TimelinePreviewItemBaseStyle.html">TimelinePreviewItemBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/TimelinePreviewItemConfiguration.html">TimelinePreviewItemConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/TimelinePreviewItemFioriStyle.html">TimelinePreviewItemFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/TimelinePreviewItemIconStyle.html">TimelinePreviewItemIconStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/TimelinePreviewItemStyleModifier.html">TimelinePreviewItemStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/TimelinePreviewItemTimelineNodeStyle.html">TimelinePreviewItemTimelineNodeStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/TimelinePreviewItemTimestampStyle.html">TimelinePreviewItemTimestampStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/TimelinePreviewItemTitleStyle.html">TimelinePreviewItemTitleStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/TimelinePreviewOptionalTitleStyle.html">TimelinePreviewOptionalTitleStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/TimelinePreviewStyleModifier.html">TimelinePreviewStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/TimelineSecondaryTimestampStyle.html">TimelineSecondaryTimestampStyle</a>
                 </li>
                 <li class="nav-group-task">
@@ -3156,6 +3764,27 @@
                   <a href="../Structs/TitleStyleModifier.html">TitleStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/ToastMessage.html">ToastMessage</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ToastMessageBaseStyle.html">ToastMessageBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ToastMessageConfiguration.html">ToastMessageConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ToastMessageFioriStyle.html">ToastMessageFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ToastMessageIconStyle.html">ToastMessageIconStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ToastMessageStyleModifier.html">ToastMessageStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ToastMessageTitleStyle.html">ToastMessageTitleStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/TopDivider.html">TopDivider</a>
                 </li>
                 <li class="nav-group-task">
@@ -3178,6 +3807,63 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/UserConsentView.html">UserConsentView</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/Value.html">Value</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ValueBaseStyle.html">ValueBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ValueConfiguration.html">ValueConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ValueFioriStyle.html">ValueFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ValueLabel.html">ValueLabel</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ValueLabelBaseStyle.html">ValueLabelBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ValueLabelConfiguration.html">ValueLabelConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ValueLabelFioriStyle.html">ValueLabelFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ValueLabelStyleModifier.html">ValueLabelStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ValuePicker.html">ValuePicker</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ValuePickerBaseStyle.html">ValuePickerBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ValuePickerConfiguration.html">ValuePickerConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ValuePickerFioriStyle.html">ValuePickerFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ValuePickerMandatoryFieldIndicatorStyle.html">ValuePickerMandatoryFieldIndicatorStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ValuePickerOptionsStyle.html">ValuePickerOptionsStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ValuePickerStyleModifier.html">ValuePickerStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ValuePickerTitleStyle.html">ValuePickerTitleStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ValuePickerValueLabelStyle.html">ValuePickerValueLabelStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ValueStyleModifier.html">ValueStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/WelcomeScreen.html">WelcomeScreen</a>
@@ -3219,6 +3905,12 @@
                   <a href="../Structs/_DoneActionDefault.html">_DoneActionDefault</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/_ListPickerItem.html">_ListPickerItem</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/_ListPickerItemConfiguration.html">_ListPickerItemConfiguration</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/_NextActionDefault.html">_NextActionDefault</a>
                 </li>
                 <li class="nav-group-task">
@@ -3226,6 +3918,9 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/_ObjectItem.html">_ObjectItem</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/_ProgressIndicator.html">_ProgressIndicator</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/_ReEnterSignatureActionDefault.html">_ReEnterSignatureActionDefault</a>
@@ -3267,7 +3962,7 @@
       </div>
       <div class="footer-wrapper">
         <section id="footer">
-          <p>&copy; 2024 <a class="link" href="https://www.sap.com" target="_blank" rel="external noopener">SAP SE</a>. All rights reserved. (Last updated: 2024-11-25)</p>
+          <p>&copy; 2024 <a class="link" href="https://www.sap.com" target="_blank" rel="external noopener">SAP SE</a>. All rights reserved. (Last updated: 2024-12-11)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </div>
