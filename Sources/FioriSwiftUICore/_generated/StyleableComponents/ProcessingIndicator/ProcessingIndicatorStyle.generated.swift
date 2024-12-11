@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -22,6 +23,9 @@ struct AnyProcessingIndicatorStyle: ProcessingIndicatorStyle {
 }
 
 public struct ProcessingIndicatorConfiguration {
+    public let contentIdentifier = "FioriProcessingIndicator_content"
+    public let optionalTitleIdentifier = "FioriProcessingIndicator_optionalTitle"
+
     public let optionalTitle: OptionalTitle
 
     public typealias OptionalTitle = ConfigurationViewWrapper
@@ -31,5 +35,15 @@ public struct ProcessingIndicatorFioriStyle: ProcessingIndicatorStyle {
     public func makeBody(_ configuration: ProcessingIndicatorConfiguration) -> some View {
         ProcessingIndicator(configuration)
             .optionalTitleStyle(OptionalTitleFioriStyle(processingIndicatorConfiguration: configuration))
+    }
+}
+
+public struct ProcessingIndicatorNSSStyle: ProcessingIndicatorStyle {
+    var data: NSSStyleData
+
+    public func makeBody(_ configuration: ProcessingIndicatorConfiguration) -> some View {
+        ProcessingIndicator(configuration)
+            .optionalTitleStyle(OptionalTitleNSSStyle(processingIndicatorConfiguration: configuration, nssData: self.data.value(configuration.optionalTitleIdentifier)))
+            .processingIndicatorStyle(ContentNSSStyle(processingIndicatorConfiguration: configuration, nssData: self.data.value(configuration.contentIdentifier)))
     }
 }

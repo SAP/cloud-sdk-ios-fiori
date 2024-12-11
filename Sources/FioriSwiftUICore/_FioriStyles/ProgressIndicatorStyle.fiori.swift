@@ -93,6 +93,32 @@ extension ProgressIndicatorFioriStyle {
     }
 }
 
+// Default nss styles
+extension ProgressIndicatorNSSStyle {
+    struct ContentNSSStyle: ProgressIndicatorStyle {
+        let progressIndicatorConfiguration: ProgressIndicatorConfiguration
+        let nssData: NSSStyleData
+        func makeBody(_ configuration: ProgressIndicatorConfiguration) -> some View {
+            ProgressIndicator(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for its content
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct ProgressIndicatorProtocolNSSStyle: ProgressIndicatorProtocolStyle {
+        let progressIndicatorConfiguration: ProgressIndicatorConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: ProgressIndicatorProtocolConfiguration) -> some View {
+            ProgressIndicatorProtocol(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for ProgressIndicatorProtocol
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+}
+
 /// Processing style
 public struct ProgressIndicatorProcessingStyle: ProgressIndicatorStyle {
     public func makeBody(_ configuration: ProgressIndicatorConfiguration) -> some View {

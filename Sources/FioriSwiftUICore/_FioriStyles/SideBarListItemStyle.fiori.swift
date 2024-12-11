@@ -204,6 +204,92 @@ extension SideBarListItemFioriStyle {
     }
 }
 
+// Default nss styles
+extension SideBarListItemNSSStyle {
+    struct ContentNSSStyle: SideBarListItemStyle {
+        let sideBarListItemConfiguration: SideBarListItemConfiguration
+        let nssData: NSSStyleData
+        func makeBody(_ configuration: SideBarListItemConfiguration) -> some View {
+            SideBarListItem(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for its content
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct IconNSSStyle: IconStyle {
+        let sideBarListItemConfiguration: SideBarListItemConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: IconConfiguration) -> some View {
+            Icon(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Icon
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct FilledIconNSSStyle: FilledIconStyle {
+        let sideBarListItemConfiguration: SideBarListItemConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: FilledIconConfiguration) -> some View {
+            FilledIcon(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for FilledIcon
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct TitleNSSStyle: TitleStyle {
+        let sideBarListItemConfiguration: SideBarListItemConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: TitleConfiguration) -> some View {
+            Title(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Title
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct SubtitleNSSStyle: SubtitleStyle {
+        let sideBarListItemConfiguration: SideBarListItemConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: SubtitleConfiguration) -> some View {
+            Subtitle(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Subtitle
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct AccessoryIconNSSStyle: AccessoryIconStyle {
+        let sideBarListItemConfiguration: SideBarListItemConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: AccessoryIconConfiguration) -> some View {
+            AccessoryIcon(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for AccessoryIcon
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct SwitchNSSStyle: SwitchStyle {
+        let sideBarListItemConfiguration: SideBarListItemConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: SwitchConfiguration) -> some View {
+            Switch(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Switch
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+}
+
 class SideBarListItemModelObject: ObservableObject {
     @Published var isSelected: Bool
     

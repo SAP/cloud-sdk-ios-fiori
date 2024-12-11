@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -22,6 +23,13 @@ struct AnyDemoViewStyle: DemoViewStyle {
 }
 
 struct DemoViewConfiguration {
+    public let contentIdentifier = "FioriDemoView_content"
+    public let titleIdentifier = "FioriDemoView_title"
+    public let subtitleIdentifier = "FioriDemoView_subtitle"
+    public let statusIdentifier = "FioriDemoView_status"
+    public let actionIdentifier = "FioriDemoView_action"
+    public let switchIdentifier = "FioriDemoView_switch"
+
     public let title: Title
     public let subtitle: Subtitle
     public let status: Status
@@ -42,5 +50,19 @@ struct DemoViewFioriStyle: DemoViewStyle {
             .statusStyle(StatusFioriStyle(demoViewConfiguration: configuration))
             .actionStyle(ActionFioriStyle(demoViewConfiguration: configuration))
             .switchStyle(SwitchFioriStyle(demoViewConfiguration: configuration))
+    }
+}
+
+struct DemoViewNSSStyle: DemoViewStyle {
+    var data: NSSStyleData
+
+    public func makeBody(_ configuration: DemoViewConfiguration) -> some View {
+        DemoView(configuration)
+            .titleStyle(TitleNSSStyle(demoViewConfiguration: configuration, nssData: self.data.value(configuration.titleIdentifier)))
+            .subtitleStyle(SubtitleNSSStyle(demoViewConfiguration: configuration, nssData: self.data.value(configuration.subtitleIdentifier)))
+            .statusStyle(StatusNSSStyle(demoViewConfiguration: configuration, nssData: self.data.value(configuration.statusIdentifier)))
+            .actionStyle(ActionNSSStyle(demoViewConfiguration: configuration, nssData: self.data.value(configuration.actionIdentifier)))
+            .switchStyle(SwitchNSSStyle(demoViewConfiguration: configuration, nssData: self.data.value(configuration.switchIdentifier)))
+            .demoViewStyle(ContentNSSStyle(demoViewConfiguration: configuration, nssData: self.data.value(configuration.contentIdentifier)))
     }
 }

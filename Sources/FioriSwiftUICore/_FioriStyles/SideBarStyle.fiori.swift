@@ -185,6 +185,20 @@ extension SideBarFioriStyle {
     }
 }
 
+// Default nss styles
+extension SideBarNSSStyle {
+    struct ContentNSSStyle: SideBarStyle {
+        let sideBarConfiguration: SideBarConfiguration
+        let nssData: NSSStyleData
+        func makeBody(_ configuration: SideBarConfiguration) -> some View {
+            SideBar(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for its content
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+}
+
 /**
  The `SideBarItemModel` struct is a data model that represents a side bar item . It conforms to the `Identifiable`, `Hashable`, and `Equatable` protocols, which allow it to be used in collections and compared for equality.
  */

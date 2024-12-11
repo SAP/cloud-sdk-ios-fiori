@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -22,6 +23,10 @@ struct AnyBannerMultiMessageSheetStyle: BannerMultiMessageSheetStyle {
 }
 
 public struct BannerMultiMessageSheetConfiguration {
+    public let contentIdentifier = "FioriBannerMultiMessageSheet_content"
+    public let titleIdentifier = "FioriBannerMultiMessageSheet_title"
+    public let closeActionIdentifier = "FioriBannerMultiMessageSheet_closeAction"
+
     public let title: Title
     public let closeAction: CloseAction
     public let dismissAction: (() -> Void)?
@@ -40,5 +45,16 @@ public struct BannerMultiMessageSheetFioriStyle: BannerMultiMessageSheetStyle {
         BannerMultiMessageSheet(configuration)
             .titleStyle(TitleFioriStyle(bannerMultiMessageSheetConfiguration: configuration))
             .closeActionStyle(CloseActionFioriStyle(bannerMultiMessageSheetConfiguration: configuration))
+    }
+}
+
+public struct BannerMultiMessageSheetNSSStyle: BannerMultiMessageSheetStyle {
+    var data: NSSStyleData
+
+    public func makeBody(_ configuration: BannerMultiMessageSheetConfiguration) -> some View {
+        BannerMultiMessageSheet(configuration)
+            .titleStyle(TitleNSSStyle(bannerMultiMessageSheetConfiguration: configuration, nssData: self.data.value(configuration.titleIdentifier)))
+            .closeActionStyle(CloseActionNSSStyle(bannerMultiMessageSheetConfiguration: configuration, nssData: self.data.value(configuration.closeActionIdentifier)))
+            .bannerMultiMessageSheetStyle(ContentNSSStyle(bannerMultiMessageSheetConfiguration: configuration, nssData: self.data.value(configuration.contentIdentifier)))
     }
 }

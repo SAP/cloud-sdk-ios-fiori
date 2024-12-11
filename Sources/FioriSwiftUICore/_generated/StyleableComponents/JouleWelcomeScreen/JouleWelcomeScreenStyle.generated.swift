@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -22,6 +23,13 @@ struct AnyJouleWelcomeScreenStyle: JouleWelcomeScreenStyle {
 }
 
 public struct JouleWelcomeScreenConfiguration {
+    public let contentIdentifier = "FioriJouleWelcomeScreen_content"
+    public let mediaImageIdentifier = "FioriJouleWelcomeScreen_mediaImage"
+    public let greetingTextIdentifier = "FioriJouleWelcomeScreen_greetingText"
+    public let titleIdentifier = "FioriJouleWelcomeScreen_title"
+    public let footnoteIdentifier = "FioriJouleWelcomeScreen_footnote"
+    public let messageContentIdentifier = "FioriJouleWelcomeScreen_messageContent"
+
     public let mediaImage: MediaImage
     public let greetingText: GreetingText
     public let title: Title
@@ -43,5 +51,19 @@ public struct JouleWelcomeScreenFioriStyle: JouleWelcomeScreenStyle {
             .titleStyle(TitleFioriStyle(jouleWelcomeScreenConfiguration: configuration))
             .footnoteStyle(FootnoteFioriStyle(jouleWelcomeScreenConfiguration: configuration))
             .messageContentStyle(MessageContentFioriStyle(jouleWelcomeScreenConfiguration: configuration))
+    }
+}
+
+public struct JouleWelcomeScreenNSSStyle: JouleWelcomeScreenStyle {
+    var data: NSSStyleData
+
+    public func makeBody(_ configuration: JouleWelcomeScreenConfiguration) -> some View {
+        JouleWelcomeScreen(configuration)
+            .mediaImageStyle(MediaImageNSSStyle(jouleWelcomeScreenConfiguration: configuration, nssData: self.data.value(configuration.mediaImageIdentifier)))
+            .greetingTextStyle(GreetingTextNSSStyle(jouleWelcomeScreenConfiguration: configuration, nssData: self.data.value(configuration.greetingTextIdentifier)))
+            .titleStyle(TitleNSSStyle(jouleWelcomeScreenConfiguration: configuration, nssData: self.data.value(configuration.titleIdentifier)))
+            .footnoteStyle(FootnoteNSSStyle(jouleWelcomeScreenConfiguration: configuration, nssData: self.data.value(configuration.footnoteIdentifier)))
+            .messageContentStyle(MessageContentNSSStyle(jouleWelcomeScreenConfiguration: configuration, nssData: self.data.value(configuration.messageContentIdentifier)))
+            .jouleWelcomeScreenStyle(ContentNSSStyle(jouleWelcomeScreenConfiguration: configuration, nssData: self.data.value(configuration.contentIdentifier)))
     }
 }

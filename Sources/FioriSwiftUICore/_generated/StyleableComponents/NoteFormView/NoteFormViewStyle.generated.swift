@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -22,6 +23,12 @@ struct AnyNoteFormViewStyle: NoteFormViewStyle {
 }
 
 public struct NoteFormViewConfiguration {
+    public let contentIdentifier = "FioriNoteFormView_content"
+    public let textViewIdentifier = "FioriNoteFormView_textView"
+    public let placeholderIdentifier = "FioriNoteFormView_placeholder"
+    public let placeholderTextEditorIdentifier = "FioriNoteFormView_placeholderTextEditor"
+    public let formViewIdentifier = "FioriNoteFormView_formView"
+
     @Binding public var text: String
     public let placeholder: Placeholder
     public let controlState: ControlState
@@ -46,5 +53,18 @@ public struct NoteFormViewFioriStyle: NoteFormViewStyle {
             .placeholderStyle(PlaceholderFioriStyle(noteFormViewConfiguration: configuration))
             .placeholderTextEditorStyle(PlaceholderTextEditorFioriStyle(noteFormViewConfiguration: configuration))
             .formViewStyle(FormViewFioriStyle(noteFormViewConfiguration: configuration))
+    }
+}
+
+public struct NoteFormViewNSSStyle: NoteFormViewStyle {
+    var data: NSSStyleData
+
+    public func makeBody(_ configuration: NoteFormViewConfiguration) -> some View {
+        NoteFormView(configuration)
+            .textViewStyle(TextViewNSSStyle(noteFormViewConfiguration: configuration, nssData: self.data.value(configuration.textViewIdentifier)))
+            .placeholderStyle(PlaceholderNSSStyle(noteFormViewConfiguration: configuration, nssData: self.data.value(configuration.placeholderIdentifier)))
+            .placeholderTextEditorStyle(PlaceholderTextEditorNSSStyle(noteFormViewConfiguration: configuration, nssData: self.data.value(configuration.placeholderTextEditorIdentifier)))
+            .formViewStyle(FormViewNSSStyle(noteFormViewConfiguration: configuration, nssData: self.data.value(configuration.formViewIdentifier)))
+            .noteFormViewStyle(ContentNSSStyle(noteFormViewConfiguration: configuration, nssData: self.data.value(configuration.contentIdentifier)))
     }
 }

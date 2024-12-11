@@ -30,3 +30,15 @@ public struct CounterFioriStyle: CounterStyle {
         // .font(.fiori(forTextStyle: <#fiori font#>))
     }
 }
+
+// Default nss styles
+public struct CounterNSSStyle: CounterStyle {
+    var data: NSSStyleData
+
+    public func makeBody(_ configuration: CounterConfiguration) -> some View {
+        Counter(configuration)
+            .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.data.value(configuration.counterIdentifier)))
+        // Add custom nss style for its content
+        // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+    }
+}

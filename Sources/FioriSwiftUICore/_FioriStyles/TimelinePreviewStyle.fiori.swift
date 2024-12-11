@@ -123,6 +123,44 @@ extension TimelinePreviewFioriStyle {
     }
 }
 
+// Default nss styles
+extension TimelinePreviewNSSStyle {
+    struct ContentNSSStyle: TimelinePreviewStyle {
+        let timelinePreviewConfiguration: TimelinePreviewConfiguration
+        let nssData: NSSStyleData
+        func makeBody(_ configuration: TimelinePreviewConfiguration) -> some View {
+            TimelinePreview(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for its content
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct OptionalTitleNSSStyle: OptionalTitleStyle {
+        let timelinePreviewConfiguration: TimelinePreviewConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: OptionalTitleConfiguration) -> some View {
+            OptionalTitle(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for OptionalTitle
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct ActionNSSStyle: ActionStyle {
+        let timelinePreviewConfiguration: TimelinePreviewConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: ActionConfiguration) -> some View {
+            Action(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Action
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+}
+
 struct SeeAllActionLabelStyle: LabelStyle {
     func makeBody(configuration: Configuration) -> some View {
         HStack(alignment: .center) {

@@ -99,6 +99,80 @@ extension IllustratedMessageFioriStyle {
     }
 }
 
+// Default nss styles
+extension IllustratedMessageNSSStyle {
+    struct ContentNSSStyle: IllustratedMessageStyle {
+        let illustratedMessageConfiguration: IllustratedMessageConfiguration
+        let nssData: NSSStyleData
+        func makeBody(_ configuration: IllustratedMessageConfiguration) -> some View {
+            IllustratedMessage(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for its content
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct DetailImageNSSStyle: DetailImageStyle {
+        let illustratedMessageConfiguration: IllustratedMessageConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: DetailImageConfiguration) -> some View {
+            DetailImage(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for DetailImage
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct TitleNSSStyle: TitleStyle {
+        let illustratedMessageConfiguration: IllustratedMessageConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: TitleConfiguration) -> some View {
+            Title(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Title
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct DescriptionNSSStyle: DescriptionStyle {
+        let illustratedMessageConfiguration: IllustratedMessageConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: DescriptionConfiguration) -> some View {
+            Description(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Description
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct ActionNSSStyle: ActionStyle {
+        let illustratedMessageConfiguration: IllustratedMessageConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: ActionConfiguration) -> some View {
+            Action(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Action
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct SecondaryActionNSSStyle: SecondaryActionStyle {
+        let illustratedMessageConfiguration: IllustratedMessageConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: SecondaryActionConfiguration) -> some View {
+            SecondaryAction(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for SecondaryAction
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+}
+
 /// Vertical layout style of the Illustrated Message. All content is displayed in one column. This is the default layout style
 public struct IllustratedMessageVerticalLayoutStyle: IllustratedMessageStyle {
     public func makeBody(_ configuration: IllustratedMessageConfiguration) -> some View {

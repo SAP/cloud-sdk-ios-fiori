@@ -87,6 +87,74 @@ extension LoadingIndicatorFioriStyle {
     }
 }
 
+// Default nss styles
+extension LoadingIndicatorNSSStyle {
+    struct ContentNSSStyle: LoadingIndicatorStyle {
+        let loadingIndicatorConfiguration: LoadingIndicatorConfiguration
+        let nssData: NSSStyleData
+        func makeBody(_ configuration: LoadingIndicatorConfiguration) -> some View {
+            LoadingIndicator(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+                .modifier(NSSStyleModifier<LoadingIndicatorNSSType>(styles: self.nssData))
+            // Add custom nss style for its content
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct TitleNSSStyle: TitleStyle {
+        let loadingIndicatorConfiguration: LoadingIndicatorConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: TitleConfiguration) -> some View {
+            Title(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Title
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct ProgressNSSStyle: ProgressStyle {
+        let loadingIndicatorConfiguration: LoadingIndicatorConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: ProgressConfiguration) -> some View {
+            Progress(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Progress
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+}
+
+/// Custom NSS style types
+enum LoadingIndicatorNSSType: String, NSSCovert {
+    case positionLayout = "position-layout"
+    
+    func apply(value: Any, to view: any View) -> any View {
+        switch self {
+        case .positionLayout:
+            if let name = value as? String {
+                return view.indicatorPosition(self.getPosition(name))
+            }
+        }
+        return view
+    }
+
+    func getPosition(_ name: String) -> LoadingIndicator.Layout {
+        switch name {
+        case "leading":
+            return .leading
+        case "trailing":
+            return .trailing
+        case "top":
+            return .top
+        case "bottom":
+            return .bottom
+        default: return .top
+        }
+    }
+}
+
 struct IndicatorPositionKey: EnvironmentKey {
     public static let defaultValue: LoadingIndicator.Layout = .top
 }

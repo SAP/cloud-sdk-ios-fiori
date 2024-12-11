@@ -26,3 +26,15 @@ public struct DescriptionFioriStyle: DescriptionStyle {
             .font(.fiori(forTextStyle: .subheadline))
     }
 }
+
+// Default nss styles
+public struct DescriptionNSSStyle: DescriptionStyle {
+    var data: NSSStyleData
+
+    public func makeBody(_ configuration: DescriptionConfiguration) -> some View {
+        Description(configuration)
+            .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.data.value(configuration.descriptionIdentifier)))
+        // Add custom nss style for its content
+        // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+    }
+}

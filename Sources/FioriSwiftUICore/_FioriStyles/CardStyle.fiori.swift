@@ -375,6 +375,260 @@ extension CardFioriStyle {
     }
 }
 
+// Default nss styles
+extension CardNSSStyle {
+    struct ContentNSSStyle: CardStyle {
+        let cardConfiguration: CardConfiguration
+        let nssData: NSSStyleData
+        func makeBody(_ configuration: CardConfiguration) -> some View {
+            Card(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for its content
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct MediaImageNSSStyle: MediaImageStyle {
+        let cardConfiguration: CardConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: MediaImageConfiguration) -> some View {
+            MediaImage(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for MediaImage
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct DescriptionNSSStyle: DescriptionStyle {
+        let cardConfiguration: CardConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: DescriptionConfiguration) -> some View {
+            Description(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Description
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct TitleNSSStyle: TitleStyle {
+        let cardConfiguration: CardConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: TitleConfiguration) -> some View {
+            Title(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Title
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct SubtitleNSSStyle: SubtitleStyle {
+        let cardConfiguration: CardConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: SubtitleConfiguration) -> some View {
+            Subtitle(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Subtitle
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct IconsNSSStyle: IconsStyle {
+        let cardConfiguration: CardConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: IconsConfiguration) -> some View {
+            Icons(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Icons
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct DetailImageNSSStyle: DetailImageStyle {
+        let cardConfiguration: CardConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: DetailImageConfiguration) -> some View {
+            DetailImage(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for DetailImage
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct HeaderActionNSSStyle: HeaderActionStyle {
+        let cardConfiguration: CardConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: HeaderActionConfiguration) -> some View {
+            HeaderAction(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for HeaderAction
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct CounterNSSStyle: CounterStyle {
+        let cardConfiguration: CardConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: CounterConfiguration) -> some View {
+            Counter(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Counter
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct Row1NSSStyle: Row1Style {
+        let cardConfiguration: CardConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: Row1Configuration) -> some View {
+            Row1(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Row1
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct Row2NSSStyle: Row2Style {
+        let cardConfiguration: CardConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: Row2Configuration) -> some View {
+            Row2(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Row2
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct Row3NSSStyle: Row3Style {
+        let cardConfiguration: CardConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: Row3Configuration) -> some View {
+            Row3(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Row3
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct KpiNSSStyle: KpiStyle {
+        let cardConfiguration: CardConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: KpiConfiguration) -> some View {
+            Kpi(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Kpi
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct KpiCaptionNSSStyle: KpiCaptionStyle {
+        let cardConfiguration: CardConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: KpiCaptionConfiguration) -> some View {
+            KpiCaption(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for KpiCaption
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct CardBodyNSSStyle: CardBodyStyle {
+        let cardConfiguration: CardConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: CardBodyConfiguration) -> some View {
+            CardBody(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for CardBody
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct ActionNSSStyle: ActionStyle {
+        let cardConfiguration: CardConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: ActionConfiguration) -> some View {
+            Action(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Action
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct SecondaryActionNSSStyle: SecondaryActionStyle {
+        let cardConfiguration: CardConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: SecondaryActionConfiguration) -> some View {
+            SecondaryAction(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for SecondaryAction
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct TertiaryActionNSSStyle: TertiaryActionStyle {
+        let cardConfiguration: CardConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: TertiaryActionConfiguration) -> some View {
+            TertiaryAction(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for TertiaryAction
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct OverflowActionNSSStyle: OverflowActionStyle {
+        let cardConfiguration: CardConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: OverflowActionConfiguration) -> some View {
+            OverflowAction(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for OverflowAction
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct CardHeaderNSSStyle: CardHeaderStyle {
+        let cardConfiguration: CardConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: CardHeaderConfiguration) -> some View {
+            CardHeader(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for CardHeader
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct CardFooterNSSStyle: CardFooterStyle {
+        let cardConfiguration: CardConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: CardFooterConfiguration) -> some View {
+            CardFooter(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for CardFooter
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+}
+
 public struct CardCardStyle: CardStyle {
     public func makeBody(_ configuration: CardConfiguration) -> some View {
         Card(configuration)

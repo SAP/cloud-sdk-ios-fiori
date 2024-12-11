@@ -54,3 +54,29 @@ extension SegmentedControlPickerFioriStyle {
         }
     }
 }
+
+// Default nss styles
+extension SegmentedControlPickerNSSStyle {
+    struct ContentNSSStyle: SegmentedControlPickerStyle {
+        let segmentedControlPickerConfiguration: SegmentedControlPickerConfiguration
+        let nssData: NSSStyleData
+        func makeBody(_ configuration: SegmentedControlPickerConfiguration) -> some View {
+            SegmentedControlPicker(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for its content
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct OptionsNSSStyle: OptionsStyle {
+        let segmentedControlPickerConfiguration: SegmentedControlPickerConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: OptionsConfiguration) -> some View {
+            Options(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Options
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+}

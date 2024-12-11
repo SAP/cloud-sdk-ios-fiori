@@ -29,6 +29,18 @@ public struct TagFioriStyle: TagStyle {
     }
 }
 
+// Default nss styles
+public struct TagNSSStyle: TagStyle {
+    var data: NSSStyleData
+
+    public func makeBody(_ configuration: TagConfiguration) -> some View {
+        Tag(configuration)
+            .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.data.value(configuration.tagIdentifier)))
+        // Add custom nss style for its content
+        // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+    }
+}
+
 /// :nodoc:
 public extension TagStyle where Self == LightTagStyle {
     /// dark tag style

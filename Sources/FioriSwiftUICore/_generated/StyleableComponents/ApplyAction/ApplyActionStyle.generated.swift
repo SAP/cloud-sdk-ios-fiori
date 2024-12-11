@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -22,6 +23,8 @@ struct AnyApplyActionStyle: ApplyActionStyle {
 }
 
 public struct ApplyActionConfiguration {
+    public let applyActionIdentifier = "FioriApplyAction_applyAction"
+
     public let applyAction: ApplyAction
 
     public typealias ApplyAction = ConfigurationViewWrapper

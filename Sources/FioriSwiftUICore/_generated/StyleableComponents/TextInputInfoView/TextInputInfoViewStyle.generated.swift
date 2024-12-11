@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -22,6 +23,12 @@ struct AnyTextInputInfoViewStyle: TextInputInfoViewStyle {
 }
 
 struct TextInputInfoViewConfiguration {
+    public let contentIdentifier = "FioriTextInputInfoView_content"
+    public let iconIdentifier = "FioriTextInputInfoView_icon"
+    public let descriptionIdentifier = "FioriTextInputInfoView_description"
+    public let counterIdentifier = "FioriTextInputInfoView_counter"
+    public let informationViewIdentifier = "FioriTextInputInfoView_informationView"
+
     public let icon: Icon
     public let description: Description
     public let counter: Counter
@@ -38,5 +45,18 @@ struct TextInputInfoViewFioriStyle: TextInputInfoViewStyle {
             .descriptionStyle(DescriptionFioriStyle(textInputInfoViewConfiguration: configuration))
             .counterStyle(CounterFioriStyle(textInputInfoViewConfiguration: configuration))
             .informationViewStyle(InformationViewFioriStyle(textInputInfoViewConfiguration: configuration))
+    }
+}
+
+struct TextInputInfoViewNSSStyle: TextInputInfoViewStyle {
+    var data: NSSStyleData
+
+    public func makeBody(_ configuration: TextInputInfoViewConfiguration) -> some View {
+        TextInputInfoView(configuration)
+            .iconStyle(IconNSSStyle(textInputInfoViewConfiguration: configuration, nssData: self.data.value(configuration.iconIdentifier)))
+            .descriptionStyle(DescriptionNSSStyle(textInputInfoViewConfiguration: configuration, nssData: self.data.value(configuration.descriptionIdentifier)))
+            .counterStyle(CounterNSSStyle(textInputInfoViewConfiguration: configuration, nssData: self.data.value(configuration.counterIdentifier)))
+            .informationViewStyle(InformationViewNSSStyle(textInputInfoViewConfiguration: configuration, nssData: self.data.value(configuration.informationViewIdentifier)))
+            .textInputInfoViewStyle(ContentNSSStyle(textInputInfoViewConfiguration: configuration, nssData: self.data.value(configuration.contentIdentifier)))
     }
 }

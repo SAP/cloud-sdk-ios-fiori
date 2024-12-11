@@ -30,3 +30,15 @@ public struct TertiaryActionFioriStyle: TertiaryActionStyle {
         TertiaryAction(configuration)
     }
 }
+
+// Default nss styles
+public struct TertiaryActionNSSStyle: TertiaryActionStyle {
+    var data: NSSStyleData
+
+    public func makeBody(_ configuration: TertiaryActionConfiguration) -> some View {
+        TertiaryAction(configuration)
+            .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.data.value(configuration.tertiaryActionIdentifier)))
+        // Add custom nss style for its content
+        // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+    }
+}

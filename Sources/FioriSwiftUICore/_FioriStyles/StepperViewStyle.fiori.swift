@@ -144,6 +144,116 @@ extension StepperViewFioriStyle {
     }
 }
 
+// Default nss styles
+extension StepperViewNSSStyle {
+    struct ContentNSSStyle: StepperViewStyle {
+        let stepperViewConfiguration: StepperViewConfiguration
+        let nssData: NSSStyleData
+        func makeBody(_ configuration: StepperViewConfiguration) -> some View {
+            StepperView(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for its content
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct TitleNSSStyle: TitleStyle {
+        let stepperViewConfiguration: StepperViewConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: TitleConfiguration) -> some View {
+            Title(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Title
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct DecrementActionNSSStyle: DecrementActionStyle {
+        let stepperViewConfiguration: StepperViewConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: DecrementActionConfiguration) -> some View {
+            DecrementAction(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for DecrementAction
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct TextInputFieldNSSStyle: TextInputFieldStyle {
+        let stepperViewConfiguration: StepperViewConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: TextInputFieldConfiguration) -> some View {
+            TextInputField(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for TextInputField
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct IncrementActionNSSStyle: IncrementActionStyle {
+        let stepperViewConfiguration: StepperViewConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: IncrementActionConfiguration) -> some View {
+            IncrementAction(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for IncrementAction
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct IconNSSStyle: IconStyle {
+        let stepperViewConfiguration: StepperViewConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: IconConfiguration) -> some View {
+            Icon(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Icon
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct DescriptionNSSStyle: DescriptionStyle {
+        let stepperViewConfiguration: StepperViewConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: DescriptionConfiguration) -> some View {
+            Description(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Description
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct StepperFieldNSSStyle: StepperFieldStyle {
+        let stepperViewConfiguration: StepperViewConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: StepperFieldConfiguration) -> some View {
+            StepperField(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for StepperField
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct InformationViewNSSStyle: InformationViewStyle {
+        let stepperViewConfiguration: StepperViewConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: InformationViewConfiguration) -> some View {
+            InformationView(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for InformationView
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+}
+
 public struct StepperViewFocusedStyle: StepperViewStyle {
     @Environment(\.isEnabled) var isEnabled: Bool
     @FocusState var isFocused: Bool

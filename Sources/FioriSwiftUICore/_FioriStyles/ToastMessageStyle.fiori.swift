@@ -89,6 +89,44 @@ extension ToastMessageFioriStyle {
     }
 }
 
+// Default nss styles
+extension ToastMessageNSSStyle {
+    struct ContentNSSStyle: ToastMessageStyle {
+        let toastMessageConfiguration: ToastMessageConfiguration
+        let nssData: NSSStyleData
+        func makeBody(_ configuration: ToastMessageConfiguration) -> some View {
+            ToastMessage(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for its content
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct IconNSSStyle: IconStyle {
+        let toastMessageConfiguration: ToastMessageConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: IconConfiguration) -> some View {
+            Icon(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Icon
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct TitleNSSStyle: TitleStyle {
+        let toastMessageConfiguration: ToastMessageConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: TitleConfiguration) -> some View {
+            Title(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Title
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+}
+
 public extension View {
     /// Show a toast message as an overlay above the view.
     /// - Parameters:

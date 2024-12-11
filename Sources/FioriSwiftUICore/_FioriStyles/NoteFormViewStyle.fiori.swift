@@ -167,3 +167,65 @@ extension NoteFormViewFioriStyle {
         }
     }
 }
+
+// Default nss styles
+extension NoteFormViewNSSStyle {
+    struct ContentNSSStyle: NoteFormViewStyle {
+        let noteFormViewConfiguration: NoteFormViewConfiguration
+        let nssData: NSSStyleData
+        func makeBody(_ configuration: NoteFormViewConfiguration) -> some View {
+            NoteFormView(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for its content
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct TextViewNSSStyle: TextViewStyle {
+        let noteFormViewConfiguration: NoteFormViewConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: TextViewConfiguration) -> some View {
+            TextView(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for TextView
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct PlaceholderNSSStyle: PlaceholderStyle {
+        let noteFormViewConfiguration: NoteFormViewConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: PlaceholderConfiguration) -> some View {
+            Placeholder(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Placeholder
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct PlaceholderTextEditorNSSStyle: PlaceholderTextEditorStyle {
+        let noteFormViewConfiguration: NoteFormViewConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: PlaceholderTextEditorConfiguration) -> some View {
+            PlaceholderTextEditor(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for PlaceholderTextEditor
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct FormViewNSSStyle: FormViewStyle {
+        let noteFormViewConfiguration: NoteFormViewConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: FormViewConfiguration) -> some View {
+            FormView(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for FormView
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+}

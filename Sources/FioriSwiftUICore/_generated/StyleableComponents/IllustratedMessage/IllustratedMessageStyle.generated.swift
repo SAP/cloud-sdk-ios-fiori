@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -22,6 +23,13 @@ struct AnyIllustratedMessageStyle: IllustratedMessageStyle {
 }
 
 public struct IllustratedMessageConfiguration {
+    public let contentIdentifier = "FioriIllustratedMessage_content"
+    public let detailImageIdentifier = "FioriIllustratedMessage_detailImage"
+    public let titleIdentifier = "FioriIllustratedMessage_title"
+    public let descriptionIdentifier = "FioriIllustratedMessage_description"
+    public let actionIdentifier = "FioriIllustratedMessage_action"
+    public let secondaryActionIdentifier = "FioriIllustratedMessage_secondaryAction"
+
     public let detailImage: DetailImage
     public let title: Title
     public let description: Description
@@ -46,5 +54,19 @@ public struct IllustratedMessageFioriStyle: IllustratedMessageStyle {
             .descriptionStyle(DescriptionFioriStyle(illustratedMessageConfiguration: configuration))
             .actionStyle(ActionFioriStyle(illustratedMessageConfiguration: configuration))
             .secondaryActionStyle(SecondaryActionFioriStyle(illustratedMessageConfiguration: configuration))
+    }
+}
+
+public struct IllustratedMessageNSSStyle: IllustratedMessageStyle {
+    var data: NSSStyleData
+
+    public func makeBody(_ configuration: IllustratedMessageConfiguration) -> some View {
+        IllustratedMessage(configuration)
+            .detailImageStyle(DetailImageNSSStyle(illustratedMessageConfiguration: configuration, nssData: self.data.value(configuration.detailImageIdentifier)))
+            .titleStyle(TitleNSSStyle(illustratedMessageConfiguration: configuration, nssData: self.data.value(configuration.titleIdentifier)))
+            .descriptionStyle(DescriptionNSSStyle(illustratedMessageConfiguration: configuration, nssData: self.data.value(configuration.descriptionIdentifier)))
+            .actionStyle(ActionNSSStyle(illustratedMessageConfiguration: configuration, nssData: self.data.value(configuration.actionIdentifier)))
+            .secondaryActionStyle(SecondaryActionNSSStyle(illustratedMessageConfiguration: configuration, nssData: self.data.value(configuration.secondaryActionIdentifier)))
+            .illustratedMessageStyle(ContentNSSStyle(illustratedMessageConfiguration: configuration, nssData: self.data.value(configuration.contentIdentifier)))
     }
 }

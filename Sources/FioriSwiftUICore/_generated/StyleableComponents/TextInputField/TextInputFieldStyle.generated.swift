@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -22,5 +23,7 @@ struct AnyTextInputFieldStyle: TextInputFieldStyle {
 }
 
 public struct TextInputFieldConfiguration {
+    public let textInputFieldIdentifier = "FioriTextInputField_content"
+
     @Binding public var text: String
 }

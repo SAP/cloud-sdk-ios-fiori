@@ -20,3 +20,15 @@ public struct ProgressIndicatorProtocolFioriStyle: ProgressIndicatorProtocolStyl
         ProgressIndicatorProtocol(configuration)
     }
 }
+
+// Default nss styles
+public struct ProgressIndicatorProtocolNSSStyle: ProgressIndicatorProtocolStyle {
+    var data: NSSStyleData
+
+    public func makeBody(_ configuration: ProgressIndicatorProtocolConfiguration) -> some View {
+        ProgressIndicatorProtocol(configuration)
+            .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.data.value(configuration.progressIndicatorProtocolIdentifier)))
+        // Add custom nss style for its content
+        // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+    }
+}

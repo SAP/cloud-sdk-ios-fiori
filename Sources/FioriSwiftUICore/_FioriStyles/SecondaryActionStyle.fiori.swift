@@ -27,3 +27,15 @@ public struct SecondaryActionFioriStyle: SecondaryActionStyle {
         SecondaryAction(configuration)
     }
 }
+
+// Default nss styles
+public struct SecondaryActionNSSStyle: SecondaryActionStyle {
+    var data: NSSStyleData
+
+    public func makeBody(_ configuration: SecondaryActionConfiguration) -> some View {
+        SecondaryAction(configuration)
+            .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.data.value(configuration.secondaryActionIdentifier)))
+        // Add custom nss style for its content
+        // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+    }
+}

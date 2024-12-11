@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -22,6 +23,8 @@ struct AnyFormViewStyle: FormViewStyle {
 }
 
 public struct FormViewConfiguration {
+    public let contentIdentifier = "FioriFormView_content"
+
     public let controlState: ControlState
     public let errorMessage: AttributedString?
 }
@@ -29,5 +32,15 @@ public struct FormViewConfiguration {
 public struct FormViewFioriStyle: FormViewStyle {
     public func makeBody(_ configuration: FormViewConfiguration) -> some View {
         FormView(configuration)
+    }
+}
+
+public struct FormViewNSSStyle: FormViewStyle {
+    var data: NSSStyleData
+
+    public func makeBody(_ configuration: FormViewConfiguration) -> some View {
+        FormView(configuration)
+             
+            .formViewStyle(ContentNSSStyle(formViewConfiguration: configuration, nssData: self.data.value(configuration.contentIdentifier)))
     }
 }

@@ -18,3 +18,15 @@ public struct AvatarsTitleFioriStyle: AvatarsTitleStyle {
         AvatarsTitle(configuration)
     }
 }
+
+// Default nss styles
+public struct AvatarsTitleNSSStyle: AvatarsTitleStyle {
+    var data: NSSStyleData
+
+    public func makeBody(_ configuration: AvatarsTitleConfiguration) -> some View {
+        AvatarsTitle(configuration)
+            .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.data.value(configuration.avatarsTitleIdentifier)))
+        // Add custom nss style for its content
+        // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+    }
+}

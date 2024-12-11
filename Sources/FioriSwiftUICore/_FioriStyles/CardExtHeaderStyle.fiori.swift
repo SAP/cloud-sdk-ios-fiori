@@ -123,6 +123,80 @@ extension CardExtHeaderFioriStyle {
     }
 }
 
+// Default nss styles
+extension CardExtHeaderNSSStyle {
+    struct ContentNSSStyle: CardExtHeaderStyle {
+        let cardExtHeaderConfiguration: CardExtHeaderConfiguration
+        let nssData: NSSStyleData
+        func makeBody(_ configuration: CardExtHeaderConfiguration) -> some View {
+            CardExtHeader(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for its content
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct Row1NSSStyle: Row1Style {
+        let cardExtHeaderConfiguration: CardExtHeaderConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: Row1Configuration) -> some View {
+            Row1(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Row1
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct Row2NSSStyle: Row2Style {
+        let cardExtHeaderConfiguration: CardExtHeaderConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: Row2Configuration) -> some View {
+            Row2(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Row2
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct Row3NSSStyle: Row3Style {
+        let cardExtHeaderConfiguration: CardExtHeaderConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: Row3Configuration) -> some View {
+            Row3(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Row3
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct KpiNSSStyle: KpiStyle {
+        let cardExtHeaderConfiguration: CardExtHeaderConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: KpiConfiguration) -> some View {
+            Kpi(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Kpi
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct KpiCaptionNSSStyle: KpiCaptionStyle {
+        let cardExtHeaderConfiguration: CardExtHeaderConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: KpiCaptionConfiguration) -> some View {
+            KpiCaption(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for KpiCaption
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+}
+
 #Preview("Empty") {
     CardExtHeader(row1: {
         EmptyView()

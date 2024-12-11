@@ -18,3 +18,15 @@ public struct ListPickerContentFioriStyle: ListPickerContentStyle {
         ListPickerContent(configuration)
     }
 }
+
+// Default nss styles
+public struct ListPickerContentNSSStyle: ListPickerContentStyle {
+    var data: NSSStyleData
+
+    public func makeBody(_ configuration: ListPickerContentConfiguration) -> some View {
+        ListPickerContent(configuration)
+            .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.data.value(configuration.listPickerContentIdentifier)))
+        // Add custom nss style for its content
+        // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+    }
+}

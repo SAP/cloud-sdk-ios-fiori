@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -22,6 +23,8 @@ struct AnyIconsStyle: IconsStyle {
 }
 
 public struct IconsConfiguration {
+    public let iconsIdentifier = "FioriIcons_icons"
+
     public let icons: Icons
 
     public typealias Icons = ConfigurationViewWrapper

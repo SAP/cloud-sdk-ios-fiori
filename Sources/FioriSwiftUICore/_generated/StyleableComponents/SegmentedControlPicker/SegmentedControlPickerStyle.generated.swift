@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -22,6 +23,9 @@ struct AnySegmentedControlPickerStyle: SegmentedControlPickerStyle {
 }
 
 public struct SegmentedControlPickerConfiguration {
+    public let contentIdentifier = "FioriSegmentedControlPicker_content"
+    public let optionsIdentifier = "FioriSegmentedControlPicker_options"
+
     public let options: [AttributedString]
     @Binding public var selectedIndex: Int
 }
@@ -30,5 +34,15 @@ public struct SegmentedControlPickerFioriStyle: SegmentedControlPickerStyle {
     public func makeBody(_ configuration: SegmentedControlPickerConfiguration) -> some View {
         SegmentedControlPicker(configuration)
             .optionsStyle(OptionsFioriStyle(segmentedControlPickerConfiguration: configuration))
+    }
+}
+
+public struct SegmentedControlPickerNSSStyle: SegmentedControlPickerStyle {
+    var data: NSSStyleData
+
+    public func makeBody(_ configuration: SegmentedControlPickerConfiguration) -> some View {
+        SegmentedControlPicker(configuration)
+            .optionsStyle(OptionsNSSStyle(segmentedControlPickerConfiguration: configuration, nssData: self.data.value(configuration.optionsIdentifier)))
+            .segmentedControlPickerStyle(ContentNSSStyle(segmentedControlPickerConfiguration: configuration, nssData: self.data.value(configuration.contentIdentifier)))
     }
 }

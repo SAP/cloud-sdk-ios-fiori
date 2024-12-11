@@ -93,3 +93,65 @@ extension ListPickerItemFioriStyle {
         }
     }
 }
+
+// Default nss styles
+extension ListPickerItemNSSStyle {
+    struct ContentNSSStyle: ListPickerItemStyle {
+        let listPickerItemConfiguration: ListPickerItemConfiguration
+        let nssData: NSSStyleData
+        func makeBody(_ configuration: ListPickerItemConfiguration) -> some View {
+            ListPickerItem(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for its content
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct TitleNSSStyle: TitleStyle {
+        let listPickerItemConfiguration: ListPickerItemConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: TitleConfiguration) -> some View {
+            Title(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Title
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct ValueNSSStyle: ValueStyle {
+        let listPickerItemConfiguration: ListPickerItemConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: ValueConfiguration) -> some View {
+            Value(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Value
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct MandatoryFieldIndicatorNSSStyle: MandatoryFieldIndicatorStyle {
+        let listPickerItemConfiguration: ListPickerItemConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: MandatoryFieldIndicatorConfiguration) -> some View {
+            MandatoryFieldIndicator(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for MandatoryFieldIndicator
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct FormViewNSSStyle: FormViewStyle {
+        let listPickerItemConfiguration: ListPickerItemConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: FormViewConfiguration) -> some View {
+            FormView(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for FormView
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+}

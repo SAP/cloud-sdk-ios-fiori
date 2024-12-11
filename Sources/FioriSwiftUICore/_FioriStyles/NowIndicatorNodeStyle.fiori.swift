@@ -17,3 +17,15 @@ public struct NowIndicatorNodeFioriStyle: NowIndicatorNodeStyle {
         NowIndicatorNode(configuration)
     }
 }
+
+// Default nss styles
+public struct NowIndicatorNodeNSSStyle: NowIndicatorNodeStyle {
+    var data: NSSStyleData
+
+    public func makeBody(_ configuration: NowIndicatorNodeConfiguration) -> some View {
+        NowIndicatorNode(configuration)
+            .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.data.value(configuration.nowIndicatorNodeIdentifier)))
+        // Add custom nss style for its content
+        // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+    }
+}

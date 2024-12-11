@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -22,6 +23,8 @@ struct AnySubAttributeStyle: SubAttributeStyle {
 }
 
 public struct SubAttributeConfiguration {
+    public let subAttributeIdentifier = "FioriSubAttribute_subAttribute"
+
     public let subAttribute: SubAttribute
 
     public typealias SubAttribute = ConfigurationViewWrapper

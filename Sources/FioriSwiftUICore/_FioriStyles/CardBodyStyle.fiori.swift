@@ -32,6 +32,18 @@ public struct CardBodyFioriStyle: CardBodyStyle {
     }
 }
 
+// Default nss styles
+public struct CardBodyNSSStyle: CardBodyStyle {
+    var data: NSSStyleData
+
+    public func makeBody(_ configuration: CardBodyConfiguration) -> some View {
+        CardBody(configuration)
+            .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.data.value(configuration.cardBodyIdentifier)))
+        // Add custom nss style for its content
+        // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+    }
+}
+
 #Preview {
     CardBody {
         Text("Card Body Placeholder")

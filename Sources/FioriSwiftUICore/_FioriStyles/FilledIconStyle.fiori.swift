@@ -28,3 +28,15 @@ public struct FilledIconFioriStyle: FilledIconStyle {
         FilledIcon(configuration)
     }
 }
+
+// Default nss styles
+public struct FilledIconNSSStyle: FilledIconStyle {
+    var data: NSSStyleData
+
+    public func makeBody(_ configuration: FilledIconConfiguration) -> some View {
+        FilledIcon(configuration)
+            .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.data.value(configuration.filledIconIdentifier)))
+        // Add custom nss style for its content
+        // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+    }
+}

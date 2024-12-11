@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -22,6 +23,8 @@ struct AnyReviewCountLabelStyle: ReviewCountLabelStyle {
 }
 
 public struct ReviewCountLabelConfiguration {
+    public let reviewCountLabelIdentifier = "FioriReviewCountLabel_reviewCountLabel"
+
     public let reviewCountLabel: ReviewCountLabel
 
     public typealias ReviewCountLabel = ConfigurationViewWrapper

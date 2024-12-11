@@ -292,6 +292,68 @@ extension CardFooterFioriStyle {
     }
 }
 
+// Default nss styles
+extension CardFooterNSSStyle {
+    struct ContentNSSStyle: CardFooterStyle {
+        let cardFooterConfiguration: CardFooterConfiguration
+        let nssData: NSSStyleData
+        func makeBody(_ configuration: CardFooterConfiguration) -> some View {
+            CardFooter(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for its content
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct ActionNSSStyle: ActionStyle {
+        let cardFooterConfiguration: CardFooterConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: ActionConfiguration) -> some View {
+            Action(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Action
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct SecondaryActionNSSStyle: SecondaryActionStyle {
+        let cardFooterConfiguration: CardFooterConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: SecondaryActionConfiguration) -> some View {
+            SecondaryAction(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for SecondaryAction
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct TertiaryActionNSSStyle: TertiaryActionStyle {
+        let cardFooterConfiguration: CardFooterConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: TertiaryActionConfiguration) -> some View {
+            TertiaryAction(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for TertiaryAction
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct OverflowActionNSSStyle: OverflowActionStyle {
+        let cardFooterConfiguration: CardFooterConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: OverflowActionConfiguration) -> some View {
+            OverflowAction(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for OverflowAction
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+}
+
 #Preview("P") {
     CardFooter(action: FioriButton(title: "Primary"), overflowAction: FioriButton(title: "Overflow"))
 }

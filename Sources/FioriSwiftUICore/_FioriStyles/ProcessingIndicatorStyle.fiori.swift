@@ -45,3 +45,29 @@ extension ProcessingIndicatorFioriStyle {
         }
     }
 }
+
+// Default nss styles
+extension ProcessingIndicatorNSSStyle {
+    struct ContentNSSStyle: ProcessingIndicatorStyle {
+        let processingIndicatorConfiguration: ProcessingIndicatorConfiguration
+        let nssData: NSSStyleData
+        func makeBody(_ configuration: ProcessingIndicatorConfiguration) -> some View {
+            ProcessingIndicator(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for its content
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct OptionalTitleNSSStyle: OptionalTitleStyle {
+        let processingIndicatorConfiguration: ProcessingIndicatorConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: OptionalTitleConfiguration) -> some View {
+            OptionalTitle(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for OptionalTitle
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+}

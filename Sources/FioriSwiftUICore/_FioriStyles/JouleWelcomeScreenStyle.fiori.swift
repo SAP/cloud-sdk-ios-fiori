@@ -105,6 +105,80 @@ extension JouleWelcomeScreenFioriStyle {
     }
 }
 
+// Default nss styles
+extension JouleWelcomeScreenNSSStyle {
+    struct ContentNSSStyle: JouleWelcomeScreenStyle {
+        let jouleWelcomeScreenConfiguration: JouleWelcomeScreenConfiguration
+        let nssData: NSSStyleData
+        func makeBody(_ configuration: JouleWelcomeScreenConfiguration) -> some View {
+            JouleWelcomeScreen(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for its content
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct MediaImageNSSStyle: MediaImageStyle {
+        let jouleWelcomeScreenConfiguration: JouleWelcomeScreenConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: MediaImageConfiguration) -> some View {
+            MediaImage(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for MediaImage
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct GreetingTextNSSStyle: GreetingTextStyle {
+        let jouleWelcomeScreenConfiguration: JouleWelcomeScreenConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: GreetingTextConfiguration) -> some View {
+            GreetingText(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for GreetingText
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct TitleNSSStyle: TitleStyle {
+        let jouleWelcomeScreenConfiguration: JouleWelcomeScreenConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: TitleConfiguration) -> some View {
+            Title(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Title
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct FootnoteNSSStyle: FootnoteStyle {
+        let jouleWelcomeScreenConfiguration: JouleWelcomeScreenConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: FootnoteConfiguration) -> some View {
+            Footnote(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Footnote
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct MessageContentNSSStyle: MessageContentStyle {
+        let jouleWelcomeScreenConfiguration: JouleWelcomeScreenConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: MessageContentConfiguration) -> some View {
+            MessageContent(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for MessageContent
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+}
+
 #Preview(body: {
     JouleWelcomeScreen(mediaImage: {
         Image(systemName: "calendar")

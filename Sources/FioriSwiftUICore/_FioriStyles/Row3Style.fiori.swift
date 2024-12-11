@@ -30,3 +30,15 @@ public struct Row3FioriStyle: Row3Style {
         // .font(.fiori(forTextStyle: <#fiori font#>))
     }
 }
+
+// Default nss styles
+public struct Row3NSSStyle: Row3Style {
+    var data: NSSStyleData
+
+    public func makeBody(_ configuration: Row3Configuration) -> some View {
+        Row3(configuration)
+            .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.data.value(configuration.row3Identifier)))
+        // Add custom nss style for its content
+        // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+    }
+}

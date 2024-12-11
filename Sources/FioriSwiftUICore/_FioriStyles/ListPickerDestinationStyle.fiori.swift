@@ -81,6 +81,104 @@ extension ListPickerDestinationFioriStyle {
     }
 }
 
+// Default nss styles
+extension ListPickerDestinationNSSStyle {
+    struct ContentNSSStyle: ListPickerDestinationStyle {
+        let listPickerDestinationConfiguration: ListPickerDestinationConfiguration
+        let nssData: NSSStyleData
+        func makeBody(_ configuration: ListPickerDestinationConfiguration) -> some View {
+            ListPickerDestination(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for its content
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct CancelActionNSSStyle: CancelActionStyle {
+        let listPickerDestinationConfiguration: ListPickerDestinationConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: CancelActionConfiguration) -> some View {
+            CancelAction(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for CancelAction
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct ApplyActionNSSStyle: ApplyActionStyle {
+        let listPickerDestinationConfiguration: ListPickerDestinationConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: ApplyActionConfiguration) -> some View {
+            ApplyAction(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for ApplyAction
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct SelectedEntriesSectionTitleNSSStyle: SelectedEntriesSectionTitleStyle {
+        let listPickerDestinationConfiguration: ListPickerDestinationConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: SelectedEntriesSectionTitleConfiguration) -> some View {
+            SelectedEntriesSectionTitle(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for SelectedEntriesSectionTitle
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct SelectAllActionNSSStyle: SelectAllActionStyle {
+        let listPickerDestinationConfiguration: ListPickerDestinationConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: SelectAllActionConfiguration) -> some View {
+            SelectAllAction(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for SelectAllAction
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct DeselectAllActionNSSStyle: DeselectAllActionStyle {
+        let listPickerDestinationConfiguration: ListPickerDestinationConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: DeselectAllActionConfiguration) -> some View {
+            DeselectAllAction(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for DeselectAllAction
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct AllEntriesSectionTitleNSSStyle: AllEntriesSectionTitleStyle {
+        let listPickerDestinationConfiguration: ListPickerDestinationConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: AllEntriesSectionTitleConfiguration) -> some View {
+            AllEntriesSectionTitle(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for AllEntriesSectionTitle
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct ListPickerContentNSSStyle: ListPickerContentStyle {
+        let listPickerDestinationConfiguration: ListPickerDestinationConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: ListPickerContentConfiguration) -> some View {
+            ListPickerContent(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for ListPickerContent
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+}
+
 struct ListPickerDestinationButtonStyle: FioriButtonStyle {
     enum ButtonPosition {
         case navigation

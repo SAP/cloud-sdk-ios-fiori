@@ -55,6 +55,56 @@ extension LinearProgressIndicatorViewFioriStyle {
     }
 }
 
+// Default nss styles
+extension LinearProgressIndicatorViewNSSStyle {
+    struct ContentNSSStyle: LinearProgressIndicatorViewStyle {
+        let linearProgressIndicatorViewConfiguration: LinearProgressIndicatorViewConfiguration
+        let nssData: NSSStyleData
+        func makeBody(_ configuration: LinearProgressIndicatorViewConfiguration) -> some View {
+            LinearProgressIndicatorView(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for its content
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct LinearProgressIndicatorNSSStyle: LinearProgressIndicatorStyle {
+        let linearProgressIndicatorViewConfiguration: LinearProgressIndicatorViewConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: LinearProgressIndicatorConfiguration) -> some View {
+            LinearProgressIndicator(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for LinearProgressIndicator
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct IconNSSStyle: IconStyle {
+        let linearProgressIndicatorViewConfiguration: LinearProgressIndicatorViewConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: IconConfiguration) -> some View {
+            Icon(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Icon
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct DescriptionNSSStyle: DescriptionStyle {
+        let linearProgressIndicatorViewConfiguration: LinearProgressIndicatorViewConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: DescriptionConfiguration) -> some View {
+            Description(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Description
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+}
+
 /// Error style
 public struct LinearProgressIndicatorViewErrorStyle: LinearProgressIndicatorViewStyle {
     public func makeBody(_ configuration: LinearProgressIndicatorViewConfiguration) -> some View {

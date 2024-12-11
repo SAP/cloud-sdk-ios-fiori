@@ -44,6 +44,7 @@ import SwiftUI
 // sourcery:end
 
 // sourcery:file:SupportingFiles/ComponentStyleProtocol+Extension
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -77,6 +78,7 @@ import SwiftUI
 // sourcery:end
 
 // sourcery:file:StyleableComponents/<%= component.componentName %>/<%= component.styleProtocolName %>
+import FioriThemeManager
 import Foundation
 import SwiftUI
 

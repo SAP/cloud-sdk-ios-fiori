@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -22,6 +23,10 @@ struct AnyMenuSelectionItemStyle: MenuSelectionItemStyle {
 }
 
 public struct MenuSelectionItemConfiguration {
+    public let contentIdentifier = "FioriMenuSelectionItem_content"
+    public let iconIdentifier = "FioriMenuSelectionItem_icon"
+    public let titleIdentifier = "FioriMenuSelectionItem_title"
+
     public let icon: Icon
     public let title: Title
     public let action: (() -> Void)?
@@ -35,5 +40,16 @@ public struct MenuSelectionItemFioriStyle: MenuSelectionItemStyle {
         MenuSelectionItem(configuration)
             .iconStyle(IconFioriStyle(menuSelectionItemConfiguration: configuration))
             .titleStyle(TitleFioriStyle(menuSelectionItemConfiguration: configuration))
+    }
+}
+
+public struct MenuSelectionItemNSSStyle: MenuSelectionItemStyle {
+    var data: NSSStyleData
+
+    public func makeBody(_ configuration: MenuSelectionItemConfiguration) -> some View {
+        MenuSelectionItem(configuration)
+            .iconStyle(IconNSSStyle(menuSelectionItemConfiguration: configuration, nssData: self.data.value(configuration.iconIdentifier)))
+            .titleStyle(TitleNSSStyle(menuSelectionItemConfiguration: configuration, nssData: self.data.value(configuration.titleIdentifier)))
+            .menuSelectionItemStyle(ContentNSSStyle(menuSelectionItemConfiguration: configuration, nssData: self.data.value(configuration.contentIdentifier)))
     }
 }

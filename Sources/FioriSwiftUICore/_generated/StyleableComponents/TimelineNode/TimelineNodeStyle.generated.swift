@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -22,6 +23,8 @@ struct AnyTimelineNodeStyle: TimelineNodeStyle {
 }
 
 public struct TimelineNodeConfiguration {
+    public let timelineNodeIdentifier = "FioriTimelineNode_timelineNode"
+
     public let timelineNode: TimelineNode
 
     public typealias TimelineNode = ConfigurationViewWrapper

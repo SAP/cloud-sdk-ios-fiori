@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -22,5 +23,7 @@ struct AnyTextViewStyle: TextViewStyle {
 }
 
 public struct TextViewConfiguration {
+    public let textViewIdentifier = "FioriTextView_content"
+
     @Binding public var text: String
 }

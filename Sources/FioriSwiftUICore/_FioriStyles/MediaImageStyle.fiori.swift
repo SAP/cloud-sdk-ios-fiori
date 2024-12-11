@@ -28,3 +28,15 @@ public struct MediaImageFioriStyle: MediaImageStyle {
         // .font(.fiori(forTextStyle: <#fiori font#>))
     }
 }
+
+// Default nss styles
+public struct MediaImageNSSStyle: MediaImageStyle {
+    var data: NSSStyleData
+
+    public func makeBody(_ configuration: MediaImageConfiguration) -> some View {
+        MediaImage(configuration)
+            .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.data.value(configuration.mediaImageIdentifier)))
+        // Add custom nss style for its content
+        // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+    }
+}

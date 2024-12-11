@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -22,6 +23,13 @@ struct AnyTimelineMarkerStyle: TimelineMarkerStyle {
 }
 
 public struct TimelineMarkerConfiguration {
+    public let contentIdentifier = "FioriTimelineMarker_content"
+    public let timestampIdentifier = "FioriTimelineMarker_timestamp"
+    public let secondaryTimestampIdentifier = "FioriTimelineMarker_secondaryTimestamp"
+    public let timelineNodeIdentifier = "FioriTimelineMarker_timelineNode"
+    public let iconIdentifier = "FioriTimelineMarker_icon"
+    public let titleIdentifier = "FioriTimelineMarker_title"
+
     public let timestamp: Timestamp
     public let secondaryTimestamp: SecondaryTimestamp
     public let timelineNode: TimelineNode
@@ -47,5 +55,19 @@ public struct TimelineMarkerFioriStyle: TimelineMarkerStyle {
             .timelineNodeStyle(TimelineNodeFioriStyle(timelineMarkerConfiguration: configuration))
             .iconStyle(IconFioriStyle(timelineMarkerConfiguration: configuration))
             .titleStyle(TitleFioriStyle(timelineMarkerConfiguration: configuration))
+    }
+}
+
+public struct TimelineMarkerNSSStyle: TimelineMarkerStyle {
+    var data: NSSStyleData
+
+    public func makeBody(_ configuration: TimelineMarkerConfiguration) -> some View {
+        TimelineMarker(configuration)
+            .timestampStyle(TimestampNSSStyle(timelineMarkerConfiguration: configuration, nssData: self.data.value(configuration.timestampIdentifier)))
+            .secondaryTimestampStyle(SecondaryTimestampNSSStyle(timelineMarkerConfiguration: configuration, nssData: self.data.value(configuration.secondaryTimestampIdentifier)))
+            .timelineNodeStyle(TimelineNodeNSSStyle(timelineMarkerConfiguration: configuration, nssData: self.data.value(configuration.timelineNodeIdentifier)))
+            .iconStyle(IconNSSStyle(timelineMarkerConfiguration: configuration, nssData: self.data.value(configuration.iconIdentifier)))
+            .titleStyle(TitleNSSStyle(timelineMarkerConfiguration: configuration, nssData: self.data.value(configuration.titleIdentifier)))
+            .timelineMarkerStyle(ContentNSSStyle(timelineMarkerConfiguration: configuration, nssData: self.data.value(configuration.contentIdentifier)))
     }
 }

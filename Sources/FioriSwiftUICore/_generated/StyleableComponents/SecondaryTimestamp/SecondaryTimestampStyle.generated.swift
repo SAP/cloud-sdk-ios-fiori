@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -22,6 +23,8 @@ struct AnySecondaryTimestampStyle: SecondaryTimestampStyle {
 }
 
 public struct SecondaryTimestampConfiguration {
+    public let secondaryTimestampIdentifier = "FioriSecondaryTimestamp_secondaryTimestamp"
+
     public let secondaryTimestamp: SecondaryTimestamp
 
     public typealias SecondaryTimestamp = ConfigurationViewWrapper

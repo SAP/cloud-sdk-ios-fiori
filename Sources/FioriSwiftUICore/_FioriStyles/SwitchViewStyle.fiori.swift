@@ -51,3 +51,41 @@ extension SwitchViewFioriStyle {
         }
     }
 }
+
+// Default nss styles
+extension SwitchViewNSSStyle {
+    struct ContentNSSStyle: SwitchViewStyle {
+        let switchViewConfiguration: SwitchViewConfiguration
+        let nssData: NSSStyleData
+        func makeBody(_ configuration: SwitchViewConfiguration) -> some View {
+            SwitchView(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for its content
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct TitleNSSStyle: TitleStyle {
+        let switchViewConfiguration: SwitchViewConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: TitleConfiguration) -> some View {
+            Title(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Title
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct SwitchNSSStyle: SwitchStyle {
+        let switchViewConfiguration: SwitchViewConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: SwitchConfiguration) -> some View {
+            Switch(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Switch
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+}

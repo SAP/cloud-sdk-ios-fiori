@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -22,6 +23,8 @@ struct AnyListPickerContentStyle: ListPickerContentStyle {
 }
 
 public struct ListPickerContentConfiguration {
+    public let listPickerContentIdentifier = "FioriListPickerContent_listPickerContent"
+
     public let listPickerContent: ListPickerContent
 
     public typealias ListPickerContent = ConfigurationViewWrapper

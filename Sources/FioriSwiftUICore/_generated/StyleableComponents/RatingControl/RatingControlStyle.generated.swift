@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -22,6 +23,13 @@ struct AnyRatingControlStyle: RatingControlStyle {
 }
 
 public struct RatingControlConfiguration {
+    public let contentIdentifier = "FioriRatingControl_content"
+    public let valueLabelIdentifier = "FioriRatingControl_valueLabel"
+    public let onStarImageIdentifier = "FioriRatingControl_onStarImage"
+    public let offStarImageIdentifier = "FioriRatingControl_offStarImage"
+    public let halfStarImageIdentifier = "FioriRatingControl_halfStarImage"
+    public let reviewCountLabelIdentifier = "FioriRatingControl_reviewCountLabel"
+
     public let valueLabel: ValueLabel
     public let onStarImage: OnStarImage
     public let offStarImage: OffStarImage
@@ -57,5 +65,19 @@ public struct RatingControlFioriStyle: RatingControlStyle {
             .offStarImageStyle(OffStarImageFioriStyle(ratingControlConfiguration: configuration))
             .halfStarImageStyle(HalfStarImageFioriStyle(ratingControlConfiguration: configuration))
             .reviewCountLabelStyle(ReviewCountLabelFioriStyle(ratingControlConfiguration: configuration))
+    }
+}
+
+public struct RatingControlNSSStyle: RatingControlStyle {
+    var data: NSSStyleData
+
+    public func makeBody(_ configuration: RatingControlConfiguration) -> some View {
+        RatingControl(configuration)
+            .valueLabelStyle(ValueLabelNSSStyle(ratingControlConfiguration: configuration, nssData: self.data.value(configuration.valueLabelIdentifier)))
+            .onStarImageStyle(OnStarImageNSSStyle(ratingControlConfiguration: configuration, nssData: self.data.value(configuration.onStarImageIdentifier)))
+            .offStarImageStyle(OffStarImageNSSStyle(ratingControlConfiguration: configuration, nssData: self.data.value(configuration.offStarImageIdentifier)))
+            .halfStarImageStyle(HalfStarImageNSSStyle(ratingControlConfiguration: configuration, nssData: self.data.value(configuration.halfStarImageIdentifier)))
+            .reviewCountLabelStyle(ReviewCountLabelNSSStyle(ratingControlConfiguration: configuration, nssData: self.data.value(configuration.reviewCountLabelIdentifier)))
+            .ratingControlStyle(ContentNSSStyle(ratingControlConfiguration: configuration, nssData: self.data.value(configuration.contentIdentifier)))
     }
 }

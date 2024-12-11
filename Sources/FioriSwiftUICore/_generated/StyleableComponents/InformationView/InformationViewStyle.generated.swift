@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -22,6 +23,10 @@ struct AnyInformationViewStyle: InformationViewStyle {
 }
 
 public struct InformationViewConfiguration {
+    public let contentIdentifier = "FioriInformationView_content"
+    public let iconIdentifier = "FioriInformationView_icon"
+    public let descriptionIdentifier = "FioriInformationView_description"
+
     public let icon: Icon
     public let description: Description
 
@@ -34,5 +39,16 @@ public struct InformationViewFioriStyle: InformationViewStyle {
         InformationView(configuration)
             .iconStyle(IconFioriStyle(informationViewConfiguration: configuration))
             .descriptionStyle(DescriptionFioriStyle(informationViewConfiguration: configuration))
+    }
+}
+
+public struct InformationViewNSSStyle: InformationViewStyle {
+    var data: NSSStyleData
+
+    public func makeBody(_ configuration: InformationViewConfiguration) -> some View {
+        InformationView(configuration)
+            .iconStyle(IconNSSStyle(informationViewConfiguration: configuration, nssData: self.data.value(configuration.iconIdentifier)))
+            .descriptionStyle(DescriptionNSSStyle(informationViewConfiguration: configuration, nssData: self.data.value(configuration.descriptionIdentifier)))
+            .informationViewStyle(ContentNSSStyle(informationViewConfiguration: configuration, nssData: self.data.value(configuration.contentIdentifier)))
     }
 }

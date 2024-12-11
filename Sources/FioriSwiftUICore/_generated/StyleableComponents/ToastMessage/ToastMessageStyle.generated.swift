@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -22,6 +23,10 @@ struct AnyToastMessageStyle: ToastMessageStyle {
 }
 
 public struct ToastMessageConfiguration {
+    public let contentIdentifier = "FioriToastMessage_content"
+    public let iconIdentifier = "FioriToastMessage_icon"
+    public let titleIdentifier = "FioriToastMessage_title"
+
     public let icon: Icon
     public let title: Title
     public let duration: Double
@@ -35,5 +40,16 @@ public struct ToastMessageFioriStyle: ToastMessageStyle {
         ToastMessage(configuration)
             .iconStyle(IconFioriStyle(toastMessageConfiguration: configuration))
             .titleStyle(TitleFioriStyle(toastMessageConfiguration: configuration))
+    }
+}
+
+public struct ToastMessageNSSStyle: ToastMessageStyle {
+    var data: NSSStyleData
+
+    public func makeBody(_ configuration: ToastMessageConfiguration) -> some View {
+        ToastMessage(configuration)
+            .iconStyle(IconNSSStyle(toastMessageConfiguration: configuration, nssData: self.data.value(configuration.iconIdentifier)))
+            .titleStyle(TitleNSSStyle(toastMessageConfiguration: configuration, nssData: self.data.value(configuration.titleIdentifier)))
+            .toastMessageStyle(ContentNSSStyle(toastMessageConfiguration: configuration, nssData: self.data.value(configuration.contentIdentifier)))
     }
 }

@@ -18,3 +18,15 @@ public struct HalfStarImageFioriStyle: HalfStarImageStyle {
         HalfStarImage(configuration)
     }
 }
+
+// Default nss styles
+public struct HalfStarImageNSSStyle: HalfStarImageStyle {
+    var data: NSSStyleData
+
+    public func makeBody(_ configuration: HalfStarImageConfiguration) -> some View {
+        HalfStarImage(configuration)
+            .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.data.value(configuration.halfStarImageIdentifier)))
+        // Add custom nss style for its content
+        // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+    }
+}

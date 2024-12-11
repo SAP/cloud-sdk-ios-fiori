@@ -134,3 +134,65 @@ extension DateTimePickerFioriStyle {
         }
     }
 }
+
+// Default nss styles
+extension DateTimePickerNSSStyle {
+    struct ContentNSSStyle: DateTimePickerStyle {
+        let dateTimePickerConfiguration: DateTimePickerConfiguration
+        let nssData: NSSStyleData
+        func makeBody(_ configuration: DateTimePickerConfiguration) -> some View {
+            DateTimePicker(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for its content
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct TitleNSSStyle: TitleStyle {
+        let dateTimePickerConfiguration: DateTimePickerConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: TitleConfiguration) -> some View {
+            Title(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Title
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct ValueLabelNSSStyle: ValueLabelStyle {
+        let dateTimePickerConfiguration: DateTimePickerConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: ValueLabelConfiguration) -> some View {
+            ValueLabel(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for ValueLabel
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct MandatoryFieldIndicatorNSSStyle: MandatoryFieldIndicatorStyle {
+        let dateTimePickerConfiguration: DateTimePickerConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: MandatoryFieldIndicatorConfiguration) -> some View {
+            MandatoryFieldIndicator(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for MandatoryFieldIndicator
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct FormViewNSSStyle: FormViewStyle {
+        let dateTimePickerConfiguration: DateTimePickerConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: FormViewConfiguration) -> some View {
+            FormView(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for FormView
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+}

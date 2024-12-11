@@ -84,6 +84,80 @@ extension DemoViewFioriStyle {
     }
 }
 
+// Default nss styles
+extension DemoViewNSSStyle {
+    struct ContentNSSStyle: DemoViewStyle {
+        let demoViewConfiguration: DemoViewConfiguration
+        let nssData: NSSStyleData
+        func makeBody(_ configuration: DemoViewConfiguration) -> some View {
+            DemoView(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for its content
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct TitleNSSStyle: TitleStyle {
+        let demoViewConfiguration: DemoViewConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: TitleConfiguration) -> some View {
+            Title(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Title
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct SubtitleNSSStyle: SubtitleStyle {
+        let demoViewConfiguration: DemoViewConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: SubtitleConfiguration) -> some View {
+            Subtitle(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Subtitle
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct StatusNSSStyle: StatusStyle {
+        let demoViewConfiguration: DemoViewConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: StatusConfiguration) -> some View {
+            Status(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Status
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct ActionNSSStyle: ActionStyle {
+        let demoViewConfiguration: DemoViewConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: ActionConfiguration) -> some View {
+            Action(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Action
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct SwitchNSSStyle: SwitchStyle {
+        let demoViewConfiguration: DemoViewConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: SwitchConfiguration) -> some View {
+            Switch(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Switch
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+}
+
 /// Show contents in a scrollable horizontal stack
 struct DemoViewHorizontalStyle: DemoViewStyle {
     public func makeBody(_ configuration: DemoViewConfiguration) -> some View {

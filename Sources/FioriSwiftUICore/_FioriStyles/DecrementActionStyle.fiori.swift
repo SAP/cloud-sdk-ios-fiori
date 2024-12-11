@@ -66,3 +66,15 @@ public extension DecrementActionStyle where Self == DecrementActionDeactivateSty
         DecrementActionDeactivateStyle()
     }
 }
+
+// Default nss styles
+public struct DecrementActionNSSStyle: DecrementActionStyle {
+    var data: NSSStyleData
+
+    public func makeBody(_ configuration: DecrementActionConfiguration) -> some View {
+        DecrementAction(configuration)
+            .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.data.value(configuration.decrementActionIdentifier)))
+        // Add custom nss style for its content
+        // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+    }
+}

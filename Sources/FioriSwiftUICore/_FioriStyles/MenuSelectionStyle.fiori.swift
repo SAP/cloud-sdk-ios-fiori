@@ -76,6 +76,32 @@ extension MenuSelectionFioriStyle {
     }
 }
 
+// Default nss styles
+extension MenuSelectionNSSStyle {
+    struct ContentNSSStyle: MenuSelectionStyle {
+        let menuSelectionConfiguration: MenuSelectionConfiguration
+        let nssData: NSSStyleData
+        func makeBody(_ configuration: MenuSelectionConfiguration) -> some View {
+            MenuSelection(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for its content
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct ActionNSSStyle: ActionStyle {
+        let menuSelectionConfiguration: MenuSelectionConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: ActionConfiguration) -> some View {
+            Action(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Action
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+}
+
 #Preview(body: {
     MenuSelection(isExpanded: .constant(false)) {
         ForEach(0 ..< 10) {

@@ -662,6 +662,176 @@ extension ObjectItemFioriStyle {
     }
 }
 
+// Default nss styles
+extension ObjectItemNSSStyle {
+    struct ContentNSSStyle: ObjectItemStyle {
+        let objectItemConfiguration: ObjectItemConfiguration
+        let nssData: NSSStyleData
+        func makeBody(_ configuration: ObjectItemConfiguration) -> some View {
+            ObjectItem(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for its content
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct TitleNSSStyle: TitleStyle {
+        let objectItemConfiguration: ObjectItemConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: TitleConfiguration) -> some View {
+            Title(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Title
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct SubtitleNSSStyle: SubtitleStyle {
+        let objectItemConfiguration: ObjectItemConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: SubtitleConfiguration) -> some View {
+            Subtitle(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Subtitle
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct FootnoteNSSStyle: FootnoteStyle {
+        let objectItemConfiguration: ObjectItemConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: FootnoteConfiguration) -> some View {
+            Footnote(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Footnote
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct DescriptionNSSStyle: DescriptionStyle {
+        let objectItemConfiguration: ObjectItemConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: DescriptionConfiguration) -> some View {
+            Description(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Description
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct StatusNSSStyle: StatusStyle {
+        let objectItemConfiguration: ObjectItemConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: StatusConfiguration) -> some View {
+            Status(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Status
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct SubstatusNSSStyle: SubstatusStyle {
+        let objectItemConfiguration: ObjectItemConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: SubstatusConfiguration) -> some View {
+            Substatus(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Substatus
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct DetailImageNSSStyle: DetailImageStyle {
+        let objectItemConfiguration: ObjectItemConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: DetailImageConfiguration) -> some View {
+            DetailImage(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for DetailImage
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct IconsNSSStyle: IconsStyle {
+        let objectItemConfiguration: ObjectItemConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: IconsConfiguration) -> some View {
+            Icons(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Icons
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct AvatarsNSSStyle: AvatarsStyle {
+        let objectItemConfiguration: ObjectItemConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: AvatarsConfiguration) -> some View {
+            Avatars(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Avatars
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct FootnoteIconsNSSStyle: FootnoteIconsStyle {
+        let objectItemConfiguration: ObjectItemConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: FootnoteIconsConfiguration) -> some View {
+            FootnoteIcons(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for FootnoteIcons
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct FootnoteIconsTextNSSStyle: FootnoteIconsTextStyle {
+        let objectItemConfiguration: ObjectItemConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: FootnoteIconsTextConfiguration) -> some View {
+            FootnoteIconsText(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for FootnoteIconsText
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct TagsNSSStyle: TagsStyle {
+        let objectItemConfiguration: ObjectItemConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: TagsConfiguration) -> some View {
+            Tags(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Tags
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct ActionNSSStyle: ActionStyle {
+        let objectItemConfiguration: ObjectItemConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: ActionConfiguration) -> some View {
+            Action(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Action
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+}
+
 /// Card style
 public struct ObjectItemCardStyle: ObjectItemStyle {
     public func makeBody(_ configuration: ObjectItemConfiguration) -> some View {

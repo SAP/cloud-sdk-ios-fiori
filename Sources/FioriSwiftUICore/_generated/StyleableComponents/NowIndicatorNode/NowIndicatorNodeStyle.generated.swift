@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -22,6 +23,8 @@ struct AnyNowIndicatorNodeStyle: NowIndicatorNodeStyle {
 }
 
 public struct NowIndicatorNodeConfiguration {
+    public let nowIndicatorNodeIdentifier = "FioriNowIndicatorNode_nowIndicatorNode"
+
     public let nowIndicatorNode: NowIndicatorNode
 
     public typealias NowIndicatorNode = ConfigurationViewWrapper

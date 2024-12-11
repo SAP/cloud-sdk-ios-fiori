@@ -396,3 +396,41 @@ extension BannerMultiMessageSheetFioriStyle {
         }
     }
 }
+
+// Default nss styles
+extension BannerMultiMessageSheetNSSStyle {
+    struct ContentNSSStyle: BannerMultiMessageSheetStyle {
+        let bannerMultiMessageSheetConfiguration: BannerMultiMessageSheetConfiguration
+        let nssData: NSSStyleData
+        func makeBody(_ configuration: BannerMultiMessageSheetConfiguration) -> some View {
+            BannerMultiMessageSheet(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for its content
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct TitleNSSStyle: TitleStyle {
+        let bannerMultiMessageSheetConfiguration: BannerMultiMessageSheetConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: TitleConfiguration) -> some View {
+            Title(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Title
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct CloseActionNSSStyle: CloseActionStyle {
+        let bannerMultiMessageSheetConfiguration: BannerMultiMessageSheetConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: CloseActionConfiguration) -> some View {
+            CloseAction(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for CloseAction
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+}

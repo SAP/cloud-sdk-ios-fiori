@@ -26,3 +26,15 @@ public struct TitleFioriStyle: TitleStyle {
             .font(.fiori(forTextStyle: .headline))
     }
 }
+
+// Default nss styles
+public struct TitleNSSStyle: TitleStyle {
+    var data: NSSStyleData
+
+    public func makeBody(_ configuration: TitleConfiguration) -> some View {
+        Title(configuration)
+            .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.data.value(configuration.titleIdentifier)))
+        // Add custom nss style for its content
+        // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+    }
+}

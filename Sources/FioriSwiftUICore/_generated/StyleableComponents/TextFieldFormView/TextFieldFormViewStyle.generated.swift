@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -22,6 +23,13 @@ struct AnyTextFieldFormViewStyle: TextFieldFormViewStyle {
 }
 
 public struct TextFieldFormViewConfiguration {
+    public let contentIdentifier = "FioriTextFieldFormView_content"
+    public let titleIdentifier = "FioriTextFieldFormView_title"
+    public let textInputFieldIdentifier = "FioriTextFieldFormView_textInputField"
+    public let placeholderIdentifier = "FioriTextFieldFormView_placeholder"
+    public let mandatoryFieldIndicatorIdentifier = "FioriTextFieldFormView_mandatoryFieldIndicator"
+    public let titleFormViewIdentifier = "FioriTextFieldFormView_titleFormView"
+
     public let title: Title
     @Binding public var text: String
     public let placeholder: Placeholder
@@ -53,5 +61,19 @@ public struct TextFieldFormViewFioriStyle: TextFieldFormViewStyle {
             .placeholderStyle(PlaceholderFioriStyle(textFieldFormViewConfiguration: configuration))
             .mandatoryFieldIndicatorStyle(MandatoryFieldIndicatorFioriStyle(textFieldFormViewConfiguration: configuration))
             .titleFormViewStyle(TitleFormViewFioriStyle(textFieldFormViewConfiguration: configuration))
+    }
+}
+
+public struct TextFieldFormViewNSSStyle: TextFieldFormViewStyle {
+    var data: NSSStyleData
+
+    public func makeBody(_ configuration: TextFieldFormViewConfiguration) -> some View {
+        TextFieldFormView(configuration)
+            .titleStyle(TitleNSSStyle(textFieldFormViewConfiguration: configuration, nssData: self.data.value(configuration.titleIdentifier)))
+            .textInputFieldStyle(TextInputFieldNSSStyle(textFieldFormViewConfiguration: configuration, nssData: self.data.value(configuration.textInputFieldIdentifier)))
+            .placeholderStyle(PlaceholderNSSStyle(textFieldFormViewConfiguration: configuration, nssData: self.data.value(configuration.placeholderIdentifier)))
+            .mandatoryFieldIndicatorStyle(MandatoryFieldIndicatorNSSStyle(textFieldFormViewConfiguration: configuration, nssData: self.data.value(configuration.mandatoryFieldIndicatorIdentifier)))
+            .titleFormViewStyle(TitleFormViewNSSStyle(textFieldFormViewConfiguration: configuration, nssData: self.data.value(configuration.titleFormViewIdentifier)))
+            .textFieldFormViewStyle(ContentNSSStyle(textFieldFormViewConfiguration: configuration, nssData: self.data.value(configuration.contentIdentifier)))
     }
 }

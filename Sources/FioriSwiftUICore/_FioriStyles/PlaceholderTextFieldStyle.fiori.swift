@@ -65,3 +65,41 @@ extension PlaceholderTextFieldFioriStyle {
         }
     }
 }
+
+// Default nss styles
+extension PlaceholderTextFieldNSSStyle {
+    struct ContentNSSStyle: PlaceholderTextFieldStyle {
+        let placeholderTextFieldConfiguration: PlaceholderTextFieldConfiguration
+        let nssData: NSSStyleData
+        func makeBody(_ configuration: PlaceholderTextFieldConfiguration) -> some View {
+            PlaceholderTextField(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for its content
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct TextInputFieldNSSStyle: TextInputFieldStyle {
+        let placeholderTextFieldConfiguration: PlaceholderTextFieldConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: TextInputFieldConfiguration) -> some View {
+            TextInputField(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for TextInputField
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct PlaceholderNSSStyle: PlaceholderStyle {
+        let placeholderTextFieldConfiguration: PlaceholderTextFieldConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: PlaceholderConfiguration) -> some View {
+            Placeholder(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Placeholder
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+}

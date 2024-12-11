@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -22,6 +23,8 @@ struct AnyValueLabelStyle: ValueLabelStyle {
 }
 
 public struct ValueLabelConfiguration {
+    public let valueLabelIdentifier = "FioriValueLabel_valueLabel"
+
     public let valueLabel: ValueLabel
 
     public typealias ValueLabel = ConfigurationViewWrapper
