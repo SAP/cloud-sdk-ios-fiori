@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.3.1](https://github.com/SAP/cloud-sdk-ios-fiori/compare/4.3.0...4.3.1) (2024-12-12)
+
+
+### Bug Fixes
+
+* 🐛 [JIRA:0] FioriButton update for Menu ([#938](https://github.com/SAP/cloud-sdk-ios-fiori/issues/938)) ([5ddfddd](https://github.com/SAP/cloud-sdk-ios-fiori/commit/5ddfddd124cbabd3e2f52afbc64a91e5705c6572))
+
 ### [4.1.5](https://github.com/SAP/cloud-sdk-ios-fiori/compare/4.1.4...4.1.5) (2024-09-12)
 
 
