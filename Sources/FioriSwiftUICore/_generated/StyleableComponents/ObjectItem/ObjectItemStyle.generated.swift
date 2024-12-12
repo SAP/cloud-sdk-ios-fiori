@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -22,6 +23,21 @@ struct AnyObjectItemStyle: ObjectItemStyle {
 }
 
 public struct ObjectItemConfiguration {
+    public let contentIdentifier = "FioriObjectItem_content"
+    public let titleIdentifier = "FioriObjectItem_title"
+    public let subtitleIdentifier = "FioriObjectItem_subtitle"
+    public let footnoteIdentifier = "FioriObjectItem_footnote"
+    public let descriptionIdentifier = "FioriObjectItem_description"
+    public let statusIdentifier = "FioriObjectItem_status"
+    public let substatusIdentifier = "FioriObjectItem_substatus"
+    public let detailImageIdentifier = "FioriObjectItem_detailImage"
+    public let iconsIdentifier = "FioriObjectItem_icons"
+    public let avatarsIdentifier = "FioriObjectItem_avatars"
+    public let footnoteIconsIdentifier = "FioriObjectItem_footnoteIcons"
+    public let footnoteIconsTextIdentifier = "FioriObjectItem_footnoteIconsText"
+    public let tagsIdentifier = "FioriObjectItem_tags"
+    public let actionIdentifier = "FioriObjectItem_action"
+
     public let title: Title
     public let subtitle: Subtitle
     public let footnote: Footnote
@@ -69,5 +85,27 @@ public struct ObjectItemFioriStyle: ObjectItemStyle {
             .footnoteIconsTextStyle(FootnoteIconsTextFioriStyle(objectItemConfiguration: configuration))
             .tagsStyle(TagsFioriStyle(objectItemConfiguration: configuration))
             .actionStyle(ActionFioriStyle(objectItemConfiguration: configuration))
+    }
+}
+
+public struct ObjectItemNSSStyle: ObjectItemStyle {
+    var data: NSSStyleData
+
+    public func makeBody(_ configuration: ObjectItemConfiguration) -> some View {
+        ObjectItem(configuration)
+            .titleStyle(TitleNSSStyle(objectItemConfiguration: configuration, nssData: self.data.value(configuration.titleIdentifier)))
+            .subtitleStyle(SubtitleNSSStyle(objectItemConfiguration: configuration, nssData: self.data.value(configuration.subtitleIdentifier)))
+            .footnoteStyle(FootnoteNSSStyle(objectItemConfiguration: configuration, nssData: self.data.value(configuration.footnoteIdentifier)))
+            .descriptionStyle(DescriptionNSSStyle(objectItemConfiguration: configuration, nssData: self.data.value(configuration.descriptionIdentifier)))
+            .statusStyle(StatusNSSStyle(objectItemConfiguration: configuration, nssData: self.data.value(configuration.statusIdentifier)))
+            .substatusStyle(SubstatusNSSStyle(objectItemConfiguration: configuration, nssData: self.data.value(configuration.substatusIdentifier)))
+            .detailImageStyle(DetailImageNSSStyle(objectItemConfiguration: configuration, nssData: self.data.value(configuration.detailImageIdentifier)))
+            .iconsStyle(IconsNSSStyle(objectItemConfiguration: configuration, nssData: self.data.value(configuration.iconsIdentifier)))
+            .avatarsStyle(AvatarsNSSStyle(objectItemConfiguration: configuration, nssData: self.data.value(configuration.avatarsIdentifier)))
+            .footnoteIconsStyle(FootnoteIconsNSSStyle(objectItemConfiguration: configuration, nssData: self.data.value(configuration.footnoteIconsIdentifier)))
+            .footnoteIconsTextStyle(FootnoteIconsTextNSSStyle(objectItemConfiguration: configuration, nssData: self.data.value(configuration.footnoteIconsTextIdentifier)))
+            .tagsStyle(TagsNSSStyle(objectItemConfiguration: configuration, nssData: self.data.value(configuration.tagsIdentifier)))
+            .actionStyle(ActionNSSStyle(objectItemConfiguration: configuration, nssData: self.data.value(configuration.actionIdentifier)))
+            .objectItemStyle(ContentNSSStyle(objectItemConfiguration: configuration, nssData: self.data.value(configuration.contentIdentifier)))
     }
 }

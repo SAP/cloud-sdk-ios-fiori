@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -22,6 +23,8 @@ struct AnyFootnoteStyle: FootnoteStyle {
 }
 
 public struct FootnoteConfiguration {
+    public let footnoteIdentifier = "FioriFootnote_footnote"
+
     public let footnote: Footnote
 
     public typealias Footnote = ConfigurationViewWrapper

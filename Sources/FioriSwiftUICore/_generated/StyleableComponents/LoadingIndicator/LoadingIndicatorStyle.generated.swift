@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -22,6 +23,10 @@ struct AnyLoadingIndicatorStyle: LoadingIndicatorStyle {
 }
 
 public struct LoadingIndicatorConfiguration {
+    public let contentIdentifier = "FioriLoadingIndicator_content"
+    public let titleIdentifier = "FioriLoadingIndicator_title"
+    public let progressIdentifier = "FioriLoadingIndicator_progress"
+
     public let title: Title
     public let progress: Progress
     public let duration: Double
@@ -36,5 +41,16 @@ public struct LoadingIndicatorFioriStyle: LoadingIndicatorStyle {
         LoadingIndicator(configuration)
             .titleStyle(TitleFioriStyle(loadingIndicatorConfiguration: configuration))
             .progressStyle(ProgressFioriStyle(loadingIndicatorConfiguration: configuration))
+    }
+}
+
+public struct LoadingIndicatorNSSStyle: LoadingIndicatorStyle {
+    var data: NSSStyleData
+
+    public func makeBody(_ configuration: LoadingIndicatorConfiguration) -> some View {
+        LoadingIndicator(configuration)
+            .titleStyle(TitleNSSStyle(loadingIndicatorConfiguration: configuration, nssData: self.data.value(configuration.titleIdentifier)))
+            .progressStyle(ProgressNSSStyle(loadingIndicatorConfiguration: configuration, nssData: self.data.value(configuration.progressIdentifier)))
+            .loadingIndicatorStyle(ContentNSSStyle(loadingIndicatorConfiguration: configuration, nssData: self.data.value(configuration.contentIdentifier)))
     }
 }

@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -22,6 +23,18 @@ struct AnyTimelineStyle: TimelineStyle {
 }
 
 public struct TimelineConfiguration {
+    public let contentIdentifier = "FioriTimeline_content"
+    public let timestampIdentifier = "FioriTimeline_timestamp"
+    public let secondaryTimestampIdentifier = "FioriTimeline_secondaryTimestamp"
+    public let timelineNodeIdentifier = "FioriTimeline_timelineNode"
+    public let iconIdentifier = "FioriTimeline_icon"
+    public let titleIdentifier = "FioriTimeline_title"
+    public let subtitleIdentifier = "FioriTimeline_subtitle"
+    public let attributeIdentifier = "FioriTimeline_attribute"
+    public let statusIdentifier = "FioriTimeline_status"
+    public let substatusIdentifier = "FioriTimeline_substatus"
+    public let subAttributeIdentifier = "FioriTimeline_subAttribute"
+
     public let timestamp: Timestamp
     public let secondaryTimestamp: SecondaryTimestamp
     public let timelineNode: TimelineNode
@@ -60,5 +73,24 @@ public struct TimelineFioriStyle: TimelineStyle {
             .statusStyle(StatusFioriStyle(timelineConfiguration: configuration))
             .substatusStyle(SubstatusFioriStyle(timelineConfiguration: configuration))
             .subAttributeStyle(SubAttributeFioriStyle(timelineConfiguration: configuration))
+    }
+}
+
+public struct TimelineNSSStyle: TimelineStyle {
+    var data: NSSStyleData
+
+    public func makeBody(_ configuration: TimelineConfiguration) -> some View {
+        Timeline(configuration)
+            .timestampStyle(TimestampNSSStyle(timelineConfiguration: configuration, nssData: self.data.value(configuration.timestampIdentifier)))
+            .secondaryTimestampStyle(SecondaryTimestampNSSStyle(timelineConfiguration: configuration, nssData: self.data.value(configuration.secondaryTimestampIdentifier)))
+            .timelineNodeStyle(TimelineNodeNSSStyle(timelineConfiguration: configuration, nssData: self.data.value(configuration.timelineNodeIdentifier)))
+            .iconStyle(IconNSSStyle(timelineConfiguration: configuration, nssData: self.data.value(configuration.iconIdentifier)))
+            .titleStyle(TitleNSSStyle(timelineConfiguration: configuration, nssData: self.data.value(configuration.titleIdentifier)))
+            .subtitleStyle(SubtitleNSSStyle(timelineConfiguration: configuration, nssData: self.data.value(configuration.subtitleIdentifier)))
+            .attributeStyle(AttributeNSSStyle(timelineConfiguration: configuration, nssData: self.data.value(configuration.attributeIdentifier)))
+            .statusStyle(StatusNSSStyle(timelineConfiguration: configuration, nssData: self.data.value(configuration.statusIdentifier)))
+            .substatusStyle(SubstatusNSSStyle(timelineConfiguration: configuration, nssData: self.data.value(configuration.substatusIdentifier)))
+            .subAttributeStyle(SubAttributeNSSStyle(timelineConfiguration: configuration, nssData: self.data.value(configuration.subAttributeIdentifier)))
+            .timelineStyle(ContentNSSStyle(timelineConfiguration: configuration, nssData: self.data.value(configuration.contentIdentifier)))
     }
 }

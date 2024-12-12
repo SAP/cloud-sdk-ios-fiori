@@ -29,3 +29,17 @@ extension FormViewFioriStyle {
         }
     }
 }
+
+// Default nss styles
+extension FormViewNSSStyle {
+    struct ContentNSSStyle: FormViewStyle {
+        let formViewConfiguration: FormViewConfiguration
+        let nssData: NSSStyleData
+        func makeBody(_ configuration: FormViewConfiguration) -> some View {
+            FormView(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for its content
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+}

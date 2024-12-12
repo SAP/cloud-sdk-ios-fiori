@@ -61,3 +61,41 @@ extension PlaceholderTextEditorFioriStyle {
         }
     }
 }
+
+// Default nss styles
+extension PlaceholderTextEditorNSSStyle {
+    struct ContentNSSStyle: PlaceholderTextEditorStyle {
+        let placeholderTextEditorConfiguration: PlaceholderTextEditorConfiguration
+        let nssData: NSSStyleData
+        func makeBody(_ configuration: PlaceholderTextEditorConfiguration) -> some View {
+            PlaceholderTextEditor(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for its content
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct TextViewNSSStyle: TextViewStyle {
+        let placeholderTextEditorConfiguration: PlaceholderTextEditorConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: TextViewConfiguration) -> some View {
+            TextView(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for TextView
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct PlaceholderNSSStyle: PlaceholderStyle {
+        let placeholderTextEditorConfiguration: PlaceholderTextEditorConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: PlaceholderConfiguration) -> some View {
+            Placeholder(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Placeholder
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+}

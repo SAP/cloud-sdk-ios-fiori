@@ -18,3 +18,15 @@ public struct DeselectAllActionFioriStyle: DeselectAllActionStyle {
         DeselectAllAction(configuration)
     }
 }
+
+// Default nss styles
+public struct DeselectAllActionNSSStyle: DeselectAllActionStyle {
+    var data: NSSStyleData
+
+    public func makeBody(_ configuration: DeselectAllActionConfiguration) -> some View {
+        DeselectAllAction(configuration)
+            .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.data.value(configuration.deselectAllActionIdentifier)))
+        // Add custom nss style for its content
+        // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+    }
+}

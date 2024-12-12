@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -22,6 +23,10 @@ struct AnyLabelItemStyle: LabelItemStyle {
 }
 
 public struct LabelItemConfiguration {
+    public let contentIdentifier = "FioriLabelItem_content"
+    public let iconIdentifier = "FioriLabelItem_icon"
+    public let titleIdentifier = "FioriLabelItem_title"
+
     public let icon: Icon
     public let title: Title
     public let alignment: HorizontalAlignment?
@@ -35,5 +40,16 @@ public struct LabelItemFioriStyle: LabelItemStyle {
         LabelItem(configuration)
             .iconStyle(IconFioriStyle(labelItemConfiguration: configuration))
             .titleStyle(TitleFioriStyle(labelItemConfiguration: configuration))
+    }
+}
+
+public struct LabelItemNSSStyle: LabelItemStyle {
+    var data: NSSStyleData
+
+    public func makeBody(_ configuration: LabelItemConfiguration) -> some View {
+        LabelItem(configuration)
+            .iconStyle(IconNSSStyle(labelItemConfiguration: configuration, nssData: self.data.value(configuration.iconIdentifier)))
+            .titleStyle(TitleNSSStyle(labelItemConfiguration: configuration, nssData: self.data.value(configuration.titleIdentifier)))
+            .labelItemStyle(ContentNSSStyle(labelItemConfiguration: configuration, nssData: self.data.value(configuration.contentIdentifier)))
     }
 }

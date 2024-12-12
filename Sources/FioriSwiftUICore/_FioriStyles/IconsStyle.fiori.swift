@@ -24,3 +24,15 @@ public struct IconsFioriStyle: IconsStyle {
         Icons(configuration)
     }
 }
+
+// Default nss styles
+public struct IconsNSSStyle: IconsStyle {
+    var data: NSSStyleData
+
+    public func makeBody(_ configuration: IconsConfiguration) -> some View {
+        Icons(configuration)
+            .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.data.value(configuration.iconsIdentifier)))
+        // Add custom nss style for its content
+        // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+    }
+}

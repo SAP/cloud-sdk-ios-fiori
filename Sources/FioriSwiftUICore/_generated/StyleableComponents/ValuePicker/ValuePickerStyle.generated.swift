@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -22,6 +23,12 @@ struct AnyValuePickerStyle: ValuePickerStyle {
 }
 
 public struct ValuePickerConfiguration {
+    public let contentIdentifier = "FioriValuePicker_content"
+    public let titleIdentifier = "FioriValuePicker_title"
+    public let valueLabelIdentifier = "FioriValuePicker_valueLabel"
+    public let mandatoryFieldIndicatorIdentifier = "FioriValuePicker_mandatoryFieldIndicator"
+    public let optionsIdentifier = "FioriValuePicker_options"
+
     public let title: Title
     public let valueLabel: ValueLabel
     public let mandatoryFieldIndicator: MandatoryFieldIndicator
@@ -44,5 +51,18 @@ public struct ValuePickerFioriStyle: ValuePickerStyle {
             .valueLabelStyle(ValueLabelFioriStyle(valuePickerConfiguration: configuration))
             .mandatoryFieldIndicatorStyle(MandatoryFieldIndicatorFioriStyle(valuePickerConfiguration: configuration))
             .optionsStyle(OptionsFioriStyle(valuePickerConfiguration: configuration))
+    }
+}
+
+public struct ValuePickerNSSStyle: ValuePickerStyle {
+    var data: NSSStyleData
+
+    public func makeBody(_ configuration: ValuePickerConfiguration) -> some View {
+        ValuePicker(configuration)
+            .titleStyle(TitleNSSStyle(valuePickerConfiguration: configuration, nssData: self.data.value(configuration.titleIdentifier)))
+            .valueLabelStyle(ValueLabelNSSStyle(valuePickerConfiguration: configuration, nssData: self.data.value(configuration.valueLabelIdentifier)))
+            .mandatoryFieldIndicatorStyle(MandatoryFieldIndicatorNSSStyle(valuePickerConfiguration: configuration, nssData: self.data.value(configuration.mandatoryFieldIndicatorIdentifier)))
+            .optionsStyle(OptionsNSSStyle(valuePickerConfiguration: configuration, nssData: self.data.value(configuration.optionsIdentifier)))
+            .valuePickerStyle(ContentNSSStyle(valuePickerConfiguration: configuration, nssData: self.data.value(configuration.contentIdentifier)))
     }
 }

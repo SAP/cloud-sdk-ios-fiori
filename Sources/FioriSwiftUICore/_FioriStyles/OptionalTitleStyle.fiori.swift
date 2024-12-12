@@ -17,3 +17,15 @@ public struct OptionalTitleFioriStyle: OptionalTitleStyle {
         OptionalTitle(configuration)
     }
 }
+
+// Default nss styles
+public struct OptionalTitleNSSStyle: OptionalTitleStyle {
+    var data: NSSStyleData
+
+    public func makeBody(_ configuration: OptionalTitleConfiguration) -> some View {
+        OptionalTitle(configuration)
+            .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.data.value(configuration.optionalTitleIdentifier)))
+        // Add custom nss style for its content
+        // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+    }
+}

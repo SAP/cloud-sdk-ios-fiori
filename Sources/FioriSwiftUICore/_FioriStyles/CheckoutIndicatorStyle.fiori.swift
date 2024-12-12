@@ -139,3 +139,15 @@ public struct CheckoutIndicatorFioriStyle: CheckoutIndicatorStyle {
         // .font(.fiori(forTextStyle: <#fiori font#>))
     }
 }
+
+// Default nss styles
+public struct CheckoutIndicatorNSSStyle: CheckoutIndicatorStyle {
+    var data: NSSStyleData
+
+    public func makeBody(_ configuration: CheckoutIndicatorConfiguration) -> some View {
+        CheckoutIndicator(configuration)
+            .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.data.value(configuration.checkoutIndicatorIdentifier)))
+        // Add custom nss style for its content
+        // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+    }
+}

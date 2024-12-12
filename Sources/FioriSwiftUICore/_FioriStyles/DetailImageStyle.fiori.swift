@@ -24,3 +24,15 @@ public struct DetailImageFioriStyle: DetailImageStyle {
         DetailImage(configuration)
     }
 }
+
+// Default nss styles
+public struct DetailImageNSSStyle: DetailImageStyle {
+    var data: NSSStyleData
+
+    public func makeBody(_ configuration: DetailImageConfiguration) -> some View {
+        DetailImage(configuration)
+            .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.data.value(configuration.detailImageIdentifier)))
+        // Add custom nss style for its content
+        // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+    }
+}

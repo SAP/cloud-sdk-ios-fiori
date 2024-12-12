@@ -35,3 +35,29 @@ extension TimelineNowIndicatorFioriStyle {
         }
     }
 }
+
+// Default nss styles
+extension TimelineNowIndicatorNSSStyle {
+    struct ContentNSSStyle: TimelineNowIndicatorStyle {
+        let timelineNowIndicatorConfiguration: TimelineNowIndicatorConfiguration
+        let nssData: NSSStyleData
+        func makeBody(_ configuration: TimelineNowIndicatorConfiguration) -> some View {
+            TimelineNowIndicator(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for its content
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct NowIndicatorNodeNSSStyle: NowIndicatorNodeStyle {
+        let timelineNowIndicatorConfiguration: TimelineNowIndicatorConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: NowIndicatorNodeConfiguration) -> some View {
+            NowIndicatorNode(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for NowIndicatorNode
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+}

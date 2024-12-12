@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -22,6 +23,8 @@ struct AnyOverflowActionStyle: OverflowActionStyle {
 }
 
 public struct OverflowActionConfiguration {
+    public let overflowActionIdentifier = "FioriOverflowAction_overflowAction"
+
     public let overflowAction: OverflowAction
 
     public typealias OverflowAction = ConfigurationViewWrapper

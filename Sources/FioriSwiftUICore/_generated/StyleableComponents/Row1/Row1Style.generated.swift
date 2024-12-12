@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -22,6 +23,8 @@ struct AnyRow1Style: Row1Style {
 }
 
 public struct Row1Configuration {
+    public let row1Identifier = "FioriRow1_row1"
+
     public let row1: Row1
 
     public typealias Row1 = ConfigurationViewWrapper

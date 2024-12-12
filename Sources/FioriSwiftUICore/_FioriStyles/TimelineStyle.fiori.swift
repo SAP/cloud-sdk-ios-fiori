@@ -242,3 +242,137 @@ extension TimelineFioriStyle {
         }
     }
 }
+
+// Default nss styles
+extension TimelineNSSStyle {
+    struct ContentNSSStyle: TimelineStyle {
+        let timelineConfiguration: TimelineConfiguration
+        let nssData: NSSStyleData
+        func makeBody(_ configuration: TimelineConfiguration) -> some View {
+            Timeline(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for its content
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct TimestampNSSStyle: TimestampStyle {
+        let timelineConfiguration: TimelineConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: TimestampConfiguration) -> some View {
+            Timestamp(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Timestamp
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct SecondaryTimestampNSSStyle: SecondaryTimestampStyle {
+        let timelineConfiguration: TimelineConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: SecondaryTimestampConfiguration) -> some View {
+            SecondaryTimestamp(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for SecondaryTimestamp
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct TimelineNodeNSSStyle: TimelineNodeStyle {
+        let timelineConfiguration: TimelineConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: TimelineNodeConfiguration) -> some View {
+            TimelineNode(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for TimelineNode
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct IconNSSStyle: IconStyle {
+        let timelineConfiguration: TimelineConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: IconConfiguration) -> some View {
+            Icon(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Icon
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct TitleNSSStyle: TitleStyle {
+        let timelineConfiguration: TimelineConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: TitleConfiguration) -> some View {
+            Title(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Title
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct SubtitleNSSStyle: SubtitleStyle {
+        let timelineConfiguration: TimelineConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: SubtitleConfiguration) -> some View {
+            Subtitle(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Subtitle
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct AttributeNSSStyle: AttributeStyle {
+        let timelineConfiguration: TimelineConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: AttributeConfiguration) -> some View {
+            Attribute(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Attribute
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct StatusNSSStyle: StatusStyle {
+        let timelineConfiguration: TimelineConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: StatusConfiguration) -> some View {
+            Status(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Status
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct SubstatusNSSStyle: SubstatusStyle {
+        let timelineConfiguration: TimelineConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: SubstatusConfiguration) -> some View {
+            Substatus(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Substatus
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct SubAttributeNSSStyle: SubAttributeStyle {
+        let timelineConfiguration: TimelineConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: SubAttributeConfiguration) -> some View {
+            SubAttribute(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for SubAttribute
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+}

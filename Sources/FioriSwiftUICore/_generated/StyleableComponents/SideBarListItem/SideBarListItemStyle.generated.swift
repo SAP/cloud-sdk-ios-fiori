@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -22,6 +23,14 @@ struct AnySideBarListItemStyle: SideBarListItemStyle {
 }
 
 public struct SideBarListItemConfiguration {
+    public let contentIdentifier = "FioriSideBarListItem_content"
+    public let iconIdentifier = "FioriSideBarListItem_icon"
+    public let filledIconIdentifier = "FioriSideBarListItem_filledIcon"
+    public let titleIdentifier = "FioriSideBarListItem_title"
+    public let subtitleIdentifier = "FioriSideBarListItem_subtitle"
+    public let accessoryIconIdentifier = "FioriSideBarListItem_accessoryIcon"
+    public let switchIdentifier = "FioriSideBarListItem_switch"
+
     public let icon: Icon
     public let filledIcon: FilledIcon
     public let title: Title
@@ -47,5 +56,20 @@ public struct SideBarListItemFioriStyle: SideBarListItemStyle {
             .subtitleStyle(SubtitleFioriStyle(sideBarListItemConfiguration: configuration))
             .accessoryIconStyle(AccessoryIconFioriStyle(sideBarListItemConfiguration: configuration))
             .switchStyle(SwitchFioriStyle(sideBarListItemConfiguration: configuration))
+    }
+}
+
+public struct SideBarListItemNSSStyle: SideBarListItemStyle {
+    var data: NSSStyleData
+
+    public func makeBody(_ configuration: SideBarListItemConfiguration) -> some View {
+        SideBarListItem(configuration)
+            .iconStyle(IconNSSStyle(sideBarListItemConfiguration: configuration, nssData: self.data.value(configuration.iconIdentifier)))
+            .filledIconStyle(FilledIconNSSStyle(sideBarListItemConfiguration: configuration, nssData: self.data.value(configuration.filledIconIdentifier)))
+            .titleStyle(TitleNSSStyle(sideBarListItemConfiguration: configuration, nssData: self.data.value(configuration.titleIdentifier)))
+            .subtitleStyle(SubtitleNSSStyle(sideBarListItemConfiguration: configuration, nssData: self.data.value(configuration.subtitleIdentifier)))
+            .accessoryIconStyle(AccessoryIconNSSStyle(sideBarListItemConfiguration: configuration, nssData: self.data.value(configuration.accessoryIconIdentifier)))
+            .switchStyle(SwitchNSSStyle(sideBarListItemConfiguration: configuration, nssData: self.data.value(configuration.switchIdentifier)))
+            .sideBarListItemStyle(ContentNSSStyle(sideBarListItemConfiguration: configuration, nssData: self.data.value(configuration.contentIdentifier)))
     }
 }

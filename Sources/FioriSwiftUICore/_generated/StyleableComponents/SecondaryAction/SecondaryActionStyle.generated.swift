@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -22,6 +23,8 @@ struct AnySecondaryActionStyle: SecondaryActionStyle {
 }
 
 public struct SecondaryActionConfiguration {
+    public let secondaryActionIdentifier = "FioriSecondaryAction_secondaryAction"
+
     public let secondaryAction: SecondaryAction
 
     public typealias SecondaryAction = ConfigurationViewWrapper

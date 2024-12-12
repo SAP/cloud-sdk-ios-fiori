@@ -32,6 +32,18 @@ struct LoadingIndicatorExample: View {
                 }.padding(.bottom, 10)
                 
                 Section {
+                    LoadingIndicator(title: "Loading...", isPresented: .constant(true))
+                        .loadingIndicatorStyle(.nss("FioriLoadingIndicatorView"))
+                        .frame(maxWidth: .infinity)
+                        .multilineTextAlignment(.center)
+                        .padding()
+                } header: {
+                    Text("NSS Style Loading Indicator")
+                        .padding(.leading, 20)
+                        .fontWeight(.bold)
+                }.padding(.bottom, 10)
+                
+                Section {
                     VStack {
                         Rectangle()
                             .fill(Color.preferredColor(.accentBackground10))

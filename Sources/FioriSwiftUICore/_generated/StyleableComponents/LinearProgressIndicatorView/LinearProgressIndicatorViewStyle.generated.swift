@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -22,6 +23,11 @@ struct AnyLinearProgressIndicatorViewStyle: LinearProgressIndicatorViewStyle {
 }
 
 public struct LinearProgressIndicatorViewConfiguration {
+    public let contentIdentifier = "FioriLinearProgressIndicatorView_content"
+    public let linearProgressIndicatorIdentifier = "FioriLinearProgressIndicatorView_linearProgressIndicator"
+    public let iconIdentifier = "FioriLinearProgressIndicatorView_icon"
+    public let descriptionIdentifier = "FioriLinearProgressIndicatorView_description"
+
     @Binding public var indicatorProgress: Double
     public let icon: Icon
     public let description: Description
@@ -36,5 +42,17 @@ public struct LinearProgressIndicatorViewFioriStyle: LinearProgressIndicatorView
             .linearProgressIndicatorStyle(LinearProgressIndicatorFioriStyle(linearProgressIndicatorViewConfiguration: configuration))
             .iconStyle(IconFioriStyle(linearProgressIndicatorViewConfiguration: configuration))
             .descriptionStyle(DescriptionFioriStyle(linearProgressIndicatorViewConfiguration: configuration))
+    }
+}
+
+public struct LinearProgressIndicatorViewNSSStyle: LinearProgressIndicatorViewStyle {
+    var data: NSSStyleData
+
+    public func makeBody(_ configuration: LinearProgressIndicatorViewConfiguration) -> some View {
+        LinearProgressIndicatorView(configuration)
+            .linearProgressIndicatorStyle(LinearProgressIndicatorNSSStyle(linearProgressIndicatorViewConfiguration: configuration, nssData: self.data.value(configuration.linearProgressIndicatorIdentifier)))
+            .iconStyle(IconNSSStyle(linearProgressIndicatorViewConfiguration: configuration, nssData: self.data.value(configuration.iconIdentifier)))
+            .descriptionStyle(DescriptionNSSStyle(linearProgressIndicatorViewConfiguration: configuration, nssData: self.data.value(configuration.descriptionIdentifier)))
+            .linearProgressIndicatorViewStyle(ContentNSSStyle(linearProgressIndicatorViewConfiguration: configuration, nssData: self.data.value(configuration.contentIdentifier)))
     }
 }

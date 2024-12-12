@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -17,6 +18,12 @@ public extension AccessoryIconStyle where Self == AccessoryIconFioriStyle {
     }
 }
 
+public extension AccessoryIconStyle where Self == AccessoryIconNSSStyle {
+    static func nss(_ fileName: String) -> AccessoryIconNSSStyle {
+        AccessoryIconNSSStyle(data: NSSTool.loadStyles(fileName))
+    }
+}
+
 // MARK: ActionStyle
 
 public extension ActionStyle where Self == ActionBaseStyle {
@@ -28,6 +35,12 @@ public extension ActionStyle where Self == ActionBaseStyle {
 public extension ActionStyle where Self == ActionFioriStyle {
     static var fiori: ActionFioriStyle {
         ActionFioriStyle()
+    }
+}
+
+public extension ActionStyle where Self == ActionNSSStyle {
+    static func nss(_ fileName: String) -> ActionNSSStyle {
+        ActionNSSStyle(data: NSSTool.loadStyles(fileName))
     }
 }
 
@@ -45,6 +58,12 @@ public extension AllEntriesSectionTitleStyle where Self == AllEntriesSectionTitl
     }
 }
 
+public extension AllEntriesSectionTitleStyle where Self == AllEntriesSectionTitleNSSStyle {
+    static func nss(_ fileName: String) -> AllEntriesSectionTitleNSSStyle {
+        AllEntriesSectionTitleNSSStyle(data: NSSTool.loadStyles(fileName))
+    }
+}
+
 // MARK: ApplyActionStyle
 
 public extension ApplyActionStyle where Self == ApplyActionBaseStyle {
@@ -56,6 +75,12 @@ public extension ApplyActionStyle where Self == ApplyActionBaseStyle {
 public extension ApplyActionStyle where Self == ApplyActionFioriStyle {
     static var fiori: ApplyActionFioriStyle {
         ApplyActionFioriStyle()
+    }
+}
+
+public extension ApplyActionStyle where Self == ApplyActionNSSStyle {
+    static func nss(_ fileName: String) -> ApplyActionNSSStyle {
+        ApplyActionNSSStyle(data: NSSTool.loadStyles(fileName))
     }
 }
 
@@ -73,6 +98,12 @@ public extension AttributeStyle where Self == AttributeFioriStyle {
     }
 }
 
+public extension AttributeStyle where Self == AttributeNSSStyle {
+    static func nss(_ fileName: String) -> AttributeNSSStyle {
+        AttributeNSSStyle(data: NSSTool.loadStyles(fileName))
+    }
+}
+
 // MARK: AvatarStackStyle
 
 public extension AvatarStackStyle where Self == AvatarStackBaseStyle {
@@ -84,6 +115,12 @@ public extension AvatarStackStyle where Self == AvatarStackBaseStyle {
 public extension AvatarStackStyle where Self == AvatarStackFioriStyle {
     static var fiori: AvatarStackFioriStyle {
         AvatarStackFioriStyle()
+    }
+}
+
+public extension AvatarStackStyle where Self == AvatarStackNSSStyle {
+    static func nss(_ fileName: String) -> AvatarStackNSSStyle {
+        AvatarStackNSSStyle(data: NSSTool.loadStyles(fileName))
     }
 }
 
@@ -143,6 +180,12 @@ public extension AvatarsStyle where Self == AvatarsFioriStyle {
     }
 }
 
+public extension AvatarsStyle where Self == AvatarsNSSStyle {
+    static func nss(_ fileName: String) -> AvatarsNSSStyle {
+        AvatarsNSSStyle(data: NSSTool.loadStyles(fileName))
+    }
+}
+
 // MARK: AvatarsTitleStyle
 
 public extension AvatarsTitleStyle where Self == AvatarsTitleBaseStyle {
@@ -157,6 +200,12 @@ public extension AvatarsTitleStyle where Self == AvatarsTitleFioriStyle {
     }
 }
 
+public extension AvatarsTitleStyle where Self == AvatarsTitleNSSStyle {
+    static func nss(_ fileName: String) -> AvatarsTitleNSSStyle {
+        AvatarsTitleNSSStyle(data: NSSTool.loadStyles(fileName))
+    }
+}
+
 // MARK: BannerMessageStyle
 
 public extension BannerMessageStyle where Self == BannerMessageBaseStyle {
@@ -168,6 +217,12 @@ public extension BannerMessageStyle where Self == BannerMessageBaseStyle {
 public extension BannerMessageStyle where Self == BannerMessageFioriStyle {
     static var fiori: BannerMessageFioriStyle {
         BannerMessageFioriStyle()
+    }
+}
+
+public extension BannerMessageStyle where Self == BannerMessageNSSStyle {
+    static func nss(_ fileName: String) -> BannerMessageNSSStyle {
+        BannerMessageNSSStyle(data: NSSTool.loadStyles(fileName))
     }
 }
 
@@ -269,6 +324,12 @@ public extension BannerMultiMessageSheetStyle where Self == BannerMultiMessageSh
     }
 }
 
+public extension BannerMultiMessageSheetStyle where Self == BannerMultiMessageSheetNSSStyle {
+    static func nss(_ fileName: String) -> BannerMultiMessageSheetNSSStyle {
+        BannerMultiMessageSheetNSSStyle(data: NSSTool.loadStyles(fileName))
+    }
+}
+
 public struct BannerMultiMessageSheetTitleStyle: BannerMultiMessageSheetStyle {
     let style: any TitleStyle
 
@@ -325,6 +386,12 @@ public extension CancelActionStyle where Self == CancelActionFioriStyle {
     }
 }
 
+public extension CancelActionStyle where Self == CancelActionNSSStyle {
+    static func nss(_ fileName: String) -> CancelActionNSSStyle {
+        CancelActionNSSStyle(data: NSSTool.loadStyles(fileName))
+    }
+}
+
 // MARK: CardBodyStyle
 
 public extension CardBodyStyle where Self == CardBodyBaseStyle {
@@ -339,6 +406,12 @@ public extension CardBodyStyle where Self == CardBodyFioriStyle {
     }
 }
 
+public extension CardBodyStyle where Self == CardBodyNSSStyle {
+    static func nss(_ fileName: String) -> CardBodyNSSStyle {
+        CardBodyNSSStyle(data: NSSTool.loadStyles(fileName))
+    }
+}
+
 // MARK: CardStyle
 
 public extension CardStyle where Self == CardBaseStyle {
@@ -350,6 +423,12 @@ public extension CardStyle where Self == CardBaseStyle {
 public extension CardStyle where Self == CardFioriStyle {
     static var fiori: CardFioriStyle {
         CardFioriStyle()
+    }
+}
+
+public extension CardStyle where Self == CardNSSStyle {
+    static func nss(_ fileName: String) -> CardNSSStyle {
+        CardNSSStyle(data: NSSTool.loadStyles(fileName))
     }
 }
 
@@ -787,6 +866,12 @@ public extension CardExtHeaderStyle where Self == CardExtHeaderFioriStyle {
     }
 }
 
+public extension CardExtHeaderStyle where Self == CardExtHeaderNSSStyle {
+    static func nss(_ fileName: String) -> CardExtHeaderNSSStyle {
+        CardExtHeaderNSSStyle(data: NSSTool.loadStyles(fileName))
+    }
+}
+
 public struct CardExtHeaderRow1Style: CardExtHeaderStyle {
     let style: any Row1Style
 
@@ -906,6 +991,12 @@ public extension CardFooterStyle where Self == CardFooterFioriStyle {
     }
 }
 
+public extension CardFooterStyle where Self == CardFooterNSSStyle {
+    static func nss(_ fileName: String) -> CardFooterNSSStyle {
+        CardFooterNSSStyle(data: NSSTool.loadStyles(fileName))
+    }
+}
+
 public struct CardFooterActionStyle: CardFooterStyle {
     let style: any ActionStyle
 
@@ -1001,6 +1092,12 @@ public extension CardHeaderStyle where Self == CardHeaderBaseStyle {
 public extension CardHeaderStyle where Self == CardHeaderFioriStyle {
     static var fiori: CardHeaderFioriStyle {
         CardHeaderFioriStyle()
+    }
+}
+
+public extension CardHeaderStyle where Self == CardHeaderNSSStyle {
+    static func nss(_ fileName: String) -> CardHeaderNSSStyle {
+        CardHeaderNSSStyle(data: NSSTool.loadStyles(fileName))
     }
 }
 
@@ -1354,6 +1451,12 @@ public extension CardMainHeaderStyle where Self == CardMainHeaderFioriStyle {
     }
 }
 
+public extension CardMainHeaderStyle where Self == CardMainHeaderNSSStyle {
+    static func nss(_ fileName: String) -> CardMainHeaderNSSStyle {
+        CardMainHeaderNSSStyle(data: NSSTool.loadStyles(fileName))
+    }
+}
+
 public struct CardMainHeaderTitleStyle: CardMainHeaderStyle {
     let style: any TitleStyle
 
@@ -1494,6 +1597,12 @@ public extension CardMediaStyle where Self == CardMediaFioriStyle {
     }
 }
 
+public extension CardMediaStyle where Self == CardMediaNSSStyle {
+    static func nss(_ fileName: String) -> CardMediaNSSStyle {
+        CardMediaNSSStyle(data: NSSTool.loadStyles(fileName))
+    }
+}
+
 public struct CardMediaMediaImageStyle: CardMediaStyle {
     let style: any MediaImageStyle
 
@@ -1550,6 +1659,12 @@ public extension CheckoutIndicatorStyle where Self == CheckoutIndicatorFioriStyl
     }
 }
 
+public extension CheckoutIndicatorStyle where Self == CheckoutIndicatorNSSStyle {
+    static func nss(_ fileName: String) -> CheckoutIndicatorNSSStyle {
+        CheckoutIndicatorNSSStyle(data: NSSTool.loadStyles(fileName))
+    }
+}
+
 // MARK: CloseActionStyle
 
 public extension CloseActionStyle where Self == CloseActionBaseStyle {
@@ -1561,6 +1676,12 @@ public extension CloseActionStyle where Self == CloseActionBaseStyle {
 public extension CloseActionStyle where Self == CloseActionFioriStyle {
     static var fiori: CloseActionFioriStyle {
         CloseActionFioriStyle()
+    }
+}
+
+public extension CloseActionStyle where Self == CloseActionNSSStyle {
+    static func nss(_ fileName: String) -> CloseActionNSSStyle {
+        CloseActionNSSStyle(data: NSSTool.loadStyles(fileName))
     }
 }
 
@@ -1578,6 +1699,12 @@ public extension CounterStyle where Self == CounterFioriStyle {
     }
 }
 
+public extension CounterStyle where Self == CounterNSSStyle {
+    static func nss(_ fileName: String) -> CounterNSSStyle {
+        CounterNSSStyle(data: NSSTool.loadStyles(fileName))
+    }
+}
+
 // MARK: DateTimePickerStyle
 
 public extension DateTimePickerStyle where Self == DateTimePickerBaseStyle {
@@ -1589,6 +1716,12 @@ public extension DateTimePickerStyle where Self == DateTimePickerBaseStyle {
 public extension DateTimePickerStyle where Self == DateTimePickerFioriStyle {
     static var fiori: DateTimePickerFioriStyle {
         DateTimePickerFioriStyle()
+    }
+}
+
+public extension DateTimePickerStyle where Self == DateTimePickerNSSStyle {
+    static func nss(_ fileName: String) -> DateTimePickerNSSStyle {
+        DateTimePickerNSSStyle(data: NSSTool.loadStyles(fileName))
     }
 }
 
@@ -1690,6 +1823,12 @@ public extension DecrementActionStyle where Self == DecrementActionFioriStyle {
     }
 }
 
+public extension DecrementActionStyle where Self == DecrementActionNSSStyle {
+    static func nss(_ fileName: String) -> DecrementActionNSSStyle {
+        DecrementActionNSSStyle(data: NSSTool.loadStyles(fileName))
+    }
+}
+
 // MARK: DemoViewStyle
 
 extension DemoViewStyle where Self == DemoViewBaseStyle {
@@ -1701,6 +1840,12 @@ extension DemoViewStyle where Self == DemoViewBaseStyle {
 extension DemoViewStyle where Self == DemoViewFioriStyle {
     static var fiori: DemoViewFioriStyle {
         DemoViewFioriStyle()
+    }
+}
+
+extension DemoViewStyle where Self == DemoViewNSSStyle {
+    static func nss(_ fileName: String) -> DemoViewNSSStyle {
+        DemoViewNSSStyle(data: NSSTool.loadStyles(fileName))
     }
 }
 
@@ -1823,6 +1968,12 @@ public extension DescriptionStyle where Self == DescriptionFioriStyle {
     }
 }
 
+public extension DescriptionStyle where Self == DescriptionNSSStyle {
+    static func nss(_ fileName: String) -> DescriptionNSSStyle {
+        DescriptionNSSStyle(data: NSSTool.loadStyles(fileName))
+    }
+}
+
 // MARK: DeselectAllActionStyle
 
 public extension DeselectAllActionStyle where Self == DeselectAllActionBaseStyle {
@@ -1834,6 +1985,12 @@ public extension DeselectAllActionStyle where Self == DeselectAllActionBaseStyle
 public extension DeselectAllActionStyle where Self == DeselectAllActionFioriStyle {
     static var fiori: DeselectAllActionFioriStyle {
         DeselectAllActionFioriStyle()
+    }
+}
+
+public extension DeselectAllActionStyle where Self == DeselectAllActionNSSStyle {
+    static func nss(_ fileName: String) -> DeselectAllActionNSSStyle {
+        DeselectAllActionNSSStyle(data: NSSTool.loadStyles(fileName))
     }
 }
 
@@ -1851,6 +2008,12 @@ public extension DetailImageStyle where Self == DetailImageFioriStyle {
     }
 }
 
+public extension DetailImageStyle where Self == DetailImageNSSStyle {
+    static func nss(_ fileName: String) -> DetailImageNSSStyle {
+        DetailImageNSSStyle(data: NSSTool.loadStyles(fileName))
+    }
+}
+
 // MARK: FilledIconStyle
 
 public extension FilledIconStyle where Self == FilledIconBaseStyle {
@@ -1862,6 +2025,12 @@ public extension FilledIconStyle where Self == FilledIconBaseStyle {
 public extension FilledIconStyle where Self == FilledIconFioriStyle {
     static var fiori: FilledIconFioriStyle {
         FilledIconFioriStyle()
+    }
+}
+
+public extension FilledIconStyle where Self == FilledIconNSSStyle {
+    static func nss(_ fileName: String) -> FilledIconNSSStyle {
+        FilledIconNSSStyle(data: NSSTool.loadStyles(fileName))
     }
 }
 
@@ -1879,6 +2048,12 @@ public extension FootnoteStyle where Self == FootnoteFioriStyle {
     }
 }
 
+public extension FootnoteStyle where Self == FootnoteNSSStyle {
+    static func nss(_ fileName: String) -> FootnoteNSSStyle {
+        FootnoteNSSStyle(data: NSSTool.loadStyles(fileName))
+    }
+}
+
 // MARK: FootnoteIconsStyle
 
 public extension FootnoteIconsStyle where Self == FootnoteIconsBaseStyle {
@@ -1890,6 +2065,12 @@ public extension FootnoteIconsStyle where Self == FootnoteIconsBaseStyle {
 public extension FootnoteIconsStyle where Self == FootnoteIconsFioriStyle {
     static var fiori: FootnoteIconsFioriStyle {
         FootnoteIconsFioriStyle()
+    }
+}
+
+public extension FootnoteIconsStyle where Self == FootnoteIconsNSSStyle {
+    static func nss(_ fileName: String) -> FootnoteIconsNSSStyle {
+        FootnoteIconsNSSStyle(data: NSSTool.loadStyles(fileName))
     }
 }
 
@@ -1907,6 +2088,12 @@ public extension FootnoteIconsTextStyle where Self == FootnoteIconsTextFioriStyl
     }
 }
 
+public extension FootnoteIconsTextStyle where Self == FootnoteIconsTextNSSStyle {
+    static func nss(_ fileName: String) -> FootnoteIconsTextNSSStyle {
+        FootnoteIconsTextNSSStyle(data: NSSTool.loadStyles(fileName))
+    }
+}
+
 // MARK: FormViewStyle
 
 public extension FormViewStyle where Self == FormViewBaseStyle {
@@ -1918,6 +2105,12 @@ public extension FormViewStyle where Self == FormViewBaseStyle {
 public extension FormViewStyle where Self == FormViewFioriStyle {
     static var fiori: FormViewFioriStyle {
         FormViewFioriStyle()
+    }
+}
+
+public extension FormViewStyle where Self == FormViewNSSStyle {
+    static func nss(_ fileName: String) -> FormViewNSSStyle {
+        FormViewNSSStyle(data: NSSTool.loadStyles(fileName))
     }
 }
 
@@ -1935,6 +2128,12 @@ public extension GreetingTextStyle where Self == GreetingTextFioriStyle {
     }
 }
 
+public extension GreetingTextStyle where Self == GreetingTextNSSStyle {
+    static func nss(_ fileName: String) -> GreetingTextNSSStyle {
+        GreetingTextNSSStyle(data: NSSTool.loadStyles(fileName))
+    }
+}
+
 // MARK: HalfStarImageStyle
 
 public extension HalfStarImageStyle where Self == HalfStarImageBaseStyle {
@@ -1946,6 +2145,12 @@ public extension HalfStarImageStyle where Self == HalfStarImageBaseStyle {
 public extension HalfStarImageStyle where Self == HalfStarImageFioriStyle {
     static var fiori: HalfStarImageFioriStyle {
         HalfStarImageFioriStyle()
+    }
+}
+
+public extension HalfStarImageStyle where Self == HalfStarImageNSSStyle {
+    static func nss(_ fileName: String) -> HalfStarImageNSSStyle {
+        HalfStarImageNSSStyle(data: NSSTool.loadStyles(fileName))
     }
 }
 
@@ -1963,6 +2168,12 @@ public extension HeaderActionStyle where Self == HeaderActionFioriStyle {
     }
 }
 
+public extension HeaderActionStyle where Self == HeaderActionNSSStyle {
+    static func nss(_ fileName: String) -> HeaderActionNSSStyle {
+        HeaderActionNSSStyle(data: NSSTool.loadStyles(fileName))
+    }
+}
+
 // MARK: HelperTextStyle
 
 public extension HelperTextStyle where Self == HelperTextBaseStyle {
@@ -1974,6 +2185,12 @@ public extension HelperTextStyle where Self == HelperTextBaseStyle {
 public extension HelperTextStyle where Self == HelperTextFioriStyle {
     static var fiori: HelperTextFioriStyle {
         HelperTextFioriStyle()
+    }
+}
+
+public extension HelperTextStyle where Self == HelperTextNSSStyle {
+    static func nss(_ fileName: String) -> HelperTextNSSStyle {
+        HelperTextNSSStyle(data: NSSTool.loadStyles(fileName))
     }
 }
 
@@ -1991,6 +2208,12 @@ public extension IconStyle where Self == IconFioriStyle {
     }
 }
 
+public extension IconStyle where Self == IconNSSStyle {
+    static func nss(_ fileName: String) -> IconNSSStyle {
+        IconNSSStyle(data: NSSTool.loadStyles(fileName))
+    }
+}
+
 // MARK: IconsStyle
 
 public extension IconsStyle where Self == IconsBaseStyle {
@@ -2005,6 +2228,12 @@ public extension IconsStyle where Self == IconsFioriStyle {
     }
 }
 
+public extension IconsStyle where Self == IconsNSSStyle {
+    static func nss(_ fileName: String) -> IconsNSSStyle {
+        IconsNSSStyle(data: NSSTool.loadStyles(fileName))
+    }
+}
+
 // MARK: IllustratedMessageStyle
 
 public extension IllustratedMessageStyle where Self == IllustratedMessageBaseStyle {
@@ -2016,6 +2245,12 @@ public extension IllustratedMessageStyle where Self == IllustratedMessageBaseSty
 public extension IllustratedMessageStyle where Self == IllustratedMessageFioriStyle {
     static var fiori: IllustratedMessageFioriStyle {
         IllustratedMessageFioriStyle()
+    }
+}
+
+public extension IllustratedMessageStyle where Self == IllustratedMessageNSSStyle {
+    static func nss(_ fileName: String) -> IllustratedMessageNSSStyle {
+        IllustratedMessageNSSStyle(data: NSSTool.loadStyles(fileName))
     }
 }
 
@@ -2138,6 +2373,12 @@ public extension IncrementActionStyle where Self == IncrementActionFioriStyle {
     }
 }
 
+public extension IncrementActionStyle where Self == IncrementActionNSSStyle {
+    static func nss(_ fileName: String) -> IncrementActionNSSStyle {
+        IncrementActionNSSStyle(data: NSSTool.loadStyles(fileName))
+    }
+}
+
 // MARK: InformationViewStyle
 
 public extension InformationViewStyle where Self == InformationViewBaseStyle {
@@ -2149,6 +2390,12 @@ public extension InformationViewStyle where Self == InformationViewBaseStyle {
 public extension InformationViewStyle where Self == InformationViewFioriStyle {
     static var fiori: InformationViewFioriStyle {
         InformationViewFioriStyle()
+    }
+}
+
+public extension InformationViewStyle where Self == InformationViewNSSStyle {
+    static func nss(_ fileName: String) -> InformationViewNSSStyle {
+        InformationViewNSSStyle(data: NSSTool.loadStyles(fileName))
     }
 }
 
@@ -2205,6 +2452,12 @@ public extension JouleWelcomeScreenStyle where Self == JouleWelcomeScreenBaseSty
 public extension JouleWelcomeScreenStyle where Self == JouleWelcomeScreenFioriStyle {
     static var fiori: JouleWelcomeScreenFioriStyle {
         JouleWelcomeScreenFioriStyle()
+    }
+}
+
+public extension JouleWelcomeScreenStyle where Self == JouleWelcomeScreenNSSStyle {
+    static func nss(_ fileName: String) -> JouleWelcomeScreenNSSStyle {
+        JouleWelcomeScreenNSSStyle(data: NSSTool.loadStyles(fileName))
     }
 }
 
@@ -2327,6 +2580,12 @@ public extension KeyValueFormViewStyle where Self == KeyValueFormViewFioriStyle 
     }
 }
 
+public extension KeyValueFormViewStyle where Self == KeyValueFormViewNSSStyle {
+    static func nss(_ fileName: String) -> KeyValueFormViewNSSStyle {
+        KeyValueFormViewNSSStyle(data: NSSTool.loadStyles(fileName))
+    }
+}
+
 public struct KeyValueFormViewTitleStyle: KeyValueFormViewStyle {
     let style: any TitleStyle
 
@@ -2446,6 +2705,12 @@ public extension KpiCaptionStyle where Self == KpiCaptionFioriStyle {
     }
 }
 
+public extension KpiCaptionStyle where Self == KpiCaptionNSSStyle {
+    static func nss(_ fileName: String) -> KpiCaptionNSSStyle {
+        KpiCaptionNSSStyle(data: NSSTool.loadStyles(fileName))
+    }
+}
+
 // MARK: KpiStyle
 
 public extension KpiStyle where Self == KpiBaseStyle {
@@ -2460,6 +2725,12 @@ public extension KpiStyle where Self == KpiFioriStyle {
     }
 }
 
+public extension KpiStyle where Self == KpiNSSStyle {
+    static func nss(_ fileName: String) -> KpiNSSStyle {
+        KpiNSSStyle(data: NSSTool.loadStyles(fileName))
+    }
+}
+
 // MARK: LabelItemStyle
 
 public extension LabelItemStyle where Self == LabelItemBaseStyle {
@@ -2471,6 +2742,12 @@ public extension LabelItemStyle where Self == LabelItemBaseStyle {
 public extension LabelItemStyle where Self == LabelItemFioriStyle {
     static var fiori: LabelItemFioriStyle {
         LabelItemFioriStyle()
+    }
+}
+
+public extension LabelItemStyle where Self == LabelItemNSSStyle {
+    static func nss(_ fileName: String) -> LabelItemNSSStyle {
+        LabelItemNSSStyle(data: NSSTool.loadStyles(fileName))
     }
 }
 
@@ -2530,6 +2807,12 @@ public extension LinearProgressIndicatorStyle where Self == LinearProgressIndica
     }
 }
 
+public extension LinearProgressIndicatorStyle where Self == LinearProgressIndicatorNSSStyle {
+    static func nss(_ fileName: String) -> LinearProgressIndicatorNSSStyle {
+        LinearProgressIndicatorNSSStyle(data: NSSTool.loadStyles(fileName))
+    }
+}
+
 // MARK: LinearProgressIndicatorViewStyle
 
 public extension LinearProgressIndicatorViewStyle where Self == LinearProgressIndicatorViewBaseStyle {
@@ -2541,6 +2824,12 @@ public extension LinearProgressIndicatorViewStyle where Self == LinearProgressIn
 public extension LinearProgressIndicatorViewStyle where Self == LinearProgressIndicatorViewFioriStyle {
     static var fiori: LinearProgressIndicatorViewFioriStyle {
         LinearProgressIndicatorViewFioriStyle()
+    }
+}
+
+public extension LinearProgressIndicatorViewStyle where Self == LinearProgressIndicatorViewNSSStyle {
+    static func nss(_ fileName: String) -> LinearProgressIndicatorViewNSSStyle {
+        LinearProgressIndicatorViewNSSStyle(data: NSSTool.loadStyles(fileName))
     }
 }
 
@@ -2621,6 +2910,12 @@ public extension ListPickerContentStyle where Self == ListPickerContentFioriStyl
     }
 }
 
+public extension ListPickerContentStyle where Self == ListPickerContentNSSStyle {
+    static func nss(_ fileName: String) -> ListPickerContentNSSStyle {
+        ListPickerContentNSSStyle(data: NSSTool.loadStyles(fileName))
+    }
+}
+
 // MARK: ListPickerDestinationStyle
 
 public extension ListPickerDestinationStyle where Self == ListPickerDestinationBaseStyle {
@@ -2632,6 +2927,12 @@ public extension ListPickerDestinationStyle where Self == ListPickerDestinationB
 public extension ListPickerDestinationStyle where Self == ListPickerDestinationFioriStyle {
     static var fiori: ListPickerDestinationFioriStyle {
         ListPickerDestinationFioriStyle()
+    }
+}
+
+public extension ListPickerDestinationStyle where Self == ListPickerDestinationNSSStyle {
+    static func nss(_ fileName: String) -> ListPickerDestinationNSSStyle {
+        ListPickerDestinationNSSStyle(data: NSSTool.loadStyles(fileName))
     }
 }
 
@@ -2796,6 +3097,12 @@ public extension ListPickerItemStyle where Self == ListPickerItemFioriStyle {
     }
 }
 
+public extension ListPickerItemStyle where Self == ListPickerItemNSSStyle {
+    static func nss(_ fileName: String) -> ListPickerItemNSSStyle {
+        ListPickerItemNSSStyle(data: NSSTool.loadStyles(fileName))
+    }
+}
+
 public struct ListPickerItemTitleStyle: ListPickerItemStyle {
     let style: any TitleStyle
 
@@ -2894,6 +3201,12 @@ public extension LoadingIndicatorStyle where Self == LoadingIndicatorFioriStyle 
     }
 }
 
+public extension LoadingIndicatorStyle where Self == LoadingIndicatorNSSStyle {
+    static func nss(_ fileName: String) -> LoadingIndicatorNSSStyle {
+        LoadingIndicatorNSSStyle(data: NSSTool.loadStyles(fileName))
+    }
+}
+
 public struct LoadingIndicatorTitleStyle: LoadingIndicatorStyle {
     let style: any TitleStyle
 
@@ -2950,6 +3263,12 @@ public extension MandatoryFieldIndicatorStyle where Self == MandatoryFieldIndica
     }
 }
 
+public extension MandatoryFieldIndicatorStyle where Self == MandatoryFieldIndicatorNSSStyle {
+    static func nss(_ fileName: String) -> MandatoryFieldIndicatorNSSStyle {
+        MandatoryFieldIndicatorNSSStyle(data: NSSTool.loadStyles(fileName))
+    }
+}
+
 // MARK: MediaImageStyle
 
 public extension MediaImageStyle where Self == MediaImageBaseStyle {
@@ -2964,6 +3283,12 @@ public extension MediaImageStyle where Self == MediaImageFioriStyle {
     }
 }
 
+public extension MediaImageStyle where Self == MediaImageNSSStyle {
+    static func nss(_ fileName: String) -> MediaImageNSSStyle {
+        MediaImageNSSStyle(data: NSSTool.loadStyles(fileName))
+    }
+}
+
 // MARK: MenuSelectionStyle
 
 public extension MenuSelectionStyle where Self == MenuSelectionBaseStyle {
@@ -2975,6 +3300,12 @@ public extension MenuSelectionStyle where Self == MenuSelectionBaseStyle {
 public extension MenuSelectionStyle where Self == MenuSelectionFioriStyle {
     static var fiori: MenuSelectionFioriStyle {
         MenuSelectionFioriStyle()
+    }
+}
+
+public extension MenuSelectionStyle where Self == MenuSelectionNSSStyle {
+    static func nss(_ fileName: String) -> MenuSelectionNSSStyle {
+        MenuSelectionNSSStyle(data: NSSTool.loadStyles(fileName))
     }
 }
 
@@ -3010,6 +3341,12 @@ public extension MenuSelectionItemStyle where Self == MenuSelectionItemBaseStyle
 public extension MenuSelectionItemStyle where Self == MenuSelectionItemFioriStyle {
     static var fiori: MenuSelectionItemFioriStyle {
         MenuSelectionItemFioriStyle()
+    }
+}
+
+public extension MenuSelectionItemStyle where Self == MenuSelectionItemNSSStyle {
+    static func nss(_ fileName: String) -> MenuSelectionItemNSSStyle {
+        MenuSelectionItemNSSStyle(data: NSSTool.loadStyles(fileName))
     }
 }
 
@@ -3069,6 +3406,12 @@ public extension MessageContentStyle where Self == MessageContentFioriStyle {
     }
 }
 
+public extension MessageContentStyle where Self == MessageContentNSSStyle {
+    static func nss(_ fileName: String) -> MessageContentNSSStyle {
+        MessageContentNSSStyle(data: NSSTool.loadStyles(fileName))
+    }
+}
+
 // MARK: MoreActionOverflowStyle
 
 public extension MoreActionOverflowStyle where Self == MoreActionOverflowBaseStyle {
@@ -3083,6 +3426,12 @@ public extension MoreActionOverflowStyle where Self == MoreActionOverflowFioriSt
     }
 }
 
+public extension MoreActionOverflowStyle where Self == MoreActionOverflowNSSStyle {
+    static func nss(_ fileName: String) -> MoreActionOverflowNSSStyle {
+        MoreActionOverflowNSSStyle(data: NSSTool.loadStyles(fileName))
+    }
+}
+
 // MARK: NoteFormViewStyle
 
 public extension NoteFormViewStyle where Self == NoteFormViewBaseStyle {
@@ -3094,6 +3443,12 @@ public extension NoteFormViewStyle where Self == NoteFormViewBaseStyle {
 public extension NoteFormViewStyle where Self == NoteFormViewFioriStyle {
     static var fiori: NoteFormViewFioriStyle {
         NoteFormViewFioriStyle()
+    }
+}
+
+public extension NoteFormViewStyle where Self == NoteFormViewNSSStyle {
+    static func nss(_ fileName: String) -> NoteFormViewNSSStyle {
+        NoteFormViewNSSStyle(data: NSSTool.loadStyles(fileName))
     }
 }
 
@@ -3195,6 +3550,12 @@ public extension NowIndicatorNodeStyle where Self == NowIndicatorNodeFioriStyle 
     }
 }
 
+public extension NowIndicatorNodeStyle where Self == NowIndicatorNodeNSSStyle {
+    static func nss(_ fileName: String) -> NowIndicatorNodeNSSStyle {
+        NowIndicatorNodeNSSStyle(data: NSSTool.loadStyles(fileName))
+    }
+}
+
 // MARK: ObjectItemStyle
 
 public extension ObjectItemStyle where Self == ObjectItemBaseStyle {
@@ -3206,6 +3567,12 @@ public extension ObjectItemStyle where Self == ObjectItemBaseStyle {
 public extension ObjectItemStyle where Self == ObjectItemFioriStyle {
     static var fiori: ObjectItemFioriStyle {
         ObjectItemFioriStyle()
+    }
+}
+
+public extension ObjectItemStyle where Self == ObjectItemNSSStyle {
+    static func nss(_ fileName: String) -> ObjectItemNSSStyle {
+        ObjectItemNSSStyle(data: NSSTool.loadStyles(fileName))
     }
 }
 
@@ -3496,6 +3863,12 @@ public extension OffStarImageStyle where Self == OffStarImageFioriStyle {
     }
 }
 
+public extension OffStarImageStyle where Self == OffStarImageNSSStyle {
+    static func nss(_ fileName: String) -> OffStarImageNSSStyle {
+        OffStarImageNSSStyle(data: NSSTool.loadStyles(fileName))
+    }
+}
+
 // MARK: OnStarImageStyle
 
 public extension OnStarImageStyle where Self == OnStarImageBaseStyle {
@@ -3507,6 +3880,12 @@ public extension OnStarImageStyle where Self == OnStarImageBaseStyle {
 public extension OnStarImageStyle where Self == OnStarImageFioriStyle {
     static var fiori: OnStarImageFioriStyle {
         OnStarImageFioriStyle()
+    }
+}
+
+public extension OnStarImageStyle where Self == OnStarImageNSSStyle {
+    static func nss(_ fileName: String) -> OnStarImageNSSStyle {
+        OnStarImageNSSStyle(data: NSSTool.loadStyles(fileName))
     }
 }
 
@@ -3524,6 +3903,12 @@ public extension OptionalTitleStyle where Self == OptionalTitleFioriStyle {
     }
 }
 
+public extension OptionalTitleStyle where Self == OptionalTitleNSSStyle {
+    static func nss(_ fileName: String) -> OptionalTitleNSSStyle {
+        OptionalTitleNSSStyle(data: NSSTool.loadStyles(fileName))
+    }
+}
+
 // MARK: OptionsStyle
 
 public extension OptionsStyle where Self == OptionsBaseStyle {
@@ -3535,6 +3920,12 @@ public extension OptionsStyle where Self == OptionsBaseStyle {
 public extension OptionsStyle where Self == OptionsFioriStyle {
     static var fiori: OptionsFioriStyle {
         OptionsFioriStyle()
+    }
+}
+
+public extension OptionsStyle where Self == OptionsNSSStyle {
+    static func nss(_ fileName: String) -> OptionsNSSStyle {
+        OptionsNSSStyle(data: NSSTool.loadStyles(fileName))
     }
 }
 
@@ -3552,6 +3943,12 @@ public extension OverflowActionStyle where Self == OverflowActionFioriStyle {
     }
 }
 
+public extension OverflowActionStyle where Self == OverflowActionNSSStyle {
+    static func nss(_ fileName: String) -> OverflowActionNSSStyle {
+        OverflowActionNSSStyle(data: NSSTool.loadStyles(fileName))
+    }
+}
+
 // MARK: PlaceholderStyle
 
 public extension PlaceholderStyle where Self == PlaceholderBaseStyle {
@@ -3566,6 +3963,12 @@ public extension PlaceholderStyle where Self == PlaceholderFioriStyle {
     }
 }
 
+public extension PlaceholderStyle where Self == PlaceholderNSSStyle {
+    static func nss(_ fileName: String) -> PlaceholderNSSStyle {
+        PlaceholderNSSStyle(data: NSSTool.loadStyles(fileName))
+    }
+}
+
 // MARK: PlaceholderTextEditorStyle
 
 public extension PlaceholderTextEditorStyle where Self == PlaceholderTextEditorBaseStyle {
@@ -3577,6 +3980,12 @@ public extension PlaceholderTextEditorStyle where Self == PlaceholderTextEditorB
 public extension PlaceholderTextEditorStyle where Self == PlaceholderTextEditorFioriStyle {
     static var fiori: PlaceholderTextEditorFioriStyle {
         PlaceholderTextEditorFioriStyle()
+    }
+}
+
+public extension PlaceholderTextEditorStyle where Self == PlaceholderTextEditorNSSStyle {
+    static func nss(_ fileName: String) -> PlaceholderTextEditorNSSStyle {
+        PlaceholderTextEditorNSSStyle(data: NSSTool.loadStyles(fileName))
     }
 }
 
@@ -3636,6 +4045,12 @@ public extension PlaceholderTextFieldStyle where Self == PlaceholderTextFieldFio
     }
 }
 
+public extension PlaceholderTextFieldStyle where Self == PlaceholderTextFieldNSSStyle {
+    static func nss(_ fileName: String) -> PlaceholderTextFieldNSSStyle {
+        PlaceholderTextFieldNSSStyle(data: NSSTool.loadStyles(fileName))
+    }
+}
+
 public struct PlaceholderTextFieldTextInputFieldStyle: PlaceholderTextFieldStyle {
     let style: any TextInputFieldStyle
 
@@ -3692,6 +4107,12 @@ public extension ProcessingIndicatorStyle where Self == ProcessingIndicatorFiori
     }
 }
 
+public extension ProcessingIndicatorStyle where Self == ProcessingIndicatorNSSStyle {
+    static func nss(_ fileName: String) -> ProcessingIndicatorNSSStyle {
+        ProcessingIndicatorNSSStyle(data: NSSTool.loadStyles(fileName))
+    }
+}
+
 public struct ProcessingIndicatorOptionalTitleStyle: ProcessingIndicatorStyle {
     let style: any OptionalTitleStyle
 
@@ -3724,6 +4145,12 @@ public extension ProfileHeaderStyle where Self == ProfileHeaderBaseStyle {
 public extension ProfileHeaderStyle where Self == ProfileHeaderFioriStyle {
     static var fiori: ProfileHeaderFioriStyle {
         ProfileHeaderFioriStyle()
+    }
+}
+
+public extension ProfileHeaderStyle where Self == ProfileHeaderNSSStyle {
+    static func nss(_ fileName: String) -> ProfileHeaderNSSStyle {
+        ProfileHeaderNSSStyle(data: NSSTool.loadStyles(fileName))
     }
 }
 
@@ -3825,6 +4252,12 @@ public extension ProgressStyle where Self == ProgressFioriStyle {
     }
 }
 
+public extension ProgressStyle where Self == ProgressNSSStyle {
+    static func nss(_ fileName: String) -> ProgressNSSStyle {
+        ProgressNSSStyle(data: NSSTool.loadStyles(fileName))
+    }
+}
+
 // MARK: ProgressIndicatorStyle
 
 public extension ProgressIndicatorStyle where Self == ProgressIndicatorBaseStyle {
@@ -3836,6 +4269,12 @@ public extension ProgressIndicatorStyle where Self == ProgressIndicatorBaseStyle
 public extension ProgressIndicatorStyle where Self == ProgressIndicatorFioriStyle {
     static var fiori: ProgressIndicatorFioriStyle {
         ProgressIndicatorFioriStyle()
+    }
+}
+
+public extension ProgressIndicatorStyle where Self == ProgressIndicatorNSSStyle {
+    static func nss(_ fileName: String) -> ProgressIndicatorNSSStyle {
+        ProgressIndicatorNSSStyle(data: NSSTool.loadStyles(fileName))
     }
 }
 
@@ -3874,6 +4313,12 @@ public extension ProgressIndicatorProtocolStyle where Self == ProgressIndicatorP
     }
 }
 
+public extension ProgressIndicatorProtocolStyle where Self == ProgressIndicatorProtocolNSSStyle {
+    static func nss(_ fileName: String) -> ProgressIndicatorProtocolNSSStyle {
+        ProgressIndicatorProtocolNSSStyle(data: NSSTool.loadStyles(fileName))
+    }
+}
+
 // MARK: RatingControlStyle
 
 public extension RatingControlStyle where Self == RatingControlBaseStyle {
@@ -3885,6 +4330,12 @@ public extension RatingControlStyle where Self == RatingControlBaseStyle {
 public extension RatingControlStyle where Self == RatingControlFioriStyle {
     static var fiori: RatingControlFioriStyle {
         RatingControlFioriStyle()
+    }
+}
+
+public extension RatingControlStyle where Self == RatingControlNSSStyle {
+    static func nss(_ fileName: String) -> RatingControlNSSStyle {
+        RatingControlNSSStyle(data: NSSTool.loadStyles(fileName))
     }
 }
 
@@ -4004,6 +4455,12 @@ public extension RatingControlFormViewStyle where Self == RatingControlFormViewB
 public extension RatingControlFormViewStyle where Self == RatingControlFormViewFioriStyle {
     static var fiori: RatingControlFormViewFioriStyle {
         RatingControlFormViewFioriStyle()
+    }
+}
+
+public extension RatingControlFormViewStyle where Self == RatingControlFormViewNSSStyle {
+    static func nss(_ fileName: String) -> RatingControlFormViewNSSStyle {
+        RatingControlFormViewNSSStyle(data: NSSTool.loadStyles(fileName))
     }
 }
 
@@ -4189,6 +4646,12 @@ public extension ReviewCountLabelStyle where Self == ReviewCountLabelFioriStyle 
     }
 }
 
+public extension ReviewCountLabelStyle where Self == ReviewCountLabelNSSStyle {
+    static func nss(_ fileName: String) -> ReviewCountLabelNSSStyle {
+        ReviewCountLabelNSSStyle(data: NSSTool.loadStyles(fileName))
+    }
+}
+
 // MARK: Row1Style
 
 public extension Row1Style where Self == Row1BaseStyle {
@@ -4200,6 +4663,12 @@ public extension Row1Style where Self == Row1BaseStyle {
 public extension Row1Style where Self == Row1FioriStyle {
     static var fiori: Row1FioriStyle {
         Row1FioriStyle()
+    }
+}
+
+public extension Row1Style where Self == Row1NSSStyle {
+    static func nss(_ fileName: String) -> Row1NSSStyle {
+        Row1NSSStyle(data: NSSTool.loadStyles(fileName))
     }
 }
 
@@ -4217,6 +4686,12 @@ public extension Row2Style where Self == Row2FioriStyle {
     }
 }
 
+public extension Row2Style where Self == Row2NSSStyle {
+    static func nss(_ fileName: String) -> Row2NSSStyle {
+        Row2NSSStyle(data: NSSTool.loadStyles(fileName))
+    }
+}
+
 // MARK: Row3Style
 
 public extension Row3Style where Self == Row3BaseStyle {
@@ -4228,6 +4703,12 @@ public extension Row3Style where Self == Row3BaseStyle {
 public extension Row3Style where Self == Row3FioriStyle {
     static var fiori: Row3FioriStyle {
         Row3FioriStyle()
+    }
+}
+
+public extension Row3Style where Self == Row3NSSStyle {
+    static func nss(_ fileName: String) -> Row3NSSStyle {
+        Row3NSSStyle(data: NSSTool.loadStyles(fileName))
     }
 }
 
@@ -4245,6 +4726,12 @@ public extension SecondaryActionStyle where Self == SecondaryActionFioriStyle {
     }
 }
 
+public extension SecondaryActionStyle where Self == SecondaryActionNSSStyle {
+    static func nss(_ fileName: String) -> SecondaryActionNSSStyle {
+        SecondaryActionNSSStyle(data: NSSTool.loadStyles(fileName))
+    }
+}
+
 // MARK: SecondaryTimestampStyle
 
 public extension SecondaryTimestampStyle where Self == SecondaryTimestampBaseStyle {
@@ -4259,6 +4746,12 @@ public extension SecondaryTimestampStyle where Self == SecondaryTimestampFioriSt
     }
 }
 
+public extension SecondaryTimestampStyle where Self == SecondaryTimestampNSSStyle {
+    static func nss(_ fileName: String) -> SecondaryTimestampNSSStyle {
+        SecondaryTimestampNSSStyle(data: NSSTool.loadStyles(fileName))
+    }
+}
+
 // MARK: SegmentedControlPickerStyle
 
 public extension SegmentedControlPickerStyle where Self == SegmentedControlPickerBaseStyle {
@@ -4270,6 +4763,12 @@ public extension SegmentedControlPickerStyle where Self == SegmentedControlPicke
 public extension SegmentedControlPickerStyle where Self == SegmentedControlPickerFioriStyle {
     static var fiori: SegmentedControlPickerFioriStyle {
         SegmentedControlPickerFioriStyle()
+    }
+}
+
+public extension SegmentedControlPickerStyle where Self == SegmentedControlPickerNSSStyle {
+    static func nss(_ fileName: String) -> SegmentedControlPickerNSSStyle {
+        SegmentedControlPickerNSSStyle(data: NSSTool.loadStyles(fileName))
     }
 }
 
@@ -4308,6 +4807,12 @@ public extension SelectAllActionStyle where Self == SelectAllActionFioriStyle {
     }
 }
 
+public extension SelectAllActionStyle where Self == SelectAllActionNSSStyle {
+    static func nss(_ fileName: String) -> SelectAllActionNSSStyle {
+        SelectAllActionNSSStyle(data: NSSTool.loadStyles(fileName))
+    }
+}
+
 // MARK: SelectedEntriesSectionTitleStyle
 
 public extension SelectedEntriesSectionTitleStyle where Self == SelectedEntriesSectionTitleBaseStyle {
@@ -4319,6 +4824,12 @@ public extension SelectedEntriesSectionTitleStyle where Self == SelectedEntriesS
 public extension SelectedEntriesSectionTitleStyle where Self == SelectedEntriesSectionTitleFioriStyle {
     static var fiori: SelectedEntriesSectionTitleFioriStyle {
         SelectedEntriesSectionTitleFioriStyle()
+    }
+}
+
+public extension SelectedEntriesSectionTitleStyle where Self == SelectedEntriesSectionTitleNSSStyle {
+    static func nss(_ fileName: String) -> SelectedEntriesSectionTitleNSSStyle {
+        SelectedEntriesSectionTitleNSSStyle(data: NSSTool.loadStyles(fileName))
     }
 }
 
@@ -4336,6 +4847,12 @@ public extension SideBarStyle where Self == SideBarFioriStyle {
     }
 }
 
+public extension SideBarStyle where Self == SideBarNSSStyle {
+    static func nss(_ fileName: String) -> SideBarNSSStyle {
+        SideBarNSSStyle(data: NSSTool.loadStyles(fileName))
+    }
+}
+
 // MARK: SideBarListItemStyle
 
 public extension SideBarListItemStyle where Self == SideBarListItemBaseStyle {
@@ -4347,6 +4864,12 @@ public extension SideBarListItemStyle where Self == SideBarListItemBaseStyle {
 public extension SideBarListItemStyle where Self == SideBarListItemFioriStyle {
     static var fiori: SideBarListItemFioriStyle {
         SideBarListItemFioriStyle()
+    }
+}
+
+public extension SideBarListItemStyle where Self == SideBarListItemNSSStyle {
+    static func nss(_ fileName: String) -> SideBarListItemNSSStyle {
+        SideBarListItemNSSStyle(data: NSSTool.loadStyles(fileName))
     }
 }
 
@@ -4490,6 +5013,12 @@ public extension StatusStyle where Self == StatusFioriStyle {
     }
 }
 
+public extension StatusStyle where Self == StatusNSSStyle {
+    static func nss(_ fileName: String) -> StatusNSSStyle {
+        StatusNSSStyle(data: NSSTool.loadStyles(fileName))
+    }
+}
+
 // MARK: StepperFieldStyle
 
 public extension StepperFieldStyle where Self == StepperFieldBaseStyle {
@@ -4501,6 +5030,12 @@ public extension StepperFieldStyle where Self == StepperFieldBaseStyle {
 public extension StepperFieldStyle where Self == StepperFieldFioriStyle {
     static var fiori: StepperFieldFioriStyle {
         StepperFieldFioriStyle()
+    }
+}
+
+public extension StepperFieldStyle where Self == StepperFieldNSSStyle {
+    static func nss(_ fileName: String) -> StepperFieldNSSStyle {
+        StepperFieldNSSStyle(data: NSSTool.loadStyles(fileName))
     }
 }
 
@@ -4578,6 +5113,12 @@ public extension StepperViewStyle where Self == StepperViewBaseStyle {
 public extension StepperViewStyle where Self == StepperViewFioriStyle {
     static var fiori: StepperViewFioriStyle {
         StepperViewFioriStyle()
+    }
+}
+
+public extension StepperViewStyle where Self == StepperViewNSSStyle {
+    static func nss(_ fileName: String) -> StepperViewNSSStyle {
+        StepperViewNSSStyle(data: NSSTool.loadStyles(fileName))
     }
 }
 
@@ -4763,6 +5304,12 @@ public extension SubAttributeStyle where Self == SubAttributeFioriStyle {
     }
 }
 
+public extension SubAttributeStyle where Self == SubAttributeNSSStyle {
+    static func nss(_ fileName: String) -> SubAttributeNSSStyle {
+        SubAttributeNSSStyle(data: NSSTool.loadStyles(fileName))
+    }
+}
+
 // MARK: SubstatusStyle
 
 public extension SubstatusStyle where Self == SubstatusBaseStyle {
@@ -4774,6 +5321,12 @@ public extension SubstatusStyle where Self == SubstatusBaseStyle {
 public extension SubstatusStyle where Self == SubstatusFioriStyle {
     static var fiori: SubstatusFioriStyle {
         SubstatusFioriStyle()
+    }
+}
+
+public extension SubstatusStyle where Self == SubstatusNSSStyle {
+    static func nss(_ fileName: String) -> SubstatusNSSStyle {
+        SubstatusNSSStyle(data: NSSTool.loadStyles(fileName))
     }
 }
 
@@ -4791,6 +5344,12 @@ public extension SubtitleStyle where Self == SubtitleFioriStyle {
     }
 }
 
+public extension SubtitleStyle where Self == SubtitleNSSStyle {
+    static func nss(_ fileName: String) -> SubtitleNSSStyle {
+        SubtitleNSSStyle(data: NSSTool.loadStyles(fileName))
+    }
+}
+
 // MARK: SwitchStyle
 
 public extension SwitchStyle where Self == SwitchBaseStyle {
@@ -4805,6 +5364,12 @@ public extension SwitchStyle where Self == SwitchFioriStyle {
     }
 }
 
+public extension SwitchStyle where Self == SwitchNSSStyle {
+    static func nss(_ fileName: String) -> SwitchNSSStyle {
+        SwitchNSSStyle(data: NSSTool.loadStyles(fileName))
+    }
+}
+
 // MARK: SwitchViewStyle
 
 public extension SwitchViewStyle where Self == SwitchViewBaseStyle {
@@ -4816,6 +5381,12 @@ public extension SwitchViewStyle where Self == SwitchViewBaseStyle {
 public extension SwitchViewStyle where Self == SwitchViewFioriStyle {
     static var fiori: SwitchViewFioriStyle {
         SwitchViewFioriStyle()
+    }
+}
+
+public extension SwitchViewStyle where Self == SwitchViewNSSStyle {
+    static func nss(_ fileName: String) -> SwitchViewNSSStyle {
+        SwitchViewNSSStyle(data: NSSTool.loadStyles(fileName))
     }
 }
 
@@ -4875,6 +5446,12 @@ public extension TagStyle where Self == TagFioriStyle {
     }
 }
 
+public extension TagStyle where Self == TagNSSStyle {
+    static func nss(_ fileName: String) -> TagNSSStyle {
+        TagNSSStyle(data: NSSTool.loadStyles(fileName))
+    }
+}
+
 // MARK: TagsStyle
 
 public extension TagsStyle where Self == TagsBaseStyle {
@@ -4886,6 +5463,12 @@ public extension TagsStyle where Self == TagsBaseStyle {
 public extension TagsStyle where Self == TagsFioriStyle {
     static var fiori: TagsFioriStyle {
         TagsFioriStyle()
+    }
+}
+
+public extension TagsStyle where Self == TagsNSSStyle {
+    static func nss(_ fileName: String) -> TagsNSSStyle {
+        TagsNSSStyle(data: NSSTool.loadStyles(fileName))
     }
 }
 
@@ -4903,6 +5486,12 @@ public extension TertiaryActionStyle where Self == TertiaryActionFioriStyle {
     }
 }
 
+public extension TertiaryActionStyle where Self == TertiaryActionNSSStyle {
+    static func nss(_ fileName: String) -> TertiaryActionNSSStyle {
+        TertiaryActionNSSStyle(data: NSSTool.loadStyles(fileName))
+    }
+}
+
 // MARK: TextFieldFormViewStyle
 
 public extension TextFieldFormViewStyle where Self == TextFieldFormViewBaseStyle {
@@ -4914,6 +5503,12 @@ public extension TextFieldFormViewStyle where Self == TextFieldFormViewBaseStyle
 public extension TextFieldFormViewStyle where Self == TextFieldFormViewFioriStyle {
     static var fiori: TextFieldFormViewFioriStyle {
         TextFieldFormViewFioriStyle()
+    }
+}
+
+public extension TextFieldFormViewStyle where Self == TextFieldFormViewNSSStyle {
+    static func nss(_ fileName: String) -> TextFieldFormViewNSSStyle {
+        TextFieldFormViewNSSStyle(data: NSSTool.loadStyles(fileName))
     }
 }
 
@@ -5036,6 +5631,12 @@ public extension TextInputFieldStyle where Self == TextInputFieldFioriStyle {
     }
 }
 
+public extension TextInputFieldStyle where Self == TextInputFieldNSSStyle {
+    static func nss(_ fileName: String) -> TextInputFieldNSSStyle {
+        TextInputFieldNSSStyle(data: NSSTool.loadStyles(fileName))
+    }
+}
+
 // MARK: TextInputInfoViewStyle
 
 extension TextInputInfoViewStyle where Self == TextInputInfoViewBaseStyle {
@@ -5047,6 +5648,12 @@ extension TextInputInfoViewStyle where Self == TextInputInfoViewBaseStyle {
 extension TextInputInfoViewStyle where Self == TextInputInfoViewFioriStyle {
     static var fiori: TextInputInfoViewFioriStyle {
         TextInputInfoViewFioriStyle()
+    }
+}
+
+extension TextInputInfoViewStyle where Self == TextInputInfoViewNSSStyle {
+    static func nss(_ fileName: String) -> TextInputInfoViewNSSStyle {
+        TextInputInfoViewNSSStyle(data: NSSTool.loadStyles(fileName))
     }
 }
 
@@ -5148,6 +5755,12 @@ public extension TextViewStyle where Self == TextViewFioriStyle {
     }
 }
 
+public extension TextViewStyle where Self == TextViewNSSStyle {
+    static func nss(_ fileName: String) -> TextViewNSSStyle {
+        TextViewNSSStyle(data: NSSTool.loadStyles(fileName))
+    }
+}
+
 // MARK: TimelineStyle
 
 public extension TimelineStyle where Self == TimelineBaseStyle {
@@ -5159,6 +5772,12 @@ public extension TimelineStyle where Self == TimelineBaseStyle {
 public extension TimelineStyle where Self == TimelineFioriStyle {
     static var fiori: TimelineFioriStyle {
         TimelineFioriStyle()
+    }
+}
+
+public extension TimelineStyle where Self == TimelineNSSStyle {
+    static func nss(_ fileName: String) -> TimelineNSSStyle {
+        TimelineNSSStyle(data: NSSTool.loadStyles(fileName))
     }
 }
 
@@ -5386,6 +6005,12 @@ public extension TimelineMarkerStyle where Self == TimelineMarkerFioriStyle {
     }
 }
 
+public extension TimelineMarkerStyle where Self == TimelineMarkerNSSStyle {
+    static func nss(_ fileName: String) -> TimelineMarkerNSSStyle {
+        TimelineMarkerNSSStyle(data: NSSTool.loadStyles(fileName))
+    }
+}
+
 public struct TimelineMarkerTimestampStyle: TimelineMarkerStyle {
     let style: any TimestampStyle
 
@@ -5505,6 +6130,12 @@ public extension TimelineNodeStyle where Self == TimelineNodeFioriStyle {
     }
 }
 
+public extension TimelineNodeStyle where Self == TimelineNodeNSSStyle {
+    static func nss(_ fileName: String) -> TimelineNodeNSSStyle {
+        TimelineNodeNSSStyle(data: NSSTool.loadStyles(fileName))
+    }
+}
+
 // MARK: TimelineNowIndicatorStyle
 
 public extension TimelineNowIndicatorStyle where Self == TimelineNowIndicatorBaseStyle {
@@ -5516,6 +6147,12 @@ public extension TimelineNowIndicatorStyle where Self == TimelineNowIndicatorBas
 public extension TimelineNowIndicatorStyle where Self == TimelineNowIndicatorFioriStyle {
     static var fiori: TimelineNowIndicatorFioriStyle {
         TimelineNowIndicatorFioriStyle()
+    }
+}
+
+public extension TimelineNowIndicatorStyle where Self == TimelineNowIndicatorNSSStyle {
+    static func nss(_ fileName: String) -> TimelineNowIndicatorNSSStyle {
+        TimelineNowIndicatorNSSStyle(data: NSSTool.loadStyles(fileName))
     }
 }
 
@@ -5551,6 +6188,12 @@ public extension TimelinePreviewStyle where Self == TimelinePreviewBaseStyle {
 public extension TimelinePreviewStyle where Self == TimelinePreviewFioriStyle {
     static var fiori: TimelinePreviewFioriStyle {
         TimelinePreviewFioriStyle()
+    }
+}
+
+public extension TimelinePreviewStyle where Self == TimelinePreviewNSSStyle {
+    static func nss(_ fileName: String) -> TimelinePreviewNSSStyle {
+        TimelinePreviewNSSStyle(data: NSSTool.loadStyles(fileName))
     }
 }
 
@@ -5607,6 +6250,12 @@ public extension TimelinePreviewItemStyle where Self == TimelinePreviewItemBaseS
 public extension TimelinePreviewItemStyle where Self == TimelinePreviewItemFioriStyle {
     static var fiori: TimelinePreviewItemFioriStyle {
         TimelinePreviewItemFioriStyle()
+    }
+}
+
+public extension TimelinePreviewItemStyle where Self == TimelinePreviewItemNSSStyle {
+    static func nss(_ fileName: String) -> TimelinePreviewItemNSSStyle {
+        TimelinePreviewItemNSSStyle(data: NSSTool.loadStyles(fileName))
     }
 }
 
@@ -5708,6 +6357,12 @@ public extension TimestampStyle where Self == TimestampFioriStyle {
     }
 }
 
+public extension TimestampStyle where Self == TimestampNSSStyle {
+    static func nss(_ fileName: String) -> TimestampNSSStyle {
+        TimestampNSSStyle(data: NSSTool.loadStyles(fileName))
+    }
+}
+
 // MARK: TitleStyle
 
 public extension TitleStyle where Self == TitleBaseStyle {
@@ -5722,6 +6377,12 @@ public extension TitleStyle where Self == TitleFioriStyle {
     }
 }
 
+public extension TitleStyle where Self == TitleNSSStyle {
+    static func nss(_ fileName: String) -> TitleNSSStyle {
+        TitleNSSStyle(data: NSSTool.loadStyles(fileName))
+    }
+}
+
 // MARK: TitleFormViewStyle
 
 public extension TitleFormViewStyle where Self == TitleFormViewBaseStyle {
@@ -5733,6 +6394,12 @@ public extension TitleFormViewStyle where Self == TitleFormViewBaseStyle {
 public extension TitleFormViewStyle where Self == TitleFormViewFioriStyle {
     static var fiori: TitleFormViewFioriStyle {
         TitleFormViewFioriStyle()
+    }
+}
+
+public extension TitleFormViewStyle where Self == TitleFormViewNSSStyle {
+    static func nss(_ fileName: String) -> TitleFormViewNSSStyle {
+        TitleFormViewNSSStyle(data: NSSTool.loadStyles(fileName))
     }
 }
 
@@ -5834,6 +6501,12 @@ public extension ToastMessageStyle where Self == ToastMessageFioriStyle {
     }
 }
 
+public extension ToastMessageStyle where Self == ToastMessageNSSStyle {
+    static func nss(_ fileName: String) -> ToastMessageNSSStyle {
+        ToastMessageNSSStyle(data: NSSTool.loadStyles(fileName))
+    }
+}
+
 public struct ToastMessageIconStyle: ToastMessageStyle {
     let style: any IconStyle
 
@@ -5890,6 +6563,12 @@ public extension TopDividerStyle where Self == TopDividerFioriStyle {
     }
 }
 
+public extension TopDividerStyle where Self == TopDividerNSSStyle {
+    static func nss(_ fileName: String) -> TopDividerNSSStyle {
+        TopDividerNSSStyle(data: NSSTool.loadStyles(fileName))
+    }
+}
+
 // MARK: ValueStyle
 
 public extension ValueStyle where Self == ValueBaseStyle {
@@ -5901,6 +6580,12 @@ public extension ValueStyle where Self == ValueBaseStyle {
 public extension ValueStyle where Self == ValueFioriStyle {
     static var fiori: ValueFioriStyle {
         ValueFioriStyle()
+    }
+}
+
+public extension ValueStyle where Self == ValueNSSStyle {
+    static func nss(_ fileName: String) -> ValueNSSStyle {
+        ValueNSSStyle(data: NSSTool.loadStyles(fileName))
     }
 }
 
@@ -5918,6 +6603,12 @@ public extension ValueLabelStyle where Self == ValueLabelFioriStyle {
     }
 }
 
+public extension ValueLabelStyle where Self == ValueLabelNSSStyle {
+    static func nss(_ fileName: String) -> ValueLabelNSSStyle {
+        ValueLabelNSSStyle(data: NSSTool.loadStyles(fileName))
+    }
+}
+
 // MARK: ValuePickerStyle
 
 public extension ValuePickerStyle where Self == ValuePickerBaseStyle {
@@ -5929,6 +6620,12 @@ public extension ValuePickerStyle where Self == ValuePickerBaseStyle {
 public extension ValuePickerStyle where Self == ValuePickerFioriStyle {
     static var fiori: ValuePickerFioriStyle {
         ValuePickerFioriStyle()
+    }
+}
+
+public extension ValuePickerStyle where Self == ValuePickerNSSStyle {
+    static func nss(_ fileName: String) -> ValuePickerNSSStyle {
+        ValuePickerNSSStyle(data: NSSTool.loadStyles(fileName))
     }
 }
 

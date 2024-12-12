@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -22,6 +23,12 @@ struct AnyProfileHeaderStyle: ProfileHeaderStyle {
 }
 
 public struct ProfileHeaderConfiguration {
+    public let contentIdentifier = "FioriProfileHeader_content"
+    public let detailImageIdentifier = "FioriProfileHeader_detailImage"
+    public let titleIdentifier = "FioriProfileHeader_title"
+    public let subtitleIdentifier = "FioriProfileHeader_subtitle"
+    public let descriptionIdentifier = "FioriProfileHeader_description"
+
     public let detailImage: DetailImage
     public let title: Title
     public let subtitle: Subtitle
@@ -43,5 +50,18 @@ public struct ProfileHeaderFioriStyle: ProfileHeaderStyle {
             .titleStyle(TitleFioriStyle(profileHeaderConfiguration: configuration))
             .subtitleStyle(SubtitleFioriStyle(profileHeaderConfiguration: configuration))
             .descriptionStyle(DescriptionFioriStyle(profileHeaderConfiguration: configuration))
+    }
+}
+
+public struct ProfileHeaderNSSStyle: ProfileHeaderStyle {
+    var data: NSSStyleData
+
+    public func makeBody(_ configuration: ProfileHeaderConfiguration) -> some View {
+        ProfileHeader(configuration)
+            .detailImageStyle(DetailImageNSSStyle(profileHeaderConfiguration: configuration, nssData: self.data.value(configuration.detailImageIdentifier)))
+            .titleStyle(TitleNSSStyle(profileHeaderConfiguration: configuration, nssData: self.data.value(configuration.titleIdentifier)))
+            .subtitleStyle(SubtitleNSSStyle(profileHeaderConfiguration: configuration, nssData: self.data.value(configuration.subtitleIdentifier)))
+            .descriptionStyle(DescriptionNSSStyle(profileHeaderConfiguration: configuration, nssData: self.data.value(configuration.descriptionIdentifier)))
+            .profileHeaderStyle(ContentNSSStyle(profileHeaderConfiguration: configuration, nssData: self.data.value(configuration.contentIdentifier)))
     }
 }

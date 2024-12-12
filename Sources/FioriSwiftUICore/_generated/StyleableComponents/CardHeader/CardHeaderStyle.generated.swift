@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -22,6 +23,24 @@ struct AnyCardHeaderStyle: CardHeaderStyle {
 }
 
 public struct CardHeaderConfiguration {
+    public let contentIdentifier = "FioriCardHeader_content"
+    public let mediaImageIdentifier = "FioriCardHeader_mediaImage"
+    public let descriptionIdentifier = "FioriCardHeader_description"
+    public let titleIdentifier = "FioriCardHeader_title"
+    public let subtitleIdentifier = "FioriCardHeader_subtitle"
+    public let iconsIdentifier = "FioriCardHeader_icons"
+    public let detailImageIdentifier = "FioriCardHeader_detailImage"
+    public let headerActionIdentifier = "FioriCardHeader_headerAction"
+    public let counterIdentifier = "FioriCardHeader_counter"
+    public let row1Identifier = "FioriCardHeader_row1"
+    public let row2Identifier = "FioriCardHeader_row2"
+    public let row3Identifier = "FioriCardHeader_row3"
+    public let kpiIdentifier = "FioriCardHeader_kpi"
+    public let kpiCaptionIdentifier = "FioriCardHeader_kpiCaption"
+    public let cardMediaIdentifier = "FioriCardHeader_cardMedia"
+    public let cardMainHeaderIdentifier = "FioriCardHeader_cardMainHeader"
+    public let cardExtHeaderIdentifier = "FioriCardHeader_cardExtHeader"
+
     public let mediaImage: MediaImage
     public let description: Description
     public let title: Title
@@ -70,5 +89,30 @@ public struct CardHeaderFioriStyle: CardHeaderStyle {
             .cardMediaStyle(CardMediaFioriStyle(cardHeaderConfiguration: configuration))
             .cardMainHeaderStyle(CardMainHeaderFioriStyle(cardHeaderConfiguration: configuration))
             .cardExtHeaderStyle(CardExtHeaderFioriStyle(cardHeaderConfiguration: configuration))
+    }
+}
+
+public struct CardHeaderNSSStyle: CardHeaderStyle {
+    var data: NSSStyleData
+
+    public func makeBody(_ configuration: CardHeaderConfiguration) -> some View {
+        CardHeader(configuration)
+            .mediaImageStyle(MediaImageNSSStyle(cardHeaderConfiguration: configuration, nssData: self.data.value(configuration.mediaImageIdentifier)))
+            .descriptionStyle(DescriptionNSSStyle(cardHeaderConfiguration: configuration, nssData: self.data.value(configuration.descriptionIdentifier)))
+            .titleStyle(TitleNSSStyle(cardHeaderConfiguration: configuration, nssData: self.data.value(configuration.titleIdentifier)))
+            .subtitleStyle(SubtitleNSSStyle(cardHeaderConfiguration: configuration, nssData: self.data.value(configuration.subtitleIdentifier)))
+            .iconsStyle(IconsNSSStyle(cardHeaderConfiguration: configuration, nssData: self.data.value(configuration.iconsIdentifier)))
+            .detailImageStyle(DetailImageNSSStyle(cardHeaderConfiguration: configuration, nssData: self.data.value(configuration.detailImageIdentifier)))
+            .headerActionStyle(HeaderActionNSSStyle(cardHeaderConfiguration: configuration, nssData: self.data.value(configuration.headerActionIdentifier)))
+            .counterStyle(CounterNSSStyle(cardHeaderConfiguration: configuration, nssData: self.data.value(configuration.counterIdentifier)))
+            .row1Style(Row1NSSStyle(cardHeaderConfiguration: configuration, nssData: self.data.value(configuration.row1Identifier)))
+            .row2Style(Row2NSSStyle(cardHeaderConfiguration: configuration, nssData: self.data.value(configuration.row2Identifier)))
+            .row3Style(Row3NSSStyle(cardHeaderConfiguration: configuration, nssData: self.data.value(configuration.row3Identifier)))
+            .kpiStyle(KpiNSSStyle(cardHeaderConfiguration: configuration, nssData: self.data.value(configuration.kpiIdentifier)))
+            .kpiCaptionStyle(KpiCaptionNSSStyle(cardHeaderConfiguration: configuration, nssData: self.data.value(configuration.kpiCaptionIdentifier)))
+            .cardMediaStyle(CardMediaNSSStyle(cardHeaderConfiguration: configuration, nssData: self.data.value(configuration.cardMediaIdentifier)))
+            .cardMainHeaderStyle(CardMainHeaderNSSStyle(cardHeaderConfiguration: configuration, nssData: self.data.value(configuration.cardMainHeaderIdentifier)))
+            .cardExtHeaderStyle(CardExtHeaderNSSStyle(cardHeaderConfiguration: configuration, nssData: self.data.value(configuration.cardExtHeaderIdentifier)))
+            .cardHeaderStyle(ContentNSSStyle(cardHeaderConfiguration: configuration, nssData: self.data.value(configuration.contentIdentifier)))
     }
 }

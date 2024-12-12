@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -22,6 +23,12 @@ struct AnyBannerMessageStyle: BannerMessageStyle {
 }
 
 public struct BannerMessageConfiguration {
+    public let contentIdentifier = "FioriBannerMessage_content"
+    public let iconIdentifier = "FioriBannerMessage_icon"
+    public let titleIdentifier = "FioriBannerMessage_title"
+    public let closeActionIdentifier = "FioriBannerMessage_closeAction"
+    public let topDividerIdentifier = "FioriBannerMessage_topDivider"
+
     public let icon: Icon
     public let title: Title
     public let closeAction: CloseAction
@@ -45,5 +52,18 @@ public struct BannerMessageFioriStyle: BannerMessageStyle {
             .titleStyle(TitleFioriStyle(bannerMessageConfiguration: configuration))
             .closeActionStyle(CloseActionFioriStyle(bannerMessageConfiguration: configuration))
             .topDividerStyle(TopDividerFioriStyle(bannerMessageConfiguration: configuration))
+    }
+}
+
+public struct BannerMessageNSSStyle: BannerMessageStyle {
+    var data: NSSStyleData
+
+    public func makeBody(_ configuration: BannerMessageConfiguration) -> some View {
+        BannerMessage(configuration)
+            .iconStyle(IconNSSStyle(bannerMessageConfiguration: configuration, nssData: self.data.value(configuration.iconIdentifier)))
+            .titleStyle(TitleNSSStyle(bannerMessageConfiguration: configuration, nssData: self.data.value(configuration.titleIdentifier)))
+            .closeActionStyle(CloseActionNSSStyle(bannerMessageConfiguration: configuration, nssData: self.data.value(configuration.closeActionIdentifier)))
+            .topDividerStyle(TopDividerNSSStyle(bannerMessageConfiguration: configuration, nssData: self.data.value(configuration.topDividerIdentifier)))
+            .bannerMessageStyle(ContentNSSStyle(bannerMessageConfiguration: configuration, nssData: self.data.value(configuration.contentIdentifier)))
     }
 }
