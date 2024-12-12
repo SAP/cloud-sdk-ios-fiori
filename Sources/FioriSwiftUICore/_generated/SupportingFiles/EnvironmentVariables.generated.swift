@@ -885,6 +885,48 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: KPIContentStyle
+
+struct KPIContentStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any KPIContentStyle] = []
+}
+
+extension EnvironmentValues {
+    var kPIContentStyle: any KPIContentStyle {
+        self.kPIContentStyleStack.last ?? .base
+    }
+
+    var kPIContentStyleStack: [any KPIContentStyle] {
+        get {
+            self[KPIContentStyleStackKey.self]
+        }
+        set {
+            self[KPIContentStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: KPIProgressItemStyle
+
+struct KPIProgressItemStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any KPIProgressItemStyle] = []
+}
+
+extension EnvironmentValues {
+    var kPIProgressItemStyle: any KPIProgressItemStyle {
+        self.kPIProgressItemStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var kPIProgressItemStyleStack: [any KPIProgressItemStyle] {
+        get {
+            self[KPIProgressItemStyleStackKey.self]
+        }
+        set {
+            self[KPIProgressItemStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: KeyValueFormViewStyle
 
 struct KeyValueFormViewStyleStackKey: EnvironmentKey {

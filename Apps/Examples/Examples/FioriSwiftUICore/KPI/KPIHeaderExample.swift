@@ -12,7 +12,7 @@ class World: KPIItemModel, Identifiable {
     }
 }
 
-class Galaxy: KPIProgressItemModel, Identifiable {
+class Galaxy: _KPIProgressItemModel, Identifiable {
     var kpi: String? {
         "Hello Galaxy"
     }
@@ -70,8 +70,8 @@ struct KPIHeaderExample: View {
                     KPIItem(data: .components([.icon(Image(systemName: "heart.fill")), .metric("2K"), .icon(Image(systemName: "hand.thumbsup")), .metric("7.5K")]), subtitle: "Likes & Thumbs-Up")
                     KPIItem(data: .percent(0.695), subtitle: "Acceptance Rate")
                         .disabled(true)
-                    KPIProgressItem(data: .percent(0.88), subtitle: "Completed")
-                    KPIProgressItem(data: .percent(0.66), footnote: "Completed")
+                    _KPIProgressItem(data: .percent(0.88), subtitle: "Completed")
+                    _KPIProgressItem(data: .percent(0.66), footnote: "Completed")
                 }
                 KPIHeader(self.data)
                 KPIHeader {

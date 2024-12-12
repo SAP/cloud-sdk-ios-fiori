@@ -1,8 +1,8 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
-//TODO: Copy commented code to new file: `FioriSwiftUICore/Views/KPIProgressItem+View.swift`
+//TODO: Copy commented code to new file: `FioriSwiftUICore/Views/_KPIProgressItem+View.swift`
 //TODO: Implement default Fiori style definitions as `ViewModifier`
-//TODO: Implement KPIProgressItem `View` body
+//TODO: Implement _KPIProgressItem `View` body
 //TODO: Implement LibraryContentProvider
 
 /// - Important: to make `@Environment` properties (e.g. `horizontalSizeClass`), internally accessible
@@ -16,7 +16,7 @@ import SwiftUI
 // FIXME: - Implement Fiori style definitions
 
 extension Fiori {
-    enum KPIProgressItem {
+    enum _KPIProgressItem {
         typealias Kpi = EmptyModifier
         typealias KpiCumulative = EmptyModifier
 		typealias Subtitle = EmptyModifier
@@ -45,21 +45,21 @@ extension Fiori {
     }
 }
 
-// FIXME: - Implement KPIProgressItem View body
+// FIXME: - Implement _KPIProgressItem View body
 
-extension KPIProgressItem: View {
+extension _KPIProgressItem: View {
     public var body: some View {
         <# View body #>
     }
 }
 
-// FIXME: - Implement KPIProgressItem specific LibraryContentProvider
+// FIXME: - Implement _KPIProgressItem specific LibraryContentProvider
 
 @available(iOS 14.0, macOS 11.0, *)
-struct KPIProgressItemLibraryContent: LibraryContentProvider {
+struct _KPIProgressItemLibraryContent: LibraryContentProvider {
     @LibraryContentBuilder
     var views: [LibraryItem] {
-        LibraryItem(KPIProgressItem(model: LibraryPreviewData.Person.laurelosborn),
+        LibraryItem(_KPIProgressItem(model: LibraryPreviewData.Person.laurelosborn),
                     category: .control)
     }
 }

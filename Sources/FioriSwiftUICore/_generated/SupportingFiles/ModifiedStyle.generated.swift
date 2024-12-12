@@ -1184,6 +1184,62 @@ public extension JouleWelcomeScreenStyle {
     }
 }
 
+// MARK: KPIContentStyle
+
+extension ModifiedStyle: KPIContentStyle where Style: KPIContentStyle {
+    public func makeBody(_ configuration: KPIContentConfiguration) -> some View {
+        KPIContent(configuration)
+            .kPIContentStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct KPIContentStyleModifier<Style: KPIContentStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.kPIContentStyle(self.style)
+    }
+}
+
+public extension KPIContentStyle {
+    func modifier(_ modifier: some ViewModifier) -> some KPIContentStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some KPIContentStyle) -> some KPIContentStyle {
+        style.modifier(KPIContentStyleModifier(style: self))
+    }
+}
+
+// MARK: KPIProgressItemStyle
+
+extension ModifiedStyle: KPIProgressItemStyle where Style: KPIProgressItemStyle {
+    public func makeBody(_ configuration: KPIProgressItemConfiguration) -> some View {
+        KPIProgressItem(configuration)
+            .kPIProgressItemStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct KPIProgressItemStyleModifier<Style: KPIProgressItemStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.kPIProgressItemStyle(self.style)
+    }
+}
+
+public extension KPIProgressItemStyle {
+    func modifier(_ modifier: some ViewModifier) -> some KPIProgressItemStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some KPIProgressItemStyle) -> some KPIProgressItemStyle {
+        style.modifier(KPIProgressItemStyleModifier(style: self))
+    }
+}
+
 // MARK: KeyValueFormViewStyle
 
 extension ModifiedStyle: KeyValueFormViewStyle where Style: KeyValueFormViewStyle {

@@ -18,6 +18,7 @@ public struct ObjectItem {
     let footnoteIconsText: any View
     let tags: any View
     let action: any View
+    /// For accessory enhancement
     let objectItemButton: any View
 
     @Environment(\.objectItemStyle) var style

@@ -717,6 +717,40 @@ public extension View {
     }
 }
 
+// MARK: KPIContentStyle
+
+public extension View {
+    func kPIContentStyle(_ style: some KPIContentStyle) -> some View {
+        self.transformEnvironment(\.kPIContentStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func kPIContentStyle(@ViewBuilder content: @escaping (KPIContentConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.kPIContentStyleStack) { stack in
+            let style = AnyKPIContentStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: KPIProgressItemStyle
+
+public extension View {
+    func kPIProgressItemStyle(_ style: some KPIProgressItemStyle) -> some View {
+        self.transformEnvironment(\.kPIProgressItemStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func kPIProgressItemStyle(@ViewBuilder content: @escaping (KPIProgressItemConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.kPIProgressItemStyleStack) { stack in
+            let style = AnyKPIProgressItemStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: KeyValueFormViewStyle
 
 public extension View {
