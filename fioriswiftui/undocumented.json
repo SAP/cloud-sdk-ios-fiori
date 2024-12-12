@@ -646,7 +646,7 @@
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/FioriButton/FioriButton.swift",
-      "line": 206,
+      "line": 212,
       "symbol": "FioriButton.init(isSelectionPersistent:action:title:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
