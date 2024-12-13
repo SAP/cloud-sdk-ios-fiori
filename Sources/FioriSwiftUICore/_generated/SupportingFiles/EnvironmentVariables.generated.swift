@@ -45,6 +45,48 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: ActiveTrackStyle
+
+struct ActiveTrackStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any ActiveTrackStyle] = []
+}
+
+extension EnvironmentValues {
+    var activeTrackStyle: any ActiveTrackStyle {
+        self.activeTrackStyleStack.last ?? .base
+    }
+
+    var activeTrackStyleStack: [any ActiveTrackStyle] {
+        get {
+            self[ActiveTrackStyleStackKey.self]
+        }
+        set {
+            self[ActiveTrackStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: ActivityItemStyle
+
+struct ActivityItemStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any ActivityItemStyle] = []
+}
+
+extension EnvironmentValues {
+    var activityItemStyle: any ActivityItemStyle {
+        self.activityItemStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var activityItemStyleStack: [any ActivityItemStyle] {
+        get {
+            self[ActivityItemStyleStackKey.self]
+        }
+        set {
+            self[ActivityItemStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: AllEntriesSectionTitleStyle
 
 struct AllEntriesSectionTitleStyleStackKey: EnvironmentKey {
@@ -591,6 +633,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: FioriSliderStyle
+
+struct FioriSliderStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any FioriSliderStyle] = []
+}
+
+extension EnvironmentValues {
+    var fioriSliderStyle: any FioriSliderStyle {
+        self.fioriSliderStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var fioriSliderStyleStack: [any FioriSliderStyle] {
+        get {
+            self[FioriSliderStyleStackKey.self]
+        }
+        set {
+            self[FioriSliderStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: FootnoteStyle
 
 struct FootnoteStyleStackKey: EnvironmentKey {
@@ -822,6 +885,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: InactiveTrackStyle
+
+struct InactiveTrackStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any InactiveTrackStyle] = []
+}
+
+extension EnvironmentValues {
+    var inactiveTrackStyle: any InactiveTrackStyle {
+        self.inactiveTrackStyleStack.last ?? .base
+    }
+
+    var inactiveTrackStyleStack: [any InactiveTrackStyle] {
+        get {
+            self[InactiveTrackStyleStackKey.self]
+        }
+        set {
+            self[InactiveTrackStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: IncrementActionStyle
 
 struct IncrementActionStyleStackKey: EnvironmentKey {
@@ -969,6 +1053,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: LeadingAccessoryStyle
+
+struct LeadingAccessoryStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any LeadingAccessoryStyle] = []
+}
+
+extension EnvironmentValues {
+    var leadingAccessoryStyle: any LeadingAccessoryStyle {
+        self.leadingAccessoryStyleStack.last ?? .base
+    }
+
+    var leadingAccessoryStyleStack: [any LeadingAccessoryStyle] {
+        get {
+            self[LeadingAccessoryStyleStackKey.self]
+        }
+        set {
+            self[LeadingAccessoryStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: LinearProgressIndicatorStyle
 
 struct LinearProgressIndicatorStyleStackKey: EnvironmentKey {
@@ -1091,6 +1196,27 @@ extension EnvironmentValues {
         }
         set {
             self[LoadingIndicatorStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: LowerThumbStyle
+
+struct LowerThumbStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any LowerThumbStyle] = []
+}
+
+extension EnvironmentValues {
+    var lowerThumbStyle: any LowerThumbStyle {
+        self.lowerThumbStyleStack.last ?? .base
+    }
+
+    var lowerThumbStyleStack: [any LowerThumbStyle] {
+        get {
+            self[LowerThumbStyleStackKey.self]
+        }
+        set {
+            self[LowerThumbStyleStackKey.self] = newValue
         }
     }
 }
@@ -1553,6 +1679,27 @@ extension EnvironmentValues {
         }
         set {
             self[ProgressIndicatorProtocolStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: RangeSliderControlStyle
+
+struct RangeSliderControlStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any RangeSliderControlStyle] = []
+}
+
+extension EnvironmentValues {
+    var rangeSliderControlStyle: any RangeSliderControlStyle {
+        self.rangeSliderControlStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var rangeSliderControlStyleStack: [any RangeSliderControlStyle] {
+        get {
+            self[RangeSliderControlStyleStackKey.self]
+        }
+        set {
+            self[RangeSliderControlStyleStackKey.self] = newValue
         }
     }
 }
@@ -2372,6 +2519,48 @@ extension EnvironmentValues {
         }
         set {
             self[TopDividerStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: TrailingAccessoryStyle
+
+struct TrailingAccessoryStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any TrailingAccessoryStyle] = []
+}
+
+extension EnvironmentValues {
+    var trailingAccessoryStyle: any TrailingAccessoryStyle {
+        self.trailingAccessoryStyleStack.last ?? .base
+    }
+
+    var trailingAccessoryStyleStack: [any TrailingAccessoryStyle] {
+        get {
+            self[TrailingAccessoryStyleStackKey.self]
+        }
+        set {
+            self[TrailingAccessoryStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: UpperThumbStyle
+
+struct UpperThumbStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any UpperThumbStyle] = []
+}
+
+extension EnvironmentValues {
+    var upperThumbStyle: any UpperThumbStyle {
+        self.upperThumbStyleStack.last ?? .base
+    }
+
+    var upperThumbStyleStack: [any UpperThumbStyle] {
+        get {
+            self[UpperThumbStyleStackKey.self]
+        }
+        set {
+            self[UpperThumbStyleStackKey.self] = newValue
         }
     }
 }

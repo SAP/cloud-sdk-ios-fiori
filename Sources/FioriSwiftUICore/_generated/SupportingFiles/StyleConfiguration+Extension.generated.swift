@@ -49,6 +49,18 @@ extension DemoViewConfiguration {
     }
 }
 
+// MARK: FioriSliderConfiguration
+
+extension FioriSliderConfiguration {
+    var _rangeSliderControl: RangeSliderControl {
+        RangeSliderControl(.init(lowerThumb: .init(self.lowerThumb), upperThumb: .init(self.upperThumb), activeTrack: .init(self.activeTrack), inactiveTrack: .init(self.inactiveTrack), lowerValue: self.$lowerValue, upperValue: self.$upperValue, range: self.range, step: self.step, decimalPlaces: self.decimalPlaces, thumbHalfWidth: self.thumbHalfWidth, showsLowerThumb: self.showsLowerThumb, showsUpperThumb: self.showsUpperThumb, onRangeValueChange: self.onRangeValueChange), shouldApplyDefaultStyle: true)
+    }
+
+    var _informationView: InformationView {
+        InformationView(.init(icon: .init(self.icon), description: .init(self.description)), shouldApplyDefaultStyle: true)
+    }
+}
+
 // MARK: KeyValueFormViewConfiguration
 
 extension KeyValueFormViewConfiguration {
