@@ -233,8 +233,12 @@ extension Type {
             }
             
             \(accessLevelDecl)extension \(styleProtocolName) where Self == \(nssStyleName) {
-                static func nss(_ fileName: String) -> \(nssStyleName) {
-                    \(nssStyleName)(data: NSSTool.loadStyles(fileName))
+                static func nss(_ parserType: NSSParserType) -> \(nssStyleName) {
+                    \(nssStyleName)(data: parserType.nssData)
+                }
+            
+                static func nss(_ data: NSSStyleData) -> \(nssStyleName) {
+                    \(nssStyleName)(data: data)
                 }
             }
             """
@@ -255,8 +259,12 @@ extension Type {
             }
             
             \(accessLevelDecl)extension \(styleProtocolName) where Self == \(nssStyleName) {
-                static func nss(_ fileName: String) -> \(nssStyleName) {
-                    \(nssStyleName)(data: NSSTool.loadStyles(fileName))
+                static func nss(_ parserType: NSSParserType) -> \(nssStyleName) {
+                    \(nssStyleName)(data: parserType.nssData)
+                }
+            
+                static func nss(_ data: NSSStyleData) -> \(nssStyleName) {
+                    \(nssStyleName)(data: data)
                 }
             }
             
@@ -563,7 +571,7 @@ extension Type {
         case .base:
             defaultStyle = ".base"
         case .composite:
-            defaultStyle = ".base.concat(.fiori)"
+            defaultStyle = ".base.concat(.fiori).concat(.nss(NSSTool.globalNSSStyle))"
         case .none:
             return ""
         }

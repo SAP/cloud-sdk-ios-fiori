@@ -33,7 +33,7 @@ struct LoadingIndicatorExample: View {
                 
                 Section {
                     LoadingIndicator(title: "Loading...", isPresented: .constant(true))
-                        .loadingIndicatorStyle(.nss("FioriLoadingIndicatorView"))
+                        .loadingIndicatorStyle(.nss(.file("FioriLoadingIndicatorView")))
                         .frame(maxWidth: .infinity)
                         .multilineTextAlignment(.center)
                         .padding()

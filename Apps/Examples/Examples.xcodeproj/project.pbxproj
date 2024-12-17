@@ -121,6 +121,7 @@
 		A65036942CC6365C0093086A /* LoadingIndicatorExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = A65036932CC6365C0093086A /* LoadingIndicatorExample.swift */; };
 		A65036E92CDA0A9C0093086A /* FioriLoadingIndicatorView.nss in Sources */ = {isa = PBXBuildFile; fileRef = A65036E82CDA0A770093086A /* FioriLoadingIndicatorView.nss */; };
 		A65037092CDB5AF60093086A /* FioriLoadingIndicatorView.nss in Resources */ = {isa = PBXBuildFile; fileRef = A65036E82CDA0A770093086A /* FioriLoadingIndicatorView.nss */; };
+		A6655E162D0FF51D007796BD /* FioriDesignLanguage.nss in Resources */ = {isa = PBXBuildFile; fileRef = A6655E152D0FF515007796BD /* FioriDesignLanguage.nss */; };
 		AB988B102631270300483D87 /* DataTableExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB988B0F2631270300483D87 /* DataTableExample.swift */; };
 		B100639329C0624D00AF0CA2 /* StepProgressIndicatorExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B100639229C0624D00AF0CA2 /* StepProgressIndicatorExample.swift */; };
 		B13408922B01FA0700600331 /* NavigationBarExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B13408912B01FA0700600331 /* NavigationBarExample.swift */; };
@@ -344,6 +345,7 @@
 		9DEC27B62C3F3DE70070B571 /* OtherViewExamples.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherViewExamples.swift; sourceTree = "<group>"; };
 		A65036932CC6365C0093086A /* LoadingIndicatorExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingIndicatorExample.swift; sourceTree = "<group>"; };
 		A65036E82CDA0A770093086A /* FioriLoadingIndicatorView.nss */ = {isa = PBXFileReference; lastKnownFileType = text; path = FioriLoadingIndicatorView.nss; sourceTree = "<group>"; };
+		A6655E152D0FF515007796BD /* FioriDesignLanguage.nss */ = {isa = PBXFileReference; lastKnownFileType = text; path = FioriDesignLanguage.nss; sourceTree = "<group>"; };
 		AB988B0F2631270300483D87 /* DataTableExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTableExample.swift; sourceTree = "<group>"; };
 		B100639229C0624D00AF0CA2 /* StepProgressIndicatorExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepProgressIndicatorExample.swift; sourceTree = "<group>"; };
 		B13408912B01FA0700600331 /* NavigationBarExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarExample.swift; sourceTree = "<group>"; };
@@ -621,6 +623,7 @@
 				8A55797824C1293C0098003A /* FioriCharts */,
 				8A5579C824C1293C0098003A /* FioriSwiftUICore */,
 				8A55795624C1286E0098003A /* AppDelegate.swift */,
+				A6655E152D0FF515007796BD /* FioriDesignLanguage.nss */,
 				8A55795824C1286E0098003A /* SceneDelegate.swift */,
 				8A55795A24C1286E0098003A /* ContentView.swift */,
 				8AB6C01328DF6583002F32BE /* LazyView.swift */,
@@ -1087,6 +1090,7 @@
 				B8D4376825EEC5E80024EE7D /* Assets.xcassets in Resources */,
 				9996CD03262FFEBE001B99AE /* EULA2.html in Resources */,
 				993A122F26A726AC0018028B /* PrivacyText.rtf in Resources */,
+				A6655E162D0FF51D007796BD /* FioriDesignLanguage.nss in Resources */,
 				9996CCFF262EB4E8001B99AE /* EULAText.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

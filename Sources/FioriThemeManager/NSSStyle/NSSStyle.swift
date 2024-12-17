@@ -1,8 +1,9 @@
 import Foundation
 import SwiftUI
 
-/// :nodoc:
+/// Convert nss style data
 public protocol NSSCovert {
+    /// Convert string style to View.
     func apply(value: Any, to view: any View) -> any View
 }
 

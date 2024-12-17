@@ -19,8 +19,12 @@ public extension AccessoryIconStyle where Self == AccessoryIconFioriStyle {
 }
 
 public extension AccessoryIconStyle where Self == AccessoryIconNSSStyle {
-    static func nss(_ fileName: String) -> AccessoryIconNSSStyle {
-        AccessoryIconNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> AccessoryIconNSSStyle {
+        AccessoryIconNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> AccessoryIconNSSStyle {
+        AccessoryIconNSSStyle(data: data)
     }
 }
 
@@ -39,8 +43,12 @@ public extension ActionStyle where Self == ActionFioriStyle {
 }
 
 public extension ActionStyle where Self == ActionNSSStyle {
-    static func nss(_ fileName: String) -> ActionNSSStyle {
-        ActionNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> ActionNSSStyle {
+        ActionNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> ActionNSSStyle {
+        ActionNSSStyle(data: data)
     }
 }
 
@@ -59,8 +67,12 @@ public extension AllEntriesSectionTitleStyle where Self == AllEntriesSectionTitl
 }
 
 public extension AllEntriesSectionTitleStyle where Self == AllEntriesSectionTitleNSSStyle {
-    static func nss(_ fileName: String) -> AllEntriesSectionTitleNSSStyle {
-        AllEntriesSectionTitleNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> AllEntriesSectionTitleNSSStyle {
+        AllEntriesSectionTitleNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> AllEntriesSectionTitleNSSStyle {
+        AllEntriesSectionTitleNSSStyle(data: data)
     }
 }
 
@@ -79,8 +91,12 @@ public extension ApplyActionStyle where Self == ApplyActionFioriStyle {
 }
 
 public extension ApplyActionStyle where Self == ApplyActionNSSStyle {
-    static func nss(_ fileName: String) -> ApplyActionNSSStyle {
-        ApplyActionNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> ApplyActionNSSStyle {
+        ApplyActionNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> ApplyActionNSSStyle {
+        ApplyActionNSSStyle(data: data)
     }
 }
 
@@ -99,8 +115,12 @@ public extension AttributeStyle where Self == AttributeFioriStyle {
 }
 
 public extension AttributeStyle where Self == AttributeNSSStyle {
-    static func nss(_ fileName: String) -> AttributeNSSStyle {
-        AttributeNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> AttributeNSSStyle {
+        AttributeNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> AttributeNSSStyle {
+        AttributeNSSStyle(data: data)
     }
 }
 
@@ -119,8 +139,12 @@ public extension AvatarStackStyle where Self == AvatarStackFioriStyle {
 }
 
 public extension AvatarStackStyle where Self == AvatarStackNSSStyle {
-    static func nss(_ fileName: String) -> AvatarStackNSSStyle {
-        AvatarStackNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> AvatarStackNSSStyle {
+        AvatarStackNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> AvatarStackNSSStyle {
+        AvatarStackNSSStyle(data: data)
     }
 }
 
@@ -181,8 +205,12 @@ public extension AvatarsStyle where Self == AvatarsFioriStyle {
 }
 
 public extension AvatarsStyle where Self == AvatarsNSSStyle {
-    static func nss(_ fileName: String) -> AvatarsNSSStyle {
-        AvatarsNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> AvatarsNSSStyle {
+        AvatarsNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> AvatarsNSSStyle {
+        AvatarsNSSStyle(data: data)
     }
 }
 
@@ -201,8 +229,12 @@ public extension AvatarsTitleStyle where Self == AvatarsTitleFioriStyle {
 }
 
 public extension AvatarsTitleStyle where Self == AvatarsTitleNSSStyle {
-    static func nss(_ fileName: String) -> AvatarsTitleNSSStyle {
-        AvatarsTitleNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> AvatarsTitleNSSStyle {
+        AvatarsTitleNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> AvatarsTitleNSSStyle {
+        AvatarsTitleNSSStyle(data: data)
     }
 }
 
@@ -221,8 +253,12 @@ public extension BannerMessageStyle where Self == BannerMessageFioriStyle {
 }
 
 public extension BannerMessageStyle where Self == BannerMessageNSSStyle {
-    static func nss(_ fileName: String) -> BannerMessageNSSStyle {
-        BannerMessageNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> BannerMessageNSSStyle {
+        BannerMessageNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> BannerMessageNSSStyle {
+        BannerMessageNSSStyle(data: data)
     }
 }
 
@@ -325,8 +361,12 @@ public extension BannerMultiMessageSheetStyle where Self == BannerMultiMessageSh
 }
 
 public extension BannerMultiMessageSheetStyle where Self == BannerMultiMessageSheetNSSStyle {
-    static func nss(_ fileName: String) -> BannerMultiMessageSheetNSSStyle {
-        BannerMultiMessageSheetNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> BannerMultiMessageSheetNSSStyle {
+        BannerMultiMessageSheetNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> BannerMultiMessageSheetNSSStyle {
+        BannerMultiMessageSheetNSSStyle(data: data)
     }
 }
 
@@ -387,8 +427,12 @@ public extension CancelActionStyle where Self == CancelActionFioriStyle {
 }
 
 public extension CancelActionStyle where Self == CancelActionNSSStyle {
-    static func nss(_ fileName: String) -> CancelActionNSSStyle {
-        CancelActionNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> CancelActionNSSStyle {
+        CancelActionNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> CancelActionNSSStyle {
+        CancelActionNSSStyle(data: data)
     }
 }
 
@@ -407,8 +451,12 @@ public extension CardBodyStyle where Self == CardBodyFioriStyle {
 }
 
 public extension CardBodyStyle where Self == CardBodyNSSStyle {
-    static func nss(_ fileName: String) -> CardBodyNSSStyle {
-        CardBodyNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> CardBodyNSSStyle {
+        CardBodyNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> CardBodyNSSStyle {
+        CardBodyNSSStyle(data: data)
     }
 }
 
@@ -427,8 +475,12 @@ public extension CardStyle where Self == CardFioriStyle {
 }
 
 public extension CardStyle where Self == CardNSSStyle {
-    static func nss(_ fileName: String) -> CardNSSStyle {
-        CardNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> CardNSSStyle {
+        CardNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> CardNSSStyle {
+        CardNSSStyle(data: data)
     }
 }
 
@@ -867,8 +919,12 @@ public extension CardExtHeaderStyle where Self == CardExtHeaderFioriStyle {
 }
 
 public extension CardExtHeaderStyle where Self == CardExtHeaderNSSStyle {
-    static func nss(_ fileName: String) -> CardExtHeaderNSSStyle {
-        CardExtHeaderNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> CardExtHeaderNSSStyle {
+        CardExtHeaderNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> CardExtHeaderNSSStyle {
+        CardExtHeaderNSSStyle(data: data)
     }
 }
 
@@ -992,8 +1048,12 @@ public extension CardFooterStyle where Self == CardFooterFioriStyle {
 }
 
 public extension CardFooterStyle where Self == CardFooterNSSStyle {
-    static func nss(_ fileName: String) -> CardFooterNSSStyle {
-        CardFooterNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> CardFooterNSSStyle {
+        CardFooterNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> CardFooterNSSStyle {
+        CardFooterNSSStyle(data: data)
     }
 }
 
@@ -1096,8 +1156,12 @@ public extension CardHeaderStyle where Self == CardHeaderFioriStyle {
 }
 
 public extension CardHeaderStyle where Self == CardHeaderNSSStyle {
-    static func nss(_ fileName: String) -> CardHeaderNSSStyle {
-        CardHeaderNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> CardHeaderNSSStyle {
+        CardHeaderNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> CardHeaderNSSStyle {
+        CardHeaderNSSStyle(data: data)
     }
 }
 
@@ -1452,8 +1516,12 @@ public extension CardMainHeaderStyle where Self == CardMainHeaderFioriStyle {
 }
 
 public extension CardMainHeaderStyle where Self == CardMainHeaderNSSStyle {
-    static func nss(_ fileName: String) -> CardMainHeaderNSSStyle {
-        CardMainHeaderNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> CardMainHeaderNSSStyle {
+        CardMainHeaderNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> CardMainHeaderNSSStyle {
+        CardMainHeaderNSSStyle(data: data)
     }
 }
 
@@ -1598,8 +1666,12 @@ public extension CardMediaStyle where Self == CardMediaFioriStyle {
 }
 
 public extension CardMediaStyle where Self == CardMediaNSSStyle {
-    static func nss(_ fileName: String) -> CardMediaNSSStyle {
-        CardMediaNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> CardMediaNSSStyle {
+        CardMediaNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> CardMediaNSSStyle {
+        CardMediaNSSStyle(data: data)
     }
 }
 
@@ -1660,8 +1732,12 @@ public extension CheckoutIndicatorStyle where Self == CheckoutIndicatorFioriStyl
 }
 
 public extension CheckoutIndicatorStyle where Self == CheckoutIndicatorNSSStyle {
-    static func nss(_ fileName: String) -> CheckoutIndicatorNSSStyle {
-        CheckoutIndicatorNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> CheckoutIndicatorNSSStyle {
+        CheckoutIndicatorNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> CheckoutIndicatorNSSStyle {
+        CheckoutIndicatorNSSStyle(data: data)
     }
 }
 
@@ -1680,8 +1756,12 @@ public extension CloseActionStyle where Self == CloseActionFioriStyle {
 }
 
 public extension CloseActionStyle where Self == CloseActionNSSStyle {
-    static func nss(_ fileName: String) -> CloseActionNSSStyle {
-        CloseActionNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> CloseActionNSSStyle {
+        CloseActionNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> CloseActionNSSStyle {
+        CloseActionNSSStyle(data: data)
     }
 }
 
@@ -1700,8 +1780,12 @@ public extension CounterStyle where Self == CounterFioriStyle {
 }
 
 public extension CounterStyle where Self == CounterNSSStyle {
-    static func nss(_ fileName: String) -> CounterNSSStyle {
-        CounterNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> CounterNSSStyle {
+        CounterNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> CounterNSSStyle {
+        CounterNSSStyle(data: data)
     }
 }
 
@@ -1720,8 +1804,12 @@ public extension DateTimePickerStyle where Self == DateTimePickerFioriStyle {
 }
 
 public extension DateTimePickerStyle where Self == DateTimePickerNSSStyle {
-    static func nss(_ fileName: String) -> DateTimePickerNSSStyle {
-        DateTimePickerNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> DateTimePickerNSSStyle {
+        DateTimePickerNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> DateTimePickerNSSStyle {
+        DateTimePickerNSSStyle(data: data)
     }
 }
 
@@ -1824,8 +1912,12 @@ public extension DecrementActionStyle where Self == DecrementActionFioriStyle {
 }
 
 public extension DecrementActionStyle where Self == DecrementActionNSSStyle {
-    static func nss(_ fileName: String) -> DecrementActionNSSStyle {
-        DecrementActionNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> DecrementActionNSSStyle {
+        DecrementActionNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> DecrementActionNSSStyle {
+        DecrementActionNSSStyle(data: data)
     }
 }
 
@@ -1844,8 +1936,12 @@ extension DemoViewStyle where Self == DemoViewFioriStyle {
 }
 
 extension DemoViewStyle where Self == DemoViewNSSStyle {
-    static func nss(_ fileName: String) -> DemoViewNSSStyle {
-        DemoViewNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> DemoViewNSSStyle {
+        DemoViewNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> DemoViewNSSStyle {
+        DemoViewNSSStyle(data: data)
     }
 }
 
@@ -1969,8 +2065,12 @@ public extension DescriptionStyle where Self == DescriptionFioriStyle {
 }
 
 public extension DescriptionStyle where Self == DescriptionNSSStyle {
-    static func nss(_ fileName: String) -> DescriptionNSSStyle {
-        DescriptionNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> DescriptionNSSStyle {
+        DescriptionNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> DescriptionNSSStyle {
+        DescriptionNSSStyle(data: data)
     }
 }
 
@@ -1989,8 +2089,12 @@ public extension DeselectAllActionStyle where Self == DeselectAllActionFioriStyl
 }
 
 public extension DeselectAllActionStyle where Self == DeselectAllActionNSSStyle {
-    static func nss(_ fileName: String) -> DeselectAllActionNSSStyle {
-        DeselectAllActionNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> DeselectAllActionNSSStyle {
+        DeselectAllActionNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> DeselectAllActionNSSStyle {
+        DeselectAllActionNSSStyle(data: data)
     }
 }
 
@@ -2009,8 +2113,12 @@ public extension DetailImageStyle where Self == DetailImageFioriStyle {
 }
 
 public extension DetailImageStyle where Self == DetailImageNSSStyle {
-    static func nss(_ fileName: String) -> DetailImageNSSStyle {
-        DetailImageNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> DetailImageNSSStyle {
+        DetailImageNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> DetailImageNSSStyle {
+        DetailImageNSSStyle(data: data)
     }
 }
 
@@ -2029,8 +2137,12 @@ public extension FilledIconStyle where Self == FilledIconFioriStyle {
 }
 
 public extension FilledIconStyle where Self == FilledIconNSSStyle {
-    static func nss(_ fileName: String) -> FilledIconNSSStyle {
-        FilledIconNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> FilledIconNSSStyle {
+        FilledIconNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> FilledIconNSSStyle {
+        FilledIconNSSStyle(data: data)
     }
 }
 
@@ -2049,8 +2161,12 @@ public extension FootnoteStyle where Self == FootnoteFioriStyle {
 }
 
 public extension FootnoteStyle where Self == FootnoteNSSStyle {
-    static func nss(_ fileName: String) -> FootnoteNSSStyle {
-        FootnoteNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> FootnoteNSSStyle {
+        FootnoteNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> FootnoteNSSStyle {
+        FootnoteNSSStyle(data: data)
     }
 }
 
@@ -2069,8 +2185,12 @@ public extension FootnoteIconsStyle where Self == FootnoteIconsFioriStyle {
 }
 
 public extension FootnoteIconsStyle where Self == FootnoteIconsNSSStyle {
-    static func nss(_ fileName: String) -> FootnoteIconsNSSStyle {
-        FootnoteIconsNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> FootnoteIconsNSSStyle {
+        FootnoteIconsNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> FootnoteIconsNSSStyle {
+        FootnoteIconsNSSStyle(data: data)
     }
 }
 
@@ -2089,8 +2209,12 @@ public extension FootnoteIconsTextStyle where Self == FootnoteIconsTextFioriStyl
 }
 
 public extension FootnoteIconsTextStyle where Self == FootnoteIconsTextNSSStyle {
-    static func nss(_ fileName: String) -> FootnoteIconsTextNSSStyle {
-        FootnoteIconsTextNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> FootnoteIconsTextNSSStyle {
+        FootnoteIconsTextNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> FootnoteIconsTextNSSStyle {
+        FootnoteIconsTextNSSStyle(data: data)
     }
 }
 
@@ -2109,8 +2233,12 @@ public extension FormViewStyle where Self == FormViewFioriStyle {
 }
 
 public extension FormViewStyle where Self == FormViewNSSStyle {
-    static func nss(_ fileName: String) -> FormViewNSSStyle {
-        FormViewNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> FormViewNSSStyle {
+        FormViewNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> FormViewNSSStyle {
+        FormViewNSSStyle(data: data)
     }
 }
 
@@ -2129,8 +2257,12 @@ public extension GreetingTextStyle where Self == GreetingTextFioriStyle {
 }
 
 public extension GreetingTextStyle where Self == GreetingTextNSSStyle {
-    static func nss(_ fileName: String) -> GreetingTextNSSStyle {
-        GreetingTextNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> GreetingTextNSSStyle {
+        GreetingTextNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> GreetingTextNSSStyle {
+        GreetingTextNSSStyle(data: data)
     }
 }
 
@@ -2149,8 +2281,12 @@ public extension HalfStarImageStyle where Self == HalfStarImageFioriStyle {
 }
 
 public extension HalfStarImageStyle where Self == HalfStarImageNSSStyle {
-    static func nss(_ fileName: String) -> HalfStarImageNSSStyle {
-        HalfStarImageNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> HalfStarImageNSSStyle {
+        HalfStarImageNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> HalfStarImageNSSStyle {
+        HalfStarImageNSSStyle(data: data)
     }
 }
 
@@ -2169,8 +2305,12 @@ public extension HeaderActionStyle where Self == HeaderActionFioriStyle {
 }
 
 public extension HeaderActionStyle where Self == HeaderActionNSSStyle {
-    static func nss(_ fileName: String) -> HeaderActionNSSStyle {
-        HeaderActionNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> HeaderActionNSSStyle {
+        HeaderActionNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> HeaderActionNSSStyle {
+        HeaderActionNSSStyle(data: data)
     }
 }
 
@@ -2189,8 +2329,12 @@ public extension HelperTextStyle where Self == HelperTextFioriStyle {
 }
 
 public extension HelperTextStyle where Self == HelperTextNSSStyle {
-    static func nss(_ fileName: String) -> HelperTextNSSStyle {
-        HelperTextNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> HelperTextNSSStyle {
+        HelperTextNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> HelperTextNSSStyle {
+        HelperTextNSSStyle(data: data)
     }
 }
 
@@ -2209,8 +2353,12 @@ public extension IconStyle where Self == IconFioriStyle {
 }
 
 public extension IconStyle where Self == IconNSSStyle {
-    static func nss(_ fileName: String) -> IconNSSStyle {
-        IconNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> IconNSSStyle {
+        IconNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> IconNSSStyle {
+        IconNSSStyle(data: data)
     }
 }
 
@@ -2229,8 +2377,12 @@ public extension IconsStyle where Self == IconsFioriStyle {
 }
 
 public extension IconsStyle where Self == IconsNSSStyle {
-    static func nss(_ fileName: String) -> IconsNSSStyle {
-        IconsNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> IconsNSSStyle {
+        IconsNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> IconsNSSStyle {
+        IconsNSSStyle(data: data)
     }
 }
 
@@ -2249,8 +2401,12 @@ public extension IllustratedMessageStyle where Self == IllustratedMessageFioriSt
 }
 
 public extension IllustratedMessageStyle where Self == IllustratedMessageNSSStyle {
-    static func nss(_ fileName: String) -> IllustratedMessageNSSStyle {
-        IllustratedMessageNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> IllustratedMessageNSSStyle {
+        IllustratedMessageNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> IllustratedMessageNSSStyle {
+        IllustratedMessageNSSStyle(data: data)
     }
 }
 
@@ -2374,8 +2530,12 @@ public extension IncrementActionStyle where Self == IncrementActionFioriStyle {
 }
 
 public extension IncrementActionStyle where Self == IncrementActionNSSStyle {
-    static func nss(_ fileName: String) -> IncrementActionNSSStyle {
-        IncrementActionNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> IncrementActionNSSStyle {
+        IncrementActionNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> IncrementActionNSSStyle {
+        IncrementActionNSSStyle(data: data)
     }
 }
 
@@ -2394,8 +2554,12 @@ public extension InformationViewStyle where Self == InformationViewFioriStyle {
 }
 
 public extension InformationViewStyle where Self == InformationViewNSSStyle {
-    static func nss(_ fileName: String) -> InformationViewNSSStyle {
-        InformationViewNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> InformationViewNSSStyle {
+        InformationViewNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> InformationViewNSSStyle {
+        InformationViewNSSStyle(data: data)
     }
 }
 
@@ -2456,8 +2620,12 @@ public extension JouleWelcomeScreenStyle where Self == JouleWelcomeScreenFioriSt
 }
 
 public extension JouleWelcomeScreenStyle where Self == JouleWelcomeScreenNSSStyle {
-    static func nss(_ fileName: String) -> JouleWelcomeScreenNSSStyle {
-        JouleWelcomeScreenNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> JouleWelcomeScreenNSSStyle {
+        JouleWelcomeScreenNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> JouleWelcomeScreenNSSStyle {
+        JouleWelcomeScreenNSSStyle(data: data)
     }
 }
 
@@ -2581,8 +2749,12 @@ public extension KeyValueFormViewStyle where Self == KeyValueFormViewFioriStyle 
 }
 
 public extension KeyValueFormViewStyle where Self == KeyValueFormViewNSSStyle {
-    static func nss(_ fileName: String) -> KeyValueFormViewNSSStyle {
-        KeyValueFormViewNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> KeyValueFormViewNSSStyle {
+        KeyValueFormViewNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> KeyValueFormViewNSSStyle {
+        KeyValueFormViewNSSStyle(data: data)
     }
 }
 
@@ -2706,8 +2878,12 @@ public extension KpiCaptionStyle where Self == KpiCaptionFioriStyle {
 }
 
 public extension KpiCaptionStyle where Self == KpiCaptionNSSStyle {
-    static func nss(_ fileName: String) -> KpiCaptionNSSStyle {
-        KpiCaptionNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> KpiCaptionNSSStyle {
+        KpiCaptionNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> KpiCaptionNSSStyle {
+        KpiCaptionNSSStyle(data: data)
     }
 }
 
@@ -2726,8 +2902,12 @@ public extension KpiStyle where Self == KpiFioriStyle {
 }
 
 public extension KpiStyle where Self == KpiNSSStyle {
-    static func nss(_ fileName: String) -> KpiNSSStyle {
-        KpiNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> KpiNSSStyle {
+        KpiNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> KpiNSSStyle {
+        KpiNSSStyle(data: data)
     }
 }
 
@@ -2746,8 +2926,12 @@ public extension LabelItemStyle where Self == LabelItemFioriStyle {
 }
 
 public extension LabelItemStyle where Self == LabelItemNSSStyle {
-    static func nss(_ fileName: String) -> LabelItemNSSStyle {
-        LabelItemNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> LabelItemNSSStyle {
+        LabelItemNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> LabelItemNSSStyle {
+        LabelItemNSSStyle(data: data)
     }
 }
 
@@ -2808,8 +2992,12 @@ public extension LinearProgressIndicatorStyle where Self == LinearProgressIndica
 }
 
 public extension LinearProgressIndicatorStyle where Self == LinearProgressIndicatorNSSStyle {
-    static func nss(_ fileName: String) -> LinearProgressIndicatorNSSStyle {
-        LinearProgressIndicatorNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> LinearProgressIndicatorNSSStyle {
+        LinearProgressIndicatorNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> LinearProgressIndicatorNSSStyle {
+        LinearProgressIndicatorNSSStyle(data: data)
     }
 }
 
@@ -2828,8 +3016,12 @@ public extension LinearProgressIndicatorViewStyle where Self == LinearProgressIn
 }
 
 public extension LinearProgressIndicatorViewStyle where Self == LinearProgressIndicatorViewNSSStyle {
-    static func nss(_ fileName: String) -> LinearProgressIndicatorViewNSSStyle {
-        LinearProgressIndicatorViewNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> LinearProgressIndicatorViewNSSStyle {
+        LinearProgressIndicatorViewNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> LinearProgressIndicatorViewNSSStyle {
+        LinearProgressIndicatorViewNSSStyle(data: data)
     }
 }
 
@@ -2911,8 +3103,12 @@ public extension ListPickerContentStyle where Self == ListPickerContentFioriStyl
 }
 
 public extension ListPickerContentStyle where Self == ListPickerContentNSSStyle {
-    static func nss(_ fileName: String) -> ListPickerContentNSSStyle {
-        ListPickerContentNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> ListPickerContentNSSStyle {
+        ListPickerContentNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> ListPickerContentNSSStyle {
+        ListPickerContentNSSStyle(data: data)
     }
 }
 
@@ -2931,8 +3127,12 @@ public extension ListPickerDestinationStyle where Self == ListPickerDestinationF
 }
 
 public extension ListPickerDestinationStyle where Self == ListPickerDestinationNSSStyle {
-    static func nss(_ fileName: String) -> ListPickerDestinationNSSStyle {
-        ListPickerDestinationNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> ListPickerDestinationNSSStyle {
+        ListPickerDestinationNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> ListPickerDestinationNSSStyle {
+        ListPickerDestinationNSSStyle(data: data)
     }
 }
 
@@ -3098,8 +3298,12 @@ public extension ListPickerItemStyle where Self == ListPickerItemFioriStyle {
 }
 
 public extension ListPickerItemStyle where Self == ListPickerItemNSSStyle {
-    static func nss(_ fileName: String) -> ListPickerItemNSSStyle {
-        ListPickerItemNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> ListPickerItemNSSStyle {
+        ListPickerItemNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> ListPickerItemNSSStyle {
+        ListPickerItemNSSStyle(data: data)
     }
 }
 
@@ -3202,8 +3406,12 @@ public extension LoadingIndicatorStyle where Self == LoadingIndicatorFioriStyle 
 }
 
 public extension LoadingIndicatorStyle where Self == LoadingIndicatorNSSStyle {
-    static func nss(_ fileName: String) -> LoadingIndicatorNSSStyle {
-        LoadingIndicatorNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> LoadingIndicatorNSSStyle {
+        LoadingIndicatorNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> LoadingIndicatorNSSStyle {
+        LoadingIndicatorNSSStyle(data: data)
     }
 }
 
@@ -3264,8 +3472,12 @@ public extension MandatoryFieldIndicatorStyle where Self == MandatoryFieldIndica
 }
 
 public extension MandatoryFieldIndicatorStyle where Self == MandatoryFieldIndicatorNSSStyle {
-    static func nss(_ fileName: String) -> MandatoryFieldIndicatorNSSStyle {
-        MandatoryFieldIndicatorNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> MandatoryFieldIndicatorNSSStyle {
+        MandatoryFieldIndicatorNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> MandatoryFieldIndicatorNSSStyle {
+        MandatoryFieldIndicatorNSSStyle(data: data)
     }
 }
 
@@ -3284,8 +3496,12 @@ public extension MediaImageStyle where Self == MediaImageFioriStyle {
 }
 
 public extension MediaImageStyle where Self == MediaImageNSSStyle {
-    static func nss(_ fileName: String) -> MediaImageNSSStyle {
-        MediaImageNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> MediaImageNSSStyle {
+        MediaImageNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> MediaImageNSSStyle {
+        MediaImageNSSStyle(data: data)
     }
 }
 
@@ -3304,8 +3520,12 @@ public extension MenuSelectionStyle where Self == MenuSelectionFioriStyle {
 }
 
 public extension MenuSelectionStyle where Self == MenuSelectionNSSStyle {
-    static func nss(_ fileName: String) -> MenuSelectionNSSStyle {
-        MenuSelectionNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> MenuSelectionNSSStyle {
+        MenuSelectionNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> MenuSelectionNSSStyle {
+        MenuSelectionNSSStyle(data: data)
     }
 }
 
@@ -3345,8 +3565,12 @@ public extension MenuSelectionItemStyle where Self == MenuSelectionItemFioriStyl
 }
 
 public extension MenuSelectionItemStyle where Self == MenuSelectionItemNSSStyle {
-    static func nss(_ fileName: String) -> MenuSelectionItemNSSStyle {
-        MenuSelectionItemNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> MenuSelectionItemNSSStyle {
+        MenuSelectionItemNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> MenuSelectionItemNSSStyle {
+        MenuSelectionItemNSSStyle(data: data)
     }
 }
 
@@ -3407,8 +3631,12 @@ public extension MessageContentStyle where Self == MessageContentFioriStyle {
 }
 
 public extension MessageContentStyle where Self == MessageContentNSSStyle {
-    static func nss(_ fileName: String) -> MessageContentNSSStyle {
-        MessageContentNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> MessageContentNSSStyle {
+        MessageContentNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> MessageContentNSSStyle {
+        MessageContentNSSStyle(data: data)
     }
 }
 
@@ -3427,8 +3655,12 @@ public extension MoreActionOverflowStyle where Self == MoreActionOverflowFioriSt
 }
 
 public extension MoreActionOverflowStyle where Self == MoreActionOverflowNSSStyle {
-    static func nss(_ fileName: String) -> MoreActionOverflowNSSStyle {
-        MoreActionOverflowNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> MoreActionOverflowNSSStyle {
+        MoreActionOverflowNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> MoreActionOverflowNSSStyle {
+        MoreActionOverflowNSSStyle(data: data)
     }
 }
 
@@ -3447,8 +3679,12 @@ public extension NoteFormViewStyle where Self == NoteFormViewFioriStyle {
 }
 
 public extension NoteFormViewStyle where Self == NoteFormViewNSSStyle {
-    static func nss(_ fileName: String) -> NoteFormViewNSSStyle {
-        NoteFormViewNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> NoteFormViewNSSStyle {
+        NoteFormViewNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> NoteFormViewNSSStyle {
+        NoteFormViewNSSStyle(data: data)
     }
 }
 
@@ -3551,8 +3787,12 @@ public extension NowIndicatorNodeStyle where Self == NowIndicatorNodeFioriStyle 
 }
 
 public extension NowIndicatorNodeStyle where Self == NowIndicatorNodeNSSStyle {
-    static func nss(_ fileName: String) -> NowIndicatorNodeNSSStyle {
-        NowIndicatorNodeNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> NowIndicatorNodeNSSStyle {
+        NowIndicatorNodeNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> NowIndicatorNodeNSSStyle {
+        NowIndicatorNodeNSSStyle(data: data)
     }
 }
 
@@ -3571,8 +3811,12 @@ public extension ObjectItemStyle where Self == ObjectItemFioriStyle {
 }
 
 public extension ObjectItemStyle where Self == ObjectItemNSSStyle {
-    static func nss(_ fileName: String) -> ObjectItemNSSStyle {
-        ObjectItemNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> ObjectItemNSSStyle {
+        ObjectItemNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> ObjectItemNSSStyle {
+        ObjectItemNSSStyle(data: data)
     }
 }
 
@@ -3864,8 +4108,12 @@ public extension OffStarImageStyle where Self == OffStarImageFioriStyle {
 }
 
 public extension OffStarImageStyle where Self == OffStarImageNSSStyle {
-    static func nss(_ fileName: String) -> OffStarImageNSSStyle {
-        OffStarImageNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> OffStarImageNSSStyle {
+        OffStarImageNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> OffStarImageNSSStyle {
+        OffStarImageNSSStyle(data: data)
     }
 }
 
@@ -3884,8 +4132,12 @@ public extension OnStarImageStyle where Self == OnStarImageFioriStyle {
 }
 
 public extension OnStarImageStyle where Self == OnStarImageNSSStyle {
-    static func nss(_ fileName: String) -> OnStarImageNSSStyle {
-        OnStarImageNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> OnStarImageNSSStyle {
+        OnStarImageNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> OnStarImageNSSStyle {
+        OnStarImageNSSStyle(data: data)
     }
 }
 
@@ -3904,8 +4156,12 @@ public extension OptionalTitleStyle where Self == OptionalTitleFioriStyle {
 }
 
 public extension OptionalTitleStyle where Self == OptionalTitleNSSStyle {
-    static func nss(_ fileName: String) -> OptionalTitleNSSStyle {
-        OptionalTitleNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> OptionalTitleNSSStyle {
+        OptionalTitleNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> OptionalTitleNSSStyle {
+        OptionalTitleNSSStyle(data: data)
     }
 }
 
@@ -3924,8 +4180,12 @@ public extension OptionsStyle where Self == OptionsFioriStyle {
 }
 
 public extension OptionsStyle where Self == OptionsNSSStyle {
-    static func nss(_ fileName: String) -> OptionsNSSStyle {
-        OptionsNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> OptionsNSSStyle {
+        OptionsNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> OptionsNSSStyle {
+        OptionsNSSStyle(data: data)
     }
 }
 
@@ -3944,8 +4204,12 @@ public extension OverflowActionStyle where Self == OverflowActionFioriStyle {
 }
 
 public extension OverflowActionStyle where Self == OverflowActionNSSStyle {
-    static func nss(_ fileName: String) -> OverflowActionNSSStyle {
-        OverflowActionNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> OverflowActionNSSStyle {
+        OverflowActionNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> OverflowActionNSSStyle {
+        OverflowActionNSSStyle(data: data)
     }
 }
 
@@ -3964,8 +4228,12 @@ public extension PlaceholderStyle where Self == PlaceholderFioriStyle {
 }
 
 public extension PlaceholderStyle where Self == PlaceholderNSSStyle {
-    static func nss(_ fileName: String) -> PlaceholderNSSStyle {
-        PlaceholderNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> PlaceholderNSSStyle {
+        PlaceholderNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> PlaceholderNSSStyle {
+        PlaceholderNSSStyle(data: data)
     }
 }
 
@@ -3984,8 +4252,12 @@ public extension PlaceholderTextEditorStyle where Self == PlaceholderTextEditorF
 }
 
 public extension PlaceholderTextEditorStyle where Self == PlaceholderTextEditorNSSStyle {
-    static func nss(_ fileName: String) -> PlaceholderTextEditorNSSStyle {
-        PlaceholderTextEditorNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> PlaceholderTextEditorNSSStyle {
+        PlaceholderTextEditorNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> PlaceholderTextEditorNSSStyle {
+        PlaceholderTextEditorNSSStyle(data: data)
     }
 }
 
@@ -4046,8 +4318,12 @@ public extension PlaceholderTextFieldStyle where Self == PlaceholderTextFieldFio
 }
 
 public extension PlaceholderTextFieldStyle where Self == PlaceholderTextFieldNSSStyle {
-    static func nss(_ fileName: String) -> PlaceholderTextFieldNSSStyle {
-        PlaceholderTextFieldNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> PlaceholderTextFieldNSSStyle {
+        PlaceholderTextFieldNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> PlaceholderTextFieldNSSStyle {
+        PlaceholderTextFieldNSSStyle(data: data)
     }
 }
 
@@ -4108,8 +4384,12 @@ public extension ProcessingIndicatorStyle where Self == ProcessingIndicatorFiori
 }
 
 public extension ProcessingIndicatorStyle where Self == ProcessingIndicatorNSSStyle {
-    static func nss(_ fileName: String) -> ProcessingIndicatorNSSStyle {
-        ProcessingIndicatorNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> ProcessingIndicatorNSSStyle {
+        ProcessingIndicatorNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> ProcessingIndicatorNSSStyle {
+        ProcessingIndicatorNSSStyle(data: data)
     }
 }
 
@@ -4149,8 +4429,12 @@ public extension ProfileHeaderStyle where Self == ProfileHeaderFioriStyle {
 }
 
 public extension ProfileHeaderStyle where Self == ProfileHeaderNSSStyle {
-    static func nss(_ fileName: String) -> ProfileHeaderNSSStyle {
-        ProfileHeaderNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> ProfileHeaderNSSStyle {
+        ProfileHeaderNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> ProfileHeaderNSSStyle {
+        ProfileHeaderNSSStyle(data: data)
     }
 }
 
@@ -4253,8 +4537,12 @@ public extension ProgressStyle where Self == ProgressFioriStyle {
 }
 
 public extension ProgressStyle where Self == ProgressNSSStyle {
-    static func nss(_ fileName: String) -> ProgressNSSStyle {
-        ProgressNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> ProgressNSSStyle {
+        ProgressNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> ProgressNSSStyle {
+        ProgressNSSStyle(data: data)
     }
 }
 
@@ -4273,8 +4561,12 @@ public extension ProgressIndicatorStyle where Self == ProgressIndicatorFioriStyl
 }
 
 public extension ProgressIndicatorStyle where Self == ProgressIndicatorNSSStyle {
-    static func nss(_ fileName: String) -> ProgressIndicatorNSSStyle {
-        ProgressIndicatorNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> ProgressIndicatorNSSStyle {
+        ProgressIndicatorNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> ProgressIndicatorNSSStyle {
+        ProgressIndicatorNSSStyle(data: data)
     }
 }
 
@@ -4314,8 +4606,12 @@ public extension ProgressIndicatorProtocolStyle where Self == ProgressIndicatorP
 }
 
 public extension ProgressIndicatorProtocolStyle where Self == ProgressIndicatorProtocolNSSStyle {
-    static func nss(_ fileName: String) -> ProgressIndicatorProtocolNSSStyle {
-        ProgressIndicatorProtocolNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> ProgressIndicatorProtocolNSSStyle {
+        ProgressIndicatorProtocolNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> ProgressIndicatorProtocolNSSStyle {
+        ProgressIndicatorProtocolNSSStyle(data: data)
     }
 }
 
@@ -4334,8 +4630,12 @@ public extension RatingControlStyle where Self == RatingControlFioriStyle {
 }
 
 public extension RatingControlStyle where Self == RatingControlNSSStyle {
-    static func nss(_ fileName: String) -> RatingControlNSSStyle {
-        RatingControlNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> RatingControlNSSStyle {
+        RatingControlNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> RatingControlNSSStyle {
+        RatingControlNSSStyle(data: data)
     }
 }
 
@@ -4459,8 +4759,12 @@ public extension RatingControlFormViewStyle where Self == RatingControlFormViewF
 }
 
 public extension RatingControlFormViewStyle where Self == RatingControlFormViewNSSStyle {
-    static func nss(_ fileName: String) -> RatingControlFormViewNSSStyle {
-        RatingControlFormViewNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> RatingControlFormViewNSSStyle {
+        RatingControlFormViewNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> RatingControlFormViewNSSStyle {
+        RatingControlFormViewNSSStyle(data: data)
     }
 }
 
@@ -4647,8 +4951,12 @@ public extension ReviewCountLabelStyle where Self == ReviewCountLabelFioriStyle 
 }
 
 public extension ReviewCountLabelStyle where Self == ReviewCountLabelNSSStyle {
-    static func nss(_ fileName: String) -> ReviewCountLabelNSSStyle {
-        ReviewCountLabelNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> ReviewCountLabelNSSStyle {
+        ReviewCountLabelNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> ReviewCountLabelNSSStyle {
+        ReviewCountLabelNSSStyle(data: data)
     }
 }
 
@@ -4667,8 +4975,12 @@ public extension Row1Style where Self == Row1FioriStyle {
 }
 
 public extension Row1Style where Self == Row1NSSStyle {
-    static func nss(_ fileName: String) -> Row1NSSStyle {
-        Row1NSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> Row1NSSStyle {
+        Row1NSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> Row1NSSStyle {
+        Row1NSSStyle(data: data)
     }
 }
 
@@ -4687,8 +4999,12 @@ public extension Row2Style where Self == Row2FioriStyle {
 }
 
 public extension Row2Style where Self == Row2NSSStyle {
-    static func nss(_ fileName: String) -> Row2NSSStyle {
-        Row2NSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> Row2NSSStyle {
+        Row2NSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> Row2NSSStyle {
+        Row2NSSStyle(data: data)
     }
 }
 
@@ -4707,8 +5023,12 @@ public extension Row3Style where Self == Row3FioriStyle {
 }
 
 public extension Row3Style where Self == Row3NSSStyle {
-    static func nss(_ fileName: String) -> Row3NSSStyle {
-        Row3NSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> Row3NSSStyle {
+        Row3NSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> Row3NSSStyle {
+        Row3NSSStyle(data: data)
     }
 }
 
@@ -4727,8 +5047,12 @@ public extension SecondaryActionStyle where Self == SecondaryActionFioriStyle {
 }
 
 public extension SecondaryActionStyle where Self == SecondaryActionNSSStyle {
-    static func nss(_ fileName: String) -> SecondaryActionNSSStyle {
-        SecondaryActionNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> SecondaryActionNSSStyle {
+        SecondaryActionNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> SecondaryActionNSSStyle {
+        SecondaryActionNSSStyle(data: data)
     }
 }
 
@@ -4747,8 +5071,12 @@ public extension SecondaryTimestampStyle where Self == SecondaryTimestampFioriSt
 }
 
 public extension SecondaryTimestampStyle where Self == SecondaryTimestampNSSStyle {
-    static func nss(_ fileName: String) -> SecondaryTimestampNSSStyle {
-        SecondaryTimestampNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> SecondaryTimestampNSSStyle {
+        SecondaryTimestampNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> SecondaryTimestampNSSStyle {
+        SecondaryTimestampNSSStyle(data: data)
     }
 }
 
@@ -4767,8 +5095,12 @@ public extension SegmentedControlPickerStyle where Self == SegmentedControlPicke
 }
 
 public extension SegmentedControlPickerStyle where Self == SegmentedControlPickerNSSStyle {
-    static func nss(_ fileName: String) -> SegmentedControlPickerNSSStyle {
-        SegmentedControlPickerNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> SegmentedControlPickerNSSStyle {
+        SegmentedControlPickerNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> SegmentedControlPickerNSSStyle {
+        SegmentedControlPickerNSSStyle(data: data)
     }
 }
 
@@ -4808,8 +5140,12 @@ public extension SelectAllActionStyle where Self == SelectAllActionFioriStyle {
 }
 
 public extension SelectAllActionStyle where Self == SelectAllActionNSSStyle {
-    static func nss(_ fileName: String) -> SelectAllActionNSSStyle {
-        SelectAllActionNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> SelectAllActionNSSStyle {
+        SelectAllActionNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> SelectAllActionNSSStyle {
+        SelectAllActionNSSStyle(data: data)
     }
 }
 
@@ -4828,8 +5164,12 @@ public extension SelectedEntriesSectionTitleStyle where Self == SelectedEntriesS
 }
 
 public extension SelectedEntriesSectionTitleStyle where Self == SelectedEntriesSectionTitleNSSStyle {
-    static func nss(_ fileName: String) -> SelectedEntriesSectionTitleNSSStyle {
-        SelectedEntriesSectionTitleNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> SelectedEntriesSectionTitleNSSStyle {
+        SelectedEntriesSectionTitleNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> SelectedEntriesSectionTitleNSSStyle {
+        SelectedEntriesSectionTitleNSSStyle(data: data)
     }
 }
 
@@ -4848,8 +5188,12 @@ public extension SideBarStyle where Self == SideBarFioriStyle {
 }
 
 public extension SideBarStyle where Self == SideBarNSSStyle {
-    static func nss(_ fileName: String) -> SideBarNSSStyle {
-        SideBarNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> SideBarNSSStyle {
+        SideBarNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> SideBarNSSStyle {
+        SideBarNSSStyle(data: data)
     }
 }
 
@@ -4868,8 +5212,12 @@ public extension SideBarListItemStyle where Self == SideBarListItemFioriStyle {
 }
 
 public extension SideBarListItemStyle where Self == SideBarListItemNSSStyle {
-    static func nss(_ fileName: String) -> SideBarListItemNSSStyle {
-        SideBarListItemNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> SideBarListItemNSSStyle {
+        SideBarListItemNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> SideBarListItemNSSStyle {
+        SideBarListItemNSSStyle(data: data)
     }
 }
 
@@ -5014,8 +5362,12 @@ public extension StatusStyle where Self == StatusFioriStyle {
 }
 
 public extension StatusStyle where Self == StatusNSSStyle {
-    static func nss(_ fileName: String) -> StatusNSSStyle {
-        StatusNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> StatusNSSStyle {
+        StatusNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> StatusNSSStyle {
+        StatusNSSStyle(data: data)
     }
 }
 
@@ -5034,8 +5386,12 @@ public extension StepperFieldStyle where Self == StepperFieldFioriStyle {
 }
 
 public extension StepperFieldStyle where Self == StepperFieldNSSStyle {
-    static func nss(_ fileName: String) -> StepperFieldNSSStyle {
-        StepperFieldNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> StepperFieldNSSStyle {
+        StepperFieldNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> StepperFieldNSSStyle {
+        StepperFieldNSSStyle(data: data)
     }
 }
 
@@ -5117,8 +5473,12 @@ public extension StepperViewStyle where Self == StepperViewFioriStyle {
 }
 
 public extension StepperViewStyle where Self == StepperViewNSSStyle {
-    static func nss(_ fileName: String) -> StepperViewNSSStyle {
-        StepperViewNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> StepperViewNSSStyle {
+        StepperViewNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> StepperViewNSSStyle {
+        StepperViewNSSStyle(data: data)
     }
 }
 
@@ -5305,8 +5665,12 @@ public extension SubAttributeStyle where Self == SubAttributeFioriStyle {
 }
 
 public extension SubAttributeStyle where Self == SubAttributeNSSStyle {
-    static func nss(_ fileName: String) -> SubAttributeNSSStyle {
-        SubAttributeNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> SubAttributeNSSStyle {
+        SubAttributeNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> SubAttributeNSSStyle {
+        SubAttributeNSSStyle(data: data)
     }
 }
 
@@ -5325,8 +5689,12 @@ public extension SubstatusStyle where Self == SubstatusFioriStyle {
 }
 
 public extension SubstatusStyle where Self == SubstatusNSSStyle {
-    static func nss(_ fileName: String) -> SubstatusNSSStyle {
-        SubstatusNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> SubstatusNSSStyle {
+        SubstatusNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> SubstatusNSSStyle {
+        SubstatusNSSStyle(data: data)
     }
 }
 
@@ -5345,8 +5713,12 @@ public extension SubtitleStyle where Self == SubtitleFioriStyle {
 }
 
 public extension SubtitleStyle where Self == SubtitleNSSStyle {
-    static func nss(_ fileName: String) -> SubtitleNSSStyle {
-        SubtitleNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> SubtitleNSSStyle {
+        SubtitleNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> SubtitleNSSStyle {
+        SubtitleNSSStyle(data: data)
     }
 }
 
@@ -5365,8 +5737,12 @@ public extension SwitchStyle where Self == SwitchFioriStyle {
 }
 
 public extension SwitchStyle where Self == SwitchNSSStyle {
-    static func nss(_ fileName: String) -> SwitchNSSStyle {
-        SwitchNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> SwitchNSSStyle {
+        SwitchNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> SwitchNSSStyle {
+        SwitchNSSStyle(data: data)
     }
 }
 
@@ -5385,8 +5761,12 @@ public extension SwitchViewStyle where Self == SwitchViewFioriStyle {
 }
 
 public extension SwitchViewStyle where Self == SwitchViewNSSStyle {
-    static func nss(_ fileName: String) -> SwitchViewNSSStyle {
-        SwitchViewNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> SwitchViewNSSStyle {
+        SwitchViewNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> SwitchViewNSSStyle {
+        SwitchViewNSSStyle(data: data)
     }
 }
 
@@ -5447,8 +5827,12 @@ public extension TagStyle where Self == TagFioriStyle {
 }
 
 public extension TagStyle where Self == TagNSSStyle {
-    static func nss(_ fileName: String) -> TagNSSStyle {
-        TagNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> TagNSSStyle {
+        TagNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> TagNSSStyle {
+        TagNSSStyle(data: data)
     }
 }
 
@@ -5467,8 +5851,12 @@ public extension TagsStyle where Self == TagsFioriStyle {
 }
 
 public extension TagsStyle where Self == TagsNSSStyle {
-    static func nss(_ fileName: String) -> TagsNSSStyle {
-        TagsNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> TagsNSSStyle {
+        TagsNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> TagsNSSStyle {
+        TagsNSSStyle(data: data)
     }
 }
 
@@ -5487,8 +5875,12 @@ public extension TertiaryActionStyle where Self == TertiaryActionFioriStyle {
 }
 
 public extension TertiaryActionStyle where Self == TertiaryActionNSSStyle {
-    static func nss(_ fileName: String) -> TertiaryActionNSSStyle {
-        TertiaryActionNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> TertiaryActionNSSStyle {
+        TertiaryActionNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> TertiaryActionNSSStyle {
+        TertiaryActionNSSStyle(data: data)
     }
 }
 
@@ -5507,8 +5899,12 @@ public extension TextFieldFormViewStyle where Self == TextFieldFormViewFioriStyl
 }
 
 public extension TextFieldFormViewStyle where Self == TextFieldFormViewNSSStyle {
-    static func nss(_ fileName: String) -> TextFieldFormViewNSSStyle {
-        TextFieldFormViewNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> TextFieldFormViewNSSStyle {
+        TextFieldFormViewNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> TextFieldFormViewNSSStyle {
+        TextFieldFormViewNSSStyle(data: data)
     }
 }
 
@@ -5632,8 +6028,12 @@ public extension TextInputFieldStyle where Self == TextInputFieldFioriStyle {
 }
 
 public extension TextInputFieldStyle where Self == TextInputFieldNSSStyle {
-    static func nss(_ fileName: String) -> TextInputFieldNSSStyle {
-        TextInputFieldNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> TextInputFieldNSSStyle {
+        TextInputFieldNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> TextInputFieldNSSStyle {
+        TextInputFieldNSSStyle(data: data)
     }
 }
 
@@ -5652,8 +6052,12 @@ extension TextInputInfoViewStyle where Self == TextInputInfoViewFioriStyle {
 }
 
 extension TextInputInfoViewStyle where Self == TextInputInfoViewNSSStyle {
-    static func nss(_ fileName: String) -> TextInputInfoViewNSSStyle {
-        TextInputInfoViewNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> TextInputInfoViewNSSStyle {
+        TextInputInfoViewNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> TextInputInfoViewNSSStyle {
+        TextInputInfoViewNSSStyle(data: data)
     }
 }
 
@@ -5756,8 +6160,12 @@ public extension TextViewStyle where Self == TextViewFioriStyle {
 }
 
 public extension TextViewStyle where Self == TextViewNSSStyle {
-    static func nss(_ fileName: String) -> TextViewNSSStyle {
-        TextViewNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> TextViewNSSStyle {
+        TextViewNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> TextViewNSSStyle {
+        TextViewNSSStyle(data: data)
     }
 }
 
@@ -5776,8 +6184,12 @@ public extension TimelineStyle where Self == TimelineFioriStyle {
 }
 
 public extension TimelineStyle where Self == TimelineNSSStyle {
-    static func nss(_ fileName: String) -> TimelineNSSStyle {
-        TimelineNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> TimelineNSSStyle {
+        TimelineNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> TimelineNSSStyle {
+        TimelineNSSStyle(data: data)
     }
 }
 
@@ -6006,8 +6418,12 @@ public extension TimelineMarkerStyle where Self == TimelineMarkerFioriStyle {
 }
 
 public extension TimelineMarkerStyle where Self == TimelineMarkerNSSStyle {
-    static func nss(_ fileName: String) -> TimelineMarkerNSSStyle {
-        TimelineMarkerNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> TimelineMarkerNSSStyle {
+        TimelineMarkerNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> TimelineMarkerNSSStyle {
+        TimelineMarkerNSSStyle(data: data)
     }
 }
 
@@ -6131,8 +6547,12 @@ public extension TimelineNodeStyle where Self == TimelineNodeFioriStyle {
 }
 
 public extension TimelineNodeStyle where Self == TimelineNodeNSSStyle {
-    static func nss(_ fileName: String) -> TimelineNodeNSSStyle {
-        TimelineNodeNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> TimelineNodeNSSStyle {
+        TimelineNodeNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> TimelineNodeNSSStyle {
+        TimelineNodeNSSStyle(data: data)
     }
 }
 
@@ -6151,8 +6571,12 @@ public extension TimelineNowIndicatorStyle where Self == TimelineNowIndicatorFio
 }
 
 public extension TimelineNowIndicatorStyle where Self == TimelineNowIndicatorNSSStyle {
-    static func nss(_ fileName: String) -> TimelineNowIndicatorNSSStyle {
-        TimelineNowIndicatorNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> TimelineNowIndicatorNSSStyle {
+        TimelineNowIndicatorNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> TimelineNowIndicatorNSSStyle {
+        TimelineNowIndicatorNSSStyle(data: data)
     }
 }
 
@@ -6192,8 +6616,12 @@ public extension TimelinePreviewStyle where Self == TimelinePreviewFioriStyle {
 }
 
 public extension TimelinePreviewStyle where Self == TimelinePreviewNSSStyle {
-    static func nss(_ fileName: String) -> TimelinePreviewNSSStyle {
-        TimelinePreviewNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> TimelinePreviewNSSStyle {
+        TimelinePreviewNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> TimelinePreviewNSSStyle {
+        TimelinePreviewNSSStyle(data: data)
     }
 }
 
@@ -6254,8 +6682,12 @@ public extension TimelinePreviewItemStyle where Self == TimelinePreviewItemFiori
 }
 
 public extension TimelinePreviewItemStyle where Self == TimelinePreviewItemNSSStyle {
-    static func nss(_ fileName: String) -> TimelinePreviewItemNSSStyle {
-        TimelinePreviewItemNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> TimelinePreviewItemNSSStyle {
+        TimelinePreviewItemNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> TimelinePreviewItemNSSStyle {
+        TimelinePreviewItemNSSStyle(data: data)
     }
 }
 
@@ -6358,8 +6790,12 @@ public extension TimestampStyle where Self == TimestampFioriStyle {
 }
 
 public extension TimestampStyle where Self == TimestampNSSStyle {
-    static func nss(_ fileName: String) -> TimestampNSSStyle {
-        TimestampNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> TimestampNSSStyle {
+        TimestampNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> TimestampNSSStyle {
+        TimestampNSSStyle(data: data)
     }
 }
 
@@ -6378,8 +6814,12 @@ public extension TitleStyle where Self == TitleFioriStyle {
 }
 
 public extension TitleStyle where Self == TitleNSSStyle {
-    static func nss(_ fileName: String) -> TitleNSSStyle {
-        TitleNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> TitleNSSStyle {
+        TitleNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> TitleNSSStyle {
+        TitleNSSStyle(data: data)
     }
 }
 
@@ -6398,8 +6838,12 @@ public extension TitleFormViewStyle where Self == TitleFormViewFioriStyle {
 }
 
 public extension TitleFormViewStyle where Self == TitleFormViewNSSStyle {
-    static func nss(_ fileName: String) -> TitleFormViewNSSStyle {
-        TitleFormViewNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> TitleFormViewNSSStyle {
+        TitleFormViewNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> TitleFormViewNSSStyle {
+        TitleFormViewNSSStyle(data: data)
     }
 }
 
@@ -6502,8 +6946,12 @@ public extension ToastMessageStyle where Self == ToastMessageFioriStyle {
 }
 
 public extension ToastMessageStyle where Self == ToastMessageNSSStyle {
-    static func nss(_ fileName: String) -> ToastMessageNSSStyle {
-        ToastMessageNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> ToastMessageNSSStyle {
+        ToastMessageNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> ToastMessageNSSStyle {
+        ToastMessageNSSStyle(data: data)
     }
 }
 
@@ -6564,8 +7012,12 @@ public extension TopDividerStyle where Self == TopDividerFioriStyle {
 }
 
 public extension TopDividerStyle where Self == TopDividerNSSStyle {
-    static func nss(_ fileName: String) -> TopDividerNSSStyle {
-        TopDividerNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> TopDividerNSSStyle {
+        TopDividerNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> TopDividerNSSStyle {
+        TopDividerNSSStyle(data: data)
     }
 }
 
@@ -6584,8 +7036,12 @@ public extension ValueStyle where Self == ValueFioriStyle {
 }
 
 public extension ValueStyle where Self == ValueNSSStyle {
-    static func nss(_ fileName: String) -> ValueNSSStyle {
-        ValueNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> ValueNSSStyle {
+        ValueNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> ValueNSSStyle {
+        ValueNSSStyle(data: data)
     }
 }
 
@@ -6604,8 +7060,12 @@ public extension ValueLabelStyle where Self == ValueLabelFioriStyle {
 }
 
 public extension ValueLabelStyle where Self == ValueLabelNSSStyle {
-    static func nss(_ fileName: String) -> ValueLabelNSSStyle {
-        ValueLabelNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> ValueLabelNSSStyle {
+        ValueLabelNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> ValueLabelNSSStyle {
+        ValueLabelNSSStyle(data: data)
     }
 }
 
@@ -6624,8 +7084,12 @@ public extension ValuePickerStyle where Self == ValuePickerFioriStyle {
 }
 
 public extension ValuePickerStyle where Self == ValuePickerNSSStyle {
-    static func nss(_ fileName: String) -> ValuePickerNSSStyle {
-        ValuePickerNSSStyle(data: NSSTool.loadStyles(fileName))
+    static func nss(_ parserType: NSSParserType) -> ValuePickerNSSStyle {
+        ValuePickerNSSStyle(data: parserType.nssData)
+    }
+
+    static func nss(_ data: NSSStyleData) -> ValuePickerNSSStyle {
+        ValuePickerNSSStyle(data: data)
     }
 }
 

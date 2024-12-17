@@ -21,6 +21,7 @@ import SwiftUI
 // sourcery:end
 
 // sourcery:file:SupportingFiles/EnvironmentVariables
+import FioriThemeManager
 import Foundation
 import SwiftUI
 

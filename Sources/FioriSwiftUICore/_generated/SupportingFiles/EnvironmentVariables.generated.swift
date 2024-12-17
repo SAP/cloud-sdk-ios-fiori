@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -116,7 +117,7 @@ struct AvatarStackStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var avatarStackStyle: any AvatarStackStyle {
-        self.avatarStackStyleStack.last ?? .base.concat(.fiori)
+        self.avatarStackStyleStack.last ?? .base.concat(.fiori).concat(.nss(NSSTool.globalNSSStyle))
     }
 
     var avatarStackStyleStack: [any AvatarStackStyle] {
@@ -179,7 +180,7 @@ struct BannerMessageStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var bannerMessageStyle: any BannerMessageStyle {
-        self.bannerMessageStyleStack.last ?? .base.concat(.fiori)
+        self.bannerMessageStyleStack.last ?? .base.concat(.fiori).concat(.nss(NSSTool.globalNSSStyle))
     }
 
     var bannerMessageStyleStack: [any BannerMessageStyle] {
@@ -200,7 +201,7 @@ struct BannerMultiMessageSheetStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var bannerMultiMessageSheetStyle: any BannerMultiMessageSheetStyle {
-        self.bannerMultiMessageSheetStyleStack.last ?? .base.concat(.fiori)
+        self.bannerMultiMessageSheetStyleStack.last ?? .base.concat(.fiori).concat(.nss(NSSTool.globalNSSStyle))
     }
 
     var bannerMultiMessageSheetStyleStack: [any BannerMultiMessageSheetStyle] {
@@ -263,7 +264,7 @@ struct CardStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var cardStyle: any CardStyle {
-        self.cardStyleStack.last ?? .base.concat(.fiori)
+        self.cardStyleStack.last ?? .base.concat(.fiori).concat(.nss(NSSTool.globalNSSStyle))
     }
 
     var cardStyleStack: [any CardStyle] {
@@ -284,7 +285,7 @@ struct CardExtHeaderStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var cardExtHeaderStyle: any CardExtHeaderStyle {
-        self.cardExtHeaderStyleStack.last ?? .base.concat(.fiori)
+        self.cardExtHeaderStyleStack.last ?? .base.concat(.fiori).concat(.nss(NSSTool.globalNSSStyle))
     }
 
     var cardExtHeaderStyleStack: [any CardExtHeaderStyle] {
@@ -305,7 +306,7 @@ struct CardFooterStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var cardFooterStyle: any CardFooterStyle {
-        self.cardFooterStyleStack.last ?? .base.concat(.fiori)
+        self.cardFooterStyleStack.last ?? .base.concat(.fiori).concat(.nss(NSSTool.globalNSSStyle))
     }
 
     var cardFooterStyleStack: [any CardFooterStyle] {
@@ -326,7 +327,7 @@ struct CardHeaderStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var cardHeaderStyle: any CardHeaderStyle {
-        self.cardHeaderStyleStack.last ?? .base.concat(.fiori)
+        self.cardHeaderStyleStack.last ?? .base.concat(.fiori).concat(.nss(NSSTool.globalNSSStyle))
     }
 
     var cardHeaderStyleStack: [any CardHeaderStyle] {
@@ -347,7 +348,7 @@ struct CardMainHeaderStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var cardMainHeaderStyle: any CardMainHeaderStyle {
-        self.cardMainHeaderStyleStack.last ?? .base.concat(.fiori)
+        self.cardMainHeaderStyleStack.last ?? .base.concat(.fiori).concat(.nss(NSSTool.globalNSSStyle))
     }
 
     var cardMainHeaderStyleStack: [any CardMainHeaderStyle] {
@@ -368,7 +369,7 @@ struct CardMediaStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var cardMediaStyle: any CardMediaStyle {
-        self.cardMediaStyleStack.last ?? .base.concat(.fiori)
+        self.cardMediaStyleStack.last ?? .base.concat(.fiori).concat(.nss(NSSTool.globalNSSStyle))
     }
 
     var cardMediaStyleStack: [any CardMediaStyle] {
@@ -452,7 +453,7 @@ struct DateTimePickerStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var dateTimePickerStyle: any DateTimePickerStyle {
-        self.dateTimePickerStyleStack.last ?? .base.concat(.fiori)
+        self.dateTimePickerStyleStack.last ?? .base.concat(.fiori).concat(.nss(NSSTool.globalNSSStyle))
     }
 
     var dateTimePickerStyleStack: [any DateTimePickerStyle] {
@@ -494,7 +495,7 @@ struct DemoViewStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var demoViewStyle: any DemoViewStyle {
-        self.demoViewStyleStack.last ?? .base.concat(.fiori)
+        self.demoViewStyleStack.last ?? .base.concat(.fiori).concat(.nss(NSSTool.globalNSSStyle))
     }
 
     var demoViewStyleStack: [any DemoViewStyle] {
@@ -662,7 +663,7 @@ struct FormViewStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var formViewStyle: any FormViewStyle {
-        self.formViewStyleStack.last ?? .base.concat(.fiori)
+        self.formViewStyleStack.last ?? .base.concat(.fiori).concat(.nss(NSSTool.globalNSSStyle))
     }
 
     var formViewStyleStack: [any FormViewStyle] {
@@ -809,7 +810,7 @@ struct IllustratedMessageStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var illustratedMessageStyle: any IllustratedMessageStyle {
-        self.illustratedMessageStyleStack.last ?? .base.concat(.fiori)
+        self.illustratedMessageStyleStack.last ?? .base.concat(.fiori).concat(.nss(NSSTool.globalNSSStyle))
     }
 
     var illustratedMessageStyleStack: [any IllustratedMessageStyle] {
@@ -851,7 +852,7 @@ struct InformationViewStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var informationViewStyle: any InformationViewStyle {
-        self.informationViewStyleStack.last ?? .base.concat(.fiori)
+        self.informationViewStyleStack.last ?? .base.concat(.fiori).concat(.nss(NSSTool.globalNSSStyle))
     }
 
     var informationViewStyleStack: [any InformationViewStyle] {
@@ -872,7 +873,7 @@ struct JouleWelcomeScreenStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var jouleWelcomeScreenStyle: any JouleWelcomeScreenStyle {
-        self.jouleWelcomeScreenStyleStack.last ?? .base.concat(.fiori)
+        self.jouleWelcomeScreenStyleStack.last ?? .base.concat(.fiori).concat(.nss(NSSTool.globalNSSStyle))
     }
 
     var jouleWelcomeScreenStyleStack: [any JouleWelcomeScreenStyle] {
@@ -893,7 +894,7 @@ struct KeyValueFormViewStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var keyValueFormViewStyle: any KeyValueFormViewStyle {
-        self.keyValueFormViewStyleStack.last ?? .base.concat(.fiori)
+        self.keyValueFormViewStyleStack.last ?? .base.concat(.fiori).concat(.nss(NSSTool.globalNSSStyle))
     }
 
     var keyValueFormViewStyleStack: [any KeyValueFormViewStyle] {
@@ -956,7 +957,7 @@ struct LabelItemStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var labelItemStyle: any LabelItemStyle {
-        self.labelItemStyleStack.last ?? .base.concat(.fiori)
+        self.labelItemStyleStack.last ?? .base.concat(.fiori).concat(.nss(NSSTool.globalNSSStyle))
     }
 
     var labelItemStyleStack: [any LabelItemStyle] {
@@ -998,7 +999,7 @@ struct LinearProgressIndicatorViewStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var linearProgressIndicatorViewStyle: any LinearProgressIndicatorViewStyle {
-        self.linearProgressIndicatorViewStyleStack.last ?? .base.concat(.fiori)
+        self.linearProgressIndicatorViewStyleStack.last ?? .base.concat(.fiori).concat(.nss(NSSTool.globalNSSStyle))
     }
 
     var linearProgressIndicatorViewStyleStack: [any LinearProgressIndicatorViewStyle] {
@@ -1040,7 +1041,7 @@ struct ListPickerDestinationStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var listPickerDestinationStyle: any ListPickerDestinationStyle {
-        self.listPickerDestinationStyleStack.last ?? .base.concat(.fiori)
+        self.listPickerDestinationStyleStack.last ?? .base.concat(.fiori).concat(.nss(NSSTool.globalNSSStyle))
     }
 
     var listPickerDestinationStyleStack: [any ListPickerDestinationStyle] {
@@ -1061,7 +1062,7 @@ struct ListPickerItemStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var listPickerItemStyle: any ListPickerItemStyle {
-        self.listPickerItemStyleStack.last ?? .base.concat(.fiori)
+        self.listPickerItemStyleStack.last ?? .base.concat(.fiori).concat(.nss(NSSTool.globalNSSStyle))
     }
 
     var listPickerItemStyleStack: [any ListPickerItemStyle] {
@@ -1082,7 +1083,7 @@ struct LoadingIndicatorStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var loadingIndicatorStyle: any LoadingIndicatorStyle {
-        self.loadingIndicatorStyleStack.last ?? .base.concat(.fiori)
+        self.loadingIndicatorStyleStack.last ?? .base.concat(.fiori).concat(.nss(NSSTool.globalNSSStyle))
     }
 
     var loadingIndicatorStyleStack: [any LoadingIndicatorStyle] {
@@ -1145,7 +1146,7 @@ struct MenuSelectionStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var menuSelectionStyle: any MenuSelectionStyle {
-        self.menuSelectionStyleStack.last ?? .base.concat(.fiori)
+        self.menuSelectionStyleStack.last ?? .base.concat(.fiori).concat(.nss(NSSTool.globalNSSStyle))
     }
 
     var menuSelectionStyleStack: [any MenuSelectionStyle] {
@@ -1166,7 +1167,7 @@ struct MenuSelectionItemStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var menuSelectionItemStyle: any MenuSelectionItemStyle {
-        self.menuSelectionItemStyleStack.last ?? .base.concat(.fiori)
+        self.menuSelectionItemStyleStack.last ?? .base.concat(.fiori).concat(.nss(NSSTool.globalNSSStyle))
     }
 
     var menuSelectionItemStyleStack: [any MenuSelectionItemStyle] {
@@ -1229,7 +1230,7 @@ struct NoteFormViewStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var noteFormViewStyle: any NoteFormViewStyle {
-        self.noteFormViewStyleStack.last ?? .base.concat(.fiori)
+        self.noteFormViewStyleStack.last ?? .base.concat(.fiori).concat(.nss(NSSTool.globalNSSStyle))
     }
 
     var noteFormViewStyleStack: [any NoteFormViewStyle] {
@@ -1271,7 +1272,7 @@ struct ObjectItemStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var objectItemStyle: any ObjectItemStyle {
-        self.objectItemStyleStack.last ?? .base.concat(.fiori)
+        self.objectItemStyleStack.last ?? .base.concat(.fiori).concat(.nss(NSSTool.globalNSSStyle))
     }
 
     var objectItemStyleStack: [any ObjectItemStyle] {
@@ -1418,7 +1419,7 @@ struct PlaceholderTextEditorStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var placeholderTextEditorStyle: any PlaceholderTextEditorStyle {
-        self.placeholderTextEditorStyleStack.last ?? .base.concat(.fiori)
+        self.placeholderTextEditorStyleStack.last ?? .base.concat(.fiori).concat(.nss(NSSTool.globalNSSStyle))
     }
 
     var placeholderTextEditorStyleStack: [any PlaceholderTextEditorStyle] {
@@ -1439,7 +1440,7 @@ struct PlaceholderTextFieldStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var placeholderTextFieldStyle: any PlaceholderTextFieldStyle {
-        self.placeholderTextFieldStyleStack.last ?? .base.concat(.fiori)
+        self.placeholderTextFieldStyleStack.last ?? .base.concat(.fiori).concat(.nss(NSSTool.globalNSSStyle))
     }
 
     var placeholderTextFieldStyleStack: [any PlaceholderTextFieldStyle] {
@@ -1460,7 +1461,7 @@ struct ProcessingIndicatorStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var processingIndicatorStyle: any ProcessingIndicatorStyle {
-        self.processingIndicatorStyleStack.last ?? .base.concat(.fiori)
+        self.processingIndicatorStyleStack.last ?? .base.concat(.fiori).concat(.nss(NSSTool.globalNSSStyle))
     }
 
     var processingIndicatorStyleStack: [any ProcessingIndicatorStyle] {
@@ -1481,7 +1482,7 @@ struct ProfileHeaderStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var profileHeaderStyle: any ProfileHeaderStyle {
-        self.profileHeaderStyleStack.last ?? .base.concat(.fiori)
+        self.profileHeaderStyleStack.last ?? .base.concat(.fiori).concat(.nss(NSSTool.globalNSSStyle))
     }
 
     var profileHeaderStyleStack: [any ProfileHeaderStyle] {
@@ -1523,7 +1524,7 @@ struct ProgressIndicatorStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var progressIndicatorStyle: any ProgressIndicatorStyle {
-        self.progressIndicatorStyleStack.last ?? .base.concat(.fiori)
+        self.progressIndicatorStyleStack.last ?? .base.concat(.fiori).concat(.nss(NSSTool.globalNSSStyle))
     }
 
     var progressIndicatorStyleStack: [any ProgressIndicatorStyle] {
@@ -1565,7 +1566,7 @@ struct RatingControlStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var ratingControlStyle: any RatingControlStyle {
-        self.ratingControlStyleStack.last ?? .base.concat(.fiori)
+        self.ratingControlStyleStack.last ?? .base.concat(.fiori).concat(.nss(NSSTool.globalNSSStyle))
     }
 
     var ratingControlStyleStack: [any RatingControlStyle] {
@@ -1586,7 +1587,7 @@ struct RatingControlFormViewStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var ratingControlFormViewStyle: any RatingControlFormViewStyle {
-        self.ratingControlFormViewStyleStack.last ?? .base.concat(.fiori)
+        self.ratingControlFormViewStyleStack.last ?? .base.concat(.fiori).concat(.nss(NSSTool.globalNSSStyle))
     }
 
     var ratingControlFormViewStyleStack: [any RatingControlFormViewStyle] {
@@ -1733,7 +1734,7 @@ struct SegmentedControlPickerStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var segmentedControlPickerStyle: any SegmentedControlPickerStyle {
-        self.segmentedControlPickerStyleStack.last ?? .base.concat(.fiori)
+        self.segmentedControlPickerStyleStack.last ?? .base.concat(.fiori).concat(.nss(NSSTool.globalNSSStyle))
     }
 
     var segmentedControlPickerStyleStack: [any SegmentedControlPickerStyle] {
@@ -1796,7 +1797,7 @@ struct SideBarStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var sideBarStyle: any SideBarStyle {
-        self.sideBarStyleStack.last ?? .base.concat(.fiori)
+        self.sideBarStyleStack.last ?? .base.concat(.fiori).concat(.nss(NSSTool.globalNSSStyle))
     }
 
     var sideBarStyleStack: [any SideBarStyle] {
@@ -1817,7 +1818,7 @@ struct SideBarListItemStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var sideBarListItemStyle: any SideBarListItemStyle {
-        self.sideBarListItemStyleStack.last ?? .base.concat(.fiori)
+        self.sideBarListItemStyleStack.last ?? .base.concat(.fiori).concat(.nss(NSSTool.globalNSSStyle))
     }
 
     var sideBarListItemStyleStack: [any SideBarListItemStyle] {
@@ -1859,7 +1860,7 @@ struct StepperFieldStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var stepperFieldStyle: any StepperFieldStyle {
-        self.stepperFieldStyleStack.last ?? .base.concat(.fiori)
+        self.stepperFieldStyleStack.last ?? .base.concat(.fiori).concat(.nss(NSSTool.globalNSSStyle))
     }
 
     var stepperFieldStyleStack: [any StepperFieldStyle] {
@@ -1880,7 +1881,7 @@ struct StepperViewStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var stepperViewStyle: any StepperViewStyle {
-        self.stepperViewStyleStack.last ?? .base.concat(.fiori)
+        self.stepperViewStyleStack.last ?? .base.concat(.fiori).concat(.nss(NSSTool.globalNSSStyle))
     }
 
     var stepperViewStyleStack: [any StepperViewStyle] {
@@ -1985,7 +1986,7 @@ struct SwitchViewStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var switchViewStyle: any SwitchViewStyle {
-        self.switchViewStyleStack.last ?? .base.concat(.fiori)
+        self.switchViewStyleStack.last ?? .base.concat(.fiori).concat(.nss(NSSTool.globalNSSStyle))
     }
 
     var switchViewStyleStack: [any SwitchViewStyle] {
@@ -2069,7 +2070,7 @@ struct TextFieldFormViewStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var textFieldFormViewStyle: any TextFieldFormViewStyle {
-        self.textFieldFormViewStyleStack.last ?? .base.concat(.fiori)
+        self.textFieldFormViewStyleStack.last ?? .base.concat(.fiori).concat(.nss(NSSTool.globalNSSStyle))
     }
 
     var textFieldFormViewStyleStack: [any TextFieldFormViewStyle] {
@@ -2111,7 +2112,7 @@ struct TextInputInfoViewStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var textInputInfoViewStyle: any TextInputInfoViewStyle {
-        self.textInputInfoViewStyleStack.last ?? .base.concat(.fiori)
+        self.textInputInfoViewStyleStack.last ?? .base.concat(.fiori).concat(.nss(NSSTool.globalNSSStyle))
     }
 
     var textInputInfoViewStyleStack: [any TextInputInfoViewStyle] {
@@ -2153,7 +2154,7 @@ struct TimelineStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var timelineStyle: any TimelineStyle {
-        self.timelineStyleStack.last ?? .base.concat(.fiori)
+        self.timelineStyleStack.last ?? .base.concat(.fiori).concat(.nss(NSSTool.globalNSSStyle))
     }
 
     var timelineStyleStack: [any TimelineStyle] {
@@ -2174,7 +2175,7 @@ struct TimelineMarkerStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var timelineMarkerStyle: any TimelineMarkerStyle {
-        self.timelineMarkerStyleStack.last ?? .base.concat(.fiori)
+        self.timelineMarkerStyleStack.last ?? .base.concat(.fiori).concat(.nss(NSSTool.globalNSSStyle))
     }
 
     var timelineMarkerStyleStack: [any TimelineMarkerStyle] {
@@ -2216,7 +2217,7 @@ struct TimelineNowIndicatorStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var timelineNowIndicatorStyle: any TimelineNowIndicatorStyle {
-        self.timelineNowIndicatorStyleStack.last ?? .base.concat(.fiori)
+        self.timelineNowIndicatorStyleStack.last ?? .base.concat(.fiori).concat(.nss(NSSTool.globalNSSStyle))
     }
 
     var timelineNowIndicatorStyleStack: [any TimelineNowIndicatorStyle] {
@@ -2237,7 +2238,7 @@ struct TimelinePreviewStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var timelinePreviewStyle: any TimelinePreviewStyle {
-        self.timelinePreviewStyleStack.last ?? .base.concat(.fiori)
+        self.timelinePreviewStyleStack.last ?? .base.concat(.fiori).concat(.nss(NSSTool.globalNSSStyle))
     }
 
     var timelinePreviewStyleStack: [any TimelinePreviewStyle] {
@@ -2258,7 +2259,7 @@ struct TimelinePreviewItemStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var timelinePreviewItemStyle: any TimelinePreviewItemStyle {
-        self.timelinePreviewItemStyleStack.last ?? .base.concat(.fiori)
+        self.timelinePreviewItemStyleStack.last ?? .base.concat(.fiori).concat(.nss(NSSTool.globalNSSStyle))
     }
 
     var timelinePreviewItemStyleStack: [any TimelinePreviewItemStyle] {
@@ -2321,7 +2322,7 @@ struct TitleFormViewStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var titleFormViewStyle: any TitleFormViewStyle {
-        self.titleFormViewStyleStack.last ?? .base.concat(.fiori)
+        self.titleFormViewStyleStack.last ?? .base.concat(.fiori).concat(.nss(NSSTool.globalNSSStyle))
     }
 
     var titleFormViewStyleStack: [any TitleFormViewStyle] {
@@ -2342,7 +2343,7 @@ struct ToastMessageStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var toastMessageStyle: any ToastMessageStyle {
-        self.toastMessageStyleStack.last ?? .base.concat(.fiori)
+        self.toastMessageStyleStack.last ?? .base.concat(.fiori).concat(.nss(NSSTool.globalNSSStyle))
     }
 
     var toastMessageStyleStack: [any ToastMessageStyle] {
@@ -2426,7 +2427,7 @@ struct ValuePickerStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var valuePickerStyle: any ValuePickerStyle {
-        self.valuePickerStyleStack.last ?? .base.concat(.fiori)
+        self.valuePickerStyleStack.last ?? .base.concat(.fiori).concat(.nss(NSSTool.globalNSSStyle))
     }
 
     var valuePickerStyleStack: [any ValuePickerStyle] {
