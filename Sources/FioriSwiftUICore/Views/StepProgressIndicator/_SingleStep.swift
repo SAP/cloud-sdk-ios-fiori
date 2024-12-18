@@ -1,7 +1,7 @@
 import SwiftUI
 
 extension Fiori {
-    enum SingleStep {
+    enum _SingleStep {
         typealias Title = EmptyModifier
         typealias TitleCumulative = EmptyModifier
         typealias Node = EmptyModifier
@@ -37,7 +37,7 @@ public struct _StepNode: View {
     }
 }
 
-public extension SingleStep where Title == _ConditionalContent<Text, EmptyView>,
+public extension _SingleStep where Title == _ConditionalContent<Text, EmptyView>,
     Node == _StepNode,
     Substeps == _StepItemsContainer
 {
@@ -56,7 +56,7 @@ public extension SingleStep where Title == _ConditionalContent<Text, EmptyView>,
     }
 }
 
-public extension SingleStep where Substeps == EmptyView {
+public extension _SingleStep where Substeps == EmptyView {
     /// Convenience initialization for empty sub-steps.
     /// - Parameters:
     ///   - id: String value for step id.
@@ -73,7 +73,7 @@ public extension SingleStep where Substeps == EmptyView {
     }
 }
 
-public extension SingleStep where Title == EmptyView, Substeps == EmptyView {
+public extension _SingleStep where Title == EmptyView, Substeps == EmptyView {
     /// Convenience initialization for empty title and sub-steps.
     /// - Parameters:
     ///   - id: String value for step id.
@@ -85,7 +85,7 @@ public extension SingleStep where Title == EmptyView, Substeps == EmptyView {
     }
 }
 
-extension SingleStep: View {
+extension _SingleStep: View {
     var stepsSpacing: CGFloat {
         2
     }

@@ -2,7 +2,7 @@ import FioriThemeManager
 import SwiftUI
 
 extension Fiori {
-    enum StepProgressIndicator {
+    enum _StepProgressIndicator {
         typealias Title = EmptyModifier
         typealias TitleCumulative = EmptyModifier
         typealias Action = EmptyModifier
@@ -18,7 +18,7 @@ extension Fiori {
     }
 }
 
-extension StepProgressIndicator: View {
+extension _StepProgressIndicator: View {
     var stepsCount: Int {
         steps.count
     }
@@ -120,7 +120,7 @@ extension StepProgressIndicator: View {
 }
 
 /// :nodoc:
-public extension StepProgressIndicator where Steps == _DefaultSteps, CancelActionView == _Action {
+public extension _StepProgressIndicator where Steps == _DefaultSteps, CancelActionView == _Action {
     /// Convenience initialization for default step progress indicator.
     /// - Parameters:
     ///   - selection: A binding string for selected step id.
