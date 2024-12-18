@@ -260,7 +260,7 @@ public struct Carousel<Content>: View where Content: View {
             }
             .contentShape(Rectangle())
             .highPriorityGesture(
-                DragGesture()
+                DragGesture(minimumDistance: 20)
                     .onChanged { value in
                         self.contentOffset.x = self.preContentOffset.x + (self.layoutDirection == .leftToRight ? -1 : 1) * value.translation.width
                     }
@@ -273,7 +273,6 @@ public struct Carousel<Content>: View where Content: View {
                             if self.isSnapping {
                                 let itemWidth: CGFloat = (viewSize.width - CGFloat(self.numberOfColumns + 2) * self.spacing) / CGFloat(self.numberOfColumns)
                                 let index = (expectedX / (itemWidth + self.spacing)).rounded()
-                                //                                finalX = max(0, min(maxX, index * (itemWidth + self.spacing) - self.spacing))
                                 finalX = max(0, min(maxX, index * (itemWidth + self.spacing)))
                             }
                             
