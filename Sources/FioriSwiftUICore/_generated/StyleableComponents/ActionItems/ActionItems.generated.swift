@@ -12,18 +12,20 @@ import SwiftUI
 /// }
 /// ```
 public struct ActionItems {
-    let actionItems: [ActivityItemDataType]?
-    let didSelectActivityItem: ((ActivityItemDataType) -> Void)?
+    let actionItems: any View
 
     @Environment(\.actionItemsStyle) var style
 
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(actionItems: [ActivityItemDataType]? = nil,
-                didSelectActivityItem: ((ActivityItemDataType) -> Void)? = nil)
-    {
-        self.actionItems = actionItems
-        self.didSelectActivityItem = didSelectActivityItem
+    public init(@ActionItemsBuilder actionItems: () -> any View = { EmptyView() }) {
+        self.actionItems = actionItems()
+    }
+}
+
+public extension ActionItems {
+    init(actionItems: [ActivityItemDataType] = []) {
+        self.init(actionItems: { ActionItemsListStack(actionItems) })
     }
 }
 
@@ -34,7 +36,6 @@ public extension ActionItems {
 
     internal init(_ configuration: ActionItemsConfiguration, shouldApplyDefaultStyle: Bool) {
         self.actionItems = configuration.actionItems
-        self.didSelectActivityItem = configuration.didSelectActivityItem
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
     }
 }
@@ -44,7 +45,7 @@ extension ActionItems: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(actionItems: self.actionItems, didSelectActivityItem: self.didSelectActivityItem)).typeErased
+            self.style.resolve(configuration: .init(actionItems: .init(self.actionItems))).typeErased
                 .transformEnvironment(\.actionItemsStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -62,7 +63,7 @@ private extension ActionItems {
     }
 
     func defaultStyle() -> some View {
-        ActionItems(.init(actionItems: self.actionItems, didSelectActivityItem: self.didSelectActivityItem))
+        ActionItems(.init(actionItems: .init(self.actionItems)))
             .shouldApplyDefaultStyle(false)
             .actionItemsStyle(.fiori)
             .typeErased

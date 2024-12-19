@@ -22,6 +22,7 @@ struct AnyActionItemsStyle: ActionItemsStyle {
 }
 
 public struct ActionItemsConfiguration {
-    public let actionItems: [ActivityItemDataType]?
-    public let didSelectActivityItem: ((ActivityItemDataType) -> Void)?
+    public let actionItems: ActionItems
+
+    public typealias ActionItems = ConfigurationViewWrapper
 }

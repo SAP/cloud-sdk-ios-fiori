@@ -17,7 +17,7 @@ extension Action: _ViewEmptyChecking {
 
 extension ActionItems: _ViewEmptyChecking {
     public var isEmpty: Bool {
-        false
+        actionItems.isEmpty
     }
 }
 

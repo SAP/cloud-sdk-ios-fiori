@@ -7,21 +7,7 @@ public struct ActionItemsBaseStyle: ActionItemsStyle {
     @ViewBuilder
     public func makeBody(_ configuration: ActionItemsConfiguration) -> some View {
         // Add default layout here
-        HStack(spacing: 0) {
-            ForEach(configuration.actionItems ?? [], id: \.id) { element in
-                Button {
-                    configuration.didSelectActivityItem?(element)
-                } label: {
-                    element.icon
-                        .font(.fiori(forTextStyle: .body).weight(.light))
-                        .imageScale(.large)
-                        .foregroundColor(.preferredColor(.tintColor))
-                        .frame(width: 44, height: 44, alignment: .center)
-                }
-                .buttonStyle(BorderlessButtonStyle())
-            }
-        }
-        .navigationTitle("ActionItemsExample")
+        configuration.actionItems
     }
 }
 

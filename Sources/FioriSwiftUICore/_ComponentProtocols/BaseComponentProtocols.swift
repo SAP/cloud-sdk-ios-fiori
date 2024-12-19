@@ -478,8 +478,6 @@ protocol _ProgressComponent {
 /// ```
 // sourcery: BaseComponent
 protocol _ActionItemsComponent {
-    // sourcery: no_view
-    var actionItems: [ActivityItemDataType]? { get }
-    // sourcery: no_view
-    var didSelectActivityItem: ((ActivityItemDataType) -> Void)? { get }
+    // sourcery: resultBuilder.name = @ActionItemsBuilder, resultBuilder.backingComponent = ActionItemsListStack
+    var actionItems: [ActivityItemDataType] { get }
 }
