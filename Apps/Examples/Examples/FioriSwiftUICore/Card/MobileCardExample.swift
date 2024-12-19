@@ -107,12 +107,18 @@ struct CarouselTestView: View {
     
     var body: some View {
         ScrollView(.vertical) {
-            Carousel(numberOfColumns: Int(self.numberOfColumns), spacing: self.spacing, alignment: self.alignment == 0 ? .top : (self.alignment == 1 ? .center : .bottom), isSnapping: self.isSnapping, isSameHeight: self.isSameHeight) {
-                ForEach(0 ..< CardTests.cardSamples.count, id: \.self) { i in
-                    NavigationLink(destination: Text("Detail View")) {
-                        CardTests.cardSamples[i]
+            VStack(alignment: .leading, spacing: 24) {
+                RoundedRectangle(cornerRadius: 16).foregroundStyle(Color.preferredColor(.grey3)).frame(height: 300)
+                
+                Carousel(numberOfColumns: Int(self.numberOfColumns), spacing: self.spacing, alignment: self.alignment == 0 ? .top : (self.alignment == 1 ? .center : .bottom), isSnapping: self.isSnapping, isSameHeight: self.isSameHeight) {
+                    ForEach(0 ..< CardTests.cardSamples.count, id: \.self) { i in
+                        NavigationLink(destination: Text("Detail View")) {
+                            CardTests.cardSamples[i]
+                        }
                     }
                 }
+                
+                RoundedRectangle(cornerRadius: 16).foregroundStyle(Color.preferredColor(.grey3)).frame(height: 300)
             }
             .cardStyle(.card)
             .padding(self.padding)
