@@ -1,7 +1,7 @@
 import FioriSwiftUICore
 import SwiftUI
 
-class SPIExampleModel: StepProgressIndicatorModel, ObservableObject {
+class SPIExampleModel: _StepProgressIndicatorModel, ObservableObject {
     struct AllActionModel: _ActionModel {
         let actionText: String? = "All Steps"
         
@@ -11,7 +11,7 @@ class SPIExampleModel: StepProgressIndicatorModel, ObservableObject {
     @Published var selection: String = "b"
     var title: String? = "SPI Title: b"
     
-    var steps: [SingleStepModel] = ["a", "b", "c", "d", "e", "f"]
+    var steps: [_SingleStepModel] = ["a", "b", "c", "d", "e", "f"]
         .map {
             SingelExampleModel(id: $0,
                                title: "title: \($0)",
@@ -23,16 +23,16 @@ class SPIExampleModel: StepProgressIndicatorModel, ObservableObject {
     }
 }
 
-class SingelExampleModel: SingleStepModel {
+class SingelExampleModel: _SingleStepModel {
     var id: String = ""
     var title: String? = ""
     var node: TextOrIcon
-    var substeps: [SingleStepModel] = []
+    var substeps: [_SingleStepModel] = []
     
     init(id: String = UUID().uuidString,
          title: String? = nil,
          node: TextOrIcon,
-         substeps: [SingleStepModel] = [])
+         substeps: [_SingleStepModel] = [])
     {
         self.id = id
         self.title = title
@@ -47,7 +47,7 @@ struct SPIModelExample: View {
     var body: some View {
         VStack(alignment: .leading) {
             Text("Initialized by Model").bold()
-            StepProgressIndicator(model: self.model)
+            _StepProgressIndicator(model: self.model)
                 .stepStyle { id in
                     CustomModelStyleExample(isLast: id == "f")
                 }

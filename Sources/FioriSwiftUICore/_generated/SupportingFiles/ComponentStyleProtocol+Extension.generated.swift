@@ -2572,6 +2572,20 @@ public extension LabelItemStyle where Self == LabelItemTitleStyle {
     }
 }
 
+// MARK: LineStyle
+
+public extension LineStyle where Self == LineBaseStyle {
+    static var base: LineBaseStyle {
+        LineBaseStyle()
+    }
+}
+
+public extension LineStyle where Self == LineFioriStyle {
+    static var fiori: LineFioriStyle {
+        LineFioriStyle()
+    }
+}
+
 // MARK: LinearProgressIndicatorStyle
 
 public extension LinearProgressIndicatorStyle where Self == LinearProgressIndicatorBaseStyle {
@@ -3136,6 +3150,20 @@ public extension MoreActionOverflowStyle where Self == MoreActionOverflowBaseSty
 public extension MoreActionOverflowStyle where Self == MoreActionOverflowFioriStyle {
     static var fiori: MoreActionOverflowFioriStyle {
         MoreActionOverflowFioriStyle()
+    }
+}
+
+// MARK: NodeStyle
+
+public extension NodeStyle where Self == NodeBaseStyle {
+    static var base: NodeBaseStyle {
+        NodeBaseStyle()
+    }
+}
+
+public extension NodeStyle where Self == NodeFioriStyle {
+    static var fiori: NodeFioriStyle {
+        NodeFioriStyle()
     }
 }
 
@@ -4532,6 +4560,83 @@ public extension SideBarListItemStyle where Self == SideBarListItemSwitchStyle {
     }
 }
 
+// MARK: SingleStepStyle
+
+public extension SingleStepStyle where Self == SingleStepBaseStyle {
+    static var base: SingleStepBaseStyle {
+        SingleStepBaseStyle()
+    }
+}
+
+public extension SingleStepStyle where Self == SingleStepFioriStyle {
+    static var fiori: SingleStepFioriStyle {
+        SingleStepFioriStyle()
+    }
+}
+
+public struct SingleStepTitleStyle: SingleStepStyle {
+    let style: any TitleStyle
+
+    public func makeBody(_ configuration: SingleStepConfiguration) -> some View {
+        SingleStep(configuration)
+            .titleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension SingleStepStyle where Self == SingleStepTitleStyle {
+    static func titleStyle(_ style: some TitleStyle) -> SingleStepTitleStyle {
+        SingleStepTitleStyle(style: style)
+    }
+
+    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> SingleStepTitleStyle {
+        let style = AnyTitleStyle(content)
+        return SingleStepTitleStyle(style: style)
+    }
+}
+
+public struct SingleStepNodeStyle: SingleStepStyle {
+    let style: any NodeStyle
+
+    public func makeBody(_ configuration: SingleStepConfiguration) -> some View {
+        SingleStep(configuration)
+            .nodeStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension SingleStepStyle where Self == SingleStepNodeStyle {
+    static func nodeStyle(_ style: some NodeStyle) -> SingleStepNodeStyle {
+        SingleStepNodeStyle(style: style)
+    }
+
+    static func nodeStyle(@ViewBuilder content: @escaping (NodeConfiguration) -> some View) -> SingleStepNodeStyle {
+        let style = AnyNodeStyle(content)
+        return SingleStepNodeStyle(style: style)
+    }
+}
+
+public struct SingleStepLineStyle: SingleStepStyle {
+    let style: any LineStyle
+
+    public func makeBody(_ configuration: SingleStepConfiguration) -> some View {
+        SingleStep(configuration)
+            .lineStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension SingleStepStyle where Self == SingleStepLineStyle {
+    static func lineStyle(_ style: some LineStyle) -> SingleStepLineStyle {
+        SingleStepLineStyle(style: style)
+    }
+
+    static func lineStyle(@ViewBuilder content: @escaping (LineConfiguration) -> some View) -> SingleStepLineStyle {
+        let style = AnyLineStyle(content)
+        return SingleStepLineStyle(style: style)
+    }
+}
+
 // MARK: StatusStyle
 
 public extension StatusStyle where Self == StatusBaseStyle {
@@ -4543,6 +4648,83 @@ public extension StatusStyle where Self == StatusBaseStyle {
 public extension StatusStyle where Self == StatusFioriStyle {
     static var fiori: StatusFioriStyle {
         StatusFioriStyle()
+    }
+}
+
+// MARK: StepProgressIndicatorStyle
+
+public extension StepProgressIndicatorStyle where Self == StepProgressIndicatorBaseStyle {
+    static var base: StepProgressIndicatorBaseStyle {
+        StepProgressIndicatorBaseStyle()
+    }
+}
+
+public extension StepProgressIndicatorStyle where Self == StepProgressIndicatorFioriStyle {
+    static var fiori: StepProgressIndicatorFioriStyle {
+        StepProgressIndicatorFioriStyle()
+    }
+}
+
+public struct StepProgressIndicatorTitleStyle: StepProgressIndicatorStyle {
+    let style: any TitleStyle
+
+    public func makeBody(_ configuration: StepProgressIndicatorConfiguration) -> some View {
+        StepProgressIndicator(configuration)
+            .titleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension StepProgressIndicatorStyle where Self == StepProgressIndicatorTitleStyle {
+    static func titleStyle(_ style: some TitleStyle) -> StepProgressIndicatorTitleStyle {
+        StepProgressIndicatorTitleStyle(style: style)
+    }
+
+    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> StepProgressIndicatorTitleStyle {
+        let style = AnyTitleStyle(content)
+        return StepProgressIndicatorTitleStyle(style: style)
+    }
+}
+
+public struct StepProgressIndicatorActionStyle: StepProgressIndicatorStyle {
+    let style: any ActionStyle
+
+    public func makeBody(_ configuration: StepProgressIndicatorConfiguration) -> some View {
+        StepProgressIndicator(configuration)
+            .actionStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension StepProgressIndicatorStyle where Self == StepProgressIndicatorActionStyle {
+    static func actionStyle(_ style: some ActionStyle) -> StepProgressIndicatorActionStyle {
+        StepProgressIndicatorActionStyle(style: style)
+    }
+
+    static func actionStyle(@ViewBuilder content: @escaping (ActionConfiguration) -> some View) -> StepProgressIndicatorActionStyle {
+        let style = AnyActionStyle(content)
+        return StepProgressIndicatorActionStyle(style: style)
+    }
+}
+
+public struct StepProgressIndicatorCancelActionStyle: StepProgressIndicatorStyle {
+    let style: any CancelActionStyle
+
+    public func makeBody(_ configuration: StepProgressIndicatorConfiguration) -> some View {
+        StepProgressIndicator(configuration)
+            .cancelActionStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension StepProgressIndicatorStyle where Self == StepProgressIndicatorCancelActionStyle {
+    static func cancelActionStyle(_ style: some CancelActionStyle) -> StepProgressIndicatorCancelActionStyle {
+        StepProgressIndicatorCancelActionStyle(style: style)
+    }
+
+    static func cancelActionStyle(@ViewBuilder content: @escaping (CancelActionConfiguration) -> some View) -> StepProgressIndicatorCancelActionStyle {
+        let style = AnyCancelActionStyle(content)
+        return StepProgressIndicatorCancelActionStyle(style: style)
     }
 }
 
