@@ -467,3 +467,17 @@ protocol _ProgressComponent {
     // sourcery: defaultValue = "ProgressView()"
     var progress: ProgressView<EmptyView, EmptyView> { get }
 }
+
+/// `ActionItems` provides a view that show serval items with action
+///
+/// ## Usage
+/// ```swift
+/// ActionItems(actionItems: [.init(type: .phone), .init(type: .email), .init(type: .message), .init(type: .videoCall), .init(type: .detail)]) { dataType in
+///     print("\(dataType)")
+/// }
+/// ```
+// sourcery: BaseComponent
+protocol _ActionItemsComponent {
+    // sourcery: resultBuilder.name = @ActionItemsBuilder, resultBuilder.backingComponent = ActionItemsListStack
+    var actionItems: [ActivityItemDataType] { get }
+}

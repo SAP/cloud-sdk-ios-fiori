@@ -59,10 +59,13 @@ public struct ActivityItemDataType: Identifiable {
     public private(set) var id = UUID()
 
     public private(set) var icon: Image
+    
+    public private(set) var didSelectActivityItem: (() -> Void)?
 
-    public init(type: ActivityItemType, data: String? = nil) {
+    public init(type: ActivityItemType, data: String? = nil, didSelectActivityItem: (() -> Void)? = nil) {
         self.icon = type.icon
         self.type = type
         self.data = data
+        self.didSelectActivityItem = didSelectActivityItem
     }
 }
