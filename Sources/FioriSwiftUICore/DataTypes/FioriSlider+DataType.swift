@@ -11,7 +11,7 @@ import SwiftUI
 public extension FioriSlider {
     /// Create a standard slider
     ///
-    /// A standard slider consists of a title, a bound value, and a "thumb" (an image that users can drag along a linear "track").
+    /// A standard slider consists of a title, a selected value, and a "thumb" (an image that the user can drag along a linear "track").
     /// The track represents a continuum between two extremes: a minimum and a maximum value.
     /// By default, the formatted minimum value is displayed at the leading end of the slider, and the formatted maximum value is displayed at the trailing end of the slider.
     ///
