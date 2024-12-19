@@ -22,7 +22,7 @@ public extension FioriSlider {
     ///   - title: The view used to display the title of the slider.
     ///   - value: The slider which allows the user to select a single value within a specified range (`range`).
     ///   - range: The range of the slider values. The default is `0...100`
-    ///   - step: The distance between each valid value. The default is `1`.
+    ///   - step: incremental/decremental value when the thumb changes its position. The default is `1`.
     ///   - decimalPlaces: This property specifies the number of digits that should appear after the decimal point in the Double value for slider value. It controls the precision of the numerical representation by determining how many decimal places are displayed or used in calculations, rounding the Double accordingly. The default is `0`.
     ///   - icon: The icon image for hint text of the slider
     ///   - description: The hint text of the slider
