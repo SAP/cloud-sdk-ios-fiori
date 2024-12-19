@@ -13,7 +13,7 @@ public extension FioriSlider {
     ///
     /// A standard slider consists of a title, a selected value, and a "thumb" (an image that the user can drag along a linear "track").
     /// The track represents a continuum between two extremes: a minimum and a maximum value.
-    /// By default, the formatted minimum value is displayed at the leading end of the slider, and the formatted maximum value is displayed at the trailing end of the slider.
+    /// By default, the formatted minimum value is displayed at the leading side of the slider, and the formatted maximum value is displayed at the trailing side of the slider.
     ///
     /// The title is displayed at the top left of the component, while the bound value is displayed at the top right. As users move the thumb, the slider continuously updates its bound value to reflect the thumb’s position.
     /// You also can customize the slider with customized value label, leading accessory view and trailing accessory view.
