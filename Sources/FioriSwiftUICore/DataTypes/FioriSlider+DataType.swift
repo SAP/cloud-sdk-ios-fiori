@@ -31,7 +31,7 @@ public extension FioriSlider {
     ///   - valueFormat: This optional format is used to format the displayed slider value in the value label view. It is also utilized for formatting the accessibility value, if provided.
     ///   - leadingAccessory: The customized view to override the default leading accessory view which was a text label to display the minimum value of the range
     ///   - showsLeadingAccessory: Indicates whether the leading accessory view is to be displayed or not. The default value is `true`
-    ///   - leadingValueFormat: This optional format is used to format the displayed minimal value of standard slider's range in the leading accessory view. if provided.
+    ///   - leadingValueFormat: This optional format is used to format the displayed minimal value of standard slider's range in the leading accessory view, if provided.
     ///   - trailingAccessory: The customized view to override the default trailing accessory view which was a text label to display the maximum value of the range
     ///   - showsTrailingAccessory: Indicates whether the trailing accessory view is to be displayed or not. The default value is `true`
     ///   - trailingValueFormat: This optional format is used to format the displayed maximal value of standard slider's range in the trailing accessory view. if provided.
