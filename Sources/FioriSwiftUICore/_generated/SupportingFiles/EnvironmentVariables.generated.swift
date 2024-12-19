@@ -990,6 +990,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: LineStyle
+
+struct LineStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any LineStyle] = []
+}
+
+extension EnvironmentValues {
+    var lineStyle: any LineStyle {
+        self.lineStyleStack.last ?? .base
+    }
+
+    var lineStyleStack: [any LineStyle] {
+        get {
+            self[LineStyleStackKey.self]
+        }
+        set {
+            self[LineStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: LinearProgressIndicatorStyle
 
 struct LinearProgressIndicatorStyleStackKey: EnvironmentKey {
@@ -1238,6 +1259,27 @@ extension EnvironmentValues {
         }
         set {
             self[MoreActionOverflowStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: NodeStyle
+
+struct NodeStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any NodeStyle] = []
+}
+
+extension EnvironmentValues {
+    var nodeStyle: any NodeStyle {
+        self.nodeStyleStack.last ?? .base
+    }
+
+    var nodeStyleStack: [any NodeStyle] {
+        get {
+            self[NodeStyleStackKey.self]
+        }
+        set {
+            self[NodeStyleStackKey.self] = newValue
         }
     }
 }
@@ -1851,6 +1893,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: SingleStepStyle
+
+struct SingleStepStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any SingleStepStyle] = []
+}
+
+extension EnvironmentValues {
+    var singleStepStyle: any SingleStepStyle {
+        self.singleStepStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var singleStepStyleStack: [any SingleStepStyle] {
+        get {
+            self[SingleStepStyleStackKey.self]
+        }
+        set {
+            self[SingleStepStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: StatusStyle
 
 struct StatusStyleStackKey: EnvironmentKey {
@@ -1868,6 +1931,27 @@ extension EnvironmentValues {
         }
         set {
             self[StatusStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: StepProgressIndicatorStyle
+
+struct StepProgressIndicatorStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any StepProgressIndicatorStyle] = []
+}
+
+extension EnvironmentValues {
+    var stepProgressIndicatorStyle: any StepProgressIndicatorStyle {
+        self.stepProgressIndicatorStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var stepProgressIndicatorStyleStack: [any StepProgressIndicatorStyle] {
+        get {
+            self[StepProgressIndicatorStyleStackKey.self]
+        }
+        set {
+            self[StepProgressIndicatorStyleStackKey.self] = newValue
         }
     }
 }

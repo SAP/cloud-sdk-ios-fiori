@@ -2,7 +2,7 @@
 // DO NOT EDIT
 import SwiftUI
 
-public extension SingleStepModel {
+public extension _SingleStepModel {
     var id: String {
         return UUID().uuidString
     }

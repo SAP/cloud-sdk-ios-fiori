@@ -2,7 +2,7 @@
 // DO NOT EDIT
 import SwiftUI
 
-extension StepProgressIndicator where Title == EmptyView {
+extension _StepProgressIndicator where Title == EmptyView {
     public init(
     selection: Binding<String>,
 		@ViewBuilder action: () -> ActionView,
@@ -19,7 +19,7 @@ extension StepProgressIndicator where Title == EmptyView {
     }
 }
 
-extension StepProgressIndicator where ActionView == _Action {
+extension _StepProgressIndicator where ActionView == _Action {
     public init(
     selection: Binding<String>,
 		@ViewBuilder title: () -> Title,
@@ -36,7 +36,7 @@ extension StepProgressIndicator where ActionView == _Action {
     }
 }
 
-extension StepProgressIndicator where CancelActionView == _Action {
+extension _StepProgressIndicator where CancelActionView == _Action {
     public init(
     selection: Binding<String>,
 		@ViewBuilder title: () -> Title,
@@ -53,7 +53,7 @@ extension StepProgressIndicator where CancelActionView == _Action {
     }
 }
 
-extension StepProgressIndicator where Title == EmptyView, ActionView == _Action {
+extension _StepProgressIndicator where Title == EmptyView, ActionView == _Action {
     public init(
     selection: Binding<String>,
 		@IndexedViewBuilder steps: () -> Steps,
@@ -69,7 +69,7 @@ extension StepProgressIndicator where Title == EmptyView, ActionView == _Action 
     }
 }
 
-extension StepProgressIndicator where Title == EmptyView, CancelActionView == _Action {
+extension _StepProgressIndicator where Title == EmptyView, CancelActionView == _Action {
     public init(
     selection: Binding<String>,
 		@ViewBuilder action: () -> ActionView,
@@ -85,7 +85,7 @@ extension StepProgressIndicator where Title == EmptyView, CancelActionView == _A
     }
 }
 
-extension StepProgressIndicator where ActionView == _Action, CancelActionView == _Action {
+extension _StepProgressIndicator where ActionView == _Action, CancelActionView == _Action {
     public init(
     selection: Binding<String>,
 		@ViewBuilder title: () -> Title,
@@ -101,7 +101,7 @@ extension StepProgressIndicator where ActionView == _Action, CancelActionView ==
     }
 }
 
-extension StepProgressIndicator where Title == EmptyView, ActionView == _Action, CancelActionView == _Action {
+extension _StepProgressIndicator where Title == EmptyView, ActionView == _Action, CancelActionView == _Action {
     public init(
     selection: Binding<String>,
 		@IndexedViewBuilder steps: () -> Steps

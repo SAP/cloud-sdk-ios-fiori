@@ -1324,6 +1324,34 @@ public extension LabelItemStyle {
     }
 }
 
+// MARK: LineStyle
+
+extension ModifiedStyle: LineStyle where Style: LineStyle {
+    public func makeBody(_ configuration: LineConfiguration) -> some View {
+        Line(configuration)
+            .lineStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct LineStyleModifier<Style: LineStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.lineStyle(self.style)
+    }
+}
+
+public extension LineStyle {
+    func modifier(_ modifier: some ViewModifier) -> some LineStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some LineStyle) -> some LineStyle {
+        style.modifier(LineStyleModifier(style: self))
+    }
+}
+
 // MARK: LinearProgressIndicatorStyle
 
 extension ModifiedStyle: LinearProgressIndicatorStyle where Style: LinearProgressIndicatorStyle {
@@ -1657,6 +1685,34 @@ public extension MoreActionOverflowStyle {
 
     func concat(_ style: some MoreActionOverflowStyle) -> some MoreActionOverflowStyle {
         style.modifier(MoreActionOverflowStyleModifier(style: self))
+    }
+}
+
+// MARK: NodeStyle
+
+extension ModifiedStyle: NodeStyle where Style: NodeStyle {
+    public func makeBody(_ configuration: NodeConfiguration) -> some View {
+        Node(configuration)
+            .nodeStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct NodeStyleModifier<Style: NodeStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.nodeStyle(self.style)
+    }
+}
+
+public extension NodeStyle {
+    func modifier(_ modifier: some ViewModifier) -> some NodeStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some NodeStyle) -> some NodeStyle {
+        style.modifier(NodeStyleModifier(style: self))
     }
 }
 
@@ -2472,6 +2528,34 @@ public extension SideBarListItemStyle {
     }
 }
 
+// MARK: SingleStepStyle
+
+extension ModifiedStyle: SingleStepStyle where Style: SingleStepStyle {
+    public func makeBody(_ configuration: SingleStepConfiguration) -> some View {
+        SingleStep(configuration)
+            .singleStepStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct SingleStepStyleModifier<Style: SingleStepStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.singleStepStyle(self.style)
+    }
+}
+
+public extension SingleStepStyle {
+    func modifier(_ modifier: some ViewModifier) -> some SingleStepStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some SingleStepStyle) -> some SingleStepStyle {
+        style.modifier(SingleStepStyleModifier(style: self))
+    }
+}
+
 // MARK: StatusStyle
 
 extension ModifiedStyle: StatusStyle where Style: StatusStyle {
@@ -2497,6 +2581,34 @@ public extension StatusStyle {
 
     func concat(_ style: some StatusStyle) -> some StatusStyle {
         style.modifier(StatusStyleModifier(style: self))
+    }
+}
+
+// MARK: StepProgressIndicatorStyle
+
+extension ModifiedStyle: StepProgressIndicatorStyle where Style: StepProgressIndicatorStyle {
+    public func makeBody(_ configuration: StepProgressIndicatorConfiguration) -> some View {
+        StepProgressIndicator(configuration)
+            .stepProgressIndicatorStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct StepProgressIndicatorStyleModifier<Style: StepProgressIndicatorStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.stepProgressIndicatorStyle(self.style)
+    }
+}
+
+public extension StepProgressIndicatorStyle {
+    func modifier(_ modifier: some ViewModifier) -> some StepProgressIndicatorStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some StepProgressIndicatorStyle) -> some StepProgressIndicatorStyle {
+        style.modifier(StepProgressIndicatorStyleModifier(style: self))
     }
 }
 
