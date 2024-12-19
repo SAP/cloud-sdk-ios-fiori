@@ -37,7 +37,7 @@ public extension FioriSlider {
     ///   - trailingValueFormat: This optional format is used to format the displayed maximal value of standard slider's range in the trailing accessory view. if provided.
     ///   - onValueChange: An optional callback function is triggered when the user begins to drag the thumb along the standard slider's track to adjust its value. The first boolean property indicates whether the editing process has begun or ended, with `false` signifying that the editing has concluded. The second double property represents the newly adjusted slider value.
     ///   - thumb: the Shape for  thumb of the standard Slider. By default, it is Circle.
-    ///   - activeTrack: the Shape for active track of the standard Slider. By default, it is Capsule.
+    ///   - activeTrack: the shape for active track of the standard Slider. By default, it is capsule.
     ///   - inactiveTrack: the Shape for inactive track of the standard Slider. By default, it is Capsule.
     ///   - thumbHalfWidth: the half width of the thumb of the standard slider. In the context of a circular representation of the thumb, this value is used as the radius. It should be less than 22. The default value is `14`.
     ///
