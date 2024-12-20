@@ -741,3 +741,42 @@ protocol _ActivityItemComponent: _IconComponent, _SubtitleComponent {
     // sourcery: defaultValue = .vertical
     var layout: ActivityItemLayout { get }
 }
+
+// sourcery: CompositeComponent
+protocol _SingleStepComponent: _TitleComponent, _NodeComponent, _LineComponent {
+    // sourcery: default.value = UUID().uuidString
+    // sourcery: no_view
+    var id: String { get }
+    
+    // sourcery: default.value = .normal
+    // sourcery: no_view
+    var state: StepProgressIndicatorState { get }
+    
+    // sourcery: resultBuilder.backingComponent = StepsStack
+    // sourcery: resultBuilder.name = @IndexedViewBuilder
+    // sourcery: resultBuilder.returnType = any IndexedViewContainer
+    var substeps: [StepItem] { get }
+}
+
+/// `StepProgressIndicator` is a view supporting a list of `StepItem` in a  horizontal stack. Also customized steps are also supported.
+/// ## Usage
+/// ```swift
+/// @State var selection: String = "id"
+/// var steps: [StepItem] = []
+/// StepProgressIndicator(selection: self.$selection,
+///                       stepItems: self.steps)
+/// Also indexed view builder is also supported.
+/// StepProgressIndicator(title: <#T##() -> any View#>, action: <#T##() -> any View#>, cancelAction: <#T##() -> any View#>, selection: <#T##Binding<String>#>, steps: <#T##() -> any IndexedViewContainer#>)
+/// ```
+/// You can also update step style for different states, if you created `StepProgressIndicator` by `[StepItem]`.
+/// `func stepStyle(_ style: @escaping ((_ id: String) -> (some StepStyle)?)) -> some View`
+// sourcery: CompositeComponent
+protocol _StepProgressIndicatorComponent: _TitleComponent, _ActionComponent, _CancelActionComponent {
+    // sourcery: @Binding
+    var selection: String { get }
+    
+    // sourcery: resultBuilder.backingComponent = StepsStack
+    // sourcery: resultBuilder.name = @IndexedViewBuilder
+    // sourcery: resultBuilder.returnType = any IndexedViewContainer
+    var steps: [StepItem] { get }
+}

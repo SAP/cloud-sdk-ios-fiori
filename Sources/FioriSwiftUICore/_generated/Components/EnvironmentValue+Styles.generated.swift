@@ -264,11 +264,6 @@ extension EnvironmentValues {
         set { self[SaveActionModifierKey.self] = newValue }
     }
 
-    public var nodeModifier: AnyViewModifier {
-        get { return self[NodeModifierKey.self] }
-        set { self[NodeModifierKey.self] = newValue }
-    }
-
     public var resetActionModifier: AnyViewModifier {
         get { return self[ResetActionModifierKey.self] }
         set { self[ResetActionModifierKey.self] = newValue }
@@ -297,6 +292,11 @@ extension EnvironmentValues {
     public var notNowActionModifier: AnyViewModifier {
         get { return self[NotNowActionModifierKey.self] }
         set { self[NotNowActionModifierKey.self] = newValue }
+    }
+
+    public var nodeModifier: AnyViewModifier {
+        get { return self[NodeModifierKey.self] }
+        set { self[NodeModifierKey.self] = newValue }
     }
 
 }
@@ -564,11 +564,6 @@ public extension View {
     }
 
     @ViewBuilder
-    func nodeModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
-        self.environment(\.nodeModifier, AnyViewModifier(transform))
-    }
-
-    @ViewBuilder
     func resetActionModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
         self.environment(\.resetActionModifier, AnyViewModifier(transform))
     }
@@ -596,6 +591,11 @@ public extension View {
     @ViewBuilder
     func notNowActionModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
         self.environment(\.notNowActionModifier, AnyViewModifier(transform))
+    }
+
+    @ViewBuilder
+    func nodeModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
+        self.environment(\.nodeModifier, AnyViewModifier(transform))
     }
 
 }

@@ -210,10 +210,6 @@ struct SaveActionModifierKey: EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-struct NodeModifierKey: EnvironmentKey {
-    public static let defaultValue = AnyViewModifier { $0 }
-}
-
 struct ResetActionModifierKey: EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
@@ -235,5 +231,9 @@ struct DenyActionModifierKey: EnvironmentKey {
 }
 
 struct NotNowActionModifierKey: EnvironmentKey {
+    public static let defaultValue = AnyViewModifier { $0 }
+}
+
+struct NodeModifierKey: EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
