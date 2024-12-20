@@ -3,6 +3,12 @@
 import Foundation
 import SwiftUI
 
+/// `ActivityItem` is a View  that provides a customizable activity item with icon and subtitle.
+///
+/// ## Usage
+/// ```swift
+/// ActivityItem(icon: Image(systemName: "phone"), subtitle: AttributedString("phone"))
+/// ```
 public struct ActivityItem {
     let icon: any View
     let subtitle: any View
