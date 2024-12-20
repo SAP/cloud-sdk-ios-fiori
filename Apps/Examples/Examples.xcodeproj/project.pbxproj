@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -408,6 +408,10 @@
 		E99A025E2B9EC055008A4B77 /* SearchIconAndPlaceholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchIconAndPlaceholder.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		3B660C982D156B7000E92505 /* Slider */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Slider; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
+
 /* Begin PBXFrameworksBuildPhase section */
 		1F60179129A8439A00DBDCDE /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
@@ -694,6 +698,7 @@
 				B1D41B1E291A2D2E004E64A5 /* Picker */,
 				B8239D8626815C11003455D2 /* ContactItem */,
 				692F338926556A34009B98DA /* SideBar */,
+				3B660C982D156B7000E92505 /* Slider */,
 				1FF3662C264C662A00AB8BD8 /* DimensionSelector */,
 				97CEF8A92553D6F1008BFBEF /* SignatureView */,
 				AB988B11263128C400483D87 /* DataTable */,
@@ -1022,6 +1027,9 @@
 			);
 			dependencies = (
 				1F6017A029A8439C00DBDCDE /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				3B660C982D156B7000E92505 /* Slider */,
 			);
 			name = Examples;
 			packageProductDependencies = (
