@@ -60,6 +60,11 @@ struct ActionItemsExample: View {
                         print("click detail")
                     })
                 ])
+                .actionItemsStyle { conf in
+                    conf.actionItems
+                        .font(.fiori(forTextStyle: .headline).weight(.bold))
+                        .foregroundColor(.red)
+                }
             } header: {
                 Text("Usual Type")
                     .textCase(.none)

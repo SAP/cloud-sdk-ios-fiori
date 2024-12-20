@@ -16,8 +16,7 @@ public struct ActionItemsFioriStyle: ActionItemsStyle {
     @ViewBuilder
     public func makeBody(_ configuration: ActionItemsConfiguration) -> some View {
         ActionItems(configuration)
-        // Add default style here
-        // .foregroundStyle(Color.preferredColor(<#fiori color#>))
-        // .font(.fiori(forTextStyle: <#fiori font#>))
+            .font(.fiori(forTextStyle: .body).weight(.light))
+            .foregroundColor(.preferredColor(.tintColor))
     }
 }

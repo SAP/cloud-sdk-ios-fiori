@@ -17,9 +17,7 @@ struct ActionItemsListStack: ActionItemsList {
                 element.didSelectActivityItem?()
             } label: {
                 element.icon
-                    .font(.fiori(forTextStyle: .body).weight(.light))
                     .imageScale(.large)
-                    .foregroundColor(.preferredColor(.tintColor))
                     .frame(width: 44, height: 44, alignment: .center)
             }
             .buttonStyle(BorderlessButtonStyle())
