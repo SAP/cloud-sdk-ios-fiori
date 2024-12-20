@@ -13,12 +13,12 @@ public extension StepProgressIndicator {
         self.init(title: title, action: action, cancelAction: cancelAction, selection: selection, steps: steps)
     }
 
-    /// Convenience initialization for default step progress indicator.
+    /// Convenience initializer for default step progress indicator.
     /// - Parameters:
     ///   - selection: A binding string for selected step id.
     ///   - stepItems: An array of `StepItem` for default steps generation.
-    ///   - title: Title for current step displayed on steps top-left .
-    ///   - action: Action for steps displayed on steps top-right that will show a vertical steps.
+    ///   - title: Title for current step displayed on the top leading side of the step progress indicator.
+    ///   - action: Action for steps displayed on the top trailing side of the step progress indicator. It will show vertical steps.
     init(selection: Binding<String>,
          stepItems: [StepItem],
          @ViewBuilder title: @escaping () -> any View,
@@ -30,11 +30,11 @@ public extension StepProgressIndicator {
                   steps: { StepsStack(stepItems, selection: selection) })
     }
     
-    /// Convenience initialization for default step progress indicator.
+    /// Convenience initializer for default step progress indicator.
     /// - Parameters:
     ///   - selection: A binding string for selected step id.
     ///   - stepItems: An array of `StepItem` for default steps generation.
-    ///   - title: Title for current step displayed on steps top-left .
+    ///   - title: Title for current step displayed on the top leading side of the step progress indicator.
     init(selection: Binding<String>,
          stepItems: [StepItem],
          @ViewBuilder title: @escaping () -> any View)
@@ -44,11 +44,11 @@ public extension StepProgressIndicator {
                   steps: { StepsStack(stepItems, selection: selection) })
     }
     
-    /// Convenience initialization for default step progress indicator.
+    /// Convenience initializer for default step progress indicator.
     /// - Parameters:
     ///   - selection: A binding string for selected step id.
     ///   - stepItems: An array of `StepItem` for default steps generation.
-    ///   - action: Action for steps displayed on steps top-right that will show a vertical steps.
+    ///   - action: Action for steps displayed on the top trailing side of the step progress indicator. It will show vertical steps.
     init(selection: Binding<String>,
          stepItems: [StepItem],
          @ViewBuilder action: @escaping () -> any View)
@@ -59,7 +59,7 @@ public extension StepProgressIndicator {
                   steps: { StepsStack(stepItems, selection: selection) })
     }
     
-    /// Convenience initialization for default step progress indicator.
+    /// Convenience initializer for default step progress indicator.
     /// - Parameters:
     ///   - selection: A binding string for selected step id.
     ///   - stepItems: An array of `StepItem` for default steps generation.

@@ -3,7 +3,7 @@
 import Foundation
 import SwiftUI
 
-/// `StepProgressIndicator` is view support a list of `StepItem` in a  horizontal stack. Also customized steps is also supported.
+/// `StepProgressIndicator` is a view supporting a list of `StepItem` in a  horizontal stack. Also customized steps are also supported.
 /// ## Usage
 /// ```swift
 /// @State var selection: String = "id"
@@ -13,12 +13,7 @@ import SwiftUI
 /// Also indexed view builder is also supported.
 /// StepProgressIndicator(title: <#T##() -> any View#>, action: <#T##() -> any View#>, cancelAction: <#T##() -> any View#>, selection: <#T##Binding<String>#>, steps: <#T##() -> any IndexedViewContainer#>)
 /// ```
-/// Only `stepStyle` will continue to be supported. And other legacy modifiers will be deprecated in the future. Please use latest modifiers.
-/// `func titleStyle(_ style: some TitleStyle) -> some View`
-/// `func actionStyle(_ style: some ActionStyle) -> some View`
-/// `func cancelActionStyle(_ style: some CancelActionStyle) -> some View`
-/// `func lineStyle(_ style: some LineStyle) -> some View`
-/// `func nodeStyle(_ style: some NodeStyle) -> some View`
+/// You can also update step style for different states, if you created `StepProgressIndicator` by `[StepItem]`.
 /// `func stepStyle(_ style: @escaping ((_ id: String) -> (some StepStyle)?)) -> some View`
 public struct StepProgressIndicator {
     let title: any View
