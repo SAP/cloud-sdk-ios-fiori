@@ -3,7 +3,7 @@
 import Foundation
 import SwiftUI
 
-/// `ActionItems` provides a view that show serval items with action
+/// `ActionItems` provides a view that shows several items with action.
 ///
 /// ## Usage
 /// ```swift

@@ -3,7 +3,7 @@
 import Foundation
 import SwiftUI
 
-/// `ActivityItem` is a View  that provides a customizable activity item with icon and subtitle.
+/// `ActivityItem` provides a customizable activity item with an icon and a subtitle.
 ///
 /// ## Usage
 /// ```swift

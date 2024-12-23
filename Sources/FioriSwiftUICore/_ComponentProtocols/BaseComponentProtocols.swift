@@ -468,7 +468,7 @@ protocol _ProgressComponent {
     var progress: ProgressView<EmptyView, EmptyView> { get }
 }
 
-/// `ActionItems` provides a view that show serval items with action
+/// `ActionItems` provides a view that shows several items with action.
 ///
 /// ## Usage
 /// ```swift
