@@ -2,7 +2,7 @@
 // DO NOT EDIT
 import SwiftUI
 
-extension SingleStep where Title == EmptyView {
+extension _SingleStep where Title == EmptyView {
     public init(
     id: String = UUID().uuidString,
 		@ViewBuilder node: () -> Node,

@@ -301,3 +301,6 @@
 
 /* Progress Indicator accessibility label: progress halted with indicator progress */
 "Progress halted, %.0f" = "Progress halted, %.0f";
+
+/* XTIT: Title of step progress indicator, see https://experience.sap.com/fiori-design-ios/article/step-progress-indicator/#adaptive-design */
+"All Steps" = "All Steps";
