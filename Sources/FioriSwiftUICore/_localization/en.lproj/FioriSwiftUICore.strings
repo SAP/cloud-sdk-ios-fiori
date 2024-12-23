@@ -361,3 +361,6 @@
 
 /* XACT: Range Editable Slider accessibility value */
 "current lower value is %@, upper value is %@" = "current lower value is %@, upper value is %@";
+
+/* XTIT: Title of step progress indicator, see https://experience.sap.com/fiori-design-ios/article/step-progress-indicator/#adaptive-design */
+"All Steps" = "All Steps";

@@ -819,6 +819,22 @@ extension LeadingAccessoryStyle {
     }
 }
 
+// MARK: LineStyle
+
+struct ResolvedLineStyle<Style: LineStyle>: View {
+    let style: Style
+    let configuration: LineConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension LineStyle {
+    func resolve(configuration: LineConfiguration) -> some View {
+        ResolvedLineStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: LinearProgressIndicatorStyle
 
 struct ResolvedLinearProgressIndicatorStyle<Style: LinearProgressIndicatorStyle>: View {
@@ -1024,6 +1040,22 @@ struct ResolvedMoreActionOverflowStyle<Style: MoreActionOverflowStyle>: View {
 extension MoreActionOverflowStyle {
     func resolve(configuration: MoreActionOverflowConfiguration) -> some View {
         ResolvedMoreActionOverflowStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: NodeStyle
+
+struct ResolvedNodeStyle<Style: NodeStyle>: View {
+    let style: Style
+    let configuration: NodeConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension NodeStyle {
+    func resolve(configuration: NodeConfiguration) -> some View {
+        ResolvedNodeStyle(style: self, configuration: configuration)
     }
 }
 
@@ -1507,6 +1539,22 @@ extension SideBarListItemStyle {
     }
 }
 
+// MARK: SingleStepStyle
+
+struct ResolvedSingleStepStyle<Style: SingleStepStyle>: View {
+    let style: Style
+    let configuration: SingleStepConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension SingleStepStyle {
+    func resolve(configuration: SingleStepConfiguration) -> some View {
+        ResolvedSingleStepStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: StatusStyle
 
 struct ResolvedStatusStyle<Style: StatusStyle>: View {
@@ -1520,6 +1568,22 @@ struct ResolvedStatusStyle<Style: StatusStyle>: View {
 extension StatusStyle {
     func resolve(configuration: StatusConfiguration) -> some View {
         ResolvedStatusStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: StepProgressIndicatorStyle
+
+struct ResolvedStepProgressIndicatorStyle<Style: StepProgressIndicatorStyle>: View {
+    let style: Style
+    let configuration: StepProgressIndicatorConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension StepProgressIndicatorStyle {
+    func resolve(configuration: StepProgressIndicatorConfiguration) -> some View {
+        ResolvedStepProgressIndicatorStyle(style: self, configuration: configuration)
     }
 }
 

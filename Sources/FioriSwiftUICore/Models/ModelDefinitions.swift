@@ -433,7 +433,7 @@ public protocol KPIHeaderItemModel {}
 // sourcery: virtualPropStepState = "var state: StepProgressIndicatorState?"
 // sourcery: virtualPropIsLastStep = "var isLastStep: Bool = false"
 // sourcery: generated_component_composite
-public protocol SingleStepModel {
+public protocol _SingleStepModel {
     // sourcery: default.value = UUID().uuidString
     // sourcery: no_view
     var id: String { get set }
@@ -446,8 +446,11 @@ public protocol SingleStepModel {
     // sourcery: backingComponent=_StepsContainer
     // sourcery: customFunctionBuilder=IndexedViewBuilder
     // sourcery: genericParameter.type=IndexedViewContainer
-    var substeps: [SingleStepModel] { get set }
+    var substeps: [_SingleStepModel] { get set }
 }
+
+@available(*, unavailable, renamed: "_SingleStepModel", message: "Will be removed in the future release. Please use SingleStep instead.")
+public protocol SingleStepModel {}
 
 // sourcery: add_env_props = "presentationMode"
 // sourcery: virtualPropAxis = "var axis: Axis = .horizontal"
@@ -456,7 +459,7 @@ public protocol SingleStepModel {
 // sourcery: virtualPropStepFrames = "@State var stepFrames: [String: CGRect] = [:]"
 // sourcery: virtualPropScrollBounds = "@State var scrollBounds: CGRect = .zero"
 // sourcery: generated_component_composite
-public protocol StepProgressIndicatorModel: AnyObject {
+public protocol _StepProgressIndicatorModel: AnyObject {
     // sourcery: bindingProperty
     // sourcery: no_view
     var selection: String { get set }
@@ -471,12 +474,15 @@ public protocol StepProgressIndicatorModel: AnyObject {
     // sourcery: backingComponent=_StepsContainer
     // sourcery: customFunctionBuilder=IndexedViewBuilder
     // sourcery: genericParameter.type=IndexedViewContainer
-    var steps: [SingleStepModel] { get }
+    var steps: [_SingleStepModel] { get }
     
     // sourcery: genericParameter.name = CancelActionView
     // sourcery: default.value = _CancelActionDefault()
     var cancelAction: _ActionModel? { get }
 }
+
+@available(*, unavailable, renamed: "_StepProgressIndicatorModel", message: "Will be removed in the future release. Please use StepProgressIndicator instead.")
+public protocol StepProgressIndicatorModel {}
 
 // sourcery: generated_component_composite
 public protocol FilterFeedbackBarModel: AnyObject {

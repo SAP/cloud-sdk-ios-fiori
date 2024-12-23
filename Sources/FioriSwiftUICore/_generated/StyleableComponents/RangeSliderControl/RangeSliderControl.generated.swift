@@ -14,7 +14,7 @@ public struct RangeSliderControl {
     @Binding var upperValue: Double
     /// The range of the slider values. The default is `0...100`.
     let range: ClosedRange<Double>
-    /// The distance between each valid value. The default is `1`
+    /// The incremental/decremental value when the thumb changes its position. The default is `1`.
     let step: Double
     /// This property specifies the number of digits that should appear after the decimal point in the Double value for slider value or lower/upper value for range slider . It controls the precision of the numerical representation by determining how many decimal places are displayed or used in calculations, rounding the Double accordingly. The default is `0`
     let decimalPlaces: Int

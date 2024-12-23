@@ -870,6 +870,23 @@ public extension View {
     }
 }
 
+// MARK: LineStyle
+
+public extension View {
+    func lineStyle(_ style: some LineStyle) -> some View {
+        self.transformEnvironment(\.lineStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func lineStyle(@ViewBuilder content: @escaping (LineConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.lineStyleStack) { stack in
+            let style = AnyLineStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: LinearProgressIndicatorStyle
 
 public extension View {
@@ -1086,6 +1103,23 @@ public extension View {
     func moreActionOverflowStyle(@ViewBuilder content: @escaping (MoreActionOverflowConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.moreActionOverflowStyleStack) { stack in
             let style = AnyMoreActionOverflowStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: NodeStyle
+
+public extension View {
+    func nodeStyle(_ style: some NodeStyle) -> some View {
+        self.transformEnvironment(\.nodeStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func nodeStyle(@ViewBuilder content: @escaping (NodeConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.nodeStyleStack) { stack in
+            let style = AnyNodeStyle(content)
             stack.append(style)
         }
     }
@@ -1601,6 +1635,23 @@ public extension View {
     }
 }
 
+// MARK: SingleStepStyle
+
+public extension View {
+    func singleStepStyle(_ style: some SingleStepStyle) -> some View {
+        self.transformEnvironment(\.singleStepStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func singleStepStyle(@ViewBuilder content: @escaping (SingleStepConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.singleStepStyleStack) { stack in
+            let style = AnySingleStepStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: StatusStyle
 
 public extension View {
@@ -1613,6 +1664,23 @@ public extension View {
     func statusStyle(@ViewBuilder content: @escaping (StatusConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.statusStyleStack) { stack in
             let style = AnyStatusStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: StepProgressIndicatorStyle
+
+public extension View {
+    func stepProgressIndicatorStyle(_ style: some StepProgressIndicatorStyle) -> some View {
+        self.transformEnvironment(\.stepProgressIndicatorStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func stepProgressIndicatorStyle(@ViewBuilder content: @escaping (StepProgressIndicatorConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.stepProgressIndicatorStyleStack) { stack in
+            let style = AnyStepProgressIndicatorStyle(content)
             stack.append(style)
         }
     }

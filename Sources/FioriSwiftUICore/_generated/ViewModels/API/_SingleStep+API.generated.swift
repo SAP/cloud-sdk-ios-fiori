@@ -2,7 +2,7 @@
 // DO NOT EDIT
 import SwiftUI
 
-public struct SingleStep<Title: View, Node: View, Substeps: IndexedViewContainer> {
+public struct _SingleStep<Title: View, Node: View, Substeps: IndexedViewContainer> {
     @Environment(\.titleModifier) private var titleModifier
 	@Environment(\.nodeModifier) private var nodeModifier
 	@Environment(\.stepStyle) var stepStyle
@@ -41,16 +41,16 @@ public struct SingleStep<Title: View, Node: View, Substeps: IndexedViewContainer
 
     @ViewBuilder var title: some View {
         if isModelInit {
-            _title.modifier(titleModifier.concat(Fiori.SingleStep.title).concat(Fiori.SingleStep.titleCumulative))
+            _title.modifier(titleModifier.concat(Fiori._SingleStep.title).concat(Fiori._SingleStep.titleCumulative))
         } else {
-            _title.modifier(titleModifier.concat(Fiori.SingleStep.title))
+            _title.modifier(titleModifier.concat(Fiori._SingleStep.title))
         }
     }
 	@ViewBuilder var node: some View {
         if isModelInit {
-            _node.modifier(nodeModifier.concat(Fiori.SingleStep.node).concat(Fiori.SingleStep.nodeCumulative))
+            _node.modifier(nodeModifier.concat(Fiori._SingleStep.node).concat(Fiori._SingleStep.nodeCumulative))
         } else {
-            _node.modifier(nodeModifier.concat(Fiori.SingleStep.node))
+            _node.modifier(nodeModifier.concat(Fiori._SingleStep.node))
         }
     }
 	var substeps: Substeps {
@@ -62,15 +62,15 @@ public struct SingleStep<Title: View, Node: View, Substeps: IndexedViewContainer
     }
 }
 
-extension SingleStep where Title == _ConditionalContent<Text, EmptyView>,
+extension _SingleStep where Title == _ConditionalContent<Text, EmptyView>,
 		Node == TextOrIconView,
 		Substeps == _StepsContainer {
 
-    public init(model: SingleStepModel) {
+    public init(model: _SingleStepModel) {
         self.init(id: model.id, title: model.title, node: model.node, substeps: model.substeps)
     }
 
-    public init(id: String = UUID().uuidString, title: String? = nil, node: TextOrIcon, substeps: [SingleStepModel] = []) {
+    public init(id: String = UUID().uuidString, title: String? = nil, node: TextOrIcon, substeps: [_SingleStepModel] = []) {
         self._id = id
 		self._title = title != nil ? ViewBuilder.buildEither(first: Text(title!)) : ViewBuilder.buildEither(second: EmptyView())
 		self._node = TextOrIconView(node: node)
