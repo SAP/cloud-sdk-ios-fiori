@@ -356,6 +356,12 @@ extension LabelItem: _ViewEmptyChecking {
     }
 }
 
+extension Line: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        line.isEmpty
+    }
+}
+
 extension LinearProgressIndicator: _ViewEmptyChecking {
     public var isEmpty: Bool {
         false
@@ -438,6 +444,12 @@ extension MessageContent: _ViewEmptyChecking {
 extension MoreActionOverflow: _ViewEmptyChecking {
     public var isEmpty: Bool {
         moreActionOverflow.isEmpty
+    }
+}
+
+extension Node: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        node.isEmpty
     }
 }
 
@@ -647,9 +659,27 @@ extension SideBarListItem: _ViewEmptyChecking {
     }
 }
 
+extension SingleStep: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        title.isEmpty &&
+            node.isEmpty &&
+            line.isEmpty &&
+            substeps.isEmpty
+    }
+}
+
 extension Status: _ViewEmptyChecking {
     public var isEmpty: Bool {
         status.isEmpty
+    }
+}
+
+extension StepProgressIndicator: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        title.isEmpty &&
+            action.isEmpty &&
+            cancelAction.isEmpty &&
+            steps.isEmpty
     }
 }
 

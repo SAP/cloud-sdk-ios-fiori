@@ -481,3 +481,16 @@ protocol _ActionItemsComponent {
     // sourcery: resultBuilder.name = @ActionItemsBuilder, resultBuilder.backingComponent = ActionItemsListStack
     var actionItems: [ActivityItemDataType] { get }
 }
+
+// sourcery: BaseComponent
+protocol _NodeComponent {
+    // sourcery: resultBuilder.name = @ViewBuilder, resultBuilder.backingComponent = TextOrIconView
+    var node: TextOrIcon? { get }
+}
+
+// sourcery: BaseComponent
+protocol _LineComponent {
+    // sourcery: defaultValue = "{ Rectangle() }"
+    @ViewBuilder
+    var line: (() -> any View)? { get }
+}
