@@ -192,6 +192,12 @@ struct CoreContentView: View {
                 {
                     Text("Step Progress Indicator")
                 }
+                
+                NavigationLink(
+                    destination: SliderExample())
+                {
+                    Text("Slider")
+                }
             }
             
             Section(header: Text("Pickers")) {
