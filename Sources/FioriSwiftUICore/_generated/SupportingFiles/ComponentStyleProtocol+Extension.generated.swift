@@ -45,6 +45,20 @@ public extension ActionItemsStyle where Self == ActionItemsFioriStyle {
     }
 }
 
+// MARK: ActiveTrackStyle
+
+public extension ActiveTrackStyle where Self == ActiveTrackBaseStyle {
+    static var base: ActiveTrackBaseStyle {
+        ActiveTrackBaseStyle()
+    }
+}
+
+public extension ActiveTrackStyle where Self == ActiveTrackFioriStyle {
+    static var fiori: ActiveTrackFioriStyle {
+        ActiveTrackFioriStyle()
+    }
+}
+
 // MARK: ActivityItemStyle
 
 public extension ActivityItemStyle where Self == ActivityItemBaseStyle {
@@ -1935,6 +1949,272 @@ public extension FilledIconStyle where Self == FilledIconFioriStyle {
     }
 }
 
+// MARK: FioriSliderStyle
+
+public extension FioriSliderStyle where Self == FioriSliderBaseStyle {
+    static var base: FioriSliderBaseStyle {
+        FioriSliderBaseStyle()
+    }
+}
+
+public extension FioriSliderStyle where Self == FioriSliderFioriStyle {
+    static var fiori: FioriSliderFioriStyle {
+        FioriSliderFioriStyle()
+    }
+}
+
+public struct FioriSliderTitleStyle: FioriSliderStyle {
+    let style: any TitleStyle
+
+    public func makeBody(_ configuration: FioriSliderConfiguration) -> some View {
+        FioriSlider(configuration)
+            .titleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension FioriSliderStyle where Self == FioriSliderTitleStyle {
+    static func titleStyle(_ style: some TitleStyle) -> FioriSliderTitleStyle {
+        FioriSliderTitleStyle(style: style)
+    }
+
+    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> FioriSliderTitleStyle {
+        let style = AnyTitleStyle(content)
+        return FioriSliderTitleStyle(style: style)
+    }
+}
+
+public struct FioriSliderValueLabelStyle: FioriSliderStyle {
+    let style: any ValueLabelStyle
+
+    public func makeBody(_ configuration: FioriSliderConfiguration) -> some View {
+        FioriSlider(configuration)
+            .valueLabelStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension FioriSliderStyle where Self == FioriSliderValueLabelStyle {
+    static func valueLabelStyle(_ style: some ValueLabelStyle) -> FioriSliderValueLabelStyle {
+        FioriSliderValueLabelStyle(style: style)
+    }
+
+    static func valueLabelStyle(@ViewBuilder content: @escaping (ValueLabelConfiguration) -> some View) -> FioriSliderValueLabelStyle {
+        let style = AnyValueLabelStyle(content)
+        return FioriSliderValueLabelStyle(style: style)
+    }
+}
+
+public struct FioriSliderLowerThumbStyle: FioriSliderStyle {
+    let style: any LowerThumbStyle
+
+    public func makeBody(_ configuration: FioriSliderConfiguration) -> some View {
+        FioriSlider(configuration)
+            .lowerThumbStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension FioriSliderStyle where Self == FioriSliderLowerThumbStyle {
+    static func lowerThumbStyle(_ style: some LowerThumbStyle) -> FioriSliderLowerThumbStyle {
+        FioriSliderLowerThumbStyle(style: style)
+    }
+
+    static func lowerThumbStyle(@ViewBuilder content: @escaping (LowerThumbConfiguration) -> some View) -> FioriSliderLowerThumbStyle {
+        let style = AnyLowerThumbStyle(content)
+        return FioriSliderLowerThumbStyle(style: style)
+    }
+}
+
+public struct FioriSliderUpperThumbStyle: FioriSliderStyle {
+    let style: any UpperThumbStyle
+
+    public func makeBody(_ configuration: FioriSliderConfiguration) -> some View {
+        FioriSlider(configuration)
+            .upperThumbStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension FioriSliderStyle where Self == FioriSliderUpperThumbStyle {
+    static func upperThumbStyle(_ style: some UpperThumbStyle) -> FioriSliderUpperThumbStyle {
+        FioriSliderUpperThumbStyle(style: style)
+    }
+
+    static func upperThumbStyle(@ViewBuilder content: @escaping (UpperThumbConfiguration) -> some View) -> FioriSliderUpperThumbStyle {
+        let style = AnyUpperThumbStyle(content)
+        return FioriSliderUpperThumbStyle(style: style)
+    }
+}
+
+public struct FioriSliderActiveTrackStyle: FioriSliderStyle {
+    let style: any ActiveTrackStyle
+
+    public func makeBody(_ configuration: FioriSliderConfiguration) -> some View {
+        FioriSlider(configuration)
+            .activeTrackStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension FioriSliderStyle where Self == FioriSliderActiveTrackStyle {
+    static func activeTrackStyle(_ style: some ActiveTrackStyle) -> FioriSliderActiveTrackStyle {
+        FioriSliderActiveTrackStyle(style: style)
+    }
+
+    static func activeTrackStyle(@ViewBuilder content: @escaping (ActiveTrackConfiguration) -> some View) -> FioriSliderActiveTrackStyle {
+        let style = AnyActiveTrackStyle(content)
+        return FioriSliderActiveTrackStyle(style: style)
+    }
+}
+
+public struct FioriSliderInactiveTrackStyle: FioriSliderStyle {
+    let style: any InactiveTrackStyle
+
+    public func makeBody(_ configuration: FioriSliderConfiguration) -> some View {
+        FioriSlider(configuration)
+            .inactiveTrackStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension FioriSliderStyle where Self == FioriSliderInactiveTrackStyle {
+    static func inactiveTrackStyle(_ style: some InactiveTrackStyle) -> FioriSliderInactiveTrackStyle {
+        FioriSliderInactiveTrackStyle(style: style)
+    }
+
+    static func inactiveTrackStyle(@ViewBuilder content: @escaping (InactiveTrackConfiguration) -> some View) -> FioriSliderInactiveTrackStyle {
+        let style = AnyInactiveTrackStyle(content)
+        return FioriSliderInactiveTrackStyle(style: style)
+    }
+}
+
+public struct FioriSliderIconStyle: FioriSliderStyle {
+    let style: any IconStyle
+
+    public func makeBody(_ configuration: FioriSliderConfiguration) -> some View {
+        FioriSlider(configuration)
+            .iconStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension FioriSliderStyle where Self == FioriSliderIconStyle {
+    static func iconStyle(_ style: some IconStyle) -> FioriSliderIconStyle {
+        FioriSliderIconStyle(style: style)
+    }
+
+    static func iconStyle(@ViewBuilder content: @escaping (IconConfiguration) -> some View) -> FioriSliderIconStyle {
+        let style = AnyIconStyle(content)
+        return FioriSliderIconStyle(style: style)
+    }
+}
+
+public struct FioriSliderDescriptionStyle: FioriSliderStyle {
+    let style: any DescriptionStyle
+
+    public func makeBody(_ configuration: FioriSliderConfiguration) -> some View {
+        FioriSlider(configuration)
+            .descriptionStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension FioriSliderStyle where Self == FioriSliderDescriptionStyle {
+    static func descriptionStyle(_ style: some DescriptionStyle) -> FioriSliderDescriptionStyle {
+        FioriSliderDescriptionStyle(style: style)
+    }
+
+    static func descriptionStyle(@ViewBuilder content: @escaping (DescriptionConfiguration) -> some View) -> FioriSliderDescriptionStyle {
+        let style = AnyDescriptionStyle(content)
+        return FioriSliderDescriptionStyle(style: style)
+    }
+}
+
+public struct FioriSliderLeadingAccessoryStyle: FioriSliderStyle {
+    let style: any LeadingAccessoryStyle
+
+    public func makeBody(_ configuration: FioriSliderConfiguration) -> some View {
+        FioriSlider(configuration)
+            .leadingAccessoryStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension FioriSliderStyle where Self == FioriSliderLeadingAccessoryStyle {
+    static func leadingAccessoryStyle(_ style: some LeadingAccessoryStyle) -> FioriSliderLeadingAccessoryStyle {
+        FioriSliderLeadingAccessoryStyle(style: style)
+    }
+
+    static func leadingAccessoryStyle(@ViewBuilder content: @escaping (LeadingAccessoryConfiguration) -> some View) -> FioriSliderLeadingAccessoryStyle {
+        let style = AnyLeadingAccessoryStyle(content)
+        return FioriSliderLeadingAccessoryStyle(style: style)
+    }
+}
+
+public struct FioriSliderTrailingAccessoryStyle: FioriSliderStyle {
+    let style: any TrailingAccessoryStyle
+
+    public func makeBody(_ configuration: FioriSliderConfiguration) -> some View {
+        FioriSlider(configuration)
+            .trailingAccessoryStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension FioriSliderStyle where Self == FioriSliderTrailingAccessoryStyle {
+    static func trailingAccessoryStyle(_ style: some TrailingAccessoryStyle) -> FioriSliderTrailingAccessoryStyle {
+        FioriSliderTrailingAccessoryStyle(style: style)
+    }
+
+    static func trailingAccessoryStyle(@ViewBuilder content: @escaping (TrailingAccessoryConfiguration) -> some View) -> FioriSliderTrailingAccessoryStyle {
+        let style = AnyTrailingAccessoryStyle(content)
+        return FioriSliderTrailingAccessoryStyle(style: style)
+    }
+}
+
+public struct FioriSliderRangeSliderControlStyle: FioriSliderStyle {
+    let style: any RangeSliderControlStyle
+
+    public func makeBody(_ configuration: FioriSliderConfiguration) -> some View {
+        FioriSlider(configuration)
+            .rangeSliderControlStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension FioriSliderStyle where Self == FioriSliderRangeSliderControlStyle {
+    static func rangeSliderControlStyle(_ style: some RangeSliderControlStyle) -> FioriSliderRangeSliderControlStyle {
+        FioriSliderRangeSliderControlStyle(style: style)
+    }
+
+    static func rangeSliderControlStyle(@ViewBuilder content: @escaping (RangeSliderControlConfiguration) -> some View) -> FioriSliderRangeSliderControlStyle {
+        let style = AnyRangeSliderControlStyle(content)
+        return FioriSliderRangeSliderControlStyle(style: style)
+    }
+}
+
+public struct FioriSliderInformationViewStyle: FioriSliderStyle {
+    let style: any InformationViewStyle
+
+    public func makeBody(_ configuration: FioriSliderConfiguration) -> some View {
+        FioriSlider(configuration)
+            .informationViewStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension FioriSliderStyle where Self == FioriSliderInformationViewStyle {
+    static func informationViewStyle(_ style: some InformationViewStyle) -> FioriSliderInformationViewStyle {
+        FioriSliderInformationViewStyle(style: style)
+    }
+
+    static func informationViewStyle(@ViewBuilder content: @escaping (InformationViewConfiguration) -> some View) -> FioriSliderInformationViewStyle {
+        let style = AnyInformationViewStyle(content)
+        return FioriSliderInformationViewStyle(style: style)
+    }
+}
+
 // MARK: FootnoteStyle
 
 public extension FootnoteStyle where Self == FootnoteBaseStyle {
@@ -2191,6 +2471,20 @@ public extension IllustratedMessageStyle where Self == IllustratedMessageSeconda
     static func secondaryActionStyle(@ViewBuilder content: @escaping (SecondaryActionConfiguration) -> some View) -> IllustratedMessageSecondaryActionStyle {
         let style = AnySecondaryActionStyle(content)
         return IllustratedMessageSecondaryActionStyle(style: style)
+    }
+}
+
+// MARK: InactiveTrackStyle
+
+public extension InactiveTrackStyle where Self == InactiveTrackBaseStyle {
+    static var base: InactiveTrackBaseStyle {
+        InactiveTrackBaseStyle()
+    }
+}
+
+public extension InactiveTrackStyle where Self == InactiveTrackFioriStyle {
+    static var fiori: InactiveTrackFioriStyle {
+        InactiveTrackFioriStyle()
     }
 }
 
@@ -2583,6 +2877,20 @@ public extension LabelItemStyle where Self == LabelItemTitleStyle {
     static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> LabelItemTitleStyle {
         let style = AnyTitleStyle(content)
         return LabelItemTitleStyle(style: style)
+    }
+}
+
+// MARK: LeadingAccessoryStyle
+
+public extension LeadingAccessoryStyle where Self == LeadingAccessoryBaseStyle {
+    static var base: LeadingAccessoryBaseStyle {
+        LeadingAccessoryBaseStyle()
+    }
+}
+
+public extension LeadingAccessoryStyle where Self == LeadingAccessoryFioriStyle {
+    static var fiori: LeadingAccessoryFioriStyle {
+        LeadingAccessoryFioriStyle()
     }
 }
 
@@ -3017,6 +3325,20 @@ public extension LoadingIndicatorStyle where Self == LoadingIndicatorProgressSty
     static func progressStyle(@ViewBuilder content: @escaping (ProgressConfiguration) -> some View) -> LoadingIndicatorProgressStyle {
         let style = AnyProgressStyle(content)
         return LoadingIndicatorProgressStyle(style: style)
+    }
+}
+
+// MARK: LowerThumbStyle
+
+public extension LowerThumbStyle where Self == LowerThumbBaseStyle {
+    static var base: LowerThumbBaseStyle {
+        LowerThumbBaseStyle()
+    }
+}
+
+public extension LowerThumbStyle where Self == LowerThumbFioriStyle {
+    static var fiori: LowerThumbFioriStyle {
+        LowerThumbFioriStyle()
     }
 }
 
@@ -3969,6 +4291,104 @@ public extension ProgressIndicatorProtocolStyle where Self == ProgressIndicatorP
 public extension ProgressIndicatorProtocolStyle where Self == ProgressIndicatorProtocolFioriStyle {
     static var fiori: ProgressIndicatorProtocolFioriStyle {
         ProgressIndicatorProtocolFioriStyle()
+    }
+}
+
+// MARK: RangeSliderControlStyle
+
+public extension RangeSliderControlStyle where Self == RangeSliderControlBaseStyle {
+    static var base: RangeSliderControlBaseStyle {
+        RangeSliderControlBaseStyle()
+    }
+}
+
+public extension RangeSliderControlStyle where Self == RangeSliderControlFioriStyle {
+    static var fiori: RangeSliderControlFioriStyle {
+        RangeSliderControlFioriStyle()
+    }
+}
+
+public struct RangeSliderControlLowerThumbStyle: RangeSliderControlStyle {
+    let style: any LowerThumbStyle
+
+    public func makeBody(_ configuration: RangeSliderControlConfiguration) -> some View {
+        RangeSliderControl(configuration)
+            .lowerThumbStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension RangeSliderControlStyle where Self == RangeSliderControlLowerThumbStyle {
+    static func lowerThumbStyle(_ style: some LowerThumbStyle) -> RangeSliderControlLowerThumbStyle {
+        RangeSliderControlLowerThumbStyle(style: style)
+    }
+
+    static func lowerThumbStyle(@ViewBuilder content: @escaping (LowerThumbConfiguration) -> some View) -> RangeSliderControlLowerThumbStyle {
+        let style = AnyLowerThumbStyle(content)
+        return RangeSliderControlLowerThumbStyle(style: style)
+    }
+}
+
+public struct RangeSliderControlUpperThumbStyle: RangeSliderControlStyle {
+    let style: any UpperThumbStyle
+
+    public func makeBody(_ configuration: RangeSliderControlConfiguration) -> some View {
+        RangeSliderControl(configuration)
+            .upperThumbStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension RangeSliderControlStyle where Self == RangeSliderControlUpperThumbStyle {
+    static func upperThumbStyle(_ style: some UpperThumbStyle) -> RangeSliderControlUpperThumbStyle {
+        RangeSliderControlUpperThumbStyle(style: style)
+    }
+
+    static func upperThumbStyle(@ViewBuilder content: @escaping (UpperThumbConfiguration) -> some View) -> RangeSliderControlUpperThumbStyle {
+        let style = AnyUpperThumbStyle(content)
+        return RangeSliderControlUpperThumbStyle(style: style)
+    }
+}
+
+public struct RangeSliderControlActiveTrackStyle: RangeSliderControlStyle {
+    let style: any ActiveTrackStyle
+
+    public func makeBody(_ configuration: RangeSliderControlConfiguration) -> some View {
+        RangeSliderControl(configuration)
+            .activeTrackStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension RangeSliderControlStyle where Self == RangeSliderControlActiveTrackStyle {
+    static func activeTrackStyle(_ style: some ActiveTrackStyle) -> RangeSliderControlActiveTrackStyle {
+        RangeSliderControlActiveTrackStyle(style: style)
+    }
+
+    static func activeTrackStyle(@ViewBuilder content: @escaping (ActiveTrackConfiguration) -> some View) -> RangeSliderControlActiveTrackStyle {
+        let style = AnyActiveTrackStyle(content)
+        return RangeSliderControlActiveTrackStyle(style: style)
+    }
+}
+
+public struct RangeSliderControlInactiveTrackStyle: RangeSliderControlStyle {
+    let style: any InactiveTrackStyle
+
+    public func makeBody(_ configuration: RangeSliderControlConfiguration) -> some View {
+        RangeSliderControl(configuration)
+            .inactiveTrackStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension RangeSliderControlStyle where Self == RangeSliderControlInactiveTrackStyle {
+    static func inactiveTrackStyle(_ style: some InactiveTrackStyle) -> RangeSliderControlInactiveTrackStyle {
+        RangeSliderControlInactiveTrackStyle(style: style)
+    }
+
+    static func inactiveTrackStyle(@ViewBuilder content: @escaping (InactiveTrackConfiguration) -> some View) -> RangeSliderControlInactiveTrackStyle {
+        let style = AnyInactiveTrackStyle(content)
+        return RangeSliderControlInactiveTrackStyle(style: style)
     }
 }
 
@@ -6139,6 +6559,34 @@ public extension TopDividerStyle where Self == TopDividerBaseStyle {
 public extension TopDividerStyle where Self == TopDividerFioriStyle {
     static var fiori: TopDividerFioriStyle {
         TopDividerFioriStyle()
+    }
+}
+
+// MARK: TrailingAccessoryStyle
+
+public extension TrailingAccessoryStyle where Self == TrailingAccessoryBaseStyle {
+    static var base: TrailingAccessoryBaseStyle {
+        TrailingAccessoryBaseStyle()
+    }
+}
+
+public extension TrailingAccessoryStyle where Self == TrailingAccessoryFioriStyle {
+    static var fiori: TrailingAccessoryFioriStyle {
+        TrailingAccessoryFioriStyle()
+    }
+}
+
+// MARK: UpperThumbStyle
+
+public extension UpperThumbStyle where Self == UpperThumbBaseStyle {
+    static var base: UpperThumbBaseStyle {
+        UpperThumbBaseStyle()
+    }
+}
+
+public extension UpperThumbStyle where Self == UpperThumbFioriStyle {
+    static var fiori: UpperThumbFioriStyle {
+        UpperThumbFioriStyle()
     }
 }
 

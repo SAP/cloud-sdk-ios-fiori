@@ -483,6 +483,46 @@ protocol _ActionItemsComponent {
 }
 
 // sourcery: BaseComponent
+protocol _LowerThumbComponent {
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "Circle()"
+    var lowerThumb: any Shape { get }
+}
+
+// sourcery: BaseComponent
+protocol _UpperThumbComponent {
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "Circle()"
+    var upperThumb: any Shape { get }
+}
+
+// sourcery: BaseComponent
+protocol _ActiveTrackComponent {
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "Capsule()"
+    var activeTrack: any Shape { get }
+}
+
+// sourcery: BaseComponent
+protocol _InactiveTrackComponent {
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "Capsule()"
+    var inactiveTrack: any Shape { get }
+}
+
+// sourcery: BaseComponent
+protocol _LeadingAccessoryComponent {
+    @ViewBuilder
+    var leadingAccessory: (() -> any View)? { get }
+}
+
+// sourcery: BaseComponent
+protocol _TrailingAccessoryComponent {
+    @ViewBuilder
+    var trailingAccessory: (() -> any View)? { get }
+}
+
+// sourcery: BaseComponent
 protocol _NodeComponent {
     // sourcery: resultBuilder.name = @ViewBuilder, resultBuilder.backingComponent = TextOrIconView
     var node: TextOrIcon? { get }
