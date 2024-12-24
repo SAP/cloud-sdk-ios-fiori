@@ -13,6 +13,12 @@ struct CoreContentView: View {
                     Text("ActivityItem")
                 }
                 
+                NavigationLink {
+                    ActionItemsExample()
+                } label: {
+                    Text("ActionItems")
+                }
+                
                 NavigationLink(
                     destination: AvatarStackExample(),
                     label: {

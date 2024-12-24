@@ -64,6 +64,34 @@ public extension ActionStyle {
     }
 }
 
+// MARK: ActionItemsStyle
+
+extension ModifiedStyle: ActionItemsStyle where Style: ActionItemsStyle {
+    public func makeBody(_ configuration: ActionItemsConfiguration) -> some View {
+        ActionItems(configuration)
+            .actionItemsStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct ActionItemsStyleModifier<Style: ActionItemsStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.actionItemsStyle(self.style)
+    }
+}
+
+public extension ActionItemsStyle {
+    func modifier(_ modifier: some ViewModifier) -> some ActionItemsStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some ActionItemsStyle) -> some ActionItemsStyle {
+        style.modifier(ActionItemsStyleModifier(style: self))
+    }
+}
+
 // MARK: ActiveTrackStyle
 
 extension ModifiedStyle: ActiveTrackStyle where Style: ActiveTrackStyle {
