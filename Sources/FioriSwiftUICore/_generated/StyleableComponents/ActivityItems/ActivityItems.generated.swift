@@ -3,52 +3,52 @@
 import Foundation
 import SwiftUI
 
-/// `ActionItems` provides a view that shows several items with action.
+/// `ActivityItems` provides a view that shows several items with action.
 ///
 /// ## Usage
 /// ```swift
-/// ActionItems(actionItems: [
+/// ActivityItems(actionItems: [
 ///     .init(type: .phone, didSelectActivityItem: {
 ///         print("click phone")
 ///     })
 /// ])
 /// ```
-public struct ActionItems {
+public struct ActivityItems {
     let actionItems: any View
 
-    @Environment(\.actionItemsStyle) var style
+    @Environment(\.activityItemsStyle) var style
 
     fileprivate var _shouldApplyDefaultStyle = true
 
     public init(@ActionItemsBuilder actionItems: () -> any View = { EmptyView() }) {
-        self.actionItems = actionItems()
+        self.actionItems = ActionItems(actionItems: actionItems)
     }
 }
 
-public extension ActionItems {
+public extension ActivityItems {
     init(actionItems: [ActivityItemDataType] = []) {
         self.init(actionItems: { ActionItemsListStack(actionItems) })
     }
 }
 
-public extension ActionItems {
-    init(_ configuration: ActionItemsConfiguration) {
+public extension ActivityItems {
+    init(_ configuration: ActivityItemsConfiguration) {
         self.init(configuration, shouldApplyDefaultStyle: false)
     }
 
-    internal init(_ configuration: ActionItemsConfiguration, shouldApplyDefaultStyle: Bool) {
+    internal init(_ configuration: ActivityItemsConfiguration, shouldApplyDefaultStyle: Bool) {
         self.actionItems = configuration.actionItems
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
     }
 }
 
-extension ActionItems: View {
+extension ActivityItems: View {
     public var body: some View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
             self.style.resolve(configuration: .init(actionItems: .init(self.actionItems))).typeErased
-                .transformEnvironment(\.actionItemsStyleStack) { stack in
+                .transformEnvironment(\.activityItemsStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
                     }
@@ -57,7 +57,7 @@ extension ActionItems: View {
     }
 }
 
-private extension ActionItems {
+private extension ActivityItems {
     func shouldApplyDefaultStyle(_ bool: Bool) -> some View {
         var s = self
         s._shouldApplyDefaultStyle = bool
@@ -65,9 +65,9 @@ private extension ActionItems {
     }
 
     func defaultStyle() -> some View {
-        ActionItems(.init(actionItems: .init(self.actionItems)))
+        ActivityItems(.init(actionItems: .init(self.actionItems)))
             .shouldApplyDefaultStyle(false)
-            .actionItemsStyle(.fiori)
+            .activityItemsStyle(ActivityItemsFioriStyle.ContentFioriStyle())
             .typeErased
     }
 }

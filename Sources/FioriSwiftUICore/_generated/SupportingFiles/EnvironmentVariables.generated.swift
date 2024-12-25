@@ -108,6 +108,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: ActivityItemsStyle
+
+struct ActivityItemsStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any ActivityItemsStyle] = []
+}
+
+extension EnvironmentValues {
+    var activityItemsStyle: any ActivityItemsStyle {
+        self.activityItemsStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var activityItemsStyleStack: [any ActivityItemsStyle] {
+        get {
+            self[ActivityItemsStyleStackKey.self]
+        }
+        set {
+            self[ActivityItemsStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: AllEntriesSectionTitleStyle
 
 struct AllEntriesSectionTitleStyleStackKey: EnvironmentKey {

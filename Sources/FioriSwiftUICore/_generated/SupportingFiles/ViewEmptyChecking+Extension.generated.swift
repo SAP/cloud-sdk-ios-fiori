@@ -34,6 +34,12 @@ extension ActivityItem: _ViewEmptyChecking {
     }
 }
 
+extension ActivityItems: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        actionItems.isEmpty
+    }
+}
+
 extension AllEntriesSectionTitle: _ViewEmptyChecking {
     public var isEmpty: Bool {
         allEntriesSectionTitle.isEmpty

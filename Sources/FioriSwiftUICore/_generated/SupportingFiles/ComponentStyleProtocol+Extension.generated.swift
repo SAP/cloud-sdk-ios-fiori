@@ -115,6 +115,41 @@ public extension ActivityItemStyle where Self == ActivityItemSubtitleStyle {
     }
 }
 
+// MARK: ActivityItemsStyle
+
+public extension ActivityItemsStyle where Self == ActivityItemsBaseStyle {
+    static var base: ActivityItemsBaseStyle {
+        ActivityItemsBaseStyle()
+    }
+}
+
+public extension ActivityItemsStyle where Self == ActivityItemsFioriStyle {
+    static var fiori: ActivityItemsFioriStyle {
+        ActivityItemsFioriStyle()
+    }
+}
+
+public struct ActivityItemsActionItemsStyle: ActivityItemsStyle {
+    let style: any ActionItemsStyle
+
+    public func makeBody(_ configuration: ActivityItemsConfiguration) -> some View {
+        ActivityItems(configuration)
+            .actionItemsStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension ActivityItemsStyle where Self == ActivityItemsActionItemsStyle {
+    static func actionItemsStyle(_ style: some ActionItemsStyle) -> ActivityItemsActionItemsStyle {
+        ActivityItemsActionItemsStyle(style: style)
+    }
+
+    static func actionItemsStyle(@ViewBuilder content: @escaping (ActionItemsConfiguration) -> some View) -> ActivityItemsActionItemsStyle {
+        let style = AnyActionItemsStyle(content)
+        return ActivityItemsActionItemsStyle(style: style)
+    }
+}
+
 // MARK: AllEntriesSectionTitleStyle
 
 public extension AllEntriesSectionTitleStyle where Self == AllEntriesSectionTitleBaseStyle {

@@ -24,7 +24,7 @@ extension Fiori {
 
 // FIXME: - Implement ActivityItems View body
 
-extension ActivityItems: View {
+extension _ActivityItems: View {
     public var body: some View {
         ActivityControlLayoutContainer(_actionItems ?? []) { activity in
             ActivityButtonView(image: activity.icon) {

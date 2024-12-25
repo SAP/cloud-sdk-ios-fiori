@@ -83,6 +83,22 @@ extension ActivityItemStyle {
     }
 }
 
+// MARK: ActivityItemsStyle
+
+struct ResolvedActivityItemsStyle<Style: ActivityItemsStyle>: View {
+    let style: Style
+    let configuration: ActivityItemsConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension ActivityItemsStyle {
+    func resolve(configuration: ActivityItemsConfiguration) -> some View {
+        ResolvedActivityItemsStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: AllEntriesSectionTitleStyle
 
 struct ResolvedAllEntriesSectionTitleStyle<Style: AllEntriesSectionTitleStyle>: View {

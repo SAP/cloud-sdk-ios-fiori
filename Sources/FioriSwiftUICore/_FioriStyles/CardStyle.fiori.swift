@@ -761,7 +761,7 @@ public enum CardTests {
         VStack(alignment: .leading, spacing: 4) {
             ContactItem(title: "Title",
                         subtitle: "Subtitle",
-                        actionItems: ActivityItems(actionItems: [.init(type: .phone), .init(type: .email)], didSelectActivityItem: { dataType in
+                        actionItems: _ActivityItems(actionItems: [.init(type: .phone), .init(type: .email)], didSelectActivityItem: { dataType in
                             print("\(dataType)")
                         }))
             
@@ -795,7 +795,7 @@ public enum CardTests {
         VStack(alignment: .center, spacing: 4) {
             ContactItem(title: "Title",
                         subtitle: "Subtitle",
-                        actionItems: ActivityItems(actionItems: [.init(type: .phone), .init(type: .email)], didSelectActivityItem: { dataType in
+                        actionItems: _ActivityItems(actionItems: [.init(type: .phone), .init(type: .email)], didSelectActivityItem: { dataType in
                             print("\(dataType)")
                         }))
             

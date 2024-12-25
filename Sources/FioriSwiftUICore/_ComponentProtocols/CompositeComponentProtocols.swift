@@ -742,6 +742,19 @@ protocol _ActivityItemComponent: _IconComponent, _SubtitleComponent {
     var layout: ActivityItemLayout { get }
 }
 
+/// `ActivityItems` provides a view that shows several items with action.
+///
+/// ## Usage
+/// ```swift
+/// ActivityItems(actionItems: [
+///     .init(type: .phone, didSelectActivityItem: {
+///         print("click phone")
+///     })
+/// ])
+/// ```
+// sourcery: CompositeComponent
+protocol _ActivityItemsComponent: _ActionItemsComponent {}
+
 // sourcery: CompositeComponent
 protocol _RangeSliderControlComponent: _LowerThumbComponent, _UpperThumbComponent, _ActiveTrackComponent, _InactiveTrackComponent {
     // sourcery: @Binding

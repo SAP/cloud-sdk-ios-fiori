@@ -20,35 +20,35 @@ public struct SignatureCaptureView<StartActionView: View, RestartActionView: Vie
 	let _signatureImage: UIImage?
 	let _onSave: ((UIImage) -> Void)?
 	let _onDelete: (() -> Void)?
-	var indicatorColor = Color.preferredColor(.primaryLabel)
-	@State var isSaved = false
-	var appliesTintColorToImage = true
-	var drawingViewBackgroundColor = Color.preferredColor(.primaryBackground)
-	var indicatorFont = Font.fiori(forTextStyle: .subheadline).weight(.semibold)
-	@State var currentDrawing = Drawing()
-	let _drawingViewMinHeight: CGFloat = 256
-	var signatureLineColor = Color.preferredColor(.quaternaryLabel)
-	@State var drawings = [Drawing]()
-	var timestampFormatter: DateFormatter?
-	var watermarkTextColor: Color = .preferredColor(.tertiaryLabel)
-	var titleFont = Font.fiori(forTextStyle: .subheadline).weight(.semibold)
-	var hidesXmark = false
-	var hidesSignatureLine = false
-	var cropsImage = false
-	@State var isReenterTapped = false
-	var isRequired = false
-	var xmarkColor = Color.preferredColor(.quaternaryLabel)
-	@State var fullSignatureImage: UIImage?
-	var strokeWidth: CGFloat = 3.0
 	var addsTimestampInImage: Bool = false
-	var watermarkText: String?
-	var watermarkTextAlignment: NSTextAlignment = .natural
+	@State var isReenterTapped = false
+	var strokeWidth: CGFloat = 3.0
+	let _drawingViewMinHeight: CGFloat = 256
 	var watermarkTextFont: UIFont = .preferredFont(forTextStyle: .caption1)
 	var titleColor = Color.preferredColor(.primaryLabel)
 	var _drawingViewMaxHeight: CGFloat?
-	public private(set) var _heightDidChangePublisher = CurrentValueSubject<CGFloat, Never>(0)
-	@State var isEditing = false
+	var cropsImage = false
+	var titleFont = Font.fiori(forTextStyle: .subheadline).weight(.semibold)
+	var isRequired = false
 	var strokeColor = Color.preferredColor(.primaryLabel)
+	var xmarkColor = Color.preferredColor(.quaternaryLabel)
+	var watermarkTextColor: Color = .preferredColor(.tertiaryLabel)
+	var signatureLineColor = Color.preferredColor(.quaternaryLabel)
+	@State var fullSignatureImage: UIImage?
+	@State var isEditing = false
+	var drawingViewBackgroundColor = Color.preferredColor(.primaryBackground)
+	@State var drawings = [Drawing]()
+	var watermarkTextAlignment: NSTextAlignment = .natural
+	var indicatorFont = Font.fiori(forTextStyle: .subheadline).weight(.semibold)
+	public private(set) var _heightDidChangePublisher = CurrentValueSubject<CGFloat, Never>(0)
+	var hidesXmark = false
+	@State var currentDrawing = Drawing()
+	var hidesSignatureLine = false
+	var appliesTintColorToImage = true
+	var indicatorColor = Color.preferredColor(.primaryLabel)
+	@State var isSaved = false
+	var timestampFormatter: DateFormatter?
+	var watermarkText: String?
 
     private var isModelInit: Bool = false
 	private var isTitleNil: Bool = false

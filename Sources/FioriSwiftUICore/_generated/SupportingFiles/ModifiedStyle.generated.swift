@@ -148,6 +148,34 @@ public extension ActivityItemStyle {
     }
 }
 
+// MARK: ActivityItemsStyle
+
+extension ModifiedStyle: ActivityItemsStyle where Style: ActivityItemsStyle {
+    public func makeBody(_ configuration: ActivityItemsConfiguration) -> some View {
+        ActivityItems(configuration)
+            .activityItemsStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct ActivityItemsStyleModifier<Style: ActivityItemsStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.activityItemsStyle(self.style)
+    }
+}
+
+public extension ActivityItemsStyle {
+    func modifier(_ modifier: some ViewModifier) -> some ActivityItemsStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some ActivityItemsStyle) -> some ActivityItemsStyle {
+        style.modifier(ActivityItemsStyleModifier(style: self))
+    }
+}
+
 // MARK: AllEntriesSectionTitleStyle
 
 extension ModifiedStyle: AllEntriesSectionTitleStyle where Style: AllEntriesSectionTitleStyle {
