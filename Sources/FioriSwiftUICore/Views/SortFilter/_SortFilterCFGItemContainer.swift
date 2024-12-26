@@ -13,7 +13,8 @@ public struct _SortFilterCFGItemContainer {
     
     @Binding var _items: [[SortFilterItem]]
     @State var height = 88.0
-    
+    public var btnFrame: CGRect = .zero
+    var showSubList: ((Bool) -> Void)?
     #if !os(visionOS)
         let popoverWidth = 393.0
     #else
@@ -23,8 +24,9 @@ public struct _SortFilterCFGItemContainer {
     @State var searchListHeight: CGFloat = 88.0
     @State var _keyboardHeight: CGFloat = 0.0
 
-    public init(items: Binding<[[SortFilterItem]]>) {
+    public init(items: Binding<[[SortFilterItem]]>, btnFrame: CGRect = .zero) {
         self.__items = items
+        self.btnFrame = btnFrame
     }
 }
 
@@ -58,7 +60,7 @@ extension _SortFilterCFGItemContainer: View {
         .listRowSpacing(0)
         .listStyle(.plain)
         .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? self.popoverWidth : nil)
-        .frame(height: self.height)
+        .frame(height: UIDevice.current.userInterfaceIdiom != .phone ? self.listHeight() : nil)
         #if !os(visionOS)
             .listRowBackground(Color.preferredColor(.secondaryGroupedBackground))
         #else
@@ -67,20 +69,20 @@ extension _SortFilterCFGItemContainer: View {
             .environment(\.defaultMinListRowHeight, 0)
             .environment(\.defaultMinListHeaderHeight, 0)
             .modifier(FioriIntrospectModifier<UIScrollView> { scrollView in
-                DispatchQueue.main.async {
-                    let popverHeight = Screen.bounds.size.height
-                    let safeAreaInset = self.getSafeAreaInsets()
-                    var maxScrollViewHeight = popverHeight - safeAreaInset.top - safeAreaInset.bottom - (UIDevice.current.userInterfaceIdiom != .phone ? 190 : 150)
-                    if UIDevice.current.userInterfaceIdiom == .pad {
-                        maxScrollViewHeight -= self._keyboardHeight
+                if !self.context.isPickerListShown {
+                    DispatchQueue.main.async {
+                        let maxScrollHeight = self.calculateMaxScrollHeight()
+                        self.height = min(scrollView.contentSize.height, maxScrollHeight)
                     }
-                    self.height = min(scrollView.contentSize.height, maxScrollViewHeight)
                 }
             })
             .setOnChange(of: self._items) {
                 self.checkUpdateButtonState()
             }
             .onAppear {
+                self.context.isPickerListShown = false
+                self.context.isSearchBarHidden = true
+                
                 self.context.handleCancel = {
                     for r in 0 ..< self._items.count {
                         for c in 0 ..< self._items[r].count {
@@ -127,6 +129,88 @@ extension _SortFilterCFGItemContainer: View {
         self.context.isResetButtonEnabled = isResetButtonEnabled
     }
     
+    private func listHeight() -> CGFloat {
+        if self.searchListHeight != 88.0 {
+            if self.context.isPickerListShown {
+                return self.searchListHeight
+            } else {
+                return self.height
+            }
+        } else {
+            return self.height
+        }
+    }
+    
+    private func calculateMaxScrollHeight() -> CGFloat {
+        let screenHeight = Screen.bounds.size.height
+        let safeAreaInset = UIEdgeInsets.getSafeAreaInsets()
+        if UIDevice.current.userInterfaceIdiom != .phone {
+            var maxScrollViewHeight = screenHeight - self.additionalHeight()
+            if self.btnFrame.arrowDirection() == .top {
+                maxScrollViewHeight -= (self.btnFrame.maxY + 30)
+                maxScrollViewHeight -= self._keyboardHeight
+            } else if self.btnFrame.arrowDirection() == .bottom {
+                maxScrollViewHeight -= (screenHeight - self.btnFrame.minY + 30) + safeAreaInset.bottom + 13
+                if self._keyboardHeight > 0 {
+                    let keyboardItemHeight = (self._keyboardHeight - (screenHeight - self.btnFrame.minY))
+                    if keyboardItemHeight > 0 {
+                        maxScrollViewHeight -= keyboardItemHeight
+                    }
+                }
+            }
+            return maxScrollViewHeight
+        } else {
+            var maxScrollViewHeight = screenHeight - 56
+            maxScrollViewHeight -= (safeAreaInset.top + safeAreaInset.bottom + 60)
+            maxScrollViewHeight -= self._keyboardHeight
+            return maxScrollViewHeight
+        }
+    }
+    
+    private func additionalHeight() -> CGFloat {
+        let isNotIphone = UIDevice.current.userInterfaceIdiom != .phone
+        var height = 0.0
+        height += UIEdgeInsets.getSafeAreaInsets().bottom + (isNotIphone ? 13 : 16)
+        height += isNotIphone ? 50 : 56
+        if self._keyboardHeight == 0 {
+            height += 52
+        }
+        return height
+    }
+    
+    /// Calculate list height when picker displayMode is `.list`.
+    /// - Parameter pickerItem: PickerItem
+    /// - Returns: list height
+    private func calculatePickerListHeight(pickerItem: SortFilterItem.PickerItem) -> CGFloat {
+        let isNotIphone = UIDevice.current.userInterfaceIdiom != .phone
+        let screenHeight = Screen.bounds.size.height
+        let safeAreaInset = UIEdgeInsets.getSafeAreaInsets()
+        var maxScrollViewHeight = screenHeight - UIEdgeInsets.getSafeAreaInsets().bottom - (isNotIphone ? 13 : 16) - (isNotIphone ? 50 : 56)
+        if !pickerItem.isSearchBarHidden {
+            if self._keyboardHeight == 0 {
+                maxScrollViewHeight -= 52
+            }
+        }
+        if UIDevice.current.userInterfaceIdiom != .phone {
+            if self.btnFrame.arrowDirection() == .top {
+                maxScrollViewHeight -= (self.btnFrame.maxY + 30)
+                maxScrollViewHeight -= self._keyboardHeight
+            } else if self.btnFrame.arrowDirection() == .bottom {
+                maxScrollViewHeight -= (screenHeight - self.btnFrame.minY + 30) + safeAreaInset.bottom + 13
+                if self._keyboardHeight > 0 {
+                    let keyboardItemHeight = (self._keyboardHeight - (screenHeight - self.btnFrame.minY))
+                    if keyboardItemHeight > 0 {
+                        maxScrollViewHeight -= keyboardItemHeight
+                    }
+                }
+            }
+        } else {
+            maxScrollViewHeight -= (safeAreaInset.top + 30)
+            maxScrollViewHeight -= self._keyboardHeight
+        }
+        return maxScrollViewHeight
+    }
+    
     @ViewBuilder
     func rowView(row r: Int, column c: Int) -> some View {
         switch self._items[r][c] {
@@ -168,17 +252,21 @@ extension _SortFilterCFGItemContainer: View {
                 self._items[r][c].picker.onTap(option: self._items[r][c].picker.valueOptions[index])
             } selectAll: { isAll in
                 self._items[r][c].picker.selectAll(isAll)
-            } updateSearchListPickerHeight: { height in
-                if UIDevice.current.userInterfaceIdiom == .pad {
-                    if self._keyboardHeight > 0 {
-                        self.searchListHeight = height + (UIDevice.current.userInterfaceIdiom != .phone ? 190 : 150)
-                    } else {
-                        self.searchListHeight = self.height
-                    }
-                }
             }
-            .ifApply(UIDevice.current.userInterfaceIdiom == .pad, content: { v in
+            .modifier(FioriIntrospectModifier<UIScrollView> { scrollView in
+                DispatchQueue.main.async {
+                    self.searchListHeight = min(scrollView.contentSize.height, self.calculatePickerListHeight(pickerItem: self._items[r][c].picker))
+                }
+            })
+            .ifApply(UIDevice.current.userInterfaceIdiom != .phone, content: { v in
                 v.frame(height: self.searchListHeight)
+                    .onAppear {
+                        self.context.isPickerListShown = true
+                        self.context.isSearchBarHidden = self._items[r][c].picker.isSearchBarHidden
+                    }
+                    .onDisappear {
+                        self.searchListHeight = 88.0
+                    }
             })
             .ifApply(!self._items[r][c].picker.resetButtonConfiguration.isHidden, content: { v in
                 v.toolbar {
@@ -203,8 +291,12 @@ extension _SortFilterCFGItemContainer: View {
             .onReceive(NotificationCenter.default.publisher(for: UIApplication.keyboardDidShowNotification)) { notif in
                 let rect = (notif.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect) ?? .zero
                 self._keyboardHeight = rect.height
+                if self.searchListHeight > self._keyboardHeight {
+                    self.searchListHeight -= self._keyboardHeight
+                }
             }
             .onReceive(NotificationCenter.default.publisher(for: UIApplication.keyboardDidHideNotification)) { _ in
+                self.searchListHeight += self._keyboardHeight
                 self._keyboardHeight = 0
             }
             Spacer()
