@@ -38,7 +38,10 @@ public struct SegmentedControlPickerFioriStyle: SegmentedControlPickerStyle {
 }
 
 public struct SegmentedControlPickerNSSStyle: SegmentedControlPickerStyle {
-    var data: NSSStyleData
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
 
     public func makeBody(_ configuration: SegmentedControlPickerConfiguration) -> some View {
         SegmentedControlPicker(configuration)

@@ -65,7 +65,10 @@ public struct StepperViewFioriStyle: StepperViewStyle {
 }
 
 public struct StepperViewNSSStyle: StepperViewStyle {
-    var data: NSSStyleData
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
 
     public func makeBody(_ configuration: StepperViewConfiguration) -> some View {
         StepperView(configuration)

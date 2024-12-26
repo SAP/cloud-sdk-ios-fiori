@@ -33,7 +33,10 @@ public struct HelperTextFioriStyle: HelperTextStyle {
 
 // Default nss styles
 public struct HelperTextNSSStyle: HelperTextStyle {
-    var data: NSSStyleData
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
 
     public func makeBody(_ configuration: HelperTextConfiguration) -> some View {
         HelperText(configuration)

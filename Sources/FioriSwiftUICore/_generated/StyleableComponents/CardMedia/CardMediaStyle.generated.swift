@@ -43,7 +43,10 @@ public struct CardMediaFioriStyle: CardMediaStyle {
 }
 
 public struct CardMediaNSSStyle: CardMediaStyle {
-    var data: NSSStyleData
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
 
     public func makeBody(_ configuration: CardMediaConfiguration) -> some View {
         CardMedia(configuration)

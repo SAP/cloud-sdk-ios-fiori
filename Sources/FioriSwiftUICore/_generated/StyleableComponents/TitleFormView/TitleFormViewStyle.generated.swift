@@ -55,7 +55,10 @@ public struct TitleFormViewFioriStyle: TitleFormViewStyle {
 }
 
 public struct TitleFormViewNSSStyle: TitleFormViewStyle {
-    var data: NSSStyleData
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
 
     public func makeBody(_ configuration: TitleFormViewConfiguration) -> some View {
         TitleFormView(configuration)

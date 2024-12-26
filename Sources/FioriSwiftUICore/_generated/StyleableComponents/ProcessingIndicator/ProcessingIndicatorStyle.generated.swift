@@ -39,7 +39,10 @@ public struct ProcessingIndicatorFioriStyle: ProcessingIndicatorStyle {
 }
 
 public struct ProcessingIndicatorNSSStyle: ProcessingIndicatorStyle {
-    var data: NSSStyleData
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
 
     public func makeBody(_ configuration: ProcessingIndicatorConfiguration) -> some View {
         ProcessingIndicator(configuration)

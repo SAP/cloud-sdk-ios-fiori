@@ -33,7 +33,10 @@ public struct Row2FioriStyle: Row2Style {
 
 // Default nss styles
 public struct Row2NSSStyle: Row2Style {
-    var data: NSSStyleData
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
 
     public func makeBody(_ configuration: Row2Configuration) -> some View {
         Row2(configuration)

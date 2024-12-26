@@ -69,7 +69,10 @@ public extension DecrementActionStyle where Self == DecrementActionDeactivateSty
 
 // Default nss styles
 public struct DecrementActionNSSStyle: DecrementActionStyle {
-    var data: NSSStyleData
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
 
     public func makeBody(_ configuration: DecrementActionConfiguration) -> some View {
         DecrementAction(configuration)

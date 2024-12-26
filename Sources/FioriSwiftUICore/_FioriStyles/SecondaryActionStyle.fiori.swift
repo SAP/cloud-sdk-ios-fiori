@@ -30,7 +30,10 @@ public struct SecondaryActionFioriStyle: SecondaryActionStyle {
 
 // Default nss styles
 public struct SecondaryActionNSSStyle: SecondaryActionStyle {
-    var data: NSSStyleData
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
 
     public func makeBody(_ configuration: SecondaryActionConfiguration) -> some View {
         SecondaryAction(configuration)

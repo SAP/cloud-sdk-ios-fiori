@@ -22,7 +22,10 @@ public struct TextViewFioriStyle: TextViewStyle {
 
 // Default nss styles
 public struct TextViewNSSStyle: TextViewStyle {
-    var data: NSSStyleData
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
 
     public func makeBody(_ configuration: TextViewConfiguration) -> some View {
         TextView(configuration)

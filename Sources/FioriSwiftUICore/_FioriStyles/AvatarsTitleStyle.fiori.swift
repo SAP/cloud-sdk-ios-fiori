@@ -21,7 +21,10 @@ public struct AvatarsTitleFioriStyle: AvatarsTitleStyle {
 
 // Default nss styles
 public struct AvatarsTitleNSSStyle: AvatarsTitleStyle {
-    var data: NSSStyleData
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
 
     public func makeBody(_ configuration: AvatarsTitleConfiguration) -> some View {
         AvatarsTitle(configuration)

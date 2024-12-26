@@ -21,7 +21,10 @@ public struct SelectAllActionFioriStyle: SelectAllActionStyle {
 
 // Default nss styles
 public struct SelectAllActionNSSStyle: SelectAllActionStyle {
-    var data: NSSStyleData
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
 
     public func makeBody(_ configuration: SelectAllActionConfiguration) -> some View {
         SelectAllAction(configuration)

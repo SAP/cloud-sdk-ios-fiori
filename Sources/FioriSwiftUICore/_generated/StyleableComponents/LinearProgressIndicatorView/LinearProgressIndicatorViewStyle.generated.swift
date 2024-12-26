@@ -46,7 +46,10 @@ public struct LinearProgressIndicatorViewFioriStyle: LinearProgressIndicatorView
 }
 
 public struct LinearProgressIndicatorViewNSSStyle: LinearProgressIndicatorViewStyle {
-    var data: NSSStyleData
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
 
     public func makeBody(_ configuration: LinearProgressIndicatorViewConfiguration) -> some View {
         LinearProgressIndicatorView(configuration)

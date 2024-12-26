@@ -37,7 +37,10 @@ public struct GreetingTextFioriStyle: GreetingTextStyle {
 
 // Default nss styles
 public struct GreetingTextNSSStyle: GreetingTextStyle {
-    var data: NSSStyleData
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
 
     public func makeBody(_ configuration: GreetingTextConfiguration) -> some View {
         GreetingText(configuration)

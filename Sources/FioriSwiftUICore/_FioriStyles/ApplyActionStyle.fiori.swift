@@ -20,7 +20,10 @@ public struct ApplyActionFioriStyle: ApplyActionStyle {
 
 // Default nss styles
 public struct ApplyActionNSSStyle: ApplyActionStyle {
-    var data: NSSStyleData
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
 
     public func makeBody(_ configuration: ApplyActionConfiguration) -> some View {
         ApplyAction(configuration)

@@ -36,7 +36,10 @@ public struct FormViewFioriStyle: FormViewStyle {
 }
 
 public struct FormViewNSSStyle: FormViewStyle {
-    var data: NSSStyleData
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
 
     public func makeBody(_ configuration: FormViewConfiguration) -> some View {
         FormView(configuration)

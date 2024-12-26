@@ -46,8 +46,8 @@ class NSSManager {
     func registerNSSStyleSheet(_ fileName: String) {
         do {
             let style = try self.loadNSSFile(fileName)
-            self.globalNSSStyle = self.globalNSSStyle.merging(style) { $1 }
-            self.mergeNSSStyle = self.mergeNSSStyle.merging(style) { $1 }
+            self.globalNSSStyle = NSSTool.mergeStyleDictionaries(self.globalNSSStyle, style)
+            self.mergeNSSStyle = NSSTool.mergeStyleDictionaries(self.globalNSSStyle, style)
         } catch {
             print("Failed to register NSS file: \(error)")
         }
@@ -81,6 +81,25 @@ public class NSSTool {
     public static var mergeNSSStyle: NSSStyleData {
         NSSManager.shared.mergeNSSStyle
     }
+    
+    // Merge two style dictionaries
+    static func mergeStyleDictionaries(_ dict1: [String: Any], _ dict2: [String: Any]) -> [String: Any] {
+        var result = dict1
+            
+        for (key, value) in dict2 {
+            if let existingValue = result[key] as? [String: String],
+               let newValue = value as? [String: String]
+            {
+                // If both values are of type [String: String], merge the internal dictionaries.
+                result[key] = existingValue.merging(newValue) { $1 }
+            } else {
+                // Otherwise, directly replace the value.
+                result[key] = value
+            }
+        }
+            
+        return result
+    }
 }
 
 enum NSSError: Error {
@@ -99,6 +118,24 @@ public enum NSSParserType {
     case data(NSSStyleData)
     /// Parse data according to text.
     case content(String)
+    
+    /// Merge nss style data.
+    public func mergeNSSData() {
+        switch self {
+        case .file(let fileName):
+            let styles = NSSTool.loadStyles(fileName)
+            NSSManager.shared.mergeNSSStyle = NSSTool.mergeStyleDictionaries(NSSManager.shared.mergeNSSStyle, styles)
+        case .data(let data):
+            NSSManager.shared.mergeNSSStyle = NSSTool.mergeStyleDictionaries(NSSManager.shared.mergeNSSStyle, data)
+        case .content(let content):
+            do {
+                let style = try NSSParser.parseNssContent(content)
+                NSSManager.shared.mergeNSSStyle = NSSTool.mergeStyleDictionaries(NSSManager.shared.mergeNSSStyle, style)
+            } catch {
+                print(NSSError.parseError("Parse failed"))
+            }
+        }
+    }
 }
 
 /// Protocol for parsing NSS data.
@@ -110,23 +147,7 @@ public protocol ParserNSSData {
 extension NSSParserType: ParserNSSData {
     /// Different parsing methods return merge nss style data.
     public var nssData: NSSStyleData {
-        switch self {
-        case .file(let fileName):
-            let styles = NSSTool.loadStyles(fileName)
-            NSSManager.shared.mergeNSSStyle = NSSManager.shared.mergeNSSStyle.merging(styles) { $1 }
-            return NSSTool.mergeNSSStyle
-        case .data(let data):
-            NSSManager.shared.mergeNSSStyle = NSSManager.shared.mergeNSSStyle.merging(data) { $1 }
-            return NSSTool.mergeNSSStyle
-        case .content(let content):
-            do {
-                let style = try NSSParser.parseNssContent(content)
-                NSSManager.shared.mergeNSSStyle = NSSManager.shared.mergeNSSStyle.merging(style) { $1 }
-                return NSSTool.mergeNSSStyle
-            } catch {
-                print(NSSError.parseError("Parse failed"))
-                return [:]
-            }
-        }
+        self.mergeNSSData()
+        return NSSTool.mergeNSSStyle
     }
 }

@@ -31,7 +31,10 @@ public struct MediaImageFioriStyle: MediaImageStyle {
 
 // Default nss styles
 public struct MediaImageNSSStyle: MediaImageStyle {
-    var data: NSSStyleData
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
 
     public func makeBody(_ configuration: MediaImageConfiguration) -> some View {
         MediaImage(configuration)

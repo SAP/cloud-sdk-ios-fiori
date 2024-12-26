@@ -31,7 +31,10 @@ public struct AccessoryIconFioriStyle: AccessoryIconStyle {
 
 // Default nss styles
 public struct AccessoryIconNSSStyle: AccessoryIconStyle {
-    var data: NSSStyleData
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
 
     public func makeBody(_ configuration: AccessoryIconConfiguration) -> some View {
         AccessoryIcon(configuration)

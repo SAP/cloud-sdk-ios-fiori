@@ -20,7 +20,10 @@ public struct TimelineNodeFioriStyle: TimelineNodeStyle {
 
 // Default nss styles
 public struct TimelineNodeNSSStyle: TimelineNodeStyle {
-    var data: NSSStyleData
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
 
     public func makeBody(_ configuration: TimelineNodeConfiguration) -> some View {
         TimelineNode(configuration)

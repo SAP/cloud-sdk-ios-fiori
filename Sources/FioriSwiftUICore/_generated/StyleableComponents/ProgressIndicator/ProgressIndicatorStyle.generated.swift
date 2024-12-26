@@ -37,7 +37,10 @@ public struct ProgressIndicatorFioriStyle: ProgressIndicatorStyle {
 }
 
 public struct ProgressIndicatorNSSStyle: ProgressIndicatorStyle {
-    var data: NSSStyleData
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
 
     public func makeBody(_ configuration: ProgressIndicatorConfiguration) -> some View {
         ProgressIndicator(configuration)

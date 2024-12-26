@@ -23,7 +23,10 @@ public struct ProgressIndicatorProtocolFioriStyle: ProgressIndicatorProtocolStyl
 
 // Default nss styles
 public struct ProgressIndicatorProtocolNSSStyle: ProgressIndicatorProtocolStyle {
-    var data: NSSStyleData
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
 
     public func makeBody(_ configuration: ProgressIndicatorProtocolConfiguration) -> some View {
         ProgressIndicatorProtocol(configuration)

@@ -69,7 +69,10 @@ public struct RatingControlFioriStyle: RatingControlStyle {
 }
 
 public struct RatingControlNSSStyle: RatingControlStyle {
-    var data: NSSStyleData
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
 
     public func makeBody(_ configuration: RatingControlConfiguration) -> some View {
         RatingControl(configuration)

@@ -59,7 +59,10 @@ public struct TimelineMarkerFioriStyle: TimelineMarkerStyle {
 }
 
 public struct TimelineMarkerNSSStyle: TimelineMarkerStyle {
-    var data: NSSStyleData
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
 
     public func makeBody(_ configuration: TimelineMarkerConfiguration) -> some View {
         TimelineMarker(configuration)

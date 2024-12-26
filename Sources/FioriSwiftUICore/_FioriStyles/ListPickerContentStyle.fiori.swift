@@ -21,7 +21,10 @@ public struct ListPickerContentFioriStyle: ListPickerContentStyle {
 
 // Default nss styles
 public struct ListPickerContentNSSStyle: ListPickerContentStyle {
-    var data: NSSStyleData
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
 
     public func makeBody(_ configuration: ListPickerContentConfiguration) -> some View {
         ListPickerContent(configuration)

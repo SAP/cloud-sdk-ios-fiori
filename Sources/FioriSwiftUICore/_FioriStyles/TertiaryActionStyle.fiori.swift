@@ -33,7 +33,10 @@ public struct TertiaryActionFioriStyle: TertiaryActionStyle {
 
 // Default nss styles
 public struct TertiaryActionNSSStyle: TertiaryActionStyle {
-    var data: NSSStyleData
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
 
     public func makeBody(_ configuration: TertiaryActionConfiguration) -> some View {
         TertiaryAction(configuration)

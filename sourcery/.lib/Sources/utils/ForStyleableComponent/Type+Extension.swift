@@ -234,11 +234,12 @@ extension Type {
             
             \(accessLevelDecl)extension \(styleProtocolName) where Self == \(nssStyleName) {
                 static func nss(_ parserType: NSSParserType) -> \(nssStyleName) {
-                    \(nssStyleName)(data: parserType.nssData)
+                    parserType.mergeNSSData()
+                    return \(nssStyleName)()
                 }
             
-                static func nss(_ data: NSSStyleData) -> \(nssStyleName) {
-                    \(nssStyleName)(data: data)
+                static var globalNSS: \(nssStyleName) {
+                    \(nssStyleName)(isGlobal: true)
                 }
             }
             """
@@ -260,11 +261,12 @@ extension Type {
             
             \(accessLevelDecl)extension \(styleProtocolName) where Self == \(nssStyleName) {
                 static func nss(_ parserType: NSSParserType) -> \(nssStyleName) {
-                    \(nssStyleName)(data: parserType.nssData)
+                    parserType.mergeNSSData()
+                    return \(nssStyleName)()
                 }
-            
-                static func nss(_ data: NSSStyleData) -> \(nssStyleName) {
-                    \(nssStyleName)(data: data)
+
+                static var globalNSS: \(nssStyleName) {
+                    \(nssStyleName)(isGlobal: true)
                 }
             }
             
@@ -322,7 +324,10 @@ extension Type {
     var nssStyleDecl: String {
         """
         \(accessLevelDecl)struct \(nssStyleName): \(styleProtocolName) {
-            var data: NSSStyleData
+            var isGlobal: Bool = false
+            var data: NSSStyleData {
+                isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+            }
         
             public func makeBody(_ configuration: \(configurationName)) -> some View {
                 \(componentName)(configuration)
@@ -411,7 +416,10 @@ extension Type {
             
             // Default nss styles
             \(accessLevelDecl)struct \(nssStyleName): \(styleProtocolName) {
-                var data: NSSStyleData
+                var isGlobal: Bool = false
+                var data: NSSStyleData {
+                    isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+                }
 
                 public func makeBody(_ configuration: \(configurationName)) -> some View {
                     \(componentName)(configuration)
@@ -571,7 +579,7 @@ extension Type {
         case .base:
             defaultStyle = ".base"
         case .composite:
-            defaultStyle = ".base.concat(.fiori).concat(.nss(NSSTool.globalNSSStyle))"
+            defaultStyle = ".base.concat(.fiori).concat(.globalNSS)"
         case .none:
             return ""
         }

@@ -53,7 +53,10 @@ public struct TimelinePreviewItemFioriStyle: TimelinePreviewItemStyle {
 }
 
 public struct TimelinePreviewItemNSSStyle: TimelinePreviewItemStyle {
-    var data: NSSStyleData
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
 
     public func makeBody(_ configuration: TimelinePreviewItemConfiguration) -> some View {
         TimelinePreviewItem(configuration)

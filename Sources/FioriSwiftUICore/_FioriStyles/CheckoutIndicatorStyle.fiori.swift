@@ -142,7 +142,10 @@ public struct CheckoutIndicatorFioriStyle: CheckoutIndicatorStyle {
 
 // Default nss styles
 public struct CheckoutIndicatorNSSStyle: CheckoutIndicatorStyle {
-    var data: NSSStyleData
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
 
     public func makeBody(_ configuration: CheckoutIndicatorConfiguration) -> some View {
         CheckoutIndicator(configuration)

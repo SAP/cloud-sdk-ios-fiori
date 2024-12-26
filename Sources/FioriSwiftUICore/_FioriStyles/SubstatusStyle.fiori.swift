@@ -29,7 +29,10 @@ public struct SubstatusFioriStyle: SubstatusStyle {
 
 // Default nss styles
 public struct SubstatusNSSStyle: SubstatusStyle {
-    var data: NSSStyleData
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
 
     public func makeBody(_ configuration: SubstatusConfiguration) -> some View {
         Substatus(configuration)

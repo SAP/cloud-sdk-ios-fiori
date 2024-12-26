@@ -28,7 +28,10 @@ public struct CloseActionFioriStyle: CloseActionStyle {
 
 // Default nss styles
 public struct CloseActionNSSStyle: CloseActionStyle {
-    var data: NSSStyleData
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
 
     public func makeBody(_ configuration: CloseActionConfiguration) -> some View {
         CloseAction(configuration)

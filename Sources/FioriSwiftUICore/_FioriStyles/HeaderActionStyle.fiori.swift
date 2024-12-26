@@ -34,7 +34,10 @@ public struct HeaderActionFioriStyle: HeaderActionStyle {
 
 // Default nss styles
 public struct HeaderActionNSSStyle: HeaderActionStyle {
-    var data: NSSStyleData
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
 
     public func makeBody(_ configuration: HeaderActionConfiguration) -> some View {
         HeaderAction(configuration)

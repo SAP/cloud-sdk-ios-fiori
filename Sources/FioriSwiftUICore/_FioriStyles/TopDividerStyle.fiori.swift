@@ -20,7 +20,10 @@ public struct TopDividerFioriStyle: TopDividerStyle {
 
 // Default nss styles
 public struct TopDividerNSSStyle: TopDividerStyle {
-    var data: NSSStyleData
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
 
     public func makeBody(_ configuration: TopDividerConfiguration) -> some View {
         TopDivider(configuration)

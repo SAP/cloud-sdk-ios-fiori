@@ -25,7 +25,10 @@ public struct MandatoryFieldIndicatorFioriStyle: MandatoryFieldIndicatorStyle {
 
 // Default nss styles
 public struct MandatoryFieldIndicatorNSSStyle: MandatoryFieldIndicatorStyle {
-    var data: NSSStyleData
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
 
     public func makeBody(_ configuration: MandatoryFieldIndicatorConfiguration) -> some View {
         MandatoryFieldIndicator(configuration)

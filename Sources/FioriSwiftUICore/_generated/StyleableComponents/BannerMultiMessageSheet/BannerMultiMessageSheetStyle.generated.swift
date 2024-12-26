@@ -49,7 +49,10 @@ public struct BannerMultiMessageSheetFioriStyle: BannerMultiMessageSheetStyle {
 }
 
 public struct BannerMultiMessageSheetNSSStyle: BannerMultiMessageSheetStyle {
-    var data: NSSStyleData
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
 
     public func makeBody(_ configuration: BannerMultiMessageSheetConfiguration) -> some View {
         BannerMultiMessageSheet(configuration)

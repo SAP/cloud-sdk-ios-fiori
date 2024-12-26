@@ -55,7 +55,10 @@ public struct CardExtHeaderFioriStyle: CardExtHeaderStyle {
 }
 
 public struct CardExtHeaderNSSStyle: CardExtHeaderStyle {
-    var data: NSSStyleData
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
 
     public func makeBody(_ configuration: CardExtHeaderConfiguration) -> some View {
         CardExtHeader(configuration)

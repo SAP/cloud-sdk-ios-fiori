@@ -56,7 +56,10 @@ public struct BannerMessageFioriStyle: BannerMessageStyle {
 }
 
 public struct BannerMessageNSSStyle: BannerMessageStyle {
-    var data: NSSStyleData
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
 
     public func makeBody(_ configuration: BannerMessageConfiguration) -> some View {
         BannerMessage(configuration)

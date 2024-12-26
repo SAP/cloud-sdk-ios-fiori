@@ -51,7 +51,10 @@ public struct CardFooterFioriStyle: CardFooterStyle {
 }
 
 public struct CardFooterNSSStyle: CardFooterStyle {
-    var data: NSSStyleData
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
 
     public func makeBody(_ configuration: CardFooterConfiguration) -> some View {
         CardFooter(configuration)

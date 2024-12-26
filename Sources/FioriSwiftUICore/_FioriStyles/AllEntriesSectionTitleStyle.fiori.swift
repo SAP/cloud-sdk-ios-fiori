@@ -21,7 +21,10 @@ public struct AllEntriesSectionTitleFioriStyle: AllEntriesSectionTitleStyle {
 
 // Default nss styles
 public struct AllEntriesSectionTitleNSSStyle: AllEntriesSectionTitleStyle {
-    var data: NSSStyleData
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
 
     public func makeBody(_ configuration: AllEntriesSectionTitleConfiguration) -> some View {
         AllEntriesSectionTitle(configuration)

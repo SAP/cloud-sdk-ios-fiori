@@ -42,7 +42,10 @@ public struct PlaceholderTextFieldFioriStyle: PlaceholderTextFieldStyle {
 }
 
 public struct PlaceholderTextFieldNSSStyle: PlaceholderTextFieldStyle {
-    var data: NSSStyleData
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
 
     public func makeBody(_ configuration: PlaceholderTextFieldConfiguration) -> some View {
         PlaceholderTextField(configuration)

@@ -42,7 +42,10 @@ public struct MenuSelectionFioriStyle: MenuSelectionStyle {
 }
 
 public struct MenuSelectionNSSStyle: MenuSelectionStyle {
-    var data: NSSStyleData
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
 
     public func makeBody(_ configuration: MenuSelectionConfiguration) -> some View {
         MenuSelection(configuration)

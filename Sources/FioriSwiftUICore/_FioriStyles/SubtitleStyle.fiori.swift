@@ -29,7 +29,10 @@ public struct SubtitleFioriStyle: SubtitleStyle {
 
 // Default nss styles
 public struct SubtitleNSSStyle: SubtitleStyle {
-    var data: NSSStyleData
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
 
     public func makeBody(_ configuration: SubtitleConfiguration) -> some View {
         Subtitle(configuration)

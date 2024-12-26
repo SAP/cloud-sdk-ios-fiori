@@ -43,7 +43,10 @@ public struct AvatarStackFioriStyle: AvatarStackStyle {
 }
 
 public struct AvatarStackNSSStyle: AvatarStackStyle {
-    var data: NSSStyleData
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
 
     public func makeBody(_ configuration: AvatarStackConfiguration) -> some View {
         AvatarStack(configuration)

@@ -27,7 +27,10 @@ public struct IconsFioriStyle: IconsStyle {
 
 // Default nss styles
 public struct IconsNSSStyle: IconsStyle {
-    var data: NSSStyleData
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
 
     public func makeBody(_ configuration: IconsConfiguration) -> some View {
         Icons(configuration)

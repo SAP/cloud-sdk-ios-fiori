@@ -29,7 +29,10 @@ public struct StatusFioriStyle: StatusStyle {
 
 // Default nss styles
 public struct StatusNSSStyle: StatusStyle {
-    var data: NSSStyleData
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
 
     public func makeBody(_ configuration: StatusConfiguration) -> some View {
         Status(configuration)

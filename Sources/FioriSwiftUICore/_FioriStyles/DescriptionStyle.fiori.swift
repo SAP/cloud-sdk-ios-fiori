@@ -29,7 +29,10 @@ public struct DescriptionFioriStyle: DescriptionStyle {
 
 // Default nss styles
 public struct DescriptionNSSStyle: DescriptionStyle {
-    var data: NSSStyleData
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
 
     public func makeBody(_ configuration: DescriptionConfiguration) -> some View {
         Description(configuration)

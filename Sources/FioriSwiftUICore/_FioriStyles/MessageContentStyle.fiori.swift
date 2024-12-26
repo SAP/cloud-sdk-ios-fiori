@@ -34,7 +34,10 @@ public struct MessageContentFioriStyle: MessageContentStyle {
 
 // Default nss styles
 public struct MessageContentNSSStyle: MessageContentStyle {
-    var data: NSSStyleData
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
 
     public func makeBody(_ configuration: MessageContentConfiguration) -> some View {
         MessageContent(configuration)

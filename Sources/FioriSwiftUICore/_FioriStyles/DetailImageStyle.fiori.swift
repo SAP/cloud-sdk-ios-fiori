@@ -27,7 +27,10 @@ public struct DetailImageFioriStyle: DetailImageStyle {
 
 // Default nss styles
 public struct DetailImageNSSStyle: DetailImageStyle {
-    var data: NSSStyleData
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
 
     public func makeBody(_ configuration: DetailImageConfiguration) -> some View {
         DetailImage(configuration)

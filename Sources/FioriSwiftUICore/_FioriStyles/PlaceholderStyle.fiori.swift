@@ -31,7 +31,10 @@ public struct PlaceholderFioriStyle: PlaceholderStyle {
 
 // Default nss styles
 public struct PlaceholderNSSStyle: PlaceholderStyle {
-    var data: NSSStyleData
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
 
     public func makeBody(_ configuration: PlaceholderConfiguration) -> some View {
         Placeholder(configuration)

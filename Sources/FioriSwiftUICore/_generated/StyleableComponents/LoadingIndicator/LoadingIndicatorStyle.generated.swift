@@ -45,7 +45,10 @@ public struct LoadingIndicatorFioriStyle: LoadingIndicatorStyle {
 }
 
 public struct LoadingIndicatorNSSStyle: LoadingIndicatorStyle {
-    var data: NSSStyleData
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
 
     public func makeBody(_ configuration: LoadingIndicatorConfiguration) -> some View {
         LoadingIndicator(configuration)

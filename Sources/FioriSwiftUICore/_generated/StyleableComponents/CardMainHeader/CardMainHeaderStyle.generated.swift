@@ -59,7 +59,10 @@ public struct CardMainHeaderFioriStyle: CardMainHeaderStyle {
 }
 
 public struct CardMainHeaderNSSStyle: CardMainHeaderStyle {
-    var data: NSSStyleData
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
 
     public func makeBody(_ configuration: CardMainHeaderConfiguration) -> some View {
         CardMainHeader(configuration)

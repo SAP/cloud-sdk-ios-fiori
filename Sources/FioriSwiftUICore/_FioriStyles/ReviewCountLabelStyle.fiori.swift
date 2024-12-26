@@ -21,7 +21,10 @@ public struct ReviewCountLabelFioriStyle: ReviewCountLabelStyle {
 
 // Default nss styles
 public struct ReviewCountLabelNSSStyle: ReviewCountLabelStyle {
-    var data: NSSStyleData
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
 
     public func makeBody(_ configuration: ReviewCountLabelConfiguration) -> some View {
         ReviewCountLabel(configuration)

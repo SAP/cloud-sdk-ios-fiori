@@ -34,7 +34,10 @@ public struct CardBodyFioriStyle: CardBodyStyle {
 
 // Default nss styles
 public struct CardBodyNSSStyle: CardBodyStyle {
-    var data: NSSStyleData
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
 
     public func makeBody(_ configuration: CardBodyConfiguration) -> some View {
         CardBody(configuration)

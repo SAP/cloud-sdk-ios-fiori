@@ -20,7 +20,10 @@ public struct ValueFioriStyle: ValueStyle {
 
 // Default nss styles
 public struct ValueNSSStyle: ValueStyle {
-    var data: NSSStyleData
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
 
     public func makeBody(_ configuration: ValueConfiguration) -> some View {
         Value(configuration)

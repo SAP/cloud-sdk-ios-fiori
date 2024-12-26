@@ -42,7 +42,10 @@ public struct PlaceholderTextEditorFioriStyle: PlaceholderTextEditorStyle {
 }
 
 public struct PlaceholderTextEditorNSSStyle: PlaceholderTextEditorStyle {
-    var data: NSSStyleData
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
 
     public func makeBody(_ configuration: PlaceholderTextEditorConfiguration) -> some View {
         PlaceholderTextEditor(configuration)

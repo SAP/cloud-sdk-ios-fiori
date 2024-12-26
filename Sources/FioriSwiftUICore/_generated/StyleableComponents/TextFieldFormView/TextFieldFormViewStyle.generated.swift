@@ -65,7 +65,10 @@ public struct TextFieldFormViewFioriStyle: TextFieldFormViewStyle {
 }
 
 public struct TextFieldFormViewNSSStyle: TextFieldFormViewStyle {
-    var data: NSSStyleData
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
 
     public func makeBody(_ configuration: TextFieldFormViewConfiguration) -> some View {
         TextFieldFormView(configuration)

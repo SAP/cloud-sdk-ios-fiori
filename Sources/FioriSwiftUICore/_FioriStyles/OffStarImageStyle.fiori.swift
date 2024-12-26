@@ -21,7 +21,10 @@ public struct OffStarImageFioriStyle: OffStarImageStyle {
 
 // Default nss styles
 public struct OffStarImageNSSStyle: OffStarImageStyle {
-    var data: NSSStyleData
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
 
     public func makeBody(_ configuration: OffStarImageConfiguration) -> some View {
         OffStarImage(configuration)

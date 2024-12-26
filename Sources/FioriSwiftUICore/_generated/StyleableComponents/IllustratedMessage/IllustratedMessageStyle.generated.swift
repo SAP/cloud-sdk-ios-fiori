@@ -58,7 +58,10 @@ public struct IllustratedMessageFioriStyle: IllustratedMessageStyle {
 }
 
 public struct IllustratedMessageNSSStyle: IllustratedMessageStyle {
-    var data: NSSStyleData
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
 
     public func makeBody(_ configuration: IllustratedMessageConfiguration) -> some View {
         IllustratedMessage(configuration)

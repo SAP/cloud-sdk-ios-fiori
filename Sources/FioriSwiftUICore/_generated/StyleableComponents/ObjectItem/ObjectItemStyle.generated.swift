@@ -89,7 +89,10 @@ public struct ObjectItemFioriStyle: ObjectItemStyle {
 }
 
 public struct ObjectItemNSSStyle: ObjectItemStyle {
-    var data: NSSStyleData
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
 
     public func makeBody(_ configuration: ObjectItemConfiguration) -> some View {
         ObjectItem(configuration)

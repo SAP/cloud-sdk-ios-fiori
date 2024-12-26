@@ -21,7 +21,10 @@ public struct OnStarImageFioriStyle: OnStarImageStyle {
 
 // Default nss styles
 public struct OnStarImageNSSStyle: OnStarImageStyle {
-    var data: NSSStyleData
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
 
     public func makeBody(_ configuration: OnStarImageConfiguration) -> some View {
         OnStarImage(configuration)

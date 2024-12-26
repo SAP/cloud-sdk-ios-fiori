@@ -20,7 +20,10 @@ public struct CancelActionFioriStyle: CancelActionStyle {
 
 // Default nss styles
 public struct CancelActionNSSStyle: CancelActionStyle {
-    var data: NSSStyleData
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
 
     public func makeBody(_ configuration: CancelActionConfiguration) -> some View {
         CancelAction(configuration)

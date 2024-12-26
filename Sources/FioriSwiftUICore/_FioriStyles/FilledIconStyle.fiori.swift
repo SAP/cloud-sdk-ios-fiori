@@ -31,7 +31,10 @@ public struct FilledIconFioriStyle: FilledIconStyle {
 
 // Default nss styles
 public struct FilledIconNSSStyle: FilledIconStyle {
-    var data: NSSStyleData
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
 
     public func makeBody(_ configuration: FilledIconConfiguration) -> some View {
         FilledIcon(configuration)

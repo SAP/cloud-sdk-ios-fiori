@@ -36,7 +36,10 @@ public struct KpiFioriStyle: KpiStyle {
 
 // Default nss styles
 public struct KpiNSSStyle: KpiStyle {
-    var data: NSSStyleData
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
 
     public func makeBody(_ configuration: KpiConfiguration) -> some View {
         Kpi(configuration)

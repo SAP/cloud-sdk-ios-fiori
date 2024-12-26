@@ -43,7 +43,10 @@ public struct InformationViewFioriStyle: InformationViewStyle {
 }
 
 public struct InformationViewNSSStyle: InformationViewStyle {
-    var data: NSSStyleData
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
 
     public func makeBody(_ configuration: InformationViewConfiguration) -> some View {
         InformationView(configuration)
