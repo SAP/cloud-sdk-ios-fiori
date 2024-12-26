@@ -13,6 +13,12 @@ struct CoreContentView: View {
                     Text("ActivityItem")
                 }
                 
+                NavigationLink {
+                    ActionItemsExample()
+                } label: {
+                    Text("ActionItems")
+                }
+                
                 NavigationLink(
                     destination: AvatarStackExample(),
                     label: {
@@ -191,6 +197,12 @@ struct CoreContentView: View {
                     destination: StepProgressIndicatorExample())
                 {
                     Text("Step Progress Indicator")
+                }
+                
+                NavigationLink(
+                    destination: SliderExample())
+                {
+                    Text("Slider")
                 }
             }
             

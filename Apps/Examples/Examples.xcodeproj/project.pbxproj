@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -49,6 +49,7 @@
 		6D6E866D2C53969A00EDB6F4 /* CardTwoButtonsChangeToOneExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D6E866C2C53969A00EDB6F4 /* CardTwoButtonsChangeToOneExample.swift */; };
 		6D6E866F2C539CDE00EDB6F4 /* InPlaceLoadingFlexibleButtonExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D6E866E2C539CDE00EDB6F4 /* InPlaceLoadingFlexibleButtonExample.swift */; };
 		6D6E86712C53A0D500EDB6F4 /* CardViewWithTwoButtonsExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D6E86702C53A0D500EDB6F4 /* CardViewWithTwoButtonsExample.swift */; };
+		6DE3F6A82D0FB9C600A4DAB6 /* ActionItemsExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DE3F6A62D0FB9C600A4DAB6 /* ActionItemsExample.swift */; };
 		6DEC31F42C463ED50084DD20 /* FioriButtonTestsExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DEC31F32C463ED50084DD20 /* FioriButtonTestsExample.swift */; };
 		6DEC31F82C47B7850084DD20 /* FioriButtonStyleToggleExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DEC31F72C47B7850084DD20 /* FioriButtonStyleToggleExample.swift */; };
 		6DEC31FA2C48B35D0084DD20 /* FioriButtonCustomButtonExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DEC31F92C48B35D0084DD20 /* FioriButtonCustomButtonExample.swift */; };
@@ -271,6 +272,7 @@
 		6D6E866C2C53969A00EDB6F4 /* CardTwoButtonsChangeToOneExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardTwoButtonsChangeToOneExample.swift; sourceTree = "<group>"; };
 		6D6E866E2C539CDE00EDB6F4 /* InPlaceLoadingFlexibleButtonExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InPlaceLoadingFlexibleButtonExample.swift; sourceTree = "<group>"; };
 		6D6E86702C53A0D500EDB6F4 /* CardViewWithTwoButtonsExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewWithTwoButtonsExample.swift; sourceTree = "<group>"; };
+		6DE3F6A62D0FB9C600A4DAB6 /* ActionItemsExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionItemsExample.swift; sourceTree = "<group>"; };
 		6DEC31F32C463ED50084DD20 /* FioriButtonTestsExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FioriButtonTestsExample.swift; sourceTree = "<group>"; };
 		6DEC31F72C47B7850084DD20 /* FioriButtonStyleToggleExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FioriButtonStyleToggleExample.swift; sourceTree = "<group>"; };
 		6DEC31F92C48B35D0084DD20 /* FioriButtonCustomButtonExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FioriButtonCustomButtonExample.swift; sourceTree = "<group>"; };
@@ -407,6 +409,10 @@
 		C1C764872A818BEC00BCB0F7 /* SortFilterExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortFilterExample.swift; sourceTree = "<group>"; };
 		E99A025E2B9EC055008A4B77 /* SearchIconAndPlaceholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchIconAndPlaceholder.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		3B660C982D156B7000E92505 /* Slider */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Slider; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		1F60179129A8439A00DBDCDE /* Frameworks */ = {
@@ -579,6 +585,14 @@
 			path = ActivityItem;
 			sourceTree = "<group>";
 		};
+		6DE3F6A72D0FB9C600A4DAB6 /* ActionItems */ = {
+			isa = PBXGroup;
+			children = (
+				6DE3F6A62D0FB9C600A4DAB6 /* ActionItemsExample.swift */,
+			);
+			path = ActionItems;
+			sourceTree = "<group>";
+		};
 		8732C2C32C35092D002110E9 /* Timeline */ = {
 			isa = PBXGroup;
 			children = (
@@ -672,6 +686,7 @@
 		8A5579C824C1293C0098003A /* FioriSwiftUICore */ = {
 			isa = PBXGroup;
 			children = (
+				6DE3F6A72D0FB9C600A4DAB6 /* ActionItems */,
 				6D66D7F02D02FC7B00F7A97D /* ActivityItem */,
 				87F14B192CD86F65004A69A0 /* DocumentScannerView */,
 				3CD71F272CDB625000B037EB /* CheckoutIndicator */,
@@ -694,6 +709,7 @@
 				B1D41B1E291A2D2E004E64A5 /* Picker */,
 				B8239D8626815C11003455D2 /* ContactItem */,
 				692F338926556A34009B98DA /* SideBar */,
+				3B660C982D156B7000E92505 /* Slider */,
 				1FF3662C264C662A00AB8BD8 /* DimensionSelector */,
 				97CEF8A92553D6F1008BFBEF /* SignatureView */,
 				AB988B11263128C400483D87 /* DataTable */,
@@ -1023,6 +1039,9 @@
 			dependencies = (
 				1F6017A029A8439C00DBDCDE /* PBXTargetDependency */,
 			);
+			fileSystemSynchronizedGroups = (
+				3B660C982D156B7000E92505 /* Slider */,
+			);
 			name = Examples;
 			packageProductDependencies = (
 				8A4A31B824E3564F00B63AF0 /* FioriSwiftUI */,
@@ -1167,6 +1186,7 @@
 				3CC870962CB6F4F30081909C /* ToastMessageExample.swift in Sources */,
 				8A5579CC24C1293C0098003A /* SettingsColorForCategory.swift in Sources */,
 				6D6E866B2C5238A000EDB6F4 /* MultiLoadingButtonStatusChangeExample.swift in Sources */,
+				6DE3F6A82D0FB9C600A4DAB6 /* ActionItemsExample.swift in Sources */,
 				C18868D12B32535100F865F7 /* SearchFontAndColor.swift in Sources */,
 				9D0B26092B9BA5C0004278A5 /* KeyValueFormViewExample.swift in Sources */,
 				8732C2C52C350957002110E9 /* TimelineExample.swift in Sources */,

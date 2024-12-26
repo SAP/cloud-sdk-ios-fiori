@@ -45,6 +45,48 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: ActionItemsStyle
+
+struct ActionItemsStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any ActionItemsStyle] = []
+}
+
+extension EnvironmentValues {
+    var actionItemsStyle: any ActionItemsStyle {
+        self.actionItemsStyleStack.last ?? .base
+    }
+
+    var actionItemsStyleStack: [any ActionItemsStyle] {
+        get {
+            self[ActionItemsStyleStackKey.self]
+        }
+        set {
+            self[ActionItemsStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: ActiveTrackStyle
+
+struct ActiveTrackStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any ActiveTrackStyle] = []
+}
+
+extension EnvironmentValues {
+    var activeTrackStyle: any ActiveTrackStyle {
+        self.activeTrackStyleStack.last ?? .base
+    }
+
+    var activeTrackStyleStack: [any ActiveTrackStyle] {
+        get {
+            self[ActiveTrackStyleStackKey.self]
+        }
+        set {
+            self[ActiveTrackStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: ActivityItemStyle
 
 struct ActivityItemStyleStackKey: EnvironmentKey {
@@ -612,6 +654,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: FioriSliderStyle
+
+struct FioriSliderStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any FioriSliderStyle] = []
+}
+
+extension EnvironmentValues {
+    var fioriSliderStyle: any FioriSliderStyle {
+        self.fioriSliderStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var fioriSliderStyleStack: [any FioriSliderStyle] {
+        get {
+            self[FioriSliderStyleStackKey.self]
+        }
+        set {
+            self[FioriSliderStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: FootnoteStyle
 
 struct FootnoteStyleStackKey: EnvironmentKey {
@@ -843,6 +906,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: InactiveTrackStyle
+
+struct InactiveTrackStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any InactiveTrackStyle] = []
+}
+
+extension EnvironmentValues {
+    var inactiveTrackStyle: any InactiveTrackStyle {
+        self.inactiveTrackStyleStack.last ?? .base
+    }
+
+    var inactiveTrackStyleStack: [any InactiveTrackStyle] {
+        get {
+            self[InactiveTrackStyleStackKey.self]
+        }
+        set {
+            self[InactiveTrackStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: IncrementActionStyle
 
 struct IncrementActionStyleStackKey: EnvironmentKey {
@@ -990,6 +1074,48 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: LeadingAccessoryStyle
+
+struct LeadingAccessoryStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any LeadingAccessoryStyle] = []
+}
+
+extension EnvironmentValues {
+    var leadingAccessoryStyle: any LeadingAccessoryStyle {
+        self.leadingAccessoryStyleStack.last ?? .base
+    }
+
+    var leadingAccessoryStyleStack: [any LeadingAccessoryStyle] {
+        get {
+            self[LeadingAccessoryStyleStackKey.self]
+        }
+        set {
+            self[LeadingAccessoryStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: LineStyle
+
+struct LineStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any LineStyle] = []
+}
+
+extension EnvironmentValues {
+    var lineStyle: any LineStyle {
+        self.lineStyleStack.last ?? .base
+    }
+
+    var lineStyleStack: [any LineStyle] {
+        get {
+            self[LineStyleStackKey.self]
+        }
+        set {
+            self[LineStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: LinearProgressIndicatorStyle
 
 struct LinearProgressIndicatorStyleStackKey: EnvironmentKey {
@@ -1116,6 +1242,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: LowerThumbStyle
+
+struct LowerThumbStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any LowerThumbStyle] = []
+}
+
+extension EnvironmentValues {
+    var lowerThumbStyle: any LowerThumbStyle {
+        self.lowerThumbStyleStack.last ?? .base
+    }
+
+    var lowerThumbStyleStack: [any LowerThumbStyle] {
+        get {
+            self[LowerThumbStyleStackKey.self]
+        }
+        set {
+            self[LowerThumbStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: MandatoryFieldIndicatorStyle
 
 struct MandatoryFieldIndicatorStyleStackKey: EnvironmentKey {
@@ -1238,6 +1385,27 @@ extension EnvironmentValues {
         }
         set {
             self[MoreActionOverflowStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: NodeStyle
+
+struct NodeStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any NodeStyle] = []
+}
+
+extension EnvironmentValues {
+    var nodeStyle: any NodeStyle {
+        self.nodeStyleStack.last ?? .base
+    }
+
+    var nodeStyleStack: [any NodeStyle] {
+        get {
+            self[NodeStyleStackKey.self]
+        }
+        set {
+            self[NodeStyleStackKey.self] = newValue
         }
     }
 }
@@ -1578,6 +1746,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: RangeSliderControlStyle
+
+struct RangeSliderControlStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any RangeSliderControlStyle] = []
+}
+
+extension EnvironmentValues {
+    var rangeSliderControlStyle: any RangeSliderControlStyle {
+        self.rangeSliderControlStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var rangeSliderControlStyleStack: [any RangeSliderControlStyle] {
+        get {
+            self[RangeSliderControlStyleStackKey.self]
+        }
+        set {
+            self[RangeSliderControlStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: RatingControlStyle
 
 struct RatingControlStyleStackKey: EnvironmentKey {
@@ -1851,6 +2040,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: SingleStepStyle
+
+struct SingleStepStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any SingleStepStyle] = []
+}
+
+extension EnvironmentValues {
+    var singleStepStyle: any SingleStepStyle {
+        self.singleStepStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var singleStepStyleStack: [any SingleStepStyle] {
+        get {
+            self[SingleStepStyleStackKey.self]
+        }
+        set {
+            self[SingleStepStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: StatusStyle
 
 struct StatusStyleStackKey: EnvironmentKey {
@@ -1868,6 +2078,27 @@ extension EnvironmentValues {
         }
         set {
             self[StatusStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: StepProgressIndicatorStyle
+
+struct StepProgressIndicatorStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any StepProgressIndicatorStyle] = []
+}
+
+extension EnvironmentValues {
+    var stepProgressIndicatorStyle: any StepProgressIndicatorStyle {
+        self.stepProgressIndicatorStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var stepProgressIndicatorStyleStack: [any StepProgressIndicatorStyle] {
+        get {
+            self[StepProgressIndicatorStyleStackKey.self]
+        }
+        set {
+            self[StepProgressIndicatorStyleStackKey.self] = newValue
         }
     }
 }
@@ -2393,6 +2624,48 @@ extension EnvironmentValues {
         }
         set {
             self[TopDividerStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: TrailingAccessoryStyle
+
+struct TrailingAccessoryStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any TrailingAccessoryStyle] = []
+}
+
+extension EnvironmentValues {
+    var trailingAccessoryStyle: any TrailingAccessoryStyle {
+        self.trailingAccessoryStyleStack.last ?? .base
+    }
+
+    var trailingAccessoryStyleStack: [any TrailingAccessoryStyle] {
+        get {
+            self[TrailingAccessoryStyleStackKey.self]
+        }
+        set {
+            self[TrailingAccessoryStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: UpperThumbStyle
+
+struct UpperThumbStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any UpperThumbStyle] = []
+}
+
+extension EnvironmentValues {
+    var upperThumbStyle: any UpperThumbStyle {
+        self.upperThumbStyleStack.last ?? .base
+    }
+
+    var upperThumbStyleStack: [any UpperThumbStyle] {
+        get {
+            self[UpperThumbStyleStackKey.self]
+        }
+        set {
+            self[UpperThumbStyleStackKey.self] = newValue
         }
     }
 }

@@ -15,6 +15,18 @@ extension Action: _ViewEmptyChecking {
     }
 }
 
+extension ActionItems: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        actionItems.isEmpty
+    }
+}
+
+extension ActiveTrack: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        activeTrack.isEmpty
+    }
+}
+
 extension ActivityItem: _ViewEmptyChecking {
     public var isEmpty: Bool {
         icon.isEmpty &&
@@ -230,6 +242,21 @@ extension FilledIcon: _ViewEmptyChecking {
     }
 }
 
+extension FioriSlider: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        title.isEmpty &&
+            valueLabel.isEmpty &&
+            lowerThumb.isEmpty &&
+            upperThumb.isEmpty &&
+            activeTrack.isEmpty &&
+            inactiveTrack.isEmpty &&
+            icon.isEmpty &&
+            description.isEmpty &&
+            leadingAccessory.isEmpty &&
+            trailingAccessory.isEmpty
+    }
+}
+
 extension Footnote: _ViewEmptyChecking {
     public var isEmpty: Bool {
         footnote.isEmpty
@@ -300,6 +327,12 @@ extension IllustratedMessage: _ViewEmptyChecking {
     }
 }
 
+extension InactiveTrack: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        inactiveTrack.isEmpty
+    }
+}
+
 extension IncrementAction: _ViewEmptyChecking {
     public var isEmpty: Bool {
         incrementAction.isEmpty
@@ -350,6 +383,18 @@ extension LabelItem: _ViewEmptyChecking {
     }
 }
 
+extension LeadingAccessory: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        leadingAccessory.isEmpty
+    }
+}
+
+extension Line: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        line.isEmpty
+    }
+}
+
 extension LinearProgressIndicator: _ViewEmptyChecking {
     public var isEmpty: Bool {
         false
@@ -397,6 +442,12 @@ extension LoadingIndicator: _ViewEmptyChecking {
     }
 }
 
+extension LowerThumb: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        lowerThumb.isEmpty
+    }
+}
+
 extension MandatoryFieldIndicator: _ViewEmptyChecking {
     public var isEmpty: Bool {
         mandatoryFieldIndicator.isEmpty
@@ -432,6 +483,12 @@ extension MessageContent: _ViewEmptyChecking {
 extension MoreActionOverflow: _ViewEmptyChecking {
     public var isEmpty: Bool {
         moreActionOverflow.isEmpty
+    }
+}
+
+extension Node: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        node.isEmpty
     }
 }
 
@@ -548,6 +605,15 @@ extension ProgressIndicatorProtocol: _ViewEmptyChecking {
     }
 }
 
+extension RangeSliderControl: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        lowerThumb.isEmpty &&
+            upperThumb.isEmpty &&
+            activeTrack.isEmpty &&
+            inactiveTrack.isEmpty
+    }
+}
+
 extension RatingControl: _ViewEmptyChecking {
     public var isEmpty: Bool {
         valueLabel.isEmpty &&
@@ -641,9 +707,27 @@ extension SideBarListItem: _ViewEmptyChecking {
     }
 }
 
+extension SingleStep: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        title.isEmpty &&
+            node.isEmpty &&
+            line.isEmpty &&
+            substeps.isEmpty
+    }
+}
+
 extension Status: _ViewEmptyChecking {
     public var isEmpty: Bool {
         status.isEmpty
+    }
+}
+
+extension StepProgressIndicator: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        title.isEmpty &&
+            action.isEmpty &&
+            cancelAction.isEmpty &&
+            steps.isEmpty
     }
 }
 
@@ -821,6 +905,18 @@ extension ToastMessage: _ViewEmptyChecking {
 extension TopDivider: _ViewEmptyChecking {
     public var isEmpty: Bool {
         topDivider.isEmpty
+    }
+}
+
+extension TrailingAccessory: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        trailingAccessory.isEmpty
+    }
+}
+
+extension UpperThumb: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        upperThumb.isEmpty
     }
 }
 

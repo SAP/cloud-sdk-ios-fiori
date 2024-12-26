@@ -90,7 +90,7 @@ struct DefaultSingleStep: View {
     func singleStep() -> some View {
         if self.stepItem.state.isSupported {
             let isSelected = self.stepItem.id == self.selection
-            SingleStep(id: self.stepItem.id) {
+            _SingleStep(id: self.stepItem.id) {
                 if let title = stepItem.title {
                     Text(title)
                 } else {
@@ -130,7 +130,7 @@ struct DefaultSingleStep: View {
     func singleSubstep() -> some View {
         if self.stepItem.state.isSupported {
             let isSelected = self.stepItem.id == self.selection
-            SingleStep(id: self.stepItem.id) {
+            _SingleStep(id: self.stepItem.id) {
                 if let title = stepItem.title {
                     Text(title)
                 } else {
