@@ -276,6 +276,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: BodyTextStyle
+
+struct BodyTextStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any BodyTextStyle] = []
+}
+
+extension EnvironmentValues {
+    var bodyTextStyle: any BodyTextStyle {
+        self.bodyTextStyleStack.last ?? .base
+    }
+
+    var bodyTextStyleStack: [any BodyTextStyle] {
+        get {
+            self[BodyTextStyleStackKey.self]
+        }
+        set {
+            self[BodyTextStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: CancelActionStyle
 
 struct CancelActionStyleStackKey: EnvironmentKey {
@@ -591,6 +612,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: DescriptionTextStyle
+
+struct DescriptionTextStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any DescriptionTextStyle] = []
+}
+
+extension EnvironmentValues {
+    var descriptionTextStyle: any DescriptionTextStyle {
+        self.descriptionTextStyleStack.last ?? .base
+    }
+
+    var descriptionTextStyleStack: [any DescriptionTextStyle] {
+        get {
+            self[DescriptionTextStyleStackKey.self]
+        }
+        set {
+            self[DescriptionTextStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: DeselectAllActionStyle
 
 struct DeselectAllActionStyleStackKey: EnvironmentKey {
@@ -608,6 +650,27 @@ extension EnvironmentValues {
         }
         set {
             self[DeselectAllActionStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: DetailContentStyle
+
+struct DetailContentStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any DetailContentStyle] = []
+}
+
+extension EnvironmentValues {
+    var detailContentStyle: any DetailContentStyle {
+        self.detailContentStyleStack.last ?? .base
+    }
+
+    var detailContentStyleStack: [any DetailContentStyle] {
+        get {
+            self[DetailContentStyleStackKey.self]
+        }
+        set {
+            self[DetailContentStyleStackKey.self] = newValue
         }
     }
 }
@@ -1448,6 +1511,27 @@ extension EnvironmentValues {
         }
         set {
             self[NowIndicatorNodeStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: ObjectHeaderStyle
+
+struct ObjectHeaderStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any ObjectHeaderStyle] = []
+}
+
+extension EnvironmentValues {
+    var objectHeaderStyle: any ObjectHeaderStyle {
+        self.objectHeaderStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var objectHeaderStyleStack: [any ObjectHeaderStyle] {
+        get {
+            self[ObjectHeaderStyleStackKey.self]
+        }
+        set {
+            self[ObjectHeaderStyleStackKey.self] = newValue
         }
     }
 }

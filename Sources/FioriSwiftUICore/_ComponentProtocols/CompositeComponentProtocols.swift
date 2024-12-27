@@ -1002,3 +1002,6 @@ protocol _StepProgressIndicatorComponent: _TitleComponent, _ActionComponent, _Ca
     // sourcery: resultBuilder.returnType = any IndexedViewContainer
     var steps: [StepItem] { get }
 }
+
+// sourcery: CompositeComponent
+protocol _ObjectHeaderComponent: _TitleComponent, _SubtitleComponent, _TagsComponent, _BodyTextComponent, _FootnoteComponent, _DescriptionTextComponent, _StatusComponent, _SubstatusComponent, _DetailImageComponent, _DetailContentComponent {}

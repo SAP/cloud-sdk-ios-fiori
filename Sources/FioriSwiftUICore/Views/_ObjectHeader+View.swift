@@ -1,7 +1,7 @@
 import FioriCharts
 import SwiftUI
 
-public extension ObjectHeader where Title == Text,
+public extension _ObjectHeader where Title == Text,
     Subtitle == _ConditionalContent<Text, EmptyView>,
     Tags == _ConditionalContent<TagStack, EmptyView>,
     BodyText == _ConditionalContent<Text, EmptyView>,
@@ -37,7 +37,7 @@ public extension ObjectHeader where Title == Text,
 }
 
 extension Fiori {
-    enum ObjectHeader {
+    enum _ObjectHeader {
         struct Title: ViewModifier {
             func body(content: Content) -> some View {
                 if #available(iOS 14.0, *) {
@@ -156,7 +156,7 @@ extension Fiori {
  else descriptionView will get its own page
  */
 
-extension ObjectHeader: View {
+extension _ObjectHeader: View {
     public var body: some View {
         Group {
             if horizontalSizeClass == .some(.compact) {
@@ -609,17 +609,17 @@ struct ObjectHeader_Preview: PreviewProvider {
         })
         
         return Group {
-            ObjectHeader(title: "Transformer Overheating",
-                         subtitle: "Three Phase Pad Mounted Transformer (533423)", footnote: "1000 - Hamburg, MECHANIK",
-                         descriptionText: "Customer noticed that the transformer started to over heat within 45 minutes each time he turned it on at 7:30am.  The first technician who looked at this did not have the correct additional tools to complete the job.",
-                         status: TextOrIcon.text("High"), substatus: TextOrIcon.text("Scheduled"),
-                         detailImage: Image(systemName: "person"),
-                         detailContent: { hc })
+            _ObjectHeader(title: "Transformer Overheating",
+                          subtitle: "Three Phase Pad Mounted Transformer (533423)", footnote: "1000 - Hamburg, MECHANIK",
+                          descriptionText: "Customer noticed that the transformer started to over heat within 45 minutes each time he turned it on at 7:30am.  The first technician who looked at this did not have the correct additional tools to complete the job.",
+                          status: TextOrIcon.text("High"), substatus: TextOrIcon.text("Scheduled"),
+                          detailImage: Image(systemName: "person"),
+                          detailContent: { hc })
                 .previewLayout(.fixed(width: 390, height: 150))
                 .environment(\.horizontalSizeClass, .compact)
             
             // page 6
-            ObjectHeader(title: {
+            _ObjectHeader(title: {
                 Text("Inspect Electric Pump Motor Long Job Title Example Wrapping Two Lines")
             }, subtitle: {
                 Text("Job 819701")
@@ -644,7 +644,7 @@ struct ObjectHeader_Preview: PreviewProvider {
             .environment(\.horizontalSizeClass, .regular)
             .environment(\.colorScheme, .dark)
             
-            ObjectHeader(title: {
+            _ObjectHeader(title: {
                 Text("Inspect Electric Pump Motor Long Job Title Example Wrapping Two Lines")
             }, subtitle: {
                 Text("Job 819701")
@@ -657,7 +657,7 @@ struct ObjectHeader_Preview: PreviewProvider {
             .environment(\.horizontalSizeClass, .regular)
             .environment(\.colorScheme, .dark)
             
-            ObjectHeader(title: {
+            _ObjectHeader(title: {
                 Text("Inspect Electric Pump Motor Long Job Title Example Wrapping Two Lines")
             }, subtitle: {
                 Text("Job 819701")
@@ -680,7 +680,7 @@ struct ObjectHeader_Preview: PreviewProvider {
             .environment(\.horizontalSizeClass, .regular)
             .environment(\.colorScheme, .dark)
             
-            ObjectHeader(title: {
+            _ObjectHeader(title: {
                 Text("Inspect Electric Pump Motor Long Job Title Example Wrapping Two Lines")
             }, subtitle: {
                 Text("Job 819701")
@@ -697,7 +697,7 @@ struct ObjectHeader_Preview: PreviewProvider {
             .environment(\.horizontalSizeClass, .regular)
             .environment(\.colorScheme, .dark)
             
-            ObjectHeader(title: {
+            _ObjectHeader(title: {
                 Text("Inspect Electric Pump Motor Long Job Title Example Wrapping Two Lines Accessibility Settings Testing")
             }, subtitle: {
                 Text("Job 819701 Accessibility Settings Testing")
@@ -713,7 +713,7 @@ struct ObjectHeader_Preview: PreviewProvider {
             .environment(\.colorScheme, .dark)
             .environment(\.sizeCategory, .extraExtraLarge)
             
-            ObjectHeader(title: {
+            _ObjectHeader(title: {
                 Text("Inspect Electric Pump Motor Long Job Title Example Wrapping Two Lines Accessibility Settings Testing")
             }, subtitle: {
                 Text("Job 819701 Accessibility Settings Testing")
