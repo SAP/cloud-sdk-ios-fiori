@@ -211,6 +211,22 @@ extension BannerMultiMessageSheetStyle {
     }
 }
 
+// MARK: BodyTextStyle
+
+struct ResolvedBodyTextStyle<Style: BodyTextStyle>: View {
+    let style: Style
+    let configuration: BodyTextConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension BodyTextStyle {
+    func resolve(configuration: BodyTextConfiguration) -> some View {
+        ResolvedBodyTextStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: CancelActionStyle
 
 struct ResolvedCancelActionStyle<Style: CancelActionStyle>: View {
@@ -451,6 +467,22 @@ extension DescriptionStyle {
     }
 }
 
+// MARK: DescriptionTextStyle
+
+struct ResolvedDescriptionTextStyle<Style: DescriptionTextStyle>: View {
+    let style: Style
+    let configuration: DescriptionTextConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension DescriptionTextStyle {
+    func resolve(configuration: DescriptionTextConfiguration) -> some View {
+        ResolvedDescriptionTextStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: DeselectAllActionStyle
 
 struct ResolvedDeselectAllActionStyle<Style: DeselectAllActionStyle>: View {
@@ -464,6 +496,22 @@ struct ResolvedDeselectAllActionStyle<Style: DeselectAllActionStyle>: View {
 extension DeselectAllActionStyle {
     func resolve(configuration: DeselectAllActionConfiguration) -> some View {
         ResolvedDeselectAllActionStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: DetailContentStyle
+
+struct ResolvedDetailContentStyle<Style: DetailContentStyle>: View {
+    let style: Style
+    let configuration: DetailContentConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension DetailContentStyle {
+    func resolve(configuration: DetailContentConfiguration) -> some View {
+        ResolvedDetailContentStyle(style: self, configuration: configuration)
     }
 }
 
@@ -1104,6 +1152,22 @@ struct ResolvedNowIndicatorNodeStyle<Style: NowIndicatorNodeStyle>: View {
 extension NowIndicatorNodeStyle {
     func resolve(configuration: NowIndicatorNodeConfiguration) -> some View {
         ResolvedNowIndicatorNodeStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: ObjectHeaderStyle
+
+struct ResolvedObjectHeaderStyle<Style: ObjectHeaderStyle>: View {
+    let style: Style
+    let configuration: ObjectHeaderConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension ObjectHeaderStyle {
+    func resolve(configuration: ObjectHeaderConfiguration) -> some View {
+        ResolvedObjectHeaderStyle(style: self, configuration: configuration)
     }
 }
 

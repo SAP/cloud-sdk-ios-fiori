@@ -395,6 +395,20 @@ public extension BannerMultiMessageSheetStyle where Self == BannerMultiMessageSh
     }
 }
 
+// MARK: BodyTextStyle
+
+public extension BodyTextStyle where Self == BodyTextBaseStyle {
+    static var base: BodyTextBaseStyle {
+        BodyTextBaseStyle()
+    }
+}
+
+public extension BodyTextStyle where Self == BodyTextFioriStyle {
+    static var fiori: BodyTextFioriStyle {
+        BodyTextFioriStyle()
+    }
+}
+
 // MARK: CancelActionStyle
 
 public extension CancelActionStyle where Self == CancelActionBaseStyle {
@@ -1907,6 +1921,20 @@ public extension DescriptionStyle where Self == DescriptionFioriStyle {
     }
 }
 
+// MARK: DescriptionTextStyle
+
+public extension DescriptionTextStyle where Self == DescriptionTextBaseStyle {
+    static var base: DescriptionTextBaseStyle {
+        DescriptionTextBaseStyle()
+    }
+}
+
+public extension DescriptionTextStyle where Self == DescriptionTextFioriStyle {
+    static var fiori: DescriptionTextFioriStyle {
+        DescriptionTextFioriStyle()
+    }
+}
+
 // MARK: DeselectAllActionStyle
 
 public extension DeselectAllActionStyle where Self == DeselectAllActionBaseStyle {
@@ -1918,6 +1946,20 @@ public extension DeselectAllActionStyle where Self == DeselectAllActionBaseStyle
 public extension DeselectAllActionStyle where Self == DeselectAllActionFioriStyle {
     static var fiori: DeselectAllActionFioriStyle {
         DeselectAllActionFioriStyle()
+    }
+}
+
+// MARK: DetailContentStyle
+
+public extension DetailContentStyle where Self == DetailContentBaseStyle {
+    static var base: DetailContentBaseStyle {
+        DetailContentBaseStyle()
+    }
+}
+
+public extension DetailContentStyle where Self == DetailContentFioriStyle {
+    static var fiori: DetailContentFioriStyle {
+        DetailContentFioriStyle()
     }
 }
 
@@ -3612,6 +3654,230 @@ public extension NowIndicatorNodeStyle where Self == NowIndicatorNodeBaseStyle {
 public extension NowIndicatorNodeStyle where Self == NowIndicatorNodeFioriStyle {
     static var fiori: NowIndicatorNodeFioriStyle {
         NowIndicatorNodeFioriStyle()
+    }
+}
+
+// MARK: ObjectHeaderStyle
+
+public extension ObjectHeaderStyle where Self == ObjectHeaderBaseStyle {
+    static var base: ObjectHeaderBaseStyle {
+        ObjectHeaderBaseStyle()
+    }
+}
+
+public extension ObjectHeaderStyle where Self == ObjectHeaderFioriStyle {
+    static var fiori: ObjectHeaderFioriStyle {
+        ObjectHeaderFioriStyle()
+    }
+}
+
+public struct ObjectHeaderTitleStyle: ObjectHeaderStyle {
+    let style: any TitleStyle
+
+    public func makeBody(_ configuration: ObjectHeaderConfiguration) -> some View {
+        ObjectHeader(configuration)
+            .titleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension ObjectHeaderStyle where Self == ObjectHeaderTitleStyle {
+    static func titleStyle(_ style: some TitleStyle) -> ObjectHeaderTitleStyle {
+        ObjectHeaderTitleStyle(style: style)
+    }
+
+    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> ObjectHeaderTitleStyle {
+        let style = AnyTitleStyle(content)
+        return ObjectHeaderTitleStyle(style: style)
+    }
+}
+
+public struct ObjectHeaderSubtitleStyle: ObjectHeaderStyle {
+    let style: any SubtitleStyle
+
+    public func makeBody(_ configuration: ObjectHeaderConfiguration) -> some View {
+        ObjectHeader(configuration)
+            .subtitleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension ObjectHeaderStyle where Self == ObjectHeaderSubtitleStyle {
+    static func subtitleStyle(_ style: some SubtitleStyle) -> ObjectHeaderSubtitleStyle {
+        ObjectHeaderSubtitleStyle(style: style)
+    }
+
+    static func subtitleStyle(@ViewBuilder content: @escaping (SubtitleConfiguration) -> some View) -> ObjectHeaderSubtitleStyle {
+        let style = AnySubtitleStyle(content)
+        return ObjectHeaderSubtitleStyle(style: style)
+    }
+}
+
+public struct ObjectHeaderTagsStyle: ObjectHeaderStyle {
+    let style: any TagsStyle
+
+    public func makeBody(_ configuration: ObjectHeaderConfiguration) -> some View {
+        ObjectHeader(configuration)
+            .tagsStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension ObjectHeaderStyle where Self == ObjectHeaderTagsStyle {
+    static func tagsStyle(_ style: some TagsStyle) -> ObjectHeaderTagsStyle {
+        ObjectHeaderTagsStyle(style: style)
+    }
+
+    static func tagsStyle(@ViewBuilder content: @escaping (TagsConfiguration) -> some View) -> ObjectHeaderTagsStyle {
+        let style = AnyTagsStyle(content)
+        return ObjectHeaderTagsStyle(style: style)
+    }
+}
+
+public struct ObjectHeaderBodyTextStyle: ObjectHeaderStyle {
+    let style: any BodyTextStyle
+
+    public func makeBody(_ configuration: ObjectHeaderConfiguration) -> some View {
+        ObjectHeader(configuration)
+            .bodyTextStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension ObjectHeaderStyle where Self == ObjectHeaderBodyTextStyle {
+    static func bodyTextStyle(_ style: some BodyTextStyle) -> ObjectHeaderBodyTextStyle {
+        ObjectHeaderBodyTextStyle(style: style)
+    }
+
+    static func bodyTextStyle(@ViewBuilder content: @escaping (BodyTextConfiguration) -> some View) -> ObjectHeaderBodyTextStyle {
+        let style = AnyBodyTextStyle(content)
+        return ObjectHeaderBodyTextStyle(style: style)
+    }
+}
+
+public struct ObjectHeaderFootnoteStyle: ObjectHeaderStyle {
+    let style: any FootnoteStyle
+
+    public func makeBody(_ configuration: ObjectHeaderConfiguration) -> some View {
+        ObjectHeader(configuration)
+            .footnoteStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension ObjectHeaderStyle where Self == ObjectHeaderFootnoteStyle {
+    static func footnoteStyle(_ style: some FootnoteStyle) -> ObjectHeaderFootnoteStyle {
+        ObjectHeaderFootnoteStyle(style: style)
+    }
+
+    static func footnoteStyle(@ViewBuilder content: @escaping (FootnoteConfiguration) -> some View) -> ObjectHeaderFootnoteStyle {
+        let style = AnyFootnoteStyle(content)
+        return ObjectHeaderFootnoteStyle(style: style)
+    }
+}
+
+public struct ObjectHeaderDescriptionTextStyle: ObjectHeaderStyle {
+    let style: any DescriptionTextStyle
+
+    public func makeBody(_ configuration: ObjectHeaderConfiguration) -> some View {
+        ObjectHeader(configuration)
+            .descriptionTextStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension ObjectHeaderStyle where Self == ObjectHeaderDescriptionTextStyle {
+    static func descriptionTextStyle(_ style: some DescriptionTextStyle) -> ObjectHeaderDescriptionTextStyle {
+        ObjectHeaderDescriptionTextStyle(style: style)
+    }
+
+    static func descriptionTextStyle(@ViewBuilder content: @escaping (DescriptionTextConfiguration) -> some View) -> ObjectHeaderDescriptionTextStyle {
+        let style = AnyDescriptionTextStyle(content)
+        return ObjectHeaderDescriptionTextStyle(style: style)
+    }
+}
+
+public struct ObjectHeaderStatusStyle: ObjectHeaderStyle {
+    let style: any StatusStyle
+
+    public func makeBody(_ configuration: ObjectHeaderConfiguration) -> some View {
+        ObjectHeader(configuration)
+            .statusStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension ObjectHeaderStyle where Self == ObjectHeaderStatusStyle {
+    static func statusStyle(_ style: some StatusStyle) -> ObjectHeaderStatusStyle {
+        ObjectHeaderStatusStyle(style: style)
+    }
+
+    static func statusStyle(@ViewBuilder content: @escaping (StatusConfiguration) -> some View) -> ObjectHeaderStatusStyle {
+        let style = AnyStatusStyle(content)
+        return ObjectHeaderStatusStyle(style: style)
+    }
+}
+
+public struct ObjectHeaderSubstatusStyle: ObjectHeaderStyle {
+    let style: any SubstatusStyle
+
+    public func makeBody(_ configuration: ObjectHeaderConfiguration) -> some View {
+        ObjectHeader(configuration)
+            .substatusStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension ObjectHeaderStyle where Self == ObjectHeaderSubstatusStyle {
+    static func substatusStyle(_ style: some SubstatusStyle) -> ObjectHeaderSubstatusStyle {
+        ObjectHeaderSubstatusStyle(style: style)
+    }
+
+    static func substatusStyle(@ViewBuilder content: @escaping (SubstatusConfiguration) -> some View) -> ObjectHeaderSubstatusStyle {
+        let style = AnySubstatusStyle(content)
+        return ObjectHeaderSubstatusStyle(style: style)
+    }
+}
+
+public struct ObjectHeaderDetailImageStyle: ObjectHeaderStyle {
+    let style: any DetailImageStyle
+
+    public func makeBody(_ configuration: ObjectHeaderConfiguration) -> some View {
+        ObjectHeader(configuration)
+            .detailImageStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension ObjectHeaderStyle where Self == ObjectHeaderDetailImageStyle {
+    static func detailImageStyle(_ style: some DetailImageStyle) -> ObjectHeaderDetailImageStyle {
+        ObjectHeaderDetailImageStyle(style: style)
+    }
+
+    static func detailImageStyle(@ViewBuilder content: @escaping (DetailImageConfiguration) -> some View) -> ObjectHeaderDetailImageStyle {
+        let style = AnyDetailImageStyle(content)
+        return ObjectHeaderDetailImageStyle(style: style)
+    }
+}
+
+public struct ObjectHeaderDetailContentStyle: ObjectHeaderStyle {
+    let style: any DetailContentStyle
+
+    public func makeBody(_ configuration: ObjectHeaderConfiguration) -> some View {
+        ObjectHeader(configuration)
+            .detailContentStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension ObjectHeaderStyle where Self == ObjectHeaderDetailContentStyle {
+    static func detailContentStyle(_ style: some DetailContentStyle) -> ObjectHeaderDetailContentStyle {
+        ObjectHeaderDetailContentStyle(style: style)
+    }
+
+    static func detailContentStyle(@ViewBuilder content: @escaping (DetailContentConfiguration) -> some View) -> ObjectHeaderDetailContentStyle {
+        let style = AnyDetailContentStyle(content)
+        return ObjectHeaderDetailContentStyle(style: style)
     }
 }
 

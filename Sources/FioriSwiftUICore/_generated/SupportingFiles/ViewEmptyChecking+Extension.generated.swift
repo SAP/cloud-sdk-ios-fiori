@@ -87,6 +87,12 @@ extension BannerMultiMessageSheet: _ViewEmptyChecking {
     }
 }
 
+extension BodyText: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        bodyText.isEmpty
+    }
+}
+
 extension CancelAction: _ViewEmptyChecking {
     public var isEmpty: Bool {
         cancelAction.isEmpty
@@ -224,9 +230,21 @@ extension Description: _ViewEmptyChecking {
     }
 }
 
+extension DescriptionText: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        descriptionText.isEmpty
+    }
+}
+
 extension DeselectAllAction: _ViewEmptyChecking {
     public var isEmpty: Bool {
         deselectAllAction.isEmpty
+    }
+}
+
+extension DetailContent: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        detailContent.isEmpty
     }
 }
 
@@ -501,6 +519,21 @@ extension NoteFormView: _ViewEmptyChecking {
 extension NowIndicatorNode: _ViewEmptyChecking {
     public var isEmpty: Bool {
         nowIndicatorNode.isEmpty
+    }
+}
+
+extension ObjectHeader: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        title.isEmpty &&
+            subtitle.isEmpty &&
+            tags.isEmpty &&
+            bodyText.isEmpty &&
+            footnote.isEmpty &&
+            descriptionText.isEmpty &&
+            status.isEmpty &&
+            substatus.isEmpty &&
+            detailImage.isEmpty &&
+            detailContent.isEmpty
     }
 }
 

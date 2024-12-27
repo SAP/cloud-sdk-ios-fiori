@@ -224,6 +224,23 @@ public extension View {
     }
 }
 
+// MARK: BodyTextStyle
+
+public extension View {
+    func bodyTextStyle(_ style: some BodyTextStyle) -> some View {
+        self.transformEnvironment(\.bodyTextStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func bodyTextStyle(@ViewBuilder content: @escaping (BodyTextConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.bodyTextStyleStack) { stack in
+            let style = AnyBodyTextStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: CancelActionStyle
 
 public extension View {
@@ -479,6 +496,23 @@ public extension View {
     }
 }
 
+// MARK: DescriptionTextStyle
+
+public extension View {
+    func descriptionTextStyle(_ style: some DescriptionTextStyle) -> some View {
+        self.transformEnvironment(\.descriptionTextStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func descriptionTextStyle(@ViewBuilder content: @escaping (DescriptionTextConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.descriptionTextStyleStack) { stack in
+            let style = AnyDescriptionTextStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: DeselectAllActionStyle
 
 public extension View {
@@ -491,6 +525,23 @@ public extension View {
     func deselectAllActionStyle(@ViewBuilder content: @escaping (DeselectAllActionConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.deselectAllActionStyleStack) { stack in
             let style = AnyDeselectAllActionStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: DetailContentStyle
+
+public extension View {
+    func detailContentStyle(_ style: some DetailContentStyle) -> some View {
+        self.transformEnvironment(\.detailContentStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func detailContentStyle(@ViewBuilder content: @escaping (DetailContentConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.detailContentStyleStack) { stack in
+            let style = AnyDetailContentStyle(content)
             stack.append(style)
         }
     }
@@ -1171,6 +1222,23 @@ public extension View {
     func nowIndicatorNodeStyle(@ViewBuilder content: @escaping (NowIndicatorNodeConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.nowIndicatorNodeStyleStack) { stack in
             let style = AnyNowIndicatorNodeStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: ObjectHeaderStyle
+
+public extension View {
+    func objectHeaderStyle(_ style: some ObjectHeaderStyle) -> some View {
+        self.transformEnvironment(\.objectHeaderStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func objectHeaderStyle(@ViewBuilder content: @escaping (ObjectHeaderConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.objectHeaderStyleStack) { stack in
+            let style = AnyObjectHeaderStyle(content)
             stack.append(style)
         }
     }
