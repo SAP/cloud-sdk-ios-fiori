@@ -472,9 +472,11 @@ protocol _ProgressComponent {
 ///
 /// ## Usage
 /// ```swift
-/// ActivityItems(activityItems: [.init(type: .phone), .init(type: .email), .init(type: .message), .init(type: .videoCall), .init(type: .detail)]) { dataType in
-///     print("\(dataType)")
-/// }
+/// ActivityItems(activityItems: [
+///    .init(type: .phone, didSelectActivityItem: {
+///        print("click phone")
+///    })
+/// ])
 /// ```
 // sourcery: BaseComponent
 protocol _ActivityItemsComponent {
