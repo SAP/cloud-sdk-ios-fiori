@@ -1,16 +1,16 @@
 import FioriSwiftUICore
 import SwiftUI
 
-struct ActionItemsExample: View {
+struct ActivityItemsExample: View {
     var body: some View {
         List {
             Section {
-                ActionItems(actionItems: [
+                ActivityItems(activityItems: [
                     .init(type: .phone, didSelectActivityItem: {
                         print("click phone")
                     })
                 ])
-                ActionItems(actionItems: [
+                ActivityItems(activityItems: [
                     .init(type: .phone, didSelectActivityItem: {
                         print("click phone")
                     }),
@@ -18,7 +18,7 @@ struct ActionItemsExample: View {
                         print("click email")
                     })
                 ])
-                ActionItems(actionItems: [
+                ActivityItems(activityItems: [
                     .init(type: .phone, didSelectActivityItem: {
                         print("click phone")
                     }),
@@ -29,7 +29,7 @@ struct ActionItemsExample: View {
                         print("click message")
                     })
                 ])
-                ActionItems(actionItems: [
+                ActivityItems(activityItems: [
                     .init(type: .phone, didSelectActivityItem: {
                         print("click phone")
                     }),
@@ -43,7 +43,7 @@ struct ActionItemsExample: View {
                         print("click videoCall")
                     })
                 ])
-                ActionItems(actionItems: [
+                ActivityItems(activityItems: [
                     .init(type: .phone, didSelectActivityItem: {
                         print("click phone")
                     }),
@@ -60,8 +60,8 @@ struct ActionItemsExample: View {
                         print("click detail")
                     })
                 ])
-                .actionItemsStyle { conf in
-                    conf.actionItems
+                .activityItemsStyle { conf in
+                    conf.activityItems
                         .font(.fiori(forTextStyle: .headline).weight(.bold))
                         .foregroundColor(.red)
                 }
@@ -71,7 +71,7 @@ struct ActionItemsExample: View {
             }
             
             Section {
-                ActionItems(actionItems: [
+                ActivityItems(activityItems: [
                     .init(type: .custom(Image(systemName: "person")), didSelectActivityItem: {
                         print("custom person")
                     }),
@@ -88,7 +88,7 @@ struct ActionItemsExample: View {
             }
             
             Section {
-                ActionItems {
+                ActivityItems {
                     Button {
                         print("click person")
                     } label: {
@@ -137,10 +137,10 @@ struct ActionItemsExample: View {
                 Text("Custom items")
             }
         }
-        .navigationTitle("ActionItemsExample")
+        .navigationTitle("ActivityItemsExample")
     }
 }
 
 #Preview {
-    ActionItemsExample()
+    ActivityItemsExample()
 }

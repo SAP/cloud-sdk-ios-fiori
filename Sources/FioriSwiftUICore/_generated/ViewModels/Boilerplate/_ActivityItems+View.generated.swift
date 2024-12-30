@@ -1,7 +1,7 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
-//TODO: Copy commented code to new file: `FioriSwiftUICore/Views/ActivityItems+View.swift`
-//TODO: Implement ActivityItems `View` body
+//TODO: Copy commented code to new file: `FioriSwiftUICore/Views/_ActivityItems+View.swift`
+//TODO: Implement _ActivityItems `View` body
 
 /// - Important: to make `@Environment` properties (e.g. `horizontalSizeClass`), internally accessible
 /// to extensions, add as sourcery annotation in `FioriSwiftUICore/Models/ModelDefinitions.swift`
@@ -13,21 +13,21 @@ import SwiftUI
 
 // FIXME: - Implement Fiori style definitions
 
-// FIXME: - Implement ActivityItems View body
+// FIXME: - Implement _ActivityItems View body
 
-extension ActivityItems: View {
+extension _ActivityItems: View {
     public var body: some View {
         <# View body #>
     }
 }
 
-// FIXME: - Implement ActivityItems specific LibraryContentProvider
+// FIXME: - Implement _ActivityItems specific LibraryContentProvider
 
 @available(iOS 14.0, macOS 11.0, *)
-struct ActivityItemsLibraryContent: LibraryContentProvider {
+struct _ActivityItemsLibraryContent: LibraryContentProvider {
     @LibraryContentBuilder
     var views: [LibraryItem] {
-        LibraryItem(ActivityItems(model: LibraryPreviewData.Person.laurelosborn),
+        LibraryItem(_ActivityItems(model: LibraryPreviewData.Person.laurelosborn),
                     category: .control)
     }
 }

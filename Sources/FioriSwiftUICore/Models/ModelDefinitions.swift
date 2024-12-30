@@ -104,7 +104,11 @@ public protocol _ActivityItemModel: IconComponent, SubtitleComponent {}
 public protocol ActivityItemModel {}
 
 // sourcery: generated_component_not_configurable
-public protocol ActivityItemsModel: ActionItemsComponent {}
+public protocol _ActivityItemsModel: ActionItemsComponent {}
+
+/// Deprecated ActivityItemsModel
+@available(*, unavailable, renamed: "_ActivityItemsModel", message: "Will be removed in the future release. Please create ActivityItemsModel with other initializers instead.")
+public protocol ActivityItemsModel {}
 
 // sourcery: generated_component
 // sourcery: add_env_props = "listBackground"
@@ -156,7 +160,7 @@ public protocol SideBarModel {}
 // sourcery: virtualPropMainViewSize = "@State var mainViewSize: CGSize = .zero"
 // sourcery: generated_component_composite
 public protocol ContactItemModel: TitleComponent, SubtitleComponent, DescriptionTextComponent, DetailImageComponent {
-    var actionItems: ActivityItemsModel? { get }
+    var actionItems: _ActivityItemsModel? { get }
 }
 
 // sourcery: add_env_props = ["horizontalSizeClass"]

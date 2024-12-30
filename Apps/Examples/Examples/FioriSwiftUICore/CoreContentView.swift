@@ -14,9 +14,9 @@ struct CoreContentView: View {
                 }
                 
                 NavigationLink {
-                    ActionItemsExample()
+                    ActivityItemsExample()
                 } label: {
-                    Text("ActionItems")
+                    Text("ActivityItems")
                 }
                 
                 NavigationLink(

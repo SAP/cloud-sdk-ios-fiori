@@ -64,34 +64,6 @@ public extension ActionStyle {
     }
 }
 
-// MARK: ActionItemsStyle
-
-extension ModifiedStyle: ActionItemsStyle where Style: ActionItemsStyle {
-    public func makeBody(_ configuration: ActionItemsConfiguration) -> some View {
-        ActionItems(configuration)
-            .actionItemsStyle(self.style)
-            .modifier(self.modifier)
-    }
-}
-
-public struct ActionItemsStyleModifier<Style: ActionItemsStyle>: ViewModifier {
-    let style: Style
-
-    public func body(content: Content) -> some View {
-        content.actionItemsStyle(self.style)
-    }
-}
-
-public extension ActionItemsStyle {
-    func modifier(_ modifier: some ViewModifier) -> some ActionItemsStyle {
-        ModifiedStyle(style: self, modifier: modifier)
-    }
-
-    func concat(_ style: some ActionItemsStyle) -> some ActionItemsStyle {
-        style.modifier(ActionItemsStyleModifier(style: self))
-    }
-}
-
 // MARK: ActiveTrackStyle
 
 extension ModifiedStyle: ActiveTrackStyle where Style: ActiveTrackStyle {
@@ -145,6 +117,34 @@ public extension ActivityItemStyle {
 
     func concat(_ style: some ActivityItemStyle) -> some ActivityItemStyle {
         style.modifier(ActivityItemStyleModifier(style: self))
+    }
+}
+
+// MARK: ActivityItemsStyle
+
+extension ModifiedStyle: ActivityItemsStyle where Style: ActivityItemsStyle {
+    public func makeBody(_ configuration: ActivityItemsConfiguration) -> some View {
+        ActivityItems(configuration)
+            .activityItemsStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct ActivityItemsStyleModifier<Style: ActivityItemsStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.activityItemsStyle(self.style)
+    }
+}
+
+public extension ActivityItemsStyle {
+    func modifier(_ modifier: some ViewModifier) -> some ActivityItemsStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some ActivityItemsStyle) -> some ActivityItemsStyle {
+        style.modifier(ActivityItemsStyleModifier(style: self))
     }
 }
 

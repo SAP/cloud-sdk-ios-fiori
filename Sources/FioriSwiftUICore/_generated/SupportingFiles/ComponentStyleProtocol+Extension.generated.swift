@@ -31,20 +31,6 @@ public extension ActionStyle where Self == ActionFioriStyle {
     }
 }
 
-// MARK: ActionItemsStyle
-
-public extension ActionItemsStyle where Self == ActionItemsBaseStyle {
-    static var base: ActionItemsBaseStyle {
-        ActionItemsBaseStyle()
-    }
-}
-
-public extension ActionItemsStyle where Self == ActionItemsFioriStyle {
-    static var fiori: ActionItemsFioriStyle {
-        ActionItemsFioriStyle()
-    }
-}
-
 // MARK: ActiveTrackStyle
 
 public extension ActiveTrackStyle where Self == ActiveTrackBaseStyle {
@@ -112,6 +98,20 @@ public extension ActivityItemStyle where Self == ActivityItemSubtitleStyle {
     static func subtitleStyle(@ViewBuilder content: @escaping (SubtitleConfiguration) -> some View) -> ActivityItemSubtitleStyle {
         let style = AnySubtitleStyle(content)
         return ActivityItemSubtitleStyle(style: style)
+    }
+}
+
+// MARK: ActivityItemsStyle
+
+public extension ActivityItemsStyle where Self == ActivityItemsBaseStyle {
+    static var base: ActivityItemsBaseStyle {
+        ActivityItemsBaseStyle()
+    }
+}
+
+public extension ActivityItemsStyle where Self == ActivityItemsFioriStyle {
+    static var fiori: ActivityItemsFioriStyle {
+        ActivityItemsFioriStyle()
     }
 }
 

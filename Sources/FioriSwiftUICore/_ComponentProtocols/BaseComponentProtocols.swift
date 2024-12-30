@@ -468,18 +468,18 @@ protocol _ProgressComponent {
     var progress: ProgressView<EmptyView, EmptyView> { get }
 }
 
-/// `ActionItems` provides a view that shows several items with action.
+/// `ActivityItems` provides a view that shows several items with action.
 ///
 /// ## Usage
 /// ```swift
-/// ActionItems(actionItems: [.init(type: .phone), .init(type: .email), .init(type: .message), .init(type: .videoCall), .init(type: .detail)]) { dataType in
+/// ActivityItems(activityItems: [.init(type: .phone), .init(type: .email), .init(type: .message), .init(type: .videoCall), .init(type: .detail)]) { dataType in
 ///     print("\(dataType)")
 /// }
 /// ```
 // sourcery: BaseComponent
-protocol _ActionItemsComponent {
-    // sourcery: resultBuilder.name = @ActionItemsBuilder, resultBuilder.backingComponent = ActionItemsListStack
-    var actionItems: [ActivityItemDataType] { get }
+protocol _ActivityItemsComponent {
+    // sourcery: resultBuilder.name = @ActivityItemsBuilder, resultBuilder.backingComponent = ActivityItemsListStack
+    var activityItems: [ActivityItemDataType] { get }
 }
 
 // sourcery: BaseComponent
