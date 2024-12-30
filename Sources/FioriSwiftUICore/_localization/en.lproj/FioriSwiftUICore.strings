@@ -153,6 +153,7 @@
 
 /* XBUT: slider default value label formatter for integer */
 "Value: %d" = "Value: %d";
+/* XBUT: range slider default value label formatter for integer */
 "Value: (%d - %d)" = "Value: (%d - %d)";
 
 /* XMSG: a toast message for read-only cell in DataTable */
