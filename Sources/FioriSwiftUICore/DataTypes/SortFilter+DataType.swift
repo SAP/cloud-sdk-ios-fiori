@@ -623,11 +623,27 @@ public extension SortFilterItem {
         public var value: Int?
         var workingValue: Int?
         let originalValue: Int?
+        
+        public var lowerValue: Int?
+        public var upperValue: Int?
+        var workingLowerValue: Int?
+        var workingUpperValue: Int?
+        let originalLowerValue: Int?
+        let originalUpperValue: Int?
+
         public let minimumValue: Int
         public let maximumValue: Int
         let formatter: String?
         public let icon: String?
         public let hint: String?
+        
+        let sliderMode: SliderMode
+        /// Enum for slider mode of the FilterFeedbackBar SliderItem.
+        /// The  value is inited in func init().
+        enum SliderMode {
+            case single
+            case range
+        }
         
         public init(id: String = UUID().uuidString, name: String, value: Int? = nil, minimumValue: Int, maximumValue: Int, formatter: String? = nil, icon: String? = nil, hint: String? = nil) {
             self.id = id
@@ -640,41 +656,107 @@ public extension SortFilterItem {
             self.formatter = formatter
             self.icon = icon
             self.hint = hint
+            
+            self.originalLowerValue = nil
+            self.originalUpperValue = nil
+            
+            self.sliderMode = .single
+        }
+        
+        public init(id: String = UUID().uuidString, name: String, lowerValue: Int? = nil, upperValue: Int? = nil, minimumValue: Int, maximumValue: Int, formatter: String? = nil, icon: String? = nil, hint: String? = nil) {
+            self.id = id
+            self.name = name
+            self.lowerValue = lowerValue
+            self.upperValue = upperValue
+            
+            self.workingLowerValue = lowerValue
+            self.workingUpperValue = upperValue
+            self.originalLowerValue = lowerValue
+            self.originalUpperValue = upperValue
+            
+            self.minimumValue = minimumValue
+            self.maximumValue = maximumValue
+            self.formatter = formatter
+            self.icon = icon
+            self.hint = hint
+            
+            self.originalValue = nil
+            
+            self.sliderMode = .range
         }
         
         mutating func reset() {
-            self.workingValue = self.originalValue
+            if self.sliderMode == .single {
+                self.workingValue = self.originalValue
+            } else {
+                self.workingLowerValue = self.originalLowerValue
+                self.workingUpperValue = self.originalUpperValue
+            }
         }
         
         mutating func cancel() {
-            self.workingValue = self.value
+            if self.sliderMode == .single {
+                self.workingValue = self.value
+            } else {
+                self.workingLowerValue = self.lowerValue
+                self.workingUpperValue = self.upperValue
+            }
         }
         
         mutating func apply() {
-            self.value = self.workingValue
+            if self.sliderMode == .single {
+                self.value = self.workingValue
+            } else {
+                self.lowerValue = self.workingLowerValue
+                self.upperValue = self.workingUpperValue
+            }
         }
         
         var isChecked: Bool {
-            self.value != nil
+            if self.sliderMode == .single {
+                self.value != nil
+            } else {
+                self.lowerValue != nil && self.upperValue != nil
+            }
         }
         
         var label: String {
-            if let value = self.value {
-                return "\(self.name): \(value)"
+            if self.sliderMode == .single {
+                if let value = self.value {
+                    return "\(self.name): \(value)"
+                }
+                return self.name
+            } else {
+                if let lowerValue = self.lowerValue, let upperValue = self.upperValue {
+                    return "\(self.name): (\(lowerValue) - \(upperValue))"
+                }
+                return self.name
             }
-            return self.name
         }
         
         mutating func setValue(newValue: SliderItem) {
-            self.value = newValue.value
+            if self.sliderMode == .single {
+                self.value = newValue.value
+            } else {
+                self.lowerValue = newValue.lowerValue
+                self.upperValue = newValue.upperValue
+            }
         }
         
         var isChanged: Bool {
-            self.value != self.workingValue
+            if self.sliderMode == .single {
+                self.value != self.workingValue
+            } else {
+                self.lowerValue != self.workingLowerValue || self.upperValue != self.workingUpperValue
+            }
         }
         
         var isOriginal: Bool {
-            self.workingValue == self.originalValue
+            if self.sliderMode == .single {
+                self.workingValue == self.originalValue
+            } else {
+                self.workingLowerValue == self.originalLowerValue && self.workingUpperValue == self.originalUpperValue
+            }
         }
     }
     

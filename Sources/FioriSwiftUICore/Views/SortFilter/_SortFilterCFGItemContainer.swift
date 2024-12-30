@@ -298,12 +298,22 @@ extension _SortFilterCFGItemContainer: View {
                     .foregroundColor(Color.preferredColor(.primaryLabel))
                 Spacer()
             }
-            SliderPickerItem(
-                value: Binding<Int?>(get: { self._items[r][c].slider.workingValue }, set: { self._items[r][c].slider.workingValue = $0 }),
-                formatter: self._items[r][c].slider.formatter,
-                minimumValue: self._items[r][c].slider.minimumValue,
-                maximumValue: self._items[r][c].slider.maximumValue
-            )
+            var sliderItem = self._items[r][c].slider
+            if sliderItem.sliderMode == .single {
+                FioriSlider(
+                    titleView: { Text(String(format: sliderItem.formatter ?? NSLocalizedString("Value: %d", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), sliderItem.workingValue ?? sliderItem.minimumValue)) },
+                    value: Binding<Double>(get: { Double(sliderItem.workingValue ?? sliderItem.minimumValue) }, set: { sliderItem.workingValue = Int($0) }),
+                    description: sliderItem.hint.attributedString,
+                    showsValueLabel: false
+                )
+            } else {
+                FioriSlider(
+                    titleView: { Text(String(format: sliderItem.formatter ?? NSLocalizedString("Value: (%d - %d)", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), sliderItem.workingLowerValue ?? sliderItem.minimumValue, sliderItem.workingUpperValue ?? sliderItem.maximumValue)) },
+                    lowerValue: Binding<Double>(get: { Double(sliderItem.workingLowerValue ?? sliderItem.minimumValue) }, set: { sliderItem.workingLowerValue = Int($0) }),
+                    upperValue: Binding<Double>(get: { Double(sliderItem.workingUpperValue ?? sliderItem.maximumValue) }, set: { sliderItem.workingUpperValue = Int($0) }),
+                    description: sliderItem.hint.attributedString
+                )
+            }
         }
     }
     

@@ -153,6 +153,7 @@
 
 /* XBUT: slider default value label formatter for integer */
 "Value: %d" = "Value: %d";
+"Value: (%d - %d)" = "Value: (%d - %d)";
 
 /* XMSG: a toast message for read-only cell in DataTable */
 "Tapped cell is read-only." = "Tapped cell is read-only.";
