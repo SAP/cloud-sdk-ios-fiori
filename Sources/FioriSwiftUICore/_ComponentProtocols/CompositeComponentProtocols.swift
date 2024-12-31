@@ -1002,3 +1002,19 @@ protocol _StepProgressIndicatorComponent: _TitleComponent, _ActionComponent, _Ca
     // sourcery: resultBuilder.returnType = any IndexedViewContainer
     var steps: [StepItem] { get }
 }
+
+/// `KeyValueItem` provides a customizable activity item with a key and a value.
+///
+/// ## Usage
+/// ```swift
+/// KeyValueItem(key: {
+///         Text("key 1")
+///     }, value: {
+///         Text("value 1")
+///     }, axis: .vertical)
+/// ```
+// sourcery: CompositeComponent
+protocol _KeyValueItemComponent: _KeyComponent, _ValueComponent, _MandatoryField, _FormViewComponent {
+    // sourcery: defaultValue = .horizontal
+    var axis: Axis { get }
+}

@@ -69,6 +69,14 @@ extension KeyValueFormViewConfiguration {
     }
 }
 
+// MARK: KeyValueItemConfiguration
+
+extension KeyValueItemConfiguration {
+    var _formView: FormView {
+        FormView(.init(controlState: self.controlState, errorMessage: self.errorMessage), shouldApplyDefaultStyle: true)
+    }
+}
+
 // MARK: LinearProgressIndicatorViewConfiguration
 
 extension LinearProgressIndicatorViewConfiguration {

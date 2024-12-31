@@ -2,7 +2,7 @@
 // DO NOT EDIT
 import SwiftUI
 
-public struct KeyValueItem<Key: View, Value: View> {
+public struct _KeyValueItem<Key: View, Value: View> {
     @Environment(\.keyModifier) private var keyModifier
 	@Environment(\.valueModifier) private var valueModifier
 
@@ -25,16 +25,16 @@ public struct KeyValueItem<Key: View, Value: View> {
 
     @ViewBuilder var key: some View {
         if isModelInit {
-            _key.modifier(keyModifier.concat(Fiori.KeyValueItem.key).concat(Fiori.KeyValueItem.keyCumulative))
+            _key.modifier(keyModifier.concat(Fiori._KeyValueItem.key).concat(Fiori._KeyValueItem.keyCumulative))
         } else {
-            _key.modifier(keyModifier.concat(Fiori.KeyValueItem.key))
+            _key.modifier(keyModifier.concat(Fiori._KeyValueItem.key))
         }
     }
 	@ViewBuilder var value: some View {
         if isModelInit {
-            _value.modifier(valueModifier.concat(Fiori.KeyValueItem.value).concat(Fiori.KeyValueItem.valueCumulative))
+            _value.modifier(valueModifier.concat(Fiori._KeyValueItem.value).concat(Fiori._KeyValueItem.valueCumulative))
         } else {
-            _value.modifier(valueModifier.concat(Fiori.KeyValueItem.value))
+            _value.modifier(valueModifier.concat(Fiori._KeyValueItem.value))
         }
     }
     
@@ -43,10 +43,10 @@ public struct KeyValueItem<Key: View, Value: View> {
     }
 }
 
-extension KeyValueItem where Key == Text,
+extension _KeyValueItem where Key == Text,
 		Value == _ConditionalContent<Text, EmptyView> {
 
-    public init(model: KeyValueItemModel) {
+    public init(model: _KeyValueItemModel) {
         self.init(key: model.key, value: model.value, axis: model.axis)
     }
 

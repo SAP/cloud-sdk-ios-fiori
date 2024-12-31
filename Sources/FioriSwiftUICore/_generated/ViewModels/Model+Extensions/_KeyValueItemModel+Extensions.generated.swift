@@ -2,7 +2,7 @@
 // DO NOT EDIT
 import SwiftUI
 
-public extension KeyValueItemModel {
+public extension _KeyValueItemModel {
     var axis: Axis {
         return .horizontal
     }

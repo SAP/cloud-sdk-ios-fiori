@@ -534,3 +534,9 @@ protocol _LineComponent {
     @ViewBuilder
     var line: (() -> any View)? { get }
 }
+
+// sourcery: BaseComponent
+protocol _KeyComponent {
+    // sourcery: @ViewBuilder
+    var key: AttributedString { get }
+}
