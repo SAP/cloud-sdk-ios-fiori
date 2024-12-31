@@ -29,6 +29,7 @@
 		3CC870962CB6F4F30081909C /* ToastMessageExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC870952CB6F4F30081909C /* ToastMessageExample.swift */; };
 		3CD71F292CDB627300B037EB /* CheckoutIndicatorExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CD71F282CDB626900B037EB /* CheckoutIndicatorExample.swift */; };
 		3CDD6ECD2CE4277300DDAE7D /* CheckoutIndicatorModalExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CDD6ECC2CE4277300DDAE7D /* CheckoutIndicatorModalExample.swift */; };
+		553FD8FA2D1E37FA005A6DE7 /* _KeyValueItemExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553FD8F92D1E37FA005A6DE7 /* _KeyValueItemExample.swift */; };
 		55598FAD2CDDB4F6007CFFBB /* ValuePickerExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55598FAC2CDDB4F6007CFFBB /* ValuePickerExample.swift */; };
 		6432FFA02C5164F8008ECE89 /* SegmentedControlExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6432FF9F2C5164F8008ECE89 /* SegmentedControlExample.swift */; };
 		6439F5142CEE892200EF1B42 /* ProcessingIndicatorExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6439F5132CEE892200EF1B42 /* ProcessingIndicatorExample.swift */; };
@@ -252,6 +253,7 @@
 		3CC870952CB6F4F30081909C /* ToastMessageExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastMessageExample.swift; sourceTree = "<group>"; };
 		3CD71F282CDB626900B037EB /* CheckoutIndicatorExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutIndicatorExample.swift; sourceTree = "<group>"; };
 		3CDD6ECC2CE4277300DDAE7D /* CheckoutIndicatorModalExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutIndicatorModalExample.swift; sourceTree = "<group>"; };
+		553FD8F92D1E37FA005A6DE7 /* _KeyValueItemExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _KeyValueItemExample.swift; sourceTree = "<group>"; };
 		55598FAC2CDDB4F6007CFFBB /* ValuePickerExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValuePickerExample.swift; sourceTree = "<group>"; };
 		6432FF9F2C5164F8008ECE89 /* SegmentedControlExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedControlExample.swift; sourceTree = "<group>"; };
 		6439F5132CEE892200EF1B42 /* ProcessingIndicatorExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessingIndicatorExample.swift; sourceTree = "<group>"; };
@@ -810,6 +812,7 @@
 		9DEC27B32C3F3D750070B571 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				553FD8F92D1E37FA005A6DE7 /* _KeyValueItemExample.swift */,
 				9DEC27B42C3F3DB30070B571 /* KeyValueItemExample.swift */,
 				9DEC27B62C3F3DE70070B571 /* OtherViewExamples.swift */,
 				B1A78D972C88388B00432B0D /* ShadowEffectExample.swift */,
@@ -1205,6 +1208,7 @@
 				8A5579D124C1293C0098003A /* Settings.swift in Sources */,
 				8AD9DFB025D49967007448EC /* ContactItemActionItemsExample.swift in Sources */,
 				8A6D64B125AE658300D2D76C /* ExpHeaderView.swift in Sources */,
+				553FD8FA2D1E37FA005A6DE7 /* _KeyValueItemExample.swift in Sources */,
 				E99A025F2B9EC055008A4B77 /* SearchIconAndPlaceholder.swift in Sources */,
 				B1A98FF52C12E9A000FC9998 /* BannerMessageModifierExample.swift in Sources */,
 				B1BA1F922B19AAEE00E6C052 /* TabViewDetailView.swift in Sources */,

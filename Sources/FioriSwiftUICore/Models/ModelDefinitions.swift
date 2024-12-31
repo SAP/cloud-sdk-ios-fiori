@@ -80,11 +80,15 @@ public protocol KPIItemModel: KpiComponent, SubtitleComponent, KPIHeaderItemMode
 public protocol KPIProgressItemModel: KpiProgressComponent, SubtitleComponent, FootnoteComponent, KPIHeaderItemModel {}
 
 // sourcery: generated_component
-public protocol KeyValueItemModel: KeyComponent, ValueComponent {
+public protocol _KeyValueItemModel: KeyComponent, ValueComponent {
     // sourcery: default.value = .horizontal
     // sourcery: no_view
     var axis: Axis { get }
 }
+
+/// Deprecated KeyValueItemModel
+@available(*, unavailable, renamed: "_KeyValueItemModel", message: "Will be removed in the future release. Please create KeyValueItem with other initializers instead.")
+public protocol KeyValueItemModel {}
 
 // sourcery: add_env_props = "sharedAction"
 // sourcery: generated_component_not_configurable
