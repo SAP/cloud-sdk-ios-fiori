@@ -7,24 +7,6 @@ struct CoreContentView: View {
     var body: some View {
         List {
             Section(header: Text("Views")) {
-                NavigationLink {
-                    List {
-                        NavigationLink {
-                            ActivityItemExample()
-                        } label: {
-                            Text("ActivityItem")
-                        }
-                        
-                        NavigationLink {
-                            ActivityItemsExample()
-                        } label: {
-                            Text("ActivityItems")
-                        }
-                    }
-                } label: {
-                    Text("ActivityItem & ActivityItems")
-                }
-
                 NavigationLink(
                     destination: AvatarStackExample(),
                     label: {
