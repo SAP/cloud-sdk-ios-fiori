@@ -37,23 +37,6 @@ public extension View {
     }
 }
 
-// MARK: ActionItemsStyle
-
-public extension View {
-    func actionItemsStyle(_ style: some ActionItemsStyle) -> some View {
-        self.transformEnvironment(\.actionItemsStyleStack) { stack in
-            stack.append(style)
-        }
-    }
-
-    func actionItemsStyle(@ViewBuilder content: @escaping (ActionItemsConfiguration) -> some View) -> some View {
-        self.transformEnvironment(\.actionItemsStyleStack) { stack in
-            let style = AnyActionItemsStyle(content)
-            stack.append(style)
-        }
-    }
-}
-
 // MARK: ActiveTrackStyle
 
 public extension View {
@@ -83,6 +66,23 @@ public extension View {
     func activityItemStyle(@ViewBuilder content: @escaping (ActivityItemConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.activityItemStyleStack) { stack in
             let style = AnyActivityItemStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: ActivityItemsStyle
+
+public extension View {
+    func activityItemsStyle(_ style: some ActivityItemsStyle) -> some View {
+        self.transformEnvironment(\.activityItemsStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func activityItemsStyle(@ViewBuilder content: @escaping (ActivityItemsConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.activityItemsStyleStack) { stack in
+            let style = AnyActivityItemsStyle(content)
             stack.append(style)
         }
     }

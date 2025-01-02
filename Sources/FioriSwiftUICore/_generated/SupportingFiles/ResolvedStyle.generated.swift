@@ -35,22 +35,6 @@ extension ActionStyle {
     }
 }
 
-// MARK: ActionItemsStyle
-
-struct ResolvedActionItemsStyle<Style: ActionItemsStyle>: View {
-    let style: Style
-    let configuration: ActionItemsConfiguration
-    var body: some View {
-        self.style.makeBody(self.configuration)
-    }
-}
-
-extension ActionItemsStyle {
-    func resolve(configuration: ActionItemsConfiguration) -> some View {
-        ResolvedActionItemsStyle(style: self, configuration: configuration)
-    }
-}
-
 // MARK: ActiveTrackStyle
 
 struct ResolvedActiveTrackStyle<Style: ActiveTrackStyle>: View {
@@ -80,6 +64,22 @@ struct ResolvedActivityItemStyle<Style: ActivityItemStyle>: View {
 extension ActivityItemStyle {
     func resolve(configuration: ActivityItemConfiguration) -> some View {
         ResolvedActivityItemStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: ActivityItemsStyle
+
+struct ResolvedActivityItemsStyle<Style: ActivityItemsStyle>: View {
+    let style: Style
+    let configuration: ActivityItemsConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension ActivityItemsStyle {
+    func resolve(configuration: ActivityItemsConfiguration) -> some View {
+        ResolvedActivityItemsStyle(style: self, configuration: configuration)
     }
 }
 
