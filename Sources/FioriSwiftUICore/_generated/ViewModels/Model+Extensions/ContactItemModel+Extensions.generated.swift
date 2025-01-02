@@ -3,7 +3,7 @@
 import SwiftUI
 
 public extension ContactItemModel {
-    var actionItems: ActivityItemsModel? {
+    var actionItems: _ActivityItemsModel? {
         return nil
     }
 }

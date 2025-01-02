@@ -10,9 +10,9 @@ public struct OptionListPickerItem {
 	var _hint: String? = nil
 	var _itemLayout: OptionListPickerItemLayoutType
 	var _onTap: ((_ index: Int) -> Void)? = nil
+	var updateSearchListPickerHeight: ((CGFloat) -> ())? = nil
 	@State var _height: CGFloat = 0
 	var barItemFrame: CGRect = .zero
-	var updateSearchListPickerHeight: ((CGFloat) -> ())? = nil
     public init(model: OptionListPickerItemModel) {
         self.init(value: Binding<[Int]>(get: { model.value }, set: { model.value = $0 }), valueOptions: model.valueOptions, hint: model.hint, itemLayout: model.itemLayout, onTap: model.onTap)
     }

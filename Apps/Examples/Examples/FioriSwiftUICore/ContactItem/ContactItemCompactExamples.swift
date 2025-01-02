@@ -29,35 +29,35 @@ struct ContactItemCompactExamples: ListDataProtocol {
     func cellForRow(_ indexPath: IndexPath) -> AnyView {
         switch (indexPath.section, indexPath.row) {
         case (0, 0):
-            let ci = ContactItem(title: "Seann Longname", actionItems: ActivityItems(actionItems: [.init(type: .phone), .init(type: .videoCall), .init(type: .message)], didSelectActivityItem: { dataType in
+            let ci = ContactItem(title: "Seann Longname", actionItems: _ActivityItems(actionItems: [.init(type: .phone), .init(type: .videoCall), .init(type: .message)], didSelectActivityItem: { dataType in
                 print("\(dataType)")
             }))
             
             return AnyView(ci)
             
         case (0, 1):
-            let ci = ContactItem(title: "Headline example is allowed to wrap two lines ok", actionItems: ActivityItems(actionItems: [.init(type: .message)], didSelectActivityItem: { dataType in
+            let ci = ContactItem(title: "Headline example is allowed to wrap two lines ok", actionItems: _ActivityItems(actionItems: [.init(type: .message)], didSelectActivityItem: { dataType in
                 print("\(dataType)")
             }))
             
             return AnyView(ci)
         
         case (0, 2):
-            let ci = ContactItem(title: "Sean Long has a name that wraps two lines", detailImage: Image("person_square4").resizable(), actionItems: ActivityItems(actionItems: [.init(type: .phone), .init(type: .videoCall), .init(type: .message)], didSelectActivityItem: { dataType in
+            let ci = ContactItem(title: "Sean Long has a name that wraps two lines", detailImage: Image("person_square4").resizable(), actionItems: _ActivityItems(actionItems: [.init(type: .phone), .init(type: .videoCall), .init(type: .message)], didSelectActivityItem: { dataType in
                 print("\(dataType)")
             }))
             
             return AnyView(ci)
             
         case (0, 3):
-            let ci = ContactItem(title: "Headline example when it wraps two lines", subtitle: "Team Lead", actionItems: ActivityItems(actionItems: [.init(type: .email), .init(type: .phone)], didSelectActivityItem: { dataType in
+            let ci = ContactItem(title: "Headline example when it wraps two lines", subtitle: "Team Lead", actionItems: _ActivityItems(actionItems: [.init(type: .email), .init(type: .phone)], didSelectActivityItem: { dataType in
                 print("\(dataType)")
             }))
             
             return AnyView(ci)
             
         case (0, 4):
-            let ci = ContactItem(title: "Seann Longname", subtitle: "Team Lead", actionItems: ActivityItems(actionItems: [.init(type: .phone), .init(type: .videoCall), .init(type: .message)], didSelectActivityItem: { dataType in
+            let ci = ContactItem(title: "Seann Longname", subtitle: "Team Lead", actionItems: _ActivityItems(actionItems: [.init(type: .phone), .init(type: .videoCall), .init(type: .message)], didSelectActivityItem: { dataType in
                 print("\(dataType)")
             }))
             .splitPercent(0.3)
@@ -65,7 +65,7 @@ struct ContactItemCompactExamples: ListDataProtocol {
             return AnyView(ci)
             
         case (0, 5):
-            let ci = ContactItem(title: "Headline when\n wraps 2 lines", subtitle: "Team Lead", detailImage: Image("person_square4").resizable(), actionItems: ActivityItems(actionItems: [.init(type: .phone), .init(type: .videoCall), .init(type: .message)], didSelectActivityItem: { dataType in
+            let ci = ContactItem(title: "Headline when\n wraps 2 lines", subtitle: "Team Lead", detailImage: Image("person_square4").resizable(), actionItems: _ActivityItems(actionItems: [.init(type: .phone), .init(type: .videoCall), .init(type: .message)], didSelectActivityItem: { dataType in
                 print("\(dataType)")
             }))
             .splitPercent(0.3)
