@@ -111,10 +111,8 @@ struct SliderMenuItem: View {
                         self.isSheetVisible.toggle()
                     })
                     .buttonStyle(ApplyButtonStyle())
-
                 } components: {
-                    SliderPickerItem(value: Binding<Int?>(get: { self.item.workingValue }, set: { self.item.workingValue = $0 }), formatter: self.item.formatter, minimumValue: self.item.minimumValue, maximumValue: self.item.maximumValue)
-                        .padding([.leading, .trailing], 16)
+                    self.sliderView()
                         .background(GeometryReader { geometry in
                             Color.clear
                                 .onAppear {
@@ -149,6 +147,24 @@ struct SliderMenuItem: View {
                         }
                 })
             })
+    }
+    
+    private func sliderView() -> some View {
+        if self.item.sliderMode == .single {
+            FioriSlider(
+                titleView: { Text(String(format: self.item.formatter ?? NSLocalizedString("Value: %d", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), self.item.workingValue ?? self.item.minimumValue)) },
+                value: Binding<Double>(get: { Double(self.item.workingValue ?? self.item.minimumValue) }, set: { self.item.workingValue = Int($0) }),
+                description: self.item.hint.attributedString,
+                showsValueLabel: false
+            )
+        } else {
+            FioriSlider(
+                titleView: { Text(String(format: self.item.formatter ?? NSLocalizedString("Value: (%d - %d)", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), self.item.workingLowerValue ?? self.item.minimumValue, self.item.workingUpperValue ?? self.item.maximumValue)) },
+                lowerValue: Binding<Double>(get: { Double(self.item.workingLowerValue ?? self.item.minimumValue) }, set: { self.item.workingLowerValue = Int($0) }),
+                upperValue: Binding<Double>(get: { Double(self.item.workingUpperValue ?? self.item.maximumValue) }, set: { self.item.workingUpperValue = Int($0) }),
+                description: self.item.hint.attributedString
+            )
+        }
     }
     
     private func calculateDetentHeight() {
@@ -189,6 +205,15 @@ struct SliderMenuItem: View {
         default:
             return 0
         }
+    }
+}
+
+extension String? {
+    var attributedString: AttributedString? {
+        guard let s = self else {
+            return nil
+        }
+        return AttributedString(s)
     }
 }
 
