@@ -468,6 +468,12 @@ protocol _ProgressComponent {
     var progress: ProgressView<EmptyView, EmptyView> { get }
 }
 
+// sourcery: BaseComponent
+protocol _KPIContentComponent {
+    @ViewBuilder
+    var kPIContent: (() -> any View)? { get }
+}
+
 /// `ActionItems` provides a view that shows several items with action.
 ///
 /// ## Usage

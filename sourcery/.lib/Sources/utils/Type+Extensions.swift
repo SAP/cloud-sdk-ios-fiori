@@ -73,8 +73,9 @@ public extension Type {
                                     "_ObjectItemModel",
                                     "_SideBarModel",
                                     "_SideBarListItemModel",
-                                    "_ActivityItemModel",
                                     "_ProgressIndicatorModel",
+                                    "_KPIProgressItemModel",
+                                    "_ActivityItemModel",
                                     "_SingleStepModel",
                                     "_StepProgressIndicatorModel"]
         
