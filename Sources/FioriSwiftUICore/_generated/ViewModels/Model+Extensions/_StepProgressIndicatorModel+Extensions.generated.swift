@@ -2,7 +2,7 @@
 // DO NOT EDIT
 import SwiftUI
 
-public extension StepProgressIndicatorModel {
+public extension _StepProgressIndicatorModel {
     var action: _ActionModel? {
         return _AllStepsActionDefault()
     }

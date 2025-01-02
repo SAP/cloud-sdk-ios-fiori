@@ -7,6 +7,18 @@ struct CoreContentView: View {
     var body: some View {
         List {
             Section(header: Text("Views")) {
+                NavigationLink {
+                    ActivityItemExample()
+                } label: {
+                    Text("ActivityItem")
+                }
+                
+                NavigationLink {
+                    ActionItemsExample()
+                } label: {
+                    Text("ActionItems")
+                }
+                
                 NavigationLink(
                     destination: AvatarStackExample(),
                     label: {
@@ -185,6 +197,12 @@ struct CoreContentView: View {
                     destination: StepProgressIndicatorExample())
                 {
                     Text("Step Progress Indicator")
+                }
+                
+                NavigationLink(
+                    destination: SliderExample())
+                {
+                    Text("Slider")
                 }
             }
             

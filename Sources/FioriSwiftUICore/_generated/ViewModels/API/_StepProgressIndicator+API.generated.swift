@@ -2,7 +2,7 @@
 // DO NOT EDIT
 import SwiftUI
 
-public struct StepProgressIndicator<Title: View, ActionView: View, Steps: IndexedViewContainer, CancelActionView: View> {
+public struct _StepProgressIndicator<Title: View, ActionView: View, Steps: IndexedViewContainer, CancelActionView: View> {
     @Environment(\.titleModifier) private var titleModifier
 	@Environment(\.actionModifier) private var actionModifier
 	@Environment(\.cancelActionModifier) private var cancelActionModifier
@@ -14,9 +14,9 @@ public struct StepProgressIndicator<Title: View, ActionView: View, Steps: Indexe
 	let _steps: Steps
 	let _cancelAction: CancelActionView
 	@State var scrollBounds: CGRect = .zero
+	var stepItems: [StepItem] = []
 	@State var stepFrames: [String: CGRect] = [:]
 	@State var isPresented: Bool = false
-	var stepItems: [StepItem] = []
 	var axis: Axis = .horizontal
 
     private var isModelInit: Bool = false
@@ -40,16 +40,16 @@ public struct StepProgressIndicator<Title: View, ActionView: View, Steps: Indexe
 
     @ViewBuilder var title: some View {
         if isModelInit {
-            _title.modifier(titleModifier.concat(Fiori.StepProgressIndicator.title).concat(Fiori.StepProgressIndicator.titleCumulative))
+            _title.modifier(titleModifier.concat(Fiori._StepProgressIndicator.title).concat(Fiori._StepProgressIndicator.titleCumulative))
         } else {
-            _title.modifier(titleModifier.concat(Fiori.StepProgressIndicator.title))
+            _title.modifier(titleModifier.concat(Fiori._StepProgressIndicator.title))
         }
     }
 	@ViewBuilder var action: some View {
         if isModelInit {
-            _action.modifier(actionModifier.concat(Fiori.StepProgressIndicator.action).concat(Fiori.StepProgressIndicator.actionCumulative))
+            _action.modifier(actionModifier.concat(Fiori._StepProgressIndicator.action).concat(Fiori._StepProgressIndicator.actionCumulative))
         } else {
-            _action.modifier(actionModifier.concat(Fiori.StepProgressIndicator.action))
+            _action.modifier(actionModifier.concat(Fiori._StepProgressIndicator.action))
         }
     }
 	var steps: Steps {
@@ -57,9 +57,9 @@ public struct StepProgressIndicator<Title: View, ActionView: View, Steps: Indexe
     }
 	@ViewBuilder var cancelAction: some View {
         if isModelInit {
-            _cancelAction.modifier(cancelActionModifier.concat(Fiori.StepProgressIndicator.cancelAction).concat(Fiori.StepProgressIndicator.cancelActionCumulative))
+            _cancelAction.modifier(cancelActionModifier.concat(Fiori._StepProgressIndicator.cancelAction).concat(Fiori._StepProgressIndicator.cancelActionCumulative))
         } else {
-            _cancelAction.modifier(cancelActionModifier.concat(Fiori.StepProgressIndicator.cancelAction))
+            _cancelAction.modifier(cancelActionModifier.concat(Fiori._StepProgressIndicator.cancelAction))
         }
     }
     
@@ -76,16 +76,16 @@ public struct StepProgressIndicator<Title: View, ActionView: View, Steps: Indexe
     }
 }
 
-extension StepProgressIndicator where Title == _ConditionalContent<Text, EmptyView>,
+extension _StepProgressIndicator where Title == _ConditionalContent<Text, EmptyView>,
 		ActionView == _ConditionalContent<_Action, EmptyView>,
 		Steps == _StepsContainer,
 		CancelActionView == _ConditionalContent<_Action, EmptyView> {
 
-    public init(model: StepProgressIndicatorModel) {
+    public init(model: _StepProgressIndicatorModel) {
         self.init(selection: Binding<String>(get: { model.selection }, set: { model.selection = $0 }), title: model.title, action: model.action != nil ? _Action(model: model.action!) : nil, steps: model.steps, cancelAction: model.cancelAction != nil ? _Action(model: model.cancelAction!) : nil)
     }
 
-    public init(selection: Binding<String>, title: String? = nil, action: _Action? = _Action(model: _AllStepsActionDefault()), steps: [SingleStepModel] = [], cancelAction: _Action? = _Action(model: _CancelActionDefault())) {
+    public init(selection: Binding<String>, title: String? = nil, action: _Action? = _Action(model: _AllStepsActionDefault()), steps: [_SingleStepModel] = [], cancelAction: _Action? = _Action(model: _CancelActionDefault())) {
         self._selection = selection
 		self._title = title != nil ? ViewBuilder.buildEither(first: Text(title!)) : ViewBuilder.buildEither(second: EmptyView())
 		self._action = action != nil ? ViewBuilder.buildEither(first: action!) : ViewBuilder.buildEither(second: EmptyView())

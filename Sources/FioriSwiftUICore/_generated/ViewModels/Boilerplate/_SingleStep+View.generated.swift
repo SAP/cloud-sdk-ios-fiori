@@ -1,8 +1,8 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
-//TODO: Copy commented code to new file: `FioriSwiftUICore/Views/ActivityItem+View.swift`
+//TODO: Copy commented code to new file: `FioriSwiftUICore/Views/_SingleStep+View.swift`
 //TODO: Implement default Fiori style definitions as `ViewModifier`
-//TODO: Implement ActivityItem `View` body
+//TODO: Implement _SingleStep `View` body
 //TODO: Implement LibraryContentProvider
 
 /// - Important: to make `@Environment` properties (e.g. `horizontalSizeClass`), internally accessible
@@ -16,11 +16,11 @@ import SwiftUI
 // FIXME: - Implement Fiori style definitions
 
 extension Fiori {
-    enum ActivityItem {
-        typealias Icon = EmptyModifier
-        typealias IconCumulative = EmptyModifier
-		typealias Subtitle = EmptyModifier
-        typealias SubtitleCumulative = EmptyModifier
+    enum _SingleStep {
+        typealias Title = EmptyModifier
+        typealias TitleCumulative = EmptyModifier
+		typealias Node = EmptyModifier
+        typealias NodeCumulative = EmptyModifier
 
         // TODO: - substitute type-specific ViewModifier for EmptyModifier
         /*
@@ -34,28 +34,28 @@ extension Fiori {
                 }
             }
         */
-        static let icon = Icon()
-		static let subtitle = Subtitle()
-        static let iconCumulative = IconCumulative()
-		static let subtitleCumulative = SubtitleCumulative()
+        static let title = Title()
+		static let node = Node()
+        static let titleCumulative = TitleCumulative()
+		static let nodeCumulative = NodeCumulative()
     }
 }
 
-// FIXME: - Implement ActivityItem View body
+// FIXME: - Implement _SingleStep View body
 
-extension ActivityItem: View {
+extension _SingleStep: View {
     public var body: some View {
         <# View body #>
     }
 }
 
-// FIXME: - Implement ActivityItem specific LibraryContentProvider
+// FIXME: - Implement _SingleStep specific LibraryContentProvider
 
 @available(iOS 14.0, macOS 11.0, *)
-struct ActivityItemLibraryContent: LibraryContentProvider {
+struct _SingleStepLibraryContent: LibraryContentProvider {
     @LibraryContentBuilder
     var views: [LibraryItem] {
-        LibraryItem(ActivityItem(model: LibraryPreviewData.Person.laurelosborn),
+        LibraryItem(_SingleStep(model: LibraryPreviewData.Person.laurelosborn),
                     category: .control)
     }
 }

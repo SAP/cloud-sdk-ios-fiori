@@ -74,7 +74,10 @@ public extension Type {
                                     "_SideBarModel",
                                     "_SideBarListItemModel",
                                     "_ProgressIndicatorModel",
-                                    "_KPIProgressItemModel"]
+                                    "_KPIProgressItemModel",
+                                    "_ActivityItemModel",
+                                    "_SingleStepModel",
+                                    "_StepProgressIndicatorModel"]
         
         if deprecatedComponents.contains(name) {
             return name.replacingOccurrences(of: "Model", with: "")

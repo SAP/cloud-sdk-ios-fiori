@@ -2,7 +2,7 @@
 // DO NOT EDIT
 import SwiftUI
 
-extension ActivityItem where Icon == EmptyView {
+extension _ActivityItem where Icon == EmptyView {
     public init(
     @ViewBuilder subtitle: () -> Subtitle
     ) {
@@ -13,7 +13,7 @@ extension ActivityItem where Icon == EmptyView {
     }
 }
 
-extension ActivityItem where Subtitle == EmptyView {
+extension _ActivityItem where Subtitle == EmptyView {
     public init(
     @ViewBuilder icon: () -> Icon
     ) {
@@ -24,7 +24,7 @@ extension ActivityItem where Subtitle == EmptyView {
     }
 }
 
-extension ActivityItem where Icon == EmptyView, Subtitle == EmptyView {
+extension _ActivityItem where Icon == EmptyView, Subtitle == EmptyView {
     public init(
     
     ) {

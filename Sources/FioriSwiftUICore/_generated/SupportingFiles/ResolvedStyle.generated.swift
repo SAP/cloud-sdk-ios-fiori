@@ -35,6 +35,54 @@ extension ActionStyle {
     }
 }
 
+// MARK: ActionItemsStyle
+
+struct ResolvedActionItemsStyle<Style: ActionItemsStyle>: View {
+    let style: Style
+    let configuration: ActionItemsConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension ActionItemsStyle {
+    func resolve(configuration: ActionItemsConfiguration) -> some View {
+        ResolvedActionItemsStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: ActiveTrackStyle
+
+struct ResolvedActiveTrackStyle<Style: ActiveTrackStyle>: View {
+    let style: Style
+    let configuration: ActiveTrackConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension ActiveTrackStyle {
+    func resolve(configuration: ActiveTrackConfiguration) -> some View {
+        ResolvedActiveTrackStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: ActivityItemStyle
+
+struct ResolvedActivityItemStyle<Style: ActivityItemStyle>: View {
+    let style: Style
+    let configuration: ActivityItemConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension ActivityItemStyle {
+    func resolve(configuration: ActivityItemConfiguration) -> some View {
+        ResolvedActivityItemStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: AllEntriesSectionTitleStyle
 
 struct ResolvedAllEntriesSectionTitleStyle<Style: AllEntriesSectionTitleStyle>: View {
@@ -451,6 +499,22 @@ extension FilledIconStyle {
     }
 }
 
+// MARK: FioriSliderStyle
+
+struct ResolvedFioriSliderStyle<Style: FioriSliderStyle>: View {
+    let style: Style
+    let configuration: FioriSliderConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension FioriSliderStyle {
+    func resolve(configuration: FioriSliderConfiguration) -> some View {
+        ResolvedFioriSliderStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: FootnoteStyle
 
 struct ResolvedFootnoteStyle<Style: FootnoteStyle>: View {
@@ -627,6 +691,22 @@ extension IllustratedMessageStyle {
     }
 }
 
+// MARK: InactiveTrackStyle
+
+struct ResolvedInactiveTrackStyle<Style: InactiveTrackStyle>: View {
+    let style: Style
+    let configuration: InactiveTrackConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension InactiveTrackStyle {
+    func resolve(configuration: InactiveTrackConfiguration) -> some View {
+        ResolvedInactiveTrackStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: IncrementActionStyle
 
 struct ResolvedIncrementActionStyle<Style: IncrementActionStyle>: View {
@@ -771,6 +851,38 @@ extension LabelItemStyle {
     }
 }
 
+// MARK: LeadingAccessoryStyle
+
+struct ResolvedLeadingAccessoryStyle<Style: LeadingAccessoryStyle>: View {
+    let style: Style
+    let configuration: LeadingAccessoryConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension LeadingAccessoryStyle {
+    func resolve(configuration: LeadingAccessoryConfiguration) -> some View {
+        ResolvedLeadingAccessoryStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: LineStyle
+
+struct ResolvedLineStyle<Style: LineStyle>: View {
+    let style: Style
+    let configuration: LineConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension LineStyle {
+    func resolve(configuration: LineConfiguration) -> some View {
+        ResolvedLineStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: LinearProgressIndicatorStyle
 
 struct ResolvedLinearProgressIndicatorStyle<Style: LinearProgressIndicatorStyle>: View {
@@ -867,6 +979,22 @@ extension LoadingIndicatorStyle {
     }
 }
 
+// MARK: LowerThumbStyle
+
+struct ResolvedLowerThumbStyle<Style: LowerThumbStyle>: View {
+    let style: Style
+    let configuration: LowerThumbConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension LowerThumbStyle {
+    func resolve(configuration: LowerThumbConfiguration) -> some View {
+        ResolvedLowerThumbStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: MandatoryFieldIndicatorStyle
 
 struct ResolvedMandatoryFieldIndicatorStyle<Style: MandatoryFieldIndicatorStyle>: View {
@@ -960,6 +1088,22 @@ struct ResolvedMoreActionOverflowStyle<Style: MoreActionOverflowStyle>: View {
 extension MoreActionOverflowStyle {
     func resolve(configuration: MoreActionOverflowConfiguration) -> some View {
         ResolvedMoreActionOverflowStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: NodeStyle
+
+struct ResolvedNodeStyle<Style: NodeStyle>: View {
+    let style: Style
+    let configuration: NodeConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension NodeStyle {
+    func resolve(configuration: NodeConfiguration) -> some View {
+        ResolvedNodeStyle(style: self, configuration: configuration)
     }
 }
 
@@ -1219,6 +1363,22 @@ extension ProgressIndicatorProtocolStyle {
     }
 }
 
+// MARK: RangeSliderControlStyle
+
+struct ResolvedRangeSliderControlStyle<Style: RangeSliderControlStyle>: View {
+    let style: Style
+    let configuration: RangeSliderControlConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension RangeSliderControlStyle {
+    func resolve(configuration: RangeSliderControlConfiguration) -> some View {
+        ResolvedRangeSliderControlStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: RatingControlStyle
 
 struct ResolvedRatingControlStyle<Style: RatingControlStyle>: View {
@@ -1427,6 +1587,22 @@ extension SideBarListItemStyle {
     }
 }
 
+// MARK: SingleStepStyle
+
+struct ResolvedSingleStepStyle<Style: SingleStepStyle>: View {
+    let style: Style
+    let configuration: SingleStepConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension SingleStepStyle {
+    func resolve(configuration: SingleStepConfiguration) -> some View {
+        ResolvedSingleStepStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: StatusStyle
 
 struct ResolvedStatusStyle<Style: StatusStyle>: View {
@@ -1440,6 +1616,22 @@ struct ResolvedStatusStyle<Style: StatusStyle>: View {
 extension StatusStyle {
     func resolve(configuration: StatusConfiguration) -> some View {
         ResolvedStatusStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: StepProgressIndicatorStyle
+
+struct ResolvedStepProgressIndicatorStyle<Style: StepProgressIndicatorStyle>: View {
+    let style: Style
+    let configuration: StepProgressIndicatorConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension StepProgressIndicatorStyle {
+    func resolve(configuration: StepProgressIndicatorConfiguration) -> some View {
+        ResolvedStepProgressIndicatorStyle(style: self, configuration: configuration)
     }
 }
 
@@ -1840,6 +2032,38 @@ struct ResolvedTopDividerStyle<Style: TopDividerStyle>: View {
 extension TopDividerStyle {
     func resolve(configuration: TopDividerConfiguration) -> some View {
         ResolvedTopDividerStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: TrailingAccessoryStyle
+
+struct ResolvedTrailingAccessoryStyle<Style: TrailingAccessoryStyle>: View {
+    let style: Style
+    let configuration: TrailingAccessoryConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension TrailingAccessoryStyle {
+    func resolve(configuration: TrailingAccessoryConfiguration) -> some View {
+        ResolvedTrailingAccessoryStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: UpperThumbStyle
+
+struct ResolvedUpperThumbStyle<Style: UpperThumbStyle>: View {
+    let style: Style
+    let configuration: UpperThumbConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension UpperThumbStyle {
+    func resolve(configuration: UpperThumbConfiguration) -> some View {
+        ResolvedUpperThumbStyle(style: self, configuration: configuration)
     }
 }
 

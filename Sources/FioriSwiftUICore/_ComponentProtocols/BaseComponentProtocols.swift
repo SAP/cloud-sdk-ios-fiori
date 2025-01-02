@@ -473,3 +473,70 @@ protocol _KPIContentComponent {
     @ViewBuilder
     var kPIContent: (() -> any View)? { get }
 }
+
+/// `ActionItems` provides a view that shows several items with action.
+///
+/// ## Usage
+/// ```swift
+/// ActionItems(actionItems: [.init(type: .phone), .init(type: .email), .init(type: .message), .init(type: .videoCall), .init(type: .detail)]) { dataType in
+///     print("\(dataType)")
+/// }
+/// ```
+// sourcery: BaseComponent
+protocol _ActionItemsComponent {
+    // sourcery: resultBuilder.name = @ActionItemsBuilder, resultBuilder.backingComponent = ActionItemsListStack
+    var actionItems: [ActivityItemDataType] { get }
+}
+
+// sourcery: BaseComponent
+protocol _LowerThumbComponent {
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "Circle()"
+    var lowerThumb: any Shape { get }
+}
+
+// sourcery: BaseComponent
+protocol _UpperThumbComponent {
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "Circle()"
+    var upperThumb: any Shape { get }
+}
+
+// sourcery: BaseComponent
+protocol _ActiveTrackComponent {
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "Capsule()"
+    var activeTrack: any Shape { get }
+}
+
+// sourcery: BaseComponent
+protocol _InactiveTrackComponent {
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "Capsule()"
+    var inactiveTrack: any Shape { get }
+}
+
+// sourcery: BaseComponent
+protocol _LeadingAccessoryComponent {
+    @ViewBuilder
+    var leadingAccessory: (() -> any View)? { get }
+}
+
+// sourcery: BaseComponent
+protocol _TrailingAccessoryComponent {
+    @ViewBuilder
+    var trailingAccessory: (() -> any View)? { get }
+}
+
+// sourcery: BaseComponent
+protocol _NodeComponent {
+    // sourcery: resultBuilder.name = @ViewBuilder, resultBuilder.backingComponent = TextOrIconView
+    var node: TextOrIcon? { get }
+}
+
+// sourcery: BaseComponent
+protocol _LineComponent {
+    // sourcery: defaultValue = "{ Rectangle() }"
+    @ViewBuilder
+    var line: (() -> any View)? { get }
+}
