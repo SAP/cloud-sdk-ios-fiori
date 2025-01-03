@@ -2,7 +2,7 @@
 // DO NOT EDIT
 import SwiftUI
 
-public struct SwitchPickerItem {
+public struct _SwitchPickerItem {
     @Environment(\.fioriToggleStyle) var fioriToggleStyle
 	@Environment(\.filterFeedbackBarStyle) var filterFeedbackBarStyle
 
@@ -10,7 +10,7 @@ public struct SwitchPickerItem {
 	var _name: String? = nil
 	var _hint: String? = nil
 	
-    public init(model: SwitchPickerItemModel) {
+    public init(model: _SwitchPickerItemModel) {
         self.init(value: Binding<Bool?>(get: { model.value }, set: { model.value = $0 }), name: model.name, hint: model.hint)
     }
 
