@@ -15,12 +15,6 @@ extension Action: _ViewEmptyChecking {
     }
 }
 
-extension ActionItems: _ViewEmptyChecking {
-    public var isEmpty: Bool {
-        actionItems.isEmpty
-    }
-}
-
 extension ActiveTrack: _ViewEmptyChecking {
     public var isEmpty: Bool {
         activeTrack.isEmpty
@@ -31,6 +25,12 @@ extension ActivityItem: _ViewEmptyChecking {
     public var isEmpty: Bool {
         icon.isEmpty &&
             subtitle.isEmpty
+    }
+}
+
+extension ActivityItems: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        activityItems.isEmpty
     }
 }
 
