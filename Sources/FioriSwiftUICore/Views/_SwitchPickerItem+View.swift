@@ -1,7 +1,7 @@
 import FioriThemeManager
 import SwiftUI
 
-extension SwitchPickerItem: View {
+extension _SwitchPickerItem: View {
     public var body: some View {
         AnyView(
             Toggle(_name ?? "", isOn: .convert(from: _value, ifNilUse: false))
@@ -122,9 +122,9 @@ private struct TestSwitchPicker: View {
     
     var body: some View {
         VStack {
-            SwitchPickerItem(value: self.$v1, hint: nil)
-            SwitchPickerItem(value: self.$v2, hint: nil)
-            SwitchPickerItem(value: self.$v3, hint: nil)
+            _SwitchPickerItem(value: self.$v1, hint: nil)
+            _SwitchPickerItem(value: self.$v2, hint: nil)
+            _SwitchPickerItem(value: self.$v3, hint: nil)
         }
     }
 }
