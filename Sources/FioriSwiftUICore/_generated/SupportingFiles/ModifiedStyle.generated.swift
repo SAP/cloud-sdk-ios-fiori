@@ -652,6 +652,34 @@ public extension CloseActionStyle {
     }
 }
 
+// MARK: ContactItemStyle
+
+extension ModifiedStyle: ContactItemStyle where Style: ContactItemStyle {
+    public func makeBody(_ configuration: ContactItemConfiguration) -> some View {
+        ContactItem(configuration)
+            .contactItemStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct ContactItemStyleModifier<Style: ContactItemStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.contactItemStyle(self.style)
+    }
+}
+
+public extension ContactItemStyle {
+    func modifier(_ modifier: some ViewModifier) -> some ContactItemStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some ContactItemStyle) -> some ContactItemStyle {
+        style.modifier(ContactItemStyleModifier(style: self))
+    }
+}
+
 // MARK: CounterStyle
 
 extension ModifiedStyle: CounterStyle where Style: CounterStyle {

@@ -371,6 +371,22 @@ extension CloseActionStyle {
     }
 }
 
+// MARK: ContactItemStyle
+
+struct ResolvedContactItemStyle<Style: ContactItemStyle>: View {
+    let style: Style
+    let configuration: ContactItemConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension ContactItemStyle {
+    func resolve(configuration: ContactItemConfiguration) -> some View {
+        ResolvedContactItemStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: CounterStyle
 
 struct ResolvedCounterStyle<Style: CounterStyle>: View {
