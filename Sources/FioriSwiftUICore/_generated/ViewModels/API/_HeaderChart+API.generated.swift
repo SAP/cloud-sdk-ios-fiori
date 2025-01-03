@@ -2,7 +2,7 @@
 // DO NOT EDIT
 import SwiftUI
 
-public struct HeaderChart<Title: View, Subtitle: View, Trend: View, TrendImage: View, Kpi: View, Chart: View> {
+public struct _HeaderChart<Title: View, Subtitle: View, Trend: View, TrendImage: View, Kpi: View, Chart: View> {
     @Environment(\.titleModifier) private var titleModifier
 	@Environment(\.subtitleModifier) private var subtitleModifier
 	@Environment(\.trendModifier) private var trendModifier
@@ -40,37 +40,37 @@ public struct HeaderChart<Title: View, Subtitle: View, Trend: View, TrendImage: 
 
     @ViewBuilder var title: some View {
         if isModelInit {
-            _title.modifier(titleModifier.concat(Fiori.HeaderChart.title).concat(Fiori.HeaderChart.titleCumulative))
+            _title.modifier(titleModifier.concat(Fiori._HeaderChart.title).concat(Fiori._HeaderChart.titleCumulative))
         } else {
-            _title.modifier(titleModifier.concat(Fiori.HeaderChart.title))
+            _title.modifier(titleModifier.concat(Fiori._HeaderChart.title))
         }
     }
 	@ViewBuilder var subtitle: some View {
         if isModelInit {
-            _subtitle.modifier(subtitleModifier.concat(Fiori.HeaderChart.subtitle).concat(Fiori.HeaderChart.subtitleCumulative))
+            _subtitle.modifier(subtitleModifier.concat(Fiori._HeaderChart.subtitle).concat(Fiori._HeaderChart.subtitleCumulative))
         } else {
-            _subtitle.modifier(subtitleModifier.concat(Fiori.HeaderChart.subtitle))
+            _subtitle.modifier(subtitleModifier.concat(Fiori._HeaderChart.subtitle))
         }
     }
 	@ViewBuilder var trend: some View {
         if isModelInit {
-            _trend.modifier(trendModifier.concat(Fiori.HeaderChart.trend).concat(Fiori.HeaderChart.trendCumulative))
+            _trend.modifier(trendModifier.concat(Fiori._HeaderChart.trend).concat(Fiori._HeaderChart.trendCumulative))
         } else {
-            _trend.modifier(trendModifier.concat(Fiori.HeaderChart.trend))
+            _trend.modifier(trendModifier.concat(Fiori._HeaderChart.trend))
         }
     }
 	@ViewBuilder var trendImage: some View {
         if isModelInit {
-            _trendImage.modifier(trendImageModifier.concat(Fiori.HeaderChart.trendImage).concat(Fiori.HeaderChart.trendImageCumulative))
+            _trendImage.modifier(trendImageModifier.concat(Fiori._HeaderChart.trendImage).concat(Fiori._HeaderChart.trendImageCumulative))
         } else {
-            _trendImage.modifier(trendImageModifier.concat(Fiori.HeaderChart.trendImage))
+            _trendImage.modifier(trendImageModifier.concat(Fiori._HeaderChart.trendImage))
         }
     }
 	@ViewBuilder var kpi: some View {
         if isModelInit {
-            _kpi.modifier(kpiModifier.concat(Fiori.HeaderChart.kpi).concat(Fiori.HeaderChart.kpiCumulative))
+            _kpi.modifier(kpiModifier.concat(Fiori._HeaderChart.kpi).concat(Fiori._HeaderChart.kpiCumulative))
         } else {
-            _kpi.modifier(kpiModifier.concat(Fiori.HeaderChart.kpi))
+            _kpi.modifier(kpiModifier.concat(Fiori._HeaderChart.kpi))
         }
     }
     var chart: some View {
@@ -93,13 +93,13 @@ public struct HeaderChart<Title: View, Subtitle: View, Trend: View, TrendImage: 
     }
 }
 
-extension HeaderChart where Title == Text,
+extension _HeaderChart where Title == Text,
 		Subtitle == _ConditionalContent<Text, EmptyView>,
 		Trend == _ConditionalContent<Text, EmptyView>,
 		TrendImage == _ConditionalContent<Image, EmptyView>,
 		Kpi == _ConditionalContent<Text, EmptyView> {
 
-    public init(model: HeaderChartModel, @ViewBuilder chart: () -> Chart) {
+    public init(model: _HeaderChartModel, @ViewBuilder chart: () -> Chart) {
         self.init(title: model.title, subtitle: model.subtitle, trend: model.trend, trendImage: model.trendImage, kpi: model.kpi, chart: chart)
     }
 
