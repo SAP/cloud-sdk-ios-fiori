@@ -9,7 +9,7 @@ struct ContactItemInitViewBuilderExample: View {
             ExpHeaderView("Contact Item", subtitle: "ViewBuilder based initializer", desc: "can be injected with any view, e.g. Title can be an image and is not restricted to being a text",
                           back: .green, textColor: .white)
 
-            ContactItem {
+            _ContactItem {
                 if self.useDifferentView {
                     Image(systemName: "person.crop.circle.badge.exclamationmark")
                 } else {

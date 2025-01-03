@@ -1,7 +1,7 @@
 import SwiftUI
 
 extension Fiori {
-    enum ContactItem {
+    enum _ContactItem {
         struct Title: ViewModifier {
             func body(content: Content) -> some View {
                 content
@@ -60,7 +60,7 @@ extension Fiori {
     }
 }
 
-extension ContactItem: View {
+extension _ContactItem: View {
     public var body: some View {
         Group {
             if horizontalSizeClass == .some(.regular) {

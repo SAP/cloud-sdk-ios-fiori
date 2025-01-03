@@ -2,7 +2,7 @@
 // DO NOT EDIT
 import SwiftUI
 
-extension ContactItem where Subtitle == EmptyView {
+extension _ContactItem where Subtitle == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -19,7 +19,7 @@ extension ContactItem where Subtitle == EmptyView {
     }
 }
 
-extension ContactItem where DescriptionText == EmptyView {
+extension _ContactItem where DescriptionText == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -36,7 +36,7 @@ extension ContactItem where DescriptionText == EmptyView {
     }
 }
 
-extension ContactItem where DetailImage == EmptyView {
+extension _ContactItem where DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -53,7 +53,7 @@ extension ContactItem where DetailImage == EmptyView {
     }
 }
 
-extension ContactItem where ActionItems == EmptyView {
+extension _ContactItem where ActionItems == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -70,7 +70,7 @@ extension ContactItem where ActionItems == EmptyView {
     }
 }
 
-extension ContactItem where Subtitle == EmptyView, DescriptionText == EmptyView {
+extension _ContactItem where Subtitle == EmptyView, DescriptionText == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder detailImage: () -> DetailImage,
@@ -86,7 +86,7 @@ extension ContactItem where Subtitle == EmptyView, DescriptionText == EmptyView 
     }
 }
 
-extension ContactItem where Subtitle == EmptyView, DetailImage == EmptyView {
+extension _ContactItem where Subtitle == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -102,7 +102,7 @@ extension ContactItem where Subtitle == EmptyView, DetailImage == EmptyView {
     }
 }
 
-extension ContactItem where Subtitle == EmptyView, ActionItems == EmptyView {
+extension _ContactItem where Subtitle == EmptyView, ActionItems == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -118,7 +118,7 @@ extension ContactItem where Subtitle == EmptyView, ActionItems == EmptyView {
     }
 }
 
-extension ContactItem where DescriptionText == EmptyView, DetailImage == EmptyView {
+extension _ContactItem where DescriptionText == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -134,7 +134,7 @@ extension ContactItem where DescriptionText == EmptyView, DetailImage == EmptyVi
     }
 }
 
-extension ContactItem where DescriptionText == EmptyView, ActionItems == EmptyView {
+extension _ContactItem where DescriptionText == EmptyView, ActionItems == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -150,7 +150,7 @@ extension ContactItem where DescriptionText == EmptyView, ActionItems == EmptyVi
     }
 }
 
-extension ContactItem where DetailImage == EmptyView, ActionItems == EmptyView {
+extension _ContactItem where DetailImage == EmptyView, ActionItems == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -166,7 +166,7 @@ extension ContactItem where DetailImage == EmptyView, ActionItems == EmptyView {
     }
 }
 
-extension ContactItem where Subtitle == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView {
+extension _ContactItem where Subtitle == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder actionItems: () -> ActionItems
@@ -181,7 +181,7 @@ extension ContactItem where Subtitle == EmptyView, DescriptionText == EmptyView,
     }
 }
 
-extension ContactItem where Subtitle == EmptyView, DescriptionText == EmptyView, ActionItems == EmptyView {
+extension _ContactItem where Subtitle == EmptyView, DescriptionText == EmptyView, ActionItems == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder detailImage: () -> DetailImage
@@ -196,7 +196,7 @@ extension ContactItem where Subtitle == EmptyView, DescriptionText == EmptyView,
     }
 }
 
-extension ContactItem where Subtitle == EmptyView, DetailImage == EmptyView, ActionItems == EmptyView {
+extension _ContactItem where Subtitle == EmptyView, DetailImage == EmptyView, ActionItems == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText
@@ -211,7 +211,7 @@ extension ContactItem where Subtitle == EmptyView, DetailImage == EmptyView, Act
     }
 }
 
-extension ContactItem where DescriptionText == EmptyView, DetailImage == EmptyView, ActionItems == EmptyView {
+extension _ContactItem where DescriptionText == EmptyView, DetailImage == EmptyView, ActionItems == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle
@@ -226,7 +226,7 @@ extension ContactItem where DescriptionText == EmptyView, DetailImage == EmptyVi
     }
 }
 
-extension ContactItem where Subtitle == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView, ActionItems == EmptyView {
+extension _ContactItem where Subtitle == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView, ActionItems == EmptyView {
     public init(
     @ViewBuilder title: () -> Title
     ) {

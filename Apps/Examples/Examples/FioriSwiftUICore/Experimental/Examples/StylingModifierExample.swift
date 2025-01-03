@@ -7,7 +7,7 @@ struct StylingModifierExample: View {
             ExpHeaderView("Styling", subtitle: "via Modifier", desc: "works no type completion :(((",
                           back: .orange, textColor: .white)
 
-            ContactItem(model: LibraryPreviewData.Person.laurelosborn)
+            _ContactItem(model: LibraryPreviewData.Person.laurelosborn)
                 .titleModifier { $0.font(.headline).foregroundColor(.red) }
                 .exampleHighlighting()
         }

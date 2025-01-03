@@ -189,6 +189,16 @@ extension CloseAction: _ViewEmptyChecking {
     }
 }
 
+extension ContactItem: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        title.isEmpty &&
+            subtitle.isEmpty &&
+            description.isEmpty &&
+            detailImage.isEmpty &&
+            activityItems.isEmpty
+    }
+}
+
 extension Counter: _ViewEmptyChecking {
     public var isEmpty: Bool {
         counter.isEmpty

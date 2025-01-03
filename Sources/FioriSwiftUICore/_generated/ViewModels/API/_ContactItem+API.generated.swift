@@ -2,7 +2,7 @@
 // DO NOT EDIT
 import SwiftUI
 
-public struct ContactItem<Title: View, Subtitle: View, DescriptionText: View, DetailImage: View, ActionItems: View> {
+public struct _ContactItem<Title: View, Subtitle: View, DescriptionText: View, DetailImage: View, ActionItems: View> {
     @Environment(\.titleModifier) private var titleModifier
 	@Environment(\.subtitleModifier) private var subtitleModifier
 	@Environment(\.descriptionTextModifier) private var descriptionTextModifier
@@ -41,37 +41,37 @@ public struct ContactItem<Title: View, Subtitle: View, DescriptionText: View, De
 
     @ViewBuilder var title: some View {
         if isModelInit {
-            _title.modifier(titleModifier.concat(Fiori.ContactItem.title).concat(Fiori.ContactItem.titleCumulative))
+            _title.modifier(titleModifier.concat(Fiori._ContactItem.title).concat(Fiori._ContactItem.titleCumulative))
         } else {
-            _title.modifier(titleModifier.concat(Fiori.ContactItem.title))
+            _title.modifier(titleModifier.concat(Fiori._ContactItem.title))
         }
     }
 	@ViewBuilder var subtitle: some View {
         if isModelInit {
-            _subtitle.modifier(subtitleModifier.concat(Fiori.ContactItem.subtitle).concat(Fiori.ContactItem.subtitleCumulative))
+            _subtitle.modifier(subtitleModifier.concat(Fiori._ContactItem.subtitle).concat(Fiori._ContactItem.subtitleCumulative))
         } else {
-            _subtitle.modifier(subtitleModifier.concat(Fiori.ContactItem.subtitle))
+            _subtitle.modifier(subtitleModifier.concat(Fiori._ContactItem.subtitle))
         }
     }
 	@ViewBuilder var descriptionText: some View {
         if isModelInit {
-            _descriptionText.modifier(descriptionTextModifier.concat(Fiori.ContactItem.descriptionText).concat(Fiori.ContactItem.descriptionTextCumulative))
+            _descriptionText.modifier(descriptionTextModifier.concat(Fiori._ContactItem.descriptionText).concat(Fiori._ContactItem.descriptionTextCumulative))
         } else {
-            _descriptionText.modifier(descriptionTextModifier.concat(Fiori.ContactItem.descriptionText))
+            _descriptionText.modifier(descriptionTextModifier.concat(Fiori._ContactItem.descriptionText))
         }
     }
 	@ViewBuilder var detailImage: some View {
         if isModelInit {
-            _detailImage.modifier(detailImageModifier.concat(Fiori.ContactItem.detailImage).concat(Fiori.ContactItem.detailImageCumulative))
+            _detailImage.modifier(detailImageModifier.concat(Fiori._ContactItem.detailImage).concat(Fiori._ContactItem.detailImageCumulative))
         } else {
-            _detailImage.modifier(detailImageModifier.concat(Fiori.ContactItem.detailImage))
+            _detailImage.modifier(detailImageModifier.concat(Fiori._ContactItem.detailImage))
         }
     }
 	@ViewBuilder var actionItems: some View {
         if isModelInit {
-            _actionItems.modifier(actionItemsModifier.concat(Fiori.ContactItem.actionItems).concat(Fiori.ContactItem.actionItemsCumulative))
+            _actionItems.modifier(actionItemsModifier.concat(Fiori._ContactItem.actionItems).concat(Fiori._ContactItem.actionItemsCumulative))
         } else {
-            _actionItems.modifier(actionItemsModifier.concat(Fiori.ContactItem.actionItems))
+            _actionItems.modifier(actionItemsModifier.concat(Fiori._ContactItem.actionItems))
         }
     }
     
@@ -92,13 +92,13 @@ public struct ContactItem<Title: View, Subtitle: View, DescriptionText: View, De
     }
 }
 
-extension ContactItem where Title == Text,
+extension _ContactItem where Title == Text,
 		Subtitle == _ConditionalContent<Text, EmptyView>,
 		DescriptionText == _ConditionalContent<Text, EmptyView>,
 		DetailImage == _ConditionalContent<Image, EmptyView>,
 		ActionItems == _ConditionalContent<_ActivityItems, EmptyView> {
 
-    public init(model: ContactItemModel) {
+    public init(model: _ContactItemModel) {
         self.init(title: model.title, subtitle: model.subtitle, descriptionText: model.descriptionText, detailImage: model.detailImage, actionItems: model.actionItems != nil ? _ActivityItems(model: model.actionItems!) : nil)
     }
 

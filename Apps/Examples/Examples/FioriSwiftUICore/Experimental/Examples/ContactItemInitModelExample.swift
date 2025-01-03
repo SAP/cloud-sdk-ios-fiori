@@ -7,7 +7,7 @@ struct ContactItemInitModelExample: View {
             ExpHeaderView("Contact Item", subtitle: "Model based initializer", desc: "will set @ViewBuilder closures with default controls",
                           back: .green, textColor: .white)
 
-            ContactItem(model: LibraryPreviewData.Person.laurelosborn)
+            _ContactItem(model: LibraryPreviewData.Person.laurelosborn)
                 .exampleHighlighting()
         }
     }

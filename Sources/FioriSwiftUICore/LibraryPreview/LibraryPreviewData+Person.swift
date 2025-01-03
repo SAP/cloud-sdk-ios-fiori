@@ -66,7 +66,7 @@ extension LibraryPreviewData.Person.Address {
     }
 }
 
-extension LibraryPreviewData.Person: ContactItemModel {
+extension LibraryPreviewData.Person: _ContactItemModel {
     public var footnote: String? {
         "Footnote: I am cool :)"
         // Features.joined(separator: ", ")

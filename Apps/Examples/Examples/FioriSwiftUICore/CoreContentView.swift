@@ -25,8 +25,12 @@ struct CoreContentView: View {
                     Text("Cards and Layouts")
                 }
                 
-                NavigationLink(destination: ContactItemExample()) {
+                NavigationLink(destination: ContactItemExample(_isNewObjectItem: true)) {
                     Text("ContactItem")
+                }
+                
+                NavigationLink(destination: ContactItemExample()) {
+                    Text("_ContactItem: deprecated")
                 }
                 
                 NavigationLink(
