@@ -27,11 +27,12 @@ public struct ContactItemBaseStyle: ContactItemStyle {
                 Spacer().frame(width: 8)
             }
 
-            if self.splitPercent == nil {
-                self.titleSubtitleDescription(configuration)
+            if let splitPercent = self.splitPercent {
+                self.titleSubtitleDescriptionWithSplitPercent(configuration, splitPercent: splitPercent)
             } else {
-                self.titleSubtitleDescriptionWithSplitPercent(configuration)
+                self.titleSubtitleDescription(configuration)
             }
+            
             configuration.activityItems
         }
         .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)
@@ -55,7 +56,7 @@ public struct ContactItemBaseStyle: ContactItemStyle {
         }
     }
     
-    func titleSubtitleDescriptionWithSplitPercent(_ configuration: ContactItemConfiguration) -> some View {
+    func titleSubtitleDescriptionWithSplitPercent(_ configuration: ContactItemConfiguration, splitPercent: CGFloat) -> some View {
         HStack(alignment: .center, spacing: 0) {
             HStack(alignment: .center, spacing: 0) {
                 Spacer().frame(width: 4)
@@ -66,13 +67,13 @@ public struct ContactItemBaseStyle: ContactItemStyle {
                 
                 Spacer(minLength: 24)
             }
-            .frame(width: self.mainViewSize.width * self.splitPercent!)
+            .frame(width: self.mainViewSize.width * splitPercent)
             
             HStack(alignment: .center, spacing: 0) {
                 configuration.description
                 
                 Spacer(minLength: 24)
-            }.frame(width: self.mainViewSize.width * (1 - self.splitPercent!))
+            }.frame(width: self.mainViewSize.width * (1 - splitPercent))
         }
         .frame(minWidth: 0, maxWidth: .infinity)
         .modifier(SizeModifier())
