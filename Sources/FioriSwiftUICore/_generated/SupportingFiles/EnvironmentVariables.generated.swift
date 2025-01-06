@@ -45,27 +45,6 @@ extension EnvironmentValues {
     }
 }
 
-// MARK: ActionItemsStyle
-
-struct ActionItemsStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any ActionItemsStyle] = []
-}
-
-extension EnvironmentValues {
-    var actionItemsStyle: any ActionItemsStyle {
-        self.actionItemsStyleStack.last ?? .base
-    }
-
-    var actionItemsStyleStack: [any ActionItemsStyle] {
-        get {
-            self[ActionItemsStyleStackKey.self]
-        }
-        set {
-            self[ActionItemsStyleStackKey.self] = newValue
-        }
-    }
-}
-
 // MARK: ActiveTrackStyle
 
 struct ActiveTrackStyleStackKey: EnvironmentKey {
@@ -104,6 +83,27 @@ extension EnvironmentValues {
         }
         set {
             self[ActivityItemStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: ActivityItemsStyle
+
+struct ActivityItemsStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any ActivityItemsStyle] = []
+}
+
+extension EnvironmentValues {
+    var activityItemsStyle: any ActivityItemsStyle {
+        self.activityItemsStyleStack.last ?? .base
+    }
+
+    var activityItemsStyleStack: [any ActivityItemsStyle] {
+        get {
+            self[ActivityItemsStyleStackKey.self]
+        }
+        set {
+            self[ActivityItemsStyleStackKey.self] = newValue
         }
     }
 }

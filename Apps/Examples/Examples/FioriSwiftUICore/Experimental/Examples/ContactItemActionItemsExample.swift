@@ -33,7 +33,7 @@ struct ContactItemActionItemsExample: View {
                 } actionItems: {
                     if self.useCompositeControl {
                         // equivalent to `ActivityItems(model: viewModel)`
-                        ActivityItems(actionItems: self.viewModel.actionItems?.actionItems) { selectedActivity in
+                        _ActivityItems(actionItems: self.viewModel.actionItems?.actionItems) { selectedActivity in
                             self.viewModel.selectedActivity = selectedActivity
                         }
                     } else {
@@ -49,7 +49,7 @@ struct ContactItemActionItemsExample: View {
                 ExpHeaderView(nil, subtitle: "Option: Type-based init", desc: "SDK will internally choose and initialize the control handling action items")
 
                 ContactItem(title: self.viewModel.title, subtitle: self.viewModel.subtitle, descriptionText: self.viewModel.descriptionText,
-                            detailImage: self.viewModel.detailImage, actionItems: self.viewModel.actionItems != nil ? ActivityItems(model: self.viewModel.actionItems!) : nil)
+                            detailImage: self.viewModel.detailImage, actionItems: self.viewModel.actionItems != nil ? _ActivityItems(model: self.viewModel.actionItems!) : nil)
                     .exampleHighlighting()
 
                 ExpHeaderView(nil, subtitle: "Option: Protocol/Model-based init", desc: "conform your model to protocol `ContactItemModel`")
@@ -69,7 +69,7 @@ struct ContactItemActionItemsExample: View {
 class ContactItemActionItemsExampleViewModel: ObservableObject {
     var model = LibraryPreviewData.Person.laurelosborn
     
-    lazy var actionItems: ActivityItemsModel? = {
+    lazy var actionItems: _ActivityItemsModel? = {
         let items: [ActivityItemDataType] = [
             .init(type: .email, data: "Laurel@example.com"),
             .init(type: .email, data: "Laurel@contoso.com")
@@ -100,7 +100,7 @@ extension ContactItemActionItemsExampleViewModel: ContactItemModel, ActionItemsC
     var descriptionText: String? { self.model.descriptionText }
     var detailImage: Image? { self.model.detailImage }
     
-    struct ActivityItemsDataModel: ActivityItemsModel {
+    struct ActivityItemsDataModel: _ActivityItemsModel {
         let actionItems: [ActivityItemDataType]?
         let didSelectActivityItem: ((ActivityItemDataType) -> Void)?
     }

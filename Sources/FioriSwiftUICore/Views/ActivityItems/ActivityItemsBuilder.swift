@@ -1,18 +1,18 @@
 import SwiftUI
 
 /// :nodoc:
-public protocol ActionItemsList: View, _ViewEmptyChecking {
+public protocol ActivityItemsList: View, _ViewEmptyChecking {
     associatedtype V: View
     var count: Int { get }
     func view(at index: Int) -> V
 }
 
-struct ActionItemsListStack: ActionItemsList {
-    let actionItems: [any View]
+struct ActivityItemsListStack: ActivityItemsList {
+    let activityItems: [any View]
     
-    init(_ actionItemsData: [ActivityItemDataType]) {
+    init(_ activityItemsData: [ActivityItemDataType]) {
         var temp: [any View] = []
-        for element in actionItemsData {
+        for element in activityItemsData {
             let item = Button {
                 element.didSelectActivityItem?()
             } label: {
@@ -26,29 +26,29 @@ struct ActionItemsListStack: ActionItemsList {
             temp.append(item.typeErased)
         }
         
-        self.actionItems = temp
+        self.activityItems = temp
     }
     
-    init(actionItems: [any View]) {
-        self.actionItems = actionItems
+    init(activityItems: [any View]) {
+        self.activityItems = activityItems
     }
     
     public var count: Int {
-        self.actionItems.count
+        self.activityItems.count
     }
     
     var isEmpty: Bool {
-        self.actionItems.isEmpty
+        self.activityItems.isEmpty
     }
     
     public func view(at index: Int) -> some View {
-        self.actionItems[index].typeErased
+        self.activityItems[index].typeErased
     }
     
     var body: some View {
         HStack(spacing: 0) {
-            ForEach(0 ..< self.actionItems.count, id: \.self) { index in
-                self.actionItems[index].typeErased
+            ForEach(0 ..< self.activityItems.count, id: \.self) { index in
+                self.activityItems[index].typeErased
             }
         }
     }
@@ -57,17 +57,17 @@ struct ActionItemsListStack: ActionItemsList {
 /// A custom parameter attribute that constructs views from closures.
 @available(iOS 13.0, macOS 10.15, tvOS 13.0, watchOS 6.0, *)
 @resultBuilder
-public enum ActionItemsBuilder {
+public enum ActivityItemsBuilder {
     /// :nodoc:
-    public static func buildBlock(_ components: any View...) -> some ActionItemsList {
+    public static func buildBlock(_ components: any View...) -> some ActivityItemsList {
         let flatAvatars = components.flatMap { component -> [any View] in
-            if let c = component as? ActionItemsListStack {
-                return c.actionItems
+            if let c = component as? ActivityItemsListStack {
+                return c.activityItems
             } else {
                 return [component]
             }
         }
-        return ActionItemsListStack(actionItems: flatAvatars)
+        return ActivityItemsListStack(activityItems: flatAvatars)
     }
     
     /// :nodoc:
@@ -83,29 +83,29 @@ public enum ActionItemsBuilder {
     /// :nodoc:
     public static func buildExpression<Data: RandomAccessCollection>(
         _ expression: ForEach<Data, Data.Element, some View>
-    ) -> some ActionItemsList {
-        ActionItemsListStack(actionItems: expression.data.map { item in
+    ) -> some ActivityItemsList {
+        ActivityItemsListStack(activityItems: expression.data.map { item in
             expression.content(item)
         })
     }
     
     /// :nodoc:
-    public static func buildEither(first: any View) -> some ActionItemsList {
-        ActionItemsListStack(actionItems: [first])
+    public static func buildEither(first: any View) -> some ActivityItemsList {
+        ActivityItemsListStack(activityItems: [first])
     }
     
     /// :nodoc:
-    public static func buildEither(second: any View) -> some ActionItemsList {
-        ActionItemsListStack(actionItems: [second])
+    public static func buildEither(second: any View) -> some ActivityItemsList {
+        ActivityItemsListStack(activityItems: [second])
     }
     
     /// :nodoc:
-    public static func buildOptional(_ component: (any View)?) -> some ActionItemsList {
-        ActionItemsListStack(actionItems: component.map { [$0] } ?? [])
+    public static func buildOptional(_ component: (any View)?) -> some ActivityItemsList {
+        ActivityItemsListStack(activityItems: component.map { [$0] } ?? [])
     }
     
     /// :nodoc:
-    public static func buildArray(_ components: [any View]) -> some ActionItemsList {
-        ActionItemsListStack(actionItems: components)
+    public static func buildArray(_ components: [any View]) -> some ActivityItemsList {
+        ActivityItemsListStack(activityItems: components)
     }
 }

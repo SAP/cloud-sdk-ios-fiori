@@ -474,18 +474,20 @@ protocol _KPIContentComponent {
     var kPIContent: (() -> any View)? { get }
 }
 
-/// `ActionItems` provides a view that shows several items with action.
+/// `ActivityItems` provides a view that shows several items with action.
 ///
 /// ## Usage
 /// ```swift
-/// ActionItems(actionItems: [.init(type: .phone), .init(type: .email), .init(type: .message), .init(type: .videoCall), .init(type: .detail)]) { dataType in
-///     print("\(dataType)")
-/// }
+/// ActivityItems(activityItems: [
+///    .init(type: .phone, didSelectActivityItem: {
+///        print("click phone")
+///    })
+/// ])
 /// ```
 // sourcery: BaseComponent
-protocol _ActionItemsComponent {
-    // sourcery: resultBuilder.name = @ActionItemsBuilder, resultBuilder.backingComponent = ActionItemsListStack
-    var actionItems: [ActivityItemDataType] { get }
+protocol _ActivityItemsComponent {
+    // sourcery: resultBuilder.name = @ActivityItemsBuilder, resultBuilder.backingComponent = ActivityItemsListStack
+    var activityItems: [ActivityItemDataType] { get }
 }
 
 // sourcery: BaseComponent
