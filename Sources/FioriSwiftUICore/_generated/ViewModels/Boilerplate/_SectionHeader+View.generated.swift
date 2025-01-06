@@ -1,8 +1,8 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
-//TODO: Copy commented code to new file: `FioriSwiftUICore/Views/SectionHeader+View.swift`
+//TODO: Copy commented code to new file: `FioriSwiftUICore/Views/_SectionHeader+View.swift`
 //TODO: Implement default Fiori style definitions as `ViewModifier`
-//TODO: Implement SectionHeader `View` body
+//TODO: Implement _SectionHeader `View` body
 //TODO: Implement LibraryContentProvider
 
 /// - Important: to make `@Environment` properties (e.g. `horizontalSizeClass`), internally accessible
@@ -16,7 +16,7 @@ import SwiftUI
 // FIXME: - Implement Fiori style definitions
 
 extension Fiori {
-    enum SectionHeader {
+    enum _SectionHeader {
         typealias Title = EmptyModifier
         typealias TitleCumulative = EmptyModifier
 		typealias Attribute = EmptyModifier
@@ -41,21 +41,21 @@ extension Fiori {
     }
 }
 
-// FIXME: - Implement SectionHeader View body
+// FIXME: - Implement _SectionHeader View body
 
-extension SectionHeader: View {
+extension _SectionHeader: View {
     public var body: some View {
         <# View body #>
     }
 }
 
-// FIXME: - Implement SectionHeader specific LibraryContentProvider
+// FIXME: - Implement _SectionHeader specific LibraryContentProvider
 
 @available(iOS 14.0, macOS 11.0, *)
-struct SectionHeaderLibraryContent: LibraryContentProvider {
+struct _SectionHeaderLibraryContent: LibraryContentProvider {
     @LibraryContentBuilder
     var views: [LibraryItem] {
-        LibraryItem(SectionHeader(model: LibraryPreviewData.Person.laurelosborn),
+        LibraryItem(_SectionHeader(model: LibraryPreviewData.Person.laurelosborn),
                     category: .control)
     }
 }

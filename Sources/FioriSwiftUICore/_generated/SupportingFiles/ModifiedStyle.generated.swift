@@ -2584,6 +2584,34 @@ public extension SecondaryTimestampStyle {
     }
 }
 
+// MARK: SectionHeaderStyle
+
+extension ModifiedStyle: SectionHeaderStyle where Style: SectionHeaderStyle {
+    public func makeBody(_ configuration: SectionHeaderConfiguration) -> some View {
+        SectionHeader(configuration)
+            .sectionHeaderStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct SectionHeaderStyleModifier<Style: SectionHeaderStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.sectionHeaderStyle(self.style)
+    }
+}
+
+public extension SectionHeaderStyle {
+    func modifier(_ modifier: some ViewModifier) -> some SectionHeaderStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some SectionHeaderStyle) -> some SectionHeaderStyle {
+        style.modifier(SectionHeaderStyleModifier(style: self))
+    }
+}
+
 // MARK: SegmentedControlPickerStyle
 
 extension ModifiedStyle: SegmentedControlPickerStyle where Style: SegmentedControlPickerStyle {

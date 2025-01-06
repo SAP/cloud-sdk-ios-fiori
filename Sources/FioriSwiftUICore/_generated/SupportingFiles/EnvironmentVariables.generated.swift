@@ -1935,6 +1935,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: SectionHeaderStyle
+
+struct SectionHeaderStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any SectionHeaderStyle] = []
+}
+
+extension EnvironmentValues {
+    var sectionHeaderStyle: any SectionHeaderStyle {
+        self.sectionHeaderStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var sectionHeaderStyleStack: [any SectionHeaderStyle] {
+        get {
+            self[SectionHeaderStyleStackKey.self]
+        }
+        set {
+            self[SectionHeaderStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: SegmentedControlPickerStyle
 
 struct SegmentedControlPickerStyleStackKey: EnvironmentKey {

@@ -1475,6 +1475,22 @@ extension SecondaryTimestampStyle {
     }
 }
 
+// MARK: SectionHeaderStyle
+
+struct ResolvedSectionHeaderStyle<Style: SectionHeaderStyle>: View {
+    let style: Style
+    let configuration: SectionHeaderConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension SectionHeaderStyle {
+    func resolve(configuration: SectionHeaderConfiguration) -> some View {
+        ResolvedSectionHeaderStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: SegmentedControlPickerStyle
 
 struct ResolvedSegmentedControlPickerStyle<Style: SegmentedControlPickerStyle>: View {

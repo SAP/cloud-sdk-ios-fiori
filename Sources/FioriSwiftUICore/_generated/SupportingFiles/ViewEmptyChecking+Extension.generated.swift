@@ -672,6 +672,13 @@ extension SecondaryTimestamp: _ViewEmptyChecking {
     }
 }
 
+extension SectionHeader: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        title.isEmpty &&
+            attribute.isEmpty
+    }
+}
+
 extension SegmentedControlPicker: _ViewEmptyChecking {
     public var isEmpty: Bool {
         false

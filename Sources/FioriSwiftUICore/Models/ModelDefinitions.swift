@@ -66,7 +66,10 @@ public protocol HeaderChartModel: TitleComponent, SubtitleComponent, TrendCompon
 
 // sourcery: add_env_props = "colorScheme"
 // sourcery: generated_component
-public protocol SectionHeaderModel: TitleComponent, AttributeComponent {}
+public protocol _SectionHeaderModel: TitleComponent, AttributeComponent {}
+
+@available(*, unavailable, renamed: "_SectionHeaderModel", message: "Will be removed in the future release. Please create SectionHeader with other initializers instead.")
+public protocol SectionHeaderModel {}
 
 // sourcery: generated_component
 // sourcery: virtualPropAction = "var action: (() -> Void)? = nil"

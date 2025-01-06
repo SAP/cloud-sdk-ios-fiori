@@ -1567,6 +1567,23 @@ public extension View {
     }
 }
 
+// MARK: SectionHeaderStyle
+
+public extension View {
+    func sectionHeaderStyle(_ style: some SectionHeaderStyle) -> some View {
+        self.transformEnvironment(\.sectionHeaderStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func sectionHeaderStyle(@ViewBuilder content: @escaping (SectionHeaderConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.sectionHeaderStyleStack) { stack in
+            let style = AnySectionHeaderStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: SegmentedControlPickerStyle
 
 public extension View {
