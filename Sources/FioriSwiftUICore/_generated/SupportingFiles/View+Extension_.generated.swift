@@ -785,6 +785,23 @@ public extension View {
     }
 }
 
+// MARK: InnerCircleStyle
+
+public extension View {
+    func innerCircleStyle(_ style: some InnerCircleStyle) -> some View {
+        self.transformEnvironment(\.innerCircleStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func innerCircleStyle(@ViewBuilder content: @escaping (InnerCircleConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.innerCircleStyleStack) { stack in
+            let style = AnyInnerCircleStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: JouleWelcomeScreenStyle
 
 public extension View {
@@ -1290,6 +1307,23 @@ public extension View {
     func optionsStyle(@ViewBuilder content: @escaping (OptionsConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.optionsStyleStack) { stack in
             let style = AnyOptionsStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: OuterCircleStyle
+
+public extension View {
+    func outerCircleStyle(_ style: some OuterCircleStyle) -> some View {
+        self.transformEnvironment(\.outerCircleStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func outerCircleStyle(@ViewBuilder content: @escaping (OuterCircleConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.outerCircleStyleStack) { stack in
+            let style = AnyOuterCircleStyle(content)
             stack.append(style)
         }
     }

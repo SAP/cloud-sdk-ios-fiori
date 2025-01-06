@@ -739,6 +739,22 @@ extension InformationViewStyle {
     }
 }
 
+// MARK: InnerCircleStyle
+
+struct ResolvedInnerCircleStyle<Style: InnerCircleStyle>: View {
+    let style: Style
+    let configuration: InnerCircleConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension InnerCircleStyle {
+    func resolve(configuration: InnerCircleConfiguration) -> some View {
+        ResolvedInnerCircleStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: JouleWelcomeScreenStyle
 
 struct ResolvedJouleWelcomeScreenStyle<Style: JouleWelcomeScreenStyle>: View {
@@ -1216,6 +1232,22 @@ struct ResolvedOptionsStyle<Style: OptionsStyle>: View {
 extension OptionsStyle {
     func resolve(configuration: OptionsConfiguration) -> some View {
         ResolvedOptionsStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: OuterCircleStyle
+
+struct ResolvedOuterCircleStyle<Style: OuterCircleStyle>: View {
+    let style: Style
+    let configuration: OuterCircleConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension OuterCircleStyle {
+    func resolve(configuration: OuterCircleConfiguration) -> some View {
+        ResolvedOuterCircleStyle(style: self, configuration: configuration)
     }
 }
 

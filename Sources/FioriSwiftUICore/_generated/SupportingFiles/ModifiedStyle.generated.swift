@@ -1296,6 +1296,34 @@ public extension InformationViewStyle {
     }
 }
 
+// MARK: InnerCircleStyle
+
+extension ModifiedStyle: InnerCircleStyle where Style: InnerCircleStyle {
+    public func makeBody(_ configuration: InnerCircleConfiguration) -> some View {
+        InnerCircle(configuration)
+            .innerCircleStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct InnerCircleStyleModifier<Style: InnerCircleStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.innerCircleStyle(self.style)
+    }
+}
+
+public extension InnerCircleStyle {
+    func modifier(_ modifier: some ViewModifier) -> some InnerCircleStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some InnerCircleStyle) -> some InnerCircleStyle {
+        style.modifier(InnerCircleStyleModifier(style: self))
+    }
+}
+
 // MARK: JouleWelcomeScreenStyle
 
 extension ModifiedStyle: JouleWelcomeScreenStyle where Style: JouleWelcomeScreenStyle {
@@ -2133,6 +2161,34 @@ public extension OptionsStyle {
 
     func concat(_ style: some OptionsStyle) -> some OptionsStyle {
         style.modifier(OptionsStyleModifier(style: self))
+    }
+}
+
+// MARK: OuterCircleStyle
+
+extension ModifiedStyle: OuterCircleStyle where Style: OuterCircleStyle {
+    public func makeBody(_ configuration: OuterCircleConfiguration) -> some View {
+        OuterCircle(configuration)
+            .outerCircleStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct OuterCircleStyleModifier<Style: OuterCircleStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.outerCircleStyle(self.style)
+    }
+}
+
+public extension OuterCircleStyle {
+    func modifier(_ modifier: some ViewModifier) -> some OuterCircleStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some OuterCircleStyle) -> some OuterCircleStyle {
+        style.modifier(OuterCircleStyleModifier(style: self))
     }
 }
 

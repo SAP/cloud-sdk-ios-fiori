@@ -346,6 +346,12 @@ extension InformationView: _ViewEmptyChecking {
     }
 }
 
+extension InnerCircle: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        innerCircle.isEmpty
+    }
+}
+
 extension JouleWelcomeScreen: _ViewEmptyChecking {
     public var isEmpty: Bool {
         mediaImage.isEmpty &&
@@ -366,7 +372,9 @@ extension KPIProgressItem: _ViewEmptyChecking {
     public var isEmpty: Bool {
         kPIContent.isEmpty &&
             kpiCaption.isEmpty &&
-            footnote.isEmpty
+            footnote.isEmpty &&
+            innerCircle.isEmpty &&
+            outerCircle.isEmpty
     }
 }
 
@@ -558,6 +566,12 @@ extension OptionalTitle: _ViewEmptyChecking {
 extension Options: _ViewEmptyChecking {
     public var isEmpty: Bool {
         false
+    }
+}
+
+extension OuterCircle: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        outerCircle.isEmpty
     }
 }
 

@@ -25,12 +25,16 @@ public struct KPIProgressItemConfiguration {
     public let kPIContent: KPIContent
     public let kpiCaption: KpiCaption
     public let footnote: Footnote
+    public let innerCircle: InnerCircle
+    public let outerCircle: OuterCircle
     @Binding public var data: KPIItemData
     public let chartSize: KPIProgressItemSize
 
     public typealias KPIContent = ConfigurationViewWrapper
     public typealias KpiCaption = ConfigurationViewWrapper
     public typealias Footnote = ConfigurationViewWrapper
+    public typealias InnerCircle = ConfigurationViewWrapper
+    public typealias OuterCircle = ConfigurationViewWrapper
 }
 
 public struct KPIProgressItemFioriStyle: KPIProgressItemStyle {
@@ -39,5 +43,7 @@ public struct KPIProgressItemFioriStyle: KPIProgressItemStyle {
             .kPIContentStyle(KPIContentFioriStyle(kPIProgressItemConfiguration: configuration))
             .kpiCaptionStyle(KpiCaptionFioriStyle(kPIProgressItemConfiguration: configuration))
             .footnoteStyle(FootnoteFioriStyle(kPIProgressItemConfiguration: configuration))
+            .innerCircleStyle(InnerCircleFioriStyle(kPIProgressItemConfiguration: configuration))
+            .outerCircleStyle(OuterCircleFioriStyle(kPIProgressItemConfiguration: configuration))
     }
 }

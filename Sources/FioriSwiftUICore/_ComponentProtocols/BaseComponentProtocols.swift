@@ -542,3 +542,17 @@ protocol _LineComponent {
     @ViewBuilder
     var line: (() -> any View)? { get }
 }
+
+// sourcery: BaseComponent
+protocol _InnerCircleComponent {
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "Circle()"
+    var innerCircle: any Shape { get }
+}
+
+// sourcery: BaseComponent
+protocol _OuterCircleComponent {
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "Circle()"
+    var outerCircle: any Shape { get }
+}

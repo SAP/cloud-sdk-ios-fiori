@@ -39,14 +39,14 @@ public struct KPIProgressExample: View {
         List {
             Section(header: Text("% Percent Data")) {
                 NavigationLink("Percentage without caption", destination: PercentageNoCaption())
-                NavigationLink("Percentage without caption", destination: PercentageCaptionInside())
-                NavigationLink("Percentage without caption", destination: PercentageCaptionOutside())
+                NavigationLink("Percentage with caption inside", destination: PercentageCaptionInside())
+                NavigationLink("Percentage with footnote", destination: PercentageCaptionOutside())
                 NavigationLink("Percentage disabled", destination: PercentageDisabled())
             }
             Section(header: Text("Σ Fraction Data")) {
                 NavigationLink("Fraction without caption", destination: FractionNoCaption(numberFormatterProvider: self))
                 NavigationLink("Fraction with caption inside", destination: FractionCaptionInside(numberFormatterProvider: self))
-                NavigationLink("Fraction with caption outside", destination: FractionCaptionOutside(numberFormatterProvider: self))
+                NavigationLink("Fraction with footnote", destination: FractionCaptionOutside(numberFormatterProvider: self))
                 NavigationLink("Fraction disabled", destination: FractionDisabled(numberFormatterProvider: self))
             }
             Section(header: Text("? Customized view")) {

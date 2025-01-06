@@ -740,7 +740,7 @@ protocol _ProcessingIndicatorComponent: _OptionalTitleComponent {}
 /// KPIProgressItem(kpiCaption: "In progress", data: .constant(fractionData), chartSize: .small)
 /// ```
 // sourcery: CompositeComponent
-protocol _KPIProgressItemComponent: _KPIContentComponent, _KpiCaptionComponent, _FootnoteComponent {
+protocol _KPIProgressItemComponent: _KPIContentComponent, _KpiCaptionComponent, _FootnoteComponent, _InnerCircleComponent, _OuterCircleComponent {
     // sourcery: @Binding
     var data: KPIItemData { get }
     

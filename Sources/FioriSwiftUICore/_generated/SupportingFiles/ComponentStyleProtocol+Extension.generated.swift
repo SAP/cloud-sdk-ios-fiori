@@ -2558,6 +2558,20 @@ public extension InformationViewStyle where Self == InformationViewDescriptionSt
     }
 }
 
+// MARK: InnerCircleStyle
+
+public extension InnerCircleStyle where Self == InnerCircleBaseStyle {
+    static var base: InnerCircleBaseStyle {
+        InnerCircleBaseStyle()
+    }
+}
+
+public extension InnerCircleStyle where Self == InnerCircleFioriStyle {
+    static var fiori: InnerCircleFioriStyle {
+        InnerCircleFioriStyle()
+    }
+}
+
 // MARK: JouleWelcomeScreenStyle
 
 public extension JouleWelcomeScreenStyle where Self == JouleWelcomeScreenBaseStyle {
@@ -2765,6 +2779,48 @@ public extension KPIProgressItemStyle where Self == KPIProgressItemFootnoteStyle
     static func footnoteStyle(@ViewBuilder content: @escaping (FootnoteConfiguration) -> some View) -> KPIProgressItemFootnoteStyle {
         let style = AnyFootnoteStyle(content)
         return KPIProgressItemFootnoteStyle(style: style)
+    }
+}
+
+public struct KPIProgressItemInnerCircleStyle: KPIProgressItemStyle {
+    let style: any InnerCircleStyle
+
+    public func makeBody(_ configuration: KPIProgressItemConfiguration) -> some View {
+        KPIProgressItem(configuration)
+            .innerCircleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension KPIProgressItemStyle where Self == KPIProgressItemInnerCircleStyle {
+    static func innerCircleStyle(_ style: some InnerCircleStyle) -> KPIProgressItemInnerCircleStyle {
+        KPIProgressItemInnerCircleStyle(style: style)
+    }
+
+    static func innerCircleStyle(@ViewBuilder content: @escaping (InnerCircleConfiguration) -> some View) -> KPIProgressItemInnerCircleStyle {
+        let style = AnyInnerCircleStyle(content)
+        return KPIProgressItemInnerCircleStyle(style: style)
+    }
+}
+
+public struct KPIProgressItemOuterCircleStyle: KPIProgressItemStyle {
+    let style: any OuterCircleStyle
+
+    public func makeBody(_ configuration: KPIProgressItemConfiguration) -> some View {
+        KPIProgressItem(configuration)
+            .outerCircleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension KPIProgressItemStyle where Self == KPIProgressItemOuterCircleStyle {
+    static func outerCircleStyle(_ style: some OuterCircleStyle) -> KPIProgressItemOuterCircleStyle {
+        KPIProgressItemOuterCircleStyle(style: style)
+    }
+
+    static func outerCircleStyle(@ViewBuilder content: @escaping (OuterCircleConfiguration) -> some View) -> KPIProgressItemOuterCircleStyle {
+        let style = AnyOuterCircleStyle(content)
+        return KPIProgressItemOuterCircleStyle(style: style)
     }
 }
 
@@ -4046,6 +4102,20 @@ public extension OptionsStyle where Self == OptionsBaseStyle {
 public extension OptionsStyle where Self == OptionsFioriStyle {
     static var fiori: OptionsFioriStyle {
         OptionsFioriStyle()
+    }
+}
+
+// MARK: OuterCircleStyle
+
+public extension OuterCircleStyle where Self == OuterCircleBaseStyle {
+    static var base: OuterCircleBaseStyle {
+        OuterCircleBaseStyle()
+    }
+}
+
+public extension OuterCircleStyle where Self == OuterCircleFioriStyle {
+    static var fiori: OuterCircleFioriStyle {
+        OuterCircleFioriStyle()
     }
 }
 

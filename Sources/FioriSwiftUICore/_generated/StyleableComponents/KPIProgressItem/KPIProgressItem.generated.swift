@@ -17,6 +17,8 @@ public struct KPIProgressItem {
     let kPIContent: any View
     let kpiCaption: any View
     let footnote: any View
+    let innerCircle: any View
+    let outerCircle: any View
     @Binding var data: KPIItemData
     let chartSize: KPIProgressItemSize
 
@@ -27,12 +29,16 @@ public struct KPIProgressItem {
     public init(@ViewBuilder kPIContent: () -> any View = { EmptyView() },
                 @ViewBuilder kpiCaption: () -> any View = { EmptyView() },
                 @ViewBuilder footnote: () -> any View = { EmptyView() },
+                @ViewBuilder innerCircle: () -> any View,
+                @ViewBuilder outerCircle: () -> any View,
                 data: Binding<KPIItemData>,
                 chartSize: KPIProgressItemSize = .large)
     {
         self.kPIContent = KPIContent(kPIContent: kPIContent)
         self.kpiCaption = KpiCaption(kpiCaption: kpiCaption)
         self.footnote = Footnote(footnote: footnote)
+        self.innerCircle = InnerCircle(innerCircle: innerCircle)
+        self.outerCircle = OuterCircle(outerCircle: outerCircle)
         self._data = data
         self.chartSize = chartSize
     }
@@ -42,10 +48,12 @@ public extension KPIProgressItem {
     init(@ViewBuilder kPIContent: () -> any View = { EmptyView() },
          kpiCaption: AttributedString? = nil,
          footnote: AttributedString? = nil,
+         innerCircle: any Shape = Circle(),
+         outerCircle: any Shape = Circle(),
          data: Binding<KPIItemData>,
          chartSize: KPIProgressItemSize = .large)
     {
-        self.init(kPIContent: kPIContent, kpiCaption: { OptionalText(kpiCaption) }, footnote: { OptionalText(footnote) }, data: data, chartSize: chartSize)
+        self.init(kPIContent: kPIContent, kpiCaption: { OptionalText(kpiCaption) }, footnote: { OptionalText(footnote) }, innerCircle: { innerCircle }, outerCircle: { outerCircle }, data: data, chartSize: chartSize)
     }
 }
 
@@ -58,6 +66,8 @@ public extension KPIProgressItem {
         self.kPIContent = configuration.kPIContent
         self.kpiCaption = configuration.kpiCaption
         self.footnote = configuration.footnote
+        self.innerCircle = configuration.innerCircle
+        self.outerCircle = configuration.outerCircle
         self._data = configuration.$data
         self.chartSize = configuration.chartSize
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
@@ -69,7 +79,7 @@ extension KPIProgressItem: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(kPIContent: .init(self.kPIContent), kpiCaption: .init(self.kpiCaption), footnote: .init(self.footnote), data: self.$data, chartSize: self.chartSize)).typeErased
+            self.style.resolve(configuration: .init(kPIContent: .init(self.kPIContent), kpiCaption: .init(self.kpiCaption), footnote: .init(self.footnote), innerCircle: .init(self.innerCircle), outerCircle: .init(self.outerCircle), data: self.$data, chartSize: self.chartSize)).typeErased
                 .transformEnvironment(\.kPIProgressItemStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -87,7 +97,7 @@ private extension KPIProgressItem {
     }
 
     func defaultStyle() -> some View {
-        KPIProgressItem(.init(kPIContent: .init(self.kPIContent), kpiCaption: .init(self.kpiCaption), footnote: .init(self.footnote), data: self.$data, chartSize: self.chartSize))
+        KPIProgressItem(.init(kPIContent: .init(self.kPIContent), kpiCaption: .init(self.kpiCaption), footnote: .init(self.footnote), innerCircle: .init(self.innerCircle), outerCircle: .init(self.outerCircle), data: self.$data, chartSize: self.chartSize))
             .shouldApplyDefaultStyle(false)
             .kPIProgressItemStyle(KPIProgressItemFioriStyle.ContentFioriStyle())
             .typeErased

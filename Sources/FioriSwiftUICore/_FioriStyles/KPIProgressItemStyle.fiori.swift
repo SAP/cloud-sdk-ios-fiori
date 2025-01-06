@@ -7,7 +7,6 @@ public struct KPIProgressItemBaseStyle: KPIProgressItemStyle {
     @Environment(\.isEnabled) var isEnabled: Bool
     @State var isPressed: Bool = false
     public func makeBody(_ configuration: KPIProgressItemConfiguration) -> some View {
-        // Add default layout here
         VStack(alignment: .center, spacing: 2) {
             ZStack {
                 StylableCircularProgressView(configuration: configuration, completedFractionColor: getFractionColor(for: getConfigState(isEnabled: self.isEnabled, isPressed: self.isPressed)))
@@ -25,6 +24,7 @@ public struct KPIProgressItemBaseStyle: KPIProgressItemStyle {
         }
         .environment(\.isPressed, self.isPressed)
         .frame(width: self.getFrameWidth(configuration: configuration))
+        .contentShape(.rect)
         .gesture(self.createGesture())
     }
     
@@ -104,18 +104,26 @@ struct StylableCircularProgressView: View {
     
     public var body: some View {
         ZStack {
-            Circle()
-                .stroke(lineWidth: 2)
-                .foregroundColor(self.circleColor)
-            Circle()
-                .trim(from: 0.0, to: self.drawingStroke ? CGFloat(min(self.configuration.data.fraction(), 1.0)) : 0)
-                .stroke(style: StrokeStyle(lineWidth: 2, lineCap: .round, lineJoin: .round))
-                .rotationEffect(Angle(degrees: 270))
-                .foregroundColor(self.completedFractionColor)
-                .onAppear {
-                    withAnimation(self.animation) {
-                        self.drawingStroke = true
-                    }
+            self.configuration.outerCircle
+                .foregroundStyle(Color.clear)
+                .overlay {
+                    Circle()
+                        .stroke(lineWidth: 2)
+                        .foregroundColor(self.circleColor)
+                }
+            self.configuration.innerCircle
+                .foregroundStyle(Color.clear)
+                .overlay {
+                    Circle()
+                        .trim(from: 0.0, to: self.drawingStroke ? CGFloat(min(self.configuration.data.fraction(), 1.0)) : 0)
+                        .stroke(style: StrokeStyle(lineWidth: 2, lineCap: .round, lineJoin: .round))
+                        .rotationEffect(Angle(degrees: 270))
+                        .foregroundColor(self.completedFractionColor)
+                        .onAppear {
+                            withAnimation(self.animation) {
+                                self.drawingStroke = true
+                            }
+                        }
                 }
         }
     }
@@ -169,6 +177,22 @@ extension KPIProgressItemFioriStyle {
                 .padding(EdgeInsets(top: 5, leading: 0, bottom: 5, trailing: 0))
         }
     }
+    
+    struct InnerCircleFioriStyle: InnerCircleStyle {
+        let kPIProgressItemConfiguration: KPIProgressItemConfiguration
+    
+        func makeBody(_ configuration: InnerCircleConfiguration) -> some View {
+            InnerCircle(configuration)
+        }
+    }
+    
+    struct OuterCircleFioriStyle: OuterCircleStyle {
+        let kPIProgressItemConfiguration: KPIProgressItemConfiguration
+    
+        func makeBody(_ configuration: OuterCircleConfiguration) -> some View {
+            OuterCircle(configuration)
+        }
+    }
 }
 
 /// Enum to determine whether to display the large or small progress circle around the KPIContent. Default: `KPIProgressItemSize.large`
@@ -177,14 +201,4 @@ public enum KPIProgressItemSize {
     case small
     /// Larger circle. 130px diameter
     case large
-}
-
-public extension KPIProgressItem {
-    init(data: Binding<KPIItemData>, chartSize: KPIProgressItemSize = .large) {
-        self.init(kPIContent: { EmptyView() },
-                  kpiCaption: { EmptyView() },
-                  footnote: { EmptyView() },
-                  data: data,
-                  chartSize: chartSize)
-    }
 }
