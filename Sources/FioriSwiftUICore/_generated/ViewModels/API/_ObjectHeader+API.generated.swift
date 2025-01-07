@@ -2,7 +2,7 @@
 // DO NOT EDIT
 import SwiftUI
 
-public struct ObjectHeader<Title: View, Subtitle: View, Tags: View, BodyText: View, Footnote: View, DescriptionText: View, Status: View, Substatus: View, DetailImage: View, DetailContent: View> {
+public struct _ObjectHeader<Title: View, Subtitle: View, Tags: View, BodyText: View, Footnote: View, DescriptionText: View, Status: View, Substatus: View, DetailImage: View, DetailContent: View> {
     @Environment(\.titleModifier) private var titleModifier
 	@Environment(\.subtitleModifier) private var subtitleModifier
 	@Environment(\.tagsModifier) private var tagsModifier
@@ -68,65 +68,65 @@ public struct ObjectHeader<Title: View, Subtitle: View, Tags: View, BodyText: Vi
 
     @ViewBuilder var title: some View {
         if isModelInit {
-            _title.modifier(titleModifier.concat(Fiori.ObjectHeader.title).concat(Fiori.ObjectHeader.titleCumulative))
+            _title.modifier(titleModifier.concat(Fiori._ObjectHeader.title).concat(Fiori._ObjectHeader.titleCumulative))
         } else {
-            _title.modifier(titleModifier.concat(Fiori.ObjectHeader.title))
+            _title.modifier(titleModifier.concat(Fiori._ObjectHeader.title))
         }
     }
 	@ViewBuilder var subtitle: some View {
         if isModelInit {
-            _subtitle.modifier(subtitleModifier.concat(Fiori.ObjectHeader.subtitle).concat(Fiori.ObjectHeader.subtitleCumulative))
+            _subtitle.modifier(subtitleModifier.concat(Fiori._ObjectHeader.subtitle).concat(Fiori._ObjectHeader.subtitleCumulative))
         } else {
-            _subtitle.modifier(subtitleModifier.concat(Fiori.ObjectHeader.subtitle))
+            _subtitle.modifier(subtitleModifier.concat(Fiori._ObjectHeader.subtitle))
         }
     }
 	@ViewBuilder var tags: some View {
         if isModelInit {
-            _tags.modifier(tagsModifier.concat(Fiori.ObjectHeader.tags).concat(Fiori.ObjectHeader.tagsCumulative))
+            _tags.modifier(tagsModifier.concat(Fiori._ObjectHeader.tags).concat(Fiori._ObjectHeader.tagsCumulative))
         } else {
-            _tags.modifier(tagsModifier.concat(Fiori.ObjectHeader.tags))
+            _tags.modifier(tagsModifier.concat(Fiori._ObjectHeader.tags))
         }
     }
 	@ViewBuilder var bodyText: some View {
         if isModelInit {
-            _bodyText.modifier(bodyTextModifier.concat(Fiori.ObjectHeader.bodyText).concat(Fiori.ObjectHeader.bodyTextCumulative))
+            _bodyText.modifier(bodyTextModifier.concat(Fiori._ObjectHeader.bodyText).concat(Fiori._ObjectHeader.bodyTextCumulative))
         } else {
-            _bodyText.modifier(bodyTextModifier.concat(Fiori.ObjectHeader.bodyText))
+            _bodyText.modifier(bodyTextModifier.concat(Fiori._ObjectHeader.bodyText))
         }
     }
 	@ViewBuilder var footnote: some View {
         if isModelInit {
-            _footnote.modifier(footnoteModifier.concat(Fiori.ObjectHeader.footnote).concat(Fiori.ObjectHeader.footnoteCumulative))
+            _footnote.modifier(footnoteModifier.concat(Fiori._ObjectHeader.footnote).concat(Fiori._ObjectHeader.footnoteCumulative))
         } else {
-            _footnote.modifier(footnoteModifier.concat(Fiori.ObjectHeader.footnote))
+            _footnote.modifier(footnoteModifier.concat(Fiori._ObjectHeader.footnote))
         }
     }
 	@ViewBuilder var descriptionText: some View {
         if isModelInit {
-            _descriptionText.modifier(descriptionTextModifier.concat(Fiori.ObjectHeader.descriptionText).concat(Fiori.ObjectHeader.descriptionTextCumulative))
+            _descriptionText.modifier(descriptionTextModifier.concat(Fiori._ObjectHeader.descriptionText).concat(Fiori._ObjectHeader.descriptionTextCumulative))
         } else {
-            _descriptionText.modifier(descriptionTextModifier.concat(Fiori.ObjectHeader.descriptionText))
+            _descriptionText.modifier(descriptionTextModifier.concat(Fiori._ObjectHeader.descriptionText))
         }
     }
 	@ViewBuilder var status: some View {
         if isModelInit {
-            _status.modifier(statusModifier.concat(Fiori.ObjectHeader.status).concat(Fiori.ObjectHeader.statusCumulative))
+            _status.modifier(statusModifier.concat(Fiori._ObjectHeader.status).concat(Fiori._ObjectHeader.statusCumulative))
         } else {
-            _status.modifier(statusModifier.concat(Fiori.ObjectHeader.status))
+            _status.modifier(statusModifier.concat(Fiori._ObjectHeader.status))
         }
     }
 	@ViewBuilder var substatus: some View {
         if isModelInit {
-            _substatus.modifier(substatusModifier.concat(Fiori.ObjectHeader.substatus).concat(Fiori.ObjectHeader.substatusCumulative))
+            _substatus.modifier(substatusModifier.concat(Fiori._ObjectHeader.substatus).concat(Fiori._ObjectHeader.substatusCumulative))
         } else {
-            _substatus.modifier(substatusModifier.concat(Fiori.ObjectHeader.substatus))
+            _substatus.modifier(substatusModifier.concat(Fiori._ObjectHeader.substatus))
         }
     }
 	@ViewBuilder var detailImage: some View {
         if isModelInit {
-            _detailImage.modifier(detailImageModifier.concat(Fiori.ObjectHeader.detailImage).concat(Fiori.ObjectHeader.detailImageCumulative))
+            _detailImage.modifier(detailImageModifier.concat(Fiori._ObjectHeader.detailImage).concat(Fiori._ObjectHeader.detailImageCumulative))
         } else {
-            _detailImage.modifier(detailImageModifier.concat(Fiori.ObjectHeader.detailImage))
+            _detailImage.modifier(detailImageModifier.concat(Fiori._ObjectHeader.detailImage))
         }
     }
     var detailContent: some View {
@@ -165,7 +165,7 @@ public struct ObjectHeader<Title: View, Subtitle: View, Tags: View, BodyText: Vi
     }
 }
 
-extension ObjectHeader where Title == Text,
+extension _ObjectHeader where Title == Text,
 		Subtitle == _ConditionalContent<Text, EmptyView>,
 		Tags == _ConditionalContent<TagStack, EmptyView>,
 		BodyText == _ConditionalContent<Text, EmptyView>,
@@ -175,7 +175,7 @@ extension ObjectHeader where Title == Text,
 		Substatus == _ConditionalContent<TextOrIconView, EmptyView>,
 		DetailImage == _ConditionalContent<Image, EmptyView> {
 
-    public init(model: ObjectHeaderModel, @ViewBuilder detailContent: () -> DetailContent) {
+    public init(model: _ObjectHeaderModel, @ViewBuilder detailContent: () -> DetailContent) {
         self.init(title: model.title, subtitle: model.subtitle, tags: model.tags, bodyText: model.bodyText, footnote: model.footnote, descriptionText: model.descriptionText, status: model.status, substatus: model.substatus, detailImage: model.detailImage, detailContent: detailContent)
     }
 

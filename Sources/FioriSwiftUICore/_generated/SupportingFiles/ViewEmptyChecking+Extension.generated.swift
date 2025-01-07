@@ -87,6 +87,12 @@ extension BannerMultiMessageSheet: _ViewEmptyChecking {
     }
 }
 
+extension BodyText: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        bodyText.isEmpty
+    }
+}
+
 extension CancelAction: _ViewEmptyChecking {
     public var isEmpty: Bool {
         cancelAction.isEmpty
@@ -224,9 +230,21 @@ extension Description: _ViewEmptyChecking {
     }
 }
 
+extension DescriptionText: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        descriptionText.isEmpty
+    }
+}
+
 extension DeselectAllAction: _ViewEmptyChecking {
     public var isEmpty: Bool {
         deselectAllAction.isEmpty
+    }
+}
+
+extension DetailContent: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        detailContent.isEmpty
     }
 }
 
@@ -346,6 +364,12 @@ extension InformationView: _ViewEmptyChecking {
     }
 }
 
+extension InnerCircle: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        innerCircle.isEmpty
+    }
+}
+
 extension JouleWelcomeScreen: _ViewEmptyChecking {
     public var isEmpty: Bool {
         mediaImage.isEmpty &&
@@ -353,6 +377,22 @@ extension JouleWelcomeScreen: _ViewEmptyChecking {
             title.isEmpty &&
             footnote.isEmpty &&
             messageContent.isEmpty
+    }
+}
+
+extension KPIContent: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        kPIContent.isEmpty
+    }
+}
+
+extension KPIProgressItem: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        kPIContent.isEmpty &&
+            kpiCaption.isEmpty &&
+            footnote.isEmpty &&
+            innerCircle.isEmpty &&
+            outerCircle.isEmpty
     }
 }
 
@@ -504,6 +544,21 @@ extension NowIndicatorNode: _ViewEmptyChecking {
     }
 }
 
+extension ObjectHeader: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        title.isEmpty &&
+            subtitle.isEmpty &&
+            tags.isEmpty &&
+            bodyText.isEmpty &&
+            footnote.isEmpty &&
+            descriptionText.isEmpty &&
+            status.isEmpty &&
+            substatus.isEmpty &&
+            detailImage.isEmpty &&
+            detailContent.isEmpty
+    }
+}
+
 extension ObjectItem: _ViewEmptyChecking {
     public var isEmpty: Bool {
         title.isEmpty &&
@@ -544,6 +599,12 @@ extension OptionalTitle: _ViewEmptyChecking {
 extension Options: _ViewEmptyChecking {
     public var isEmpty: Bool {
         false
+    }
+}
+
+extension OuterCircle: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        outerCircle.isEmpty
     }
 }
 
