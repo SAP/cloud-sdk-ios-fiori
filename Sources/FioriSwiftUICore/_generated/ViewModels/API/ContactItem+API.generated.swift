@@ -96,13 +96,13 @@ extension ContactItem where Title == Text,
 		Subtitle == _ConditionalContent<Text, EmptyView>,
 		DescriptionText == _ConditionalContent<Text, EmptyView>,
 		DetailImage == _ConditionalContent<Image, EmptyView>,
-		ActionItems == _ConditionalContent<ActivityItems, EmptyView> {
+		ActionItems == _ConditionalContent<_ActivityItems, EmptyView> {
 
     public init(model: ContactItemModel) {
-        self.init(title: model.title, subtitle: model.subtitle, descriptionText: model.descriptionText, detailImage: model.detailImage, actionItems: model.actionItems != nil ? ActivityItems(model: model.actionItems!) : nil)
+        self.init(title: model.title, subtitle: model.subtitle, descriptionText: model.descriptionText, detailImage: model.detailImage, actionItems: model.actionItems != nil ? _ActivityItems(model: model.actionItems!) : nil)
     }
 
-    public init(title: String, subtitle: String? = nil, descriptionText: String? = nil, detailImage: Image? = nil, actionItems: ActivityItems? = nil) {
+    public init(title: String, subtitle: String? = nil, descriptionText: String? = nil, detailImage: Image? = nil, actionItems: _ActivityItems? = nil) {
         self._title = Text(title)
 		self._subtitle = subtitle != nil ? ViewBuilder.buildEither(first: Text(subtitle!)) : ViewBuilder.buildEither(second: EmptyView())
 		self._descriptionText = descriptionText != nil ? ViewBuilder.buildEither(first: Text(descriptionText!)) : ViewBuilder.buildEither(second: EmptyView())
