@@ -3,6 +3,31 @@
 import Foundation
 import SwiftUI
 
+/// `ObjectHeader` is a view that displays an object's title, subtitle, tags, body text, footnote, description, status, substatus, detail image and detail content.
+/// ## Usage
+/// ```swift
+/// ObjectHeader {
+///     Text("title")
+/// } subtitle: {
+///     Text("subtitle")
+/// } tags: {
+///     Text("tag01")
+/// } bodyText: {
+///     Text("body")
+/// } footnote: {
+///     Text("footnote")
+/// } descriptionText: {
+///     Text("description")
+/// } status: {
+///     Text("status")
+/// } substatus: {
+///     Text("substatus")
+/// } detailImage: {
+///     Image(systemName: "person")
+/// } detailContent: {
+///     Text("detail content")
+/// }
+/// ```
 public struct ObjectHeader {
     let title: any View
     let subtitle: any View
