@@ -1003,5 +1003,30 @@ protocol _StepProgressIndicatorComponent: _TitleComponent, _ActionComponent, _Ca
     var steps: [StepItem] { get }
 }
 
+/// `ObjectHeader` is a view that displays an object's title, subtitle, tags, body text, footnote, description, status, substatus, detail image and detail content.
+/// ## Usage
+/// ```swift
+/// ObjectHeader {
+///     Text("title")
+/// } subtitle: {
+///     Text("subtitle")
+/// } tags: {
+///     Text("tag01")
+/// } bodyText: {
+///     Text("body")
+/// } footnote: {
+///     Text("footnote")
+/// } descriptionText: {
+///     Text("description")
+/// } status: {
+///     Text("status")
+/// } substatus: {
+///     Text("substatus")
+/// } detailImage: {
+///     Image(systemName: "person")
+/// } detailContent: {
+///     Text("detail content")
+/// }
+/// ```
 // sourcery: CompositeComponent
 protocol _ObjectHeaderComponent: _TitleComponent, _SubtitleComponent, _TagsComponent, _BodyTextComponent, _FootnoteComponent, _DescriptionTextComponent, _StatusComponent, _SubstatusComponent, _DetailImageComponent, _DetailContentComponent {}
