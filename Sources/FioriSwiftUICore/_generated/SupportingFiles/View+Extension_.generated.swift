@@ -1890,6 +1890,23 @@ public extension View {
     }
 }
 
+// MARK: TextInputStyle
+
+public extension View {
+    func textInputStyle(_ style: some TextInputStyle) -> some View {
+        self.transformEnvironment(\.textInputStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func textInputStyle(@ViewBuilder content: @escaping (TextInputConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.textInputStyleStack) { stack in
+            let style = AnyTextInputStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: TextInputFieldStyle
 
 public extension View {

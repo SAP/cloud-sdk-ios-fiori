@@ -485,6 +485,15 @@ protocol _ActivityItemsComponent {
 }
 
 // sourcery: BaseComponent
+protocol _TextInputComponent {
+    // sourcery: @Binding
+    // sourcery: defaultValue = ".constant("")"
+    var textInputValue: String { get }
+    // sourcery: no_view
+    var onCommit: (() -> Void)? { get }
+}
+
+// sourcery: BaseComponent
 protocol _LowerThumbComponent {
     // sourcery: @ViewBuilder
     // sourcery: defaultValue = "Circle()"

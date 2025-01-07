@@ -6,13 +6,13 @@
 import SwiftUI
 
 extension Fiori {
-    enum TextInput {
+    enum _TextInput {
         typealias TextInputValue = EmptyModifier
         static let textInputValue = TextInputValue()
     }
 }
 
-extension TextInput: View {
+extension _TextInput: View {
     public var body: some View {
         TextField("Default",
                   text: self._textInputValue,

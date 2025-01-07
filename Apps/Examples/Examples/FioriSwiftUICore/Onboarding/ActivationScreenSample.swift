@@ -4,7 +4,7 @@ import SwiftUI
 
 class ActivationScreenDataModel: ActivationScreenModel, ObservableObject {
     // Changes in nested observable object will not trigger refresh. Need to send notification by explicitly calling `send()`
-    @Published var textInput: TextInputModel?
+    @Published var textInput: _TextInputModel?
     lazy var action: _ActionModel? = ActionDataModel { [unowned self] in
         print("ActivationScreen Primary button clicked, email: \(self.textInput!.textInputValue)")
     }
@@ -31,7 +31,7 @@ class ActivationScreenDataModel: ActivationScreenModel, ObservableObject {
 }
 
 extension ActivationScreenDataModel {
-    class TextInputDataModel: TextInputModel, ObservableObject {
+    class TextInputDataModel: _TextInputModel, ObservableObject {
         @Published var textInputValue: String = ""
         
         var onCommit: (() -> Void)? = {

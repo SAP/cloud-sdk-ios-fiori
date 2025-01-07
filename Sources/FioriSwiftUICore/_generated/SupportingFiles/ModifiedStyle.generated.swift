@@ -3116,6 +3116,34 @@ public extension TextFieldFormViewStyle {
     }
 }
 
+// MARK: TextInputStyle
+
+extension ModifiedStyle: TextInputStyle where Style: TextInputStyle {
+    public func makeBody(_ configuration: TextInputConfiguration) -> some View {
+        TextInput(configuration)
+            .textInputStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct TextInputStyleModifier<Style: TextInputStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.textInputStyle(self.style)
+    }
+}
+
+public extension TextInputStyle {
+    func modifier(_ modifier: some ViewModifier) -> some TextInputStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some TextInputStyle) -> some TextInputStyle {
+        style.modifier(TextInputStyleModifier(style: self))
+    }
+}
+
 // MARK: TextInputFieldStyle
 
 extension ModifiedStyle: TextInputFieldStyle where Style: TextInputFieldStyle {

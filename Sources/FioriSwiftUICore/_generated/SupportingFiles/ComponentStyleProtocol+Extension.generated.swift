@@ -5694,6 +5694,20 @@ public extension TextFieldFormViewStyle where Self == TextFieldFormViewTitleForm
     }
 }
 
+// MARK: TextInputStyle
+
+public extension TextInputStyle where Self == TextInputBaseStyle {
+    static var base: TextInputBaseStyle {
+        TextInputBaseStyle()
+    }
+}
+
+public extension TextInputStyle where Self == TextInputFioriStyle {
+    static var fiori: TextInputFioriStyle {
+        TextInputFioriStyle()
+    }
+}
+
 // MARK: TextInputFieldStyle
 
 public extension TextInputFieldStyle where Self == TextInputFieldBaseStyle {

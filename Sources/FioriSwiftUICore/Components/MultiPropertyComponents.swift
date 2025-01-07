@@ -16,7 +16,7 @@ protocol __Action: _ComponentMultiPropGenerating {
     var didSelectAction_: (() -> Void)? { get }
 }
 
-protocol _TextInput: _ComponentMultiPropGenerating, AnyObject {
+protocol __TextInput: _ComponentMultiPropGenerating, AnyObject {
     // sourcery: bindingPropertyOptional = .constant("")
     var textInputValue_: String { get set }
     // sourcery: no_view

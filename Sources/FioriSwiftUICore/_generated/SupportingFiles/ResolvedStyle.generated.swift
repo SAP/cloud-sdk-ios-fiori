@@ -1779,6 +1779,22 @@ extension TextFieldFormViewStyle {
     }
 }
 
+// MARK: TextInputStyle
+
+struct ResolvedTextInputStyle<Style: TextInputStyle>: View {
+    let style: Style
+    let configuration: TextInputConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension TextInputStyle {
+    func resolve(configuration: TextInputConfiguration) -> some View {
+        ResolvedTextInputStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: TextInputFieldStyle
 
 struct ResolvedTextInputFieldStyle<Style: TextInputFieldStyle>: View {

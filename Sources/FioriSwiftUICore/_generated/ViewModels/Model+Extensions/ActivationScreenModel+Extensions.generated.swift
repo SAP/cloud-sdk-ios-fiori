@@ -11,7 +11,7 @@ public extension ActivationScreenModel {
         return nil
     }
 
-	var textInput: TextInputModel? {
+	var textInput: _TextInputModel? {
         return nil
     }
 }

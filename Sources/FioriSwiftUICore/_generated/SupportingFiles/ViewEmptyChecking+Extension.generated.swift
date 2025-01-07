@@ -804,6 +804,12 @@ extension TextFieldFormView: _ViewEmptyChecking {
     }
 }
 
+extension TextInput: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        false
+    }
+}
+
 extension TextInputField: _ViewEmptyChecking {
     public var isEmpty: Bool {
         false
