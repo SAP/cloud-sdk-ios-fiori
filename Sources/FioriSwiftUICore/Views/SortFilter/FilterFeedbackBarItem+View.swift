@@ -896,18 +896,11 @@ struct FullCFGMenuItem: View {
             .onTapGesture {
                 self.isSheetVisible.toggle()
             }
-            .ifApply(UIDevice.current.userInterfaceIdiom == .phone, content: { v in
-                v.popover(isPresented: self.$isSheetVisible, arrowEdge: self.barItemFrame.arrowDirection()) {
-                    self.sortConfigurationView()
-                }
-            })
             .ifApply(UIDevice.current.userInterfaceIdiom != .phone, content: { v in
                 v.modifier(PopoverSizeModifier(isPresented: self.$isSheetVisible, arrowEdge: self.barItemFrame.arrowDirection(), popoverSize: CGSize(width: self.popoverWidth, height: self.detentHeight), popoverContent: {
                     self.sortConfigurationView()
                 }))
-            })
-            .ifApply(UIDevice.current.userInterfaceIdiom != .phone, content: { v in
-                v.background(GeometryReader { geometry in
+                .background(GeometryReader { geometry in
                     Color.clear
                         .onAppear {
                             self.barItemFrame = geometry.frame(in: .global)

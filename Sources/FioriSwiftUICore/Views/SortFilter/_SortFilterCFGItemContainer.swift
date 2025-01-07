@@ -13,6 +13,7 @@ public struct _SortFilterCFGItemContainer {
     
     @Binding var _items: [[SortFilterItem]]
     @State var height = 88.0
+    /// The frame of the view toggle to show this view.
     public var btnFrame: CGRect = .zero
     var showSubList: ((Bool) -> Void)?
     #if !os(visionOS)
@@ -24,6 +25,10 @@ public struct _SortFilterCFGItemContainer {
     @State var searchListHeight: CGFloat = 88.0
     @State var _keyboardHeight: CGFloat = 0.0
 
+    /// Create a SortFilterCFGItemContainer view.
+    /// - Parameters:
+    ///   - items: Option views in the list.
+    ///   - btnFrame: The frame of the view toggle to show this view.
     public init(items: Binding<[[SortFilterItem]]>, btnFrame: CGRect = .zero) {
         self.__items = items
         self.btnFrame = btnFrame
