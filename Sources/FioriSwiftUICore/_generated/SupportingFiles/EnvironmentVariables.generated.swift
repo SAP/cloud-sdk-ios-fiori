@@ -1032,6 +1032,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: InnerCircleStyle
+
+struct InnerCircleStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any InnerCircleStyle] = []
+}
+
+extension EnvironmentValues {
+    var innerCircleStyle: any InnerCircleStyle {
+        self.innerCircleStyleStack.last ?? .base
+    }
+
+    var innerCircleStyleStack: [any InnerCircleStyle] {
+        get {
+            self[InnerCircleStyleStackKey.self]
+        }
+        set {
+            self[InnerCircleStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: JouleWelcomeScreenStyle
 
 struct JouleWelcomeScreenStyleStackKey: EnvironmentKey {
@@ -1049,6 +1070,48 @@ extension EnvironmentValues {
         }
         set {
             self[JouleWelcomeScreenStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: KPIContentStyle
+
+struct KPIContentStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any KPIContentStyle] = []
+}
+
+extension EnvironmentValues {
+    var kPIContentStyle: any KPIContentStyle {
+        self.kPIContentStyleStack.last ?? .base
+    }
+
+    var kPIContentStyleStack: [any KPIContentStyle] {
+        get {
+            self[KPIContentStyleStackKey.self]
+        }
+        set {
+            self[KPIContentStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: KPIProgressItemStyle
+
+struct KPIProgressItemStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any KPIProgressItemStyle] = []
+}
+
+extension EnvironmentValues {
+    var kPIProgressItemStyle: any KPIProgressItemStyle {
+        self.kPIProgressItemStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var kPIProgressItemStyleStack: [any KPIProgressItemStyle] {
+        get {
+            self[KPIProgressItemStyleStackKey.self]
+        }
+        set {
+            self[KPIProgressItemStyleStackKey.self] = newValue
         }
     }
 }
@@ -1637,6 +1700,27 @@ extension EnvironmentValues {
         }
         set {
             self[OptionsStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: OuterCircleStyle
+
+struct OuterCircleStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any OuterCircleStyle] = []
+}
+
+extension EnvironmentValues {
+    var outerCircleStyle: any OuterCircleStyle {
+        self.outerCircleStyleStack.last ?? .base
+    }
+
+    var outerCircleStyleStack: [any OuterCircleStyle] {
+        get {
+            self[OuterCircleStyleStackKey.self]
+        }
+        set {
+            self[OuterCircleStyleStackKey.self] = newValue
         }
     }
 }

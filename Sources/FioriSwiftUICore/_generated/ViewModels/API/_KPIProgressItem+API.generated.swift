@@ -2,7 +2,7 @@
 // DO NOT EDIT
 import SwiftUI
 
-public struct KPIProgressItem<Kpi: View, Subtitle: View, Footnote: View> {
+public struct _KPIProgressItem<Kpi: View, Subtitle: View, Footnote: View> {
     @Environment(\.kpiModifier) private var kpiModifier
 	@Environment(\.subtitleModifier) private var subtitleModifier
 	@Environment(\.footnoteModifier) private var footnoteModifier
@@ -34,23 +34,23 @@ public struct KPIProgressItem<Kpi: View, Subtitle: View, Footnote: View> {
 
     @ViewBuilder var kpi: some View {
         if isModelInit {
-            _kpi.modifier(kpiModifier.concat(Fiori.KPIProgressItem.kpi).concat(Fiori.KPIProgressItem.kpiCumulative))
+            _kpi.modifier(kpiModifier.concat(Fiori._KPIProgressItem.kpi).concat(Fiori._KPIProgressItem.kpiCumulative))
         } else {
-            _kpi.modifier(kpiModifier.concat(Fiori.KPIProgressItem.kpi))
+            _kpi.modifier(kpiModifier.concat(Fiori._KPIProgressItem.kpi))
         }
     }
 	@ViewBuilder var subtitle: some View {
         if isModelInit {
-            _subtitle.modifier(subtitleModifier.concat(Fiori.KPIProgressItem.subtitle).concat(Fiori.KPIProgressItem.subtitleCumulative))
+            _subtitle.modifier(subtitleModifier.concat(Fiori._KPIProgressItem.subtitle).concat(Fiori._KPIProgressItem.subtitleCumulative))
         } else {
-            _subtitle.modifier(subtitleModifier.concat(Fiori.KPIProgressItem.subtitle))
+            _subtitle.modifier(subtitleModifier.concat(Fiori._KPIProgressItem.subtitle))
         }
     }
 	@ViewBuilder var footnote: some View {
         if isModelInit {
-            _footnote.modifier(footnoteModifier.concat(Fiori.KPIProgressItem.footnote).concat(Fiori.KPIProgressItem.footnoteCumulative))
+            _footnote.modifier(footnoteModifier.concat(Fiori._KPIProgressItem.footnote).concat(Fiori._KPIProgressItem.footnoteCumulative))
         } else {
-            _footnote.modifier(footnoteModifier.concat(Fiori.KPIProgressItem.footnote))
+            _footnote.modifier(footnoteModifier.concat(Fiori._KPIProgressItem.footnote))
         }
     }
     
@@ -67,11 +67,11 @@ public struct KPIProgressItem<Kpi: View, Subtitle: View, Footnote: View> {
     }
 }
 
-extension KPIProgressItem where Kpi == _ConditionalContent<Text, EmptyView>,
+extension _KPIProgressItem where Kpi == _ConditionalContent<Text, EmptyView>,
 		Subtitle == _ConditionalContent<Text, EmptyView>,
 		Footnote == _ConditionalContent<Text, EmptyView> {
 
-    public init(model: KPIProgressItemModel) {
+    public init(model: _KPIProgressItemModel) {
         self.init(kpi: model.kpi, fraction: model.fraction, subtitle: model.subtitle, footnote: model.footnote)
     }
 

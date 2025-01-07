@@ -836,6 +836,23 @@ public extension View {
     }
 }
 
+// MARK: InnerCircleStyle
+
+public extension View {
+    func innerCircleStyle(_ style: some InnerCircleStyle) -> some View {
+        self.transformEnvironment(\.innerCircleStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func innerCircleStyle(@ViewBuilder content: @escaping (InnerCircleConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.innerCircleStyleStack) { stack in
+            let style = AnyInnerCircleStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: JouleWelcomeScreenStyle
 
 public extension View {
@@ -848,6 +865,40 @@ public extension View {
     func jouleWelcomeScreenStyle(@ViewBuilder content: @escaping (JouleWelcomeScreenConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.jouleWelcomeScreenStyleStack) { stack in
             let style = AnyJouleWelcomeScreenStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: KPIContentStyle
+
+public extension View {
+    func kPIContentStyle(_ style: some KPIContentStyle) -> some View {
+        self.transformEnvironment(\.kPIContentStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func kPIContentStyle(@ViewBuilder content: @escaping (KPIContentConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.kPIContentStyleStack) { stack in
+            let style = AnyKPIContentStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: KPIProgressItemStyle
+
+public extension View {
+    func kPIProgressItemStyle(_ style: some KPIProgressItemStyle) -> some View {
+        self.transformEnvironment(\.kPIProgressItemStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func kPIProgressItemStyle(@ViewBuilder content: @escaping (KPIProgressItemConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.kPIProgressItemStyleStack) { stack in
+            let style = AnyKPIProgressItemStyle(content)
             stack.append(style)
         }
     }
@@ -1324,6 +1375,23 @@ public extension View {
     func optionsStyle(@ViewBuilder content: @escaping (OptionsConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.optionsStyleStack) { stack in
             let style = AnyOptionsStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: OuterCircleStyle
+
+public extension View {
+    func outerCircleStyle(_ style: some OuterCircleStyle) -> some View {
+        self.transformEnvironment(\.outerCircleStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func outerCircleStyle(@ViewBuilder content: @escaping (OuterCircleConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.outerCircleStyleStack) { stack in
+            let style = AnyOuterCircleStyle(content)
             stack.append(style)
         }
     }

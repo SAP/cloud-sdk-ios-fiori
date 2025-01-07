@@ -787,6 +787,22 @@ extension InformationViewStyle {
     }
 }
 
+// MARK: InnerCircleStyle
+
+struct ResolvedInnerCircleStyle<Style: InnerCircleStyle>: View {
+    let style: Style
+    let configuration: InnerCircleConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension InnerCircleStyle {
+    func resolve(configuration: InnerCircleConfiguration) -> some View {
+        ResolvedInnerCircleStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: JouleWelcomeScreenStyle
 
 struct ResolvedJouleWelcomeScreenStyle<Style: JouleWelcomeScreenStyle>: View {
@@ -800,6 +816,38 @@ struct ResolvedJouleWelcomeScreenStyle<Style: JouleWelcomeScreenStyle>: View {
 extension JouleWelcomeScreenStyle {
     func resolve(configuration: JouleWelcomeScreenConfiguration) -> some View {
         ResolvedJouleWelcomeScreenStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: KPIContentStyle
+
+struct ResolvedKPIContentStyle<Style: KPIContentStyle>: View {
+    let style: Style
+    let configuration: KPIContentConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension KPIContentStyle {
+    func resolve(configuration: KPIContentConfiguration) -> some View {
+        ResolvedKPIContentStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: KPIProgressItemStyle
+
+struct ResolvedKPIProgressItemStyle<Style: KPIProgressItemStyle>: View {
+    let style: Style
+    let configuration: KPIProgressItemConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension KPIProgressItemStyle {
+    func resolve(configuration: KPIProgressItemConfiguration) -> some View {
+        ResolvedKPIProgressItemStyle(style: self, configuration: configuration)
     }
 }
 
@@ -1248,6 +1296,22 @@ struct ResolvedOptionsStyle<Style: OptionsStyle>: View {
 extension OptionsStyle {
     func resolve(configuration: OptionsConfiguration) -> some View {
         ResolvedOptionsStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: OuterCircleStyle
+
+struct ResolvedOuterCircleStyle<Style: OuterCircleStyle>: View {
+    let style: Style
+    let configuration: OuterCircleConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension OuterCircleStyle {
+    func resolve(configuration: OuterCircleConfiguration) -> some View {
+        ResolvedOuterCircleStyle(style: self, configuration: configuration)
     }
 }
 

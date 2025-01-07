@@ -1380,6 +1380,34 @@ public extension InformationViewStyle {
     }
 }
 
+// MARK: InnerCircleStyle
+
+extension ModifiedStyle: InnerCircleStyle where Style: InnerCircleStyle {
+    public func makeBody(_ configuration: InnerCircleConfiguration) -> some View {
+        InnerCircle(configuration)
+            .innerCircleStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct InnerCircleStyleModifier<Style: InnerCircleStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.innerCircleStyle(self.style)
+    }
+}
+
+public extension InnerCircleStyle {
+    func modifier(_ modifier: some ViewModifier) -> some InnerCircleStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some InnerCircleStyle) -> some InnerCircleStyle {
+        style.modifier(InnerCircleStyleModifier(style: self))
+    }
+}
+
 // MARK: JouleWelcomeScreenStyle
 
 extension ModifiedStyle: JouleWelcomeScreenStyle where Style: JouleWelcomeScreenStyle {
@@ -1405,6 +1433,62 @@ public extension JouleWelcomeScreenStyle {
 
     func concat(_ style: some JouleWelcomeScreenStyle) -> some JouleWelcomeScreenStyle {
         style.modifier(JouleWelcomeScreenStyleModifier(style: self))
+    }
+}
+
+// MARK: KPIContentStyle
+
+extension ModifiedStyle: KPIContentStyle where Style: KPIContentStyle {
+    public func makeBody(_ configuration: KPIContentConfiguration) -> some View {
+        KPIContent(configuration)
+            .kPIContentStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct KPIContentStyleModifier<Style: KPIContentStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.kPIContentStyle(self.style)
+    }
+}
+
+public extension KPIContentStyle {
+    func modifier(_ modifier: some ViewModifier) -> some KPIContentStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some KPIContentStyle) -> some KPIContentStyle {
+        style.modifier(KPIContentStyleModifier(style: self))
+    }
+}
+
+// MARK: KPIProgressItemStyle
+
+extension ModifiedStyle: KPIProgressItemStyle where Style: KPIProgressItemStyle {
+    public func makeBody(_ configuration: KPIProgressItemConfiguration) -> some View {
+        KPIProgressItem(configuration)
+            .kPIProgressItemStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct KPIProgressItemStyleModifier<Style: KPIProgressItemStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.kPIProgressItemStyle(self.style)
+    }
+}
+
+public extension KPIProgressItemStyle {
+    func modifier(_ modifier: some ViewModifier) -> some KPIProgressItemStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some KPIProgressItemStyle) -> some KPIProgressItemStyle {
+        style.modifier(KPIProgressItemStyleModifier(style: self))
     }
 }
 
@@ -2189,6 +2273,34 @@ public extension OptionsStyle {
 
     func concat(_ style: some OptionsStyle) -> some OptionsStyle {
         style.modifier(OptionsStyleModifier(style: self))
+    }
+}
+
+// MARK: OuterCircleStyle
+
+extension ModifiedStyle: OuterCircleStyle where Style: OuterCircleStyle {
+    public func makeBody(_ configuration: OuterCircleConfiguration) -> some View {
+        OuterCircle(configuration)
+            .outerCircleStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct OuterCircleStyleModifier<Style: OuterCircleStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.outerCircleStyle(self.style)
+    }
+}
+
+public extension OuterCircleStyle {
+    func modifier(_ modifier: some ViewModifier) -> some OuterCircleStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some OuterCircleStyle) -> some OuterCircleStyle {
+        style.modifier(OuterCircleStyleModifier(style: self))
     }
 }
 
