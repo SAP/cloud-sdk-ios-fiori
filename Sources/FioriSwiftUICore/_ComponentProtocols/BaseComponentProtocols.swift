@@ -55,6 +55,12 @@ protocol _DescriptionComponent {
 }
 
 // sourcery: BaseComponent
+protocol _DescriptionTextComponent {
+    // sourcery: @ViewBuilder
+    var descriptionText: AttributedString? { get }
+}
+
+// sourcery: BaseComponent
 protocol _StatusComponent {
     // sourcery: resultBuilder.name = @ViewBuilder, resultBuilder.backingComponent = TextOrIconView
     var status: TextOrIcon? { get }
@@ -541,6 +547,18 @@ protocol _LineComponent {
     // sourcery: defaultValue = "{ Rectangle() }"
     @ViewBuilder
     var line: (() -> any View)? { get }
+}
+
+// sourcery: BaseComponent
+protocol _BodyTextComponent {
+    // sourcery: @ViewBuilder
+    var bodyText: AttributedString? { get }
+}
+
+// sourcery: BaseComponent
+protocol _DetailContentComponent {
+    @ViewBuilder
+    var detailContent: (() -> any View)? { get }
 }
 
 // sourcery: BaseComponent
