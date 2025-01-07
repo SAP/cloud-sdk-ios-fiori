@@ -76,8 +76,10 @@ public extension Type {
                                     "_ActivityItemModel",
                                     "_ActivityItemsModel",
                                     "_ProgressIndicatorModel",
+                                    "_KPIProgressItemModel",
                                     "_SingleStepModel",
-                                    "_StepProgressIndicatorModel"]
+                                    "_StepProgressIndicatorModel",
+                                    "_ObjectHeaderModel"]
         
         if deprecatedComponents.contains(name) {
             return name.replacingOccurrences(of: "Model", with: "")

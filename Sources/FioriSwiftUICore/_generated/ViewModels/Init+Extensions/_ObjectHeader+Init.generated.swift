@@ -2,7 +2,7 @@
 // DO NOT EDIT
 import SwiftUI
 
-extension ObjectHeader where Subtitle == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -29,7 +29,7 @@ extension ObjectHeader where Subtitle == EmptyView {
     }
 }
 
-extension ObjectHeader where Tags == EmptyView {
+extension _ObjectHeader where Tags == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -56,7 +56,7 @@ extension ObjectHeader where Tags == EmptyView {
     }
 }
 
-extension ObjectHeader where BodyText == EmptyView {
+extension _ObjectHeader where BodyText == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -83,7 +83,7 @@ extension ObjectHeader where BodyText == EmptyView {
     }
 }
 
-extension ObjectHeader where Footnote == EmptyView {
+extension _ObjectHeader where Footnote == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -110,7 +110,7 @@ extension ObjectHeader where Footnote == EmptyView {
     }
 }
 
-extension ObjectHeader where DescriptionText == EmptyView {
+extension _ObjectHeader where DescriptionText == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -137,7 +137,7 @@ extension ObjectHeader where DescriptionText == EmptyView {
     }
 }
 
-extension ObjectHeader where Status == EmptyView {
+extension _ObjectHeader where Status == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -164,7 +164,7 @@ extension ObjectHeader where Status == EmptyView {
     }
 }
 
-extension ObjectHeader where Substatus == EmptyView {
+extension _ObjectHeader where Substatus == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -191,7 +191,7 @@ extension ObjectHeader where Substatus == EmptyView {
     }
 }
 
-extension ObjectHeader where DetailImage == EmptyView {
+extension _ObjectHeader where DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -218,7 +218,7 @@ extension ObjectHeader where DetailImage == EmptyView {
     }
 }
 
-extension ObjectHeader where DetailContent == EmptyView {
+extension _ObjectHeader where DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -245,7 +245,7 @@ extension ObjectHeader where DetailContent == EmptyView {
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder bodyText: () -> BodyText,
@@ -271,7 +271,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView {
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -297,7 +297,7 @@ extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView {
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -323,7 +323,7 @@ extension ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView {
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, DescriptionText == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, DescriptionText == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -349,7 +349,7 @@ extension ObjectHeader where Subtitle == EmptyView, DescriptionText == EmptyView
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Status == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Status == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -375,7 +375,7 @@ extension ObjectHeader where Subtitle == EmptyView, Status == EmptyView {
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Substatus == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Substatus == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -401,7 +401,7 @@ extension ObjectHeader where Subtitle == EmptyView, Substatus == EmptyView {
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -427,7 +427,7 @@ extension ObjectHeader where Subtitle == EmptyView, DetailImage == EmptyView {
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -453,7 +453,7 @@ extension ObjectHeader where Subtitle == EmptyView, DetailContent == EmptyView {
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, BodyText == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -479,7 +479,7 @@ extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView {
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, Footnote == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, Footnote == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -505,7 +505,7 @@ extension ObjectHeader where Tags == EmptyView, Footnote == EmptyView {
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, DescriptionText == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, DescriptionText == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -531,7 +531,7 @@ extension ObjectHeader where Tags == EmptyView, DescriptionText == EmptyView {
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, Status == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, Status == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -557,7 +557,7 @@ extension ObjectHeader where Tags == EmptyView, Status == EmptyView {
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, Substatus == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, Substatus == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -583,7 +583,7 @@ extension ObjectHeader where Tags == EmptyView, Substatus == EmptyView {
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -609,7 +609,7 @@ extension ObjectHeader where Tags == EmptyView, DetailImage == EmptyView {
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -635,7 +635,7 @@ extension ObjectHeader where Tags == EmptyView, DetailContent == EmptyView {
     }
 }
 
-extension ObjectHeader where BodyText == EmptyView, Footnote == EmptyView {
+extension _ObjectHeader where BodyText == EmptyView, Footnote == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -661,7 +661,7 @@ extension ObjectHeader where BodyText == EmptyView, Footnote == EmptyView {
     }
 }
 
-extension ObjectHeader where BodyText == EmptyView, DescriptionText == EmptyView {
+extension _ObjectHeader where BodyText == EmptyView, DescriptionText == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -687,7 +687,7 @@ extension ObjectHeader where BodyText == EmptyView, DescriptionText == EmptyView
     }
 }
 
-extension ObjectHeader where BodyText == EmptyView, Status == EmptyView {
+extension _ObjectHeader where BodyText == EmptyView, Status == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -713,7 +713,7 @@ extension ObjectHeader where BodyText == EmptyView, Status == EmptyView {
     }
 }
 
-extension ObjectHeader where BodyText == EmptyView, Substatus == EmptyView {
+extension _ObjectHeader where BodyText == EmptyView, Substatus == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -739,7 +739,7 @@ extension ObjectHeader where BodyText == EmptyView, Substatus == EmptyView {
     }
 }
 
-extension ObjectHeader where BodyText == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where BodyText == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -765,7 +765,7 @@ extension ObjectHeader where BodyText == EmptyView, DetailImage == EmptyView {
     }
 }
 
-extension ObjectHeader where BodyText == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where BodyText == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -791,7 +791,7 @@ extension ObjectHeader where BodyText == EmptyView, DetailContent == EmptyView {
     }
 }
 
-extension ObjectHeader where Footnote == EmptyView, DescriptionText == EmptyView {
+extension _ObjectHeader where Footnote == EmptyView, DescriptionText == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -817,7 +817,7 @@ extension ObjectHeader where Footnote == EmptyView, DescriptionText == EmptyView
     }
 }
 
-extension ObjectHeader where Footnote == EmptyView, Status == EmptyView {
+extension _ObjectHeader where Footnote == EmptyView, Status == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -843,7 +843,7 @@ extension ObjectHeader where Footnote == EmptyView, Status == EmptyView {
     }
 }
 
-extension ObjectHeader where Footnote == EmptyView, Substatus == EmptyView {
+extension _ObjectHeader where Footnote == EmptyView, Substatus == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -869,7 +869,7 @@ extension ObjectHeader where Footnote == EmptyView, Substatus == EmptyView {
     }
 }
 
-extension ObjectHeader where Footnote == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Footnote == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -895,7 +895,7 @@ extension ObjectHeader where Footnote == EmptyView, DetailImage == EmptyView {
     }
 }
 
-extension ObjectHeader where Footnote == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Footnote == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -921,7 +921,7 @@ extension ObjectHeader where Footnote == EmptyView, DetailContent == EmptyView {
     }
 }
 
-extension ObjectHeader where DescriptionText == EmptyView, Status == EmptyView {
+extension _ObjectHeader where DescriptionText == EmptyView, Status == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -947,7 +947,7 @@ extension ObjectHeader where DescriptionText == EmptyView, Status == EmptyView {
     }
 }
 
-extension ObjectHeader where DescriptionText == EmptyView, Substatus == EmptyView {
+extension _ObjectHeader where DescriptionText == EmptyView, Substatus == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -973,7 +973,7 @@ extension ObjectHeader where DescriptionText == EmptyView, Substatus == EmptyVie
     }
 }
 
-extension ObjectHeader where DescriptionText == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where DescriptionText == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -999,7 +999,7 @@ extension ObjectHeader where DescriptionText == EmptyView, DetailImage == EmptyV
     }
 }
 
-extension ObjectHeader where DescriptionText == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where DescriptionText == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -1025,7 +1025,7 @@ extension ObjectHeader where DescriptionText == EmptyView, DetailContent == Empt
     }
 }
 
-extension ObjectHeader where Status == EmptyView, Substatus == EmptyView {
+extension _ObjectHeader where Status == EmptyView, Substatus == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -1051,7 +1051,7 @@ extension ObjectHeader where Status == EmptyView, Substatus == EmptyView {
     }
 }
 
-extension ObjectHeader where Status == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Status == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -1077,7 +1077,7 @@ extension ObjectHeader where Status == EmptyView, DetailImage == EmptyView {
     }
 }
 
-extension ObjectHeader where Status == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Status == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -1103,7 +1103,7 @@ extension ObjectHeader where Status == EmptyView, DetailContent == EmptyView {
     }
 }
 
-extension ObjectHeader where Substatus == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Substatus == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -1129,7 +1129,7 @@ extension ObjectHeader where Substatus == EmptyView, DetailImage == EmptyView {
     }
 }
 
-extension ObjectHeader where Substatus == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Substatus == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -1155,7 +1155,7 @@ extension ObjectHeader where Substatus == EmptyView, DetailContent == EmptyView 
     }
 }
 
-extension ObjectHeader where DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -1181,7 +1181,7 @@ extension ObjectHeader where DetailImage == EmptyView, DetailContent == EmptyVie
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder footnote: () -> Footnote,
@@ -1206,7 +1206,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder bodyText: () -> BodyText,
@@ -1231,7 +1231,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, DescriptionText == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, DescriptionText == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder bodyText: () -> BodyText,
@@ -1256,7 +1256,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Descripti
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Status == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Status == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder bodyText: () -> BodyText,
@@ -1281,7 +1281,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Status ==
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Substatus == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Substatus == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder bodyText: () -> BodyText,
@@ -1306,7 +1306,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Substatus
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder bodyText: () -> BodyText,
@@ -1331,7 +1331,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, DetailIma
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder bodyText: () -> BodyText,
@@ -1356,7 +1356,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, DetailCon
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footnote == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footnote == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -1381,7 +1381,7 @@ extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footn
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -1406,7 +1406,7 @@ extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Descr
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Status == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Status == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -1431,7 +1431,7 @@ extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Statu
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Substatus == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Substatus == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -1456,7 +1456,7 @@ extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Subst
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -1481,7 +1481,7 @@ extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Detai
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -1506,7 +1506,7 @@ extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Detai
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -1531,7 +1531,7 @@ extension ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, Descr
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, Status == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, Status == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -1556,7 +1556,7 @@ extension ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, Statu
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, Substatus == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, Substatus == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -1581,7 +1581,7 @@ extension ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, Subst
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -1606,7 +1606,7 @@ extension ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, Detai
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -1631,7 +1631,7 @@ extension ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, Detai
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, DescriptionText == EmptyView, Status == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, DescriptionText == EmptyView, Status == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -1656,7 +1656,7 @@ extension ObjectHeader where Subtitle == EmptyView, DescriptionText == EmptyView
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -1681,7 +1681,7 @@ extension ObjectHeader where Subtitle == EmptyView, DescriptionText == EmptyView
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -1706,7 +1706,7 @@ extension ObjectHeader where Subtitle == EmptyView, DescriptionText == EmptyView
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, DescriptionText == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, DescriptionText == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -1731,7 +1731,7 @@ extension ObjectHeader where Subtitle == EmptyView, DescriptionText == EmptyView
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Status == EmptyView, Substatus == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Status == EmptyView, Substatus == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -1756,7 +1756,7 @@ extension ObjectHeader where Subtitle == EmptyView, Status == EmptyView, Substat
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Status == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Status == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -1781,7 +1781,7 @@ extension ObjectHeader where Subtitle == EmptyView, Status == EmptyView, DetailI
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Status == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Status == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -1806,7 +1806,7 @@ extension ObjectHeader where Subtitle == EmptyView, Status == EmptyView, DetailC
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -1831,7 +1831,7 @@ extension ObjectHeader where Subtitle == EmptyView, Substatus == EmptyView, Deta
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -1856,7 +1856,7 @@ extension ObjectHeader where Subtitle == EmptyView, Substatus == EmptyView, Deta
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -1881,7 +1881,7 @@ extension ObjectHeader where Subtitle == EmptyView, DetailImage == EmptyView, De
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -1906,7 +1906,7 @@ extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote 
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -1931,7 +1931,7 @@ extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Descripti
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Status == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Status == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -1956,7 +1956,7 @@ extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Status ==
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Substatus == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Substatus == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -1981,7 +1981,7 @@ extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Substatus
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, BodyText == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -2006,7 +2006,7 @@ extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, DetailIma
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, BodyText == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -2031,7 +2031,7 @@ extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, DetailCon
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -2056,7 +2056,7 @@ extension ObjectHeader where Tags == EmptyView, Footnote == EmptyView, Descripti
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, Footnote == EmptyView, Status == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, Footnote == EmptyView, Status == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -2081,7 +2081,7 @@ extension ObjectHeader where Tags == EmptyView, Footnote == EmptyView, Status ==
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, Footnote == EmptyView, Substatus == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, Footnote == EmptyView, Substatus == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -2106,7 +2106,7 @@ extension ObjectHeader where Tags == EmptyView, Footnote == EmptyView, Substatus
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, Footnote == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, Footnote == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -2131,7 +2131,7 @@ extension ObjectHeader where Tags == EmptyView, Footnote == EmptyView, DetailIma
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, Footnote == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, Footnote == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -2156,7 +2156,7 @@ extension ObjectHeader where Tags == EmptyView, Footnote == EmptyView, DetailCon
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, DescriptionText == EmptyView, Status == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, DescriptionText == EmptyView, Status == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -2181,7 +2181,7 @@ extension ObjectHeader where Tags == EmptyView, DescriptionText == EmptyView, St
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -2206,7 +2206,7 @@ extension ObjectHeader where Tags == EmptyView, DescriptionText == EmptyView, Su
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -2231,7 +2231,7 @@ extension ObjectHeader where Tags == EmptyView, DescriptionText == EmptyView, De
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, DescriptionText == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, DescriptionText == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -2256,7 +2256,7 @@ extension ObjectHeader where Tags == EmptyView, DescriptionText == EmptyView, De
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, Status == EmptyView, Substatus == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, Status == EmptyView, Substatus == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -2281,7 +2281,7 @@ extension ObjectHeader where Tags == EmptyView, Status == EmptyView, Substatus =
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, Status == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, Status == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -2306,7 +2306,7 @@ extension ObjectHeader where Tags == EmptyView, Status == EmptyView, DetailImage
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, Status == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, Status == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -2331,7 +2331,7 @@ extension ObjectHeader where Tags == EmptyView, Status == EmptyView, DetailConte
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -2356,7 +2356,7 @@ extension ObjectHeader where Tags == EmptyView, Substatus == EmptyView, DetailIm
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -2381,7 +2381,7 @@ extension ObjectHeader where Tags == EmptyView, Substatus == EmptyView, DetailCo
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -2406,7 +2406,7 @@ extension ObjectHeader where Tags == EmptyView, DetailImage == EmptyView, Detail
     }
 }
 
-extension ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView {
+extension _ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -2431,7 +2431,7 @@ extension ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, Descr
     }
 }
 
-extension ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, Status == EmptyView {
+extension _ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, Status == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -2456,7 +2456,7 @@ extension ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, Statu
     }
 }
 
-extension ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, Substatus == EmptyView {
+extension _ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, Substatus == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -2481,7 +2481,7 @@ extension ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, Subst
     }
 }
 
-extension ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -2506,7 +2506,7 @@ extension ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, Detai
     }
 }
 
-extension ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -2531,7 +2531,7 @@ extension ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, Detai
     }
 }
 
-extension ObjectHeader where BodyText == EmptyView, DescriptionText == EmptyView, Status == EmptyView {
+extension _ObjectHeader where BodyText == EmptyView, DescriptionText == EmptyView, Status == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -2556,7 +2556,7 @@ extension ObjectHeader where BodyText == EmptyView, DescriptionText == EmptyView
     }
 }
 
-extension ObjectHeader where BodyText == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView {
+extension _ObjectHeader where BodyText == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -2581,7 +2581,7 @@ extension ObjectHeader where BodyText == EmptyView, DescriptionText == EmptyView
     }
 }
 
-extension ObjectHeader where BodyText == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where BodyText == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -2606,7 +2606,7 @@ extension ObjectHeader where BodyText == EmptyView, DescriptionText == EmptyView
     }
 }
 
-extension ObjectHeader where BodyText == EmptyView, DescriptionText == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where BodyText == EmptyView, DescriptionText == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -2631,7 +2631,7 @@ extension ObjectHeader where BodyText == EmptyView, DescriptionText == EmptyView
     }
 }
 
-extension ObjectHeader where BodyText == EmptyView, Status == EmptyView, Substatus == EmptyView {
+extension _ObjectHeader where BodyText == EmptyView, Status == EmptyView, Substatus == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -2656,7 +2656,7 @@ extension ObjectHeader where BodyText == EmptyView, Status == EmptyView, Substat
     }
 }
 
-extension ObjectHeader where BodyText == EmptyView, Status == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where BodyText == EmptyView, Status == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -2681,7 +2681,7 @@ extension ObjectHeader where BodyText == EmptyView, Status == EmptyView, DetailI
     }
 }
 
-extension ObjectHeader where BodyText == EmptyView, Status == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where BodyText == EmptyView, Status == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -2706,7 +2706,7 @@ extension ObjectHeader where BodyText == EmptyView, Status == EmptyView, DetailC
     }
 }
 
-extension ObjectHeader where BodyText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where BodyText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -2731,7 +2731,7 @@ extension ObjectHeader where BodyText == EmptyView, Substatus == EmptyView, Deta
     }
 }
 
-extension ObjectHeader where BodyText == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where BodyText == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -2756,7 +2756,7 @@ extension ObjectHeader where BodyText == EmptyView, Substatus == EmptyView, Deta
     }
 }
 
-extension ObjectHeader where BodyText == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where BodyText == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -2781,7 +2781,7 @@ extension ObjectHeader where BodyText == EmptyView, DetailImage == EmptyView, De
     }
 }
 
-extension ObjectHeader where Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView {
+extension _ObjectHeader where Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -2806,7 +2806,7 @@ extension ObjectHeader where Footnote == EmptyView, DescriptionText == EmptyView
     }
 }
 
-extension ObjectHeader where Footnote == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView {
+extension _ObjectHeader where Footnote == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -2831,7 +2831,7 @@ extension ObjectHeader where Footnote == EmptyView, DescriptionText == EmptyView
     }
 }
 
-extension ObjectHeader where Footnote == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Footnote == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -2856,7 +2856,7 @@ extension ObjectHeader where Footnote == EmptyView, DescriptionText == EmptyView
     }
 }
 
-extension ObjectHeader where Footnote == EmptyView, DescriptionText == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Footnote == EmptyView, DescriptionText == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -2881,7 +2881,7 @@ extension ObjectHeader where Footnote == EmptyView, DescriptionText == EmptyView
     }
 }
 
-extension ObjectHeader where Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView {
+extension _ObjectHeader where Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -2906,7 +2906,7 @@ extension ObjectHeader where Footnote == EmptyView, Status == EmptyView, Substat
     }
 }
 
-extension ObjectHeader where Footnote == EmptyView, Status == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Footnote == EmptyView, Status == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -2931,7 +2931,7 @@ extension ObjectHeader where Footnote == EmptyView, Status == EmptyView, DetailI
     }
 }
 
-extension ObjectHeader where Footnote == EmptyView, Status == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Footnote == EmptyView, Status == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -2956,7 +2956,7 @@ extension ObjectHeader where Footnote == EmptyView, Status == EmptyView, DetailC
     }
 }
 
-extension ObjectHeader where Footnote == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Footnote == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -2981,7 +2981,7 @@ extension ObjectHeader where Footnote == EmptyView, Substatus == EmptyView, Deta
     }
 }
 
-extension ObjectHeader where Footnote == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Footnote == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -3006,7 +3006,7 @@ extension ObjectHeader where Footnote == EmptyView, Substatus == EmptyView, Deta
     }
 }
 
-extension ObjectHeader where Footnote == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Footnote == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -3031,7 +3031,7 @@ extension ObjectHeader where Footnote == EmptyView, DetailImage == EmptyView, De
     }
 }
 
-extension ObjectHeader where DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView {
+extension _ObjectHeader where DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -3056,7 +3056,7 @@ extension ObjectHeader where DescriptionText == EmptyView, Status == EmptyView, 
     }
 }
 
-extension ObjectHeader where DescriptionText == EmptyView, Status == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where DescriptionText == EmptyView, Status == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -3081,7 +3081,7 @@ extension ObjectHeader where DescriptionText == EmptyView, Status == EmptyView, 
     }
 }
 
-extension ObjectHeader where DescriptionText == EmptyView, Status == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where DescriptionText == EmptyView, Status == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -3106,7 +3106,7 @@ extension ObjectHeader where DescriptionText == EmptyView, Status == EmptyView, 
     }
 }
 
-extension ObjectHeader where DescriptionText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where DescriptionText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -3131,7 +3131,7 @@ extension ObjectHeader where DescriptionText == EmptyView, Substatus == EmptyVie
     }
 }
 
-extension ObjectHeader where DescriptionText == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where DescriptionText == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -3156,7 +3156,7 @@ extension ObjectHeader where DescriptionText == EmptyView, Substatus == EmptyVie
     }
 }
 
-extension ObjectHeader where DescriptionText == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where DescriptionText == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -3181,7 +3181,7 @@ extension ObjectHeader where DescriptionText == EmptyView, DetailImage == EmptyV
     }
 }
 
-extension ObjectHeader where Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -3206,7 +3206,7 @@ extension ObjectHeader where Status == EmptyView, Substatus == EmptyView, Detail
     }
 }
 
-extension ObjectHeader where Status == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Status == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -3231,7 +3231,7 @@ extension ObjectHeader where Status == EmptyView, Substatus == EmptyView, Detail
     }
 }
 
-extension ObjectHeader where Status == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Status == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -3256,7 +3256,7 @@ extension ObjectHeader where Status == EmptyView, DetailImage == EmptyView, Deta
     }
 }
 
-extension ObjectHeader where Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -3281,7 +3281,7 @@ extension ObjectHeader where Substatus == EmptyView, DetailImage == EmptyView, D
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -3305,7 +3305,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder footnote: () -> Footnote,
@@ -3329,7 +3329,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Status == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Status == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder footnote: () -> Footnote,
@@ -3353,7 +3353,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Substatus == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Substatus == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder footnote: () -> Footnote,
@@ -3377,7 +3377,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder footnote: () -> Footnote,
@@ -3401,7 +3401,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder footnote: () -> Footnote,
@@ -3425,7 +3425,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder bodyText: () -> BodyText,
@@ -3449,7 +3449,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote == EmptyView, Status == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote == EmptyView, Status == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder bodyText: () -> BodyText,
@@ -3473,7 +3473,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote == EmptyView, Substatus == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote == EmptyView, Substatus == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder bodyText: () -> BodyText,
@@ -3497,7 +3497,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder bodyText: () -> BodyText,
@@ -3521,7 +3521,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder bodyText: () -> BodyText,
@@ -3545,7 +3545,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, DescriptionText == EmptyView, Status == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, DescriptionText == EmptyView, Status == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder bodyText: () -> BodyText,
@@ -3569,7 +3569,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Descripti
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder bodyText: () -> BodyText,
@@ -3593,7 +3593,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Descripti
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder bodyText: () -> BodyText,
@@ -3617,7 +3617,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Descripti
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, DescriptionText == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, DescriptionText == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder bodyText: () -> BodyText,
@@ -3641,7 +3641,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Descripti
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Status == EmptyView, Substatus == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Status == EmptyView, Substatus == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder bodyText: () -> BodyText,
@@ -3665,7 +3665,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Status ==
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Status == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Status == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder bodyText: () -> BodyText,
@@ -3689,7 +3689,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Status ==
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Status == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Status == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder bodyText: () -> BodyText,
@@ -3713,7 +3713,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Status ==
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder bodyText: () -> BodyText,
@@ -3737,7 +3737,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Substatus
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder bodyText: () -> BodyText,
@@ -3761,7 +3761,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Substatus
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder bodyText: () -> BodyText,
@@ -3785,7 +3785,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, DetailIma
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -3809,7 +3809,7 @@ extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footn
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footnote == EmptyView, Status == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footnote == EmptyView, Status == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -3833,7 +3833,7 @@ extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footn
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footnote == EmptyView, Substatus == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footnote == EmptyView, Substatus == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -3857,7 +3857,7 @@ extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footn
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -3881,7 +3881,7 @@ extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footn
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -3905,7 +3905,7 @@ extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footn
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, Status == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, Status == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -3929,7 +3929,7 @@ extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Descr
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -3953,7 +3953,7 @@ extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Descr
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -3977,7 +3977,7 @@ extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Descr
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -4001,7 +4001,7 @@ extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Descr
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Status == EmptyView, Substatus == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Status == EmptyView, Substatus == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -4025,7 +4025,7 @@ extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Statu
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Status == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Status == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -4049,7 +4049,7 @@ extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Statu
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Status == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Status == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -4073,7 +4073,7 @@ extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Statu
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -4097,7 +4097,7 @@ extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Subst
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -4121,7 +4121,7 @@ extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Subst
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -4145,7 +4145,7 @@ extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Detai
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -4169,7 +4169,7 @@ extension ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, Descr
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -4193,7 +4193,7 @@ extension ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, Descr
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -4217,7 +4217,7 @@ extension ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, Descr
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -4241,7 +4241,7 @@ extension ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, Descr
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -4265,7 +4265,7 @@ extension ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, Statu
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, Status == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, Status == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -4289,7 +4289,7 @@ extension ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, Statu
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, Status == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, Status == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -4313,7 +4313,7 @@ extension ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, Statu
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -4337,7 +4337,7 @@ extension ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, Subst
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -4361,7 +4361,7 @@ extension ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, Subst
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -4385,7 +4385,7 @@ extension ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, Detai
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -4409,7 +4409,7 @@ extension ObjectHeader where Subtitle == EmptyView, DescriptionText == EmptyView
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -4433,7 +4433,7 @@ extension ObjectHeader where Subtitle == EmptyView, DescriptionText == EmptyView
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -4457,7 +4457,7 @@ extension ObjectHeader where Subtitle == EmptyView, DescriptionText == EmptyView
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -4481,7 +4481,7 @@ extension ObjectHeader where Subtitle == EmptyView, DescriptionText == EmptyView
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -4505,7 +4505,7 @@ extension ObjectHeader where Subtitle == EmptyView, DescriptionText == EmptyView
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -4529,7 +4529,7 @@ extension ObjectHeader where Subtitle == EmptyView, DescriptionText == EmptyView
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -4553,7 +4553,7 @@ extension ObjectHeader where Subtitle == EmptyView, Status == EmptyView, Substat
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -4577,7 +4577,7 @@ extension ObjectHeader where Subtitle == EmptyView, Status == EmptyView, Substat
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Status == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Status == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -4601,7 +4601,7 @@ extension ObjectHeader where Subtitle == EmptyView, Status == EmptyView, DetailI
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -4625,7 +4625,7 @@ extension ObjectHeader where Subtitle == EmptyView, Substatus == EmptyView, Deta
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -4649,7 +4649,7 @@ extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote 
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, Status == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, Status == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -4673,7 +4673,7 @@ extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote 
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, Substatus == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, Substatus == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -4697,7 +4697,7 @@ extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote 
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -4721,7 +4721,7 @@ extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote 
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -4745,7 +4745,7 @@ extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote 
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, Status == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, Status == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -4769,7 +4769,7 @@ extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Descripti
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -4793,7 +4793,7 @@ extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Descripti
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -4817,7 +4817,7 @@ extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Descripti
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -4841,7 +4841,7 @@ extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Descripti
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Status == EmptyView, Substatus == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Status == EmptyView, Substatus == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -4865,7 +4865,7 @@ extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Status ==
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Status == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Status == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -4889,7 +4889,7 @@ extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Status ==
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Status == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Status == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -4913,7 +4913,7 @@ extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Status ==
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -4937,7 +4937,7 @@ extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Substatus
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -4961,7 +4961,7 @@ extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Substatus
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, BodyText == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -4985,7 +4985,7 @@ extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, DetailIma
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -5009,7 +5009,7 @@ extension ObjectHeader where Tags == EmptyView, Footnote == EmptyView, Descripti
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -5033,7 +5033,7 @@ extension ObjectHeader where Tags == EmptyView, Footnote == EmptyView, Descripti
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -5057,7 +5057,7 @@ extension ObjectHeader where Tags == EmptyView, Footnote == EmptyView, Descripti
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -5081,7 +5081,7 @@ extension ObjectHeader where Tags == EmptyView, Footnote == EmptyView, Descripti
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -5105,7 +5105,7 @@ extension ObjectHeader where Tags == EmptyView, Footnote == EmptyView, Status ==
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, Footnote == EmptyView, Status == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, Footnote == EmptyView, Status == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -5129,7 +5129,7 @@ extension ObjectHeader where Tags == EmptyView, Footnote == EmptyView, Status ==
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, Footnote == EmptyView, Status == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, Footnote == EmptyView, Status == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -5153,7 +5153,7 @@ extension ObjectHeader where Tags == EmptyView, Footnote == EmptyView, Status ==
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, Footnote == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, Footnote == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -5177,7 +5177,7 @@ extension ObjectHeader where Tags == EmptyView, Footnote == EmptyView, Substatus
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, Footnote == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, Footnote == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -5201,7 +5201,7 @@ extension ObjectHeader where Tags == EmptyView, Footnote == EmptyView, Substatus
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, Footnote == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, Footnote == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -5225,7 +5225,7 @@ extension ObjectHeader where Tags == EmptyView, Footnote == EmptyView, DetailIma
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -5249,7 +5249,7 @@ extension ObjectHeader where Tags == EmptyView, DescriptionText == EmptyView, St
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -5273,7 +5273,7 @@ extension ObjectHeader where Tags == EmptyView, DescriptionText == EmptyView, St
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -5297,7 +5297,7 @@ extension ObjectHeader where Tags == EmptyView, DescriptionText == EmptyView, St
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -5321,7 +5321,7 @@ extension ObjectHeader where Tags == EmptyView, DescriptionText == EmptyView, Su
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -5345,7 +5345,7 @@ extension ObjectHeader where Tags == EmptyView, DescriptionText == EmptyView, Su
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -5369,7 +5369,7 @@ extension ObjectHeader where Tags == EmptyView, DescriptionText == EmptyView, De
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -5393,7 +5393,7 @@ extension ObjectHeader where Tags == EmptyView, Status == EmptyView, Substatus =
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -5417,7 +5417,7 @@ extension ObjectHeader where Tags == EmptyView, Status == EmptyView, Substatus =
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, Status == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, Status == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -5441,7 +5441,7 @@ extension ObjectHeader where Tags == EmptyView, Status == EmptyView, DetailImage
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -5465,7 +5465,7 @@ extension ObjectHeader where Tags == EmptyView, Substatus == EmptyView, DetailIm
     }
 }
 
-extension ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView {
+extension _ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -5489,7 +5489,7 @@ extension ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, Descr
     }
 }
 
-extension ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView {
+extension _ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -5513,7 +5513,7 @@ extension ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, Descr
     }
 }
 
-extension ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -5537,7 +5537,7 @@ extension ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, Descr
     }
 }
 
-extension ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -5561,7 +5561,7 @@ extension ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, Descr
     }
 }
 
-extension ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView {
+extension _ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -5585,7 +5585,7 @@ extension ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, Statu
     }
 }
 
-extension ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, Status == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, Status == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -5609,7 +5609,7 @@ extension ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, Statu
     }
 }
 
-extension ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, Status == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, Status == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -5633,7 +5633,7 @@ extension ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, Statu
     }
 }
 
-extension ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -5657,7 +5657,7 @@ extension ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, Subst
     }
 }
 
-extension ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -5681,7 +5681,7 @@ extension ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, Subst
     }
 }
 
-extension ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -5705,7 +5705,7 @@ extension ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, Detai
     }
 }
 
-extension ObjectHeader where BodyText == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView {
+extension _ObjectHeader where BodyText == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -5729,7 +5729,7 @@ extension ObjectHeader where BodyText == EmptyView, DescriptionText == EmptyView
     }
 }
 
-extension ObjectHeader where BodyText == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where BodyText == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -5753,7 +5753,7 @@ extension ObjectHeader where BodyText == EmptyView, DescriptionText == EmptyView
     }
 }
 
-extension ObjectHeader where BodyText == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where BodyText == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -5777,7 +5777,7 @@ extension ObjectHeader where BodyText == EmptyView, DescriptionText == EmptyView
     }
 }
 
-extension ObjectHeader where BodyText == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where BodyText == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -5801,7 +5801,7 @@ extension ObjectHeader where BodyText == EmptyView, DescriptionText == EmptyView
     }
 }
 
-extension ObjectHeader where BodyText == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where BodyText == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -5825,7 +5825,7 @@ extension ObjectHeader where BodyText == EmptyView, DescriptionText == EmptyView
     }
 }
 
-extension ObjectHeader where BodyText == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where BodyText == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -5849,7 +5849,7 @@ extension ObjectHeader where BodyText == EmptyView, DescriptionText == EmptyView
     }
 }
 
-extension ObjectHeader where BodyText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where BodyText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -5873,7 +5873,7 @@ extension ObjectHeader where BodyText == EmptyView, Status == EmptyView, Substat
     }
 }
 
-extension ObjectHeader where BodyText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where BodyText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -5897,7 +5897,7 @@ extension ObjectHeader where BodyText == EmptyView, Status == EmptyView, Substat
     }
 }
 
-extension ObjectHeader where BodyText == EmptyView, Status == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where BodyText == EmptyView, Status == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -5921,7 +5921,7 @@ extension ObjectHeader where BodyText == EmptyView, Status == EmptyView, DetailI
     }
 }
 
-extension ObjectHeader where BodyText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where BodyText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -5945,7 +5945,7 @@ extension ObjectHeader where BodyText == EmptyView, Substatus == EmptyView, Deta
     }
 }
 
-extension ObjectHeader where Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView {
+extension _ObjectHeader where Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -5969,7 +5969,7 @@ extension ObjectHeader where Footnote == EmptyView, DescriptionText == EmptyView
     }
 }
 
-extension ObjectHeader where Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -5993,7 +5993,7 @@ extension ObjectHeader where Footnote == EmptyView, DescriptionText == EmptyView
     }
 }
 
-extension ObjectHeader where Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -6017,7 +6017,7 @@ extension ObjectHeader where Footnote == EmptyView, DescriptionText == EmptyView
     }
 }
 
-extension ObjectHeader where Footnote == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Footnote == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -6041,7 +6041,7 @@ extension ObjectHeader where Footnote == EmptyView, DescriptionText == EmptyView
     }
 }
 
-extension ObjectHeader where Footnote == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Footnote == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -6065,7 +6065,7 @@ extension ObjectHeader where Footnote == EmptyView, DescriptionText == EmptyView
     }
 }
 
-extension ObjectHeader where Footnote == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Footnote == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -6089,7 +6089,7 @@ extension ObjectHeader where Footnote == EmptyView, DescriptionText == EmptyView
     }
 }
 
-extension ObjectHeader where Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -6113,7 +6113,7 @@ extension ObjectHeader where Footnote == EmptyView, Status == EmptyView, Substat
     }
 }
 
-extension ObjectHeader where Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -6137,7 +6137,7 @@ extension ObjectHeader where Footnote == EmptyView, Status == EmptyView, Substat
     }
 }
 
-extension ObjectHeader where Footnote == EmptyView, Status == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Footnote == EmptyView, Status == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -6161,7 +6161,7 @@ extension ObjectHeader where Footnote == EmptyView, Status == EmptyView, DetailI
     }
 }
 
-extension ObjectHeader where Footnote == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Footnote == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -6185,7 +6185,7 @@ extension ObjectHeader where Footnote == EmptyView, Substatus == EmptyView, Deta
     }
 }
 
-extension ObjectHeader where DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -6209,7 +6209,7 @@ extension ObjectHeader where DescriptionText == EmptyView, Status == EmptyView, 
     }
 }
 
-extension ObjectHeader where DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -6233,7 +6233,7 @@ extension ObjectHeader where DescriptionText == EmptyView, Status == EmptyView, 
     }
 }
 
-extension ObjectHeader where DescriptionText == EmptyView, Status == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where DescriptionText == EmptyView, Status == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -6257,7 +6257,7 @@ extension ObjectHeader where DescriptionText == EmptyView, Status == EmptyView, 
     }
 }
 
-extension ObjectHeader where DescriptionText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where DescriptionText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -6281,7 +6281,7 @@ extension ObjectHeader where DescriptionText == EmptyView, Substatus == EmptyVie
     }
 }
 
-extension ObjectHeader where Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -6305,7 +6305,7 @@ extension ObjectHeader where Status == EmptyView, Substatus == EmptyView, Detail
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder status: () -> Status,
@@ -6328,7 +6328,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, Status == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, Status == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -6351,7 +6351,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, Substatus == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, Substatus == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -6374,7 +6374,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -6397,7 +6397,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -6420,7 +6420,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, Status == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, Status == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder footnote: () -> Footnote,
@@ -6443,7 +6443,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder footnote: () -> Footnote,
@@ -6466,7 +6466,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder footnote: () -> Footnote,
@@ -6489,7 +6489,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder footnote: () -> Footnote,
@@ -6512,7 +6512,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Status == EmptyView, Substatus == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Status == EmptyView, Substatus == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder footnote: () -> Footnote,
@@ -6535,7 +6535,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Status == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Status == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder footnote: () -> Footnote,
@@ -6558,7 +6558,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Status == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Status == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder footnote: () -> Footnote,
@@ -6581,7 +6581,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder footnote: () -> Footnote,
@@ -6604,7 +6604,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder footnote: () -> Footnote,
@@ -6627,7 +6627,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder footnote: () -> Footnote,
@@ -6650,7 +6650,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder bodyText: () -> BodyText,
@@ -6673,7 +6673,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder bodyText: () -> BodyText,
@@ -6696,7 +6696,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder bodyText: () -> BodyText,
@@ -6719,7 +6719,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder bodyText: () -> BodyText,
@@ -6742,7 +6742,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder bodyText: () -> BodyText,
@@ -6765,7 +6765,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote == EmptyView, Status == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote == EmptyView, Status == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder bodyText: () -> BodyText,
@@ -6788,7 +6788,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote == EmptyView, Status == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote == EmptyView, Status == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder bodyText: () -> BodyText,
@@ -6811,7 +6811,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder bodyText: () -> BodyText,
@@ -6834,7 +6834,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder bodyText: () -> BodyText,
@@ -6857,7 +6857,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder bodyText: () -> BodyText,
@@ -6880,7 +6880,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder bodyText: () -> BodyText,
@@ -6903,7 +6903,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Descripti
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder bodyText: () -> BodyText,
@@ -6926,7 +6926,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Descripti
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder bodyText: () -> BodyText,
@@ -6949,7 +6949,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Descripti
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder bodyText: () -> BodyText,
@@ -6972,7 +6972,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Descripti
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder bodyText: () -> BodyText,
@@ -6995,7 +6995,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Descripti
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder bodyText: () -> BodyText,
@@ -7018,7 +7018,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Descripti
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder bodyText: () -> BodyText,
@@ -7041,7 +7041,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Status ==
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder bodyText: () -> BodyText,
@@ -7064,7 +7064,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Status ==
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Status == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Status == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder bodyText: () -> BodyText,
@@ -7087,7 +7087,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Status ==
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder bodyText: () -> BodyText,
@@ -7110,7 +7110,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Substatus
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -7133,7 +7133,7 @@ extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footn
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -7156,7 +7156,7 @@ extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footn
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -7179,7 +7179,7 @@ extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footn
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -7202,7 +7202,7 @@ extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footn
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -7225,7 +7225,7 @@ extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footn
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footnote == EmptyView, Status == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footnote == EmptyView, Status == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -7248,7 +7248,7 @@ extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footn
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footnote == EmptyView, Status == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footnote == EmptyView, Status == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -7271,7 +7271,7 @@ extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footn
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footnote == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footnote == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -7294,7 +7294,7 @@ extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footn
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footnote == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footnote == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -7317,7 +7317,7 @@ extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footn
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -7340,7 +7340,7 @@ extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footn
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -7363,7 +7363,7 @@ extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Descr
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -7386,7 +7386,7 @@ extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Descr
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -7409,7 +7409,7 @@ extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Descr
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -7432,7 +7432,7 @@ extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Descr
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -7455,7 +7455,7 @@ extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Descr
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -7478,7 +7478,7 @@ extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Descr
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -7501,7 +7501,7 @@ extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Statu
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -7524,7 +7524,7 @@ extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Statu
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Status == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Status == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -7547,7 +7547,7 @@ extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Statu
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -7570,7 +7570,7 @@ extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Subst
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -7593,7 +7593,7 @@ extension ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, Descr
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -7616,7 +7616,7 @@ extension ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, Descr
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -7639,7 +7639,7 @@ extension ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, Descr
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -7662,7 +7662,7 @@ extension ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, Descr
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -7685,7 +7685,7 @@ extension ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, Descr
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -7708,7 +7708,7 @@ extension ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, Descr
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -7731,7 +7731,7 @@ extension ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, Statu
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -7754,7 +7754,7 @@ extension ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, Statu
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, Status == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, Status == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -7777,7 +7777,7 @@ extension ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, Statu
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -7800,7 +7800,7 @@ extension ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, Subst
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -7823,7 +7823,7 @@ extension ObjectHeader where Subtitle == EmptyView, DescriptionText == EmptyView
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -7846,7 +7846,7 @@ extension ObjectHeader where Subtitle == EmptyView, DescriptionText == EmptyView
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -7869,7 +7869,7 @@ extension ObjectHeader where Subtitle == EmptyView, DescriptionText == EmptyView
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -7892,7 +7892,7 @@ extension ObjectHeader where Subtitle == EmptyView, DescriptionText == EmptyView
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -7915,7 +7915,7 @@ extension ObjectHeader where Subtitle == EmptyView, Status == EmptyView, Substat
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -7938,7 +7938,7 @@ extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote 
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -7961,7 +7961,7 @@ extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote 
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -7984,7 +7984,7 @@ extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote 
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -8007,7 +8007,7 @@ extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote 
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -8030,7 +8030,7 @@ extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote 
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, Status == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, Status == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -8053,7 +8053,7 @@ extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote 
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, Status == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, Status == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -8076,7 +8076,7 @@ extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote 
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -8099,7 +8099,7 @@ extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote 
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -8122,7 +8122,7 @@ extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote 
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -8145,7 +8145,7 @@ extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote 
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -8168,7 +8168,7 @@ extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Descripti
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -8191,7 +8191,7 @@ extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Descripti
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -8214,7 +8214,7 @@ extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Descripti
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -8237,7 +8237,7 @@ extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Descripti
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -8260,7 +8260,7 @@ extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Descripti
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -8283,7 +8283,7 @@ extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Descripti
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -8306,7 +8306,7 @@ extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Status ==
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -8329,7 +8329,7 @@ extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Status ==
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Status == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Status == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -8352,7 +8352,7 @@ extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Status ==
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -8375,7 +8375,7 @@ extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Substatus
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -8398,7 +8398,7 @@ extension ObjectHeader where Tags == EmptyView, Footnote == EmptyView, Descripti
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -8421,7 +8421,7 @@ extension ObjectHeader where Tags == EmptyView, Footnote == EmptyView, Descripti
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -8444,7 +8444,7 @@ extension ObjectHeader where Tags == EmptyView, Footnote == EmptyView, Descripti
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -8467,7 +8467,7 @@ extension ObjectHeader where Tags == EmptyView, Footnote == EmptyView, Descripti
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -8490,7 +8490,7 @@ extension ObjectHeader where Tags == EmptyView, Footnote == EmptyView, Descripti
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -8513,7 +8513,7 @@ extension ObjectHeader where Tags == EmptyView, Footnote == EmptyView, Descripti
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -8536,7 +8536,7 @@ extension ObjectHeader where Tags == EmptyView, Footnote == EmptyView, Status ==
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -8559,7 +8559,7 @@ extension ObjectHeader where Tags == EmptyView, Footnote == EmptyView, Status ==
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, Footnote == EmptyView, Status == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, Footnote == EmptyView, Status == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -8582,7 +8582,7 @@ extension ObjectHeader where Tags == EmptyView, Footnote == EmptyView, Status ==
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, Footnote == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, Footnote == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -8605,7 +8605,7 @@ extension ObjectHeader where Tags == EmptyView, Footnote == EmptyView, Substatus
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -8628,7 +8628,7 @@ extension ObjectHeader where Tags == EmptyView, DescriptionText == EmptyView, St
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -8651,7 +8651,7 @@ extension ObjectHeader where Tags == EmptyView, DescriptionText == EmptyView, St
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -8674,7 +8674,7 @@ extension ObjectHeader where Tags == EmptyView, DescriptionText == EmptyView, St
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -8697,7 +8697,7 @@ extension ObjectHeader where Tags == EmptyView, DescriptionText == EmptyView, Su
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -8720,7 +8720,7 @@ extension ObjectHeader where Tags == EmptyView, Status == EmptyView, Substatus =
     }
 }
 
-extension ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView {
+extension _ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -8743,7 +8743,7 @@ extension ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, Descr
     }
 }
 
-extension ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -8766,7 +8766,7 @@ extension ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, Descr
     }
 }
 
-extension ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -8789,7 +8789,7 @@ extension ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, Descr
     }
 }
 
-extension ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -8812,7 +8812,7 @@ extension ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, Descr
     }
 }
 
-extension ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -8835,7 +8835,7 @@ extension ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, Descr
     }
 }
 
-extension ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -8858,7 +8858,7 @@ extension ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, Descr
     }
 }
 
-extension ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -8881,7 +8881,7 @@ extension ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, Statu
     }
 }
 
-extension ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -8904,7 +8904,7 @@ extension ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, Statu
     }
 }
 
-extension ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, Status == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, Status == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -8927,7 +8927,7 @@ extension ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, Statu
     }
 }
 
-extension ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -8950,7 +8950,7 @@ extension ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, Subst
     }
 }
 
-extension ObjectHeader where BodyText == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where BodyText == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -8973,7 +8973,7 @@ extension ObjectHeader where BodyText == EmptyView, DescriptionText == EmptyView
     }
 }
 
-extension ObjectHeader where BodyText == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where BodyText == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -8996,7 +8996,7 @@ extension ObjectHeader where BodyText == EmptyView, DescriptionText == EmptyView
     }
 }
 
-extension ObjectHeader where BodyText == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where BodyText == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -9019,7 +9019,7 @@ extension ObjectHeader where BodyText == EmptyView, DescriptionText == EmptyView
     }
 }
 
-extension ObjectHeader where BodyText == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where BodyText == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -9042,7 +9042,7 @@ extension ObjectHeader where BodyText == EmptyView, DescriptionText == EmptyView
     }
 }
 
-extension ObjectHeader where BodyText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where BodyText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -9065,7 +9065,7 @@ extension ObjectHeader where BodyText == EmptyView, Status == EmptyView, Substat
     }
 }
 
-extension ObjectHeader where Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -9088,7 +9088,7 @@ extension ObjectHeader where Footnote == EmptyView, DescriptionText == EmptyView
     }
 }
 
-extension ObjectHeader where Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -9111,7 +9111,7 @@ extension ObjectHeader where Footnote == EmptyView, DescriptionText == EmptyView
     }
 }
 
-extension ObjectHeader where Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -9134,7 +9134,7 @@ extension ObjectHeader where Footnote == EmptyView, DescriptionText == EmptyView
     }
 }
 
-extension ObjectHeader where Footnote == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Footnote == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -9157,7 +9157,7 @@ extension ObjectHeader where Footnote == EmptyView, DescriptionText == EmptyView
     }
 }
 
-extension ObjectHeader where Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -9180,7 +9180,7 @@ extension ObjectHeader where Footnote == EmptyView, Status == EmptyView, Substat
     }
 }
 
-extension ObjectHeader where DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -9203,7 +9203,7 @@ extension ObjectHeader where DescriptionText == EmptyView, Status == EmptyView, 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder substatus: () -> Substatus,
@@ -9225,7 +9225,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder status: () -> Status,
@@ -9247,7 +9247,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder status: () -> Status,
@@ -9269,7 +9269,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder status: () -> Status,
@@ -9291,7 +9291,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -9313,7 +9313,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, Status == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, Status == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -9335,7 +9335,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, Status == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, Status == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -9357,7 +9357,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -9379,7 +9379,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -9401,7 +9401,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -9423,7 +9423,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder footnote: () -> Footnote,
@@ -9445,7 +9445,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder footnote: () -> Footnote,
@@ -9467,7 +9467,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder footnote: () -> Footnote,
@@ -9489,7 +9489,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder footnote: () -> Footnote,
@@ -9511,7 +9511,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder footnote: () -> Footnote,
@@ -9533,7 +9533,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder footnote: () -> Footnote,
@@ -9555,7 +9555,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder footnote: () -> Footnote,
@@ -9577,7 +9577,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder footnote: () -> Footnote,
@@ -9599,7 +9599,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Status == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Status == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder footnote: () -> Footnote,
@@ -9621,7 +9621,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder footnote: () -> Footnote,
@@ -9643,7 +9643,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder bodyText: () -> BodyText,
@@ -9665,7 +9665,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder bodyText: () -> BodyText,
@@ -9687,7 +9687,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder bodyText: () -> BodyText,
@@ -9709,7 +9709,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder bodyText: () -> BodyText,
@@ -9731,7 +9731,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder bodyText: () -> BodyText,
@@ -9753,7 +9753,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder bodyText: () -> BodyText,
@@ -9775,7 +9775,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder bodyText: () -> BodyText,
@@ -9797,7 +9797,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder bodyText: () -> BodyText,
@@ -9819,7 +9819,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote == EmptyView, Status == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote == EmptyView, Status == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder bodyText: () -> BodyText,
@@ -9841,7 +9841,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder bodyText: () -> BodyText,
@@ -9863,7 +9863,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder bodyText: () -> BodyText,
@@ -9885,7 +9885,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Descripti
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder bodyText: () -> BodyText,
@@ -9907,7 +9907,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Descripti
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder bodyText: () -> BodyText,
@@ -9929,7 +9929,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Descripti
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder bodyText: () -> BodyText,
@@ -9951,7 +9951,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Descripti
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder bodyText: () -> BodyText,
@@ -9973,7 +9973,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Status ==
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -9995,7 +9995,7 @@ extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footn
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -10017,7 +10017,7 @@ extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footn
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -10039,7 +10039,7 @@ extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footn
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -10061,7 +10061,7 @@ extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footn
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -10083,7 +10083,7 @@ extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footn
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -10105,7 +10105,7 @@ extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footn
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -10127,7 +10127,7 @@ extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footn
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -10149,7 +10149,7 @@ extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footn
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footnote == EmptyView, Status == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footnote == EmptyView, Status == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -10171,7 +10171,7 @@ extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footn
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footnote == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footnote == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -10193,7 +10193,7 @@ extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footn
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -10215,7 +10215,7 @@ extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Descr
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -10237,7 +10237,7 @@ extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Descr
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -10259,7 +10259,7 @@ extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Descr
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -10281,7 +10281,7 @@ extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Descr
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -10303,7 +10303,7 @@ extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Statu
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -10325,7 +10325,7 @@ extension ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, Descr
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -10347,7 +10347,7 @@ extension ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, Descr
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -10369,7 +10369,7 @@ extension ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, Descr
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -10391,7 +10391,7 @@ extension ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, Descr
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -10413,7 +10413,7 @@ extension ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, Statu
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -10435,7 +10435,7 @@ extension ObjectHeader where Subtitle == EmptyView, DescriptionText == EmptyView
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -10457,7 +10457,7 @@ extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote 
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -10479,7 +10479,7 @@ extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote 
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -10501,7 +10501,7 @@ extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote 
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -10523,7 +10523,7 @@ extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote 
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -10545,7 +10545,7 @@ extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote 
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -10567,7 +10567,7 @@ extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote 
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -10589,7 +10589,7 @@ extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote 
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -10611,7 +10611,7 @@ extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote 
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, Status == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, Status == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -10633,7 +10633,7 @@ extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote 
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -10655,7 +10655,7 @@ extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote 
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -10677,7 +10677,7 @@ extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Descripti
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -10699,7 +10699,7 @@ extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Descripti
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -10721,7 +10721,7 @@ extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Descripti
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -10743,7 +10743,7 @@ extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Descripti
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -10765,7 +10765,7 @@ extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Status ==
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -10787,7 +10787,7 @@ extension ObjectHeader where Tags == EmptyView, Footnote == EmptyView, Descripti
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -10809,7 +10809,7 @@ extension ObjectHeader where Tags == EmptyView, Footnote == EmptyView, Descripti
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -10831,7 +10831,7 @@ extension ObjectHeader where Tags == EmptyView, Footnote == EmptyView, Descripti
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -10853,7 +10853,7 @@ extension ObjectHeader where Tags == EmptyView, Footnote == EmptyView, Descripti
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -10875,7 +10875,7 @@ extension ObjectHeader where Tags == EmptyView, Footnote == EmptyView, Status ==
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -10897,7 +10897,7 @@ extension ObjectHeader where Tags == EmptyView, DescriptionText == EmptyView, St
     }
 }
 
-extension ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -10919,7 +10919,7 @@ extension ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, Descr
     }
 }
 
-extension ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -10941,7 +10941,7 @@ extension ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, Descr
     }
 }
 
-extension ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -10963,7 +10963,7 @@ extension ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, Descr
     }
 }
 
-extension ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -10985,7 +10985,7 @@ extension ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, Descr
     }
 }
 
-extension ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -11007,7 +11007,7 @@ extension ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, Statu
     }
 }
 
-extension ObjectHeader where BodyText == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where BodyText == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -11029,7 +11029,7 @@ extension ObjectHeader where BodyText == EmptyView, DescriptionText == EmptyView
     }
 }
 
-extension ObjectHeader where Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -11051,7 +11051,7 @@ extension ObjectHeader where Footnote == EmptyView, DescriptionText == EmptyView
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder detailImage: () -> DetailImage,
@@ -11072,7 +11072,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder substatus: () -> Substatus,
@@ -11093,7 +11093,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder substatus: () -> Substatus,
@@ -11114,7 +11114,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder status: () -> Status,
@@ -11135,7 +11135,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder status: () -> Status,
@@ -11156,7 +11156,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder status: () -> Status,
@@ -11177,7 +11177,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -11198,7 +11198,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -11219,7 +11219,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, Status == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, Status == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -11240,7 +11240,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -11261,7 +11261,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder footnote: () -> Footnote,
@@ -11282,7 +11282,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder footnote: () -> Footnote,
@@ -11303,7 +11303,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder footnote: () -> Footnote,
@@ -11324,7 +11324,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder footnote: () -> Footnote,
@@ -11345,7 +11345,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder footnote: () -> Footnote,
@@ -11366,7 +11366,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder bodyText: () -> BodyText,
@@ -11387,7 +11387,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder bodyText: () -> BodyText,
@@ -11408,7 +11408,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder bodyText: () -> BodyText,
@@ -11429,7 +11429,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder bodyText: () -> BodyText,
@@ -11450,7 +11450,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder bodyText: () -> BodyText,
@@ -11471,7 +11471,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder bodyText: () -> BodyText,
@@ -11492,7 +11492,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Descripti
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -11513,7 +11513,7 @@ extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footn
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -11534,7 +11534,7 @@ extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footn
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -11555,7 +11555,7 @@ extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footn
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -11576,7 +11576,7 @@ extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footn
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -11597,7 +11597,7 @@ extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footn
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -11618,7 +11618,7 @@ extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Descr
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags,
@@ -11639,7 +11639,7 @@ extension ObjectHeader where Subtitle == EmptyView, Footnote == EmptyView, Descr
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -11660,7 +11660,7 @@ extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote 
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -11681,7 +11681,7 @@ extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote 
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -11702,7 +11702,7 @@ extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote 
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -11723,7 +11723,7 @@ extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote 
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -11744,7 +11744,7 @@ extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote 
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -11765,7 +11765,7 @@ extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Descripti
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -11786,7 +11786,7 @@ extension ObjectHeader where Tags == EmptyView, Footnote == EmptyView, Descripti
     }
 }
 
-extension ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -11807,7 +11807,7 @@ extension ObjectHeader where BodyText == EmptyView, Footnote == EmptyView, Descr
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder detailContent: () -> DetailContent
@@ -11827,7 +11827,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder detailImage: () -> DetailImage
@@ -11847,7 +11847,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder substatus: () -> Substatus
@@ -11867,7 +11867,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder status: () -> Status
@@ -11887,7 +11887,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText
@@ -11907,7 +11907,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder footnote: () -> Footnote
@@ -11927,7 +11927,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder bodyText: () -> BodyText
@@ -11947,7 +11947,7 @@ extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, Footnote 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@TagBuilder tags: () -> Tags
@@ -11967,7 +11967,7 @@ extension ObjectHeader where Subtitle == EmptyView, BodyText == EmptyView, Footn
     }
 }
 
-extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle
@@ -11987,7 +11987,7 @@ extension ObjectHeader where Tags == EmptyView, BodyText == EmptyView, Footnote 
     }
 }
 
-extension ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
+extension _ObjectHeader where Subtitle == EmptyView, Tags == EmptyView, BodyText == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, DetailContent == EmptyView {
     public init(
     @ViewBuilder title: () -> Title
     ) {
