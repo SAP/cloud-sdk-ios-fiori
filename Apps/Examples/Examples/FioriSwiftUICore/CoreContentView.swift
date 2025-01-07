@@ -25,7 +25,7 @@ struct CoreContentView: View {
                     Text("Cards and Layouts")
                 }
                 
-                NavigationLink(destination: ContactItemExample(_isNewObjectItem: true)) {
+                NavigationLink(destination: ContactItemExample(isNewObjectItem: true)) {
                     Text("ContactItem")
                 }
                 

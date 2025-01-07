@@ -1,11 +1,11 @@
 import SwiftUI
 
 struct ContactItemExample: View {
-    var _isNewObjectItem = false
+    var isNewObjectItem = false
     
     var body: some View {
         List {
-            if self._isNewObjectItem {
+            if self.isNewObjectItem {
                 Section {
                     NavigationLink {
                         ActivityItemExample()
@@ -25,15 +25,15 @@ struct ContactItemExample: View {
             }
 
             Section {
-                NavigationLink(destination: ObjectItemListView(title: "Regular View Examples", listDataType: ContactItemRegularExamples.self, changeLeftMargin: false, showEditButton: false, isNewObjectItem: self._isNewObjectItem)) {
+                NavigationLink(destination: ObjectItemListView(title: "Regular View Examples", listDataType: ContactItemRegularExamples.self, changeLeftMargin: false, showEditButton: false, isNewObjectItem: self.isNewObjectItem)) {
                     Text("Regular View Examples")
                 }
                 
-                NavigationLink(destination: ObjectItemListView(title: "Compact View Examples", listDataType: ContactItemCompactExamples.self, changeLeftMargin: false, showEditButton: false, isNewObjectItem: self._isNewObjectItem)) {
+                NavigationLink(destination: ObjectItemListView(title: "Compact View Examples", listDataType: ContactItemCompactExamples.self, changeLeftMargin: false, showEditButton: false, isNewObjectItem: self.isNewObjectItem)) {
                     Text("Compact View Examples")
                 }
                 
-                NavigationLink(destination: ContactItemTapStateExamples(_isNewObjectItem: self._isNewObjectItem)) {
+                NavigationLink(destination: ContactItemTapStateExamples(isNewObjectItem: self.isNewObjectItem)) {
                     Text("Tap State Examples")
                 }
             } header: {

@@ -17,7 +17,6 @@ public struct ContactItemBaseStyle: ContactItemStyle {
                 self.bodyInCompact(configuration)
             }
         }
-        .background(Color.preferredColor(.secondaryGroupedBackground))
     }
     
     func bodyInRegular(_ configuration: ContactItemConfiguration) -> some View {
@@ -116,8 +115,7 @@ extension ContactItemFioriStyle {
     struct ContentFioriStyle: ContactItemStyle {
         func makeBody(_ configuration: ContactItemConfiguration) -> some View {
             ContactItem(configuration)
-            // Add default style for its content
-            // .background()
+                .background(Color.preferredColor(.secondaryGroupedBackground))
         }
     }
 

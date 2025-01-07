@@ -163,7 +163,7 @@ public protocol _ContactItemModel: TitleComponent, SubtitleComponent, Descriptio
     var actionItems: _ActivityItemsModel? { get }
 }
 
-/// Deprecated ContactItem
+/// Deprecated ContactItemModel
 @available(*, unavailable, renamed: "_ContactItemModel", message: "Will be removed in the future release. Please create ContactItem with other initializers instead.")
 public protocol ContactItemModel {}
 

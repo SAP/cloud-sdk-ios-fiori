@@ -29,7 +29,7 @@ struct ContactItemViewModel: _ContactItemModel, Identifiable {
 }
 
 struct ContactItemTapStateExamples: View {
-    var _isNewObjectItem = false
+    var isNewObjectItem = false
     
     let models: [ContactItemViewModel] = [ContactItemViewModel(title: "Seann Longname", detailImage: Image("person_square4").resizable(), actionItemsData: [.init(type: .phone), .init(type: .videoCall), .init(type: .message)]),
                                           ContactItemViewModel(title: "Seann Longname", subtitle: "Team Lead", detailImage: Image("person_square4").resizable(), actionItemsData: [.init(type: .phone), .init(type: .videoCall), .init(type: .message)])]
@@ -37,7 +37,7 @@ struct ContactItemTapStateExamples: View {
     
     var body: some View {
         List(self.models, selection: self.$singleSelection) { model in
-            if self._isNewObjectItem {
+            if self.isNewObjectItem {
                 ContactItem {
                     Text(model.title)
                 } subtitle: {
