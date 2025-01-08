@@ -759,11 +759,14 @@ public enum CardTests {
         }
     } cardBody: {
         VStack(alignment: .leading, spacing: 4) {
-            _ContactItem(title: "Title",
-                         subtitle: "Subtitle",
-                         actionItems: _ActivityItems(actionItems: [.init(type: .phone), .init(type: .email)], didSelectActivityItem: { dataType in
-                             print("\(dataType)")
-                         }))
+            ContactItem(title: "Title", subtitle: "Subtitle", activityItems: [
+                .init(type: .phone, didSelectActivityItem: {
+                    print("phone")
+                }),
+                .init(type: .email, didSelectActivityItem: {
+                    print("email")
+                })
+            ])
             
             Map(coordinateRegion: .constant(CardTests.region))
                 .frame(height: 200)
@@ -793,11 +796,14 @@ public enum CardTests {
         }
     } cardBody: {
         VStack(alignment: .center, spacing: 4) {
-            _ContactItem(title: "Title",
-                         subtitle: "Subtitle",
-                         actionItems: _ActivityItems(actionItems: [.init(type: .phone), .init(type: .email)], didSelectActivityItem: { dataType in
-                             print("\(dataType)")
-                         }))
+            ContactItem(title: "Title", subtitle: "Subtitle", activityItems: [
+                .init(type: .phone, didSelectActivityItem: {
+                    print("phone")
+                }),
+                .init(type: .email, didSelectActivityItem: {
+                    print("email")
+                })
+            ])
             
             KPIItem(data: .components([.unit("R"), .metric("294"), .unit("L")]), subtitle: "Label")
         }
