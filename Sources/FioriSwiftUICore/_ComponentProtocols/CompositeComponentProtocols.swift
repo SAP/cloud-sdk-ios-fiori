@@ -729,6 +729,25 @@ protocol _ProgressIndicatorComponent: _ProgressIndicatorProtocol {}
 // sourcery: CompositeComponent
 protocol _ProcessingIndicatorComponent: _OptionalTitleComponent {}
 
+/// `KPIProgressItem` enables a developer to present "KPI" information in a formatted manner consistent with the Fiori Design Language
+///
+/// ## Usage
+/// ```swift
+/// let percentData = KPIItemData.percent(0.65)
+/// let fractionData = KPIItemData.fraction(76, 90, numberFormatterProvider.numberFormatter)
+///
+/// KPIProgressItem(kpiCaption: "Completed", data: .constant(percentData))
+/// KPIProgressItem(kpiCaption: "In progress", data: .constant(fractionData), chartSize: .small)
+/// ```
+// sourcery: CompositeComponent
+protocol _KPIProgressItemComponent: _KPIContentComponent, _KpiCaptionComponent, _FootnoteComponent, _InnerCircleComponent, _OuterCircleComponent {
+    // sourcery: @Binding
+    var data: KPIItemData { get }
+    
+    // sourcery: defaultValue = .large
+    var chartSize: KPIProgressItemSize { get }
+}
+
 /// `ActivityItem` provides a customizable activity item with an icon and a subtitle.
 ///
 /// ## Usage
@@ -1022,3 +1041,32 @@ protocol _SectionFooterComponent: _TitleComponent, _AttributeComponent {
     /// Optional handler, to respond to tap events on the view.
     var didSelectHandler: (() -> Void)? { get }
 }
+
+/// `ObjectHeader` is a view that displays an object's title, subtitle, tags, body text, footnote, description, status, substatus, detail image and detail content.
+/// ## Usage
+/// ```swift
+/// ObjectHeader {
+///     Text("title")
+/// } subtitle: {
+///     Text("subtitle")
+/// } tags: {
+///     Text("tag01")
+/// } bodyText: {
+///     Text("body")
+/// } footnote: {
+///     Text("footnote")
+/// } descriptionText: {
+///     Text("description")
+/// } status: {
+///     Text("status")
+/// } substatus: {
+///     Text("substatus")
+/// } detailImage: {
+///     Image(systemName: "person")
+/// } detailContent: {
+///     Text("detail content")
+/// }
+/// ```
+// sourcery: CompositeComponent
+protocol _ObjectHeaderComponent: _TitleComponent, _SubtitleComponent, _TagsComponent, _BodyTextComponent, _FootnoteComponent, _DescriptionTextComponent, _StatusComponent, _SubstatusComponent, _DetailImageComponent, _DetailContentComponent {}
+

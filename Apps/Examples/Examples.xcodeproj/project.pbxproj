@@ -67,6 +67,16 @@
 		87F492312C73AD99002B8703 /* CustomTimelinePreviewExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87F492302C73AD99002B8703 /* CustomTimelinePreviewExample.swift */; };
 		87F492332C73ADA1002B8703 /* SimpleTimelinePreviewExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87F492322C73ADA1002B8703 /* SimpleTimelinePreviewExample.swift */; };
 		87F492352C73ADAA002B8703 /* TimelinePreviewExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87F492342C73ADAA002B8703 /* TimelinePreviewExample.swift */; };
+		87FF0C1E2D08A9C700E55EB5 /* PercentageDisabled.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FF0C1B2D08A9C700E55EB5 /* PercentageDisabled.swift */; };
+		87FF0C1F2D08A9C700E55EB5 /* FractionNoCaption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FF0C182D08A9C700E55EB5 /* FractionNoCaption.swift */; };
+		87FF0C202D08A9C700E55EB5 /* PercentageCaptionInside.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FF0C192D08A9C700E55EB5 /* PercentageCaptionInside.swift */; };
+		87FF0C212D08A9C700E55EB5 /* PercentageNoCaption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FF0C1C2D08A9C700E55EB5 /* PercentageNoCaption.swift */; };
+		87FF0C222D08A9C700E55EB5 /* PercentageCaptionOutside.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FF0C1A2D08A9C700E55EB5 /* PercentageCaptionOutside.swift */; };
+		87FF0C232D08A9C700E55EB5 /* Customization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FF0C142D08A9C700E55EB5 /* Customization.swift */; };
+		87FF0C242D08A9C700E55EB5 /* FractionDisabled.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FF0C172D08A9C700E55EB5 /* FractionDisabled.swift */; };
+		87FF0C252D08A9C700E55EB5 /* FractionCaptionOutside.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FF0C162D08A9C700E55EB5 /* FractionCaptionOutside.swift */; };
+		87FF0C262D08A9C700E55EB5 /* FractionCaptionInside.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FF0C152D08A9C700E55EB5 /* FractionCaptionInside.swift */; };
+		87FF0C282D08A9DC00E55EB5 /* _KPIProgressViewExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FF0C272D08A9DC00E55EB5 /* _KPIProgressViewExample.swift */; };
 		8A55795724C1286E0098003A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A55795624C1286E0098003A /* AppDelegate.swift */; };
 		8A55795924C1286E0098003A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A55795824C1286E0098003A /* SceneDelegate.swift */; };
 		8A55795B24C1286E0098003A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A55795A24C1286E0098003A /* ContentView.swift */; };
@@ -291,6 +301,16 @@
 		87F492302C73AD99002B8703 /* CustomTimelinePreviewExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTimelinePreviewExample.swift; sourceTree = "<group>"; };
 		87F492322C73ADA1002B8703 /* SimpleTimelinePreviewExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleTimelinePreviewExample.swift; sourceTree = "<group>"; };
 		87F492342C73ADAA002B8703 /* TimelinePreviewExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimelinePreviewExample.swift; sourceTree = "<group>"; };
+		87FF0C142D08A9C700E55EB5 /* Customization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Customization.swift; sourceTree = "<group>"; };
+		87FF0C152D08A9C700E55EB5 /* FractionCaptionInside.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FractionCaptionInside.swift; sourceTree = "<group>"; };
+		87FF0C162D08A9C700E55EB5 /* FractionCaptionOutside.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FractionCaptionOutside.swift; sourceTree = "<group>"; };
+		87FF0C172D08A9C700E55EB5 /* FractionDisabled.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FractionDisabled.swift; sourceTree = "<group>"; };
+		87FF0C182D08A9C700E55EB5 /* FractionNoCaption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FractionNoCaption.swift; sourceTree = "<group>"; };
+		87FF0C192D08A9C700E55EB5 /* PercentageCaptionInside.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PercentageCaptionInside.swift; sourceTree = "<group>"; };
+		87FF0C1A2D08A9C700E55EB5 /* PercentageCaptionOutside.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PercentageCaptionOutside.swift; sourceTree = "<group>"; };
+		87FF0C1B2D08A9C700E55EB5 /* PercentageDisabled.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PercentageDisabled.swift; sourceTree = "<group>"; };
+		87FF0C1C2D08A9C700E55EB5 /* PercentageNoCaption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PercentageNoCaption.swift; sourceTree = "<group>"; };
+		87FF0C272D08A9DC00E55EB5 /* _KPIProgressViewExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _KPIProgressViewExample.swift; sourceTree = "<group>"; };
 		8A1E99AD24D59C8000ED8A39 /* cloud-sdk-ios-fiori */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "cloud-sdk-ios-fiori"; path = ../..; sourceTree = "<group>"; };
 		8A55795324C1286E0098003A /* Examples.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Examples.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A55795624C1286E0098003A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -563,6 +583,8 @@
 		691DE21725F2A2F000094D4A /* KPI */ = {
 			isa = PBXGroup;
 			children = (
+				87FF0C272D08A9DC00E55EB5 /* _KPIProgressViewExample.swift */,
+				87FF0C1D2D08A9C700E55EB5 /* KPIProgressItem */,
 				691DE21825F2A30B00094D4A /* KPIViewExample.swift */,
 				69B2B5D8268A333C009AC6B3 /* KPIProgressViewExample.swift */,
 				B18D2E9E2988B07B000A1821 /* KPIHeaderExample.swift */,
@@ -608,6 +630,22 @@
 				87F14B182CD86F65004A69A0 /* DocumentScannerViewExample.swift */,
 			);
 			path = DocumentScannerView;
+			sourceTree = "<group>";
+		};
+		87FF0C1D2D08A9C700E55EB5 /* KPIProgressItem */ = {
+			isa = PBXGroup;
+			children = (
+				87FF0C142D08A9C700E55EB5 /* Customization.swift */,
+				87FF0C152D08A9C700E55EB5 /* FractionCaptionInside.swift */,
+				87FF0C162D08A9C700E55EB5 /* FractionCaptionOutside.swift */,
+				87FF0C172D08A9C700E55EB5 /* FractionDisabled.swift */,
+				87FF0C182D08A9C700E55EB5 /* FractionNoCaption.swift */,
+				87FF0C192D08A9C700E55EB5 /* PercentageCaptionInside.swift */,
+				87FF0C1A2D08A9C700E55EB5 /* PercentageCaptionOutside.swift */,
+				87FF0C1B2D08A9C700E55EB5 /* PercentageDisabled.swift */,
+				87FF0C1C2D08A9C700E55EB5 /* PercentageNoCaption.swift */,
+			);
+			path = KPIProgressItem;
 			sourceTree = "<group>";
 		};
 		8A55794A24C1286E0098003A = {
@@ -1244,6 +1282,15 @@
 				3C180C282B858CF6007CE79A /* IllustratedMessageExample.swift in Sources */,
 				A65036942CC6365C0093086A /* LoadingIndicatorExample.swift in Sources */,
 				8AD9DFB425D49967007448EC /* ContactItemInitViewBuilderExample.swift in Sources */,
+				87FF0C1E2D08A9C700E55EB5 /* PercentageDisabled.swift in Sources */,
+				87FF0C1F2D08A9C700E55EB5 /* FractionNoCaption.swift in Sources */,
+				87FF0C202D08A9C700E55EB5 /* PercentageCaptionInside.swift in Sources */,
+				87FF0C212D08A9C700E55EB5 /* PercentageNoCaption.swift in Sources */,
+				87FF0C222D08A9C700E55EB5 /* PercentageCaptionOutside.swift in Sources */,
+				87FF0C232D08A9C700E55EB5 /* Customization.swift in Sources */,
+				87FF0C242D08A9C700E55EB5 /* FractionDisabled.swift in Sources */,
+				87FF0C252D08A9C700E55EB5 /* FractionCaptionOutside.swift in Sources */,
+				87FF0C262D08A9C700E55EB5 /* FractionCaptionInside.swift in Sources */,
 				B8D4376D25F97F140024EE7D /* ObjectItemExample.swift in Sources */,
 				8A6D64BF25AE7A6D00D2D76C /* ExperimentalContentView.swift in Sources */,
 				69B2B5D9268A333C009AC6B3 /* KPIProgressViewExample.swift in Sources */,
@@ -1266,6 +1313,7 @@
 				8A5579D324C1293C0098003A /* SettingsPoint.swift in Sources */,
 				B80DA9BA260BBF8600C0B2E9 /* SingleActionProfiles.swift in Sources */,
 				87F492352C73ADAA002B8703 /* TimelinePreviewExample.swift in Sources */,
+				87FF0C282D08A9DC00E55EB5 /* _KPIProgressViewExample.swift in Sources */,
 				B18D593C2B0C52C700ABB1AD /* TabViewExample.swift in Sources */,
 				8A5579D424C1293C0098003A /* SettingsBaseline.swift in Sources */,
 				87F492312C73AD99002B8703 /* CustomTimelinePreviewExample.swift in Sources */,

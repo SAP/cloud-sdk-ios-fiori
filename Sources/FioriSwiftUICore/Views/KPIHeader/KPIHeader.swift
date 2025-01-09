@@ -23,8 +23,8 @@ public extension KPIHeader {
             Group {
                 if let model = item as? KPIItemModel {
                     KPIItem(model: model)
-                } else if let model = item as? KPIProgressItemModel {
-                    KPIProgressItem(model: model)
+                } else if let model = item as? _KPIProgressItemModel {
+                    _KPIProgressItem(model: model)
                 } else {
                     EmptyView()
                 }

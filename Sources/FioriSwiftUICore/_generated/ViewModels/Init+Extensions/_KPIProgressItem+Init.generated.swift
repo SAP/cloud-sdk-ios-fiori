@@ -2,7 +2,7 @@
 // DO NOT EDIT
 import SwiftUI
 
-extension KPIProgressItem where Kpi == EmptyView {
+extension _KPIProgressItem where Kpi == EmptyView {
     public init(
     fraction: Double? = nil,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -17,7 +17,7 @@ extension KPIProgressItem where Kpi == EmptyView {
     }
 }
 
-extension KPIProgressItem where Subtitle == EmptyView {
+extension _KPIProgressItem where Subtitle == EmptyView {
     public init(
     @ViewBuilder kpi: () -> Kpi,
 		fraction: Double? = nil,
@@ -32,7 +32,7 @@ extension KPIProgressItem where Subtitle == EmptyView {
     }
 }
 
-extension KPIProgressItem where Footnote == EmptyView {
+extension _KPIProgressItem where Footnote == EmptyView {
     public init(
     @ViewBuilder kpi: () -> Kpi,
 		fraction: Double? = nil,
@@ -47,7 +47,7 @@ extension KPIProgressItem where Footnote == EmptyView {
     }
 }
 
-extension KPIProgressItem where Kpi == EmptyView, Subtitle == EmptyView {
+extension _KPIProgressItem where Kpi == EmptyView, Subtitle == EmptyView {
     public init(
     fraction: Double? = nil,
 		@ViewBuilder footnote: () -> Footnote
@@ -61,7 +61,7 @@ extension KPIProgressItem where Kpi == EmptyView, Subtitle == EmptyView {
     }
 }
 
-extension KPIProgressItem where Kpi == EmptyView, Footnote == EmptyView {
+extension _KPIProgressItem where Kpi == EmptyView, Footnote == EmptyView {
     public init(
     fraction: Double? = nil,
 		@ViewBuilder subtitle: () -> Subtitle
@@ -75,7 +75,7 @@ extension KPIProgressItem where Kpi == EmptyView, Footnote == EmptyView {
     }
 }
 
-extension KPIProgressItem where Subtitle == EmptyView, Footnote == EmptyView {
+extension _KPIProgressItem where Subtitle == EmptyView, Footnote == EmptyView {
     public init(
     @ViewBuilder kpi: () -> Kpi,
 		fraction: Double? = nil
@@ -89,7 +89,7 @@ extension KPIProgressItem where Subtitle == EmptyView, Footnote == EmptyView {
     }
 }
 
-extension KPIProgressItem where Kpi == EmptyView, Subtitle == EmptyView, Footnote == EmptyView {
+extension _KPIProgressItem where Kpi == EmptyView, Subtitle == EmptyView, Footnote == EmptyView {
     public init(
     fraction: Double? = nil
     ) {
