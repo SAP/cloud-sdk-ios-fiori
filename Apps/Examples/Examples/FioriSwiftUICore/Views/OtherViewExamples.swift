@@ -9,10 +9,6 @@ struct OtherViewExamples: View {
             {
                 Text("KeyValueItem Example")
             }
-            
-            NavigationLink(destination: SectionHeaderExample()) {
-                Text("SectionHeader Example")
-            }
         }
     }
 }

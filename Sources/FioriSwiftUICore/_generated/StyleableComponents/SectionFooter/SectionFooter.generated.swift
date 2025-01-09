@@ -3,61 +3,61 @@
 import Foundation
 import SwiftUI
 
-public struct SectionHeader {
+public struct SectionFooter {
     let title: any View
     let attribute: any View
     /// Style determines fonts and colors. Default is `.title` style.
-    let sectionHeaderStyle: SectionHeaderFooterStyle
+    let sectionFooterStyle: SectionHeaderFooterStyle
     /// Optional handler, to respond to tap events on the view.
     let didSelectHandler: (() -> Void)?
 
-    @Environment(\.sectionHeaderStyle) var style
+    @Environment(\.sectionFooterStyle) var style
 
     fileprivate var _shouldApplyDefaultStyle = true
 
     public init(@ViewBuilder title: () -> any View,
                 @ViewBuilder attribute: () -> any View = { EmptyView() },
-                sectionHeaderStyle: SectionHeaderFooterStyle = .title,
+                sectionFooterStyle: SectionHeaderFooterStyle = .title,
                 didSelectHandler: (() -> Void)? = nil)
     {
         self.title = Title(title: title)
         self.attribute = Attribute(attribute: attribute)
-        self.sectionHeaderStyle = sectionHeaderStyle
+        self.sectionFooterStyle = sectionFooterStyle
         self.didSelectHandler = didSelectHandler
     }
 }
 
-public extension SectionHeader {
+public extension SectionFooter {
     init(title: AttributedString,
          attribute: AttributedString? = nil,
-         sectionHeaderStyle: SectionHeaderFooterStyle = .title,
+         sectionFooterStyle: SectionHeaderFooterStyle = .title,
          didSelectHandler: (() -> Void)? = nil)
     {
-        self.init(title: { Text(title) }, attribute: { OptionalText(attribute) }, sectionHeaderStyle: sectionHeaderStyle, didSelectHandler: didSelectHandler)
+        self.init(title: { Text(title) }, attribute: { OptionalText(attribute) }, sectionFooterStyle: sectionFooterStyle, didSelectHandler: didSelectHandler)
     }
 }
 
-public extension SectionHeader {
-    init(_ configuration: SectionHeaderConfiguration) {
+public extension SectionFooter {
+    init(_ configuration: SectionFooterConfiguration) {
         self.init(configuration, shouldApplyDefaultStyle: false)
     }
 
-    internal init(_ configuration: SectionHeaderConfiguration, shouldApplyDefaultStyle: Bool) {
+    internal init(_ configuration: SectionFooterConfiguration, shouldApplyDefaultStyle: Bool) {
         self.title = configuration.title
         self.attribute = configuration.attribute
-        self.sectionHeaderStyle = configuration.sectionHeaderStyle
+        self.sectionFooterStyle = configuration.sectionFooterStyle
         self.didSelectHandler = configuration.didSelectHandler
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
     }
 }
 
-extension SectionHeader: View {
+extension SectionFooter: View {
     public var body: some View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(title: .init(self.title), attribute: .init(self.attribute), sectionHeaderStyle: self.sectionHeaderStyle, didSelectHandler: self.didSelectHandler)).typeErased
-                .transformEnvironment(\.sectionHeaderStyleStack) { stack in
+            self.style.resolve(configuration: .init(title: .init(self.title), attribute: .init(self.attribute), sectionFooterStyle: self.sectionFooterStyle, didSelectHandler: self.didSelectHandler)).typeErased
+                .transformEnvironment(\.sectionFooterStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
                     }
@@ -66,7 +66,7 @@ extension SectionHeader: View {
     }
 }
 
-private extension SectionHeader {
+private extension SectionFooter {
     func shouldApplyDefaultStyle(_ bool: Bool) -> some View {
         var s = self
         s._shouldApplyDefaultStyle = bool
@@ -74,9 +74,9 @@ private extension SectionHeader {
     }
 
     func defaultStyle() -> some View {
-        SectionHeader(.init(title: .init(self.title), attribute: .init(self.attribute), sectionHeaderStyle: self.sectionHeaderStyle, didSelectHandler: self.didSelectHandler))
+        SectionFooter(.init(title: .init(self.title), attribute: .init(self.attribute), sectionFooterStyle: self.sectionFooterStyle, didSelectHandler: self.didSelectHandler))
             .shouldApplyDefaultStyle(false)
-            .sectionHeaderStyle(SectionHeaderFioriStyle.ContentFioriStyle())
+            .sectionFooterStyle(SectionFooterFioriStyle.ContentFioriStyle())
             .typeErased
     }
 }

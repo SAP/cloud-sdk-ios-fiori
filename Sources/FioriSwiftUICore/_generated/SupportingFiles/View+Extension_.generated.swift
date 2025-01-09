@@ -1567,6 +1567,23 @@ public extension View {
     }
 }
 
+// MARK: SectionFooterStyle
+
+public extension View {
+    func sectionFooterStyle(_ style: some SectionFooterStyle) -> some View {
+        self.transformEnvironment(\.sectionFooterStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func sectionFooterStyle(@ViewBuilder content: @escaping (SectionFooterConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.sectionFooterStyleStack) { stack in
+            let style = AnySectionFooterStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: SectionHeaderStyle
 
 public extension View {

@@ -12,8 +12,8 @@ import SwiftUI
  */
 
 // Base Layout style
-public struct SectionHeaderBaseStyle: SectionHeaderStyle {
-    public func makeBody(_ configuration: SectionHeaderConfiguration) -> some View {
+public struct SectionFooterBaseStyle: SectionFooterStyle {
+    public func makeBody(_ configuration: SectionFooterConfiguration) -> some View {
         // Add default layout here
         HStack {
             configuration.title
@@ -23,45 +23,45 @@ public struct SectionHeaderBaseStyle: SectionHeaderStyle {
                 .lineLimit(1)
                 .multilineTextAlignment(.trailing)
             
-            if configuration.sectionHeaderStyle == .attribute {
+            if configuration.sectionFooterStyle == .attribute {
                 AccessoryIcon {
                     AccessoryType.disclosure.image
                 }
             }
         }
-        .padding([.top, .bottom], configuration.sectionHeaderStyle == .title ? 10 : 12)
+        .padding([.top, .bottom], configuration.sectionFooterStyle == .title ? 10 : 12)
         .contentShape(Rectangle())
         .onTapGesture {
             configuration.didSelectHandler?()
         }
         .accessibilityElement(children: .combine)
-        .accessibilityAddTraits((configuration.didSelectHandler != nil) ? [.isHeader, .isButton] : [.isHeader, .isStaticText])
+        .accessibilityAddTraits((configuration.didSelectHandler != nil) ? [.isStaticText, .isButton] : .isStaticText)
     }
 }
 
 // Default fiori styles
-extension SectionHeaderFioriStyle {
-    struct ContentFioriStyle: SectionHeaderStyle {
-        func makeBody(_ configuration: SectionHeaderConfiguration) -> some View {
-            SectionHeader(configuration)
+extension SectionFooterFioriStyle {
+    struct ContentFioriStyle: SectionFooterStyle {
+        func makeBody(_ configuration: SectionFooterConfiguration) -> some View {
+            SectionFooter(configuration)
             // Add default style for its content
             // .background()
         }
     }
 
     struct TitleFioriStyle: TitleStyle {
-        let sectionHeaderConfiguration: SectionHeaderConfiguration
+        let sectionFooterConfiguration: SectionFooterConfiguration
 
         func makeBody(_ configuration: TitleConfiguration) -> some View {
             Title(configuration)
                 // Add default style for Title
-                .foregroundStyle(Color.preferredColor(self.sectionHeaderConfiguration.sectionHeaderStyle == .title ? .secondaryLabel : .primaryLabel))
-                .font(.fiori(forTextStyle: self.sectionHeaderConfiguration.sectionHeaderStyle == .title ? .subheadline : .body))
+                .foregroundStyle(Color.preferredColor(self.sectionFooterConfiguration.sectionFooterStyle == .title ? .secondaryLabel : .primaryLabel))
+                .font(.fiori(forTextStyle: self.sectionFooterConfiguration.sectionFooterStyle == .title ? .subheadline : .body))
         }
     }
 
     struct AttributeFioriStyle: AttributeStyle {
-        let sectionHeaderConfiguration: SectionHeaderConfiguration
+        let sectionFooterConfiguration: SectionFooterConfiguration
 
         func makeBody(_ configuration: AttributeConfiguration) -> some View {
             Attribute(configuration)
@@ -72,18 +72,18 @@ extension SectionHeaderFioriStyle {
     }
 }
 
-/// The style determines whether disclosureAccessory of SectionHeader is hidden.
-public struct SectionHeaderAccessoryStyle: SectionHeaderStyle {
+/// The style determines whether disclosureAccessory of SectionFooter is hidden.
+public struct SectionFooterAccessoryStyle: SectionFooterStyle {
     public var isDisclosureAccessoryHidden: Bool
-    public func makeBody(_ configuration: SectionHeaderConfiguration) -> some View {
+    public func makeBody(_ configuration: SectionFooterConfiguration) -> some View {
         HStack {
             configuration.title
                 .lineLimit(1)
-                .sectionHeaderStyle(.titleStyle(.fiori))
+                .sectionFooterStyle(.titleStyle(.fiori))
             Spacer()
             configuration.attribute
                 .lineLimit(1)
-                .sectionHeaderStyle(.attributeStyle(.fiori))
+                .sectionFooterStyle(.attributeStyle(.fiori))
                 .multilineTextAlignment(.trailing)
                 
             if self.isDisclosureAccessoryHidden {
@@ -94,7 +94,7 @@ public struct SectionHeaderAccessoryStyle: SectionHeaderStyle {
                 }
             }
         }
-        .padding([.top, .bottom], configuration.sectionHeaderStyle == .title ? 10 : 12)
+        .padding([.top, .bottom], configuration.sectionFooterStyle == .title ? 10 : 12)
         .contentShape(Rectangle())
         .onTapGesture {
             configuration.didSelectHandler?()
@@ -104,9 +104,9 @@ public struct SectionHeaderAccessoryStyle: SectionHeaderStyle {
     }
 }
 
-/// The style determines whether disclosureAccessory of SectionHeader is hidden.
-public extension SectionHeaderStyle where Self == SectionHeaderAccessoryStyle {
-    static func isDisclosureAccessoryHidden(isHidden: Bool) -> SectionHeaderAccessoryStyle {
-        SectionHeaderAccessoryStyle(isDisclosureAccessoryHidden: isHidden)
+/// The style determines whether disclosureAccessory of SectionFooter is hidden.
+public extension SectionFooterStyle where Self == SectionFooterAccessoryStyle {
+    static func isDisclosureAccessoryHidden(isHidden: Bool) -> SectionFooterAccessoryStyle {
+        SectionFooterAccessoryStyle(isDisclosureAccessoryHidden: isHidden)
     }
 }

@@ -24,6 +24,8 @@ struct AnySectionHeaderStyle: SectionHeaderStyle {
 public struct SectionHeaderConfiguration {
     public let title: Title
     public let attribute: Attribute
+    public let sectionHeaderStyle: SectionHeaderFooterStyle
+    public let didSelectHandler: (() -> Void)?
 
     public typealias Title = ConfigurationViewWrapper
     public typealias Attribute = ConfigurationViewWrapper

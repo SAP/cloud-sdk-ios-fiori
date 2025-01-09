@@ -1475,6 +1475,22 @@ extension SecondaryTimestampStyle {
     }
 }
 
+// MARK: SectionFooterStyle
+
+struct ResolvedSectionFooterStyle<Style: SectionFooterStyle>: View {
+    let style: Style
+    let configuration: SectionFooterConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension SectionFooterStyle {
+    func resolve(configuration: SectionFooterConfiguration) -> some View {
+        ResolvedSectionFooterStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: SectionHeaderStyle
 
 struct ResolvedSectionHeaderStyle<Style: SectionHeaderStyle>: View {
