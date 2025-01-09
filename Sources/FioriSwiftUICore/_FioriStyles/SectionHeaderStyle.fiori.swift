@@ -106,6 +106,9 @@ public struct SectionHeaderAccessoryStyle: SectionHeaderStyle {
 
 /// The style determines whether disclosureAccessory of SectionHeader is hidden.
 public extension SectionHeaderStyle where Self == SectionHeaderAccessoryStyle {
+    /// Set disclosureAccessory is hidden or visible.
+    /// - Parameter isHidden: Indicates if the disclosureAccessory is hidden or visible.
+    /// - Returns: SectionHeaderAccessoryStyle
     static func isDisclosureAccessoryHidden(isHidden: Bool) -> SectionHeaderAccessoryStyle {
         SectionHeaderAccessoryStyle(isDisclosureAccessoryHidden: isHidden)
     }

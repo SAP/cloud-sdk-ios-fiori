@@ -1069,4 +1069,3 @@ protocol _SectionFooterComponent: _TitleComponent, _AttributeComponent {
 /// ```
 // sourcery: CompositeComponent
 protocol _ObjectHeaderComponent: _TitleComponent, _SubtitleComponent, _TagsComponent, _BodyTextComponent, _FootnoteComponent, _DescriptionTextComponent, _StatusComponent, _SubstatusComponent, _DetailImageComponent, _DetailContentComponent {}
-

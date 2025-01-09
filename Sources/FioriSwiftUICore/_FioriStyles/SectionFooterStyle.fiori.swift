@@ -106,6 +106,9 @@ public struct SectionFooterAccessoryStyle: SectionFooterStyle {
 
 /// The style determines whether disclosureAccessory of SectionFooter is hidden.
 public extension SectionFooterStyle where Self == SectionFooterAccessoryStyle {
+    /// Set disclosureAccessory is hidden or visible.
+    /// - Parameter isHidden: Indicates if the disclosureAccessory is hidden or visible.
+    /// - Returns: SectionFooterAccessoryStyle
     static func isDisclosureAccessoryHidden(isHidden: Bool) -> SectionFooterAccessoryStyle {
         SectionFooterAccessoryStyle(isDisclosureAccessoryHidden: isHidden)
     }
