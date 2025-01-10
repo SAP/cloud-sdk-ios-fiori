@@ -10,7 +10,7 @@ public extension _ObjectHeader where Title == Text,
     Status == _ConditionalContent<TextOrIconView, EmptyView>,
     Substatus == _ConditionalContent<TextOrIconView, EmptyView>,
     DetailImage == _ConditionalContent<Image, EmptyView>,
-    DetailContent == HeaderChart<Text, _ConditionalContent<Text, EmptyView>, _ConditionalContent<Text, EmptyView>, _ConditionalContent<Image, EmptyView>, _ConditionalContent<Text, EmptyView>, AnyView>
+    DetailContent == HeaderChart
 {
     init(title: String,
          subtitle: String? = nil,
@@ -21,7 +21,7 @@ public extension _ObjectHeader where Title == Text,
          status: TextOrIcon? = nil,
          substatus: TextOrIcon? = nil,
          detailImage: Image? = nil,
-         headerChart: HeaderChart<Text, _ConditionalContent<Text, EmptyView>, _ConditionalContent<Text, EmptyView>, _ConditionalContent<Image, EmptyView>, _ConditionalContent<Text, EmptyView>, AnyView>)
+         headerChart: HeaderChart)
     {
         self._title = Text(title)
         self._subtitle = subtitle != nil ? ViewBuilder.buildEither(first: Text(subtitle!)) : ViewBuilder.buildEither(second: EmptyView())
@@ -584,168 +584,5 @@ struct SizeModifier: ViewModifier {
         content.background(GeometryReader { proxy in
             Color.clear.preference(key: SizePreferenceKey.self, value: proxy.size)
         })
-    }
-}
-
-struct ObjectHeader_Preview: PreviewProvider {
-    static var previews: some View {
-        let chartModel = ChartModel(chartType: .line,
-                                    data: [[10, 30, 45, 55, 40, 70, 80]],
-                                    titlesForCategory: [["9AM", nil, nil, nil, nil, nil, "9PM"]],
-                                    categoryAxis: ChartCategoryAxisAttributes(labelLayoutStyle: .range))
-        chartModel.numericAxis.labels.isHidden = true
-        chartModel.seriesAttributes[0].point.isHidden = true
-        
-        let hc = HeaderChart(title: {
-            Text("Temperature")
-        }, subtitle: {
-            Text("20 min ago")
-        }, trend: {
-            Text("11.5%").foregroundColor(.green)
-        }, trendImage: {
-            Image(systemName: "triangle.fill").foregroundColor(.green)
-        }, chart: {
-            ChartView(chartModel)
-        })
-        
-        return Group {
-            _ObjectHeader(title: "Transformer Overheating",
-                          subtitle: "Three Phase Pad Mounted Transformer (533423)", footnote: "1000 - Hamburg, MECHANIK",
-                          descriptionText: "Customer noticed that the transformer started to over heat within 45 minutes each time he turned it on at 7:30am.  The first technician who looked at this did not have the correct additional tools to complete the job.",
-                          status: TextOrIcon.text("High"), substatus: TextOrIcon.text("Scheduled"),
-                          detailImage: Image(systemName: "person"),
-                          detailContent: { hc })
-                .previewLayout(.fixed(width: 390, height: 150))
-                .environment(\.horizontalSizeClass, .compact)
-            
-            // page 6
-            _ObjectHeader(title: {
-                Text("Inspect Electric Pump Motor Long Job Title Example Wrapping Two Lines")
-            }, subtitle: {
-                Text("Job 819701")
-            }, descriptionText: {
-                Text("Temperature sensor predicts overheating failure in 4 days Urgent and needs attention sensor predicts overheating failure in 4 days Urgent and need attention.")
-            }, status: {
-                Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel))
-            }, substatus: {
-                Text("High Priority")
-            }, detailImage: {
-                Image(systemName: "person").font(Font.system(size: 70))
-            }, detailContent: {
-                HeaderChart(title: {
-                    Text("Temperature")
-                }, subtitle: {
-                    Text("20 min ago")
-                }, chart: {
-                    ChartView(chartModel)
-                })
-            })
-            .previewLayout(.fixed(width: 1024, height: 200))
-            .environment(\.horizontalSizeClass, .regular)
-            .environment(\.colorScheme, .dark)
-            
-            _ObjectHeader(title: {
-                Text("Inspect Electric Pump Motor Long Job Title Example Wrapping Two Lines")
-            }, subtitle: {
-                Text("Job 819701")
-            }, status: {
-                Text("Very High Priority").foregroundColor(.preferredColor(.negativeLabel))
-            }, detailImage: {
-                Image(systemName: "person").font(Font.system(size: 70))
-            })
-            .previewLayout(.fixed(width: 1024, height: 200))
-            .environment(\.horizontalSizeClass, .regular)
-            .environment(\.colorScheme, .dark)
-            
-            _ObjectHeader(title: {
-                Text("Inspect Electric Pump Motor Long Job Title Example Wrapping Two Lines")
-            }, subtitle: {
-                Text("Job 819701")
-            }, tags: {
-                Tag("Started")
-                Tag("PM01")
-                Tag("103-Repair")
-            }, bodyText: {
-                Text("1000-Hamburg, MECHANIK")
-            }, footnote: {
-                Text("Due on 12/31/16")
-            }, descriptionText: {
-                Text("Temperature sensor predicts overheating failure in 4 days Urgent and needs attention sensor predicts overheating failure in 4 days Urgent and need attention.")
-            }, status: {
-                Text("Very High Priority").foregroundColor(.preferredColor(.negativeLabel))
-            }, substatus: {
-                Text("Scheduled")
-            })
-            .previewLayout(.fixed(width: 1024, height: 200))
-            .environment(\.horizontalSizeClass, .regular)
-            .environment(\.colorScheme, .dark)
-            
-            _ObjectHeader(title: {
-                Text("Inspect Electric Pump Motor Long Job Title Example Wrapping Two Lines")
-            }, subtitle: {
-                Text("Job 819701")
-            }, tags: {
-                Tag("Started")
-                Tag("PM01")
-                Tag("103-Repair")
-            }, bodyText: {
-                Text("1000-Hamburg, MECHANIK")
-            }, footnote: {
-                Text("Due on 12/31/16")
-            })
-            .previewLayout(.fixed(width: 1024, height: 200))
-            .environment(\.horizontalSizeClass, .regular)
-            .environment(\.colorScheme, .dark)
-            
-            _ObjectHeader(title: {
-                Text("Inspect Electric Pump Motor Long Job Title Example Wrapping Two Lines Accessibility Settings Testing")
-            }, subtitle: {
-                Text("Job 819701 Accessibility Settings Testing")
-            }, descriptionText: {
-                Text("Temperature sensor predicts overheating failure in 4 days Urgent and needs attention sensor predicts overheating failure in 4 days Urgent and need attention.")
-            }, status: {
-                Text("Very High Priority").foregroundColor(.preferredColor(.negativeLabel))
-            }, substatus: {
-                Text("Scheduled")
-            })
-            .previewLayout(.fixed(width: 1024, height: 200))
-            .environment(\.horizontalSizeClass, .regular)
-            .environment(\.colorScheme, .dark)
-            .environment(\.sizeCategory, .extraExtraLarge)
-            
-            _ObjectHeader(title: {
-                Text("Inspect Electric Pump Motor Long Job Title Example Wrapping Two Lines Accessibility Settings Testing")
-            }, subtitle: {
-                Text("Job 819701 Accessibility Settings Testing")
-            }, tags: {
-                Tag("Started")
-                Tag("PM01")
-                Tag("103-Repair")
-            }, bodyText: {
-                Text("1000-Hamburg, MECHANIK")
-            }, footnote: {
-                Text("Due on 12/31/16")
-            }, status: {
-                Text("Very High Priority").foregroundColor(.preferredColor(.negativeLabel))
-            }, substatus: {
-                Text("Scheduled")
-            }, detailContent: {
-                HeaderChart(title: {
-                    Text("Temperature")
-                }, subtitle: {
-                    Text("20 min ago")
-                }, trend: {
-                    Text("11.5%").foregroundColor(.green)
-                }, trendImage: {
-                    Image(systemName: "triangle.fill").foregroundColor(.green)
-                }, kpi: {
-                    KPIItem(data: .components([.metric("79"), .unit("°F")]), subtitle: "").disabled(true)
-                })
-            })
-            .previewLayout(.fixed(width: 1024, height: 300))
-            .environment(\.horizontalSizeClass, .regular)
-            .environment(\.colorScheme, .dark)
-            .environment(\.sizeCategory, .extraExtraLarge)
-        }
     }
 }
