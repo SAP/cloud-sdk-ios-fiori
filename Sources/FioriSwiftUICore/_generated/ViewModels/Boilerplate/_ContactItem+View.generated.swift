@@ -1,8 +1,8 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
-//TODO: Copy commented code to new file: `FioriSwiftUICore/Views/ContactItem+View.swift`
+//TODO: Copy commented code to new file: `FioriSwiftUICore/Views/_ContactItem+View.swift`
 //TODO: Implement default Fiori style definitions as `ViewModifier`
-//TODO: Implement ContactItem `View` body
+//TODO: Implement _ContactItem `View` body
 //TODO: Implement LibraryContentProvider
 
 /// - Important: to make `@Environment` properties (e.g. `horizontalSizeClass`), internally accessible
@@ -16,7 +16,7 @@ import SwiftUI
 // FIXME: - Implement Fiori style definitions
 
 extension Fiori {
-    enum ContactItem {
+    enum _ContactItem {
         typealias Title = EmptyModifier
         typealias TitleCumulative = EmptyModifier
 		typealias Subtitle = EmptyModifier
@@ -53,21 +53,21 @@ extension Fiori {
     }
 }
 
-// FIXME: - Implement ContactItem View body
+// FIXME: - Implement _ContactItem View body
 
-extension ContactItem: View {
+extension _ContactItem: View {
     public var body: some View {
         <# View body #>
     }
 }
 
-// FIXME: - Implement ContactItem specific LibraryContentProvider
+// FIXME: - Implement _ContactItem specific LibraryContentProvider
 
 @available(iOS 14.0, macOS 11.0, *)
-struct ContactItemLibraryContent: LibraryContentProvider {
+struct _ContactItemLibraryContent: LibraryContentProvider {
     @LibraryContentBuilder
     var views: [LibraryItem] {
-        LibraryItem(ContactItem(model: LibraryPreviewData.Person.laurelosborn),
+        LibraryItem(_ContactItem(model: LibraryPreviewData.Person.laurelosborn),
                     category: .control)
     }
 }
