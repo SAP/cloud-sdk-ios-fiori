@@ -1662,6 +1662,125 @@ public extension CloseActionStyle where Self == CloseActionFioriStyle {
     }
 }
 
+// MARK: ContactItemStyle
+
+public extension ContactItemStyle where Self == ContactItemBaseStyle {
+    static var base: ContactItemBaseStyle {
+        ContactItemBaseStyle()
+    }
+}
+
+public extension ContactItemStyle where Self == ContactItemFioriStyle {
+    static var fiori: ContactItemFioriStyle {
+        ContactItemFioriStyle()
+    }
+}
+
+public struct ContactItemTitleStyle: ContactItemStyle {
+    let style: any TitleStyle
+
+    public func makeBody(_ configuration: ContactItemConfiguration) -> some View {
+        ContactItem(configuration)
+            .titleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension ContactItemStyle where Self == ContactItemTitleStyle {
+    static func titleStyle(_ style: some TitleStyle) -> ContactItemTitleStyle {
+        ContactItemTitleStyle(style: style)
+    }
+
+    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> ContactItemTitleStyle {
+        let style = AnyTitleStyle(content)
+        return ContactItemTitleStyle(style: style)
+    }
+}
+
+public struct ContactItemSubtitleStyle: ContactItemStyle {
+    let style: any SubtitleStyle
+
+    public func makeBody(_ configuration: ContactItemConfiguration) -> some View {
+        ContactItem(configuration)
+            .subtitleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension ContactItemStyle where Self == ContactItemSubtitleStyle {
+    static func subtitleStyle(_ style: some SubtitleStyle) -> ContactItemSubtitleStyle {
+        ContactItemSubtitleStyle(style: style)
+    }
+
+    static func subtitleStyle(@ViewBuilder content: @escaping (SubtitleConfiguration) -> some View) -> ContactItemSubtitleStyle {
+        let style = AnySubtitleStyle(content)
+        return ContactItemSubtitleStyle(style: style)
+    }
+}
+
+public struct ContactItemDescriptionStyle: ContactItemStyle {
+    let style: any DescriptionStyle
+
+    public func makeBody(_ configuration: ContactItemConfiguration) -> some View {
+        ContactItem(configuration)
+            .descriptionStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension ContactItemStyle where Self == ContactItemDescriptionStyle {
+    static func descriptionStyle(_ style: some DescriptionStyle) -> ContactItemDescriptionStyle {
+        ContactItemDescriptionStyle(style: style)
+    }
+
+    static func descriptionStyle(@ViewBuilder content: @escaping (DescriptionConfiguration) -> some View) -> ContactItemDescriptionStyle {
+        let style = AnyDescriptionStyle(content)
+        return ContactItemDescriptionStyle(style: style)
+    }
+}
+
+public struct ContactItemDetailImageStyle: ContactItemStyle {
+    let style: any DetailImageStyle
+
+    public func makeBody(_ configuration: ContactItemConfiguration) -> some View {
+        ContactItem(configuration)
+            .detailImageStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension ContactItemStyle where Self == ContactItemDetailImageStyle {
+    static func detailImageStyle(_ style: some DetailImageStyle) -> ContactItemDetailImageStyle {
+        ContactItemDetailImageStyle(style: style)
+    }
+
+    static func detailImageStyle(@ViewBuilder content: @escaping (DetailImageConfiguration) -> some View) -> ContactItemDetailImageStyle {
+        let style = AnyDetailImageStyle(content)
+        return ContactItemDetailImageStyle(style: style)
+    }
+}
+
+public struct ContactItemActivityItemsStyle: ContactItemStyle {
+    let style: any ActivityItemsStyle
+
+    public func makeBody(_ configuration: ContactItemConfiguration) -> some View {
+        ContactItem(configuration)
+            .activityItemsStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension ContactItemStyle where Self == ContactItemActivityItemsStyle {
+    static func activityItemsStyle(_ style: some ActivityItemsStyle) -> ContactItemActivityItemsStyle {
+        ContactItemActivityItemsStyle(style: style)
+    }
+
+    static func activityItemsStyle(@ViewBuilder content: @escaping (ActivityItemsConfiguration) -> some View) -> ContactItemActivityItemsStyle {
+        let style = AnyActivityItemsStyle(content)
+        return ContactItemActivityItemsStyle(style: style)
+    }
+}
+
 // MARK: CounterStyle
 
 public extension CounterStyle where Self == CounterBaseStyle {
