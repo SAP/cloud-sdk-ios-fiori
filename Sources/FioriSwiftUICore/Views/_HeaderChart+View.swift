@@ -2,7 +2,7 @@ import FioriCharts
 import SwiftUI
 
 extension Fiori {
-    enum HeaderChart {
+    enum _HeaderChart {
         struct Title: ViewModifier {
             func body(content: Content) -> some View {
                 content
@@ -59,7 +59,7 @@ extension Fiori {
     }
 }
 
-extension HeaderChart: View {
+extension _HeaderChart: View {
     /// Minimum Width is 100 px, Maximum Width is 312 px
     public var body: some View {
         VStack(alignment: .leading) {
@@ -117,103 +117,6 @@ extension HeaderChart: View {
             if Chart.self != EmptyView.self {
                 chart.frame(height: 75)
             }
-        }
-    }
-}
-
-struct HeaderChart_Preview: PreviewProvider {
-    static var previews: some View {
-        let chartModel = ChartModel(chartType: .line,
-                                    data: [[10, 30, 45, 55, 40, 70, 80]],
-                                    titlesForCategory: [["9AM", nil, nil, nil, nil, nil, "9PM"]],
-                                    categoryAxis: ChartCategoryAxisAttributes(labelLayoutStyle: .range))
-        chartModel.numericAxis.labels.isHidden = true
-        chartModel.seriesAttributes[0].point.isHidden = true
-        
-        return Group {
-            HeaderChart(title: "Temperature", subtitle: "20 min ago", trend: "11.5%", trendImage: Image(systemName: "triangle.fill"), kpi: "79°F") {
-                ChartView(chartModel)
-            }.previewLayout(.sizeThatFits)
-            
-            HeaderChart(title: {
-                Text("Temperature")
-            }, subtitle: {
-                Text("20 min ago")
-            }, trend: {
-                Text("11.5%").foregroundColor(.green)
-            }, trendImage: {
-                Image(systemName: "triangle.fill").foregroundColor(.green)
-            }, kpi: {
-                KPIItem(data: .components([.metric("79"), .unit("°F")]), subtitle: "").disabled(true)
-            }, chart: {
-                ChartView(chartModel)
-            }).previewLayout(.sizeThatFits)
-            
-            HeaderChart(title: {
-                Text("Temperature")
-            }, subtitle: {
-                Text("20 min ago")
-            }, trend: {
-                Text("11.5%").foregroundColor(.green)
-            }, trendImage: {
-                Image(systemName: "triangle.fill").foregroundColor(.green)
-            }, chart: {
-                ChartView(chartModel)
-            }).previewLayout(.sizeThatFits)
-            
-            HeaderChart(title: {
-                Text("Temperature")
-            }, subtitle: {
-                Text("20 min ago")
-            }, chart: {
-                ChartView(chartModel)
-            }).previewLayout(.sizeThatFits)
-            
-            HeaderChart(title: {
-                Text("Temperature")
-            }, subtitle: {
-                Text("20 min ago")
-            }, kpi: {
-                KPIItem(data: .components([.metric("79"), .unit("°F")]), subtitle: "").disabled(true)
-            }, chart: {
-                ChartView(chartModel)
-            }).previewLayout(.sizeThatFits)
-            
-            HeaderChart(title: {
-                Text("Temperature")
-            }, subtitle: {
-                Text("20 min ago")
-            }, trend: {
-                Text("11.5%").foregroundColor(.green)
-            }, trendImage: {
-                Image(systemName: "triangle.fill").foregroundColor(.green)
-            }, kpi: {
-                KPIItem(data: .components([.metric("79"), .unit("°F")]), subtitle: "").disabled(true)
-            }).previewLayout(.sizeThatFits)
-            
-            HeaderChart(title: {
-                Text("Temperature")
-            }, subtitle: {
-                Text("20 min ago")
-            }, trend: {
-                Text("11.5%").foregroundColor(.green)
-            }, trendImage: {
-                Image(systemName: "triangle.fill").foregroundColor(.green)
-            }).previewLayout(.sizeThatFits)
-            
-            HeaderChart(title: {
-                Text("Temperature")
-            }, subtitle: {
-                Text("20 min ago")
-            }, kpi: {
-                KPIItem(data: .components([.metric("79"), .unit("°F")]), subtitle: "").disabled(true)
-            }).previewLayout(.sizeThatFits)
-            
-            HeaderChart(title: {
-                EmptyView()
-            }, chart: {
-                ChartView(chartModel)
-            }).previewLayout(.sizeThatFits)
         }
     }
 }
