@@ -1212,6 +1212,34 @@ public extension HeaderActionStyle {
     }
 }
 
+// MARK: HeaderChartStyle
+
+extension ModifiedStyle: HeaderChartStyle where Style: HeaderChartStyle {
+    public func makeBody(_ configuration: HeaderChartConfiguration) -> some View {
+        HeaderChart(configuration)
+            .headerChartStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct HeaderChartStyleModifier<Style: HeaderChartStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.headerChartStyle(self.style)
+    }
+}
+
+public extension HeaderChartStyle {
+    func modifier(_ modifier: some ViewModifier) -> some HeaderChartStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some HeaderChartStyle) -> some HeaderChartStyle {
+        style.modifier(HeaderChartStyleModifier(style: self))
+    }
+}
+
 // MARK: HelperTextStyle
 
 extension ModifiedStyle: HelperTextStyle where Style: HelperTextStyle {
@@ -3785,6 +3813,62 @@ public extension TrailingAccessoryStyle {
 
     func concat(_ style: some TrailingAccessoryStyle) -> some TrailingAccessoryStyle {
         style.modifier(TrailingAccessoryStyleModifier(style: self))
+    }
+}
+
+// MARK: TrendStyle
+
+extension ModifiedStyle: TrendStyle where Style: TrendStyle {
+    public func makeBody(_ configuration: TrendConfiguration) -> some View {
+        Trend(configuration)
+            .trendStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct TrendStyleModifier<Style: TrendStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.trendStyle(self.style)
+    }
+}
+
+public extension TrendStyle {
+    func modifier(_ modifier: some ViewModifier) -> some TrendStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some TrendStyle) -> some TrendStyle {
+        style.modifier(TrendStyleModifier(style: self))
+    }
+}
+
+// MARK: TrendImageStyle
+
+extension ModifiedStyle: TrendImageStyle where Style: TrendImageStyle {
+    public func makeBody(_ configuration: TrendImageConfiguration) -> some View {
+        TrendImage(configuration)
+            .trendImageStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct TrendImageStyleModifier<Style: TrendImageStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.trendImageStyle(self.style)
+    }
+}
+
+public extension TrendImageStyle {
+    func modifier(_ modifier: some ViewModifier) -> some TrendImageStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some TrendImageStyle) -> some TrendImageStyle {
+        style.modifier(TrendImageStyleModifier(style: self))
     }
 }
 

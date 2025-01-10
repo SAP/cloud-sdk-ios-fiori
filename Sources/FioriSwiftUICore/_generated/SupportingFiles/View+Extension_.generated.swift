@@ -734,6 +734,23 @@ public extension View {
     }
 }
 
+// MARK: HeaderChartStyle
+
+public extension View {
+    func headerChartStyle(_ style: some HeaderChartStyle) -> some View {
+        self.transformEnvironment(\.headerChartStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func headerChartStyle(@ViewBuilder content: @escaping (HeaderChartConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.headerChartStyleStack) { stack in
+            let style = AnyHeaderChartStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: HelperTextStyle
 
 public extension View {
@@ -2293,6 +2310,40 @@ public extension View {
     func trailingAccessoryStyle(@ViewBuilder content: @escaping (TrailingAccessoryConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.trailingAccessoryStyleStack) { stack in
             let style = AnyTrailingAccessoryStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: TrendStyle
+
+public extension View {
+    func trendStyle(_ style: some TrendStyle) -> some View {
+        self.transformEnvironment(\.trendStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func trendStyle(@ViewBuilder content: @escaping (TrendConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.trendStyleStack) { stack in
+            let style = AnyTrendStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: TrendImageStyle
+
+public extension View {
+    func trendImageStyle(_ style: some TrendImageStyle) -> some View {
+        self.transformEnvironment(\.trendImageStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func trendImageStyle(@ViewBuilder content: @escaping (TrendImageConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.trendImageStyleStack) { stack in
+            let style = AnyTrendImageStyle(content)
             stack.append(style)
         }
     }
