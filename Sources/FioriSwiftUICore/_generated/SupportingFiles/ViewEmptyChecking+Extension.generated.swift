@@ -317,6 +317,17 @@ extension HeaderAction: _ViewEmptyChecking {
     }
 }
 
+extension HeaderChart: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        title.isEmpty &&
+            subtitle.isEmpty &&
+            trend.isEmpty &&
+            trendImage.isEmpty &&
+            kpi.isEmpty &&
+            chart.isEmpty
+    }
+}
+
 extension HelperText: _ViewEmptyChecking {
     public var isEmpty: Bool {
         helperText.isEmpty
@@ -972,6 +983,18 @@ extension TopDivider: _ViewEmptyChecking {
 extension TrailingAccessory: _ViewEmptyChecking {
     public var isEmpty: Bool {
         trailingAccessory.isEmpty
+    }
+}
+
+extension Trend: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        trend.isEmpty
+    }
+}
+
+extension TrendImage: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        trendImage.isEmpty
     }
 }
 
