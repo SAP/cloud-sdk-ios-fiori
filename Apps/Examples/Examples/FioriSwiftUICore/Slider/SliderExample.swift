@@ -245,6 +245,9 @@ struct RangeSliderExample: View {
     @State var disabledLowerValue: Double = 5.0
     @State var disabledUpperValue: Double = 20.0
     
+    @State var noLabelLowerValue: Double = 10.0
+    @State var noLabelUpperValue: Double = 50.0
+    
     @State var customLowerValue: Double = 4
     @State var customUpperValue: Double = 16
     
@@ -328,6 +331,15 @@ struct RangeSliderExample: View {
                 range: 10 ... 80,
                 description: "Disabled slider"
             ).disabled(true)
+            
+            FioriSlider(
+                lowerValue: self.$noLabelLowerValue,
+                upperValue: self.$noLabelUpperValue,
+                description: AttributedString("Customized RangeSlider without leading and trailing view"),
+                valueLabel: AttributedString("\(String(format: "%.0f", self.noLabelLowerValue)) - \(String(format: "%.0f", self.noLabelUpperValue))"),
+                showsLeadingAccessory: false,
+                showsTrailingAccessory: false
+            )
             
             let leadingLabel = getLetter(for: Int(self.customLowerValue))
             let trailingLabel = getLetter(for: Int(self.customUpperValue))
