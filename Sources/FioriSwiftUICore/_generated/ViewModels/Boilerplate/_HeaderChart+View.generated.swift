@@ -1,8 +1,8 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
-//TODO: Copy commented code to new file: `FioriSwiftUICore/Views/HeaderChart+View.swift`
+//TODO: Copy commented code to new file: `FioriSwiftUICore/Views/_HeaderChart+View.swift`
 //TODO: Implement default Fiori style definitions as `ViewModifier`
-//TODO: Implement HeaderChart `View` body
+//TODO: Implement _HeaderChart `View` body
 //TODO: Implement LibraryContentProvider
 
 /// - Important: to make `@Environment` properties (e.g. `horizontalSizeClass`), internally accessible
@@ -16,7 +16,7 @@ import SwiftUI
 // FIXME: - Implement Fiori style definitions
 
 extension Fiori {
-    enum HeaderChart {
+    enum _HeaderChart {
         typealias Title = EmptyModifier
         typealias TitleCumulative = EmptyModifier
 		typealias Subtitle = EmptyModifier
@@ -53,21 +53,21 @@ extension Fiori {
     }
 }
 
-// FIXME: - Implement HeaderChart View body
+// FIXME: - Implement _HeaderChart View body
 
-extension HeaderChart: View {
+extension _HeaderChart: View {
     public var body: some View {
         <# View body #>
     }
 }
 
-// FIXME: - Implement HeaderChart specific LibraryContentProvider
+// FIXME: - Implement _HeaderChart specific LibraryContentProvider
 
 @available(iOS 14.0, macOS 11.0, *)
-struct HeaderChartLibraryContent: LibraryContentProvider {
+struct _HeaderChartLibraryContent: LibraryContentProvider {
     @LibraryContentBuilder
     var views: [LibraryItem] {
-        LibraryItem(HeaderChart(model: LibraryPreviewData.Person.laurelosborn),
+        LibraryItem(_HeaderChart(model: LibraryPreviewData.Person.laurelosborn),
                     category: .control)
     }
 }

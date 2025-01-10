@@ -1069,3 +1069,26 @@ protocol _SectionFooterComponent: _TitleComponent, _AttributeComponent {
 /// ```
 // sourcery: CompositeComponent
 protocol _ObjectHeaderComponent: _TitleComponent, _SubtitleComponent, _TagsComponent, _BodyTextComponent, _FootnoteComponent, _DescriptionTextComponent, _StatusComponent, _SubstatusComponent, _DetailImageComponent, _DetailContentComponent {}
+
+/// `HeaderChart` is a view that displays an object's title, subtitle, trend, trend image and kpi.
+/// ## Usage
+/// ```swift
+/// HeaderChart {
+///     Text("title")
+/// } subtitle: {
+///     Text("subtitle")
+/// } trend: {
+///     Text("trend")
+/// } trendImage: {
+///     Image(systemName: "person")
+/// } kpi: {
+///     Text("KPI View")
+/// } chart: {
+///     Text("Chart View")
+/// }
+/// ```
+// sourcery: CompositeComponent
+protocol _HeaderChartComponent: _TitleComponent, _SubtitleComponent, _TrendComponent, _TrendImageComponent, _KpiComponent {
+    @ViewBuilder
+    var chart: (() -> any View)? { get }
+}

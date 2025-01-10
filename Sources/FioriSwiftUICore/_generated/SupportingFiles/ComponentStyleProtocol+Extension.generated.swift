@@ -2355,6 +2355,125 @@ public extension HeaderActionStyle where Self == HeaderActionFioriStyle {
     }
 }
 
+// MARK: HeaderChartStyle
+
+public extension HeaderChartStyle where Self == HeaderChartBaseStyle {
+    static var base: HeaderChartBaseStyle {
+        HeaderChartBaseStyle()
+    }
+}
+
+public extension HeaderChartStyle where Self == HeaderChartFioriStyle {
+    static var fiori: HeaderChartFioriStyle {
+        HeaderChartFioriStyle()
+    }
+}
+
+public struct HeaderChartTitleStyle: HeaderChartStyle {
+    let style: any TitleStyle
+
+    public func makeBody(_ configuration: HeaderChartConfiguration) -> some View {
+        HeaderChart(configuration)
+            .titleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension HeaderChartStyle where Self == HeaderChartTitleStyle {
+    static func titleStyle(_ style: some TitleStyle) -> HeaderChartTitleStyle {
+        HeaderChartTitleStyle(style: style)
+    }
+
+    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> HeaderChartTitleStyle {
+        let style = AnyTitleStyle(content)
+        return HeaderChartTitleStyle(style: style)
+    }
+}
+
+public struct HeaderChartSubtitleStyle: HeaderChartStyle {
+    let style: any SubtitleStyle
+
+    public func makeBody(_ configuration: HeaderChartConfiguration) -> some View {
+        HeaderChart(configuration)
+            .subtitleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension HeaderChartStyle where Self == HeaderChartSubtitleStyle {
+    static func subtitleStyle(_ style: some SubtitleStyle) -> HeaderChartSubtitleStyle {
+        HeaderChartSubtitleStyle(style: style)
+    }
+
+    static func subtitleStyle(@ViewBuilder content: @escaping (SubtitleConfiguration) -> some View) -> HeaderChartSubtitleStyle {
+        let style = AnySubtitleStyle(content)
+        return HeaderChartSubtitleStyle(style: style)
+    }
+}
+
+public struct HeaderChartTrendStyle: HeaderChartStyle {
+    let style: any TrendStyle
+
+    public func makeBody(_ configuration: HeaderChartConfiguration) -> some View {
+        HeaderChart(configuration)
+            .trendStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension HeaderChartStyle where Self == HeaderChartTrendStyle {
+    static func trendStyle(_ style: some TrendStyle) -> HeaderChartTrendStyle {
+        HeaderChartTrendStyle(style: style)
+    }
+
+    static func trendStyle(@ViewBuilder content: @escaping (TrendConfiguration) -> some View) -> HeaderChartTrendStyle {
+        let style = AnyTrendStyle(content)
+        return HeaderChartTrendStyle(style: style)
+    }
+}
+
+public struct HeaderChartTrendImageStyle: HeaderChartStyle {
+    let style: any TrendImageStyle
+
+    public func makeBody(_ configuration: HeaderChartConfiguration) -> some View {
+        HeaderChart(configuration)
+            .trendImageStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension HeaderChartStyle where Self == HeaderChartTrendImageStyle {
+    static func trendImageStyle(_ style: some TrendImageStyle) -> HeaderChartTrendImageStyle {
+        HeaderChartTrendImageStyle(style: style)
+    }
+
+    static func trendImageStyle(@ViewBuilder content: @escaping (TrendImageConfiguration) -> some View) -> HeaderChartTrendImageStyle {
+        let style = AnyTrendImageStyle(content)
+        return HeaderChartTrendImageStyle(style: style)
+    }
+}
+
+public struct HeaderChartKpiStyle: HeaderChartStyle {
+    let style: any KpiStyle
+
+    public func makeBody(_ configuration: HeaderChartConfiguration) -> some View {
+        HeaderChart(configuration)
+            .kpiStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension HeaderChartStyle where Self == HeaderChartKpiStyle {
+    static func kpiStyle(_ style: some KpiStyle) -> HeaderChartKpiStyle {
+        HeaderChartKpiStyle(style: style)
+    }
+
+    static func kpiStyle(@ViewBuilder content: @escaping (KpiConfiguration) -> some View) -> HeaderChartKpiStyle {
+        let style = AnyKpiStyle(content)
+        return HeaderChartKpiStyle(style: style)
+    }
+}
+
 // MARK: HelperTextStyle
 
 public extension HelperTextStyle where Self == HelperTextBaseStyle {
@@ -7112,6 +7231,34 @@ public extension TrailingAccessoryStyle where Self == TrailingAccessoryBaseStyle
 public extension TrailingAccessoryStyle where Self == TrailingAccessoryFioriStyle {
     static var fiori: TrailingAccessoryFioriStyle {
         TrailingAccessoryFioriStyle()
+    }
+}
+
+// MARK: TrendStyle
+
+public extension TrendStyle where Self == TrendBaseStyle {
+    static var base: TrendBaseStyle {
+        TrendBaseStyle()
+    }
+}
+
+public extension TrendStyle where Self == TrendFioriStyle {
+    static var fiori: TrendFioriStyle {
+        TrendFioriStyle()
+    }
+}
+
+// MARK: TrendImageStyle
+
+public extension TrendImageStyle where Self == TrendImageBaseStyle {
+    static var base: TrendImageBaseStyle {
+        TrendImageBaseStyle()
+    }
+}
+
+public extension TrendImageStyle where Self == TrendImageFioriStyle {
+    static var fiori: TrendImageFioriStyle {
+        TrendImageFioriStyle()
     }
 }
 
