@@ -8,11 +8,20 @@ public struct Progress {
 
     @Environment(\.progressStyle) var style
 
+    var componentIdentifier: String = Progress.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder progress: () -> any View) {
+    public init(@ViewBuilder progress: () -> any View,
+                componentIdentifier: String? = Progress.identifier)
+    {
         self.progress = progress()
+        self.componentIdentifier = componentIdentifier ?? Progress.identifier
     }
+}
+
+public extension Progress {
+    static let identifier = "fiori_progress_component"
 }
 
 public extension Progress {
@@ -29,6 +38,7 @@ public extension Progress {
     internal init(_ configuration: ProgressConfiguration, shouldApplyDefaultStyle: Bool) {
         self.progress = configuration.progress
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -37,7 +47,7 @@ extension Progress: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(progress: .init(self.progress))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, progress: .init(self.progress))).typeErased
                 .transformEnvironment(\.progressStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -55,7 +65,7 @@ private extension Progress {
     }
 
     func defaultStyle() -> some View {
-        Progress(.init(progress: .init(self.progress)))
+        Progress(.init(componentIdentifier: self.componentIdentifier, progress: .init(self.progress)))
             .shouldApplyDefaultStyle(false)
             .progressStyle(.fiori)
             .typeErased

@@ -22,9 +22,16 @@ struct AnyTimelineNowIndicatorStyle: TimelineNowIndicatorStyle {
 }
 
 public struct TimelineNowIndicatorConfiguration {
+    public var componentIdentifier: String = "fiori_timelinenowindicator_component"
     public let nowIndicatorNode: NowIndicatorNode
 
     public typealias NowIndicatorNode = ConfigurationViewWrapper
+}
+
+extension TimelineNowIndicatorConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }
 
 public struct TimelineNowIndicatorFioriStyle: TimelineNowIndicatorStyle {

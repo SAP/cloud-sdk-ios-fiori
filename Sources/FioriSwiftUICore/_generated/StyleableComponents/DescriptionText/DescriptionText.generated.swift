@@ -8,11 +8,20 @@ public struct DescriptionText {
 
     @Environment(\.descriptionTextStyle) var style
 
+    var componentIdentifier: String = DescriptionText.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder descriptionText: () -> any View = { EmptyView() }) {
+    public init(@ViewBuilder descriptionText: () -> any View = { EmptyView() },
+                componentIdentifier: String? = DescriptionText.identifier)
+    {
         self.descriptionText = descriptionText()
+        self.componentIdentifier = componentIdentifier ?? DescriptionText.identifier
     }
+}
+
+public extension DescriptionText {
+    static let identifier = "fiori_descriptiontext_component"
 }
 
 public extension DescriptionText {
@@ -29,6 +38,7 @@ public extension DescriptionText {
     internal init(_ configuration: DescriptionTextConfiguration, shouldApplyDefaultStyle: Bool) {
         self.descriptionText = configuration.descriptionText
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -37,7 +47,7 @@ extension DescriptionText: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(descriptionText: .init(self.descriptionText))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, descriptionText: .init(self.descriptionText))).typeErased
                 .transformEnvironment(\.descriptionTextStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -55,7 +65,7 @@ private extension DescriptionText {
     }
 
     func defaultStyle() -> some View {
-        DescriptionText(.init(descriptionText: .init(self.descriptionText)))
+        DescriptionText(.init(componentIdentifier: self.componentIdentifier, descriptionText: .init(self.descriptionText)))
             .shouldApplyDefaultStyle(false)
             .descriptionTextStyle(.fiori)
             .typeErased

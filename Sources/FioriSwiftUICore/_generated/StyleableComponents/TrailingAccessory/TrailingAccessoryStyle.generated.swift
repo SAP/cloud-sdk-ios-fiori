@@ -22,7 +22,14 @@ struct AnyTrailingAccessoryStyle: TrailingAccessoryStyle {
 }
 
 public struct TrailingAccessoryConfiguration {
+    public var componentIdentifier: String = "fiori_trailingaccessory_component"
     public let trailingAccessory: TrailingAccessory
 
     public typealias TrailingAccessory = ConfigurationViewWrapper
+}
+
+extension TrailingAccessoryConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }

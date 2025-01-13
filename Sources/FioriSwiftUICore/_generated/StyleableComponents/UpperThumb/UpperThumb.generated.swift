@@ -8,11 +8,20 @@ public struct UpperThumb {
 
     @Environment(\.upperThumbStyle) var style
 
+    var componentIdentifier: String = UpperThumb.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder upperThumb: () -> any View) {
+    public init(@ViewBuilder upperThumb: () -> any View,
+                componentIdentifier: String? = UpperThumb.identifier)
+    {
         self.upperThumb = upperThumb()
+        self.componentIdentifier = componentIdentifier ?? UpperThumb.identifier
     }
+}
+
+public extension UpperThumb {
+    static let identifier = "fiori_upperthumb_component"
 }
 
 public extension UpperThumb {
@@ -29,6 +38,7 @@ public extension UpperThumb {
     internal init(_ configuration: UpperThumbConfiguration, shouldApplyDefaultStyle: Bool) {
         self.upperThumb = configuration.upperThumb
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -37,7 +47,7 @@ extension UpperThumb: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(upperThumb: .init(self.upperThumb))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, upperThumb: .init(self.upperThumb))).typeErased
                 .transformEnvironment(\.upperThumbStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -55,7 +65,7 @@ private extension UpperThumb {
     }
 
     func defaultStyle() -> some View {
-        UpperThumb(.init(upperThumb: .init(self.upperThumb)))
+        UpperThumb(.init(componentIdentifier: self.componentIdentifier, upperThumb: .init(self.upperThumb)))
             .shouldApplyDefaultStyle(false)
             .upperThumbStyle(.fiori)
             .typeErased

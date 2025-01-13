@@ -22,7 +22,14 @@ struct AnyKpiStyle: KpiStyle {
 }
 
 public struct KpiConfiguration {
+    public var componentIdentifier: String = "fiori_kpi_component"
     public let kpi: Kpi
 
     public typealias Kpi = ConfigurationViewWrapper
+}
+
+extension KpiConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }

@@ -8,11 +8,20 @@ public struct Footnote {
 
     @Environment(\.footnoteStyle) var style
 
+    var componentIdentifier: String = Footnote.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder footnote: () -> any View = { EmptyView() }) {
+    public init(@ViewBuilder footnote: () -> any View = { EmptyView() },
+                componentIdentifier: String? = Footnote.identifier)
+    {
         self.footnote = footnote()
+        self.componentIdentifier = componentIdentifier ?? Footnote.identifier
     }
+}
+
+public extension Footnote {
+    static let identifier = "fiori_footnote_component"
 }
 
 public extension Footnote {
@@ -29,6 +38,7 @@ public extension Footnote {
     internal init(_ configuration: FootnoteConfiguration, shouldApplyDefaultStyle: Bool) {
         self.footnote = configuration.footnote
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -37,7 +47,7 @@ extension Footnote: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(footnote: .init(self.footnote))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, footnote: .init(self.footnote))).typeErased
                 .transformEnvironment(\.footnoteStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -55,7 +65,7 @@ private extension Footnote {
     }
 
     func defaultStyle() -> some View {
-        Footnote(.init(footnote: .init(self.footnote)))
+        Footnote(.init(componentIdentifier: self.componentIdentifier, footnote: .init(self.footnote)))
             .shouldApplyDefaultStyle(false)
             .footnoteStyle(.fiori)
             .typeErased

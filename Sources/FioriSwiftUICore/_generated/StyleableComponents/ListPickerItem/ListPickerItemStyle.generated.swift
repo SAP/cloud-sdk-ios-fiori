@@ -22,6 +22,7 @@ struct AnyListPickerItemStyle: ListPickerItemStyle {
 }
 
 public struct ListPickerItemConfiguration {
+    public var componentIdentifier: String = "fiori_listpickeritem_component"
     public let title: Title
     public let value: Value
     public let mandatoryFieldIndicator: MandatoryFieldIndicator
@@ -35,6 +36,12 @@ public struct ListPickerItemConfiguration {
     public typealias Value = ConfigurationViewWrapper
     public typealias MandatoryFieldIndicator = ConfigurationViewWrapper
     public typealias Destination = ConfigurationViewWrapper
+}
+
+extension ListPickerItemConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }
 
 public struct ListPickerItemFioriStyle: ListPickerItemStyle {

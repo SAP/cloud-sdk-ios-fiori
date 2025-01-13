@@ -11,18 +11,26 @@ public struct CardFooter {
 
     @Environment(\.cardFooterStyle) var style
 
+    var componentIdentifier: String = CardFooter.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
     public init(@ViewBuilder action: () -> any View = { EmptyView() },
                 @ViewBuilder secondaryAction: () -> any View = { EmptyView() },
                 @ViewBuilder tertiaryAction: () -> any View = { EmptyView() },
-                @ViewBuilder overflowAction: () -> any View = { FioriButton { _ in Image(systemName: "ellipsis") } })
+                @ViewBuilder overflowAction: () -> any View = { FioriButton { _ in Image(systemName: "ellipsis") } },
+                componentIdentifier: String? = CardFooter.identifier)
     {
-        self.action = Action(action: action)
-        self.secondaryAction = SecondaryAction(secondaryAction: secondaryAction)
-        self.tertiaryAction = TertiaryAction(tertiaryAction: tertiaryAction)
-        self.overflowAction = OverflowAction(overflowAction: overflowAction)
+        self.action = Action(action: action, componentIdentifier: componentIdentifier)
+        self.secondaryAction = SecondaryAction(secondaryAction: secondaryAction, componentIdentifier: componentIdentifier)
+        self.tertiaryAction = TertiaryAction(tertiaryAction: tertiaryAction, componentIdentifier: componentIdentifier)
+        self.overflowAction = OverflowAction(overflowAction: overflowAction, componentIdentifier: componentIdentifier)
+        self.componentIdentifier = componentIdentifier ?? CardFooter.identifier
     }
+}
+
+public extension CardFooter {
+    static let identifier = "fiori_cardfooter_component"
 }
 
 public extension CardFooter {
@@ -46,6 +54,7 @@ public extension CardFooter {
         self.tertiaryAction = configuration.tertiaryAction
         self.overflowAction = configuration.overflowAction
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -54,7 +63,7 @@ extension CardFooter: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(action: .init(self.action), secondaryAction: .init(self.secondaryAction), tertiaryAction: .init(self.tertiaryAction), overflowAction: .init(self.overflowAction))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, action: .init(self.action), secondaryAction: .init(self.secondaryAction), tertiaryAction: .init(self.tertiaryAction), overflowAction: .init(self.overflowAction))).typeErased
                 .transformEnvironment(\.cardFooterStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -72,7 +81,7 @@ private extension CardFooter {
     }
 
     func defaultStyle() -> some View {
-        CardFooter(.init(action: .init(self.action), secondaryAction: .init(self.secondaryAction), tertiaryAction: .init(self.tertiaryAction), overflowAction: .init(self.overflowAction)))
+        CardFooter(.init(componentIdentifier: self.componentIdentifier, action: .init(self.action), secondaryAction: .init(self.secondaryAction), tertiaryAction: .init(self.tertiaryAction), overflowAction: .init(self.overflowAction)))
             .shouldApplyDefaultStyle(false)
             .cardFooterStyle(CardFooterFioriStyle.ContentFioriStyle())
             .typeErased

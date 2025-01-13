@@ -22,7 +22,14 @@ struct AnyDescriptionStyle: DescriptionStyle {
 }
 
 public struct DescriptionConfiguration {
+    public var componentIdentifier: String = "fiori_description_component"
     public let description: Description
 
     public typealias Description = ConfigurationViewWrapper
+}
+
+extension DescriptionConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }

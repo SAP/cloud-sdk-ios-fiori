@@ -22,6 +22,7 @@ struct AnyObjectItemStyle: ObjectItemStyle {
 }
 
 public struct ObjectItemConfiguration {
+    public var componentIdentifier: String = "fiori_objectitem_component"
     public let title: Title
     public let subtitle: Subtitle
     public let footnote: Footnote
@@ -51,6 +52,12 @@ public struct ObjectItemConfiguration {
     public typealias Tags = ConfigurationViewWrapper
     public typealias Action = ConfigurationViewWrapper
     public typealias ObjectItemButton = ConfigurationViewWrapper
+}
+
+extension ObjectItemConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }
 
 public struct ObjectItemFioriStyle: ObjectItemStyle {

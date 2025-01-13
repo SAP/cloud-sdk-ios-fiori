@@ -11,10 +11,14 @@ extension Type {
         
             @Environment(\\.\(componentName.lowercasingFirst())Style) var style
         
+            var componentIdentifier: String = \(componentName).identifier
+        
             fileprivate var _shouldApplyDefaultStyle = true
         
             \(self.viewBuilderInit)
         }
+        
+        \(self.identifierExtension)
         
         \(self.dataInitExtension)
         
@@ -28,8 +32,17 @@ extension Type {
     
     var viewBuilderInit: String {
         """
-        public init(\(allStoredVariables.viewBuilderInitParams)) {
+        public init(\(allStoredVariables.viewBuilderInitParams), \ncomponentIdentifier: String? = \(componentName).identifier) {
             \(allStoredVariables.viewBuilderInitBody(isBaseComponent: isBaseComponent))
+            self.componentIdentifier = componentIdentifier ?? \(componentName).identifier
+        }
+        """
+    }
+    
+    var identifierExtension: String {
+        """
+        extension \(componentName) {
+            public static let identifier = "fiori_\(componentName.lowercased())_component"
         }
         """
     }
@@ -58,6 +71,7 @@ extension Type {
             internal init(_ configuration: \(configurationName), shouldApplyDefaultStyle: Bool) {
                 \(allStoredVariables.configurationInitBody)
                 self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+                self.componentIdentifier = configuration.componentIdentifier
             }
         }
         """
@@ -70,7 +84,7 @@ extension Type {
                 if _shouldApplyDefaultStyle {
                     self.defaultStyle()
                 } else {
-                    style.resolve(configuration: .init(\(allStoredVariables.configurationInitArgs))).typeErased
+                    style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, \(allStoredVariables.configurationInitArgs))).typeErased
                         .transformEnvironment(\\.\(styleProtocolName.lowercasingFirst())Stack) { stack in
                             if !stack.isEmpty {
                                 stack.removeLast()
@@ -83,7 +97,7 @@ extension Type {
     }
     
     var privateHelperExtension: String {
-        let initDecl = "\(componentName)(.init(\(allStoredVariables.configurationInitArgs)))"
+        let initDecl = "\(componentName)(.init(componentIdentifier: self.componentIdentifier, \(allStoredVariables.configurationInitArgs)))"
         let fioriStyle: String
         switch self.componentType {
         case .base:
@@ -146,6 +160,8 @@ extension Type {
             \(self.styleTypeEraserDecl)
             
             \(self.configurationDecl)
+            
+            \(self.configurationExtension)
             """
         case .composite:
             return """
@@ -154,6 +170,8 @@ extension Type {
             \(self.styleTypeEraserDecl)
             
             \(self.configurationDecl)
+            
+            \(self.configurationExtension)
             
             \(self.fioriStyleDecl)
             """
@@ -165,7 +183,18 @@ extension Type {
     var configurationDecl: String {
         """
         \(accessLevelDecl)struct \(componentName)Configuration {
+            public var componentIdentifier: String = "fiori_\(componentName.lowercased())_component"
             \(allStoredVariables.configurationPropertyListDecl)
+        }
+        """
+    }
+    
+    var configurationExtension: String {
+        """
+        extension \(componentName)Configuration {
+            func isDirectChild(_ componentIdentifier: String) -> Bool {
+                return componentIdentifier == self.componentIdentifier
+            }
         }
         """
     }
