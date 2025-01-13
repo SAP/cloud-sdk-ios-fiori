@@ -411,6 +411,23 @@ public extension View {
     }
 }
 
+// MARK: ContactItemStyle
+
+public extension View {
+    func contactItemStyle(_ style: some ContactItemStyle) -> some View {
+        self.transformEnvironment(\.contactItemStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func contactItemStyle(@ViewBuilder content: @escaping (ContactItemConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.contactItemStyleStack) { stack in
+            let style = AnyContactItemStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: CounterStyle
 
 public extension View {

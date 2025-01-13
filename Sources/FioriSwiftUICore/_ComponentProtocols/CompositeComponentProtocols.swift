@@ -761,6 +761,34 @@ protocol _ActivityItemComponent: _IconComponent, _SubtitleComponent {
     var layout: ActivityItemLayout { get }
 }
 
+/// `ContactItem` provides a view that shows information related to contact.
+/// ## Usage
+/// ```swift
+/// ContactItem(title: "Headline only example", description: "One line of text description is baseline aligned.", actionItems: [.init(type: .phone, didSelectActivityItem: {
+///     print("tap phone")
+/// }), .init(type: .videoCall, didSelectActivityItem: {
+///     print("tap videoCall")
+/// }), .init(type: .message, didSelectActivityItem: {
+///     print("tap message")
+/// })])
+///
+/// ContactItem {
+///      Text("Headline only example")
+/// } subtitle: {
+///      Text("One line of text description is baseline aligned.")
+/// } description: {
+///      Text("Description")
+/// } detailImage: {
+///      Image("person_square4").resizable()
+/// } actionItems: {
+///      ActivityItems(activityItems: [.init(type: .phone, didSelectActivityItem: {
+///          print("tap phone")
+///      })])
+/// }
+/// ```
+// sourcery: CompositeComponent
+protocol _ContactItemComponent: _TitleComponent, _SubtitleComponent, _DescriptionComponent, _DetailImageComponent, _ActivityItemsComponent {}
+
 // sourcery: CompositeComponent
 protocol _RangeSliderControlComponent: _LowerThumbComponent, _UpperThumbComponent, _ActiveTrackComponent, _InactiveTrackComponent {
     // sourcery: @Binding
