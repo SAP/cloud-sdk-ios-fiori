@@ -167,9 +167,13 @@ public protocol SideBarModel {}
 // sourcery: add_env_props = "splitPercent"
 // sourcery: virtualPropMainViewSize = "@State var mainViewSize: CGSize = .zero"
 // sourcery: generated_component_composite
-public protocol ContactItemModel: TitleComponent, SubtitleComponent, DescriptionTextComponent, DetailImageComponent {
+public protocol _ContactItemModel: TitleComponent, SubtitleComponent, DescriptionTextComponent, DetailImageComponent {
     var actionItems: _ActivityItemsModel? { get }
 }
+
+/// Deprecated ContactItemModel
+@available(*, unavailable, renamed: "_ContactItemModel", message: "Will be removed in the future release. Please create ContactItem with other initializers instead.")
+public protocol ContactItemModel {}
 
 // sourcery: add_env_props = ["horizontalSizeClass"]
 // sourcery: generated_component_composite
@@ -588,7 +592,10 @@ public protocol SearchListPickerItemModel: OptionListPickerComponent {
 // sourcery: add_env_props = "filterFeedbackBarStyle"
 // sourcery: generated_component_not_configurable
 // sourcery: add_env_props = "fioriToggleStyle"
-public protocol SwitchPickerItemModel: SwitchPickerComponent {}
+public protocol _SwitchPickerItemModel: SwitchPickerComponent {}
+
+@available(*, unavailable, renamed: "_SwitchPickerItemModel", message: "Will be removed in the future release. Please create SwitchView with other initializers instead.")
+public protocol SwitchPickerItemModel {}
 
 // sourcery: add_env_props = "filterFeedbackBarStyle"
 // sourcery: generated_component_not_configurable
