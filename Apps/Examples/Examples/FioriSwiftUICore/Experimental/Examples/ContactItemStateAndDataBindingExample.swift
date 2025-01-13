@@ -13,7 +13,7 @@ struct ContactItemStateAndDataBindingExample: View {
             ExpHeaderView("Contact Item", subtitle: "State Handling", desc: "Struct/ObservableObject can back component model protocol (here: ContactItemModel) and changes will recompute the view",
                           back: .green, textColor: .white)
 
-            ContactItem(model: self.model)
+            _ContactItem(model: self.model)
                 .exampleHighlighting()
         }
         .alert(isPresented: self.$model.showingAlert, content: {
@@ -62,7 +62,7 @@ class EmailContactViewModel: ObservableObject {
 
 // MARK: Component Model
 
-extension EmailContactViewModel: ContactItemModel {
+extension EmailContactViewModel: _ContactItemModel {
     var title: String {
         self.name
     }

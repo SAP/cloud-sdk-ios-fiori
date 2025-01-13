@@ -574,3 +574,15 @@ protocol _OuterCircleComponent {
     // sourcery: defaultValue = "Circle()"
     var outerCircle: any Shape { get }
 }
+
+// sourcery: BaseComponent
+protocol _TrendComponent {
+    // sourcery: @ViewBuilder
+    var trend: AttributedString? { get }
+}
+
+// sourcery: BaseComponent
+protocol _TrendImageComponent {
+    // sourcery: @ViewBuilder
+    var trendImage: Image? { get }
+}

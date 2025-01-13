@@ -507,6 +507,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: ContactItemStyle
+
+struct ContactItemStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any ContactItemStyle] = []
+}
+
+extension EnvironmentValues {
+    var contactItemStyle: any ContactItemStyle {
+        self.contactItemStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var contactItemStyleStack: [any ContactItemStyle] {
+        get {
+            self[ContactItemStyleStackKey.self]
+        }
+        set {
+            self[ContactItemStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: CounterStyle
 
 struct CounterStyleStackKey: EnvironmentKey {
@@ -881,6 +902,27 @@ extension EnvironmentValues {
         }
         set {
             self[HeaderActionStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: HeaderChartStyle
+
+struct HeaderChartStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any HeaderChartStyle] = []
+}
+
+extension EnvironmentValues {
+    var headerChartStyle: any HeaderChartStyle {
+        self.headerChartStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var headerChartStyleStack: [any HeaderChartStyle] {
+        get {
+            self[HeaderChartStyleStackKey.self]
+        }
+        set {
+            self[HeaderChartStyleStackKey.self] = newValue
         }
     }
 }
@@ -2813,6 +2855,48 @@ extension EnvironmentValues {
         }
         set {
             self[TrailingAccessoryStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: TrendStyle
+
+struct TrendStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any TrendStyle] = []
+}
+
+extension EnvironmentValues {
+    var trendStyle: any TrendStyle {
+        self.trendStyleStack.last ?? .base
+    }
+
+    var trendStyleStack: [any TrendStyle] {
+        get {
+            self[TrendStyleStackKey.self]
+        }
+        set {
+            self[TrendStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: TrendImageStyle
+
+struct TrendImageStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any TrendImageStyle] = []
+}
+
+extension EnvironmentValues {
+    var trendImageStyle: any TrendImageStyle {
+        self.trendImageStyleStack.last ?? .base
+    }
+
+    var trendImageStyleStack: [any TrendImageStyle] {
+        get {
+            self[TrendImageStyleStackKey.self]
+        }
+        set {
+            self[TrendImageStyleStackKey.self] = newValue
         }
     }
 }

@@ -2,7 +2,7 @@
 // DO NOT EDIT
 import SwiftUI
 
-extension HeaderChart where Subtitle == EmptyView {
+extension _HeaderChart where Subtitle == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder trend: () -> Trend,
@@ -21,7 +21,7 @@ extension HeaderChart where Subtitle == EmptyView {
     }
 }
 
-extension HeaderChart where Trend == EmptyView {
+extension _HeaderChart where Trend == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -40,7 +40,7 @@ extension HeaderChart where Trend == EmptyView {
     }
 }
 
-extension HeaderChart where TrendImage == EmptyView {
+extension _HeaderChart where TrendImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -59,7 +59,7 @@ extension HeaderChart where TrendImage == EmptyView {
     }
 }
 
-extension HeaderChart where Kpi == EmptyView {
+extension _HeaderChart where Kpi == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -78,7 +78,7 @@ extension HeaderChart where Kpi == EmptyView {
     }
 }
 
-extension HeaderChart where Chart == EmptyView {
+extension _HeaderChart where Chart == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -97,7 +97,7 @@ extension HeaderChart where Chart == EmptyView {
     }
 }
 
-extension HeaderChart where Subtitle == EmptyView, Trend == EmptyView {
+extension _HeaderChart where Subtitle == EmptyView, Trend == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder trendImage: () -> TrendImage,
@@ -115,7 +115,7 @@ extension HeaderChart where Subtitle == EmptyView, Trend == EmptyView {
     }
 }
 
-extension HeaderChart where Subtitle == EmptyView, TrendImage == EmptyView {
+extension _HeaderChart where Subtitle == EmptyView, TrendImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder trend: () -> Trend,
@@ -133,7 +133,7 @@ extension HeaderChart where Subtitle == EmptyView, TrendImage == EmptyView {
     }
 }
 
-extension HeaderChart where Subtitle == EmptyView, Kpi == EmptyView {
+extension _HeaderChart where Subtitle == EmptyView, Kpi == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder trend: () -> Trend,
@@ -151,7 +151,7 @@ extension HeaderChart where Subtitle == EmptyView, Kpi == EmptyView {
     }
 }
 
-extension HeaderChart where Subtitle == EmptyView, Chart == EmptyView {
+extension _HeaderChart where Subtitle == EmptyView, Chart == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder trend: () -> Trend,
@@ -169,7 +169,7 @@ extension HeaderChart where Subtitle == EmptyView, Chart == EmptyView {
     }
 }
 
-extension HeaderChart where Trend == EmptyView, TrendImage == EmptyView {
+extension _HeaderChart where Trend == EmptyView, TrendImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -187,7 +187,7 @@ extension HeaderChart where Trend == EmptyView, TrendImage == EmptyView {
     }
 }
 
-extension HeaderChart where Trend == EmptyView, Kpi == EmptyView {
+extension _HeaderChart where Trend == EmptyView, Kpi == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -205,7 +205,7 @@ extension HeaderChart where Trend == EmptyView, Kpi == EmptyView {
     }
 }
 
-extension HeaderChart where Trend == EmptyView, Chart == EmptyView {
+extension _HeaderChart where Trend == EmptyView, Chart == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -223,7 +223,7 @@ extension HeaderChart where Trend == EmptyView, Chart == EmptyView {
     }
 }
 
-extension HeaderChart where TrendImage == EmptyView, Kpi == EmptyView {
+extension _HeaderChart where TrendImage == EmptyView, Kpi == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -241,7 +241,7 @@ extension HeaderChart where TrendImage == EmptyView, Kpi == EmptyView {
     }
 }
 
-extension HeaderChart where TrendImage == EmptyView, Chart == EmptyView {
+extension _HeaderChart where TrendImage == EmptyView, Chart == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -259,7 +259,7 @@ extension HeaderChart where TrendImage == EmptyView, Chart == EmptyView {
     }
 }
 
-extension HeaderChart where Kpi == EmptyView, Chart == EmptyView {
+extension _HeaderChart where Kpi == EmptyView, Chart == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -277,7 +277,7 @@ extension HeaderChart where Kpi == EmptyView, Chart == EmptyView {
     }
 }
 
-extension HeaderChart where Subtitle == EmptyView, Trend == EmptyView, TrendImage == EmptyView {
+extension _HeaderChart where Subtitle == EmptyView, Trend == EmptyView, TrendImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder kpi: () -> Kpi,
@@ -294,7 +294,7 @@ extension HeaderChart where Subtitle == EmptyView, Trend == EmptyView, TrendImag
     }
 }
 
-extension HeaderChart where Subtitle == EmptyView, Trend == EmptyView, Kpi == EmptyView {
+extension _HeaderChart where Subtitle == EmptyView, Trend == EmptyView, Kpi == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder trendImage: () -> TrendImage,
@@ -311,7 +311,7 @@ extension HeaderChart where Subtitle == EmptyView, Trend == EmptyView, Kpi == Em
     }
 }
 
-extension HeaderChart where Subtitle == EmptyView, Trend == EmptyView, Chart == EmptyView {
+extension _HeaderChart where Subtitle == EmptyView, Trend == EmptyView, Chart == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder trendImage: () -> TrendImage,
@@ -328,7 +328,7 @@ extension HeaderChart where Subtitle == EmptyView, Trend == EmptyView, Chart == 
     }
 }
 
-extension HeaderChart where Subtitle == EmptyView, TrendImage == EmptyView, Kpi == EmptyView {
+extension _HeaderChart where Subtitle == EmptyView, TrendImage == EmptyView, Kpi == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder trend: () -> Trend,
@@ -345,7 +345,7 @@ extension HeaderChart where Subtitle == EmptyView, TrendImage == EmptyView, Kpi 
     }
 }
 
-extension HeaderChart where Subtitle == EmptyView, TrendImage == EmptyView, Chart == EmptyView {
+extension _HeaderChart where Subtitle == EmptyView, TrendImage == EmptyView, Chart == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder trend: () -> Trend,
@@ -362,7 +362,7 @@ extension HeaderChart where Subtitle == EmptyView, TrendImage == EmptyView, Char
     }
 }
 
-extension HeaderChart where Subtitle == EmptyView, Kpi == EmptyView, Chart == EmptyView {
+extension _HeaderChart where Subtitle == EmptyView, Kpi == EmptyView, Chart == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder trend: () -> Trend,
@@ -379,7 +379,7 @@ extension HeaderChart where Subtitle == EmptyView, Kpi == EmptyView, Chart == Em
     }
 }
 
-extension HeaderChart where Trend == EmptyView, TrendImage == EmptyView, Kpi == EmptyView {
+extension _HeaderChart where Trend == EmptyView, TrendImage == EmptyView, Kpi == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -396,7 +396,7 @@ extension HeaderChart where Trend == EmptyView, TrendImage == EmptyView, Kpi == 
     }
 }
 
-extension HeaderChart where Trend == EmptyView, TrendImage == EmptyView, Chart == EmptyView {
+extension _HeaderChart where Trend == EmptyView, TrendImage == EmptyView, Chart == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -413,7 +413,7 @@ extension HeaderChart where Trend == EmptyView, TrendImage == EmptyView, Chart =
     }
 }
 
-extension HeaderChart where Trend == EmptyView, Kpi == EmptyView, Chart == EmptyView {
+extension _HeaderChart where Trend == EmptyView, Kpi == EmptyView, Chart == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -430,7 +430,7 @@ extension HeaderChart where Trend == EmptyView, Kpi == EmptyView, Chart == Empty
     }
 }
 
-extension HeaderChart where TrendImage == EmptyView, Kpi == EmptyView, Chart == EmptyView {
+extension _HeaderChart where TrendImage == EmptyView, Kpi == EmptyView, Chart == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -447,7 +447,7 @@ extension HeaderChart where TrendImage == EmptyView, Kpi == EmptyView, Chart == 
     }
 }
 
-extension HeaderChart where Subtitle == EmptyView, Trend == EmptyView, TrendImage == EmptyView, Kpi == EmptyView {
+extension _HeaderChart where Subtitle == EmptyView, Trend == EmptyView, TrendImage == EmptyView, Kpi == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder chart: () -> Chart
@@ -463,7 +463,7 @@ extension HeaderChart where Subtitle == EmptyView, Trend == EmptyView, TrendImag
     }
 }
 
-extension HeaderChart where Subtitle == EmptyView, Trend == EmptyView, TrendImage == EmptyView, Chart == EmptyView {
+extension _HeaderChart where Subtitle == EmptyView, Trend == EmptyView, TrendImage == EmptyView, Chart == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder kpi: () -> Kpi
@@ -479,7 +479,7 @@ extension HeaderChart where Subtitle == EmptyView, Trend == EmptyView, TrendImag
     }
 }
 
-extension HeaderChart where Subtitle == EmptyView, Trend == EmptyView, Kpi == EmptyView, Chart == EmptyView {
+extension _HeaderChart where Subtitle == EmptyView, Trend == EmptyView, Kpi == EmptyView, Chart == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder trendImage: () -> TrendImage
@@ -495,7 +495,7 @@ extension HeaderChart where Subtitle == EmptyView, Trend == EmptyView, Kpi == Em
     }
 }
 
-extension HeaderChart where Subtitle == EmptyView, TrendImage == EmptyView, Kpi == EmptyView, Chart == EmptyView {
+extension _HeaderChart where Subtitle == EmptyView, TrendImage == EmptyView, Kpi == EmptyView, Chart == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder trend: () -> Trend
@@ -511,7 +511,7 @@ extension HeaderChart where Subtitle == EmptyView, TrendImage == EmptyView, Kpi 
     }
 }
 
-extension HeaderChart where Trend == EmptyView, TrendImage == EmptyView, Kpi == EmptyView, Chart == EmptyView {
+extension _HeaderChart where Trend == EmptyView, TrendImage == EmptyView, Kpi == EmptyView, Chart == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle
@@ -527,7 +527,7 @@ extension HeaderChart where Trend == EmptyView, TrendImage == EmptyView, Kpi == 
     }
 }
 
-extension HeaderChart where Subtitle == EmptyView, Trend == EmptyView, TrendImage == EmptyView, Kpi == EmptyView, Chart == EmptyView {
+extension _HeaderChart where Subtitle == EmptyView, Trend == EmptyView, TrendImage == EmptyView, Kpi == EmptyView, Chart == EmptyView {
     public init(
     @ViewBuilder title: () -> Title
     ) {

@@ -1662,6 +1662,125 @@ public extension CloseActionStyle where Self == CloseActionFioriStyle {
     }
 }
 
+// MARK: ContactItemStyle
+
+public extension ContactItemStyle where Self == ContactItemBaseStyle {
+    static var base: ContactItemBaseStyle {
+        ContactItemBaseStyle()
+    }
+}
+
+public extension ContactItemStyle where Self == ContactItemFioriStyle {
+    static var fiori: ContactItemFioriStyle {
+        ContactItemFioriStyle()
+    }
+}
+
+public struct ContactItemTitleStyle: ContactItemStyle {
+    let style: any TitleStyle
+
+    public func makeBody(_ configuration: ContactItemConfiguration) -> some View {
+        ContactItem(configuration)
+            .titleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension ContactItemStyle where Self == ContactItemTitleStyle {
+    static func titleStyle(_ style: some TitleStyle) -> ContactItemTitleStyle {
+        ContactItemTitleStyle(style: style)
+    }
+
+    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> ContactItemTitleStyle {
+        let style = AnyTitleStyle(content)
+        return ContactItemTitleStyle(style: style)
+    }
+}
+
+public struct ContactItemSubtitleStyle: ContactItemStyle {
+    let style: any SubtitleStyle
+
+    public func makeBody(_ configuration: ContactItemConfiguration) -> some View {
+        ContactItem(configuration)
+            .subtitleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension ContactItemStyle where Self == ContactItemSubtitleStyle {
+    static func subtitleStyle(_ style: some SubtitleStyle) -> ContactItemSubtitleStyle {
+        ContactItemSubtitleStyle(style: style)
+    }
+
+    static func subtitleStyle(@ViewBuilder content: @escaping (SubtitleConfiguration) -> some View) -> ContactItemSubtitleStyle {
+        let style = AnySubtitleStyle(content)
+        return ContactItemSubtitleStyle(style: style)
+    }
+}
+
+public struct ContactItemDescriptionStyle: ContactItemStyle {
+    let style: any DescriptionStyle
+
+    public func makeBody(_ configuration: ContactItemConfiguration) -> some View {
+        ContactItem(configuration)
+            .descriptionStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension ContactItemStyle where Self == ContactItemDescriptionStyle {
+    static func descriptionStyle(_ style: some DescriptionStyle) -> ContactItemDescriptionStyle {
+        ContactItemDescriptionStyle(style: style)
+    }
+
+    static func descriptionStyle(@ViewBuilder content: @escaping (DescriptionConfiguration) -> some View) -> ContactItemDescriptionStyle {
+        let style = AnyDescriptionStyle(content)
+        return ContactItemDescriptionStyle(style: style)
+    }
+}
+
+public struct ContactItemDetailImageStyle: ContactItemStyle {
+    let style: any DetailImageStyle
+
+    public func makeBody(_ configuration: ContactItemConfiguration) -> some View {
+        ContactItem(configuration)
+            .detailImageStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension ContactItemStyle where Self == ContactItemDetailImageStyle {
+    static func detailImageStyle(_ style: some DetailImageStyle) -> ContactItemDetailImageStyle {
+        ContactItemDetailImageStyle(style: style)
+    }
+
+    static func detailImageStyle(@ViewBuilder content: @escaping (DetailImageConfiguration) -> some View) -> ContactItemDetailImageStyle {
+        let style = AnyDetailImageStyle(content)
+        return ContactItemDetailImageStyle(style: style)
+    }
+}
+
+public struct ContactItemActivityItemsStyle: ContactItemStyle {
+    let style: any ActivityItemsStyle
+
+    public func makeBody(_ configuration: ContactItemConfiguration) -> some View {
+        ContactItem(configuration)
+            .activityItemsStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension ContactItemStyle where Self == ContactItemActivityItemsStyle {
+    static func activityItemsStyle(_ style: some ActivityItemsStyle) -> ContactItemActivityItemsStyle {
+        ContactItemActivityItemsStyle(style: style)
+    }
+
+    static func activityItemsStyle(@ViewBuilder content: @escaping (ActivityItemsConfiguration) -> some View) -> ContactItemActivityItemsStyle {
+        let style = AnyActivityItemsStyle(content)
+        return ContactItemActivityItemsStyle(style: style)
+    }
+}
+
 // MARK: CounterStyle
 
 public extension CounterStyle where Self == CounterBaseStyle {
@@ -2352,6 +2471,125 @@ public extension HeaderActionStyle where Self == HeaderActionBaseStyle {
 public extension HeaderActionStyle where Self == HeaderActionFioriStyle {
     static var fiori: HeaderActionFioriStyle {
         HeaderActionFioriStyle()
+    }
+}
+
+// MARK: HeaderChartStyle
+
+public extension HeaderChartStyle where Self == HeaderChartBaseStyle {
+    static var base: HeaderChartBaseStyle {
+        HeaderChartBaseStyle()
+    }
+}
+
+public extension HeaderChartStyle where Self == HeaderChartFioriStyle {
+    static var fiori: HeaderChartFioriStyle {
+        HeaderChartFioriStyle()
+    }
+}
+
+public struct HeaderChartTitleStyle: HeaderChartStyle {
+    let style: any TitleStyle
+
+    public func makeBody(_ configuration: HeaderChartConfiguration) -> some View {
+        HeaderChart(configuration)
+            .titleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension HeaderChartStyle where Self == HeaderChartTitleStyle {
+    static func titleStyle(_ style: some TitleStyle) -> HeaderChartTitleStyle {
+        HeaderChartTitleStyle(style: style)
+    }
+
+    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> HeaderChartTitleStyle {
+        let style = AnyTitleStyle(content)
+        return HeaderChartTitleStyle(style: style)
+    }
+}
+
+public struct HeaderChartSubtitleStyle: HeaderChartStyle {
+    let style: any SubtitleStyle
+
+    public func makeBody(_ configuration: HeaderChartConfiguration) -> some View {
+        HeaderChart(configuration)
+            .subtitleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension HeaderChartStyle where Self == HeaderChartSubtitleStyle {
+    static func subtitleStyle(_ style: some SubtitleStyle) -> HeaderChartSubtitleStyle {
+        HeaderChartSubtitleStyle(style: style)
+    }
+
+    static func subtitleStyle(@ViewBuilder content: @escaping (SubtitleConfiguration) -> some View) -> HeaderChartSubtitleStyle {
+        let style = AnySubtitleStyle(content)
+        return HeaderChartSubtitleStyle(style: style)
+    }
+}
+
+public struct HeaderChartTrendStyle: HeaderChartStyle {
+    let style: any TrendStyle
+
+    public func makeBody(_ configuration: HeaderChartConfiguration) -> some View {
+        HeaderChart(configuration)
+            .trendStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension HeaderChartStyle where Self == HeaderChartTrendStyle {
+    static func trendStyle(_ style: some TrendStyle) -> HeaderChartTrendStyle {
+        HeaderChartTrendStyle(style: style)
+    }
+
+    static func trendStyle(@ViewBuilder content: @escaping (TrendConfiguration) -> some View) -> HeaderChartTrendStyle {
+        let style = AnyTrendStyle(content)
+        return HeaderChartTrendStyle(style: style)
+    }
+}
+
+public struct HeaderChartTrendImageStyle: HeaderChartStyle {
+    let style: any TrendImageStyle
+
+    public func makeBody(_ configuration: HeaderChartConfiguration) -> some View {
+        HeaderChart(configuration)
+            .trendImageStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension HeaderChartStyle where Self == HeaderChartTrendImageStyle {
+    static func trendImageStyle(_ style: some TrendImageStyle) -> HeaderChartTrendImageStyle {
+        HeaderChartTrendImageStyle(style: style)
+    }
+
+    static func trendImageStyle(@ViewBuilder content: @escaping (TrendImageConfiguration) -> some View) -> HeaderChartTrendImageStyle {
+        let style = AnyTrendImageStyle(content)
+        return HeaderChartTrendImageStyle(style: style)
+    }
+}
+
+public struct HeaderChartKpiStyle: HeaderChartStyle {
+    let style: any KpiStyle
+
+    public func makeBody(_ configuration: HeaderChartConfiguration) -> some View {
+        HeaderChart(configuration)
+            .kpiStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension HeaderChartStyle where Self == HeaderChartKpiStyle {
+    static func kpiStyle(_ style: some KpiStyle) -> HeaderChartKpiStyle {
+        HeaderChartKpiStyle(style: style)
+    }
+
+    static func kpiStyle(@ViewBuilder content: @escaping (KpiConfiguration) -> some View) -> HeaderChartKpiStyle {
+        let style = AnyKpiStyle(content)
+        return HeaderChartKpiStyle(style: style)
     }
 }
 
@@ -7000,6 +7238,34 @@ public extension TrailingAccessoryStyle where Self == TrailingAccessoryBaseStyle
 public extension TrailingAccessoryStyle where Self == TrailingAccessoryFioriStyle {
     static var fiori: TrailingAccessoryFioriStyle {
         TrailingAccessoryFioriStyle()
+    }
+}
+
+// MARK: TrendStyle
+
+public extension TrendStyle where Self == TrendBaseStyle {
+    static var base: TrendBaseStyle {
+        TrendBaseStyle()
+    }
+}
+
+public extension TrendStyle where Self == TrendFioriStyle {
+    static var fiori: TrendFioriStyle {
+        TrendFioriStyle()
+    }
+}
+
+// MARK: TrendImageStyle
+
+public extension TrendImageStyle where Self == TrendImageBaseStyle {
+    static var base: TrendImageBaseStyle {
+        TrendImageBaseStyle()
+    }
+}
+
+public extension TrendImageStyle where Self == TrendImageFioriStyle {
+    static var fiori: TrendImageFioriStyle {
+        TrendImageFioriStyle()
     }
 }
 
