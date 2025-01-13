@@ -81,7 +81,8 @@ public extension Type {
                                     "_SingleStepModel",
                                     "_StepProgressIndicatorModel",
                                     "_ObjectHeaderModel",
-                                    "_HeaderChartModel"]
+                                    "_HeaderChartModel",
+                                    "_SwitchPickerItemModel"]
         
         if deprecatedComponents.contains(name) {
             return name.replacingOccurrences(of: "Model", with: "")
