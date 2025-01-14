@@ -8,11 +8,20 @@ public struct HeaderAction {
 
     @Environment(\.headerActionStyle) var style
 
+    var componentIdentifier: String = HeaderAction.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder headerAction: () -> any View = { EmptyView() }) {
+    public init(@ViewBuilder headerAction: () -> any View = { EmptyView() },
+                componentIdentifier: String? = HeaderAction.identifier)
+    {
         self.headerAction = headerAction()
+        self.componentIdentifier = componentIdentifier ?? HeaderAction.identifier
     }
+}
+
+public extension HeaderAction {
+    static let identifier = "fiori_headeraction_component"
 }
 
 public extension HeaderAction {
@@ -29,6 +38,7 @@ public extension HeaderAction {
     internal init(_ configuration: HeaderActionConfiguration, shouldApplyDefaultStyle: Bool) {
         self.headerAction = configuration.headerAction
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -37,7 +47,7 @@ extension HeaderAction: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(headerAction: .init(self.headerAction))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, headerAction: .init(self.headerAction))).typeErased
                 .transformEnvironment(\.headerActionStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -55,7 +65,7 @@ private extension HeaderAction {
     }
 
     func defaultStyle() -> some View {
-        HeaderAction(.init(headerAction: .init(self.headerAction)))
+        HeaderAction(.init(componentIdentifier: self.componentIdentifier, headerAction: .init(self.headerAction)))
             .shouldApplyDefaultStyle(false)
             .headerActionStyle(.fiori)
             .typeErased

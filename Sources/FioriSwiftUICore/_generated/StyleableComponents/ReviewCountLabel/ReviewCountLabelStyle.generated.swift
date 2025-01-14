@@ -22,7 +22,14 @@ struct AnyReviewCountLabelStyle: ReviewCountLabelStyle {
 }
 
 public struct ReviewCountLabelConfiguration {
+    public var componentIdentifier: String = "fiori_reviewcountlabel_component"
     public let reviewCountLabel: ReviewCountLabel
 
     public typealias ReviewCountLabel = ConfigurationViewWrapper
+}
+
+extension ReviewCountLabelConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }

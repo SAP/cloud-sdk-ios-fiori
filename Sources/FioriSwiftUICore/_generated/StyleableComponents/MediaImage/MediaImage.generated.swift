@@ -8,11 +8,20 @@ public struct MediaImage {
 
     @Environment(\.mediaImageStyle) var style
 
+    var componentIdentifier: String = MediaImage.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder mediaImage: () -> any View = { EmptyView() }) {
+    public init(@ViewBuilder mediaImage: () -> any View = { EmptyView() },
+                componentIdentifier: String? = MediaImage.identifier)
+    {
         self.mediaImage = mediaImage()
+        self.componentIdentifier = componentIdentifier ?? MediaImage.identifier
     }
+}
+
+public extension MediaImage {
+    static let identifier = "fiori_mediaimage_component"
 }
 
 public extension MediaImage {
@@ -29,6 +38,7 @@ public extension MediaImage {
     internal init(_ configuration: MediaImageConfiguration, shouldApplyDefaultStyle: Bool) {
         self.mediaImage = configuration.mediaImage
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -37,7 +47,7 @@ extension MediaImage: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(mediaImage: .init(self.mediaImage))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, mediaImage: .init(self.mediaImage))).typeErased
                 .transformEnvironment(\.mediaImageStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -55,7 +65,7 @@ private extension MediaImage {
     }
 
     func defaultStyle() -> some View {
-        MediaImage(.init(mediaImage: .init(self.mediaImage)))
+        MediaImage(.init(componentIdentifier: self.componentIdentifier, mediaImage: .init(self.mediaImage)))
             .shouldApplyDefaultStyle(false)
             .mediaImageStyle(.fiori)
             .typeErased

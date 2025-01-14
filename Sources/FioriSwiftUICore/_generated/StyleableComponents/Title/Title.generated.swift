@@ -8,11 +8,20 @@ public struct Title {
 
     @Environment(\.titleStyle) var style
 
+    var componentIdentifier: String = Title.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder title: () -> any View) {
+    public init(@ViewBuilder title: () -> any View,
+                componentIdentifier: String? = Title.identifier)
+    {
         self.title = title()
+        self.componentIdentifier = componentIdentifier ?? Title.identifier
     }
+}
+
+public extension Title {
+    static let identifier = "fiori_title_component"
 }
 
 public extension Title {
@@ -29,6 +38,7 @@ public extension Title {
     internal init(_ configuration: TitleConfiguration, shouldApplyDefaultStyle: Bool) {
         self.title = configuration.title
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -37,7 +47,7 @@ extension Title: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(title: .init(self.title))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, title: .init(self.title))).typeErased
                 .transformEnvironment(\.titleStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -55,7 +65,7 @@ private extension Title {
     }
 
     func defaultStyle() -> some View {
-        Title(.init(title: .init(self.title)))
+        Title(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title)))
             .shouldApplyDefaultStyle(false)
             .titleStyle(.fiori)
             .typeErased

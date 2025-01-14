@@ -22,7 +22,14 @@ struct AnyUpperThumbStyle: UpperThumbStyle {
 }
 
 public struct UpperThumbConfiguration {
+    public var componentIdentifier: String = "fiori_upperthumb_component"
     public let upperThumb: UpperThumb
 
     public typealias UpperThumb = ConfigurationViewWrapper
+}
+
+extension UpperThumbConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }

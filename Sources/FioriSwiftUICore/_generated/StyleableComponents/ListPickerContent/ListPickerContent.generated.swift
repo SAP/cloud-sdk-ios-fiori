@@ -8,11 +8,20 @@ public struct ListPickerContent {
 
     @Environment(\.listPickerContentStyle) var style
 
+    var componentIdentifier: String = ListPickerContent.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder listPickerContent: () -> any View = { EmptyView() }) {
+    public init(@ViewBuilder listPickerContent: () -> any View = { EmptyView() },
+                componentIdentifier: String? = ListPickerContent.identifier)
+    {
         self.listPickerContent = listPickerContent()
+        self.componentIdentifier = componentIdentifier ?? ListPickerContent.identifier
     }
+}
+
+public extension ListPickerContent {
+    static let identifier = "fiori_listpickercontent_component"
 }
 
 public extension ListPickerContent {
@@ -23,6 +32,7 @@ public extension ListPickerContent {
     internal init(_ configuration: ListPickerContentConfiguration, shouldApplyDefaultStyle: Bool) {
         self.listPickerContent = configuration.listPickerContent
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -31,7 +41,7 @@ extension ListPickerContent: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(listPickerContent: .init(self.listPickerContent))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, listPickerContent: .init(self.listPickerContent))).typeErased
                 .transformEnvironment(\.listPickerContentStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -49,7 +59,7 @@ private extension ListPickerContent {
     }
 
     func defaultStyle() -> some View {
-        ListPickerContent(.init(listPickerContent: .init(self.listPickerContent)))
+        ListPickerContent(.init(componentIdentifier: self.componentIdentifier, listPickerContent: .init(self.listPickerContent)))
             .shouldApplyDefaultStyle(false)
             .listPickerContentStyle(.fiori)
             .typeErased

@@ -22,7 +22,14 @@ struct AnyTitleStyle: TitleStyle {
 }
 
 public struct TitleConfiguration {
+    public var componentIdentifier: String = "fiori_title_component"
     public let title: Title
 
     public typealias Title = ConfigurationViewWrapper
+}
+
+extension TitleConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }

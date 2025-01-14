@@ -8,11 +8,20 @@ public struct TertiaryAction {
 
     @Environment(\.tertiaryActionStyle) var style
 
+    var componentIdentifier: String = TertiaryAction.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder tertiaryAction: () -> any View = { EmptyView() }) {
+    public init(@ViewBuilder tertiaryAction: () -> any View = { EmptyView() },
+                componentIdentifier: String? = TertiaryAction.identifier)
+    {
         self.tertiaryAction = tertiaryAction()
+        self.componentIdentifier = componentIdentifier ?? TertiaryAction.identifier
     }
+}
+
+public extension TertiaryAction {
+    static let identifier = "fiori_tertiaryaction_component"
 }
 
 public extension TertiaryAction {
@@ -29,6 +38,7 @@ public extension TertiaryAction {
     internal init(_ configuration: TertiaryActionConfiguration, shouldApplyDefaultStyle: Bool) {
         self.tertiaryAction = configuration.tertiaryAction
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -37,7 +47,7 @@ extension TertiaryAction: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(tertiaryAction: .init(self.tertiaryAction))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, tertiaryAction: .init(self.tertiaryAction))).typeErased
                 .transformEnvironment(\.tertiaryActionStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -55,7 +65,7 @@ private extension TertiaryAction {
     }
 
     func defaultStyle() -> some View {
-        TertiaryAction(.init(tertiaryAction: .init(self.tertiaryAction)))
+        TertiaryAction(.init(componentIdentifier: self.componentIdentifier, tertiaryAction: .init(self.tertiaryAction)))
             .shouldApplyDefaultStyle(false)
             .tertiaryActionStyle(.fiori)
             .typeErased

@@ -22,7 +22,14 @@ struct AnyIncrementActionStyle: IncrementActionStyle {
 }
 
 public struct IncrementActionConfiguration {
+    public var componentIdentifier: String = "fiori_incrementaction_component"
     public let incrementAction: IncrementAction
 
     public typealias IncrementAction = ConfigurationViewWrapper
+}
+
+extension IncrementActionConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }

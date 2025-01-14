@@ -8,11 +8,20 @@ public struct LinearProgressIndicator {
 
     @Environment(\.linearProgressIndicatorStyle) var style
 
+    var componentIdentifier: String = LinearProgressIndicator.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(indicatorProgress: Binding<Double>) {
+    public init(indicatorProgress: Binding<Double>,
+                componentIdentifier: String? = LinearProgressIndicator.identifier)
+    {
         self._indicatorProgress = indicatorProgress
+        self.componentIdentifier = componentIdentifier ?? LinearProgressIndicator.identifier
     }
+}
+
+public extension LinearProgressIndicator {
+    static let identifier = "fiori_linearprogressindicator_component"
 }
 
 public extension LinearProgressIndicator {
@@ -23,6 +32,7 @@ public extension LinearProgressIndicator {
     internal init(_ configuration: LinearProgressIndicatorConfiguration, shouldApplyDefaultStyle: Bool) {
         self._indicatorProgress = configuration.$indicatorProgress
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -31,7 +41,7 @@ extension LinearProgressIndicator: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(indicatorProgress: self.$indicatorProgress)).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, indicatorProgress: self.$indicatorProgress)).typeErased
                 .transformEnvironment(\.linearProgressIndicatorStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -49,7 +59,7 @@ private extension LinearProgressIndicator {
     }
 
     func defaultStyle() -> some View {
-        LinearProgressIndicator(.init(indicatorProgress: self.$indicatorProgress))
+        LinearProgressIndicator(.init(componentIdentifier: self.componentIdentifier, indicatorProgress: self.$indicatorProgress))
             .shouldApplyDefaultStyle(false)
             .linearProgressIndicatorStyle(.fiori)
             .typeErased

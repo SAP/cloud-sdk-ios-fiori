@@ -22,6 +22,7 @@ struct AnyValuePickerStyle: ValuePickerStyle {
 }
 
 public struct ValuePickerConfiguration {
+    public var componentIdentifier: String = "fiori_valuepicker_component"
     public let title: Title
     public let valueLabel: ValueLabel
     public let mandatoryFieldIndicator: MandatoryFieldIndicator
@@ -35,6 +36,12 @@ public struct ValuePickerConfiguration {
     public typealias Title = ConfigurationViewWrapper
     public typealias ValueLabel = ConfigurationViewWrapper
     public typealias MandatoryFieldIndicator = ConfigurationViewWrapper
+}
+
+extension ValuePickerConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }
 
 public struct ValuePickerFioriStyle: ValuePickerStyle {

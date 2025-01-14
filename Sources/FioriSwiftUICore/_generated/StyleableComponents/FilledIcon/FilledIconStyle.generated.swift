@@ -22,7 +22,14 @@ struct AnyFilledIconStyle: FilledIconStyle {
 }
 
 public struct FilledIconConfiguration {
+    public var componentIdentifier: String = "fiori_filledicon_component"
     public let filledIcon: FilledIcon
 
     public typealias FilledIcon = ConfigurationViewWrapper
+}
+
+extension FilledIconConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }

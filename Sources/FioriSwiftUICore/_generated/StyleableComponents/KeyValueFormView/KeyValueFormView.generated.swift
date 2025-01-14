@@ -34,6 +34,8 @@ public struct KeyValueFormView {
 
     @Environment(\.keyValueFormViewStyle) var style
 
+    var componentIdentifier: String = KeyValueFormView.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
     public init(@ViewBuilder title: () -> any View,
@@ -51,11 +53,12 @@ public struct KeyValueFormView {
                 charCountReachLimitMessage: String? = nil,
                 charCountBeyondLimitMsg: String? = nil,
                 @ViewBuilder mandatoryFieldIndicator: () -> any View = { Text("*") },
-                isRequired: Bool = false)
+                isRequired: Bool = false,
+                componentIdentifier: String? = KeyValueFormView.identifier)
     {
-        self.title = Title(title: title)
+        self.title = Title(title: title, componentIdentifier: componentIdentifier)
         self._text = text
-        self.placeholder = Placeholder(placeholder: placeholder)
+        self.placeholder = Placeholder(placeholder: placeholder, componentIdentifier: componentIdentifier)
         self.controlState = controlState
         self.errorMessage = errorMessage
         self.minTextEditorHeight = minTextEditorHeight
@@ -67,9 +70,14 @@ public struct KeyValueFormView {
         self.allowsBeyondLimit = allowsBeyondLimit
         self.charCountReachLimitMessage = charCountReachLimitMessage
         self.charCountBeyondLimitMsg = charCountBeyondLimitMsg
-        self.mandatoryFieldIndicator = MandatoryFieldIndicator(mandatoryFieldIndicator: mandatoryFieldIndicator)
+        self.mandatoryFieldIndicator = MandatoryFieldIndicator(mandatoryFieldIndicator: mandatoryFieldIndicator, componentIdentifier: componentIdentifier)
         self.isRequired = isRequired
+        self.componentIdentifier = componentIdentifier ?? KeyValueFormView.identifier
     }
+}
+
+public extension KeyValueFormView {
+    static let identifier = "fiori_keyvalueformview_component"
 }
 
 public extension KeyValueFormView {
@@ -117,6 +125,7 @@ public extension KeyValueFormView {
         self.mandatoryFieldIndicator = configuration.mandatoryFieldIndicator
         self.isRequired = configuration.isRequired
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -125,7 +134,7 @@ extension KeyValueFormView: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(title: .init(self.title), text: self.$text, placeholder: .init(self.placeholder), controlState: self.controlState, errorMessage: self.errorMessage, minTextEditorHeight: self.minTextEditorHeight, maxTextEditorHeight: self.maxTextEditorHeight, maxTextLength: self.maxTextLength, hintText: self.hintText, hidesReadOnlyHint: self.hidesReadOnlyHint, isCharCountEnabled: self.isCharCountEnabled, allowsBeyondLimit: self.allowsBeyondLimit, charCountReachLimitMessage: self.charCountReachLimitMessage, charCountBeyondLimitMsg: self.charCountBeyondLimitMsg, mandatoryFieldIndicator: .init(self.mandatoryFieldIndicator), isRequired: self.isRequired)).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, title: .init(self.title), text: self.$text, placeholder: .init(self.placeholder), controlState: self.controlState, errorMessage: self.errorMessage, minTextEditorHeight: self.minTextEditorHeight, maxTextEditorHeight: self.maxTextEditorHeight, maxTextLength: self.maxTextLength, hintText: self.hintText, hidesReadOnlyHint: self.hidesReadOnlyHint, isCharCountEnabled: self.isCharCountEnabled, allowsBeyondLimit: self.allowsBeyondLimit, charCountReachLimitMessage: self.charCountReachLimitMessage, charCountBeyondLimitMsg: self.charCountBeyondLimitMsg, mandatoryFieldIndicator: .init(self.mandatoryFieldIndicator), isRequired: self.isRequired)).typeErased
                 .transformEnvironment(\.keyValueFormViewStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -143,7 +152,7 @@ private extension KeyValueFormView {
     }
 
     func defaultStyle() -> some View {
-        KeyValueFormView(.init(title: .init(self.title), text: self.$text, placeholder: .init(self.placeholder), controlState: self.controlState, errorMessage: self.errorMessage, minTextEditorHeight: self.minTextEditorHeight, maxTextEditorHeight: self.maxTextEditorHeight, maxTextLength: self.maxTextLength, hintText: self.hintText, hidesReadOnlyHint: self.hidesReadOnlyHint, isCharCountEnabled: self.isCharCountEnabled, allowsBeyondLimit: self.allowsBeyondLimit, charCountReachLimitMessage: self.charCountReachLimitMessage, charCountBeyondLimitMsg: self.charCountBeyondLimitMsg, mandatoryFieldIndicator: .init(self.mandatoryFieldIndicator), isRequired: self.isRequired))
+        KeyValueFormView(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), text: self.$text, placeholder: .init(self.placeholder), controlState: self.controlState, errorMessage: self.errorMessage, minTextEditorHeight: self.minTextEditorHeight, maxTextEditorHeight: self.maxTextEditorHeight, maxTextLength: self.maxTextLength, hintText: self.hintText, hidesReadOnlyHint: self.hidesReadOnlyHint, isCharCountEnabled: self.isCharCountEnabled, allowsBeyondLimit: self.allowsBeyondLimit, charCountReachLimitMessage: self.charCountReachLimitMessage, charCountBeyondLimitMsg: self.charCountBeyondLimitMsg, mandatoryFieldIndicator: .init(self.mandatoryFieldIndicator), isRequired: self.isRequired))
             .shouldApplyDefaultStyle(false)
             .keyValueFormViewStyle(KeyValueFormViewFioriStyle.ContentFioriStyle())
             .typeErased

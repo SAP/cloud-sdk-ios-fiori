@@ -8,11 +8,20 @@ public struct KpiCaption {
 
     @Environment(\.kpiCaptionStyle) var style
 
+    var componentIdentifier: String = KpiCaption.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder kpiCaption: () -> any View = { EmptyView() }) {
+    public init(@ViewBuilder kpiCaption: () -> any View = { EmptyView() },
+                componentIdentifier: String? = KpiCaption.identifier)
+    {
         self.kpiCaption = kpiCaption()
+        self.componentIdentifier = componentIdentifier ?? KpiCaption.identifier
     }
+}
+
+public extension KpiCaption {
+    static let identifier = "fiori_kpicaption_component"
 }
 
 public extension KpiCaption {
@@ -29,6 +38,7 @@ public extension KpiCaption {
     internal init(_ configuration: KpiCaptionConfiguration, shouldApplyDefaultStyle: Bool) {
         self.kpiCaption = configuration.kpiCaption
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -37,7 +47,7 @@ extension KpiCaption: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(kpiCaption: .init(self.kpiCaption))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, kpiCaption: .init(self.kpiCaption))).typeErased
                 .transformEnvironment(\.kpiCaptionStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -55,7 +65,7 @@ private extension KpiCaption {
     }
 
     func defaultStyle() -> some View {
-        KpiCaption(.init(kpiCaption: .init(self.kpiCaption)))
+        KpiCaption(.init(componentIdentifier: self.componentIdentifier, kpiCaption: .init(self.kpiCaption)))
             .shouldApplyDefaultStyle(false)
             .kpiCaptionStyle(.fiori)
             .typeErased

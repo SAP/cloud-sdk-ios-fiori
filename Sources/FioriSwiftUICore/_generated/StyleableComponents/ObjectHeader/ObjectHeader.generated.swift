@@ -42,6 +42,8 @@ public struct ObjectHeader {
 
     @Environment(\.objectHeaderStyle) var style
 
+    var componentIdentifier: String = ObjectHeader.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
     public init(@ViewBuilder title: () -> any View,
@@ -53,19 +55,25 @@ public struct ObjectHeader {
                 @ViewBuilder status: () -> any View = { EmptyView() },
                 @ViewBuilder substatus: () -> any View = { EmptyView() },
                 @ViewBuilder detailImage: () -> any View = { EmptyView() },
-                @ViewBuilder detailContent: () -> any View = { EmptyView() })
+                @ViewBuilder detailContent: () -> any View = { EmptyView() },
+                componentIdentifier: String? = ObjectHeader.identifier)
     {
-        self.title = Title(title: title)
-        self.subtitle = Subtitle(subtitle: subtitle)
-        self.tags = Tags(tags: tags)
-        self.bodyText = BodyText(bodyText: bodyText)
-        self.footnote = Footnote(footnote: footnote)
-        self.descriptionText = DescriptionText(descriptionText: descriptionText)
-        self.status = Status(status: status)
-        self.substatus = Substatus(substatus: substatus)
-        self.detailImage = DetailImage(detailImage: detailImage)
-        self.detailContent = DetailContent(detailContent: detailContent)
+        self.title = Title(title: title, componentIdentifier: componentIdentifier)
+        self.subtitle = Subtitle(subtitle: subtitle, componentIdentifier: componentIdentifier)
+        self.tags = Tags(tags: tags, componentIdentifier: componentIdentifier)
+        self.bodyText = BodyText(bodyText: bodyText, componentIdentifier: componentIdentifier)
+        self.footnote = Footnote(footnote: footnote, componentIdentifier: componentIdentifier)
+        self.descriptionText = DescriptionText(descriptionText: descriptionText, componentIdentifier: componentIdentifier)
+        self.status = Status(status: status, componentIdentifier: componentIdentifier)
+        self.substatus = Substatus(substatus: substatus, componentIdentifier: componentIdentifier)
+        self.detailImage = DetailImage(detailImage: detailImage, componentIdentifier: componentIdentifier)
+        self.detailContent = DetailContent(detailContent: detailContent, componentIdentifier: componentIdentifier)
+        self.componentIdentifier = componentIdentifier ?? ObjectHeader.identifier
     }
+}
+
+public extension ObjectHeader {
+    static let identifier = "fiori_objectheader_component"
 }
 
 public extension ObjectHeader {
@@ -101,6 +109,7 @@ public extension ObjectHeader {
         self.detailImage = configuration.detailImage
         self.detailContent = configuration.detailContent
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -109,7 +118,7 @@ extension ObjectHeader: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(title: .init(self.title), subtitle: .init(self.subtitle), tags: .init(self.tags), bodyText: .init(self.bodyText), footnote: .init(self.footnote), descriptionText: .init(self.descriptionText), status: .init(self.status), substatus: .init(self.substatus), detailImage: .init(self.detailImage), detailContent: .init(self.detailContent))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, title: .init(self.title), subtitle: .init(self.subtitle), tags: .init(self.tags), bodyText: .init(self.bodyText), footnote: .init(self.footnote), descriptionText: .init(self.descriptionText), status: .init(self.status), substatus: .init(self.substatus), detailImage: .init(self.detailImage), detailContent: .init(self.detailContent))).typeErased
                 .transformEnvironment(\.objectHeaderStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -127,7 +136,7 @@ private extension ObjectHeader {
     }
 
     func defaultStyle() -> some View {
-        ObjectHeader(.init(title: .init(self.title), subtitle: .init(self.subtitle), tags: .init(self.tags), bodyText: .init(self.bodyText), footnote: .init(self.footnote), descriptionText: .init(self.descriptionText), status: .init(self.status), substatus: .init(self.substatus), detailImage: .init(self.detailImage), detailContent: .init(self.detailContent)))
+        ObjectHeader(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), subtitle: .init(self.subtitle), tags: .init(self.tags), bodyText: .init(self.bodyText), footnote: .init(self.footnote), descriptionText: .init(self.descriptionText), status: .init(self.status), substatus: .init(self.substatus), detailImage: .init(self.detailImage), detailContent: .init(self.detailContent)))
             .shouldApplyDefaultStyle(false)
             .objectHeaderStyle(ObjectHeaderFioriStyle.ContentFioriStyle())
             .typeErased
