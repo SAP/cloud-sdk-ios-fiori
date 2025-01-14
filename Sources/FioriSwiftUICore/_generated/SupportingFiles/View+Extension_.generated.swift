@@ -411,6 +411,23 @@ public extension View {
     }
 }
 
+// MARK: ContactItemStyle
+
+public extension View {
+    func contactItemStyle(_ style: some ContactItemStyle) -> some View {
+        self.transformEnvironment(\.contactItemStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func contactItemStyle(@ViewBuilder content: @escaping (ContactItemConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.contactItemStyleStack) { stack in
+            let style = AnyContactItemStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: CounterStyle
 
 public extension View {
@@ -712,6 +729,23 @@ public extension View {
     func headerActionStyle(@ViewBuilder content: @escaping (HeaderActionConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.headerActionStyleStack) { stack in
             let style = AnyHeaderActionStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: HeaderChartStyle
+
+public extension View {
+    func headerChartStyle(_ style: some HeaderChartStyle) -> some View {
+        self.transformEnvironment(\.headerChartStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func headerChartStyle(@ViewBuilder content: @escaping (HeaderChartConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.headerChartStyleStack) { stack in
+            let style = AnyHeaderChartStyle(content)
             stack.append(style)
         }
     }
@@ -1703,6 +1737,40 @@ public extension View {
     }
 }
 
+// MARK: SectionFooterStyle
+
+public extension View {
+    func sectionFooterStyle(_ style: some SectionFooterStyle) -> some View {
+        self.transformEnvironment(\.sectionFooterStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func sectionFooterStyle(@ViewBuilder content: @escaping (SectionFooterConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.sectionFooterStyleStack) { stack in
+            let style = AnySectionFooterStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: SectionHeaderStyle
+
+public extension View {
+    func sectionHeaderStyle(_ style: some SectionHeaderStyle) -> some View {
+        self.transformEnvironment(\.sectionHeaderStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func sectionHeaderStyle(@ViewBuilder content: @escaping (SectionHeaderConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.sectionHeaderStyleStack) { stack in
+            let style = AnySectionHeaderStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: SegmentedControlPickerStyle
 
 public extension View {
@@ -2293,6 +2361,40 @@ public extension View {
     func trailingAccessoryStyle(@ViewBuilder content: @escaping (TrailingAccessoryConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.trailingAccessoryStyleStack) { stack in
             let style = AnyTrailingAccessoryStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: TrendStyle
+
+public extension View {
+    func trendStyle(_ style: some TrendStyle) -> some View {
+        self.transformEnvironment(\.trendStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func trendStyle(@ViewBuilder content: @escaping (TrendConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.trendStyleStack) { stack in
+            let style = AnyTrendStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: TrendImageStyle
+
+public extension View {
+    func trendImageStyle(_ style: some TrendImageStyle) -> some View {
+        self.transformEnvironment(\.trendImageStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func trendImageStyle(@ViewBuilder content: @escaping (TrendImageConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.trendImageStyleStack) { stack in
+            let style = AnyTrendImageStyle(content)
             stack.append(style)
         }
     }

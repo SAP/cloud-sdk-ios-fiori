@@ -22,12 +22,19 @@ struct AnyActivityItemStyle: ActivityItemStyle {
 }
 
 public struct ActivityItemConfiguration {
+    public var componentIdentifier: String = "fiori_activityitem_component"
     public let icon: Icon
     public let subtitle: Subtitle
     public let layout: ActivityItemLayout
 
     public typealias Icon = ConfigurationViewWrapper
     public typealias Subtitle = ConfigurationViewWrapper
+}
+
+extension ActivityItemConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }
 
 public struct ActivityItemFioriStyle: ActivityItemStyle {

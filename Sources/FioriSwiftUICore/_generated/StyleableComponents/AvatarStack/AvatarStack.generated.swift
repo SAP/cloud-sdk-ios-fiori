@@ -9,14 +9,22 @@ public struct AvatarStack {
 
     @Environment(\.avatarStackStyle) var style
 
+    var componentIdentifier: String = AvatarStack.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
     public init(@AvatarsBuilder avatars: () -> any View = { EmptyView() },
-                @ViewBuilder avatarsTitle: () -> any View = { EmptyView() })
+                @ViewBuilder avatarsTitle: () -> any View = { EmptyView() },
+                componentIdentifier: String? = AvatarStack.identifier)
     {
-        self.avatars = Avatars(avatars: avatars)
-        self.avatarsTitle = AvatarsTitle(avatarsTitle: avatarsTitle)
+        self.avatars = Avatars(avatars: avatars, componentIdentifier: componentIdentifier)
+        self.avatarsTitle = AvatarsTitle(avatarsTitle: avatarsTitle, componentIdentifier: componentIdentifier)
+        self.componentIdentifier = componentIdentifier ?? AvatarStack.identifier
     }
+}
+
+public extension AvatarStack {
+    static let identifier = "fiori_avatarstack_component"
 }
 
 public extension AvatarStack {
@@ -36,6 +44,7 @@ public extension AvatarStack {
         self.avatars = configuration.avatars
         self.avatarsTitle = configuration.avatarsTitle
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -44,7 +53,7 @@ extension AvatarStack: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(avatars: .init(self.avatars), avatarsTitle: .init(self.avatarsTitle))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, avatars: .init(self.avatars), avatarsTitle: .init(self.avatarsTitle))).typeErased
                 .transformEnvironment(\.avatarStackStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -62,7 +71,7 @@ private extension AvatarStack {
     }
 
     func defaultStyle() -> some View {
-        AvatarStack(.init(avatars: .init(self.avatars), avatarsTitle: .init(self.avatarsTitle)))
+        AvatarStack(.init(componentIdentifier: self.componentIdentifier, avatars: .init(self.avatars), avatarsTitle: .init(self.avatarsTitle)))
             .shouldApplyDefaultStyle(false)
             .avatarStackStyle(AvatarStackFioriStyle.ContentFioriStyle())
             .typeErased

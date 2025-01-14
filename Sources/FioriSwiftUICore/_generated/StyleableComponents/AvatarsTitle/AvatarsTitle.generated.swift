@@ -8,11 +8,20 @@ public struct AvatarsTitle {
 
     @Environment(\.avatarsTitleStyle) var style
 
+    var componentIdentifier: String = AvatarsTitle.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder avatarsTitle: () -> any View = { EmptyView() }) {
+    public init(@ViewBuilder avatarsTitle: () -> any View = { EmptyView() },
+                componentIdentifier: String? = AvatarsTitle.identifier)
+    {
         self.avatarsTitle = avatarsTitle()
+        self.componentIdentifier = componentIdentifier ?? AvatarsTitle.identifier
     }
+}
+
+public extension AvatarsTitle {
+    static let identifier = "fiori_avatarstitle_component"
 }
 
 public extension AvatarsTitle {
@@ -29,6 +38,7 @@ public extension AvatarsTitle {
     internal init(_ configuration: AvatarsTitleConfiguration, shouldApplyDefaultStyle: Bool) {
         self.avatarsTitle = configuration.avatarsTitle
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -37,7 +47,7 @@ extension AvatarsTitle: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(avatarsTitle: .init(self.avatarsTitle))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, avatarsTitle: .init(self.avatarsTitle))).typeErased
                 .transformEnvironment(\.avatarsTitleStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -55,7 +65,7 @@ private extension AvatarsTitle {
     }
 
     func defaultStyle() -> some View {
-        AvatarsTitle(.init(avatarsTitle: .init(self.avatarsTitle)))
+        AvatarsTitle(.init(componentIdentifier: self.componentIdentifier, avatarsTitle: .init(self.avatarsTitle)))
             .shouldApplyDefaultStyle(false)
             .avatarsTitleStyle(.fiori)
             .typeErased

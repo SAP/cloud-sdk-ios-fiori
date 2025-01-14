@@ -12,18 +12,26 @@ public struct LoadingIndicator {
 
     @Environment(\.loadingIndicatorStyle) var style
 
+    var componentIdentifier: String = LoadingIndicator.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
     public init(@ViewBuilder title: () -> any View,
                 @ViewBuilder progress: () -> any View,
                 duration: Double = 0,
-                isPresented: Binding<Bool>)
+                isPresented: Binding<Bool>,
+                componentIdentifier: String? = LoadingIndicator.identifier)
     {
-        self.title = Title(title: title)
-        self.progress = Progress(progress: progress)
+        self.title = Title(title: title, componentIdentifier: componentIdentifier)
+        self.progress = Progress(progress: progress, componentIdentifier: componentIdentifier)
         self.duration = duration
         self._isPresented = isPresented
+        self.componentIdentifier = componentIdentifier ?? LoadingIndicator.identifier
     }
+}
+
+public extension LoadingIndicator {
+    static let identifier = "fiori_loadingindicator_component"
 }
 
 public extension LoadingIndicator {
@@ -47,6 +55,7 @@ public extension LoadingIndicator {
         self.duration = configuration.duration
         self._isPresented = configuration.$isPresented
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -55,7 +64,7 @@ extension LoadingIndicator: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(title: .init(self.title), progress: .init(self.progress), duration: self.duration, isPresented: self.$isPresented)).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, title: .init(self.title), progress: .init(self.progress), duration: self.duration, isPresented: self.$isPresented)).typeErased
                 .transformEnvironment(\.loadingIndicatorStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -73,7 +82,7 @@ private extension LoadingIndicator {
     }
 
     func defaultStyle() -> some View {
-        LoadingIndicator(.init(title: .init(self.title), progress: .init(self.progress), duration: self.duration, isPresented: self.$isPresented))
+        LoadingIndicator(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), progress: .init(self.progress), duration: self.duration, isPresented: self.$isPresented))
             .shouldApplyDefaultStyle(false)
             .loadingIndicatorStyle(LoadingIndicatorFioriStyle.ContentFioriStyle())
             .typeErased

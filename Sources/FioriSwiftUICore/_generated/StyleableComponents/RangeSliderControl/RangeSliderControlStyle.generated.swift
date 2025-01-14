@@ -22,6 +22,7 @@ struct AnyRangeSliderControlStyle: RangeSliderControlStyle {
 }
 
 public struct RangeSliderControlConfiguration {
+    public var componentIdentifier: String = "fiori_rangeslidercontrol_component"
     public let lowerThumb: LowerThumb
     public let upperThumb: UpperThumb
     public let activeTrack: ActiveTrack
@@ -40,6 +41,12 @@ public struct RangeSliderControlConfiguration {
     public typealias UpperThumb = ConfigurationViewWrapper
     public typealias ActiveTrack = ConfigurationViewWrapper
     public typealias InactiveTrack = ConfigurationViewWrapper
+}
+
+extension RangeSliderControlConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }
 
 public struct RangeSliderControlFioriStyle: RangeSliderControlStyle {

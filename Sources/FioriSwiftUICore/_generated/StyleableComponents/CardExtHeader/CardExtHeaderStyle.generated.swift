@@ -22,6 +22,7 @@ struct AnyCardExtHeaderStyle: CardExtHeaderStyle {
 }
 
 public struct CardExtHeaderConfiguration {
+    public var componentIdentifier: String = "fiori_cardextheader_component"
     public let row1: Row1
     public let row2: Row2
     public let row3: Row3
@@ -33,6 +34,12 @@ public struct CardExtHeaderConfiguration {
     public typealias Row3 = ConfigurationViewWrapper
     public typealias Kpi = ConfigurationViewWrapper
     public typealias KpiCaption = ConfigurationViewWrapper
+}
+
+extension CardExtHeaderConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }
 
 public struct CardExtHeaderFioriStyle: CardExtHeaderStyle {

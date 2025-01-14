@@ -8,11 +8,20 @@ public struct ActiveTrack {
 
     @Environment(\.activeTrackStyle) var style
 
+    var componentIdentifier: String = ActiveTrack.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder activeTrack: () -> any View) {
+    public init(@ViewBuilder activeTrack: () -> any View,
+                componentIdentifier: String? = ActiveTrack.identifier)
+    {
         self.activeTrack = activeTrack()
+        self.componentIdentifier = componentIdentifier ?? ActiveTrack.identifier
     }
+}
+
+public extension ActiveTrack {
+    static let identifier = "fiori_activetrack_component"
 }
 
 public extension ActiveTrack {
@@ -29,6 +38,7 @@ public extension ActiveTrack {
     internal init(_ configuration: ActiveTrackConfiguration, shouldApplyDefaultStyle: Bool) {
         self.activeTrack = configuration.activeTrack
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -37,7 +47,7 @@ extension ActiveTrack: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(activeTrack: .init(self.activeTrack))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, activeTrack: .init(self.activeTrack))).typeErased
                 .transformEnvironment(\.activeTrackStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -55,7 +65,7 @@ private extension ActiveTrack {
     }
 
     func defaultStyle() -> some View {
-        ActiveTrack(.init(activeTrack: .init(self.activeTrack)))
+        ActiveTrack(.init(componentIdentifier: self.componentIdentifier, activeTrack: .init(self.activeTrack)))
             .shouldApplyDefaultStyle(false)
             .activeTrackStyle(.fiori)
             .typeErased

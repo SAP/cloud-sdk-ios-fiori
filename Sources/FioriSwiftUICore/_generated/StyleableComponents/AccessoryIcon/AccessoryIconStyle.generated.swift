@@ -22,7 +22,14 @@ struct AnyAccessoryIconStyle: AccessoryIconStyle {
 }
 
 public struct AccessoryIconConfiguration {
+    public var componentIdentifier: String = "fiori_accessoryicon_component"
     public let accessoryIcon: AccessoryIcon
 
     public typealias AccessoryIcon = ConfigurationViewWrapper
+}
+
+extension AccessoryIconConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }

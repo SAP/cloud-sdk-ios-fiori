@@ -8,11 +8,20 @@ public struct TrailingAccessory {
 
     @Environment(\.trailingAccessoryStyle) var style
 
+    var componentIdentifier: String = TrailingAccessory.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder trailingAccessory: () -> any View = { EmptyView() }) {
+    public init(@ViewBuilder trailingAccessory: () -> any View = { EmptyView() },
+                componentIdentifier: String? = TrailingAccessory.identifier)
+    {
         self.trailingAccessory = trailingAccessory()
+        self.componentIdentifier = componentIdentifier ?? TrailingAccessory.identifier
     }
+}
+
+public extension TrailingAccessory {
+    static let identifier = "fiori_trailingaccessory_component"
 }
 
 public extension TrailingAccessory {
@@ -23,6 +32,7 @@ public extension TrailingAccessory {
     internal init(_ configuration: TrailingAccessoryConfiguration, shouldApplyDefaultStyle: Bool) {
         self.trailingAccessory = configuration.trailingAccessory
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -31,7 +41,7 @@ extension TrailingAccessory: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(trailingAccessory: .init(self.trailingAccessory))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, trailingAccessory: .init(self.trailingAccessory))).typeErased
                 .transformEnvironment(\.trailingAccessoryStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -49,7 +59,7 @@ private extension TrailingAccessory {
     }
 
     func defaultStyle() -> some View {
-        TrailingAccessory(.init(trailingAccessory: .init(self.trailingAccessory)))
+        TrailingAccessory(.init(componentIdentifier: self.componentIdentifier, trailingAccessory: .init(self.trailingAccessory)))
             .shouldApplyDefaultStyle(false)
             .trailingAccessoryStyle(.fiori)
             .typeErased

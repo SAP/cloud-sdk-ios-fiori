@@ -11,16 +11,24 @@ public struct ToastMessage {
 
     @Environment(\.toastMessageStyle) var style
 
+    var componentIdentifier: String = ToastMessage.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
     public init(@ViewBuilder icon: () -> any View = { EmptyView() },
                 @ViewBuilder title: () -> any View,
-                duration: Double = 1)
+                duration: Double = 1,
+                componentIdentifier: String? = ToastMessage.identifier)
     {
-        self.icon = Icon(icon: icon)
-        self.title = Title(title: title)
+        self.icon = Icon(icon: icon, componentIdentifier: componentIdentifier)
+        self.title = Title(title: title, componentIdentifier: componentIdentifier)
         self.duration = duration
+        self.componentIdentifier = componentIdentifier ?? ToastMessage.identifier
     }
+}
+
+public extension ToastMessage {
+    static let identifier = "fiori_toastmessage_component"
 }
 
 public extension ToastMessage {
@@ -42,6 +50,7 @@ public extension ToastMessage {
         self.title = configuration.title
         self.duration = configuration.duration
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -50,7 +59,7 @@ extension ToastMessage: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(icon: .init(self.icon), title: .init(self.title), duration: self.duration)).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, icon: .init(self.icon), title: .init(self.title), duration: self.duration)).typeErased
                 .transformEnvironment(\.toastMessageStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -68,7 +77,7 @@ private extension ToastMessage {
     }
 
     func defaultStyle() -> some View {
-        ToastMessage(.init(icon: .init(self.icon), title: .init(self.title), duration: self.duration))
+        ToastMessage(.init(componentIdentifier: self.componentIdentifier, icon: .init(self.icon), title: .init(self.title), duration: self.duration))
             .shouldApplyDefaultStyle(false)
             .toastMessageStyle(ToastMessageFioriStyle.ContentFioriStyle())
             .typeErased

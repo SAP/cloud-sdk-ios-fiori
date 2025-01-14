@@ -22,7 +22,14 @@ struct AnyTimelineNodeStyle: TimelineNodeStyle {
 }
 
 public struct TimelineNodeConfiguration {
+    public var componentIdentifier: String = "fiori_timelinenode_component"
     public let timelineNode: TimelineNode
 
     public typealias TimelineNode = ConfigurationViewWrapper
+}
+
+extension TimelineNodeConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }

@@ -8,11 +8,20 @@ public struct Placeholder {
 
     @Environment(\.placeholderStyle) var style
 
+    var componentIdentifier: String = Placeholder.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder placeholder: () -> any View = { EmptyView() }) {
+    public init(@ViewBuilder placeholder: () -> any View = { EmptyView() },
+                componentIdentifier: String? = Placeholder.identifier)
+    {
         self.placeholder = placeholder()
+        self.componentIdentifier = componentIdentifier ?? Placeholder.identifier
     }
+}
+
+public extension Placeholder {
+    static let identifier = "fiori_placeholder_component"
 }
 
 public extension Placeholder {
@@ -29,6 +38,7 @@ public extension Placeholder {
     internal init(_ configuration: PlaceholderConfiguration, shouldApplyDefaultStyle: Bool) {
         self.placeholder = configuration.placeholder
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -37,7 +47,7 @@ extension Placeholder: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(placeholder: .init(self.placeholder))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, placeholder: .init(self.placeholder))).typeErased
                 .transformEnvironment(\.placeholderStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -55,7 +65,7 @@ private extension Placeholder {
     }
 
     func defaultStyle() -> some View {
-        Placeholder(.init(placeholder: .init(self.placeholder)))
+        Placeholder(.init(componentIdentifier: self.componentIdentifier, placeholder: .init(self.placeholder)))
             .shouldApplyDefaultStyle(false)
             .placeholderStyle(.fiori)
             .typeErased

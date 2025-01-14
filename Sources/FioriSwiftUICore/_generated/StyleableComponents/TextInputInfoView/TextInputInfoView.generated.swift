@@ -10,16 +10,24 @@ struct TextInputInfoView {
 
     @Environment(\.textInputInfoViewStyle) var style
 
+    var componentIdentifier: String = TextInputInfoView.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
     public init(@ViewBuilder icon: () -> any View = { EmptyView() },
                 @ViewBuilder description: () -> any View = { EmptyView() },
-                @ViewBuilder counter: () -> any View = { EmptyView() })
+                @ViewBuilder counter: () -> any View = { EmptyView() },
+                componentIdentifier: String? = TextInputInfoView.identifier)
     {
-        self.icon = Icon(icon: icon)
-        self.description = Description(description: description)
-        self.counter = Counter(counter: counter)
+        self.icon = Icon(icon: icon, componentIdentifier: componentIdentifier)
+        self.description = Description(description: description, componentIdentifier: componentIdentifier)
+        self.counter = Counter(counter: counter, componentIdentifier: componentIdentifier)
+        self.componentIdentifier = componentIdentifier ?? TextInputInfoView.identifier
     }
+}
+
+extension TextInputInfoView {
+    public static let identifier = "fiori_textinputinfoview_component"
 }
 
 extension TextInputInfoView {
@@ -41,6 +49,7 @@ extension TextInputInfoView {
         self.description = configuration.description
         self.counter = configuration.counter
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -49,7 +58,7 @@ extension TextInputInfoView: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(icon: .init(self.icon), description: .init(self.description), counter: .init(self.counter))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, icon: .init(self.icon), description: .init(self.description), counter: .init(self.counter))).typeErased
                 .transformEnvironment(\.textInputInfoViewStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -67,7 +76,7 @@ private extension TextInputInfoView {
     }
 
     func defaultStyle() -> some View {
-        TextInputInfoView(.init(icon: .init(self.icon), description: .init(self.description), counter: .init(self.counter)))
+        TextInputInfoView(.init(componentIdentifier: self.componentIdentifier, icon: .init(self.icon), description: .init(self.description), counter: .init(self.counter)))
             .shouldApplyDefaultStyle(false)
             .textInputInfoViewStyle(TextInputInfoViewFioriStyle.ContentFioriStyle())
             .typeErased

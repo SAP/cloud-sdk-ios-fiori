@@ -195,6 +195,16 @@ extension CloseAction: _ViewEmptyChecking {
     }
 }
 
+extension ContactItem: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        title.isEmpty &&
+            subtitle.isEmpty &&
+            description.isEmpty &&
+            detailImage.isEmpty &&
+            activityItems.isEmpty
+    }
+}
+
 extension Counter: _ViewEmptyChecking {
     public var isEmpty: Bool {
         counter.isEmpty
@@ -314,6 +324,17 @@ extension HalfStarImage: _ViewEmptyChecking {
 extension HeaderAction: _ViewEmptyChecking {
     public var isEmpty: Bool {
         headerAction.isEmpty
+    }
+}
+
+extension HeaderChart: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        title.isEmpty &&
+            subtitle.isEmpty &&
+            trend.isEmpty &&
+            trendImage.isEmpty &&
+            kpi.isEmpty &&
+            chart.isEmpty
     }
 }
 
@@ -733,6 +754,20 @@ extension SecondaryTimestamp: _ViewEmptyChecking {
     }
 }
 
+extension SectionFooter: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        title.isEmpty &&
+            attribute.isEmpty
+    }
+}
+
+extension SectionHeader: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        title.isEmpty &&
+            attribute.isEmpty
+    }
+}
+
 extension SegmentedControlPicker: _ViewEmptyChecking {
     public var isEmpty: Bool {
         false
@@ -978,6 +1013,18 @@ extension TopDivider: _ViewEmptyChecking {
 extension TrailingAccessory: _ViewEmptyChecking {
     public var isEmpty: Bool {
         trailingAccessory.isEmpty
+    }
+}
+
+extension Trend: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        trend.isEmpty
+    }
+}
+
+extension TrendImage: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        trendImage.isEmpty
     }
 }
 

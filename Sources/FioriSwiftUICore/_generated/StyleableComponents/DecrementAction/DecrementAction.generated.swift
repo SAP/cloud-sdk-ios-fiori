@@ -10,11 +10,20 @@ public struct DecrementAction {
 
     @Environment(\.decrementActionStyle) var style
 
+    var componentIdentifier: String = DecrementAction.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder decrementAction: () -> any View = { FioriButton { _ in FioriIcon.actions.less } }) {
+    public init(@ViewBuilder decrementAction: () -> any View = { FioriButton { _ in FioriIcon.actions.less } },
+                componentIdentifier: String? = DecrementAction.identifier)
+    {
         self.decrementAction = decrementAction()
+        self.componentIdentifier = componentIdentifier ?? DecrementAction.identifier
     }
+}
+
+public extension DecrementAction {
+    static let identifier = "fiori_decrementaction_component"
 }
 
 public extension DecrementAction {
@@ -31,6 +40,7 @@ public extension DecrementAction {
     internal init(_ configuration: DecrementActionConfiguration, shouldApplyDefaultStyle: Bool) {
         self.decrementAction = configuration.decrementAction
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -39,7 +49,7 @@ extension DecrementAction: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(decrementAction: .init(self.decrementAction))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, decrementAction: .init(self.decrementAction))).typeErased
                 .transformEnvironment(\.decrementActionStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -57,7 +67,7 @@ private extension DecrementAction {
     }
 
     func defaultStyle() -> some View {
-        DecrementAction(.init(decrementAction: .init(self.decrementAction)))
+        DecrementAction(.init(componentIdentifier: self.componentIdentifier, decrementAction: .init(self.decrementAction)))
             .shouldApplyDefaultStyle(false)
             .decrementActionStyle(.fiori)
             .typeErased

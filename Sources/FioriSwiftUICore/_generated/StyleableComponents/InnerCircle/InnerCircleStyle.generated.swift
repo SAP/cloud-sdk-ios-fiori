@@ -22,7 +22,14 @@ struct AnyInnerCircleStyle: InnerCircleStyle {
 }
 
 public struct InnerCircleConfiguration {
+    public var componentIdentifier: String = "fiori_innercircle_component"
     public let innerCircle: InnerCircle
 
     public typealias InnerCircle = ConfigurationViewWrapper
+}
+
+extension InnerCircleConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }
