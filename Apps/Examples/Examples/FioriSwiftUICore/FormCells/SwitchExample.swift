@@ -6,7 +6,8 @@ struct SwitchExample: View {
     @State var v1: Bool = false
     @State var v2: Bool = true
     @State var v3: Bool = true
-    
+    @State var v4: Bool = true
+
     struct CustomTitleStyle: TitleStyle {
         @Environment(\.isEnabled) var isEnabled
         func makeBody(_ configuration: TitleConfiguration) -> some View {
@@ -30,6 +31,7 @@ struct SwitchExample: View {
             SwitchView(title: "Custom Style", isOn: self.$v3)
                 .titleStyle(CustomTitleStyle())
                 .switchStyle(CustomSwitchStyle())
+            SwitchView(title: "Very long title, layout depend on title width. long long long long long long long long long long long long long long long long long long long long long long long", isOn: self.$v4)
         }
     }
 }
