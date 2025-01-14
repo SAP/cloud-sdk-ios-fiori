@@ -82,6 +82,7 @@ public extension Type {
                                     "_StepProgressIndicatorModel",
                                     "_ObjectHeaderModel",
                                     "_HeaderChartModel",
+                                    "_SectionHeaderModel",
                                     "_SwitchPickerItemModel"]
         
         if deprecatedComponents.contains(name) {

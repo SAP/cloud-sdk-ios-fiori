@@ -2864,6 +2864,62 @@ public extension SecondaryTimestampStyle {
     }
 }
 
+// MARK: SectionFooterStyle
+
+extension ModifiedStyle: SectionFooterStyle where Style: SectionFooterStyle {
+    public func makeBody(_ configuration: SectionFooterConfiguration) -> some View {
+        SectionFooter(configuration)
+            .sectionFooterStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct SectionFooterStyleModifier<Style: SectionFooterStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.sectionFooterStyle(self.style)
+    }
+}
+
+public extension SectionFooterStyle {
+    func modifier(_ modifier: some ViewModifier) -> some SectionFooterStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some SectionFooterStyle) -> some SectionFooterStyle {
+        style.modifier(SectionFooterStyleModifier(style: self))
+    }
+}
+
+// MARK: SectionHeaderStyle
+
+extension ModifiedStyle: SectionHeaderStyle where Style: SectionHeaderStyle {
+    public func makeBody(_ configuration: SectionHeaderConfiguration) -> some View {
+        SectionHeader(configuration)
+            .sectionHeaderStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct SectionHeaderStyleModifier<Style: SectionHeaderStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.sectionHeaderStyle(self.style)
+    }
+}
+
+public extension SectionHeaderStyle {
+    func modifier(_ modifier: some ViewModifier) -> some SectionHeaderStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some SectionHeaderStyle) -> some SectionHeaderStyle {
+        style.modifier(SectionHeaderStyleModifier(style: self))
+    }
+}
+
 // MARK: SegmentedControlPickerStyle
 
 extension ModifiedStyle: SegmentedControlPickerStyle where Style: SegmentedControlPickerStyle {

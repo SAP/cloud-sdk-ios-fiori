@@ -126,6 +126,12 @@ struct CoreContentView: View {
                         Text("ObjectHeader")
                     }
                 )
+                
+                NavigationLink(
+                    destination: SectionHeaderFooterExample())
+                {
+                    Text("SectionHeader/Footer Example")
+                }
             }
             
             Section(header: Text("Controls")) {

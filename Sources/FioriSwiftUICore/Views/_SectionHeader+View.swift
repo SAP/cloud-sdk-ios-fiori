@@ -3,7 +3,7 @@ import SwiftUI
 // TODO: - Implement Fiori style definitions
 
 extension Fiori {
-    enum SectionHeader {
+    enum _SectionHeader {
 //        typealias Title = EmptyModifier
         typealias Attribute = EmptyModifier
         typealias AttributeCumulative = EmptyModifier
@@ -38,7 +38,7 @@ extension Fiori {
 
 // TODO: - Implement SectionHeader View body
 
-extension SectionHeader: View {
+extension _SectionHeader: View {
     public var body: some View {
         HStack {
             title

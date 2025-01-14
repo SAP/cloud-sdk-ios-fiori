@@ -2,7 +2,7 @@
 // DO NOT EDIT
 import SwiftUI
 
-public struct SectionHeader<Title: View, Attribute: View> {
+public struct _SectionHeader<Title: View, Attribute: View> {
     @Environment(\.titleModifier) private var titleModifier
 	@Environment(\.attributeModifier) private var attributeModifier
 	@Environment(\.colorScheme) var colorScheme
@@ -23,16 +23,16 @@ public struct SectionHeader<Title: View, Attribute: View> {
 
     @ViewBuilder var title: some View {
         if isModelInit {
-            _title.modifier(titleModifier.concat(Fiori.SectionHeader.title).concat(Fiori.SectionHeader.titleCumulative))
+            _title.modifier(titleModifier.concat(Fiori._SectionHeader.title).concat(Fiori._SectionHeader.titleCumulative))
         } else {
-            _title.modifier(titleModifier.concat(Fiori.SectionHeader.title))
+            _title.modifier(titleModifier.concat(Fiori._SectionHeader.title))
         }
     }
 	@ViewBuilder var attribute: some View {
         if isModelInit {
-            _attribute.modifier(attributeModifier.concat(Fiori.SectionHeader.attribute).concat(Fiori.SectionHeader.attributeCumulative))
+            _attribute.modifier(attributeModifier.concat(Fiori._SectionHeader.attribute).concat(Fiori._SectionHeader.attributeCumulative))
         } else {
-            _attribute.modifier(attributeModifier.concat(Fiori.SectionHeader.attribute))
+            _attribute.modifier(attributeModifier.concat(Fiori._SectionHeader.attribute))
         }
     }
     
@@ -41,10 +41,10 @@ public struct SectionHeader<Title: View, Attribute: View> {
     }
 }
 
-extension SectionHeader where Title == Text,
+extension _SectionHeader where Title == Text,
 		Attribute == _ConditionalContent<Text, EmptyView> {
 
-    public init(model: SectionHeaderModel) {
+    public init(model: _SectionHeaderModel) {
         self.init(title: model.title, attribute: model.attribute)
     }
 
