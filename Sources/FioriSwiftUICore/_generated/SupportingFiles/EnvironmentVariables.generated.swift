@@ -2510,7 +2510,7 @@ struct TextInputStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var textInputStyle: any TextInputStyle {
-        self.textInputStyleStack.last ?? .base
+        self.textInputStyleStack.last ?? .base.concat(.fiori)
     }
 
     var textInputStyleStack: [any TextInputStyle] {

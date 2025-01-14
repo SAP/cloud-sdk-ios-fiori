@@ -762,6 +762,14 @@ protocol _ActivityItemComponent: _IconComponent, _SubtitleComponent {
 }
 
 // sourcery: CompositeComponent
+protocol _TextInputComponent {
+    // sourcery: @Binding
+    var textInputValue: String { get }
+    // sourcery: no_view
+    var onCommit: (() -> Void)? { get }
+}
+
+// sourcery: CompositeComponent
 protocol _RangeSliderControlComponent: _LowerThumbComponent, _UpperThumbComponent, _ActiveTrackComponent, _InactiveTrackComponent {
     // sourcery: @Binding
     /// The lower value of range slider.

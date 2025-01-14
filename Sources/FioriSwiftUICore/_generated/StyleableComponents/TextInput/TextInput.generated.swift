@@ -11,7 +11,7 @@ public struct TextInput {
 
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(textInputValue: Binding<String> = .constant(""),
+    public init(textInputValue: Binding<String>,
                 onCommit: (() -> Void)? = nil)
     {
         self._textInputValue = textInputValue
@@ -56,7 +56,7 @@ private extension TextInput {
     func defaultStyle() -> some View {
         TextInput(.init(textInputValue: self.$textInputValue, onCommit: self.onCommit))
             .shouldApplyDefaultStyle(false)
-            .textInputStyle(.fiori)
+            .textInputStyle(TextInputFioriStyle.ContentFioriStyle())
             .typeErased
     }
 }

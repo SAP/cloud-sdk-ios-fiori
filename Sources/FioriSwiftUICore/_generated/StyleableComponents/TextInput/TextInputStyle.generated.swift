@@ -25,3 +25,9 @@ public struct TextInputConfiguration {
     @Binding public var textInputValue: String
     public let onCommit: (() -> Void)?
 }
+
+public struct TextInputFioriStyle: TextInputStyle {
+    public func makeBody(_ configuration: TextInputConfiguration) -> some View {
+        TextInput(configuration)
+    }
+}

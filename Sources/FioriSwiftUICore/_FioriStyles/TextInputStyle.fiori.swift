@@ -4,7 +4,6 @@ import SwiftUI
 
 // Base Layout style
 public struct TextInputBaseStyle: TextInputStyle {
-    @ViewBuilder
     public func makeBody(_ configuration: TextInputConfiguration) -> some View {
         // Add default layout here
         TextField("Default",
@@ -14,13 +13,14 @@ public struct TextInputBaseStyle: TextInputStyle {
 }
 
 // Default fiori styles
-public struct TextInputFioriStyle: TextInputStyle {
-    @ViewBuilder
-    public func makeBody(_ configuration: TextInputConfiguration) -> some View {
-        TextInput(configuration)
-            .modifier(TextFieldClearButton(textValue: configuration.$textInputValue))
-            .textFieldStyle(BottomTextFieldStyle())
-            .font(.fiori(forTextStyle: .body))
-            .foregroundColor(.preferredColor(.primaryLabel))
+extension TextInputFioriStyle {
+    struct ContentFioriStyle: TextInputStyle {
+        func makeBody(_ configuration: TextInputConfiguration) -> some View {
+            TextInput(configuration)
+                .modifier(TextFieldClearButton(textValue: configuration.$textInputValue))
+                .textFieldStyle(BottomTextFieldStyle())
+                .font(.fiori(forTextStyle: .body))
+                .foregroundColor(.preferredColor(.primaryLabel))
+        }
     }
 }
