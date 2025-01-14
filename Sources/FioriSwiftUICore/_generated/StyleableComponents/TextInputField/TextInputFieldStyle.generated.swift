@@ -25,5 +25,12 @@ struct AnyTextInputFieldStyle: TextInputFieldStyle {
 public struct TextInputFieldConfiguration {
     public let textInputFieldIdentifier = "FioriTextInputField_content"
 
+    public var componentIdentifier: String = "fiori_textinputfield_component"
     @Binding public var text: String
+}
+
+extension TextInputFieldConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }

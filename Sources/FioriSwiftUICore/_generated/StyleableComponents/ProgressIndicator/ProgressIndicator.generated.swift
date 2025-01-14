@@ -20,11 +20,20 @@ public struct ProgressIndicator {
 
     @Environment(\.progressIndicatorStyle) var style
 
+    var componentIdentifier: String = ProgressIndicator.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(progress: Binding<Double>) {
+    public init(progress: Binding<Double>,
+                componentIdentifier: String? = ProgressIndicator.identifier)
+    {
         self._progress = progress
+        self.componentIdentifier = componentIdentifier ?? ProgressIndicator.identifier
     }
+}
+
+public extension ProgressIndicator {
+    static let identifier = "fiori_progressindicator_component"
 }
 
 public extension ProgressIndicator {
@@ -35,6 +44,7 @@ public extension ProgressIndicator {
     internal init(_ configuration: ProgressIndicatorConfiguration, shouldApplyDefaultStyle: Bool) {
         self._progress = configuration.$progress
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -43,7 +53,7 @@ extension ProgressIndicator: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(progress: self.$progress)).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, progress: self.$progress)).typeErased
                 .transformEnvironment(\.progressIndicatorStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -61,7 +71,7 @@ private extension ProgressIndicator {
     }
 
     func defaultStyle() -> some View {
-        ProgressIndicator(.init(progress: self.$progress))
+        ProgressIndicator(.init(componentIdentifier: self.componentIdentifier, progress: self.$progress))
             .shouldApplyDefaultStyle(false)
             .progressIndicatorStyle(ProgressIndicatorFioriStyle.ContentFioriStyle())
             .typeErased

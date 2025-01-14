@@ -25,7 +25,14 @@ struct AnyAttributeStyle: AttributeStyle {
 public struct AttributeConfiguration {
     public let attributeIdentifier = "FioriAttribute_attribute"
 
+    public var componentIdentifier: String = "fiori_attribute_component"
     public let attribute: Attribute
 
     public typealias Attribute = ConfigurationViewWrapper
+}
+
+extension AttributeConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }

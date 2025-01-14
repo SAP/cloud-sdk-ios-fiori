@@ -29,6 +29,7 @@ public struct DateTimePickerConfiguration {
     public let mandatoryFieldIndicatorIdentifier = "FioriDateTimePicker_mandatoryFieldIndicator"
     public let formViewIdentifier = "FioriDateTimePicker_formView"
 
+    public var componentIdentifier: String = "fiori_datetimepicker_component"
     public let title: Title
     public let valueLabel: ValueLabel
     public let mandatoryFieldIndicator: MandatoryFieldIndicator
@@ -44,6 +45,12 @@ public struct DateTimePickerConfiguration {
     public typealias Title = ConfigurationViewWrapper
     public typealias ValueLabel = ConfigurationViewWrapper
     public typealias MandatoryFieldIndicator = ConfigurationViewWrapper
+}
+
+extension DateTimePickerConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }
 
 public struct DateTimePickerFioriStyle: DateTimePickerStyle {

@@ -25,7 +25,14 @@ struct AnySelectAllActionStyle: SelectAllActionStyle {
 public struct SelectAllActionConfiguration {
     public let selectAllActionIdentifier = "FioriSelectAllAction_selectAllAction"
 
+    public var componentIdentifier: String = "fiori_selectallaction_component"
     public let selectAllAction: SelectAllAction
 
     public typealias SelectAllAction = ConfigurationViewWrapper
+}
+
+extension SelectAllActionConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }

@@ -27,12 +27,19 @@ public struct TimelinePreviewConfiguration {
     public let optionalTitleIdentifier = "FioriTimelinePreview_optionalTitle"
     public let actionIdentifier = "FioriTimelinePreview_action"
 
+    public var componentIdentifier: String = "fiori_timelinepreview_component"
     public let optionalTitle: OptionalTitle
     public let action: Action
     @Binding public var items: [any TimelinePreviewItemModel]
 
     public typealias OptionalTitle = ConfigurationViewWrapper
     public typealias Action = ConfigurationViewWrapper
+}
+
+extension TimelinePreviewConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }
 
 public struct TimelinePreviewFioriStyle: TimelinePreviewStyle {

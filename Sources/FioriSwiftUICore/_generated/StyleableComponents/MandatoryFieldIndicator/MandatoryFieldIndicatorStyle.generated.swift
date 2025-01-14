@@ -25,7 +25,14 @@ struct AnyMandatoryFieldIndicatorStyle: MandatoryFieldIndicatorStyle {
 public struct MandatoryFieldIndicatorConfiguration {
     public let mandatoryFieldIndicatorIdentifier = "FioriMandatoryFieldIndicator_mandatoryFieldIndicator"
 
+    public var componentIdentifier: String = "fiori_mandatoryfieldindicator_component"
     public let mandatoryFieldIndicator: MandatoryFieldIndicator
 
     public typealias MandatoryFieldIndicator = ConfigurationViewWrapper
+}
+
+extension MandatoryFieldIndicatorConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }

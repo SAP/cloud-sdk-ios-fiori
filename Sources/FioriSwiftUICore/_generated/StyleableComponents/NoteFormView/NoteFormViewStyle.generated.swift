@@ -29,6 +29,7 @@ public struct NoteFormViewConfiguration {
     public let placeholderTextEditorIdentifier = "FioriNoteFormView_placeholderTextEditor"
     public let formViewIdentifier = "FioriNoteFormView_formView"
 
+    public var componentIdentifier: String = "fiori_noteformview_component"
     @Binding public var text: String
     public let placeholder: Placeholder
     public let controlState: ControlState
@@ -44,6 +45,12 @@ public struct NoteFormViewConfiguration {
     public let charCountBeyondLimitMsg: String?
 
     public typealias Placeholder = ConfigurationViewWrapper
+}
+
+extension NoteFormViewConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }
 
 public struct NoteFormViewFioriStyle: NoteFormViewStyle {

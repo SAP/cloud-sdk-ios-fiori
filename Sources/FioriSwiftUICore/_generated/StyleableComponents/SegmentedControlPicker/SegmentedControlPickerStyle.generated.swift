@@ -26,8 +26,15 @@ public struct SegmentedControlPickerConfiguration {
     public let contentIdentifier = "FioriSegmentedControlPicker_content"
     public let optionsIdentifier = "FioriSegmentedControlPicker_options"
 
+    public var componentIdentifier: String = "fiori_segmentedcontrolpicker_component"
     public let options: [AttributedString]
     @Binding public var selectedIndex: Int
+}
+
+extension SegmentedControlPickerConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }
 
 public struct SegmentedControlPickerFioriStyle: SegmentedControlPickerStyle {

@@ -25,5 +25,12 @@ struct AnySwitchStyle: SwitchStyle {
 public struct SwitchConfiguration {
     public let switchIdentifier = "FioriSwitch_content"
 
+    public var componentIdentifier: String = "fiori_switch_component"
     @Binding public var isOn: Bool
+}
+
+extension SwitchConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }

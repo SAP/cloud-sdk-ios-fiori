@@ -25,7 +25,14 @@ struct AnySubtitleStyle: SubtitleStyle {
 public struct SubtitleConfiguration {
     public let subtitleIdentifier = "FioriSubtitle_subtitle"
 
+    public var componentIdentifier: String = "fiori_subtitle_component"
     public let subtitle: Subtitle
 
     public typealias Subtitle = ConfigurationViewWrapper
+}
+
+extension SubtitleConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }

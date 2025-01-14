@@ -17,11 +17,20 @@ public struct CheckoutIndicator {
 
     @Environment(\.checkoutIndicatorStyle) var style
 
+    var componentIdentifier: String = CheckoutIndicator.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(displayState: Binding<DisplayState>) {
+    public init(displayState: Binding<DisplayState>,
+                componentIdentifier: String? = CheckoutIndicator.identifier)
+    {
         self._displayState = displayState
+        self.componentIdentifier = componentIdentifier ?? CheckoutIndicator.identifier
     }
+}
+
+public extension CheckoutIndicator {
+    static let identifier = "fiori_checkoutindicator_component"
 }
 
 public extension CheckoutIndicator {
@@ -32,6 +41,7 @@ public extension CheckoutIndicator {
     internal init(_ configuration: CheckoutIndicatorConfiguration, shouldApplyDefaultStyle: Bool) {
         self._displayState = configuration.$displayState
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -40,7 +50,7 @@ extension CheckoutIndicator: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(displayState: self.$displayState)).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, displayState: self.$displayState)).typeErased
                 .transformEnvironment(\.checkoutIndicatorStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -58,7 +68,7 @@ private extension CheckoutIndicator {
     }
 
     func defaultStyle() -> some View {
-        CheckoutIndicator(.init(displayState: self.$displayState))
+        CheckoutIndicator(.init(componentIdentifier: self.componentIdentifier, displayState: self.$displayState))
             .shouldApplyDefaultStyle(false)
             .checkoutIndicatorStyle(.fiori)
             .typeErased

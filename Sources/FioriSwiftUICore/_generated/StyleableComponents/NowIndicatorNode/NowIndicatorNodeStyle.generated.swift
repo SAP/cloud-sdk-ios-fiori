@@ -25,7 +25,14 @@ struct AnyNowIndicatorNodeStyle: NowIndicatorNodeStyle {
 public struct NowIndicatorNodeConfiguration {
     public let nowIndicatorNodeIdentifier = "FioriNowIndicatorNode_nowIndicatorNode"
 
+    public var componentIdentifier: String = "fiori_nowindicatornode_component"
     public let nowIndicatorNode: NowIndicatorNode
 
     public typealias NowIndicatorNode = ConfigurationViewWrapper
+}
+
+extension NowIndicatorNodeConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }

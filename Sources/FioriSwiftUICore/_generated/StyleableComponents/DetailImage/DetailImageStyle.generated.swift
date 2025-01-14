@@ -25,7 +25,14 @@ struct AnyDetailImageStyle: DetailImageStyle {
 public struct DetailImageConfiguration {
     public let detailImageIdentifier = "FioriDetailImage_detailImage"
 
+    public var componentIdentifier: String = "fiori_detailimage_component"
     public let detailImage: DetailImage
 
     public typealias DetailImage = ConfigurationViewWrapper
+}
+
+extension DetailImageConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }

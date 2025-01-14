@@ -26,9 +26,16 @@ public struct ProcessingIndicatorConfiguration {
     public let contentIdentifier = "FioriProcessingIndicator_content"
     public let optionalTitleIdentifier = "FioriProcessingIndicator_optionalTitle"
 
+    public var componentIdentifier: String = "fiori_processingindicator_component"
     public let optionalTitle: OptionalTitle
 
     public typealias OptionalTitle = ConfigurationViewWrapper
+}
+
+extension ProcessingIndicatorConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }
 
 public struct ProcessingIndicatorFioriStyle: ProcessingIndicatorStyle {

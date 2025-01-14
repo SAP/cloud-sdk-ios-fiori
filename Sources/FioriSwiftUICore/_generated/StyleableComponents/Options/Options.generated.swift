@@ -8,11 +8,20 @@ public struct Options {
 
     @Environment(\.optionsStyle) var style
 
+    var componentIdentifier: String = Options.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(options: [AttributedString] = []) {
+    public init(options: [AttributedString] = [],
+                componentIdentifier: String? = Options.identifier)
+    {
         self.options = options
+        self.componentIdentifier = componentIdentifier ?? Options.identifier
     }
+}
+
+public extension Options {
+    static let identifier = "fiori_options_component"
 }
 
 public extension Options {
@@ -23,6 +32,7 @@ public extension Options {
     internal init(_ configuration: OptionsConfiguration, shouldApplyDefaultStyle: Bool) {
         self.options = configuration.options
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -31,7 +41,7 @@ extension Options: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(options: self.options)).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, options: self.options)).typeErased
                 .transformEnvironment(\.optionsStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -49,7 +59,7 @@ private extension Options {
     }
 
     func defaultStyle() -> some View {
-        Options(.init(options: self.options))
+        Options(.init(componentIdentifier: self.componentIdentifier, options: self.options))
             .shouldApplyDefaultStyle(false)
             .optionsStyle(.fiori)
             .typeErased

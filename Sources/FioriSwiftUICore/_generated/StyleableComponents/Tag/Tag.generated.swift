@@ -8,11 +8,20 @@ public struct Tag {
 
     @Environment(\.tagStyle) var style
 
+    var componentIdentifier: String = Tag.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder tag: () -> any View) {
+    public init(@ViewBuilder tag: () -> any View,
+                componentIdentifier: String? = Tag.identifier)
+    {
         self.tag = tag()
+        self.componentIdentifier = componentIdentifier ?? Tag.identifier
     }
+}
+
+public extension Tag {
+    static let identifier = "fiori_tag_component"
 }
 
 public extension Tag {
@@ -29,6 +38,7 @@ public extension Tag {
     internal init(_ configuration: TagConfiguration, shouldApplyDefaultStyle: Bool) {
         self.tag = configuration.tag
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -37,7 +47,7 @@ extension Tag: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(tag: .init(self.tag))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, tag: .init(self.tag))).typeErased
                 .transformEnvironment(\.tagStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -55,7 +65,7 @@ private extension Tag {
     }
 
     func defaultStyle() -> some View {
-        Tag(.init(tag: .init(self.tag)))
+        Tag(.init(componentIdentifier: self.componentIdentifier, tag: .init(self.tag)))
             .shouldApplyDefaultStyle(false)
             .tagStyle(.fiori)
             .typeErased

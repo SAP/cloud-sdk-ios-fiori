@@ -25,7 +25,14 @@ struct AnyAvatarsStyle: AvatarsStyle {
 public struct AvatarsConfiguration {
     public let avatarsIdentifier = "FioriAvatars_avatars"
 
+    public var componentIdentifier: String = "fiori_avatars_component"
     public let avatars: Avatars
 
     public typealias Avatars = ConfigurationViewWrapper
+}
+
+extension AvatarsConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }

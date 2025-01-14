@@ -30,6 +30,7 @@ public struct TextFieldFormViewConfiguration {
     public let mandatoryFieldIndicatorIdentifier = "FioriTextFieldFormView_mandatoryFieldIndicator"
     public let titleFormViewIdentifier = "FioriTextFieldFormView_titleFormView"
 
+    public var componentIdentifier: String = "fiori_textfieldformview_component"
     public let title: Title
     @Binding public var text: String
     public let placeholder: Placeholder
@@ -51,6 +52,12 @@ public struct TextFieldFormViewConfiguration {
     public typealias Title = ConfigurationViewWrapper
     public typealias Placeholder = ConfigurationViewWrapper
     public typealias MandatoryFieldIndicator = ConfigurationViewWrapper
+}
+
+extension TextFieldFormViewConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }
 
 public struct TextFieldFormViewFioriStyle: TextFieldFormViewStyle {

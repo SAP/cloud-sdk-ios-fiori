@@ -7,10 +7,19 @@ import SwiftUI
 // Base Layout style
 public struct SwitchViewBaseStyle: SwitchViewStyle {
     public func makeBody(_ configuration: SwitchViewConfiguration) -> some View {
-        HStack {
-            configuration.title
-            Spacer()
-            configuration._switch
+        ViewThatFits {
+            HStack {
+                configuration.title
+                Spacer()
+                configuration._switch
+            }
+            VStack(alignment: .leading, spacing: 0) {
+                configuration.title
+                HStack {
+                    Spacer()
+                    configuration._switch
+                }
+            }
         }
     }
 }

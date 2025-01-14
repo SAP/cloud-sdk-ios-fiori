@@ -8,11 +8,20 @@ public struct TextInputField {
 
     @Environment(\.textInputFieldStyle) var style
 
+    var componentIdentifier: String = TextInputField.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(text: Binding<String>) {
+    public init(text: Binding<String>,
+                componentIdentifier: String? = TextInputField.identifier)
+    {
         self._text = text
+        self.componentIdentifier = componentIdentifier ?? TextInputField.identifier
     }
+}
+
+public extension TextInputField {
+    static let identifier = "fiori_textinputfield_component"
 }
 
 public extension TextInputField {
@@ -23,6 +32,7 @@ public extension TextInputField {
     internal init(_ configuration: TextInputFieldConfiguration, shouldApplyDefaultStyle: Bool) {
         self._text = configuration.$text
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -31,7 +41,7 @@ extension TextInputField: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(text: self.$text)).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, text: self.$text)).typeErased
                 .transformEnvironment(\.textInputFieldStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -49,7 +59,7 @@ private extension TextInputField {
     }
 
     func defaultStyle() -> some View {
-        TextInputField(.init(text: self.$text))
+        TextInputField(.init(componentIdentifier: self.componentIdentifier, text: self.$text))
             .shouldApplyDefaultStyle(false)
             .textInputFieldStyle(.fiori)
             .typeErased

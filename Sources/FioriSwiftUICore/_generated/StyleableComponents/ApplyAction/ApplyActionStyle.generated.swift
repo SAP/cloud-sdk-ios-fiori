@@ -25,7 +25,14 @@ struct AnyApplyActionStyle: ApplyActionStyle {
 public struct ApplyActionConfiguration {
     public let applyActionIdentifier = "FioriApplyAction_applyAction"
 
+    public var componentIdentifier: String = "fiori_applyaction_component"
     public let applyAction: ApplyAction
 
     public typealias ApplyAction = ConfigurationViewWrapper
+}
+
+extension ApplyActionConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }

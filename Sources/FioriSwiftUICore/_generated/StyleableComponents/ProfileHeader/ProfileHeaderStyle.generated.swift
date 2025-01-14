@@ -29,6 +29,7 @@ public struct ProfileHeaderConfiguration {
     public let subtitleIdentifier = "FioriProfileHeader_subtitle"
     public let descriptionIdentifier = "FioriProfileHeader_description"
 
+    public var componentIdentifier: String = "fiori_profileheader_component"
     public let detailImage: DetailImage
     public let title: Title
     public let subtitle: Subtitle
@@ -41,6 +42,12 @@ public struct ProfileHeaderConfiguration {
     public typealias Subtitle = ConfigurationViewWrapper
     public typealias Description = ConfigurationViewWrapper
     public typealias DetailContent = ConfigurationViewWrapper
+}
+
+extension ProfileHeaderConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }
 
 public struct ProfileHeaderFioriStyle: ProfileHeaderStyle {

@@ -25,7 +25,14 @@ struct AnyStatusStyle: StatusStyle {
 public struct StatusConfiguration {
     public let statusIdentifier = "FioriStatus_status"
 
+    public var componentIdentifier: String = "fiori_status_component"
     public let status: Status
 
     public typealias Status = ConfigurationViewWrapper
+}
+
+extension StatusConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }

@@ -25,7 +25,14 @@ struct AnyTagsStyle: TagsStyle {
 public struct TagsConfiguration {
     public let tagsIdentifier = "FioriTags_tags"
 
+    public var componentIdentifier: String = "fiori_tags_component"
     public let tags: Tags
 
     public typealias Tags = ConfigurationViewWrapper
+}
+
+extension TagsConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }

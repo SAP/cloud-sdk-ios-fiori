@@ -25,7 +25,14 @@ struct AnyTimestampStyle: TimestampStyle {
 public struct TimestampConfiguration {
     public let timestampIdentifier = "FioriTimestamp_timestamp"
 
+    public var componentIdentifier: String = "fiori_timestamp_component"
     public let timestamp: Timestamp
 
     public typealias Timestamp = ConfigurationViewWrapper
+}
+
+extension TimestampConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }

@@ -27,12 +27,19 @@ public struct MenuSelectionItemConfiguration {
     public let iconIdentifier = "FioriMenuSelectionItem_icon"
     public let titleIdentifier = "FioriMenuSelectionItem_title"
 
+    public var componentIdentifier: String = "fiori_menuselectionitem_component"
     public let icon: Icon
     public let title: Title
     public let action: (() -> Void)?
 
     public typealias Icon = ConfigurationViewWrapper
     public typealias Title = ConfigurationViewWrapper
+}
+
+extension MenuSelectionItemConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }
 
 public struct MenuSelectionItemFioriStyle: MenuSelectionItemStyle {

@@ -25,7 +25,14 @@ struct AnyCloseActionStyle: CloseActionStyle {
 public struct CloseActionConfiguration {
     public let closeActionIdentifier = "FioriCloseAction_closeAction"
 
+    public var componentIdentifier: String = "fiori_closeaction_component"
     public let closeAction: CloseAction
 
     public typealias CloseAction = ConfigurationViewWrapper
+}
+
+extension CloseActionConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }

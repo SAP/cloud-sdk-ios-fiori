@@ -25,7 +25,14 @@ struct AnyDecrementActionStyle: DecrementActionStyle {
 public struct DecrementActionConfiguration {
     public let decrementActionIdentifier = "FioriDecrementAction_decrementAction"
 
+    public var componentIdentifier: String = "fiori_decrementaction_component"
     public let decrementAction: DecrementAction
 
     public typealias DecrementAction = ConfigurationViewWrapper
+}
+
+extension DecrementActionConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }

@@ -1,6 +1,8 @@
 import Foundation
 import SwiftUI
 
+// swiftlint:disable file_length
+
 /// A view that displays information of an object.
 // sourcery: CompositeComponent
 protocol _ObjectItemComponent: _TitleComponent, _SubtitleComponent, _FootnoteComponent, _DescriptionComponent, _StatusComponent, _SubstatusComponent, _DetailImageComponent, _IconsComponent, _AvatarsComponent, _FootnoteIconsComponent, _FootnoteIconsTextComponent, _TagsComponent, _ActionComponent {
@@ -726,3 +728,395 @@ protocol _ProgressIndicatorComponent: _ProgressIndicatorProtocol {}
 /// ```
 // sourcery: CompositeComponent
 protocol _ProcessingIndicatorComponent: _OptionalTitleComponent {}
+
+/// `KPIProgressItem` enables a developer to present "KPI" information in a formatted manner consistent with the Fiori Design Language
+///
+/// ## Usage
+/// ```swift
+/// let percentData = KPIItemData.percent(0.65)
+/// let fractionData = KPIItemData.fraction(76, 90, numberFormatterProvider.numberFormatter)
+///
+/// KPIProgressItem(kpiCaption: "Completed", data: .constant(percentData))
+/// KPIProgressItem(kpiCaption: "In progress", data: .constant(fractionData), chartSize: .small)
+/// ```
+// sourcery: CompositeComponent
+protocol _KPIProgressItemComponent: _KPIContentComponent, _KpiCaptionComponent, _FootnoteComponent, _InnerCircleComponent, _OuterCircleComponent {
+    // sourcery: @Binding
+    var data: KPIItemData { get }
+    
+    // sourcery: defaultValue = .large
+    var chartSize: KPIProgressItemSize { get }
+}
+
+/// `ActivityItem` provides a customizable activity item with an icon and a subtitle.
+///
+/// ## Usage
+/// ```swift
+/// ActivityItem(icon: Image(systemName: "phone"), subtitle: AttributedString("phone"))
+/// ```
+// sourcery: CompositeComponent
+protocol _ActivityItemComponent: _IconComponent, _SubtitleComponent {
+    /// Activity item layout. The default is .vertical
+    // sourcery: defaultValue = .vertical
+    var layout: ActivityItemLayout { get }
+}
+
+/// `ContactItem` provides a view that shows information related to contact.
+/// ## Usage
+/// ```swift
+/// ContactItem(title: "Headline only example", description: "One line of text description is baseline aligned.", actionItems: [.init(type: .phone, didSelectActivityItem: {
+///     print("tap phone")
+/// }), .init(type: .videoCall, didSelectActivityItem: {
+///     print("tap videoCall")
+/// }), .init(type: .message, didSelectActivityItem: {
+///     print("tap message")
+/// })])
+///
+/// ContactItem {
+///      Text("Headline only example")
+/// } subtitle: {
+///      Text("One line of text description is baseline aligned.")
+/// } description: {
+///      Text("Description")
+/// } detailImage: {
+///      Image("person_square4").resizable()
+/// } actionItems: {
+///      ActivityItems(activityItems: [.init(type: .phone, didSelectActivityItem: {
+///          print("tap phone")
+///      })])
+/// }
+/// ```
+// sourcery: CompositeComponent
+protocol _ContactItemComponent: _TitleComponent, _SubtitleComponent, _DescriptionComponent, _DetailImageComponent, _ActivityItemsComponent {}
+
+// sourcery: CompositeComponent
+protocol _RangeSliderControlComponent: _LowerThumbComponent, _UpperThumbComponent, _ActiveTrackComponent, _InactiveTrackComponent {
+    // sourcery: @Binding
+    /// The lower value of range slider.
+    var lowerValue: Double { get }
+    
+    // sourcery: @Binding
+    /// The upper value of range slider
+    var upperValue: Double { get }
+    
+    // sourcery: defaultValue = 0...100
+    /// The range of the slider values. The default is `0...100`.
+    var range: ClosedRange<Double> { get }
+    
+    // sourcery: defaultValue = 1
+    /// The incremental/decremental value when the thumb changes its position. The default is `1`.
+    var step: Double { get }
+    
+    // sourcery: defaultValue = 0
+    /// This property specifies the number of digits that should appear after the decimal point in the Double value for slider value or lower/upper value for range slider . It controls the precision of the numerical representation by determining how many decimal places are displayed or used in calculations, rounding the Double accordingly. The default is `0`
+    var decimalPlaces: Int { get }
+    
+    // sourcery: defaultValue = 14
+    /// The half-width of the thumb. This value only takes effect for a range slider. In the context of a circular representation of the thumb, this value is used as the radius. It should be less than 22. The default value is `14`.
+    var thumbHalfWidth: CGFloat { get }
+    
+    // sourcery: defaultValue = "true"
+    /// Indicates whether the lower thumb is to be displayed or not. The default value is `true`
+    var showsLowerThumb: Bool { get }
+    
+    // sourcery: defaultValue = "true"
+    /// Indicates whether the upper thumb is to be displayed or not. The default value is `true`
+    var showsUpperThumb: Bool { get }
+    
+    /// An optional callback function that is triggered when the user begins to drag either the lower or upper thumb along the range slider's track or edit the value in text field to adjust the slider's values. The first boolean parameter indicates whether the editing has begun or ended, with `false` signifying that the editing has ended. The second parameter is a double that represents the updated lower value, while the third parameter (also a double) represents the updated upper value.
+    var onRangeValueChange: ((Bool, Double, Double) -> Void)? { get }
+}
+
+/// The `FioriSlider` is a SwiftUI component that provides both a standard slider and a range slider.
+/// The standard slider allows users to select a single value, while the range slider allows users to select a range of values with two thumbs.
+///
+/// ## Usage
+///
+/// ### Standard Slider:
+///
+/// A standard slider consists of a title, a bound value, and a "thumb" (an image that users can drag along a linear "track".
+/// The track represents a continuum between two extremes: a minimum and a maximum value.
+/// By default, the formatted minimum value is displayed at the leading end of the slider, and the formatted maximum value is displayed at the trailing end of the slider.
+///
+/// The title is displayed at the top left of the component, while the bound value is displayed at the top right. As users move the thumb, the slider continuously updates its bound value to reflect the thumb’s position.
+///
+/// The following example illustrates a standard slider bound to the value `speed`. The slider uses the default range of `0` to `100`, with a default step of `1`.
+/// The minimum value of the range is displayed as the leading accessory view label, while the maximum value is shown as the trailing accessory view label.
+/// As the slider updates the `speed` value, the updated value is displayed in a label at the top right of the slider.
+///
+///  ```swift
+///  @State private var speed: Double = 20
+///
+///  FioriSlider(
+///      title: "Speed Limit",
+///      value: $speed,
+///      description: "Simple standard slider"
+///  )
+///  ```
+///
+/// You can also use the `range` parameter to specify the value range of the slider.
+/// The `step` parameter allows you to define incremental steps along the slider's path.
+/// The `decimalPlaces` parameter can be used to manage the decimal places of the slider's value.
+/// To format the bound value for display, use the `valueFormat` parameter.
+/// The `leadingValueFormat` parameter customizes the leading value label, which displays the minimum value of the range.
+/// Similarly, the `trailingValueFormat` parameter customizes the trailing value label, which displays the maximum value of the range.
+/// Additionally, you can use the `showsValueLabel`, `showsLeadingAccessory`, and `showsTrailingAccessory` parameters to control the display of the related labels.
+/// The `onValueChange` closure passed to the slider provides callbacks when the user drags the slider.
+///
+///  ```swift
+///  @State private var speed: Double = 20
+///
+///  FioriSlider(
+///      title: "Speed Limit",
+///      value: $speed,
+///      range: 10...200,
+///      step: 2.5,
+///      decimalPlaces: 1,
+///      description: "Simple standard slider",
+///      valueLabelFormat: "%.1f KM",
+///      leadingLabelFormat: "%.1f KM",
+///      trailingLabelFormat: "%.1f KM",
+///      onValueChange: { isEditing, newSpeed in
+///         if !isEditing {
+///             print("The speed was changed to: " + String(format: "%.1f", value))
+///         }
+///      }
+///  )
+///  ```
+/// The example above illustrates a standard slider with a range of `10` to `200` and a step increment of `2.5`.
+/// Therefore, the slider's increments would be `10`, `12.5`, `15`, and so on.
+/// At the same time, the minimum value of the range is formatted and displayed as `10.0 KM`.
+/// Similarly, the maximum value of the range is formatted and displayed as `200.0 KM`.
+/// The updated value can be received within the `onValueChange` closure callback when the user drags the slider.
+///
+/// The slider also uses the `step` to increase or decrease the value when a
+/// VoiceOver user adjusts the slider with voice commands.
+///
+/// The `FioriSlider` supports a modifier called `accessibilityAdjustments`, which allows you to adjust the accessibility settings for a standard slider according to the Fiori Slider guidelines.
+///
+/// ### Range Slider:
+///
+/// A range slider consists of a title, a bound lower value, a bound upper value, and two "thumbs" (images that users can drag along a linear "track").
+/// The track represents a continuum between two extremes: a minimum and a maximum value.
+/// By default, the formatted lower value is displayed in a text field at the leading end of the slider, and the formatted upper value is displayed in a text field at the trailing end of the slider.
+/// The title is displayed at the top left of the component. As users edit the lower or upper value in the text fields or move the thumbs, the slider continuously updates the bound values to reflect the thumbs’ positions.
+///
+/// A single editable range slider is also supported. In this case, only the formatted upper value is displayed in a text field at the trailing end of the slider.
+///
+/// The following example illustrates an editable range slider bound to the lower value `lowerValue` and the upper value `upperValue`.
+/// The range slider uses the default range of `0` to `100`, with a default step of `1`.
+/// By default, the lower value is displayed in a text field as the leading accessory view, while the upper value is shown in a text field as the trailing accessory view.
+/// Both the lower thumb and upper thumb are clearly displayed on the slider track.
+/// You can edit these values in the text fields to change the lower and upper values.
+/// Alternatively, you can drag the lower thumb to adjust the lower value and drag the upper thumb to change the upper value.
+/// The range slider does not display the value label at the top right of the slider by default.
+///
+///  ```swift
+///  @State private var lowerValue: Double = 20
+///  @State private var upperValue: Double = 40
+///
+///  FioriSlider(
+///      title: "Editable Range Slider",
+///      lowerValue: $lowerValue,
+///      upperValue: $upperValue,
+///      description: "Simple editable range slider"
+///  )
+///  ```
+///
+/// The following example illustrates a single editable range slider bound to the upper value `upperValue`.
+/// The range slider uses the default range of `0` to `100`, with a default step of `1`.
+/// By default, only the upper value is shown in a text field as the trailing accessory view and one thumb displayed on the slider track.
+/// You can edit value in the text fields to change the upper values or drag the thumb to adjust the upper value.
+/// The single range slider does not display the value label at the top right of the slider by default.
+///
+///  ```swift
+///  @State private var upperValue: Double = 40
+///
+///  FioriSlider(
+///      title: "Single Editable Range Slider",
+///      upperValue: $upperValue,
+///      description: "Simple Single Editable range slider"
+///  )
+///  ```
+///
+/// Similar with standard slider, the range slider also allow you use the `range` parameter to specify the value range of the slider.
+/// The `step` parameter allows you to define incremental steps along the slider's path.
+/// The `decimalPlaces` parameter can be used to manage the decimal places of the slider's value.
+/// By default, the range slider does not display the value label.
+/// However, you can specify what you want to display in the `valueLabel` parameter to show the value label at the top right of the slider.
+/// The `showsLeadingAccessory` and `showsTrailingAccessory` parameters control the display of the leading accessory view and trailing accessory view, respectively.
+/// By default, the editable range slider uses a text field as the leading or trailing accessory view.
+/// However, you can specify your own view in the `leadingAccessory` or `trailingAccessory` parameters to override the default text field.
+/// The `showsLeadingAccessory` and `showsTrailingAccessory` parameters can be used to control the display of the respective accessory views.
+/// The `onRangeValueChange` closure passed to the slider provides callbacks when the user drags the slider.
+/// The `onValueChange` closure passed to the single editable slider provides callbacks when the user drags the slider.
+///
+/// ```swift
+///  @State private var lowerValue: Double = 20
+///  @State private var upperValue: Double = 40
+///
+///  FioriSlider(
+///      title: "Editable Range Slider",
+///      lowerValue: $lowerValue,
+///      upperValue: $upperValue,
+///      range: 10...200,
+///      step: 2.5,
+///      decimalPlaces: 1,
+///      description: "Simple editable range slider",
+///      onRangeValueChange: { isEditing, lowerValue, upperValue in
+///         if !isEditing {
+///             print("Range Slider value was: " + String(format: "%.1f", lowerValue) + " - " + String(format: "%.1f", upperValue))
+///         }
+///      }
+///  )
+///  ```
+///
+/// The slider also uses the `step` to increase or decrease the value when a
+/// VoiceOver user adjusts the slider with voice commands.
+///
+// sourcery: CompositeComponent
+protocol _FioriSliderComponent: _TitleComponent, _ValueLabelComponent, _RangeSliderControlComponent, _InformationViewComponent, _LeadingAccessoryComponent, _TrailingAccessoryComponent {
+    // sourcery: defaultValue = "true"
+    /// Indicates whether the slider is a range slider or not. The default value is `true`, meaning that the slider is a range slider.
+    var isRangeSlider: Bool { get }
+    
+    /// This optional format is used to format the displayed slider value in the value label view. It is also utilized for formatting the accessibility value, if provided.
+    var valueFormat: String? { get }
+    
+    /// The optional formats are used to format the lower and upper bound values of the range. They are utilized for formatting the accessibility values when you customize the range slider with your own leading and trailing accessory views, if provided.
+    var rangeFormat: (String, String)? { get }
+    
+    /// This optional format is used to format the displayed minimal value of standard slider's range or lower value of range slider  in the leading accessory view. It is also utilized for formatting the accessibility value, if provided.
+    var leadingValueFormat: String? { get }
+    
+    /// This optional format is used to format the displayed maximal value of standard slider's range or upper value of range slider  in the trailing accessory view. It is also utilized for formatting the accessibility value, if provided.
+    var trailingValueFormat: String? { get }
+    
+    // sourcery: defaultValue = "true"
+    /// Indicates whether the value label is to be displayed or not. The default value is `true`
+    var showsValueLabel: Bool { get }
+    
+    // sourcery: defaultValue = "true"
+    /// Indicates whether the leading accessory view is to be displayed or not. The default value is `true`
+    var showsLeadingAccessory: Bool { get }
+    
+    // sourcery: defaultValue = "true"
+    /// Indicates whether the trailing accessory view is to be displayed or not. The default value is `true`
+    var showsTrailingAccessory: Bool { get }
+    
+    /// An optional callback function is triggered when the user begins to drag the thumb along the standard slider's track to adjust its value. The first boolean property indicates whether the editing process has begun or ended, with `false` signifying that the editing has concluded. The second double property represents the newly adjusted slider value.
+    var onValueChange: ((Bool, Double) -> Void)? { get }
+    
+    /// An optional callback function is triggered when the focus state of a text field, which serves as a leading or trailing accessory for an editable slider, changes. The boolean parameter of the callback indicates the focus state of the text field. This can be useful for obtaining the focus state when customizing the editable slider.
+    var onEditFieldFocusStatusChange: ((Bool) -> Void)? { get }
+}
+
+// sourcery: CompositeComponent
+protocol _SingleStepComponent: _TitleComponent, _NodeComponent, _LineComponent {
+    // sourcery: default.value = UUID().uuidString
+    // sourcery: no_view
+    var id: String { get }
+
+    // sourcery: default.value = .normal
+    // sourcery: no_view
+    var state: StepProgressIndicatorState { get }
+
+    // sourcery: resultBuilder.backingComponent = StepsStack
+    // sourcery: resultBuilder.name = @IndexedViewBuilder
+    // sourcery: resultBuilder.returnType = any IndexedViewContainer
+    var substeps: [StepItem] { get }
+}
+
+/// `StepProgressIndicator` is a view supporting a list of `StepItem` in a  horizontal stack. Also customized steps are also supported.
+/// ## Usage
+/// ```swift
+/// @State var selection: String = "id"
+/// var steps: [StepItem] = []
+/// StepProgressIndicator(selection: self.$selection,
+///                       stepItems: self.steps)
+/// Also indexed view builder is also supported.
+/// StepProgressIndicator(title: <#T##() -> any View#>, action: <#T##() -> any View#>, cancelAction: <#T##() -> any View#>, selection: <#T##Binding<String>#>, steps: <#T##() -> any IndexedViewContainer#>)
+/// ```
+/// You can also update step style for different states, if you created `StepProgressIndicator` by `[StepItem]`.
+/// `func stepStyle(_ style: @escaping ((_ id: String) -> (some StepStyle)?)) -> some View`
+// sourcery: CompositeComponent
+protocol _StepProgressIndicatorComponent: _TitleComponent, _ActionComponent, _CancelActionComponent {
+    // sourcery: @Binding
+    var selection: String { get }
+
+    // sourcery: resultBuilder.backingComponent = StepsStack
+    // sourcery: resultBuilder.name = @IndexedViewBuilder
+    // sourcery: resultBuilder.returnType = any IndexedViewContainer
+    var steps: [StepItem] { get }
+}
+
+// sourcery: CompositeComponent
+protocol _SectionHeaderComponent: _TitleComponent, _AttributeComponent {
+    /// Style determines fonts and colors. Default is `.title` style.
+    // sourcery: defaultValue = .title
+    var sectionHeaderStyle: SectionHeaderFooterStyle { get }
+    
+    /// Optional handler, to respond to tap events on the view.
+    var didSelectHandler: (() -> Void)? { get }
+}
+
+// sourcery: CompositeComponent
+protocol _SectionFooterComponent: _TitleComponent, _AttributeComponent {
+    /// Style determines fonts and colors. Default is `.title` style.
+    // sourcery: defaultValue = .title
+    var sectionFooterStyle: SectionHeaderFooterStyle { get }
+    
+    /// Optional handler, to respond to tap events on the view.
+    var didSelectHandler: (() -> Void)? { get }
+}
+
+/// `ObjectHeader` is a view that displays an object's title, subtitle, tags, body text, footnote, description, status, substatus, detail image and detail content.
+/// ## Usage
+/// ```swift
+/// ObjectHeader {
+///     Text("title")
+/// } subtitle: {
+///     Text("subtitle")
+/// } tags: {
+///     Text("tag01")
+/// } bodyText: {
+///     Text("body")
+/// } footnote: {
+///     Text("footnote")
+/// } descriptionText: {
+///     Text("description")
+/// } status: {
+///     Text("status")
+/// } substatus: {
+///     Text("substatus")
+/// } detailImage: {
+///     Image(systemName: "person")
+/// } detailContent: {
+///     Text("detail content")
+/// }
+/// ```
+// sourcery: CompositeComponent
+protocol _ObjectHeaderComponent: _TitleComponent, _SubtitleComponent, _TagsComponent, _BodyTextComponent, _FootnoteComponent, _DescriptionTextComponent, _StatusComponent, _SubstatusComponent, _DetailImageComponent, _DetailContentComponent {}
+
+/// `HeaderChart` is a view that displays an object's title, subtitle, trend, trend image and kpi.
+/// ## Usage
+/// ```swift
+/// HeaderChart {
+///     Text("title")
+/// } subtitle: {
+///     Text("subtitle")
+/// } trend: {
+///     Text("trend")
+/// } trendImage: {
+///     Image(systemName: "person")
+/// } kpi: {
+///     Text("KPI View")
+/// } chart: {
+///     Text("Chart View")
+/// }
+/// ```
+// sourcery: CompositeComponent
+protocol _HeaderChartComponent: _TitleComponent, _SubtitleComponent, _TrendComponent, _TrendImageComponent, _KpiComponent {
+    @ViewBuilder
+    var chart: (() -> any View)? { get }
+}

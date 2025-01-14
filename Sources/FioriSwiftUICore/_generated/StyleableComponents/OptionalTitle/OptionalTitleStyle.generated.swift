@@ -25,7 +25,14 @@ struct AnyOptionalTitleStyle: OptionalTitleStyle {
 public struct OptionalTitleConfiguration {
     public let optionalTitleIdentifier = "FioriOptionalTitle_optionalTitle"
 
+    public var componentIdentifier: String = "fiori_optionaltitle_component"
     public let optionalTitle: OptionalTitle
 
     public typealias OptionalTitle = ConfigurationViewWrapper
+}
+
+extension OptionalTitleConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }

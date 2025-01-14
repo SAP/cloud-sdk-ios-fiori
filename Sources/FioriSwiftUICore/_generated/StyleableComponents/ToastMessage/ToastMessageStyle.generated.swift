@@ -27,12 +27,19 @@ public struct ToastMessageConfiguration {
     public let iconIdentifier = "FioriToastMessage_icon"
     public let titleIdentifier = "FioriToastMessage_title"
 
+    public var componentIdentifier: String = "fiori_toastmessage_component"
     public let icon: Icon
     public let title: Title
     public let duration: Double
 
     public typealias Icon = ConfigurationViewWrapper
     public typealias Title = ConfigurationViewWrapper
+}
+
+extension ToastMessageConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }
 
 public struct ToastMessageFioriStyle: ToastMessageStyle {

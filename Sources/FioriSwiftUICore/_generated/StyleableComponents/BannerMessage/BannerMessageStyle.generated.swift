@@ -29,6 +29,7 @@ public struct BannerMessageConfiguration {
     public let closeActionIdentifier = "FioriBannerMessage_closeAction"
     public let topDividerIdentifier = "FioriBannerMessage_topDivider"
 
+    public var componentIdentifier: String = "fiori_bannermessage_component"
     public let icon: Icon
     public let title: Title
     public let closeAction: CloseAction
@@ -43,6 +44,12 @@ public struct BannerMessageConfiguration {
     public typealias Title = ConfigurationViewWrapper
     public typealias CloseAction = ConfigurationViewWrapper
     public typealias TopDivider = ConfigurationViewWrapper
+}
+
+extension BannerMessageConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }
 
 public struct BannerMessageFioriStyle: BannerMessageStyle {

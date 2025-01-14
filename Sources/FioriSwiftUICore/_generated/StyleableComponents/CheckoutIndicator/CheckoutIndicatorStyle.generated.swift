@@ -25,5 +25,12 @@ struct AnyCheckoutIndicatorStyle: CheckoutIndicatorStyle {
 public struct CheckoutIndicatorConfiguration {
     public let checkoutIndicatorIdentifier = "FioriCheckoutIndicator_content"
 
+    public var componentIdentifier: String = "fiori_checkoutindicator_component"
     @Binding public var displayState: DisplayState
+}
+
+extension CheckoutIndicatorConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }

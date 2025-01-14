@@ -30,6 +30,7 @@ struct DemoViewConfiguration {
     public let actionIdentifier = "FioriDemoView_action"
     public let switchIdentifier = "FioriDemoView_switch"
 
+    public var componentIdentifier: String = "fiori_demoview_component"
     public let title: Title
     public let subtitle: Subtitle
     public let status: Status
@@ -40,6 +41,12 @@ struct DemoViewConfiguration {
     public typealias Subtitle = ConfigurationViewWrapper
     public typealias Status = ConfigurationViewWrapper
     public typealias Action = ConfigurationViewWrapper
+}
+
+extension DemoViewConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }
 
 struct DemoViewFioriStyle: DemoViewStyle {

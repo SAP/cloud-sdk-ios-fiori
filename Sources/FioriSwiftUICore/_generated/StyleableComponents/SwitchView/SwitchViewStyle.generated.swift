@@ -27,10 +27,17 @@ public struct SwitchViewConfiguration {
     public let titleIdentifier = "FioriSwitchView_title"
     public let switchIdentifier = "FioriSwitchView_switch"
 
+    public var componentIdentifier: String = "fiori_switchview_component"
     public let title: Title
     @Binding public var isOn: Bool
 
     public typealias Title = ConfigurationViewWrapper
+}
+
+extension SwitchViewConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }
 
 public struct SwitchViewFioriStyle: SwitchViewStyle {

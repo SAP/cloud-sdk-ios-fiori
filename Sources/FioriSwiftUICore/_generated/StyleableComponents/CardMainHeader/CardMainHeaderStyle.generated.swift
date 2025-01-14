@@ -31,6 +31,7 @@ public struct CardMainHeaderConfiguration {
     public let headerActionIdentifier = "FioriCardMainHeader_headerAction"
     public let counterIdentifier = "FioriCardMainHeader_counter"
 
+    public var componentIdentifier: String = "fiori_cardmainheader_component"
     public let title: Title
     public let subtitle: Subtitle
     public let icons: Icons
@@ -44,6 +45,12 @@ public struct CardMainHeaderConfiguration {
     public typealias DetailImage = ConfigurationViewWrapper
     public typealias HeaderAction = ConfigurationViewWrapper
     public typealias Counter = ConfigurationViewWrapper
+}
+
+extension CardMainHeaderConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }
 
 public struct CardMainHeaderFioriStyle: CardMainHeaderStyle {

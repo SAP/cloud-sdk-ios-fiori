@@ -27,10 +27,17 @@ public struct PlaceholderTextEditorConfiguration {
     public let textViewIdentifier = "FioriPlaceholderTextEditor_textView"
     public let placeholderIdentifier = "FioriPlaceholderTextEditor_placeholder"
 
+    public var componentIdentifier: String = "fiori_placeholdertexteditor_component"
     @Binding public var text: String
     public let placeholder: Placeholder
 
     public typealias Placeholder = ConfigurationViewWrapper
+}
+
+extension PlaceholderTextEditorConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }
 
 public struct PlaceholderTextEditorFioriStyle: PlaceholderTextEditorStyle {

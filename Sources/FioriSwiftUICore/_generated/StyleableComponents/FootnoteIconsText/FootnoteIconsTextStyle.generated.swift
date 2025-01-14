@@ -25,7 +25,14 @@ struct AnyFootnoteIconsTextStyle: FootnoteIconsTextStyle {
 public struct FootnoteIconsTextConfiguration {
     public let footnoteIconsTextIdentifier = "FioriFootnoteIconsText_footnoteIconsText"
 
+    public var componentIdentifier: String = "fiori_footnoteiconstext_component"
     public let footnoteIconsText: FootnoteIconsText
 
     public typealias FootnoteIconsText = ConfigurationViewWrapper
+}
+
+extension FootnoteIconsTextConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }

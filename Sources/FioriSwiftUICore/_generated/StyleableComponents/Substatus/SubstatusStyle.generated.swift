@@ -25,7 +25,14 @@ struct AnySubstatusStyle: SubstatusStyle {
 public struct SubstatusConfiguration {
     public let substatusIdentifier = "FioriSubstatus_substatus"
 
+    public var componentIdentifier: String = "fiori_substatus_component"
     public let substatus: Substatus
 
     public typealias Substatus = ConfigurationViewWrapper
+}
+
+extension SubstatusConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }

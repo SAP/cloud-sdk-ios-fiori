@@ -27,12 +27,19 @@ public struct LabelItemConfiguration {
     public let iconIdentifier = "FioriLabelItem_icon"
     public let titleIdentifier = "FioriLabelItem_title"
 
+    public var componentIdentifier: String = "fiori_labelitem_component"
     public let icon: Icon
     public let title: Title
     public let alignment: HorizontalAlignment?
 
     public typealias Icon = ConfigurationViewWrapper
     public typealias Title = ConfigurationViewWrapper
+}
+
+extension LabelItemConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }
 
 public struct LabelItemFioriStyle: LabelItemStyle {

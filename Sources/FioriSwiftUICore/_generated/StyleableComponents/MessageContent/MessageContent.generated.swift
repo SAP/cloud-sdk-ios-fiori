@@ -8,11 +8,20 @@ public struct MessageContent {
 
     @Environment(\.messageContentStyle) var style
 
+    var componentIdentifier: String = MessageContent.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder messageContent: () -> any View = { EmptyView() }) {
+    public init(@ViewBuilder messageContent: () -> any View = { EmptyView() },
+                componentIdentifier: String? = MessageContent.identifier)
+    {
         self.messageContent = messageContent()
+        self.componentIdentifier = componentIdentifier ?? MessageContent.identifier
     }
+}
+
+public extension MessageContent {
+    static let identifier = "fiori_messagecontent_component"
 }
 
 public extension MessageContent {
@@ -23,6 +32,7 @@ public extension MessageContent {
     internal init(_ configuration: MessageContentConfiguration, shouldApplyDefaultStyle: Bool) {
         self.messageContent = configuration.messageContent
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -31,7 +41,7 @@ extension MessageContent: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(messageContent: .init(self.messageContent))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, messageContent: .init(self.messageContent))).typeErased
                 .transformEnvironment(\.messageContentStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -49,7 +59,7 @@ private extension MessageContent {
     }
 
     func defaultStyle() -> some View {
-        MessageContent(.init(messageContent: .init(self.messageContent)))
+        MessageContent(.init(componentIdentifier: self.componentIdentifier, messageContent: .init(self.messageContent)))
             .shouldApplyDefaultStyle(false)
             .messageContentStyle(.fiori)
             .typeErased

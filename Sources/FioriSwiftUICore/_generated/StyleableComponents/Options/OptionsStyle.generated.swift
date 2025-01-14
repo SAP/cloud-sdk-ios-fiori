@@ -25,5 +25,12 @@ struct AnyOptionsStyle: OptionsStyle {
 public struct OptionsConfiguration {
     public let optionsIdentifier = "FioriOptions_content"
 
+    public var componentIdentifier: String = "fiori_options_component"
     public let options: [AttributedString]
+}
+
+extension OptionsConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }

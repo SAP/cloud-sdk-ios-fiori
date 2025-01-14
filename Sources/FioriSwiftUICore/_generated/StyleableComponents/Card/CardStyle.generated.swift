@@ -45,6 +45,7 @@ public struct CardConfiguration {
     public let cardHeaderIdentifier = "FioriCard_cardHeader"
     public let cardFooterIdentifier = "FioriCard_cardFooter"
 
+    public var componentIdentifier: String = "fiori_card_component"
     public let mediaImage: MediaImage
     public let description: Description
     public let title: Title
@@ -82,6 +83,12 @@ public struct CardConfiguration {
     public typealias SecondaryAction = ConfigurationViewWrapper
     public typealias TertiaryAction = ConfigurationViewWrapper
     public typealias OverflowAction = ConfigurationViewWrapper
+}
+
+extension CardConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }
 
 public struct CardFioriStyle: CardStyle {

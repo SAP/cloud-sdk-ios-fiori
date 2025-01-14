@@ -28,12 +28,19 @@ public struct LinearProgressIndicatorViewConfiguration {
     public let iconIdentifier = "FioriLinearProgressIndicatorView_icon"
     public let descriptionIdentifier = "FioriLinearProgressIndicatorView_description"
 
+    public var componentIdentifier: String = "fiori_linearprogressindicatorview_component"
     @Binding public var indicatorProgress: Double
     public let icon: Icon
     public let description: Description
 
     public typealias Icon = ConfigurationViewWrapper
     public typealias Description = ConfigurationViewWrapper
+}
+
+extension LinearProgressIndicatorViewConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }
 
 public struct LinearProgressIndicatorViewFioriStyle: LinearProgressIndicatorViewStyle {

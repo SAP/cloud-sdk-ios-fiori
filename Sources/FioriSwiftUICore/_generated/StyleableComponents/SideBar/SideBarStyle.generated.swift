@@ -25,6 +25,7 @@ struct AnySideBarStyle: SideBarStyle {
 public struct SideBarConfiguration {
     public let contentIdentifier = "FioriSideBar_content"
 
+    public var componentIdentifier: String = "fiori_sidebar_component"
     @Binding public var isEditing: Bool
     @Binding public var queryString: String?
     @Binding public var data: [SideBarItemModel]
@@ -39,6 +40,12 @@ public struct SideBarConfiguration {
 
     public typealias Footer = ConfigurationViewWrapper
     public typealias EditButton = ConfigurationViewWrapper
+}
+
+extension SideBarConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }
 
 public struct SideBarFioriStyle: SideBarStyle {

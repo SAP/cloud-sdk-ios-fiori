@@ -25,7 +25,14 @@ struct AnyOffStarImageStyle: OffStarImageStyle {
 public struct OffStarImageConfiguration {
     public let offStarImageIdentifier = "FioriOffStarImage_offStarImage"
 
+    public var componentIdentifier: String = "fiori_offstarimage_component"
     public let offStarImage: OffStarImage
 
     public typealias OffStarImage = ConfigurationViewWrapper
+}
+
+extension OffStarImageConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }

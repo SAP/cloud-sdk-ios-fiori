@@ -25,7 +25,14 @@ struct AnyOnStarImageStyle: OnStarImageStyle {
 public struct OnStarImageConfiguration {
     public let onStarImageIdentifier = "FioriOnStarImage_onStarImage"
 
+    public var componentIdentifier: String = "fiori_onstarimage_component"
     public let onStarImage: OnStarImage
 
     public typealias OnStarImage = ConfigurationViewWrapper
+}
+
+extension OnStarImageConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }

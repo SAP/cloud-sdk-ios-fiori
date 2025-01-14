@@ -27,6 +27,7 @@ public struct BannerMultiMessageSheetConfiguration {
     public let titleIdentifier = "FioriBannerMultiMessageSheet_title"
     public let closeActionIdentifier = "FioriBannerMultiMessageSheet_closeAction"
 
+    public var componentIdentifier: String = "fiori_bannermultimessagesheet_component"
     public let title: Title
     public let closeAction: CloseAction
     public let dismissAction: (() -> Void)?
@@ -38,6 +39,12 @@ public struct BannerMultiMessageSheetConfiguration {
 
     public typealias Title = ConfigurationViewWrapper
     public typealias CloseAction = ConfigurationViewWrapper
+}
+
+extension BannerMultiMessageSheetConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }
 
 public struct BannerMultiMessageSheetFioriStyle: BannerMultiMessageSheetStyle {

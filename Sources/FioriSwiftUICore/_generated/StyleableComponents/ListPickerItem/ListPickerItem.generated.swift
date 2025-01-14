@@ -58,6 +58,8 @@ public struct ListPickerItem {
 
     @Environment(\.listPickerItemStyle) var style
 
+    var componentIdentifier: String = ListPickerItem.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
     public init(@ViewBuilder title: () -> any View,
@@ -67,17 +69,23 @@ public struct ListPickerItem {
                 controlState: ControlState = .normal,
                 errorMessage: AttributedString? = nil,
                 axis: Axis = .horizontal,
-                @ViewBuilder destination: () -> any View = { EmptyView() })
+                @ViewBuilder destination: () -> any View = { EmptyView() },
+                componentIdentifier: String? = ListPickerItem.identifier)
     {
-        self.title = Title(title: title)
-        self.value = Value(value: value)
-        self.mandatoryFieldIndicator = MandatoryFieldIndicator(mandatoryFieldIndicator: mandatoryFieldIndicator)
+        self.title = Title(title: title, componentIdentifier: componentIdentifier)
+        self.value = Value(value: value, componentIdentifier: componentIdentifier)
+        self.mandatoryFieldIndicator = MandatoryFieldIndicator(mandatoryFieldIndicator: mandatoryFieldIndicator, componentIdentifier: componentIdentifier)
         self.isRequired = isRequired
         self.controlState = controlState
         self.errorMessage = errorMessage
         self.axis = axis
         self.destination = destination()
+        self.componentIdentifier = componentIdentifier ?? ListPickerItem.identifier
     }
+}
+
+public extension ListPickerItem {
+    static let identifier = "fiori_listpickeritem_component"
 }
 
 public extension ListPickerItem {
@@ -109,6 +117,7 @@ public extension ListPickerItem {
         self.axis = configuration.axis
         self.destination = configuration.destination
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -117,7 +126,7 @@ extension ListPickerItem: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(title: .init(self.title), value: .init(self.value), mandatoryFieldIndicator: .init(self.mandatoryFieldIndicator), isRequired: self.isRequired, controlState: self.controlState, errorMessage: self.errorMessage, axis: self.axis, destination: .init(self.destination))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, title: .init(self.title), value: .init(self.value), mandatoryFieldIndicator: .init(self.mandatoryFieldIndicator), isRequired: self.isRequired, controlState: self.controlState, errorMessage: self.errorMessage, axis: self.axis, destination: .init(self.destination))).typeErased
                 .transformEnvironment(\.listPickerItemStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -135,7 +144,7 @@ private extension ListPickerItem {
     }
 
     func defaultStyle() -> some View {
-        ListPickerItem(.init(title: .init(self.title), value: .init(self.value), mandatoryFieldIndicator: .init(self.mandatoryFieldIndicator), isRequired: self.isRequired, controlState: self.controlState, errorMessage: self.errorMessage, axis: self.axis, destination: .init(self.destination)))
+        ListPickerItem(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), value: .init(self.value), mandatoryFieldIndicator: .init(self.mandatoryFieldIndicator), isRequired: self.isRequired, controlState: self.controlState, errorMessage: self.errorMessage, axis: self.axis, destination: .init(self.destination)))
             .shouldApplyDefaultStyle(false)
             .listPickerItemStyle(ListPickerItemFioriStyle.ContentFioriStyle())
             .typeErased

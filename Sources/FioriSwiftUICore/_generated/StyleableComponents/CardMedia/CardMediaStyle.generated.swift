@@ -27,11 +27,18 @@ public struct CardMediaConfiguration {
     public let mediaImageIdentifier = "FioriCardMedia_mediaImage"
     public let descriptionIdentifier = "FioriCardMedia_description"
 
+    public var componentIdentifier: String = "fiori_cardmedia_component"
     public let mediaImage: MediaImage
     public let description: Description
 
     public typealias MediaImage = ConfigurationViewWrapper
     public typealias Description = ConfigurationViewWrapper
+}
+
+extension CardMediaConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }
 
 public struct CardMediaFioriStyle: CardMediaStyle {

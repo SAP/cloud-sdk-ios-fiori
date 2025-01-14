@@ -30,6 +30,7 @@ public struct TimelineMarkerConfiguration {
     public let iconIdentifier = "FioriTimelineMarker_icon"
     public let titleIdentifier = "FioriTimelineMarker_title"
 
+    public var componentIdentifier: String = "fiori_timelinemarker_component"
     public let timestamp: Timestamp
     public let secondaryTimestamp: SecondaryTimestamp
     public let timelineNode: TimelineNode
@@ -45,6 +46,12 @@ public struct TimelineMarkerConfiguration {
     public typealias TimelineNode = ConfigurationViewWrapper
     public typealias Icon = ConfigurationViewWrapper
     public typealias Title = ConfigurationViewWrapper
+}
+
+extension TimelineMarkerConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }
 
 public struct TimelineMarkerFioriStyle: TimelineMarkerStyle {

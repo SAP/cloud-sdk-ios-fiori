@@ -25,7 +25,14 @@ struct AnyCounterStyle: CounterStyle {
 public struct CounterConfiguration {
     public let counterIdentifier = "FioriCounter_counter"
 
+    public var componentIdentifier: String = "fiori_counter_component"
     public let counter: Counter
 
     public typealias Counter = ConfigurationViewWrapper
+}
+
+extension CounterConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }

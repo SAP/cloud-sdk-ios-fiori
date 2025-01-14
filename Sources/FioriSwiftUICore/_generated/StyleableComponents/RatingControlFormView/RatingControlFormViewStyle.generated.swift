@@ -33,6 +33,7 @@ public struct RatingControlFormViewConfiguration {
     public let subtitleIdentifier = "FioriRatingControlFormView_subtitle"
     public let ratingControlIdentifier = "FioriRatingControlFormView_ratingControl"
 
+    public var componentIdentifier: String = "fiori_ratingcontrolformview_component"
     public let title: Title
     public let valueLabel: ValueLabel
     public let onStarImage: OnStarImage
@@ -63,6 +64,12 @@ public struct RatingControlFormViewConfiguration {
     public typealias HalfStarImage = ConfigurationViewWrapper
     public typealias ReviewCountLabel = ConfigurationViewWrapper
     public typealias Subtitle = ConfigurationViewWrapper
+}
+
+extension RatingControlFormViewConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }
 
 public struct RatingControlFormViewFioriStyle: RatingControlFormViewStyle {

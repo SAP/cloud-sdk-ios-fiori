@@ -25,7 +25,14 @@ struct AnyOverflowActionStyle: OverflowActionStyle {
 public struct OverflowActionConfiguration {
     public let overflowActionIdentifier = "FioriOverflowAction_overflowAction"
 
+    public var componentIdentifier: String = "fiori_overflowaction_component"
     public let overflowAction: OverflowAction
 
     public typealias OverflowAction = ConfigurationViewWrapper
+}
+
+extension OverflowActionConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }

@@ -31,6 +31,7 @@ public struct SideBarListItemConfiguration {
     public let accessoryIconIdentifier = "FioriSideBarListItem_accessoryIcon"
     public let switchIdentifier = "FioriSideBarListItem_switch"
 
+    public var componentIdentifier: String = "fiori_sidebarlistitem_component"
     public let icon: Icon
     public let filledIcon: FilledIcon
     public let title: Title
@@ -45,6 +46,12 @@ public struct SideBarListItemConfiguration {
     public typealias Title = ConfigurationViewWrapper
     public typealias Subtitle = ConfigurationViewWrapper
     public typealias AccessoryIcon = ConfigurationViewWrapper
+}
+
+extension SideBarListItemConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }
 
 public struct SideBarListItemFioriStyle: SideBarListItemStyle {

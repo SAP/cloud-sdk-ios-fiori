@@ -25,7 +25,14 @@ struct AnyHeaderActionStyle: HeaderActionStyle {
 public struct HeaderActionConfiguration {
     public let headerActionIdentifier = "FioriHeaderAction_headerAction"
 
+    public var componentIdentifier: String = "fiori_headeraction_component"
     public let headerAction: HeaderAction
 
     public typealias HeaderAction = ConfigurationViewWrapper
+}
+
+extension HeaderActionConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }

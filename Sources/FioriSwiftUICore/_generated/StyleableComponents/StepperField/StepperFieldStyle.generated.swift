@@ -28,6 +28,7 @@ public struct StepperFieldConfiguration {
     public let textInputFieldIdentifier = "FioriStepperField_textInputField"
     public let incrementActionIdentifier = "FioriStepperField_incrementAction"
 
+    public var componentIdentifier: String = "fiori_stepperfield_component"
     public let decrementAction: DecrementAction
     @Binding public var text: String
     public let incrementAction: IncrementAction
@@ -37,6 +38,12 @@ public struct StepperFieldConfiguration {
 
     public typealias DecrementAction = ConfigurationViewWrapper
     public typealias IncrementAction = ConfigurationViewWrapper
+}
+
+extension StepperFieldConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }
 
 public struct StepperFieldFioriStyle: StepperFieldStyle {

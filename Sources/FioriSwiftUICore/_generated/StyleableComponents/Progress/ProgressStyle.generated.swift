@@ -25,7 +25,14 @@ struct AnyProgressStyle: ProgressStyle {
 public struct ProgressConfiguration {
     public let progressIdentifier = "FioriProgress_progress"
 
+    public var componentIdentifier: String = "fiori_progress_component"
     public let progress: Progress
 
     public typealias Progress = ConfigurationViewWrapper
+}
+
+extension ProgressConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }

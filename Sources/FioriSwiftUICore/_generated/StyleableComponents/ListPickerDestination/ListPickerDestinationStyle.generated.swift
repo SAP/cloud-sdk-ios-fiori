@@ -32,6 +32,7 @@ public struct ListPickerDestinationConfiguration {
     public let allEntriesSectionTitleIdentifier = "FioriListPickerDestination_allEntriesSectionTitle"
     public let listPickerContentIdentifier = "FioriListPickerDestination_listPickerContent"
 
+    public var componentIdentifier: String = "fiori_listpickerdestination_component"
     public let cancelAction: CancelAction
     public let applyAction: ApplyAction
     public let selectedEntriesSectionTitle: SelectedEntriesSectionTitle
@@ -47,6 +48,12 @@ public struct ListPickerDestinationConfiguration {
     public typealias DeselectAllAction = ConfigurationViewWrapper
     public typealias AllEntriesSectionTitle = ConfigurationViewWrapper
     public typealias ListPickerContent = ConfigurationViewWrapper
+}
+
+extension ListPickerDestinationConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }
 
 public struct ListPickerDestinationFioriStyle: ListPickerDestinationStyle {
