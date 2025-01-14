@@ -5442,6 +5442,118 @@ public extension SecondaryTimestampStyle where Self == SecondaryTimestampFioriSt
     }
 }
 
+// MARK: SectionFooterStyle
+
+public extension SectionFooterStyle where Self == SectionFooterBaseStyle {
+    static var base: SectionFooterBaseStyle {
+        SectionFooterBaseStyle()
+    }
+}
+
+public extension SectionFooterStyle where Self == SectionFooterFioriStyle {
+    static var fiori: SectionFooterFioriStyle {
+        SectionFooterFioriStyle()
+    }
+}
+
+public struct SectionFooterTitleStyle: SectionFooterStyle {
+    let style: any TitleStyle
+
+    public func makeBody(_ configuration: SectionFooterConfiguration) -> some View {
+        SectionFooter(configuration)
+            .titleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension SectionFooterStyle where Self == SectionFooterTitleStyle {
+    static func titleStyle(_ style: some TitleStyle) -> SectionFooterTitleStyle {
+        SectionFooterTitleStyle(style: style)
+    }
+
+    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> SectionFooterTitleStyle {
+        let style = AnyTitleStyle(content)
+        return SectionFooterTitleStyle(style: style)
+    }
+}
+
+public struct SectionFooterAttributeStyle: SectionFooterStyle {
+    let style: any AttributeStyle
+
+    public func makeBody(_ configuration: SectionFooterConfiguration) -> some View {
+        SectionFooter(configuration)
+            .attributeStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension SectionFooterStyle where Self == SectionFooterAttributeStyle {
+    static func attributeStyle(_ style: some AttributeStyle) -> SectionFooterAttributeStyle {
+        SectionFooterAttributeStyle(style: style)
+    }
+
+    static func attributeStyle(@ViewBuilder content: @escaping (AttributeConfiguration) -> some View) -> SectionFooterAttributeStyle {
+        let style = AnyAttributeStyle(content)
+        return SectionFooterAttributeStyle(style: style)
+    }
+}
+
+// MARK: SectionHeaderStyle
+
+public extension SectionHeaderStyle where Self == SectionHeaderBaseStyle {
+    static var base: SectionHeaderBaseStyle {
+        SectionHeaderBaseStyle()
+    }
+}
+
+public extension SectionHeaderStyle where Self == SectionHeaderFioriStyle {
+    static var fiori: SectionHeaderFioriStyle {
+        SectionHeaderFioriStyle()
+    }
+}
+
+public struct SectionHeaderTitleStyle: SectionHeaderStyle {
+    let style: any TitleStyle
+
+    public func makeBody(_ configuration: SectionHeaderConfiguration) -> some View {
+        SectionHeader(configuration)
+            .titleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension SectionHeaderStyle where Self == SectionHeaderTitleStyle {
+    static func titleStyle(_ style: some TitleStyle) -> SectionHeaderTitleStyle {
+        SectionHeaderTitleStyle(style: style)
+    }
+
+    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> SectionHeaderTitleStyle {
+        let style = AnyTitleStyle(content)
+        return SectionHeaderTitleStyle(style: style)
+    }
+}
+
+public struct SectionHeaderAttributeStyle: SectionHeaderStyle {
+    let style: any AttributeStyle
+
+    public func makeBody(_ configuration: SectionHeaderConfiguration) -> some View {
+        SectionHeader(configuration)
+            .attributeStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension SectionHeaderStyle where Self == SectionHeaderAttributeStyle {
+    static func attributeStyle(_ style: some AttributeStyle) -> SectionHeaderAttributeStyle {
+        SectionHeaderAttributeStyle(style: style)
+    }
+
+    static func attributeStyle(@ViewBuilder content: @escaping (AttributeConfiguration) -> some View) -> SectionHeaderAttributeStyle {
+        let style = AnyAttributeStyle(content)
+        return SectionHeaderAttributeStyle(style: style)
+    }
+}
+
 // MARK: SegmentedControlPickerStyle
 
 public extension SegmentedControlPickerStyle where Self == SegmentedControlPickerBaseStyle {
