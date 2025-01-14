@@ -8,11 +8,20 @@ public struct InnerCircle {
 
     @Environment(\.innerCircleStyle) var style
 
+    var componentIdentifier: String = InnerCircle.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder innerCircle: () -> any View) {
+    public init(@ViewBuilder innerCircle: () -> any View,
+                componentIdentifier: String? = InnerCircle.identifier)
+    {
         self.innerCircle = innerCircle()
+        self.componentIdentifier = componentIdentifier ?? InnerCircle.identifier
     }
+}
+
+public extension InnerCircle {
+    static let identifier = "fiori_innercircle_component"
 }
 
 public extension InnerCircle {
@@ -29,6 +38,7 @@ public extension InnerCircle {
     internal init(_ configuration: InnerCircleConfiguration, shouldApplyDefaultStyle: Bool) {
         self.innerCircle = configuration.innerCircle
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -37,7 +47,7 @@ extension InnerCircle: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(innerCircle: .init(self.innerCircle))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, innerCircle: .init(self.innerCircle))).typeErased
                 .transformEnvironment(\.innerCircleStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -55,7 +65,7 @@ private extension InnerCircle {
     }
 
     func defaultStyle() -> some View {
-        InnerCircle(.init(innerCircle: .init(self.innerCircle)))
+        InnerCircle(.init(componentIdentifier: self.componentIdentifier, innerCircle: .init(self.innerCircle)))
             .shouldApplyDefaultStyle(false)
             .innerCircleStyle(.fiori)
             .typeErased

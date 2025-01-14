@@ -22,7 +22,14 @@ struct AnyLineStyle: LineStyle {
 }
 
 public struct LineConfiguration {
+    public var componentIdentifier: String = "fiori_line_component"
     public let line: Line
 
     public typealias Line = ConfigurationViewWrapper
+}
+
+extension LineConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }

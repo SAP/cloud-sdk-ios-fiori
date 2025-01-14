@@ -22,7 +22,14 @@ struct AnyTopDividerStyle: TopDividerStyle {
 }
 
 public struct TopDividerConfiguration {
+    public var componentIdentifier: String = "fiori_topdivider_component"
     public let topDivider: TopDivider
 
     public typealias TopDivider = ConfigurationViewWrapper
+}
+
+extension TopDividerConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }

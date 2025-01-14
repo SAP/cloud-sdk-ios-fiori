@@ -22,7 +22,14 @@ struct AnyDetailContentStyle: DetailContentStyle {
 }
 
 public struct DetailContentConfiguration {
+    public var componentIdentifier: String = "fiori_detailcontent_component"
     public let detailContent: DetailContent
 
     public typealias DetailContent = ConfigurationViewWrapper
+}
+
+extension DetailContentConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }

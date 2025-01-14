@@ -8,11 +8,20 @@ public struct CloseAction {
 
     @Environment(\.closeActionStyle) var style
 
+    var componentIdentifier: String = CloseAction.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder closeAction: () -> any View = { FioriButton { _ in Image(systemName: "xmark") } }) {
+    public init(@ViewBuilder closeAction: () -> any View = { FioriButton { _ in Image(systemName: "xmark") } },
+                componentIdentifier: String? = CloseAction.identifier)
+    {
         self.closeAction = closeAction()
+        self.componentIdentifier = componentIdentifier ?? CloseAction.identifier
     }
+}
+
+public extension CloseAction {
+    static let identifier = "fiori_closeaction_component"
 }
 
 public extension CloseAction {
@@ -29,6 +38,7 @@ public extension CloseAction {
     internal init(_ configuration: CloseActionConfiguration, shouldApplyDefaultStyle: Bool) {
         self.closeAction = configuration.closeAction
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -37,7 +47,7 @@ extension CloseAction: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(closeAction: .init(self.closeAction))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, closeAction: .init(self.closeAction))).typeErased
                 .transformEnvironment(\.closeActionStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -55,7 +65,7 @@ private extension CloseAction {
     }
 
     func defaultStyle() -> some View {
-        CloseAction(.init(closeAction: .init(self.closeAction)))
+        CloseAction(.init(componentIdentifier: self.componentIdentifier, closeAction: .init(self.closeAction)))
             .shouldApplyDefaultStyle(false)
             .closeActionStyle(.fiori)
             .typeErased

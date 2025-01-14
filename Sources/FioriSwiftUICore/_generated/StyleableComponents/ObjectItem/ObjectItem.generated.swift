@@ -23,6 +23,8 @@ public struct ObjectItem {
 
     @Environment(\.objectItemStyle) var style
 
+    var componentIdentifier: String = ObjectItem.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
     public init(@ViewBuilder title: () -> any View,
@@ -38,23 +40,29 @@ public struct ObjectItem {
                 @ViewBuilder footnoteIconsText: () -> any View = { EmptyView() },
                 @TagBuilder tags: () -> any View = { EmptyView() },
                 @ViewBuilder action: () -> any View = { EmptyView() },
-                @ViewBuilder objectItemButton: () -> any View = { EmptyView() })
+                @ViewBuilder objectItemButton: () -> any View = { EmptyView() },
+                componentIdentifier: String? = ObjectItem.identifier)
     {
-        self.title = Title(title: title)
-        self.subtitle = Subtitle(subtitle: subtitle)
-        self.footnote = Footnote(footnote: footnote)
-        self.description = Description(description: description)
-        self.status = Status(status: status)
-        self.substatus = Substatus(substatus: substatus)
-        self.detailImage = DetailImage(detailImage: detailImage)
-        self.icons = Icons(icons: icons)
-        self.avatars = Avatars(avatars: avatars)
-        self.footnoteIcons = FootnoteIcons(footnoteIcons: footnoteIcons)
-        self.footnoteIconsText = FootnoteIconsText(footnoteIconsText: footnoteIconsText)
-        self.tags = Tags(tags: tags)
-        self.action = Action(action: action)
+        self.title = Title(title: title, componentIdentifier: componentIdentifier)
+        self.subtitle = Subtitle(subtitle: subtitle, componentIdentifier: componentIdentifier)
+        self.footnote = Footnote(footnote: footnote, componentIdentifier: componentIdentifier)
+        self.description = Description(description: description, componentIdentifier: componentIdentifier)
+        self.status = Status(status: status, componentIdentifier: componentIdentifier)
+        self.substatus = Substatus(substatus: substatus, componentIdentifier: componentIdentifier)
+        self.detailImage = DetailImage(detailImage: detailImage, componentIdentifier: componentIdentifier)
+        self.icons = Icons(icons: icons, componentIdentifier: componentIdentifier)
+        self.avatars = Avatars(avatars: avatars, componentIdentifier: componentIdentifier)
+        self.footnoteIcons = FootnoteIcons(footnoteIcons: footnoteIcons, componentIdentifier: componentIdentifier)
+        self.footnoteIconsText = FootnoteIconsText(footnoteIconsText: footnoteIconsText, componentIdentifier: componentIdentifier)
+        self.tags = Tags(tags: tags, componentIdentifier: componentIdentifier)
+        self.action = Action(action: action, componentIdentifier: componentIdentifier)
         self.objectItemButton = objectItemButton()
+        self.componentIdentifier = componentIdentifier ?? ObjectItem.identifier
     }
+}
+
+public extension ObjectItem {
+    static let identifier = "fiori_objectitem_component"
 }
 
 public extension ObjectItem {
@@ -98,6 +106,7 @@ public extension ObjectItem {
         self.action = configuration.action
         self.objectItemButton = configuration.objectItemButton
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -106,7 +115,7 @@ extension ObjectItem: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(title: .init(self.title), subtitle: .init(self.subtitle), footnote: .init(self.footnote), description: .init(self.description), status: .init(self.status), substatus: .init(self.substatus), detailImage: .init(self.detailImage), icons: .init(self.icons), avatars: .init(self.avatars), footnoteIcons: .init(self.footnoteIcons), footnoteIconsText: .init(self.footnoteIconsText), tags: .init(self.tags), action: .init(self.action), objectItemButton: .init(self.objectItemButton))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, title: .init(self.title), subtitle: .init(self.subtitle), footnote: .init(self.footnote), description: .init(self.description), status: .init(self.status), substatus: .init(self.substatus), detailImage: .init(self.detailImage), icons: .init(self.icons), avatars: .init(self.avatars), footnoteIcons: .init(self.footnoteIcons), footnoteIconsText: .init(self.footnoteIconsText), tags: .init(self.tags), action: .init(self.action), objectItemButton: .init(self.objectItemButton))).typeErased
                 .transformEnvironment(\.objectItemStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -124,7 +133,7 @@ private extension ObjectItem {
     }
 
     func defaultStyle() -> some View {
-        ObjectItem(.init(title: .init(self.title), subtitle: .init(self.subtitle), footnote: .init(self.footnote), description: .init(self.description), status: .init(self.status), substatus: .init(self.substatus), detailImage: .init(self.detailImage), icons: .init(self.icons), avatars: .init(self.avatars), footnoteIcons: .init(self.footnoteIcons), footnoteIconsText: .init(self.footnoteIconsText), tags: .init(self.tags), action: .init(self.action), objectItemButton: .init(self.objectItemButton)))
+        ObjectItem(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), subtitle: .init(self.subtitle), footnote: .init(self.footnote), description: .init(self.description), status: .init(self.status), substatus: .init(self.substatus), detailImage: .init(self.detailImage), icons: .init(self.icons), avatars: .init(self.avatars), footnoteIcons: .init(self.footnoteIcons), footnoteIconsText: .init(self.footnoteIconsText), tags: .init(self.tags), action: .init(self.action), objectItemButton: .init(self.objectItemButton)))
             .shouldApplyDefaultStyle(false)
             .objectItemStyle(ObjectItemFioriStyle.ContentFioriStyle())
             .typeErased

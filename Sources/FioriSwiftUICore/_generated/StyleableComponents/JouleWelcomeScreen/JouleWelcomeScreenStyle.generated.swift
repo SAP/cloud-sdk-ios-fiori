@@ -22,6 +22,7 @@ struct AnyJouleWelcomeScreenStyle: JouleWelcomeScreenStyle {
 }
 
 public struct JouleWelcomeScreenConfiguration {
+    public var componentIdentifier: String = "fiori_joulewelcomescreen_component"
     public let mediaImage: MediaImage
     public let greetingText: GreetingText
     public let title: Title
@@ -33,6 +34,12 @@ public struct JouleWelcomeScreenConfiguration {
     public typealias Title = ConfigurationViewWrapper
     public typealias Footnote = ConfigurationViewWrapper
     public typealias MessageContent = ConfigurationViewWrapper
+}
+
+extension JouleWelcomeScreenConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }
 
 public struct JouleWelcomeScreenFioriStyle: JouleWelcomeScreenStyle {

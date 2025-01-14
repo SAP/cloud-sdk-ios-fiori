@@ -49,16 +49,24 @@ public struct TimelinePreview {
 
     @Environment(\.timelinePreviewStyle) var style
 
+    var componentIdentifier: String = TimelinePreview.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
     public init(@ViewBuilder optionalTitle: () -> any View = { EmptyView() },
                 @ViewBuilder action: () -> any View = { EmptyView() },
-                items: Binding<[any TimelinePreviewItemModel]>)
+                items: Binding<[any TimelinePreviewItemModel]>,
+                componentIdentifier: String? = TimelinePreview.identifier)
     {
-        self.optionalTitle = OptionalTitle(optionalTitle: optionalTitle)
-        self.action = Action(action: action)
+        self.optionalTitle = OptionalTitle(optionalTitle: optionalTitle, componentIdentifier: componentIdentifier)
+        self.action = Action(action: action, componentIdentifier: componentIdentifier)
         self._items = items
+        self.componentIdentifier = componentIdentifier ?? TimelinePreview.identifier
     }
+}
+
+public extension TimelinePreview {
+    static let identifier = "fiori_timelinepreview_component"
 }
 
 public extension TimelinePreview {
@@ -80,6 +88,7 @@ public extension TimelinePreview {
         self.action = configuration.action
         self._items = configuration.$items
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -88,7 +97,7 @@ extension TimelinePreview: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(optionalTitle: .init(self.optionalTitle), action: .init(self.action), items: self.$items)).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, optionalTitle: .init(self.optionalTitle), action: .init(self.action), items: self.$items)).typeErased
                 .transformEnvironment(\.timelinePreviewStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -106,7 +115,7 @@ private extension TimelinePreview {
     }
 
     func defaultStyle() -> some View {
-        TimelinePreview(.init(optionalTitle: .init(self.optionalTitle), action: .init(self.action), items: self.$items))
+        TimelinePreview(.init(componentIdentifier: self.componentIdentifier, optionalTitle: .init(self.optionalTitle), action: .init(self.action), items: self.$items))
             .shouldApplyDefaultStyle(false)
             .timelinePreviewStyle(TimelinePreviewFioriStyle.ContentFioriStyle())
             .typeErased

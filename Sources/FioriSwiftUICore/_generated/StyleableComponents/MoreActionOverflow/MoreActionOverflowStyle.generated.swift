@@ -22,7 +22,14 @@ struct AnyMoreActionOverflowStyle: MoreActionOverflowStyle {
 }
 
 public struct MoreActionOverflowConfiguration {
+    public var componentIdentifier: String = "fiori_moreactionoverflow_component"
     public let moreActionOverflow: MoreActionOverflow
 
     public typealias MoreActionOverflow = ConfigurationViewWrapper
+}
+
+extension MoreActionOverflowConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }

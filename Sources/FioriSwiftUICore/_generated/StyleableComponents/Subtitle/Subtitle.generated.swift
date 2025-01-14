@@ -8,11 +8,20 @@ public struct Subtitle {
 
     @Environment(\.subtitleStyle) var style
 
+    var componentIdentifier: String = Subtitle.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder subtitle: () -> any View = { EmptyView() }) {
+    public init(@ViewBuilder subtitle: () -> any View = { EmptyView() },
+                componentIdentifier: String? = Subtitle.identifier)
+    {
         self.subtitle = subtitle()
+        self.componentIdentifier = componentIdentifier ?? Subtitle.identifier
     }
+}
+
+public extension Subtitle {
+    static let identifier = "fiori_subtitle_component"
 }
 
 public extension Subtitle {
@@ -29,6 +38,7 @@ public extension Subtitle {
     internal init(_ configuration: SubtitleConfiguration, shouldApplyDefaultStyle: Bool) {
         self.subtitle = configuration.subtitle
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -37,7 +47,7 @@ extension Subtitle: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(subtitle: .init(self.subtitle))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, subtitle: .init(self.subtitle))).typeErased
                 .transformEnvironment(\.subtitleStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -55,7 +65,7 @@ private extension Subtitle {
     }
 
     func defaultStyle() -> some View {
-        Subtitle(.init(subtitle: .init(self.subtitle)))
+        Subtitle(.init(componentIdentifier: self.componentIdentifier, subtitle: .init(self.subtitle)))
             .shouldApplyDefaultStyle(false)
             .subtitleStyle(.fiori)
             .typeErased

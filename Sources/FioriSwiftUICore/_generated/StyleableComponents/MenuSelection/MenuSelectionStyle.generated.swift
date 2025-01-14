@@ -22,12 +22,19 @@ struct AnyMenuSelectionStyle: MenuSelectionStyle {
 }
 
 public struct MenuSelectionConfiguration {
+    public var componentIdentifier: String = "fiori_menuselection_component"
     public let action: Action
     @Binding public var isExpanded: Bool
     public let items: Items
 
     public typealias Action = ConfigurationViewWrapper
     public typealias Items = ConfigurationViewWrapper
+}
+
+extension MenuSelectionConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }
 
 public struct MenuSelectionFioriStyle: MenuSelectionStyle {

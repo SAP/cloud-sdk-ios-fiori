@@ -16,6 +16,8 @@ public struct ListPickerDestination {
 
     @Environment(\.listPickerDestinationStyle) var style
 
+    var componentIdentifier: String = ListPickerDestination.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
     public init(@ViewBuilder cancelAction: () -> any View = { FioriButton { _ in Text("Cancel".localizedFioriString()) } },
@@ -24,16 +26,22 @@ public struct ListPickerDestination {
                 @ViewBuilder selectAllAction: () -> any View = { FioriButton { _ in Text("Select All".localizedFioriString()) } },
                 @ViewBuilder deselectAllAction: () -> any View = { FioriButton { _ in Text("Deselect All".localizedFioriString()) } },
                 @ViewBuilder allEntriesSectionTitle: () -> any View = { Text("All".localizedFioriString()) },
-                @ViewBuilder listPickerContent: () -> any View = { EmptyView() })
+                @ViewBuilder listPickerContent: () -> any View = { EmptyView() },
+                componentIdentifier: String? = ListPickerDestination.identifier)
     {
-        self.cancelAction = CancelAction(cancelAction: cancelAction)
-        self.applyAction = ApplyAction(applyAction: applyAction)
-        self.selectedEntriesSectionTitle = SelectedEntriesSectionTitle(selectedEntriesSectionTitle: selectedEntriesSectionTitle)
-        self.selectAllAction = SelectAllAction(selectAllAction: selectAllAction)
-        self.deselectAllAction = DeselectAllAction(deselectAllAction: deselectAllAction)
-        self.allEntriesSectionTitle = AllEntriesSectionTitle(allEntriesSectionTitle: allEntriesSectionTitle)
-        self.listPickerContent = ListPickerContent(listPickerContent: listPickerContent)
+        self.cancelAction = CancelAction(cancelAction: cancelAction, componentIdentifier: componentIdentifier)
+        self.applyAction = ApplyAction(applyAction: applyAction, componentIdentifier: componentIdentifier)
+        self.selectedEntriesSectionTitle = SelectedEntriesSectionTitle(selectedEntriesSectionTitle: selectedEntriesSectionTitle, componentIdentifier: componentIdentifier)
+        self.selectAllAction = SelectAllAction(selectAllAction: selectAllAction, componentIdentifier: componentIdentifier)
+        self.deselectAllAction = DeselectAllAction(deselectAllAction: deselectAllAction, componentIdentifier: componentIdentifier)
+        self.allEntriesSectionTitle = AllEntriesSectionTitle(allEntriesSectionTitle: allEntriesSectionTitle, componentIdentifier: componentIdentifier)
+        self.listPickerContent = ListPickerContent(listPickerContent: listPickerContent, componentIdentifier: componentIdentifier)
+        self.componentIdentifier = componentIdentifier ?? ListPickerDestination.identifier
     }
+}
+
+public extension ListPickerDestination {
+    static let identifier = "fiori_listpickerdestination_component"
 }
 
 public extension ListPickerDestination {
@@ -63,6 +71,7 @@ public extension ListPickerDestination {
         self.allEntriesSectionTitle = configuration.allEntriesSectionTitle
         self.listPickerContent = configuration.listPickerContent
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -71,7 +80,7 @@ extension ListPickerDestination: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(cancelAction: .init(self.cancelAction), applyAction: .init(self.applyAction), selectedEntriesSectionTitle: .init(self.selectedEntriesSectionTitle), selectAllAction: .init(self.selectAllAction), deselectAllAction: .init(self.deselectAllAction), allEntriesSectionTitle: .init(self.allEntriesSectionTitle), listPickerContent: .init(self.listPickerContent))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, cancelAction: .init(self.cancelAction), applyAction: .init(self.applyAction), selectedEntriesSectionTitle: .init(self.selectedEntriesSectionTitle), selectAllAction: .init(self.selectAllAction), deselectAllAction: .init(self.deselectAllAction), allEntriesSectionTitle: .init(self.allEntriesSectionTitle), listPickerContent: .init(self.listPickerContent))).typeErased
                 .transformEnvironment(\.listPickerDestinationStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -89,7 +98,7 @@ private extension ListPickerDestination {
     }
 
     func defaultStyle() -> some View {
-        ListPickerDestination(.init(cancelAction: .init(self.cancelAction), applyAction: .init(self.applyAction), selectedEntriesSectionTitle: .init(self.selectedEntriesSectionTitle), selectAllAction: .init(self.selectAllAction), deselectAllAction: .init(self.deselectAllAction), allEntriesSectionTitle: .init(self.allEntriesSectionTitle), listPickerContent: .init(self.listPickerContent)))
+        ListPickerDestination(.init(componentIdentifier: self.componentIdentifier, cancelAction: .init(self.cancelAction), applyAction: .init(self.applyAction), selectedEntriesSectionTitle: .init(self.selectedEntriesSectionTitle), selectAllAction: .init(self.selectAllAction), deselectAllAction: .init(self.deselectAllAction), allEntriesSectionTitle: .init(self.allEntriesSectionTitle), listPickerContent: .init(self.listPickerContent)))
             .shouldApplyDefaultStyle(false)
             .listPickerDestinationStyle(ListPickerDestinationFioriStyle.ContentFioriStyle())
             .typeErased

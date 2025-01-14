@@ -10,16 +10,24 @@ public struct MenuSelectionItem {
 
     @Environment(\.menuSelectionItemStyle) var style
 
+    var componentIdentifier: String = MenuSelectionItem.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
     public init(@ViewBuilder icon: () -> any View = { EmptyView() },
                 @ViewBuilder title: () -> any View,
-                action: (() -> Void)? = nil)
+                action: (() -> Void)? = nil,
+                componentIdentifier: String? = MenuSelectionItem.identifier)
     {
-        self.icon = Icon(icon: icon)
-        self.title = Title(title: title)
+        self.icon = Icon(icon: icon, componentIdentifier: componentIdentifier)
+        self.title = Title(title: title, componentIdentifier: componentIdentifier)
         self.action = action
+        self.componentIdentifier = componentIdentifier ?? MenuSelectionItem.identifier
     }
+}
+
+public extension MenuSelectionItem {
+    static let identifier = "fiori_menuselectionitem_component"
 }
 
 public extension MenuSelectionItem {
@@ -41,6 +49,7 @@ public extension MenuSelectionItem {
         self.title = configuration.title
         self.action = configuration.action
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -49,7 +58,7 @@ extension MenuSelectionItem: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(icon: .init(self.icon), title: .init(self.title), action: self.action)).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, icon: .init(self.icon), title: .init(self.title), action: self.action)).typeErased
                 .transformEnvironment(\.menuSelectionItemStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -67,7 +76,7 @@ private extension MenuSelectionItem {
     }
 
     func defaultStyle() -> some View {
-        MenuSelectionItem(.init(icon: .init(self.icon), title: .init(self.title), action: self.action))
+        MenuSelectionItem(.init(componentIdentifier: self.componentIdentifier, icon: .init(self.icon), title: .init(self.title), action: self.action))
             .shouldApplyDefaultStyle(false)
             .menuSelectionItemStyle(MenuSelectionItemFioriStyle.ContentFioriStyle())
             .typeErased

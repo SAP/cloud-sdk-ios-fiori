@@ -22,7 +22,14 @@ struct AnyActionStyle: ActionStyle {
 }
 
 public struct ActionConfiguration {
+    public var componentIdentifier: String = "fiori_action_component"
     public let action: Action
 
     public typealias Action = ConfigurationViewWrapper
+}
+
+extension ActionConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }

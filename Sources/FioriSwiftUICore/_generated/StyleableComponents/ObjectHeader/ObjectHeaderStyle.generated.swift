@@ -22,6 +22,7 @@ struct AnyObjectHeaderStyle: ObjectHeaderStyle {
 }
 
 public struct ObjectHeaderConfiguration {
+    public var componentIdentifier: String = "fiori_objectheader_component"
     public let title: Title
     public let subtitle: Subtitle
     public let tags: Tags
@@ -43,6 +44,12 @@ public struct ObjectHeaderConfiguration {
     public typealias Substatus = ConfigurationViewWrapper
     public typealias DetailImage = ConfigurationViewWrapper
     public typealias DetailContent = ConfigurationViewWrapper
+}
+
+extension ObjectHeaderConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }
 
 public struct ObjectHeaderFioriStyle: ObjectHeaderStyle {

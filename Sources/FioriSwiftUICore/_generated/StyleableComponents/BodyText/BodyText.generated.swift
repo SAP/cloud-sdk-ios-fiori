@@ -8,11 +8,20 @@ public struct BodyText {
 
     @Environment(\.bodyTextStyle) var style
 
+    var componentIdentifier: String = BodyText.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder bodyText: () -> any View = { EmptyView() }) {
+    public init(@ViewBuilder bodyText: () -> any View = { EmptyView() },
+                componentIdentifier: String? = BodyText.identifier)
+    {
         self.bodyText = bodyText()
+        self.componentIdentifier = componentIdentifier ?? BodyText.identifier
     }
+}
+
+public extension BodyText {
+    static let identifier = "fiori_bodytext_component"
 }
 
 public extension BodyText {
@@ -29,6 +38,7 @@ public extension BodyText {
     internal init(_ configuration: BodyTextConfiguration, shouldApplyDefaultStyle: Bool) {
         self.bodyText = configuration.bodyText
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -37,7 +47,7 @@ extension BodyText: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(bodyText: .init(self.bodyText))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, bodyText: .init(self.bodyText))).typeErased
                 .transformEnvironment(\.bodyTextStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -55,7 +65,7 @@ private extension BodyText {
     }
 
     func defaultStyle() -> some View {
-        BodyText(.init(bodyText: .init(self.bodyText)))
+        BodyText(.init(componentIdentifier: self.componentIdentifier, bodyText: .init(self.bodyText)))
             .shouldApplyDefaultStyle(false)
             .bodyTextStyle(.fiori)
             .typeErased

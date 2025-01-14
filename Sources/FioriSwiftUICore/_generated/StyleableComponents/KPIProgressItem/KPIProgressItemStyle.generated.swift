@@ -22,6 +22,7 @@ struct AnyKPIProgressItemStyle: KPIProgressItemStyle {
 }
 
 public struct KPIProgressItemConfiguration {
+    public var componentIdentifier: String = "fiori_kpiprogressitem_component"
     public let kPIContent: KPIContent
     public let kpiCaption: KpiCaption
     public let footnote: Footnote
@@ -35,6 +36,12 @@ public struct KPIProgressItemConfiguration {
     public typealias Footnote = ConfigurationViewWrapper
     public typealias InnerCircle = ConfigurationViewWrapper
     public typealias OuterCircle = ConfigurationViewWrapper
+}
+
+extension KPIProgressItemConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }
 
 public struct KPIProgressItemFioriStyle: KPIProgressItemStyle {

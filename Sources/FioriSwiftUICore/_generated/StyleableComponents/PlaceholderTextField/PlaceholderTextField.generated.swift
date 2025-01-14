@@ -9,14 +9,22 @@ public struct PlaceholderTextField {
 
     @Environment(\.placeholderTextFieldStyle) var style
 
+    var componentIdentifier: String = PlaceholderTextField.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
     public init(text: Binding<String>,
-                @ViewBuilder placeholder: () -> any View = { EmptyView() })
+                @ViewBuilder placeholder: () -> any View = { EmptyView() },
+                componentIdentifier: String? = PlaceholderTextField.identifier)
     {
         self._text = text
-        self.placeholder = Placeholder(placeholder: placeholder)
+        self.placeholder = Placeholder(placeholder: placeholder, componentIdentifier: componentIdentifier)
+        self.componentIdentifier = componentIdentifier ?? PlaceholderTextField.identifier
     }
+}
+
+public extension PlaceholderTextField {
+    static let identifier = "fiori_placeholdertextfield_component"
 }
 
 public extension PlaceholderTextField {
@@ -36,6 +44,7 @@ public extension PlaceholderTextField {
         self._text = configuration.$text
         self.placeholder = configuration.placeholder
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -44,7 +53,7 @@ extension PlaceholderTextField: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(text: self.$text, placeholder: .init(self.placeholder))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, text: self.$text, placeholder: .init(self.placeholder))).typeErased
                 .transformEnvironment(\.placeholderTextFieldStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -62,7 +71,7 @@ private extension PlaceholderTextField {
     }
 
     func defaultStyle() -> some View {
-        PlaceholderTextField(.init(text: self.$text, placeholder: .init(self.placeholder)))
+        PlaceholderTextField(.init(componentIdentifier: self.componentIdentifier, text: self.$text, placeholder: .init(self.placeholder)))
             .shouldApplyDefaultStyle(false)
             .placeholderTextFieldStyle(PlaceholderTextFieldFioriStyle.ContentFioriStyle())
             .typeErased

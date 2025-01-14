@@ -51,6 +51,8 @@ public struct RatingControl {
 
     @Environment(\.ratingControlStyle) var style
 
+    var componentIdentifier: String = RatingControl.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
     public init(@ViewBuilder valueLabel: () -> any View = { EmptyView() },
@@ -71,13 +73,14 @@ public struct RatingControl {
                 reviewCountFormat: String? = nil,
                 reviewCountCeiling: Int? = nil,
                 reviewCountCeilingFormat: String? = nil,
-                showsReviewCountLabel: Bool = false)
+                showsReviewCountLabel: Bool = false,
+                componentIdentifier: String? = RatingControl.identifier)
     {
-        self.valueLabel = ValueLabel(valueLabel: valueLabel)
-        self.onStarImage = OnStarImage(onStarImage: onStarImage)
-        self.offStarImage = OffStarImage(offStarImage: offStarImage)
-        self.halfStarImage = HalfStarImage(halfStarImage: halfStarImage)
-        self.reviewCountLabel = ReviewCountLabel(reviewCountLabel: reviewCountLabel)
+        self.valueLabel = ValueLabel(valueLabel: valueLabel, componentIdentifier: componentIdentifier)
+        self.onStarImage = OnStarImage(onStarImage: onStarImage, componentIdentifier: componentIdentifier)
+        self.offStarImage = OffStarImage(offStarImage: offStarImage, componentIdentifier: componentIdentifier)
+        self.halfStarImage = HalfStarImage(halfStarImage: halfStarImage, componentIdentifier: componentIdentifier)
+        self.reviewCountLabel = ReviewCountLabel(reviewCountLabel: reviewCountLabel, componentIdentifier: componentIdentifier)
         self._rating = rating
         self.ratingControlStyle = ratingControlStyle
         self.ratingBounds = ratingBounds
@@ -92,7 +95,12 @@ public struct RatingControl {
         self.reviewCountCeiling = reviewCountCeiling
         self.reviewCountCeilingFormat = reviewCountCeilingFormat
         self.showsReviewCountLabel = showsReviewCountLabel
+        self.componentIdentifier = componentIdentifier ?? RatingControl.identifier
     }
+}
+
+public extension RatingControl {
+    static let identifier = "fiori_ratingcontrol_component"
 }
 
 public extension RatingControl {
@@ -146,6 +154,7 @@ public extension RatingControl {
         self.reviewCountCeilingFormat = configuration.reviewCountCeilingFormat
         self.showsReviewCountLabel = configuration.showsReviewCountLabel
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -154,7 +163,7 @@ extension RatingControl: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(valueLabel: .init(self.valueLabel), onStarImage: .init(self.onStarImage), offStarImage: .init(self.offStarImage), halfStarImage: .init(self.halfStarImage), reviewCountLabel: .init(self.reviewCountLabel), rating: self.$rating, ratingControlStyle: self.ratingControlStyle, ratingBounds: self.ratingBounds, itemSize: self.itemSize, interItemSpacing: self.interItemSpacing, ratingValueFormat: self.ratingValueFormat, showsValueLabel: self.showsValueLabel, averageRating: self.averageRating, averageRatingFormat: self.averageRatingFormat, reviewCount: self.reviewCount, reviewCountFormat: self.reviewCountFormat, reviewCountCeiling: self.reviewCountCeiling, reviewCountCeilingFormat: self.reviewCountCeilingFormat, showsReviewCountLabel: self.showsReviewCountLabel)).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, valueLabel: .init(self.valueLabel), onStarImage: .init(self.onStarImage), offStarImage: .init(self.offStarImage), halfStarImage: .init(self.halfStarImage), reviewCountLabel: .init(self.reviewCountLabel), rating: self.$rating, ratingControlStyle: self.ratingControlStyle, ratingBounds: self.ratingBounds, itemSize: self.itemSize, interItemSpacing: self.interItemSpacing, ratingValueFormat: self.ratingValueFormat, showsValueLabel: self.showsValueLabel, averageRating: self.averageRating, averageRatingFormat: self.averageRatingFormat, reviewCount: self.reviewCount, reviewCountFormat: self.reviewCountFormat, reviewCountCeiling: self.reviewCountCeiling, reviewCountCeilingFormat: self.reviewCountCeilingFormat, showsReviewCountLabel: self.showsReviewCountLabel)).typeErased
                 .transformEnvironment(\.ratingControlStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -172,7 +181,7 @@ private extension RatingControl {
     }
 
     func defaultStyle() -> some View {
-        RatingControl(.init(valueLabel: .init(self.valueLabel), onStarImage: .init(self.onStarImage), offStarImage: .init(self.offStarImage), halfStarImage: .init(self.halfStarImage), reviewCountLabel: .init(self.reviewCountLabel), rating: self.$rating, ratingControlStyle: self.ratingControlStyle, ratingBounds: self.ratingBounds, itemSize: self.itemSize, interItemSpacing: self.interItemSpacing, ratingValueFormat: self.ratingValueFormat, showsValueLabel: self.showsValueLabel, averageRating: self.averageRating, averageRatingFormat: self.averageRatingFormat, reviewCount: self.reviewCount, reviewCountFormat: self.reviewCountFormat, reviewCountCeiling: self.reviewCountCeiling, reviewCountCeilingFormat: self.reviewCountCeilingFormat, showsReviewCountLabel: self.showsReviewCountLabel))
+        RatingControl(.init(componentIdentifier: self.componentIdentifier, valueLabel: .init(self.valueLabel), onStarImage: .init(self.onStarImage), offStarImage: .init(self.offStarImage), halfStarImage: .init(self.halfStarImage), reviewCountLabel: .init(self.reviewCountLabel), rating: self.$rating, ratingControlStyle: self.ratingControlStyle, ratingBounds: self.ratingBounds, itemSize: self.itemSize, interItemSpacing: self.interItemSpacing, ratingValueFormat: self.ratingValueFormat, showsValueLabel: self.showsValueLabel, averageRating: self.averageRating, averageRatingFormat: self.averageRatingFormat, reviewCount: self.reviewCount, reviewCountFormat: self.reviewCountFormat, reviewCountCeiling: self.reviewCountCeiling, reviewCountCeilingFormat: self.reviewCountCeilingFormat, showsReviewCountLabel: self.showsReviewCountLabel))
             .shouldApplyDefaultStyle(false)
             .ratingControlStyle(RatingControlFioriStyle.ContentFioriStyle())
             .typeErased

@@ -8,11 +8,20 @@ public struct KPIContent {
 
     @Environment(\.kPIContentStyle) var style
 
+    var componentIdentifier: String = KPIContent.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder kPIContent: () -> any View = { EmptyView() }) {
+    public init(@ViewBuilder kPIContent: () -> any View = { EmptyView() },
+                componentIdentifier: String? = KPIContent.identifier)
+    {
         self.kPIContent = kPIContent()
+        self.componentIdentifier = componentIdentifier ?? KPIContent.identifier
     }
+}
+
+public extension KPIContent {
+    static let identifier = "fiori_kpicontent_component"
 }
 
 public extension KPIContent {
@@ -23,6 +32,7 @@ public extension KPIContent {
     internal init(_ configuration: KPIContentConfiguration, shouldApplyDefaultStyle: Bool) {
         self.kPIContent = configuration.kPIContent
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -31,7 +41,7 @@ extension KPIContent: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(kPIContent: .init(self.kPIContent))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, kPIContent: .init(self.kPIContent))).typeErased
                 .transformEnvironment(\.kPIContentStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -49,7 +59,7 @@ private extension KPIContent {
     }
 
     func defaultStyle() -> some View {
-        KPIContent(.init(kPIContent: .init(self.kPIContent)))
+        KPIContent(.init(componentIdentifier: self.componentIdentifier, kPIContent: .init(self.kPIContent)))
             .shouldApplyDefaultStyle(false)
             .kPIContentStyle(.fiori)
             .typeErased

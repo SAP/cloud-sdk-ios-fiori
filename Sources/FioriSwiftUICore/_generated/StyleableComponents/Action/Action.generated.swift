@@ -8,11 +8,20 @@ public struct Action {
 
     @Environment(\.actionStyle) var style
 
+    var componentIdentifier: String = Action.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder action: () -> any View = { EmptyView() }) {
+    public init(@ViewBuilder action: () -> any View = { EmptyView() },
+                componentIdentifier: String? = Action.identifier)
+    {
         self.action = action()
+        self.componentIdentifier = componentIdentifier ?? Action.identifier
     }
+}
+
+public extension Action {
+    static let identifier = "fiori_action_component"
 }
 
 public extension Action {
@@ -29,6 +38,7 @@ public extension Action {
     internal init(_ configuration: ActionConfiguration, shouldApplyDefaultStyle: Bool) {
         self.action = configuration.action
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -37,7 +47,7 @@ extension Action: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(action: .init(self.action))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, action: .init(self.action))).typeErased
                 .transformEnvironment(\.actionStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -55,7 +65,7 @@ private extension Action {
     }
 
     func defaultStyle() -> some View {
-        Action(.init(action: .init(self.action)))
+        Action(.init(componentIdentifier: self.componentIdentifier, action: .init(self.action)))
             .shouldApplyDefaultStyle(false)
             .actionStyle(.fiori)
             .typeErased
