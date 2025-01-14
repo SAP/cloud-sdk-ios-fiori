@@ -2,7 +2,7 @@
 // DO NOT EDIT
 import SwiftUI
 
-public extension ContactItemModel {
+public extension _ContactItemModel {
     var actionItems: _ActivityItemsModel? {
         return nil
     }

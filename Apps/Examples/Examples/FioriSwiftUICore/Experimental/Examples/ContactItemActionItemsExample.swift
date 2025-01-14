@@ -9,7 +9,7 @@ struct ContactItemActionItemsExample: View {
             ScrollView {
                 ExpHeaderView("Action Items", subtitle: "Option: ViewBuilder init - arbitrary use", desc: "pass an arbitrary view to represent actionItems")
 
-                ContactItem {
+                _ContactItem {
                     Text("Title")
                 } subtitle: {
                     Text("SubTitle")
@@ -24,7 +24,7 @@ struct ContactItemActionItemsExample: View {
 
                 ExpHeaderView(nil, subtitle: "Option: ViewBuilder init - SDK reuse", desc: "pass an SDK standard composite view (control / container) to represent actionItems", back: .green, textColor: .white)
                 
-                ContactItem {
+                _ContactItem {
                     Text("Title")
                 } subtitle: {
                     Text("SubTitle")
@@ -48,13 +48,13 @@ struct ContactItemActionItemsExample: View {
 
                 ExpHeaderView(nil, subtitle: "Option: Type-based init", desc: "SDK will internally choose and initialize the control handling action items")
 
-                ContactItem(title: self.viewModel.title, subtitle: self.viewModel.subtitle, descriptionText: self.viewModel.descriptionText,
-                            detailImage: self.viewModel.detailImage, actionItems: self.viewModel.actionItems != nil ? _ActivityItems(model: self.viewModel.actionItems!) : nil)
+                _ContactItem(title: self.viewModel.title, subtitle: self.viewModel.subtitle, descriptionText: self.viewModel.descriptionText,
+                             detailImage: self.viewModel.detailImage, actionItems: self.viewModel.actionItems != nil ? _ActivityItems(model: self.viewModel.actionItems!) : nil)
                     .exampleHighlighting()
 
                 ExpHeaderView(nil, subtitle: "Option: Protocol/Model-based init", desc: "conform your model to protocol `ContactItemModel`")
 
-                ContactItem(model: self.viewModel)
+                _ContactItem(model: self.viewModel)
                     .exampleHighlighting()
                     .alert(isPresented: self.$viewModel.showingAlert, content: {
                         Alert(title: Text("Important message"), message: Text("Sending email to \(self.viewModel.selectedActivity?.data ?? "unknown")"), dismissButton: .default(Text("Got it!")))
@@ -94,7 +94,7 @@ class ContactItemActionItemsExampleViewModel: ObservableObject {
     }
 }
 
-extension ContactItemActionItemsExampleViewModel: ContactItemModel, ActionItemsComponent {
+extension ContactItemActionItemsExampleViewModel: _ContactItemModel, ActionItemsComponent {
     var title: String { self.model.title }
     var subtitle: String? { self.model.subtitle }
     var descriptionText: String? { self.model.descriptionText }

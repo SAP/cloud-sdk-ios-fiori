@@ -507,6 +507,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: ContactItemStyle
+
+struct ContactItemStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any ContactItemStyle] = []
+}
+
+extension EnvironmentValues {
+    var contactItemStyle: any ContactItemStyle {
+        self.contactItemStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var contactItemStyleStack: [any ContactItemStyle] {
+        get {
+            self[ContactItemStyleStackKey.self]
+        }
+        set {
+            self[ContactItemStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: CounterStyle
 
 struct CounterStyleStackKey: EnvironmentKey {
