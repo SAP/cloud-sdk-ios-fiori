@@ -2,7 +2,7 @@
 // DO NOT EDIT
 import SwiftUI
 
-extension SignatureCaptureView where StartActionView == _Action {
+extension _SignatureCaptureView where StartActionView == _Action {
     public init(
     title: String? = nil,
 		mandatoryIndicator: String? = "*",
@@ -29,7 +29,7 @@ extension SignatureCaptureView where StartActionView == _Action {
     }
 }
 
-extension SignatureCaptureView where RestartActionView == _Action {
+extension _SignatureCaptureView where RestartActionView == _Action {
     public init(
     title: String? = nil,
 		mandatoryIndicator: String? = "*",
@@ -56,7 +56,7 @@ extension SignatureCaptureView where RestartActionView == _Action {
     }
 }
 
-extension SignatureCaptureView where CancelActionView == _Action {
+extension _SignatureCaptureView where CancelActionView == _Action {
     public init(
     title: String? = nil,
 		mandatoryIndicator: String? = "*",
@@ -83,7 +83,7 @@ extension SignatureCaptureView where CancelActionView == _Action {
     }
 }
 
-extension SignatureCaptureView where ClearActionView == _Action {
+extension _SignatureCaptureView where ClearActionView == _Action {
     public init(
     title: String? = nil,
 		mandatoryIndicator: String? = "*",
@@ -110,7 +110,7 @@ extension SignatureCaptureView where ClearActionView == _Action {
     }
 }
 
-extension SignatureCaptureView where SaveActionView == _Action {
+extension _SignatureCaptureView where SaveActionView == _Action {
     public init(
     title: String? = nil,
 		mandatoryIndicator: String? = "*",
@@ -137,7 +137,7 @@ extension SignatureCaptureView where SaveActionView == _Action {
     }
 }
 
-extension SignatureCaptureView where StartActionView == _Action, RestartActionView == _Action {
+extension _SignatureCaptureView where StartActionView == _Action, RestartActionView == _Action {
     public init(
     title: String? = nil,
 		mandatoryIndicator: String? = "*",
@@ -163,7 +163,7 @@ extension SignatureCaptureView where StartActionView == _Action, RestartActionVi
     }
 }
 
-extension SignatureCaptureView where StartActionView == _Action, CancelActionView == _Action {
+extension _SignatureCaptureView where StartActionView == _Action, CancelActionView == _Action {
     public init(
     title: String? = nil,
 		mandatoryIndicator: String? = "*",
@@ -189,7 +189,7 @@ extension SignatureCaptureView where StartActionView == _Action, CancelActionVie
     }
 }
 
-extension SignatureCaptureView where StartActionView == _Action, ClearActionView == _Action {
+extension _SignatureCaptureView where StartActionView == _Action, ClearActionView == _Action {
     public init(
     title: String? = nil,
 		mandatoryIndicator: String? = "*",
@@ -215,7 +215,7 @@ extension SignatureCaptureView where StartActionView == _Action, ClearActionView
     }
 }
 
-extension SignatureCaptureView where StartActionView == _Action, SaveActionView == _Action {
+extension _SignatureCaptureView where StartActionView == _Action, SaveActionView == _Action {
     public init(
     title: String? = nil,
 		mandatoryIndicator: String? = "*",
@@ -241,7 +241,7 @@ extension SignatureCaptureView where StartActionView == _Action, SaveActionView 
     }
 }
 
-extension SignatureCaptureView where RestartActionView == _Action, CancelActionView == _Action {
+extension _SignatureCaptureView where RestartActionView == _Action, CancelActionView == _Action {
     public init(
     title: String? = nil,
 		mandatoryIndicator: String? = "*",
@@ -267,7 +267,7 @@ extension SignatureCaptureView where RestartActionView == _Action, CancelActionV
     }
 }
 
-extension SignatureCaptureView where RestartActionView == _Action, ClearActionView == _Action {
+extension _SignatureCaptureView where RestartActionView == _Action, ClearActionView == _Action {
     public init(
     title: String? = nil,
 		mandatoryIndicator: String? = "*",
@@ -293,7 +293,7 @@ extension SignatureCaptureView where RestartActionView == _Action, ClearActionVi
     }
 }
 
-extension SignatureCaptureView where RestartActionView == _Action, SaveActionView == _Action {
+extension _SignatureCaptureView where RestartActionView == _Action, SaveActionView == _Action {
     public init(
     title: String? = nil,
 		mandatoryIndicator: String? = "*",
@@ -319,7 +319,7 @@ extension SignatureCaptureView where RestartActionView == _Action, SaveActionVie
     }
 }
 
-extension SignatureCaptureView where CancelActionView == _Action, ClearActionView == _Action {
+extension _SignatureCaptureView where CancelActionView == _Action, ClearActionView == _Action {
     public init(
     title: String? = nil,
 		mandatoryIndicator: String? = "*",
@@ -345,7 +345,7 @@ extension SignatureCaptureView where CancelActionView == _Action, ClearActionVie
     }
 }
 
-extension SignatureCaptureView where CancelActionView == _Action, SaveActionView == _Action {
+extension _SignatureCaptureView where CancelActionView == _Action, SaveActionView == _Action {
     public init(
     title: String? = nil,
 		mandatoryIndicator: String? = "*",
@@ -371,7 +371,7 @@ extension SignatureCaptureView where CancelActionView == _Action, SaveActionView
     }
 }
 
-extension SignatureCaptureView where ClearActionView == _Action, SaveActionView == _Action {
+extension _SignatureCaptureView where ClearActionView == _Action, SaveActionView == _Action {
     public init(
     title: String? = nil,
 		mandatoryIndicator: String? = "*",
@@ -397,7 +397,7 @@ extension SignatureCaptureView where ClearActionView == _Action, SaveActionView 
     }
 }
 
-extension SignatureCaptureView where StartActionView == _Action, RestartActionView == _Action, CancelActionView == _Action {
+extension _SignatureCaptureView where StartActionView == _Action, RestartActionView == _Action, CancelActionView == _Action {
     public init(
     title: String? = nil,
 		mandatoryIndicator: String? = "*",
@@ -422,7 +422,7 @@ extension SignatureCaptureView where StartActionView == _Action, RestartActionVi
     }
 }
 
-extension SignatureCaptureView where StartActionView == _Action, RestartActionView == _Action, ClearActionView == _Action {
+extension _SignatureCaptureView where StartActionView == _Action, RestartActionView == _Action, ClearActionView == _Action {
     public init(
     title: String? = nil,
 		mandatoryIndicator: String? = "*",
@@ -447,7 +447,7 @@ extension SignatureCaptureView where StartActionView == _Action, RestartActionVi
     }
 }
 
-extension SignatureCaptureView where StartActionView == _Action, RestartActionView == _Action, SaveActionView == _Action {
+extension _SignatureCaptureView where StartActionView == _Action, RestartActionView == _Action, SaveActionView == _Action {
     public init(
     title: String? = nil,
 		mandatoryIndicator: String? = "*",
@@ -472,7 +472,7 @@ extension SignatureCaptureView where StartActionView == _Action, RestartActionVi
     }
 }
 
-extension SignatureCaptureView where StartActionView == _Action, CancelActionView == _Action, ClearActionView == _Action {
+extension _SignatureCaptureView where StartActionView == _Action, CancelActionView == _Action, ClearActionView == _Action {
     public init(
     title: String? = nil,
 		mandatoryIndicator: String? = "*",
@@ -497,7 +497,7 @@ extension SignatureCaptureView where StartActionView == _Action, CancelActionVie
     }
 }
 
-extension SignatureCaptureView where StartActionView == _Action, CancelActionView == _Action, SaveActionView == _Action {
+extension _SignatureCaptureView where StartActionView == _Action, CancelActionView == _Action, SaveActionView == _Action {
     public init(
     title: String? = nil,
 		mandatoryIndicator: String? = "*",
@@ -522,7 +522,7 @@ extension SignatureCaptureView where StartActionView == _Action, CancelActionVie
     }
 }
 
-extension SignatureCaptureView where StartActionView == _Action, ClearActionView == _Action, SaveActionView == _Action {
+extension _SignatureCaptureView where StartActionView == _Action, ClearActionView == _Action, SaveActionView == _Action {
     public init(
     title: String? = nil,
 		mandatoryIndicator: String? = "*",
@@ -547,7 +547,7 @@ extension SignatureCaptureView where StartActionView == _Action, ClearActionView
     }
 }
 
-extension SignatureCaptureView where RestartActionView == _Action, CancelActionView == _Action, ClearActionView == _Action {
+extension _SignatureCaptureView where RestartActionView == _Action, CancelActionView == _Action, ClearActionView == _Action {
     public init(
     title: String? = nil,
 		mandatoryIndicator: String? = "*",
@@ -572,7 +572,7 @@ extension SignatureCaptureView where RestartActionView == _Action, CancelActionV
     }
 }
 
-extension SignatureCaptureView where RestartActionView == _Action, CancelActionView == _Action, SaveActionView == _Action {
+extension _SignatureCaptureView where RestartActionView == _Action, CancelActionView == _Action, SaveActionView == _Action {
     public init(
     title: String? = nil,
 		mandatoryIndicator: String? = "*",
@@ -597,7 +597,7 @@ extension SignatureCaptureView where RestartActionView == _Action, CancelActionV
     }
 }
 
-extension SignatureCaptureView where RestartActionView == _Action, ClearActionView == _Action, SaveActionView == _Action {
+extension _SignatureCaptureView where RestartActionView == _Action, ClearActionView == _Action, SaveActionView == _Action {
     public init(
     title: String? = nil,
 		mandatoryIndicator: String? = "*",
@@ -622,7 +622,7 @@ extension SignatureCaptureView where RestartActionView == _Action, ClearActionVi
     }
 }
 
-extension SignatureCaptureView where CancelActionView == _Action, ClearActionView == _Action, SaveActionView == _Action {
+extension _SignatureCaptureView where CancelActionView == _Action, ClearActionView == _Action, SaveActionView == _Action {
     public init(
     title: String? = nil,
 		mandatoryIndicator: String? = "*",
@@ -647,7 +647,7 @@ extension SignatureCaptureView where CancelActionView == _Action, ClearActionVie
     }
 }
 
-extension SignatureCaptureView where StartActionView == _Action, RestartActionView == _Action, CancelActionView == _Action, ClearActionView == _Action {
+extension _SignatureCaptureView where StartActionView == _Action, RestartActionView == _Action, CancelActionView == _Action, ClearActionView == _Action {
     public init(
     title: String? = nil,
 		mandatoryIndicator: String? = "*",
@@ -671,7 +671,7 @@ extension SignatureCaptureView where StartActionView == _Action, RestartActionVi
     }
 }
 
-extension SignatureCaptureView where StartActionView == _Action, RestartActionView == _Action, CancelActionView == _Action, SaveActionView == _Action {
+extension _SignatureCaptureView where StartActionView == _Action, RestartActionView == _Action, CancelActionView == _Action, SaveActionView == _Action {
     public init(
     title: String? = nil,
 		mandatoryIndicator: String? = "*",
@@ -695,7 +695,7 @@ extension SignatureCaptureView where StartActionView == _Action, RestartActionVi
     }
 }
 
-extension SignatureCaptureView where StartActionView == _Action, RestartActionView == _Action, ClearActionView == _Action, SaveActionView == _Action {
+extension _SignatureCaptureView where StartActionView == _Action, RestartActionView == _Action, ClearActionView == _Action, SaveActionView == _Action {
     public init(
     title: String? = nil,
 		mandatoryIndicator: String? = "*",
@@ -719,7 +719,7 @@ extension SignatureCaptureView where StartActionView == _Action, RestartActionVi
     }
 }
 
-extension SignatureCaptureView where StartActionView == _Action, CancelActionView == _Action, ClearActionView == _Action, SaveActionView == _Action {
+extension _SignatureCaptureView where StartActionView == _Action, CancelActionView == _Action, ClearActionView == _Action, SaveActionView == _Action {
     public init(
     title: String? = nil,
 		mandatoryIndicator: String? = "*",
@@ -743,7 +743,7 @@ extension SignatureCaptureView where StartActionView == _Action, CancelActionVie
     }
 }
 
-extension SignatureCaptureView where RestartActionView == _Action, CancelActionView == _Action, ClearActionView == _Action, SaveActionView == _Action {
+extension _SignatureCaptureView where RestartActionView == _Action, CancelActionView == _Action, ClearActionView == _Action, SaveActionView == _Action {
     public init(
     title: String? = nil,
 		mandatoryIndicator: String? = "*",
@@ -767,7 +767,7 @@ extension SignatureCaptureView where RestartActionView == _Action, CancelActionV
     }
 }
 
-extension SignatureCaptureView where StartActionView == _Action, RestartActionView == _Action, CancelActionView == _Action, ClearActionView == _Action, SaveActionView == _Action {
+extension _SignatureCaptureView where StartActionView == _Action, RestartActionView == _Action, CancelActionView == _Action, ClearActionView == _Action, SaveActionView == _Action {
     public init(
     title: String? = nil,
 		mandatoryIndicator: String? = "*",

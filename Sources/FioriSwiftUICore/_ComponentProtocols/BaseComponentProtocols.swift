@@ -586,3 +586,49 @@ protocol _TrendImageComponent {
     // sourcery: @ViewBuilder
     var trendImage: Image? { get }
 }
+
+// sourcery: BaseComponent
+protocol _StartSignatureActionComponent {
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "FioriButton { _ in Text("Tap to Sign".localizedFioriString()) }"
+    // sourcery: resultBuilder.defaultValue = "{ FioriButton { _ in Text("Tap to Sign".localizedFioriString()) } }"
+    var startSignatureAction: FioriButton? { get }
+}
+
+// sourcery: BaseComponent
+protocol _ReenterSignatureActionComponent {
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "FioriButton { _ in Text("Re-enter Signature".localizedFioriString()) }"
+    // sourcery: resultBuilder.defaultValue = "{ FioriButton { _ in Text("Re-enter Signature".localizedFioriString()) } }"
+    var reenterSignatureAction: FioriButton? { get }
+}
+
+// sourcery: BaseComponent
+protocol _ClearActionComponent {
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "FioriButton { _ in Text("Clear".localizedFioriString()) }"
+    // sourcery: resultBuilder.defaultValue = "{ FioriButton { _ in Text("Clear".localizedFioriString()) } }"
+    var clearAction: FioriButton? { get }
+}
+
+// sourcery: BaseComponent
+protocol _SaveActionComponent {
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "FioriButton { _ in Text("Save".localizedFioriString()) }"
+    // sourcery: resultBuilder.defaultValue = "{ FioriButton { _ in Text("Save".localizedFioriString()) } }"
+    var saveAction: FioriButton? { get }
+}
+
+// sourcery: BaseComponent
+protocol _XmarkComponent {
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "Image(systemName: "xmark")"
+    // sourcery: resultBuilder.defaultValue = "{ Image(systemName: "xmark") }"
+    var xmark: Image? { get }
+}
+
+// sourcery: BaseComponent
+protocol _WatermarkComponent {
+    // sourcery: @ViewBuilder
+    var watermark: AttributedString? { get }
+}
