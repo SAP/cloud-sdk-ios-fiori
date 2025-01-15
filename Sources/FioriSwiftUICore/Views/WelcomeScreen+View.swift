@@ -26,7 +26,7 @@ extension Fiori {
             }
         }
         
-        struct TextInput: ViewModifier {
+        struct _TextInput: ViewModifier {
             func body(content: Content) -> some View {
                 content
                     .font(.fiori(forTextStyle: .body))
@@ -88,7 +88,7 @@ extension Fiori {
         
         static let title = Title()
         static let descriptionText = DescriptionText()
-        static let textInput = TextInput()
+        static let textInput = _TextInput()
         static let action = Action()
         static let subtitle = Subtitle()
         static let footnote = Footnote()

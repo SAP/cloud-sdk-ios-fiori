@@ -199,11 +199,6 @@ extension EnvironmentValues {
         set { self[ActionItemsModifierKey.self] = newValue }
     }
 
-    public var textInputValueModifier: AnyViewModifier {
-        get { return self[TextInputValueModifierKey.self] }
-        set { self[TextInputValueModifierKey.self] = newValue }
-    }
-
     public var actionTextModifier: AnyViewModifier {
         get { return self[ActionTextModifierKey.self] }
         set { self[ActionTextModifierKey.self] = newValue }
@@ -212,6 +207,11 @@ extension EnvironmentValues {
     public var progressIndicatorTextModifier: AnyViewModifier {
         get { return self[ProgressIndicatorTextModifierKey.self] }
         set { self[ProgressIndicatorTextModifierKey.self] = newValue }
+    }
+
+    public var textInputValueModifier: AnyViewModifier {
+        get { return self[TextInputValueModifierKey.self] }
+        set { self[TextInputValueModifierKey.self] = newValue }
     }
 
     public var actionModifier: AnyViewModifier {
@@ -499,11 +499,6 @@ public extension View {
     }
 
     @ViewBuilder
-    func textInputValueModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
-        self.environment(\.textInputValueModifier, AnyViewModifier(transform))
-    }
-
-    @ViewBuilder
     func actionTextModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
         self.environment(\.actionTextModifier, AnyViewModifier(transform))
     }
@@ -511,6 +506,11 @@ public extension View {
     @ViewBuilder
     func progressIndicatorTextModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
         self.environment(\.progressIndicatorTextModifier, AnyViewModifier(transform))
+    }
+
+    @ViewBuilder
+    func textInputValueModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
+        self.environment(\.textInputValueModifier, AnyViewModifier(transform))
     }
 
     @ViewBuilder

@@ -143,15 +143,15 @@ extension WelcomeScreen where Title == Text,
 		Subtitle == _ConditionalContent<Text, EmptyView>,
 		Footnote == _ConditionalContent<Text, EmptyView>,
 		Icon == _ConditionalContent<Image, EmptyView>,
-		TextInputView == _ConditionalContent<TextInput, EmptyView>,
+		TextInputView == _ConditionalContent<_TextInput, EmptyView>,
 		ActionView == _ConditionalContent<_Action, EmptyView>,
 		SecondaryActionView == _ConditionalContent<_Action, EmptyView> {
 
     public init(model: WelcomeScreenModel) {
-        self.init(title: model.title, descriptionText: model.descriptionText, subtitle: model.subtitle, footnote: model.footnote, icon: model.icon, textInput: model.textInput != nil ? TextInput(model: model.textInput!) : nil, action: model.action != nil ? _Action(model: model.action!) : nil, secondaryAction: model.secondaryAction != nil ? _Action(model: model.secondaryAction!) : nil)
+        self.init(title: model.title, descriptionText: model.descriptionText, subtitle: model.subtitle, footnote: model.footnote, icon: model.icon, textInput: model.textInput != nil ? _TextInput(model: model.textInput!) : nil, action: model.action != nil ? _Action(model: model.action!) : nil, secondaryAction: model.secondaryAction != nil ? _Action(model: model.secondaryAction!) : nil)
     }
 
-    public init(title: String, descriptionText: String? = nil, subtitle: String? = nil, footnote: String? = nil, icon: Image? = nil, textInput: TextInput? = nil, action: _Action? = nil, secondaryAction: _Action? = nil) {
+    public init(title: String, descriptionText: String? = nil, subtitle: String? = nil, footnote: String? = nil, icon: Image? = nil, textInput: _TextInput? = nil, action: _Action? = nil, secondaryAction: _Action? = nil) {
         self._title = Text(title)
 		self._descriptionText = descriptionText != nil ? ViewBuilder.buildEither(first: Text(descriptionText!)) : ViewBuilder.buildEither(second: EmptyView())
 		self._subtitle = subtitle != nil ? ViewBuilder.buildEither(first: Text(subtitle!)) : ViewBuilder.buildEither(second: EmptyView())
