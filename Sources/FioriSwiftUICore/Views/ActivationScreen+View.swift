@@ -28,7 +28,7 @@ extension Fiori {
 
         typealias DescriptionTextCumulative = EmptyModifier
 
-        struct _TextInput: ViewModifier {
+        struct TextInput: ViewModifier {
             func body(content: Content) -> some View {
                 content
                     .font(.fiori(forTextStyle: .body))
@@ -69,7 +69,7 @@ extension Fiori {
         typealias SecondaryActionCumulative = EmptyModifier
         static let title = Title()
         static let descriptionText = DescriptionText()
-        static let textInput = _TextInput()
+        static let textInput = TextInput()
         static let action = Action()
         static let footnote = Footnote()
         static let secondaryAction = SecondaryAction()
