@@ -22,7 +22,14 @@ struct AnyLowerThumbStyle: LowerThumbStyle {
 }
 
 public struct LowerThumbConfiguration {
+    public var componentIdentifier: String = "fiori_lowerthumb_component"
     public let lowerThumb: LowerThumb
 
     public typealias LowerThumb = ConfigurationViewWrapper
+}
+
+extension LowerThumbConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }

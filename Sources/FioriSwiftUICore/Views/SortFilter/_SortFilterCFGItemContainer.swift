@@ -383,7 +383,7 @@ extension _SortFilterCFGItemContainer: View {
     
     func switcher(row r: Int, column c: Int) -> some View {
         VStack {
-            SwitchPickerItem(value: Binding<Bool?>(get: { self._items[r][c].switch.workingValue }, set: { self._items[r][c].switch.workingValue = $0 }), name: self._items[r][c].switch.name, hint: nil)
+            SwitchView(title: AttributedString(self._items[r][c].switch.name), isOn: Binding<Bool>(get: { self._items[r][c].switch.workingValue ?? false }, set: { self._items[r][c].switch.workingValue = $0 }))
         }
     }
     

@@ -8,11 +8,20 @@ public struct ProgressIndicatorProtocol {
 
     @Environment(\.progressIndicatorProtocolStyle) var style
 
+    var componentIdentifier: String = ProgressIndicatorProtocol.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(progress: Binding<Double>) {
+    public init(progress: Binding<Double>,
+                componentIdentifier: String? = ProgressIndicatorProtocol.identifier)
+    {
         self._progress = progress
+        self.componentIdentifier = componentIdentifier ?? ProgressIndicatorProtocol.identifier
     }
+}
+
+public extension ProgressIndicatorProtocol {
+    static let identifier = "fiori_progressindicatorprotocol_component"
 }
 
 public extension ProgressIndicatorProtocol {
@@ -23,6 +32,7 @@ public extension ProgressIndicatorProtocol {
     internal init(_ configuration: ProgressIndicatorProtocolConfiguration, shouldApplyDefaultStyle: Bool) {
         self._progress = configuration.$progress
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -31,7 +41,7 @@ extension ProgressIndicatorProtocol: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(progress: self.$progress)).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, progress: self.$progress)).typeErased
                 .transformEnvironment(\.progressIndicatorProtocolStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -49,7 +59,7 @@ private extension ProgressIndicatorProtocol {
     }
 
     func defaultStyle() -> some View {
-        ProgressIndicatorProtocol(.init(progress: self.$progress))
+        ProgressIndicatorProtocol(.init(componentIdentifier: self.componentIdentifier, progress: self.$progress))
             .shouldApplyDefaultStyle(false)
             .progressIndicatorProtocolStyle(.fiori)
             .typeErased

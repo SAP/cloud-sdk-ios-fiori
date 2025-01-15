@@ -11,14 +11,22 @@ public struct FormView {
 
     @Environment(\.formViewStyle) var style
 
+    var componentIdentifier: String = FormView.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
     public init(controlState: ControlState = .normal,
-                errorMessage: AttributedString? = nil)
+                errorMessage: AttributedString? = nil,
+                componentIdentifier: String? = FormView.identifier)
     {
         self.controlState = controlState
         self.errorMessage = errorMessage
+        self.componentIdentifier = componentIdentifier ?? FormView.identifier
     }
+}
+
+public extension FormView {
+    static let identifier = "fiori_formview_component"
 }
 
 public extension FormView {
@@ -30,6 +38,7 @@ public extension FormView {
         self.controlState = configuration.controlState
         self.errorMessage = configuration.errorMessage
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -38,7 +47,7 @@ extension FormView: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(controlState: self.controlState, errorMessage: self.errorMessage)).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, controlState: self.controlState, errorMessage: self.errorMessage)).typeErased
                 .transformEnvironment(\.formViewStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -56,7 +65,7 @@ private extension FormView {
     }
 
     func defaultStyle() -> some View {
-        FormView(.init(controlState: self.controlState, errorMessage: self.errorMessage))
+        FormView(.init(componentIdentifier: self.componentIdentifier, controlState: self.controlState, errorMessage: self.errorMessage))
             .shouldApplyDefaultStyle(false)
             .formViewStyle(FormViewFioriStyle.ContentFioriStyle())
             .typeErased

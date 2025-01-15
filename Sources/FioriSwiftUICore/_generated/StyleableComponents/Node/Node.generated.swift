@@ -8,11 +8,20 @@ public struct Node {
 
     @Environment(\.nodeStyle) var style
 
+    var componentIdentifier: String = Node.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder node: () -> any View = { EmptyView() }) {
+    public init(@ViewBuilder node: () -> any View = { EmptyView() },
+                componentIdentifier: String? = Node.identifier)
+    {
         self.node = node()
+        self.componentIdentifier = componentIdentifier ?? Node.identifier
     }
+}
+
+public extension Node {
+    static let identifier = "fiori_node_component"
 }
 
 public extension Node {
@@ -29,6 +38,7 @@ public extension Node {
     internal init(_ configuration: NodeConfiguration, shouldApplyDefaultStyle: Bool) {
         self.node = configuration.node
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -37,7 +47,7 @@ extension Node: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(node: .init(self.node))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, node: .init(self.node))).typeErased
                 .transformEnvironment(\.nodeStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -55,7 +65,7 @@ private extension Node {
     }
 
     func defaultStyle() -> some View {
-        Node(.init(node: .init(self.node)))
+        Node(.init(componentIdentifier: self.componentIdentifier, node: .init(self.node)))
             .shouldApplyDefaultStyle(false)
             .nodeStyle(.fiori)
             .typeErased

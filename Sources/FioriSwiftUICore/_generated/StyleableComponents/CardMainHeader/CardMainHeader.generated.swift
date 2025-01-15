@@ -13,6 +13,8 @@ public struct CardMainHeader {
 
     @Environment(\.cardMainHeaderStyle) var style
 
+    var componentIdentifier: String = CardMainHeader.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
     public init(@ViewBuilder title: () -> any View,
@@ -20,15 +22,21 @@ public struct CardMainHeader {
                 @IconBuilder icons: () -> any View = { EmptyView() },
                 @ViewBuilder detailImage: () -> any View = { EmptyView() },
                 @ViewBuilder headerAction: () -> any View = { EmptyView() },
-                @ViewBuilder counter: () -> any View = { EmptyView() })
+                @ViewBuilder counter: () -> any View = { EmptyView() },
+                componentIdentifier: String? = CardMainHeader.identifier)
     {
-        self.title = Title(title: title)
-        self.subtitle = Subtitle(subtitle: subtitle)
-        self.icons = Icons(icons: icons)
-        self.detailImage = DetailImage(detailImage: detailImage)
-        self.headerAction = HeaderAction(headerAction: headerAction)
-        self.counter = Counter(counter: counter)
+        self.title = Title(title: title, componentIdentifier: componentIdentifier)
+        self.subtitle = Subtitle(subtitle: subtitle, componentIdentifier: componentIdentifier)
+        self.icons = Icons(icons: icons, componentIdentifier: componentIdentifier)
+        self.detailImage = DetailImage(detailImage: detailImage, componentIdentifier: componentIdentifier)
+        self.headerAction = HeaderAction(headerAction: headerAction, componentIdentifier: componentIdentifier)
+        self.counter = Counter(counter: counter, componentIdentifier: componentIdentifier)
+        self.componentIdentifier = componentIdentifier ?? CardMainHeader.identifier
     }
+}
+
+public extension CardMainHeader {
+    static let identifier = "fiori_cardmainheader_component"
 }
 
 public extension CardMainHeader {
@@ -56,6 +64,7 @@ public extension CardMainHeader {
         self.headerAction = configuration.headerAction
         self.counter = configuration.counter
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -64,7 +73,7 @@ extension CardMainHeader: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(title: .init(self.title), subtitle: .init(self.subtitle), icons: .init(self.icons), detailImage: .init(self.detailImage), headerAction: .init(self.headerAction), counter: .init(self.counter))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, title: .init(self.title), subtitle: .init(self.subtitle), icons: .init(self.icons), detailImage: .init(self.detailImage), headerAction: .init(self.headerAction), counter: .init(self.counter))).typeErased
                 .transformEnvironment(\.cardMainHeaderStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -82,7 +91,7 @@ private extension CardMainHeader {
     }
 
     func defaultStyle() -> some View {
-        CardMainHeader(.init(title: .init(self.title), subtitle: .init(self.subtitle), icons: .init(self.icons), detailImage: .init(self.detailImage), headerAction: .init(self.headerAction), counter: .init(self.counter)))
+        CardMainHeader(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), subtitle: .init(self.subtitle), icons: .init(self.icons), detailImage: .init(self.detailImage), headerAction: .init(self.headerAction), counter: .init(self.counter)))
             .shouldApplyDefaultStyle(false)
             .cardMainHeaderStyle(CardMainHeaderFioriStyle.ContentFioriStyle())
             .typeErased

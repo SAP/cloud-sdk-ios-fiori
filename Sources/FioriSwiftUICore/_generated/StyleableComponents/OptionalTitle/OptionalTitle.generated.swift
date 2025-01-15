@@ -8,11 +8,20 @@ public struct OptionalTitle {
 
     @Environment(\.optionalTitleStyle) var style
 
+    var componentIdentifier: String = OptionalTitle.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder optionalTitle: () -> any View = { EmptyView() }) {
+    public init(@ViewBuilder optionalTitle: () -> any View = { EmptyView() },
+                componentIdentifier: String? = OptionalTitle.identifier)
+    {
         self.optionalTitle = optionalTitle()
+        self.componentIdentifier = componentIdentifier ?? OptionalTitle.identifier
     }
+}
+
+public extension OptionalTitle {
+    static let identifier = "fiori_optionaltitle_component"
 }
 
 public extension OptionalTitle {
@@ -29,6 +38,7 @@ public extension OptionalTitle {
     internal init(_ configuration: OptionalTitleConfiguration, shouldApplyDefaultStyle: Bool) {
         self.optionalTitle = configuration.optionalTitle
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -37,7 +47,7 @@ extension OptionalTitle: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(optionalTitle: .init(self.optionalTitle))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, optionalTitle: .init(self.optionalTitle))).typeErased
                 .transformEnvironment(\.optionalTitleStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -55,7 +65,7 @@ private extension OptionalTitle {
     }
 
     func defaultStyle() -> some View {
-        OptionalTitle(.init(optionalTitle: .init(self.optionalTitle)))
+        OptionalTitle(.init(componentIdentifier: self.componentIdentifier, optionalTitle: .init(self.optionalTitle)))
             .shouldApplyDefaultStyle(false)
             .optionalTitleStyle(.fiori)
             .typeErased

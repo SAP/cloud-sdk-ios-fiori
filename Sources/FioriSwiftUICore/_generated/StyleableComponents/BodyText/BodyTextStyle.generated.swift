@@ -22,7 +22,14 @@ struct AnyBodyTextStyle: BodyTextStyle {
 }
 
 public struct BodyTextConfiguration {
+    public var componentIdentifier: String = "fiori_bodytext_component"
     public let bodyText: BodyText
 
     public typealias BodyText = ConfigurationViewWrapper
+}
+
+extension BodyTextConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }

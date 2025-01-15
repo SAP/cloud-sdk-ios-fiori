@@ -22,5 +22,12 @@ struct AnyTextViewStyle: TextViewStyle {
 }
 
 public struct TextViewConfiguration {
+    public var componentIdentifier: String = "fiori_textview_component"
     @Binding public var text: String
+}
+
+extension TextViewConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }

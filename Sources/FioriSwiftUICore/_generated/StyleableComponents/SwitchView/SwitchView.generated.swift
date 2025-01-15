@@ -17,14 +17,22 @@ public struct SwitchView {
 
     @Environment(\.switchViewStyle) var style
 
+    var componentIdentifier: String = SwitchView.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
     public init(@ViewBuilder title: () -> any View,
-                isOn: Binding<Bool>)
+                isOn: Binding<Bool>,
+                componentIdentifier: String? = SwitchView.identifier)
     {
-        self.title = Title(title: title)
+        self.title = Title(title: title, componentIdentifier: componentIdentifier)
         self._isOn = isOn
+        self.componentIdentifier = componentIdentifier ?? SwitchView.identifier
     }
+}
+
+public extension SwitchView {
+    static let identifier = "fiori_switchview_component"
 }
 
 public extension SwitchView {
@@ -44,6 +52,7 @@ public extension SwitchView {
         self.title = configuration.title
         self._isOn = configuration.$isOn
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -52,7 +61,7 @@ extension SwitchView: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(title: .init(self.title), isOn: self.$isOn)).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, title: .init(self.title), isOn: self.$isOn)).typeErased
                 .transformEnvironment(\.switchViewStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -70,7 +79,7 @@ private extension SwitchView {
     }
 
     func defaultStyle() -> some View {
-        SwitchView(.init(title: .init(self.title), isOn: self.$isOn))
+        SwitchView(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), isOn: self.$isOn))
             .shouldApplyDefaultStyle(false)
             .switchViewStyle(SwitchViewFioriStyle.ContentFioriStyle())
             .typeErased

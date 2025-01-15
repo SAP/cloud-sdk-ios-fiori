@@ -33,6 +33,8 @@ public struct Timeline {
 
     @Environment(\.timelineStyle) var style
 
+    var componentIdentifier: String = Timeline.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
     public init(@ViewBuilder timestamp: () -> any View = { EmptyView() },
@@ -46,21 +48,27 @@ public struct Timeline {
                 @ViewBuilder substatus: () -> any View = { EmptyView() },
                 @ViewBuilder subAttribute: () -> any View = { EmptyView() },
                 isPast: Bool = false,
-                isPresent: Bool = false)
+                isPresent: Bool = false,
+                componentIdentifier: String? = Timeline.identifier)
     {
-        self.timestamp = Timestamp(timestamp: timestamp)
-        self.secondaryTimestamp = SecondaryTimestamp(secondaryTimestamp: secondaryTimestamp)
-        self.timelineNode = TimelineNode(timelineNode: timelineNode)
-        self.icon = Icon(icon: icon)
-        self.title = Title(title: title)
-        self.subtitle = Subtitle(subtitle: subtitle)
-        self.attribute = Attribute(attribute: attribute)
-        self.status = Status(status: status)
-        self.substatus = Substatus(substatus: substatus)
-        self.subAttribute = SubAttribute(subAttribute: subAttribute)
+        self.timestamp = Timestamp(timestamp: timestamp, componentIdentifier: componentIdentifier)
+        self.secondaryTimestamp = SecondaryTimestamp(secondaryTimestamp: secondaryTimestamp, componentIdentifier: componentIdentifier)
+        self.timelineNode = TimelineNode(timelineNode: timelineNode, componentIdentifier: componentIdentifier)
+        self.icon = Icon(icon: icon, componentIdentifier: componentIdentifier)
+        self.title = Title(title: title, componentIdentifier: componentIdentifier)
+        self.subtitle = Subtitle(subtitle: subtitle, componentIdentifier: componentIdentifier)
+        self.attribute = Attribute(attribute: attribute, componentIdentifier: componentIdentifier)
+        self.status = Status(status: status, componentIdentifier: componentIdentifier)
+        self.substatus = Substatus(substatus: substatus, componentIdentifier: componentIdentifier)
+        self.subAttribute = SubAttribute(subAttribute: subAttribute, componentIdentifier: componentIdentifier)
         self.isPast = isPast
         self.isPresent = isPresent
+        self.componentIdentifier = componentIdentifier ?? Timeline.identifier
     }
+}
+
+public extension Timeline {
+    static let identifier = "fiori_timeline_component"
 }
 
 public extension Timeline {
@@ -100,6 +108,7 @@ public extension Timeline {
         self.isPast = configuration.isPast
         self.isPresent = configuration.isPresent
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -108,7 +117,7 @@ extension Timeline: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(timestamp: .init(self.timestamp), secondaryTimestamp: .init(self.secondaryTimestamp), timelineNode: .init(self.timelineNode), icon: .init(self.icon), title: .init(self.title), subtitle: .init(self.subtitle), attribute: .init(self.attribute), status: .init(self.status), substatus: .init(self.substatus), subAttribute: .init(self.subAttribute), isPast: self.isPast, isPresent: self.isPresent)).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, timestamp: .init(self.timestamp), secondaryTimestamp: .init(self.secondaryTimestamp), timelineNode: .init(self.timelineNode), icon: .init(self.icon), title: .init(self.title), subtitle: .init(self.subtitle), attribute: .init(self.attribute), status: .init(self.status), substatus: .init(self.substatus), subAttribute: .init(self.subAttribute), isPast: self.isPast, isPresent: self.isPresent)).typeErased
                 .transformEnvironment(\.timelineStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -126,7 +135,7 @@ private extension Timeline {
     }
 
     func defaultStyle() -> some View {
-        Timeline(.init(timestamp: .init(self.timestamp), secondaryTimestamp: .init(self.secondaryTimestamp), timelineNode: .init(self.timelineNode), icon: .init(self.icon), title: .init(self.title), subtitle: .init(self.subtitle), attribute: .init(self.attribute), status: .init(self.status), substatus: .init(self.substatus), subAttribute: .init(self.subAttribute), isPast: self.isPast, isPresent: self.isPresent))
+        Timeline(.init(componentIdentifier: self.componentIdentifier, timestamp: .init(self.timestamp), secondaryTimestamp: .init(self.secondaryTimestamp), timelineNode: .init(self.timelineNode), icon: .init(self.icon), title: .init(self.title), subtitle: .init(self.subtitle), attribute: .init(self.attribute), status: .init(self.status), substatus: .init(self.substatus), subAttribute: .init(self.subAttribute), isPast: self.isPast, isPresent: self.isPresent))
             .shouldApplyDefaultStyle(false)
             .timelineStyle(TimelineFioriStyle.ContentFioriStyle())
             .typeErased

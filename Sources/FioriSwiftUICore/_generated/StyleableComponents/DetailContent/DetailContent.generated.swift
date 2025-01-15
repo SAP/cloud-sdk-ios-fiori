@@ -8,11 +8,20 @@ public struct DetailContent {
 
     @Environment(\.detailContentStyle) var style
 
+    var componentIdentifier: String = DetailContent.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder detailContent: () -> any View = { EmptyView() }) {
+    public init(@ViewBuilder detailContent: () -> any View = { EmptyView() },
+                componentIdentifier: String? = DetailContent.identifier)
+    {
         self.detailContent = detailContent()
+        self.componentIdentifier = componentIdentifier ?? DetailContent.identifier
     }
+}
+
+public extension DetailContent {
+    static let identifier = "fiori_detailcontent_component"
 }
 
 public extension DetailContent {
@@ -23,6 +32,7 @@ public extension DetailContent {
     internal init(_ configuration: DetailContentConfiguration, shouldApplyDefaultStyle: Bool) {
         self.detailContent = configuration.detailContent
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -31,7 +41,7 @@ extension DetailContent: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(detailContent: .init(self.detailContent))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, detailContent: .init(self.detailContent))).typeErased
                 .transformEnvironment(\.detailContentStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -49,7 +59,7 @@ private extension DetailContent {
     }
 
     func defaultStyle() -> some View {
-        DetailContent(.init(detailContent: .init(self.detailContent)))
+        DetailContent(.init(componentIdentifier: self.componentIdentifier, detailContent: .init(self.detailContent)))
             .shouldApplyDefaultStyle(false)
             .detailContentStyle(.fiori)
             .typeErased

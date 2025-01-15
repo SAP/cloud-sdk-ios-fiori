@@ -13,6 +13,8 @@ public struct SingleStep {
 
     @Environment(\.singleStepStyle) var style
 
+    var componentIdentifier: String = SingleStep.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
     public init(@ViewBuilder title: () -> any View,
@@ -20,15 +22,21 @@ public struct SingleStep {
                 @ViewBuilder line: () -> any View = { Rectangle() },
                 id: String = UUID().uuidString,
                 state: StepProgressIndicatorState = .normal,
-                @IndexedViewBuilder substeps: () -> any IndexedViewContainer = { EmptyView() })
+                @IndexedViewBuilder substeps: () -> any IndexedViewContainer = { EmptyView() },
+                componentIdentifier: String? = SingleStep.identifier)
     {
-        self.title = Title(title: title)
-        self.node = Node(node: node)
-        self.line = Line(line: line)
+        self.title = Title(title: title, componentIdentifier: componentIdentifier)
+        self.node = Node(node: node, componentIdentifier: componentIdentifier)
+        self.line = Line(line: line, componentIdentifier: componentIdentifier)
         self.id = id
         self.state = state
         self.substeps = substeps()
+        self.componentIdentifier = componentIdentifier ?? SingleStep.identifier
     }
+}
+
+public extension SingleStep {
+    static let identifier = "fiori_singlestep_component"
 }
 
 public extension SingleStep {
@@ -56,6 +64,7 @@ public extension SingleStep {
         self.state = configuration.state
         self.substeps = configuration.substeps
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -64,7 +73,7 @@ extension SingleStep: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(title: .init(self.title), node: .init(self.node), line: .init(self.line), id: self.id, state: self.state, substeps: self.substeps)).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, title: .init(self.title), node: .init(self.node), line: .init(self.line), id: self.id, state: self.state, substeps: self.substeps)).typeErased
                 .transformEnvironment(\.singleStepStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -82,7 +91,7 @@ private extension SingleStep {
     }
 
     func defaultStyle() -> some View {
-        SingleStep(.init(title: .init(self.title), node: .init(self.node), line: .init(self.line), id: self.id, state: self.state, substeps: self.substeps))
+        SingleStep(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), node: .init(self.node), line: .init(self.line), id: self.id, state: self.state, substeps: self.substeps))
             .shouldApplyDefaultStyle(false)
             .singleStepStyle(SingleStepFioriStyle.ContentFioriStyle())
             .typeErased

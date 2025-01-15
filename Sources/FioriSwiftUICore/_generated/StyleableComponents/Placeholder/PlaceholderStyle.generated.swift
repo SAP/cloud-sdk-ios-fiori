@@ -22,7 +22,14 @@ struct AnyPlaceholderStyle: PlaceholderStyle {
 }
 
 public struct PlaceholderConfiguration {
+    public var componentIdentifier: String = "fiori_placeholder_component"
     public let placeholder: Placeholder
 
     public typealias Placeholder = ConfigurationViewWrapper
+}
+
+extension PlaceholderConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }

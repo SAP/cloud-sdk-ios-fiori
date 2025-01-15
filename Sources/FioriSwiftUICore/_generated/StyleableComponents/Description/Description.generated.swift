@@ -8,11 +8,20 @@ public struct Description {
 
     @Environment(\.descriptionStyle) var style
 
+    var componentIdentifier: String = Description.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder description: () -> any View = { EmptyView() }) {
+    public init(@ViewBuilder description: () -> any View = { EmptyView() },
+                componentIdentifier: String? = Description.identifier)
+    {
         self.description = description()
+        self.componentIdentifier = componentIdentifier ?? Description.identifier
     }
+}
+
+public extension Description {
+    static let identifier = "fiori_description_component"
 }
 
 public extension Description {
@@ -29,6 +38,7 @@ public extension Description {
     internal init(_ configuration: DescriptionConfiguration, shouldApplyDefaultStyle: Bool) {
         self.description = configuration.description
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -37,7 +47,7 @@ extension Description: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(description: .init(self.description))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, description: .init(self.description))).typeErased
                 .transformEnvironment(\.descriptionStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -55,7 +65,7 @@ private extension Description {
     }
 
     func defaultStyle() -> some View {
-        Description(.init(description: .init(self.description)))
+        Description(.init(componentIdentifier: self.componentIdentifier, description: .init(self.description)))
             .shouldApplyDefaultStyle(false)
             .descriptionStyle(.fiori)
             .typeErased

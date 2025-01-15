@@ -2,7 +2,7 @@
 // DO NOT EDIT
 import SwiftUI
 
-extension SectionHeader where Attribute == EmptyView {
+extension _SectionHeader where Attribute == EmptyView {
     public init(
     @ViewBuilder title: () -> Title
     ) {

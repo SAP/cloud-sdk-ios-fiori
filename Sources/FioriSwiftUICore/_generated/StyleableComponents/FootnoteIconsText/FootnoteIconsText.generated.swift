@@ -8,11 +8,20 @@ public struct FootnoteIconsText {
 
     @Environment(\.footnoteIconsTextStyle) var style
 
+    var componentIdentifier: String = FootnoteIconsText.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder footnoteIconsText: () -> any View = { EmptyView() }) {
+    public init(@ViewBuilder footnoteIconsText: () -> any View = { EmptyView() },
+                componentIdentifier: String? = FootnoteIconsText.identifier)
+    {
         self.footnoteIconsText = footnoteIconsText()
+        self.componentIdentifier = componentIdentifier ?? FootnoteIconsText.identifier
     }
+}
+
+public extension FootnoteIconsText {
+    static let identifier = "fiori_footnoteiconstext_component"
 }
 
 public extension FootnoteIconsText {
@@ -29,6 +38,7 @@ public extension FootnoteIconsText {
     internal init(_ configuration: FootnoteIconsTextConfiguration, shouldApplyDefaultStyle: Bool) {
         self.footnoteIconsText = configuration.footnoteIconsText
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -37,7 +47,7 @@ extension FootnoteIconsText: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(footnoteIconsText: .init(self.footnoteIconsText))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, footnoteIconsText: .init(self.footnoteIconsText))).typeErased
                 .transformEnvironment(\.footnoteIconsTextStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -55,7 +65,7 @@ private extension FootnoteIconsText {
     }
 
     func defaultStyle() -> some View {
-        FootnoteIconsText(.init(footnoteIconsText: .init(self.footnoteIconsText)))
+        FootnoteIconsText(.init(componentIdentifier: self.componentIdentifier, footnoteIconsText: .init(self.footnoteIconsText)))
             .shouldApplyDefaultStyle(false)
             .footnoteIconsTextStyle(.fiori)
             .typeErased

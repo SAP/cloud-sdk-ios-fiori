@@ -32,6 +32,8 @@ public struct TimelineMarker {
 
     @Environment(\.timelineMarkerStyle) var style
 
+    var componentIdentifier: String = TimelineMarker.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
     public init(@ViewBuilder timestamp: () -> any View = { EmptyView() },
@@ -42,18 +44,24 @@ public struct TimelineMarker {
                 isPast: Bool = false,
                 isPresent: Bool = false,
                 showUpperVerticalLine: Bool = true,
-                showLowerVerticalLine: Bool = true)
+                showLowerVerticalLine: Bool = true,
+                componentIdentifier: String? = TimelineMarker.identifier)
     {
-        self.timestamp = Timestamp(timestamp: timestamp)
-        self.secondaryTimestamp = SecondaryTimestamp(secondaryTimestamp: secondaryTimestamp)
-        self.timelineNode = TimelineNode(timelineNode: timelineNode)
-        self.icon = Icon(icon: icon)
-        self.title = Title(title: title)
+        self.timestamp = Timestamp(timestamp: timestamp, componentIdentifier: componentIdentifier)
+        self.secondaryTimestamp = SecondaryTimestamp(secondaryTimestamp: secondaryTimestamp, componentIdentifier: componentIdentifier)
+        self.timelineNode = TimelineNode(timelineNode: timelineNode, componentIdentifier: componentIdentifier)
+        self.icon = Icon(icon: icon, componentIdentifier: componentIdentifier)
+        self.title = Title(title: title, componentIdentifier: componentIdentifier)
         self.isPast = isPast
         self.isPresent = isPresent
         self.showUpperVerticalLine = showUpperVerticalLine
         self.showLowerVerticalLine = showLowerVerticalLine
+        self.componentIdentifier = componentIdentifier ?? TimelineMarker.identifier
     }
+}
+
+public extension TimelineMarker {
+    static let identifier = "fiori_timelinemarker_component"
 }
 
 public extension TimelineMarker {
@@ -87,6 +95,7 @@ public extension TimelineMarker {
         self.showUpperVerticalLine = configuration.showUpperVerticalLine
         self.showLowerVerticalLine = configuration.showLowerVerticalLine
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -95,7 +104,7 @@ extension TimelineMarker: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(timestamp: .init(self.timestamp), secondaryTimestamp: .init(self.secondaryTimestamp), timelineNode: .init(self.timelineNode), icon: .init(self.icon), title: .init(self.title), isPast: self.isPast, isPresent: self.isPresent, showUpperVerticalLine: self.showUpperVerticalLine, showLowerVerticalLine: self.showLowerVerticalLine)).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, timestamp: .init(self.timestamp), secondaryTimestamp: .init(self.secondaryTimestamp), timelineNode: .init(self.timelineNode), icon: .init(self.icon), title: .init(self.title), isPast: self.isPast, isPresent: self.isPresent, showUpperVerticalLine: self.showUpperVerticalLine, showLowerVerticalLine: self.showLowerVerticalLine)).typeErased
                 .transformEnvironment(\.timelineMarkerStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -113,7 +122,7 @@ private extension TimelineMarker {
     }
 
     func defaultStyle() -> some View {
-        TimelineMarker(.init(timestamp: .init(self.timestamp), secondaryTimestamp: .init(self.secondaryTimestamp), timelineNode: .init(self.timelineNode), icon: .init(self.icon), title: .init(self.title), isPast: self.isPast, isPresent: self.isPresent, showUpperVerticalLine: self.showUpperVerticalLine, showLowerVerticalLine: self.showLowerVerticalLine))
+        TimelineMarker(.init(componentIdentifier: self.componentIdentifier, timestamp: .init(self.timestamp), secondaryTimestamp: .init(self.secondaryTimestamp), timelineNode: .init(self.timelineNode), icon: .init(self.icon), title: .init(self.title), isPast: self.isPast, isPresent: self.isPresent, showUpperVerticalLine: self.showUpperVerticalLine, showLowerVerticalLine: self.showLowerVerticalLine))
             .shouldApplyDefaultStyle(false)
             .timelineMarkerStyle(TimelineMarkerFioriStyle.ContentFioriStyle())
             .typeErased

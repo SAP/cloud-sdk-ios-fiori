@@ -10,16 +10,24 @@ public struct LinearProgressIndicatorView {
 
     @Environment(\.linearProgressIndicatorViewStyle) var style
 
+    var componentIdentifier: String = LinearProgressIndicatorView.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
     public init(indicatorProgress: Binding<Double>,
                 @ViewBuilder icon: () -> any View = { EmptyView() },
-                @ViewBuilder description: () -> any View = { EmptyView() })
+                @ViewBuilder description: () -> any View = { EmptyView() },
+                componentIdentifier: String? = LinearProgressIndicatorView.identifier)
     {
         self._indicatorProgress = indicatorProgress
-        self.icon = Icon(icon: icon)
-        self.description = Description(description: description)
+        self.icon = Icon(icon: icon, componentIdentifier: componentIdentifier)
+        self.description = Description(description: description, componentIdentifier: componentIdentifier)
+        self.componentIdentifier = componentIdentifier ?? LinearProgressIndicatorView.identifier
     }
+}
+
+public extension LinearProgressIndicatorView {
+    static let identifier = "fiori_linearprogressindicatorview_component"
 }
 
 public extension LinearProgressIndicatorView {
@@ -41,6 +49,7 @@ public extension LinearProgressIndicatorView {
         self.icon = configuration.icon
         self.description = configuration.description
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -49,7 +58,7 @@ extension LinearProgressIndicatorView: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(indicatorProgress: self.$indicatorProgress, icon: .init(self.icon), description: .init(self.description))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, indicatorProgress: self.$indicatorProgress, icon: .init(self.icon), description: .init(self.description))).typeErased
                 .transformEnvironment(\.linearProgressIndicatorViewStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -67,7 +76,7 @@ private extension LinearProgressIndicatorView {
     }
 
     func defaultStyle() -> some View {
-        LinearProgressIndicatorView(.init(indicatorProgress: self.$indicatorProgress, icon: .init(self.icon), description: .init(self.description)))
+        LinearProgressIndicatorView(.init(componentIdentifier: self.componentIdentifier, indicatorProgress: self.$indicatorProgress, icon: .init(self.icon), description: .init(self.description)))
             .shouldApplyDefaultStyle(false)
             .linearProgressIndicatorViewStyle(LinearProgressIndicatorViewFioriStyle.ContentFioriStyle())
             .typeErased

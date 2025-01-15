@@ -12,20 +12,28 @@ public struct JouleWelcomeScreen {
 
     @Environment(\.jouleWelcomeScreenStyle) var style
 
+    var componentIdentifier: String = JouleWelcomeScreen.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
     public init(@ViewBuilder mediaImage: () -> any View = { EmptyView() },
                 @ViewBuilder greetingText: () -> any View,
                 @ViewBuilder title: () -> any View,
                 @ViewBuilder footnote: () -> any View = { EmptyView() },
-                @ViewBuilder messageContent: () -> any View = { EmptyView() })
+                @ViewBuilder messageContent: () -> any View = { EmptyView() },
+                componentIdentifier: String? = JouleWelcomeScreen.identifier)
     {
-        self.mediaImage = MediaImage(mediaImage: mediaImage)
-        self.greetingText = GreetingText(greetingText: greetingText)
-        self.title = Title(title: title)
-        self.footnote = Footnote(footnote: footnote)
-        self.messageContent = MessageContent(messageContent: messageContent)
+        self.mediaImage = MediaImage(mediaImage: mediaImage, componentIdentifier: componentIdentifier)
+        self.greetingText = GreetingText(greetingText: greetingText, componentIdentifier: componentIdentifier)
+        self.title = Title(title: title, componentIdentifier: componentIdentifier)
+        self.footnote = Footnote(footnote: footnote, componentIdentifier: componentIdentifier)
+        self.messageContent = MessageContent(messageContent: messageContent, componentIdentifier: componentIdentifier)
+        self.componentIdentifier = componentIdentifier ?? JouleWelcomeScreen.identifier
     }
+}
+
+public extension JouleWelcomeScreen {
+    static let identifier = "fiori_joulewelcomescreen_component"
 }
 
 public extension JouleWelcomeScreen {
@@ -51,6 +59,7 @@ public extension JouleWelcomeScreen {
         self.footnote = configuration.footnote
         self.messageContent = configuration.messageContent
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -59,7 +68,7 @@ extension JouleWelcomeScreen: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(mediaImage: .init(self.mediaImage), greetingText: .init(self.greetingText), title: .init(self.title), footnote: .init(self.footnote), messageContent: .init(self.messageContent))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, mediaImage: .init(self.mediaImage), greetingText: .init(self.greetingText), title: .init(self.title), footnote: .init(self.footnote), messageContent: .init(self.messageContent))).typeErased
                 .transformEnvironment(\.jouleWelcomeScreenStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -77,7 +86,7 @@ private extension JouleWelcomeScreen {
     }
 
     func defaultStyle() -> some View {
-        JouleWelcomeScreen(.init(mediaImage: .init(self.mediaImage), greetingText: .init(self.greetingText), title: .init(self.title), footnote: .init(self.footnote), messageContent: .init(self.messageContent)))
+        JouleWelcomeScreen(.init(componentIdentifier: self.componentIdentifier, mediaImage: .init(self.mediaImage), greetingText: .init(self.greetingText), title: .init(self.title), footnote: .init(self.footnote), messageContent: .init(self.messageContent)))
             .shouldApplyDefaultStyle(false)
             .jouleWelcomeScreenStyle(JouleWelcomeScreenFioriStyle.ContentFioriStyle())
             .typeErased

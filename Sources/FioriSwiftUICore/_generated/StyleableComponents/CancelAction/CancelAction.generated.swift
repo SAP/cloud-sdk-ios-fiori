@@ -8,11 +8,20 @@ public struct CancelAction {
 
     @Environment(\.cancelActionStyle) var style
 
+    var componentIdentifier: String = CancelAction.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder cancelAction: () -> any View = { FioriButton { _ in Text("Cancel".localizedFioriString()) } }) {
+    public init(@ViewBuilder cancelAction: () -> any View = { FioriButton { _ in Text("Cancel".localizedFioriString()) } },
+                componentIdentifier: String? = CancelAction.identifier)
+    {
         self.cancelAction = cancelAction()
+        self.componentIdentifier = componentIdentifier ?? CancelAction.identifier
     }
+}
+
+public extension CancelAction {
+    static let identifier = "fiori_cancelaction_component"
 }
 
 public extension CancelAction {
@@ -29,6 +38,7 @@ public extension CancelAction {
     internal init(_ configuration: CancelActionConfiguration, shouldApplyDefaultStyle: Bool) {
         self.cancelAction = configuration.cancelAction
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -37,7 +47,7 @@ extension CancelAction: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(cancelAction: .init(self.cancelAction))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, cancelAction: .init(self.cancelAction))).typeErased
                 .transformEnvironment(\.cancelActionStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -55,7 +65,7 @@ private extension CancelAction {
     }
 
     func defaultStyle() -> some View {
-        CancelAction(.init(cancelAction: .init(self.cancelAction)))
+        CancelAction(.init(componentIdentifier: self.componentIdentifier, cancelAction: .init(self.cancelAction)))
             .shouldApplyDefaultStyle(false)
             .cancelActionStyle(.fiori)
             .typeErased

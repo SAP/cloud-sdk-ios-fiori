@@ -22,7 +22,14 @@ struct AnyAvatarsTitleStyle: AvatarsTitleStyle {
 }
 
 public struct AvatarsTitleConfiguration {
+    public var componentIdentifier: String = "fiori_avatarstitle_component"
     public let avatarsTitle: AvatarsTitle
 
     public typealias AvatarsTitle = ConfigurationViewWrapper
+}
+
+extension AvatarsTitleConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }
