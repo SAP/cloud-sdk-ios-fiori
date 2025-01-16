@@ -23,7 +23,7 @@ struct SortFilterExample: View {
         [
             .slider(item: .init(name: "User Stories", value: 10, minimumValue: 0, maximumValue: 100, formatter: "Stories", icon: "number"), showsOnFilterFeedbackBar: true),
             .slider(item: .init(name: "Range Slider Decimal", value: nil, range: 0 ... 10, step: 1.5, decimalPlaces: 1), showsOnFilterFeedbackBar: true),
-            .slider(item: .init(name: "Range Slider", lowerValue: 100, upperValue: 150, range: 50 ... 200, step: 10, decimalPlaces: 0, formatter: "Price range (50 - 200)", hint: "Select price range.", onValueChange: SliderItemValueChange(handler: { lowerValue, upperValue in
+            .slider(item: .init(name: "Range Slider", lowerValue: 100, upperValue: 150, range: 50 ... 200, step: 10, decimalPlaces: 0, formatter: "Price range (50 - 200)", hint: "Select price range.", onValueChange: SliderValueChangeHandler(onValueChange: { lowerValue, upperValue in
                 if !(50 ... 200 ~= lowerValue) {
                     return (.error, "Lower value is out of range.")
                 } else if !(50 ... 200 ~= upperValue) {

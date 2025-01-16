@@ -23,7 +23,7 @@ public struct _SortFilterCFGItemContainer {
     @State var searchListHeight: CGFloat = 88.0
     @State var _keyboardHeight: CGFloat = 0.0
     @State private var onErrorMessage = ""
-    @State private var sliderDescType: SliderItemValueChange.SliderItemValueChangeType = .fiori
+    @State private var sliderDescType: SliderValueChangeHandler.SliderInformationType = .fiori
 
     public init(items: Binding<[[SortFilterItem]]>) {
         self.__items = items
@@ -300,8 +300,9 @@ extension _SortFilterCFGItemContainer: View {
                     .foregroundColor(Color.preferredColor(.primaryLabel))
                 Spacer()
             }
+            
+            let titleView: any View = self._items[r][c].slider.formatter != nil ? Text(self._items[r][c].slider.formatter ?? "") : EmptyView()
             if self._items[r][c].slider.sliderMode == .single {
-                let titleView: any View = self._items[r][c].slider.formatter != nil ? Text(self._items[r][c].slider.formatter!) : EmptyView()
                 FioriSlider(
                     titleView: { titleView },
                     value: Binding<Double>(get: { self._items[r][c].slider.workingValue ?? self._items[r][c].slider.minimumValue }, set: { self._items[r][c].slider.workingValue = $0 }),
@@ -312,7 +313,6 @@ extension _SortFilterCFGItemContainer: View {
                     showsValueLabel: true
                 )
             } else {
-                let titleView: any View = self._items[r][c].slider.formatter != nil ? Text(self._items[r][c].slider.formatter!) : EmptyView()
                 FioriSlider(
                     titleView: { titleView },
                     lowerValue: Binding<Double>(get: { self._items[r][c].slider.workingLowerValue ?? self._items[r][c].slider.minimumValue }, set: { self._items[r][c].slider.workingLowerValue = $0 }),
@@ -328,7 +328,7 @@ extension _SortFilterCFGItemContainer: View {
                                 self.onErrorMessage = ""
                                 return
                             }
-                            let (type, message) = onValueChange.handler(lowerValue, upperValue)
+                            let (type, message) = onValueChange.onValueChange(lowerValue, upperValue)
                             self.sliderDescType = type
                             self.onErrorMessage = message
                         }

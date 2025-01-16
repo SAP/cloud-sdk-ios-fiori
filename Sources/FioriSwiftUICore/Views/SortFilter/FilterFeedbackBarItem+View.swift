@@ -77,7 +77,7 @@ struct SliderMenuItem: View {
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
     @State private var geometrySizeHeight: CGFloat = 0
     @State private var onErrorMessage = ""
-    @State private var sliderDescType: SliderItemValueChange.SliderItemValueChangeType = .fiori
+    @State private var sliderDescType: SliderValueChangeHandler.SliderInformationType = .fiori
     
     var onUpdate: () -> Void
 
@@ -154,8 +154,8 @@ struct SliderMenuItem: View {
     }
     
     private func sliderView() -> some View {
+        let titleView: any View = self.item.formatter != nil ? Text(self.item.formatter ?? "") : EmptyView()
         if self.item.sliderMode == .single {
-            let titleView: any View = self.item.formatter != nil ? Text(self.item.formatter!) : EmptyView()
             return FioriSlider(
                 titleView: { titleView },
                 value: Binding<Double>(get: { self.item.workingValue ?? self.item.minimumValue }, set: { self.item.workingValue = $0 }),
@@ -166,7 +166,6 @@ struct SliderMenuItem: View {
                 showsValueLabel: true
             ).typeErased
         } else {
-            let titleView: any View = self.item.formatter != nil ? Text(self.item.formatter!) : EmptyView()
             return FioriSlider(
                 titleView: { titleView },
                 lowerValue: Binding<Double>(get: { self.item.workingLowerValue ?? self.item.minimumValue }, set: { self.item.workingLowerValue = $0 }),
@@ -182,7 +181,7 @@ struct SliderMenuItem: View {
                             self.onErrorMessage = ""
                             return
                         }
-                        let (type, message) = onValueChange.handler(lowerValue, upperValue)
+                        let (type, message) = onValueChange.onValueChange(lowerValue, upperValue)
                         self.sliderDescType = type
                         self.onErrorMessage = message
                     }

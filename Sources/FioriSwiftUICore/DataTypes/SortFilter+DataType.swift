@@ -379,9 +379,9 @@ public struct FilterFeedbackBarResetButtonConfiguration: Equatable {
 }
 
 /// FilterFeedbackBar slider item value change handler
-public struct SliderItemValueChange: Equatable {
+public struct SliderValueChangeHandler: Equatable {
     /// Slider description style type
-    public enum SliderItemValueChangeType {
+    public enum SliderInformationType {
         case fiori
         case error
         case warning
@@ -389,16 +389,16 @@ public struct SliderItemValueChange: Equatable {
         case success
     }
     
-    public var handler: (Double, Double) -> (SliderItemValueChangeType, String)
+    public var onValueChange: (Double, Double) -> (SliderInformationType, String)
     
-    /// Create init a SliderItemValueChange object.
-    /// - Parameter handler: Call back for value changing.
-    public init(handler: @escaping (Double, Double) -> (SliderItemValueChangeType, String)) {
-        self.handler = handler
+    /// Create init a SliderValueChangeHandler object.
+    /// - Parameter onValueChange: Call back for value changing.
+    public init(onValueChange: @escaping (Double, Double) -> (SliderInformationType, String)) {
+        self.onValueChange = onValueChange
     }
     
     /// :nodoc:
-    public static func == (lhs: SliderItemValueChange, rhs: SliderItemValueChange) -> Bool {
+    public static func == (lhs: SliderValueChangeHandler, rhs: SliderValueChangeHandler) -> Bool {
         true
     }
 }
@@ -666,7 +666,7 @@ public extension SortFilterItem {
         public let icon: String?
         public let hint: String?
         
-        public var onValueChange: SliderItemValueChange?
+        public var onValueChange: SliderValueChangeHandler?
         
         let sliderMode: SliderMode
         /// Enum for slider mode of the FilterFeedbackBar SliderItem.
@@ -750,11 +750,11 @@ public extension SortFilterItem {
         ///   - range: Range for selection
         ///   - step: Incremental/decremental value when the thumb changes its position. The default is `1`.
         ///   - decimalPlaces: This property specifies the number of digits that should appear after the decimal point in the Double value for slider value. It controls the precision of the numerical representation by determining how many decimal places are displayed or used in calculations, rounding the Double accordingly. The default is `0`.
-        ///   - formatter: The title formatter of the slider, if formatter is `""`, the default title is `Value: (lowerBound - upperBound)`.
+        ///   - formatter: The title formatter of the slider.
         ///   - icon: The icon image in the item bar
         ///   - hint: The hint text of the slider
         ///   - onValueChange: The call back for value changing, return a tuple (hint style type, hint description), if the hint description has value, the hint label will show this value in stead of hint.
-        public init(id: String = UUID().uuidString, name: String, lowerValue: Double? = nil, upperValue: Double? = nil, range: ClosedRange<Double> = 0 ... 100, step: Double = 1, decimalPlaces: Int = 0, formatter: String? = nil, icon: String? = nil, hint: String? = nil, onValueChange: SliderItemValueChange? = nil) {
+        public init(id: String = UUID().uuidString, name: String, lowerValue: Double? = nil, upperValue: Double? = nil, range: ClosedRange<Double> = 0 ... 100, step: Double = 1, decimalPlaces: Int = 0, formatter: String? = nil, icon: String? = nil, hint: String? = nil, onValueChange: SliderValueChangeHandler? = nil) {
             self.id = id
             self.name = name
             self.lowerValue = lowerValue
