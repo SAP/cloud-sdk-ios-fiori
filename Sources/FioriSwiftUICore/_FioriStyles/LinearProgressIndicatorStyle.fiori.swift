@@ -154,6 +154,7 @@ public extension LinearProgressIndicatorStyle where Self == LinearProgressIndica
 
 /// Indeterminate style of the Linear Progress Indicator.
 public extension LinearProgressIndicatorStyle where Self == LinearProgressIndicatorIndeterminateStyle {
+    /// Indeterminate style of the Linear Progress Indicator.
     static var indeterminate: LinearProgressIndicatorIndeterminateStyle {
         LinearProgressIndicatorIndeterminateStyle()
     }
@@ -161,6 +162,7 @@ public extension LinearProgressIndicatorStyle where Self == LinearProgressIndica
 
 /// Error style of the Linear Progress Indicator.
 public extension LinearProgressIndicatorStyle where Self == LinearProgressIndicatorErrorStyle {
+    /// Error style of the Linear Progress Indicator.
     static var error: LinearProgressIndicatorErrorStyle {
         LinearProgressIndicatorErrorStyle()
     }
@@ -168,6 +170,7 @@ public extension LinearProgressIndicatorStyle where Self == LinearProgressIndica
 
 /// Success style of the Linear Progress Indicator.
 public extension LinearProgressIndicatorStyle where Self == LinearProgressIndicatorSuccessStyle {
+    /// Success style of the Linear Progress Indicator.
     static var success: LinearProgressIndicatorSuccessStyle {
         LinearProgressIndicatorSuccessStyle()
     }
@@ -175,6 +178,7 @@ public extension LinearProgressIndicatorStyle where Self == LinearProgressIndica
 
 /// Determinate AI style of the Linear Progress Indicator.
 public extension LinearProgressIndicatorStyle where Self == LinearProgressIndicatorDeterminateAIStyle {
+    /// Determinate AI style of the Linear Progress Indicator.
     static var determinateAI: LinearProgressIndicatorDeterminateAIStyle {
         LinearProgressIndicatorDeterminateAIStyle()
     }
@@ -182,6 +186,7 @@ public extension LinearProgressIndicatorStyle where Self == LinearProgressIndica
 
 /// Indeterminate AI style of the Linear Progress Indicator.
 public extension LinearProgressIndicatorStyle where Self == LinearProgressIndicatorIndeterminateAIStyle {
+    /// Indeterminate AI style of the Linear Progress Indicator.
     static var indeterminateAI: LinearProgressIndicatorIndeterminateAIStyle {
         LinearProgressIndicatorIndeterminateAIStyle()
     }
