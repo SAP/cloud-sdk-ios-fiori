@@ -26,14 +26,16 @@ struct SwitchExample: View {
     
     var body: some View {
         VStack {
-            SwitchView(title: "Switch", isOn: self.$v1)
-            SwitchView(title: "Disabled Switch", isOn: self.$v2).disabled(/*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/)
-            SwitchView(title: "Custom Style", isOn: self.$v3)
-                .titleStyle(CustomTitleStyle())
-                .switchStyle(CustomSwitchStyle())
-            SwitchView(title: "Very long title, layout depend on title width. long long long long long long long long long long long long long long long long long long long long long long long", isOn: self.$v4)
+            Group {
+                SwitchView(title: "Switch", isOn: self.$v1)
+                SwitchView(title: "Disabled Switch", isOn: self.$v2).disabled(/*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/)
+                SwitchView(title: "Custom Style", isOn: self.$v3)
+                    .titleStyle(CustomTitleStyle())
+                    .switchStyle(CustomSwitchStyle())
+                SwitchView(title: "Very long title, layout depend on title width. long long long long long long long long long long long long long long long long long long long long long long long", isOn: self.$v4)
+            }
+            .padding(EdgeInsets(top: 9, leading: 20, bottom: 9, trailing: 20))
         }
-        .padding(EdgeInsets(top: 9, leading: 20, bottom: 9, trailing: 20))
     }
 }
 
