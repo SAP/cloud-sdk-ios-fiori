@@ -378,6 +378,31 @@ public struct FilterFeedbackBarResetButtonConfiguration: Equatable {
     }
 }
 
+/// FilterFeedbackBar slider item value change handler
+public struct SliderItemValueChange: Equatable {
+    /// Slider description style type
+    public enum SliderItemValueChangeType {
+        case fiori
+        case error
+        case warning
+        case informational
+        case success
+    }
+    
+    public var handler: (Double, Double) -> (SliderItemValueChangeType, String)
+    
+    /// Create init a SliderItemValueChange object.
+    /// - Parameter handler: Call back for value changing.
+    public init(handler: @escaping (Double, Double) -> (SliderItemValueChangeType, String)) {
+        self.handler = handler
+    }
+    
+    /// :nodoc:
+    public static func == (lhs: SliderItemValueChange, rhs: SliderItemValueChange) -> Bool {
+        true
+    }
+}
+
 public extension SortFilterItem {
     ///  Data structure for filter feedback, option list picker,
     struct PickerItem: Identifiable, Equatable {
@@ -620,22 +645,28 @@ public extension SortFilterItem {
     struct SliderItem: Identifiable, Equatable {
         public let id: String
         public var name: String
-        public var value: Int?
-        var workingValue: Int?
-        let originalValue: Int?
+        public var value: Double?
+        var workingValue: Double?
+        let originalValue: Double?
         
-        public var lowerValue: Int?
-        public var upperValue: Int?
-        var workingLowerValue: Int?
-        var workingUpperValue: Int?
-        let originalLowerValue: Int?
-        let originalUpperValue: Int?
+        public var lowerValue: Double?
+        public var upperValue: Double?
+        var workingLowerValue: Double?
+        var workingUpperValue: Double?
+        let originalLowerValue: Double?
+        let originalUpperValue: Double?
 
-        public let minimumValue: Int
-        public let maximumValue: Int
+        let range: ClosedRange<Double>
+        let step: Double
+        let decimalPlaces: Int
+        
+        public let minimumValue: Double
+        public let maximumValue: Double
         let formatter: String?
         public let icon: String?
         public let hint: String?
+        
+        public var onValueChange: SliderItemValueChange?
         
         let sliderMode: SliderMode
         /// Enum for slider mode of the FilterFeedbackBar SliderItem.
@@ -645,14 +676,24 @@ public extension SortFilterItem {
             case range
         }
         
+        /// Create a single slider with Int type value and selection range
+        /// - Parameters:
+        ///   - id: Item id
+        ///   - name: Item name
+        ///   - value: Item selected value
+        ///   - minimumValue: Lower bound for selection
+        ///   - maximumValue: Upper bound for selection
+        ///   - formatter: The title formatter of the slider
+        ///   - icon: The icon image in the item bar
+        ///   - hint: The hint text of the slider
         public init(id: String = UUID().uuidString, name: String, value: Int? = nil, minimumValue: Int, maximumValue: Int, formatter: String? = nil, icon: String? = nil, hint: String? = nil) {
             self.id = id
             self.name = name
-            self.value = value
-            self.workingValue = value
-            self.originalValue = value
-            self.minimumValue = minimumValue
-            self.maximumValue = maximumValue
+            self.value = Double(value ?? minimumValue)
+            self.workingValue = Double(value ?? minimumValue)
+            self.originalValue = Double(value ?? minimumValue)
+            self.minimumValue = Double(minimumValue)
+            self.maximumValue = Double(maximumValue)
             self.formatter = formatter
             self.icon = icon
             self.hint = hint
@@ -660,10 +701,60 @@ public extension SortFilterItem {
             self.originalLowerValue = nil
             self.originalUpperValue = nil
             
+            self.range = Double(minimumValue) ... Double(maximumValue)
+            self.step = 1
+            self.decimalPlaces = 0
+            self.sliderMode = .single
+            self.onValueChange = nil
+        }
+        
+        /// Create a single slider with Double type value and selection range
+        /// - Parameters:
+        ///   - id: Item id
+        ///   - name: Item name
+        ///   - value: Item selected value
+        ///   - range: Range for selection
+        ///   - step: Incremental/decremental value when the thumb changes its position. The default is `1`.
+        ///   - decimalPlaces: This property specifies the number of digits that should appear after the decimal point in the Double value for slider value. It controls the precision of the numerical representation by determining how many decimal places are displayed or used in calculations, rounding the Double accordingly. The default is `0`.
+        ///   - formatter: The title formatter of the slider
+        ///   - icon: The icon image in the item bar
+        ///   - hint: The hint text of the slider
+        public init(id: String = UUID().uuidString, name: String, value: Double? = nil, range: ClosedRange<Double> = 0 ... 100, step: Double = 1, decimalPlaces: Int = 0, formatter: String? = nil, icon: String? = nil, hint: String? = nil) {
+            self.id = id
+            self.name = name
+            self.value = value
+            self.workingValue = value
+            self.originalValue = value
+            self.minimumValue = range.lowerBound
+            self.maximumValue = range.upperBound
+            self.formatter = formatter
+            self.icon = icon
+            self.hint = hint
+            self.onValueChange = nil
+            
+            self.originalLowerValue = nil
+            self.originalUpperValue = nil
+            
+            self.range = range
+            self.step = step
+            self.decimalPlaces = decimalPlaces
             self.sliderMode = .single
         }
         
-        public init(id: String = UUID().uuidString, name: String, lowerValue: Int? = nil, upperValue: Int? = nil, minimumValue: Int, maximumValue: Int, formatter: String? = nil, icon: String? = nil, hint: String? = nil) {
+        /// Create a range slider with Double type value and selection range
+        /// - Parameters:
+        ///   - id: Item id
+        ///   - name: Item name
+        ///   - lowerValue: The lower value of range slider
+        ///   - upperValue: The upper value of range slider
+        ///   - range: Range for selection
+        ///   - step: Incremental/decremental value when the thumb changes its position. The default is `1`.
+        ///   - decimalPlaces: This property specifies the number of digits that should appear after the decimal point in the Double value for slider value. It controls the precision of the numerical representation by determining how many decimal places are displayed or used in calculations, rounding the Double accordingly. The default is `0`.
+        ///   - formatter: The title formatter of the slider, if formatter is `""`, the default title is `Value: (lowerBound - upperBound)`.
+        ///   - icon: The icon image in the item bar
+        ///   - hint: The hint text of the slider
+        ///   - onValueChange: The call back for value changing, return a tuple (hint style type, hint description), if the hint description has value, the hint label will show this value in stead of hint.
+        public init(id: String = UUID().uuidString, name: String, lowerValue: Double? = nil, upperValue: Double? = nil, range: ClosedRange<Double> = 0 ... 100, step: Double = 1, decimalPlaces: Int = 0, formatter: String? = nil, icon: String? = nil, hint: String? = nil, onValueChange: SliderItemValueChange? = nil) {
             self.id = id
             self.name = name
             self.lowerValue = lowerValue
@@ -674,14 +765,18 @@ public extension SortFilterItem {
             self.originalLowerValue = lowerValue
             self.originalUpperValue = upperValue
             
-            self.minimumValue = minimumValue
-            self.maximumValue = maximumValue
+            self.minimumValue = range.lowerBound
+            self.maximumValue = range.upperBound
             self.formatter = formatter
             self.icon = icon
             self.hint = hint
+            self.onValueChange = onValueChange
             
             self.originalValue = nil
             
+            self.range = range
+            self.step = step
+            self.decimalPlaces = decimalPlaces
             self.sliderMode = .range
         }
         
@@ -723,12 +818,12 @@ public extension SortFilterItem {
         var label: String {
             if self.sliderMode == .single {
                 if let value = self.value {
-                    return "\(self.name): \(value)"
+                    return "\(self.name): \(String(format: "%.\(self.decimalPlaces)f", value))"
                 }
                 return self.name
             } else {
                 if let lowerValue = self.lowerValue, let upperValue = self.upperValue {
-                    return "\(self.name): (\(lowerValue) - \(upperValue))"
+                    return "\(self.name): (\(String(format: "%.\(self.decimalPlaces)f", lowerValue)) - \(String(format: "%.\(self.decimalPlaces)f", upperValue)))"
                 }
                 return self.name
             }
