@@ -142,7 +142,7 @@ public extension LinearProgressIndicatorViewStyle where Self == LinearProgressIn
     }
 }
 
-/// Determinate ai style
+/// Determinate AI style
 public struct LinearProgressIndicatorViewDeterminateAIStyle: LinearProgressIndicatorViewStyle {
     public func makeBody(_ configuration: LinearProgressIndicatorViewConfiguration) -> some View {
         LinearProgressIndicatorView(configuration)

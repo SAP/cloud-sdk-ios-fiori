@@ -18,14 +18,14 @@ public struct LinearProgressIndicatorBaseStyle: LinearProgressIndicatorStyle {
     }
 }
 
-// Default fiori styles
+// Default fiori style
 public struct LinearProgressIndicatorFioriStyle: LinearProgressIndicatorStyle {
     public func makeBody(_ configuration: LinearProgressIndicatorConfiguration) -> some View {
         LinearProgressIndicator(configuration)
     }
 }
 
-/// Determinate styles
+/// Determinate style
 public struct LinearProgressIndicatorDeterminateStyle: LinearProgressIndicatorStyle {
     public func makeBody(_ configuration: LinearProgressIndicatorConfiguration) -> some View {
         LinearProgressIndicator(configuration)
@@ -33,7 +33,7 @@ public struct LinearProgressIndicatorDeterminateStyle: LinearProgressIndicatorSt
     }
 }
 
-/// Indeterminate styles
+/// Indeterminate style
 public struct LinearProgressIndicatorIndeterminateStyle: LinearProgressIndicatorStyle {
     @State var progress = 0.0
     public func makeBody(_ configuration: LinearProgressIndicatorConfiguration) -> some View {
@@ -51,7 +51,7 @@ public struct LinearProgressIndicatorIndeterminateStyle: LinearProgressIndicator
     }
 }
 
-/// Error styles
+/// Error style
 public struct LinearProgressIndicatorErrorStyle: LinearProgressIndicatorStyle {
     public func makeBody(_ configuration: LinearProgressIndicatorConfiguration) -> some View {
         LinearProgressIndicator(configuration)
@@ -59,7 +59,7 @@ public struct LinearProgressIndicatorErrorStyle: LinearProgressIndicatorStyle {
     }
 }
 
-/// Success styles
+/// Success style
 public struct LinearProgressIndicatorSuccessStyle: LinearProgressIndicatorStyle {
     public func makeBody(_ configuration: LinearProgressIndicatorConfiguration) -> some View {
         LinearProgressIndicator(configuration)
@@ -67,7 +67,7 @@ public struct LinearProgressIndicatorSuccessStyle: LinearProgressIndicatorStyle 
     }
 }
 
-/// Determinate styles
+/// Determinate AI style
 public struct LinearProgressIndicatorDeterminateAIStyle: LinearProgressIndicatorStyle {
     public func makeBody(_ configuration: LinearProgressIndicatorConfiguration) -> some View {
         LinearProgressIndicator(configuration)
@@ -75,7 +75,7 @@ public struct LinearProgressIndicatorDeterminateAIStyle: LinearProgressIndicator
     }
 }
 
-/// Indeterminate AI styles
+/// Indeterminate AI style
 public struct LinearProgressIndicatorIndeterminateAIStyle: LinearProgressIndicatorStyle {
     @State var progress = 0.0
     public func makeBody(_ configuration: LinearProgressIndicatorConfiguration) -> some View {
