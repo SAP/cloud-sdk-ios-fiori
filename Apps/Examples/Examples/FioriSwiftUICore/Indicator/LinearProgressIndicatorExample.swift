@@ -6,35 +6,22 @@ struct LinearProgressIndicatorExample: View {
     @State var progress2: Double = 0.1
     @State var progress3: Double = 0.0
     @State var progress4: Double = 1.0
-    @State var isDeterminate: Bool = true
     
     var body: some View {
         VStack {
-            FioriButton(
-                action: { _ in
-                    self.isDeterminate.toggle()
-                },
-                label: { _ in
-                    Text("Change Type")
-                }
-            )
-            if self.isDeterminate {
-                Text("Determinate without Label")
-                LinearProgressIndicator(indicatorProgress: self.$progress1)
-                    .linearProgressIndicatorStyle(.determinate)
-                    .padding(.bottom, 20)
-            } else {
-                Text("Indeterminate without Label")
-                LinearProgressIndicator(indicatorProgress: self.$progress1)
-                    .linearProgressIndicatorStyle(.indeterminate)
-                    .padding(.bottom, 20)
-            }
+            Text("Determinate without Label")
+            LinearProgressIndicator(indicatorProgress: self.$progress1)
+                .linearProgressIndicatorStyle(.determinate)
+                .padding(.bottom, 20)
+            
+            Text("Indeterminate without Label")
+            LinearProgressIndicator(indicatorProgress: self.$progress1)
+                .linearProgressIndicatorStyle(.indeterminate)
+                .padding(.bottom, 20)
             
             Text("Determinate with Label")
             LinearProgressIndicatorView(indicatorProgress: self.$progress2, icon: Image(systemName: "heart"), description: AttributedString("Loading..."))
                 .linearProgressIndicatorStyle(.determinate)
-                .padding(.bottom, 20)
-            
             FioriButton(
                 action: { _ in
                     if self.progress2 > 0.9 {
@@ -59,6 +46,16 @@ struct LinearProgressIndicatorExample: View {
             Text("Success style")
             LinearProgressIndicatorView(indicatorProgress: self.$progress4, description: AttributedString("Loading complete successfully. Please see the user registration view for more detail information."))
                 .linearProgressIndicatorViewStyle(.success)
+                .padding(.bottom, 20)
+            
+            Text("AI style Determinate Style")
+            LinearProgressIndicatorView(indicatorProgress: self.$progress2, description: AttributedString("Generating Content..."))
+                .linearProgressIndicatorViewStyle(.determinateAI)
+                .padding(.bottom, 20)
+            
+            Text("AI style Indeterminate Style")
+            LinearProgressIndicatorView(indicatorProgress: self.$progress4, description: AttributedString("Generating Content..."))
+                .linearProgressIndicatorViewStyle(.indeterminateAI)
                 .padding(.bottom, 20)
             
             Text("Indeterminate with Label")

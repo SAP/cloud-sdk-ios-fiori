@@ -16,6 +16,8 @@ struct CheckoutIndicatorExample: View {
                     .tag(DisplayState.completed)
                 Text(String("failed"))
                     .tag(DisplayState.failed)
+                Text(String("AI processing"))
+                    .tag(DisplayState.aiProgress)
             }
             .pickerStyle(.segmented)
             .padding(.top, 20)

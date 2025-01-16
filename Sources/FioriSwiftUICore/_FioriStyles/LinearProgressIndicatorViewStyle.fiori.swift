@@ -137,3 +137,55 @@ public extension LinearProgressIndicatorViewStyle where Self == LinearProgressIn
         LinearProgressIndicatorViewIndeterminateStyle()
     }
 }
+
+/// Determinate ai style
+public struct LinearProgressIndicatorViewDeterminateAIStyle: LinearProgressIndicatorViewStyle {
+    public func makeBody(_ configuration: LinearProgressIndicatorViewConfiguration) -> some View {
+        LinearProgressIndicatorView(configuration)
+            .linearProgressIndicatorStyle(.determinateAI)
+            .iconStyle(content: { iconConfiguration in
+                if iconConfiguration.icon.isEmpty, !configuration.description.isEmpty {
+                    Image(fioriName: "fiori.ai")
+                        .resizable()
+                        .frame(width: 18, height: 18)
+                        .foregroundStyle(Color.preferredColor(.tintColor))
+                } else {
+                    iconConfiguration.icon
+                        .foregroundStyle(Color.preferredColor(.tintColor))
+                }
+            })
+    }
+}
+
+/// Determinate AI style
+public extension LinearProgressIndicatorViewStyle where Self == LinearProgressIndicatorViewDeterminateAIStyle {
+    static var determinateAI: LinearProgressIndicatorViewDeterminateAIStyle {
+        LinearProgressIndicatorViewDeterminateAIStyle()
+    }
+}
+
+/// Indeterminate AI style
+public struct LinearProgressIndicatorViewIndeterminateAIStyle: LinearProgressIndicatorViewStyle {
+    public func makeBody(_ configuration: LinearProgressIndicatorViewConfiguration) -> some View {
+        LinearProgressIndicatorView(configuration)
+            .linearProgressIndicatorStyle(.indeterminateAI)
+            .iconStyle(content: { iconConfiguration in
+                if iconConfiguration.icon.isEmpty, !configuration.description.isEmpty {
+                    Image(fioriName: "fiori.ai")
+                        .resizable()
+                        .frame(width: 18, height: 18)
+                        .foregroundStyle(Color.preferredColor(.tintColor))
+                } else {
+                    iconConfiguration.icon
+                        .foregroundStyle(Color.preferredColor(.tintColor))
+                }
+            })
+    }
+}
+
+/// Indeterminate AIstyle
+public extension LinearProgressIndicatorViewStyle where Self == LinearProgressIndicatorViewIndeterminateAIStyle {
+    static var indeterminateAI: LinearProgressIndicatorViewIndeterminateAIStyle {
+        LinearProgressIndicatorViewIndeterminateAIStyle()
+    }
+}
