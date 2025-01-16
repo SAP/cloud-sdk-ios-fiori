@@ -91,7 +91,7 @@ public struct CheckoutIndicatorBaseStyle: CheckoutIndicatorStyle {
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             withAnimation {
-                self.scale1 = 0.5
+                self.scale1 = 0.7
                 self.opacity = 1.0
             }
         }
