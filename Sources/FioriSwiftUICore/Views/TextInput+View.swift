@@ -12,7 +12,7 @@ extension Fiori {
     }
 }
 
-extension TextInput: View {
+extension _TextInput: View {
     public var body: some View {
         TextField("Default",
                   text: self._textInputValue,
