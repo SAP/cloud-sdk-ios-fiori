@@ -33,6 +33,7 @@ struct SwitchExample: View {
                 .switchStyle(CustomSwitchStyle())
             SwitchView(title: "Very long title, layout depend on title width. long long long long long long long long long long long long long long long long long long long long long long long", isOn: self.$v4)
         }
+        .padding(EdgeInsets(top: 9, leading: 20, bottom: 9, trailing: 20))
     }
 }
 

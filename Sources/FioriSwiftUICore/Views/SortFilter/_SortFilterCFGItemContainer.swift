@@ -384,7 +384,13 @@ extension _SortFilterCFGItemContainer: View {
     }
     
     func switcher(row r: Int, column c: Int) -> some View {
-        _SwitchPickerItem(value: Binding<Bool?>(get: { self._items[r][c].switch.workingValue ?? false }, set: { self._items[r][c].switch.workingValue = $0 }), name: self._items[r][c].switch.name)
+        SwitchView(title: AttributedString(self._items[r][c].switch.name), isOn: Binding<Bool>(get: { self._items[r][c].switch.workingValue ?? false }, set: { self._items[r][c].switch.workingValue = $0 }))
+            .titleStyle(content: { config in
+                config.title
+                    .font(.fiori(forTextStyle: .subheadline, weight: .bold, isItalic: false, isCondensed: false))
+                    .foregroundColor(Color.preferredColor(.primaryLabel))
+            })
+            .padding([.top, .bottom], 6.5)
     }
     
     func slider(row r: Int, column c: Int) -> some View {

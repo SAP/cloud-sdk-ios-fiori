@@ -29,7 +29,6 @@ extension SwitchViewFioriStyle {
     struct ContentFioriStyle: SwitchViewStyle {
         func makeBody(_ configuration: SwitchViewConfiguration) -> some View {
             SwitchView(configuration)
-                .padding(EdgeInsets(top: 9, leading: 20, bottom: 9, trailing: 20))
         }
     }
 
