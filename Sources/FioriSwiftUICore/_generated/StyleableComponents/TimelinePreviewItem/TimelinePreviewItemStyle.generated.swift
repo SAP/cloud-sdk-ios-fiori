@@ -22,6 +22,7 @@ struct AnyTimelinePreviewItemStyle: TimelinePreviewItemStyle {
 }
 
 public struct TimelinePreviewItemConfiguration {
+    public var componentIdentifier: String = "fiori_timelinepreviewitem_component"
     public let title: Title
     public let icon: Icon
     public let timelineNode: TimelineNode
@@ -33,6 +34,12 @@ public struct TimelinePreviewItemConfiguration {
     public typealias Icon = ConfigurationViewWrapper
     public typealias TimelineNode = ConfigurationViewWrapper
     public typealias Timestamp = ConfigurationViewWrapper
+}
+
+extension TimelinePreviewItemConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }
 
 public struct TimelinePreviewItemFioriStyle: TimelinePreviewItemStyle {

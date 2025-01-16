@@ -22,6 +22,7 @@ struct AnyKeyValueFormViewStyle: KeyValueFormViewStyle {
 }
 
 public struct KeyValueFormViewConfiguration {
+    public var componentIdentifier: String = "fiori_keyvalueformview_component"
     public let title: Title
     @Binding public var text: String
     public let placeholder: Placeholder
@@ -42,6 +43,12 @@ public struct KeyValueFormViewConfiguration {
     public typealias Title = ConfigurationViewWrapper
     public typealias Placeholder = ConfigurationViewWrapper
     public typealias MandatoryFieldIndicator = ConfigurationViewWrapper
+}
+
+extension KeyValueFormViewConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }
 
 public struct KeyValueFormViewFioriStyle: KeyValueFormViewStyle {

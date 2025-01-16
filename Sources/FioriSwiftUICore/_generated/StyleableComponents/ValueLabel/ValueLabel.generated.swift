@@ -8,11 +8,20 @@ public struct ValueLabel {
 
     @Environment(\.valueLabelStyle) var style
 
+    var componentIdentifier: String = ValueLabel.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder valueLabel: () -> any View = { EmptyView() }) {
+    public init(@ViewBuilder valueLabel: () -> any View = { EmptyView() },
+                componentIdentifier: String? = ValueLabel.identifier)
+    {
         self.valueLabel = valueLabel()
+        self.componentIdentifier = componentIdentifier ?? ValueLabel.identifier
     }
+}
+
+public extension ValueLabel {
+    static let identifier = "fiori_valuelabel_component"
 }
 
 public extension ValueLabel {
@@ -29,6 +38,7 @@ public extension ValueLabel {
     internal init(_ configuration: ValueLabelConfiguration, shouldApplyDefaultStyle: Bool) {
         self.valueLabel = configuration.valueLabel
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -37,7 +47,7 @@ extension ValueLabel: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(valueLabel: .init(self.valueLabel))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, valueLabel: .init(self.valueLabel))).typeErased
                 .transformEnvironment(\.valueLabelStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -55,7 +65,7 @@ private extension ValueLabel {
     }
 
     func defaultStyle() -> some View {
-        ValueLabel(.init(valueLabel: .init(self.valueLabel)))
+        ValueLabel(.init(componentIdentifier: self.componentIdentifier, valueLabel: .init(self.valueLabel)))
             .shouldApplyDefaultStyle(false)
             .valueLabelStyle(.fiori)
             .typeErased

@@ -22,7 +22,14 @@ struct AnyValueStyle: ValueStyle {
 }
 
 public struct ValueConfiguration {
+    public var componentIdentifier: String = "fiori_value_component"
     public let value: Value
 
     public typealias Value = ConfigurationViewWrapper
+}
+
+extension ValueConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }

@@ -22,6 +22,8 @@ public struct SideBarListItem {
 
     @Environment(\.sideBarListItemStyle) var style
 
+    var componentIdentifier: String = SideBarListItem.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
     public init(@ViewBuilder icon: () -> any View = { EmptyView() },
@@ -31,17 +33,23 @@ public struct SideBarListItem {
                 @ViewBuilder accessoryIcon: () -> any View = { EmptyView() },
                 isOn: Binding<Bool>,
                 data: SideBarItemModel,
-                isSelected: Binding<Bool>)
+                isSelected: Binding<Bool>,
+                componentIdentifier: String? = SideBarListItem.identifier)
     {
-        self.icon = Icon(icon: icon)
-        self.filledIcon = FilledIcon(filledIcon: filledIcon)
-        self.title = Title(title: title)
-        self.subtitle = Subtitle(subtitle: subtitle)
-        self.accessoryIcon = AccessoryIcon(accessoryIcon: accessoryIcon)
+        self.icon = Icon(icon: icon, componentIdentifier: componentIdentifier)
+        self.filledIcon = FilledIcon(filledIcon: filledIcon, componentIdentifier: componentIdentifier)
+        self.title = Title(title: title, componentIdentifier: componentIdentifier)
+        self.subtitle = Subtitle(subtitle: subtitle, componentIdentifier: componentIdentifier)
+        self.accessoryIcon = AccessoryIcon(accessoryIcon: accessoryIcon, componentIdentifier: componentIdentifier)
         self._isOn = isOn
         self.data = data
         self._isSelected = isSelected
+        self.componentIdentifier = componentIdentifier ?? SideBarListItem.identifier
     }
+}
+
+public extension SideBarListItem {
+    static let identifier = "fiori_sidebarlistitem_component"
 }
 
 public extension SideBarListItem {
@@ -73,6 +81,7 @@ public extension SideBarListItem {
         self.data = configuration.data
         self._isSelected = configuration.$isSelected
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -81,7 +90,7 @@ extension SideBarListItem: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(icon: .init(self.icon), filledIcon: .init(self.filledIcon), title: .init(self.title), subtitle: .init(self.subtitle), accessoryIcon: .init(self.accessoryIcon), isOn: self.$isOn, data: self.data, isSelected: self.$isSelected)).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, icon: .init(self.icon), filledIcon: .init(self.filledIcon), title: .init(self.title), subtitle: .init(self.subtitle), accessoryIcon: .init(self.accessoryIcon), isOn: self.$isOn, data: self.data, isSelected: self.$isSelected)).typeErased
                 .transformEnvironment(\.sideBarListItemStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -99,7 +108,7 @@ private extension SideBarListItem {
     }
 
     func defaultStyle() -> some View {
-        SideBarListItem(.init(icon: .init(self.icon), filledIcon: .init(self.filledIcon), title: .init(self.title), subtitle: .init(self.subtitle), accessoryIcon: .init(self.accessoryIcon), isOn: self.$isOn, data: self.data, isSelected: self.$isSelected))
+        SideBarListItem(.init(componentIdentifier: self.componentIdentifier, icon: .init(self.icon), filledIcon: .init(self.filledIcon), title: .init(self.title), subtitle: .init(self.subtitle), accessoryIcon: .init(self.accessoryIcon), isOn: self.$isOn, data: self.data, isSelected: self.$isSelected))
             .shouldApplyDefaultStyle(false)
             .sideBarListItemStyle(SideBarListItemFioriStyle.ContentFioriStyle())
             .typeErased

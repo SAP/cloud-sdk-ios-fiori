@@ -8,11 +8,20 @@ public struct Timestamp {
 
     @Environment(\.timestampStyle) var style
 
+    var componentIdentifier: String = Timestamp.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder timestamp: () -> any View = { EmptyView() }) {
+    public init(@ViewBuilder timestamp: () -> any View = { EmptyView() },
+                componentIdentifier: String? = Timestamp.identifier)
+    {
         self.timestamp = timestamp()
+        self.componentIdentifier = componentIdentifier ?? Timestamp.identifier
     }
+}
+
+public extension Timestamp {
+    static let identifier = "fiori_timestamp_component"
 }
 
 public extension Timestamp {
@@ -29,6 +38,7 @@ public extension Timestamp {
     internal init(_ configuration: TimestampConfiguration, shouldApplyDefaultStyle: Bool) {
         self.timestamp = configuration.timestamp
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -37,7 +47,7 @@ extension Timestamp: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(timestamp: .init(self.timestamp))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, timestamp: .init(self.timestamp))).typeErased
                 .transformEnvironment(\.timestampStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -55,7 +65,7 @@ private extension Timestamp {
     }
 
     func defaultStyle() -> some View {
-        Timestamp(.init(timestamp: .init(self.timestamp)))
+        Timestamp(.init(componentIdentifier: self.componentIdentifier, timestamp: .init(self.timestamp)))
             .shouldApplyDefaultStyle(false)
             .timestampStyle(.fiori)
             .typeErased

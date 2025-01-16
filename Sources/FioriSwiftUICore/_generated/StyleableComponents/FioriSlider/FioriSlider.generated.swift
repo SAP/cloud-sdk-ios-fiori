@@ -202,6 +202,8 @@ public struct FioriSlider {
 
     @Environment(\.fioriSliderStyle) var style
 
+    var componentIdentifier: String = FioriSlider.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
     public init(@ViewBuilder title: () -> any View,
@@ -232,14 +234,15 @@ public struct FioriSlider {
                 showsLeadingAccessory: Bool = true,
                 showsTrailingAccessory: Bool = true,
                 onValueChange: ((Bool, Double) -> Void)? = nil,
-                onEditFieldFocusStatusChange: ((Bool) -> Void)? = nil)
+                onEditFieldFocusStatusChange: ((Bool) -> Void)? = nil,
+                componentIdentifier: String? = FioriSlider.identifier)
     {
-        self.title = Title(title: title)
-        self.valueLabel = ValueLabel(valueLabel: valueLabel)
-        self.lowerThumb = LowerThumb(lowerThumb: lowerThumb)
-        self.upperThumb = UpperThumb(upperThumb: upperThumb)
-        self.activeTrack = ActiveTrack(activeTrack: activeTrack)
-        self.inactiveTrack = InactiveTrack(inactiveTrack: inactiveTrack)
+        self.title = Title(title: title, componentIdentifier: componentIdentifier)
+        self.valueLabel = ValueLabel(valueLabel: valueLabel, componentIdentifier: componentIdentifier)
+        self.lowerThumb = LowerThumb(lowerThumb: lowerThumb, componentIdentifier: componentIdentifier)
+        self.upperThumb = UpperThumb(upperThumb: upperThumb, componentIdentifier: componentIdentifier)
+        self.activeTrack = ActiveTrack(activeTrack: activeTrack, componentIdentifier: componentIdentifier)
+        self.inactiveTrack = InactiveTrack(inactiveTrack: inactiveTrack, componentIdentifier: componentIdentifier)
         self._lowerValue = lowerValue
         self._upperValue = upperValue
         self.range = range
@@ -249,10 +252,10 @@ public struct FioriSlider {
         self.showsLowerThumb = showsLowerThumb
         self.showsUpperThumb = showsUpperThumb
         self.onRangeValueChange = onRangeValueChange
-        self.icon = Icon(icon: icon)
-        self.description = Description(description: description)
-        self.leadingAccessory = LeadingAccessory(leadingAccessory: leadingAccessory)
-        self.trailingAccessory = TrailingAccessory(trailingAccessory: trailingAccessory)
+        self.icon = Icon(icon: icon, componentIdentifier: componentIdentifier)
+        self.description = Description(description: description, componentIdentifier: componentIdentifier)
+        self.leadingAccessory = LeadingAccessory(leadingAccessory: leadingAccessory, componentIdentifier: componentIdentifier)
+        self.trailingAccessory = TrailingAccessory(trailingAccessory: trailingAccessory, componentIdentifier: componentIdentifier)
         self.isRangeSlider = isRangeSlider
         self.valueFormat = valueFormat
         self.rangeFormat = rangeFormat
@@ -263,7 +266,12 @@ public struct FioriSlider {
         self.showsTrailingAccessory = showsTrailingAccessory
         self.onValueChange = onValueChange
         self.onEditFieldFocusStatusChange = onEditFieldFocusStatusChange
+        self.componentIdentifier = componentIdentifier ?? FioriSlider.identifier
     }
+}
+
+public extension FioriSlider {
+    static let identifier = "fiori_fiorislider_component"
 }
 
 public extension FioriSlider {
@@ -337,6 +345,7 @@ public extension FioriSlider {
         self.onValueChange = configuration.onValueChange
         self.onEditFieldFocusStatusChange = configuration.onEditFieldFocusStatusChange
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -345,7 +354,7 @@ extension FioriSlider: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(title: .init(self.title), valueLabel: .init(self.valueLabel), lowerThumb: .init(self.lowerThumb), upperThumb: .init(self.upperThumb), activeTrack: .init(self.activeTrack), inactiveTrack: .init(self.inactiveTrack), lowerValue: self.$lowerValue, upperValue: self.$upperValue, range: self.range, step: self.step, decimalPlaces: self.decimalPlaces, thumbHalfWidth: self.thumbHalfWidth, showsLowerThumb: self.showsLowerThumb, showsUpperThumb: self.showsUpperThumb, onRangeValueChange: self.onRangeValueChange, icon: .init(self.icon), description: .init(self.description), leadingAccessory: .init(self.leadingAccessory), trailingAccessory: .init(self.trailingAccessory), isRangeSlider: self.isRangeSlider, valueFormat: self.valueFormat, rangeFormat: self.rangeFormat, leadingValueFormat: self.leadingValueFormat, trailingValueFormat: self.trailingValueFormat, showsValueLabel: self.showsValueLabel, showsLeadingAccessory: self.showsLeadingAccessory, showsTrailingAccessory: self.showsTrailingAccessory, onValueChange: self.onValueChange, onEditFieldFocusStatusChange: self.onEditFieldFocusStatusChange)).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, title: .init(self.title), valueLabel: .init(self.valueLabel), lowerThumb: .init(self.lowerThumb), upperThumb: .init(self.upperThumb), activeTrack: .init(self.activeTrack), inactiveTrack: .init(self.inactiveTrack), lowerValue: self.$lowerValue, upperValue: self.$upperValue, range: self.range, step: self.step, decimalPlaces: self.decimalPlaces, thumbHalfWidth: self.thumbHalfWidth, showsLowerThumb: self.showsLowerThumb, showsUpperThumb: self.showsUpperThumb, onRangeValueChange: self.onRangeValueChange, icon: .init(self.icon), description: .init(self.description), leadingAccessory: .init(self.leadingAccessory), trailingAccessory: .init(self.trailingAccessory), isRangeSlider: self.isRangeSlider, valueFormat: self.valueFormat, rangeFormat: self.rangeFormat, leadingValueFormat: self.leadingValueFormat, trailingValueFormat: self.trailingValueFormat, showsValueLabel: self.showsValueLabel, showsLeadingAccessory: self.showsLeadingAccessory, showsTrailingAccessory: self.showsTrailingAccessory, onValueChange: self.onValueChange, onEditFieldFocusStatusChange: self.onEditFieldFocusStatusChange)).typeErased
                 .transformEnvironment(\.fioriSliderStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -363,7 +372,7 @@ private extension FioriSlider {
     }
 
     func defaultStyle() -> some View {
-        FioriSlider(.init(title: .init(self.title), valueLabel: .init(self.valueLabel), lowerThumb: .init(self.lowerThumb), upperThumb: .init(self.upperThumb), activeTrack: .init(self.activeTrack), inactiveTrack: .init(self.inactiveTrack), lowerValue: self.$lowerValue, upperValue: self.$upperValue, range: self.range, step: self.step, decimalPlaces: self.decimalPlaces, thumbHalfWidth: self.thumbHalfWidth, showsLowerThumb: self.showsLowerThumb, showsUpperThumb: self.showsUpperThumb, onRangeValueChange: self.onRangeValueChange, icon: .init(self.icon), description: .init(self.description), leadingAccessory: .init(self.leadingAccessory), trailingAccessory: .init(self.trailingAccessory), isRangeSlider: self.isRangeSlider, valueFormat: self.valueFormat, rangeFormat: self.rangeFormat, leadingValueFormat: self.leadingValueFormat, trailingValueFormat: self.trailingValueFormat, showsValueLabel: self.showsValueLabel, showsLeadingAccessory: self.showsLeadingAccessory, showsTrailingAccessory: self.showsTrailingAccessory, onValueChange: self.onValueChange, onEditFieldFocusStatusChange: self.onEditFieldFocusStatusChange))
+        FioriSlider(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), valueLabel: .init(self.valueLabel), lowerThumb: .init(self.lowerThumb), upperThumb: .init(self.upperThumb), activeTrack: .init(self.activeTrack), inactiveTrack: .init(self.inactiveTrack), lowerValue: self.$lowerValue, upperValue: self.$upperValue, range: self.range, step: self.step, decimalPlaces: self.decimalPlaces, thumbHalfWidth: self.thumbHalfWidth, showsLowerThumb: self.showsLowerThumb, showsUpperThumb: self.showsUpperThumb, onRangeValueChange: self.onRangeValueChange, icon: .init(self.icon), description: .init(self.description), leadingAccessory: .init(self.leadingAccessory), trailingAccessory: .init(self.trailingAccessory), isRangeSlider: self.isRangeSlider, valueFormat: self.valueFormat, rangeFormat: self.rangeFormat, leadingValueFormat: self.leadingValueFormat, trailingValueFormat: self.trailingValueFormat, showsValueLabel: self.showsValueLabel, showsLeadingAccessory: self.showsLeadingAccessory, showsTrailingAccessory: self.showsTrailingAccessory, onValueChange: self.onValueChange, onEditFieldFocusStatusChange: self.onEditFieldFocusStatusChange))
             .shouldApplyDefaultStyle(false)
             .fioriSliderStyle(FioriSliderFioriStyle.ContentFioriStyle())
             .typeErased

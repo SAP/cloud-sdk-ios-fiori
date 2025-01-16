@@ -110,6 +110,8 @@ public struct SideBar {
 
     @Environment(\.sideBarStyle) var style
 
+    var componentIdentifier: String = SideBar.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
     public init(isEditing: Binding<Bool>,
@@ -122,7 +124,8 @@ public struct SideBar {
                 destination: @escaping (SideBarItemModel) -> any View,
                 item: @escaping (Binding<SideBarItemModel>) -> any View,
                 onDataChange: (([SideBarItemModel]) -> Void)? = nil,
-                isUsedInSplitView: Bool = true)
+                isUsedInSplitView: Bool = true,
+                componentIdentifier: String? = SideBar.identifier)
     {
         self._isEditing = isEditing
         self._queryString = queryString
@@ -135,7 +138,12 @@ public struct SideBar {
         self.item = item
         self.onDataChange = onDataChange
         self.isUsedInSplitView = isUsedInSplitView
+        self.componentIdentifier = componentIdentifier ?? SideBar.identifier
     }
+}
+
+public extension SideBar {
+    static let identifier = "fiori_sidebar_component"
 }
 
 public extension SideBar {
@@ -156,6 +164,7 @@ public extension SideBar {
         self.onDataChange = configuration.onDataChange
         self.isUsedInSplitView = configuration.isUsedInSplitView
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -164,7 +173,7 @@ extension SideBar: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(isEditing: self.$isEditing, queryString: self.$queryString, data: self.$data, selection: self.$selection, title: self.title, footer: .init(self.footer), editButton: .init(self.editButton), destination: self.destination, item: self.item, onDataChange: self.onDataChange, isUsedInSplitView: self.isUsedInSplitView)).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, isEditing: self.$isEditing, queryString: self.$queryString, data: self.$data, selection: self.$selection, title: self.title, footer: .init(self.footer), editButton: .init(self.editButton), destination: self.destination, item: self.item, onDataChange: self.onDataChange, isUsedInSplitView: self.isUsedInSplitView)).typeErased
                 .transformEnvironment(\.sideBarStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -182,7 +191,7 @@ private extension SideBar {
     }
 
     func defaultStyle() -> some View {
-        SideBar(.init(isEditing: self.$isEditing, queryString: self.$queryString, data: self.$data, selection: self.$selection, title: self.title, footer: .init(self.footer), editButton: .init(self.editButton), destination: self.destination, item: self.item, onDataChange: self.onDataChange, isUsedInSplitView: self.isUsedInSplitView))
+        SideBar(.init(componentIdentifier: self.componentIdentifier, isEditing: self.$isEditing, queryString: self.$queryString, data: self.$data, selection: self.$selection, title: self.title, footer: .init(self.footer), editButton: .init(self.editButton), destination: self.destination, item: self.item, onDataChange: self.onDataChange, isUsedInSplitView: self.isUsedInSplitView))
             .shouldApplyDefaultStyle(false)
             .sideBarStyle(SideBarFioriStyle.ContentFioriStyle())
             .typeErased

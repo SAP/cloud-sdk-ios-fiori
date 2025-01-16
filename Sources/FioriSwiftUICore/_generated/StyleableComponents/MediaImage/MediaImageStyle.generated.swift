@@ -22,7 +22,14 @@ struct AnyMediaImageStyle: MediaImageStyle {
 }
 
 public struct MediaImageConfiguration {
+    public var componentIdentifier: String = "fiori_mediaimage_component"
     public let mediaImage: MediaImage
 
     public typealias MediaImage = ConfigurationViewWrapper
+}
+
+extension MediaImageConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }

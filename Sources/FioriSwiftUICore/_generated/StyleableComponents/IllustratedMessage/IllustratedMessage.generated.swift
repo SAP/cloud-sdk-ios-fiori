@@ -18,6 +18,8 @@ public struct IllustratedMessage {
 
     @Environment(\.illustratedMessageStyle) var style
 
+    var componentIdentifier: String = IllustratedMessage.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
     public init(@ViewBuilder detailImage: () -> any View = { EmptyView() },
@@ -27,17 +29,23 @@ public struct IllustratedMessage {
                 @ViewBuilder secondaryAction: () -> any View = { EmptyView() },
                 detailImageSize: IllustratedMessage.DetailImageSize? = nil,
                 isActionVerticallyAligned: Bool = false,
-                contentAlignment: HorizontalAlignment = .leading)
+                contentAlignment: HorizontalAlignment = .leading,
+                componentIdentifier: String? = IllustratedMessage.identifier)
     {
-        self.detailImage = DetailImage(detailImage: detailImage)
-        self.title = Title(title: title)
-        self.description = Description(description: description)
-        self.action = Action(action: action)
-        self.secondaryAction = SecondaryAction(secondaryAction: secondaryAction)
+        self.detailImage = DetailImage(detailImage: detailImage, componentIdentifier: componentIdentifier)
+        self.title = Title(title: title, componentIdentifier: componentIdentifier)
+        self.description = Description(description: description, componentIdentifier: componentIdentifier)
+        self.action = Action(action: action, componentIdentifier: componentIdentifier)
+        self.secondaryAction = SecondaryAction(secondaryAction: secondaryAction, componentIdentifier: componentIdentifier)
         self.detailImageSize = detailImageSize
         self.isActionVerticallyAligned = isActionVerticallyAligned
         self.contentAlignment = contentAlignment
+        self.componentIdentifier = componentIdentifier ?? IllustratedMessage.identifier
     }
+}
+
+public extension IllustratedMessage {
+    static let identifier = "fiori_illustratedmessage_component"
 }
 
 public extension IllustratedMessage {
@@ -69,6 +77,7 @@ public extension IllustratedMessage {
         self.isActionVerticallyAligned = configuration.isActionVerticallyAligned
         self.contentAlignment = configuration.contentAlignment
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -77,7 +86,7 @@ extension IllustratedMessage: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(detailImage: .init(self.detailImage), title: .init(self.title), description: .init(self.description), action: .init(self.action), secondaryAction: .init(self.secondaryAction), detailImageSize: self.detailImageSize, isActionVerticallyAligned: self.isActionVerticallyAligned, contentAlignment: self.contentAlignment)).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, detailImage: .init(self.detailImage), title: .init(self.title), description: .init(self.description), action: .init(self.action), secondaryAction: .init(self.secondaryAction), detailImageSize: self.detailImageSize, isActionVerticallyAligned: self.isActionVerticallyAligned, contentAlignment: self.contentAlignment)).typeErased
                 .transformEnvironment(\.illustratedMessageStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -95,7 +104,7 @@ private extension IllustratedMessage {
     }
 
     func defaultStyle() -> some View {
-        IllustratedMessage(.init(detailImage: .init(self.detailImage), title: .init(self.title), description: .init(self.description), action: .init(self.action), secondaryAction: .init(self.secondaryAction), detailImageSize: self.detailImageSize, isActionVerticallyAligned: self.isActionVerticallyAligned, contentAlignment: self.contentAlignment))
+        IllustratedMessage(.init(componentIdentifier: self.componentIdentifier, detailImage: .init(self.detailImage), title: .init(self.title), description: .init(self.description), action: .init(self.action), secondaryAction: .init(self.secondaryAction), detailImageSize: self.detailImageSize, isActionVerticallyAligned: self.isActionVerticallyAligned, contentAlignment: self.contentAlignment))
             .shouldApplyDefaultStyle(false)
             .illustratedMessageStyle(IllustratedMessageFioriStyle.ContentFioriStyle())
             .typeErased

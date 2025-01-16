@@ -8,11 +8,20 @@ public struct AccessoryIcon {
 
     @Environment(\.accessoryIconStyle) var style
 
+    var componentIdentifier: String = AccessoryIcon.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder accessoryIcon: () -> any View = { EmptyView() }) {
+    public init(@ViewBuilder accessoryIcon: () -> any View = { EmptyView() },
+                componentIdentifier: String? = AccessoryIcon.identifier)
+    {
         self.accessoryIcon = accessoryIcon()
+        self.componentIdentifier = componentIdentifier ?? AccessoryIcon.identifier
     }
+}
+
+public extension AccessoryIcon {
+    static let identifier = "fiori_accessoryicon_component"
 }
 
 public extension AccessoryIcon {
@@ -29,6 +38,7 @@ public extension AccessoryIcon {
     internal init(_ configuration: AccessoryIconConfiguration, shouldApplyDefaultStyle: Bool) {
         self.accessoryIcon = configuration.accessoryIcon
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -37,7 +47,7 @@ extension AccessoryIcon: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(accessoryIcon: .init(self.accessoryIcon))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, accessoryIcon: .init(self.accessoryIcon))).typeErased
                 .transformEnvironment(\.accessoryIconStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -55,7 +65,7 @@ private extension AccessoryIcon {
     }
 
     func defaultStyle() -> some View {
-        AccessoryIcon(.init(accessoryIcon: .init(self.accessoryIcon)))
+        AccessoryIcon(.init(componentIdentifier: self.componentIdentifier, accessoryIcon: .init(self.accessoryIcon)))
             .shouldApplyDefaultStyle(false)
             .accessoryIconStyle(.fiori)
             .typeErased

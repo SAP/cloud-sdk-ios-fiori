@@ -22,7 +22,14 @@ struct AnyProgressIndicatorStyle: ProgressIndicatorStyle {
 }
 
 public struct ProgressIndicatorConfiguration {
+    public var componentIdentifier: String = "fiori_progressindicator_component"
     @Binding public var progress: Double
+}
+
+extension ProgressIndicatorConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }
 
 public struct ProgressIndicatorFioriStyle: ProgressIndicatorStyle {

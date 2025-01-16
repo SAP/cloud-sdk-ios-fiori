@@ -729,6 +729,25 @@ protocol _ProgressIndicatorComponent: _ProgressIndicatorProtocol {}
 // sourcery: CompositeComponent
 protocol _ProcessingIndicatorComponent: _OptionalTitleComponent {}
 
+/// `KPIProgressItem` enables a developer to present "KPI" information in a formatted manner consistent with the Fiori Design Language
+///
+/// ## Usage
+/// ```swift
+/// let percentData = KPIItemData.percent(0.65)
+/// let fractionData = KPIItemData.fraction(76, 90, numberFormatterProvider.numberFormatter)
+///
+/// KPIProgressItem(kpiCaption: "Completed", data: .constant(percentData))
+/// KPIProgressItem(kpiCaption: "In progress", data: .constant(fractionData), chartSize: .small)
+/// ```
+// sourcery: CompositeComponent
+protocol _KPIProgressItemComponent: _KPIContentComponent, _KpiCaptionComponent, _FootnoteComponent, _InnerCircleComponent, _OuterCircleComponent {
+    // sourcery: @Binding
+    var data: KPIItemData { get }
+    
+    // sourcery: defaultValue = .large
+    var chartSize: KPIProgressItemSize { get }
+}
+
 /// `ActivityItem` provides a customizable activity item with an icon and a subtitle.
 ///
 /// ## Usage
@@ -741,6 +760,34 @@ protocol _ActivityItemComponent: _IconComponent, _SubtitleComponent {
     // sourcery: defaultValue = .vertical
     var layout: ActivityItemLayout { get }
 }
+
+/// `ContactItem` provides a view that shows information related to contact.
+/// ## Usage
+/// ```swift
+/// ContactItem(title: "Headline only example", description: "One line of text description is baseline aligned.", actionItems: [.init(type: .phone, didSelectActivityItem: {
+///     print("tap phone")
+/// }), .init(type: .videoCall, didSelectActivityItem: {
+///     print("tap videoCall")
+/// }), .init(type: .message, didSelectActivityItem: {
+///     print("tap message")
+/// })])
+///
+/// ContactItem {
+///      Text("Headline only example")
+/// } subtitle: {
+///      Text("One line of text description is baseline aligned.")
+/// } description: {
+///      Text("Description")
+/// } detailImage: {
+///      Image("person_square4").resizable()
+/// } actionItems: {
+///      ActivityItems(activityItems: [.init(type: .phone, didSelectActivityItem: {
+///          print("tap phone")
+///      })])
+/// }
+/// ```
+// sourcery: CompositeComponent
+protocol _ContactItemComponent: _TitleComponent, _SubtitleComponent, _DescriptionComponent, _DetailImageComponent, _ActivityItemsComponent {}
 
 // sourcery: CompositeComponent
 protocol _RangeSliderControlComponent: _LowerThumbComponent, _UpperThumbComponent, _ActiveTrackComponent, _InactiveTrackComponent {
@@ -1001,4 +1048,75 @@ protocol _StepProgressIndicatorComponent: _TitleComponent, _ActionComponent, _Ca
     // sourcery: resultBuilder.name = @IndexedViewBuilder
     // sourcery: resultBuilder.returnType = any IndexedViewContainer
     var steps: [StepItem] { get }
+}
+
+// sourcery: CompositeComponent
+protocol _SectionHeaderComponent: _TitleComponent, _AttributeComponent {
+    /// Style determines fonts and colors. Default is `.title` style.
+    // sourcery: defaultValue = .title
+    var sectionHeaderStyle: SectionHeaderFooterStyle { get }
+    
+    /// Optional handler, to respond to tap events on the view.
+    var didSelectHandler: (() -> Void)? { get }
+}
+
+// sourcery: CompositeComponent
+protocol _SectionFooterComponent: _TitleComponent, _AttributeComponent {
+    /// Style determines fonts and colors. Default is `.title` style.
+    // sourcery: defaultValue = .title
+    var sectionFooterStyle: SectionHeaderFooterStyle { get }
+    
+    /// Optional handler, to respond to tap events on the view.
+    var didSelectHandler: (() -> Void)? { get }
+}
+
+/// `ObjectHeader` is a view that displays an object's title, subtitle, tags, body text, footnote, description, status, substatus, detail image and detail content.
+/// ## Usage
+/// ```swift
+/// ObjectHeader {
+///     Text("title")
+/// } subtitle: {
+///     Text("subtitle")
+/// } tags: {
+///     Text("tag01")
+/// } bodyText: {
+///     Text("body")
+/// } footnote: {
+///     Text("footnote")
+/// } descriptionText: {
+///     Text("description")
+/// } status: {
+///     Text("status")
+/// } substatus: {
+///     Text("substatus")
+/// } detailImage: {
+///     Image(systemName: "person")
+/// } detailContent: {
+///     Text("detail content")
+/// }
+/// ```
+// sourcery: CompositeComponent
+protocol _ObjectHeaderComponent: _TitleComponent, _SubtitleComponent, _TagsComponent, _BodyTextComponent, _FootnoteComponent, _DescriptionTextComponent, _StatusComponent, _SubstatusComponent, _DetailImageComponent, _DetailContentComponent {}
+
+/// `HeaderChart` is a view that displays an object's title, subtitle, trend, trend image and kpi.
+/// ## Usage
+/// ```swift
+/// HeaderChart {
+///     Text("title")
+/// } subtitle: {
+///     Text("subtitle")
+/// } trend: {
+///     Text("trend")
+/// } trendImage: {
+///     Image(systemName: "person")
+/// } kpi: {
+///     Text("KPI View")
+/// } chart: {
+///     Text("Chart View")
+/// }
+/// ```
+// sourcery: CompositeComponent
+protocol _HeaderChartComponent: _TitleComponent, _SubtitleComponent, _TrendComponent, _TrendImageComponent, _KpiComponent {
+    @ViewBuilder
+    var chart: (() -> any View)? { get }
 }

@@ -8,11 +8,20 @@ public struct SecondaryTimestamp {
 
     @Environment(\.secondaryTimestampStyle) var style
 
+    var componentIdentifier: String = SecondaryTimestamp.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder secondaryTimestamp: () -> any View = { EmptyView() }) {
+    public init(@ViewBuilder secondaryTimestamp: () -> any View = { EmptyView() },
+                componentIdentifier: String? = SecondaryTimestamp.identifier)
+    {
         self.secondaryTimestamp = secondaryTimestamp()
+        self.componentIdentifier = componentIdentifier ?? SecondaryTimestamp.identifier
     }
+}
+
+public extension SecondaryTimestamp {
+    static let identifier = "fiori_secondarytimestamp_component"
 }
 
 public extension SecondaryTimestamp {
@@ -29,6 +38,7 @@ public extension SecondaryTimestamp {
     internal init(_ configuration: SecondaryTimestampConfiguration, shouldApplyDefaultStyle: Bool) {
         self.secondaryTimestamp = configuration.secondaryTimestamp
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -37,7 +47,7 @@ extension SecondaryTimestamp: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(secondaryTimestamp: .init(self.secondaryTimestamp))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, secondaryTimestamp: .init(self.secondaryTimestamp))).typeErased
                 .transformEnvironment(\.secondaryTimestampStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -55,7 +65,7 @@ private extension SecondaryTimestamp {
     }
 
     func defaultStyle() -> some View {
-        SecondaryTimestamp(.init(secondaryTimestamp: .init(self.secondaryTimestamp)))
+        SecondaryTimestamp(.init(componentIdentifier: self.componentIdentifier, secondaryTimestamp: .init(self.secondaryTimestamp)))
             .shouldApplyDefaultStyle(false)
             .secondaryTimestampStyle(.fiori)
             .typeErased

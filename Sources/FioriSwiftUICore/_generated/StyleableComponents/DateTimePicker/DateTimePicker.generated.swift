@@ -36,6 +36,8 @@ public struct DateTimePicker {
 
     @Environment(\.dateTimePickerStyle) var style
 
+    var componentIdentifier: String = DateTimePicker.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
     public init(@ViewBuilder title: () -> any View,
@@ -48,11 +50,12 @@ public struct DateTimePicker {
                 pickerComponents: DatePicker.Components = [.date, .hourAndMinute],
                 dateStyle: Date.FormatStyle.DateStyle = .abbreviated,
                 timeStyle: Date.FormatStyle.TimeStyle = .shortened,
-                noDateSelectedString: String? = nil)
+                noDateSelectedString: String? = nil,
+                componentIdentifier: String? = DateTimePicker.identifier)
     {
-        self.title = Title(title: title)
-        self.valueLabel = ValueLabel(valueLabel: valueLabel)
-        self.mandatoryFieldIndicator = MandatoryFieldIndicator(mandatoryFieldIndicator: mandatoryFieldIndicator)
+        self.title = Title(title: title, componentIdentifier: componentIdentifier)
+        self.valueLabel = ValueLabel(valueLabel: valueLabel, componentIdentifier: componentIdentifier)
+        self.mandatoryFieldIndicator = MandatoryFieldIndicator(mandatoryFieldIndicator: mandatoryFieldIndicator, componentIdentifier: componentIdentifier)
         self.isRequired = isRequired
         self.controlState = controlState
         self.errorMessage = errorMessage
@@ -61,7 +64,12 @@ public struct DateTimePicker {
         self.dateStyle = dateStyle
         self.timeStyle = timeStyle
         self.noDateSelectedString = noDateSelectedString
+        self.componentIdentifier = componentIdentifier ?? DateTimePicker.identifier
     }
+}
+
+public extension DateTimePicker {
+    static let identifier = "fiori_datetimepicker_component"
 }
 
 public extension DateTimePicker {
@@ -99,6 +107,7 @@ public extension DateTimePicker {
         self.timeStyle = configuration.timeStyle
         self.noDateSelectedString = configuration.noDateSelectedString
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -107,7 +116,7 @@ extension DateTimePicker: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(title: .init(self.title), valueLabel: .init(self.valueLabel), mandatoryFieldIndicator: .init(self.mandatoryFieldIndicator), isRequired: self.isRequired, controlState: self.controlState, errorMessage: self.errorMessage, selectedDate: self.$selectedDate, pickerComponents: self.pickerComponents, dateStyle: self.dateStyle, timeStyle: self.timeStyle, noDateSelectedString: self.noDateSelectedString)).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, title: .init(self.title), valueLabel: .init(self.valueLabel), mandatoryFieldIndicator: .init(self.mandatoryFieldIndicator), isRequired: self.isRequired, controlState: self.controlState, errorMessage: self.errorMessage, selectedDate: self.$selectedDate, pickerComponents: self.pickerComponents, dateStyle: self.dateStyle, timeStyle: self.timeStyle, noDateSelectedString: self.noDateSelectedString)).typeErased
                 .transformEnvironment(\.dateTimePickerStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -125,7 +134,7 @@ private extension DateTimePicker {
     }
 
     func defaultStyle() -> some View {
-        DateTimePicker(.init(title: .init(self.title), valueLabel: .init(self.valueLabel), mandatoryFieldIndicator: .init(self.mandatoryFieldIndicator), isRequired: self.isRequired, controlState: self.controlState, errorMessage: self.errorMessage, selectedDate: self.$selectedDate, pickerComponents: self.pickerComponents, dateStyle: self.dateStyle, timeStyle: self.timeStyle, noDateSelectedString: self.noDateSelectedString))
+        DateTimePicker(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), valueLabel: .init(self.valueLabel), mandatoryFieldIndicator: .init(self.mandatoryFieldIndicator), isRequired: self.isRequired, controlState: self.controlState, errorMessage: self.errorMessage, selectedDate: self.$selectedDate, pickerComponents: self.pickerComponents, dateStyle: self.dateStyle, timeStyle: self.timeStyle, noDateSelectedString: self.noDateSelectedString))
             .shouldApplyDefaultStyle(false)
             .dateTimePickerStyle(DateTimePickerFioriStyle.ContentFioriStyle())
             .typeErased

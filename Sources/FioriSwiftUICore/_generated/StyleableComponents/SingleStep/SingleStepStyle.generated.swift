@@ -22,6 +22,7 @@ struct AnySingleStepStyle: SingleStepStyle {
 }
 
 public struct SingleStepConfiguration {
+    public var componentIdentifier: String = "fiori_singlestep_component"
     public let title: Title
     public let node: Node
     public let line: Line
@@ -33,6 +34,12 @@ public struct SingleStepConfiguration {
     public typealias Node = ConfigurationViewWrapper
     public typealias Line = ConfigurationViewWrapper
     public typealias Substeps = any IndexedViewContainer
+}
+
+extension SingleStepConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }
 
 public struct SingleStepFioriStyle: SingleStepStyle {

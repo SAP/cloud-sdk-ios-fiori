@@ -17,16 +17,24 @@ public struct ActivityItem {
 
     @Environment(\.activityItemStyle) var style
 
+    var componentIdentifier: String = ActivityItem.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
     public init(@ViewBuilder icon: () -> any View = { EmptyView() },
                 @ViewBuilder subtitle: () -> any View = { EmptyView() },
-                layout: ActivityItemLayout = .vertical)
+                layout: ActivityItemLayout = .vertical,
+                componentIdentifier: String? = ActivityItem.identifier)
     {
-        self.icon = Icon(icon: icon)
-        self.subtitle = Subtitle(subtitle: subtitle)
+        self.icon = Icon(icon: icon, componentIdentifier: componentIdentifier)
+        self.subtitle = Subtitle(subtitle: subtitle, componentIdentifier: componentIdentifier)
         self.layout = layout
+        self.componentIdentifier = componentIdentifier ?? ActivityItem.identifier
     }
+}
+
+public extension ActivityItem {
+    static let identifier = "fiori_activityitem_component"
 }
 
 public extension ActivityItem {
@@ -48,6 +56,7 @@ public extension ActivityItem {
         self.subtitle = configuration.subtitle
         self.layout = configuration.layout
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -56,7 +65,7 @@ extension ActivityItem: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(icon: .init(self.icon), subtitle: .init(self.subtitle), layout: self.layout)).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, icon: .init(self.icon), subtitle: .init(self.subtitle), layout: self.layout)).typeErased
                 .transformEnvironment(\.activityItemStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -74,7 +83,7 @@ private extension ActivityItem {
     }
 
     func defaultStyle() -> some View {
-        ActivityItem(.init(icon: .init(self.icon), subtitle: .init(self.subtitle), layout: self.layout))
+        ActivityItem(.init(componentIdentifier: self.componentIdentifier, icon: .init(self.icon), subtitle: .init(self.subtitle), layout: self.layout))
             .shouldApplyDefaultStyle(false)
             .activityItemStyle(ActivityItemFioriStyle.ContentFioriStyle())
             .typeErased

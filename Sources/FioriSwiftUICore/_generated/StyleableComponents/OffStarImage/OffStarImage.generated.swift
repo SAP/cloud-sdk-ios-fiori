@@ -11,11 +11,20 @@ public struct OffStarImage {
 
     @Environment(\.offStarImageStyle) var style
 
+    var componentIdentifier: String = OffStarImage.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder offStarImage: () -> any View) {
+    public init(@ViewBuilder offStarImage: () -> any View,
+                componentIdentifier: String? = OffStarImage.identifier)
+    {
         self.offStarImage = offStarImage()
+        self.componentIdentifier = componentIdentifier ?? OffStarImage.identifier
     }
+}
+
+public extension OffStarImage {
+    static let identifier = "fiori_offstarimage_component"
 }
 
 public extension OffStarImage {
@@ -32,6 +41,7 @@ public extension OffStarImage {
     internal init(_ configuration: OffStarImageConfiguration, shouldApplyDefaultStyle: Bool) {
         self.offStarImage = configuration.offStarImage
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -40,7 +50,7 @@ extension OffStarImage: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(offStarImage: .init(self.offStarImage))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, offStarImage: .init(self.offStarImage))).typeErased
                 .transformEnvironment(\.offStarImageStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -58,7 +68,7 @@ private extension OffStarImage {
     }
 
     func defaultStyle() -> some View {
-        OffStarImage(.init(offStarImage: .init(self.offStarImage)))
+        OffStarImage(.init(componentIdentifier: self.componentIdentifier, offStarImage: .init(self.offStarImage)))
             .shouldApplyDefaultStyle(false)
             .offStarImageStyle(.fiori)
             .typeErased

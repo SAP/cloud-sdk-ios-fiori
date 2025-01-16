@@ -22,6 +22,7 @@ struct AnyIllustratedMessageStyle: IllustratedMessageStyle {
 }
 
 public struct IllustratedMessageConfiguration {
+    public var componentIdentifier: String = "fiori_illustratedmessage_component"
     public let detailImage: DetailImage
     public let title: Title
     public let description: Description
@@ -36,6 +37,12 @@ public struct IllustratedMessageConfiguration {
     public typealias Description = ConfigurationViewWrapper
     public typealias Action = ConfigurationViewWrapper
     public typealias SecondaryAction = ConfigurationViewWrapper
+}
+
+extension IllustratedMessageConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }
 
 public struct IllustratedMessageFioriStyle: IllustratedMessageStyle {
