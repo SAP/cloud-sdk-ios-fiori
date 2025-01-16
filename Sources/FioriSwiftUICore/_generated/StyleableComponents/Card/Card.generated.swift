@@ -93,9 +93,10 @@ public extension Card {
          action: FioriButton? = nil,
          secondaryAction: FioriButton? = nil,
          tertiaryAction: FioriButton? = nil,
-         overflowAction: FioriButton? = FioriButton { _ in Image(systemName: "ellipsis") })
+         overflowAction: FioriButton? = FioriButton { _ in Image(systemName: "ellipsis") },
+         componentIdentifier: String? = Card.identifier)
     {
-        self.init(mediaImage: { OptionalImage(mediaImage) }, description: { OptionalText(description) }, title: { Text(title) }, subtitle: { OptionalText(subtitle) }, icons: { IconStack(icons) }, detailImage: { detailImage }, headerAction: { headerAction }, counter: { OptionalText(counter) }, row1: row1, row2: row2, row3: row3, kpi: { OptionalKPIItem(kpi) }, kpiCaption: { OptionalText(kpiCaption) }, cardBody: cardBody, action: { action }, secondaryAction: { secondaryAction }, tertiaryAction: { tertiaryAction }, overflowAction: { overflowAction })
+        self.init(mediaImage: { OptionalImage(mediaImage) }, description: { OptionalText(description) }, title: { Text(title) }, subtitle: { OptionalText(subtitle) }, icons: { IconStack(icons) }, detailImage: { detailImage }, headerAction: { headerAction }, counter: { OptionalText(counter) }, row1: row1, row2: row2, row3: row3, kpi: { OptionalKPIItem(kpi) }, kpiCaption: { OptionalText(kpiCaption) }, cardBody: cardBody, action: { action }, secondaryAction: { secondaryAction }, tertiaryAction: { tertiaryAction }, overflowAction: { overflowAction }, componentIdentifier: componentIdentifier)
     }
 }
 

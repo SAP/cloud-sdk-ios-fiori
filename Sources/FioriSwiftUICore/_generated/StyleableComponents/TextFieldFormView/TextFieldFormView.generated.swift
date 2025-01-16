@@ -101,9 +101,10 @@ public extension TextFieldFormView {
          isRequired: Bool = false,
          actionIcon: Image? = nil,
          action: (() -> Void)? = nil,
-         actionIconAccessibilityLabel: String? = nil)
+         actionIconAccessibilityLabel: String? = nil,
+         componentIdentifier: String? = TextFieldFormView.identifier)
     {
-        self.init(title: { Text(title) }, text: text, placeholder: { OptionalText(placeholder) }, controlState: controlState, errorMessage: errorMessage, maxTextLength: maxTextLength, hintText: hintText, hidesReadOnlyHint: hidesReadOnlyHint, isCharCountEnabled: isCharCountEnabled, allowsBeyondLimit: allowsBeyondLimit, charCountReachLimitMessage: charCountReachLimitMessage, charCountBeyondLimitMsg: charCountBeyondLimitMsg, mandatoryFieldIndicator: { TextOrIconView(mandatoryFieldIndicator) }, isRequired: isRequired, actionIcon: actionIcon, action: action, actionIconAccessibilityLabel: actionIconAccessibilityLabel)
+        self.init(title: { Text(title) }, text: text, placeholder: { OptionalText(placeholder) }, controlState: controlState, errorMessage: errorMessage, maxTextLength: maxTextLength, hintText: hintText, hidesReadOnlyHint: hidesReadOnlyHint, isCharCountEnabled: isCharCountEnabled, allowsBeyondLimit: allowsBeyondLimit, charCountReachLimitMessage: charCountReachLimitMessage, charCountBeyondLimitMsg: charCountBeyondLimitMsg, mandatoryFieldIndicator: { TextOrIconView(mandatoryFieldIndicator) }, isRequired: isRequired, actionIcon: actionIcon, action: action, actionIconAccessibilityLabel: actionIconAccessibilityLabel, componentIdentifier: componentIdentifier)
     }
 }
 

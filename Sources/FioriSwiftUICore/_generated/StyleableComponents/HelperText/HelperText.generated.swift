@@ -25,8 +25,10 @@ public extension HelperText {
 }
 
 public extension HelperText {
-    init(helperText: AttributedString? = nil) {
-        self.init(helperText: { OptionalText(helperText) })
+    init(helperText: AttributedString? = nil,
+         componentIdentifier: String? = HelperText.identifier)
+    {
+        self.init(helperText: { OptionalText(helperText) }, componentIdentifier: componentIdentifier)
     }
 }
 

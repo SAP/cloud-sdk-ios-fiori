@@ -23,12 +23,6 @@ struct AnyBannerMessageStyle: BannerMessageStyle {
 }
 
 public struct BannerMessageConfiguration {
-    public let contentIdentifier = "FioriBannerMessage_content"
-    public let iconIdentifier = "FioriBannerMessage_icon"
-    public let titleIdentifier = "FioriBannerMessage_title"
-    public let closeActionIdentifier = "FioriBannerMessage_closeAction"
-    public let topDividerIdentifier = "FioriBannerMessage_topDivider"
-
     public var componentIdentifier: String = "fiori_bannermessage_component"
     public let icon: Icon
     public let title: Title
@@ -44,6 +38,28 @@ public struct BannerMessageConfiguration {
     public typealias Title = ConfigurationViewWrapper
     public typealias CloseAction = ConfigurationViewWrapper
     public typealias TopDivider = ConfigurationViewWrapper
+}
+
+public extension BannerMessageConfiguration {
+    var contentIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
+
+    var iconIdentifier: String {
+        self.componentIdentifier + "_icon"
+    }
+
+    var titleIdentifier: String {
+        self.componentIdentifier + "_title"
+    }
+
+    var closeActionIdentifier: String {
+        self.componentIdentifier + "_closeAction"
+    }
+
+    var topDividerIdentifier: String {
+        self.componentIdentifier + "_topDivider"
+    }
 }
 
 extension BannerMessageConfiguration {

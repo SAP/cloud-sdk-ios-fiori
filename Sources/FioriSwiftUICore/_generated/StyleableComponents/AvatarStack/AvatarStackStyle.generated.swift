@@ -23,16 +23,26 @@ struct AnyAvatarStackStyle: AvatarStackStyle {
 }
 
 public struct AvatarStackConfiguration {
-    public let contentIdentifier = "FioriAvatarStack_content"
-    public let avatarsIdentifier = "FioriAvatarStack_avatars"
-    public let avatarsTitleIdentifier = "FioriAvatarStack_avatarsTitle"
-
     public var componentIdentifier: String = "fiori_avatarstack_component"
     public let avatars: Avatars
     public let avatarsTitle: AvatarsTitle
 
     public typealias Avatars = ConfigurationViewWrapper
     public typealias AvatarsTitle = ConfigurationViewWrapper
+}
+
+public extension AvatarStackConfiguration {
+    var contentIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
+
+    var avatarsIdentifier: String {
+        self.componentIdentifier + "_avatars"
+    }
+
+    var avatarsTitleIdentifier: String {
+        self.componentIdentifier + "_avatarsTitle"
+    }
 }
 
 extension AvatarStackConfiguration {

@@ -23,12 +23,16 @@ struct AnyMediaImageStyle: MediaImageStyle {
 }
 
 public struct MediaImageConfiguration {
-    public let mediaImageIdentifier = "FioriMediaImage_mediaImage"
-
     public var componentIdentifier: String = "fiori_mediaimage_component"
     public let mediaImage: MediaImage
 
     public typealias MediaImage = ConfigurationViewWrapper
+}
+
+public extension MediaImageConfiguration {
+    var mediaImageIdentifier: String {
+        self.componentIdentifier + "_mediaImage"
+    }
 }
 
 extension MediaImageConfiguration {

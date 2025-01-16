@@ -23,12 +23,16 @@ struct AnyReviewCountLabelStyle: ReviewCountLabelStyle {
 }
 
 public struct ReviewCountLabelConfiguration {
-    public let reviewCountLabelIdentifier = "FioriReviewCountLabel_reviewCountLabel"
-
     public var componentIdentifier: String = "fiori_reviewcountlabel_component"
     public let reviewCountLabel: ReviewCountLabel
 
     public typealias ReviewCountLabel = ConfigurationViewWrapper
+}
+
+public extension ReviewCountLabelConfiguration {
+    var reviewCountLabelIdentifier: String {
+        self.componentIdentifier + "_reviewCountLabel"
+    }
 }
 
 extension ReviewCountLabelConfiguration {

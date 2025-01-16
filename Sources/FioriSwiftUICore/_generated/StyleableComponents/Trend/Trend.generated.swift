@@ -25,8 +25,10 @@ public extension Trend {
 }
 
 public extension Trend {
-    init(trend: AttributedString? = nil) {
-        self.init(trend: { OptionalText(trend) })
+    init(trend: AttributedString? = nil,
+         componentIdentifier: String? = Trend.identifier)
+    {
+        self.init(trend: { OptionalText(trend) }, componentIdentifier: componentIdentifier)
     }
 }
 

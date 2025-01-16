@@ -32,11 +32,17 @@ struct LoadingIndicatorExample: View {
                 }.padding(.bottom, 10)
                 
                 Section {
-                    LoadingIndicator(title: "Loading...", isPresented: .constant(true))
-                        .loadingIndicatorStyle(.nss(.file("FioriLoadingIndicatorView")))
-                        .frame(maxWidth: .infinity)
-                        .multilineTextAlignment(.center)
-                        .padding()
+                    VStack {
+                        LoadingIndicator(title: "DefaultID", isPresented: .constant(true))
+                            .loadingIndicatorStyle(.nss(.file("FioriLoadingIndicatorView")))
+                            
+                        LoadingIndicator(title: "ID:fiori_loadingindicator_component_0", isPresented: .constant(true), componentIdentifier: "fiori_loadingindicator_component_0")
+                            .loadingIndicatorStyle(.nss(.file("FioriDesignLanguage")))
+                    }
+                    .frame(maxWidth: .infinity)
+                    .multilineTextAlignment(.center)
+                    .padding()
+                    
                 } header: {
                     Text("NSS Style Loading Indicator")
                         .padding(.leading, 20)

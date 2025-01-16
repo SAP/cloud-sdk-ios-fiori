@@ -23,12 +23,16 @@ struct AnyInactiveTrackStyle: InactiveTrackStyle {
 }
 
 public struct InactiveTrackConfiguration {
-    public let inactiveTrackIdentifier = "FioriInactiveTrack_inactiveTrack"
-
     public var componentIdentifier: String = "fiori_inactivetrack_component"
     public let inactiveTrack: InactiveTrack
 
     public typealias InactiveTrack = ConfigurationViewWrapper
+}
+
+public extension InactiveTrackConfiguration {
+    var inactiveTrackIdentifier: String {
+        self.componentIdentifier + "_inactiveTrack"
+    }
 }
 
 extension InactiveTrackConfiguration {

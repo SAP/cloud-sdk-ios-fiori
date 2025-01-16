@@ -25,8 +25,10 @@ public extension Counter {
 }
 
 public extension Counter {
-    init(counter: AttributedString? = nil) {
-        self.init(counter: { OptionalText(counter) })
+    init(counter: AttributedString? = nil,
+         componentIdentifier: String? = Counter.identifier)
+    {
+        self.init(counter: { OptionalText(counter) }, componentIdentifier: componentIdentifier)
     }
 }
 

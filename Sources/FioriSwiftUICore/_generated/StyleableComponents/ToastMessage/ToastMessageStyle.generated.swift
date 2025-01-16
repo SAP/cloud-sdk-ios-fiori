@@ -23,10 +23,6 @@ struct AnyToastMessageStyle: ToastMessageStyle {
 }
 
 public struct ToastMessageConfiguration {
-    public let contentIdentifier = "FioriToastMessage_content"
-    public let iconIdentifier = "FioriToastMessage_icon"
-    public let titleIdentifier = "FioriToastMessage_title"
-
     public var componentIdentifier: String = "fiori_toastmessage_component"
     public let icon: Icon
     public let title: Title
@@ -34,6 +30,20 @@ public struct ToastMessageConfiguration {
 
     public typealias Icon = ConfigurationViewWrapper
     public typealias Title = ConfigurationViewWrapper
+}
+
+public extension ToastMessageConfiguration {
+    var contentIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
+
+    var iconIdentifier: String {
+        self.componentIdentifier + "_icon"
+    }
+
+    var titleIdentifier: String {
+        self.componentIdentifier + "_title"
+    }
 }
 
 extension ToastMessageConfiguration {

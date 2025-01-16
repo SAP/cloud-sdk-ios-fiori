@@ -23,10 +23,6 @@ struct AnyLabelItemStyle: LabelItemStyle {
 }
 
 public struct LabelItemConfiguration {
-    public let contentIdentifier = "FioriLabelItem_content"
-    public let iconIdentifier = "FioriLabelItem_icon"
-    public let titleIdentifier = "FioriLabelItem_title"
-
     public var componentIdentifier: String = "fiori_labelitem_component"
     public let icon: Icon
     public let title: Title
@@ -34,6 +30,20 @@ public struct LabelItemConfiguration {
 
     public typealias Icon = ConfigurationViewWrapper
     public typealias Title = ConfigurationViewWrapper
+}
+
+public extension LabelItemConfiguration {
+    var contentIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
+
+    var iconIdentifier: String {
+        self.componentIdentifier + "_icon"
+    }
+
+    var titleIdentifier: String {
+        self.componentIdentifier + "_title"
+    }
 }
 
 extension LabelItemConfiguration {

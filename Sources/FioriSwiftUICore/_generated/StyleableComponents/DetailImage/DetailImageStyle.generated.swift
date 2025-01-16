@@ -23,12 +23,16 @@ struct AnyDetailImageStyle: DetailImageStyle {
 }
 
 public struct DetailImageConfiguration {
-    public let detailImageIdentifier = "FioriDetailImage_detailImage"
-
     public var componentIdentifier: String = "fiori_detailimage_component"
     public let detailImage: DetailImage
 
     public typealias DetailImage = ConfigurationViewWrapper
+}
+
+public extension DetailImageConfiguration {
+    var detailImageIdentifier: String {
+        self.componentIdentifier + "_detailImage"
+    }
 }
 
 extension DetailImageConfiguration {

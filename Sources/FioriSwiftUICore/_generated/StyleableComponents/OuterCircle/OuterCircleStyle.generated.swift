@@ -23,12 +23,16 @@ struct AnyOuterCircleStyle: OuterCircleStyle {
 }
 
 public struct OuterCircleConfiguration {
-    public let outerCircleIdentifier = "FioriOuterCircle_outerCircle"
-
     public var componentIdentifier: String = "fiori_outercircle_component"
     public let outerCircle: OuterCircle
 
     public typealias OuterCircle = ConfigurationViewWrapper
+}
+
+public extension OuterCircleConfiguration {
+    var outerCircleIdentifier: String {
+        self.componentIdentifier + "_outerCircle"
+    }
 }
 
 extension OuterCircleConfiguration {

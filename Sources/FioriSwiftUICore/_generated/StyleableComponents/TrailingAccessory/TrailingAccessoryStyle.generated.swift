@@ -23,12 +23,16 @@ struct AnyTrailingAccessoryStyle: TrailingAccessoryStyle {
 }
 
 public struct TrailingAccessoryConfiguration {
-    public let trailingAccessoryIdentifier = "FioriTrailingAccessory_trailingAccessory"
-
     public var componentIdentifier: String = "fiori_trailingaccessory_component"
     public let trailingAccessory: TrailingAccessory
 
     public typealias TrailingAccessory = ConfigurationViewWrapper
+}
+
+public extension TrailingAccessoryConfiguration {
+    var trailingAccessoryIdentifier: String {
+        self.componentIdentifier + "_trailingAccessory"
+    }
 }
 
 extension TrailingAccessoryConfiguration {

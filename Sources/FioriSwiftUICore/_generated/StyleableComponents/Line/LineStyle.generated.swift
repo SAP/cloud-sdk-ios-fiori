@@ -23,12 +23,16 @@ struct AnyLineStyle: LineStyle {
 }
 
 public struct LineConfiguration {
-    public let lineIdentifier = "FioriLine_line"
-
     public var componentIdentifier: String = "fiori_line_component"
     public let line: Line
 
     public typealias Line = ConfigurationViewWrapper
+}
+
+public extension LineConfiguration {
+    var lineIdentifier: String {
+        self.componentIdentifier + "_line"
+    }
 }
 
 extension LineConfiguration {

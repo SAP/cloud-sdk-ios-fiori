@@ -23,12 +23,16 @@ struct AnyCancelActionStyle: CancelActionStyle {
 }
 
 public struct CancelActionConfiguration {
-    public let cancelActionIdentifier = "FioriCancelAction_cancelAction"
-
     public var componentIdentifier: String = "fiori_cancelaction_component"
     public let cancelAction: CancelAction
 
     public typealias CancelAction = ConfigurationViewWrapper
+}
+
+public extension CancelActionConfiguration {
+    var cancelActionIdentifier: String {
+        self.componentIdentifier + "_cancelAction"
+    }
 }
 
 extension CancelActionConfiguration {

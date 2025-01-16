@@ -23,16 +23,6 @@ struct AnyRatingControlFormViewStyle: RatingControlFormViewStyle {
 }
 
 public struct RatingControlFormViewConfiguration {
-    public let contentIdentifier = "FioriRatingControlFormView_content"
-    public let titleIdentifier = "FioriRatingControlFormView_title"
-    public let valueLabelIdentifier = "FioriRatingControlFormView_valueLabel"
-    public let onStarImageIdentifier = "FioriRatingControlFormView_onStarImage"
-    public let offStarImageIdentifier = "FioriRatingControlFormView_offStarImage"
-    public let halfStarImageIdentifier = "FioriRatingControlFormView_halfStarImage"
-    public let reviewCountLabelIdentifier = "FioriRatingControlFormView_reviewCountLabel"
-    public let subtitleIdentifier = "FioriRatingControlFormView_subtitle"
-    public let ratingControlIdentifier = "FioriRatingControlFormView_ratingControl"
-
     public var componentIdentifier: String = "fiori_ratingcontrolformview_component"
     public let title: Title
     public let valueLabel: ValueLabel
@@ -64,6 +54,44 @@ public struct RatingControlFormViewConfiguration {
     public typealias HalfStarImage = ConfigurationViewWrapper
     public typealias ReviewCountLabel = ConfigurationViewWrapper
     public typealias Subtitle = ConfigurationViewWrapper
+}
+
+public extension RatingControlFormViewConfiguration {
+    var contentIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
+
+    var titleIdentifier: String {
+        self.componentIdentifier + "_title"
+    }
+
+    var valueLabelIdentifier: String {
+        self.componentIdentifier + "_valueLabel"
+    }
+
+    var onStarImageIdentifier: String {
+        self.componentIdentifier + "_onStarImage"
+    }
+
+    var offStarImageIdentifier: String {
+        self.componentIdentifier + "_offStarImage"
+    }
+
+    var halfStarImageIdentifier: String {
+        self.componentIdentifier + "_halfStarImage"
+    }
+
+    var reviewCountLabelIdentifier: String {
+        self.componentIdentifier + "_reviewCountLabel"
+    }
+
+    var subtitleIdentifier: String {
+        self.componentIdentifier + "_subtitle"
+    }
+
+    var ratingControlIdentifier: String {
+        self.componentIdentifier + "_ratingControl"
+    }
 }
 
 extension RatingControlFormViewConfiguration {

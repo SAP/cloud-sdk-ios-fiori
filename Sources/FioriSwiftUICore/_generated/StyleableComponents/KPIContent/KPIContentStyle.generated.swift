@@ -23,12 +23,16 @@ struct AnyKPIContentStyle: KPIContentStyle {
 }
 
 public struct KPIContentConfiguration {
-    public let kPIContentIdentifier = "FioriKPIContent_kPIContent"
-
     public var componentIdentifier: String = "fiori_kpicontent_component"
     public let kPIContent: KPIContent
 
     public typealias KPIContent = ConfigurationViewWrapper
+}
+
+public extension KPIContentConfiguration {
+    var kPIContentIdentifier: String {
+        self.componentIdentifier + "_kPIContent"
+    }
 }
 
 extension KPIContentConfiguration {

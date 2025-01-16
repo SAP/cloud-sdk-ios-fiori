@@ -23,12 +23,16 @@ struct AnySubAttributeStyle: SubAttributeStyle {
 }
 
 public struct SubAttributeConfiguration {
-    public let subAttributeIdentifier = "FioriSubAttribute_subAttribute"
-
     public var componentIdentifier: String = "fiori_subattribute_component"
     public let subAttribute: SubAttribute
 
     public typealias SubAttribute = ConfigurationViewWrapper
+}
+
+public extension SubAttributeConfiguration {
+    var subAttributeIdentifier: String {
+        self.componentIdentifier + "_subAttribute"
+    }
 }
 
 extension SubAttributeConfiguration {

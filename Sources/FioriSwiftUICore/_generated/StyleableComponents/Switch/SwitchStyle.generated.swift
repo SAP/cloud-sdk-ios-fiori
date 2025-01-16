@@ -23,10 +23,14 @@ struct AnySwitchStyle: SwitchStyle {
 }
 
 public struct SwitchConfiguration {
-    public let switchIdentifier = "FioriSwitch_content"
-
     public var componentIdentifier: String = "fiori_switch_component"
     @Binding public var isOn: Bool
+}
+
+public extension SwitchConfiguration {
+    var switchIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
 }
 
 extension SwitchConfiguration {

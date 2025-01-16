@@ -35,8 +35,10 @@ public extension ActivityItems {
 }
 
 public extension ActivityItems {
-    init(activityItems: [ActivityItemDataType] = []) {
-        self.init(activityItems: { ActivityItemsListStack(activityItems) })
+    init(activityItems: [ActivityItemDataType] = [],
+         componentIdentifier: String? = ActivityItems.identifier)
+    {
+        self.init(activityItems: { ActivityItemsListStack(activityItems) }, componentIdentifier: componentIdentifier)
     }
 }
 

@@ -62,9 +62,10 @@ public extension HeaderChart {
          trend: AttributedString? = nil,
          trendImage: Image? = nil,
          kpi: KPIItemData? = nil,
-         @ViewBuilder chart: () -> any View = { EmptyView() })
+         @ViewBuilder chart: () -> any View = { EmptyView() },
+         componentIdentifier: String? = HeaderChart.identifier)
     {
-        self.init(title: { Text(title) }, subtitle: { OptionalText(subtitle) }, trend: { OptionalText(trend) }, trendImage: { trendImage }, kpi: { OptionalKPIItem(kpi) }, chart: chart)
+        self.init(title: { Text(title) }, subtitle: { OptionalText(subtitle) }, trend: { OptionalText(trend) }, trendImage: { trendImage }, kpi: { OptionalKPIItem(kpi) }, chart: chart, componentIdentifier: componentIdentifier)
     }
 }
 

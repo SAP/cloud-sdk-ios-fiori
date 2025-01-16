@@ -23,13 +23,6 @@ struct AnyJouleWelcomeScreenStyle: JouleWelcomeScreenStyle {
 }
 
 public struct JouleWelcomeScreenConfiguration {
-    public let contentIdentifier = "FioriJouleWelcomeScreen_content"
-    public let mediaImageIdentifier = "FioriJouleWelcomeScreen_mediaImage"
-    public let greetingTextIdentifier = "FioriJouleWelcomeScreen_greetingText"
-    public let titleIdentifier = "FioriJouleWelcomeScreen_title"
-    public let footnoteIdentifier = "FioriJouleWelcomeScreen_footnote"
-    public let messageContentIdentifier = "FioriJouleWelcomeScreen_messageContent"
-
     public var componentIdentifier: String = "fiori_joulewelcomescreen_component"
     public let mediaImage: MediaImage
     public let greetingText: GreetingText
@@ -42,6 +35,32 @@ public struct JouleWelcomeScreenConfiguration {
     public typealias Title = ConfigurationViewWrapper
     public typealias Footnote = ConfigurationViewWrapper
     public typealias MessageContent = ConfigurationViewWrapper
+}
+
+public extension JouleWelcomeScreenConfiguration {
+    var contentIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
+
+    var mediaImageIdentifier: String {
+        self.componentIdentifier + "_mediaImage"
+    }
+
+    var greetingTextIdentifier: String {
+        self.componentIdentifier + "_greetingText"
+    }
+
+    var titleIdentifier: String {
+        self.componentIdentifier + "_title"
+    }
+
+    var footnoteIdentifier: String {
+        self.componentIdentifier + "_footnote"
+    }
+
+    var messageContentIdentifier: String {
+        self.componentIdentifier + "_messageContent"
+    }
 }
 
 extension JouleWelcomeScreenConfiguration {

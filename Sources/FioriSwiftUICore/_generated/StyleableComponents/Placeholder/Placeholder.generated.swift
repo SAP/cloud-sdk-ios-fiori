@@ -25,8 +25,10 @@ public extension Placeholder {
 }
 
 public extension Placeholder {
-    init(placeholder: AttributedString? = nil) {
-        self.init(placeholder: { OptionalText(placeholder) })
+    init(placeholder: AttributedString? = nil,
+         componentIdentifier: String? = Placeholder.identifier)
+    {
+        self.init(placeholder: { OptionalText(placeholder) }, componentIdentifier: componentIdentifier)
     }
 }
 

@@ -23,12 +23,16 @@ struct AnyCloseActionStyle: CloseActionStyle {
 }
 
 public struct CloseActionConfiguration {
-    public let closeActionIdentifier = "FioriCloseAction_closeAction"
-
     public var componentIdentifier: String = "fiori_closeaction_component"
     public let closeAction: CloseAction
 
     public typealias CloseAction = ConfigurationViewWrapper
+}
+
+public extension CloseActionConfiguration {
+    var closeActionIdentifier: String {
+        self.componentIdentifier + "_closeAction"
+    }
 }
 
 extension CloseActionConfiguration {

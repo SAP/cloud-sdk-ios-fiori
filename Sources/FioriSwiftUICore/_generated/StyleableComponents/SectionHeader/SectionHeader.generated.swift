@@ -39,9 +39,10 @@ public extension SectionHeader {
     init(title: AttributedString,
          attribute: AttributedString? = nil,
          sectionHeaderStyle: SectionHeaderFooterStyle = .title,
-         didSelectHandler: (() -> Void)? = nil)
+         didSelectHandler: (() -> Void)? = nil,
+         componentIdentifier: String? = SectionHeader.identifier)
     {
-        self.init(title: { Text(title) }, attribute: { OptionalText(attribute) }, sectionHeaderStyle: sectionHeaderStyle, didSelectHandler: didSelectHandler)
+        self.init(title: { Text(title) }, attribute: { OptionalText(attribute) }, sectionHeaderStyle: sectionHeaderStyle, didSelectHandler: didSelectHandler, componentIdentifier: componentIdentifier)
     }
 }
 

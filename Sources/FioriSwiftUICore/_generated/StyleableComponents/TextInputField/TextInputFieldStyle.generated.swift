@@ -23,10 +23,14 @@ struct AnyTextInputFieldStyle: TextInputFieldStyle {
 }
 
 public struct TextInputFieldConfiguration {
-    public let textInputFieldIdentifier = "FioriTextInputField_content"
-
     public var componentIdentifier: String = "fiori_textinputfield_component"
     @Binding public var text: String
+}
+
+public extension TextInputFieldConfiguration {
+    var textInputFieldIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
 }
 
 extension TextInputFieldConfiguration {

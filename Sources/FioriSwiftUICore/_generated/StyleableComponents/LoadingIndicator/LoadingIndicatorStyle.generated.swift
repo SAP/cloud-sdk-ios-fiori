@@ -23,10 +23,6 @@ struct AnyLoadingIndicatorStyle: LoadingIndicatorStyle {
 }
 
 public struct LoadingIndicatorConfiguration {
-    public let contentIdentifier = "FioriLoadingIndicator_content"
-    public let titleIdentifier = "FioriLoadingIndicator_title"
-    public let progressIdentifier = "FioriLoadingIndicator_progress"
-
     public var componentIdentifier: String = "fiori_loadingindicator_component"
     public let title: Title
     public let progress: Progress
@@ -35,6 +31,20 @@ public struct LoadingIndicatorConfiguration {
 
     public typealias Title = ConfigurationViewWrapper
     public typealias Progress = ConfigurationViewWrapper
+}
+
+public extension LoadingIndicatorConfiguration {
+    var contentIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
+
+    var titleIdentifier: String {
+        self.componentIdentifier + "_title"
+    }
+
+    var progressIdentifier: String {
+        self.componentIdentifier + "_progress"
+    }
 }
 
 extension LoadingIndicatorConfiguration {

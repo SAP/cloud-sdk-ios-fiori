@@ -25,8 +25,10 @@ public extension Subtitle {
 }
 
 public extension Subtitle {
-    init(subtitle: AttributedString? = nil) {
-        self.init(subtitle: { OptionalText(subtitle) })
+    init(subtitle: AttributedString? = nil,
+         componentIdentifier: String? = Subtitle.identifier)
+    {
+        self.init(subtitle: { OptionalText(subtitle) }, componentIdentifier: componentIdentifier)
     }
 }
 

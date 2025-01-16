@@ -96,9 +96,10 @@ public extension ListPickerItem {
          controlState: ControlState = .normal,
          errorMessage: AttributedString? = nil,
          axis: Axis = .horizontal,
-         @ViewBuilder destination: () -> any View = { EmptyView() })
+         @ViewBuilder destination: () -> any View = { EmptyView() },
+         componentIdentifier: String? = ListPickerItem.identifier)
     {
-        self.init(title: { Text(title) }, value: { OptionalText(value) }, mandatoryFieldIndicator: { TextOrIconView(mandatoryFieldIndicator) }, isRequired: isRequired, controlState: controlState, errorMessage: errorMessage, axis: axis, destination: destination)
+        self.init(title: { Text(title) }, value: { OptionalText(value) }, mandatoryFieldIndicator: { TextOrIconView(mandatoryFieldIndicator) }, isRequired: isRequired, controlState: controlState, errorMessage: errorMessage, axis: axis, destination: destination, componentIdentifier: componentIdentifier)
     }
 }
 

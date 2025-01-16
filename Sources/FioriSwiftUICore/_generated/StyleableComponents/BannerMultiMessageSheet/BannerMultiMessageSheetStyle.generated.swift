@@ -23,10 +23,6 @@ struct AnyBannerMultiMessageSheetStyle: BannerMultiMessageSheetStyle {
 }
 
 public struct BannerMultiMessageSheetConfiguration {
-    public let contentIdentifier = "FioriBannerMultiMessageSheet_content"
-    public let titleIdentifier = "FioriBannerMultiMessageSheet_title"
-    public let closeActionIdentifier = "FioriBannerMultiMessageSheet_closeAction"
-
     public var componentIdentifier: String = "fiori_bannermultimessagesheet_component"
     public let title: Title
     public let closeAction: CloseAction
@@ -39,6 +35,20 @@ public struct BannerMultiMessageSheetConfiguration {
 
     public typealias Title = ConfigurationViewWrapper
     public typealias CloseAction = ConfigurationViewWrapper
+}
+
+public extension BannerMultiMessageSheetConfiguration {
+    var contentIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
+
+    var titleIdentifier: String {
+        self.componentIdentifier + "_title"
+    }
+
+    var closeActionIdentifier: String {
+        self.componentIdentifier + "_closeAction"
+    }
 }
 
 extension BannerMultiMessageSheetConfiguration {

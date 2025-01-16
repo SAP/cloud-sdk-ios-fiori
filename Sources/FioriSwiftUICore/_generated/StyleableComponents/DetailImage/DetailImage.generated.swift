@@ -25,8 +25,10 @@ public extension DetailImage {
 }
 
 public extension DetailImage {
-    init(detailImage: Image? = nil) {
-        self.init(detailImage: { detailImage })
+    init(detailImage: Image? = nil,
+         componentIdentifier: String? = DetailImage.identifier)
+    {
+        self.init(detailImage: { detailImage }, componentIdentifier: componentIdentifier)
     }
 }
 

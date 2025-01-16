@@ -23,12 +23,16 @@ struct AnyIconStyle: IconStyle {
 }
 
 public struct IconConfiguration {
-    public let iconIdentifier = "FioriIcon_icon"
-
     public var componentIdentifier: String = "fiori_icon_component"
     public let icon: Icon
 
     public typealias Icon = ConfigurationViewWrapper
+}
+
+public extension IconConfiguration {
+    var iconIdentifier: String {
+        self.componentIdentifier + "_icon"
+    }
 }
 
 extension IconConfiguration {

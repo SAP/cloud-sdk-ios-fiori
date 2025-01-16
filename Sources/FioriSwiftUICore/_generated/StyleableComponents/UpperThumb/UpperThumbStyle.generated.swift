@@ -23,12 +23,16 @@ struct AnyUpperThumbStyle: UpperThumbStyle {
 }
 
 public struct UpperThumbConfiguration {
-    public let upperThumbIdentifier = "FioriUpperThumb_upperThumb"
-
     public var componentIdentifier: String = "fiori_upperthumb_component"
     public let upperThumb: UpperThumb
 
     public typealias UpperThumb = ConfigurationViewWrapper
+}
+
+public extension UpperThumbConfiguration {
+    var upperThumbIdentifier: String {
+        self.componentIdentifier + "_upperThumb"
+    }
 }
 
 extension UpperThumbConfiguration {

@@ -29,9 +29,10 @@ public extension AvatarStack {
 
 public extension AvatarStack {
     init(avatars: [TextOrIcon] = [],
-         avatarsTitle: AttributedString? = nil)
+         avatarsTitle: AttributedString? = nil,
+         componentIdentifier: String? = AvatarStack.identifier)
     {
-        self.init(avatars: { AvatarsListStack(avatars) }, avatarsTitle: { OptionalText(avatarsTitle) })
+        self.init(avatars: { AvatarsListStack(avatars) }, avatarsTitle: { OptionalText(avatarsTitle) }, componentIdentifier: componentIdentifier)
     }
 }
 

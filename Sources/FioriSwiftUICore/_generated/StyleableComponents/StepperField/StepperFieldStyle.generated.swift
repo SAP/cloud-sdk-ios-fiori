@@ -23,11 +23,6 @@ struct AnyStepperFieldStyle: StepperFieldStyle {
 }
 
 public struct StepperFieldConfiguration {
-    public let contentIdentifier = "FioriStepperField_content"
-    public let decrementActionIdentifier = "FioriStepperField_decrementAction"
-    public let textInputFieldIdentifier = "FioriStepperField_textInputField"
-    public let incrementActionIdentifier = "FioriStepperField_incrementAction"
-
     public var componentIdentifier: String = "fiori_stepperfield_component"
     public let decrementAction: DecrementAction
     @Binding public var text: String
@@ -38,6 +33,24 @@ public struct StepperFieldConfiguration {
 
     public typealias DecrementAction = ConfigurationViewWrapper
     public typealias IncrementAction = ConfigurationViewWrapper
+}
+
+public extension StepperFieldConfiguration {
+    var contentIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
+
+    var decrementActionIdentifier: String {
+        self.componentIdentifier + "_decrementAction"
+    }
+
+    var textInputFieldIdentifier: String {
+        self.componentIdentifier + "_textInputField"
+    }
+
+    var incrementActionIdentifier: String {
+        self.componentIdentifier + "_incrementAction"
+    }
 }
 
 extension StepperFieldConfiguration {

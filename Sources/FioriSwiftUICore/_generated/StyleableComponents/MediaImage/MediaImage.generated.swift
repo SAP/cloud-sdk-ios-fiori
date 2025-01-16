@@ -25,8 +25,10 @@ public extension MediaImage {
 }
 
 public extension MediaImage {
-    init(mediaImage: Image? = nil) {
-        self.init(mediaImage: { OptionalImage(mediaImage) })
+    init(mediaImage: Image? = nil,
+         componentIdentifier: String? = MediaImage.identifier)
+    {
+        self.init(mediaImage: { OptionalImage(mediaImage) }, componentIdentifier: componentIdentifier)
     }
 }
 

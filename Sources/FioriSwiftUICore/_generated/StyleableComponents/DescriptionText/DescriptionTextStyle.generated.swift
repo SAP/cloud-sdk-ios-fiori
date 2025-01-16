@@ -23,12 +23,16 @@ struct AnyDescriptionTextStyle: DescriptionTextStyle {
 }
 
 public struct DescriptionTextConfiguration {
-    public let descriptionTextIdentifier = "FioriDescriptionText_descriptionText"
-
     public var componentIdentifier: String = "fiori_descriptiontext_component"
     public let descriptionText: DescriptionText
 
     public typealias DescriptionText = ConfigurationViewWrapper
+}
+
+public extension DescriptionTextConfiguration {
+    var descriptionTextIdentifier: String {
+        self.componentIdentifier + "_descriptionText"
+    }
 }
 
 extension DescriptionTextConfiguration {

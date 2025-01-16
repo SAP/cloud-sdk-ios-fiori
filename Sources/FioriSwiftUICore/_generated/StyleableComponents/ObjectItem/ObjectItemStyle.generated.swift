@@ -23,21 +23,6 @@ struct AnyObjectItemStyle: ObjectItemStyle {
 }
 
 public struct ObjectItemConfiguration {
-    public let contentIdentifier = "FioriObjectItem_content"
-    public let titleIdentifier = "FioriObjectItem_title"
-    public let subtitleIdentifier = "FioriObjectItem_subtitle"
-    public let footnoteIdentifier = "FioriObjectItem_footnote"
-    public let descriptionIdentifier = "FioriObjectItem_description"
-    public let statusIdentifier = "FioriObjectItem_status"
-    public let substatusIdentifier = "FioriObjectItem_substatus"
-    public let detailImageIdentifier = "FioriObjectItem_detailImage"
-    public let iconsIdentifier = "FioriObjectItem_icons"
-    public let avatarsIdentifier = "FioriObjectItem_avatars"
-    public let footnoteIconsIdentifier = "FioriObjectItem_footnoteIcons"
-    public let footnoteIconsTextIdentifier = "FioriObjectItem_footnoteIconsText"
-    public let tagsIdentifier = "FioriObjectItem_tags"
-    public let actionIdentifier = "FioriObjectItem_action"
-
     public var componentIdentifier: String = "fiori_objectitem_component"
     public let title: Title
     public let subtitle: Subtitle
@@ -68,6 +53,64 @@ public struct ObjectItemConfiguration {
     public typealias Tags = ConfigurationViewWrapper
     public typealias Action = ConfigurationViewWrapper
     public typealias ObjectItemButton = ConfigurationViewWrapper
+}
+
+public extension ObjectItemConfiguration {
+    var contentIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
+
+    var titleIdentifier: String {
+        self.componentIdentifier + "_title"
+    }
+
+    var subtitleIdentifier: String {
+        self.componentIdentifier + "_subtitle"
+    }
+
+    var footnoteIdentifier: String {
+        self.componentIdentifier + "_footnote"
+    }
+
+    var descriptionIdentifier: String {
+        self.componentIdentifier + "_description"
+    }
+
+    var statusIdentifier: String {
+        self.componentIdentifier + "_status"
+    }
+
+    var substatusIdentifier: String {
+        self.componentIdentifier + "_substatus"
+    }
+
+    var detailImageIdentifier: String {
+        self.componentIdentifier + "_detailImage"
+    }
+
+    var iconsIdentifier: String {
+        self.componentIdentifier + "_icons"
+    }
+
+    var avatarsIdentifier: String {
+        self.componentIdentifier + "_avatars"
+    }
+
+    var footnoteIconsIdentifier: String {
+        self.componentIdentifier + "_footnoteIcons"
+    }
+
+    var footnoteIconsTextIdentifier: String {
+        self.componentIdentifier + "_footnoteIconsText"
+    }
+
+    var tagsIdentifier: String {
+        self.componentIdentifier + "_tags"
+    }
+
+    var actionIdentifier: String {
+        self.componentIdentifier + "_action"
+    }
 }
 
 extension ObjectItemConfiguration {

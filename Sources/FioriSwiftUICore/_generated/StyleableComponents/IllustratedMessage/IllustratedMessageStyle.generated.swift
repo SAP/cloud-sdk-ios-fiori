@@ -23,13 +23,6 @@ struct AnyIllustratedMessageStyle: IllustratedMessageStyle {
 }
 
 public struct IllustratedMessageConfiguration {
-    public let contentIdentifier = "FioriIllustratedMessage_content"
-    public let detailImageIdentifier = "FioriIllustratedMessage_detailImage"
-    public let titleIdentifier = "FioriIllustratedMessage_title"
-    public let descriptionIdentifier = "FioriIllustratedMessage_description"
-    public let actionIdentifier = "FioriIllustratedMessage_action"
-    public let secondaryActionIdentifier = "FioriIllustratedMessage_secondaryAction"
-
     public var componentIdentifier: String = "fiori_illustratedmessage_component"
     public let detailImage: DetailImage
     public let title: Title
@@ -45,6 +38,32 @@ public struct IllustratedMessageConfiguration {
     public typealias Description = ConfigurationViewWrapper
     public typealias Action = ConfigurationViewWrapper
     public typealias SecondaryAction = ConfigurationViewWrapper
+}
+
+public extension IllustratedMessageConfiguration {
+    var contentIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
+
+    var detailImageIdentifier: String {
+        self.componentIdentifier + "_detailImage"
+    }
+
+    var titleIdentifier: String {
+        self.componentIdentifier + "_title"
+    }
+
+    var descriptionIdentifier: String {
+        self.componentIdentifier + "_description"
+    }
+
+    var actionIdentifier: String {
+        self.componentIdentifier + "_action"
+    }
+
+    var secondaryActionIdentifier: String {
+        self.componentIdentifier + "_secondaryAction"
+    }
 }
 
 extension IllustratedMessageConfiguration {

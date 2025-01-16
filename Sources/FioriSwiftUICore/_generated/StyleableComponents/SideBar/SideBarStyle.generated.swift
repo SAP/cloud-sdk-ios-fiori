@@ -23,8 +23,6 @@ struct AnySideBarStyle: SideBarStyle {
 }
 
 public struct SideBarConfiguration {
-    public let contentIdentifier = "FioriSideBar_content"
-
     public var componentIdentifier: String = "fiori_sidebar_component"
     @Binding public var isEditing: Bool
     @Binding public var queryString: String?
@@ -40,6 +38,12 @@ public struct SideBarConfiguration {
 
     public typealias Footer = ConfigurationViewWrapper
     public typealias EditButton = ConfigurationViewWrapper
+}
+
+public extension SideBarConfiguration {
+    var contentIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
 }
 
 extension SideBarConfiguration {

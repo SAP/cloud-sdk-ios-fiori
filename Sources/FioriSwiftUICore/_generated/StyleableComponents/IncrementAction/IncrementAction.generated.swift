@@ -27,8 +27,10 @@ public extension IncrementAction {
 }
 
 public extension IncrementAction {
-    init(incrementAction: FioriButton? = FioriButton { _ in FioriIcon.actions.add }) {
-        self.init(incrementAction: { incrementAction })
+    init(incrementAction: FioriButton? = FioriButton { _ in FioriIcon.actions.add },
+         componentIdentifier: String? = IncrementAction.identifier)
+    {
+        self.init(incrementAction: { incrementAction }, componentIdentifier: componentIdentifier)
     }
 }
 

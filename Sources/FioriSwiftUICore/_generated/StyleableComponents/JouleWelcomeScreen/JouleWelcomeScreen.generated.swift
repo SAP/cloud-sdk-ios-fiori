@@ -41,9 +41,10 @@ public extension JouleWelcomeScreen {
          greetingText: AttributedString,
          title: AttributedString,
          footnote: AttributedString? = nil,
-         @ViewBuilder messageContent: () -> any View = { EmptyView() })
+         @ViewBuilder messageContent: () -> any View = { EmptyView() },
+         componentIdentifier: String? = JouleWelcomeScreen.identifier)
     {
-        self.init(mediaImage: { OptionalImage(mediaImage) }, greetingText: { Text(greetingText) }, title: { Text(title) }, footnote: { OptionalText(footnote) }, messageContent: messageContent)
+        self.init(mediaImage: { OptionalImage(mediaImage) }, greetingText: { Text(greetingText) }, title: { Text(title) }, footnote: { OptionalText(footnote) }, messageContent: messageContent, componentIdentifier: componentIdentifier)
     }
 }
 

@@ -37,9 +37,10 @@ public extension SwitchView {
 
 public extension SwitchView {
     init(title: AttributedString,
-         isOn: Binding<Bool>)
+         isOn: Binding<Bool>,
+         componentIdentifier: String? = SwitchView.identifier)
     {
-        self.init(title: { Text(title) }, isOn: isOn)
+        self.init(title: { Text(title) }, isOn: isOn, componentIdentifier: componentIdentifier)
     }
 }
 

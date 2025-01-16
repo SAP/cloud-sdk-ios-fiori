@@ -60,9 +60,10 @@ public extension SideBarListItem {
          accessoryIcon: Image? = nil,
          isOn: Binding<Bool>,
          data: SideBarItemModel,
-         isSelected: Binding<Bool>)
+         isSelected: Binding<Bool>,
+         componentIdentifier: String? = SideBarListItem.identifier)
     {
-        self.init(icon: { icon }, filledIcon: { filledIcon }, title: { Text(title) }, subtitle: { OptionalText(subtitle) }, accessoryIcon: { accessoryIcon }, isOn: isOn, data: data, isSelected: isSelected)
+        self.init(icon: { icon }, filledIcon: { filledIcon }, title: { Text(title) }, subtitle: { OptionalText(subtitle) }, accessoryIcon: { accessoryIcon }, isOn: isOn, data: data, isSelected: isSelected, componentIdentifier: componentIdentifier)
     }
 }
 

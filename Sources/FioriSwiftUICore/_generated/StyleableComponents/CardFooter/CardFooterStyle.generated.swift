@@ -23,12 +23,6 @@ struct AnyCardFooterStyle: CardFooterStyle {
 }
 
 public struct CardFooterConfiguration {
-    public let contentIdentifier = "FioriCardFooter_content"
-    public let actionIdentifier = "FioriCardFooter_action"
-    public let secondaryActionIdentifier = "FioriCardFooter_secondaryAction"
-    public let tertiaryActionIdentifier = "FioriCardFooter_tertiaryAction"
-    public let overflowActionIdentifier = "FioriCardFooter_overflowAction"
-
     public var componentIdentifier: String = "fiori_cardfooter_component"
     public let action: Action
     public let secondaryAction: SecondaryAction
@@ -39,6 +33,28 @@ public struct CardFooterConfiguration {
     public typealias SecondaryAction = ConfigurationViewWrapper
     public typealias TertiaryAction = ConfigurationViewWrapper
     public typealias OverflowAction = ConfigurationViewWrapper
+}
+
+public extension CardFooterConfiguration {
+    var contentIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
+
+    var actionIdentifier: String {
+        self.componentIdentifier + "_action"
+    }
+
+    var secondaryActionIdentifier: String {
+        self.componentIdentifier + "_secondaryAction"
+    }
+
+    var tertiaryActionIdentifier: String {
+        self.componentIdentifier + "_tertiaryAction"
+    }
+
+    var overflowActionIdentifier: String {
+        self.componentIdentifier + "_overflowAction"
+    }
 }
 
 extension CardFooterConfiguration {

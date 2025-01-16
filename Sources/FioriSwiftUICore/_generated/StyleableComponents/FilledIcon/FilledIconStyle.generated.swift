@@ -23,12 +23,16 @@ struct AnyFilledIconStyle: FilledIconStyle {
 }
 
 public struct FilledIconConfiguration {
-    public let filledIconIdentifier = "FioriFilledIcon_filledIcon"
-
     public var componentIdentifier: String = "fiori_filledicon_component"
     public let filledIcon: FilledIcon
 
     public typealias FilledIcon = ConfigurationViewWrapper
+}
+
+public extension FilledIconConfiguration {
+    var filledIconIdentifier: String {
+        self.componentIdentifier + "_filledIcon"
+    }
 }
 
 extension FilledIconConfiguration {

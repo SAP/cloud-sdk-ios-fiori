@@ -25,8 +25,10 @@ public extension CancelAction {
 }
 
 public extension CancelAction {
-    init(cancelAction: FioriButton? = FioriButton { _ in Text("Cancel".localizedFioriString()) }) {
-        self.init(cancelAction: { cancelAction })
+    init(cancelAction: FioriButton? = FioriButton { _ in Text("Cancel".localizedFioriString()) },
+         componentIdentifier: String? = CancelAction.identifier)
+    {
+        self.init(cancelAction: { cancelAction }, componentIdentifier: componentIdentifier)
     }
 }
 

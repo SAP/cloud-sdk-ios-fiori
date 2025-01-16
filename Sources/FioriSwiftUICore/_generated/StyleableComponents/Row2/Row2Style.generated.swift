@@ -23,12 +23,16 @@ struct AnyRow2Style: Row2Style {
 }
 
 public struct Row2Configuration {
-    public let row2Identifier = "FioriRow2_row2"
-
     public var componentIdentifier: String = "fiori_row2_component"
     public let row2: Row2
 
     public typealias Row2 = ConfigurationViewWrapper
+}
+
+public extension Row2Configuration {
+    var row2Identifier: String {
+        self.componentIdentifier + "_row2"
+    }
 }
 
 extension Row2Configuration {

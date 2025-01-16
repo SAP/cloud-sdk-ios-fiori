@@ -111,7 +111,7 @@ extension [Variable] {
         }
         .joined(separator: ", ")
         
-        return "self.init(\(initArgs))"
+        return "self.init(\(initArgs), componentIdentifier: componentIdentifier)"
     }
     
     var configurationInitBody: String {

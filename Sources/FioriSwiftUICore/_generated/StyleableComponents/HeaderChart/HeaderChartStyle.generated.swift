@@ -23,13 +23,6 @@ struct AnyHeaderChartStyle: HeaderChartStyle {
 }
 
 public struct HeaderChartConfiguration {
-    public let contentIdentifier = "FioriHeaderChart_content"
-    public let titleIdentifier = "FioriHeaderChart_title"
-    public let subtitleIdentifier = "FioriHeaderChart_subtitle"
-    public let trendIdentifier = "FioriHeaderChart_trend"
-    public let trendImageIdentifier = "FioriHeaderChart_trendImage"
-    public let kpiIdentifier = "FioriHeaderChart_kpi"
-
     public var componentIdentifier: String = "fiori_headerchart_component"
     public let title: Title
     public let subtitle: Subtitle
@@ -44,6 +37,32 @@ public struct HeaderChartConfiguration {
     public typealias TrendImage = ConfigurationViewWrapper
     public typealias Kpi = ConfigurationViewWrapper
     public typealias Chart = ConfigurationViewWrapper
+}
+
+public extension HeaderChartConfiguration {
+    var contentIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
+
+    var titleIdentifier: String {
+        self.componentIdentifier + "_title"
+    }
+
+    var subtitleIdentifier: String {
+        self.componentIdentifier + "_subtitle"
+    }
+
+    var trendIdentifier: String {
+        self.componentIdentifier + "_trend"
+    }
+
+    var trendImageIdentifier: String {
+        self.componentIdentifier + "_trendImage"
+    }
+
+    var kpiIdentifier: String {
+        self.componentIdentifier + "_kpi"
+    }
 }
 
 extension HeaderChartConfiguration {

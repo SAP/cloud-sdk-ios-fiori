@@ -73,9 +73,10 @@ public extension TimelineMarker {
          isPast: Bool = false,
          isPresent: Bool = false,
          showUpperVerticalLine: Bool = true,
-         showLowerVerticalLine: Bool = true)
+         showLowerVerticalLine: Bool = true,
+         componentIdentifier: String? = TimelineMarker.identifier)
     {
-        self.init(timestamp: { OptionalText(timestamp) }, secondaryTimestamp: { TextOrIconView(secondaryTimestamp) }, timelineNode: { TimelineNodeView(timelineNode) }, icon: { icon }, title: { Text(title) }, isPast: isPast, isPresent: isPresent, showUpperVerticalLine: showUpperVerticalLine, showLowerVerticalLine: showLowerVerticalLine)
+        self.init(timestamp: { OptionalText(timestamp) }, secondaryTimestamp: { TextOrIconView(secondaryTimestamp) }, timelineNode: { TimelineNodeView(timelineNode) }, icon: { icon }, title: { Text(title) }, isPast: isPast, isPresent: isPresent, showUpperVerticalLine: showUpperVerticalLine, showLowerVerticalLine: showLowerVerticalLine, componentIdentifier: componentIdentifier)
     }
 }
 

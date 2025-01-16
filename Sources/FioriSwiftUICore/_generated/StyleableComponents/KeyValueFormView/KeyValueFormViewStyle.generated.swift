@@ -23,13 +23,6 @@ struct AnyKeyValueFormViewStyle: KeyValueFormViewStyle {
 }
 
 public struct KeyValueFormViewConfiguration {
-    public let contentIdentifier = "FioriKeyValueFormView_content"
-    public let titleIdentifier = "FioriKeyValueFormView_title"
-    public let textViewIdentifier = "FioriKeyValueFormView_textView"
-    public let placeholderIdentifier = "FioriKeyValueFormView_placeholder"
-    public let mandatoryFieldIndicatorIdentifier = "FioriKeyValueFormView_mandatoryFieldIndicator"
-    public let noteFormViewIdentifier = "FioriKeyValueFormView_noteFormView"
-
     public var componentIdentifier: String = "fiori_keyvalueformview_component"
     public let title: Title
     @Binding public var text: String
@@ -51,6 +44,32 @@ public struct KeyValueFormViewConfiguration {
     public typealias Title = ConfigurationViewWrapper
     public typealias Placeholder = ConfigurationViewWrapper
     public typealias MandatoryFieldIndicator = ConfigurationViewWrapper
+}
+
+public extension KeyValueFormViewConfiguration {
+    var contentIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
+
+    var titleIdentifier: String {
+        self.componentIdentifier + "_title"
+    }
+
+    var textViewIdentifier: String {
+        self.componentIdentifier + "_textView"
+    }
+
+    var placeholderIdentifier: String {
+        self.componentIdentifier + "_placeholder"
+    }
+
+    var mandatoryFieldIndicatorIdentifier: String {
+        self.componentIdentifier + "_mandatoryFieldIndicator"
+    }
+
+    var noteFormViewIdentifier: String {
+        self.componentIdentifier + "_noteFormView"
+    }
 }
 
 extension KeyValueFormViewConfiguration {

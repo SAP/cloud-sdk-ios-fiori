@@ -25,8 +25,10 @@ public extension Description {
 }
 
 public extension Description {
-    init(description: AttributedString? = nil) {
-        self.init(description: { OptionalText(description) })
+    init(description: AttributedString? = nil,
+         componentIdentifier: String? = Description.identifier)
+    {
+        self.init(description: { OptionalText(description) }, componentIdentifier: componentIdentifier)
     }
 }
 

@@ -23,12 +23,16 @@ struct AnyDetailContentStyle: DetailContentStyle {
 }
 
 public struct DetailContentConfiguration {
-    public let detailContentIdentifier = "FioriDetailContent_detailContent"
-
     public var componentIdentifier: String = "fiori_detailcontent_component"
     public let detailContent: DetailContent
 
     public typealias DetailContent = ConfigurationViewWrapper
+}
+
+public extension DetailContentConfiguration {
+    var detailContentIdentifier: String {
+        self.componentIdentifier + "_detailContent"
+    }
 }
 
 extension DetailContentConfiguration {

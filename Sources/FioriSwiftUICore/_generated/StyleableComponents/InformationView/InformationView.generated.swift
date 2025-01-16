@@ -29,9 +29,10 @@ public extension InformationView {
 
 public extension InformationView {
     init(icon: Image? = nil,
-         description: AttributedString? = nil)
+         description: AttributedString? = nil,
+         componentIdentifier: String? = InformationView.identifier)
     {
-        self.init(icon: { icon }, description: { OptionalText(description) })
+        self.init(icon: { icon }, description: { OptionalText(description) }, componentIdentifier: componentIdentifier)
     }
 }
 

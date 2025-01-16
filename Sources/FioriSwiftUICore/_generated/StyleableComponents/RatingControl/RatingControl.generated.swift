@@ -122,9 +122,10 @@ public extension RatingControl {
          reviewCountFormat: String? = nil,
          reviewCountCeiling: Int? = nil,
          reviewCountCeilingFormat: String? = nil,
-         showsReviewCountLabel: Bool = false)
+         showsReviewCountLabel: Bool = false,
+         componentIdentifier: String? = RatingControl.identifier)
     {
-        self.init(valueLabel: { OptionalText(valueLabel) }, onStarImage: { onStarImage }, offStarImage: { offStarImage }, halfStarImage: { halfStarImage }, reviewCountLabel: { OptionalText(reviewCountLabel) }, rating: rating, ratingControlStyle: ratingControlStyle, ratingBounds: ratingBounds, itemSize: itemSize, interItemSpacing: interItemSpacing, ratingValueFormat: ratingValueFormat, showsValueLabel: showsValueLabel, averageRating: averageRating, averageRatingFormat: averageRatingFormat, reviewCount: reviewCount, reviewCountFormat: reviewCountFormat, reviewCountCeiling: reviewCountCeiling, reviewCountCeilingFormat: reviewCountCeilingFormat, showsReviewCountLabel: showsReviewCountLabel)
+        self.init(valueLabel: { OptionalText(valueLabel) }, onStarImage: { onStarImage }, offStarImage: { offStarImage }, halfStarImage: { halfStarImage }, reviewCountLabel: { OptionalText(reviewCountLabel) }, rating: rating, ratingControlStyle: ratingControlStyle, ratingBounds: ratingBounds, itemSize: itemSize, interItemSpacing: interItemSpacing, ratingValueFormat: ratingValueFormat, showsValueLabel: showsValueLabel, averageRating: averageRating, averageRatingFormat: averageRatingFormat, reviewCount: reviewCount, reviewCountFormat: reviewCountFormat, reviewCountCeiling: reviewCountCeiling, reviewCountCeilingFormat: reviewCountCeilingFormat, showsReviewCountLabel: showsReviewCountLabel, componentIdentifier: componentIdentifier)
     }
 }
 

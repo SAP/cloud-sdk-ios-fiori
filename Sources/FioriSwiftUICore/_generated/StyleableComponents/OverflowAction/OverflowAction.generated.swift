@@ -25,8 +25,10 @@ public extension OverflowAction {
 }
 
 public extension OverflowAction {
-    init(overflowAction: FioriButton? = FioriButton { _ in Image(systemName: "ellipsis") }) {
-        self.init(overflowAction: { overflowAction })
+    init(overflowAction: FioriButton? = FioriButton { _ in Image(systemName: "ellipsis") },
+         componentIdentifier: String? = OverflowAction.identifier)
+    {
+        self.init(overflowAction: { overflowAction }, componentIdentifier: componentIdentifier)
     }
 }
 

@@ -23,15 +23,25 @@ struct AnyPlaceholderTextFieldStyle: PlaceholderTextFieldStyle {
 }
 
 public struct PlaceholderTextFieldConfiguration {
-    public let contentIdentifier = "FioriPlaceholderTextField_content"
-    public let textInputFieldIdentifier = "FioriPlaceholderTextField_textInputField"
-    public let placeholderIdentifier = "FioriPlaceholderTextField_placeholder"
-
     public var componentIdentifier: String = "fiori_placeholdertextfield_component"
     @Binding public var text: String
     public let placeholder: Placeholder
 
     public typealias Placeholder = ConfigurationViewWrapper
+}
+
+public extension PlaceholderTextFieldConfiguration {
+    var contentIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
+
+    var textInputFieldIdentifier: String {
+        self.componentIdentifier + "_textInputField"
+    }
+
+    var placeholderIdentifier: String {
+        self.componentIdentifier + "_placeholder"
+    }
 }
 
 extension PlaceholderTextFieldConfiguration {

@@ -23,12 +23,16 @@ struct AnyLeadingAccessoryStyle: LeadingAccessoryStyle {
 }
 
 public struct LeadingAccessoryConfiguration {
-    public let leadingAccessoryIdentifier = "FioriLeadingAccessory_leadingAccessory"
-
     public var componentIdentifier: String = "fiori_leadingaccessory_component"
     public let leadingAccessory: LeadingAccessory
 
     public typealias LeadingAccessory = ConfigurationViewWrapper
+}
+
+public extension LeadingAccessoryConfiguration {
+    var leadingAccessoryIdentifier: String {
+        self.componentIdentifier + "_leadingAccessory"
+    }
 }
 
 extension LeadingAccessoryConfiguration {

@@ -23,12 +23,16 @@ struct AnyActivityItemsStyle: ActivityItemsStyle {
 }
 
 public struct ActivityItemsConfiguration {
-    public let activityItemsIdentifier = "FioriActivityItems_activityItems"
-
     public var componentIdentifier: String = "fiori_activityitems_component"
     public let activityItems: ActivityItems
 
     public typealias ActivityItems = ConfigurationViewWrapper
+}
+
+public extension ActivityItemsConfiguration {
+    var activityItemsIdentifier: String {
+        self.componentIdentifier + "_activityItems"
+    }
 }
 
 extension ActivityItemsConfiguration {

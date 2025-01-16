@@ -23,12 +23,16 @@ struct AnyActiveTrackStyle: ActiveTrackStyle {
 }
 
 public struct ActiveTrackConfiguration {
-    public let activeTrackIdentifier = "FioriActiveTrack_activeTrack"
-
     public var componentIdentifier: String = "fiori_activetrack_component"
     public let activeTrack: ActiveTrack
 
     public typealias ActiveTrack = ConfigurationViewWrapper
+}
+
+public extension ActiveTrackConfiguration {
+    var activeTrackIdentifier: String {
+        self.componentIdentifier + "_activeTrack"
+    }
 }
 
 extension ActiveTrackConfiguration {

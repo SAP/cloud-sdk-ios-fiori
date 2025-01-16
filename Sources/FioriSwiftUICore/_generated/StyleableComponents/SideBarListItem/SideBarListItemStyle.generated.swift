@@ -23,14 +23,6 @@ struct AnySideBarListItemStyle: SideBarListItemStyle {
 }
 
 public struct SideBarListItemConfiguration {
-    public let contentIdentifier = "FioriSideBarListItem_content"
-    public let iconIdentifier = "FioriSideBarListItem_icon"
-    public let filledIconIdentifier = "FioriSideBarListItem_filledIcon"
-    public let titleIdentifier = "FioriSideBarListItem_title"
-    public let subtitleIdentifier = "FioriSideBarListItem_subtitle"
-    public let accessoryIconIdentifier = "FioriSideBarListItem_accessoryIcon"
-    public let switchIdentifier = "FioriSideBarListItem_switch"
-
     public var componentIdentifier: String = "fiori_sidebarlistitem_component"
     public let icon: Icon
     public let filledIcon: FilledIcon
@@ -46,6 +38,36 @@ public struct SideBarListItemConfiguration {
     public typealias Title = ConfigurationViewWrapper
     public typealias Subtitle = ConfigurationViewWrapper
     public typealias AccessoryIcon = ConfigurationViewWrapper
+}
+
+public extension SideBarListItemConfiguration {
+    var contentIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
+
+    var iconIdentifier: String {
+        self.componentIdentifier + "_icon"
+    }
+
+    var filledIconIdentifier: String {
+        self.componentIdentifier + "_filledIcon"
+    }
+
+    var titleIdentifier: String {
+        self.componentIdentifier + "_title"
+    }
+
+    var subtitleIdentifier: String {
+        self.componentIdentifier + "_subtitle"
+    }
+
+    var accessoryIconIdentifier: String {
+        self.componentIdentifier + "_accessoryIcon"
+    }
+
+    var switchIdentifier: String {
+        self.componentIdentifier + "_switch"
+    }
 }
 
 extension SideBarListItemConfiguration {

@@ -131,9 +131,10 @@ public extension RatingControlFormView {
          reviewCountCeilingFormat: String? = nil,
          showsReviewCountLabel: Bool = false,
          subtitle: AttributedString? = nil,
-         axis: Axis = .horizontal)
+         axis: Axis = .horizontal,
+         componentIdentifier: String? = RatingControlFormView.identifier)
     {
-        self.init(title: { Text(title) }, valueLabel: { OptionalText(valueLabel) }, onStarImage: { onStarImage }, offStarImage: { offStarImage }, halfStarImage: { halfStarImage }, reviewCountLabel: { OptionalText(reviewCountLabel) }, rating: rating, ratingControlStyle: ratingControlStyle, ratingBounds: ratingBounds, itemSize: itemSize, interItemSpacing: interItemSpacing, ratingValueFormat: ratingValueFormat, showsValueLabel: showsValueLabel, averageRating: averageRating, averageRatingFormat: averageRatingFormat, reviewCount: reviewCount, reviewCountFormat: reviewCountFormat, reviewCountCeiling: reviewCountCeiling, reviewCountCeilingFormat: reviewCountCeilingFormat, showsReviewCountLabel: showsReviewCountLabel, subtitle: { OptionalText(subtitle) }, axis: axis)
+        self.init(title: { Text(title) }, valueLabel: { OptionalText(valueLabel) }, onStarImage: { onStarImage }, offStarImage: { offStarImage }, halfStarImage: { halfStarImage }, reviewCountLabel: { OptionalText(reviewCountLabel) }, rating: rating, ratingControlStyle: ratingControlStyle, ratingBounds: ratingBounds, itemSize: itemSize, interItemSpacing: interItemSpacing, ratingValueFormat: ratingValueFormat, showsValueLabel: showsValueLabel, averageRating: averageRating, averageRatingFormat: averageRatingFormat, reviewCount: reviewCount, reviewCountFormat: reviewCountFormat, reviewCountCeiling: reviewCountCeiling, reviewCountCeilingFormat: reviewCountCeilingFormat, showsReviewCountLabel: showsReviewCountLabel, subtitle: { OptionalText(subtitle) }, axis: axis, componentIdentifier: componentIdentifier)
     }
 }
 

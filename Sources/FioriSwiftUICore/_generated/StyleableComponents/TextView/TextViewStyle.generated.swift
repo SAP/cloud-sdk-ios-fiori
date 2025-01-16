@@ -23,10 +23,14 @@ struct AnyTextViewStyle: TextViewStyle {
 }
 
 public struct TextViewConfiguration {
-    public let textViewIdentifier = "FioriTextView_content"
-
     public var componentIdentifier: String = "fiori_textview_component"
     @Binding public var text: String
+}
+
+public extension TextViewConfiguration {
+    var textViewIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
 }
 
 extension TextViewConfiguration {

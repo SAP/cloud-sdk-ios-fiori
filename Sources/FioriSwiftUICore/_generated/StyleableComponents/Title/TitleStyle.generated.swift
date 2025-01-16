@@ -23,12 +23,16 @@ struct AnyTitleStyle: TitleStyle {
 }
 
 public struct TitleConfiguration {
-    public let titleIdentifier = "FioriTitle_title"
-
     public var componentIdentifier: String = "fiori_title_component"
     public let title: Title
 
     public typealias Title = ConfigurationViewWrapper
+}
+
+public extension TitleConfiguration {
+    var titleIdentifier: String {
+        self.componentIdentifier + "_title"
+    }
 }
 
 extension TitleConfiguration {

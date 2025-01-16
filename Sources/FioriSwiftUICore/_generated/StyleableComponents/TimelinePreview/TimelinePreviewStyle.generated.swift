@@ -23,10 +23,6 @@ struct AnyTimelinePreviewStyle: TimelinePreviewStyle {
 }
 
 public struct TimelinePreviewConfiguration {
-    public let contentIdentifier = "FioriTimelinePreview_content"
-    public let optionalTitleIdentifier = "FioriTimelinePreview_optionalTitle"
-    public let actionIdentifier = "FioriTimelinePreview_action"
-
     public var componentIdentifier: String = "fiori_timelinepreview_component"
     public let optionalTitle: OptionalTitle
     public let action: Action
@@ -34,6 +30,20 @@ public struct TimelinePreviewConfiguration {
 
     public typealias OptionalTitle = ConfigurationViewWrapper
     public typealias Action = ConfigurationViewWrapper
+}
+
+public extension TimelinePreviewConfiguration {
+    var contentIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
+
+    var optionalTitleIdentifier: String {
+        self.componentIdentifier + "_optionalTitle"
+    }
+
+    var actionIdentifier: String {
+        self.componentIdentifier + "_action"
+    }
 }
 
 extension TimelinePreviewConfiguration {

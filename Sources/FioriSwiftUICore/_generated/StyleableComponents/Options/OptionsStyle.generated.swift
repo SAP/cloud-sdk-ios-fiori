@@ -23,10 +23,14 @@ struct AnyOptionsStyle: OptionsStyle {
 }
 
 public struct OptionsConfiguration {
-    public let optionsIdentifier = "FioriOptions_content"
-
     public var componentIdentifier: String = "fiori_options_component"
     public let options: [AttributedString]
+}
+
+public extension OptionsConfiguration {
+    var optionsIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
 }
 
 extension OptionsConfiguration {

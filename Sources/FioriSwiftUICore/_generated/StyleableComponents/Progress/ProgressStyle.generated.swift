@@ -23,12 +23,16 @@ struct AnyProgressStyle: ProgressStyle {
 }
 
 public struct ProgressConfiguration {
-    public let progressIdentifier = "FioriProgress_progress"
-
     public var componentIdentifier: String = "fiori_progress_component"
     public let progress: Progress
 
     public typealias Progress = ConfigurationViewWrapper
+}
+
+public extension ProgressConfiguration {
+    var progressIdentifier: String {
+        self.componentIdentifier + "_progress"
+    }
 }
 
 extension ProgressConfiguration {

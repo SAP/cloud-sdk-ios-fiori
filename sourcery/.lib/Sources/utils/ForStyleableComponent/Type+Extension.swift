@@ -54,7 +54,7 @@ extension Type {
         
         return """
         \(accessLevelDecl)extension \(componentName) {
-            init(\(allStoredVariables.dataInitParams)) {
+            init(\(allStoredVariables.dataInitParams), \ncomponentIdentifier: String? = \(componentName).identifier) {
                 \(allStoredVariables.dataInitBody)
             }
         }
@@ -161,6 +161,8 @@ extension Type {
             
             \(self.configurationDecl)
             
+            \(self.configurationIdentifierExtension)
+            
             \(self.configurationExtension)
             """
         case .composite:
@@ -170,7 +172,9 @@ extension Type {
             \(self.styleTypeEraserDecl)
             
             \(self.configurationDecl)
-
+            
+            \(self.configurationIdentifierExtension)
+            
             \(self.configurationExtension)
             
             \(self.fioriStyleDecl)
@@ -185,7 +189,6 @@ extension Type {
     var configurationDecl: String {
         """
         \(accessLevelDecl)struct \(componentName)Configuration {
-            \(self.proctolIdentifierDecl)
             public var componentIdentifier: String = "fiori_\(componentName.lowercased())_component"
             \(allStoredVariables.configurationPropertyListDecl)
         }
@@ -201,19 +204,19 @@ extension Type {
                 if variable.isResultBuilder,
                    variable.closureParameters.isEmpty
                 {
-                    props.append("public let \(name)Identifier = \"Fiori\(componentName)_\(name)\"")
+                    props.append("public var \(name)Identifier: String {\n componentIdentifier + \"_\(name)\"\n}")
                 } else if variable.isBinding {
-                    props.append("public let \(componentName.lowercasingFirst())Identifier = \"Fiori\(componentName)_content\"")
+                    props.append("public var \(componentName.lowercasingFirst())Identifier: String { \n componentIdentifier + \"_content\"\n}")
                 } else {
-                    props.append("public let \(componentName.lowercasingFirst())Identifier = \"Fiori\(componentName)_content\"")
+                    props.append("public var \(componentName.lowercasingFirst())Identifier: String { \n componentIdentifier + \"_content\"\n}")
                 }
             }
             return (props + [""]).joined(separator: "\n")
         case .composite:
             let protocols = self.conformingBaseComponentProtocols + self.parentCompositeComponentProtocols
-            var contentIdentifiers = "public let contentIdentifier = \"Fiori\(componentName)_content\"" + "\n"
+            var contentIdentifiers = "public var contentIdentifier: String { \n componentIdentifier + \"_content\"" + "\n}" + "\n"
             let protocolIdentifiers = protocols.map { type in
-                "public let \(type.componentName.lowercasingFirst())Identifier = \"Fiori\(componentName)_\(type.componentName.lowercasingFirst())\""
+                "public var \(type.componentName.lowercasingFirst())Identifier: String {\n componentIdentifier + \"_\(type.componentName.lowercasingFirst())\"\n}"
             }
             .joined(separator: "\n")
             
@@ -221,6 +224,14 @@ extension Type {
         case .none:
             return ""
         }
+    }
+    
+    var configurationIdentifierExtension: String {
+        """
+        extension \(componentName)Configuration {
+            \(self.proctolIdentifierDecl)
+        }
+        """
     }
     
     var configurationExtension: String {

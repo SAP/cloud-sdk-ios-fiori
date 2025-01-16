@@ -23,18 +23,6 @@ struct AnyTimelineStyle: TimelineStyle {
 }
 
 public struct TimelineConfiguration {
-    public let contentIdentifier = "FioriTimeline_content"
-    public let timestampIdentifier = "FioriTimeline_timestamp"
-    public let secondaryTimestampIdentifier = "FioriTimeline_secondaryTimestamp"
-    public let timelineNodeIdentifier = "FioriTimeline_timelineNode"
-    public let iconIdentifier = "FioriTimeline_icon"
-    public let titleIdentifier = "FioriTimeline_title"
-    public let subtitleIdentifier = "FioriTimeline_subtitle"
-    public let attributeIdentifier = "FioriTimeline_attribute"
-    public let statusIdentifier = "FioriTimeline_status"
-    public let substatusIdentifier = "FioriTimeline_substatus"
-    public let subAttributeIdentifier = "FioriTimeline_subAttribute"
-
     public var componentIdentifier: String = "fiori_timeline_component"
     public let timestamp: Timestamp
     public let secondaryTimestamp: SecondaryTimestamp
@@ -59,6 +47,52 @@ public struct TimelineConfiguration {
     public typealias Status = ConfigurationViewWrapper
     public typealias Substatus = ConfigurationViewWrapper
     public typealias SubAttribute = ConfigurationViewWrapper
+}
+
+public extension TimelineConfiguration {
+    var contentIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
+
+    var timestampIdentifier: String {
+        self.componentIdentifier + "_timestamp"
+    }
+
+    var secondaryTimestampIdentifier: String {
+        self.componentIdentifier + "_secondaryTimestamp"
+    }
+
+    var timelineNodeIdentifier: String {
+        self.componentIdentifier + "_timelineNode"
+    }
+
+    var iconIdentifier: String {
+        self.componentIdentifier + "_icon"
+    }
+
+    var titleIdentifier: String {
+        self.componentIdentifier + "_title"
+    }
+
+    var subtitleIdentifier: String {
+        self.componentIdentifier + "_subtitle"
+    }
+
+    var attributeIdentifier: String {
+        self.componentIdentifier + "_attribute"
+    }
+
+    var statusIdentifier: String {
+        self.componentIdentifier + "_status"
+    }
+
+    var substatusIdentifier: String {
+        self.componentIdentifier + "_substatus"
+    }
+
+    var subAttributeIdentifier: String {
+        self.componentIdentifier + "_subAttribute"
+    }
 }
 
 extension TimelineConfiguration {

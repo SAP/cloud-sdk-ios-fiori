@@ -23,12 +23,16 @@ struct AnySecondaryActionStyle: SecondaryActionStyle {
 }
 
 public struct SecondaryActionConfiguration {
-    public let secondaryActionIdentifier = "FioriSecondaryAction_secondaryAction"
-
     public var componentIdentifier: String = "fiori_secondaryaction_component"
     public let secondaryAction: SecondaryAction
 
     public typealias SecondaryAction = ConfigurationViewWrapper
+}
+
+public extension SecondaryActionConfiguration {
+    var secondaryActionIdentifier: String {
+        self.componentIdentifier + "_secondaryAction"
+    }
 }
 
 extension SecondaryActionConfiguration {

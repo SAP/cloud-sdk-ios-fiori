@@ -23,12 +23,16 @@ struct AnyTertiaryActionStyle: TertiaryActionStyle {
 }
 
 public struct TertiaryActionConfiguration {
-    public let tertiaryActionIdentifier = "FioriTertiaryAction_tertiaryAction"
-
     public var componentIdentifier: String = "fiori_tertiaryaction_component"
     public let tertiaryAction: TertiaryAction
 
     public typealias TertiaryAction = ConfigurationViewWrapper
+}
+
+public extension TertiaryActionConfiguration {
+    var tertiaryActionIdentifier: String {
+        self.componentIdentifier + "_tertiaryAction"
+    }
 }
 
 extension TertiaryActionConfiguration {

@@ -34,9 +34,10 @@ public extension LabelItem {
 public extension LabelItem {
     init(icon: Image? = nil,
          title: AttributedString,
-         alignment: HorizontalAlignment? = nil)
+         alignment: HorizontalAlignment? = nil,
+         componentIdentifier: String? = LabelItem.identifier)
     {
-        self.init(icon: { icon }, title: { Text(title) }, alignment: alignment)
+        self.init(icon: { icon }, title: { Text(title) }, alignment: alignment, componentIdentifier: componentIdentifier)
     }
 }
 

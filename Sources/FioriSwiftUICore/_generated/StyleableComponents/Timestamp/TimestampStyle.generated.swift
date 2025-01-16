@@ -23,12 +23,16 @@ struct AnyTimestampStyle: TimestampStyle {
 }
 
 public struct TimestampConfiguration {
-    public let timestampIdentifier = "FioriTimestamp_timestamp"
-
     public var componentIdentifier: String = "fiori_timestamp_component"
     public let timestamp: Timestamp
 
     public typealias Timestamp = ConfigurationViewWrapper
+}
+
+public extension TimestampConfiguration {
+    var timestampIdentifier: String {
+        self.componentIdentifier + "_timestamp"
+    }
 }
 
 extension TimestampConfiguration {

@@ -23,12 +23,6 @@ struct AnyTextInputInfoViewStyle: TextInputInfoViewStyle {
 }
 
 struct TextInputInfoViewConfiguration {
-    public let contentIdentifier = "FioriTextInputInfoView_content"
-    public let iconIdentifier = "FioriTextInputInfoView_icon"
-    public let descriptionIdentifier = "FioriTextInputInfoView_description"
-    public let counterIdentifier = "FioriTextInputInfoView_counter"
-    public let informationViewIdentifier = "FioriTextInputInfoView_informationView"
-
     public var componentIdentifier: String = "fiori_textinputinfoview_component"
     public let icon: Icon
     public let description: Description
@@ -37,6 +31,28 @@ struct TextInputInfoViewConfiguration {
     public typealias Icon = ConfigurationViewWrapper
     public typealias Description = ConfigurationViewWrapper
     public typealias Counter = ConfigurationViewWrapper
+}
+
+extension TextInputInfoViewConfiguration {
+    public var contentIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
+
+    public var iconIdentifier: String {
+        self.componentIdentifier + "_icon"
+    }
+
+    public var descriptionIdentifier: String {
+        self.componentIdentifier + "_description"
+    }
+
+    public var counterIdentifier: String {
+        self.componentIdentifier + "_counter"
+    }
+
+    public var informationViewIdentifier: String {
+        self.componentIdentifier + "_informationView"
+    }
 }
 
 extension TextInputInfoViewConfiguration {

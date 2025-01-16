@@ -23,12 +23,16 @@ struct AnyMoreActionOverflowStyle: MoreActionOverflowStyle {
 }
 
 public struct MoreActionOverflowConfiguration {
-    public let moreActionOverflowIdentifier = "FioriMoreActionOverflow_moreActionOverflow"
-
     public var componentIdentifier: String = "fiori_moreactionoverflow_component"
     public let moreActionOverflow: MoreActionOverflow
 
     public typealias MoreActionOverflow = ConfigurationViewWrapper
+}
+
+public extension MoreActionOverflowConfiguration {
+    var moreActionOverflowIdentifier: String {
+        self.componentIdentifier + "_moreActionOverflow"
+    }
 }
 
 extension MoreActionOverflowConfiguration {

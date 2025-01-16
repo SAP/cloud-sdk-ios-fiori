@@ -23,11 +23,6 @@ struct AnySingleStepStyle: SingleStepStyle {
 }
 
 public struct SingleStepConfiguration {
-    public let contentIdentifier = "FioriSingleStep_content"
-    public let titleIdentifier = "FioriSingleStep_title"
-    public let nodeIdentifier = "FioriSingleStep_node"
-    public let lineIdentifier = "FioriSingleStep_line"
-
     public var componentIdentifier: String = "fiori_singlestep_component"
     public let title: Title
     public let node: Node
@@ -40,6 +35,24 @@ public struct SingleStepConfiguration {
     public typealias Node = ConfigurationViewWrapper
     public typealias Line = ConfigurationViewWrapper
     public typealias Substeps = any IndexedViewContainer
+}
+
+public extension SingleStepConfiguration {
+    var contentIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
+
+    var titleIdentifier: String {
+        self.componentIdentifier + "_title"
+    }
+
+    var nodeIdentifier: String {
+        self.componentIdentifier + "_node"
+    }
+
+    var lineIdentifier: String {
+        self.componentIdentifier + "_line"
+    }
 }
 
 extension SingleStepConfiguration {

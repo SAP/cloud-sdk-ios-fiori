@@ -23,18 +23,6 @@ struct AnyObjectHeaderStyle: ObjectHeaderStyle {
 }
 
 public struct ObjectHeaderConfiguration {
-    public let contentIdentifier = "FioriObjectHeader_content"
-    public let titleIdentifier = "FioriObjectHeader_title"
-    public let subtitleIdentifier = "FioriObjectHeader_subtitle"
-    public let tagsIdentifier = "FioriObjectHeader_tags"
-    public let bodyTextIdentifier = "FioriObjectHeader_bodyText"
-    public let footnoteIdentifier = "FioriObjectHeader_footnote"
-    public let descriptionTextIdentifier = "FioriObjectHeader_descriptionText"
-    public let statusIdentifier = "FioriObjectHeader_status"
-    public let substatusIdentifier = "FioriObjectHeader_substatus"
-    public let detailImageIdentifier = "FioriObjectHeader_detailImage"
-    public let detailContentIdentifier = "FioriObjectHeader_detailContent"
-
     public var componentIdentifier: String = "fiori_objectheader_component"
     public let title: Title
     public let subtitle: Subtitle
@@ -57,6 +45,52 @@ public struct ObjectHeaderConfiguration {
     public typealias Substatus = ConfigurationViewWrapper
     public typealias DetailImage = ConfigurationViewWrapper
     public typealias DetailContent = ConfigurationViewWrapper
+}
+
+public extension ObjectHeaderConfiguration {
+    var contentIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
+
+    var titleIdentifier: String {
+        self.componentIdentifier + "_title"
+    }
+
+    var subtitleIdentifier: String {
+        self.componentIdentifier + "_subtitle"
+    }
+
+    var tagsIdentifier: String {
+        self.componentIdentifier + "_tags"
+    }
+
+    var bodyTextIdentifier: String {
+        self.componentIdentifier + "_bodyText"
+    }
+
+    var footnoteIdentifier: String {
+        self.componentIdentifier + "_footnote"
+    }
+
+    var descriptionTextIdentifier: String {
+        self.componentIdentifier + "_descriptionText"
+    }
+
+    var statusIdentifier: String {
+        self.componentIdentifier + "_status"
+    }
+
+    var substatusIdentifier: String {
+        self.componentIdentifier + "_substatus"
+    }
+
+    var detailImageIdentifier: String {
+        self.componentIdentifier + "_detailImage"
+    }
+
+    var detailContentIdentifier: String {
+        self.componentIdentifier + "_detailContent"
+    }
 }
 
 extension ObjectHeaderConfiguration {

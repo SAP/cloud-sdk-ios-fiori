@@ -23,12 +23,16 @@ struct AnyAttributeStyle: AttributeStyle {
 }
 
 public struct AttributeConfiguration {
-    public let attributeIdentifier = "FioriAttribute_attribute"
-
     public var componentIdentifier: String = "fiori_attribute_component"
     public let attribute: Attribute
 
     public typealias Attribute = ConfigurationViewWrapper
+}
+
+public extension AttributeConfiguration {
+    var attributeIdentifier: String {
+        self.componentIdentifier + "_attribute"
+    }
 }
 
 extension AttributeConfiguration {

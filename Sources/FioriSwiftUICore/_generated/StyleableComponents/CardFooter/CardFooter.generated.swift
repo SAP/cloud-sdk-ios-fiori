@@ -37,9 +37,10 @@ public extension CardFooter {
     init(action: FioriButton? = nil,
          secondaryAction: FioriButton? = nil,
          tertiaryAction: FioriButton? = nil,
-         overflowAction: FioriButton? = FioriButton { _ in Image(systemName: "ellipsis") })
+         overflowAction: FioriButton? = FioriButton { _ in Image(systemName: "ellipsis") },
+         componentIdentifier: String? = CardFooter.identifier)
     {
-        self.init(action: { action }, secondaryAction: { secondaryAction }, tertiaryAction: { tertiaryAction }, overflowAction: { overflowAction })
+        self.init(action: { action }, secondaryAction: { secondaryAction }, tertiaryAction: { tertiaryAction }, overflowAction: { overflowAction }, componentIdentifier: componentIdentifier)
     }
 }
 

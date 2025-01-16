@@ -25,8 +25,10 @@ public extension ActiveTrack {
 }
 
 public extension ActiveTrack {
-    init(activeTrack: any Shape = Capsule()) {
-        self.init(activeTrack: { activeTrack })
+    init(activeTrack: any Shape = Capsule(),
+         componentIdentifier: String? = ActiveTrack.identifier)
+    {
+        self.init(activeTrack: { activeTrack }, componentIdentifier: componentIdentifier)
     }
 }
 

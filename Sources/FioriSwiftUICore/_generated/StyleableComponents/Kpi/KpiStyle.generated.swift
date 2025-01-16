@@ -23,12 +23,16 @@ struct AnyKpiStyle: KpiStyle {
 }
 
 public struct KpiConfiguration {
-    public let kpiIdentifier = "FioriKpi_kpi"
-
     public var componentIdentifier: String = "fiori_kpi_component"
     public let kpi: Kpi
 
     public typealias Kpi = ConfigurationViewWrapper
+}
+
+public extension KpiConfiguration {
+    var kpiIdentifier: String {
+        self.componentIdentifier + "_kpi"
+    }
 }
 
 extension KpiConfiguration {

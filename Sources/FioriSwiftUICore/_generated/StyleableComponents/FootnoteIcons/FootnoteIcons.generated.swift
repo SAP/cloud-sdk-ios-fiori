@@ -25,8 +25,10 @@ public extension FootnoteIcons {
 }
 
 public extension FootnoteIcons {
-    init(footnoteIcons: [TextOrIcon] = []) {
-        self.init(footnoteIcons: { FootnoteIconStack(footnoteIcons) })
+    init(footnoteIcons: [TextOrIcon] = [],
+         componentIdentifier: String? = FootnoteIcons.identifier)
+    {
+        self.init(footnoteIcons: { FootnoteIconStack(footnoteIcons) }, componentIdentifier: componentIdentifier)
     }
 }
 

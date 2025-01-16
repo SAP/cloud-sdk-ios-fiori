@@ -71,9 +71,10 @@ public extension ValuePicker {
          selectedIndex: Binding<Int>,
          isTrackingLiveChanges: Bool = true,
          alwaysShowPicker: Bool = false,
-         controlState: ControlState = .normal)
+         controlState: ControlState = .normal,
+         componentIdentifier: String? = ValuePicker.identifier)
     {
-        self.init(title: { Text(title) }, valueLabel: { OptionalText(valueLabel) }, mandatoryFieldIndicator: { TextOrIconView(mandatoryFieldIndicator) }, isRequired: isRequired, options: options, selectedIndex: selectedIndex, isTrackingLiveChanges: isTrackingLiveChanges, alwaysShowPicker: alwaysShowPicker, controlState: controlState)
+        self.init(title: { Text(title) }, valueLabel: { OptionalText(valueLabel) }, mandatoryFieldIndicator: { TextOrIconView(mandatoryFieldIndicator) }, isRequired: isRequired, options: options, selectedIndex: selectedIndex, isTrackingLiveChanges: isTrackingLiveChanges, alwaysShowPicker: alwaysShowPicker, controlState: controlState, componentIdentifier: componentIdentifier)
     }
 }
 

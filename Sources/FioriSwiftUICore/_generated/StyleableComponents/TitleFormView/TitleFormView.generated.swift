@@ -74,9 +74,10 @@ public extension TitleFormView {
          isCharCountEnabled: Bool = false,
          allowsBeyondLimit: Bool = false,
          charCountReachLimitMessage: String? = nil,
-         charCountBeyondLimitMsg: String? = nil)
+         charCountBeyondLimitMsg: String? = nil,
+         componentIdentifier: String? = TitleFormView.identifier)
     {
-        self.init(text: text, placeholder: { OptionalText(placeholder) }, controlState: controlState, errorMessage: errorMessage, maxTextLength: maxTextLength, hintText: hintText, hidesReadOnlyHint: hidesReadOnlyHint, isCharCountEnabled: isCharCountEnabled, allowsBeyondLimit: allowsBeyondLimit, charCountReachLimitMessage: charCountReachLimitMessage, charCountBeyondLimitMsg: charCountBeyondLimitMsg)
+        self.init(text: text, placeholder: { OptionalText(placeholder) }, controlState: controlState, errorMessage: errorMessage, maxTextLength: maxTextLength, hintText: hintText, hidesReadOnlyHint: hidesReadOnlyHint, isCharCountEnabled: isCharCountEnabled, allowsBeyondLimit: allowsBeyondLimit, charCountReachLimitMessage: charCountReachLimitMessage, charCountBeyondLimitMsg: charCountBeyondLimitMsg, componentIdentifier: componentIdentifier)
     }
 }
 

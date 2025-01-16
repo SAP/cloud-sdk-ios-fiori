@@ -23,12 +23,6 @@ struct AnyDateTimePickerStyle: DateTimePickerStyle {
 }
 
 public struct DateTimePickerConfiguration {
-    public let contentIdentifier = "FioriDateTimePicker_content"
-    public let titleIdentifier = "FioriDateTimePicker_title"
-    public let valueLabelIdentifier = "FioriDateTimePicker_valueLabel"
-    public let mandatoryFieldIndicatorIdentifier = "FioriDateTimePicker_mandatoryFieldIndicator"
-    public let formViewIdentifier = "FioriDateTimePicker_formView"
-
     public var componentIdentifier: String = "fiori_datetimepicker_component"
     public let title: Title
     public let valueLabel: ValueLabel
@@ -45,6 +39,28 @@ public struct DateTimePickerConfiguration {
     public typealias Title = ConfigurationViewWrapper
     public typealias ValueLabel = ConfigurationViewWrapper
     public typealias MandatoryFieldIndicator = ConfigurationViewWrapper
+}
+
+public extension DateTimePickerConfiguration {
+    var contentIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
+
+    var titleIdentifier: String {
+        self.componentIdentifier + "_title"
+    }
+
+    var valueLabelIdentifier: String {
+        self.componentIdentifier + "_valueLabel"
+    }
+
+    var mandatoryFieldIndicatorIdentifier: String {
+        self.componentIdentifier + "_mandatoryFieldIndicator"
+    }
+
+    var formViewIdentifier: String {
+        self.componentIdentifier + "_formView"
+    }
 }
 
 extension DateTimePickerConfiguration {

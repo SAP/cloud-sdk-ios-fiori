@@ -23,12 +23,16 @@ struct AnyValueStyle: ValueStyle {
 }
 
 public struct ValueConfiguration {
-    public let valueIdentifier = "FioriValue_value"
-
     public var componentIdentifier: String = "fiori_value_component"
     public let value: Value
 
     public typealias Value = ConfigurationViewWrapper
+}
+
+public extension ValueConfiguration {
+    var valueIdentifier: String {
+        self.componentIdentifier + "_value"
+    }
 }
 
 extension ValueConfiguration {

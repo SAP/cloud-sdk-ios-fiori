@@ -23,12 +23,16 @@ struct AnyMessageContentStyle: MessageContentStyle {
 }
 
 public struct MessageContentConfiguration {
-    public let messageContentIdentifier = "FioriMessageContent_messageContent"
-
     public var componentIdentifier: String = "fiori_messagecontent_component"
     public let messageContent: MessageContent
 
     public typealias MessageContent = ConfigurationViewWrapper
+}
+
+public extension MessageContentConfiguration {
+    var messageContentIdentifier: String {
+        self.componentIdentifier + "_messageContent"
+    }
 }
 
 extension MessageContentConfiguration {

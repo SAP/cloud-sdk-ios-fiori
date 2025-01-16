@@ -25,8 +25,10 @@ public extension InactiveTrack {
 }
 
 public extension InactiveTrack {
-    init(inactiveTrack: any Shape = Capsule()) {
-        self.init(inactiveTrack: { inactiveTrack })
+    init(inactiveTrack: any Shape = Capsule(),
+         componentIdentifier: String? = InactiveTrack.identifier)
+    {
+        self.init(inactiveTrack: { inactiveTrack }, componentIdentifier: componentIdentifier)
     }
 }
 

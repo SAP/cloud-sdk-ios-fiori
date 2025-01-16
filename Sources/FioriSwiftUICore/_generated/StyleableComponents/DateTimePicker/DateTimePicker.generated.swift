@@ -83,9 +83,10 @@ public extension DateTimePicker {
          pickerComponents: DatePicker.Components = [.date, .hourAndMinute],
          dateStyle: Date.FormatStyle.DateStyle = .abbreviated,
          timeStyle: Date.FormatStyle.TimeStyle = .shortened,
-         noDateSelectedString: String? = nil)
+         noDateSelectedString: String? = nil,
+         componentIdentifier: String? = DateTimePicker.identifier)
     {
-        self.init(title: { Text(title) }, valueLabel: { OptionalText(valueLabel) }, mandatoryFieldIndicator: { TextOrIconView(mandatoryFieldIndicator) }, isRequired: isRequired, controlState: controlState, errorMessage: errorMessage, selectedDate: selectedDate, pickerComponents: pickerComponents, dateStyle: dateStyle, timeStyle: timeStyle, noDateSelectedString: noDateSelectedString)
+        self.init(title: { Text(title) }, valueLabel: { OptionalText(valueLabel) }, mandatoryFieldIndicator: { TextOrIconView(mandatoryFieldIndicator) }, isRequired: isRequired, controlState: controlState, errorMessage: errorMessage, selectedDate: selectedDate, pickerComponents: pickerComponents, dateStyle: dateStyle, timeStyle: timeStyle, noDateSelectedString: noDateSelectedString, componentIdentifier: componentIdentifier)
     }
 }
 

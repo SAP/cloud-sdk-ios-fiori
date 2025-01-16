@@ -23,12 +23,16 @@ struct AnyBodyTextStyle: BodyTextStyle {
 }
 
 public struct BodyTextConfiguration {
-    public let bodyTextIdentifier = "FioriBodyText_bodyText"
-
     public var componentIdentifier: String = "fiori_bodytext_component"
     public let bodyText: BodyText
 
     public typealias BodyText = ConfigurationViewWrapper
+}
+
+public extension BodyTextConfiguration {
+    var bodyTextIdentifier: String {
+        self.componentIdentifier + "_bodyText"
+    }
 }
 
 extension BodyTextConfiguration {

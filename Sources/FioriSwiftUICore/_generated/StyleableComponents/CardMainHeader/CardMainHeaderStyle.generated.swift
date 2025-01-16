@@ -23,14 +23,6 @@ struct AnyCardMainHeaderStyle: CardMainHeaderStyle {
 }
 
 public struct CardMainHeaderConfiguration {
-    public let contentIdentifier = "FioriCardMainHeader_content"
-    public let titleIdentifier = "FioriCardMainHeader_title"
-    public let subtitleIdentifier = "FioriCardMainHeader_subtitle"
-    public let iconsIdentifier = "FioriCardMainHeader_icons"
-    public let detailImageIdentifier = "FioriCardMainHeader_detailImage"
-    public let headerActionIdentifier = "FioriCardMainHeader_headerAction"
-    public let counterIdentifier = "FioriCardMainHeader_counter"
-
     public var componentIdentifier: String = "fiori_cardmainheader_component"
     public let title: Title
     public let subtitle: Subtitle
@@ -45,6 +37,36 @@ public struct CardMainHeaderConfiguration {
     public typealias DetailImage = ConfigurationViewWrapper
     public typealias HeaderAction = ConfigurationViewWrapper
     public typealias Counter = ConfigurationViewWrapper
+}
+
+public extension CardMainHeaderConfiguration {
+    var contentIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
+
+    var titleIdentifier: String {
+        self.componentIdentifier + "_title"
+    }
+
+    var subtitleIdentifier: String {
+        self.componentIdentifier + "_subtitle"
+    }
+
+    var iconsIdentifier: String {
+        self.componentIdentifier + "_icons"
+    }
+
+    var detailImageIdentifier: String {
+        self.componentIdentifier + "_detailImage"
+    }
+
+    var headerActionIdentifier: String {
+        self.componentIdentifier + "_headerAction"
+    }
+
+    var counterIdentifier: String {
+        self.componentIdentifier + "_counter"
+    }
 }
 
 extension CardMainHeaderConfiguration {

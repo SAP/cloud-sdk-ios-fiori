@@ -25,8 +25,10 @@ public extension FilledIcon {
 }
 
 public extension FilledIcon {
-    init(filledIcon: Image? = nil) {
-        self.init(filledIcon: { filledIcon })
+    init(filledIcon: Image? = nil,
+         componentIdentifier: String? = FilledIcon.identifier)
+    {
+        self.init(filledIcon: { filledIcon }, componentIdentifier: componentIdentifier)
     }
 }
 

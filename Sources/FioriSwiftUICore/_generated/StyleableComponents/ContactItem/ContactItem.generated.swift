@@ -66,9 +66,10 @@ public extension ContactItem {
          subtitle: AttributedString? = nil,
          description: AttributedString? = nil,
          detailImage: Image? = nil,
-         activityItems: [ActivityItemDataType] = [])
+         activityItems: [ActivityItemDataType] = [],
+         componentIdentifier: String? = ContactItem.identifier)
     {
-        self.init(title: { Text(title) }, subtitle: { OptionalText(subtitle) }, description: { OptionalText(description) }, detailImage: { detailImage }, activityItems: { ActivityItemsListStack(activityItems) })
+        self.init(title: { Text(title) }, subtitle: { OptionalText(subtitle) }, description: { OptionalText(description) }, detailImage: { detailImage }, activityItems: { ActivityItemsListStack(activityItems) }, componentIdentifier: componentIdentifier)
     }
 }
 

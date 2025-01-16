@@ -23,12 +23,19 @@ struct AnySegmentedControlPickerStyle: SegmentedControlPickerStyle {
 }
 
 public struct SegmentedControlPickerConfiguration {
-    public let contentIdentifier = "FioriSegmentedControlPicker_content"
-    public let optionsIdentifier = "FioriSegmentedControlPicker_options"
-
     public var componentIdentifier: String = "fiori_segmentedcontrolpicker_component"
     public let options: [AttributedString]
     @Binding public var selectedIndex: Int
+}
+
+public extension SegmentedControlPickerConfiguration {
+    var contentIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
+
+    var optionsIdentifier: String {
+        self.componentIdentifier + "_options"
+    }
 }
 
 extension SegmentedControlPickerConfiguration {

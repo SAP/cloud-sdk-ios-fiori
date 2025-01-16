@@ -23,13 +23,6 @@ struct AnyTextFieldFormViewStyle: TextFieldFormViewStyle {
 }
 
 public struct TextFieldFormViewConfiguration {
-    public let contentIdentifier = "FioriTextFieldFormView_content"
-    public let titleIdentifier = "FioriTextFieldFormView_title"
-    public let textInputFieldIdentifier = "FioriTextFieldFormView_textInputField"
-    public let placeholderIdentifier = "FioriTextFieldFormView_placeholder"
-    public let mandatoryFieldIndicatorIdentifier = "FioriTextFieldFormView_mandatoryFieldIndicator"
-    public let titleFormViewIdentifier = "FioriTextFieldFormView_titleFormView"
-
     public var componentIdentifier: String = "fiori_textfieldformview_component"
     public let title: Title
     @Binding public var text: String
@@ -52,6 +45,32 @@ public struct TextFieldFormViewConfiguration {
     public typealias Title = ConfigurationViewWrapper
     public typealias Placeholder = ConfigurationViewWrapper
     public typealias MandatoryFieldIndicator = ConfigurationViewWrapper
+}
+
+public extension TextFieldFormViewConfiguration {
+    var contentIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
+
+    var titleIdentifier: String {
+        self.componentIdentifier + "_title"
+    }
+
+    var textInputFieldIdentifier: String {
+        self.componentIdentifier + "_textInputField"
+    }
+
+    var placeholderIdentifier: String {
+        self.componentIdentifier + "_placeholder"
+    }
+
+    var mandatoryFieldIndicatorIdentifier: String {
+        self.componentIdentifier + "_mandatoryFieldIndicator"
+    }
+
+    var titleFormViewIdentifier: String {
+        self.componentIdentifier + "_titleFormView"
+    }
 }
 
 extension TextFieldFormViewConfiguration {

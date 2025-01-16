@@ -23,12 +23,16 @@ struct AnyCardBodyStyle: CardBodyStyle {
 }
 
 public struct CardBodyConfiguration {
-    public let cardBodyIdentifier = "FioriCardBody_cardBody"
-
     public var componentIdentifier: String = "fiori_cardbody_component"
     public let cardBody: CardBody
 
     public typealias CardBody = ConfigurationViewWrapper
+}
+
+public extension CardBodyConfiguration {
+    var cardBodyIdentifier: String {
+        self.componentIdentifier + "_cardBody"
+    }
 }
 
 extension CardBodyConfiguration {

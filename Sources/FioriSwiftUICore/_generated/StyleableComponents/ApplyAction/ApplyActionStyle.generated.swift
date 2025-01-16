@@ -23,12 +23,16 @@ struct AnyApplyActionStyle: ApplyActionStyle {
 }
 
 public struct ApplyActionConfiguration {
-    public let applyActionIdentifier = "FioriApplyAction_applyAction"
-
     public var componentIdentifier: String = "fiori_applyaction_component"
     public let applyAction: ApplyAction
 
     public typealias ApplyAction = ConfigurationViewWrapper
+}
+
+public extension ApplyActionConfiguration {
+    var applyActionIdentifier: String {
+        self.componentIdentifier + "_applyAction"
+    }
 }
 
 extension ApplyActionConfiguration {

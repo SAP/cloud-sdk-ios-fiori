@@ -23,12 +23,16 @@ struct AnyValueLabelStyle: ValueLabelStyle {
 }
 
 public struct ValueLabelConfiguration {
-    public let valueLabelIdentifier = "FioriValueLabel_valueLabel"
-
     public var componentIdentifier: String = "fiori_valuelabel_component"
     public let valueLabel: ValueLabel
 
     public typealias ValueLabel = ConfigurationViewWrapper
+}
+
+public extension ValueLabelConfiguration {
+    var valueLabelIdentifier: String {
+        self.componentIdentifier + "_valueLabel"
+    }
 }
 
 extension ValueLabelConfiguration {

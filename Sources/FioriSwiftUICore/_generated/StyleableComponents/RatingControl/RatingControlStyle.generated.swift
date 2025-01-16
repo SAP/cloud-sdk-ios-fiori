@@ -23,13 +23,6 @@ struct AnyRatingControlStyle: RatingControlStyle {
 }
 
 public struct RatingControlConfiguration {
-    public let contentIdentifier = "FioriRatingControl_content"
-    public let valueLabelIdentifier = "FioriRatingControl_valueLabel"
-    public let onStarImageIdentifier = "FioriRatingControl_onStarImage"
-    public let offStarImageIdentifier = "FioriRatingControl_offStarImage"
-    public let halfStarImageIdentifier = "FioriRatingControl_halfStarImage"
-    public let reviewCountLabelIdentifier = "FioriRatingControl_reviewCountLabel"
-
     public var componentIdentifier: String = "fiori_ratingcontrol_component"
     public let valueLabel: ValueLabel
     public let onStarImage: OnStarImage
@@ -56,6 +49,32 @@ public struct RatingControlConfiguration {
     public typealias OffStarImage = ConfigurationViewWrapper
     public typealias HalfStarImage = ConfigurationViewWrapper
     public typealias ReviewCountLabel = ConfigurationViewWrapper
+}
+
+public extension RatingControlConfiguration {
+    var contentIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
+
+    var valueLabelIdentifier: String {
+        self.componentIdentifier + "_valueLabel"
+    }
+
+    var onStarImageIdentifier: String {
+        self.componentIdentifier + "_onStarImage"
+    }
+
+    var offStarImageIdentifier: String {
+        self.componentIdentifier + "_offStarImage"
+    }
+
+    var halfStarImageIdentifier: String {
+        self.componentIdentifier + "_halfStarImage"
+    }
+
+    var reviewCountLabelIdentifier: String {
+        self.componentIdentifier + "_reviewCountLabel"
+    }
 }
 
 extension RatingControlConfiguration {

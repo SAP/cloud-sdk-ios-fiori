@@ -23,12 +23,16 @@ struct AnyIncrementActionStyle: IncrementActionStyle {
 }
 
 public struct IncrementActionConfiguration {
-    public let incrementActionIdentifier = "FioriIncrementAction_incrementAction"
-
     public var componentIdentifier: String = "fiori_incrementaction_component"
     public let incrementAction: IncrementAction
 
     public typealias IncrementAction = ConfigurationViewWrapper
+}
+
+public extension IncrementActionConfiguration {
+    var incrementActionIdentifier: String {
+        self.componentIdentifier + "_incrementAction"
+    }
 }
 
 extension IncrementActionConfiguration {

@@ -23,10 +23,6 @@ struct AnyActivityItemStyle: ActivityItemStyle {
 }
 
 public struct ActivityItemConfiguration {
-    public let contentIdentifier = "FioriActivityItem_content"
-    public let iconIdentifier = "FioriActivityItem_icon"
-    public let subtitleIdentifier = "FioriActivityItem_subtitle"
-
     public var componentIdentifier: String = "fiori_activityitem_component"
     public let icon: Icon
     public let subtitle: Subtitle
@@ -34,6 +30,20 @@ public struct ActivityItemConfiguration {
 
     public typealias Icon = ConfigurationViewWrapper
     public typealias Subtitle = ConfigurationViewWrapper
+}
+
+public extension ActivityItemConfiguration {
+    var contentIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
+
+    var iconIdentifier: String {
+        self.componentIdentifier + "_icon"
+    }
+
+    var subtitleIdentifier: String {
+        self.componentIdentifier + "_subtitle"
+    }
 }
 
 extension ActivityItemConfiguration {

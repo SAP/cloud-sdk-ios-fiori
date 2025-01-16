@@ -23,12 +23,16 @@ struct AnyOptionalTitleStyle: OptionalTitleStyle {
 }
 
 public struct OptionalTitleConfiguration {
-    public let optionalTitleIdentifier = "FioriOptionalTitle_optionalTitle"
-
     public var componentIdentifier: String = "fiori_optionaltitle_component"
     public let optionalTitle: OptionalTitle
 
     public typealias OptionalTitle = ConfigurationViewWrapper
+}
+
+public extension OptionalTitleConfiguration {
+    var optionalTitleIdentifier: String {
+        self.componentIdentifier + "_optionalTitle"
+    }
 }
 
 extension OptionalTitleConfiguration {

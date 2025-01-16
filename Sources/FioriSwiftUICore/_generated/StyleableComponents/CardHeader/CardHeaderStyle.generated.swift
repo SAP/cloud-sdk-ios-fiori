@@ -23,24 +23,6 @@ struct AnyCardHeaderStyle: CardHeaderStyle {
 }
 
 public struct CardHeaderConfiguration {
-    public let contentIdentifier = "FioriCardHeader_content"
-    public let mediaImageIdentifier = "FioriCardHeader_mediaImage"
-    public let descriptionIdentifier = "FioriCardHeader_description"
-    public let titleIdentifier = "FioriCardHeader_title"
-    public let subtitleIdentifier = "FioriCardHeader_subtitle"
-    public let iconsIdentifier = "FioriCardHeader_icons"
-    public let detailImageIdentifier = "FioriCardHeader_detailImage"
-    public let headerActionIdentifier = "FioriCardHeader_headerAction"
-    public let counterIdentifier = "FioriCardHeader_counter"
-    public let row1Identifier = "FioriCardHeader_row1"
-    public let row2Identifier = "FioriCardHeader_row2"
-    public let row3Identifier = "FioriCardHeader_row3"
-    public let kpiIdentifier = "FioriCardHeader_kpi"
-    public let kpiCaptionIdentifier = "FioriCardHeader_kpiCaption"
-    public let cardMediaIdentifier = "FioriCardHeader_cardMedia"
-    public let cardMainHeaderIdentifier = "FioriCardHeader_cardMainHeader"
-    public let cardExtHeaderIdentifier = "FioriCardHeader_cardExtHeader"
-
     public var componentIdentifier: String = "fiori_cardheader_component"
     public let mediaImage: MediaImage
     public let description: Description
@@ -69,6 +51,76 @@ public struct CardHeaderConfiguration {
     public typealias Row3 = ConfigurationViewWrapper
     public typealias Kpi = ConfigurationViewWrapper
     public typealias KpiCaption = ConfigurationViewWrapper
+}
+
+public extension CardHeaderConfiguration {
+    var contentIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
+
+    var mediaImageIdentifier: String {
+        self.componentIdentifier + "_mediaImage"
+    }
+
+    var descriptionIdentifier: String {
+        self.componentIdentifier + "_description"
+    }
+
+    var titleIdentifier: String {
+        self.componentIdentifier + "_title"
+    }
+
+    var subtitleIdentifier: String {
+        self.componentIdentifier + "_subtitle"
+    }
+
+    var iconsIdentifier: String {
+        self.componentIdentifier + "_icons"
+    }
+
+    var detailImageIdentifier: String {
+        self.componentIdentifier + "_detailImage"
+    }
+
+    var headerActionIdentifier: String {
+        self.componentIdentifier + "_headerAction"
+    }
+
+    var counterIdentifier: String {
+        self.componentIdentifier + "_counter"
+    }
+
+    var row1Identifier: String {
+        self.componentIdentifier + "_row1"
+    }
+
+    var row2Identifier: String {
+        self.componentIdentifier + "_row2"
+    }
+
+    var row3Identifier: String {
+        self.componentIdentifier + "_row3"
+    }
+
+    var kpiIdentifier: String {
+        self.componentIdentifier + "_kpi"
+    }
+
+    var kpiCaptionIdentifier: String {
+        self.componentIdentifier + "_kpiCaption"
+    }
+
+    var cardMediaIdentifier: String {
+        self.componentIdentifier + "_cardMedia"
+    }
+
+    var cardMainHeaderIdentifier: String {
+        self.componentIdentifier + "_cardMainHeader"
+    }
+
+    var cardExtHeaderIdentifier: String {
+        self.componentIdentifier + "_cardExtHeader"
+    }
 }
 
 extension CardHeaderConfiguration {

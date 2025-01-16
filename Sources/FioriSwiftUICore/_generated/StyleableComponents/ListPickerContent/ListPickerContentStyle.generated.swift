@@ -23,12 +23,16 @@ struct AnyListPickerContentStyle: ListPickerContentStyle {
 }
 
 public struct ListPickerContentConfiguration {
-    public let listPickerContentIdentifier = "FioriListPickerContent_listPickerContent"
-
     public var componentIdentifier: String = "fiori_listpickercontent_component"
     public let listPickerContent: ListPickerContent
 
     public typealias ListPickerContent = ConfigurationViewWrapper
+}
+
+public extension ListPickerContentConfiguration {
+    var listPickerContentIdentifier: String {
+        self.componentIdentifier + "_listPickerContent"
+    }
 }
 
 extension ListPickerContentConfiguration {

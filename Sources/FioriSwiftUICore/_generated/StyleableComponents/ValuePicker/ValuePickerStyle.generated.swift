@@ -23,12 +23,6 @@ struct AnyValuePickerStyle: ValuePickerStyle {
 }
 
 public struct ValuePickerConfiguration {
-    public let contentIdentifier = "FioriValuePicker_content"
-    public let titleIdentifier = "FioriValuePicker_title"
-    public let valueLabelIdentifier = "FioriValuePicker_valueLabel"
-    public let mandatoryFieldIndicatorIdentifier = "FioriValuePicker_mandatoryFieldIndicator"
-    public let optionsIdentifier = "FioriValuePicker_options"
-
     public var componentIdentifier: String = "fiori_valuepicker_component"
     public let title: Title
     public let valueLabel: ValueLabel
@@ -43,6 +37,28 @@ public struct ValuePickerConfiguration {
     public typealias Title = ConfigurationViewWrapper
     public typealias ValueLabel = ConfigurationViewWrapper
     public typealias MandatoryFieldIndicator = ConfigurationViewWrapper
+}
+
+public extension ValuePickerConfiguration {
+    var contentIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
+
+    var titleIdentifier: String {
+        self.componentIdentifier + "_title"
+    }
+
+    var valueLabelIdentifier: String {
+        self.componentIdentifier + "_valueLabel"
+    }
+
+    var mandatoryFieldIndicatorIdentifier: String {
+        self.componentIdentifier + "_mandatoryFieldIndicator"
+    }
+
+    var optionsIdentifier: String {
+        self.componentIdentifier + "_options"
+    }
 }
 
 extension ValuePickerConfiguration {

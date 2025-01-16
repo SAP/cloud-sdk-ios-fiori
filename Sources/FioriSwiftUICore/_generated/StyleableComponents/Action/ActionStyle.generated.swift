@@ -23,12 +23,16 @@ struct AnyActionStyle: ActionStyle {
 }
 
 public struct ActionConfiguration {
-    public let actionIdentifier = "FioriAction_action"
-
     public var componentIdentifier: String = "fiori_action_component"
     public let action: Action
 
     public typealias Action = ConfigurationViewWrapper
+}
+
+public extension ActionConfiguration {
+    var actionIdentifier: String {
+        self.componentIdentifier + "_action"
+    }
 }
 
 extension ActionConfiguration {

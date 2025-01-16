@@ -25,8 +25,10 @@ public extension Avatars {
 }
 
 public extension Avatars {
-    init(avatars: [TextOrIcon] = []) {
-        self.init(avatars: { AvatarsListStack(avatars) })
+    init(avatars: [TextOrIcon] = [],
+         componentIdentifier: String? = Avatars.identifier)
+    {
+        self.init(avatars: { AvatarsListStack(avatars) }, componentIdentifier: componentIdentifier)
     }
 }
 

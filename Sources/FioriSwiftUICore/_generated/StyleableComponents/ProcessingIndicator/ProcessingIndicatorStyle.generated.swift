@@ -23,13 +23,20 @@ struct AnyProcessingIndicatorStyle: ProcessingIndicatorStyle {
 }
 
 public struct ProcessingIndicatorConfiguration {
-    public let contentIdentifier = "FioriProcessingIndicator_content"
-    public let optionalTitleIdentifier = "FioriProcessingIndicator_optionalTitle"
-
     public var componentIdentifier: String = "fiori_processingindicator_component"
     public let optionalTitle: OptionalTitle
 
     public typealias OptionalTitle = ConfigurationViewWrapper
+}
+
+public extension ProcessingIndicatorConfiguration {
+    var contentIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
+
+    var optionalTitleIdentifier: String {
+        self.componentIdentifier + "_optionalTitle"
+    }
 }
 
 extension ProcessingIndicatorConfiguration {

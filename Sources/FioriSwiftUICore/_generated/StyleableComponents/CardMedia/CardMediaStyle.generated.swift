@@ -23,16 +23,26 @@ struct AnyCardMediaStyle: CardMediaStyle {
 }
 
 public struct CardMediaConfiguration {
-    public let contentIdentifier = "FioriCardMedia_content"
-    public let mediaImageIdentifier = "FioriCardMedia_mediaImage"
-    public let descriptionIdentifier = "FioriCardMedia_description"
-
     public var componentIdentifier: String = "fiori_cardmedia_component"
     public let mediaImage: MediaImage
     public let description: Description
 
     public typealias MediaImage = ConfigurationViewWrapper
     public typealias Description = ConfigurationViewWrapper
+}
+
+public extension CardMediaConfiguration {
+    var contentIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
+
+    var mediaImageIdentifier: String {
+        self.componentIdentifier + "_mediaImage"
+    }
+
+    var descriptionIdentifier: String {
+        self.componentIdentifier + "_description"
+    }
 }
 
 extension CardMediaConfiguration {

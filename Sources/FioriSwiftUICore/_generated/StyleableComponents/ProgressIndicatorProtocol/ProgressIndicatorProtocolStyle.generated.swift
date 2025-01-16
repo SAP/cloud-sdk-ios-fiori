@@ -23,10 +23,14 @@ struct AnyProgressIndicatorProtocolStyle: ProgressIndicatorProtocolStyle {
 }
 
 public struct ProgressIndicatorProtocolConfiguration {
-    public let progressIndicatorProtocolIdentifier = "FioriProgressIndicatorProtocol_content"
-
     public var componentIdentifier: String = "fiori_progressindicatorprotocol_component"
     @Binding public var progress: Double
+}
+
+public extension ProgressIndicatorProtocolConfiguration {
+    var progressIndicatorProtocolIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
 }
 
 extension ProgressIndicatorProtocolConfiguration {

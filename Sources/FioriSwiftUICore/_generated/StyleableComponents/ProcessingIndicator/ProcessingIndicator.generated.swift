@@ -31,8 +31,10 @@ public extension ProcessingIndicator {
 }
 
 public extension ProcessingIndicator {
-    init(optionalTitle: AttributedString?) {
-        self.init(optionalTitle: { OptionalText(optionalTitle) })
+    init(optionalTitle: AttributedString?,
+         componentIdentifier: String? = ProcessingIndicator.identifier)
+    {
+        self.init(optionalTitle: { OptionalText(optionalTitle) }, componentIdentifier: componentIdentifier)
     }
 }
 

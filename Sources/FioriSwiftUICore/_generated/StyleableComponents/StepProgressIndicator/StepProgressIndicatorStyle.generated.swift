@@ -23,11 +23,6 @@ struct AnyStepProgressIndicatorStyle: StepProgressIndicatorStyle {
 }
 
 public struct StepProgressIndicatorConfiguration {
-    public let contentIdentifier = "FioriStepProgressIndicator_content"
-    public let titleIdentifier = "FioriStepProgressIndicator_title"
-    public let actionIdentifier = "FioriStepProgressIndicator_action"
-    public let cancelActionIdentifier = "FioriStepProgressIndicator_cancelAction"
-
     public var componentIdentifier: String = "fiori_stepprogressindicator_component"
     public let title: Title
     public let action: Action
@@ -39,6 +34,24 @@ public struct StepProgressIndicatorConfiguration {
     public typealias Action = ConfigurationViewWrapper
     public typealias CancelAction = ConfigurationViewWrapper
     public typealias Steps = any IndexedViewContainer
+}
+
+public extension StepProgressIndicatorConfiguration {
+    var contentIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
+
+    var titleIdentifier: String {
+        self.componentIdentifier + "_title"
+    }
+
+    var actionIdentifier: String {
+        self.componentIdentifier + "_action"
+    }
+
+    var cancelActionIdentifier: String {
+        self.componentIdentifier + "_cancelAction"
+    }
 }
 
 extension StepProgressIndicatorConfiguration {

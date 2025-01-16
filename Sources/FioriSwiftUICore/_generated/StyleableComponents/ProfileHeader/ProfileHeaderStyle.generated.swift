@@ -23,12 +23,6 @@ struct AnyProfileHeaderStyle: ProfileHeaderStyle {
 }
 
 public struct ProfileHeaderConfiguration {
-    public let contentIdentifier = "FioriProfileHeader_content"
-    public let detailImageIdentifier = "FioriProfileHeader_detailImage"
-    public let titleIdentifier = "FioriProfileHeader_title"
-    public let subtitleIdentifier = "FioriProfileHeader_subtitle"
-    public let descriptionIdentifier = "FioriProfileHeader_description"
-
     public var componentIdentifier: String = "fiori_profileheader_component"
     public let detailImage: DetailImage
     public let title: Title
@@ -42,6 +36,28 @@ public struct ProfileHeaderConfiguration {
     public typealias Subtitle = ConfigurationViewWrapper
     public typealias Description = ConfigurationViewWrapper
     public typealias DetailContent = ConfigurationViewWrapper
+}
+
+public extension ProfileHeaderConfiguration {
+    var contentIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
+
+    var detailImageIdentifier: String {
+        self.componentIdentifier + "_detailImage"
+    }
+
+    var titleIdentifier: String {
+        self.componentIdentifier + "_title"
+    }
+
+    var subtitleIdentifier: String {
+        self.componentIdentifier + "_subtitle"
+    }
+
+    var descriptionIdentifier: String {
+        self.componentIdentifier + "_description"
+    }
 }
 
 extension ProfileHeaderConfiguration {

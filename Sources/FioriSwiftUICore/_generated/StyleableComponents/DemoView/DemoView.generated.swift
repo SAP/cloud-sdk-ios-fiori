@@ -41,9 +41,10 @@ extension DemoView {
          subtitle: AttributedString? = nil,
          status: TextOrIcon? = nil,
          action: FioriButton? = nil,
-         isOn: Binding<Bool>)
+         isOn: Binding<Bool>,
+         componentIdentifier: String? = DemoView.identifier)
     {
-        self.init(title: { Text(title) }, subtitle: { OptionalText(subtitle) }, status: { TextOrIconView(status) }, action: { action }, isOn: isOn)
+        self.init(title: { Text(title) }, subtitle: { OptionalText(subtitle) }, status: { TextOrIconView(status) }, action: { action }, isOn: isOn, componentIdentifier: componentIdentifier)
     }
 }
 

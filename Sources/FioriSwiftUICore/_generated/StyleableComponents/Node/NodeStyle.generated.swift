@@ -23,12 +23,16 @@ struct AnyNodeStyle: NodeStyle {
 }
 
 public struct NodeConfiguration {
-    public let nodeIdentifier = "FioriNode_node"
-
     public var componentIdentifier: String = "fiori_node_component"
     public let node: Node
 
     public typealias Node = ConfigurationViewWrapper
+}
+
+public extension NodeConfiguration {
+    var nodeIdentifier: String {
+        self.componentIdentifier + "_node"
+    }
 }
 
 extension NodeConfiguration {

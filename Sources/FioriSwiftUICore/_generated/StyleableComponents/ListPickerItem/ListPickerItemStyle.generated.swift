@@ -23,12 +23,6 @@ struct AnyListPickerItemStyle: ListPickerItemStyle {
 }
 
 public struct ListPickerItemConfiguration {
-    public let contentIdentifier = "FioriListPickerItem_content"
-    public let titleIdentifier = "FioriListPickerItem_title"
-    public let valueIdentifier = "FioriListPickerItem_value"
-    public let mandatoryFieldIndicatorIdentifier = "FioriListPickerItem_mandatoryFieldIndicator"
-    public let formViewIdentifier = "FioriListPickerItem_formView"
-
     public var componentIdentifier: String = "fiori_listpickeritem_component"
     public let title: Title
     public let value: Value
@@ -43,6 +37,28 @@ public struct ListPickerItemConfiguration {
     public typealias Value = ConfigurationViewWrapper
     public typealias MandatoryFieldIndicator = ConfigurationViewWrapper
     public typealias Destination = ConfigurationViewWrapper
+}
+
+public extension ListPickerItemConfiguration {
+    var contentIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
+
+    var titleIdentifier: String {
+        self.componentIdentifier + "_title"
+    }
+
+    var valueIdentifier: String {
+        self.componentIdentifier + "_value"
+    }
+
+    var mandatoryFieldIndicatorIdentifier: String {
+        self.componentIdentifier + "_mandatoryFieldIndicator"
+    }
+
+    var formViewIdentifier: String {
+        self.componentIdentifier + "_formView"
+    }
 }
 
 extension ListPickerItemConfiguration {

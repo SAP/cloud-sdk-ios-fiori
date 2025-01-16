@@ -23,13 +23,6 @@ struct AnyTimelineMarkerStyle: TimelineMarkerStyle {
 }
 
 public struct TimelineMarkerConfiguration {
-    public let contentIdentifier = "FioriTimelineMarker_content"
-    public let timestampIdentifier = "FioriTimelineMarker_timestamp"
-    public let secondaryTimestampIdentifier = "FioriTimelineMarker_secondaryTimestamp"
-    public let timelineNodeIdentifier = "FioriTimelineMarker_timelineNode"
-    public let iconIdentifier = "FioriTimelineMarker_icon"
-    public let titleIdentifier = "FioriTimelineMarker_title"
-
     public var componentIdentifier: String = "fiori_timelinemarker_component"
     public let timestamp: Timestamp
     public let secondaryTimestamp: SecondaryTimestamp
@@ -46,6 +39,32 @@ public struct TimelineMarkerConfiguration {
     public typealias TimelineNode = ConfigurationViewWrapper
     public typealias Icon = ConfigurationViewWrapper
     public typealias Title = ConfigurationViewWrapper
+}
+
+public extension TimelineMarkerConfiguration {
+    var contentIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
+
+    var timestampIdentifier: String {
+        self.componentIdentifier + "_timestamp"
+    }
+
+    var secondaryTimestampIdentifier: String {
+        self.componentIdentifier + "_secondaryTimestamp"
+    }
+
+    var timelineNodeIdentifier: String {
+        self.componentIdentifier + "_timelineNode"
+    }
+
+    var iconIdentifier: String {
+        self.componentIdentifier + "_icon"
+    }
+
+    var titleIdentifier: String {
+        self.componentIdentifier + "_title"
+    }
 }
 
 extension TimelineMarkerConfiguration {

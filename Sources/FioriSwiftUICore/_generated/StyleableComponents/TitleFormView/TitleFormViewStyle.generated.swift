@@ -23,12 +23,6 @@ struct AnyTitleFormViewStyle: TitleFormViewStyle {
 }
 
 public struct TitleFormViewConfiguration {
-    public let contentIdentifier = "FioriTitleFormView_content"
-    public let textInputFieldIdentifier = "FioriTitleFormView_textInputField"
-    public let placeholderIdentifier = "FioriTitleFormView_placeholder"
-    public let placeholderTextFieldIdentifier = "FioriTitleFormView_placeholderTextField"
-    public let formViewIdentifier = "FioriTitleFormView_formView"
-
     public var componentIdentifier: String = "fiori_titleformview_component"
     @Binding public var text: String
     public let placeholder: Placeholder
@@ -43,6 +37,28 @@ public struct TitleFormViewConfiguration {
     public let charCountBeyondLimitMsg: String?
 
     public typealias Placeholder = ConfigurationViewWrapper
+}
+
+public extension TitleFormViewConfiguration {
+    var contentIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
+
+    var textInputFieldIdentifier: String {
+        self.componentIdentifier + "_textInputField"
+    }
+
+    var placeholderIdentifier: String {
+        self.componentIdentifier + "_placeholder"
+    }
+
+    var placeholderTextFieldIdentifier: String {
+        self.componentIdentifier + "_placeholderTextField"
+    }
+
+    var formViewIdentifier: String {
+        self.componentIdentifier + "_formView"
+    }
 }
 
 extension TitleFormViewConfiguration {

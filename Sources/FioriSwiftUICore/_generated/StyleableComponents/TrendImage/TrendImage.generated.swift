@@ -25,8 +25,10 @@ public extension TrendImage {
 }
 
 public extension TrendImage {
-    init(trendImage: Image? = nil) {
-        self.init(trendImage: { trendImage })
+    init(trendImage: Image? = nil,
+         componentIdentifier: String? = TrendImage.identifier)
+    {
+        self.init(trendImage: { trendImage }, componentIdentifier: componentIdentifier)
     }
 }
 

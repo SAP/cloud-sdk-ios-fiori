@@ -23,12 +23,16 @@ struct AnyHelperTextStyle: HelperTextStyle {
 }
 
 public struct HelperTextConfiguration {
-    public let helperTextIdentifier = "FioriHelperText_helperText"
-
     public var componentIdentifier: String = "fiori_helpertext_component"
     public let helperText: HelperText
 
     public typealias HelperText = ConfigurationViewWrapper
+}
+
+public extension HelperTextConfiguration {
+    var helperTextIdentifier: String {
+        self.componentIdentifier + "_helperText"
+    }
 }
 
 extension HelperTextConfiguration {

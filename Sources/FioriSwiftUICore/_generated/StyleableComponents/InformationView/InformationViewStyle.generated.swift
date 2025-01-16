@@ -23,16 +23,26 @@ struct AnyInformationViewStyle: InformationViewStyle {
 }
 
 public struct InformationViewConfiguration {
-    public let contentIdentifier = "FioriInformationView_content"
-    public let iconIdentifier = "FioriInformationView_icon"
-    public let descriptionIdentifier = "FioriInformationView_description"
-
     public var componentIdentifier: String = "fiori_informationview_component"
     public let icon: Icon
     public let description: Description
 
     public typealias Icon = ConfigurationViewWrapper
     public typealias Description = ConfigurationViewWrapper
+}
+
+public extension InformationViewConfiguration {
+    var contentIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
+
+    var iconIdentifier: String {
+        self.componentIdentifier + "_icon"
+    }
+
+    var descriptionIdentifier: String {
+        self.componentIdentifier + "_description"
+    }
 }
 
 extension InformationViewConfiguration {

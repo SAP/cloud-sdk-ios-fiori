@@ -23,20 +23,6 @@ struct AnyFioriSliderStyle: FioriSliderStyle {
 }
 
 public struct FioriSliderConfiguration {
-    public let contentIdentifier = "FioriFioriSlider_content"
-    public let titleIdentifier = "FioriFioriSlider_title"
-    public let valueLabelIdentifier = "FioriFioriSlider_valueLabel"
-    public let lowerThumbIdentifier = "FioriFioriSlider_lowerThumb"
-    public let upperThumbIdentifier = "FioriFioriSlider_upperThumb"
-    public let activeTrackIdentifier = "FioriFioriSlider_activeTrack"
-    public let inactiveTrackIdentifier = "FioriFioriSlider_inactiveTrack"
-    public let iconIdentifier = "FioriFioriSlider_icon"
-    public let descriptionIdentifier = "FioriFioriSlider_description"
-    public let leadingAccessoryIdentifier = "FioriFioriSlider_leadingAccessory"
-    public let trailingAccessoryIdentifier = "FioriFioriSlider_trailingAccessory"
-    public let rangeSliderControlIdentifier = "FioriFioriSlider_rangeSliderControl"
-    public let informationViewIdentifier = "FioriFioriSlider_informationView"
-
     public var componentIdentifier: String = "fiori_fiorislider_component"
     public let title: Title
     public let valueLabel: ValueLabel
@@ -78,6 +64,60 @@ public struct FioriSliderConfiguration {
     public typealias Description = ConfigurationViewWrapper
     public typealias LeadingAccessory = ConfigurationViewWrapper
     public typealias TrailingAccessory = ConfigurationViewWrapper
+}
+
+public extension FioriSliderConfiguration {
+    var contentIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
+
+    var titleIdentifier: String {
+        self.componentIdentifier + "_title"
+    }
+
+    var valueLabelIdentifier: String {
+        self.componentIdentifier + "_valueLabel"
+    }
+
+    var lowerThumbIdentifier: String {
+        self.componentIdentifier + "_lowerThumb"
+    }
+
+    var upperThumbIdentifier: String {
+        self.componentIdentifier + "_upperThumb"
+    }
+
+    var activeTrackIdentifier: String {
+        self.componentIdentifier + "_activeTrack"
+    }
+
+    var inactiveTrackIdentifier: String {
+        self.componentIdentifier + "_inactiveTrack"
+    }
+
+    var iconIdentifier: String {
+        self.componentIdentifier + "_icon"
+    }
+
+    var descriptionIdentifier: String {
+        self.componentIdentifier + "_description"
+    }
+
+    var leadingAccessoryIdentifier: String {
+        self.componentIdentifier + "_leadingAccessory"
+    }
+
+    var trailingAccessoryIdentifier: String {
+        self.componentIdentifier + "_trailingAccessory"
+    }
+
+    var rangeSliderControlIdentifier: String {
+        self.componentIdentifier + "_rangeSliderControl"
+    }
+
+    var informationViewIdentifier: String {
+        self.componentIdentifier + "_informationView"
+    }
 }
 
 extension FioriSliderConfiguration {

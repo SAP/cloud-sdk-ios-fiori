@@ -23,12 +23,16 @@ struct AnyAvatarsStyle: AvatarsStyle {
 }
 
 public struct AvatarsConfiguration {
-    public let avatarsIdentifier = "FioriAvatars_avatars"
-
     public var componentIdentifier: String = "fiori_avatars_component"
     public let avatars: Avatars
 
     public typealias Avatars = ConfigurationViewWrapper
+}
+
+public extension AvatarsConfiguration {
+    var avatarsIdentifier: String {
+        self.componentIdentifier + "_avatars"
+    }
 }
 
 extension AvatarsConfiguration {

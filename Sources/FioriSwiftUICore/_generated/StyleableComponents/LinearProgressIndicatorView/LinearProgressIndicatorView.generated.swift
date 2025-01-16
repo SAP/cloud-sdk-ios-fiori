@@ -33,9 +33,10 @@ public extension LinearProgressIndicatorView {
 public extension LinearProgressIndicatorView {
     init(indicatorProgress: Binding<Double>,
          icon: Image? = nil,
-         description: AttributedString? = nil)
+         description: AttributedString? = nil,
+         componentIdentifier: String? = LinearProgressIndicatorView.identifier)
     {
-        self.init(indicatorProgress: indicatorProgress, icon: { icon }, description: { OptionalText(description) })
+        self.init(indicatorProgress: indicatorProgress, icon: { icon }, description: { OptionalText(description) }, componentIdentifier: componentIdentifier)
     }
 }
 

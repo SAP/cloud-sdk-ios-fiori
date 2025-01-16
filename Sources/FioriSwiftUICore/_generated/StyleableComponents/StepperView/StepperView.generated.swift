@@ -62,9 +62,10 @@ public extension StepperView {
          stepRange: ClosedRange<Double>,
          isDecimalSupported: Bool = false,
          icon: Image? = nil,
-         description: AttributedString? = nil)
+         description: AttributedString? = nil,
+         componentIdentifier: String? = StepperView.identifier)
     {
-        self.init(title: { Text(title) }, decrementAction: { decrementAction }, text: text, incrementAction: { incrementAction }, step: step, stepRange: stepRange, isDecimalSupported: isDecimalSupported, icon: { icon }, description: { OptionalText(description) })
+        self.init(title: { Text(title) }, decrementAction: { decrementAction }, text: text, incrementAction: { incrementAction }, step: step, stepRange: stepRange, isDecimalSupported: isDecimalSupported, icon: { icon }, description: { OptionalText(description) }, componentIdentifier: componentIdentifier)
     }
 }
 

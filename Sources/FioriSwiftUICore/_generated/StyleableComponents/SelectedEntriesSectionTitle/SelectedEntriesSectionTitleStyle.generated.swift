@@ -23,12 +23,16 @@ struct AnySelectedEntriesSectionTitleStyle: SelectedEntriesSectionTitleStyle {
 }
 
 public struct SelectedEntriesSectionTitleConfiguration {
-    public let selectedEntriesSectionTitleIdentifier = "FioriSelectedEntriesSectionTitle_selectedEntriesSectionTitle"
-
     public var componentIdentifier: String = "fiori_selectedentriessectiontitle_component"
     public let selectedEntriesSectionTitle: SelectedEntriesSectionTitle
 
     public typealias SelectedEntriesSectionTitle = ConfigurationViewWrapper
+}
+
+public extension SelectedEntriesSectionTitleConfiguration {
+    var selectedEntriesSectionTitleIdentifier: String {
+        self.componentIdentifier + "_selectedEntriesSectionTitle"
+    }
 }
 
 extension SelectedEntriesSectionTitleConfiguration {

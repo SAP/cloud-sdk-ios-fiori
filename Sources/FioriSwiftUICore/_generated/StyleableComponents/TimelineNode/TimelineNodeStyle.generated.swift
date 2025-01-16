@@ -23,12 +23,16 @@ struct AnyTimelineNodeStyle: TimelineNodeStyle {
 }
 
 public struct TimelineNodeConfiguration {
-    public let timelineNodeIdentifier = "FioriTimelineNode_timelineNode"
-
     public var componentIdentifier: String = "fiori_timelinenode_component"
     public let timelineNode: TimelineNode
 
     public typealias TimelineNode = ConfigurationViewWrapper
+}
+
+public extension TimelineNodeConfiguration {
+    var timelineNodeIdentifier: String {
+        self.componentIdentifier + "_timelineNode"
+    }
 }
 
 extension TimelineNodeConfiguration {

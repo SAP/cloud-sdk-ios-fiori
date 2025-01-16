@@ -25,8 +25,10 @@ public extension LowerThumb {
 }
 
 public extension LowerThumb {
-    init(lowerThumb: any Shape = Circle()) {
-        self.init(lowerThumb: { lowerThumb })
+    init(lowerThumb: any Shape = Circle(),
+         componentIdentifier: String? = LowerThumb.identifier)
+    {
+        self.init(lowerThumb: { lowerThumb }, componentIdentifier: componentIdentifier)
     }
 }
 

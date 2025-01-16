@@ -39,9 +39,10 @@ public extension SectionFooter {
     init(title: AttributedString,
          attribute: AttributedString? = nil,
          sectionFooterStyle: SectionHeaderFooterStyle = .title,
-         didSelectHandler: (() -> Void)? = nil)
+         didSelectHandler: (() -> Void)? = nil,
+         componentIdentifier: String? = SectionFooter.identifier)
     {
-        self.init(title: { Text(title) }, attribute: { OptionalText(attribute) }, sectionFooterStyle: sectionFooterStyle, didSelectHandler: didSelectHandler)
+        self.init(title: { Text(title) }, attribute: { OptionalText(attribute) }, sectionFooterStyle: sectionFooterStyle, didSelectHandler: didSelectHandler, componentIdentifier: componentIdentifier)
     }
 }
 

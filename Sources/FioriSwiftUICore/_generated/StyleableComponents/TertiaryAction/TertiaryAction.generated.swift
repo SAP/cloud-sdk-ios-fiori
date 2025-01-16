@@ -25,8 +25,10 @@ public extension TertiaryAction {
 }
 
 public extension TertiaryAction {
-    init(tertiaryAction: FioriButton? = nil) {
-        self.init(tertiaryAction: { tertiaryAction })
+    init(tertiaryAction: FioriButton? = nil,
+         componentIdentifier: String? = TertiaryAction.identifier)
+    {
+        self.init(tertiaryAction: { tertiaryAction }, componentIdentifier: componentIdentifier)
     }
 }
 

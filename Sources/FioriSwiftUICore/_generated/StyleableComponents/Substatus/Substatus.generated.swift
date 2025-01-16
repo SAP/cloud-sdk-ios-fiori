@@ -25,8 +25,10 @@ public extension Substatus {
 }
 
 public extension Substatus {
-    init(substatus: TextOrIcon? = nil) {
-        self.init(substatus: { TextOrIconView(substatus) })
+    init(substatus: TextOrIcon? = nil,
+         componentIdentifier: String? = Substatus.identifier)
+    {
+        self.init(substatus: { TextOrIconView(substatus) }, componentIdentifier: componentIdentifier)
     }
 }
 

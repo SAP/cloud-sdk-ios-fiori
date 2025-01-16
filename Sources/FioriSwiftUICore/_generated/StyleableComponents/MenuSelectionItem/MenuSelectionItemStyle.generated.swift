@@ -23,10 +23,6 @@ struct AnyMenuSelectionItemStyle: MenuSelectionItemStyle {
 }
 
 public struct MenuSelectionItemConfiguration {
-    public let contentIdentifier = "FioriMenuSelectionItem_content"
-    public let iconIdentifier = "FioriMenuSelectionItem_icon"
-    public let titleIdentifier = "FioriMenuSelectionItem_title"
-
     public var componentIdentifier: String = "fiori_menuselectionitem_component"
     public let icon: Icon
     public let title: Title
@@ -34,6 +30,20 @@ public struct MenuSelectionItemConfiguration {
 
     public typealias Icon = ConfigurationViewWrapper
     public typealias Title = ConfigurationViewWrapper
+}
+
+public extension MenuSelectionItemConfiguration {
+    var contentIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
+
+    var iconIdentifier: String {
+        self.componentIdentifier + "_icon"
+    }
+
+    var titleIdentifier: String {
+        self.componentIdentifier + "_title"
+    }
 }
 
 extension MenuSelectionItemConfiguration {

@@ -23,12 +23,16 @@ struct AnyAvatarsTitleStyle: AvatarsTitleStyle {
 }
 
 public struct AvatarsTitleConfiguration {
-    public let avatarsTitleIdentifier = "FioriAvatarsTitle_avatarsTitle"
-
     public var componentIdentifier: String = "fiori_avatarstitle_component"
     public let avatarsTitle: AvatarsTitle
 
     public typealias AvatarsTitle = ConfigurationViewWrapper
+}
+
+public extension AvatarsTitleConfiguration {
+    var avatarsTitleIdentifier: String {
+        self.componentIdentifier + "_avatarsTitle"
+    }
 }
 
 extension AvatarsTitleConfiguration {

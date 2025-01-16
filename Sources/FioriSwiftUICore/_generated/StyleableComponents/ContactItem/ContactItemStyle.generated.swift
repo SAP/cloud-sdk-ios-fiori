@@ -23,13 +23,6 @@ struct AnyContactItemStyle: ContactItemStyle {
 }
 
 public struct ContactItemConfiguration {
-    public let contentIdentifier = "FioriContactItem_content"
-    public let titleIdentifier = "FioriContactItem_title"
-    public let subtitleIdentifier = "FioriContactItem_subtitle"
-    public let descriptionIdentifier = "FioriContactItem_description"
-    public let detailImageIdentifier = "FioriContactItem_detailImage"
-    public let activityItemsIdentifier = "FioriContactItem_activityItems"
-
     public var componentIdentifier: String = "fiori_contactitem_component"
     public let title: Title
     public let subtitle: Subtitle
@@ -42,6 +35,32 @@ public struct ContactItemConfiguration {
     public typealias Description = ConfigurationViewWrapper
     public typealias DetailImage = ConfigurationViewWrapper
     public typealias ActivityItems = ConfigurationViewWrapper
+}
+
+public extension ContactItemConfiguration {
+    var contentIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
+
+    var titleIdentifier: String {
+        self.componentIdentifier + "_title"
+    }
+
+    var subtitleIdentifier: String {
+        self.componentIdentifier + "_subtitle"
+    }
+
+    var descriptionIdentifier: String {
+        self.componentIdentifier + "_description"
+    }
+
+    var detailImageIdentifier: String {
+        self.componentIdentifier + "_detailImage"
+    }
+
+    var activityItemsIdentifier: String {
+        self.componentIdentifier + "_activityItems"
+    }
 }
 
 extension ContactItemConfiguration {

@@ -25,8 +25,10 @@ public extension OptionalTitle {
 }
 
 public extension OptionalTitle {
-    init(optionalTitle: AttributedString?) {
-        self.init(optionalTitle: { OptionalText(optionalTitle) })
+    init(optionalTitle: AttributedString?,
+         componentIdentifier: String? = OptionalTitle.identifier)
+    {
+        self.init(optionalTitle: { OptionalText(optionalTitle) }, componentIdentifier: componentIdentifier)
     }
 }
 

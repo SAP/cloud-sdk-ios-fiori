@@ -23,12 +23,16 @@ struct AnySubtitleStyle: SubtitleStyle {
 }
 
 public struct SubtitleConfiguration {
-    public let subtitleIdentifier = "FioriSubtitle_subtitle"
-
     public var componentIdentifier: String = "fiori_subtitle_component"
     public let subtitle: Subtitle
 
     public typealias Subtitle = ConfigurationViewWrapper
+}
+
+public extension SubtitleConfiguration {
+    var subtitleIdentifier: String {
+        self.componentIdentifier + "_subtitle"
+    }
 }
 
 extension SubtitleConfiguration {

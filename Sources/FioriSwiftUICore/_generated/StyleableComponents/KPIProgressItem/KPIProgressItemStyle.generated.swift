@@ -23,13 +23,6 @@ struct AnyKPIProgressItemStyle: KPIProgressItemStyle {
 }
 
 public struct KPIProgressItemConfiguration {
-    public let contentIdentifier = "FioriKPIProgressItem_content"
-    public let kPIContentIdentifier = "FioriKPIProgressItem_kPIContent"
-    public let kpiCaptionIdentifier = "FioriKPIProgressItem_kpiCaption"
-    public let footnoteIdentifier = "FioriKPIProgressItem_footnote"
-    public let innerCircleIdentifier = "FioriKPIProgressItem_innerCircle"
-    public let outerCircleIdentifier = "FioriKPIProgressItem_outerCircle"
-
     public var componentIdentifier: String = "fiori_kpiprogressitem_component"
     public let kPIContent: KPIContent
     public let kpiCaption: KpiCaption
@@ -44,6 +37,32 @@ public struct KPIProgressItemConfiguration {
     public typealias Footnote = ConfigurationViewWrapper
     public typealias InnerCircle = ConfigurationViewWrapper
     public typealias OuterCircle = ConfigurationViewWrapper
+}
+
+public extension KPIProgressItemConfiguration {
+    var contentIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
+
+    var kPIContentIdentifier: String {
+        self.componentIdentifier + "_kPIContent"
+    }
+
+    var kpiCaptionIdentifier: String {
+        self.componentIdentifier + "_kpiCaption"
+    }
+
+    var footnoteIdentifier: String {
+        self.componentIdentifier + "_footnote"
+    }
+
+    var innerCircleIdentifier: String {
+        self.componentIdentifier + "_innerCircle"
+    }
+
+    var outerCircleIdentifier: String {
+        self.componentIdentifier + "_outerCircle"
+    }
 }
 
 extension KPIProgressItemConfiguration {

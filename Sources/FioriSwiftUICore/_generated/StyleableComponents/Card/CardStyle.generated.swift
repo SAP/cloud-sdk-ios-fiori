@@ -23,28 +23,6 @@ struct AnyCardStyle: CardStyle {
 }
 
 public struct CardConfiguration {
-    public let contentIdentifier = "FioriCard_content"
-    public let mediaImageIdentifier = "FioriCard_mediaImage"
-    public let descriptionIdentifier = "FioriCard_description"
-    public let titleIdentifier = "FioriCard_title"
-    public let subtitleIdentifier = "FioriCard_subtitle"
-    public let iconsIdentifier = "FioriCard_icons"
-    public let detailImageIdentifier = "FioriCard_detailImage"
-    public let headerActionIdentifier = "FioriCard_headerAction"
-    public let counterIdentifier = "FioriCard_counter"
-    public let row1Identifier = "FioriCard_row1"
-    public let row2Identifier = "FioriCard_row2"
-    public let row3Identifier = "FioriCard_row3"
-    public let kpiIdentifier = "FioriCard_kpi"
-    public let kpiCaptionIdentifier = "FioriCard_kpiCaption"
-    public let cardBodyIdentifier = "FioriCard_cardBody"
-    public let actionIdentifier = "FioriCard_action"
-    public let secondaryActionIdentifier = "FioriCard_secondaryAction"
-    public let tertiaryActionIdentifier = "FioriCard_tertiaryAction"
-    public let overflowActionIdentifier = "FioriCard_overflowAction"
-    public let cardHeaderIdentifier = "FioriCard_cardHeader"
-    public let cardFooterIdentifier = "FioriCard_cardFooter"
-
     public var componentIdentifier: String = "fiori_card_component"
     public let mediaImage: MediaImage
     public let description: Description
@@ -83,6 +61,92 @@ public struct CardConfiguration {
     public typealias SecondaryAction = ConfigurationViewWrapper
     public typealias TertiaryAction = ConfigurationViewWrapper
     public typealias OverflowAction = ConfigurationViewWrapper
+}
+
+public extension CardConfiguration {
+    var contentIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
+
+    var mediaImageIdentifier: String {
+        self.componentIdentifier + "_mediaImage"
+    }
+
+    var descriptionIdentifier: String {
+        self.componentIdentifier + "_description"
+    }
+
+    var titleIdentifier: String {
+        self.componentIdentifier + "_title"
+    }
+
+    var subtitleIdentifier: String {
+        self.componentIdentifier + "_subtitle"
+    }
+
+    var iconsIdentifier: String {
+        self.componentIdentifier + "_icons"
+    }
+
+    var detailImageIdentifier: String {
+        self.componentIdentifier + "_detailImage"
+    }
+
+    var headerActionIdentifier: String {
+        self.componentIdentifier + "_headerAction"
+    }
+
+    var counterIdentifier: String {
+        self.componentIdentifier + "_counter"
+    }
+
+    var row1Identifier: String {
+        self.componentIdentifier + "_row1"
+    }
+
+    var row2Identifier: String {
+        self.componentIdentifier + "_row2"
+    }
+
+    var row3Identifier: String {
+        self.componentIdentifier + "_row3"
+    }
+
+    var kpiIdentifier: String {
+        self.componentIdentifier + "_kpi"
+    }
+
+    var kpiCaptionIdentifier: String {
+        self.componentIdentifier + "_kpiCaption"
+    }
+
+    var cardBodyIdentifier: String {
+        self.componentIdentifier + "_cardBody"
+    }
+
+    var actionIdentifier: String {
+        self.componentIdentifier + "_action"
+    }
+
+    var secondaryActionIdentifier: String {
+        self.componentIdentifier + "_secondaryAction"
+    }
+
+    var tertiaryActionIdentifier: String {
+        self.componentIdentifier + "_tertiaryAction"
+    }
+
+    var overflowActionIdentifier: String {
+        self.componentIdentifier + "_overflowAction"
+    }
+
+    var cardHeaderIdentifier: String {
+        self.componentIdentifier + "_cardHeader"
+    }
+
+    var cardFooterIdentifier: String {
+        self.componentIdentifier + "_cardFooter"
+    }
 }
 
 extension CardConfiguration {

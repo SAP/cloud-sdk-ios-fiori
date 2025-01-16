@@ -23,11 +23,15 @@ struct AnyFormViewStyle: FormViewStyle {
 }
 
 public struct FormViewConfiguration {
-    public let contentIdentifier = "FioriFormView_content"
-
     public var componentIdentifier: String = "fiori_formview_component"
     public let controlState: ControlState
     public let errorMessage: AttributedString?
+}
+
+public extension FormViewConfiguration {
+    var contentIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
 }
 
 extension FormViewConfiguration {

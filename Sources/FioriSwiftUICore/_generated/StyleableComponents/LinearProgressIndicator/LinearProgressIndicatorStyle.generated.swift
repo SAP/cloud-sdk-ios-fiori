@@ -23,10 +23,14 @@ struct AnyLinearProgressIndicatorStyle: LinearProgressIndicatorStyle {
 }
 
 public struct LinearProgressIndicatorConfiguration {
-    public let linearProgressIndicatorIdentifier = "FioriLinearProgressIndicator_content"
-
     public var componentIdentifier: String = "fiori_linearprogressindicator_component"
     @Binding public var indicatorProgress: Double
+}
+
+public extension LinearProgressIndicatorConfiguration {
+    var linearProgressIndicatorIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
 }
 
 extension LinearProgressIndicatorConfiguration {

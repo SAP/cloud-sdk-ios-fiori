@@ -23,9 +23,6 @@ struct AnyMenuSelectionStyle: MenuSelectionStyle {
 }
 
 public struct MenuSelectionConfiguration {
-    public let contentIdentifier = "FioriMenuSelection_content"
-    public let actionIdentifier = "FioriMenuSelection_action"
-
     public var componentIdentifier: String = "fiori_menuselection_component"
     public let action: Action
     @Binding public var isExpanded: Bool
@@ -33,6 +30,16 @@ public struct MenuSelectionConfiguration {
 
     public typealias Action = ConfigurationViewWrapper
     public typealias Items = ConfigurationViewWrapper
+}
+
+public extension MenuSelectionConfiguration {
+    var contentIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
+
+    var actionIdentifier: String {
+        self.componentIdentifier + "_action"
+    }
 }
 
 extension MenuSelectionConfiguration {

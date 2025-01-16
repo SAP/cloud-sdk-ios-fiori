@@ -25,8 +25,10 @@ public extension AvatarsTitle {
 }
 
 public extension AvatarsTitle {
-    init(avatarsTitle: AttributedString? = nil) {
-        self.init(avatarsTitle: { OptionalText(avatarsTitle) })
+    init(avatarsTitle: AttributedString? = nil,
+         componentIdentifier: String? = AvatarsTitle.identifier)
+    {
+        self.init(avatarsTitle: { OptionalText(avatarsTitle) }, componentIdentifier: componentIdentifier)
     }
 }
 

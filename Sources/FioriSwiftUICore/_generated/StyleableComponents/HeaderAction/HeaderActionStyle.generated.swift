@@ -23,12 +23,16 @@ struct AnyHeaderActionStyle: HeaderActionStyle {
 }
 
 public struct HeaderActionConfiguration {
-    public let headerActionIdentifier = "FioriHeaderAction_headerAction"
-
     public var componentIdentifier: String = "fiori_headeraction_component"
     public let headerAction: HeaderAction
 
     public typealias HeaderAction = ConfigurationViewWrapper
+}
+
+public extension HeaderActionConfiguration {
+    var headerActionIdentifier: String {
+        self.componentIdentifier + "_headerAction"
+    }
 }
 
 extension HeaderActionConfiguration {

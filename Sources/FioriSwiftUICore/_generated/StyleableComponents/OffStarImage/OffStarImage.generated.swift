@@ -28,8 +28,10 @@ public extension OffStarImage {
 }
 
 public extension OffStarImage {
-    init(offStarImage: Image = FioriIcon.actions.unfavorite.renderingMode(.template).resizable()) {
-        self.init(offStarImage: { offStarImage })
+    init(offStarImage: Image = FioriIcon.actions.unfavorite.renderingMode(.template).resizable(),
+         componentIdentifier: String? = OffStarImage.identifier)
+    {
+        self.init(offStarImage: { offStarImage }, componentIdentifier: componentIdentifier)
     }
 }
 

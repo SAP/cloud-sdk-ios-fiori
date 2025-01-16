@@ -23,12 +23,16 @@ struct AnyTagsStyle: TagsStyle {
 }
 
 public struct TagsConfiguration {
-    public let tagsIdentifier = "FioriTags_tags"
-
     public var componentIdentifier: String = "fiori_tags_component"
     public let tags: Tags
 
     public typealias Tags = ConfigurationViewWrapper
+}
+
+public extension TagsConfiguration {
+    var tagsIdentifier: String {
+        self.componentIdentifier + "_tags"
+    }
 }
 
 extension TagsConfiguration {

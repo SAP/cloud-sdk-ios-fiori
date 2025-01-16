@@ -23,12 +23,16 @@ struct AnyOverflowActionStyle: OverflowActionStyle {
 }
 
 public struct OverflowActionConfiguration {
-    public let overflowActionIdentifier = "FioriOverflowAction_overflowAction"
-
     public var componentIdentifier: String = "fiori_overflowaction_component"
     public let overflowAction: OverflowAction
 
     public typealias OverflowAction = ConfigurationViewWrapper
+}
+
+public extension OverflowActionConfiguration {
+    var overflowActionIdentifier: String {
+        self.componentIdentifier + "_overflowAction"
+    }
 }
 
 extension OverflowActionConfiguration {

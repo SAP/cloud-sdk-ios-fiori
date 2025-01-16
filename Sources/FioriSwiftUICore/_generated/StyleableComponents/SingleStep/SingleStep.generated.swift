@@ -45,9 +45,10 @@ public extension SingleStep {
          @ViewBuilder line: () -> any View = { Rectangle() },
          id: String = UUID().uuidString,
          state: StepProgressIndicatorState = .normal,
-         substeps: [StepItem] = [])
+         substeps: [StepItem] = [],
+         componentIdentifier: String? = SingleStep.identifier)
     {
-        self.init(title: { Text(title) }, node: { TextOrIconView(node) }, line: line, id: id, state: state, substeps: { StepsStack(substeps) })
+        self.init(title: { Text(title) }, node: { TextOrIconView(node) }, line: line, id: id, state: state, substeps: { StepsStack(substeps) }, componentIdentifier: componentIdentifier)
     }
 }
 

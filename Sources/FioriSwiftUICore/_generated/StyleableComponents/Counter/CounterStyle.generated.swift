@@ -23,12 +23,16 @@ struct AnyCounterStyle: CounterStyle {
 }
 
 public struct CounterConfiguration {
-    public let counterIdentifier = "FioriCounter_counter"
-
     public var componentIdentifier: String = "fiori_counter_component"
     public let counter: Counter
 
     public typealias Counter = ConfigurationViewWrapper
+}
+
+public extension CounterConfiguration {
+    var counterIdentifier: String {
+        self.componentIdentifier + "_counter"
+    }
 }
 
 extension CounterConfiguration {

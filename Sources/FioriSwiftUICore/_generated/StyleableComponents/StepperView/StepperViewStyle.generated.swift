@@ -23,16 +23,6 @@ struct AnyStepperViewStyle: StepperViewStyle {
 }
 
 public struct StepperViewConfiguration {
-    public let contentIdentifier = "FioriStepperView_content"
-    public let titleIdentifier = "FioriStepperView_title"
-    public let decrementActionIdentifier = "FioriStepperView_decrementAction"
-    public let textInputFieldIdentifier = "FioriStepperView_textInputField"
-    public let incrementActionIdentifier = "FioriStepperView_incrementAction"
-    public let iconIdentifier = "FioriStepperView_icon"
-    public let descriptionIdentifier = "FioriStepperView_description"
-    public let stepperFieldIdentifier = "FioriStepperView_stepperField"
-    public let informationViewIdentifier = "FioriStepperView_informationView"
-
     public var componentIdentifier: String = "fiori_stepperview_component"
     public let title: Title
     public let decrementAction: DecrementAction
@@ -49,6 +39,44 @@ public struct StepperViewConfiguration {
     public typealias IncrementAction = ConfigurationViewWrapper
     public typealias Icon = ConfigurationViewWrapper
     public typealias Description = ConfigurationViewWrapper
+}
+
+public extension StepperViewConfiguration {
+    var contentIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
+
+    var titleIdentifier: String {
+        self.componentIdentifier + "_title"
+    }
+
+    var decrementActionIdentifier: String {
+        self.componentIdentifier + "_decrementAction"
+    }
+
+    var textInputFieldIdentifier: String {
+        self.componentIdentifier + "_textInputField"
+    }
+
+    var incrementActionIdentifier: String {
+        self.componentIdentifier + "_incrementAction"
+    }
+
+    var iconIdentifier: String {
+        self.componentIdentifier + "_icon"
+    }
+
+    var descriptionIdentifier: String {
+        self.componentIdentifier + "_description"
+    }
+
+    var stepperFieldIdentifier: String {
+        self.componentIdentifier + "_stepperField"
+    }
+
+    var informationViewIdentifier: String {
+        self.componentIdentifier + "_informationView"
+    }
 }
 
 extension StepperViewConfiguration {

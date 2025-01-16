@@ -23,12 +23,16 @@ struct AnyAccessoryIconStyle: AccessoryIconStyle {
 }
 
 public struct AccessoryIconConfiguration {
-    public let accessoryIconIdentifier = "FioriAccessoryIcon_accessoryIcon"
-
     public var componentIdentifier: String = "fiori_accessoryicon_component"
     public let accessoryIcon: AccessoryIcon
 
     public typealias AccessoryIcon = ConfigurationViewWrapper
+}
+
+public extension AccessoryIconConfiguration {
+    var accessoryIconIdentifier: String {
+        self.componentIdentifier + "_accessoryIcon"
+    }
 }
 
 extension AccessoryIconConfiguration {

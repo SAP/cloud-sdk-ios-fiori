@@ -23,12 +23,16 @@ struct AnyTrendStyle: TrendStyle {
 }
 
 public struct TrendConfiguration {
-    public let trendIdentifier = "FioriTrend_trend"
-
     public var componentIdentifier: String = "fiori_trend_component"
     public let trend: Trend
 
     public typealias Trend = ConfigurationViewWrapper
+}
+
+public extension TrendConfiguration {
+    var trendIdentifier: String {
+        self.componentIdentifier + "_trend"
+    }
 }
 
 extension TrendConfiguration {

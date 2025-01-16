@@ -34,9 +34,10 @@ public extension ToastMessage {
 public extension ToastMessage {
     init(icon: Image? = nil,
          title: AttributedString,
-         duration: Double = 1)
+         duration: Double = 1,
+         componentIdentifier: String? = ToastMessage.identifier)
     {
-        self.init(icon: { icon }, title: { Text(title) }, duration: duration)
+        self.init(icon: { icon }, title: { Text(title) }, duration: duration, componentIdentifier: componentIdentifier)
     }
 }
 

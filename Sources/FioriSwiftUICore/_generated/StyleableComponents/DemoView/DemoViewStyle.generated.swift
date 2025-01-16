@@ -23,13 +23,6 @@ struct AnyDemoViewStyle: DemoViewStyle {
 }
 
 struct DemoViewConfiguration {
-    public let contentIdentifier = "FioriDemoView_content"
-    public let titleIdentifier = "FioriDemoView_title"
-    public let subtitleIdentifier = "FioriDemoView_subtitle"
-    public let statusIdentifier = "FioriDemoView_status"
-    public let actionIdentifier = "FioriDemoView_action"
-    public let switchIdentifier = "FioriDemoView_switch"
-
     public var componentIdentifier: String = "fiori_demoview_component"
     public let title: Title
     public let subtitle: Subtitle
@@ -41,6 +34,32 @@ struct DemoViewConfiguration {
     public typealias Subtitle = ConfigurationViewWrapper
     public typealias Status = ConfigurationViewWrapper
     public typealias Action = ConfigurationViewWrapper
+}
+
+extension DemoViewConfiguration {
+    public var contentIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
+
+    public var titleIdentifier: String {
+        self.componentIdentifier + "_title"
+    }
+
+    public var subtitleIdentifier: String {
+        self.componentIdentifier + "_subtitle"
+    }
+
+    public var statusIdentifier: String {
+        self.componentIdentifier + "_status"
+    }
+
+    public var actionIdentifier: String {
+        self.componentIdentifier + "_action"
+    }
+
+    public var switchIdentifier: String {
+        self.componentIdentifier + "_switch"
+    }
 }
 
 extension DemoViewConfiguration {

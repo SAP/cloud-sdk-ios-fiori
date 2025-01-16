@@ -23,15 +23,25 @@ struct AnySwitchViewStyle: SwitchViewStyle {
 }
 
 public struct SwitchViewConfiguration {
-    public let contentIdentifier = "FioriSwitchView_content"
-    public let titleIdentifier = "FioriSwitchView_title"
-    public let switchIdentifier = "FioriSwitchView_switch"
-
     public var componentIdentifier: String = "fiori_switchview_component"
     public let title: Title
     @Binding public var isOn: Bool
 
     public typealias Title = ConfigurationViewWrapper
+}
+
+public extension SwitchViewConfiguration {
+    var contentIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
+
+    var titleIdentifier: String {
+        self.componentIdentifier + "_title"
+    }
+
+    var switchIdentifier: String {
+        self.componentIdentifier + "_switch"
+    }
 }
 
 extension SwitchViewConfiguration {

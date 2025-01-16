@@ -27,8 +27,10 @@ public extension DecrementAction {
 }
 
 public extension DecrementAction {
-    init(decrementAction: FioriButton? = FioriButton { _ in FioriIcon.actions.less }) {
-        self.init(decrementAction: { decrementAction })
+    init(decrementAction: FioriButton? = FioriButton { _ in FioriIcon.actions.less },
+         componentIdentifier: String? = DecrementAction.identifier)
+    {
+        self.init(decrementAction: { decrementAction }, componentIdentifier: componentIdentifier)
     }
 }
 

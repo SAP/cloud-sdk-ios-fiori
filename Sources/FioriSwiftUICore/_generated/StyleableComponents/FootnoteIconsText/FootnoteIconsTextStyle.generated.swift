@@ -23,12 +23,16 @@ struct AnyFootnoteIconsTextStyle: FootnoteIconsTextStyle {
 }
 
 public struct FootnoteIconsTextConfiguration {
-    public let footnoteIconsTextIdentifier = "FioriFootnoteIconsText_footnoteIconsText"
-
     public var componentIdentifier: String = "fiori_footnoteiconstext_component"
     public let footnoteIconsText: FootnoteIconsText
 
     public typealias FootnoteIconsText = ConfigurationViewWrapper
+}
+
+public extension FootnoteIconsTextConfiguration {
+    var footnoteIconsTextIdentifier: String {
+        self.componentIdentifier + "_footnoteIconsText"
+    }
 }
 
 extension FootnoteIconsTextConfiguration {

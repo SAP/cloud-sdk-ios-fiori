@@ -23,12 +23,16 @@ struct AnyGreetingTextStyle: GreetingTextStyle {
 }
 
 public struct GreetingTextConfiguration {
-    public let greetingTextIdentifier = "FioriGreetingText_greetingText"
-
     public var componentIdentifier: String = "fiori_greetingtext_component"
     public let greetingText: GreetingText
 
     public typealias GreetingText = ConfigurationViewWrapper
+}
+
+public extension GreetingTextConfiguration {
+    var greetingTextIdentifier: String {
+        self.componentIdentifier + "_greetingText"
+    }
 }
 
 extension GreetingTextConfiguration {

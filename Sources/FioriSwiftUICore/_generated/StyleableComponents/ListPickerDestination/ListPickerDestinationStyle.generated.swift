@@ -23,15 +23,6 @@ struct AnyListPickerDestinationStyle: ListPickerDestinationStyle {
 }
 
 public struct ListPickerDestinationConfiguration {
-    public let contentIdentifier = "FioriListPickerDestination_content"
-    public let cancelActionIdentifier = "FioriListPickerDestination_cancelAction"
-    public let applyActionIdentifier = "FioriListPickerDestination_applyAction"
-    public let selectedEntriesSectionTitleIdentifier = "FioriListPickerDestination_selectedEntriesSectionTitle"
-    public let selectAllActionIdentifier = "FioriListPickerDestination_selectAllAction"
-    public let deselectAllActionIdentifier = "FioriListPickerDestination_deselectAllAction"
-    public let allEntriesSectionTitleIdentifier = "FioriListPickerDestination_allEntriesSectionTitle"
-    public let listPickerContentIdentifier = "FioriListPickerDestination_listPickerContent"
-
     public var componentIdentifier: String = "fiori_listpickerdestination_component"
     public let cancelAction: CancelAction
     public let applyAction: ApplyAction
@@ -48,6 +39,40 @@ public struct ListPickerDestinationConfiguration {
     public typealias DeselectAllAction = ConfigurationViewWrapper
     public typealias AllEntriesSectionTitle = ConfigurationViewWrapper
     public typealias ListPickerContent = ConfigurationViewWrapper
+}
+
+public extension ListPickerDestinationConfiguration {
+    var contentIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
+
+    var cancelActionIdentifier: String {
+        self.componentIdentifier + "_cancelAction"
+    }
+
+    var applyActionIdentifier: String {
+        self.componentIdentifier + "_applyAction"
+    }
+
+    var selectedEntriesSectionTitleIdentifier: String {
+        self.componentIdentifier + "_selectedEntriesSectionTitle"
+    }
+
+    var selectAllActionIdentifier: String {
+        self.componentIdentifier + "_selectAllAction"
+    }
+
+    var deselectAllActionIdentifier: String {
+        self.componentIdentifier + "_deselectAllAction"
+    }
+
+    var allEntriesSectionTitleIdentifier: String {
+        self.componentIdentifier + "_allEntriesSectionTitle"
+    }
+
+    var listPickerContentIdentifier: String {
+        self.componentIdentifier + "_listPickerContent"
+    }
 }
 
 extension ListPickerDestinationConfiguration {

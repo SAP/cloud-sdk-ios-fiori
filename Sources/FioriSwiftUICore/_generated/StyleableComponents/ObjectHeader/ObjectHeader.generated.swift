@@ -86,9 +86,10 @@ public extension ObjectHeader {
          status: TextOrIcon? = nil,
          substatus: TextOrIcon? = nil,
          detailImage: Image? = nil,
-         @ViewBuilder detailContent: () -> any View = { EmptyView() })
+         @ViewBuilder detailContent: () -> any View = { EmptyView() },
+         componentIdentifier: String? = ObjectHeader.identifier)
     {
-        self.init(title: { Text(title) }, subtitle: { OptionalText(subtitle) }, tags: { TagStack(tags) }, bodyText: { OptionalText(bodyText) }, footnote: { OptionalText(footnote) }, descriptionText: { OptionalText(descriptionText) }, status: { TextOrIconView(status) }, substatus: { TextOrIconView(substatus) }, detailImage: { detailImage }, detailContent: detailContent)
+        self.init(title: { Text(title) }, subtitle: { OptionalText(subtitle) }, tags: { TagStack(tags) }, bodyText: { OptionalText(bodyText) }, footnote: { OptionalText(footnote) }, descriptionText: { OptionalText(descriptionText) }, status: { TextOrIconView(status) }, substatus: { TextOrIconView(substatus) }, detailImage: { detailImage }, detailContent: detailContent, componentIdentifier: componentIdentifier)
     }
 }
 

@@ -25,8 +25,10 @@ public extension ApplyAction {
 }
 
 public extension ApplyAction {
-    init(applyAction: FioriButton? = FioriButton { _ in Text("Apply".localizedFioriString()) }) {
-        self.init(applyAction: { applyAction })
+    init(applyAction: FioriButton? = FioriButton { _ in Text("Apply".localizedFioriString()) },
+         componentIdentifier: String? = ApplyAction.identifier)
+    {
+        self.init(applyAction: { applyAction }, componentIdentifier: componentIdentifier)
     }
 }
 

@@ -23,12 +23,16 @@ struct AnyNowIndicatorNodeStyle: NowIndicatorNodeStyle {
 }
 
 public struct NowIndicatorNodeConfiguration {
-    public let nowIndicatorNodeIdentifier = "FioriNowIndicatorNode_nowIndicatorNode"
-
     public var componentIdentifier: String = "fiori_nowindicatornode_component"
     public let nowIndicatorNode: NowIndicatorNode
 
     public typealias NowIndicatorNode = ConfigurationViewWrapper
+}
+
+public extension NowIndicatorNodeConfiguration {
+    var nowIndicatorNodeIdentifier: String {
+        self.componentIdentifier + "_nowIndicatorNode"
+    }
 }
 
 extension NowIndicatorNodeConfiguration {

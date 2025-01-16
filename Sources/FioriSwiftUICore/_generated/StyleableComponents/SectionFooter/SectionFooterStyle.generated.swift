@@ -23,10 +23,6 @@ struct AnySectionFooterStyle: SectionFooterStyle {
 }
 
 public struct SectionFooterConfiguration {
-    public let contentIdentifier = "FioriSectionFooter_content"
-    public let titleIdentifier = "FioriSectionFooter_title"
-    public let attributeIdentifier = "FioriSectionFooter_attribute"
-
     public var componentIdentifier: String = "fiori_sectionfooter_component"
     public let title: Title
     public let attribute: Attribute
@@ -35,6 +31,20 @@ public struct SectionFooterConfiguration {
 
     public typealias Title = ConfigurationViewWrapper
     public typealias Attribute = ConfigurationViewWrapper
+}
+
+public extension SectionFooterConfiguration {
+    var contentIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
+
+    var titleIdentifier: String {
+        self.componentIdentifier + "_title"
+    }
+
+    var attributeIdentifier: String {
+        self.componentIdentifier + "_attribute"
+    }
 }
 
 extension SectionFooterConfiguration {

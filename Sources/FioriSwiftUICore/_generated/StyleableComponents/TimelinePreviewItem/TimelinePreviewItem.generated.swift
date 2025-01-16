@@ -48,9 +48,10 @@ public extension TimelinePreviewItem {
          timelineNode: TimelineNodeType,
          timestamp: AttributedString? = nil,
          isFuture: Bool = false,
-         nodeType: TimelineNodeType)
+         nodeType: TimelineNodeType,
+         componentIdentifier: String? = TimelinePreviewItem.identifier)
     {
-        self.init(title: { Text(title) }, icon: { icon }, timelineNode: { TimelineNodeView(timelineNode) }, timestamp: { OptionalText(timestamp) }, isFuture: isFuture, nodeType: nodeType)
+        self.init(title: { Text(title) }, icon: { icon }, timelineNode: { TimelineNodeView(timelineNode) }, timestamp: { OptionalText(timestamp) }, isFuture: isFuture, nodeType: nodeType, componentIdentifier: componentIdentifier)
     }
 }
 

@@ -23,12 +23,6 @@ struct AnyTimelinePreviewItemStyle: TimelinePreviewItemStyle {
 }
 
 public struct TimelinePreviewItemConfiguration {
-    public let contentIdentifier = "FioriTimelinePreviewItem_content"
-    public let titleIdentifier = "FioriTimelinePreviewItem_title"
-    public let iconIdentifier = "FioriTimelinePreviewItem_icon"
-    public let timelineNodeIdentifier = "FioriTimelinePreviewItem_timelineNode"
-    public let timestampIdentifier = "FioriTimelinePreviewItem_timestamp"
-
     public var componentIdentifier: String = "fiori_timelinepreviewitem_component"
     public let title: Title
     public let icon: Icon
@@ -41,6 +35,28 @@ public struct TimelinePreviewItemConfiguration {
     public typealias Icon = ConfigurationViewWrapper
     public typealias TimelineNode = ConfigurationViewWrapper
     public typealias Timestamp = ConfigurationViewWrapper
+}
+
+public extension TimelinePreviewItemConfiguration {
+    var contentIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
+
+    var titleIdentifier: String {
+        self.componentIdentifier + "_title"
+    }
+
+    var iconIdentifier: String {
+        self.componentIdentifier + "_icon"
+    }
+
+    var timelineNodeIdentifier: String {
+        self.componentIdentifier + "_timelineNode"
+    }
+
+    var timestampIdentifier: String {
+        self.componentIdentifier + "_timestamp"
+    }
 }
 
 extension TimelinePreviewItemConfiguration {

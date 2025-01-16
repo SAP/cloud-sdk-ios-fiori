@@ -23,13 +23,6 @@ struct AnyCardExtHeaderStyle: CardExtHeaderStyle {
 }
 
 public struct CardExtHeaderConfiguration {
-    public let contentIdentifier = "FioriCardExtHeader_content"
-    public let row1Identifier = "FioriCardExtHeader_row1"
-    public let row2Identifier = "FioriCardExtHeader_row2"
-    public let row3Identifier = "FioriCardExtHeader_row3"
-    public let kpiIdentifier = "FioriCardExtHeader_kpi"
-    public let kpiCaptionIdentifier = "FioriCardExtHeader_kpiCaption"
-
     public var componentIdentifier: String = "fiori_cardextheader_component"
     public let row1: Row1
     public let row2: Row2
@@ -42,6 +35,32 @@ public struct CardExtHeaderConfiguration {
     public typealias Row3 = ConfigurationViewWrapper
     public typealias Kpi = ConfigurationViewWrapper
     public typealias KpiCaption = ConfigurationViewWrapper
+}
+
+public extension CardExtHeaderConfiguration {
+    var contentIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
+
+    var row1Identifier: String {
+        self.componentIdentifier + "_row1"
+    }
+
+    var row2Identifier: String {
+        self.componentIdentifier + "_row2"
+    }
+
+    var row3Identifier: String {
+        self.componentIdentifier + "_row3"
+    }
+
+    var kpiIdentifier: String {
+        self.componentIdentifier + "_kpi"
+    }
+
+    var kpiCaptionIdentifier: String {
+        self.componentIdentifier + "_kpiCaption"
+    }
 }
 
 extension CardExtHeaderConfiguration {

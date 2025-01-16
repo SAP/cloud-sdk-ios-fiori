@@ -23,10 +23,14 @@ struct AnyCheckoutIndicatorStyle: CheckoutIndicatorStyle {
 }
 
 public struct CheckoutIndicatorConfiguration {
-    public let checkoutIndicatorIdentifier = "FioriCheckoutIndicator_content"
-
     public var componentIdentifier: String = "fiori_checkoutindicator_component"
     @Binding public var displayState: DisplayState
+}
+
+public extension CheckoutIndicatorConfiguration {
+    var checkoutIndicatorIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
 }
 
 extension CheckoutIndicatorConfiguration {

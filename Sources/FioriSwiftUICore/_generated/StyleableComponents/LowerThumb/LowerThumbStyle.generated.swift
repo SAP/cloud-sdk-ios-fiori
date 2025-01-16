@@ -23,12 +23,16 @@ struct AnyLowerThumbStyle: LowerThumbStyle {
 }
 
 public struct LowerThumbConfiguration {
-    public let lowerThumbIdentifier = "FioriLowerThumb_lowerThumb"
-
     public var componentIdentifier: String = "fiori_lowerthumb_component"
     public let lowerThumb: LowerThumb
 
     public typealias LowerThumb = ConfigurationViewWrapper
+}
+
+public extension LowerThumbConfiguration {
+    var lowerThumbIdentifier: String {
+        self.componentIdentifier + "_lowerThumb"
+    }
 }
 
 extension LowerThumbConfiguration {

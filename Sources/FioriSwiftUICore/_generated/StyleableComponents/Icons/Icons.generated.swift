@@ -25,8 +25,10 @@ public extension Icons {
 }
 
 public extension Icons {
-    init(icons: [TextOrIcon] = []) {
-        self.init(icons: { IconStack(icons) })
+    init(icons: [TextOrIcon] = [],
+         componentIdentifier: String? = Icons.identifier)
+    {
+        self.init(icons: { IconStack(icons) }, componentIdentifier: componentIdentifier)
     }
 }
 

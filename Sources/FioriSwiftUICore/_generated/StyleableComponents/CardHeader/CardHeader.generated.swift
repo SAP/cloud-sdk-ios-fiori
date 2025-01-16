@@ -73,9 +73,10 @@ public extension CardHeader {
          @ViewBuilder row2: () -> any View = { EmptyView() },
          @ViewBuilder row3: () -> any View = { EmptyView() },
          kpi: KPIItemData? = nil,
-         kpiCaption: AttributedString? = nil)
+         kpiCaption: AttributedString? = nil,
+         componentIdentifier: String? = CardHeader.identifier)
     {
-        self.init(mediaImage: { OptionalImage(mediaImage) }, description: { OptionalText(description) }, title: { Text(title) }, subtitle: { OptionalText(subtitle) }, icons: { IconStack(icons) }, detailImage: { detailImage }, headerAction: { headerAction }, counter: { OptionalText(counter) }, row1: row1, row2: row2, row3: row3, kpi: { OptionalKPIItem(kpi) }, kpiCaption: { OptionalText(kpiCaption) })
+        self.init(mediaImage: { OptionalImage(mediaImage) }, description: { OptionalText(description) }, title: { Text(title) }, subtitle: { OptionalText(subtitle) }, icons: { IconStack(icons) }, detailImage: { detailImage }, headerAction: { headerAction }, counter: { OptionalText(counter) }, row1: row1, row2: row2, row3: row3, kpi: { OptionalKPIItem(kpi) }, kpiCaption: { OptionalText(kpiCaption) }, componentIdentifier: componentIdentifier)
     }
 }
 

@@ -79,9 +79,10 @@ public extension ObjectItem {
          footnoteIconsText: AttributedString? = nil,
          tags: [AttributedString] = [],
          action: FioriButton? = nil,
-         objectItemButton: FioriButton? = nil)
+         objectItemButton: FioriButton? = nil,
+         componentIdentifier: String? = ObjectItem.identifier)
     {
-        self.init(title: { Text(title) }, subtitle: { OptionalText(subtitle) }, footnote: { OptionalText(footnote) }, description: { OptionalText(description) }, status: { TextOrIconView(status) }, substatus: { TextOrIconView(substatus) }, detailImage: { detailImage }, icons: { IconStack(icons) }, avatars: { AvatarsListStack(avatars) }, footnoteIcons: { FootnoteIconStack(footnoteIcons) }, footnoteIconsText: { OptionalText(footnoteIconsText) }, tags: { TagStack(tags) }, action: { action }, objectItemButton: { objectItemButton })
+        self.init(title: { Text(title) }, subtitle: { OptionalText(subtitle) }, footnote: { OptionalText(footnote) }, description: { OptionalText(description) }, status: { TextOrIconView(status) }, substatus: { TextOrIconView(substatus) }, detailImage: { detailImage }, icons: { IconStack(icons) }, avatars: { AvatarsListStack(avatars) }, footnoteIcons: { FootnoteIconStack(footnoteIcons) }, footnoteIconsText: { OptionalText(footnoteIconsText) }, tags: { TagStack(tags) }, action: { action }, objectItemButton: { objectItemButton }, componentIdentifier: componentIdentifier)
     }
 }
 
