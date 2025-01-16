@@ -22,6 +22,7 @@ struct AnyRatingControlStyle: RatingControlStyle {
 }
 
 public struct RatingControlConfiguration {
+    public var componentIdentifier: String = "fiori_ratingcontrol_component"
     public let valueLabel: ValueLabel
     public let onStarImage: OnStarImage
     public let offStarImage: OffStarImage
@@ -47,6 +48,12 @@ public struct RatingControlConfiguration {
     public typealias OffStarImage = ConfigurationViewWrapper
     public typealias HalfStarImage = ConfigurationViewWrapper
     public typealias ReviewCountLabel = ConfigurationViewWrapper
+}
+
+extension RatingControlConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }
 
 public struct RatingControlFioriStyle: RatingControlStyle {

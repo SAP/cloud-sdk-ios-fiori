@@ -8,11 +8,20 @@ public struct LowerThumb {
 
     @Environment(\.lowerThumbStyle) var style
 
+    var componentIdentifier: String = LowerThumb.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder lowerThumb: () -> any View) {
+    public init(@ViewBuilder lowerThumb: () -> any View,
+                componentIdentifier: String? = LowerThumb.identifier)
+    {
         self.lowerThumb = lowerThumb()
+        self.componentIdentifier = componentIdentifier ?? LowerThumb.identifier
     }
+}
+
+public extension LowerThumb {
+    static let identifier = "fiori_lowerthumb_component"
 }
 
 public extension LowerThumb {
@@ -29,6 +38,7 @@ public extension LowerThumb {
     internal init(_ configuration: LowerThumbConfiguration, shouldApplyDefaultStyle: Bool) {
         self.lowerThumb = configuration.lowerThumb
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -37,7 +47,7 @@ extension LowerThumb: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(lowerThumb: .init(self.lowerThumb))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, lowerThumb: .init(self.lowerThumb))).typeErased
                 .transformEnvironment(\.lowerThumbStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -55,7 +65,7 @@ private extension LowerThumb {
     }
 
     func defaultStyle() -> some View {
-        LowerThumb(.init(lowerThumb: .init(self.lowerThumb)))
+        LowerThumb(.init(componentIdentifier: self.componentIdentifier, lowerThumb: .init(self.lowerThumb)))
             .shouldApplyDefaultStyle(false)
             .lowerThumbStyle(.fiori)
             .typeErased

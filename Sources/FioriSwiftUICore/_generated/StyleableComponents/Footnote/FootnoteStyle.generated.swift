@@ -22,7 +22,14 @@ struct AnyFootnoteStyle: FootnoteStyle {
 }
 
 public struct FootnoteConfiguration {
+    public var componentIdentifier: String = "fiori_footnote_component"
     public let footnote: Footnote
 
     public typealias Footnote = ConfigurationViewWrapper
+}
+
+extension FootnoteConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }

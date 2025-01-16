@@ -8,11 +8,20 @@ public struct OverflowAction {
 
     @Environment(\.overflowActionStyle) var style
 
+    var componentIdentifier: String = OverflowAction.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder overflowAction: () -> any View = { FioriButton { _ in Image(systemName: "ellipsis") } }) {
+    public init(@ViewBuilder overflowAction: () -> any View = { FioriButton { _ in Image(systemName: "ellipsis") } },
+                componentIdentifier: String? = OverflowAction.identifier)
+    {
         self.overflowAction = overflowAction()
+        self.componentIdentifier = componentIdentifier ?? OverflowAction.identifier
     }
+}
+
+public extension OverflowAction {
+    static let identifier = "fiori_overflowaction_component"
 }
 
 public extension OverflowAction {
@@ -29,6 +38,7 @@ public extension OverflowAction {
     internal init(_ configuration: OverflowActionConfiguration, shouldApplyDefaultStyle: Bool) {
         self.overflowAction = configuration.overflowAction
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -37,7 +47,7 @@ extension OverflowAction: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(overflowAction: .init(self.overflowAction))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, overflowAction: .init(self.overflowAction))).typeErased
                 .transformEnvironment(\.overflowActionStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -55,7 +65,7 @@ private extension OverflowAction {
     }
 
     func defaultStyle() -> some View {
-        OverflowAction(.init(overflowAction: .init(self.overflowAction)))
+        OverflowAction(.init(componentIdentifier: self.componentIdentifier, overflowAction: .init(self.overflowAction)))
             .shouldApplyDefaultStyle(false)
             .overflowActionStyle(.fiori)
             .typeErased

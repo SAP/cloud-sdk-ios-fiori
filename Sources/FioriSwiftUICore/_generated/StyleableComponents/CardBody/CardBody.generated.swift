@@ -8,11 +8,20 @@ public struct CardBody {
 
     @Environment(\.cardBodyStyle) var style
 
+    var componentIdentifier: String = CardBody.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder cardBody: () -> any View = { EmptyView() }) {
+    public init(@ViewBuilder cardBody: () -> any View = { EmptyView() },
+                componentIdentifier: String? = CardBody.identifier)
+    {
         self.cardBody = cardBody()
+        self.componentIdentifier = componentIdentifier ?? CardBody.identifier
     }
+}
+
+public extension CardBody {
+    static let identifier = "fiori_cardbody_component"
 }
 
 public extension CardBody {
@@ -23,6 +32,7 @@ public extension CardBody {
     internal init(_ configuration: CardBodyConfiguration, shouldApplyDefaultStyle: Bool) {
         self.cardBody = configuration.cardBody
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -31,7 +41,7 @@ extension CardBody: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(cardBody: .init(self.cardBody))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, cardBody: .init(self.cardBody))).typeErased
                 .transformEnvironment(\.cardBodyStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -49,7 +59,7 @@ private extension CardBody {
     }
 
     func defaultStyle() -> some View {
-        CardBody(.init(cardBody: .init(self.cardBody)))
+        CardBody(.init(componentIdentifier: self.componentIdentifier, cardBody: .init(self.cardBody)))
             .shouldApplyDefaultStyle(false)
             .cardBodyStyle(.fiori)
             .typeErased

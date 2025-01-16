@@ -31,6 +31,8 @@ public struct NoteFormView {
 
     @Environment(\.noteFormViewStyle) var style
 
+    var componentIdentifier: String = NoteFormView.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
     public init(text: Binding<String>,
@@ -45,10 +47,11 @@ public struct NoteFormView {
                 isCharCountEnabled: Bool = false,
                 allowsBeyondLimit: Bool = false,
                 charCountReachLimitMessage: String? = nil,
-                charCountBeyondLimitMsg: String? = nil)
+                charCountBeyondLimitMsg: String? = nil,
+                componentIdentifier: String? = NoteFormView.identifier)
     {
         self._text = text
-        self.placeholder = Placeholder(placeholder: placeholder)
+        self.placeholder = Placeholder(placeholder: placeholder, componentIdentifier: componentIdentifier)
         self.controlState = controlState
         self.errorMessage = errorMessage
         self.minTextEditorHeight = minTextEditorHeight
@@ -60,7 +63,12 @@ public struct NoteFormView {
         self.allowsBeyondLimit = allowsBeyondLimit
         self.charCountReachLimitMessage = charCountReachLimitMessage
         self.charCountBeyondLimitMsg = charCountBeyondLimitMsg
+        self.componentIdentifier = componentIdentifier ?? NoteFormView.identifier
     }
+}
+
+public extension NoteFormView {
+    static let identifier = "fiori_noteformview_component"
 }
 
 public extension NoteFormView {
@@ -102,6 +110,7 @@ public extension NoteFormView {
         self.charCountReachLimitMessage = configuration.charCountReachLimitMessage
         self.charCountBeyondLimitMsg = configuration.charCountBeyondLimitMsg
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -110,7 +119,7 @@ extension NoteFormView: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(text: self.$text, placeholder: .init(self.placeholder), controlState: self.controlState, errorMessage: self.errorMessage, minTextEditorHeight: self.minTextEditorHeight, maxTextEditorHeight: self.maxTextEditorHeight, maxTextLength: self.maxTextLength, hintText: self.hintText, hidesReadOnlyHint: self.hidesReadOnlyHint, isCharCountEnabled: self.isCharCountEnabled, allowsBeyondLimit: self.allowsBeyondLimit, charCountReachLimitMessage: self.charCountReachLimitMessage, charCountBeyondLimitMsg: self.charCountBeyondLimitMsg)).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, text: self.$text, placeholder: .init(self.placeholder), controlState: self.controlState, errorMessage: self.errorMessage, minTextEditorHeight: self.minTextEditorHeight, maxTextEditorHeight: self.maxTextEditorHeight, maxTextLength: self.maxTextLength, hintText: self.hintText, hidesReadOnlyHint: self.hidesReadOnlyHint, isCharCountEnabled: self.isCharCountEnabled, allowsBeyondLimit: self.allowsBeyondLimit, charCountReachLimitMessage: self.charCountReachLimitMessage, charCountBeyondLimitMsg: self.charCountBeyondLimitMsg)).typeErased
                 .transformEnvironment(\.noteFormViewStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -128,7 +137,7 @@ private extension NoteFormView {
     }
 
     func defaultStyle() -> some View {
-        NoteFormView(.init(text: self.$text, placeholder: .init(self.placeholder), controlState: self.controlState, errorMessage: self.errorMessage, minTextEditorHeight: self.minTextEditorHeight, maxTextEditorHeight: self.maxTextEditorHeight, maxTextLength: self.maxTextLength, hintText: self.hintText, hidesReadOnlyHint: self.hidesReadOnlyHint, isCharCountEnabled: self.isCharCountEnabled, allowsBeyondLimit: self.allowsBeyondLimit, charCountReachLimitMessage: self.charCountReachLimitMessage, charCountBeyondLimitMsg: self.charCountBeyondLimitMsg))
+        NoteFormView(.init(componentIdentifier: self.componentIdentifier, text: self.$text, placeholder: .init(self.placeholder), controlState: self.controlState, errorMessage: self.errorMessage, minTextEditorHeight: self.minTextEditorHeight, maxTextEditorHeight: self.maxTextEditorHeight, maxTextLength: self.maxTextLength, hintText: self.hintText, hidesReadOnlyHint: self.hidesReadOnlyHint, isCharCountEnabled: self.isCharCountEnabled, allowsBeyondLimit: self.allowsBeyondLimit, charCountReachLimitMessage: self.charCountReachLimitMessage, charCountBeyondLimitMsg: self.charCountBeyondLimitMsg))
             .shouldApplyDefaultStyle(false)
             .noteFormViewStyle(NoteFormViewFioriStyle.ContentFioriStyle())
             .typeErased

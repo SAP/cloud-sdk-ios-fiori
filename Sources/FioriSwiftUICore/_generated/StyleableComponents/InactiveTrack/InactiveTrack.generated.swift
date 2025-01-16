@@ -8,11 +8,20 @@ public struct InactiveTrack {
 
     @Environment(\.inactiveTrackStyle) var style
 
+    var componentIdentifier: String = InactiveTrack.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder inactiveTrack: () -> any View) {
+    public init(@ViewBuilder inactiveTrack: () -> any View,
+                componentIdentifier: String? = InactiveTrack.identifier)
+    {
         self.inactiveTrack = inactiveTrack()
+        self.componentIdentifier = componentIdentifier ?? InactiveTrack.identifier
     }
+}
+
+public extension InactiveTrack {
+    static let identifier = "fiori_inactivetrack_component"
 }
 
 public extension InactiveTrack {
@@ -29,6 +38,7 @@ public extension InactiveTrack {
     internal init(_ configuration: InactiveTrackConfiguration, shouldApplyDefaultStyle: Bool) {
         self.inactiveTrack = configuration.inactiveTrack
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -37,7 +47,7 @@ extension InactiveTrack: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(inactiveTrack: .init(self.inactiveTrack))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, inactiveTrack: .init(self.inactiveTrack))).typeErased
                 .transformEnvironment(\.inactiveTrackStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -55,7 +65,7 @@ private extension InactiveTrack {
     }
 
     func defaultStyle() -> some View {
-        InactiveTrack(.init(inactiveTrack: .init(self.inactiveTrack)))
+        InactiveTrack(.init(componentIdentifier: self.componentIdentifier, inactiveTrack: .init(self.inactiveTrack)))
             .shouldApplyDefaultStyle(false)
             .inactiveTrackStyle(.fiori)
             .typeErased

@@ -75,6 +75,7 @@ struct DocumentScannerViewExample: View {
                     print("Failed to scan: \(error)")
                 }
             }, outputFormat: self.isPDFDocument ? .pdf : .images)
+                .edgesIgnoringSafeArea(.all)
         }
     }
 }

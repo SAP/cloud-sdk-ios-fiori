@@ -45,9 +45,10 @@ public struct RangeSliderControlBaseStyle: RangeSliderControlStyle {
                     accessibilityColorHStack
                 }
                 
-                let effectiveLowerValue = min(configuration.lowerValue, configuration.upperValue)
-                let effectiveUpperValue = max(configuration.lowerValue, configuration.upperValue)
-                
+                // Fix the issue IOSSDKBUG-530, the effective lower and upper values should not exceed the specified lower and upper bounds of the range to avoid the track display incorrectly.
+                let effectiveLowerValue = min(max(min(configuration.lowerValue, configuration.upperValue), configuration.range.lowerBound), configuration.range.upperBound)
+                let effectiveUpperValue = min(max(max(configuration.lowerValue, configuration.upperValue), configuration.range.lowerBound), configuration.range.upperBound)
+                                
                 let upperValueWidth = self.xOffsetFor(min(effectiveUpperValue, configuration.range.upperBound), in: geometry.size.width, configuration: configuration)
                 let lowerValueWidth = self.xOffsetFor(max(effectiveLowerValue, configuration.range.lowerBound), in: geometry.size.width, configuration: configuration)
                 

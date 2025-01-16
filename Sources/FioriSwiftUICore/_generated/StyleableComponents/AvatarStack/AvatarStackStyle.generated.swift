@@ -22,11 +22,18 @@ struct AnyAvatarStackStyle: AvatarStackStyle {
 }
 
 public struct AvatarStackConfiguration {
+    public var componentIdentifier: String = "fiori_avatarstack_component"
     public let avatars: Avatars
     public let avatarsTitle: AvatarsTitle
 
     public typealias Avatars = ConfigurationViewWrapper
     public typealias AvatarsTitle = ConfigurationViewWrapper
+}
+
+extension AvatarStackConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }
 
 public struct AvatarStackFioriStyle: AvatarStackStyle {

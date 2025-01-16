@@ -22,7 +22,14 @@ struct AnyDeselectAllActionStyle: DeselectAllActionStyle {
 }
 
 public struct DeselectAllActionConfiguration {
+    public var componentIdentifier: String = "fiori_deselectallaction_component"
     public let deselectAllAction: DeselectAllAction
 
     public typealias DeselectAllAction = ConfigurationViewWrapper
+}
+
+extension DeselectAllActionConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }

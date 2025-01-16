@@ -8,11 +8,20 @@ public struct SecondaryAction {
 
     @Environment(\.secondaryActionStyle) var style
 
+    var componentIdentifier: String = SecondaryAction.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder secondaryAction: () -> any View = { EmptyView() }) {
+    public init(@ViewBuilder secondaryAction: () -> any View = { EmptyView() },
+                componentIdentifier: String? = SecondaryAction.identifier)
+    {
         self.secondaryAction = secondaryAction()
+        self.componentIdentifier = componentIdentifier ?? SecondaryAction.identifier
     }
+}
+
+public extension SecondaryAction {
+    static let identifier = "fiori_secondaryaction_component"
 }
 
 public extension SecondaryAction {
@@ -29,6 +38,7 @@ public extension SecondaryAction {
     internal init(_ configuration: SecondaryActionConfiguration, shouldApplyDefaultStyle: Bool) {
         self.secondaryAction = configuration.secondaryAction
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -37,7 +47,7 @@ extension SecondaryAction: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(secondaryAction: .init(self.secondaryAction))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, secondaryAction: .init(self.secondaryAction))).typeErased
                 .transformEnvironment(\.secondaryActionStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -55,7 +65,7 @@ private extension SecondaryAction {
     }
 
     func defaultStyle() -> some View {
-        SecondaryAction(.init(secondaryAction: .init(self.secondaryAction)))
+        SecondaryAction(.init(componentIdentifier: self.componentIdentifier, secondaryAction: .init(self.secondaryAction)))
             .shouldApplyDefaultStyle(false)
             .secondaryActionStyle(.fiori)
             .typeErased

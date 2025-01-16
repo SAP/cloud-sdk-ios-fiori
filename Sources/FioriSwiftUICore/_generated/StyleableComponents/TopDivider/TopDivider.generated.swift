@@ -8,11 +8,20 @@ public struct TopDivider {
 
     @Environment(\.topDividerStyle) var style
 
+    var componentIdentifier: String = TopDivider.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder topDivider: () -> any View = { Rectangle().fill(Color.clear) }) {
+    public init(@ViewBuilder topDivider: () -> any View = { Rectangle().fill(Color.clear) },
+                componentIdentifier: String? = TopDivider.identifier)
+    {
         self.topDivider = topDivider()
+        self.componentIdentifier = componentIdentifier ?? TopDivider.identifier
     }
+}
+
+public extension TopDivider {
+    static let identifier = "fiori_topdivider_component"
 }
 
 public extension TopDivider {
@@ -23,6 +32,7 @@ public extension TopDivider {
     internal init(_ configuration: TopDividerConfiguration, shouldApplyDefaultStyle: Bool) {
         self.topDivider = configuration.topDivider
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -31,7 +41,7 @@ extension TopDivider: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(topDivider: .init(self.topDivider))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, topDivider: .init(self.topDivider))).typeErased
                 .transformEnvironment(\.topDividerStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -49,7 +59,7 @@ private extension TopDivider {
     }
 
     func defaultStyle() -> some View {
-        TopDivider(.init(topDivider: .init(self.topDivider)))
+        TopDivider(.init(componentIdentifier: self.componentIdentifier, topDivider: .init(self.topDivider)))
             .shouldApplyDefaultStyle(false)
             .topDividerStyle(.fiori)
             .typeErased

@@ -40,13 +40,18 @@ public protocol TagStackModel: TagsComponent {}
 // sourcery: virtualPropStatusViewSize = "@State var statusViewSize: CGSize = .zero"
 // sourcery: virtualPropCurrentTabIndex = "@State var currentTabIndex: Int = 0"
 // sourcery: generated_component_composite
-public protocol ObjectHeaderModel: TitleComponent, SubtitleComponent, TagsComponent, BodyTextComponent, FootnoteComponent, DescriptionTextComponent, StatusComponent, SubstatusComponent, DetailImageComponent {}
+public protocol _ObjectHeaderModel: TitleComponent, SubtitleComponent, TagsComponent, BodyTextComponent, FootnoteComponent, DescriptionTextComponent, StatusComponent, SubstatusComponent, DetailImageComponent {}
+
+@available(*, unavailable, renamed: "_ObjectHeaderModel", message: "Will be removed in the future release. Please create ObjectHeader with other initializers instead.")
+public protocol ObjectHeaderModel {}
 
 // sourcery: add_view_builder_params = "chart"
 // sourcery: virtualPropIntStateChanged = "@State var mainViewSize: CGSize = CGSize(width: 312, height: 0)"
 // sourcery: generated_component
-public protocol HeaderChartModel: TitleComponent, SubtitleComponent, TrendComponent, TrendImageComponent, KpiComponent {}
+public protocol _HeaderChartModel: TitleComponent, SubtitleComponent, TrendComponent, TrendImageComponent, KpiComponent {}
 
+@available(*, unavailable, renamed: "_HeaderChartModel", message: "Will be removed in the future release. Please create HeaderChart with other initializers instead.")
+public protocol HeaderChartModel {}
 // sourcery: generated_component
 // public protocol TimelineItemModel: TitleComponent, SubtitleComponent, FootnoteComponent, AttributeComponent, SecondaryAttributeComponent, TimestampComponent, SecondaryTimestampComponent, StatusComponent, SubstatusComponent {}
 
@@ -66,7 +71,10 @@ public protocol HeaderChartModel: TitleComponent, SubtitleComponent, TrendCompon
 
 // sourcery: add_env_props = "colorScheme"
 // sourcery: generated_component
-public protocol SectionHeaderModel: TitleComponent, AttributeComponent {}
+public protocol _SectionHeaderModel: TitleComponent, AttributeComponent {}
+
+@available(*, unavailable, renamed: "_SectionHeaderModel", message: "Will be removed in the future release. Please create SectionHeader with other initializers instead.")
+public protocol SectionHeaderModel {}
 
 // sourcery: generated_component
 // sourcery: virtualPropAction = "var action: (() -> Void)? = nil"
@@ -77,7 +85,10 @@ public protocol KPIItemModel: KpiComponent, SubtitleComponent, KPIHeaderItemMode
 // sourcery: add_env_props = "kpiProgressViewStyle"
 // sourcery: add_env_props = "isEnabled"
 // sourcery: generated_component
-public protocol KPIProgressItemModel: KpiProgressComponent, SubtitleComponent, FootnoteComponent, KPIHeaderItemModel {}
+public protocol _KPIProgressItemModel: KpiProgressComponent, SubtitleComponent, FootnoteComponent, KPIHeaderItemModel {}
+
+@available(*, unavailable, renamed: "_KPIProgressItemModel", message: "Will be removed in the future release. Please create KPIProgressItem with other initializers instead.")
+public protocol KPIProgressItemModel {}
 
 // sourcery: generated_component
 public protocol KeyValueItemModel: KeyComponent, ValueComponent {
@@ -94,7 +105,11 @@ public protocol _ActionModel: ActionComponent {}
 public protocol ActionModel: ActionComponent {}
 
 // sourcery: generated_component_not_configurable
-public protocol TextInputModel: TextInputComponent {}
+public protocol _TextInputModel: TextInputComponent {}
+
+/// Deprecated TextInputModel
+@available(*, unavailable, renamed: "_TextInputModel", message: "Will be removed in the future release. Please create TextInput with other initializers instead.")
+public protocol TextInputModel {}
 
 // sourcery: generated_component
 public protocol _ActivityItemModel: IconComponent, SubtitleComponent {}
@@ -159,15 +174,19 @@ public protocol SideBarModel {}
 // sourcery: add_env_props = "splitPercent"
 // sourcery: virtualPropMainViewSize = "@State var mainViewSize: CGSize = .zero"
 // sourcery: generated_component_composite
-public protocol ContactItemModel: TitleComponent, SubtitleComponent, DescriptionTextComponent, DetailImageComponent {
+public protocol _ContactItemModel: TitleComponent, SubtitleComponent, DescriptionTextComponent, DetailImageComponent {
     var actionItems: _ActivityItemsModel? { get }
 }
+
+/// Deprecated ContactItemModel
+@available(*, unavailable, renamed: "_ContactItemModel", message: "Will be removed in the future release. Please create ContactItem with other initializers instead.")
+public protocol ContactItemModel {}
 
 // sourcery: add_env_props = ["horizontalSizeClass"]
 // sourcery: generated_component_composite
 public protocol WelcomeScreenModel: TitleComponent, DescriptionTextComponent, SubtitleComponent, FootnoteComponent, IconComponent {
     // sourcery: genericParameter.name = TextInputView
-    var textInput: TextInputModel? { get }
+    var textInput: _TextInputModel? { get }
     
     // sourcery: genericParameter.name = ActionView
     var action: _ActionModel? { get }
@@ -185,7 +204,7 @@ public protocol ActivationScreenModel: TitleComponent, DescriptionTextComponent,
     var secondaryAction: _ActionModel? { get }
     
     // sourcery: genericParameter.name = TextInputView
-    var textInput: TextInputModel? { get }
+    var textInput: _TextInputModel? { get }
 }
 
 // sourcery: generated_component_composite
@@ -580,7 +599,10 @@ public protocol SearchListPickerItemModel: OptionListPickerComponent {
 // sourcery: add_env_props = "filterFeedbackBarStyle"
 // sourcery: generated_component_not_configurable
 // sourcery: add_env_props = "fioriToggleStyle"
-public protocol SwitchPickerItemModel: SwitchPickerComponent {}
+public protocol _SwitchPickerItemModel: SwitchPickerComponent {}
+
+@available(*, unavailable, renamed: "_SwitchPickerItemModel", message: "Will be removed in the future release. Please create SwitchView with other initializers instead.")
+public protocol SwitchPickerItemModel {}
 
 // sourcery: add_env_props = "filterFeedbackBarStyle"
 // sourcery: generated_component_not_configurable

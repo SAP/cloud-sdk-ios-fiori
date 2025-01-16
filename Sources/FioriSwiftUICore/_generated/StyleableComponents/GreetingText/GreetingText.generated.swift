@@ -8,11 +8,20 @@ public struct GreetingText {
 
     @Environment(\.greetingTextStyle) var style
 
+    var componentIdentifier: String = GreetingText.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder greetingText: () -> any View) {
+    public init(@ViewBuilder greetingText: () -> any View,
+                componentIdentifier: String? = GreetingText.identifier)
+    {
         self.greetingText = greetingText()
+        self.componentIdentifier = componentIdentifier ?? GreetingText.identifier
     }
+}
+
+public extension GreetingText {
+    static let identifier = "fiori_greetingtext_component"
 }
 
 public extension GreetingText {
@@ -29,6 +38,7 @@ public extension GreetingText {
     internal init(_ configuration: GreetingTextConfiguration, shouldApplyDefaultStyle: Bool) {
         self.greetingText = configuration.greetingText
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -37,7 +47,7 @@ extension GreetingText: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(greetingText: .init(self.greetingText))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, greetingText: .init(self.greetingText))).typeErased
                 .transformEnvironment(\.greetingTextStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -55,7 +65,7 @@ private extension GreetingText {
     }
 
     func defaultStyle() -> some View {
-        GreetingText(.init(greetingText: .init(self.greetingText)))
+        GreetingText(.init(componentIdentifier: self.componentIdentifier, greetingText: .init(self.greetingText)))
             .shouldApplyDefaultStyle(false)
             .greetingTextStyle(.fiori)
             .typeErased

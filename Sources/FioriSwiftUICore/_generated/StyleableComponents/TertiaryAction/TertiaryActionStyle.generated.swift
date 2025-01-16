@@ -22,7 +22,14 @@ struct AnyTertiaryActionStyle: TertiaryActionStyle {
 }
 
 public struct TertiaryActionConfiguration {
+    public var componentIdentifier: String = "fiori_tertiaryaction_component"
     public let tertiaryAction: TertiaryAction
 
     public typealias TertiaryAction = ConfigurationViewWrapper
+}
+
+extension TertiaryActionConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }

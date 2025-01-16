@@ -22,6 +22,7 @@ struct AnyTextInputInfoViewStyle: TextInputInfoViewStyle {
 }
 
 struct TextInputInfoViewConfiguration {
+    public var componentIdentifier: String = "fiori_textinputinfoview_component"
     public let icon: Icon
     public let description: Description
     public let counter: Counter
@@ -29,6 +30,12 @@ struct TextInputInfoViewConfiguration {
     public typealias Icon = ConfigurationViewWrapper
     public typealias Description = ConfigurationViewWrapper
     public typealias Counter = ConfigurationViewWrapper
+}
+
+extension TextInputInfoViewConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }
 
 struct TextInputInfoViewFioriStyle: TextInputInfoViewStyle {

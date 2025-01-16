@@ -8,11 +8,20 @@ public struct Attribute {
 
     @Environment(\.attributeStyle) var style
 
+    var componentIdentifier: String = Attribute.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder attribute: () -> any View = { EmptyView() }) {
+    public init(@ViewBuilder attribute: () -> any View = { EmptyView() },
+                componentIdentifier: String? = Attribute.identifier)
+    {
         self.attribute = attribute()
+        self.componentIdentifier = componentIdentifier ?? Attribute.identifier
     }
+}
+
+public extension Attribute {
+    static let identifier = "fiori_attribute_component"
 }
 
 public extension Attribute {
@@ -29,6 +38,7 @@ public extension Attribute {
     internal init(_ configuration: AttributeConfiguration, shouldApplyDefaultStyle: Bool) {
         self.attribute = configuration.attribute
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -37,7 +47,7 @@ extension Attribute: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(attribute: .init(self.attribute))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, attribute: .init(self.attribute))).typeErased
                 .transformEnvironment(\.attributeStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -55,7 +65,7 @@ private extension Attribute {
     }
 
     func defaultStyle() -> some View {
-        Attribute(.init(attribute: .init(self.attribute)))
+        Attribute(.init(componentIdentifier: self.componentIdentifier, attribute: .init(self.attribute)))
             .shouldApplyDefaultStyle(false)
             .attributeStyle(.fiori)
             .typeErased

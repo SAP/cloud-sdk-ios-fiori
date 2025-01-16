@@ -22,7 +22,14 @@ struct AnyNodeStyle: NodeStyle {
 }
 
 public struct NodeConfiguration {
+    public var componentIdentifier: String = "fiori_node_component"
     public let node: Node
 
     public typealias Node = ConfigurationViewWrapper
+}
+
+extension NodeConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }

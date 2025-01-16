@@ -87,6 +87,12 @@ extension BannerMultiMessageSheet: _ViewEmptyChecking {
     }
 }
 
+extension BodyText: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        bodyText.isEmpty
+    }
+}
+
 extension CancelAction: _ViewEmptyChecking {
     public var isEmpty: Bool {
         cancelAction.isEmpty
@@ -189,6 +195,16 @@ extension CloseAction: _ViewEmptyChecking {
     }
 }
 
+extension ContactItem: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        title.isEmpty &&
+            subtitle.isEmpty &&
+            description.isEmpty &&
+            detailImage.isEmpty &&
+            activityItems.isEmpty
+    }
+}
+
 extension Counter: _ViewEmptyChecking {
     public var isEmpty: Bool {
         counter.isEmpty
@@ -224,9 +240,21 @@ extension Description: _ViewEmptyChecking {
     }
 }
 
+extension DescriptionText: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        descriptionText.isEmpty
+    }
+}
+
 extension DeselectAllAction: _ViewEmptyChecking {
     public var isEmpty: Bool {
         deselectAllAction.isEmpty
+    }
+}
+
+extension DetailContent: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        detailContent.isEmpty
     }
 }
 
@@ -299,6 +327,17 @@ extension HeaderAction: _ViewEmptyChecking {
     }
 }
 
+extension HeaderChart: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        title.isEmpty &&
+            subtitle.isEmpty &&
+            trend.isEmpty &&
+            trendImage.isEmpty &&
+            kpi.isEmpty &&
+            chart.isEmpty
+    }
+}
+
 extension HelperText: _ViewEmptyChecking {
     public var isEmpty: Bool {
         helperText.isEmpty
@@ -346,6 +385,12 @@ extension InformationView: _ViewEmptyChecking {
     }
 }
 
+extension InnerCircle: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        innerCircle.isEmpty
+    }
+}
+
 extension JouleWelcomeScreen: _ViewEmptyChecking {
     public var isEmpty: Bool {
         mediaImage.isEmpty &&
@@ -353,6 +398,22 @@ extension JouleWelcomeScreen: _ViewEmptyChecking {
             title.isEmpty &&
             footnote.isEmpty &&
             messageContent.isEmpty
+    }
+}
+
+extension KPIContent: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        kPIContent.isEmpty
+    }
+}
+
+extension KPIProgressItem: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        kPIContent.isEmpty &&
+            kpiCaption.isEmpty &&
+            footnote.isEmpty &&
+            innerCircle.isEmpty &&
+            outerCircle.isEmpty
     }
 }
 
@@ -504,6 +565,21 @@ extension NowIndicatorNode: _ViewEmptyChecking {
     }
 }
 
+extension ObjectHeader: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        title.isEmpty &&
+            subtitle.isEmpty &&
+            tags.isEmpty &&
+            bodyText.isEmpty &&
+            footnote.isEmpty &&
+            descriptionText.isEmpty &&
+            status.isEmpty &&
+            substatus.isEmpty &&
+            detailImage.isEmpty &&
+            detailContent.isEmpty
+    }
+}
+
 extension ObjectItem: _ViewEmptyChecking {
     public var isEmpty: Bool {
         title.isEmpty &&
@@ -544,6 +620,12 @@ extension OptionalTitle: _ViewEmptyChecking {
 extension Options: _ViewEmptyChecking {
     public var isEmpty: Bool {
         false
+    }
+}
+
+extension OuterCircle: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        outerCircle.isEmpty
     }
 }
 
@@ -669,6 +751,20 @@ extension SecondaryAction: _ViewEmptyChecking {
 extension SecondaryTimestamp: _ViewEmptyChecking {
     public var isEmpty: Bool {
         secondaryTimestamp.isEmpty
+    }
+}
+
+extension SectionFooter: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        title.isEmpty &&
+            attribute.isEmpty
+    }
+}
+
+extension SectionHeader: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        title.isEmpty &&
+            attribute.isEmpty
     }
 }
 
@@ -911,6 +1007,18 @@ extension TopDivider: _ViewEmptyChecking {
 extension TrailingAccessory: _ViewEmptyChecking {
     public var isEmpty: Bool {
         trailingAccessory.isEmpty
+    }
+}
+
+extension Trend: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        trend.isEmpty
+    }
+}
+
+extension TrendImage: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        trendImage.isEmpty
     }
 }
 

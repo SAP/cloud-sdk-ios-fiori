@@ -108,20 +108,21 @@ struct CarouselTestView: View {
     var body: some View {
         ScrollView(.vertical) {
             VStack(alignment: .leading, spacing: 24) {
-                RoundedRectangle(cornerRadius: 16).foregroundStyle(Color.preferredColor(.grey3)).frame(height: 300)
+                RoundedRectangle(cornerRadius: 16).foregroundStyle(Color.preferredColor(.grey3)).frame(height: 80)
+                    .padding(.horizontal, 16)
                 
-                Carousel(numberOfColumns: Int(self.numberOfColumns), spacing: self.spacing, alignment: self.alignment == 0 ? .top : (self.alignment == 1 ? .center : .bottom), isSnapping: self.isSnapping, isSameHeight: self.isSameHeight) {
-                    ForEach(0 ..< CardTests.cardSamples.count, id: \.self) { i in
+                Carousel(numberOfColumns: Int(self.numberOfColumns), contentInsets: EdgeInsets(top: 0, leading: self.padding, bottom: 0, trailing: self.padding), spacing: self.spacing, alignment: self.alignment == 0 ? .top : (self.alignment == 1 ? .center : .bottom), isSnapping: self.isSnapping, isSameHeight: self.isSameHeight) {
+                    ForEach(0 ..< min(8, CardTests.cardSamples.count), id: \.self) { i in
                         NavigationLink(destination: Text("Detail View")) {
                             CardTests.cardSamples[i]
                         }
                     }
                 }
                 
-                RoundedRectangle(cornerRadius: 16).foregroundStyle(Color.preferredColor(.grey3)).frame(height: 300)
+                RoundedRectangle(cornerRadius: 16).foregroundStyle(Color.preferredColor(.grey4)).frame(height: 80)
+                    .padding(.horizontal, 16)
             }
             .cardStyle(.card)
-            .padding(self.padding)
         }
         .background(Color.preferredColor(.primaryGroupedBackground))
         .sheet(isPresented: self.$isPresented, content: {
@@ -150,8 +151,8 @@ struct CarouselTestView: View {
                 Divider()
                 
                 HStack {
-                    Text("Padding around Carousel: \(Int(self.padding))")
-                    Slider(value: self.$padding, in: 0 ... 20, step: 4)
+                    Text("contentInsets(top: 0, leading: \(Int(self.padding)), bottom: 0, trailing: \(Int(self.padding)))")
+                    Slider(value: self.$padding, in: 0 ... 24, step: 4)
                 }
             }
             .padding()

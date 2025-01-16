@@ -11,11 +11,20 @@ public struct OnStarImage {
 
     @Environment(\.onStarImageStyle) var style
 
+    var componentIdentifier: String = OnStarImage.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder onStarImage: () -> any View) {
+    public init(@ViewBuilder onStarImage: () -> any View,
+                componentIdentifier: String? = OnStarImage.identifier)
+    {
         self.onStarImage = onStarImage()
+        self.componentIdentifier = componentIdentifier ?? OnStarImage.identifier
     }
+}
+
+public extension OnStarImage {
+    static let identifier = "fiori_onstarimage_component"
 }
 
 public extension OnStarImage {
@@ -32,6 +41,7 @@ public extension OnStarImage {
     internal init(_ configuration: OnStarImageConfiguration, shouldApplyDefaultStyle: Bool) {
         self.onStarImage = configuration.onStarImage
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -40,7 +50,7 @@ extension OnStarImage: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(onStarImage: .init(self.onStarImage))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, onStarImage: .init(self.onStarImage))).typeErased
                 .transformEnvironment(\.onStarImageStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -58,7 +68,7 @@ private extension OnStarImage {
     }
 
     func defaultStyle() -> some View {
-        OnStarImage(.init(onStarImage: .init(self.onStarImage)))
+        OnStarImage(.init(componentIdentifier: self.componentIdentifier, onStarImage: .init(self.onStarImage)))
             .shouldApplyDefaultStyle(false)
             .onStarImageStyle(.fiori)
             .typeErased
