@@ -148,9 +148,15 @@ struct CoreContentView: View {
                 }
                 
                 NavigationLink(
-                    destination: DimensionSelector_Chart())
+                    destination: DimensionSelectorExample())
                 {
                     Text("Dimension Selector")
+                }
+                
+                NavigationLink(
+                    destination: DimensionSelector_Chart())
+                {
+                    Text("_Dimension Selector")
                 }
                 
                 NavigationLink(

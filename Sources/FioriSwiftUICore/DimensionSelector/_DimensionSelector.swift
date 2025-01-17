@@ -17,7 +17,7 @@ import SwiftUI
       .store(in: &cancellableSet)
   ```
  */
-public struct DimensionSelector: View {
+public struct _DimensionSelector: View {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass: UserInterfaceSizeClass?
     
     /// Titles for the segments
@@ -261,7 +261,7 @@ public struct DimensionSelector: View {
     }
 }
 
-extension DimensionSelector {
+extension _DimensionSelector {
     class Model: ObservableObject {
         @Published var titles: [String] = []
         @Published var selectedIndex: Int?
@@ -346,11 +346,11 @@ extension EdgeInsets {
     }
 }
 
-struct DimensionSelector_Previews: PreviewProvider {
+struct _DimensionSelector_Previews: PreviewProvider {
     static var previews: some View {
         /*@START_MENU_TOKEN@*/Text("Hello, World!")/*@END_MENU_TOKEN@*/
     }
 }
 
-@available(*, unavailable, renamed: "DimensionSelector")
-public typealias SegmentedControl = DimensionSelector
+@available(*, unavailable, renamed: "_DimensionSelector")
+public typealias SegmentedControl = _DimensionSelector

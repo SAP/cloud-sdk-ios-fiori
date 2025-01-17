@@ -717,6 +717,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: DimensionSelectorStyle
+
+struct DimensionSelectorStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any DimensionSelectorStyle] = []
+}
+
+extension EnvironmentValues {
+    var dimensionSelectorStyle: any DimensionSelectorStyle {
+        self.dimensionSelectorStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var dimensionSelectorStyleStack: [any DimensionSelectorStyle] {
+        get {
+            self[DimensionSelectorStyleStackKey.self]
+        }
+        set {
+            self[DimensionSelectorStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: FilledIconStyle
 
 struct FilledIconStyleStackKey: EnvironmentKey {
@@ -2834,6 +2855,27 @@ extension EnvironmentValues {
         }
         set {
             self[TitleFormViewStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: TitlesStyle
+
+struct TitlesStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any TitlesStyle] = []
+}
+
+extension EnvironmentValues {
+    var titlesStyle: any TitlesStyle {
+        self.titlesStyleStack.last ?? .base
+    }
+
+    var titlesStyleStack: [any TitlesStyle] {
+        get {
+            self[TitlesStyleStackKey.self]
+        }
+        set {
+            self[TitlesStyleStackKey.self] = newValue
         }
     }
 }

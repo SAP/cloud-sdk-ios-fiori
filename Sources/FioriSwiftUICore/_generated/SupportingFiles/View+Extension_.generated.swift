@@ -581,6 +581,23 @@ public extension View {
     }
 }
 
+// MARK: DimensionSelectorStyle
+
+public extension View {
+    func dimensionSelectorStyle(_ style: some DimensionSelectorStyle) -> some View {
+        self.transformEnvironment(\.dimensionSelectorStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func dimensionSelectorStyle(@ViewBuilder content: @escaping (DimensionSelectorConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.dimensionSelectorStyleStack) { stack in
+            let style = AnyDimensionSelectorStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: FilledIconStyle
 
 public extension View {
@@ -2293,6 +2310,23 @@ public extension View {
     func titleFormViewStyle(@ViewBuilder content: @escaping (TitleFormViewConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.titleFormViewStyleStack) { stack in
             let style = AnyTitleFormViewStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: TitlesStyle
+
+public extension View {
+    func titlesStyle(_ style: some TitlesStyle) -> some View {
+        self.transformEnvironment(\.titlesStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func titlesStyle(@ViewBuilder content: @escaping (TitlesConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.titlesStyleStack) { stack in
+            let style = AnyTitlesStyle(content)
             stack.append(style)
         }
     }

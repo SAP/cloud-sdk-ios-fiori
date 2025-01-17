@@ -586,3 +586,8 @@ protocol _TrendImageComponent {
     // sourcery: @ViewBuilder
     var trendImage: Image? { get }
 }
+
+// sourcery: BaseComponent
+protocol _TitlesComponent {
+    var titles: [String] { get }
+}

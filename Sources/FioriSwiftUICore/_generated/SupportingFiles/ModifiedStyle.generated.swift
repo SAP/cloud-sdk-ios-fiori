@@ -960,6 +960,34 @@ public extension DetailImageStyle {
     }
 }
 
+// MARK: DimensionSelectorStyle
+
+extension ModifiedStyle: DimensionSelectorStyle where Style: DimensionSelectorStyle {
+    public func makeBody(_ configuration: DimensionSelectorConfiguration) -> some View {
+        DimensionSelector(configuration)
+            .dimensionSelectorStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct DimensionSelectorStyleModifier<Style: DimensionSelectorStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.dimensionSelectorStyle(self.style)
+    }
+}
+
+public extension DimensionSelectorStyle {
+    func modifier(_ modifier: some ViewModifier) -> some DimensionSelectorStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some DimensionSelectorStyle) -> some DimensionSelectorStyle {
+        style.modifier(DimensionSelectorStyleModifier(style: self))
+    }
+}
+
 // MARK: FilledIconStyle
 
 extension ModifiedStyle: FilledIconStyle where Style: FilledIconStyle {
@@ -3785,6 +3813,34 @@ public extension TitleFormViewStyle {
 
     func concat(_ style: some TitleFormViewStyle) -> some TitleFormViewStyle {
         style.modifier(TitleFormViewStyleModifier(style: self))
+    }
+}
+
+// MARK: TitlesStyle
+
+extension ModifiedStyle: TitlesStyle where Style: TitlesStyle {
+    public func makeBody(_ configuration: TitlesConfiguration) -> some View {
+        Titles(configuration)
+            .titlesStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct TitlesStyleModifier<Style: TitlesStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.titlesStyle(self.style)
+    }
+}
+
+public extension TitlesStyle {
+    func modifier(_ modifier: some ViewModifier) -> some TitlesStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some TitlesStyle) -> some TitlesStyle {
+        style.modifier(TitlesStyleModifier(style: self))
     }
 }
 

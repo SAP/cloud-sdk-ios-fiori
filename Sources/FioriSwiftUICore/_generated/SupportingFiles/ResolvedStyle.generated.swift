@@ -547,6 +547,22 @@ extension DetailImageStyle {
     }
 }
 
+// MARK: DimensionSelectorStyle
+
+struct ResolvedDimensionSelectorStyle<Style: DimensionSelectorStyle>: View {
+    let style: Style
+    let configuration: DimensionSelectorConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension DimensionSelectorStyle {
+    func resolve(configuration: DimensionSelectorConfiguration) -> some View {
+        ResolvedDimensionSelectorStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: FilledIconStyle
 
 struct ResolvedFilledIconStyle<Style: FilledIconStyle>: View {
@@ -2160,6 +2176,22 @@ struct ResolvedTitleFormViewStyle<Style: TitleFormViewStyle>: View {
 extension TitleFormViewStyle {
     func resolve(configuration: TitleFormViewConfiguration) -> some View {
         ResolvedTitleFormViewStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: TitlesStyle
+
+struct ResolvedTitlesStyle<Style: TitlesStyle>: View {
+    let style: Style
+    let configuration: TitlesConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension TitlesStyle {
+    func resolve(configuration: TitlesConfiguration) -> some View {
+        ResolvedTitlesStyle(style: self, configuration: configuration)
     }
 }
 
