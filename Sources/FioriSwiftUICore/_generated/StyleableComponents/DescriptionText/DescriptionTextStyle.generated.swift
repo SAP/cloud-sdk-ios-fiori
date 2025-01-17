@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -26,6 +27,12 @@ public struct DescriptionTextConfiguration {
     public let descriptionText: DescriptionText
 
     public typealias DescriptionText = ConfigurationViewWrapper
+}
+
+public extension DescriptionTextConfiguration {
+    var descriptionTextIdentifier: String {
+        self.componentIdentifier + "_descriptionText"
+    }
 }
 
 extension DescriptionTextConfiguration {

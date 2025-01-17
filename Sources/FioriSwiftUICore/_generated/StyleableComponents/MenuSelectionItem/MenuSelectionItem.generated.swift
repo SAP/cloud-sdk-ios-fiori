@@ -33,9 +33,10 @@ public extension MenuSelectionItem {
 public extension MenuSelectionItem {
     init(icon: Image? = nil,
          title: AttributedString,
-         action: (() -> Void)? = nil)
+         action: (() -> Void)? = nil,
+         componentIdentifier: String? = MenuSelectionItem.identifier)
     {
-        self.init(icon: { icon }, title: { Text(title) }, action: action)
+        self.init(icon: { icon }, title: { Text(title) }, action: action, componentIdentifier: componentIdentifier)
     }
 }
 

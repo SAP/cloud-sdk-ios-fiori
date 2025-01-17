@@ -55,3 +55,41 @@ extension ActivityItemFioriStyle {
         }
     }
 }
+
+// Default nss styles
+extension ActivityItemNSSStyle {
+    struct ContentNSSStyle: ActivityItemStyle {
+        let activityItemConfiguration: ActivityItemConfiguration
+        let nssData: NSSStyleData
+        func makeBody(_ configuration: ActivityItemConfiguration) -> some View {
+            ActivityItem(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for its content
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct IconNSSStyle: IconStyle {
+        let activityItemConfiguration: ActivityItemConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: IconConfiguration) -> some View {
+            Icon(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Icon
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct SubtitleNSSStyle: SubtitleStyle {
+        let activityItemConfiguration: ActivityItemConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: SubtitleConfiguration) -> some View {
+            Subtitle(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Subtitle
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+}

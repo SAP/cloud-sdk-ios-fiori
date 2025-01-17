@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -26,6 +27,12 @@ public struct IncrementActionConfiguration {
     public let incrementAction: IncrementAction
 
     public typealias IncrementAction = ConfigurationViewWrapper
+}
+
+public extension IncrementActionConfiguration {
+    var incrementActionIdentifier: String {
+        self.componentIdentifier + "_incrementAction"
+    }
 }
 
 extension IncrementActionConfiguration {

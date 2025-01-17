@@ -56,9 +56,10 @@ public extension IllustratedMessage {
          secondaryAction: FioriButton? = nil,
          detailImageSize: IllustratedMessage.DetailImageSize? = nil,
          isActionVerticallyAligned: Bool = false,
-         contentAlignment: HorizontalAlignment = .leading)
+         contentAlignment: HorizontalAlignment = .leading,
+         componentIdentifier: String? = IllustratedMessage.identifier)
     {
-        self.init(detailImage: { detailImage }, title: { Text(title) }, description: { OptionalText(description) }, action: { action }, secondaryAction: { secondaryAction }, detailImageSize: detailImageSize, isActionVerticallyAligned: isActionVerticallyAligned, contentAlignment: contentAlignment)
+        self.init(detailImage: { detailImage }, title: { Text(title) }, description: { OptionalText(description) }, action: { action }, secondaryAction: { secondaryAction }, detailImageSize: detailImageSize, isActionVerticallyAligned: isActionVerticallyAligned, contentAlignment: contentAlignment, componentIdentifier: componentIdentifier)
     }
 }
 

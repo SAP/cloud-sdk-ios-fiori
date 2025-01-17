@@ -33,9 +33,10 @@ public extension MenuSelection {
 public extension MenuSelection {
     init(action: FioriButton? = nil,
          isExpanded: Binding<Bool>,
-         items: [MenuSelectionItemProtocol] = [])
+         items: [MenuSelectionItemProtocol] = [],
+         componentIdentifier: String? = MenuSelection.identifier)
     {
-        self.init(action: { action }, isExpanded: isExpanded, items: { _MenuSelectionContainer(items) })
+        self.init(action: { action }, isExpanded: isExpanded, items: { _MenuSelectionContainer(items) }, componentIdentifier: componentIdentifier)
     }
 }
 

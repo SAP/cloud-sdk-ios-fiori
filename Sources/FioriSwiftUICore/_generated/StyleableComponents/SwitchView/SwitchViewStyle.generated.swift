@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -29,6 +30,20 @@ public struct SwitchViewConfiguration {
     public typealias Title = ConfigurationViewWrapper
 }
 
+public extension SwitchViewConfiguration {
+    var contentIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
+
+    var titleIdentifier: String {
+        self.componentIdentifier + "_title"
+    }
+
+    var switchIdentifier: String {
+        self.componentIdentifier + "_switch"
+    }
+}
+
 extension SwitchViewConfiguration {
     func isDirectChild(_ componentIdentifier: String) -> Bool {
         componentIdentifier == self.componentIdentifier
@@ -40,5 +55,19 @@ public struct SwitchViewFioriStyle: SwitchViewStyle {
         SwitchView(configuration)
             .titleStyle(TitleFioriStyle(switchViewConfiguration: configuration))
             .switchStyle(SwitchFioriStyle(switchViewConfiguration: configuration))
+    }
+}
+
+public struct SwitchViewNSSStyle: SwitchViewStyle {
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
+
+    public func makeBody(_ configuration: SwitchViewConfiguration) -> some View {
+        SwitchView(configuration)
+            .titleStyle(TitleNSSStyle(switchViewConfiguration: configuration, nssData: self.data.value(configuration.titleIdentifier)))
+            .switchStyle(SwitchNSSStyle(switchViewConfiguration: configuration, nssData: self.data.value(configuration.switchIdentifier)))
+            .switchViewStyle(ContentNSSStyle(switchViewConfiguration: configuration, nssData: self.data.value(configuration.contentIdentifier)))
     }
 }

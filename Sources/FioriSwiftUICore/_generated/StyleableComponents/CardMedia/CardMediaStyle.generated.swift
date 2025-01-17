@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -30,6 +31,20 @@ public struct CardMediaConfiguration {
     public typealias Description = ConfigurationViewWrapper
 }
 
+public extension CardMediaConfiguration {
+    var contentIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
+
+    var mediaImageIdentifier: String {
+        self.componentIdentifier + "_mediaImage"
+    }
+
+    var descriptionIdentifier: String {
+        self.componentIdentifier + "_description"
+    }
+}
+
 extension CardMediaConfiguration {
     func isDirectChild(_ componentIdentifier: String) -> Bool {
         componentIdentifier == self.componentIdentifier
@@ -41,5 +56,19 @@ public struct CardMediaFioriStyle: CardMediaStyle {
         CardMedia(configuration)
             .mediaImageStyle(MediaImageFioriStyle(cardMediaConfiguration: configuration))
             .descriptionStyle(DescriptionFioriStyle(cardMediaConfiguration: configuration))
+    }
+}
+
+public struct CardMediaNSSStyle: CardMediaStyle {
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
+
+    public func makeBody(_ configuration: CardMediaConfiguration) -> some View {
+        CardMedia(configuration)
+            .mediaImageStyle(MediaImageNSSStyle(cardMediaConfiguration: configuration, nssData: self.data.value(configuration.mediaImageIdentifier)))
+            .descriptionStyle(DescriptionNSSStyle(cardMediaConfiguration: configuration, nssData: self.data.value(configuration.descriptionIdentifier)))
+            .cardMediaStyle(ContentNSSStyle(cardMediaConfiguration: configuration, nssData: self.data.value(configuration.contentIdentifier)))
     }
 }

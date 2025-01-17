@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -39,6 +40,12 @@ public struct SideBarConfiguration {
     public typealias EditButton = ConfigurationViewWrapper
 }
 
+public extension SideBarConfiguration {
+    var contentIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
+}
+
 extension SideBarConfiguration {
     func isDirectChild(_ componentIdentifier: String) -> Bool {
         componentIdentifier == self.componentIdentifier
@@ -48,5 +55,18 @@ extension SideBarConfiguration {
 public struct SideBarFioriStyle: SideBarStyle {
     public func makeBody(_ configuration: SideBarConfiguration) -> some View {
         SideBar(configuration)
+    }
+}
+
+public struct SideBarNSSStyle: SideBarStyle {
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
+
+    public func makeBody(_ configuration: SideBarConfiguration) -> some View {
+        SideBar(configuration)
+             
+            .sideBarStyle(ContentNSSStyle(sideBarConfiguration: configuration, nssData: self.data.value(configuration.contentIdentifier)))
     }
 }

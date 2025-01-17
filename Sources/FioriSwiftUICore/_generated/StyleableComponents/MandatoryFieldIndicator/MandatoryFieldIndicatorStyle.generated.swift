@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -26,6 +27,12 @@ public struct MandatoryFieldIndicatorConfiguration {
     public let mandatoryFieldIndicator: MandatoryFieldIndicator
 
     public typealias MandatoryFieldIndicator = ConfigurationViewWrapper
+}
+
+public extension MandatoryFieldIndicatorConfiguration {
+    var mandatoryFieldIndicatorIdentifier: String {
+        self.componentIdentifier + "_mandatoryFieldIndicator"
+    }
 }
 
 extension MandatoryFieldIndicatorConfiguration {

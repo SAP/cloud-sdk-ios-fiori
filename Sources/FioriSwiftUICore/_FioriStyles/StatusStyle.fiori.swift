@@ -26,3 +26,18 @@ public struct StatusFioriStyle: StatusStyle {
             .font(.fiori(forTextStyle: .subheadline))
     }
 }
+
+// Default nss styles
+public struct StatusNSSStyle: StatusStyle {
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
+
+    public func makeBody(_ configuration: StatusConfiguration) -> some View {
+        Status(configuration)
+            .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.data.value(configuration.statusIdentifier)))
+        // Add custom nss style for its content
+        // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+    }
+}

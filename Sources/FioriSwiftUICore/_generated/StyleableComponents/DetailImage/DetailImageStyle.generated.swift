@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -26,6 +27,12 @@ public struct DetailImageConfiguration {
     public let detailImage: DetailImage
 
     public typealias DetailImage = ConfigurationViewWrapper
+}
+
+public extension DetailImageConfiguration {
+    var detailImageIdentifier: String {
+        self.componentIdentifier + "_detailImage"
+    }
 }
 
 extension DetailImageConfiguration {

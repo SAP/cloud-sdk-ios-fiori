@@ -33,3 +33,18 @@ public struct TrailingAccessoryFioriStyle: TrailingAccessoryStyle {
         // .font(.fiori(forTextStyle: <#fiori font#>))
     }
 }
+
+// Default nss styles
+public struct TrailingAccessoryNSSStyle: TrailingAccessoryStyle {
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
+
+    public func makeBody(_ configuration: TrailingAccessoryConfiguration) -> some View {
+        TrailingAccessory(configuration)
+            .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.data.value(configuration.trailingAccessoryIdentifier)))
+        // Add custom nss style for its content
+        // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+    }
+}

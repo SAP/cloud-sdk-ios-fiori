@@ -33,3 +33,18 @@ public struct KpiCaptionFioriStyle: KpiCaptionStyle {
         // .font(.fiori(forTextStyle: <#fiori font#>))
     }
 }
+
+// Default nss styles
+public struct KpiCaptionNSSStyle: KpiCaptionStyle {
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
+
+    public func makeBody(_ configuration: KpiCaptionConfiguration) -> some View {
+        KpiCaption(configuration)
+            .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.data.value(configuration.kpiCaptionIdentifier)))
+        // Add custom nss style for its content
+        // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+    }
+}

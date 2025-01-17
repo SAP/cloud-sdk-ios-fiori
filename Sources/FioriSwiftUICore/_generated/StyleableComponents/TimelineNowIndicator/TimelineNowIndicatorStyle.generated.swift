@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -28,6 +29,16 @@ public struct TimelineNowIndicatorConfiguration {
     public typealias NowIndicatorNode = ConfigurationViewWrapper
 }
 
+public extension TimelineNowIndicatorConfiguration {
+    var contentIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
+
+    var nowIndicatorNodeIdentifier: String {
+        self.componentIdentifier + "_nowIndicatorNode"
+    }
+}
+
 extension TimelineNowIndicatorConfiguration {
     func isDirectChild(_ componentIdentifier: String) -> Bool {
         componentIdentifier == self.componentIdentifier
@@ -38,5 +49,18 @@ public struct TimelineNowIndicatorFioriStyle: TimelineNowIndicatorStyle {
     public func makeBody(_ configuration: TimelineNowIndicatorConfiguration) -> some View {
         TimelineNowIndicator(configuration)
             .nowIndicatorNodeStyle(NowIndicatorNodeFioriStyle(timelineNowIndicatorConfiguration: configuration))
+    }
+}
+
+public struct TimelineNowIndicatorNSSStyle: TimelineNowIndicatorStyle {
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
+
+    public func makeBody(_ configuration: TimelineNowIndicatorConfiguration) -> some View {
+        TimelineNowIndicator(configuration)
+            .nowIndicatorNodeStyle(NowIndicatorNodeNSSStyle(timelineNowIndicatorConfiguration: configuration, nssData: self.data.value(configuration.nowIndicatorNodeIdentifier)))
+            .timelineNowIndicatorStyle(ContentNSSStyle(timelineNowIndicatorConfiguration: configuration, nssData: self.data.value(configuration.contentIdentifier)))
     }
 }

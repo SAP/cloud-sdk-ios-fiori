@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -26,6 +27,12 @@ public struct TitleConfiguration {
     public let title: Title
 
     public typealias Title = ConfigurationViewWrapper
+}
+
+public extension TitleConfiguration {
+    var titleIdentifier: String {
+        self.componentIdentifier + "_title"
+    }
 }
 
 extension TitleConfiguration {

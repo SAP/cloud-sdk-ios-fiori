@@ -18,3 +18,18 @@ public struct DescriptionTextFioriStyle: DescriptionTextStyle {
         DescriptionText(configuration)
     }
 }
+
+// Default nss styles
+public struct DescriptionTextNSSStyle: DescriptionTextStyle {
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
+
+    public func makeBody(_ configuration: DescriptionTextConfiguration) -> some View {
+        DescriptionText(configuration)
+            .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.data.value(configuration.descriptionTextIdentifier)))
+        // Add custom nss style for its content
+        // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+    }
+}

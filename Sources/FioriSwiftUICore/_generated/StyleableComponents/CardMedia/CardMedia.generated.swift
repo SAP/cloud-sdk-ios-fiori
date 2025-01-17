@@ -29,9 +29,10 @@ public extension CardMedia {
 
 public extension CardMedia {
     init(mediaImage: Image? = nil,
-         description: AttributedString? = nil)
+         description: AttributedString? = nil,
+         componentIdentifier: String? = CardMedia.identifier)
     {
-        self.init(mediaImage: { OptionalImage(mediaImage) }, description: { OptionalText(description) })
+        self.init(mediaImage: { OptionalImage(mediaImage) }, description: { OptionalText(description) }, componentIdentifier: componentIdentifier)
     }
 }
 

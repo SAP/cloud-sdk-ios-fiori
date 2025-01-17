@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -26,6 +27,12 @@ public struct SubstatusConfiguration {
     public let substatus: Substatus
 
     public typealias Substatus = ConfigurationViewWrapper
+}
+
+public extension SubstatusConfiguration {
+    var substatusIdentifier: String {
+        self.componentIdentifier + "_substatus"
+    }
 }
 
 extension SubstatusConfiguration {

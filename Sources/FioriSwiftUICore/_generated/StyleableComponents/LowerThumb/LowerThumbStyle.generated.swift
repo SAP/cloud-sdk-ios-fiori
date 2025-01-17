@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -26,6 +27,12 @@ public struct LowerThumbConfiguration {
     public let lowerThumb: LowerThumb
 
     public typealias LowerThumb = ConfigurationViewWrapper
+}
+
+public extension LowerThumbConfiguration {
+    var lowerThumbIdentifier: String {
+        self.componentIdentifier + "_lowerThumb"
+    }
 }
 
 extension LowerThumbConfiguration {

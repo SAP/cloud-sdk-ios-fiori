@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -31,6 +32,20 @@ public struct TimelinePreviewConfiguration {
     public typealias Action = ConfigurationViewWrapper
 }
 
+public extension TimelinePreviewConfiguration {
+    var contentIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
+
+    var optionalTitleIdentifier: String {
+        self.componentIdentifier + "_optionalTitle"
+    }
+
+    var actionIdentifier: String {
+        self.componentIdentifier + "_action"
+    }
+}
+
 extension TimelinePreviewConfiguration {
     func isDirectChild(_ componentIdentifier: String) -> Bool {
         componentIdentifier == self.componentIdentifier
@@ -42,5 +57,19 @@ public struct TimelinePreviewFioriStyle: TimelinePreviewStyle {
         TimelinePreview(configuration)
             .optionalTitleStyle(OptionalTitleFioriStyle(timelinePreviewConfiguration: configuration))
             .actionStyle(ActionFioriStyle(timelinePreviewConfiguration: configuration))
+    }
+}
+
+public struct TimelinePreviewNSSStyle: TimelinePreviewStyle {
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
+
+    public func makeBody(_ configuration: TimelinePreviewConfiguration) -> some View {
+        TimelinePreview(configuration)
+            .optionalTitleStyle(OptionalTitleNSSStyle(timelinePreviewConfiguration: configuration, nssData: self.data.value(configuration.optionalTitleIdentifier)))
+            .actionStyle(ActionNSSStyle(timelinePreviewConfiguration: configuration, nssData: self.data.value(configuration.actionIdentifier)))
+            .timelinePreviewStyle(ContentNSSStyle(timelinePreviewConfiguration: configuration, nssData: self.data.value(configuration.contentIdentifier)))
     }
 }

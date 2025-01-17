@@ -29,9 +29,10 @@ public extension PlaceholderTextEditor {
 
 public extension PlaceholderTextEditor {
     init(text: Binding<String>,
-         placeholder: AttributedString? = nil)
+         placeholder: AttributedString? = nil,
+         componentIdentifier: String? = PlaceholderTextEditor.identifier)
     {
-        self.init(text: text, placeholder: { OptionalText(placeholder) })
+        self.init(text: text, placeholder: { OptionalText(placeholder) }, componentIdentifier: componentIdentifier)
     }
 }
 

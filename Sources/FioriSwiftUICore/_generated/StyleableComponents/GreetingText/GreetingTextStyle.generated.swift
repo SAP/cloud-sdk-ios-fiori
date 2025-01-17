@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -26,6 +27,12 @@ public struct GreetingTextConfiguration {
     public let greetingText: GreetingText
 
     public typealias GreetingText = ConfigurationViewWrapper
+}
+
+public extension GreetingTextConfiguration {
+    var greetingTextIdentifier: String {
+        self.componentIdentifier + "_greetingText"
+    }
 }
 
 extension GreetingTextConfiguration {

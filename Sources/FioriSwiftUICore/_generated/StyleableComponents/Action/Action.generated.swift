@@ -25,8 +25,10 @@ public extension Action {
 }
 
 public extension Action {
-    init(action: FioriButton? = nil) {
-        self.init(action: { action })
+    init(action: FioriButton? = nil,
+         componentIdentifier: String? = Action.identifier)
+    {
+        self.init(action: { action }, componentIdentifier: componentIdentifier)
     }
 }
 

@@ -25,8 +25,10 @@ public extension BodyText {
 }
 
 public extension BodyText {
-    init(bodyText: AttributedString? = nil) {
-        self.init(bodyText: { OptionalText(bodyText) })
+    init(bodyText: AttributedString? = nil,
+         componentIdentifier: String? = BodyText.identifier)
+    {
+        self.init(bodyText: { OptionalText(bodyText) }, componentIdentifier: componentIdentifier)
     }
 }
 

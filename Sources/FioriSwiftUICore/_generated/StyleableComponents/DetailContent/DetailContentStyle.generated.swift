@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -26,6 +27,12 @@ public struct DetailContentConfiguration {
     public let detailContent: DetailContent
 
     public typealias DetailContent = ConfigurationViewWrapper
+}
+
+public extension DetailContentConfiguration {
+    var detailContentIdentifier: String {
+        self.componentIdentifier + "_detailContent"
+    }
 }
 
 extension DetailContentConfiguration {

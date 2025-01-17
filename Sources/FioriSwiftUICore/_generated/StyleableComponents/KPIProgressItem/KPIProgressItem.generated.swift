@@ -59,9 +59,10 @@ public extension KPIProgressItem {
          innerCircle: any Shape = Circle(),
          outerCircle: any Shape = Circle(),
          data: Binding<KPIItemData>,
-         chartSize: KPIProgressItemSize = .large)
+         chartSize: KPIProgressItemSize = .large,
+         componentIdentifier: String? = KPIProgressItem.identifier)
     {
-        self.init(kPIContent: kPIContent, kpiCaption: { OptionalText(kpiCaption) }, footnote: { OptionalText(footnote) }, innerCircle: { innerCircle }, outerCircle: { outerCircle }, data: data, chartSize: chartSize)
+        self.init(kPIContent: kPIContent, kpiCaption: { OptionalText(kpiCaption) }, footnote: { OptionalText(footnote) }, innerCircle: { innerCircle }, outerCircle: { outerCircle }, data: data, chartSize: chartSize, componentIdentifier: componentIdentifier)
     }
 }
 

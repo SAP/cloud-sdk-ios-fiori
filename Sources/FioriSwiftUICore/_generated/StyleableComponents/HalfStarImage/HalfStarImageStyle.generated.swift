@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -26,6 +27,12 @@ public struct HalfStarImageConfiguration {
     public let halfStarImage: HalfStarImage
 
     public typealias HalfStarImage = ConfigurationViewWrapper
+}
+
+public extension HalfStarImageConfiguration {
+    var halfStarImageIdentifier: String {
+        self.componentIdentifier + "_halfStarImage"
+    }
 }
 
 extension HalfStarImageConfiguration {

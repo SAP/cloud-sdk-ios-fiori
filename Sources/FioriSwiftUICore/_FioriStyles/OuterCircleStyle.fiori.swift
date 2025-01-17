@@ -18,3 +18,18 @@ public struct OuterCircleFioriStyle: OuterCircleStyle {
         OuterCircle(configuration)
     }
 }
+
+// Default nss styles
+public struct OuterCircleNSSStyle: OuterCircleStyle {
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
+
+    public func makeBody(_ configuration: OuterCircleConfiguration) -> some View {
+        OuterCircle(configuration)
+            .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.data.value(configuration.outerCircleIdentifier)))
+        // Add custom nss style for its content
+        // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+    }
+}

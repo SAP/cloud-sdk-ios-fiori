@@ -62,9 +62,10 @@ public extension BannerMessage {
          alignment: HorizontalAlignment = .center,
          hideSeparator: Bool = false,
          messageType: BannerMultiMessageType = .negative,
-         showDetailLink: Bool = false)
+         showDetailLink: Bool = false,
+         componentIdentifier: String? = BannerMessage.identifier)
     {
-        self.init(icon: { icon }, title: { Text(title) }, closeAction: { closeAction }, topDivider: topDivider, bannerTapAction: bannerTapAction, alignment: alignment, hideSeparator: hideSeparator, messageType: messageType, showDetailLink: showDetailLink)
+        self.init(icon: { icon }, title: { Text(title) }, closeAction: { closeAction }, topDivider: topDivider, bannerTapAction: bannerTapAction, alignment: alignment, hideSeparator: hideSeparator, messageType: messageType, showDetailLink: showDetailLink, componentIdentifier: componentIdentifier)
     }
 }
 

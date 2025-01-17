@@ -26,3 +26,18 @@ public struct SwitchFioriStyle: SwitchStyle {
         // Add default style here
     }
 }
+
+// Default nss styles
+public struct SwitchNSSStyle: SwitchStyle {
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
+
+    public func makeBody(_ configuration: SwitchConfiguration) -> some View {
+        Switch(configuration)
+            .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.data.value(configuration.switchIdentifier)))
+        // Add custom nss style for its content
+        // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+    }
+}

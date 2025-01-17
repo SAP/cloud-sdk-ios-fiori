@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -24,6 +25,12 @@ struct AnyLinearProgressIndicatorStyle: LinearProgressIndicatorStyle {
 public struct LinearProgressIndicatorConfiguration {
     public var componentIdentifier: String = "fiori_linearprogressindicator_component"
     @Binding public var indicatorProgress: Double
+}
+
+public extension LinearProgressIndicatorConfiguration {
+    var linearProgressIndicatorIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
 }
 
 extension LinearProgressIndicatorConfiguration {

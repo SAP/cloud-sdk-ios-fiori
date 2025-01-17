@@ -26,3 +26,18 @@ public struct SubtitleFioriStyle: SubtitleStyle {
             .font(.fiori(forTextStyle: .body))
     }
 }
+
+// Default nss styles
+public struct SubtitleNSSStyle: SubtitleStyle {
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
+
+    public func makeBody(_ configuration: SubtitleConfiguration) -> some View {
+        Subtitle(configuration)
+            .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.data.value(configuration.subtitleIdentifier)))
+        // Add custom nss style for its content
+        // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+    }
+}

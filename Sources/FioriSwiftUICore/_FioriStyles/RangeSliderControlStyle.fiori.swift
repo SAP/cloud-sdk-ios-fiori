@@ -229,6 +229,68 @@ extension RangeSliderControlFioriStyle {
     }
 }
 
+// Default nss styles
+extension RangeSliderControlNSSStyle {
+    struct ContentNSSStyle: RangeSliderControlStyle {
+        let rangeSliderControlConfiguration: RangeSliderControlConfiguration
+        let nssData: NSSStyleData
+        func makeBody(_ configuration: RangeSliderControlConfiguration) -> some View {
+            RangeSliderControl(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for its content
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct LowerThumbNSSStyle: LowerThumbStyle {
+        let rangeSliderControlConfiguration: RangeSliderControlConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: LowerThumbConfiguration) -> some View {
+            LowerThumb(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for LowerThumb
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct UpperThumbNSSStyle: UpperThumbStyle {
+        let rangeSliderControlConfiguration: RangeSliderControlConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: UpperThumbConfiguration) -> some View {
+            UpperThumb(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for UpperThumb
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct ActiveTrackNSSStyle: ActiveTrackStyle {
+        let rangeSliderControlConfiguration: RangeSliderControlConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: ActiveTrackConfiguration) -> some View {
+            ActiveTrack(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for ActiveTrack
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct InactiveTrackNSSStyle: InactiveTrackStyle {
+        let rangeSliderControlConfiguration: RangeSliderControlConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: InactiveTrackConfiguration) -> some View {
+            InactiveTrack(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for InactiveTrack
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+}
+
 extension RangeSliderControl {
     func accessibilityAdjustments(_ model: RangeSliderAccessibilityModel) -> some View {
         self.modifier(RangeSliderAccessibilityModifier(model: model))

@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -26,6 +27,12 @@ public struct OuterCircleConfiguration {
     public let outerCircle: OuterCircle
 
     public typealias OuterCircle = ConfigurationViewWrapper
+}
+
+public extension OuterCircleConfiguration {
+    var outerCircleIdentifier: String {
+        self.componentIdentifier + "_outerCircle"
+    }
 }
 
 extension OuterCircleConfiguration {

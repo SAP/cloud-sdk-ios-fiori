@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -40,6 +41,40 @@ public struct ListPickerDestinationConfiguration {
     public typealias ListPickerContent = ConfigurationViewWrapper
 }
 
+public extension ListPickerDestinationConfiguration {
+    var contentIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
+
+    var cancelActionIdentifier: String {
+        self.componentIdentifier + "_cancelAction"
+    }
+
+    var applyActionIdentifier: String {
+        self.componentIdentifier + "_applyAction"
+    }
+
+    var selectedEntriesSectionTitleIdentifier: String {
+        self.componentIdentifier + "_selectedEntriesSectionTitle"
+    }
+
+    var selectAllActionIdentifier: String {
+        self.componentIdentifier + "_selectAllAction"
+    }
+
+    var deselectAllActionIdentifier: String {
+        self.componentIdentifier + "_deselectAllAction"
+    }
+
+    var allEntriesSectionTitleIdentifier: String {
+        self.componentIdentifier + "_allEntriesSectionTitle"
+    }
+
+    var listPickerContentIdentifier: String {
+        self.componentIdentifier + "_listPickerContent"
+    }
+}
+
 extension ListPickerDestinationConfiguration {
     func isDirectChild(_ componentIdentifier: String) -> Bool {
         componentIdentifier == self.componentIdentifier
@@ -56,5 +91,24 @@ public struct ListPickerDestinationFioriStyle: ListPickerDestinationStyle {
             .deselectAllActionStyle(DeselectAllActionFioriStyle(listPickerDestinationConfiguration: configuration))
             .allEntriesSectionTitleStyle(AllEntriesSectionTitleFioriStyle(listPickerDestinationConfiguration: configuration))
             .listPickerContentStyle(ListPickerContentFioriStyle(listPickerDestinationConfiguration: configuration))
+    }
+}
+
+public struct ListPickerDestinationNSSStyle: ListPickerDestinationStyle {
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
+
+    public func makeBody(_ configuration: ListPickerDestinationConfiguration) -> some View {
+        ListPickerDestination(configuration)
+            .cancelActionStyle(CancelActionNSSStyle(listPickerDestinationConfiguration: configuration, nssData: self.data.value(configuration.cancelActionIdentifier)))
+            .applyActionStyle(ApplyActionNSSStyle(listPickerDestinationConfiguration: configuration, nssData: self.data.value(configuration.applyActionIdentifier)))
+            .selectedEntriesSectionTitleStyle(SelectedEntriesSectionTitleNSSStyle(listPickerDestinationConfiguration: configuration, nssData: self.data.value(configuration.selectedEntriesSectionTitleIdentifier)))
+            .selectAllActionStyle(SelectAllActionNSSStyle(listPickerDestinationConfiguration: configuration, nssData: self.data.value(configuration.selectAllActionIdentifier)))
+            .deselectAllActionStyle(DeselectAllActionNSSStyle(listPickerDestinationConfiguration: configuration, nssData: self.data.value(configuration.deselectAllActionIdentifier)))
+            .allEntriesSectionTitleStyle(AllEntriesSectionTitleNSSStyle(listPickerDestinationConfiguration: configuration, nssData: self.data.value(configuration.allEntriesSectionTitleIdentifier)))
+            .listPickerContentStyle(ListPickerContentNSSStyle(listPickerDestinationConfiguration: configuration, nssData: self.data.value(configuration.listPickerContentIdentifier)))
+            .listPickerDestinationStyle(ContentNSSStyle(listPickerDestinationConfiguration: configuration, nssData: self.data.value(configuration.contentIdentifier)))
     }
 }

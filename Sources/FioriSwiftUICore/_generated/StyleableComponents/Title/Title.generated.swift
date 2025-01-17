@@ -25,8 +25,10 @@ public extension Title {
 }
 
 public extension Title {
-    init(title: AttributedString) {
-        self.init(title: { Text(title) })
+    init(title: AttributedString,
+         componentIdentifier: String? = Title.identifier)
+    {
+        self.init(title: { Text(title) }, componentIdentifier: componentIdentifier)
     }
 }
 

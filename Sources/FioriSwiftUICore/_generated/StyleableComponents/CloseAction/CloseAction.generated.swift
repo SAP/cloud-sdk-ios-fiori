@@ -25,8 +25,10 @@ public extension CloseAction {
 }
 
 public extension CloseAction {
-    init(closeAction: FioriButton? = FioriButton { _ in Image(systemName: "xmark") }) {
-        self.init(closeAction: { closeAction })
+    init(closeAction: FioriButton? = FioriButton { _ in Image(systemName: "xmark") },
+         componentIdentifier: String? = CloseAction.identifier)
+    {
+        self.init(closeAction: { closeAction }, componentIdentifier: componentIdentifier)
     }
 }
 

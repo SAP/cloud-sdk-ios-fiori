@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -48,6 +49,52 @@ public struct TimelineConfiguration {
     public typealias SubAttribute = ConfigurationViewWrapper
 }
 
+public extension TimelineConfiguration {
+    var contentIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
+
+    var timestampIdentifier: String {
+        self.componentIdentifier + "_timestamp"
+    }
+
+    var secondaryTimestampIdentifier: String {
+        self.componentIdentifier + "_secondaryTimestamp"
+    }
+
+    var timelineNodeIdentifier: String {
+        self.componentIdentifier + "_timelineNode"
+    }
+
+    var iconIdentifier: String {
+        self.componentIdentifier + "_icon"
+    }
+
+    var titleIdentifier: String {
+        self.componentIdentifier + "_title"
+    }
+
+    var subtitleIdentifier: String {
+        self.componentIdentifier + "_subtitle"
+    }
+
+    var attributeIdentifier: String {
+        self.componentIdentifier + "_attribute"
+    }
+
+    var statusIdentifier: String {
+        self.componentIdentifier + "_status"
+    }
+
+    var substatusIdentifier: String {
+        self.componentIdentifier + "_substatus"
+    }
+
+    var subAttributeIdentifier: String {
+        self.componentIdentifier + "_subAttribute"
+    }
+}
+
 extension TimelineConfiguration {
     func isDirectChild(_ componentIdentifier: String) -> Bool {
         componentIdentifier == self.componentIdentifier
@@ -67,5 +114,27 @@ public struct TimelineFioriStyle: TimelineStyle {
             .statusStyle(StatusFioriStyle(timelineConfiguration: configuration))
             .substatusStyle(SubstatusFioriStyle(timelineConfiguration: configuration))
             .subAttributeStyle(SubAttributeFioriStyle(timelineConfiguration: configuration))
+    }
+}
+
+public struct TimelineNSSStyle: TimelineStyle {
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
+
+    public func makeBody(_ configuration: TimelineConfiguration) -> some View {
+        Timeline(configuration)
+            .timestampStyle(TimestampNSSStyle(timelineConfiguration: configuration, nssData: self.data.value(configuration.timestampIdentifier)))
+            .secondaryTimestampStyle(SecondaryTimestampNSSStyle(timelineConfiguration: configuration, nssData: self.data.value(configuration.secondaryTimestampIdentifier)))
+            .timelineNodeStyle(TimelineNodeNSSStyle(timelineConfiguration: configuration, nssData: self.data.value(configuration.timelineNodeIdentifier)))
+            .iconStyle(IconNSSStyle(timelineConfiguration: configuration, nssData: self.data.value(configuration.iconIdentifier)))
+            .titleStyle(TitleNSSStyle(timelineConfiguration: configuration, nssData: self.data.value(configuration.titleIdentifier)))
+            .subtitleStyle(SubtitleNSSStyle(timelineConfiguration: configuration, nssData: self.data.value(configuration.subtitleIdentifier)))
+            .attributeStyle(AttributeNSSStyle(timelineConfiguration: configuration, nssData: self.data.value(configuration.attributeIdentifier)))
+            .statusStyle(StatusNSSStyle(timelineConfiguration: configuration, nssData: self.data.value(configuration.statusIdentifier)))
+            .substatusStyle(SubstatusNSSStyle(timelineConfiguration: configuration, nssData: self.data.value(configuration.substatusIdentifier)))
+            .subAttributeStyle(SubAttributeNSSStyle(timelineConfiguration: configuration, nssData: self.data.value(configuration.subAttributeIdentifier)))
+            .timelineStyle(ContentNSSStyle(timelineConfiguration: configuration, nssData: self.data.value(configuration.contentIdentifier)))
     }
 }

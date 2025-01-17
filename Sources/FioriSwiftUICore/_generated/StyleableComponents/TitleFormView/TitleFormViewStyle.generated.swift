@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -38,6 +39,28 @@ public struct TitleFormViewConfiguration {
     public typealias Placeholder = ConfigurationViewWrapper
 }
 
+public extension TitleFormViewConfiguration {
+    var contentIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
+
+    var textInputFieldIdentifier: String {
+        self.componentIdentifier + "_textInputField"
+    }
+
+    var placeholderIdentifier: String {
+        self.componentIdentifier + "_placeholder"
+    }
+
+    var placeholderTextFieldIdentifier: String {
+        self.componentIdentifier + "_placeholderTextField"
+    }
+
+    var formViewIdentifier: String {
+        self.componentIdentifier + "_formView"
+    }
+}
+
 extension TitleFormViewConfiguration {
     func isDirectChild(_ componentIdentifier: String) -> Bool {
         componentIdentifier == self.componentIdentifier
@@ -51,5 +74,21 @@ public struct TitleFormViewFioriStyle: TitleFormViewStyle {
             .placeholderStyle(PlaceholderFioriStyle(titleFormViewConfiguration: configuration))
             .placeholderTextFieldStyle(PlaceholderTextFieldFioriStyle(titleFormViewConfiguration: configuration))
             .formViewStyle(FormViewFioriStyle(titleFormViewConfiguration: configuration))
+    }
+}
+
+public struct TitleFormViewNSSStyle: TitleFormViewStyle {
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
+
+    public func makeBody(_ configuration: TitleFormViewConfiguration) -> some View {
+        TitleFormView(configuration)
+            .textInputFieldStyle(TextInputFieldNSSStyle(titleFormViewConfiguration: configuration, nssData: self.data.value(configuration.textInputFieldIdentifier)))
+            .placeholderStyle(PlaceholderNSSStyle(titleFormViewConfiguration: configuration, nssData: self.data.value(configuration.placeholderIdentifier)))
+            .placeholderTextFieldStyle(PlaceholderTextFieldNSSStyle(titleFormViewConfiguration: configuration, nssData: self.data.value(configuration.placeholderTextFieldIdentifier)))
+            .formViewStyle(FormViewNSSStyle(titleFormViewConfiguration: configuration, nssData: self.data.value(configuration.formViewIdentifier)))
+            .titleFormViewStyle(ContentNSSStyle(titleFormViewConfiguration: configuration, nssData: self.data.value(configuration.contentIdentifier)))
     }
 }

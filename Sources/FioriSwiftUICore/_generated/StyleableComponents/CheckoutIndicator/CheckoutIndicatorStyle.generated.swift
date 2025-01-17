@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -24,6 +25,12 @@ struct AnyCheckoutIndicatorStyle: CheckoutIndicatorStyle {
 public struct CheckoutIndicatorConfiguration {
     public var componentIdentifier: String = "fiori_checkoutindicator_component"
     @Binding public var displayState: DisplayState
+}
+
+public extension CheckoutIndicatorConfiguration {
+    var checkoutIndicatorIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
 }
 
 extension CheckoutIndicatorConfiguration {

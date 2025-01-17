@@ -54,7 +54,7 @@ extension Type {
         
         return """
         \(accessLevelDecl)extension \(componentName) {
-            init(\(allStoredVariables.dataInitParams)) {
+            init(\(allStoredVariables.dataInitParams), \ncomponentIdentifier: String? = \(componentName).identifier) {
                 \(allStoredVariables.dataInitBody)
             }
         }
@@ -161,6 +161,8 @@ extension Type {
             
             \(self.configurationDecl)
             
+            \(self.configurationIdentifierExtension)
+            
             \(self.configurationExtension)
             """
         case .composite:
@@ -171,9 +173,13 @@ extension Type {
             
             \(self.configurationDecl)
             
+            \(self.configurationIdentifierExtension)
+            
             \(self.configurationExtension)
             
             \(self.fioriStyleDecl)
+            
+            \(self.nssStyleDecl)
             """
         case .none:
             return ""
@@ -185,6 +191,45 @@ extension Type {
         \(accessLevelDecl)struct \(componentName)Configuration {
             public var componentIdentifier: String = "fiori_\(componentName.lowercased())_component"
             \(allStoredVariables.configurationPropertyListDecl)
+        }
+        """
+    }
+    
+    var proctolIdentifierDecl: String {
+        switch componentType {
+        case .base:
+            var props: [String] = []
+            for variable in variables {
+                let name = variable.name
+                if variable.isResultBuilder,
+                   variable.closureParameters.isEmpty
+                {
+                    props.append("public var \(name)Identifier: String {\n componentIdentifier + \"_\(name)\"\n}")
+                } else if variable.isBinding {
+                    props.append("public var \(componentName.lowercasingFirst())Identifier: String { \n componentIdentifier + \"_content\"\n}")
+                } else {
+                    props.append("public var \(componentName.lowercasingFirst())Identifier: String { \n componentIdentifier + \"_content\"\n}")
+                }
+            }
+            return (props + [""]).joined(separator: "\n")
+        case .composite:
+            let protocols = self.conformingBaseComponentProtocols + self.parentCompositeComponentProtocols
+            var contentIdentifiers = "public var contentIdentifier: String { \n componentIdentifier + \"_content\"" + "\n}" + "\n"
+            let protocolIdentifiers = protocols.map { type in
+                "public var \(type.componentName.lowercasingFirst())Identifier: String {\n componentIdentifier + \"_\(type.componentName.lowercasingFirst())\"\n}"
+            }
+            .joined(separator: "\n")
+            
+            return contentIdentifiers + protocolIdentifiers + "\n"
+        case .none:
+            return ""
+        }
+    }
+    
+    var configurationIdentifierExtension: String {
+        """
+        extension \(componentName)Configuration {
+            \(self.proctolIdentifierDecl)
         }
         """
     }
@@ -226,6 +271,17 @@ extension Type {
                     \(fioriStyleName)()
                 }
             }
+            
+            \(accessLevelDecl)extension \(styleProtocolName) where Self == \(nssStyleName) {
+                static func nss(_ parserType: NSSParserType) -> \(nssStyleName) {
+                    parserType.mergeNSSData()
+                    return \(nssStyleName)()
+                }
+            
+                static var globalNSS: \(nssStyleName) {
+                    \(nssStyleName)(isGlobal: true)
+                }
+            }
             """
         case .composite:
             return """
@@ -240,6 +296,17 @@ extension Type {
             \(accessLevelDecl)extension \(styleProtocolName) where Self == \(fioriStyleName) {
                 static var fiori: \(fioriStyleName) {
                     \(fioriStyleName)()
+                }
+            }
+            
+            \(accessLevelDecl)extension \(styleProtocolName) where Self == \(nssStyleName) {
+                static func nss(_ parserType: NSSParserType) -> \(nssStyleName) {
+                    parserType.mergeNSSData()
+                    return \(nssStyleName)()
+                }
+
+                static var globalNSS: \(nssStyleName) {
+                    \(nssStyleName)(isGlobal: true)
                 }
             }
             
@@ -294,6 +361,24 @@ extension Type {
         """
     }
     
+    var nssStyleDecl: String {
+        """
+        \(accessLevelDecl)struct \(nssStyleName): \(styleProtocolName) {
+            var isGlobal: Bool = false
+            var data: NSSStyleData {
+                isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+            }
+        
+            public func makeBody(_ configuration: \(configurationName)) -> some View {
+                \(componentName)(configuration)
+                     \(self.componentNSSStyleModifierList)
+                     \(self.componentNSSStyleContentModifierList)
+
+            }
+        }
+        """
+    }
+    
     var componentFioriStyleModifierList: String {
         let protocols = self.conformingBaseComponentProtocols + self.parentCompositeComponentProtocols
         
@@ -301,6 +386,39 @@ extension Type {
             ".\(type.styleProtocolName.lowercasingFirst())(\(type.fioriStyleName)(\(self.configurationName.lowercasingFirst()): configuration))"
         }
         .joined(separator: "\n")
+    }
+    
+    var componentNSSStyleContentModifierList: String {
+        switch componentType {
+        case .composite:
+            return ".\(styleProtocolName.lowercasingFirst())(ContentNSSStyle(\(self.configurationName.lowercasingFirst()): configuration, nssData: data.value(configuration.contentIdentifier)))"
+        case .base, .none:
+            return ""
+        }
+    }
+    
+    var componentNSSStyleModifierList: String {
+        switch componentType {
+        case .base:
+            var props: [String] = []
+            for variable in variables {
+                let name = variable.name
+                if variable.isResultBuilder,
+                   variable.closureParameters.isEmpty
+                {
+                    props.append(".\(styleProtocolName.lowercasingFirst())(\(nssStyleName)(\(self.configurationName.lowercasingFirst()): configuration, nssData: data.value(configuration.\(componentName.lowercasingFirst())Identifier)))")
+                }
+            }
+            return (props + [""]).joined(separator: "\n")
+        case .composite:
+            let protocols = self.conformingBaseComponentProtocols + self.parentCompositeComponentProtocols
+            return protocols.map { type in
+                ".\(type.styleProtocolName.lowercasingFirst())(\(type.nssStyleName)(\(self.configurationName.lowercasingFirst()): configuration, nssData: data.value(configuration.\(type.componentName.lowercasingFirst())Identifier)))"
+            }
+            .joined(separator: "\n")
+        case .none:
+            return ""
+        }
     }
     
     var styleProtocolImplementations: String {
@@ -335,6 +453,21 @@ extension Type {
                         //.font(.fiori(forTextStyle: <#fiori font#>))
                 }
             }
+            
+            // Default nss styles
+            \(accessLevelDecl)struct \(nssStyleName): \(styleProtocolName) {
+                var isGlobal: Bool = false
+                var data: NSSStyleData {
+                    isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+                }
+
+                public func makeBody(_ configuration: \(configurationName)) -> some View {
+                    \(componentName)(configuration)
+                        .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: data.value(configuration.\(componentName.lowercasingFirst())Identifier)))
+                        // Add custom nss style for its content
+                        // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+                }
+            }
             """
             .commented()
         case .composite:
@@ -362,6 +495,13 @@ extension Type {
             
                 \(self.compositeComponentFioriStyleDeclList)
             }
+            
+            // Default nss styles
+            extension \(nssStyleName) {
+                \(self.compositeComponentContentNSSStyleDecl)
+
+                \(self.compositeComponentNSSStyleDeclList)
+            }
             """
             .commented()
         case .none:
@@ -381,6 +521,21 @@ extension Type {
         """
     }
     
+    var compositeComponentContentNSSStyleDecl: String {
+        """
+        struct ContentNSSStyle: \(self.styleProtocolName) {
+            let \(self.configurationName.lowercasingFirst()): \(self.configurationName)
+            let nssData: NSSStyleData
+            func makeBody(_ configuration: \(self.configurationName)) -> some View {
+                \(self.componentName)(configuration)
+                    .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: nssData))
+                // Add custom nss style for its content
+                // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+            }
+        }
+        """
+    }
+    
     var compositeComponentFioriStyleDeclList: String {
         let protocols = self.conformingBaseComponentProtocols + self.parentCompositeComponentProtocols
         
@@ -394,6 +549,27 @@ extension Type {
                     // Add default style for \(type.componentName)
                     //.foregroundStyle(Color.preferredColor(<#fiori color#>))
                     //.font(.fiori(forTextStyle: <#fiori font#>))
+                }
+            }
+            """
+        }
+        .joined(separator: "\n\n")
+    }
+    
+    var compositeComponentNSSStyleDeclList: String {
+        let protocols = self.conformingBaseComponentProtocols + self.parentCompositeComponentProtocols
+        
+        return protocols.map { type in
+            """
+            struct \(type.nssStyleName): \(type.styleProtocolName) {
+                let \(self.configurationName.lowercasingFirst()): \(self.configurationName)
+                let nssData: NSSStyleData
+            
+                func makeBody(_ configuration: \(type.configurationName)) -> some View {
+                    \(type.componentName)(configuration)
+                        .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: nssData))
+                    // Add custom nss style for \(type.componentName)
+                    //.modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
                 }
             }
             """
@@ -443,7 +619,7 @@ extension Type {
         case .base:
             defaultStyle = ".base"
         case .composite:
-            defaultStyle = ".base.concat(.fiori)"
+            defaultStyle = ".base.concat(.fiori).concat(.globalNSS)"
         case .none:
             return ""
         }
@@ -565,6 +741,10 @@ extension Type {
     
     var fioriStyleName: String {
         "\(componentName)FioriStyle"
+    }
+    
+    var nssStyleName: String {
+        "\(componentName)NSSStyle"
     }
     
     var styleModifierName: String {

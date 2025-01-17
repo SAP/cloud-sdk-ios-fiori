@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -26,6 +27,12 @@ public struct AttributeConfiguration {
     public let attribute: Attribute
 
     public typealias Attribute = ConfigurationViewWrapper
+}
+
+public extension AttributeConfiguration {
+    var attributeIdentifier: String {
+        self.componentIdentifier + "_attribute"
+    }
 }
 
 extension AttributeConfiguration {

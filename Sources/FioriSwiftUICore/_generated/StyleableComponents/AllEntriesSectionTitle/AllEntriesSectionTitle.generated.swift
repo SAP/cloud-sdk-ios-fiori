@@ -25,8 +25,10 @@ public extension AllEntriesSectionTitle {
 }
 
 public extension AllEntriesSectionTitle {
-    init(allEntriesSectionTitle: AttributedString? = AttributedString("All".localizedFioriString())) {
-        self.init(allEntriesSectionTitle: { OptionalText(allEntriesSectionTitle) })
+    init(allEntriesSectionTitle: AttributedString? = AttributedString("All".localizedFioriString()),
+         componentIdentifier: String? = AllEntriesSectionTitle.identifier)
+    {
+        self.init(allEntriesSectionTitle: { OptionalText(allEntriesSectionTitle) }, componentIdentifier: componentIdentifier)
     }
 }
 

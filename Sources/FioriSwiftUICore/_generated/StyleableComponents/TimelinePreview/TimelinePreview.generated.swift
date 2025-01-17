@@ -72,9 +72,10 @@ public extension TimelinePreview {
 public extension TimelinePreview {
     init(optionalTitle: AttributedString?,
          action: FioriButton? = nil,
-         items: Binding<[any TimelinePreviewItemModel]>)
+         items: Binding<[any TimelinePreviewItemModel]>,
+         componentIdentifier: String? = TimelinePreview.identifier)
     {
-        self.init(optionalTitle: { OptionalText(optionalTitle) }, action: { action }, items: items)
+        self.init(optionalTitle: { OptionalText(optionalTitle) }, action: { action }, items: items, componentIdentifier: componentIdentifier)
     }
 }
 

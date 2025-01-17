@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -38,6 +39,28 @@ public struct ListPickerItemConfiguration {
     public typealias Destination = ConfigurationViewWrapper
 }
 
+public extension ListPickerItemConfiguration {
+    var contentIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
+
+    var titleIdentifier: String {
+        self.componentIdentifier + "_title"
+    }
+
+    var valueIdentifier: String {
+        self.componentIdentifier + "_value"
+    }
+
+    var mandatoryFieldIndicatorIdentifier: String {
+        self.componentIdentifier + "_mandatoryFieldIndicator"
+    }
+
+    var formViewIdentifier: String {
+        self.componentIdentifier + "_formView"
+    }
+}
+
 extension ListPickerItemConfiguration {
     func isDirectChild(_ componentIdentifier: String) -> Bool {
         componentIdentifier == self.componentIdentifier
@@ -51,5 +74,21 @@ public struct ListPickerItemFioriStyle: ListPickerItemStyle {
             .valueStyle(ValueFioriStyle(listPickerItemConfiguration: configuration))
             .mandatoryFieldIndicatorStyle(MandatoryFieldIndicatorFioriStyle(listPickerItemConfiguration: configuration))
             .formViewStyle(FormViewFioriStyle(listPickerItemConfiguration: configuration))
+    }
+}
+
+public struct ListPickerItemNSSStyle: ListPickerItemStyle {
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
+
+    public func makeBody(_ configuration: ListPickerItemConfiguration) -> some View {
+        ListPickerItem(configuration)
+            .titleStyle(TitleNSSStyle(listPickerItemConfiguration: configuration, nssData: self.data.value(configuration.titleIdentifier)))
+            .valueStyle(ValueNSSStyle(listPickerItemConfiguration: configuration, nssData: self.data.value(configuration.valueIdentifier)))
+            .mandatoryFieldIndicatorStyle(MandatoryFieldIndicatorNSSStyle(listPickerItemConfiguration: configuration, nssData: self.data.value(configuration.mandatoryFieldIndicatorIdentifier)))
+            .formViewStyle(FormViewNSSStyle(listPickerItemConfiguration: configuration, nssData: self.data.value(configuration.formViewIdentifier)))
+            .listPickerItemStyle(ContentNSSStyle(listPickerItemConfiguration: configuration, nssData: self.data.value(configuration.contentIdentifier)))
     }
 }

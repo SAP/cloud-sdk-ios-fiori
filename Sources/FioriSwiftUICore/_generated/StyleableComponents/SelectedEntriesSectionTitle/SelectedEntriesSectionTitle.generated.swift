@@ -25,8 +25,10 @@ public extension SelectedEntriesSectionTitle {
 }
 
 public extension SelectedEntriesSectionTitle {
-    init(selectedEntriesSectionTitle: AttributedString? = AttributedString("Selected".localizedFioriString())) {
-        self.init(selectedEntriesSectionTitle: { OptionalText(selectedEntriesSectionTitle) })
+    init(selectedEntriesSectionTitle: AttributedString? = AttributedString("Selected".localizedFioriString()),
+         componentIdentifier: String? = SelectedEntriesSectionTitle.identifier)
+    {
+        self.init(selectedEntriesSectionTitle: { OptionalText(selectedEntriesSectionTitle) }, componentIdentifier: componentIdentifier)
     }
 }
 

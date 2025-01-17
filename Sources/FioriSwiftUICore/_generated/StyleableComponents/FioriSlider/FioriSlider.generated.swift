@@ -303,9 +303,10 @@ public extension FioriSlider {
          showsLeadingAccessory: Bool = true,
          showsTrailingAccessory: Bool = true,
          onValueChange: ((Bool, Double) -> Void)? = nil,
-         onEditFieldFocusStatusChange: ((Bool) -> Void)? = nil)
+         onEditFieldFocusStatusChange: ((Bool) -> Void)? = nil,
+         componentIdentifier: String? = FioriSlider.identifier)
     {
-        self.init(title: { Text(title) }, valueLabel: { OptionalText(valueLabel) }, lowerThumb: { lowerThumb }, upperThumb: { upperThumb }, activeTrack: { activeTrack }, inactiveTrack: { inactiveTrack }, lowerValue: lowerValue, upperValue: upperValue, range: range, step: step, decimalPlaces: decimalPlaces, thumbHalfWidth: thumbHalfWidth, showsLowerThumb: showsLowerThumb, showsUpperThumb: showsUpperThumb, onRangeValueChange: onRangeValueChange, icon: { icon }, description: { OptionalText(description) }, leadingAccessory: leadingAccessory, trailingAccessory: trailingAccessory, isRangeSlider: isRangeSlider, valueFormat: valueFormat, rangeFormat: rangeFormat, leadingValueFormat: leadingValueFormat, trailingValueFormat: trailingValueFormat, showsValueLabel: showsValueLabel, showsLeadingAccessory: showsLeadingAccessory, showsTrailingAccessory: showsTrailingAccessory, onValueChange: onValueChange, onEditFieldFocusStatusChange: onEditFieldFocusStatusChange)
+        self.init(title: { Text(title) }, valueLabel: { OptionalText(valueLabel) }, lowerThumb: { lowerThumb }, upperThumb: { upperThumb }, activeTrack: { activeTrack }, inactiveTrack: { inactiveTrack }, lowerValue: lowerValue, upperValue: upperValue, range: range, step: step, decimalPlaces: decimalPlaces, thumbHalfWidth: thumbHalfWidth, showsLowerThumb: showsLowerThumb, showsUpperThumb: showsUpperThumb, onRangeValueChange: onRangeValueChange, icon: { icon }, description: { OptionalText(description) }, leadingAccessory: leadingAccessory, trailingAccessory: trailingAccessory, isRangeSlider: isRangeSlider, valueFormat: valueFormat, rangeFormat: rangeFormat, leadingValueFormat: leadingValueFormat, trailingValueFormat: trailingValueFormat, showsValueLabel: showsValueLabel, showsLeadingAccessory: showsLeadingAccessory, showsTrailingAccessory: showsTrailingAccessory, onValueChange: onValueChange, onEditFieldFocusStatusChange: onEditFieldFocusStatusChange, componentIdentifier: componentIdentifier)
     }
 }
 

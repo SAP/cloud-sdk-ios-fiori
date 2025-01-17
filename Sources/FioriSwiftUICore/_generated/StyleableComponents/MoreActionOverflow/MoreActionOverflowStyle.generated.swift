@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -26,6 +27,12 @@ public struct MoreActionOverflowConfiguration {
     public let moreActionOverflow: MoreActionOverflow
 
     public typealias MoreActionOverflow = ConfigurationViewWrapper
+}
+
+public extension MoreActionOverflowConfiguration {
+    var moreActionOverflowIdentifier: String {
+        self.componentIdentifier + "_moreActionOverflow"
+    }
 }
 
 extension MoreActionOverflowConfiguration {

@@ -23,6 +23,21 @@ public struct LinearProgressIndicatorFioriStyle: LinearProgressIndicatorStyle {
     }
 }
 
+// Default nss styles
+public struct LinearProgressIndicatorNSSStyle: LinearProgressIndicatorStyle {
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
+
+    public func makeBody(_ configuration: LinearProgressIndicatorConfiguration) -> some View {
+        LinearProgressIndicator(configuration)
+            .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.data.value(configuration.linearProgressIndicatorIdentifier)))
+        // Add custom nss style for its content
+        // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+    }
+}
+
 /// Determinate styles
 public struct LinearProgressIndicatorDeterminateStyle: LinearProgressIndicatorStyle {
     public func makeBody(_ configuration: LinearProgressIndicatorConfiguration) -> some View {

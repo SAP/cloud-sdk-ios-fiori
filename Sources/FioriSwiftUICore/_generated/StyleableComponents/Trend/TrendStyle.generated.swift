@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -22,7 +23,20 @@ struct AnyTrendStyle: TrendStyle {
 }
 
 public struct TrendConfiguration {
+    public var componentIdentifier: String = "fiori_trend_component"
     public let trend: Trend
 
     public typealias Trend = ConfigurationViewWrapper
+}
+
+public extension TrendConfiguration {
+    var trendIdentifier: String {
+        self.componentIdentifier + "_trend"
+    }
+}
+
+extension TrendConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }

@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -26,6 +27,12 @@ public struct SelectAllActionConfiguration {
     public let selectAllAction: SelectAllAction
 
     public typealias SelectAllAction = ConfigurationViewWrapper
+}
+
+public extension SelectAllActionConfiguration {
+    var selectAllActionIdentifier: String {
+        self.componentIdentifier + "_selectAllAction"
+    }
 }
 
 extension SelectAllActionConfiguration {

@@ -26,3 +26,18 @@ public struct SubstatusFioriStyle: SubstatusStyle {
             .font(.fiori(forTextStyle: .subheadline))
     }
 }
+
+// Default nss styles
+public struct SubstatusNSSStyle: SubstatusStyle {
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
+
+    public func makeBody(_ configuration: SubstatusConfiguration) -> some View {
+        Substatus(configuration)
+            .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.data.value(configuration.substatusIdentifier)))
+        // Add custom nss style for its content
+        // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+    }
+}

@@ -25,8 +25,10 @@ public extension GreetingText {
 }
 
 public extension GreetingText {
-    init(greetingText: AttributedString) {
-        self.init(greetingText: { Text(greetingText) })
+    init(greetingText: AttributedString,
+         componentIdentifier: String? = GreetingText.identifier)
+    {
+        self.init(greetingText: { Text(greetingText) }, componentIdentifier: componentIdentifier)
     }
 }
 

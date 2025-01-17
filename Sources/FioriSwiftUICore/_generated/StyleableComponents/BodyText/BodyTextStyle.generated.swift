@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -26,6 +27,12 @@ public struct BodyTextConfiguration {
     public let bodyText: BodyText
 
     public typealias BodyText = ConfigurationViewWrapper
+}
+
+public extension BodyTextConfiguration {
+    var bodyTextIdentifier: String {
+        self.componentIdentifier + "_bodyText"
+    }
 }
 
 extension BodyTextConfiguration {

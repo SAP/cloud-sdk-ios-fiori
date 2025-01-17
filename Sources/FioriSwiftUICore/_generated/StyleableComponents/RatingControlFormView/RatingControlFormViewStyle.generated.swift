@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -55,6 +56,44 @@ public struct RatingControlFormViewConfiguration {
     public typealias Subtitle = ConfigurationViewWrapper
 }
 
+public extension RatingControlFormViewConfiguration {
+    var contentIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
+
+    var titleIdentifier: String {
+        self.componentIdentifier + "_title"
+    }
+
+    var valueLabelIdentifier: String {
+        self.componentIdentifier + "_valueLabel"
+    }
+
+    var onStarImageIdentifier: String {
+        self.componentIdentifier + "_onStarImage"
+    }
+
+    var offStarImageIdentifier: String {
+        self.componentIdentifier + "_offStarImage"
+    }
+
+    var halfStarImageIdentifier: String {
+        self.componentIdentifier + "_halfStarImage"
+    }
+
+    var reviewCountLabelIdentifier: String {
+        self.componentIdentifier + "_reviewCountLabel"
+    }
+
+    var subtitleIdentifier: String {
+        self.componentIdentifier + "_subtitle"
+    }
+
+    var ratingControlIdentifier: String {
+        self.componentIdentifier + "_ratingControl"
+    }
+}
+
 extension RatingControlFormViewConfiguration {
     func isDirectChild(_ componentIdentifier: String) -> Bool {
         componentIdentifier == self.componentIdentifier
@@ -72,5 +111,25 @@ public struct RatingControlFormViewFioriStyle: RatingControlFormViewStyle {
             .reviewCountLabelStyle(ReviewCountLabelFioriStyle(ratingControlFormViewConfiguration: configuration))
             .subtitleStyle(SubtitleFioriStyle(ratingControlFormViewConfiguration: configuration))
             .ratingControlStyle(RatingControlFioriStyle(ratingControlFormViewConfiguration: configuration))
+    }
+}
+
+public struct RatingControlFormViewNSSStyle: RatingControlFormViewStyle {
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
+
+    public func makeBody(_ configuration: RatingControlFormViewConfiguration) -> some View {
+        RatingControlFormView(configuration)
+            .titleStyle(TitleNSSStyle(ratingControlFormViewConfiguration: configuration, nssData: self.data.value(configuration.titleIdentifier)))
+            .valueLabelStyle(ValueLabelNSSStyle(ratingControlFormViewConfiguration: configuration, nssData: self.data.value(configuration.valueLabelIdentifier)))
+            .onStarImageStyle(OnStarImageNSSStyle(ratingControlFormViewConfiguration: configuration, nssData: self.data.value(configuration.onStarImageIdentifier)))
+            .offStarImageStyle(OffStarImageNSSStyle(ratingControlFormViewConfiguration: configuration, nssData: self.data.value(configuration.offStarImageIdentifier)))
+            .halfStarImageStyle(HalfStarImageNSSStyle(ratingControlFormViewConfiguration: configuration, nssData: self.data.value(configuration.halfStarImageIdentifier)))
+            .reviewCountLabelStyle(ReviewCountLabelNSSStyle(ratingControlFormViewConfiguration: configuration, nssData: self.data.value(configuration.reviewCountLabelIdentifier)))
+            .subtitleStyle(SubtitleNSSStyle(ratingControlFormViewConfiguration: configuration, nssData: self.data.value(configuration.subtitleIdentifier)))
+            .ratingControlStyle(RatingControlNSSStyle(ratingControlFormViewConfiguration: configuration, nssData: self.data.value(configuration.ratingControlIdentifier)))
+            .ratingControlFormViewStyle(ContentNSSStyle(ratingControlFormViewConfiguration: configuration, nssData: self.data.value(configuration.contentIdentifier)))
     }
 }

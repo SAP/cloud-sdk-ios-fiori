@@ -28,8 +28,10 @@ public extension HalfStarImage {
 }
 
 public extension HalfStarImage {
-    init(halfStarImage: Image = FioriIcon.actions.halfStar.renderingMode(.template).resizable()) {
-        self.init(halfStarImage: { halfStarImage })
+    init(halfStarImage: Image = FioriIcon.actions.halfStar.renderingMode(.template).resizable(),
+         componentIdentifier: String? = HalfStarImage.identifier)
+    {
+        self.init(halfStarImage: { halfStarImage }, componentIdentifier: componentIdentifier)
     }
 }
 

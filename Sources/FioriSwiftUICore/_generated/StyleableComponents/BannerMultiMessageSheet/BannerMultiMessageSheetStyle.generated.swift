@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -36,6 +37,20 @@ public struct BannerMultiMessageSheetConfiguration {
     public typealias CloseAction = ConfigurationViewWrapper
 }
 
+public extension BannerMultiMessageSheetConfiguration {
+    var contentIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
+
+    var titleIdentifier: String {
+        self.componentIdentifier + "_title"
+    }
+
+    var closeActionIdentifier: String {
+        self.componentIdentifier + "_closeAction"
+    }
+}
+
 extension BannerMultiMessageSheetConfiguration {
     func isDirectChild(_ componentIdentifier: String) -> Bool {
         componentIdentifier == self.componentIdentifier
@@ -47,5 +62,19 @@ public struct BannerMultiMessageSheetFioriStyle: BannerMultiMessageSheetStyle {
         BannerMultiMessageSheet(configuration)
             .titleStyle(TitleFioriStyle(bannerMultiMessageSheetConfiguration: configuration))
             .closeActionStyle(CloseActionFioriStyle(bannerMultiMessageSheetConfiguration: configuration))
+    }
+}
+
+public struct BannerMultiMessageSheetNSSStyle: BannerMultiMessageSheetStyle {
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
+
+    public func makeBody(_ configuration: BannerMultiMessageSheetConfiguration) -> some View {
+        BannerMultiMessageSheet(configuration)
+            .titleStyle(TitleNSSStyle(bannerMultiMessageSheetConfiguration: configuration, nssData: self.data.value(configuration.titleIdentifier)))
+            .closeActionStyle(CloseActionNSSStyle(bannerMultiMessageSheetConfiguration: configuration, nssData: self.data.value(configuration.closeActionIdentifier)))
+            .bannerMultiMessageSheetStyle(ContentNSSStyle(bannerMultiMessageSheetConfiguration: configuration, nssData: self.data.value(configuration.contentIdentifier)))
     }
 }

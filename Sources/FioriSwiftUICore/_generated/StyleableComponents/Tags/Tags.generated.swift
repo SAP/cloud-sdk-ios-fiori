@@ -25,8 +25,10 @@ public extension Tags {
 }
 
 public extension Tags {
-    init(tags: [AttributedString] = []) {
-        self.init(tags: { TagStack(tags) })
+    init(tags: [AttributedString] = [],
+         componentIdentifier: String? = Tags.identifier)
+    {
+        self.init(tags: { TagStack(tags) }, componentIdentifier: componentIdentifier)
     }
 }
 

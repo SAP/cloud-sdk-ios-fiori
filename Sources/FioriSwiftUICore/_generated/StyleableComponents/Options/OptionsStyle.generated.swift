@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -24,6 +25,12 @@ struct AnyOptionsStyle: OptionsStyle {
 public struct OptionsConfiguration {
     public var componentIdentifier: String = "fiori_options_component"
     public let options: [AttributedString]
+}
+
+public extension OptionsConfiguration {
+    var optionsIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
 }
 
 extension OptionsConfiguration {

@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -26,6 +27,12 @@ public struct MessageContentConfiguration {
     public let messageContent: MessageContent
 
     public typealias MessageContent = ConfigurationViewWrapper
+}
+
+public extension MessageContentConfiguration {
+    var messageContentIdentifier: String {
+        self.componentIdentifier + "_messageContent"
+    }
 }
 
 extension MessageContentConfiguration {

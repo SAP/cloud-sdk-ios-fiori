@@ -25,8 +25,10 @@ public extension ReviewCountLabel {
 }
 
 public extension ReviewCountLabel {
-    init(reviewCountLabel: AttributedString? = nil) {
-        self.init(reviewCountLabel: { OptionalText(reviewCountLabel) })
+    init(reviewCountLabel: AttributedString? = nil,
+         componentIdentifier: String? = ReviewCountLabel.identifier)
+    {
+        self.init(reviewCountLabel: { OptionalText(reviewCountLabel) }, componentIdentifier: componentIdentifier)
     }
 }
 

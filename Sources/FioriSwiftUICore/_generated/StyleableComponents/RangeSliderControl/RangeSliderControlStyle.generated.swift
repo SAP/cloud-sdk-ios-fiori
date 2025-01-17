@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -43,6 +44,28 @@ public struct RangeSliderControlConfiguration {
     public typealias InactiveTrack = ConfigurationViewWrapper
 }
 
+public extension RangeSliderControlConfiguration {
+    var contentIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
+
+    var lowerThumbIdentifier: String {
+        self.componentIdentifier + "_lowerThumb"
+    }
+
+    var upperThumbIdentifier: String {
+        self.componentIdentifier + "_upperThumb"
+    }
+
+    var activeTrackIdentifier: String {
+        self.componentIdentifier + "_activeTrack"
+    }
+
+    var inactiveTrackIdentifier: String {
+        self.componentIdentifier + "_inactiveTrack"
+    }
+}
+
 extension RangeSliderControlConfiguration {
     func isDirectChild(_ componentIdentifier: String) -> Bool {
         componentIdentifier == self.componentIdentifier
@@ -56,5 +79,21 @@ public struct RangeSliderControlFioriStyle: RangeSliderControlStyle {
             .upperThumbStyle(UpperThumbFioriStyle(rangeSliderControlConfiguration: configuration))
             .activeTrackStyle(ActiveTrackFioriStyle(rangeSliderControlConfiguration: configuration))
             .inactiveTrackStyle(InactiveTrackFioriStyle(rangeSliderControlConfiguration: configuration))
+    }
+}
+
+public struct RangeSliderControlNSSStyle: RangeSliderControlStyle {
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
+
+    public func makeBody(_ configuration: RangeSliderControlConfiguration) -> some View {
+        RangeSliderControl(configuration)
+            .lowerThumbStyle(LowerThumbNSSStyle(rangeSliderControlConfiguration: configuration, nssData: self.data.value(configuration.lowerThumbIdentifier)))
+            .upperThumbStyle(UpperThumbNSSStyle(rangeSliderControlConfiguration: configuration, nssData: self.data.value(configuration.upperThumbIdentifier)))
+            .activeTrackStyle(ActiveTrackNSSStyle(rangeSliderControlConfiguration: configuration, nssData: self.data.value(configuration.activeTrackIdentifier)))
+            .inactiveTrackStyle(InactiveTrackNSSStyle(rangeSliderControlConfiguration: configuration, nssData: self.data.value(configuration.inactiveTrackIdentifier)))
+            .rangeSliderControlStyle(ContentNSSStyle(rangeSliderControlConfiguration: configuration, nssData: self.data.value(configuration.contentIdentifier)))
     }
 }

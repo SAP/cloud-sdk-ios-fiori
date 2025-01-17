@@ -24,3 +24,18 @@ public struct TagsFioriStyle: TagsStyle {
         Tags(configuration)
     }
 }
+
+// Default nss styles
+public struct TagsNSSStyle: TagsStyle {
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
+
+    public func makeBody(_ configuration: TagsConfiguration) -> some View {
+        Tags(configuration)
+            .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.data.value(configuration.tagsIdentifier)))
+        // Add custom nss style for its content
+        // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+    }
+}

@@ -25,8 +25,10 @@ public extension SubAttribute {
 }
 
 public extension SubAttribute {
-    init(subAttribute: AttributedString? = nil) {
-        self.init(subAttribute: { OptionalText(subAttribute) })
+    init(subAttribute: AttributedString? = nil,
+         componentIdentifier: String? = SubAttribute.identifier)
+    {
+        self.init(subAttribute: { OptionalText(subAttribute) }, componentIdentifier: componentIdentifier)
     }
 }
 

@@ -27,3 +27,18 @@ public struct MoreActionOverflowFioriStyle: MoreActionOverflowStyle {
         MoreActionOverflow(configuration)
     }
 }
+
+// Default nss styles
+public struct MoreActionOverflowNSSStyle: MoreActionOverflowStyle {
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
+
+    public func makeBody(_ configuration: MoreActionOverflowConfiguration) -> some View {
+        MoreActionOverflow(configuration)
+            .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.data.value(configuration.moreActionOverflowIdentifier)))
+        // Add custom nss style for its content
+        // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+    }
+}

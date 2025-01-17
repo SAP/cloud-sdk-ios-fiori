@@ -143,3 +143,53 @@ extension SingleStepFioriStyle {
         }
     }
 }
+
+// Default nss styles
+extension SingleStepNSSStyle {
+    struct ContentNSSStyle: SingleStepStyle {
+        let singleStepConfiguration: SingleStepConfiguration
+        let nssData: NSSStyleData
+        func makeBody(_ configuration: SingleStepConfiguration) -> some View {
+            SingleStep(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for its content
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct TitleNSSStyle: TitleStyle {
+        let singleStepConfiguration: SingleStepConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: TitleConfiguration) -> some View {
+            Title(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Title
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct NodeNSSStyle: NodeStyle {
+        let singleStepConfiguration: SingleStepConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: NodeConfiguration) -> some View {
+            Node(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Node
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct LineNSSStyle: LineStyle {
+        let singleStepConfiguration: SingleStepConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: LineConfiguration) -> some View {
+            Line(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Line
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+}

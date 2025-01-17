@@ -25,8 +25,10 @@ public extension HeaderAction {
 }
 
 public extension HeaderAction {
-    init(headerAction: FioriButton? = nil) {
-        self.init(headerAction: { headerAction })
+    init(headerAction: FioriButton? = nil,
+         componentIdentifier: String? = HeaderAction.identifier)
+    {
+        self.init(headerAction: { headerAction }, componentIdentifier: componentIdentifier)
     }
 }
 

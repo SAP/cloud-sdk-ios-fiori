@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -32,6 +33,20 @@ public struct LoadingIndicatorConfiguration {
     public typealias Progress = ConfigurationViewWrapper
 }
 
+public extension LoadingIndicatorConfiguration {
+    var contentIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
+
+    var titleIdentifier: String {
+        self.componentIdentifier + "_title"
+    }
+
+    var progressIdentifier: String {
+        self.componentIdentifier + "_progress"
+    }
+}
+
 extension LoadingIndicatorConfiguration {
     func isDirectChild(_ componentIdentifier: String) -> Bool {
         componentIdentifier == self.componentIdentifier
@@ -43,5 +58,19 @@ public struct LoadingIndicatorFioriStyle: LoadingIndicatorStyle {
         LoadingIndicator(configuration)
             .titleStyle(TitleFioriStyle(loadingIndicatorConfiguration: configuration))
             .progressStyle(ProgressFioriStyle(loadingIndicatorConfiguration: configuration))
+    }
+}
+
+public struct LoadingIndicatorNSSStyle: LoadingIndicatorStyle {
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
+
+    public func makeBody(_ configuration: LoadingIndicatorConfiguration) -> some View {
+        LoadingIndicator(configuration)
+            .titleStyle(TitleNSSStyle(loadingIndicatorConfiguration: configuration, nssData: self.data.value(configuration.titleIdentifier)))
+            .progressStyle(ProgressNSSStyle(loadingIndicatorConfiguration: configuration, nssData: self.data.value(configuration.progressIdentifier)))
+            .loadingIndicatorStyle(ContentNSSStyle(loadingIndicatorConfiguration: configuration, nssData: self.data.value(configuration.contentIdentifier)))
     }
 }

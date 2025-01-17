@@ -172,3 +172,77 @@ extension HeaderChartFioriStyle {
         }
     }
 }
+
+// Default nss styles
+extension HeaderChartNSSStyle {
+    struct ContentNSSStyle: HeaderChartStyle {
+        let headerChartConfiguration: HeaderChartConfiguration
+        let nssData: NSSStyleData
+        func makeBody(_ configuration: HeaderChartConfiguration) -> some View {
+            HeaderChart(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for its content
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct TitleNSSStyle: TitleStyle {
+        let headerChartConfiguration: HeaderChartConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: TitleConfiguration) -> some View {
+            Title(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Title
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct SubtitleNSSStyle: SubtitleStyle {
+        let headerChartConfiguration: HeaderChartConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: SubtitleConfiguration) -> some View {
+            Subtitle(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Subtitle
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct TrendNSSStyle: TrendStyle {
+        let headerChartConfiguration: HeaderChartConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: TrendConfiguration) -> some View {
+            Trend(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Trend
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct TrendImageNSSStyle: TrendImageStyle {
+        let headerChartConfiguration: HeaderChartConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: TrendImageConfiguration) -> some View {
+            TrendImage(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for TrendImage
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct KpiNSSStyle: KpiStyle {
+        let headerChartConfiguration: HeaderChartConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: KpiConfiguration) -> some View {
+            Kpi(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Kpi
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+}

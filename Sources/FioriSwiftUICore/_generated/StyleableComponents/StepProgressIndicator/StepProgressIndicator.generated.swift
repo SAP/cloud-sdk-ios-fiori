@@ -53,9 +53,10 @@ public extension StepProgressIndicator {
          action: FioriButton? = nil,
          cancelAction: FioriButton? = FioriButton { _ in Text("Cancel".localizedFioriString()) },
          selection: Binding<String>,
-         steps: [StepItem] = [])
+         steps: [StepItem] = [],
+         componentIdentifier: String? = StepProgressIndicator.identifier)
     {
-        self.init(title: { Text(title) }, action: { action }, cancelAction: { cancelAction }, selection: selection, steps: { StepsStack(steps) })
+        self.init(title: { Text(title) }, action: { action }, cancelAction: { cancelAction }, selection: selection, steps: { StepsStack(steps) }, componentIdentifier: componentIdentifier)
     }
 }
 

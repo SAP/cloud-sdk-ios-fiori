@@ -420,6 +420,164 @@ extension FioriSliderFioriStyle {
     }
 }
 
+// Default nss styles
+extension FioriSliderNSSStyle {
+    struct ContentNSSStyle: FioriSliderStyle {
+        let fioriSliderConfiguration: FioriSliderConfiguration
+        let nssData: NSSStyleData
+        func makeBody(_ configuration: FioriSliderConfiguration) -> some View {
+            FioriSlider(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for its content
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct TitleNSSStyle: TitleStyle {
+        let fioriSliderConfiguration: FioriSliderConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: TitleConfiguration) -> some View {
+            Title(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Title
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct ValueLabelNSSStyle: ValueLabelStyle {
+        let fioriSliderConfiguration: FioriSliderConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: ValueLabelConfiguration) -> some View {
+            ValueLabel(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for ValueLabel
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct LowerThumbNSSStyle: LowerThumbStyle {
+        let fioriSliderConfiguration: FioriSliderConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: LowerThumbConfiguration) -> some View {
+            LowerThumb(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for LowerThumb
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct UpperThumbNSSStyle: UpperThumbStyle {
+        let fioriSliderConfiguration: FioriSliderConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: UpperThumbConfiguration) -> some View {
+            UpperThumb(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for UpperThumb
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct ActiveTrackNSSStyle: ActiveTrackStyle {
+        let fioriSliderConfiguration: FioriSliderConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: ActiveTrackConfiguration) -> some View {
+            ActiveTrack(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for ActiveTrack
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct InactiveTrackNSSStyle: InactiveTrackStyle {
+        let fioriSliderConfiguration: FioriSliderConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: InactiveTrackConfiguration) -> some View {
+            InactiveTrack(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for InactiveTrack
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct IconNSSStyle: IconStyle {
+        let fioriSliderConfiguration: FioriSliderConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: IconConfiguration) -> some View {
+            Icon(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Icon
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct DescriptionNSSStyle: DescriptionStyle {
+        let fioriSliderConfiguration: FioriSliderConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: DescriptionConfiguration) -> some View {
+            Description(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Description
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct LeadingAccessoryNSSStyle: LeadingAccessoryStyle {
+        let fioriSliderConfiguration: FioriSliderConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: LeadingAccessoryConfiguration) -> some View {
+            LeadingAccessory(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for LeadingAccessory
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct TrailingAccessoryNSSStyle: TrailingAccessoryStyle {
+        let fioriSliderConfiguration: FioriSliderConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: TrailingAccessoryConfiguration) -> some View {
+            TrailingAccessory(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for TrailingAccessory
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct RangeSliderControlNSSStyle: RangeSliderControlStyle {
+        let fioriSliderConfiguration: FioriSliderConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: RangeSliderControlConfiguration) -> some View {
+            RangeSliderControl(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for RangeSliderControl
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct InformationViewNSSStyle: InformationViewStyle {
+        let fioriSliderConfiguration: FioriSliderConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: InformationViewConfiguration) -> some View {
+            InformationView(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for InformationView
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+}
+
 public extension FioriSlider {
     /// Adjust the accessibility label and value for the standard slider. By default, the standard slider uses SwiftUI's default accessibility behavior to combine all subviews.
     /// However, this function allows you to adjust the accessibility label and value for the standard slider.

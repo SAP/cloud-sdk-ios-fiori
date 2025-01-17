@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -24,6 +25,12 @@ struct AnySwitchStyle: SwitchStyle {
 public struct SwitchConfiguration {
     public var componentIdentifier: String = "fiori_switch_component"
     @Binding public var isOn: Bool
+}
+
+public extension SwitchConfiguration {
+    var switchIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
 }
 
 extension SwitchConfiguration {

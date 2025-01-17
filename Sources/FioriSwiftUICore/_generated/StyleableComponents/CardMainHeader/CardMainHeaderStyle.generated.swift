@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -38,6 +39,36 @@ public struct CardMainHeaderConfiguration {
     public typealias Counter = ConfigurationViewWrapper
 }
 
+public extension CardMainHeaderConfiguration {
+    var contentIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
+
+    var titleIdentifier: String {
+        self.componentIdentifier + "_title"
+    }
+
+    var subtitleIdentifier: String {
+        self.componentIdentifier + "_subtitle"
+    }
+
+    var iconsIdentifier: String {
+        self.componentIdentifier + "_icons"
+    }
+
+    var detailImageIdentifier: String {
+        self.componentIdentifier + "_detailImage"
+    }
+
+    var headerActionIdentifier: String {
+        self.componentIdentifier + "_headerAction"
+    }
+
+    var counterIdentifier: String {
+        self.componentIdentifier + "_counter"
+    }
+}
+
 extension CardMainHeaderConfiguration {
     func isDirectChild(_ componentIdentifier: String) -> Bool {
         componentIdentifier == self.componentIdentifier
@@ -53,5 +84,23 @@ public struct CardMainHeaderFioriStyle: CardMainHeaderStyle {
             .detailImageStyle(DetailImageFioriStyle(cardMainHeaderConfiguration: configuration))
             .headerActionStyle(HeaderActionFioriStyle(cardMainHeaderConfiguration: configuration))
             .counterStyle(CounterFioriStyle(cardMainHeaderConfiguration: configuration))
+    }
+}
+
+public struct CardMainHeaderNSSStyle: CardMainHeaderStyle {
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
+
+    public func makeBody(_ configuration: CardMainHeaderConfiguration) -> some View {
+        CardMainHeader(configuration)
+            .titleStyle(TitleNSSStyle(cardMainHeaderConfiguration: configuration, nssData: self.data.value(configuration.titleIdentifier)))
+            .subtitleStyle(SubtitleNSSStyle(cardMainHeaderConfiguration: configuration, nssData: self.data.value(configuration.subtitleIdentifier)))
+            .iconsStyle(IconsNSSStyle(cardMainHeaderConfiguration: configuration, nssData: self.data.value(configuration.iconsIdentifier)))
+            .detailImageStyle(DetailImageNSSStyle(cardMainHeaderConfiguration: configuration, nssData: self.data.value(configuration.detailImageIdentifier)))
+            .headerActionStyle(HeaderActionNSSStyle(cardMainHeaderConfiguration: configuration, nssData: self.data.value(configuration.headerActionIdentifier)))
+            .counterStyle(CounterNSSStyle(cardMainHeaderConfiguration: configuration, nssData: self.data.value(configuration.counterIdentifier)))
+            .cardMainHeaderStyle(ContentNSSStyle(cardMainHeaderConfiguration: configuration, nssData: self.data.value(configuration.contentIdentifier)))
     }
 }

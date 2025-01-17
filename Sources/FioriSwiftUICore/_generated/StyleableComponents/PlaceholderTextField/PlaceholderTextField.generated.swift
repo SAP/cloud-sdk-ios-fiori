@@ -29,9 +29,10 @@ public extension PlaceholderTextField {
 
 public extension PlaceholderTextField {
     init(text: Binding<String>,
-         placeholder: AttributedString? = nil)
+         placeholder: AttributedString? = nil,
+         componentIdentifier: String? = PlaceholderTextField.identifier)
     {
-        self.init(text: text, placeholder: { OptionalText(placeholder) })
+        self.init(text: text, placeholder: { OptionalText(placeholder) }, componentIdentifier: componentIdentifier)
     }
 }
 

@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -26,6 +27,12 @@ public struct OptionalTitleConfiguration {
     public let optionalTitle: OptionalTitle
 
     public typealias OptionalTitle = ConfigurationViewWrapper
+}
+
+public extension OptionalTitleConfiguration {
+    var optionalTitleIdentifier: String {
+        self.componentIdentifier + "_optionalTitle"
+    }
 }
 
 extension OptionalTitleConfiguration {

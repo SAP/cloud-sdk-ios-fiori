@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -36,6 +37,32 @@ struct DemoViewConfiguration {
 }
 
 extension DemoViewConfiguration {
+    public var contentIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
+
+    public var titleIdentifier: String {
+        self.componentIdentifier + "_title"
+    }
+
+    public var subtitleIdentifier: String {
+        self.componentIdentifier + "_subtitle"
+    }
+
+    public var statusIdentifier: String {
+        self.componentIdentifier + "_status"
+    }
+
+    public var actionIdentifier: String {
+        self.componentIdentifier + "_action"
+    }
+
+    public var switchIdentifier: String {
+        self.componentIdentifier + "_switch"
+    }
+}
+
+extension DemoViewConfiguration {
     func isDirectChild(_ componentIdentifier: String) -> Bool {
         componentIdentifier == self.componentIdentifier
     }
@@ -49,5 +76,22 @@ struct DemoViewFioriStyle: DemoViewStyle {
             .statusStyle(StatusFioriStyle(demoViewConfiguration: configuration))
             .actionStyle(ActionFioriStyle(demoViewConfiguration: configuration))
             .switchStyle(SwitchFioriStyle(demoViewConfiguration: configuration))
+    }
+}
+
+struct DemoViewNSSStyle: DemoViewStyle {
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
+
+    public func makeBody(_ configuration: DemoViewConfiguration) -> some View {
+        DemoView(configuration)
+            .titleStyle(TitleNSSStyle(demoViewConfiguration: configuration, nssData: self.data.value(configuration.titleIdentifier)))
+            .subtitleStyle(SubtitleNSSStyle(demoViewConfiguration: configuration, nssData: self.data.value(configuration.subtitleIdentifier)))
+            .statusStyle(StatusNSSStyle(demoViewConfiguration: configuration, nssData: self.data.value(configuration.statusIdentifier)))
+            .actionStyle(ActionNSSStyle(demoViewConfiguration: configuration, nssData: self.data.value(configuration.actionIdentifier)))
+            .switchStyle(SwitchNSSStyle(demoViewConfiguration: configuration, nssData: self.data.value(configuration.switchIdentifier)))
+            .demoViewStyle(ContentNSSStyle(demoViewConfiguration: configuration, nssData: self.data.value(configuration.contentIdentifier)))
     }
 }

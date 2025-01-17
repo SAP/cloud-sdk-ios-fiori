@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -39,6 +40,28 @@ public struct BannerMessageConfiguration {
     public typealias TopDivider = ConfigurationViewWrapper
 }
 
+public extension BannerMessageConfiguration {
+    var contentIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
+
+    var iconIdentifier: String {
+        self.componentIdentifier + "_icon"
+    }
+
+    var titleIdentifier: String {
+        self.componentIdentifier + "_title"
+    }
+
+    var closeActionIdentifier: String {
+        self.componentIdentifier + "_closeAction"
+    }
+
+    var topDividerIdentifier: String {
+        self.componentIdentifier + "_topDivider"
+    }
+}
+
 extension BannerMessageConfiguration {
     func isDirectChild(_ componentIdentifier: String) -> Bool {
         componentIdentifier == self.componentIdentifier
@@ -52,5 +75,21 @@ public struct BannerMessageFioriStyle: BannerMessageStyle {
             .titleStyle(TitleFioriStyle(bannerMessageConfiguration: configuration))
             .closeActionStyle(CloseActionFioriStyle(bannerMessageConfiguration: configuration))
             .topDividerStyle(TopDividerFioriStyle(bannerMessageConfiguration: configuration))
+    }
+}
+
+public struct BannerMessageNSSStyle: BannerMessageStyle {
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
+
+    public func makeBody(_ configuration: BannerMessageConfiguration) -> some View {
+        BannerMessage(configuration)
+            .iconStyle(IconNSSStyle(bannerMessageConfiguration: configuration, nssData: self.data.value(configuration.iconIdentifier)))
+            .titleStyle(TitleNSSStyle(bannerMessageConfiguration: configuration, nssData: self.data.value(configuration.titleIdentifier)))
+            .closeActionStyle(CloseActionNSSStyle(bannerMessageConfiguration: configuration, nssData: self.data.value(configuration.closeActionIdentifier)))
+            .topDividerStyle(TopDividerNSSStyle(bannerMessageConfiguration: configuration, nssData: self.data.value(configuration.topDividerIdentifier)))
+            .bannerMessageStyle(ContentNSSStyle(bannerMessageConfiguration: configuration, nssData: self.data.value(configuration.contentIdentifier)))
     }
 }

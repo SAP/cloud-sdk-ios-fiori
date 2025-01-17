@@ -19,3 +19,18 @@ public struct TextViewFioriStyle: TextViewStyle {
             .font(.fiori(forTextStyle: .body))
     }
 }
+
+// Default nss styles
+public struct TextViewNSSStyle: TextViewStyle {
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
+
+    public func makeBody(_ configuration: TextViewConfiguration) -> some View {
+        TextView(configuration)
+            .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.data.value(configuration.textViewIdentifier)))
+        // Add custom nss style for its content
+        // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+    }
+}

@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -26,6 +27,12 @@ public struct KPIContentConfiguration {
     public let kPIContent: KPIContent
 
     public typealias KPIContent = ConfigurationViewWrapper
+}
+
+public extension KPIContentConfiguration {
+    var kPIContentIdentifier: String {
+        self.componentIdentifier + "_kPIContent"
+    }
 }
 
 extension KPIContentConfiguration {

@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -26,6 +27,12 @@ public struct AvatarsConfiguration {
     public let avatars: Avatars
 
     public typealias Avatars = ConfigurationViewWrapper
+}
+
+public extension AvatarsConfiguration {
+    var avatarsIdentifier: String {
+        self.componentIdentifier + "_avatars"
+    }
 }
 
 extension AvatarsConfiguration {

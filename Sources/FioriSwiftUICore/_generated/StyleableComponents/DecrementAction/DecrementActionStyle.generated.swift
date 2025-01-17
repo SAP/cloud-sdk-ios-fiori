@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -26,6 +27,12 @@ public struct DecrementActionConfiguration {
     public let decrementAction: DecrementAction
 
     public typealias DecrementAction = ConfigurationViewWrapper
+}
+
+public extension DecrementActionConfiguration {
+    var decrementActionIdentifier: String {
+        self.componentIdentifier + "_decrementAction"
+    }
 }
 
 extension DecrementActionConfiguration {

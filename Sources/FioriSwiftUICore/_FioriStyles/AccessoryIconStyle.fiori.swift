@@ -28,3 +28,18 @@ public struct AccessoryIconFioriStyle: AccessoryIconStyle {
         AccessoryIcon(configuration)
     }
 }
+
+// Default nss styles
+public struct AccessoryIconNSSStyle: AccessoryIconStyle {
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
+
+    public func makeBody(_ configuration: AccessoryIconConfiguration) -> some View {
+        AccessoryIcon(configuration)
+            .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.data.value(configuration.accessoryIconIdentifier)))
+        // Add custom nss style for its content
+        // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+    }
+}

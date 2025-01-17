@@ -215,3 +215,53 @@ extension StepProgressIndicatorFioriStyle {
         }
     }
 }
+
+// Default nss styles
+extension StepProgressIndicatorNSSStyle {
+    struct ContentNSSStyle: StepProgressIndicatorStyle {
+        let stepProgressIndicatorConfiguration: StepProgressIndicatorConfiguration
+        let nssData: NSSStyleData
+        func makeBody(_ configuration: StepProgressIndicatorConfiguration) -> some View {
+            StepProgressIndicator(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for its content
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct TitleNSSStyle: TitleStyle {
+        let stepProgressIndicatorConfiguration: StepProgressIndicatorConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: TitleConfiguration) -> some View {
+            Title(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Title
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct ActionNSSStyle: ActionStyle {
+        let stepProgressIndicatorConfiguration: StepProgressIndicatorConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: ActionConfiguration) -> some View {
+            Action(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Action
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct CancelActionNSSStyle: CancelActionStyle {
+        let stepProgressIndicatorConfiguration: StepProgressIndicatorConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: CancelActionConfiguration) -> some View {
+            CancelAction(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for CancelAction
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+}

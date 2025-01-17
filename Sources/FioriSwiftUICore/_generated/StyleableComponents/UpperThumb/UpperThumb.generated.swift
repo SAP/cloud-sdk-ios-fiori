@@ -25,8 +25,10 @@ public extension UpperThumb {
 }
 
 public extension UpperThumb {
-    init(upperThumb: any Shape = Circle()) {
-        self.init(upperThumb: { upperThumb })
+    init(upperThumb: any Shape = Circle(),
+         componentIdentifier: String? = UpperThumb.identifier)
+    {
+        self.init(upperThumb: { upperThumb }, componentIdentifier: componentIdentifier)
     }
 }
 

@@ -25,8 +25,10 @@ public extension Tag {
 }
 
 public extension Tag {
-    init(tag: TextOrIcon) {
-        self.init(tag: { TextOrIconView(tag) })
+    init(tag: TextOrIcon,
+         componentIdentifier: String? = Tag.identifier)
+    {
+        self.init(tag: { TextOrIconView(tag) }, componentIdentifier: componentIdentifier)
     }
 }
 

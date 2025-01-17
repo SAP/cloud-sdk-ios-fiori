@@ -59,9 +59,10 @@ public extension BannerMultiMessageSheet {
          viewDetailAction: ((UUID) -> Void)? = nil,
          turnOnSectionHeader: Bool = true,
          @ViewBuilder messageItemView: @escaping (UUID) -> any View = { _ in EmptyView() },
-         bannerMultiMessages: Binding<[BannerMessageListModel]>)
+         bannerMultiMessages: Binding<[BannerMessageListModel]>,
+         componentIdentifier: String? = BannerMultiMessageSheet.identifier)
     {
-        self.init(title: { Text(title) }, closeAction: { closeAction }, dismissAction: dismissAction, removeAction: removeAction, viewDetailAction: viewDetailAction, turnOnSectionHeader: turnOnSectionHeader, messageItemView: messageItemView, bannerMultiMessages: bannerMultiMessages)
+        self.init(title: { Text(title) }, closeAction: { closeAction }, dismissAction: dismissAction, removeAction: removeAction, viewDetailAction: viewDetailAction, turnOnSectionHeader: turnOnSectionHeader, messageItemView: messageItemView, bannerMultiMessages: bannerMultiMessages, componentIdentifier: componentIdentifier)
     }
 }
 

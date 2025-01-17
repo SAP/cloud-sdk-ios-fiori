@@ -25,8 +25,10 @@ public extension DeselectAllAction {
 }
 
 public extension DeselectAllAction {
-    init(deselectAllAction: FioriButton? = FioriButton { _ in Text("Deselect All".localizedFioriString()) }) {
-        self.init(deselectAllAction: { deselectAllAction })
+    init(deselectAllAction: FioriButton? = FioriButton { _ in Text("Deselect All".localizedFioriString()) },
+         componentIdentifier: String? = DeselectAllAction.identifier)
+    {
+        self.init(deselectAllAction: { deselectAllAction }, componentIdentifier: componentIdentifier)
     }
 }
 

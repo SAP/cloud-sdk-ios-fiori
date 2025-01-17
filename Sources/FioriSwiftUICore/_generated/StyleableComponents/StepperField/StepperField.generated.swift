@@ -50,9 +50,10 @@ public extension StepperField {
          incrementAction: FioriButton? = FioriButton { _ in FioriIcon.actions.add },
          step: Double = 1,
          stepRange: ClosedRange<Double>,
-         isDecimalSupported: Bool = false)
+         isDecimalSupported: Bool = false,
+         componentIdentifier: String? = StepperField.identifier)
     {
-        self.init(decrementAction: { decrementAction }, text: text, incrementAction: { incrementAction }, step: step, stepRange: stepRange, isDecimalSupported: isDecimalSupported)
+        self.init(decrementAction: { decrementAction }, text: text, incrementAction: { incrementAction }, step: step, stepRange: stepRange, isDecimalSupported: isDecimalSupported, componentIdentifier: componentIdentifier)
     }
 }
 

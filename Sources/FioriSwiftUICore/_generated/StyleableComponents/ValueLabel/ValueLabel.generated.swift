@@ -25,8 +25,10 @@ public extension ValueLabel {
 }
 
 public extension ValueLabel {
-    init(valueLabel: AttributedString? = nil) {
-        self.init(valueLabel: { OptionalText(valueLabel) })
+    init(valueLabel: AttributedString? = nil,
+         componentIdentifier: String? = ValueLabel.identifier)
+    {
+        self.init(valueLabel: { OptionalText(valueLabel) }, componentIdentifier: componentIdentifier)
     }
 }
 

@@ -25,8 +25,10 @@ public extension MandatoryFieldIndicator {
 }
 
 public extension MandatoryFieldIndicator {
-    init(mandatoryFieldIndicator: TextOrIcon? = .text("*")) {
-        self.init(mandatoryFieldIndicator: { TextOrIconView(mandatoryFieldIndicator) })
+    init(mandatoryFieldIndicator: TextOrIcon? = .text("*"),
+         componentIdentifier: String? = MandatoryFieldIndicator.identifier)
+    {
+        self.init(mandatoryFieldIndicator: { TextOrIconView(mandatoryFieldIndicator) }, componentIdentifier: componentIdentifier)
     }
 }
 

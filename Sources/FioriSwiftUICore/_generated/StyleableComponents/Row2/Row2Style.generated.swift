@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -26,6 +27,12 @@ public struct Row2Configuration {
     public let row2: Row2
 
     public typealias Row2 = ConfigurationViewWrapper
+}
+
+public extension Row2Configuration {
+    var row2Identifier: String {
+        self.componentIdentifier + "_row2"
+    }
 }
 
 extension Row2Configuration {

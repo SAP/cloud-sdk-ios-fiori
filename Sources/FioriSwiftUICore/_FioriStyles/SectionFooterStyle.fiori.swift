@@ -72,6 +72,44 @@ extension SectionFooterFioriStyle {
     }
 }
 
+// Default nss styles
+extension SectionFooterNSSStyle {
+    struct ContentNSSStyle: SectionFooterStyle {
+        let sectionFooterConfiguration: SectionFooterConfiguration
+        let nssData: NSSStyleData
+        func makeBody(_ configuration: SectionFooterConfiguration) -> some View {
+            SectionFooter(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for its content
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct TitleNSSStyle: TitleStyle {
+        let sectionFooterConfiguration: SectionFooterConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: TitleConfiguration) -> some View {
+            Title(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Title
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct AttributeNSSStyle: AttributeStyle {
+        let sectionFooterConfiguration: SectionFooterConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: AttributeConfiguration) -> some View {
+            Attribute(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Attribute
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+}
+
 /// The style determines whether disclosureAccessory of SectionFooter is hidden.
 public struct SectionFooterAccessoryStyle: SectionFooterStyle {
     public var isDisclosureAccessoryHidden: Bool

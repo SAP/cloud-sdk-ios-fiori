@@ -17,3 +17,18 @@ public struct CancelActionFioriStyle: CancelActionStyle {
         CancelAction(configuration)
     }
 }
+
+// Default nss styles
+public struct CancelActionNSSStyle: CancelActionStyle {
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
+
+    public func makeBody(_ configuration: CancelActionConfiguration) -> some View {
+        CancelAction(configuration)
+            .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.data.value(configuration.cancelActionIdentifier)))
+        // Add custom nss style for its content
+        // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+    }
+}

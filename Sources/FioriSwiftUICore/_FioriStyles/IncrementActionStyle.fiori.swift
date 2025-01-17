@@ -34,6 +34,21 @@ public struct IncrementActionFioriStyle: IncrementActionStyle {
     }
 }
 
+// Default nss styles
+public struct IncrementActionNSSStyle: IncrementActionStyle {
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
+
+    public func makeBody(_ configuration: IncrementActionConfiguration) -> some View {
+        IncrementAction(configuration)
+            .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.data.value(configuration.incrementActionIdentifier)))
+        // Add custom nss style for its content
+        // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+    }
+}
+
 public struct IncrementActionActivateStyle: IncrementActionStyle {
     @Environment(\.isEnabled) var isEnabled: Bool
     public func makeBody(_ configuration: IncrementActionConfiguration) -> some View {

@@ -72,6 +72,44 @@ extension SectionHeaderFioriStyle {
     }
 }
 
+// Default nss styles
+extension SectionHeaderNSSStyle {
+    struct ContentNSSStyle: SectionHeaderStyle {
+        let sectionHeaderConfiguration: SectionHeaderConfiguration
+        let nssData: NSSStyleData
+        func makeBody(_ configuration: SectionHeaderConfiguration) -> some View {
+            SectionHeader(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for its content
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct TitleNSSStyle: TitleStyle {
+        let sectionHeaderConfiguration: SectionHeaderConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: TitleConfiguration) -> some View {
+            Title(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Title
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct AttributeNSSStyle: AttributeStyle {
+        let sectionHeaderConfiguration: SectionHeaderConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: AttributeConfiguration) -> some View {
+            Attribute(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Attribute
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+}
+
 /// The style determines whether disclosureAccessory of SectionHeader is hidden.
 public struct SectionHeaderAccessoryStyle: SectionHeaderStyle {
     public var isDisclosureAccessoryHidden: Bool

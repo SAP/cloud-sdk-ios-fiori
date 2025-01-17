@@ -25,8 +25,10 @@ public extension AccessoryIcon {
 }
 
 public extension AccessoryIcon {
-    init(accessoryIcon: Image? = nil) {
-        self.init(accessoryIcon: { accessoryIcon })
+    init(accessoryIcon: Image? = nil,
+         componentIdentifier: String? = AccessoryIcon.identifier)
+    {
+        self.init(accessoryIcon: { accessoryIcon }, componentIdentifier: componentIdentifier)
     }
 }
 

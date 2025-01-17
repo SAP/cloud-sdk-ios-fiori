@@ -173,3 +173,77 @@ extension ContactItemFioriStyle {
         }
     }
 }
+
+// Default nss styles
+extension ContactItemNSSStyle {
+    struct ContentNSSStyle: ContactItemStyle {
+        let contactItemConfiguration: ContactItemConfiguration
+        let nssData: NSSStyleData
+        func makeBody(_ configuration: ContactItemConfiguration) -> some View {
+            ContactItem(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for its content
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct TitleNSSStyle: TitleStyle {
+        let contactItemConfiguration: ContactItemConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: TitleConfiguration) -> some View {
+            Title(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Title
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct SubtitleNSSStyle: SubtitleStyle {
+        let contactItemConfiguration: ContactItemConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: SubtitleConfiguration) -> some View {
+            Subtitle(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Subtitle
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct DescriptionNSSStyle: DescriptionStyle {
+        let contactItemConfiguration: ContactItemConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: DescriptionConfiguration) -> some View {
+            Description(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Description
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct DetailImageNSSStyle: DetailImageStyle {
+        let contactItemConfiguration: ContactItemConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: DetailImageConfiguration) -> some View {
+            DetailImage(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for DetailImage
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct ActivityItemsNSSStyle: ActivityItemsStyle {
+        let contactItemConfiguration: ContactItemConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: ActivityItemsConfiguration) -> some View {
+            ActivityItems(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for ActivityItems
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+}

@@ -25,8 +25,10 @@ public extension Status {
 }
 
 public extension Status {
-    init(status: TextOrIcon? = nil) {
-        self.init(status: { TextOrIconView(status) })
+    init(status: TextOrIcon? = nil,
+         componentIdentifier: String? = Status.identifier)
+    {
+        self.init(status: { TextOrIconView(status) }, componentIdentifier: componentIdentifier)
     }
 }
 

@@ -25,8 +25,10 @@ public extension Progress {
 }
 
 public extension Progress {
-    init(progress: ProgressView<EmptyView, EmptyView> = ProgressView()) {
-        self.init(progress: { progress })
+    init(progress: ProgressView<EmptyView, EmptyView> = ProgressView(),
+         componentIdentifier: String? = Progress.identifier)
+    {
+        self.init(progress: { progress }, componentIdentifier: componentIdentifier)
     }
 }
 

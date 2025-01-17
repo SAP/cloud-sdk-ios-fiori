@@ -25,8 +25,10 @@ public extension Kpi {
 }
 
 public extension Kpi {
-    init(kpi: KPIItemData? = nil) {
-        self.init(kpi: { OptionalKPIItem(kpi) })
+    init(kpi: KPIItemData? = nil,
+         componentIdentifier: String? = Kpi.identifier)
+    {
+        self.init(kpi: { OptionalKPIItem(kpi) }, componentIdentifier: componentIdentifier)
     }
 }
 

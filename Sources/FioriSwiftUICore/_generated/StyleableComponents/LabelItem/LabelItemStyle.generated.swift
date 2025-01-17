@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -31,6 +32,20 @@ public struct LabelItemConfiguration {
     public typealias Title = ConfigurationViewWrapper
 }
 
+public extension LabelItemConfiguration {
+    var contentIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
+
+    var iconIdentifier: String {
+        self.componentIdentifier + "_icon"
+    }
+
+    var titleIdentifier: String {
+        self.componentIdentifier + "_title"
+    }
+}
+
 extension LabelItemConfiguration {
     func isDirectChild(_ componentIdentifier: String) -> Bool {
         componentIdentifier == self.componentIdentifier
@@ -42,5 +57,19 @@ public struct LabelItemFioriStyle: LabelItemStyle {
         LabelItem(configuration)
             .iconStyle(IconFioriStyle(labelItemConfiguration: configuration))
             .titleStyle(TitleFioriStyle(labelItemConfiguration: configuration))
+    }
+}
+
+public struct LabelItemNSSStyle: LabelItemStyle {
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
+
+    public func makeBody(_ configuration: LabelItemConfiguration) -> some View {
+        LabelItem(configuration)
+            .iconStyle(IconNSSStyle(labelItemConfiguration: configuration, nssData: self.data.value(configuration.iconIdentifier)))
+            .titleStyle(TitleNSSStyle(labelItemConfiguration: configuration, nssData: self.data.value(configuration.titleIdentifier)))
+            .labelItemStyle(ContentNSSStyle(labelItemConfiguration: configuration, nssData: self.data.value(configuration.contentIdentifier)))
     }
 }

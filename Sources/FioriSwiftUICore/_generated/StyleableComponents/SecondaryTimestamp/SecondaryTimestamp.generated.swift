@@ -25,8 +25,10 @@ public extension SecondaryTimestamp {
 }
 
 public extension SecondaryTimestamp {
-    init(secondaryTimestamp: TextOrIcon? = nil) {
-        self.init(secondaryTimestamp: { TextOrIconView(secondaryTimestamp) })
+    init(secondaryTimestamp: TextOrIcon? = nil,
+         componentIdentifier: String? = SecondaryTimestamp.identifier)
+    {
+        self.init(secondaryTimestamp: { TextOrIconView(secondaryTimestamp) }, componentIdentifier: componentIdentifier)
     }
 }
 

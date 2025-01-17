@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -65,6 +66,60 @@ public struct FioriSliderConfiguration {
     public typealias TrailingAccessory = ConfigurationViewWrapper
 }
 
+public extension FioriSliderConfiguration {
+    var contentIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
+
+    var titleIdentifier: String {
+        self.componentIdentifier + "_title"
+    }
+
+    var valueLabelIdentifier: String {
+        self.componentIdentifier + "_valueLabel"
+    }
+
+    var lowerThumbIdentifier: String {
+        self.componentIdentifier + "_lowerThumb"
+    }
+
+    var upperThumbIdentifier: String {
+        self.componentIdentifier + "_upperThumb"
+    }
+
+    var activeTrackIdentifier: String {
+        self.componentIdentifier + "_activeTrack"
+    }
+
+    var inactiveTrackIdentifier: String {
+        self.componentIdentifier + "_inactiveTrack"
+    }
+
+    var iconIdentifier: String {
+        self.componentIdentifier + "_icon"
+    }
+
+    var descriptionIdentifier: String {
+        self.componentIdentifier + "_description"
+    }
+
+    var leadingAccessoryIdentifier: String {
+        self.componentIdentifier + "_leadingAccessory"
+    }
+
+    var trailingAccessoryIdentifier: String {
+        self.componentIdentifier + "_trailingAccessory"
+    }
+
+    var rangeSliderControlIdentifier: String {
+        self.componentIdentifier + "_rangeSliderControl"
+    }
+
+    var informationViewIdentifier: String {
+        self.componentIdentifier + "_informationView"
+    }
+}
+
 extension FioriSliderConfiguration {
     func isDirectChild(_ componentIdentifier: String) -> Bool {
         componentIdentifier == self.componentIdentifier
@@ -86,5 +141,29 @@ public struct FioriSliderFioriStyle: FioriSliderStyle {
             .trailingAccessoryStyle(TrailingAccessoryFioriStyle(fioriSliderConfiguration: configuration))
             .rangeSliderControlStyle(RangeSliderControlFioriStyle(fioriSliderConfiguration: configuration))
             .informationViewStyle(InformationViewFioriStyle(fioriSliderConfiguration: configuration))
+    }
+}
+
+public struct FioriSliderNSSStyle: FioriSliderStyle {
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
+
+    public func makeBody(_ configuration: FioriSliderConfiguration) -> some View {
+        FioriSlider(configuration)
+            .titleStyle(TitleNSSStyle(fioriSliderConfiguration: configuration, nssData: self.data.value(configuration.titleIdentifier)))
+            .valueLabelStyle(ValueLabelNSSStyle(fioriSliderConfiguration: configuration, nssData: self.data.value(configuration.valueLabelIdentifier)))
+            .lowerThumbStyle(LowerThumbNSSStyle(fioriSliderConfiguration: configuration, nssData: self.data.value(configuration.lowerThumbIdentifier)))
+            .upperThumbStyle(UpperThumbNSSStyle(fioriSliderConfiguration: configuration, nssData: self.data.value(configuration.upperThumbIdentifier)))
+            .activeTrackStyle(ActiveTrackNSSStyle(fioriSliderConfiguration: configuration, nssData: self.data.value(configuration.activeTrackIdentifier)))
+            .inactiveTrackStyle(InactiveTrackNSSStyle(fioriSliderConfiguration: configuration, nssData: self.data.value(configuration.inactiveTrackIdentifier)))
+            .iconStyle(IconNSSStyle(fioriSliderConfiguration: configuration, nssData: self.data.value(configuration.iconIdentifier)))
+            .descriptionStyle(DescriptionNSSStyle(fioriSliderConfiguration: configuration, nssData: self.data.value(configuration.descriptionIdentifier)))
+            .leadingAccessoryStyle(LeadingAccessoryNSSStyle(fioriSliderConfiguration: configuration, nssData: self.data.value(configuration.leadingAccessoryIdentifier)))
+            .trailingAccessoryStyle(TrailingAccessoryNSSStyle(fioriSliderConfiguration: configuration, nssData: self.data.value(configuration.trailingAccessoryIdentifier)))
+            .rangeSliderControlStyle(RangeSliderControlNSSStyle(fioriSliderConfiguration: configuration, nssData: self.data.value(configuration.rangeSliderControlIdentifier)))
+            .informationViewStyle(InformationViewNSSStyle(fioriSliderConfiguration: configuration, nssData: self.data.value(configuration.informationViewIdentifier)))
+            .fioriSliderStyle(ContentNSSStyle(fioriSliderConfiguration: configuration, nssData: self.data.value(configuration.contentIdentifier)))
     }
 }

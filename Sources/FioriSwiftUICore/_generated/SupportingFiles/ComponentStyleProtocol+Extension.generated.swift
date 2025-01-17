@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -17,6 +18,17 @@ public extension AccessoryIconStyle where Self == AccessoryIconFioriStyle {
     }
 }
 
+public extension AccessoryIconStyle where Self == AccessoryIconNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> AccessoryIconNSSStyle {
+        parserType.mergeNSSData()
+        return AccessoryIconNSSStyle()
+    }
+
+    static var globalNSS: AccessoryIconNSSStyle {
+        AccessoryIconNSSStyle(isGlobal: true)
+    }
+}
+
 // MARK: ActionStyle
 
 public extension ActionStyle where Self == ActionBaseStyle {
@@ -28,6 +40,17 @@ public extension ActionStyle where Self == ActionBaseStyle {
 public extension ActionStyle where Self == ActionFioriStyle {
     static var fiori: ActionFioriStyle {
         ActionFioriStyle()
+    }
+}
+
+public extension ActionStyle where Self == ActionNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> ActionNSSStyle {
+        parserType.mergeNSSData()
+        return ActionNSSStyle()
+    }
+
+    static var globalNSS: ActionNSSStyle {
+        ActionNSSStyle(isGlobal: true)
     }
 }
 
@@ -45,6 +68,17 @@ public extension ActiveTrackStyle where Self == ActiveTrackFioriStyle {
     }
 }
 
+public extension ActiveTrackStyle where Self == ActiveTrackNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> ActiveTrackNSSStyle {
+        parserType.mergeNSSData()
+        return ActiveTrackNSSStyle()
+    }
+
+    static var globalNSS: ActiveTrackNSSStyle {
+        ActiveTrackNSSStyle(isGlobal: true)
+    }
+}
+
 // MARK: ActivityItemStyle
 
 public extension ActivityItemStyle where Self == ActivityItemBaseStyle {
@@ -56,6 +90,17 @@ public extension ActivityItemStyle where Self == ActivityItemBaseStyle {
 public extension ActivityItemStyle where Self == ActivityItemFioriStyle {
     static var fiori: ActivityItemFioriStyle {
         ActivityItemFioriStyle()
+    }
+}
+
+public extension ActivityItemStyle where Self == ActivityItemNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> ActivityItemNSSStyle {
+        parserType.mergeNSSData()
+        return ActivityItemNSSStyle()
+    }
+
+    static var globalNSS: ActivityItemNSSStyle {
+        ActivityItemNSSStyle(isGlobal: true)
     }
 }
 
@@ -115,6 +160,17 @@ public extension ActivityItemsStyle where Self == ActivityItemsFioriStyle {
     }
 }
 
+public extension ActivityItemsStyle where Self == ActivityItemsNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> ActivityItemsNSSStyle {
+        parserType.mergeNSSData()
+        return ActivityItemsNSSStyle()
+    }
+
+    static var globalNSS: ActivityItemsNSSStyle {
+        ActivityItemsNSSStyle(isGlobal: true)
+    }
+}
+
 // MARK: AllEntriesSectionTitleStyle
 
 public extension AllEntriesSectionTitleStyle where Self == AllEntriesSectionTitleBaseStyle {
@@ -126,6 +182,17 @@ public extension AllEntriesSectionTitleStyle where Self == AllEntriesSectionTitl
 public extension AllEntriesSectionTitleStyle where Self == AllEntriesSectionTitleFioriStyle {
     static var fiori: AllEntriesSectionTitleFioriStyle {
         AllEntriesSectionTitleFioriStyle()
+    }
+}
+
+public extension AllEntriesSectionTitleStyle where Self == AllEntriesSectionTitleNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> AllEntriesSectionTitleNSSStyle {
+        parserType.mergeNSSData()
+        return AllEntriesSectionTitleNSSStyle()
+    }
+
+    static var globalNSS: AllEntriesSectionTitleNSSStyle {
+        AllEntriesSectionTitleNSSStyle(isGlobal: true)
     }
 }
 
@@ -143,6 +210,17 @@ public extension ApplyActionStyle where Self == ApplyActionFioriStyle {
     }
 }
 
+public extension ApplyActionStyle where Self == ApplyActionNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> ApplyActionNSSStyle {
+        parserType.mergeNSSData()
+        return ApplyActionNSSStyle()
+    }
+
+    static var globalNSS: ApplyActionNSSStyle {
+        ApplyActionNSSStyle(isGlobal: true)
+    }
+}
+
 // MARK: AttributeStyle
 
 public extension AttributeStyle where Self == AttributeBaseStyle {
@@ -157,6 +235,17 @@ public extension AttributeStyle where Self == AttributeFioriStyle {
     }
 }
 
+public extension AttributeStyle where Self == AttributeNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> AttributeNSSStyle {
+        parserType.mergeNSSData()
+        return AttributeNSSStyle()
+    }
+
+    static var globalNSS: AttributeNSSStyle {
+        AttributeNSSStyle(isGlobal: true)
+    }
+}
+
 // MARK: AvatarStackStyle
 
 public extension AvatarStackStyle where Self == AvatarStackBaseStyle {
@@ -168,6 +257,17 @@ public extension AvatarStackStyle where Self == AvatarStackBaseStyle {
 public extension AvatarStackStyle where Self == AvatarStackFioriStyle {
     static var fiori: AvatarStackFioriStyle {
         AvatarStackFioriStyle()
+    }
+}
+
+public extension AvatarStackStyle where Self == AvatarStackNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> AvatarStackNSSStyle {
+        parserType.mergeNSSData()
+        return AvatarStackNSSStyle()
+    }
+
+    static var globalNSS: AvatarStackNSSStyle {
+        AvatarStackNSSStyle(isGlobal: true)
     }
 }
 
@@ -227,6 +327,17 @@ public extension AvatarsStyle where Self == AvatarsFioriStyle {
     }
 }
 
+public extension AvatarsStyle where Self == AvatarsNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> AvatarsNSSStyle {
+        parserType.mergeNSSData()
+        return AvatarsNSSStyle()
+    }
+
+    static var globalNSS: AvatarsNSSStyle {
+        AvatarsNSSStyle(isGlobal: true)
+    }
+}
+
 // MARK: AvatarsTitleStyle
 
 public extension AvatarsTitleStyle where Self == AvatarsTitleBaseStyle {
@@ -241,6 +352,17 @@ public extension AvatarsTitleStyle where Self == AvatarsTitleFioriStyle {
     }
 }
 
+public extension AvatarsTitleStyle where Self == AvatarsTitleNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> AvatarsTitleNSSStyle {
+        parserType.mergeNSSData()
+        return AvatarsTitleNSSStyle()
+    }
+
+    static var globalNSS: AvatarsTitleNSSStyle {
+        AvatarsTitleNSSStyle(isGlobal: true)
+    }
+}
+
 // MARK: BannerMessageStyle
 
 public extension BannerMessageStyle where Self == BannerMessageBaseStyle {
@@ -252,6 +374,17 @@ public extension BannerMessageStyle where Self == BannerMessageBaseStyle {
 public extension BannerMessageStyle where Self == BannerMessageFioriStyle {
     static var fiori: BannerMessageFioriStyle {
         BannerMessageFioriStyle()
+    }
+}
+
+public extension BannerMessageStyle where Self == BannerMessageNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> BannerMessageNSSStyle {
+        parserType.mergeNSSData()
+        return BannerMessageNSSStyle()
+    }
+
+    static var globalNSS: BannerMessageNSSStyle {
+        BannerMessageNSSStyle(isGlobal: true)
     }
 }
 
@@ -353,6 +486,17 @@ public extension BannerMultiMessageSheetStyle where Self == BannerMultiMessageSh
     }
 }
 
+public extension BannerMultiMessageSheetStyle where Self == BannerMultiMessageSheetNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> BannerMultiMessageSheetNSSStyle {
+        parserType.mergeNSSData()
+        return BannerMultiMessageSheetNSSStyle()
+    }
+
+    static var globalNSS: BannerMultiMessageSheetNSSStyle {
+        BannerMultiMessageSheetNSSStyle(isGlobal: true)
+    }
+}
+
 public struct BannerMultiMessageSheetTitleStyle: BannerMultiMessageSheetStyle {
     let style: any TitleStyle
 
@@ -409,6 +553,17 @@ public extension BodyTextStyle where Self == BodyTextFioriStyle {
     }
 }
 
+public extension BodyTextStyle where Self == BodyTextNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> BodyTextNSSStyle {
+        parserType.mergeNSSData()
+        return BodyTextNSSStyle()
+    }
+
+    static var globalNSS: BodyTextNSSStyle {
+        BodyTextNSSStyle(isGlobal: true)
+    }
+}
+
 // MARK: CancelActionStyle
 
 public extension CancelActionStyle where Self == CancelActionBaseStyle {
@@ -420,6 +575,17 @@ public extension CancelActionStyle where Self == CancelActionBaseStyle {
 public extension CancelActionStyle where Self == CancelActionFioriStyle {
     static var fiori: CancelActionFioriStyle {
         CancelActionFioriStyle()
+    }
+}
+
+public extension CancelActionStyle where Self == CancelActionNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> CancelActionNSSStyle {
+        parserType.mergeNSSData()
+        return CancelActionNSSStyle()
+    }
+
+    static var globalNSS: CancelActionNSSStyle {
+        CancelActionNSSStyle(isGlobal: true)
     }
 }
 
@@ -437,6 +603,17 @@ public extension CardBodyStyle where Self == CardBodyFioriStyle {
     }
 }
 
+public extension CardBodyStyle where Self == CardBodyNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> CardBodyNSSStyle {
+        parserType.mergeNSSData()
+        return CardBodyNSSStyle()
+    }
+
+    static var globalNSS: CardBodyNSSStyle {
+        CardBodyNSSStyle(isGlobal: true)
+    }
+}
+
 // MARK: CardStyle
 
 public extension CardStyle where Self == CardBaseStyle {
@@ -448,6 +625,17 @@ public extension CardStyle where Self == CardBaseStyle {
 public extension CardStyle where Self == CardFioriStyle {
     static var fiori: CardFioriStyle {
         CardFioriStyle()
+    }
+}
+
+public extension CardStyle where Self == CardNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> CardNSSStyle {
+        parserType.mergeNSSData()
+        return CardNSSStyle()
+    }
+
+    static var globalNSS: CardNSSStyle {
+        CardNSSStyle(isGlobal: true)
     }
 }
 
@@ -885,6 +1073,17 @@ public extension CardExtHeaderStyle where Self == CardExtHeaderFioriStyle {
     }
 }
 
+public extension CardExtHeaderStyle where Self == CardExtHeaderNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> CardExtHeaderNSSStyle {
+        parserType.mergeNSSData()
+        return CardExtHeaderNSSStyle()
+    }
+
+    static var globalNSS: CardExtHeaderNSSStyle {
+        CardExtHeaderNSSStyle(isGlobal: true)
+    }
+}
+
 public struct CardExtHeaderRow1Style: CardExtHeaderStyle {
     let style: any Row1Style
 
@@ -1004,6 +1203,17 @@ public extension CardFooterStyle where Self == CardFooterFioriStyle {
     }
 }
 
+public extension CardFooterStyle where Self == CardFooterNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> CardFooterNSSStyle {
+        parserType.mergeNSSData()
+        return CardFooterNSSStyle()
+    }
+
+    static var globalNSS: CardFooterNSSStyle {
+        CardFooterNSSStyle(isGlobal: true)
+    }
+}
+
 public struct CardFooterActionStyle: CardFooterStyle {
     let style: any ActionStyle
 
@@ -1099,6 +1309,17 @@ public extension CardHeaderStyle where Self == CardHeaderBaseStyle {
 public extension CardHeaderStyle where Self == CardHeaderFioriStyle {
     static var fiori: CardHeaderFioriStyle {
         CardHeaderFioriStyle()
+    }
+}
+
+public extension CardHeaderStyle where Self == CardHeaderNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> CardHeaderNSSStyle {
+        parserType.mergeNSSData()
+        return CardHeaderNSSStyle()
+    }
+
+    static var globalNSS: CardHeaderNSSStyle {
+        CardHeaderNSSStyle(isGlobal: true)
     }
 }
 
@@ -1452,6 +1673,17 @@ public extension CardMainHeaderStyle where Self == CardMainHeaderFioriStyle {
     }
 }
 
+public extension CardMainHeaderStyle where Self == CardMainHeaderNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> CardMainHeaderNSSStyle {
+        parserType.mergeNSSData()
+        return CardMainHeaderNSSStyle()
+    }
+
+    static var globalNSS: CardMainHeaderNSSStyle {
+        CardMainHeaderNSSStyle(isGlobal: true)
+    }
+}
+
 public struct CardMainHeaderTitleStyle: CardMainHeaderStyle {
     let style: any TitleStyle
 
@@ -1592,6 +1824,17 @@ public extension CardMediaStyle where Self == CardMediaFioriStyle {
     }
 }
 
+public extension CardMediaStyle where Self == CardMediaNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> CardMediaNSSStyle {
+        parserType.mergeNSSData()
+        return CardMediaNSSStyle()
+    }
+
+    static var globalNSS: CardMediaNSSStyle {
+        CardMediaNSSStyle(isGlobal: true)
+    }
+}
+
 public struct CardMediaMediaImageStyle: CardMediaStyle {
     let style: any MediaImageStyle
 
@@ -1648,6 +1891,17 @@ public extension CheckoutIndicatorStyle where Self == CheckoutIndicatorFioriStyl
     }
 }
 
+public extension CheckoutIndicatorStyle where Self == CheckoutIndicatorNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> CheckoutIndicatorNSSStyle {
+        parserType.mergeNSSData()
+        return CheckoutIndicatorNSSStyle()
+    }
+
+    static var globalNSS: CheckoutIndicatorNSSStyle {
+        CheckoutIndicatorNSSStyle(isGlobal: true)
+    }
+}
+
 // MARK: CloseActionStyle
 
 public extension CloseActionStyle where Self == CloseActionBaseStyle {
@@ -1662,6 +1916,17 @@ public extension CloseActionStyle where Self == CloseActionFioriStyle {
     }
 }
 
+public extension CloseActionStyle where Self == CloseActionNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> CloseActionNSSStyle {
+        parserType.mergeNSSData()
+        return CloseActionNSSStyle()
+    }
+
+    static var globalNSS: CloseActionNSSStyle {
+        CloseActionNSSStyle(isGlobal: true)
+    }
+}
+
 // MARK: ContactItemStyle
 
 public extension ContactItemStyle where Self == ContactItemBaseStyle {
@@ -1673,6 +1938,17 @@ public extension ContactItemStyle where Self == ContactItemBaseStyle {
 public extension ContactItemStyle where Self == ContactItemFioriStyle {
     static var fiori: ContactItemFioriStyle {
         ContactItemFioriStyle()
+    }
+}
+
+public extension ContactItemStyle where Self == ContactItemNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> ContactItemNSSStyle {
+        parserType.mergeNSSData()
+        return ContactItemNSSStyle()
+    }
+
+    static var globalNSS: ContactItemNSSStyle {
+        ContactItemNSSStyle(isGlobal: true)
     }
 }
 
@@ -1795,6 +2071,17 @@ public extension CounterStyle where Self == CounterFioriStyle {
     }
 }
 
+public extension CounterStyle where Self == CounterNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> CounterNSSStyle {
+        parserType.mergeNSSData()
+        return CounterNSSStyle()
+    }
+
+    static var globalNSS: CounterNSSStyle {
+        CounterNSSStyle(isGlobal: true)
+    }
+}
+
 // MARK: DateTimePickerStyle
 
 public extension DateTimePickerStyle where Self == DateTimePickerBaseStyle {
@@ -1806,6 +2093,17 @@ public extension DateTimePickerStyle where Self == DateTimePickerBaseStyle {
 public extension DateTimePickerStyle where Self == DateTimePickerFioriStyle {
     static var fiori: DateTimePickerFioriStyle {
         DateTimePickerFioriStyle()
+    }
+}
+
+public extension DateTimePickerStyle where Self == DateTimePickerNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> DateTimePickerNSSStyle {
+        parserType.mergeNSSData()
+        return DateTimePickerNSSStyle()
+    }
+
+    static var globalNSS: DateTimePickerNSSStyle {
+        DateTimePickerNSSStyle(isGlobal: true)
     }
 }
 
@@ -1907,6 +2205,17 @@ public extension DecrementActionStyle where Self == DecrementActionFioriStyle {
     }
 }
 
+public extension DecrementActionStyle where Self == DecrementActionNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> DecrementActionNSSStyle {
+        parserType.mergeNSSData()
+        return DecrementActionNSSStyle()
+    }
+
+    static var globalNSS: DecrementActionNSSStyle {
+        DecrementActionNSSStyle(isGlobal: true)
+    }
+}
+
 // MARK: DemoViewStyle
 
 extension DemoViewStyle where Self == DemoViewBaseStyle {
@@ -1918,6 +2227,17 @@ extension DemoViewStyle where Self == DemoViewBaseStyle {
 extension DemoViewStyle where Self == DemoViewFioriStyle {
     static var fiori: DemoViewFioriStyle {
         DemoViewFioriStyle()
+    }
+}
+
+extension DemoViewStyle where Self == DemoViewNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> DemoViewNSSStyle {
+        parserType.mergeNSSData()
+        return DemoViewNSSStyle()
+    }
+
+    static var globalNSS: DemoViewNSSStyle {
+        DemoViewNSSStyle(isGlobal: true)
     }
 }
 
@@ -2040,6 +2360,17 @@ public extension DescriptionStyle where Self == DescriptionFioriStyle {
     }
 }
 
+public extension DescriptionStyle where Self == DescriptionNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> DescriptionNSSStyle {
+        parserType.mergeNSSData()
+        return DescriptionNSSStyle()
+    }
+
+    static var globalNSS: DescriptionNSSStyle {
+        DescriptionNSSStyle(isGlobal: true)
+    }
+}
+
 // MARK: DescriptionTextStyle
 
 public extension DescriptionTextStyle where Self == DescriptionTextBaseStyle {
@@ -2051,6 +2382,17 @@ public extension DescriptionTextStyle where Self == DescriptionTextBaseStyle {
 public extension DescriptionTextStyle where Self == DescriptionTextFioriStyle {
     static var fiori: DescriptionTextFioriStyle {
         DescriptionTextFioriStyle()
+    }
+}
+
+public extension DescriptionTextStyle where Self == DescriptionTextNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> DescriptionTextNSSStyle {
+        parserType.mergeNSSData()
+        return DescriptionTextNSSStyle()
+    }
+
+    static var globalNSS: DescriptionTextNSSStyle {
+        DescriptionTextNSSStyle(isGlobal: true)
     }
 }
 
@@ -2068,6 +2410,17 @@ public extension DeselectAllActionStyle where Self == DeselectAllActionFioriStyl
     }
 }
 
+public extension DeselectAllActionStyle where Self == DeselectAllActionNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> DeselectAllActionNSSStyle {
+        parserType.mergeNSSData()
+        return DeselectAllActionNSSStyle()
+    }
+
+    static var globalNSS: DeselectAllActionNSSStyle {
+        DeselectAllActionNSSStyle(isGlobal: true)
+    }
+}
+
 // MARK: DetailContentStyle
 
 public extension DetailContentStyle where Self == DetailContentBaseStyle {
@@ -2079,6 +2432,17 @@ public extension DetailContentStyle where Self == DetailContentBaseStyle {
 public extension DetailContentStyle where Self == DetailContentFioriStyle {
     static var fiori: DetailContentFioriStyle {
         DetailContentFioriStyle()
+    }
+}
+
+public extension DetailContentStyle where Self == DetailContentNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> DetailContentNSSStyle {
+        parserType.mergeNSSData()
+        return DetailContentNSSStyle()
+    }
+
+    static var globalNSS: DetailContentNSSStyle {
+        DetailContentNSSStyle(isGlobal: true)
     }
 }
 
@@ -2096,6 +2460,17 @@ public extension DetailImageStyle where Self == DetailImageFioriStyle {
     }
 }
 
+public extension DetailImageStyle where Self == DetailImageNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> DetailImageNSSStyle {
+        parserType.mergeNSSData()
+        return DetailImageNSSStyle()
+    }
+
+    static var globalNSS: DetailImageNSSStyle {
+        DetailImageNSSStyle(isGlobal: true)
+    }
+}
+
 // MARK: FilledIconStyle
 
 public extension FilledIconStyle where Self == FilledIconBaseStyle {
@@ -2110,6 +2485,17 @@ public extension FilledIconStyle where Self == FilledIconFioriStyle {
     }
 }
 
+public extension FilledIconStyle where Self == FilledIconNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> FilledIconNSSStyle {
+        parserType.mergeNSSData()
+        return FilledIconNSSStyle()
+    }
+
+    static var globalNSS: FilledIconNSSStyle {
+        FilledIconNSSStyle(isGlobal: true)
+    }
+}
+
 // MARK: FioriSliderStyle
 
 public extension FioriSliderStyle where Self == FioriSliderBaseStyle {
@@ -2121,6 +2507,17 @@ public extension FioriSliderStyle where Self == FioriSliderBaseStyle {
 public extension FioriSliderStyle where Self == FioriSliderFioriStyle {
     static var fiori: FioriSliderFioriStyle {
         FioriSliderFioriStyle()
+    }
+}
+
+public extension FioriSliderStyle where Self == FioriSliderNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> FioriSliderNSSStyle {
+        parserType.mergeNSSData()
+        return FioriSliderNSSStyle()
+    }
+
+    static var globalNSS: FioriSliderNSSStyle {
+        FioriSliderNSSStyle(isGlobal: true)
     }
 }
 
@@ -2390,6 +2787,17 @@ public extension FootnoteStyle where Self == FootnoteFioriStyle {
     }
 }
 
+public extension FootnoteStyle where Self == FootnoteNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> FootnoteNSSStyle {
+        parserType.mergeNSSData()
+        return FootnoteNSSStyle()
+    }
+
+    static var globalNSS: FootnoteNSSStyle {
+        FootnoteNSSStyle(isGlobal: true)
+    }
+}
+
 // MARK: FootnoteIconsStyle
 
 public extension FootnoteIconsStyle where Self == FootnoteIconsBaseStyle {
@@ -2401,6 +2809,17 @@ public extension FootnoteIconsStyle where Self == FootnoteIconsBaseStyle {
 public extension FootnoteIconsStyle where Self == FootnoteIconsFioriStyle {
     static var fiori: FootnoteIconsFioriStyle {
         FootnoteIconsFioriStyle()
+    }
+}
+
+public extension FootnoteIconsStyle where Self == FootnoteIconsNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> FootnoteIconsNSSStyle {
+        parserType.mergeNSSData()
+        return FootnoteIconsNSSStyle()
+    }
+
+    static var globalNSS: FootnoteIconsNSSStyle {
+        FootnoteIconsNSSStyle(isGlobal: true)
     }
 }
 
@@ -2418,6 +2837,17 @@ public extension FootnoteIconsTextStyle where Self == FootnoteIconsTextFioriStyl
     }
 }
 
+public extension FootnoteIconsTextStyle where Self == FootnoteIconsTextNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> FootnoteIconsTextNSSStyle {
+        parserType.mergeNSSData()
+        return FootnoteIconsTextNSSStyle()
+    }
+
+    static var globalNSS: FootnoteIconsTextNSSStyle {
+        FootnoteIconsTextNSSStyle(isGlobal: true)
+    }
+}
+
 // MARK: FormViewStyle
 
 public extension FormViewStyle where Self == FormViewBaseStyle {
@@ -2429,6 +2859,17 @@ public extension FormViewStyle where Self == FormViewBaseStyle {
 public extension FormViewStyle where Self == FormViewFioriStyle {
     static var fiori: FormViewFioriStyle {
         FormViewFioriStyle()
+    }
+}
+
+public extension FormViewStyle where Self == FormViewNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> FormViewNSSStyle {
+        parserType.mergeNSSData()
+        return FormViewNSSStyle()
+    }
+
+    static var globalNSS: FormViewNSSStyle {
+        FormViewNSSStyle(isGlobal: true)
     }
 }
 
@@ -2446,6 +2887,17 @@ public extension GreetingTextStyle where Self == GreetingTextFioriStyle {
     }
 }
 
+public extension GreetingTextStyle where Self == GreetingTextNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> GreetingTextNSSStyle {
+        parserType.mergeNSSData()
+        return GreetingTextNSSStyle()
+    }
+
+    static var globalNSS: GreetingTextNSSStyle {
+        GreetingTextNSSStyle(isGlobal: true)
+    }
+}
+
 // MARK: HalfStarImageStyle
 
 public extension HalfStarImageStyle where Self == HalfStarImageBaseStyle {
@@ -2457,6 +2909,17 @@ public extension HalfStarImageStyle where Self == HalfStarImageBaseStyle {
 public extension HalfStarImageStyle where Self == HalfStarImageFioriStyle {
     static var fiori: HalfStarImageFioriStyle {
         HalfStarImageFioriStyle()
+    }
+}
+
+public extension HalfStarImageStyle where Self == HalfStarImageNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> HalfStarImageNSSStyle {
+        parserType.mergeNSSData()
+        return HalfStarImageNSSStyle()
+    }
+
+    static var globalNSS: HalfStarImageNSSStyle {
+        HalfStarImageNSSStyle(isGlobal: true)
     }
 }
 
@@ -2474,6 +2937,17 @@ public extension HeaderActionStyle where Self == HeaderActionFioriStyle {
     }
 }
 
+public extension HeaderActionStyle where Self == HeaderActionNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> HeaderActionNSSStyle {
+        parserType.mergeNSSData()
+        return HeaderActionNSSStyle()
+    }
+
+    static var globalNSS: HeaderActionNSSStyle {
+        HeaderActionNSSStyle(isGlobal: true)
+    }
+}
+
 // MARK: HeaderChartStyle
 
 public extension HeaderChartStyle where Self == HeaderChartBaseStyle {
@@ -2485,6 +2959,17 @@ public extension HeaderChartStyle where Self == HeaderChartBaseStyle {
 public extension HeaderChartStyle where Self == HeaderChartFioriStyle {
     static var fiori: HeaderChartFioriStyle {
         HeaderChartFioriStyle()
+    }
+}
+
+public extension HeaderChartStyle where Self == HeaderChartNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> HeaderChartNSSStyle {
+        parserType.mergeNSSData()
+        return HeaderChartNSSStyle()
+    }
+
+    static var globalNSS: HeaderChartNSSStyle {
+        HeaderChartNSSStyle(isGlobal: true)
     }
 }
 
@@ -2607,6 +3092,17 @@ public extension HelperTextStyle where Self == HelperTextFioriStyle {
     }
 }
 
+public extension HelperTextStyle where Self == HelperTextNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> HelperTextNSSStyle {
+        parserType.mergeNSSData()
+        return HelperTextNSSStyle()
+    }
+
+    static var globalNSS: HelperTextNSSStyle {
+        HelperTextNSSStyle(isGlobal: true)
+    }
+}
+
 // MARK: IconStyle
 
 public extension IconStyle where Self == IconBaseStyle {
@@ -2618,6 +3114,17 @@ public extension IconStyle where Self == IconBaseStyle {
 public extension IconStyle where Self == IconFioriStyle {
     static var fiori: IconFioriStyle {
         IconFioriStyle()
+    }
+}
+
+public extension IconStyle where Self == IconNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> IconNSSStyle {
+        parserType.mergeNSSData()
+        return IconNSSStyle()
+    }
+
+    static var globalNSS: IconNSSStyle {
+        IconNSSStyle(isGlobal: true)
     }
 }
 
@@ -2635,6 +3142,17 @@ public extension IconsStyle where Self == IconsFioriStyle {
     }
 }
 
+public extension IconsStyle where Self == IconsNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> IconsNSSStyle {
+        parserType.mergeNSSData()
+        return IconsNSSStyle()
+    }
+
+    static var globalNSS: IconsNSSStyle {
+        IconsNSSStyle(isGlobal: true)
+    }
+}
+
 // MARK: IllustratedMessageStyle
 
 public extension IllustratedMessageStyle where Self == IllustratedMessageBaseStyle {
@@ -2646,6 +3164,17 @@ public extension IllustratedMessageStyle where Self == IllustratedMessageBaseSty
 public extension IllustratedMessageStyle where Self == IllustratedMessageFioriStyle {
     static var fiori: IllustratedMessageFioriStyle {
         IllustratedMessageFioriStyle()
+    }
+}
+
+public extension IllustratedMessageStyle where Self == IllustratedMessageNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> IllustratedMessageNSSStyle {
+        parserType.mergeNSSData()
+        return IllustratedMessageNSSStyle()
+    }
+
+    static var globalNSS: IllustratedMessageNSSStyle {
+        IllustratedMessageNSSStyle(isGlobal: true)
     }
 }
 
@@ -2768,6 +3297,17 @@ public extension InactiveTrackStyle where Self == InactiveTrackFioriStyle {
     }
 }
 
+public extension InactiveTrackStyle where Self == InactiveTrackNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> InactiveTrackNSSStyle {
+        parserType.mergeNSSData()
+        return InactiveTrackNSSStyle()
+    }
+
+    static var globalNSS: InactiveTrackNSSStyle {
+        InactiveTrackNSSStyle(isGlobal: true)
+    }
+}
+
 // MARK: IncrementActionStyle
 
 public extension IncrementActionStyle where Self == IncrementActionBaseStyle {
@@ -2782,6 +3322,17 @@ public extension IncrementActionStyle where Self == IncrementActionFioriStyle {
     }
 }
 
+public extension IncrementActionStyle where Self == IncrementActionNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> IncrementActionNSSStyle {
+        parserType.mergeNSSData()
+        return IncrementActionNSSStyle()
+    }
+
+    static var globalNSS: IncrementActionNSSStyle {
+        IncrementActionNSSStyle(isGlobal: true)
+    }
+}
+
 // MARK: InformationViewStyle
 
 public extension InformationViewStyle where Self == InformationViewBaseStyle {
@@ -2793,6 +3344,17 @@ public extension InformationViewStyle where Self == InformationViewBaseStyle {
 public extension InformationViewStyle where Self == InformationViewFioriStyle {
     static var fiori: InformationViewFioriStyle {
         InformationViewFioriStyle()
+    }
+}
+
+public extension InformationViewStyle where Self == InformationViewNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> InformationViewNSSStyle {
+        parserType.mergeNSSData()
+        return InformationViewNSSStyle()
+    }
+
+    static var globalNSS: InformationViewNSSStyle {
+        InformationViewNSSStyle(isGlobal: true)
     }
 }
 
@@ -2852,6 +3414,17 @@ public extension InnerCircleStyle where Self == InnerCircleFioriStyle {
     }
 }
 
+public extension InnerCircleStyle where Self == InnerCircleNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> InnerCircleNSSStyle {
+        parserType.mergeNSSData()
+        return InnerCircleNSSStyle()
+    }
+
+    static var globalNSS: InnerCircleNSSStyle {
+        InnerCircleNSSStyle(isGlobal: true)
+    }
+}
+
 // MARK: JouleWelcomeScreenStyle
 
 public extension JouleWelcomeScreenStyle where Self == JouleWelcomeScreenBaseStyle {
@@ -2863,6 +3436,17 @@ public extension JouleWelcomeScreenStyle where Self == JouleWelcomeScreenBaseSty
 public extension JouleWelcomeScreenStyle where Self == JouleWelcomeScreenFioriStyle {
     static var fiori: JouleWelcomeScreenFioriStyle {
         JouleWelcomeScreenFioriStyle()
+    }
+}
+
+public extension JouleWelcomeScreenStyle where Self == JouleWelcomeScreenNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> JouleWelcomeScreenNSSStyle {
+        parserType.mergeNSSData()
+        return JouleWelcomeScreenNSSStyle()
+    }
+
+    static var globalNSS: JouleWelcomeScreenNSSStyle {
+        JouleWelcomeScreenNSSStyle(isGlobal: true)
     }
 }
 
@@ -2985,6 +3569,17 @@ public extension KPIContentStyle where Self == KPIContentFioriStyle {
     }
 }
 
+public extension KPIContentStyle where Self == KPIContentNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> KPIContentNSSStyle {
+        parserType.mergeNSSData()
+        return KPIContentNSSStyle()
+    }
+
+    static var globalNSS: KPIContentNSSStyle {
+        KPIContentNSSStyle(isGlobal: true)
+    }
+}
+
 // MARK: KPIProgressItemStyle
 
 public extension KPIProgressItemStyle where Self == KPIProgressItemBaseStyle {
@@ -2996,6 +3591,17 @@ public extension KPIProgressItemStyle where Self == KPIProgressItemBaseStyle {
 public extension KPIProgressItemStyle where Self == KPIProgressItemFioriStyle {
     static var fiori: KPIProgressItemFioriStyle {
         KPIProgressItemFioriStyle()
+    }
+}
+
+public extension KPIProgressItemStyle where Self == KPIProgressItemNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> KPIProgressItemNSSStyle {
+        parserType.mergeNSSData()
+        return KPIProgressItemNSSStyle()
+    }
+
+    static var globalNSS: KPIProgressItemNSSStyle {
+        KPIProgressItemNSSStyle(isGlobal: true)
     }
 }
 
@@ -3118,6 +3724,17 @@ public extension KeyValueFormViewStyle where Self == KeyValueFormViewFioriStyle 
     }
 }
 
+public extension KeyValueFormViewStyle where Self == KeyValueFormViewNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> KeyValueFormViewNSSStyle {
+        parserType.mergeNSSData()
+        return KeyValueFormViewNSSStyle()
+    }
+
+    static var globalNSS: KeyValueFormViewNSSStyle {
+        KeyValueFormViewNSSStyle(isGlobal: true)
+    }
+}
+
 public struct KeyValueFormViewTitleStyle: KeyValueFormViewStyle {
     let style: any TitleStyle
 
@@ -3237,6 +3854,17 @@ public extension KpiCaptionStyle where Self == KpiCaptionFioriStyle {
     }
 }
 
+public extension KpiCaptionStyle where Self == KpiCaptionNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> KpiCaptionNSSStyle {
+        parserType.mergeNSSData()
+        return KpiCaptionNSSStyle()
+    }
+
+    static var globalNSS: KpiCaptionNSSStyle {
+        KpiCaptionNSSStyle(isGlobal: true)
+    }
+}
+
 // MARK: KpiStyle
 
 public extension KpiStyle where Self == KpiBaseStyle {
@@ -3251,6 +3879,17 @@ public extension KpiStyle where Self == KpiFioriStyle {
     }
 }
 
+public extension KpiStyle where Self == KpiNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> KpiNSSStyle {
+        parserType.mergeNSSData()
+        return KpiNSSStyle()
+    }
+
+    static var globalNSS: KpiNSSStyle {
+        KpiNSSStyle(isGlobal: true)
+    }
+}
+
 // MARK: LabelItemStyle
 
 public extension LabelItemStyle where Self == LabelItemBaseStyle {
@@ -3262,6 +3901,17 @@ public extension LabelItemStyle where Self == LabelItemBaseStyle {
 public extension LabelItemStyle where Self == LabelItemFioriStyle {
     static var fiori: LabelItemFioriStyle {
         LabelItemFioriStyle()
+    }
+}
+
+public extension LabelItemStyle where Self == LabelItemNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> LabelItemNSSStyle {
+        parserType.mergeNSSData()
+        return LabelItemNSSStyle()
+    }
+
+    static var globalNSS: LabelItemNSSStyle {
+        LabelItemNSSStyle(isGlobal: true)
     }
 }
 
@@ -3321,6 +3971,17 @@ public extension LeadingAccessoryStyle where Self == LeadingAccessoryFioriStyle 
     }
 }
 
+public extension LeadingAccessoryStyle where Self == LeadingAccessoryNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> LeadingAccessoryNSSStyle {
+        parserType.mergeNSSData()
+        return LeadingAccessoryNSSStyle()
+    }
+
+    static var globalNSS: LeadingAccessoryNSSStyle {
+        LeadingAccessoryNSSStyle(isGlobal: true)
+    }
+}
+
 // MARK: LineStyle
 
 public extension LineStyle where Self == LineBaseStyle {
@@ -3332,6 +3993,17 @@ public extension LineStyle where Self == LineBaseStyle {
 public extension LineStyle where Self == LineFioriStyle {
     static var fiori: LineFioriStyle {
         LineFioriStyle()
+    }
+}
+
+public extension LineStyle where Self == LineNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> LineNSSStyle {
+        parserType.mergeNSSData()
+        return LineNSSStyle()
+    }
+
+    static var globalNSS: LineNSSStyle {
+        LineNSSStyle(isGlobal: true)
     }
 }
 
@@ -3349,6 +4021,17 @@ public extension LinearProgressIndicatorStyle where Self == LinearProgressIndica
     }
 }
 
+public extension LinearProgressIndicatorStyle where Self == LinearProgressIndicatorNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> LinearProgressIndicatorNSSStyle {
+        parserType.mergeNSSData()
+        return LinearProgressIndicatorNSSStyle()
+    }
+
+    static var globalNSS: LinearProgressIndicatorNSSStyle {
+        LinearProgressIndicatorNSSStyle(isGlobal: true)
+    }
+}
+
 // MARK: LinearProgressIndicatorViewStyle
 
 public extension LinearProgressIndicatorViewStyle where Self == LinearProgressIndicatorViewBaseStyle {
@@ -3360,6 +4043,17 @@ public extension LinearProgressIndicatorViewStyle where Self == LinearProgressIn
 public extension LinearProgressIndicatorViewStyle where Self == LinearProgressIndicatorViewFioriStyle {
     static var fiori: LinearProgressIndicatorViewFioriStyle {
         LinearProgressIndicatorViewFioriStyle()
+    }
+}
+
+public extension LinearProgressIndicatorViewStyle where Self == LinearProgressIndicatorViewNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> LinearProgressIndicatorViewNSSStyle {
+        parserType.mergeNSSData()
+        return LinearProgressIndicatorViewNSSStyle()
+    }
+
+    static var globalNSS: LinearProgressIndicatorViewNSSStyle {
+        LinearProgressIndicatorViewNSSStyle(isGlobal: true)
     }
 }
 
@@ -3440,6 +4134,17 @@ public extension ListPickerContentStyle where Self == ListPickerContentFioriStyl
     }
 }
 
+public extension ListPickerContentStyle where Self == ListPickerContentNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> ListPickerContentNSSStyle {
+        parserType.mergeNSSData()
+        return ListPickerContentNSSStyle()
+    }
+
+    static var globalNSS: ListPickerContentNSSStyle {
+        ListPickerContentNSSStyle(isGlobal: true)
+    }
+}
+
 // MARK: ListPickerDestinationStyle
 
 public extension ListPickerDestinationStyle where Self == ListPickerDestinationBaseStyle {
@@ -3451,6 +4156,17 @@ public extension ListPickerDestinationStyle where Self == ListPickerDestinationB
 public extension ListPickerDestinationStyle where Self == ListPickerDestinationFioriStyle {
     static var fiori: ListPickerDestinationFioriStyle {
         ListPickerDestinationFioriStyle()
+    }
+}
+
+public extension ListPickerDestinationStyle where Self == ListPickerDestinationNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> ListPickerDestinationNSSStyle {
+        parserType.mergeNSSData()
+        return ListPickerDestinationNSSStyle()
+    }
+
+    static var globalNSS: ListPickerDestinationNSSStyle {
+        ListPickerDestinationNSSStyle(isGlobal: true)
     }
 }
 
@@ -3615,6 +4331,17 @@ public extension ListPickerItemStyle where Self == ListPickerItemFioriStyle {
     }
 }
 
+public extension ListPickerItemStyle where Self == ListPickerItemNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> ListPickerItemNSSStyle {
+        parserType.mergeNSSData()
+        return ListPickerItemNSSStyle()
+    }
+
+    static var globalNSS: ListPickerItemNSSStyle {
+        ListPickerItemNSSStyle(isGlobal: true)
+    }
+}
+
 public struct ListPickerItemTitleStyle: ListPickerItemStyle {
     let style: any TitleStyle
 
@@ -3713,6 +4440,17 @@ public extension LoadingIndicatorStyle where Self == LoadingIndicatorFioriStyle 
     }
 }
 
+public extension LoadingIndicatorStyle where Self == LoadingIndicatorNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> LoadingIndicatorNSSStyle {
+        parserType.mergeNSSData()
+        return LoadingIndicatorNSSStyle()
+    }
+
+    static var globalNSS: LoadingIndicatorNSSStyle {
+        LoadingIndicatorNSSStyle(isGlobal: true)
+    }
+}
+
 public struct LoadingIndicatorTitleStyle: LoadingIndicatorStyle {
     let style: any TitleStyle
 
@@ -3769,6 +4507,17 @@ public extension LowerThumbStyle where Self == LowerThumbFioriStyle {
     }
 }
 
+public extension LowerThumbStyle where Self == LowerThumbNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> LowerThumbNSSStyle {
+        parserType.mergeNSSData()
+        return LowerThumbNSSStyle()
+    }
+
+    static var globalNSS: LowerThumbNSSStyle {
+        LowerThumbNSSStyle(isGlobal: true)
+    }
+}
+
 // MARK: MandatoryFieldIndicatorStyle
 
 public extension MandatoryFieldIndicatorStyle where Self == MandatoryFieldIndicatorBaseStyle {
@@ -3780,6 +4529,17 @@ public extension MandatoryFieldIndicatorStyle where Self == MandatoryFieldIndica
 public extension MandatoryFieldIndicatorStyle where Self == MandatoryFieldIndicatorFioriStyle {
     static var fiori: MandatoryFieldIndicatorFioriStyle {
         MandatoryFieldIndicatorFioriStyle()
+    }
+}
+
+public extension MandatoryFieldIndicatorStyle where Self == MandatoryFieldIndicatorNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> MandatoryFieldIndicatorNSSStyle {
+        parserType.mergeNSSData()
+        return MandatoryFieldIndicatorNSSStyle()
+    }
+
+    static var globalNSS: MandatoryFieldIndicatorNSSStyle {
+        MandatoryFieldIndicatorNSSStyle(isGlobal: true)
     }
 }
 
@@ -3797,6 +4557,17 @@ public extension MediaImageStyle where Self == MediaImageFioriStyle {
     }
 }
 
+public extension MediaImageStyle where Self == MediaImageNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> MediaImageNSSStyle {
+        parserType.mergeNSSData()
+        return MediaImageNSSStyle()
+    }
+
+    static var globalNSS: MediaImageNSSStyle {
+        MediaImageNSSStyle(isGlobal: true)
+    }
+}
+
 // MARK: MenuSelectionStyle
 
 public extension MenuSelectionStyle where Self == MenuSelectionBaseStyle {
@@ -3808,6 +4579,17 @@ public extension MenuSelectionStyle where Self == MenuSelectionBaseStyle {
 public extension MenuSelectionStyle where Self == MenuSelectionFioriStyle {
     static var fiori: MenuSelectionFioriStyle {
         MenuSelectionFioriStyle()
+    }
+}
+
+public extension MenuSelectionStyle where Self == MenuSelectionNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> MenuSelectionNSSStyle {
+        parserType.mergeNSSData()
+        return MenuSelectionNSSStyle()
+    }
+
+    static var globalNSS: MenuSelectionNSSStyle {
+        MenuSelectionNSSStyle(isGlobal: true)
     }
 }
 
@@ -3843,6 +4625,17 @@ public extension MenuSelectionItemStyle where Self == MenuSelectionItemBaseStyle
 public extension MenuSelectionItemStyle where Self == MenuSelectionItemFioriStyle {
     static var fiori: MenuSelectionItemFioriStyle {
         MenuSelectionItemFioriStyle()
+    }
+}
+
+public extension MenuSelectionItemStyle where Self == MenuSelectionItemNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> MenuSelectionItemNSSStyle {
+        parserType.mergeNSSData()
+        return MenuSelectionItemNSSStyle()
+    }
+
+    static var globalNSS: MenuSelectionItemNSSStyle {
+        MenuSelectionItemNSSStyle(isGlobal: true)
     }
 }
 
@@ -3902,6 +4695,17 @@ public extension MessageContentStyle where Self == MessageContentFioriStyle {
     }
 }
 
+public extension MessageContentStyle where Self == MessageContentNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> MessageContentNSSStyle {
+        parserType.mergeNSSData()
+        return MessageContentNSSStyle()
+    }
+
+    static var globalNSS: MessageContentNSSStyle {
+        MessageContentNSSStyle(isGlobal: true)
+    }
+}
+
 // MARK: MoreActionOverflowStyle
 
 public extension MoreActionOverflowStyle where Self == MoreActionOverflowBaseStyle {
@@ -3913,6 +4717,17 @@ public extension MoreActionOverflowStyle where Self == MoreActionOverflowBaseSty
 public extension MoreActionOverflowStyle where Self == MoreActionOverflowFioriStyle {
     static var fiori: MoreActionOverflowFioriStyle {
         MoreActionOverflowFioriStyle()
+    }
+}
+
+public extension MoreActionOverflowStyle where Self == MoreActionOverflowNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> MoreActionOverflowNSSStyle {
+        parserType.mergeNSSData()
+        return MoreActionOverflowNSSStyle()
+    }
+
+    static var globalNSS: MoreActionOverflowNSSStyle {
+        MoreActionOverflowNSSStyle(isGlobal: true)
     }
 }
 
@@ -3930,6 +4745,17 @@ public extension NodeStyle where Self == NodeFioriStyle {
     }
 }
 
+public extension NodeStyle where Self == NodeNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> NodeNSSStyle {
+        parserType.mergeNSSData()
+        return NodeNSSStyle()
+    }
+
+    static var globalNSS: NodeNSSStyle {
+        NodeNSSStyle(isGlobal: true)
+    }
+}
+
 // MARK: NoteFormViewStyle
 
 public extension NoteFormViewStyle where Self == NoteFormViewBaseStyle {
@@ -3941,6 +4767,17 @@ public extension NoteFormViewStyle where Self == NoteFormViewBaseStyle {
 public extension NoteFormViewStyle where Self == NoteFormViewFioriStyle {
     static var fiori: NoteFormViewFioriStyle {
         NoteFormViewFioriStyle()
+    }
+}
+
+public extension NoteFormViewStyle where Self == NoteFormViewNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> NoteFormViewNSSStyle {
+        parserType.mergeNSSData()
+        return NoteFormViewNSSStyle()
+    }
+
+    static var globalNSS: NoteFormViewNSSStyle {
+        NoteFormViewNSSStyle(isGlobal: true)
     }
 }
 
@@ -4042,6 +4879,17 @@ public extension NowIndicatorNodeStyle where Self == NowIndicatorNodeFioriStyle 
     }
 }
 
+public extension NowIndicatorNodeStyle where Self == NowIndicatorNodeNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> NowIndicatorNodeNSSStyle {
+        parserType.mergeNSSData()
+        return NowIndicatorNodeNSSStyle()
+    }
+
+    static var globalNSS: NowIndicatorNodeNSSStyle {
+        NowIndicatorNodeNSSStyle(isGlobal: true)
+    }
+}
+
 // MARK: ObjectHeaderStyle
 
 public extension ObjectHeaderStyle where Self == ObjectHeaderBaseStyle {
@@ -4053,6 +4901,17 @@ public extension ObjectHeaderStyle where Self == ObjectHeaderBaseStyle {
 public extension ObjectHeaderStyle where Self == ObjectHeaderFioriStyle {
     static var fiori: ObjectHeaderFioriStyle {
         ObjectHeaderFioriStyle()
+    }
+}
+
+public extension ObjectHeaderStyle where Self == ObjectHeaderNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> ObjectHeaderNSSStyle {
+        parserType.mergeNSSData()
+        return ObjectHeaderNSSStyle()
+    }
+
+    static var globalNSS: ObjectHeaderNSSStyle {
+        ObjectHeaderNSSStyle(isGlobal: true)
     }
 }
 
@@ -4277,6 +5136,17 @@ public extension ObjectItemStyle where Self == ObjectItemBaseStyle {
 public extension ObjectItemStyle where Self == ObjectItemFioriStyle {
     static var fiori: ObjectItemFioriStyle {
         ObjectItemFioriStyle()
+    }
+}
+
+public extension ObjectItemStyle where Self == ObjectItemNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> ObjectItemNSSStyle {
+        parserType.mergeNSSData()
+        return ObjectItemNSSStyle()
+    }
+
+    static var globalNSS: ObjectItemNSSStyle {
+        ObjectItemNSSStyle(isGlobal: true)
     }
 }
 
@@ -4567,6 +5437,17 @@ public extension OffStarImageStyle where Self == OffStarImageFioriStyle {
     }
 }
 
+public extension OffStarImageStyle where Self == OffStarImageNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> OffStarImageNSSStyle {
+        parserType.mergeNSSData()
+        return OffStarImageNSSStyle()
+    }
+
+    static var globalNSS: OffStarImageNSSStyle {
+        OffStarImageNSSStyle(isGlobal: true)
+    }
+}
+
 // MARK: OnStarImageStyle
 
 public extension OnStarImageStyle where Self == OnStarImageBaseStyle {
@@ -4578,6 +5459,17 @@ public extension OnStarImageStyle where Self == OnStarImageBaseStyle {
 public extension OnStarImageStyle where Self == OnStarImageFioriStyle {
     static var fiori: OnStarImageFioriStyle {
         OnStarImageFioriStyle()
+    }
+}
+
+public extension OnStarImageStyle where Self == OnStarImageNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> OnStarImageNSSStyle {
+        parserType.mergeNSSData()
+        return OnStarImageNSSStyle()
+    }
+
+    static var globalNSS: OnStarImageNSSStyle {
+        OnStarImageNSSStyle(isGlobal: true)
     }
 }
 
@@ -4595,6 +5487,17 @@ public extension OptionalTitleStyle where Self == OptionalTitleFioriStyle {
     }
 }
 
+public extension OptionalTitleStyle where Self == OptionalTitleNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> OptionalTitleNSSStyle {
+        parserType.mergeNSSData()
+        return OptionalTitleNSSStyle()
+    }
+
+    static var globalNSS: OptionalTitleNSSStyle {
+        OptionalTitleNSSStyle(isGlobal: true)
+    }
+}
+
 // MARK: OptionsStyle
 
 public extension OptionsStyle where Self == OptionsBaseStyle {
@@ -4606,6 +5509,17 @@ public extension OptionsStyle where Self == OptionsBaseStyle {
 public extension OptionsStyle where Self == OptionsFioriStyle {
     static var fiori: OptionsFioriStyle {
         OptionsFioriStyle()
+    }
+}
+
+public extension OptionsStyle where Self == OptionsNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> OptionsNSSStyle {
+        parserType.mergeNSSData()
+        return OptionsNSSStyle()
+    }
+
+    static var globalNSS: OptionsNSSStyle {
+        OptionsNSSStyle(isGlobal: true)
     }
 }
 
@@ -4623,6 +5537,17 @@ public extension OuterCircleStyle where Self == OuterCircleFioriStyle {
     }
 }
 
+public extension OuterCircleStyle where Self == OuterCircleNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> OuterCircleNSSStyle {
+        parserType.mergeNSSData()
+        return OuterCircleNSSStyle()
+    }
+
+    static var globalNSS: OuterCircleNSSStyle {
+        OuterCircleNSSStyle(isGlobal: true)
+    }
+}
+
 // MARK: OverflowActionStyle
 
 public extension OverflowActionStyle where Self == OverflowActionBaseStyle {
@@ -4634,6 +5559,17 @@ public extension OverflowActionStyle where Self == OverflowActionBaseStyle {
 public extension OverflowActionStyle where Self == OverflowActionFioriStyle {
     static var fiori: OverflowActionFioriStyle {
         OverflowActionFioriStyle()
+    }
+}
+
+public extension OverflowActionStyle where Self == OverflowActionNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> OverflowActionNSSStyle {
+        parserType.mergeNSSData()
+        return OverflowActionNSSStyle()
+    }
+
+    static var globalNSS: OverflowActionNSSStyle {
+        OverflowActionNSSStyle(isGlobal: true)
     }
 }
 
@@ -4651,6 +5587,17 @@ public extension PlaceholderStyle where Self == PlaceholderFioriStyle {
     }
 }
 
+public extension PlaceholderStyle where Self == PlaceholderNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> PlaceholderNSSStyle {
+        parserType.mergeNSSData()
+        return PlaceholderNSSStyle()
+    }
+
+    static var globalNSS: PlaceholderNSSStyle {
+        PlaceholderNSSStyle(isGlobal: true)
+    }
+}
+
 // MARK: PlaceholderTextEditorStyle
 
 public extension PlaceholderTextEditorStyle where Self == PlaceholderTextEditorBaseStyle {
@@ -4662,6 +5609,17 @@ public extension PlaceholderTextEditorStyle where Self == PlaceholderTextEditorB
 public extension PlaceholderTextEditorStyle where Self == PlaceholderTextEditorFioriStyle {
     static var fiori: PlaceholderTextEditorFioriStyle {
         PlaceholderTextEditorFioriStyle()
+    }
+}
+
+public extension PlaceholderTextEditorStyle where Self == PlaceholderTextEditorNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> PlaceholderTextEditorNSSStyle {
+        parserType.mergeNSSData()
+        return PlaceholderTextEditorNSSStyle()
+    }
+
+    static var globalNSS: PlaceholderTextEditorNSSStyle {
+        PlaceholderTextEditorNSSStyle(isGlobal: true)
     }
 }
 
@@ -4721,6 +5679,17 @@ public extension PlaceholderTextFieldStyle where Self == PlaceholderTextFieldFio
     }
 }
 
+public extension PlaceholderTextFieldStyle where Self == PlaceholderTextFieldNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> PlaceholderTextFieldNSSStyle {
+        parserType.mergeNSSData()
+        return PlaceholderTextFieldNSSStyle()
+    }
+
+    static var globalNSS: PlaceholderTextFieldNSSStyle {
+        PlaceholderTextFieldNSSStyle(isGlobal: true)
+    }
+}
+
 public struct PlaceholderTextFieldTextInputFieldStyle: PlaceholderTextFieldStyle {
     let style: any TextInputFieldStyle
 
@@ -4777,6 +5746,17 @@ public extension ProcessingIndicatorStyle where Self == ProcessingIndicatorFiori
     }
 }
 
+public extension ProcessingIndicatorStyle where Self == ProcessingIndicatorNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> ProcessingIndicatorNSSStyle {
+        parserType.mergeNSSData()
+        return ProcessingIndicatorNSSStyle()
+    }
+
+    static var globalNSS: ProcessingIndicatorNSSStyle {
+        ProcessingIndicatorNSSStyle(isGlobal: true)
+    }
+}
+
 public struct ProcessingIndicatorOptionalTitleStyle: ProcessingIndicatorStyle {
     let style: any OptionalTitleStyle
 
@@ -4809,6 +5789,17 @@ public extension ProfileHeaderStyle where Self == ProfileHeaderBaseStyle {
 public extension ProfileHeaderStyle where Self == ProfileHeaderFioriStyle {
     static var fiori: ProfileHeaderFioriStyle {
         ProfileHeaderFioriStyle()
+    }
+}
+
+public extension ProfileHeaderStyle where Self == ProfileHeaderNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> ProfileHeaderNSSStyle {
+        parserType.mergeNSSData()
+        return ProfileHeaderNSSStyle()
+    }
+
+    static var globalNSS: ProfileHeaderNSSStyle {
+        ProfileHeaderNSSStyle(isGlobal: true)
     }
 }
 
@@ -4910,6 +5901,17 @@ public extension ProgressStyle where Self == ProgressFioriStyle {
     }
 }
 
+public extension ProgressStyle where Self == ProgressNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> ProgressNSSStyle {
+        parserType.mergeNSSData()
+        return ProgressNSSStyle()
+    }
+
+    static var globalNSS: ProgressNSSStyle {
+        ProgressNSSStyle(isGlobal: true)
+    }
+}
+
 // MARK: ProgressIndicatorStyle
 
 public extension ProgressIndicatorStyle where Self == ProgressIndicatorBaseStyle {
@@ -4921,6 +5923,17 @@ public extension ProgressIndicatorStyle where Self == ProgressIndicatorBaseStyle
 public extension ProgressIndicatorStyle where Self == ProgressIndicatorFioriStyle {
     static var fiori: ProgressIndicatorFioriStyle {
         ProgressIndicatorFioriStyle()
+    }
+}
+
+public extension ProgressIndicatorStyle where Self == ProgressIndicatorNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> ProgressIndicatorNSSStyle {
+        parserType.mergeNSSData()
+        return ProgressIndicatorNSSStyle()
+    }
+
+    static var globalNSS: ProgressIndicatorNSSStyle {
+        ProgressIndicatorNSSStyle(isGlobal: true)
     }
 }
 
@@ -4959,6 +5972,17 @@ public extension ProgressIndicatorProtocolStyle where Self == ProgressIndicatorP
     }
 }
 
+public extension ProgressIndicatorProtocolStyle where Self == ProgressIndicatorProtocolNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> ProgressIndicatorProtocolNSSStyle {
+        parserType.mergeNSSData()
+        return ProgressIndicatorProtocolNSSStyle()
+    }
+
+    static var globalNSS: ProgressIndicatorProtocolNSSStyle {
+        ProgressIndicatorProtocolNSSStyle(isGlobal: true)
+    }
+}
+
 // MARK: RangeSliderControlStyle
 
 public extension RangeSliderControlStyle where Self == RangeSliderControlBaseStyle {
@@ -4970,6 +5994,17 @@ public extension RangeSliderControlStyle where Self == RangeSliderControlBaseSty
 public extension RangeSliderControlStyle where Self == RangeSliderControlFioriStyle {
     static var fiori: RangeSliderControlFioriStyle {
         RangeSliderControlFioriStyle()
+    }
+}
+
+public extension RangeSliderControlStyle where Self == RangeSliderControlNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> RangeSliderControlNSSStyle {
+        parserType.mergeNSSData()
+        return RangeSliderControlNSSStyle()
+    }
+
+    static var globalNSS: RangeSliderControlNSSStyle {
+        RangeSliderControlNSSStyle(isGlobal: true)
     }
 }
 
@@ -5068,6 +6103,17 @@ public extension RatingControlStyle where Self == RatingControlBaseStyle {
 public extension RatingControlStyle where Self == RatingControlFioriStyle {
     static var fiori: RatingControlFioriStyle {
         RatingControlFioriStyle()
+    }
+}
+
+public extension RatingControlStyle where Self == RatingControlNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> RatingControlNSSStyle {
+        parserType.mergeNSSData()
+        return RatingControlNSSStyle()
+    }
+
+    static var globalNSS: RatingControlNSSStyle {
+        RatingControlNSSStyle(isGlobal: true)
     }
 }
 
@@ -5187,6 +6233,17 @@ public extension RatingControlFormViewStyle where Self == RatingControlFormViewB
 public extension RatingControlFormViewStyle where Self == RatingControlFormViewFioriStyle {
     static var fiori: RatingControlFormViewFioriStyle {
         RatingControlFormViewFioriStyle()
+    }
+}
+
+public extension RatingControlFormViewStyle where Self == RatingControlFormViewNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> RatingControlFormViewNSSStyle {
+        parserType.mergeNSSData()
+        return RatingControlFormViewNSSStyle()
+    }
+
+    static var globalNSS: RatingControlFormViewNSSStyle {
+        RatingControlFormViewNSSStyle(isGlobal: true)
     }
 }
 
@@ -5372,6 +6429,17 @@ public extension ReviewCountLabelStyle where Self == ReviewCountLabelFioriStyle 
     }
 }
 
+public extension ReviewCountLabelStyle where Self == ReviewCountLabelNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> ReviewCountLabelNSSStyle {
+        parserType.mergeNSSData()
+        return ReviewCountLabelNSSStyle()
+    }
+
+    static var globalNSS: ReviewCountLabelNSSStyle {
+        ReviewCountLabelNSSStyle(isGlobal: true)
+    }
+}
+
 // MARK: Row1Style
 
 public extension Row1Style where Self == Row1BaseStyle {
@@ -5383,6 +6451,17 @@ public extension Row1Style where Self == Row1BaseStyle {
 public extension Row1Style where Self == Row1FioriStyle {
     static var fiori: Row1FioriStyle {
         Row1FioriStyle()
+    }
+}
+
+public extension Row1Style where Self == Row1NSSStyle {
+    static func nss(_ parserType: NSSParserType) -> Row1NSSStyle {
+        parserType.mergeNSSData()
+        return Row1NSSStyle()
+    }
+
+    static var globalNSS: Row1NSSStyle {
+        Row1NSSStyle(isGlobal: true)
     }
 }
 
@@ -5400,6 +6479,17 @@ public extension Row2Style where Self == Row2FioriStyle {
     }
 }
 
+public extension Row2Style where Self == Row2NSSStyle {
+    static func nss(_ parserType: NSSParserType) -> Row2NSSStyle {
+        parserType.mergeNSSData()
+        return Row2NSSStyle()
+    }
+
+    static var globalNSS: Row2NSSStyle {
+        Row2NSSStyle(isGlobal: true)
+    }
+}
+
 // MARK: Row3Style
 
 public extension Row3Style where Self == Row3BaseStyle {
@@ -5411,6 +6501,17 @@ public extension Row3Style where Self == Row3BaseStyle {
 public extension Row3Style where Self == Row3FioriStyle {
     static var fiori: Row3FioriStyle {
         Row3FioriStyle()
+    }
+}
+
+public extension Row3Style where Self == Row3NSSStyle {
+    static func nss(_ parserType: NSSParserType) -> Row3NSSStyle {
+        parserType.mergeNSSData()
+        return Row3NSSStyle()
+    }
+
+    static var globalNSS: Row3NSSStyle {
+        Row3NSSStyle(isGlobal: true)
     }
 }
 
@@ -5428,6 +6529,17 @@ public extension SecondaryActionStyle where Self == SecondaryActionFioriStyle {
     }
 }
 
+public extension SecondaryActionStyle where Self == SecondaryActionNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> SecondaryActionNSSStyle {
+        parserType.mergeNSSData()
+        return SecondaryActionNSSStyle()
+    }
+
+    static var globalNSS: SecondaryActionNSSStyle {
+        SecondaryActionNSSStyle(isGlobal: true)
+    }
+}
+
 // MARK: SecondaryTimestampStyle
 
 public extension SecondaryTimestampStyle where Self == SecondaryTimestampBaseStyle {
@@ -5442,6 +6554,17 @@ public extension SecondaryTimestampStyle where Self == SecondaryTimestampFioriSt
     }
 }
 
+public extension SecondaryTimestampStyle where Self == SecondaryTimestampNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> SecondaryTimestampNSSStyle {
+        parserType.mergeNSSData()
+        return SecondaryTimestampNSSStyle()
+    }
+
+    static var globalNSS: SecondaryTimestampNSSStyle {
+        SecondaryTimestampNSSStyle(isGlobal: true)
+    }
+}
+
 // MARK: SectionFooterStyle
 
 public extension SectionFooterStyle where Self == SectionFooterBaseStyle {
@@ -5453,6 +6576,17 @@ public extension SectionFooterStyle where Self == SectionFooterBaseStyle {
 public extension SectionFooterStyle where Self == SectionFooterFioriStyle {
     static var fiori: SectionFooterFioriStyle {
         SectionFooterFioriStyle()
+    }
+}
+
+public extension SectionFooterStyle where Self == SectionFooterNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> SectionFooterNSSStyle {
+        parserType.mergeNSSData()
+        return SectionFooterNSSStyle()
+    }
+
+    static var globalNSS: SectionFooterNSSStyle {
+        SectionFooterNSSStyle(isGlobal: true)
     }
 }
 
@@ -5512,6 +6646,17 @@ public extension SectionHeaderStyle where Self == SectionHeaderFioriStyle {
     }
 }
 
+public extension SectionHeaderStyle where Self == SectionHeaderNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> SectionHeaderNSSStyle {
+        parserType.mergeNSSData()
+        return SectionHeaderNSSStyle()
+    }
+
+    static var globalNSS: SectionHeaderNSSStyle {
+        SectionHeaderNSSStyle(isGlobal: true)
+    }
+}
+
 public struct SectionHeaderTitleStyle: SectionHeaderStyle {
     let style: any TitleStyle
 
@@ -5568,6 +6713,17 @@ public extension SegmentedControlPickerStyle where Self == SegmentedControlPicke
     }
 }
 
+public extension SegmentedControlPickerStyle where Self == SegmentedControlPickerNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> SegmentedControlPickerNSSStyle {
+        parserType.mergeNSSData()
+        return SegmentedControlPickerNSSStyle()
+    }
+
+    static var globalNSS: SegmentedControlPickerNSSStyle {
+        SegmentedControlPickerNSSStyle(isGlobal: true)
+    }
+}
+
 public struct SegmentedControlPickerOptionsStyle: SegmentedControlPickerStyle {
     let style: any OptionsStyle
 
@@ -5603,6 +6759,17 @@ public extension SelectAllActionStyle where Self == SelectAllActionFioriStyle {
     }
 }
 
+public extension SelectAllActionStyle where Self == SelectAllActionNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> SelectAllActionNSSStyle {
+        parserType.mergeNSSData()
+        return SelectAllActionNSSStyle()
+    }
+
+    static var globalNSS: SelectAllActionNSSStyle {
+        SelectAllActionNSSStyle(isGlobal: true)
+    }
+}
+
 // MARK: SelectedEntriesSectionTitleStyle
 
 public extension SelectedEntriesSectionTitleStyle where Self == SelectedEntriesSectionTitleBaseStyle {
@@ -5614,6 +6781,17 @@ public extension SelectedEntriesSectionTitleStyle where Self == SelectedEntriesS
 public extension SelectedEntriesSectionTitleStyle where Self == SelectedEntriesSectionTitleFioriStyle {
     static var fiori: SelectedEntriesSectionTitleFioriStyle {
         SelectedEntriesSectionTitleFioriStyle()
+    }
+}
+
+public extension SelectedEntriesSectionTitleStyle where Self == SelectedEntriesSectionTitleNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> SelectedEntriesSectionTitleNSSStyle {
+        parserType.mergeNSSData()
+        return SelectedEntriesSectionTitleNSSStyle()
+    }
+
+    static var globalNSS: SelectedEntriesSectionTitleNSSStyle {
+        SelectedEntriesSectionTitleNSSStyle(isGlobal: true)
     }
 }
 
@@ -5631,6 +6809,17 @@ public extension SideBarStyle where Self == SideBarFioriStyle {
     }
 }
 
+public extension SideBarStyle where Self == SideBarNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> SideBarNSSStyle {
+        parserType.mergeNSSData()
+        return SideBarNSSStyle()
+    }
+
+    static var globalNSS: SideBarNSSStyle {
+        SideBarNSSStyle(isGlobal: true)
+    }
+}
+
 // MARK: SideBarListItemStyle
 
 public extension SideBarListItemStyle where Self == SideBarListItemBaseStyle {
@@ -5642,6 +6831,17 @@ public extension SideBarListItemStyle where Self == SideBarListItemBaseStyle {
 public extension SideBarListItemStyle where Self == SideBarListItemFioriStyle {
     static var fiori: SideBarListItemFioriStyle {
         SideBarListItemFioriStyle()
+    }
+}
+
+public extension SideBarListItemStyle where Self == SideBarListItemNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> SideBarListItemNSSStyle {
+        parserType.mergeNSSData()
+        return SideBarListItemNSSStyle()
+    }
+
+    static var globalNSS: SideBarListItemNSSStyle {
+        SideBarListItemNSSStyle(isGlobal: true)
     }
 }
 
@@ -5785,6 +6985,17 @@ public extension SingleStepStyle where Self == SingleStepFioriStyle {
     }
 }
 
+public extension SingleStepStyle where Self == SingleStepNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> SingleStepNSSStyle {
+        parserType.mergeNSSData()
+        return SingleStepNSSStyle()
+    }
+
+    static var globalNSS: SingleStepNSSStyle {
+        SingleStepNSSStyle(isGlobal: true)
+    }
+}
+
 public struct SingleStepTitleStyle: SingleStepStyle {
     let style: any TitleStyle
 
@@ -5862,6 +7073,17 @@ public extension StatusStyle where Self == StatusFioriStyle {
     }
 }
 
+public extension StatusStyle where Self == StatusNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> StatusNSSStyle {
+        parserType.mergeNSSData()
+        return StatusNSSStyle()
+    }
+
+    static var globalNSS: StatusNSSStyle {
+        StatusNSSStyle(isGlobal: true)
+    }
+}
+
 // MARK: StepProgressIndicatorStyle
 
 public extension StepProgressIndicatorStyle where Self == StepProgressIndicatorBaseStyle {
@@ -5873,6 +7095,17 @@ public extension StepProgressIndicatorStyle where Self == StepProgressIndicatorB
 public extension StepProgressIndicatorStyle where Self == StepProgressIndicatorFioriStyle {
     static var fiori: StepProgressIndicatorFioriStyle {
         StepProgressIndicatorFioriStyle()
+    }
+}
+
+public extension StepProgressIndicatorStyle where Self == StepProgressIndicatorNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> StepProgressIndicatorNSSStyle {
+        parserType.mergeNSSData()
+        return StepProgressIndicatorNSSStyle()
+    }
+
+    static var globalNSS: StepProgressIndicatorNSSStyle {
+        StepProgressIndicatorNSSStyle(isGlobal: true)
     }
 }
 
@@ -5953,6 +7186,17 @@ public extension StepperFieldStyle where Self == StepperFieldFioriStyle {
     }
 }
 
+public extension StepperFieldStyle where Self == StepperFieldNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> StepperFieldNSSStyle {
+        parserType.mergeNSSData()
+        return StepperFieldNSSStyle()
+    }
+
+    static var globalNSS: StepperFieldNSSStyle {
+        StepperFieldNSSStyle(isGlobal: true)
+    }
+}
+
 public struct StepperFieldDecrementActionStyle: StepperFieldStyle {
     let style: any DecrementActionStyle
 
@@ -6027,6 +7271,17 @@ public extension StepperViewStyle where Self == StepperViewBaseStyle {
 public extension StepperViewStyle where Self == StepperViewFioriStyle {
     static var fiori: StepperViewFioriStyle {
         StepperViewFioriStyle()
+    }
+}
+
+public extension StepperViewStyle where Self == StepperViewNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> StepperViewNSSStyle {
+        parserType.mergeNSSData()
+        return StepperViewNSSStyle()
+    }
+
+    static var globalNSS: StepperViewNSSStyle {
+        StepperViewNSSStyle(isGlobal: true)
     }
 }
 
@@ -6212,6 +7467,17 @@ public extension SubAttributeStyle where Self == SubAttributeFioriStyle {
     }
 }
 
+public extension SubAttributeStyle where Self == SubAttributeNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> SubAttributeNSSStyle {
+        parserType.mergeNSSData()
+        return SubAttributeNSSStyle()
+    }
+
+    static var globalNSS: SubAttributeNSSStyle {
+        SubAttributeNSSStyle(isGlobal: true)
+    }
+}
+
 // MARK: SubstatusStyle
 
 public extension SubstatusStyle where Self == SubstatusBaseStyle {
@@ -6223,6 +7489,17 @@ public extension SubstatusStyle where Self == SubstatusBaseStyle {
 public extension SubstatusStyle where Self == SubstatusFioriStyle {
     static var fiori: SubstatusFioriStyle {
         SubstatusFioriStyle()
+    }
+}
+
+public extension SubstatusStyle where Self == SubstatusNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> SubstatusNSSStyle {
+        parserType.mergeNSSData()
+        return SubstatusNSSStyle()
+    }
+
+    static var globalNSS: SubstatusNSSStyle {
+        SubstatusNSSStyle(isGlobal: true)
     }
 }
 
@@ -6240,6 +7517,17 @@ public extension SubtitleStyle where Self == SubtitleFioriStyle {
     }
 }
 
+public extension SubtitleStyle where Self == SubtitleNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> SubtitleNSSStyle {
+        parserType.mergeNSSData()
+        return SubtitleNSSStyle()
+    }
+
+    static var globalNSS: SubtitleNSSStyle {
+        SubtitleNSSStyle(isGlobal: true)
+    }
+}
+
 // MARK: SwitchStyle
 
 public extension SwitchStyle where Self == SwitchBaseStyle {
@@ -6254,6 +7542,17 @@ public extension SwitchStyle where Self == SwitchFioriStyle {
     }
 }
 
+public extension SwitchStyle where Self == SwitchNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> SwitchNSSStyle {
+        parserType.mergeNSSData()
+        return SwitchNSSStyle()
+    }
+
+    static var globalNSS: SwitchNSSStyle {
+        SwitchNSSStyle(isGlobal: true)
+    }
+}
+
 // MARK: SwitchViewStyle
 
 public extension SwitchViewStyle where Self == SwitchViewBaseStyle {
@@ -6265,6 +7564,17 @@ public extension SwitchViewStyle where Self == SwitchViewBaseStyle {
 public extension SwitchViewStyle where Self == SwitchViewFioriStyle {
     static var fiori: SwitchViewFioriStyle {
         SwitchViewFioriStyle()
+    }
+}
+
+public extension SwitchViewStyle where Self == SwitchViewNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> SwitchViewNSSStyle {
+        parserType.mergeNSSData()
+        return SwitchViewNSSStyle()
+    }
+
+    static var globalNSS: SwitchViewNSSStyle {
+        SwitchViewNSSStyle(isGlobal: true)
     }
 }
 
@@ -6324,6 +7634,17 @@ public extension TagStyle where Self == TagFioriStyle {
     }
 }
 
+public extension TagStyle where Self == TagNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> TagNSSStyle {
+        parserType.mergeNSSData()
+        return TagNSSStyle()
+    }
+
+    static var globalNSS: TagNSSStyle {
+        TagNSSStyle(isGlobal: true)
+    }
+}
+
 // MARK: TagsStyle
 
 public extension TagsStyle where Self == TagsBaseStyle {
@@ -6335,6 +7656,17 @@ public extension TagsStyle where Self == TagsBaseStyle {
 public extension TagsStyle where Self == TagsFioriStyle {
     static var fiori: TagsFioriStyle {
         TagsFioriStyle()
+    }
+}
+
+public extension TagsStyle where Self == TagsNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> TagsNSSStyle {
+        parserType.mergeNSSData()
+        return TagsNSSStyle()
+    }
+
+    static var globalNSS: TagsNSSStyle {
+        TagsNSSStyle(isGlobal: true)
     }
 }
 
@@ -6352,6 +7684,17 @@ public extension TertiaryActionStyle where Self == TertiaryActionFioriStyle {
     }
 }
 
+public extension TertiaryActionStyle where Self == TertiaryActionNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> TertiaryActionNSSStyle {
+        parserType.mergeNSSData()
+        return TertiaryActionNSSStyle()
+    }
+
+    static var globalNSS: TertiaryActionNSSStyle {
+        TertiaryActionNSSStyle(isGlobal: true)
+    }
+}
+
 // MARK: TextFieldFormViewStyle
 
 public extension TextFieldFormViewStyle where Self == TextFieldFormViewBaseStyle {
@@ -6363,6 +7706,17 @@ public extension TextFieldFormViewStyle where Self == TextFieldFormViewBaseStyle
 public extension TextFieldFormViewStyle where Self == TextFieldFormViewFioriStyle {
     static var fiori: TextFieldFormViewFioriStyle {
         TextFieldFormViewFioriStyle()
+    }
+}
+
+public extension TextFieldFormViewStyle where Self == TextFieldFormViewNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> TextFieldFormViewNSSStyle {
+        parserType.mergeNSSData()
+        return TextFieldFormViewNSSStyle()
+    }
+
+    static var globalNSS: TextFieldFormViewNSSStyle {
+        TextFieldFormViewNSSStyle(isGlobal: true)
     }
 }
 
@@ -6485,6 +7839,17 @@ public extension TextInputFieldStyle where Self == TextInputFieldFioriStyle {
     }
 }
 
+public extension TextInputFieldStyle where Self == TextInputFieldNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> TextInputFieldNSSStyle {
+        parserType.mergeNSSData()
+        return TextInputFieldNSSStyle()
+    }
+
+    static var globalNSS: TextInputFieldNSSStyle {
+        TextInputFieldNSSStyle(isGlobal: true)
+    }
+}
+
 // MARK: TextInputInfoViewStyle
 
 extension TextInputInfoViewStyle where Self == TextInputInfoViewBaseStyle {
@@ -6496,6 +7861,17 @@ extension TextInputInfoViewStyle where Self == TextInputInfoViewBaseStyle {
 extension TextInputInfoViewStyle where Self == TextInputInfoViewFioriStyle {
     static var fiori: TextInputInfoViewFioriStyle {
         TextInputInfoViewFioriStyle()
+    }
+}
+
+extension TextInputInfoViewStyle where Self == TextInputInfoViewNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> TextInputInfoViewNSSStyle {
+        parserType.mergeNSSData()
+        return TextInputInfoViewNSSStyle()
+    }
+
+    static var globalNSS: TextInputInfoViewNSSStyle {
+        TextInputInfoViewNSSStyle(isGlobal: true)
     }
 }
 
@@ -6597,6 +7973,17 @@ public extension TextViewStyle where Self == TextViewFioriStyle {
     }
 }
 
+public extension TextViewStyle where Self == TextViewNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> TextViewNSSStyle {
+        parserType.mergeNSSData()
+        return TextViewNSSStyle()
+    }
+
+    static var globalNSS: TextViewNSSStyle {
+        TextViewNSSStyle(isGlobal: true)
+    }
+}
+
 // MARK: TimelineStyle
 
 public extension TimelineStyle where Self == TimelineBaseStyle {
@@ -6608,6 +7995,17 @@ public extension TimelineStyle where Self == TimelineBaseStyle {
 public extension TimelineStyle where Self == TimelineFioriStyle {
     static var fiori: TimelineFioriStyle {
         TimelineFioriStyle()
+    }
+}
+
+public extension TimelineStyle where Self == TimelineNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> TimelineNSSStyle {
+        parserType.mergeNSSData()
+        return TimelineNSSStyle()
+    }
+
+    static var globalNSS: TimelineNSSStyle {
+        TimelineNSSStyle(isGlobal: true)
     }
 }
 
@@ -6835,6 +8233,17 @@ public extension TimelineMarkerStyle where Self == TimelineMarkerFioriStyle {
     }
 }
 
+public extension TimelineMarkerStyle where Self == TimelineMarkerNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> TimelineMarkerNSSStyle {
+        parserType.mergeNSSData()
+        return TimelineMarkerNSSStyle()
+    }
+
+    static var globalNSS: TimelineMarkerNSSStyle {
+        TimelineMarkerNSSStyle(isGlobal: true)
+    }
+}
+
 public struct TimelineMarkerTimestampStyle: TimelineMarkerStyle {
     let style: any TimestampStyle
 
@@ -6954,6 +8363,17 @@ public extension TimelineNodeStyle where Self == TimelineNodeFioriStyle {
     }
 }
 
+public extension TimelineNodeStyle where Self == TimelineNodeNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> TimelineNodeNSSStyle {
+        parserType.mergeNSSData()
+        return TimelineNodeNSSStyle()
+    }
+
+    static var globalNSS: TimelineNodeNSSStyle {
+        TimelineNodeNSSStyle(isGlobal: true)
+    }
+}
+
 // MARK: TimelineNowIndicatorStyle
 
 public extension TimelineNowIndicatorStyle where Self == TimelineNowIndicatorBaseStyle {
@@ -6965,6 +8385,17 @@ public extension TimelineNowIndicatorStyle where Self == TimelineNowIndicatorBas
 public extension TimelineNowIndicatorStyle where Self == TimelineNowIndicatorFioriStyle {
     static var fiori: TimelineNowIndicatorFioriStyle {
         TimelineNowIndicatorFioriStyle()
+    }
+}
+
+public extension TimelineNowIndicatorStyle where Self == TimelineNowIndicatorNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> TimelineNowIndicatorNSSStyle {
+        parserType.mergeNSSData()
+        return TimelineNowIndicatorNSSStyle()
+    }
+
+    static var globalNSS: TimelineNowIndicatorNSSStyle {
+        TimelineNowIndicatorNSSStyle(isGlobal: true)
     }
 }
 
@@ -7000,6 +8431,17 @@ public extension TimelinePreviewStyle where Self == TimelinePreviewBaseStyle {
 public extension TimelinePreviewStyle where Self == TimelinePreviewFioriStyle {
     static var fiori: TimelinePreviewFioriStyle {
         TimelinePreviewFioriStyle()
+    }
+}
+
+public extension TimelinePreviewStyle where Self == TimelinePreviewNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> TimelinePreviewNSSStyle {
+        parserType.mergeNSSData()
+        return TimelinePreviewNSSStyle()
+    }
+
+    static var globalNSS: TimelinePreviewNSSStyle {
+        TimelinePreviewNSSStyle(isGlobal: true)
     }
 }
 
@@ -7056,6 +8498,17 @@ public extension TimelinePreviewItemStyle where Self == TimelinePreviewItemBaseS
 public extension TimelinePreviewItemStyle where Self == TimelinePreviewItemFioriStyle {
     static var fiori: TimelinePreviewItemFioriStyle {
         TimelinePreviewItemFioriStyle()
+    }
+}
+
+public extension TimelinePreviewItemStyle where Self == TimelinePreviewItemNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> TimelinePreviewItemNSSStyle {
+        parserType.mergeNSSData()
+        return TimelinePreviewItemNSSStyle()
+    }
+
+    static var globalNSS: TimelinePreviewItemNSSStyle {
+        TimelinePreviewItemNSSStyle(isGlobal: true)
     }
 }
 
@@ -7157,6 +8610,17 @@ public extension TimestampStyle where Self == TimestampFioriStyle {
     }
 }
 
+public extension TimestampStyle where Self == TimestampNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> TimestampNSSStyle {
+        parserType.mergeNSSData()
+        return TimestampNSSStyle()
+    }
+
+    static var globalNSS: TimestampNSSStyle {
+        TimestampNSSStyle(isGlobal: true)
+    }
+}
+
 // MARK: TitleStyle
 
 public extension TitleStyle where Self == TitleBaseStyle {
@@ -7171,6 +8635,17 @@ public extension TitleStyle where Self == TitleFioriStyle {
     }
 }
 
+public extension TitleStyle where Self == TitleNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> TitleNSSStyle {
+        parserType.mergeNSSData()
+        return TitleNSSStyle()
+    }
+
+    static var globalNSS: TitleNSSStyle {
+        TitleNSSStyle(isGlobal: true)
+    }
+}
+
 // MARK: TitleFormViewStyle
 
 public extension TitleFormViewStyle where Self == TitleFormViewBaseStyle {
@@ -7182,6 +8657,17 @@ public extension TitleFormViewStyle where Self == TitleFormViewBaseStyle {
 public extension TitleFormViewStyle where Self == TitleFormViewFioriStyle {
     static var fiori: TitleFormViewFioriStyle {
         TitleFormViewFioriStyle()
+    }
+}
+
+public extension TitleFormViewStyle where Self == TitleFormViewNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> TitleFormViewNSSStyle {
+        parserType.mergeNSSData()
+        return TitleFormViewNSSStyle()
+    }
+
+    static var globalNSS: TitleFormViewNSSStyle {
+        TitleFormViewNSSStyle(isGlobal: true)
     }
 }
 
@@ -7283,6 +8769,17 @@ public extension ToastMessageStyle where Self == ToastMessageFioriStyle {
     }
 }
 
+public extension ToastMessageStyle where Self == ToastMessageNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> ToastMessageNSSStyle {
+        parserType.mergeNSSData()
+        return ToastMessageNSSStyle()
+    }
+
+    static var globalNSS: ToastMessageNSSStyle {
+        ToastMessageNSSStyle(isGlobal: true)
+    }
+}
+
 public struct ToastMessageIconStyle: ToastMessageStyle {
     let style: any IconStyle
 
@@ -7339,6 +8836,17 @@ public extension TopDividerStyle where Self == TopDividerFioriStyle {
     }
 }
 
+public extension TopDividerStyle where Self == TopDividerNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> TopDividerNSSStyle {
+        parserType.mergeNSSData()
+        return TopDividerNSSStyle()
+    }
+
+    static var globalNSS: TopDividerNSSStyle {
+        TopDividerNSSStyle(isGlobal: true)
+    }
+}
+
 // MARK: TrailingAccessoryStyle
 
 public extension TrailingAccessoryStyle where Self == TrailingAccessoryBaseStyle {
@@ -7350,6 +8858,17 @@ public extension TrailingAccessoryStyle where Self == TrailingAccessoryBaseStyle
 public extension TrailingAccessoryStyle where Self == TrailingAccessoryFioriStyle {
     static var fiori: TrailingAccessoryFioriStyle {
         TrailingAccessoryFioriStyle()
+    }
+}
+
+public extension TrailingAccessoryStyle where Self == TrailingAccessoryNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> TrailingAccessoryNSSStyle {
+        parserType.mergeNSSData()
+        return TrailingAccessoryNSSStyle()
+    }
+
+    static var globalNSS: TrailingAccessoryNSSStyle {
+        TrailingAccessoryNSSStyle(isGlobal: true)
     }
 }
 
@@ -7367,6 +8886,17 @@ public extension TrendStyle where Self == TrendFioriStyle {
     }
 }
 
+public extension TrendStyle where Self == TrendNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> TrendNSSStyle {
+        parserType.mergeNSSData()
+        return TrendNSSStyle()
+    }
+
+    static var globalNSS: TrendNSSStyle {
+        TrendNSSStyle(isGlobal: true)
+    }
+}
+
 // MARK: TrendImageStyle
 
 public extension TrendImageStyle where Self == TrendImageBaseStyle {
@@ -7378,6 +8908,17 @@ public extension TrendImageStyle where Self == TrendImageBaseStyle {
 public extension TrendImageStyle where Self == TrendImageFioriStyle {
     static var fiori: TrendImageFioriStyle {
         TrendImageFioriStyle()
+    }
+}
+
+public extension TrendImageStyle where Self == TrendImageNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> TrendImageNSSStyle {
+        parserType.mergeNSSData()
+        return TrendImageNSSStyle()
+    }
+
+    static var globalNSS: TrendImageNSSStyle {
+        TrendImageNSSStyle(isGlobal: true)
     }
 }
 
@@ -7395,6 +8936,17 @@ public extension UpperThumbStyle where Self == UpperThumbFioriStyle {
     }
 }
 
+public extension UpperThumbStyle where Self == UpperThumbNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> UpperThumbNSSStyle {
+        parserType.mergeNSSData()
+        return UpperThumbNSSStyle()
+    }
+
+    static var globalNSS: UpperThumbNSSStyle {
+        UpperThumbNSSStyle(isGlobal: true)
+    }
+}
+
 // MARK: ValueStyle
 
 public extension ValueStyle where Self == ValueBaseStyle {
@@ -7406,6 +8958,17 @@ public extension ValueStyle where Self == ValueBaseStyle {
 public extension ValueStyle where Self == ValueFioriStyle {
     static var fiori: ValueFioriStyle {
         ValueFioriStyle()
+    }
+}
+
+public extension ValueStyle where Self == ValueNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> ValueNSSStyle {
+        parserType.mergeNSSData()
+        return ValueNSSStyle()
+    }
+
+    static var globalNSS: ValueNSSStyle {
+        ValueNSSStyle(isGlobal: true)
     }
 }
 
@@ -7423,6 +8986,17 @@ public extension ValueLabelStyle where Self == ValueLabelFioriStyle {
     }
 }
 
+public extension ValueLabelStyle where Self == ValueLabelNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> ValueLabelNSSStyle {
+        parserType.mergeNSSData()
+        return ValueLabelNSSStyle()
+    }
+
+    static var globalNSS: ValueLabelNSSStyle {
+        ValueLabelNSSStyle(isGlobal: true)
+    }
+}
+
 // MARK: ValuePickerStyle
 
 public extension ValuePickerStyle where Self == ValuePickerBaseStyle {
@@ -7434,6 +9008,17 @@ public extension ValuePickerStyle where Self == ValuePickerBaseStyle {
 public extension ValuePickerStyle where Self == ValuePickerFioriStyle {
     static var fiori: ValuePickerFioriStyle {
         ValuePickerFioriStyle()
+    }
+}
+
+public extension ValuePickerStyle where Self == ValuePickerNSSStyle {
+    static func nss(_ parserType: NSSParserType) -> ValuePickerNSSStyle {
+        parserType.mergeNSSData()
+        return ValuePickerNSSStyle()
+    }
+
+    static var globalNSS: ValuePickerNSSStyle {
+        ValuePickerNSSStyle(isGlobal: true)
     }
 }
 

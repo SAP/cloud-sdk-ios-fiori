@@ -31,3 +31,18 @@ public struct HeaderActionFioriStyle: HeaderActionStyle {
             .fioriButtonStyle(FioriTertiaryButtonStyle())
     }
 }
+
+// Default nss styles
+public struct HeaderActionNSSStyle: HeaderActionStyle {
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
+
+    public func makeBody(_ configuration: HeaderActionConfiguration) -> some View {
+        HeaderAction(configuration)
+            .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.data.value(configuration.headerActionIdentifier)))
+        // Add custom nss style for its content
+        // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+    }
+}

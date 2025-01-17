@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -28,6 +29,16 @@ public struct ProcessingIndicatorConfiguration {
     public typealias OptionalTitle = ConfigurationViewWrapper
 }
 
+public extension ProcessingIndicatorConfiguration {
+    var contentIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
+
+    var optionalTitleIdentifier: String {
+        self.componentIdentifier + "_optionalTitle"
+    }
+}
+
 extension ProcessingIndicatorConfiguration {
     func isDirectChild(_ componentIdentifier: String) -> Bool {
         componentIdentifier == self.componentIdentifier
@@ -38,5 +49,18 @@ public struct ProcessingIndicatorFioriStyle: ProcessingIndicatorStyle {
     public func makeBody(_ configuration: ProcessingIndicatorConfiguration) -> some View {
         ProcessingIndicator(configuration)
             .optionalTitleStyle(OptionalTitleFioriStyle(processingIndicatorConfiguration: configuration))
+    }
+}
+
+public struct ProcessingIndicatorNSSStyle: ProcessingIndicatorStyle {
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
+
+    public func makeBody(_ configuration: ProcessingIndicatorConfiguration) -> some View {
+        ProcessingIndicator(configuration)
+            .optionalTitleStyle(OptionalTitleNSSStyle(processingIndicatorConfiguration: configuration, nssData: self.data.value(configuration.optionalTitleIdentifier)))
+            .processingIndicatorStyle(ContentNSSStyle(processingIndicatorConfiguration: configuration, nssData: self.data.value(configuration.contentIdentifier)))
     }
 }

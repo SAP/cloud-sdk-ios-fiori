@@ -18,3 +18,18 @@ public struct ReviewCountLabelFioriStyle: ReviewCountLabelStyle {
         ReviewCountLabel(configuration)
     }
 }
+
+// Default nss styles
+public struct ReviewCountLabelNSSStyle: ReviewCountLabelStyle {
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
+
+    public func makeBody(_ configuration: ReviewCountLabelConfiguration) -> some View {
+        ReviewCountLabel(configuration)
+            .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.data.value(configuration.reviewCountLabelIdentifier)))
+        // Add custom nss style for its content
+        // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+    }
+}

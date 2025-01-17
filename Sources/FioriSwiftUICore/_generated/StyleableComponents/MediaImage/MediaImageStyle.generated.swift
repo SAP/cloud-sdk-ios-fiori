@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -26,6 +27,12 @@ public struct MediaImageConfiguration {
     public let mediaImage: MediaImage
 
     public typealias MediaImage = ConfigurationViewWrapper
+}
+
+public extension MediaImageConfiguration {
+    var mediaImageIdentifier: String {
+        self.componentIdentifier + "_mediaImage"
+    }
 }
 
 extension MediaImageConfiguration {

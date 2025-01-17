@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -40,6 +41,28 @@ public struct NoteFormViewConfiguration {
     public typealias Placeholder = ConfigurationViewWrapper
 }
 
+public extension NoteFormViewConfiguration {
+    var contentIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
+
+    var textViewIdentifier: String {
+        self.componentIdentifier + "_textView"
+    }
+
+    var placeholderIdentifier: String {
+        self.componentIdentifier + "_placeholder"
+    }
+
+    var placeholderTextEditorIdentifier: String {
+        self.componentIdentifier + "_placeholderTextEditor"
+    }
+
+    var formViewIdentifier: String {
+        self.componentIdentifier + "_formView"
+    }
+}
+
 extension NoteFormViewConfiguration {
     func isDirectChild(_ componentIdentifier: String) -> Bool {
         componentIdentifier == self.componentIdentifier
@@ -53,5 +76,21 @@ public struct NoteFormViewFioriStyle: NoteFormViewStyle {
             .placeholderStyle(PlaceholderFioriStyle(noteFormViewConfiguration: configuration))
             .placeholderTextEditorStyle(PlaceholderTextEditorFioriStyle(noteFormViewConfiguration: configuration))
             .formViewStyle(FormViewFioriStyle(noteFormViewConfiguration: configuration))
+    }
+}
+
+public struct NoteFormViewNSSStyle: NoteFormViewStyle {
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
+
+    public func makeBody(_ configuration: NoteFormViewConfiguration) -> some View {
+        NoteFormView(configuration)
+            .textViewStyle(TextViewNSSStyle(noteFormViewConfiguration: configuration, nssData: self.data.value(configuration.textViewIdentifier)))
+            .placeholderStyle(PlaceholderNSSStyle(noteFormViewConfiguration: configuration, nssData: self.data.value(configuration.placeholderIdentifier)))
+            .placeholderTextEditorStyle(PlaceholderTextEditorNSSStyle(noteFormViewConfiguration: configuration, nssData: self.data.value(configuration.placeholderTextEditorIdentifier)))
+            .formViewStyle(FormViewNSSStyle(noteFormViewConfiguration: configuration, nssData: self.data.value(configuration.formViewIdentifier)))
+            .noteFormViewStyle(ContentNSSStyle(noteFormViewConfiguration: configuration, nssData: self.data.value(configuration.contentIdentifier)))
     }
 }

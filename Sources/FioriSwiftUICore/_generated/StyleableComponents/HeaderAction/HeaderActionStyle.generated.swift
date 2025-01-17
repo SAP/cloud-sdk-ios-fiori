@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -26,6 +27,12 @@ public struct HeaderActionConfiguration {
     public let headerAction: HeaderAction
 
     public typealias HeaderAction = ConfigurationViewWrapper
+}
+
+public extension HeaderActionConfiguration {
+    var headerActionIdentifier: String {
+        self.componentIdentifier + "_headerAction"
+    }
 }
 
 extension HeaderActionConfiguration {

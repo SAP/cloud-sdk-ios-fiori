@@ -82,9 +82,10 @@ public extension RangeSliderControl {
          thumbHalfWidth: CGFloat = 14,
          showsLowerThumb: Bool = true,
          showsUpperThumb: Bool = true,
-         onRangeValueChange: ((Bool, Double, Double) -> Void)? = nil)
+         onRangeValueChange: ((Bool, Double, Double) -> Void)? = nil,
+         componentIdentifier: String? = RangeSliderControl.identifier)
     {
-        self.init(lowerThumb: { lowerThumb }, upperThumb: { upperThumb }, activeTrack: { activeTrack }, inactiveTrack: { inactiveTrack }, lowerValue: lowerValue, upperValue: upperValue, range: range, step: step, decimalPlaces: decimalPlaces, thumbHalfWidth: thumbHalfWidth, showsLowerThumb: showsLowerThumb, showsUpperThumb: showsUpperThumb, onRangeValueChange: onRangeValueChange)
+        self.init(lowerThumb: { lowerThumb }, upperThumb: { upperThumb }, activeTrack: { activeTrack }, inactiveTrack: { inactiveTrack }, lowerValue: lowerValue, upperValue: upperValue, range: range, step: step, decimalPlaces: decimalPlaces, thumbHalfWidth: thumbHalfWidth, showsLowerThumb: showsLowerThumb, showsUpperThumb: showsUpperThumb, onRangeValueChange: onRangeValueChange, componentIdentifier: componentIdentifier)
     }
 }
 

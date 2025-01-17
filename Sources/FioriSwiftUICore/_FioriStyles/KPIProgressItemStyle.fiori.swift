@@ -195,6 +195,80 @@ extension KPIProgressItemFioriStyle {
     }
 }
 
+// Default nss styles
+extension KPIProgressItemNSSStyle {
+    struct ContentNSSStyle: KPIProgressItemStyle {
+        let kPIProgressItemConfiguration: KPIProgressItemConfiguration
+        let nssData: NSSStyleData
+        func makeBody(_ configuration: KPIProgressItemConfiguration) -> some View {
+            KPIProgressItem(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for its content
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct KPIContentNSSStyle: KPIContentStyle {
+        let kPIProgressItemConfiguration: KPIProgressItemConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: KPIContentConfiguration) -> some View {
+            KPIContent(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for KPIContent
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct KpiCaptionNSSStyle: KpiCaptionStyle {
+        let kPIProgressItemConfiguration: KPIProgressItemConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: KpiCaptionConfiguration) -> some View {
+            KpiCaption(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for KpiCaption
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct FootnoteNSSStyle: FootnoteStyle {
+        let kPIProgressItemConfiguration: KPIProgressItemConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: FootnoteConfiguration) -> some View {
+            Footnote(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Footnote
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct InnerCircleNSSStyle: InnerCircleStyle {
+        let kPIProgressItemConfiguration: KPIProgressItemConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: InnerCircleConfiguration) -> some View {
+            InnerCircle(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for InnerCircle
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct OuterCircleNSSStyle: OuterCircleStyle {
+        let kPIProgressItemConfiguration: KPIProgressItemConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: OuterCircleConfiguration) -> some View {
+            OuterCircle(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for OuterCircle
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+}
+
 /// Enum to determine whether to display the large or small progress circle around the KPIContent. Default: `KPIProgressItemSize.large`
 public enum KPIProgressItemSize {
     /// Smaller circle. 104px diameter

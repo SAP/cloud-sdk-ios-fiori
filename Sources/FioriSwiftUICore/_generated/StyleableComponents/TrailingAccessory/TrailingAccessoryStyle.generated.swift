@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -26,6 +27,12 @@ public struct TrailingAccessoryConfiguration {
     public let trailingAccessory: TrailingAccessory
 
     public typealias TrailingAccessory = ConfigurationViewWrapper
+}
+
+public extension TrailingAccessoryConfiguration {
+    var trailingAccessoryIdentifier: String {
+        self.componentIdentifier + "_trailingAccessory"
+    }
 }
 
 extension TrailingAccessoryConfiguration {

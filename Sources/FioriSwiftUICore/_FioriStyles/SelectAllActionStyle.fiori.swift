@@ -18,3 +18,18 @@ public struct SelectAllActionFioriStyle: SelectAllActionStyle {
         SelectAllAction(configuration)
     }
 }
+
+// Default nss styles
+public struct SelectAllActionNSSStyle: SelectAllActionStyle {
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
+
+    public func makeBody(_ configuration: SelectAllActionConfiguration) -> some View {
+        SelectAllAction(configuration)
+            .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.data.value(configuration.selectAllActionIdentifier)))
+        // Add custom nss style for its content
+        // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+    }
+}

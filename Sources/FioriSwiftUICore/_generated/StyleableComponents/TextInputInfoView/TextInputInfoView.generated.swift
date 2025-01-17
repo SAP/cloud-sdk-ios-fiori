@@ -33,9 +33,10 @@ extension TextInputInfoView {
 extension TextInputInfoView {
     init(icon: Image? = nil,
          description: AttributedString? = nil,
-         counter: AttributedString? = nil)
+         counter: AttributedString? = nil,
+         componentIdentifier: String? = TextInputInfoView.identifier)
     {
-        self.init(icon: { icon }, description: { OptionalText(description) }, counter: { OptionalText(counter) })
+        self.init(icon: { icon }, description: { OptionalText(description) }, counter: { OptionalText(counter) }, componentIdentifier: componentIdentifier)
     }
 }
 

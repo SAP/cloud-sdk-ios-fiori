@@ -25,8 +25,10 @@ public extension SelectAllAction {
 }
 
 public extension SelectAllAction {
-    init(selectAllAction: FioriButton? = FioriButton { _ in Text("Select All".localizedFioriString()) }) {
-        self.init(selectAllAction: { selectAllAction })
+    init(selectAllAction: FioriButton? = FioriButton { _ in Text("Select All".localizedFioriString()) },
+         componentIdentifier: String? = SelectAllAction.identifier)
+    {
+        self.init(selectAllAction: { selectAllAction }, componentIdentifier: componentIdentifier)
     }
 }
 

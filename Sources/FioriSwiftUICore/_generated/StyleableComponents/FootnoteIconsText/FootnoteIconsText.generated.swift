@@ -25,8 +25,10 @@ public extension FootnoteIconsText {
 }
 
 public extension FootnoteIconsText {
-    init(footnoteIconsText: AttributedString? = nil) {
-        self.init(footnoteIconsText: { OptionalText(footnoteIconsText) })
+    init(footnoteIconsText: AttributedString? = nil,
+         componentIdentifier: String? = FootnoteIconsText.identifier)
+    {
+        self.init(footnoteIconsText: { OptionalText(footnoteIconsText) }, componentIdentifier: componentIdentifier)
     }
 }
 

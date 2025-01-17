@@ -25,8 +25,10 @@ public extension Timestamp {
 }
 
 public extension Timestamp {
-    init(timestamp: AttributedString? = nil) {
-        self.init(timestamp: { OptionalText(timestamp) })
+    init(timestamp: AttributedString? = nil,
+         componentIdentifier: String? = Timestamp.identifier)
+    {
+        self.init(timestamp: { OptionalText(timestamp) }, componentIdentifier: componentIdentifier)
     }
 }
 

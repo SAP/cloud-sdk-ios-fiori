@@ -45,9 +45,10 @@ public extension CardMainHeader {
          icons: [TextOrIcon] = [],
          detailImage: Image? = nil,
          headerAction: FioriButton? = nil,
-         counter: AttributedString? = nil)
+         counter: AttributedString? = nil,
+         componentIdentifier: String? = CardMainHeader.identifier)
     {
-        self.init(title: { Text(title) }, subtitle: { OptionalText(subtitle) }, icons: { IconStack(icons) }, detailImage: { detailImage }, headerAction: { headerAction }, counter: { OptionalText(counter) })
+        self.init(title: { Text(title) }, subtitle: { OptionalText(subtitle) }, icons: { IconStack(icons) }, detailImage: { detailImage }, headerAction: { headerAction }, counter: { OptionalText(counter) }, componentIdentifier: componentIdentifier)
     }
 }
 

@@ -24,3 +24,18 @@ public struct AvatarsFioriStyle: AvatarsStyle {
         Avatars(configuration)
     }
 }
+
+// Default nss styles
+public struct AvatarsNSSStyle: AvatarsStyle {
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
+
+    public func makeBody(_ configuration: AvatarsConfiguration) -> some View {
+        Avatars(configuration)
+            .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.data.value(configuration.avatarsIdentifier)))
+        // Add custom nss style for its content
+        // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+    }
+}

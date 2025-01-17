@@ -80,3 +80,41 @@ extension AvatarStackFioriStyle {
         }
     }
 }
+
+// Default nss styles
+extension AvatarStackNSSStyle {
+    struct ContentNSSStyle: AvatarStackStyle {
+        let avatarStackConfiguration: AvatarStackConfiguration
+        let nssData: NSSStyleData
+        func makeBody(_ configuration: AvatarStackConfiguration) -> some View {
+            AvatarStack(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for its content
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct AvatarsNSSStyle: AvatarsStyle {
+        let avatarStackConfiguration: AvatarStackConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: AvatarsConfiguration) -> some View {
+            Avatars(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Avatars
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct AvatarsTitleNSSStyle: AvatarsTitleStyle {
+        let avatarStackConfiguration: AvatarStackConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: AvatarsTitleConfiguration) -> some View {
+            AvatarsTitle(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for AvatarsTitle
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+}

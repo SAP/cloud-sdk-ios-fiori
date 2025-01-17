@@ -24,3 +24,18 @@ public struct FootnoteIconsFioriStyle: FootnoteIconsStyle {
         FootnoteIcons(configuration)
     }
 }
+
+// Default nss styles
+public struct FootnoteIconsNSSStyle: FootnoteIconsStyle {
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
+
+    public func makeBody(_ configuration: FootnoteIconsConfiguration) -> some View {
+        FootnoteIcons(configuration)
+            .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.data.value(configuration.footnoteIconsIdentifier)))
+        // Add custom nss style for its content
+        // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+    }
+}

@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -26,6 +27,12 @@ public struct SubtitleConfiguration {
     public let subtitle: Subtitle
 
     public typealias Subtitle = ConfigurationViewWrapper
+}
+
+public extension SubtitleConfiguration {
+    var subtitleIdentifier: String {
+        self.componentIdentifier + "_subtitle"
+    }
 }
 
 extension SubtitleConfiguration {

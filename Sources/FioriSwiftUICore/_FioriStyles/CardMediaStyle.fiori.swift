@@ -56,6 +56,44 @@ extension CardMediaFioriStyle {
     }
 }
 
+// Default nss styles
+extension CardMediaNSSStyle {
+    struct ContentNSSStyle: CardMediaStyle {
+        let cardMediaConfiguration: CardMediaConfiguration
+        let nssData: NSSStyleData
+        func makeBody(_ configuration: CardMediaConfiguration) -> some View {
+            CardMedia(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for its content
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct MediaImageNSSStyle: MediaImageStyle {
+        let cardMediaConfiguration: CardMediaConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: MediaImageConfiguration) -> some View {
+            MediaImage(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for MediaImage
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct DescriptionNSSStyle: DescriptionStyle {
+        let cardMediaConfiguration: CardMediaConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: DescriptionConfiguration) -> some View {
+            Description(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Description
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+}
+
 #Preview("Image") {
     ZStack(alignment: .bottomLeading) {
         Image("card_image")

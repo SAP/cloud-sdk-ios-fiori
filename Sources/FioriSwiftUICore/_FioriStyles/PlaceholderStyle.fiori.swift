@@ -28,3 +28,18 @@ public struct PlaceholderFioriStyle: PlaceholderStyle {
             .font(.fiori(forTextStyle: .body).italic())
     }
 }
+
+// Default nss styles
+public struct PlaceholderNSSStyle: PlaceholderStyle {
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
+
+    public func makeBody(_ configuration: PlaceholderConfiguration) -> some View {
+        Placeholder(configuration)
+            .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.data.value(configuration.placeholderIdentifier)))
+        // Add custom nss style for its content
+        // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+    }
+}

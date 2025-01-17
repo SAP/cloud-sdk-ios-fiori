@@ -34,3 +34,18 @@ public struct GreetingTextFioriStyle: GreetingTextStyle {
             .lineLimit(2)
     }
 }
+
+// Default nss styles
+public struct GreetingTextNSSStyle: GreetingTextStyle {
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
+
+    public func makeBody(_ configuration: GreetingTextConfiguration) -> some View {
+        GreetingText(configuration)
+            .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.data.value(configuration.greetingTextIdentifier)))
+        // Add custom nss style for its content
+        // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+    }
+}

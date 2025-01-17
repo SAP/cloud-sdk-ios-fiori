@@ -1,3 +1,4 @@
+import FioriThemeManager
 import SwiftUI
 import UIKit
 
@@ -7,6 +8,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         Font.registerFioriFonts()
+        
+        // Use this call to apply a specific stylesheet for theming
+//        NSSTool.registerNSSStyleSheet("FioriDesignLanguage")
         
         return true
     }

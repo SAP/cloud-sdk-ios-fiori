@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -26,6 +27,12 @@ public struct PlaceholderConfiguration {
     public let placeholder: Placeholder
 
     public typealias Placeholder = ConfigurationViewWrapper
+}
+
+public extension PlaceholderConfiguration {
+    var placeholderIdentifier: String {
+        self.componentIdentifier + "_placeholder"
+    }
 }
 
 extension PlaceholderConfiguration {

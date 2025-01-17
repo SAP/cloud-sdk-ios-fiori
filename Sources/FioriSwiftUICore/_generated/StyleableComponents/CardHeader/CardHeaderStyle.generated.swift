@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -52,6 +53,76 @@ public struct CardHeaderConfiguration {
     public typealias KpiCaption = ConfigurationViewWrapper
 }
 
+public extension CardHeaderConfiguration {
+    var contentIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
+
+    var mediaImageIdentifier: String {
+        self.componentIdentifier + "_mediaImage"
+    }
+
+    var descriptionIdentifier: String {
+        self.componentIdentifier + "_description"
+    }
+
+    var titleIdentifier: String {
+        self.componentIdentifier + "_title"
+    }
+
+    var subtitleIdentifier: String {
+        self.componentIdentifier + "_subtitle"
+    }
+
+    var iconsIdentifier: String {
+        self.componentIdentifier + "_icons"
+    }
+
+    var detailImageIdentifier: String {
+        self.componentIdentifier + "_detailImage"
+    }
+
+    var headerActionIdentifier: String {
+        self.componentIdentifier + "_headerAction"
+    }
+
+    var counterIdentifier: String {
+        self.componentIdentifier + "_counter"
+    }
+
+    var row1Identifier: String {
+        self.componentIdentifier + "_row1"
+    }
+
+    var row2Identifier: String {
+        self.componentIdentifier + "_row2"
+    }
+
+    var row3Identifier: String {
+        self.componentIdentifier + "_row3"
+    }
+
+    var kpiIdentifier: String {
+        self.componentIdentifier + "_kpi"
+    }
+
+    var kpiCaptionIdentifier: String {
+        self.componentIdentifier + "_kpiCaption"
+    }
+
+    var cardMediaIdentifier: String {
+        self.componentIdentifier + "_cardMedia"
+    }
+
+    var cardMainHeaderIdentifier: String {
+        self.componentIdentifier + "_cardMainHeader"
+    }
+
+    var cardExtHeaderIdentifier: String {
+        self.componentIdentifier + "_cardExtHeader"
+    }
+}
+
 extension CardHeaderConfiguration {
     func isDirectChild(_ componentIdentifier: String) -> Bool {
         componentIdentifier == self.componentIdentifier
@@ -77,5 +148,33 @@ public struct CardHeaderFioriStyle: CardHeaderStyle {
             .cardMediaStyle(CardMediaFioriStyle(cardHeaderConfiguration: configuration))
             .cardMainHeaderStyle(CardMainHeaderFioriStyle(cardHeaderConfiguration: configuration))
             .cardExtHeaderStyle(CardExtHeaderFioriStyle(cardHeaderConfiguration: configuration))
+    }
+}
+
+public struct CardHeaderNSSStyle: CardHeaderStyle {
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
+
+    public func makeBody(_ configuration: CardHeaderConfiguration) -> some View {
+        CardHeader(configuration)
+            .mediaImageStyle(MediaImageNSSStyle(cardHeaderConfiguration: configuration, nssData: self.data.value(configuration.mediaImageIdentifier)))
+            .descriptionStyle(DescriptionNSSStyle(cardHeaderConfiguration: configuration, nssData: self.data.value(configuration.descriptionIdentifier)))
+            .titleStyle(TitleNSSStyle(cardHeaderConfiguration: configuration, nssData: self.data.value(configuration.titleIdentifier)))
+            .subtitleStyle(SubtitleNSSStyle(cardHeaderConfiguration: configuration, nssData: self.data.value(configuration.subtitleIdentifier)))
+            .iconsStyle(IconsNSSStyle(cardHeaderConfiguration: configuration, nssData: self.data.value(configuration.iconsIdentifier)))
+            .detailImageStyle(DetailImageNSSStyle(cardHeaderConfiguration: configuration, nssData: self.data.value(configuration.detailImageIdentifier)))
+            .headerActionStyle(HeaderActionNSSStyle(cardHeaderConfiguration: configuration, nssData: self.data.value(configuration.headerActionIdentifier)))
+            .counterStyle(CounterNSSStyle(cardHeaderConfiguration: configuration, nssData: self.data.value(configuration.counterIdentifier)))
+            .row1Style(Row1NSSStyle(cardHeaderConfiguration: configuration, nssData: self.data.value(configuration.row1Identifier)))
+            .row2Style(Row2NSSStyle(cardHeaderConfiguration: configuration, nssData: self.data.value(configuration.row2Identifier)))
+            .row3Style(Row3NSSStyle(cardHeaderConfiguration: configuration, nssData: self.data.value(configuration.row3Identifier)))
+            .kpiStyle(KpiNSSStyle(cardHeaderConfiguration: configuration, nssData: self.data.value(configuration.kpiIdentifier)))
+            .kpiCaptionStyle(KpiCaptionNSSStyle(cardHeaderConfiguration: configuration, nssData: self.data.value(configuration.kpiCaptionIdentifier)))
+            .cardMediaStyle(CardMediaNSSStyle(cardHeaderConfiguration: configuration, nssData: self.data.value(configuration.cardMediaIdentifier)))
+            .cardMainHeaderStyle(CardMainHeaderNSSStyle(cardHeaderConfiguration: configuration, nssData: self.data.value(configuration.cardMainHeaderIdentifier)))
+            .cardExtHeaderStyle(CardExtHeaderNSSStyle(cardHeaderConfiguration: configuration, nssData: self.data.value(configuration.cardExtHeaderIdentifier)))
+            .cardHeaderStyle(ContentNSSStyle(cardHeaderConfiguration: configuration, nssData: self.data.value(configuration.contentIdentifier)))
     }
 }

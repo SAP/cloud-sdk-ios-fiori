@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -26,6 +27,12 @@ public struct ActionConfiguration {
     public let action: Action
 
     public typealias Action = ConfigurationViewWrapper
+}
+
+public extension ActionConfiguration {
+    var actionIdentifier: String {
+        self.componentIdentifier + "_action"
+    }
 }
 
 extension ActionConfiguration {

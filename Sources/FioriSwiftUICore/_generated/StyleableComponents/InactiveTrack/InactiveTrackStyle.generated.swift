@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -26,6 +27,12 @@ public struct InactiveTrackConfiguration {
     public let inactiveTrack: InactiveTrack
 
     public typealias InactiveTrack = ConfigurationViewWrapper
+}
+
+public extension InactiveTrackConfiguration {
+    var inactiveTrackIdentifier: String {
+        self.componentIdentifier + "_inactiveTrack"
+    }
 }
 
 extension InactiveTrackConfiguration {

@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -26,6 +27,12 @@ public struct LeadingAccessoryConfiguration {
     public let leadingAccessory: LeadingAccessory
 
     public typealias LeadingAccessory = ConfigurationViewWrapper
+}
+
+public extension LeadingAccessoryConfiguration {
+    var leadingAccessoryIdentifier: String {
+        self.componentIdentifier + "_leadingAccessory"
+    }
 }
 
 extension LeadingAccessoryConfiguration {

@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -26,6 +27,12 @@ public struct SelectedEntriesSectionTitleConfiguration {
     public let selectedEntriesSectionTitle: SelectedEntriesSectionTitle
 
     public typealias SelectedEntriesSectionTitle = ConfigurationViewWrapper
+}
+
+public extension SelectedEntriesSectionTitleConfiguration {
+    var selectedEntriesSectionTitleIdentifier: String {
+        self.componentIdentifier + "_selectedEntriesSectionTitle"
+    }
 }
 
 extension SelectedEntriesSectionTitleConfiguration {

@@ -473,3 +473,137 @@ extension ObjectHeaderFioriStyle {
         }
     }
 }
+
+// Default nss styles
+extension ObjectHeaderNSSStyle {
+    struct ContentNSSStyle: ObjectHeaderStyle {
+        let objectHeaderConfiguration: ObjectHeaderConfiguration
+        let nssData: NSSStyleData
+        func makeBody(_ configuration: ObjectHeaderConfiguration) -> some View {
+            ObjectHeader(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for its content
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct TitleNSSStyle: TitleStyle {
+        let objectHeaderConfiguration: ObjectHeaderConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: TitleConfiguration) -> some View {
+            Title(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Title
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct SubtitleNSSStyle: SubtitleStyle {
+        let objectHeaderConfiguration: ObjectHeaderConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: SubtitleConfiguration) -> some View {
+            Subtitle(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Subtitle
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct TagsNSSStyle: TagsStyle {
+        let objectHeaderConfiguration: ObjectHeaderConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: TagsConfiguration) -> some View {
+            Tags(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Tags
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct BodyTextNSSStyle: BodyTextStyle {
+        let objectHeaderConfiguration: ObjectHeaderConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: BodyTextConfiguration) -> some View {
+            BodyText(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for BodyText
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct FootnoteNSSStyle: FootnoteStyle {
+        let objectHeaderConfiguration: ObjectHeaderConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: FootnoteConfiguration) -> some View {
+            Footnote(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Footnote
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct DescriptionTextNSSStyle: DescriptionTextStyle {
+        let objectHeaderConfiguration: ObjectHeaderConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: DescriptionTextConfiguration) -> some View {
+            DescriptionText(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for DescriptionText
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct StatusNSSStyle: StatusStyle {
+        let objectHeaderConfiguration: ObjectHeaderConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: StatusConfiguration) -> some View {
+            Status(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Status
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct SubstatusNSSStyle: SubstatusStyle {
+        let objectHeaderConfiguration: ObjectHeaderConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: SubstatusConfiguration) -> some View {
+            Substatus(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Substatus
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct DetailImageNSSStyle: DetailImageStyle {
+        let objectHeaderConfiguration: ObjectHeaderConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: DetailImageConfiguration) -> some View {
+            DetailImage(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for DetailImage
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct DetailContentNSSStyle: DetailContentStyle {
+        let objectHeaderConfiguration: ObjectHeaderConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: DetailContentConfiguration) -> some View {
+            DetailContent(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for DetailContent
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+}

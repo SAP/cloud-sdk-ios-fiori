@@ -25,8 +25,10 @@ public extension KpiCaption {
 }
 
 public extension KpiCaption {
-    init(kpiCaption: AttributedString? = nil) {
-        self.init(kpiCaption: { OptionalText(kpiCaption) })
+    init(kpiCaption: AttributedString? = nil,
+         componentIdentifier: String? = KpiCaption.identifier)
+    {
+        self.init(kpiCaption: { OptionalText(kpiCaption) }, componentIdentifier: componentIdentifier)
     }
 }
 

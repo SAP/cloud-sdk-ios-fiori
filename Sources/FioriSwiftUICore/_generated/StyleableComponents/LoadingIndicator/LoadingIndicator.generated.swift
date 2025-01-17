@@ -38,9 +38,10 @@ public extension LoadingIndicator {
     init(title: AttributedString,
          progress: ProgressView<EmptyView, EmptyView> = ProgressView(),
          duration: Double = 0,
-         isPresented: Binding<Bool>)
+         isPresented: Binding<Bool>,
+         componentIdentifier: String? = LoadingIndicator.identifier)
     {
-        self.init(title: { Text(title) }, progress: { progress }, duration: duration, isPresented: isPresented)
+        self.init(title: { Text(title) }, progress: { progress }, duration: duration, isPresented: isPresented, componentIdentifier: componentIdentifier)
     }
 }
 

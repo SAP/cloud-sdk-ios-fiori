@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -24,6 +25,12 @@ struct AnyProgressIndicatorProtocolStyle: ProgressIndicatorProtocolStyle {
 public struct ProgressIndicatorProtocolConfiguration {
     public var componentIdentifier: String = "fiori_progressindicatorprotocol_component"
     @Binding public var progress: Double
+}
+
+public extension ProgressIndicatorProtocolConfiguration {
+    var progressIndicatorProtocolIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
 }
 
 extension ProgressIndicatorProtocolConfiguration {

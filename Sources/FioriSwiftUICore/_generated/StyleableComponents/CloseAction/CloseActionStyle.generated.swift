@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -26,6 +27,12 @@ public struct CloseActionConfiguration {
     public let closeAction: CloseAction
 
     public typealias CloseAction = ConfigurationViewWrapper
+}
+
+public extension CloseActionConfiguration {
+    var closeActionIdentifier: String {
+        self.componentIdentifier + "_closeAction"
+    }
 }
 
 extension CloseActionConfiguration {

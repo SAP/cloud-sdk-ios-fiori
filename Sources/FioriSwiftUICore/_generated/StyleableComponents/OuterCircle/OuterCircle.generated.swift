@@ -25,8 +25,10 @@ public extension OuterCircle {
 }
 
 public extension OuterCircle {
-    init(outerCircle: any Shape = Circle()) {
-        self.init(outerCircle: { outerCircle })
+    init(outerCircle: any Shape = Circle(),
+         componentIdentifier: String? = OuterCircle.identifier)
+    {
+        self.init(outerCircle: { outerCircle }, componentIdentifier: componentIdentifier)
     }
 }
 

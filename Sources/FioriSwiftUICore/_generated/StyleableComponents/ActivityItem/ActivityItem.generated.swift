@@ -40,9 +40,10 @@ public extension ActivityItem {
 public extension ActivityItem {
     init(icon: Image? = nil,
          subtitle: AttributedString? = nil,
-         layout: ActivityItemLayout = .vertical)
+         layout: ActivityItemLayout = .vertical,
+         componentIdentifier: String? = ActivityItem.identifier)
     {
-        self.init(icon: { icon }, subtitle: { OptionalText(subtitle) }, layout: layout)
+        self.init(icon: { icon }, subtitle: { OptionalText(subtitle) }, layout: layout, componentIdentifier: componentIdentifier)
     }
 }
 

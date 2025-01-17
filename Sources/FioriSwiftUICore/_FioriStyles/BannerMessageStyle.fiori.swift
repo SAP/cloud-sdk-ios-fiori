@@ -180,6 +180,68 @@ extension BannerMessageFioriStyle {
     }
 }
 
+// Default nss styles
+extension BannerMessageNSSStyle {
+    struct ContentNSSStyle: BannerMessageStyle {
+        let bannerMessageConfiguration: BannerMessageConfiguration
+        let nssData: NSSStyleData
+        func makeBody(_ configuration: BannerMessageConfiguration) -> some View {
+            BannerMessage(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for its content
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct IconNSSStyle: IconStyle {
+        let bannerMessageConfiguration: BannerMessageConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: IconConfiguration) -> some View {
+            Icon(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Icon
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct TitleNSSStyle: TitleStyle {
+        let bannerMessageConfiguration: BannerMessageConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: TitleConfiguration) -> some View {
+            Title(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for Title
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct CloseActionNSSStyle: CloseActionStyle {
+        let bannerMessageConfiguration: BannerMessageConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: CloseActionConfiguration) -> some View {
+            CloseAction(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for CloseAction
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+
+    struct TopDividerNSSStyle: TopDividerStyle {
+        let bannerMessageConfiguration: BannerMessageConfiguration
+        let nssData: NSSStyleData
+
+        func makeBody(_ configuration: TopDividerConfiguration) -> some View {
+            TopDivider(configuration)
+                .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.nssData))
+            // Add custom nss style for TopDivider
+            // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+        }
+    }
+}
+
 public extension View {
     /// Show banner message view at the top of target view or as a overlay above the view.
     /// - Parameters:

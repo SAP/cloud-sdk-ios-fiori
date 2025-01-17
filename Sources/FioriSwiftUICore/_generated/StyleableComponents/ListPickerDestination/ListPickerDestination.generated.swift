@@ -51,9 +51,10 @@ public extension ListPickerDestination {
          selectAllAction: FioriButton? = FioriButton { _ in Text("Select All".localizedFioriString()) },
          deselectAllAction: FioriButton? = FioriButton { _ in Text("Deselect All".localizedFioriString()) },
          allEntriesSectionTitle: AttributedString? = AttributedString("All".localizedFioriString()),
-         @ViewBuilder listPickerContent: () -> any View = { EmptyView() })
+         @ViewBuilder listPickerContent: () -> any View = { EmptyView() },
+         componentIdentifier: String? = ListPickerDestination.identifier)
     {
-        self.init(cancelAction: { cancelAction }, applyAction: { applyAction }, selectedEntriesSectionTitle: { OptionalText(selectedEntriesSectionTitle) }, selectAllAction: { selectAllAction }, deselectAllAction: { deselectAllAction }, allEntriesSectionTitle: { OptionalText(allEntriesSectionTitle) }, listPickerContent: listPickerContent)
+        self.init(cancelAction: { cancelAction }, applyAction: { applyAction }, selectedEntriesSectionTitle: { OptionalText(selectedEntriesSectionTitle) }, selectAllAction: { selectAllAction }, deselectAllAction: { deselectAllAction }, allEntriesSectionTitle: { OptionalText(allEntriesSectionTitle) }, listPickerContent: listPickerContent, componentIdentifier: componentIdentifier)
     }
 }
 

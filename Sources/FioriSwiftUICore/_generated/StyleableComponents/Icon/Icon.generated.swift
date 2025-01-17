@@ -25,8 +25,10 @@ public extension Icon {
 }
 
 public extension Icon {
-    init(icon: Image? = nil) {
-        self.init(icon: { icon })
+    init(icon: Image? = nil,
+         componentIdentifier: String? = Icon.identifier)
+    {
+        self.init(icon: { icon }, componentIdentifier: componentIdentifier)
     }
 }
 

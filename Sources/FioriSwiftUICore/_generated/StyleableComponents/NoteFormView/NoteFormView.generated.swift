@@ -84,9 +84,10 @@ public extension NoteFormView {
          isCharCountEnabled: Bool = false,
          allowsBeyondLimit: Bool = false,
          charCountReachLimitMessage: String? = nil,
-         charCountBeyondLimitMsg: String? = nil)
+         charCountBeyondLimitMsg: String? = nil,
+         componentIdentifier: String? = NoteFormView.identifier)
     {
-        self.init(text: text, placeholder: { OptionalText(placeholder) }, controlState: controlState, errorMessage: errorMessage, minTextEditorHeight: minTextEditorHeight, maxTextEditorHeight: maxTextEditorHeight, maxTextLength: maxTextLength, hintText: hintText, hidesReadOnlyHint: hidesReadOnlyHint, isCharCountEnabled: isCharCountEnabled, allowsBeyondLimit: allowsBeyondLimit, charCountReachLimitMessage: charCountReachLimitMessage, charCountBeyondLimitMsg: charCountBeyondLimitMsg)
+        self.init(text: text, placeholder: { OptionalText(placeholder) }, controlState: controlState, errorMessage: errorMessage, minTextEditorHeight: minTextEditorHeight, maxTextEditorHeight: maxTextEditorHeight, maxTextLength: maxTextLength, hintText: hintText, hidesReadOnlyHint: hidesReadOnlyHint, isCharCountEnabled: isCharCountEnabled, allowsBeyondLimit: allowsBeyondLimit, charCountReachLimitMessage: charCountReachLimitMessage, charCountBeyondLimitMsg: charCountBeyondLimitMsg, componentIdentifier: componentIdentifier)
     }
 }
 

@@ -28,8 +28,10 @@ public extension OnStarImage {
 }
 
 public extension OnStarImage {
-    init(onStarImage: Image = FioriIcon.actions.favorite.renderingMode(.template).resizable()) {
-        self.init(onStarImage: { onStarImage })
+    init(onStarImage: Image = FioriIcon.actions.favorite.renderingMode(.template).resizable(),
+         componentIdentifier: String? = OnStarImage.identifier)
+    {
+        self.init(onStarImage: { onStarImage }, componentIdentifier: componentIdentifier)
     }
 }
 

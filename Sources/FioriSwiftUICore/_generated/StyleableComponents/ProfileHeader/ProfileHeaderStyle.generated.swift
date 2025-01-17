@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -37,6 +38,28 @@ public struct ProfileHeaderConfiguration {
     public typealias DetailContent = ConfigurationViewWrapper
 }
 
+public extension ProfileHeaderConfiguration {
+    var contentIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
+
+    var detailImageIdentifier: String {
+        self.componentIdentifier + "_detailImage"
+    }
+
+    var titleIdentifier: String {
+        self.componentIdentifier + "_title"
+    }
+
+    var subtitleIdentifier: String {
+        self.componentIdentifier + "_subtitle"
+    }
+
+    var descriptionIdentifier: String {
+        self.componentIdentifier + "_description"
+    }
+}
+
 extension ProfileHeaderConfiguration {
     func isDirectChild(_ componentIdentifier: String) -> Bool {
         componentIdentifier == self.componentIdentifier
@@ -50,5 +73,21 @@ public struct ProfileHeaderFioriStyle: ProfileHeaderStyle {
             .titleStyle(TitleFioriStyle(profileHeaderConfiguration: configuration))
             .subtitleStyle(SubtitleFioriStyle(profileHeaderConfiguration: configuration))
             .descriptionStyle(DescriptionFioriStyle(profileHeaderConfiguration: configuration))
+    }
+}
+
+public struct ProfileHeaderNSSStyle: ProfileHeaderStyle {
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
+
+    public func makeBody(_ configuration: ProfileHeaderConfiguration) -> some View {
+        ProfileHeader(configuration)
+            .detailImageStyle(DetailImageNSSStyle(profileHeaderConfiguration: configuration, nssData: self.data.value(configuration.detailImageIdentifier)))
+            .titleStyle(TitleNSSStyle(profileHeaderConfiguration: configuration, nssData: self.data.value(configuration.titleIdentifier)))
+            .subtitleStyle(SubtitleNSSStyle(profileHeaderConfiguration: configuration, nssData: self.data.value(configuration.subtitleIdentifier)))
+            .descriptionStyle(DescriptionNSSStyle(profileHeaderConfiguration: configuration, nssData: self.data.value(configuration.descriptionIdentifier)))
+            .profileHeaderStyle(ContentNSSStyle(profileHeaderConfiguration: configuration, nssData: self.data.value(configuration.contentIdentifier)))
     }
 }

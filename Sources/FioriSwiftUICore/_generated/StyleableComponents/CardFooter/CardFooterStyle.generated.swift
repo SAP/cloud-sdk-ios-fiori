@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -34,6 +35,28 @@ public struct CardFooterConfiguration {
     public typealias OverflowAction = ConfigurationViewWrapper
 }
 
+public extension CardFooterConfiguration {
+    var contentIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
+
+    var actionIdentifier: String {
+        self.componentIdentifier + "_action"
+    }
+
+    var secondaryActionIdentifier: String {
+        self.componentIdentifier + "_secondaryAction"
+    }
+
+    var tertiaryActionIdentifier: String {
+        self.componentIdentifier + "_tertiaryAction"
+    }
+
+    var overflowActionIdentifier: String {
+        self.componentIdentifier + "_overflowAction"
+    }
+}
+
 extension CardFooterConfiguration {
     func isDirectChild(_ componentIdentifier: String) -> Bool {
         componentIdentifier == self.componentIdentifier
@@ -47,5 +70,21 @@ public struct CardFooterFioriStyle: CardFooterStyle {
             .secondaryActionStyle(SecondaryActionFioriStyle(cardFooterConfiguration: configuration))
             .tertiaryActionStyle(TertiaryActionFioriStyle(cardFooterConfiguration: configuration))
             .overflowActionStyle(OverflowActionFioriStyle(cardFooterConfiguration: configuration))
+    }
+}
+
+public struct CardFooterNSSStyle: CardFooterStyle {
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
+
+    public func makeBody(_ configuration: CardFooterConfiguration) -> some View {
+        CardFooter(configuration)
+            .actionStyle(ActionNSSStyle(cardFooterConfiguration: configuration, nssData: self.data.value(configuration.actionIdentifier)))
+            .secondaryActionStyle(SecondaryActionNSSStyle(cardFooterConfiguration: configuration, nssData: self.data.value(configuration.secondaryActionIdentifier)))
+            .tertiaryActionStyle(TertiaryActionNSSStyle(cardFooterConfiguration: configuration, nssData: self.data.value(configuration.tertiaryActionIdentifier)))
+            .overflowActionStyle(OverflowActionNSSStyle(cardFooterConfiguration: configuration, nssData: self.data.value(configuration.overflowActionIdentifier)))
+            .cardFooterStyle(ContentNSSStyle(cardFooterConfiguration: configuration, nssData: self.data.value(configuration.contentIdentifier)))
     }
 }

@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -30,6 +31,20 @@ public struct InformationViewConfiguration {
     public typealias Description = ConfigurationViewWrapper
 }
 
+public extension InformationViewConfiguration {
+    var contentIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
+
+    var iconIdentifier: String {
+        self.componentIdentifier + "_icon"
+    }
+
+    var descriptionIdentifier: String {
+        self.componentIdentifier + "_description"
+    }
+}
+
 extension InformationViewConfiguration {
     func isDirectChild(_ componentIdentifier: String) -> Bool {
         componentIdentifier == self.componentIdentifier
@@ -41,5 +56,19 @@ public struct InformationViewFioriStyle: InformationViewStyle {
         InformationView(configuration)
             .iconStyle(IconFioriStyle(informationViewConfiguration: configuration))
             .descriptionStyle(DescriptionFioriStyle(informationViewConfiguration: configuration))
+    }
+}
+
+public struct InformationViewNSSStyle: InformationViewStyle {
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
+
+    public func makeBody(_ configuration: InformationViewConfiguration) -> some View {
+        InformationView(configuration)
+            .iconStyle(IconNSSStyle(informationViewConfiguration: configuration, nssData: self.data.value(configuration.iconIdentifier)))
+            .descriptionStyle(DescriptionNSSStyle(informationViewConfiguration: configuration, nssData: self.data.value(configuration.descriptionIdentifier)))
+            .informationViewStyle(ContentNSSStyle(informationViewConfiguration: configuration, nssData: self.data.value(configuration.contentIdentifier)))
     }
 }

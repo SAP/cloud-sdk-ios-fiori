@@ -25,8 +25,10 @@ public extension Value {
 }
 
 public extension Value {
-    init(value: AttributedString? = nil) {
-        self.init(value: { OptionalText(value) })
+    init(value: AttributedString? = nil,
+         componentIdentifier: String? = Value.identifier)
+    {
+        self.init(value: { OptionalText(value) }, componentIdentifier: componentIdentifier)
     }
 }
 

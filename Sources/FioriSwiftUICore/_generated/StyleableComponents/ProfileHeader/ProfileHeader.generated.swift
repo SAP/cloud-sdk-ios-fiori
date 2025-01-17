@@ -47,9 +47,10 @@ public extension ProfileHeader {
          subtitle: AttributedString? = nil,
          description: AttributedString? = nil,
          animatable: Bool = false,
-         @ViewBuilder detailContent: () -> any View = { EmptyView() })
+         @ViewBuilder detailContent: () -> any View = { EmptyView() },
+         componentIdentifier: String? = ProfileHeader.identifier)
     {
-        self.init(detailImage: { detailImage }, title: { Text(title) }, subtitle: { OptionalText(subtitle) }, description: { OptionalText(description) }, animatable: animatable, detailContent: detailContent)
+        self.init(detailImage: { detailImage }, title: { Text(title) }, subtitle: { OptionalText(subtitle) }, description: { OptionalText(description) }, animatable: animatable, detailContent: detailContent, componentIdentifier: componentIdentifier)
     }
 }
 

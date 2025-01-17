@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -26,6 +27,12 @@ public struct FilledIconConfiguration {
     public let filledIcon: FilledIcon
 
     public typealias FilledIcon = ConfigurationViewWrapper
+}
+
+public extension FilledIconConfiguration {
+    var filledIconIdentifier: String {
+        self.componentIdentifier + "_filledIcon"
+    }
 }
 
 extension FilledIconConfiguration {

@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -26,6 +27,12 @@ public struct HelperTextConfiguration {
     public let helperText: HelperText
 
     public typealias HelperText = ConfigurationViewWrapper
+}
+
+public extension HelperTextConfiguration {
+    var helperTextIdentifier: String {
+        self.componentIdentifier + "_helperText"
+    }
 }
 
 extension HelperTextConfiguration {

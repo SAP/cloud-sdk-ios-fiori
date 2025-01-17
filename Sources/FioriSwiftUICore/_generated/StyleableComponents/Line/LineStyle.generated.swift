@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -26,6 +27,12 @@ public struct LineConfiguration {
     public let line: Line
 
     public typealias Line = ConfigurationViewWrapper
+}
+
+public extension LineConfiguration {
+    var lineIdentifier: String {
+        self.componentIdentifier + "_line"
+    }
 }
 
 extension LineConfiguration {

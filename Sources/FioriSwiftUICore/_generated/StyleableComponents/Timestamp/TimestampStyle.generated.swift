@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -26,6 +27,12 @@ public struct TimestampConfiguration {
     public let timestamp: Timestamp
 
     public typealias Timestamp = ConfigurationViewWrapper
+}
+
+public extension TimestampConfiguration {
+    var timestampIdentifier: String {
+        self.componentIdentifier + "_timestamp"
+    }
 }
 
 extension TimestampConfiguration {

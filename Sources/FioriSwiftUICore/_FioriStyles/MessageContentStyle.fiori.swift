@@ -31,3 +31,18 @@ public struct MessageContentFioriStyle: MessageContentStyle {
         // Add default style here
     }
 }
+
+// Default nss styles
+public struct MessageContentNSSStyle: MessageContentStyle {
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
+
+    public func makeBody(_ configuration: MessageContentConfiguration) -> some View {
+        MessageContent(configuration)
+            .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.data.value(configuration.messageContentIdentifier)))
+        // Add custom nss style for its content
+        // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+    }
+}

@@ -17,3 +17,18 @@ public struct TimestampFioriStyle: TimestampStyle {
         Timestamp(configuration)
     }
 }
+
+// Default nss styles
+public struct TimestampNSSStyle: TimestampStyle {
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
+
+    public func makeBody(_ configuration: TimestampConfiguration) -> some View {
+        Timestamp(configuration)
+            .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.data.value(configuration.timestampIdentifier)))
+        // Add custom nss style for its content
+        // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+    }
+}

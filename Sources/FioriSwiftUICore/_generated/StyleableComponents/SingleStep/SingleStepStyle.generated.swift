@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -36,6 +37,24 @@ public struct SingleStepConfiguration {
     public typealias Substeps = any IndexedViewContainer
 }
 
+public extension SingleStepConfiguration {
+    var contentIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
+
+    var titleIdentifier: String {
+        self.componentIdentifier + "_title"
+    }
+
+    var nodeIdentifier: String {
+        self.componentIdentifier + "_node"
+    }
+
+    var lineIdentifier: String {
+        self.componentIdentifier + "_line"
+    }
+}
+
 extension SingleStepConfiguration {
     func isDirectChild(_ componentIdentifier: String) -> Bool {
         componentIdentifier == self.componentIdentifier
@@ -48,5 +67,20 @@ public struct SingleStepFioriStyle: SingleStepStyle {
             .titleStyle(TitleFioriStyle(singleStepConfiguration: configuration))
             .nodeStyle(NodeFioriStyle(singleStepConfiguration: configuration))
             .lineStyle(LineFioriStyle(singleStepConfiguration: configuration))
+    }
+}
+
+public struct SingleStepNSSStyle: SingleStepStyle {
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
+
+    public func makeBody(_ configuration: SingleStepConfiguration) -> some View {
+        SingleStep(configuration)
+            .titleStyle(TitleNSSStyle(singleStepConfiguration: configuration, nssData: self.data.value(configuration.titleIdentifier)))
+            .nodeStyle(NodeNSSStyle(singleStepConfiguration: configuration, nssData: self.data.value(configuration.nodeIdentifier)))
+            .lineStyle(LineNSSStyle(singleStepConfiguration: configuration, nssData: self.data.value(configuration.lineIdentifier)))
+            .singleStepStyle(ContentNSSStyle(singleStepConfiguration: configuration, nssData: self.data.value(configuration.contentIdentifier)))
     }
 }

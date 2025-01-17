@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -26,6 +27,12 @@ public struct TopDividerConfiguration {
     public let topDivider: TopDivider
 
     public typealias TopDivider = ConfigurationViewWrapper
+}
+
+public extension TopDividerConfiguration {
+    var topDividerIdentifier: String {
+        self.componentIdentifier + "_topDivider"
+    }
 }
 
 extension TopDividerConfiguration {

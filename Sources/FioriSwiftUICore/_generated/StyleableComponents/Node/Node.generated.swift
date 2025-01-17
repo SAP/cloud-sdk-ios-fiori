@@ -25,8 +25,10 @@ public extension Node {
 }
 
 public extension Node {
-    init(node: TextOrIcon? = nil) {
-        self.init(node: { TextOrIconView(node) })
+    init(node: TextOrIcon? = nil,
+         componentIdentifier: String? = Node.identifier)
+    {
+        self.init(node: { TextOrIconView(node) }, componentIdentifier: componentIdentifier)
     }
 }
 

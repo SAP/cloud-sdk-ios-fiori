@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -26,6 +27,12 @@ public struct OffStarImageConfiguration {
     public let offStarImage: OffStarImage
 
     public typealias OffStarImage = ConfigurationViewWrapper
+}
+
+public extension OffStarImageConfiguration {
+    var offStarImageIdentifier: String {
+        self.componentIdentifier + "_offStarImage"
+    }
 }
 
 extension OffStarImageConfiguration {

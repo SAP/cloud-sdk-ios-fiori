@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -31,6 +32,20 @@ public struct ToastMessageConfiguration {
     public typealias Title = ConfigurationViewWrapper
 }
 
+public extension ToastMessageConfiguration {
+    var contentIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
+
+    var iconIdentifier: String {
+        self.componentIdentifier + "_icon"
+    }
+
+    var titleIdentifier: String {
+        self.componentIdentifier + "_title"
+    }
+}
+
 extension ToastMessageConfiguration {
     func isDirectChild(_ componentIdentifier: String) -> Bool {
         componentIdentifier == self.componentIdentifier
@@ -42,5 +57,19 @@ public struct ToastMessageFioriStyle: ToastMessageStyle {
         ToastMessage(configuration)
             .iconStyle(IconFioriStyle(toastMessageConfiguration: configuration))
             .titleStyle(TitleFioriStyle(toastMessageConfiguration: configuration))
+    }
+}
+
+public struct ToastMessageNSSStyle: ToastMessageStyle {
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
+
+    public func makeBody(_ configuration: ToastMessageConfiguration) -> some View {
+        ToastMessage(configuration)
+            .iconStyle(IconNSSStyle(toastMessageConfiguration: configuration, nssData: self.data.value(configuration.iconIdentifier)))
+            .titleStyle(TitleNSSStyle(toastMessageConfiguration: configuration, nssData: self.data.value(configuration.titleIdentifier)))
+            .toastMessageStyle(ContentNSSStyle(toastMessageConfiguration: configuration, nssData: self.data.value(configuration.contentIdentifier)))
     }
 }

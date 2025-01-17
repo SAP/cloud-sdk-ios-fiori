@@ -8,16 +8,27 @@ public struct Trend {
 
     @Environment(\.trendStyle) var style
 
+    var componentIdentifier: String = Trend.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder trend: () -> any View = { EmptyView() }) {
+    public init(@ViewBuilder trend: () -> any View = { EmptyView() },
+                componentIdentifier: String? = Trend.identifier)
+    {
         self.trend = trend()
+        self.componentIdentifier = componentIdentifier ?? Trend.identifier
     }
 }
 
 public extension Trend {
-    init(trend: AttributedString? = nil) {
-        self.init(trend: { OptionalText(trend) })
+    static let identifier = "fiori_trend_component"
+}
+
+public extension Trend {
+    init(trend: AttributedString? = nil,
+         componentIdentifier: String? = Trend.identifier)
+    {
+        self.init(trend: { OptionalText(trend) }, componentIdentifier: componentIdentifier)
     }
 }
 
@@ -29,6 +40,7 @@ public extension Trend {
     internal init(_ configuration: TrendConfiguration, shouldApplyDefaultStyle: Bool) {
         self.trend = configuration.trend
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -37,7 +49,7 @@ extension Trend: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(trend: .init(self.trend))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, trend: .init(self.trend))).typeErased
                 .transformEnvironment(\.trendStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -55,7 +67,7 @@ private extension Trend {
     }
 
     func defaultStyle() -> some View {
-        Trend(.init(trend: .init(self.trend)))
+        Trend(.init(componentIdentifier: self.componentIdentifier, trend: .init(self.trend)))
             .shouldApplyDefaultStyle(false)
             .trendStyle(.fiori)
             .typeErased

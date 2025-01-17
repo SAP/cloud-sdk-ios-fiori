@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -40,6 +41,44 @@ public struct StepperViewConfiguration {
     public typealias Description = ConfigurationViewWrapper
 }
 
+public extension StepperViewConfiguration {
+    var contentIdentifier: String {
+        self.componentIdentifier + "_content"
+    }
+
+    var titleIdentifier: String {
+        self.componentIdentifier + "_title"
+    }
+
+    var decrementActionIdentifier: String {
+        self.componentIdentifier + "_decrementAction"
+    }
+
+    var textInputFieldIdentifier: String {
+        self.componentIdentifier + "_textInputField"
+    }
+
+    var incrementActionIdentifier: String {
+        self.componentIdentifier + "_incrementAction"
+    }
+
+    var iconIdentifier: String {
+        self.componentIdentifier + "_icon"
+    }
+
+    var descriptionIdentifier: String {
+        self.componentIdentifier + "_description"
+    }
+
+    var stepperFieldIdentifier: String {
+        self.componentIdentifier + "_stepperField"
+    }
+
+    var informationViewIdentifier: String {
+        self.componentIdentifier + "_informationView"
+    }
+}
+
 extension StepperViewConfiguration {
     func isDirectChild(_ componentIdentifier: String) -> Bool {
         componentIdentifier == self.componentIdentifier
@@ -57,5 +96,25 @@ public struct StepperViewFioriStyle: StepperViewStyle {
             .descriptionStyle(DescriptionFioriStyle(stepperViewConfiguration: configuration))
             .stepperFieldStyle(StepperFieldFioriStyle(stepperViewConfiguration: configuration))
             .informationViewStyle(InformationViewFioriStyle(stepperViewConfiguration: configuration))
+    }
+}
+
+public struct StepperViewNSSStyle: StepperViewStyle {
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
+
+    public func makeBody(_ configuration: StepperViewConfiguration) -> some View {
+        StepperView(configuration)
+            .titleStyle(TitleNSSStyle(stepperViewConfiguration: configuration, nssData: self.data.value(configuration.titleIdentifier)))
+            .decrementActionStyle(DecrementActionNSSStyle(stepperViewConfiguration: configuration, nssData: self.data.value(configuration.decrementActionIdentifier)))
+            .textInputFieldStyle(TextInputFieldNSSStyle(stepperViewConfiguration: configuration, nssData: self.data.value(configuration.textInputFieldIdentifier)))
+            .incrementActionStyle(IncrementActionNSSStyle(stepperViewConfiguration: configuration, nssData: self.data.value(configuration.incrementActionIdentifier)))
+            .iconStyle(IconNSSStyle(stepperViewConfiguration: configuration, nssData: self.data.value(configuration.iconIdentifier)))
+            .descriptionStyle(DescriptionNSSStyle(stepperViewConfiguration: configuration, nssData: self.data.value(configuration.descriptionIdentifier)))
+            .stepperFieldStyle(StepperFieldNSSStyle(stepperViewConfiguration: configuration, nssData: self.data.value(configuration.stepperFieldIdentifier)))
+            .informationViewStyle(InformationViewNSSStyle(stepperViewConfiguration: configuration, nssData: self.data.value(configuration.informationViewIdentifier)))
+            .stepperViewStyle(ContentNSSStyle(stepperViewConfiguration: configuration, nssData: self.data.value(configuration.contentIdentifier)))
     }
 }

@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -26,6 +27,12 @@ public struct TagsConfiguration {
     public let tags: Tags
 
     public typealias Tags = ConfigurationViewWrapper
+}
+
+public extension TagsConfiguration {
+    var tagsIdentifier: String {
+        self.componentIdentifier + "_tags"
+    }
 }
 
 extension TagsConfiguration {

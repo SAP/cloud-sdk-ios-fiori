@@ -25,8 +25,10 @@ public extension TimelineNode {
 }
 
 public extension TimelineNode {
-    init(timelineNode: TimelineNodeType) {
-        self.init(timelineNode: { TimelineNodeView(timelineNode) })
+    init(timelineNode: TimelineNodeType,
+         componentIdentifier: String? = TimelineNode.identifier)
+    {
+        self.init(timelineNode: { TimelineNodeView(timelineNode) }, componentIdentifier: componentIdentifier)
     }
 }
 

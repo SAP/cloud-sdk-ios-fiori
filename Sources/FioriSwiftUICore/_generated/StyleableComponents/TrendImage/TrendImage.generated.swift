@@ -8,16 +8,27 @@ public struct TrendImage {
 
     @Environment(\.trendImageStyle) var style
 
+    var componentIdentifier: String = TrendImage.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder trendImage: () -> any View = { EmptyView() }) {
+    public init(@ViewBuilder trendImage: () -> any View = { EmptyView() },
+                componentIdentifier: String? = TrendImage.identifier)
+    {
         self.trendImage = trendImage()
+        self.componentIdentifier = componentIdentifier ?? TrendImage.identifier
     }
 }
 
 public extension TrendImage {
-    init(trendImage: Image? = nil) {
-        self.init(trendImage: { trendImage })
+    static let identifier = "fiori_trendimage_component"
+}
+
+public extension TrendImage {
+    init(trendImage: Image? = nil,
+         componentIdentifier: String? = TrendImage.identifier)
+    {
+        self.init(trendImage: { trendImage }, componentIdentifier: componentIdentifier)
     }
 }
 
@@ -29,6 +40,7 @@ public extension TrendImage {
     internal init(_ configuration: TrendImageConfiguration, shouldApplyDefaultStyle: Bool) {
         self.trendImage = configuration.trendImage
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -37,7 +49,7 @@ extension TrendImage: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(trendImage: .init(self.trendImage))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, trendImage: .init(self.trendImage))).typeErased
                 .transformEnvironment(\.trendImageStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -55,7 +67,7 @@ private extension TrendImage {
     }
 
     func defaultStyle() -> some View {
-        TrendImage(.init(trendImage: .init(self.trendImage)))
+        TrendImage(.init(componentIdentifier: self.componentIdentifier, trendImage: .init(self.trendImage)))
             .shouldApplyDefaultStyle(false)
             .trendImageStyle(.fiori)
             .typeErased

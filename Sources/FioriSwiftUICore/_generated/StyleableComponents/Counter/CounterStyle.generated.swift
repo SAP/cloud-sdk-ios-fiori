@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -26,6 +27,12 @@ public struct CounterConfiguration {
     public let counter: Counter
 
     public typealias Counter = ConfigurationViewWrapper
+}
+
+public extension CounterConfiguration {
+    var counterIdentifier: String {
+        self.componentIdentifier + "_counter"
+    }
 }
 
 extension CounterConfiguration {

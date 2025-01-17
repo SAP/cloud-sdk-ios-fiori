@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -26,6 +27,12 @@ public struct CardBodyConfiguration {
     public let cardBody: CardBody
 
     public typealias CardBody = ConfigurationViewWrapper
+}
+
+public extension CardBodyConfiguration {
+    var cardBodyIdentifier: String {
+        self.componentIdentifier + "_cardBody"
+    }
 }
 
 extension CardBodyConfiguration {

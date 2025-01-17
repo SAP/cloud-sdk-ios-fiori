@@ -19,6 +19,21 @@ public struct TextInputFieldFioriStyle: TextInputFieldStyle {
     }
 }
 
+// Default nss styles
+public struct TextInputFieldNSSStyle: TextInputFieldStyle {
+    var isGlobal: Bool = false
+    var data: NSSStyleData {
+        self.isGlobal ? NSSTool.globalNSSStyle : NSSTool.mergeNSSStyle
+    }
+
+    public func makeBody(_ configuration: TextInputFieldConfiguration) -> some View {
+        TextInputField(configuration)
+            .modifier(NSSStyleModifier<NSSBaseStyleType>(styles: self.data.value(configuration.textInputFieldIdentifier)))
+        // Add custom nss style for its content
+        // .modifier(NSSStyleModifier<<#T: NSSCovert & RawRepresentable#>>(styles: <#T##NSSStyleData#>)
+    }
+}
+
 /// Number style
 public struct TextInputFieldNumberStyle: TextInputFieldStyle {
     public func makeBody(_ configuration: TextInputFieldConfiguration) -> some View {

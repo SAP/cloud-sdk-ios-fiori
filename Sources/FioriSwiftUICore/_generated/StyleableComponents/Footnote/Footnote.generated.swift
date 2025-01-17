@@ -25,8 +25,10 @@ public extension Footnote {
 }
 
 public extension Footnote {
-    init(footnote: AttributedString? = nil) {
-        self.init(footnote: { OptionalText(footnote) })
+    init(footnote: AttributedString? = nil,
+         componentIdentifier: String? = Footnote.identifier)
+    {
+        self.init(footnote: { OptionalText(footnote) }, componentIdentifier: componentIdentifier)
     }
 }
 

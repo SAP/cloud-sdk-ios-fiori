@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -26,6 +27,12 @@ public struct CancelActionConfiguration {
     public let cancelAction: CancelAction
 
     public typealias CancelAction = ConfigurationViewWrapper
+}
+
+public extension CancelActionConfiguration {
+    var cancelActionIdentifier: String {
+        self.componentIdentifier + "_cancelAction"
+    }
 }
 
 extension CancelActionConfiguration {
