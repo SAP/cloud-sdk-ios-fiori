@@ -76,6 +76,8 @@ struct SliderMenuItem: View {
     let popoverWidth = 393.0
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
     @State private var geometrySizeHeight: CGFloat = 0
+    @State private var onErrorMessage = ""
+    @State private var sliderDescType: SliderValueChangeHandler.SliderInformationType = .fiori
     
     var onUpdate: () -> Void
 
@@ -111,10 +113,10 @@ struct SliderMenuItem: View {
                         self.isSheetVisible.toggle()
                     })
                     .buttonStyle(ApplyButtonStyle())
-
+                    .environment(\.isEnabled, self.onErrorMessage == "")
                 } components: {
-                    SliderPickerItem(value: Binding<Int?>(get: { self.item.workingValue }, set: { self.item.workingValue = $0 }), formatter: self.item.formatter, minimumValue: self.item.minimumValue, maximumValue: self.item.maximumValue)
-                        .padding([.leading, .trailing], 16)
+                    self.sliderView()
+                        .padding([.leading, .trailing], 8)
                         .background(GeometryReader { geometry in
                             Color.clear
                                 .onAppear {
@@ -149,6 +151,81 @@ struct SliderMenuItem: View {
                         }
                 })
             })
+    }
+    
+    private func sliderView() -> some View {
+        let titleView: any View = self.item.formatter != nil ? Text(self.item.formatter ?? "") : EmptyView()
+        if self.item.sliderMode == .single {
+            return FioriSlider(
+                titleView: { titleView },
+                value: Binding<Double>(get: { self.item.workingValue ?? self.item.minimumValue }, set: { self.item.workingValue = $0 }),
+                range: self.item.range,
+                step: self.item.step,
+                decimalPlaces: self.item.decimalPlaces,
+                description: self.item.hint.attributedString,
+                showsValueLabel: true
+            ).typeErased
+        } else {
+            return FioriSlider(
+                titleView: { titleView },
+                lowerValue: Binding<Double>(get: { self.item.workingLowerValue ?? self.item.minimumValue }, set: { self.item.workingLowerValue = $0 }),
+                upperValue: Binding<Double>(get: { self.item.workingUpperValue ?? self.item.maximumValue }, set: { self.item.workingUpperValue = $0 }),
+                range: self.item.range,
+                step: self.item.step,
+                decimalPlaces: self.item.decimalPlaces,
+                description: self.onErrorMessage == "" ? self.item.hint.attributedString : self.onErrorMessage.attributedString,
+                onRangeValueChange: { isEditing, lowerValue, upperValue in
+                    if !isEditing {
+                        guard let onValueChange = self.item.onValueChange else {
+                            self.sliderDescType = .fiori
+                            self.onErrorMessage = ""
+                            return
+                        }
+                        let (type, message) = onValueChange.onValueChange(lowerValue, upperValue)
+                        self.sliderDescType = type
+                        self.onErrorMessage = message
+                    }
+                }
+            )
+            .ifApply(self.sliderDescType == .error, content: { v in
+                v.leadingAccessoryStyle(textFieldStyle: FioriSliderTextFieldStyle(borderColor: self.lowerTextFieldBorderColor(), focusedBorderColor: self.lowerTextFieldBorderColor(), borderWidth: 0.5, focusedBorderWidth: 2.0))
+                    .trailingAccessoryStyle(textFieldStyle: FioriSliderTextFieldStyle(borderColor: self.upperTextFieldBorderColor(), focusedBorderColor: self.upperTextFieldBorderColor(), borderWidth: 0.5, focusedBorderWidth: 2.0))
+            })
+            .informationViewStyle(self.getInfoStyle()).typeErased
+        }
+    }
+
+    private func lowerTextFieldBorderColor() -> Color? {
+        let workingLowerValue = self.item.workingLowerValue ?? self.item.minimumValue
+        let workingUpperValue = self.item.workingUpperValue ?? self.item.maximumValue
+        if !(self.item.range ~= workingLowerValue) || workingLowerValue > workingUpperValue {
+            return Color.preferredColor(.negativeLabel)
+        }
+        return nil
+    }
+    
+    private func upperTextFieldBorderColor() -> Color? {
+        let workingLowerValue = self.item.workingLowerValue ?? self.item.minimumValue
+        let workingUpperValue = self.item.workingUpperValue ?? self.item.maximumValue
+        if !(self.item.range ~= workingUpperValue) || workingLowerValue > workingUpperValue {
+            return Color.preferredColor(.negativeLabel)
+        }
+        return nil
+    }
+    
+    private func getInfoStyle() -> any InformationViewStyle {
+        switch self.sliderDescType {
+        case .error:
+            return InformationViewErrorStyle.error
+        case .fiori:
+            return InformationViewFioriStyle.fiori
+        case .informational:
+            return InformationViewInformationalStyle.informational
+        case .success:
+            return InformationViewSuccessStyle.success
+        case .warning:
+            return InformationViewWarningStyle.warning
+        }
     }
     
     private func calculateDetentHeight() {
@@ -189,6 +266,21 @@ struct SliderMenuItem: View {
         default:
             return 0
         }
+    }
+}
+
+extension String {
+    var attributedString: AttributedString? {
+        AttributedString(self)
+    }
+}
+
+extension String? {
+    var attributedString: AttributedString? {
+        guard let s = self else {
+            return nil
+        }
+        return AttributedString(s)
     }
 }
 

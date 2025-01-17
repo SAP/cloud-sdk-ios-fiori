@@ -21,8 +21,18 @@ struct SortFilterExample: View {
             .stepper(item: .init(name: "Quantity", stepperTitle: "Label", value: 1, step: 1, stepRange: 0 ... 100, isDecimalSupported: false, description: "Hint Text"), showsOnFilterFeedbackBar: true)
         ],
         [
-            .slider(item: .init(name: "User Stories", value: 10, minimumValue: 0, maximumValue: 100, formatter: "%2d Stories", icon: "number"), showsOnFilterFeedbackBar: true),
-            .slider(item: .init(name: "Number of Tasks", value: nil, minimumValue: 0, maximumValue: 100), showsOnFilterFeedbackBar: true),
+            .slider(item: .init(name: "User Stories", value: 10, minimumValue: 0, maximumValue: 100, formatter: "Stories", icon: "number"), showsOnFilterFeedbackBar: true),
+            .slider(item: .init(name: "Range Slider Decimal", value: nil, range: 0 ... 10, step: 1.5, decimalPlaces: 1), showsOnFilterFeedbackBar: true),
+            .slider(item: .init(name: "Range Slider", lowerValue: 100, upperValue: 150, range: 50 ... 200, step: 10, decimalPlaces: 0, formatter: "Price range (50 - 200)", hint: "Select price range.", onValueChange: SliderValueChangeHandler(onValueChange: { lowerValue, upperValue in
+                if !(50 ... 200 ~= lowerValue) {
+                    return (.error, "Lower value is out of range.")
+                } else if !(50 ... 200 ~= upperValue) {
+                    return (.error, "Upper value is out of range.")
+                } else if lowerValue > upperValue {
+                    return (.error, "Lower value is greater than upper value.")
+                }
+                return (.fiori, "")
+            })), showsOnFilterFeedbackBar: true),
             .datetime(item: .init(name: "Start Date", value: Date(), formatter: "yyyy-MM-dd HH:mm", icon: "calendar"), showsOnFilterFeedbackBar: true)
         ],
         [

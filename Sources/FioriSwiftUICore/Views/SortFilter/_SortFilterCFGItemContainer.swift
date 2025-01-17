@@ -24,6 +24,8 @@ public struct _SortFilterCFGItemContainer {
     @State var stepperViewHeight: CGFloat = 110
     @State var searchListHeight: CGFloat = 88.0
     @State var _keyboardHeight: CGFloat = 0.0
+    @State private var onErrorMessage = ""
+    @State private var sliderDescType: SliderValueChangeHandler.SliderInformationType = .fiori
 
     /// Create a SortFilterCFGItemContainer view.
     /// - Parameters:
@@ -401,13 +403,48 @@ extension _SortFilterCFGItemContainer: View {
                     .foregroundColor(Color.preferredColor(.primaryLabel))
                 Spacer()
             }
-            SliderPickerItem(
-                value: Binding<Int?>(get: { self._items[r][c].slider.workingValue }, set: { self._items[r][c].slider.workingValue = $0 }),
-                formatter: self._items[r][c].slider.formatter,
-                minimumValue: self._items[r][c].slider.minimumValue,
-                maximumValue: self._items[r][c].slider.maximumValue
-            )
+            
+            let titleView: any View = self._items[r][c].slider.formatter != nil ? Text(self._items[r][c].slider.formatter ?? "") : EmptyView()
+            if self._items[r][c].slider.sliderMode == .single {
+                FioriSlider(
+                    titleView: { titleView },
+                    value: Binding<Double>(get: { self._items[r][c].slider.workingValue ?? self._items[r][c].slider.minimumValue }, set: { self._items[r][c].slider.workingValue = $0 }),
+                    range: self._items[r][c].slider.range,
+                    step: self._items[r][c].slider.step,
+                    decimalPlaces: self._items[r][c].slider.decimalPlaces,
+                    description: self._items[r][c].slider.hint.attributedString,
+                    showsValueLabel: true
+                )
+            } else {
+                FioriSlider(
+                    titleView: { titleView },
+                    lowerValue: Binding<Double>(get: { self._items[r][c].slider.workingLowerValue ?? self._items[r][c].slider.minimumValue }, set: { self._items[r][c].slider.workingLowerValue = $0 }),
+                    upperValue: Binding<Double>(get: { self._items[r][c].slider.workingUpperValue ?? self._items[r][c].slider.maximumValue }, set: { self._items[r][c].slider.workingUpperValue = $0 }),
+                    range: self._items[r][c].slider.range,
+                    step: self._items[r][c].slider.step,
+                    decimalPlaces: self._items[r][c].slider.decimalPlaces,
+                    description: self.onErrorMessage == "" ? self._items[r][c].slider.hint.attributedString : self.onErrorMessage.attributedString,
+                    onRangeValueChange: { isEditing, lowerValue, upperValue in
+                        if !isEditing {
+                            guard let onValueChange = self._items[r][c].slider.onValueChange else {
+                                self.sliderDescType = .fiori
+                                self.onErrorMessage = ""
+                                return
+                            }
+                            let (type, message) = onValueChange.onValueChange(lowerValue, upperValue)
+                            self.sliderDescType = type
+                            self.onErrorMessage = message
+                        }
+                    }
+                )
+                .ifApply(self.sliderDescType == .error, content: { v in
+                    v.leadingAccessoryStyle(textFieldStyle: FioriSliderTextFieldStyle(borderColor: self.lowerTextFieldBorderColor(item: self._items[r][c].slider), focusedBorderColor: self.lowerTextFieldBorderColor(item: self._items[r][c].slider), borderWidth: 0.5, focusedBorderWidth: 2.0))
+                        .trailingAccessoryStyle(textFieldStyle: FioriSliderTextFieldStyle(borderColor: self.upperTextFieldBorderColor(item: self._items[r][c].slider), focusedBorderColor: self.upperTextFieldBorderColor(item: self._items[r][c].slider), borderWidth: 0.5, focusedBorderWidth: 2.0))
+                })
+                .informationViewStyle(self.getInfoStyle()).typeErased
+            }
         }
+        .padding([.leading, .trailing], 0)
     }
     
     func datetimePicker(row r: Int, column c: Int) -> some View {
@@ -551,5 +588,38 @@ extension _SortFilterCFGItemContainer: View {
             return .zero
         }
         return keyWindow.safeAreaInsets
+    }
+    
+    private func lowerTextFieldBorderColor(item: SortFilterItem.SliderItem) -> Color? {
+        let workingLowerValue = item.workingLowerValue ?? item.minimumValue
+        let workingUpperValue = item.workingUpperValue ?? item.maximumValue
+        if !(item.range ~= workingLowerValue) || workingLowerValue > workingUpperValue {
+            return Color.preferredColor(.negativeLabel)
+        }
+        return nil
+    }
+    
+    private func upperTextFieldBorderColor(item: SortFilterItem.SliderItem) -> Color? {
+        let workingLowerValue = item.workingLowerValue ?? item.minimumValue
+        let workingUpperValue = item.workingUpperValue ?? item.maximumValue
+        if !(item.range ~= workingUpperValue) || workingLowerValue > workingUpperValue {
+            return Color.preferredColor(.negativeLabel)
+        }
+        return nil
+    }
+    
+    private func getInfoStyle() -> any InformationViewStyle {
+        switch self.sliderDescType {
+        case .error:
+            return InformationViewErrorStyle.error
+        case .fiori:
+            return InformationViewFioriStyle.fiori
+        case .informational:
+            return InformationViewInformationalStyle.informational
+        case .success:
+            return InformationViewSuccessStyle.success
+        case .warning:
+            return InformationViewWarningStyle.warning
+        }
     }
 }
