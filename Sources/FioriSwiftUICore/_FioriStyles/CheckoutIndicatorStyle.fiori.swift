@@ -18,7 +18,7 @@ public enum DisplayState: Equatable {
     case completed
     /// Checkout state is failed.
     case failed
-    /// Checkout state is ai processing.
+    /// Checkout state is AI processing.
     case aiProgress
 }
 

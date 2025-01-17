@@ -48,7 +48,7 @@ struct LinearProgressIndicatorExample: View {
                 .linearProgressIndicatorViewStyle(.success)
                 .padding(.bottom, 20)
             
-            Text("AI style Determinate Style")
+            Text("AI Determinate Style")
             LinearProgressIndicatorView(indicatorProgress: self.$progress2, description: AttributedString("Generating Content..."))
                 .linearProgressIndicatorViewStyle(.determinateAI)
                 .padding(.bottom, 20)

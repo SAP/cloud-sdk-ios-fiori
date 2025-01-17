@@ -21,7 +21,6 @@ struct CheckoutIndicatorExample: View {
             }
             .pickerStyle(.segmented)
             .padding(.top, 20)
-            .frame(maxWidth: 300)
         }
     }
 }
