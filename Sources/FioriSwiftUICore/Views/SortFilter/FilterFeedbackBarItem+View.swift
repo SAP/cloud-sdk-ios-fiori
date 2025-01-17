@@ -500,21 +500,10 @@ struct PickerMenuItem: View {
         #else
             height += 75
         #endif
-        if height > Screen.bounds.size.height - self.getSafeAreaInsets().top - 60 {
+        if height > Screen.bounds.size.height - UIEdgeInsets.getSafeAreaInsets().top - 60 {
             return Screen.bounds.size.height / 2
         }
         return height
-    }
-    
-    private func getSafeAreaInsets() -> UIEdgeInsets {
-        guard let keyWindow = UIApplication.shared.connectedScenes
-            .first(where: { $0.activationState == .foregroundActive })
-            .flatMap({ $0 as? UIWindowScene })?.windows
-            .first(where: \.isKeyWindow)
-        else {
-            return .zero
-        }
-        return keyWindow.safeAreaInsets
     }
     
     private func resetButtonDisable() -> Bool {
@@ -889,6 +878,9 @@ struct FullCFGMenuItem: View {
     @Binding var items: [[SortFilterItem]]
 
     @State var isSheetVisible = false
+    @State var barItemFrame: CGRect = .zero
+    @State var detentHeight: CGFloat = 0
+    let popoverWidth = 393.0
 
     var onUpdate: () -> Void
     
@@ -904,49 +896,73 @@ struct FullCFGMenuItem: View {
             .onTapGesture {
                 self.isSheetVisible.toggle()
             }
-            .popover(isPresented: self.$isSheetVisible) {
-                SortFilterView(
-                    title: {
-                        if let title = fullCFGButton.name {
-                            Text(title)
-                        } else {
-                            EmptyView()
+            .ifApply(UIDevice.current.userInterfaceIdiom != .phone, content: { v in
+                v.modifier(PopoverSizeModifier(isPresented: self.$isSheetVisible, arrowEdge: self.barItemFrame.arrowDirection(), popoverSize: CGSize(width: self.popoverWidth, height: self.detentHeight), popoverContent: {
+                    self.sortConfigurationView()
+                }))
+                .background(GeometryReader { geometry in
+                    Color.clear
+                        .onAppear {
+                            self.barItemFrame = geometry.frame(in: .global)
                         }
-                    },
-                    items: {
-                        _SortFilterCFGItemContainer(items: self.$items)
-                    },
-                    cancelAction: {
-                        _Action(actionText: NSLocalizedString("Cancel", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
-                            self.isSheetVisible = false
-                        })
-                        .buttonStyle(CancelButtonStyle())
-                    },
-                    resetAction: {
-                        _Action(actionText: NSLocalizedString("Reset", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
-                            for r in 0 ..< self.items.count {
-                                for c in 0 ..< self.items[r].count {
-                                    self.items[r][c].reset()
-                                }
-                            }
-                        })
-                        .buttonStyle(ResetButtonStyle())
-                    },
-                    applyAction: {
-                        _Action(actionText: NSLocalizedString("Apply", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
-                            for r in 0 ..< self.items.count {
-                                for c in 0 ..< self.items[r].count {
-                                    self.items[r][c].apply()
-                                }
-                            }
-                            self.onUpdate()
-                            self.isSheetVisible = false
-                        })
-                        .buttonStyle(ApplyButtonStyle())
-                    },
-                    onUpdate: {}
-                )
-            }
+                        .setOnChange(of: geometry.frame(in: .global), action1: { newValue in
+                            self.barItemFrame = newValue
+                        }) { _, newValue in
+                            self.barItemFrame = newValue
+                        }
+                })
+            })
+    }
+    
+    private func sortConfigurationView() -> some View {
+        SortFilterView(
+            title: {
+                if let title = fullCFGButton.name {
+                    Text(title)
+                } else {
+                    EmptyView()
+                }
+            },
+            items: {
+                _SortFilterCFGItemContainer(items: self.$items, btnFrame: self.barItemFrame)
+            },
+            cancelAction: {
+                _Action(actionText: NSLocalizedString("Cancel", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
+                    self.isSheetVisible = false
+                })
+                .buttonStyle(CancelButtonStyle())
+            },
+            resetAction: {
+                _Action(actionText: NSLocalizedString("Reset", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
+                    for r in 0 ..< self.items.count {
+                        for c in 0 ..< self.items[r].count {
+                            self.items[r][c].reset()
+                        }
+                    }
+                })
+                .buttonStyle(ResetButtonStyle())
+            },
+            applyAction: {
+                _Action(actionText: NSLocalizedString("Apply", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
+                    for r in 0 ..< self.items.count {
+                        for c in 0 ..< self.items[r].count {
+                            self.items[r][c].apply()
+                        }
+                    }
+                    self.onUpdate()
+                    self.isSheetVisible = false
+                })
+                .buttonStyle(ApplyButtonStyle())
+            },
+            onUpdate: {}
+        )
+        .sizeReader(size: { s in
+            self.detentHeight = s.height
+        })
+        .ifApply(UIDevice.current.userInterfaceIdiom != .phone, content: { v in
+            v.frame(width: self.popoverWidth)
+                .frame(minHeight: self.detentHeight)
+        })
     }
 }
 

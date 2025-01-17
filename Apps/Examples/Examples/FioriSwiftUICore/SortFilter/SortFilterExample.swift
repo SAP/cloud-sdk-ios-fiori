@@ -46,6 +46,7 @@ struct SortFilterExample: View {
 //                    .leadingFullConfigurationMenuItem(name: "All")
             } else {
                 FilterFeedbackBar(items: self.$items, onUpdate: self.performSortAndFilter)
+                    .leadingFullConfigurationMenuItem(name: "All Configuration")
             }
             
             List {
@@ -68,27 +69,6 @@ struct SortFilterExample: View {
             }
         }
         .navigationTitle("Sort & Filter")
-        .toolbar {
-            Button(self.sortFilterButtonLabel) {
-                self.isShowingFullCFG.toggle()
-            }
-            .popover(isPresented: self.$isShowingFullCFG, arrowEdge: .leading) {
-                if self.isCustomStyle {
-                    SortFilterView(
-                        title: "Configuration",
-                        items: self.$items,
-                        onUpdate: self.performSortAndFilter
-                    )
-                    .optionListPickerStyle(font: .footnote, foregroundColorUnselected: .green, strokeColorSelected: .black)
-                } else {
-                    SortFilterView(
-                        title: "Configuration",
-                        items: self.$items,
-                        onUpdate: self.performSortAndFilter
-                    )
-                }
-            }
-        }
         .onAppear {
             self.performSortAndFilter()
         }
