@@ -101,6 +101,7 @@ We plan to progressively bring more Fiori UI components into this module in the 
 | TimelinePreviewItem | :white_check_mark: |
 | DateTimePicker | :white_check_mark: |
 | Illustration Message | :white_check_mark: |
+| Slider(single and range) | :white_check_mark: |
 | ChartFloorplan | :x: |
 | CollectionItem | :x: |
 | BarcodeScanner | :x: |
@@ -108,7 +109,6 @@ We plan to progressively bring more Fiori UI components into this module in the 
 | MultiUserPasscodeView | :x: |
 | TouchIDErrorView | :x: |
 | Skeleton Loading | :x: |
-| Slider(single and range) | :x: |
 | Attachment | :x: |
 | Value Picker | :white_check_mark: |
 | Hierarchy View | :x: |

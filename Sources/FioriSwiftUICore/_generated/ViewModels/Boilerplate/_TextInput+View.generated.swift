@@ -1,7 +1,7 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
-//TODO: Copy commented code to new file: `FioriSwiftUICore/Views/TextInput+View.swift`
-//TODO: Implement TextInput `View` body
+//TODO: Copy commented code to new file: `FioriSwiftUICore/Views/_TextInput+View.swift`
+//TODO: Implement _TextInput `View` body
 
 /// - Important: to make `@Environment` properties (e.g. `horizontalSizeClass`), internally accessible
 /// to extensions, add as sourcery annotation in `FioriSwiftUICore/Models/ModelDefinitions.swift`
@@ -13,21 +13,21 @@ import SwiftUI
 
 // FIXME: - Implement Fiori style definitions
 
-// FIXME: - Implement TextInput View body
+// FIXME: - Implement _TextInput View body
 
-extension TextInput: View {
+extension _TextInput: View {
     public var body: some View {
         <# View body #>
     }
 }
 
-// FIXME: - Implement TextInput specific LibraryContentProvider
+// FIXME: - Implement _TextInput specific LibraryContentProvider
 
 @available(iOS 14.0, macOS 11.0, *)
-struct TextInputLibraryContent: LibraryContentProvider {
+struct _TextInputLibraryContent: LibraryContentProvider {
     @LibraryContentBuilder
     var views: [LibraryItem] {
-        LibraryItem(TextInput(model: LibraryPreviewData.Person.laurelosborn),
+        LibraryItem(_TextInput(model: LibraryPreviewData.Person.laurelosborn),
                     category: .control)
     }
 }

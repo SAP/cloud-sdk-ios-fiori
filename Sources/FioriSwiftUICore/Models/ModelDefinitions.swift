@@ -105,7 +105,11 @@ public protocol _ActionModel: ActionComponent {}
 public protocol ActionModel: ActionComponent {}
 
 // sourcery: generated_component_not_configurable
-public protocol TextInputModel: TextInputComponent {}
+public protocol _TextInputModel: TextInputComponent {}
+
+/// Deprecated TextInputModel
+@available(*, unavailable, renamed: "_TextInputModel", message: "Will be removed in the future release. Please create TextInput with other initializers instead.")
+public protocol TextInputModel {}
 
 // sourcery: generated_component
 public protocol _ActivityItemModel: IconComponent, SubtitleComponent {}
@@ -182,7 +186,7 @@ public protocol ContactItemModel {}
 // sourcery: generated_component_composite
 public protocol WelcomeScreenModel: TitleComponent, DescriptionTextComponent, SubtitleComponent, FootnoteComponent, IconComponent {
     // sourcery: genericParameter.name = TextInputView
-    var textInput: TextInputModel? { get }
+    var textInput: _TextInputModel? { get }
     
     // sourcery: genericParameter.name = ActionView
     var action: _ActionModel? { get }
@@ -200,7 +204,7 @@ public protocol ActivationScreenModel: TitleComponent, DescriptionTextComponent,
     var secondaryAction: _ActionModel? { get }
     
     // sourcery: genericParameter.name = TextInputView
-    var textInput: TextInputModel? { get }
+    var textInput: _TextInputModel? { get }
 }
 
 // sourcery: generated_component_composite
