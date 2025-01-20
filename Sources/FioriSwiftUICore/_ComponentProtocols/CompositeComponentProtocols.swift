@@ -726,3 +726,23 @@ protocol _ProgressIndicatorComponent: _ProgressIndicatorProtocol {}
 /// ```
 // sourcery: CompositeComponent
 protocol _ProcessingIndicatorComponent: _OptionalTitleComponent {}
+
+// sourcery: CompositeComponent
+protocol _SectionHeaderComponent: _TitleComponent, _AttributeComponent {
+    /// Style determines fonts and colors. Default is `.title` style.
+    // sourcery: defaultValue = .title
+    var sectionHeaderStyle: SectionHeaderFooterStyle { get }
+    
+    /// Optional handler, to respond to tap events on the view.
+    var didSelectHandler: (() -> Void)? { get }
+}
+
+// sourcery: CompositeComponent
+protocol _SectionFooterComponent: _TitleComponent, _AttributeComponent {
+    /// Style determines fonts and colors. Default is `.title` style.
+    // sourcery: defaultValue = .title
+    var sectionFooterStyle: SectionHeaderFooterStyle { get }
+    
+    /// Optional handler, to respond to tap events on the view.
+    var didSelectHandler: (() -> Void)? { get }
+}

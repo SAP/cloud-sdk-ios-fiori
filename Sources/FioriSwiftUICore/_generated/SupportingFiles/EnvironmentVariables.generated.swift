@@ -1704,6 +1704,48 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: SectionFooterStyle
+
+struct SectionFooterStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any SectionFooterStyle] = []
+}
+
+extension EnvironmentValues {
+    var sectionFooterStyle: any SectionFooterStyle {
+        self.sectionFooterStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var sectionFooterStyleStack: [any SectionFooterStyle] {
+        get {
+            self[SectionFooterStyleStackKey.self]
+        }
+        set {
+            self[SectionFooterStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: SectionHeaderStyle
+
+struct SectionHeaderStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any SectionHeaderStyle] = []
+}
+
+extension EnvironmentValues {
+    var sectionHeaderStyle: any SectionHeaderStyle {
+        self.sectionHeaderStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var sectionHeaderStyleStack: [any SectionHeaderStyle] {
+        get {
+            self[SectionHeaderStyleStackKey.self]
+        }
+        set {
+            self[SectionHeaderStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: SegmentedControlPickerStyle
 
 struct SegmentedControlPickerStyleStackKey: EnvironmentKey {
