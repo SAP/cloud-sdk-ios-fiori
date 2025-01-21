@@ -50,12 +50,14 @@ struct LinearProgressIndicatorExample: View {
             
             Text("AI Determinate Style")
             LinearProgressIndicatorView(indicatorProgress: self.$progress2, description: AttributedString("Generating Content..."))
-                .linearProgressIndicatorViewStyle(.determinateAI)
+                .linearProgressIndicatorViewStyle(.determinate)
+                .linearProgressIndicatorViewStyle(.ai)
                 .padding(.bottom, 20)
             
             Text("AI style Indeterminate Style")
             LinearProgressIndicatorView(indicatorProgress: self.$progress4, description: AttributedString("Generating Content..."))
-                .linearProgressIndicatorViewStyle(.indeterminateAI)
+                .linearProgressIndicatorViewStyle(.indeterminate)
+                .linearProgressIndicatorViewStyle(.ai)
                 .padding(.bottom, 20)
             
             Text("Indeterminate with Label")

@@ -5,8 +5,6 @@ import SwiftUI
 enum LinearProgressViewType {
     case determinate
     case indeterminate
-    case determinateAI
-    case indeterminateAI
     case success
     case error
 }
@@ -67,32 +65,6 @@ public struct LinearProgressIndicatorSuccessStyle: LinearProgressIndicatorStyle 
     }
 }
 
-/// Determinate AI style
-public struct LinearProgressIndicatorDeterminateAIStyle: LinearProgressIndicatorStyle {
-    public func makeBody(_ configuration: LinearProgressIndicatorConfiguration) -> some View {
-        LinearProgressIndicator(configuration)
-            .progressViewStyle(CustomLinearProgressViewStyle(color: .preferredColor(.tintColor), type: .determinateAI))
-    }
-}
-
-/// Indeterminate AI style
-public struct LinearProgressIndicatorIndeterminateAIStyle: LinearProgressIndicatorStyle {
-    @State var progress = 0.0
-    public func makeBody(_ configuration: LinearProgressIndicatorConfiguration) -> some View {
-        ProgressView(value: self.progress, total: 1.0)
-            .progressViewStyle(CustomLinearProgressViewStyle(color: .preferredColor(.tintColor), type: .indeterminateAI))
-            .onAppear {
-                let timer = Timer.scheduledTimer(withTimeInterval: 0.02, repeats: true) { _ in
-                    self.progress += 0.01
-                    if self.progress >= 1.0 {
-                        self.progress = 0.0
-                    }
-                }
-                RunLoop.current.add(timer, forMode: .common)
-            }
-    }
-}
-
 struct CustomLinearProgressViewStyle: ProgressViewStyle {
     @State var color: Color = .preferredColor(.tintColor)
     @State var height: CGFloat = 4.0
@@ -108,24 +80,17 @@ struct CustomLinearProgressViewStyle: ProgressViewStyle {
                         .opacity(0.85)
                         .foregroundColor(.preferredColor(.separator))
                     Capsule()
-                        .ifApply(self.type == .determinateAI || self.type == .indeterminateAI) {
-                            $0.fill(LinearGradient(
-                                gradient: Gradient(colors: [self.color.opacity(0.2), self.color]),
-                                startPoint: .leading,
-                                endPoint: .trailing
-                            ))
-                        }
                         .frame(width: (self.type == .error || self.type == .success) ? geometry.size.width : (geometry.size.width * CGFloat(configuration.fractionCompleted ?? 0)), height: self.height)
                         .foregroundColor(self.type == .error ? .preferredColor(.negativeLabel) : self.color)
                     
                     Capsule()
                         .frame(width: geometry.size.width * self.getWidth(completed: CGFloat(configuration.fractionCompleted ?? 0), type: self.type), height: self.height)
                         .foregroundColor(.preferredColor(.secondaryBackground))
-                        .opacity(self.type == .indeterminate || self.type == .indeterminateAI ? 1 : 0)
+                        .opacity(self.type == .indeterminate ? 1 : 0)
                     
                     Capsule()
                         .frame(width: geometry.size.width * self.getWidth(completed: CGFloat(configuration.fractionCompleted ?? 0), type: self.type), height: self.height)
-                        .opacity(self.type == .indeterminate || self.type == .indeterminateAI ? 0.85 : 0)
+                        .opacity(self.type == .indeterminate ? 0.85 : 0)
                         .foregroundColor(.preferredColor(.separator))
                 }
             }
@@ -173,21 +138,5 @@ public extension LinearProgressIndicatorStyle where Self == LinearProgressIndica
     /// Success style of the Linear Progress Indicator.
     static var success: LinearProgressIndicatorSuccessStyle {
         LinearProgressIndicatorSuccessStyle()
-    }
-}
-
-/// Determinate AI style of the Linear Progress Indicator.
-public extension LinearProgressIndicatorStyle where Self == LinearProgressIndicatorDeterminateAIStyle {
-    /// Determinate AI style of the Linear Progress Indicator.
-    static var determinateAI: LinearProgressIndicatorDeterminateAIStyle {
-        LinearProgressIndicatorDeterminateAIStyle()
-    }
-}
-
-/// Indeterminate AI style of the Linear Progress Indicator.
-public extension LinearProgressIndicatorStyle where Self == LinearProgressIndicatorIndeterminateAIStyle {
-    /// Indeterminate AI style of the Linear Progress Indicator.
-    static var indeterminateAI: LinearProgressIndicatorIndeterminateAIStyle {
-        LinearProgressIndicatorIndeterminateAIStyle()
     }
 }
