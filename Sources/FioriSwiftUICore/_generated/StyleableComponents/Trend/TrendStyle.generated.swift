@@ -22,7 +22,14 @@ struct AnyTrendStyle: TrendStyle {
 }
 
 public struct TrendConfiguration {
+    public var componentIdentifier: String = "fiori_trend_component"
     public let trend: Trend
 
     public typealias Trend = ConfigurationViewWrapper
+}
+
+extension TrendConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }

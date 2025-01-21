@@ -13,18 +13,26 @@ public struct SectionFooter {
 
     @Environment(\.sectionFooterStyle) var style
 
+    var componentIdentifier: String = SectionFooter.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
     public init(@ViewBuilder title: () -> any View,
                 @ViewBuilder attribute: () -> any View = { EmptyView() },
                 sectionFooterStyle: SectionHeaderFooterStyle = .title,
-                didSelectHandler: (() -> Void)? = nil)
+                didSelectHandler: (() -> Void)? = nil,
+                componentIdentifier: String? = SectionFooter.identifier)
     {
-        self.title = Title(title: title)
-        self.attribute = Attribute(attribute: attribute)
+        self.title = Title(title: title, componentIdentifier: componentIdentifier)
+        self.attribute = Attribute(attribute: attribute, componentIdentifier: componentIdentifier)
         self.sectionFooterStyle = sectionFooterStyle
         self.didSelectHandler = didSelectHandler
+        self.componentIdentifier = componentIdentifier ?? SectionFooter.identifier
     }
+}
+
+public extension SectionFooter {
+    static let identifier = "fiori_sectionfooter_component"
 }
 
 public extension SectionFooter {
@@ -48,6 +56,7 @@ public extension SectionFooter {
         self.sectionFooterStyle = configuration.sectionFooterStyle
         self.didSelectHandler = configuration.didSelectHandler
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -56,7 +65,7 @@ extension SectionFooter: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(title: .init(self.title), attribute: .init(self.attribute), sectionFooterStyle: self.sectionFooterStyle, didSelectHandler: self.didSelectHandler)).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, title: .init(self.title), attribute: .init(self.attribute), sectionFooterStyle: self.sectionFooterStyle, didSelectHandler: self.didSelectHandler)).typeErased
                 .transformEnvironment(\.sectionFooterStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -74,7 +83,7 @@ private extension SectionFooter {
     }
 
     func defaultStyle() -> some View {
-        SectionFooter(.init(title: .init(self.title), attribute: .init(self.attribute), sectionFooterStyle: self.sectionFooterStyle, didSelectHandler: self.didSelectHandler))
+        SectionFooter(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), attribute: .init(self.attribute), sectionFooterStyle: self.sectionFooterStyle, didSelectHandler: self.didSelectHandler))
             .shouldApplyDefaultStyle(false)
             .sectionFooterStyle(SectionFooterFioriStyle.ContentFioriStyle())
             .typeErased

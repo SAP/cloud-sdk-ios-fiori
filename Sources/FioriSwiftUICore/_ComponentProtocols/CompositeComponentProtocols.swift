@@ -1120,3 +1120,12 @@ protocol _HeaderChartComponent: _TitleComponent, _SubtitleComponent, _TrendCompo
     @ViewBuilder
     var chart: (() -> any View)? { get }
 }
+
+// sourcery: CompositeComponent
+protocol _FilterFeedbackBarButtonComponent: _IconComponent, _TitleComponent {
+    /// Whether the item is selected or not
+    var isSelected: Bool { get }
+    /// The custom spacing between icon and title.
+    // sourcery: defaultValue = 4.0
+    var spacing: CGFloat { get }
+}

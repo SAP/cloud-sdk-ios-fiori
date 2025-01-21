@@ -2110,6 +2110,62 @@ public extension FilledIconStyle where Self == FilledIconFioriStyle {
     }
 }
 
+// MARK: FilterFeedbackBarButtonStyle
+
+public extension FilterFeedbackBarButtonStyle where Self == FilterFeedbackBarButtonBaseStyle {
+    static var base: FilterFeedbackBarButtonBaseStyle {
+        FilterFeedbackBarButtonBaseStyle()
+    }
+}
+
+public extension FilterFeedbackBarButtonStyle where Self == FilterFeedbackBarButtonFioriStyle {
+    static var fiori: FilterFeedbackBarButtonFioriStyle {
+        FilterFeedbackBarButtonFioriStyle()
+    }
+}
+
+public struct FilterFeedbackBarButtonIconStyle: FilterFeedbackBarButtonStyle {
+    let style: any IconStyle
+
+    public func makeBody(_ configuration: FilterFeedbackBarButtonConfiguration) -> some View {
+        FilterFeedbackBarButton(configuration)
+            .iconStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension FilterFeedbackBarButtonStyle where Self == FilterFeedbackBarButtonIconStyle {
+    static func iconStyle(_ style: some IconStyle) -> FilterFeedbackBarButtonIconStyle {
+        FilterFeedbackBarButtonIconStyle(style: style)
+    }
+
+    static func iconStyle(@ViewBuilder content: @escaping (IconConfiguration) -> some View) -> FilterFeedbackBarButtonIconStyle {
+        let style = AnyIconStyle(content)
+        return FilterFeedbackBarButtonIconStyle(style: style)
+    }
+}
+
+public struct FilterFeedbackBarButtonTitleStyle: FilterFeedbackBarButtonStyle {
+    let style: any TitleStyle
+
+    public func makeBody(_ configuration: FilterFeedbackBarButtonConfiguration) -> some View {
+        FilterFeedbackBarButton(configuration)
+            .titleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension FilterFeedbackBarButtonStyle where Self == FilterFeedbackBarButtonTitleStyle {
+    static func titleStyle(_ style: some TitleStyle) -> FilterFeedbackBarButtonTitleStyle {
+        FilterFeedbackBarButtonTitleStyle(style: style)
+    }
+
+    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> FilterFeedbackBarButtonTitleStyle {
+        let style = AnyTitleStyle(content)
+        return FilterFeedbackBarButtonTitleStyle(style: style)
+    }
+}
+
 // MARK: FioriSliderStyle
 
 public extension FioriSliderStyle where Self == FioriSliderBaseStyle {
