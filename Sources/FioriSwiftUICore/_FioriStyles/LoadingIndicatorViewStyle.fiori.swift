@@ -52,12 +52,18 @@ public struct LoadingIndicatorBaseStyle: LoadingIndicatorStyle {
     
     private func sizeForControl(_ controlSize: ControlSize) -> CGFloat {
         switch controlSize {
-        case .mini: return 12
-        case .small: return 16
-        case .regular: return 20
-        case .large: return 30
-        case .extraLarge: return 40
-        @unknown default: return 20
+        case .mini:
+            return 12
+        case .small:
+            return 16
+        case .regular:
+            return 20
+        case .large:
+            return 30
+        case .extraLarge:
+            return 40
+        @unknown default:
+            return 20
         }
     }
     
