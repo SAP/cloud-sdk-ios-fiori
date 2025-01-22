@@ -49,14 +49,6 @@ extension DemoViewConfiguration {
     }
 }
 
-// MARK: DimensionSelectorConfiguration
-
-extension DimensionSelectorConfiguration {
-    var _titles: Titles {
-        Titles(.init(titles: self.titles), shouldApplyDefaultStyle: true)
-    }
-}
-
 // MARK: FioriSliderConfiguration
 
 extension FioriSliderConfiguration {

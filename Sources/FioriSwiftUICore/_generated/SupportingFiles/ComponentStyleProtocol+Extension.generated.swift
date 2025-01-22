@@ -2096,6 +2096,20 @@ public extension DetailImageStyle where Self == DetailImageFioriStyle {
     }
 }
 
+// MARK: DimensionSegmentStyle
+
+public extension DimensionSegmentStyle where Self == DimensionSegmentBaseStyle {
+    static var base: DimensionSegmentBaseStyle {
+        DimensionSegmentBaseStyle()
+    }
+}
+
+public extension DimensionSegmentStyle where Self == DimensionSegmentFioriStyle {
+    static var fiori: DimensionSegmentFioriStyle {
+        DimensionSegmentFioriStyle()
+    }
+}
+
 // MARK: DimensionSelectorStyle
 
 public extension DimensionSelectorStyle where Self == DimensionSelectorBaseStyle {
@@ -2107,27 +2121,6 @@ public extension DimensionSelectorStyle where Self == DimensionSelectorBaseStyle
 public extension DimensionSelectorStyle where Self == DimensionSelectorFioriStyle {
     static var fiori: DimensionSelectorFioriStyle {
         DimensionSelectorFioriStyle()
-    }
-}
-
-public struct DimensionSelectorTitlesStyle: DimensionSelectorStyle {
-    let style: any TitlesStyle
-
-    public func makeBody(_ configuration: DimensionSelectorConfiguration) -> some View {
-        DimensionSelector(configuration)
-            .titlesStyle(self.style)
-            .typeErased
-    }
-}
-
-public extension DimensionSelectorStyle where Self == DimensionSelectorTitlesStyle {
-    static func titlesStyle(_ style: some TitlesStyle) -> DimensionSelectorTitlesStyle {
-        DimensionSelectorTitlesStyle(style: style)
-    }
-
-    static func titlesStyle(@ViewBuilder content: @escaping (TitlesConfiguration) -> some View) -> DimensionSelectorTitlesStyle {
-        let style = AnyTitlesStyle(content)
-        return DimensionSelectorTitlesStyle(style: style)
     }
 }
 
@@ -7301,20 +7294,6 @@ public extension TitleFormViewStyle where Self == TitleFormViewFormViewStyle {
     static func formViewStyle(@ViewBuilder content: @escaping (FormViewConfiguration) -> some View) -> TitleFormViewFormViewStyle {
         let style = AnyFormViewStyle(content)
         return TitleFormViewFormViewStyle(style: style)
-    }
-}
-
-// MARK: TitlesStyle
-
-public extension TitlesStyle where Self == TitlesBaseStyle {
-    static var base: TitlesBaseStyle {
-        TitlesBaseStyle()
-    }
-}
-
-public extension TitlesStyle where Self == TitlesFioriStyle {
-    static var fiori: TitlesFioriStyle {
-        TitlesFioriStyle()
     }
 }
 

@@ -264,6 +264,12 @@ extension DetailImage: _ViewEmptyChecking {
     }
 }
 
+extension DimensionSegment: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        false
+    }
+}
+
 extension DimensionSelector: _ViewEmptyChecking {
     public var isEmpty: Bool {
         false
@@ -994,12 +1000,6 @@ extension Title: _ViewEmptyChecking {
 extension TitleFormView: _ViewEmptyChecking {
     public var isEmpty: Bool {
         placeholder.isEmpty
-    }
-}
-
-extension Titles: _ViewEmptyChecking {
-    public var isEmpty: Bool {
-        false
     }
 }
 

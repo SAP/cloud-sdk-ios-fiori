@@ -1121,6 +1121,15 @@ protocol _HeaderChartComponent: _TitleComponent, _SubtitleComponent, _TrendCompo
     var chart: (() -> any View)? { get }
 }
 
+/// `DimensionSegment` provides a customizable segment for `DimensionSelector`.
+///
+// sourcery: CompositeComponent
+protocol _DimensionSegmentComponent {
+    // sourcery: @binding
+    /// Whether the item is selected or not
+    var isSelected: Bool { get }
+}
+
 /// `DimensionSelector` is a horizontal control containing multiple segments, each segment functioning as a discrete button. Selection is mutually exclusive.
 ///
 ///  ## Usage:
@@ -1129,13 +1138,16 @@ protocol _HeaderChartComponent: _TitleComponent, _SubtitleComponent, _TrendCompo
 ///  @State var selectedIndex: Int? = 0
 ///  @ObservedObject var stockModel = Tests.stockModels[0]
 ///
-///  DimensionSelector(titles: segmentTitles, selectedIndex: $selectedIndex)
+///  DimensionSelector(titles: titles, selectedIndex: $selectedIndex)
 ///     .onChange(of: selectedIndex) {
 ///            stockModel.indexOfStockSeries = selectedIndex ?? -1
 ///    }
 ///  ```
 // sourcery: CompositeComponent
-protocol _DimensionSelectorComponent: _TitlesComponent {
+protocol _DimensionSelectorComponent {
+    /// The array for segment titles
+    var titles: [String] { get }
+    
     // sourcery: @Binding
     /// The optional selected index of the DimensionSelector
     var selectedIndex: Int? { get }
@@ -1144,18 +1156,8 @@ protocol _DimensionSelectorComponent: _TitlesComponent {
     /// The spacing between two segments. The default value is `6`.
     var interItemSpacing: CGFloat { get }
     
-    /// The title insets for each segment.
-    var titleInsets: EdgeInsets? { get }
-    
-    /// A dictionary to store control state and the corresponding segment attributes.
-    var segmentAttributes: [ControlState: SegmentAttributes]? { get }
-    
     /// Content inset for the segmented control.
     var contentInset: EdgeInsets? { get }
-    
-    // sourcery: defaultValue = true
-    /// If set to false, previous selection will be removed.
-    var isEnable: Bool { get }
     
     // sourcery: defaultValue = .intrinsic
     /// Mode that determines the width of each segment. The default value is `.intrinsic`.
@@ -1164,4 +1166,10 @@ protocol _DimensionSelectorComponent: _TitlesComponent {
     // sourcery: defaultValue = true
     /// A Boolean value indicating if empty selection is allowed. The default value is `true`.
     var allowEmptySelection: Bool { get }
+    
+    @ViewBuilder
+    // sourcery: defaultValue = "{ _ in EmptyView() }"
+    // sourcery: resultBuilder.defaultValue = "{ _ in EmptyView() }"
+    ///  ViewBuilder for customizing the segments
+    var segment: (String) -> any View { get }
 }

@@ -11,29 +11,26 @@ import SwiftUI
 ///  @State var selectedIndex: Int? = 0
 ///  @ObservedObject var stockModel = Tests.stockModels[0]
 ///
-///  DimensionSelector(titles: segmentTitles, selectedIndex: $selectedIndex)
+///  DimensionSelector(titles: titles, selectedIndex: $selectedIndex)
 ///     .onChange(of: selectedIndex) {
 ///            stockModel.indexOfStockSeries = selectedIndex ?? -1
 ///    }
 ///  ```
 public struct DimensionSelector {
+    /// The array for segment titles
     let titles: [String]
     /// The optional selected index of the DimensionSelector
     @Binding var selectedIndex: Int?
     /// The spacing between two segments. The default value is `6`.
     let interItemSpacing: CGFloat
-    /// The title insets for each segment.
-    let titleInsets: EdgeInsets?
-    /// A dictionary to store control state and the corresponding segment attributes.
-    let segmentAttributes: [ControlState: SegmentAttributes]?
     /// Content inset for the segmented control.
     let contentInset: EdgeInsets?
-    /// If set to false, previous selection will be removed.
-    let isEnable: Bool
     /// Mode that determines the width of each segment. The default value is `.intrinsic`.
     let segmentWidthMode: SegmentWidthMode
     /// A Boolean value indicating if empty selection is allowed. The default value is `true`.
     let allowEmptySelection: Bool
+    ///  ViewBuilder for customizing the segments
+    let segment: (String) -> any View
 
     @Environment(\.dimensionSelectorStyle) var style
 
@@ -44,23 +41,19 @@ public struct DimensionSelector {
     public init(titles: [String] = [],
                 selectedIndex: Binding<Int?>,
                 interItemSpacing: CGFloat = 6,
-                titleInsets: EdgeInsets? = nil,
-                segmentAttributes: [ControlState: SegmentAttributes]? = nil,
                 contentInset: EdgeInsets? = nil,
-                isEnable: Bool = true,
                 segmentWidthMode: SegmentWidthMode = .intrinsic,
                 allowEmptySelection: Bool = true,
+                @ViewBuilder segment: @escaping (String) -> any View = { _ in EmptyView() },
                 componentIdentifier: String? = DimensionSelector.identifier)
     {
         self.titles = titles
         self._selectedIndex = selectedIndex
         self.interItemSpacing = interItemSpacing
-        self.titleInsets = titleInsets
-        self.segmentAttributes = segmentAttributes
         self.contentInset = contentInset
-        self.isEnable = isEnable
         self.segmentWidthMode = segmentWidthMode
         self.allowEmptySelection = allowEmptySelection
+        self.segment = segment
         self.componentIdentifier = componentIdentifier ?? DimensionSelector.identifier
     }
 }
@@ -78,12 +71,10 @@ public extension DimensionSelector {
         self.titles = configuration.titles
         self._selectedIndex = configuration.$selectedIndex
         self.interItemSpacing = configuration.interItemSpacing
-        self.titleInsets = configuration.titleInsets
-        self.segmentAttributes = configuration.segmentAttributes
         self.contentInset = configuration.contentInset
-        self.isEnable = configuration.isEnable
         self.segmentWidthMode = configuration.segmentWidthMode
         self.allowEmptySelection = configuration.allowEmptySelection
+        self.segment = configuration.segment
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
         self.componentIdentifier = configuration.componentIdentifier
     }
@@ -94,7 +85,7 @@ extension DimensionSelector: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, titles: self.titles, selectedIndex: self.$selectedIndex, interItemSpacing: self.interItemSpacing, titleInsets: self.titleInsets, segmentAttributes: self.segmentAttributes, contentInset: self.contentInset, isEnable: self.isEnable, segmentWidthMode: self.segmentWidthMode, allowEmptySelection: self.allowEmptySelection)).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, titles: self.titles, selectedIndex: self.$selectedIndex, interItemSpacing: self.interItemSpacing, contentInset: self.contentInset, segmentWidthMode: self.segmentWidthMode, allowEmptySelection: self.allowEmptySelection, segment: self.segment)).typeErased
                 .transformEnvironment(\.dimensionSelectorStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -112,7 +103,7 @@ private extension DimensionSelector {
     }
 
     func defaultStyle() -> some View {
-        DimensionSelector(.init(componentIdentifier: self.componentIdentifier, titles: self.titles, selectedIndex: self.$selectedIndex, interItemSpacing: self.interItemSpacing, titleInsets: self.titleInsets, segmentAttributes: self.segmentAttributes, contentInset: self.contentInset, isEnable: self.isEnable, segmentWidthMode: self.segmentWidthMode, allowEmptySelection: self.allowEmptySelection))
+        DimensionSelector(.init(componentIdentifier: self.componentIdentifier, titles: self.titles, selectedIndex: self.$selectedIndex, interItemSpacing: self.interItemSpacing, contentInset: self.contentInset, segmentWidthMode: self.segmentWidthMode, allowEmptySelection: self.allowEmptySelection, segment: self.segment))
             .shouldApplyDefaultStyle(false)
             .dimensionSelectorStyle(DimensionSelectorFioriStyle.ContentFioriStyle())
             .typeErased

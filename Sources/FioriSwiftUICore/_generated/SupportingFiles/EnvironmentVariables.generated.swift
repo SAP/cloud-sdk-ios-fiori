@@ -717,6 +717,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: DimensionSegmentStyle
+
+struct DimensionSegmentStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any DimensionSegmentStyle] = []
+}
+
+extension EnvironmentValues {
+    var dimensionSegmentStyle: any DimensionSegmentStyle {
+        self.dimensionSegmentStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var dimensionSegmentStyleStack: [any DimensionSegmentStyle] {
+        get {
+            self[DimensionSegmentStyleStackKey.self]
+        }
+        set {
+            self[DimensionSegmentStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: DimensionSelectorStyle
 
 struct DimensionSelectorStyleStackKey: EnvironmentKey {
@@ -2855,27 +2876,6 @@ extension EnvironmentValues {
         }
         set {
             self[TitleFormViewStyleStackKey.self] = newValue
-        }
-    }
-}
-
-// MARK: TitlesStyle
-
-struct TitlesStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any TitlesStyle] = []
-}
-
-extension EnvironmentValues {
-    var titlesStyle: any TitlesStyle {
-        self.titlesStyleStack.last ?? .base
-    }
-
-    var titlesStyleStack: [any TitlesStyle] {
-        get {
-            self[TitlesStyleStackKey.self]
-        }
-        set {
-            self[TitlesStyleStackKey.self] = newValue
         }
     }
 }

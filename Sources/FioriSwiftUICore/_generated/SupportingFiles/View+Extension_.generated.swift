@@ -581,6 +581,23 @@ public extension View {
     }
 }
 
+// MARK: DimensionSegmentStyle
+
+public extension View {
+    func dimensionSegmentStyle(_ style: some DimensionSegmentStyle) -> some View {
+        self.transformEnvironment(\.dimensionSegmentStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func dimensionSegmentStyle(@ViewBuilder content: @escaping (DimensionSegmentConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.dimensionSegmentStyleStack) { stack in
+            let style = AnyDimensionSegmentStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: DimensionSelectorStyle
 
 public extension View {
@@ -2310,23 +2327,6 @@ public extension View {
     func titleFormViewStyle(@ViewBuilder content: @escaping (TitleFormViewConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.titleFormViewStyleStack) { stack in
             let style = AnyTitleFormViewStyle(content)
-            stack.append(style)
-        }
-    }
-}
-
-// MARK: TitlesStyle
-
-public extension View {
-    func titlesStyle(_ style: some TitlesStyle) -> some View {
-        self.transformEnvironment(\.titlesStyleStack) { stack in
-            stack.append(style)
-        }
-    }
-
-    func titlesStyle(@ViewBuilder content: @escaping (TitlesConfiguration) -> some View) -> some View {
-        self.transformEnvironment(\.titlesStyleStack) { stack in
-            let style = AnyTitlesStyle(content)
             stack.append(style)
         }
     }

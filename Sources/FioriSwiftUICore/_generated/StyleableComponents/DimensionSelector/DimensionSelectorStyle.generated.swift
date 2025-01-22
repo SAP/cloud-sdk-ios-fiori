@@ -26,12 +26,10 @@ public struct DimensionSelectorConfiguration {
     public let titles: [String]
     @Binding public var selectedIndex: Int?
     public let interItemSpacing: CGFloat
-    public let titleInsets: EdgeInsets?
-    public let segmentAttributes: [ControlState: SegmentAttributes]?
     public let contentInset: EdgeInsets?
-    public let isEnable: Bool
     public let segmentWidthMode: SegmentWidthMode
     public let allowEmptySelection: Bool
+    public let segment: (String) -> any View
 }
 
 extension DimensionSelectorConfiguration {
@@ -43,6 +41,5 @@ extension DimensionSelectorConfiguration {
 public struct DimensionSelectorFioriStyle: DimensionSelectorStyle {
     public func makeBody(_ configuration: DimensionSelectorConfiguration) -> some View {
         DimensionSelector(configuration)
-            .titlesStyle(TitlesFioriStyle(dimensionSelectorConfiguration: configuration))
     }
 }

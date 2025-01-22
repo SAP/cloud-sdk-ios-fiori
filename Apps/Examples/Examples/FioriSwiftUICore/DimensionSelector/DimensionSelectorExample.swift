@@ -15,30 +15,27 @@ struct DimensionSelectorExample: View {
     @State var selectedIndex: Int? = 0
     @ObservedObject var stockModel = Tests.stockModels[0]
     @State var customStyle: Bool = false
-    
-    var attributes: [ControlState: SegmentAttributes] = [
-        .normal: SegmentAttributes(textColor: .teal, font: .subheadline, borderWidth: 0.33, borderColor: .teal, backgroundColor: .white),
-        .selected: SegmentAttributes(textColor: .indigo, font: .body, borderWidth: 1.0, borderColor: .indigo, backgroundColor: .green),
-        .disabled: SegmentAttributes(textColor: .gray, font: .subheadline, borderWidth: 0.33, borderColor: .gray, backgroundColor: Color.preferredColor(.tertiaryFill))
-    ]
 
     var body: some View {
         VStack(alignment: .center) {
             SwitchView(title: "Custom Styling", isOn: self.$customStyle).padding()
             if self.customStyle {
-                self.getDimensionSelector(attributes: self.attributes)
+                DimensionSelector(titles: self.segmentTitles, selectedIndex: self.$selectedIndex, segmentWidthMode: .equal, segment: { title in
+                    let selectedTitle = self.selectedIndex != nil ? self.segmentTitles[self.selectedIndex!] : ""
+                    DimensionSegment(isSelected: title == selectedTitle)
+                        .dimensionSegmentStyle(CustomSegmentStyle())
+                })
+                .onChange(of: self.selectedIndex) {
+                    self.stockModel.indexOfStockSeries = self.selectedIndex ?? -1
+                }
             } else {
-                self.getDimensionSelector()
+                DimensionSelector(titles: self.segmentTitles, selectedIndex: self.$selectedIndex)
+                    .onChange(of: self.selectedIndex) {
+                        self.stockModel.indexOfStockSeries = self.selectedIndex ?? -1
+                    }
             }
             self.chartView
         }
-    }
-    
-    func getDimensionSelector(attributes: [ControlState: SegmentAttributes]? = nil) -> some View {
-        DimensionSelector(titles: self.segmentTitles, selectedIndex: self.$selectedIndex, segmentAttributes: attributes)
-            .onChange(of: self.selectedIndex) {
-                self.stockModel.indexOfStockSeries = self.selectedIndex ?? -1
-            }
     }
     
     var chartView: some View {
@@ -47,6 +44,20 @@ struct DimensionSelectorExample: View {
         } else {
             return AnyView(NoDataView())
         }
+    }
+}
+
+struct CustomSegmentStyle: DimensionSegmentStyle {
+    func makeBody(_ configuration: DimensionSegmentConfiguration) -> some View {
+        DimensionSegment(configuration)
+            .font(.body)
+            .foregroundStyle(configuration.isSelected ? Color.teal : Color.preferredColor(.tertiaryLabel))
+            .background(
+                RoundedRectangle(cornerRadius: 10, style: .continuous)
+                    .inset(by: 1)
+                    .stroke(configuration.isSelected ? Color.teal : Color.preferredColor(.tertiaryLabel), lineWidth: 2)
+            )
+            .background(RoundedRectangle(cornerRadius: 10, style: .continuous).fill(configuration.isSelected ? Color.preferredColor(.accentBackground1) : Color.preferredColor(.secondaryGroupedBackground)))
     }
 }
 
