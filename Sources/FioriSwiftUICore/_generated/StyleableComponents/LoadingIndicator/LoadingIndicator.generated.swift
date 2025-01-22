@@ -9,6 +9,7 @@ public struct LoadingIndicator {
     /// The duration in seconds for which the loading indicator is shown. If set to 0, the loading indicator will be displayed continuously. The default is `0`.
     let duration: Double
     @Binding var isPresented: Bool
+    let isAIEnabled: Bool
 
     @Environment(\.loadingIndicatorStyle) var style
 
@@ -20,12 +21,14 @@ public struct LoadingIndicator {
                 @ViewBuilder progress: () -> any View,
                 duration: Double = 0,
                 isPresented: Binding<Bool>,
+                isAIEnabled: Bool = false,
                 componentIdentifier: String? = LoadingIndicator.identifier)
     {
         self.title = Title(title: title, componentIdentifier: componentIdentifier)
         self.progress = Progress(progress: progress, componentIdentifier: componentIdentifier)
         self.duration = duration
         self._isPresented = isPresented
+        self.isAIEnabled = isAIEnabled
         self.componentIdentifier = componentIdentifier ?? LoadingIndicator.identifier
     }
 }
@@ -38,9 +41,10 @@ public extension LoadingIndicator {
     init(title: AttributedString,
          progress: ProgressView<EmptyView, EmptyView> = ProgressView(),
          duration: Double = 0,
-         isPresented: Binding<Bool>)
+         isPresented: Binding<Bool>,
+         isAIEnabled: Bool = false)
     {
-        self.init(title: { Text(title) }, progress: { progress }, duration: duration, isPresented: isPresented)
+        self.init(title: { Text(title) }, progress: { progress }, duration: duration, isPresented: isPresented, isAIEnabled: isAIEnabled)
     }
 }
 
@@ -54,6 +58,7 @@ public extension LoadingIndicator {
         self.progress = configuration.progress
         self.duration = configuration.duration
         self._isPresented = configuration.$isPresented
+        self.isAIEnabled = configuration.isAIEnabled
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
         self.componentIdentifier = configuration.componentIdentifier
     }
@@ -64,7 +69,7 @@ extension LoadingIndicator: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, title: .init(self.title), progress: .init(self.progress), duration: self.duration, isPresented: self.$isPresented)).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, title: .init(self.title), progress: .init(self.progress), duration: self.duration, isPresented: self.$isPresented, isAIEnabled: self.isAIEnabled)).typeErased
                 .transformEnvironment(\.loadingIndicatorStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -82,7 +87,7 @@ private extension LoadingIndicator {
     }
 
     func defaultStyle() -> some View {
-        LoadingIndicator(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), progress: .init(self.progress), duration: self.duration, isPresented: self.$isPresented))
+        LoadingIndicator(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), progress: .init(self.progress), duration: self.duration, isPresented: self.$isPresented, isAIEnabled: self.isAIEnabled))
             .shouldApplyDefaultStyle(false)
             .loadingIndicatorStyle(LoadingIndicatorFioriStyle.ContentFioriStyle())
             .typeErased

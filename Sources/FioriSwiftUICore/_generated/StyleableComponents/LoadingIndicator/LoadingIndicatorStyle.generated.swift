@@ -27,6 +27,7 @@ public struct LoadingIndicatorConfiguration {
     public let progress: Progress
     public let duration: Double
     @Binding public var isPresented: Bool
+    public let isAIEnabled: Bool
 
     public typealias Title = ConfigurationViewWrapper
     public typealias Progress = ConfigurationViewWrapper
