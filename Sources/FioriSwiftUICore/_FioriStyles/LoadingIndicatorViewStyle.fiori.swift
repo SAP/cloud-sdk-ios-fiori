@@ -7,6 +7,9 @@ public struct LoadingIndicatorBaseStyle: LoadingIndicatorStyle {
     @Environment(\.indicatorPosition) var position
     @Environment(\.indicatorTint) var tint
     @Environment(\.indicatorControlSize) var controlSize
+    @State private var scale: CGFloat = 1.2
+    @State private var opacity: CGFloat = 1.0
+    @State private var isAnimating = false
     private var timerTool = TimerTask()
 
     public func makeBody(_ configuration: LoadingIndicatorConfiguration) -> some View {
@@ -28,32 +31,92 @@ public struct LoadingIndicatorBaseStyle: LoadingIndicatorStyle {
         }
     }
 
-    private func makeBodyForProgressView() -> some View {
-        ProgressView()
+    private func makeBodyForProgressView(_ configuration: LoadingIndicatorConfiguration) -> some View {
+        configuration.progress
             .tint(self.tint)
             .controlSize(self.controlSize)
+    }
+    
+    private func makeBodyForAIProgressView(_ configuration: LoadingIndicatorConfiguration) -> some View {
+        Image(fioriName: "fiori.ai")
+            .resizable()
+            .scaledToFill()
+            .scaleEffect(self.scale)
+            .foregroundColor(.blue).opacity(self.opacity)
+            .animation(.interpolatingSpring(stiffness: 100, damping: 10).repeatForever(autoreverses: true), value: self.scale)
+            .onAppear {
+                self.startBouncingAnimation()
+            }
+            .frame(width: self.sizeForControl(self.controlSize), height: self.sizeForControl(self.controlSize))
+    }
+    
+    private func sizeForControl(_ controlSize: ControlSize) -> CGFloat {
+        switch controlSize {
+        case .mini:
+            return 12
+        case .small:
+            return 16
+        case .regular:
+            return 20
+        case .large:
+            return 30
+        case .extraLarge:
+            return 40
+        @unknown default:
+            return 20
+        }
+    }
+    
+    func startBouncingAnimation() {
+        self.isAnimating = true
+        withAnimation {
+            self.scale = 1.4
+            self.opacity = 0.5
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            withAnimation {
+                self.scale = 1.0
+                self.opacity = 1.0
+            }
+        }
     }
 
     private func layoutBody(_ configuration: LoadingIndicatorConfiguration) -> some View {
         switch self.position {
         case .leading:
             return AnyView(HStack(spacing: 8) {
-                self.makeBodyForProgressView()
+                if configuration.isAIEnabled {
+                    self.makeBodyForAIProgressView(configuration)
+                } else {
+                    self.makeBodyForProgressView(configuration)
+                }
                 configuration.title
             })
         case .trailing:
             return AnyView(HStack(spacing: 8) {
                 configuration.title
-                self.makeBodyForProgressView()
+                if configuration.isAIEnabled {
+                    self.makeBodyForAIProgressView(configuration)
+                } else {
+                    self.makeBodyForProgressView(configuration)
+                }
             })
         case .bottom:
             return AnyView(VStack(spacing: 8) {
                 configuration.title
-                self.makeBodyForProgressView()
+                if configuration.isAIEnabled {
+                    self.makeBodyForAIProgressView(configuration)
+                } else {
+                    self.makeBodyForProgressView(configuration)
+                }
             })
         case .top:
             return AnyView(VStack(spacing: 8) {
-                self.makeBodyForProgressView()
+                if configuration.isAIEnabled {
+                    self.makeBodyForAIProgressView(configuration)
+                } else {
+                    self.makeBodyForProgressView(configuration)
+                }
                 configuration.title
             })
         }
@@ -75,6 +138,14 @@ extension LoadingIndicatorFioriStyle {
             Title(configuration)
                 .foregroundStyle(Color.preferredColor(.primaryLabel))
                 .font(.fiori(forTextStyle: .headline))
+        }
+    }
+    
+    struct ProgressFioriStyle: ProgressStyle {
+        let loadingIndicatorConfiguration: LoadingIndicatorConfiguration
+    
+        func makeBody(_ configuration: ProgressConfiguration) -> some View {
+            Progress(configuration)
         }
     }
 }

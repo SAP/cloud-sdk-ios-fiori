@@ -31,6 +31,9 @@
 /* XACT: The accessibility label for the signature line */
 "Signature Line" = "Baris Tanda Tangan";
 
+/* XACT: The accessibility label for the mandatory field */
+"Required Field" = "Bidang Wajib Diisi";
+
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
 "Canceled" = "Dibatalkan";
 
@@ -142,6 +145,9 @@
 /* XBUT: voice over label for row selection status in DataTable */
 "not selected" = "tidak dipilih";
 
+/* Default value for DateTimePicker */
+"No date selected" = "Tidak ada tanggal yang dipilih";
+
 /* XBUT: calendar time component label */
 "Time" = "Waktu";
 
@@ -159,4 +165,154 @@
 
 /* Default error text for when the character count exceeds the maximum limit for NoteFormView and TextFieldFormView */
 "Reduce the number of characters" = "Kurangi jumlah karakter";
+
+/* XBUT: voice over label for decrement action in stepper */
+"Stepper decrease" = "Kurangi penggerak";
+
+/* XBUT: voice over description for decrement action in stepper */
+"Decrease the value by %d" = "Kurangi nilainya sebesar %d";
+
+/* XBUT: voice over label for increment action in stepper */
+"Stepper increase" = "Tingkatkan penggerak";
+
+/* XBUT: voice over description for increment action in stepper */
+"Increase the value by %d" = "Tingkatkan nilainya sebesar %d";
+
+/* XBUT: voice over label for test field in stepper */
+"Select specific value" = "Pilih nilai tertentu";
+
+/* XBUT: View all action in MenuSelection */
+"View All (%d)" = "Lihat Semua (%d)";
+
+/* XACT: RatingControl accessibility label */
+"%d out of %d stars" = "%d dari %d bintang";
+
+/* XBUT: timeline preview component see all label */
+"See All (%d)" = "Lihat Semua (%d)";
+
+/* XACT: Timeline preview item accessibility label */
+"Item %d of %d" = "Item %d dari %d";
+
+/* XBUT: timeline preview component timestamp label */
+"Today, %d" = "Hari Ini, %d";
+
+/* XFLD: RatingControl value label format */
+"%d of %d" = "%d dari %d";
+
+/* XFLD: RatingControl review count format */
+"%d reviews" = "%d tinjauan";
+
+/* XFLD: RatingControl review count over ceiling format */
+"%d+ reviews" = "%d+ tinjauan";
+
+/* XACT: RatingControl accessibility label */
+"Rating Control %d of %d" = "Kontrol Penilaian %d dari %d";
+
+/* XACT: read-only RatingControl accessibility label: rating with review count */
+"Rating Control, rating %d of %d, %d reviews" = "Kontrol Penilaian, penilaian %d dari %d, %d tinjauan";
+
+/* XACT: read-only RatingControl accessibility label: average rating only */
+"Rating Control, average rating %.1f of %d" = "Kontrol Penilaian, rata-rata penilaian %.1f dari %d";
+
+/* XACT: read-only RatingControl accessibility label: average rating with review count */
+"Rating Control, average rating %.1f of %d, %d reviews" = "Kontrol Penilaian, rata-rata penilaian %.1f dari %d, %d tinjauan";
+
+/* XACT: read-only RatingControl accessibility label: average rating with review count over ceiling */
+"Rating Control, average rating %.1f of %d, %d plus reviews" = "Kontrol Penilaian, rata-rata penilaian %.1f dari %d, lebih dari %d tinjauan";
+
+/* XBUT: View all messages in message banner sheet */
+"All" = "Semua";
+
+/* XBUT: messages count in the message banner sheet */
+"Messages (%d)" = "Pesan (%d)";
+
+/* XBUT: view details in the message banner */
+"View Details" = "Lihat Rincian";
+
+/* XBUT: view different message in the message banner sheet item */
+"View %@" = "Lihat %@";
+
+/* XBUT: banner message type desc, message */
+"message" = "pesan";
+
+/* XBUT: banner message type desc, information */
+"information" = "informasi";
+
+/* XBUT: banner message type desc, confirmation */
+"confirmation" = "konfirmasi";
+
+/* XBUT: banner message type desc, warning */
+"warning" = "peringatan";
+
+/* XBUT: banner message type desc, error */
+"error" = "kesalahan";
+
+/* XBUT: banner message type desc in plural form, messages */
+"messages" = "pesan";
+
+/* XBUT: banner message type desc in plural form, informations */
+"informations" = "informasi";
+
+/* XBUT: banner message type desc in plural form, confirmations */
+"confirmations" = "konfirmasi";
+
+/* XBUT: banner message type desc in plural form, warnings */
+"warnings" = "peringatan";
+
+/* XBUT: banner message type desc in plural form, errors */
+"errors" = "kesalahan";
+
+/* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
+"Reset" = "Atur Ulang";
+
+/* XBUT: Apply action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
+"Apply" = "Terapkan";
+
+/* XTIT: The alert message for `ListPickerDestination` pulldown dismissal */
+"Are you sure you want to discard your selections?" = "Apakah Anda yakin ingin membuang pilihan Anda?";
+
+/* XBUT: The alert Discard Changes action title for `ListPickerDestination` pulldown dismissal */
+"Discard Changes" = "Buang Perubahan";
+
+/* XBUT: The alert Keep Editing action title for `ListPickerDestination` pulldown dismissal */
+"Keep Editing" = "Tetap Mengedit";
+
+/* XBUT: The \"Select All\" button title on the List Picker header */
+"Select All" = "Pilih Semua";
+
+/* XBUT: The \"Deselect All\" button title on the List Picker header */
+"Deselect All" = "Batalkan Semua Pilihan";
+
+/* XBUT: The \"Selected\" title on the List Picker header */
+"Selected" = "Dipilih";
+
+/* XACT: The accessibility hint for Text Input Views, editable */
+"Text field, Double tap to edit" = "Bidang Teks, Ketuk dua kali untuk mengedit";
+
+/* XACT: The accessibility hint for Text Input Views, editing */
+"Text field, is editing" = "Bidang Teks, sedang mengedit";
+
+/* XACT: The accessibility hint for Text Input Views, editing, with clear button */
+"Text field, is editing. Double tap to clear text" = "Bidang Teks, sedang mengedit. Ketuk dua kali untuk menghapus teks";
+
+/* XACT: The default accessibility label for the custom action in TextFieldFormView if none was specified */
+"Custom Action" = "Tindakan Kustom";
+
+/* XBUT: Error messages shown to users in DocumentScannerView */
+"Failed to create PDF page from images" = "Gagal membuat halaman PDF dari gambar.";
+
+/* XBUT: Cancel message shown to users in DocumentScannerView */
+"User cancelled the scan" = "Pengguna membatalkan pemindaian.";
+
+/* Progress Indicator accessibility label: processing */
+"Processing" = "Memproses";
+
+/* Progress Indicator accessibility label: loading pausable with indicator progress */
+"In progress with option to pause, %.0f" = "Sedang diproses dengan opsi untuk menjeda, %.0f";
+
+/* Progress Indicator accessibility label: loading stoppable with indicator progress */
+"In progress with option to stop, %.0f" = "Sedang diproses dengan opsi untuk menghentikan, %.0f";
+
+/* Progress Indicator accessibility label: progress halted with indicator progress */
+"Progress halted, %.0f" = "Progres terhenti, %.0f";
 

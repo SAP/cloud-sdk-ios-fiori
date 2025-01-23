@@ -31,6 +31,9 @@
 /* XACT: The accessibility label for the signature line */
 "Signature Line" = "Črta za podpis";
 
+/* XACT: The accessibility label for the mandatory field */
+"Required Field" = "Obvezno polje";
+
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
 "Canceled" = "Preklicano";
 
@@ -142,6 +145,9 @@
 /* XBUT: voice over label for row selection status in DataTable */
 "not selected" = "ni izbrano";
 
+/* Default value for DateTimePicker */
+"No date selected" = "Izbran ni noben datum";
+
 /* XBUT: calendar time component label */
 "Time" = "Čas";
 
@@ -159,4 +165,154 @@
 
 /* Default error text for when the character count exceeds the maximum limit for NoteFormView and TextFieldFormView */
 "Reduce the number of characters" = "Zmanjšanje števila znakov";
+
+/* XBUT: voice over label for decrement action in stepper */
+"Stepper decrease" = "Zmanjšanje regulatorja vrednosti";
+
+/* XBUT: voice over description for decrement action in stepper */
+"Decrease the value by %d" = "Zmanjšanje vrednosti za %d";
+
+/* XBUT: voice over label for increment action in stepper */
+"Stepper increase" = "Povečanje regulatorja vrednosti";
+
+/* XBUT: voice over description for increment action in stepper */
+"Increase the value by %d" = "Povečanje vrednosti za %d";
+
+/* XBUT: voice over label for test field in stepper */
+"Select specific value" = "Izberite določeno vrednost";
+
+/* XBUT: View all action in MenuSelection */
+"View All (%d)" = "Prikaži vse (%d)";
+
+/* XACT: RatingControl accessibility label */
+"%d out of %d stars" = "%d od %d zvezdic";
+
+/* XBUT: timeline preview component see all label */
+"See All (%d)" = "Prikaži vse (%d)";
+
+/* XACT: Timeline preview item accessibility label */
+"Item %d of %d" = "Element %d od %d";
+
+/* XBUT: timeline preview component timestamp label */
+"Today, %d" = "Danes, %d";
+
+/* XFLD: RatingControl value label format */
+"%d of %d" = "%d od %d";
+
+/* XFLD: RatingControl review count format */
+"%d reviews" = "Ocene (%d)";
+
+/* XFLD: RatingControl review count over ceiling format */
+"%d+ reviews" = "Št. ocen: več kot %d";
+
+/* XACT: RatingControl accessibility label */
+"Rating Control %d of %d" = "Nadzor ocen %d od %d";
+
+/* XACT: read-only RatingControl accessibility label: rating with review count */
+"Rating Control, rating %d of %d, %d reviews" = "Nadzor ocen, ocena %d od %d, ocene (%d)";
+
+/* XACT: read-only RatingControl accessibility label: average rating only */
+"Rating Control, average rating %.1f of %d" = "Nadzor ocen, povprečna ocena %.1f od %d";
+
+/* XACT: read-only RatingControl accessibility label: average rating with review count */
+"Rating Control, average rating %.1f of %d, %d reviews" = "Nadzor ocen, povprečna ocena %.1f od %d, ocene (%d)";
+
+/* XACT: read-only RatingControl accessibility label: average rating with review count over ceiling */
+"Rating Control, average rating %.1f of %d, %d plus reviews" = "Nadzor ocen, povprečna ocena %.1f od %d, št. ocen: več kot %d";
+
+/* XBUT: View all messages in message banner sheet */
+"All" = "Vse";
+
+/* XBUT: messages count in the message banner sheet */
+"Messages (%d)" = "Sporočila (%d)";
+
+/* XBUT: view details in the message banner */
+"View Details" = "Ogled podrobnosti";
+
+/* XBUT: view different message in the message banner sheet item */
+"View %@" = "Ogled %@";
+
+/* XBUT: banner message type desc, message */
+"message" = "sporočilo";
+
+/* XBUT: banner message type desc, information */
+"information" = "informacije";
+
+/* XBUT: banner message type desc, confirmation */
+"confirmation" = "potrditev";
+
+/* XBUT: banner message type desc, warning */
+"warning" = "opozorilo";
+
+/* XBUT: banner message type desc, error */
+"error" = "napaka";
+
+/* XBUT: banner message type desc in plural form, messages */
+"messages" = "sporočila";
+
+/* XBUT: banner message type desc in plural form, informations */
+"informations" = "informacije";
+
+/* XBUT: banner message type desc in plural form, confirmations */
+"confirmations" = "potrditve";
+
+/* XBUT: banner message type desc in plural form, warnings */
+"warnings" = "opozorila";
+
+/* XBUT: banner message type desc in plural form, errors */
+"errors" = "napake";
+
+/* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
+"Reset" = "Ponastavitev";
+
+/* XBUT: Apply action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
+"Apply" = "Uporabi";
+
+/* XTIT: The alert message for `ListPickerDestination` pulldown dismissal */
+"Are you sure you want to discard your selections?" = "Res želite opustiti svoje izbire?";
+
+/* XBUT: The alert Discard Changes action title for `ListPickerDestination` pulldown dismissal */
+"Discard Changes" = "Opusti spremembe";
+
+/* XBUT: The alert Keep Editing action title for `ListPickerDestination` pulldown dismissal */
+"Keep Editing" = "Nadaljevanje urejanja";
+
+/* XBUT: The \"Select All\" button title on the List Picker header */
+"Select All" = "Izberi vse";
+
+/* XBUT: The \"Deselect All\" button title on the List Picker header */
+"Deselect All" = "Prekliči izbiro vseh";
+
+/* XBUT: The \"Selected\" title on the List Picker header */
+"Selected" = "Izbrano";
+
+/* XACT: The accessibility hint for Text Input Views, editable */
+"Text field, Double tap to edit" = "Besedilno polje, dvotapnite za urejanje";
+
+/* XACT: The accessibility hint for Text Input Views, editing */
+"Text field, is editing" = "Besedilno polje, urejanje v teku";
+
+/* XACT: The accessibility hint for Text Input Views, editing, with clear button */
+"Text field, is editing. Double tap to clear text" = "Besedilno polje, urejanje v teku. Dvotapnite, da počistite besedilo";
+
+/* XACT: The default accessibility label for the custom action in TextFieldFormView if none was specified */
+"Custom Action" = "Dejanje po meri";
+
+/* XBUT: Error messages shown to users in DocumentScannerView */
+"Failed to create PDF page from images" = "Ustvarjanje strani PDF iz slik ni uspelo.";
+
+/* XBUT: Cancel message shown to users in DocumentScannerView */
+"User cancelled the scan" = "Uporabnik je preklical optično branje.";
+
+/* Progress Indicator accessibility label: processing */
+"Processing" = "Obdelava poteka";
+
+/* Progress Indicator accessibility label: loading pausable with indicator progress */
+"In progress with option to pause, %.0f" = "V teku z možnostjo premora, %.0f";
+
+/* Progress Indicator accessibility label: loading stoppable with indicator progress */
+"In progress with option to stop, %.0f" = "V teku z možnostjo prekinitve, %.0f";
+
+/* Progress Indicator accessibility label: progress halted with indicator progress */
+"Progress halted, %.0f" = "Potek zaustavljen, %.0f";
 

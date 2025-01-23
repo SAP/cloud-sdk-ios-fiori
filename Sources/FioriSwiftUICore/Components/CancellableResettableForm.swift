@@ -83,13 +83,17 @@ struct CancellableResettableDialogNavigationForm<Title: View, CancelAction: View
             ZStack {
                 Color.preferredColor(.chromeSecondary)
                     .ignoresSafeArea()
-                VStack(spacing: isNotIphone ? 8 : 16) {
+                VStack(spacing: 0) {
                     self.components
-                    
+                    #if !os(visionOS)
+                        .listRowBackground(Color.preferredColor(.secondaryGroupedBackground))
+                    #else
+                        .listRowBackground(Color.clear)
+                    #endif
                     VStack(spacing: 0) {
                         self.applyAction
                             .accessibilityIdentifier("Apply")
-                        Spacer().frame(height: isNotIphone ? 13 : 16)
+                        Spacer().frame(height: isNotIphone ? 16 : 6)
                     }
                 }
             }
@@ -106,6 +110,11 @@ struct CancellableResettableDialogNavigationForm<Title: View, CancelAction: View
                 }
             }
         }
+        #if !os(visionOS)
+        .listRowBackground(Color.preferredColor(.chromeSecondary))
+        #else
+        .listRowBackground(Color.clear)
+        #endif
     }
 }
 
@@ -119,8 +128,7 @@ struct ApplyButtonStyle: PrimitiveButtonStyle {
                 .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? self.popoverWidth - 13 * 2 :
                     Screen.bounds.size.width - 16 * 2)
                 .padding([.top, .bottom], 8)
-                .font(.body)
-                .fontWeight(.semibold)
+                .font(.fiori(forTextStyle: .body, weight: .semibold))
             #if !os(visionOS)
                 .foregroundStyle(Color.preferredColor(.base2))
                 .background(RoundedRectangle(cornerRadius: 8).fill(Color.preferredColor(.tintColor)))
@@ -132,21 +140,20 @@ struct ApplyButtonStyle: PrimitiveButtonStyle {
                 .onTapGesture {
                     configuration.trigger()
                 }
-                .padding([.top], UIDevice.current.userInterfaceIdiom != .phone ? 16 : 8)
+                .padding([.top], UIDevice.current.userInterfaceIdiom != .phone ? 16 : 6)
         } else {
             configuration.label
                 .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? self.popoverWidth - 13 * 2 :
                     Screen.bounds.size.width - 16 * 2)
                 .padding([.top, .bottom], 8)
-                .font(.body)
-                .fontWeight(.semibold)
+                .font(.fiori(forTextStyle: .body, weight: .semibold))
             #if !os(visionOS)
-                .foregroundStyle(Color.preferredColor(.grey1))
+                .foregroundStyle(Color.preferredColor(.quaternaryLabel))
             #else
                 .foregroundStyle(Color.preferredColor(.primaryLabel))
             #endif
-                .background(RoundedRectangle(cornerRadius: 8).fill(Color.preferredColor(.grey5)))
-                .padding([.top], UIDevice.current.userInterfaceIdiom != .phone ? 16 : 8)
+                .background(RoundedRectangle(cornerRadius: 8).fill(Color.preferredColor(.quaternaryFill)))
+                .padding([.top], UIDevice.current.userInterfaceIdiom != .phone ? 16 : 6)
         }
     }
 }
@@ -154,8 +161,7 @@ struct ApplyButtonStyle: PrimitiveButtonStyle {
 struct CancelButtonStyle: PrimitiveButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .font(.body)
-            .fontWeight(.bold)
+            .font(.fiori(forTextStyle: .body, weight: .semibold))
         #if !os(visionOS)
             .foregroundStyle(Color.preferredColor(.tintColor))
         #else
@@ -173,8 +179,7 @@ struct ResetButtonStyle: PrimitiveButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         if self.isEnabled {
             configuration.label
-                .font(.body)
-                .fontWeight(.bold)
+                .font(.fiori(forTextStyle: .body, weight: .semibold))
             #if !os(visionOS)
                 .foregroundStyle(Color.preferredColor(.tintColor))
             #else
@@ -185,8 +190,7 @@ struct ResetButtonStyle: PrimitiveButtonStyle {
                 }
         } else {
             configuration.label
-                .font(.body)
-                .fontWeight(.bold)
+                .font(.fiori(forTextStyle: .body, weight: .semibold))
             #if !os(visionOS)
                 .foregroundStyle(Color.preferredColor(.separator))
             #else

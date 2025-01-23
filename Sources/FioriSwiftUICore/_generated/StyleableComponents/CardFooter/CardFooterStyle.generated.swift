@@ -22,6 +22,7 @@ struct AnyCardFooterStyle: CardFooterStyle {
 }
 
 public struct CardFooterConfiguration {
+    public var componentIdentifier: String = "fiori_cardfooter_component"
     public let action: Action
     public let secondaryAction: SecondaryAction
     public let tertiaryAction: TertiaryAction
@@ -31,6 +32,12 @@ public struct CardFooterConfiguration {
     public typealias SecondaryAction = ConfigurationViewWrapper
     public typealias TertiaryAction = ConfigurationViewWrapper
     public typealias OverflowAction = ConfigurationViewWrapper
+}
+
+extension CardFooterConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }
 
 public struct CardFooterFioriStyle: CardFooterStyle {

@@ -31,6 +31,9 @@
 /* XACT: The accessibility label for the signature line */
 "Signature Line" = "Paraksta līnija";
 
+/* XACT: The accessibility label for the mandatory field */
+"Required Field" = "Obligātais lauks";
+
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
 "Canceled" = "Atcelts";
 
@@ -142,6 +145,9 @@
 /* XBUT: voice over label for row selection status in DataTable */
 "not selected" = "nav atlasīts";
 
+/* Default value for DateTimePicker */
+"No date selected" = "Nav atlasīts neviens datums";
+
 /* XBUT: calendar time component label */
 "Time" = "Laiks";
 
@@ -159,4 +165,154 @@
 
 /* Default error text for when the character count exceeds the maximum limit for NoteFormView and TextFieldFormView */
 "Reduce the number of characters" = "Samaziniet rakstzīmju skaitu";
+
+/* XBUT: voice over label for decrement action in stepper */
+"Stepper decrease" = "Stepera samazinājums";
+
+/* XBUT: voice over description for decrement action in stepper */
+"Decrease the value by %d" = "Samazināt vērtību par %d";
+
+/* XBUT: voice over label for increment action in stepper */
+"Stepper increase" = "Stepera palielinājums";
+
+/* XBUT: voice over description for increment action in stepper */
+"Increase the value by %d" = "Palielināt vērtību par %d";
+
+/* XBUT: voice over label for test field in stepper */
+"Select specific value" = "Atlasīt konkrētu vērtību";
+
+/* XBUT: View all action in MenuSelection */
+"View All (%d)" = "Skatīt visus (%d)";
+
+/* XACT: RatingControl accessibility label */
+"%d out of %d stars" = "%d no %d zvaigznēm";
+
+/* XBUT: timeline preview component see all label */
+"See All (%d)" = "Skatīt visus (%d)";
+
+/* XACT: Timeline preview item accessibility label */
+"Item %d of %d" = "%d. elements no %d";
+
+/* XBUT: timeline preview component timestamp label */
+"Today, %d" = "Šodien, %d";
+
+/* XFLD: RatingControl value label format */
+"%d of %d" = "%d no %d";
+
+/* XFLD: RatingControl review count format */
+"%d reviews" = "%d novērtējumi";
+
+/* XFLD: RatingControl review count over ceiling format */
+"%d+ reviews" = "%d+ novērtējumi";
+
+/* XACT: RatingControl accessibility label */
+"Rating Control %d of %d" = "Vērtējuma kontrole, %d no %d";
+
+/* XACT: read-only RatingControl accessibility label: rating with review count */
+"Rating Control, rating %d of %d, %d reviews" = "Vērtējuma kontrole, vērtējums %d no %d, %d novērtējumi";
+
+/* XACT: read-only RatingControl accessibility label: average rating only */
+"Rating Control, average rating %.1f of %d" = "Vērtējuma kontrole, vidējais vērtējums %.1f no %d";
+
+/* XACT: read-only RatingControl accessibility label: average rating with review count */
+"Rating Control, average rating %.1f of %d, %d reviews" = "Vērtējuma kontrole, vidējais vērtējums %.1f no %d, %d novērtējumi";
+
+/* XACT: read-only RatingControl accessibility label: average rating with review count over ceiling */
+"Rating Control, average rating %.1f of %d, %d plus reviews" = "Vērtējuma kontrole, vidējais vērtējums %.1f no %d, vairāk par %d novērtējumiem";
+
+/* XBUT: View all messages in message banner sheet */
+"All" = "Visi";
+
+/* XBUT: messages count in the message banner sheet */
+"Messages (%d)" = "Ziņojumi (%d)";
+
+/* XBUT: view details in the message banner */
+"View Details" = "Skatīt detalizētu informāciju";
+
+/* XBUT: view different message in the message banner sheet item */
+"View %@" = "Skatīt %@";
+
+/* XBUT: banner message type desc, message */
+"message" = "ziņojums";
+
+/* XBUT: banner message type desc, information */
+"information" = "informācija";
+
+/* XBUT: banner message type desc, confirmation */
+"confirmation" = "apstiprinājums";
+
+/* XBUT: banner message type desc, warning */
+"warning" = "brīdinājums";
+
+/* XBUT: banner message type desc, error */
+"error" = "kļūda";
+
+/* XBUT: banner message type desc in plural form, messages */
+"messages" = "ziņojumi";
+
+/* XBUT: banner message type desc in plural form, informations */
+"informations" = "informācijas";
+
+/* XBUT: banner message type desc in plural form, confirmations */
+"confirmations" = "apstiprinājumi";
+
+/* XBUT: banner message type desc in plural form, warnings */
+"warnings" = "brīdinājumi";
+
+/* XBUT: banner message type desc in plural form, errors */
+"errors" = "kļūdas";
+
+/* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
+"Reset" = "Atiestatīt";
+
+/* XBUT: Apply action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
+"Apply" = "Lietot";
+
+/* XTIT: The alert message for `ListPickerDestination` pulldown dismissal */
+"Are you sure you want to discard your selections?" = "Vai tiešām vēlaties atmest veiktās atlases?";
+
+/* XBUT: The alert Discard Changes action title for `ListPickerDestination` pulldown dismissal */
+"Discard Changes" = "Atmest izmaiņas";
+
+/* XBUT: The alert Keep Editing action title for `ListPickerDestination` pulldown dismissal */
+"Keep Editing" = "Turpināt rediģēšanu";
+
+/* XBUT: The \"Select All\" button title on the List Picker header */
+"Select All" = "Atlasīt visus";
+
+/* XBUT: The \"Deselect All\" button title on the List Picker header */
+"Deselect All" = "Noņemt atlasi visiem";
+
+/* XBUT: The \"Selected\" title on the List Picker header */
+"Selected" = "Atlasīts";
+
+/* XACT: The accessibility hint for Text Input Views, editable */
+"Text field, Double tap to edit" = "Teksta lauks, veiciet dubultskārienu, lai rediģētu";
+
+/* XACT: The accessibility hint for Text Input Views, editing */
+"Text field, is editing" = "Teksta lauks, notiek rediģēšana";
+
+/* XACT: The accessibility hint for Text Input Views, editing, with clear button */
+"Text field, is editing. Double tap to clear text" = "Teksta lauks, notiek rediģēšana. Veiciet dubultskārienu, lai notīrītu tekstu";
+
+/* XACT: The default accessibility label for the custom action in TextFieldFormView if none was specified */
+"Custom Action" = "Pielāgota darbība";
+
+/* XBUT: Error messages shown to users in DocumentScannerView */
+"Failed to create PDF page from images" = "Neizdevās izveidot PDF lapu no attēliem.";
+
+/* XBUT: Cancel message shown to users in DocumentScannerView */
+"User cancelled the scan" = "Lietotājs atcēla skenēšanu.";
+
+/* Progress Indicator accessibility label: processing */
+"Processing" = "Notiek apstrāde";
+
+/* Progress Indicator accessibility label: loading pausable with indicator progress */
+"In progress with option to pause, %.0f" = "Notiek ar iespēju pauzēt, %.0f";
+
+/* Progress Indicator accessibility label: loading stoppable with indicator progress */
+"In progress with option to stop, %.0f" = "Notiek ar iespēju apturēt, %.0f";
+
+/* Progress Indicator accessibility label: progress halted with indicator progress */
+"Progress halted, %.0f" = "Progress aizturēts, %.0f";
 

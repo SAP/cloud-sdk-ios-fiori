@@ -8,11 +8,20 @@ public struct AllEntriesSectionTitle {
 
     @Environment(\.allEntriesSectionTitleStyle) var style
 
+    var componentIdentifier: String = AllEntriesSectionTitle.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder allEntriesSectionTitle: () -> any View = { Text("All".localizedFioriString()) }) {
+    public init(@ViewBuilder allEntriesSectionTitle: () -> any View = { Text("All".localizedFioriString()) },
+                componentIdentifier: String? = AllEntriesSectionTitle.identifier)
+    {
         self.allEntriesSectionTitle = allEntriesSectionTitle()
+        self.componentIdentifier = componentIdentifier ?? AllEntriesSectionTitle.identifier
     }
+}
+
+public extension AllEntriesSectionTitle {
+    static let identifier = "fiori_allentriessectiontitle_component"
 }
 
 public extension AllEntriesSectionTitle {
@@ -29,6 +38,7 @@ public extension AllEntriesSectionTitle {
     internal init(_ configuration: AllEntriesSectionTitleConfiguration, shouldApplyDefaultStyle: Bool) {
         self.allEntriesSectionTitle = configuration.allEntriesSectionTitle
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -37,7 +47,7 @@ extension AllEntriesSectionTitle: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(allEntriesSectionTitle: .init(self.allEntriesSectionTitle))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, allEntriesSectionTitle: .init(self.allEntriesSectionTitle))).typeErased
                 .transformEnvironment(\.allEntriesSectionTitleStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -55,7 +65,7 @@ private extension AllEntriesSectionTitle {
     }
 
     func defaultStyle() -> some View {
-        AllEntriesSectionTitle(.init(allEntriesSectionTitle: .init(self.allEntriesSectionTitle)))
+        AllEntriesSectionTitle(.init(componentIdentifier: self.componentIdentifier, allEntriesSectionTitle: .init(self.allEntriesSectionTitle)))
             .shouldApplyDefaultStyle(false)
             .allEntriesSectionTitleStyle(.fiori)
             .typeErased

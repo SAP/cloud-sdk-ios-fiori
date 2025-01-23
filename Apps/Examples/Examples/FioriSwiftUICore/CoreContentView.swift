@@ -25,8 +25,12 @@ struct CoreContentView: View {
                     Text("Cards and Layouts")
                 }
                 
-                NavigationLink(destination: ContactItemExample()) {
+                NavigationLink(destination: ContactItemExample(isNewObjectItem: true)) {
                     Text("ContactItem")
+                }
+                
+                NavigationLink(destination: ContactItemExample()) {
+                    Text("_ContactItem: deprecated")
                 }
                 
                 NavigationLink(
@@ -122,6 +126,12 @@ struct CoreContentView: View {
                         Text("ObjectHeader")
                     }
                 )
+                
+                NavigationLink(
+                    destination: SectionHeaderFooterExample())
+                {
+                    Text("SectionHeader/Footer Example")
+                }
             }
             
             Section(header: Text("Controls")) {
@@ -185,6 +195,12 @@ struct CoreContentView: View {
                     destination: StepProgressIndicatorExample())
                 {
                     Text("Step Progress Indicator")
+                }
+                
+                NavigationLink(
+                    destination: SliderExample())
+                {
+                    Text("Slider")
                 }
             }
             
@@ -277,6 +293,12 @@ struct CoreContentView: View {
                 {
                     Text("Progress Indicator")
                 }
+                
+                NavigationLink(
+                    destination: ProcessingIndicatorExample())
+                {
+                    Text("Processing Indicator")
+                }
             }
             
             Section(header: Text("Navigation Bar")) {
@@ -292,6 +314,12 @@ struct CoreContentView: View {
                     destination: KPIExample())
                 {
                     Text("KPI")
+                }
+                
+                NavigationLink(
+                    destination: _KPIProgressExample())
+                {
+                    Text("_KPIProgressItem")
                 }
                 
                 NavigationLink(

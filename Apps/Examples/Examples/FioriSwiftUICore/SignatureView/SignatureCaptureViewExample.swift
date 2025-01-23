@@ -17,6 +17,8 @@ struct SignatureCaptureViewExample: View {
 
 struct SignatureCaptureViewExample2: View {
     @State var isRequired = false
+    @State var isCustomizedIndicator = false
+    
     let startAction = _Action(actionText: "Sign Here", didSelectAction: nil)
     let restartAction = _Action(actionText: "Sign Again", didSelectAction: nil)
     let cancelAction = _Action(actionText: "Cancel2")
@@ -26,6 +28,10 @@ struct SignatureCaptureViewExample2: View {
             Toggle("Mandatory Field", isOn: self.$isRequired)
                 .padding(.leading, 16)
                 .padding(.trailing, 16)
+            Toggle("Customized Mandatory Field", isOn: self.$isCustomizedIndicator)
+                .padding(.leading, 16)
+                .padding(.trailing, 16)
+
             SignatureCaptureView(title: "Long Long Long Long Long Long Long Signature",
                                  startAction: self.startAction,
                                  restartAction: self.restartAction,
@@ -39,6 +45,8 @@ struct SignatureCaptureViewExample2: View {
                                  })
                                  .titleFont(.callout)
                                  .titleColor(.red)
+                                 .indicatorFont(self.isCustomizedIndicator ? .headline : .subheadline)
+                                 .indicatorColor(self.isCustomizedIndicator ? .red : .preferredColor(.primaryLabel))
                                  .cropsImage(true)
                                  .strokeWidth(10)
                                  .strokeColor(.red)
@@ -85,7 +93,14 @@ class ImageSaver: NSObject {
             let hostingController = UIHostingController(rootView: self)
         
             hostingController.view.frame = CGRect(x: 0, y: CGFloat(Int.max), width: 1, height: 1)
-            UIApplication.shared.windows.first!.rootViewController?.view.addSubview(hostingController.view)
+            let window = UIApplication
+                .shared
+                .connectedScenes
+                .compactMap { ($0 as? UIWindowScene)?.keyWindow }
+                .last
+            if let rootView = window?.rootViewController?.view {
+                rootView.addSubview(hostingController.view)
+            }
             let size = hostingController.sizeThatFits(in: UIScreen.main.bounds.size)
             hostingController.view.bounds = CGRect(origin: .zero, size: size)
             hostingController.view.sizeToFit()

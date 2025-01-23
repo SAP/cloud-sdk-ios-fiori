@@ -55,6 +55,12 @@ protocol _DescriptionComponent {
 }
 
 // sourcery: BaseComponent
+protocol _DescriptionTextComponent {
+    // sourcery: @ViewBuilder
+    var descriptionText: AttributedString? { get }
+}
+
+// sourcery: BaseComponent
 protocol _StatusComponent {
     // sourcery: resultBuilder.name = @ViewBuilder, resultBuilder.backingComponent = TextOrIconView
     var status: TextOrIcon? { get }
@@ -459,4 +465,124 @@ protocol _CheckoutIndicatorComponent {
 protocol _ProgressIndicatorProtocol {
     // sourcery: @Binding
     var progress: Double { get }
+}
+
+// sourcery: BaseComponent
+protocol _ProgressComponent {
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "ProgressView()"
+    var progress: ProgressView<EmptyView, EmptyView> { get }
+}
+
+// sourcery: BaseComponent
+protocol _KPIContentComponent {
+    @ViewBuilder
+    var kPIContent: (() -> any View)? { get }
+}
+
+/// `ActivityItems` provides a view that shows several items with action.
+///
+/// ## Usage
+/// ```swift
+/// ActivityItems(activityItems: [
+///    .init(type: .phone, didSelectActivityItem: {
+///        print("click phone")
+///    })
+/// ])
+/// ```
+// sourcery: BaseComponent
+protocol _ActivityItemsComponent {
+    // sourcery: resultBuilder.name = @ActivityItemsBuilder, resultBuilder.backingComponent = ActivityItemsListStack
+    var activityItems: [ActivityItemDataType] { get }
+}
+
+// sourcery: BaseComponent
+protocol _LowerThumbComponent {
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "Circle()"
+    var lowerThumb: any Shape { get }
+}
+
+// sourcery: BaseComponent
+protocol _UpperThumbComponent {
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "Circle()"
+    var upperThumb: any Shape { get }
+}
+
+// sourcery: BaseComponent
+protocol _ActiveTrackComponent {
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "Capsule()"
+    var activeTrack: any Shape { get }
+}
+
+// sourcery: BaseComponent
+protocol _InactiveTrackComponent {
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "Capsule()"
+    var inactiveTrack: any Shape { get }
+}
+
+// sourcery: BaseComponent
+protocol _LeadingAccessoryComponent {
+    @ViewBuilder
+    var leadingAccessory: (() -> any View)? { get }
+}
+
+// sourcery: BaseComponent
+protocol _TrailingAccessoryComponent {
+    @ViewBuilder
+    var trailingAccessory: (() -> any View)? { get }
+}
+
+// sourcery: BaseComponent
+protocol _NodeComponent {
+    // sourcery: resultBuilder.name = @ViewBuilder, resultBuilder.backingComponent = TextOrIconView
+    var node: TextOrIcon? { get }
+}
+
+// sourcery: BaseComponent
+protocol _LineComponent {
+    // sourcery: defaultValue = "{ Rectangle() }"
+    @ViewBuilder
+    var line: (() -> any View)? { get }
+}
+
+// sourcery: BaseComponent
+protocol _BodyTextComponent {
+    // sourcery: @ViewBuilder
+    var bodyText: AttributedString? { get }
+}
+
+// sourcery: BaseComponent
+protocol _DetailContentComponent {
+    @ViewBuilder
+    var detailContent: (() -> any View)? { get }
+}
+
+// sourcery: BaseComponent
+protocol _InnerCircleComponent {
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "Circle()"
+    var innerCircle: any Shape { get }
+}
+
+// sourcery: BaseComponent
+protocol _OuterCircleComponent {
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "Circle()"
+    var outerCircle: any Shape { get }
+}
+
+// sourcery: BaseComponent
+protocol _TrendComponent {
+    // sourcery: @ViewBuilder
+    var trend: AttributedString? { get }
+}
+
+// sourcery: BaseComponent
+protocol _TrendImageComponent {
+    // sourcery: @ViewBuilder
+    var trendImage: Image? { get }
 }

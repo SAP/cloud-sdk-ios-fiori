@@ -46,7 +46,7 @@ public struct MHStack<T: TagViewList>: View {
             EmptyView()
         } else {
             GeometryReader { geometry in
-                self.makeBody(in: geometry)
+                self.makeBody(in: geometry.size.width)
             }
             .frame(height: self.mainViewSize.height < 0 ? nil : self.mainViewSize.height)
         }
@@ -63,12 +63,11 @@ public struct MHStack<T: TagViewList>: View {
         
         return min(limit, self.tags.count)
     }
-
-    func makeBody(in g: GeometryProxy) -> some View {
+    
+    func makeBody(in containerWidth: CGFloat) -> some View {
         var width = CGFloat.zero
         var height = CGFloat.zero
         var tmpMainViewSize: CGSize = .zero
-        
         return ZStack(alignment: .topLeading) {
             ForEach(0 ..< self.tagCount, id: \.self) { index in
                 self.tags.view(at: index)
@@ -78,7 +77,7 @@ public struct MHStack<T: TagViewList>: View {
                             tmpMainViewSize = .zero
                         }
                         
-                        if abs(width - d.width) > g.size.width {
+                        if abs(width - d.width) > containerWidth {
                             width = 0
                             height = -(tmpMainViewSize.height + self.lineSpacing)
                         }

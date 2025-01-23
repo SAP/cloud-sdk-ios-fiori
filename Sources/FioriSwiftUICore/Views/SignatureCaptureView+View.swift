@@ -77,8 +77,6 @@ extension SignatureCaptureView: View {
         VStack(spacing: 0) {
             HStack {
                 Text(self.getKeyName())
-                    .font(titleFont)
-                    .foregroundColor(titleColor)
                     .padding(.top, 11)
                     .padding(.bottom, 11)
                     .accessibilityLabel(self.getTitleAccessibilityLabel())
@@ -250,15 +248,21 @@ extension SignatureCaptureView: View {
         }
     }
     
-    func getKeyName() -> String {
+    func getKeyName() -> AttributedString {
         var titleString = _title
         if (titleString?.isEmpty) == nil {
             titleString = NSLocalizedString("Signature", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
         }
+        var titleAttributedText = AttributedString(titleString ?? "")
+        titleAttributedText.foregroundColor = titleColor
+        titleAttributedText.font = titleFont
         if isRequired {
-            return (titleString ?? "") + "*"
+            var indicatorAttributedText = AttributedString(_mandatoryIndicator ?? "*")
+            indicatorAttributedText.foregroundColor = indicatorColor
+            indicatorAttributedText.font = indicatorFont
+            return titleAttributedText + indicatorAttributedText
         }
-        return titleString ?? ""
+        return titleAttributedText
     }
     
     func getTitleAccessibilityLabel() -> String {
@@ -315,8 +319,6 @@ public extension SignatureCaptureView {
      A view modifier to set the title font.
 
      The default is `Font.body`.
-
-     - parameter width: The desired stroke width.
      */
     func titleFont(_ font: Font?) -> Self {
         guard let font else {
@@ -331,8 +333,6 @@ public extension SignatureCaptureView {
      A view modifier to set the title text color.
 
      The default is `Color.preferredColor(.primaryLabel)`.
-
-     - parameter width: The desired stroke width.
      */
     func titleColor(_ color: Color?) -> Self {
         guard let color else {
@@ -343,6 +343,34 @@ public extension SignatureCaptureView {
         return newSelf
     }
 
+    /**
+     A view modifier to set the mandatory field font.
+
+     The default is `Font.body`.
+     */
+    func indicatorFont(_ font: Font?) -> Self {
+        guard let font else {
+            return self
+        }
+        var newSelf = self
+        newSelf.indicatorFont = font
+        return newSelf
+    }
+
+    /**
+     A view modifier to set the mandatory field text color.
+
+     The default is `Color.preferredColor(.primaryLabel)`.
+     */
+    func indicatorColor(_ color: Color?) -> Self {
+        guard let color else {
+            return self
+        }
+        var newSelf = self
+        newSelf.indicatorColor = color
+        return newSelf
+    }
+    
     /**
      A view modifier to set the stroke width.
 

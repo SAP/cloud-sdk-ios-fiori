@@ -31,6 +31,9 @@
 /* XACT: The accessibility label for the signature line */
 "Signature Line" = "Handtekeninglijn";
 
+/* XACT: The accessibility label for the mandatory field */
+"Required Field" = "Verplicht veld";
+
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
 "Canceled" = "Geannuleerd";
 
@@ -142,6 +145,9 @@
 /* XBUT: voice over label for row selection status in DataTable */
 "not selected" = "niet geselecteerd";
 
+/* Default value for DateTimePicker */
+"No date selected" = "Geen datum geselecteerd";
+
 /* XBUT: calendar time component label */
 "Time" = "Tijd";
 
@@ -159,4 +165,154 @@
 
 /* Default error text for when the character count exceeds the maximum limit for NoteFormView and TextFieldFormView */
 "Reduce the number of characters" = "Verminder het aantal tekens";
+
+/* XBUT: voice over label for decrement action in stepper */
+"Stepper decrease" = "Verlagen met waarderegelaar";
+
+/* XBUT: voice over description for decrement action in stepper */
+"Decrease the value by %d" = "Waarde verlagen met %d";
+
+/* XBUT: voice over label for increment action in stepper */
+"Stepper increase" = "Verhogen met waarderegelaar";
+
+/* XBUT: voice over description for increment action in stepper */
+"Increase the value by %d" = "Waarde verhogen met %d";
+
+/* XBUT: voice over label for test field in stepper */
+"Select specific value" = "Specifieke waarde selecteren";
+
+/* XBUT: View all action in MenuSelection */
+"View All (%d)" = "Alle weergeven (%d)";
+
+/* XACT: RatingControl accessibility label */
+"%d out of %d stars" = "%d van %d sterren";
+
+/* XBUT: timeline preview component see all label */
+"See All (%d)" = "Alles weergeven (%d)";
+
+/* XACT: Timeline preview item accessibility label */
+"Item %d of %d" = "Item %d van %d";
+
+/* XBUT: timeline preview component timestamp label */
+"Today, %d" = "Vandaag, %d";
+
+/* XFLD: RatingControl value label format */
+"%d of %d" = "%d van %d";
+
+/* XFLD: RatingControl review count format */
+"%d reviews" = "%d beoordelingen";
+
+/* XFLD: RatingControl review count over ceiling format */
+"%d+ reviews" = "%d+ beoordelingen";
+
+/* XACT: RatingControl accessibility label */
+"Rating Control %d of %d" = "Waarderingsbesturing %d van %d";
+
+/* XACT: read-only RatingControl accessibility label: rating with review count */
+"Rating Control, rating %d of %d, %d reviews" = "Waarderingsbesturing, waardering %d van %d, %d beoordelingen";
+
+/* XACT: read-only RatingControl accessibility label: average rating only */
+"Rating Control, average rating %.1f of %d" = "Waarderingsbesturing, gemiddelde waardering %.1f van %d";
+
+/* XACT: read-only RatingControl accessibility label: average rating with review count */
+"Rating Control, average rating %.1f of %d, %d reviews" = "Waarderingsbesturing, gemiddelde waardering %.1f van %d, %d beoordelingen";
+
+/* XACT: read-only RatingControl accessibility label: average rating with review count over ceiling */
+"Rating Control, average rating %.1f of %d, %d plus reviews" = "Waarderingsbesturing, gemiddelde waardering %.1f van %d, meer dan %d beoordelingen";
+
+/* XBUT: View all messages in message banner sheet */
+"All" = "Alles";
+
+/* XBUT: messages count in the message banner sheet */
+"Messages (%d)" = "Berichten (%d)";
+
+/* XBUT: view details in the message banner */
+"View Details" = "Details weergeven";
+
+/* XBUT: view different message in the message banner sheet item */
+"View %@" = "%@ weergeven";
+
+/* XBUT: banner message type desc, message */
+"message" = "bericht";
+
+/* XBUT: banner message type desc, information */
+"information" = "informatie";
+
+/* XBUT: banner message type desc, confirmation */
+"confirmation" = "bevestiging";
+
+/* XBUT: banner message type desc, warning */
+"warning" = "waarschuwing";
+
+/* XBUT: banner message type desc, error */
+"error" = "fout";
+
+/* XBUT: banner message type desc in plural form, messages */
+"messages" = "berichten";
+
+/* XBUT: banner message type desc in plural form, informations */
+"informations" = "informatie";
+
+/* XBUT: banner message type desc in plural form, confirmations */
+"confirmations" = "bevestigingen";
+
+/* XBUT: banner message type desc in plural form, warnings */
+"warnings" = "waarschuwingen";
+
+/* XBUT: banner message type desc in plural form, errors */
+"errors" = "fouten";
+
+/* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
+"Reset" = "Resetten";
+
+/* XBUT: Apply action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
+"Apply" = "Toepassen";
+
+/* XTIT: The alert message for `ListPickerDestination` pulldown dismissal */
+"Are you sure you want to discard your selections?" = "Weet u zeker dat u uw selecties wilt verwerpen?";
+
+/* XBUT: The alert Discard Changes action title for `ListPickerDestination` pulldown dismissal */
+"Discard Changes" = "Wijzigingen verwerpen";
+
+/* XBUT: The alert Keep Editing action title for `ListPickerDestination` pulldown dismissal */
+"Keep Editing" = "Doorgaan met bewerken";
+
+/* XBUT: The \"Select All\" button title on the List Picker header */
+"Select All" = "Alles selecteren";
+
+/* XBUT: The \"Deselect All\" button title on the List Picker header */
+"Deselect All" = "Alles deselecteren";
+
+/* XBUT: The \"Selected\" title on the List Picker header */
+"Selected" = "Geselecteerd";
+
+/* XACT: The accessibility hint for Text Input Views, editable */
+"Text field, Double tap to edit" = "Tekstveld, tik tweemaal om te bewerken";
+
+/* XACT: The accessibility hint for Text Input Views, editing */
+"Text field, is editing" = "Tekstveld, bewerkbaar";
+
+/* XACT: The accessibility hint for Text Input Views, editing, with clear button */
+"Text field, is editing. Double tap to clear text" = "Tekstveld, bewerkbaar. Tik tweemaal om tekst te wissen";
+
+/* XACT: The default accessibility label for the custom action in TextFieldFormView if none was specified */
+"Custom Action" = "Aangepaste actie";
+
+/* XBUT: Error messages shown to users in DocumentScannerView */
+"Failed to create PDF page from images" = "PDF-pagina creëren van afbeeldingen mislukt.";
+
+/* XBUT: Cancel message shown to users in DocumentScannerView */
+"User cancelled the scan" = "Gebruiker heeft scan geannuleerd.";
+
+/* Progress Indicator accessibility label: processing */
+"Processing" = "Bezig met verwerken";
+
+/* Progress Indicator accessibility label: loading pausable with indicator progress */
+"In progress with option to pause, %.0f" = "In bewerking, pauzeren mogelijk, %.0f";
+
+/* Progress Indicator accessibility label: loading stoppable with indicator progress */
+"In progress with option to stop, %.0f" = "In bewerking, stoppen mogelijk, %.0f";
+
+/* Progress Indicator accessibility label: progress halted with indicator progress */
+"Progress halted, %.0f" = "Bewerking onderbroken, %.0f";
 

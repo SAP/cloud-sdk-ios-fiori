@@ -31,6 +31,9 @@
 /* XACT: The accessibility label for the signature line */
 "Signature Line" = "Γραμμή Υπογραφής";
 
+/* XACT: The accessibility label for the mandatory field */
+"Required Field" = "Υποχρεωτικό Πεδίο";
+
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
 "Canceled" = "Ακυρωμένο";
 
@@ -142,6 +145,9 @@
 /* XBUT: voice over label for row selection status in DataTable */
 "not selected" = "δεν επιλέχτηκε";
 
+/* Default value for DateTimePicker */
+"No date selected" = "Δεν επιλέχθηκαν ημερομηνίες";
+
 /* XBUT: calendar time component label */
 "Time" = "Ώρα";
 
@@ -159,4 +165,154 @@
 
 /* Default error text for when the character count exceeds the maximum limit for NoteFormView and TextFieldFormView */
 "Reduce the number of characters" = "Μείωση του αριθμού χαρακτήρων";
+
+/* XBUT: voice over label for decrement action in stepper */
+"Stepper decrease" = "Μείωση μετάβασης";
+
+/* XBUT: voice over description for decrement action in stepper */
+"Decrease the value by %d" = "Μείωση της τιμής κατά %d";
+
+/* XBUT: voice over label for increment action in stepper */
+"Stepper increase" = "Αύξηση μετάβασης";
+
+/* XBUT: voice over description for increment action in stepper */
+"Increase the value by %d" = "Αύξηση της τιμής κατά %d";
+
+/* XBUT: voice over label for test field in stepper */
+"Select specific value" = "Επιλέξτε συγκεκριμένη τιμή";
+
+/* XBUT: View all action in MenuSelection */
+"View All (%d)" = "Προβολή Όλων (%d)";
+
+/* XACT: RatingControl accessibility label */
+"%d out of %d stars" = "%dαπό %d αστέρια";
+
+/* XBUT: timeline preview component see all label */
+"See All (%d)" = "Εμφάνιση Όλων (%d)";
+
+/* XACT: Timeline preview item accessibility label */
+"Item %d of %d" = "Στοιχείο %d από %d";
+
+/* XBUT: timeline preview component timestamp label */
+"Today, %d" = "Σήμερα, %d";
+
+/* XFLD: RatingControl value label format */
+"%d of %d" = "%d από %d";
+
+/* XFLD: RatingControl review count format */
+"%d reviews" = "%d κριτικές";
+
+/* XFLD: RatingControl review count over ceiling format */
+"%d+ reviews" = "%d+ κριτικές";
+
+/* XACT: RatingControl accessibility label */
+"Rating Control %d of %d" = "Έλεγχος Βαθμολογίας %d από %d";
+
+/* XACT: read-only RatingControl accessibility label: rating with review count */
+"Rating Control, rating %d of %d, %d reviews" = "Έλεγχος Βαθμολογίας, βαθμολογία %d από %d, %d κριτικές";
+
+/* XACT: read-only RatingControl accessibility label: average rating only */
+"Rating Control, average rating %.1f of %d" = "Έλεγχος Βαθμολογίας, μέση βαθμολογία %.1f από %d";
+
+/* XACT: read-only RatingControl accessibility label: average rating with review count */
+"Rating Control, average rating %.1f of %d, %d reviews" = "Έλεγχος Βαθμολογίας, μέση βαθμολογία %.1f από %d, %d κριτικές";
+
+/* XACT: read-only RatingControl accessibility label: average rating with review count over ceiling */
+"Rating Control, average rating %.1f of %d, %d plus reviews" = "Έλεγχος Βαθμολογίας, μέση βαθμολογία %.1f από %d, %d και κριτικές";
+
+/* XBUT: View all messages in message banner sheet */
+"All" = "Όλα";
+
+/* XBUT: messages count in the message banner sheet */
+"Messages (%d)" = "Μηνύματα (%d)";
+
+/* XBUT: view details in the message banner */
+"View Details" = "Προβολή Λεπτομερειών";
+
+/* XBUT: view different message in the message banner sheet item */
+"View %@" = "Προβολή %@";
+
+/* XBUT: banner message type desc, message */
+"message" = "μήνυμα";
+
+/* XBUT: banner message type desc, information */
+"information" = "πληροφορίες";
+
+/* XBUT: banner message type desc, confirmation */
+"confirmation" = "επαλήθευση";
+
+/* XBUT: banner message type desc, warning */
+"warning" = "προειδοποίηση";
+
+/* XBUT: banner message type desc, error */
+"error" = "σφάλμα";
+
+/* XBUT: banner message type desc in plural form, messages */
+"messages" = "μηνύματα";
+
+/* XBUT: banner message type desc in plural form, informations */
+"informations" = "πληροφορίες";
+
+/* XBUT: banner message type desc in plural form, confirmations */
+"confirmations" = "επαληθεύσεις";
+
+/* XBUT: banner message type desc in plural form, warnings */
+"warnings" = "προειδοποιήσεις";
+
+/* XBUT: banner message type desc in plural form, errors */
+"errors" = "σφάλματα";
+
+/* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
+"Reset" = "Επαναφορά";
+
+/* XBUT: Apply action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
+"Apply" = "Εφαρμογή";
+
+/* XTIT: The alert message for `ListPickerDestination` pulldown dismissal */
+"Are you sure you want to discard your selections?" = "Θέλετε να απορρίψετε τις επιλογές σας;";
+
+/* XBUT: The alert Discard Changes action title for `ListPickerDestination` pulldown dismissal */
+"Discard Changes" = "Απόρριψη Αλλαγών";
+
+/* XBUT: The alert Keep Editing action title for `ListPickerDestination` pulldown dismissal */
+"Keep Editing" = "Συνεχίστε την Επεξεργασία";
+
+/* XBUT: The \"Select All\" button title on the List Picker header */
+"Select All" = "Επιλογή Όλων";
+
+/* XBUT: The \"Deselect All\" button title on the List Picker header */
+"Deselect All" = "Αποεπιλογή Όλων";
+
+/* XBUT: The \"Selected\" title on the List Picker header */
+"Selected" = "Επιλέχτηκε";
+
+/* XACT: The accessibility hint for Text Input Views, editable */
+"Text field, Double tap to edit" = "Πεδίο κειμένου, Πατήστε δύο φορές για επεξεργασία";
+
+/* XACT: The accessibility hint for Text Input Views, editing */
+"Text field, is editing" = "Πεδίο κειμένου, επεξεργάζεται";
+
+/* XACT: The accessibility hint for Text Input Views, editing, with clear button */
+"Text field, is editing. Double tap to clear text" = "Πεδίο κειμένου, επεξεργάζεται. Πατήστε δύο φορές για να διαγράψετε το κείμενο";
+
+/* XACT: The default accessibility label for the custom action in TextFieldFormView if none was specified */
+"Custom Action" = "Προσαρμοσμένη Ενέργεια";
+
+/* XBUT: Error messages shown to users in DocumentScannerView */
+"Failed to create PDF page from images" = "Αποτυχία δημιουργίας σελίδας PDF από εικόνες.";
+
+/* XBUT: Cancel message shown to users in DocumentScannerView */
+"User cancelled the scan" = "Ο χρήστης ακύρωσε τη σάρωση.";
+
+/* Progress Indicator accessibility label: processing */
+"Processing" = "Επεξεργασία σε εξέλιξη";
+
+/* Progress Indicator accessibility label: loading pausable with indicator progress */
+"In progress with option to pause, %.0f" = "Σε εξέλιξη με επιλογή διακοπής, %.0f";
+
+/* Progress Indicator accessibility label: loading stoppable with indicator progress */
+"In progress with option to stop, %.0f" = "Σε εξέλιξη με επιλογή διακοπής, %.0f";
+
+/* Progress Indicator accessibility label: progress halted with indicator progress */
+"Progress halted, %.0f" = "Η εξέλιξη διακόπηκε, %.0f";
 

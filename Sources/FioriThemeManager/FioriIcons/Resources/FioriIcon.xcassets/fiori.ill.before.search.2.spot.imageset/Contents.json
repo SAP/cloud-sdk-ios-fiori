@@ -1,0 +1,24 @@
+{
+  "images" : [
+    {
+      "filename" : "fiori.ill.before.search.2.spot.dark.svg",
+      "idiom" : "universal",
+      "scale" : "1x",
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ]
+    },
+    {
+      "filename" : "fiori.ill.before.search.2.spot.svg",
+      "idiom" : "universal",
+      "scale" : "1x"
+    }
+  ],
+  "info" : {
+    "version" : 1,
+    "author" : "xcode"
+  }
+}

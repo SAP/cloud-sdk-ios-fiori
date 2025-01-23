@@ -11,11 +11,20 @@ public struct HalfStarImage {
 
     @Environment(\.halfStarImageStyle) var style
 
+    var componentIdentifier: String = HalfStarImage.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder halfStarImage: () -> any View) {
+    public init(@ViewBuilder halfStarImage: () -> any View,
+                componentIdentifier: String? = HalfStarImage.identifier)
+    {
         self.halfStarImage = halfStarImage()
+        self.componentIdentifier = componentIdentifier ?? HalfStarImage.identifier
     }
+}
+
+public extension HalfStarImage {
+    static let identifier = "fiori_halfstarimage_component"
 }
 
 public extension HalfStarImage {
@@ -32,6 +41,7 @@ public extension HalfStarImage {
     internal init(_ configuration: HalfStarImageConfiguration, shouldApplyDefaultStyle: Bool) {
         self.halfStarImage = configuration.halfStarImage
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -40,7 +50,7 @@ extension HalfStarImage: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(halfStarImage: .init(self.halfStarImage))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, halfStarImage: .init(self.halfStarImage))).typeErased
                 .transformEnvironment(\.halfStarImageStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -58,7 +68,7 @@ private extension HalfStarImage {
     }
 
     func defaultStyle() -> some View {
-        HalfStarImage(.init(halfStarImage: .init(self.halfStarImage)))
+        HalfStarImage(.init(componentIdentifier: self.componentIdentifier, halfStarImage: .init(self.halfStarImage)))
             .shouldApplyDefaultStyle(false)
             .halfStarImageStyle(.fiori)
             .typeErased

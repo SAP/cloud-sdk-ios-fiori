@@ -195,7 +195,6 @@ struct ToolbarView: View {
 
 #Preview {
     NavigationStack {
-        let a = "Extra Extra Extra Long Long Long Long Long Helper Text"
         ToolbarView(numberOfButtons: .constant(2), useFioriToolbar: .constant(true), helperText: .constant("6768"), customHelperText: .constant(true), moreActionOverflowIcon: .constant(false), primaryButtonText: .constant(""), secondaryButtonText: .constant(""), thirdButtonText: .constant(""), buttonType: .constant(.fiori))
     }
 }

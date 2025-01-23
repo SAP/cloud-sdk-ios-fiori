@@ -22,6 +22,7 @@ struct AnyTitleFormViewStyle: TitleFormViewStyle {
 }
 
 public struct TitleFormViewConfiguration {
+    public var componentIdentifier: String = "fiori_titleformview_component"
     @Binding public var text: String
     public let placeholder: Placeholder
     public let controlState: ControlState
@@ -35,6 +36,12 @@ public struct TitleFormViewConfiguration {
     public let charCountBeyondLimitMsg: String?
 
     public typealias Placeholder = ConfigurationViewWrapper
+}
+
+extension TitleFormViewConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }
 
 public struct TitleFormViewFioriStyle: TitleFormViewStyle {

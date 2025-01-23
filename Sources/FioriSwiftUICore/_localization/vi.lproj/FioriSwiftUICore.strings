@@ -31,6 +31,9 @@
 /* XACT: The accessibility label for the signature line */
 "Signature Line" = "Dòng chữ ký";
 
+/* XACT: The accessibility label for the mandatory field */
+"Required Field" = "Trường bắt buộc";
+
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
 "Canceled" = "Đã hủy";
 
@@ -142,6 +145,9 @@
 /* XBUT: voice over label for row selection status in DataTable */
 "not selected" = "chưa chọn";
 
+/* Default value for DateTimePicker */
+"No date selected" = "Không chọn ngày";
+
 /* XBUT: calendar time component label */
 "Time" = "Thời gian";
 
@@ -159,4 +165,154 @@
 
 /* Default error text for when the character count exceeds the maximum limit for NoteFormView and TextFieldFormView */
 "Reduce the number of characters" = "Giảm số lượng ký tự";
+
+/* XBUT: voice over label for decrement action in stepper */
+"Stepper decrease" = "Giảm bước";
+
+/* XBUT: voice over description for decrement action in stepper */
+"Decrease the value by %d" = "Giảm giá trị theo %d";
+
+/* XBUT: voice over label for increment action in stepper */
+"Stepper increase" = "Tăng bước";
+
+/* XBUT: voice over description for increment action in stepper */
+"Increase the value by %d" = "Tăng giá trị theo %d";
+
+/* XBUT: voice over label for test field in stepper */
+"Select specific value" = "Chọn giá trị cụ thể";
+
+/* XBUT: View all action in MenuSelection */
+"View All (%d)" = "Xem tất cả (%d)";
+
+/* XACT: RatingControl accessibility label */
+"%d out of %d stars" = "%d trên %d sao";
+
+/* XBUT: timeline preview component see all label */
+"See All (%d)" = "Xem tất cả (%d)";
+
+/* XACT: Timeline preview item accessibility label */
+"Item %d of %d" = "Mục %d trên %d";
+
+/* XBUT: timeline preview component timestamp label */
+"Today, %d" = "Hôm nay, %d";
+
+/* XFLD: RatingControl value label format */
+"%d of %d" = "%d trên %d";
+
+/* XFLD: RatingControl review count format */
+"%d reviews" = "%d lượt đánh giá";
+
+/* XFLD: RatingControl review count over ceiling format */
+"%d+ reviews" = "%d+ lượt đánh giá";
+
+/* XACT: RatingControl accessibility label */
+"Rating Control %d of %d" = "Kiểm soát xếp hạng %d trên %d";
+
+/* XACT: read-only RatingControl accessibility label: rating with review count */
+"Rating Control, rating %d of %d, %d reviews" = "Kiểm soát xếp hạng, xếp hạng %d trên %d, %d lượt đánh giá";
+
+/* XACT: read-only RatingControl accessibility label: average rating only */
+"Rating Control, average rating %.1f of %d" = "Kiểm soát xếp hạng, xếp hạng trung bình %.1f trên %d";
+
+/* XACT: read-only RatingControl accessibility label: average rating with review count */
+"Rating Control, average rating %.1f of %d, %d reviews" = "Kiểm soát xếp hạng, xếp hạng trung bình %.1f trên %d, %d lượt đánh giá";
+
+/* XACT: read-only RatingControl accessibility label: average rating with review count over ceiling */
+"Rating Control, average rating %.1f of %d, %d plus reviews" = "Kiểm soát xếp hạng, xếp hạng trung bình %.1f trên %d, %d cộng lượt đánh giá";
+
+/* XBUT: View all messages in message banner sheet */
+"All" = "Tất cả";
+
+/* XBUT: messages count in the message banner sheet */
+"Messages (%d)" = "Thông báo (%d)";
+
+/* XBUT: view details in the message banner */
+"View Details" = "Xem chi tiết";
+
+/* XBUT: view different message in the message banner sheet item */
+"View %@" = "Xem %@";
+
+/* XBUT: banner message type desc, message */
+"message" = "thông báo";
+
+/* XBUT: banner message type desc, information */
+"information" = "thông tin";
+
+/* XBUT: banner message type desc, confirmation */
+"confirmation" = "xác nhận";
+
+/* XBUT: banner message type desc, warning */
+"warning" = "cảnh báo";
+
+/* XBUT: banner message type desc, error */
+"error" = "lỗi";
+
+/* XBUT: banner message type desc in plural form, messages */
+"messages" = "thông báo";
+
+/* XBUT: banner message type desc in plural form, informations */
+"informations" = "thông tin";
+
+/* XBUT: banner message type desc in plural form, confirmations */
+"confirmations" = "xác nhận";
+
+/* XBUT: banner message type desc in plural form, warnings */
+"warnings" = "cảnh báo";
+
+/* XBUT: banner message type desc in plural form, errors */
+"errors" = "lỗi";
+
+/* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
+"Reset" = "Thiết lập lại";
+
+/* XBUT: Apply action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
+"Apply" = "Áp dụng";
+
+/* XTIT: The alert message for `ListPickerDestination` pulldown dismissal */
+"Are you sure you want to discard your selections?" = "Bạn có chắc là bạn muốn hủy bỏ lựa chọn của bạn không?";
+
+/* XBUT: The alert Discard Changes action title for `ListPickerDestination` pulldown dismissal */
+"Discard Changes" = "Hủy bỏ các thay đổi";
+
+/* XBUT: The alert Keep Editing action title for `ListPickerDestination` pulldown dismissal */
+"Keep Editing" = "Tiếp tục hiệu chỉnh";
+
+/* XBUT: The \"Select All\" button title on the List Picker header */
+"Select All" = "Chọn tất cả";
+
+/* XBUT: The \"Deselect All\" button title on the List Picker header */
+"Deselect All" = "Bỏ chọn tất cả";
+
+/* XBUT: The \"Selected\" title on the List Picker header */
+"Selected" = "Đã chọn";
+
+/* XACT: The accessibility hint for Text Input Views, editable */
+"Text field, Double tap to edit" = "Trường văn bản, nhập đúp để hiệu chỉnh";
+
+/* XACT: The accessibility hint for Text Input Views, editing */
+"Text field, is editing" = "Trường văn bản, đang hiệu chỉnh";
+
+/* XACT: The accessibility hint for Text Input Views, editing, with clear button */
+"Text field, is editing. Double tap to clear text" = "Trường văn bản, đang hiệu chỉnh. Nhấp đúp để xóa văn bản";
+
+/* XACT: The default accessibility label for the custom action in TextFieldFormView if none was specified */
+"Custom Action" = "Thao tác tùy chỉnh";
+
+/* XBUT: Error messages shown to users in DocumentScannerView */
+"Failed to create PDF page from images" = "Không thể tạo trang PDF từ hình ảnh.";
+
+/* XBUT: Cancel message shown to users in DocumentScannerView */
+"User cancelled the scan" = "Người dùng đã hủy quét.";
+
+/* Progress Indicator accessibility label: processing */
+"Processing" = "Xử lý";
+
+/* Progress Indicator accessibility label: loading pausable with indicator progress */
+"In progress with option to pause, %.0f" = "Đang tiến hành với tùy chọn tạm dừng, %.0f";
+
+/* Progress Indicator accessibility label: loading stoppable with indicator progress */
+"In progress with option to stop, %.0f" = "Đang tiến hành với tùy chọn dừng, %.0f";
+
+/* Progress Indicator accessibility label: progress halted with indicator progress */
+"Progress halted, %.0f" = "Tiến trình đã dừng, %.0f";
 

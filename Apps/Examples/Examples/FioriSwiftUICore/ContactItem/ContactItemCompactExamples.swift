@@ -1,7 +1,9 @@
 import FioriSwiftUICore
 import SwiftUI
 
-struct ContactItemCompactExamples: ListDataProtocol {
+struct ContactItemCompactExamples: ObjectItemListDataProtocol {
+    var isNewObjectItem = false
+    
     init(cellTapped: Binding<Bool>) {}
     init() {}
     
@@ -27,53 +29,151 @@ struct ContactItemCompactExamples: ListDataProtocol {
     }
     
     func cellForRow(_ indexPath: IndexPath) -> AnyView {
-        switch (indexPath.section, indexPath.row) {
-        case (0, 0):
-            let ci = ContactItem(title: "Seann Longname", actionItems: ActivityItems(actionItems: [.init(type: .phone), .init(type: .videoCall), .init(type: .message)], didSelectActivityItem: { dataType in
-                print("\(dataType)")
-            }))
+        if self.isNewObjectItem {
+            switch (indexPath.section, indexPath.row) {
+            case (0, 0):
+                let item = ContactItem(title: "Seann Longname", activityItems: [.init(type: .phone, didSelectActivityItem: {
+                    print("tap phone")
+                }), .init(type: .videoCall, didSelectActivityItem: {
+                    print("tap videoCall")
+                }), .init(type: .message, didSelectActivityItem: {
+                    print("tap message")
+                })])
+                
+                return item.typeErased
+                
+            case (0, 1):
+                let item = ContactItem(title: "Headline example is allowed to wrap two lines ok", activityItems: [.init(type: .message, didSelectActivityItem: {
+                    print("tap message")
+                })])
+                
+                return item.typeErased
             
-            return AnyView(ci)
-            
-        case (0, 1):
-            let ci = ContactItem(title: "Headline example is allowed to wrap two lines ok", actionItems: ActivityItems(actionItems: [.init(type: .message)], didSelectActivityItem: { dataType in
-                print("\(dataType)")
-            }))
-            
-            return AnyView(ci)
-        
-        case (0, 2):
-            let ci = ContactItem(title: "Sean Long has a name that wraps two lines", detailImage: Image("person_square4").resizable(), actionItems: ActivityItems(actionItems: [.init(type: .phone), .init(type: .videoCall), .init(type: .message)], didSelectActivityItem: { dataType in
-                print("\(dataType)")
-            }))
-            
-            return AnyView(ci)
-            
-        case (0, 3):
-            let ci = ContactItem(title: "Headline example when it wraps two lines", subtitle: "Team Lead", actionItems: ActivityItems(actionItems: [.init(type: .email), .init(type: .phone)], didSelectActivityItem: { dataType in
-                print("\(dataType)")
-            }))
-            
-            return AnyView(ci)
-            
-        case (0, 4):
-            let ci = ContactItem(title: "Seann Longname", subtitle: "Team Lead", actionItems: ActivityItems(actionItems: [.init(type: .phone), .init(type: .videoCall), .init(type: .message)], didSelectActivityItem: { dataType in
-                print("\(dataType)")
-            }))
-            .splitPercent(0.3)
-            
-            return AnyView(ci)
-            
-        case (0, 5):
-            let ci = ContactItem(title: "Headline when\n wraps 2 lines", subtitle: "Team Lead", detailImage: Image("person_square4").resizable(), actionItems: ActivityItems(actionItems: [.init(type: .phone), .init(type: .videoCall), .init(type: .message)], didSelectActivityItem: { dataType in
-                print("\(dataType)")
-            }))
-            .splitPercent(0.3)
-            
-            return AnyView(ci)
-            
-        default:
-            return AnyView(ContactItem(title: "Lorem ipseum dolor"))
+            case (0, 2):
+                let item = ContactItem(title: "Sean Long has a name that wraps two lines", detailImage: Image("person_square4").resizable(), activityItems: [.init(type: .phone, didSelectActivityItem: {
+                    print("tap phone")
+                }), .init(type: .videoCall, didSelectActivityItem: {
+                    print("tap videoCall")
+                }), .init(type: .message, didSelectActivityItem: {
+                    print("tap message")
+                })])
+                
+                return item.typeErased
+                
+            case (0, 3):
+                let item = ContactItem(title: "Headline example when it wraps two lines", subtitle: "Team Lead", activityItems: [.init(type: .email, didSelectActivityItem: {
+                    print("tap email")
+                }), .init(type: .phone, didSelectActivityItem: {
+                    print("tap phone")
+                })])
+                
+                return item.typeErased
+                
+            case (0, 4):
+                let item = ContactItem(title: "Seann Longname", subtitle: "Team Lead", activityItems: [.init(type: .phone, didSelectActivityItem: {
+                    print("tap phone")
+                }), .init(type: .videoCall, didSelectActivityItem: {
+                    print("tap videoCall")
+                }), .init(type: .message, didSelectActivityItem: {
+                    print("tap message")
+                })])
+                .splitPercent(0.3)
+                
+                return item.typeErased
+                
+            case (0, 5):
+                let item = ContactItem(title: "Headline when\n wraps 2 lines", subtitle: "Team Lead", detailImage: Image("person_square4").resizable(), activityItems: [.init(type: .phone, didSelectActivityItem: {
+                    print("tap phone")
+                }), .init(type: .videoCall, didSelectActivityItem: {
+                    print("tap videoCall")
+                }), .init(type: .message, didSelectActivityItem: {
+                    print("tap message")
+                })])
+                .splitPercent(0.3)
+                .activityItemsStyle { conf in
+                    conf.activityItems
+                        .foregroundColor(.red)
+                        .font(.fiori(forTextStyle: .headline).weight(.bold))
+                }
+                .titleStyle { conf in
+                    conf.title
+                        .foregroundStyle(Color.red)
+                        .font(.fiori(forTextStyle: .headline).weight(.bold))
+                        .lineLimit(nil)
+                }
+                .subtitleStyle(content: { conf in
+                    conf.subtitle
+                        .foregroundStyle(Color.green)
+                        .font(.fiori(forTextStyle: .headline).weight(.bold))
+                        .lineLimit(nil)
+                })
+                .descriptionStyle { conf in
+                    conf.description
+                        .foregroundStyle(Color.blue)
+                        .font(.fiori(forTextStyle: .headline).weight(.bold))
+                        .lineLimit(nil)
+                }
+                .detailImageStyle { conf in
+                    conf.detailImage
+                        .backgroundStyle(Color.yellow)
+                        .font(.fiori(forTextStyle: .headline).weight(.bold))
+                        .clipShape(Rectangle())
+                }
+                
+                return item.typeErased
+                
+            default:
+                return ContactItem(title: "Lorem ipseum dolor").typeErased
+            }
+        } else {
+            switch (indexPath.section, indexPath.row) {
+            case (0, 0):
+                let ci = _ContactItem(title: "Seann Longname", actionItems: _ActivityItems(actionItems: [.init(type: .phone), .init(type: .videoCall), .init(type: .message)], didSelectActivityItem: { dataType in
+                    print("\(dataType)")
+                }))
+                
+                return AnyView(ci)
+                
+            case (0, 1):
+                let ci = _ContactItem(title: "Headline example is allowed to wrap two lines ok", actionItems: _ActivityItems(actionItems: [.init(type: .message)], didSelectActivityItem: { dataType in
+                    print("\(dataType)")
+                }))
+                
+                return AnyView(ci)
+                
+            case (0, 2):
+                let ci = _ContactItem(title: "Sean Long has a name that wraps two lines", detailImage: Image("person_square4").resizable(), actionItems: _ActivityItems(actionItems: [.init(type: .phone), .init(type: .videoCall), .init(type: .message)], didSelectActivityItem: { dataType in
+                    print("\(dataType)")
+                }))
+                
+                return AnyView(ci)
+                
+            case (0, 3):
+                let ci = _ContactItem(title: "Headline example when it wraps two lines", subtitle: "Team Lead", actionItems: _ActivityItems(actionItems: [.init(type: .email), .init(type: .phone)], didSelectActivityItem: { dataType in
+                    print("\(dataType)")
+                }))
+                
+                return AnyView(ci)
+                
+            case (0, 4):
+                let ci = _ContactItem(title: "Seann Longname", subtitle: "Team Lead", actionItems: _ActivityItems(actionItems: [.init(type: .phone), .init(type: .videoCall), .init(type: .message)], didSelectActivityItem: { dataType in
+                    print("\(dataType)")
+                }))
+                .splitPercent(0.3)
+                
+                return AnyView(ci)
+                
+            case (0, 5):
+                let ci = _ContactItem(title: "Headline when\n wraps 2 lines", subtitle: "Team Lead", detailImage: Image("person_square4").resizable(), actionItems: _ActivityItems(actionItems: [.init(type: .phone), .init(type: .videoCall), .init(type: .message)], didSelectActivityItem: { dataType in
+                    print("\(dataType)")
+                }))
+                .splitPercent(0.3)
+                
+                return AnyView(ci)
+                
+            default:
+                return AnyView(_ContactItem(title: "Lorem ipseum dolor"))
+            }
         }
     }
 }

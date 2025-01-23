@@ -22,6 +22,7 @@ struct AnyStepperViewStyle: StepperViewStyle {
 }
 
 public struct StepperViewConfiguration {
+    public var componentIdentifier: String = "fiori_stepperview_component"
     public let title: Title
     public let decrementAction: DecrementAction
     @Binding public var text: String
@@ -37,6 +38,12 @@ public struct StepperViewConfiguration {
     public typealias IncrementAction = ConfigurationViewWrapper
     public typealias Icon = ConfigurationViewWrapper
     public typealias Description = ConfigurationViewWrapper
+}
+
+extension StepperViewConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }
 
 public struct StepperViewFioriStyle: StepperViewStyle {

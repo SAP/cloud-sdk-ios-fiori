@@ -14,11 +14,20 @@ public struct TimelineNowIndicator {
 
     @Environment(\.timelineNowIndicatorStyle) var style
 
+    var componentIdentifier: String = TimelineNowIndicator.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder nowIndicatorNode: () -> any View = { Image(systemName: "circle.fill") }) {
-        self.nowIndicatorNode = NowIndicatorNode(nowIndicatorNode: nowIndicatorNode)
+    public init(@ViewBuilder nowIndicatorNode: () -> any View = { Image(systemName: "circle.fill") },
+                componentIdentifier: String? = TimelineNowIndicator.identifier)
+    {
+        self.nowIndicatorNode = NowIndicatorNode(nowIndicatorNode: nowIndicatorNode, componentIdentifier: componentIdentifier)
+        self.componentIdentifier = componentIdentifier ?? TimelineNowIndicator.identifier
     }
+}
+
+public extension TimelineNowIndicator {
+    static let identifier = "fiori_timelinenowindicator_component"
 }
 
 public extension TimelineNowIndicator {
@@ -29,6 +38,7 @@ public extension TimelineNowIndicator {
     internal init(_ configuration: TimelineNowIndicatorConfiguration, shouldApplyDefaultStyle: Bool) {
         self.nowIndicatorNode = configuration.nowIndicatorNode
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -37,7 +47,7 @@ extension TimelineNowIndicator: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(nowIndicatorNode: .init(self.nowIndicatorNode))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, nowIndicatorNode: .init(self.nowIndicatorNode))).typeErased
                 .transformEnvironment(\.timelineNowIndicatorStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -55,7 +65,7 @@ private extension TimelineNowIndicator {
     }
 
     func defaultStyle() -> some View {
-        TimelineNowIndicator(.init(nowIndicatorNode: .init(self.nowIndicatorNode)))
+        TimelineNowIndicator(.init(componentIdentifier: self.componentIdentifier, nowIndicatorNode: .init(self.nowIndicatorNode)))
             .shouldApplyDefaultStyle(false)
             .timelineNowIndicatorStyle(TimelineNowIndicatorFioriStyle.ContentFioriStyle())
             .typeErased

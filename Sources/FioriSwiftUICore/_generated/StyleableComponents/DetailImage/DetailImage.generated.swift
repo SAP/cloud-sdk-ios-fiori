@@ -8,11 +8,20 @@ public struct DetailImage {
 
     @Environment(\.detailImageStyle) var style
 
+    var componentIdentifier: String = DetailImage.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder detailImage: () -> any View = { EmptyView() }) {
+    public init(@ViewBuilder detailImage: () -> any View = { EmptyView() },
+                componentIdentifier: String? = DetailImage.identifier)
+    {
         self.detailImage = detailImage()
+        self.componentIdentifier = componentIdentifier ?? DetailImage.identifier
     }
+}
+
+public extension DetailImage {
+    static let identifier = "fiori_detailimage_component"
 }
 
 public extension DetailImage {
@@ -29,6 +38,7 @@ public extension DetailImage {
     internal init(_ configuration: DetailImageConfiguration, shouldApplyDefaultStyle: Bool) {
         self.detailImage = configuration.detailImage
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -37,7 +47,7 @@ extension DetailImage: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(detailImage: .init(self.detailImage))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, detailImage: .init(self.detailImage))).typeErased
                 .transformEnvironment(\.detailImageStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -55,7 +65,7 @@ private extension DetailImage {
     }
 
     func defaultStyle() -> some View {
-        DetailImage(.init(detailImage: .init(self.detailImage)))
+        DetailImage(.init(componentIdentifier: self.componentIdentifier, detailImage: .init(self.detailImage)))
             .shouldApplyDefaultStyle(false)
             .detailImageStyle(.fiori)
             .typeErased

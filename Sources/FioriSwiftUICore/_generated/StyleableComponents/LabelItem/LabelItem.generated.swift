@@ -11,16 +11,24 @@ public struct LabelItem {
 
     @Environment(\.labelItemStyle) var style
 
+    var componentIdentifier: String = LabelItem.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
     public init(@ViewBuilder icon: () -> any View = { EmptyView() },
                 @ViewBuilder title: () -> any View,
-                alignment: HorizontalAlignment? = nil)
+                alignment: HorizontalAlignment? = nil,
+                componentIdentifier: String? = LabelItem.identifier)
     {
-        self.icon = Icon(icon: icon)
-        self.title = Title(title: title)
+        self.icon = Icon(icon: icon, componentIdentifier: componentIdentifier)
+        self.title = Title(title: title, componentIdentifier: componentIdentifier)
         self.alignment = alignment
+        self.componentIdentifier = componentIdentifier ?? LabelItem.identifier
     }
+}
+
+public extension LabelItem {
+    static let identifier = "fiori_labelitem_component"
 }
 
 public extension LabelItem {
@@ -42,6 +50,7 @@ public extension LabelItem {
         self.title = configuration.title
         self.alignment = configuration.alignment
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -50,7 +59,7 @@ extension LabelItem: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(icon: .init(self.icon), title: .init(self.title), alignment: self.alignment)).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, icon: .init(self.icon), title: .init(self.title), alignment: self.alignment)).typeErased
                 .transformEnvironment(\.labelItemStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -68,7 +77,7 @@ private extension LabelItem {
     }
 
     func defaultStyle() -> some View {
-        LabelItem(.init(icon: .init(self.icon), title: .init(self.title), alignment: self.alignment))
+        LabelItem(.init(componentIdentifier: self.componentIdentifier, icon: .init(self.icon), title: .init(self.title), alignment: self.alignment))
             .shouldApplyDefaultStyle(false)
             .labelItemStyle(LabelItemFioriStyle.ContentFioriStyle())
             .typeErased

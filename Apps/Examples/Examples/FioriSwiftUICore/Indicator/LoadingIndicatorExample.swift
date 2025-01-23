@@ -3,13 +3,13 @@ import Foundation
 import SwiftUI
 
 struct LoadingIndicatorExample: View {
-    @State var isPresented1: Bool = true
     @State var isPresented2: Bool = false
     @State var isPresented3: Bool = true
     @State var isPresented4: Bool = true
     @State var isPresented5: Bool = true
     @State var isPresented6: Bool = true
     @State var isPresented7: Bool = true
+    @State var isAIStyle: Bool = false
     var message: AttributedString {
         var result = AttributedString("bottom indicator")
         result.font = .largeTitle
@@ -19,106 +19,138 @@ struct LoadingIndicatorExample: View {
     }
 
     var body: some View {
-        List {
-            Section("Default Loading Indicator") {
-                LoadingIndicator(title: "Loading...", isPresented: self.$isPresented1)
+        ScrollView {
+            LazyVStack(alignment: .leading, spacing: 0, pinnedViews: [.sectionHeaders]) {
+                Toggle("AI style", isOn: self.$isAIStyle)
+                    .padding(.horizontal, 16)
+                Section {
+                    LoadingIndicator(title: "Loading...", isPresented: .constant(true), isAIEnabled: self.isAIStyle)
+                        .frame(maxWidth: .infinity)
+                        .multilineTextAlignment(.center)
+                        .padding()
+                      
+                } header: {
+                    Text("Default Loading Indicator")
+                        .padding(.leading, 20)
+                        .fontWeight(.bold)
+                }.padding(.bottom, 10)
+                
+                Section {
+                    VStack {
+                        Rectangle()
+                            .fill(Color.preferredColor(.accentBackground10))
+                            .frame(height: 150)
+                            .overlay(alignment: .center, content: {
+                                LoadingIndicator(title: {
+                                    Text(" delay/show/dismiss")
+                                        .font(.system(size: 12))
+                                        .rainbow()
+                                }, progress: {
+                                    Progress()
+                                }, duration: 3, isPresented: self.$isPresented2, isAIEnabled: self.isAIStyle)
+                                    .indicatorPosition(.top)
+                                    .indicatorTint(Color.random)
+                            })
+                        Button("Show/Hide Customized Loading Indicator") {
+                            self.isPresented2.toggle()
+                        }.buttonStyle(.borderedProminent)
+                    }
+                } header: {
+                    Text("Based On The Use Of Overlay")
+                        .padding(.leading, 20)
+                        .fontWeight(.bold)
+                }.padding(.bottom, 10)
+
+                Section {
+                    VStack(alignment: .leading) {
+                        LoadingIndicator(title: "mini size indicator", isPresented: self.$isPresented3, isAIEnabled: self.isAIStyle)
+                            .indicatorPosition(.leading)
+                            .indicatorControlSize(.mini)
+                        LoadingIndicator(title: "small size indicator", isPresented: self.$isPresented3, isAIEnabled: self.isAIStyle)
+                            .indicatorPosition(.leading)
+                            .indicatorControlSize(.small)
+                        LoadingIndicator(title: "regular size indicator", isPresented: self.$isPresented3, isAIEnabled: self.isAIStyle)
+                            .indicatorPosition(.leading)
+                            .indicatorControlSize(.regular)
+                        LoadingIndicator(title: "large size indicator", isPresented: self.$isPresented3, isAIEnabled: self.isAIStyle)
+                            .indicatorPosition(.leading)
+                            .indicatorControlSize(.large)
+                        if #available(iOS 17.0, *) {
+                            LoadingIndicator(title: "extraLarge size indicator", isPresented: self.$isPresented3, isAIEnabled: isAIStyle)
+                                .indicatorPosition(.leading)
+                                .indicatorControlSize(.extraLarge)
+                        } else {
+                            // Fallback on earlier versions
+                        }
+                    }
+                    .padding(.leading, 20)
+                } header: {
+                    Text("Control Size")
+                        .padding(.leading, 20)
+                        .fontWeight(.bold)
+                }.padding(.bottom, 10)
+
+                Section {
+                    VStack(alignment: .center) {
+                        LoadingIndicator(title: "leading indicator", isPresented: self.$isPresented3, isAIEnabled: self.isAIStyle)
+                            .indicatorPosition(.leading)
+                            .indicatorTint(Color.random)
+                        Spacer()
+                        if #available(iOS 17.0, *) {
+                            LoadingIndicator(title: {
+                                Text("top indicator")
+                                    .font(.system(size: 8))
+                                    .foregroundStyle(Color.red)
+                            }, progress: {
+                                Progress()
+                            }, isPresented: self.$isPresented5, isAIEnabled: isAIStyle)
+                                .indicatorPosition(.top)
+                                .indicatorTint(Color.random)
+                        } else {
+                            // Fallback on earlier versions
+                        }
+                        Spacer()
+                        LoadingIndicator(title: {
+                            Text("trailing indicator")
+                                .font(.largeTitle)
+                                .foregroundStyle(Color.green)
+                        }, progress: {
+                            Progress()
+                        }, isPresented: self.$isPresented4, isAIEnabled: self.isAIStyle)
+                            .indicatorPosition(.trailing)
+                            .indicatorTint(Color.random)
+                        Spacer()
+                        LoadingIndicator(title: self.message, isPresented: self.$isPresented6, isAIEnabled: self.isAIStyle)
+                            .indicatorPosition(.bottom)
+                            .indicatorTint(Color.random)
+                    }
                     .frame(maxWidth: .infinity)
                     .multilineTextAlignment(.center)
                     .padding()
-            }.headerProminence(.increased)
-
-            Section("Based On The Use Of Overlay") {
-                VStack {
-                    Rectangle()
-                        .fill(Color.preferredColor(.accentBackground10))
-                        .frame(height: 150)
-                        .overlay(alignment: .center, content: {
-                            LoadingIndicator(title: {
-                                Text(" delay/show/dismiss")
-                                    .font(.system(size: 12))
-                                    .rainbow()
-                            }, duration: 3, isPresented: self.$isPresented2)
-                                .indicatorPosition(.top)
-                                .indicatorTint(Color.random)
-                        })
-                    Button("Show/Hide Customized Loading Indicator") {
-                        self.isPresented2.toggle()
-                    }.buttonStyle(.borderedProminent)
-                }
-            }.headerProminence(.increased)
-            Section("Control Size") {
-                VStack(alignment: .leading) {
-                    LoadingIndicator(title: "mini size indicator", isPresented: self.$isPresented3)
-                        .indicatorPosition(.leading)
-                        .indicatorControlSize(.mini)
-                    LoadingIndicator(title: "small size indicator", isPresented: self.$isPresented3)
-                        .indicatorPosition(.leading)
-                        .indicatorControlSize(.small)
-                    LoadingIndicator(title: "regular size indicator", isPresented: self.$isPresented3)
-                        .indicatorPosition(.leading)
-                        .indicatorControlSize(.regular)
-                    LoadingIndicator(title: "large size indicator", isPresented: self.$isPresented6)
-                        .indicatorPosition(.leading)
-                        .indicatorControlSize(.large)
-                    if #available(iOS 17.0, *) {
-                        LoadingIndicator(title: "extraLarge size indicator", isPresented: self.$isPresented6)
-                            .indicatorPosition(.leading)
-                            .indicatorControlSize(.extraLarge)
-                    } else {
-                        // Fallback on earlier versions
-                    }
-                }
-            }.headerProminence(.increased)
-            Section("Position And Custom Text") {
-                VStack(alignment: .center) {
-                    LoadingIndicator(title: "leading indicator", isPresented: self.$isPresented3)
-                        .indicatorPosition(.leading)
-                        .indicatorTint(Color.random)
-                    Spacer()
-                    if #available(iOS 17.0, *) {
-                        LoadingIndicator(title: {
-                            Text("top indicator")
-                                .font(.system(size: 8))
-                                .foregroundStyle(Color.red)
-                        }, isPresented: self.$isPresented5)
-                            .indicatorPosition(.top)
+                } header: {
+                    Text("Position And Custom Text")
+                        .padding(.leading, 20)
+                        .fontWeight(.bold)
+                }.padding(.bottom, 10)
+                
+                Section {
+                    VStack {
+                        LoadingIndicator(title: "Loading...", duration: 10, isPresented: self.$isPresented7, isAIEnabled: self.isAIStyle)
                             .indicatorTint(Color.random)
-                    } else {
-                        // Fallback on earlier versions
+                            .indicatorControlSize(.large)
+                        Button("Show") {
+                            self.isPresented7 = true
+                        }.buttonStyle(.borderedProminent)
                     }
-                    Spacer()
-                    LoadingIndicator(title: {
-                        Text("trailing indicator")
-                            .font(.largeTitle)
-                            .foregroundStyle(Color.green)
-                    }, isPresented: self.$isPresented4)
-                        .indicatorPosition(.trailing)
-                        .indicatorTint(Color.random)
-                    Spacer()
-                    LoadingIndicator(title: self.message, isPresented: self.$isPresented6)
-                        .indicatorPosition(.bottom)
-                        .indicatorTint(Color.random)
+                    .frame(maxWidth: .infinity)
+                    .multilineTextAlignment(.center)
+                    .padding()
+                } header: {
+                    Text("Delay 10 Seconds Dismiss")
+                        .padding(.leading, 20)
+                        .fontWeight(.bold)
                 }
-                .frame(maxWidth: .infinity)
-                .multilineTextAlignment(.center)
-                .padding()
             }
-            .headerProminence(.increased)
-
-            Section("Delay 10 Seconds Dismiss") {
-                VStack {
-                    LoadingIndicator(title: "Loading...", duration: 10, isPresented: self.$isPresented7)
-                        .indicatorTint(Color.random)
-                        .indicatorControlSize(.large)
-                    Button("Show") {
-                        self.isPresented7 = true
-                    }.buttonStyle(.borderedProminent)
-                }
-                .frame(maxWidth: .infinity)
-                .multilineTextAlignment(.center)
-                .padding()
-            }
-            .headerProminence(.increased)
         }
     }
 }

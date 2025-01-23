@@ -31,6 +31,9 @@
 /* XACT: The accessibility label for the signature line */
 "Signature Line" = "บรรทัดลายเซ็น";
 
+/* XACT: The accessibility label for the mandatory field */
+"Required Field" = "ฟิลด์ที่ต้องป้อนข้อมูล";
+
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
 "Canceled" = "ถูกยกเลิก";
 
@@ -142,6 +145,9 @@
 /* XBUT: voice over label for row selection status in DataTable */
 "not selected" = "ไม่ได้เลือก";
 
+/* Default value for DateTimePicker */
+"No date selected" = "ไม่ได้เลือกวันที่";
+
 /* XBUT: calendar time component label */
 "Time" = "เวลา";
 
@@ -159,4 +165,154 @@
 
 /* Default error text for when the character count exceeds the maximum limit for NoteFormView and TextFieldFormView */
 "Reduce the number of characters" = "ลดจำนวนอักขระ";
+
+/* XBUT: voice over label for decrement action in stepper */
+"Stepper decrease" = "การลดใน Stepper";
+
+/* XBUT: voice over description for decrement action in stepper */
+"Decrease the value by %d" = "ลดค่าทีละ %d";
+
+/* XBUT: voice over label for increment action in stepper */
+"Stepper increase" = "การเพิ่มใน Stepper";
+
+/* XBUT: voice over description for increment action in stepper */
+"Increase the value by %d" = "เพิ่มค่าทีละ %d";
+
+/* XBUT: voice over label for test field in stepper */
+"Select specific value" = "เลือกค่าเฉพาะ";
+
+/* XBUT: View all action in MenuSelection */
+"View All (%d)" = "ดูทั้งหมด (%d)";
+
+/* XACT: RatingControl accessibility label */
+"%d out of %d stars" = "%d จาก %d ดาว";
+
+/* XBUT: timeline preview component see all label */
+"See All (%d)" = "ดูทั้งหมด (%d)";
+
+/* XACT: Timeline preview item accessibility label */
+"Item %d of %d" = "รายการ %d จาก %d";
+
+/* XBUT: timeline preview component timestamp label */
+"Today, %d" = "วันนี้ %d";
+
+/* XFLD: RatingControl value label format */
+"%d of %d" = "%d จาก %d";
+
+/* XFLD: RatingControl review count format */
+"%d reviews" = "%d รีวิว";
+
+/* XFLD: RatingControl review count over ceiling format */
+"%d+ reviews" = "%d+ รีวิว";
+
+/* XACT: RatingControl accessibility label */
+"Rating Control %d of %d" = "การควบคุมการให้คะแนน %d จาก %d";
+
+/* XACT: read-only RatingControl accessibility label: rating with review count */
+"Rating Control, rating %d of %d, %d reviews" = "การควบคุมการให้คะแนน, คะแนน %d จาก %d, %d รีวิว";
+
+/* XACT: read-only RatingControl accessibility label: average rating only */
+"Rating Control, average rating %.1f of %d" = "การควบคุมการให้คะแนน, คะแนนเฉลี่ย %.1f จาก %d";
+
+/* XACT: read-only RatingControl accessibility label: average rating with review count */
+"Rating Control, average rating %.1f of %d, %d reviews" = "การควบคุมการให้คะแนน, คะแนนเฉลี่ย %.1f จาก %d, %d รีวิว";
+
+/* XACT: read-only RatingControl accessibility label: average rating with review count over ceiling */
+"Rating Control, average rating %.1f of %d, %d plus reviews" = "การควบคุมการให้คะแนน, คะแนนเฉลี่ย %.1f จาก %d, มากกว่า %d รีวิว";
+
+/* XBUT: View all messages in message banner sheet */
+"All" = "ทั้งหมด";
+
+/* XBUT: messages count in the message banner sheet */
+"Messages (%d)" = "ข้อความ (%d)";
+
+/* XBUT: view details in the message banner */
+"View Details" = "ดูรายละเอียด";
+
+/* XBUT: view different message in the message banner sheet item */
+"View %@" = "ดู %@";
+
+/* XBUT: banner message type desc, message */
+"message" = "ข้อความ";
+
+/* XBUT: banner message type desc, information */
+"information" = "ข้อมูล";
+
+/* XBUT: banner message type desc, confirmation */
+"confirmation" = "การยืนยัน";
+
+/* XBUT: banner message type desc, warning */
+"warning" = "คำเตือน";
+
+/* XBUT: banner message type desc, error */
+"error" = "ข้อผิดพลาด";
+
+/* XBUT: banner message type desc in plural form, messages */
+"messages" = "ข้อความ";
+
+/* XBUT: banner message type desc in plural form, informations */
+"informations" = "ข้อมูล";
+
+/* XBUT: banner message type desc in plural form, confirmations */
+"confirmations" = "การยืนยัน";
+
+/* XBUT: banner message type desc in plural form, warnings */
+"warnings" = "คำเตือน";
+
+/* XBUT: banner message type desc in plural form, errors */
+"errors" = "ข้อผิดพลาด";
+
+/* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
+"Reset" = "รีเซ็ต";
+
+/* XBUT: Apply action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
+"Apply" = "นำไปใช้";
+
+/* XTIT: The alert message for `ListPickerDestination` pulldown dismissal */
+"Are you sure you want to discard your selections?" = "คุณแน่ใจหรือไม่ว่าต้องการละทิ้งรายการที่เลือก?";
+
+/* XBUT: The alert Discard Changes action title for `ListPickerDestination` pulldown dismissal */
+"Discard Changes" = "ละทิ้งการเปลี่ยนแปลง";
+
+/* XBUT: The alert Keep Editing action title for `ListPickerDestination` pulldown dismissal */
+"Keep Editing" = "แก้ไขต่อไป";
+
+/* XBUT: The \"Select All\" button title on the List Picker header */
+"Select All" = "เลือกทั้งหมด";
+
+/* XBUT: The \"Deselect All\" button title on the List Picker header */
+"Deselect All" = "ยกเลิกการเลือกทั้งหมด";
+
+/* XBUT: The \"Selected\" title on the List Picker header */
+"Selected" = "รายการที่เลือก";
+
+/* XACT: The accessibility hint for Text Input Views, editable */
+"Text field, Double tap to edit" = "ฟิลด์ข้อความ, แตะสองครั้งเพื่อแก้ไข";
+
+/* XACT: The accessibility hint for Text Input Views, editing */
+"Text field, is editing" = "ฟิลด์ข้อความ, กำลังแก้ไข";
+
+/* XACT: The accessibility hint for Text Input Views, editing, with clear button */
+"Text field, is editing. Double tap to clear text" = "ฟิลด์ข้อความ, กำลังแก้ไข แตะสองครั้งเพื่อล้างข้อความ";
+
+/* XACT: The default accessibility label for the custom action in TextFieldFormView if none was specified */
+"Custom Action" = "การดำเนินการที่ปรับแต่งได้";
+
+/* XBUT: Error messages shown to users in DocumentScannerView */
+"Failed to create PDF page from images" = "ไม่สามารถสร้างหน้า PDF จากรูปภาพ";
+
+/* XBUT: Cancel message shown to users in DocumentScannerView */
+"User cancelled the scan" = "ผู้ใช้ยกเลิกการสแกนแล้ว";
+
+/* Progress Indicator accessibility label: processing */
+"Processing" = "กำลังดำเนินการ";
+
+/* Progress Indicator accessibility label: loading pausable with indicator progress */
+"In progress with option to pause, %.0f" = "อยู่ระหว่างดำเนินการโดยมีตัวเลือกในการหยุดชั่วคราว, %.0f";
+
+/* Progress Indicator accessibility label: loading stoppable with indicator progress */
+"In progress with option to stop, %.0f" = "อยู่ระหว่างดำเนินการโดยมีตัวเลือกในการหยุด, %.0f";
+
+/* Progress Indicator accessibility label: progress halted with indicator progress */
+"Progress halted, %.0f" = "ความคืบหน้าหยุดชั่วคราว, %.0f";
 

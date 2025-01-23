@@ -12,20 +12,28 @@ struct DemoView {
 
     @Environment(\.demoViewStyle) var style
 
+    var componentIdentifier: String = DemoView.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
     public init(@ViewBuilder title: () -> any View,
                 @ViewBuilder subtitle: () -> any View = { EmptyView() },
                 @ViewBuilder status: () -> any View = { EmptyView() },
                 @ViewBuilder action: () -> any View = { EmptyView() },
-                isOn: Binding<Bool>)
+                isOn: Binding<Bool>,
+                componentIdentifier: String? = DemoView.identifier)
     {
-        self.title = Title(title: title)
-        self.subtitle = Subtitle(subtitle: subtitle)
-        self.status = Status(status: status)
-        self.action = Action(action: action)
+        self.title = Title(title: title, componentIdentifier: componentIdentifier)
+        self.subtitle = Subtitle(subtitle: subtitle, componentIdentifier: componentIdentifier)
+        self.status = Status(status: status, componentIdentifier: componentIdentifier)
+        self.action = Action(action: action, componentIdentifier: componentIdentifier)
         self._isOn = isOn
+        self.componentIdentifier = componentIdentifier ?? DemoView.identifier
     }
+}
+
+extension DemoView {
+    public static let identifier = "fiori_demoview_component"
 }
 
 extension DemoView {
@@ -51,6 +59,7 @@ extension DemoView {
         self.action = configuration.action
         self._isOn = configuration.$isOn
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -59,7 +68,7 @@ extension DemoView: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(title: .init(self.title), subtitle: .init(self.subtitle), status: .init(self.status), action: .init(self.action), isOn: self.$isOn)).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, title: .init(self.title), subtitle: .init(self.subtitle), status: .init(self.status), action: .init(self.action), isOn: self.$isOn)).typeErased
                 .transformEnvironment(\.demoViewStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -77,7 +86,7 @@ private extension DemoView {
     }
 
     func defaultStyle() -> some View {
-        DemoView(.init(title: .init(self.title), subtitle: .init(self.subtitle), status: .init(self.status), action: .init(self.action), isOn: self.$isOn))
+        DemoView(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), subtitle: .init(self.subtitle), status: .init(self.status), action: .init(self.action), isOn: self.$isOn))
             .shouldApplyDefaultStyle(false)
             .demoViewStyle(DemoViewFioriStyle.ContentFioriStyle())
             .typeErased

@@ -8,11 +8,20 @@ public struct Kpi {
 
     @Environment(\.kpiStyle) var style
 
+    var componentIdentifier: String = Kpi.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder kpi: () -> any View = { EmptyView() }) {
+    public init(@ViewBuilder kpi: () -> any View = { EmptyView() },
+                componentIdentifier: String? = Kpi.identifier)
+    {
         self.kpi = kpi()
+        self.componentIdentifier = componentIdentifier ?? Kpi.identifier
     }
+}
+
+public extension Kpi {
+    static let identifier = "fiori_kpi_component"
 }
 
 public extension Kpi {
@@ -29,6 +38,7 @@ public extension Kpi {
     internal init(_ configuration: KpiConfiguration, shouldApplyDefaultStyle: Bool) {
         self.kpi = configuration.kpi
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -37,7 +47,7 @@ extension Kpi: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(kpi: .init(self.kpi))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, kpi: .init(self.kpi))).typeErased
                 .transformEnvironment(\.kpiStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -55,7 +65,7 @@ private extension Kpi {
     }
 
     func defaultStyle() -> some View {
-        Kpi(.init(kpi: .init(self.kpi)))
+        Kpi(.init(componentIdentifier: self.componentIdentifier, kpi: .init(self.kpi)))
             .shouldApplyDefaultStyle(false)
             .kpiStyle(.fiori)
             .typeErased

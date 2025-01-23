@@ -21,6 +21,8 @@ public struct StepperView {
 
     @Environment(\.stepperViewStyle) var style
 
+    var componentIdentifier: String = StepperView.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
     public init(@ViewBuilder title: () -> any View,
@@ -31,18 +33,24 @@ public struct StepperView {
                 stepRange: ClosedRange<Double>,
                 isDecimalSupported: Bool = false,
                 @ViewBuilder icon: () -> any View = { EmptyView() },
-                @ViewBuilder description: () -> any View = { EmptyView() })
+                @ViewBuilder description: () -> any View = { EmptyView() },
+                componentIdentifier: String? = StepperView.identifier)
     {
-        self.title = Title(title: title)
-        self.decrementAction = DecrementAction(decrementAction: decrementAction)
+        self.title = Title(title: title, componentIdentifier: componentIdentifier)
+        self.decrementAction = DecrementAction(decrementAction: decrementAction, componentIdentifier: componentIdentifier)
         self._text = text
-        self.incrementAction = IncrementAction(incrementAction: incrementAction)
+        self.incrementAction = IncrementAction(incrementAction: incrementAction, componentIdentifier: componentIdentifier)
         self.step = step
         self.stepRange = stepRange
         self.isDecimalSupported = isDecimalSupported
-        self.icon = Icon(icon: icon)
-        self.description = Description(description: description)
+        self.icon = Icon(icon: icon, componentIdentifier: componentIdentifier)
+        self.description = Description(description: description, componentIdentifier: componentIdentifier)
+        self.componentIdentifier = componentIdentifier ?? StepperView.identifier
     }
+}
+
+public extension StepperView {
+    static let identifier = "fiori_stepperview_component"
 }
 
 public extension StepperView {
@@ -76,6 +84,7 @@ public extension StepperView {
         self.icon = configuration.icon
         self.description = configuration.description
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -84,7 +93,7 @@ extension StepperView: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(title: .init(self.title), decrementAction: .init(self.decrementAction), text: self.$text, incrementAction: .init(self.incrementAction), step: self.step, stepRange: self.stepRange, isDecimalSupported: self.isDecimalSupported, icon: .init(self.icon), description: .init(self.description))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, title: .init(self.title), decrementAction: .init(self.decrementAction), text: self.$text, incrementAction: .init(self.incrementAction), step: self.step, stepRange: self.stepRange, isDecimalSupported: self.isDecimalSupported, icon: .init(self.icon), description: .init(self.description))).typeErased
                 .transformEnvironment(\.stepperViewStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -102,7 +111,7 @@ private extension StepperView {
     }
 
     func defaultStyle() -> some View {
-        StepperView(.init(title: .init(self.title), decrementAction: .init(self.decrementAction), text: self.$text, incrementAction: .init(self.incrementAction), step: self.step, stepRange: self.stepRange, isDecimalSupported: self.isDecimalSupported, icon: .init(self.icon), description: .init(self.description)))
+        StepperView(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), decrementAction: .init(self.decrementAction), text: self.$text, incrementAction: .init(self.incrementAction), step: self.step, stepRange: self.stepRange, isDecimalSupported: self.isDecimalSupported, icon: .init(self.icon), description: .init(self.description)))
             .shouldApplyDefaultStyle(false)
             .stepperViewStyle(StepperViewFioriStyle.ContentFioriStyle())
             .typeErased

@@ -141,11 +141,6 @@ public struct ExpandableList<Data, Row, Destination>: View where Data: RandomAcc
                                                            rowContent: rowContent(item),
                                                            selectionBinding: selection)
                                 .environment(\.sideBarListItemConfigMode, SideBarListItemConfig(isSelected: true, isHeaderContent: false))
-                                .overlay(NavigationLink(destination: destination(item),
-                                                        tag: item,
-                                                        selection: selection,
-                                                        label: { EmptyView() })
-                                        .buttonStyle(PlainButtonStyle()))
                         } else {
                             RowContentContainer<Data, Row>(item: item,
                                                            rowContent: rowContent(item),
@@ -200,11 +195,6 @@ public extension ExpandableList where Row == _SideBarListItem<_ConditionalConten
                             _SideBarListItem(model: rowModel(item))
                                 .modifier(ListItemBackgroundSelectionStyle())
                                 .environment(\.sideBarListItemConfigMode, SideBarListItemConfig(isSelected: true, isHeaderContent: false))
-                                .overlay(NavigationLink(destination: destination(item),
-                                                        tag: item,
-                                                        selection: selection,
-                                                        label: { EmptyView() })
-                                        .buttonStyle(PlainButtonStyle()))
                                 .contentShape(Rectangle())
                                 .onTapGesture {
                                     selection.wrappedValue = item

@@ -22,7 +22,14 @@ struct AnyRow2Style: Row2Style {
 }
 
 public struct Row2Configuration {
+    public var componentIdentifier: String = "fiori_row2_component"
     public let row2: Row2
 
     public typealias Row2 = ConfigurationViewWrapper
+}
+
+extension Row2Configuration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }

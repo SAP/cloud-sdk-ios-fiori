@@ -3,7 +3,7 @@ import SwiftUI
 // FIXME: - Implement Fiori style definitions
 
 extension Fiori {
-    enum ActivityItems {
+    enum _ActivityItems {
         typealias ActionItems = EmptyModifier
 
         // TODO: - substitute type-specific ViewModifier for EmptyModifier
@@ -24,7 +24,7 @@ extension Fiori {
 
 // FIXME: - Implement ActivityItems View body
 
-extension ActivityItems: View {
+extension _ActivityItems: View {
     public var body: some View {
         ActivityControlLayoutContainer(_actionItems ?? []) { activity in
             ActivityButtonView(image: activity.icon) {

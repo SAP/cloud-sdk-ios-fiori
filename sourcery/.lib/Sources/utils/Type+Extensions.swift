@@ -70,9 +70,21 @@ public extension Type {
         var name = name
         let deprecatedComponents = ["_ListPickerItemModel",
                                     "_ActionModel",
+                                    "_TextInputModel",
                                     "_ObjectItemModel",
                                     "_SideBarModel",
-                                    "_SideBarListItemModel"]
+                                    "_SideBarListItemModel",
+                                    "_ActivityItemModel",
+                                    "_ActivityItemsModel",
+                                    "_ContactItemModel",
+                                    "_ProgressIndicatorModel",
+                                    "_KPIProgressItemModel",
+                                    "_SingleStepModel",
+                                    "_StepProgressIndicatorModel",
+                                    "_ObjectHeaderModel",
+                                    "_HeaderChartModel",
+                                    "_SectionHeaderModel",
+                                    "_SwitchPickerItemModel"]
         
         if deprecatedComponents.contains(name) {
             return name.replacingOccurrences(of: "Model", with: "")

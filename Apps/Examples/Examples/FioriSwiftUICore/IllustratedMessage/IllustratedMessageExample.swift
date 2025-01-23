@@ -95,7 +95,7 @@ struct IllustratedMessageExample: View {
                 Toggle("Action Button vertical Aligned", isOn: self.$isActionButtonVertical)
             }
             
-            ForEach(0 ... 7, id: \.self) { subcomponentConfiguration in
+            ForEach((0 ... 7).reversed(), id: \.self) { subcomponentConfiguration in
                 let hasImage = subcomponentConfiguration & 0b100 == 4
                 let hasDescription = subcomponentConfiguration & 0b010 == 2
                 let hasAction = subcomponentConfiguration & 0b001 == 1

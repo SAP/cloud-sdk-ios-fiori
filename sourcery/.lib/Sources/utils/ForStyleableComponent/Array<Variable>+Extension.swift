@@ -64,7 +64,7 @@ extension [Variable] {
                 if !variable.closureParameters.isEmpty {
                     return "self.\(name) = \(name)"
                 } else {
-                    let assignment = isBaseComponent || !variable.isStyleable ? "\(name)()" : "\(name.capitalizingFirst())(\(name): \(name))"
+                    let assignment = isBaseComponent || !variable.isStyleable ? "\(name)()" : "\(name.capitalizingFirst())(\(name): \(name), componentIdentifier: componentIdentifier)"
                     return "self.\(name) = \(assignment)"
                 }
             } else if variable.isBinding {

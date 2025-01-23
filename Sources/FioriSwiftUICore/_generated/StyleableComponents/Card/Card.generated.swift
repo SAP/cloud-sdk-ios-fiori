@@ -25,6 +25,8 @@ public struct Card {
 
     @Environment(\.cardStyle) var style
 
+    var componentIdentifier: String = Card.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
     public init(@ViewBuilder mediaImage: () -> any View = { EmptyView() },
@@ -44,27 +46,33 @@ public struct Card {
                 @ViewBuilder action: () -> any View = { EmptyView() },
                 @ViewBuilder secondaryAction: () -> any View = { EmptyView() },
                 @ViewBuilder tertiaryAction: () -> any View = { EmptyView() },
-                @ViewBuilder overflowAction: () -> any View = { FioriButton { _ in Image(systemName: "ellipsis") } })
+                @ViewBuilder overflowAction: () -> any View = { FioriButton { _ in Image(systemName: "ellipsis") } },
+                componentIdentifier: String? = Card.identifier)
     {
-        self.mediaImage = MediaImage(mediaImage: mediaImage)
-        self.description = Description(description: description)
-        self.title = Title(title: title)
-        self.subtitle = Subtitle(subtitle: subtitle)
-        self.icons = Icons(icons: icons)
-        self.detailImage = DetailImage(detailImage: detailImage)
-        self.headerAction = HeaderAction(headerAction: headerAction)
-        self.counter = Counter(counter: counter)
-        self.row1 = Row1(row1: row1)
-        self.row2 = Row2(row2: row2)
-        self.row3 = Row3(row3: row3)
-        self.kpi = Kpi(kpi: kpi)
-        self.kpiCaption = KpiCaption(kpiCaption: kpiCaption)
-        self.cardBody = CardBody(cardBody: cardBody)
-        self.action = Action(action: action)
-        self.secondaryAction = SecondaryAction(secondaryAction: secondaryAction)
-        self.tertiaryAction = TertiaryAction(tertiaryAction: tertiaryAction)
-        self.overflowAction = OverflowAction(overflowAction: overflowAction)
+        self.mediaImage = MediaImage(mediaImage: mediaImage, componentIdentifier: componentIdentifier)
+        self.description = Description(description: description, componentIdentifier: componentIdentifier)
+        self.title = Title(title: title, componentIdentifier: componentIdentifier)
+        self.subtitle = Subtitle(subtitle: subtitle, componentIdentifier: componentIdentifier)
+        self.icons = Icons(icons: icons, componentIdentifier: componentIdentifier)
+        self.detailImage = DetailImage(detailImage: detailImage, componentIdentifier: componentIdentifier)
+        self.headerAction = HeaderAction(headerAction: headerAction, componentIdentifier: componentIdentifier)
+        self.counter = Counter(counter: counter, componentIdentifier: componentIdentifier)
+        self.row1 = Row1(row1: row1, componentIdentifier: componentIdentifier)
+        self.row2 = Row2(row2: row2, componentIdentifier: componentIdentifier)
+        self.row3 = Row3(row3: row3, componentIdentifier: componentIdentifier)
+        self.kpi = Kpi(kpi: kpi, componentIdentifier: componentIdentifier)
+        self.kpiCaption = KpiCaption(kpiCaption: kpiCaption, componentIdentifier: componentIdentifier)
+        self.cardBody = CardBody(cardBody: cardBody, componentIdentifier: componentIdentifier)
+        self.action = Action(action: action, componentIdentifier: componentIdentifier)
+        self.secondaryAction = SecondaryAction(secondaryAction: secondaryAction, componentIdentifier: componentIdentifier)
+        self.tertiaryAction = TertiaryAction(tertiaryAction: tertiaryAction, componentIdentifier: componentIdentifier)
+        self.overflowAction = OverflowAction(overflowAction: overflowAction, componentIdentifier: componentIdentifier)
+        self.componentIdentifier = componentIdentifier ?? Card.identifier
     }
+}
+
+public extension Card {
+    static let identifier = "fiori_card_component"
 }
 
 public extension Card {
@@ -116,6 +124,7 @@ public extension Card {
         self.tertiaryAction = configuration.tertiaryAction
         self.overflowAction = configuration.overflowAction
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -124,7 +133,7 @@ extension Card: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(mediaImage: .init(self.mediaImage), description: .init(self.description), title: .init(self.title), subtitle: .init(self.subtitle), icons: .init(self.icons), detailImage: .init(self.detailImage), headerAction: .init(self.headerAction), counter: .init(self.counter), row1: .init(self.row1), row2: .init(self.row2), row3: .init(self.row3), kpi: .init(self.kpi), kpiCaption: .init(self.kpiCaption), cardBody: .init(self.cardBody), action: .init(self.action), secondaryAction: .init(self.secondaryAction), tertiaryAction: .init(self.tertiaryAction), overflowAction: .init(self.overflowAction))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, mediaImage: .init(self.mediaImage), description: .init(self.description), title: .init(self.title), subtitle: .init(self.subtitle), icons: .init(self.icons), detailImage: .init(self.detailImage), headerAction: .init(self.headerAction), counter: .init(self.counter), row1: .init(self.row1), row2: .init(self.row2), row3: .init(self.row3), kpi: .init(self.kpi), kpiCaption: .init(self.kpiCaption), cardBody: .init(self.cardBody), action: .init(self.action), secondaryAction: .init(self.secondaryAction), tertiaryAction: .init(self.tertiaryAction), overflowAction: .init(self.overflowAction))).typeErased
                 .transformEnvironment(\.cardStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -142,7 +151,7 @@ private extension Card {
     }
 
     func defaultStyle() -> some View {
-        Card(.init(mediaImage: .init(self.mediaImage), description: .init(self.description), title: .init(self.title), subtitle: .init(self.subtitle), icons: .init(self.icons), detailImage: .init(self.detailImage), headerAction: .init(self.headerAction), counter: .init(self.counter), row1: .init(self.row1), row2: .init(self.row2), row3: .init(self.row3), kpi: .init(self.kpi), kpiCaption: .init(self.kpiCaption), cardBody: .init(self.cardBody), action: .init(self.action), secondaryAction: .init(self.secondaryAction), tertiaryAction: .init(self.tertiaryAction), overflowAction: .init(self.overflowAction)))
+        Card(.init(componentIdentifier: self.componentIdentifier, mediaImage: .init(self.mediaImage), description: .init(self.description), title: .init(self.title), subtitle: .init(self.subtitle), icons: .init(self.icons), detailImage: .init(self.detailImage), headerAction: .init(self.headerAction), counter: .init(self.counter), row1: .init(self.row1), row2: .init(self.row2), row3: .init(self.row3), kpi: .init(self.kpi), kpiCaption: .init(self.kpiCaption), cardBody: .init(self.cardBody), action: .init(self.action), secondaryAction: .init(self.secondaryAction), tertiaryAction: .init(self.tertiaryAction), overflowAction: .init(self.overflowAction)))
             .shouldApplyDefaultStyle(false)
             .cardStyle(CardFioriStyle.ContentFioriStyle())
             .typeErased

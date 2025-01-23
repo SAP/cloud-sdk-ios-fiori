@@ -24,7 +24,7 @@ extension View {
     }
 
     func json(item: SortFilterItem.SliderItem) -> String {
-        "{name: \(item.name), value: \(String(describing: item.value))}"
+        "{name: \(item.name), value: \(String(describing: item.value)), lowerValue: \(String(describing: item.lowerValue)), upperValue: \(String(describing: item.upperValue))}"
     }
     
     func json(item: SortFilterItem.DateTimeItem) -> String {

@@ -9,14 +9,22 @@ public struct InformationView {
 
     @Environment(\.informationViewStyle) var style
 
+    var componentIdentifier: String = InformationView.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
     public init(@ViewBuilder icon: () -> any View = { EmptyView() },
-                @ViewBuilder description: () -> any View = { EmptyView() })
+                @ViewBuilder description: () -> any View = { EmptyView() },
+                componentIdentifier: String? = InformationView.identifier)
     {
-        self.icon = Icon(icon: icon)
-        self.description = Description(description: description)
+        self.icon = Icon(icon: icon, componentIdentifier: componentIdentifier)
+        self.description = Description(description: description, componentIdentifier: componentIdentifier)
+        self.componentIdentifier = componentIdentifier ?? InformationView.identifier
     }
+}
+
+public extension InformationView {
+    static let identifier = "fiori_informationview_component"
 }
 
 public extension InformationView {
@@ -36,6 +44,7 @@ public extension InformationView {
         self.icon = configuration.icon
         self.description = configuration.description
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -44,7 +53,7 @@ extension InformationView: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(icon: .init(self.icon), description: .init(self.description))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, icon: .init(self.icon), description: .init(self.description))).typeErased
                 .transformEnvironment(\.informationViewStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -62,7 +71,7 @@ private extension InformationView {
     }
 
     func defaultStyle() -> some View {
-        InformationView(.init(icon: .init(self.icon), description: .init(self.description)))
+        InformationView(.init(componentIdentifier: self.componentIdentifier, icon: .init(self.icon), description: .init(self.description)))
             .shouldApplyDefaultStyle(false)
             .informationViewStyle(InformationViewFioriStyle.ContentFioriStyle())
             .typeErased

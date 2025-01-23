@@ -22,10 +22,17 @@ struct AnyPlaceholderTextFieldStyle: PlaceholderTextFieldStyle {
 }
 
 public struct PlaceholderTextFieldConfiguration {
+    public var componentIdentifier: String = "fiori_placeholdertextfield_component"
     @Binding public var text: String
     public let placeholder: Placeholder
 
     public typealias Placeholder = ConfigurationViewWrapper
+}
+
+extension PlaceholderTextFieldConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }
 
 public struct PlaceholderTextFieldFioriStyle: PlaceholderTextFieldStyle {

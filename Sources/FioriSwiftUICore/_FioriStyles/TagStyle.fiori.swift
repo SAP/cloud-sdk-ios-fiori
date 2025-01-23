@@ -7,6 +7,7 @@ public struct TagBaseStyle: TagStyle {
     @ViewBuilder
     public func makeBody(_ configuration: TagConfiguration) -> some View {
         configuration.tag
+            .padding(EdgeInsets(top: 2, leading: 3, bottom: 2, trailing: 3))
     }
 }
 
@@ -24,7 +25,6 @@ public struct TagFioriStyle: TagStyle {
             .font(.fiori(forTextStyle: .footnote))
             .foregroundStyle(isLight ? Color.preferredColor(.secondaryLabel) : Color.preferredColor(.primaryLabel, background: .darkConstant))
             .lineLimit(self.tagLimit)
-            .padding(EdgeInsets(top: 2, leading: 3, bottom: 2, trailing: 3))
             .background(background)
     }
 }
@@ -56,7 +56,6 @@ public struct LightTagStyle: TagStyle {
             .font(.fiori(forTextStyle: .footnote))
             .foregroundColor(.preferredColor(.secondaryLabel))
             .lineLimit(1)
-            .padding(EdgeInsets(top: 2, leading: 3, bottom: 2, trailing: 3))
             .background(RoundedRectangle(cornerRadius: 8).stroke(Color.preferredColor(.quaternaryLabel), lineWidth: 0.5))
     }
 }
@@ -72,7 +71,6 @@ public struct DarkTagStyle: TagStyle {
             .font(.fiori(forTextStyle: .footnote))
             .foregroundColor(.preferredColor(.primaryLabel, background: .darkConstant))
             .lineLimit(1)
-            .padding(EdgeInsets(top: 2, leading: 3, bottom: 2, trailing: 3))
             .background(RoundedRectangle(cornerRadius: 8).fill(Color.preferredColor(.tertiaryLabel)))
     }
 }

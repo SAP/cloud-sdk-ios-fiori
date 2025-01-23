@@ -2,6 +2,19 @@ import FioriCharts
 import FioriSwiftUICore
 import SwiftUI
 
+struct MyCustomTagStyle: TagStyle {
+    func makeBody(_ configuration: TagConfiguration) -> some View {
+        Tag(configuration)
+            .foregroundStyle(Color.cyan)
+            .background {
+                ZStack {
+                    RoundedRectangle(cornerRadius: 4).fill(Color.yellow)
+                    RoundedRectangle(cornerRadius: 4).stroke(Color.red, lineWidth: 0.5)
+                }
+            }
+    }
+}
+
 struct ObjectHeaderTestApp: View {
     var body: some View {
         let header = ObjectHeader(title: {
@@ -10,9 +23,7 @@ struct ObjectHeaderTestApp: View {
             Text("Job 819701")
         }, tags: {
             Tag("I am selected")
-                .tagStyle(CustomTagStyle(textColor: Color(UIColor.cyan),
-                                         fillColor: Color(UIColor.yellow),
-                                         borderColor: Color.red))
+                .tagStyle(MyCustomTagStyle())
             Tag("Tag1")
             Tag("Tag2")
         }, bodyText: {

@@ -110,13 +110,13 @@ extension ActivationScreen where Title == Text,
 		Footnote == _ConditionalContent<Text, EmptyView>,
 		ActionView == _ConditionalContent<_Action, EmptyView>,
 		SecondaryActionView == _ConditionalContent<_Action, EmptyView>,
-		TextInputView == _ConditionalContent<TextInput, EmptyView> {
+		TextInputView == _ConditionalContent<_TextInput, EmptyView> {
 
     public init(model: ActivationScreenModel) {
-        self.init(title: model.title, descriptionText: model.descriptionText, footnote: model.footnote, action: model.action != nil ? _Action(model: model.action!) : nil, secondaryAction: model.secondaryAction != nil ? _Action(model: model.secondaryAction!) : nil, textInput: model.textInput != nil ? TextInput(model: model.textInput!) : nil)
+        self.init(title: model.title, descriptionText: model.descriptionText, footnote: model.footnote, action: model.action != nil ? _Action(model: model.action!) : nil, secondaryAction: model.secondaryAction != nil ? _Action(model: model.secondaryAction!) : nil, textInput: model.textInput != nil ? _TextInput(model: model.textInput!) : nil)
     }
 
-    public init(title: String, descriptionText: String? = nil, footnote: String? = nil, action: _Action? = nil, secondaryAction: _Action? = nil, textInput: TextInput? = nil) {
+    public init(title: String, descriptionText: String? = nil, footnote: String? = nil, action: _Action? = nil, secondaryAction: _Action? = nil, textInput: _TextInput? = nil) {
         self._title = Text(title)
 		self._descriptionText = descriptionText != nil ? ViewBuilder.buildEither(first: Text(descriptionText!)) : ViewBuilder.buildEither(second: EmptyView())
 		self._footnote = footnote != nil ? ViewBuilder.buildEither(first: Text(footnote!)) : ViewBuilder.buildEither(second: EmptyView())

@@ -31,6 +31,9 @@
 /* XACT: The accessibility label for the signature line */
 "Signature Line" = "İmza satırı";
 
+/* XACT: The accessibility label for the mandatory field */
+"Required Field" = "Zorunlu alan";
+
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
 "Canceled" = "İptal edildi";
 
@@ -142,6 +145,9 @@
 /* XBUT: voice over label for row selection status in DataTable */
 "not selected" = "seçilmedi";
 
+/* Default value for DateTimePicker */
+"No date selected" = "Tarih seçilmedi";
+
 /* XBUT: calendar time component label */
 "Time" = "Zaman";
 
@@ -159,4 +165,154 @@
 
 /* Default error text for when the character count exceeds the maximum limit for NoteFormView and TextFieldFormView */
 "Reduce the number of characters" = "Karakter sayısını azaltın";
+
+/* XBUT: voice over label for decrement action in stepper */
+"Stepper decrease" = "Adımlayıcı azaltımı";
+
+/* XBUT: voice over description for decrement action in stepper */
+"Decrease the value by %d" = "Değeri %d azalt";
+
+/* XBUT: voice over label for increment action in stepper */
+"Stepper increase" = "Adımlayıcı artırımı";
+
+/* XBUT: voice over description for increment action in stepper */
+"Increase the value by %d" = "Değeri %d artır";
+
+/* XBUT: voice over label for test field in stepper */
+"Select specific value" = "Belirli bir değer seçin";
+
+/* XBUT: View all action in MenuSelection */
+"View All (%d)" = "Tümünü görüntüle (%d)";
+
+/* XACT: RatingControl accessibility label */
+"%d out of %d stars" = "%d yıldız üzerinden %d yıldız";
+
+/* XBUT: timeline preview component see all label */
+"See All (%d)" = "Tümünü gör (%d)";
+
+/* XACT: Timeline preview item accessibility label */
+"Item %d of %d" = "Kalem %d/%d";
+
+/* XBUT: timeline preview component timestamp label */
+"Today, %d" = "Bugün, %d";
+
+/* XFLD: RatingControl value label format */
+"%d of %d" = "%d/%d";
+
+/* XFLD: RatingControl review count format */
+"%d reviews" = "%d inceleme";
+
+/* XFLD: RatingControl review count over ceiling format */
+"%d+ reviews" = "%d+ inceleme";
+
+/* XACT: RatingControl accessibility label */
+"Rating Control %d of %d" = "Derecelendirme denetimi, %d/%d";
+
+/* XACT: read-only RatingControl accessibility label: rating with review count */
+"Rating Control, rating %d of %d, %d reviews" = "Derecelendirme denetimi, derecelendirme %d/%d, %d inceleme";
+
+/* XACT: read-only RatingControl accessibility label: average rating only */
+"Rating Control, average rating %.1f of %d" = "Derecelendirme denetimi, ortalama derecelendirme %.1f/%d";
+
+/* XACT: read-only RatingControl accessibility label: average rating with review count */
+"Rating Control, average rating %.1f of %d, %d reviews" = "Derecelendirme denetimi, ortalama derecelendirme %.1f/%d, %d inceleme";
+
+/* XACT: read-only RatingControl accessibility label: average rating with review count over ceiling */
+"Rating Control, average rating %.1f of %d, %d plus reviews" = "Derecelendirme denetimi, ortalama derecelendirme %.1f/%d, en az %d inceleme";
+
+/* XBUT: View all messages in message banner sheet */
+"All" = "Tümü";
+
+/* XBUT: messages count in the message banner sheet */
+"Messages (%d)" = "İletiler (%d)";
+
+/* XBUT: view details in the message banner */
+"View Details" = "Ayrıntıları görüntüle";
+
+/* XBUT: view different message in the message banner sheet item */
+"View %@" = "Görüntüle: %@";
+
+/* XBUT: banner message type desc, message */
+"message" = "ileti";
+
+/* XBUT: banner message type desc, information */
+"information" = "bilgi";
+
+/* XBUT: banner message type desc, confirmation */
+"confirmation" = "teyit";
+
+/* XBUT: banner message type desc, warning */
+"warning" = "uyarı";
+
+/* XBUT: banner message type desc, error */
+"error" = "hata";
+
+/* XBUT: banner message type desc in plural form, messages */
+"messages" = "iletiler";
+
+/* XBUT: banner message type desc in plural form, informations */
+"informations" = "bilgiler";
+
+/* XBUT: banner message type desc in plural form, confirmations */
+"confirmations" = "teyitler";
+
+/* XBUT: banner message type desc in plural form, warnings */
+"warnings" = "uyarılar";
+
+/* XBUT: banner message type desc in plural form, errors */
+"errors" = "hatalar";
+
+/* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
+"Reset" = "Sıfırla";
+
+/* XBUT: Apply action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
+"Apply" = "Uygula";
+
+/* XTIT: The alert message for `ListPickerDestination` pulldown dismissal */
+"Are you sure you want to discard your selections?" = "Seçimlerinizi atmak istediğinizden emin misiniz?";
+
+/* XBUT: The alert Discard Changes action title for `ListPickerDestination` pulldown dismissal */
+"Discard Changes" = "Değişiklikleri at";
+
+/* XBUT: The alert Keep Editing action title for `ListPickerDestination` pulldown dismissal */
+"Keep Editing" = "Düzenlemeye devam et";
+
+/* XBUT: The \"Select All\" button title on the List Picker header */
+"Select All" = "Tümünü seç";
+
+/* XBUT: The \"Deselect All\" button title on the List Picker header */
+"Deselect All" = "Tümünün seçimini kaldır";
+
+/* XBUT: The \"Selected\" title on the List Picker header */
+"Selected" = "Seçildi";
+
+/* XACT: The accessibility hint for Text Input Views, editable */
+"Text field, Double tap to edit" = "Metin alanı, Düzenlemek için çift dokunun";
+
+/* XACT: The accessibility hint for Text Input Views, editing */
+"Text field, is editing" = "Metin alanı düzenleniyor";
+
+/* XACT: The accessibility hint for Text Input Views, editing, with clear button */
+"Text field, is editing. Double tap to clear text" = "Metin alanı düzenleniyor. Metni temizlemek için çift dokunun";
+
+/* XACT: The default accessibility label for the custom action in TextFieldFormView if none was specified */
+"Custom Action" = "Özel işlem";
+
+/* XBUT: Error messages shown to users in DocumentScannerView */
+"Failed to create PDF page from images" = "Resimlerden PDF sayfası oluşturulamadı.";
+
+/* XBUT: Cancel message shown to users in DocumentScannerView */
+"User cancelled the scan" = "Kullanıcı taramayı iptal etti.";
+
+/* Progress Indicator accessibility label: processing */
+"Processing" = "İşleniyor";
+
+/* Progress Indicator accessibility label: loading pausable with indicator progress */
+"In progress with option to pause, %.0f" = "İşleniyor, duraklatma seçeneği mevcut, %.0f";
+
+/* Progress Indicator accessibility label: loading stoppable with indicator progress */
+"In progress with option to stop, %.0f" = "İşleniyor, durdurma seçeneği mevcut, %.0f";
+
+/* Progress Indicator accessibility label: progress halted with indicator progress */
+"Progress halted, %.0f" = "İlerleme duraklatıldı, %.0f";
 

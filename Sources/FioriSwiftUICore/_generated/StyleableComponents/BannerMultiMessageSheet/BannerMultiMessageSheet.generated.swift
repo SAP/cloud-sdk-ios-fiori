@@ -21,6 +21,8 @@ public struct BannerMultiMessageSheet {
 
     @Environment(\.bannerMultiMessageSheetStyle) var style
 
+    var componentIdentifier: String = BannerMultiMessageSheet.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
     public init(@ViewBuilder title: () -> any View,
@@ -30,17 +32,23 @@ public struct BannerMultiMessageSheet {
                 viewDetailAction: ((UUID) -> Void)? = nil,
                 turnOnSectionHeader: Bool = true,
                 @ViewBuilder messageItemView: @escaping (UUID) -> any View = { _ in EmptyView() },
-                bannerMultiMessages: Binding<[BannerMessageListModel]>)
+                bannerMultiMessages: Binding<[BannerMessageListModel]>,
+                componentIdentifier: String? = BannerMultiMessageSheet.identifier)
     {
-        self.title = Title(title: title)
-        self.closeAction = CloseAction(closeAction: closeAction)
+        self.title = Title(title: title, componentIdentifier: componentIdentifier)
+        self.closeAction = CloseAction(closeAction: closeAction, componentIdentifier: componentIdentifier)
         self.dismissAction = dismissAction
         self.removeAction = removeAction
         self.viewDetailAction = viewDetailAction
         self.turnOnSectionHeader = turnOnSectionHeader
         self.messageItemView = messageItemView
         self._bannerMultiMessages = bannerMultiMessages
+        self.componentIdentifier = componentIdentifier ?? BannerMultiMessageSheet.identifier
     }
+}
+
+public extension BannerMultiMessageSheet {
+    static let identifier = "fiori_bannermultimessagesheet_component"
 }
 
 public extension BannerMultiMessageSheet {
@@ -72,6 +80,7 @@ public extension BannerMultiMessageSheet {
         self.messageItemView = configuration.messageItemView
         self._bannerMultiMessages = configuration.$bannerMultiMessages
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -80,7 +89,7 @@ extension BannerMultiMessageSheet: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(title: .init(self.title), closeAction: .init(self.closeAction), dismissAction: self.dismissAction, removeAction: self.removeAction, viewDetailAction: self.viewDetailAction, turnOnSectionHeader: self.turnOnSectionHeader, messageItemView: self.messageItemView, bannerMultiMessages: self.$bannerMultiMessages)).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, title: .init(self.title), closeAction: .init(self.closeAction), dismissAction: self.dismissAction, removeAction: self.removeAction, viewDetailAction: self.viewDetailAction, turnOnSectionHeader: self.turnOnSectionHeader, messageItemView: self.messageItemView, bannerMultiMessages: self.$bannerMultiMessages)).typeErased
                 .transformEnvironment(\.bannerMultiMessageSheetStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -98,7 +107,7 @@ private extension BannerMultiMessageSheet {
     }
 
     func defaultStyle() -> some View {
-        BannerMultiMessageSheet(.init(title: .init(self.title), closeAction: .init(self.closeAction), dismissAction: self.dismissAction, removeAction: self.removeAction, viewDetailAction: self.viewDetailAction, turnOnSectionHeader: self.turnOnSectionHeader, messageItemView: self.messageItemView, bannerMultiMessages: self.$bannerMultiMessages))
+        BannerMultiMessageSheet(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), closeAction: .init(self.closeAction), dismissAction: self.dismissAction, removeAction: self.removeAction, viewDetailAction: self.viewDetailAction, turnOnSectionHeader: self.turnOnSectionHeader, messageItemView: self.messageItemView, bannerMultiMessages: self.$bannerMultiMessages))
             .shouldApplyDefaultStyle(false)
             .bannerMultiMessageSheetStyle(BannerMultiMessageSheetFioriStyle.ContentFioriStyle())
             .typeErased

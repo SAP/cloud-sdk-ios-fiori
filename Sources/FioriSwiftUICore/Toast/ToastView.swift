@@ -78,7 +78,7 @@ struct ToastModifier: ViewModifier {
                     }
                 }
             )
-            .onChange(of: self.toast) { _ in
+            .setOnChange(of: self.toast) {
                 self.showToast()
             }
     }

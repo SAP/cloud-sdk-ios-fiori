@@ -102,7 +102,11 @@ public struct DataTable: View {
             }
         }
         #endif
-        .onChange(of: self.dynamicTypeSize) { newValue in
+        .setOnChange(of: self.dynamicTypeSize, action1: { newValue in
+            self.layoutManager.dynamicTypeSize = newValue
+            self.layoutManager.cacheLayoutDataForMeasurement = nil
+            self.layoutManager.layoutData = nil
+        }) { _, newValue in
             self.layoutManager.dynamicTypeSize = newValue
             self.layoutManager.cacheLayoutDataForMeasurement = nil
             self.layoutManager.layoutData = nil
