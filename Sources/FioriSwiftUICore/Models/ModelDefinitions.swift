@@ -548,10 +548,13 @@ public protocol SortFilterViewModel: AnyObject, TitleComponent {
 // sourcery: add_env_props = "filterFeedbackBarStyle"
 // sourcery: virtualPropActionHelper = "@StateObject var context: SortFilterContext = SortFilterContext()"
 // sourcery: generated_component_composite
-public protocol FilterFeedbackBarItemModel: LeftIconComponent, TitleComponent, RightIconComponent {
+public protocol _FilterFeedbackBarItemModel: LeftIconComponent, TitleComponent, RightIconComponent {
     // sourcery: no_view
     var isSelected: Bool { get }
 }
+
+@available(*, unavailable, renamed: "_FilterFeedbackBarItemModel", message: "Will be removed in the future release. Please use FilterFeedbackBarItem instead.")
+public protocol FilterFeedbackBarItemModel {}
 
 // sourcery: add_env_props = "optionListPickerStyle"
 // sourcery: generated_component_composite

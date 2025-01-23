@@ -563,6 +563,22 @@ extension FilledIconStyle {
     }
 }
 
+// MARK: FilterFeedbackBarItemStyle
+
+struct ResolvedFilterFeedbackBarItemStyle<Style: FilterFeedbackBarItemStyle>: View {
+    let style: Style
+    let configuration: FilterFeedbackBarItemConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension FilterFeedbackBarItemStyle {
+    func resolve(configuration: FilterFeedbackBarItemConfiguration) -> some View {
+        ResolvedFilterFeedbackBarItemStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: FioriSliderStyle
 
 struct ResolvedFioriSliderStyle<Style: FioriSliderStyle>: View {

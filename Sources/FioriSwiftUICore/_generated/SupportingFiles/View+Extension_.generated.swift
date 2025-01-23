@@ -598,6 +598,23 @@ public extension View {
     }
 }
 
+// MARK: FilterFeedbackBarItemStyle
+
+public extension View {
+    func filterFeedbackBarItemStyle(_ style: some FilterFeedbackBarItemStyle) -> some View {
+        self.transformEnvironment(\.filterFeedbackBarItemStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func filterFeedbackBarItemStyle(@ViewBuilder content: @escaping (FilterFeedbackBarItemConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.filterFeedbackBarItemStyleStack) { stack in
+            let style = AnyFilterFeedbackBarItemStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: FioriSliderStyle
 
 public extension View {

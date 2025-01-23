@@ -270,6 +270,14 @@ extension FilledIcon: _ViewEmptyChecking {
     }
 }
 
+extension FilterFeedbackBarItem: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        icon.isEmpty &&
+            title.isEmpty &&
+            accessoryIcon.isEmpty
+    }
+}
+
 extension FioriSlider: _ViewEmptyChecking {
     public var isEmpty: Bool {
         title.isEmpty &&
