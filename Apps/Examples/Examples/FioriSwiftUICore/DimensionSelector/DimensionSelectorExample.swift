@@ -22,8 +22,9 @@ struct DimensionSelectorExample: View {
             if self.customStyle {
                 DimensionSelector(titles: self.segmentTitles, selectedIndex: self.$selectedIndex, segmentWidthMode: .equal, segment: { title in
                     let selectedTitle = self.selectedIndex != nil ? self.segmentTitles[self.selectedIndex!] : ""
-                    DimensionSegment(isSelected: title == selectedTitle)
+                    DimensionSegment(title: AttributedString(title), isSelected: title == selectedTitle)
                         .dimensionSegmentStyle(CustomSegmentStyle())
+                        
                 })
                 .onChange(of: self.selectedIndex) {
                     self.stockModel.indexOfStockSeries = self.selectedIndex ?? -1
@@ -50,14 +51,22 @@ struct DimensionSelectorExample: View {
 struct CustomSegmentStyle: DimensionSegmentStyle {
     func makeBody(_ configuration: DimensionSegmentConfiguration) -> some View {
         DimensionSegment(configuration)
-            .font(.body)
-            .foregroundStyle(configuration.isSelected ? Color.teal : Color.preferredColor(.tertiaryLabel))
+            .titleStyle(CustomTitleStyle(dimensionSegmentConfiguration: configuration))
             .background(
                 RoundedRectangle(cornerRadius: 10, style: .continuous)
                     .inset(by: 1)
                     .stroke(configuration.isSelected ? Color.teal : Color.preferredColor(.tertiaryLabel), lineWidth: 2)
             )
             .background(RoundedRectangle(cornerRadius: 10, style: .continuous).fill(configuration.isSelected ? Color.preferredColor(.accentBackground1) : Color.preferredColor(.secondaryGroupedBackground)))
+    }
+}
+
+struct CustomTitleStyle: TitleStyle {
+    let dimensionSegmentConfiguration: DimensionSegmentConfiguration
+    func makeBody(_ configuration: TitleConfiguration) -> some View {
+        Title(configuration)
+            .font(.body)
+            .foregroundStyle(self.dimensionSegmentConfiguration.isSelected ? Color.teal : Color.preferredColor(.tertiaryLabel))
     }
 }
 

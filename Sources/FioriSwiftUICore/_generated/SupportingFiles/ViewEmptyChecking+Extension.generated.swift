@@ -266,7 +266,7 @@ extension DetailImage: _ViewEmptyChecking {
 
 extension DimensionSegment: _ViewEmptyChecking {
     public var isEmpty: Bool {
-        false
+        title.isEmpty
     }
 }
 

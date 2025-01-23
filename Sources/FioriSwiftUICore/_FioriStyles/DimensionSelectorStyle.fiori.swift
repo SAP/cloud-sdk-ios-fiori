@@ -23,6 +23,7 @@ public struct DimensionSelectorBaseStyle: DimensionSelectorStyle {
                 }
             }
         }
+        .environmentObject(DimensionSegmentModelObject(_maxSegmentWidth: self._maxSegmentWidth, segmentWidthMode: configuration.segmentWidthMode))
     }
     
     func getHStack(_ configuration: DimensionSelectorConfiguration) -> some View {
@@ -31,15 +32,14 @@ public struct DimensionSelectorBaseStyle: DimensionSelectorStyle {
         }
         return HStack(alignment: .center, spacing: configuration.interItemSpacing) {
             ForEach(configuration.titles.indices, id: \.self) { index in
-                if !configuration.segment(configuration.titles[index]).isEmpty {
-                    AnyView(configuration.segment(configuration.titles[index]))
-                        .environmentObject(DimensionSegmentModelObject(segmentIndex: index, _maxSegmentWidth: self._maxSegmentWidth, configuration: configuration))
+                let segment = configuration.segment(configuration.titles[index])
+                if !segment.isEmpty {
+                    AnyView(segment)
                         .onTapGesture {
                             self.segmentTapped(configuration, for: index)
                         }
                 } else {
-                    DimensionSegment(isSelected: configuration.selectedIndex == index)
-                        .environmentObject(DimensionSegmentModelObject(segmentIndex: index, _maxSegmentWidth: self._maxSegmentWidth, configuration: configuration))
+                    DimensionSegment(title: AttributedString(configuration.titles[index]), isSelected: configuration.selectedIndex == index)
                         .onTapGesture {
                             self.segmentTapped(configuration, for: index)
                         }

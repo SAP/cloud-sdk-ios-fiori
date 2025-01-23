@@ -1127,7 +1127,7 @@ protocol _HeaderChartComponent: _TitleComponent, _SubtitleComponent, _TrendCompo
 /// `DimensionSegment` provides a customizable segment for `DimensionSelector`.
 ///
 // sourcery: CompositeComponent
-protocol _DimensionSegmentComponent {
+protocol _DimensionSegmentComponent: _TitleComponent {
     // sourcery: @binding
     /// Whether the item is selected or not
     var isSelected: Bool { get }

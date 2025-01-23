@@ -2110,6 +2110,27 @@ public extension DimensionSegmentStyle where Self == DimensionSegmentFioriStyle 
     }
 }
 
+public struct DimensionSegmentTitleStyle: DimensionSegmentStyle {
+    let style: any TitleStyle
+
+    public func makeBody(_ configuration: DimensionSegmentConfiguration) -> some View {
+        DimensionSegment(configuration)
+            .titleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension DimensionSegmentStyle where Self == DimensionSegmentTitleStyle {
+    static func titleStyle(_ style: some TitleStyle) -> DimensionSegmentTitleStyle {
+        DimensionSegmentTitleStyle(style: style)
+    }
+
+    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> DimensionSegmentTitleStyle {
+        let style = AnyTitleStyle(content)
+        return DimensionSegmentTitleStyle(style: style)
+    }
+}
+
 // MARK: DimensionSelectorStyle
 
 public extension DimensionSelectorStyle where Self == DimensionSelectorBaseStyle {

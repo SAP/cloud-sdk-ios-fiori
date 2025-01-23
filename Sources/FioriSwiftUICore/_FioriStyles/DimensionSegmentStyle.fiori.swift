@@ -10,8 +10,8 @@ public struct DimensionSegmentBaseStyle: DimensionSegmentStyle {
     @EnvironmentObject private var modelObject: DimensionSegmentModelObject
     
     public func makeBody(_ configuration: DimensionSegmentConfiguration) -> some View {
-        Text(self.modelObject.titles[self.modelObject.segmentIndex])
-            .padding(self.modelObject.titleInsets)
+        configuration.title
+            .padding(EdgeInsets(top: 6, leading: 6, bottom: 6, trailing: 6))
             .modifier(SegmentFrame(segmentWidthMode: self.modelObject.segmentWidthMode, width: self.getSegmentWidth()))
     }
         
@@ -28,7 +28,6 @@ public struct DimensionSegmentBaseStyle: DimensionSegmentStyle {
     
     struct SegmentFrame: ViewModifier {
         let segmentWidthMode: SegmentWidthMode
-        
         let width: CGFloat?
         
         func body(content: Content) -> some View {
@@ -51,47 +50,36 @@ extension DimensionSegmentFioriStyle {
         @Environment(\.isEnabled) var isEnabled
         
         func makeBody(_ configuration: DimensionSegmentConfiguration) -> some View {
-            DimensionSegment(configuration)
-                .font(self.getSegmentAttributes(configuration).font)
-                .foregroundColor(self.getSegmentAttributes(configuration).textColor)
+            let isEnabledSelected = self.isEnabled && configuration.isSelected
+            return DimensionSegment(configuration)
                 .background(
                     RoundedRectangle(cornerRadius: 10, style: .continuous)
-                        .inset(by: self.getSegmentAttributes(configuration).borderWidth! / 2.0)
-                        .stroke(self.getSegmentAttributes(configuration).borderColor!, lineWidth: self.getSegmentAttributes(configuration).borderWidth!)
+                        .inset(by: (isEnabledSelected ? 1 : 0.33) / 2.0)
+                        .stroke(self.isEnabled ? (configuration.isSelected ? Color.preferredColor(.tintColor) : Color.preferredColor(.separator)) : Color.preferredColor(.secondaryFill), lineWidth: isEnabledSelected ? 1 : 0.33)
                 )
-                .background(RoundedRectangle(cornerRadius: 10, style: .continuous).fill(self.getSegmentAttributes(configuration).backgroundColor!))
+                .background(RoundedRectangle(cornerRadius: 10, style: .continuous).fill(isEnabledSelected ? Color.preferredColor(.secondaryGroupedBackground) : Color.preferredColor(.tertiaryFill)))
         }
+    }
+
+    struct TitleFioriStyle: TitleStyle {
+        let dimensionSegmentConfiguration: DimensionSegmentConfiguration
+        @Environment(\.isEnabled) var isEnabled
         
-        func getSegmentAttributes(_ configuration: DimensionSegmentConfiguration) -> SegmentAttributes {
-            if self.isEnabled {
-                if configuration.isSelected {
-                    return SegmentAttributes(textColor: Color.preferredColor(.tintColor), font: Font.fiori(forTextStyle: .subheadline), borderWidth: 1.0, borderColor: Color.preferredColor(.tintColor), backgroundColor: Color.preferredColor(.secondaryGroupedBackground))
-                } else {
-                    return SegmentAttributes(textColor: Color.preferredColor(.secondaryLabel), font: Font.fiori(forTextStyle: .subheadline), borderWidth: 0.33, borderColor: Color.preferredColor(.separator), backgroundColor: Color.preferredColor(.tertiaryFill))
-                }
-            }
-            return SegmentAttributes(textColor: Color.preferredColor(.secondaryLabel), font: Font.fiori(forTextStyle: .subheadline), borderWidth: 0.33, borderColor: Color.preferredColor(.secondaryFill), backgroundColor: Color.preferredColor(.tertiaryFill))
+        func makeBody(_ configuration: TitleConfiguration) -> some View {
+            Title(configuration)
+                .font(Font.fiori(forTextStyle: .subheadline))
+                .foregroundColor(self.isEnabled && self.dimensionSegmentConfiguration.isSelected ? Color.preferredColor(.tintColor) : Color.preferredColor(.secondaryLabel))
         }
     }
 }
 
 class DimensionSegmentModelObject: ObservableObject {
-    @Published var titles: [String]
+    var segmentWidthMode: SegmentWidthMode
+    @Published var _maxSegmentWidth: CGFloat?
     
-    @Published var segmentIndex: Int
-     
-    @Published var titleInsets: EdgeInsets
-    
-    @Published var segmentWidthMode: SegmentWidthMode
-     
-    var _maxSegmentWidth: CGFloat?
-    
-    // Initializes a `DimensionSegmentModelObject` with attributes from `DimensionSelector` and default title insets.
-    public init(segmentIndex: Int, _maxSegmentWidth: CGFloat?, configuration: DimensionSelectorConfiguration) {
-        self.titles = configuration.titles
-        self.segmentIndex = segmentIndex
+    // Initializes a `DimensionSegmentModelObject` with attributes from `DimensionSelector`.
+    public init(_maxSegmentWidth: CGFloat?, segmentWidthMode: SegmentWidthMode) {
         self._maxSegmentWidth = _maxSegmentWidth
-        self.titleInsets = EdgeInsets(top: 6, leading: 6, bottom: 6, trailing: 6)
-        self.segmentWidthMode = configuration.segmentWidthMode
+        self.segmentWidthMode = segmentWidthMode
     }
 }

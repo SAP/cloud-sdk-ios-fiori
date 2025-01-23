@@ -23,7 +23,10 @@ struct AnyDimensionSegmentStyle: DimensionSegmentStyle {
 
 public struct DimensionSegmentConfiguration {
     public var componentIdentifier: String = "fiori_dimensionsegment_component"
+    public let title: Title
     public let isSelected: Bool
+
+    public typealias Title = ConfigurationViewWrapper
 }
 
 extension DimensionSegmentConfiguration {
@@ -35,5 +38,6 @@ extension DimensionSegmentConfiguration {
 public struct DimensionSegmentFioriStyle: DimensionSegmentStyle {
     public func makeBody(_ configuration: DimensionSegmentConfiguration) -> some View {
         DimensionSegment(configuration)
+            .titleStyle(TitleFioriStyle(dimensionSegmentConfiguration: configuration))
     }
 }

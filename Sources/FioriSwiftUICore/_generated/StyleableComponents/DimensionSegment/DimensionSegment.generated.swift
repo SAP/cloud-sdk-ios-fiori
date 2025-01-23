@@ -6,6 +6,7 @@ import SwiftUI
 /// `DimensionSegment` provides a customizable segment for `DimensionSelector`.
 ///
 public struct DimensionSegment {
+    let title: any View
     /// Whether the item is selected or not
     let isSelected: Bool
 
@@ -15,9 +16,11 @@ public struct DimensionSegment {
 
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(isSelected: Bool,
+    public init(@ViewBuilder title: () -> any View,
+                isSelected: Bool,
                 componentIdentifier: String? = DimensionSegment.identifier)
     {
+        self.title = Title(title: title, componentIdentifier: componentIdentifier)
         self.isSelected = isSelected
         self.componentIdentifier = componentIdentifier ?? DimensionSegment.identifier
     }
@@ -28,11 +31,20 @@ public extension DimensionSegment {
 }
 
 public extension DimensionSegment {
+    init(title: AttributedString,
+         isSelected: Bool)
+    {
+        self.init(title: { Text(title) }, isSelected: isSelected)
+    }
+}
+
+public extension DimensionSegment {
     init(_ configuration: DimensionSegmentConfiguration) {
         self.init(configuration, shouldApplyDefaultStyle: false)
     }
 
     internal init(_ configuration: DimensionSegmentConfiguration, shouldApplyDefaultStyle: Bool) {
+        self.title = configuration.title
         self.isSelected = configuration.isSelected
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
         self.componentIdentifier = configuration.componentIdentifier
@@ -44,7 +56,7 @@ extension DimensionSegment: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, isSelected: self.isSelected)).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, title: .init(self.title), isSelected: self.isSelected)).typeErased
                 .transformEnvironment(\.dimensionSegmentStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -62,7 +74,7 @@ private extension DimensionSegment {
     }
 
     func defaultStyle() -> some View {
-        DimensionSegment(.init(componentIdentifier: self.componentIdentifier, isSelected: self.isSelected))
+        DimensionSegment(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), isSelected: self.isSelected))
             .shouldApplyDefaultStyle(false)
             .dimensionSegmentStyle(DimensionSegmentFioriStyle.ContentFioriStyle())
             .typeErased
