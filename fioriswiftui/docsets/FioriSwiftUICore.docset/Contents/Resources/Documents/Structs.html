@@ -780,7 +780,7 @@ Selection is mutually exclusive.</p>
 
 <p>Create a style that conforms to <code><a href="Protocols/FioriButtonStyle.html">FioriButtonStyle</a></code>. There are three predefined Fiori button styles: <code><a href="Structs/FioriPrimaryButtonStyle.html">FioriPrimaryButtonStyle</a></code>, <code><a href="Structs/FioriSecondaryButtonStyle.html">FioriSecondaryButtonStyle</a></code>, and <code><a href="Structs/FioriTertiaryButtonStyle.html">FioriTertiaryButtonStyle</a></code>. To set the style to a <code>FioriButton</code> or to a container within which all Fiori buttons should share the same style, use the <code>fioriButtonStyle(_:)</code> modifier.</p>
 <pre class="highlight swift"><code><span class="kd">struct</span> <span class="kt">CustomFioriButtonStyle</span><span class="p">:</span> <span class="kt">FioriButtonStyle</span> <span class="p">{</span>
-    <span class="kd">func</span> <span class="nf">makeBody</span><span class="p">(</span><span class="nv">configuration</span><span class="p">:</span> <span class="kt">FioriButtonStyle</span><span class="o">.</span><span class="kt">Configuration</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">some</span> <span class="kt">View</span> <span class="p">{</span>
+    <span class="kd">func</span> <span class="nf">makeBody</span><span class="p">(</span><span class="nv">configuration</span><span class="p">:</span> <span class="kt">FioriButtonStyle</span><span class="o">.</span><span class="kt">Configuration</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span> <span class="p">{</span>
         <span class="k">let</span> <span class="nv">color</span><span class="p">:</span> <span class="kt">Color</span>
         <span class="k">switch</span> <span class="n">configuration</span><span class="o">.</span><span class="n">state</span> <span class="p">{</span>
         <span class="k">case</span> <span class="o">.</span><span class="nv">normal</span><span class="p">:</span>
@@ -1986,7 +1986,7 @@ Selection is mutually exclusive.</p>
 A container view that arranges its child views  horizontally, one after the other, with a protion of the next child view visible in the container. It allows users to swipe or scroll through the child views to view fiffeernt piece of content.</p>
 <h2 id='example-initialization-and-configuration' class='heading'>Example Initialization and Configuration</h2>
 <pre class="highlight swift"><code><span class="kt">Carousel</span><span class="p">(</span><span class="nv">numberOfColumns</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="nv">spacing</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span> <span class="nv">alignment</span><span class="p">:</span> <span class="o">.</span><span class="n">top</span><span class="p">,</span> <span class="nv">isSnapping</span><span class="p">:</span> <span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kt">ForEach</span><span class="p">(</span><span class="mi">0</span><span class="o">..&lt;</span><span class="mi">16</span><span class="p">,</span> <span class="nv">id</span><span class="p">:</span> <span class="err">\</span><span class="o">.</span><span class="k">self</span><span class="p">)</span> <span class="p">{</span> <span class="n">i</span> <span class="k">in</span>
+    <span class="kt">ForEach</span><span class="p">(</span><span class="mi">0</span><span class="o">..&lt;</span><span class="mi">16</span><span class="p">,</span> <span class="nv">id</span><span class="p">:</span> <span class="p">\</span><span class="o">.</span><span class="k">self</span><span class="p">)</span> <span class="p">{</span> <span class="n">i</span> <span class="k">in</span>
         <span class="kt">Text</span><span class="p">(</span><span class="s">"Text </span><span class="se">\(</span><span class="n">i</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
             <span class="o">.</span><span class="nf">font</span><span class="p">(</span><span class="o">.</span><span class="n">title</span><span class="p">)</span>
             <span class="o">.</span><span class="nf">padding</span><span class="p">()</span>
@@ -2870,35 +2870,6 @@ Note that VisionKit doesn&rsquo;t currently provide a public API to customize th
                             <p class="aside-title">Swift</p>
                             <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">SearchableListView</span><span class="o">&lt;</span><span class="kt">CancelActionView</span><span class="p">,</span> <span class="kt">DoneActionView</span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt">CancelActionView</span> <span class="p">:</span> <span class="kt">View</span><span class="p">,</span> <span class="kt">DoneActionView</span> <span class="p">:</span> <span class="kt">View</span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">SearchableListView</span><span class="p">:</span> <span class="kt">View</span></code></pre>
-
-                          </div>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/s:16FioriSwiftUICore13SectionHeaderV"></a>
-                      <a name="//apple_ref/swift/Struct/SectionHeader" class="dashAnchor"></a>
-                      <a class="token" href="#/s:16FioriSwiftUICore13SectionHeaderV">SectionHeader</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>Undocumented</p>
-
-                          <a href="Structs/SectionHeader.html" class="slightly-smaller">See more</a>
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">SectionHeader</span><span class="o">&lt;</span><span class="kt"><a href="Structs/Title.html">Title</a></span><span class="p">,</span> <span class="kt"><a href="Structs/Attribute.html">Attribute</a></span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt"><a href="Structs/Title.html">Title</a></span> <span class="p">:</span> <span class="kt">View</span><span class="p">,</span> <span class="kt"><a href="Structs/Attribute.html">Attribute</a></span> <span class="p">:</span> <span class="kt">View</span></code></pre>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">SectionHeader</span><span class="p">:</span> <span class="kt">View</span></code></pre>
 
                           </div>
                         </div>
@@ -3906,6 +3877,35 @@ Note that VisionKit doesn&rsquo;t currently provide a public API to customize th
                   <li class="item">
                     <div>
                       <code>
+                      <a name="/s:16FioriSwiftUICore14_SectionHeaderV"></a>
+                      <a name="//apple_ref/swift/Struct/_SectionHeader" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore14_SectionHeaderV">_SectionHeader</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/_SectionHeader.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="n">_SectionHeader</span><span class="o">&lt;</span><span class="kt"><a href="Structs/Title.html">Title</a></span><span class="p">,</span> <span class="kt"><a href="Structs/Attribute.html">Attribute</a></span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt"><a href="Structs/Title.html">Title</a></span> <span class="p">:</span> <span class="kt">View</span><span class="p">,</span> <span class="kt"><a href="Structs/Attribute.html">Attribute</a></span> <span class="p">:</span> <span class="kt">View</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="nv">_SectionHeader</span><span class="p">:</span> <span class="kt">View</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
                       <a name="/s:16FioriSwiftUICore8_SideBarV"></a>
                       <a name="//apple_ref/swift/Struct/_SideBar" class="dashAnchor"></a>
                       <a class="token" href="#/s:16FioriSwiftUICore8_SideBarV">_SideBar</a>
@@ -3953,7 +3953,7 @@ Note that VisionKit doesn&rsquo;t currently provide a public API to customize th
                           <h4>Declaration</h4>
                           <div class="language">
                             <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">@available(iOS 14, *)</span>
+                            <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="n">iOS</span> <span class="mi">14</span><span class="p">,</span> <span class="o">*</span><span class="p">)</span>
 <span class="kd">public</span> <span class="kd">struct</span> <span class="kt">ExpandableList</span><span class="o">&lt;</span><span class="kt">Data</span><span class="p">,</span> <span class="kt">Row</span><span class="p">,</span> <span class="kt">Destination</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt">View</span> <span class="k">where</span> <span class="kt">Data</span> <span class="p">:</span> <span class="kt">RandomAccessCollection</span><span class="p">,</span> <span class="kt">Row</span> <span class="p">:</span> <span class="kt">View</span><span class="p">,</span> <span class="kt">Destination</span> <span class="p">:</span> <span class="kt">View</span><span class="p">,</span> <span class="kt">Data</span><span class="o">.</span><span class="kt">Element</span> <span class="p">:</span> <span class="kt">Hashable</span><span class="p">,</span> <span class="kt">Data</span><span class="o">.</span><span class="kt">Element</span> <span class="p">:</span> <span class="kt">Identifiable</span></code></pre>
 
                           </div>
@@ -8861,6 +8861,132 @@ Note that VisionKit doesn&rsquo;t currently provide a public API to customize th
                           <div class="language">
                             <p class="aside-title">Swift</p>
                             <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">SecondaryTimestampFioriStyle</span> <span class="p">:</span> <span class="kt"><a href="Protocols/SecondaryTimestampStyle.html">SecondaryTimestampStyle</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore22SectionFooterBaseStyleV"></a>
+                      <a name="//apple_ref/swift/Struct/SectionFooterBaseStyle" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore22SectionFooterBaseStyleV">SectionFooterBaseStyle</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>This file provides default fiori style for the component.</p>
+
+<ol>
+<li>Uncomment fhe following code.</li>
+<li>Implement layout and style in corresponding places.</li>
+<li>Delete <code>.generated</code> from file name.</li>
+<li>Move this file to <code>_FioriStyles</code> folder under <code>FioriSwiftUICore</code>.</li>
+</ol>
+
+                          <a href="Structs/SectionFooterBaseStyle.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">SectionFooterBaseStyle</span> <span class="p">:</span> <span class="kt"><a href="Protocols/SectionFooterStyle.html">SectionFooterStyle</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore27SectionFooterAccessoryStyleV"></a>
+                      <a name="//apple_ref/swift/Struct/SectionFooterAccessoryStyle" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore27SectionFooterAccessoryStyleV">SectionFooterAccessoryStyle</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>The style determines whether disclosureAccessory of SectionFooter is hidden.</p>
+
+                          <a href="Structs/SectionFooterAccessoryStyle.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">SectionFooterAccessoryStyle</span> <span class="p">:</span> <span class="kt"><a href="Protocols/SectionFooterStyle.html">SectionFooterStyle</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore22SectionHeaderBaseStyleV"></a>
+                      <a name="//apple_ref/swift/Struct/SectionHeaderBaseStyle" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore22SectionHeaderBaseStyleV">SectionHeaderBaseStyle</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>This file provides default fiori style for the component.</p>
+
+<ol>
+<li>Uncomment fhe following code.</li>
+<li>Implement layout and style in corresponding places.</li>
+<li>Delete <code>.generated</code> from file name.</li>
+<li>Move this file to <code>_FioriStyles</code> folder under <code>FioriSwiftUICore</code>.</li>
+</ol>
+
+                          <a href="Structs/SectionHeaderBaseStyle.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">SectionHeaderBaseStyle</span> <span class="p">:</span> <span class="kt"><a href="Protocols/SectionHeaderStyle.html">SectionHeaderStyle</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore27SectionHeaderAccessoryStyleV"></a>
+                      <a name="//apple_ref/swift/Struct/SectionHeaderAccessoryStyle" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore27SectionHeaderAccessoryStyleV">SectionHeaderAccessoryStyle</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>The style determines whether disclosureAccessory of SectionHeader is hidden.</p>
+
+                          <a href="Structs/SectionHeaderAccessoryStyle.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">SectionHeaderAccessoryStyle</span> <span class="p">:</span> <span class="kt"><a href="Protocols/SectionHeaderStyle.html">SectionHeaderStyle</a></span></code></pre>
 
                           </div>
                         </div>
@@ -13896,14 +14022,14 @@ Note that VisionKit doesn&rsquo;t currently provide a public API to customize th
                           <p><code>ListPickerItem</code> is a view that provides a <code>NavigationLink</code> with a title and selected value(s). And <code><a href="Structs/ListPickerDestination.html">ListPickerDestination</a></code> is recommended to be used as its destination, for which selection, search filter and customized rows are supported.</p>
 <h2 id='usage' class='heading'>Usage</h2>
 <pre class="highlight swift"><code><span class="k">let</span> <span class="nv">data</span> <span class="o">=</span> <span class="p">[</span><span class="s">"first"</span><span class="p">,</span> <span class="s">"second"</span><span class="p">,</span> <span class="s">"third"</span><span class="p">]</span>
-<span class="k">var</span> <span class="nv">body</span><span class="p">:</span> <span class="n">some</span> <span class="kt">View</span> <span class="p">{</span>
+<span class="k">var</span> <span class="nv">body</span><span class="p">:</span> <span class="kd">some</span> <span class="kt">View</span> <span class="p">{</span>
     <span class="kt">ListPickerItem</span><span class="p">(</span><span class="nv">title</span><span class="p">:</span> <span class="p">{</span>
         <span class="kt">Text</span><span class="p">(</span><span class="s">"title"</span><span class="p">)</span>
     <span class="p">},</span> <span class="nv">value</span><span class="p">:</span> <span class="p">{</span>
         <span class="kt">Text</span><span class="p">(</span><span class="s">"value"</span><span class="p">)</span>
     <span class="p">},</span> <span class="nv">axis</span><span class="p">:</span> <span class="o">.</span><span class="n">vertical</span><span class="p">)</span> <span class="p">{</span>
         <span class="kt">ListPickerDestination</span><span class="p">(</span><span class="n">data</span><span class="p">,</span>
-                              <span class="nv">id</span><span class="p">:</span> <span class="err">\</span><span class="o">.</span><span class="k">self</span><span class="p">,</span>
+                              <span class="nv">id</span><span class="p">:</span> <span class="p">\</span><span class="o">.</span><span class="k">self</span><span class="p">,</span>
                               <span class="nv">selection</span><span class="p">:</span> <span class="err">$</span><span class="n">selection</span><span class="p">,</span>
                               <span class="nv">isTrackingLiveChanges</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
                               <span class="nv">searchFilter</span><span class="p">:</span> <span class="p">{</span> <span class="n">f</span><span class="p">,</span> <span class="n">s</span> <span class="k">in</span> <span class="n">f</span><span class="o">.</span><span class="nf">contains</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="p">},</span> <span class="nv">rowContent</span><span class="p">:</span> <span class="p">{</span>
@@ -13917,14 +14043,14 @@ Note that VisionKit doesn&rsquo;t currently provide a public API to customize th
 <span class="kd">struct</span> <span class="kt">ListPickerSection</span><span class="p">:</span> <span class="kt">ListPickerSectionModel</span> <span class="p">{}</span>
 <span class="k">let</span> <span class="nv">data</span> <span class="o">=</span> <span class="p">[</span><span class="kt">ListPickerSection</span><span class="p">(</span><span class="nv">title</span><span class="p">:</span> <span class="s">"Section 1"</span><span class="p">,</span> <span class="nv">items</span><span class="p">:</span> <span class="p">[</span><span class="s">"first"</span><span class="p">,</span> <span class="s">"second"</span><span class="p">,</span> <span class="s">"third"</span><span class="p">]),</span>
             <span class="kt">ListPickerSection</span><span class="p">(</span><span class="nv">title</span><span class="p">:</span> <span class="s">"Section 2"</span><span class="p">,</span> <span class="nv">items</span><span class="p">:</span> <span class="p">[</span><span class="s">"apple"</span><span class="p">,</span> <span class="s">"banana"</span><span class="p">,</span> <span class="s">"orange"</span><span class="p">])]</span>
-<span class="k">var</span> <span class="nv">body</span><span class="p">:</span> <span class="n">some</span> <span class="kt">View</span> <span class="p">{</span>
+<span class="k">var</span> <span class="nv">body</span><span class="p">:</span> <span class="kd">some</span> <span class="kt">View</span> <span class="p">{</span>
     <span class="kt">ListPickerItem</span><span class="p">(</span><span class="nv">title</span><span class="p">:</span> <span class="p">{</span>
         <span class="kt">Text</span><span class="p">(</span><span class="s">"title"</span><span class="p">)</span>
     <span class="p">},</span> <span class="nv">value</span><span class="p">:</span> <span class="p">{</span>
         <span class="kt">Text</span><span class="p">(</span><span class="s">"value"</span><span class="p">)</span>
     <span class="p">},</span> <span class="nv">axis</span><span class="p">:</span> <span class="o">.</span><span class="n">vertical</span><span class="p">)</span> <span class="p">{</span>
         <span class="kt">ListPickerDestination</span><span class="p">(</span><span class="n">data</span><span class="p">,</span>
-                              <span class="nv">id</span><span class="p">:</span> <span class="err">\</span><span class="o">.</span><span class="k">self</span><span class="p">,</span>
+                              <span class="nv">id</span><span class="p">:</span> <span class="p">\</span><span class="o">.</span><span class="k">self</span><span class="p">,</span>
                               <span class="nv">selection</span><span class="p">:</span> <span class="err">$</span><span class="n">selection</span><span class="p">,</span>
                               <span class="nv">isTrackingLiveChanges</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
                               <span class="nv">searchFilter</span><span class="p">:</span> <span class="p">{</span> <span class="n">f</span><span class="p">,</span> <span class="n">s</span> <span class="k">in</span> <span class="n">f</span><span class="o">.</span><span class="nf">contains</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="p">},</span> <span class="nv">rowContent</span><span class="p">:</span> <span class="p">{</span>
@@ -15997,6 +16123,178 @@ Note that VisionKit doesn&rsquo;t currently provide a public API to customize th
                           <div class="language">
                             <p class="aside-title">Swift</p>
                             <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">SecondaryTimestampConfiguration</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore13SectionFooterV"></a>
+                      <a name="//apple_ref/swift/Struct/SectionFooter" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore13SectionFooterV">SectionFooter</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/SectionFooter.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">SectionFooter</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">SectionFooter</span><span class="p">:</span> <span class="kt">View</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">SectionFooter</span><span class="p">:</span> <span class="n"><a href="Protocols/_ViewEmptyChecking.html">_ViewEmptyChecking</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore26SectionFooterConfigurationV"></a>
+                      <a name="//apple_ref/swift/Struct/SectionFooterConfiguration" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore26SectionFooterConfigurationV">SectionFooterConfiguration</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/SectionFooterConfiguration.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">SectionFooterConfiguration</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore013SectionFooterA5StyleV"></a>
+                      <a name="//apple_ref/swift/Struct/SectionFooterFioriStyle" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore013SectionFooterA5StyleV">SectionFooterFioriStyle</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/SectionFooterFioriStyle.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">SectionFooterFioriStyle</span> <span class="p">:</span> <span class="kt"><a href="Protocols/SectionFooterStyle.html">SectionFooterStyle</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore13SectionHeaderV"></a>
+                      <a name="//apple_ref/swift/Struct/SectionHeader" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore13SectionHeaderV">SectionHeader</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/SectionHeader.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">SectionHeader</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">SectionHeader</span><span class="p">:</span> <span class="kt">View</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">SectionHeader</span><span class="p">:</span> <span class="n"><a href="Protocols/_ViewEmptyChecking.html">_ViewEmptyChecking</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore26SectionHeaderConfigurationV"></a>
+                      <a name="//apple_ref/swift/Struct/SectionHeaderConfiguration" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore26SectionHeaderConfigurationV">SectionHeaderConfiguration</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/SectionHeaderConfiguration.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">SectionHeaderConfiguration</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore013SectionHeaderA5StyleV"></a>
+                      <a name="//apple_ref/swift/Struct/SectionHeaderFioriStyle" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore013SectionHeaderA5StyleV">SectionHeaderFioriStyle</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/SectionHeaderFioriStyle.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">SectionHeaderFioriStyle</span> <span class="p">:</span> <span class="kt"><a href="Protocols/SectionHeaderStyle.html">SectionHeaderStyle</a></span></code></pre>
 
                           </div>
                         </div>
@@ -22804,6 +23102,144 @@ It uses a node view and  horizontal line to present now indicator.</p>
               </div>
               <div class="task-group">
                 <div class="task-name-container">
+                  <a name="/SectionFooterStyle"></a>
+                  <a name="//apple_ref/swift/Section/SectionFooterStyle" class="dashAnchor"></a>
+                  <div class="section-name-container">
+                    <a class="section-name-link" href="#/SectionFooterStyle"></a>
+                    <h3 class="section-name"><span>SectionFooterStyle</span>
+</h3>
+                  </div>
+                </div>
+                <ul>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore23SectionFooterTitleStyleV"></a>
+                      <a name="//apple_ref/swift/Struct/SectionFooterTitleStyle" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore23SectionFooterTitleStyleV">SectionFooterTitleStyle</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/SectionFooterTitleStyle.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">SectionFooterTitleStyle</span> <span class="p">:</span> <span class="kt"><a href="Protocols/SectionFooterStyle.html">SectionFooterStyle</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore27SectionFooterAttributeStyleV"></a>
+                      <a name="//apple_ref/swift/Struct/SectionFooterAttributeStyle" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore27SectionFooterAttributeStyleV">SectionFooterAttributeStyle</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/SectionFooterAttributeStyle.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">SectionFooterAttributeStyle</span> <span class="p">:</span> <span class="kt"><a href="Protocols/SectionFooterStyle.html">SectionFooterStyle</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="task-group">
+                <div class="task-name-container">
+                  <a name="/SectionHeaderStyle"></a>
+                  <a name="//apple_ref/swift/Section/SectionHeaderStyle" class="dashAnchor"></a>
+                  <div class="section-name-container">
+                    <a class="section-name-link" href="#/SectionHeaderStyle"></a>
+                    <h3 class="section-name"><span>SectionHeaderStyle</span>
+</h3>
+                  </div>
+                </div>
+                <ul>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore23SectionHeaderTitleStyleV"></a>
+                      <a name="//apple_ref/swift/Struct/SectionHeaderTitleStyle" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore23SectionHeaderTitleStyleV">SectionHeaderTitleStyle</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/SectionHeaderTitleStyle.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">SectionHeaderTitleStyle</span> <span class="p">:</span> <span class="kt"><a href="Protocols/SectionHeaderStyle.html">SectionHeaderStyle</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore27SectionHeaderAttributeStyleV"></a>
+                      <a name="//apple_ref/swift/Struct/SectionHeaderAttributeStyle" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore27SectionHeaderAttributeStyleV">SectionHeaderAttributeStyle</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/SectionHeaderAttributeStyle.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">SectionHeaderAttributeStyle</span> <span class="p">:</span> <span class="kt"><a href="Protocols/SectionHeaderStyle.html">SectionHeaderStyle</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="task-group">
+                <div class="task-name-container">
                   <a name="/SegmentedControlPickerStyle"></a>
                   <a name="//apple_ref/swift/Section/SegmentedControlPickerStyle" class="dashAnchor"></a>
                   <div class="section-name-container">
@@ -24680,6 +25116,8 @@ It uses a node view and  horizontal line to present now indicator.</p>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ModifiedStyle</span><span class="p">:</span> <span class="kt"><a href="Protocols/Row3Style.html">Row3Style</a></span> <span class="k">where</span> <span class="kt">Style</span><span class="p">:</span> <span class="kt"><a href="Protocols/Row3Style.html">Row3Style</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ModifiedStyle</span><span class="p">:</span> <span class="kt"><a href="Protocols/SecondaryActionStyle.html">SecondaryActionStyle</a></span> <span class="k">where</span> <span class="kt">Style</span><span class="p">:</span> <span class="kt"><a href="Protocols/SecondaryActionStyle.html">SecondaryActionStyle</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ModifiedStyle</span><span class="p">:</span> <span class="kt"><a href="Protocols/SecondaryTimestampStyle.html">SecondaryTimestampStyle</a></span> <span class="k">where</span> <span class="kt">Style</span><span class="p">:</span> <span class="kt"><a href="Protocols/SecondaryTimestampStyle.html">SecondaryTimestampStyle</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ModifiedStyle</span><span class="p">:</span> <span class="kt"><a href="Protocols/SectionFooterStyle.html">SectionFooterStyle</a></span> <span class="k">where</span> <span class="kt">Style</span><span class="p">:</span> <span class="kt"><a href="Protocols/SectionFooterStyle.html">SectionFooterStyle</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ModifiedStyle</span><span class="p">:</span> <span class="kt"><a href="Protocols/SectionHeaderStyle.html">SectionHeaderStyle</a></span> <span class="k">where</span> <span class="kt">Style</span><span class="p">:</span> <span class="kt"><a href="Protocols/SectionHeaderStyle.html">SectionHeaderStyle</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ModifiedStyle</span><span class="p">:</span> <span class="kt"><a href="Protocols/SegmentedControlPickerStyle.html">SegmentedControlPickerStyle</a></span> <span class="k">where</span> <span class="kt">Style</span><span class="p">:</span> <span class="kt"><a href="Protocols/SegmentedControlPickerStyle.html">SegmentedControlPickerStyle</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ModifiedStyle</span><span class="p">:</span> <span class="kt"><a href="Protocols/SelectAllActionStyle.html">SelectAllActionStyle</a></span> <span class="k">where</span> <span class="kt">Style</span><span class="p">:</span> <span class="kt"><a href="Protocols/SelectAllActionStyle.html">SelectAllActionStyle</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ModifiedStyle</span><span class="p">:</span> <span class="kt"><a href="Protocols/SelectedEntriesSectionTitleStyle.html">SelectedEntriesSectionTitleStyle</a></span> <span class="k">where</span> <span class="kt">Style</span><span class="p">:</span> <span class="kt"><a href="Protocols/SelectedEntriesSectionTitleStyle.html">SelectedEntriesSectionTitleStyle</a></span></code></pre>
@@ -28003,6 +28441,88 @@ It uses a node view and  horizontal line to present now indicator.</p>
               </div>
               <div class="task-group">
                 <div class="task-name-container">
+                  <a name="/SectionFooterStyle2"></a>
+                  <a name="//apple_ref/swift/Section/SectionFooterStyle" class="dashAnchor"></a>
+                  <div class="section-name-container">
+                    <a class="section-name-link" href="#/SectionFooterStyle2"></a>
+                    <h3 class="section-name"><span>SectionFooterStyle</span>
+</h3>
+                  </div>
+                </div>
+                <ul>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore26SectionFooterStyleModifierV"></a>
+                      <a name="//apple_ref/swift/Struct/SectionFooterStyleModifier" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore26SectionFooterStyleModifierV">SectionFooterStyleModifier</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/SectionFooterStyleModifier.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">SectionFooterStyleModifier</span><span class="o">&lt;</span><span class="kt">Style</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt">ViewModifier</span> <span class="k">where</span> <span class="kt">Style</span> <span class="p">:</span> <span class="kt"><a href="Protocols/SectionFooterStyle.html">SectionFooterStyle</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="task-group">
+                <div class="task-name-container">
+                  <a name="/SectionHeaderStyle2"></a>
+                  <a name="//apple_ref/swift/Section/SectionHeaderStyle" class="dashAnchor"></a>
+                  <div class="section-name-container">
+                    <a class="section-name-link" href="#/SectionHeaderStyle2"></a>
+                    <h3 class="section-name"><span>SectionHeaderStyle</span>
+</h3>
+                  </div>
+                </div>
+                <ul>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore26SectionHeaderStyleModifierV"></a>
+                      <a name="//apple_ref/swift/Struct/SectionHeaderStyleModifier" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore26SectionHeaderStyleModifierV">SectionHeaderStyleModifier</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/SectionHeaderStyleModifier.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">SectionHeaderStyleModifier</span><span class="o">&lt;</span><span class="kt">Style</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt">ViewModifier</span> <span class="k">where</span> <span class="kt">Style</span> <span class="p">:</span> <span class="kt"><a href="Protocols/SectionHeaderStyle.html">SectionHeaderStyle</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="task-group">
+                <div class="task-name-container">
                   <a name="/SegmentedControlPickerStyle2"></a>
                   <a name="//apple_ref/swift/Section/SegmentedControlPickerStyle" class="dashAnchor"></a>
                   <div class="section-name-container">
@@ -29486,6 +30006,9 @@ It uses a node view and  horizontal line to present now indicator.</p>
                   <a href="Enums/ScanOutputFormat.html">ScanOutputFormat</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="Enums/SectionHeaderFooterStyle.html">SectionHeaderFooterStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="Enums/SegmentWidthMode.html">SegmentWidthMode</a>
                 </li>
                 <li class="nav-group-task">
@@ -29990,7 +30513,10 @@ It uses a node view and  horizontal line to present now indicator.</p>
                   <a href="Protocols/SecondaryValuesAxisTitleComponent.html">SecondaryValuesAxisTitleComponent</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="Protocols.html#/s:16FioriSwiftUICore18SectionHeaderModelP">SectionHeaderModel</a>
+                  <a href="Protocols/SectionFooterStyle.html">SectionFooterStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Protocols/SectionHeaderStyle.html">SectionHeaderStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="Protocols/SegmentedControlPickerStyle.html">SegmentedControlPickerStyle</a>
@@ -30201,6 +30727,9 @@ It uses a node view and  horizontal line to present now indicator.</p>
                 </li>
                 <li class="nav-group-task">
                   <a href="Protocols.html#/s:16FioriSwiftUICore23_ProgressIndicatorModelP">_ProgressIndicatorModel</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Protocols.html#/s:16FioriSwiftUICore19_SectionHeaderModelP">_SectionHeaderModel</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="Protocols.html#/s:16FioriSwiftUICore21_SideBarListItemModelP">_SideBarListItemModel</a>
@@ -32212,7 +32741,52 @@ It uses a node view and  horizontal line to present now indicator.</p>
                   <a href="Structs/SecondaryTimestampStyleModifier.html">SecondaryTimestampStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="Structs/SectionFooter.html">SectionFooter</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/SectionFooterAccessoryStyle.html">SectionFooterAccessoryStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/SectionFooterAttributeStyle.html">SectionFooterAttributeStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/SectionFooterBaseStyle.html">SectionFooterBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/SectionFooterConfiguration.html">SectionFooterConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/SectionFooterFioriStyle.html">SectionFooterFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/SectionFooterStyleModifier.html">SectionFooterStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/SectionFooterTitleStyle.html">SectionFooterTitleStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="Structs/SectionHeader.html">SectionHeader</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/SectionHeaderAccessoryStyle.html">SectionHeaderAccessoryStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/SectionHeaderAttributeStyle.html">SectionHeaderAttributeStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/SectionHeaderBaseStyle.html">SectionHeaderBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/SectionHeaderConfiguration.html">SectionHeaderConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/SectionHeaderFioriStyle.html">SectionHeaderFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/SectionHeaderStyleModifier.html">SectionHeaderStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/SectionHeaderTitleStyle.html">SectionHeaderTitleStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="Structs/SegmentAttributes.html">SegmentAttributes</a>
@@ -33040,6 +33614,9 @@ It uses a node view and  horizontal line to present now indicator.</p>
                   <a href="Structs/_SaveActionDefault.html">_SaveActionDefault</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="Structs/_SectionHeader.html">_SectionHeader</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="Structs/_SideBar.html">_SideBar</a>
                 </li>
                 <li class="nav-group-task">
@@ -33070,7 +33647,7 @@ It uses a node view and  horizontal line to present now indicator.</p>
       </div>
       <div class="footer-wrapper">
         <section id="footer">
-          <p>&copy; 2024 <a class="link" href="https://www.sap.com" target="_blank" rel="external noopener">SAP SE</a>. All rights reserved. (Last updated: 2024-12-12)</p>
+          <p>&copy; 2025 <a class="link" href="https://www.sap.com" target="_blank" rel="external noopener">SAP SE</a>. All rights reserved. (Last updated: 2025-01-23)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </div>

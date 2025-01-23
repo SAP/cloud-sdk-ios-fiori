@@ -45,8 +45,9 @@
                 <div class="declaration">
                   <div class="language">
                     
-                    <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">SectionHeader</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/Title.html">Title</a></span><span class="p">,</span> <span class="kt"><a href="../Structs/Attribute.html">Attribute</a></span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt"><a href="../Structs/Title.html">Title</a></span> <span class="p">:</span> <span class="kt">View</span><span class="p">,</span> <span class="kt"><a href="../Structs/Attribute.html">Attribute</a></span> <span class="p">:</span> <span class="kt">View</span></code></pre>
+                    <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">SectionHeader</span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">SectionHeader</span><span class="p">:</span> <span class="kt">View</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">SectionHeader</span><span class="p">:</span> <span class="n"><a href="../Protocols/_ViewEmptyChecking.html">_ViewEmptyChecking</a></span></code></pre>
 
                   </div>
                 </div>
@@ -59,9 +60,9 @@
                   <li class="item">
                     <div>
                       <code>
-                      <a name="/s:16FioriSwiftUICore13SectionHeaderV5title9attributeACyxq_GxyXE_q_yXEtcfc"></a>
-                      <a name="//apple_ref/swift/Method/init(title:attribute:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:16FioriSwiftUICore13SectionHeaderV5title9attributeACyxq_GxyXE_q_yXEtcfc">init(title:<wbr>attribute:<wbr>)</a>
+                      <a name="/s:16FioriSwiftUICore13SectionHeaderV5title9attribute07sectionE5Style16didSelectHandlerAC0B2UI4View_pyXE_AhI_pyXEAA0de6FooterI0OyycSgtcfc"></a>
+                      <a name="//apple_ref/swift/Method/init(title:attribute:sectionHeaderStyle:didSelectHandler:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore13SectionHeaderV5title9attribute07sectionE5Style16didSelectHandlerAC0B2UI4View_pyXE_AhI_pyXEAA0de6FooterI0OyycSgtcfc">init(title:<wbr>attribute:<wbr>sectionHeaderStyle:<wbr>didSelectHandler:<wbr>)</a>
                       </code>
                     </div>
                     <div class="height-container">
@@ -76,10 +77,67 @@
                           <h4>Declaration</h4>
                           <div class="language">
                             <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
-      <span class="kd">@ViewBuilder</span> <span class="nv">title</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Title.html">Title</a></span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">attribute</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Attribute.html">Attribute</a></span>
-      <span class="p">)</span></code></pre>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="kd">@ViewBuilder</span> <span class="nv">title</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="n">any</span> <span class="kt">View</span><span class="p">,</span>
+            <span class="kd">@ViewBuilder</span> <span class="nv">attribute</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="n">any</span> <span class="kt">View</span> <span class="o">=</span> <span class="p">{</span> <span class="kt">EmptyView</span><span class="p">()</span> <span class="p">},</span>
+            <span class="nv">sectionHeaderStyle</span><span class="p">:</span> <span class="kt"><a href="../Enums/SectionHeaderFooterStyle.html">SectionHeaderFooterStyle</a></span> <span class="o">=</span> <span class="o">.</span><span class="n">title</span><span class="p">,</span>
+            <span class="nv">didSelectHandler</span><span class="p">:</span> <span class="p">(()</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore13SectionHeaderV5title9attribute07sectionE5Style16didSelectHandlerAC10Foundation16AttributedStringV_AJSgAA0de6FooterI0OyycSgtcfc"></a>
+                      <a name="//apple_ref/swift/Method/init(title:attribute:sectionHeaderStyle:didSelectHandler:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore13SectionHeaderV5title9attribute07sectionE5Style16didSelectHandlerAC10Foundation16AttributedStringV_AJSgAA0de6FooterI0OyycSgtcfc">init(title:<wbr>attribute:<wbr>sectionHeaderStyle:<wbr>didSelectHandler:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="nf">init</span><span class="p">(</span><span class="nv">title</span><span class="p">:</span> <span class="kt">AttributedString</span><span class="p">,</span>
+     <span class="nv">attribute</span><span class="p">:</span> <span class="kt">AttributedString</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+     <span class="nv">sectionHeaderStyle</span><span class="p">:</span> <span class="kt"><a href="../Enums/SectionHeaderFooterStyle.html">SectionHeaderFooterStyle</a></span> <span class="o">=</span> <span class="o">.</span><span class="n">title</span><span class="p">,</span>
+     <span class="nv">didSelectHandler</span><span class="p">:</span> <span class="p">(()</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore13SectionHeaderVyAcA0dE13ConfigurationVcfc"></a>
+                      <a name="//apple_ref/swift/Method/init(_:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore13SectionHeaderVyAcA0dE13ConfigurationVcfc">init(_:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="nf">init</span><span class="p">(</span><span class="n">_</span> <span class="nv">configuration</span><span class="p">:</span> <span class="kt"><a href="../Structs/SectionHeaderConfiguration.html">SectionHeaderConfiguration</a></span><span class="p">)</span></code></pre>
 
                           </div>
                         </div>
@@ -105,32 +163,19 @@
                           <h4>Declaration</h4>
                           <div class="language">
                             <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">body</span><span class="p">:</span> <span class="n">some</span> <span class="kt">View</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">body</span><span class="p">:</span> <span class="kd">some</span> <span class="kt">View</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                           </div>
                         </div>
                       </section>
                     </div>
                   </li>
-                </ul>
-              </div>
-              <div class="task-group">
-                <div class="task-name-container">
-                  <a name="/Available%20where%20%60Title%60%20%3D%3D%20%60Text%60%2C%20%60Attribute%60%20%3D%3D%20%60_ConditionalContent%3CText%60%2C%20%60EmptyView%60%3E"></a>
-                  <a name="//apple_ref/swift/Section/Available where `Title` == `Text`, `Attribute` == `_ConditionalContent&lt;Text`, `EmptyView`&gt;" class="dashAnchor"></a>
-                  <div class="section-name-container">
-                    <a class="section-name-link" href="#/Available%20where%20%60Title%60%20%3D%3D%20%60Text%60%2C%20%60Attribute%60%20%3D%3D%20%60_ConditionalContent%3CText%60%2C%20%60EmptyView%60%3E"></a>
-                    <h3 class="section-name"><span>Available where <code><a href="../Structs/Title.html">Title</a></code> == <code>Text</code>, <code><a href="../Structs/Attribute.html">Attribute</a></code> == <code>_ConditionalContent&lt;Text</code>, <code>EmptyView</code>&gt;</span>
-</h3>
-                  </div>
-                </div>
-                <ul>
                   <li class="item">
                     <div>
                       <code>
-                      <a name="/s:16FioriSwiftUICore13SectionHeaderVAA0B2UI4TextVRszAD19_ConditionalContentVyAfD9EmptyViewVGRs_rlE5modelACyAfKGAA0dE5Model_p_tcfc"></a>
-                      <a name="//apple_ref/swift/Method/init(model:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:16FioriSwiftUICore13SectionHeaderVAA0B2UI4TextVRszAD19_ConditionalContentVyAfD9EmptyViewVGRs_rlE5modelACyAfKGAA0dE5Model_p_tcfc">init(model:<wbr>)</a>
+                      <a name="/s:16FioriSwiftUICore13SectionHeaderV7isEmptySbvp"></a>
+                      <a name="//apple_ref/swift/Property/isEmpty" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore13SectionHeaderV7isEmptySbvp">isEmpty</a>
                       </code>
                     </div>
                     <div class="height-container">
@@ -145,76 +190,7 @@
                           <h4>Declaration</h4>
                           <div class="language">
                             <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">model</span><span class="p">:</span> <span class="kt"><a href="../Protocols.html#/s:16FioriSwiftUICore18SectionHeaderModelP">SectionHeaderModel</a></span><span class="p">)</span></code></pre>
-
-                          </div>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/s:16FioriSwiftUICore13SectionHeaderVAA0B2UI4TextVRszAD19_ConditionalContentVyAfD9EmptyViewVGRs_rlE5title9attributeACyAfKGSS_SSSgtcfc"></a>
-                      <a name="//apple_ref/swift/Method/init(title:attribute:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:16FioriSwiftUICore13SectionHeaderVAA0B2UI4TextVRszAD19_ConditionalContentVyAfD9EmptyViewVGRs_rlE5title9attributeACyAfKGSS_SSSgtcfc">init(title:<wbr>attribute:<wbr>)</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>Undocumented</p>
-
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">title</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">attribute</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span></code></pre>
-
-                          </div>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-              <div class="task-group">
-                <div class="task-name-container">
-                  <a name="/Available%20where%20%60Attribute%60%20%3D%3D%20%60EmptyView%60"></a>
-                  <a name="//apple_ref/swift/Section/Available where `Attribute` == `EmptyView`" class="dashAnchor"></a>
-                  <div class="section-name-container">
-                    <a class="section-name-link" href="#/Available%20where%20%60Attribute%60%20%3D%3D%20%60EmptyView%60"></a>
-                    <h3 class="section-name"><span>Available where <code><a href="../Structs/Attribute.html">Attribute</a></code> == <code>EmptyView</code></span>
-</h3>
-                  </div>
-                </div>
-                <ul>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/s:16FioriSwiftUICore13SectionHeaderVAA0B2UI9EmptyViewVRs_rlE5titleACyxAFGxyXE_tcfc"></a>
-                      <a name="//apple_ref/swift/Method/init(title:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:16FioriSwiftUICore13SectionHeaderVAA0B2UI9EmptyViewVRs_rlE5titleACyxAFGxyXE_tcfc">init(title:<wbr>)</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>Undocumented</p>
-
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">title</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Title.html">Title</a></span>
-<span class="p">)</span></code></pre>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">isEmpty</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                           </div>
                         </div>
@@ -353,6 +329,9 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Enums/ScanOutputFormat.html">ScanOutputFormat</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/SectionHeaderFooterStyle.html">SectionHeaderFooterStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Enums/SegmentWidthMode.html">SegmentWidthMode</a>
@@ -859,7 +838,10 @@
                   <a href="../Protocols/SecondaryValuesAxisTitleComponent.html">SecondaryValuesAxisTitleComponent</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Protocols.html#/s:16FioriSwiftUICore18SectionHeaderModelP">SectionHeaderModel</a>
+                  <a href="../Protocols/SectionFooterStyle.html">SectionFooterStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/SectionHeaderStyle.html">SectionHeaderStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/SegmentedControlPickerStyle.html">SegmentedControlPickerStyle</a>
@@ -1070,6 +1052,9 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols.html#/s:16FioriSwiftUICore23_ProgressIndicatorModelP">_ProgressIndicatorModel</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols.html#/s:16FioriSwiftUICore19_SectionHeaderModelP">_SectionHeaderModel</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols.html#/s:16FioriSwiftUICore21_SideBarListItemModelP">_SideBarListItemModel</a>
@@ -3081,7 +3066,52 @@
                   <a href="../Structs/SecondaryTimestampStyleModifier.html">SecondaryTimestampStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/SectionFooter.html">SectionFooter</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SectionFooterAccessoryStyle.html">SectionFooterAccessoryStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SectionFooterAttributeStyle.html">SectionFooterAttributeStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SectionFooterBaseStyle.html">SectionFooterBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SectionFooterConfiguration.html">SectionFooterConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SectionFooterFioriStyle.html">SectionFooterFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SectionFooterStyleModifier.html">SectionFooterStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SectionFooterTitleStyle.html">SectionFooterTitleStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/SectionHeader.html">SectionHeader</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SectionHeaderAccessoryStyle.html">SectionHeaderAccessoryStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SectionHeaderAttributeStyle.html">SectionHeaderAttributeStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SectionHeaderBaseStyle.html">SectionHeaderBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SectionHeaderConfiguration.html">SectionHeaderConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SectionHeaderFioriStyle.html">SectionHeaderFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SectionHeaderStyleModifier.html">SectionHeaderStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SectionHeaderTitleStyle.html">SectionHeaderTitleStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/SegmentAttributes.html">SegmentAttributes</a>
@@ -3909,6 +3939,9 @@
                   <a href="../Structs/_SaveActionDefault.html">_SaveActionDefault</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/_SectionHeader.html">_SectionHeader</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/_SideBar.html">_SideBar</a>
                 </li>
                 <li class="nav-group-task">
@@ -3939,7 +3972,7 @@
       </div>
       <div class="footer-wrapper">
         <section id="footer">
-          <p>&copy; 2024 <a class="link" href="https://www.sap.com" target="_blank" rel="external noopener">SAP SE</a>. All rights reserved. (Last updated: 2024-12-12)</p>
+          <p>&copy; 2025 <a class="link" href="https://www.sap.com" target="_blank" rel="external noopener">SAP SE</a>. All rights reserved. (Last updated: 2025-01-23)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </div>
