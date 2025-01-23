@@ -3,6 +3,21 @@
 import Foundation
 import SwiftUI
 
+/// The `FilterFeedbackBarButton` is a SwiftUI component for item's options that used in FilterFeedbackBar when the item's type is `SortFilterItem.picker`.
+///
+/// ## Usage
+///
+/// The `icon` is leading image in the button.
+/// The `title` is option title.
+/// The `isSelected` is the state of the button whether is selected. The style of the button will change.
+///
+///  ```swift
+///  FilterFeedbackBarButton(
+///     icon: Image(systemName: "checkmark"),
+///     title: "Status",
+///     isSelected: true)
+///  ```
+///
 public struct FilterFeedbackBarButton {
     let icon: any View
     let title: any View
