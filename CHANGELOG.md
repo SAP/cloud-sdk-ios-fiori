@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.3.2](https://github.com/SAP/cloud-sdk-ios-fiori/compare/4.3.1...4.3.2) (2025-01-23)
+
+
+### Features
+
+* 🎸 MenuSelectionItem disabled state (HCPSDKFIORIUIKIT-2899) ([#970](https://github.com/SAP/cloud-sdk-ios-fiori/issues/970)) ([8672cb3](https://github.com/SAP/cloud-sdk-ios-fiori/commit/8672cb303dbafe11dc5410f691f47d7faff344d1))
+
+
+### Bug Fixes
+
+* 🐛 improve Carousel by adding contentInsets ([#961](https://github.com/SAP/cloud-sdk-ios-fiori/issues/961)) ([5cd43c3](https://github.com/SAP/cloud-sdk-ios-fiori/commit/5cd43c38bed8f8536a960b119196bf0f7910cfa6))
+* 🐛 improve Carousel's drag gesture to avoid conflicts ([#943](https://github.com/SAP/cloud-sdk-ios-fiori/issues/943)) ([56e7807](https://github.com/SAP/cloud-sdk-ios-fiori/commit/56e78071e68bf73f7141e715f34db26c72e68dc0))
+
 ### [4.3.1](https://github.com/SAP/cloud-sdk-ios-fiori/compare/4.3.0...4.3.1) (2024-12-12)
 
 
