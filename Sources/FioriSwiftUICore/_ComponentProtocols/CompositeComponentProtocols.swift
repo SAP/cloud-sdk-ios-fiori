@@ -673,6 +673,9 @@ protocol _LoadingIndicatorComponent: _TitleComponent, _ProgressComponent {
     
     // sourcery: @Binding
     var isPresented: Bool { get }
+    
+    // sourcery: defaultValue = false
+    var isAIEnabled: Bool { get }
 }
 
 /// `ValuePicker`  provides a title and value label with Fiori styling and a wheel-style `Picker`.
