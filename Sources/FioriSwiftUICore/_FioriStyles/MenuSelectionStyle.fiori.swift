@@ -115,3 +115,10 @@ private let models = [
         .environment(\.maxNumberOfItems, 3)
         .padding()
 })
+
+#Preview("Disabled State") {
+    MenuSelection(isExpanded: .constant(false), items: models)
+        .environment(\.maxNumberOfItems, 3)
+        .padding()
+        .disabled(true)
+}
