@@ -1128,10 +1128,10 @@ protocol _HeaderChartComponent: _TitleComponent, _SubtitleComponent, _TrendCompo
 ///
 /// ## Usage
 ///
-/// The `icon` is leading image in the button.
-/// The `title` is button title.
-/// The `accessoryIcon` is trailing image in the button.
-/// The `isSelected` is the state of the button whether the item has selected value. The style of the button will change.
+/// `icon` is the leading image in the button.
+/// `title` is the button title.
+/// `accessoryIcon` is the trailing image in the button.
+/// `isSelected` is the state of the button whether the item has selected value. The style of the button will change based on its state.
 ///
 ///  ```swift
 ///  FilterFeedbackBarItem(

@@ -1,10 +1,13 @@
 import SwiftUI
 
+/// The view contains filter feedback bar items.
 public struct FilterFeedbackBarItemContainer {
     @Environment(\.onModelUpdateAppCallback) var onUpdate: () -> Void
     @Environment(\.filterFeedbackBarFullConfigurationItem) var fullCFGButton
     @Binding var _items: [[SortFilterItem]]
 
+    /// Create FilterFeedbackBarItemContainer with items.
+    /// - Parameter items: Data of filter feedback bar items.
     public init(items: Binding<[[SortFilterItem]]>) {
         self.__items = items
     }
