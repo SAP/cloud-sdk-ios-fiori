@@ -2096,6 +2096,55 @@ public extension DetailImageStyle where Self == DetailImageFioriStyle {
     }
 }
 
+// MARK: DimensionSegmentStyle
+
+public extension DimensionSegmentStyle where Self == DimensionSegmentBaseStyle {
+    static var base: DimensionSegmentBaseStyle {
+        DimensionSegmentBaseStyle()
+    }
+}
+
+public extension DimensionSegmentStyle where Self == DimensionSegmentFioriStyle {
+    static var fiori: DimensionSegmentFioriStyle {
+        DimensionSegmentFioriStyle()
+    }
+}
+
+public struct DimensionSegmentTitleStyle: DimensionSegmentStyle {
+    let style: any TitleStyle
+
+    public func makeBody(_ configuration: DimensionSegmentConfiguration) -> some View {
+        DimensionSegment(configuration)
+            .titleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension DimensionSegmentStyle where Self == DimensionSegmentTitleStyle {
+    static func titleStyle(_ style: some TitleStyle) -> DimensionSegmentTitleStyle {
+        DimensionSegmentTitleStyle(style: style)
+    }
+
+    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> DimensionSegmentTitleStyle {
+        let style = AnyTitleStyle(content)
+        return DimensionSegmentTitleStyle(style: style)
+    }
+}
+
+// MARK: DimensionSelectorStyle
+
+public extension DimensionSelectorStyle where Self == DimensionSelectorBaseStyle {
+    static var base: DimensionSelectorBaseStyle {
+        DimensionSelectorBaseStyle()
+    }
+}
+
+public extension DimensionSelectorStyle where Self == DimensionSelectorFioriStyle {
+    static var fiori: DimensionSelectorFioriStyle {
+        DimensionSelectorFioriStyle()
+    }
+}
+
 // MARK: FilledIconStyle
 
 public extension FilledIconStyle where Self == FilledIconBaseStyle {
