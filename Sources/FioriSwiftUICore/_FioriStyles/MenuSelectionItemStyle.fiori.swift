@@ -37,10 +37,13 @@ extension MenuSelectionItemFioriStyle {
         }
         
         private struct _ItemStyle: ButtonStyle {
+            @Environment(\.isEnabled) var isEnabled
+            
             func makeBody(configuration: Configuration) -> some View {
                 configuration.label
                     .padding(.init(top: 12, leading: 16, bottom: 12, trailing: 16))
                     .frame(minWidth: 44, minHeight: 44)
+                    .opacity(self.isEnabled ? 1 : 0.5)
                     .background(Color.preferredColor(configuration.isPressed ? .secondaryFill : .secondaryGroupedBackground))
                     .clipShape(RoundedRectangle(cornerRadius: 16))
                     .overlay {

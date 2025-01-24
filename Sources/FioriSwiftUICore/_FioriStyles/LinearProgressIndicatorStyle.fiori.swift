@@ -16,14 +16,14 @@ public struct LinearProgressIndicatorBaseStyle: LinearProgressIndicatorStyle {
     }
 }
 
-// Default fiori styles
+// Default fiori style
 public struct LinearProgressIndicatorFioriStyle: LinearProgressIndicatorStyle {
     public func makeBody(_ configuration: LinearProgressIndicatorConfiguration) -> some View {
         LinearProgressIndicator(configuration)
     }
 }
 
-/// Determinate styles
+/// Determinate style
 public struct LinearProgressIndicatorDeterminateStyle: LinearProgressIndicatorStyle {
     public func makeBody(_ configuration: LinearProgressIndicatorConfiguration) -> some View {
         LinearProgressIndicator(configuration)
@@ -31,7 +31,7 @@ public struct LinearProgressIndicatorDeterminateStyle: LinearProgressIndicatorSt
     }
 }
 
-/// Indeterminate styles
+/// Indeterminate style
 public struct LinearProgressIndicatorIndeterminateStyle: LinearProgressIndicatorStyle {
     @State var progress = 0.0
     public func makeBody(_ configuration: LinearProgressIndicatorConfiguration) -> some View {
@@ -49,7 +49,7 @@ public struct LinearProgressIndicatorIndeterminateStyle: LinearProgressIndicator
     }
 }
 
-/// Error styles
+/// Error style
 public struct LinearProgressIndicatorErrorStyle: LinearProgressIndicatorStyle {
     public func makeBody(_ configuration: LinearProgressIndicatorConfiguration) -> some View {
         LinearProgressIndicator(configuration)
@@ -57,7 +57,7 @@ public struct LinearProgressIndicatorErrorStyle: LinearProgressIndicatorStyle {
     }
 }
 
-/// Success styles
+/// Success style
 public struct LinearProgressIndicatorSuccessStyle: LinearProgressIndicatorStyle {
     public func makeBody(_ configuration: LinearProgressIndicatorConfiguration) -> some View {
         LinearProgressIndicator(configuration)
@@ -119,6 +119,7 @@ public extension LinearProgressIndicatorStyle where Self == LinearProgressIndica
 
 /// Indeterminate style of the Linear Progress Indicator.
 public extension LinearProgressIndicatorStyle where Self == LinearProgressIndicatorIndeterminateStyle {
+    /// Indeterminate style of the Linear Progress Indicator.
     static var indeterminate: LinearProgressIndicatorIndeterminateStyle {
         LinearProgressIndicatorIndeterminateStyle()
     }
@@ -126,6 +127,7 @@ public extension LinearProgressIndicatorStyle where Self == LinearProgressIndica
 
 /// Error style of the Linear Progress Indicator.
 public extension LinearProgressIndicatorStyle where Self == LinearProgressIndicatorErrorStyle {
+    /// Error style of the Linear Progress Indicator.
     static var error: LinearProgressIndicatorErrorStyle {
         LinearProgressIndicatorErrorStyle()
     }
@@ -133,6 +135,7 @@ public extension LinearProgressIndicatorStyle where Self == LinearProgressIndica
 
 /// Success style of the Linear Progress Indicator.
 public extension LinearProgressIndicatorStyle where Self == LinearProgressIndicatorSuccessStyle {
+    /// Success style of the Linear Progress Indicator.
     static var success: LinearProgressIndicatorSuccessStyle {
         LinearProgressIndicatorSuccessStyle()
     }
