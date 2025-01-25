@@ -2,7 +2,7 @@ import FioriThemeManager
 import SwiftUI
 
 extension Fiori {
-    enum FilterFeedbackBarButton {
+    enum _FilterFeedbackBarButton {
         typealias LeftIcon = EmptyModifier
         typealias LeftIconCumulative = EmptyModifier
         typealias Title = EmptyModifier
@@ -15,7 +15,7 @@ extension Fiori {
     }
 }
 
-extension FilterFeedbackBarButton: View {
+extension _FilterFeedbackBarButton: View {
     public var body: some View {
         optionListPickerStyle.makeBody(configuration: OptionListPickerButtonConfiguration(leftIcon: AnyView(leftIcon), title: AnyView(title), isSelected: _isSelected))
     }
@@ -149,27 +149,27 @@ public extension View {
     VStack {
         Spacer()
         
-        FilterFeedbackBarButton(leftIcon: Image(systemName: "airplane"), title: "Airplane", isSelected: true)
-        FilterFeedbackBarButton(leftIcon: Image(systemName: "airplane"), title: "Airplane", isSelected: false)
-        FilterFeedbackBarButton(title: "Ship", isSelected: true)
-        FilterFeedbackBarButton(title: "Ship", isSelected: false)
-        FilterFeedbackBarButton(leftIcon: Image(systemName: "bus"), title: "Bus", isSelected: true)
-        FilterFeedbackBarButton(leftIcon: Image(systemName: "bus"), title: "Bus", isSelected: false)
+        _FilterFeedbackBarButton(leftIcon: Image(systemName: "airplane"), title: "Airplane", isSelected: true)
+        _FilterFeedbackBarButton(leftIcon: Image(systemName: "airplane"), title: "Airplane", isSelected: false)
+        _FilterFeedbackBarButton(title: "Ship", isSelected: true)
+        _FilterFeedbackBarButton(title: "Ship", isSelected: false)
+        _FilterFeedbackBarButton(leftIcon: Image(systemName: "bus"), title: "Bus", isSelected: true)
+        _FilterFeedbackBarButton(leftIcon: Image(systemName: "bus"), title: "Bus", isSelected: false)
         
         Spacer()
         
-        FilterFeedbackBarButton(leftIcon: Image(systemName: "airplane"), title: "Air Plane", isSelected: true)
+        _FilterFeedbackBarButton(leftIcon: Image(systemName: "airplane"), title: "Air Plane", isSelected: true)
             .optionListPickerStyle(font: .largeTitle, foregroundColorSelected: .red, strokeColorSelected: .red, cornerRadius: 25)
-        FilterFeedbackBarButton(leftIcon: Image(systemName: "airplane"), title: "Air Plane", isSelected: false)
+        _FilterFeedbackBarButton(leftIcon: Image(systemName: "airplane"), title: "Air Plane", isSelected: false)
             .optionListPickerStyle(font: .footnote, foregroundColorUnselected: .green, strokeColorSelected: .black)
             .optionListPickerStyle(cornerRadius: 16)
-        FilterFeedbackBarButton(title: "Ship", isSelected: true)
+        _FilterFeedbackBarButton(title: "Ship", isSelected: true)
             .optionListPickerStyle(fillColorSelected: .yellow)
-        FilterFeedbackBarButton(title: "Ship", isSelected: false)
+        _FilterFeedbackBarButton(title: "Ship", isSelected: false)
             .optionListPickerStyle(fillColorUnselected: .gray)
-        FilterFeedbackBarButton(leftIcon: Image(systemName: "bus"), title: "Blue Bus", isSelected: true)
+        _FilterFeedbackBarButton(leftIcon: Image(systemName: "bus"), title: "Blue Bus", isSelected: true)
             .optionListPickerStyle(cornerRadius: 20)
-        FilterFeedbackBarButton(leftIcon: Image(systemName: "bus"), title: "Gray Bus", isSelected: false)
+        _FilterFeedbackBarButton(leftIcon: Image(systemName: "bus"), title: "Gray Bus", isSelected: false)
             .optionListPickerStyle(cornerRadius: 20)
         
         Spacer()

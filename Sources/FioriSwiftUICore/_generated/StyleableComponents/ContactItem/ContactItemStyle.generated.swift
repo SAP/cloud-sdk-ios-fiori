@@ -22,6 +22,7 @@ struct AnyContactItemStyle: ContactItemStyle {
 }
 
 public struct ContactItemConfiguration {
+    public var componentIdentifier: String = "fiori_contactitem_component"
     public let title: Title
     public let subtitle: Subtitle
     public let description: Description
@@ -33,6 +34,12 @@ public struct ContactItemConfiguration {
     public typealias Description = ConfigurationViewWrapper
     public typealias DetailImage = ConfigurationViewWrapper
     public typealias ActivityItems = ConfigurationViewWrapper
+}
+
+extension ContactItemConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }
 
 public struct ContactItemFioriStyle: ContactItemStyle {

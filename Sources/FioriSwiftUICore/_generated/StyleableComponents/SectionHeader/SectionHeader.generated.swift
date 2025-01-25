@@ -13,18 +13,26 @@ public struct SectionHeader {
 
     @Environment(\.sectionHeaderStyle) var style
 
+    var componentIdentifier: String = SectionHeader.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
     public init(@ViewBuilder title: () -> any View,
                 @ViewBuilder attribute: () -> any View = { EmptyView() },
                 sectionHeaderStyle: SectionHeaderFooterStyle = .title,
-                didSelectHandler: (() -> Void)? = nil)
+                didSelectHandler: (() -> Void)? = nil,
+                componentIdentifier: String? = SectionHeader.identifier)
     {
-        self.title = Title(title: title)
-        self.attribute = Attribute(attribute: attribute)
+        self.title = Title(title: title, componentIdentifier: componentIdentifier)
+        self.attribute = Attribute(attribute: attribute, componentIdentifier: componentIdentifier)
         self.sectionHeaderStyle = sectionHeaderStyle
         self.didSelectHandler = didSelectHandler
+        self.componentIdentifier = componentIdentifier ?? SectionHeader.identifier
     }
+}
+
+public extension SectionHeader {
+    static let identifier = "fiori_sectionheader_component"
 }
 
 public extension SectionHeader {
@@ -48,6 +56,7 @@ public extension SectionHeader {
         self.sectionHeaderStyle = configuration.sectionHeaderStyle
         self.didSelectHandler = configuration.didSelectHandler
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -56,7 +65,7 @@ extension SectionHeader: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(title: .init(self.title), attribute: .init(self.attribute), sectionHeaderStyle: self.sectionHeaderStyle, didSelectHandler: self.didSelectHandler)).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, title: .init(self.title), attribute: .init(self.attribute), sectionHeaderStyle: self.sectionHeaderStyle, didSelectHandler: self.didSelectHandler)).typeErased
                 .transformEnvironment(\.sectionHeaderStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -74,7 +83,7 @@ private extension SectionHeader {
     }
 
     func defaultStyle() -> some View {
-        SectionHeader(.init(title: .init(self.title), attribute: .init(self.attribute), sectionHeaderStyle: self.sectionHeaderStyle, didSelectHandler: self.didSelectHandler))
+        SectionHeader(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), attribute: .init(self.attribute), sectionHeaderStyle: self.sectionHeaderStyle, didSelectHandler: self.didSelectHandler))
             .shouldApplyDefaultStyle(false)
             .sectionHeaderStyle(SectionHeaderFioriStyle.ContentFioriStyle())
             .typeErased

@@ -2,7 +2,7 @@
 // DO NOT EDIT
 import SwiftUI
 
-extension FilterFeedbackBarButton where LeftIcon == EmptyView {
+extension _FilterFeedbackBarButton where LeftIcon == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		isSelected: Bool

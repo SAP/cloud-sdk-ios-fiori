@@ -22,6 +22,7 @@ struct AnySectionHeaderStyle: SectionHeaderStyle {
 }
 
 public struct SectionHeaderConfiguration {
+    public var componentIdentifier: String = "fiori_sectionheader_component"
     public let title: Title
     public let attribute: Attribute
     public let sectionHeaderStyle: SectionHeaderFooterStyle
@@ -29,6 +30,12 @@ public struct SectionHeaderConfiguration {
 
     public typealias Title = ConfigurationViewWrapper
     public typealias Attribute = ConfigurationViewWrapper
+}
+
+extension SectionHeaderConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }
 
 public struct SectionHeaderFioriStyle: SectionHeaderStyle {

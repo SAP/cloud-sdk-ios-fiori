@@ -50,7 +50,22 @@ struct SortFilterExample: View {
             if self.isCustomStyle {
                 FilterFeedbackBar(items: self.$items, onUpdate: self.performSortAndFilter)
                     .filterFeedbackBarStyle(font: .subheadline, foregroundColorSelected: .red, strokeColorSelected: .red, cornerRadius: 25, maxWidth: 200)
-                    .optionListPickerStyle(font: .footnote, foregroundColorUnselected: .green, strokeColorSelected: .black)
+                    .filterFeedbackBarButtonStyle { c in
+                        FilterFeedbackBarButton(c)
+                            .titleStyle(content: { titleC in
+                                titleC.title.foregroundStyle(c.isSelected ? Color.yellow : Color.green)
+                            })
+                            .iconStyle(content: { iconC in
+                                iconC.icon.foregroundStyle(c.isSelected ? Color.yellow : Color.green)
+                            })
+                            .background {
+                                ZStack {
+                                    RoundedRectangle(cornerRadius: 16)
+                                        .fill(c.isSelected ? Color.green : Color.yellow)
+                                        .stroke(c.isSelected ? Color.red : Color.green, lineWidth: 2)
+                                }
+                            }
+                    }
 //                    .trailingFullConfigurationMenuItem(icon: "command")
 //                    .leadingFullConfigurationMenuItem(icon: "command")
 //                    .leadingFullConfigurationMenuItem(name: "All")
