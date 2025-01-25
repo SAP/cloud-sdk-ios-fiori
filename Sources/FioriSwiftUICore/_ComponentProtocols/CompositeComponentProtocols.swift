@@ -1147,3 +1147,56 @@ protocol _FilterFeedbackBarButtonComponent: _IconComponent, _TitleComponent {
     // sourcery: defaultValue = 4.0
     var spacing: CGFloat { get }
 }
+
+/// `DimensionSegment` provides a customizable segment for `DimensionSelector`.
+///
+// sourcery: CompositeComponent
+protocol _DimensionSegmentComponent: _TitleComponent {
+    // sourcery: @binding
+    /// Whether the item is selected or not
+    var isSelected: Bool { get }
+}
+
+/// `DimensionSelector` is a horizontal control containing multiple segments, each segment functioning as a discrete button. Selection is mutually exclusive.
+///
+///  ## Usage:
+///  ```swift
+///  let titles = ["intraday: 1min", "one day: 1min", "1year:1day", "3years:1week"]
+///  @State var selectedIndex: Int? = 0
+///  @ObservedObject var stockModel = Tests.stockModels[0]
+///
+///  DimensionSelector(titles: titles, selectedIndex: $selectedIndex)
+///     .onChange(of: selectedIndex) {
+///            stockModel.indexOfStockSeries = selectedIndex ?? -1
+///    }
+///  ```
+// sourcery: CompositeComponent
+protocol _DimensionSelectorComponent {
+    /// The array for segment titles
+    var titles: [String] { get }
+    
+    // sourcery: @Binding
+    /// The optional selected index of the DimensionSelector
+    var selectedIndex: Int? { get }
+    
+    // sourcery: defaultValue = 6
+    /// The spacing between two segments. The default value is `6`.
+    var interItemSpacing: CGFloat { get }
+    
+    /// Content inset for the segmented control.
+    var contentInset: EdgeInsets? { get }
+    
+    // sourcery: defaultValue = .intrinsic
+    /// Mode that determines the width of each segment. The default value is `.intrinsic`.
+    var segmentWidthMode: SegmentWidthMode { get }
+    
+    // sourcery: defaultValue = true
+    /// A Boolean value indicating if empty selection is allowed. The default value is `true`.
+    var allowEmptySelection: Bool { get }
+    
+    @ViewBuilder
+    // sourcery: defaultValue = "{ _ in EmptyView() }"
+    // sourcery: resultBuilder.defaultValue = "{ _ in EmptyView() }"
+    ///  ViewBuilder for customizing the segments
+    var segment: (String) -> any View { get }
+}

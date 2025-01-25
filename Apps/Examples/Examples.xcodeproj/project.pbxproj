@@ -36,6 +36,7 @@
 		64905D072C6D13E20062AAD4 /* SwitchExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64905D062C6D13E20062AAD4 /* SwitchExample.swift */; };
 		64905D092C7693970062AAD4 /* DateTimePickerExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64905D082C7693970062AAD4 /* DateTimePickerExample.swift */; };
 		649C7F482CE531C8007B78A7 /* ProgressIndicatorExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649C7F472CE531C5007B78A7 /* ProgressIndicatorExample.swift */; };
+		64A3FF012D12527F00992B24 /* DimensionSelectorExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64A3FF002D12527B00992B24 /* DimensionSelectorExample.swift */; };
 		691DE21925F2A30B00094D4A /* KPIViewExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691DE21825F2A30B00094D4A /* KPIViewExample.swift */; };
 		692F338B26556A6A009B98DA /* SideBarExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 692F338A26556A6A009B98DA /* SideBarExample.swift */; };
 		69B2B5D9268A333C009AC6B3 /* KPIProgressViewExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B2B5D8268A333C009AC6B3 /* KPIProgressViewExample.swift */; };
@@ -270,6 +271,7 @@
 		64905D062C6D13E20062AAD4 /* SwitchExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchExample.swift; sourceTree = "<group>"; };
 		64905D082C7693970062AAD4 /* DateTimePickerExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTimePickerExample.swift; sourceTree = "<group>"; };
 		649C7F472CE531C5007B78A7 /* ProgressIndicatorExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressIndicatorExample.swift; sourceTree = "<group>"; };
+		64A3FF002D12527B00992B24 /* DimensionSelectorExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DimensionSelectorExample.swift; sourceTree = "<group>"; };
 		691DE21825F2A30B00094D4A /* KPIViewExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KPIViewExample.swift; sourceTree = "<group>"; };
 		692F338A26556A6A009B98DA /* SideBarExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideBarExample.swift; sourceTree = "<group>"; };
 		69B2B5D8268A333C009AC6B3 /* KPIProgressViewExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KPIProgressViewExample.swift; sourceTree = "<group>"; };
@@ -550,6 +552,7 @@
 		1FF3662C264C662A00AB8BD8 /* DimensionSelector */ = {
 			isa = PBXGroup;
 			children = (
+				64A3FF002D12527B00992B24 /* DimensionSelectorExample.swift */,
 				1FF3662D264C662A00AB8BD8 /* DimensionSelector+Chart.swift */,
 			);
 			path = DimensionSelector;
@@ -1276,6 +1279,7 @@
 				B86F02AA267983870049DDA7 /* ObjectItemListView.swift in Sources */,
 				9D057DAD2C34826700F5331C /* RatingControlFormViewExample.swift in Sources */,
 				B846F94826815DE50085044B /* ContactItemRegularExamples.swift in Sources */,
+				64A3FF012D12527F00992B24 /* DimensionSelectorExample.swift in Sources */,
 				9D00866A2BA8F6820004BE15 /* TextFieldFormViewExample.swift in Sources */,
 				878219C42BEE128E002FDFBC /* StepperViewExample.swift in Sources */,
 				3CDD6ECD2CE4277300DDAE7D /* CheckoutIndicatorModalExample.swift in Sources */,

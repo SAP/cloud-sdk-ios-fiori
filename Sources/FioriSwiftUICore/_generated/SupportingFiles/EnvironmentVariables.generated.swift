@@ -717,6 +717,48 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: DimensionSegmentStyle
+
+struct DimensionSegmentStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any DimensionSegmentStyle] = []
+}
+
+extension EnvironmentValues {
+    var dimensionSegmentStyle: any DimensionSegmentStyle {
+        self.dimensionSegmentStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var dimensionSegmentStyleStack: [any DimensionSegmentStyle] {
+        get {
+            self[DimensionSegmentStyleStackKey.self]
+        }
+        set {
+            self[DimensionSegmentStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: DimensionSelectorStyle
+
+struct DimensionSelectorStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any DimensionSelectorStyle] = []
+}
+
+extension EnvironmentValues {
+    var dimensionSelectorStyle: any DimensionSelectorStyle {
+        self.dimensionSelectorStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var dimensionSelectorStyleStack: [any DimensionSelectorStyle] {
+        get {
+            self[DimensionSelectorStyleStackKey.self]
+        }
+        set {
+            self[DimensionSelectorStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: FilledIconStyle
 
 struct FilledIconStyleStackKey: EnvironmentKey {

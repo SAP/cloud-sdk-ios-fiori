@@ -78,22 +78,16 @@ public struct BannerMessageListModel: Identifiable, Equatable {
 // Base Layout style
 public struct BannerMultiMessageSheetBaseStyle: BannerMultiMessageSheetStyle {
     @StateObject private var categorySelect = CategorySelect()
-    @State private var dimensionSelector: DimensionSelector = {
-        let all = NSLocalizedString("All", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
-        return DimensionSelector(segmentTitles: [all], selectedIndex: 0)
-    }()
-
     @State private var timer: Timer?
     @State private var cancellableSet: Set<AnyCancellable> = []
+    @State var dimensionSelectorIndex: Int? = 0
+    @State var dimensionSelectorTitles: [String] = [NSLocalizedString("All", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")]
     
-    private func resetDimensionSelector(_ configuration: BannerMultiMessageSheetConfiguration) {
-        var titles: [String] = []
+    private func resetDimensionSelectorTitles(_ configuration: BannerMultiMessageSheetConfiguration) {
+        self.dimensionSelectorTitles = [NSLocalizedString("All", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")]
         for element in configuration.bannerMultiMessages {
-            titles.append(element.category)
+            self.dimensionSelectorTitles.append(element.category)
         }
-        let all = NSLocalizedString("All", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
-        self.dimensionSelector.titles = [all] + titles
-        self.dimensionSelector.selectedIndex = 0
     }
     
     // List in popover will not expand automatically in iPad. Here, calculate the content height and resize its frame's height, the maximum of the popover height in iPad is 380.
@@ -110,7 +104,7 @@ public struct BannerMultiMessageSheetBaseStyle: BannerMultiMessageSheetStyle {
     }
     
     private func filteredBannerMultiMessages(_ configuration: BannerMultiMessageSheetConfiguration) -> [BannerMessageListModel] {
-        let selectedCategory = self.dimensionSelector.titles[self.categorySelect.categorySelectedIndex]
+        let selectedCategory = self.dimensionSelectorTitles[self.categorySelect.categorySelectedIndex]
         let filteredBannerMultiMessages = configuration.bannerMultiMessages.filter { model in
             if self.categorySelect.categorySelectedIndex == 0 {
                 return true
@@ -248,12 +242,13 @@ public struct BannerMultiMessageSheetBaseStyle: BannerMultiMessageSheetStyle {
             .sizeReader { size in
                 self.messageCountHeight = size.height
             }
-            
-            self.dimensionSelector
+            DimensionSelector(titles: self.dimensionSelectorTitles, selectedIndex: self.$dimensionSelectorIndex)
                 .sizeReader { size in
                     self.dimensionSelectorHeight = size.height
                 }
-            
+                .onChange(of: self.dimensionSelectorIndex) {
+                    self.categorySelect.categorySelectedIndex = self.dimensionSelectorIndex ?? 0
+                }
             List {
                 ForEach(self.filteredBannerMultiMessages(configuration), id: \.id) { element in
                     Section {
@@ -351,15 +346,10 @@ public struct BannerMultiMessageSheetBaseStyle: BannerMultiMessageSheetStyle {
                     self.dismiss(configuration)
                 })
             }
-            self.resetDimensionSelector(configuration)
+            self.resetDimensionSelectorTitles(configuration)
         }
         .onAppear {
-            self.resetDimensionSelector(configuration)
-            self.dimensionSelector.selectionDidChangePublisher
-                .sink(receiveValue: { index in
-                    self.categorySelect.categorySelectedIndex = index ?? 0
-                })
-                .store(in: &self.cancellableSet)
+            self.resetDimensionSelectorTitles(configuration)
         }
     }
 }
