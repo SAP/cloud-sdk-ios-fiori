@@ -547,6 +547,38 @@ extension DetailImageStyle {
     }
 }
 
+// MARK: DimensionSegmentStyle
+
+struct ResolvedDimensionSegmentStyle<Style: DimensionSegmentStyle>: View {
+    let style: Style
+    let configuration: DimensionSegmentConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension DimensionSegmentStyle {
+    func resolve(configuration: DimensionSegmentConfiguration) -> some View {
+        ResolvedDimensionSegmentStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: DimensionSelectorStyle
+
+struct ResolvedDimensionSelectorStyle<Style: DimensionSelectorStyle>: View {
+    let style: Style
+    let configuration: DimensionSelectorConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension DimensionSelectorStyle {
+    func resolve(configuration: DimensionSelectorConfiguration) -> some View {
+        ResolvedDimensionSelectorStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: FilledIconStyle
 
 struct ResolvedFilledIconStyle<Style: FilledIconStyle>: View {

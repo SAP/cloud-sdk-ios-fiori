@@ -581,6 +581,40 @@ public extension View {
     }
 }
 
+// MARK: DimensionSegmentStyle
+
+public extension View {
+    func dimensionSegmentStyle(_ style: some DimensionSegmentStyle) -> some View {
+        self.transformEnvironment(\.dimensionSegmentStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func dimensionSegmentStyle(@ViewBuilder content: @escaping (DimensionSegmentConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.dimensionSegmentStyleStack) { stack in
+            let style = AnyDimensionSegmentStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: DimensionSelectorStyle
+
+public extension View {
+    func dimensionSelectorStyle(_ style: some DimensionSelectorStyle) -> some View {
+        self.transformEnvironment(\.dimensionSelectorStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func dimensionSelectorStyle(@ViewBuilder content: @escaping (DimensionSelectorConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.dimensionSelectorStyleStack) { stack in
+            let style = AnyDimensionSelectorStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: FilledIconStyle
 
 public extension View {

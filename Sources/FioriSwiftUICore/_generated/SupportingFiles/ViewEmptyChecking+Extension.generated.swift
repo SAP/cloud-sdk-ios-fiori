@@ -264,6 +264,18 @@ extension DetailImage: _ViewEmptyChecking {
     }
 }
 
+extension DimensionSegment: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        title.isEmpty
+    }
+}
+
+extension DimensionSelector: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        false
+    }
+}
+
 extension FilledIcon: _ViewEmptyChecking {
     public var isEmpty: Bool {
         filledIcon.isEmpty
