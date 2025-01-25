@@ -1124,6 +1124,32 @@ protocol _HeaderChartComponent: _TitleComponent, _SubtitleComponent, _TrendCompo
     var chart: (() -> any View)? { get }
 }
 
+/// The `FilterFeedbackBarItem` is a SwiftUI component for items in FilterFeedbackBar.
+///
+/// ## Usage
+///
+/// `icon` is the leading image in the button.
+/// `title` is the button title.
+/// `accessoryIcon` is the trailing image in the button.
+/// `isSelected` is the state of the button whether the item has selected value. The style of the button will change based on its state.
+///
+///  ```swift
+///  FilterFeedbackBarItem(
+///     icon: Image(systemName: "clock"),
+///     title: "Item Title",
+///     accessoryIcon: Image(systemName: "chevron.down"),
+///     isSelected: self.item.isChecked)
+///  ```
+///
+// sourcery: CompositeComponent
+protocol _FilterFeedbackBarItemComponent: _IconComponent, _TitleComponent, _AccessoryIconComponent {
+    /// Whether the item is selected or not
+    var isSelected: Bool { get }
+    /// The custom spacing between icon and title.
+    // sourcery: defaultValue = 6.0
+    var spacing: CGFloat { get }
+}
+
 /// `DimensionSegment` provides a customizable segment for `DimensionSelector`.
 ///
 // sourcery: CompositeComponent

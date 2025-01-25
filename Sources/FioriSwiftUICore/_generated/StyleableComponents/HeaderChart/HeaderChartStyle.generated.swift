@@ -22,6 +22,7 @@ struct AnyHeaderChartStyle: HeaderChartStyle {
 }
 
 public struct HeaderChartConfiguration {
+    public var componentIdentifier: String = "fiori_headerchart_component"
     public let title: Title
     public let subtitle: Subtitle
     public let trend: Trend
@@ -35,6 +36,12 @@ public struct HeaderChartConfiguration {
     public typealias TrendImage = ConfigurationViewWrapper
     public typealias Kpi = ConfigurationViewWrapper
     public typealias Chart = ConfigurationViewWrapper
+}
+
+extension HeaderChartConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }
 
 public struct HeaderChartFioriStyle: HeaderChartStyle {

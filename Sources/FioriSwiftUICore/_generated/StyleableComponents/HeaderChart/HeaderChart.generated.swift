@@ -30,6 +30,8 @@ public struct HeaderChart {
 
     @Environment(\.headerChartStyle) var style
 
+    var componentIdentifier: String = HeaderChart.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
     public init(@ViewBuilder title: () -> any View,
@@ -37,15 +39,21 @@ public struct HeaderChart {
                 @ViewBuilder trend: () -> any View = { EmptyView() },
                 @ViewBuilder trendImage: () -> any View = { EmptyView() },
                 @ViewBuilder kpi: () -> any View = { EmptyView() },
-                @ViewBuilder chart: () -> any View = { EmptyView() })
+                @ViewBuilder chart: () -> any View = { EmptyView() },
+                componentIdentifier: String? = HeaderChart.identifier)
     {
-        self.title = Title(title: title)
-        self.subtitle = Subtitle(subtitle: subtitle)
-        self.trend = Trend(trend: trend)
-        self.trendImage = TrendImage(trendImage: trendImage)
-        self.kpi = Kpi(kpi: kpi)
+        self.title = Title(title: title, componentIdentifier: componentIdentifier)
+        self.subtitle = Subtitle(subtitle: subtitle, componentIdentifier: componentIdentifier)
+        self.trend = Trend(trend: trend, componentIdentifier: componentIdentifier)
+        self.trendImage = TrendImage(trendImage: trendImage, componentIdentifier: componentIdentifier)
+        self.kpi = Kpi(kpi: kpi, componentIdentifier: componentIdentifier)
         self.chart = chart()
+        self.componentIdentifier = componentIdentifier ?? HeaderChart.identifier
     }
+}
+
+public extension HeaderChart {
+    static let identifier = "fiori_headerchart_component"
 }
 
 public extension HeaderChart {
@@ -73,6 +81,7 @@ public extension HeaderChart {
         self.kpi = configuration.kpi
         self.chart = configuration.chart
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -81,7 +90,7 @@ extension HeaderChart: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(title: .init(self.title), subtitle: .init(self.subtitle), trend: .init(self.trend), trendImage: .init(self.trendImage), kpi: .init(self.kpi), chart: .init(self.chart))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, title: .init(self.title), subtitle: .init(self.subtitle), trend: .init(self.trend), trendImage: .init(self.trendImage), kpi: .init(self.kpi), chart: .init(self.chart))).typeErased
                 .transformEnvironment(\.headerChartStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -99,7 +108,7 @@ private extension HeaderChart {
     }
 
     func defaultStyle() -> some View {
-        HeaderChart(.init(title: .init(self.title), subtitle: .init(self.subtitle), trend: .init(self.trend), trendImage: .init(self.trendImage), kpi: .init(self.kpi), chart: .init(self.chart)))
+        HeaderChart(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), subtitle: .init(self.subtitle), trend: .init(self.trend), trendImage: .init(self.trendImage), kpi: .init(self.kpi), chart: .init(self.chart)))
             .shouldApplyDefaultStyle(false)
             .headerChartStyle(HeaderChartFioriStyle.ContentFioriStyle())
             .typeErased

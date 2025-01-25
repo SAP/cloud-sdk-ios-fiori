@@ -22,6 +22,7 @@ struct AnySectionFooterStyle: SectionFooterStyle {
 }
 
 public struct SectionFooterConfiguration {
+    public var componentIdentifier: String = "fiori_sectionfooter_component"
     public let title: Title
     public let attribute: Attribute
     public let sectionFooterStyle: SectionHeaderFooterStyle
@@ -29,6 +30,12 @@ public struct SectionFooterConfiguration {
 
     public typealias Title = ConfigurationViewWrapper
     public typealias Attribute = ConfigurationViewWrapper
+}
+
+extension SectionFooterConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }
 
 public struct SectionFooterFioriStyle: SectionFooterStyle {

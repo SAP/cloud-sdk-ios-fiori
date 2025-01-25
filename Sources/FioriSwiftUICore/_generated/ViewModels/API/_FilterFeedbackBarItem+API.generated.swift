@@ -2,7 +2,7 @@
 // DO NOT EDIT
 import SwiftUI
 
-public struct FilterFeedbackBarItem<LeftIcon: View, Title: View, RightIcon: View> {
+public struct _FilterFeedbackBarItem<LeftIcon: View, Title: View, RightIcon: View> {
     @Environment(\.leftIconModifier) private var leftIconModifier
 	@Environment(\.titleModifier) private var titleModifier
 	@Environment(\.rightIconModifier) private var rightIconModifier
@@ -32,23 +32,23 @@ public struct FilterFeedbackBarItem<LeftIcon: View, Title: View, RightIcon: View
 
     @ViewBuilder var leftIcon: some View {
         if isModelInit {
-            _leftIcon.modifier(leftIconModifier.concat(Fiori.FilterFeedbackBarItem.leftIcon).concat(Fiori.FilterFeedbackBarItem.leftIconCumulative))
+            _leftIcon.modifier(leftIconModifier.concat(Fiori._FilterFeedbackBarItem.leftIcon).concat(Fiori._FilterFeedbackBarItem.leftIconCumulative))
         } else {
-            _leftIcon.modifier(leftIconModifier.concat(Fiori.FilterFeedbackBarItem.leftIcon))
+            _leftIcon.modifier(leftIconModifier.concat(Fiori._FilterFeedbackBarItem.leftIcon))
         }
     }
 	@ViewBuilder var title: some View {
         if isModelInit {
-            _title.modifier(titleModifier.concat(Fiori.FilterFeedbackBarItem.title).concat(Fiori.FilterFeedbackBarItem.titleCumulative))
+            _title.modifier(titleModifier.concat(Fiori._FilterFeedbackBarItem.title).concat(Fiori._FilterFeedbackBarItem.titleCumulative))
         } else {
-            _title.modifier(titleModifier.concat(Fiori.FilterFeedbackBarItem.title))
+            _title.modifier(titleModifier.concat(Fiori._FilterFeedbackBarItem.title))
         }
     }
 	@ViewBuilder var rightIcon: some View {
         if isModelInit {
-            _rightIcon.modifier(rightIconModifier.concat(Fiori.FilterFeedbackBarItem.rightIcon).concat(Fiori.FilterFeedbackBarItem.rightIconCumulative))
+            _rightIcon.modifier(rightIconModifier.concat(Fiori._FilterFeedbackBarItem.rightIcon).concat(Fiori._FilterFeedbackBarItem.rightIconCumulative))
         } else {
-            _rightIcon.modifier(rightIconModifier.concat(Fiori.FilterFeedbackBarItem.rightIcon))
+            _rightIcon.modifier(rightIconModifier.concat(Fiori._FilterFeedbackBarItem.rightIcon))
         }
     }
     
@@ -61,11 +61,11 @@ public struct FilterFeedbackBarItem<LeftIcon: View, Title: View, RightIcon: View
     }
 }
 
-extension FilterFeedbackBarItem where LeftIcon == _ConditionalContent<Image, EmptyView>,
+extension _FilterFeedbackBarItem where LeftIcon == _ConditionalContent<Image, EmptyView>,
 		Title == Text,
 		RightIcon == _ConditionalContent<Image, EmptyView> {
 
-    public init(model: FilterFeedbackBarItemModel) {
+    public init(model: _FilterFeedbackBarItemModel) {
         self.init(leftIcon: model.leftIcon, title: model.title, rightIcon: model.rightIcon, isSelected: model.isSelected)
     }
 
