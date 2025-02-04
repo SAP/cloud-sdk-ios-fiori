@@ -22,7 +22,14 @@ struct AnyTrendImageStyle: TrendImageStyle {
 }
 
 public struct TrendImageConfiguration {
+    public var componentIdentifier: String = "fiori_trendimage_component"
     public let trendImage: TrendImage
 
     public typealias TrendImage = ConfigurationViewWrapper
+}
+
+extension TrendImageConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }

@@ -2,7 +2,7 @@
 // DO NOT EDIT
 import SwiftUI
 
-public struct FilterFeedbackBarButton<LeftIcon: View, Title: View> {
+public struct _FilterFeedbackBarButton<LeftIcon: View, Title: View> {
     @Environment(\.leftIconModifier) private var leftIconModifier
 	@Environment(\.titleModifier) private var titleModifier
 	@Environment(\.optionListPickerStyle) var optionListPickerStyle
@@ -27,16 +27,16 @@ public struct FilterFeedbackBarButton<LeftIcon: View, Title: View> {
 
     @ViewBuilder var leftIcon: some View {
         if isModelInit {
-            _leftIcon.modifier(leftIconModifier.concat(Fiori.FilterFeedbackBarButton.leftIcon).concat(Fiori.FilterFeedbackBarButton.leftIconCumulative))
+            _leftIcon.modifier(leftIconModifier.concat(Fiori._FilterFeedbackBarButton.leftIcon).concat(Fiori._FilterFeedbackBarButton.leftIconCumulative))
         } else {
-            _leftIcon.modifier(leftIconModifier.concat(Fiori.FilterFeedbackBarButton.leftIcon))
+            _leftIcon.modifier(leftIconModifier.concat(Fiori._FilterFeedbackBarButton.leftIcon))
         }
     }
 	@ViewBuilder var title: some View {
         if isModelInit {
-            _title.modifier(titleModifier.concat(Fiori.FilterFeedbackBarButton.title).concat(Fiori.FilterFeedbackBarButton.titleCumulative))
+            _title.modifier(titleModifier.concat(Fiori._FilterFeedbackBarButton.title).concat(Fiori._FilterFeedbackBarButton.titleCumulative))
         } else {
-            _title.modifier(titleModifier.concat(Fiori.FilterFeedbackBarButton.title))
+            _title.modifier(titleModifier.concat(Fiori._FilterFeedbackBarButton.title))
         }
     }
     
@@ -45,10 +45,10 @@ public struct FilterFeedbackBarButton<LeftIcon: View, Title: View> {
     }
 }
 
-extension FilterFeedbackBarButton where LeftIcon == _ConditionalContent<Image, EmptyView>,
+extension _FilterFeedbackBarButton where LeftIcon == _ConditionalContent<Image, EmptyView>,
 		Title == Text {
 
-    public init(model: FilterFeedbackBarButtonModel) {
+    public init(model: _FilterFeedbackBarButtonModel) {
         self.init(leftIcon: model.leftIcon, title: model.title, isSelected: model.isSelected)
     }
 
