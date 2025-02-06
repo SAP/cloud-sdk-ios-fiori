@@ -1072,6 +1072,34 @@ public extension FilterFeedbackBarButtonStyle {
     }
 }
 
+// MARK: FilterFeedbackBarItemStyle
+
+extension ModifiedStyle: FilterFeedbackBarItemStyle where Style: FilterFeedbackBarItemStyle {
+    public func makeBody(_ configuration: FilterFeedbackBarItemConfiguration) -> some View {
+        FilterFeedbackBarItem(configuration)
+            .filterFeedbackBarItemStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct FilterFeedbackBarItemStyleModifier<Style: FilterFeedbackBarItemStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.filterFeedbackBarItemStyle(self.style)
+    }
+}
+
+public extension FilterFeedbackBarItemStyle {
+    func modifier(_ modifier: some ViewModifier) -> some FilterFeedbackBarItemStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some FilterFeedbackBarItemStyle) -> some FilterFeedbackBarItemStyle {
+        style.modifier(FilterFeedbackBarItemStyleModifier(style: self))
+    }
+}
+
 // MARK: FioriSliderStyle
 
 extension ModifiedStyle: FioriSliderStyle where Style: FioriSliderStyle {

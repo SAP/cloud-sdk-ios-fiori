@@ -801,6 +801,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: FilterFeedbackBarItemStyle
+
+struct FilterFeedbackBarItemStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any FilterFeedbackBarItemStyle] = []
+}
+
+extension EnvironmentValues {
+    var filterFeedbackBarItemStyle: any FilterFeedbackBarItemStyle {
+        self.filterFeedbackBarItemStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var filterFeedbackBarItemStyleStack: [any FilterFeedbackBarItemStyle] {
+        get {
+            self[FilterFeedbackBarItemStyleStackKey.self]
+        }
+        set {
+            self[FilterFeedbackBarItemStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: FioriSliderStyle
 
 struct FioriSliderStyleStackKey: EnvironmentKey {
