@@ -282,6 +282,13 @@ extension FilledIcon: _ViewEmptyChecking {
     }
 }
 
+extension FilterFeedbackBarButton: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        icon.isEmpty &&
+            title.isEmpty
+    }
+}
+
 extension FilterFeedbackBarItem: _ViewEmptyChecking {
     public var isEmpty: Bool {
         icon.isEmpty &&

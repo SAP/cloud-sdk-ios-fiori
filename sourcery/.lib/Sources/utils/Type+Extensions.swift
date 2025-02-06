@@ -85,6 +85,7 @@ public extension Type {
                                     "_HeaderChartModel",
                                     "_SectionHeaderModel",
                                     "_SwitchPickerItemModel",
+                                    "_FilterFeedbackBarButtonModel",
                                     "_FilterFeedbackBarItemModel"]
         
         if deprecatedComponents.contains(name) {

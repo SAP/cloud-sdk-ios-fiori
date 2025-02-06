@@ -632,6 +632,23 @@ public extension View {
     }
 }
 
+// MARK: FilterFeedbackBarButtonStyle
+
+public extension View {
+    func filterFeedbackBarButtonStyle(_ style: some FilterFeedbackBarButtonStyle) -> some View {
+        self.transformEnvironment(\.filterFeedbackBarButtonStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func filterFeedbackBarButtonStyle(@ViewBuilder content: @escaping (FilterFeedbackBarButtonConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.filterFeedbackBarButtonStyleStack) { stack in
+            let style = AnyFilterFeedbackBarButtonStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: FilterFeedbackBarItemStyle
 
 public extension View {

@@ -1044,6 +1044,34 @@ public extension FilledIconStyle {
     }
 }
 
+// MARK: FilterFeedbackBarButtonStyle
+
+extension ModifiedStyle: FilterFeedbackBarButtonStyle where Style: FilterFeedbackBarButtonStyle {
+    public func makeBody(_ configuration: FilterFeedbackBarButtonConfiguration) -> some View {
+        FilterFeedbackBarButton(configuration)
+            .filterFeedbackBarButtonStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct FilterFeedbackBarButtonStyleModifier<Style: FilterFeedbackBarButtonStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.filterFeedbackBarButtonStyle(self.style)
+    }
+}
+
+public extension FilterFeedbackBarButtonStyle {
+    func modifier(_ modifier: some ViewModifier) -> some FilterFeedbackBarButtonStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some FilterFeedbackBarButtonStyle) -> some FilterFeedbackBarButtonStyle {
+        style.modifier(FilterFeedbackBarButtonStyleModifier(style: self))
+    }
+}
+
 // MARK: FilterFeedbackBarItemStyle
 
 extension ModifiedStyle: FilterFeedbackBarItemStyle where Style: FilterFeedbackBarItemStyle {

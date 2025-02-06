@@ -595,6 +595,22 @@ extension FilledIconStyle {
     }
 }
 
+// MARK: FilterFeedbackBarButtonStyle
+
+struct ResolvedFilterFeedbackBarButtonStyle<Style: FilterFeedbackBarButtonStyle>: View {
+    let style: Style
+    let configuration: FilterFeedbackBarButtonConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension FilterFeedbackBarButtonStyle {
+    func resolve(configuration: FilterFeedbackBarButtonConfiguration) -> some View {
+        ResolvedFilterFeedbackBarButtonStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: FilterFeedbackBarItemStyle
 
 struct ResolvedFilterFeedbackBarItemStyle<Style: FilterFeedbackBarItemStyle>: View {

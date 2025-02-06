@@ -55,17 +55,18 @@ extension OptionListPickerItem: View {
                 ForEach(0 ..< Int(ceil(Double(_valueOptions.count) / 2.0)), id: \.self) { rowIndex in
                     GridRow {
                         FilterFeedbackBarButton(
-                            leftIcon: _value.wrappedValue.contains(rowIndex * 2) ? Image(systemName: "checkmark") : nil,
-                            title: _valueOptions[rowIndex * 2],
+                            icon: _value.wrappedValue.contains(rowIndex * 2) ? Image(systemName: "checkmark") : nil,
+                            title: AttributedString(_valueOptions[rowIndex * 2]),
                             isSelected: _value.wrappedValue.contains(rowIndex * 2)
                         )
+                        .filterFeedbackBarStyle()
                         .onTapGesture {
                             _onTap?(rowIndex * 2)
                         }
                         if rowIndex * 2 + 1 < _valueOptions.count {
                             FilterFeedbackBarButton(
-                                leftIcon: _value.wrappedValue.contains(rowIndex * 2 + 1) ? Image(systemName: "checkmark") : nil,
-                                title: _valueOptions[rowIndex * 2 + 1],
+                                icon: _value.wrappedValue.contains(rowIndex * 2 + 1) ? Image(systemName: "checkmark") : nil,
+                                title: AttributedString(_valueOptions[rowIndex * 2 + 1]),
                                 isSelected: _value.wrappedValue.contains(rowIndex * 2 + 1)
                             )
                             .onTapGesture {
@@ -91,8 +92,8 @@ extension OptionListPickerItem: View {
             OptionListPickerCustomLayout {
                 ForEach(0 ..< _valueOptions.count, id: \.self) { optionIndex in
                     FilterFeedbackBarButton(
-                        leftIcon: _value.wrappedValue.contains(optionIndex) ? Image(systemName: "checkmark") : nil,
-                        title: _valueOptions[optionIndex],
+                        icon: _value.wrappedValue.contains(optionIndex) ? Image(systemName: "checkmark") : nil,
+                        title: AttributedString(_valueOptions[optionIndex]),
                         isSelected: _value.wrappedValue.contains(optionIndex)
                     )
                     .onTapGesture {
