@@ -1004,6 +1004,22 @@ struct _FullCFGMenuItem: View {
                         }
                 })
             })
+            .ifApply(UIDevice.current.userInterfaceIdiom == .phone) { v in
+                v.popover(isPresented: self.$isSheetVisible, arrowEdge: self.barItemFrame.arrowDirection()) {
+                    self.sortConfigurationView()
+                }
+                .background(GeometryReader { geometry in
+                    Color.clear
+                        .onAppear {
+                            self.barItemFrame = geometry.frame(in: .global)
+                        }
+                        .setOnChange(of: geometry.frame(in: .global), action1: { newValue in
+                            self.barItemFrame = newValue
+                        }) { _, newValue in
+                            self.barItemFrame = newValue
+                        }
+                })
+            }
     }
     
     private func sortConfigurationView() -> some View {
