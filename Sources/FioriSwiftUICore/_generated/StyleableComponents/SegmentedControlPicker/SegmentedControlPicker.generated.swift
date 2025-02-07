@@ -18,14 +18,22 @@ public struct SegmentedControlPicker {
 
     @Environment(\.segmentedControlPickerStyle) var style
 
+    var componentIdentifier: String = SegmentedControlPicker.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
     public init(options: [AttributedString] = [],
-                selectedIndex: Binding<Int>)
+                selectedIndex: Binding<Int>,
+                componentIdentifier: String? = SegmentedControlPicker.identifier)
     {
         self.options = options
         self._selectedIndex = selectedIndex
+        self.componentIdentifier = componentIdentifier ?? SegmentedControlPicker.identifier
     }
+}
+
+public extension SegmentedControlPicker {
+    static let identifier = "fiori_segmentedcontrolpicker_component"
 }
 
 public extension SegmentedControlPicker {
@@ -37,6 +45,7 @@ public extension SegmentedControlPicker {
         self.options = configuration.options
         self._selectedIndex = configuration.$selectedIndex
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -45,7 +54,7 @@ extension SegmentedControlPicker: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(options: self.options, selectedIndex: self.$selectedIndex)).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, options: self.options, selectedIndex: self.$selectedIndex)).typeErased
                 .transformEnvironment(\.segmentedControlPickerStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -63,7 +72,7 @@ private extension SegmentedControlPicker {
     }
 
     func defaultStyle() -> some View {
-        SegmentedControlPicker(.init(options: self.options, selectedIndex: self.$selectedIndex))
+        SegmentedControlPicker(.init(componentIdentifier: self.componentIdentifier, options: self.options, selectedIndex: self.$selectedIndex))
             .shouldApplyDefaultStyle(false)
             .segmentedControlPickerStyle(SegmentedControlPickerFioriStyle.ContentFioriStyle())
             .typeErased

@@ -210,6 +210,9 @@ public struct Carousel<Content>: View where Content: View {
     /// Whether all subviews have same height which is the maximum height of all subviews
     let isSameHeight: Bool
     
+    /// Padding inside of the Carousel View
+    let contentInsets: EdgeInsets
+    
     /// The views representing the content of the Carousel
     var content: () -> Content
     
@@ -230,13 +233,15 @@ public struct Carousel<Content>: View where Content: View {
     /// Create a Carousel View
     /// - Parameters:
     ///   - numberOfColumns: Number of columns. The default is 1.
+    ///   - contentInsets: Padding inside of the Carousel View
     ///   - spacing: Horizontal spacing between views. The default is 8.
     ///   - alignment: Vertical alignment in the carousel. The default is `.top`.
     ///   - isSnapping: Whether it stops at a right position that the first visible subview can be displayed fully after scrolling. The default is `true`.
     ///   - isSameHeight: Whether all subviews have same height which is the maximum height of all subviews
     ///   - content: The views representing the content of the Carousel
-    public init(numberOfColumns: Int = 1, spacing: CGFloat = 8, alignment: VerticalAlignment = .top, isSnapping: Bool = true, isSameHeight: Bool = false, @ViewBuilder content: @escaping () -> Content) {
+    public init(numberOfColumns: Int = 1, contentInsets: EdgeInsets = EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16), spacing: CGFloat = 8, alignment: VerticalAlignment = .top, isSnapping: Bool = true, isSameHeight: Bool = false, @ViewBuilder content: @escaping () -> Content) {
         self.numberOfColumns = numberOfColumns
+        self.contentInsets = contentInsets
         self.spacing = spacing
         self.alignment = alignment
         self.isSnapping = isSnapping
@@ -251,6 +256,7 @@ public struct Carousel<Content>: View where Content: View {
                     self.content()
                 }
             }
+            .padding(self.contentInsets)
             .offset(x: -self.contentOffset.x)
             .modifier(CarouselContentSizeModifier())
             .onPreferenceChange(CarouselContentSizePreferenceKey.self) { size in
@@ -260,7 +266,7 @@ public struct Carousel<Content>: View where Content: View {
             }
             .contentShape(Rectangle())
             .highPriorityGesture(
-                DragGesture()
+                DragGesture(minimumDistance: 20)
                     .onChanged { value in
                         self.contentOffset.x = self.preContentOffset.x + (self.layoutDirection == .leftToRight ? -1 : 1) * value.translation.width
                     }
@@ -271,10 +277,10 @@ public struct Carousel<Content>: View where Content: View {
                             var finalX = min(maxX, expectedX)
                             
                             if self.isSnapping {
-                                let itemWidth: CGFloat = (viewSize.width - CGFloat(self.numberOfColumns + 2) * self.spacing) / CGFloat(self.numberOfColumns)
-                                let index = (expectedX / (itemWidth + self.spacing)).rounded()
-                                //                                finalX = max(0, min(maxX, index * (itemWidth + self.spacing) - self.spacing))
-                                finalX = max(0, min(maxX, index * (itemWidth + self.spacing)))
+                                let itemWidth: CGFloat = (viewSize.width - self.contentInsets.horizontal - CGFloat(self.numberOfColumns + 2) * self.spacing) / CGFloat(self.numberOfColumns)
+                                let index = ((expectedX - self.contentInsets.leading) / (itemWidth + self.spacing)).rounded()
+                                let idealX = index * itemWidth + max(0, index - 1) * self.spacing + (index == 0 ? 0 : self.contentInsets.leading)
+                                finalX = max(0, min(maxX, idealX))
                             }
                             
                             self.contentOffset.x = finalX

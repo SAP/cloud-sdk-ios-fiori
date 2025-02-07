@@ -22,7 +22,14 @@ struct AnySubAttributeStyle: SubAttributeStyle {
 }
 
 public struct SubAttributeConfiguration {
+    public var componentIdentifier: String = "fiori_subattribute_component"
     public let subAttribute: SubAttribute
 
     public typealias SubAttribute = ConfigurationViewWrapper
+}
+
+extension SubAttributeConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }

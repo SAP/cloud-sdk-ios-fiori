@@ -9,14 +9,22 @@ public struct CardMedia {
 
     @Environment(\.cardMediaStyle) var style
 
+    var componentIdentifier: String = CardMedia.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
     public init(@ViewBuilder mediaImage: () -> any View = { EmptyView() },
-                @ViewBuilder description: () -> any View = { EmptyView() })
+                @ViewBuilder description: () -> any View = { EmptyView() },
+                componentIdentifier: String? = CardMedia.identifier)
     {
-        self.mediaImage = MediaImage(mediaImage: mediaImage)
-        self.description = Description(description: description)
+        self.mediaImage = MediaImage(mediaImage: mediaImage, componentIdentifier: componentIdentifier)
+        self.description = Description(description: description, componentIdentifier: componentIdentifier)
+        self.componentIdentifier = componentIdentifier ?? CardMedia.identifier
     }
+}
+
+public extension CardMedia {
+    static let identifier = "fiori_cardmedia_component"
 }
 
 public extension CardMedia {
@@ -36,6 +44,7 @@ public extension CardMedia {
         self.mediaImage = configuration.mediaImage
         self.description = configuration.description
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -44,7 +53,7 @@ extension CardMedia: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(mediaImage: .init(self.mediaImage), description: .init(self.description))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, mediaImage: .init(self.mediaImage), description: .init(self.description))).typeErased
                 .transformEnvironment(\.cardMediaStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -62,7 +71,7 @@ private extension CardMedia {
     }
 
     func defaultStyle() -> some View {
-        CardMedia(.init(mediaImage: .init(self.mediaImage), description: .init(self.description)))
+        CardMedia(.init(componentIdentifier: self.componentIdentifier, mediaImage: .init(self.mediaImage), description: .init(self.description)))
             .shouldApplyDefaultStyle(false)
             .cardMediaStyle(CardMediaFioriStyle.ContentFioriStyle())
             .typeErased

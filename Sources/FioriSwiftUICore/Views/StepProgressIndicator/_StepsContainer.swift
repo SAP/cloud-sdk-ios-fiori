@@ -3,14 +3,14 @@ import SwiftUI
 
 /// Not used by developers.
 public struct _StepsContainer {
-    var steps: [SingleStepModel]
+    var steps: [_SingleStepModel]
     /// :nodoc:
-    public init(steps: [SingleStepModel]) {
+    public init(steps: [_SingleStepModel]) {
         self.steps = steps
     }
 
     /// :nodoc:
-    public init(substeps: [SingleStepModel]) {
+    public init(substeps: [_SingleStepModel]) {
         self.steps = substeps
     }
 }
@@ -28,10 +28,10 @@ extension _StepsContainer: IndexedViewContainer {
             let title = self.steps[index].title
             let node = self.steps[index].node
             let substeps = self.steps[index].substeps
-            SingleStep(id: id,
-                       title: title,
-                       node: node,
-                       substeps: substeps)
+            _SingleStep(id: id,
+                        title: title,
+                        node: node,
+                        substeps: substeps)
         } else {
             EmptyView()
         }
@@ -56,9 +56,18 @@ extension _StepItemsContainer: IndexedViewContainer {
     /// :nodoc:
     @ViewBuilder public func view(at index: Int) -> some View {
         if index < self.count {
-            SingleStep(item: self.steps[index])
+            _SingleStep(item: self.steps[index])
         } else {
             EmptyView()
+        }
+    }
+}
+
+extension _StepItemsContainer: View {
+    /// :nodoc:
+    public var body: some View {
+        ForEach(0 ..< self.count, id: \.self) { index in
+            self.view(at: index)
         }
     }
 }

@@ -87,8 +87,12 @@ extension SortFilterView: View {
         .frame(minWidth: 480.0)
         .background(Color.clear)
         #endif
-        .frame(height: UIDevice.current.userInterfaceIdiom != .phone ? size.height + 150 : nil)
+        .frame(height: UIDevice.current.userInterfaceIdiom != .phone ? size.height + self.additionHeight() : nil)
         .presentationDetents([.large])
+    }
+    
+    func additionHeight() -> CGFloat {
+        context.isPickerListShown ? (context.isSearchBarHidden ? 68 : 120) : 120
     }
 }
 

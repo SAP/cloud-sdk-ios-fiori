@@ -22,6 +22,7 @@ struct AnyTimelineStyle: TimelineStyle {
 }
 
 public struct TimelineConfiguration {
+    public var componentIdentifier: String = "fiori_timeline_component"
     public let timestamp: Timestamp
     public let secondaryTimestamp: SecondaryTimestamp
     public let timelineNode: TimelineNode
@@ -45,6 +46,12 @@ public struct TimelineConfiguration {
     public typealias Status = ConfigurationViewWrapper
     public typealias Substatus = ConfigurationViewWrapper
     public typealias SubAttribute = ConfigurationViewWrapper
+}
+
+extension TimelineConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }
 
 public struct TimelineFioriStyle: TimelineStyle {

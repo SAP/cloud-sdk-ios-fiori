@@ -8,11 +8,20 @@ public struct Value {
 
     @Environment(\.valueStyle) var style
 
+    var componentIdentifier: String = Value.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder value: () -> any View = { EmptyView() }) {
+    public init(@ViewBuilder value: () -> any View = { EmptyView() },
+                componentIdentifier: String? = Value.identifier)
+    {
         self.value = value()
+        self.componentIdentifier = componentIdentifier ?? Value.identifier
     }
+}
+
+public extension Value {
+    static let identifier = "fiori_value_component"
 }
 
 public extension Value {
@@ -29,6 +38,7 @@ public extension Value {
     internal init(_ configuration: ValueConfiguration, shouldApplyDefaultStyle: Bool) {
         self.value = configuration.value
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -37,7 +47,7 @@ extension Value: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(value: .init(self.value))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, value: .init(self.value))).typeErased
                 .transformEnvironment(\.valueStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -55,7 +65,7 @@ private extension Value {
     }
 
     func defaultStyle() -> some View {
-        Value(.init(value: .init(self.value)))
+        Value(.init(componentIdentifier: self.componentIdentifier, value: .init(self.value)))
             .shouldApplyDefaultStyle(false)
             .valueStyle(.fiori)
             .typeErased

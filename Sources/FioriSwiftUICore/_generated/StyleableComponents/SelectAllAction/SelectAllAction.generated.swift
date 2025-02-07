@@ -8,11 +8,20 @@ public struct SelectAllAction {
 
     @Environment(\.selectAllActionStyle) var style
 
+    var componentIdentifier: String = SelectAllAction.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder selectAllAction: () -> any View = { FioriButton { _ in Text("Select All".localizedFioriString()) } }) {
+    public init(@ViewBuilder selectAllAction: () -> any View = { FioriButton { _ in Text("Select All".localizedFioriString()) } },
+                componentIdentifier: String? = SelectAllAction.identifier)
+    {
         self.selectAllAction = selectAllAction()
+        self.componentIdentifier = componentIdentifier ?? SelectAllAction.identifier
     }
+}
+
+public extension SelectAllAction {
+    static let identifier = "fiori_selectallaction_component"
 }
 
 public extension SelectAllAction {
@@ -29,6 +38,7 @@ public extension SelectAllAction {
     internal init(_ configuration: SelectAllActionConfiguration, shouldApplyDefaultStyle: Bool) {
         self.selectAllAction = configuration.selectAllAction
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -37,7 +47,7 @@ extension SelectAllAction: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(selectAllAction: .init(self.selectAllAction))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, selectAllAction: .init(self.selectAllAction))).typeErased
                 .transformEnvironment(\.selectAllActionStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -55,7 +65,7 @@ private extension SelectAllAction {
     }
 
     func defaultStyle() -> some View {
-        SelectAllAction(.init(selectAllAction: .init(self.selectAllAction)))
+        SelectAllAction(.init(componentIdentifier: self.componentIdentifier, selectAllAction: .init(self.selectAllAction)))
             .shouldApplyDefaultStyle(false)
             .selectAllActionStyle(.fiori)
             .typeErased

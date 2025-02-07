@@ -37,6 +37,23 @@ public extension View {
     }
 }
 
+// MARK: ActiveTrackStyle
+
+public extension View {
+    func activeTrackStyle(_ style: some ActiveTrackStyle) -> some View {
+        self.transformEnvironment(\.activeTrackStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func activeTrackStyle(@ViewBuilder content: @escaping (ActiveTrackConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.activeTrackStyleStack) { stack in
+            let style = AnyActiveTrackStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: ActivityItemStyle
 
 public extension View {
@@ -49,6 +66,23 @@ public extension View {
     func activityItemStyle(@ViewBuilder content: @escaping (ActivityItemConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.activityItemStyleStack) { stack in
             let style = AnyActivityItemStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: ActivityItemsStyle
+
+public extension View {
+    func activityItemsStyle(_ style: some ActivityItemsStyle) -> some View {
+        self.transformEnvironment(\.activityItemsStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func activityItemsStyle(@ViewBuilder content: @escaping (ActivityItemsConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.activityItemsStyleStack) { stack in
+            let style = AnyActivityItemsStyle(content)
             stack.append(style)
         }
     }
@@ -185,6 +219,23 @@ public extension View {
     func bannerMultiMessageSheetStyle(@ViewBuilder content: @escaping (BannerMultiMessageSheetConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.bannerMultiMessageSheetStyleStack) { stack in
             let style = AnyBannerMultiMessageSheetStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: BodyTextStyle
+
+public extension View {
+    func bodyTextStyle(_ style: some BodyTextStyle) -> some View {
+        self.transformEnvironment(\.bodyTextStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func bodyTextStyle(@ViewBuilder content: @escaping (BodyTextConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.bodyTextStyleStack) { stack in
+            let style = AnyBodyTextStyle(content)
             stack.append(style)
         }
     }
@@ -360,6 +411,23 @@ public extension View {
     }
 }
 
+// MARK: ContactItemStyle
+
+public extension View {
+    func contactItemStyle(_ style: some ContactItemStyle) -> some View {
+        self.transformEnvironment(\.contactItemStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func contactItemStyle(@ViewBuilder content: @escaping (ContactItemConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.contactItemStyleStack) { stack in
+            let style = AnyContactItemStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: CounterStyle
 
 public extension View {
@@ -445,6 +513,23 @@ public extension View {
     }
 }
 
+// MARK: DescriptionTextStyle
+
+public extension View {
+    func descriptionTextStyle(_ style: some DescriptionTextStyle) -> some View {
+        self.transformEnvironment(\.descriptionTextStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func descriptionTextStyle(@ViewBuilder content: @escaping (DescriptionTextConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.descriptionTextStyleStack) { stack in
+            let style = AnyDescriptionTextStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: DeselectAllActionStyle
 
 public extension View {
@@ -457,6 +542,23 @@ public extension View {
     func deselectAllActionStyle(@ViewBuilder content: @escaping (DeselectAllActionConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.deselectAllActionStyleStack) { stack in
             let style = AnyDeselectAllActionStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: DetailContentStyle
+
+public extension View {
+    func detailContentStyle(_ style: some DetailContentStyle) -> some View {
+        self.transformEnvironment(\.detailContentStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func detailContentStyle(@ViewBuilder content: @escaping (DetailContentConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.detailContentStyleStack) { stack in
+            let style = AnyDetailContentStyle(content)
             stack.append(style)
         }
     }
@@ -479,6 +581,40 @@ public extension View {
     }
 }
 
+// MARK: DimensionSegmentStyle
+
+public extension View {
+    func dimensionSegmentStyle(_ style: some DimensionSegmentStyle) -> some View {
+        self.transformEnvironment(\.dimensionSegmentStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func dimensionSegmentStyle(@ViewBuilder content: @escaping (DimensionSegmentConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.dimensionSegmentStyleStack) { stack in
+            let style = AnyDimensionSegmentStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: DimensionSelectorStyle
+
+public extension View {
+    func dimensionSelectorStyle(_ style: some DimensionSelectorStyle) -> some View {
+        self.transformEnvironment(\.dimensionSelectorStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func dimensionSelectorStyle(@ViewBuilder content: @escaping (DimensionSelectorConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.dimensionSelectorStyleStack) { stack in
+            let style = AnyDimensionSelectorStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: FilledIconStyle
 
 public extension View {
@@ -491,6 +627,57 @@ public extension View {
     func filledIconStyle(@ViewBuilder content: @escaping (FilledIconConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.filledIconStyleStack) { stack in
             let style = AnyFilledIconStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: FilterFeedbackBarButtonStyle
+
+public extension View {
+    func filterFeedbackBarButtonStyle(_ style: some FilterFeedbackBarButtonStyle) -> some View {
+        self.transformEnvironment(\.filterFeedbackBarButtonStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func filterFeedbackBarButtonStyle(@ViewBuilder content: @escaping (FilterFeedbackBarButtonConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.filterFeedbackBarButtonStyleStack) { stack in
+            let style = AnyFilterFeedbackBarButtonStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: FilterFeedbackBarItemStyle
+
+public extension View {
+    func filterFeedbackBarItemStyle(_ style: some FilterFeedbackBarItemStyle) -> some View {
+        self.transformEnvironment(\.filterFeedbackBarItemStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func filterFeedbackBarItemStyle(@ViewBuilder content: @escaping (FilterFeedbackBarItemConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.filterFeedbackBarItemStyleStack) { stack in
+            let style = AnyFilterFeedbackBarItemStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: FioriSliderStyle
+
+public extension View {
+    func fioriSliderStyle(_ style: some FioriSliderStyle) -> some View {
+        self.transformEnvironment(\.fioriSliderStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func fioriSliderStyle(@ViewBuilder content: @escaping (FioriSliderConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.fioriSliderStyleStack) { stack in
+            let style = AnyFioriSliderStyle(content)
             stack.append(style)
         }
     }
@@ -615,6 +802,23 @@ public extension View {
     }
 }
 
+// MARK: HeaderChartStyle
+
+public extension View {
+    func headerChartStyle(_ style: some HeaderChartStyle) -> some View {
+        self.transformEnvironment(\.headerChartStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func headerChartStyle(@ViewBuilder content: @escaping (HeaderChartConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.headerChartStyleStack) { stack in
+            let style = AnyHeaderChartStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: HelperTextStyle
 
 public extension View {
@@ -683,6 +887,23 @@ public extension View {
     }
 }
 
+// MARK: InactiveTrackStyle
+
+public extension View {
+    func inactiveTrackStyle(_ style: some InactiveTrackStyle) -> some View {
+        self.transformEnvironment(\.inactiveTrackStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func inactiveTrackStyle(@ViewBuilder content: @escaping (InactiveTrackConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.inactiveTrackStyleStack) { stack in
+            let style = AnyInactiveTrackStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: IncrementActionStyle
 
 public extension View {
@@ -717,6 +938,23 @@ public extension View {
     }
 }
 
+// MARK: InnerCircleStyle
+
+public extension View {
+    func innerCircleStyle(_ style: some InnerCircleStyle) -> some View {
+        self.transformEnvironment(\.innerCircleStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func innerCircleStyle(@ViewBuilder content: @escaping (InnerCircleConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.innerCircleStyleStack) { stack in
+            let style = AnyInnerCircleStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: JouleWelcomeScreenStyle
 
 public extension View {
@@ -729,6 +967,40 @@ public extension View {
     func jouleWelcomeScreenStyle(@ViewBuilder content: @escaping (JouleWelcomeScreenConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.jouleWelcomeScreenStyleStack) { stack in
             let style = AnyJouleWelcomeScreenStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: KPIContentStyle
+
+public extension View {
+    func kPIContentStyle(_ style: some KPIContentStyle) -> some View {
+        self.transformEnvironment(\.kPIContentStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func kPIContentStyle(@ViewBuilder content: @escaping (KPIContentConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.kPIContentStyleStack) { stack in
+            let style = AnyKPIContentStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: KPIProgressItemStyle
+
+public extension View {
+    func kPIProgressItemStyle(_ style: some KPIProgressItemStyle) -> some View {
+        self.transformEnvironment(\.kPIProgressItemStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func kPIProgressItemStyle(@ViewBuilder content: @escaping (KPIProgressItemConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.kPIProgressItemStyleStack) { stack in
+            let style = AnyKPIProgressItemStyle(content)
             stack.append(style)
         }
     }
@@ -797,6 +1069,40 @@ public extension View {
     func labelItemStyle(@ViewBuilder content: @escaping (LabelItemConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.labelItemStyleStack) { stack in
             let style = AnyLabelItemStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: LeadingAccessoryStyle
+
+public extension View {
+    func leadingAccessoryStyle(_ style: some LeadingAccessoryStyle) -> some View {
+        self.transformEnvironment(\.leadingAccessoryStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func leadingAccessoryStyle(@ViewBuilder content: @escaping (LeadingAccessoryConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.leadingAccessoryStyleStack) { stack in
+            let style = AnyLeadingAccessoryStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: LineStyle
+
+public extension View {
+    func lineStyle(_ style: some LineStyle) -> some View {
+        self.transformEnvironment(\.lineStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func lineStyle(@ViewBuilder content: @escaping (LineConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.lineStyleStack) { stack in
+            let style = AnyLineStyle(content)
             stack.append(style)
         }
     }
@@ -904,6 +1210,23 @@ public extension View {
     }
 }
 
+// MARK: LowerThumbStyle
+
+public extension View {
+    func lowerThumbStyle(_ style: some LowerThumbStyle) -> some View {
+        self.transformEnvironment(\.lowerThumbStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func lowerThumbStyle(@ViewBuilder content: @escaping (LowerThumbConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.lowerThumbStyleStack) { stack in
+            let style = AnyLowerThumbStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: MandatoryFieldIndicatorStyle
 
 public extension View {
@@ -1006,6 +1329,23 @@ public extension View {
     }
 }
 
+// MARK: NodeStyle
+
+public extension View {
+    func nodeStyle(_ style: some NodeStyle) -> some View {
+        self.transformEnvironment(\.nodeStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func nodeStyle(@ViewBuilder content: @escaping (NodeConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.nodeStyleStack) { stack in
+            let style = AnyNodeStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: NoteFormViewStyle
 
 public extension View {
@@ -1035,6 +1375,23 @@ public extension View {
     func nowIndicatorNodeStyle(@ViewBuilder content: @escaping (NowIndicatorNodeConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.nowIndicatorNodeStyleStack) { stack in
             let style = AnyNowIndicatorNodeStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: ObjectHeaderStyle
+
+public extension View {
+    func objectHeaderStyle(_ style: some ObjectHeaderStyle) -> some View {
+        self.transformEnvironment(\.objectHeaderStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func objectHeaderStyle(@ViewBuilder content: @escaping (ObjectHeaderConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.objectHeaderStyleStack) { stack in
+            let style = AnyObjectHeaderStyle(content)
             stack.append(style)
         }
     }
@@ -1120,6 +1477,23 @@ public extension View {
     func optionsStyle(@ViewBuilder content: @escaping (OptionsConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.optionsStyleStack) { stack in
             let style = AnyOptionsStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: OuterCircleStyle
+
+public extension View {
+    func outerCircleStyle(_ style: some OuterCircleStyle) -> some View {
+        self.transformEnvironment(\.outerCircleStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func outerCircleStyle(@ViewBuilder content: @escaping (OuterCircleConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.outerCircleStyleStack) { stack in
+            let style = AnyOuterCircleStyle(content)
             stack.append(style)
         }
     }
@@ -1278,6 +1652,23 @@ public extension View {
     }
 }
 
+// MARK: RangeSliderControlStyle
+
+public extension View {
+    func rangeSliderControlStyle(_ style: some RangeSliderControlStyle) -> some View {
+        self.transformEnvironment(\.rangeSliderControlStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func rangeSliderControlStyle(@ViewBuilder content: @escaping (RangeSliderControlConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.rangeSliderControlStyleStack) { stack in
+            let style = AnyRangeSliderControlStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: RatingControlStyle
 
 public extension View {
@@ -1414,6 +1805,40 @@ public extension View {
     }
 }
 
+// MARK: SectionFooterStyle
+
+public extension View {
+    func sectionFooterStyle(_ style: some SectionFooterStyle) -> some View {
+        self.transformEnvironment(\.sectionFooterStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func sectionFooterStyle(@ViewBuilder content: @escaping (SectionFooterConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.sectionFooterStyleStack) { stack in
+            let style = AnySectionFooterStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: SectionHeaderStyle
+
+public extension View {
+    func sectionHeaderStyle(_ style: some SectionHeaderStyle) -> some View {
+        self.transformEnvironment(\.sectionHeaderStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func sectionHeaderStyle(@ViewBuilder content: @escaping (SectionHeaderConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.sectionHeaderStyleStack) { stack in
+            let style = AnySectionHeaderStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: SegmentedControlPickerStyle
 
 public extension View {
@@ -1499,6 +1924,23 @@ public extension View {
     }
 }
 
+// MARK: SingleStepStyle
+
+public extension View {
+    func singleStepStyle(_ style: some SingleStepStyle) -> some View {
+        self.transformEnvironment(\.singleStepStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func singleStepStyle(@ViewBuilder content: @escaping (SingleStepConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.singleStepStyleStack) { stack in
+            let style = AnySingleStepStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: StatusStyle
 
 public extension View {
@@ -1511,6 +1953,23 @@ public extension View {
     func statusStyle(@ViewBuilder content: @escaping (StatusConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.statusStyleStack) { stack in
             let style = AnyStatusStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: StepProgressIndicatorStyle
+
+public extension View {
+    func stepProgressIndicatorStyle(_ style: some StepProgressIndicatorStyle) -> some View {
+        self.transformEnvironment(\.stepProgressIndicatorStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func stepProgressIndicatorStyle(@ViewBuilder content: @escaping (StepProgressIndicatorConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.stepProgressIndicatorStyleStack) { stack in
+            let style = AnyStepProgressIndicatorStyle(content)
             stack.append(style)
         }
     }
@@ -1936,6 +2395,74 @@ public extension View {
     func topDividerStyle(@ViewBuilder content: @escaping (TopDividerConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.topDividerStyleStack) { stack in
             let style = AnyTopDividerStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: TrailingAccessoryStyle
+
+public extension View {
+    func trailingAccessoryStyle(_ style: some TrailingAccessoryStyle) -> some View {
+        self.transformEnvironment(\.trailingAccessoryStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func trailingAccessoryStyle(@ViewBuilder content: @escaping (TrailingAccessoryConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.trailingAccessoryStyleStack) { stack in
+            let style = AnyTrailingAccessoryStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: TrendStyle
+
+public extension View {
+    func trendStyle(_ style: some TrendStyle) -> some View {
+        self.transformEnvironment(\.trendStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func trendStyle(@ViewBuilder content: @escaping (TrendConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.trendStyleStack) { stack in
+            let style = AnyTrendStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: TrendImageStyle
+
+public extension View {
+    func trendImageStyle(_ style: some TrendImageStyle) -> some View {
+        self.transformEnvironment(\.trendImageStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func trendImageStyle(@ViewBuilder content: @escaping (TrendImageConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.trendImageStyleStack) { stack in
+            let style = AnyTrendImageStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: UpperThumbStyle
+
+public extension View {
+    func upperThumbStyle(_ style: some UpperThumbStyle) -> some View {
+        self.transformEnvironment(\.upperThumbStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func upperThumbStyle(@ViewBuilder content: @escaping (UpperThumbConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.upperThumbStyleStack) { stack in
+            let style = AnyUpperThumbStyle(content)
             stack.append(style)
         }
     }

@@ -7,12 +7,6 @@ struct CoreContentView: View {
     var body: some View {
         List {
             Section(header: Text("Views")) {
-                NavigationLink {
-                    ActivityItemExample()
-                } label: {
-                    Text("ActivityItem")
-                }
-                
                 NavigationLink(
                     destination: AvatarStackExample(),
                     label: {
@@ -31,8 +25,12 @@ struct CoreContentView: View {
                     Text("Cards and Layouts")
                 }
                 
-                NavigationLink(destination: ContactItemExample()) {
+                NavigationLink(destination: ContactItemExample(isNewObjectItem: true)) {
                     Text("ContactItem")
+                }
+                
+                NavigationLink(destination: ContactItemExample()) {
+                    Text("_ContactItem: deprecated")
                 }
                 
                 NavigationLink(
@@ -128,6 +126,12 @@ struct CoreContentView: View {
                         Text("ObjectHeader")
                     }
                 )
+                
+                NavigationLink(
+                    destination: SectionHeaderFooterExample())
+                {
+                    Text("SectionHeader/Footer Example")
+                }
             }
             
             Section(header: Text("Controls")) {
@@ -144,9 +148,15 @@ struct CoreContentView: View {
                 }
                 
                 NavigationLink(
-                    destination: DimensionSelector_Chart())
+                    destination: DimensionSelectorExample())
                 {
                     Text("Dimension Selector")
+                }
+                
+                NavigationLink(
+                    destination: DimensionSelector_Chart())
+                {
+                    Text("_Dimension Selector")
                 }
                 
                 NavigationLink(
@@ -191,6 +201,12 @@ struct CoreContentView: View {
                     destination: StepProgressIndicatorExample())
                 {
                     Text("Step Progress Indicator")
+                }
+                
+                NavigationLink(
+                    destination: SliderExample())
+                {
+                    Text("Slider")
                 }
             }
             
@@ -304,6 +320,12 @@ struct CoreContentView: View {
                     destination: KPIExample())
                 {
                     Text("KPI")
+                }
+                
+                NavigationLink(
+                    destination: _KPIProgressExample())
+                {
+                    Text("_KPIProgressItem")
                 }
                 
                 NavigationLink(

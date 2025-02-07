@@ -22,7 +22,14 @@ struct AnyHalfStarImageStyle: HalfStarImageStyle {
 }
 
 public struct HalfStarImageConfiguration {
+    public var componentIdentifier: String = "fiori_halfstarimage_component"
     public let halfStarImage: HalfStarImage
 
     public typealias HalfStarImage = ConfigurationViewWrapper
+}
+
+extension HalfStarImageConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }

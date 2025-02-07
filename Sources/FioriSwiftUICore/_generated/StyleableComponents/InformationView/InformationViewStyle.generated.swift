@@ -22,11 +22,18 @@ struct AnyInformationViewStyle: InformationViewStyle {
 }
 
 public struct InformationViewConfiguration {
+    public var componentIdentifier: String = "fiori_informationview_component"
     public let icon: Icon
     public let description: Description
 
     public typealias Icon = ConfigurationViewWrapper
     public typealias Description = ConfigurationViewWrapper
+}
+
+extension InformationViewConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }
 
 public struct InformationViewFioriStyle: InformationViewStyle {

@@ -22,7 +22,14 @@ struct AnyCancelActionStyle: CancelActionStyle {
 }
 
 public struct CancelActionConfiguration {
+    public var componentIdentifier: String = "fiori_cancelaction_component"
     public let cancelAction: CancelAction
 
     public typealias CancelAction = ConfigurationViewWrapper
+}
+
+extension CancelActionConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }

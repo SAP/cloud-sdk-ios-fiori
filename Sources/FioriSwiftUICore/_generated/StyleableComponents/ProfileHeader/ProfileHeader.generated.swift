@@ -15,6 +15,8 @@ public struct ProfileHeader {
 
     @Environment(\.profileHeaderStyle) var style
 
+    var componentIdentifier: String = ProfileHeader.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
     public init(@ViewBuilder detailImage: () -> any View = { EmptyView() },
@@ -22,15 +24,21 @@ public struct ProfileHeader {
                 @ViewBuilder subtitle: () -> any View = { EmptyView() },
                 @ViewBuilder description: () -> any View = { EmptyView() },
                 animatable: Bool = false,
-                @ViewBuilder detailContent: () -> any View = { EmptyView() })
+                @ViewBuilder detailContent: () -> any View = { EmptyView() },
+                componentIdentifier: String? = ProfileHeader.identifier)
     {
-        self.detailImage = DetailImage(detailImage: detailImage)
-        self.title = Title(title: title)
-        self.subtitle = Subtitle(subtitle: subtitle)
-        self.description = Description(description: description)
+        self.detailImage = DetailImage(detailImage: detailImage, componentIdentifier: componentIdentifier)
+        self.title = Title(title: title, componentIdentifier: componentIdentifier)
+        self.subtitle = Subtitle(subtitle: subtitle, componentIdentifier: componentIdentifier)
+        self.description = Description(description: description, componentIdentifier: componentIdentifier)
         self.animatable = animatable
         self.detailContent = detailContent()
+        self.componentIdentifier = componentIdentifier ?? ProfileHeader.identifier
     }
+}
+
+public extension ProfileHeader {
+    static let identifier = "fiori_profileheader_component"
 }
 
 public extension ProfileHeader {
@@ -58,6 +66,7 @@ public extension ProfileHeader {
         self.animatable = configuration.animatable
         self.detailContent = configuration.detailContent
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -66,7 +75,7 @@ extension ProfileHeader: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(detailImage: .init(self.detailImage), title: .init(self.title), subtitle: .init(self.subtitle), description: .init(self.description), animatable: self.animatable, detailContent: .init(self.detailContent))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, detailImage: .init(self.detailImage), title: .init(self.title), subtitle: .init(self.subtitle), description: .init(self.description), animatable: self.animatable, detailContent: .init(self.detailContent))).typeErased
                 .transformEnvironment(\.profileHeaderStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -84,7 +93,7 @@ private extension ProfileHeader {
     }
 
     func defaultStyle() -> some View {
-        ProfileHeader(.init(detailImage: .init(self.detailImage), title: .init(self.title), subtitle: .init(self.subtitle), description: .init(self.description), animatable: self.animatable, detailContent: .init(self.detailContent)))
+        ProfileHeader(.init(componentIdentifier: self.componentIdentifier, detailImage: .init(self.detailImage), title: .init(self.title), subtitle: .init(self.subtitle), description: .init(self.description), animatable: self.animatable, detailContent: .init(self.detailContent)))
             .shouldApplyDefaultStyle(false)
             .profileHeaderStyle(ProfileHeaderFioriStyle.ContentFioriStyle())
             .typeErased

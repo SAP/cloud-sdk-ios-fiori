@@ -22,7 +22,14 @@ struct AnySecondaryTimestampStyle: SecondaryTimestampStyle {
 }
 
 public struct SecondaryTimestampConfiguration {
+    public var componentIdentifier: String = "fiori_secondarytimestamp_component"
     public let secondaryTimestamp: SecondaryTimestamp
 
     public typealias SecondaryTimestamp = ConfigurationViewWrapper
+}
+
+extension SecondaryTimestampConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }

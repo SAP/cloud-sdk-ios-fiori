@@ -14,11 +14,20 @@ public struct ProcessingIndicator {
 
     @Environment(\.processingIndicatorStyle) var style
 
+    var componentIdentifier: String = ProcessingIndicator.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder optionalTitle: () -> any View = { EmptyView() }) {
-        self.optionalTitle = OptionalTitle(optionalTitle: optionalTitle)
+    public init(@ViewBuilder optionalTitle: () -> any View = { EmptyView() },
+                componentIdentifier: String? = ProcessingIndicator.identifier)
+    {
+        self.optionalTitle = OptionalTitle(optionalTitle: optionalTitle, componentIdentifier: componentIdentifier)
+        self.componentIdentifier = componentIdentifier ?? ProcessingIndicator.identifier
     }
+}
+
+public extension ProcessingIndicator {
+    static let identifier = "fiori_processingindicator_component"
 }
 
 public extension ProcessingIndicator {
@@ -35,6 +44,7 @@ public extension ProcessingIndicator {
     internal init(_ configuration: ProcessingIndicatorConfiguration, shouldApplyDefaultStyle: Bool) {
         self.optionalTitle = configuration.optionalTitle
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -43,7 +53,7 @@ extension ProcessingIndicator: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(optionalTitle: .init(self.optionalTitle))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, optionalTitle: .init(self.optionalTitle))).typeErased
                 .transformEnvironment(\.processingIndicatorStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -61,7 +71,7 @@ private extension ProcessingIndicator {
     }
 
     func defaultStyle() -> some View {
-        ProcessingIndicator(.init(optionalTitle: .init(self.optionalTitle)))
+        ProcessingIndicator(.init(componentIdentifier: self.componentIdentifier, optionalTitle: .init(self.optionalTitle)))
             .shouldApplyDefaultStyle(false)
             .processingIndicatorStyle(ProcessingIndicatorFioriStyle.ContentFioriStyle())
             .typeErased

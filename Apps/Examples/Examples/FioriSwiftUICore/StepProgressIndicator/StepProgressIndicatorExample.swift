@@ -5,52 +5,82 @@ import SwiftUI
 struct StepProgressIndicatorExample: View {
     var body: some View {
         List {
-            NavigationLink {
-                SPIExampleWithHeader()
-            } label: {
-                Text("Steps With Header")
+            Section("New") {
+                NavigationLink {
+                    SPIExampleWithHeader(isDeprecated: false)
+                } label: {
+                    Text("Steps With Header")
+                }
+                NavigationLink {
+                    SPIExampleWithoutHeader(isDeprecated: false)
+                } label: {
+                    Text("Steps Without Header")
+                }
+                NavigationLink {
+                    SPIExampleWithoutName(isDeprecated: false)
+                } label: {
+                    Text("Steps Without Names")
+                }
+                NavigationLink {
+                    SPICustomStyleExample(isDeprecated: false)
+                } label: {
+                    Text("Steps With Custom Style")
+                }
+                NavigationLink {
+                    SPIExampleByBuilder(isDeprecated: false)
+                } label: {
+                    Text("Steps By Builder")
+                }
+                NavigationLink {
+                    SPIExampleWithIcon(isDeprecated: false)
+                } label: {
+                    Text("Steps By Icon")
+                }
             }
-            NavigationLink {
-                SPIExampleWithoutHeader()
-            } label: {
-                Text("Steps Without Header")
-            }
-            NavigationLink {
-                SPIExampleWithoutName()
-            } label: {
-                Text("Steps Without Names")
-            }
-            NavigationLink {
-                SPICustomStyleExample()
-            } label: {
-                Text("Steps With Custom Style")
-            }
-            NavigationLink {
-                SPIExampleByBuilder()
-            } label: {
-                Text("Steps By Builder")
-            }
-            NavigationLink {
-                SPIModelExample()
-            } label: {
-                Text("Steps By Model")
-            }
-            NavigationLink {
-                SPIExampleWithIcon()
-            } label: {
-                Text("Steps By Icon")
+            
+            Section("Deprecated") {
+                NavigationLink {
+                    SPIExampleWithHeader(isDeprecated: true)
+                } label: {
+                    Text("Steps With Header")
+                }
+                NavigationLink {
+                    SPIExampleWithoutHeader(isDeprecated: true)
+                } label: {
+                    Text("Steps Without Header")
+                }
+                NavigationLink {
+                    SPIExampleWithoutName(isDeprecated: true)
+                } label: {
+                    Text("Steps Without Names")
+                }
+                NavigationLink {
+                    SPICustomStyleExample(isDeprecated: true)
+                } label: {
+                    Text("Steps With Custom Style")
+                }
+                NavigationLink {
+                    SPIExampleByBuilder(isDeprecated: true)
+                } label: {
+                    Text("Steps By Builder")
+                }
+                NavigationLink {
+                    SPIModelExample()
+                } label: {
+                    Text("Steps By Model")
+                }
+                NavigationLink {
+                    SPIExampleWithIcon(isDeprecated: true)
+                } label: {
+                    Text("Steps By Icon")
+                }
             }
         }
     }
 }
 
-struct StepProgressIndicatorExample_Previews: PreviewProvider {
-    static var previews: some View {
-        StepProgressIndicatorExample()
-    }
-}
-
 struct SPIExampleWithIcon: View {
+    let isDeprecated: Bool
     @State var title: String = ""
     @State var iconSteps = [StepItemData(title: "Sign In", node: .icon(FioriIcon.arrows.initiative), state: .completed),
                             StepItemData(title: "User Info", node: .icon(FioriIcon.people.personPlaceholder), state: .completed),
@@ -71,18 +101,38 @@ struct SPIExampleWithIcon: View {
     var body: some View {
         VStack(alignment: .leading) {
             Text("Step: Only Icon Node").bold()
-            StepProgressIndicator(selection: self.$iconSelection,
-                                  stepItems: self.iconSteps)
-            {
-                Text(self.$title.wrappedValue).lineLimit(1)
-            } action: {
-                Button {} label: {
-                    HStack(spacing: 2) {
-                        Text("All Steps(\(self.iconSteps.count))")
-                            .foregroundStyle(Color.preferredColor(.tintColor))
-                        FioriIcon.actions.slimArrowRight
-                            .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
-                            .foregroundStyle(Color.preferredColor(.separator))
+            Group {
+                if self.isDeprecated {
+                    _StepProgressIndicator(selection: self.$iconSelection,
+                                           stepItems: self.iconSteps)
+                    {
+                        Text(self.$title.wrappedValue).lineLimit(1)
+                    } action: {
+                        Button {} label: {
+                            HStack(spacing: 2) {
+                                Text("All Steps(\(self.iconSteps.count))")
+                                    .foregroundStyle(Color.preferredColor(.tintColor))
+                                FioriIcon.actions.slimArrowRight
+                                    .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
+                                    .foregroundStyle(Color.preferredColor(.separator))
+                            }
+                        }
+                    }
+                } else {
+                    StepProgressIndicator(selection: self.$iconSelection,
+                                          stepItems: self.iconSteps)
+                    {
+                        Text(self.$title.wrappedValue).lineLimit(1)
+                    } action: {
+                        Button {} label: {
+                            HStack(spacing: 2) {
+                                Text("All Steps(\(self.iconSteps.count))")
+                                    .foregroundStyle(Color.preferredColor(.tintColor))
+                                FioriIcon.actions.slimArrowRight
+                                    .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
+                                    .foregroundStyle(Color.preferredColor(.separator))
+                            }
+                        }
                     }
                 }
             }
@@ -95,13 +145,21 @@ struct SPIExampleWithIcon: View {
             }
             
             Text("Step: Only Text Node").bold()
-            StepProgressIndicator(selection: self.$textSelection,
-                                  stepItems: self.textSteps)
-            {
-                Text("Invariant title").lineLimit(1)
-            } action: {}
-                .padding()
-            
+            if self.isDeprecated {
+                _StepProgressIndicator(selection: self.$textSelection,
+                                       stepItems: self.textSteps)
+                {
+                    Text("Invariant title").lineLimit(1)
+                } action: {}
+                    .padding()
+            } else {
+                StepProgressIndicator(selection: self.$textSelection,
+                                      stepItems: self.textSteps)
+                {
+                    Text("Invariant title").lineLimit(1)
+                } action: {}
+                    .padding()
+            }
             Spacer().padding(20)
             Button {
                 self.completeStep()
@@ -158,6 +216,7 @@ struct SPIExampleWithIcon: View {
 }
 
 struct SPIExampleWithoutHeader: View {
+    let isDeprecated: Bool
     @State var steps = [StepItemData(title: "Step A", state: .completed),
                         StepItemData(title: "Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name"),
                         StepItemData(title: "Step 3", substeps: [
@@ -177,8 +236,13 @@ struct SPIExampleWithoutHeader: View {
     var body: some View {
         VStack(alignment: .leading) {
             Text("Without Header").bold()
-            StepProgressIndicator(selection: self.$selection,
-                                  stepItems: self.steps)
+            if self.isDeprecated {
+                _StepProgressIndicator(selection: self.$selection,
+                                       stepItems: self.steps)
+            } else {
+                StepProgressIndicator(selection: self.$selection,
+                                      stepItems: self.steps)
+            }
             Spacer().padding(20)
             Button {
                 self.completeStep()
@@ -208,6 +272,8 @@ struct SPIExampleWithoutHeader: View {
 }
 
 struct SPIExampleWithHeader: View {
+    let isDeprecated: Bool
+    
     @State var title: String = ""
     @State var steps = [StepItemData(title: "Step A", state: .completed),
                         StepItemData(title: "Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name"),
@@ -228,16 +294,32 @@ struct SPIExampleWithHeader: View {
     var body: some View {
         VStack(alignment: .leading) {
             Text("With Header").bold()
-            StepProgressIndicator(selection: self.$selection, stepItems: self.steps) {
-                Text(self.title).lineLimit(1)
-            } action: {
-                Button {} label: {
-                    HStack(spacing: 2) {
-                        Text("All Steps(\(self.steps.count)")
-                            .foregroundStyle(Color.preferredColor(.tintColor))
-                        FioriIcon.actions.slimArrowRight
-                            .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
-                            .foregroundStyle(Color.preferredColor(.separator))
+            if self.isDeprecated {
+                _StepProgressIndicator(selection: self.$selection, stepItems: self.steps) {
+                    Text(self.title).lineLimit(1)
+                } action: {
+                    Button {} label: {
+                        HStack(spacing: 2) {
+                            Text("All Steps(\(self.steps.count)")
+                                .foregroundStyle(Color.preferredColor(.tintColor))
+                            FioriIcon.actions.slimArrowRight
+                                .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
+                                .foregroundStyle(Color.preferredColor(.separator))
+                        }
+                    }
+                }
+            } else {
+                StepProgressIndicator(selection: self.$selection, stepItems: self.steps) {
+                    Text(self.title).lineLimit(1)
+                } action: {
+                    Button {} label: {
+                        HStack(spacing: 2) {
+                            Text("All Steps(\(self.steps.count)")
+                                .foregroundStyle(Color.preferredColor(.tintColor))
+                            FioriIcon.actions.slimArrowRight
+                                .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
+                                .foregroundStyle(Color.preferredColor(.separator))
+                        }
                     }
                 }
             }
@@ -304,6 +386,8 @@ struct SPIExampleWithHeader: View {
 }
 
 struct SPIExampleWithoutName: View {
+    let isDeprecated: Bool
+    
     @State var steps = [StepItemData(),
                         StepItemData(),
                         StepItemData(substeps: [
@@ -321,16 +405,30 @@ struct SPIExampleWithoutName: View {
     var body: some View {
         VStack(alignment: .leading) {
             Text("Steps Without Names").bold()
-            
-            StepProgressIndicator(selection: self.$selection,
-                                  stepItems: self.steps) {} action: {
-                Button {} label: {
-                    HStack(spacing: 2) {
-                        Text("All Steps(\(self.steps.count)")
-                            .foregroundStyle(Color.preferredColor(.tintColor))
-                        FioriIcon.actions.slimArrowRight
-                            .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
-                            .foregroundStyle(Color.preferredColor(.separator))
+            if self.isDeprecated {
+                _StepProgressIndicator(selection: self.$selection,
+                                       stepItems: self.steps) {} action: {
+                    Button {} label: {
+                        HStack(spacing: 2) {
+                            Text("All Steps(\(self.steps.count)")
+                                .foregroundStyle(Color.preferredColor(.tintColor))
+                            FioriIcon.actions.slimArrowRight
+                                .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
+                                .foregroundStyle(Color.preferredColor(.separator))
+                        }
+                    }
+                }
+            } else {
+                StepProgressIndicator(selection: self.$selection,
+                                      stepItems: self.steps) {} action: {
+                    Button {} label: {
+                        HStack(spacing: 2) {
+                            Text("All Steps(\(self.steps.count)")
+                                .foregroundStyle(Color.preferredColor(.tintColor))
+                            FioriIcon.actions.slimArrowRight
+                                .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
+                                .foregroundStyle(Color.preferredColor(.separator))
+                        }
                     }
                 }
             }
@@ -362,53 +460,113 @@ struct SPIExampleWithoutName: View {
 }
 
 struct SPIExampleByBuilder: View {
+    let isDeprecated: Bool
     @State var selection: String = ""
     var body: some View {
-        VStack {
-            StepProgressIndicator(selection: self.$selection, action: {
-                Button {} label: {
-                    HStack(spacing: 2) {
-                        Text("All Steps(2)")
-                            .foregroundStyle(Color.preferredColor(.tintColor))
-                        FioriIcon.actions.slimArrowRight
-                            .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
-                            .foregroundStyle(Color.preferredColor(.separator))
-                    }
-                }
-            }, steps: {
-                SingleStep(id: "1") {
-                    self.node("1")
-                } substeps: {
-                    SingleStep(id: "1.1") {
-                        self.node("1.1")
-                    }
-                }
-
-                SingleStep(id: "2") {
-                    self.node("2")
-                } substeps: {
-                    SingleStep(id: "2.1") {
-                        self.node("2.1")
-                    } substeps: {
-                        SingleStep {
-                            self.node("2.1.1")
+        ScrollView(.vertical) {
+            if self.isDeprecated {
+                _StepProgressIndicator(selection: self.$selection, action: {
+                    Button {} label: {
+                        HStack(spacing: 2) {
+                            Text("All Steps(2)")
+                                .foregroundStyle(Color.preferredColor(.tintColor))
+                            FioriIcon.actions.slimArrowRight
+                                .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
+                                .foregroundStyle(Color.preferredColor(.separator))
                         }
-                        .customStepId("2.1.1")
+                    }
+                }, steps: {
+                    _SingleStep(id: "1") {
+                        self.node("1")
+                    } substeps: {
+                        _SingleStep(id: "1.1") {
+                            self.node("1.1")
+                        }
                     }
                     
-                    SingleStep(id: "2.2") {
-                        self.node("2.2")
+                    _SingleStep(id: "2") {
+                        self.node("2")
                     } substeps: {
-                        SingleStep {
-                            self.node("2.2.1")
+                        _SingleStep(id: "2.1") {
+                            self.node("2.1")
+                        } substeps: {
+                            _SingleStep {
+                                self.node("2.1.1")
+                            }
+                            .customStepId("2.1.1")
                         }
-                        .customStepId("2.2.1")
-                        .stepLineModifier {
-                            $0.foregroundColor(.clear)
+                        
+                        _SingleStep(id: "2.2") {
+                            self.node("2.2")
+                        } substeps: {
+                            _SingleStep {
+                                self.node("2.2.1")
+                            }
+                            .customStepId("2.2.1")
+                            .stepLineModifier {
+                                $0.foregroundColor(.clear)
+                            }
                         }
                     }
-                }
-            })
+                })
+            } else {
+                StepProgressIndicator(selection: self.$selection, action: {
+                    Button {} label: {
+                        HStack(spacing: 2) {
+                            Text("All Steps(2)")
+                                .foregroundStyle(Color.preferredColor(.tintColor))
+                            FioriIcon.actions.slimArrowRight
+                                .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
+                                .foregroundStyle(Color.preferredColor(.separator))
+                        }
+                    }
+                }, steps: {
+                    SingleStep(id: "1") {
+                        self.node("1")
+                    } substeps: {
+                        SingleStep(id: "1.1") {
+                            self.node("1.1")
+                        }
+                        .nodeStyle { c in
+                            c.node.foregroundStyle(Color.preferredColor(.negativeLabel))
+                        }
+                    }
+                    .nodeStyle { c in
+                        c.node.font(Font.fiori(fixedSize: 16))
+                            .foregroundStyle(Color.preferredColor(.blue7))
+                    }
+                    
+                    SingleStep(id: "2") {
+                        self.node("2")
+                    } substeps: {
+                        SingleStep(id: "2.1") {
+                            self.node("2.1")
+                        } substeps: {
+                            SingleStep {
+                                self.node("2.1.1")
+                            }
+                        }
+                        
+                        SingleStep(id: "2.2") {
+                            self.node("2.2")
+                        } substeps: {
+                            SingleStep {
+                                self.node("2.2.1")
+                            }
+                            // stepLineModifier will be deprecated, please use the latest modifier.
+                            .lineStyle { c in
+                                c.line.foregroundStyle(Color.clear)
+                            }
+                        }
+                    }
+                    .nodeStyle { c in
+                        c.node.font(Font.fiori(fixedSize: 12))
+                    }
+                    .lineStyle { c in
+                        c.line.foregroundStyle(Color.preferredColor(.negativeLabel))
+                    }
+                })
+            }
             Spacer()
         }.padding()
             .onChange(of: self.selection) { newValue in
@@ -420,7 +578,7 @@ struct SPIExampleByBuilder: View {
     func node(_ s: String, _ background: Color = Color.random) -> some View {
         ZStack {
             background
-            Text(s).font(Font.fiori(fixedSize: 10))
+            Text(s)
         }
         .frame(width: 40, height: 40)
         .border(self.selection == s ? Color.black : Color.clear, width: 2)
@@ -428,6 +586,7 @@ struct SPIExampleByBuilder: View {
 }
 
 struct SPICustomStyleExample: View {
+    let isDeprecated: Bool
     @State var title: String = ""
     @State var steps = [StepItemData(id: "1", title: "Step A", state: .completed),
                         StepItemData(id: "2", title: "Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name"),
@@ -448,22 +607,51 @@ struct SPICustomStyleExample: View {
     var body: some View {
         VStack(alignment: .leading) {
             Text("Custom Styles").bold()
-            StepProgressIndicator(selection: self.$selection, stepItems: self.steps) {
-                Text(self.title).lineLimit(1)
-            } action: {
-                Button {} label: {
-                    HStack(spacing: 2) {
-                        Text("All Steps(\(self.steps.count)")
-                            .foregroundStyle(Color.preferredColor(.tintColor))
-                        FioriIcon.actions.slimArrowRight
-                            .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
-                            .foregroundStyle(Color.preferredColor(.separator))
+            if self.isDeprecated {
+                _StepProgressIndicator(selection: self.$selection, stepItems: self.steps) {
+                    Text(self.title).lineLimit(1)
+                } action: {
+                    Button {} label: {
+                        HStack(spacing: 2) {
+                            Text("All Steps(\(self.steps.count)")
+                                .foregroundStyle(Color.preferredColor(.tintColor))
+                            FioriIcon.actions.slimArrowRight
+                                .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
+                                .foregroundStyle(Color.preferredColor(.separator))
+                        }
                     }
                 }
+                .stepStyle { _ in
+                    CustomStyleExample()
+                }
+            } else {
+                StepProgressIndicator(selection: self.$selection, stepItems: self.steps) {
+                    Text(self.title).lineLimit(1)
+                } action: {
+                    Button {} label: {
+                        HStack(spacing: 2) {
+                            Text("All Steps(\(self.steps.count)")
+                            FioriIcon.actions.slimArrowRight
+                                .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
+                                .foregroundStyle(Color.preferredColor(.separator))
+                        }
+                    }
+                }
+                .stepStyle { _ in
+                    CustomStyleExample()
+                }
+                .titleStyle { c in
+                    c.title.font(.fiori(forTextStyle: .title1, weight: .semibold))
+                        .foregroundStyle(Color.preferredColor(.tintColor))
+                }
+                .actionStyle { c in
+                    c.action.foregroundStyle(Color.preferredColor(.negativeLabel))
+                }
+                .cancelActionStyle { c in
+                    c.cancelAction.font(.fiori(forTextStyle: .subheadline)).foregroundStyle(Color.preferredColor(.negativeLabel))
+                }
             }
-            .stepStyle { _ in
-                CustomStyleExample()
-            }
+            
             Spacer().padding(20)
             Button {
                 self.completeStep()

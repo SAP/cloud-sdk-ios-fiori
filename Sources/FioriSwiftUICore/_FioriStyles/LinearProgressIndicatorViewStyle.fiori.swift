@@ -79,6 +79,7 @@ public struct LinearProgressIndicatorViewErrorStyle: LinearProgressIndicatorView
 
 /// Error style
 public extension LinearProgressIndicatorViewStyle where Self == LinearProgressIndicatorViewErrorStyle {
+    /// Error style
     static var error: LinearProgressIndicatorViewErrorStyle {
         LinearProgressIndicatorViewErrorStyle()
     }
@@ -103,6 +104,7 @@ public struct LinearProgressIndicatorViewSuccessStyle: LinearProgressIndicatorVi
 
 /// Success style
 public extension LinearProgressIndicatorViewStyle where Self == LinearProgressIndicatorViewSuccessStyle {
+    /// Success style
     static var success: LinearProgressIndicatorViewSuccessStyle {
         LinearProgressIndicatorViewSuccessStyle()
     }
@@ -118,6 +120,7 @@ public struct LinearProgressIndicatorViewDeterminateStyle: LinearProgressIndicat
 
 /// Determinate style
 public extension LinearProgressIndicatorViewStyle where Self == LinearProgressIndicatorViewDeterminateStyle {
+    /// Determinate style
     static var determinate: LinearProgressIndicatorViewDeterminateStyle {
         LinearProgressIndicatorViewDeterminateStyle()
     }
@@ -133,7 +136,34 @@ public struct LinearProgressIndicatorViewIndeterminateStyle: LinearProgressIndic
 
 /// Indeterminate style
 public extension LinearProgressIndicatorViewStyle where Self == LinearProgressIndicatorViewIndeterminateStyle {
+    /// Indeterminate style
     static var indeterminate: LinearProgressIndicatorViewIndeterminateStyle {
         LinearProgressIndicatorViewIndeterminateStyle()
+    }
+}
+
+/// AI style
+public struct LinearProgressIndicatorViewAIStyle: LinearProgressIndicatorViewStyle {
+    public func makeBody(_ configuration: LinearProgressIndicatorViewConfiguration) -> some View {
+        LinearProgressIndicatorView(configuration)
+            .iconStyle(content: { iconConfiguration in
+                if iconConfiguration.icon.isEmpty, !configuration.description.isEmpty {
+                    Image(fioriName: "fiori.ai")
+                        .resizable()
+                        .frame(width: 18, height: 18)
+                        .foregroundStyle(Color.preferredColor(.tintColor))
+                } else {
+                    iconConfiguration.icon
+                        .foregroundStyle(Color.preferredColor(.tintColor))
+                }
+            })
+    }
+}
+
+/// AI style
+public extension LinearProgressIndicatorViewStyle where Self == LinearProgressIndicatorViewAIStyle {
+    /// AI style
+    static var ai: LinearProgressIndicatorViewAIStyle {
+        LinearProgressIndicatorViewAIStyle()
     }
 }

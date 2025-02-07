@@ -10,16 +10,24 @@ public struct MenuSelection {
 
     @Environment(\.menuSelectionStyle) var style
 
+    var componentIdentifier: String = MenuSelection.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
     public init(@ViewBuilder action: () -> any View = { EmptyView() },
                 isExpanded: Binding<Bool>,
-                @ViewBuilder items: () -> any View = { EmptyView() })
+                @ViewBuilder items: () -> any View = { EmptyView() },
+                componentIdentifier: String? = MenuSelection.identifier)
     {
-        self.action = Action(action: action)
+        self.action = Action(action: action, componentIdentifier: componentIdentifier)
         self._isExpanded = isExpanded
         self.items = items()
+        self.componentIdentifier = componentIdentifier ?? MenuSelection.identifier
     }
+}
+
+public extension MenuSelection {
+    static let identifier = "fiori_menuselection_component"
 }
 
 public extension MenuSelection {
@@ -41,6 +49,7 @@ public extension MenuSelection {
         self._isExpanded = configuration.$isExpanded
         self.items = configuration.items
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -49,7 +58,7 @@ extension MenuSelection: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(action: .init(self.action), isExpanded: self.$isExpanded, items: .init(self.items))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, action: .init(self.action), isExpanded: self.$isExpanded, items: .init(self.items))).typeErased
                 .transformEnvironment(\.menuSelectionStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -67,7 +76,7 @@ private extension MenuSelection {
     }
 
     func defaultStyle() -> some View {
-        MenuSelection(.init(action: .init(self.action), isExpanded: self.$isExpanded, items: .init(self.items)))
+        MenuSelection(.init(componentIdentifier: self.componentIdentifier, action: .init(self.action), isExpanded: self.$isExpanded, items: .init(self.items)))
             .shouldApplyDefaultStyle(false)
             .menuSelectionStyle(MenuSelectionFioriStyle.ContentFioriStyle())
             .typeErased

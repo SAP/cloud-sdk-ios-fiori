@@ -1,26 +1,58 @@
 import FioriSwiftUICore
 import SwiftUI
 
-public struct KPIProgressExample: View {
-    let nf: NumberFormatter = {
+protocol NumberFormatterProvider {
+    var numberFormatter: NumberFormatter { get }
+}
+
+extension KPIProgressExample: NumberFormatterProvider {
+    var numberFormatter: NumberFormatter {
         let nf = NumberFormatter()
         nf.numberStyle = .decimal
         return nf
-    }()
+    }
+}
+
+public struct KPIProgressExample: View {
+    @State private var progress: Double = 0.66
+    var minProgress = 0.0
+    var maxProgress = 1.0
     
-    public init() {}
+    var formattedProgress: String {
+        String(format: "%.3f", self.progress)
+    }
     
     public var body: some View {
-        ScrollView(.vertical, showsIndicators: false, content: {
-            VStack(spacing: 16) {
-                KPIProgressItem(data: .percent(0.88), subtitle: "Completed")
-                KPIProgressItem(data: .percent(0.75), subtitle: "Long Long Long Completed")
-                KPIProgressItem(data: .percent(0.66), footnote: "Completed")
-                KPIProgressItem(data: .percent(0.45), footnote: "Very Long Long Long Long Completed")
-                KPIProgressItem(data: .fraction(76, 90, self.nf), subtitle: "Completed")
-                KPIProgressItem(data: .fraction(76000, 90000, self.nf), subtitle: "Long Long Long Completed")
-            }.padding(EdgeInsets(top: 16, leading: 16, bottom: 16, trailing: 16))
-        })
+        VStack {
+            let percentData = KPIItemData.percent(self.progress)
+            KPIProgressItem(kpiCaption: "Completed", data: .constant(percentData))
+            Text("Progress: \(self.formattedProgress)")
+                .font(.subheadline)
+                .padding(.top, 10)
+            Slider(value: self.$progress,
+                   in: self.minProgress ... self.maxProgress,
+                   minimumValueLabel: Text("0"),
+                   maximumValueLabel: Text("100%")) {}
+                .font(.subheadline)
+        }
+        .padding(.bottom, 10)
+        List {
+            Section(header: Text("% Percent Data")) {
+                NavigationLink("Percentage without caption", destination: PercentageNoCaption())
+                NavigationLink("Percentage with caption inside", destination: PercentageCaptionInside())
+                NavigationLink("Percentage with footnote", destination: PercentageCaptionOutside())
+                NavigationLink("Percentage disabled", destination: PercentageDisabled())
+            }
+            Section(header: Text("Σ Fraction Data")) {
+                NavigationLink("Fraction without caption", destination: FractionNoCaption(numberFormatterProvider: self))
+                NavigationLink("Fraction with caption inside", destination: FractionCaptionInside(numberFormatterProvider: self))
+                NavigationLink("Fraction with footnote", destination: FractionCaptionOutside(numberFormatterProvider: self))
+                NavigationLink("Fraction disabled", destination: FractionDisabled(numberFormatterProvider: self))
+            }
+            Section(header: Text("? Customized view")) {
+                NavigationLink("Customized view", destination: Customization(numberFormatterProvider: self))
+            }
+        }
     }
 }
 
@@ -28,7 +60,8 @@ struct KPIProgressPreview: PreviewProvider {
     static var previews: some View {
         Group {
             KPIProgressExample()
-                .previewDisplayName("iPhone 12")
+                .previewDevice(PreviewDevice(rawValue: "iPhone 16"))
+                .previewDisplayName("iPhone 16")
         }
     }
 }
