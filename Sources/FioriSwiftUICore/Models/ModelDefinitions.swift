@@ -596,6 +596,7 @@ public protocol OptionListPickerItemModel: OptionListPickerComponent {
 // sourcery: virtualPropDisableListEntriesSection = "var disableListEntriesSection: Bool = false"
 // sourcery: virtualPropAllowsDisplaySelectionCount = "var allowsDisplaySelectionCount: Bool = true"
 // sourcery: virtualPropBarItemFrame = "var barItemFrame: CGRect = .zero"
+// sourcery: virtualPropUUIDValueOptions = "var uuidValueOptions: [[String: String]] = []"
 public protocol SearchListPickerItemModel: OptionListPickerComponent {
     // sourcery: default.value = nil
     // sourcery: no_view
