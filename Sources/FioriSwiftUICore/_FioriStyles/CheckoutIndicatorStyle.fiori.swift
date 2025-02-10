@@ -27,8 +27,6 @@ public struct CheckoutIndicatorBaseStyle: CheckoutIndicatorStyle {
     @State var rotationDegrees: Double = -90
     @State var symbolRevealAmount: Double = 0
     @State var color = Color.preferredColor(.tintColor)
-    @State private var scale1: CGFloat = 1.0
-    @State private var opacity: CGFloat = 1.0
     @State private var isAnimating = false
 
     @ViewBuilder
@@ -37,13 +35,15 @@ public struct CheckoutIndicatorBaseStyle: CheckoutIndicatorStyle {
             if configuration.displayState == .aiProgress {
                 Image(fioriName: "fiori.ai")
                     .resizable()
-                    .scaleEffect(self.scale1)
-                    .foregroundColor(.blue).opacity(self.opacity)
-                    .animation(.interpolatingSpring(stiffness: 100, damping: 10).repeatForever(autoreverses: true), value: self.scale1)
+                    .scaledToFill()
+                    .scaleEffect(self.isAnimating ? 1.2 : 1.0)
+                    .opacity(self.isAnimating ? 0.8 : 1.0)
+                    .foregroundColor(Color.preferredColor(.tintColor))
                     .onAppear {
-                        self.startBouncingAnimation()
+                        withAnimation(Animation.easeInOut(duration: 1.5).repeatForever(autoreverses: true)) {
+                            self.isAnimating.toggle()
+                        }
                     }
-
             } else {
                 ZStack {
                     Circle()
@@ -79,20 +79,6 @@ public struct CheckoutIndicatorBaseStyle: CheckoutIndicatorStyle {
                             )
                     }
                 }
-            }
-        }
-    }
-    
-    func startBouncingAnimation() {
-        self.isAnimating = true
-        withAnimation {
-            self.scale1 = 1.0
-            self.opacity = 0.5
-        }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            withAnimation {
-                self.scale1 = 0.7
-                self.opacity = 1.0
             }
         }
     }
