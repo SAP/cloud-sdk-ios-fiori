@@ -381,6 +381,12 @@ struct BannerMessageModifier: ViewModifier {
             }
             result += ". "
             var attributedString = AttributedString(result)
+            
+            // show detail link to pop up multi message sheet
+            if !self.showDetailLink {
+                return attributedString
+            }
+            
             var viewDetail = AttributedString(NSLocalizedString("View Details", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""))
             viewDetail.foregroundColor = .preferredColor(.tintColor)
             viewDetail.link = URL(string: "ViewDetails")
