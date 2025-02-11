@@ -642,6 +642,9 @@ protocol _ToastMessageComponent: _IconComponent, _TitleComponent {
     // sourcery: defaultValue = 1
     /// The duration in seconds for which the toast message is shown. The default is `1`.
     var duration: Double { get }
+    // sourcery: defaultValue = .center
+    /// The position of the toast message relative to its parent view. The default is `.center`.
+    var position: ToastMessagePosition { get }
 }
 
 // sourcery: CompositeComponent

@@ -1,4 +1,4 @@
-// Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 2.2.6 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import Foundation
 import SwiftUI
@@ -8,6 +8,8 @@ public struct ToastMessage {
     let title: any View
     /// The duration in seconds for which the toast message is shown. The default is `1`.
     let duration: Double
+    /// The position of the toast message relative to its parent view. The default is `.center`.
+    let position: ToastMessagePosition
 
     @Environment(\.toastMessageStyle) var style
 
@@ -18,11 +20,13 @@ public struct ToastMessage {
     public init(@ViewBuilder icon: () -> any View = { EmptyView() },
                 @ViewBuilder title: () -> any View,
                 duration: Double = 1,
+                position: ToastMessagePosition = .center,
                 componentIdentifier: String? = ToastMessage.identifier)
     {
         self.icon = Icon(icon: icon, componentIdentifier: componentIdentifier)
         self.title = Title(title: title, componentIdentifier: componentIdentifier)
         self.duration = duration
+        self.position = position
         self.componentIdentifier = componentIdentifier ?? ToastMessage.identifier
     }
 }
@@ -34,9 +38,10 @@ public extension ToastMessage {
 public extension ToastMessage {
     init(icon: Image? = nil,
          title: AttributedString,
-         duration: Double = 1)
+         duration: Double = 1,
+         position: ToastMessagePosition = .center)
     {
-        self.init(icon: { icon }, title: { Text(title) }, duration: duration)
+        self.init(icon: { icon }, title: { Text(title) }, duration: duration, position: position)
     }
 }
 
@@ -49,6 +54,7 @@ public extension ToastMessage {
         self.icon = configuration.icon
         self.title = configuration.title
         self.duration = configuration.duration
+        self.position = configuration.position
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
         self.componentIdentifier = configuration.componentIdentifier
     }
@@ -59,7 +65,7 @@ extension ToastMessage: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, icon: .init(self.icon), title: .init(self.title), duration: self.duration)).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, icon: .init(self.icon), title: .init(self.title), duration: self.duration, position: self.position)).typeErased
                 .transformEnvironment(\.toastMessageStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -77,7 +83,7 @@ private extension ToastMessage {
     }
 
     func defaultStyle() -> some View {
-        ToastMessage(.init(componentIdentifier: self.componentIdentifier, icon: .init(self.icon), title: .init(self.title), duration: self.duration))
+        ToastMessage(.init(componentIdentifier: self.componentIdentifier, icon: .init(self.icon), title: .init(self.title), duration: self.duration, position: self.position))
             .shouldApplyDefaultStyle(false)
             .toastMessageStyle(ToastMessageFioriStyle.ContentFioriStyle())
             .typeErased
