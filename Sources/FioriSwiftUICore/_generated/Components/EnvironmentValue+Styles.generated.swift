@@ -264,16 +264,6 @@ extension EnvironmentValues {
         set { self[SaveActionModifierKey.self] = newValue }
     }
 
-    public var resetActionModifier: AnyViewModifier {
-        get { return self[ResetActionModifierKey.self] }
-        set { self[ResetActionModifierKey.self] = newValue }
-    }
-
-    public var applyActionModifier: AnyViewModifier {
-        get { return self[ApplyActionModifierKey.self] }
-        set { self[ApplyActionModifierKey.self] = newValue }
-    }
-
     public var nextActionModifier: AnyViewModifier {
         get { return self[NextActionModifierKey.self] }
         set { self[NextActionModifierKey.self] = newValue }
@@ -297,6 +287,16 @@ extension EnvironmentValues {
     public var nodeModifier: AnyViewModifier {
         get { return self[NodeModifierKey.self] }
         set { self[NodeModifierKey.self] = newValue }
+    }
+
+    public var resetActionModifier: AnyViewModifier {
+        get { return self[ResetActionModifierKey.self] }
+        set { self[ResetActionModifierKey.self] = newValue }
+    }
+
+    public var applyActionModifier: AnyViewModifier {
+        get { return self[ApplyActionModifierKey.self] }
+        set { self[ApplyActionModifierKey.self] = newValue }
     }
 
 }
@@ -564,16 +564,6 @@ public extension View {
     }
 
     @ViewBuilder
-    func resetActionModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
-        self.environment(\.resetActionModifier, AnyViewModifier(transform))
-    }
-
-    @ViewBuilder
-    func applyActionModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
-        self.environment(\.applyActionModifier, AnyViewModifier(transform))
-    }
-
-    @ViewBuilder
     func nextActionModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
         self.environment(\.nextActionModifier, AnyViewModifier(transform))
     }
@@ -596,6 +586,16 @@ public extension View {
     @ViewBuilder
     func nodeModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
         self.environment(\.nodeModifier, AnyViewModifier(transform))
+    }
+
+    @ViewBuilder
+    func resetActionModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
+        self.environment(\.resetActionModifier, AnyViewModifier(transform))
+    }
+
+    @ViewBuilder
+    func applyActionModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
+        self.environment(\.applyActionModifier, AnyViewModifier(transform))
     }
 
 }

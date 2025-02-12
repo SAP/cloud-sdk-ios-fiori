@@ -2,7 +2,7 @@
 // DO NOT EDIT
 import SwiftUI
 
-extension SortFilterView where CancelActionView == _Action {
+extension _SortFilterView where CancelActionView == _Action {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder items: () -> Items,
@@ -21,7 +21,7 @@ extension SortFilterView where CancelActionView == _Action {
     }
 }
 
-extension SortFilterView where ResetActionView == _Action {
+extension _SortFilterView where ResetActionView == _Action {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder items: () -> Items,
@@ -40,7 +40,7 @@ extension SortFilterView where ResetActionView == _Action {
     }
 }
 
-extension SortFilterView where ApplyActionView == _Action {
+extension _SortFilterView where ApplyActionView == _Action {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder items: () -> Items,
@@ -59,7 +59,7 @@ extension SortFilterView where ApplyActionView == _Action {
     }
 }
 
-extension SortFilterView where CancelActionView == _Action, ResetActionView == _Action {
+extension _SortFilterView where CancelActionView == _Action, ResetActionView == _Action {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder items: () -> Items,
@@ -77,7 +77,7 @@ extension SortFilterView where CancelActionView == _Action, ResetActionView == _
     }
 }
 
-extension SortFilterView where CancelActionView == _Action, ApplyActionView == _Action {
+extension _SortFilterView where CancelActionView == _Action, ApplyActionView == _Action {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder items: () -> Items,
@@ -95,7 +95,7 @@ extension SortFilterView where CancelActionView == _Action, ApplyActionView == _
     }
 }
 
-extension SortFilterView where ResetActionView == _Action, ApplyActionView == _Action {
+extension _SortFilterView where ResetActionView == _Action, ApplyActionView == _Action {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder items: () -> Items,
@@ -113,7 +113,7 @@ extension SortFilterView where ResetActionView == _Action, ApplyActionView == _A
     }
 }
 
-extension SortFilterView where CancelActionView == _Action, ResetActionView == _Action, ApplyActionView == _Action {
+extension _SortFilterView where CancelActionView == _Action, ResetActionView == _Action, ApplyActionView == _Action {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder items: () -> Items,

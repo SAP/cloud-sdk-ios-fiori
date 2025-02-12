@@ -2103,6 +2103,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: ResetActionStyle
+
+struct ResetActionStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any ResetActionStyle] = []
+}
+
+extension EnvironmentValues {
+    var resetActionStyle: any ResetActionStyle {
+        self.resetActionStyleStack.last ?? .base
+    }
+
+    var resetActionStyleStack: [any ResetActionStyle] {
+        get {
+            self[ResetActionStyleStackKey.self]
+        }
+        set {
+            self[ResetActionStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: ReviewCountLabelStyle
 
 struct ReviewCountLabelStyleStackKey: EnvironmentKey {
@@ -2393,6 +2414,27 @@ extension EnvironmentValues {
         }
         set {
             self[SingleStepStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: SortFilterViewStyle
+
+struct SortFilterViewStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any SortFilterViewStyle] = []
+}
+
+extension EnvironmentValues {
+    var sortFilterViewStyle: any SortFilterViewStyle {
+        self.sortFilterViewStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var sortFilterViewStyleStack: [any SortFilterViewStyle] {
+        get {
+            self[SortFilterViewStyleStackKey.self]
+        }
+        set {
+            self[SortFilterViewStyleStackKey.self] = newValue
         }
     }
 }
