@@ -21,6 +21,10 @@ public struct BannerMessageItemModel: Identifiable {
     public var title: String
     /// Message Type
     public var messageType: BannerMultiMessageType
+    /// Show detail link or not, default is true
+    public var showDetailLink: Bool
+    /// Show close action or not, default is true
+    public var showCloseAction: Bool
     
     public var typeDesc: String {
         switch self.messageType {
@@ -37,11 +41,13 @@ public struct BannerMessageItemModel: Identifiable {
         }
     }
     
-    public init(id: UUID = UUID(), icon: (any View)?, title: String, messageType: BannerMultiMessageType) {
+    public init(id: UUID = UUID(), icon: (any View)?, title: String, messageType: BannerMultiMessageType, showDetailLink: Bool = true, showCloseAction: Bool = true) {
         self.id = id
         self.icon = icon
         self.title = title
         self.messageType = messageType
+        self.showDetailLink = showDetailLink
+        self.showCloseAction = showCloseAction
     }
 }
 
@@ -100,6 +106,9 @@ public struct BannerMultiMessageSheetBaseStyle: BannerMultiMessageSheetStyle {
     @State private var scrollContentHeight: CGFloat = 40
     @State private var dimensionSelectorHeight: CGFloat = 0
     @State private var messageCountHeight: CGFloat = 65
+    
+    private let viewDetailOpenUrlStr = "MultiMessageViewDetail"
+    
     private var popoverHeight: CGFloat? {
         let contentHeight = self.messageCountHeight + self.dimensionSelectorHeight + self.scrollContentHeight
         return !self.isPhone ? min(contentHeight, 380.0) : nil
@@ -129,13 +138,20 @@ public struct BannerMultiMessageSheetBaseStyle: BannerMultiMessageSheetStyle {
         return String(format: NSLocalizedString("Messages (%d)", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), count)
     }
     
-    private func attributedMessageTitle(title: String, typeDesc: String) -> AttributedString {
-        let attributedString = NSMutableAttributedString(string: title)
+    private func attributedMessageTitle(title: String, typeDesc: String, showDetailLink: Bool) -> AttributedString {
+        var attributedString = AttributedString(title)
+        
+        // show detail link to view message detail
+        if !showDetailLink {
+            return attributedString
+        }
         
         let viewDetailStr = String(format: NSLocalizedString("View %@", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), typeDesc)
-        let viewDetail = NSAttributedString(string: " \(viewDetailStr)", attributes: [.foregroundColor: UIColor(Color.preferredColor(.tintColor))])
+        var viewDetail = AttributedString(" \(viewDetailStr)")
+        viewDetail.foregroundColor = .preferredColor(.tintColor)
+        viewDetail.link = URL(string: self.viewDetailOpenUrlStr)
         attributedString.append(viewDetail)
-        return AttributedString(attributedString)
+        return attributedString
     }
     
     private func removeItem(_ configuration: BannerMultiMessageSheetConfiguration, category: String, at id: UUID) {
@@ -285,20 +301,28 @@ public struct BannerMultiMessageSheetBaseStyle: BannerMultiMessageSheetStyle {
                                 BannerMessage(icon: {
                                     (message.icon ?? self.defaultIcon(message.messageType)).typeErased
                                 }, title: {
-                                    Text(self.attributedMessageTitle(title: message.title, typeDesc: message.typeDesc))
+                                    Text(self.attributedMessageTitle(title: message.title, typeDesc: message.typeDesc, showDetailLink: message.showDetailLink))
+                                        .environment(\.openURL, OpenURLAction(handler: { url in
+                                            if url.absoluteString == self.viewDetailOpenUrlStr {
+                                                self.showItemDetail(configuration, category: element.category, at: message.id)
+                                            }
+                                            return .handled
+                                        }))
                                 }, closeAction: {
-                                    FioriButton { state in
-                                        if state == .normal {
-                                            self.removeItem(configuration, category: element.category, at: message.id)
+                                    if message.showCloseAction {
+                                        FioriButton { state in
+                                            if state == .normal {
+                                                self.removeItem(configuration, category: element.category, at: message.id)
+                                            }
+                                        } label: { _ in
+                                            Image(fioriName: "fiori.decline")
                                         }
-                                    } label: { _ in
-                                        Image(fioriName: "fiori.decline")
+                                    } else {
+                                        EmptyView()
                                     }
                                 }, topDivider: {
                                     EmptyView()
-                                }, bannerTapAction: {
-                                    self.showItemDetail(configuration, category: element.category, at: message.id)
-                                }, alignment: .leading, hideSeparator: true, messageType: message.messageType)
+                                }, bannerTapAction: nil, alignment: .leading, hideSeparator: true, messageType: message.messageType)
                                     .bannerMessageStyle(self.bannerMessageStyle(message.messageType))
                                     .typeErased
                                     .swipeActions(edge: .trailing, allowsFullSwipe: true) {
