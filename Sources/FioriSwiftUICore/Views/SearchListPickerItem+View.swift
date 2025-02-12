@@ -26,6 +26,9 @@ public extension SearchListPickerItem {
         self.disableListEntriesSection = disableListEntriesSection
         self.allowsDisplaySelectionCount = allowsDisplaySelectionCount
         self.barItemFrame = barItemFrame
+        self.uuidValueOptions = valueOptions.map { option in
+            [UUID().uuidString: option]
+        }
     }
 }
 
@@ -35,17 +38,29 @@ extension SearchListPickerItem: View {
             if !disableListEntriesSection, !_value.isEmpty {
                 Section {
                     self.selectionHeader().listRowInsets(EdgeInsets())
-                    let selectedOptions = _value.wrappedValue.map { _valueOptions[$0] }
-                    ForEach(selectedOptions.filter { _searchText.isEmpty || $0.localizedStandardContains(_searchText) }, id: \.self) { item in
-                        self.rowView(value: item, isSelected: true)
-                            .padding(0)
-                            .contentShape(Rectangle())
-                            .onTapGesture {
-                                guard let index = findIndex(of: item) else {
-                                    return
+                    let selectedOptions = _value.wrappedValue.map { index in
+                        uuidValueOptions[index]
+                    }
+                    let filterSelectedOptions = selectedOptions.filter { item in
+                        guard let firstValue = item.values.first else {
+                            return true
+                        }
+                        return _searchText.isEmpty || firstValue.localizedStandardContains(_searchText)
+                    }
+                    ForEach(filterSelectedOptions, id: \.self) { item in
+                        if let valueString = item.values.first {
+                            self.rowView(value: valueString, isSelected: true)
+                                .padding(0)
+                                .contentShape(Rectangle())
+                                .onTapGesture {
+                                    guard let index = findIndex(of: item) else {
+                                        return
+                                    }
+                                    _onTap?(index)
                                 }
-                                _onTap?(index)
-                            }
+                        } else {
+                            EmptyView()
+                        }
                     }
                     #if !os(visionOS)
                     .listRowBackground(Color.preferredColor(.chromeSecondary))
@@ -71,17 +86,27 @@ extension SearchListPickerItem: View {
                 } else {
                     EmptyView()
                 }
-                ForEach(_valueOptions.filter { _searchText.isEmpty || $0.localizedStandardContains(_searchText) }, id: \.self) { item in
-                    let isSelected = self.isItemSelected(item)
-                    self.rowView(value: item, isSelected: isSelected)
-                        .padding(0)
-                        .contentShape(Rectangle())
-                        .onTapGesture {
-                            guard let index = findIndex(of: item) else {
-                                return
+                let filterSelectedOptions = uuidValueOptions.filter { item in
+                    guard let firstValue = item.values.first else {
+                        return true
+                    }
+                    return _searchText.isEmpty || firstValue.localizedStandardContains(_searchText)
+                }
+                ForEach(filterSelectedOptions, id: \.self) { item in
+                    if let valueString = item.values.first {
+                        let isSelected = self.isItemSelected(item)
+                        self.rowView(value: valueString, isSelected: isSelected)
+                            .padding(0)
+                            .contentShape(Rectangle())
+                            .onTapGesture {
+                                guard let index = findIndex(of: item) else {
+                                    return
+                                }
+                                _onTap?(index)
                             }
-                            _onTap?(index)
-                        }
+                    } else {
+                        EmptyView()
+                    }
                 }
                 #if !os(visionOS)
                 .listRowBackground(Color.preferredColor(.chromeSecondary))
@@ -226,15 +251,17 @@ extension SearchListPickerItem: View {
             }
     }
     
-    private func isItemSelected(_ item: String) -> Bool {
+    private func isItemSelected(_ item: [String: String]) -> Bool {
         guard let index = findIndex(of: item) else {
             return false
         }
         return _value.wrappedValue.contains(index)
     }
     
-    private func findIndex(of item: String) -> Int? {
-        _valueOptions.firstIndex(where: { $0 == item })
+    private func findIndex(of item: [String: String]) -> Int? {
+        uuidValueOptions.firstIndex { option in
+            !option.keys.filter { item.keys.contains($0) }.isEmpty
+        }
     }
     
     private func getSafeAreaInsets() -> UIEdgeInsets {

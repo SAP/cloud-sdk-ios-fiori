@@ -7,8 +7,6 @@ public struct LoadingIndicatorBaseStyle: LoadingIndicatorStyle {
     @Environment(\.indicatorPosition) var position
     @Environment(\.indicatorTint) var tint
     @Environment(\.indicatorControlSize) var controlSize
-    @State private var scale: CGFloat = 1.2
-    @State private var opacity: CGFloat = 1.0
     @State private var isAnimating = false
     private var timerTool = TimerTask()
 
@@ -41,11 +39,13 @@ public struct LoadingIndicatorBaseStyle: LoadingIndicatorStyle {
         Image(fioriName: "fiori.ai")
             .resizable()
             .scaledToFill()
-            .scaleEffect(self.scale)
-            .foregroundColor(.blue).opacity(self.opacity)
-            .animation(.interpolatingSpring(stiffness: 100, damping: 10).repeatForever(autoreverses: true), value: self.scale)
+            .scaleEffect(self.isAnimating ? 1.2 : 1.0)
+            .opacity(self.isAnimating ? 0.8 : 1.0)
+            .foregroundColor(self.tint)
             .onAppear {
-                self.startBouncingAnimation()
+                withAnimation(Animation.easeInOut(duration: 1.5).repeatForever(autoreverses: true)) {
+                    self.isAnimating.toggle()
+                }
             }
             .frame(width: self.sizeForControl(self.controlSize), height: self.sizeForControl(self.controlSize))
     }
@@ -64,20 +64,6 @@ public struct LoadingIndicatorBaseStyle: LoadingIndicatorStyle {
             return 40
         @unknown default:
             return 20
-        }
-    }
-    
-    func startBouncingAnimation() {
-        self.isAnimating = true
-        withAnimation {
-            self.scale = 1.4
-            self.opacity = 0.5
-        }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            withAnimation {
-                self.scale = 1.0
-                self.opacity = 1.0
-            }
         }
     }
 
