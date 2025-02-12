@@ -86,7 +86,8 @@ public extension Type {
                                     "_SectionHeaderModel",
                                     "_SwitchPickerItemModel",
                                     "_FilterFeedbackBarButtonModel",
-                                    "_FilterFeedbackBarItemModel"]
+                                    "_FilterFeedbackBarItemModel",
+                                    "_SignatureCaptureViewModel"]
         
         if deprecatedComponents.contains(name) {
             return name.replacingOccurrences(of: "Model", with: "")

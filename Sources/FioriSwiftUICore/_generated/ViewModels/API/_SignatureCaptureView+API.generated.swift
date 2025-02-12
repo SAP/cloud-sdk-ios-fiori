@@ -3,7 +3,7 @@
 import SwiftUI
 import Combine
 
-public struct SignatureCaptureView<StartActionView: View, RestartActionView: View, CancelActionView: View, ClearActionView: View, SaveActionView: View> {
+public struct _SignatureCaptureView<StartActionView: View, RestartActionView: View, CancelActionView: View, ClearActionView: View, SaveActionView: View> {
     @Environment(\.startActionModifier) private var startActionModifier
 	@Environment(\.restartActionModifier) private var restartActionModifier
 	@Environment(\.cancelActionModifier) private var cancelActionModifier
@@ -88,37 +88,37 @@ public struct SignatureCaptureView<StartActionView: View, RestartActionView: Vie
 
     @ViewBuilder var startAction: some View {
         if isModelInit {
-            _startAction.modifier(startActionModifier.concat(Fiori.SignatureCaptureView.startAction).concat(Fiori.SignatureCaptureView.startActionCumulative))
+            _startAction.modifier(startActionModifier.concat(Fiori._SignatureCaptureView.startAction).concat(Fiori._SignatureCaptureView.startActionCumulative))
         } else {
-            _startAction.modifier(startActionModifier.concat(Fiori.SignatureCaptureView.startAction))
+            _startAction.modifier(startActionModifier.concat(Fiori._SignatureCaptureView.startAction))
         }
     }
 	@ViewBuilder var restartAction: some View {
         if isModelInit {
-            _restartAction.modifier(restartActionModifier.concat(Fiori.SignatureCaptureView.restartAction).concat(Fiori.SignatureCaptureView.restartActionCumulative))
+            _restartAction.modifier(restartActionModifier.concat(Fiori._SignatureCaptureView.restartAction).concat(Fiori._SignatureCaptureView.restartActionCumulative))
         } else {
-            _restartAction.modifier(restartActionModifier.concat(Fiori.SignatureCaptureView.restartAction))
+            _restartAction.modifier(restartActionModifier.concat(Fiori._SignatureCaptureView.restartAction))
         }
     }
 	@ViewBuilder var cancelAction: some View {
         if isModelInit {
-            _cancelAction.modifier(cancelActionModifier.concat(Fiori.SignatureCaptureView.cancelAction).concat(Fiori.SignatureCaptureView.cancelActionCumulative))
+            _cancelAction.modifier(cancelActionModifier.concat(Fiori._SignatureCaptureView.cancelAction).concat(Fiori._SignatureCaptureView.cancelActionCumulative))
         } else {
-            _cancelAction.modifier(cancelActionModifier.concat(Fiori.SignatureCaptureView.cancelAction))
+            _cancelAction.modifier(cancelActionModifier.concat(Fiori._SignatureCaptureView.cancelAction))
         }
     }
 	@ViewBuilder var clearAction: some View {
         if isModelInit {
-            _clearAction.modifier(clearActionModifier.concat(Fiori.SignatureCaptureView.clearAction).concat(Fiori.SignatureCaptureView.clearActionCumulative))
+            _clearAction.modifier(clearActionModifier.concat(Fiori._SignatureCaptureView.clearAction).concat(Fiori._SignatureCaptureView.clearActionCumulative))
         } else {
-            _clearAction.modifier(clearActionModifier.concat(Fiori.SignatureCaptureView.clearAction))
+            _clearAction.modifier(clearActionModifier.concat(Fiori._SignatureCaptureView.clearAction))
         }
     }
 	@ViewBuilder var saveAction: some View {
         if isModelInit {
-            _saveAction.modifier(saveActionModifier.concat(Fiori.SignatureCaptureView.saveAction).concat(Fiori.SignatureCaptureView.saveActionCumulative))
+            _saveAction.modifier(saveActionModifier.concat(Fiori._SignatureCaptureView.saveAction).concat(Fiori._SignatureCaptureView.saveActionCumulative))
         } else {
-            _saveAction.modifier(saveActionModifier.concat(Fiori.SignatureCaptureView.saveAction))
+            _saveAction.modifier(saveActionModifier.concat(Fiori._SignatureCaptureView.saveAction))
         }
     }
     
@@ -143,13 +143,13 @@ public struct SignatureCaptureView<StartActionView: View, RestartActionView: Vie
     }
 }
 
-extension SignatureCaptureView where StartActionView == _ConditionalContent<_Action, EmptyView>,
+extension _SignatureCaptureView where StartActionView == _ConditionalContent<_Action, EmptyView>,
 		RestartActionView == _ConditionalContent<_Action, EmptyView>,
 		CancelActionView == _ConditionalContent<_Action, EmptyView>,
 		ClearActionView == _ConditionalContent<_Action, EmptyView>,
 		SaveActionView == _ConditionalContent<_Action, EmptyView> {
 
-    public init(model: SignatureCaptureViewModel) {
+    public init(model: _SignatureCaptureViewModel) {
         self.init(title: model.title, mandatoryIndicator: model.mandatoryIndicator, startAction: model.startAction != nil ? _Action(model: model.startAction!) : nil, restartAction: model.restartAction != nil ? _Action(model: model.restartAction!) : nil, cancelAction: model.cancelAction != nil ? _Action(model: model.cancelAction!) : nil, clearAction: model.clearAction != nil ? _Action(model: model.clearAction!) : nil, saveAction: model.saveAction != nil ? _Action(model: model.saveAction!) : nil, signatureImage: model.signatureImage, onSave: model.onSave, onDelete: model.onDelete)
     }
 

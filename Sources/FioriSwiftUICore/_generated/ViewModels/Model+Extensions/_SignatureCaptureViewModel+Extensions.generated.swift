@@ -2,7 +2,7 @@
 // DO NOT EDIT
 import SwiftUI
 
-public extension SignatureCaptureViewModel {
+public extension _SignatureCaptureViewModel {
     var title: String? {
         return nil
     }

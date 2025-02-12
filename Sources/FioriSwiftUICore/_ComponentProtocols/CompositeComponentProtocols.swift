@@ -1226,3 +1226,95 @@ protocol _DimensionSelectorComponent {
     ///  ViewBuilder for customizing the segments
     var segment: (String) -> any View { get }
 }
+
+/// `SignatureCaptureView` allows user to sign above  the signature line.
+/// ## Usage
+/// ```swift
+/// SignatureCaptureView(title: {
+///    Text("Signature Title")
+/// }, mandatoryFieldIndicator: {
+///    Text("*")
+/// }, isRequired: true, startSignatureAction: {
+///    Button(action: {}, label: { Text("start") })
+/// }, reenterSignatureAction: {
+///    Button(action: {}, label: { Text("restart") })
+/// }, cancelAction: {
+///    Button(action: {}, label: { Text("cancel") })
+/// }, clearAction: {
+///    Button(action: {}, label: { Text("clear") })
+/// }, saveAction: {
+///    Button(action: {}, label: { Text("save") })
+/// }, xmark: {
+///    Image(systemName: "xmark")
+/// }, watermark: {
+///    Text("This is a watermark")
+/// }, signatureImage: nil,
+///                     drawingViewMaxHeight: 400,
+///                     drawingViewBackgroundColor: Color.gray,
+///                     strokeWidth: 1,
+///                     appliesTintColorToImage: true,
+///                     strokeColor: Color.red,
+///                     signatureLineColor: Color.black,
+///                     hidesSignatureLine: false,
+///                     watermarkAlignment: .trailing,
+///                     addsTimestampInImage: true,
+///                     timestampFormatter: nil,
+///                     cropsImage: false) { img in
+///    let imgSaver = ImageSaver()
+///    imgSaver.writeToPhotoAlbum(image: img)
+/// }
+/// ```
+// sourcery: CompositeComponent
+// sourcery: importFrameworks = ["FioriThemeManager"]
+protocol _SignatureCaptureViewComponent: _TitleComponent, _MandatoryField, _StartSignatureActionComponent, _ReenterSignatureActionComponent, _CancelActionComponent, _ClearActionComponent, _SaveActionComponent, _XmarkComponent, _WatermarkComponent {
+    /// An optional image for default signature.
+    var signatureImage: UIImage? { get }
+    
+    /// Maximum height of the drawing view.
+    var drawingViewMaxHeight: CGFloat? { get }
+    
+    // sourcery: defaultValue = Color.preferredColor(.primaryBackground)
+    /// The background color of the drawing view. Default value is `.primaryBackground`.
+    var drawingViewBackgroundColor: Color { get }
+    
+    // sourcery: defaultValue = 3.0
+    /// The width of the stroke. Default value is `3.0`.
+    var strokeWidth: CGFloat { get }
+    
+    // sourcery: defaultValue = true
+    /// Indicates if should use `strokeColor` as foreground color. Default value is `true`.
+    var appliesTintColorToImage: Bool { get }
+    
+    // sourcery: defaultValue = Color.preferredColor(.primaryLabel)
+    /// The color for the stroke. Default value is `.primaryLabel`.
+    var strokeColor: Color { get }
+    
+    // sourcery: defaultValue = Color.preferredColor(.quaternaryLabel)
+    /// The color of the signature line. Default value is `.quaternaryLabel`.
+    var signatureLineColor: Color { get }
+    
+    // sourcery: defaultValue = false
+    /// Indicates if the signature line should be hidden. Default value is `false`.
+    var hidesSignatureLine: Bool { get }
+    
+    // sourcery: defaultValue = .leading
+    /// The alignment of the watermark. Default value is `.leading`.
+    var watermarkAlignment: HorizontalAlignment { get }
+    
+    // sourcery: defaultValue = false
+    /// Indicates if timestamp should be added in image. Default value is `false`.
+    var addsTimestampInImage: Bool { get }
+    
+    /// Timestamp formatter.
+    var timestampFormatter: DateFormatter? { get }
+    
+    // sourcery: defaultValue = false
+    /// Indicates if the image should be cropped. Default value is `false`.
+    var cropsImage: Bool { get }
+
+    /// An optional call back for save action.
+    var onSave: ((UIImage) -> Void)? { get }
+    
+    /// An optional call back for delete action.
+    var onDelete: (() -> Void)? { get }
+}
