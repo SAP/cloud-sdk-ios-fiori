@@ -21,3 +21,14 @@ extension View {
         self.environment(\.onModelUpdateAppCallback, closure)
     }
 }
+
+struct SortFilterBarItemFrameKey: EnvironmentKey {
+    static let defaultValue: CGRect = .zero
+}
+
+extension EnvironmentValues {
+    var sortFilterBarItemFrame: CGRect {
+        get { self[SortFilterBarItemFrameKey.self] }
+        set { self[SortFilterBarItemFrameKey.self] = newValue }
+    }
+}

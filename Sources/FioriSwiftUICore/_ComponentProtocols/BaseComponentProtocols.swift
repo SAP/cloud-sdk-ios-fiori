@@ -586,3 +586,11 @@ protocol _TrendImageComponent {
     // sourcery: @ViewBuilder
     var trendImage: Image? { get }
 }
+
+// sourcery: BaseComponent
+protocol _ResetActionComponent {
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "FioriButton { _ in Text("Reset".localizedFioriString()) }"
+    // sourcery: resultBuilder.defaultValue = "{ FioriButton { _ in Text("Reset".localizedFioriString()) } }"
+    var resetAction: FioriButton? { get }
+}
