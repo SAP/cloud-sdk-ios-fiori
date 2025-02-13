@@ -717,6 +717,48 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: DimensionSegmentStyle
+
+struct DimensionSegmentStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any DimensionSegmentStyle] = []
+}
+
+extension EnvironmentValues {
+    var dimensionSegmentStyle: any DimensionSegmentStyle {
+        self.dimensionSegmentStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var dimensionSegmentStyleStack: [any DimensionSegmentStyle] {
+        get {
+            self[DimensionSegmentStyleStackKey.self]
+        }
+        set {
+            self[DimensionSegmentStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: DimensionSelectorStyle
+
+struct DimensionSelectorStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any DimensionSelectorStyle] = []
+}
+
+extension EnvironmentValues {
+    var dimensionSelectorStyle: any DimensionSelectorStyle {
+        self.dimensionSelectorStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var dimensionSelectorStyleStack: [any DimensionSelectorStyle] {
+        get {
+            self[DimensionSelectorStyleStackKey.self]
+        }
+        set {
+            self[DimensionSelectorStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: FilledIconStyle
 
 struct FilledIconStyleStackKey: EnvironmentKey {
@@ -734,6 +776,48 @@ extension EnvironmentValues {
         }
         set {
             self[FilledIconStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: FilterFeedbackBarButtonStyle
+
+struct FilterFeedbackBarButtonStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any FilterFeedbackBarButtonStyle] = []
+}
+
+extension EnvironmentValues {
+    var filterFeedbackBarButtonStyle: any FilterFeedbackBarButtonStyle {
+        self.filterFeedbackBarButtonStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var filterFeedbackBarButtonStyleStack: [any FilterFeedbackBarButtonStyle] {
+        get {
+            self[FilterFeedbackBarButtonStyleStackKey.self]
+        }
+        set {
+            self[FilterFeedbackBarButtonStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: FilterFeedbackBarItemStyle
+
+struct FilterFeedbackBarItemStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any FilterFeedbackBarItemStyle] = []
+}
+
+extension EnvironmentValues {
+    var filterFeedbackBarItemStyle: any FilterFeedbackBarItemStyle {
+        self.filterFeedbackBarItemStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var filterFeedbackBarItemStyleStack: [any FilterFeedbackBarItemStyle] {
+        get {
+            self[FilterFeedbackBarItemStyleStackKey.self]
+        }
+        set {
+            self[FilterFeedbackBarItemStyleStackKey.self] = newValue
         }
     }
 }

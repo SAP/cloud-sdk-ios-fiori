@@ -960,6 +960,62 @@ public extension DetailImageStyle {
     }
 }
 
+// MARK: DimensionSegmentStyle
+
+extension ModifiedStyle: DimensionSegmentStyle where Style: DimensionSegmentStyle {
+    public func makeBody(_ configuration: DimensionSegmentConfiguration) -> some View {
+        DimensionSegment(configuration)
+            .dimensionSegmentStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct DimensionSegmentStyleModifier<Style: DimensionSegmentStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.dimensionSegmentStyle(self.style)
+    }
+}
+
+public extension DimensionSegmentStyle {
+    func modifier(_ modifier: some ViewModifier) -> some DimensionSegmentStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some DimensionSegmentStyle) -> some DimensionSegmentStyle {
+        style.modifier(DimensionSegmentStyleModifier(style: self))
+    }
+}
+
+// MARK: DimensionSelectorStyle
+
+extension ModifiedStyle: DimensionSelectorStyle where Style: DimensionSelectorStyle {
+    public func makeBody(_ configuration: DimensionSelectorConfiguration) -> some View {
+        DimensionSelector(configuration)
+            .dimensionSelectorStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct DimensionSelectorStyleModifier<Style: DimensionSelectorStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.dimensionSelectorStyle(self.style)
+    }
+}
+
+public extension DimensionSelectorStyle {
+    func modifier(_ modifier: some ViewModifier) -> some DimensionSelectorStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some DimensionSelectorStyle) -> some DimensionSelectorStyle {
+        style.modifier(DimensionSelectorStyleModifier(style: self))
+    }
+}
+
 // MARK: FilledIconStyle
 
 extension ModifiedStyle: FilledIconStyle where Style: FilledIconStyle {
@@ -985,6 +1041,62 @@ public extension FilledIconStyle {
 
     func concat(_ style: some FilledIconStyle) -> some FilledIconStyle {
         style.modifier(FilledIconStyleModifier(style: self))
+    }
+}
+
+// MARK: FilterFeedbackBarButtonStyle
+
+extension ModifiedStyle: FilterFeedbackBarButtonStyle where Style: FilterFeedbackBarButtonStyle {
+    public func makeBody(_ configuration: FilterFeedbackBarButtonConfiguration) -> some View {
+        FilterFeedbackBarButton(configuration)
+            .filterFeedbackBarButtonStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct FilterFeedbackBarButtonStyleModifier<Style: FilterFeedbackBarButtonStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.filterFeedbackBarButtonStyle(self.style)
+    }
+}
+
+public extension FilterFeedbackBarButtonStyle {
+    func modifier(_ modifier: some ViewModifier) -> some FilterFeedbackBarButtonStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some FilterFeedbackBarButtonStyle) -> some FilterFeedbackBarButtonStyle {
+        style.modifier(FilterFeedbackBarButtonStyleModifier(style: self))
+    }
+}
+
+// MARK: FilterFeedbackBarItemStyle
+
+extension ModifiedStyle: FilterFeedbackBarItemStyle where Style: FilterFeedbackBarItemStyle {
+    public func makeBody(_ configuration: FilterFeedbackBarItemConfiguration) -> some View {
+        FilterFeedbackBarItem(configuration)
+            .filterFeedbackBarItemStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct FilterFeedbackBarItemStyleModifier<Style: FilterFeedbackBarItemStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.filterFeedbackBarItemStyle(self.style)
+    }
+}
+
+public extension FilterFeedbackBarItemStyle {
+    func modifier(_ modifier: some ViewModifier) -> some FilterFeedbackBarItemStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some FilterFeedbackBarItemStyle) -> some FilterFeedbackBarItemStyle {
+        style.modifier(FilterFeedbackBarItemStyleModifier(style: self))
     }
 }
 

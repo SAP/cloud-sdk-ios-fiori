@@ -1,48 +1,5 @@
 import SwiftUI
 
-extension Fiori {
-    enum FilterFeedbackBarItem {
-        typealias LeftIcon = EmptyModifier
-        typealias LeftIconCumulative = EmptyModifier
-        typealias Title = EmptyModifier
-        typealias TitleCumulative = EmptyModifier
-        typealias RightIcon = EmptyModifier
-        typealias RightIconCumulative = EmptyModifier
-
-        static let leftIcon = LeftIcon()
-        static let title = Title()
-        static let rightIcon = RightIcon()
-        static let leftIconCumulative = LeftIconCumulative()
-        static let titleCumulative = TitleCumulative()
-        static let rightIconCumulative = RightIconCumulative()
-    }
-}
-
-extension FilterFeedbackBarItem: View {
-    public var body: some View {
-        filterFeedbackBarStyle.makeBody(configuration: FilterFeedbackBarStyleConfiguration(leftIcon: AnyView(_leftIcon), title: AnyView(_title), isSelected: _isSelected, rightIcon: AnyView(_rightIcon))).typeErased
-    }
-}
-
-private extension View {
-    func icon(name: String?, isVisible: Bool) -> Image? {
-        if isVisible {
-            if let name {
-                return Image(systemName: name)
-            }
-        }
-        return nil
-    }
-}
-
-/// Enum for FilterFeedbackBar ResetButton Type.
-public enum FilterFeedbackBarResetButtonType {
-    /// Reset to origin values.
-    case reset
-    /// Clear selected value, only effective for sinlge selection.
-    case clearAll
-}
-
 struct FilterFeedbackMenuItem: View {
     @Binding var item: SortFilterItem.PickerItem
     var onUpdate: () -> Void
@@ -55,7 +12,7 @@ struct FilterFeedbackMenuItem: View {
     var body: some View {
         Group {
             ForEach(self.$item.valueOptions.wrappedValue, id: \.self) { opt in
-                FilterFeedbackBarItem(leftIcon: self.item.isOptionSelected(opt) ? icon(name: self.item.icon, isVisible: true) : nil, title: opt, isSelected: self.item.isOptionSelected(opt))
+                FilterFeedbackBarItem(icon: self.item.isOptionSelected(opt) ? icon(name: self.item.icon, isVisible: true) : nil, title: AttributedString(opt), isSelected: self.item.isOptionSelected(opt))
                     .onTapGesture {
                         self.item.onTap(option: opt)
                         self.item.apply()
@@ -87,7 +44,7 @@ struct SliderMenuItem: View {
     }
     
     var body: some View {
-        FilterFeedbackBarItem(leftIcon: icon(name: self.item.icon, isVisible: true), title: self.item.label, rightIcon: Image(systemName: "chevron.down"), isSelected: self.item.isChecked)
+        FilterFeedbackBarItem(icon: icon(name: self.item.icon, isVisible: true), title: AttributedString(self.item.label), accessoryIcon: Image(systemName: "chevron.down"), isSelected: self.item.isChecked)
             .onTapGesture {
                 self.isSheetVisible.toggle()
             }
@@ -269,21 +226,6 @@ struct SliderMenuItem: View {
     }
 }
 
-extension String {
-    var attributedString: AttributedString? {
-        AttributedString(self)
-    }
-}
-
-extension String? {
-    var attributedString: AttributedString? {
-        guard let s = self else {
-            return nil
-        }
-        return AttributedString(s)
-    }
-}
-
 struct PickerMenuItem: View {
     @Binding var item: SortFilterItem.PickerItem
     var onUpdate: () -> Void
@@ -321,7 +263,7 @@ struct PickerMenuItem: View {
 
     @ViewBuilder
     var button: some View {
-        FilterFeedbackBarItem(leftIcon: icon(name: self.item.icon, isVisible: true), title: self.item.label, rightIcon: Image(systemName: "chevron.down"), isSelected: self.item.isChecked)
+        FilterFeedbackBarItem(icon: icon(name: self.item.icon, isVisible: true), title: AttributedString(self.item.label), accessoryIcon: Image(systemName: "chevron.down"), isSelected: self.item.isChecked)
             .onTapGesture {
                 self.isSheetVisible.toggle()
             }
@@ -418,7 +360,7 @@ struct PickerMenuItem: View {
                     }
                 }
             } label: {
-                FilterFeedbackBarItem(leftIcon: icon(name: self.item.icon, isVisible: true), title: self.item.label, isSelected: self.item.isChecked)
+                FilterFeedbackBarItem(icon: icon(name: self.item.icon, isVisible: true), title: AttributedString(self.item.label), isSelected: self.item.isChecked)
             }
         }
     }
@@ -433,7 +375,7 @@ struct PickerMenuItem: View {
     }
     
     private func phoneView() -> some View {
-        FilterFeedbackBarItem(leftIcon: icon(name: self.item.icon, isVisible: true), title: self.item.label, rightIcon: Image(systemName: "chevron.down"), isSelected: self.item.isChecked)
+        FilterFeedbackBarItem(icon: icon(name: self.item.icon, isVisible: true), title: AttributedString(self.item.label), accessoryIcon: Image(systemName: "chevron.down"), isSelected: self.item.isChecked)
             .onTapGesture {
                 self.isSheetVisible.toggle()
             }
@@ -469,7 +411,7 @@ struct PickerMenuItem: View {
                     .buttonStyle(ApplyButtonStyle())
                 } components: {
                     SearchListPickerItem(value: self.$item.workingValue, valueOptions: self.item.valueOptions, hint: nil, allowsMultipleSelection: self.item.allowsMultipleSelection, allowsEmptySelection: self.item.allowsEmptySelection, isSearchBarHidden: self.item.isSearchBarHidden, disableListEntriesSection: self.item.disableListEntriesSection, allowsDisplaySelectionCount: self.item.allowsDisplaySelectionCount, barItemFrame: self.barItemFrame) { index in
-                        self.item.onTap(option: self.item.valueOptions[index])
+                        self.item.optionOnTap(index)
                     } selectAll: { isAll in
                         self.item.selectAll(isAll)
                     } updateSearchListPickerHeight: { height in
@@ -506,7 +448,7 @@ struct PickerMenuItem: View {
     }
     
     private func padView() -> some View {
-        FilterFeedbackBarItem(leftIcon: icon(name: self.item.icon, isVisible: true), title: self.item.label, rightIcon: Image(systemName: "chevron.down"), isSelected: self.item.isChecked)
+        FilterFeedbackBarItem(icon: icon(name: self.item.icon, isVisible: true), title: AttributedString(self.item.label), accessoryIcon: Image(systemName: "chevron.down"), isSelected: self.item.isChecked)
             .contentShape(Rectangle())
             .onTapGesture {
                 self.isSheetVisible.toggle()
@@ -543,7 +485,7 @@ struct PickerMenuItem: View {
                     .buttonStyle(ApplyButtonStyle())
                 } components: {
                     SearchListPickerItem(value: self.$item.workingValue, valueOptions: self.item.valueOptions, hint: nil, allowsMultipleSelection: self.item.allowsMultipleSelection, allowsEmptySelection: self.item.allowsEmptySelection, isSearchBarHidden: self.item.isSearchBarHidden, disableListEntriesSection: self.item.disableListEntriesSection, allowsDisplaySelectionCount: self.item.allowsDisplaySelectionCount, barItemFrame: self.barItemFrame) { index in
-                        self.item.onTap(option: self.item.valueOptions[index])
+                        self.item.optionOnTap(index)
                     } selectAll: { isAll in
                         self.item.selectAll(isAll)
                     } updateSearchListPickerHeight: { height in
@@ -607,15 +549,6 @@ struct PickerMenuItem: View {
     }
 }
 
-struct HeightPreferenceKey: PreferenceKey {
-    static var defaultValue: CGFloat?
-
-    static func reduce(value: inout CGFloat?, nextValue: () -> CGFloat?) {
-        guard let nextValue = nextValue() else { return }
-        value = nextValue
-    }
-}
-
 private extension View {
     func readHeight() -> some View {
         self.modifier(ReadHeightModifier())
@@ -656,7 +589,7 @@ struct DateTimeMenuItem: View {
     }
         
     var body: some View {
-        FilterFeedbackBarItem(leftIcon: icon(name: self.item.icon, isVisible: true), title: self.item.label, rightIcon: Image(systemName: "chevron.down"), isSelected: self.item.isChecked)
+        FilterFeedbackBarItem(icon: icon(name: self.item.icon, isVisible: true), title: AttributedString(self.item.label), accessoryIcon: Image(systemName: "chevron.down"), isSelected: self.item.isChecked)
             .onTapGesture {
                 self.isSheetVisible.toggle()
             }
@@ -762,7 +695,7 @@ struct SwitchMenuItem: View {
     }
         
     var body: some View {
-        FilterFeedbackBarItem(leftIcon: icon(name: self.item.icon, isVisible: true), title: self.item.name, isSelected: self.item.isChecked)
+        FilterFeedbackBarItem(icon: icon(name: self.item.icon, isVisible: true), title: AttributedString(self.item.name), isSelected: self.item.isChecked)
             .onTapGesture {
                 if self.item.value != nil {
                     self.item.workingValue?.toggle()
@@ -773,33 +706,7 @@ struct SwitchMenuItem: View {
                     self.item.apply()
                     self.onUpdate()
                 }
-//            isSheetVisible.toggle()
             }
-//        .popover(isPresented: $isSheetVisible, attachmentAnchor: .point(.bottom), arrowEdge: .bottom) {
-//            CancellableResettableDialogForm {
-//                Text(item.name)
-//            } cancelAction: {
-//                Action(actionText: "Cancel", didSelectAction: {
-//                    item.cancel()
-//                    isSheetVisible.toggle()
-//                })
-//                .buttonStyle(CancelResetButtonStyle())
-//            } resetAction: {
-//                Action(actionText: "Reset", didSelectAction: {
-//                    item.reset()
-//                })
-//                .buttonStyle(CancelResetButtonStyle())
-//            } applyAction: {
-//                Action(actionText: "Apply", didSelectAction: {
-//                    item.apply()
-//                    onUpdate()
-//                    isSheetVisible.toggle()
-//                })
-//                .buttonStyle(ApplyButtonStyle())
-//            } components: {
-//                SwitchPicker(value: $item.workingValue)
-//            }
-//        }
     }
 }
 
@@ -824,7 +731,7 @@ struct StepperMenuItem: View {
     }
     
     var body: some View {
-        FilterFeedbackBarItem(leftIcon: icon(name: self.item.icon, isVisible: true), title: self.item.label, rightIcon: Image(systemName: "chevron.down"), isSelected: self.item.isChecked)
+        FilterFeedbackBarItem(icon: icon(name: self.item.icon, isVisible: true), title: AttributedString(self.item.label), accessoryIcon: Image(systemName: "chevron.down"), isSelected: self.item.isChecked)
             .onTapGesture {
                 self.isSheetVisible.toggle()
             }
@@ -984,7 +891,7 @@ struct FullCFGMenuItem: View {
     }
     
     var body: some View {
-        FilterFeedbackBarItem(leftIcon: icon(name: self.fullCFGButton.icon, isVisible: true), title: self.fullCFGButton.name ?? "", isSelected: true)
+        FilterFeedbackBarItem(icon: icon(name: self.fullCFGButton.icon, isVisible: true), title: self.fullCFGButton.name.attributedString ?? "", isSelected: true)
             .onTapGesture {
                 self.isSheetVisible.toggle()
             }
@@ -1058,58 +965,13 @@ struct FullCFGMenuItem: View {
     }
 }
 
-extension CGRect {
-    /// Popover arrowEdge depends on bar item position,
-    /// only return `.top` or `.bottom` in this case
-    /// - Returns: Edge
-    func arrowDirection() -> Edge {
-        if self.minY > Screen.bounds.size.height / 2 {
-            return .bottom
+private extension View {
+    func icon(name: String?, isVisible: Bool) -> Image? {
+        if isVisible {
+            if let name {
+                return Image(systemName: name)
+            }
         }
-        return .top
-    }
-}
-
-extension UIEdgeInsets {
-    static func getSafeAreaInsets() -> UIEdgeInsets {
-        guard let keyWindow = UIApplication.shared.connectedScenes
-            .first(where: { $0.activationState == .foregroundActive })
-            .flatMap({ $0 as? UIWindowScene })?.windows
-            .first(where: \.isKeyWindow)
-        else {
-            return .zero
-        }
-        return keyWindow.safeAreaInsets
-    }
-}
-
-#Preview {
-    VStack {
-        Spacer()
-        
-        FilterFeedbackBarItem(leftIcon: Image(systemName: "airplane"), title: "Airplane", rightIcon: Image(systemName: "chevron.down"), isSelected: true)
-        FilterFeedbackBarItem(leftIcon: Image(systemName: "airplane"), title: "Airplane", rightIcon: Image(systemName: "chevron.down"), isSelected: false)
-        FilterFeedbackBarItem(title: "Ship", rightIcon: Image(systemName: "chevron.down"), isSelected: true)
-        FilterFeedbackBarItem(title: "Ship", rightIcon: Image(systemName: "chevron.down"), isSelected: false)
-        FilterFeedbackBarItem(leftIcon: Image(systemName: "bus"), title: "Bus", isSelected: true)
-        FilterFeedbackBarItem(leftIcon: Image(systemName: "bus"), title: "Bus", isSelected: false)
-        
-        Spacer()
-        
-        FilterFeedbackBarItem(leftIcon: Image(systemName: "airplane"), title: "Air Plane", rightIcon: Image(systemName: "chevron.down"), isSelected: true)
-            .filterFeedbackBarStyle(font: .largeTitle, foregroundColorSelected: .red, strokeColorSelected: .red, cornerRadius: 25)
-        FilterFeedbackBarItem(leftIcon: Image(systemName: "airplane"), title: "Air Plane", rightIcon: Image(systemName: "chevron.down"), isSelected: false)
-            .filterFeedbackBarStyle(font: .footnote, foregroundColorUnselected: .green, strokeColorSelected: .black)
-            .filterFeedbackBarStyle(cornerRadius: 16)
-        FilterFeedbackBarItem(title: "Ship", rightIcon: Image(systemName: "chevron.down"), isSelected: true)
-            .filterFeedbackBarStyle(fillColorSelected: .yellow)
-        FilterFeedbackBarItem(title: "Ship", rightIcon: Image(systemName: "chevron.down"), isSelected: false)
-            .filterFeedbackBarStyle(fillColorUnselected: .gray)
-        FilterFeedbackBarItem(leftIcon: Image(systemName: "bus"), title: "Blue Bus", isSelected: true)
-            .filterFeedbackBarStyle(cornerRadius: 20)
-        FilterFeedbackBarItem(leftIcon: Image(systemName: "bus"), title: "Gray Bus", isSelected: false)
-            .filterFeedbackBarStyle(cornerRadius: 20)
-
-        Spacer()
+        return nil
     }
 }

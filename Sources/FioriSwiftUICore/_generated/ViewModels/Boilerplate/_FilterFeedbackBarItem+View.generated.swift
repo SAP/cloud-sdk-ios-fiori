@@ -1,8 +1,8 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
-//TODO: Copy commented code to new file: `FioriSwiftUICore/Views/FilterFeedbackBarItem+View.swift`
+//TODO: Copy commented code to new file: `FioriSwiftUICore/Views/_FilterFeedbackBarItem+View.swift`
 //TODO: Implement default Fiori style definitions as `ViewModifier`
-//TODO: Implement FilterFeedbackBarItem `View` body
+//TODO: Implement _FilterFeedbackBarItem `View` body
 //TODO: Implement LibraryContentProvider
 
 /// - Important: to make `@Environment` properties (e.g. `horizontalSizeClass`), internally accessible
@@ -16,7 +16,7 @@ import SwiftUI
 // FIXME: - Implement Fiori style definitions
 
 extension Fiori {
-    enum FilterFeedbackBarItem {
+    enum _FilterFeedbackBarItem {
         typealias LeftIcon = EmptyModifier
         typealias LeftIconCumulative = EmptyModifier
 		typealias Title = EmptyModifier
@@ -45,21 +45,21 @@ extension Fiori {
     }
 }
 
-// FIXME: - Implement FilterFeedbackBarItem View body
+// FIXME: - Implement _FilterFeedbackBarItem View body
 
-extension FilterFeedbackBarItem: View {
+extension _FilterFeedbackBarItem: View {
     public var body: some View {
         <# View body #>
     }
 }
 
-// FIXME: - Implement FilterFeedbackBarItem specific LibraryContentProvider
+// FIXME: - Implement _FilterFeedbackBarItem specific LibraryContentProvider
 
 @available(iOS 14.0, macOS 11.0, *)
-struct FilterFeedbackBarItemLibraryContent: LibraryContentProvider {
+struct _FilterFeedbackBarItemLibraryContent: LibraryContentProvider {
     @LibraryContentBuilder
     var views: [LibraryItem] {
-        LibraryItem(FilterFeedbackBarItem(model: LibraryPreviewData.Person.laurelosborn),
+        LibraryItem(_FilterFeedbackBarItem(model: LibraryPreviewData.Person.laurelosborn),
                     category: .control)
     }
 }

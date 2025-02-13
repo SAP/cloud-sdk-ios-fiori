@@ -1123,3 +1123,106 @@ protocol _HeaderChartComponent: _TitleComponent, _SubtitleComponent, _TrendCompo
     @ViewBuilder
     var chart: (() -> any View)? { get }
 }
+
+/// The `FilterFeedbackBarButton` is a SwiftUI component for item's options that are used in FilterFeedbackBar when the item's type is `SortFilterItem.picker`.
+///
+/// ## Usage
+///
+/// `icon` is the leading image in the button.
+/// `title` is the title for the option.
+/// `isSelected` is the state of the button whether it is selected. The style of the button will change based on its state.
+///
+///  ```swift
+///  FilterFeedbackBarButton(
+///     icon: Image(systemName: "checkmark"),
+///     title: "Status",
+///     isSelected: true)
+///  ```
+///
+// sourcery: CompositeComponent
+protocol _FilterFeedbackBarButtonComponent: _IconComponent, _TitleComponent {
+    /// Whether the item is selected or not
+    var isSelected: Bool { get }
+    /// The custom spacing between icon and title.
+    // sourcery: defaultValue = 4.0
+    var spacing: CGFloat { get }
+}
+
+/// The `FilterFeedbackBarItem` is a SwiftUI component for items in FilterFeedbackBar.
+///
+/// ## Usage
+///
+/// `icon` is the leading image in the button.
+/// `title` is the button title.
+/// `accessoryIcon` is the trailing image in the button.
+/// `isSelected` is the state of the button whether the item has selected value. The style of the button will change based on its state.
+///
+///  ```swift
+///  FilterFeedbackBarItem(
+///     icon: Image(systemName: "clock"),
+///     title: "Item Title",
+///     accessoryIcon: Image(systemName: "chevron.down"),
+///     isSelected: self.item.isChecked)
+///  ```
+///
+// sourcery: CompositeComponent
+protocol _FilterFeedbackBarItemComponent: _IconComponent, _TitleComponent, _AccessoryIconComponent {
+    /// Whether the item is selected or not
+    var isSelected: Bool { get }
+    /// The custom spacing between icon and title.
+    // sourcery: defaultValue = 6.0
+    var spacing: CGFloat { get }
+}
+
+/// `DimensionSegment` provides a customizable segment for `DimensionSelector`.
+///
+// sourcery: CompositeComponent
+protocol _DimensionSegmentComponent: _TitleComponent {
+    // sourcery: @binding
+    /// Whether the item is selected or not
+    var isSelected: Bool { get }
+}
+
+/// `DimensionSelector` is a horizontal control containing multiple segments, each segment functioning as a discrete button. Selection is mutually exclusive.
+///
+///  ## Usage:
+///  ```swift
+///  let titles = ["intraday: 1min", "one day: 1min", "1year:1day", "3years:1week"]
+///  @State var selectedIndex: Int? = 0
+///  @ObservedObject var stockModel = Tests.stockModels[0]
+///
+///  DimensionSelector(titles: titles, selectedIndex: $selectedIndex)
+///     .onChange(of: selectedIndex) {
+///            stockModel.indexOfStockSeries = selectedIndex ?? -1
+///    }
+///  ```
+// sourcery: CompositeComponent
+protocol _DimensionSelectorComponent {
+    /// The array for segment titles
+    var titles: [String] { get }
+    
+    // sourcery: @Binding
+    /// The optional selected index of the DimensionSelector
+    var selectedIndex: Int? { get }
+    
+    // sourcery: defaultValue = 6
+    /// The spacing between two segments. The default value is `6`.
+    var interItemSpacing: CGFloat { get }
+    
+    /// Content inset for the segmented control.
+    var contentInset: EdgeInsets? { get }
+    
+    // sourcery: defaultValue = .intrinsic
+    /// Mode that determines the width of each segment. The default value is `.intrinsic`.
+    var segmentWidthMode: SegmentWidthMode { get }
+    
+    // sourcery: defaultValue = true
+    /// A Boolean value indicating if empty selection is allowed. The default value is `true`.
+    var allowEmptySelection: Bool { get }
+    
+    @ViewBuilder
+    // sourcery: defaultValue = "{ _ in EmptyView() }"
+    // sourcery: resultBuilder.defaultValue = "{ _ in EmptyView() }"
+    ///  ViewBuilder for customizing the segments
+    var segment: (String) -> any View { get }
+}

@@ -2096,6 +2096,55 @@ public extension DetailImageStyle where Self == DetailImageFioriStyle {
     }
 }
 
+// MARK: DimensionSegmentStyle
+
+public extension DimensionSegmentStyle where Self == DimensionSegmentBaseStyle {
+    static var base: DimensionSegmentBaseStyle {
+        DimensionSegmentBaseStyle()
+    }
+}
+
+public extension DimensionSegmentStyle where Self == DimensionSegmentFioriStyle {
+    static var fiori: DimensionSegmentFioriStyle {
+        DimensionSegmentFioriStyle()
+    }
+}
+
+public struct DimensionSegmentTitleStyle: DimensionSegmentStyle {
+    let style: any TitleStyle
+
+    public func makeBody(_ configuration: DimensionSegmentConfiguration) -> some View {
+        DimensionSegment(configuration)
+            .titleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension DimensionSegmentStyle where Self == DimensionSegmentTitleStyle {
+    static func titleStyle(_ style: some TitleStyle) -> DimensionSegmentTitleStyle {
+        DimensionSegmentTitleStyle(style: style)
+    }
+
+    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> DimensionSegmentTitleStyle {
+        let style = AnyTitleStyle(content)
+        return DimensionSegmentTitleStyle(style: style)
+    }
+}
+
+// MARK: DimensionSelectorStyle
+
+public extension DimensionSelectorStyle where Self == DimensionSelectorBaseStyle {
+    static var base: DimensionSelectorBaseStyle {
+        DimensionSelectorBaseStyle()
+    }
+}
+
+public extension DimensionSelectorStyle where Self == DimensionSelectorFioriStyle {
+    static var fiori: DimensionSelectorFioriStyle {
+        DimensionSelectorFioriStyle()
+    }
+}
+
 // MARK: FilledIconStyle
 
 public extension FilledIconStyle where Self == FilledIconBaseStyle {
@@ -2107,6 +2156,139 @@ public extension FilledIconStyle where Self == FilledIconBaseStyle {
 public extension FilledIconStyle where Self == FilledIconFioriStyle {
     static var fiori: FilledIconFioriStyle {
         FilledIconFioriStyle()
+    }
+}
+
+// MARK: FilterFeedbackBarButtonStyle
+
+public extension FilterFeedbackBarButtonStyle where Self == FilterFeedbackBarButtonBaseStyle {
+    static var base: FilterFeedbackBarButtonBaseStyle {
+        FilterFeedbackBarButtonBaseStyle()
+    }
+}
+
+public extension FilterFeedbackBarButtonStyle where Self == FilterFeedbackBarButtonFioriStyle {
+    static var fiori: FilterFeedbackBarButtonFioriStyle {
+        FilterFeedbackBarButtonFioriStyle()
+    }
+}
+
+public struct FilterFeedbackBarButtonIconStyle: FilterFeedbackBarButtonStyle {
+    let style: any IconStyle
+
+    public func makeBody(_ configuration: FilterFeedbackBarButtonConfiguration) -> some View {
+        FilterFeedbackBarButton(configuration)
+            .iconStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension FilterFeedbackBarButtonStyle where Self == FilterFeedbackBarButtonIconStyle {
+    static func iconStyle(_ style: some IconStyle) -> FilterFeedbackBarButtonIconStyle {
+        FilterFeedbackBarButtonIconStyle(style: style)
+    }
+
+    static func iconStyle(@ViewBuilder content: @escaping (IconConfiguration) -> some View) -> FilterFeedbackBarButtonIconStyle {
+        let style = AnyIconStyle(content)
+        return FilterFeedbackBarButtonIconStyle(style: style)
+    }
+}
+
+public struct FilterFeedbackBarButtonTitleStyle: FilterFeedbackBarButtonStyle {
+    let style: any TitleStyle
+
+    public func makeBody(_ configuration: FilterFeedbackBarButtonConfiguration) -> some View {
+        FilterFeedbackBarButton(configuration)
+            .titleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension FilterFeedbackBarButtonStyle where Self == FilterFeedbackBarButtonTitleStyle {
+    static func titleStyle(_ style: some TitleStyle) -> FilterFeedbackBarButtonTitleStyle {
+        FilterFeedbackBarButtonTitleStyle(style: style)
+    }
+
+    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> FilterFeedbackBarButtonTitleStyle {
+        let style = AnyTitleStyle(content)
+        return FilterFeedbackBarButtonTitleStyle(style: style)
+    }
+}
+
+// MARK: FilterFeedbackBarItemStyle
+
+public extension FilterFeedbackBarItemStyle where Self == FilterFeedbackBarItemBaseStyle {
+    static var base: FilterFeedbackBarItemBaseStyle {
+        FilterFeedbackBarItemBaseStyle()
+    }
+}
+
+public extension FilterFeedbackBarItemStyle where Self == FilterFeedbackBarItemFioriStyle {
+    static var fiori: FilterFeedbackBarItemFioriStyle {
+        FilterFeedbackBarItemFioriStyle()
+    }
+}
+
+public struct FilterFeedbackBarItemIconStyle: FilterFeedbackBarItemStyle {
+    let style: any IconStyle
+
+    public func makeBody(_ configuration: FilterFeedbackBarItemConfiguration) -> some View {
+        FilterFeedbackBarItem(configuration)
+            .iconStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension FilterFeedbackBarItemStyle where Self == FilterFeedbackBarItemIconStyle {
+    static func iconStyle(_ style: some IconStyle) -> FilterFeedbackBarItemIconStyle {
+        FilterFeedbackBarItemIconStyle(style: style)
+    }
+
+    static func iconStyle(@ViewBuilder content: @escaping (IconConfiguration) -> some View) -> FilterFeedbackBarItemIconStyle {
+        let style = AnyIconStyle(content)
+        return FilterFeedbackBarItemIconStyle(style: style)
+    }
+}
+
+public struct FilterFeedbackBarItemTitleStyle: FilterFeedbackBarItemStyle {
+    let style: any TitleStyle
+
+    public func makeBody(_ configuration: FilterFeedbackBarItemConfiguration) -> some View {
+        FilterFeedbackBarItem(configuration)
+            .titleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension FilterFeedbackBarItemStyle where Self == FilterFeedbackBarItemTitleStyle {
+    static func titleStyle(_ style: some TitleStyle) -> FilterFeedbackBarItemTitleStyle {
+        FilterFeedbackBarItemTitleStyle(style: style)
+    }
+
+    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> FilterFeedbackBarItemTitleStyle {
+        let style = AnyTitleStyle(content)
+        return FilterFeedbackBarItemTitleStyle(style: style)
+    }
+}
+
+public struct FilterFeedbackBarItemAccessoryIconStyle: FilterFeedbackBarItemStyle {
+    let style: any AccessoryIconStyle
+
+    public func makeBody(_ configuration: FilterFeedbackBarItemConfiguration) -> some View {
+        FilterFeedbackBarItem(configuration)
+            .accessoryIconStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension FilterFeedbackBarItemStyle where Self == FilterFeedbackBarItemAccessoryIconStyle {
+    static func accessoryIconStyle(_ style: some AccessoryIconStyle) -> FilterFeedbackBarItemAccessoryIconStyle {
+        FilterFeedbackBarItemAccessoryIconStyle(style: style)
+    }
+
+    static func accessoryIconStyle(@ViewBuilder content: @escaping (AccessoryIconConfiguration) -> some View) -> FilterFeedbackBarItemAccessoryIconStyle {
+        let style = AnyAccessoryIconStyle(content)
+        return FilterFeedbackBarItemAccessoryIconStyle(style: style)
     }
 }
 

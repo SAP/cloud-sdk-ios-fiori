@@ -258,7 +258,7 @@ extension _SortFilterCFGItemContainer: View {
                 disableListEntriesSection: self._items[r][c].picker.disableListEntriesSection,
                 allowsDisplaySelectionCount: self._items[r][c].picker.allowsDisplaySelectionCount
             ) { index in
-                self._items[r][c].picker.onTap(option: self._items[r][c].picker.valueOptions[index])
+                self._items[r][c].picker.optionOnTap(index)
             } selectAll: { isAll in
                 self._items[r][c].picker.selectAll(isAll)
             }
@@ -513,7 +513,7 @@ extension _SortFilterCFGItemContainer: View {
                     }
                 }
             } label: {
-                FilterFeedbackBarItem(leftIcon: self.icon(name: self._items[r][c].picker.icon, isVisible: true), title: self._items[r][c].picker.label, isSelected: self._items[r][c].picker.isChecked)
+                FilterFeedbackBarItem(icon: self.icon(name: self._items[r][c].picker.icon, isVisible: true), title: AttributedString(self._items[r][c].picker.label), isSelected: self._items[r][c].picker.isChecked)
             }
         }
     }

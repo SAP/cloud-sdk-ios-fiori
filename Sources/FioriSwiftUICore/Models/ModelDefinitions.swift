@@ -548,17 +548,23 @@ public protocol SortFilterViewModel: AnyObject, TitleComponent {
 // sourcery: add_env_props = "filterFeedbackBarStyle"
 // sourcery: virtualPropActionHelper = "@StateObject var context: SortFilterContext = SortFilterContext()"
 // sourcery: generated_component_composite
-public protocol FilterFeedbackBarItemModel: LeftIconComponent, TitleComponent, RightIconComponent {
+public protocol _FilterFeedbackBarItemModel: LeftIconComponent, TitleComponent, RightIconComponent {
     // sourcery: no_view
     var isSelected: Bool { get }
 }
 
+@available(*, unavailable, renamed: "_FilterFeedbackBarItemModel", message: "Will be removed in the future release. Please use FilterFeedbackBarItem instead.")
+public protocol FilterFeedbackBarItemModel {}
+
 // sourcery: add_env_props = "optionListPickerStyle"
 // sourcery: generated_component_composite
-public protocol FilterFeedbackBarButtonModel: LeftIconComponent, TitleComponent {
+public protocol _FilterFeedbackBarButtonModel: LeftIconComponent, TitleComponent {
     // sourcery: no_view
     var isSelected: Bool { get }
 }
+
+@available(*, unavailable, renamed: "_FilterFeedbackBarButtonModel", message: "Will be removed in the future release. Please use FilterFeedbackBarButton instead.")
+public protocol FilterFeedbackBarButtonModel {}
 
 // sourcery: add_env_props = "filterFeedbackBarStyle"
 // sourcery: generated_component_not_configurable
@@ -590,6 +596,7 @@ public protocol OptionListPickerItemModel: OptionListPickerComponent {
 // sourcery: virtualPropDisableListEntriesSection = "var disableListEntriesSection: Bool = false"
 // sourcery: virtualPropAllowsDisplaySelectionCount = "var allowsDisplaySelectionCount: Bool = true"
 // sourcery: virtualPropBarItemFrame = "var barItemFrame: CGRect = .zero"
+// sourcery: virtualPropUUIDValueOptions = "var uuidValueOptions: [[String: String]] = []"
 public protocol SearchListPickerItemModel: OptionListPickerComponent {
     // sourcery: default.value = nil
     // sourcery: no_view

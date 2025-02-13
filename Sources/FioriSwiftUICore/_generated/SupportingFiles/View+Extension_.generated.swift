@@ -581,6 +581,40 @@ public extension View {
     }
 }
 
+// MARK: DimensionSegmentStyle
+
+public extension View {
+    func dimensionSegmentStyle(_ style: some DimensionSegmentStyle) -> some View {
+        self.transformEnvironment(\.dimensionSegmentStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func dimensionSegmentStyle(@ViewBuilder content: @escaping (DimensionSegmentConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.dimensionSegmentStyleStack) { stack in
+            let style = AnyDimensionSegmentStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: DimensionSelectorStyle
+
+public extension View {
+    func dimensionSelectorStyle(_ style: some DimensionSelectorStyle) -> some View {
+        self.transformEnvironment(\.dimensionSelectorStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func dimensionSelectorStyle(@ViewBuilder content: @escaping (DimensionSelectorConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.dimensionSelectorStyleStack) { stack in
+            let style = AnyDimensionSelectorStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: FilledIconStyle
 
 public extension View {
@@ -593,6 +627,40 @@ public extension View {
     func filledIconStyle(@ViewBuilder content: @escaping (FilledIconConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.filledIconStyleStack) { stack in
             let style = AnyFilledIconStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: FilterFeedbackBarButtonStyle
+
+public extension View {
+    func filterFeedbackBarButtonStyle(_ style: some FilterFeedbackBarButtonStyle) -> some View {
+        self.transformEnvironment(\.filterFeedbackBarButtonStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func filterFeedbackBarButtonStyle(@ViewBuilder content: @escaping (FilterFeedbackBarButtonConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.filterFeedbackBarButtonStyleStack) { stack in
+            let style = AnyFilterFeedbackBarButtonStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: FilterFeedbackBarItemStyle
+
+public extension View {
+    func filterFeedbackBarItemStyle(_ style: some FilterFeedbackBarItemStyle) -> some View {
+        self.transformEnvironment(\.filterFeedbackBarItemStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func filterFeedbackBarItemStyle(@ViewBuilder content: @escaping (FilterFeedbackBarItemConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.filterFeedbackBarItemStyleStack) { stack in
+            let style = AnyFilterFeedbackBarItemStyle(content)
             stack.append(style)
         }
     }
