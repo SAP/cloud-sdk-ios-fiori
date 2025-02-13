@@ -2,8 +2,12 @@ import FioriSwiftUICore
 import SwiftUI
 
 struct TextFieldFormViewExample: View {
+//    var key1: AttributedString {
+//        let aString = AttributedString("Key 1")
+//        return aString
+//    }
     var key1: AttributedString {
-        let aString = AttributedString("Key 1")
+        let aString = AttributedString("Long Key 1 Long Key 1 Long Key 1 Long Key 1 Long Key 1 Long Key 1 Long Key 1 Long Key 1 Long Key 1 Long Key 1 ")
         return aString
     }
 

@@ -822,6 +822,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: FilterFormViewStyle
+
+struct FilterFormViewStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any FilterFormViewStyle] = []
+}
+
+extension EnvironmentValues {
+    var filterFormViewStyle: any FilterFormViewStyle {
+        self.filterFormViewStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var filterFormViewStyleStack: [any FilterFormViewStyle] {
+        get {
+            self[FilterFormViewStyleStackKey.self]
+        }
+        set {
+            self[FilterFormViewStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: FioriSliderStyle
 
 struct FioriSliderStyleStackKey: EnvironmentKey {

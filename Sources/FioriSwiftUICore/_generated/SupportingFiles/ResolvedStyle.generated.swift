@@ -627,6 +627,22 @@ extension FilterFeedbackBarItemStyle {
     }
 }
 
+// MARK: FilterFormViewStyle
+
+struct ResolvedFilterFormViewStyle<Style: FilterFormViewStyle>: View {
+    let style: Style
+    let configuration: FilterFormViewConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension FilterFormViewStyle {
+    func resolve(configuration: FilterFormViewConfiguration) -> some View {
+        ResolvedFilterFormViewStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: FioriSliderStyle
 
 struct ResolvedFioriSliderStyle<Style: FioriSliderStyle>: View {

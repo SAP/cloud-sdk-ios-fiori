@@ -666,6 +666,23 @@ public extension View {
     }
 }
 
+// MARK: FilterFormViewStyle
+
+public extension View {
+    func filterFormViewStyle(_ style: some FilterFormViewStyle) -> some View {
+        self.transformEnvironment(\.filterFormViewStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func filterFormViewStyle(@ViewBuilder content: @escaping (FilterFormViewConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.filterFormViewStyleStack) { stack in
+            let style = AnyFilterFormViewStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: FioriSliderStyle
 
 public extension View {

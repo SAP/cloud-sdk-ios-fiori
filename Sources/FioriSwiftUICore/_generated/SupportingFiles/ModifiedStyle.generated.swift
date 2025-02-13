@@ -1100,6 +1100,34 @@ public extension FilterFeedbackBarItemStyle {
     }
 }
 
+// MARK: FilterFormViewStyle
+
+extension ModifiedStyle: FilterFormViewStyle where Style: FilterFormViewStyle {
+    public func makeBody(_ configuration: FilterFormViewConfiguration) -> some View {
+        FilterFormView(configuration)
+            .filterFormViewStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct FilterFormViewStyleModifier<Style: FilterFormViewStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.filterFormViewStyle(self.style)
+    }
+}
+
+public extension FilterFormViewStyle {
+    func modifier(_ modifier: some ViewModifier) -> some FilterFormViewStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some FilterFormViewStyle) -> some FilterFormViewStyle {
+        style.modifier(FilterFormViewStyleModifier(style: self))
+    }
+}
+
 // MARK: FioriSliderStyle
 
 extension ModifiedStyle: FioriSliderStyle where Style: FioriSliderStyle {
