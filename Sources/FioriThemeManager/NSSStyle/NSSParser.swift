@@ -13,19 +13,60 @@ class NSSParser {
         
         for block in styleBlocks {
             let (selector, properties) = try parseStyleBlock(block)
-            var updatedProperties = properties
-            for (key, value) in properties {
-                if let strValue = value as? String,
-                   strValue.hasPrefix("@"),
-                   let variableValue = variables[strValue]
-                {
-                    updatedProperties[key] = variableValue
-                }
-            }
+            let updatedProperties = self.replaceVariables(in: properties, with: variables)
             style[selector] = updatedProperties
         }
 
         return style
+    }
+    
+    // Process the style of @ marks.
+    private static func replaceVariables(in properties: [String: Any], with variables: [String: Any]) -> [String: Any] {
+        var updatedProperties: [String: Any] = [:]
+        
+        for (key, value) in properties {
+            if let stateStyles = value as? [String: Any] {
+                var updatedStateStyles: [String: Any] = [:]
+                for (stateKey, stateValue) in stateStyles {
+                    if let strValue = stateValue as? String,
+                       strValue.hasPrefix("@"),
+                       let variableValue = variables[strValue]
+                    {
+                        updatedStateStyles[stateKey] = variableValue
+                    } else {
+                        updatedStateStyles[stateKey] = stateValue
+                    }
+                }
+                updatedProperties[key] = updatedStateStyles
+            } else if let strValue = value as? String,
+                      strValue.hasPrefix("@"),
+                      let variableValue = variables[strValue]
+            {
+                // Process common style values
+                updatedProperties[key] = variableValue
+            } else {
+                updatedProperties[key] = value
+            }
+        }
+        
+        return updatedProperties
+    }
+    
+    private static func parseStateVariant(_ key: String) -> (String, String)? {
+        let stateSuffixes = ["-selected", "-disabled", "-highlighted", "-focused", "-readOnly"]
+        
+        for suffix in stateSuffixes {
+            if key.hasSuffix(suffix) {
+                let baseKey = String(key.dropLast(suffix.count))
+                return (baseKey, suffix)
+            }
+        }
+        
+        if key.contains("-") {
+            return nil
+        }
+        
+        return nil
     }
     
     private static func splitStyleBlocks(_ content: String) -> ([String], NSSStyleData) {
@@ -148,6 +189,7 @@ class NSSParser {
     // Parse properties
     private static func parseProperties(_ propertiesString: String) throws -> [String: Any] {
         var properties: [String: Any] = [:]
+        var stateProperties: [String: [String: Any]] = [:]
         
         let declarations = propertiesString.components(separatedBy: ";")
         
@@ -163,8 +205,21 @@ class NSSParser {
             let key = parts[0].trimmingCharacters(in: .whitespacesAndNewlines)
             let value = parts[1].trimmingCharacters(in: .whitespacesAndNewlines)
             
-            // Convert value types
-            properties[key] = value
+            if let (baseKey, _) = parseStateVariant(key) {
+                if stateProperties[baseKey] == nil {
+                    stateProperties[baseKey] = [:]
+                }
+                stateProperties[baseKey]?[key] = value
+            } else {
+                if stateProperties[key] == nil {
+                    stateProperties[key] = [:]
+                }
+                stateProperties[key]?[key] = value
+            }
+        }
+        
+        for (key, stateValues) in stateProperties {
+            properties[key] = stateValues
         }
         
         return properties

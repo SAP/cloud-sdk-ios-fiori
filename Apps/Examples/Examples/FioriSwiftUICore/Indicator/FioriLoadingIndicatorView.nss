@@ -11,7 +11,10 @@ FioriLoadingIndicator { title }
 fiori_loadingindicator_component_title {
     font-weight: bold;
     font-size: 38;
+    font-size-selected: 48;
     font-color: @testColor0;
+    font-color-selected: black;
+    font-color-disabled: @testColor0;
 }
 
 // FioriLoadingIndicator { content }

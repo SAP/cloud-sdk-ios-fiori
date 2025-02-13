@@ -32,8 +32,8 @@ extension NSSBaseStyleType: NSSCovert {
                 return view.font(self.getFontByName(name))
             }
         case .fontSize:
-            if let value = value as? String, let size = Float(value) {
-                return view.font(.system(size: CGFloat(size)))
+            if let size = anyToCGFloat(value) {
+                return view.font(.system(size: size))
             }
         case .fontWeight:
             if let weight = value as? String {
@@ -44,7 +44,7 @@ extension NSSBaseStyleType: NSSCovert {
                 }
             }
         case .fontWidth:
-            if let width = value as? CGFloat {
+            if let width = anyToCGFloat(value) {
                 if #available(watchOS 9.0, *) {
                     return view.fontWidth(.init(width))
                 } else {
@@ -71,7 +71,7 @@ extension NSSBaseStyleType: NSSCovert {
                 return view.foregroundColor(self.getColorByName(colorName))
             }
         case .cornerRadius:
-            if let radius = value as? CGFloat {
+            if let radius = anyToCGFloat(value) {
                 return view.cornerRadius(radius)
             }
         case .backgroundColor:
@@ -112,6 +112,36 @@ extension NSSBaseStyleType: NSSCovert {
             }
         }
         return view
+    }
+    
+    private func anyToCGFloat(_ value: Any) -> CGFloat? {
+        let mirror = Mirror(reflecting: value)
+            
+        switch mirror.subjectType {
+        case is String.Type:
+            if let stringValue = value as? String, let doubleValue = Double(stringValue) {
+                return CGFloat(doubleValue)
+            }
+        case is Int.Type:
+            if let intValue = value as? Int {
+                return CGFloat(intValue)
+            }
+        case is Double.Type:
+            if let doubleValue = value as? Double {
+                return CGFloat(doubleValue)
+            }
+        case is Float.Type:
+            if let floatValue = value as? Float {
+                return CGFloat(floatValue)
+            }
+        case is CGFloat.Type:
+            if let cgFloatValue = value as? CGFloat {
+                return cgFloatValue
+            }
+        default:
+            break
+        }
+        return nil
     }
 
     private func getFontWeightByName(_ name: String) -> Font.Weight {
