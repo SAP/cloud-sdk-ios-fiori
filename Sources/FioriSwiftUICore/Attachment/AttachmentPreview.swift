@@ -1,0 +1,102 @@
+import QuickLook
+import SwiftUI
+
+public struct AttachmentPreview: UIViewControllerRepresentable {
+    @Binding var urls: [URL]
+    @Binding var previewIndex: Int
+    let onDelete: ((Int) -> Void)?
+    let onDismiss: (() -> Void)?
+    
+    public init(urls: Binding<[URL]>, previewIndex: Binding<Int>, onDelete: ((Int) -> Void)? = nil, onDismiss: (() -> Void)? = nil) {
+        self._urls = urls
+        self._previewIndex = previewIndex
+        self.onDelete = onDelete
+        self.onDismiss = onDismiss
+    }
+    
+    public func makeUIViewController(context: Context) -> UINavigationController {
+        let controller = QLPreviewController()
+
+        let coordinator = context.coordinator
+        controller.dataSource = coordinator
+        
+        controller.navigationItem.rightBarButtonItems = [
+            UIBarButtonItem(barButtonSystemItem: .done, target: context.coordinator, action: #selector(coordinator.dismiss)),
+            UIBarButtonItem(barButtonSystemItem: .trash, target: context.coordinator, action: #selector(coordinator.delete(sender:)))
+        ]
+        context.coordinator.viewController = controller
+
+        let navigationController = UINavigationController(rootViewController: controller)
+        navigationController.delegate = coordinator
+        
+        controller.currentPreviewItemIndex = self.previewIndex
+
+        return navigationController
+    }
+
+    public func updateUIViewController(_ uiViewController: UINavigationController, context: Context) {}
+    
+    public func makeCoordinator() -> Coordinator {
+        Coordinator(self)
+    }
+
+    public class Coordinator: NSObject, QLPreviewControllerDataSource, UINavigationControllerDelegate {
+        weak var viewController: QLPreviewController?
+        let parent: AttachmentPreview
+
+        init(_ parent: AttachmentPreview) {
+            self.parent = parent
+        }
+
+        public func numberOfPreviewItems(in controller: QLPreviewController) -> Int {
+            self.parent.urls.count
+        }
+        
+        public func previewController(_ controller: QLPreviewController, previewItemAt index: Int) -> QLPreviewItem {
+            AttachmentQLPreviewItem(url: self.parent.urls[index])
+        }
+                
+        @objc func dismiss() {
+            self.parent.onDismiss?()
+        }
+        
+        @objc func delete(sender: Any) {
+            DispatchQueue.main.async {
+                let index = self.parent.previewIndex
+                self.parent.onDelete?(index)
+                self.parent.previewIndex = index > 0 ? index - 1 : 0
+                if self.parent.urls.count > 0 {
+                    self.viewController?.reloadData()
+                } else {
+                    self.parent.onDismiss?()
+                }
+            }
+        }
+    }
+}
+
+class AttachmentQLPreviewItem: NSObject, QLPreviewItem {
+    let previewItemURL: URL?
+    init(url: URL) {
+        self.previewItemURL = url
+    }
+}
+
+// struct AttachmentPreviewModifier: ViewModifier {
+//    @Binding var previewUrl: URL?
+//    var urls: [URL]
+//    func body(content: Content) -> some View {
+//        content
+//            .quickLookPreview($previewUrl, in: urls)
+//    }
+// }
+//
+// extension View {
+//    public func preview(_ previewUrl: Binding<URL?>, in urls: [URL]) -> some View {
+//        modifier(AttachmentPreviewModifier(previewUrl: previewUrl, urls: urls))
+//    }
+//
+//    public func preview(with modifier: any ViewModifier) -> some View {
+//        modifier(modifier)
+//    }
+// }

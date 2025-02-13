@@ -1,0 +1,119 @@
+import SwiftUI
+
+public struct PhotosPickerMenuItem: View {
+    @Environment(AttachmentContext.self) var context
+    
+    let title: String?
+    let icon: String?
+    
+    public init(title: String? = nil, icon: String? = nil) {
+        self.title = title
+        self.icon = icon
+    }
+
+    public var body: some View {
+        makeButton(title: self.title, icon: self.icon, defaultTitle: "Pick Photos") {
+            self.context.showPhotosPicker.toggle()
+        }
+    }
+}
+
+public struct FilesPickerMenuItem: View {
+    @Environment(AttachmentContext.self) var context
+
+    let title: String?
+    let icon: String?
+    
+    public init(title: String? = nil, icon: String? = nil) {
+        self.title = title
+        self.icon = icon
+    }
+
+    public var body: some View {
+        makeButton(title: self.title, icon: self.icon, defaultTitle: "Pick Files") {
+            self.context.showFilesPicker.toggle()
+        }
+    }
+}
+
+public struct CameraMenuItem: View {
+    @Environment(AttachmentContext.self) var context
+    
+    let title: String?
+    let icon: String?
+    
+    public init(title: String? = nil, icon: String? = nil) {
+        self.title = title
+        self.icon = icon
+    }
+
+    public var body: some View {
+        makeButton(title: self.title, icon: self.icon, defaultTitle: "Take a Photo") {
+            self.context.showCamera.toggle()
+        }
+    }
+}
+
+extension View {
+    @ViewBuilder
+    func makeButton(title: String?, icon: String? = nil, defaultTitle: String, action: @escaping () -> Void) -> some View {
+        if let icon {
+            if let title {
+                Button {
+                    action()
+                } label: {
+                    Label(title, systemImage: icon)
+                }
+
+            } else {
+                Button {
+                    action()
+                } label: {
+                    Image(systemName: icon)
+                }
+            }
+        } else {
+            if let title {
+                Button(title) {
+                    action()
+                }
+            } else {
+                Button(defaultTitle) {
+                    action()
+                }
+            }
+        }
+    }
+    
+    func handleSelectedFile(url: URL) {
+        // handle selected file content
+//        self.urls.append(url)
+    }
+}
+
+public enum AttachmentMenuItems {
+    public static let photos = PhotosPickerMenuItem(title: "Pick Photos", icon: "photo")
+    public static let photosImageOnlyNoTitle = PhotosPickerMenuItem(icon: "photo")
+    public static let files = FilesPickerMenuItem(title: "Pick Files", icon: "folder")
+    public static let filesImageOnlyNoTitle = FilesPickerMenuItem(icon: "folder")
+    public static let camera = CameraMenuItem(title: "Take a Photo", icon: "camera")
+    public static let cameraImageOnlyNoTitle = CameraMenuItem(icon: "camera")
+}
+
+#Preview {
+    VStack {
+        AttachmentMenuItems.photos
+        PhotosPickerMenuItem(title: "Pick Photos")
+        PhotosPickerMenuItem(title: "Pick Photos", icon: "photo")
+        AttachmentMenuItems.photosImageOnlyNoTitle
+        AttachmentMenuItems.files
+        FilesPickerMenuItem(title: "Pick Files")
+        FilesPickerMenuItem(title: "Pick Files", icon: "folder")
+        AttachmentMenuItems.filesImageOnlyNoTitle
+        AttachmentMenuItems.camera
+        CameraMenuItem(title: "Take a Photo")
+        CameraMenuItem(title: "Take a Photo", icon: "camera")
+        AttachmentMenuItems.cameraImageOnlyNoTitle
+    }
+    .environment(AttachmentContext())
+}

@@ -536,3 +536,19 @@ protocol _LineComponent {
     @ViewBuilder
     var line: (() -> any View)? { get }
 }
+
+// sourcery: BaseComponent
+// sourcery: importFrameworks = ["FioriThemeManager"]
+protocol _AttachmentButtonImageComponent {
+    //// The image to be used for "Add" menu or dialog for operations, such as poping up image picker or file picker.
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "FioriIcon.actions.add.renderingMode(.template).resizable()"
+    var addButtonImage: Image { get }
+}
+
+// sourcery: BaseComponent
+// sourcery: importFrameworks = ["FioriThemeManager"]
+protocol _AttachmentThumbnailComponent {
+    ////  URL of document for rendering thumbnail
+    var url: URL { get }
+}

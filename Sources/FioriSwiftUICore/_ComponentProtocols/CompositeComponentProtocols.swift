@@ -1002,3 +1002,77 @@ protocol _StepProgressIndicatorComponent: _TitleComponent, _ActionComponent, _Ca
     // sourcery: resultBuilder.returnType = any IndexedViewContainer
     var steps: [StepItem] { get }
 }
+
+/// `Attachment` provides thubnail and information about an attachment.
+///
+/// ## Usage
+/// ```swift
+/// Attachment {
+///   QuickLookThumbnail(physicalUrl: fileURL)
+/// } title: {
+///   Text("Leaf")
+/// } subtitle: {
+///   Text("15MB")
+/// } timestamp: {
+///   Text("Aug 15, 2024")
+/// }
+///
+/// Attachment {
+///   QuickLookThumbnail(thumbnailImage: : Image(systemName: "leaf"))
+/// } title: {
+///   Text("Leaf")
+/// } subtitle: {
+///   Text("15MB")
+/// } timestamp: {
+///   Text("Aug 15, 2024")
+/// }
+///
+/// Attachment {
+///   Image(systemName: "leaf")
+///     .resizable()
+/// } title: {
+///   Text("Leaf")
+/// } subtitle: {
+///   Text("15MB")
+/// } timestamp: {
+///   Text("Aug 15, 2024")
+/// }
+/// ```
+// sourcery: CompositeComponent
+protocol _AttachmentComponent: _AttachmentThumbnailComponent, _TitleComponent, _SubtitleComponent, _TimestampComponent {}
+
+/// `Attachment` provides thubnail and information about an attachment.
+///
+/// ## Usage
+/// ```swift
+/// @State var attachments: [URL] = [...]
+/// ```
+// sourcery: CompositeComponent
+protocol _AttachmentGroup {
+    /// Make the attachemnts readonly
+    var readonly: Bool { get } // readonly vs disabled, ask designer, what about preview, how to handle "disabled"
+
+    /// The maximium number of attachments
+    var maxCount: Int { get }
+
+    // sourcery: @Binding
+    /// The collection of local attachment URLs, which are prepared by Apps
+    var urls: [URL] { get } // experement non-binding
+
+    // sourcery: defaultValue = "nil"
+    /// Callback on deleting attachment
+    var onPreview: ((Int) -> Void)? { get } // use id
+
+    // sourcery: defaultValue = "{ EmptyView() }"
+    /// The anchor for operation selections
+    @ViewBuilder
+    var menu: (() -> any View)? { get }
+
+    // sourcery: defaultValue = "nil"
+    /// Callback on new attachment
+    var onAdd: ((Data) -> Void)? { get } // put into actions, which to be defined
+
+    // sourcery: defaultValue = "nil"
+    /// Callback on deleting attachment
+    var onDelete: ((Int) -> Void)? { get } // use id
+}
