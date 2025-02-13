@@ -2292,6 +2292,104 @@ public extension FilterFeedbackBarItemStyle where Self == FilterFeedbackBarItemA
     }
 }
 
+// MARK: FilterFormViewStyle
+
+public extension FilterFormViewStyle where Self == FilterFormViewBaseStyle {
+    static var base: FilterFormViewBaseStyle {
+        FilterFormViewBaseStyle()
+    }
+}
+
+public extension FilterFormViewStyle where Self == FilterFormViewFioriStyle {
+    static var fiori: FilterFormViewFioriStyle {
+        FilterFormViewFioriStyle()
+    }
+}
+
+public struct FilterFormViewTitleStyle: FilterFormViewStyle {
+    let style: any TitleStyle
+
+    public func makeBody(_ configuration: FilterFormViewConfiguration) -> some View {
+        FilterFormView(configuration)
+            .titleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension FilterFormViewStyle where Self == FilterFormViewTitleStyle {
+    static func titleStyle(_ style: some TitleStyle) -> FilterFormViewTitleStyle {
+        FilterFormViewTitleStyle(style: style)
+    }
+
+    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> FilterFormViewTitleStyle {
+        let style = AnyTitleStyle(content)
+        return FilterFormViewTitleStyle(style: style)
+    }
+}
+
+public struct FilterFormViewMandatoryFieldIndicatorStyle: FilterFormViewStyle {
+    let style: any MandatoryFieldIndicatorStyle
+
+    public func makeBody(_ configuration: FilterFormViewConfiguration) -> some View {
+        FilterFormView(configuration)
+            .mandatoryFieldIndicatorStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension FilterFormViewStyle where Self == FilterFormViewMandatoryFieldIndicatorStyle {
+    static func mandatoryFieldIndicatorStyle(_ style: some MandatoryFieldIndicatorStyle) -> FilterFormViewMandatoryFieldIndicatorStyle {
+        FilterFormViewMandatoryFieldIndicatorStyle(style: style)
+    }
+
+    static func mandatoryFieldIndicatorStyle(@ViewBuilder content: @escaping (MandatoryFieldIndicatorConfiguration) -> some View) -> FilterFormViewMandatoryFieldIndicatorStyle {
+        let style = AnyMandatoryFieldIndicatorStyle(content)
+        return FilterFormViewMandatoryFieldIndicatorStyle(style: style)
+    }
+}
+
+public struct FilterFormViewOptionsStyle: FilterFormViewStyle {
+    let style: any OptionsStyle
+
+    public func makeBody(_ configuration: FilterFormViewConfiguration) -> some View {
+        FilterFormView(configuration)
+            .optionsStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension FilterFormViewStyle where Self == FilterFormViewOptionsStyle {
+    static func optionsStyle(_ style: some OptionsStyle) -> FilterFormViewOptionsStyle {
+        FilterFormViewOptionsStyle(style: style)
+    }
+
+    static func optionsStyle(@ViewBuilder content: @escaping (OptionsConfiguration) -> some View) -> FilterFormViewOptionsStyle {
+        let style = AnyOptionsStyle(content)
+        return FilterFormViewOptionsStyle(style: style)
+    }
+}
+
+public struct FilterFormViewFormViewStyle: FilterFormViewStyle {
+    let style: any FormViewStyle
+
+    public func makeBody(_ configuration: FilterFormViewConfiguration) -> some View {
+        FilterFormView(configuration)
+            .formViewStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension FilterFormViewStyle where Self == FilterFormViewFormViewStyle {
+    static func formViewStyle(_ style: some FormViewStyle) -> FilterFormViewFormViewStyle {
+        FilterFormViewFormViewStyle(style: style)
+    }
+
+    static func formViewStyle(@ViewBuilder content: @escaping (FormViewConfiguration) -> some View) -> FilterFormViewFormViewStyle {
+        let style = AnyFormViewStyle(content)
+        return FilterFormViewFormViewStyle(style: style)
+    }
+}
+
 // MARK: FioriSliderStyle
 
 public extension FioriSliderStyle where Self == FioriSliderBaseStyle {

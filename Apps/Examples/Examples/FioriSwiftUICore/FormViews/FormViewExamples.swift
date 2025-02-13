@@ -28,6 +28,11 @@ struct FormViewExamples: View {
             {
                 Text("RatingControlFormView Example")
             }
+            NavigationLink {
+                FilterFormViewExamples()
+            } label: {
+                Text("FilterFormView Example")
+            }
         }
     }
 }

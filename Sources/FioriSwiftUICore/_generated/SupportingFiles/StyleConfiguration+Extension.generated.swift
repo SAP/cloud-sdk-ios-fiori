@@ -49,6 +49,18 @@ extension DemoViewConfiguration {
     }
 }
 
+// MARK: FilterFormViewConfiguration
+
+extension FilterFormViewConfiguration {
+    var _formView: FormView {
+        FormView(.init(controlState: self.controlState, errorMessage: self.errorMessage), shouldApplyDefaultStyle: true)
+    }
+
+    var _options: Options {
+        Options(.init(options: self.options), shouldApplyDefaultStyle: true)
+    }
+}
+
 // MARK: FioriSliderConfiguration
 
 extension FioriSliderConfiguration {

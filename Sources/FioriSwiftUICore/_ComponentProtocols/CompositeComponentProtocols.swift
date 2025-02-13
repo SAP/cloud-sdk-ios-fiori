@@ -665,6 +665,52 @@ protocol _BannerMultiMessageSheet: _TitleComponent, _CloseActionComponent {
     var bannerMultiMessages: [BannerMessageListModel] { get }
 }
 
+/// `FilterFormView` provides a view with options for filter, include title, mandatory, options and validation message.
+/// ##Usage
+/// ```swift
+/// FilterFormView(title: "Sort Filter, MultiSelection, EmptySelection, fixed", mandatoryFieldIndicator: self.mandatoryField(), isRequired: false, options: self.sortValueOptions, errorMessage: nil, isEnabled: self.isEnabled, allowsMultipleSelection: true, allowsEmptySelection: true, value: self.$sortFilterFixedSelectionValue, buttonSize: .fixed)
+///    .mandatoryFieldIndicatorStyle { conf in
+///        conf.mandatoryFieldIndicator
+///            .foregroundStyle(self.mandatoryFieldIndicatorColor())
+///    }
+///    .filterFormOptionMinTouchHeight(50)
+///    .filterFormOptionCornerRadius(16)
+///    .filterFormOptionTitleSpacing(4)
+///    .filterFormOptionPadding(EdgeInsets(top: 4, leading: 9, bottom: 4, trailing: 9))
+///    .filterFormOptionsItemSpacing(16)
+///    .filterFormOptionsLineSpacing(10)
+///    .filterFormOptionAttributes([
+///        .enabledUnselected: [
+///            .strokeWidth: 1.0,
+///            .strokeColor: Color.preferredColor(.separator),
+///            .foregroundColor: Color.preferredColor(.tertiaryLabel),
+///            .backgroundColor: Color.preferredColor(.tertiaryFill),
+///            .font: Font.system(.body)
+///        ]
+///    ])
+///    ```
+
+// sourcery: CompositeComponent
+protocol _FilterFormViewComponent: _TitleComponent, _MandatoryField, _OptionsComponent, _FormViewComponent {
+    var isEnabled: Bool { get }
+    // sourcery: defaultValue = true
+    /// Indicates whether the user may select multiple values. The default is `true`
+    var allowsMultipleSelection: Bool { get }
+    // sourcery: defaultValue = false
+    var allowsEmptySelection: Bool { get }
+    // sourcery: @Binding
+    /// The indexes for the selected value in the valueOptions.
+    var value: [Int] { get }
+    // sourcery: defaultValue = .fixed
+    /// Size of filter button.
+    var buttonSize: FilterButtonSize { get }
+    // sourcery: defaultValue = true
+    /// Allow chips to layout on the same line as the title
+    var isSingleLine: Bool { get }
+    /// Implementation of value change callback.  Is invoked on changes to the `value` property.
+    var onValueChange: (([Int]) -> Void)? { get }
+}
+
 // sourcery: CompositeComponent
 protocol _LoadingIndicatorComponent: _TitleComponent, _ProgressComponent {
     // sourcery: defaultValue = 0
