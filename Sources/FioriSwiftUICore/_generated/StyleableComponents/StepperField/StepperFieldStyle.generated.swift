@@ -25,6 +25,7 @@ public struct StepperFieldConfiguration {
     public var componentIdentifier: String = "fiori_stepperfield_component"
     public let decrementAction: DecrementAction
     @Binding public var text: String
+    public let isSecureEnabled: Bool?
     public let incrementAction: IncrementAction
     public let step: Double
     public let stepRange: ClosedRange<Double>
@@ -44,7 +45,7 @@ public struct StepperFieldFioriStyle: StepperFieldStyle {
     public func makeBody(_ configuration: StepperFieldConfiguration) -> some View {
         StepperField(configuration)
             .decrementActionStyle(DecrementActionFioriStyle(stepperFieldConfiguration: configuration))
-            .textInputFieldStyle(TextInputFieldFioriStyle(stepperFieldConfiguration: configuration))
             .incrementActionStyle(IncrementActionFioriStyle(stepperFieldConfiguration: configuration))
+            .textInputFieldStyle(TextInputFieldFioriStyle(stepperFieldConfiguration: configuration))
     }
 }
