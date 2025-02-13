@@ -69,6 +69,14 @@ protocol _FormViewComponent {
 }
 
 // sourcery: CompositeComponent
+protocol _TextInputFieldComponent {
+    // sourcery: @Binding
+    var text: String { get set }
+    // sourcery: defaultValue = false
+    var isSecureEnabled: Bool? { get set }
+}
+
+// sourcery: CompositeComponent
 protocol _PlaceholderTextEditorComponent: _TextViewComponent, _PlaceholderComponent {}
 
 // sourcery: CompositeComponent

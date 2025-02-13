@@ -26,6 +26,7 @@ public struct StepperViewConfiguration {
     public let title: Title
     public let decrementAction: DecrementAction
     @Binding public var text: String
+    public let isSecureEnabled: Bool?
     public let incrementAction: IncrementAction
     public let step: Double
     public let stepRange: ClosedRange<Double>
@@ -51,7 +52,6 @@ public struct StepperViewFioriStyle: StepperViewStyle {
         StepperView(configuration)
             .titleStyle(TitleFioriStyle(stepperViewConfiguration: configuration))
             .decrementActionStyle(DecrementActionFioriStyle(stepperViewConfiguration: configuration))
-            .textInputFieldStyle(TextInputFieldFioriStyle(stepperViewConfiguration: configuration))
             .incrementActionStyle(IncrementActionFioriStyle(stepperViewConfiguration: configuration))
             .iconStyle(IconFioriStyle(stepperViewConfiguration: configuration))
             .descriptionStyle(DescriptionFioriStyle(stepperViewConfiguration: configuration))
