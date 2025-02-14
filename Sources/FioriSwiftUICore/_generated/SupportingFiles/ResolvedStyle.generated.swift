@@ -371,6 +371,22 @@ extension CheckoutIndicatorStyle {
     }
 }
 
+// MARK: ClearActionStyle
+
+struct ResolvedClearActionStyle<Style: ClearActionStyle>: View {
+    let style: Style
+    let configuration: ClearActionConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension ClearActionStyle {
+    func resolve(configuration: ClearActionConfiguration) -> some View {
+        ResolvedClearActionStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: CloseActionStyle
 
 struct ResolvedCloseActionStyle<Style: CloseActionStyle>: View {
@@ -1619,6 +1635,22 @@ extension RatingControlFormViewStyle {
     }
 }
 
+// MARK: ReenterSignatureActionStyle
+
+struct ResolvedReenterSignatureActionStyle<Style: ReenterSignatureActionStyle>: View {
+    let style: Style
+    let configuration: ReenterSignatureActionConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension ReenterSignatureActionStyle {
+    func resolve(configuration: ReenterSignatureActionConfiguration) -> some View {
+        ResolvedReenterSignatureActionStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: ReviewCountLabelStyle
 
 struct ResolvedReviewCountLabelStyle<Style: ReviewCountLabelStyle>: View {
@@ -1680,6 +1712,22 @@ struct ResolvedRow3Style<Style: Row3Style>: View {
 extension Row3Style {
     func resolve(configuration: Row3Configuration) -> some View {
         ResolvedRow3Style(style: self, configuration: configuration)
+    }
+}
+
+// MARK: SaveActionStyle
+
+struct ResolvedSaveActionStyle<Style: SaveActionStyle>: View {
+    let style: Style
+    let configuration: SaveActionConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension SaveActionStyle {
+    func resolve(configuration: SaveActionConfiguration) -> some View {
+        ResolvedSaveActionStyle(style: self, configuration: configuration)
     }
 }
 
@@ -1827,6 +1875,22 @@ extension SideBarListItemStyle {
     }
 }
 
+// MARK: SignatureCaptureViewStyle
+
+struct ResolvedSignatureCaptureViewStyle<Style: SignatureCaptureViewStyle>: View {
+    let style: Style
+    let configuration: SignatureCaptureViewConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension SignatureCaptureViewStyle {
+    func resolve(configuration: SignatureCaptureViewConfiguration) -> some View {
+        ResolvedSignatureCaptureViewStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: SingleStepStyle
 
 struct ResolvedSingleStepStyle<Style: SingleStepStyle>: View {
@@ -1840,6 +1904,22 @@ struct ResolvedSingleStepStyle<Style: SingleStepStyle>: View {
 extension SingleStepStyle {
     func resolve(configuration: SingleStepConfiguration) -> some View {
         ResolvedSingleStepStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: StartSignatureActionStyle
+
+struct ResolvedStartSignatureActionStyle<Style: StartSignatureActionStyle>: View {
+    let style: Style
+    let configuration: StartSignatureActionConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension StartSignatureActionStyle {
+    func resolve(configuration: StartSignatureActionConfiguration) -> some View {
+        ResolvedStartSignatureActionStyle(style: self, configuration: configuration)
     }
 }
 
@@ -2384,5 +2464,37 @@ struct ResolvedValuePickerStyle<Style: ValuePickerStyle>: View {
 extension ValuePickerStyle {
     func resolve(configuration: ValuePickerConfiguration) -> some View {
         ResolvedValuePickerStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: WatermarkStyle
+
+struct ResolvedWatermarkStyle<Style: WatermarkStyle>: View {
+    let style: Style
+    let configuration: WatermarkConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension WatermarkStyle {
+    func resolve(configuration: WatermarkConfiguration) -> some View {
+        ResolvedWatermarkStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: XmarkStyle
+
+struct ResolvedXmarkStyle<Style: XmarkStyle>: View {
+    let style: Style
+    let configuration: XmarkConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension XmarkStyle {
+    func resolve(configuration: XmarkConfiguration) -> some View {
+        ResolvedXmarkStyle(style: self, configuration: configuration)
     }
 }
