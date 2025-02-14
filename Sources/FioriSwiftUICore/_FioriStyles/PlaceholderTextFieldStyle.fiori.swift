@@ -24,7 +24,7 @@ public struct PlaceholderTextFieldBaseStyle: PlaceholderTextFieldStyle {
                     }
                 }
             }
-            if self.isFocused, !configuration.text.isEmpty {
+            if self.isFocused, !configuration.text.isEmpty, !(configuration.isSecureEnabled ?? false) {
                 Button(action: {
                     configuration.text = ""
                 }) {

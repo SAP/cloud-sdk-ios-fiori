@@ -5001,27 +5001,6 @@ public extension PlaceholderTextFieldStyle where Self == PlaceholderTextFieldFio
     }
 }
 
-public struct PlaceholderTextFieldTextInputFieldStyle: PlaceholderTextFieldStyle {
-    let style: any TextInputFieldStyle
-
-    public func makeBody(_ configuration: PlaceholderTextFieldConfiguration) -> some View {
-        PlaceholderTextField(configuration)
-            .textInputFieldStyle(self.style)
-            .typeErased
-    }
-}
-
-public extension PlaceholderTextFieldStyle where Self == PlaceholderTextFieldTextInputFieldStyle {
-    static func textInputFieldStyle(_ style: some TextInputFieldStyle) -> PlaceholderTextFieldTextInputFieldStyle {
-        PlaceholderTextFieldTextInputFieldStyle(style: style)
-    }
-
-    static func textInputFieldStyle(@ViewBuilder content: @escaping (TextInputFieldConfiguration) -> some View) -> PlaceholderTextFieldTextInputFieldStyle {
-        let style = AnyTextInputFieldStyle(content)
-        return PlaceholderTextFieldTextInputFieldStyle(style: style)
-    }
-}
-
 public struct PlaceholderTextFieldPlaceholderStyle: PlaceholderTextFieldStyle {
     let style: any PlaceholderStyle
 
@@ -5040,6 +5019,27 @@ public extension PlaceholderTextFieldStyle where Self == PlaceholderTextFieldPla
     static func placeholderStyle(@ViewBuilder content: @escaping (PlaceholderConfiguration) -> some View) -> PlaceholderTextFieldPlaceholderStyle {
         let style = AnyPlaceholderStyle(content)
         return PlaceholderTextFieldPlaceholderStyle(style: style)
+    }
+}
+
+public struct PlaceholderTextFieldTextInputFieldStyle: PlaceholderTextFieldStyle {
+    let style: any TextInputFieldStyle
+
+    public func makeBody(_ configuration: PlaceholderTextFieldConfiguration) -> some View {
+        PlaceholderTextField(configuration)
+            .textInputFieldStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension PlaceholderTextFieldStyle where Self == PlaceholderTextFieldTextInputFieldStyle {
+    static func textInputFieldStyle(_ style: some TextInputFieldStyle) -> PlaceholderTextFieldTextInputFieldStyle {
+        PlaceholderTextFieldTextInputFieldStyle(style: style)
+    }
+
+    static func textInputFieldStyle(@ViewBuilder content: @escaping (TextInputFieldConfiguration) -> some View) -> PlaceholderTextFieldTextInputFieldStyle {
+        let style = AnyTextInputFieldStyle(content)
+        return PlaceholderTextFieldTextInputFieldStyle(style: style)
     }
 }
 
@@ -6254,27 +6254,6 @@ public extension StepperFieldStyle where Self == StepperFieldDecrementActionStyl
     }
 }
 
-public struct StepperFieldTextInputFieldStyle: StepperFieldStyle {
-    let style: any TextInputFieldStyle
-
-    public func makeBody(_ configuration: StepperFieldConfiguration) -> some View {
-        StepperField(configuration)
-            .textInputFieldStyle(self.style)
-            .typeErased
-    }
-}
-
-public extension StepperFieldStyle where Self == StepperFieldTextInputFieldStyle {
-    static func textInputFieldStyle(_ style: some TextInputFieldStyle) -> StepperFieldTextInputFieldStyle {
-        StepperFieldTextInputFieldStyle(style: style)
-    }
-
-    static func textInputFieldStyle(@ViewBuilder content: @escaping (TextInputFieldConfiguration) -> some View) -> StepperFieldTextInputFieldStyle {
-        let style = AnyTextInputFieldStyle(content)
-        return StepperFieldTextInputFieldStyle(style: style)
-    }
-}
-
 public struct StepperFieldIncrementActionStyle: StepperFieldStyle {
     let style: any IncrementActionStyle
 
@@ -6293,6 +6272,27 @@ public extension StepperFieldStyle where Self == StepperFieldIncrementActionStyl
     static func incrementActionStyle(@ViewBuilder content: @escaping (IncrementActionConfiguration) -> some View) -> StepperFieldIncrementActionStyle {
         let style = AnyIncrementActionStyle(content)
         return StepperFieldIncrementActionStyle(style: style)
+    }
+}
+
+public struct StepperFieldTextInputFieldStyle: StepperFieldStyle {
+    let style: any TextInputFieldStyle
+
+    public func makeBody(_ configuration: StepperFieldConfiguration) -> some View {
+        StepperField(configuration)
+            .textInputFieldStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension StepperFieldStyle where Self == StepperFieldTextInputFieldStyle {
+    static func textInputFieldStyle(_ style: some TextInputFieldStyle) -> StepperFieldTextInputFieldStyle {
+        StepperFieldTextInputFieldStyle(style: style)
+    }
+
+    static func textInputFieldStyle(@ViewBuilder content: @escaping (TextInputFieldConfiguration) -> some View) -> StepperFieldTextInputFieldStyle {
+        let style = AnyTextInputFieldStyle(content)
+        return StepperFieldTextInputFieldStyle(style: style)
     }
 }
 
@@ -6349,27 +6349,6 @@ public extension StepperViewStyle where Self == StepperViewDecrementActionStyle 
     static func decrementActionStyle(@ViewBuilder content: @escaping (DecrementActionConfiguration) -> some View) -> StepperViewDecrementActionStyle {
         let style = AnyDecrementActionStyle(content)
         return StepperViewDecrementActionStyle(style: style)
-    }
-}
-
-public struct StepperViewTextInputFieldStyle: StepperViewStyle {
-    let style: any TextInputFieldStyle
-
-    public func makeBody(_ configuration: StepperViewConfiguration) -> some View {
-        StepperView(configuration)
-            .textInputFieldStyle(self.style)
-            .typeErased
-    }
-}
-
-public extension StepperViewStyle where Self == StepperViewTextInputFieldStyle {
-    static func textInputFieldStyle(_ style: some TextInputFieldStyle) -> StepperViewTextInputFieldStyle {
-        StepperViewTextInputFieldStyle(style: style)
-    }
-
-    static func textInputFieldStyle(@ViewBuilder content: @escaping (TextInputFieldConfiguration) -> some View) -> StepperViewTextInputFieldStyle {
-        let style = AnyTextInputFieldStyle(content)
-        return StepperViewTextInputFieldStyle(style: style)
     }
 }
 
@@ -6664,27 +6643,6 @@ public extension TextFieldFormViewStyle where Self == TextFieldFormViewTitleStyl
     static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> TextFieldFormViewTitleStyle {
         let style = AnyTitleStyle(content)
         return TextFieldFormViewTitleStyle(style: style)
-    }
-}
-
-public struct TextFieldFormViewTextInputFieldStyle: TextFieldFormViewStyle {
-    let style: any TextInputFieldStyle
-
-    public func makeBody(_ configuration: TextFieldFormViewConfiguration) -> some View {
-        TextFieldFormView(configuration)
-            .textInputFieldStyle(self.style)
-            .typeErased
-    }
-}
-
-public extension TextFieldFormViewStyle where Self == TextFieldFormViewTextInputFieldStyle {
-    static func textInputFieldStyle(_ style: some TextInputFieldStyle) -> TextFieldFormViewTextInputFieldStyle {
-        TextFieldFormViewTextInputFieldStyle(style: style)
-    }
-
-    static func textInputFieldStyle(@ViewBuilder content: @escaping (TextInputFieldConfiguration) -> some View) -> TextFieldFormViewTextInputFieldStyle {
-        let style = AnyTextInputFieldStyle(content)
-        return TextFieldFormViewTextInputFieldStyle(style: style)
     }
 }
 
@@ -7462,27 +7420,6 @@ public extension TitleFormViewStyle where Self == TitleFormViewBaseStyle {
 public extension TitleFormViewStyle where Self == TitleFormViewFioriStyle {
     static var fiori: TitleFormViewFioriStyle {
         TitleFormViewFioriStyle()
-    }
-}
-
-public struct TitleFormViewTextInputFieldStyle: TitleFormViewStyle {
-    let style: any TextInputFieldStyle
-
-    public func makeBody(_ configuration: TitleFormViewConfiguration) -> some View {
-        TitleFormView(configuration)
-            .textInputFieldStyle(self.style)
-            .typeErased
-    }
-}
-
-public extension TitleFormViewStyle where Self == TitleFormViewTextInputFieldStyle {
-    static func textInputFieldStyle(_ style: some TextInputFieldStyle) -> TitleFormViewTextInputFieldStyle {
-        TitleFormViewTextInputFieldStyle(style: style)
-    }
-
-    static func textInputFieldStyle(@ViewBuilder content: @escaping (TextInputFieldConfiguration) -> some View) -> TitleFormViewTextInputFieldStyle {
-        let style = AnyTextInputFieldStyle(content)
-        return TitleFormViewTextInputFieldStyle(style: style)
     }
 }
 
