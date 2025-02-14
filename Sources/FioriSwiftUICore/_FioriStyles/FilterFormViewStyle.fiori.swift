@@ -81,7 +81,7 @@ public struct FilterFormViewBaseStyle: FilterFormViewStyle {
                 }
             }
         }
-        .informationView(isPresented: .constant(configuration.errorMessage != nil && !configuration.errorMessage!.characters.isEmpty), description: configuration.errorMessage ?? "")
+        .informationView(isPresented: .constant(!(configuration.errorMessage?.characters.isEmpty ?? true)), description: configuration.errorMessage ?? "")
         .informationViewStyle(.error)
     }
     
