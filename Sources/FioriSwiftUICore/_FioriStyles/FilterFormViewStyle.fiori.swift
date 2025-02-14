@@ -287,6 +287,7 @@ private struct FilterFormViewLayout: Layout {
         var columns: [CGRect]
         
         mutating func clear() {
+            self.itemMaxWidth = 0.0
             self.columns.removeAll()
         }
     }
@@ -375,9 +376,8 @@ private struct FilterFormViewLayout: Layout {
             return
         }
         
-        for (index, subview) in subviews.enumerated() {
+        for (index, subview) in subviews.enumerated() where index < cache.columns.count {
             let itemRect = cache.columns[index]
-            
             let pt = CGPoint(x: itemRect.origin.x + bounds.origin.x, y: itemRect.origin.y + bounds.origin.y)
             subview.place(at: pt, proposal: ProposedViewSize(itemRect.size))
         }
