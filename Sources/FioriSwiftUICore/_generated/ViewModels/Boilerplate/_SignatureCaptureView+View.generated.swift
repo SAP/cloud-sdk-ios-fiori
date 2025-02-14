@@ -1,8 +1,8 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
-//TODO: Copy commented code to new file: `FioriSwiftUICore/Views/SignatureCaptureView+View.swift`
+//TODO: Copy commented code to new file: `FioriSwiftUICore/Views/_SignatureCaptureView+View.swift`
 //TODO: Implement default Fiori style definitions as `ViewModifier`
-//TODO: Implement SignatureCaptureView `View` body
+//TODO: Implement _SignatureCaptureView `View` body
 //TODO: Implement LibraryContentProvider
 
 /// - Important: to make `@Environment` properties (e.g. `horizontalSizeClass`), internally accessible
@@ -17,7 +17,7 @@ import Combine
 // FIXME: - Implement Fiori style definitions
 
 extension Fiori {
-    enum SignatureCaptureView {
+    enum _SignatureCaptureView {
         typealias StartAction = EmptyModifier
         typealias StartActionCumulative = EmptyModifier
 		typealias RestartAction = EmptyModifier
@@ -54,21 +54,21 @@ extension Fiori {
     }
 }
 
-// FIXME: - Implement SignatureCaptureView View body
+// FIXME: - Implement _SignatureCaptureView View body
 
-extension SignatureCaptureView: View {
+extension _SignatureCaptureView: View {
     public var body: some View {
         <# View body #>
     }
 }
 
-// FIXME: - Implement SignatureCaptureView specific LibraryContentProvider
+// FIXME: - Implement _SignatureCaptureView specific LibraryContentProvider
 
 @available(iOS 14.0, macOS 11.0, *)
-struct SignatureCaptureViewLibraryContent: LibraryContentProvider {
+struct _SignatureCaptureViewLibraryContent: LibraryContentProvider {
     @LibraryContentBuilder
     var views: [LibraryItem] {
-        LibraryItem(SignatureCaptureView(model: LibraryPreviewData.Person.laurelosborn),
+        LibraryItem(_SignatureCaptureView(model: LibraryPreviewData.Person.laurelosborn),
                     category: .control)
     }
 }

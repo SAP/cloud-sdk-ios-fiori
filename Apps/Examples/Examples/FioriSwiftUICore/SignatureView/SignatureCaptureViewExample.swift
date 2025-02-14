@@ -4,14 +4,12 @@ import UIKit
 
 struct SignatureCaptureViewExample: View {
     var body: some View {
-        SignatureCaptureView(
-            onSave: { uiImage in
-                let imgSaver = ImageSaver()
-                imgSaver.writeToPhotoAlbum(image: uiImage)
-            })
-            ._drawingViewMaxHeight(400)
-            .addsTimestampInImage(true)
-            .watermarkText("A bird in the hand is worth two in the bush. Behind every great man there's a great woman. A bird in the hand is worth two in the bush.")
+        SignatureCaptureView(watermark: {
+            Text("This is a watermark")
+        }, drawingViewMaxHeight: 400, addsTimestampInImage: true) { img in
+            let imgSaver = ImageSaver()
+            imgSaver.writeToPhotoAlbum(image: img)
+        }
     }
 }
 
@@ -32,43 +30,43 @@ struct SignatureCaptureViewExample2: View {
                 .padding(.leading, 16)
                 .padding(.trailing, 16)
 
-            SignatureCaptureView(title: "Long Long Long Long Long Long Long Signature",
-                                 startAction: self.startAction,
-                                 restartAction: self.restartAction,
-                                 cancelAction: _Action(actionText: "Cancel2"),
-                                 clearAction: _Action(actionText: "ClearClear"),
-                                 saveAction: _Action(actionText: "Save Image"),
-                                 signatureImage: UIImage(systemName: "scribble")!,
-                                 onSave: { uiImage in
-                                     let imgSaver = ImageSaver()
-                                     imgSaver.writeToPhotoAlbum(image: uiImage)
-                                 })
-                                 .titleFont(.callout)
-                                 .titleColor(.red)
-                                 .indicatorFont(self.isCustomizedIndicator ? .headline : .subheadline)
-                                 .indicatorColor(self.isCustomizedIndicator ? .red : .preferredColor(.primaryLabel))
-                                 .cropsImage(true)
-                                 .strokeWidth(10)
-                                 .strokeColor(.red)
-                                 .drawingViewBackgroundColor(.yellow)
-                                 .xmarkColor(.green)
-                                 .signatureLineColor(.orange)
-                                 .hidesXmark(false)
-                                 .hidesSignatureLine(true)
-                                 .addsTimestampInImage(true)
-                                 .isRequired(self.isRequired)
-                                 .timestampFormatter(self.customFormatter())
-                                 .watermarkText("A bird in the hand is worth two in the bush. Behind every great man there's a great woman.")
-                                 .watermarkTextAlignment(.right)
-                                 .watermarkTextFont(.preferredFont(forTextStyle: .body))
-                                 .watermarkTextColor(.green)
-                                 ._drawingViewMaxHeight(300)
-                                 .restartActionModifier {
-                                     $0.font(.callout).foregroundColor(.red)
-                                 }
-                                 .startActionModifier { content in
-                                     content.font(nil).foregroundColor(.green)
-                                 }
+            _SignatureCaptureView(title: "Long Long Long Long Long Long Long Signature",
+                                  startAction: self.startAction,
+                                  restartAction: self.restartAction,
+                                  cancelAction: _Action(actionText: "Cancel2"),
+                                  clearAction: _Action(actionText: "ClearClear"),
+                                  saveAction: _Action(actionText: "Save Image"),
+                                  signatureImage: UIImage(systemName: "scribble")!,
+                                  onSave: { uiImage in
+                                      let imgSaver = ImageSaver()
+                                      imgSaver.writeToPhotoAlbum(image: uiImage)
+                                  })
+                                  .titleFont(.callout)
+                                  .titleColor(.red)
+                                  .indicatorFont(self.isCustomizedIndicator ? .headline : .subheadline)
+                                  .indicatorColor(self.isCustomizedIndicator ? .red : .preferredColor(.primaryLabel))
+                                  .cropsImage(true)
+                                  .strokeWidth(10)
+                                  .strokeColor(.red)
+                                  .drawingViewBackgroundColor(.yellow)
+                                  .xmarkColor(.green)
+                                  .signatureLineColor(.orange)
+                                  .hidesXmark(false)
+                                  .hidesSignatureLine(true)
+                                  .addsTimestampInImage(true)
+                                  .isRequired(self.isRequired)
+                                  .timestampFormatter(self.customFormatter())
+                                  .watermarkText("A bird in the hand is worth two in the bush. Behind every great man there's a great woman. A bird in the hand is worth two in the bush.A bird in the hand is worth two in the bush. Behind every great man there's a great woman. A bird in the hand is worth two in the bush.A bird in the hand is worth two in the bush. Behind every great man there's a great woman. A bird in the hand is worth two in the bush.")
+                                  .watermarkTextAlignment(.right)
+                                  .watermarkTextFont(.preferredFont(forTextStyle: .body))
+                                  .watermarkTextColor(.green)
+                                  ._drawingViewMaxHeight(300)
+                                  .restartActionModifier {
+                                      $0.font(.callout).foregroundColor(.red)
+                                  }
+                                  .startActionModifier { content in
+                                      content.font(nil).foregroundColor(.green)
+                                  }
         }
     }
 
