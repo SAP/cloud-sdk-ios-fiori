@@ -24,6 +24,7 @@ struct AnyTitleFormViewStyle: TitleFormViewStyle {
 public struct TitleFormViewConfiguration {
     public var componentIdentifier: String = "fiori_titleformview_component"
     @Binding public var text: String
+    public let isSecureEnabled: Bool?
     public let placeholder: Placeholder
     public let controlState: ControlState
     public let errorMessage: AttributedString?
@@ -47,7 +48,6 @@ extension TitleFormViewConfiguration {
 public struct TitleFormViewFioriStyle: TitleFormViewStyle {
     public func makeBody(_ configuration: TitleFormViewConfiguration) -> some View {
         TitleFormView(configuration)
-            .textInputFieldStyle(TextInputFieldFioriStyle(titleFormViewConfiguration: configuration))
             .placeholderStyle(PlaceholderFioriStyle(titleFormViewConfiguration: configuration))
             .placeholderTextFieldStyle(PlaceholderTextFieldFioriStyle(titleFormViewConfiguration: configuration))
             .formViewStyle(FormViewFioriStyle(titleFormViewConfiguration: configuration))

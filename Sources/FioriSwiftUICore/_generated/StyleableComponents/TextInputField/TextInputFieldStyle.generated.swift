@@ -24,10 +24,17 @@ struct AnyTextInputFieldStyle: TextInputFieldStyle {
 public struct TextInputFieldConfiguration {
     public var componentIdentifier: String = "fiori_textinputfield_component"
     @Binding public var text: String
+    public let isSecureEnabled: Bool?
 }
 
 extension TextInputFieldConfiguration {
     func isDirectChild(_ componentIdentifier: String) -> Bool {
         componentIdentifier == self.componentIdentifier
+    }
+}
+
+public struct TextInputFieldFioriStyle: TextInputFieldStyle {
+    public func makeBody(_ configuration: TextInputFieldConfiguration) -> some View {
+        TextInputField(configuration)
     }
 }
