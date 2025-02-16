@@ -1023,6 +1023,23 @@ public extension View {
     }
 }
 
+// MARK: KeyStyle
+
+public extension View {
+    func keyStyle(_ style: some KeyStyle) -> some View {
+        self.transformEnvironment(\.keyStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func keyStyle(@ViewBuilder content: @escaping (KeyConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.keyStyleStack) { stack in
+            let style = AnyKeyStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: KeyValueFormViewStyle
 
 public extension View {
@@ -1035,6 +1052,23 @@ public extension View {
     func keyValueFormViewStyle(@ViewBuilder content: @escaping (KeyValueFormViewConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.keyValueFormViewStyleStack) { stack in
             let style = AnyKeyValueFormViewStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: KeyValueItemStyle
+
+public extension View {
+    func keyValueItemStyle(_ style: some KeyValueItemStyle) -> some View {
+        self.transformEnvironment(\.keyValueItemStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func keyValueItemStyle(@ViewBuilder content: @escaping (KeyValueItemConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.keyValueItemStyleStack) { stack in
+            let style = AnyKeyValueItemStyle(content)
             stack.append(style)
         }
     }

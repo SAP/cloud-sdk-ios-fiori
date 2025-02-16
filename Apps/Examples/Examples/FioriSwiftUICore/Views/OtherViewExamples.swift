@@ -9,6 +9,11 @@ struct OtherViewExamples: View {
             {
                 Text("KeyValueItem Example")
             }
+            NavigationLink(
+                destination: _KeyValueItemExample())
+            {
+                Text("_KeyValueItem Example")
+            }
         }
     }
 }

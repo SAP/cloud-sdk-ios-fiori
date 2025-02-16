@@ -2,7 +2,7 @@
 // DO NOT EDIT
 import SwiftUI
 
-extension KeyValueItem where Value == EmptyView {
+extension _KeyValueItem where Value == EmptyView {
     public init(
     @ViewBuilder key: () -> Key,
 		axis: Axis = .horizontal
