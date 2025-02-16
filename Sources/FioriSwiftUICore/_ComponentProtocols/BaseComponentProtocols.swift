@@ -626,3 +626,9 @@ protocol _WatermarkComponent {
     // sourcery: @ViewBuilder
     var watermark: AttributedString? { get }
 }
+
+// sourcery: BaseComponent
+protocol _KeyComponent {
+    // sourcery: @ViewBuilder
+    var key: AttributedString { get }
+}
