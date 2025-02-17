@@ -2306,6 +2306,104 @@ public extension FilterFeedbackBarItemStyle where Self == FilterFeedbackBarItemA
     }
 }
 
+// MARK: FilterFormViewStyle
+
+public extension FilterFormViewStyle where Self == FilterFormViewBaseStyle {
+    static var base: FilterFormViewBaseStyle {
+        FilterFormViewBaseStyle()
+    }
+}
+
+public extension FilterFormViewStyle where Self == FilterFormViewFioriStyle {
+    static var fiori: FilterFormViewFioriStyle {
+        FilterFormViewFioriStyle()
+    }
+}
+
+public struct FilterFormViewTitleStyle: FilterFormViewStyle {
+    let style: any TitleStyle
+
+    public func makeBody(_ configuration: FilterFormViewConfiguration) -> some View {
+        FilterFormView(configuration)
+            .titleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension FilterFormViewStyle where Self == FilterFormViewTitleStyle {
+    static func titleStyle(_ style: some TitleStyle) -> FilterFormViewTitleStyle {
+        FilterFormViewTitleStyle(style: style)
+    }
+
+    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> FilterFormViewTitleStyle {
+        let style = AnyTitleStyle(content)
+        return FilterFormViewTitleStyle(style: style)
+    }
+}
+
+public struct FilterFormViewMandatoryFieldIndicatorStyle: FilterFormViewStyle {
+    let style: any MandatoryFieldIndicatorStyle
+
+    public func makeBody(_ configuration: FilterFormViewConfiguration) -> some View {
+        FilterFormView(configuration)
+            .mandatoryFieldIndicatorStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension FilterFormViewStyle where Self == FilterFormViewMandatoryFieldIndicatorStyle {
+    static func mandatoryFieldIndicatorStyle(_ style: some MandatoryFieldIndicatorStyle) -> FilterFormViewMandatoryFieldIndicatorStyle {
+        FilterFormViewMandatoryFieldIndicatorStyle(style: style)
+    }
+
+    static func mandatoryFieldIndicatorStyle(@ViewBuilder content: @escaping (MandatoryFieldIndicatorConfiguration) -> some View) -> FilterFormViewMandatoryFieldIndicatorStyle {
+        let style = AnyMandatoryFieldIndicatorStyle(content)
+        return FilterFormViewMandatoryFieldIndicatorStyle(style: style)
+    }
+}
+
+public struct FilterFormViewOptionsStyle: FilterFormViewStyle {
+    let style: any OptionsStyle
+
+    public func makeBody(_ configuration: FilterFormViewConfiguration) -> some View {
+        FilterFormView(configuration)
+            .optionsStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension FilterFormViewStyle where Self == FilterFormViewOptionsStyle {
+    static func optionsStyle(_ style: some OptionsStyle) -> FilterFormViewOptionsStyle {
+        FilterFormViewOptionsStyle(style: style)
+    }
+
+    static func optionsStyle(@ViewBuilder content: @escaping (OptionsConfiguration) -> some View) -> FilterFormViewOptionsStyle {
+        let style = AnyOptionsStyle(content)
+        return FilterFormViewOptionsStyle(style: style)
+    }
+}
+
+public struct FilterFormViewFormViewStyle: FilterFormViewStyle {
+    let style: any FormViewStyle
+
+    public func makeBody(_ configuration: FilterFormViewConfiguration) -> some View {
+        FilterFormView(configuration)
+            .formViewStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension FilterFormViewStyle where Self == FilterFormViewFormViewStyle {
+    static func formViewStyle(_ style: some FormViewStyle) -> FilterFormViewFormViewStyle {
+        FilterFormViewFormViewStyle(style: style)
+    }
+
+    static func formViewStyle(@ViewBuilder content: @escaping (FormViewConfiguration) -> some View) -> FilterFormViewFormViewStyle {
+        let style = AnyFormViewStyle(content)
+        return FilterFormViewFormViewStyle(style: style)
+    }
+}
+
 // MARK: FioriSliderStyle
 
 public extension FioriSliderStyle where Self == FioriSliderBaseStyle {
@@ -5659,6 +5757,20 @@ public extension ReenterSignatureActionStyle where Self == ReenterSignatureActio
     }
 }
 
+// MARK: ResetActionStyle
+
+public extension ResetActionStyle where Self == ResetActionBaseStyle {
+    static var base: ResetActionBaseStyle {
+        ResetActionBaseStyle()
+    }
+}
+
+public extension ResetActionStyle where Self == ResetActionFioriStyle {
+    static var fiori: ResetActionFioriStyle {
+        ResetActionFioriStyle()
+    }
+}
+
 // MARK: ReviewCountLabelStyle
 
 public extension ReviewCountLabelStyle where Self == ReviewCountLabelBaseStyle {
@@ -6363,6 +6475,104 @@ public extension SingleStepStyle where Self == SingleStepLineStyle {
     static func lineStyle(@ViewBuilder content: @escaping (LineConfiguration) -> some View) -> SingleStepLineStyle {
         let style = AnyLineStyle(content)
         return SingleStepLineStyle(style: style)
+    }
+}
+
+// MARK: SortFilterViewStyle
+
+public extension SortFilterViewStyle where Self == SortFilterViewBaseStyle {
+    static var base: SortFilterViewBaseStyle {
+        SortFilterViewBaseStyle()
+    }
+}
+
+public extension SortFilterViewStyle where Self == SortFilterViewFioriStyle {
+    static var fiori: SortFilterViewFioriStyle {
+        SortFilterViewFioriStyle()
+    }
+}
+
+public struct SortFilterViewTitleStyle: SortFilterViewStyle {
+    let style: any TitleStyle
+
+    public func makeBody(_ configuration: SortFilterViewConfiguration) -> some View {
+        SortFilterView(configuration)
+            .titleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension SortFilterViewStyle where Self == SortFilterViewTitleStyle {
+    static func titleStyle(_ style: some TitleStyle) -> SortFilterViewTitleStyle {
+        SortFilterViewTitleStyle(style: style)
+    }
+
+    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> SortFilterViewTitleStyle {
+        let style = AnyTitleStyle(content)
+        return SortFilterViewTitleStyle(style: style)
+    }
+}
+
+public struct SortFilterViewCancelActionStyle: SortFilterViewStyle {
+    let style: any CancelActionStyle
+
+    public func makeBody(_ configuration: SortFilterViewConfiguration) -> some View {
+        SortFilterView(configuration)
+            .cancelActionStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension SortFilterViewStyle where Self == SortFilterViewCancelActionStyle {
+    static func cancelActionStyle(_ style: some CancelActionStyle) -> SortFilterViewCancelActionStyle {
+        SortFilterViewCancelActionStyle(style: style)
+    }
+
+    static func cancelActionStyle(@ViewBuilder content: @escaping (CancelActionConfiguration) -> some View) -> SortFilterViewCancelActionStyle {
+        let style = AnyCancelActionStyle(content)
+        return SortFilterViewCancelActionStyle(style: style)
+    }
+}
+
+public struct SortFilterViewApplyActionStyle: SortFilterViewStyle {
+    let style: any ApplyActionStyle
+
+    public func makeBody(_ configuration: SortFilterViewConfiguration) -> some View {
+        SortFilterView(configuration)
+            .applyActionStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension SortFilterViewStyle where Self == SortFilterViewApplyActionStyle {
+    static func applyActionStyle(_ style: some ApplyActionStyle) -> SortFilterViewApplyActionStyle {
+        SortFilterViewApplyActionStyle(style: style)
+    }
+
+    static func applyActionStyle(@ViewBuilder content: @escaping (ApplyActionConfiguration) -> some View) -> SortFilterViewApplyActionStyle {
+        let style = AnyApplyActionStyle(content)
+        return SortFilterViewApplyActionStyle(style: style)
+    }
+}
+
+public struct SortFilterViewResetActionStyle: SortFilterViewStyle {
+    let style: any ResetActionStyle
+
+    public func makeBody(_ configuration: SortFilterViewConfiguration) -> some View {
+        SortFilterView(configuration)
+            .resetActionStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension SortFilterViewStyle where Self == SortFilterViewResetActionStyle {
+    static func resetActionStyle(_ style: some ResetActionStyle) -> SortFilterViewResetActionStyle {
+        SortFilterViewResetActionStyle(style: style)
+    }
+
+    static func resetActionStyle(@ViewBuilder content: @escaping (ResetActionConfiguration) -> some View) -> SortFilterViewResetActionStyle {
+        let style = AnyResetActionStyle(content)
+        return SortFilterViewResetActionStyle(style: style)
     }
 }
 

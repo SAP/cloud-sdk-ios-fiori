@@ -531,7 +531,7 @@ public protocol FilterFeedbackBarModel: AnyObject {
 // sourcery: generated_component_composite
 // sourcery: virtualPropViewSize = "@State var size: CGSize = .zero"
 // sourcery: virtualPropPopoverWidth = "let popoverWidth = 393.0"
-public protocol SortFilterViewModel: AnyObject, TitleComponent {
+public protocol _SortFilterViewModel: AnyObject, TitleComponent {
     // sourcery: bindingProperty
     // sourcery: backingComponent=_SortFilterCFGItemContainer
     var items: [[SortFilterItem]] { get set }
@@ -552,6 +552,9 @@ public protocol SortFilterViewModel: AnyObject, TitleComponent {
     // sourcery: no_view
     var onUpdate: (() -> Void)? { get }
 }
+
+@available(*, unavailable, renamed: "_SortFilterViewModel", message: "Will be removed in the future release. Please use SortFilterView instead.")
+public protocol SortFilterViewModel {}
 
 // sourcery: add_env_props = "filterFeedbackBarStyle"
 // sourcery: virtualPropActionHelper = "@StateObject var context: SortFilterContext = SortFilterContext()"

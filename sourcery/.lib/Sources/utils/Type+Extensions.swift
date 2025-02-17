@@ -88,6 +88,7 @@ public extension Type {
                                     "_FilterFeedbackBarButtonModel",
                                     "_FilterFeedbackBarItemModel",
                                     "_KeyValueItemModel",
+                                    "_SortFilterViewModel",
                                     "_SignatureCaptureViewModel"]
         
         if deprecatedComponents.contains(name) {

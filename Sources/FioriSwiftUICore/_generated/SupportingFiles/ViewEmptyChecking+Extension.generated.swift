@@ -303,6 +303,13 @@ extension FilterFeedbackBarItem: _ViewEmptyChecking {
     }
 }
 
+extension FilterFormView: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        title.isEmpty &&
+            mandatoryFieldIndicator.isEmpty
+    }
+}
+
 extension FioriSlider: _ViewEmptyChecking {
     public var isEmpty: Bool {
         title.isEmpty &&
@@ -770,6 +777,12 @@ extension ReenterSignatureAction: _ViewEmptyChecking {
     }
 }
 
+extension ResetAction: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        resetAction.isEmpty
+    }
+}
+
 extension ReviewCountLabel: _ViewEmptyChecking {
     public var isEmpty: Bool {
         reviewCountLabel.isEmpty
@@ -881,6 +894,15 @@ extension SingleStep: _ViewEmptyChecking {
             node.isEmpty &&
             line.isEmpty &&
             substeps.isEmpty
+    }
+}
+
+extension SortFilterView: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        title.isEmpty &&
+            cancelAction.isEmpty &&
+            applyAction.isEmpty &&
+            resetAction.isEmpty
     }
 }
 

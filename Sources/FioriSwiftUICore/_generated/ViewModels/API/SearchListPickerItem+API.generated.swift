@@ -9,20 +9,20 @@ public struct SearchListPickerItem {
 	var _valueOptions: [String]
 	var _hint: String? = nil
 	var _onTap: ((_ index: Int) -> Void)? = nil
-	var updateSearchListPickerHeight: ((CGFloat) -> ())? = nil
-	@State var _height: CGFloat = 44
-	var allowsMultipleSelection: Bool = false
-	var uuidValueOptions: [[String: String]] = []
 	var isSearchBarHidden: Bool = false
-	var allowsDisplaySelectionCount: Bool = true
-	var selectAll: ((Bool) -> ())? = nil
+	@State var _height: CGFloat = 44
+	var uuidValueOptions: [[String: String]] = []
 	var allowsEmptySelection: Bool = false
-	@State var _searchText: String = ""
-	var barItemFrame: CGRect = .zero
 	var disableListEntriesSection: Bool = false
 	@State var _keyboardHeight: CGFloat = 0.0
-	let popoverWidth = 393.0
+	var barItemFrame: CGRect = .zero
+	var selectAll: ((Bool) -> ())? = nil
 	@State var _searchViewCornerRadius: CGFloat = 18
+	@State var _searchText: String = ""
+	var allowsMultipleSelection: Bool = false
+	var updateSearchListPickerHeight: ((CGFloat) -> ())? = nil
+	var allowsDisplaySelectionCount: Bool = true
+	let popoverWidth = 393.0
     public init(model: SearchListPickerItemModel) {
         self.init(value: Binding<[Int]>(get: { model.value }, set: { model.value = $0 }), valueOptions: model.valueOptions, hint: model.hint, onTap: model.onTap)
     }
