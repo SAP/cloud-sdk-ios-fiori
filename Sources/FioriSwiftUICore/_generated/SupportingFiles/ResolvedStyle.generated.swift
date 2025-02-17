@@ -1651,6 +1651,22 @@ extension ReenterSignatureActionStyle {
     }
 }
 
+// MARK: ResetActionStyle
+
+struct ResolvedResetActionStyle<Style: ResetActionStyle>: View {
+    let style: Style
+    let configuration: ResetActionConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension ResetActionStyle {
+    func resolve(configuration: ResetActionConfiguration) -> some View {
+        ResolvedResetActionStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: ReviewCountLabelStyle
 
 struct ResolvedReviewCountLabelStyle<Style: ReviewCountLabelStyle>: View {
@@ -1904,6 +1920,22 @@ struct ResolvedSingleStepStyle<Style: SingleStepStyle>: View {
 extension SingleStepStyle {
     func resolve(configuration: SingleStepConfiguration) -> some View {
         ResolvedSingleStepStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: SortFilterViewStyle
+
+struct ResolvedSortFilterViewStyle<Style: SortFilterViewStyle>: View {
+    let style: Style
+    let configuration: SortFilterViewConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension SortFilterViewStyle {
+    func resolve(configuration: SortFilterViewConfiguration) -> some View {
+        ResolvedSortFilterViewStyle(style: self, configuration: configuration)
     }
 }
 

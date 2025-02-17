@@ -1023,7 +1023,7 @@ struct _FullCFGMenuItem: View {
     }
     
     private func sortConfigurationView() -> some View {
-        SortFilterView(
+        _SortFilterView(
             title: {
                 if let title = fullCFGButton.name {
                     Text(title)

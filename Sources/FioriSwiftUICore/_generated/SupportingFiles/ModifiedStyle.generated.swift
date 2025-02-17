@@ -2892,6 +2892,34 @@ public extension ReenterSignatureActionStyle {
     }
 }
 
+// MARK: ResetActionStyle
+
+extension ModifiedStyle: ResetActionStyle where Style: ResetActionStyle {
+    public func makeBody(_ configuration: ResetActionConfiguration) -> some View {
+        ResetAction(configuration)
+            .resetActionStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct ResetActionStyleModifier<Style: ResetActionStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.resetActionStyle(self.style)
+    }
+}
+
+public extension ResetActionStyle {
+    func modifier(_ modifier: some ViewModifier) -> some ResetActionStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some ResetActionStyle) -> some ResetActionStyle {
+        style.modifier(ResetActionStyleModifier(style: self))
+    }
+}
+
 // MARK: ReviewCountLabelStyle
 
 extension ModifiedStyle: ReviewCountLabelStyle where Style: ReviewCountLabelStyle {
@@ -3337,6 +3365,34 @@ public extension SingleStepStyle {
 
     func concat(_ style: some SingleStepStyle) -> some SingleStepStyle {
         style.modifier(SingleStepStyleModifier(style: self))
+    }
+}
+
+// MARK: SortFilterViewStyle
+
+extension ModifiedStyle: SortFilterViewStyle where Style: SortFilterViewStyle {
+    public func makeBody(_ configuration: SortFilterViewConfiguration) -> some View {
+        SortFilterView(configuration)
+            .sortFilterViewStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct SortFilterViewStyleModifier<Style: SortFilterViewStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.sortFilterViewStyle(self.style)
+    }
+}
+
+public extension SortFilterViewStyle {
+    func modifier(_ modifier: some ViewModifier) -> some SortFilterViewStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some SortFilterViewStyle) -> some SortFilterViewStyle {
+        style.modifier(SortFilterViewStyleModifier(style: self))
     }
 }
 

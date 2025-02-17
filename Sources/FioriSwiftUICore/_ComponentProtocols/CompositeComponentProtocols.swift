@@ -1281,6 +1281,33 @@ protocol _DimensionSelectorComponent {
     var segment: (String) -> any View { get }
 }
 
+/// `SortFilterView` is a view that will be presented when tap the full configuration button in the filter feed back bar.
+///  ## Usage:
+///  ```swift
+///  @Binding var items: [[SortFilterItem]]
+///  SortFilterView(
+///     title: {
+///         Text("Full Configuration")
+///     },
+///     items: self.$items,
+///     onUpdate: {},
+///     onCancel: {},
+///     onReset: {}
+///  )
+///  ```
+// sourcery: CompositeComponent
+protocol _SortFilterViewComponent: _TitleComponent, _CancelActionComponent, _ApplyActionComponent, _ResetActionComponent {
+    // sourcery: @Binding
+    /// The data for the items that will be displayed in sort filter view.
+    var items: [[SortFilterItem]] { get }
+    /// The action to be performed when the apply button is tapped.
+    var onUpdate: (() -> Void)? { get }
+    /// The action to be performed when the cancel button is tapped.
+    var onCancel: (() -> Void)? { get }
+    /// The action to be performed when the reset button is tapped.
+    var onReset: (() -> Void)? { get }
+}
+
 /// `SignatureCaptureView` allows user to sign above  the signature line.
 /// ## Usage
 /// ```swift

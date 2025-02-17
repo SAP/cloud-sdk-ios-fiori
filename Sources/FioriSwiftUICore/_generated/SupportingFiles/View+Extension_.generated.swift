@@ -1754,6 +1754,23 @@ public extension View {
     }
 }
 
+// MARK: ResetActionStyle
+
+public extension View {
+    func resetActionStyle(_ style: some ResetActionStyle) -> some View {
+        self.transformEnvironment(\.resetActionStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func resetActionStyle(@ViewBuilder content: @escaping (ResetActionConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.resetActionStyleStack) { stack in
+            let style = AnyResetActionStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: ReviewCountLabelStyle
 
 public extension View {
@@ -2021,6 +2038,23 @@ public extension View {
     func singleStepStyle(@ViewBuilder content: @escaping (SingleStepConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.singleStepStyleStack) { stack in
             let style = AnySingleStepStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: SortFilterViewStyle
+
+public extension View {
+    func sortFilterViewStyle(_ style: some SortFilterViewStyle) -> some View {
+        self.transformEnvironment(\.sortFilterViewStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func sortFilterViewStyle(@ViewBuilder content: @escaping (SortFilterViewConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.sortFilterViewStyleStack) { stack in
+            let style = AnySortFilterViewStyle(content)
             stack.append(style)
         }
     }

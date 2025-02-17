@@ -2,7 +2,7 @@ import FioriThemeManager
 import SwiftUI
 
 extension Fiori {
-    enum SortFilterView {
+    enum _SortFilterView {
         struct Title: ViewModifier {
             func body(content: Content) -> some View {
                 content
@@ -36,7 +36,7 @@ extension Fiori {
     }
 }
 
-extension SortFilterView: View {
+extension _SortFilterView: View {
     public var body: some View {
         CancellableResettableDialogNavigationForm {
             title
