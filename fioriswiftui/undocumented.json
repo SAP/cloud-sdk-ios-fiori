@@ -2067,28 +2067,28 @@
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/Models/ModelDefinitions.swift",
-      "line": 563,
+      "line": 564,
       "symbol": "SearchListPickerItemModel",
       "symbol_kind": "source.lang.swift.decl.protocol",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/Models/ModelDefinitions.swift",
-      "line": 566,
+      "line": 567,
       "symbol": "SearchListPickerItemModel.onTap",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/Models/ModelDefinitions.swift",
-      "line": 572,
+      "line": 573,
       "symbol": "SwitchPickerItemModel",
       "symbol_kind": "source.lang.swift.decl.protocol",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/Models/ModelDefinitions.swift",
-      "line": 576,
+      "line": 577,
       "symbol": "SliderPickerItemModel",
       "symbol_kind": "source.lang.swift.decl.protocol",
       "warning": "undocumented"
@@ -3131,49 +3131,49 @@
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_FioriStyles/BannerMultiMessageSheetStyle.fiori.swift",
-      "line": 25,
+      "line": 29,
       "symbol": "BannerMessageItemModel.typeDesc",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_FioriStyles/BannerMultiMessageSheetStyle.fiori.swift",
-      "line": 40,
-      "symbol": "BannerMessageItemModel.init(id:icon:title:messageType:)",
+      "line": 44,
+      "symbol": "BannerMessageItemModel.init(id:icon:title:messageType:showDetailLink:showCloseAction:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_FioriStyles/BannerMultiMessageSheetStyle.fiori.swift",
-      "line": 56,
+      "line": 62,
       "symbol": "BannerMessageListModel",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_FioriStyles/BannerMultiMessageSheetStyle.fiori.swift",
-      "line": 63,
+      "line": 69,
       "symbol": "BannerMessageListModel.category",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_FioriStyles/BannerMultiMessageSheetStyle.fiori.swift",
-      "line": 64,
+      "line": 70,
       "symbol": "BannerMessageListModel.items",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_FioriStyles/BannerMultiMessageSheetStyle.fiori.swift",
-      "line": 79,
+      "line": 85,
       "symbol": "BannerMultiMessageSheetBaseStyle",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_FioriStyles/BannerMultiMessageSheetStyle.fiori.swift",
-      "line": 219,
+      "line": 235,
       "symbol": "BannerMultiMessageSheetBaseStyle.makeBody(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -44865,21 +44865,21 @@
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_generated/ViewModels/API/SearchListPickerItem+API.generated.swift",
-      "line": 25,
+      "line": 26,
       "symbol": "SearchListPickerItem.init(model:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_generated/ViewModels/API/SearchListPickerItem+API.generated.swift",
-      "line": 29,
+      "line": 30,
       "symbol": "SearchListPickerItem.init(value:valueOptions:hint:onTap:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_generated/ViewModels/API/SearchListPickerItem+API.generated.swift",
-      "line": 32,
+      "line": 35,
       "symbol": "SearchListPickerItem",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
