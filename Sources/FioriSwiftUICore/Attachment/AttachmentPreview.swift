@@ -3,13 +3,13 @@ import SwiftUI
 
 public struct AttachmentPreview: UIViewControllerRepresentable {
     @Binding var urls: [URL]
-    @Binding var previewIndex: Int
-    let onDelete: ((Int) -> Void)?
+    @Binding var previewURL: URL
+    let onDelete: ((URL) -> Void)?
     let onDismiss: (() -> Void)?
     
-    public init(urls: Binding<[URL]>, previewIndex: Binding<Int>, onDelete: ((Int) -> Void)? = nil, onDismiss: (() -> Void)? = nil) {
+    public init(urls: Binding<[URL]>, previewURL: Binding<URL>, onDelete: ((URL) -> Void)? = nil, onDismiss: (() -> Void)? = nil) {
         self._urls = urls
-        self._previewIndex = previewIndex
+        self._previewURL = previewURL
         self.onDelete = onDelete
         self.onDismiss = onDismiss
     }
@@ -29,7 +29,7 @@ public struct AttachmentPreview: UIViewControllerRepresentable {
         let navigationController = UINavigationController(rootViewController: controller)
         navigationController.delegate = coordinator
         
-        controller.currentPreviewItemIndex = self.previewIndex
+        controller.currentPreviewItemIndex = self.urls.firstIndex(of: self.previewURL) ?? 0
 
         return navigationController
     }
@@ -62,13 +62,14 @@ public struct AttachmentPreview: UIViewControllerRepresentable {
         
         @objc func delete(sender: Any) {
             DispatchQueue.main.async {
-                let index = self.parent.previewIndex
-                self.parent.onDelete?(index)
-                self.parent.previewIndex = index > 0 ? index - 1 : 0
-                if self.parent.urls.count > 0 {
-                    self.viewController?.reloadData()
-                } else {
-                    self.parent.onDismiss?()
+                if let index = self.parent.urls.firstIndex(of: self.parent.previewURL) {
+                    self.parent.onDelete?(self.parent.urls[index])
+                    if self.parent.urls.count > 0 {
+                        self.parent.previewURL = self.parent.urls[index > 0 ? index - 1 : 0]
+                        self.viewController?.reloadData()
+                    } else {
+                        self.parent.onDismiss?()
+                    }
                 }
             }
         }

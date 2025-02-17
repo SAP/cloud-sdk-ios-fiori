@@ -6,19 +6,10 @@ struct AttachmentGroupExample: View {
     @State var urls = [
         Bundle.main.url(forResource: "Text File Example", withExtension: "txt")!,
         Bundle.main.url(forResource: "XML File Example", withExtension: "xml")!,
-        Bundle.main.url(forResource: "HTML File Example", withExtension: "html")!,
-        URL(string: "https://ace.com/My Sound.8svx")!,
-        URL(string: "https://ace.com/My Image.bpg")!,
-//        URL(string: "https://ace.com/My PDF.pdf")!,
-//        URL(string: "https://ace.com/My Presentation.pptm")!,
-        URL(string: "https://ace.com/My Video.f4b")!,
-        URL(string: "https://ace.com/My Text.rtf")!,
-        URL(string: "https://ace.com/My Document/")!
+        Bundle.main.url(forResource: "HTML File Example", withExtension: "html")!
     ]
     
-    @State var previewUrl: URL? = nil
-    
-    @State var previewIndex: Int = 0
+    @State private var maxCount: Int = 5
     
     @State private var showOperations = false
     
@@ -30,37 +21,36 @@ struct AttachmentGroupExample: View {
     
     @State private var opsAsMenu = true
     
-    @State private var defaultPreview = true
+    @State var previewURL: URL? = nil
+    var shouldShowPreview: Binding<Bool> {
+        Binding<Bool> {
+            self.previewURL != nil
+        } set: {
+            if $0 == false {
+                self.previewURL = nil
+            }
+        }
+    }
 
+    @State private var defaultPreview = true
+    
+    @State private var error: AttributedString? = nil
+    
     var body: some View {
         ScrollView {
             VStack {
+                Stepper("Max Number of Attachments \(self.maxCount)", value: self.$maxCount)
+                    .padding([.leading, .trailing], 8)
+
                 Toggle(self.opsAsMenu ? "Operation Menu" : "Operation Dialog", isOn: self.$opsAsMenu)
-                    .padding()
+                    .padding([.leading, .trailing], 8)
                 Toggle(self.defaultPreview ? "SwiftUI QuickLookPreview" : "Custom Preview", isOn: self.$defaultPreview)
-                    .padding()
-                
+                    .padding([.leading, .trailing], 8)
+
                 if self.opsAsMenu {
                     self.attachmentWithOpsAsMenu()
                 } else {
                     self.attachmentWithOpsAsDialog()
-                }
-            }
-            .padding()
-            .modifier {
-                if self.defaultPreview {
-                    // default SwiftUI QuickLookPreivew
-                    $0.quickLookPreview(self.$previewUrl, in: self.$urls.wrappedValue)
-                } else {
-                    // custom preview
-                    $0.fullScreenCover(isPresented: self.shouldShowPreview) {
-                        AttachmentPreview(urls: self.$urls, previewIndex: self.$previewIndex) { index in
-                            print("Delete atttachment \(index)")
-                            self.urls.remove(at: index)
-                        } onDismiss: {
-                            self.previewUrl = nil
-                        }
-                    }
                 }
             }
             .sheet(isPresented: self.$showScanAndUploadView) {
@@ -75,45 +65,30 @@ struct AttachmentGroupExample: View {
                     self.showWriteAndUploadView.toggle()
                 }
             }
+            .padding()
         }
     }
     
     @ViewBuilder
     func attachmentWithOpsAsMenu() -> some View {
-        AttachmentGroup(readonly: true, maxCount: 20, urls: self.$urls) {
-            self.previewIndex = $0
-            self.previewUrl = self.urls[self.previewIndex]
-        } menu: {
-            AttachmentButtonImage()
-                .operationsMenu {
-                    AttachmentMenuItems.photos
-                    AttachmentMenuItems.files
-                    AttachmentMenuItems.camera
-                    Button {
-                        self.showScanAndUploadView.toggle()
-                    } label: {
-                        Label("Scan & Upload", systemImage: "doc.viewfinder")
-                    }
-                    Button {
-                        self.showWriteAndUploadView.toggle()
-                    } label: {
-                        Label("Compose and Upload", systemImage: "square.and.pencil")
-                    }
-                }
-        } onAdd: { _ in
-            
-        } onDelete: { index in
-            self.urls.remove(at: index)
-            // delete physical file here
+        if self.defaultPreview {
+            self.attachmentWithDefaultPreview
+        } else {
+            self.attachmentWithCustomPreview
         }
     }
     
     @ViewBuilder
     func attachmentWithOpsAsDialog() -> some View {
-        AttachmentGroup(readonly: true, maxCount: 20, urls: self.$urls) {
-            self.previewIndex = $0
-            self.previewUrl = self.urls[self.previewIndex]
-        } menu: {
+        if self.defaultPreview {
+            self.attachmentWithDefaultPreview
+        } else {
+            self.attachmentWithCustomPreview
+        }
+    }
+    
+    var attachmentWithDefaultPreview: some View {
+        AttachmentGroup(title: { Text("Attachments") }, attachments: self.$urls, maxCount: self.maxCount, errorMessage: self.$error) {
             AttachmentButtonImage()
                 .operationsDialog {
                     AttachmentMenuItems.photos
@@ -130,20 +105,39 @@ struct AttachmentGroupExample: View {
                         Label("Compose and Upload", image: "square.and.pencil")
                     }
                 }
-        } onAdd: { _ in
-            
-        } onDelete: { index in
-            self.urls.remove(at: index)
-            // delete physical file here
         }
     }
     
-    var shouldShowPreview: Binding<Bool> {
-        Binding<Bool> {
-            self.previewUrl != nil
-        } set: {
-            if $0 == false {
-                self.previewUrl = nil
+    var attachmentWithCustomPreview: some View {
+        AttachmentGroup(title: { Text("Attachments") }, attachments: self.$urls, maxCount: self.maxCount, errorMessage: self.$error) {
+            AttachmentButtonImage()
+                .operationsDialog {
+                    AttachmentMenuItems.photos
+                    AttachmentMenuItems.files
+                    AttachmentMenuItems.camera
+                    Button {
+                        self.showScanAndUploadView.toggle()
+                    } label: {
+                        Label("Scan & Upload", image: "doc.viewfinder")
+                    }
+                    Button {
+                        self.showWriteAndUploadView.toggle()
+                    } label: {
+                        Label("Compose and Upload", image: "square.and.pencil")
+                    }
+                }
+        } onPreview: { url in
+            self.previewURL = url
+        }
+        .fullScreenCover(isPresented: self.shouldShowPreview) {
+            AttachmentPreview(
+                urls: self.$urls,
+                previewURL: Binding<URL>(get: { self.previewURL ?? URL(fileURLWithPath: "/dev/null") }, set: { self.previewURL = $0 })
+            ) { url in
+                print("Delete atttachment \(url)")
+                self.urls.removeAll { $0 == url }
+            } onDismiss: {
+                self.previewURL = nil
             }
         }
     }

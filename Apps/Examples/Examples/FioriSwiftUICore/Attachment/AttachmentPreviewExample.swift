@@ -29,15 +29,14 @@ struct AttachmentPreviewExample: View {
         URL(string: "https://ace.com/My Text.rtf")!,
         URL(string: "https://ace.com/My Document/")!
     ]
+    
+    @State var erorMessage: AttributedString? = nil
 
     var body: some View {
         ScrollView {
             VStack {
-                AttachmentGroup(readonly: true, maxCount: 20, urls: self.$urls) { _ in
-                } menu: {
+                AttachmentGroup(title: { Text("Attachments") }, attachments: self.$urls, controlState: .readOnly, maxCount: 20, errorMessage: self.$erorMessage) {
                     AttachmentButtonImage()
-                } onAdd: { _ in
-                } onDelete: { _ in
                 }
             }
         }

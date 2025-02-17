@@ -9,30 +9,20 @@ struct AttachmentGroupCustomExample: View {
         Bundle.main.url(forResource: "HTML File Example", withExtension: "html")!
     ]
     
-    @State var previewUrl: URL? = nil
-    
-    @State var previewIndex: Int = 0
-    
     @State private var showFileImporter = false
-    
     @State private var showPhotoPicker = false
+    
     @State var images = [UIImage]()
     @State var selectedPhotos = [PhotosPickerItem]()
     
-    @State private var defaultPreview: Bool = true
+    @State private var errorMessage: AttributedString? = nil
     
     @Environment(\.colorScheme) var colorScheme
 
     var body: some View {
-        ScrollView { // no scroll view, then toggle stops working. why?
+        ScrollView {
             VStack {
-                Toggle(self.defaultPreview ? "SwiftUI QuickLookPreview" : "Custom Preview", isOn: self.$defaultPreview)
-                    .padding()
-                
-                AttachmentGroup(readonly: true, maxCount: 20, urls: self.$urls) {
-                    self.previewIndex = $0
-                    self.previewUrl = self.urls[self.previewIndex]
-                } menu: {
+                AttachmentGroup(title: { Text("Attachments") }, attachments: self.$urls, errorMessage: self.$errorMessage) {
                     Image(systemName: "plus")
                         .foregroundColor(self.colorScheme == .dark ? .white : .blue)
                         .font(.system(size: 24))
@@ -47,27 +37,6 @@ struct AttachmentGroupCustomExample: View {
                             self.overlayMenu
                         }
                         .frame(width: 109, height: 109)
-                } onAdd: { _ in
-                    
-                } onDelete: { index in
-                    self.urls.remove(at: index)
-                    // delete physical file here
-                }
-                .modifier {
-                    if self.defaultPreview {
-                        // default SwiftUI QuickLookPreivew
-                        $0.quickLookPreview(self.$previewUrl, in: self.$urls.wrappedValue)
-                    } else {
-                        // custom preview
-                        $0.fullScreenCover(isPresented: self.shouldShowPreview) {
-                            AttachmentPreview(urls: self.$urls, previewIndex: self.$previewIndex) { index in
-                                print("Delete atttachment \(index)")
-                                self.urls.remove(at: index)
-                            } onDismiss: {
-                                self.previewUrl = nil
-                            }
-                        }
-                    }
                 }
                 .fileImporter(
                     isPresented: self.$showFileImporter,
@@ -103,17 +72,7 @@ struct AttachmentGroupCustomExample: View {
             }
         }
     }
-    
-    var shouldShowPreview: Binding<Bool> {
-        Binding<Bool> {
-            self.previewUrl != nil
-        } set: {
-            if $0 == false {
-                self.previewUrl = nil
-            }
-        }
-    }
-    
+            
     var overlayMenu: some View {
         func getOffsetX(index: Int, count: Int) -> CGFloat {
             let radius: CGFloat = 35
@@ -182,13 +141,13 @@ struct AttachmentGroupCustomExample: View {
                 .onTapGesture {}
             
             // popping default file picker
-            MyButton()
+            MyPhotoPickerButton()
                 .offset(x: getOffsetX(index: 5, count: 6), y: getOffsetY(index: 5, count: 6))
         }
     }
 }
 
-struct MyButton: View {
+struct MyPhotoPickerButton: View {
     @Environment(AttachmentContext.self) var context
 
     var body: some View {
@@ -204,68 +163,3 @@ struct MyButton: View {
         }
     }
 }
-
-/*
- let views = [
-     Image(systemName: "camera")
-         .font(.body)
-         .foregroundStyle(.white)
-         .padding(6)
-         .background(.red)
-         .clipShape(Circle())
-         .onTapGesture {
-             showPhotoPicker.toggle()
-         },
-     
-     Image(systemName: "photo")
-         .font(.body)
-         .foregroundStyle(.white)
-         .padding(6)
-         .background(.orange)
-         .clipShape(Circle())
-         .onTapGesture {
-             showPhotoPicker.toggle()
-         },
-     
-     Image(systemName: "square.and.arrow.up")
-         .font(.body)
-         .foregroundStyle(.white)
-         .padding(6)
-         .background(.yellow)
-         .clipShape(Circle())
-         .onTapGesture {
-             showFileImporter.toggle()
-         },
-     
-     Image(systemName: "book.closed.circle")
-         .font(.body)
-         .foregroundStyle(.white)
-         .padding(6)
-         .background(.green)
-         .clipShape(Circle())
-         .onTapGesture {
-             
-         },
-     
-     Image(systemName: "doc.viewfinder")
-         .font(.body)
-         .foregroundStyle(.white)
-         .padding(6)
-         .background(.blue)
-         .clipShape(Circle())
-         .onTapGesture {
-             
-         }
-     
-     ,MyButton()
- ]
- ForEach(0..<views.count, id: \.self) { index in
-     let elementAngle = CGFloat.pi * 1.25 + self.angle * CGFloat(index)
-     views[index]
-         .offset(
-             x: self.radius * cos(elementAngle),
-             y: self.radius * sin(elementAngle)
-         )
- }
-
- */

@@ -1003,7 +1003,7 @@ protocol _StepProgressIndicatorComponent: _TitleComponent, _ActionComponent, _Ca
     var steps: [StepItem] { get }
 }
 
-/// `Attachment` provides thubnail and information about an attachment.
+/// `Attachment` provides thumbnail and information about an attachment.
 ///
 /// ## Usage
 /// ```swift
@@ -1041,38 +1041,44 @@ protocol _StepProgressIndicatorComponent: _TitleComponent, _ActionComponent, _Ca
 // sourcery: CompositeComponent
 protocol _AttachmentComponent: _AttachmentThumbnailComponent, _TitleComponent, _SubtitleComponent, _TimestampComponent {}
 
-/// `Attachment` provides thubnail and information about an attachment.
+/// `AttachmentGroup` provides thubnail and information about an attachment.
 ///
 /// ## Usage
 /// ```swift
-/// @State var attachments: [URL] = [...]
+///  todo: code here
 /// ```
 // sourcery: CompositeComponent
-protocol _AttachmentGroup {
-    /// Make the attachemnts readonly
-    var readonly: Bool { get } // readonly vs disabled, ask designer, what about preview, how to handle "disabled"
-
+protocol _AttachmentGroupComponent: _TitleComponent {
+    // sourcery: @Binding
+    /// The collection of local attachment URLs, which are prepared by Apps.
+    var attachments: [URL] { get }
+    
+    // sourcery: defaultValue = .normal
+    /// The state of attachement group component
+    var controlState: ControlState { get }
+    
+    // sourcery: defaultValue = "nil"
     /// The maximium number of attachments
-    var maxCount: Int { get }
+    var maxCount: Int? { get }
 
     // sourcery: @Binding
-    /// The collection of local attachment URLs, which are prepared by Apps
-    var urls: [URL] { get } // experement non-binding
+    /// The error message of the form view.
+    var errorMessage: AttributedString? { get }
 
-    // sourcery: defaultValue = "nil"
-    /// Callback on deleting attachment
-    var onPreview: ((Int) -> Void)? { get } // use id
+    // sourcery: defaultValue = "AttachmentProcessor()"
+    /// App specific attachemnt processing logics for adding or deleting attachments.
+    var processor: AttachmentProcessor { get }
 
     // sourcery: defaultValue = "{ EmptyView() }"
-    /// The anchor for operation selections
+    /// For adding App specific operations, such as picking photos and files.
     @ViewBuilder
-    var menu: (() -> any View)? { get }
-
+    var operations: (() -> any View)? { get }
+    
     // sourcery: defaultValue = "nil"
-    /// Callback on new attachment
-    var onAdd: ((Data) -> Void)? { get } // put into actions, which to be defined
-
+    /// Triggering App specific preview, otherwise using default preview.
+    var onPreview: ((URL) -> Void)? { get }
+    
     // sourcery: defaultValue = "nil"
-    /// Callback on deleting attachment
-    var onDelete: ((Int) -> Void)? { get } // use id
+    /// App specific 'Attachment', i.e. thumbnail and information. Overrides default implemetation.
+    var thumbnailAndInfo: ((URL) -> Attachment)? { get }
 }

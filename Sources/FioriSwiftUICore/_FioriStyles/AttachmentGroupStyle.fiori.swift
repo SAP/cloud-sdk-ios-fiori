@@ -6,15 +6,16 @@ import SwiftUI
 public struct AttachmentGroupBaseStyle: AttachmentGroupStyle {
     @State var context = AttachmentContext()
     @State private var showingConfirmation = false
+    @State var previewURL: URL? = nil
 
     public func makeBody(_ configuration: AttachmentGroupConfiguration) -> some View {
         ScrollView {
             LazyVGrid(columns: Array(repeating: GridItem(.adaptive(minimum: 110), alignment: .top), count: 1), spacing: 10) {
-                configuration.menu
+                configuration.operations
                     .environment(self.context)
                 
-                ForEach(0 ..< configuration.urls.count, id: \.self) { index in
-                    if let (fileURL, name, fileSize, fileModificationDate) = getFileInfo(fileUrl: configuration.urls[index]) {
+                ForEach(0 ..< configuration.attachments.count, id: \.self) { index in
+                    if let (fileURL, name, fileSize, fileModificationDate) = getFileInfo(fileUrl: configuration.attachments[index]) {
                         Attachment(url: fileURL) {
                             Text("\(name)")
                         } subtitle: {
@@ -27,11 +28,19 @@ public struct AttachmentGroupBaseStyle: AttachmentGroupStyle {
                             }
                         }
                         .onTapGesture {
-                            configuration.onPreview?(index)
+                            if let showPreview = configuration.onPreview {
+                                showPreview(configuration.attachments[index])
+                            } else {
+                                self.previewURL = configuration.attachments[index]
+                            }
                         }
                         .contextMenu {
                             Button {
-                                print("Preview")
+                                if let showPreview = configuration.onPreview {
+                                    showPreview(configuration.attachments[index])
+                                } else {
+                                    self.previewURL = configuration.attachments[index]
+                                }
                             } label: {
                                 Label("Preview", systemImage: "viewfinder")
                             }
@@ -45,6 +54,7 @@ public struct AttachmentGroupBaseStyle: AttachmentGroupStyle {
                     }
                 }
             }
+            .quickLookPreview(self.$previewURL, in: configuration.attachments)
         }
         .alert("Delete Attachment?", isPresented: self.$showingConfirmation) {
             Button("Cancel", role: .cancel) {}
