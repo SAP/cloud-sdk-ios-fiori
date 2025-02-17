@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.3.3](https://github.com/SAP/cloud-sdk-ios-fiori/compare/4.3.2...4.3.3) (2025-02-17)
+
+
+### Bug Fixes
+
+* 🐛 [IOSSDKBUG-547]FilterFeedbackBar list duplicated names ([#979](https://github.com/SAP/cloud-sdk-ios-fiori/issues/979)) ([23b1a5f](https://github.com/SAP/cloud-sdk-ios-fiori/commit/23b1a5f2075cb25bea94bb6b95e51e2aac78ab12))
+* 🐛 [JIRA: IOSSDKBUG-548] BannerMultiMessageSheet optimization ([#973](https://github.com/SAP/cloud-sdk-ios-fiori/issues/973)) ([#977](https://github.com/SAP/cloud-sdk-ios-fiori/issues/977)) ([3d1138c](https://github.com/SAP/cloud-sdk-ios-fiori/commit/3d1138c14e14d9dc081251f95bbd48f77304f8c4)), closes [#836](https://github.com/SAP/cloud-sdk-ios-fiori/issues/836)
+
 ### [4.3.2](https://github.com/SAP/cloud-sdk-ios-fiori/compare/4.3.1...4.3.2) (2025-01-23)
 
 
