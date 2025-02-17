@@ -11,21 +11,50 @@ import SwiftUI
  4. Move this file to `_FioriStyles` folder under `FioriSwiftUICore`.
  */
 
+public enum ToastMessagePosition: String, CaseIterable, Identifiable {
+    case topLeading
+    case top
+    case topTrailing
+    case leading
+    case center
+    case trailing
+    case bottomLeading
+    case bottom
+    case bottomTrailing
+    public var id: Self { self }
+}
+
+func toastMessagePositionToAlignment(position: ToastMessagePosition) -> Alignment {
+    switch position {
+    case .topLeading:
+        return .topLeading
+    case .top:
+        return .top
+    case .topTrailing:
+        return .topTrailing
+    case .leading:
+        return .leading
+    case .center:
+        return .center
+    case .trailing:
+        return .trailing
+    case .bottomLeading:
+        return .bottomLeading
+    case .bottom:
+        return .bottom
+    case .bottomTrailing:
+        return .bottomTrailing
+    }
+}
+
 // Base Layout style
 public struct ToastMessageBaseStyle: ToastMessageStyle {
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
 
     public func makeBody(_ configuration: ToastMessageConfiguration) -> some View {
         GeometryReader { reader in
-            VStack {
-                Spacer()
-                HStack {
-                    Spacer()
-                    self.makeMessageBody(configuration: configuration, size: reader.size)
-                    Spacer()
-                }
-                Spacer()
-            }
+            self.makeMessageBody(configuration: configuration, size: reader.size)
+                .frame(width: reader.size.width, height: reader.size.height, alignment: toastMessagePositionToAlignment(position: configuration.position))
         }
     }
     
@@ -96,15 +125,18 @@ public extension View {
     ///   - icon: Icon image in front of the text. The default is a checkmark icon.
     ///   - title: The message to display.
     ///   - duration: The duration in seconds for which the toast message is shown. The default is `1`.
+    ///   - position: The position of the toast message relative to its parent view. The default is `.center`.
     /// - Returns: A new `View` with the toast message.
     func toastMessage(isPresented: Binding<Bool>,
                       @ViewBuilder icon: () -> any View = { EmptyView() },
                       title: AttributedString,
-                      duration: Double = 1) -> some View
+                      duration: Double = 1,
+                      position: ToastMessagePosition = .center) -> some View
     {
         self.modifier(ToastMessageModifier(icon: icon(),
                                            title: Text(title),
                                            duration: duration,
+                                           position: position,
                                            isPresented: isPresented))
     }
     
@@ -114,15 +146,18 @@ public extension View {
     ///   - icon: Icon image in front of the text. The default is a checkmark icon.
     ///   - title: The message to display.
     ///   - duration: The duration in seconds for which the toast message is shown. The default is `1`.
+    ///   - position: The position of the toast message relative to its parent view. The default is `.center`.
     /// - Returns: A new `View` with the toast message.
     func toastMessage(isPresented: Binding<Bool>,
                       @ViewBuilder icon: () -> any View = { EmptyView() },
                       title: String,
-                      duration: Double = 1) -> some View
+                      duration: Double = 1,
+                      position: ToastMessagePosition = .center) -> some View
     {
         self.modifier(ToastMessageModifier(icon: icon(),
                                            title: Text(title),
                                            duration: duration,
+                                           position: position,
                                            isPresented: isPresented))
     }
     
@@ -132,15 +167,18 @@ public extension View {
     ///   - icon: Icon image in front of the text. The default is a checkmark icon.
     ///   - title: The message to display.
     ///   - duration: The duration in seconds for which the toast message is shown. The default is `1`.
+    ///   - position: The position of the toast message relative to its parent view. The default is `.center`.
     /// - Returns: A new `View` with the toast message.
     func toastMessage(isPresented: Binding<Bool>,
                       @ViewBuilder icon: () -> any View = { EmptyView() },
                       @ViewBuilder title: () -> any View,
-                      duration: Double = 1) -> some View
+                      duration: Double = 1,
+                      position: ToastMessagePosition = .center) -> some View
     {
         self.modifier(ToastMessageModifier(icon: icon(),
                                            title: title(),
                                            duration: duration,
+                                           position: position,
                                            isPresented: isPresented))
     }
 }
@@ -149,6 +187,7 @@ struct ToastMessageModifier: ViewModifier {
     let icon: any View
     var title: any View
     var duration: Double
+    var position: ToastMessagePosition
     @Binding var isPresented: Bool
     @State private var workItem: DispatchWorkItem?
     
@@ -160,7 +199,7 @@ struct ToastMessageModifier: ViewModifier {
                         self.icon
                     }, title: {
                         self.title
-                    })
+                    }, position: self.position)
                 }
             })
             .setOnChange(of: self.isPresented) {
