@@ -189,6 +189,12 @@ extension CheckoutIndicator: _ViewEmptyChecking {
     }
 }
 
+extension ClearAction: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        clearAction.isEmpty
+    }
+}
+
 extension CloseAction: _ViewEmptyChecking {
     public var isEmpty: Bool {
         closeAction.isEmpty
@@ -745,6 +751,12 @@ extension RatingControlFormView: _ViewEmptyChecking {
     }
 }
 
+extension ReenterSignatureAction: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        reenterSignatureAction.isEmpty
+    }
+}
+
 extension ResetAction: _ViewEmptyChecking {
     public var isEmpty: Bool {
         resetAction.isEmpty
@@ -772,6 +784,12 @@ extension Row2: _ViewEmptyChecking {
 extension Row3: _ViewEmptyChecking {
     public var isEmpty: Bool {
         row3.isEmpty
+    }
+}
+
+extension SaveAction: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        saveAction.isEmpty
     }
 }
 
@@ -836,6 +854,20 @@ extension SideBarListItem: _ViewEmptyChecking {
     }
 }
 
+extension SignatureCaptureView: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        title.isEmpty &&
+            mandatoryFieldIndicator.isEmpty &&
+            startSignatureAction.isEmpty &&
+            reenterSignatureAction.isEmpty &&
+            cancelAction.isEmpty &&
+            clearAction.isEmpty &&
+            saveAction.isEmpty &&
+            xmark.isEmpty &&
+            watermark.isEmpty
+    }
+}
+
 extension SingleStep: _ViewEmptyChecking {
     public var isEmpty: Bool {
         title.isEmpty &&
@@ -851,6 +883,12 @@ extension SortFilterView: _ViewEmptyChecking {
             cancelAction.isEmpty &&
             applyAction.isEmpty &&
             resetAction.isEmpty
+    }
+}
+
+extension StartSignatureAction: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        startSignatureAction.isEmpty
     }
 }
 
@@ -1087,5 +1125,17 @@ extension ValuePicker: _ViewEmptyChecking {
         title.isEmpty &&
             valueLabel.isEmpty &&
             mandatoryFieldIndicator.isEmpty
+    }
+}
+
+extension Watermark: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        watermark.isEmpty
+    }
+}
+
+extension Xmark: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        xmark.isEmpty
     }
 }

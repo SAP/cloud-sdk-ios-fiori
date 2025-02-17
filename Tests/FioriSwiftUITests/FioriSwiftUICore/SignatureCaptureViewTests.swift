@@ -4,7 +4,7 @@ import SwiftUI
 import UIKit
 import XCTest
 
-class SignatureCaptureTests: XCTestCase {
+class _SignatureCaptureTests: XCTestCase {
     var isOnSaveCalled = false
     var isOnDeleteCalled = false
 
@@ -20,8 +20,7 @@ class SignatureCaptureTests: XCTestCase {
             }
         )
 
-        XCTAssertEqual(signatureCaptureView._drawingViewMinHeight, CGFloat(256))
-        XCTAssertNil(signatureCaptureView._drawingViewMaxHeight)
+        XCTAssertNil(signatureCaptureView.drawingViewMaxHeight)
 
         // test default property values
         XCTAssertEqual(signatureCaptureView.strokeWidth, CGFloat(3))
@@ -34,28 +33,22 @@ class SignatureCaptureTests: XCTestCase {
         let uiImage = UIImage(systemName: "xmark")!
 
         self.isOnSaveCalled = false
-        signatureCaptureView.onSave(uiImage)
+        signatureCaptureView.onSave?(uiImage)
         XCTAssertTrue(self.isOnSaveCalled)
 
         self.isOnDeleteCalled = false
-        signatureCaptureView.onDelete()
+        signatureCaptureView.onDelete?()
         XCTAssertTrue(self.isOnDeleteCalled)
     }
 
     func testModifiers() throws {
         let signatureCaptureView = SignatureCaptureView(
+            drawingViewMaxHeight: 256,
             onSave: { [unowned self] image in
                 self.onSave(image)
-            })
-            ._drawingViewMaxHeight(256)
-            .strokeWidth(10)
-            .strokeColor(.blue)
-            .drawingViewBackgroundColor(.yellow)
-
-        XCTAssertEqual(signatureCaptureView._drawingViewMaxHeight, CGFloat(256))
-        XCTAssertEqual(signatureCaptureView.strokeWidth, CGFloat(10))
-        XCTAssertEqual(signatureCaptureView.strokeColor, Color.blue)
-        XCTAssertEqual(signatureCaptureView.drawingViewBackgroundColor, Color.yellow)
+            }
+        )
+        XCTAssertEqual(signatureCaptureView.drawingViewMaxHeight, CGFloat(256))
     }
 
     func onSave(_ image: UIImage) {

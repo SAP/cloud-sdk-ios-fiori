@@ -88,7 +88,7 @@ struct CoreContentView: View {
                 NavigationLink(
                     destination: SignatureCaptureViewExample2())
                 {
-                    Text("Customized Signature Inline View")
+                    Text("(Deprecated)Customized Signature Inline View")
                 }
                 
                 NavigationLink(
