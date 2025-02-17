@@ -303,6 +303,13 @@ extension FilterFeedbackBarItem: _ViewEmptyChecking {
     }
 }
 
+extension FilterFormView: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        title.isEmpty &&
+            mandatoryFieldIndicator.isEmpty
+    }
+}
+
 extension FioriSlider: _ViewEmptyChecking {
     public var isEmpty: Bool {
         title.isEmpty &&
