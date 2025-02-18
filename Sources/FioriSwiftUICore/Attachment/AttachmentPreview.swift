@@ -61,16 +61,32 @@ public struct AttachmentPreview: UIViewControllerRepresentable {
         }
         
         @objc func delete(sender: Any) {
-            DispatchQueue.main.async {
-                if let index = self.parent.urls.firstIndex(of: self.parent.previewURL) {
-                    self.parent.onDelete?(self.parent.urls[index])
-                    if self.parent.urls.count > 0 {
-                        self.parent.previewURL = self.parent.urls[index > 0 ? index - 1 : 0]
-                        self.viewController?.reloadData()
-                    } else {
-                        self.parent.onDismiss?()
+            let alertController = UIAlertController(title: nil, message: "Are your sure you want to delete this attachment?", preferredStyle: .alert)
+            alertController.addAction(
+                UIAlertAction(title: "Yes", style: .destructive, handler: { _ in
+                    print("Delete \(self.parent.previewURL) in progress...")
+                    DispatchQueue.main.async {
+                        if let index = self.parent.urls.firstIndex(of: self.parent.previewURL) {
+                            print("index: \(index) ")
+                            self.parent.onDelete?(self.parent.urls[index])
+                            if self.parent.urls.count > 0 {
+                                self.parent.previewURL = self.parent.urls[index > 0 ? index - 1 : 0]
+                                self.viewController?.reloadData()
+                            } else {
+                                self.parent.onDismiss?()
+                            }
+                        }
                     }
-                }
+                })
+            )
+            alertController.addAction(
+                UIAlertAction(title: "Cancel", style: .cancel, handler: { _ in
+                    print("Canceled delete")
+                })
+            )
+
+            if let controller = viewController { // topMostViewController()
+                controller.present(alertController, animated: true, completion: nil)
             }
         }
     }

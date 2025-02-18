@@ -7,6 +7,7 @@ public struct AttachmentGroupBaseStyle: AttachmentGroupStyle {
     @State var context = AttachmentContext()
     @State private var showingConfirmation = false
     @State var previewURL: URL? = nil
+    @State var deleteIndex: Int? = nil
 
     public func makeBody(_ configuration: AttachmentGroupConfiguration) -> some View {
         ScrollView {
@@ -46,6 +47,7 @@ public struct AttachmentGroupBaseStyle: AttachmentGroupStyle {
                             }
                             
                             Button(role: .destructive) {
+                                self.deleteIndex = index
                                 self.showingConfirmation.toggle()
                             } label: {
                                 Label("Delete", systemImage: "delete.left")
@@ -59,17 +61,15 @@ public struct AttachmentGroupBaseStyle: AttachmentGroupStyle {
         .alert("Delete Attachment?", isPresented: self.$showingConfirmation) {
             Button("Cancel", role: .cancel) {}
             Button("Delete", role: .destructive) {
-                print("Attachment deleted")
+                if let index = deleteIndex {
+                    configuration.attachments.remove(at: index)
+                    print("Attachment at \(index) deleted")
+                    self.deleteIndex = nil
+                } else {
+                    print("No attchement found for deletion")
+                }
             }
         }
-//        .confirmationDialog("Delete Attachment", isPresented: $showingConfirmation) {
-//            Button("Cancel", role: .cancel) { }
-//            Button("Delete", role: .destructive) {
-//                print("Attachment deleted")
-//            }
-//        } message: {
-//            Text("Delete Attachment?")
-//        }
     }
 }
 
