@@ -99,7 +99,10 @@ extension TitleFormViewFioriStyle {
         }
 
         func getBackgroundColor(_ configuration: TitleFormViewConfiguration) -> Color {
-            TextInputFormViewConfiguration(configuration, isFocused: self.isFocused).getBackgroundColor()
+            if configuration.controlState == .disabled {
+                return Color.clear
+            }
+            return TextInputFormViewConfiguration(configuration, isFocused: self.isFocused).getBackgroundColor()
         }
 
         func isErrorStyle(_ configuration: TitleFormViewConfiguration) -> Bool {
