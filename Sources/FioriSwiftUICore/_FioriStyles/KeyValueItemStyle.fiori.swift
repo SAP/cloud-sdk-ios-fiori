@@ -36,6 +36,8 @@ extension KeyValueItemFioriStyle {
 
         public func makeBody(_ configuration: KeyConfiguration) -> some View {
             Key(configuration)
+                .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
+                .foregroundColor(.preferredColor(.primaryLabel))
         }
     }
 
@@ -44,6 +46,8 @@ extension KeyValueItemFioriStyle {
 
         func makeBody(_ configuration: ValueConfiguration) -> some View {
             Value(configuration)
+                .font(.fiori(forTextStyle: .body))
+                .foregroundColor(.preferredColor(.primaryLabel))
         }
     }
 
