@@ -611,6 +611,22 @@ extension FilterFeedbackBarButtonStyle {
     }
 }
 
+// MARK: FilterFeedbackBarStyle
+
+struct ResolvedFilterFeedbackBarStyle<Style: FilterFeedbackBarStyle>: View {
+    let style: Style
+    let configuration: FilterFeedbackBarConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension FilterFeedbackBarStyle {
+    func resolve(configuration: FilterFeedbackBarConfiguration) -> some View {
+        ResolvedFilterFeedbackBarStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: FilterFeedbackBarItemStyle
 
 struct ResolvedFilterFeedbackBarItemStyle<Style: FilterFeedbackBarItemStyle>: View {

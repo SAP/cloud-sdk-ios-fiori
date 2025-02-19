@@ -59,7 +59,6 @@ extension OptionListPickerItem: View {
                             title: AttributedString(_valueOptions[rowIndex * 2]),
                             isSelected: _value.wrappedValue.contains(rowIndex * 2)
                         )
-                        .filterFeedbackBarStyle()
                         .onTapGesture {
                             _onTap?(rowIndex * 2)
                         }

@@ -4,7 +4,7 @@ import SwiftUI
 
 public struct _SwitchPickerItem {
     @Environment(\.fioriToggleStyle) var fioriToggleStyle
-	@Environment(\.filterFeedbackBarStyle) var filterFeedbackBarStyle
+	@Environment(\._filterFeedbackBarStyle) var _filterFeedbackBarStyle
 
     var _value: Binding<Bool?>
 	var _name: String? = nil

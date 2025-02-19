@@ -2215,6 +2215,20 @@ public extension FilterFeedbackBarButtonStyle where Self == FilterFeedbackBarBut
     }
 }
 
+// MARK: FilterFeedbackBarStyle
+
+public extension FilterFeedbackBarStyle where Self == FilterFeedbackBarBaseStyle {
+    static var base: FilterFeedbackBarBaseStyle {
+        FilterFeedbackBarBaseStyle()
+    }
+}
+
+public extension FilterFeedbackBarStyle where Self == FilterFeedbackBarFioriStyle {
+    static var fiori: FilterFeedbackBarFioriStyle {
+        FilterFeedbackBarFioriStyle()
+    }
+}
+
 // MARK: FilterFeedbackBarItemStyle
 
 public extension FilterFeedbackBarItemStyle where Self == FilterFeedbackBarItemBaseStyle {

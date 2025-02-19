@@ -2,7 +2,7 @@
 // DO NOT EDIT
 import SwiftUI
 
-public extension FilterFeedbackBarModel {
+public extension _FilterFeedbackBarModel {
     var onUpdate: (() -> Void)? {
         return nil
     }

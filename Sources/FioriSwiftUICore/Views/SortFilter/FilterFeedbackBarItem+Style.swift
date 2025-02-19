@@ -17,7 +17,7 @@ public struct FilterFeedbackBarStyleConfiguration {
 }
 
 /// Protocol for sort and filer menu item styling
-public protocol FilterFeedbackBarStyle {
+public protocol _FilterFeedbackBarStyle {
     typealias Configuration = FilterFeedbackBarStyleConfiguration
     
     /// Build view according to configuration and style
@@ -33,7 +33,7 @@ public protocol FilterFeedbackBarStyle {
 #endif
 
 /// Default style for sort and filer menu item
-public struct DefaultFilterFeedbackBarStyle: FilterFeedbackBarStyle {
+public struct _DefaultFilterFeedbackBarStyle: _FilterFeedbackBarStyle {
     let font: Font
     let foregroundColorSelected: Color
     let foregroundColorUnselected: Color
@@ -89,17 +89,17 @@ public struct DefaultFilterFeedbackBarStyle: FilterFeedbackBarStyle {
     }
 }
 
-struct FilterFeedbackBarStyleKey: EnvironmentKey {
-    static var defaultValue: any FilterFeedbackBarStyle = DefaultFilterFeedbackBarStyle()
+struct _FilterFeedbackBarStyleKey: EnvironmentKey {
+    static var defaultValue: any _FilterFeedbackBarStyle = _DefaultFilterFeedbackBarStyle()
 }
 
 extension EnvironmentValues {
-    var filterFeedbackBarStyle: any FilterFeedbackBarStyle {
+    var _filterFeedbackBarStyle: any _FilterFeedbackBarStyle {
         get {
-            self[FilterFeedbackBarStyleKey.self]
+            self[_FilterFeedbackBarStyleKey.self]
         }
         set {
-            self[FilterFeedbackBarStyleKey.self] = newValue
+            self[_FilterFeedbackBarStyleKey.self] = newValue
         }
     }
 }
@@ -107,13 +107,13 @@ extension EnvironmentValues {
 /// Experimental filter feedback bar styling
 public extension View {
     /// Experimental filter feedback bar styling
-    func filterFeedbackBarStyle(_ style: some FilterFeedbackBarStyle) -> some View {
-        self.environment(\.filterFeedbackBarStyle, style)
+    func _filterFeedbackBarStyle(_ style: some _FilterFeedbackBarStyle) -> some View {
+        self.environment(\._filterFeedbackBarStyle, style)
     }
     
     /// Experimental filter feedback bar styling
-    func filterFeedbackBarStyle(font: Font = .system(.body), foregroundColorSelected: Color = .preferredColor(.tintColor), foregroundColorUnselected: Color = .preferredColor(.tertiaryLabel), fillColorSelected: Color = Color.clear, fillColorUnselected: Color = .preferredColor(.tertiaryFill), strokeColorSelected: Color = .preferredColor(.tintColor), strokeColorUnselected: Color = .preferredColor(.separator), cornerRadius: CGFloat = 10, spacing: CGFloat = 6, padding: CGFloat = 8, borderWidth: CGFloat = 1, minHeight: CGFloat = 38, maxWidth: CGFloat = 0) -> some View {
-        self.environment(\.filterFeedbackBarStyle,
-                         DefaultFilterFeedbackBarStyle(font: font, foregroundColorSelected: foregroundColorSelected, foregroundColorUnselected: foregroundColorUnselected, fillColorSelected: fillColorSelected, fillColorUnselected: fillColorUnselected, strokeColorSelected: strokeColorSelected, strokeColorUnselected: strokeColorUnselected, cornerRadius: cornerRadius, spacing: spacing, padding: padding, borderWidth: borderWidth, minHeight: minHeight, maxWidth: maxWidth))
+    func _filterFeedbackBarStyle(font: Font = .system(.body), foregroundColorSelected: Color = .preferredColor(.tintColor), foregroundColorUnselected: Color = .preferredColor(.tertiaryLabel), fillColorSelected: Color = Color.clear, fillColorUnselected: Color = .preferredColor(.tertiaryFill), strokeColorSelected: Color = .preferredColor(.tintColor), strokeColorUnselected: Color = .preferredColor(.separator), cornerRadius: CGFloat = 10, spacing: CGFloat = 6, padding: CGFloat = 8, borderWidth: CGFloat = 1, minHeight: CGFloat = 38, maxWidth: CGFloat = 0) -> some View {
+        self.environment(\._filterFeedbackBarStyle,
+                         _DefaultFilterFeedbackBarStyle(font: font, foregroundColorSelected: foregroundColorSelected, foregroundColorUnselected: foregroundColorUnselected, fillColorSelected: fillColorSelected, fillColorUnselected: fillColorUnselected, strokeColorSelected: strokeColorSelected, strokeColorUnselected: strokeColorUnselected, cornerRadius: cornerRadius, spacing: spacing, padding: padding, borderWidth: borderWidth, minHeight: minHeight, maxWidth: maxWidth))
     }
 }
