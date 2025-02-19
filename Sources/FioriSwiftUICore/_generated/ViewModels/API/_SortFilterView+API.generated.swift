@@ -2,7 +2,7 @@
 // DO NOT EDIT
 import SwiftUI
 
-public struct SortFilterView<Title: View, Items: View, CancelActionView: View, ResetActionView: View, ApplyActionView: View> {
+public struct _SortFilterView<Title: View, Items: View, CancelActionView: View, ResetActionView: View, ApplyActionView: View> {
     @Environment(\.titleModifier) private var titleModifier
 	@Environment(\.itemsModifier) private var itemsModifier
 	@Environment(\.cancelActionModifier) private var cancelActionModifier
@@ -16,9 +16,9 @@ public struct SortFilterView<Title: View, Items: View, CancelActionView: View, R
 	let _resetAction: ResetActionView
 	let _applyAction: ApplyActionView
 	let _onUpdate: (() -> Void)?
-	let popoverWidth = 393.0
 	@State var size: CGSize = .zero
 	@StateObject var context: SortFilterContext = SortFilterContext()
+	let popoverWidth = 393.0
 
     private var isModelInit: Bool = false
 	private var isCancelActionNil: Bool = false
@@ -44,37 +44,37 @@ public struct SortFilterView<Title: View, Items: View, CancelActionView: View, R
 
     @ViewBuilder var title: some View {
         if isModelInit {
-            _title.modifier(titleModifier.concat(Fiori.SortFilterView.title).concat(Fiori.SortFilterView.titleCumulative))
+            _title.modifier(titleModifier.concat(Fiori._SortFilterView.title).concat(Fiori._SortFilterView.titleCumulative))
         } else {
-            _title.modifier(titleModifier.concat(Fiori.SortFilterView.title))
+            _title.modifier(titleModifier.concat(Fiori._SortFilterView.title))
         }
     }
 	@ViewBuilder var items: some View {
         if isModelInit {
-            _items.modifier(itemsModifier.concat(Fiori.SortFilterView.items).concat(Fiori.SortFilterView.itemsCumulative))
+            _items.modifier(itemsModifier.concat(Fiori._SortFilterView.items).concat(Fiori._SortFilterView.itemsCumulative))
         } else {
-            _items.modifier(itemsModifier.concat(Fiori.SortFilterView.items))
+            _items.modifier(itemsModifier.concat(Fiori._SortFilterView.items))
         }
     }
 	@ViewBuilder var cancelAction: some View {
         if isModelInit {
-            _cancelAction.modifier(cancelActionModifier.concat(Fiori.SortFilterView.cancelAction).concat(Fiori.SortFilterView.cancelActionCumulative))
+            _cancelAction.modifier(cancelActionModifier.concat(Fiori._SortFilterView.cancelAction).concat(Fiori._SortFilterView.cancelActionCumulative))
         } else {
-            _cancelAction.modifier(cancelActionModifier.concat(Fiori.SortFilterView.cancelAction))
+            _cancelAction.modifier(cancelActionModifier.concat(Fiori._SortFilterView.cancelAction))
         }
     }
 	@ViewBuilder var resetAction: some View {
         if isModelInit {
-            _resetAction.modifier(resetActionModifier.concat(Fiori.SortFilterView.resetAction).concat(Fiori.SortFilterView.resetActionCumulative))
+            _resetAction.modifier(resetActionModifier.concat(Fiori._SortFilterView.resetAction).concat(Fiori._SortFilterView.resetActionCumulative))
         } else {
-            _resetAction.modifier(resetActionModifier.concat(Fiori.SortFilterView.resetAction))
+            _resetAction.modifier(resetActionModifier.concat(Fiori._SortFilterView.resetAction))
         }
     }
 	@ViewBuilder var applyAction: some View {
         if isModelInit {
-            _applyAction.modifier(applyActionModifier.concat(Fiori.SortFilterView.applyAction).concat(Fiori.SortFilterView.applyActionCumulative))
+            _applyAction.modifier(applyActionModifier.concat(Fiori._SortFilterView.applyAction).concat(Fiori._SortFilterView.applyActionCumulative))
         } else {
-            _applyAction.modifier(applyActionModifier.concat(Fiori.SortFilterView.applyAction))
+            _applyAction.modifier(applyActionModifier.concat(Fiori._SortFilterView.applyAction))
         }
     }
     
@@ -91,13 +91,13 @@ public struct SortFilterView<Title: View, Items: View, CancelActionView: View, R
     }
 }
 
-extension SortFilterView where Title == Text,
+extension _SortFilterView where Title == Text,
 		Items == _SortFilterCFGItemContainer,
 		CancelActionView == _ConditionalContent<_Action, EmptyView>,
 		ResetActionView == _ConditionalContent<_Action, EmptyView>,
 		ApplyActionView == _ConditionalContent<_Action, EmptyView> {
 
-    public init(model: SortFilterViewModel) {
+    public init(model: _SortFilterViewModel) {
         self.init(title: model.title, items: Binding<[[SortFilterItem]]>(get: { model.items }, set: { model.items = $0 }), cancelAction: model.cancelAction != nil ? _Action(model: model.cancelAction!) : nil, resetAction: model.resetAction != nil ? _Action(model: model.resetAction!) : nil, applyAction: model.applyAction != nil ? _Action(model: model.applyAction!) : nil, onUpdate: model.onUpdate)
     }
 

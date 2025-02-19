@@ -3,7 +3,7 @@ import FioriThemeManager
 import SwiftUI
 
 extension Fiori {
-    enum SignatureCaptureView {
+    enum _SignatureCaptureView {
         struct StartAction: ViewModifier {
             func body(content: Content) -> some View {
                 content
@@ -72,7 +72,7 @@ extension Fiori {
     }
 }
 
-extension SignatureCaptureView: View {
+extension _SignatureCaptureView: View {
     public var body: some View {
         VStack(spacing: 0) {
             HStack {
@@ -196,7 +196,7 @@ extension SignatureCaptureView: View {
     @ViewBuilder var drawingArea: some View {
         if self.isEditing {
             ZStack(alignment: .bottom) {
-                ScribbleView(image: $fullSignatureImage, currentDrawing: $currentDrawing, drawings: $drawings, isSaved: $isSaved, isEditing: $isEditing, onSave: self.onSave(_:), strokeWidth: strokeWidth, strokeColor: strokeColor, drawingViewBackgroundColor: drawingViewBackgroundColor, cropsImage: cropsImage, watermarkText: watermarkText, watermarkTextColor: watermarkTextColor, watermarkTextFont: watermarkTextFont, watermarkTextAlignment: watermarkTextAlignment, addsTimestampInImage: addsTimestampInImage, timestampFormatter: timestampFormatter)
+                _ScribbleView(image: $fullSignatureImage, currentDrawing: $currentDrawing, drawings: $drawings, isSaved: $isSaved, isEditing: $isEditing, onSave: self.onSave(_:), strokeWidth: strokeWidth, strokeColor: strokeColor, drawingViewBackgroundColor: drawingViewBackgroundColor, cropsImage: cropsImage, watermarkText: watermarkText, watermarkTextColor: watermarkTextColor, watermarkTextFont: watermarkTextFont, watermarkTextAlignment: watermarkTextAlignment, addsTimestampInImage: addsTimestampInImage, timestampFormatter: timestampFormatter)
                     .frame(maxWidth: .infinity, minHeight: 256, maxHeight: _drawingViewMaxHeight)
                     .accessibilityElement()
                     .accessibilityLabel(NSLocalizedString("Signature Area", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Signature Area"))
@@ -314,7 +314,7 @@ extension SignatureCaptureView: View {
 }
 
 // View modifiers
-public extension SignatureCaptureView {
+public extension _SignatureCaptureView {
     /**
      A view modifier to set the title font.
 

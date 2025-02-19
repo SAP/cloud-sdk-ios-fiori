@@ -371,7 +371,7 @@ public protocol UserConsentPageModel: TitleComponent, BodyAttributedTextComponen
 // sourcery: virtualPropAppliesTintColorToImage = "var appliesTintColorToImage = true"
 // sourcery: generated_component_composite
 // sourcery: virtualPropIsRequired = "var isRequired = false"
-public protocol SignatureCaptureViewModel: AnyObject {
+public protocol _SignatureCaptureViewModel: AnyObject {
     // sourcery: default.value = nil
     // sourcery: no_view
     var title: String? { get }
@@ -412,6 +412,10 @@ public protocol SignatureCaptureViewModel: AnyObject {
     // sourcery: no_view
     var onDelete: (() -> Void)? { get }
 }
+
+/// Deprecated SignatureCaptureViewModel
+@available(*, unavailable, renamed: "_SignatureCaptureViewModel", message: "Will be removed in the future release. Please create SignatureCaptureView with other initializers instead.")
+public protocol SignatureCaptureViewModel {}
 
 // sourcery: generated_component_composite
 public protocol EmptyStateViewModel: TitleComponent, DescriptionTextComponent, DetailImageComponent {
@@ -526,7 +530,7 @@ public protocol FilterFeedbackBarModel {}
 // sourcery: generated_component_composite
 // sourcery: virtualPropViewSize = "@State var size: CGSize = .zero"
 // sourcery: virtualPropPopoverWidth = "let popoverWidth = 393.0"
-public protocol SortFilterViewModel: AnyObject, TitleComponent {
+public protocol _SortFilterViewModel: AnyObject, TitleComponent {
     // sourcery: bindingProperty
     // sourcery: backingComponent=_SortFilterCFGItemContainer
     var items: [[SortFilterItem]] { get set }
@@ -547,6 +551,9 @@ public protocol SortFilterViewModel: AnyObject, TitleComponent {
     // sourcery: no_view
     var onUpdate: (() -> Void)? { get }
 }
+
+@available(*, unavailable, renamed: "_SortFilterViewModel", message: "Will be removed in the future release. Please use SortFilterView instead.")
+public protocol SortFilterViewModel {}
 
 // sourcery: add_env_props = "_filterFeedbackBarStyle"
 // sourcery: virtualPropActionHelper = "@StateObject var context: SortFilterContext = SortFilterContext()"
