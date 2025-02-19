@@ -64,18 +64,18 @@ struct KeyValueItemExample: View {
             return HStack(spacing: 0) {
                 Text("Long long long long long long long long long Value")
                 Spacer()
-                Link("650-000-0000", destination: URL(string: "tel:650-000-0000")!)
+                Link("650-000-0000", destination: URL(string: "tel:650-000-0000")!).foregroundColor(.blue)
                 Spacer()
-                Link("xyz@gmail.com", destination: URL(string: "mailto:xyz@gmail.com")!)
+                Text("xyz@gmail.com")
                 Spacer()
-                Link("Google", destination: URL(string: "https://www.google.com")!)
+                Text("www.google.com")
             }
         case .vertical:
             return VStack(alignment: .leading) {
                 Text("Long long long long long long long long long Value")
-                Link("650-000-0000", destination: URL(string: "tel:650-000-0000")!)
-                Link("xyz@gmail.com", destination: URL(string: "mailto:xyz@gmail.com")!)
-                Link("Google", destination: URL(string: "https://www.google.com")!)
+                Link("650-000-0000", destination: URL(string: "tel:650-000-0000")!).foregroundColor(.blue)
+                Text("xyz@gmail.com")
+                Text("https://www.google.com")
             }
         }
     }
