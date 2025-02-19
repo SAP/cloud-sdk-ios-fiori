@@ -2,7 +2,7 @@ import Foundation
 import SwiftUI
 
 extension Fiori {
-    enum KeyValueItem {
+    enum _KeyValueItem {
         typealias KeyCumulative = EmptyModifier
         typealias ValueCumulative = EmptyModifier
         
@@ -30,7 +30,7 @@ extension Fiori {
     }
 }
 
-extension KeyValueItem: View {
+extension _KeyValueItem: View {
     public var body: some View {
         CompactVStack(alignment: .leading) {
             if _axis == .horizontal {
