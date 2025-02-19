@@ -4,6 +4,7 @@ import Foundation
 import SwiftUI
 
 /// The `FilterFeedbackBarItem` is a SwiftUI component for items in FilterFeedbackBar.
+/// Typically not used by application developer.
 ///
 /// ## Usage
 ///

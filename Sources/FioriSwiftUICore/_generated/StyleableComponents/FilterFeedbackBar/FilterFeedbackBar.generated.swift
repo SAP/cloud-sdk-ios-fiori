@@ -7,7 +7,7 @@ import SwiftUI
 ///
 /// ## Usage
 ///
-/// `items` is the data for the FilterFeedbackBar..
+/// `items` is the data for the FilterFeedbackBar.
 /// `onUpdate` is the callback function  is triggered when the data is updated.
 ///
 ///  ```swift

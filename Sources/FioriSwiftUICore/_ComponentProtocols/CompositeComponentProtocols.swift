@@ -1179,6 +1179,7 @@ protocol _HeaderChartComponent: _TitleComponent, _SubtitleComponent, _TrendCompo
 }
 
 /// The `FilterFeedbackBarButton` is a SwiftUI component for item's options that are used in FilterFeedbackBar when the item's type is `SortFilterItem.picker`.
+/// Typically not used by application developer.
 ///
 /// ## Usage
 ///
@@ -1203,6 +1204,7 @@ protocol _FilterFeedbackBarButtonComponent: _IconComponent, _TitleComponent {
 }
 
 /// The `FilterFeedbackBarItem` is a SwiftUI component for items in FilterFeedbackBar.
+/// Typically not used by application developer.
 ///
 /// ## Usage
 ///
