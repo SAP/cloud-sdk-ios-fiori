@@ -1179,6 +1179,7 @@ protocol _HeaderChartComponent: _TitleComponent, _SubtitleComponent, _TrendCompo
 }
 
 /// The `FilterFeedbackBarButton` is a SwiftUI component for item's options that are used in FilterFeedbackBar when the item's type is `SortFilterItem.picker`.
+/// Typically not used by application developer.
 ///
 /// ## Usage
 ///
@@ -1203,6 +1204,7 @@ protocol _FilterFeedbackBarButtonComponent: _IconComponent, _TitleComponent {
 }
 
 /// The `FilterFeedbackBarItem` is a SwiftUI component for items in FilterFeedbackBar.
+/// Typically not used by application developer.
 ///
 /// ## Usage
 ///
@@ -1279,6 +1281,32 @@ protocol _DimensionSelectorComponent {
     // sourcery: resultBuilder.defaultValue = "{ _ in EmptyView() }"
     ///  ViewBuilder for customizing the segments
     var segment: (String) -> any View { get }
+}
+
+/// The `FilterFeedbackBar` is a SwiftUI component contains FilterFeedbackBarItem. When tapping FilterFeedbackBarItem, it will show some sort and filter types of controls, List Picker, Switch, Slider, Value Picker, Stepper, Date Picker.
+///
+/// ## Usage
+///
+/// `items` is the data for the FilterFeedbackBar.
+/// `onUpdate` is the callback function  is triggered when the data is updated.
+///
+///  ```swift
+///  @State var items: [[SortFilterItem]] = [
+///    [.switch(item: .init(name: "Favorite", value: true, icon: "heart.fill"), showsOnFilterFeedbackBar: true),
+///     .slider(item: .init(name: "User Stories", value: 10, minimumValue: 0, maximumValue: 100, formatter: "Stories", icon: "number"), showsOnFilterFeedbackBar: true)]
+///  ]
+///
+///  FilterFeedbackBar(items: self.$items) {}
+///  ```
+///
+// sourcery: CompositeComponent
+protocol _FilterFeedbackBarComponent {
+    // sourcery: resultBuilder.name = @ViewBuilder, resultBuilder.backingComponent = FilterFeedbackBarItemContainer
+    /// The data for the FilterFeedbackBar.
+    var items: Binding<[[SortFilterItem]]> { get }
+    
+    /// The callback function is triggered when the data is updated.
+    var onUpdate: (() -> Void)? { get }
 }
 
 /// `SortFilterView` is a view that will be presented when tap the full configuration button in the filter feed back bar.

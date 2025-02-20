@@ -4,6 +4,7 @@ import Foundation
 import SwiftUI
 
 /// The `FilterFeedbackBarButton` is a SwiftUI component for item's options that are used in FilterFeedbackBar when the item's type is `SortFilterItem.picker`.
+/// Typically not used by application developer.
 ///
 /// ## Usage
 ///

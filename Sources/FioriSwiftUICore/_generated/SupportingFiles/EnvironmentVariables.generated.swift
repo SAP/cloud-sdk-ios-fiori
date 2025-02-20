@@ -822,6 +822,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: FilterFeedbackBarStyle
+
+struct FilterFeedbackBarStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any FilterFeedbackBarStyle] = []
+}
+
+extension EnvironmentValues {
+    var filterFeedbackBarStyle: any FilterFeedbackBarStyle {
+        self.filterFeedbackBarStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var filterFeedbackBarStyleStack: [any FilterFeedbackBarStyle] {
+        get {
+            self[FilterFeedbackBarStyleStackKey.self]
+        }
+        set {
+            self[FilterFeedbackBarStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: FilterFeedbackBarItemStyle
 
 struct FilterFeedbackBarItemStyleStackKey: EnvironmentKey {
