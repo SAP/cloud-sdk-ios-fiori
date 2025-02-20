@@ -9,8 +9,10 @@ struct AttachmentGroupExample: View {
         Bundle.main.url(forResource: "HTML File Example", withExtension: "html")!
     ]
     
-    @State private var maxCount: Int = 5
-    
+    @State private var maxCount: Int? = nil
+
+    @State private var state: ControlState = .normal
+
     @State private var showOperations = false
     
     @State var images = [UIImage]()
@@ -31,27 +33,44 @@ struct AttachmentGroupExample: View {
             }
         }
     }
+    
+    @State private var defaultThumbnail: Bool = true
 
     @State private var defaultPreview = true
     
     @State private var error: AttributedString? = nil
+    @State private var appWithoutError: Bool = true
     
     var body: some View {
         ScrollView {
             VStack {
-                Stepper("Max Number of Attachments \(self.maxCount)", value: self.$maxCount)
-                    .padding([.leading, .trailing], 8)
-
-                Toggle(self.opsAsMenu ? "Operation Menu" : "Operation Dialog", isOn: self.$opsAsMenu)
-                    .padding([.leading, .trailing], 8)
-                Toggle(self.defaultPreview ? "SwiftUI QuickLookPreview" : "Custom Preview", isOn: self.$defaultPreview)
-                    .padding([.leading, .trailing], 8)
-
-                if self.opsAsMenu {
-                    self.attachmentWithOpsAsMenu()
-                } else {
-                    self.attachmentWithOpsAsDialog()
+                VStack {
+                    Picker("State", selection: self.$state) {
+                        Text("Normal").tag(ControlState.normal)
+                        Text("Disabled").tag(ControlState.disabled)
+                        Text("Readonly").tag(ControlState.readOnly)
+                    }
+                    .pickerStyle(.segmented)
+                    
+                    Stepper("Max # \(self.maxCount != nil ? String(self.maxCount!) : "nil")",
+                            value: Binding<Int>(get: { self.maxCount ?? self.urls.count + 3 }, set: { self.maxCount = $0 < self.urls.count ? nil : $0 }))
+                                        
+                    Toggle(self.opsAsMenu ? "Operation Menu" : "Operation Dialog", isOn: self.$opsAsMenu)
+                        .padding([.leading, .trailing], 8)
+                    
+                    Toggle(self.defaultPreview ? "SwiftUI QuickLookPreview" : "Custom Preview", isOn: self.$defaultPreview)
+                        .padding([.leading, .trailing], 8)
+                    
+                    Toggle(self.defaultThumbnail ? "Use Default Thumbnail & Info" : "Use My Own Thumbnail & Info", isOn: self.$defaultThumbnail)
+                        .padding([.leading, .trailing], 8)
+                    
+                    Toggle(self.appWithoutError ? "No App Error" : "Somehow, App Caused An Error", isOn: self.$appWithoutError)
+                        .padding([.leading, .trailing], 8)
                 }
+                .padding([.leading, .trailing], 16)
+                
+                self.attachments()
+                    .border(.red)
             }
             .sheet(isPresented: self.$showScanAndUploadView) {
                 ScanUploadView { attachmentName, attachmentContent in
@@ -65,80 +84,111 @@ struct AttachmentGroupExample: View {
                     self.showWriteAndUploadView.toggle()
                 }
             }
-            .padding()
         }
-    }
-    
-    @ViewBuilder
-    func attachmentWithOpsAsMenu() -> some View {
-        if self.defaultPreview {
-            self.attachmentWithDefaultPreview
-        } else {
-            self.attachmentWithCustomPreview
-        }
-    }
-    
-    @ViewBuilder
-    func attachmentWithOpsAsDialog() -> some View {
-        if self.defaultPreview {
-            self.attachmentWithDefaultPreview
-        } else {
-            self.attachmentWithCustomPreview
-        }
-    }
-    
-    var attachmentWithDefaultPreview: some View {
-        AttachmentGroup(title: { Text("Attachments") }, attachments: self.$urls, maxCount: self.maxCount, errorMessage: self.$error) {
-            AttachmentButtonImage()
-                .operationsDialog {
-                    AttachmentMenuItems.photos
-                    AttachmentMenuItems.files
-                    AttachmentMenuItems.camera
-                    Button {
-                        self.showScanAndUploadView.toggle()
-                    } label: {
-                        Label("Scan & Upload", image: "doc.viewfinder")
-                    }
-                    Button {
-                        self.showWriteAndUploadView.toggle()
-                    } label: {
-                        Label("Compose and Upload", image: "square.and.pencil")
-                    }
-                }
-        }
-    }
-    
-    var attachmentWithCustomPreview: some View {
-        AttachmentGroup(title: { Text("Attachments") }, attachments: self.$urls, maxCount: self.maxCount, errorMessage: self.$error) {
-            AttachmentButtonImage()
-                .operationsDialog {
-                    AttachmentMenuItems.photos
-                    AttachmentMenuItems.files
-                    AttachmentMenuItems.camera
-                    Button {
-                        self.showScanAndUploadView.toggle()
-                    } label: {
-                        Label("Scan & Upload", image: "doc.viewfinder")
-                    }
-                    Button {
-                        self.showWriteAndUploadView.toggle()
-                    } label: {
-                        Label("Compose and Upload", image: "square.and.pencil")
-                    }
-                }
-        } onPreview: { url in
-            self.previewURL = url
-        }
-        .fullScreenCover(isPresented: self.shouldShowPreview) {
-            AttachmentPreview(
-                urls: self.$urls,
-                previewURL: Binding<URL>(get: { self.previewURL ?? URL(fileURLWithPath: "/dev/null") }, set: { self.previewURL = $0 })
-            ) { url in
-                print("Delete atttachment \(url)")
-                self.urls.removeAll { $0 == url }
-            } onDismiss: {
-                self.previewURL = nil
+        .onChange(of: self.appWithoutError) { _, newValue in
+            if !newValue {
+                self.error = AttributedString("Mimic an attachemnt processing error.")
+            } else {
+                self.error = nil
             }
+        }
+    }
+    
+    @ViewBuilder
+    func attachments() -> some View {
+        AttachmentGroup(
+            title: { Text("Attachments \(self.urls.count)") },
+            attachments: self.$urls,
+            maxCount: self.maxCount,
+            controlState: self.state,
+            errorMessage: self.$error,
+            operations: {
+                AttachmentButtonImage()
+                    .ifApply(self.opsAsMenu) {
+                        $0.operationsMenu {
+                            AttachmentMenuItems.photos
+                            AttachmentMenuItems.files
+                            AttachmentMenuItems.camera
+                            Button {
+                                self.showScanAndUploadView.toggle()
+                            } label: {
+                                Label("Scan & Upload", image: "doc.viewfinder")
+                            }
+                            Button {
+                                self.showWriteAndUploadView.toggle()
+                            } label: {
+                                Label("Compose and Upload", image: "square.and.pencil")
+                            }
+                        }
+                    }
+                    .ifApply(!self.opsAsMenu) {
+                        $0.operationsDialog {
+                            AttachmentMenuItems.photos
+                            AttachmentMenuItems.files
+                            AttachmentMenuItems.camera
+                            Button {
+                                self.showScanAndUploadView.toggle()
+                            } label: {
+                                Label("Scan & Upload", image: "doc.viewfinder")
+                            }
+                            Button {
+                                self.showWriteAndUploadView.toggle()
+                            } label: {
+                                Label("Compose and Upload", image: "square.and.pencil")
+                            }
+                        }
+                    }
+            },
+            onPreview: self.defaultPreview ? nil : { newValue in
+                print("Custom preview: \(newValue)")
+                self.previewURL = newValue
+            }
+        )
+        .ifApply(!self.defaultPreview) {
+            $0.fullScreenCover(isPresented: self.shouldShowPreview) {
+                if self.state == .normal {
+                    AttachmentPreview(
+                        urls: self.$urls,
+                        previewURL: Binding<URL>(get: { self.previewURL ?? URL(fileURLWithPath: "/dev/null") }, set: { self.previewURL = $0 })
+                    ) { url in
+                        print("Delete atttachment \(url)")
+                        self.urls.removeAll { $0 == url }
+                    } onDismiss: {
+                        self.previewURL = nil
+                    }
+                } else {
+                    AttachmentPreview(
+                        urls: self.$urls,
+                        previewURL: Binding<URL>(get: { self.previewURL ?? URL(fileURLWithPath: "/dev/null") }, set: { self.previewURL = $0 }), onDismiss: {
+                            self.previewURL = nil
+                        }
+                    )
+                }
+            }
+        }
+        .ifApply(!self.defaultThumbnail) {
+            $0.attachmentStyle(MyAttachmentStyle())
+        }
+    }
+}
+
+struct MyAttachmentStyle: AttachmentStyle {
+    public func makeBody(_ configuration: AttachmentConfiguration) -> some View {
+        VStack {
+            RoundedRectangle(cornerRadius: 10)
+                .fill(
+                    Color(
+                        red: .random(in: 0 ... 1),
+                        green: .random(in: 0 ... 1),
+                        blue: .random(in: 0 ... 1),
+                        opacity: .random(in: 0 ... 1)
+                    )
+                )
+                .frame(width: AttachmentConstants.cellWidth, height: AttachmentConstants.cellHeight)
+
+            Text("* < Not  Visible> *")
+                .font(.caption)
+                .foregroundStyle(.red)
         }
     }
 }

@@ -35,7 +35,7 @@ struct AttachmentPreviewExample: View {
     var body: some View {
         ScrollView {
             VStack {
-                AttachmentGroup(title: { Text("Attachments") }, attachments: self.$urls, controlState: .readOnly, maxCount: 20, errorMessage: self.$erorMessage) {
+                AttachmentGroup(title: { Text("Attachments") }, attachments: self.$urls, maxCount: 20, controlState: .readOnly, errorMessage: self.$erorMessage) {
                     AttachmentButtonImage()
                 }
             }

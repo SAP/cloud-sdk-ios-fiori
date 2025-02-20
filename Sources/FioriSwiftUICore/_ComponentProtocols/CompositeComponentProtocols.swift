@@ -1039,7 +1039,11 @@ protocol _StepProgressIndicatorComponent: _TitleComponent, _ActionComponent, _Ca
 /// }
 /// ```
 // sourcery: CompositeComponent
-protocol _AttachmentComponent: _AttachmentThumbnailComponent, _TitleComponent, _SubtitleComponent, _TimestampComponent {}
+protocol _AttachmentComponent: _AttachmentThumbnailComponent, _TitleComponent, _SubtitleComponent, _TimestampComponent {
+    // sourcery: defaultValue = .normal
+    /// The state of attachement group component
+    var controlState: ControlState { get }
+}
 
 /// `AttachmentGroup` provides thubnail and information about an attachment.
 ///
@@ -1053,21 +1057,21 @@ protocol _AttachmentGroupComponent: _TitleComponent {
     /// The collection of local attachment URLs, which are prepared by Apps.
     var attachments: [URL] { get }
     
-    // sourcery: defaultValue = .normal
-    /// The state of attachement group component
-    var controlState: ControlState { get }
-    
     // sourcery: defaultValue = "nil"
     /// The maximium number of attachments
     var maxCount: Int? { get }
 
-    // sourcery: @Binding
-    /// The error message of the form view.
-    var errorMessage: AttributedString? { get }
-
     // sourcery: defaultValue = "AttachmentProcessor()"
     /// App specific attachemnt processing logics for adding or deleting attachments.
     var processor: AttachmentProcessor { get }
+
+    // sourcery: defaultValue = .normal
+    /// The state of attachement group component
+    var controlState: ControlState { get }
+    
+    // sourcery: @Binding
+    /// The error message of the form view.
+    var errorMessage: AttributedString? { get }
 
     // sourcery: defaultValue = "{ EmptyView() }"
     /// For adding App specific operations, such as picking photos and files.

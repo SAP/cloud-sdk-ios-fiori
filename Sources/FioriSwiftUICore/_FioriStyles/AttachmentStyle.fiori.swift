@@ -7,11 +7,21 @@ public struct AttachmentBaseStyle: AttachmentStyle {
     public func makeBody(_ configuration: AttachmentConfiguration) -> some View {
         VStack(alignment: .leading, spacing: 4) {
             AttachmentThumbnail(url: configuration.url)
+                .opacity(configuration.controlState == .disabled ? 0.7 : 1.0)
 
             VStack(alignment: .leading, spacing: 2) {
                 configuration.title
+                    .foregroundStyle(configuration.controlState == .disabled ? Color.preferredColor(.quaternaryLabel) : Color.preferredColor(.primaryLabel))
+                    .font(.fiori(forTextStyle: .caption2, weight: .semibold))
+                    .lineLimit(2)
                 configuration.subtitle
+                    .foregroundStyle(configuration.controlState == .disabled ? Color.preferredColor(.quaternaryLabel) : Color.preferredColor(.secondaryLabel))
+                    .font(.fiori(forTextStyle: .caption2))
+                    .lineLimit(1)
                 configuration.timestamp
+                    .foregroundStyle(configuration.controlState == .disabled ? Color.preferredColor(.quaternaryLabel) : Color.preferredColor(.tertiaryLabel))
+                    .font(.fiori(forTextStyle: .caption2))
+                    .lineLimit(1)
             }
         }
         .frame(width: 109)
@@ -45,9 +55,6 @@ extension AttachmentFioriStyle {
         
         func makeBody(_ configuration: TitleConfiguration) -> some View {
             Title(configuration)
-                .foregroundStyle(Color.preferredColor(.primaryLabel))
-                .font(.fiori(forTextStyle: .caption2, weight: .semibold))
-                .lineLimit(2)
         }
     }
     
@@ -56,9 +63,6 @@ extension AttachmentFioriStyle {
         
         func makeBody(_ configuration: SubtitleConfiguration) -> some View {
             Subtitle(configuration)
-                .foregroundStyle(Color.preferredColor(.secondaryLabel))
-                .font(.fiori(forTextStyle: .caption2))
-                .lineLimit(1)
         }
     }
     
@@ -67,9 +71,6 @@ extension AttachmentFioriStyle {
         
         func makeBody(_ configuration: TimestampConfiguration) -> some View {
             Timestamp(configuration)
-                .foregroundStyle(Color.preferredColor(.tertiaryLabel))
-                .font(.fiori(forTextStyle: .caption2))
-                .lineLimit(1)
         }
     }
 }

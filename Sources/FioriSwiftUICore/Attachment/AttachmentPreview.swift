@@ -20,10 +20,17 @@ public struct AttachmentPreview: UIViewControllerRepresentable {
         let coordinator = context.coordinator
         controller.dataSource = coordinator
         
-        controller.navigationItem.rightBarButtonItems = [
-            UIBarButtonItem(barButtonSystemItem: .done, target: context.coordinator, action: #selector(coordinator.dismiss)),
-            UIBarButtonItem(barButtonSystemItem: .trash, target: context.coordinator, action: #selector(coordinator.delete(sender:)))
-        ]
+        if self.onDelete != nil {
+            controller.navigationItem.rightBarButtonItems = [
+                UIBarButtonItem(barButtonSystemItem: .done, target: context.coordinator, action: #selector(coordinator.dismiss)),
+                UIBarButtonItem(barButtonSystemItem: .trash, target: context.coordinator, action: #selector(coordinator.delete(sender:)))
+            ]
+        } else {
+            controller.navigationItem.rightBarButtonItems = [
+                UIBarButtonItem(barButtonSystemItem: .done, target: context.coordinator, action: #selector(coordinator.dismiss))
+            ]
+        }
+
         context.coordinator.viewController = controller
 
         let navigationController = UINavigationController(rootViewController: controller)
@@ -61,7 +68,7 @@ public struct AttachmentPreview: UIViewControllerRepresentable {
         }
         
         @objc func delete(sender: Any) {
-            let alertController = UIAlertController(title: nil, message: "Are your sure you want to delete this attachment?", preferredStyle: .alert)
+            let alertController = UIAlertController(title: nil, message: "Delete Attachment?", preferredStyle: .alert)
             alertController.addAction(
                 UIAlertAction(title: "Yes", style: .destructive, handler: { _ in
                     print("Delete \(self.parent.previewURL) in progress...")
