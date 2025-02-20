@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		108E43D5292DAB7C006532F3 /* EmptyStateViewExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 108E43D4292DAB7C006532F3 /* EmptyStateViewExample.swift */; };
+		108E43D5292DAB7C006532F3 /* _EmptyStateViewExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 108E43D4292DAB7C006532F3 /* _EmptyStateViewExample.swift */; };
 		1F1A1FFA2C0BDA54007109D8 /* MenuSelectionExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1A1FF92C0BDA54007109D8 /* MenuSelectionExample.swift */; };
 		1F26DCFA261A5CD9006C43B1 /* FioriButtonContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F26DCF9261A5CD9006C43B1 /* FioriButtonContentView.swift */; };
 		1F3C92F125DF12C100A99A07 /* _ListPickerExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3C92F025DF12C100A99A07 /* _ListPickerExample.swift */; };
@@ -247,7 +247,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		108E43D4292DAB7C006532F3 /* EmptyStateViewExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateViewExample.swift; sourceTree = "<group>"; };
+		108E43D4292DAB7C006532F3 /* _EmptyStateViewExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _EmptyStateViewExample.swift; sourceTree = "<group>"; };
 		1F1A1FF92C0BDA54007109D8 /* MenuSelectionExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuSelectionExample.swift; sourceTree = "<group>"; };
 		1F26DCF9261A5CD9006C43B1 /* FioriButtonContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FioriButtonContentView.swift; sourceTree = "<group>"; };
 		1F3C92F025DF12C100A99A07 /* _ListPickerExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _ListPickerExample.swift; sourceTree = "<group>"; };
@@ -465,7 +465,7 @@
 		108E43D3292DAB3E006532F3 /* EmptyStateView */ = {
 			isa = PBXGroup;
 			children = (
-				108E43D4292DAB7C006532F3 /* EmptyStateViewExample.swift */,
+				108E43D4292DAB7C006532F3 /* _EmptyStateViewExample.swift */,
 			);
 			path = EmptyStateView;
 			sourceTree = "<group>";
@@ -1207,7 +1207,7 @@
 				B1A98FF72C12EA1600FC9998 /* BannerMessageCustomInitExample.swift in Sources */,
 				6D3A3DE92CDB5F1E004D4597 /* ObjectCellEnhancementExample.swift in Sources */,
 				9D0B26082B9BA5C0004278A5 /* FormViewExamples.swift in Sources */,
-				108E43D5292DAB7C006532F3 /* EmptyStateViewExample.swift in Sources */,
+				108E43D5292DAB7C006532F3 /* _EmptyStateViewExample.swift in Sources */,
 				B13408922B01FA0700600331 /* NavigationBarExample.swift in Sources */,
 				B84D24F22652F343007F2373 /* ObjectHeaderDeveloperExample.swift in Sources */,
 				64905D092C7693970062AAD4 /* DateTimePickerExample.swift in Sources */,

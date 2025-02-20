@@ -34,9 +34,9 @@ struct CoreContentView: View {
                 }
                 
                 NavigationLink(
-                    destination: EmptyStateViewExample())
+                    destination: _EmptyStateViewExample())
                 {
-                    Text("EmptyStateViewExample")
+                    Text("_EmptyStateViewExample")
                 }
                 
                 NavigationLink(

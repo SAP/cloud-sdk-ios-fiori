@@ -1,21 +1,21 @@
 import FioriSwiftUICore
 import SwiftUI
 
-struct EmptyStateViewExample: View {
+struct _EmptyStateViewExample: View {
     let data: [EmptyViewShowType] = [.title, .titleAndIcon, .titleAndDescription, .titleAndIconAndDescription, .all, .custom]
     
     var body: some View {
         Group {
             List(self.data, id: \.self) { item in
                 NavigationLink(
-                    destination: EmptyContentViewExample(type: item),
+                    destination: _EmptyContentViewExample(type: item),
                     label: {
                         Text(item.rawValue)
                     }
                 )
             }
         }
-        .navigationTitle("EmptyStateViewExample")
+        .navigationTitle("_EmptyStateViewExample")
     }
 }
 
@@ -28,7 +28,7 @@ enum EmptyViewShowType: String {
     case custom
 }
 
-struct EmptyContentViewExample: View {
+struct _EmptyContentViewExample: View {
     struct Ocean: Identifiable {
         let name: String
         let id = UUID()
@@ -59,26 +59,26 @@ struct EmptyContentViewExample: View {
             } else {
                 switch self.type {
                 case .title:
-                    EmptyStateView(title: "This is a placeholder title")
+                    _EmptyStateView(title: "This is a placeholder title")
                 case .titleAndIcon:
-                    EmptyStateView(title: "This is a placeholder title",
-                                   detailImage: Image("rw"))
+                    _EmptyStateView(title: "This is a placeholder title",
+                                    detailImage: Image("rw"))
                 case .titleAndDescription:
-                    EmptyStateView(title: "This is a placeholder title",
-                                   descriptionText: "This is a very long description text, maximum line number is 3.")
+                    _EmptyStateView(title: "This is a placeholder title",
+                                    descriptionText: "This is a very long description text, maximum line number is 3.")
                 case .titleAndIconAndDescription:
-                    EmptyStateView(title: "This is a placeholder title",
-                                   descriptionText: "This is a very long description text, maximum line number is 3.",
-                                   detailImage: Image("rw"))
+                    _EmptyStateView(title: "This is a placeholder title",
+                                    descriptionText: "This is a very long description text, maximum line number is 3.",
+                                    detailImage: Image("rw"))
                 case .all:
-                    EmptyStateView(title: "This is a placeholder title",
-                                   descriptionText: "This is a very long description text, maximum line number is 3.",
-                                   detailImage: Image("rw").resizable(),
-                                   action: _Action(actionText: "Refresh", didSelectAction: {
-                                       self.isEmpty.toggle()
-                                   }))
+                    _EmptyStateView(title: "This is a placeholder title",
+                                    descriptionText: "This is a very long description text, maximum line number is 3.",
+                                    detailImage: Image("rw").resizable(),
+                                    action: _Action(actionText: "Refresh", didSelectAction: {
+                                        self.isEmpty.toggle()
+                                    }))
                 case .custom:
-                    EmptyStateView {
+                    _EmptyStateView {
                         Text("custom title")
                             .font(Font.title)
                             .foregroundColor(Color.red)
@@ -106,8 +106,8 @@ struct EmptyContentViewExample: View {
     }
 }
 
-struct EmptyStateViewExample_Previews: PreviewProvider {
+struct _EmptyStateViewExample_Previews: PreviewProvider {
     static var previews: some View {
-        EmptyStateViewExample()
+        _EmptyStateViewExample()
     }
 }
