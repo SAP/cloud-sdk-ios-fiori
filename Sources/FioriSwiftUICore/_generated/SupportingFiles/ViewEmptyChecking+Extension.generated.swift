@@ -463,11 +463,24 @@ extension KPIProgressItem: _ViewEmptyChecking {
     }
 }
 
+extension Key: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        key.isEmpty
+    }
+}
+
 extension KeyValueFormView: _ViewEmptyChecking {
     public var isEmpty: Bool {
         title.isEmpty &&
             placeholder.isEmpty &&
             mandatoryFieldIndicator.isEmpty
+    }
+}
+
+extension KeyValueItem: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        key.isEmpty &&
+            value.isEmpty
     }
 }
 

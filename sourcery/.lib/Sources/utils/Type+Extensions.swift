@@ -88,6 +88,7 @@ public extension Type {
                                     "_FilterFeedbackBarButtonModel",
                                     "_FilterFeedbackBarItemModel",
                                     "_FilterFeedbackBarModel",
+                                    "_KeyValueItemModel",
                                     "_SortFilterViewModel",
                                     "_SignatureCaptureViewModel"]
         

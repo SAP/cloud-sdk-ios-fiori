@@ -1427,3 +1427,19 @@ protocol _SignatureCaptureViewComponent: _TitleComponent, _MandatoryField, _Star
     /// An optional call back for delete action.
     var onDelete: (() -> Void)? { get }
 }
+
+/// `KeyValueItem` provides a customizable activity item with a key and a value.
+///
+/// ## Usage
+/// ```swift
+/// KeyValueItem(key: {
+///         Text("key 1")
+///     }, value: {
+///         Text("value 1")
+///     }, axis: .vertical)
+/// ```
+// sourcery: CompositeComponent
+protocol _KeyValueItemComponent: _KeyComponent, _ValueComponent, _FormViewComponent {
+    // sourcery: defaultValue = .horizontal
+    var axis: Axis { get }
+}
