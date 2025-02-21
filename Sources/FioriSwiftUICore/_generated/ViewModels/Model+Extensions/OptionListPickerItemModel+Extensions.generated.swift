@@ -3,8 +3,20 @@
 import SwiftUI
 
 public extension OptionListPickerItemModel {
-    var itemLayout: OptionListPickerItemLayoutType {
+    var title: String? {
+        return nil
+    }
+
+	var itemLayout: OptionListPickerItemLayoutType {
         return .fixed
+    }
+
+	var allowsMultipleSelection: Bool {
+        return true
+    }
+
+	var allowsEmptySelection: Bool {
+        return false
     }
 
 	var onTap: ((_ index: Int) -> Void)? {
