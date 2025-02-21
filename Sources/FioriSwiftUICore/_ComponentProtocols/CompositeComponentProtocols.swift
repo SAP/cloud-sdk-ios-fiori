@@ -1063,7 +1063,7 @@ protocol _AttachmentGroupComponent: _TitleComponent {
 
     // sourcery: defaultValue = "AttachmentProcessor()"
     /// App specific attachemnt processing logics for adding or deleting attachments.
-    var processor: AttachmentProcessor { get }
+    var processor: BaseAttachmentProcessor { get }
 
     // sourcery: defaultValue = .normal
     /// The state of attachement group component

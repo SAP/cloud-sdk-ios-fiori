@@ -175,7 +175,7 @@ struct AttachmentGroupExample: View {
 struct MyAttachmentStyle: AttachmentStyle {
     public func makeBody(_ configuration: AttachmentConfiguration) -> some View {
         VStack {
-            RoundedRectangle(cornerRadius: 10)
+            RoundedRectangle(cornerRadius: AttachmentConstants.cellCornerRadius)
                 .fill(
                     Color(
                         red: .random(in: 0 ... 1),
