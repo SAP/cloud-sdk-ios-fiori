@@ -822,6 +822,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: FilterFeedbackBarStyle
+
+struct FilterFeedbackBarStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any FilterFeedbackBarStyle] = []
+}
+
+extension EnvironmentValues {
+    var filterFeedbackBarStyle: any FilterFeedbackBarStyle {
+        self.filterFeedbackBarStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var filterFeedbackBarStyleStack: [any FilterFeedbackBarStyle] {
+        get {
+            self[FilterFeedbackBarStyleStackKey.self]
+        }
+        set {
+            self[FilterFeedbackBarStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: FilterFeedbackBarItemStyle
 
 struct FilterFeedbackBarItemStyleStackKey: EnvironmentKey {
@@ -1284,6 +1305,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: KeyStyle
+
+struct KeyStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any KeyStyle] = []
+}
+
+extension EnvironmentValues {
+    var keyStyle: any KeyStyle {
+        self.keyStyleStack.last ?? .base
+    }
+
+    var keyStyleStack: [any KeyStyle] {
+        get {
+            self[KeyStyleStackKey.self]
+        }
+        set {
+            self[KeyStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: KeyValueFormViewStyle
 
 struct KeyValueFormViewStyleStackKey: EnvironmentKey {
@@ -1301,6 +1343,27 @@ extension EnvironmentValues {
         }
         set {
             self[KeyValueFormViewStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: KeyValueItemStyle
+
+struct KeyValueItemStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any KeyValueItemStyle] = []
+}
+
+extension EnvironmentValues {
+    var keyValueItemStyle: any KeyValueItemStyle {
+        self.keyValueItemStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var keyValueItemStyleStack: [any KeyValueItemStyle] {
+        get {
+            self[KeyValueItemStyleStackKey.self]
+        }
+        set {
+            self[KeyValueItemStyleStackKey.self] = newValue
         }
     }
 }

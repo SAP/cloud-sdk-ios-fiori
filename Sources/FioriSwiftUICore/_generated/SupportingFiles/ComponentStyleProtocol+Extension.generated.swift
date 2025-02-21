@@ -2229,6 +2229,20 @@ public extension FilterFeedbackBarButtonStyle where Self == FilterFeedbackBarBut
     }
 }
 
+// MARK: FilterFeedbackBarStyle
+
+public extension FilterFeedbackBarStyle where Self == FilterFeedbackBarBaseStyle {
+    static var base: FilterFeedbackBarBaseStyle {
+        FilterFeedbackBarBaseStyle()
+    }
+}
+
+public extension FilterFeedbackBarStyle where Self == FilterFeedbackBarFioriStyle {
+    static var fiori: FilterFeedbackBarFioriStyle {
+        FilterFeedbackBarFioriStyle()
+    }
+}
+
 // MARK: FilterFeedbackBarItemStyle
 
 public extension FilterFeedbackBarItemStyle where Self == FilterFeedbackBarItemBaseStyle {
@@ -3398,6 +3412,20 @@ public extension KPIProgressItemStyle where Self == KPIProgressItemOuterCircleSt
     }
 }
 
+// MARK: KeyStyle
+
+public extension KeyStyle where Self == KeyBaseStyle {
+    static var base: KeyBaseStyle {
+        KeyBaseStyle()
+    }
+}
+
+public extension KeyStyle where Self == KeyFioriStyle {
+    static var fiori: KeyFioriStyle {
+        KeyFioriStyle()
+    }
+}
+
 // MARK: KeyValueFormViewStyle
 
 public extension KeyValueFormViewStyle where Self == KeyValueFormViewBaseStyle {
@@ -3514,6 +3542,83 @@ public extension KeyValueFormViewStyle where Self == KeyValueFormViewNoteFormVie
     static func noteFormViewStyle(@ViewBuilder content: @escaping (NoteFormViewConfiguration) -> some View) -> KeyValueFormViewNoteFormViewStyle {
         let style = AnyNoteFormViewStyle(content)
         return KeyValueFormViewNoteFormViewStyle(style: style)
+    }
+}
+
+// MARK: KeyValueItemStyle
+
+public extension KeyValueItemStyle where Self == KeyValueItemBaseStyle {
+    static var base: KeyValueItemBaseStyle {
+        KeyValueItemBaseStyle()
+    }
+}
+
+public extension KeyValueItemStyle where Self == KeyValueItemFioriStyle {
+    static var fiori: KeyValueItemFioriStyle {
+        KeyValueItemFioriStyle()
+    }
+}
+
+public struct KeyValueItemKeyStyle: KeyValueItemStyle {
+    let style: any KeyStyle
+
+    public func makeBody(_ configuration: KeyValueItemConfiguration) -> some View {
+        KeyValueItem(configuration)
+            .keyStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension KeyValueItemStyle where Self == KeyValueItemKeyStyle {
+    static func keyStyle(_ style: some KeyStyle) -> KeyValueItemKeyStyle {
+        KeyValueItemKeyStyle(style: style)
+    }
+
+    static func keyStyle(@ViewBuilder content: @escaping (KeyConfiguration) -> some View) -> KeyValueItemKeyStyle {
+        let style = AnyKeyStyle(content)
+        return KeyValueItemKeyStyle(style: style)
+    }
+}
+
+public struct KeyValueItemValueStyle: KeyValueItemStyle {
+    let style: any ValueStyle
+
+    public func makeBody(_ configuration: KeyValueItemConfiguration) -> some View {
+        KeyValueItem(configuration)
+            .valueStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension KeyValueItemStyle where Self == KeyValueItemValueStyle {
+    static func valueStyle(_ style: some ValueStyle) -> KeyValueItemValueStyle {
+        KeyValueItemValueStyle(style: style)
+    }
+
+    static func valueStyle(@ViewBuilder content: @escaping (ValueConfiguration) -> some View) -> KeyValueItemValueStyle {
+        let style = AnyValueStyle(content)
+        return KeyValueItemValueStyle(style: style)
+    }
+}
+
+public struct KeyValueItemFormViewStyle: KeyValueItemStyle {
+    let style: any FormViewStyle
+
+    public func makeBody(_ configuration: KeyValueItemConfiguration) -> some View {
+        KeyValueItem(configuration)
+            .formViewStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension KeyValueItemStyle where Self == KeyValueItemFormViewStyle {
+    static func formViewStyle(_ style: some FormViewStyle) -> KeyValueItemFormViewStyle {
+        KeyValueItemFormViewStyle(style: style)
+    }
+
+    static func formViewStyle(@ViewBuilder content: @escaping (FormViewConfiguration) -> some View) -> KeyValueItemFormViewStyle {
+        let style = AnyFormViewStyle(content)
+        return KeyValueItemFormViewStyle(style: style)
     }
 }
 

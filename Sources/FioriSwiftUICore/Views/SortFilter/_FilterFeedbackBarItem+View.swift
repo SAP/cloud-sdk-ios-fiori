@@ -20,7 +20,7 @@ extension Fiori {
 
 extension _FilterFeedbackBarItem: View {
     public var body: some View {
-        filterFeedbackBarStyle.makeBody(configuration: FilterFeedbackBarStyleConfiguration(leftIcon: AnyView(_leftIcon), title: AnyView(_title), isSelected: _isSelected, rightIcon: AnyView(_rightIcon))).typeErased
+        _filterFeedbackBarStyle.makeBody(configuration: FilterFeedbackBarStyleConfiguration(leftIcon: AnyView(_leftIcon), title: AnyView(_title), isSelected: _isSelected, rightIcon: AnyView(_rightIcon))).typeErased
     }
 }
 
@@ -1113,18 +1113,18 @@ extension UIEdgeInsets {
         Spacer()
         
         _FilterFeedbackBarItem(leftIcon: Image(systemName: "airplane"), title: "Air Plane", rightIcon: Image(systemName: "chevron.down"), isSelected: true)
-            .filterFeedbackBarStyle(font: .largeTitle, foregroundColorSelected: .red, strokeColorSelected: .red, cornerRadius: 25)
+            ._filterFeedbackBarStyle(font: .largeTitle, foregroundColorSelected: .red, strokeColorSelected: .red, cornerRadius: 25)
         _FilterFeedbackBarItem(leftIcon: Image(systemName: "airplane"), title: "Air Plane", rightIcon: Image(systemName: "chevron.down"), isSelected: false)
-            .filterFeedbackBarStyle(font: .footnote, foregroundColorUnselected: .green, strokeColorSelected: .black)
-            .filterFeedbackBarStyle(cornerRadius: 16)
+            ._filterFeedbackBarStyle(font: .footnote, foregroundColorUnselected: .green, strokeColorSelected: .black)
+            ._filterFeedbackBarStyle(cornerRadius: 16)
         _FilterFeedbackBarItem(title: "Ship", rightIcon: Image(systemName: "chevron.down"), isSelected: true)
-            .filterFeedbackBarStyle(fillColorSelected: .yellow)
+            ._filterFeedbackBarStyle(fillColorSelected: .yellow)
         _FilterFeedbackBarItem(title: "Ship", rightIcon: Image(systemName: "chevron.down"), isSelected: false)
-            .filterFeedbackBarStyle(fillColorUnselected: .gray)
+            ._filterFeedbackBarStyle(fillColorUnselected: .gray)
         _FilterFeedbackBarItem(leftIcon: Image(systemName: "bus"), title: "Blue Bus", isSelected: true)
-            .filterFeedbackBarStyle(cornerRadius: 20)
+            ._filterFeedbackBarStyle(cornerRadius: 20)
         _FilterFeedbackBarItem(leftIcon: Image(systemName: "bus"), title: "Gray Bus", isSelected: false)
-            .filterFeedbackBarStyle(cornerRadius: 20)
+            ._filterFeedbackBarStyle(cornerRadius: 20)
 
         Spacer()
     }

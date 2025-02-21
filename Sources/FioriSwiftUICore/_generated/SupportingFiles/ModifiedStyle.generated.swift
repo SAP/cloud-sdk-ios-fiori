@@ -1100,6 +1100,34 @@ public extension FilterFeedbackBarButtonStyle {
     }
 }
 
+// MARK: FilterFeedbackBarStyle
+
+extension ModifiedStyle: FilterFeedbackBarStyle where Style: FilterFeedbackBarStyle {
+    public func makeBody(_ configuration: FilterFeedbackBarConfiguration) -> some View {
+        FilterFeedbackBar(configuration)
+            .filterFeedbackBarStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct FilterFeedbackBarStyleModifier<Style: FilterFeedbackBarStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.filterFeedbackBarStyle(self.style)
+    }
+}
+
+public extension FilterFeedbackBarStyle {
+    func modifier(_ modifier: some ViewModifier) -> some FilterFeedbackBarStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some FilterFeedbackBarStyle) -> some FilterFeedbackBarStyle {
+        style.modifier(FilterFeedbackBarStyleModifier(style: self))
+    }
+}
+
 // MARK: FilterFeedbackBarItemStyle
 
 extension ModifiedStyle: FilterFeedbackBarItemStyle where Style: FilterFeedbackBarItemStyle {
@@ -1716,6 +1744,34 @@ public extension KPIProgressItemStyle {
     }
 }
 
+// MARK: KeyStyle
+
+extension ModifiedStyle: KeyStyle where Style: KeyStyle {
+    public func makeBody(_ configuration: KeyConfiguration) -> some View {
+        Key(configuration)
+            .keyStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct KeyStyleModifier<Style: KeyStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.keyStyle(self.style)
+    }
+}
+
+public extension KeyStyle {
+    func modifier(_ modifier: some ViewModifier) -> some KeyStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some KeyStyle) -> some KeyStyle {
+        style.modifier(KeyStyleModifier(style: self))
+    }
+}
+
 // MARK: KeyValueFormViewStyle
 
 extension ModifiedStyle: KeyValueFormViewStyle where Style: KeyValueFormViewStyle {
@@ -1741,6 +1797,34 @@ public extension KeyValueFormViewStyle {
 
     func concat(_ style: some KeyValueFormViewStyle) -> some KeyValueFormViewStyle {
         style.modifier(KeyValueFormViewStyleModifier(style: self))
+    }
+}
+
+// MARK: KeyValueItemStyle
+
+extension ModifiedStyle: KeyValueItemStyle where Style: KeyValueItemStyle {
+    public func makeBody(_ configuration: KeyValueItemConfiguration) -> some View {
+        KeyValueItem(configuration)
+            .keyValueItemStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct KeyValueItemStyleModifier<Style: KeyValueItemStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.keyValueItemStyle(self.style)
+    }
+}
+
+public extension KeyValueItemStyle {
+    func modifier(_ modifier: some ViewModifier) -> some KeyValueItemStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some KeyValueItemStyle) -> some KeyValueItemStyle {
+        style.modifier(KeyValueItemStyleModifier(style: self))
     }
 }
 

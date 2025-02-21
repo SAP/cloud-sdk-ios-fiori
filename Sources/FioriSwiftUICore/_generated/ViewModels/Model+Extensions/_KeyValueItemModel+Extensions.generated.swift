@@ -2,8 +2,8 @@
 // DO NOT EDIT
 import SwiftUI
 
-public extension FilterFeedbackBarModel {
-    var onUpdate: (() -> Void)? {
-        return nil
+public extension _KeyValueItemModel {
+    var axis: Axis {
+        return .horizontal
     }
 }

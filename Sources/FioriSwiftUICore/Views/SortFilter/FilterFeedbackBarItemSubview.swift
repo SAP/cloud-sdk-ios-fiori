@@ -931,7 +931,7 @@ struct StepperMenuItem: View {
 }
 
 struct FullCFGMenuItem: View {
-    @Environment(\.sortFilterMenuItemFullConfigurationButton) var fullCFGButton
+    @Environment(\.filterFeedbackBarFullConfigurationItem) var fullCFGButton
     
     @Binding var items: [[SortFilterItem]]
 

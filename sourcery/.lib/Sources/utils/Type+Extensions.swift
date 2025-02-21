@@ -87,6 +87,8 @@ public extension Type {
                                     "_SwitchPickerItemModel",
                                     "_FilterFeedbackBarButtonModel",
                                     "_FilterFeedbackBarItemModel",
+                                    "_FilterFeedbackBarModel",
+                                    "_KeyValueItemModel",
                                     "_SortFilterViewModel",
                                     "_SignatureCaptureViewModel"]
         

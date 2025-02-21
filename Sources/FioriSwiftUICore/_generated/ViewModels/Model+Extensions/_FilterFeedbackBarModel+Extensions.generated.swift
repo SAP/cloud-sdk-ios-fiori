@@ -2,8 +2,8 @@
 // DO NOT EDIT
 import SwiftUI
 
-public extension KeyValueItemModel {
-    var axis: Axis {
-        return .horizontal
+public extension _FilterFeedbackBarModel {
+    var onUpdate: (() -> Void)? {
+        return nil
     }
 }

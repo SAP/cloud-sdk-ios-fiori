@@ -49,7 +49,9 @@ struct SortFilterExample: View {
         VStack {
             if self.isCustomStyle {
                 FilterFeedbackBar(items: self.$items, onUpdate: self.performSortAndFilter)
-                    .filterFeedbackBarStyle(font: .subheadline, foregroundColorSelected: .red, strokeColorSelected: .red, cornerRadius: 25, maxWidth: 200)
+                    .filterFeedbackBarItemCornerRadius(0)
+                    .filterFeedbackBarItemBackgroundSelectedStrokeColor(.red)
+                    .filterFeedbackBarItemSelectedForegroundColor(.red)
                     .filterFeedbackBarButtonStyle { c in
                         FilterFeedbackBarButton(c)
                             .titleStyle(content: { titleC in
@@ -66,12 +68,9 @@ struct SortFilterExample: View {
                                 }
                             }
                     }
-//                    .trailingFullConfigurationMenuItem(icon: "command")
-//                    .leadingFullConfigurationMenuItem(icon: "command")
-//                    .leadingFullConfigurationMenuItem(name: "All")
             } else {
                 FilterFeedbackBar(items: self.$items, onUpdate: self.performSortAndFilter)
-                    .leadingFullConfigurationMenuItem(name: "All Configuration")
+                    .fullConfigurationItem(itemContent: .name("All Configuration"), position: .leading)
             }
             
             List {

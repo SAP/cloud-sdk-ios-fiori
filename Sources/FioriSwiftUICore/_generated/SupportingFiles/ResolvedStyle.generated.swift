@@ -627,6 +627,22 @@ extension FilterFeedbackBarButtonStyle {
     }
 }
 
+// MARK: FilterFeedbackBarStyle
+
+struct ResolvedFilterFeedbackBarStyle<Style: FilterFeedbackBarStyle>: View {
+    let style: Style
+    let configuration: FilterFeedbackBarConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension FilterFeedbackBarStyle {
+    func resolve(configuration: FilterFeedbackBarConfiguration) -> some View {
+        ResolvedFilterFeedbackBarStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: FilterFeedbackBarItemStyle
 
 struct ResolvedFilterFeedbackBarItemStyle<Style: FilterFeedbackBarItemStyle>: View {
@@ -979,6 +995,22 @@ extension KPIProgressItemStyle {
     }
 }
 
+// MARK: KeyStyle
+
+struct ResolvedKeyStyle<Style: KeyStyle>: View {
+    let style: Style
+    let configuration: KeyConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension KeyStyle {
+    func resolve(configuration: KeyConfiguration) -> some View {
+        ResolvedKeyStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: KeyValueFormViewStyle
 
 struct ResolvedKeyValueFormViewStyle<Style: KeyValueFormViewStyle>: View {
@@ -992,6 +1024,22 @@ struct ResolvedKeyValueFormViewStyle<Style: KeyValueFormViewStyle>: View {
 extension KeyValueFormViewStyle {
     func resolve(configuration: KeyValueFormViewConfiguration) -> some View {
         ResolvedKeyValueFormViewStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: KeyValueItemStyle
+
+struct ResolvedKeyValueItemStyle<Style: KeyValueItemStyle>: View {
+    let style: Style
+    let configuration: KeyValueItemConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension KeyValueItemStyle {
+    func resolve(configuration: KeyValueItemConfiguration) -> some View {
+        ResolvedKeyValueItemStyle(style: self, configuration: configuration)
     }
 }
 
