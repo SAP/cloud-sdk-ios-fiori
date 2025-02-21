@@ -298,22 +298,41 @@ struct PickerMenuItem: View {
                     })
                     .buttonStyle(ApplyButtonStyle())
                 } components: {
-                    OptionListPickerItem(value: self.$item.workingValue, valueOptions: self.item.valueOptions, hint: nil, itemLayout: self.item.itemLayout, barItemFrame: self.barItemFrame) { index in
-                        self.item.onTap(option: self.item.valueOptions[index])
-                    } updateSearchListPickerHeight: { height in
-                        let isNotIphone = UIDevice.current.userInterfaceIdiom != .phone
-                        var calculateHeight = height
-                        calculateHeight += isNotIphone ? 13 : 16
-                        calculateHeight += isNotIphone ? 50 : 56
-                        if !isNotIphone {
-                            calculateHeight += UIEdgeInsets.getSafeAreaInsets().bottom
+                    ScrollView(.vertical) {
+                        FilterFormView(title: {
+                            if let title = self.item.title, !title.isEmpty {
+                                Text(title)
+                                    .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
+                                    .foregroundStyle(Color.preferredColor(.primaryLabel))
+                            } else {
+                                EmptyView()
+                            }
+                        }, mandatoryFieldIndicator: {
+                            EmptyView()
+                        }, isRequired: false, options: self.item.valueOptions.map { AttributedString($0) }, isEnabled: true, allowsMultipleSelection: self.item.allowsMultipleSelection, allowsEmptySelection: self.item.allowsEmptySelection, value: self.$item.workingValue, buttonSize: self.item.itemLayout == .flexible ? .flexible : .fixed, isSingleLine: false) { _ in
                         }
-                        #if !os(visionOS)
-                            calculateHeight += UIDevice.current.userInterfaceIdiom != .phone ? 55 : 0
-                        #else
-                            calculateHeight += 95
-                        #endif
-                        self.detentHeight = calculateHeight
+                        .filterFormOptionsLineSpacing(12)
+                        .background(
+                            GeometryReader { geometry in
+                                Color.clear
+                                    .onAppear {
+                                        self.detentHeight = self.testHeight(scrollViewContentHeight: geometry.size.height)
+//                                        let isNotIphone = UIDevice.current.userInterfaceIdiom != .phone
+//                                        var calculateHeight = self.calculateScrollViewMaxHeight(scrollViewContentHeight: geometry.size.height)
+//                                        calculateHeight += isNotIphone ? 13 : 16
+//                                        calculateHeight += isNotIphone ? 50 : 56
+//                                        if !isNotIphone {
+//                                            calculateHeight += UIEdgeInsets.getSafeAreaInsets().bottom
+//                                        }
+//                                        #if !os(visionOS)
+//                                            calculateHeight += UIDevice.current.userInterfaceIdiom != .phone ? 55 : 0
+//                                        #else
+//                                            calculateHeight += 95
+//                                        #endif
+//                                        self.detentHeight = calculateHeight
+                                    }
+                            }
+                        )
                     }
                     .padding([.leading, .trailing], 16)
                 }
@@ -345,7 +364,7 @@ struct PickerMenuItem: View {
                 ForEach(self.item.valueOptions.indices, id: \.self) { idx in
                     if self.item.isOptionSelected(index: idx) {
                         Button {
-                            self.item.onTap(option: self.item.valueOptions[idx])
+                            self.item.optionOnTap(idx)
                             self.item.apply()
                             self.onUpdate()
                         } label: {
@@ -546,6 +565,46 @@ struct PickerMenuItem: View {
         } else {
             return self.item.workingValue.isEmpty
         }
+    }
+    
+    private func testHeight(scrollViewContentHeight: CGFloat) -> CGFloat {
+        let screenHeight = Screen.bounds.size.height
+        let safeAreaInset = UIEdgeInsets.getSafeAreaInsets()
+        var calculateDetentHeight = 0.0
+        if UIDevice.current.userInterfaceIdiom != .phone {
+            if self.barItemFrame.arrowDirection() == .top {
+                calculateDetentHeight = screenHeight - self.barItemFrame.maxY - safeAreaInset.bottom - 60
+            } else if self.barItemFrame.arrowDirection() == .bottom {
+                calculateDetentHeight = screenHeight - (screenHeight - self.barItemFrame.minY) + safeAreaInset.top
+            }
+        } else {
+            calculateDetentHeight = screenHeight - safeAreaInset.top - 30
+        }
+        return calculateDetentHeight
+    }
+    
+    private func calculateScrollViewMaxHeight(scrollViewContentHeight: CGFloat) -> CGFloat {
+        let screenHeight = Screen.bounds.size.height
+        let safeAreaInset = UIEdgeInsets.getSafeAreaInsets()
+        var maxScrollViewHeight = screenHeight - self.additionalHeight()
+        if UIDevice.current.userInterfaceIdiom != .phone {
+            if self.barItemFrame.arrowDirection() == .top {
+                maxScrollViewHeight -= (self.barItemFrame.maxY + 80)
+            } else if self.barItemFrame.arrowDirection() == .bottom {
+                maxScrollViewHeight -= (screenHeight - self.barItemFrame.minY + 80) + safeAreaInset.bottom + 13
+            }
+        } else {
+            maxScrollViewHeight -= (safeAreaInset.top + 30)
+        }
+        return min(scrollViewContentHeight, maxScrollViewHeight)
+    }
+    
+    private func additionalHeight() -> CGFloat {
+        let isNotIphone = UIDevice.current.userInterfaceIdiom != .phone
+        var height = 0.0
+        height += UIEdgeInsets.getSafeAreaInsets().bottom + (isNotIphone ? 13 : 16)
+        height += isNotIphone ? 50 : 56
+        return height
     }
 }
 
