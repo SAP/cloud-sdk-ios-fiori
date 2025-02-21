@@ -58,7 +58,8 @@ extension OptionListPickerItem: View {
                 EmptyView()
             }, isRequired: false, options: _valueOptions.map { AttributedString($0) }, isEnabled: true, allowsMultipleSelection: _allowsMultipleSelection, allowsEmptySelection: _allowsEmptySelection, value: _value, buttonSize: _itemLayout == .flexible ? .flexible : .fixed, isSingleLine: false) { _ in
             }
-            .filterFormOptionsLineSpacing(12)
+            .padding([.leading, .trailing], 16)
+            .filterFormOptionsLineSpacing(10)
             .background(
                 GeometryReader { geometry in
                     Color.clear

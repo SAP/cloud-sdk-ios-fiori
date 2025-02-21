@@ -311,30 +311,23 @@ struct PickerMenuItem: View {
                             EmptyView()
                         }, isRequired: false, options: self.item.valueOptions.map { AttributedString($0) }, isEnabled: true, allowsMultipleSelection: self.item.allowsMultipleSelection, allowsEmptySelection: self.item.allowsEmptySelection, value: self.$item.workingValue, buttonSize: self.item.itemLayout == .flexible ? .flexible : .fixed, isSingleLine: false) { _ in
                         }
-                        .filterFormOptionsLineSpacing(12)
+                        .filterFormOptionsLineSpacing(10)
                         .background(
                             GeometryReader { geometry in
                                 Color.clear
                                     .onAppear {
-                                        self.detentHeight = self.testHeight(scrollViewContentHeight: geometry.size.height)
-//                                        let isNotIphone = UIDevice.current.userInterfaceIdiom != .phone
-//                                        var calculateHeight = self.calculateScrollViewMaxHeight(scrollViewContentHeight: geometry.size.height)
-//                                        calculateHeight += isNotIphone ? 13 : 16
-//                                        calculateHeight += isNotIphone ? 50 : 56
-//                                        if !isNotIphone {
-//                                            calculateHeight += UIEdgeInsets.getSafeAreaInsets().bottom
-//                                        }
-//                                        #if !os(visionOS)
-//                                            calculateHeight += UIDevice.current.userInterfaceIdiom != .phone ? 55 : 0
-//                                        #else
-//                                            calculateHeight += 95
-//                                        #endif
-//                                        self.detentHeight = calculateHeight
+                                        self.detentHeight = self.calcluateFilterFormViewPopoverHeight(scrollViewContentHeight: geometry.size.height)
+                                    }
+                                    .setOnChange(of: geometry.frame(in: .global), action1: { _ in
+                                        self.detentHeight = self.calcluateFilterFormViewPopoverHeight(scrollViewContentHeight: geometry.size.height)
+                                    }) { _, _ in
+                                        self.detentHeight = self.calcluateFilterFormViewPopoverHeight(scrollViewContentHeight: geometry.size.height)
                                     }
                             }
                         )
+                        .padding([.leading, .trailing], 16)
+                        .padding(.bottom, 10)
                     }
-                    .padding([.leading, .trailing], 16)
                 }
                 .frame(height: self.detentHeight)
                 .ifApply(UIDevice.current.userInterfaceIdiom != .phone, content: { v in
@@ -567,44 +560,24 @@ struct PickerMenuItem: View {
         }
     }
     
-    private func testHeight(scrollViewContentHeight: CGFloat) -> CGFloat {
+    private func calcluateFilterFormViewPopoverHeight(scrollViewContentHeight: CGFloat) -> CGFloat {
         let screenHeight = Screen.bounds.size.height
         let safeAreaInset = UIEdgeInsets.getSafeAreaInsets()
-        var calculateDetentHeight = 0.0
+        var maxPopoverViewHeight = 0.0
+        var calaulatePopoverViewHeight = scrollViewContentHeight
         if UIDevice.current.userInterfaceIdiom != .phone {
             if self.barItemFrame.arrowDirection() == .top {
-                calculateDetentHeight = screenHeight - self.barItemFrame.maxY - safeAreaInset.bottom - 60
+                maxPopoverViewHeight = screenHeight - self.barItemFrame.maxY - safeAreaInset.bottom - 30
             } else if self.barItemFrame.arrowDirection() == .bottom {
-                calculateDetentHeight = screenHeight - (screenHeight - self.barItemFrame.minY) + safeAreaInset.top
+                maxPopoverViewHeight = screenHeight - (screenHeight - self.barItemFrame.minY) + safeAreaInset.top
             }
+            calaulatePopoverViewHeight += 50 + 70
         } else {
-            calculateDetentHeight = screenHeight - safeAreaInset.top - 30
+            maxPopoverViewHeight = screenHeight - safeAreaInset.top - 30
+            calaulatePopoverViewHeight += 56 + 20 + safeAreaInset.bottom
         }
-        return calculateDetentHeight
-    }
-    
-    private func calculateScrollViewMaxHeight(scrollViewContentHeight: CGFloat) -> CGFloat {
-        let screenHeight = Screen.bounds.size.height
-        let safeAreaInset = UIEdgeInsets.getSafeAreaInsets()
-        var maxScrollViewHeight = screenHeight - self.additionalHeight()
-        if UIDevice.current.userInterfaceIdiom != .phone {
-            if self.barItemFrame.arrowDirection() == .top {
-                maxScrollViewHeight -= (self.barItemFrame.maxY + 80)
-            } else if self.barItemFrame.arrowDirection() == .bottom {
-                maxScrollViewHeight -= (screenHeight - self.barItemFrame.minY + 80) + safeAreaInset.bottom + 13
-            }
-        } else {
-            maxScrollViewHeight -= (safeAreaInset.top + 30)
-        }
-        return min(scrollViewContentHeight, maxScrollViewHeight)
-    }
-    
-    private func additionalHeight() -> CGFloat {
-        let isNotIphone = UIDevice.current.userInterfaceIdiom != .phone
-        var height = 0.0
-        height += UIEdgeInsets.getSafeAreaInsets().bottom + (isNotIphone ? 13 : 16)
-        height += isNotIphone ? 50 : 56
-        return height
+        
+        return min(maxPopoverViewHeight, calaulatePopoverViewHeight)
     }
 }
 

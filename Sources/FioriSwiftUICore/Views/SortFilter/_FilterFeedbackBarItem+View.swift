@@ -373,7 +373,6 @@ struct _PickerMenuItem: View {
                         #endif
                         self.detentHeight = calculateHeight
                     }
-                    .padding([.leading, .trailing], 16)
                 }
                 .frame(height: self.detentHeight)
                 .ifApply(UIDevice.current.userInterfaceIdiom != .phone, content: { v in
