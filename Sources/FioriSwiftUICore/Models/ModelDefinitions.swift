@@ -78,7 +78,10 @@ public protocol SectionHeaderModel {}
 
 // sourcery: generated_component
 // sourcery: virtualPropAction = "var action: (() -> Void)? = nil"
-public protocol KPIItemModel: KpiComponent, SubtitleComponent, KPIHeaderItemModel {}
+public protocol _KPIItemModel: KpiComponent, SubtitleComponent, KPIHeaderItemModel {}
+
+@available(*, unavailable, renamed: "_KPIItemModel", message: "Will be removed in the future release. Please create KPIItem with other initializers instead.")
+public protocol KPIItemModel {}
 
 // sourcery: virtualPropIsPressed = "@State var isPressed: Bool = false"
 // sourcery: virtualPropAction = "var action: (() -> Void)? = nil"

@@ -1,8 +1,8 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
-//TODO: Copy commented code to new file: `FioriSwiftUICore/Views/KPIItem+View.swift`
+//TODO: Copy commented code to new file: `FioriSwiftUICore/Views/_KPIItem+View.swift`
 //TODO: Implement default Fiori style definitions as `ViewModifier`
-//TODO: Implement KPIItem `View` body
+//TODO: Implement _KPIItem `View` body
 //TODO: Implement LibraryContentProvider
 
 /// - Important: to make `@Environment` properties (e.g. `horizontalSizeClass`), internally accessible
@@ -16,7 +16,7 @@ import SwiftUI
 // FIXME: - Implement Fiori style definitions
 
 extension Fiori {
-    enum KPIItem {
+    enum _KPIItem {
         typealias Kpi = EmptyModifier
         typealias KpiCumulative = EmptyModifier
 		typealias Subtitle = EmptyModifier
@@ -41,21 +41,21 @@ extension Fiori {
     }
 }
 
-// FIXME: - Implement KPIItem View body
+// FIXME: - Implement _KPIItem View body
 
-extension KPIItem: View {
+extension _KPIItem: View {
     public var body: some View {
         <# View body #>
     }
 }
 
-// FIXME: - Implement KPIItem specific LibraryContentProvider
+// FIXME: - Implement _KPIItem specific LibraryContentProvider
 
 @available(iOS 14.0, macOS 11.0, *)
-struct KPIItemLibraryContent: LibraryContentProvider {
+struct _KPIItemLibraryContent: LibraryContentProvider {
     @LibraryContentBuilder
     var views: [LibraryItem] {
-        LibraryItem(KPIItem(model: LibraryPreviewData.Person.laurelosborn),
+        LibraryItem(_KPIItem(model: LibraryPreviewData.Person.laurelosborn),
                     category: .control)
     }
 }

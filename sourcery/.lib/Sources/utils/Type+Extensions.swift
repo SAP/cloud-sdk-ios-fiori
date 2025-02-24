@@ -90,7 +90,8 @@ public extension Type {
                                     "_FilterFeedbackBarModel",
                                     "_KeyValueItemModel",
                                     "_SortFilterViewModel",
-                                    "_SignatureCaptureViewModel"]
+                                    "_SignatureCaptureViewModel",
+                                    "_KPIItemModel"]
         
         if deprecatedComponents.contains(name) {
             return name.replacingOccurrences(of: "Model", with: "")

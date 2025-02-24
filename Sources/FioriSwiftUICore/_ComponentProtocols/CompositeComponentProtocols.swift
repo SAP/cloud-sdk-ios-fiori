@@ -1443,3 +1443,39 @@ protocol _KeyValueItemComponent: _KeyComponent, _ValueComponent, _FormViewCompon
     // sourcery: defaultValue = .horizontal
     var axis: Axis { get }
 }
+
+/// `KPIItem` enables a developer to present "KPI" information in a formatted manner consistent with the Fiori Design Language.
+///
+/// ## Usage
+/// ```swift
+/// struct KPISubItemModelImplementation: KPISubItemModel {
+///     let id: UUID
+///     let kPISubItemValue: TextOrIcon
+///     let kPISubItemType: KPISubitemType
+///
+///     init(id: UUID = UUID(), kPISubItemValue: TextOrIcon, kPISubItemType: KPISubitemType) {
+///         self.id = id
+///         self.kPISubItemValue = kPISubItemValue
+///         self.kPISubItemType = kPISubItemType
+///     }
+/// }
+///
+/// private var item: [KPISubItemModelImplementation] = [
+///     KPISubItemModelImplementation(kPISubItemValue: .icon(Image(systemName: "triangleshape.fill")), kPISubItemType: KPISubitemType.icon),
+///     KPISubItemModelImplementation(kPISubItemValue: .text("123"), kPISubItemType: KPISubitemType.metric),
+///     KPISubItemModelImplementation(kPISubItemValue: .text("USD"), kPISubItemType: KPISubitemType.unit)
+/// ]
+///
+/// KPIItem(kpiCaption: "abc", items: item, proposedViewSize: .small, alignment: .leading)
+/// ```
+// sourcery: CompositeComponent
+protocol _KPIItemComponent: _KpiCaptionComponent {
+    /// The data for KPI item
+    var items: [any KPISubItemModel] { get }
+    
+    // sourcery: defaultValue = .small
+    var proposedViewSize: KPIItemSize { get }
+    
+    // sourcery: defaultValue = .center
+    var alignment: Alignment { get }
+}

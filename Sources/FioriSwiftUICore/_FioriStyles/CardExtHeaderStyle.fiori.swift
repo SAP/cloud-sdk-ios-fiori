@@ -172,7 +172,7 @@ extension CardExtHeaderFioriStyle {
             Tag("Tag")
         }
     }, kpi: {
-        KPIItem(data: KPIItemData.components([.icon(Image(systemName: "arrowtriangle.up.fill")), .unit("$"), .metric("26.9")]), subtitle: "test")
+        _KPIItem(data: KPIItemData.components([.icon(Image(systemName: "arrowtriangle.up.fill")), .unit("$"), .metric("26.9")]), subtitle: "test")
     }, kpiCaption: {
         Text("test")
     })
@@ -225,7 +225,7 @@ extension CardExtHeaderFioriStyle {
             Text("256 reviews")
         }
     }, kpi: {
-        KPIItem(data: KPIItemData.components([.icon(Image(systemName: "arrowtriangle.up.fill")), .unit("$"), .metric("26.9")]))
+        _KPIItem(data: KPIItemData.components([.icon(Image(systemName: "arrowtriangle.up.fill")), .unit("$"), .metric("26.9")]))
     }, kpiCaption: {
         Text("Revenue")
     })

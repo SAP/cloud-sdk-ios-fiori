@@ -3293,6 +3293,41 @@ public extension KPIContentStyle where Self == KPIContentFioriStyle {
     }
 }
 
+// MARK: KPIItemStyle
+
+public extension KPIItemStyle where Self == KPIItemBaseStyle {
+    static var base: KPIItemBaseStyle {
+        KPIItemBaseStyle()
+    }
+}
+
+public extension KPIItemStyle where Self == KPIItemFioriStyle {
+    static var fiori: KPIItemFioriStyle {
+        KPIItemFioriStyle()
+    }
+}
+
+public struct KPIItemKpiCaptionStyle: KPIItemStyle {
+    let style: any KpiCaptionStyle
+
+    public func makeBody(_ configuration: KPIItemConfiguration) -> some View {
+        KPIItem(configuration)
+            .kpiCaptionStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension KPIItemStyle where Self == KPIItemKpiCaptionStyle {
+    static func kpiCaptionStyle(_ style: some KpiCaptionStyle) -> KPIItemKpiCaptionStyle {
+        KPIItemKpiCaptionStyle(style: style)
+    }
+
+    static func kpiCaptionStyle(@ViewBuilder content: @escaping (KpiCaptionConfiguration) -> some View) -> KPIItemKpiCaptionStyle {
+        let style = AnyKpiCaptionStyle(content)
+        return KPIItemKpiCaptionStyle(style: style)
+    }
+}
+
 // MARK: KPIProgressItemStyle
 
 public extension KPIProgressItemStyle where Self == KPIProgressItemBaseStyle {
@@ -3409,6 +3444,20 @@ public extension KPIProgressItemStyle where Self == KPIProgressItemOuterCircleSt
     static func outerCircleStyle(@ViewBuilder content: @escaping (OuterCircleConfiguration) -> some View) -> KPIProgressItemOuterCircleStyle {
         let style = AnyOuterCircleStyle(content)
         return KPIProgressItemOuterCircleStyle(style: style)
+    }
+}
+
+// MARK: KPISubItemStyle
+
+public extension KPISubItemStyle where Self == KPISubItemBaseStyle {
+    static var base: KPISubItemBaseStyle {
+        KPISubItemBaseStyle()
+    }
+}
+
+public extension KPISubItemStyle where Self == KPISubItemFioriStyle {
+    static var fiori: KPISubItemFioriStyle {
+        KPISubItemFioriStyle()
     }
 }
 

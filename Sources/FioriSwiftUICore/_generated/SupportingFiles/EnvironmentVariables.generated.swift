@@ -1284,6 +1284,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: KPIItemStyle
+
+struct KPIItemStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any KPIItemStyle] = []
+}
+
+extension EnvironmentValues {
+    var kPIItemStyle: any KPIItemStyle {
+        self.kPIItemStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var kPIItemStyleStack: [any KPIItemStyle] {
+        get {
+            self[KPIItemStyleStackKey.self]
+        }
+        set {
+            self[KPIItemStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: KPIProgressItemStyle
 
 struct KPIProgressItemStyleStackKey: EnvironmentKey {
@@ -1301,6 +1322,27 @@ extension EnvironmentValues {
         }
         set {
             self[KPIProgressItemStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: KPISubItemStyle
+
+struct KPISubItemStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any KPISubItemStyle] = []
+}
+
+extension EnvironmentValues {
+    var kPISubItemStyle: any KPISubItemStyle {
+        self.kPISubItemStyleStack.last ?? .base
+    }
+
+    var kPISubItemStyleStack: [any KPISubItemStyle] {
+        get {
+            self[KPISubItemStyleStackKey.self]
+        }
+        set {
+            self[KPISubItemStyleStackKey.self] = newValue
         }
     }
 }
