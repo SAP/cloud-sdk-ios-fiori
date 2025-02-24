@@ -14,12 +14,12 @@ struct KPISubItemModelImplementation: KPISubItemModel {
 }
 
 public struct KPIItemExample: View {
-    @State private var item0: [KPISubItemModelImplementation] = [
+    private var item0: [KPISubItemModelImplementation] = [
         KPISubItemModelImplementation(kPISubItemValue: .icon(Image(systemName: "triangleshape.fill")), kPISubItemType: KPISubitemType.icon),
         KPISubItemModelImplementation(kPISubItemValue: .text("123"), kPISubItemType: KPISubitemType.metric),
         KPISubItemModelImplementation(kPISubItemValue: .text("USD"), kPISubItemType: KPISubitemType.unit)
     ]
-    @State private var item1: [KPISubItemModelImplementation] = [
+    private var item1: [KPISubItemModelImplementation] = [
         KPISubItemModelImplementation(kPISubItemValue: .icon(Image(systemName: "triangleshape.fill")), kPISubItemType: KPISubitemType.icon),
         KPISubItemModelImplementation(kPISubItemValue: .icon(Image(systemName: "dollarsign")), kPISubItemType: KPISubitemType.icon),
         KPISubItemModelImplementation(kPISubItemValue: .text("797"), kPISubItemType: KPISubitemType.metric),
@@ -28,33 +28,32 @@ public struct KPIItemExample: View {
     public var body: some View {
         VStack {
             HStack {
-//                KPIItem(kpiCaption: "abc", items: .constant(self.item0.map { $0 as any KPISubItemModel }), proposedViewSize: .small)
-                KPIItem(kpiCaption: "abc", items: self.item0.map { $0 as any KPISubItemModel }, proposedViewSize: .small)
+                KPIItem(kpiCaption: "abc", items: self.item0, proposedViewSize: .small)
             }
             HStack {
-                KPIItem(kpiCaption: "abc", items: self.item0.map { $0 as any KPISubItemModel }, proposedViewSize: .small)
+                KPIItem(kpiCaption: "abc", items: self.item0, proposedViewSize: .small)
                     .disabled(true)
             }
             HStack {
-                KPIItem(kpiCaption: "looooooooooooooooooooooooooooooooong caption", items: self.item0.map { $0 as any KPISubItemModel }, proposedViewSize: .medium, alignment: .leading)
+                KPIItem(kpiCaption: "looooooooooooooooooooooooooooooooong caption", items: self.item0, proposedViewSize: .medium, alignment: .leading)
                 Spacer()
             }
             HStack {
-                KPIItem(kpiCaption: "abc", items: self.item0.map { $0 as any KPISubItemModel }, proposedViewSize: .medium, alignment: .leading)
+                KPIItem(kpiCaption: "abc", items: self.item0, proposedViewSize: .medium, alignment: .leading)
                     .disabled(true)
                 Spacer()
             }
             HStack {
                 Spacer()
-                KPIItem(kpiCaption: "abc", items: self.item0.map { $0 as any KPISubItemModel }, proposedViewSize: .large, alignment: .trailing)
+                KPIItem(kpiCaption: "abc", items: self.item0, proposedViewSize: .large, alignment: .trailing)
             }
             HStack {
                 Spacer()
-                KPIItem(kpiCaption: "abc", items: self.item0.map { $0 as any KPISubItemModel }, proposedViewSize: .large, alignment: .trailing)
+                KPIItem(kpiCaption: "abc", items: self.item0, proposedViewSize: .large, alignment: .trailing)
                     .disabled(true)
             }
             HStack {
-                KPIItem(kpiCaption: "leading alignment", items: self.item1.map { $0 as any KPISubItemModel }, proposedViewSize: .medium, alignment: .leading)
+                KPIItem(kpiCaption: "leading alignment", items: self.item1, proposedViewSize: .medium, alignment: .leading)
                     .kPISubItemStyle(content: { config in
                         if config.kPISubItemType == KPISubitemType.icon {
                             KPISubItem(config)

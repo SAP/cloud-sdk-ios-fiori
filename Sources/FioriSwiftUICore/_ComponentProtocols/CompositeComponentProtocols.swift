@@ -1460,13 +1460,13 @@ protocol _KeyValueItemComponent: _KeyComponent, _ValueComponent, _FormViewCompon
 ///     }
 /// }
 ///
-/// @State private var item: [KPISubItemModelImplementation] = [
+/// private var item: [KPISubItemModelImplementation] = [
 ///     KPISubItemModelImplementation(kPISubItemValue: .icon(Image(systemName: "triangleshape.fill")), kPISubItemType: KPISubitemType.icon),
 ///     KPISubItemModelImplementation(kPISubItemValue: .text("123"), kPISubItemType: KPISubitemType.metric),
 ///     KPISubItemModelImplementation(kPISubItemValue: .text("USD"), kPISubItemType: KPISubitemType.unit)
 /// ]
 ///
-/// KPIItem(kpiCaption: "abc", items: self.item.map { $0 as any KPIViewSubItemModel }, proposedViewSize: .small, alignment: .leading)
+/// KPIItem(kpiCaption: "abc", items: item, proposedViewSize: .small, alignment: .leading)
 /// ```
 // sourcery: CompositeComponent
 protocol _KPIItemComponent: _KpiCaptionComponent {
