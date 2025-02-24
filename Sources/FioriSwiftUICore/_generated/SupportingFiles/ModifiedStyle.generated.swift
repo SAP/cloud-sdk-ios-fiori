@@ -652,6 +652,34 @@ public extension CheckoutIndicatorStyle {
     }
 }
 
+// MARK: ClearActionStyle
+
+extension ModifiedStyle: ClearActionStyle where Style: ClearActionStyle {
+    public func makeBody(_ configuration: ClearActionConfiguration) -> some View {
+        ClearAction(configuration)
+            .clearActionStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct ClearActionStyleModifier<Style: ClearActionStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.clearActionStyle(self.style)
+    }
+}
+
+public extension ClearActionStyle {
+    func modifier(_ modifier: some ViewModifier) -> some ClearActionStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some ClearActionStyle) -> some ClearActionStyle {
+        style.modifier(ClearActionStyleModifier(style: self))
+    }
+}
+
 // MARK: CloseActionStyle
 
 extension ModifiedStyle: CloseActionStyle where Style: CloseActionStyle {
@@ -1072,6 +1100,34 @@ public extension FilterFeedbackBarButtonStyle {
     }
 }
 
+// MARK: FilterFeedbackBarStyle
+
+extension ModifiedStyle: FilterFeedbackBarStyle where Style: FilterFeedbackBarStyle {
+    public func makeBody(_ configuration: FilterFeedbackBarConfiguration) -> some View {
+        FilterFeedbackBar(configuration)
+            .filterFeedbackBarStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct FilterFeedbackBarStyleModifier<Style: FilterFeedbackBarStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.filterFeedbackBarStyle(self.style)
+    }
+}
+
+public extension FilterFeedbackBarStyle {
+    func modifier(_ modifier: some ViewModifier) -> some FilterFeedbackBarStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some FilterFeedbackBarStyle) -> some FilterFeedbackBarStyle {
+        style.modifier(FilterFeedbackBarStyleModifier(style: self))
+    }
+}
+
 // MARK: FilterFeedbackBarItemStyle
 
 extension ModifiedStyle: FilterFeedbackBarItemStyle where Style: FilterFeedbackBarItemStyle {
@@ -1097,6 +1153,34 @@ public extension FilterFeedbackBarItemStyle {
 
     func concat(_ style: some FilterFeedbackBarItemStyle) -> some FilterFeedbackBarItemStyle {
         style.modifier(FilterFeedbackBarItemStyleModifier(style: self))
+    }
+}
+
+// MARK: FilterFormViewStyle
+
+extension ModifiedStyle: FilterFormViewStyle where Style: FilterFormViewStyle {
+    public func makeBody(_ configuration: FilterFormViewConfiguration) -> some View {
+        FilterFormView(configuration)
+            .filterFormViewStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct FilterFormViewStyleModifier<Style: FilterFormViewStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.filterFormViewStyle(self.style)
+    }
+}
+
+public extension FilterFormViewStyle {
+    func modifier(_ modifier: some ViewModifier) -> some FilterFormViewStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some FilterFormViewStyle) -> some FilterFormViewStyle {
+        style.modifier(FilterFormViewStyleModifier(style: self))
     }
 }
 
@@ -1632,6 +1716,34 @@ public extension KPIContentStyle {
     }
 }
 
+// MARK: KPIItemStyle
+
+extension ModifiedStyle: KPIItemStyle where Style: KPIItemStyle {
+    public func makeBody(_ configuration: KPIItemConfiguration) -> some View {
+        KPIItem(configuration)
+            .kPIItemStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct KPIItemStyleModifier<Style: KPIItemStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.kPIItemStyle(self.style)
+    }
+}
+
+public extension KPIItemStyle {
+    func modifier(_ modifier: some ViewModifier) -> some KPIItemStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some KPIItemStyle) -> some KPIItemStyle {
+        style.modifier(KPIItemStyleModifier(style: self))
+    }
+}
+
 // MARK: KPIProgressItemStyle
 
 extension ModifiedStyle: KPIProgressItemStyle where Style: KPIProgressItemStyle {
@@ -1660,6 +1772,62 @@ public extension KPIProgressItemStyle {
     }
 }
 
+// MARK: KPISubItemStyle
+
+extension ModifiedStyle: KPISubItemStyle where Style: KPISubItemStyle {
+    public func makeBody(_ configuration: KPISubItemConfiguration) -> some View {
+        KPISubItem(configuration)
+            .kPISubItemStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct KPISubItemStyleModifier<Style: KPISubItemStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.kPISubItemStyle(self.style)
+    }
+}
+
+public extension KPISubItemStyle {
+    func modifier(_ modifier: some ViewModifier) -> some KPISubItemStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some KPISubItemStyle) -> some KPISubItemStyle {
+        style.modifier(KPISubItemStyleModifier(style: self))
+    }
+}
+
+// MARK: KeyStyle
+
+extension ModifiedStyle: KeyStyle where Style: KeyStyle {
+    public func makeBody(_ configuration: KeyConfiguration) -> some View {
+        Key(configuration)
+            .keyStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct KeyStyleModifier<Style: KeyStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.keyStyle(self.style)
+    }
+}
+
+public extension KeyStyle {
+    func modifier(_ modifier: some ViewModifier) -> some KeyStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some KeyStyle) -> some KeyStyle {
+        style.modifier(KeyStyleModifier(style: self))
+    }
+}
+
 // MARK: KeyValueFormViewStyle
 
 extension ModifiedStyle: KeyValueFormViewStyle where Style: KeyValueFormViewStyle {
@@ -1685,6 +1853,34 @@ public extension KeyValueFormViewStyle {
 
     func concat(_ style: some KeyValueFormViewStyle) -> some KeyValueFormViewStyle {
         style.modifier(KeyValueFormViewStyleModifier(style: self))
+    }
+}
+
+// MARK: KeyValueItemStyle
+
+extension ModifiedStyle: KeyValueItemStyle where Style: KeyValueItemStyle {
+    public func makeBody(_ configuration: KeyValueItemConfiguration) -> some View {
+        KeyValueItem(configuration)
+            .keyValueItemStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct KeyValueItemStyleModifier<Style: KeyValueItemStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.keyValueItemStyle(self.style)
+    }
+}
+
+public extension KeyValueItemStyle {
+    func modifier(_ modifier: some ViewModifier) -> some KeyValueItemStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some KeyValueItemStyle) -> some KeyValueItemStyle {
+        style.modifier(KeyValueItemStyleModifier(style: self))
     }
 }
 
@@ -2808,6 +3004,62 @@ public extension RatingControlFormViewStyle {
     }
 }
 
+// MARK: ReenterSignatureActionStyle
+
+extension ModifiedStyle: ReenterSignatureActionStyle where Style: ReenterSignatureActionStyle {
+    public func makeBody(_ configuration: ReenterSignatureActionConfiguration) -> some View {
+        ReenterSignatureAction(configuration)
+            .reenterSignatureActionStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct ReenterSignatureActionStyleModifier<Style: ReenterSignatureActionStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.reenterSignatureActionStyle(self.style)
+    }
+}
+
+public extension ReenterSignatureActionStyle {
+    func modifier(_ modifier: some ViewModifier) -> some ReenterSignatureActionStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some ReenterSignatureActionStyle) -> some ReenterSignatureActionStyle {
+        style.modifier(ReenterSignatureActionStyleModifier(style: self))
+    }
+}
+
+// MARK: ResetActionStyle
+
+extension ModifiedStyle: ResetActionStyle where Style: ResetActionStyle {
+    public func makeBody(_ configuration: ResetActionConfiguration) -> some View {
+        ResetAction(configuration)
+            .resetActionStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct ResetActionStyleModifier<Style: ResetActionStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.resetActionStyle(self.style)
+    }
+}
+
+public extension ResetActionStyle {
+    func modifier(_ modifier: some ViewModifier) -> some ResetActionStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some ResetActionStyle) -> some ResetActionStyle {
+        style.modifier(ResetActionStyleModifier(style: self))
+    }
+}
+
 // MARK: ReviewCountLabelStyle
 
 extension ModifiedStyle: ReviewCountLabelStyle where Style: ReviewCountLabelStyle {
@@ -2917,6 +3169,34 @@ public extension Row3Style {
 
     func concat(_ style: some Row3Style) -> some Row3Style {
         style.modifier(Row3StyleModifier(style: self))
+    }
+}
+
+// MARK: SaveActionStyle
+
+extension ModifiedStyle: SaveActionStyle where Style: SaveActionStyle {
+    public func makeBody(_ configuration: SaveActionConfiguration) -> some View {
+        SaveAction(configuration)
+            .saveActionStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct SaveActionStyleModifier<Style: SaveActionStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.saveActionStyle(self.style)
+    }
+}
+
+public extension SaveActionStyle {
+    func modifier(_ modifier: some ViewModifier) -> some SaveActionStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some SaveActionStyle) -> some SaveActionStyle {
+        style.modifier(SaveActionStyleModifier(style: self))
     }
 }
 
@@ -3172,6 +3452,34 @@ public extension SideBarListItemStyle {
     }
 }
 
+// MARK: SignatureCaptureViewStyle
+
+extension ModifiedStyle: SignatureCaptureViewStyle where Style: SignatureCaptureViewStyle {
+    public func makeBody(_ configuration: SignatureCaptureViewConfiguration) -> some View {
+        SignatureCaptureView(configuration)
+            .signatureCaptureViewStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct SignatureCaptureViewStyleModifier<Style: SignatureCaptureViewStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.signatureCaptureViewStyle(self.style)
+    }
+}
+
+public extension SignatureCaptureViewStyle {
+    func modifier(_ modifier: some ViewModifier) -> some SignatureCaptureViewStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some SignatureCaptureViewStyle) -> some SignatureCaptureViewStyle {
+        style.modifier(SignatureCaptureViewStyleModifier(style: self))
+    }
+}
+
 // MARK: SingleStepStyle
 
 extension ModifiedStyle: SingleStepStyle where Style: SingleStepStyle {
@@ -3197,6 +3505,62 @@ public extension SingleStepStyle {
 
     func concat(_ style: some SingleStepStyle) -> some SingleStepStyle {
         style.modifier(SingleStepStyleModifier(style: self))
+    }
+}
+
+// MARK: SortFilterViewStyle
+
+extension ModifiedStyle: SortFilterViewStyle where Style: SortFilterViewStyle {
+    public func makeBody(_ configuration: SortFilterViewConfiguration) -> some View {
+        SortFilterView(configuration)
+            .sortFilterViewStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct SortFilterViewStyleModifier<Style: SortFilterViewStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.sortFilterViewStyle(self.style)
+    }
+}
+
+public extension SortFilterViewStyle {
+    func modifier(_ modifier: some ViewModifier) -> some SortFilterViewStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some SortFilterViewStyle) -> some SortFilterViewStyle {
+        style.modifier(SortFilterViewStyleModifier(style: self))
+    }
+}
+
+// MARK: StartSignatureActionStyle
+
+extension ModifiedStyle: StartSignatureActionStyle where Style: StartSignatureActionStyle {
+    public func makeBody(_ configuration: StartSignatureActionConfiguration) -> some View {
+        StartSignatureAction(configuration)
+            .startSignatureActionStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct StartSignatureActionStyleModifier<Style: StartSignatureActionStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.startSignatureActionStyle(self.style)
+    }
+}
+
+public extension StartSignatureActionStyle {
+    func modifier(_ modifier: some ViewModifier) -> some StartSignatureActionStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some StartSignatureActionStyle) -> some StartSignatureActionStyle {
+        style.modifier(StartSignatureActionStyleModifier(style: self))
     }
 }
 
@@ -4149,5 +4513,61 @@ public extension ValuePickerStyle {
 
     func concat(_ style: some ValuePickerStyle) -> some ValuePickerStyle {
         style.modifier(ValuePickerStyleModifier(style: self))
+    }
+}
+
+// MARK: WatermarkStyle
+
+extension ModifiedStyle: WatermarkStyle where Style: WatermarkStyle {
+    public func makeBody(_ configuration: WatermarkConfiguration) -> some View {
+        Watermark(configuration)
+            .watermarkStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct WatermarkStyleModifier<Style: WatermarkStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.watermarkStyle(self.style)
+    }
+}
+
+public extension WatermarkStyle {
+    func modifier(_ modifier: some ViewModifier) -> some WatermarkStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some WatermarkStyle) -> some WatermarkStyle {
+        style.modifier(WatermarkStyleModifier(style: self))
+    }
+}
+
+// MARK: XmarkStyle
+
+extension ModifiedStyle: XmarkStyle where Style: XmarkStyle {
+    public func makeBody(_ configuration: XmarkConfiguration) -> some View {
+        Xmark(configuration)
+            .xmarkStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct XmarkStyleModifier<Style: XmarkStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.xmarkStyle(self.style)
+    }
+}
+
+public extension XmarkStyle {
+    func modifier(_ modifier: some ViewModifier) -> some XmarkStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some XmarkStyle) -> some XmarkStyle {
+        style.modifier(XmarkStyleModifier(style: self))
     }
 }

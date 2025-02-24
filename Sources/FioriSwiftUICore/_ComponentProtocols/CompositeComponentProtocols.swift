@@ -69,6 +69,14 @@ protocol _FormViewComponent {
 }
 
 // sourcery: CompositeComponent
+protocol _TextInputFieldComponent {
+    // sourcery: @Binding
+    var text: String { get set }
+    // sourcery: defaultValue = false
+    var isSecureEnabled: Bool? { get set }
+}
+
+// sourcery: CompositeComponent
 protocol _PlaceholderTextEditorComponent: _TextViewComponent, _PlaceholderComponent {}
 
 // sourcery: CompositeComponent
@@ -665,6 +673,52 @@ protocol _BannerMultiMessageSheet: _TitleComponent, _CloseActionComponent {
     var bannerMultiMessages: [BannerMessageListModel] { get }
 }
 
+/// `FilterFormView` provides a view with options for filter, include title, mandatory, options and validation message.
+/// ##Usage
+/// ```swift
+/// FilterFormView(title: "Sort Filter, MultiSelection, EmptySelection, fixed", mandatoryFieldIndicator: self.mandatoryField(), isRequired: false, options: self.sortValueOptions, errorMessage: nil, isEnabled: self.isEnabled, allowsMultipleSelection: true, allowsEmptySelection: true, value: self.$sortFilterFixedSelectionValue, buttonSize: .fixed)
+///    .mandatoryFieldIndicatorStyle { conf in
+///        conf.mandatoryFieldIndicator
+///            .foregroundStyle(self.mandatoryFieldIndicatorColor())
+///    }
+///    .filterFormOptionMinTouchHeight(50)
+///    .filterFormOptionCornerRadius(16)
+///    .filterFormOptionTitleSpacing(4)
+///    .filterFormOptionPadding(EdgeInsets(top: 4, leading: 9, bottom: 4, trailing: 9))
+///    .filterFormOptionsItemSpacing(16)
+///    .filterFormOptionsLineSpacing(10)
+///    .filterFormOptionAttributes([
+///        .enabledUnselected: [
+///            .strokeWidth: 1.0,
+///            .strokeColor: Color.preferredColor(.separator),
+///            .foregroundColor: Color.preferredColor(.tertiaryLabel),
+///            .backgroundColor: Color.preferredColor(.tertiaryFill),
+///            .font: Font.system(.body)
+///        ]
+///    ])
+///    ```
+
+// sourcery: CompositeComponent
+protocol _FilterFormViewComponent: _TitleComponent, _MandatoryField, _OptionsComponent, _FormViewComponent {
+    var isEnabled: Bool { get }
+    // sourcery: defaultValue = true
+    /// Indicates whether the user may select multiple values. The default is `true`
+    var allowsMultipleSelection: Bool { get }
+    // sourcery: defaultValue = false
+    var allowsEmptySelection: Bool { get }
+    // sourcery: @Binding
+    /// The indexes for the selected value in the valueOptions.
+    var value: [Int] { get }
+    // sourcery: defaultValue = .fixed
+    /// Size of filter button.
+    var buttonSize: FilterButtonSize { get }
+    // sourcery: defaultValue = true
+    /// Allow chips to layout on the same line as the title
+    var isSingleLine: Bool { get }
+    /// Implementation of value change callback.  Is invoked on changes to the `value` property.
+    var onValueChange: (([Int]) -> Void)? { get }
+}
+
 // sourcery: CompositeComponent
 protocol _LoadingIndicatorComponent: _TitleComponent, _ProgressComponent {
     // sourcery: defaultValue = 0
@@ -1125,6 +1179,7 @@ protocol _HeaderChartComponent: _TitleComponent, _SubtitleComponent, _TrendCompo
 }
 
 /// The `FilterFeedbackBarButton` is a SwiftUI component for item's options that are used in FilterFeedbackBar when the item's type is `SortFilterItem.picker`.
+/// Typically not used by application developer.
 ///
 /// ## Usage
 ///
@@ -1149,6 +1204,7 @@ protocol _FilterFeedbackBarButtonComponent: _IconComponent, _TitleComponent {
 }
 
 /// The `FilterFeedbackBarItem` is a SwiftUI component for items in FilterFeedbackBar.
+/// Typically not used by application developer.
 ///
 /// ## Usage
 ///
@@ -1225,4 +1281,201 @@ protocol _DimensionSelectorComponent {
     // sourcery: resultBuilder.defaultValue = "{ _ in EmptyView() }"
     ///  ViewBuilder for customizing the segments
     var segment: (String) -> any View { get }
+}
+
+/// The `FilterFeedbackBar` is a SwiftUI component contains FilterFeedbackBarItem. When tapping FilterFeedbackBarItem, it will show some sort and filter types of controls, List Picker, Switch, Slider, Value Picker, Stepper, Date Picker.
+///
+/// ## Usage
+///
+/// `items` is the data for the FilterFeedbackBar.
+/// `onUpdate` is the callback function  is triggered when the data is updated.
+///
+///  ```swift
+///  @State var items: [[SortFilterItem]] = [
+///    [.switch(item: .init(name: "Favorite", value: true, icon: "heart.fill"), showsOnFilterFeedbackBar: true),
+///     .slider(item: .init(name: "User Stories", value: 10, minimumValue: 0, maximumValue: 100, formatter: "Stories", icon: "number"), showsOnFilterFeedbackBar: true)]
+///  ]
+///
+///  FilterFeedbackBar(items: self.$items) {}
+///  ```
+///
+// sourcery: CompositeComponent
+protocol _FilterFeedbackBarComponent {
+    // sourcery: resultBuilder.name = @ViewBuilder, resultBuilder.backingComponent = FilterFeedbackBarItemContainer
+    /// The data for the FilterFeedbackBar.
+    var items: Binding<[[SortFilterItem]]> { get }
+    
+    /// The callback function is triggered when the data is updated.
+    var onUpdate: (() -> Void)? { get }
+}
+
+/// `SortFilterView` is a view that will be presented when tap the full configuration button in the filter feed back bar.
+///  ## Usage:
+///  ```swift
+///  @Binding var items: [[SortFilterItem]]
+///  SortFilterView(
+///     title: {
+///         Text("Full Configuration")
+///     },
+///     items: self.$items,
+///     onUpdate: {},
+///     onCancel: {},
+///     onReset: {}
+///  )
+///  ```
+// sourcery: CompositeComponent
+protocol _SortFilterViewComponent: _TitleComponent, _CancelActionComponent, _ApplyActionComponent, _ResetActionComponent {
+    // sourcery: @Binding
+    /// The data for the items that will be displayed in sort filter view.
+    var items: [[SortFilterItem]] { get }
+    /// The action to be performed when the apply button is tapped.
+    var onUpdate: (() -> Void)? { get }
+    /// The action to be performed when the cancel button is tapped.
+    var onCancel: (() -> Void)? { get }
+    /// The action to be performed when the reset button is tapped.
+    var onReset: (() -> Void)? { get }
+}
+
+/// `SignatureCaptureView` allows user to sign above  the signature line.
+/// ## Usage
+/// ```swift
+/// SignatureCaptureView(title: {
+///    Text("Signature Title")
+/// }, mandatoryFieldIndicator: {
+///    Text("*")
+/// }, isRequired: true, startSignatureAction: {
+///    Button(action: {}, label: { Text("start") })
+/// }, reenterSignatureAction: {
+///    Button(action: {}, label: { Text("restart") })
+/// }, cancelAction: {
+///    Button(action: {}, label: { Text("cancel") })
+/// }, clearAction: {
+///    Button(action: {}, label: { Text("clear") })
+/// }, saveAction: {
+///    Button(action: {}, label: { Text("save") })
+/// }, xmark: {
+///    Image(systemName: "xmark")
+/// }, watermark: {
+///    Text("This is a watermark")
+/// }, signatureImage: nil,
+///                     drawingViewMaxHeight: 400,
+///                     drawingViewBackgroundColor: Color.gray,
+///                     strokeWidth: 1,
+///                     appliesTintColorToImage: true,
+///                     strokeColor: Color.red,
+///                     signatureLineColor: Color.black,
+///                     hidesSignatureLine: false,
+///                     watermarkAlignment: .trailing,
+///                     addsTimestampInImage: true,
+///                     timestampFormatter: nil,
+///                     cropsImage: false) { img in
+///    let imgSaver = ImageSaver()
+///    imgSaver.writeToPhotoAlbum(image: img)
+/// }
+/// ```
+// sourcery: CompositeComponent
+// sourcery: importFrameworks = ["FioriThemeManager"]
+protocol _SignatureCaptureViewComponent: _TitleComponent, _MandatoryField, _StartSignatureActionComponent, _ReenterSignatureActionComponent, _CancelActionComponent, _ClearActionComponent, _SaveActionComponent, _XmarkComponent, _WatermarkComponent {
+    /// An optional image for default signature.
+    var signatureImage: UIImage? { get }
+    
+    /// Maximum height of the drawing view.
+    var drawingViewMaxHeight: CGFloat? { get }
+    
+    // sourcery: defaultValue = Color.preferredColor(.primaryBackground)
+    /// The background color of the drawing view. Default value is `.primaryBackground`.
+    var drawingViewBackgroundColor: Color { get }
+    
+    // sourcery: defaultValue = 3.0
+    /// The width of the stroke. Default value is `3.0`.
+    var strokeWidth: CGFloat { get }
+    
+    // sourcery: defaultValue = true
+    /// Indicates if should use `strokeColor` as foreground color. Default value is `true`.
+    var appliesTintColorToImage: Bool { get }
+    
+    // sourcery: defaultValue = Color.preferredColor(.primaryLabel)
+    /// The color for the stroke. Default value is `.primaryLabel`.
+    var strokeColor: Color { get }
+    
+    // sourcery: defaultValue = Color.preferredColor(.quaternaryLabel)
+    /// The color of the signature line. Default value is `.quaternaryLabel`.
+    var signatureLineColor: Color { get }
+    
+    // sourcery: defaultValue = false
+    /// Indicates if the signature line should be hidden. Default value is `false`.
+    var hidesSignatureLine: Bool { get }
+    
+    // sourcery: defaultValue = .leading
+    /// The alignment of the watermark. Default value is `.leading`.
+    var watermarkAlignment: HorizontalAlignment { get }
+    
+    // sourcery: defaultValue = false
+    /// Indicates if timestamp should be added in image. Default value is `false`.
+    var addsTimestampInImage: Bool { get }
+    
+    /// Timestamp formatter.
+    var timestampFormatter: DateFormatter? { get }
+    
+    // sourcery: defaultValue = false
+    /// Indicates if the image should be cropped. Default value is `false`.
+    var cropsImage: Bool { get }
+
+    /// An optional call back for save action.
+    var onSave: ((UIImage) -> Void)? { get }
+    
+    /// An optional call back for delete action.
+    var onDelete: (() -> Void)? { get }
+}
+
+/// `KeyValueItem` provides a customizable activity item with a key and a value.
+///
+/// ## Usage
+/// ```swift
+/// KeyValueItem(key: {
+///         Text("key 1")
+///     }, value: {
+///         Text("value 1")
+///     }, axis: .vertical)
+/// ```
+// sourcery: CompositeComponent
+protocol _KeyValueItemComponent: _KeyComponent, _ValueComponent, _FormViewComponent {
+    // sourcery: defaultValue = .horizontal
+    var axis: Axis { get }
+}
+
+/// `KPIItem` enables a developer to present "KPI" information in a formatted manner consistent with the Fiori Design Language.
+///
+/// ## Usage
+/// ```swift
+/// struct KPISubItemModelImplementation: KPISubItemModel {
+///     let id: UUID
+///     let kPISubItemValue: TextOrIcon
+///     let kPISubItemType: KPISubitemType
+///
+///     init(id: UUID = UUID(), kPISubItemValue: TextOrIcon, kPISubItemType: KPISubitemType) {
+///         self.id = id
+///         self.kPISubItemValue = kPISubItemValue
+///         self.kPISubItemType = kPISubItemType
+///     }
+/// }
+///
+/// private var item: [KPISubItemModelImplementation] = [
+///     KPISubItemModelImplementation(kPISubItemValue: .icon(Image(systemName: "triangleshape.fill")), kPISubItemType: KPISubitemType.icon),
+///     KPISubItemModelImplementation(kPISubItemValue: .text("123"), kPISubItemType: KPISubitemType.metric),
+///     KPISubItemModelImplementation(kPISubItemValue: .text("USD"), kPISubItemType: KPISubitemType.unit)
+/// ]
+///
+/// KPIItem(kpiCaption: "abc", items: item, proposedViewSize: .small, alignment: .leading)
+/// ```
+// sourcery: CompositeComponent
+protocol _KPIItemComponent: _KpiCaptionComponent {
+    /// The data for KPI item
+    var items: [any KPISubItemModel] { get }
+    
+    // sourcery: defaultValue = .small
+    var proposedViewSize: KPIItemSize { get }
+    
+    // sourcery: defaultValue = .center
+    var alignment: Alignment { get }
 }
