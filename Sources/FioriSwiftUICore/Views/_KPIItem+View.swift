@@ -2,7 +2,7 @@ import FioriThemeManager
 import SwiftUI
 
 extension Fiori {
-    enum KPIItem {
+    enum _KPIItem {
         struct Kpi: ViewModifier {
             func body(content: Content) -> some View {
                 content
@@ -33,7 +33,7 @@ extension Fiori {
     }
 }
 
-extension KPIItem: View {
+extension _KPIItem: View {
     public var body: some View {
         if let buttonAction = action {
             Button(action: buttonAction) {
@@ -53,7 +53,7 @@ extension KPIItem: View {
     }
 }
 
-public extension KPIItem where Kpi == Text, Subtitle == Text {
+public extension _KPIItem where Kpi == Text, Subtitle == Text {
     /// Returns a KPI item with given configuration.
     /// - Parameters:
     ///   - data: The data of the KPI item.
@@ -69,7 +69,7 @@ public extension KPIItem where Kpi == Text, Subtitle == Text {
     }
 }
 
-public extension KPIItem where Kpi == Text, Subtitle == EmptyView {
+public extension _KPIItem where Kpi == Text, Subtitle == EmptyView {
     /// Returns a KPI item with given configuration.
     /// - Parameters:
     ///   - data: The data of the KPI item.

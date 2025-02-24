@@ -979,6 +979,22 @@ extension KPIContentStyle {
     }
 }
 
+// MARK: KPIItemStyle
+
+struct ResolvedKPIItemStyle<Style: KPIItemStyle>: View {
+    let style: Style
+    let configuration: KPIItemConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension KPIItemStyle {
+    func resolve(configuration: KPIItemConfiguration) -> some View {
+        ResolvedKPIItemStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: KPIProgressItemStyle
 
 struct ResolvedKPIProgressItemStyle<Style: KPIProgressItemStyle>: View {
@@ -992,6 +1008,22 @@ struct ResolvedKPIProgressItemStyle<Style: KPIProgressItemStyle>: View {
 extension KPIProgressItemStyle {
     func resolve(configuration: KPIProgressItemConfiguration) -> some View {
         ResolvedKPIProgressItemStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: KPISubItemStyle
+
+struct ResolvedKPISubItemStyle<Style: KPISubItemStyle>: View {
+    let style: Style
+    let configuration: KPISubItemConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension KPISubItemStyle {
+    func resolve(configuration: KPISubItemConfiguration) -> some View {
+        ResolvedKPISubItemStyle(style: self, configuration: configuration)
     }
 }
 

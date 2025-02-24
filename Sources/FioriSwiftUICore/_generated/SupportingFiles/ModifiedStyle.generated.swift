@@ -1716,6 +1716,34 @@ public extension KPIContentStyle {
     }
 }
 
+// MARK: KPIItemStyle
+
+extension ModifiedStyle: KPIItemStyle where Style: KPIItemStyle {
+    public func makeBody(_ configuration: KPIItemConfiguration) -> some View {
+        KPIItem(configuration)
+            .kPIItemStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct KPIItemStyleModifier<Style: KPIItemStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.kPIItemStyle(self.style)
+    }
+}
+
+public extension KPIItemStyle {
+    func modifier(_ modifier: some ViewModifier) -> some KPIItemStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some KPIItemStyle) -> some KPIItemStyle {
+        style.modifier(KPIItemStyleModifier(style: self))
+    }
+}
+
 // MARK: KPIProgressItemStyle
 
 extension ModifiedStyle: KPIProgressItemStyle where Style: KPIProgressItemStyle {
@@ -1741,6 +1769,34 @@ public extension KPIProgressItemStyle {
 
     func concat(_ style: some KPIProgressItemStyle) -> some KPIProgressItemStyle {
         style.modifier(KPIProgressItemStyleModifier(style: self))
+    }
+}
+
+// MARK: KPISubItemStyle
+
+extension ModifiedStyle: KPISubItemStyle where Style: KPISubItemStyle {
+    public func makeBody(_ configuration: KPISubItemConfiguration) -> some View {
+        KPISubItem(configuration)
+            .kPISubItemStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct KPISubItemStyleModifier<Style: KPISubItemStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.kPISubItemStyle(self.style)
+    }
+}
+
+public extension KPISubItemStyle {
+    func modifier(_ modifier: some ViewModifier) -> some KPISubItemStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some KPISubItemStyle) -> some KPISubItemStyle {
+        style.modifier(KPISubItemStyleModifier(style: self))
     }
 }
 

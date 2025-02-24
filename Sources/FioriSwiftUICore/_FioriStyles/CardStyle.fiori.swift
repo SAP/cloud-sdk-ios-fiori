@@ -805,7 +805,7 @@ public enum CardTests {
                 })
             ])
             
-            KPIItem(data: .components([.unit("R"), .metric("294"), .unit("L")]), subtitle: "Label")
+            _KPIItem(data: .components([.unit("R"), .metric("294"), .unit("L")]), subtitle: "Label")
         }
     }
     
@@ -854,7 +854,7 @@ public enum CardTests {
     } row3: {
         TagExample(num: 3)
     } kpi: {
-        KPIItem(data: .components([.unit("$"), .metric("8,888"), .unit("M")]), subtitle: "").cornerRadius(8)
+        _KPIItem(data: .components([.unit("$"), .metric("8,888"), .unit("M")]), subtitle: "").cornerRadius(8)
     } cardBody: {
         VStack(alignment: .leading, spacing: 4) {
             DataTable(model: CardTests.tableCard.copy())
@@ -911,10 +911,10 @@ public enum CardTests {
             Tag(verbatim: "Tag")
         }
     } kpi: {
-        KPIItem(KPIItemData.components([.icon(Image(systemName: "arrowtriangle.up.fill")),
-                                        .unit("$"),
-                                        .metric("26.9"),
-                                        .unit("M")]))
+        _KPIItem(KPIItemData.components([.icon(Image(systemName: "arrowtriangle.up.fill")),
+                                         .unit("$"),
+                                         .metric("26.9"),
+                                         .unit("M")]))
     } kpiCaption: {
         Text("Revenue")
     } cardBody: {

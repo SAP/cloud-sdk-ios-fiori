@@ -241,7 +241,7 @@ struct ObjectHeaderViewScenarios: ListDataProtocol {
                 }, trendImage: {
                     Image(systemName: "triangle.fill").foregroundColor(.preferredColor(.negativeLabel))
                 }, kpi: {
-                    KPIItem(data: .components([.metric("79"), .unit("°F")]), subtitle: "")
+                    _KPIItem(data: .components([.metric("79"), .unit("°F")]), subtitle: "")
                 })
             })
             
