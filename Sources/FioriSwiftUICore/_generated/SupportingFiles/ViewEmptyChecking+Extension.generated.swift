@@ -453,6 +453,12 @@ extension KPIContent: _ViewEmptyChecking {
     }
 }
 
+extension KPIItem: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        kpiCaption.isEmpty
+    }
+}
+
 extension KPIProgressItem: _ViewEmptyChecking {
     public var isEmpty: Bool {
         kPIContent.isEmpty &&
@@ -460,6 +466,12 @@ extension KPIProgressItem: _ViewEmptyChecking {
             footnote.isEmpty &&
             innerCircle.isEmpty &&
             outerCircle.isEmpty
+    }
+}
+
+extension KPIViewSubItem: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        kPIViewSubItemValue.isEmpty
     }
 }
 

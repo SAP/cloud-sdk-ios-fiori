@@ -1443,3 +1443,40 @@ protocol _KeyValueItemComponent: _KeyComponent, _ValueComponent, _FormViewCompon
     // sourcery: defaultValue = .horizontal
     var axis: Axis { get }
 }
+
+/// `KPIItem` enables a developer to present "KPI" information in a formatted manner consistent with the Fiori Design Language.
+///
+/// ## Usage
+/// ```swift
+/// struct KPIViewSubItemModelImplementation: KPIViewSubItemModel {
+///     let id: UUID
+///     let kPIViewSubItemValue: TextOrIcon
+///     let kPIViewSubItemType: KPISubitemType
+///
+///     init(id: UUID = UUID(), kPIViewSubItemValue: TextOrIcon, kPIViewSubItemType: KPISubitemType) {
+///         self.id = id
+///         self.kPIViewSubItemValue = kPIViewSubItemValue
+///         self.kPIViewSubItemType = kPIViewSubItemType
+///     }
+/// }
+///
+/// @State private var item: [KPIViewSubItemModelImplementation] = [
+///     KPIViewSubItemModelImplementation(kPIViewSubItemValue: .icon(Image(systemName: "triangleshape.fill")), kPIViewSubItemType: KPISubitemType.icon),
+///     KPIViewSubItemModelImplementation(kPIViewSubItemValue: .text("123"), kPIViewSubItemType: KPISubitemType.metric),
+///     KPIViewSubItemModelImplementation(kPIViewSubItemValue: .text("USD"), kPIViewSubItemType: KPISubitemType.unit)
+/// ]
+///
+/// KPIItem(kpiCaption: "abc", items:  .constant(self.item.map { $0 as any KPIViewSubItemModel }), proposedViewSize: .small, alignment: .leading)
+/// ```
+// sourcery: CompositeComponent
+protocol _KPIItemComponent: _KpiCaptionComponent {
+    // sourcery: @Binding
+    /// The data for KPI item
+    var items: [any KPIViewSubItemModel] { get }
+    
+    // sourcery: defaultValue = .small
+    var proposedViewSize: KPIItemSize { get }
+    
+    // sourcery: defaultValue = .center
+    var alignment: Alignment { get }
+}

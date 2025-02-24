@@ -47,29 +47,6 @@ public struct KPIProgressItemBaseStyle: KPIProgressItemStyle {
     }
 }
 
-struct IsPressedEnvironmentKey: EnvironmentKey {
-    static let defaultValue: Bool = false
-}
-
-extension EnvironmentValues {
-    var isPressed: Bool {
-        get { self[IsPressedEnvironmentKey.self] }
-        set { self[IsPressedEnvironmentKey.self] = newValue }
-    }
-}
-
-func getConfigState(isEnabled: Bool, isPressed: Bool) -> ControlState {
-    isEnabled ? (isPressed ? .highlighted : .normal) : .disabled
-}
-
-func getForegroundColor(for state: ControlState) -> Color {
-    let foregroundColors: [ControlState: Color] = [.disabled: .preferredColor(.primaryLabel),
-                                                   .normal: .preferredColor(.tintColor),
-                                                   .highlighted: .preferredColor(.tintColorTapState)]
-    
-    return foregroundColors[state] ?? .preferredColor(.tintColor)
-}
-
 func getFractionColor(for state: ControlState) -> Color {
     let fractionColors: [ControlState: Color] = [.normal: .preferredColor(.tintColor),
                                                  .highlighted: .preferredColor(.tintColorTapState)]

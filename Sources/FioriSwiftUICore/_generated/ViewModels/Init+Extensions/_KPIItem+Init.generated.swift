@@ -2,7 +2,7 @@
 // DO NOT EDIT
 import SwiftUI
 
-extension KPIItem where Kpi == EmptyView {
+extension _KPIItem where Kpi == EmptyView {
     public init(
     @ViewBuilder subtitle: () -> Subtitle
     ) {
@@ -13,7 +13,7 @@ extension KPIItem where Kpi == EmptyView {
     }
 }
 
-extension KPIItem where Subtitle == EmptyView {
+extension _KPIItem where Subtitle == EmptyView {
     public init(
     @ViewBuilder kpi: () -> Kpi
     ) {
@@ -24,7 +24,7 @@ extension KPIItem where Subtitle == EmptyView {
     }
 }
 
-extension KPIItem where Kpi == EmptyView, Subtitle == EmptyView {
+extension _KPIItem where Kpi == EmptyView, Subtitle == EmptyView {
     public init(
     
     ) {

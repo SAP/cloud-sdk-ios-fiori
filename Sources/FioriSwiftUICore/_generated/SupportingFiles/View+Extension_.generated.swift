@@ -1040,6 +1040,23 @@ public extension View {
     }
 }
 
+// MARK: KPIItemStyle
+
+public extension View {
+    func kPIItemStyle(_ style: some KPIItemStyle) -> some View {
+        self.transformEnvironment(\.kPIItemStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func kPIItemStyle(@ViewBuilder content: @escaping (KPIItemConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.kPIItemStyleStack) { stack in
+            let style = AnyKPIItemStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: KPIProgressItemStyle
 
 public extension View {
@@ -1052,6 +1069,23 @@ public extension View {
     func kPIProgressItemStyle(@ViewBuilder content: @escaping (KPIProgressItemConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.kPIProgressItemStyleStack) { stack in
             let style = AnyKPIProgressItemStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: KPIViewSubItemStyle
+
+public extension View {
+    func kPIViewSubItemStyle(_ style: some KPIViewSubItemStyle) -> some View {
+        self.transformEnvironment(\.kPIViewSubItemStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func kPIViewSubItemStyle(@ViewBuilder content: @escaping (KPIViewSubItemConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.kPIViewSubItemStyleStack) { stack in
+            let style = AnyKPIViewSubItemStyle(content)
             stack.append(style)
         }
     }

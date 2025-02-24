@@ -140,7 +140,7 @@ struct FlowLayoutPreview: PreviewProvider {
                 Text("4. Pretty long long long long ong long long title wraps two lines").padding().border(Color.gray)
                 FioriButton(title: "5. Save").fioriButtonStyle(FioriSecondaryButtonStyle())
                 Tag("6. Tag")
-                KPIItem(data: .components([.unit("7. $"), .metric("90")]), subtitle: "avg. per night").border(Color.gray)
+                _KPIItem(data: .components([.unit("7. $"), .metric("90")]), subtitle: "avg. per night").border(Color.gray)
                 LabelItem(icon: Image(systemName: "calendar"), title: "8. 1 Oct 2023 - 31 Oct 2023", alignment: .leading).border(Color.gray)
                 LabelItem(icon: Image(systemName: "exclamationmark.triangle.fill"), title: "9. Negative")
                 LabelItem(title: "10. Critical")

@@ -2,7 +2,7 @@
 // DO NOT EDIT
 import SwiftUI
 
-public struct KPIItem<Kpi: View, Subtitle: View> {
+public struct _KPIItem<Kpi: View, Subtitle: View> {
     @Environment(\.kpiModifier) private var kpiModifier
 	@Environment(\.subtitleModifier) private var subtitleModifier
 
@@ -23,16 +23,16 @@ public struct KPIItem<Kpi: View, Subtitle: View> {
 
     @ViewBuilder var kpi: some View {
         if isModelInit {
-            _kpi.modifier(kpiModifier.concat(Fiori.KPIItem.kpi).concat(Fiori.KPIItem.kpiCumulative))
+            _kpi.modifier(kpiModifier.concat(Fiori._KPIItem.kpi).concat(Fiori._KPIItem.kpiCumulative))
         } else {
-            _kpi.modifier(kpiModifier.concat(Fiori.KPIItem.kpi))
+            _kpi.modifier(kpiModifier.concat(Fiori._KPIItem.kpi))
         }
     }
 	@ViewBuilder var subtitle: some View {
         if isModelInit {
-            _subtitle.modifier(subtitleModifier.concat(Fiori.KPIItem.subtitle).concat(Fiori.KPIItem.subtitleCumulative))
+            _subtitle.modifier(subtitleModifier.concat(Fiori._KPIItem.subtitle).concat(Fiori._KPIItem.subtitleCumulative))
         } else {
-            _subtitle.modifier(subtitleModifier.concat(Fiori.KPIItem.subtitle))
+            _subtitle.modifier(subtitleModifier.concat(Fiori._KPIItem.subtitle))
         }
     }
     
@@ -45,10 +45,10 @@ public struct KPIItem<Kpi: View, Subtitle: View> {
     }
 }
 
-extension KPIItem where Kpi == _ConditionalContent<Text, EmptyView>,
+extension _KPIItem where Kpi == _ConditionalContent<Text, EmptyView>,
 		Subtitle == _ConditionalContent<Text, EmptyView> {
 
-    public init(model: KPIItemModel) {
+    public init(model: _KPIItemModel) {
         self.init(kpi: model.kpi, subtitle: model.subtitle)
     }
 

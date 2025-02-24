@@ -1716,6 +1716,34 @@ public extension KPIContentStyle {
     }
 }
 
+// MARK: KPIItemStyle
+
+extension ModifiedStyle: KPIItemStyle where Style: KPIItemStyle {
+    public func makeBody(_ configuration: KPIItemConfiguration) -> some View {
+        KPIItem(configuration)
+            .kPIItemStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct KPIItemStyleModifier<Style: KPIItemStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.kPIItemStyle(self.style)
+    }
+}
+
+public extension KPIItemStyle {
+    func modifier(_ modifier: some ViewModifier) -> some KPIItemStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some KPIItemStyle) -> some KPIItemStyle {
+        style.modifier(KPIItemStyleModifier(style: self))
+    }
+}
+
 // MARK: KPIProgressItemStyle
 
 extension ModifiedStyle: KPIProgressItemStyle where Style: KPIProgressItemStyle {
@@ -1741,6 +1769,34 @@ public extension KPIProgressItemStyle {
 
     func concat(_ style: some KPIProgressItemStyle) -> some KPIProgressItemStyle {
         style.modifier(KPIProgressItemStyleModifier(style: self))
+    }
+}
+
+// MARK: KPIViewSubItemStyle
+
+extension ModifiedStyle: KPIViewSubItemStyle where Style: KPIViewSubItemStyle {
+    public func makeBody(_ configuration: KPIViewSubItemConfiguration) -> some View {
+        KPIViewSubItem(configuration)
+            .kPIViewSubItemStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct KPIViewSubItemStyleModifier<Style: KPIViewSubItemStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.kPIViewSubItemStyle(self.style)
+    }
+}
+
+public extension KPIViewSubItemStyle {
+    func modifier(_ modifier: some ViewModifier) -> some KPIViewSubItemStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some KPIViewSubItemStyle) -> some KPIViewSubItemStyle {
+        style.modifier(KPIViewSubItemStyleModifier(style: self))
     }
 }
 
