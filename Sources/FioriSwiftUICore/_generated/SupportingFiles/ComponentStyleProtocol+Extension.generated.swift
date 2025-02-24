@@ -3447,17 +3447,17 @@ public extension KPIProgressItemStyle where Self == KPIProgressItemOuterCircleSt
     }
 }
 
-// MARK: KPIViewSubItemStyle
+// MARK: KPISubItemStyle
 
-public extension KPIViewSubItemStyle where Self == KPIViewSubItemBaseStyle {
-    static var base: KPIViewSubItemBaseStyle {
-        KPIViewSubItemBaseStyle()
+public extension KPISubItemStyle where Self == KPISubItemBaseStyle {
+    static var base: KPISubItemBaseStyle {
+        KPISubItemBaseStyle()
     }
 }
 
-public extension KPIViewSubItemStyle where Self == KPIViewSubItemFioriStyle {
-    static var fiori: KPIViewSubItemFioriStyle {
-        KPIViewSubItemFioriStyle()
+public extension KPISubItemStyle where Self == KPISubItemFioriStyle {
+    static var fiori: KPISubItemFioriStyle {
+        KPISubItemFioriStyle()
     }
 }
 

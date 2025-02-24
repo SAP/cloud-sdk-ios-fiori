@@ -1448,31 +1448,30 @@ protocol _KeyValueItemComponent: _KeyComponent, _ValueComponent, _FormViewCompon
 ///
 /// ## Usage
 /// ```swift
-/// struct KPIViewSubItemModelImplementation: KPIViewSubItemModel {
+/// struct KPISubItemModelImplementation: KPISubItemModel {
 ///     let id: UUID
-///     let kPIViewSubItemValue: TextOrIcon
-///     let kPIViewSubItemType: KPISubitemType
+///     let kPISubItemValue: TextOrIcon
+///     let kPISubItemType: KPISubitemType
 ///
-///     init(id: UUID = UUID(), kPIViewSubItemValue: TextOrIcon, kPIViewSubItemType: KPISubitemType) {
+///     init(id: UUID = UUID(), kPISubItemValue: TextOrIcon, kPISubItemType: KPISubitemType) {
 ///         self.id = id
-///         self.kPIViewSubItemValue = kPIViewSubItemValue
-///         self.kPIViewSubItemType = kPIViewSubItemType
+///         self.kPISubItemValue = kPISubItemValue
+///         self.kPISubItemType = kPISubItemType
 ///     }
 /// }
 ///
-/// @State private var item: [KPIViewSubItemModelImplementation] = [
-///     KPIViewSubItemModelImplementation(kPIViewSubItemValue: .icon(Image(systemName: "triangleshape.fill")), kPIViewSubItemType: KPISubitemType.icon),
-///     KPIViewSubItemModelImplementation(kPIViewSubItemValue: .text("123"), kPIViewSubItemType: KPISubitemType.metric),
-///     KPIViewSubItemModelImplementation(kPIViewSubItemValue: .text("USD"), kPIViewSubItemType: KPISubitemType.unit)
+/// @State private var item: [KPISubItemModelImplementation] = [
+///     KPISubItemModelImplementation(kPISubItemValue: .icon(Image(systemName: "triangleshape.fill")), kPISubItemType: KPISubitemType.icon),
+///     KPISubItemModelImplementation(kPISubItemValue: .text("123"), kPISubItemType: KPISubitemType.metric),
+///     KPISubItemModelImplementation(kPISubItemValue: .text("USD"), kPISubItemType: KPISubitemType.unit)
 /// ]
 ///
-/// KPIItem(kpiCaption: "abc", items:  .constant(self.item.map { $0 as any KPIViewSubItemModel }), proposedViewSize: .small, alignment: .leading)
+/// KPIItem(kpiCaption: "abc", items: self.item.map { $0 as any KPIViewSubItemModel }, proposedViewSize: .small, alignment: .leading)
 /// ```
 // sourcery: CompositeComponent
 protocol _KPIItemComponent: _KpiCaptionComponent {
-    // sourcery: @Binding
     /// The data for KPI item
-    var items: [any KPIViewSubItemModel] { get }
+    var items: [any KPISubItemModel] { get }
     
     // sourcery: defaultValue = .small
     var proposedViewSize: KPIItemSize { get }

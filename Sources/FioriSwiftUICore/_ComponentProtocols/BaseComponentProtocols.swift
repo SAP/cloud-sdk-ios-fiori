@@ -642,9 +642,9 @@ protocol _KeyComponent {
 }
 
 // sourcery: BaseComponent
-protocol _KPIViewSubItemComponent {
+protocol _KPISubItemComponent {
     // sourcery: resultBuilder.name = @ViewBuilder, resultBuilder.backingComponent = TextOrIconView
-    var kPIViewSubItemValue: TextOrIcon? { get }
+    var kPISubItemValue: TextOrIcon? { get }
     // sourcery: defaultValue = "KPISubitemType.unit"
-    var kPIViewSubItemType: KPISubitemType { get }
+    var kPISubItemType: KPISubitemType { get }
 }

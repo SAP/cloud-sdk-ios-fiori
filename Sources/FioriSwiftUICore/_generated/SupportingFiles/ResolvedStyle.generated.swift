@@ -1011,19 +1011,19 @@ extension KPIProgressItemStyle {
     }
 }
 
-// MARK: KPIViewSubItemStyle
+// MARK: KPISubItemStyle
 
-struct ResolvedKPIViewSubItemStyle<Style: KPIViewSubItemStyle>: View {
+struct ResolvedKPISubItemStyle<Style: KPISubItemStyle>: View {
     let style: Style
-    let configuration: KPIViewSubItemConfiguration
+    let configuration: KPISubItemConfiguration
     var body: some View {
         self.style.makeBody(self.configuration)
     }
 }
 
-extension KPIViewSubItemStyle {
-    func resolve(configuration: KPIViewSubItemConfiguration) -> some View {
-        ResolvedKPIViewSubItemStyle(style: self, configuration: configuration)
+extension KPISubItemStyle {
+    func resolve(configuration: KPISubItemConfiguration) -> some View {
+        ResolvedKPISubItemStyle(style: self, configuration: configuration)
     }
 }
 

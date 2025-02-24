@@ -1772,31 +1772,31 @@ public extension KPIProgressItemStyle {
     }
 }
 
-// MARK: KPIViewSubItemStyle
+// MARK: KPISubItemStyle
 
-extension ModifiedStyle: KPIViewSubItemStyle where Style: KPIViewSubItemStyle {
-    public func makeBody(_ configuration: KPIViewSubItemConfiguration) -> some View {
-        KPIViewSubItem(configuration)
-            .kPIViewSubItemStyle(self.style)
+extension ModifiedStyle: KPISubItemStyle where Style: KPISubItemStyle {
+    public func makeBody(_ configuration: KPISubItemConfiguration) -> some View {
+        KPISubItem(configuration)
+            .kPISubItemStyle(self.style)
             .modifier(self.modifier)
     }
 }
 
-public struct KPIViewSubItemStyleModifier<Style: KPIViewSubItemStyle>: ViewModifier {
+public struct KPISubItemStyleModifier<Style: KPISubItemStyle>: ViewModifier {
     let style: Style
 
     public func body(content: Content) -> some View {
-        content.kPIViewSubItemStyle(self.style)
+        content.kPISubItemStyle(self.style)
     }
 }
 
-public extension KPIViewSubItemStyle {
-    func modifier(_ modifier: some ViewModifier) -> some KPIViewSubItemStyle {
+public extension KPISubItemStyle {
+    func modifier(_ modifier: some ViewModifier) -> some KPISubItemStyle {
         ModifiedStyle(style: self, modifier: modifier)
     }
 
-    func concat(_ style: some KPIViewSubItemStyle) -> some KPIViewSubItemStyle {
-        style.modifier(KPIViewSubItemStyleModifier(style: self))
+    func concat(_ style: some KPISubItemStyle) -> some KPISubItemStyle {
+        style.modifier(KPISubItemStyleModifier(style: self))
     }
 }
 

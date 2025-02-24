@@ -24,7 +24,7 @@ struct AnyKPIItemStyle: KPIItemStyle {
 public struct KPIItemConfiguration {
     public var componentIdentifier: String = "fiori_kpiitem_component"
     public let kpiCaption: KpiCaption
-    @Binding public var items: [any KPIViewSubItemModel]
+    public let items: [any KPISubItemModel]
     public let proposedViewSize: KPIItemSize
     public let alignment: Alignment
 

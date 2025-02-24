@@ -1326,23 +1326,23 @@ extension EnvironmentValues {
     }
 }
 
-// MARK: KPIViewSubItemStyle
+// MARK: KPISubItemStyle
 
-struct KPIViewSubItemStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any KPIViewSubItemStyle] = []
+struct KPISubItemStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any KPISubItemStyle] = []
 }
 
 extension EnvironmentValues {
-    var kPIViewSubItemStyle: any KPIViewSubItemStyle {
-        self.kPIViewSubItemStyleStack.last ?? .base
+    var kPISubItemStyle: any KPISubItemStyle {
+        self.kPISubItemStyleStack.last ?? .base
     }
 
-    var kPIViewSubItemStyleStack: [any KPIViewSubItemStyle] {
+    var kPISubItemStyleStack: [any KPISubItemStyle] {
         get {
-            self[KPIViewSubItemStyleStackKey.self]
+            self[KPISubItemStyleStackKey.self]
         }
         set {
-            self[KPIViewSubItemStyleStackKey.self] = newValue
+            self[KPISubItemStyleStackKey.self] = newValue
         }
     }
 }

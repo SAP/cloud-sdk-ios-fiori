@@ -1074,18 +1074,18 @@ public extension View {
     }
 }
 
-// MARK: KPIViewSubItemStyle
+// MARK: KPISubItemStyle
 
 public extension View {
-    func kPIViewSubItemStyle(_ style: some KPIViewSubItemStyle) -> some View {
-        self.transformEnvironment(\.kPIViewSubItemStyleStack) { stack in
+    func kPISubItemStyle(_ style: some KPISubItemStyle) -> some View {
+        self.transformEnvironment(\.kPISubItemStyleStack) { stack in
             stack.append(style)
         }
     }
 
-    func kPIViewSubItemStyle(@ViewBuilder content: @escaping (KPIViewSubItemConfiguration) -> some View) -> some View {
-        self.transformEnvironment(\.kPIViewSubItemStyleStack) { stack in
-            let style = AnyKPIViewSubItemStyle(content)
+    func kPISubItemStyle(@ViewBuilder content: @escaping (KPISubItemConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.kPISubItemStyleStack) { stack in
+            let style = AnyKPISubItemStyle(content)
             stack.append(style)
         }
     }

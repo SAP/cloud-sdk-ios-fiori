@@ -7,30 +7,30 @@ import SwiftUI
 ///
 /// ## Usage
 /// ```swift
-/// struct KPIViewSubItemModelImplementation: KPIViewSubItemModel {
+/// struct KPISubItemModelImplementation: KPISubItemModel {
 ///     let id: UUID
-///     let kPIViewSubItemValue: TextOrIcon
-///     let kPIViewSubItemType: KPISubitemType
+///     let kPISubItemValue: TextOrIcon
+///     let kPISubItemType: KPISubitemType
 ///
-///     init(id: UUID = UUID(), kPIViewSubItemValue: TextOrIcon, kPIViewSubItemType: KPISubitemType) {
+///     init(id: UUID = UUID(), kPISubItemValue: TextOrIcon, kPISubItemType: KPISubitemType) {
 ///         self.id = id
-///         self.kPIViewSubItemValue = kPIViewSubItemValue
-///         self.kPIViewSubItemType = kPIViewSubItemType
+///         self.kPISubItemValue = kPISubItemValue
+///         self.kPISubItemType = kPISubItemType
 ///     }
 /// }
 ///
-/// @State private var item: [KPIViewSubItemModelImplementation] = [
-///     KPIViewSubItemModelImplementation(kPIViewSubItemValue: .icon(Image(systemName: "triangleshape.fill")), kPIViewSubItemType: KPISubitemType.icon),
-///     KPIViewSubItemModelImplementation(kPIViewSubItemValue: .text("123"), kPIViewSubItemType: KPISubitemType.metric),
-///     KPIViewSubItemModelImplementation(kPIViewSubItemValue: .text("USD"), kPIViewSubItemType: KPISubitemType.unit)
+/// @State private var item: [KPISubItemModelImplementation] = [
+///     KPISubItemModelImplementation(kPISubItemValue: .icon(Image(systemName: "triangleshape.fill")), kPISubItemType: KPISubitemType.icon),
+///     KPISubItemModelImplementation(kPISubItemValue: .text("123"), kPISubItemType: KPISubitemType.metric),
+///     KPISubItemModelImplementation(kPISubItemValue: .text("USD"), kPISubItemType: KPISubitemType.unit)
 /// ]
 ///
-/// KPIItem(kpiCaption: "abc", items:  .constant(self.item.map { $0 as any KPIViewSubItemModel }), proposedViewSize: .small, alignment: .leading)
+/// KPIItem(kpiCaption: "abc", items: self.item.map { $0 as any KPIViewSubItemModel }, proposedViewSize: .small, alignment: .leading)
 /// ```
 public struct KPIItem {
     let kpiCaption: any View
     /// The data for KPI item
-    @Binding var items: [any KPIViewSubItemModel]
+    let items: [any KPISubItemModel]
     let proposedViewSize: KPIItemSize
     let alignment: Alignment
 
@@ -41,13 +41,13 @@ public struct KPIItem {
     fileprivate var _shouldApplyDefaultStyle = true
 
     public init(@ViewBuilder kpiCaption: () -> any View = { EmptyView() },
-                items: Binding<[any KPIViewSubItemModel]>,
+                items: [any KPISubItemModel] = [],
                 proposedViewSize: KPIItemSize = .small,
                 alignment: Alignment = .center,
                 componentIdentifier: String? = KPIItem.identifier)
     {
         self.kpiCaption = KpiCaption(kpiCaption: kpiCaption, componentIdentifier: componentIdentifier)
-        self._items = items
+        self.items = items
         self.proposedViewSize = proposedViewSize
         self.alignment = alignment
         self.componentIdentifier = componentIdentifier ?? KPIItem.identifier
@@ -60,7 +60,7 @@ public extension KPIItem {
 
 public extension KPIItem {
     init(kpiCaption: AttributedString? = nil,
-         items: Binding<[any KPIViewSubItemModel]>,
+         items: [any KPISubItemModel] = [],
          proposedViewSize: KPIItemSize = .small,
          alignment: Alignment = .center)
     {
@@ -75,7 +75,7 @@ public extension KPIItem {
 
     internal init(_ configuration: KPIItemConfiguration, shouldApplyDefaultStyle: Bool) {
         self.kpiCaption = configuration.kpiCaption
-        self._items = configuration.$items
+        self.items = configuration.items
         self.proposedViewSize = configuration.proposedViewSize
         self.alignment = configuration.alignment
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
@@ -88,7 +88,7 @@ extension KPIItem: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, kpiCaption: .init(self.kpiCaption), items: self.$items, proposedViewSize: self.proposedViewSize, alignment: self.alignment)).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, kpiCaption: .init(self.kpiCaption), items: self.items, proposedViewSize: self.proposedViewSize, alignment: self.alignment)).typeErased
                 .transformEnvironment(\.kPIItemStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -106,7 +106,7 @@ private extension KPIItem {
     }
 
     func defaultStyle() -> some View {
-        KPIItem(.init(componentIdentifier: self.componentIdentifier, kpiCaption: .init(self.kpiCaption), items: self.$items, proposedViewSize: self.proposedViewSize, alignment: self.alignment))
+        KPIItem(.init(componentIdentifier: self.componentIdentifier, kpiCaption: .init(self.kpiCaption), items: self.items, proposedViewSize: self.proposedViewSize, alignment: self.alignment))
             .shouldApplyDefaultStyle(false)
             .kPIItemStyle(KPIItemFioriStyle.ContentFioriStyle())
             .typeErased

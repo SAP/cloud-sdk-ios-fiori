@@ -469,9 +469,9 @@ extension KPIProgressItem: _ViewEmptyChecking {
     }
 }
 
-extension KPIViewSubItem: _ViewEmptyChecking {
+extension KPISubItem: _ViewEmptyChecking {
     public var isEmpty: Bool {
-        kPIViewSubItemValue.isEmpty
+        kPISubItemValue.isEmpty
     }
 }
 
