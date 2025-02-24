@@ -239,26 +239,6 @@ extension EnvironmentValues {
         set { self[DoneActionModifierKey.self] = newValue }
     }
 
-    public var nextActionModifier: AnyViewModifier {
-        get { return self[NextActionModifierKey.self] }
-        set { self[NextActionModifierKey.self] = newValue }
-    }
-
-    public var allowActionModifier: AnyViewModifier {
-        get { return self[AllowActionModifierKey.self] }
-        set { self[AllowActionModifierKey.self] = newValue }
-    }
-
-    public var denyActionModifier: AnyViewModifier {
-        get { return self[DenyActionModifierKey.self] }
-        set { self[DenyActionModifierKey.self] = newValue }
-    }
-
-    public var notNowActionModifier: AnyViewModifier {
-        get { return self[NotNowActionModifierKey.self] }
-        set { self[NotNowActionModifierKey.self] = newValue }
-    }
-
     public var itemsModifier: AnyViewModifier {
         get { return self[ItemsModifierKey.self] }
         set { self[ItemsModifierKey.self] = newValue }
@@ -297,6 +277,26 @@ extension EnvironmentValues {
     public var applyActionModifier: AnyViewModifier {
         get { return self[ApplyActionModifierKey.self] }
         set { self[ApplyActionModifierKey.self] = newValue }
+    }
+
+    public var nextActionModifier: AnyViewModifier {
+        get { return self[NextActionModifierKey.self] }
+        set { self[NextActionModifierKey.self] = newValue }
+    }
+
+    public var allowActionModifier: AnyViewModifier {
+        get { return self[AllowActionModifierKey.self] }
+        set { self[AllowActionModifierKey.self] = newValue }
+    }
+
+    public var denyActionModifier: AnyViewModifier {
+        get { return self[DenyActionModifierKey.self] }
+        set { self[DenyActionModifierKey.self] = newValue }
+    }
+
+    public var notNowActionModifier: AnyViewModifier {
+        get { return self[NotNowActionModifierKey.self] }
+        set { self[NotNowActionModifierKey.self] = newValue }
     }
 
 }
@@ -539,26 +539,6 @@ public extension View {
     }
 
     @ViewBuilder
-    func nextActionModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
-        self.environment(\.nextActionModifier, AnyViewModifier(transform))
-    }
-
-    @ViewBuilder
-    func allowActionModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
-        self.environment(\.allowActionModifier, AnyViewModifier(transform))
-    }
-
-    @ViewBuilder
-    func denyActionModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
-        self.environment(\.denyActionModifier, AnyViewModifier(transform))
-    }
-
-    @ViewBuilder
-    func notNowActionModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
-        self.environment(\.notNowActionModifier, AnyViewModifier(transform))
-    }
-
-    @ViewBuilder
     func itemsModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
         self.environment(\.itemsModifier, AnyViewModifier(transform))
     }
@@ -596,6 +576,26 @@ public extension View {
     @ViewBuilder
     func applyActionModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
         self.environment(\.applyActionModifier, AnyViewModifier(transform))
+    }
+
+    @ViewBuilder
+    func nextActionModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
+        self.environment(\.nextActionModifier, AnyViewModifier(transform))
+    }
+
+    @ViewBuilder
+    func allowActionModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
+        self.environment(\.allowActionModifier, AnyViewModifier(transform))
+    }
+
+    @ViewBuilder
+    func denyActionModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
+        self.environment(\.denyActionModifier, AnyViewModifier(transform))
+    }
+
+    @ViewBuilder
+    func notNowActionModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
+        self.environment(\.notNowActionModifier, AnyViewModifier(transform))
     }
 
 }

@@ -2,7 +2,7 @@
 // DO NOT EDIT
 import SwiftUI
 
-public struct UserConsentView<UserConsentForms: IndexedViewContainer> {
+public struct _UserConsentView<UserConsentForms: IndexedViewContainer> {
     
 
     let _userConsentForms: UserConsentForms
@@ -40,13 +40,13 @@ public struct UserConsentView<UserConsentForms: IndexedViewContainer> {
 	
 }
 
-extension UserConsentView where UserConsentForms == _UserConsentFormsContainer {
+extension _UserConsentView where UserConsentForms == _UserConsentFormsContainer {
 
-    public init(model: UserConsentViewModel) {
+    public init(model: _UserConsentViewModel) {
         self.init(userConsentForms: model.userConsentForms, didAllow: model.didAllow, didDeny: model.didDeny, didCancel: model.didCancel, didFinish: model.didFinish)
     }
 
-    public init(userConsentForms: [UserConsentFormModel] = [], didAllow: ((Int) -> Void)? = nil, didDeny: ((Int, Bool) -> Void)? = nil, didCancel: ((Int) -> Void)? = nil, didFinish: (([Int]) -> Void)? = nil) {
+    public init(userConsentForms: [_UserConsentFormModel] = [], didAllow: ((Int) -> Void)? = nil, didDeny: ((Int, Bool) -> Void)? = nil, didCancel: ((Int) -> Void)? = nil, didFinish: (([Int]) -> Void)? = nil) {
         self._userConsentForms = _UserConsentFormsContainer(userConsentForms: userConsentForms)
 		self._didAllow = didAllow
 		self._didDeny = didDeny
