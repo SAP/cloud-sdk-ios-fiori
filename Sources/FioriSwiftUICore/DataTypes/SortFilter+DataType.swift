@@ -475,7 +475,7 @@ public extension SortFilterItem {
         ///   - allowsEmptySelection: A boolean value to indicate to allow empty selections or not.
         ///   - barItemDisplayMode: Name display mode for the bar.
         ///   - isSearchBarHidden: A boolean value to indicate to search bar hidden or not.
-        ///   - icon: Icon at the left of the item.
+        ///   - icon: Icon at the leading side of the item.
         ///   - itemLayout: Options layout type when `displayMode` is  `.filterFormCell`.
         ///   - displayMode: Options display mode.
         ///   - listEntriesSectionMode: List entries section mode when `displayMode` is  `.list`.
