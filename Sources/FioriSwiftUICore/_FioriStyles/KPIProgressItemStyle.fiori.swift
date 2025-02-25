@@ -9,7 +9,7 @@ public struct KPIProgressItemBaseStyle: KPIProgressItemStyle {
     public func makeBody(_ configuration: KPIProgressItemConfiguration) -> some View {
         VStack(alignment: .center, spacing: 2) {
             ZStack {
-                StylableCircularProgressView(configuration: configuration, completedFractionColor: getFractionColor(for: getConfigState(isEnabled: self.isEnabled, isPressed: self.isPressed)))
+                StylableCircularProgressView(configuration: configuration, completedFractionColor: self.getFractionColor(for: self.getConfigState(isEnabled: self.isEnabled, isPressed: self.isPressed)))
                 if configuration.kPIContent.isEmpty {
                     VStack(alignment: .center, spacing: 2) {
                         StylableKPIView(data: configuration.data, isEnabled: self.isEnabled, isPressed: self.isPressed)
@@ -45,36 +45,25 @@ public struct KPIProgressItemBaseStyle: KPIProgressItemStyle {
                 self.isPressed = false
             }
     }
-}
-
-struct IsPressedEnvironmentKey: EnvironmentKey {
-    static let defaultValue: Bool = false
-}
-
-extension EnvironmentValues {
-    var isPressed: Bool {
-        get { self[IsPressedEnvironmentKey.self] }
-        set { self[IsPressedEnvironmentKey.self] = newValue }
+    
+    func getConfigState(isEnabled: Bool, isPressed: Bool) -> ControlState {
+        isEnabled ? (isPressed ? .highlighted : .normal) : .disabled
     }
-}
 
-func getConfigState(isEnabled: Bool, isPressed: Bool) -> ControlState {
-    isEnabled ? (isPressed ? .highlighted : .normal) : .disabled
-}
+    func getForegroundColor(for state: ControlState) -> Color {
+        let foregroundColors: [ControlState: Color] = [.disabled: .preferredColor(.primaryLabel),
+                                                       .normal: .preferredColor(.tintColor),
+                                                       .highlighted: .preferredColor(.tintColorTapState)]
+        
+        return foregroundColors[state] ?? .preferredColor(.tintColor)
+    }
 
-func getForegroundColor(for state: ControlState) -> Color {
-    let foregroundColors: [ControlState: Color] = [.disabled: .preferredColor(.primaryLabel),
-                                                   .normal: .preferredColor(.tintColor),
-                                                   .highlighted: .preferredColor(.tintColorTapState)]
-    
-    return foregroundColors[state] ?? .preferredColor(.tintColor)
-}
-
-func getFractionColor(for state: ControlState) -> Color {
-    let fractionColors: [ControlState: Color] = [.normal: .preferredColor(.tintColor),
-                                                 .highlighted: .preferredColor(.tintColorTapState)]
-    
-    return fractionColors[state] ?? .preferredColor(.tintColor)
+    func getFractionColor(for state: ControlState) -> Color {
+        let fractionColors: [ControlState: Color] = [.normal: .preferredColor(.tintColor),
+                                                     .highlighted: .preferredColor(.tintColorTapState)]
+        
+        return fractionColors[state] ?? .preferredColor(.tintColor)
+    }
 }
 
 struct StylableKPIView: View {
@@ -83,12 +72,13 @@ struct StylableKPIView: View {
     let isPressed: Bool
     
     public var body: some View {
-        KPIProgressFormatter().create(from: self.data)
+        let baseStyle = KPIProgressItemBaseStyle()
+        return KPIProgressFormatter().create(from: self.data)
             .lineLimit(1)
             .minimumScaleFactor(0.3)
             .truncationMode(.tail)
             .multilineTextAlignment(.center)
-            .foregroundStyle(getForegroundColor(for: getConfigState(isEnabled: self.isEnabled, isPressed: self.isPressed)))
+            .foregroundStyle(baseStyle.getForegroundColor(for: baseStyle.getConfigState(isEnabled: self.isEnabled, isPressed: self.isPressed)))
     }
 }
 
@@ -151,8 +141,9 @@ extension KPIProgressItemFioriStyle {
         @Environment(\.isPressed) var isPressed: Bool
 
         func makeBody(_ configuration: KpiCaptionConfiguration) -> some View {
-            KpiCaption(configuration)
-                .foregroundStyle(getForegroundColor(for: getConfigState(isEnabled: self.isEnabled, isPressed: self.isPressed)))
+            let baseStyle = KPIProgressItemBaseStyle()
+            return KpiCaption(configuration)
+                .foregroundStyle(baseStyle.getForegroundColor(for: baseStyle.getConfigState(isEnabled: self.isEnabled, isPressed: self.isPressed)))
                 .font(.subheadline)
                 .truncationMode(.tail)
                 .multilineTextAlignment(.center)
@@ -167,8 +158,9 @@ extension KPIProgressItemFioriStyle {
         @Environment(\.isPressed) var isPressed: Bool
     
         func makeBody(_ configuration: FootnoteConfiguration) -> some View {
-            Footnote(configuration)
-                .foregroundStyle(getForegroundColor(for: getConfigState(isEnabled: self.isEnabled, isPressed: self.isPressed)))
+            let baseStyle = KPIProgressItemBaseStyle()
+            return Footnote(configuration)
+                .foregroundStyle(baseStyle.getForegroundColor(for: baseStyle.getConfigState(isEnabled: self.isEnabled, isPressed: self.isPressed)))
                 .font(.subheadline)
                 .truncationMode(.tail)
                 .multilineTextAlignment(.center)
@@ -201,4 +193,15 @@ public enum KPIProgressItemSize {
     case small
     /// Larger circle. 130px diameter
     case large
+}
+
+struct IsPressedEnvironmentKey: EnvironmentKey {
+    static let defaultValue: Bool = false
+}
+
+extension EnvironmentValues {
+    var isPressed: Bool {
+        get { self[IsPressedEnvironmentKey.self] }
+        set { self[IsPressedEnvironmentKey.self] = newValue }
+    }
 }

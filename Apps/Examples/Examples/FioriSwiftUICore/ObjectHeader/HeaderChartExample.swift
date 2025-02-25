@@ -49,7 +49,7 @@ struct HeaderChartExample: ListDataProtocol {
             }, trendImage: {
                 Image(systemName: "triangle.fill").foregroundColor(.green)
             }, kpi: {
-                KPIItem(data: .components([.metric("79"), .unit("°F")]), subtitle: "").disabled(true)
+                _KPIItem(data: .components([.metric("79"), .unit("°F")]), subtitle: "").disabled(true)
             }, chart: {
                 ChartView(chartModel)
             })
@@ -86,7 +86,7 @@ struct HeaderChartExample: ListDataProtocol {
             }, subtitle: {
                 Text("20 min ago")
             }, kpi: {
-                KPIItem(data: .components([.metric("79"), .unit("°F")]), subtitle: "").disabled(true)
+                _KPIItem(data: .components([.metric("79"), .unit("°F")]), subtitle: "").disabled(true)
             }, chart: {
                 ChartView(chartModel)
             })
@@ -102,7 +102,7 @@ struct HeaderChartExample: ListDataProtocol {
             }, trendImage: {
                 Image(systemName: "triangle.fill").foregroundColor(.green)
             }, kpi: {
-                KPIItem(data: .components([.metric("79"), .unit("°F")]), subtitle: "").disabled(true)
+                _KPIItem(data: .components([.metric("79"), .unit("°F")]), subtitle: "").disabled(true)
             })
             return AnyView(hc)
             
@@ -124,7 +124,7 @@ struct HeaderChartExample: ListDataProtocol {
             }, subtitle: {
                 Text("20 min ago")
             }, kpi: {
-                KPIItem(data: .components([.metric("79"), .unit("°F")]), subtitle: "").disabled(true)
+                _KPIItem(data: .components([.metric("79"), .unit("°F")]), subtitle: "").disabled(true)
             })
             return AnyView(hc)
             
@@ -146,7 +146,7 @@ struct HeaderChartExample: ListDataProtocol {
             }, trendImage: {
                 Image(systemName: "triangle.fill").foregroundColor(.green)
             }, kpi: {
-                KPIItem(data: .components([.metric("12345678901234567890"), .unit("°F")]), subtitle: "").disabled(true)
+                _KPIItem(data: .components([.metric("12345678901234567890"), .unit("°F")]), subtitle: "").disabled(true)
             }, chart: {
                 ChartView(chartModel)
             })

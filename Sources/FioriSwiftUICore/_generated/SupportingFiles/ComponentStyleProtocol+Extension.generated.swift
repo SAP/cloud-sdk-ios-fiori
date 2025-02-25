@@ -1648,6 +1648,20 @@ public extension CheckoutIndicatorStyle where Self == CheckoutIndicatorFioriStyl
     }
 }
 
+// MARK: ClearActionStyle
+
+public extension ClearActionStyle where Self == ClearActionBaseStyle {
+    static var base: ClearActionBaseStyle {
+        ClearActionBaseStyle()
+    }
+}
+
+public extension ClearActionStyle where Self == ClearActionFioriStyle {
+    static var fiori: ClearActionFioriStyle {
+        ClearActionFioriStyle()
+    }
+}
+
 // MARK: CloseActionStyle
 
 public extension CloseActionStyle where Self == CloseActionBaseStyle {
@@ -2215,6 +2229,20 @@ public extension FilterFeedbackBarButtonStyle where Self == FilterFeedbackBarBut
     }
 }
 
+// MARK: FilterFeedbackBarStyle
+
+public extension FilterFeedbackBarStyle where Self == FilterFeedbackBarBaseStyle {
+    static var base: FilterFeedbackBarBaseStyle {
+        FilterFeedbackBarBaseStyle()
+    }
+}
+
+public extension FilterFeedbackBarStyle where Self == FilterFeedbackBarFioriStyle {
+    static var fiori: FilterFeedbackBarFioriStyle {
+        FilterFeedbackBarFioriStyle()
+    }
+}
+
 // MARK: FilterFeedbackBarItemStyle
 
 public extension FilterFeedbackBarItemStyle where Self == FilterFeedbackBarItemBaseStyle {
@@ -2289,6 +2317,104 @@ public extension FilterFeedbackBarItemStyle where Self == FilterFeedbackBarItemA
     static func accessoryIconStyle(@ViewBuilder content: @escaping (AccessoryIconConfiguration) -> some View) -> FilterFeedbackBarItemAccessoryIconStyle {
         let style = AnyAccessoryIconStyle(content)
         return FilterFeedbackBarItemAccessoryIconStyle(style: style)
+    }
+}
+
+// MARK: FilterFormViewStyle
+
+public extension FilterFormViewStyle where Self == FilterFormViewBaseStyle {
+    static var base: FilterFormViewBaseStyle {
+        FilterFormViewBaseStyle()
+    }
+}
+
+public extension FilterFormViewStyle where Self == FilterFormViewFioriStyle {
+    static var fiori: FilterFormViewFioriStyle {
+        FilterFormViewFioriStyle()
+    }
+}
+
+public struct FilterFormViewTitleStyle: FilterFormViewStyle {
+    let style: any TitleStyle
+
+    public func makeBody(_ configuration: FilterFormViewConfiguration) -> some View {
+        FilterFormView(configuration)
+            .titleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension FilterFormViewStyle where Self == FilterFormViewTitleStyle {
+    static func titleStyle(_ style: some TitleStyle) -> FilterFormViewTitleStyle {
+        FilterFormViewTitleStyle(style: style)
+    }
+
+    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> FilterFormViewTitleStyle {
+        let style = AnyTitleStyle(content)
+        return FilterFormViewTitleStyle(style: style)
+    }
+}
+
+public struct FilterFormViewMandatoryFieldIndicatorStyle: FilterFormViewStyle {
+    let style: any MandatoryFieldIndicatorStyle
+
+    public func makeBody(_ configuration: FilterFormViewConfiguration) -> some View {
+        FilterFormView(configuration)
+            .mandatoryFieldIndicatorStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension FilterFormViewStyle where Self == FilterFormViewMandatoryFieldIndicatorStyle {
+    static func mandatoryFieldIndicatorStyle(_ style: some MandatoryFieldIndicatorStyle) -> FilterFormViewMandatoryFieldIndicatorStyle {
+        FilterFormViewMandatoryFieldIndicatorStyle(style: style)
+    }
+
+    static func mandatoryFieldIndicatorStyle(@ViewBuilder content: @escaping (MandatoryFieldIndicatorConfiguration) -> some View) -> FilterFormViewMandatoryFieldIndicatorStyle {
+        let style = AnyMandatoryFieldIndicatorStyle(content)
+        return FilterFormViewMandatoryFieldIndicatorStyle(style: style)
+    }
+}
+
+public struct FilterFormViewOptionsStyle: FilterFormViewStyle {
+    let style: any OptionsStyle
+
+    public func makeBody(_ configuration: FilterFormViewConfiguration) -> some View {
+        FilterFormView(configuration)
+            .optionsStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension FilterFormViewStyle where Self == FilterFormViewOptionsStyle {
+    static func optionsStyle(_ style: some OptionsStyle) -> FilterFormViewOptionsStyle {
+        FilterFormViewOptionsStyle(style: style)
+    }
+
+    static func optionsStyle(@ViewBuilder content: @escaping (OptionsConfiguration) -> some View) -> FilterFormViewOptionsStyle {
+        let style = AnyOptionsStyle(content)
+        return FilterFormViewOptionsStyle(style: style)
+    }
+}
+
+public struct FilterFormViewFormViewStyle: FilterFormViewStyle {
+    let style: any FormViewStyle
+
+    public func makeBody(_ configuration: FilterFormViewConfiguration) -> some View {
+        FilterFormView(configuration)
+            .formViewStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension FilterFormViewStyle where Self == FilterFormViewFormViewStyle {
+    static func formViewStyle(_ style: some FormViewStyle) -> FilterFormViewFormViewStyle {
+        FilterFormViewFormViewStyle(style: style)
+    }
+
+    static func formViewStyle(@ViewBuilder content: @escaping (FormViewConfiguration) -> some View) -> FilterFormViewFormViewStyle {
+        let style = AnyFormViewStyle(content)
+        return FilterFormViewFormViewStyle(style: style)
     }
 }
 
@@ -3167,6 +3293,41 @@ public extension KPIContentStyle where Self == KPIContentFioriStyle {
     }
 }
 
+// MARK: KPIItemStyle
+
+public extension KPIItemStyle where Self == KPIItemBaseStyle {
+    static var base: KPIItemBaseStyle {
+        KPIItemBaseStyle()
+    }
+}
+
+public extension KPIItemStyle where Self == KPIItemFioriStyle {
+    static var fiori: KPIItemFioriStyle {
+        KPIItemFioriStyle()
+    }
+}
+
+public struct KPIItemKpiCaptionStyle: KPIItemStyle {
+    let style: any KpiCaptionStyle
+
+    public func makeBody(_ configuration: KPIItemConfiguration) -> some View {
+        KPIItem(configuration)
+            .kpiCaptionStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension KPIItemStyle where Self == KPIItemKpiCaptionStyle {
+    static func kpiCaptionStyle(_ style: some KpiCaptionStyle) -> KPIItemKpiCaptionStyle {
+        KPIItemKpiCaptionStyle(style: style)
+    }
+
+    static func kpiCaptionStyle(@ViewBuilder content: @escaping (KpiCaptionConfiguration) -> some View) -> KPIItemKpiCaptionStyle {
+        let style = AnyKpiCaptionStyle(content)
+        return KPIItemKpiCaptionStyle(style: style)
+    }
+}
+
 // MARK: KPIProgressItemStyle
 
 public extension KPIProgressItemStyle where Self == KPIProgressItemBaseStyle {
@@ -3286,6 +3447,34 @@ public extension KPIProgressItemStyle where Self == KPIProgressItemOuterCircleSt
     }
 }
 
+// MARK: KPISubItemStyle
+
+public extension KPISubItemStyle where Self == KPISubItemBaseStyle {
+    static var base: KPISubItemBaseStyle {
+        KPISubItemBaseStyle()
+    }
+}
+
+public extension KPISubItemStyle where Self == KPISubItemFioriStyle {
+    static var fiori: KPISubItemFioriStyle {
+        KPISubItemFioriStyle()
+    }
+}
+
+// MARK: KeyStyle
+
+public extension KeyStyle where Self == KeyBaseStyle {
+    static var base: KeyBaseStyle {
+        KeyBaseStyle()
+    }
+}
+
+public extension KeyStyle where Self == KeyFioriStyle {
+    static var fiori: KeyFioriStyle {
+        KeyFioriStyle()
+    }
+}
+
 // MARK: KeyValueFormViewStyle
 
 public extension KeyValueFormViewStyle where Self == KeyValueFormViewBaseStyle {
@@ -3402,6 +3591,83 @@ public extension KeyValueFormViewStyle where Self == KeyValueFormViewNoteFormVie
     static func noteFormViewStyle(@ViewBuilder content: @escaping (NoteFormViewConfiguration) -> some View) -> KeyValueFormViewNoteFormViewStyle {
         let style = AnyNoteFormViewStyle(content)
         return KeyValueFormViewNoteFormViewStyle(style: style)
+    }
+}
+
+// MARK: KeyValueItemStyle
+
+public extension KeyValueItemStyle where Self == KeyValueItemBaseStyle {
+    static var base: KeyValueItemBaseStyle {
+        KeyValueItemBaseStyle()
+    }
+}
+
+public extension KeyValueItemStyle where Self == KeyValueItemFioriStyle {
+    static var fiori: KeyValueItemFioriStyle {
+        KeyValueItemFioriStyle()
+    }
+}
+
+public struct KeyValueItemKeyStyle: KeyValueItemStyle {
+    let style: any KeyStyle
+
+    public func makeBody(_ configuration: KeyValueItemConfiguration) -> some View {
+        KeyValueItem(configuration)
+            .keyStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension KeyValueItemStyle where Self == KeyValueItemKeyStyle {
+    static func keyStyle(_ style: some KeyStyle) -> KeyValueItemKeyStyle {
+        KeyValueItemKeyStyle(style: style)
+    }
+
+    static func keyStyle(@ViewBuilder content: @escaping (KeyConfiguration) -> some View) -> KeyValueItemKeyStyle {
+        let style = AnyKeyStyle(content)
+        return KeyValueItemKeyStyle(style: style)
+    }
+}
+
+public struct KeyValueItemValueStyle: KeyValueItemStyle {
+    let style: any ValueStyle
+
+    public func makeBody(_ configuration: KeyValueItemConfiguration) -> some View {
+        KeyValueItem(configuration)
+            .valueStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension KeyValueItemStyle where Self == KeyValueItemValueStyle {
+    static func valueStyle(_ style: some ValueStyle) -> KeyValueItemValueStyle {
+        KeyValueItemValueStyle(style: style)
+    }
+
+    static func valueStyle(@ViewBuilder content: @escaping (ValueConfiguration) -> some View) -> KeyValueItemValueStyle {
+        let style = AnyValueStyle(content)
+        return KeyValueItemValueStyle(style: style)
+    }
+}
+
+public struct KeyValueItemFormViewStyle: KeyValueItemStyle {
+    let style: any FormViewStyle
+
+    public func makeBody(_ configuration: KeyValueItemConfiguration) -> some View {
+        KeyValueItem(configuration)
+            .formViewStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension KeyValueItemStyle where Self == KeyValueItemFormViewStyle {
+    static func formViewStyle(_ style: some FormViewStyle) -> KeyValueItemFormViewStyle {
+        KeyValueItemFormViewStyle(style: style)
+    }
+
+    static func formViewStyle(@ViewBuilder content: @escaping (FormViewConfiguration) -> some View) -> KeyValueItemFormViewStyle {
+        let style = AnyFormViewStyle(content)
+        return KeyValueItemFormViewStyle(style: style)
     }
 }
 
@@ -4903,27 +5169,6 @@ public extension PlaceholderTextFieldStyle where Self == PlaceholderTextFieldFio
     }
 }
 
-public struct PlaceholderTextFieldTextInputFieldStyle: PlaceholderTextFieldStyle {
-    let style: any TextInputFieldStyle
-
-    public func makeBody(_ configuration: PlaceholderTextFieldConfiguration) -> some View {
-        PlaceholderTextField(configuration)
-            .textInputFieldStyle(self.style)
-            .typeErased
-    }
-}
-
-public extension PlaceholderTextFieldStyle where Self == PlaceholderTextFieldTextInputFieldStyle {
-    static func textInputFieldStyle(_ style: some TextInputFieldStyle) -> PlaceholderTextFieldTextInputFieldStyle {
-        PlaceholderTextFieldTextInputFieldStyle(style: style)
-    }
-
-    static func textInputFieldStyle(@ViewBuilder content: @escaping (TextInputFieldConfiguration) -> some View) -> PlaceholderTextFieldTextInputFieldStyle {
-        let style = AnyTextInputFieldStyle(content)
-        return PlaceholderTextFieldTextInputFieldStyle(style: style)
-    }
-}
-
 public struct PlaceholderTextFieldPlaceholderStyle: PlaceholderTextFieldStyle {
     let style: any PlaceholderStyle
 
@@ -4942,6 +5187,27 @@ public extension PlaceholderTextFieldStyle where Self == PlaceholderTextFieldPla
     static func placeholderStyle(@ViewBuilder content: @escaping (PlaceholderConfiguration) -> some View) -> PlaceholderTextFieldPlaceholderStyle {
         let style = AnyPlaceholderStyle(content)
         return PlaceholderTextFieldPlaceholderStyle(style: style)
+    }
+}
+
+public struct PlaceholderTextFieldTextInputFieldStyle: PlaceholderTextFieldStyle {
+    let style: any TextInputFieldStyle
+
+    public func makeBody(_ configuration: PlaceholderTextFieldConfiguration) -> some View {
+        PlaceholderTextField(configuration)
+            .textInputFieldStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension PlaceholderTextFieldStyle where Self == PlaceholderTextFieldTextInputFieldStyle {
+    static func textInputFieldStyle(_ style: some TextInputFieldStyle) -> PlaceholderTextFieldTextInputFieldStyle {
+        PlaceholderTextFieldTextInputFieldStyle(style: style)
+    }
+
+    static func textInputFieldStyle(@ViewBuilder content: @escaping (TextInputFieldConfiguration) -> some View) -> PlaceholderTextFieldTextInputFieldStyle {
+        let style = AnyTextInputFieldStyle(content)
+        return PlaceholderTextFieldTextInputFieldStyle(style: style)
     }
 }
 
@@ -5540,6 +5806,34 @@ public extension RatingControlFormViewStyle where Self == RatingControlFormViewR
     }
 }
 
+// MARK: ReenterSignatureActionStyle
+
+public extension ReenterSignatureActionStyle where Self == ReenterSignatureActionBaseStyle {
+    static var base: ReenterSignatureActionBaseStyle {
+        ReenterSignatureActionBaseStyle()
+    }
+}
+
+public extension ReenterSignatureActionStyle where Self == ReenterSignatureActionFioriStyle {
+    static var fiori: ReenterSignatureActionFioriStyle {
+        ReenterSignatureActionFioriStyle()
+    }
+}
+
+// MARK: ResetActionStyle
+
+public extension ResetActionStyle where Self == ResetActionBaseStyle {
+    static var base: ResetActionBaseStyle {
+        ResetActionBaseStyle()
+    }
+}
+
+public extension ResetActionStyle where Self == ResetActionFioriStyle {
+    static var fiori: ResetActionFioriStyle {
+        ResetActionFioriStyle()
+    }
+}
+
 // MARK: ReviewCountLabelStyle
 
 public extension ReviewCountLabelStyle where Self == ReviewCountLabelBaseStyle {
@@ -5593,6 +5887,20 @@ public extension Row3Style where Self == Row3BaseStyle {
 public extension Row3Style where Self == Row3FioriStyle {
     static var fiori: Row3FioriStyle {
         Row3FioriStyle()
+    }
+}
+
+// MARK: SaveActionStyle
+
+public extension SaveActionStyle where Self == SaveActionBaseStyle {
+    static var base: SaveActionBaseStyle {
+        SaveActionBaseStyle()
+    }
+}
+
+public extension SaveActionStyle where Self == SaveActionFioriStyle {
+    static var fiori: SaveActionFioriStyle {
+        SaveActionFioriStyle()
     }
 }
 
@@ -5953,6 +6261,209 @@ public extension SideBarListItemStyle where Self == SideBarListItemSwitchStyle {
     }
 }
 
+// MARK: SignatureCaptureViewStyle
+
+public extension SignatureCaptureViewStyle where Self == SignatureCaptureViewBaseStyle {
+    static var base: SignatureCaptureViewBaseStyle {
+        SignatureCaptureViewBaseStyle()
+    }
+}
+
+public extension SignatureCaptureViewStyle where Self == SignatureCaptureViewFioriStyle {
+    static var fiori: SignatureCaptureViewFioriStyle {
+        SignatureCaptureViewFioriStyle()
+    }
+}
+
+public struct SignatureCaptureViewTitleStyle: SignatureCaptureViewStyle {
+    let style: any TitleStyle
+
+    public func makeBody(_ configuration: SignatureCaptureViewConfiguration) -> some View {
+        SignatureCaptureView(configuration)
+            .titleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension SignatureCaptureViewStyle where Self == SignatureCaptureViewTitleStyle {
+    static func titleStyle(_ style: some TitleStyle) -> SignatureCaptureViewTitleStyle {
+        SignatureCaptureViewTitleStyle(style: style)
+    }
+
+    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> SignatureCaptureViewTitleStyle {
+        let style = AnyTitleStyle(content)
+        return SignatureCaptureViewTitleStyle(style: style)
+    }
+}
+
+public struct SignatureCaptureViewMandatoryFieldIndicatorStyle: SignatureCaptureViewStyle {
+    let style: any MandatoryFieldIndicatorStyle
+
+    public func makeBody(_ configuration: SignatureCaptureViewConfiguration) -> some View {
+        SignatureCaptureView(configuration)
+            .mandatoryFieldIndicatorStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension SignatureCaptureViewStyle where Self == SignatureCaptureViewMandatoryFieldIndicatorStyle {
+    static func mandatoryFieldIndicatorStyle(_ style: some MandatoryFieldIndicatorStyle) -> SignatureCaptureViewMandatoryFieldIndicatorStyle {
+        SignatureCaptureViewMandatoryFieldIndicatorStyle(style: style)
+    }
+
+    static func mandatoryFieldIndicatorStyle(@ViewBuilder content: @escaping (MandatoryFieldIndicatorConfiguration) -> some View) -> SignatureCaptureViewMandatoryFieldIndicatorStyle {
+        let style = AnyMandatoryFieldIndicatorStyle(content)
+        return SignatureCaptureViewMandatoryFieldIndicatorStyle(style: style)
+    }
+}
+
+public struct SignatureCaptureViewStartSignatureActionStyle: SignatureCaptureViewStyle {
+    let style: any StartSignatureActionStyle
+
+    public func makeBody(_ configuration: SignatureCaptureViewConfiguration) -> some View {
+        SignatureCaptureView(configuration)
+            .startSignatureActionStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension SignatureCaptureViewStyle where Self == SignatureCaptureViewStartSignatureActionStyle {
+    static func startSignatureActionStyle(_ style: some StartSignatureActionStyle) -> SignatureCaptureViewStartSignatureActionStyle {
+        SignatureCaptureViewStartSignatureActionStyle(style: style)
+    }
+
+    static func startSignatureActionStyle(@ViewBuilder content: @escaping (StartSignatureActionConfiguration) -> some View) -> SignatureCaptureViewStartSignatureActionStyle {
+        let style = AnyStartSignatureActionStyle(content)
+        return SignatureCaptureViewStartSignatureActionStyle(style: style)
+    }
+}
+
+public struct SignatureCaptureViewReenterSignatureActionStyle: SignatureCaptureViewStyle {
+    let style: any ReenterSignatureActionStyle
+
+    public func makeBody(_ configuration: SignatureCaptureViewConfiguration) -> some View {
+        SignatureCaptureView(configuration)
+            .reenterSignatureActionStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension SignatureCaptureViewStyle where Self == SignatureCaptureViewReenterSignatureActionStyle {
+    static func reenterSignatureActionStyle(_ style: some ReenterSignatureActionStyle) -> SignatureCaptureViewReenterSignatureActionStyle {
+        SignatureCaptureViewReenterSignatureActionStyle(style: style)
+    }
+
+    static func reenterSignatureActionStyle(@ViewBuilder content: @escaping (ReenterSignatureActionConfiguration) -> some View) -> SignatureCaptureViewReenterSignatureActionStyle {
+        let style = AnyReenterSignatureActionStyle(content)
+        return SignatureCaptureViewReenterSignatureActionStyle(style: style)
+    }
+}
+
+public struct SignatureCaptureViewCancelActionStyle: SignatureCaptureViewStyle {
+    let style: any CancelActionStyle
+
+    public func makeBody(_ configuration: SignatureCaptureViewConfiguration) -> some View {
+        SignatureCaptureView(configuration)
+            .cancelActionStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension SignatureCaptureViewStyle where Self == SignatureCaptureViewCancelActionStyle {
+    static func cancelActionStyle(_ style: some CancelActionStyle) -> SignatureCaptureViewCancelActionStyle {
+        SignatureCaptureViewCancelActionStyle(style: style)
+    }
+
+    static func cancelActionStyle(@ViewBuilder content: @escaping (CancelActionConfiguration) -> some View) -> SignatureCaptureViewCancelActionStyle {
+        let style = AnyCancelActionStyle(content)
+        return SignatureCaptureViewCancelActionStyle(style: style)
+    }
+}
+
+public struct SignatureCaptureViewClearActionStyle: SignatureCaptureViewStyle {
+    let style: any ClearActionStyle
+
+    public func makeBody(_ configuration: SignatureCaptureViewConfiguration) -> some View {
+        SignatureCaptureView(configuration)
+            .clearActionStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension SignatureCaptureViewStyle where Self == SignatureCaptureViewClearActionStyle {
+    static func clearActionStyle(_ style: some ClearActionStyle) -> SignatureCaptureViewClearActionStyle {
+        SignatureCaptureViewClearActionStyle(style: style)
+    }
+
+    static func clearActionStyle(@ViewBuilder content: @escaping (ClearActionConfiguration) -> some View) -> SignatureCaptureViewClearActionStyle {
+        let style = AnyClearActionStyle(content)
+        return SignatureCaptureViewClearActionStyle(style: style)
+    }
+}
+
+public struct SignatureCaptureViewSaveActionStyle: SignatureCaptureViewStyle {
+    let style: any SaveActionStyle
+
+    public func makeBody(_ configuration: SignatureCaptureViewConfiguration) -> some View {
+        SignatureCaptureView(configuration)
+            .saveActionStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension SignatureCaptureViewStyle where Self == SignatureCaptureViewSaveActionStyle {
+    static func saveActionStyle(_ style: some SaveActionStyle) -> SignatureCaptureViewSaveActionStyle {
+        SignatureCaptureViewSaveActionStyle(style: style)
+    }
+
+    static func saveActionStyle(@ViewBuilder content: @escaping (SaveActionConfiguration) -> some View) -> SignatureCaptureViewSaveActionStyle {
+        let style = AnySaveActionStyle(content)
+        return SignatureCaptureViewSaveActionStyle(style: style)
+    }
+}
+
+public struct SignatureCaptureViewXmarkStyle: SignatureCaptureViewStyle {
+    let style: any XmarkStyle
+
+    public func makeBody(_ configuration: SignatureCaptureViewConfiguration) -> some View {
+        SignatureCaptureView(configuration)
+            .xmarkStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension SignatureCaptureViewStyle where Self == SignatureCaptureViewXmarkStyle {
+    static func xmarkStyle(_ style: some XmarkStyle) -> SignatureCaptureViewXmarkStyle {
+        SignatureCaptureViewXmarkStyle(style: style)
+    }
+
+    static func xmarkStyle(@ViewBuilder content: @escaping (XmarkConfiguration) -> some View) -> SignatureCaptureViewXmarkStyle {
+        let style = AnyXmarkStyle(content)
+        return SignatureCaptureViewXmarkStyle(style: style)
+    }
+}
+
+public struct SignatureCaptureViewWatermarkStyle: SignatureCaptureViewStyle {
+    let style: any WatermarkStyle
+
+    public func makeBody(_ configuration: SignatureCaptureViewConfiguration) -> some View {
+        SignatureCaptureView(configuration)
+            .watermarkStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension SignatureCaptureViewStyle where Self == SignatureCaptureViewWatermarkStyle {
+    static func watermarkStyle(_ style: some WatermarkStyle) -> SignatureCaptureViewWatermarkStyle {
+        SignatureCaptureViewWatermarkStyle(style: style)
+    }
+
+    static func watermarkStyle(@ViewBuilder content: @escaping (WatermarkConfiguration) -> some View) -> SignatureCaptureViewWatermarkStyle {
+        let style = AnyWatermarkStyle(content)
+        return SignatureCaptureViewWatermarkStyle(style: style)
+    }
+}
+
 // MARK: SingleStepStyle
 
 public extension SingleStepStyle where Self == SingleStepBaseStyle {
@@ -6027,6 +6538,118 @@ public extension SingleStepStyle where Self == SingleStepLineStyle {
     static func lineStyle(@ViewBuilder content: @escaping (LineConfiguration) -> some View) -> SingleStepLineStyle {
         let style = AnyLineStyle(content)
         return SingleStepLineStyle(style: style)
+    }
+}
+
+// MARK: SortFilterViewStyle
+
+public extension SortFilterViewStyle where Self == SortFilterViewBaseStyle {
+    static var base: SortFilterViewBaseStyle {
+        SortFilterViewBaseStyle()
+    }
+}
+
+public extension SortFilterViewStyle where Self == SortFilterViewFioriStyle {
+    static var fiori: SortFilterViewFioriStyle {
+        SortFilterViewFioriStyle()
+    }
+}
+
+public struct SortFilterViewTitleStyle: SortFilterViewStyle {
+    let style: any TitleStyle
+
+    public func makeBody(_ configuration: SortFilterViewConfiguration) -> some View {
+        SortFilterView(configuration)
+            .titleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension SortFilterViewStyle where Self == SortFilterViewTitleStyle {
+    static func titleStyle(_ style: some TitleStyle) -> SortFilterViewTitleStyle {
+        SortFilterViewTitleStyle(style: style)
+    }
+
+    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> SortFilterViewTitleStyle {
+        let style = AnyTitleStyle(content)
+        return SortFilterViewTitleStyle(style: style)
+    }
+}
+
+public struct SortFilterViewCancelActionStyle: SortFilterViewStyle {
+    let style: any CancelActionStyle
+
+    public func makeBody(_ configuration: SortFilterViewConfiguration) -> some View {
+        SortFilterView(configuration)
+            .cancelActionStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension SortFilterViewStyle where Self == SortFilterViewCancelActionStyle {
+    static func cancelActionStyle(_ style: some CancelActionStyle) -> SortFilterViewCancelActionStyle {
+        SortFilterViewCancelActionStyle(style: style)
+    }
+
+    static func cancelActionStyle(@ViewBuilder content: @escaping (CancelActionConfiguration) -> some View) -> SortFilterViewCancelActionStyle {
+        let style = AnyCancelActionStyle(content)
+        return SortFilterViewCancelActionStyle(style: style)
+    }
+}
+
+public struct SortFilterViewApplyActionStyle: SortFilterViewStyle {
+    let style: any ApplyActionStyle
+
+    public func makeBody(_ configuration: SortFilterViewConfiguration) -> some View {
+        SortFilterView(configuration)
+            .applyActionStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension SortFilterViewStyle where Self == SortFilterViewApplyActionStyle {
+    static func applyActionStyle(_ style: some ApplyActionStyle) -> SortFilterViewApplyActionStyle {
+        SortFilterViewApplyActionStyle(style: style)
+    }
+
+    static func applyActionStyle(@ViewBuilder content: @escaping (ApplyActionConfiguration) -> some View) -> SortFilterViewApplyActionStyle {
+        let style = AnyApplyActionStyle(content)
+        return SortFilterViewApplyActionStyle(style: style)
+    }
+}
+
+public struct SortFilterViewResetActionStyle: SortFilterViewStyle {
+    let style: any ResetActionStyle
+
+    public func makeBody(_ configuration: SortFilterViewConfiguration) -> some View {
+        SortFilterView(configuration)
+            .resetActionStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension SortFilterViewStyle where Self == SortFilterViewResetActionStyle {
+    static func resetActionStyle(_ style: some ResetActionStyle) -> SortFilterViewResetActionStyle {
+        SortFilterViewResetActionStyle(style: style)
+    }
+
+    static func resetActionStyle(@ViewBuilder content: @escaping (ResetActionConfiguration) -> some View) -> SortFilterViewResetActionStyle {
+        let style = AnyResetActionStyle(content)
+        return SortFilterViewResetActionStyle(style: style)
+    }
+}
+
+// MARK: StartSignatureActionStyle
+
+public extension StartSignatureActionStyle where Self == StartSignatureActionBaseStyle {
+    static var base: StartSignatureActionBaseStyle {
+        StartSignatureActionBaseStyle()
+    }
+}
+
+public extension StartSignatureActionStyle where Self == StartSignatureActionFioriStyle {
+    static var fiori: StartSignatureActionFioriStyle {
+        StartSignatureActionFioriStyle()
     }
 }
 
@@ -6156,27 +6779,6 @@ public extension StepperFieldStyle where Self == StepperFieldDecrementActionStyl
     }
 }
 
-public struct StepperFieldTextInputFieldStyle: StepperFieldStyle {
-    let style: any TextInputFieldStyle
-
-    public func makeBody(_ configuration: StepperFieldConfiguration) -> some View {
-        StepperField(configuration)
-            .textInputFieldStyle(self.style)
-            .typeErased
-    }
-}
-
-public extension StepperFieldStyle where Self == StepperFieldTextInputFieldStyle {
-    static func textInputFieldStyle(_ style: some TextInputFieldStyle) -> StepperFieldTextInputFieldStyle {
-        StepperFieldTextInputFieldStyle(style: style)
-    }
-
-    static func textInputFieldStyle(@ViewBuilder content: @escaping (TextInputFieldConfiguration) -> some View) -> StepperFieldTextInputFieldStyle {
-        let style = AnyTextInputFieldStyle(content)
-        return StepperFieldTextInputFieldStyle(style: style)
-    }
-}
-
 public struct StepperFieldIncrementActionStyle: StepperFieldStyle {
     let style: any IncrementActionStyle
 
@@ -6195,6 +6797,27 @@ public extension StepperFieldStyle where Self == StepperFieldIncrementActionStyl
     static func incrementActionStyle(@ViewBuilder content: @escaping (IncrementActionConfiguration) -> some View) -> StepperFieldIncrementActionStyle {
         let style = AnyIncrementActionStyle(content)
         return StepperFieldIncrementActionStyle(style: style)
+    }
+}
+
+public struct StepperFieldTextInputFieldStyle: StepperFieldStyle {
+    let style: any TextInputFieldStyle
+
+    public func makeBody(_ configuration: StepperFieldConfiguration) -> some View {
+        StepperField(configuration)
+            .textInputFieldStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension StepperFieldStyle where Self == StepperFieldTextInputFieldStyle {
+    static func textInputFieldStyle(_ style: some TextInputFieldStyle) -> StepperFieldTextInputFieldStyle {
+        StepperFieldTextInputFieldStyle(style: style)
+    }
+
+    static func textInputFieldStyle(@ViewBuilder content: @escaping (TextInputFieldConfiguration) -> some View) -> StepperFieldTextInputFieldStyle {
+        let style = AnyTextInputFieldStyle(content)
+        return StepperFieldTextInputFieldStyle(style: style)
     }
 }
 
@@ -6251,27 +6874,6 @@ public extension StepperViewStyle where Self == StepperViewDecrementActionStyle 
     static func decrementActionStyle(@ViewBuilder content: @escaping (DecrementActionConfiguration) -> some View) -> StepperViewDecrementActionStyle {
         let style = AnyDecrementActionStyle(content)
         return StepperViewDecrementActionStyle(style: style)
-    }
-}
-
-public struct StepperViewTextInputFieldStyle: StepperViewStyle {
-    let style: any TextInputFieldStyle
-
-    public func makeBody(_ configuration: StepperViewConfiguration) -> some View {
-        StepperView(configuration)
-            .textInputFieldStyle(self.style)
-            .typeErased
-    }
-}
-
-public extension StepperViewStyle where Self == StepperViewTextInputFieldStyle {
-    static func textInputFieldStyle(_ style: some TextInputFieldStyle) -> StepperViewTextInputFieldStyle {
-        StepperViewTextInputFieldStyle(style: style)
-    }
-
-    static func textInputFieldStyle(@ViewBuilder content: @escaping (TextInputFieldConfiguration) -> some View) -> StepperViewTextInputFieldStyle {
-        let style = AnyTextInputFieldStyle(content)
-        return StepperViewTextInputFieldStyle(style: style)
     }
 }
 
@@ -6566,27 +7168,6 @@ public extension TextFieldFormViewStyle where Self == TextFieldFormViewTitleStyl
     static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> TextFieldFormViewTitleStyle {
         let style = AnyTitleStyle(content)
         return TextFieldFormViewTitleStyle(style: style)
-    }
-}
-
-public struct TextFieldFormViewTextInputFieldStyle: TextFieldFormViewStyle {
-    let style: any TextInputFieldStyle
-
-    public func makeBody(_ configuration: TextFieldFormViewConfiguration) -> some View {
-        TextFieldFormView(configuration)
-            .textInputFieldStyle(self.style)
-            .typeErased
-    }
-}
-
-public extension TextFieldFormViewStyle where Self == TextFieldFormViewTextInputFieldStyle {
-    static func textInputFieldStyle(_ style: some TextInputFieldStyle) -> TextFieldFormViewTextInputFieldStyle {
-        TextFieldFormViewTextInputFieldStyle(style: style)
-    }
-
-    static func textInputFieldStyle(@ViewBuilder content: @escaping (TextInputFieldConfiguration) -> some View) -> TextFieldFormViewTextInputFieldStyle {
-        let style = AnyTextInputFieldStyle(content)
-        return TextFieldFormViewTextInputFieldStyle(style: style)
     }
 }
 
@@ -7367,27 +7948,6 @@ public extension TitleFormViewStyle where Self == TitleFormViewFioriStyle {
     }
 }
 
-public struct TitleFormViewTextInputFieldStyle: TitleFormViewStyle {
-    let style: any TextInputFieldStyle
-
-    public func makeBody(_ configuration: TitleFormViewConfiguration) -> some View {
-        TitleFormView(configuration)
-            .textInputFieldStyle(self.style)
-            .typeErased
-    }
-}
-
-public extension TitleFormViewStyle where Self == TitleFormViewTextInputFieldStyle {
-    static func textInputFieldStyle(_ style: some TextInputFieldStyle) -> TitleFormViewTextInputFieldStyle {
-        TitleFormViewTextInputFieldStyle(style: style)
-    }
-
-    static func textInputFieldStyle(@ViewBuilder content: @escaping (TextInputFieldConfiguration) -> some View) -> TitleFormViewTextInputFieldStyle {
-        let style = AnyTextInputFieldStyle(content)
-        return TitleFormViewTextInputFieldStyle(style: style)
-    }
-}
-
 public struct TitleFormViewPlaceholderStyle: TitleFormViewStyle {
     let style: any PlaceholderStyle
 
@@ -7700,5 +8260,33 @@ public extension ValuePickerStyle where Self == ValuePickerOptionsStyle {
     static func optionsStyle(@ViewBuilder content: @escaping (OptionsConfiguration) -> some View) -> ValuePickerOptionsStyle {
         let style = AnyOptionsStyle(content)
         return ValuePickerOptionsStyle(style: style)
+    }
+}
+
+// MARK: WatermarkStyle
+
+public extension WatermarkStyle where Self == WatermarkBaseStyle {
+    static var base: WatermarkBaseStyle {
+        WatermarkBaseStyle()
+    }
+}
+
+public extension WatermarkStyle where Self == WatermarkFioriStyle {
+    static var fiori: WatermarkFioriStyle {
+        WatermarkFioriStyle()
+    }
+}
+
+// MARK: XmarkStyle
+
+public extension XmarkStyle where Self == XmarkBaseStyle {
+    static var base: XmarkBaseStyle {
+        XmarkBaseStyle()
+    }
+}
+
+public extension XmarkStyle where Self == XmarkFioriStyle {
+    static var fiori: XmarkFioriStyle {
+        XmarkFioriStyle()
     }
 }

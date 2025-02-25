@@ -8,7 +8,7 @@ public struct FilterFeedbackBarItemContainer {
 
     /// Create FilterFeedbackBarItemContainer with items.
     /// - Parameter items: Data of filter feedback bar items.
-    public init(items: Binding<[[SortFilterItem]]>) {
+    public init(_ items: Binding<[[SortFilterItem]]>) {
         self.__items = items
     }
 }

@@ -6,7 +6,7 @@ public struct _FilterFeedbackBarItem<LeftIcon: View, Title: View, RightIcon: Vie
     @Environment(\.leftIconModifier) private var leftIconModifier
 	@Environment(\.titleModifier) private var titleModifier
 	@Environment(\.rightIconModifier) private var rightIconModifier
-	@Environment(\.filterFeedbackBarStyle) var filterFeedbackBarStyle
+	@Environment(\._filterFeedbackBarStyle) var _filterFeedbackBarStyle
 
     let _leftIcon: LeftIcon
 	let _title: Title

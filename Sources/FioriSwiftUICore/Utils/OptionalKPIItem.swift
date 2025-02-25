@@ -9,7 +9,7 @@ struct OptionalKPIItem: View {
     
     var body: some View {
         if let d = data {
-            KPIItem(data: d)
+            _KPIItem(data: d)
         } else {
             EmptyView()
         }

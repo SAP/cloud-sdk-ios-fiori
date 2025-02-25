@@ -347,10 +347,10 @@ extension CardHeaderFioriStyle {
             Tag(verbatim: "Tag")
         }
     } kpi: {
-        KPIItem(KPIItemData.components([.icon(Image(systemName: "arrowtriangle.up.fill")),
-                                        .unit("$"),
-                                        .metric("26.9"),
-                                        .unit("M")]))
+        _KPIItem(KPIItemData.components([.icon(Image(systemName: "arrowtriangle.up.fill")),
+                                         .unit("$"),
+                                         .metric("26.9"),
+                                         .unit("M")]))
     } kpiCaption: {
         Text("Revenue")
     }
