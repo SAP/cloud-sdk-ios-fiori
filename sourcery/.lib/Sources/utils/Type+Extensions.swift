@@ -91,6 +91,7 @@ public extension Type {
                                     "_KeyValueItemModel",
                                     "_SortFilterViewModel",
                                     "_SignatureCaptureViewModel",
+                                    "_EmptyStateViewModel",
                                     "_KPIItemModel"]
         
         if deprecatedComponents.contains(name) {

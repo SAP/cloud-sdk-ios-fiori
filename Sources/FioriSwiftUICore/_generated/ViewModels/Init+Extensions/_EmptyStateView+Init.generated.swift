@@ -2,7 +2,7 @@
 // DO NOT EDIT
 import SwiftUI
 
-extension EmptyStateView where DescriptionText == EmptyView {
+extension _EmptyStateView where DescriptionText == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder detailImage: () -> DetailImage,
@@ -17,7 +17,7 @@ extension EmptyStateView where DescriptionText == EmptyView {
     }
 }
 
-extension EmptyStateView where DetailImage == EmptyView {
+extension _EmptyStateView where DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -32,7 +32,7 @@ extension EmptyStateView where DetailImage == EmptyView {
     }
 }
 
-extension EmptyStateView where ActionView == EmptyView {
+extension _EmptyStateView where ActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -47,7 +47,7 @@ extension EmptyStateView where ActionView == EmptyView {
     }
 }
 
-extension EmptyStateView where DescriptionText == EmptyView, DetailImage == EmptyView {
+extension _EmptyStateView where DescriptionText == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder action: () -> ActionView
@@ -61,7 +61,7 @@ extension EmptyStateView where DescriptionText == EmptyView, DetailImage == Empt
     }
 }
 
-extension EmptyStateView where DescriptionText == EmptyView, ActionView == EmptyView {
+extension _EmptyStateView where DescriptionText == EmptyView, ActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder detailImage: () -> DetailImage
@@ -75,7 +75,7 @@ extension EmptyStateView where DescriptionText == EmptyView, ActionView == Empty
     }
 }
 
-extension EmptyStateView where DetailImage == EmptyView, ActionView == EmptyView {
+extension _EmptyStateView where DetailImage == EmptyView, ActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText
@@ -89,7 +89,7 @@ extension EmptyStateView where DetailImage == EmptyView, ActionView == EmptyView
     }
 }
 
-extension EmptyStateView where DescriptionText == EmptyView, DetailImage == EmptyView, ActionView == EmptyView {
+extension _EmptyStateView where DescriptionText == EmptyView, DetailImage == EmptyView, ActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title
     ) {

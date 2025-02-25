@@ -2,7 +2,7 @@
 // DO NOT EDIT
 import SwiftUI
 
-public struct EmptyStateView<Title: View, DescriptionText: View, DetailImage: View, ActionView: View> {
+public struct _EmptyStateView<Title: View, DescriptionText: View, DetailImage: View, ActionView: View> {
     @Environment(\.titleModifier) private var titleModifier
 	@Environment(\.descriptionTextModifier) private var descriptionTextModifier
 	@Environment(\.detailImageModifier) private var detailImageModifier
@@ -33,30 +33,30 @@ public struct EmptyStateView<Title: View, DescriptionText: View, DetailImage: Vi
 
     @ViewBuilder var title: some View {
         if isModelInit {
-            _title.modifier(titleModifier.concat(Fiori.EmptyStateView.title).concat(Fiori.EmptyStateView.titleCumulative))
+            _title.modifier(titleModifier.concat(Fiori._EmptyStateView.title).concat(Fiori._EmptyStateView.titleCumulative))
         } else {
-            _title.modifier(titleModifier.concat(Fiori.EmptyStateView.title))
+            _title.modifier(titleModifier.concat(Fiori._EmptyStateView.title))
         }
     }
 	@ViewBuilder var descriptionText: some View {
         if isModelInit {
-            _descriptionText.modifier(descriptionTextModifier.concat(Fiori.EmptyStateView.descriptionText).concat(Fiori.EmptyStateView.descriptionTextCumulative))
+            _descriptionText.modifier(descriptionTextModifier.concat(Fiori._EmptyStateView.descriptionText).concat(Fiori._EmptyStateView.descriptionTextCumulative))
         } else {
-            _descriptionText.modifier(descriptionTextModifier.concat(Fiori.EmptyStateView.descriptionText))
+            _descriptionText.modifier(descriptionTextModifier.concat(Fiori._EmptyStateView.descriptionText))
         }
     }
 	@ViewBuilder var detailImage: some View {
         if isModelInit {
-            _detailImage.modifier(detailImageModifier.concat(Fiori.EmptyStateView.detailImage).concat(Fiori.EmptyStateView.detailImageCumulative))
+            _detailImage.modifier(detailImageModifier.concat(Fiori._EmptyStateView.detailImage).concat(Fiori._EmptyStateView.detailImageCumulative))
         } else {
-            _detailImage.modifier(detailImageModifier.concat(Fiori.EmptyStateView.detailImage))
+            _detailImage.modifier(detailImageModifier.concat(Fiori._EmptyStateView.detailImage))
         }
     }
 	@ViewBuilder var action: some View {
         if isModelInit {
-            _action.modifier(actionModifier.concat(Fiori.EmptyStateView.action).concat(Fiori.EmptyStateView.actionCumulative))
+            _action.modifier(actionModifier.concat(Fiori._EmptyStateView.action).concat(Fiori._EmptyStateView.actionCumulative))
         } else {
-            _action.modifier(actionModifier.concat(Fiori.EmptyStateView.action))
+            _action.modifier(actionModifier.concat(Fiori._EmptyStateView.action))
         }
     }
     
@@ -73,12 +73,12 @@ public struct EmptyStateView<Title: View, DescriptionText: View, DetailImage: Vi
     }
 }
 
-extension EmptyStateView where Title == Text,
+extension _EmptyStateView where Title == Text,
 		DescriptionText == _ConditionalContent<Text, EmptyView>,
 		DetailImage == _ConditionalContent<Image, EmptyView>,
 		ActionView == _ConditionalContent<_Action, EmptyView> {
 
-    public init(model: EmptyStateViewModel) {
+    public init(model: _EmptyStateViewModel) {
         self.init(title: model.title, descriptionText: model.descriptionText, detailImage: model.detailImage, action: model.action != nil ? _Action(model: model.action!) : nil)
     }
 
