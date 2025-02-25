@@ -209,7 +209,7 @@ struct ToastMessageModifier: ViewModifier {
                     }, title: {
                         self.title
                     }, position: self.position,
-                    spacing: self.spacing) // TODO: fix formatting
+                    spacing: self.spacing)
                 }
             })
             .setOnChange(of: self.isPresented) {
