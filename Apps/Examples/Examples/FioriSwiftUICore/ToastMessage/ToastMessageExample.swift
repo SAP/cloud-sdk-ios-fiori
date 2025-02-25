@@ -35,19 +35,20 @@ struct ToastMessageBasicExample: View {
                           Text("Toast Message Title")
                       },
                       duration: 5)
+        .navigationTitle("Toast Message")
     }
 }
 
 struct ToastMessagePositionExample: View {
-    @State var show: Bool = false
-    @State var selectedPosition: ToastMessagePosition = .topLeading
-    
+    @State var selectedPosition: ToastMessagePosition = .above
+    @State var spacing: CGFloat = 0
+
     var body: some View {
         VStack {
             HStack {}
-                .frame(maxWidth: 500, maxHeight: 500)
-                .border(.blue, width: 2)
-                .toastMessage(isPresented: self.$show,
+                .frame(maxWidth: 300, maxHeight: 300)
+                .border(.blue, width: 1)
+                .toastMessage(isPresented: .constant(true),
                               icon: {
                                   Image(systemName: "info.circle")
                               },
@@ -55,18 +56,28 @@ struct ToastMessagePositionExample: View {
                                   Text("Toast Message Title")
                               },
                               duration: .infinity,
-                              position: self.selectedPosition)
-                .padding(20)
-            Button {
-                self.show.toggle()
-            } label: {
-                Text("Show / Hide")
-            }
-            Picker("Position", selection: self.$selectedPosition) {
-                ForEach(ToastMessagePosition.allCases) { position in
-                    Text(position.rawValue)
+                              position: self.selectedPosition,
+                              spacing: self.spacing)
+                .padding(30)
+            VStack {
+                Picker("Position", selection: self.$selectedPosition) {
+                    ForEach(ToastMessagePosition.allCases) { position in
+
+                        Text(position.rawValue)
+                    }
                 }
+                Text("Spacing: \(self.spacing)")
+                Slider(value: self.$spacing, in: -50.0 ... 50.0, step: 5)
             }
+            .frame(maxWidth: 300)
         }
+        .navigationTitle("Toast Message")
+    }
+}
+
+struct DetailView_Previews1: PreviewProvider {
+    static var previews: some View {
+        ToastMessagePositionExample()
+            .environment(\.locale, .init(identifier: "ar"))
     }
 }

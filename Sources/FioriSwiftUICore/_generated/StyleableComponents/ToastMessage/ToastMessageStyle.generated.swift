@@ -27,6 +27,7 @@ public struct ToastMessageConfiguration {
     public let title: Title
     public let duration: Double
     public let position: ToastMessagePosition
+    public let spacing: CGFloat
 
     public typealias Icon = ConfigurationViewWrapper
     public typealias Title = ConfigurationViewWrapper

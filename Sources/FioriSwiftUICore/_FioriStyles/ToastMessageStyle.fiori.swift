@@ -12,49 +12,21 @@ import SwiftUI
  */
 
 public enum ToastMessagePosition: String, CaseIterable, Identifiable {
-    case topLeading
-    case top
-    case topTrailing
-    case leading
+    case above
     case center
-    case trailing
-    case bottomLeading
-    case bottom
-    case bottomTrailing
+    case below
     public var id: Self { self }
-}
-
-func toastMessagePositionToAlignment(position: ToastMessagePosition) -> Alignment {
-    switch position {
-    case .topLeading:
-        return .topLeading
-    case .top:
-        return .top
-    case .topTrailing:
-        return .topTrailing
-    case .leading:
-        return .leading
-    case .center:
-        return .center
-    case .trailing:
-        return .trailing
-    case .bottomLeading:
-        return .bottomLeading
-    case .bottom:
-        return .bottom
-    case .bottomTrailing:
-        return .bottomTrailing
-    }
 }
 
 // Base Layout style
 public struct ToastMessageBaseStyle: ToastMessageStyle {
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    @State private var size: CGSize = .zero
 
     public func makeBody(_ configuration: ToastMessageConfiguration) -> some View {
         GeometryReader { reader in
             self.makeMessageBody(configuration: configuration, size: reader.size)
-                .frame(width: reader.size.width, height: reader.size.height, alignment: toastMessagePositionToAlignment(position: configuration.position))
+                .position(getPositionOffset(position: configuration.position, spacing: configuration.spacing, viewSize: self.size, parentViewSize: reader.size))
         }
     }
     
@@ -79,10 +51,36 @@ public struct ToastMessageBaseStyle: ToastMessageStyle {
                 .inset(by: 0.33)
                 .stroke(Color.preferredColor(.separator), lineWidth: 0.33)
         )
+        .sizeReader { size in
+            self.size = size
+        }
         .shadow(color: Color.preferredColor(.sectionShadow), radius: 2)
         .shadow(color: Color.preferredColor(.cardShadow), radius: 16, x: 0, y: 8)
         .shadow(color: Color.preferredColor(.cardShadow), radius: 32, x: 0, y: 16)
     }
+}
+
+private func getPositionOffset(position: ToastMessagePosition, spacing: CGFloat, viewSize: CGSize, parentViewSize: CGSize) -> CGPoint {
+    var correctedSpacing: CGFloat
+    var viewCoordinates = CGPoint()
+    viewCoordinates.x = parentViewSize.width / 2
+
+    if spacing < 0 {
+        correctedSpacing = 0
+    } else {
+        correctedSpacing = spacing
+    }
+    
+    switch position {
+    case .above:
+        viewCoordinates.y = -1 * (viewSize.height / 2 + correctedSpacing)
+    case .center:
+        viewCoordinates.y = parentViewSize.height / 2
+    case .below:
+        viewCoordinates.y = parentViewSize.height + viewSize.height / 2 + correctedSpacing
+    }
+
+    return viewCoordinates
 }
 
 // Default fiori styles
@@ -124,19 +122,22 @@ public extension View {
     ///   - isPresented: A binding to a Boolean value that determines whether to present the banner message.
     ///   - icon: Icon image in front of the text. The default is a checkmark icon.
     ///   - title: The message to display.
-    ///   - duration: The duration in seconds for which the toast message is shown. The default is `1`.
-    ///   - position: The position of the toast message relative to its parent view. The default is `.center`.
+    ///   - duration: The duration in seconds for which the toast message is shown. The default value is `1`.
+    ///   - position: The position of the toast message relative to its parent view. `.center` puts the toast message in the center of its parent view, `.above` aligns it above the view, and `.below` aligns it below the view. The default value is `.center`.
+    ///   - spacing: The amount of spacing to put in between the toast message and the frame of its parent view. This only applies to the `.above` and `.below` positions, and negative values are converted to `0`. The default value is `0`.
     /// - Returns: A new `View` with the toast message.
     func toastMessage(isPresented: Binding<Bool>,
                       @ViewBuilder icon: () -> any View = { EmptyView() },
                       title: AttributedString,
                       duration: Double = 1,
-                      position: ToastMessagePosition = .center) -> some View
+                      position: ToastMessagePosition = .center,
+                      spacing: CGFloat = 0) -> some View
     {
         self.modifier(ToastMessageModifier(icon: icon(),
                                            title: Text(title),
                                            duration: duration,
                                            position: position,
+                                           spacing: spacing,
                                            isPresented: isPresented))
     }
     
@@ -145,19 +146,22 @@ public extension View {
     ///   - isPresented: A binding to a Boolean value that determines whether to present the banner message.
     ///   - icon: Icon image in front of the text. The default is a checkmark icon.
     ///   - title: The message to display.
-    ///   - duration: The duration in seconds for which the toast message is shown. The default is `1`.
-    ///   - position: The position of the toast message relative to its parent view. The default is `.center`.
+    ///   - duration: The duration in seconds for which the toast message is shown. The default value is `1`.
+    ///   - position: The position of the toast message relative to its parent view. `.center` puts the toast message in the center of its parent view, `.above` aligns it above the view, and `.below` aligns it below the view. The default value is `.center`.
+    ///   - spacing: The amount of spacing to put in between the toast message and the frame of its parent view. This only applies to the `.above` and `.below` positions, and negative values are converted to `0`. The default value is `0`.
     /// - Returns: A new `View` with the toast message.
     func toastMessage(isPresented: Binding<Bool>,
                       @ViewBuilder icon: () -> any View = { EmptyView() },
                       title: String,
                       duration: Double = 1,
-                      position: ToastMessagePosition = .center) -> some View
+                      position: ToastMessagePosition = .center,
+                      spacing: CGFloat = 0) -> some View
     {
         self.modifier(ToastMessageModifier(icon: icon(),
                                            title: Text(title),
                                            duration: duration,
                                            position: position,
+                                           spacing: spacing,
                                            isPresented: isPresented))
     }
     
@@ -166,19 +170,22 @@ public extension View {
     ///   - isPresented: A binding to a Boolean value that determines whether to present the banner message.
     ///   - icon: Icon image in front of the text. The default is a checkmark icon.
     ///   - title: The message to display.
-    ///   - duration: The duration in seconds for which the toast message is shown. The default is `1`.
-    ///   - position: The position of the toast message relative to its parent view. The default is `.center`.
+    ///   - duration: The duration in seconds for which the toast message is shown. The default value is `1`.
+    ///   - position: The position of the toast message relative to its parent view. `.center` puts the toast message in the center of its parent view, `.above` aligns it above the view, and `.below` aligns it below the view. The default value is `.center`.
+    ///   - spacing: The amount of spacing to put in between the toast message and the frame of its parent view. This only applies to the `.above` and `.below` positions, and negative values are converted to `0`. The default value is `0`.
     /// - Returns: A new `View` with the toast message.
     func toastMessage(isPresented: Binding<Bool>,
                       @ViewBuilder icon: () -> any View = { EmptyView() },
                       @ViewBuilder title: () -> any View,
                       duration: Double = 1,
-                      position: ToastMessagePosition = .center) -> some View
+                      position: ToastMessagePosition = .center,
+                      spacing: CGFloat = 0) -> some View
     {
         self.modifier(ToastMessageModifier(icon: icon(),
                                            title: title(),
                                            duration: duration,
                                            position: position,
+                                           spacing: spacing,
                                            isPresented: isPresented))
     }
 }
@@ -188,6 +195,8 @@ struct ToastMessageModifier: ViewModifier {
     var title: any View
     var duration: Double
     var position: ToastMessagePosition
+    var spacing: CGFloat
+    
     @Binding var isPresented: Bool
     @State private var workItem: DispatchWorkItem?
     
@@ -199,7 +208,8 @@ struct ToastMessageModifier: ViewModifier {
                         self.icon
                     }, title: {
                         self.title
-                    }, position: self.position)
+                    }, position: self.position,
+                    spacing: self.spacing) // TODO: fix formatting
                 }
             })
             .setOnChange(of: self.isPresented) {

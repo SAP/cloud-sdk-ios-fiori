@@ -640,11 +640,14 @@ protocol _ListPickerDestinationComponent: _CancelActionComponent, _ApplyActionCo
 // sourcery: CompositeComponent
 protocol _ToastMessageComponent: _IconComponent, _TitleComponent {
     // sourcery: defaultValue = 1
-    /// The duration in seconds for which the toast message is shown. The default is `1`.
+    /// The duration in seconds for which the toast message is shown. The default value is `1`.
     var duration: Double { get }
     // sourcery: defaultValue = .center
-    /// The position of the toast message relative to its parent view. The default is `.center`.
+    /// The position of the toast message relative to its parent view. `.center` puts the toast message in the center of its parent view, `.above` aligns it above the view, and `.below` aligns it below the view. The default value is `.center`.
     var position: ToastMessagePosition { get }
+    // sourcery: defaultValue = 0
+    /// The amount of spacing to put in between the toast message and the frame of its parent view. This only applies to the `.above` and `.below` positions, and negative values are converted to `0`. The default value is `0`.
+    var spacing: CGFloat { get }
 }
 
 // sourcery: CompositeComponent
