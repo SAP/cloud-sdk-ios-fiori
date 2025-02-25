@@ -179,7 +179,7 @@ struct ObjectHeaderSpec: ListDataProtocol {
                 }, trendImage: {
                     Image(systemName: "triangle.fill").foregroundColor(.green)
                 }, kpi: {
-                    KPIItem(data: .components([.metric("79"), .unit("°F")]), subtitle: "").disabled(true)
+                    _KPIItem(data: .components([.metric("79"), .unit("°F")]), subtitle: "").disabled(true)
                 })
             })
             
@@ -216,7 +216,7 @@ struct ObjectHeaderSpec: ListDataProtocol {
                 }, trendImage: {
                     Image(systemName: "triangle.fill").foregroundColor(.green)
                 }, kpi: {
-                    KPIItem(data: .components([.unit("$"), .metric("8,888.88"), .unit("M")]), subtitle: "").disabled(true)
+                    _KPIItem(data: .components([.unit("$"), .metric("8,888.88"), .unit("M")]), subtitle: "").disabled(true)
                 }, chart: {
                     ChartView(chartModel)
                 })
@@ -247,7 +247,7 @@ struct ObjectHeaderSpec: ListDataProtocol {
                 }, trendImage: {
                     Image(systemName: "triangle.fill").foregroundColor(.green)
                 }, kpi: {
-                    KPIItem(data: .components([.unit("$"), .metric("8,888.88"), .unit("M")]), subtitle: "").disabled(true)
+                    _KPIItem(data: .components([.unit("$"), .metric("8,888.88"), .unit("M")]), subtitle: "").disabled(true)
                 }, chart: {
                     ChartView(chartModel)
                 })
@@ -270,7 +270,7 @@ struct ObjectHeaderSpec: ListDataProtocol {
                 HeaderChart(title: {
                     Text("")
                 }, kpi: {
-                    KPIItem(data: .duration(22500, self.df), subtitle: "Working Hours").disabled(true)
+                    _KPIItem(data: .duration(22500, self.df), subtitle: "Working Hours").disabled(true)
                 })
             })
             
@@ -328,7 +328,7 @@ struct ObjectHeaderSpec: ListDataProtocol {
                 }, trendImage: {
                     Image(systemName: "triangle.fill").foregroundColor(.green)
                 }, kpi: {
-                    KPIItem(data: .components([.unit("$"), .metric("8888.88"), .unit("M")]), subtitle: "").disabled(true)
+                    _KPIItem(data: .components([.unit("$"), .metric("8888.88"), .unit("M")]), subtitle: "").disabled(true)
                 }, chart: {
                     ChartView(chartModel)
                 })
@@ -549,7 +549,7 @@ struct ObjectHeaderSpec: ListDataProtocol {
                 }, subtitle: {
                     Text("20 min ago")
                 }, kpi: {
-                    KPIItem(data: .components([.unit("$"), .metric("8,278.75"), .unit("USD")]), subtitle: "").disabled(true)
+                    _KPIItem(data: .components([.unit("$"), .metric("8,278.75"), .unit("USD")]), subtitle: "").disabled(true)
                 })
             })
             

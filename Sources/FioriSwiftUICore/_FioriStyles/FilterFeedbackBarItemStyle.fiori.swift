@@ -11,34 +11,71 @@ import SwiftUI
  4. Move this file to `_FioriStyles` folder under `FioriSwiftUICore`.
  */
 
+#if !os(visionOS)
+    /// default filter feedbackbar foreground color
+    public let DefaultFilterFeedbackBarItemForegroundColor = Color.preferredColor(.tintColor)
+#else
+    /// default filter feedbackbar foreground color
+    public let DefaultFilterFeedbackBarItemForegroundColor = Color.preferredColor(.primaryLabel)
+#endif
+
 // Base Layout style
 public struct FilterFeedbackBarItemBaseStyle: FilterFeedbackBarItemStyle {
+    @Environment(\.filterFeedbackBarItemFont) var font
+    @Environment(\.filterFeedbackBarItemSelectedForegroundColor) var selectedForegroundColor
+    @Environment(\.filterFeedbackBarItemUnselectedForegroundColor) var unselectedForegroundColor
+    @Environment(\.filterFeedbackBarItemSpacing) var spacing
+    @Environment(\.filterFeedbackBarItemPadding) var padding
+    @Environment(\.filterFeedbackBarItemMaxWidth) var maxWidth
+    @Environment(\.filterFeedbackBarItemMinHeight) var minHeight
+    @Environment(\.filterFeedbackBarItemCornerRadius) var cornerRadius
+    @Environment(\.filterFeedbackBarItemBackgroundSelectedFillColor) var selectedFillColor
+    @Environment(\.filterFeedbackBarItemBackgroundUnselectedFillColor) var unselectedFillColor
+    @Environment(\.filterFeedbackBarItemBackgroundSelectedStrokeColor) var selectedStokeColor
+    @Environment(\.filterFeedbackBarItemBackgroundUnselectedStrokeColor) var unselectedStokeColor
+    @Environment(\.filterFeedbackBarItemBorderWidth) var borderWidth
+    
     public func makeBody(_ configuration: FilterFeedbackBarItemConfiguration) -> some View {
         // Add default layout here
-        HStack(spacing: configuration.spacing) {
+        HStack(spacing: self.spacing) {
             configuration.icon
             configuration.title
             configuration.accessoryIcon
         }
-        .padding(8)
-        .frame(minHeight: 38)
+        .font(self.font)
+        .foregroundStyle(configuration.isSelected ? self.selectedForegroundColor : self.unselectedForegroundColor)
+        .padding(self.padding)
+        .frame(maxWidth: self.maxWidth > 0 ? self.maxWidth : nil, minHeight: self.minHeight)
+        .background(
+            ZStack {
+                RoundedRectangle(cornerRadius: self.cornerRadius)
+                    .fill(configuration.isSelected ? self.selectedFillColor : self.unselectedFillColor)
+                    .strokeBorder(configuration.isSelected ? self.selectedStokeColor : self.unselectedStokeColor, lineWidth: self.borderWidth)
+            }
+        )
     }
 }
 
 // Default fiori styles
 extension FilterFeedbackBarItemFioriStyle {
     struct ContentFioriStyle: FilterFeedbackBarItemStyle {
+        @Environment(\.filterFeedbackBarItemFont) var font
+        @Environment(\.filterFeedbackBarItemSelectedForegroundColor) var selectedForegroundColor
+        @Environment(\.filterFeedbackBarItemUnselectedForegroundColor) var unselectedForegroundColor
+        
         func makeBody(_ configuration: FilterFeedbackBarItemConfiguration) -> some View {
             FilterFeedbackBarItem(configuration)
-                // Add default style for its content
-                // .background()
-                .background(
-                    ZStack {
-                        RoundedRectangle(cornerRadius: 10)
-                            .fill(configuration.isSelected ? Color.clear : .preferredColor(.tertiaryFill))
-                            .strokeBorder(configuration.isSelected ? DefaultFilterFeedbackBarForegroundColor : .preferredColor(.separatorOpaque), lineWidth: 1)
-                    }
-                )
+                .titleStyle { c in
+                    c.title
+                        .foregroundStyle(configuration.isSelected ? self.selectedForegroundColor : self.unselectedForegroundColor)
+                        .font(self.font)
+                }
+                .iconStyle { c in
+                    c.icon.foregroundStyle(configuration.isSelected ? self.selectedForegroundColor : self.unselectedForegroundColor)
+                }
+                .accessoryIconStyle { c in
+                    c.accessoryIcon.foregroundStyle(configuration.isSelected ? self.selectedForegroundColor : self.unselectedForegroundColor)
+                }
         }
     }
 
@@ -47,10 +84,7 @@ extension FilterFeedbackBarItemFioriStyle {
 
         func makeBody(_ configuration: IconConfiguration) -> some View {
             Icon(configuration)
-                // Add default style for Icon
-                // .foregroundStyle(Color.preferredColor(<#fiori color#>))
-                .foregroundStyle(self.filterFeedbackBarItemConfiguration.isSelected ? DefaultFilterFeedbackBarForegroundColor : Color.preferredColor(.tertiaryLabel))
-            // .font(.fiori(forTextStyle: <#fiori font#>))
+                .foregroundStyle(self.filterFeedbackBarItemConfiguration.isSelected ? DefaultFilterFeedbackBarItemForegroundColor : Color.preferredColor(.tertiaryLabel))
         }
     }
 
@@ -59,11 +93,8 @@ extension FilterFeedbackBarItemFioriStyle {
 
         func makeBody(_ configuration: TitleConfiguration) -> some View {
             Title(configuration)
-                // Add default style for Title
-                // .foregroundStyle(Color.preferredColor(<#fiori color#>))
-                // .font(.fiori(forTextStyle: <#fiori font#>))
                 .font(.system(.body))
-                .foregroundColor(self.filterFeedbackBarItemConfiguration.isSelected ? DefaultFilterFeedbackBarForegroundColor : .preferredColor(.tertiaryLabel))
+                .foregroundStyle(self.filterFeedbackBarItemConfiguration.isSelected ? DefaultFilterFeedbackBarItemForegroundColor : .preferredColor(.tertiaryLabel))
         }
     }
 
@@ -73,8 +104,7 @@ extension FilterFeedbackBarItemFioriStyle {
         func makeBody(_ configuration: AccessoryIconConfiguration) -> some View {
             AccessoryIcon(configuration)
                 // Add default style for AccessoryIcon
-                .foregroundStyle(self.filterFeedbackBarItemConfiguration.isSelected ? DefaultFilterFeedbackBarForegroundColor : Color.preferredColor(.tertiaryLabel))
-            // .font(.fiori(forTextStyle: <#fiori font#>))
+                .foregroundStyle(self.filterFeedbackBarItemConfiguration.isSelected ? DefaultFilterFeedbackBarItemForegroundColor : Color.preferredColor(.tertiaryLabel))
         }
     }
 }

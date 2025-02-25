@@ -872,7 +872,7 @@ struct StepperMenuItem: View {
 }
 
 struct FullCFGMenuItem: View {
-    @Environment(\.sortFilterMenuItemFullConfigurationButton) var fullCFGButton
+    @Environment(\.filterFeedbackBarFullConfigurationItem) var fullCFGButton
     
     @Binding var items: [[SortFilterItem]]
 
@@ -911,6 +911,22 @@ struct FullCFGMenuItem: View {
                         }
                 })
             })
+            .ifApply(UIDevice.current.userInterfaceIdiom == .phone) { v in
+                v.popover(isPresented: self.$isSheetVisible, arrowEdge: self.barItemFrame.arrowDirection()) {
+                    self.sortConfigurationView()
+                }
+                .background(GeometryReader { geometry in
+                    Color.clear
+                        .onAppear {
+                            self.barItemFrame = geometry.frame(in: .global)
+                        }
+                        .setOnChange(of: geometry.frame(in: .global), action1: { newValue in
+                            self.barItemFrame = newValue
+                        }) { _, newValue in
+                            self.barItemFrame = newValue
+                        }
+                })
+            }
     }
     
     private func sortConfigurationView() -> some View {
@@ -918,43 +934,35 @@ struct FullCFGMenuItem: View {
             title: {
                 if let title = fullCFGButton.name {
                     Text(title)
+                        .foregroundStyle(Color.preferredColor(.primaryLabel))
+                        .font(.fiori(forTextStyle: .subheadline, weight: .black))
+                        .multilineTextAlignment(.center)
                 } else {
                     EmptyView()
                 }
             },
-            items: {
-                _SortFilterCFGItemContainer(items: self.$items, btnFrame: self.barItemFrame)
-            },
-            cancelAction: {
-                _Action(actionText: NSLocalizedString("Cancel", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
-                    self.isSheetVisible = false
-                })
-                .buttonStyle(CancelButtonStyle())
-            },
-            resetAction: {
-                _Action(actionText: NSLocalizedString("Reset", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
-                    for r in 0 ..< self.items.count {
-                        for c in 0 ..< self.items[r].count {
-                            self.items[r][c].reset()
-                        }
+            items: self.$items,
+            onUpdate: {
+                for r in 0 ..< self.items.count {
+                    for c in 0 ..< self.items[r].count {
+                        self.items[r][c].apply()
                     }
-                })
-                .buttonStyle(ResetButtonStyle())
+                }
+                self.onUpdate()
+                self.isSheetVisible = false
             },
-            applyAction: {
-                _Action(actionText: NSLocalizedString("Apply", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
-                    for r in 0 ..< self.items.count {
-                        for c in 0 ..< self.items[r].count {
-                            self.items[r][c].apply()
-                        }
+            onCancel: {
+                self.isSheetVisible = false
+            },
+            onReset: {
+                for r in 0 ..< self.items.count {
+                    for c in 0 ..< self.items[r].count {
+                        self.items[r][c].reset()
                     }
-                    self.onUpdate()
-                    self.isSheetVisible = false
-                })
-                .buttonStyle(ApplyButtonStyle())
-            },
-            onUpdate: {}
+                }
+            }
         )
+        .environment(\.sortFilterBarItemFrame, self.barItemFrame)
         .sizeReader(size: { s in
             self.detentHeight = s.height
         })

@@ -4,18 +4,36 @@ import SwiftUI
 
 /// The base layout style for `TextInputField`.
 public struct TextInputFieldBaseStyle: TextInputFieldStyle {
+    @State var isSecure: Bool = false
     @ViewBuilder
     public func makeBody(_ configuration: TextInputFieldConfiguration) -> some View {
-        TextField("", text: configuration.$text)
+        if configuration.isSecureEnabled ?? false {
+            HStack {
+                if self.isSecure {
+                    TextField("", text: configuration.$text)
+                } else {
+                    SecureField("", text: configuration.$text)
+                }
+            }
+            .overlay(alignment: .trailing) {
+                Image(systemName: self.isSecure ? "eye.fill" : "eye.slash.fill")
+                    .onTapGesture {
+                        self.isSecure.toggle()
+                    }
+            }
+        } else {
+            TextField("", text: configuration.$text)
+        }
     }
 }
 
-// Default fiori styles
-public struct TextInputFieldFioriStyle: TextInputFieldStyle {
-    @ViewBuilder
-    public func makeBody(_ configuration: TextInputFieldConfiguration) -> some View {
-        TextInputField(configuration)
-            .frame(minHeight: 44)
+/// Default fiori styles
+extension TextInputFieldFioriStyle {
+    struct ContentFioriStyle: TextInputFieldStyle {
+        func makeBody(_ configuration: TextInputFieldConfiguration) -> some View {
+            TextInputField(configuration)
+                .frame(minHeight: 44)
+        }
     }
 }
 

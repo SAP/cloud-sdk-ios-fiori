@@ -1,7 +1,7 @@
 import SwiftUI
 
 extension Fiori {
-    enum FilterFeedbackBar {
+    enum _FilterFeedbackBar {
         typealias Items = EmptyModifier
         typealias ItemsCumulative = EmptyModifier
 
@@ -10,7 +10,7 @@ extension Fiori {
     }
 }
 
-extension FilterFeedbackBar: View {
+extension _FilterFeedbackBar: View {
     public var body: some View {
         items
             .onModelUpdateAppCallback(_onUpdate ?? {})

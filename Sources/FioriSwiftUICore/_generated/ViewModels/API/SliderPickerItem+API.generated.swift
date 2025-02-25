@@ -3,7 +3,7 @@
 import SwiftUI
 
 public struct SliderPickerItem {
-    @Environment(\.filterFeedbackBarStyle) var filterFeedbackBarStyle
+    @Environment(\._filterFeedbackBarStyle) var _filterFeedbackBarStyle
 
     var _value: Binding<Int?>
 	var _formatter: String? = nil

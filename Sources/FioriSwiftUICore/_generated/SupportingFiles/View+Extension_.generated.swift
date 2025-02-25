@@ -394,6 +394,23 @@ public extension View {
     }
 }
 
+// MARK: ClearActionStyle
+
+public extension View {
+    func clearActionStyle(_ style: some ClearActionStyle) -> some View {
+        self.transformEnvironment(\.clearActionStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func clearActionStyle(@ViewBuilder content: @escaping (ClearActionConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.clearActionStyleStack) { stack in
+            let style = AnyClearActionStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: CloseActionStyle
 
 public extension View {
@@ -649,6 +666,23 @@ public extension View {
     }
 }
 
+// MARK: FilterFeedbackBarStyle
+
+public extension View {
+    func filterFeedbackBarStyle(_ style: some FilterFeedbackBarStyle) -> some View {
+        self.transformEnvironment(\.filterFeedbackBarStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func filterFeedbackBarStyle(@ViewBuilder content: @escaping (FilterFeedbackBarConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.filterFeedbackBarStyleStack) { stack in
+            let style = AnyFilterFeedbackBarStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: FilterFeedbackBarItemStyle
 
 public extension View {
@@ -661,6 +695,23 @@ public extension View {
     func filterFeedbackBarItemStyle(@ViewBuilder content: @escaping (FilterFeedbackBarItemConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.filterFeedbackBarItemStyleStack) { stack in
             let style = AnyFilterFeedbackBarItemStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: FilterFormViewStyle
+
+public extension View {
+    func filterFormViewStyle(_ style: some FilterFormViewStyle) -> some View {
+        self.transformEnvironment(\.filterFormViewStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func filterFormViewStyle(@ViewBuilder content: @escaping (FilterFormViewConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.filterFormViewStyleStack) { stack in
+            let style = AnyFilterFormViewStyle(content)
             stack.append(style)
         }
     }
@@ -989,6 +1040,23 @@ public extension View {
     }
 }
 
+// MARK: KPIItemStyle
+
+public extension View {
+    func kPIItemStyle(_ style: some KPIItemStyle) -> some View {
+        self.transformEnvironment(\.kPIItemStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func kPIItemStyle(@ViewBuilder content: @escaping (KPIItemConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.kPIItemStyleStack) { stack in
+            let style = AnyKPIItemStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: KPIProgressItemStyle
 
 public extension View {
@@ -1006,6 +1074,40 @@ public extension View {
     }
 }
 
+// MARK: KPISubItemStyle
+
+public extension View {
+    func kPISubItemStyle(_ style: some KPISubItemStyle) -> some View {
+        self.transformEnvironment(\.kPISubItemStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func kPISubItemStyle(@ViewBuilder content: @escaping (KPISubItemConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.kPISubItemStyleStack) { stack in
+            let style = AnyKPISubItemStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: KeyStyle
+
+public extension View {
+    func keyStyle(_ style: some KeyStyle) -> some View {
+        self.transformEnvironment(\.keyStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func keyStyle(@ViewBuilder content: @escaping (KeyConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.keyStyleStack) { stack in
+            let style = AnyKeyStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: KeyValueFormViewStyle
 
 public extension View {
@@ -1018,6 +1120,23 @@ public extension View {
     func keyValueFormViewStyle(@ViewBuilder content: @escaping (KeyValueFormViewConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.keyValueFormViewStyleStack) { stack in
             let style = AnyKeyValueFormViewStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: KeyValueItemStyle
+
+public extension View {
+    func keyValueItemStyle(_ style: some KeyValueItemStyle) -> some View {
+        self.transformEnvironment(\.keyValueItemStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func keyValueItemStyle(@ViewBuilder content: @escaping (KeyValueItemConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.keyValueItemStyleStack) { stack in
+            let style = AnyKeyValueItemStyle(content)
             stack.append(style)
         }
     }
@@ -1703,6 +1822,40 @@ public extension View {
     }
 }
 
+// MARK: ReenterSignatureActionStyle
+
+public extension View {
+    func reenterSignatureActionStyle(_ style: some ReenterSignatureActionStyle) -> some View {
+        self.transformEnvironment(\.reenterSignatureActionStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func reenterSignatureActionStyle(@ViewBuilder content: @escaping (ReenterSignatureActionConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.reenterSignatureActionStyleStack) { stack in
+            let style = AnyReenterSignatureActionStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: ResetActionStyle
+
+public extension View {
+    func resetActionStyle(_ style: some ResetActionStyle) -> some View {
+        self.transformEnvironment(\.resetActionStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func resetActionStyle(@ViewBuilder content: @escaping (ResetActionConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.resetActionStyleStack) { stack in
+            let style = AnyResetActionStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: ReviewCountLabelStyle
 
 public extension View {
@@ -1766,6 +1919,23 @@ public extension View {
     func row3Style(@ViewBuilder content: @escaping (Row3Configuration) -> some View) -> some View {
         self.transformEnvironment(\.row3StyleStack) { stack in
             let style = AnyRow3Style(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: SaveActionStyle
+
+public extension View {
+    func saveActionStyle(_ style: some SaveActionStyle) -> some View {
+        self.transformEnvironment(\.saveActionStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func saveActionStyle(@ViewBuilder content: @escaping (SaveActionConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.saveActionStyleStack) { stack in
+            let style = AnySaveActionStyle(content)
             stack.append(style)
         }
     }
@@ -1924,6 +2094,23 @@ public extension View {
     }
 }
 
+// MARK: SignatureCaptureViewStyle
+
+public extension View {
+    func signatureCaptureViewStyle(_ style: some SignatureCaptureViewStyle) -> some View {
+        self.transformEnvironment(\.signatureCaptureViewStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func signatureCaptureViewStyle(@ViewBuilder content: @escaping (SignatureCaptureViewConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.signatureCaptureViewStyleStack) { stack in
+            let style = AnySignatureCaptureViewStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: SingleStepStyle
 
 public extension View {
@@ -1936,6 +2123,40 @@ public extension View {
     func singleStepStyle(@ViewBuilder content: @escaping (SingleStepConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.singleStepStyleStack) { stack in
             let style = AnySingleStepStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: SortFilterViewStyle
+
+public extension View {
+    func sortFilterViewStyle(_ style: some SortFilterViewStyle) -> some View {
+        self.transformEnvironment(\.sortFilterViewStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func sortFilterViewStyle(@ViewBuilder content: @escaping (SortFilterViewConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.sortFilterViewStyleStack) { stack in
+            let style = AnySortFilterViewStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: StartSignatureActionStyle
+
+public extension View {
+    func startSignatureActionStyle(_ style: some StartSignatureActionStyle) -> some View {
+        self.transformEnvironment(\.startSignatureActionStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func startSignatureActionStyle(@ViewBuilder content: @escaping (StartSignatureActionConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.startSignatureActionStyleStack) { stack in
+            let style = AnyStartSignatureActionStyle(content)
             stack.append(style)
         }
     }
@@ -2514,6 +2735,40 @@ public extension View {
     func valuePickerStyle(@ViewBuilder content: @escaping (ValuePickerConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.valuePickerStyleStack) { stack in
             let style = AnyValuePickerStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: WatermarkStyle
+
+public extension View {
+    func watermarkStyle(_ style: some WatermarkStyle) -> some View {
+        self.transformEnvironment(\.watermarkStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func watermarkStyle(@ViewBuilder content: @escaping (WatermarkConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.watermarkStyleStack) { stack in
+            let style = AnyWatermarkStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: XmarkStyle
+
+public extension View {
+    func xmarkStyle(_ style: some XmarkStyle) -> some View {
+        self.transformEnvironment(\.xmarkStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func xmarkStyle(@ViewBuilder content: @escaping (XmarkConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.xmarkStyleStack) { stack in
+            let style = AnyXmarkStyle(content)
             stack.append(style)
         }
     }
