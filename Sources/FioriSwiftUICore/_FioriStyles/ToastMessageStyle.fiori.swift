@@ -32,12 +32,7 @@ public struct ToastMessageBaseStyle: ToastMessageStyle {
     
     func makeMessageBody(configuration: ToastMessageConfiguration, size: CGSize) -> some View {
         HStack(alignment: .center, spacing: 8) {
-            if configuration.icon.isEmpty {
-                Image(systemName: "checkmark.circle")
-                    .foregroundColor(Color.preferredColor(.primaryLabel))
-            } else {
-                configuration.icon
-            }
+            configuration.icon
             configuration.title
                 .font(Font.fiori(forTextStyle: .subheadline))
                 .foregroundColor(Color.preferredColor(.primaryLabel))
