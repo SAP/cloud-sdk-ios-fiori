@@ -431,7 +431,7 @@ public protocol _EmptyStateViewModel: TitleComponent, DescriptionTextComponent, 
 }
 
 /// Deprecated EmptyStateViewModel
-@available(*, unavailable, renamed: "_EmptyStateViewModel", message: "Will be removed in the future release. Please use IllustratedMessageComponent instead.")
+@available(*, deprecated, renamed: "_EmptyStateViewModel", message: "Will be removed in the future release. Please use IllustratedMessageComponent instead.")
 public protocol EmptyStateViewModel {}
 
 // sourcery: generated_component_not_configurable
