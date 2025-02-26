@@ -8,7 +8,7 @@ import SwiftUI
 // FIXME: - Implement Fiori style definitions
 
 extension Fiori {
-    enum UserConsentPage {
+    enum _UserConsentPage {
         struct Title: ViewModifier {
             func body(content: Content) -> some View {
                 content
@@ -47,7 +47,7 @@ extension Fiori {
     }
 }
 
-extension UserConsentPage: View {
+extension _UserConsentPage: View {
     public var body: some View {
         ScrollView(.vertical, showsIndicators: true) {
             VStack {
@@ -70,10 +70,10 @@ extension UserConsentPage: View {
 }
 
 @available(iOS 14.0, *)
-struct UserConsentPageLibraryContent: LibraryContentProvider {
+struct _UserConsentPageLibraryContent: LibraryContentProvider {
     @LibraryContentBuilder
     var views: [LibraryItem] {
-        LibraryItem(UserConsentPage(title: "Data Privacy", bodyAttributedText: NSAttributedString(string: "Detailed text about how data privacy pertains to this app and why it is important for the user to enable this functionality."), action: _Action(actionText: "Learn more about Data Privacy")),
+        LibraryItem(_UserConsentPage(title: "Data Privacy", bodyAttributedText: NSAttributedString(string: "Detailed text about how data privacy pertains to this app and why it is important for the user to enable this functionality."), action: _Action(actionText: "Learn more about Data Privacy")),
                     category: .control)
     }
 }

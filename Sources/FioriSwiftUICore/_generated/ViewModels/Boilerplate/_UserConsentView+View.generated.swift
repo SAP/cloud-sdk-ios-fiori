@@ -1,8 +1,8 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
-//TODO: Copy commented code to new file: `FioriSwiftUICore/Views/UserConsentView+View.swift`
+//TODO: Copy commented code to new file: `FioriSwiftUICore/Views/_UserConsentView+View.swift`
 //TODO: Implement default Fiori style definitions as `ViewModifier`
-//TODO: Implement UserConsentView `View` body
+//TODO: Implement _UserConsentView `View` body
 //TODO: Implement LibraryContentProvider
 
 /// - Important: to make `@Environment` properties (e.g. `horizontalSizeClass`), internally accessible
@@ -16,7 +16,7 @@ import SwiftUI
 // FIXME: - Implement Fiori style definitions
 
 extension Fiori {
-    enum UserConsentView {
+    enum _UserConsentView {
         
 
         // TODO: - substitute type-specific ViewModifier for EmptyModifier
@@ -36,21 +36,21 @@ extension Fiori {
     }
 }
 
-// FIXME: - Implement UserConsentView View body
+// FIXME: - Implement _UserConsentView View body
 
-extension UserConsentView: View {
+extension _UserConsentView: View {
     public var body: some View {
         <# View body #>
     }
 }
 
-// FIXME: - Implement UserConsentView specific LibraryContentProvider
+// FIXME: - Implement _UserConsentView specific LibraryContentProvider
 
 @available(iOS 14.0, macOS 11.0, *)
-struct UserConsentViewLibraryContent: LibraryContentProvider {
+struct _UserConsentViewLibraryContent: LibraryContentProvider {
     @LibraryContentBuilder
     var views: [LibraryItem] {
-        LibraryItem(UserConsentView(model: LibraryPreviewData.Person.laurelosborn),
+        LibraryItem(_UserConsentView(model: LibraryPreviewData.Person.laurelosborn),
                     category: .control)
     }
 }

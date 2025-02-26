@@ -1,8 +1,8 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
-//TODO: Copy commented code to new file: `FioriSwiftUICore/Views/UserConsentPage+View.swift`
+//TODO: Copy commented code to new file: `FioriSwiftUICore/Views/_EmptyStateView+View.swift`
 //TODO: Implement default Fiori style definitions as `ViewModifier`
-//TODO: Implement UserConsentPage `View` body
+//TODO: Implement _EmptyStateView `View` body
 //TODO: Implement LibraryContentProvider
 
 /// - Important: to make `@Environment` properties (e.g. `horizontalSizeClass`), internally accessible
@@ -16,11 +16,13 @@ import SwiftUI
 // FIXME: - Implement Fiori style definitions
 
 extension Fiori {
-    enum UserConsentPage {
+    enum _EmptyStateView {
         typealias Title = EmptyModifier
         typealias TitleCumulative = EmptyModifier
-		typealias BodyAttributedText = EmptyModifier
-        typealias BodyAttributedTextCumulative = EmptyModifier
+		typealias DescriptionText = EmptyModifier
+        typealias DescriptionTextCumulative = EmptyModifier
+		typealias DetailImage = EmptyModifier
+        typealias DetailImageCumulative = EmptyModifier
 		typealias Action = EmptyModifier
         typealias ActionCumulative = EmptyModifier
 
@@ -37,29 +39,31 @@ extension Fiori {
             }
         */
         static let title = Title()
-		static let bodyAttributedText = BodyAttributedText()
+		static let descriptionText = DescriptionText()
+		static let detailImage = DetailImage()
 		static let action = Action()
         static let titleCumulative = TitleCumulative()
-		static let bodyAttributedTextCumulative = BodyAttributedTextCumulative()
+		static let descriptionTextCumulative = DescriptionTextCumulative()
+		static let detailImageCumulative = DetailImageCumulative()
 		static let actionCumulative = ActionCumulative()
     }
 }
 
-// FIXME: - Implement UserConsentPage View body
+// FIXME: - Implement _EmptyStateView View body
 
-extension UserConsentPage: View {
+extension _EmptyStateView: View {
     public var body: some View {
         <# View body #>
     }
 }
 
-// FIXME: - Implement UserConsentPage specific LibraryContentProvider
+// FIXME: - Implement _EmptyStateView specific LibraryContentProvider
 
 @available(iOS 14.0, macOS 11.0, *)
-struct UserConsentPageLibraryContent: LibraryContentProvider {
+struct _EmptyStateViewLibraryContent: LibraryContentProvider {
     @LibraryContentBuilder
     var views: [LibraryItem] {
-        LibraryItem(UserConsentPage(model: LibraryPreviewData.Person.laurelosborn),
+        LibraryItem(_EmptyStateView(model: LibraryPreviewData.Person.laurelosborn),
                     category: .control)
     }
 }

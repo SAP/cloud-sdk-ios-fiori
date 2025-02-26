@@ -2,7 +2,7 @@
 // DO NOT EDIT
 import SwiftUI
 
-public extension UserConsentFormModel {
+public extension _UserConsentFormModel {
     var nextAction: _ActionModel? {
         return _NextActionDefault()
     }
