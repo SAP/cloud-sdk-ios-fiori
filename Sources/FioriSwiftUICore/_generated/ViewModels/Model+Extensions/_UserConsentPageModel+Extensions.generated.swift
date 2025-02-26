@@ -2,7 +2,7 @@
 // DO NOT EDIT
 import SwiftUI
 
-public extension UserConsentPageModel {
+public extension _UserConsentPageModel {
     var action: _ActionModel? {
         return nil
     }

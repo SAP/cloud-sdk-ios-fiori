@@ -2,7 +2,7 @@
 // DO NOT EDIT
 import SwiftUI
 
-public struct UserConsentForm<NextActionView: View, CancelActionView: View, AllowActionView: View, DenyActionView: View, NotNowActionView: View, UserConsentPages: IndexedViewContainer> {
+public struct _UserConsentForm<NextActionView: View, CancelActionView: View, AllowActionView: View, DenyActionView: View, NotNowActionView: View, UserConsentPages: IndexedViewContainer> {
     @Environment(\.nextActionModifier) private var nextActionModifier
 	@Environment(\.cancelActionModifier) private var cancelActionModifier
 	@Environment(\.allowActionModifier) private var allowActionModifier
@@ -65,37 +65,37 @@ public struct UserConsentForm<NextActionView: View, CancelActionView: View, Allo
 
     @ViewBuilder var nextAction: some View {
         if isModelInit {
-            _nextAction.modifier(nextActionModifier.concat(Fiori.UserConsentForm.nextAction).concat(Fiori.UserConsentForm.nextActionCumulative))
+            _nextAction.modifier(nextActionModifier.concat(Fiori._UserConsentForm.nextAction).concat(Fiori._UserConsentForm.nextActionCumulative))
         } else {
-            _nextAction.modifier(nextActionModifier.concat(Fiori.UserConsentForm.nextAction))
+            _nextAction.modifier(nextActionModifier.concat(Fiori._UserConsentForm.nextAction))
         }
     }
 	@ViewBuilder var cancelAction: some View {
         if isModelInit {
-            _cancelAction.modifier(cancelActionModifier.concat(Fiori.UserConsentForm.cancelAction).concat(Fiori.UserConsentForm.cancelActionCumulative))
+            _cancelAction.modifier(cancelActionModifier.concat(Fiori._UserConsentForm.cancelAction).concat(Fiori._UserConsentForm.cancelActionCumulative))
         } else {
-            _cancelAction.modifier(cancelActionModifier.concat(Fiori.UserConsentForm.cancelAction))
+            _cancelAction.modifier(cancelActionModifier.concat(Fiori._UserConsentForm.cancelAction))
         }
     }
 	@ViewBuilder var allowAction: some View {
         if isModelInit {
-            _allowAction.modifier(allowActionModifier.concat(Fiori.UserConsentForm.allowAction).concat(Fiori.UserConsentForm.allowActionCumulative))
+            _allowAction.modifier(allowActionModifier.concat(Fiori._UserConsentForm.allowAction).concat(Fiori._UserConsentForm.allowActionCumulative))
         } else {
-            _allowAction.modifier(allowActionModifier.concat(Fiori.UserConsentForm.allowAction))
+            _allowAction.modifier(allowActionModifier.concat(Fiori._UserConsentForm.allowAction))
         }
     }
 	@ViewBuilder var denyAction: some View {
         if isModelInit {
-            _denyAction.modifier(denyActionModifier.concat(Fiori.UserConsentForm.denyAction).concat(Fiori.UserConsentForm.denyActionCumulative))
+            _denyAction.modifier(denyActionModifier.concat(Fiori._UserConsentForm.denyAction).concat(Fiori._UserConsentForm.denyActionCumulative))
         } else {
-            _denyAction.modifier(denyActionModifier.concat(Fiori.UserConsentForm.denyAction))
+            _denyAction.modifier(denyActionModifier.concat(Fiori._UserConsentForm.denyAction))
         }
     }
 	@ViewBuilder var notNowAction: some View {
         if isModelInit {
-            _notNowAction.modifier(notNowActionModifier.concat(Fiori.UserConsentForm.notNowAction).concat(Fiori.UserConsentForm.notNowActionCumulative))
+            _notNowAction.modifier(notNowActionModifier.concat(Fiori._UserConsentForm.notNowAction).concat(Fiori._UserConsentForm.notNowActionCumulative))
         } else {
-            _notNowAction.modifier(notNowActionModifier.concat(Fiori.UserConsentForm.notNowAction))
+            _notNowAction.modifier(notNowActionModifier.concat(Fiori._UserConsentForm.notNowAction))
         }
     }
 	var userConsentPages: UserConsentPages {
@@ -123,18 +123,18 @@ public struct UserConsentForm<NextActionView: View, CancelActionView: View, Allo
     }
 }
 
-extension UserConsentForm where NextActionView == _ConditionalContent<_Action, EmptyView>,
+extension _UserConsentForm where NextActionView == _ConditionalContent<_Action, EmptyView>,
 		CancelActionView == _ConditionalContent<_Action, EmptyView>,
 		AllowActionView == _ConditionalContent<_Action, EmptyView>,
 		DenyActionView == _ConditionalContent<_Action, EmptyView>,
 		NotNowActionView == _ConditionalContent<_Action, EmptyView>,
 		UserConsentPages == _UserConsentPagesContainer {
 
-    public init(model: UserConsentFormModel) {
+    public init(model: _UserConsentFormModel) {
         self.init(nextAction: model.nextAction != nil ? _Action(model: model.nextAction!) : nil, cancelAction: model.cancelAction != nil ? _Action(model: model.cancelAction!) : nil, allowAction: model.allowAction != nil ? _Action(model: model.allowAction!) : nil, denyAction: model.denyAction != nil ? _Action(model: model.denyAction!) : nil, notNowAction: model.notNowAction != nil ? _Action(model: model.notNowAction!) : nil, userConsentPages: model.userConsentPages, isRequired: model.isRequired, alertConfiguration: model.alertConfiguration, didAllow: model.didAllow, didDeny: model.didDeny, didCancel: model.didCancel)
     }
 
-    public init(nextAction: _Action? = _Action(model: _NextActionDefault()), cancelAction: _Action? = _Action(model: _CancelActionDefault()), allowAction: _Action? = _Action(model: _AllowActionDefault()), denyAction: _Action? = _Action(model: _DenyActionDefault()), notNowAction: _Action? = _Action(model: _NotNowActionDefault()), userConsentPages: [UserConsentPageModel] = [], isRequired: Bool = true, alertConfiguration: ((UserConsentAlertType) -> AlertConfiguration?)? = _UserConsentFormAlertConfigurationDefault, didAllow: (() -> Void)? = nil, didDeny: ((Bool) -> Void)? = nil, didCancel: (() -> Void)? = nil) {
+    public init(nextAction: _Action? = _Action(model: _NextActionDefault()), cancelAction: _Action? = _Action(model: _CancelActionDefault()), allowAction: _Action? = _Action(model: _AllowActionDefault()), denyAction: _Action? = _Action(model: _DenyActionDefault()), notNowAction: _Action? = _Action(model: _NotNowActionDefault()), userConsentPages: [_UserConsentPageModel] = [], isRequired: Bool = true, alertConfiguration: ((UserConsentAlertType) -> AlertConfiguration?)? = _UserConsentFormAlertConfigurationDefault, didAllow: (() -> Void)? = nil, didDeny: ((Bool) -> Void)? = nil, didCancel: (() -> Void)? = nil) {
         self._nextAction = nextAction != nil ? ViewBuilder.buildEither(first: nextAction!) : ViewBuilder.buildEither(second: EmptyView())
 		self._cancelAction = cancelAction != nil ? ViewBuilder.buildEither(first: cancelAction!) : ViewBuilder.buildEither(second: EmptyView())
 		self._allowAction = allowAction != nil ? ViewBuilder.buildEither(first: allowAction!) : ViewBuilder.buildEither(second: EmptyView())

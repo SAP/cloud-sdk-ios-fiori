@@ -3,7 +3,7 @@ import SwiftUI
 // FIXME: - Implement Fiori style definitions
 
 extension Fiori {
-    enum UserConsentForm {
+    enum _UserConsentForm {
         typealias NextAction = EmptyModifier
         typealias NextActionCumulative = EmptyModifier
         typealias CancelAction = EmptyModifier
@@ -41,7 +41,7 @@ extension Fiori {
 }
 
 // FIXME: - Implement UserConsentForm View body
-extension UserConsentForm: View {
+extension _UserConsentForm: View {
     public var body: some View {
         VStack {
             self.makeBody()
@@ -156,7 +156,7 @@ extension UserConsentForm: View {
     }
 }
 
-extension UserConsentForm {
+extension _UserConsentForm {
     var didAllow: (() -> Void)? {
         if userConsentFormDidAllow == nil, _didAllow == nil {
             return nil

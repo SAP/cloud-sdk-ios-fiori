@@ -2,7 +2,7 @@
 // DO NOT EDIT
 import SwiftUI
 
-public struct UserConsentPage<Title: View, BodyAttributedText: View, ActionView: View> {
+public struct _UserConsentPage<Title: View, BodyAttributedText: View, ActionView: View> {
     @Environment(\.titleModifier) private var titleModifier
 	@Environment(\.bodyAttributedTextModifier) private var bodyAttributedTextModifier
 	@Environment(\.actionModifier) private var actionModifier
@@ -28,23 +28,23 @@ public struct UserConsentPage<Title: View, BodyAttributedText: View, ActionView:
 
     @ViewBuilder var title: some View {
         if isModelInit {
-            _title.modifier(titleModifier.concat(Fiori.UserConsentPage.title).concat(Fiori.UserConsentPage.titleCumulative))
+            _title.modifier(titleModifier.concat(Fiori._UserConsentPage.title).concat(Fiori._UserConsentPage.titleCumulative))
         } else {
-            _title.modifier(titleModifier.concat(Fiori.UserConsentPage.title))
+            _title.modifier(titleModifier.concat(Fiori._UserConsentPage.title))
         }
     }
 	@ViewBuilder var bodyAttributedText: some View {
         if isModelInit {
-            _bodyAttributedText.modifier(bodyAttributedTextModifier.concat(Fiori.UserConsentPage.bodyAttributedText).concat(Fiori.UserConsentPage.bodyAttributedTextCumulative))
+            _bodyAttributedText.modifier(bodyAttributedTextModifier.concat(Fiori._UserConsentPage.bodyAttributedText).concat(Fiori._UserConsentPage.bodyAttributedTextCumulative))
         } else {
-            _bodyAttributedText.modifier(bodyAttributedTextModifier.concat(Fiori.UserConsentPage.bodyAttributedText))
+            _bodyAttributedText.modifier(bodyAttributedTextModifier.concat(Fiori._UserConsentPage.bodyAttributedText))
         }
     }
 	@ViewBuilder var action: some View {
         if isModelInit {
-            _action.modifier(actionModifier.concat(Fiori.UserConsentPage.action).concat(Fiori.UserConsentPage.actionCumulative))
+            _action.modifier(actionModifier.concat(Fiori._UserConsentPage.action).concat(Fiori._UserConsentPage.actionCumulative))
         } else {
-            _action.modifier(actionModifier.concat(Fiori.UserConsentPage.action))
+            _action.modifier(actionModifier.concat(Fiori._UserConsentPage.action))
         }
     }
     
@@ -57,11 +57,11 @@ public struct UserConsentPage<Title: View, BodyAttributedText: View, ActionView:
     }
 }
 
-extension UserConsentPage where Title == Text,
+extension _UserConsentPage where Title == Text,
 		BodyAttributedText == _ConditionalContent<AttributedText, EmptyView>,
 		ActionView == _ConditionalContent<_Action, EmptyView> {
 
-    public init(model: UserConsentPageModel) {
+    public init(model: _UserConsentPageModel) {
         self.init(title: model.title, bodyAttributedText: model.bodyAttributedText, action: model.action != nil ? _Action(model: model.action!) : nil)
     }
 

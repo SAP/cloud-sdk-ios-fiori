@@ -2,7 +2,7 @@
 // DO NOT EDIT
 import SwiftUI
 
-extension UserConsentPage where BodyAttributedText == EmptyView {
+extension _UserConsentPage where BodyAttributedText == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder action: () -> ActionView
@@ -15,7 +15,7 @@ extension UserConsentPage where BodyAttributedText == EmptyView {
     }
 }
 
-extension UserConsentPage where ActionView == EmptyView {
+extension _UserConsentPage where ActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder bodyAttributedText: () -> BodyAttributedText
@@ -28,7 +28,7 @@ extension UserConsentPage where ActionView == EmptyView {
     }
 }
 
-extension UserConsentPage where BodyAttributedText == EmptyView, ActionView == EmptyView {
+extension _UserConsentPage where BodyAttributedText == EmptyView, ActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title
     ) {

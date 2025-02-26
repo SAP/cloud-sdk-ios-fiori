@@ -69,6 +69,9 @@ public extension Type {
     var componentName: String {
         var name = name
         let deprecatedComponents = ["_ListPickerItemModel",
+                                    "_UserConsentViewModel",
+                                    "_UserConsentFormModel",
+                                    "_UserConsentPageModel",
                                     "_ActionModel",
                                     "_TextInputModel",
                                     "_ObjectItemModel",
