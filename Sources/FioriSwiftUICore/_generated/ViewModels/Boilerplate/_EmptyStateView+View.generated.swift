@@ -1,8 +1,8 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
-//TODO: Copy commented code to new file: `FioriSwiftUICore/Views/EmptyStateView+View.swift`
+//TODO: Copy commented code to new file: `FioriSwiftUICore/Views/_EmptyStateView+View.swift`
 //TODO: Implement default Fiori style definitions as `ViewModifier`
-//TODO: Implement EmptyStateView `View` body
+//TODO: Implement _EmptyStateView `View` body
 //TODO: Implement LibraryContentProvider
 
 /// - Important: to make `@Environment` properties (e.g. `horizontalSizeClass`), internally accessible
@@ -16,7 +16,7 @@ import SwiftUI
 // FIXME: - Implement Fiori style definitions
 
 extension Fiori {
-    enum EmptyStateView {
+    enum _EmptyStateView {
         typealias Title = EmptyModifier
         typealias TitleCumulative = EmptyModifier
 		typealias DescriptionText = EmptyModifier
@@ -49,21 +49,21 @@ extension Fiori {
     }
 }
 
-// FIXME: - Implement EmptyStateView View body
+// FIXME: - Implement _EmptyStateView View body
 
-extension EmptyStateView: View {
+extension _EmptyStateView: View {
     public var body: some View {
         <# View body #>
     }
 }
 
-// FIXME: - Implement EmptyStateView specific LibraryContentProvider
+// FIXME: - Implement _EmptyStateView specific LibraryContentProvider
 
 @available(iOS 14.0, macOS 11.0, *)
-struct EmptyStateViewLibraryContent: LibraryContentProvider {
+struct _EmptyStateViewLibraryContent: LibraryContentProvider {
     @LibraryContentBuilder
     var views: [LibraryItem] {
-        LibraryItem(EmptyStateView(model: LibraryPreviewData.Person.laurelosborn),
+        LibraryItem(_EmptyStateView(model: LibraryPreviewData.Person.laurelosborn),
                     category: .control)
     }
 }

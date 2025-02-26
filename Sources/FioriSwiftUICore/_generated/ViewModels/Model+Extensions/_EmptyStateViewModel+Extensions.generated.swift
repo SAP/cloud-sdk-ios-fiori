@@ -2,7 +2,7 @@
 // DO NOT EDIT
 import SwiftUI
 
-public extension EmptyStateViewModel {
+public extension _EmptyStateViewModel {
     var action: _ActionModel? {
         return nil
     }

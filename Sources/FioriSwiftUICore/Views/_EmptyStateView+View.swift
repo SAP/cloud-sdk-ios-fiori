@@ -1,7 +1,7 @@
 import SwiftUI
 
 extension Fiori {
-    enum EmptyStateView {
+    enum _EmptyStateView {
         struct Title: ViewModifier {
             func body(content: Content) -> some View {
                 content
@@ -56,7 +56,7 @@ extension Fiori {
     }
 }
 
-extension EmptyStateView: View {
+extension _EmptyStateView: View {
     public var body: some View {
         VStack(alignment: .center) {
             detailImage
