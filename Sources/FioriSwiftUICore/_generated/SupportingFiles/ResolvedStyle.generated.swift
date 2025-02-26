@@ -99,6 +99,22 @@ extension AllEntriesSectionTitleStyle {
     }
 }
 
+// MARK: AllowActionStyle
+
+struct ResolvedAllowActionStyle<Style: AllowActionStyle>: View {
+    let style: Style
+    let configuration: AllowActionConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension AllowActionStyle {
+    func resolve(configuration: AllowActionConfiguration) -> some View {
+        ResolvedAllowActionStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: ApplyActionStyle
 
 struct ResolvedApplyActionStyle<Style: ApplyActionStyle>: View {
@@ -480,6 +496,22 @@ struct ResolvedDemoViewStyle<Style: DemoViewStyle>: View {
 extension DemoViewStyle {
     func resolve(configuration: DemoViewConfiguration) -> some View {
         ResolvedDemoViewStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: DenyActionStyle
+
+struct ResolvedDenyActionStyle<Style: DenyActionStyle>: View {
+    let style: Style
+    let configuration: DenyActionConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension DenyActionStyle {
+    func resolve(configuration: DenyActionConfiguration) -> some View {
+        ResolvedDenyActionStyle(style: self, configuration: configuration)
     }
 }
 
@@ -1363,6 +1395,22 @@ extension MoreActionOverflowStyle {
     }
 }
 
+// MARK: NextActionStyle
+
+struct ResolvedNextActionStyle<Style: NextActionStyle>: View {
+    let style: Style
+    let configuration: NextActionConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension NextActionStyle {
+    func resolve(configuration: NextActionConfiguration) -> some View {
+        ResolvedNextActionStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: NodeStyle
 
 struct ResolvedNodeStyle<Style: NodeStyle>: View {
@@ -1376,6 +1424,22 @@ struct ResolvedNodeStyle<Style: NodeStyle>: View {
 extension NodeStyle {
     func resolve(configuration: NodeConfiguration) -> some View {
         ResolvedNodeStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: NotNowActionStyle
+
+struct ResolvedNotNowActionStyle<Style: NotNowActionStyle>: View {
+    let style: Style
+    let configuration: NotNowActionConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension NotNowActionStyle {
+    func resolve(configuration: NotNowActionConfiguration) -> some View {
+        ResolvedNotNowActionStyle(style: self, configuration: configuration)
     }
 }
 
@@ -2528,6 +2592,54 @@ struct ResolvedUpperThumbStyle<Style: UpperThumbStyle>: View {
 extension UpperThumbStyle {
     func resolve(configuration: UpperThumbConfiguration) -> some View {
         ResolvedUpperThumbStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: UserConsentFormStyle
+
+struct ResolvedUserConsentFormStyle<Style: UserConsentFormStyle>: View {
+    let style: Style
+    let configuration: UserConsentFormConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension UserConsentFormStyle {
+    func resolve(configuration: UserConsentFormConfiguration) -> some View {
+        ResolvedUserConsentFormStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: UserConsentPageStyle
+
+struct ResolvedUserConsentPageStyle<Style: UserConsentPageStyle>: View {
+    let style: Style
+    let configuration: UserConsentPageConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension UserConsentPageStyle {
+    func resolve(configuration: UserConsentPageConfiguration) -> some View {
+        ResolvedUserConsentPageStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: UserConsentViewStyle
+
+struct ResolvedUserConsentViewStyle<Style: UserConsentViewStyle>: View {
+    let style: Style
+    let configuration: UserConsentViewConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension UserConsentViewStyle {
+    func resolve(configuration: UserConsentViewConfiguration) -> some View {
+        ResolvedUserConsentViewStyle(style: self, configuration: configuration)
     }
 }
 

@@ -8,7 +8,7 @@ import SwiftUI
 // FIXME: - Implement Fiori style definitions
 
 extension Fiori {
-    enum UserConsentView {
+    enum _UserConsentView {
         // TODO: - substitute type-specific ViewModifier for EmptyModifier
         /*
              // replace `typealias Subtitle = EmptyModifier` with:
@@ -25,7 +25,7 @@ extension Fiori {
 }
 
 // FIXME: - Implement UserConsentView View body
-extension UserConsentView: View {
+extension _UserConsentView: View {
     public var body: some View {
         _userConsentForms.view(at: _formIndex)
             .userConsentFormDidAllow {

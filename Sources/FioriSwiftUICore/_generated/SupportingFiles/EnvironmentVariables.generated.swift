@@ -129,6 +129,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: AllowActionStyle
+
+struct AllowActionStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any AllowActionStyle] = []
+}
+
+extension EnvironmentValues {
+    var allowActionStyle: any AllowActionStyle {
+        self.allowActionStyleStack.last ?? .base
+    }
+
+    var allowActionStyleStack: [any AllowActionStyle] {
+        get {
+            self[AllowActionStyleStackKey.self]
+        }
+        set {
+            self[AllowActionStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: ApplyActionStyle
 
 struct ApplyActionStyleStackKey: EnvironmentKey {
@@ -629,6 +650,27 @@ extension EnvironmentValues {
         }
         set {
             self[DemoViewStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: DenyActionStyle
+
+struct DenyActionStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any DenyActionStyle] = []
+}
+
+extension EnvironmentValues {
+    var denyActionStyle: any DenyActionStyle {
+        self.denyActionStyleStack.last ?? .base
+    }
+
+    var denyActionStyleStack: [any DenyActionStyle] {
+        get {
+            self[DenyActionStyleStackKey.self]
+        }
+        set {
+            self[DenyActionStyleStackKey.self] = newValue
         }
     }
 }
@@ -1788,6 +1830,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: NextActionStyle
+
+struct NextActionStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any NextActionStyle] = []
+}
+
+extension EnvironmentValues {
+    var nextActionStyle: any NextActionStyle {
+        self.nextActionStyleStack.last ?? .base
+    }
+
+    var nextActionStyleStack: [any NextActionStyle] {
+        get {
+            self[NextActionStyleStackKey.self]
+        }
+        set {
+            self[NextActionStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: NodeStyle
 
 struct NodeStyleStackKey: EnvironmentKey {
@@ -1805,6 +1868,27 @@ extension EnvironmentValues {
         }
         set {
             self[NodeStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: NotNowActionStyle
+
+struct NotNowActionStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any NotNowActionStyle] = []
+}
+
+extension EnvironmentValues {
+    var notNowActionStyle: any NotNowActionStyle {
+        self.notNowActionStyleStack.last ?? .base
+    }
+
+    var notNowActionStyleStack: [any NotNowActionStyle] {
+        get {
+            self[NotNowActionStyleStackKey.self]
+        }
+        set {
+            self[NotNowActionStyleStackKey.self] = newValue
         }
     }
 }
@@ -3317,6 +3401,69 @@ extension EnvironmentValues {
         }
         set {
             self[UpperThumbStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: UserConsentFormStyle
+
+struct UserConsentFormStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any UserConsentFormStyle] = []
+}
+
+extension EnvironmentValues {
+    var userConsentFormStyle: any UserConsentFormStyle {
+        self.userConsentFormStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var userConsentFormStyleStack: [any UserConsentFormStyle] {
+        get {
+            self[UserConsentFormStyleStackKey.self]
+        }
+        set {
+            self[UserConsentFormStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: UserConsentPageStyle
+
+struct UserConsentPageStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any UserConsentPageStyle] = []
+}
+
+extension EnvironmentValues {
+    var userConsentPageStyle: any UserConsentPageStyle {
+        self.userConsentPageStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var userConsentPageStyleStack: [any UserConsentPageStyle] {
+        get {
+            self[UserConsentPageStyleStackKey.self]
+        }
+        set {
+            self[UserConsentPageStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: UserConsentViewStyle
+
+struct UserConsentViewStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any UserConsentViewStyle] = []
+}
+
+extension EnvironmentValues {
+    var userConsentViewStyle: any UserConsentViewStyle {
+        self.userConsentViewStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var userConsentViewStyleStack: [any UserConsentViewStyle] {
+        get {
+            self[UserConsentViewStyleStackKey.self]
+        }
+        set {
+            self[UserConsentViewStyleStackKey.self] = newValue
         }
     }
 }

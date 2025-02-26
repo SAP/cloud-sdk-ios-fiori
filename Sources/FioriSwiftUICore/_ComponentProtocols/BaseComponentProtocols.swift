@@ -648,3 +648,35 @@ protocol _KPISubItemComponent {
     // sourcery: defaultValue = "KPISubitemType.unit"
     var kPISubItemType: KPISubitemType { get }
 }
+
+// sourcery: BaseComponent
+protocol _NextActionComponent {
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "FioriButton { _ in Text("Next".localizedFioriString()) }"
+    // sourcery: resultBuilder.defaultValue = "{ FioriButton { _ in Text("Next".localizedFioriString()) } }"
+    var nextAction: FioriButton? { get }
+}
+
+// sourcery: BaseComponent
+protocol _AllowActionComponent {
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "FioriButton { _ in Text("Allow".localizedFioriString()) }"
+    // sourcery: resultBuilder.defaultValue = "{ FioriButton { _ in Text("Allow".localizedFioriString()) } }"
+    var allowAction: FioriButton? { get }
+}
+
+// sourcery: BaseComponent
+protocol _DenyActionComponent {
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "FioriButton { _ in Text("Deny".localizedFioriString()) }"
+    // sourcery: resultBuilder.defaultValue = "{ FioriButton { _ in Text("Deny".localizedFioriString()) } }"
+    var denyAction: FioriButton? { get }
+}
+
+// sourcery: BaseComponent
+protocol _NotNowActionComponent {
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "FioriButton { _ in Text("NotNow".localizedFioriString()) }"
+    // sourcery: resultBuilder.defaultValue = "{ FioriButton { _ in Text("NotNow".localizedFioriString()) } }"
+    var notNowAction: FioriButton? { get }
+}

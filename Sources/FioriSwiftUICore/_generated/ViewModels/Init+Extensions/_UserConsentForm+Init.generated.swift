@@ -2,7 +2,7 @@
 // DO NOT EDIT
 import SwiftUI
 
-extension UserConsentForm where NextActionView == _Action {
+extension _UserConsentForm where NextActionView == _Action {
     public init(
     @ViewBuilder cancelAction: () -> CancelActionView,
 		@ViewBuilder allowAction: () -> AllowActionView,
@@ -31,7 +31,7 @@ extension UserConsentForm where NextActionView == _Action {
     }
 }
 
-extension UserConsentForm where CancelActionView == _Action {
+extension _UserConsentForm where CancelActionView == _Action {
     public init(
     @ViewBuilder nextAction: () -> NextActionView,
 		@ViewBuilder allowAction: () -> AllowActionView,
@@ -60,7 +60,7 @@ extension UserConsentForm where CancelActionView == _Action {
     }
 }
 
-extension UserConsentForm where AllowActionView == _Action {
+extension _UserConsentForm where AllowActionView == _Action {
     public init(
     @ViewBuilder nextAction: () -> NextActionView,
 		@ViewBuilder cancelAction: () -> CancelActionView,
@@ -89,7 +89,7 @@ extension UserConsentForm where AllowActionView == _Action {
     }
 }
 
-extension UserConsentForm where DenyActionView == _Action {
+extension _UserConsentForm where DenyActionView == _Action {
     public init(
     @ViewBuilder nextAction: () -> NextActionView,
 		@ViewBuilder cancelAction: () -> CancelActionView,
@@ -118,7 +118,7 @@ extension UserConsentForm where DenyActionView == _Action {
     }
 }
 
-extension UserConsentForm where NotNowActionView == _Action {
+extension _UserConsentForm where NotNowActionView == _Action {
     public init(
     @ViewBuilder nextAction: () -> NextActionView,
 		@ViewBuilder cancelAction: () -> CancelActionView,
@@ -147,7 +147,7 @@ extension UserConsentForm where NotNowActionView == _Action {
     }
 }
 
-extension UserConsentForm where NextActionView == _Action, CancelActionView == _Action {
+extension _UserConsentForm where NextActionView == _Action, CancelActionView == _Action {
     public init(
     @ViewBuilder allowAction: () -> AllowActionView,
 		@ViewBuilder denyAction: () -> DenyActionView,
@@ -175,7 +175,7 @@ extension UserConsentForm where NextActionView == _Action, CancelActionView == _
     }
 }
 
-extension UserConsentForm where NextActionView == _Action, AllowActionView == _Action {
+extension _UserConsentForm where NextActionView == _Action, AllowActionView == _Action {
     public init(
     @ViewBuilder cancelAction: () -> CancelActionView,
 		@ViewBuilder denyAction: () -> DenyActionView,
@@ -203,7 +203,7 @@ extension UserConsentForm where NextActionView == _Action, AllowActionView == _A
     }
 }
 
-extension UserConsentForm where NextActionView == _Action, DenyActionView == _Action {
+extension _UserConsentForm where NextActionView == _Action, DenyActionView == _Action {
     public init(
     @ViewBuilder cancelAction: () -> CancelActionView,
 		@ViewBuilder allowAction: () -> AllowActionView,
@@ -231,7 +231,7 @@ extension UserConsentForm where NextActionView == _Action, DenyActionView == _Ac
     }
 }
 
-extension UserConsentForm where NextActionView == _Action, NotNowActionView == _Action {
+extension _UserConsentForm where NextActionView == _Action, NotNowActionView == _Action {
     public init(
     @ViewBuilder cancelAction: () -> CancelActionView,
 		@ViewBuilder allowAction: () -> AllowActionView,
@@ -259,7 +259,7 @@ extension UserConsentForm where NextActionView == _Action, NotNowActionView == _
     }
 }
 
-extension UserConsentForm where CancelActionView == _Action, AllowActionView == _Action {
+extension _UserConsentForm where CancelActionView == _Action, AllowActionView == _Action {
     public init(
     @ViewBuilder nextAction: () -> NextActionView,
 		@ViewBuilder denyAction: () -> DenyActionView,
@@ -287,7 +287,7 @@ extension UserConsentForm where CancelActionView == _Action, AllowActionView == 
     }
 }
 
-extension UserConsentForm where CancelActionView == _Action, DenyActionView == _Action {
+extension _UserConsentForm where CancelActionView == _Action, DenyActionView == _Action {
     public init(
     @ViewBuilder nextAction: () -> NextActionView,
 		@ViewBuilder allowAction: () -> AllowActionView,
@@ -315,7 +315,7 @@ extension UserConsentForm where CancelActionView == _Action, DenyActionView == _
     }
 }
 
-extension UserConsentForm where CancelActionView == _Action, NotNowActionView == _Action {
+extension _UserConsentForm where CancelActionView == _Action, NotNowActionView == _Action {
     public init(
     @ViewBuilder nextAction: () -> NextActionView,
 		@ViewBuilder allowAction: () -> AllowActionView,
@@ -343,7 +343,7 @@ extension UserConsentForm where CancelActionView == _Action, NotNowActionView ==
     }
 }
 
-extension UserConsentForm where AllowActionView == _Action, DenyActionView == _Action {
+extension _UserConsentForm where AllowActionView == _Action, DenyActionView == _Action {
     public init(
     @ViewBuilder nextAction: () -> NextActionView,
 		@ViewBuilder cancelAction: () -> CancelActionView,
@@ -371,7 +371,7 @@ extension UserConsentForm where AllowActionView == _Action, DenyActionView == _A
     }
 }
 
-extension UserConsentForm where AllowActionView == _Action, NotNowActionView == _Action {
+extension _UserConsentForm where AllowActionView == _Action, NotNowActionView == _Action {
     public init(
     @ViewBuilder nextAction: () -> NextActionView,
 		@ViewBuilder cancelAction: () -> CancelActionView,
@@ -399,7 +399,7 @@ extension UserConsentForm where AllowActionView == _Action, NotNowActionView == 
     }
 }
 
-extension UserConsentForm where DenyActionView == _Action, NotNowActionView == _Action {
+extension _UserConsentForm where DenyActionView == _Action, NotNowActionView == _Action {
     public init(
     @ViewBuilder nextAction: () -> NextActionView,
 		@ViewBuilder cancelAction: () -> CancelActionView,
@@ -427,7 +427,7 @@ extension UserConsentForm where DenyActionView == _Action, NotNowActionView == _
     }
 }
 
-extension UserConsentForm where NextActionView == _Action, CancelActionView == _Action, AllowActionView == _Action {
+extension _UserConsentForm where NextActionView == _Action, CancelActionView == _Action, AllowActionView == _Action {
     public init(
     @ViewBuilder denyAction: () -> DenyActionView,
 		@ViewBuilder notNowAction: () -> NotNowActionView,
@@ -454,7 +454,7 @@ extension UserConsentForm where NextActionView == _Action, CancelActionView == _
     }
 }
 
-extension UserConsentForm where NextActionView == _Action, CancelActionView == _Action, DenyActionView == _Action {
+extension _UserConsentForm where NextActionView == _Action, CancelActionView == _Action, DenyActionView == _Action {
     public init(
     @ViewBuilder allowAction: () -> AllowActionView,
 		@ViewBuilder notNowAction: () -> NotNowActionView,
@@ -481,7 +481,7 @@ extension UserConsentForm where NextActionView == _Action, CancelActionView == _
     }
 }
 
-extension UserConsentForm where NextActionView == _Action, CancelActionView == _Action, NotNowActionView == _Action {
+extension _UserConsentForm where NextActionView == _Action, CancelActionView == _Action, NotNowActionView == _Action {
     public init(
     @ViewBuilder allowAction: () -> AllowActionView,
 		@ViewBuilder denyAction: () -> DenyActionView,
@@ -508,7 +508,7 @@ extension UserConsentForm where NextActionView == _Action, CancelActionView == _
     }
 }
 
-extension UserConsentForm where NextActionView == _Action, AllowActionView == _Action, DenyActionView == _Action {
+extension _UserConsentForm where NextActionView == _Action, AllowActionView == _Action, DenyActionView == _Action {
     public init(
     @ViewBuilder cancelAction: () -> CancelActionView,
 		@ViewBuilder notNowAction: () -> NotNowActionView,
@@ -535,7 +535,7 @@ extension UserConsentForm where NextActionView == _Action, AllowActionView == _A
     }
 }
 
-extension UserConsentForm where NextActionView == _Action, AllowActionView == _Action, NotNowActionView == _Action {
+extension _UserConsentForm where NextActionView == _Action, AllowActionView == _Action, NotNowActionView == _Action {
     public init(
     @ViewBuilder cancelAction: () -> CancelActionView,
 		@ViewBuilder denyAction: () -> DenyActionView,
@@ -562,7 +562,7 @@ extension UserConsentForm where NextActionView == _Action, AllowActionView == _A
     }
 }
 
-extension UserConsentForm where NextActionView == _Action, DenyActionView == _Action, NotNowActionView == _Action {
+extension _UserConsentForm where NextActionView == _Action, DenyActionView == _Action, NotNowActionView == _Action {
     public init(
     @ViewBuilder cancelAction: () -> CancelActionView,
 		@ViewBuilder allowAction: () -> AllowActionView,
@@ -589,7 +589,7 @@ extension UserConsentForm where NextActionView == _Action, DenyActionView == _Ac
     }
 }
 
-extension UserConsentForm where CancelActionView == _Action, AllowActionView == _Action, DenyActionView == _Action {
+extension _UserConsentForm where CancelActionView == _Action, AllowActionView == _Action, DenyActionView == _Action {
     public init(
     @ViewBuilder nextAction: () -> NextActionView,
 		@ViewBuilder notNowAction: () -> NotNowActionView,
@@ -616,7 +616,7 @@ extension UserConsentForm where CancelActionView == _Action, AllowActionView == 
     }
 }
 
-extension UserConsentForm where CancelActionView == _Action, AllowActionView == _Action, NotNowActionView == _Action {
+extension _UserConsentForm where CancelActionView == _Action, AllowActionView == _Action, NotNowActionView == _Action {
     public init(
     @ViewBuilder nextAction: () -> NextActionView,
 		@ViewBuilder denyAction: () -> DenyActionView,
@@ -643,7 +643,7 @@ extension UserConsentForm where CancelActionView == _Action, AllowActionView == 
     }
 }
 
-extension UserConsentForm where CancelActionView == _Action, DenyActionView == _Action, NotNowActionView == _Action {
+extension _UserConsentForm where CancelActionView == _Action, DenyActionView == _Action, NotNowActionView == _Action {
     public init(
     @ViewBuilder nextAction: () -> NextActionView,
 		@ViewBuilder allowAction: () -> AllowActionView,
@@ -670,7 +670,7 @@ extension UserConsentForm where CancelActionView == _Action, DenyActionView == _
     }
 }
 
-extension UserConsentForm where AllowActionView == _Action, DenyActionView == _Action, NotNowActionView == _Action {
+extension _UserConsentForm where AllowActionView == _Action, DenyActionView == _Action, NotNowActionView == _Action {
     public init(
     @ViewBuilder nextAction: () -> NextActionView,
 		@ViewBuilder cancelAction: () -> CancelActionView,
@@ -697,7 +697,7 @@ extension UserConsentForm where AllowActionView == _Action, DenyActionView == _A
     }
 }
 
-extension UserConsentForm where NextActionView == _Action, CancelActionView == _Action, AllowActionView == _Action, DenyActionView == _Action {
+extension _UserConsentForm where NextActionView == _Action, CancelActionView == _Action, AllowActionView == _Action, DenyActionView == _Action {
     public init(
     @ViewBuilder notNowAction: () -> NotNowActionView,
 		@IndexedViewBuilder userConsentPages: () -> UserConsentPages,
@@ -723,7 +723,7 @@ extension UserConsentForm where NextActionView == _Action, CancelActionView == _
     }
 }
 
-extension UserConsentForm where NextActionView == _Action, CancelActionView == _Action, AllowActionView == _Action, NotNowActionView == _Action {
+extension _UserConsentForm where NextActionView == _Action, CancelActionView == _Action, AllowActionView == _Action, NotNowActionView == _Action {
     public init(
     @ViewBuilder denyAction: () -> DenyActionView,
 		@IndexedViewBuilder userConsentPages: () -> UserConsentPages,
@@ -749,7 +749,7 @@ extension UserConsentForm where NextActionView == _Action, CancelActionView == _
     }
 }
 
-extension UserConsentForm where NextActionView == _Action, CancelActionView == _Action, DenyActionView == _Action, NotNowActionView == _Action {
+extension _UserConsentForm where NextActionView == _Action, CancelActionView == _Action, DenyActionView == _Action, NotNowActionView == _Action {
     public init(
     @ViewBuilder allowAction: () -> AllowActionView,
 		@IndexedViewBuilder userConsentPages: () -> UserConsentPages,
@@ -775,7 +775,7 @@ extension UserConsentForm where NextActionView == _Action, CancelActionView == _
     }
 }
 
-extension UserConsentForm where NextActionView == _Action, AllowActionView == _Action, DenyActionView == _Action, NotNowActionView == _Action {
+extension _UserConsentForm where NextActionView == _Action, AllowActionView == _Action, DenyActionView == _Action, NotNowActionView == _Action {
     public init(
     @ViewBuilder cancelAction: () -> CancelActionView,
 		@IndexedViewBuilder userConsentPages: () -> UserConsentPages,
@@ -801,7 +801,7 @@ extension UserConsentForm where NextActionView == _Action, AllowActionView == _A
     }
 }
 
-extension UserConsentForm where CancelActionView == _Action, AllowActionView == _Action, DenyActionView == _Action, NotNowActionView == _Action {
+extension _UserConsentForm where CancelActionView == _Action, AllowActionView == _Action, DenyActionView == _Action, NotNowActionView == _Action {
     public init(
     @ViewBuilder nextAction: () -> NextActionView,
 		@IndexedViewBuilder userConsentPages: () -> UserConsentPages,
@@ -827,7 +827,7 @@ extension UserConsentForm where CancelActionView == _Action, AllowActionView == 
     }
 }
 
-extension UserConsentForm where NextActionView == _Action, CancelActionView == _Action, AllowActionView == _Action, DenyActionView == _Action, NotNowActionView == _Action {
+extension _UserConsentForm where NextActionView == _Action, CancelActionView == _Action, AllowActionView == _Action, DenyActionView == _Action, NotNowActionView == _Action {
     public init(
     @IndexedViewBuilder userConsentPages: () -> UserConsentPages,
 		isRequired: Bool = true,

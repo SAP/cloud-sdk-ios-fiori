@@ -1485,3 +1485,112 @@ protocol _KPIItemComponent: _KpiCaptionComponent {
     // sourcery: defaultValue = .center
     var alignment: Alignment { get }
 }
+
+/// `UserConsentView` is used to display a series of user consent screens modally during the process of onboarding.
+/// ## Usage
+/// ```swift
+/// UserConsentView {
+///     UserConsentForm(userConsentPages: {
+///                    UserConsentPage {
+///                        Text("Form 0 Page 0")
+///                    } bodyText: {
+///                        Text("detailText")
+///                    } action: {
+///                        Button {
+///                        } label: {
+///                            Text("Learn more about privacy")
+///                        }
+///                    }
+///                    UserConsentPage {
+///                        Text("Form 0 Page 1")
+///                    } bodyText: {
+///                        Text("detailText")
+///                    } action: {
+///                        Button {
+///                        } label: {
+///                            Text("Learn more about privacy")
+///                        }
+///                    }
+///                },
+///                didAllow: { print("UserConsentForm - didAllow") }
+///     )
+///     UserConsentForm(userConsentPages: {
+///                    UserConsentPage {
+///                        Text("Form 1 Page 0")
+///                    } bodyText: {
+///                        Text("detailText")
+///                    } action: {
+///                        Button {
+///                        } label: {
+///                         Text("Learn more about Data Privacy")
+///                        }
+///                     }
+///                 },
+///                 isRequired: false,
+///                 didAllow: { print("UserConsentForm - didAllow") })
+/// } didAllow: {
+///     print("UserConsentView - didAllow: index: \($0)")
+/// } didDeny: {
+///     print("UserConsentView - didDeny: index: \($0), isRequired: \($1)")
+/// } didCancel: { _ in
+///     print("UserConsentView - didCancel")
+/// } didFinish: { _ in
+///     presentationMode.wrappedValue.dismiss()
+/// }
+/// ```
+// sourcery: CompositeComponent
+protocol _UserConsentViewComponent {
+    // sourcery: no_style
+    // sourcery: resultBuilder.name = @IndexedViewBuilder
+    // sourcery: resultBuilder.backingComponent = _UserConsentFormsContainer
+    // sourcery: resultBuilder.returnType = any IndexedViewContainer
+    var userConsentForms: [UserConsentForm] { get }
+ 
+    // sourcery: default.value = nil
+    // sourcery: no_view
+    var didAllow: ((Int) -> Void)? { get }
+    
+    // sourcery: default.value = nil
+    // sourcery: no_view
+    var didDeny: ((Int, Bool) -> Void)? { get }
+    
+    // sourcery: default.value = nil
+    // sourcery: no_view
+    var didCancel: ((Int) -> Void)? { get }
+    
+    // sourcery: default.value = nil
+    // sourcery: no_view
+    var didFinish: (([Int]) -> Void)? { get }
+}
+
+// sourcery: CompositeComponent
+protocol _UserConsentFormComponent: _NextActionComponent, _CancelActionComponent, _AllowActionComponent, _DenyActionComponent, _NotNowActionComponent {
+    // sourcery: no_style
+    // sourcery: resultBuilder.name = @IndexedViewBuilder
+    // sourcery: resultBuilder.backingComponent = _UserConsentPagesContainer
+    // sourcery: resultBuilder.returnType = any IndexedViewContainer
+    var userConsentPages: [UserConsentPage] { get }
+    
+    // sourcery: no_view
+    // sourcery: default.value="true"
+    var isRequired: Bool { get }
+    
+    // sourcery: default.value = _UserConsentFormAlertConfigurationDefault
+    // sourcery: no_view
+    var alertConfiguration: ((UserConsentAlertType) -> AlertConfiguration?)? { get }
+    
+    // sourcery: default.value = nil
+    // sourcery: no_view
+    var didAllow: (() -> Void)? { get }
+    
+    // sourcery: default.value = nil
+    // sourcery: no_view
+    var didDeny: ((Bool) -> Void)? { get }
+    
+    // sourcery: default.value = nil
+    // sourcery: no_view
+    var didCancel: (() -> Void)? { get }
+}
+
+// sourcery: CompositeComponent
+protocol _UserConsentPageComponent: _TitleComponent, _BodyTextComponent, _ActionComponent {}
