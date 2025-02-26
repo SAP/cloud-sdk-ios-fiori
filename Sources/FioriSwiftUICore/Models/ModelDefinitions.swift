@@ -434,10 +434,14 @@ public protocol _SignatureCaptureViewModel: AnyObject {
 public protocol SignatureCaptureViewModel {}
 
 // sourcery: generated_component_composite
-public protocol EmptyStateViewModel: TitleComponent, DescriptionTextComponent, DetailImageComponent {
+public protocol _EmptyStateViewModel: TitleComponent, DescriptionTextComponent, DetailImageComponent {
     // sourcery: genericParameter.name = ActionView
     var action: _ActionModel? { get }
 }
+
+/// Deprecated EmptyStateViewModel
+@available(*, deprecated, renamed: "_EmptyStateViewModel", message: "Will be removed in the future release. Please use IllustratedMessageComponent instead.")
+public protocol EmptyStateViewModel {}
 
 // sourcery: generated_component_not_configurable
 public protocol DurationPickerModel: DurationPickerComponent {}
