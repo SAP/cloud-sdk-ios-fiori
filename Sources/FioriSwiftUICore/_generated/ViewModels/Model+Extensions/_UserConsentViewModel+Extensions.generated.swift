@@ -2,7 +2,7 @@
 // DO NOT EDIT
 import SwiftUI
 
-public extension UserConsentViewModel {
+public extension _UserConsentViewModel {
     var didAllow: ((Int) -> Void)? {
         return nil
     }

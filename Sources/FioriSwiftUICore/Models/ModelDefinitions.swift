@@ -263,12 +263,12 @@ public protocol EULAViewModel: TitleComponent, BodyAttributedTextComponent {
 // sourcery: virtualPropFormIndex = "@State var _formIndex = 0"
 // sourcery: virtualPropAllowedFormIndexes = "@State var _allowedFormIndexes: [Int] = []"
 // sourcery: generated_component_composite
-public protocol UserConsentViewModel {
+public protocol _UserConsentViewModel {
     // sourcery: no_style
     // sourcery: backingComponent=_UserConsentFormsContainer
     // sourcery: customFunctionBuilder=IndexedViewBuilder
     // sourcery: genericParameter.type=IndexedViewContainer
-    var userConsentForms: [UserConsentFormModel] { get }
+    var userConsentForms: [_UserConsentFormModel] { get }
  
     // sourcery: default.value = nil
     // sourcery: no_view
@@ -293,7 +293,7 @@ public protocol UserConsentViewModel {
 // sourcery: add_env_props = "userConsentFormDidDeny"
 // sourcery: add_env_props = "userConsentFormDidCancel"
 // sourcery: generated_component_composite
-public protocol UserConsentFormModel {
+public protocol _UserConsentFormModel {
     // sourcery: genericParameter.name = NextActionView
     // sourcery: default.value = _NextActionDefault()
     var nextAction: _ActionModel? { get }
@@ -318,7 +318,7 @@ public protocol UserConsentFormModel {
     // sourcery: backingComponent=_UserConsentPagesContainer
     // sourcery: customFunctionBuilder=IndexedViewBuilder
     // sourcery: genericParameter.type=IndexedViewContainer
-    var userConsentPages: [UserConsentPageModel] { get }
+    var userConsentPages: [_UserConsentPageModel] { get }
     
     // sourcery: no_view
     // sourcery: default.value="true"
@@ -342,10 +342,19 @@ public protocol UserConsentFormModel {
 }
 
 // sourcery: generated_component_composite
-public protocol UserConsentPageModel: TitleComponent, BodyAttributedTextComponent {
+public protocol _UserConsentPageModel: TitleComponent, BodyAttributedTextComponent {
     // sourcery: genericParameter.name = ActionView
     var action: _ActionModel? { get }
 }
+
+@available(*, unavailable, renamed: "_UserConsentViewModel", message: "Will be removed in the future release. Please create UserConsentView with other initializers instead.")
+public protocol UserConsentViewModel {}
+
+@available(*, unavailable, renamed: "_UserConsentFormModel", message: "Will be removed in the future release. Please create UserConsentForm with other initializers instead.")
+public protocol UserConsentFormModel {}
+
+@available(*, unavailable, renamed: "_UserConsentPageModel", message: "Will be removed in the future release. Please create UserConsentPage with other initializers instead.")
+public protocol UserConsentPageModel {}
 
 // sourcery: importFrameworks = ["Combine"]
 // sourcery: virtualPropHeightDidChangePublisher = "public private(set) var _heightDidChangePublisher = CurrentValueSubject<CGFloat, Never>(0)"
