@@ -1536,6 +1536,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: PromptStyle
+
+struct PromptStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any PromptStyle] = []
+}
+
+extension EnvironmentValues {
+    var promptStyle: any PromptStyle {
+        self.promptStyleStack.last ?? .base
+    }
+
+    var promptStyleStack: [any PromptStyle] {
+        get {
+            self[PromptStyleStackKey.self]
+        }
+        set {
+            self[PromptStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: RatingControlStyle
 
 struct RatingControlStyleStackKey: EnvironmentKey {

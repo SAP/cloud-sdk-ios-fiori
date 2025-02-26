@@ -2052,6 +2052,34 @@ public extension ProgressIndicatorProtocolStyle {
     }
 }
 
+// MARK: PromptStyle
+
+extension ModifiedStyle: PromptStyle where Style: PromptStyle {
+    public func makeBody(_ configuration: PromptConfiguration) -> some View {
+        Prompt(configuration)
+            .promptStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct PromptStyleModifier<Style: PromptStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.promptStyle(self.style)
+    }
+}
+
+public extension PromptStyle {
+    func modifier(_ modifier: some ViewModifier) -> some PromptStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some PromptStyle) -> some PromptStyle {
+        style.modifier(PromptStyleModifier(style: self))
+    }
+}
+
 // MARK: RatingControlStyle
 
 extension ModifiedStyle: RatingControlStyle where Style: RatingControlStyle {

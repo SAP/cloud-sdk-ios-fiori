@@ -1171,6 +1171,22 @@ extension ProgressIndicatorProtocolStyle {
     }
 }
 
+// MARK: PromptStyle
+
+struct ResolvedPromptStyle<Style: PromptStyle>: View {
+    let style: Style
+    let configuration: PromptConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension PromptStyle {
+    func resolve(configuration: PromptConfiguration) -> some View {
+        ResolvedPromptStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: RatingControlStyle
 
 struct ResolvedRatingControlStyle<Style: RatingControlStyle>: View {
