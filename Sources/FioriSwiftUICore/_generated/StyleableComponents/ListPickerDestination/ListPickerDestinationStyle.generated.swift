@@ -30,6 +30,7 @@ public struct ListPickerDestinationConfiguration {
     public let deselectAllAction: DeselectAllAction
     public let allEntriesSectionTitle: AllEntriesSectionTitle
     public let listPickerContent: ListPickerContent
+    public let prompt: Prompt
 
     public typealias CancelAction = ConfigurationViewWrapper
     public typealias ApplyAction = ConfigurationViewWrapper
@@ -38,6 +39,7 @@ public struct ListPickerDestinationConfiguration {
     public typealias DeselectAllAction = ConfigurationViewWrapper
     public typealias AllEntriesSectionTitle = ConfigurationViewWrapper
     public typealias ListPickerContent = ConfigurationViewWrapper
+    public typealias Prompt = ConfigurationViewWrapper
 }
 
 extension ListPickerDestinationConfiguration {
@@ -56,5 +58,6 @@ public struct ListPickerDestinationFioriStyle: ListPickerDestinationStyle {
             .deselectAllActionStyle(DeselectAllActionFioriStyle(listPickerDestinationConfiguration: configuration))
             .allEntriesSectionTitleStyle(AllEntriesSectionTitleFioriStyle(listPickerDestinationConfiguration: configuration))
             .listPickerContentStyle(ListPickerContentFioriStyle(listPickerDestinationConfiguration: configuration))
+            .promptStyle(PromptFioriStyle(listPickerDestinationConfiguration: configuration))
     }
 }
