@@ -64,7 +64,7 @@ struct ListPickerItemExample: View {
                     })
                 }
             }
-            .onChange(of: self.dataType) { _ in
+            .onChange(of: self.dataType) {
                 self.selections.removeAll()
                 self.uuidSelections.removeAll()
                 self.selection = nil

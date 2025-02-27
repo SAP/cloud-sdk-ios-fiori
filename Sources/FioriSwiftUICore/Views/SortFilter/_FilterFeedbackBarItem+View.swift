@@ -123,12 +123,12 @@ struct _SliderMenuItem: View {
                                     self.geometrySizeHeight = geometry.size.height
                                     self.calculateDetentHeight()
                                 }
-                                .onChange(of: geometry.size) { newSize in
-                                    self.geometrySizeHeight = newSize.height
+                                .onChange(of: geometry.size) {
+                                    self.geometrySizeHeight = geometry.size.height
                                     self.calculateDetentHeight()
                                 }
                         })
-                        .onChange(of: self.dynamicTypeSize) { _ in
+                        .onChange(of: self.dynamicTypeSize) {
                             self.calculateDetentHeight()
                         }
                 }
@@ -891,12 +891,12 @@ struct _StepperMenuItem: View {
                                 self.geometrySizeHeight = geometry.size.height
                                 self.calculateDetentHeight()
                             }
-                            .onChange(of: geometry.size) { newSize in
-                                self.geometrySizeHeight = newSize.height
+                            .onChange(of: geometry.size) {
+                                self.geometrySizeHeight = geometry.size.height
                                 self.calculateDetentHeight()
                             }
                     })
-                    .onChange(of: self.dynamicTypeSize) { _ in
+                    .onChange(of: self.dynamicTypeSize) {
                         self.stepperViewHeight = 110 + self.dynamicTypeAddHeight()
                         self.calculateDetentHeight()
                     }
