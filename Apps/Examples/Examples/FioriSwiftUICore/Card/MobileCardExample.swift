@@ -49,6 +49,169 @@ struct MobileCardExample: View {
             } label: {
                 Text("Carousel")
             }
+            NavigationLink {
+                ScrollView {
+                    Section {
+                        Card(title: {
+                            Text("Kixo Q1 Deal ")
+                        }, subtitle: {
+                            Text("Company Name")
+                        }, detailImage: {
+                            Circle()
+                                .strokeBorder(.gray, lineWidth: 1)
+                                .background(Circle().fill(Color.gray.opacity(0.3)))
+                                .frame(width: 60, height: 60)
+                                .overlay {
+                                    Image(systemName: "bus.fill")
+                                        .font(.title)
+                                }
+                        }, headerAction: {
+                            Text("99")
+                                .font(.system(size: 22))
+                                .frame(width: 38, height: 36)
+                                .foregroundStyle(Color.white)
+                                .background(RoundedRectangle(cornerRadius: 12.0).fill(Color.red))
+                        }, row2: {
+                            Text("15 Jan,2025 • Discovery completed")
+                                .font(.callout)
+                        }, row3: {
+                            VStack {
+                                Text("in  progress")
+                                    .foregroundStyle(Color(hex: "#AA0808"))
+                                    .font(.subheadline)
+                            }
+                            
+                        })
+                        .padding()
+                        .cardStyle(.card)
+                    } header: {
+                        Text("custom elements on main header")
+                            .padding(.leading, 20)
+                            .fontWeight(.bold)
+                    }.padding(.bottom, 10)
+                    Section {
+                        Card(title: {
+                            Text("Kixo Q1 Deal ")
+                        }, subtitle: {
+                            Text("Company Name")
+                        }, detailImage: {
+                            RoundedRectangle(cornerRadius: 8)
+                                .strokeBorder(.gray, lineWidth: 1)
+                                .frame(width: 60, height: 60)
+                                .overlay {
+                                    Image(systemName: "bus.fill")
+                                        .font(.title)
+                                }
+                        }, row1: {
+                            Text("99")
+                                .frame(width: 48, height: 36)
+                                .foregroundStyle(Color.white)
+                                .background(RoundedRectangle(cornerRadius: 12.0).fill(Color.green))
+                        }, row2: {
+                            HStack {
+                                RoundedRectangle(cornerRadius: 4)
+                                    .strokeBorder(.gray, lineWidth: 1)
+                                    .frame(width: 16, height: 16)
+                                    .overlay {
+                                        Image(systemName: "hare.circle.fill")
+                                    }
+                                Text("Kixo Inc • Open")
+                                    .foregroundStyle(Color(hex: "#AA0808"))
+                                    .font(.subheadline)
+                            }
+                        }, row3: {
+                            HStack {
+                                Circle()
+                                    .strokeBorder(.gray, lineWidth: 1)
+                                    .background(Circle().fill(Color.gray.opacity(0.3)))
+                                    .frame(width: 16, height: 16)
+                                    .overlay {
+                                        Image(systemName: "tortoise.circle.fill")
+                                    }
+                                Text("Madlyn Riley Jackson")
+                                    .foregroundStyle(Color(hex: "#AA0808"))
+                                    .font(.subheadline)
+                            }
+                            
+                        }, kpiCaption: {
+                            VStack {
+                                Spacer()
+                                HStack {
+                                    Text("100.000")
+                                        .font(.system(size: 22))
+                                        .foregroundStyle(Color.preferredColor(.primaryLabel))
+                                    Text("USD")
+                                        .font(.system(size: 17))
+                                        .foregroundStyle(Color.preferredColor(.primaryLabel))
+                                }
+                            }
+                            
+                        })
+                        .padding()
+                        .cardStyle(.card)
+                    } header: {
+                        Text("custom elements for Tag Component")
+                            .padding(.leading, 20)
+                            .fontWeight(.bold)
+                    }.padding(.bottom, 10)
+                    Section {
+                        Card(title: {
+                            Text("Kixo Q1 Deal ")
+                        }, subtitle: {
+                            Text("Company Name")
+                        }, detailImage: {
+                            RoundedRectangle(cornerRadius: 8)
+                                .strokeBorder(.gray, lineWidth: 1)
+                                .frame(width: 60, height: 60)
+                                .overlay {
+                                    Image(systemName: "bus.fill")
+                                        .font(.title)
+                                }
+                        }, row2: {
+                            HStack {
+                                RoundedRectangle(cornerRadius: 4)
+                                    .strokeBorder(.gray, lineWidth: 1)
+                                    .frame(width: 16, height: 16)
+                                    .overlay {
+                                        Image(systemName: "hare.circle.fill")
+                                    }
+                                Text("Kixo Inc • Open")
+                                    .foregroundStyle(Color(hex: "#AA0808"))
+                                    .font(.subheadline)
+                            }
+                        }, row3: {
+                            HStack {
+                                Circle()
+                                    .strokeBorder(.gray, lineWidth: 1)
+                                    .background(Circle().fill(Color.gray.opacity(0.3)))
+                                    .frame(width: 16, height: 16)
+                                    .overlay {
+                                        Image(systemName: "tortoise.circle.fill")
+                                    }
+                                Text("Madlyn Riley Jackson")
+                                    .foregroundStyle(Color(hex: "#AA0808"))
+                                    .font(.subheadline)
+                            }
+                            
+                        }, kpiCaption: {
+                            Text("99")
+                                .frame(width: 48, height: 36)
+                                .font(.system(size: 22))
+                                .foregroundStyle(Color.white)
+                                .background(RoundedRectangle(cornerRadius: 12.0).fill(Color.green))
+                        })
+                        .padding()
+                        .cardStyle(.card)
+                    } header: {
+                        Text("custom elements for KIP Component")
+                            .padding(.leading, 20)
+                            .fontWeight(.bold)
+                    }.padding(.bottom, 10)
+                }
+                
+            } label: {
+                Text("Cards custom score component")
+            }
         }
         .navigationBarTitle("Cards", displayMode: .inline)
     }
