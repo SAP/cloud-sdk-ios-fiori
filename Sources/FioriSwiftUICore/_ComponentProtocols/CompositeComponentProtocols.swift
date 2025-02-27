@@ -1061,9 +1061,9 @@ protocol _AttachmentGroupComponent: _TitleComponent {
     /// The maximium number of attachments
     var maxCount: Int? { get }
 
-    // sourcery: defaultValue = "AttachmentProcessor()"
+    // sourcery: defaultValue = "BaseAttachmentProcessor()"
     /// App specific attachemnt processing logics for adding or deleting attachments.
-    var processor: BaseAttachmentProcessor { get }
+    var processor: AttachmentProcessor { get }
 
     // sourcery: defaultValue = .normal
     /// The state of attachement group component

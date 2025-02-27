@@ -26,9 +26,9 @@ public struct AttachmentButtonImageFioriStyle: AttachmentButtonImageStyle {
     public func makeBody(_ configuration: AttachmentButtonImageConfiguration) -> some View {
         AttachmentButtonImage(configuration)
             .frame(width: AttachmentConstants.iconWidth, height: AttachmentConstants.iconHeight)
-            .foregroundStyle(Color.preferredColor(.primaryLabel))
+            .foregroundStyle(configuration.controlState == .disabled ? Color.preferredColor(.quaternaryLabel) : Color.preferredColor(.primaryLabel))
             .frame(width: AttachmentConstants.cellWidth, height: AttachmentConstants.cellHeight)
-            .background(Color.preferredColor(.tertiaryFill))
+            .background(configuration.controlState == .disabled ? Color.preferredColor(.tertiaryFill) : Color.preferredColor(.quaternaryFill))
             .clipShape(RoundedRectangle(cornerRadius: AttachmentConstants.cellCornerRadius))
     }
 }

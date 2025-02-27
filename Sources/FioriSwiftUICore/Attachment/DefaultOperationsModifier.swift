@@ -1,3 +1,4 @@
+import Foundation
 import PhotosUI
 import SwiftUI
 
@@ -29,38 +30,71 @@ public struct DefaultOperationsModifier: ViewModifier {
     }
 
     public func body(content: Content) -> some View {
+        let maxSelectionCount = self.context.configuration?.maxCount == nil ? nil : (self.context.configuration?.maxCount ?? 0) - (self.context.configuration?.attachments.count ?? 0)
         content
             .environment(self.context)
             .fileImporter(
                 isPresented: self.showFilesPicker,
-                allowedContentTypes: [.pdf, .text, .png, .plainText],
-                allowsMultipleSelection: false
-            ) { result in
-                switch result {
-                case .success(let files):
-                    files.forEach { file in
-                        let gotAccess = file.startAccessingSecurityScopedResource()
-                        if !gotAccess { return }
-//                            handleSelectedFile(url: file)
-                        file.stopAccessingSecurityScopedResource()
-                    }
-                case .failure(let error):
-                    print(error)
-                }
-            }
+                // maxSelectionCount: maxSelectionCount,
+                allowedContentTypes: self.context.fileSelectionFilter.isEmpty ? [.pdf, .plainText, .zip, .archive, .image, .movie, .epub] : self.context.fileSelectionFilter,
+                allowsMultipleSelection: true,
+                onCompletion: self.onCompletion
+            )
             .sheet(isPresented: self.showPhotosPicker) {
+                let maxSelectionCount = self.context.configuration?.maxCount == nil ? nil : (self.context.configuration?.maxCount ?? 0) - (self.context.configuration?.attachments.count ?? 0)
                 PhotosPicker(
                     "Pick a photo",
                     selection: self.$selectedPhotos,
-                    maxSelectionCount: 1, // make sure alwasy to use 1
+                    maxSelectionCount: maxSelectionCount,
                     selectionBehavior: .ordered,
-                    matching: .images
+                    matching: self.context.photoSelectionFilter.isEmpty ? nil : .all(of: self.context.photoSelectionFilter)
                 )
                 .photosPickerStyle(.inline)
             }
             .onChange(of: self.selectedPhotos) { _, _ in
-//                    convertDataToImage()
+                self.context.upload(photoPickerItems: self.selectedPhotos)
+                self.selectedPhotos.removeAll()
             }
+    }
+    
+    func onCompletion(_ result: Result<[URL], any Error>) {
+        switch result {
+        case .success(let files):
+            files.forEach { file in
+                let gotAccess = file.startAccessingSecurityScopedResource()
+                if !gotAccess { return }
+
+                let itemProvider = NSItemProvider()
+                itemProvider.registerFileRepresentation(for: .item, openInPlace: true) { completionHandler in
+                    completionHandler(file, true, nil)
+                    return Foundation.Progress()
+                }
+                self.context.upload(contentFrom: itemProvider)
+
+                file.stopAccessingSecurityScopedResource()
+            }
+        case .failure(let error):
+            print(error)
+        }
+    }
+    
+    func onCompletion(_ result: Result<URL, any Error>) {
+        switch result {
+        case .success(let file):
+            let gotAccess = file.startAccessingSecurityScopedResource()
+            if !gotAccess { return }
+            
+            let itemProvider = NSItemProvider()
+            itemProvider.registerFileRepresentation(for: .item, openInPlace: true) { completionHandler in
+                completionHandler(file, true, nil)
+                return Foundation.Progress()
+            }
+            self.context.upload(contentFrom: itemProvider)
+            
+            file.stopAccessingSecurityScopedResource()
+        case .failure(let error):
+            print(error)
+        }
     }
 }
 

@@ -1,3 +1,4 @@
+import PhotosUI
 import SwiftUI
 
 public struct PhotosPickerMenuItem: View {
@@ -5,14 +6,17 @@ public struct PhotosPickerMenuItem: View {
     
     let title: String?
     let icon: String?
+    let filter: [PHPickerFilter]
     
-    public init(title: String? = nil, icon: String? = nil) {
+    public init(title: String? = nil, icon: String? = nil, filter: [PHPickerFilter] = []) {
         self.title = title
         self.icon = icon
+        self.filter = filter
     }
 
     public var body: some View {
         makeButton(title: self.title, icon: self.icon, defaultTitle: "Pick Photos") {
+            self.context.photoSelectionFilter = self.filter
             self.context.showPhotosPicker.toggle()
         }
     }
@@ -23,14 +27,17 @@ public struct FilesPickerMenuItem: View {
 
     let title: String?
     let icon: String?
+    let filter: [UTType]
     
-    public init(title: String? = nil, icon: String? = nil) {
+    public init(title: String? = nil, icon: String? = nil, filter: [UTType] = []) {
         self.title = title
         self.icon = icon
+        self.filter = filter
     }
 
     public var body: some View {
         makeButton(title: self.title, icon: self.icon, defaultTitle: "Pick Files") {
+            self.context.fileSelectionFilter = self.filter
             self.context.showFilesPicker.toggle()
         }
     }
@@ -98,6 +105,14 @@ public enum AttachmentMenuItems {
     public static let filesImageOnlyNoTitle = FilesPickerMenuItem(icon: "folder")
     public static let camera = CameraMenuItem(title: "Take a Photo", icon: "camera")
     public static let cameraImageOnlyNoTitle = CameraMenuItem(icon: "camera")
+    
+    public static func photos(title: String? = nil, icon: String? = nil, filter: [PHPickerFilter] = []) -> PhotosPickerMenuItem {
+        PhotosPickerMenuItem(title: title ?? "Pick Photos", icon: icon ?? "photo", filter: filter)
+    }
+    
+    public static func files(title: String? = nil, icon: String? = nil, filter: [UTType] = []) -> FilesPickerMenuItem {
+        FilesPickerMenuItem(title: title ?? "Pick Files", icon: icon ?? "folder", filter: filter)
+    }
 }
 
 #Preview {

@@ -544,6 +544,10 @@ protocol _AttachmentButtonImageComponent {
     // sourcery: @ViewBuilder
     // sourcery: defaultValue = "FioriIcon.actions.add.renderingMode(.template).resizable()"
     var addButtonImage: Image { get }
+
+    // sourcery: defaultValue = .normal
+    /// The state of attachement group component
+    var controlState: ControlState { get }
 }
 
 // sourcery: BaseComponent

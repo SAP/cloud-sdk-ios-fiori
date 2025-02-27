@@ -23,6 +23,8 @@ struct AttachmentGroupExample: View {
     
     @State private var opsAsMenu = true
     
+    @State private var showConfiguraton = false
+    
     @State var previewURL: URL? = nil
     var shouldShowPreview: Binding<Bool> {
         Binding<Bool> {
@@ -41,34 +43,12 @@ struct AttachmentGroupExample: View {
     @State private var error: AttributedString? = nil
     @State private var appWithoutError: Bool = true
     
+    @State var photoFilters: [PHPickerFilter] = []
+    @State var fileFilters: [UTType] = []
+    
     var body: some View {
         ScrollView {
             VStack {
-                VStack {
-                    Picker("State", selection: self.$state) {
-                        Text("Normal").tag(ControlState.normal)
-                        Text("Disabled").tag(ControlState.disabled)
-                        Text("Readonly").tag(ControlState.readOnly)
-                    }
-                    .pickerStyle(.segmented)
-                    
-                    Stepper("Max # \(self.maxCount != nil ? String(self.maxCount!) : "nil")",
-                            value: Binding<Int>(get: { self.maxCount ?? self.urls.count + 3 }, set: { self.maxCount = $0 < self.urls.count ? nil : $0 }))
-                                        
-                    Toggle(self.opsAsMenu ? "Operation Menu" : "Operation Dialog", isOn: self.$opsAsMenu)
-                        .padding([.leading, .trailing], 8)
-                    
-                    Toggle(self.defaultPreview ? "SwiftUI QuickLookPreview" : "Custom Preview", isOn: self.$defaultPreview)
-                        .padding([.leading, .trailing], 8)
-                    
-                    Toggle(self.defaultThumbnail ? "Use Default Thumbnail & Info" : "Use My Own Thumbnail & Info", isOn: self.$defaultThumbnail)
-                        .padding([.leading, .trailing], 8)
-                    
-                    Toggle(self.appWithoutError ? "No App Error" : "Somehow, App Caused An Error", isOn: self.$appWithoutError)
-                        .padding([.leading, .trailing], 8)
-                }
-                .padding([.leading, .trailing], 16)
-                
                 self.attachments()
                     .border(.red)
             }
@@ -92,6 +72,44 @@ struct AttachmentGroupExample: View {
                 self.error = nil
             }
         }
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button {
+                    self.showConfiguraton.toggle()
+                } label: {
+                    Image(systemName: "gearshape")
+                }
+                .popover(isPresented: self.$showConfiguraton) {
+                    VStack {
+                        Button("Close") {
+                            self.showConfiguraton.toggle()
+                        }
+                        
+                        Picker("State", selection: self.$state) {
+                            Text("Normal").tag(ControlState.normal)
+                            Text("Disabled").tag(ControlState.disabled)
+                            Text("Readonly").tag(ControlState.readOnly)
+                        }
+                        .pickerStyle(.segmented)
+                        
+                        Stepper("Max # \(self.maxCount != nil ? String(self.maxCount!) : "nil")",
+                                value: Binding<Int>(get: { self.maxCount ?? self.urls.count + 3 }, set: { self.maxCount = $0 < self.urls.count ? nil : $0 }))
+                        
+                        Toggle(self.opsAsMenu ? "Operation Menu" : "Operation Dialog", isOn: self.$opsAsMenu)
+                        
+                        Toggle(self.defaultPreview ? "SwiftUI QuickLookPreview" : "Custom Preview", isOn: self.$defaultPreview)
+                        
+                        Toggle(self.defaultThumbnail ? "Use Default Thumbnail & Info" : "Use My Own Thumbnail & Info", isOn: self.$defaultThumbnail)
+                        
+                        Toggle(self.appWithoutError ? "No App Error" : "Somehow, App Caused An Error", isOn: self.$appWithoutError)
+                        
+                        FilterCFG(photoFilters: self.$photoFilters, fileFilters: self.$fileFilters)
+                        Spacer()
+                    }
+                    .padding()
+                }
+            }
+        }
     }
     
     @ViewBuilder
@@ -103,21 +121,21 @@ struct AttachmentGroupExample: View {
             controlState: self.state,
             errorMessage: self.$error,
             operations: {
-                AttachmentButtonImage()
+                AttachmentButtonImage(controlState: self.state)
                     .ifApply(self.opsAsMenu) {
                         $0.operationsMenu {
-                            AttachmentMenuItems.photos
-                            AttachmentMenuItems.files
+                            AttachmentMenuItems.photos(filter: self.photoFilters)
+                            AttachmentMenuItems.files(filter: self.fileFilters)
                             AttachmentMenuItems.camera
                             Button {
                                 self.showScanAndUploadView.toggle()
                             } label: {
-                                Label("Scan & Upload", image: "doc.viewfinder")
+                                Label("Scan & Upload", systemImage: "doc.viewfinder")
                             }
                             Button {
                                 self.showWriteAndUploadView.toggle()
                             } label: {
-                                Label("Compose and Upload", image: "square.and.pencil")
+                                Label("Compose and Upload", systemImage: "square.and.pencil")
                             }
                         }
                     }
@@ -129,12 +147,12 @@ struct AttachmentGroupExample: View {
                             Button {
                                 self.showScanAndUploadView.toggle()
                             } label: {
-                                Label("Scan & Upload", image: "doc.viewfinder")
+                                Label("Scan & Upload", systemImage: "doc.viewfinder")
                             }
                             Button {
                                 self.showWriteAndUploadView.toggle()
                             } label: {
-                                Label("Compose and Upload", image: "square.and.pencil")
+                                Label("Compose and Upload", systemImage: "square.and.pencil")
                             }
                         }
                     }

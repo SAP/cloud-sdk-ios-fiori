@@ -4,14 +4,17 @@ import SwiftUI
 public struct AttachmentPreview: UIViewControllerRepresentable {
     @Binding var urls: [URL]
     @Binding var previewURL: URL
+    @Binding var controlState: ControlState
+    
     let onDelete: ((URL) -> Void)?
     let onDismiss: (() -> Void)?
     
-    public init(urls: Binding<[URL]>, previewURL: Binding<URL>, onDelete: ((URL) -> Void)? = nil, onDismiss: (() -> Void)? = nil) {
+    public init(urls: Binding<[URL]>, previewURL: Binding<URL>, controlState: Binding<ControlState> = .constant(.normal), onDelete: ((URL) -> Void)? = nil, onDismiss: (() -> Void)? = nil) {
         self._urls = urls
         self._previewURL = previewURL
         self.onDelete = onDelete
         self.onDismiss = onDismiss
+        self._controlState = controlState
     }
     
     public func makeUIViewController(context: Context) -> UINavigationController {
@@ -20,7 +23,7 @@ public struct AttachmentPreview: UIViewControllerRepresentable {
         let coordinator = context.coordinator
         controller.dataSource = coordinator
         
-        if self.onDelete != nil {
+        if self.controlState != .readOnly || self.controlState != .readOnly {
             controller.navigationItem.rightBarButtonItems = [
                 UIBarButtonItem(barButtonSystemItem: .done, target: context.coordinator, action: #selector(coordinator.dismiss)),
                 UIBarButtonItem(barButtonSystemItem: .trash, target: context.coordinator, action: #selector(coordinator.delete(sender:)))
@@ -75,6 +78,7 @@ public struct AttachmentPreview: UIViewControllerRepresentable {
                     DispatchQueue.main.async {
                         if let index = self.parent.urls.firstIndex(of: self.parent.previewURL) {
                             print("index: \(index) ")
+//                            self.parent.context.delete(attachment: self.parent.urls[index])
                             self.parent.onDelete?(self.parent.urls[index])
                             if self.parent.urls.count > 0 {
                                 self.parent.previewURL = self.parent.urls[index > 0 ? index - 1 : 0]
@@ -92,7 +96,7 @@ public struct AttachmentPreview: UIViewControllerRepresentable {
                 })
             )
 
-            if let controller = viewController { // topMostViewController()
+            if let controller = viewController {
                 controller.present(alertController, animated: true, completion: nil)
             }
         }

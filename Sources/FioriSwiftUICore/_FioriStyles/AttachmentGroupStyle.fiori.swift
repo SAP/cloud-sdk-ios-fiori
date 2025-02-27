@@ -88,13 +88,35 @@ public struct AttachmentGroupBaseStyle: AttachmentGroupStyle {
                         }
                 }
             }
-            .quickLookPreview(self.$previewURL, in: configuration.attachments)
+            .onDrop(of: [.item], isTargeted: nil) { providers, _ in
+                for provider in providers {
+                    self.context.processor.upload(contentFrom: provider) { url, error in
+                        if let error {
+                            print("Error uploading: \(error)")
+                            configuration.errorMessage = AttributedString(
+                                error is AttachmentError ?
+                                    error.localizedDescription : "Failed to upload attachment due to error: \(error.localizedDescription)."
+                            )
+                            return // stop processing further if error occurs to keep error showing.
+                        } else {
+                            if let url {
+                                configuration.attachments.append(url)
+                            } else {
+                                print("Unhandled use case, no url returned, no error.")
+                            }
+                            configuration.errorMessage = nil
+                        }
+                    }
+                }
+                return true
+            }
         }
+        .quickLookPreview(self.$previewURL, in: configuration.attachments)
         .alert("Delete Attachment?", isPresented: self.$showingConfirmation) {
             Button("Cancel", role: .cancel) {}
             Button("Delete", role: .destructive) {
                 if let index = deleteIndex {
-                    configuration.attachments.remove(at: index)
+                    self.context.delete(attachment: configuration.attachments[index])
                     print("Attachment at \(index) deleted")
                     self.deleteIndex = nil
                 } else {
@@ -107,6 +129,13 @@ public struct AttachmentGroupBaseStyle: AttachmentGroupStyle {
         .disabled(configuration.controlState == .disabled)
         .padding(.horizontal, AttachmentConstants.horizontalPadding)
         .padding(.vertical, AttachmentConstants.verticalPadding)
+        .environment(
+            {
+                self.context.processor = configuration.processor
+                self.context.configuration = configuration
+                return self.context
+            }()
+        )
     }
 }
 
