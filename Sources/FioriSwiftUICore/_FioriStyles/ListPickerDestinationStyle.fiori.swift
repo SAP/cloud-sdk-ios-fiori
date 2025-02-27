@@ -79,6 +79,14 @@ extension ListPickerDestinationFioriStyle {
             ListPickerContent(configuration)
         }
     }
+    
+    struct PromptFioriStyle: PromptStyle {
+        let listPickerDestinationConfiguration: ListPickerDestinationConfiguration
+
+        func makeBody(_ configuration: PromptConfiguration) -> some View {
+            Prompt(configuration)
+        }
+    }
 }
 
 struct ListPickerDestinationButtonStyle: FioriButtonStyle {
@@ -129,6 +137,7 @@ public extension ListPickerDestination {
     ///   - children: The key path to the optional property of a data element whose value indicates the children of that element.
     ///   - selections: A binding to a set which stores the selected items.
     ///   - isTrackingLiveChanges: A boolean value to indicate to track the changes live or not.
+    ///   - prompt: Attributed text for prompt in destination view.
     ///   - searchFilter: The closure to filter the `data` in searching process. Request a boolean by the element and the filter key.
     ///   - rowContent: The view builder which returns the content of each row in the list picker.
     init<Data: RandomAccessCollection, ID: Hashable>(
@@ -137,6 +146,7 @@ public extension ListPickerDestination {
         children: KeyPath<Data.Element, Data?>? = nil,
         selection: Binding<ID?>,
         isTrackingLiveChanges: Bool = true,
+        prompt: AttributedString? = nil,
         searchFilter: ((Data.Element, String) -> Bool)? = nil,
         @ViewBuilder rowContent: @escaping (Data.Element) -> some View
     ) {
@@ -164,6 +174,10 @@ public extension ListPickerDestination {
             FioriButton { _ in Text("Cancel".localizedFioriString()) }
         } listPickerContent: {
             content
+        } prompt: {
+            if let prompt {
+                Text(prompt)
+            }
         }
     }
     
@@ -174,6 +188,7 @@ public extension ListPickerDestination {
     ///   - children: The key path to the optional property of a data element whose value indicates the children of that element.
     ///   - selection: A binding to an ID which stores the selected items.
     ///   - isTrackingLiveChanges: A boolean value to indicate to track the changes live or not.
+    ///   - prompt: Attributed text for prompt in destination view.
     ///   - searchFilter: The closure to filter the `data` in searching process. Request a boolean by the element and the filter key.
     ///   - rowContent: The view builder which returns the content of each row in the list picker.
     init<Data: RandomAccessCollection, ID: Hashable>(
@@ -182,6 +197,7 @@ public extension ListPickerDestination {
         children: KeyPath<Data.Element, Data?>? = nil,
         selection: Binding<ID>,
         isTrackingLiveChanges: Bool = true,
+        prompt: AttributedString? = nil,
         searchFilter: ((Data.Element, String) -> Bool)? = nil,
         @ViewBuilder rowContent: @escaping (Data.Element) -> some View
     ) {
@@ -210,6 +226,10 @@ public extension ListPickerDestination {
             FioriButton { _ in Text("Cancel".localizedFioriString()) }
         } listPickerContent: {
             content
+        } prompt: {
+            if let prompt {
+                Text(prompt)
+            }
         }
     }
     
@@ -220,6 +240,7 @@ public extension ListPickerDestination {
     ///   - children: The key path to the optional property of a data element whose value indicates the children of that element.
     ///   - selections: A binding to a set which stores the selected items.
     ///   - isTrackingLiveChanges: A boolean value to indicate to track the changes live or not.
+    ///   - prompt: Attributed text for prompt in destination view.
     ///   - searchFilter: The closure to filter the `data` in searching process. Request a boolean by the element and the filter key.
     ///   - rowContent: The view builder which returns the content of each row in the list picker.
     init<Data: RandomAccessCollection, ID: Hashable>(
@@ -228,6 +249,7 @@ public extension ListPickerDestination {
         children: KeyPath<Data.Element, Data?>? = nil,
         selections: Binding<Set<ID>?>,
         isTrackingLiveChanges: Bool = true,
+        prompt: AttributedString? = nil,
         searchFilter: ((Data.Element, String) -> Bool)? = nil,
         @ViewBuilder rowContent: @escaping (Data.Element) -> some View
     ) {
@@ -251,6 +273,10 @@ public extension ListPickerDestination {
             FioriButton { _ in Text("Cancel".localizedFioriString()) }
         } listPickerContent: {
             content
+        } prompt: {
+            if let prompt {
+                Text(prompt)
+            }
         }
     }
     
@@ -262,6 +288,7 @@ public extension ListPickerDestination {
     ///   - selections: A binding to a set which stores the non-optional selected items.
     ///   - allowEmpty: A boolean value to indicate to allow empty selections.
     ///   - isTrackingLiveChanges: A boolean value to indicate to track the changes live or not.
+    ///   - prompt: Attributed text for prompt in destination view.
     ///   - searchFilter: The closure to filter the `data` in searching process. Request a boolean by the element and the filter key.
     ///   - rowContent: The view builder which returns the content of each row in the list picker.
     init<Data: RandomAccessCollection, ID: Hashable>(
@@ -271,6 +298,7 @@ public extension ListPickerDestination {
         selections: Binding<Set<ID>>,
         allowEmpty: Bool = true,
         isTrackingLiveChanges: Bool = true,
+        prompt: AttributedString? = nil,
         searchFilter: ((Data.Element, String) -> Bool)? = nil,
         @ViewBuilder rowContent: @escaping (Data.Element) -> some View
     ) {
@@ -289,6 +317,10 @@ public extension ListPickerDestination {
             FioriButton { _ in Text("Cancel".localizedFioriString()) }
         } listPickerContent: {
             content
+        } prompt: {
+            if let prompt {
+                Text(prompt)
+            }
         }
     }
 }
@@ -303,6 +335,7 @@ public extension ListPickerDestination {
     ///   - children: The key path to the optional property of a data element whose value indicates the children of that element.
     ///   - selections: A binding to a set which stores the selected items.
     ///   - isTrackingLiveChanges: A boolean value to indicate to track the changes live or not.
+    ///   - prompt: Attributed text for prompt in destination view.
     ///   - searchFilter: The closure to filter the `data` in searching process. Request a boolean by the element and the filter key.
     ///   - rowContent: The view builder which returns the content of each row in the list picker.
     init<Data: RandomAccessCollection, ID: Hashable>(
@@ -311,6 +344,7 @@ public extension ListPickerDestination {
         children: KeyPath<Data.Element.Data.Element, Data.Element.Data?>? = nil,
         selection: Binding<ID?>,
         isTrackingLiveChanges: Bool = true,
+        prompt: AttributedString? = nil,
         searchFilter: ((Data.Element.Data.Element, String) -> Bool)? = nil,
         @ViewBuilder rowContent: @escaping (Data.Element.Data.Element) -> some View
     ) where Data.Element: ListPickerSectionModel {
@@ -338,6 +372,10 @@ public extension ListPickerDestination {
             FioriButton { _ in Text("Cancel".localizedFioriString()) }
         } listPickerContent: {
             content
+        } prompt: {
+            if let prompt {
+                Text(prompt)
+            }
         }
     }
     
@@ -348,6 +386,7 @@ public extension ListPickerDestination {
     ///   - children: The key path to the optional property of a data element whose value indicates the children of that element.
     ///   - selection: A binding to an ID which stores the selected items.
     ///   - isTrackingLiveChanges: A boolean value to indicate to track the changes live or not.
+    ///   - prompt: Attributed text for prompt in destination view.
     ///   - searchFilter: The closure to filter the `data` in searching process. Request a boolean by the element and the filter key.
     ///   - rowContent: The view builder which returns the content of each row in the list picker.
     init<Data: RandomAccessCollection, ID: Hashable>(
@@ -356,6 +395,7 @@ public extension ListPickerDestination {
         children: KeyPath<Data.Element.Data.Element, Data.Element.Data?>? = nil,
         selection: Binding<ID>,
         isTrackingLiveChanges: Bool = true,
+        prompt: AttributedString? = nil,
         searchFilter: ((Data.Element.Data.Element, String) -> Bool)? = nil,
         @ViewBuilder rowContent: @escaping (Data.Element.Data.Element) -> some View
     ) where Data.Element: ListPickerSectionModel {
@@ -384,6 +424,10 @@ public extension ListPickerDestination {
             FioriButton { _ in Text("Cancel".localizedFioriString()) }
         } listPickerContent: {
             content
+        } prompt: {
+            if let prompt {
+                Text(prompt)
+            }
         }
     }
     
@@ -394,6 +438,7 @@ public extension ListPickerDestination {
     ///   - children: The key path to the optional property of a data element whose value indicates the children of that element.
     ///   - selections: A binding to a set which stores the selected items.
     ///   - isTrackingLiveChanges: A boolean value to indicate to track the changes live or not.
+    ///   - prompt: Attributed text for prompt in destination view.
     ///   - searchFilter: The closure to filter the `data` in searching process. Request a boolean by the element and the filter key.
     ///   - rowContent: The view builder which returns the content of each row in the list picker.
     init<Data: RandomAccessCollection, ID: Hashable>(
@@ -402,6 +447,7 @@ public extension ListPickerDestination {
         children: KeyPath<Data.Element.Data.Element, Data.Element.Data?>? = nil,
         selections: Binding<Set<ID>?>,
         isTrackingLiveChanges: Bool = true,
+        prompt: AttributedString? = nil,
         searchFilter: ((Data.Element.Data.Element, String) -> Bool)? = nil,
         @ViewBuilder rowContent: @escaping (Data.Element.Data.Element) -> some View
     ) where Data.Element: ListPickerSectionModel {
@@ -425,6 +471,10 @@ public extension ListPickerDestination {
             FioriButton { _ in Text("Cancel".localizedFioriString()) }
         } listPickerContent: {
             content
+        } prompt: {
+            if let prompt {
+                Text(prompt)
+            }
         }
     }
     
@@ -436,6 +486,7 @@ public extension ListPickerDestination {
     ///   - selections: A binding to a set which stores the non-optional selected items.
     ///   - allowEmpty: A boolean value to indicate to allow empty selections.
     ///   - isTrackingLiveChanges: A boolean value to indicate to track the changes live or not.
+    ///   - prompt: Attributed text for prompt in destination view.
     ///   - searchFilter: The closure to filter the `data` in searching process. Request a boolean by the element and the filter key.
     ///   - rowContent: The view builder which returns the content of each row in the list picker.
     init<Data: RandomAccessCollection, ID: Hashable>(
@@ -445,6 +496,7 @@ public extension ListPickerDestination {
         selections: Binding<Set<ID>>,
         allowEmpty: Bool = true,
         isTrackingLiveChanges: Bool = true,
+        prompt: AttributedString? = nil,
         searchFilter: ((Data.Element.Data.Element, String) -> Bool)? = nil,
         @ViewBuilder rowContent: @escaping (Data.Element.Data.Element) -> some View
     ) where Data.Element: ListPickerSectionModel {
@@ -463,6 +515,10 @@ public extension ListPickerDestination {
             FioriButton { _ in Text("Cancel".localizedFioriString()) }
         } listPickerContent: {
             content
+        } prompt: {
+            if let prompt {
+                Text(prompt)
+            }
         }
     }
 }
@@ -662,6 +718,11 @@ struct ListPickerDestinationContent<Data: RandomAccessCollection, ID: Hashable, 
                         self.generateSection(by: filteredData[index].1)
                     } header: {
                         Text(filteredData[index].0)
+                    } footer: {
+                        if index == filteredData.count - 1 {
+                            self.destinationConfiguration?.prompt
+                                .padding([.top, .bottom])
+                        }
                     }.textCase(.none)
                 }
             } else {
@@ -688,6 +749,9 @@ struct ListPickerDestinationContent<Data: RandomAccessCollection, ID: Hashable, 
                                 }
                             }
                         }
+                    } footer: {
+                        self.destinationConfiguration?.prompt
+                            .padding([.top, .bottom])
                     }.textCase(.none)
                 } else {
                     EmptyView()
