@@ -2782,6 +2782,27 @@ public extension ListPickerDestinationStyle where Self == ListPickerDestinationL
     }
 }
 
+public struct ListPickerDestinationPromptStyle: ListPickerDestinationStyle {
+    let style: any PromptStyle
+
+    public func makeBody(_ configuration: ListPickerDestinationConfiguration) -> some View {
+        ListPickerDestination(configuration)
+            .promptStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension ListPickerDestinationStyle where Self == ListPickerDestinationPromptStyle {
+    static func promptStyle(_ style: some PromptStyle) -> ListPickerDestinationPromptStyle {
+        ListPickerDestinationPromptStyle(style: style)
+    }
+
+    static func promptStyle(@ViewBuilder content: @escaping (PromptConfiguration) -> some View) -> ListPickerDestinationPromptStyle {
+        let style = AnyPromptStyle(content)
+        return ListPickerDestinationPromptStyle(style: style)
+    }
+}
+
 // MARK: ListPickerItemStyle
 
 public extension ListPickerItemStyle where Self == ListPickerItemBaseStyle {
@@ -3836,6 +3857,20 @@ public extension ProgressIndicatorProtocolStyle where Self == ProgressIndicatorP
 public extension ProgressIndicatorProtocolStyle where Self == ProgressIndicatorProtocolFioriStyle {
     static var fiori: ProgressIndicatorProtocolFioriStyle {
         ProgressIndicatorProtocolFioriStyle()
+    }
+}
+
+// MARK: PromptStyle
+
+public extension PromptStyle where Self == PromptBaseStyle {
+    static var base: PromptBaseStyle {
+        PromptBaseStyle()
+    }
+}
+
+public extension PromptStyle where Self == PromptFioriStyle {
+    static var fiori: PromptFioriStyle {
+        PromptFioriStyle()
     }
 }
 
