@@ -106,7 +106,7 @@ extension OptionListPickerItem: View {
                         .onAppear {
                             self.updateSearchListPickerHeight?(self.calculateHeight(scrollViewContentHeight: geometry.size.height))
                         }
-                        .onChange(of: geometry.size) { _ in
+                        .onChange(of: geometry.size) {
                             self.updateSearchListPickerHeight?(self.calculateHeight(scrollViewContentHeight: geometry.size.height))
                         }
                 }
