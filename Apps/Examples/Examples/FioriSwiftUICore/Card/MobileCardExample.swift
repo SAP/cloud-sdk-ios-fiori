@@ -80,15 +80,53 @@ struct MobileCardExample: View {
                                     .foregroundStyle(Color(hex: "#AA0808"))
                                     .font(.subheadline)
                             }
-                            
                         })
                         .padding()
                         .cardStyle(.card)
                     } header: {
-                        Text("custom elements on main header")
+                        Text("custom elements on main header - headerAction ")
                             .padding(.leading, 20)
                             .fontWeight(.bold)
                     }.padding(.bottom, 10)
+                    
+                    Section {
+                        Card(title: {
+                            Text("Kixo Q1 Deal ")
+                        }, subtitle: {
+                            Text("Company Name")
+                        }, detailImage: {
+                            Circle()
+                                .strokeBorder(.gray, lineWidth: 1)
+                                .background(Circle().fill(Color.gray.opacity(0.3)))
+                                .frame(width: 60, height: 60)
+                                .overlay {
+                                    Image(systemName: "bus.fill")
+                                        .font(.title)
+                                }
+                        }, counter: {
+                            Text("99")
+                                .font(.system(size: 22))
+                                .frame(width: 38, height: 36)
+                                .foregroundStyle(Color.white)
+                                .background(RoundedRectangle(cornerRadius: 12.0).fill(Color.red))
+                        }, row2: {
+                            Text("15 Jan,2025 • Discovery completed")
+                                .font(.callout)
+                        }, row3: {
+                            VStack {
+                                Text("in  progress")
+                                    .foregroundStyle(Color(hex: "#AA0808"))
+                                    .font(.subheadline)
+                            }
+                        })
+                        .padding()
+                        .cardStyle(.card)
+                    } header: {
+                        Text("custom elements on main header - counter")
+                            .padding(.leading, 20)
+                            .fontWeight(.bold)
+                    }.padding(.bottom, 10)
+                    
                     Section {
                         Card(title: {
                             Text("Kixo Q1 Deal ")
@@ -103,10 +141,7 @@ struct MobileCardExample: View {
                                         .font(.title)
                                 }
                         }, row1: {
-                            Text("99")
-                                .frame(width: 48, height: 36)
-                                .foregroundStyle(Color.white)
-                                .background(RoundedRectangle(cornerRadius: 12.0).fill(Color.green))
+                            Tag("99").tagStyle(CustomTagStyle(textColor: .white, fillColor: .green))
                         }, row2: {
                             HStack {
                                 RoundedRectangle(cornerRadius: 4)
@@ -132,7 +167,6 @@ struct MobileCardExample: View {
                                     .foregroundStyle(Color(hex: "#AA0808"))
                                     .font(.subheadline)
                             }
-                            
                         }, kpiCaption: {
                             VStack {
                                 Spacer()
@@ -145,7 +179,6 @@ struct MobileCardExample: View {
                                         .foregroundStyle(Color.preferredColor(.primaryLabel))
                                 }
                             }
-                            
                         })
                         .padding()
                         .cardStyle(.card)
@@ -154,6 +187,7 @@ struct MobileCardExample: View {
                             .padding(.leading, 20)
                             .fontWeight(.bold)
                     }.padding(.bottom, 10)
+                    
                     Section {
                         Card(title: {
                             Text("Kixo Q1 Deal ")
@@ -192,7 +226,6 @@ struct MobileCardExample: View {
                                     .foregroundStyle(Color(hex: "#AA0808"))
                                     .font(.subheadline)
                             }
-                            
                         }, kpiCaption: {
                             Text("99")
                                 .frame(width: 48, height: 36)
@@ -203,17 +236,39 @@ struct MobileCardExample: View {
                         .padding()
                         .cardStyle(.card)
                     } header: {
-                        Text("custom elements for KIP Component")
+                        Text("custom elements for KPI Component - kpiCaption")
                             .padding(.leading, 20)
                             .fontWeight(.bold)
                     }.padding(.bottom, 10)
                 }
-                
             } label: {
                 Text("Cards custom score component")
             }
         }
         .navigationBarTitle("Cards", displayMode: .inline)
+    }
+}
+
+struct CustomTagStyle: TagStyle {
+    /// text color
+    var textColor: Color = .preferredColor(.secondaryLabel)
+    
+    /// Color inside the tag
+    var fillColor: Color = .clear
+    
+    public init(textColor: Color, fillColor: Color) {
+        self.textColor = textColor
+        self.fillColor = fillColor
+    }
+    
+    public func makeBody(_ configuration: TagConfiguration) -> some View {
+        configuration
+            .tag
+            .font(.system(size: 18))
+            .foregroundColor(self.textColor)
+            .lineLimit(1)
+            .padding(EdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4))
+            .background(RoundedRectangle(cornerRadius: 8).fill(self.fillColor))
     }
 }
 
