@@ -8,7 +8,6 @@ public struct AttachmentThumbnailBaseStyle: AttachmentThumbnailStyle {
 
     @ViewBuilder
     public func makeBody(_ configuration: AttachmentThumbnailConfiguration) -> some View {
-        /* configuration.thumbnail?(url: configuration.url) ?? */
         if let image {
             image
                 .foregroundStyle(Color.preferredColor(.tertiaryLabel))
@@ -39,9 +38,10 @@ public struct AttachmentThumbnailBaseStyle: AttachmentThumbnailStyle {
 }
 
 // Default fiori styles
-public struct AttachmentThumbnailFioriStyle: AttachmentThumbnailStyle {
-    @ViewBuilder
-    public func makeBody(_ configuration: AttachmentThumbnailConfiguration) -> some View {
-        AttachmentThumbnail(configuration)
+extension AttachmentThumbnailFioriStyle {
+    struct ContentFioriStyle: AttachmentThumbnailStyle {
+        func makeBody(_ configuration: AttachmentThumbnailConfiguration) -> some View {
+            AttachmentThumbnail(configuration)
+        }
     }
 }

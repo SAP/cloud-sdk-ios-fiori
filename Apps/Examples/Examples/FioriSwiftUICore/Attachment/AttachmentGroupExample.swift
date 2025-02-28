@@ -141,8 +141,8 @@ struct AttachmentGroupExample: View {
                     }
                     .ifApply(!self.opsAsMenu) {
                         $0.operationsDialog {
-                            AttachmentMenuItems.photos
-                            AttachmentMenuItems.files
+                            AttachmentMenuItems.photos(filter: self.photoFilters)
+                            AttachmentMenuItems.files(filter: self.fileFilters)
                             AttachmentMenuItems.camera
                             Button {
                                 self.showScanAndUploadView.toggle()

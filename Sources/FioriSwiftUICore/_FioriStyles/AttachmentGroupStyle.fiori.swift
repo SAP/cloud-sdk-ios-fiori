@@ -16,7 +16,6 @@ public struct AttachmentGroupBaseStyle: AttachmentGroupStyle {
         } else {
             if let (fileURL, name, fileSize, fileModificationDate) = getFileInfo(fileUrl: configuration.attachments[index]) {
                 Attachment(
-                    url: fileURL,
                     title: {
                         Text("\(name)")
                     },
@@ -25,11 +24,12 @@ public struct AttachmentGroupBaseStyle: AttachmentGroupStyle {
                             Text(format(size: fileSize))
                         }
                     },
-                    timestamp: {
+                    footnote: {
                         if let fileModificationDate {
                             Text(format(date: fileModificationDate))
                         }
                     },
+                    url: fileURL,
                     controlState: configuration.controlState
                 )
             } else {
@@ -41,7 +41,7 @@ public struct AttachmentGroupBaseStyle: AttachmentGroupStyle {
     public func makeBody(_ configuration: AttachmentGroupConfiguration) -> some View {
         VStack(alignment: .leading, spacing: AttachmentConstants.cellVerticalSpacing) {
             configuration.title
-                .titleStyle(AttachmentGroupTitleFioriStyle(controlState: configuration.controlState))
+//                .titleStyle(AttachmentGroupTitleFioriStyle(controlState: configuration.controlState))
                 .padding(.bottom, AttachmentConstants.extraTitleBottomPadding)
             
             LazyVGrid(columns: Array(repeating: GridItem(.adaptive(minimum: AttachmentConstants.cellWidth), alignment: .top), count: 1), spacing: AttachmentConstants.cellVerticalSpacing) {
@@ -148,18 +148,15 @@ extension AttachmentGroupFioriStyle {
             // .background()
         }
     }
-}
-
-public struct AttachmentGroupTitleFioriStyle: TitleStyle {
-    let controlState: ControlState
     
-    public func makeBody(_ configuration: TitleConfiguration) -> some View {
-        Title(configuration)
-            .titleStyle(TitleFioriStyle())
-            .disabled(self.controlState == .disabled)
-            .foregroundStyle(self.controlState == .disabled ? Color.preferredColor(.quaternaryLabel) : Color.preferredColor(.primaryLabel))
-            .font(.subheadline)
-            .fontWeight(.semibold)
+    struct TitleFioriStyle: TitleStyle {
+        let attachmentGroupConfiguration: AttachmentGroupConfiguration
+        
+        func makeBody(_ configuration: TitleConfiguration) -> some View {
+            Title(configuration)
+                .foregroundStyle(self.attachmentGroupConfiguration.controlState == .disabled ? Color.preferredColor(.quaternaryLabel) : Color.preferredColor(.primaryLabel))
+                .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
+        }
     }
 }
 

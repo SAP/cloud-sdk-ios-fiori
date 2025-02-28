@@ -1039,7 +1039,23 @@ protocol _StepProgressIndicatorComponent: _TitleComponent, _ActionComponent, _Ca
 /// }
 /// ```
 // sourcery: CompositeComponent
-protocol _AttachmentComponent: _AttachmentThumbnailComponent, _TitleComponent, _SubtitleComponent, _TimestampComponent {
+protocol _AttachmentComponent: _AttachmentTitleComponent, _AttachmentSubtitleComponent, _AttachmentFootnoteComponent {
+    /// The collection of local attachment URLs, which are prepared by Apps.
+    var url: URL { get }
+    
+    // sourcery: defaultValue = .normal
+    /// The state of attachement group component
+    var controlState: ControlState { get }
+}
+
+// sourcery: CompositeComponent
+// sourcery: importFrameworks = ["FioriThemeManager"]
+protocol _AttachmentButtonImageComponent {
+    //// The image to be used for "Add" menu or dialog for operations, such as poping up image picker or file picker.
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "FioriIcon.actions.add.renderingMode(.template).resizable()"
+    var addButtonImage: Image { get }
+
     // sourcery: defaultValue = .normal
     /// The state of attachement group component
     var controlState: ControlState { get }
@@ -1085,4 +1101,15 @@ protocol _AttachmentGroupComponent: _TitleComponent {
     // sourcery: defaultValue = "nil"
     /// App specific 'Attachment', i.e. thumbnail and information. Overrides default implemetation.
     var thumbnailAndInfo: ((URL) -> Attachment)? { get }
+}
+
+// sourcery: CompositeComponent
+// sourcery: importFrameworks = ["FioriThemeManager"]
+protocol _AttachmentThumbnailComponent {
+    ////  URL of document for rendering thumbnail
+    var url: URL { get }
+    
+    // sourcery: defaultValue = .normal
+    /// The state of attachement group component
+    var controlState: ControlState { get }
 }
