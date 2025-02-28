@@ -123,12 +123,12 @@ struct _SliderMenuItem: View {
                                     self.geometrySizeHeight = geometry.size.height
                                     self.calculateDetentHeight()
                                 }
-                                .onChange(of: geometry.size) { newSize in
-                                    self.geometrySizeHeight = newSize.height
+                                .onChange(of: geometry.size) {
+                                    self.geometrySizeHeight = geometry.size.height
                                     self.calculateDetentHeight()
                                 }
                         })
-                        .onChange(of: self.dynamicTypeSize) { _ in
+                        .onChange(of: self.dynamicTypeSize) {
                             self.calculateDetentHeight()
                         }
                 }
@@ -356,7 +356,7 @@ struct _PickerMenuItem: View {
                     })
                     .buttonStyle(ApplyButtonStyle())
                 } components: {
-                    OptionListPickerItem(value: self.$item.workingValue, valueOptions: self.item.valueOptions, hint: nil, itemLayout: self.item.itemLayout, barItemFrame: self.barItemFrame) { index in
+                    OptionListPickerItem(value: self.$item.workingValue, valueOptions: self.item.valueOptions, title: self.item.title, itemLayout: self.item.itemLayout, allowsMultipleSelection: self.item.allowsMultipleSelection, allowsEmptySelection: self.item.allowsEmptySelection, barItemFrame: self.barItemFrame) { index in
                         self.item.onTap(option: self.item.valueOptions[index])
                     } updateSearchListPickerHeight: { height in
                         let isNotIphone = UIDevice.current.userInterfaceIdiom != .phone
@@ -373,7 +373,6 @@ struct _PickerMenuItem: View {
                         #endif
                         self.detentHeight = calculateHeight
                     }
-                    .padding([.leading, .trailing], 16)
                 }
                 .frame(height: self.detentHeight)
                 .ifApply(UIDevice.current.userInterfaceIdiom != .phone, content: { v in
@@ -892,12 +891,12 @@ struct _StepperMenuItem: View {
                                 self.geometrySizeHeight = geometry.size.height
                                 self.calculateDetentHeight()
                             }
-                            .onChange(of: geometry.size) { newSize in
-                                self.geometrySizeHeight = newSize.height
+                            .onChange(of: geometry.size) {
+                                self.geometrySizeHeight = geometry.size.height
                                 self.calculateDetentHeight()
                             }
                     })
-                    .onChange(of: self.dynamicTypeSize) { _ in
+                    .onChange(of: self.dynamicTypeSize) {
                         self.stepperViewHeight = 110 + self.dynamicTypeAddHeight()
                         self.calculateDetentHeight()
                     }

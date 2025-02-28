@@ -566,7 +566,8 @@ extension ListPickerDestination: _ViewEmptyChecking {
             selectAllAction.isEmpty &&
             deselectAllAction.isEmpty &&
             allEntriesSectionTitle.isEmpty &&
-            listPickerContent.isEmpty
+            listPickerContent.isEmpty &&
+            prompt.isEmpty
     }
 }
 
@@ -779,6 +780,12 @@ extension ProgressIndicator: _ViewEmptyChecking {
 extension ProgressIndicatorProtocol: _ViewEmptyChecking {
     public var isEmpty: Bool {
         false
+    }
+}
+
+extension Prompt: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        prompt.isEmpty
     }
 }
 

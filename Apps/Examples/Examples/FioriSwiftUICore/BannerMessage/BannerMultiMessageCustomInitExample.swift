@@ -235,13 +235,13 @@ struct BannerMultiMessageCustomInitExample: View {
                     }
                 }
             }
-            .onChange(of: self.firstName) { _ in
+            .onChange(of: self.firstName) {
                 self.validateUploadData()
             }
-            .onChange(of: self.lastName) { _ in
+            .onChange(of: self.lastName) {
                 self.validateUploadData()
             }
-            .onChange(of: self.emailAddress) { _ in
+            .onChange(of: self.emailAddress) {
                 self.validateUploadData()
             }
         }

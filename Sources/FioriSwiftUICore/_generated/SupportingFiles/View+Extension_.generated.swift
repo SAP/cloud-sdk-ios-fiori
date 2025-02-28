@@ -1839,6 +1839,23 @@ public extension View {
     }
 }
 
+// MARK: PromptStyle
+
+public extension View {
+    func promptStyle(_ style: some PromptStyle) -> some View {
+        self.transformEnvironment(\.promptStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func promptStyle(@ViewBuilder content: @escaping (PromptConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.promptStyleStack) { stack in
+            let style = AnyPromptStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: RangeSliderControlStyle
 
 public extension View {
