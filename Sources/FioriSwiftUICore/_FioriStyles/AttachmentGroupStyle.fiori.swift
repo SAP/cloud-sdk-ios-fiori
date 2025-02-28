@@ -41,7 +41,6 @@ public struct AttachmentGroupBaseStyle: AttachmentGroupStyle {
     public func makeBody(_ configuration: AttachmentGroupConfiguration) -> some View {
         VStack(alignment: .leading, spacing: AttachmentConstants.cellVerticalSpacing) {
             configuration.title
-//                .titleStyle(AttachmentGroupTitleFioriStyle(controlState: configuration.controlState))
                 .padding(.bottom, AttachmentConstants.extraTitleBottomPadding)
             
             LazyVGrid(columns: Array(repeating: GridItem(.adaptive(minimum: AttachmentConstants.cellWidth), alignment: .top), count: 1), spacing: AttachmentConstants.cellVerticalSpacing) {
@@ -144,8 +143,7 @@ extension AttachmentGroupFioriStyle {
     struct ContentFioriStyle: AttachmentGroupStyle {
         func makeBody(_ configuration: AttachmentGroupConfiguration) -> some View {
             AttachmentGroup(configuration)
-            // Add default style for its content
-            // .background()
+                .attachmentStyle(.fiori)
         }
     }
     
@@ -168,7 +166,7 @@ extension AttachmentGroupBaseStyle {
     
     func format(date: Date) -> String {
         let formatter = DateFormatter()
-        formatter.dateFormat = "MM/dd/yyyy HH:mm"
+        formatter.dateStyle = .medium
         return formatter.string(from: date)
     }
     
