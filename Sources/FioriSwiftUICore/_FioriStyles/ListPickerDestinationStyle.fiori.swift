@@ -862,15 +862,18 @@ struct ListPickerDestinationContent<Data: RandomAccessCollection, ID: Hashable, 
     func handleSelections(_ idValue: ID) {
         if self.isTrackingLiveChanges {
             if self.selections.contains(idValue) {
-                if !self.allowEmpty, self.selectionsPool.count == 1 {
+                if !self.allowEmpty, self.selections.count == 1 {
                     // should not remove the last selection
+                    if self.autoDismissDestination {
+                        self.dismiss()
+                    }
                 } else {
                     self.selections.remove(idValue)
                 }
             } else {
                 if self.isSingleSelection {
                     self.selections = Set([idValue])
-                    if self.autoDismissDestination, self.isTrackingLiveChanges {
+                    if self.autoDismissDestination {
                         self.dismiss()
                     }
                 } else {
