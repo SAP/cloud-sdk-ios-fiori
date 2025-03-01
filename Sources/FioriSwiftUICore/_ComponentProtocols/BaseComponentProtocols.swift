@@ -55,6 +55,12 @@ protocol _DescriptionComponent {
 }
 
 // sourcery: BaseComponent
+protocol _DescriptionTextComponent {
+    // sourcery: @ViewBuilder
+    var descriptionText: AttributedString? { get }
+}
+
+// sourcery: BaseComponent
 protocol _StatusComponent {
     // sourcery: resultBuilder.name = @ViewBuilder, resultBuilder.backingComponent = TextOrIconView
     var status: TextOrIcon? { get }
@@ -233,12 +239,6 @@ protocol _HelperTextComponent {
 protocol _MoreActionOverflowComponent {
     @ViewBuilder
     var moreActionOverflow: (() -> any View)? { get }
-}
-
-// sourcery: BaseComponent
-protocol _TextInputFieldComponent {
-    // sourcery: @Binding
-    var text: String { get }
 }
 
 // sourcery: BaseComponent
@@ -440,6 +440,12 @@ protocol _ListPickerContentComponent {
     var listPickerContent: (() -> any View)? { get }
 }
 
+// sourcery: BaseComponent
+protocol _PromptComponent {
+    // sourcery: @ViewBuilder
+    var prompt: AttributedString? { get }
+}
+
 /// `CheckoutIndicator` provides a circular indicator that shows the state of a process.
 ///
 /// ## Usage
@@ -466,6 +472,12 @@ protocol _ProgressComponent {
     // sourcery: @ViewBuilder
     // sourcery: defaultValue = "ProgressView()"
     var progress: ProgressView<EmptyView, EmptyView> { get }
+}
+
+// sourcery: BaseComponent
+protocol _KPIContentComponent {
+    @ViewBuilder
+    var kPIContent: (() -> any View)? { get }
 }
 
 /// `ActivityItems` provides a view that shows several items with action.
@@ -553,4 +565,140 @@ protocol _AttachmentSubtitleComponent {
 protocol _AttachmentFootnoteComponent {
     // sourcery: @ViewBuilder
     var footnote: AttributedString { get }
+
+protocol _BodyTextComponent {
+    // sourcery: @ViewBuilder
+    var bodyText: AttributedString? { get }
+}
+
+// sourcery: BaseComponent
+protocol _DetailContentComponent {
+    @ViewBuilder
+    var detailContent: (() -> any View)? { get }
+}
+
+// sourcery: BaseComponent
+protocol _InnerCircleComponent {
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "Circle()"
+    var innerCircle: any Shape { get }
+}
+
+// sourcery: BaseComponent
+protocol _OuterCircleComponent {
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "Circle()"
+    var outerCircle: any Shape { get }
+}
+
+// sourcery: BaseComponent
+protocol _TrendComponent {
+    // sourcery: @ViewBuilder
+    var trend: AttributedString? { get }
+}
+
+// sourcery: BaseComponent
+protocol _TrendImageComponent {
+    // sourcery: @ViewBuilder
+    var trendImage: Image? { get }
+}
+
+// sourcery: BaseComponent
+protocol _ResetActionComponent {
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "FioriButton { _ in Text("Reset".localizedFioriString()) }"
+    // sourcery: resultBuilder.defaultValue = "{ FioriButton { _ in Text("Reset".localizedFioriString()) } }"
+    var resetAction: FioriButton? { get }
+}
+
+// sourcery: BaseComponent
+protocol _StartSignatureActionComponent {
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "FioriButton { _ in Text("Tap to Sign".localizedFioriString()) }"
+    // sourcery: resultBuilder.defaultValue = "{ FioriButton { _ in Text("Tap to Sign".localizedFioriString()) } }"
+    var startSignatureAction: FioriButton? { get }
+}
+
+// sourcery: BaseComponent
+protocol _ReenterSignatureActionComponent {
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "FioriButton { _ in Text("Re-enter Signature".localizedFioriString()) }"
+    // sourcery: resultBuilder.defaultValue = "{ FioriButton { _ in Text("Re-enter Signature".localizedFioriString()) } }"
+    var reenterSignatureAction: FioriButton? { get }
+}
+
+// sourcery: BaseComponent
+protocol _ClearActionComponent {
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "FioriButton { _ in Text("Clear".localizedFioriString()) }"
+    // sourcery: resultBuilder.defaultValue = "{ FioriButton { _ in Text("Clear".localizedFioriString()) } }"
+    var clearAction: FioriButton? { get }
+}
+
+// sourcery: BaseComponent
+protocol _SaveActionComponent {
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "FioriButton { _ in Text("Save".localizedFioriString()) }"
+    // sourcery: resultBuilder.defaultValue = "{ FioriButton { _ in Text("Save".localizedFioriString()) } }"
+    var saveAction: FioriButton? { get }
+}
+
+// sourcery: BaseComponent
+protocol _XmarkComponent {
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "Image(systemName: "xmark")"
+    // sourcery: resultBuilder.defaultValue = "{ Image(systemName: "xmark") }"
+    var xmark: Image? { get }
+}
+
+// sourcery: BaseComponent
+protocol _WatermarkComponent {
+    // sourcery: @ViewBuilder
+    var watermark: AttributedString? { get }
+}
+
+// sourcery: BaseComponent
+protocol _KeyComponent {
+    // sourcery: @ViewBuilder
+    var key: AttributedString { get }
+}
+
+// sourcery: BaseComponent
+protocol _KPISubItemComponent {
+    // sourcery: resultBuilder.name = @ViewBuilder, resultBuilder.backingComponent = TextOrIconView
+    var kPISubItemValue: TextOrIcon? { get }
+    // sourcery: defaultValue = "KPISubitemType.unit"
+    var kPISubItemType: KPISubitemType { get }
+}
+
+// sourcery: BaseComponent
+protocol _NextActionComponent {
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "FioriButton { _ in Text("Next".localizedFioriString()) }"
+    // sourcery: resultBuilder.defaultValue = "{ FioriButton { _ in Text("Next".localizedFioriString()) } }"
+    var nextAction: FioriButton? { get }
+}
+
+// sourcery: BaseComponent
+protocol _AllowActionComponent {
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "FioriButton { _ in Text("Allow".localizedFioriString()) }"
+    // sourcery: resultBuilder.defaultValue = "{ FioriButton { _ in Text("Allow".localizedFioriString()) } }"
+    var allowAction: FioriButton? { get }
+}
+
+// sourcery: BaseComponent
+protocol _DenyActionComponent {
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "FioriButton { _ in Text("Deny".localizedFioriString()) }"
+    // sourcery: resultBuilder.defaultValue = "{ FioriButton { _ in Text("Deny".localizedFioriString()) } }"
+    var denyAction: FioriButton? { get }
+}
+
+// sourcery: BaseComponent
+protocol _NotNowActionComponent {
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "FioriButton { _ in Text("NotNow".localizedFioriString()) }"
+    // sourcery: resultBuilder.defaultValue = "{ FioriButton { _ in Text("NotNow".localizedFioriString()) } }"
+    var notNowAction: FioriButton? { get }
 }

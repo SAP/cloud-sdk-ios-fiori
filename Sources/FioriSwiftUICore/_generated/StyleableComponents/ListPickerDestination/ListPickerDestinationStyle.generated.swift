@@ -22,6 +22,7 @@ struct AnyListPickerDestinationStyle: ListPickerDestinationStyle {
 }
 
 public struct ListPickerDestinationConfiguration {
+    public var componentIdentifier: String = "fiori_listpickerdestination_component"
     public let cancelAction: CancelAction
     public let applyAction: ApplyAction
     public let selectedEntriesSectionTitle: SelectedEntriesSectionTitle
@@ -29,6 +30,7 @@ public struct ListPickerDestinationConfiguration {
     public let deselectAllAction: DeselectAllAction
     public let allEntriesSectionTitle: AllEntriesSectionTitle
     public let listPickerContent: ListPickerContent
+    public let prompt: Prompt
 
     public typealias CancelAction = ConfigurationViewWrapper
     public typealias ApplyAction = ConfigurationViewWrapper
@@ -37,6 +39,13 @@ public struct ListPickerDestinationConfiguration {
     public typealias DeselectAllAction = ConfigurationViewWrapper
     public typealias AllEntriesSectionTitle = ConfigurationViewWrapper
     public typealias ListPickerContent = ConfigurationViewWrapper
+    public typealias Prompt = ConfigurationViewWrapper
+}
+
+extension ListPickerDestinationConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }
 
 public struct ListPickerDestinationFioriStyle: ListPickerDestinationStyle {
@@ -49,5 +58,6 @@ public struct ListPickerDestinationFioriStyle: ListPickerDestinationStyle {
             .deselectAllActionStyle(DeselectAllActionFioriStyle(listPickerDestinationConfiguration: configuration))
             .allEntriesSectionTitleStyle(AllEntriesSectionTitleFioriStyle(listPickerDestinationConfiguration: configuration))
             .listPickerContentStyle(ListPickerContentFioriStyle(listPickerDestinationConfiguration: configuration))
+            .promptStyle(PromptFioriStyle(listPickerDestinationConfiguration: configuration))
     }
 }

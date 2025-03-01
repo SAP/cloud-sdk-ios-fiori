@@ -8,11 +8,20 @@ public struct FootnoteIcons {
 
     @Environment(\.footnoteIconsStyle) var style
 
+    var componentIdentifier: String = FootnoteIcons.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@FootnoteIconsBuilder footnoteIcons: () -> any View = { EmptyView() }) {
+    public init(@FootnoteIconsBuilder footnoteIcons: () -> any View = { EmptyView() },
+                componentIdentifier: String? = FootnoteIcons.identifier)
+    {
         self.footnoteIcons = footnoteIcons()
+        self.componentIdentifier = componentIdentifier ?? FootnoteIcons.identifier
     }
+}
+
+public extension FootnoteIcons {
+    static let identifier = "fiori_footnoteicons_component"
 }
 
 public extension FootnoteIcons {
@@ -29,6 +38,7 @@ public extension FootnoteIcons {
     internal init(_ configuration: FootnoteIconsConfiguration, shouldApplyDefaultStyle: Bool) {
         self.footnoteIcons = configuration.footnoteIcons
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -37,7 +47,7 @@ extension FootnoteIcons: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(footnoteIcons: .init(self.footnoteIcons))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, footnoteIcons: .init(self.footnoteIcons))).typeErased
                 .transformEnvironment(\.footnoteIconsStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -55,7 +65,7 @@ private extension FootnoteIcons {
     }
 
     func defaultStyle() -> some View {
-        FootnoteIcons(.init(footnoteIcons: .init(self.footnoteIcons)))
+        FootnoteIcons(.init(componentIdentifier: self.componentIdentifier, footnoteIcons: .init(self.footnoteIcons)))
             .shouldApplyDefaultStyle(false)
             .footnoteIconsStyle(.fiori)
             .typeErased

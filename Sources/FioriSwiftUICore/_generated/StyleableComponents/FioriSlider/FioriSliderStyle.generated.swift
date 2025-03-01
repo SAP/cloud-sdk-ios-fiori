@@ -22,6 +22,7 @@ struct AnyFioriSliderStyle: FioriSliderStyle {
 }
 
 public struct FioriSliderConfiguration {
+    public var componentIdentifier: String = "fiori_fiorislider_component"
     public let title: Title
     public let valueLabel: ValueLabel
     public let lowerThumb: LowerThumb
@@ -62,6 +63,12 @@ public struct FioriSliderConfiguration {
     public typealias Description = ConfigurationViewWrapper
     public typealias LeadingAccessory = ConfigurationViewWrapper
     public typealias TrailingAccessory = ConfigurationViewWrapper
+}
+
+extension FioriSliderConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }
 
 public struct FioriSliderFioriStyle: FioriSliderStyle {

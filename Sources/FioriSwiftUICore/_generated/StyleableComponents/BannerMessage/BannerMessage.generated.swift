@@ -21,6 +21,8 @@ public struct BannerMessage {
 
     @Environment(\.bannerMessageStyle) var style
 
+    var componentIdentifier: String = BannerMessage.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
     public init(@ViewBuilder icon: () -> any View = { EmptyView() },
@@ -31,18 +33,24 @@ public struct BannerMessage {
                 alignment: HorizontalAlignment = .center,
                 hideSeparator: Bool = false,
                 messageType: BannerMultiMessageType = .negative,
-                showDetailLink: Bool = false)
+                showDetailLink: Bool = false,
+                componentIdentifier: String? = BannerMessage.identifier)
     {
-        self.icon = Icon(icon: icon)
-        self.title = Title(title: title)
-        self.closeAction = CloseAction(closeAction: closeAction)
-        self.topDivider = TopDivider(topDivider: topDivider)
+        self.icon = Icon(icon: icon, componentIdentifier: componentIdentifier)
+        self.title = Title(title: title, componentIdentifier: componentIdentifier)
+        self.closeAction = CloseAction(closeAction: closeAction, componentIdentifier: componentIdentifier)
+        self.topDivider = TopDivider(topDivider: topDivider, componentIdentifier: componentIdentifier)
         self.bannerTapAction = bannerTapAction
         self.alignment = alignment
         self.hideSeparator = hideSeparator
         self.messageType = messageType
         self.showDetailLink = showDetailLink
+        self.componentIdentifier = componentIdentifier ?? BannerMessage.identifier
     }
+}
+
+public extension BannerMessage {
+    static let identifier = "fiori_bannermessage_component"
 }
 
 public extension BannerMessage {
@@ -76,6 +84,7 @@ public extension BannerMessage {
         self.messageType = configuration.messageType
         self.showDetailLink = configuration.showDetailLink
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -84,7 +93,7 @@ extension BannerMessage: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(icon: .init(self.icon), title: .init(self.title), closeAction: .init(self.closeAction), topDivider: .init(self.topDivider), bannerTapAction: self.bannerTapAction, alignment: self.alignment, hideSeparator: self.hideSeparator, messageType: self.messageType, showDetailLink: self.showDetailLink)).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, icon: .init(self.icon), title: .init(self.title), closeAction: .init(self.closeAction), topDivider: .init(self.topDivider), bannerTapAction: self.bannerTapAction, alignment: self.alignment, hideSeparator: self.hideSeparator, messageType: self.messageType, showDetailLink: self.showDetailLink)).typeErased
                 .transformEnvironment(\.bannerMessageStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -102,7 +111,7 @@ private extension BannerMessage {
     }
 
     func defaultStyle() -> some View {
-        BannerMessage(.init(icon: .init(self.icon), title: .init(self.title), closeAction: .init(self.closeAction), topDivider: .init(self.topDivider), bannerTapAction: self.bannerTapAction, alignment: self.alignment, hideSeparator: self.hideSeparator, messageType: self.messageType, showDetailLink: self.showDetailLink))
+        BannerMessage(.init(componentIdentifier: self.componentIdentifier, icon: .init(self.icon), title: .init(self.title), closeAction: .init(self.closeAction), topDivider: .init(self.topDivider), bannerTapAction: self.bannerTapAction, alignment: self.alignment, hideSeparator: self.hideSeparator, messageType: self.messageType, showDetailLink: self.showDetailLink))
             .shouldApplyDefaultStyle(false)
             .bannerMessageStyle(BannerMessageFioriStyle.ContentFioriStyle())
             .typeErased

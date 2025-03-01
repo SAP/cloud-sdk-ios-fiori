@@ -15,24 +15,28 @@ struct UserConsentViewBuilderExample: View {
                 UserConsentForm(userConsentPages: {
                                     UserConsentPage {
                                         Text("Form 0: Info Privacy")
-                                    } bodyAttributedText: {
+                                    } bodyText: {
                                         Text(detailText)
                                     } action: {
-                                        _Action(actionText: "Learn more about Info Privacy", didSelectAction: {
+                                        Button {
                                             print("UserConsentForm - More Info 0")
                                             showPageInfo1 = true
-                                        })
+                                        } label: {
+                                            Text("Learn more about Info Privacy")
+                                        }
                                     }
                                         
                                     UserConsentPage {
                                         Text("Form 0: Data Privacy")
-                                    } bodyAttributedText: {
+                                    } bodyText: {
                                         Text(detailText)
                                     } action: {
-                                        _Action(actionText: "Learn more about Data Privacy", didSelectAction: {
+                                        Button {
                                             print("UserConsentForm - More Info 1")
                                             showPageInfo2 = true
-                                        })
+                                        } label: {
+                                            Text("Learn more about Data Privacy")
+                                        }
                                     }
                                 },
                                 didAllow: { print("UserConsentForm - didAllow") } // ,
@@ -41,24 +45,28 @@ struct UserConsentViewBuilderExample: View {
                 UserConsentForm(userConsentPages: {
                                     UserConsentPage {
                                         Text("Form 1: Security")
-                                    } bodyAttributedText: {
+                                    } bodyText: {
                                         Text(detailText)
                                     } action: {
-                                        _Action(actionText: "Learn more about Data Privacy", didSelectAction: {
+                                        Button {
                                             print("UserConsentForm - More Info 3")
                                             showPageInfo3 = true
-                                        })
+                                        } label: {
+                                            Text("Learn more about Data Privacy")
+                                        }
                                     }
     
                                     UserConsentPage {
                                         Text("Form 1: Data Sharing")
-                                    } bodyAttributedText: {
+                                    } bodyText: {
                                         Text(detailText)
                                     } action: {
-                                        _Action(actionText: "Learn more about Data Privacy", didSelectAction: {
+                                        Button {
                                             print("UserConsentForm - More Info 4")
                                             showPageInfo4 = true
-                                        })
+                                        } label: {
+                                            Text("Learn more about Data Privacy")
+                                        }
                                     }
                                 },
                                 isRequired: false,
@@ -95,13 +103,15 @@ struct UserConsentSinglePageM: View {
                 UserConsentForm(userConsentPages: {
                                     UserConsentPage {
                                         Text("Info Privacy")
-                                    } bodyAttributedText: {
+                                    } bodyText: {
                                         Text(detailText)
                                     } action: {
-                                        _Action(actionText: "Learn more about Info Privacy", didSelectAction: {
+                                        Button {
                                             print("UserConsentForm - More Info 0")
                                             showAlert = true
-                                        })
+                                        } label: {
+                                            Text("Learn more about Info Privacy")
+                                        }
                                     }
                                 },
                                 didAllow: nil,
@@ -135,10 +145,13 @@ struct UserConsentSinglePageO: View {
         if #available(iOS 15.0, *) {
             UserConsentView {
                 UserConsentForm(userConsentPages: {
-                                    UserConsentPage(title: "Data Privacy", bodyAttributedText: longText, action: _Action(actionText: "Learn more about Data Privacy", didSelectAction: {
-                                        print("UserConsentForm - MoreInfo")
-                                        showAlert = true
-                                    }))
+                                    UserConsentPage(title: "Data Privacy", bodyText: AttributedString(longText), action:
+                                        FioriButton(action: { _ in
+                                            print("UserConsentForm - More Info")
+                                            showAlert = true
+                                        }, label: { _ in
+                                            Text("Learn more about Data Privacy")
+                                        }))
                                 },
                                 isRequired: false)
                 
@@ -205,25 +218,29 @@ struct UserConsentCustomized: View {
                                     UserConsentPage {
                                         Text("Form 0: Info Privacy")
                                             .font(.fiori(forTextStyle: .title1)).foregroundColor(.green)
-                                    } bodyAttributedText: {
+                                    } bodyText: {
                                         Text(detailText)
                                             .font(.fiori(forTextStyle: .subheadline)).foregroundColor(.green)
                                     } action: {
-                                        _Action(actionText: "Learn more about Info Privacy", didSelectAction: {
+                                        Button {
                                             print("UserConsentForm - More Info 0")
                                             showPageInfo1 = true
-                                        })
+                                        } label: {
+                                            Text("Learn more about Info Privacy")
+                                        }
                                     }
                                         
                                     UserConsentPage {
                                         Text("Form 0: Data Privacy")
-                                    } bodyAttributedText: {
+                                    } bodyText: {
                                         Text(detailText)
                                     } action: {
-                                        _Action(actionText: "Learn more about Data Privacy", didSelectAction: {
+                                        Button {
                                             print("UserConsentForm - More Info 1")
                                             showPageInfo2 = true
-                                        })
+                                        } label: {
+                                            Text("Learn more about Data Privacy")
+                                        }
                                     }
                                 },
                                 isRequired: true,
@@ -242,24 +259,28 @@ struct UserConsentCustomized: View {
                 UserConsentForm(userConsentPages: {
                                     UserConsentPage {
                                         Text("Form 1: Security")
-                                    } bodyAttributedText: {
+                                    } bodyText: {
                                         Text(detailText)
                                     } action: {
-                                        _Action(actionText: "Learn more about Data Privacy", didSelectAction: {
+                                        Button {
                                             print("UserConsentForm - More Info 3")
                                             showPageInfo3 = true
-                                        })
+                                        } label: {
+                                            Text("Learn more about Data Privacy")
+                                        }
                                     }
     
                                     UserConsentPage {
                                         Text("Form 1: Data Sharing")
-                                    } bodyAttributedText: {
+                                    } bodyText: {
                                         Text(detailText)
                                     } action: {
-                                        _Action(actionText: "Learn more about Data Privacy", didSelectAction: {
+                                        Button {
                                             print("UserConsentForm - More Info 4")
                                             showPageInfo4 = true
-                                        })
+                                        } label: {
+                                            Text("Learn more about Data Privacy")
+                                        }
                                     }
                                 },
                                 isRequired: false,

@@ -759,11 +759,14 @@ public enum CardTests {
         }
     } cardBody: {
         VStack(alignment: .leading, spacing: 4) {
-            ContactItem(title: "Title",
-                        subtitle: "Subtitle",
-                        actionItems: _ActivityItems(actionItems: [.init(type: .phone), .init(type: .email)], didSelectActivityItem: { dataType in
-                            print("\(dataType)")
-                        }))
+            ContactItem(title: "Title", subtitle: "Subtitle", activityItems: [
+                .init(type: .phone, didSelectActivityItem: {
+                    print("phone")
+                }),
+                .init(type: .email, didSelectActivityItem: {
+                    print("email")
+                })
+            ])
             
             Map(coordinateRegion: .constant(CardTests.region))
                 .frame(height: 200)
@@ -793,13 +796,16 @@ public enum CardTests {
         }
     } cardBody: {
         VStack(alignment: .center, spacing: 4) {
-            ContactItem(title: "Title",
-                        subtitle: "Subtitle",
-                        actionItems: _ActivityItems(actionItems: [.init(type: .phone), .init(type: .email)], didSelectActivityItem: { dataType in
-                            print("\(dataType)")
-                        }))
+            ContactItem(title: "Title", subtitle: "Subtitle", activityItems: [
+                .init(type: .phone, didSelectActivityItem: {
+                    print("phone")
+                }),
+                .init(type: .email, didSelectActivityItem: {
+                    print("email")
+                })
+            ])
             
-            KPIItem(data: .components([.unit("R"), .metric("294"), .unit("L")]), subtitle: "Label")
+            _KPIItem(data: .components([.unit("R"), .metric("294"), .unit("L")]), subtitle: "Label")
         }
     }
     
@@ -848,7 +854,7 @@ public enum CardTests {
     } row3: {
         TagExample(num: 3)
     } kpi: {
-        KPIItem(data: .components([.unit("$"), .metric("8,888"), .unit("M")]), subtitle: "").cornerRadius(8)
+        _KPIItem(data: .components([.unit("$"), .metric("8,888"), .unit("M")]), subtitle: "").cornerRadius(8)
     } cardBody: {
         VStack(alignment: .leading, spacing: 4) {
             DataTable(model: CardTests.tableCard.copy())
@@ -905,10 +911,10 @@ public enum CardTests {
             Tag(verbatim: "Tag")
         }
     } kpi: {
-        KPIItem(KPIItemData.components([.icon(Image(systemName: "arrowtriangle.up.fill")),
-                                        .unit("$"),
-                                        .metric("26.9"),
-                                        .unit("M")]))
+        _KPIItem(KPIItemData.components([.icon(Image(systemName: "arrowtriangle.up.fill")),
+                                         .unit("$"),
+                                         .metric("26.9"),
+                                         .unit("M")]))
     } kpiCaption: {
         Text("Revenue")
     } cardBody: {

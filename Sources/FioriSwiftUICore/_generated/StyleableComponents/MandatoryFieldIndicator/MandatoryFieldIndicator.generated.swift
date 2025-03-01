@@ -8,11 +8,20 @@ public struct MandatoryFieldIndicator {
 
     @Environment(\.mandatoryFieldIndicatorStyle) var style
 
+    var componentIdentifier: String = MandatoryFieldIndicator.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder mandatoryFieldIndicator: () -> any View = { Text("*") }) {
+    public init(@ViewBuilder mandatoryFieldIndicator: () -> any View = { Text("*") },
+                componentIdentifier: String? = MandatoryFieldIndicator.identifier)
+    {
         self.mandatoryFieldIndicator = mandatoryFieldIndicator()
+        self.componentIdentifier = componentIdentifier ?? MandatoryFieldIndicator.identifier
     }
+}
+
+public extension MandatoryFieldIndicator {
+    static let identifier = "fiori_mandatoryfieldindicator_component"
 }
 
 public extension MandatoryFieldIndicator {
@@ -29,6 +38,7 @@ public extension MandatoryFieldIndicator {
     internal init(_ configuration: MandatoryFieldIndicatorConfiguration, shouldApplyDefaultStyle: Bool) {
         self.mandatoryFieldIndicator = configuration.mandatoryFieldIndicator
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -37,7 +47,7 @@ extension MandatoryFieldIndicator: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(mandatoryFieldIndicator: .init(self.mandatoryFieldIndicator))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, mandatoryFieldIndicator: .init(self.mandatoryFieldIndicator))).typeErased
                 .transformEnvironment(\.mandatoryFieldIndicatorStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -55,7 +65,7 @@ private extension MandatoryFieldIndicator {
     }
 
     func defaultStyle() -> some View {
-        MandatoryFieldIndicator(.init(mandatoryFieldIndicator: .init(self.mandatoryFieldIndicator)))
+        MandatoryFieldIndicator(.init(componentIdentifier: self.componentIdentifier, mandatoryFieldIndicator: .init(self.mandatoryFieldIndicator)))
             .shouldApplyDefaultStyle(false)
             .mandatoryFieldIndicatorStyle(.fiori)
             .typeErased

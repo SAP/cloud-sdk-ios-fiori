@@ -20,6 +20,8 @@ public struct CardHeader {
 
     @Environment(\.cardHeaderStyle) var style
 
+    var componentIdentifier: String = CardHeader.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
     public init(@ViewBuilder mediaImage: () -> any View = { EmptyView() },
@@ -34,22 +36,28 @@ public struct CardHeader {
                 @ViewBuilder row2: () -> any View = { EmptyView() },
                 @ViewBuilder row3: () -> any View = { EmptyView() },
                 @ViewBuilder kpi: () -> any View = { EmptyView() },
-                @ViewBuilder kpiCaption: () -> any View = { EmptyView() })
+                @ViewBuilder kpiCaption: () -> any View = { EmptyView() },
+                componentIdentifier: String? = CardHeader.identifier)
     {
-        self.mediaImage = MediaImage(mediaImage: mediaImage)
-        self.description = Description(description: description)
-        self.title = Title(title: title)
-        self.subtitle = Subtitle(subtitle: subtitle)
-        self.icons = Icons(icons: icons)
-        self.detailImage = DetailImage(detailImage: detailImage)
-        self.headerAction = HeaderAction(headerAction: headerAction)
-        self.counter = Counter(counter: counter)
-        self.row1 = Row1(row1: row1)
-        self.row2 = Row2(row2: row2)
-        self.row3 = Row3(row3: row3)
-        self.kpi = Kpi(kpi: kpi)
-        self.kpiCaption = KpiCaption(kpiCaption: kpiCaption)
+        self.mediaImage = MediaImage(mediaImage: mediaImage, componentIdentifier: componentIdentifier)
+        self.description = Description(description: description, componentIdentifier: componentIdentifier)
+        self.title = Title(title: title, componentIdentifier: componentIdentifier)
+        self.subtitle = Subtitle(subtitle: subtitle, componentIdentifier: componentIdentifier)
+        self.icons = Icons(icons: icons, componentIdentifier: componentIdentifier)
+        self.detailImage = DetailImage(detailImage: detailImage, componentIdentifier: componentIdentifier)
+        self.headerAction = HeaderAction(headerAction: headerAction, componentIdentifier: componentIdentifier)
+        self.counter = Counter(counter: counter, componentIdentifier: componentIdentifier)
+        self.row1 = Row1(row1: row1, componentIdentifier: componentIdentifier)
+        self.row2 = Row2(row2: row2, componentIdentifier: componentIdentifier)
+        self.row3 = Row3(row3: row3, componentIdentifier: componentIdentifier)
+        self.kpi = Kpi(kpi: kpi, componentIdentifier: componentIdentifier)
+        self.kpiCaption = KpiCaption(kpiCaption: kpiCaption, componentIdentifier: componentIdentifier)
+        self.componentIdentifier = componentIdentifier ?? CardHeader.identifier
     }
+}
+
+public extension CardHeader {
+    static let identifier = "fiori_cardheader_component"
 }
 
 public extension CardHeader {
@@ -91,6 +99,7 @@ public extension CardHeader {
         self.kpi = configuration.kpi
         self.kpiCaption = configuration.kpiCaption
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -99,7 +108,7 @@ extension CardHeader: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(mediaImage: .init(self.mediaImage), description: .init(self.description), title: .init(self.title), subtitle: .init(self.subtitle), icons: .init(self.icons), detailImage: .init(self.detailImage), headerAction: .init(self.headerAction), counter: .init(self.counter), row1: .init(self.row1), row2: .init(self.row2), row3: .init(self.row3), kpi: .init(self.kpi), kpiCaption: .init(self.kpiCaption))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, mediaImage: .init(self.mediaImage), description: .init(self.description), title: .init(self.title), subtitle: .init(self.subtitle), icons: .init(self.icons), detailImage: .init(self.detailImage), headerAction: .init(self.headerAction), counter: .init(self.counter), row1: .init(self.row1), row2: .init(self.row2), row3: .init(self.row3), kpi: .init(self.kpi), kpiCaption: .init(self.kpiCaption))).typeErased
                 .transformEnvironment(\.cardHeaderStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -117,7 +126,7 @@ private extension CardHeader {
     }
 
     func defaultStyle() -> some View {
-        CardHeader(.init(mediaImage: .init(self.mediaImage), description: .init(self.description), title: .init(self.title), subtitle: .init(self.subtitle), icons: .init(self.icons), detailImage: .init(self.detailImage), headerAction: .init(self.headerAction), counter: .init(self.counter), row1: .init(self.row1), row2: .init(self.row2), row3: .init(self.row3), kpi: .init(self.kpi), kpiCaption: .init(self.kpiCaption)))
+        CardHeader(.init(componentIdentifier: self.componentIdentifier, mediaImage: .init(self.mediaImage), description: .init(self.description), title: .init(self.title), subtitle: .init(self.subtitle), icons: .init(self.icons), detailImage: .init(self.detailImage), headerAction: .init(self.headerAction), counter: .init(self.counter), row1: .init(self.row1), row2: .init(self.row2), row3: .init(self.row3), kpi: .init(self.kpi), kpiCaption: .init(self.kpiCaption)))
             .shouldApplyDefaultStyle(false)
             .cardHeaderStyle(CardHeaderFioriStyle.ContentFioriStyle())
             .typeErased

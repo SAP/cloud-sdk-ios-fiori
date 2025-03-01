@@ -8,11 +8,20 @@ public struct HelperText {
 
     @Environment(\.helperTextStyle) var style
 
+    var componentIdentifier: String = HelperText.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder helperText: () -> any View = { EmptyView() }) {
+    public init(@ViewBuilder helperText: () -> any View = { EmptyView() },
+                componentIdentifier: String? = HelperText.identifier)
+    {
         self.helperText = helperText()
+        self.componentIdentifier = componentIdentifier ?? HelperText.identifier
     }
+}
+
+public extension HelperText {
+    static let identifier = "fiori_helpertext_component"
 }
 
 public extension HelperText {
@@ -29,6 +38,7 @@ public extension HelperText {
     internal init(_ configuration: HelperTextConfiguration, shouldApplyDefaultStyle: Bool) {
         self.helperText = configuration.helperText
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -37,7 +47,7 @@ extension HelperText: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(helperText: .init(self.helperText))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, helperText: .init(self.helperText))).typeErased
                 .transformEnvironment(\.helperTextStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -55,7 +65,7 @@ private extension HelperText {
     }
 
     func defaultStyle() -> some View {
-        HelperText(.init(helperText: .init(self.helperText)))
+        HelperText(.init(componentIdentifier: self.componentIdentifier, helperText: .init(self.helperText)))
             .shouldApplyDefaultStyle(false)
             .helperTextStyle(.fiori)
             .typeErased

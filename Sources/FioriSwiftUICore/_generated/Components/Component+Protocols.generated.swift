@@ -237,13 +237,6 @@ public protocol SwitchPickerComponent : AnyObject {
     var hint: String? { get }
 }
 
-public protocol TextInputComponent : AnyObject {
-	// sourcery: bindingPropertyOptional=.constant("")
-    var textInputValue: String { get set }
-	// sourcery: no_view
-    var onCommit: (() -> Void)? { get }
-}
-
 public protocol ActionComponent {
     var actionText: String? { get }
 	// sourcery: no_view
@@ -252,4 +245,11 @@ public protocol ActionComponent {
 
 public protocol ProgressIndicatorComponent {
     var progressIndicatorText: String? { get }
+}
+
+public protocol TextInputComponent : AnyObject {
+	// sourcery: bindingPropertyOptional=.constant("")
+    var textInputValue: String { get set }
+	// sourcery: no_view
+    var onCommit: (() -> Void)? { get }
 }

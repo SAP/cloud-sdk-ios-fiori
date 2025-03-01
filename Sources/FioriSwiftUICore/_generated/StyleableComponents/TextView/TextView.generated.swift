@@ -8,11 +8,20 @@ public struct TextView {
 
     @Environment(\.textViewStyle) var style
 
+    var componentIdentifier: String = TextView.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(text: Binding<String>) {
+    public init(text: Binding<String>,
+                componentIdentifier: String? = TextView.identifier)
+    {
         self._text = text
+        self.componentIdentifier = componentIdentifier ?? TextView.identifier
     }
+}
+
+public extension TextView {
+    static let identifier = "fiori_textview_component"
 }
 
 public extension TextView {
@@ -23,6 +32,7 @@ public extension TextView {
     internal init(_ configuration: TextViewConfiguration, shouldApplyDefaultStyle: Bool) {
         self._text = configuration.$text
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -31,7 +41,7 @@ extension TextView: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(text: self.$text)).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, text: self.$text)).typeErased
                 .transformEnvironment(\.textViewStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -49,7 +59,7 @@ private extension TextView {
     }
 
     func defaultStyle() -> some View {
-        TextView(.init(text: self.$text))
+        TextView(.init(componentIdentifier: self.componentIdentifier, text: self.$text))
             .shouldApplyDefaultStyle(false)
             .textViewStyle(.fiori)
             .typeErased

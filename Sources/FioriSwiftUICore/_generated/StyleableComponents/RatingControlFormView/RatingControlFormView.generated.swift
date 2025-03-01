@@ -51,6 +51,8 @@ public struct RatingControlFormView {
 
     @Environment(\.ratingControlFormViewStyle) var style
 
+    var componentIdentifier: String = RatingControlFormView.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
     public init(@ViewBuilder title: () -> any View,
@@ -74,14 +76,15 @@ public struct RatingControlFormView {
                 reviewCountCeilingFormat: String? = nil,
                 showsReviewCountLabel: Bool = false,
                 @ViewBuilder subtitle: () -> any View = { EmptyView() },
-                axis: Axis = .horizontal)
+                axis: Axis = .horizontal,
+                componentIdentifier: String? = RatingControlFormView.identifier)
     {
-        self.title = Title(title: title)
-        self.valueLabel = ValueLabel(valueLabel: valueLabel)
-        self.onStarImage = OnStarImage(onStarImage: onStarImage)
-        self.offStarImage = OffStarImage(offStarImage: offStarImage)
-        self.halfStarImage = HalfStarImage(halfStarImage: halfStarImage)
-        self.reviewCountLabel = ReviewCountLabel(reviewCountLabel: reviewCountLabel)
+        self.title = Title(title: title, componentIdentifier: componentIdentifier)
+        self.valueLabel = ValueLabel(valueLabel: valueLabel, componentIdentifier: componentIdentifier)
+        self.onStarImage = OnStarImage(onStarImage: onStarImage, componentIdentifier: componentIdentifier)
+        self.offStarImage = OffStarImage(offStarImage: offStarImage, componentIdentifier: componentIdentifier)
+        self.halfStarImage = HalfStarImage(halfStarImage: halfStarImage, componentIdentifier: componentIdentifier)
+        self.reviewCountLabel = ReviewCountLabel(reviewCountLabel: reviewCountLabel, componentIdentifier: componentIdentifier)
         self._rating = rating
         self.ratingControlStyle = ratingControlStyle
         self.ratingBounds = ratingBounds
@@ -96,9 +99,14 @@ public struct RatingControlFormView {
         self.reviewCountCeiling = reviewCountCeiling
         self.reviewCountCeilingFormat = reviewCountCeilingFormat
         self.showsReviewCountLabel = showsReviewCountLabel
-        self.subtitle = Subtitle(subtitle: subtitle)
+        self.subtitle = Subtitle(subtitle: subtitle, componentIdentifier: componentIdentifier)
         self.axis = axis
+        self.componentIdentifier = componentIdentifier ?? RatingControlFormView.identifier
     }
+}
+
+public extension RatingControlFormView {
+    static let identifier = "fiori_ratingcontrolformview_component"
 }
 
 public extension RatingControlFormView {
@@ -158,6 +166,7 @@ public extension RatingControlFormView {
         self.subtitle = configuration.subtitle
         self.axis = configuration.axis
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -166,7 +175,7 @@ extension RatingControlFormView: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(title: .init(self.title), valueLabel: .init(self.valueLabel), onStarImage: .init(self.onStarImage), offStarImage: .init(self.offStarImage), halfStarImage: .init(self.halfStarImage), reviewCountLabel: .init(self.reviewCountLabel), rating: self.$rating, ratingControlStyle: self.ratingControlStyle, ratingBounds: self.ratingBounds, itemSize: self.itemSize, interItemSpacing: self.interItemSpacing, ratingValueFormat: self.ratingValueFormat, showsValueLabel: self.showsValueLabel, averageRating: self.averageRating, averageRatingFormat: self.averageRatingFormat, reviewCount: self.reviewCount, reviewCountFormat: self.reviewCountFormat, reviewCountCeiling: self.reviewCountCeiling, reviewCountCeilingFormat: self.reviewCountCeilingFormat, showsReviewCountLabel: self.showsReviewCountLabel, subtitle: .init(self.subtitle), axis: self.axis)).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, title: .init(self.title), valueLabel: .init(self.valueLabel), onStarImage: .init(self.onStarImage), offStarImage: .init(self.offStarImage), halfStarImage: .init(self.halfStarImage), reviewCountLabel: .init(self.reviewCountLabel), rating: self.$rating, ratingControlStyle: self.ratingControlStyle, ratingBounds: self.ratingBounds, itemSize: self.itemSize, interItemSpacing: self.interItemSpacing, ratingValueFormat: self.ratingValueFormat, showsValueLabel: self.showsValueLabel, averageRating: self.averageRating, averageRatingFormat: self.averageRatingFormat, reviewCount: self.reviewCount, reviewCountFormat: self.reviewCountFormat, reviewCountCeiling: self.reviewCountCeiling, reviewCountCeilingFormat: self.reviewCountCeilingFormat, showsReviewCountLabel: self.showsReviewCountLabel, subtitle: .init(self.subtitle), axis: self.axis)).typeErased
                 .transformEnvironment(\.ratingControlFormViewStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -184,7 +193,7 @@ private extension RatingControlFormView {
     }
 
     func defaultStyle() -> some View {
-        RatingControlFormView(.init(title: .init(self.title), valueLabel: .init(self.valueLabel), onStarImage: .init(self.onStarImage), offStarImage: .init(self.offStarImage), halfStarImage: .init(self.halfStarImage), reviewCountLabel: .init(self.reviewCountLabel), rating: self.$rating, ratingControlStyle: self.ratingControlStyle, ratingBounds: self.ratingBounds, itemSize: self.itemSize, interItemSpacing: self.interItemSpacing, ratingValueFormat: self.ratingValueFormat, showsValueLabel: self.showsValueLabel, averageRating: self.averageRating, averageRatingFormat: self.averageRatingFormat, reviewCount: self.reviewCount, reviewCountFormat: self.reviewCountFormat, reviewCountCeiling: self.reviewCountCeiling, reviewCountCeilingFormat: self.reviewCountCeilingFormat, showsReviewCountLabel: self.showsReviewCountLabel, subtitle: .init(self.subtitle), axis: self.axis))
+        RatingControlFormView(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), valueLabel: .init(self.valueLabel), onStarImage: .init(self.onStarImage), offStarImage: .init(self.offStarImage), halfStarImage: .init(self.halfStarImage), reviewCountLabel: .init(self.reviewCountLabel), rating: self.$rating, ratingControlStyle: self.ratingControlStyle, ratingBounds: self.ratingBounds, itemSize: self.itemSize, interItemSpacing: self.interItemSpacing, ratingValueFormat: self.ratingValueFormat, showsValueLabel: self.showsValueLabel, averageRating: self.averageRating, averageRatingFormat: self.averageRatingFormat, reviewCount: self.reviewCount, reviewCountFormat: self.reviewCountFormat, reviewCountCeiling: self.reviewCountCeiling, reviewCountCeilingFormat: self.reviewCountCeilingFormat, showsReviewCountLabel: self.showsReviewCountLabel, subtitle: .init(self.subtitle), axis: self.axis))
             .shouldApplyDefaultStyle(false)
             .ratingControlFormViewStyle(RatingControlFormViewFioriStyle.ContentFioriStyle())
             .typeErased

@@ -22,7 +22,14 @@ struct AnyActiveTrackStyle: ActiveTrackStyle {
 }
 
 public struct ActiveTrackConfiguration {
+    public var componentIdentifier: String = "fiori_activetrack_component"
     public let activeTrack: ActiveTrack
 
     public typealias ActiveTrack = ConfigurationViewWrapper
+}
+
+extension ActiveTrackConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }

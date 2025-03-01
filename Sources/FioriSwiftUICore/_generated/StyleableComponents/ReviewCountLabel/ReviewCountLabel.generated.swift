@@ -8,11 +8,20 @@ public struct ReviewCountLabel {
 
     @Environment(\.reviewCountLabelStyle) var style
 
+    var componentIdentifier: String = ReviewCountLabel.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder reviewCountLabel: () -> any View = { EmptyView() }) {
+    public init(@ViewBuilder reviewCountLabel: () -> any View = { EmptyView() },
+                componentIdentifier: String? = ReviewCountLabel.identifier)
+    {
         self.reviewCountLabel = reviewCountLabel()
+        self.componentIdentifier = componentIdentifier ?? ReviewCountLabel.identifier
     }
+}
+
+public extension ReviewCountLabel {
+    static let identifier = "fiori_reviewcountlabel_component"
 }
 
 public extension ReviewCountLabel {
@@ -29,6 +38,7 @@ public extension ReviewCountLabel {
     internal init(_ configuration: ReviewCountLabelConfiguration, shouldApplyDefaultStyle: Bool) {
         self.reviewCountLabel = configuration.reviewCountLabel
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -37,7 +47,7 @@ extension ReviewCountLabel: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(reviewCountLabel: .init(self.reviewCountLabel))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, reviewCountLabel: .init(self.reviewCountLabel))).typeErased
                 .transformEnvironment(\.reviewCountLabelStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -55,7 +65,7 @@ private extension ReviewCountLabel {
     }
 
     func defaultStyle() -> some View {
-        ReviewCountLabel(.init(reviewCountLabel: .init(self.reviewCountLabel)))
+        ReviewCountLabel(.init(componentIdentifier: self.componentIdentifier, reviewCountLabel: .init(self.reviewCountLabel)))
             .shouldApplyDefaultStyle(false)
             .reviewCountLabelStyle(.fiori)
             .typeErased

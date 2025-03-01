@@ -8,11 +8,20 @@ public struct NowIndicatorNode {
 
     @Environment(\.nowIndicatorNodeStyle) var style
 
+    var componentIdentifier: String = NowIndicatorNode.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder nowIndicatorNode: () -> any View = { Image(systemName: "circle.fill") }) {
+    public init(@ViewBuilder nowIndicatorNode: () -> any View = { Image(systemName: "circle.fill") },
+                componentIdentifier: String? = NowIndicatorNode.identifier)
+    {
         self.nowIndicatorNode = nowIndicatorNode()
+        self.componentIdentifier = componentIdentifier ?? NowIndicatorNode.identifier
     }
+}
+
+public extension NowIndicatorNode {
+    static let identifier = "fiori_nowindicatornode_component"
 }
 
 public extension NowIndicatorNode {
@@ -23,6 +32,7 @@ public extension NowIndicatorNode {
     internal init(_ configuration: NowIndicatorNodeConfiguration, shouldApplyDefaultStyle: Bool) {
         self.nowIndicatorNode = configuration.nowIndicatorNode
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -31,7 +41,7 @@ extension NowIndicatorNode: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(nowIndicatorNode: .init(self.nowIndicatorNode))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, nowIndicatorNode: .init(self.nowIndicatorNode))).typeErased
                 .transformEnvironment(\.nowIndicatorNodeStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -49,7 +59,7 @@ private extension NowIndicatorNode {
     }
 
     func defaultStyle() -> some View {
-        NowIndicatorNode(.init(nowIndicatorNode: .init(self.nowIndicatorNode)))
+        NowIndicatorNode(.init(componentIdentifier: self.componentIdentifier, nowIndicatorNode: .init(self.nowIndicatorNode)))
             .shouldApplyDefaultStyle(false)
             .nowIndicatorNodeStyle(.fiori)
             .typeErased

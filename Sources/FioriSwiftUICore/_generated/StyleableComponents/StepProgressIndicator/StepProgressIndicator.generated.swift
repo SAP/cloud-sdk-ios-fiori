@@ -24,20 +24,28 @@ public struct StepProgressIndicator {
 
     @Environment(\.stepProgressIndicatorStyle) var style
 
+    var componentIdentifier: String = StepProgressIndicator.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
     public init(@ViewBuilder title: () -> any View,
                 @ViewBuilder action: () -> any View = { EmptyView() },
                 @ViewBuilder cancelAction: () -> any View = { FioriButton { _ in Text("Cancel".localizedFioriString()) } },
                 selection: Binding<String>,
-                @IndexedViewBuilder steps: () -> any IndexedViewContainer = { EmptyView() })
+                @IndexedViewBuilder steps: () -> any IndexedViewContainer = { EmptyView() },
+                componentIdentifier: String? = StepProgressIndicator.identifier)
     {
-        self.title = Title(title: title)
-        self.action = Action(action: action)
-        self.cancelAction = CancelAction(cancelAction: cancelAction)
+        self.title = Title(title: title, componentIdentifier: componentIdentifier)
+        self.action = Action(action: action, componentIdentifier: componentIdentifier)
+        self.cancelAction = CancelAction(cancelAction: cancelAction, componentIdentifier: componentIdentifier)
         self._selection = selection
         self.steps = steps()
+        self.componentIdentifier = componentIdentifier ?? StepProgressIndicator.identifier
     }
+}
+
+public extension StepProgressIndicator {
+    static let identifier = "fiori_stepprogressindicator_component"
 }
 
 public extension StepProgressIndicator {
@@ -63,6 +71,7 @@ public extension StepProgressIndicator {
         self._selection = configuration.$selection
         self.steps = configuration.steps
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -71,7 +80,7 @@ extension StepProgressIndicator: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(title: .init(self.title), action: .init(self.action), cancelAction: .init(self.cancelAction), selection: self.$selection, steps: self.steps)).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, title: .init(self.title), action: .init(self.action), cancelAction: .init(self.cancelAction), selection: self.$selection, steps: self.steps)).typeErased
                 .transformEnvironment(\.stepProgressIndicatorStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -89,7 +98,7 @@ private extension StepProgressIndicator {
     }
 
     func defaultStyle() -> some View {
-        StepProgressIndicator(.init(title: .init(self.title), action: .init(self.action), cancelAction: .init(self.cancelAction), selection: self.$selection, steps: self.steps))
+        StepProgressIndicator(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), action: .init(self.action), cancelAction: .init(self.cancelAction), selection: self.$selection, steps: self.steps))
             .shouldApplyDefaultStyle(false)
             .stepProgressIndicatorStyle(StepProgressIndicatorFioriStyle.ContentFioriStyle())
             .typeErased

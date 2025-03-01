@@ -18,11 +18,20 @@ public struct ActivityItems {
 
     @Environment(\.activityItemsStyle) var style
 
+    var componentIdentifier: String = ActivityItems.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ActivityItemsBuilder activityItems: () -> any View = { EmptyView() }) {
+    public init(@ActivityItemsBuilder activityItems: () -> any View = { EmptyView() },
+                componentIdentifier: String? = ActivityItems.identifier)
+    {
         self.activityItems = activityItems()
+        self.componentIdentifier = componentIdentifier ?? ActivityItems.identifier
     }
+}
+
+public extension ActivityItems {
+    static let identifier = "fiori_activityitems_component"
 }
 
 public extension ActivityItems {
@@ -39,6 +48,7 @@ public extension ActivityItems {
     internal init(_ configuration: ActivityItemsConfiguration, shouldApplyDefaultStyle: Bool) {
         self.activityItems = configuration.activityItems
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -47,7 +57,7 @@ extension ActivityItems: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(activityItems: .init(self.activityItems))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, activityItems: .init(self.activityItems))).typeErased
                 .transformEnvironment(\.activityItemsStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -65,7 +75,7 @@ private extension ActivityItems {
     }
 
     func defaultStyle() -> some View {
-        ActivityItems(.init(activityItems: .init(self.activityItems)))
+        ActivityItems(.init(componentIdentifier: self.componentIdentifier, activityItems: .init(self.activityItems)))
             .shouldApplyDefaultStyle(false)
             .activityItemsStyle(.fiori)
             .typeErased

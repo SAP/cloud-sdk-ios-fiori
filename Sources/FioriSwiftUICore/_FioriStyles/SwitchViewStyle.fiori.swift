@@ -7,10 +7,19 @@ import SwiftUI
 // Base Layout style
 public struct SwitchViewBaseStyle: SwitchViewStyle {
     public func makeBody(_ configuration: SwitchViewConfiguration) -> some View {
-        HStack {
-            configuration.title
-            Spacer()
-            configuration._switch
+        ViewThatFits {
+            HStack {
+                configuration.title
+                Spacer()
+                configuration._switch
+            }
+            VStack(alignment: .leading, spacing: 0) {
+                configuration.title
+                HStack {
+                    Spacer()
+                    configuration._switch
+                }
+            }
         }
     }
 }
@@ -20,7 +29,6 @@ extension SwitchViewFioriStyle {
     struct ContentFioriStyle: SwitchViewStyle {
         func makeBody(_ configuration: SwitchViewConfiguration) -> some View {
             SwitchView(configuration)
-                .padding(EdgeInsets(top: 9, leading: 20, bottom: 9, trailing: 20))
         }
     }
 

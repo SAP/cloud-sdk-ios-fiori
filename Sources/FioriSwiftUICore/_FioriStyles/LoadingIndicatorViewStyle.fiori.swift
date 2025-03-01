@@ -7,6 +7,7 @@ public struct LoadingIndicatorBaseStyle: LoadingIndicatorStyle {
     @Environment(\.indicatorPosition) var position
     @Environment(\.indicatorTint) var tint
     @Environment(\.indicatorControlSize) var controlSize
+    @State private var isAnimating = false
     private var timerTool = TimerTask()
 
     public func makeBody(_ configuration: LoadingIndicatorConfiguration) -> some View {
@@ -33,27 +34,75 @@ public struct LoadingIndicatorBaseStyle: LoadingIndicatorStyle {
             .tint(self.tint)
             .controlSize(self.controlSize)
     }
+    
+    private func makeBodyForAIProgressView(_ configuration: LoadingIndicatorConfiguration) -> some View {
+        Image(fioriName: "fiori.ai")
+            .resizable()
+            .scaledToFill()
+            .scaleEffect(self.isAnimating ? 1.2 : 1.0)
+            .opacity(self.isAnimating ? 0.8 : 1.0)
+            .foregroundColor(self.tint)
+            .onAppear {
+                withAnimation(Animation.easeInOut(duration: 1.5).repeatForever(autoreverses: true)) {
+                    self.isAnimating.toggle()
+                }
+            }
+            .frame(width: self.sizeForControl(self.controlSize), height: self.sizeForControl(self.controlSize))
+    }
+    
+    private func sizeForControl(_ controlSize: ControlSize) -> CGFloat {
+        switch controlSize {
+        case .mini:
+            return 12
+        case .small:
+            return 16
+        case .regular:
+            return 20
+        case .large:
+            return 30
+        case .extraLarge:
+            return 40
+        @unknown default:
+            return 20
+        }
+    }
 
     private func layoutBody(_ configuration: LoadingIndicatorConfiguration) -> some View {
         switch self.position {
         case .leading:
             return AnyView(HStack(spacing: 8) {
-                self.makeBodyForProgressView(configuration)
+                if configuration.isAIEnabled {
+                    self.makeBodyForAIProgressView(configuration)
+                } else {
+                    self.makeBodyForProgressView(configuration)
+                }
                 configuration.title
             })
         case .trailing:
             return AnyView(HStack(spacing: 8) {
                 configuration.title
-                self.makeBodyForProgressView(configuration)
+                if configuration.isAIEnabled {
+                    self.makeBodyForAIProgressView(configuration)
+                } else {
+                    self.makeBodyForProgressView(configuration)
+                }
             })
         case .bottom:
             return AnyView(VStack(spacing: 8) {
                 configuration.title
-                self.makeBodyForProgressView(configuration)
+                if configuration.isAIEnabled {
+                    self.makeBodyForAIProgressView(configuration)
+                } else {
+                    self.makeBodyForProgressView(configuration)
+                }
             })
         case .top:
             return AnyView(VStack(spacing: 8) {
-                self.makeBodyForProgressView(configuration)
+                if configuration.isAIEnabled {
+                    self.makeBodyForAIProgressView(configuration)
+                } else {
+                    self.makeBodyForProgressView(configuration)
+                }
                 configuration.title
             })
         }

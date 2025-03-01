@@ -69,6 +69,14 @@ protocol _FormViewComponent {
 }
 
 // sourcery: CompositeComponent
+protocol _TextInputFieldComponent {
+    // sourcery: @Binding
+    var text: String { get set }
+    // sourcery: defaultValue = false
+    var isSecureEnabled: Bool? { get set }
+}
+
+// sourcery: CompositeComponent
 protocol _PlaceholderTextEditorComponent: _TextViewComponent, _PlaceholderComponent {}
 
 // sourcery: CompositeComponent
@@ -635,7 +643,7 @@ protocol _ListPickerItemComponent: _TitleComponent, _ValueComponent, _MandatoryF
 /// `ListPickerDestination` is a view that provides a customizable list for `ListPickerItem` with selection, search filter and  rows.
 ///
 // sourcery: CompositeComponent
-protocol _ListPickerDestinationComponent: _CancelActionComponent, _ApplyActionComponent, _SelectedEntriesSectionTitleComponent, _SelectAllActionComponent, _DeselectAllActionComponent, _AllEntriesSectionTitleComponent, _ListPickerContentComponent {}
+protocol _ListPickerDestinationComponent: _CancelActionComponent, _ApplyActionComponent, _SelectedEntriesSectionTitleComponent, _SelectAllActionComponent, _DeselectAllActionComponent, _AllEntriesSectionTitleComponent, _ListPickerContentComponent, _PromptComponent {}
 
 // sourcery: CompositeComponent
 protocol _ToastMessageComponent: _IconComponent, _TitleComponent {
@@ -665,6 +673,52 @@ protocol _BannerMultiMessageSheet: _TitleComponent, _CloseActionComponent {
     var bannerMultiMessages: [BannerMessageListModel] { get }
 }
 
+/// `FilterFormView` provides a view with options for filter, include title, mandatory, options and validation message.
+/// ##Usage
+/// ```swift
+/// FilterFormView(title: "Sort Filter, MultiSelection, EmptySelection, fixed", mandatoryFieldIndicator: self.mandatoryField(), isRequired: false, options: self.sortValueOptions, errorMessage: nil, isEnabled: self.isEnabled, allowsMultipleSelection: true, allowsEmptySelection: true, value: self.$sortFilterFixedSelectionValue, buttonSize: .fixed)
+///    .mandatoryFieldIndicatorStyle { conf in
+///        conf.mandatoryFieldIndicator
+///            .foregroundStyle(self.mandatoryFieldIndicatorColor())
+///    }
+///    .filterFormOptionMinTouchHeight(50)
+///    .filterFormOptionCornerRadius(16)
+///    .filterFormOptionTitleSpacing(4)
+///    .filterFormOptionPadding(EdgeInsets(top: 4, leading: 9, bottom: 4, trailing: 9))
+///    .filterFormOptionsItemSpacing(16)
+///    .filterFormOptionsLineSpacing(10)
+///    .filterFormOptionAttributes([
+///        .enabledUnselected: [
+///            .strokeWidth: 1.0,
+///            .strokeColor: Color.preferredColor(.separator),
+///            .foregroundColor: Color.preferredColor(.tertiaryLabel),
+///            .backgroundColor: Color.preferredColor(.tertiaryFill),
+///            .font: Font.system(.body)
+///        ]
+///    ])
+///    ```
+
+// sourcery: CompositeComponent
+protocol _FilterFormViewComponent: _TitleComponent, _MandatoryField, _OptionsComponent, _FormViewComponent {
+    var isEnabled: Bool { get }
+    // sourcery: defaultValue = true
+    /// Indicates whether the user may select multiple values. The default is `true`
+    var allowsMultipleSelection: Bool { get }
+    // sourcery: defaultValue = false
+    var allowsEmptySelection: Bool { get }
+    // sourcery: @Binding
+    /// The indexes for the selected value in the valueOptions.
+    var value: [Int] { get }
+    // sourcery: defaultValue = .fixed
+    /// Size of filter button.
+    var buttonSize: FilterButtonSize { get }
+    // sourcery: defaultValue = true
+    /// Allow chips to layout on the same line as the title
+    var isSingleLine: Bool { get }
+    /// Implementation of value change callback.  Is invoked on changes to the `value` property.
+    var onValueChange: (([Int]) -> Void)? { get }
+}
+
 // sourcery: CompositeComponent
 protocol _LoadingIndicatorComponent: _TitleComponent, _ProgressComponent {
     // sourcery: defaultValue = 0
@@ -673,6 +727,9 @@ protocol _LoadingIndicatorComponent: _TitleComponent, _ProgressComponent {
     
     // sourcery: @Binding
     var isPresented: Bool { get }
+    
+    // sourcery: defaultValue = false
+    var isAIEnabled: Bool { get }
 }
 
 /// `ValuePicker`  provides a title and value label with Fiori styling and a wheel-style `Picker`.
@@ -729,6 +786,25 @@ protocol _ProgressIndicatorComponent: _ProgressIndicatorProtocol {}
 // sourcery: CompositeComponent
 protocol _ProcessingIndicatorComponent: _OptionalTitleComponent {}
 
+/// `KPIProgressItem` enables a developer to present "KPI" information in a formatted manner consistent with the Fiori Design Language
+///
+/// ## Usage
+/// ```swift
+/// let percentData = KPIItemData.percent(0.65)
+/// let fractionData = KPIItemData.fraction(76, 90, numberFormatterProvider.numberFormatter)
+///
+/// KPIProgressItem(kpiCaption: "Completed", data: .constant(percentData))
+/// KPIProgressItem(kpiCaption: "In progress", data: .constant(fractionData), chartSize: .small)
+/// ```
+// sourcery: CompositeComponent
+protocol _KPIProgressItemComponent: _KPIContentComponent, _KpiCaptionComponent, _FootnoteComponent, _InnerCircleComponent, _OuterCircleComponent {
+    // sourcery: @Binding
+    var data: KPIItemData { get }
+    
+    // sourcery: defaultValue = .large
+    var chartSize: KPIProgressItemSize { get }
+}
+
 /// `ActivityItem` provides a customizable activity item with an icon and a subtitle.
 ///
 /// ## Usage
@@ -741,6 +817,34 @@ protocol _ActivityItemComponent: _IconComponent, _SubtitleComponent {
     // sourcery: defaultValue = .vertical
     var layout: ActivityItemLayout { get }
 }
+
+/// `ContactItem` provides a view that shows information related to contact.
+/// ## Usage
+/// ```swift
+/// ContactItem(title: "Headline only example", description: "One line of text description is baseline aligned.", actionItems: [.init(type: .phone, didSelectActivityItem: {
+///     print("tap phone")
+/// }), .init(type: .videoCall, didSelectActivityItem: {
+///     print("tap videoCall")
+/// }), .init(type: .message, didSelectActivityItem: {
+///     print("tap message")
+/// })])
+///
+/// ContactItem {
+///      Text("Headline only example")
+/// } subtitle: {
+///      Text("One line of text description is baseline aligned.")
+/// } description: {
+///      Text("Description")
+/// } detailImage: {
+///      Image("person_square4").resizable()
+/// } actionItems: {
+///      ActivityItems(activityItems: [.init(type: .phone, didSelectActivityItem: {
+///          print("tap phone")
+///      })])
+/// }
+/// ```
+// sourcery: CompositeComponent
+protocol _ContactItemComponent: _TitleComponent, _SubtitleComponent, _DescriptionComponent, _DetailImageComponent, _ActivityItemsComponent {}
 
 // sourcery: CompositeComponent
 protocol _RangeSliderControlComponent: _LowerThumbComponent, _UpperThumbComponent, _ActiveTrackComponent, _InactiveTrackComponent {
@@ -1113,3 +1217,485 @@ protocol _AttachmentThumbnailComponent {
     /// The state of attachement group component
     var controlState: ControlState { get }
 }
+
+// sourcery: CompositeComponent
+protocol _SectionHeaderComponent: _TitleComponent, _AttributeComponent {
+    /// Style determines fonts and colors. Default is `.title` style.
+    // sourcery: defaultValue = .title
+    var sectionHeaderStyle: SectionHeaderFooterStyle { get }
+    
+    /// Optional handler, to respond to tap events on the view.
+    var didSelectHandler: (() -> Void)? { get }
+}
+
+// sourcery: CompositeComponent
+protocol _SectionFooterComponent: _TitleComponent, _AttributeComponent {
+    /// Style determines fonts and colors. Default is `.title` style.
+    // sourcery: defaultValue = .title
+    var sectionFooterStyle: SectionHeaderFooterStyle { get }
+    
+    /// Optional handler, to respond to tap events on the view.
+    var didSelectHandler: (() -> Void)? { get }
+}
+
+/// `ObjectHeader` is a view that displays an object's title, subtitle, tags, body text, footnote, description, status, substatus, detail image and detail content.
+/// ## Usage
+/// ```swift
+/// ObjectHeader {
+///     Text("title")
+/// } subtitle: {
+///     Text("subtitle")
+/// } tags: {
+///     Text("tag01")
+/// } bodyText: {
+///     Text("body")
+/// } footnote: {
+///     Text("footnote")
+/// } descriptionText: {
+///     Text("description")
+/// } status: {
+///     Text("status")
+/// } substatus: {
+///     Text("substatus")
+/// } detailImage: {
+///     Image(systemName: "person")
+/// } detailContent: {
+///     Text("detail content")
+/// }
+/// ```
+// sourcery: CompositeComponent
+protocol _ObjectHeaderComponent: _TitleComponent, _SubtitleComponent, _TagsComponent, _BodyTextComponent, _FootnoteComponent, _DescriptionTextComponent, _StatusComponent, _SubstatusComponent, _DetailImageComponent, _DetailContentComponent {}
+
+/// `HeaderChart` is a view that displays an object's title, subtitle, trend, trend image and kpi.
+/// ## Usage
+/// ```swift
+/// HeaderChart {
+///     Text("title")
+/// } subtitle: {
+///     Text("subtitle")
+/// } trend: {
+///     Text("trend")
+/// } trendImage: {
+///     Image(systemName: "person")
+/// } kpi: {
+///     Text("KPI View")
+/// } chart: {
+///     Text("Chart View")
+/// }
+/// ```
+// sourcery: CompositeComponent
+protocol _HeaderChartComponent: _TitleComponent, _SubtitleComponent, _TrendComponent, _TrendImageComponent, _KpiComponent {
+    @ViewBuilder
+    var chart: (() -> any View)? { get }
+}
+
+/// The `FilterFeedbackBarButton` is a SwiftUI component for item's options that are used in FilterFeedbackBar when the item's type is `SortFilterItem.picker`.
+/// Typically not used by application developer.
+///
+/// ## Usage
+///
+/// `icon` is the leading image in the button.
+/// `title` is the title for the option.
+/// `isSelected` is the state of the button whether it is selected. The style of the button will change based on its state.
+///
+///  ```swift
+///  FilterFeedbackBarButton(
+///     icon: Image(systemName: "checkmark"),
+///     title: "Status",
+///     isSelected: true)
+///  ```
+///
+// sourcery: CompositeComponent
+protocol _FilterFeedbackBarButtonComponent: _IconComponent, _TitleComponent {
+    /// Whether the item is selected or not
+    var isSelected: Bool { get }
+    /// The custom spacing between icon and title.
+    // sourcery: defaultValue = 4.0
+    var spacing: CGFloat { get }
+}
+
+/// The `FilterFeedbackBarItem` is a SwiftUI component for items in FilterFeedbackBar.
+/// Typically not used by application developer.
+///
+/// ## Usage
+///
+/// `icon` is the leading image in the button.
+/// `title` is the button title.
+/// `accessoryIcon` is the trailing image in the button.
+/// `isSelected` is the state of the button whether the item has selected value. The style of the button will change based on its state.
+///
+///  ```swift
+///  FilterFeedbackBarItem(
+///     icon: Image(systemName: "clock"),
+///     title: "Item Title",
+///     accessoryIcon: Image(systemName: "chevron.down"),
+///     isSelected: self.item.isChecked)
+///  ```
+///
+// sourcery: CompositeComponent
+protocol _FilterFeedbackBarItemComponent: _IconComponent, _TitleComponent, _AccessoryIconComponent {
+    /// Whether the item is selected or not
+    var isSelected: Bool { get }
+    /// The custom spacing between icon and title.
+    // sourcery: defaultValue = 6.0
+    var spacing: CGFloat { get }
+}
+
+/// `DimensionSegment` provides a customizable segment for `DimensionSelector`.
+///
+// sourcery: CompositeComponent
+protocol _DimensionSegmentComponent: _TitleComponent {
+    // sourcery: @binding
+    /// Whether the item is selected or not
+    var isSelected: Bool { get }
+}
+
+/// `DimensionSelector` is a horizontal control containing multiple segments, each segment functioning as a discrete button. Selection is mutually exclusive.
+///
+///  ## Usage:
+///  ```swift
+///  let titles = ["intraday: 1min", "one day: 1min", "1year:1day", "3years:1week"]
+///  @State var selectedIndex: Int? = 0
+///  @ObservedObject var stockModel = Tests.stockModels[0]
+///
+///  DimensionSelector(titles: titles, selectedIndex: $selectedIndex)
+///     .onChange(of: selectedIndex) {
+///            stockModel.indexOfStockSeries = selectedIndex ?? -1
+///    }
+///  ```
+// sourcery: CompositeComponent
+protocol _DimensionSelectorComponent {
+    /// The array for segment titles
+    var titles: [String] { get }
+    
+    // sourcery: @Binding
+    /// The optional selected index of the DimensionSelector
+    var selectedIndex: Int? { get }
+    
+    // sourcery: defaultValue = 6
+    /// The spacing between two segments. The default value is `6`.
+    var interItemSpacing: CGFloat { get }
+    
+    /// Content inset for the segmented control.
+    var contentInset: EdgeInsets? { get }
+    
+    // sourcery: defaultValue = .intrinsic
+    /// Mode that determines the width of each segment. The default value is `.intrinsic`.
+    var segmentWidthMode: SegmentWidthMode { get }
+    
+    // sourcery: defaultValue = true
+    /// A Boolean value indicating if empty selection is allowed. The default value is `true`.
+    var allowEmptySelection: Bool { get }
+    
+    @ViewBuilder
+    // sourcery: defaultValue = "{ _ in EmptyView() }"
+    // sourcery: resultBuilder.defaultValue = "{ _ in EmptyView() }"
+    ///  ViewBuilder for customizing the segments
+    var segment: (String) -> any View { get }
+}
+
+/// The `FilterFeedbackBar` is a SwiftUI component contains FilterFeedbackBarItem. When tapping FilterFeedbackBarItem, it will show some sort and filter types of controls, List Picker, Switch, Slider, Value Picker, Stepper, Date Picker.
+///
+/// ## Usage
+///
+/// `items` is the data for the FilterFeedbackBar.
+/// `onUpdate` is the callback function  is triggered when the data is updated.
+///
+///  ```swift
+///  @State var items: [[SortFilterItem]] = [
+///    [.switch(item: .init(name: "Favorite", value: true, icon: "heart.fill"), showsOnFilterFeedbackBar: true),
+///     .slider(item: .init(name: "User Stories", value: 10, minimumValue: 0, maximumValue: 100, formatter: "Stories", icon: "number"), showsOnFilterFeedbackBar: true)]
+///  ]
+///
+///  FilterFeedbackBar(items: self.$items) {}
+///  ```
+///
+// sourcery: CompositeComponent
+protocol _FilterFeedbackBarComponent {
+    // sourcery: resultBuilder.name = @ViewBuilder, resultBuilder.backingComponent = FilterFeedbackBarItemContainer
+    /// The data for the FilterFeedbackBar.
+    var items: Binding<[[SortFilterItem]]> { get }
+    
+    /// The callback function is triggered when the data is updated.
+    var onUpdate: (() -> Void)? { get }
+}
+
+/// `SortFilterView` is a view that will be presented when tap the full configuration button in the filter feed back bar.
+///  ## Usage:
+///  ```swift
+///  @Binding var items: [[SortFilterItem]]
+///  SortFilterView(
+///     title: {
+///         Text("Full Configuration")
+///     },
+///     items: self.$items,
+///     onUpdate: {},
+///     onCancel: {},
+///     onReset: {}
+///  )
+///  ```
+// sourcery: CompositeComponent
+protocol _SortFilterViewComponent: _TitleComponent, _CancelActionComponent, _ApplyActionComponent, _ResetActionComponent {
+    // sourcery: @Binding
+    /// The data for the items that will be displayed in sort filter view.
+    var items: [[SortFilterItem]] { get }
+    /// The action to be performed when the apply button is tapped.
+    var onUpdate: (() -> Void)? { get }
+    /// The action to be performed when the cancel button is tapped.
+    var onCancel: (() -> Void)? { get }
+    /// The action to be performed when the reset button is tapped.
+    var onReset: (() -> Void)? { get }
+}
+
+/// `SignatureCaptureView` allows user to sign above  the signature line.
+/// ## Usage
+/// ```swift
+/// SignatureCaptureView(title: {
+///    Text("Signature Title")
+/// }, mandatoryFieldIndicator: {
+///    Text("*")
+/// }, isRequired: true, startSignatureAction: {
+///    Button(action: {}, label: { Text("start") })
+/// }, reenterSignatureAction: {
+///    Button(action: {}, label: { Text("restart") })
+/// }, cancelAction: {
+///    Button(action: {}, label: { Text("cancel") })
+/// }, clearAction: {
+///    Button(action: {}, label: { Text("clear") })
+/// }, saveAction: {
+///    Button(action: {}, label: { Text("save") })
+/// }, xmark: {
+///    Image(systemName: "xmark")
+/// }, watermark: {
+///    Text("This is a watermark")
+/// }, signatureImage: nil,
+///                     drawingViewMaxHeight: 400,
+///                     drawingViewBackgroundColor: Color.gray,
+///                     strokeWidth: 1,
+///                     appliesTintColorToImage: true,
+///                     strokeColor: Color.red,
+///                     signatureLineColor: Color.black,
+///                     hidesSignatureLine: false,
+///                     watermarkAlignment: .trailing,
+///                     addsTimestampInImage: true,
+///                     timestampFormatter: nil,
+///                     cropsImage: false) { img in
+///    let imgSaver = ImageSaver()
+///    imgSaver.writeToPhotoAlbum(image: img)
+/// }
+/// ```
+// sourcery: CompositeComponent
+// sourcery: importFrameworks = ["FioriThemeManager"]
+protocol _SignatureCaptureViewComponent: _TitleComponent, _MandatoryField, _StartSignatureActionComponent, _ReenterSignatureActionComponent, _CancelActionComponent, _ClearActionComponent, _SaveActionComponent, _XmarkComponent, _WatermarkComponent {
+    /// An optional image for default signature.
+    var signatureImage: UIImage? { get }
+    
+    /// Maximum height of the drawing view.
+    var drawingViewMaxHeight: CGFloat? { get }
+    
+    // sourcery: defaultValue = Color.preferredColor(.primaryBackground)
+    /// The background color of the drawing view. Default value is `.primaryBackground`.
+    var drawingViewBackgroundColor: Color { get }
+    
+    // sourcery: defaultValue = 3.0
+    /// The width of the stroke. Default value is `3.0`.
+    var strokeWidth: CGFloat { get }
+    
+    // sourcery: defaultValue = true
+    /// Indicates if should use `strokeColor` as foreground color. Default value is `true`.
+    var appliesTintColorToImage: Bool { get }
+    
+    // sourcery: defaultValue = Color.preferredColor(.primaryLabel)
+    /// The color for the stroke. Default value is `.primaryLabel`.
+    var strokeColor: Color { get }
+    
+    // sourcery: defaultValue = Color.preferredColor(.quaternaryLabel)
+    /// The color of the signature line. Default value is `.quaternaryLabel`.
+    var signatureLineColor: Color { get }
+    
+    // sourcery: defaultValue = false
+    /// Indicates if the signature line should be hidden. Default value is `false`.
+    var hidesSignatureLine: Bool { get }
+    
+    // sourcery: defaultValue = .leading
+    /// The alignment of the watermark. Default value is `.leading`.
+    var watermarkAlignment: HorizontalAlignment { get }
+    
+    // sourcery: defaultValue = false
+    /// Indicates if timestamp should be added in image. Default value is `false`.
+    var addsTimestampInImage: Bool { get }
+    
+    /// Timestamp formatter.
+    var timestampFormatter: DateFormatter? { get }
+    
+    // sourcery: defaultValue = false
+    /// Indicates if the image should be cropped. Default value is `false`.
+    var cropsImage: Bool { get }
+
+    /// An optional call back for save action.
+    var onSave: ((UIImage) -> Void)? { get }
+    
+    /// An optional call back for delete action.
+    var onDelete: (() -> Void)? { get }
+}
+
+/// `KeyValueItem` provides a customizable activity item with a key and a value.
+///
+/// ## Usage
+/// ```swift
+/// KeyValueItem(key: {
+///         Text("key 1")
+///     }, value: {
+///         Text("value 1")
+///     }, axis: .vertical)
+/// ```
+// sourcery: CompositeComponent
+protocol _KeyValueItemComponent: _KeyComponent, _ValueComponent, _FormViewComponent {
+    // sourcery: defaultValue = .horizontal
+    var axis: Axis { get }
+}
+
+/// `KPIItem` enables a developer to present "KPI" information in a formatted manner consistent with the Fiori Design Language.
+///
+/// ## Usage
+/// ```swift
+/// struct KPISubItemModelImplementation: KPISubItemModel {
+///     let id: UUID
+///     let kPISubItemValue: TextOrIcon
+///     let kPISubItemType: KPISubitemType
+///
+///     init(id: UUID = UUID(), kPISubItemValue: TextOrIcon, kPISubItemType: KPISubitemType) {
+///         self.id = id
+///         self.kPISubItemValue = kPISubItemValue
+///         self.kPISubItemType = kPISubItemType
+///     }
+/// }
+///
+/// private var item: [KPISubItemModelImplementation] = [
+///     KPISubItemModelImplementation(kPISubItemValue: .icon(Image(systemName: "triangleshape.fill")), kPISubItemType: KPISubitemType.icon),
+///     KPISubItemModelImplementation(kPISubItemValue: .text("123"), kPISubItemType: KPISubitemType.metric),
+///     KPISubItemModelImplementation(kPISubItemValue: .text("USD"), kPISubItemType: KPISubitemType.unit)
+/// ]
+///
+/// KPIItem(kpiCaption: "abc", items: item, proposedViewSize: .small, alignment: .leading)
+/// ```
+// sourcery: CompositeComponent
+protocol _KPIItemComponent: _KpiCaptionComponent {
+    /// The data for KPI item
+    var items: [any KPISubItemModel] { get }
+    
+    // sourcery: defaultValue = .small
+    var proposedViewSize: KPIItemSize { get }
+    
+    // sourcery: defaultValue = .center
+    var alignment: Alignment { get }
+}
+
+/// `UserConsentView` is used to display a series of user consent screens modally during the process of onboarding.
+/// ## Usage
+/// ```swift
+/// UserConsentView {
+///     UserConsentForm(userConsentPages: {
+///                    UserConsentPage {
+///                        Text("Form 0 Page 0")
+///                    } bodyText: {
+///                        Text("detailText")
+///                    } action: {
+///                        Button {
+///                        } label: {
+///                            Text("Learn more about privacy")
+///                        }
+///                    }
+///                    UserConsentPage {
+///                        Text("Form 0 Page 1")
+///                    } bodyText: {
+///                        Text("detailText")
+///                    } action: {
+///                        Button {
+///                        } label: {
+///                            Text("Learn more about privacy")
+///                        }
+///                    }
+///                },
+///                didAllow: { print("UserConsentForm - didAllow") }
+///     )
+///     UserConsentForm(userConsentPages: {
+///                    UserConsentPage {
+///                        Text("Form 1 Page 0")
+///                    } bodyText: {
+///                        Text("detailText")
+///                    } action: {
+///                        Button {
+///                        } label: {
+///                         Text("Learn more about Data Privacy")
+///                        }
+///                     }
+///                 },
+///                 isRequired: false,
+///                 didAllow: { print("UserConsentForm - didAllow") })
+/// } didAllow: {
+///     print("UserConsentView - didAllow: index: \($0)")
+/// } didDeny: {
+///     print("UserConsentView - didDeny: index: \($0), isRequired: \($1)")
+/// } didCancel: { _ in
+///     print("UserConsentView - didCancel")
+/// } didFinish: { _ in
+///     presentationMode.wrappedValue.dismiss()
+/// }
+/// ```
+// sourcery: CompositeComponent
+protocol _UserConsentViewComponent {
+    // sourcery: no_style
+    // sourcery: resultBuilder.name = @IndexedViewBuilder
+    // sourcery: resultBuilder.backingComponent = _UserConsentFormsContainer
+    // sourcery: resultBuilder.returnType = any IndexedViewContainer
+    var userConsentForms: [UserConsentForm] { get }
+ 
+    // sourcery: default.value = nil
+    // sourcery: no_view
+    var didAllow: ((Int) -> Void)? { get }
+    
+    // sourcery: default.value = nil
+    // sourcery: no_view
+    var didDeny: ((Int, Bool) -> Void)? { get }
+    
+    // sourcery: default.value = nil
+    // sourcery: no_view
+    var didCancel: ((Int) -> Void)? { get }
+    
+    // sourcery: default.value = nil
+    // sourcery: no_view
+    var didFinish: (([Int]) -> Void)? { get }
+}
+
+// sourcery: CompositeComponent
+protocol _UserConsentFormComponent: _NextActionComponent, _CancelActionComponent, _AllowActionComponent, _DenyActionComponent, _NotNowActionComponent {
+    // sourcery: no_style
+    // sourcery: resultBuilder.name = @IndexedViewBuilder
+    // sourcery: resultBuilder.backingComponent = _UserConsentPagesContainer
+    // sourcery: resultBuilder.returnType = any IndexedViewContainer
+    var userConsentPages: [UserConsentPage] { get }
+    
+    // sourcery: no_view
+    // sourcery: default.value="true"
+    var isRequired: Bool { get }
+    
+    // sourcery: default.value = _UserConsentFormAlertConfigurationDefault
+    // sourcery: no_view
+    var alertConfiguration: ((UserConsentAlertType) -> AlertConfiguration?)? { get }
+    
+    // sourcery: default.value = nil
+    // sourcery: no_view
+    var didAllow: (() -> Void)? { get }
+    
+    // sourcery: default.value = nil
+    // sourcery: no_view
+    var didDeny: ((Bool) -> Void)? { get }
+    
+    // sourcery: default.value = nil
+    // sourcery: no_view
+    var didCancel: (() -> Void)? { get }
+}
+
+// sourcery: CompositeComponent
+protocol _UserConsentPageComponent: _TitleComponent, _BodyTextComponent, _ActionComponent {}

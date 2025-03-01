@@ -8,11 +8,20 @@ public struct ApplyAction {
 
     @Environment(\.applyActionStyle) var style
 
+    var componentIdentifier: String = ApplyAction.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder applyAction: () -> any View = { FioriButton { _ in Text("Apply".localizedFioriString()) } }) {
+    public init(@ViewBuilder applyAction: () -> any View = { FioriButton { _ in Text("Apply".localizedFioriString()) } },
+                componentIdentifier: String? = ApplyAction.identifier)
+    {
         self.applyAction = applyAction()
+        self.componentIdentifier = componentIdentifier ?? ApplyAction.identifier
     }
+}
+
+public extension ApplyAction {
+    static let identifier = "fiori_applyaction_component"
 }
 
 public extension ApplyAction {
@@ -29,6 +38,7 @@ public extension ApplyAction {
     internal init(_ configuration: ApplyActionConfiguration, shouldApplyDefaultStyle: Bool) {
         self.applyAction = configuration.applyAction
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -37,7 +47,7 @@ extension ApplyAction: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(applyAction: .init(self.applyAction))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, applyAction: .init(self.applyAction))).typeErased
                 .transformEnvironment(\.applyActionStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -55,7 +65,7 @@ private extension ApplyAction {
     }
 
     func defaultStyle() -> some View {
-        ApplyAction(.init(applyAction: .init(self.applyAction)))
+        ApplyAction(.init(componentIdentifier: self.componentIdentifier, applyAction: .init(self.applyAction)))
             .shouldApplyDefaultStyle(false)
             .applyActionStyle(.fiori)
             .typeErased

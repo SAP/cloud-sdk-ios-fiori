@@ -88,7 +88,7 @@ struct ObjectHeaderSpecCompact: ListDataProtocol {
                 }, trendImage: {
                     Image(systemName: "triangle.fill").foregroundColor(.green)
                 }, kpi: {
-                    KPIItem(data: .components([.unit("$"), .metric("8,888.88"), .unit("M")]), subtitle: "").disabled(true)
+                    _KPIItem(data: .components([.unit("$"), .metric("8,888.88"), .unit("M")]), subtitle: "").disabled(true)
                 }, chart: {
                     ChartView(chartModel)
                 })
@@ -124,7 +124,7 @@ struct ObjectHeaderSpecCompact: ListDataProtocol {
                 }, trendImage: {
                     Image(systemName: "triangle.fill").foregroundColor(.green)
                 }, kpi: {
-                    KPIItem(data: .components([.unit("$"), .metric("8,888.88"), .unit("M")]), subtitle: "").disabled(true)
+                    _KPIItem(data: .components([.unit("$"), .metric("8,888.88"), .unit("M")]), subtitle: "").disabled(true)
                 }, chart: {
                     ChartView(chartModel)
                 })
@@ -157,7 +157,7 @@ struct ObjectHeaderSpecCompact: ListDataProtocol {
                 }, trendImage: {
                     Image(systemName: "triangle.fill").foregroundColor(.green)
                 }, kpi: {
-                    KPIItem(data: .components([.unit("$"), .metric("8,888.88"), .unit("M")]), subtitle: "").disabled(true)
+                    _KPIItem(data: .components([.unit("$"), .metric("8,888.88"), .unit("M")]), subtitle: "").disabled(true)
                 }, chart: {
                     ChartView(chartModel)
                 })
@@ -196,7 +196,7 @@ struct ObjectHeaderSpecCompact: ListDataProtocol {
                 }, trendImage: {
                     Image(systemName: "triangle.fill").foregroundColor(.green)
                 }, kpi: {
-                    KPIItem(data: .components([.unit("$"), .metric("8,888.88"), .unit("M")]), subtitle: "").disabled(true)
+                    _KPIItem(data: .components([.unit("$"), .metric("8,888.88"), .unit("M")]), subtitle: "").disabled(true)
                 }, chart: {
                     ChartView(chartModel)
                 })
@@ -233,7 +233,7 @@ struct ObjectHeaderSpecCompact: ListDataProtocol {
                 }, trendImage: {
                     Image(systemName: "triangle.fill").foregroundColor(.green)
                 }, kpi: {
-                    KPIItem(data: .components([.unit("$"), .metric("8,888.88"), .unit("M")]), subtitle: "").disabled(true)
+                    _KPIItem(data: .components([.unit("$"), .metric("8,888.88"), .unit("M")]), subtitle: "").disabled(true)
                 }, chart: {
                     ChartView(chartModel)
                 })
@@ -269,7 +269,7 @@ struct ObjectHeaderSpecCompact: ListDataProtocol {
                 HeaderChart(title: {
                     Text("")
                 }, kpi: {
-                    KPIItem(data: .duration(22500, self.df), subtitle: "Working Hours").disabled(true)
+                    _KPIItem(data: .duration(22500, self.df), subtitle: "Working Hours").disabled(true)
                 })
             })
             
@@ -298,7 +298,7 @@ struct ObjectHeaderSpecCompact: ListDataProtocol {
                 }, trendImage: {
                     Image(systemName: "triangle.fill").foregroundColor(.green)
                 }, kpi: {
-                    KPIItem(data: .components([.unit("$"), .metric("8,888.88"), .unit("M")]), subtitle: "").disabled(true)
+                    _KPIItem(data: .components([.unit("$"), .metric("8,888.88"), .unit("M")]), subtitle: "").disabled(true)
                 }, chart: {
                     ChartView(chartModel)
                 })
@@ -346,7 +346,7 @@ struct ObjectHeaderSpecCompact: ListDataProtocol {
                 }, trendImage: {
                     Image(systemName: "triangle.fill").foregroundColor(.green)
                 }, kpi: {
-                    KPIItem(data: .components([.unit("$"), .metric("8,888.88"), .unit("M")]), subtitle: "").disabled(true)
+                    _KPIItem(data: .components([.unit("$"), .metric("8,888.88"), .unit("M")]), subtitle: "").disabled(true)
                 }, chart: {
                     ChartView(chartModel)
                 })
@@ -363,7 +363,7 @@ struct ObjectHeaderSpecCompact: ListDataProtocol {
                 HeaderChart(title: {
                     Text("")
                 }, kpi: {
-                    KPIItem(data: .duration(22500, self.df), subtitle: "Working Hours").disabled(true)
+                    _KPIItem(data: .duration(22500, self.df), subtitle: "Working Hours").disabled(true)
                 })
             })
             
@@ -390,7 +390,7 @@ struct ObjectHeaderSpecCompact: ListDataProtocol {
                 }, trendImage: {
                     Image(systemName: "triangle.fill").foregroundColor(.green)
                 }, kpi: {
-                    KPIItem(data: .components([.unit("$"), .metric("8,888.88"), .unit("M")]), subtitle: "").disabled(true)
+                    _KPIItem(data: .components([.unit("$"), .metric("8,888.88"), .unit("M")]), subtitle: "").disabled(true)
                 }, chart: {
                     ChartView(chartModel)
                 })
@@ -411,7 +411,7 @@ struct ObjectHeaderSpecCompact: ListDataProtocol {
                 HeaderChart(title: {
                     Text("")
                 }, kpi: {
-                    KPIItem(data: .duration(22500, self.df), subtitle: "Working Hours").disabled(true)
+                    _KPIItem(data: .duration(22500, self.df), subtitle: "Working Hours").disabled(true)
                 })
             })
             
@@ -435,7 +435,7 @@ struct ObjectHeaderSpecCompact: ListDataProtocol {
                 }, trendImage: {
                     Image(systemName: "triangle.fill").foregroundColor(.green)
                 }, kpi: {
-                    KPIItem(data: .components([.unit("$"), .metric("8,888.88"), .unit("M")]), subtitle: "").disabled(true)
+                    _KPIItem(data: .components([.unit("$"), .metric("8,888.88"), .unit("M")]), subtitle: "").disabled(true)
                 }, chart: {
                     ChartView(chartModel)
                 })
@@ -451,7 +451,7 @@ struct ObjectHeaderSpecCompact: ListDataProtocol {
                 HeaderChart(title: {
                     Text("")
                 }, kpi: {
-                    KPIItem(data: .duration(22500, self.df), subtitle: "Working Hours").disabled(true)
+                    _KPIItem(data: .duration(22500, self.df), subtitle: "Working Hours").disabled(true)
                 })
             })
             

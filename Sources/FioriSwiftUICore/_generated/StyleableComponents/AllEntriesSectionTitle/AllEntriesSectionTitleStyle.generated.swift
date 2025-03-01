@@ -22,7 +22,14 @@ struct AnyAllEntriesSectionTitleStyle: AllEntriesSectionTitleStyle {
 }
 
 public struct AllEntriesSectionTitleConfiguration {
+    public var componentIdentifier: String = "fiori_allentriessectiontitle_component"
     public let allEntriesSectionTitle: AllEntriesSectionTitle
 
     public typealias AllEntriesSectionTitle = ConfigurationViewWrapper
+}
+
+extension AllEntriesSectionTitleConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }

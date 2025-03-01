@@ -6,7 +6,8 @@ struct SwitchExample: View {
     @State var v1: Bool = false
     @State var v2: Bool = true
     @State var v3: Bool = true
-    
+    @State var v4: Bool = true
+
     struct CustomTitleStyle: TitleStyle {
         @Environment(\.isEnabled) var isEnabled
         func makeBody(_ configuration: TitleConfiguration) -> some View {
@@ -25,11 +26,15 @@ struct SwitchExample: View {
     
     var body: some View {
         VStack {
-            SwitchView(title: "Switch", isOn: self.$v1)
-            SwitchView(title: "Disabled Switch", isOn: self.$v2).disabled(/*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/)
-            SwitchView(title: "Custom Style", isOn: self.$v3)
-                .titleStyle(CustomTitleStyle())
-                .switchStyle(CustomSwitchStyle())
+            Group {
+                SwitchView(title: "Switch", isOn: self.$v1)
+                SwitchView(title: "Disabled Switch", isOn: self.$v2).disabled(/*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/)
+                SwitchView(title: "Custom Style", isOn: self.$v3)
+                    .titleStyle(CustomTitleStyle())
+                    .switchStyle(CustomSwitchStyle())
+                SwitchView(title: "Very long title, layout depend on title width. long long long long long long long long long long long long long long long long long long long long long long long", isOn: self.$v4)
+            }
+            .padding(EdgeInsets(top: 9, leading: 20, bottom: 9, trailing: 20))
         }
     }
 }

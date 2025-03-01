@@ -29,6 +29,8 @@ public struct RangeSliderControl {
 
     @Environment(\.rangeSliderControlStyle) var style
 
+    var componentIdentifier: String = RangeSliderControl.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
     public init(@ViewBuilder lowerThumb: () -> any View,
@@ -43,12 +45,13 @@ public struct RangeSliderControl {
                 thumbHalfWidth: CGFloat = 14,
                 showsLowerThumb: Bool = true,
                 showsUpperThumb: Bool = true,
-                onRangeValueChange: ((Bool, Double, Double) -> Void)? = nil)
+                onRangeValueChange: ((Bool, Double, Double) -> Void)? = nil,
+                componentIdentifier: String? = RangeSliderControl.identifier)
     {
-        self.lowerThumb = LowerThumb(lowerThumb: lowerThumb)
-        self.upperThumb = UpperThumb(upperThumb: upperThumb)
-        self.activeTrack = ActiveTrack(activeTrack: activeTrack)
-        self.inactiveTrack = InactiveTrack(inactiveTrack: inactiveTrack)
+        self.lowerThumb = LowerThumb(lowerThumb: lowerThumb, componentIdentifier: componentIdentifier)
+        self.upperThumb = UpperThumb(upperThumb: upperThumb, componentIdentifier: componentIdentifier)
+        self.activeTrack = ActiveTrack(activeTrack: activeTrack, componentIdentifier: componentIdentifier)
+        self.inactiveTrack = InactiveTrack(inactiveTrack: inactiveTrack, componentIdentifier: componentIdentifier)
         self._lowerValue = lowerValue
         self._upperValue = upperValue
         self.range = range
@@ -58,7 +61,12 @@ public struct RangeSliderControl {
         self.showsLowerThumb = showsLowerThumb
         self.showsUpperThumb = showsUpperThumb
         self.onRangeValueChange = onRangeValueChange
+        self.componentIdentifier = componentIdentifier ?? RangeSliderControl.identifier
     }
+}
+
+public extension RangeSliderControl {
+    static let identifier = "fiori_rangeslidercontrol_component"
 }
 
 public extension RangeSliderControl {
@@ -100,6 +108,7 @@ public extension RangeSliderControl {
         self.showsUpperThumb = configuration.showsUpperThumb
         self.onRangeValueChange = configuration.onRangeValueChange
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -108,7 +117,7 @@ extension RangeSliderControl: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(lowerThumb: .init(self.lowerThumb), upperThumb: .init(self.upperThumb), activeTrack: .init(self.activeTrack), inactiveTrack: .init(self.inactiveTrack), lowerValue: self.$lowerValue, upperValue: self.$upperValue, range: self.range, step: self.step, decimalPlaces: self.decimalPlaces, thumbHalfWidth: self.thumbHalfWidth, showsLowerThumb: self.showsLowerThumb, showsUpperThumb: self.showsUpperThumb, onRangeValueChange: self.onRangeValueChange)).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, lowerThumb: .init(self.lowerThumb), upperThumb: .init(self.upperThumb), activeTrack: .init(self.activeTrack), inactiveTrack: .init(self.inactiveTrack), lowerValue: self.$lowerValue, upperValue: self.$upperValue, range: self.range, step: self.step, decimalPlaces: self.decimalPlaces, thumbHalfWidth: self.thumbHalfWidth, showsLowerThumb: self.showsLowerThumb, showsUpperThumb: self.showsUpperThumb, onRangeValueChange: self.onRangeValueChange)).typeErased
                 .transformEnvironment(\.rangeSliderControlStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -126,7 +135,7 @@ private extension RangeSliderControl {
     }
 
     func defaultStyle() -> some View {
-        RangeSliderControl(.init(lowerThumb: .init(self.lowerThumb), upperThumb: .init(self.upperThumb), activeTrack: .init(self.activeTrack), inactiveTrack: .init(self.inactiveTrack), lowerValue: self.$lowerValue, upperValue: self.$upperValue, range: self.range, step: self.step, decimalPlaces: self.decimalPlaces, thumbHalfWidth: self.thumbHalfWidth, showsLowerThumb: self.showsLowerThumb, showsUpperThumb: self.showsUpperThumb, onRangeValueChange: self.onRangeValueChange))
+        RangeSliderControl(.init(componentIdentifier: self.componentIdentifier, lowerThumb: .init(self.lowerThumb), upperThumb: .init(self.upperThumb), activeTrack: .init(self.activeTrack), inactiveTrack: .init(self.inactiveTrack), lowerValue: self.$lowerValue, upperValue: self.$upperValue, range: self.range, step: self.step, decimalPlaces: self.decimalPlaces, thumbHalfWidth: self.thumbHalfWidth, showsLowerThumb: self.showsLowerThumb, showsUpperThumb: self.showsUpperThumb, onRangeValueChange: self.onRangeValueChange))
             .shouldApplyDefaultStyle(false)
             .rangeSliderControlStyle(RangeSliderControlFioriStyle.ContentFioriStyle())
             .typeErased

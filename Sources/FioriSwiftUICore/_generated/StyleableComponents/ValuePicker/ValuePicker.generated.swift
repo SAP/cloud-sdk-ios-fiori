@@ -30,6 +30,8 @@ public struct ValuePicker {
 
     @Environment(\.valuePickerStyle) var style
 
+    var componentIdentifier: String = ValuePicker.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
     public init(@ViewBuilder title: () -> any View,
@@ -40,18 +42,24 @@ public struct ValuePicker {
                 selectedIndex: Binding<Int>,
                 isTrackingLiveChanges: Bool = true,
                 alwaysShowPicker: Bool = false,
-                controlState: ControlState = .normal)
+                controlState: ControlState = .normal,
+                componentIdentifier: String? = ValuePicker.identifier)
     {
-        self.title = Title(title: title)
-        self.valueLabel = ValueLabel(valueLabel: valueLabel)
-        self.mandatoryFieldIndicator = MandatoryFieldIndicator(mandatoryFieldIndicator: mandatoryFieldIndicator)
+        self.title = Title(title: title, componentIdentifier: componentIdentifier)
+        self.valueLabel = ValueLabel(valueLabel: valueLabel, componentIdentifier: componentIdentifier)
+        self.mandatoryFieldIndicator = MandatoryFieldIndicator(mandatoryFieldIndicator: mandatoryFieldIndicator, componentIdentifier: componentIdentifier)
         self.isRequired = isRequired
         self.options = options
         self._selectedIndex = selectedIndex
         self.isTrackingLiveChanges = isTrackingLiveChanges
         self.alwaysShowPicker = alwaysShowPicker
         self.controlState = controlState
+        self.componentIdentifier = componentIdentifier ?? ValuePicker.identifier
     }
+}
+
+public extension ValuePicker {
+    static let identifier = "fiori_valuepicker_component"
 }
 
 public extension ValuePicker {
@@ -85,6 +93,7 @@ public extension ValuePicker {
         self.alwaysShowPicker = configuration.alwaysShowPicker
         self.controlState = configuration.controlState
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -93,7 +102,7 @@ extension ValuePicker: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(title: .init(self.title), valueLabel: .init(self.valueLabel), mandatoryFieldIndicator: .init(self.mandatoryFieldIndicator), isRequired: self.isRequired, options: self.options, selectedIndex: self.$selectedIndex, isTrackingLiveChanges: self.isTrackingLiveChanges, alwaysShowPicker: self.alwaysShowPicker, controlState: self.controlState)).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, title: .init(self.title), valueLabel: .init(self.valueLabel), mandatoryFieldIndicator: .init(self.mandatoryFieldIndicator), isRequired: self.isRequired, options: self.options, selectedIndex: self.$selectedIndex, isTrackingLiveChanges: self.isTrackingLiveChanges, alwaysShowPicker: self.alwaysShowPicker, controlState: self.controlState)).typeErased
                 .transformEnvironment(\.valuePickerStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -111,7 +120,7 @@ private extension ValuePicker {
     }
 
     func defaultStyle() -> some View {
-        ValuePicker(.init(title: .init(self.title), valueLabel: .init(self.valueLabel), mandatoryFieldIndicator: .init(self.mandatoryFieldIndicator), isRequired: self.isRequired, options: self.options, selectedIndex: self.$selectedIndex, isTrackingLiveChanges: self.isTrackingLiveChanges, alwaysShowPicker: self.alwaysShowPicker, controlState: self.controlState))
+        ValuePicker(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), valueLabel: .init(self.valueLabel), mandatoryFieldIndicator: .init(self.mandatoryFieldIndicator), isRequired: self.isRequired, options: self.options, selectedIndex: self.$selectedIndex, isTrackingLiveChanges: self.isTrackingLiveChanges, alwaysShowPicker: self.alwaysShowPicker, controlState: self.controlState))
             .shouldApplyDefaultStyle(false)
             .valuePickerStyle(ValuePickerFioriStyle.ContentFioriStyle())
             .typeErased

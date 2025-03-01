@@ -230,7 +230,7 @@ struct SingleSliderExample: View {
 }
 
 struct RangeSliderExample: View {
-    @State var intLowerValue: Double = 10
+    @State var intLowerValue: Double = 30
     @State var intUpperValue: Double = 60
     
     @State var lowerValue: Double = 30.0
@@ -244,6 +244,9 @@ struct RangeSliderExample: View {
     
     @State var disabledLowerValue: Double = 5.0
     @State var disabledUpperValue: Double = 20.0
+    
+    @State var noLabelLowerValue: Double = 10.0
+    @State var noLabelUpperValue: Double = 50.0
     
     @State var customLowerValue: Double = 4
     @State var customUpperValue: Double = 16
@@ -274,15 +277,16 @@ struct RangeSliderExample: View {
             .informationViewStyle(getInfoStyle(lowerValue: singleEditableRange.lowerBound, upperValue: self.singleEditUpperValue, range: singleEditableRange)).typeErased
             
             FioriSlider(
-                title: "Range Slider (0 - 100)",
+                title: "Range Slider (20 - 100)",
                 lowerValue: self.$intLowerValue,
                 upperValue: self.$intUpperValue,
-                description: getInfoDescription(lowerValue: self.intLowerValue, upperValue: self.intUpperValue, range: 0 ... 100, decimalPlace: 0, defaultDesc: "A range slider that allows users to input integers for the lower and upper values provides flexibility in defining numeric ranges through both sliding handles and direct text input."),
+                range: 20 ... 100,
+                description: getInfoDescription(lowerValue: self.intLowerValue, upperValue: self.intUpperValue, range: 20 ... 100, decimalPlace: 0, defaultDesc: "A range slider that allows users to input integers for the lower and upper values provides flexibility in defining numeric ranges through both sliding handles and direct text input."),
                 onRangeValueChange: { isEditing, lowerValue, upperValue in
                     self.onRangeValueChange(isEditing, lowerValue, upperValue, 0)
                 }
             )
-            .informationViewStyle(getInfoStyle(lowerValue: self.intLowerValue, upperValue: self.intUpperValue, range: 0 ... 100)).typeErased
+            .informationViewStyle(getInfoStyle(lowerValue: self.intLowerValue, upperValue: self.intUpperValue, range: 20 ... 100)).typeErased
             
             let oneDecimalRange = 10.5 ... 400.5
             FioriSlider(
@@ -328,6 +332,15 @@ struct RangeSliderExample: View {
                 range: 10 ... 80,
                 description: "Disabled slider"
             ).disabled(true)
+            
+            FioriSlider(
+                lowerValue: self.$noLabelLowerValue,
+                upperValue: self.$noLabelUpperValue,
+                description: AttributedString("Customized RangeSlider without leading and trailing view"),
+                valueLabel: AttributedString("\(String(format: "%.0f", self.noLabelLowerValue)) - \(String(format: "%.0f", self.noLabelUpperValue))"),
+                showsLeadingAccessory: false,
+                showsTrailingAccessory: false
+            )
             
             let leadingLabel = getLetter(for: Int(self.customLowerValue))
             let trailingLabel = getLetter(for: Int(self.customUpperValue))

@@ -10,11 +10,20 @@ public struct IncrementAction {
 
     @Environment(\.incrementActionStyle) var style
 
+    var componentIdentifier: String = IncrementAction.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder incrementAction: () -> any View = { FioriButton { _ in FioriIcon.actions.add } }) {
+    public init(@ViewBuilder incrementAction: () -> any View = { FioriButton { _ in FioriIcon.actions.add } },
+                componentIdentifier: String? = IncrementAction.identifier)
+    {
         self.incrementAction = incrementAction()
+        self.componentIdentifier = componentIdentifier ?? IncrementAction.identifier
     }
+}
+
+public extension IncrementAction {
+    static let identifier = "fiori_incrementaction_component"
 }
 
 public extension IncrementAction {
@@ -31,6 +40,7 @@ public extension IncrementAction {
     internal init(_ configuration: IncrementActionConfiguration, shouldApplyDefaultStyle: Bool) {
         self.incrementAction = configuration.incrementAction
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -39,7 +49,7 @@ extension IncrementAction: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(incrementAction: .init(self.incrementAction))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, incrementAction: .init(self.incrementAction))).typeErased
                 .transformEnvironment(\.incrementActionStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -57,7 +67,7 @@ private extension IncrementAction {
     }
 
     func defaultStyle() -> some View {
-        IncrementAction(.init(incrementAction: .init(self.incrementAction)))
+        IncrementAction(.init(componentIdentifier: self.componentIdentifier, incrementAction: .init(self.incrementAction)))
             .shouldApplyDefaultStyle(false)
             .incrementActionStyle(.fiori)
             .typeErased

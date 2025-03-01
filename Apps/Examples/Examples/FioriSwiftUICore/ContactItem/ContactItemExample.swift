@@ -1,35 +1,39 @@
 import SwiftUI
 
 struct ContactItemExample: View {
+    var isNewObjectItem = false
+    
     var body: some View {
         List {
-            Section {
-                NavigationLink {
-                    ActivityItemExample()
-                } label: {
+            if self.isNewObjectItem {
+                Section {
+                    NavigationLink {
+                        ActivityItemExample()
+                    } label: {
+                        Text("ActivityItem")
+                    }
+                    
+                    NavigationLink {
+                        ActivityItemsExample()
+                    } label: {
+                        Text("ActivityItems")
+                    }
+                } header: {
                     Text("ActivityItem")
+                        .textCase(.none)
                 }
-                
-                NavigationLink {
-                    ActivityItemsExample()
-                } label: {
-                    Text("ActivityItems")
-                }
-            } header: {
-                Text("ActivityItem")
-                    .textCase(.none)
             }
 
             Section {
-                NavigationLink(destination: ObjectItemListView(title: "Regular View Examples", listDataType: ContactItemRegularExamples.self, changeLeftMargin: false, showEditButton: false)) {
+                NavigationLink(destination: ObjectItemListView(title: "Regular View Examples", listDataType: ContactItemRegularExamples.self, changeLeftMargin: false, showEditButton: false, isNewObjectItem: self.isNewObjectItem)) {
                     Text("Regular View Examples")
                 }
                 
-                NavigationLink(destination: ObjectItemListView(title: "Compact View Examples", listDataType: ContactItemCompactExamples.self, changeLeftMargin: false, showEditButton: false)) {
+                NavigationLink(destination: ObjectItemListView(title: "Compact View Examples", listDataType: ContactItemCompactExamples.self, changeLeftMargin: false, showEditButton: false, isNewObjectItem: self.isNewObjectItem)) {
                     Text("Compact View Examples")
                 }
                 
-                NavigationLink(destination: ContactItemTapStateExamples()) {
+                NavigationLink(destination: ContactItemTapStateExamples(isNewObjectItem: self.isNewObjectItem)) {
                     Text("Tap State Examples")
                 }
             } header: {

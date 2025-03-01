@@ -22,16 +22,24 @@ struct AnyPlaceholderTextFieldStyle: PlaceholderTextFieldStyle {
 }
 
 public struct PlaceholderTextFieldConfiguration {
+    public var componentIdentifier: String = "fiori_placeholdertextfield_component"
     @Binding public var text: String
+    public let isSecureEnabled: Bool?
     public let placeholder: Placeholder
 
     public typealias Placeholder = ConfigurationViewWrapper
 }
 
+extension PlaceholderTextFieldConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
+}
+
 public struct PlaceholderTextFieldFioriStyle: PlaceholderTextFieldStyle {
     public func makeBody(_ configuration: PlaceholderTextFieldConfiguration) -> some View {
         PlaceholderTextField(configuration)
-            .textInputFieldStyle(TextInputFieldFioriStyle(placeholderTextFieldConfiguration: configuration))
             .placeholderStyle(PlaceholderFioriStyle(placeholderTextFieldConfiguration: configuration))
+            .textInputFieldStyle(TextInputFieldFioriStyle(placeholderTextFieldConfiguration: configuration))
     }
 }

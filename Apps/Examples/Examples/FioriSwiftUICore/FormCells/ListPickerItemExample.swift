@@ -44,7 +44,8 @@ struct ListPickerItemExample: View {
     @State var isRequired = false
     @State var state: ControlState = .normal
     @State var showsErrorMessage = false
-    
+    @State var showsPrompt = false
+
     var body: some View {
         List {
             Group {
@@ -63,7 +64,7 @@ struct ListPickerItemExample: View {
                     })
                 }
             }
-            .onChange(of: self.dataType) { _ in
+            .onChange(of: self.dataType) {
                 self.selections.removeAll()
                 self.uuidSelections.removeAll()
                 self.selection = nil
@@ -114,6 +115,8 @@ struct ListPickerItemExample: View {
                 
                 Toggle("Shows Error Message", isOn: self.$showsErrorMessage)
                 
+                Toggle("Shows Prompt", isOn: self.$showsPrompt)
+                
                 Picker("State", selection: self.$state) {
                     Text("Normal").tag(ControlState.normal)
                     Text("Disabled").tag(ControlState.disabled)
@@ -156,8 +159,15 @@ struct ListPickerItemExample: View {
                 .deselectAllActionStyle { _ in
                     FioriButton(title: "Deselect All Action") { _ in }
                 }
+                .promptStyle { c in
+                    c.prompt.foregroundStyle(Color.red)
+                }
                 .listStyle(.plain)
             }
+    }
+    
+    var promptValue: AttributedString? {
+        self.showsPrompt ? "This is prompt text." : nil
     }
     
     @ViewBuilder var valueView: some View {
@@ -208,6 +218,7 @@ struct ListPickerItemExample: View {
                                       selections: self.$selections,
                                       allowEmpty: self.allowEmpty,
                                       isTrackingLiveChanges: self.isTrackingLiveChanges,
+                                      prompt: self.promptValue,
                                       searchFilter: self.allowSearch ? filter : nil)
                 { e in
                     Text(e)
@@ -218,6 +229,7 @@ struct ListPickerItemExample: View {
                                           id: \.self,
                                           selection: self.$selection,
                                           isTrackingLiveChanges: self.isTrackingLiveChanges,
+                                          prompt: self.promptValue,
                                           searchFilter: self.allowSearch ? filter : nil)
                     { e in
                         Text(e)
@@ -227,6 +239,7 @@ struct ListPickerItemExample: View {
                                           id: \.self,
                                           selection: self.$noneEmptySelection,
                                           isTrackingLiveChanges: self.isTrackingLiveChanges,
+                                          prompt: self.promptValue,
                                           searchFilter: self.allowSearch ? filter : nil)
                     { e in
                         Text(e)
@@ -249,6 +262,7 @@ struct ListPickerItemExample: View {
                                       selections: self.$selections,
                                       allowEmpty: self.allowEmpty,
                                       isTrackingLiveChanges: self.isTrackingLiveChanges,
+                                      prompt: self.promptValue,
                                       searchFilter: self.allowSearch ? filter : nil)
                 { e in
                     Text(e.name)
@@ -260,6 +274,7 @@ struct ListPickerItemExample: View {
                                           children: \.children,
                                           selection: self.$selection,
                                           isTrackingLiveChanges: self.isTrackingLiveChanges,
+                                          prompt: self.promptValue,
                                           searchFilter: self.allowSearch ? filter : nil)
                     { e in
                         Text(e.name)
@@ -270,6 +285,7 @@ struct ListPickerItemExample: View {
                                           children: \.children,
                                           selection: self.$noneEmptySelection,
                                           isTrackingLiveChanges: self.isTrackingLiveChanges,
+                                          prompt: self.promptValue,
                                           searchFilter: self.allowSearch ? filter : nil)
                     { e in
                         Text(e.name)
@@ -292,6 +308,7 @@ struct ListPickerItemExample: View {
                                       selections: self.$uuidSelections,
                                       allowEmpty: self.allowEmpty,
                                       isTrackingLiveChanges: self.isTrackingLiveChanges,
+                                      prompt: self.promptValue,
                                       searchFilter: self.allowSearch ? filter : nil)
                 { framework in
                     ObjectItem {
@@ -311,6 +328,7 @@ struct ListPickerItemExample: View {
                                           children: \.children,
                                           selection: self.$uuidSelection,
                                           isTrackingLiveChanges: self.isTrackingLiveChanges,
+                                          prompt: self.promptValue,
                                           searchFilter: self.allowSearch ? filter : nil)
                     { framework in
                         ObjectItem {
@@ -329,6 +347,7 @@ struct ListPickerItemExample: View {
                                           children: \.children,
                                           selection: self.$uuidNoneEmptySelection,
                                           isTrackingLiveChanges: self.isTrackingLiveChanges,
+                                          prompt: self.promptValue,
                                           searchFilter: self.allowSearch ? filter : nil)
                     { framework in
                         ObjectItem {
@@ -351,6 +370,7 @@ struct ListPickerItemExample: View {
                                       selections: self.$selections,
                                       allowEmpty: self.allowEmpty,
                                       isTrackingLiveChanges: self.isTrackingLiveChanges,
+                                      prompt: self.promptValue,
                                       searchFilter: self.allowSearch ? filter : nil)
                 { e in
                     Text(e)
@@ -361,6 +381,7 @@ struct ListPickerItemExample: View {
                                           id: \.self,
                                           selection: self.$selection,
                                           isTrackingLiveChanges: self.isTrackingLiveChanges,
+                                          prompt: self.promptValue,
                                           searchFilter: self.allowSearch ? filter : nil)
                     { e in
                         Text(e)
@@ -370,6 +391,7 @@ struct ListPickerItemExample: View {
                                           id: \.self,
                                           selection: self.$noneEmptySelection,
                                           isTrackingLiveChanges: self.isTrackingLiveChanges,
+                                          prompt: self.promptValue,
                                           searchFilter: self.allowSearch ? filter : nil)
                     { e in
                         Text(e)

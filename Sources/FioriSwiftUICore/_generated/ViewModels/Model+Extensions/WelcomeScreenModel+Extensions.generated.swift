@@ -3,7 +3,7 @@
 import SwiftUI
 
 public extension WelcomeScreenModel {
-    var textInput: TextInputModel? {
+    var textInput: _TextInputModel? {
         return nil
     }
 

@@ -158,15 +158,15 @@ struct ActionItemsModifierKey: EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-struct TextInputValueModifierKey: EnvironmentKey {
-    public static let defaultValue = AnyViewModifier { $0 }
-}
-
 struct ActionTextModifierKey: EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
 struct ProgressIndicatorTextModifierKey: EnvironmentKey {
+    public static let defaultValue = AnyViewModifier { $0 }
+}
+
+struct TextInputValueModifierKey: EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
@@ -186,11 +186,11 @@ struct CancelActionModifierKey: EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-struct ItemsModifierKey: EnvironmentKey {
+struct DoneActionModifierKey: EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-struct DoneActionModifierKey: EnvironmentKey {
+struct ItemsModifierKey: EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
@@ -207,6 +207,10 @@ struct ClearActionModifierKey: EnvironmentKey {
 }
 
 struct SaveActionModifierKey: EnvironmentKey {
+    public static let defaultValue = AnyViewModifier { $0 }
+}
+
+struct NodeModifierKey: EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
@@ -231,9 +235,5 @@ struct DenyActionModifierKey: EnvironmentKey {
 }
 
 struct NotNowActionModifierKey: EnvironmentKey {
-    public static let defaultValue = AnyViewModifier { $0 }
-}
-
-struct NodeModifierKey: EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }

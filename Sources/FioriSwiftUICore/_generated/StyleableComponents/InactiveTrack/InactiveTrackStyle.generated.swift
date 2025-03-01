@@ -22,7 +22,14 @@ struct AnyInactiveTrackStyle: InactiveTrackStyle {
 }
 
 public struct InactiveTrackConfiguration {
+    public var componentIdentifier: String = "fiori_inactivetrack_component"
     public let inactiveTrack: InactiveTrack
 
     public typealias InactiveTrack = ConfigurationViewWrapper
+}
+
+extension InactiveTrackConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }

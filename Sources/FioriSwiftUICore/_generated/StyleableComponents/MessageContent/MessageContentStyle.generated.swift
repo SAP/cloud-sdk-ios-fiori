@@ -22,7 +22,14 @@ struct AnyMessageContentStyle: MessageContentStyle {
 }
 
 public struct MessageContentConfiguration {
+    public var componentIdentifier: String = "fiori_messagecontent_component"
     public let messageContent: MessageContent
 
     public typealias MessageContent = ConfigurationViewWrapper
+}
+
+extension MessageContentConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }
