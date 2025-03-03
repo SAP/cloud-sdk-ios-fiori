@@ -565,6 +565,7 @@ protocol _AttachmentSubtitleComponent {
 protocol _AttachmentFootnoteComponent {
     // sourcery: @ViewBuilder
     var footnote: AttributedString { get }
+}
 
 protocol _BodyTextComponent {
     // sourcery: @ViewBuilder
