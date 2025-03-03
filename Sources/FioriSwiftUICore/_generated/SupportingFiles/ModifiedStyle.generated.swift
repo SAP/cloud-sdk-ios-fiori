@@ -204,6 +204,202 @@ public extension ApplyActionStyle {
     }
 }
 
+// MARK: AttachmentButtonImageStyle
+
+extension ModifiedStyle: AttachmentButtonImageStyle where Style: AttachmentButtonImageStyle {
+    public func makeBody(_ configuration: AttachmentButtonImageConfiguration) -> some View {
+        AttachmentButtonImage(configuration)
+            .attachmentButtonImageStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct AttachmentButtonImageStyleModifier<Style: AttachmentButtonImageStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.attachmentButtonImageStyle(self.style)
+    }
+}
+
+public extension AttachmentButtonImageStyle {
+    func modifier(_ modifier: some ViewModifier) -> some AttachmentButtonImageStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some AttachmentButtonImageStyle) -> some AttachmentButtonImageStyle {
+        style.modifier(AttachmentButtonImageStyleModifier(style: self))
+    }
+}
+
+// MARK: AttachmentStyle
+
+extension ModifiedStyle: AttachmentStyle where Style: AttachmentStyle {
+    public func makeBody(_ configuration: AttachmentConfiguration) -> some View {
+        Attachment(configuration)
+            .attachmentStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct AttachmentStyleModifier<Style: AttachmentStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.attachmentStyle(self.style)
+    }
+}
+
+public extension AttachmentStyle {
+    func modifier(_ modifier: some ViewModifier) -> some AttachmentStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some AttachmentStyle) -> some AttachmentStyle {
+        style.modifier(AttachmentStyleModifier(style: self))
+    }
+}
+
+// MARK: AttachmentFootnoteStyle
+
+extension ModifiedStyle: AttachmentFootnoteStyle where Style: AttachmentFootnoteStyle {
+    public func makeBody(_ configuration: AttachmentFootnoteConfiguration) -> some View {
+        AttachmentFootnote(configuration)
+            .attachmentFootnoteStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct AttachmentFootnoteStyleModifier<Style: AttachmentFootnoteStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.attachmentFootnoteStyle(self.style)
+    }
+}
+
+public extension AttachmentFootnoteStyle {
+    func modifier(_ modifier: some ViewModifier) -> some AttachmentFootnoteStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some AttachmentFootnoteStyle) -> some AttachmentFootnoteStyle {
+        style.modifier(AttachmentFootnoteStyleModifier(style: self))
+    }
+}
+
+// MARK: AttachmentGroupStyle
+
+extension ModifiedStyle: AttachmentGroupStyle where Style: AttachmentGroupStyle {
+    public func makeBody(_ configuration: AttachmentGroupConfiguration) -> some View {
+        AttachmentGroup(configuration)
+            .attachmentGroupStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct AttachmentGroupStyleModifier<Style: AttachmentGroupStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.attachmentGroupStyle(self.style)
+    }
+}
+
+public extension AttachmentGroupStyle {
+    func modifier(_ modifier: some ViewModifier) -> some AttachmentGroupStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some AttachmentGroupStyle) -> some AttachmentGroupStyle {
+        style.modifier(AttachmentGroupStyleModifier(style: self))
+    }
+}
+
+// MARK: AttachmentSubtitleStyle
+
+extension ModifiedStyle: AttachmentSubtitleStyle where Style: AttachmentSubtitleStyle {
+    public func makeBody(_ configuration: AttachmentSubtitleConfiguration) -> some View {
+        AttachmentSubtitle(configuration)
+            .attachmentSubtitleStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct AttachmentSubtitleStyleModifier<Style: AttachmentSubtitleStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.attachmentSubtitleStyle(self.style)
+    }
+}
+
+public extension AttachmentSubtitleStyle {
+    func modifier(_ modifier: some ViewModifier) -> some AttachmentSubtitleStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some AttachmentSubtitleStyle) -> some AttachmentSubtitleStyle {
+        style.modifier(AttachmentSubtitleStyleModifier(style: self))
+    }
+}
+
+// MARK: AttachmentThumbnailStyle
+
+extension ModifiedStyle: AttachmentThumbnailStyle where Style: AttachmentThumbnailStyle {
+    public func makeBody(_ configuration: AttachmentThumbnailConfiguration) -> some View {
+        AttachmentThumbnail(configuration)
+            .attachmentThumbnailStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct AttachmentThumbnailStyleModifier<Style: AttachmentThumbnailStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.attachmentThumbnailStyle(self.style)
+    }
+}
+
+public extension AttachmentThumbnailStyle {
+    func modifier(_ modifier: some ViewModifier) -> some AttachmentThumbnailStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some AttachmentThumbnailStyle) -> some AttachmentThumbnailStyle {
+        style.modifier(AttachmentThumbnailStyleModifier(style: self))
+    }
+}
+
+// MARK: AttachmentTitleStyle
+
+extension ModifiedStyle: AttachmentTitleStyle where Style: AttachmentTitleStyle {
+    public func makeBody(_ configuration: AttachmentTitleConfiguration) -> some View {
+        AttachmentTitle(configuration)
+            .attachmentTitleStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct AttachmentTitleStyleModifier<Style: AttachmentTitleStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.attachmentTitleStyle(self.style)
+    }
+}
+
+public extension AttachmentTitleStyle {
+    func modifier(_ modifier: some ViewModifier) -> some AttachmentTitleStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some AttachmentTitleStyle) -> some AttachmentTitleStyle {
+        style.modifier(AttachmentTitleStyleModifier(style: self))
+    }
+}
+
 // MARK: AttributeStyle
 
 extension ModifiedStyle: AttributeStyle where Style: AttributeStyle {

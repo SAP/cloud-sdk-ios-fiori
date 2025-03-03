@@ -115,6 +115,118 @@ extension ApplyActionStyle {
     }
 }
 
+// MARK: AttachmentButtonImageStyle
+
+struct ResolvedAttachmentButtonImageStyle<Style: AttachmentButtonImageStyle>: View {
+    let style: Style
+    let configuration: AttachmentButtonImageConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension AttachmentButtonImageStyle {
+    func resolve(configuration: AttachmentButtonImageConfiguration) -> some View {
+        ResolvedAttachmentButtonImageStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: AttachmentStyle
+
+struct ResolvedAttachmentStyle<Style: AttachmentStyle>: View {
+    let style: Style
+    let configuration: AttachmentConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension AttachmentStyle {
+    func resolve(configuration: AttachmentConfiguration) -> some View {
+        ResolvedAttachmentStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: AttachmentFootnoteStyle
+
+struct ResolvedAttachmentFootnoteStyle<Style: AttachmentFootnoteStyle>: View {
+    let style: Style
+    let configuration: AttachmentFootnoteConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension AttachmentFootnoteStyle {
+    func resolve(configuration: AttachmentFootnoteConfiguration) -> some View {
+        ResolvedAttachmentFootnoteStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: AttachmentGroupStyle
+
+struct ResolvedAttachmentGroupStyle<Style: AttachmentGroupStyle>: View {
+    let style: Style
+    let configuration: AttachmentGroupConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension AttachmentGroupStyle {
+    func resolve(configuration: AttachmentGroupConfiguration) -> some View {
+        ResolvedAttachmentGroupStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: AttachmentSubtitleStyle
+
+struct ResolvedAttachmentSubtitleStyle<Style: AttachmentSubtitleStyle>: View {
+    let style: Style
+    let configuration: AttachmentSubtitleConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension AttachmentSubtitleStyle {
+    func resolve(configuration: AttachmentSubtitleConfiguration) -> some View {
+        ResolvedAttachmentSubtitleStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: AttachmentThumbnailStyle
+
+struct ResolvedAttachmentThumbnailStyle<Style: AttachmentThumbnailStyle>: View {
+    let style: Style
+    let configuration: AttachmentThumbnailConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension AttachmentThumbnailStyle {
+    func resolve(configuration: AttachmentThumbnailConfiguration) -> some View {
+        ResolvedAttachmentThumbnailStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: AttachmentTitleStyle
+
+struct ResolvedAttachmentTitleStyle<Style: AttachmentTitleStyle>: View {
+    let style: Style
+    let configuration: AttachmentTitleConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension AttachmentTitleStyle {
+    func resolve(configuration: AttachmentTitleConfiguration) -> some View {
+        ResolvedAttachmentTitleStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: AttributeStyle
 
 struct ResolvedAttributeStyle<Style: AttributeStyle>: View {

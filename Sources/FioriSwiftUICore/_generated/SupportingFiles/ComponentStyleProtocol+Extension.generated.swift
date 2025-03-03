@@ -143,6 +143,167 @@ public extension ApplyActionStyle where Self == ApplyActionFioriStyle {
     }
 }
 
+// MARK: AttachmentButtonImageStyle
+
+public extension AttachmentButtonImageStyle where Self == AttachmentButtonImageBaseStyle {
+    static var base: AttachmentButtonImageBaseStyle {
+        AttachmentButtonImageBaseStyle()
+    }
+}
+
+public extension AttachmentButtonImageStyle where Self == AttachmentButtonImageFioriStyle {
+    static var fiori: AttachmentButtonImageFioriStyle {
+        AttachmentButtonImageFioriStyle()
+    }
+}
+
+// MARK: AttachmentStyle
+
+public extension AttachmentStyle where Self == AttachmentBaseStyle {
+    static var base: AttachmentBaseStyle {
+        AttachmentBaseStyle()
+    }
+}
+
+public extension AttachmentStyle where Self == AttachmentFioriStyle {
+    static var fiori: AttachmentFioriStyle {
+        AttachmentFioriStyle()
+    }
+}
+
+public struct AttachmentAttachmentTitleStyle: AttachmentStyle {
+    let style: any AttachmentTitleStyle
+
+    public func makeBody(_ configuration: AttachmentConfiguration) -> some View {
+        Attachment(configuration)
+            .attachmentTitleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension AttachmentStyle where Self == AttachmentAttachmentTitleStyle {
+    static func attachmentTitleStyle(_ style: some AttachmentTitleStyle) -> AttachmentAttachmentTitleStyle {
+        AttachmentAttachmentTitleStyle(style: style)
+    }
+
+    static func attachmentTitleStyle(@ViewBuilder content: @escaping (AttachmentTitleConfiguration) -> some View) -> AttachmentAttachmentTitleStyle {
+        let style = AnyAttachmentTitleStyle(content)
+        return AttachmentAttachmentTitleStyle(style: style)
+    }
+}
+
+public struct AttachmentAttachmentSubtitleStyle: AttachmentStyle {
+    let style: any AttachmentSubtitleStyle
+
+    public func makeBody(_ configuration: AttachmentConfiguration) -> some View {
+        Attachment(configuration)
+            .attachmentSubtitleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension AttachmentStyle where Self == AttachmentAttachmentSubtitleStyle {
+    static func attachmentSubtitleStyle(_ style: some AttachmentSubtitleStyle) -> AttachmentAttachmentSubtitleStyle {
+        AttachmentAttachmentSubtitleStyle(style: style)
+    }
+
+    static func attachmentSubtitleStyle(@ViewBuilder content: @escaping (AttachmentSubtitleConfiguration) -> some View) -> AttachmentAttachmentSubtitleStyle {
+        let style = AnyAttachmentSubtitleStyle(content)
+        return AttachmentAttachmentSubtitleStyle(style: style)
+    }
+}
+
+public struct AttachmentAttachmentFootnoteStyle: AttachmentStyle {
+    let style: any AttachmentFootnoteStyle
+
+    public func makeBody(_ configuration: AttachmentConfiguration) -> some View {
+        Attachment(configuration)
+            .attachmentFootnoteStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension AttachmentStyle where Self == AttachmentAttachmentFootnoteStyle {
+    static func attachmentFootnoteStyle(_ style: some AttachmentFootnoteStyle) -> AttachmentAttachmentFootnoteStyle {
+        AttachmentAttachmentFootnoteStyle(style: style)
+    }
+
+    static func attachmentFootnoteStyle(@ViewBuilder content: @escaping (AttachmentFootnoteConfiguration) -> some View) -> AttachmentAttachmentFootnoteStyle {
+        let style = AnyAttachmentFootnoteStyle(content)
+        return AttachmentAttachmentFootnoteStyle(style: style)
+    }
+}
+
+// MARK: AttachmentFootnoteStyle
+
+public extension AttachmentFootnoteStyle where Self == AttachmentFootnoteBaseStyle {
+    static var base: AttachmentFootnoteBaseStyle {
+        AttachmentFootnoteBaseStyle()
+    }
+}
+
+public extension AttachmentFootnoteStyle where Self == AttachmentFootnoteFioriStyle {
+    static var fiori: AttachmentFootnoteFioriStyle {
+        AttachmentFootnoteFioriStyle()
+    }
+}
+
+// MARK: AttachmentGroupStyle
+
+public extension AttachmentGroupStyle where Self == AttachmentGroupBaseStyle {
+    static var base: AttachmentGroupBaseStyle {
+        AttachmentGroupBaseStyle()
+    }
+}
+
+public extension AttachmentGroupStyle where Self == AttachmentGroupFioriStyle {
+    static var fiori: AttachmentGroupFioriStyle {
+        AttachmentGroupFioriStyle()
+    }
+}
+
+// MARK: AttachmentSubtitleStyle
+
+public extension AttachmentSubtitleStyle where Self == AttachmentSubtitleBaseStyle {
+    static var base: AttachmentSubtitleBaseStyle {
+        AttachmentSubtitleBaseStyle()
+    }
+}
+
+public extension AttachmentSubtitleStyle where Self == AttachmentSubtitleFioriStyle {
+    static var fiori: AttachmentSubtitleFioriStyle {
+        AttachmentSubtitleFioriStyle()
+    }
+}
+
+// MARK: AttachmentThumbnailStyle
+
+public extension AttachmentThumbnailStyle where Self == AttachmentThumbnailBaseStyle {
+    static var base: AttachmentThumbnailBaseStyle {
+        AttachmentThumbnailBaseStyle()
+    }
+}
+
+public extension AttachmentThumbnailStyle where Self == AttachmentThumbnailFioriStyle {
+    static var fiori: AttachmentThumbnailFioriStyle {
+        AttachmentThumbnailFioriStyle()
+    }
+}
+
+// MARK: AttachmentTitleStyle
+
+public extension AttachmentTitleStyle where Self == AttachmentTitleBaseStyle {
+    static var base: AttachmentTitleBaseStyle {
+        AttachmentTitleBaseStyle()
+    }
+}
+
+public extension AttachmentTitleStyle where Self == AttachmentTitleFioriStyle {
+    static var fiori: AttachmentTitleFioriStyle {
+        AttachmentTitleFioriStyle()
+    }
+}
+
 // MARK: AttributeStyle
 
 public extension AttributeStyle where Self == AttributeBaseStyle {
