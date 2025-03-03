@@ -1201,10 +1201,6 @@ protocol _AttachmentGroupComponent: _TitleComponent {
     // sourcery: defaultValue = "nil"
     /// Triggering App specific preview, otherwise using default preview.
     var onPreview: ((URL) -> Void)? { get }
-    
-    // sourcery: defaultValue = "nil"
-    /// App specific 'Attachment', i.e. thumbnail and information. Overrides default implemetation.
-    var thumbnailAndInfo: ((URL) -> Attachment)? { get }
 }
 
 // sourcery: CompositeComponent
