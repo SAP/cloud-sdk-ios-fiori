@@ -11,9 +11,6 @@ public struct AttachmentGroupBaseStyle: AttachmentGroupStyle {
 
     @ViewBuilder
     func makeAttachemnt(of configuration: AttachmentGroupConfiguration, at index: Int) -> some View {
-        if let customThumbnailAndInfo = configuration.thumbnailAndInfo {
-            customThumbnailAndInfo(configuration.attachments[index])
-        } else {
             if let (fileURL, name, fileSize, fileModificationDate) = getFileInfo(fileUrl: configuration.attachments[index]) {
                 Attachment(
                     title: {
@@ -35,7 +32,6 @@ public struct AttachmentGroupBaseStyle: AttachmentGroupStyle {
             } else {
                 EmptyView()
             }
-        }
     }
     
     public func makeBody(_ configuration: AttachmentGroupConfiguration) -> some View {
