@@ -55,14 +55,18 @@ struct CoreContentView: View {
                     Text("Cards and Layouts")
                 }
                 
-                NavigationLink(destination: ContactItemExample()) {
+                NavigationLink(destination: ContactItemExample(isNewObjectItem: true)) {
                     Text("ContactItem")
                 }
                 
+                NavigationLink(destination: ContactItemExample()) {
+                    Text("_ContactItem: deprecated")
+                }
+                
                 NavigationLink(
-                    destination: EmptyStateViewExample())
+                    destination: _EmptyStateViewExample())
                 {
-                    Text("EmptyStateViewExample")
+                    Text("_EmptyStateViewExample")
                 }
                 
                 NavigationLink(
@@ -114,7 +118,7 @@ struct CoreContentView: View {
                 NavigationLink(
                     destination: SignatureCaptureViewExample2())
                 {
-                    Text("Customized Signature Inline View")
+                    Text("(Deprecated)Customized Signature Inline View")
                 }
                 
                 NavigationLink(
@@ -152,6 +156,12 @@ struct CoreContentView: View {
                         Text("ObjectHeader")
                     }
                 )
+                
+                NavigationLink(
+                    destination: SectionHeaderFooterExample())
+                {
+                    Text("SectionHeader/Footer Example")
+                }
             }
             
             Section(header: Text("Controls")) {
@@ -168,9 +178,15 @@ struct CoreContentView: View {
                 }
                 
                 NavigationLink(
-                    destination: DimensionSelector_Chart())
+                    destination: DimensionSelectorExample())
                 {
                     Text("Dimension Selector")
+                }
+                
+                NavigationLink(
+                    destination: DimensionSelector_Chart())
+                {
+                    Text("_Dimension Selector")
                 }
                 
                 NavigationLink(
@@ -334,6 +350,18 @@ struct CoreContentView: View {
                     destination: KPIExample())
                 {
                     Text("KPI")
+                }
+                
+                NavigationLink(
+                    destination: KPIItemExample())
+                {
+                    Text("KPIItem")
+                }
+                
+                NavigationLink(
+                    destination: _KPIProgressExample())
+                {
+                    Text("_KPIProgressItem")
                 }
                 
                 NavigationLink(

@@ -1,18 +1,27 @@
 import SwiftUI
 
-struct Toast: Equatable {
+@available(*, deprecated, message: "Use ToastMessage instead of ToastView")
+public struct Toast: Equatable {
     /// The toast message
-    var message: String
+    public var message: String
     
     /// Icon image in front of the text. The default is a checkmark icon.
-    var image: Image?
+    public var image: Image?
     
     /// The duration in seconds for which the toast message is shown. The default is `1`.
-    var duration: Double = 1
+    public var duration: Double
+    
+    public init(message: String, image: Image? = nil, duration: Double = 1) {
+        self.message = message
+        self.image = image
+        self.duration = duration
+    }
 }
 
+@available(*, deprecated, message: "Use ToastMessage instead")
 ///  `ToastView` shows an overlay toast message centered within current view.
-struct ToastView: View {
+/// `ToastView` has been replaced by `ToastMessage` but `ToastView` is still being used internally
+public struct ToastView: View {
     /// The toast message
     let message: String
     
@@ -21,7 +30,7 @@ struct ToastView: View {
 
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     
-    var body: some View {
+    public var body: some View {
         GeometryReader { reader in
             VStack {
                 Spacer()
@@ -63,11 +72,13 @@ struct ToastView: View {
     }
 }
 
-struct ToastModifier: ViewModifier {
+@available(*, deprecated, message: "Use ToastMessageModifier instead")
+/// `ToastModifier` has been replaced by `ToastMessageModifier` but `ToastModifier` is still being used internally
+public struct ToastModifier: ViewModifier {
     @Binding var toast: Toast?
     @State private var workItem: DispatchWorkItem?
     
-    func body(content: Content) -> some View {
+    public func body(content: Content) -> some View {
         content
             .overlay(
                 ZStack {
@@ -114,8 +125,10 @@ struct ToastModifier: ViewModifier {
     }
 }
 
-extension View {
+public extension View {
+    @available(*, deprecated, message: "Use toastMessage(isPresented:icon:title:duration:) instead")
     /// Shows an overlay toast message centered within current view
+    /// `toast(toast:)` has been replaced by `toastMessage(isPresented:icon:title:duration:)` but `toast(toast:)` is still being used internally
     func toast(toast: Binding<Toast?>) -> some View {
         self.modifier(ToastModifier(toast: toast))
     }

@@ -22,7 +22,14 @@ struct AnyKpiCaptionStyle: KpiCaptionStyle {
 }
 
 public struct KpiCaptionConfiguration {
+    public var componentIdentifier: String = "fiori_kpicaption_component"
     public let kpiCaption: KpiCaption
 
     public typealias KpiCaption = ConfigurationViewWrapper
+}
+
+extension KpiCaptionConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }

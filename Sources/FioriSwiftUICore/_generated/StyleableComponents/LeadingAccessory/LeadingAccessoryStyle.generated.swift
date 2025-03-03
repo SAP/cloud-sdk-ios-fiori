@@ -22,7 +22,14 @@ struct AnyLeadingAccessoryStyle: LeadingAccessoryStyle {
 }
 
 public struct LeadingAccessoryConfiguration {
+    public var componentIdentifier: String = "fiori_leadingaccessory_component"
     public let leadingAccessory: LeadingAccessory
 
     public typealias LeadingAccessory = ConfigurationViewWrapper
+}
+
+extension LeadingAccessoryConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }

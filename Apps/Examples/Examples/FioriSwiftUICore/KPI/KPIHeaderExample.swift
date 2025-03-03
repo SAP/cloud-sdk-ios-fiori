@@ -2,7 +2,7 @@ import FioriSwiftUICore
 import Foundation
 import SwiftUI
 
-class World: KPIItemModel, Identifiable {
+class World: _KPIItemModel, Identifiable {
     var kpi: String? {
         "Hello World"
     }
@@ -12,7 +12,7 @@ class World: KPIItemModel, Identifiable {
     }
 }
 
-class Galaxy: KPIProgressItemModel, Identifiable {
+class Galaxy: _KPIProgressItemModel, Identifiable {
     var kpi: String? {
         "Hello Galaxy"
     }
@@ -26,7 +26,7 @@ class Galaxy: KPIProgressItemModel, Identifiable {
     }
 }
 
-class Space: KPIItemModel, Identifiable {
+class Space: _KPIItemModel, Identifiable {
     var kpi: String? {
         let formatter = MeasurementFormatter()
         formatter.unitStyle = MeasurementFormatter.UnitStyle.medium
@@ -39,7 +39,7 @@ class Space: KPIItemModel, Identifiable {
     }
 }
 
-class Universe: KPIItemModel, Identifiable {
+class Universe: _KPIItemModel, Identifiable {
     var kpi: String? {
         let number = NSNumber(value: 99.9)
         let formattedValue = self.formatter.string(from: number)
@@ -67,11 +67,11 @@ struct KPIHeaderExample: View {
             VStack {
                 ExpHeaderView("KPI Header", subtitle: "Header vs Layout container", desc: "semantic vs container. see code for comments")
                 KPIHeader {
-                    KPIItem(data: .components([.icon(Image(systemName: "heart.fill")), .metric("2K"), .icon(Image(systemName: "hand.thumbsup")), .metric("7.5K")]), subtitle: "Likes & Thumbs-Up")
-                    KPIItem(data: .percent(0.695), subtitle: "Acceptance Rate")
+                    _KPIItem(data: .components([.icon(Image(systemName: "heart.fill")), .metric("2K"), .icon(Image(systemName: "hand.thumbsup")), .metric("7.5K")]), subtitle: "Likes & Thumbs-Up")
+                    _KPIItem(data: .percent(0.695), subtitle: "Acceptance Rate")
                         .disabled(true)
-                    KPIProgressItem(data: .percent(0.88), subtitle: "Completed")
-                    KPIProgressItem(data: .percent(0.66), footnote: "Completed")
+                    _KPIProgressItem(data: .percent(0.88), subtitle: "Completed")
+                    _KPIProgressItem(data: .percent(0.66), footnote: "Completed")
                 }
                 KPIHeader(self.data)
                 KPIHeader {

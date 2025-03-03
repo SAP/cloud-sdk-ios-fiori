@@ -22,13 +22,21 @@ struct AnyLoadingIndicatorStyle: LoadingIndicatorStyle {
 }
 
 public struct LoadingIndicatorConfiguration {
+    public var componentIdentifier: String = "fiori_loadingindicator_component"
     public let title: Title
     public let progress: Progress
     public let duration: Double
     @Binding public var isPresented: Bool
+    public let isAIEnabled: Bool
 
     public typealias Title = ConfigurationViewWrapper
     public typealias Progress = ConfigurationViewWrapper
+}
+
+extension LoadingIndicatorConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }
 
 public struct LoadingIndicatorFioriStyle: LoadingIndicatorStyle {

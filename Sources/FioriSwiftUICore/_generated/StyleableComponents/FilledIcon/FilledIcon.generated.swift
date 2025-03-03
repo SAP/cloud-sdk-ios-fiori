@@ -8,11 +8,20 @@ public struct FilledIcon {
 
     @Environment(\.filledIconStyle) var style
 
+    var componentIdentifier: String = FilledIcon.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder filledIcon: () -> any View = { EmptyView() }) {
+    public init(@ViewBuilder filledIcon: () -> any View = { EmptyView() },
+                componentIdentifier: String? = FilledIcon.identifier)
+    {
         self.filledIcon = filledIcon()
+        self.componentIdentifier = componentIdentifier ?? FilledIcon.identifier
     }
+}
+
+public extension FilledIcon {
+    static let identifier = "fiori_filledicon_component"
 }
 
 public extension FilledIcon {
@@ -29,6 +38,7 @@ public extension FilledIcon {
     internal init(_ configuration: FilledIconConfiguration, shouldApplyDefaultStyle: Bool) {
         self.filledIcon = configuration.filledIcon
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -37,7 +47,7 @@ extension FilledIcon: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(filledIcon: .init(self.filledIcon))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, filledIcon: .init(self.filledIcon))).typeErased
                 .transformEnvironment(\.filledIconStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -55,7 +65,7 @@ private extension FilledIcon {
     }
 
     func defaultStyle() -> some View {
-        FilledIcon(.init(filledIcon: .init(self.filledIcon)))
+        FilledIcon(.init(componentIdentifier: self.componentIdentifier, filledIcon: .init(self.filledIcon)))
             .shouldApplyDefaultStyle(false)
             .filledIconStyle(.fiori)
             .typeErased

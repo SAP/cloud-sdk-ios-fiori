@@ -40,13 +40,18 @@ public protocol TagStackModel: TagsComponent {}
 // sourcery: virtualPropStatusViewSize = "@State var statusViewSize: CGSize = .zero"
 // sourcery: virtualPropCurrentTabIndex = "@State var currentTabIndex: Int = 0"
 // sourcery: generated_component_composite
-public protocol ObjectHeaderModel: TitleComponent, SubtitleComponent, TagsComponent, BodyTextComponent, FootnoteComponent, DescriptionTextComponent, StatusComponent, SubstatusComponent, DetailImageComponent {}
+public protocol _ObjectHeaderModel: TitleComponent, SubtitleComponent, TagsComponent, BodyTextComponent, FootnoteComponent, DescriptionTextComponent, StatusComponent, SubstatusComponent, DetailImageComponent {}
+
+@available(*, unavailable, renamed: "_ObjectHeaderModel", message: "Will be removed in the future release. Please create ObjectHeader with other initializers instead.")
+public protocol ObjectHeaderModel {}
 
 // sourcery: add_view_builder_params = "chart"
 // sourcery: virtualPropIntStateChanged = "@State var mainViewSize: CGSize = CGSize(width: 312, height: 0)"
 // sourcery: generated_component
-public protocol HeaderChartModel: TitleComponent, SubtitleComponent, TrendComponent, TrendImageComponent, KpiComponent {}
+public protocol _HeaderChartModel: TitleComponent, SubtitleComponent, TrendComponent, TrendImageComponent, KpiComponent {}
 
+@available(*, unavailable, renamed: "_HeaderChartModel", message: "Will be removed in the future release. Please create HeaderChart with other initializers instead.")
+public protocol HeaderChartModel {}
 // sourcery: generated_component
 // public protocol TimelineItemModel: TitleComponent, SubtitleComponent, FootnoteComponent, AttributeComponent, SecondaryAttributeComponent, TimestampComponent, SecondaryTimestampComponent, StatusComponent, SubstatusComponent {}
 
@@ -66,25 +71,38 @@ public protocol HeaderChartModel: TitleComponent, SubtitleComponent, TrendCompon
 
 // sourcery: add_env_props = "colorScheme"
 // sourcery: generated_component
-public protocol SectionHeaderModel: TitleComponent, AttributeComponent {}
+public protocol _SectionHeaderModel: TitleComponent, AttributeComponent {}
+
+@available(*, unavailable, renamed: "_SectionHeaderModel", message: "Will be removed in the future release. Please create SectionHeader with other initializers instead.")
+public protocol SectionHeaderModel {}
 
 // sourcery: generated_component
 // sourcery: virtualPropAction = "var action: (() -> Void)? = nil"
-public protocol KPIItemModel: KpiComponent, SubtitleComponent, KPIHeaderItemModel {}
+public protocol _KPIItemModel: KpiComponent, SubtitleComponent, KPIHeaderItemModel {}
+
+@available(*, unavailable, renamed: "_KPIItemModel", message: "Will be removed in the future release. Please create KPIItem with other initializers instead.")
+public protocol KPIItemModel {}
 
 // sourcery: virtualPropIsPressed = "@State var isPressed: Bool = false"
 // sourcery: virtualPropAction = "var action: (() -> Void)? = nil"
 // sourcery: add_env_props = "kpiProgressViewStyle"
 // sourcery: add_env_props = "isEnabled"
 // sourcery: generated_component
-public protocol KPIProgressItemModel: KpiProgressComponent, SubtitleComponent, FootnoteComponent, KPIHeaderItemModel {}
+public protocol _KPIProgressItemModel: KpiProgressComponent, SubtitleComponent, FootnoteComponent, KPIHeaderItemModel {}
+
+@available(*, unavailable, renamed: "_KPIProgressItemModel", message: "Will be removed in the future release. Please create KPIProgressItem with other initializers instead.")
+public protocol KPIProgressItemModel {}
 
 // sourcery: generated_component
-public protocol KeyValueItemModel: KeyComponent, ValueComponent {
+public protocol _KeyValueItemModel: KeyComponent, ValueComponent {
     // sourcery: default.value = .horizontal
     // sourcery: no_view
     var axis: Axis { get }
 }
+
+/// Deprecated KeyValueItemModel
+@available(*, unavailable, renamed: "_KeyValueItemModel", message: "Will be removed in the future release. Please create KeyValueItem with other initializers instead.")
+public protocol KeyValueItemModel {}
 
 // sourcery: add_env_props = "sharedAction"
 // sourcery: generated_component_not_configurable
@@ -94,7 +112,11 @@ public protocol _ActionModel: ActionComponent {}
 public protocol ActionModel: ActionComponent {}
 
 // sourcery: generated_component_not_configurable
-public protocol TextInputModel: TextInputComponent {}
+public protocol _TextInputModel: TextInputComponent {}
+
+/// Deprecated TextInputModel
+@available(*, unavailable, renamed: "_TextInputModel", message: "Will be removed in the future release. Please create TextInput with other initializers instead.")
+public protocol TextInputModel {}
 
 // sourcery: generated_component
 public protocol _ActivityItemModel: IconComponent, SubtitleComponent {}
@@ -159,15 +181,19 @@ public protocol SideBarModel {}
 // sourcery: add_env_props = "splitPercent"
 // sourcery: virtualPropMainViewSize = "@State var mainViewSize: CGSize = .zero"
 // sourcery: generated_component_composite
-public protocol ContactItemModel: TitleComponent, SubtitleComponent, DescriptionTextComponent, DetailImageComponent {
+public protocol _ContactItemModel: TitleComponent, SubtitleComponent, DescriptionTextComponent, DetailImageComponent {
     var actionItems: _ActivityItemsModel? { get }
 }
+
+/// Deprecated ContactItemModel
+@available(*, unavailable, renamed: "_ContactItemModel", message: "Will be removed in the future release. Please create ContactItem with other initializers instead.")
+public protocol ContactItemModel {}
 
 // sourcery: add_env_props = ["horizontalSizeClass"]
 // sourcery: generated_component_composite
 public protocol WelcomeScreenModel: TitleComponent, DescriptionTextComponent, SubtitleComponent, FootnoteComponent, IconComponent {
     // sourcery: genericParameter.name = TextInputView
-    var textInput: TextInputModel? { get }
+    var textInput: _TextInputModel? { get }
     
     // sourcery: genericParameter.name = ActionView
     var action: _ActionModel? { get }
@@ -185,7 +211,7 @@ public protocol ActivationScreenModel: TitleComponent, DescriptionTextComponent,
     var secondaryAction: _ActionModel? { get }
     
     // sourcery: genericParameter.name = TextInputView
-    var textInput: TextInputModel? { get }
+    var textInput: _TextInputModel? { get }
 }
 
 // sourcery: generated_component_composite
@@ -237,12 +263,12 @@ public protocol EULAViewModel: TitleComponent, BodyAttributedTextComponent {
 // sourcery: virtualPropFormIndex = "@State var _formIndex = 0"
 // sourcery: virtualPropAllowedFormIndexes = "@State var _allowedFormIndexes: [Int] = []"
 // sourcery: generated_component_composite
-public protocol UserConsentViewModel {
+public protocol _UserConsentViewModel {
     // sourcery: no_style
     // sourcery: backingComponent=_UserConsentFormsContainer
     // sourcery: customFunctionBuilder=IndexedViewBuilder
     // sourcery: genericParameter.type=IndexedViewContainer
-    var userConsentForms: [UserConsentFormModel] { get }
+    var userConsentForms: [_UserConsentFormModel] { get }
  
     // sourcery: default.value = nil
     // sourcery: no_view
@@ -267,7 +293,7 @@ public protocol UserConsentViewModel {
 // sourcery: add_env_props = "userConsentFormDidDeny"
 // sourcery: add_env_props = "userConsentFormDidCancel"
 // sourcery: generated_component_composite
-public protocol UserConsentFormModel {
+public protocol _UserConsentFormModel {
     // sourcery: genericParameter.name = NextActionView
     // sourcery: default.value = _NextActionDefault()
     var nextAction: _ActionModel? { get }
@@ -292,7 +318,7 @@ public protocol UserConsentFormModel {
     // sourcery: backingComponent=_UserConsentPagesContainer
     // sourcery: customFunctionBuilder=IndexedViewBuilder
     // sourcery: genericParameter.type=IndexedViewContainer
-    var userConsentPages: [UserConsentPageModel] { get }
+    var userConsentPages: [_UserConsentPageModel] { get }
     
     // sourcery: no_view
     // sourcery: default.value="true"
@@ -316,10 +342,19 @@ public protocol UserConsentFormModel {
 }
 
 // sourcery: generated_component_composite
-public protocol UserConsentPageModel: TitleComponent, BodyAttributedTextComponent {
+public protocol _UserConsentPageModel: TitleComponent, BodyAttributedTextComponent {
     // sourcery: genericParameter.name = ActionView
     var action: _ActionModel? { get }
 }
+
+@available(*, unavailable, renamed: "_UserConsentViewModel", message: "Will be removed in the future release. Please create UserConsentView with other initializers instead.")
+public protocol UserConsentViewModel {}
+
+@available(*, unavailable, renamed: "_UserConsentFormModel", message: "Will be removed in the future release. Please create UserConsentForm with other initializers instead.")
+public protocol UserConsentFormModel {}
+
+@available(*, unavailable, renamed: "_UserConsentPageModel", message: "Will be removed in the future release. Please create UserConsentPage with other initializers instead.")
+public protocol UserConsentPageModel {}
 
 // sourcery: importFrameworks = ["Combine"]
 // sourcery: virtualPropHeightDidChangePublisher = "public private(set) var _heightDidChangePublisher = CurrentValueSubject<CGFloat, Never>(0)"
@@ -352,7 +387,7 @@ public protocol UserConsentPageModel: TitleComponent, BodyAttributedTextComponen
 // sourcery: virtualPropAppliesTintColorToImage = "var appliesTintColorToImage = true"
 // sourcery: generated_component_composite
 // sourcery: virtualPropIsRequired = "var isRequired = false"
-public protocol SignatureCaptureViewModel: AnyObject {
+public protocol _SignatureCaptureViewModel: AnyObject {
     // sourcery: default.value = nil
     // sourcery: no_view
     var title: String? { get }
@@ -394,11 +429,19 @@ public protocol SignatureCaptureViewModel: AnyObject {
     var onDelete: (() -> Void)? { get }
 }
 
+/// Deprecated SignatureCaptureViewModel
+@available(*, unavailable, renamed: "_SignatureCaptureViewModel", message: "Will be removed in the future release. Please create SignatureCaptureView with other initializers instead.")
+public protocol SignatureCaptureViewModel {}
+
 // sourcery: generated_component_composite
-public protocol EmptyStateViewModel: TitleComponent, DescriptionTextComponent, DetailImageComponent {
+public protocol _EmptyStateViewModel: TitleComponent, DescriptionTextComponent, DetailImageComponent {
     // sourcery: genericParameter.name = ActionView
     var action: _ActionModel? { get }
 }
+
+/// Deprecated EmptyStateViewModel
+@available(*, deprecated, renamed: "_EmptyStateViewModel", message: "Will be removed in the future release. Please use IllustratedMessageComponent instead.")
+public protocol EmptyStateViewModel {}
 
 // sourcery: generated_component_not_configurable
 public protocol DurationPickerModel: DurationPickerComponent {}
@@ -489,7 +532,7 @@ public protocol _StepProgressIndicatorModel: AnyObject {
 public protocol StepProgressIndicatorModel {}
 
 // sourcery: generated_component_composite
-public protocol FilterFeedbackBarModel: AnyObject {
+public protocol _FilterFeedbackBarModel: AnyObject {
     // sourcery: bindingProperty
     // sourcery: backingComponent=_SortFilterMenuItemContainer
     var items: [[SortFilterItem]] { get set }
@@ -499,12 +542,15 @@ public protocol FilterFeedbackBarModel: AnyObject {
     var onUpdate: (() -> Void)? { get set }
 }
 
+@available(*, unavailable, renamed: "_FilterFeedbackBarModel", message: "Will be removed in the future release. Please use FilterFeedbackBar instead.")
+public protocol FilterFeedbackBarModel {}
+
 // sourcery: virtualPropActionHelper = "@StateObject var context: SortFilterContext = SortFilterContext()"
 // sourcery: add_env_props = "dismiss"
 // sourcery: generated_component_composite
 // sourcery: virtualPropViewSize = "@State var size: CGSize = .zero"
 // sourcery: virtualPropPopoverWidth = "let popoverWidth = 393.0"
-public protocol SortFilterViewModel: AnyObject, TitleComponent {
+public protocol _SortFilterViewModel: AnyObject, TitleComponent {
     // sourcery: bindingProperty
     // sourcery: backingComponent=_SortFilterCFGItemContainer
     var items: [[SortFilterItem]] { get set }
@@ -526,37 +572,58 @@ public protocol SortFilterViewModel: AnyObject, TitleComponent {
     var onUpdate: (() -> Void)? { get }
 }
 
-// sourcery: add_env_props = "filterFeedbackBarStyle"
+@available(*, unavailable, renamed: "_SortFilterViewModel", message: "Will be removed in the future release. Please use SortFilterView instead.")
+public protocol SortFilterViewModel {}
+
+// sourcery: add_env_props = "_filterFeedbackBarStyle"
 // sourcery: virtualPropActionHelper = "@StateObject var context: SortFilterContext = SortFilterContext()"
 // sourcery: generated_component_composite
-public protocol FilterFeedbackBarItemModel: LeftIconComponent, TitleComponent, RightIconComponent {
+public protocol _FilterFeedbackBarItemModel: LeftIconComponent, TitleComponent, RightIconComponent {
     // sourcery: no_view
     var isSelected: Bool { get }
 }
+
+@available(*, unavailable, renamed: "_FilterFeedbackBarItemModel", message: "Will be removed in the future release. Please use FilterFeedbackBarItem instead.")
+public protocol FilterFeedbackBarItemModel {}
 
 // sourcery: add_env_props = "optionListPickerStyle"
 // sourcery: generated_component_composite
-public protocol FilterFeedbackBarButtonModel: LeftIconComponent, TitleComponent {
+public protocol _FilterFeedbackBarButtonModel: LeftIconComponent, TitleComponent {
     // sourcery: no_view
     var isSelected: Bool { get }
 }
 
-// sourcery: add_env_props = "filterFeedbackBarStyle"
+@available(*, unavailable, renamed: "_FilterFeedbackBarButtonModel", message: "Will be removed in the future release. Please use FilterFeedbackBarButton instead.")
+public protocol FilterFeedbackBarButtonModel {}
+
+// sourcery: add_env_props = "_filterFeedbackBarStyle"
 // sourcery: generated_component_not_configurable
 // sourcery: virtualPropHeight = "@State var _height: CGFloat = 0"
 // sourcery: virtualPropUpdateSearchListPickerHeight = "var updateSearchListPickerHeight: ((CGFloat) -> ())? = nil"
 // sourcery: virtualPropBarItemFrame = "var barItemFrame: CGRect = .zero"
 public protocol OptionListPickerItemModel: OptionListPickerComponent {
+    // sourcery: default.value = nil
+    // sourcery: no_view
+    var title: String? { get set }
+    
     // sourcery: default.value = .fixed
     // sourcery: no_view
     var itemLayout: OptionListPickerItemLayoutType { get set }
     
+    // sourcery: default.value = true
+    // sourcery: no_view
+    var allowsMultipleSelection: Bool { get set }
+
+    // sourcery: default.value = false
+    // sourcery: no_view
+    var allowsEmptySelection: Bool { get set }
+
     // sourcery: default.value = nil
     // sourcery: no_view
     var onTap: ((_ index: Int) -> Void)? { get }
 }
 
-// sourcery: add_env_props = "filterFeedbackBarStyle"
+// sourcery: add_env_props = "_filterFeedbackBarStyle"
 // sourcery: generated_component_not_configurable
 // sourcery: virtualPropHeight = "@State var _height: CGFloat = 44"
 // sourcery: virtualPropSearchText = "@State var _searchText: String = """
@@ -571,17 +638,21 @@ public protocol OptionListPickerItemModel: OptionListPickerComponent {
 // sourcery: virtualPropDisableListEntriesSection = "var disableListEntriesSection: Bool = false"
 // sourcery: virtualPropAllowsDisplaySelectionCount = "var allowsDisplaySelectionCount: Bool = true"
 // sourcery: virtualPropBarItemFrame = "var barItemFrame: CGRect = .zero"
+// sourcery: virtualPropUUIDValueOptions = "var uuidValueOptions: [[String: String]] = []"
 public protocol SearchListPickerItemModel: OptionListPickerComponent {
     // sourcery: default.value = nil
     // sourcery: no_view
     var onTap: ((_ index: Int) -> Void)? { get }
 }
 
-// sourcery: add_env_props = "filterFeedbackBarStyle"
+// sourcery: add_env_props = "_filterFeedbackBarStyle"
 // sourcery: generated_component_not_configurable
 // sourcery: add_env_props = "fioriToggleStyle"
-public protocol SwitchPickerItemModel: SwitchPickerComponent {}
+public protocol _SwitchPickerItemModel: SwitchPickerComponent {}
 
-// sourcery: add_env_props = "filterFeedbackBarStyle"
+@available(*, unavailable, renamed: "_SwitchPickerItemModel", message: "Will be removed in the future release. Please create SwitchView with other initializers instead.")
+public protocol SwitchPickerItemModel {}
+
+// sourcery: add_env_props = "_filterFeedbackBarStyle"
 // sourcery: generated_component_not_configurable
 public protocol SliderPickerItemModel: SliderPickerComponent {}

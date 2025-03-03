@@ -8,11 +8,20 @@ public struct SubAttribute {
 
     @Environment(\.subAttributeStyle) var style
 
+    var componentIdentifier: String = SubAttribute.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder subAttribute: () -> any View = { EmptyView() }) {
+    public init(@ViewBuilder subAttribute: () -> any View = { EmptyView() },
+                componentIdentifier: String? = SubAttribute.identifier)
+    {
         self.subAttribute = subAttribute()
+        self.componentIdentifier = componentIdentifier ?? SubAttribute.identifier
     }
+}
+
+public extension SubAttribute {
+    static let identifier = "fiori_subattribute_component"
 }
 
 public extension SubAttribute {
@@ -29,6 +38,7 @@ public extension SubAttribute {
     internal init(_ configuration: SubAttributeConfiguration, shouldApplyDefaultStyle: Bool) {
         self.subAttribute = configuration.subAttribute
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -37,7 +47,7 @@ extension SubAttribute: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(subAttribute: .init(self.subAttribute))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, subAttribute: .init(self.subAttribute))).typeErased
                 .transformEnvironment(\.subAttributeStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -55,7 +65,7 @@ private extension SubAttribute {
     }
 
     func defaultStyle() -> some View {
-        SubAttribute(.init(subAttribute: .init(self.subAttribute)))
+        SubAttribute(.init(componentIdentifier: self.componentIdentifier, subAttribute: .init(self.subAttribute)))
             .shouldApplyDefaultStyle(false)
             .subAttributeStyle(.fiori)
             .typeErased

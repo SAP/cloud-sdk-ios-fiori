@@ -8,11 +8,20 @@ public struct Counter {
 
     @Environment(\.counterStyle) var style
 
+    var componentIdentifier: String = Counter.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder counter: () -> any View = { EmptyView() }) {
+    public init(@ViewBuilder counter: () -> any View = { EmptyView() },
+                componentIdentifier: String? = Counter.identifier)
+    {
         self.counter = counter()
+        self.componentIdentifier = componentIdentifier ?? Counter.identifier
     }
+}
+
+public extension Counter {
+    static let identifier = "fiori_counter_component"
 }
 
 public extension Counter {
@@ -29,6 +38,7 @@ public extension Counter {
     internal init(_ configuration: CounterConfiguration, shouldApplyDefaultStyle: Bool) {
         self.counter = configuration.counter
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -37,7 +47,7 @@ extension Counter: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(counter: .init(self.counter))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, counter: .init(self.counter))).typeErased
                 .transformEnvironment(\.counterStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -55,7 +65,7 @@ private extension Counter {
     }
 
     func defaultStyle() -> some View {
-        Counter(.init(counter: .init(self.counter)))
+        Counter(.init(componentIdentifier: self.componentIdentifier, counter: .init(self.counter)))
             .shouldApplyDefaultStyle(false)
             .counterStyle(.fiori)
             .typeErased

@@ -18,6 +18,8 @@ public enum DisplayState: Equatable {
     case completed
     /// Checkout state is failed.
     case failed
+    /// Checkout state is AI processing.
+    case aiProgress
 }
 
 // Base Layout style
@@ -25,47 +27,62 @@ public struct CheckoutIndicatorBaseStyle: CheckoutIndicatorStyle {
     @State var rotationDegrees: Double = -90
     @State var symbolRevealAmount: Double = 0
     @State var color = Color.preferredColor(.tintColor)
-    
+    @State private var isAnimating = false
+
     @ViewBuilder
     public func makeBody(_ configuration: CheckoutIndicatorConfiguration) -> some View {
         GeometryReader { reader in
-            ZStack {
-                Circle()
-                    .trim(from: 0, to: configuration.displayState == .inProgress ? 0.9 : 1)
-                    .stroke(
-                        self.color,
-                        style: StrokeStyle(
-                            lineWidth: 2
-                        )
-                    )
-                    .id(configuration.displayState)
-                    .rotationEffect(.degrees(self.rotationDegrees))
+            if configuration.displayState == .aiProgress {
+                Image(fioriName: "fiori.ai")
+                    .resizable()
+                    .scaledToFill()
+                    .scaleEffect(self.isAnimating ? 1.2 : 1.0)
+                    .opacity(self.isAnimating ? 0.8 : 1.0)
+                    .foregroundColor(Color.preferredColor(.tintColor))
                     .onAppear {
-                        DispatchQueue.main.async {
-                            self.performAnimation(state: configuration.displayState)
+                        withAnimation(Animation.easeInOut(duration: 1.5).repeatForever(autoreverses: true)) {
+                            self.isAnimating.toggle()
                         }
                     }
-                    .setOnChange(of: configuration.displayState, action1: { newValue in
-                        self.performAnimation(state: newValue)
-                    }) { _, newValue in
-                        self.performAnimation(state: newValue)
-                    }
-                if configuration.displayState != .inProgress {
-                    (configuration.displayState == .completed
-                        ? self.drawCheckmark(size: reader.size, lineWidth: 3)
-                        : self.drawExclamationPoint(size: reader.size, lineWidth: 3))
-                        .trim(from: 0, to: self.symbolRevealAmount)
+            } else {
+                ZStack {
+                    Circle()
+                        .trim(from: 0, to: configuration.displayState == .inProgress ? 0.9 : 1)
                         .stroke(
                             self.color,
                             style: StrokeStyle(
-                                lineWidth: 3
+                                lineWidth: 2
                             )
                         )
+                        .id(configuration.displayState)
+                        .rotationEffect(.degrees(self.rotationDegrees))
+                        .onAppear {
+                            DispatchQueue.main.async {
+                                self.performAnimation(state: configuration.displayState)
+                            }
+                        }
+                        .setOnChange(of: configuration.displayState, action1: { newValue in
+                            self.performAnimation(state: newValue)
+                        }) { _, newValue in
+                            self.performAnimation(state: newValue)
+                        }
+                    if configuration.displayState != .inProgress {
+                        (configuration.displayState == .completed
+                            ? self.drawCheckmark(size: reader.size, lineWidth: 3)
+                            : self.drawExclamationPoint(size: reader.size, lineWidth: 3))
+                            .trim(from: 0, to: self.symbolRevealAmount)
+                            .stroke(
+                                self.color,
+                                style: StrokeStyle(
+                                    lineWidth: 3
+                                )
+                            )
+                    }
                 }
             }
         }
     }
-    
+
     func performAnimation(state: DisplayState) {
         let inProgressAnimation = Animation.linear(duration: 1.3).repeatForever(autoreverses: false)
         switch state {
@@ -89,6 +106,8 @@ public struct CheckoutIndicatorBaseStyle: CheckoutIndicatorStyle {
                 self.color = Color.preferredColor(.negativeLabel)
                 self.symbolRevealAmount = 1
             }
+        default:
+            return
         }
     }
     

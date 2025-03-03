@@ -8,11 +8,20 @@ public struct SelectedEntriesSectionTitle {
 
     @Environment(\.selectedEntriesSectionTitleStyle) var style
 
+    var componentIdentifier: String = SelectedEntriesSectionTitle.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder selectedEntriesSectionTitle: () -> any View = { Text("Selected".localizedFioriString()) }) {
+    public init(@ViewBuilder selectedEntriesSectionTitle: () -> any View = { Text("Selected".localizedFioriString()) },
+                componentIdentifier: String? = SelectedEntriesSectionTitle.identifier)
+    {
         self.selectedEntriesSectionTitle = selectedEntriesSectionTitle()
+        self.componentIdentifier = componentIdentifier ?? SelectedEntriesSectionTitle.identifier
     }
+}
+
+public extension SelectedEntriesSectionTitle {
+    static let identifier = "fiori_selectedentriessectiontitle_component"
 }
 
 public extension SelectedEntriesSectionTitle {
@@ -29,6 +38,7 @@ public extension SelectedEntriesSectionTitle {
     internal init(_ configuration: SelectedEntriesSectionTitleConfiguration, shouldApplyDefaultStyle: Bool) {
         self.selectedEntriesSectionTitle = configuration.selectedEntriesSectionTitle
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -37,7 +47,7 @@ extension SelectedEntriesSectionTitle: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(selectedEntriesSectionTitle: .init(self.selectedEntriesSectionTitle))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, selectedEntriesSectionTitle: .init(self.selectedEntriesSectionTitle))).typeErased
                 .transformEnvironment(\.selectedEntriesSectionTitleStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -55,7 +65,7 @@ private extension SelectedEntriesSectionTitle {
     }
 
     func defaultStyle() -> some View {
-        SelectedEntriesSectionTitle(.init(selectedEntriesSectionTitle: .init(self.selectedEntriesSectionTitle)))
+        SelectedEntriesSectionTitle(.init(componentIdentifier: self.componentIdentifier, selectedEntriesSectionTitle: .init(self.selectedEntriesSectionTitle)))
             .shouldApplyDefaultStyle(false)
             .selectedEntriesSectionTitleStyle(.fiori)
             .typeErased

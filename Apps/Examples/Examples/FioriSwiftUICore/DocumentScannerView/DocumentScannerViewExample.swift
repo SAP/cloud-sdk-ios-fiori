@@ -14,7 +14,7 @@ struct DocumentScannerViewExample: View {
         VStack {
             Toggle("Save Results as PDF", isOn: self.$isPDFDocument)
                 .padding(EdgeInsets(top: 10, leading: 20, bottom: 10, trailing: 20))
-                .onChange(of: self.isPDFDocument) { _ in
+                .onChange(of: self.isPDFDocument) {
                     if self.isPDFDocument {
                         self.viewerTitle = "Results as PDF"
                     } else {
@@ -75,6 +75,7 @@ struct DocumentScannerViewExample: View {
                     print("Failed to scan: \(error)")
                 }
             }, outputFormat: self.isPDFDocument ? .pdf : .images)
+                .edgesIgnoringSafeArea(.all)
         }
     }
 }

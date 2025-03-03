@@ -21,6 +21,10 @@ public struct BannerMessageItemModel: Identifiable {
     public var title: String
     /// Message Type
     public var messageType: BannerMultiMessageType
+    /// Show detail link or not, default is true
+    public var showDetailLink: Bool
+    /// Show close action or not, default is true
+    public var showCloseAction: Bool
     
     public var typeDesc: String {
         switch self.messageType {
@@ -37,11 +41,13 @@ public struct BannerMessageItemModel: Identifiable {
         }
     }
     
-    public init(id: UUID = UUID(), icon: (any View)?, title: String, messageType: BannerMultiMessageType) {
+    public init(id: UUID = UUID(), icon: (any View)?, title: String, messageType: BannerMultiMessageType, showDetailLink: Bool = true, showCloseAction: Bool = true) {
         self.id = id
         self.icon = icon
         self.title = title
         self.messageType = messageType
+        self.showDetailLink = showDetailLink
+        self.showCloseAction = showCloseAction
     }
 }
 
@@ -78,28 +84,25 @@ public struct BannerMessageListModel: Identifiable, Equatable {
 // Base Layout style
 public struct BannerMultiMessageSheetBaseStyle: BannerMultiMessageSheetStyle {
     @StateObject private var categorySelect = CategorySelect()
-    @State private var dimensionSelector: DimensionSelector = {
-        let all = NSLocalizedString("All", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
-        return DimensionSelector(segmentTitles: [all], selectedIndex: 0)
-    }()
-
     @State private var timer: Timer?
     @State private var cancellableSet: Set<AnyCancellable> = []
+    @State var dimensionSelectorIndex: Int? = 0
+    @State var dimensionSelectorTitles: [String] = [NSLocalizedString("All", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")]
     
-    private func resetDimensionSelector(_ configuration: BannerMultiMessageSheetConfiguration) {
-        var titles: [String] = []
+    private func resetDimensionSelectorTitles(_ configuration: BannerMultiMessageSheetConfiguration) {
+        self.dimensionSelectorTitles = [NSLocalizedString("All", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")]
         for element in configuration.bannerMultiMessages {
-            titles.append(element.category)
+            self.dimensionSelectorTitles.append(element.category)
         }
-        let all = NSLocalizedString("All", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
-        self.dimensionSelector.titles = [all] + titles
-        self.dimensionSelector.selectedIndex = 0
     }
     
     // List in popover will not expand automatically in iPad. Here, calculate the content height and resize its frame's height, the maximum of the popover height in iPad is 380.
     @State private var scrollContentHeight: CGFloat = 40
     @State private var dimensionSelectorHeight: CGFloat = 0
     @State private var messageCountHeight: CGFloat = 65
+    
+    private let viewDetailOpenUrlStr = "MultiMessageViewDetail"
+    
     private var popoverHeight: CGFloat? {
         let contentHeight = self.messageCountHeight + self.dimensionSelectorHeight + self.scrollContentHeight
         return !self.isPhone ? min(contentHeight, 380.0) : nil
@@ -110,7 +113,7 @@ public struct BannerMultiMessageSheetBaseStyle: BannerMultiMessageSheetStyle {
     }
     
     private func filteredBannerMultiMessages(_ configuration: BannerMultiMessageSheetConfiguration) -> [BannerMessageListModel] {
-        let selectedCategory = self.dimensionSelector.titles[self.categorySelect.categorySelectedIndex]
+        let selectedCategory = self.dimensionSelectorTitles[self.categorySelect.categorySelectedIndex]
         let filteredBannerMultiMessages = configuration.bannerMultiMessages.filter { model in
             if self.categorySelect.categorySelectedIndex == 0 {
                 return true
@@ -129,13 +132,20 @@ public struct BannerMultiMessageSheetBaseStyle: BannerMultiMessageSheetStyle {
         return String(format: NSLocalizedString("Messages (%d)", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), count)
     }
     
-    private func attributedMessageTitle(title: String, typeDesc: String) -> AttributedString {
-        let attributedString = NSMutableAttributedString(string: title)
+    private func attributedMessageTitle(title: String, typeDesc: String, showDetailLink: Bool) -> AttributedString {
+        var attributedString = AttributedString(title)
+        
+        // show detail link to view message detail
+        if !showDetailLink {
+            return attributedString
+        }
         
         let viewDetailStr = String(format: NSLocalizedString("View %@", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), typeDesc)
-        let viewDetail = NSAttributedString(string: " \(viewDetailStr)", attributes: [.foregroundColor: UIColor(Color.preferredColor(.tintColor))])
+        var viewDetail = AttributedString(" \(viewDetailStr)")
+        viewDetail.foregroundColor = .preferredColor(.tintColor)
+        viewDetail.link = URL(string: self.viewDetailOpenUrlStr)
         attributedString.append(viewDetail)
-        return AttributedString(attributedString)
+        return attributedString
     }
     
     private func removeItem(_ configuration: BannerMultiMessageSheetConfiguration, category: String, at id: UUID) {
@@ -248,12 +258,13 @@ public struct BannerMultiMessageSheetBaseStyle: BannerMultiMessageSheetStyle {
             .sizeReader { size in
                 self.messageCountHeight = size.height
             }
-            
-            self.dimensionSelector
+            DimensionSelector(titles: self.dimensionSelectorTitles, selectedIndex: self.$dimensionSelectorIndex)
                 .sizeReader { size in
                     self.dimensionSelectorHeight = size.height
                 }
-            
+                .onChange(of: self.dimensionSelectorIndex) {
+                    self.categorySelect.categorySelectedIndex = self.dimensionSelectorIndex ?? 0
+                }
             List {
                 ForEach(self.filteredBannerMultiMessages(configuration), id: \.id) { element in
                     Section {
@@ -285,20 +296,28 @@ public struct BannerMultiMessageSheetBaseStyle: BannerMultiMessageSheetStyle {
                                 BannerMessage(icon: {
                                     (message.icon ?? self.defaultIcon(message.messageType)).typeErased
                                 }, title: {
-                                    Text(self.attributedMessageTitle(title: message.title, typeDesc: message.typeDesc))
+                                    Text(self.attributedMessageTitle(title: message.title, typeDesc: message.typeDesc, showDetailLink: message.showDetailLink))
+                                        .environment(\.openURL, OpenURLAction(handler: { url in
+                                            if url.absoluteString == self.viewDetailOpenUrlStr {
+                                                self.showItemDetail(configuration, category: element.category, at: message.id)
+                                            }
+                                            return .handled
+                                        }))
                                 }, closeAction: {
-                                    FioriButton { state in
-                                        if state == .normal {
-                                            self.removeItem(configuration, category: element.category, at: message.id)
+                                    if message.showCloseAction {
+                                        FioriButton { state in
+                                            if state == .normal {
+                                                self.removeItem(configuration, category: element.category, at: message.id)
+                                            }
+                                        } label: { _ in
+                                            Image(fioriName: "fiori.decline")
                                         }
-                                    } label: { _ in
-                                        Image(fioriName: "fiori.decline")
+                                    } else {
+                                        EmptyView()
                                     }
                                 }, topDivider: {
                                     EmptyView()
-                                }, bannerTapAction: {
-                                    self.showItemDetail(configuration, category: element.category, at: message.id)
-                                }, alignment: .leading, hideSeparator: true, messageType: message.messageType)
+                                }, bannerTapAction: nil, alignment: .leading, hideSeparator: true, messageType: message.messageType)
                                     .bannerMessageStyle(self.bannerMessageStyle(message.messageType))
                                     .typeErased
                                     .swipeActions(edge: .trailing, allowsFullSwipe: true) {
@@ -351,15 +370,10 @@ public struct BannerMultiMessageSheetBaseStyle: BannerMultiMessageSheetStyle {
                     self.dismiss(configuration)
                 })
             }
-            self.resetDimensionSelector(configuration)
+            self.resetDimensionSelectorTitles(configuration)
         }
         .onAppear {
-            self.resetDimensionSelector(configuration)
-            self.dimensionSelector.selectionDidChangePublisher
-                .sink(receiveValue: { index in
-                    self.categorySelect.categorySelectedIndex = index ?? 0
-                })
-                .store(in: &self.cancellableSet)
+            self.resetDimensionSelectorTitles(configuration)
         }
     }
 }

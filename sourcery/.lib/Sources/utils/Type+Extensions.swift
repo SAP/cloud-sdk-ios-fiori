@@ -69,15 +69,33 @@ public extension Type {
     var componentName: String {
         var name = name
         let deprecatedComponents = ["_ListPickerItemModel",
+                                    "_UserConsentViewModel",
+                                    "_UserConsentFormModel",
+                                    "_UserConsentPageModel",
                                     "_ActionModel",
+                                    "_TextInputModel",
                                     "_ObjectItemModel",
                                     "_SideBarModel",
                                     "_SideBarListItemModel",
                                     "_ActivityItemModel",
                                     "_ActivityItemsModel",
+                                    "_ContactItemModel",
                                     "_ProgressIndicatorModel",
+                                    "_KPIProgressItemModel",
                                     "_SingleStepModel",
-                                    "_StepProgressIndicatorModel"]
+                                    "_StepProgressIndicatorModel",
+                                    "_ObjectHeaderModel",
+                                    "_HeaderChartModel",
+                                    "_SectionHeaderModel",
+                                    "_SwitchPickerItemModel",
+                                    "_FilterFeedbackBarButtonModel",
+                                    "_FilterFeedbackBarItemModel",
+                                    "_FilterFeedbackBarModel",
+                                    "_KeyValueItemModel",
+                                    "_SortFilterViewModel",
+                                    "_SignatureCaptureViewModel",
+                                    "_EmptyStateViewModel",
+                                    "_KPIItemModel"]
         
         if deprecatedComponents.contains(name) {
             return name.replacingOccurrences(of: "Model", with: "")

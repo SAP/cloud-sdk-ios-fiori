@@ -22,7 +22,14 @@ struct AnyCardBodyStyle: CardBodyStyle {
 }
 
 public struct CardBodyConfiguration {
+    public var componentIdentifier: String = "fiori_cardbody_component"
     public let cardBody: CardBody
 
     public typealias CardBody = ConfigurationViewWrapper
+}
+
+extension CardBodyConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }

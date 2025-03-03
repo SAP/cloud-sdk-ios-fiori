@@ -22,8 +22,10 @@ struct AnyTextFieldFormViewStyle: TextFieldFormViewStyle {
 }
 
 public struct TextFieldFormViewConfiguration {
+    public var componentIdentifier: String = "fiori_textfieldformview_component"
     public let title: Title
     @Binding public var text: String
+    public let isSecureEnabled: Bool?
     public let placeholder: Placeholder
     public let controlState: ControlState
     public let errorMessage: AttributedString?
@@ -45,11 +47,16 @@ public struct TextFieldFormViewConfiguration {
     public typealias MandatoryFieldIndicator = ConfigurationViewWrapper
 }
 
+extension TextFieldFormViewConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
+}
+
 public struct TextFieldFormViewFioriStyle: TextFieldFormViewStyle {
     public func makeBody(_ configuration: TextFieldFormViewConfiguration) -> some View {
         TextFieldFormView(configuration)
             .titleStyle(TitleFioriStyle(textFieldFormViewConfiguration: configuration))
-            .textInputFieldStyle(TextInputFieldFioriStyle(textFieldFormViewConfiguration: configuration))
             .placeholderStyle(PlaceholderFioriStyle(textFieldFormViewConfiguration: configuration))
             .mandatoryFieldIndicatorStyle(MandatoryFieldIndicatorFioriStyle(textFieldFormViewConfiguration: configuration))
             .titleFormViewStyle(TitleFormViewFioriStyle(textFieldFormViewConfiguration: configuration))

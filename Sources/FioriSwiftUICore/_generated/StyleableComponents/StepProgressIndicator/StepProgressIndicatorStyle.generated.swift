@@ -22,6 +22,7 @@ struct AnyStepProgressIndicatorStyle: StepProgressIndicatorStyle {
 }
 
 public struct StepProgressIndicatorConfiguration {
+    public var componentIdentifier: String = "fiori_stepprogressindicator_component"
     public let title: Title
     public let action: Action
     public let cancelAction: CancelAction
@@ -32,6 +33,12 @@ public struct StepProgressIndicatorConfiguration {
     public typealias Action = ConfigurationViewWrapper
     public typealias CancelAction = ConfigurationViewWrapper
     public typealias Steps = any IndexedViewContainer
+}
+
+extension StepProgressIndicatorConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }
 
 public struct StepProgressIndicatorFioriStyle: StepProgressIndicatorStyle {

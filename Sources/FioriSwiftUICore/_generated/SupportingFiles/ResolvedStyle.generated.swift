@@ -99,6 +99,22 @@ extension AllEntriesSectionTitleStyle {
     }
 }
 
+// MARK: AllowActionStyle
+
+struct ResolvedAllowActionStyle<Style: AllowActionStyle>: View {
+    let style: Style
+    let configuration: AllowActionConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension AllowActionStyle {
+    func resolve(configuration: AllowActionConfiguration) -> some View {
+        ResolvedAllowActionStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: ApplyActionStyle
 
 struct ResolvedApplyActionStyle<Style: ApplyActionStyle>: View {
@@ -323,6 +339,22 @@ extension BannerMultiMessageSheetStyle {
     }
 }
 
+// MARK: BodyTextStyle
+
+struct ResolvedBodyTextStyle<Style: BodyTextStyle>: View {
+    let style: Style
+    let configuration: BodyTextConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension BodyTextStyle {
+    func resolve(configuration: BodyTextConfiguration) -> some View {
+        ResolvedBodyTextStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: CancelActionStyle
 
 struct ResolvedCancelActionStyle<Style: CancelActionStyle>: View {
@@ -467,6 +499,22 @@ extension CheckoutIndicatorStyle {
     }
 }
 
+// MARK: ClearActionStyle
+
+struct ResolvedClearActionStyle<Style: ClearActionStyle>: View {
+    let style: Style
+    let configuration: ClearActionConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension ClearActionStyle {
+    func resolve(configuration: ClearActionConfiguration) -> some View {
+        ResolvedClearActionStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: CloseActionStyle
 
 struct ResolvedCloseActionStyle<Style: CloseActionStyle>: View {
@@ -480,6 +528,22 @@ struct ResolvedCloseActionStyle<Style: CloseActionStyle>: View {
 extension CloseActionStyle {
     func resolve(configuration: CloseActionConfiguration) -> some View {
         ResolvedCloseActionStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: ContactItemStyle
+
+struct ResolvedContactItemStyle<Style: ContactItemStyle>: View {
+    let style: Style
+    let configuration: ContactItemConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension ContactItemStyle {
+    func resolve(configuration: ContactItemConfiguration) -> some View {
+        ResolvedContactItemStyle(style: self, configuration: configuration)
     }
 }
 
@@ -547,6 +611,22 @@ extension DemoViewStyle {
     }
 }
 
+// MARK: DenyActionStyle
+
+struct ResolvedDenyActionStyle<Style: DenyActionStyle>: View {
+    let style: Style
+    let configuration: DenyActionConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension DenyActionStyle {
+    func resolve(configuration: DenyActionConfiguration) -> some View {
+        ResolvedDenyActionStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: DescriptionStyle
 
 struct ResolvedDescriptionStyle<Style: DescriptionStyle>: View {
@@ -560,6 +640,22 @@ struct ResolvedDescriptionStyle<Style: DescriptionStyle>: View {
 extension DescriptionStyle {
     func resolve(configuration: DescriptionConfiguration) -> some View {
         ResolvedDescriptionStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: DescriptionTextStyle
+
+struct ResolvedDescriptionTextStyle<Style: DescriptionTextStyle>: View {
+    let style: Style
+    let configuration: DescriptionTextConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension DescriptionTextStyle {
+    func resolve(configuration: DescriptionTextConfiguration) -> some View {
+        ResolvedDescriptionTextStyle(style: self, configuration: configuration)
     }
 }
 
@@ -579,6 +675,22 @@ extension DeselectAllActionStyle {
     }
 }
 
+// MARK: DetailContentStyle
+
+struct ResolvedDetailContentStyle<Style: DetailContentStyle>: View {
+    let style: Style
+    let configuration: DetailContentConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension DetailContentStyle {
+    func resolve(configuration: DetailContentConfiguration) -> some View {
+        ResolvedDetailContentStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: DetailImageStyle
 
 struct ResolvedDetailImageStyle<Style: DetailImageStyle>: View {
@@ -595,6 +707,38 @@ extension DetailImageStyle {
     }
 }
 
+// MARK: DimensionSegmentStyle
+
+struct ResolvedDimensionSegmentStyle<Style: DimensionSegmentStyle>: View {
+    let style: Style
+    let configuration: DimensionSegmentConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension DimensionSegmentStyle {
+    func resolve(configuration: DimensionSegmentConfiguration) -> some View {
+        ResolvedDimensionSegmentStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: DimensionSelectorStyle
+
+struct ResolvedDimensionSelectorStyle<Style: DimensionSelectorStyle>: View {
+    let style: Style
+    let configuration: DimensionSelectorConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension DimensionSelectorStyle {
+    func resolve(configuration: DimensionSelectorConfiguration) -> some View {
+        ResolvedDimensionSelectorStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: FilledIconStyle
 
 struct ResolvedFilledIconStyle<Style: FilledIconStyle>: View {
@@ -608,6 +752,70 @@ struct ResolvedFilledIconStyle<Style: FilledIconStyle>: View {
 extension FilledIconStyle {
     func resolve(configuration: FilledIconConfiguration) -> some View {
         ResolvedFilledIconStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: FilterFeedbackBarButtonStyle
+
+struct ResolvedFilterFeedbackBarButtonStyle<Style: FilterFeedbackBarButtonStyle>: View {
+    let style: Style
+    let configuration: FilterFeedbackBarButtonConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension FilterFeedbackBarButtonStyle {
+    func resolve(configuration: FilterFeedbackBarButtonConfiguration) -> some View {
+        ResolvedFilterFeedbackBarButtonStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: FilterFeedbackBarStyle
+
+struct ResolvedFilterFeedbackBarStyle<Style: FilterFeedbackBarStyle>: View {
+    let style: Style
+    let configuration: FilterFeedbackBarConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension FilterFeedbackBarStyle {
+    func resolve(configuration: FilterFeedbackBarConfiguration) -> some View {
+        ResolvedFilterFeedbackBarStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: FilterFeedbackBarItemStyle
+
+struct ResolvedFilterFeedbackBarItemStyle<Style: FilterFeedbackBarItemStyle>: View {
+    let style: Style
+    let configuration: FilterFeedbackBarItemConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension FilterFeedbackBarItemStyle {
+    func resolve(configuration: FilterFeedbackBarItemConfiguration) -> some View {
+        ResolvedFilterFeedbackBarItemStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: FilterFormViewStyle
+
+struct ResolvedFilterFormViewStyle<Style: FilterFormViewStyle>: View {
+    let style: Style
+    let configuration: FilterFormViewConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension FilterFormViewStyle {
+    func resolve(configuration: FilterFormViewConfiguration) -> some View {
+        ResolvedFilterFormViewStyle(style: self, configuration: configuration)
     }
 }
 
@@ -739,6 +947,22 @@ extension HeaderActionStyle {
     }
 }
 
+// MARK: HeaderChartStyle
+
+struct ResolvedHeaderChartStyle<Style: HeaderChartStyle>: View {
+    let style: Style
+    let configuration: HeaderChartConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension HeaderChartStyle {
+    func resolve(configuration: HeaderChartConfiguration) -> some View {
+        ResolvedHeaderChartStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: HelperTextStyle
 
 struct ResolvedHelperTextStyle<Style: HelperTextStyle>: View {
@@ -851,6 +1075,22 @@ extension InformationViewStyle {
     }
 }
 
+// MARK: InnerCircleStyle
+
+struct ResolvedInnerCircleStyle<Style: InnerCircleStyle>: View {
+    let style: Style
+    let configuration: InnerCircleConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension InnerCircleStyle {
+    func resolve(configuration: InnerCircleConfiguration) -> some View {
+        ResolvedInnerCircleStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: JouleWelcomeScreenStyle
 
 struct ResolvedJouleWelcomeScreenStyle<Style: JouleWelcomeScreenStyle>: View {
@@ -867,6 +1107,86 @@ extension JouleWelcomeScreenStyle {
     }
 }
 
+// MARK: KPIContentStyle
+
+struct ResolvedKPIContentStyle<Style: KPIContentStyle>: View {
+    let style: Style
+    let configuration: KPIContentConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension KPIContentStyle {
+    func resolve(configuration: KPIContentConfiguration) -> some View {
+        ResolvedKPIContentStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: KPIItemStyle
+
+struct ResolvedKPIItemStyle<Style: KPIItemStyle>: View {
+    let style: Style
+    let configuration: KPIItemConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension KPIItemStyle {
+    func resolve(configuration: KPIItemConfiguration) -> some View {
+        ResolvedKPIItemStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: KPIProgressItemStyle
+
+struct ResolvedKPIProgressItemStyle<Style: KPIProgressItemStyle>: View {
+    let style: Style
+    let configuration: KPIProgressItemConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension KPIProgressItemStyle {
+    func resolve(configuration: KPIProgressItemConfiguration) -> some View {
+        ResolvedKPIProgressItemStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: KPISubItemStyle
+
+struct ResolvedKPISubItemStyle<Style: KPISubItemStyle>: View {
+    let style: Style
+    let configuration: KPISubItemConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension KPISubItemStyle {
+    func resolve(configuration: KPISubItemConfiguration) -> some View {
+        ResolvedKPISubItemStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: KeyStyle
+
+struct ResolvedKeyStyle<Style: KeyStyle>: View {
+    let style: Style
+    let configuration: KeyConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension KeyStyle {
+    func resolve(configuration: KeyConfiguration) -> some View {
+        ResolvedKeyStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: KeyValueFormViewStyle
 
 struct ResolvedKeyValueFormViewStyle<Style: KeyValueFormViewStyle>: View {
@@ -880,6 +1200,22 @@ struct ResolvedKeyValueFormViewStyle<Style: KeyValueFormViewStyle>: View {
 extension KeyValueFormViewStyle {
     func resolve(configuration: KeyValueFormViewConfiguration) -> some View {
         ResolvedKeyValueFormViewStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: KeyValueItemStyle
+
+struct ResolvedKeyValueItemStyle<Style: KeyValueItemStyle>: View {
+    let style: Style
+    let configuration: KeyValueItemConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension KeyValueItemStyle {
+    func resolve(configuration: KeyValueItemConfiguration) -> some View {
+        ResolvedKeyValueItemStyle(style: self, configuration: configuration)
     }
 }
 
@@ -1171,6 +1507,22 @@ extension MoreActionOverflowStyle {
     }
 }
 
+// MARK: NextActionStyle
+
+struct ResolvedNextActionStyle<Style: NextActionStyle>: View {
+    let style: Style
+    let configuration: NextActionConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension NextActionStyle {
+    func resolve(configuration: NextActionConfiguration) -> some View {
+        ResolvedNextActionStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: NodeStyle
 
 struct ResolvedNodeStyle<Style: NodeStyle>: View {
@@ -1184,6 +1536,22 @@ struct ResolvedNodeStyle<Style: NodeStyle>: View {
 extension NodeStyle {
     func resolve(configuration: NodeConfiguration) -> some View {
         ResolvedNodeStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: NotNowActionStyle
+
+struct ResolvedNotNowActionStyle<Style: NotNowActionStyle>: View {
+    let style: Style
+    let configuration: NotNowActionConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension NotNowActionStyle {
+    func resolve(configuration: NotNowActionConfiguration) -> some View {
+        ResolvedNotNowActionStyle(style: self, configuration: configuration)
     }
 }
 
@@ -1216,6 +1584,22 @@ struct ResolvedNowIndicatorNodeStyle<Style: NowIndicatorNodeStyle>: View {
 extension NowIndicatorNodeStyle {
     func resolve(configuration: NowIndicatorNodeConfiguration) -> some View {
         ResolvedNowIndicatorNodeStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: ObjectHeaderStyle
+
+struct ResolvedObjectHeaderStyle<Style: ObjectHeaderStyle>: View {
+    let style: Style
+    let configuration: ObjectHeaderConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension ObjectHeaderStyle {
+    func resolve(configuration: ObjectHeaderConfiguration) -> some View {
+        ResolvedObjectHeaderStyle(style: self, configuration: configuration)
     }
 }
 
@@ -1296,6 +1680,22 @@ struct ResolvedOptionsStyle<Style: OptionsStyle>: View {
 extension OptionsStyle {
     func resolve(configuration: OptionsConfiguration) -> some View {
         ResolvedOptionsStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: OuterCircleStyle
+
+struct ResolvedOuterCircleStyle<Style: OuterCircleStyle>: View {
+    let style: Style
+    let configuration: OuterCircleConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension OuterCircleStyle {
+    func resolve(configuration: OuterCircleConfiguration) -> some View {
+        ResolvedOuterCircleStyle(style: self, configuration: configuration)
     }
 }
 
@@ -1443,6 +1843,22 @@ extension ProgressIndicatorProtocolStyle {
     }
 }
 
+// MARK: PromptStyle
+
+struct ResolvedPromptStyle<Style: PromptStyle>: View {
+    let style: Style
+    let configuration: PromptConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension PromptStyle {
+    func resolve(configuration: PromptConfiguration) -> some View {
+        ResolvedPromptStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: RangeSliderControlStyle
 
 struct ResolvedRangeSliderControlStyle<Style: RangeSliderControlStyle>: View {
@@ -1488,6 +1904,38 @@ struct ResolvedRatingControlFormViewStyle<Style: RatingControlFormViewStyle>: Vi
 extension RatingControlFormViewStyle {
     func resolve(configuration: RatingControlFormViewConfiguration) -> some View {
         ResolvedRatingControlFormViewStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: ReenterSignatureActionStyle
+
+struct ResolvedReenterSignatureActionStyle<Style: ReenterSignatureActionStyle>: View {
+    let style: Style
+    let configuration: ReenterSignatureActionConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension ReenterSignatureActionStyle {
+    func resolve(configuration: ReenterSignatureActionConfiguration) -> some View {
+        ResolvedReenterSignatureActionStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: ResetActionStyle
+
+struct ResolvedResetActionStyle<Style: ResetActionStyle>: View {
+    let style: Style
+    let configuration: ResetActionConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension ResetActionStyle {
+    func resolve(configuration: ResetActionConfiguration) -> some View {
+        ResolvedResetActionStyle(style: self, configuration: configuration)
     }
 }
 
@@ -1555,6 +2003,22 @@ extension Row3Style {
     }
 }
 
+// MARK: SaveActionStyle
+
+struct ResolvedSaveActionStyle<Style: SaveActionStyle>: View {
+    let style: Style
+    let configuration: SaveActionConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension SaveActionStyle {
+    func resolve(configuration: SaveActionConfiguration) -> some View {
+        ResolvedSaveActionStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: SecondaryActionStyle
 
 struct ResolvedSecondaryActionStyle<Style: SecondaryActionStyle>: View {
@@ -1584,6 +2048,38 @@ struct ResolvedSecondaryTimestampStyle<Style: SecondaryTimestampStyle>: View {
 extension SecondaryTimestampStyle {
     func resolve(configuration: SecondaryTimestampConfiguration) -> some View {
         ResolvedSecondaryTimestampStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: SectionFooterStyle
+
+struct ResolvedSectionFooterStyle<Style: SectionFooterStyle>: View {
+    let style: Style
+    let configuration: SectionFooterConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension SectionFooterStyle {
+    func resolve(configuration: SectionFooterConfiguration) -> some View {
+        ResolvedSectionFooterStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: SectionHeaderStyle
+
+struct ResolvedSectionHeaderStyle<Style: SectionHeaderStyle>: View {
+    let style: Style
+    let configuration: SectionHeaderConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension SectionHeaderStyle {
+    func resolve(configuration: SectionHeaderConfiguration) -> some View {
+        ResolvedSectionHeaderStyle(style: self, configuration: configuration)
     }
 }
 
@@ -1667,6 +2163,22 @@ extension SideBarListItemStyle {
     }
 }
 
+// MARK: SignatureCaptureViewStyle
+
+struct ResolvedSignatureCaptureViewStyle<Style: SignatureCaptureViewStyle>: View {
+    let style: Style
+    let configuration: SignatureCaptureViewConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension SignatureCaptureViewStyle {
+    func resolve(configuration: SignatureCaptureViewConfiguration) -> some View {
+        ResolvedSignatureCaptureViewStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: SingleStepStyle
 
 struct ResolvedSingleStepStyle<Style: SingleStepStyle>: View {
@@ -1680,6 +2192,38 @@ struct ResolvedSingleStepStyle<Style: SingleStepStyle>: View {
 extension SingleStepStyle {
     func resolve(configuration: SingleStepConfiguration) -> some View {
         ResolvedSingleStepStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: SortFilterViewStyle
+
+struct ResolvedSortFilterViewStyle<Style: SortFilterViewStyle>: View {
+    let style: Style
+    let configuration: SortFilterViewConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension SortFilterViewStyle {
+    func resolve(configuration: SortFilterViewConfiguration) -> some View {
+        ResolvedSortFilterViewStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: StartSignatureActionStyle
+
+struct ResolvedStartSignatureActionStyle<Style: StartSignatureActionStyle>: View {
+    let style: Style
+    let configuration: StartSignatureActionConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension StartSignatureActionStyle {
+    func resolve(configuration: StartSignatureActionConfiguration) -> some View {
+        ResolvedStartSignatureActionStyle(style: self, configuration: configuration)
     }
 }
 
@@ -2131,6 +2675,38 @@ extension TrailingAccessoryStyle {
     }
 }
 
+// MARK: TrendStyle
+
+struct ResolvedTrendStyle<Style: TrendStyle>: View {
+    let style: Style
+    let configuration: TrendConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension TrendStyle {
+    func resolve(configuration: TrendConfiguration) -> some View {
+        ResolvedTrendStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: TrendImageStyle
+
+struct ResolvedTrendImageStyle<Style: TrendImageStyle>: View {
+    let style: Style
+    let configuration: TrendImageConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension TrendImageStyle {
+    func resolve(configuration: TrendImageConfiguration) -> some View {
+        ResolvedTrendImageStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: UpperThumbStyle
 
 struct ResolvedUpperThumbStyle<Style: UpperThumbStyle>: View {
@@ -2144,6 +2720,54 @@ struct ResolvedUpperThumbStyle<Style: UpperThumbStyle>: View {
 extension UpperThumbStyle {
     func resolve(configuration: UpperThumbConfiguration) -> some View {
         ResolvedUpperThumbStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: UserConsentFormStyle
+
+struct ResolvedUserConsentFormStyle<Style: UserConsentFormStyle>: View {
+    let style: Style
+    let configuration: UserConsentFormConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension UserConsentFormStyle {
+    func resolve(configuration: UserConsentFormConfiguration) -> some View {
+        ResolvedUserConsentFormStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: UserConsentPageStyle
+
+struct ResolvedUserConsentPageStyle<Style: UserConsentPageStyle>: View {
+    let style: Style
+    let configuration: UserConsentPageConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension UserConsentPageStyle {
+    func resolve(configuration: UserConsentPageConfiguration) -> some View {
+        ResolvedUserConsentPageStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: UserConsentViewStyle
+
+struct ResolvedUserConsentViewStyle<Style: UserConsentViewStyle>: View {
+    let style: Style
+    let configuration: UserConsentViewConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension UserConsentViewStyle {
+    func resolve(configuration: UserConsentViewConfiguration) -> some View {
+        ResolvedUserConsentViewStyle(style: self, configuration: configuration)
     }
 }
 
@@ -2192,5 +2816,37 @@ struct ResolvedValuePickerStyle<Style: ValuePickerStyle>: View {
 extension ValuePickerStyle {
     func resolve(configuration: ValuePickerConfiguration) -> some View {
         ResolvedValuePickerStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: WatermarkStyle
+
+struct ResolvedWatermarkStyle<Style: WatermarkStyle>: View {
+    let style: Style
+    let configuration: WatermarkConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension WatermarkStyle {
+    func resolve(configuration: WatermarkConfiguration) -> some View {
+        ResolvedWatermarkStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: XmarkStyle
+
+struct ResolvedXmarkStyle<Style: XmarkStyle>: View {
+    let style: Style
+    let configuration: XmarkConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension XmarkStyle {
+    func resolve(configuration: XmarkConfiguration) -> some View {
+        ResolvedXmarkStyle(style: self, configuration: configuration)
     }
 }

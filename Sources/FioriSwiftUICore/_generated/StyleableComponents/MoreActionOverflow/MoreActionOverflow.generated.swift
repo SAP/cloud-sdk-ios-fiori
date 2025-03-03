@@ -8,11 +8,20 @@ public struct MoreActionOverflow {
 
     @Environment(\.moreActionOverflowStyle) var style
 
+    var componentIdentifier: String = MoreActionOverflow.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder moreActionOverflow: () -> any View = { EmptyView() }) {
+    public init(@ViewBuilder moreActionOverflow: () -> any View = { EmptyView() },
+                componentIdentifier: String? = MoreActionOverflow.identifier)
+    {
         self.moreActionOverflow = moreActionOverflow()
+        self.componentIdentifier = componentIdentifier ?? MoreActionOverflow.identifier
     }
+}
+
+public extension MoreActionOverflow {
+    static let identifier = "fiori_moreactionoverflow_component"
 }
 
 public extension MoreActionOverflow {
@@ -23,6 +32,7 @@ public extension MoreActionOverflow {
     internal init(_ configuration: MoreActionOverflowConfiguration, shouldApplyDefaultStyle: Bool) {
         self.moreActionOverflow = configuration.moreActionOverflow
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -31,7 +41,7 @@ extension MoreActionOverflow: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(moreActionOverflow: .init(self.moreActionOverflow))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, moreActionOverflow: .init(self.moreActionOverflow))).typeErased
                 .transformEnvironment(\.moreActionOverflowStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -49,7 +59,7 @@ private extension MoreActionOverflow {
     }
 
     func defaultStyle() -> some View {
-        MoreActionOverflow(.init(moreActionOverflow: .init(self.moreActionOverflow)))
+        MoreActionOverflow(.init(componentIdentifier: self.componentIdentifier, moreActionOverflow: .init(self.moreActionOverflow)))
             .shouldApplyDefaultStyle(false)
             .moreActionOverflowStyle(.fiori)
             .typeErased

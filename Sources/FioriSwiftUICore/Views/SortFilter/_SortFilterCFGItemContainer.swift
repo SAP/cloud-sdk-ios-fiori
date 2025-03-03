@@ -13,7 +13,9 @@ public struct _SortFilterCFGItemContainer {
     
     @Binding var _items: [[SortFilterItem]]
     @State var height = 88.0
-    
+    /// The frame of the view toggle to show this view.
+    var btnFrame: CGRect = .zero
+    var showSubList: ((Bool) -> Void)?
     #if !os(visionOS)
         let popoverWidth = 393.0
     #else
@@ -22,9 +24,16 @@ public struct _SortFilterCFGItemContainer {
     @State var stepperViewHeight: CGFloat = 110
     @State var searchListHeight: CGFloat = 88.0
     @State var _keyboardHeight: CGFloat = 0.0
+    @State private var onErrorMessage = ""
+    @State private var sliderDescType: SliderValueChangeHandler.SliderInformationType = .fiori
 
-    public init(items: Binding<[[SortFilterItem]]>) {
+    /// Create a SortFilterCFGItemContainer view.
+    /// - Parameters:
+    ///   - items: Option views in the list.
+    ///   - btnFrame: The frame of the view toggle to show this view.
+    public init(items: Binding<[[SortFilterItem]]>, btnFrame: CGRect = .zero) {
         self.__items = items
+        self.btnFrame = btnFrame
     }
 }
 
@@ -35,10 +44,12 @@ extension _SortFilterCFGItemContainer: View {
             ForEach(0 ..< self._items.count, id: \.self) { r in
                 Section {
                     ForEach(0 ..< self._items[r].count, id: \.self) { c in
-                        self.rowView(row: r, column: c)
-                            .listRowSeparator(c == self._items[r].count - 1 ? .hidden : .visible, edges: .all)
-                            .padding([.leading, .trailing], UIDevice.current.userInterfaceIdiom != .phone ? 13 : 16)
-                            .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? self.popoverWidth : nil)
+                        if self._items[r][c].showsOnFilterFeedbackBar {
+                            self.rowView(row: r, column: c)
+                                .listRowSeparator(c == self._items[r].count - 1 ? .hidden : .visible, edges: .all)
+                                .padding([.leading, .trailing], UIDevice.current.userInterfaceIdiom != .phone ? 13 : 16)
+                                .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? self.popoverWidth : nil)
+                        }
                     }
                     #if !os(visionOS)
                         Rectangle().fill(Color.preferredColor(.primaryGroupedBackground))
@@ -58,7 +69,7 @@ extension _SortFilterCFGItemContainer: View {
         .listRowSpacing(0)
         .listStyle(.plain)
         .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? self.popoverWidth : nil)
-        .frame(height: self.height)
+        .frame(height: UIDevice.current.userInterfaceIdiom != .phone ? self.listHeight() : nil)
         #if !os(visionOS)
             .listRowBackground(Color.preferredColor(.secondaryGroupedBackground))
         #else
@@ -67,20 +78,20 @@ extension _SortFilterCFGItemContainer: View {
             .environment(\.defaultMinListRowHeight, 0)
             .environment(\.defaultMinListHeaderHeight, 0)
             .modifier(FioriIntrospectModifier<UIScrollView> { scrollView in
-                DispatchQueue.main.async {
-                    let popverHeight = Screen.bounds.size.height
-                    let safeAreaInset = self.getSafeAreaInsets()
-                    var maxScrollViewHeight = popverHeight - safeAreaInset.top - safeAreaInset.bottom - (UIDevice.current.userInterfaceIdiom != .phone ? 190 : 150)
-                    if UIDevice.current.userInterfaceIdiom == .pad {
-                        maxScrollViewHeight -= self._keyboardHeight
+                if !self.context.isPickerListShown {
+                    DispatchQueue.main.async {
+                        let maxScrollHeight = self.calculateMaxScrollHeight()
+                        self.height = min(scrollView.contentSize.height, maxScrollHeight)
                     }
-                    self.height = min(scrollView.contentSize.height, maxScrollViewHeight)
                 }
             })
             .setOnChange(of: self._items) {
                 self.checkUpdateButtonState()
             }
             .onAppear {
+                self.context.isPickerListShown = false
+                self.context.isSearchBarHidden = true
+                
                 self.context.handleCancel = {
                     for r in 0 ..< self._items.count {
                         for c in 0 ..< self._items[r].count {
@@ -127,6 +138,88 @@ extension _SortFilterCFGItemContainer: View {
         self.context.isResetButtonEnabled = isResetButtonEnabled
     }
     
+    private func listHeight() -> CGFloat {
+        if self.searchListHeight != 88.0 {
+            if self.context.isPickerListShown {
+                return self.searchListHeight
+            } else {
+                return self.height
+            }
+        } else {
+            return self.height
+        }
+    }
+    
+    private func calculateMaxScrollHeight() -> CGFloat {
+        let screenHeight = Screen.bounds.size.height
+        let safeAreaInset = UIEdgeInsets.getSafeAreaInsets()
+        if UIDevice.current.userInterfaceIdiom != .phone {
+            var maxScrollViewHeight = screenHeight - self.additionalHeight()
+            if self.btnFrame.arrowDirection() == .top {
+                maxScrollViewHeight -= (self.btnFrame.maxY + 30)
+                maxScrollViewHeight -= self._keyboardHeight
+            } else if self.btnFrame.arrowDirection() == .bottom {
+                maxScrollViewHeight -= (screenHeight - self.btnFrame.minY + 30) + safeAreaInset.bottom + 13
+                if self._keyboardHeight > 0 {
+                    let keyboardItemHeight = (self._keyboardHeight - (screenHeight - self.btnFrame.minY))
+                    if keyboardItemHeight > 0 {
+                        maxScrollViewHeight -= keyboardItemHeight
+                    }
+                }
+            }
+            return maxScrollViewHeight
+        } else {
+            var maxScrollViewHeight = screenHeight - 56
+            maxScrollViewHeight -= (safeAreaInset.top + safeAreaInset.bottom + 60)
+            maxScrollViewHeight -= self._keyboardHeight
+            return maxScrollViewHeight
+        }
+    }
+    
+    private func additionalHeight() -> CGFloat {
+        let isNotIphone = UIDevice.current.userInterfaceIdiom != .phone
+        var height = 0.0
+        height += UIEdgeInsets.getSafeAreaInsets().bottom + (isNotIphone ? 13 : 16)
+        height += isNotIphone ? 50 : 56
+        if self._keyboardHeight == 0 {
+            height += 52
+        }
+        return height
+    }
+    
+    /// Calculate list height when picker displayMode is `.list`.
+    /// - Parameter pickerItem: PickerItem
+    /// - Returns: list height
+    private func calculatePickerListHeight(pickerItem: SortFilterItem.PickerItem) -> CGFloat {
+        let isNotIphone = UIDevice.current.userInterfaceIdiom != .phone
+        let screenHeight = Screen.bounds.size.height
+        let safeAreaInset = UIEdgeInsets.getSafeAreaInsets()
+        var maxScrollViewHeight = screenHeight - UIEdgeInsets.getSafeAreaInsets().bottom - (isNotIphone ? 13 : 16) - (isNotIphone ? 50 : 56)
+        if !pickerItem.isSearchBarHidden {
+            if self._keyboardHeight == 0 {
+                maxScrollViewHeight -= 52
+            }
+        }
+        if UIDevice.current.userInterfaceIdiom != .phone {
+            if self.btnFrame.arrowDirection() == .top {
+                maxScrollViewHeight -= (self.btnFrame.maxY + 30)
+                maxScrollViewHeight -= self._keyboardHeight
+            } else if self.btnFrame.arrowDirection() == .bottom {
+                maxScrollViewHeight -= (screenHeight - self.btnFrame.minY + 30) + safeAreaInset.bottom + 13
+                if self._keyboardHeight > 0 {
+                    let keyboardItemHeight = (self._keyboardHeight - (screenHeight - self.btnFrame.minY))
+                    if keyboardItemHeight > 0 {
+                        maxScrollViewHeight -= keyboardItemHeight
+                    }
+                }
+            }
+        } else {
+            maxScrollViewHeight -= (safeAreaInset.top + 30)
+            maxScrollViewHeight -= self._keyboardHeight
+        }
+        return maxScrollViewHeight
+    }
+    
     @ViewBuilder
     func rowView(row r: Int, column c: Int) -> some View {
         switch self._items[r][c] {
@@ -165,20 +258,24 @@ extension _SortFilterCFGItemContainer: View {
                 disableListEntriesSection: self._items[r][c].picker.disableListEntriesSection,
                 allowsDisplaySelectionCount: self._items[r][c].picker.allowsDisplaySelectionCount
             ) { index in
-                self._items[r][c].picker.onTap(option: self._items[r][c].picker.valueOptions[index])
+                self._items[r][c].picker.optionOnTap(index)
             } selectAll: { isAll in
                 self._items[r][c].picker.selectAll(isAll)
-            } updateSearchListPickerHeight: { height in
-                if UIDevice.current.userInterfaceIdiom == .pad {
-                    if self._keyboardHeight > 0 {
-                        self.searchListHeight = height + (UIDevice.current.userInterfaceIdiom != .phone ? 190 : 150)
-                    } else {
-                        self.searchListHeight = self.height
-                    }
-                }
             }
-            .ifApply(UIDevice.current.userInterfaceIdiom == .pad, content: { v in
+            .modifier(FioriIntrospectModifier<UIScrollView> { scrollView in
+                DispatchQueue.main.async {
+                    self.searchListHeight = min(scrollView.contentSize.height, self.calculatePickerListHeight(pickerItem: self._items[r][c].picker))
+                }
+            })
+            .ifApply(UIDevice.current.userInterfaceIdiom != .phone, content: { v in
                 v.frame(height: self.searchListHeight)
+                    .onAppear {
+                        self.context.isPickerListShown = true
+                        self.context.isSearchBarHidden = self._items[r][c].picker.isSearchBarHidden
+                    }
+                    .onDisappear {
+                        self.searchListHeight = 88.0
+                    }
             })
             .ifApply(!self._items[r][c].picker.resetButtonConfiguration.isHidden, content: { v in
                 v.toolbar {
@@ -203,8 +300,12 @@ extension _SortFilterCFGItemContainer: View {
             .onReceive(NotificationCenter.default.publisher(for: UIApplication.keyboardDidShowNotification)) { notif in
                 let rect = (notif.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect) ?? .zero
                 self._keyboardHeight = rect.height
+                if self.searchListHeight > self._keyboardHeight {
+                    self.searchListHeight -= self._keyboardHeight
+                }
             }
             .onReceive(NotificationCenter.default.publisher(for: UIApplication.keyboardDidHideNotification)) { _ in
+                self.searchListHeight += self._keyboardHeight
                 self._keyboardHeight = 0
             }
             Spacer()
@@ -285,9 +386,13 @@ extension _SortFilterCFGItemContainer: View {
     }
     
     func switcher(row r: Int, column c: Int) -> some View {
-        VStack {
-            SwitchPickerItem(value: Binding<Bool?>(get: { self._items[r][c].switch.workingValue }, set: { self._items[r][c].switch.workingValue = $0 }), name: self._items[r][c].switch.name, hint: nil)
-        }
+        SwitchView(title: AttributedString(self._items[r][c].switch.name), isOn: Binding<Bool>(get: { self._items[r][c].switch.workingValue ?? false }, set: { self._items[r][c].switch.workingValue = $0 }))
+            .titleStyle(content: { config in
+                config.title
+                    .font(.fiori(forTextStyle: .subheadline, weight: .bold, isItalic: false, isCondensed: false))
+                    .foregroundColor(Color.preferredColor(.primaryLabel))
+            })
+            .padding([.top, .bottom], 6.5)
     }
     
     func slider(row r: Int, column c: Int) -> some View {
@@ -298,13 +403,48 @@ extension _SortFilterCFGItemContainer: View {
                     .foregroundColor(Color.preferredColor(.primaryLabel))
                 Spacer()
             }
-            SliderPickerItem(
-                value: Binding<Int?>(get: { self._items[r][c].slider.workingValue }, set: { self._items[r][c].slider.workingValue = $0 }),
-                formatter: self._items[r][c].slider.formatter,
-                minimumValue: self._items[r][c].slider.minimumValue,
-                maximumValue: self._items[r][c].slider.maximumValue
-            )
+            
+            let titleView: any View = self._items[r][c].slider.formatter != nil ? Text(self._items[r][c].slider.formatter ?? "") : EmptyView()
+            if self._items[r][c].slider.sliderMode == .single {
+                FioriSlider(
+                    titleView: { titleView },
+                    value: Binding<Double>(get: { self._items[r][c].slider.workingValue ?? self._items[r][c].slider.minimumValue }, set: { self._items[r][c].slider.workingValue = $0 }),
+                    range: self._items[r][c].slider.range,
+                    step: self._items[r][c].slider.step,
+                    decimalPlaces: self._items[r][c].slider.decimalPlaces,
+                    description: self._items[r][c].slider.hint.attributedString,
+                    showsValueLabel: true
+                )
+            } else {
+                FioriSlider(
+                    titleView: { titleView },
+                    lowerValue: Binding<Double>(get: { self._items[r][c].slider.workingLowerValue ?? self._items[r][c].slider.minimumValue }, set: { self._items[r][c].slider.workingLowerValue = $0 }),
+                    upperValue: Binding<Double>(get: { self._items[r][c].slider.workingUpperValue ?? self._items[r][c].slider.maximumValue }, set: { self._items[r][c].slider.workingUpperValue = $0 }),
+                    range: self._items[r][c].slider.range,
+                    step: self._items[r][c].slider.step,
+                    decimalPlaces: self._items[r][c].slider.decimalPlaces,
+                    description: self.onErrorMessage == "" ? self._items[r][c].slider.hint.attributedString : self.onErrorMessage.attributedString,
+                    onRangeValueChange: { isEditing, lowerValue, upperValue in
+                        if !isEditing {
+                            guard let onValueChange = self._items[r][c].slider.onValueChange else {
+                                self.sliderDescType = .fiori
+                                self.onErrorMessage = ""
+                                return
+                            }
+                            let (type, message) = onValueChange.onValueChange(lowerValue, upperValue)
+                            self.sliderDescType = type
+                            self.onErrorMessage = message
+                        }
+                    }
+                )
+                .ifApply(self.sliderDescType == .error, content: { v in
+                    v.leadingAccessoryStyle(textFieldStyle: FioriSliderTextFieldStyle(borderColor: self.lowerTextFieldBorderColor(item: self._items[r][c].slider), focusedBorderColor: self.lowerTextFieldBorderColor(item: self._items[r][c].slider), borderWidth: 0.5, focusedBorderWidth: 2.0))
+                        .trailingAccessoryStyle(textFieldStyle: FioriSliderTextFieldStyle(borderColor: self.upperTextFieldBorderColor(item: self._items[r][c].slider), focusedBorderColor: self.upperTextFieldBorderColor(item: self._items[r][c].slider), borderWidth: 0.5, focusedBorderWidth: 2.0))
+                })
+                .informationViewStyle(self.getInfoStyle()).typeErased
+            }
         }
+        .padding([.leading, .trailing], 0)
     }
     
     func datetimePicker(row r: Int, column c: Int) -> some View {
@@ -373,7 +513,7 @@ extension _SortFilterCFGItemContainer: View {
                     }
                 }
             } label: {
-                FilterFeedbackBarItem(leftIcon: self.icon(name: self._items[r][c].picker.icon, isVisible: true), title: self._items[r][c].picker.label, isSelected: self._items[r][c].picker.isChecked)
+                FilterFeedbackBarItem(icon: self.icon(name: self._items[r][c].picker.icon, isVisible: true), title: AttributedString(self._items[r][c].picker.label), isSelected: self._items[r][c].picker.isChecked)
             }
         }
     }
@@ -448,5 +588,38 @@ extension _SortFilterCFGItemContainer: View {
             return .zero
         }
         return keyWindow.safeAreaInsets
+    }
+    
+    private func lowerTextFieldBorderColor(item: SortFilterItem.SliderItem) -> Color? {
+        let workingLowerValue = item.workingLowerValue ?? item.minimumValue
+        let workingUpperValue = item.workingUpperValue ?? item.maximumValue
+        if !(item.range ~= workingLowerValue) || workingLowerValue > workingUpperValue {
+            return Color.preferredColor(.negativeLabel)
+        }
+        return nil
+    }
+    
+    private func upperTextFieldBorderColor(item: SortFilterItem.SliderItem) -> Color? {
+        let workingLowerValue = item.workingLowerValue ?? item.minimumValue
+        let workingUpperValue = item.workingUpperValue ?? item.maximumValue
+        if !(item.range ~= workingUpperValue) || workingLowerValue > workingUpperValue {
+            return Color.preferredColor(.negativeLabel)
+        }
+        return nil
+    }
+    
+    private func getInfoStyle() -> any InformationViewStyle {
+        switch self.sliderDescType {
+        case .error:
+            return InformationViewErrorStyle.error
+        case .fiori:
+            return InformationViewFioriStyle.fiori
+        case .informational:
+            return InformationViewInformationalStyle.informational
+        case .success:
+            return InformationViewSuccessStyle.success
+        case .warning:
+            return InformationViewWarningStyle.warning
+        }
     }
 }

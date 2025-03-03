@@ -8,11 +8,20 @@ public struct Icon {
 
     @Environment(\.iconStyle) var style
 
+    var componentIdentifier: String = Icon.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder icon: () -> any View = { EmptyView() }) {
+    public init(@ViewBuilder icon: () -> any View = { EmptyView() },
+                componentIdentifier: String? = Icon.identifier)
+    {
         self.icon = icon()
+        self.componentIdentifier = componentIdentifier ?? Icon.identifier
     }
+}
+
+public extension Icon {
+    static let identifier = "fiori_icon_component"
 }
 
 public extension Icon {
@@ -29,6 +38,7 @@ public extension Icon {
     internal init(_ configuration: IconConfiguration, shouldApplyDefaultStyle: Bool) {
         self.icon = configuration.icon
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -37,7 +47,7 @@ extension Icon: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(icon: .init(self.icon))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, icon: .init(self.icon))).typeErased
                 .transformEnvironment(\.iconStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -55,7 +65,7 @@ private extension Icon {
     }
 
     func defaultStyle() -> some View {
-        Icon(.init(icon: .init(self.icon)))
+        Icon(.init(componentIdentifier: self.componentIdentifier, icon: .init(self.icon)))
             .shouldApplyDefaultStyle(false)
             .iconStyle(.fiori)
             .typeErased

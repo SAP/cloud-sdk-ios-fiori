@@ -9,6 +9,7 @@ struct LoadingIndicatorExample: View {
     @State var isPresented5: Bool = true
     @State var isPresented6: Bool = true
     @State var isPresented7: Bool = true
+    @State var isAIStyle: Bool = false
     var message: AttributedString {
         var result = AttributedString("bottom indicator")
         result.font = .largeTitle
@@ -20,11 +21,14 @@ struct LoadingIndicatorExample: View {
     var body: some View {
         ScrollView {
             LazyVStack(alignment: .leading, spacing: 0, pinnedViews: [.sectionHeaders]) {
+                Toggle("AI style", isOn: self.$isAIStyle)
+                    .padding(.horizontal, 16)
                 Section {
-                    LoadingIndicator(title: "Loading...", isPresented: .constant(true))
+                    LoadingIndicator(title: "Loading...", isPresented: .constant(true), isAIEnabled: self.isAIStyle)
                         .frame(maxWidth: .infinity)
                         .multilineTextAlignment(.center)
                         .padding()
+                      
                 } header: {
                     Text("Default Loading Indicator")
                         .padding(.leading, 20)
@@ -43,7 +47,7 @@ struct LoadingIndicatorExample: View {
                                         .rainbow()
                                 }, progress: {
                                     Progress()
-                                }, duration: 3, isPresented: self.$isPresented2)
+                                }, duration: 3, isPresented: self.$isPresented2, isAIEnabled: self.isAIStyle)
                                     .indicatorPosition(.top)
                                     .indicatorTint(Color.random)
                             })
@@ -59,20 +63,20 @@ struct LoadingIndicatorExample: View {
 
                 Section {
                     VStack(alignment: .leading) {
-                        LoadingIndicator(title: "mini size indicator", isPresented: self.$isPresented3)
+                        LoadingIndicator(title: "mini size indicator", isPresented: self.$isPresented3, isAIEnabled: self.isAIStyle)
                             .indicatorPosition(.leading)
                             .indicatorControlSize(.mini)
-                        LoadingIndicator(title: "small size indicator", isPresented: self.$isPresented3)
+                        LoadingIndicator(title: "small size indicator", isPresented: self.$isPresented3, isAIEnabled: self.isAIStyle)
                             .indicatorPosition(.leading)
                             .indicatorControlSize(.small)
-                        LoadingIndicator(title: "regular size indicator", isPresented: self.$isPresented3)
+                        LoadingIndicator(title: "regular size indicator", isPresented: self.$isPresented3, isAIEnabled: self.isAIStyle)
                             .indicatorPosition(.leading)
                             .indicatorControlSize(.regular)
-                        LoadingIndicator(title: "large size indicator", isPresented: self.$isPresented3)
+                        LoadingIndicator(title: "large size indicator", isPresented: self.$isPresented3, isAIEnabled: self.isAIStyle)
                             .indicatorPosition(.leading)
                             .indicatorControlSize(.large)
                         if #available(iOS 17.0, *) {
-                            LoadingIndicator(title: "extraLarge size indicator", isPresented: self.$isPresented3)
+                            LoadingIndicator(title: "extraLarge size indicator", isPresented: self.$isPresented3, isAIEnabled: isAIStyle)
                                 .indicatorPosition(.leading)
                                 .indicatorControlSize(.extraLarge)
                         } else {
@@ -88,7 +92,7 @@ struct LoadingIndicatorExample: View {
 
                 Section {
                     VStack(alignment: .center) {
-                        LoadingIndicator(title: "leading indicator", isPresented: self.$isPresented3)
+                        LoadingIndicator(title: "leading indicator", isPresented: self.$isPresented3, isAIEnabled: self.isAIStyle)
                             .indicatorPosition(.leading)
                             .indicatorTint(Color.random)
                         Spacer()
@@ -99,7 +103,7 @@ struct LoadingIndicatorExample: View {
                                     .foregroundStyle(Color.red)
                             }, progress: {
                                 Progress()
-                            }, isPresented: self.$isPresented5)
+                            }, isPresented: self.$isPresented5, isAIEnabled: isAIStyle)
                                 .indicatorPosition(.top)
                                 .indicatorTint(Color.random)
                         } else {
@@ -112,11 +116,11 @@ struct LoadingIndicatorExample: View {
                                 .foregroundStyle(Color.green)
                         }, progress: {
                             Progress()
-                        }, isPresented: self.$isPresented4)
+                        }, isPresented: self.$isPresented4, isAIEnabled: self.isAIStyle)
                             .indicatorPosition(.trailing)
                             .indicatorTint(Color.random)
                         Spacer()
-                        LoadingIndicator(title: self.message, isPresented: self.$isPresented6)
+                        LoadingIndicator(title: self.message, isPresented: self.$isPresented6, isAIEnabled: self.isAIStyle)
                             .indicatorPosition(.bottom)
                             .indicatorTint(Color.random)
                     }
@@ -131,7 +135,7 @@ struct LoadingIndicatorExample: View {
                 
                 Section {
                     VStack {
-                        LoadingIndicator(title: "Loading...", duration: 10, isPresented: self.$isPresented7)
+                        LoadingIndicator(title: "Loading...", duration: 10, isPresented: self.$isPresented7, isAIEnabled: self.isAIStyle)
                             .indicatorTint(Color.random)
                             .indicatorControlSize(.large)
                         Button("Show") {

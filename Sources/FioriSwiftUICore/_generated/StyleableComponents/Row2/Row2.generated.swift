@@ -8,11 +8,20 @@ public struct Row2 {
 
     @Environment(\.row2Style) var style
 
+    var componentIdentifier: String = Row2.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder row2: () -> any View = { EmptyView() }) {
+    public init(@ViewBuilder row2: () -> any View = { EmptyView() },
+                componentIdentifier: String? = Row2.identifier)
+    {
         self.row2 = row2()
+        self.componentIdentifier = componentIdentifier ?? Row2.identifier
     }
+}
+
+public extension Row2 {
+    static let identifier = "fiori_row2_component"
 }
 
 public extension Row2 {
@@ -23,6 +32,7 @@ public extension Row2 {
     internal init(_ configuration: Row2Configuration, shouldApplyDefaultStyle: Bool) {
         self.row2 = configuration.row2
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -31,7 +41,7 @@ extension Row2: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(row2: .init(self.row2))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, row2: .init(self.row2))).typeErased
                 .transformEnvironment(\.row2StyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -49,7 +59,7 @@ private extension Row2 {
     }
 
     func defaultStyle() -> some View {
-        Row2(.init(row2: .init(self.row2)))
+        Row2(.init(componentIdentifier: self.componentIdentifier, row2: .init(self.row2)))
             .shouldApplyDefaultStyle(false)
             .row2Style(.fiori)
             .typeErased

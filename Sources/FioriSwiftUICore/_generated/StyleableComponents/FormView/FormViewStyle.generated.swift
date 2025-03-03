@@ -22,8 +22,15 @@ struct AnyFormViewStyle: FormViewStyle {
 }
 
 public struct FormViewConfiguration {
+    public var componentIdentifier: String = "fiori_formview_component"
     public let controlState: ControlState
     public let errorMessage: AttributedString?
+}
+
+extension FormViewConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }
 
 public struct FormViewFioriStyle: FormViewStyle {

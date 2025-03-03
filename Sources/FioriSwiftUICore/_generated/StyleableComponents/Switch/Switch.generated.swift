@@ -8,11 +8,20 @@ public struct Switch {
 
     @Environment(\.switchStyle) var style
 
+    var componentIdentifier: String = Switch.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(isOn: Binding<Bool>) {
+    public init(isOn: Binding<Bool>,
+                componentIdentifier: String? = Switch.identifier)
+    {
         self._isOn = isOn
+        self.componentIdentifier = componentIdentifier ?? Switch.identifier
     }
+}
+
+public extension Switch {
+    static let identifier = "fiori_switch_component"
 }
 
 public extension Switch {
@@ -23,6 +32,7 @@ public extension Switch {
     internal init(_ configuration: SwitchConfiguration, shouldApplyDefaultStyle: Bool) {
         self._isOn = configuration.$isOn
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -31,7 +41,7 @@ extension Switch: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(isOn: self.$isOn)).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, isOn: self.$isOn)).typeErased
                 .transformEnvironment(\.switchStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -49,7 +59,7 @@ private extension Switch {
     }
 
     func defaultStyle() -> some View {
-        Switch(.init(isOn: self.$isOn))
+        Switch(.init(componentIdentifier: self.componentIdentifier, isOn: self.$isOn))
             .shouldApplyDefaultStyle(false)
             .switchStyle(.fiori)
             .typeErased

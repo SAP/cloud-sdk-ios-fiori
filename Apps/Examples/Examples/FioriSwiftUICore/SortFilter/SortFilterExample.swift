@@ -21,8 +21,18 @@ struct SortFilterExample: View {
             .stepper(item: .init(name: "Quantity", stepperTitle: "Label", value: 1, step: 1, stepRange: 0 ... 100, isDecimalSupported: false, description: "Hint Text"), showsOnFilterFeedbackBar: true)
         ],
         [
-            .slider(item: .init(name: "User Stories", value: 10, minimumValue: 0, maximumValue: 100, formatter: "%2d Stories", icon: "number"), showsOnFilterFeedbackBar: true),
-            .slider(item: .init(name: "Number of Tasks", value: nil, minimumValue: 0, maximumValue: 100), showsOnFilterFeedbackBar: true),
+            .slider(item: .init(name: "User Stories", value: 10, minimumValue: 0, maximumValue: 100, formatter: "Stories", icon: "number"), showsOnFilterFeedbackBar: true),
+            .slider(item: .init(name: "Range Slider Decimal", value: nil, range: 0 ... 10, step: 1.5, decimalPlaces: 1), showsOnFilterFeedbackBar: true),
+            .slider(item: .init(name: "Range Slider", lowerValue: 100, upperValue: 150, range: 50 ... 200, step: 10, decimalPlaces: 0, formatter: "Price range (50 - 200)", hint: "Select price range.", onValueChange: SliderValueChangeHandler(onValueChange: { lowerValue, upperValue in
+                if !(50 ... 200 ~= lowerValue) {
+                    return (.error, "Lower value is out of range.")
+                } else if !(50 ... 200 ~= upperValue) {
+                    return (.error, "Upper value is out of range.")
+                } else if lowerValue > upperValue {
+                    return (.error, "Lower value is greater than upper value.")
+                }
+                return (.fiori, "")
+            })), showsOnFilterFeedbackBar: true),
             .datetime(item: .init(name: "Start Date", value: Date(), formatter: "yyyy-MM-dd HH:mm", icon: "calendar"), showsOnFilterFeedbackBar: true)
         ],
         [
@@ -39,13 +49,28 @@ struct SortFilterExample: View {
         VStack {
             if self.isCustomStyle {
                 FilterFeedbackBar(items: self.$items, onUpdate: self.performSortAndFilter)
-                    .filterFeedbackBarStyle(font: .subheadline, foregroundColorSelected: .red, strokeColorSelected: .red, cornerRadius: 25, maxWidth: 200)
-                    .optionListPickerStyle(font: .footnote, foregroundColorUnselected: .green, strokeColorSelected: .black)
-//                    .trailingFullConfigurationMenuItem(icon: "command")
-//                    .leadingFullConfigurationMenuItem(icon: "command")
-//                    .leadingFullConfigurationMenuItem(name: "All")
+                    .filterFeedbackBarItemCornerRadius(0)
+                    .filterFeedbackBarItemBackgroundSelectedStrokeColor(.red)
+                    .filterFeedbackBarItemSelectedForegroundColor(.red)
+                    .filterFeedbackBarButtonStyle { c in
+                        FilterFeedbackBarButton(c)
+                            .titleStyle(content: { titleC in
+                                titleC.title.foregroundStyle(c.isSelected ? Color.yellow : Color.green)
+                            })
+                            .iconStyle(content: { iconC in
+                                iconC.icon.foregroundStyle(c.isSelected ? Color.yellow : Color.green)
+                            })
+                            .background {
+                                ZStack {
+                                    RoundedRectangle(cornerRadius: 16)
+                                        .fill(c.isSelected ? Color.green : Color.yellow)
+                                        .stroke(c.isSelected ? Color.red : Color.green, lineWidth: 2)
+                                }
+                            }
+                    }
             } else {
                 FilterFeedbackBar(items: self.$items, onUpdate: self.performSortAndFilter)
+                    .fullConfigurationItem(itemContent: .name("All Configuration"), position: .leading)
             }
             
             List {
@@ -68,27 +93,6 @@ struct SortFilterExample: View {
             }
         }
         .navigationTitle("Sort & Filter")
-        .toolbar {
-            Button(self.sortFilterButtonLabel) {
-                self.isShowingFullCFG.toggle()
-            }
-            .popover(isPresented: self.$isShowingFullCFG, arrowEdge: .leading) {
-                if self.isCustomStyle {
-                    SortFilterView(
-                        title: "Configuration",
-                        items: self.$items,
-                        onUpdate: self.performSortAndFilter
-                    )
-                    .optionListPickerStyle(font: .footnote, foregroundColorUnselected: .green, strokeColorSelected: .black)
-                } else {
-                    SortFilterView(
-                        title: "Configuration",
-                        items: self.$items,
-                        onUpdate: self.performSortAndFilter
-                    )
-                }
-            }
-        }
         .onAppear {
             self.performSortAndFilter()
         }

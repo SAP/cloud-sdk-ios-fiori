@@ -6,6 +6,7 @@ import SwiftUI
 public struct TextFieldFormView {
     let title: any View
     @Binding var text: String
+    var isSecureEnabled: Bool?
     let placeholder: any View
     /// The `ControlState` of the form view. The default is `normal`
     let controlState: ControlState
@@ -36,10 +37,13 @@ public struct TextFieldFormView {
 
     @Environment(\.textFieldFormViewStyle) var style
 
+    var componentIdentifier: String = TextFieldFormView.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
     public init(@ViewBuilder title: () -> any View,
                 text: Binding<String>,
+                isSecureEnabled: Bool? = false,
                 @ViewBuilder placeholder: () -> any View = { EmptyView() },
                 controlState: ControlState = .normal,
                 errorMessage: AttributedString? = nil,
@@ -54,11 +58,13 @@ public struct TextFieldFormView {
                 isRequired: Bool = false,
                 actionIcon: Image? = nil,
                 action: (() -> Void)? = nil,
-                actionIconAccessibilityLabel: String? = nil)
+                actionIconAccessibilityLabel: String? = nil,
+                componentIdentifier: String? = TextFieldFormView.identifier)
     {
-        self.title = Title(title: title)
+        self.title = Title(title: title, componentIdentifier: componentIdentifier)
         self._text = text
-        self.placeholder = Placeholder(placeholder: placeholder)
+        self.isSecureEnabled = isSecureEnabled
+        self.placeholder = Placeholder(placeholder: placeholder, componentIdentifier: componentIdentifier)
         self.controlState = controlState
         self.errorMessage = errorMessage
         self.maxTextLength = maxTextLength
@@ -68,17 +74,23 @@ public struct TextFieldFormView {
         self.allowsBeyondLimit = allowsBeyondLimit
         self.charCountReachLimitMessage = charCountReachLimitMessage
         self.charCountBeyondLimitMsg = charCountBeyondLimitMsg
-        self.mandatoryFieldIndicator = MandatoryFieldIndicator(mandatoryFieldIndicator: mandatoryFieldIndicator)
+        self.mandatoryFieldIndicator = MandatoryFieldIndicator(mandatoryFieldIndicator: mandatoryFieldIndicator, componentIdentifier: componentIdentifier)
         self.isRequired = isRequired
         self.actionIcon = actionIcon
         self.action = action
         self.actionIconAccessibilityLabel = actionIconAccessibilityLabel
+        self.componentIdentifier = componentIdentifier ?? TextFieldFormView.identifier
     }
+}
+
+public extension TextFieldFormView {
+    static let identifier = "fiori_textfieldformview_component"
 }
 
 public extension TextFieldFormView {
     init(title: AttributedString,
          text: Binding<String>,
+         isSecureEnabled: Bool? = false,
          placeholder: AttributedString? = nil,
          controlState: ControlState = .normal,
          errorMessage: AttributedString? = nil,
@@ -95,7 +107,7 @@ public extension TextFieldFormView {
          action: (() -> Void)? = nil,
          actionIconAccessibilityLabel: String? = nil)
     {
-        self.init(title: { Text(title) }, text: text, placeholder: { OptionalText(placeholder) }, controlState: controlState, errorMessage: errorMessage, maxTextLength: maxTextLength, hintText: hintText, hidesReadOnlyHint: hidesReadOnlyHint, isCharCountEnabled: isCharCountEnabled, allowsBeyondLimit: allowsBeyondLimit, charCountReachLimitMessage: charCountReachLimitMessage, charCountBeyondLimitMsg: charCountBeyondLimitMsg, mandatoryFieldIndicator: { TextOrIconView(mandatoryFieldIndicator) }, isRequired: isRequired, actionIcon: actionIcon, action: action, actionIconAccessibilityLabel: actionIconAccessibilityLabel)
+        self.init(title: { Text(title) }, text: text, isSecureEnabled: isSecureEnabled, placeholder: { OptionalText(placeholder) }, controlState: controlState, errorMessage: errorMessage, maxTextLength: maxTextLength, hintText: hintText, hidesReadOnlyHint: hidesReadOnlyHint, isCharCountEnabled: isCharCountEnabled, allowsBeyondLimit: allowsBeyondLimit, charCountReachLimitMessage: charCountReachLimitMessage, charCountBeyondLimitMsg: charCountBeyondLimitMsg, mandatoryFieldIndicator: { TextOrIconView(mandatoryFieldIndicator) }, isRequired: isRequired, actionIcon: actionIcon, action: action, actionIconAccessibilityLabel: actionIconAccessibilityLabel)
     }
 }
 
@@ -107,6 +119,7 @@ public extension TextFieldFormView {
     internal init(_ configuration: TextFieldFormViewConfiguration, shouldApplyDefaultStyle: Bool) {
         self.title = configuration.title
         self._text = configuration.$text
+        self.isSecureEnabled = configuration.isSecureEnabled
         self.placeholder = configuration.placeholder
         self.controlState = configuration.controlState
         self.errorMessage = configuration.errorMessage
@@ -123,6 +136,7 @@ public extension TextFieldFormView {
         self.action = configuration.action
         self.actionIconAccessibilityLabel = configuration.actionIconAccessibilityLabel
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -131,7 +145,7 @@ extension TextFieldFormView: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(title: .init(self.title), text: self.$text, placeholder: .init(self.placeholder), controlState: self.controlState, errorMessage: self.errorMessage, maxTextLength: self.maxTextLength, hintText: self.hintText, hidesReadOnlyHint: self.hidesReadOnlyHint, isCharCountEnabled: self.isCharCountEnabled, allowsBeyondLimit: self.allowsBeyondLimit, charCountReachLimitMessage: self.charCountReachLimitMessage, charCountBeyondLimitMsg: self.charCountBeyondLimitMsg, mandatoryFieldIndicator: .init(self.mandatoryFieldIndicator), isRequired: self.isRequired, actionIcon: self.actionIcon, action: self.action, actionIconAccessibilityLabel: self.actionIconAccessibilityLabel)).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, title: .init(self.title), text: self.$text, isSecureEnabled: self.isSecureEnabled, placeholder: .init(self.placeholder), controlState: self.controlState, errorMessage: self.errorMessage, maxTextLength: self.maxTextLength, hintText: self.hintText, hidesReadOnlyHint: self.hidesReadOnlyHint, isCharCountEnabled: self.isCharCountEnabled, allowsBeyondLimit: self.allowsBeyondLimit, charCountReachLimitMessage: self.charCountReachLimitMessage, charCountBeyondLimitMsg: self.charCountBeyondLimitMsg, mandatoryFieldIndicator: .init(self.mandatoryFieldIndicator), isRequired: self.isRequired, actionIcon: self.actionIcon, action: self.action, actionIconAccessibilityLabel: self.actionIconAccessibilityLabel)).typeErased
                 .transformEnvironment(\.textFieldFormViewStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -149,7 +163,7 @@ private extension TextFieldFormView {
     }
 
     func defaultStyle() -> some View {
-        TextFieldFormView(.init(title: .init(self.title), text: self.$text, placeholder: .init(self.placeholder), controlState: self.controlState, errorMessage: self.errorMessage, maxTextLength: self.maxTextLength, hintText: self.hintText, hidesReadOnlyHint: self.hidesReadOnlyHint, isCharCountEnabled: self.isCharCountEnabled, allowsBeyondLimit: self.allowsBeyondLimit, charCountReachLimitMessage: self.charCountReachLimitMessage, charCountBeyondLimitMsg: self.charCountBeyondLimitMsg, mandatoryFieldIndicator: .init(self.mandatoryFieldIndicator), isRequired: self.isRequired, actionIcon: self.actionIcon, action: self.action, actionIconAccessibilityLabel: self.actionIconAccessibilityLabel))
+        TextFieldFormView(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), text: self.$text, isSecureEnabled: self.isSecureEnabled, placeholder: .init(self.placeholder), controlState: self.controlState, errorMessage: self.errorMessage, maxTextLength: self.maxTextLength, hintText: self.hintText, hidesReadOnlyHint: self.hidesReadOnlyHint, isCharCountEnabled: self.isCharCountEnabled, allowsBeyondLimit: self.allowsBeyondLimit, charCountReachLimitMessage: self.charCountReachLimitMessage, charCountBeyondLimitMsg: self.charCountBeyondLimitMsg, mandatoryFieldIndicator: .init(self.mandatoryFieldIndicator), isRequired: self.isRequired, actionIcon: self.actionIcon, action: self.action, actionIconAccessibilityLabel: self.actionIconAccessibilityLabel))
             .shouldApplyDefaultStyle(false)
             .textFieldFormViewStyle(TextFieldFormViewFioriStyle.ContentFioriStyle())
             .typeErased

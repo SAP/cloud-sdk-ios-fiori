@@ -175,19 +175,25 @@ struct FioriButtonConfiguration {
     let font: Font
     let padding: EdgeInsets
     let maxWidth: CGFloat?
+    let minHeight: CGFloat
     let loadingState: FioriButtonLoadingState
     
-    init(foregroundColor: Color, backgroundColor: Color, font: Font = .fiori(forTextStyle: .body, weight: .semibold), padding: EdgeInsets = EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16), maxWidth: CGFloat? = nil, loadingState: FioriButtonLoadingState = .unspecified) {
+    init(foregroundColor: Color, backgroundColor: Color, font: Font = .fiori(forTextStyle: .body, weight: .semibold), padding: EdgeInsets = EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16), maxWidth: CGFloat? = nil, minHeight: CGFloat? = nil, loadingState: FioriButtonLoadingState = .unspecified) {
         self.foregroundColor = foregroundColor
         self.backgroundColor = backgroundColor
         self.font = font
         self.padding = padding
         self.maxWidth = maxWidth
+        self.minHeight = max(minHeight ?? 38.0, 38.0)
         self.loadingState = loadingState
     }
     
     func withMaxWidth(_ maxWidth: CGFloat?) -> FioriButtonConfiguration {
-        FioriButtonConfiguration(foregroundColor: self.foregroundColor, backgroundColor: self.backgroundColor, font: self.font, padding: self.padding, maxWidth: maxWidth, loadingState: self.loadingState)
+        FioriButtonConfiguration(foregroundColor: self.foregroundColor, backgroundColor: self.backgroundColor, font: self.font, padding: self.padding, maxWidth: maxWidth, minHeight: self.minHeight, loadingState: self.loadingState)
+    }
+    
+    func withMinHeight(_ minHeight: CGFloat?) -> FioriButtonConfiguration {
+        FioriButtonConfiguration(foregroundColor: self.foregroundColor, backgroundColor: self.backgroundColor, font: self.font, padding: self.padding, maxWidth: self.maxWidth, minHeight: minHeight, loadingState: self.loadingState)
     }
 }
 
@@ -198,7 +204,7 @@ extension View {
             .foregroundColor(config.foregroundColor)
             .tint(config.foregroundColor)
             .padding(config.padding)
-            .frame(minWidth: 44, maxWidth: config.maxWidth, minHeight: 38)
+            .frame(minWidth: 44, maxWidth: config.maxWidth, minHeight: config.minHeight)
             .background(RoundedRectangle(cornerRadius: 8).fill(config.backgroundColor))
             .contentShape(Rectangle())
     }

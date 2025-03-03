@@ -148,11 +148,11 @@ struct ApplyButtonStyle: PrimitiveButtonStyle {
                 .padding([.top, .bottom], 8)
                 .font(.fiori(forTextStyle: .body, weight: .semibold))
             #if !os(visionOS)
-                .foregroundStyle(Color.preferredColor(.grey1))
+                .foregroundStyle(Color.preferredColor(.quaternaryLabel))
             #else
                 .foregroundStyle(Color.preferredColor(.primaryLabel))
             #endif
-                .background(RoundedRectangle(cornerRadius: 8).fill(Color.preferredColor(.grey5)))
+                .background(RoundedRectangle(cornerRadius: 8).fill(Color.preferredColor(.quaternaryFill)))
                 .padding([.top], UIDevice.current.userInterfaceIdiom != .phone ? 16 : 6)
         }
     }

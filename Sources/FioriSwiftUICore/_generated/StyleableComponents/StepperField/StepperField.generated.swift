@@ -8,6 +8,7 @@ import FioriThemeManager
 public struct StepperField {
     let decrementAction: any View
     @Binding var text: String
+    var isSecureEnabled: Bool?
     let incrementAction: any View
     /// The step value
     let step: Double
@@ -18,33 +19,44 @@ public struct StepperField {
 
     @Environment(\.stepperFieldStyle) var style
 
+    var componentIdentifier: String = StepperField.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
     public init(@ViewBuilder decrementAction: () -> any View = { FioriButton { _ in FioriIcon.actions.less } },
                 text: Binding<String>,
+                isSecureEnabled: Bool? = false,
                 @ViewBuilder incrementAction: () -> any View = { FioriButton { _ in FioriIcon.actions.add } },
                 step: Double = 1,
                 stepRange: ClosedRange<Double>,
-                isDecimalSupported: Bool = false)
+                isDecimalSupported: Bool = false,
+                componentIdentifier: String? = StepperField.identifier)
     {
-        self.decrementAction = DecrementAction(decrementAction: decrementAction)
+        self.decrementAction = DecrementAction(decrementAction: decrementAction, componentIdentifier: componentIdentifier)
         self._text = text
-        self.incrementAction = IncrementAction(incrementAction: incrementAction)
+        self.isSecureEnabled = isSecureEnabled
+        self.incrementAction = IncrementAction(incrementAction: incrementAction, componentIdentifier: componentIdentifier)
         self.step = step
         self.stepRange = stepRange
         self.isDecimalSupported = isDecimalSupported
+        self.componentIdentifier = componentIdentifier ?? StepperField.identifier
     }
+}
+
+public extension StepperField {
+    static let identifier = "fiori_stepperfield_component"
 }
 
 public extension StepperField {
     init(decrementAction: FioriButton? = FioriButton { _ in FioriIcon.actions.less },
          text: Binding<String>,
+         isSecureEnabled: Bool? = false,
          incrementAction: FioriButton? = FioriButton { _ in FioriIcon.actions.add },
          step: Double = 1,
          stepRange: ClosedRange<Double>,
          isDecimalSupported: Bool = false)
     {
-        self.init(decrementAction: { decrementAction }, text: text, incrementAction: { incrementAction }, step: step, stepRange: stepRange, isDecimalSupported: isDecimalSupported)
+        self.init(decrementAction: { decrementAction }, text: text, isSecureEnabled: isSecureEnabled, incrementAction: { incrementAction }, step: step, stepRange: stepRange, isDecimalSupported: isDecimalSupported)
     }
 }
 
@@ -56,11 +68,13 @@ public extension StepperField {
     internal init(_ configuration: StepperFieldConfiguration, shouldApplyDefaultStyle: Bool) {
         self.decrementAction = configuration.decrementAction
         self._text = configuration.$text
+        self.isSecureEnabled = configuration.isSecureEnabled
         self.incrementAction = configuration.incrementAction
         self.step = configuration.step
         self.stepRange = configuration.stepRange
         self.isDecimalSupported = configuration.isDecimalSupported
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -69,7 +83,7 @@ extension StepperField: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(decrementAction: .init(self.decrementAction), text: self.$text, incrementAction: .init(self.incrementAction), step: self.step, stepRange: self.stepRange, isDecimalSupported: self.isDecimalSupported)).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, decrementAction: .init(self.decrementAction), text: self.$text, isSecureEnabled: self.isSecureEnabled, incrementAction: .init(self.incrementAction), step: self.step, stepRange: self.stepRange, isDecimalSupported: self.isDecimalSupported)).typeErased
                 .transformEnvironment(\.stepperFieldStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -87,7 +101,7 @@ private extension StepperField {
     }
 
     func defaultStyle() -> some View {
-        StepperField(.init(decrementAction: .init(self.decrementAction), text: self.$text, incrementAction: .init(self.incrementAction), step: self.step, stepRange: self.stepRange, isDecimalSupported: self.isDecimalSupported))
+        StepperField(.init(componentIdentifier: self.componentIdentifier, decrementAction: .init(self.decrementAction), text: self.$text, isSecureEnabled: self.isSecureEnabled, incrementAction: .init(self.incrementAction), step: self.step, stepRange: self.stepRange, isDecimalSupported: self.isDecimalSupported))
             .shouldApplyDefaultStyle(false)
             .stepperFieldStyle(StepperFieldFioriStyle.ContentFioriStyle())
             .typeErased
