@@ -236,6 +236,7 @@ struct PickerMenuItem: View {
     let popoverWidth = 393.0
     @State var _keyboardHeight = 0.0
     @State var barItemFrame: CGRect = .zero
+    @State private var workingValueSet: Set<UUID> = []
         
     public init(item: Binding<SortFilterItem.PickerItem>, onUpdate: @escaping () -> Void) {
         self._item = item
@@ -316,12 +317,12 @@ struct PickerMenuItem: View {
                             GeometryReader { geometry in
                                 Color.clear
                                     .onAppear {
-                                        self.detentHeight = self.calcluateFilterFormViewPopoverHeight(scrollViewContentHeight: geometry.size.height)
+                                        self.detentHeight = self.calculateDetentHeight(scrollViewContentHeight: geometry.size.height)
                                     }
                                     .setOnChange(of: geometry.frame(in: .global), action1: { _ in
-                                        self.detentHeight = self.calcluateFilterFormViewPopoverHeight(scrollViewContentHeight: geometry.size.height)
+                                        self.detentHeight = self.calculateDetentHeight(scrollViewContentHeight: geometry.size.height)
                                     }) { _, _ in
-                                        self.detentHeight = self.calcluateFilterFormViewPopoverHeight(scrollViewContentHeight: geometry.size.height)
+                                        self.detentHeight = self.calculateDetentHeight(scrollViewContentHeight: geometry.size.height)
                                     }
                             }
                         )
@@ -365,7 +366,7 @@ struct PickerMenuItem: View {
                         }
                     } else {
                         Button(self.item.valueOptions[idx]) {
-                            self.item.onTap(option: self.item.valueOptions[idx])
+                            self.item.optionOnTap(idx)
                             self.item.apply()
                             self.onUpdate()
                         }
@@ -406,8 +407,10 @@ struct PickerMenuItem: View {
                     } else {
                         _Action(actionText: self.item.resetButtonConfiguration.title, didSelectAction: {
                             if self.item.resetButtonConfiguration.type == .reset {
+                                self.resetSelections()
                                 self.item.reset()
                             } else {
+                                self.clearSelections()
                                 self.item.clearAll()
                             }
                         })
@@ -422,41 +425,10 @@ struct PickerMenuItem: View {
                     })
                     .buttonStyle(ApplyButtonStyle())
                 } components: {
-                    SearchListPickerItem(value: self.$item.workingValue, valueOptions: self.item.valueOptions, hint: nil, allowsMultipleSelection: self.item.allowsMultipleSelection, allowsEmptySelection: self.item.allowsEmptySelection, isSearchBarHidden: self.item.isSearchBarHidden, disableListEntriesSection: self.item.disableListEntriesSection, allowsDisplaySelectionCount: self.item.allowsDisplaySelectionCount, barItemFrame: self.barItemFrame) { index in
-                        self.item.optionOnTap(index)
-                    } selectAll: { isAll in
-                        self.item.selectAll(isAll)
-                    } updateSearchListPickerHeight: { height in
-                        self.detentHeight = max(height, 88)
-                    }
-                    .animation(.easeInOut)
-                    .frame(maxHeight: UIDevice.current.userInterfaceIdiom != .phone ? self.detentHeight : nil)
-                    .padding(0)
-                    .onReceive(NotificationCenter.default.publisher(for: UIApplication.keyboardDidShowNotification)) { notif in
-                        let rect = (notif.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect) ?? .zero
-                        self._keyboardHeight = rect.height
-                    }
-                    .onReceive(NotificationCenter.default.publisher(for: UIApplication.keyboardDidHideNotification)) { _ in
-                        self._keyboardHeight = 0
-                    }
+                    self.configListPickerDestination()
                 }
-                .frame(minWidth: UIDevice.current.userInterfaceIdiom != .phone ? self.popoverWidth : nil)
-                .frame(height: UIDevice.current.userInterfaceIdiom != .phone ? self.calculateDetentHeight() : nil)
-                .presentationDetents([.height(self.calculateDetentHeight()), .medium, .large])
+                .presentationDetents([.height(self.detentHeight), .medium, .large])
             }
-            .ifApply(UIDevice.current.userInterfaceIdiom != .phone, content: { v in
-                v.background(GeometryReader { geometry in
-                    Color.clear
-                        .onAppear {
-                            self.barItemFrame = geometry.frame(in: .global)
-                        }
-                        .setOnChange(of: geometry.frame(in: .global), action1: { newValue in
-                            self.barItemFrame = newValue
-                        }) { _, newValue in
-                            self.barItemFrame = newValue
-                        }
-                })
-            })
     }
     
     private func padView() -> some View {
@@ -465,7 +437,7 @@ struct PickerMenuItem: View {
             .onTapGesture {
                 self.isSheetVisible.toggle()
             }
-            .modifier(PopoverSizeModifier(isPresented: self.$isSheetVisible, arrowEdge: self.barItemFrame.arrowDirection(), popoverSize: CGSize(width: self.popoverWidth, height: self.calculateDetentHeight()), popoverContent: {
+            .modifier(PopoverSizeModifier(isPresented: self.$isSheetVisible, arrowEdge: self.barItemFrame.arrowDirection(), popoverSize: CGSize(width: self.popoverWidth, height: self.detentHeight), popoverContent: {
                 CancellableResettableDialogNavigationForm {
                     SortFilterItemTitle(title: self.item.name)
                 } cancelAction: {
@@ -480,8 +452,10 @@ struct PickerMenuItem: View {
                     } else {
                         _Action(actionText: self.item.resetButtonConfiguration.title, didSelectAction: {
                             if self.item.resetButtonConfiguration.type == .reset {
+                                self.resetSelections()
                                 self.item.reset()
                             } else {
+                                self.clearSelections()
                                 self.item.clearAll()
                             }
                         })
@@ -496,60 +470,20 @@ struct PickerMenuItem: View {
                     })
                     .buttonStyle(ApplyButtonStyle())
                 } components: {
-                    SearchListPickerItem(value: self.$item.workingValue, valueOptions: self.item.valueOptions, hint: nil, allowsMultipleSelection: self.item.allowsMultipleSelection, allowsEmptySelection: self.item.allowsEmptySelection, isSearchBarHidden: self.item.isSearchBarHidden, disableListEntriesSection: self.item.disableListEntriesSection, allowsDisplaySelectionCount: self.item.allowsDisplaySelectionCount, barItemFrame: self.barItemFrame) { index in
-                        self.item.optionOnTap(index)
-                    } selectAll: { isAll in
-                        self.item.selectAll(isAll)
-                    } updateSearchListPickerHeight: { height in
-                        self.detentHeight = max(height, 88)
-                    }
-                    .padding(0)
-                    .onReceive(NotificationCenter.default.publisher(for: UIApplication.keyboardDidShowNotification)) { notif in
-                        let rect = (notif.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect) ?? .zero
-                        self._keyboardHeight = rect.height
-                    }
-                    .onReceive(NotificationCenter.default.publisher(for: UIApplication.keyboardDidHideNotification)) { _ in
-                        self._keyboardHeight = 0
-                    }
+                    self.configListPickerDestination()
                 }
             }))
-            .ifApply(UIDevice.current.userInterfaceIdiom != .phone, content: { v in
-                v.background(GeometryReader { geometry in
-                    Color.clear
-                        .onAppear {
-                            self.barItemFrame = geometry.frame(in: .global)
-                        }
-                        .setOnChange(of: geometry.frame(in: .global), action1: { newValue in
-                            self.barItemFrame = newValue
-                        }) { _, newValue in
-                            self.barItemFrame = newValue
-                        }
-                })
+            .background(GeometryReader { geometry in
+                Color.clear
+                    .onAppear {
+                        self.barItemFrame = geometry.frame(in: .global)
+                    }
+                    .setOnChange(of: geometry.frame(in: .global), action1: { newValue in
+                        self.barItemFrame = newValue
+                    }) { _, newValue in
+                        self.barItemFrame = newValue
+                    }
             })
-    }
-    
-    private func calculateDetentHeight() -> CGFloat {
-        let isNotIphone = UIDevice.current.userInterfaceIdiom != .phone
-        var height = self.detentHeight
-        height += isNotIphone ? 13 : 16
-        height += isNotIphone ? 50 : 56
-        if !self.item.isSearchBarHidden {
-            if self._keyboardHeight == 0 {
-                height += 52
-            }
-        }
-        if !isNotIphone {
-            height += UIEdgeInsets.getSafeAreaInsets().bottom
-        }
-        #if !os(visionOS)
-            height += UIDevice.current.userInterfaceIdiom != .phone ? 55 : 0
-        #else
-            height += 75
-        #endif
-        if height > Screen.bounds.size.height - UIEdgeInsets.getSafeAreaInsets().top - 60 {
-            return Screen.bounds.size.height / 2
-        }
-        return height
     }
     
     private func resetButtonDisable() -> Bool {
@@ -560,7 +494,7 @@ struct PickerMenuItem: View {
         }
     }
     
-    private func calcluateFilterFormViewPopoverHeight(scrollViewContentHeight: CGFloat) -> CGFloat {
+    private func calculateDetentHeight(scrollViewContentHeight: CGFloat) -> CGFloat {
         let screenHeight = Screen.bounds.size.height
         let safeAreaInset = UIEdgeInsets.getSafeAreaInsets()
         var maxPopoverViewHeight = 0.0
@@ -568,16 +502,107 @@ struct PickerMenuItem: View {
         if UIDevice.current.userInterfaceIdiom != .phone {
             if self.barItemFrame.arrowDirection() == .top {
                 maxPopoverViewHeight = screenHeight - self.barItemFrame.maxY - safeAreaInset.bottom - 30
+                maxPopoverViewHeight -= self._keyboardHeight
             } else if self.barItemFrame.arrowDirection() == .bottom {
                 maxPopoverViewHeight = screenHeight - (screenHeight - self.barItemFrame.minY) + safeAreaInset.top
+                if self._keyboardHeight > 0 {
+                    let keyboardItemHeight = (self._keyboardHeight - (screenHeight - self.barItemFrame.minY))
+                    if keyboardItemHeight > 0 {
+                        maxPopoverViewHeight -= keyboardItemHeight
+                    }
+                }
             }
-            calaulatePopoverViewHeight += 50 + 70
+            calaulatePopoverViewHeight += 50 + 70 + (self.item.isSearchBarHidden ? 0 : 52)
         } else {
             maxPopoverViewHeight = screenHeight - safeAreaInset.top - 30
-            calaulatePopoverViewHeight += 56 + 20 + safeAreaInset.bottom
+            maxPopoverViewHeight -= self._keyboardHeight
+
+            calaulatePopoverViewHeight += 56 + 20 + safeAreaInset.bottom + (self.item.isSearchBarHidden ? 0 : 52)
+            if calaulatePopoverViewHeight > screenHeight - safeAreaInset.top - 60 {
+                return screenHeight / 2
+            }
+        }
+
+        return min(maxPopoverViewHeight, calaulatePopoverViewHeight)
+    }
+    
+    private func configListPickerDestination() -> some View {
+        let filter: ((SortFilterItem.PickerItem.ValueOptionModel, String) -> Bool) = { f, s in
+            if s.count > 0 {
+                return f.value.localizedCaseInsensitiveContains(s)
+            } else {
+                return true
+            }
         }
         
-        return min(maxPopoverViewHeight, calaulatePopoverViewHeight)
+        return ListPickerDestination(self.item.uuidValueOptions,
+                                     id: \.id,
+                                     selections: self.$workingValueSet,
+                                     allowEmpty: self.item.allowsEmptySelection,
+                                     isTrackingLiveChanges: true,
+                                     searchFilter: self.item.isSearchBarHidden == false ? filter : nil)
+        { e in
+            Text(e.value)
+        }
+        .disableEntriesSection(self.item.disableListEntriesSection)
+        .listStyle(.plain)
+        .frame(minWidth: UIDevice.current.userInterfaceIdiom != .phone ? self.popoverWidth : nil)
+        .scrollContentBackground(.hidden)
+        .environment(\.defaultMinListRowHeight, 0)
+        .environment(\.defaultMinListHeaderHeight, 0)
+        .isFilterFeedbackBarListPickerStyle(true)
+        .onChange(of: self.workingValueSet) {
+            self.item.workingValue = self.workingValueSet.flatMap { selectedId in
+                self.item.uuidValueOptions.filter { $0.id == selectedId }.map(\.index)
+            }
+        }
+        .modifier(FioriIntrospectModifier<UIScrollView> { scrollView in
+            DispatchQueue.main.async {
+                let calculateHeight = max(calculateDetentHeight(scrollViewContentHeight: scrollView.contentSize.height), 88)
+                if self.detentHeight != calculateHeight {
+                    self.detentHeight = calculateHeight
+                }
+            }
+        })
+        .onAppear(perform: {
+            self.resetSelections()
+        })
+        .selectedEntriesSectionTitleStyle { _ in
+            if self.item.allowsDisplaySelectionCount {
+                Text(NSLocalizedString("Selected", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "") + " " + "(\(self.item.workingValue.count))")
+                    .foregroundStyle(Color.preferredColor(.secondaryLabel))
+                    .font(.fiori(forTextStyle: .subheadline, weight: .regular))
+            } else {
+                Text(NSLocalizedString("Selected", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""))
+                    .foregroundStyle(Color.preferredColor(.secondaryLabel))
+                    .font(.fiori(forTextStyle: .subheadline, weight: .regular))
+            }
+        }
+        .allEntriesSectionTitleStyle { _ in
+            Text(NSLocalizedString("All", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""))
+                .foregroundStyle(Color.preferredColor(.secondaryLabel))
+                .font(.fiori(forTextStyle: .subheadline, weight: .regular))
+        }
+        .ifApply(!self.item.isSearchBarHidden, content: { v in
+            v.onReceive(NotificationCenter.default.publisher(for: UIApplication.keyboardDidShowNotification)) { notif in
+                let rect = (notif.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect) ?? .zero
+                self._keyboardHeight = rect.height
+            }
+            .onReceive(NotificationCenter.default.publisher(for: UIApplication.keyboardDidHideNotification)) { _ in
+                self._keyboardHeight = 0
+            }
+        })
+    }
+    
+    private func resetSelections() {
+        let workingValueArray = self.item.originalValue.flatMap { originalValue in
+            self.item.uuidValueOptions.filter { $0.index == originalValue }.map(\.id)
+        }
+        self.workingValueSet = Set(workingValueArray)
+    }
+    
+    private func clearSelections() {
+        self.workingValueSet.removeAll()
     }
 }
 

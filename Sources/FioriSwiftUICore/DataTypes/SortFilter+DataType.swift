@@ -427,6 +427,8 @@ public extension SortFilterItem {
         var allowsDisplaySelectionCount: Bool = true
         var resetButtonConfiguration: FilterFeedbackBarResetButtonConfiguration = .init()
         
+        var uuidValueOptions: [ValueOptionModel] = []
+        
         /// Available OptionListPicker modes. Use this enum to define picker mode  to present.
         public enum DisplayMode {
             /// Decided by options count
@@ -462,6 +464,17 @@ public extension SortFilterItem {
             case disable
         }
         
+        /// Model for valueOptions, add unique identifier and index for valueOptions
+        struct ValueOptionModel: Identifiable, Equatable {
+            let id = UUID()
+            let index: Int
+            let value: String
+            init(index: Int, value: String) {
+                self.index = index
+                self.value = value
+            }
+        }
+        
         /// Create PickerItem for filter feedback.
         /// When `displayMode` is `.filterFormCell`, the styles of options can be customized by some styles of FilterFormView, such as:
         /// filterFormOptionAttributes, filterFormOptionMinHeight, filterFormOptionMinTouchHeight, filterFormOptionCornerRadius, filterFormOptionPadding, filterFormOptionTitleSpacing, filterFormOptionsItemSpacing, filterFormOptionsLineSpacing.
@@ -489,6 +502,9 @@ public extension SortFilterItem {
             self.workingValue = value
             self.originalValue = value
             self.valueOptions = valueOptions
+            self.uuidValueOptions = valueOptions.enumerated().map { index, option in
+                ValueOptionModel(index: index, value: option)
+            }
             self.allowsMultipleSelection = allowsMultipleSelection
             self.allowsEmptySelection = allowsEmptySelection
             self.isSearchBarHidden = isSearchBarHidden
