@@ -782,18 +782,12 @@ struct ListPickerDestinationContent<Data: RandomAccessCollection, ID: Hashable, 
                                                      rowContent: self.rowContent)
                     }
                 } else {
-                    HStack {
-                        self.rowContent(element)
-                        Spacer()
-                        if self.isItemSelected(id_value) {
-                            Image(systemName: "checkmark")
-                                .foregroundColor(.preferredColor(.tintColor))
+                    ListPickerDestinationRow(content: self.rowContent(element),
+                                             isSelected: self.isItemSelected(id_value))
+                        .contentShape(Rectangle())
+                        .onTapGesture {
+                            self.handleSelections(id_value)
                         }
-                    }
-                    .contentShape(Rectangle())
-                    .onTapGesture {
-                        self.handleSelections(id_value)
-                    }
                 }
             }
         }
@@ -1027,6 +1021,28 @@ extension ListPickerDestinationContent {
     }
 }
 
+struct ListPickerDestinationRow: View {
+    var content: any View
+    var isSelected: Bool
+    
+    @State var listBackgroundColor: Color? = nil
+    
+    var body: some View {
+        HStack {
+            self.content.typeErased
+            Spacer()
+            if self.isSelected {
+                Image(systemName: "checkmark")
+                    .foregroundColor(.preferredColor(.tintColor))
+            }
+        }
+        .onPreferenceChange(DestinationRowBackgroundPreferenceKey.self) { c in
+            self.listBackgroundColor = c
+        }
+        .listRowBackground(self.listBackgroundColor)
+    }
+}
+
 struct ListPickerDestinationConfigurationEnvironment: EnvironmentKey {
     static let defaultValue: ListPickerDestinationConfiguration? = nil
 }
@@ -1050,6 +1066,14 @@ struct DisableEntriesSectionEnvironment: EnvironmentKey {
 
 struct AutoDismissDestinationEnvironment: EnvironmentKey {
     static let defaultValue: Bool = false
+}
+
+struct DestinationRowBackgroundPreferenceKey: PreferenceKey {
+    static var defaultValue: Color? = nil
+
+    static func reduce(value: inout Color?, nextValue: () -> Color?) {
+        value = nextValue()
+    }
 }
 
 extension EnvironmentValues {
@@ -1077,6 +1101,13 @@ public extension View {
     /// - Returns: A view that controls whether `ListPickerDestination` can be dismissed.
     func autoDismissDestination(_ dismiss: Bool = true) -> some View {
         self.environment(\.autoDismissDestination, dismiss)
+    }
+    
+    /// Background color customization for rows in `ListPickerDestination`
+    /// - Parameter color: Background color for rows.
+    /// - Returns: A view with custom background color.
+    func destinationRowBackgroundColor(_ color: Color) -> some View {
+        self.preference(key: DestinationRowBackgroundPreferenceKey.self, value: color)
     }
 }
 
