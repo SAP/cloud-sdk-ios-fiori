@@ -64,14 +64,14 @@ struct StepperViewExample: View {
                 text: self.$negativeValue,
                 stepRange: 10 ... 100,
                 description: { Text(self.isInputValueValid ? "Hint Text" : "Validation failed.") }
-            ).onChange(of: self.negativeValue, perform: { value in
-                let cValue = Double(value) ?? 10
+            ).onChange(of: self.negativeValue) {
+                let cValue = Double(self.negativeValue) ?? 10
                 if cValue > 80 || cValue < 20 {
                     self.isInputValueValid = false
                 } else {
                     self.isInputValueValid = true
                 }
-            })
+            }
             .informationViewStyle(self.newStyle).typeErased
             .disabled(self.isDisabled)
             

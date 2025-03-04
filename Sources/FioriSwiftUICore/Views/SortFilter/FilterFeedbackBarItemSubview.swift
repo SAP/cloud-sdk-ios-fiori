@@ -80,12 +80,12 @@ struct SliderMenuItem: View {
                                     self.geometrySizeHeight = geometry.size.height
                                     self.calculateDetentHeight()
                                 }
-                                .onChange(of: geometry.size) { newSize in
-                                    self.geometrySizeHeight = newSize.height
+                                .onChange(of: geometry.size) {
+                                    self.geometrySizeHeight = geometry.size.height
                                     self.calculateDetentHeight()
                                 }
                         })
-                        .onChange(of: self.dynamicTypeSize) { _ in
+                        .onChange(of: self.dynamicTypeSize) {
                             self.calculateDetentHeight()
                         }
                 }
@@ -298,24 +298,36 @@ struct PickerMenuItem: View {
                     })
                     .buttonStyle(ApplyButtonStyle())
                 } components: {
-                    OptionListPickerItem(value: self.$item.workingValue, valueOptions: self.item.valueOptions, hint: nil, itemLayout: self.item.itemLayout, barItemFrame: self.barItemFrame) { index in
-                        self.item.onTap(option: self.item.valueOptions[index])
-                    } updateSearchListPickerHeight: { height in
-                        let isNotIphone = UIDevice.current.userInterfaceIdiom != .phone
-                        var calculateHeight = height
-                        calculateHeight += isNotIphone ? 13 : 16
-                        calculateHeight += isNotIphone ? 50 : 56
-                        if !isNotIphone {
-                            calculateHeight += UIEdgeInsets.getSafeAreaInsets().bottom
+                    ScrollView(.vertical) {
+                        FilterFormView(title: {
+                            if let title = self.item.title, !title.isEmpty {
+                                Text(title)
+                                    .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
+                                    .foregroundStyle(Color.preferredColor(.primaryLabel))
+                            } else {
+                                EmptyView()
+                            }
+                        }, mandatoryFieldIndicator: {
+                            EmptyView()
+                        }, isRequired: false, options: self.item.valueOptions.map { AttributedString($0) }, isEnabled: true, allowsMultipleSelection: self.item.allowsMultipleSelection, allowsEmptySelection: self.item.allowsEmptySelection, value: self.$item.workingValue, buttonSize: self.item.itemLayout == .flexible ? .flexible : .fixed, isSingleLine: false) { _ in
                         }
-                        #if !os(visionOS)
-                            calculateHeight += UIDevice.current.userInterfaceIdiom != .phone ? 55 : 0
-                        #else
-                            calculateHeight += 95
-                        #endif
-                        self.detentHeight = calculateHeight
+                        .filterFormOptionsLineSpacing(10)
+                        .background(
+                            GeometryReader { geometry in
+                                Color.clear
+                                    .onAppear {
+                                        self.detentHeight = self.calcluateFilterFormViewPopoverHeight(scrollViewContentHeight: geometry.size.height)
+                                    }
+                                    .setOnChange(of: geometry.frame(in: .global), action1: { _ in
+                                        self.detentHeight = self.calcluateFilterFormViewPopoverHeight(scrollViewContentHeight: geometry.size.height)
+                                    }) { _, _ in
+                                        self.detentHeight = self.calcluateFilterFormViewPopoverHeight(scrollViewContentHeight: geometry.size.height)
+                                    }
+                            }
+                        )
+                        .padding([.leading, .trailing], 16)
+                        .padding(.bottom, 10)
                     }
-                    .padding([.leading, .trailing], 16)
                 }
                 .frame(height: self.detentHeight)
                 .ifApply(UIDevice.current.userInterfaceIdiom != .phone, content: { v in
@@ -345,7 +357,7 @@ struct PickerMenuItem: View {
                 ForEach(self.item.valueOptions.indices, id: \.self) { idx in
                     if self.item.isOptionSelected(index: idx) {
                         Button {
-                            self.item.onTap(option: self.item.valueOptions[idx])
+                            self.item.optionOnTap(idx)
                             self.item.apply()
                             self.onUpdate()
                         } label: {
@@ -546,6 +558,26 @@ struct PickerMenuItem: View {
         } else {
             return self.item.workingValue.isEmpty
         }
+    }
+    
+    private func calcluateFilterFormViewPopoverHeight(scrollViewContentHeight: CGFloat) -> CGFloat {
+        let screenHeight = Screen.bounds.size.height
+        let safeAreaInset = UIEdgeInsets.getSafeAreaInsets()
+        var maxPopoverViewHeight = 0.0
+        var calaulatePopoverViewHeight = scrollViewContentHeight
+        if UIDevice.current.userInterfaceIdiom != .phone {
+            if self.barItemFrame.arrowDirection() == .top {
+                maxPopoverViewHeight = screenHeight - self.barItemFrame.maxY - safeAreaInset.bottom - 30
+            } else if self.barItemFrame.arrowDirection() == .bottom {
+                maxPopoverViewHeight = screenHeight - (screenHeight - self.barItemFrame.minY) + safeAreaInset.top
+            }
+            calaulatePopoverViewHeight += 50 + 70
+        } else {
+            maxPopoverViewHeight = screenHeight - safeAreaInset.top - 30
+            calaulatePopoverViewHeight += 56 + 20 + safeAreaInset.bottom
+        }
+        
+        return min(maxPopoverViewHeight, calaulatePopoverViewHeight)
     }
 }
 
@@ -799,12 +831,12 @@ struct StepperMenuItem: View {
                                 self.geometrySizeHeight = geometry.size.height
                                 self.calculateDetentHeight()
                             }
-                            .onChange(of: geometry.size) { newSize in
-                                self.geometrySizeHeight = newSize.height
+                            .onChange(of: geometry.size) {
+                                self.geometrySizeHeight = geometry.size.height
                                 self.calculateDetentHeight()
                             }
                     })
-                    .onChange(of: self.dynamicTypeSize) { _ in
+                    .onChange(of: self.dynamicTypeSize) {
                         self.stepperViewHeight = 110 + self.dynamicTypeAddHeight()
                         self.calculateDetentHeight()
                     }

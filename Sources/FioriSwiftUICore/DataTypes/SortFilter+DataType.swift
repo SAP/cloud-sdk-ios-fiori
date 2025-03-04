@@ -408,6 +408,7 @@ public extension SortFilterItem {
     struct PickerItem: Identifiable, Equatable {
         public let id: String
         public var name: String
+        public var title: String?
         public var value: [Int]
         public var workingValue: [Int]
         let originalValue: [Int]
@@ -461,9 +462,29 @@ public extension SortFilterItem {
             case disable
         }
         
-        public init(id: String = UUID().uuidString, name: String, value: [Int], valueOptions: [String], allowsMultipleSelection: Bool, allowsEmptySelection: Bool, barItemDisplayMode: BarItemDisplayMode = .name, isSearchBarHidden: Bool = false, icon: String? = nil, itemLayout: OptionListPickerItemLayoutType = .fixed, displayMode: DisplayMode = .automatic, listEntriesSectionMode: ListEntriesSectionMode = .default, allowsDisplaySelectionCount: Bool = true, resetButtonConfiguration: FilterFeedbackBarResetButtonConfiguration = FilterFeedbackBarResetButtonConfiguration()) {
+        /// Create PickerItem for filter feedback.
+        /// When `displayMode` is `.filterFormCell`, the styles of options can be customized by some styles of FilterFormView, such as:
+        /// filterFormOptionAttributes, filterFormOptionMinHeight, filterFormOptionMinTouchHeight, filterFormOptionCornerRadius, filterFormOptionPadding, filterFormOptionTitleSpacing, filterFormOptionsItemSpacing, filterFormOptionsLineSpacing.
+        /// - Parameters:
+        ///   - id: The unique identifier for PickerItem.
+        ///   - name: Item name.
+        ///   - title: Title label of the options.
+        ///   - value: Item selected value.
+        ///   - valueOptions: Item options.
+        ///   - allowsMultipleSelection: A boolean value to indicate to allow multiple selections or not.
+        ///   - allowsEmptySelection: A boolean value to indicate to allow empty selections or not.
+        ///   - barItemDisplayMode: Name display mode for the bar.
+        ///   - isSearchBarHidden: A boolean value to indicate to search bar hidden or not.
+        ///   - icon: Icon at the leading side of the item.
+        ///   - itemLayout: Options layout type when `displayMode` is  `.filterFormCell`.
+        ///   - displayMode: Options display mode.
+        ///   - listEntriesSectionMode: List entries section mode when `displayMode` is  `.list`.
+        ///   - allowsDisplaySelectionCount: A boolean value to indicate to allow display selection count or not.
+        ///   - resetButtonConfiguration: A configuration to customize the reset button.
+        public init(id: String = UUID().uuidString, name: String, title: String? = nil, value: [Int], valueOptions: [String], allowsMultipleSelection: Bool, allowsEmptySelection: Bool, barItemDisplayMode: BarItemDisplayMode = .name, isSearchBarHidden: Bool = false, icon: String? = nil, itemLayout: OptionListPickerItemLayoutType = .fixed, displayMode: DisplayMode = .automatic, listEntriesSectionMode: ListEntriesSectionMode = .default, allowsDisplaySelectionCount: Bool = true, resetButtonConfiguration: FilterFeedbackBarResetButtonConfiguration = FilterFeedbackBarResetButtonConfiguration()) {
             self.id = id
             self.name = name
+            self.title = title
             self.value = value
             self.workingValue = value
             self.originalValue = value

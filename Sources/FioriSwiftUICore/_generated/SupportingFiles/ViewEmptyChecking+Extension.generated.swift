@@ -40,6 +40,12 @@ extension AllEntriesSectionTitle: _ViewEmptyChecking {
     }
 }
 
+extension AllowAction: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        allowAction.isEmpty
+    }
+}
+
 extension ApplyAction: _ViewEmptyChecking {
     public var isEmpty: Bool {
         applyAction.isEmpty
@@ -237,6 +243,12 @@ extension DemoView: _ViewEmptyChecking {
             subtitle.isEmpty &&
             status.isEmpty &&
             action.isEmpty
+    }
+}
+
+extension DenyAction: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        denyAction.isEmpty
     }
 }
 
@@ -554,7 +566,8 @@ extension ListPickerDestination: _ViewEmptyChecking {
             selectAllAction.isEmpty &&
             deselectAllAction.isEmpty &&
             allEntriesSectionTitle.isEmpty &&
-            listPickerContent.isEmpty
+            listPickerContent.isEmpty &&
+            prompt.isEmpty
     }
 }
 
@@ -618,9 +631,21 @@ extension MoreActionOverflow: _ViewEmptyChecking {
     }
 }
 
+extension NextAction: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        nextAction.isEmpty
+    }
+}
+
 extension Node: _ViewEmptyChecking {
     public var isEmpty: Bool {
         node.isEmpty
+    }
+}
+
+extension NotNowAction: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        notNowAction.isEmpty
     }
 }
 
@@ -755,6 +780,12 @@ extension ProgressIndicator: _ViewEmptyChecking {
 extension ProgressIndicatorProtocol: _ViewEmptyChecking {
     public var isEmpty: Bool {
         false
+    }
+}
+
+extension Prompt: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        prompt.isEmpty
     }
 }
 
@@ -1143,6 +1174,31 @@ extension TrendImage: _ViewEmptyChecking {
 extension UpperThumb: _ViewEmptyChecking {
     public var isEmpty: Bool {
         upperThumb.isEmpty
+    }
+}
+
+extension UserConsentForm: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        nextAction.isEmpty &&
+            cancelAction.isEmpty &&
+            allowAction.isEmpty &&
+            denyAction.isEmpty &&
+            notNowAction.isEmpty &&
+            userConsentPages.isEmpty
+    }
+}
+
+extension UserConsentPage: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        title.isEmpty &&
+            bodyText.isEmpty &&
+            action.isEmpty
+    }
+}
+
+extension UserConsentView: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        userConsentForms.isEmpty
     }
 }
 

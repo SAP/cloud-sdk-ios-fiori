@@ -105,6 +105,23 @@ public extension View {
     }
 }
 
+// MARK: AllowActionStyle
+
+public extension View {
+    func allowActionStyle(_ style: some AllowActionStyle) -> some View {
+        self.transformEnvironment(\.allowActionStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func allowActionStyle(@ViewBuilder content: @escaping (AllowActionConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.allowActionStyleStack) { stack in
+            let style = AnyAllowActionStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: ApplyActionStyle
 
 public extension View {
@@ -508,6 +525,23 @@ extension View {
     func demoViewStyle(@ViewBuilder content: @escaping (DemoViewConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.demoViewStyleStack) { stack in
             let style = AnyDemoViewStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: DenyActionStyle
+
+public extension View {
+    func denyActionStyle(_ style: some DenyActionStyle) -> some View {
+        self.transformEnvironment(\.denyActionStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func denyActionStyle(@ViewBuilder content: @escaping (DenyActionConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.denyActionStyleStack) { stack in
+            let style = AnyDenyActionStyle(content)
             stack.append(style)
         }
     }
@@ -1448,6 +1482,23 @@ public extension View {
     }
 }
 
+// MARK: NextActionStyle
+
+public extension View {
+    func nextActionStyle(_ style: some NextActionStyle) -> some View {
+        self.transformEnvironment(\.nextActionStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func nextActionStyle(@ViewBuilder content: @escaping (NextActionConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.nextActionStyleStack) { stack in
+            let style = AnyNextActionStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: NodeStyle
 
 public extension View {
@@ -1460,6 +1511,23 @@ public extension View {
     func nodeStyle(@ViewBuilder content: @escaping (NodeConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.nodeStyleStack) { stack in
             let style = AnyNodeStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: NotNowActionStyle
+
+public extension View {
+    func notNowActionStyle(_ style: some NotNowActionStyle) -> some View {
+        self.transformEnvironment(\.notNowActionStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func notNowActionStyle(@ViewBuilder content: @escaping (NotNowActionConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.notNowActionStyleStack) { stack in
+            let style = AnyNotNowActionStyle(content)
             stack.append(style)
         }
     }
@@ -1766,6 +1834,23 @@ public extension View {
     func progressIndicatorProtocolStyle(@ViewBuilder content: @escaping (ProgressIndicatorProtocolConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.progressIndicatorProtocolStyleStack) { stack in
             let style = AnyProgressIndicatorProtocolStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: PromptStyle
+
+public extension View {
+    func promptStyle(_ style: some PromptStyle) -> some View {
+        self.transformEnvironment(\.promptStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func promptStyle(@ViewBuilder content: @escaping (PromptConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.promptStyleStack) { stack in
+            let style = AnyPromptStyle(content)
             stack.append(style)
         }
     }
@@ -2684,6 +2769,57 @@ public extension View {
     func upperThumbStyle(@ViewBuilder content: @escaping (UpperThumbConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.upperThumbStyleStack) { stack in
             let style = AnyUpperThumbStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: UserConsentFormStyle
+
+public extension View {
+    func userConsentFormStyle(_ style: some UserConsentFormStyle) -> some View {
+        self.transformEnvironment(\.userConsentFormStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func userConsentFormStyle(@ViewBuilder content: @escaping (UserConsentFormConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.userConsentFormStyleStack) { stack in
+            let style = AnyUserConsentFormStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: UserConsentPageStyle
+
+public extension View {
+    func userConsentPageStyle(_ style: some UserConsentPageStyle) -> some View {
+        self.transformEnvironment(\.userConsentPageStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func userConsentPageStyle(@ViewBuilder content: @escaping (UserConsentPageConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.userConsentPageStyleStack) { stack in
+            let style = AnyUserConsentPageStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: UserConsentViewStyle
+
+public extension View {
+    func userConsentViewStyle(_ style: some UserConsentViewStyle) -> some View {
+        self.transformEnvironment(\.userConsentViewStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func userConsentViewStyle(@ViewBuilder content: @escaping (UserConsentViewConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.userConsentViewStyleStack) { stack in
+            let style = AnyUserConsentViewStyle(content)
             stack.append(style)
         }
     }

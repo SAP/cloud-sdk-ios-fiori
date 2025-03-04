@@ -176,6 +176,34 @@ public extension AllEntriesSectionTitleStyle {
     }
 }
 
+// MARK: AllowActionStyle
+
+extension ModifiedStyle: AllowActionStyle where Style: AllowActionStyle {
+    public func makeBody(_ configuration: AllowActionConfiguration) -> some View {
+        AllowAction(configuration)
+            .allowActionStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct AllowActionStyleModifier<Style: AllowActionStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.allowActionStyle(self.style)
+    }
+}
+
+public extension AllowActionStyle {
+    func modifier(_ modifier: some ViewModifier) -> some AllowActionStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some AllowActionStyle) -> some AllowActionStyle {
+        style.modifier(AllowActionStyleModifier(style: self))
+    }
+}
+
 // MARK: ApplyActionStyle
 
 extension ModifiedStyle: ApplyActionStyle where Style: ApplyActionStyle {
@@ -845,6 +873,34 @@ extension DemoViewStyle {
 
     func concat(_ style: some DemoViewStyle) -> some DemoViewStyle {
         style.modifier(DemoViewStyleModifier(style: self))
+    }
+}
+
+// MARK: DenyActionStyle
+
+extension ModifiedStyle: DenyActionStyle where Style: DenyActionStyle {
+    public func makeBody(_ configuration: DenyActionConfiguration) -> some View {
+        DenyAction(configuration)
+            .denyActionStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct DenyActionStyleModifier<Style: DenyActionStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.denyActionStyle(self.style)
+    }
+}
+
+public extension DenyActionStyle {
+    func modifier(_ modifier: some ViewModifier) -> some DenyActionStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some DenyActionStyle) -> some DenyActionStyle {
+        style.modifier(DenyActionStyleModifier(style: self))
     }
 }
 
@@ -2388,6 +2444,34 @@ public extension MoreActionOverflowStyle {
     }
 }
 
+// MARK: NextActionStyle
+
+extension ModifiedStyle: NextActionStyle where Style: NextActionStyle {
+    public func makeBody(_ configuration: NextActionConfiguration) -> some View {
+        NextAction(configuration)
+            .nextActionStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct NextActionStyleModifier<Style: NextActionStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.nextActionStyle(self.style)
+    }
+}
+
+public extension NextActionStyle {
+    func modifier(_ modifier: some ViewModifier) -> some NextActionStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some NextActionStyle) -> some NextActionStyle {
+        style.modifier(NextActionStyleModifier(style: self))
+    }
+}
+
 // MARK: NodeStyle
 
 extension ModifiedStyle: NodeStyle where Style: NodeStyle {
@@ -2413,6 +2497,34 @@ public extension NodeStyle {
 
     func concat(_ style: some NodeStyle) -> some NodeStyle {
         style.modifier(NodeStyleModifier(style: self))
+    }
+}
+
+// MARK: NotNowActionStyle
+
+extension ModifiedStyle: NotNowActionStyle where Style: NotNowActionStyle {
+    public func makeBody(_ configuration: NotNowActionConfiguration) -> some View {
+        NotNowAction(configuration)
+            .notNowActionStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct NotNowActionStyleModifier<Style: NotNowActionStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.notNowActionStyle(self.style)
+    }
+}
+
+public extension NotNowActionStyle {
+    func modifier(_ modifier: some ViewModifier) -> some NotNowActionStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some NotNowActionStyle) -> some NotNowActionStyle {
+        style.modifier(NotNowActionStyleModifier(style: self))
     }
 }
 
@@ -2917,6 +3029,34 @@ public extension ProgressIndicatorProtocolStyle {
 
     func concat(_ style: some ProgressIndicatorProtocolStyle) -> some ProgressIndicatorProtocolStyle {
         style.modifier(ProgressIndicatorProtocolStyleModifier(style: self))
+    }
+}
+
+// MARK: PromptStyle
+
+extension ModifiedStyle: PromptStyle where Style: PromptStyle {
+    public func makeBody(_ configuration: PromptConfiguration) -> some View {
+        Prompt(configuration)
+            .promptStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct PromptStyleModifier<Style: PromptStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.promptStyle(self.style)
+    }
+}
+
+public extension PromptStyle {
+    func modifier(_ modifier: some ViewModifier) -> some PromptStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some PromptStyle) -> some PromptStyle {
+        style.modifier(PromptStyleModifier(style: self))
     }
 }
 
@@ -4429,6 +4569,90 @@ public extension UpperThumbStyle {
 
     func concat(_ style: some UpperThumbStyle) -> some UpperThumbStyle {
         style.modifier(UpperThumbStyleModifier(style: self))
+    }
+}
+
+// MARK: UserConsentFormStyle
+
+extension ModifiedStyle: UserConsentFormStyle where Style: UserConsentFormStyle {
+    public func makeBody(_ configuration: UserConsentFormConfiguration) -> some View {
+        UserConsentForm(configuration)
+            .userConsentFormStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct UserConsentFormStyleModifier<Style: UserConsentFormStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.userConsentFormStyle(self.style)
+    }
+}
+
+public extension UserConsentFormStyle {
+    func modifier(_ modifier: some ViewModifier) -> some UserConsentFormStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some UserConsentFormStyle) -> some UserConsentFormStyle {
+        style.modifier(UserConsentFormStyleModifier(style: self))
+    }
+}
+
+// MARK: UserConsentPageStyle
+
+extension ModifiedStyle: UserConsentPageStyle where Style: UserConsentPageStyle {
+    public func makeBody(_ configuration: UserConsentPageConfiguration) -> some View {
+        UserConsentPage(configuration)
+            .userConsentPageStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct UserConsentPageStyleModifier<Style: UserConsentPageStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.userConsentPageStyle(self.style)
+    }
+}
+
+public extension UserConsentPageStyle {
+    func modifier(_ modifier: some ViewModifier) -> some UserConsentPageStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some UserConsentPageStyle) -> some UserConsentPageStyle {
+        style.modifier(UserConsentPageStyleModifier(style: self))
+    }
+}
+
+// MARK: UserConsentViewStyle
+
+extension ModifiedStyle: UserConsentViewStyle where Style: UserConsentViewStyle {
+    public func makeBody(_ configuration: UserConsentViewConfiguration) -> some View {
+        UserConsentView(configuration)
+            .userConsentViewStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct UserConsentViewStyleModifier<Style: UserConsentViewStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.userConsentViewStyle(self.style)
+    }
+}
+
+public extension UserConsentViewStyle {
+    func modifier(_ modifier: some ViewModifier) -> some UserConsentViewStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some UserConsentViewStyle) -> some UserConsentViewStyle {
+        style.modifier(UserConsentViewStyleModifier(style: self))
     }
 }
 

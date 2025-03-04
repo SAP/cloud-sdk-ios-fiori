@@ -440,6 +440,12 @@ protocol _ListPickerContentComponent {
     var listPickerContent: (() -> any View)? { get }
 }
 
+// sourcery: BaseComponent
+protocol _PromptComponent {
+    // sourcery: @ViewBuilder
+    var prompt: AttributedString? { get }
+}
+
 /// `CheckoutIndicator` provides a circular indicator that shows the state of a process.
 ///
 /// ## Usage
@@ -647,4 +653,36 @@ protocol _KPISubItemComponent {
     var kPISubItemValue: TextOrIcon? { get }
     // sourcery: defaultValue = "KPISubitemType.unit"
     var kPISubItemType: KPISubitemType { get }
+}
+
+// sourcery: BaseComponent
+protocol _NextActionComponent {
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "FioriButton { _ in Text("Next".localizedFioriString()) }"
+    // sourcery: resultBuilder.defaultValue = "{ FioriButton { _ in Text("Next".localizedFioriString()) } }"
+    var nextAction: FioriButton? { get }
+}
+
+// sourcery: BaseComponent
+protocol _AllowActionComponent {
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "FioriButton { _ in Text("Allow".localizedFioriString()) }"
+    // sourcery: resultBuilder.defaultValue = "{ FioriButton { _ in Text("Allow".localizedFioriString()) } }"
+    var allowAction: FioriButton? { get }
+}
+
+// sourcery: BaseComponent
+protocol _DenyActionComponent {
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "FioriButton { _ in Text("Deny".localizedFioriString()) }"
+    // sourcery: resultBuilder.defaultValue = "{ FioriButton { _ in Text("Deny".localizedFioriString()) } }"
+    var denyAction: FioriButton? { get }
+}
+
+// sourcery: BaseComponent
+protocol _NotNowActionComponent {
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "FioriButton { _ in Text("NotNow".localizedFioriString()) }"
+    // sourcery: resultBuilder.defaultValue = "{ FioriButton { _ in Text("NotNow".localizedFioriString()) } }"
+    var notNowAction: FioriButton? { get }
 }

@@ -129,6 +129,20 @@ public extension AllEntriesSectionTitleStyle where Self == AllEntriesSectionTitl
     }
 }
 
+// MARK: AllowActionStyle
+
+public extension AllowActionStyle where Self == AllowActionBaseStyle {
+    static var base: AllowActionBaseStyle {
+        AllowActionBaseStyle()
+    }
+}
+
+public extension AllowActionStyle where Self == AllowActionFioriStyle {
+    static var fiori: AllowActionFioriStyle {
+        AllowActionFioriStyle()
+    }
+}
+
 // MARK: ApplyActionStyle
 
 public extension ApplyActionStyle where Self == ApplyActionBaseStyle {
@@ -2037,6 +2051,20 @@ extension DemoViewStyle where Self == DemoViewSwitchStyle {
     static func switchStyle(@ViewBuilder content: @escaping (SwitchConfiguration) -> some View) -> DemoViewSwitchStyle {
         let style = AnySwitchStyle(content)
         return DemoViewSwitchStyle(style: style)
+    }
+}
+
+// MARK: DenyActionStyle
+
+public extension DenyActionStyle where Self == DenyActionBaseStyle {
+    static var base: DenyActionBaseStyle {
+        DenyActionBaseStyle()
+    }
+}
+
+public extension DenyActionStyle where Self == DenyActionFioriStyle {
+    static var fiori: DenyActionFioriStyle {
+        DenyActionFioriStyle()
     }
 }
 
@@ -4049,6 +4077,27 @@ public extension ListPickerDestinationStyle where Self == ListPickerDestinationL
     }
 }
 
+public struct ListPickerDestinationPromptStyle: ListPickerDestinationStyle {
+    let style: any PromptStyle
+
+    public func makeBody(_ configuration: ListPickerDestinationConfiguration) -> some View {
+        ListPickerDestination(configuration)
+            .promptStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension ListPickerDestinationStyle where Self == ListPickerDestinationPromptStyle {
+    static func promptStyle(_ style: some PromptStyle) -> ListPickerDestinationPromptStyle {
+        ListPickerDestinationPromptStyle(style: style)
+    }
+
+    static func promptStyle(@ViewBuilder content: @escaping (PromptConfiguration) -> some View) -> ListPickerDestinationPromptStyle {
+        let style = AnyPromptStyle(content)
+        return ListPickerDestinationPromptStyle(style: style)
+    }
+}
+
 // MARK: ListPickerItemStyle
 
 public extension ListPickerItemStyle where Self == ListPickerItemBaseStyle {
@@ -4364,6 +4413,20 @@ public extension MoreActionOverflowStyle where Self == MoreActionOverflowFioriSt
     }
 }
 
+// MARK: NextActionStyle
+
+public extension NextActionStyle where Self == NextActionBaseStyle {
+    static var base: NextActionBaseStyle {
+        NextActionBaseStyle()
+    }
+}
+
+public extension NextActionStyle where Self == NextActionFioriStyle {
+    static var fiori: NextActionFioriStyle {
+        NextActionFioriStyle()
+    }
+}
+
 // MARK: NodeStyle
 
 public extension NodeStyle where Self == NodeBaseStyle {
@@ -4375,6 +4438,20 @@ public extension NodeStyle where Self == NodeBaseStyle {
 public extension NodeStyle where Self == NodeFioriStyle {
     static var fiori: NodeFioriStyle {
         NodeFioriStyle()
+    }
+}
+
+// MARK: NotNowActionStyle
+
+public extension NotNowActionStyle where Self == NotNowActionBaseStyle {
+    static var base: NotNowActionBaseStyle {
+        NotNowActionBaseStyle()
+    }
+}
+
+public extension NotNowActionStyle where Self == NotNowActionFioriStyle {
+    static var fiori: NotNowActionFioriStyle {
+        NotNowActionFioriStyle()
     }
 }
 
@@ -5404,6 +5481,20 @@ public extension ProgressIndicatorProtocolStyle where Self == ProgressIndicatorP
 public extension ProgressIndicatorProtocolStyle where Self == ProgressIndicatorProtocolFioriStyle {
     static var fiori: ProgressIndicatorProtocolFioriStyle {
         ProgressIndicatorProtocolFioriStyle()
+    }
+}
+
+// MARK: PromptStyle
+
+public extension PromptStyle where Self == PromptBaseStyle {
+    static var base: PromptBaseStyle {
+        PromptBaseStyle()
+    }
+}
+
+public extension PromptStyle where Self == PromptFioriStyle {
+    static var fiori: PromptFioriStyle {
+        PromptFioriStyle()
     }
 }
 
@@ -8134,6 +8225,216 @@ public extension UpperThumbStyle where Self == UpperThumbBaseStyle {
 public extension UpperThumbStyle where Self == UpperThumbFioriStyle {
     static var fiori: UpperThumbFioriStyle {
         UpperThumbFioriStyle()
+    }
+}
+
+// MARK: UserConsentFormStyle
+
+public extension UserConsentFormStyle where Self == UserConsentFormBaseStyle {
+    static var base: UserConsentFormBaseStyle {
+        UserConsentFormBaseStyle()
+    }
+}
+
+public extension UserConsentFormStyle where Self == UserConsentFormFioriStyle {
+    static var fiori: UserConsentFormFioriStyle {
+        UserConsentFormFioriStyle()
+    }
+}
+
+public struct UserConsentFormNextActionStyle: UserConsentFormStyle {
+    let style: any NextActionStyle
+
+    public func makeBody(_ configuration: UserConsentFormConfiguration) -> some View {
+        UserConsentForm(configuration)
+            .nextActionStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension UserConsentFormStyle where Self == UserConsentFormNextActionStyle {
+    static func nextActionStyle(_ style: some NextActionStyle) -> UserConsentFormNextActionStyle {
+        UserConsentFormNextActionStyle(style: style)
+    }
+
+    static func nextActionStyle(@ViewBuilder content: @escaping (NextActionConfiguration) -> some View) -> UserConsentFormNextActionStyle {
+        let style = AnyNextActionStyle(content)
+        return UserConsentFormNextActionStyle(style: style)
+    }
+}
+
+public struct UserConsentFormCancelActionStyle: UserConsentFormStyle {
+    let style: any CancelActionStyle
+
+    public func makeBody(_ configuration: UserConsentFormConfiguration) -> some View {
+        UserConsentForm(configuration)
+            .cancelActionStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension UserConsentFormStyle where Self == UserConsentFormCancelActionStyle {
+    static func cancelActionStyle(_ style: some CancelActionStyle) -> UserConsentFormCancelActionStyle {
+        UserConsentFormCancelActionStyle(style: style)
+    }
+
+    static func cancelActionStyle(@ViewBuilder content: @escaping (CancelActionConfiguration) -> some View) -> UserConsentFormCancelActionStyle {
+        let style = AnyCancelActionStyle(content)
+        return UserConsentFormCancelActionStyle(style: style)
+    }
+}
+
+public struct UserConsentFormAllowActionStyle: UserConsentFormStyle {
+    let style: any AllowActionStyle
+
+    public func makeBody(_ configuration: UserConsentFormConfiguration) -> some View {
+        UserConsentForm(configuration)
+            .allowActionStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension UserConsentFormStyle where Self == UserConsentFormAllowActionStyle {
+    static func allowActionStyle(_ style: some AllowActionStyle) -> UserConsentFormAllowActionStyle {
+        UserConsentFormAllowActionStyle(style: style)
+    }
+
+    static func allowActionStyle(@ViewBuilder content: @escaping (AllowActionConfiguration) -> some View) -> UserConsentFormAllowActionStyle {
+        let style = AnyAllowActionStyle(content)
+        return UserConsentFormAllowActionStyle(style: style)
+    }
+}
+
+public struct UserConsentFormDenyActionStyle: UserConsentFormStyle {
+    let style: any DenyActionStyle
+
+    public func makeBody(_ configuration: UserConsentFormConfiguration) -> some View {
+        UserConsentForm(configuration)
+            .denyActionStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension UserConsentFormStyle where Self == UserConsentFormDenyActionStyle {
+    static func denyActionStyle(_ style: some DenyActionStyle) -> UserConsentFormDenyActionStyle {
+        UserConsentFormDenyActionStyle(style: style)
+    }
+
+    static func denyActionStyle(@ViewBuilder content: @escaping (DenyActionConfiguration) -> some View) -> UserConsentFormDenyActionStyle {
+        let style = AnyDenyActionStyle(content)
+        return UserConsentFormDenyActionStyle(style: style)
+    }
+}
+
+public struct UserConsentFormNotNowActionStyle: UserConsentFormStyle {
+    let style: any NotNowActionStyle
+
+    public func makeBody(_ configuration: UserConsentFormConfiguration) -> some View {
+        UserConsentForm(configuration)
+            .notNowActionStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension UserConsentFormStyle where Self == UserConsentFormNotNowActionStyle {
+    static func notNowActionStyle(_ style: some NotNowActionStyle) -> UserConsentFormNotNowActionStyle {
+        UserConsentFormNotNowActionStyle(style: style)
+    }
+
+    static func notNowActionStyle(@ViewBuilder content: @escaping (NotNowActionConfiguration) -> some View) -> UserConsentFormNotNowActionStyle {
+        let style = AnyNotNowActionStyle(content)
+        return UserConsentFormNotNowActionStyle(style: style)
+    }
+}
+
+// MARK: UserConsentPageStyle
+
+public extension UserConsentPageStyle where Self == UserConsentPageBaseStyle {
+    static var base: UserConsentPageBaseStyle {
+        UserConsentPageBaseStyle()
+    }
+}
+
+public extension UserConsentPageStyle where Self == UserConsentPageFioriStyle {
+    static var fiori: UserConsentPageFioriStyle {
+        UserConsentPageFioriStyle()
+    }
+}
+
+public struct UserConsentPageTitleStyle: UserConsentPageStyle {
+    let style: any TitleStyle
+
+    public func makeBody(_ configuration: UserConsentPageConfiguration) -> some View {
+        UserConsentPage(configuration)
+            .titleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension UserConsentPageStyle where Self == UserConsentPageTitleStyle {
+    static func titleStyle(_ style: some TitleStyle) -> UserConsentPageTitleStyle {
+        UserConsentPageTitleStyle(style: style)
+    }
+
+    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> UserConsentPageTitleStyle {
+        let style = AnyTitleStyle(content)
+        return UserConsentPageTitleStyle(style: style)
+    }
+}
+
+public struct UserConsentPageBodyTextStyle: UserConsentPageStyle {
+    let style: any BodyTextStyle
+
+    public func makeBody(_ configuration: UserConsentPageConfiguration) -> some View {
+        UserConsentPage(configuration)
+            .bodyTextStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension UserConsentPageStyle where Self == UserConsentPageBodyTextStyle {
+    static func bodyTextStyle(_ style: some BodyTextStyle) -> UserConsentPageBodyTextStyle {
+        UserConsentPageBodyTextStyle(style: style)
+    }
+
+    static func bodyTextStyle(@ViewBuilder content: @escaping (BodyTextConfiguration) -> some View) -> UserConsentPageBodyTextStyle {
+        let style = AnyBodyTextStyle(content)
+        return UserConsentPageBodyTextStyle(style: style)
+    }
+}
+
+public struct UserConsentPageActionStyle: UserConsentPageStyle {
+    let style: any ActionStyle
+
+    public func makeBody(_ configuration: UserConsentPageConfiguration) -> some View {
+        UserConsentPage(configuration)
+            .actionStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension UserConsentPageStyle where Self == UserConsentPageActionStyle {
+    static func actionStyle(_ style: some ActionStyle) -> UserConsentPageActionStyle {
+        UserConsentPageActionStyle(style: style)
+    }
+
+    static func actionStyle(@ViewBuilder content: @escaping (ActionConfiguration) -> some View) -> UserConsentPageActionStyle {
+        let style = AnyActionStyle(content)
+        return UserConsentPageActionStyle(style: style)
+    }
+}
+
+// MARK: UserConsentViewStyle
+
+public extension UserConsentViewStyle where Self == UserConsentViewBaseStyle {
+    static var base: UserConsentViewBaseStyle {
+        UserConsentViewBaseStyle()
+    }
+}
+
+public extension UserConsentViewStyle where Self == UserConsentViewFioriStyle {
+    static var fiori: UserConsentViewFioriStyle {
+        UserConsentViewFioriStyle()
     }
 }
 
