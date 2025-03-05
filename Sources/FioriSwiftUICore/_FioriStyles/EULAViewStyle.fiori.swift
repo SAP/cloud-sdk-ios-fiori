@@ -85,6 +85,7 @@ extension EULAViewFioriStyle {
 
         func makeBody(_ configuration: BodyTextConfiguration) -> some View {
             BodyText(configuration)
+                .font(.fiori(forTextStyle: .body))
         }
     }
 
