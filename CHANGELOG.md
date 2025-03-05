@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.3.4](https://github.com/SAP/cloud-sdk-ios-fiori/compare/4.3.3...4.3.4) (2025-03-05)
+
+
+### Bug Fixes
+
+* 🐛 [IOSSDKBUG-580] footer prompt for list picker ([#997](https://github.com/SAP/cloud-sdk-ios-fiori/issues/997)) ([8aa3491](https://github.com/SAP/cloud-sdk-ios-fiori/commit/8aa3491613b324530a60678cf40da7f18a9c4680))
+* 🐛 [IOSSDKBUG-585] list picker destination crash ([#1001](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1001)) ([a5076a4](https://github.com/SAP/cloud-sdk-ios-fiori/commit/a5076a4934f3b571c13e92c6d3e8118390384bef))
+* 🐛 MenuSelection's "View All" text not localized (IOSSDKBUG-583) ([#1005](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1005)) ([03d16c3](https://github.com/SAP/cloud-sdk-ios-fiori/commit/03d16c323976892a51a4e95615241d1bbcb03493))
+* 🐛 shadow effect for MenuSelectionItem (IOSSDKBUG-233) ([#992](https://github.com/SAP/cloud-sdk-ios-fiori/issues/992)) ([ad06d7d](https://github.com/SAP/cloud-sdk-ios-fiori/commit/ad06d7d696b7837916c1a6a17a264f64baa3ca20))
+
 ### [4.3.3](https://github.com/SAP/cloud-sdk-ios-fiori/compare/4.3.2...4.3.3) (2025-02-17)
 
 
