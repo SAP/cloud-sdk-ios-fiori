@@ -686,3 +686,19 @@ protocol _NotNowActionComponent {
     // sourcery: resultBuilder.defaultValue = "{ FioriButton { _ in Text("NotNow".localizedFioriString()) } }"
     var notNowAction: FioriButton? { get }
 }
+
+// sourcery: BaseComponent
+protocol _AgreeActionComponent {
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "FioriButton { _ in Text("Agree".localizedFioriString()) }"
+    // sourcery: resultBuilder.defaultValue = "{ FioriButton { _ in Text("Agree".localizedFioriString()) } }"
+    var agreeAction: FioriButton? { get }
+}
+
+// sourcery: BaseComponent
+protocol _DisagreeActionComponent {
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "FioriButton { _ in Text("Disagree".localizedFioriString()) }"
+    // sourcery: resultBuilder.defaultValue = "{ FioriButton { _ in Text("Disagree".localizedFioriString()) } }"
+    var disagreeAction: FioriButton? { get }
+}
