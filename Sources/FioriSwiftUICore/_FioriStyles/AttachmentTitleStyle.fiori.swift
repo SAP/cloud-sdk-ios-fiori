@@ -6,7 +6,7 @@ import SwiftUI
 public struct AttachmentTitleBaseStyle: AttachmentTitleStyle {
     @ViewBuilder
     public func makeBody(_ configuration: AttachmentTitleConfiguration) -> some View {
-        configuration.title
+        configuration.attachmentTitle
     }
 }
 

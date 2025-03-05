@@ -6,7 +6,7 @@ import SwiftUI
 public struct AttachmentFootnoteBaseStyle: AttachmentFootnoteStyle {
     @ViewBuilder
     public func makeBody(_ configuration: AttachmentFootnoteConfiguration) -> some View {
-        configuration.footnote
+        configuration.attachmentFootnote
     }
 }
 

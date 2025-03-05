@@ -22,15 +22,22 @@ struct AnyAttachmentStyle: AttachmentStyle {
 }
 
 public struct AttachmentConfiguration {
-    public let title: Title
-    public let subtitle: Subtitle
-    public let footnote: Footnote
+    public var componentIdentifier: String = "fiori_attachment_component"
+    public let attachmentTitle: AttachmentTitle
+    public let attachmentSubtitle: AttachmentSubtitle
+    public let attachmentFootnote: AttachmentFootnote
     public let url: URL
     public let controlState: ControlState
 
-    public typealias Title = ConfigurationViewWrapper
-    public typealias Subtitle = ConfigurationViewWrapper
-    public typealias Footnote = ConfigurationViewWrapper
+    public typealias AttachmentTitle = ConfigurationViewWrapper
+    public typealias AttachmentSubtitle = ConfigurationViewWrapper
+    public typealias AttachmentFootnote = ConfigurationViewWrapper
+}
+
+extension AttachmentConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }
 
 public struct AttachmentFioriStyle: AttachmentStyle {

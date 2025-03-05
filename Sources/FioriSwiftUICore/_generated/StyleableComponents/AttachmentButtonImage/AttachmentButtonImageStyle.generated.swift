@@ -22,10 +22,17 @@ struct AnyAttachmentButtonImageStyle: AttachmentButtonImageStyle {
 }
 
 public struct AttachmentButtonImageConfiguration {
+    public var componentIdentifier: String = "fiori_attachmentbuttonimage_component"
     public let addButtonImage: AddButtonImage
     public let controlState: ControlState
 
     public typealias AddButtonImage = ConfigurationViewWrapper
+}
+
+extension AttachmentButtonImageConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }
 
 public struct AttachmentButtonImageFioriStyle: AttachmentButtonImageStyle {

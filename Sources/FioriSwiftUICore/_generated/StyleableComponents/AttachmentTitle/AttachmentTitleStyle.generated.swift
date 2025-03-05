@@ -22,7 +22,14 @@ struct AnyAttachmentTitleStyle: AttachmentTitleStyle {
 }
 
 public struct AttachmentTitleConfiguration {
-    public let title: Title
+    public var componentIdentifier: String = "fiori_attachmenttitle_component"
+    public let attachmentTitle: AttachmentTitle
 
-    public typealias Title = ConfigurationViewWrapper
+    public typealias AttachmentTitle = ConfigurationViewWrapper
+}
+
+extension AttachmentTitleConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }

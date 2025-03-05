@@ -22,8 +22,15 @@ struct AnyAttachmentThumbnailStyle: AttachmentThumbnailStyle {
 }
 
 public struct AttachmentThumbnailConfiguration {
+    public var componentIdentifier: String = "fiori_attachmentthumbnail_component"
     public let url: URL
     public let controlState: ControlState
+}
+
+extension AttachmentThumbnailConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }
 
 public struct AttachmentThumbnailFioriStyle: AttachmentThumbnailStyle {

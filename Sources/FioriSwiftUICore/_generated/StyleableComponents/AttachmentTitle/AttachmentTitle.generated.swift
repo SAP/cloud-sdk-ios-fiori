@@ -4,20 +4,29 @@ import Foundation
 import SwiftUI
 
 public struct AttachmentTitle {
-    let title: any View
+    let attachmentTitle: any View
 
     @Environment(\.attachmentTitleStyle) var style
 
+    var componentIdentifier: String = AttachmentTitle.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder title: () -> any View) {
-        self.title = title()
+    public init(@ViewBuilder attachmentTitle: () -> any View,
+                componentIdentifier: String? = AttachmentTitle.identifier)
+    {
+        self.attachmentTitle = attachmentTitle()
+        self.componentIdentifier = componentIdentifier ?? AttachmentTitle.identifier
     }
 }
 
 public extension AttachmentTitle {
-    init(title: AttributedString) {
-        self.init(title: { Text(title) })
+    static let identifier = "fiori_attachmenttitle_component"
+}
+
+public extension AttachmentTitle {
+    init(attachmentTitle: AttributedString) {
+        self.init(attachmentTitle: { Text(attachmentTitle) })
     }
 }
 
@@ -27,8 +36,9 @@ public extension AttachmentTitle {
     }
 
     internal init(_ configuration: AttachmentTitleConfiguration, shouldApplyDefaultStyle: Bool) {
-        self.title = configuration.title
+        self.attachmentTitle = configuration.attachmentTitle
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -37,7 +47,7 @@ extension AttachmentTitle: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(title: .init(self.title))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, attachmentTitle: .init(self.attachmentTitle))).typeErased
                 .transformEnvironment(\.attachmentTitleStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -55,7 +65,7 @@ private extension AttachmentTitle {
     }
 
     func defaultStyle() -> some View {
-        AttachmentTitle(.init(title: .init(self.title)))
+        AttachmentTitle(.init(componentIdentifier: self.componentIdentifier, attachmentTitle: .init(self.attachmentTitle)))
             .shouldApplyDefaultStyle(false)
             .attachmentTitleStyle(.fiori)
             .typeErased

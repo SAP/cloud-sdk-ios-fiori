@@ -11,27 +11,27 @@ public struct AttachmentGroupBaseStyle: AttachmentGroupStyle {
 
     @ViewBuilder
     func makeAttachemnt(of configuration: AttachmentGroupConfiguration, at index: Int) -> some View {
-            if let (fileURL, name, fileSize, fileModificationDate) = getFileInfo(fileUrl: configuration.attachments[index]) {
-                Attachment(
-                    title: {
-                        Text("\(name)")
-                    },
-                    subtitle: {
-                        if let fileSize {
-                            Text(format(size: fileSize))
-                        }
-                    },
-                    footnote: {
-                        if let fileModificationDate {
-                            Text(format(date: fileModificationDate))
-                        }
-                    },
-                    url: fileURL,
-                    controlState: configuration.controlState
-                )
-            } else {
-                EmptyView()
-            }
+        if let (fileURL, name, fileSize, fileModificationDate) = getFileInfo(fileUrl: configuration.attachments[index]) {
+            Attachment(
+                attachmentTitle: {
+                    Text("\(name)")
+                },
+                attachmentSubtitle: {
+                    if let fileSize {
+                        Text(format(size: fileSize))
+                    }
+                },
+                attachmentFootnote: {
+                    if let fileModificationDate {
+                        Text(format(date: fileModificationDate))
+                    }
+                },
+                url: fileURL,
+                controlState: configuration.controlState
+            )
+        } else {
+            EmptyView()
+        }
     }
     
     public func makeBody(_ configuration: AttachmentGroupConfiguration) -> some View {
@@ -43,11 +43,11 @@ public struct AttachmentGroupBaseStyle: AttachmentGroupStyle {
                 if configuration.controlState != .readOnly {
                     if let maxCount = configuration.maxCount {
                         if maxCount > configuration.attachments.count {
-                            configuration.operations // TODO: how to apply disabled? Why shown of disabled?
+                            configuration.operations
                                 .environment(self.context)
                         }
                     } else {
-                        configuration.operations // TODO: how to apply disabled? Why shown of disabled?
+                        configuration.operations
                             .environment(self.context)
                     }
                 }
@@ -139,7 +139,6 @@ extension AttachmentGroupFioriStyle {
     struct ContentFioriStyle: AttachmentGroupStyle {
         func makeBody(_ configuration: AttachmentGroupConfiguration) -> some View {
             AttachmentGroup(configuration)
-                .attachmentStyle(.fiori)
         }
     }
     

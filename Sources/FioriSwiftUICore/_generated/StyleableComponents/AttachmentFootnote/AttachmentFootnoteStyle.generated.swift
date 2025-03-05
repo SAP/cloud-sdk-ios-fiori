@@ -22,7 +22,14 @@ struct AnyAttachmentFootnoteStyle: AttachmentFootnoteStyle {
 }
 
 public struct AttachmentFootnoteConfiguration {
-    public let footnote: Footnote
+    public var componentIdentifier: String = "fiori_attachmentfootnote_component"
+    public let attachmentFootnote: AttachmentFootnote
 
-    public typealias Footnote = ConfigurationViewWrapper
+    public typealias AttachmentFootnote = ConfigurationViewWrapper
+}
+
+extension AttachmentFootnoteConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }

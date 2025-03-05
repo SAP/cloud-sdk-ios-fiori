@@ -41,7 +41,7 @@ extension AttachmentThumbnailBaseStyle {
     func generateThumbnail(url: URL) {
         let size = CGSize(width: AttachmentConstants.cellWidth, height: AttachmentConstants.cellHeight)
         let scale = UIScreen.main.scale
-        
+        print("1 generateThumbnail url: \(url)")
         let request = QLThumbnailGenerator.Request(
             fileAt: url,
             size: size,
@@ -49,9 +49,11 @@ extension AttachmentThumbnailBaseStyle {
             representationTypes: .thumbnail
         )
         
+        print("2 generateThumbnail url: \(url)")
         let generator = QLThumbnailGenerator.shared
         generator.generateBestRepresentation(for: request) { thumbnail, error in
             DispatchQueue.main.async {
+                print("3 generateThumbnail url: \(url)")
                 if let error {
                     print(error)
                     return

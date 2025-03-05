@@ -4,20 +4,29 @@ import Foundation
 import SwiftUI
 
 public struct AttachmentFootnote {
-    let footnote: any View
+    let attachmentFootnote: any View
 
     @Environment(\.attachmentFootnoteStyle) var style
 
+    var componentIdentifier: String = AttachmentFootnote.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder footnote: () -> any View) {
-        self.footnote = footnote()
+    public init(@ViewBuilder attachmentFootnote: () -> any View,
+                componentIdentifier: String? = AttachmentFootnote.identifier)
+    {
+        self.attachmentFootnote = attachmentFootnote()
+        self.componentIdentifier = componentIdentifier ?? AttachmentFootnote.identifier
     }
 }
 
 public extension AttachmentFootnote {
-    init(footnote: AttributedString) {
-        self.init(footnote: { Text(footnote) })
+    static let identifier = "fiori_attachmentfootnote_component"
+}
+
+public extension AttachmentFootnote {
+    init(attachmentFootnote: AttributedString) {
+        self.init(attachmentFootnote: { Text(attachmentFootnote) })
     }
 }
 
@@ -27,8 +36,9 @@ public extension AttachmentFootnote {
     }
 
     internal init(_ configuration: AttachmentFootnoteConfiguration, shouldApplyDefaultStyle: Bool) {
-        self.footnote = configuration.footnote
+        self.attachmentFootnote = configuration.attachmentFootnote
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -37,7 +47,7 @@ extension AttachmentFootnote: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(footnote: .init(self.footnote))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, attachmentFootnote: .init(self.attachmentFootnote))).typeErased
                 .transformEnvironment(\.attachmentFootnoteStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -55,7 +65,7 @@ private extension AttachmentFootnote {
     }
 
     func defaultStyle() -> some View {
-        AttachmentFootnote(.init(footnote: .init(self.footnote)))
+        AttachmentFootnote(.init(componentIdentifier: self.componentIdentifier, attachmentFootnote: .init(self.attachmentFootnote)))
             .shouldApplyDefaultStyle(false)
             .attachmentFootnoteStyle(.fiori)
             .typeErased

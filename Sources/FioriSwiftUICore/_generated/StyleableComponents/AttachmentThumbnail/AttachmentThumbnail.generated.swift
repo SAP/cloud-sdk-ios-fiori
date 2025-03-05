@@ -13,14 +13,22 @@ public struct AttachmentThumbnail {
 
     @Environment(\.attachmentThumbnailStyle) var style
 
+    var componentIdentifier: String = AttachmentThumbnail.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
     public init(url: URL,
-                controlState: ControlState = .normal)
+                controlState: ControlState = .normal,
+                componentIdentifier: String? = AttachmentThumbnail.identifier)
     {
         self.url = url
         self.controlState = controlState
+        self.componentIdentifier = componentIdentifier ?? AttachmentThumbnail.identifier
     }
+}
+
+public extension AttachmentThumbnail {
+    static let identifier = "fiori_attachmentthumbnail_component"
 }
 
 public extension AttachmentThumbnail {
@@ -32,6 +40,7 @@ public extension AttachmentThumbnail {
         self.url = configuration.url
         self.controlState = configuration.controlState
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -40,7 +49,7 @@ extension AttachmentThumbnail: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(url: self.url, controlState: self.controlState)).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, url: self.url, controlState: self.controlState)).typeErased
                 .transformEnvironment(\.attachmentThumbnailStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -58,7 +67,7 @@ private extension AttachmentThumbnail {
     }
 
     func defaultStyle() -> some View {
-        AttachmentThumbnail(.init(url: self.url, controlState: self.controlState))
+        AttachmentThumbnail(.init(componentIdentifier: self.componentIdentifier, url: self.url, controlState: self.controlState))
             .shouldApplyDefaultStyle(false)
             .attachmentThumbnailStyle(AttachmentThumbnailFioriStyle.ContentFioriStyle())
             .typeErased

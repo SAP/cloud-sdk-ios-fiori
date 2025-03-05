@@ -22,6 +22,7 @@ struct AnyAttachmentGroupStyle: AttachmentGroupStyle {
 }
 
 public struct AttachmentGroupConfiguration {
+    public var componentIdentifier: String = "fiori_attachmentgroup_component"
     public let title: Title
     @Binding public var attachments: [URL]
     public let maxCount: Int?
@@ -30,10 +31,15 @@ public struct AttachmentGroupConfiguration {
     @Binding public var errorMessage: AttributedString?
     public let operations: Operations
     public let onPreview: ((URL) -> Void)?
-    public let thumbnailAndInfo: ((URL) -> Attachment)?
 
     public typealias Title = ConfigurationViewWrapper
     public typealias Operations = ConfigurationViewWrapper
+}
+
+extension AttachmentGroupConfiguration {
+    func isDirectChild(_ componentIdentifier: String) -> Bool {
+        componentIdentifier == self.componentIdentifier
+    }
 }
 
 public struct AttachmentGroupFioriStyle: AttachmentGroupStyle {

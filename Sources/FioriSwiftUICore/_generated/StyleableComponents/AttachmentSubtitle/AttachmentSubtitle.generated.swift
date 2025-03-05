@@ -4,20 +4,29 @@ import Foundation
 import SwiftUI
 
 public struct AttachmentSubtitle {
-    let subtitle: any View
+    let attachmentSubtitle: any View
 
     @Environment(\.attachmentSubtitleStyle) var style
 
+    var componentIdentifier: String = AttachmentSubtitle.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder subtitle: () -> any View) {
-        self.subtitle = subtitle()
+    public init(@ViewBuilder attachmentSubtitle: () -> any View,
+                componentIdentifier: String? = AttachmentSubtitle.identifier)
+    {
+        self.attachmentSubtitle = attachmentSubtitle()
+        self.componentIdentifier = componentIdentifier ?? AttachmentSubtitle.identifier
     }
 }
 
 public extension AttachmentSubtitle {
-    init(subtitle: AttributedString) {
-        self.init(subtitle: { Text(subtitle) })
+    static let identifier = "fiori_attachmentsubtitle_component"
+}
+
+public extension AttachmentSubtitle {
+    init(attachmentSubtitle: AttributedString) {
+        self.init(attachmentSubtitle: { Text(attachmentSubtitle) })
     }
 }
 
@@ -27,8 +36,9 @@ public extension AttachmentSubtitle {
     }
 
     internal init(_ configuration: AttachmentSubtitleConfiguration, shouldApplyDefaultStyle: Bool) {
-        self.subtitle = configuration.subtitle
+        self.attachmentSubtitle = configuration.attachmentSubtitle
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -37,7 +47,7 @@ extension AttachmentSubtitle: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(subtitle: .init(self.subtitle))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, attachmentSubtitle: .init(self.attachmentSubtitle))).typeErased
                 .transformEnvironment(\.attachmentSubtitleStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -55,7 +65,7 @@ private extension AttachmentSubtitle {
     }
 
     func defaultStyle() -> some View {
-        AttachmentSubtitle(.init(subtitle: .init(self.subtitle)))
+        AttachmentSubtitle(.init(componentIdentifier: self.componentIdentifier, attachmentSubtitle: .init(self.attachmentSubtitle)))
             .shouldApplyDefaultStyle(false)
             .attachmentSubtitleStyle(.fiori)
             .typeErased

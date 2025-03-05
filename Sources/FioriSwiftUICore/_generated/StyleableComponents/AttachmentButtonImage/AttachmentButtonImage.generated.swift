@@ -13,14 +13,22 @@ public struct AttachmentButtonImage {
 
     @Environment(\.attachmentButtonImageStyle) var style
 
+    var componentIdentifier: String = AttachmentButtonImage.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
     public init(@ViewBuilder addButtonImage: () -> any View,
-                controlState: ControlState = .normal)
+                controlState: ControlState = .normal,
+                componentIdentifier: String? = AttachmentButtonImage.identifier)
     {
         self.addButtonImage = addButtonImage()
         self.controlState = controlState
+        self.componentIdentifier = componentIdentifier ?? AttachmentButtonImage.identifier
     }
+}
+
+public extension AttachmentButtonImage {
+    static let identifier = "fiori_attachmentbuttonimage_component"
 }
 
 public extension AttachmentButtonImage {
@@ -40,6 +48,7 @@ public extension AttachmentButtonImage {
         self.addButtonImage = configuration.addButtonImage
         self.controlState = configuration.controlState
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -48,7 +57,7 @@ extension AttachmentButtonImage: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(addButtonImage: .init(self.addButtonImage), controlState: self.controlState)).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, addButtonImage: .init(self.addButtonImage), controlState: self.controlState)).typeErased
                 .transformEnvironment(\.attachmentButtonImageStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -66,7 +75,7 @@ private extension AttachmentButtonImage {
     }
 
     func defaultStyle() -> some View {
-        AttachmentButtonImage(.init(addButtonImage: .init(self.addButtonImage), controlState: self.controlState))
+        AttachmentButtonImage(.init(componentIdentifier: self.componentIdentifier, addButtonImage: .init(self.addButtonImage), controlState: self.controlState))
             .shouldApplyDefaultStyle(false)
             .attachmentButtonImageStyle(AttachmentButtonImageFioriStyle.ContentFioriStyle())
             .typeErased

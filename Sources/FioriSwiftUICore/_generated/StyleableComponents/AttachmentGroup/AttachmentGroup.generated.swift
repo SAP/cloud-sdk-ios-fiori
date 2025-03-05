@@ -25,10 +25,10 @@ public struct AttachmentGroup {
     let operations: any View
     /// Triggering App specific preview, otherwise using default preview.
     let onPreview: ((URL) -> Void)?
-    /// App specific 'Attachment', i.e. thumbnail and information. Overrides default implemetation.
-    let thumbnailAndInfo: ((URL) -> Attachment)?
 
     @Environment(\.attachmentGroupStyle) var style
+
+    var componentIdentifier: String = AttachmentGroup.identifier
 
     fileprivate var _shouldApplyDefaultStyle = true
 
@@ -40,9 +40,9 @@ public struct AttachmentGroup {
                 errorMessage: Binding<AttributedString?>,
                 @ViewBuilder operations: () -> any View = { EmptyView() },
                 onPreview: ((URL) -> Void)? = nil,
-                thumbnailAndInfo: ((URL) -> Attachment)? = nil)
+                componentIdentifier: String? = AttachmentGroup.identifier)
     {
-        self.title = Title(title: title)
+        self.title = Title(title: title, componentIdentifier: componentIdentifier)
         self._attachments = attachments
         self.maxCount = maxCount
         self.processor = processor
@@ -50,8 +50,12 @@ public struct AttachmentGroup {
         self._errorMessage = errorMessage
         self.operations = operations()
         self.onPreview = onPreview
-        self.thumbnailAndInfo = thumbnailAndInfo
+        self.componentIdentifier = componentIdentifier ?? AttachmentGroup.identifier
     }
+}
+
+public extension AttachmentGroup {
+    static let identifier = "fiori_attachmentgroup_component"
 }
 
 public extension AttachmentGroup {
@@ -62,10 +66,9 @@ public extension AttachmentGroup {
          controlState: ControlState = .normal,
          errorMessage: Binding<AttributedString?>,
          @ViewBuilder operations: () -> any View = { EmptyView() },
-         onPreview: ((URL) -> Void)? = nil,
-         thumbnailAndInfo: ((URL) -> Attachment)? = nil)
+         onPreview: ((URL) -> Void)? = nil)
     {
-        self.init(title: { Text(title) }, attachments: attachments, maxCount: maxCount, processor: processor, controlState: controlState, errorMessage: errorMessage, operations: operations, onPreview: onPreview, thumbnailAndInfo: thumbnailAndInfo)
+        self.init(title: { Text(title) }, attachments: attachments, maxCount: maxCount, processor: processor, controlState: controlState, errorMessage: errorMessage, operations: operations, onPreview: onPreview)
     }
 }
 
@@ -83,8 +86,8 @@ public extension AttachmentGroup {
         self._errorMessage = configuration.$errorMessage
         self.operations = configuration.operations
         self.onPreview = configuration.onPreview
-        self.thumbnailAndInfo = configuration.thumbnailAndInfo
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -93,7 +96,7 @@ extension AttachmentGroup: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(title: .init(self.title), attachments: self.$attachments, maxCount: self.maxCount, processor: self.processor, controlState: self.controlState, errorMessage: self.$errorMessage, operations: .init(self.operations), onPreview: self.onPreview, thumbnailAndInfo: self.thumbnailAndInfo)).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, title: .init(self.title), attachments: self.$attachments, maxCount: self.maxCount, processor: self.processor, controlState: self.controlState, errorMessage: self.$errorMessage, operations: .init(self.operations), onPreview: self.onPreview)).typeErased
                 .transformEnvironment(\.attachmentGroupStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -111,7 +114,7 @@ private extension AttachmentGroup {
     }
 
     func defaultStyle() -> some View {
-        AttachmentGroup(.init(title: .init(self.title), attachments: self.$attachments, maxCount: self.maxCount, processor: self.processor, controlState: self.controlState, errorMessage: self.$errorMessage, operations: .init(self.operations), onPreview: self.onPreview, thumbnailAndInfo: self.thumbnailAndInfo))
+        AttachmentGroup(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), attachments: self.$attachments, maxCount: self.maxCount, processor: self.processor, controlState: self.controlState, errorMessage: self.$errorMessage, operations: .init(self.operations), onPreview: self.onPreview))
             .shouldApplyDefaultStyle(false)
             .attachmentGroupStyle(AttachmentGroupFioriStyle.ContentFioriStyle())
             .typeErased

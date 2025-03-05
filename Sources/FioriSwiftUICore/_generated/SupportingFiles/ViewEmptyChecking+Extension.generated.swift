@@ -60,15 +60,15 @@ extension AttachmentButtonImage: _ViewEmptyChecking {
 
 extension Attachment: _ViewEmptyChecking {
     public var isEmpty: Bool {
-        title.isEmpty &&
-            subtitle.isEmpty &&
-            footnote.isEmpty
+        attachmentTitle.isEmpty &&
+            attachmentSubtitle.isEmpty &&
+            attachmentFootnote.isEmpty
     }
 }
 
 extension AttachmentFootnote: _ViewEmptyChecking {
     public var isEmpty: Bool {
-        footnote.isEmpty
+        attachmentFootnote.isEmpty
     }
 }
 
@@ -81,7 +81,7 @@ extension AttachmentGroup: _ViewEmptyChecking {
 
 extension AttachmentSubtitle: _ViewEmptyChecking {
     public var isEmpty: Bool {
-        subtitle.isEmpty
+        attachmentSubtitle.isEmpty
     }
 }
 
@@ -93,7 +93,7 @@ extension AttachmentThumbnail: _ViewEmptyChecking {
 
 extension AttachmentTitle: _ViewEmptyChecking {
     public var isEmpty: Bool {
-        title.isEmpty
+        attachmentTitle.isEmpty
     }
 }
 

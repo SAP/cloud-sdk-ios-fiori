@@ -6,12 +6,13 @@ import SwiftUI
 public struct AttachmentBaseStyle: AttachmentStyle {
     public func makeBody(_ configuration: AttachmentConfiguration) -> some View {
         VStack(alignment: .leading, spacing: 4) {
-            AttachmentThumbnail(url: configuration.url)
-
+            let _ = print("AttachmentBaseStyle: \(configuration.url)")
+            AttachmentThumbnail(url: configuration.url, controlState: configuration.controlState)
+                .id(UUID().uuidString)
             VStack(alignment: .leading, spacing: 2) {
-                configuration.title
-                configuration.subtitle
-                configuration.footnote
+                configuration.attachmentTitle
+                configuration.attachmentSubtitle
+                configuration.attachmentFootnote
             }
         }
         .frame(width: AttachmentConstants.cellWidth)

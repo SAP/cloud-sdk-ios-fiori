@@ -6,7 +6,7 @@ import SwiftUI
 public struct AttachmentSubtitleBaseStyle: AttachmentSubtitleStyle {
     @ViewBuilder
     public func makeBody(_ configuration: AttachmentSubtitleConfiguration) -> some View {
-        configuration.subtitle
+        configuration.attachmentSubtitle
     }
 }
 

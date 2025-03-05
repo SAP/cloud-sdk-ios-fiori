@@ -276,6 +276,27 @@ public extension AttachmentGroupStyle where Self == AttachmentGroupFioriStyle {
     }
 }
 
+public struct AttachmentGroupTitleStyle: AttachmentGroupStyle {
+    let style: any TitleStyle
+
+    public func makeBody(_ configuration: AttachmentGroupConfiguration) -> some View {
+        AttachmentGroup(configuration)
+            .titleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension AttachmentGroupStyle where Self == AttachmentGroupTitleStyle {
+    static func titleStyle(_ style: some TitleStyle) -> AttachmentGroupTitleStyle {
+        AttachmentGroupTitleStyle(style: style)
+    }
+
+    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> AttachmentGroupTitleStyle {
+        let style = AnyTitleStyle(content)
+        return AttachmentGroupTitleStyle(style: style)
+    }
+}
+
 // MARK: AttachmentSubtitleStyle
 
 public extension AttachmentSubtitleStyle where Self == AttachmentSubtitleBaseStyle {

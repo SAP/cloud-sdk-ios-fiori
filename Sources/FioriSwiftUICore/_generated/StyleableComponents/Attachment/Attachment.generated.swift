@@ -39,9 +39,9 @@ import SwiftUI
 /// }
 /// ```
 public struct Attachment {
-    let title: any View
-    let subtitle: any View
-    let footnote: any View
+    let attachmentTitle: any View
+    let attachmentSubtitle: any View
+    let attachmentFootnote: any View
     /// The collection of local attachment URLs, which are prepared by Apps.
     let url: URL
     /// The state of attachement group component
@@ -49,30 +49,38 @@ public struct Attachment {
 
     @Environment(\.attachmentStyle) var style
 
+    var componentIdentifier: String = Attachment.identifier
+
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder title: () -> any View,
-                @ViewBuilder subtitle: () -> any View,
-                @ViewBuilder footnote: () -> any View,
+    public init(@ViewBuilder attachmentTitle: () -> any View,
+                @ViewBuilder attachmentSubtitle: () -> any View,
+                @ViewBuilder attachmentFootnote: () -> any View,
                 url: URL,
-                controlState: ControlState = .normal)
+                controlState: ControlState = .normal,
+                componentIdentifier: String? = Attachment.identifier)
     {
-        self.title = Title(title: title)
-        self.subtitle = Subtitle(subtitle: subtitle)
-        self.footnote = Footnote(footnote: footnote)
+        self.attachmentTitle = AttachmentTitle(attachmentTitle: attachmentTitle, componentIdentifier: componentIdentifier)
+        self.attachmentSubtitle = AttachmentSubtitle(attachmentSubtitle: attachmentSubtitle, componentIdentifier: componentIdentifier)
+        self.attachmentFootnote = AttachmentFootnote(attachmentFootnote: attachmentFootnote, componentIdentifier: componentIdentifier)
         self.url = url
         self.controlState = controlState
+        self.componentIdentifier = componentIdentifier ?? Attachment.identifier
     }
 }
 
 public extension Attachment {
-    init(title: AttributedString,
-         subtitle: AttributedString,
-         footnote: AttributedString,
+    static let identifier = "fiori_attachment_component"
+}
+
+public extension Attachment {
+    init(attachmentTitle: AttributedString,
+         attachmentSubtitle: AttributedString,
+         attachmentFootnote: AttributedString,
          url: URL,
          controlState: ControlState = .normal)
     {
-        self.init(title: { Text(title) }, subtitle: { Text(subtitle) }, footnote: { Text(footnote) }, url: url, controlState: controlState)
+        self.init(attachmentTitle: { Text(attachmentTitle) }, attachmentSubtitle: { Text(attachmentSubtitle) }, attachmentFootnote: { Text(attachmentFootnote) }, url: url, controlState: controlState)
     }
 }
 
@@ -82,12 +90,13 @@ public extension Attachment {
     }
 
     internal init(_ configuration: AttachmentConfiguration, shouldApplyDefaultStyle: Bool) {
-        self.title = configuration.title
-        self.subtitle = configuration.subtitle
-        self.footnote = configuration.footnote
+        self.attachmentTitle = configuration.attachmentTitle
+        self.attachmentSubtitle = configuration.attachmentSubtitle
+        self.attachmentFootnote = configuration.attachmentFootnote
         self.url = configuration.url
         self.controlState = configuration.controlState
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        self.componentIdentifier = configuration.componentIdentifier
     }
 }
 
@@ -96,7 +105,7 @@ extension Attachment: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(title: .init(self.title), subtitle: .init(self.subtitle), footnote: .init(self.footnote), url: self.url, controlState: self.controlState)).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, attachmentTitle: .init(self.attachmentTitle), attachmentSubtitle: .init(self.attachmentSubtitle), attachmentFootnote: .init(self.attachmentFootnote), url: self.url, controlState: self.controlState)).typeErased
                 .transformEnvironment(\.attachmentStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -114,7 +123,7 @@ private extension Attachment {
     }
 
     func defaultStyle() -> some View {
-        Attachment(.init(title: .init(self.title), subtitle: .init(self.subtitle), footnote: .init(self.footnote), url: self.url, controlState: self.controlState))
+        Attachment(.init(componentIdentifier: self.componentIdentifier, attachmentTitle: .init(self.attachmentTitle), attachmentSubtitle: .init(self.attachmentSubtitle), attachmentFootnote: .init(self.attachmentFootnote), url: self.url, controlState: self.controlState))
             .shouldApplyDefaultStyle(false)
             .attachmentStyle(AttachmentFioriStyle.ContentFioriStyle())
             .typeErased

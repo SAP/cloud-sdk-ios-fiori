@@ -3,29 +3,24 @@ import PhotosUI
 import SwiftUI
 
 struct AttachmentGroupExample: View {
-    @State var urls = [
-        Bundle.main.url(forResource: "Text File Example", withExtension: "txt")!,
-        Bundle.main.url(forResource: "XML File Example", withExtension: "xml")!,
-        Bundle.main.url(forResource: "HTML File Example", withExtension: "html")!
-    ]
-    
-    @State private var maxCount: Int? = nil
-
-    @State private var state: ControlState = .normal
-
-    @State private var showOperations = false
-    
-    @State var images = [UIImage]()
-    @State var selectedPhotos = [PhotosPickerItem]()
-    
-    @State var showScanAndUploadView = false
-    @State var showWriteAndUploadView = false
-    
+    @State var urls: [URL]
+    @State private var maxCount: Int?
+    @State private var state: ControlState
+    @State private var showOperations: Bool
+    @State var images: [UIImage]
+    @State var selectedPhotos: [PhotosPickerItem]
+    @State var showScanAndUploadView: Bool
+    @State var showWriteAndUploadView: Bool
     @State private var opsAsMenu = true
-    
     @State private var showConfiguraton = false
-    
     @State var previewURL: URL? = nil
+    @State private var defaultThumbnail: Bool
+    @State private var defaultPreview: Bool
+    @State private var error: AttributedString?
+    @State private var appWithoutError: Bool
+    @State var photoFilters: [PHPickerFilter] = []
+    @State var fileFilters: [UTType] = []
+
     var shouldShowPreview: Binding<Bool> {
         Binding<Bool> {
             self.previewURL != nil
@@ -35,16 +30,26 @@ struct AttachmentGroupExample: View {
             }
         }
     }
-    
-    @State private var defaultThumbnail: Bool = true
 
-    @State private var defaultPreview = true
-    
-    @State private var error: AttributedString? = nil
-    @State private var appWithoutError: Bool = true
-    
-    @State var photoFilters: [PHPickerFilter] = []
-    @State var fileFilters: [UTType] = []
+    init() {
+        self.urls = []
+        self.maxCount = nil
+        self.state = .normal
+        self.opsAsMenu = true
+        self.showOperations = false
+        self.images = []
+        self.selectedPhotos = []
+        self.showScanAndUploadView = false
+        self.showWriteAndUploadView = false
+        self.showConfiguraton = false
+        self.previewURL = nil
+        self.defaultThumbnail = true
+        self.defaultPreview = true
+        self.error = nil
+        self.appWithoutError = true
+        self.photoFilters = []
+        self.fileFilters = []
+    }
     
     var body: some View {
         ScrollView {
@@ -108,6 +113,41 @@ struct AttachmentGroupExample: View {
                     }
                     .padding()
                 }
+            }
+        }
+        .onAppear {
+            do {
+                let mgr = FileManager.default
+                let folder = mgr.temporaryDirectory.appendingPathComponent(BaseAttachmentProcessor.demoFolderName, isDirectory: true)
+                try mgr.removeItem(at: folder)
+                
+                if !mgr.fileExists(atPath: folder.path) {
+                    try mgr.createDirectory(at: folder, withIntermediateDirectories: true, attributes: nil)
+                }
+                
+                var urls: [URL] = []
+                try [
+                    Bundle.main.url(forResource: "Text File Example", withExtension: "txt"),
+                    Bundle.main.url(forResource: "XML File Example", withExtension: "xml"),
+                    Bundle.main.url(forResource: "HTML File Example", withExtension: "html")
+                ].compactMap { $0 }.forEach {
+                    try mgr.copyItem(at: $0, to: folder.appendingPathComponent($0.lastPathComponent))
+                    urls.append(folder.appendingPathComponent($0.lastPathComponent))
+                }
+                
+                self.urls.append(contentsOf: urls)
+            } catch {
+                print("Error preparing demo folder: \(error)")
+            }
+        }
+        .onDisappear {
+            do {
+                let mgr = FileManager.default
+                let folder = mgr.temporaryDirectory.appendingPathComponent(BaseAttachmentProcessor.demoFolderName, isDirectory: true)
+                try mgr.removeItem(at: folder)
+                
+            } catch {
+                print("Error deleting folder: \(error)")
             }
         }
     }
