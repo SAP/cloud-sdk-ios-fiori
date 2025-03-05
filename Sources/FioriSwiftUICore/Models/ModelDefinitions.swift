@@ -658,5 +658,5 @@ public protocol SwitchPickerItemModel {}
 public protocol _SliderPickerItemModel: SliderPickerComponent {}
 
 /// Deprecated SliderPickerItemModel
-@available(*, unavailable, renamed: "_SliderPickerItemModel", message: "Will be removed in the future release. Please create FioriSlider with other initializers instead.")
+@available(*, deprecated, renamed: "_SliderPickerItemModel", message: "Will be removed in the future release. Please create FioriSlider with other initializers instead.")
 public protocol SliderPickerItemModel {}
