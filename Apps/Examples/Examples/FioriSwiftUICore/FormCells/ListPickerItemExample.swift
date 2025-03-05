@@ -221,7 +221,7 @@ struct ListPickerItemExample: View {
                                       prompt: self.promptValue,
                                       searchFilter: self.allowSearch ? filter : nil)
                 { e in
-                    Text(e)
+                    self.rowContent(e)
                 }
             } else {
                 if self.allowEmpty {
@@ -232,7 +232,7 @@ struct ListPickerItemExample: View {
                                           prompt: self.promptValue,
                                           searchFilter: self.allowSearch ? filter : nil)
                     { e in
-                        Text(e)
+                        self.rowContent(e)
                     }
                 } else {
                     ListPickerDestination(self.stringsModel,
@@ -242,7 +242,7 @@ struct ListPickerItemExample: View {
                                           prompt: self.promptValue,
                                           searchFilter: self.allowSearch ? filter : nil)
                     { e in
-                        Text(e)
+                        self.rowContent(e)
                     }
                 }
             }
@@ -265,7 +265,7 @@ struct ListPickerItemExample: View {
                                       prompt: self.promptValue,
                                       searchFilter: self.allowSearch ? filter : nil)
                 { e in
-                    Text(e.name)
+                    self.rowContent(e.name)
                 }
             } else {
                 if self.allowEmpty {
@@ -277,7 +277,7 @@ struct ListPickerItemExample: View {
                                           prompt: self.promptValue,
                                           searchFilter: self.allowSearch ? filter : nil)
                     { e in
-                        Text(e.name)
+                        self.rowContent(e.name)
                     }
                 } else {
                     ListPickerDestination(self.model,
@@ -288,7 +288,7 @@ struct ListPickerItemExample: View {
                                           prompt: self.promptValue,
                                           searchFilter: self.allowSearch ? filter : nil)
                     { e in
-                        Text(e.name)
+                        self.rowContent(e.name)
                     }
                 }
             }
@@ -311,15 +311,7 @@ struct ListPickerItemExample: View {
                                       prompt: self.promptValue,
                                       searchFilter: self.allowSearch ? filter : nil)
                 { framework in
-                    ObjectItem {
-                        Text(framework.name)
-                    } description: {
-                        Text("description")
-                    } status: {
-                        Image(systemName: "sun.min")
-                    } detailImage: {
-                        Image(systemName: "mail")
-                    }
+                    self.rowContent(framework.name, isObject: true)
                 }
             } else {
                 if self.allowEmpty {
@@ -331,15 +323,7 @@ struct ListPickerItemExample: View {
                                           prompt: self.promptValue,
                                           searchFilter: self.allowSearch ? filter : nil)
                     { framework in
-                        ObjectItem {
-                            Text(framework.name)
-                        } description: {
-                            Text("description")
-                        } status: {
-                            Image(systemName: "sun.min")
-                        } detailImage: {
-                            Image(systemName: "mail")
-                        }
+                        self.rowContent(framework.name, isObject: true)
                     }
                 } else {
                     ListPickerDestination(self.model,
@@ -350,15 +334,7 @@ struct ListPickerItemExample: View {
                                           prompt: self.promptValue,
                                           searchFilter: self.allowSearch ? filter : nil)
                     { framework in
-                        ObjectItem {
-                            Text(framework.name)
-                        } description: {
-                            Text("description")
-                        } status: {
-                            Image(systemName: "sun.min")
-                        } detailImage: {
-                            Image(systemName: "mail")
-                        }
+                        self.rowContent(framework.name, isObject: true)
                     }
                 }
             }
@@ -373,7 +349,7 @@ struct ListPickerItemExample: View {
                                       prompt: self.promptValue,
                                       searchFilter: self.allowSearch ? filter : nil)
                 { e in
-                    Text(e)
+                    self.rowContent(e)
                 }
             } else {
                 if self.allowEmpty {
@@ -384,7 +360,7 @@ struct ListPickerItemExample: View {
                                           prompt: self.promptValue,
                                           searchFilter: self.allowSearch ? filter : nil)
                     { e in
-                        Text(e)
+                        self.rowContent(e)
                     }
                 } else {
                     ListPickerDestination(self.groupedModel,
@@ -394,10 +370,32 @@ struct ListPickerItemExample: View {
                                           prompt: self.promptValue,
                                           searchFilter: self.allowSearch ? filter : nil)
                     { e in
-                        Text(e)
+                        self.rowContent(e)
                     }
                 }
             }
+        }
+    }
+    
+    @ViewBuilder func rowContent(_ s: String, isObject: Bool = false) -> some View {
+        if isObject {
+            ObjectItem {
+                Text(s)
+            } description: {
+                Text("description")
+            } status: {
+                Image(systemName: "sun.min")
+            } detailImage: {
+                Image(systemName: "mail")
+            }
+            .ifApply(self.customDestination) {
+                $0.destinationRowBackgroundColor(s == "CloudKit" ? Color.indigo : Color.blue)
+            }
+        } else {
+            Text(s)
+                .ifApply(self.customDestination) {
+                    $0.destinationRowBackgroundColor(s == "First" ? Color.indigo : Color.blue)
+                }
         }
     }
 }
