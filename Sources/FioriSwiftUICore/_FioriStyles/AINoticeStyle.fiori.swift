@@ -29,7 +29,7 @@ public struct AINoticeBaseStyle: AINoticeStyle {
     }
     
     func getMessage(_ configuration: AINoticeConfiguration) -> some View {
-        let message = configuration.description ?? AttributedString(NSLocalizedString("Suggested by AI.", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Suggested by AI."))
+        let message = configuration.description ?? AttributedString(NSLocalizedString("Suggested by AI. Verify before use. ", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Suggested by AI. Verify before use. "))
         if configuration.actionLabel != nil, self.isEnabled {
             return Text(message)
                 .font(.fiori(forTextStyle: .footnote))

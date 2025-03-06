@@ -179,14 +179,9 @@ public struct BannerMultiMessageSheetBaseStyle: BannerMultiMessageSheetStyle {
         for i in 0 ..< configuration.bannerMultiMessages.count {
             var element = configuration.bannerMultiMessages[i]
             if element.category == category {
-                var aiNoticeItem: BannerMessageItemModel? = nil
-                for index in 0 ..< element.items.count where element.items[index].messageType == .aiNotice {
-                    aiNoticeItem = element.items[index]
-                    break
-                }
-                if aiNoticeItem != nil, isFromClear {
+                if let aiNoticeItem = element.items.first(where: { $0.messageType == .aiNotice }), isFromClear {
                     element.items.removeAll()
-                    element.items.append(aiNoticeItem!)
+                    element.items.append(aiNoticeItem)
                     configuration.bannerMultiMessages.remove(at: i)
                     configuration.bannerMultiMessages.insert(element, at: i)
                 } else {
@@ -292,15 +287,16 @@ public struct BannerMultiMessageSheetBaseStyle: BannerMultiMessageSheetStyle {
                                     .font(.fiori(forTextStyle: .subheadline))
                                     .foregroundStyle(Color.preferredColor(.secondaryLabel))
                                 Spacer()
-                                
-                                Button {
-                                    self.removeCategoryAction(configuration, category: element.category)
-                                } label: {
-                                    Text(_ClearActionDefault().actionText ?? "")
+                                if element.items.count > 1 || (element.items.count == 1 && element.items.first(where: { $0.messageType == .aiNotice }) == nil) {
+                                    Button {
+                                        self.removeCategoryAction(configuration, category: element.category)
+                                    } label: {
+                                        Text(_ClearActionDefault().actionText ?? "")
+                                    }
+                                    .buttonStyle(PlainButtonStyle())
+                                    .font(.fiori(forTextStyle: .subheadline))
+                                    .foregroundStyle(Color.preferredColor(.tintColor))
                                 }
-                                .buttonStyle(PlainButtonStyle())
-                                .font(.fiori(forTextStyle: .subheadline))
-                                .foregroundStyle(Color.preferredColor(.tintColor))
                             }
                             .padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
                         }
