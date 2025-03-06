@@ -797,18 +797,12 @@ struct ListPickerDestinationContent<Data: RandomAccessCollection, ID: Hashable, 
         let selectedData = selectedData()
         ForEach(selectedData, id: self.id) { element in
             let id_value = element[keyPath: id]
-            HStack {
-                self.rowContent(element)
-                Spacer().frame(minWidth: 0)
-                if self.isItemSelected(id_value) {
-                    Image(systemName: "checkmark")
-                        .foregroundColor(.preferredColor(.tintColor))
+            ListPickerDestinationRow(content: self.rowContent(element),
+                                     isSelected: self.isItemSelected(id_value))
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    self.handleSelections(id_value)
                 }
-            }
-            .contentShape(Rectangle())
-            .onTapGesture {
-                self.handleSelections(id_value)
-            }
         }
     }
     
