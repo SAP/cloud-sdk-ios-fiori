@@ -61,16 +61,20 @@ struct BannerMultiMessageExample: View {
     var body: some View {
         ScrollViewReader { proxy in
             List {
-                if !self.showBanner, self.showAINotice, self.showAINoticeOnBanner {
-                    BannerMessage(icon: {
-                        Image(fioriName: "fiori.ai")
-                    }, title: {
-                        self.noticeTitleView
-                    }, bannerTapAction: {
-                        self.toggleShowSheet()
-                    }, messageType: self.showAINotice ? .aiNotice : .negative)
-                        .padding(.horizontal, -16)
+                Section {
+                    if !self.showBanner, self.showAINotice, self.showAINoticeOnBanner {
+                        BannerMessage(icon: {
+                            Image(fioriName: "fiori.ai")
+                        }, title: {
+                            self.noticeTitleView
+                        }, bannerTapAction: {
+                            self.toggleShowSheet()
+                        }, messageType: self.showAINotice ? .aiNotice : .negative)
+                            .padding(.horizontal, -16)
+                    }
                 }
+                .listRowSeparator(.hidden)
+                
                 Section {
                     Rectangle().fill(Color.preferredColor(.primaryGroupedBackground))
                         .frame(height: 15)

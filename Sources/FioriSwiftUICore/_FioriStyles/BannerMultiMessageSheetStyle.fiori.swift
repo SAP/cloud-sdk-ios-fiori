@@ -171,11 +171,11 @@ public struct BannerMultiMessageSheetBaseStyle: BannerMultiMessageSheetStyle {
     }
     
     private func removeCategoryAction(_ configuration: BannerMultiMessageSheetConfiguration, category: String) {
-        self.handleRemoveCategory(configuration, category: category)
+        self.handleRemoveCategory(configuration, category: category, isFromClear: true)
         configuration.removeAction?(category, nil)
     }
     
-    private func handleRemoveCategory(_ configuration: BannerMultiMessageSheetConfiguration, category: String) {
+    private func handleRemoveCategory(_ configuration: BannerMultiMessageSheetConfiguration, category: String, isFromClear: Bool = false) {
         for i in 0 ..< configuration.bannerMultiMessages.count {
             var element = configuration.bannerMultiMessages[i]
             if element.category == category {
@@ -184,7 +184,7 @@ public struct BannerMultiMessageSheetBaseStyle: BannerMultiMessageSheetStyle {
                     aiNoticeItem = element.items[index]
                     break
                 }
-                if aiNoticeItem != nil {
+                if aiNoticeItem != nil, isFromClear {
                     element.items.removeAll()
                     element.items.append(aiNoticeItem!)
                     configuration.bannerMultiMessages.remove(at: i)
@@ -338,11 +338,13 @@ public struct BannerMultiMessageSheetBaseStyle: BannerMultiMessageSheetStyle {
                                 }, bannerTapAction: nil, alignment: .leading, hideSeparator: true, messageType: message.messageType)
                                     .bannerMessageStyle(self.bannerMessageStyle(message.messageType))
                                     .typeErased
-                                    .swipeActions(edge: .trailing, allowsFullSwipe: true) {
-                                        Button(role: .destructive) {
-                                            self.removeItem(configuration, category: element.category, at: message.id)
-                                        } label: {
-                                            Image(fioriName: "fiori.delete")
+                                    .ifApply(message.messageType != .aiNotice) {
+                                        $0.swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                                            Button(role: .destructive) {
+                                                self.removeItem(configuration, category: element.category, at: message.id)
+                                            } label: {
+                                                Image(fioriName: "fiori.delete")
+                                            }
                                         }
                                     }
                             }

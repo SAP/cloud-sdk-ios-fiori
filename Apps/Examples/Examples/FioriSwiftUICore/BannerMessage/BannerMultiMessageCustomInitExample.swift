@@ -76,28 +76,31 @@ struct BannerMultiMessageCustomInitExample: View {
     var body: some View {
         ScrollViewReader { proxy in
             List {
-                if self.showAINotice, self.showAINoticeOnBanner {
-                    BannerMessage(icon: {
-                        Image(fioriName: "fiori.ai")
-                    }, title: {
-                        self.noticeTitleView
-                    }, bannerTapAction: {
-                        self.toggleShowSheet()
-                    }, messageType: self.showAINotice ? .aiNotice : .negative)
-                        .topDividerStyle { c in
-                            c.topDivider.background(.purple)
-                        }
-                        .iconStyle { c in
-                            c.icon.foregroundStyle(.purple)
-                        }
-                        .titleStyle { c in
-                            c.title.foregroundStyle(.purple)
-                        }
-                        .closeActionStyle { c in
-                            c.closeAction.foregroundStyle(.purple)
-                        }
-                        .padding(.horizontal, -16)
+                Section {
+                    if self.showAINotice, self.showAINoticeOnBanner {
+                        BannerMessage(icon: {
+                            Image(fioriName: "fiori.ai")
+                        }, title: {
+                            self.noticeTitleView
+                        }, bannerTapAction: {
+                            self.toggleShowSheet()
+                        }, messageType: self.showAINotice ? .aiNotice : .negative)
+                            .topDividerStyle { c in
+                                c.topDivider.background(.purple)
+                            }
+                            .iconStyle { c in
+                                c.icon.foregroundStyle(.purple)
+                            }
+                            .titleStyle { c in
+                                c.title.foregroundStyle(.purple)
+                            }
+                            .closeActionStyle { c in
+                                c.closeAction.foregroundStyle(.purple)
+                            }
+                            .padding(.horizontal, -16)
+                    }
                 }
+                .listRowSeparator(.hidden)
                 Section {
                     HStack {
                         Spacer()
