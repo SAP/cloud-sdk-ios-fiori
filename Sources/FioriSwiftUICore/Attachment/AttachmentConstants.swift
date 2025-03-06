@@ -1,4 +1,5 @@
 import SwiftUI
+import UniformTypeIdentifiers
 
 public enum AttachmentConstants {
     public static let cellWidth: CGFloat = 109
@@ -28,4 +29,6 @@ public enum AttachmentConstants {
     
     public static let horizontalPadding: CGFloat = 16
     public static let verticalPadding: CGFloat = 10
+    
+    public static let defaultFileImporterFilter: [UTType] = [.image, .pdf, .text, .spreadsheet, .presentation, UTType("org.openxmlformats.wordprocessingml.document")].compactMap { $0 }
 }

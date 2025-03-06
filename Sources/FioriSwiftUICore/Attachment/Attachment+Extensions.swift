@@ -7,13 +7,7 @@ extension View {
         return (fileUrl, fileUrl.lastPathComponent, resourceValues.fileSize, resourceValues.contentModificationDate)
     }
     
-//    func getFileNameAndExtension(of name: String) -> (String, String)? {
-//        let parts = name.components(separatedBy: ".")
-//        guard parts.count == 2 else { return nil }
-//        return (parts[0], parts[1])
-//    }
-//
-    func format(date: Date) -> String {
+    func format(date: Date) -> String { // TODO: delete or put it into localization bundle
         let formatter = DateFormatter()
         formatter.dateFormat = "MM/dd/yyyy HH:mm"
         return formatter.string(from: date)

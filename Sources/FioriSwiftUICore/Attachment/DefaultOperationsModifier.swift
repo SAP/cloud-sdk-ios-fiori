@@ -30,14 +30,12 @@ public struct DefaultOperationsModifier: ViewModifier {
     }
 
     public func body(content: Content) -> some View {
-        let maxSelectionCount = self.context.configuration?.maxCount == nil ? nil : (self.context.configuration?.maxCount ?? 0) - (self.context.configuration?.attachments.count ?? 0)
         content
             .environment(self.context)
             .fileImporter(
                 isPresented: self.showFilesPicker,
-                // maxSelectionCount: maxSelectionCount,
-                allowedContentTypes: self.context.fileSelectionFilter.isEmpty ? [.pdf, .plainText, .zip, .archive, .image, .movie, .epub] : self.context.fileSelectionFilter,
-                allowsMultipleSelection: true,
+                allowedContentTypes: self.context.fileSelectionFilter.isEmpty ? AttachmentConstants.defaultFileImporterFilter : self.context.fileSelectionFilter,
+                allowsMultipleSelection: false,
                 onCompletion: self.onCompletion
             )
             .sheet(isPresented: self.showPhotosPicker) {
