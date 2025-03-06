@@ -261,7 +261,7 @@ public protocol _EULAViewModel: TitleComponent, BodyAttributedTextComponent {
 }
 
 /// Deprecated EULAViewModel
-@available(*, unavailable, renamed: "_EULAViewModel", message: "Will be removed in the future release. Please create EULAViewModel with other initializers instead.")
+@available(*, deprecated, renamed: "_EULAViewModel", message: "Will be removed in the future release. Please create EULAViewModel with other initializers instead.")
 public protocol EULAViewModel {}
 
 // sourcery: virtualPropFormIndex = "@State var _formIndex = 0"
