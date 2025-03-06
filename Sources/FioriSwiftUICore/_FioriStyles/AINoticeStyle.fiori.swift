@@ -33,7 +33,7 @@ public struct AINoticeBaseStyle: AINoticeStyle {
         if configuration.actionLabel != nil, self.isEnabled {
             return Text(message)
                 .font(.fiori(forTextStyle: .footnote))
-                .foregroundStyle(Color.preferredColor(self.isEnabled ? .primaryLabel : .separator))
+                .foregroundStyle(Color.preferredColor(self.isEnabled ? .tertiaryLabel : .separator))
                 + Text(configuration.actionLabel ?? "")
                 .font(.fiori(forTextStyle: .footnote))
                 .foregroundStyle(Color.preferredColor(self.isEnabled ? .tintColor : .separator))
