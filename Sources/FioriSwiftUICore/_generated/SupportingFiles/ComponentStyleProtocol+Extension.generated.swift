@@ -3,6 +3,41 @@
 import Foundation
 import SwiftUI
 
+// MARK: AINoticeStyle
+
+public extension AINoticeStyle where Self == AINoticeBaseStyle {
+    static var base: AINoticeBaseStyle {
+        AINoticeBaseStyle()
+    }
+}
+
+public extension AINoticeStyle where Self == AINoticeFioriStyle {
+    static var fiori: AINoticeFioriStyle {
+        AINoticeFioriStyle()
+    }
+}
+
+public struct AINoticeIconStyle: AINoticeStyle {
+    let style: any IconStyle
+
+    public func makeBody(_ configuration: AINoticeConfiguration) -> some View {
+        AINotice(configuration)
+            .iconStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension AINoticeStyle where Self == AINoticeIconStyle {
+    static func iconStyle(_ style: some IconStyle) -> AINoticeIconStyle {
+        AINoticeIconStyle(style: style)
+    }
+
+    static func iconStyle(@ViewBuilder content: @escaping (IconConfiguration) -> some View) -> AINoticeIconStyle {
+        let style = AnyIconStyle(content)
+        return AINoticeIconStyle(style: style)
+    }
+}
+
 // MARK: AccessoryIconStyle
 
 public extension AccessoryIconStyle where Self == AccessoryIconBaseStyle {

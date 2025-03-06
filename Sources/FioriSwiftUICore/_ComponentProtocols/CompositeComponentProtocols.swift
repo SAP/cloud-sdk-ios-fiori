@@ -1588,3 +1588,19 @@ protocol _UserConsentFormComponent: _NextActionComponent, _CancelActionComponent
 
 // sourcery: CompositeComponent
 protocol _UserConsentPageComponent: _TitleComponent, _BodyTextComponent, _ActionComponent {}
+
+// sourcery: CompositeComponent
+protocol _AINoticeComponent: _IconComponent {
+    ///  An `AttributedString` representing the AI notice message.
+    var description: AttributedString? { get }
+    
+    /// An `AttributedString` that triggers an action to view more details.
+    var actionLabel: AttributedString? { get }
+    
+    /// A callback triggered when the actionLabel is clicked to display more message details.
+    var viewMoreAction: (() -> Void)? { get }
+    
+    /// The`HorizontalAlignment` of the AINotice view. The default value is `leading`.
+    // sourcery: defaultValue = .leading
+    var viewAlignment: HorizontalAlignment { get }
+}

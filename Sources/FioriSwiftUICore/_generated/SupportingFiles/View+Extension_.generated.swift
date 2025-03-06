@@ -3,6 +3,23 @@
 import Foundation
 import SwiftUI
 
+// MARK: AINoticeStyle
+
+public extension View {
+    func aINoticeStyle(_ style: some AINoticeStyle) -> some View {
+        self.transformEnvironment(\.aINoticeStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func aINoticeStyle(@ViewBuilder content: @escaping (AINoticeConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.aINoticeStyleStack) { stack in
+            let style = AnyAINoticeStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: AccessoryIconStyle
 
 public extension View {

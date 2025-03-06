@@ -38,6 +38,8 @@ public struct BannerMessageItemModel: Identifiable {
             NSLocalizedString("warning", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
         case .negative:
             NSLocalizedString("error", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
+        case .aiNotice:
+            NSLocalizedString("information", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
         }
     }
     
@@ -175,9 +177,21 @@ public struct BannerMultiMessageSheetBaseStyle: BannerMultiMessageSheetStyle {
     
     private func handleRemoveCategory(_ configuration: BannerMultiMessageSheetConfiguration, category: String) {
         for i in 0 ..< configuration.bannerMultiMessages.count {
-            let element = configuration.bannerMultiMessages[i]
+            var element = configuration.bannerMultiMessages[i]
             if element.category == category {
-                configuration.bannerMultiMessages.remove(at: i)
+                var aiNoticeItem: BannerMessageItemModel? = nil
+                for index in 0 ..< element.items.count where element.items[index].messageType == .aiNotice {
+                    aiNoticeItem = element.items[index]
+                    break
+                }
+                if aiNoticeItem != nil {
+                    element.items.removeAll()
+                    element.items.append(aiNoticeItem!)
+                    configuration.bannerMultiMessages.remove(at: i)
+                    configuration.bannerMultiMessages.insert(element, at: i)
+                } else {
+                    configuration.bannerMultiMessages.remove(at: i)
+                }
                 break
             }
         }
@@ -207,6 +221,8 @@ public struct BannerMultiMessageSheetBaseStyle: BannerMultiMessageSheetStyle {
             return BannerMessagePositiveStyle()
         case .informative:
             return BannerMessageInformativeStyle()
+        case .aiNotice:
+            return BannerMessageNeutralStyle()
         }
     }
     
@@ -222,6 +238,8 @@ public struct BannerMultiMessageSheetBaseStyle: BannerMultiMessageSheetStyle {
             Image(fioriName: "fiori.warning2")
         case .negative:
             Image(fioriName: "fiori.notification.3")
+        case .aiNotice:
+            Image(fioriName: "fiori.ai")
         }
     }
     
