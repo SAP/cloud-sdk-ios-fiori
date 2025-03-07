@@ -3,6 +3,12 @@
 import Foundation
 import SwiftUI
 
+extension AINotice: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        icon.isEmpty
+    }
+}
+
 extension AccessoryIcon: _ViewEmptyChecking {
     public var isEmpty: Bool {
         accessoryIcon.isEmpty

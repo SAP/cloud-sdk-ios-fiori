@@ -8,6 +8,34 @@ public struct ModifiedStyle<Style, Modifier: ViewModifier>: DynamicProperty {
     var modifier: Modifier
 }
 
+// MARK: AINoticeStyle
+
+extension ModifiedStyle: AINoticeStyle where Style: AINoticeStyle {
+    public func makeBody(_ configuration: AINoticeConfiguration) -> some View {
+        AINotice(configuration)
+            .aINoticeStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct AINoticeStyleModifier<Style: AINoticeStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.aINoticeStyle(self.style)
+    }
+}
+
+public extension AINoticeStyle {
+    func modifier(_ modifier: some ViewModifier) -> some AINoticeStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some AINoticeStyle) -> some AINoticeStyle {
+        style.modifier(AINoticeStyleModifier(style: self))
+    }
+}
+
 // MARK: AccessoryIconStyle
 
 extension ModifiedStyle: AccessoryIconStyle where Style: AccessoryIconStyle {

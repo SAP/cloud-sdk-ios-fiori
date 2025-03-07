@@ -37,8 +37,24 @@ struct TextFieldFormViewExample: View {
     @State var showsAction = false
     @State var isRequired = false
     @State var isSecureEnabled = false
+    @State var showAINotice: Bool = false
+    @State var showBottomSheet: Bool = false
 
     @State var text = ""
+    
+    var customizeNoticeMsg: AttributedString {
+        var msgText = AttributedString("Customized AI Notice. ")
+        msgText.font = .footnote.italic()
+        msgText.foregroundColor = .purple
+        return msgText
+    }
+
+    var customizeNoticeActionLabel: AttributedString {
+        var msgText = AttributedString(" View Details ")
+        msgText.font = .footnote.bold()
+        msgText.foregroundColor = .purple
+        return msgText
+    }
 
     var body: some View {
         VStack {
@@ -68,6 +84,9 @@ struct TextFieldFormViewExample: View {
                 Toggle("Secure Mode", isOn: self.$isSecureEnabled)
                     .padding(.leading, 16)
                     .padding(.trailing, 16)
+                Toggle("AI Notice", isOn: self.$showAINotice)
+                    .padding(.leading, 16)
+                    .padding(.trailing, 16)
                 Button("Dismiss Keyboard") {
                     hideKeyboard()
                 }
@@ -77,20 +96,34 @@ struct TextFieldFormViewExample: View {
                 Text("Default TextFieldForm")
                     .italic()
                 TextFieldFormView(title: self.key1, text: self.$valueText1, isSecureEnabled: self.isSecureEnabled, placeholder: "TextFieldFormView", errorMessage: self.getErrorMessage(), maxTextLength: self.getMaxTextLength(), hintText: self.getHintText(), isCharCountEnabled: self.showsCharCount, allowsBeyondLimit: self.allowsBeyondLimit, isRequired: self.isRequired, actionIcon: self.getActionIcon(), action: self.getAction1(), actionIconAccessibilityLabel: self.getActionIconAccessibilityLabel())
+                    .aiNoticeView(isPresented: self.$showAINotice)
 
                 Text("Existing Text")
                     .italic()
                 TextFieldFormView(title: self.key2, text: self.$valueText2, isSecureEnabled: self.isSecureEnabled, placeholder: "TextFieldFormView", errorMessage: self.getErrorMessage(), maxTextLength: self.getMaxTextLength(), hintText: self.getHintText(), isCharCountEnabled: self.showsCharCount, allowsBeyondLimit: self.allowsBeyondLimit, isRequired: self.isRequired, actionIcon: self.getActionIcon(), action: self.getAction2(), actionIconAccessibilityLabel: self.getActionIconAccessibilityLabel())
+                    .aiNoticeView(isPresented: self.$showAINotice, icon: Image(fioriName: "fiori.ai"), description: "AI Notice with icon. ", actionLabel: "View more details", viewMoreAction: self.toggleShowSheet)
+                    .sheet(isPresented: self.$showBottomSheet) {
+                        Text("detail information")
+                            .presentationDetents([.height(250), .medium])
+                            .presentationDragIndicator(.visible)
+                    }
 
                 Text("Empty Text")
                     .italic()
                 TextFieldFormView(title: self.key3, text: self.$valueText3, isSecureEnabled: self.isSecureEnabled, placeholder: "Please enter something", errorMessage: self.getErrorMessage(), maxTextLength: self.getMaxTextLength(), hintText: self.getHintText(), isCharCountEnabled: self.showsCharCount, allowsBeyondLimit: self.allowsBeyondLimit, isRequired: self.isRequired, actionIcon: self.getActionIcon(), action: self.getAction3(), actionIconAccessibilityLabel: self.getActionIconAccessibilityLabel())
+                    .aiNoticeView(isPresented: self.$showAINotice, icon: Image(fioriName: "fiori.ai"), description: "AI Notice with icon, long long long long long long message. ", actionLabel: "View more link", viewMoreAction: self.openURL)
 
                 Text("Disabled")
                 TextFieldFormView(title: "Disabled Cell", text: self.$disabledText, isSecureEnabled: self.isSecureEnabled, placeholder: "Disabled", controlState: .disabled, isRequired: self.isRequired, actionIcon: self.getActionIcon(), action: self.getAction4())
+                    .aiNoticeView(isPresented: self.$showAINotice, icon: Image(fioriName: "fiori.ai"), description: "AI Notice message. ", actionLabel: "View more link", viewMoreAction: self.openURL)
+                    .disabled(true)
 
                 Text("Read-Only")
                 TextFieldFormView(title: "Read-Only Cell", text: self.$readOnlyText, isSecureEnabled: self.isSecureEnabled, placeholder: "Read-Only", controlState: .readOnly, hidesReadOnlyHint: self.hidesReadonlyHint, isRequired: self.isRequired, actionIcon: self.getActionIcon(), action: self.getAction4())
+                    .aiNoticeView(isPresented: self.$showAINotice, icon: Image(systemName: "wand.and.sparkles"), description: self.customizeNoticeMsg, actionLabel: self.customizeNoticeActionLabel, viewMoreAction: self.openURL)
+                    .iconStyle(content: { config in
+                        config.icon.foregroundStyle(Color.purple)
+                    })
             }
             #if !os(visionOS)
             .scrollDismissesKeyboard(.immediately)
@@ -98,6 +131,15 @@ struct TextFieldFormViewExample: View {
         }
     }
 
+    func openURL() {
+        let url = URL(string: "https://sap.com")!
+        UIApplication.shared.open(url)
+    }
+    
+    func toggleShowSheet() {
+        self.showBottomSheet.toggle()
+    }
+    
     func getHintText() -> AttributedString? {
         self.showsHintText ? self.hintText : nil
     }

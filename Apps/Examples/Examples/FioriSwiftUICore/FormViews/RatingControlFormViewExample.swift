@@ -36,6 +36,22 @@ struct RatingControlFormViewExample: View {
     @State var setsAverageRating = false
     @State var setsReviewCount = false
     @State var setsReviewCountCeiling = false
+    @State var showAINotice: Bool = false
+    @State var showBottomSheet: Bool = false
+    
+    var customizeNoticeMsg: AttributedString {
+        var msgText = AttributedString("Customized AI Notice. ")
+        msgText.font = .footnote.italic()
+        msgText.foregroundColor = .purple
+        return msgText
+    }
+
+    var customizeNoticeActionLabel: AttributedString {
+        var msgText = AttributedString(" View Details ")
+        msgText.font = .footnote.bold()
+        msgText.foregroundColor = .purple
+        return msgText
+    }
 
     var body: some View {
         List {
@@ -58,21 +74,44 @@ struct RatingControlFormViewExample: View {
             Toggle("Sets Review Count Ceiling", isOn: self.$setsReviewCountCeiling)
                 .padding(.leading, 16)
                 .padding(.trailing, 16)
+            Toggle("AI Notice", isOn: self.$showAINotice)
+                .padding(.leading, 16)
+                .padding(.trailing, 16)
 
             Text("Default Examples")
             RatingControlFormView(title: "Rating 1", rating: self.$rating1, showsValueLabel: self.showsValueLabel, averageRating: self.getAverageRatingValue(), reviewCount: self.getReviewCount(), reviewCountCeiling: self.getReviewCountCeiling(), showsReviewCountLabel: self.showsReviewCountLabel)
                 .informationView(isPresented: self.$showsHintMessage, description: AttributedString("hint message"))
+                .aiNoticeView(isPresented: self.$showAINotice)
+            
             RatingControlFormView(title: "Rating 2 (Disabled)", rating: self.$rating2, ratingControlStyle: .editableDisabled, showsValueLabel: self.showsValueLabel, averageRating: self.getAverageRatingValue(), reviewCount: self.getReviewCount(), reviewCountCeiling: self.getReviewCountCeiling(), showsReviewCountLabel: self.showsReviewCountLabel)
                 .informationView(isPresented: self.$showsHintMessage, description: AttributedString("hint message"))
+                .aiNoticeView(isPresented: self.$showAINotice, icon: Image(fioriName: "fiori.ai"), description: "AI Notice message. ", actionLabel: "View more link", viewMoreAction: self.openURL)
+                .disabled(true)
+
             RatingControlFormView(title: "Rating 3 (Read Only) Rating 3 (Read Only)", rating: self.$rating3, ratingControlStyle: .standard, showsValueLabel: self.showsValueLabel, averageRating: self.getAverageRatingValue(), reviewCount: self.getReviewCount(), reviewCountCeiling: self.getReviewCountCeiling(), showsReviewCountLabel: self.showsReviewCountLabel)
                 .informationView(isPresented: self.$showsHintMessage, description: AttributedString("hint message"))
+                .aiNoticeView(isPresented: self.$showAINotice, description: "AI Notice")
+            
             RatingControlFormView(title: "Rating 4 (Read Only Large) Rating 4 (Read Only Large)", rating: self.$rating4, ratingControlStyle: .standardLarge, showsValueLabel: self.showsValueLabel, averageRating: self.getAverageRatingValue(), reviewCount: self.getReviewCount(), reviewCountCeiling: self.getReviewCountCeiling(), showsReviewCountLabel: self.showsReviewCountLabel)
                 .informationView(isPresented: self.$showsHintMessage, description: AttributedString("hint message"))
+                .aiNoticeView(isPresented: self.$showAINotice, icon: Image(fioriName: "fiori.ai"), description: "AI Notice with icon. ", actionLabel: "View more details", viewMoreAction: self.toggleShowSheet)
+                .sheet(isPresented: self.$showBottomSheet) {
+                    Text("detail information")
+                        .presentationDetents([.height(250), .medium])
+                        .presentationDragIndicator(.visible)
+                }
+            
             RatingControlFormView(title: "Rating 5 (Accented)", rating: self.$rating5, ratingControlStyle: .accented, showsValueLabel: self.showsValueLabel, averageRating: self.getAverageRatingValue(), reviewCount: self.getReviewCount(), reviewCountCeiling: self.getReviewCountCeiling(), showsReviewCountLabel: self.showsReviewCountLabel)
                 .informationView(isPresented: self.$showsHintMessage, description: AttributedString("hint message"))
+                .aiNoticeView(isPresented: self.$showAINotice, icon: Image(fioriName: "fiori.ai"), description: "AI Notice with icon, long long long long long long message. ", actionLabel: "View more link", viewMoreAction: self.openURL)
+            
             RatingControlFormView(title: "Rating 6 (Accented Large)", rating: self.$rating6, ratingControlStyle: .accentedLarge, showsValueLabel: self.showsValueLabel, averageRating: self.getAverageRatingValue(), reviewCount: self.getReviewCount(), reviewCountCeiling: self.getReviewCountCeiling(), showsReviewCountLabel: self.showsReviewCountLabel)
                 .informationView(isPresented: self.$showsHintMessage, description: AttributedString("hint message"))
-
+                .aiNoticeView(isPresented: self.$showAINotice, icon: Image(systemName: "wand.and.sparkles"), description: self.customizeNoticeMsg, actionLabel: self.customizeNoticeActionLabel, viewMoreAction: self.openURL)
+                .iconStyle(content: { config in
+                    config.icon.foregroundStyle(Color.purple)
+                })
+            
             Text("Stacked")
             RatingControlFormView(title: "Rating 7", rating: self.$rating7, showsValueLabel: self.showsValueLabel, averageRating: self.getAverageRatingValue(), reviewCount: self.getReviewCount(), reviewCountCeiling: self.getReviewCountCeiling(), showsReviewCountLabel: self.showsReviewCountLabel, axis: .vertical)
                 .informationView(isPresented: self.$showsHintMessage, description: AttributedString("hint message"))
@@ -244,6 +283,15 @@ struct RatingControlFormViewExample: View {
             return nil
         }
         return 1000
+    }
+    
+    func openURL() {
+        let url = URL(string: "https://sap.com")!
+        UIApplication.shared.open(url)
+    }
+    
+    func toggleShowSheet() {
+        self.showBottomSheet.toggle()
     }
 }
 

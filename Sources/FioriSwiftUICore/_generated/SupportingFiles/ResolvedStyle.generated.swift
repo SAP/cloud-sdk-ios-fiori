@@ -3,6 +3,22 @@
 import Foundation
 import SwiftUI
 
+// MARK: AINoticeStyle
+
+struct ResolvedAINoticeStyle<Style: AINoticeStyle>: View {
+    let style: Style
+    let configuration: AINoticeConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension AINoticeStyle {
+    func resolve(configuration: AINoticeConfiguration) -> some View {
+        ResolvedAINoticeStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: AccessoryIconStyle
 
 struct ResolvedAccessoryIconStyle<Style: AccessoryIconStyle>: View {
