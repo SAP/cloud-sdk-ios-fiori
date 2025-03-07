@@ -6,7 +6,6 @@ import SwiftUI
 public struct AttachmentBaseStyle: AttachmentStyle {
     public func makeBody(_ configuration: AttachmentConfiguration) -> some View {
         VStack(alignment: .leading, spacing: 4) {
-            let _ = print("AttachmentBaseStyle: \(configuration.url)")
             AttachmentThumbnail(url: configuration.url, controlState: configuration.controlState)
                 .id(UUID().uuidString)
             VStack(alignment: .leading, spacing: 2) {
@@ -32,7 +31,6 @@ extension AttachmentFioriStyle {
         
         func makeBody(_ configuration: AttachmentThumbnailConfiguration) -> some View {
             AttachmentThumbnail(configuration)
-                .opacity(self.attachmentConfiguration.controlState == .disabled ? 0.5 : 1.0)
         }
     }
     

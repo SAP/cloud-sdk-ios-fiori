@@ -1190,6 +1190,7 @@ protocol _AttachmentGroupComponent: _TitleComponent {
     var controlState: ControlState { get }
     
     // sourcery: @Binding
+    // sourcery: defaultValue = ".constant(nil)"
     /// The error message of the form view.
     var errorMessage: AttributedString? { get }
 

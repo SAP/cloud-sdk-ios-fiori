@@ -37,7 +37,7 @@ public struct AttachmentGroup {
                 maxCount: Int? = nil,
                 processor: AttachmentProcessor = BaseAttachmentProcessor(),
                 controlState: ControlState = .normal,
-                errorMessage: Binding<AttributedString?>,
+                errorMessage: Binding<AttributedString?> = .constant(nil),
                 @ViewBuilder operations: () -> any View = { EmptyView() },
                 onPreview: ((URL) -> Void)? = nil,
                 componentIdentifier: String? = AttachmentGroup.identifier)

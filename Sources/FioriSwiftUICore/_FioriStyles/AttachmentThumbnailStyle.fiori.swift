@@ -40,6 +40,9 @@ extension AttachmentThumbnailFioriStyle {
     struct ContentFioriStyle: AttachmentThumbnailStyle {
         func makeBody(_ configuration: AttachmentThumbnailConfiguration) -> some View {
             AttachmentThumbnail(configuration)
+                .ifApply(configuration.controlState == .disabled) {
+                    $0.opacity(0.5)
+                }
         }
     }
 }
