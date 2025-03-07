@@ -440,6 +440,12 @@ protocol _ListPickerContentComponent {
     var listPickerContent: (() -> any View)? { get }
 }
 
+// sourcery: BaseComponent
+protocol _PromptComponent {
+    // sourcery: @ViewBuilder
+    var prompt: AttributedString? { get }
+}
+
 /// `CheckoutIndicator` provides a circular indicator that shows the state of a process.
 ///
 /// ## Usage
