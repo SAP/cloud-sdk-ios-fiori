@@ -158,11 +158,13 @@ public struct BannerMultiMessageSheetBaseStyle: BannerMultiMessageSheetStyle {
                     element.items.remove(at: index)
                     break
                 }
-                configuration.bannerMultiMessages.remove(at: i)
-                configuration.bannerMultiMessages.insert(element, at: i)
-                
                 if element.items.isEmpty {
                     self.handleRemoveCategory(configuration, category: category)
+                } else {
+                    configuration.bannerMultiMessages.remove(at: i)
+                    withAnimation {
+                        configuration.bannerMultiMessages.insert(element, at: i)
+                    }
                 }
                 break
             }

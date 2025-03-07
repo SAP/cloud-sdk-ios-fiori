@@ -1589,6 +1589,23 @@ protocol _UserConsentFormComponent: _NextActionComponent, _CancelActionComponent
 // sourcery: CompositeComponent
 protocol _UserConsentPageComponent: _TitleComponent, _BodyTextComponent, _ActionComponent {}
 
+/// `AINotice` is a SwiftUI view that indicates when a form cell's content is AI-supported or AI-generated. It features an icon, a description, and an action label for accessing more details. If the icon or description is not set, a default value will be used.
+/// ## Usage
+/// ```swift
+///  @State var showsAction = false
+///  KeyValueItem {
+///     Text("Marital Status Since*")
+///   } value: {
+///     Text(self.maritalStatusSince)
+///   }
+///   .id(self.maritalStatusSinceId)
+///   .aiNoticeView(isPresented: self.$showAINotice, icon: Image(fioriName: "fiori.ai"), description: "AI Notice with icon. ", actionLabel: "View more details", viewMoreAction: self.toggleShowSheet)
+///   .sheet(isPresented: self.$showBottomSheet) {
+///      Text("detail information")
+///         .presentationDetents([.height(250), .medium])
+///         .presentationDragIndicator(.visible)
+///    }
+/// ```
 // sourcery: CompositeComponent
 protocol _AINoticeComponent: _IconComponent {
     ///  An `AttributedString` representing the AI notice message.
