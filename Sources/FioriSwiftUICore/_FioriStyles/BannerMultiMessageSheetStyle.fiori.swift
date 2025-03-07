@@ -162,11 +162,14 @@ public struct BannerMultiMessageSheetBaseStyle: BannerMultiMessageSheetStyle {
                     element.items.remove(at: index)
                     break
                 }
-                configuration.bannerMultiMessages.remove(at: i)
-                configuration.bannerMultiMessages.insert(element, at: i)
                 
                 if element.items.isEmpty {
                     self.handleRemoveCategory(configuration, category: category)
+                } else {
+                    configuration.bannerMultiMessages.remove(at: i)
+                    withAnimation {
+                        configuration.bannerMultiMessages.insert(element, at: i)
+                    }
                 }
                 break
             }
@@ -183,7 +186,9 @@ public struct BannerMultiMessageSheetBaseStyle: BannerMultiMessageSheetStyle {
         for i in 0 ..< configuration.bannerMultiMessages.count {
             let element = configuration.bannerMultiMessages[i]
             if element.category == category {
-                configuration.bannerMultiMessages.remove(at: i)
+                withAnimation {
+                    configuration.bannerMultiMessages.remove(at: i)
+                }
                 break
             }
         }
