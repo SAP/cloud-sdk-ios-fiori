@@ -1,4 +1,4 @@
-// Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 2.2.6 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import Foundation
 import SwiftUI
@@ -6,8 +6,22 @@ import SwiftUI
 public struct ToastMessage {
     let icon: any View
     let title: any View
-    /// The duration in seconds for which the toast message is shown. The default is `1`.
+    /// The duration in seconds for which the toast message is shown. The default value is `1`.
     let duration: Double
+    /// The position of the toast message relative to its parent view. `.center` puts the toast message in the center of its parent view, `.above` aligns it above the view, and `.below` aligns it below the view. The default value is `.center`.
+    let position: ToastMessagePosition
+    /// The amount of spacing to put in between the toast message and the frame of its parent view. This only applies to the `.above` and `.below` positions, and negative values are converted to `0`. The default value is `0`.
+    let spacing: CGFloat
+    /// A number specifying how rounded the corners of the view should be. The default value is `6`.
+    let cornerRadius: CGFloat
+    /// The background color of the view.
+    let backgroundColor: Color
+    /// The width of the border surrounding the toast message.
+    let borderWidth: CGFloat
+    /// The color of the border surrounding the toast message.
+    let borderColor: Color
+    /// A shadow to render underneath the view.
+    let shadow: FioriShadowStyle?
 
     @Environment(\.toastMessageStyle) var style
 
@@ -18,11 +32,25 @@ public struct ToastMessage {
     public init(@ViewBuilder icon: () -> any View = { EmptyView() },
                 @ViewBuilder title: () -> any View,
                 duration: Double = 1,
+                position: ToastMessagePosition = .center,
+                spacing: CGFloat = 0,
+                cornerRadius: CGFloat = 6,
+                backgroundColor: Color = Color.preferredColor(.tertiaryFill),
+                borderWidth: CGFloat = 0,
+                borderColor: Color = Color.clear,
+                shadow: FioriShadowStyle? = FioriShadowStyle.level3,
                 componentIdentifier: String? = ToastMessage.identifier)
     {
         self.icon = Icon(icon: icon, componentIdentifier: componentIdentifier)
         self.title = Title(title: title, componentIdentifier: componentIdentifier)
         self.duration = duration
+        self.position = position
+        self.spacing = spacing
+        self.cornerRadius = cornerRadius
+        self.backgroundColor = backgroundColor
+        self.borderWidth = borderWidth
+        self.borderColor = borderColor
+        self.shadow = shadow
         self.componentIdentifier = componentIdentifier ?? ToastMessage.identifier
     }
 }
@@ -34,9 +62,16 @@ public extension ToastMessage {
 public extension ToastMessage {
     init(icon: Image? = nil,
          title: AttributedString,
-         duration: Double = 1)
+         duration: Double = 1,
+         position: ToastMessagePosition = .center,
+         spacing: CGFloat = 0,
+         cornerRadius: CGFloat = 6,
+         backgroundColor: Color = Color.preferredColor(.tertiaryFill),
+         borderWidth: CGFloat = 0,
+         borderColor: Color = Color.clear,
+         shadow: FioriShadowStyle? = FioriShadowStyle.level3)
     {
-        self.init(icon: { icon }, title: { Text(title) }, duration: duration)
+        self.init(icon: { icon }, title: { Text(title) }, duration: duration, position: position, spacing: spacing, cornerRadius: cornerRadius, backgroundColor: backgroundColor, borderWidth: borderWidth, borderColor: borderColor, shadow: shadow)
     }
 }
 
@@ -49,6 +84,13 @@ public extension ToastMessage {
         self.icon = configuration.icon
         self.title = configuration.title
         self.duration = configuration.duration
+        self.position = configuration.position
+        self.spacing = configuration.spacing
+        self.cornerRadius = configuration.cornerRadius
+        self.backgroundColor = configuration.backgroundColor
+        self.borderWidth = configuration.borderWidth
+        self.borderColor = configuration.borderColor
+        self.shadow = configuration.shadow
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
         self.componentIdentifier = configuration.componentIdentifier
     }
@@ -59,7 +101,7 @@ extension ToastMessage: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, icon: .init(self.icon), title: .init(self.title), duration: self.duration)).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, icon: .init(self.icon), title: .init(self.title), duration: self.duration, position: self.position, spacing: self.spacing, cornerRadius: self.cornerRadius, backgroundColor: self.backgroundColor, borderWidth: self.borderWidth, borderColor: self.borderColor, shadow: self.shadow)).typeErased
                 .transformEnvironment(\.toastMessageStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -77,7 +119,7 @@ private extension ToastMessage {
     }
 
     func defaultStyle() -> some View {
-        ToastMessage(.init(componentIdentifier: self.componentIdentifier, icon: .init(self.icon), title: .init(self.title), duration: self.duration))
+        ToastMessage(.init(componentIdentifier: self.componentIdentifier, icon: .init(self.icon), title: .init(self.title), duration: self.duration, position: self.position, spacing: self.spacing, cornerRadius: self.cornerRadius, backgroundColor: self.backgroundColor, borderWidth: self.borderWidth, borderColor: self.borderColor, shadow: self.shadow))
             .shouldApplyDefaultStyle(false)
             .toastMessageStyle(ToastMessageFioriStyle.ContentFioriStyle())
             .typeErased
