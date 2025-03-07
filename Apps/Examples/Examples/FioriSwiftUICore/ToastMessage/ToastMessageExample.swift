@@ -8,6 +8,8 @@ struct ToastMessageExample: View {
                            destination: ToastMessageBasicExample())
             NavigationLink("Position",
                            destination: ToastMessagePositionExample())
+            NavigationLink("Custom Style",
+                           destination: ToastMessageCustomStyleExample())
         }
         .navigationTitle("Toast Message")
     }
@@ -72,6 +74,100 @@ struct ToastMessagePositionExample: View {
                 Toggle("Show Icon", isOn: self.$showIcon)
             }
             .frame(maxWidth: 300)
+        }
+        .navigationTitle("Toast Message")
+    }
+}
+
+struct ToastMessageCustomStyleExample: View {
+    var body: some View {
+        VStack {
+            HStack {}
+                .frame(maxWidth: 300, maxHeight: 300)
+                .toastMessage(isPresented: .constant(true),
+                              icon: {
+                                  Image(systemName: "info.circle")
+                                      .foregroundStyle(.blue)
+                              },
+                              title: {
+                                  Text("Toast Message Title")
+                                      .foregroundStyle(.blue)
+                              },
+                              duration: .infinity,
+                              position: .center,
+                              backgroundColor: .cyan,
+                              borderWidth: 5,
+                              borderColor: .white,
+                              shadow: FioriShadowStyle.smallElement)
+                .padding(30)
+            HStack {}
+                .frame(maxWidth: 300, maxHeight: 300)
+                .toastMessage(isPresented: .constant(true),
+                              icon: {
+                                  Image(systemName: "info.circle")
+                                      .foregroundStyle(.blue)
+                              },
+                              title: {
+                                  Text("Toast Message Title")
+                                      .foregroundStyle(.blue)
+                              },
+                              duration: .infinity,
+                              position: .center,
+                              cornerRadius: 50,
+                              borderWidth: 5,
+                              borderColor: .white,
+                              shadow: FioriShadowStyle.smallElement)
+                .padding(30)
+            HStack {}
+                .frame(maxWidth: 300, maxHeight: 300)
+                .toastMessage(isPresented: .constant(true),
+                              icon: {
+                                  Image(systemName: "info.circle")
+                                      .foregroundStyle(.blue)
+                              },
+                              title: {
+                                  Text("Toast Message Title")
+                                      .foregroundStyle(.blue)
+                              },
+                              duration: .infinity,
+                              position: .center,
+                              cornerRadius: 50,
+                              backgroundColor: .cyan,
+                              shadow: FioriShadowStyle.smallElement)
+                .padding(30)
+            HStack {}
+                .frame(maxWidth: 300, maxHeight: 300)
+                .toastMessage(isPresented: .constant(true),
+                              icon: {
+                                  Image(systemName: "info.circle")
+                                      .foregroundStyle(.blue)
+                              },
+                              title: {
+                                  Text("Toast Message Title")
+                                      .foregroundStyle(.blue)
+                              },
+                              duration: .infinity,
+                              position: .center,
+                              cornerRadius: 50,
+                              backgroundColor: .cyan,
+                              borderWidth: 5,
+                              borderColor: .white)
+                .padding(30)
+            HStack {}
+                .frame(maxWidth: 300, maxHeight: 300)
+                .toastMessage(isPresented: .constant(true),
+                              icon: {
+                                  Image(systemName: "info.circle")
+                                      .foregroundStyle(.blue)
+                              },
+                              title: {
+                                  Text("Toast Message Title")
+                                      .foregroundStyle(.blue)
+                              },
+                              duration: .infinity,
+                              position: .center,
+                              shadow: nil)
+                .padding(30)
         }
         .navigationTitle("Toast Message")
     }

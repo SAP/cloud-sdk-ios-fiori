@@ -39,19 +39,17 @@ public struct ToastMessageBaseStyle: ToastMessageStyle {
         }
         .padding(20)
         .frame(width: size.width * (self.horizontalSizeClass == .compact ? 0.8 : 0.6))
-        .background(Color.preferredColor(.header, interface: .elevatedConstant))
-        .cornerRadius(6)
+        .background(.regularMaterial)
+        .background(configuration.backgroundColor)
+        .cornerRadius(configuration.cornerRadius)
         .overlay(
-            RoundedRectangle(cornerRadius: 6)
-                .inset(by: 0.33)
-                .stroke(Color.preferredColor(.separator), lineWidth: 0.33)
+            RoundedRectangle(cornerRadius: configuration.cornerRadius)
+                .stroke(configuration.borderColor, lineWidth: configuration.borderWidth)
         )
         .sizeReader { size in
             self.size = size
         }
-        .shadow(color: Color.preferredColor(.sectionShadow), radius: 2)
-        .shadow(color: Color.preferredColor(.cardShadow), radius: 16, x: 0, y: 8)
-        .shadow(color: Color.preferredColor(.cardShadow), radius: 32, x: 0, y: 16)
+        .toastMessageShadow(configuration.shadow)
     }
 }
 
@@ -120,19 +118,34 @@ public extension View {
     ///   - duration: The duration in seconds for which the toast message is shown. The default value is `1`.
     ///   - position: The position of the toast message relative to its parent view. `.center` puts the toast message in the center of its parent view, `.above` aligns it above the view, and `.below` aligns it below the view. The default value is `.center`.
     ///   - spacing: The amount of spacing to put in between the toast message and the frame of its parent view. This only applies to the `.above` and `.below` positions, and negative values are converted to `0`. The default value is `0`.
+    ///   - cornerRadius: A number specifying how rounded the corners of the view should be. The default value is `6`.
+    ///   - backgroundColor: The background color of the view. The default value is `Color.preferredColor(.tertiaryFill)`.
+    ///   - borderWidth: The width of the border surrounding the toast message. The default value is `0`.
+    ///   - borderColor: The color of the border surrounding the toast message. The default value is `Color.clear`.
+    ///   - shadow: A shadow to render underneath the view. The default value is `FioriShadowStyle.level3`.
     /// - Returns: A new `View` with the toast message.
     func toastMessage(isPresented: Binding<Bool>,
                       @ViewBuilder icon: () -> any View = { EmptyView() },
                       title: AttributedString,
                       duration: Double = 1,
                       position: ToastMessagePosition = .center,
-                      spacing: CGFloat = 0) -> some View
+                      spacing: CGFloat = 0,
+                      cornerRadius: CGFloat = 6,
+                      backgroundColor: Color = Color.preferredColor(.tertiaryFill),
+                      borderWidth: CGFloat = 0,
+                      borderColor: Color = Color.clear,
+                      shadow: FioriShadowStyle? = FioriShadowStyle.level3) -> some View
     {
         self.modifier(ToastMessageModifier(icon: icon(),
                                            title: Text(title),
                                            duration: duration,
                                            position: position,
                                            spacing: spacing,
+                                           cornerRadius: cornerRadius,
+                                           backgroundColor: backgroundColor,
+                                           borderWidth: borderWidth,
+                                           borderColor: borderColor,
+                                           shadow: shadow,
                                            isPresented: isPresented))
     }
     
@@ -144,19 +157,34 @@ public extension View {
     ///   - duration: The duration in seconds for which the toast message is shown. The default value is `1`.
     ///   - position: The position of the toast message relative to its parent view. `.center` puts the toast message in the center of its parent view, `.above` aligns it above the view, and `.below` aligns it below the view. The default value is `.center`.
     ///   - spacing: The amount of spacing to put in between the toast message and the frame of its parent view. This only applies to the `.above` and `.below` positions, and negative values are converted to `0`. The default value is `0`.
+    ///   - cornerRadius: A number specifying how rounded the corners of the view should be. The default value is `6`.
+    ///   - backgroundColor: The background color of the view. The default value is `Color.preferredColor(.tertiaryFill)`.
+    ///   - borderWidth: The width of the border surrounding the toast message. The default value is `0`.
+    ///   - borderColor: The color of the border surrounding the toast message. The default value is `Color.clear`.
+    ///   - shadow: A shadow to render underneath the view. The default value is `FioriShadowStyle.level3`.
     /// - Returns: A new `View` with the toast message.
     func toastMessage(isPresented: Binding<Bool>,
                       @ViewBuilder icon: () -> any View = { EmptyView() },
                       title: String,
                       duration: Double = 1,
                       position: ToastMessagePosition = .center,
-                      spacing: CGFloat = 0) -> some View
+                      spacing: CGFloat = 0,
+                      cornerRadius: CGFloat = 6,
+                      backgroundColor: Color = Color.preferredColor(.tertiaryFill),
+                      borderWidth: CGFloat = 0,
+                      borderColor: Color = Color.clear,
+                      shadow: FioriShadowStyle? = FioriShadowStyle.level3) -> some View
     {
         self.modifier(ToastMessageModifier(icon: icon(),
                                            title: Text(title),
                                            duration: duration,
                                            position: position,
                                            spacing: spacing,
+                                           cornerRadius: cornerRadius,
+                                           backgroundColor: backgroundColor,
+                                           borderWidth: borderWidth,
+                                           borderColor: borderColor,
+                                           shadow: shadow,
                                            isPresented: isPresented))
     }
     
@@ -168,19 +196,34 @@ public extension View {
     ///   - duration: The duration in seconds for which the toast message is shown. The default value is `1`.
     ///   - position: The position of the toast message relative to its parent view. `.center` puts the toast message in the center of its parent view, `.above` aligns it above the view, and `.below` aligns it below the view. The default value is `.center`.
     ///   - spacing: The amount of spacing to put in between the toast message and the frame of its parent view. This only applies to the `.above` and `.below` positions, and negative values are converted to `0`. The default value is `0`.
+    ///   - cornerRadius: A number specifying how rounded the corners of the view should be. The default value is `6`.
+    ///   - backgroundColor: The background color of the view. The default value is `Color.preferredColor(.tertiaryFill)`.
+    ///   - borderWidth: The width of the border surrounding the toast message. The default value is `0`.
+    ///   - borderColor: The color of the border surrounding the toast message. The default value is `Color.clear`.
+    ///   - shadow: A shadow to render underneath the view. The default value is `FioriShadowStyle.level3`.
     /// - Returns: A new `View` with the toast message.
     func toastMessage(isPresented: Binding<Bool>,
                       @ViewBuilder icon: () -> any View = { EmptyView() },
                       @ViewBuilder title: () -> any View,
                       duration: Double = 1,
                       position: ToastMessagePosition = .center,
-                      spacing: CGFloat = 0) -> some View
+                      spacing: CGFloat = 0,
+                      cornerRadius: CGFloat = 6,
+                      backgroundColor: Color = Color.preferredColor(.tertiaryFill),
+                      borderWidth: CGFloat = 0,
+                      borderColor: Color = Color.clear,
+                      shadow: FioriShadowStyle? = FioriShadowStyle.level3) -> some View
     {
         self.modifier(ToastMessageModifier(icon: icon(),
                                            title: title(),
                                            duration: duration,
                                            position: position,
                                            spacing: spacing,
+                                           cornerRadius: cornerRadius,
+                                           backgroundColor: backgroundColor,
+                                           borderWidth: borderWidth,
+                                           borderColor: borderColor,
+                                           shadow: shadow,
                                            isPresented: isPresented))
     }
 }
@@ -191,7 +234,12 @@ struct ToastMessageModifier: ViewModifier {
     var duration: Double
     var position: ToastMessagePosition
     var spacing: CGFloat
-    
+    var cornerRadius: CGFloat
+    var backgroundColor: Color
+    var borderWidth: CGFloat
+    var borderColor: Color
+    var shadow: FioriShadowStyle?
+
     @Binding var isPresented: Bool
     @State private var workItem: DispatchWorkItem?
     
@@ -204,7 +252,12 @@ struct ToastMessageModifier: ViewModifier {
                     }, title: {
                         self.title
                     }, position: self.position,
-                    spacing: self.spacing)
+                    spacing: self.spacing,
+                    cornerRadius: self.cornerRadius,
+                    backgroundColor: self.backgroundColor,
+                    borderWidth: self.borderWidth,
+                    borderColor: self.borderColor,
+                    shadow: self.shadow)
                 }
             })
             .setOnChange(of: self.isPresented) {
@@ -238,5 +291,16 @@ struct ToastMessageModifier: ViewModifier {
         
         self.workItem?.cancel()
         self.workItem = nil
+    }
+}
+
+public extension View {
+    @ViewBuilder
+    func toastMessageShadow(_ shadowStyle: FioriShadowStyle?) -> some View {
+        if let shadowStyle {
+            self.shadow(shadowStyle)
+        } else {
+            self
+        }
     }
 }

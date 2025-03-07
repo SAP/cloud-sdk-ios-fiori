@@ -28,6 +28,11 @@ public struct ToastMessageConfiguration {
     public let duration: Double
     public let position: ToastMessagePosition
     public let spacing: CGFloat
+    public let cornerRadius: CGFloat
+    public let backgroundColor: Color
+    public let borderWidth: CGFloat
+    public let borderColor: Color
+    public let shadow: FioriShadowStyle?
 
     public typealias Icon = ConfigurationViewWrapper
     public typealias Title = ConfigurationViewWrapper
