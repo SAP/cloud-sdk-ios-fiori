@@ -236,7 +236,6 @@ struct PickerMenuItem: View {
     let popoverWidth = 393.0
     @State var _keyboardHeight = 0.0
     @State var barItemFrame: CGRect = .zero
-    @State private var workingValueSet: Set<UUID> = []
         
     public init(item: Binding<SortFilterItem.PickerItem>, onUpdate: @escaping () -> Void) {
         self._item = item
@@ -259,6 +258,21 @@ struct PickerMenuItem: View {
             self.menu
         case .list:
             self.list
+        }
+    }
+    
+    private func displayModeIsList() -> Bool {
+        switch self.item.displayMode {
+        case .automatic:
+            if self.item.valueOptions.count > 8 {
+                return true
+            } else {
+                return false
+            }
+        case .list:
+            return true
+        default:
+            return false
         }
     }
 
@@ -319,9 +333,7 @@ struct PickerMenuItem: View {
                                     .onAppear {
                                         self.detentHeight = self.calculateDetentHeight(scrollViewContentHeight: geometry.size.height)
                                     }
-                                    .setOnChange(of: geometry.frame(in: .global), action1: { _ in
-                                        self.detentHeight = self.calculateDetentHeight(scrollViewContentHeight: geometry.size.height)
-                                    }) { _, _ in
+                                    .onChange(of: geometry.frame(in: .global).height) {
                                         self.detentHeight = self.calculateDetentHeight(scrollViewContentHeight: geometry.size.height)
                                     }
                             }
@@ -407,10 +419,10 @@ struct PickerMenuItem: View {
                     } else {
                         _Action(actionText: self.item.resetButtonConfiguration.title, didSelectAction: {
                             if self.item.resetButtonConfiguration.type == .reset {
-                                self.resetSelections()
+                                self.item.resetSelections()
                                 self.item.reset()
                             } else {
-                                self.clearSelections()
+                                self.item.clearSelections()
                                 self.item.clearAll()
                             }
                         })
@@ -452,10 +464,10 @@ struct PickerMenuItem: View {
                     } else {
                         _Action(actionText: self.item.resetButtonConfiguration.title, didSelectAction: {
                             if self.item.resetButtonConfiguration.type == .reset {
-                                self.resetSelections()
+                                self.item.resetSelections()
                                 self.item.reset()
                             } else {
-                                self.clearSelections()
+                                self.item.clearSelections()
                                 self.item.clearAll()
                             }
                         })
@@ -512,14 +524,17 @@ struct PickerMenuItem: View {
                     }
                 }
             }
-            calaulatePopoverViewHeight += 50 + 70 + (self.item.isSearchBarHidden ? 0 : 52)
+            calaulatePopoverViewHeight += 50 + (self.displayModeIsList() ? 70 : 24) + (self.item.isSearchBarHidden ? 0 : 52)
         } else {
             maxPopoverViewHeight = screenHeight - safeAreaInset.top - 30
             maxPopoverViewHeight -= self._keyboardHeight
-
-            calaulatePopoverViewHeight += 56 + 20 + safeAreaInset.bottom + (self.item.isSearchBarHidden ? 0 : 52)
-            if calaulatePopoverViewHeight > screenHeight - safeAreaInset.top - 60 {
-                return screenHeight / 2
+            if self.displayModeIsList() {
+                calaulatePopoverViewHeight += 56 + 20 + safeAreaInset.bottom + (self.item.isSearchBarHidden ? 0 : 52)
+                if calaulatePopoverViewHeight > screenHeight - safeAreaInset.top - 60 {
+                    return screenHeight / 2
+                }
+            } else {
+                calaulatePopoverViewHeight += 56 + 20 + safeAreaInset.bottom + 20
             }
         }
 
@@ -537,7 +552,7 @@ struct PickerMenuItem: View {
         
         return ListPickerDestination(self.item.uuidValueOptions,
                                      id: \.id,
-                                     selections: self.$workingValueSet,
+                                     selections: Binding<Set<UUID>>(get: { self.item.workingValueSet }, set: { self.item.workingValueSet = $0 }),
                                      allowEmpty: self.item.allowsEmptySelection,
                                      isTrackingLiveChanges: true,
                                      searchFilter: self.item.isSearchBarHidden == false ? filter : nil)
@@ -551,8 +566,8 @@ struct PickerMenuItem: View {
         .environment(\.defaultMinListRowHeight, 0)
         .environment(\.defaultMinListHeaderHeight, 0)
         .isFilterFeedbackBarListPickerStyle(true)
-        .onChange(of: self.workingValueSet) {
-            self.item.workingValue = self.workingValueSet.flatMap { selectedId in
+        .onChange(of: self.item.workingValueSet) {
+            self.item.workingValue = self.item.workingValueSet.flatMap { selectedId in
                 self.item.uuidValueOptions.filter { $0.id == selectedId }.map(\.index)
             }
         }
@@ -563,9 +578,6 @@ struct PickerMenuItem: View {
                     self.detentHeight = calculateHeight
                 }
             }
-        })
-        .onAppear(perform: {
-            self.resetSelections()
         })
         .selectedEntriesSectionTitleStyle { _ in
             if self.item.allowsDisplaySelectionCount {
@@ -592,17 +604,6 @@ struct PickerMenuItem: View {
                 self._keyboardHeight = 0
             }
         })
-    }
-    
-    private func resetSelections() {
-        let workingValueArray = self.item.originalValue.flatMap { originalValue in
-            self.item.uuidValueOptions.filter { $0.index == originalValue }.map(\.id)
-        }
-        self.workingValueSet = Set(workingValueArray)
-    }
-    
-    private func clearSelections() {
-        self.workingValueSet.removeAll()
     }
 }
 

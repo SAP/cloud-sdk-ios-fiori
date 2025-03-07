@@ -6,6 +6,7 @@ class SortFilterContext: Equatable, ObservableObject {
     
     @Published public var isPickerListShown: Bool = false
     @Published public var isSearchBarHidden: Bool = true
+    @Published public var isKeyboardShown: Bool = false
     
     @Published public var handleCancel: (() -> Void)?
     @Published public var handleReset: (() -> Void)?
