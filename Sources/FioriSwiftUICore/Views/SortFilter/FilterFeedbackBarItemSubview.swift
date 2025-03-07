@@ -543,7 +543,7 @@ struct PickerMenuItem: View {
     
     private func configListPickerDestination() -> some View {
         let filter: ((SortFilterItem.PickerItem.ValueOptionModel, String) -> Bool) = { f, s in
-            if s.count > 0 {
+            if !s.isEmpty {
                 return f.value.localizedCaseInsensitiveContains(s)
             } else {
                 return true
