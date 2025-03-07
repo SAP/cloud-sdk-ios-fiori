@@ -137,9 +137,9 @@ struct SPIExampleWithIcon: View {
                 }
             }
             .padding()
-            .onChange(of: self.iconSelection, perform: { _ in
+            .onChange(of: self.iconSelection) {
                 self.updateCurrentStepName()
-            })
+            }
             .onAppear {
                 self.updateCurrentStepName()
             }
@@ -332,9 +332,9 @@ struct SPIExampleWithHeader: View {
             .padding(20)
         }
         .padding()
-        .onChange(of: self.selection, perform: { _ in
+        .onChange(of: self.selection) {
             self.updateCurrentStepName()
-        })
+        }
         .onAppear {
             self.updateCurrentStepName()
         }
@@ -569,8 +569,8 @@ struct SPIExampleByBuilder: View {
             }
             Spacer()
         }.padding()
-            .onChange(of: self.selection) { newValue in
-                print(newValue)
+            .onChange(of: self.selection) {
+                print(self.selection)
             }
     }
     
@@ -661,9 +661,9 @@ struct SPICustomStyleExample: View {
             .padding(20)
         }
         .padding()
-        .onChange(of: self.selection, perform: { _ in
+        .onChange(of: self.selection) {
             self.updateCurrentStepName()
-        })
+        }
         .onAppear {
             self.updateCurrentStepName()
         }

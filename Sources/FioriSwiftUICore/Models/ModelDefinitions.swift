@@ -602,10 +602,22 @@ public protocol FilterFeedbackBarButtonModel {}
 // sourcery: virtualPropUpdateSearchListPickerHeight = "var updateSearchListPickerHeight: ((CGFloat) -> ())? = nil"
 // sourcery: virtualPropBarItemFrame = "var barItemFrame: CGRect = .zero"
 public protocol OptionListPickerItemModel: OptionListPickerComponent {
+    // sourcery: default.value = nil
+    // sourcery: no_view
+    var title: String? { get set }
+    
     // sourcery: default.value = .fixed
     // sourcery: no_view
     var itemLayout: OptionListPickerItemLayoutType { get set }
     
+    // sourcery: default.value = true
+    // sourcery: no_view
+    var allowsMultipleSelection: Bool { get set }
+
+    // sourcery: default.value = false
+    // sourcery: no_view
+    var allowsEmptySelection: Bool { get set }
+
     // sourcery: default.value = nil
     // sourcery: no_view
     var onTap: ((_ index: Int) -> Void)? { get }
@@ -643,4 +655,8 @@ public protocol SwitchPickerItemModel {}
 
 // sourcery: add_env_props = "_filterFeedbackBarStyle"
 // sourcery: generated_component_not_configurable
-public protocol SliderPickerItemModel: SliderPickerComponent {}
+public protocol _SliderPickerItemModel: SliderPickerComponent {}
+
+/// Deprecated SliderPickerItemModel
+@available(*, deprecated, renamed: "_SliderPickerItemModel", message: "Will be removed in the future release. Please create FioriSlider with other initializers instead.")
+public protocol SliderPickerItemModel {}

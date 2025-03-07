@@ -60,9 +60,9 @@ struct SPIModelExample: View {
             .padding(20)
         }
         .padding()
-        .onChange(of: self.model.selection, perform: { _ in
+        .onChange(of: self.model.selection) {
             self.updateCurrentStepName()
-        })
+        }
         .onAppear {
             self.updateCurrentStepName()
         }
