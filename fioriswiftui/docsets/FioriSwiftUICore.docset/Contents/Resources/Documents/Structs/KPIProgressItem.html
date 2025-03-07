@@ -45,12 +45,20 @@
                 <div class="declaration">
                   <div class="language">
                     
-                    <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">KPIProgressItem</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/Kpi.html">Kpi</a></span><span class="p">,</span> <span class="kt"><a href="../Structs/Subtitle.html">Subtitle</a></span><span class="p">,</span> <span class="kt"><a href="../Structs/Footnote.html">Footnote</a></span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt"><a href="../Structs/Kpi.html">Kpi</a></span> <span class="p">:</span> <span class="kt">View</span><span class="p">,</span> <span class="kt"><a href="../Structs/Subtitle.html">Subtitle</a></span> <span class="p">:</span> <span class="kt">View</span><span class="p">,</span> <span class="kt"><a href="../Structs/Footnote.html">Footnote</a></span> <span class="p">:</span> <span class="kt">View</span></code></pre>
+                    <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">KPIProgressItem</span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">KPIProgressItem</span><span class="p">:</span> <span class="kt">View</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">KPIProgressItem</span><span class="p">:</span> <span class="n"><a href="../Protocols/_ViewEmptyChecking.html">_ViewEmptyChecking</a></span></code></pre>
 
                   </div>
                 </div>
-              <p>Undocumented</p>
+              <p><code>KPIProgressItem</code> enables a developer to present &ldquo;KPI&rdquo; information in a formatted manner consistent with the Fiori Design Language</p>
+<h2 id='usage' class='heading'>Usage</h2>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">percentData</span> <span class="o">=</span> <span class="kt">KPIItemData</span><span class="o">.</span><span class="nf">percent</span><span class="p">(</span><span class="mf">0.65</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">fractionData</span> <span class="o">=</span> <span class="kt">KPIItemData</span><span class="o">.</span><span class="nf">fraction</span><span class="p">(</span><span class="mi">76</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="n">numberFormatterProvider</span><span class="o">.</span><span class="n">numberFormatter</span><span class="p">)</span>
+
+<span class="kt">KPIProgressItem</span><span class="p">(</span><span class="nv">kpiCaption</span><span class="p">:</span> <span class="s">"Completed"</span><span class="p">,</span> <span class="nv">data</span><span class="p">:</span> <span class="o">.</span><span class="nf">constant</span><span class="p">(</span><span class="n">percentData</span><span class="p">))</span>
+<span class="kt">KPIProgressItem</span><span class="p">(</span><span class="nv">kpiCaption</span><span class="p">:</span> <span class="s">"In progress"</span><span class="p">,</span> <span class="nv">data</span><span class="p">:</span> <span class="o">.</span><span class="nf">constant</span><span class="p">(</span><span class="n">fractionData</span><span class="p">),</span> <span class="nv">chartSize</span><span class="p">:</span> <span class="o">.</span><span class="n">small</span><span class="p">)</span>
+</code></pre>
 
             </section>
             <section class="section task-group-section">
@@ -59,9 +67,9 @@
                   <li class="item">
                     <div>
                       <code>
-                      <a name="/s:16FioriSwiftUICore15KPIProgressItemV3kpi8fraction8subtitle8footnoteACyxq_q0_GxyXE_SdSgq_yXEq0_yXEtcfc"></a>
-                      <a name="//apple_ref/swift/Method/init(kpi:fraction:subtitle:footnote:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:16FioriSwiftUICore15KPIProgressItemV3kpi8fraction8subtitle8footnoteACyxq_q0_GxyXE_SdSgq_yXEq0_yXEtcfc">init(kpi:<wbr>fraction:<wbr>subtitle:<wbr>footnote:<wbr>)</a>
+                      <a name="/s:16FioriSwiftUICore15KPIProgressItemV10kPIContent10kpiCaption8footnote11innerCircle05outerK04data9chartSize19componentIdentifierAC0B2UI4View_pyXE_AlM_pyXEAlM_pyXEAlM_pyXEAlM_pyXEAL7BindingVyAA11KPIItemDataOGAA0deO0OSSSgtcfc"></a>
+                      <a name="//apple_ref/swift/Method/init(kPIContent:kpiCaption:footnote:innerCircle:outerCircle:data:chartSize:componentIdentifier:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore15KPIProgressItemV10kPIContent10kpiCaption8footnote11innerCircle05outerK04data9chartSize19componentIdentifierAC0B2UI4View_pyXE_AlM_pyXEAlM_pyXEAlM_pyXEAlM_pyXEAL7BindingVyAA11KPIItemDataOGAA0deO0OSSSgtcfc">init(kPIContent:<wbr>kpiCaption:<wbr>footnote:<wbr>innerCircle:<wbr>outerCircle:<wbr>data:<wbr>chartSize:<wbr>componentIdentifier:<wbr>)</a>
                       </code>
                     </div>
                     <div class="height-container">
@@ -76,12 +84,101 @@
                           <h4>Declaration</h4>
                           <div class="language">
                             <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
-      <span class="kd">@ViewBuilder</span> <span class="nv">kpi</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Kpi.html">Kpi</a></span><span class="p">,</span>
-<span class="nv">fraction</span><span class="p">:</span> <span class="kt">Double</span><span class="p">?,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">subtitle</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Subtitle.html">Subtitle</a></span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">footnote</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Footnote.html">Footnote</a></span>
-      <span class="p">)</span></code></pre>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="kd">@ViewBuilder</span> <span class="nv">kPIContent</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="n">any</span> <span class="kt">View</span> <span class="o">=</span> <span class="p">{</span> <span class="kt">EmptyView</span><span class="p">()</span> <span class="p">},</span>
+            <span class="kd">@ViewBuilder</span> <span class="nv">kpiCaption</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="n">any</span> <span class="kt">View</span> <span class="o">=</span> <span class="p">{</span> <span class="kt">EmptyView</span><span class="p">()</span> <span class="p">},</span>
+            <span class="kd">@ViewBuilder</span> <span class="nv">footnote</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="n">any</span> <span class="kt">View</span> <span class="o">=</span> <span class="p">{</span> <span class="kt">EmptyView</span><span class="p">()</span> <span class="p">},</span>
+            <span class="kd">@ViewBuilder</span> <span class="nv">innerCircle</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="n">any</span> <span class="kt">View</span><span class="p">,</span>
+            <span class="kd">@ViewBuilder</span> <span class="nv">outerCircle</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="n">any</span> <span class="kt">View</span><span class="p">,</span>
+            <span class="nv">data</span><span class="p">:</span> <span class="kt">Binding</span><span class="o">&lt;</span><span class="kt"><a href="../Enums/KPIItemData.html">KPIItemData</a></span><span class="o">&gt;</span><span class="p">,</span>
+            <span class="nv">chartSize</span><span class="p">:</span> <span class="kt"><a href="../Enums/KPIProgressItemSize.html">KPIProgressItemSize</a></span> <span class="o">=</span> <span class="o">.</span><span class="n">large</span><span class="p">,</span>
+            <span class="nv">componentIdentifier</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kt">KPIProgressItem</span><span class="o">.</span><span class="n"><a href="../Structs/KPIProgressItem.html#/s:16FioriSwiftUICore15KPIProgressItemV10identifierSSvpZ">identifier</a></span><span class="p">)</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore15KPIProgressItemV10identifierSSvpZ"></a>
+                      <a name="//apple_ref/swift/Variable/identifier" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore15KPIProgressItemV10identifierSSvpZ">identifier</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">static</span> <span class="k">let</span> <span class="nv">identifier</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore15KPIProgressItemV10kPIContent10kpiCaption8footnote11innerCircle05outerK04data9chartSizeAC0B2UI4View_pyXE_10Foundation16AttributedStringVSgApK5Shape_pAkQ_pAK7BindingVyAA11KPIItemDataOGAA0deO0Otcfc"></a>
+                      <a name="//apple_ref/swift/Method/init(kPIContent:kpiCaption:footnote:innerCircle:outerCircle:data:chartSize:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore15KPIProgressItemV10kPIContent10kpiCaption8footnote11innerCircle05outerK04data9chartSizeAC0B2UI4View_pyXE_10Foundation16AttributedStringVSgApK5Shape_pAkQ_pAK7BindingVyAA11KPIItemDataOGAA0deO0Otcfc">init(kPIContent:<wbr>kpiCaption:<wbr>footnote:<wbr>innerCircle:<wbr>outerCircle:<wbr>data:<wbr>chartSize:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="nf">init</span><span class="p">(</span><span class="kd">@ViewBuilder</span> <span class="nv">kPIContent</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="n">any</span> <span class="kt">View</span> <span class="o">=</span> <span class="p">{</span> <span class="kt">EmptyView</span><span class="p">()</span> <span class="p">},</span>
+     <span class="nv">kpiCaption</span><span class="p">:</span> <span class="kt">AttributedString</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+     <span class="nv">footnote</span><span class="p">:</span> <span class="kt">AttributedString</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+     <span class="nv">innerCircle</span><span class="p">:</span> <span class="n">any</span> <span class="kt">Shape</span> <span class="o">=</span> <span class="kt">Circle</span><span class="p">(),</span>
+     <span class="nv">outerCircle</span><span class="p">:</span> <span class="n">any</span> <span class="kt">Shape</span> <span class="o">=</span> <span class="kt">Circle</span><span class="p">(),</span>
+     <span class="nv">data</span><span class="p">:</span> <span class="kt">Binding</span><span class="o">&lt;</span><span class="kt"><a href="../Enums/KPIItemData.html">KPIItemData</a></span><span class="o">&gt;</span><span class="p">,</span>
+     <span class="nv">chartSize</span><span class="p">:</span> <span class="kt"><a href="../Enums/KPIProgressItemSize.html">KPIProgressItemSize</a></span> <span class="o">=</span> <span class="o">.</span><span class="n">large</span><span class="p">)</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore15KPIProgressItemVyAcA0dE13ConfigurationVcfc"></a>
+                      <a name="//apple_ref/swift/Method/init(_:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore15KPIProgressItemVyAcA0dE13ConfigurationVcfc">init(_:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="nf">init</span><span class="p">(</span><span class="n">_</span> <span class="nv">configuration</span><span class="p">:</span> <span class="kt"><a href="../Structs/KPIProgressItemConfiguration.html">KPIProgressItemConfiguration</a></span><span class="p">)</span></code></pre>
 
                           </div>
                         </div>
@@ -114,108 +211,12 @@
                       </section>
                     </div>
                   </li>
-                </ul>
-              </div>
-              <div class="task-group">
-                <div class="task-name-container">
-                  <a name="/Available%20where%20%60Kpi%60%20%3D%3D%20%60Text%60%2C%20%60Subtitle%60%20%3D%3D%20%60_ConditionalContent%3CText%60%2C%20%60EmptyView%60%3E%2C%20%60Footnote%60%20%3D%3D%20%60_ConditionalContent%3CText%60%2C%20%60EmptyView%60%3E"></a>
-                  <a name="//apple_ref/swift/Section/Available where `Kpi` == `Text`, `Subtitle` == `_ConditionalContent&lt;Text`, `EmptyView`&gt;, `Footnote` == `_ConditionalContent&lt;Text`, `EmptyView`&gt;" class="dashAnchor"></a>
-                  <div class="section-name-container">
-                    <a class="section-name-link" href="#/Available%20where%20%60Kpi%60%20%3D%3D%20%60Text%60%2C%20%60Subtitle%60%20%3D%3D%20%60_ConditionalContent%3CText%60%2C%20%60EmptyView%60%3E%2C%20%60Footnote%60%20%3D%3D%20%60_ConditionalContent%3CText%60%2C%20%60EmptyView%60%3E"></a>
-                    <h3 class="section-name"><span>Available where <code><a href="../Structs/Kpi.html">Kpi</a></code> == <code>Text</code>, <code><a href="../Structs/Subtitle.html">Subtitle</a></code> == <code>_ConditionalContent&lt;Text</code>, <code>EmptyView</code>&gt;, <code><a href="../Structs/Footnote.html">Footnote</a></code> == <code>_ConditionalContent&lt;Text</code>, <code>EmptyView</code>&gt;</span>
-</h3>
-                  </div>
-                </div>
-                <ul>
                   <li class="item">
                     <div>
                       <code>
-                      <a name="/s:16FioriSwiftUICore15KPIProgressItemVAA0B2UI4TextVRszAD19_ConditionalContentVyAfD9EmptyViewVGRs_AKRs0_rlE4data8subtitle8footnote6actionACyAf2KGAA11KPIItemDataO_SSSgASyycSgtcfc"></a>
-                      <a name="//apple_ref/swift/Method/init(data:subtitle:footnote:action:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:16FioriSwiftUICore15KPIProgressItemVAA0B2UI4TextVRszAD19_ConditionalContentVyAfD9EmptyViewVGRs_AKRs0_rlE4data8subtitle8footnote6actionACyAf2KGAA11KPIItemDataO_SSSgASyycSgtcfc">init(data:<wbr>subtitle:<wbr>footnote:<wbr>action:<wbr>)</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>Returns a KPIProgress item with given configuration.</p>
-
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="nf">init</span><span class="p">(</span><span class="nv">data</span><span class="p">:</span> <span class="kt"><a href="../Enums/KPIItemData.html">KPIItemData</a></span><span class="p">,</span> <span class="nv">subtitle</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">footnote</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">action</span><span class="p">:</span> <span class="p">(()</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span></code></pre>
-
-                          </div>
-                        </div>
-                        <div>
-                          <h4>Parameters</h4>
-                          <table class="graybox">
-                            <tbody>
-                              <tr>
-                                <td>
-                                  <code>
-                                  <em>data</em>
-                                  </code>
-                                </td>
-                                <td>
-                                  <div>
-                                    <p>The data of the KPIProgress item.</p>
-                                  </div>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <code>
-                                  <em>subtitle</em>
-                                  </code>
-                                </td>
-                                <td>
-                                  <div>
-                                    <p>The subtitle of the KPIProgress item.</p>
-                                  </div>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <code>
-                                  <em>action</em>
-                                  </code>
-                                </td>
-                                <td>
-                                  <div>
-                                    <p>The action when user interacts with the KPIProgress item.</p>
-                                  </div>
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-              <div class="task-group">
-                <div class="task-name-container">
-                  <a name="/Available%20where%20%60Kpi%60%20%3D%3D%20%60_ConditionalContent%3CText%60%2C%20%60EmptyView%60%3E%2C%20%60Subtitle%60%20%3D%3D%20%60_ConditionalContent%3CText%60%2C%20%60EmptyView%60%3E%2C%20%60Footnote%60%20%3D%3D%20%60_ConditionalContent%3CText%60%2C%20%60EmptyView%60%3E"></a>
-                  <a name="//apple_ref/swift/Section/Available where `Kpi` == `_ConditionalContent&lt;Text`, `EmptyView`&gt;, `Subtitle` == `_ConditionalContent&lt;Text`, `EmptyView`&gt;, `Footnote` == `_ConditionalContent&lt;Text`, `EmptyView`&gt;" class="dashAnchor"></a>
-                  <div class="section-name-container">
-                    <a class="section-name-link" href="#/Available%20where%20%60Kpi%60%20%3D%3D%20%60_ConditionalContent%3CText%60%2C%20%60EmptyView%60%3E%2C%20%60Subtitle%60%20%3D%3D%20%60_ConditionalContent%3CText%60%2C%20%60EmptyView%60%3E%2C%20%60Footnote%60%20%3D%3D%20%60_ConditionalContent%3CText%60%2C%20%60EmptyView%60%3E"></a>
-                    <h3 class="section-name"><span>Available where <code><a href="../Structs/Kpi.html">Kpi</a></code> == <code>_ConditionalContent&lt;Text</code>, <code>EmptyView</code>&gt;, <code><a href="../Structs/Subtitle.html">Subtitle</a></code> == <code>_ConditionalContent&lt;Text</code>, <code>EmptyView</code>&gt;, <code><a href="../Structs/Footnote.html">Footnote</a></code> == <code>_ConditionalContent&lt;Text</code>, <code>EmptyView</code>&gt;</span>
-</h3>
-                  </div>
-                </div>
-                <ul>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/s:16FioriSwiftUICore15KPIProgressItemVAA0B2UI19_ConditionalContentVyAD4TextVAD9EmptyViewVGRszAKRs_AKRs0_rlE5modelACyA3KGAA0dE5Model_p_tcfc"></a>
-                      <a name="//apple_ref/swift/Method/init(model:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:16FioriSwiftUICore15KPIProgressItemVAA0B2UI19_ConditionalContentVyAD4TextVAD9EmptyViewVGRszAKRs_AKRs0_rlE5modelACyA3KGAA0dE5Model_p_tcfc">init(model:<wbr>)</a>
+                      <a name="/s:16FioriSwiftUICore15KPIProgressItemV7isEmptySbvp"></a>
+                      <a name="//apple_ref/swift/Property/isEmpty" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore15KPIProgressItemV7isEmptySbvp">isEmpty</a>
                       </code>
                     </div>
                     <div class="height-container">
@@ -230,337 +231,7 @@
                           <h4>Declaration</h4>
                           <div class="language">
                             <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">model</span><span class="p">:</span> <span class="kt"><a href="../Protocols.html#/s:16FioriSwiftUICore20KPIProgressItemModelP">KPIProgressItemModel</a></span><span class="p">)</span></code></pre>
-
-                          </div>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/s:16FioriSwiftUICore15KPIProgressItemVAA0B2UI19_ConditionalContentVyAD4TextVAD9EmptyViewVGRszAKRs_AKRs0_rlE3kpi8fraction8subtitle8footnoteACyA3KGSSSg_SdSgA2Qtcfc"></a>
-                      <a name="//apple_ref/swift/Method/init(kpi:fraction:subtitle:footnote:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:16FioriSwiftUICore15KPIProgressItemVAA0B2UI19_ConditionalContentVyAD4TextVAD9EmptyViewVGRszAKRs_AKRs0_rlE3kpi8fraction8subtitle8footnoteACyA3KGSSSg_SdSgA2Qtcfc">init(kpi:<wbr>fraction:<wbr>subtitle:<wbr>footnote:<wbr>)</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>Undocumented</p>
-
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">kpi</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">fraction</span><span class="p">:</span> <span class="kt">Double</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">subtitle</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">footnote</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span></code></pre>
-
-                          </div>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-              <div class="task-group">
-                <div class="task-name-container">
-                  <a name="/Available%20where%20%60Kpi%60%20%3D%3D%20%60EmptyView%60"></a>
-                  <a name="//apple_ref/swift/Section/Available where `Kpi` == `EmptyView`" class="dashAnchor"></a>
-                  <div class="section-name-container">
-                    <a class="section-name-link" href="#/Available%20where%20%60Kpi%60%20%3D%3D%20%60EmptyView%60"></a>
-                    <h3 class="section-name"><span>Available where <code><a href="../Structs/Kpi.html">Kpi</a></code> == <code>EmptyView</code></span>
-</h3>
-                  </div>
-                </div>
-                <ul>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/s:16FioriSwiftUICore15KPIProgressItemVAA0B2UI9EmptyViewVRszrlE8fraction8subtitle8footnoteACyAFq_q0_GSdSg_q_yXEq0_yXEtcfc"></a>
-                      <a name="//apple_ref/swift/Method/init(fraction:subtitle:footnote:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:16FioriSwiftUICore15KPIProgressItemVAA0B2UI9EmptyViewVRszrlE8fraction8subtitle8footnoteACyAFq_q0_GSdSg_q_yXEq0_yXEtcfc">init(fraction:<wbr>subtitle:<wbr>footnote:<wbr>)</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>Undocumented</p>
-
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
-  <span class="nv">fraction</span><span class="p">:</span> <span class="kt">Double</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">subtitle</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Subtitle.html">Subtitle</a></span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">footnote</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Footnote.html">Footnote</a></span>
-  <span class="p">)</span></code></pre>
-
-                          </div>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-              <div class="task-group">
-                <div class="task-name-container">
-                  <a name="/Available%20where%20%60Subtitle%60%20%3D%3D%20%60EmptyView%60"></a>
-                  <a name="//apple_ref/swift/Section/Available where `Subtitle` == `EmptyView`" class="dashAnchor"></a>
-                  <div class="section-name-container">
-                    <a class="section-name-link" href="#/Available%20where%20%60Subtitle%60%20%3D%3D%20%60EmptyView%60"></a>
-                    <h3 class="section-name"><span>Available where <code><a href="../Structs/Subtitle.html">Subtitle</a></code> == <code>EmptyView</code></span>
-</h3>
-                  </div>
-                </div>
-                <ul>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/s:16FioriSwiftUICore15KPIProgressItemVAA0B2UI9EmptyViewVRs_rlE3kpi8fraction8footnoteACyxAFq0_GxyXE_SdSgq0_yXEtcfc"></a>
-                      <a name="//apple_ref/swift/Method/init(kpi:fraction:footnote:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:16FioriSwiftUICore15KPIProgressItemVAA0B2UI9EmptyViewVRs_rlE3kpi8fraction8footnoteACyxAFq0_GxyXE_SdSgq0_yXEtcfc">init(kpi:<wbr>fraction:<wbr>footnote:<wbr>)</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>Undocumented</p>
-
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
-  <span class="kd">@ViewBuilder</span> <span class="nv">kpi</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Kpi.html">Kpi</a></span><span class="p">,</span>
-<span class="nv">fraction</span><span class="p">:</span> <span class="kt">Double</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">footnote</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Footnote.html">Footnote</a></span>
-  <span class="p">)</span></code></pre>
-
-                          </div>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-              <div class="task-group">
-                <div class="task-name-container">
-                  <a name="/Available%20where%20%60Footnote%60%20%3D%3D%20%60EmptyView%60"></a>
-                  <a name="//apple_ref/swift/Section/Available where `Footnote` == `EmptyView`" class="dashAnchor"></a>
-                  <div class="section-name-container">
-                    <a class="section-name-link" href="#/Available%20where%20%60Footnote%60%20%3D%3D%20%60EmptyView%60"></a>
-                    <h3 class="section-name"><span>Available where <code><a href="../Structs/Footnote.html">Footnote</a></code> == <code>EmptyView</code></span>
-</h3>
-                  </div>
-                </div>
-                <ul>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/s:16FioriSwiftUICore15KPIProgressItemVAA0B2UI9EmptyViewVRs0_rlE3kpi8fraction8subtitleACyxq_AFGxyXE_SdSgq_yXEtcfc"></a>
-                      <a name="//apple_ref/swift/Method/init(kpi:fraction:subtitle:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:16FioriSwiftUICore15KPIProgressItemVAA0B2UI9EmptyViewVRs0_rlE3kpi8fraction8subtitleACyxq_AFGxyXE_SdSgq_yXEtcfc">init(kpi:<wbr>fraction:<wbr>subtitle:<wbr>)</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>Undocumented</p>
-
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
-  <span class="kd">@ViewBuilder</span> <span class="nv">kpi</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Kpi.html">Kpi</a></span><span class="p">,</span>
-<span class="nv">fraction</span><span class="p">:</span> <span class="kt">Double</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">subtitle</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Subtitle.html">Subtitle</a></span>
-  <span class="p">)</span></code></pre>
-
-                          </div>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-              <div class="task-group">
-                <div class="task-name-container">
-                  <a name="/Available%20where%20%60Kpi%60%20%3D%3D%20%60EmptyView%60%2C%20%60Subtitle%60%20%3D%3D%20%60EmptyView%60"></a>
-                  <a name="//apple_ref/swift/Section/Available where `Kpi` == `EmptyView`, `Subtitle` == `EmptyView`" class="dashAnchor"></a>
-                  <div class="section-name-container">
-                    <a class="section-name-link" href="#/Available%20where%20%60Kpi%60%20%3D%3D%20%60EmptyView%60%2C%20%60Subtitle%60%20%3D%3D%20%60EmptyView%60"></a>
-                    <h3 class="section-name"><span>Available where <code><a href="../Structs/Kpi.html">Kpi</a></code> == <code>EmptyView</code>, <code><a href="../Structs/Subtitle.html">Subtitle</a></code> == <code>EmptyView</code></span>
-</h3>
-                  </div>
-                </div>
-                <ul>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/s:16FioriSwiftUICore15KPIProgressItemVAA0B2UI9EmptyViewVRszAFRs_rlE8fraction8footnoteACyA2Fq0_GSdSg_q0_yXEtcfc"></a>
-                      <a name="//apple_ref/swift/Method/init(fraction:footnote:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:16FioriSwiftUICore15KPIProgressItemVAA0B2UI9EmptyViewVRszAFRs_rlE8fraction8footnoteACyA2Fq0_GSdSg_q0_yXEtcfc">init(fraction:<wbr>footnote:<wbr>)</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>Undocumented</p>
-
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
-  <span class="nv">fraction</span><span class="p">:</span> <span class="kt">Double</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">footnote</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Footnote.html">Footnote</a></span>
-  <span class="p">)</span></code></pre>
-
-                          </div>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-              <div class="task-group">
-                <div class="task-name-container">
-                  <a name="/Available%20where%20%60Kpi%60%20%3D%3D%20%60EmptyView%60%2C%20%60Footnote%60%20%3D%3D%20%60EmptyView%60"></a>
-                  <a name="//apple_ref/swift/Section/Available where `Kpi` == `EmptyView`, `Footnote` == `EmptyView`" class="dashAnchor"></a>
-                  <div class="section-name-container">
-                    <a class="section-name-link" href="#/Available%20where%20%60Kpi%60%20%3D%3D%20%60EmptyView%60%2C%20%60Footnote%60%20%3D%3D%20%60EmptyView%60"></a>
-                    <h3 class="section-name"><span>Available where <code><a href="../Structs/Kpi.html">Kpi</a></code> == <code>EmptyView</code>, <code><a href="../Structs/Footnote.html">Footnote</a></code> == <code>EmptyView</code></span>
-</h3>
-                  </div>
-                </div>
-                <ul>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/s:16FioriSwiftUICore15KPIProgressItemVAA0B2UI9EmptyViewVRszAFRs0_rlE8fraction8subtitleACyAFq_AFGSdSg_q_yXEtcfc"></a>
-                      <a name="//apple_ref/swift/Method/init(fraction:subtitle:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:16FioriSwiftUICore15KPIProgressItemVAA0B2UI9EmptyViewVRszAFRs0_rlE8fraction8subtitleACyAFq_AFGSdSg_q_yXEtcfc">init(fraction:<wbr>subtitle:<wbr>)</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>Undocumented</p>
-
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
-  <span class="nv">fraction</span><span class="p">:</span> <span class="kt">Double</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">subtitle</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Subtitle.html">Subtitle</a></span>
-  <span class="p">)</span></code></pre>
-
-                          </div>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-              <div class="task-group">
-                <div class="task-name-container">
-                  <a name="/Available%20where%20%60Subtitle%60%20%3D%3D%20%60EmptyView%60%2C%20%60Footnote%60%20%3D%3D%20%60EmptyView%60"></a>
-                  <a name="//apple_ref/swift/Section/Available where `Subtitle` == `EmptyView`, `Footnote` == `EmptyView`" class="dashAnchor"></a>
-                  <div class="section-name-container">
-                    <a class="section-name-link" href="#/Available%20where%20%60Subtitle%60%20%3D%3D%20%60EmptyView%60%2C%20%60Footnote%60%20%3D%3D%20%60EmptyView%60"></a>
-                    <h3 class="section-name"><span>Available where <code><a href="../Structs/Subtitle.html">Subtitle</a></code> == <code>EmptyView</code>, <code><a href="../Structs/Footnote.html">Footnote</a></code> == <code>EmptyView</code></span>
-</h3>
-                  </div>
-                </div>
-                <ul>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/s:16FioriSwiftUICore15KPIProgressItemVAA0B2UI9EmptyViewVRs_AFRs0_rlE3kpi8fractionACyxA2FGxyXE_SdSgtcfc"></a>
-                      <a name="//apple_ref/swift/Method/init(kpi:fraction:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:16FioriSwiftUICore15KPIProgressItemVAA0B2UI9EmptyViewVRs_AFRs0_rlE3kpi8fractionACyxA2FGxyXE_SdSgtcfc">init(kpi:<wbr>fraction:<wbr>)</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>Undocumented</p>
-
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
-  <span class="kd">@ViewBuilder</span> <span class="nv">kpi</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Kpi.html">Kpi</a></span><span class="p">,</span>
-<span class="nv">fraction</span><span class="p">:</span> <span class="kt">Double</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span>
-  <span class="p">)</span></code></pre>
-
-                          </div>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-              <div class="task-group">
-                <div class="task-name-container">
-                  <a name="/Available%20where%20%60Kpi%60%20%3D%3D%20%60EmptyView%60%2C%20%60Subtitle%60%20%3D%3D%20%60EmptyView%60%2C%20%60Footnote%60%20%3D%3D%20%60EmptyView%60"></a>
-                  <a name="//apple_ref/swift/Section/Available where `Kpi` == `EmptyView`, `Subtitle` == `EmptyView`, `Footnote` == `EmptyView`" class="dashAnchor"></a>
-                  <div class="section-name-container">
-                    <a class="section-name-link" href="#/Available%20where%20%60Kpi%60%20%3D%3D%20%60EmptyView%60%2C%20%60Subtitle%60%20%3D%3D%20%60EmptyView%60%2C%20%60Footnote%60%20%3D%3D%20%60EmptyView%60"></a>
-                    <h3 class="section-name"><span>Available where <code><a href="../Structs/Kpi.html">Kpi</a></code> == <code>EmptyView</code>, <code><a href="../Structs/Subtitle.html">Subtitle</a></code> == <code>EmptyView</code>, <code><a href="../Structs/Footnote.html">Footnote</a></code> == <code>EmptyView</code></span>
-</h3>
-                  </div>
-                </div>
-                <ul>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/s:16FioriSwiftUICore15KPIProgressItemVAA0B2UI9EmptyViewVRszAFRs_AFRs0_rlE8fractionACyA3FGSdSg_tcfc"></a>
-                      <a name="//apple_ref/swift/Method/init(fraction:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:16FioriSwiftUICore15KPIProgressItemVAA0B2UI9EmptyViewVRszAFRs_AFRs0_rlE8fractionACyA3FGSdSg_tcfc">init(fraction:<wbr>)</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>Undocumented</p>
-
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
-<span class="nv">fraction</span><span class="p">:</span> <span class="kt">Double</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span>
-<span class="p">)</span></code></pre>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">isEmpty</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                           </div>
                         </div>
@@ -600,6 +271,12 @@
                   <a href="../Global%20Variables.html#/s:16FioriSwiftUICore39DefaultFilterFeedbackBarForegroundColor0B2UI0I0Vvp">DefaultFilterFeedbackBarForegroundColor</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Global%20Variables.html#/DefaultFilterFeedbackBarItemForegroundColor">DefaultFilterFeedbackBarItemForegroundColor</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Global%20Variables.html#/s:16FioriSwiftUICore43DefaultFilterFeedbackBarItemForegroundColor0B2UI0J0Vvp">DefaultFilterFeedbackBarItemForegroundColor</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Global%20Variables.html#/DefaultOptionListPickerForegroundColor">DefaultOptionListPickerForegroundColor</a>
                 </li>
                 <li class="nav-group-task">
@@ -620,7 +297,13 @@
                   <a href="../Enums/AccessoryType.html">AccessoryType</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Enums/ActivityItemLayout.html">ActivityItemLayout</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Enums/ActivityItemType.html">ActivityItemType</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums.html#/s:16FioriSwiftUICore20ActivityItemsBuilderO">ActivityItemsBuilder</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Enums.html#/s:16FioriSwiftUICore14AvatarsBuilderO">AvatarsBuilder</a>
@@ -638,7 +321,13 @@
                   <a href="../Enums/DisplayState.html">DisplayState</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Enums/FilterButtonSize.html">FilterButtonSize</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Enums/FilterFeedbackBarResetButtonType.html">FilterFeedbackBarResetButtonType</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/FilterFormOptionState.html">FilterFormOptionState</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Enums.html#/s:16FioriSwiftUICore0A0O">Fiori</a>
@@ -672,6 +361,15 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Enums/KPIItemData/Component.html">– Component</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/KPIItemSize.html">KPIItemSize</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/KPIProgressItemSize.html">KPIProgressItemSize</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/KPISubitemType.html">KPISubitemType</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Enums/LibraryPreviewData.html">LibraryPreviewData</a>
@@ -737,6 +435,9 @@
                   <a href="../Enums/TimelineNodeType.html">TimelineNodeType</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Enums/ToastMessagePosition.html">ToastMessagePosition</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Enums/UserConsentAlertType.html">UserConsentAlertType</a>
                 </li>
               </ul>
@@ -744,9 +445,6 @@
             <li class="nav-group-name">
               <a href="../Extensions.html">Extensions</a>
               <ul class="nav-group-tasks">
-                <li class="nav-group-task">
-                  <a href="../Extensions.html#/AppKit">AppKit</a>
-                </li>
                 <li class="nav-group-task">
                   <a href="../Extensions.html#/s:7SwiftUI9EmptyViewV">EmptyView</a>
                 </li>
@@ -800,13 +498,19 @@
                   <a href="../Protocols/ActivationScreenModel.html">ActivationScreenModel</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Protocols.html#/s:16FioriSwiftUICore17ActivityItemModelP">ActivityItemModel</a>
+                  <a href="../Protocols/ActiveTrackStyle.html">ActiveTrackStyle</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Protocols.html#/s:16FioriSwiftUICore18ActivityItemsModelP">ActivityItemsModel</a>
+                  <a href="../Protocols/ActivityItemStyle.html">ActivityItemStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/ActivityItemsStyle.html">ActivityItemsStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/AllEntriesSectionTitleStyle.html">AllEntriesSectionTitleStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/AllowActionStyle.html">AllowActionStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/ApplyActionStyle.html">ApplyActionStyle</a>
@@ -845,6 +549,9 @@
                   <a href="../Protocols/BodyTextComponent.html">BodyTextComponent</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Protocols/BodyTextStyle.html">BodyTextStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Protocols/CancelActionStyle.html">CancelActionStyle</a>
                 </li>
                 <li class="nav-group-task">
@@ -875,10 +582,13 @@
                   <a href="../Protocols/CheckoutIndicatorStyle.html">CheckoutIndicatorStyle</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Protocols/ClearActionStyle.html">ClearActionStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Protocols/CloseActionStyle.html">CloseActionStyle</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Protocols/ContactItemModel.html">ContactItemModel</a>
+                  <a href="../Protocols/ContactItemStyle.html">ContactItemStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/CounterStyle.html">CounterStyle</a>
@@ -893,19 +603,34 @@
                   <a href="../Protocols/DecrementActionStyle.html">DecrementActionStyle</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Protocols/DenyActionStyle.html">DenyActionStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Protocols/DescriptionStyle.html">DescriptionStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/DescriptionTextComponent.html">DescriptionTextComponent</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Protocols/DescriptionTextStyle.html">DescriptionTextStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Protocols/DeselectAllActionStyle.html">DeselectAllActionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/DetailContentStyle.html">DetailContentStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/DetailImageComponent.html">DetailImageComponent</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/DetailImageStyle.html">DetailImageStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/DimensionSegmentStyle.html">DimensionSegmentStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/DimensionSelectorStyle.html">DimensionSelectorStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/DurationPickerComponent.html">DurationPickerComponent</a>
@@ -917,7 +642,7 @@
                   <a href="../Protocols/EULAViewModel.html">EULAViewModel</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Protocols/EmptyStateViewModel.html">EmptyStateViewModel</a>
+                  <a href="../Protocols.html#/s:16FioriSwiftUICore19EmptyStateViewModelP">EmptyStateViewModel</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/EmptyTextComponent.html">EmptyTextComponent</a>
@@ -926,19 +651,22 @@
                   <a href="../Protocols/FilledIconStyle.html">FilledIconStyle</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Protocols/FilterFeedbackBarButtonModel.html">FilterFeedbackBarButtonModel</a>
+                  <a href="../Protocols/FilterFeedbackBarButtonStyle.html">FilterFeedbackBarButtonStyle</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Protocols/FilterFeedbackBarItemModel.html">FilterFeedbackBarItemModel</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Protocols/FilterFeedbackBarModel.html">FilterFeedbackBarModel</a>
+                  <a href="../Protocols/FilterFeedbackBarItemStyle.html">FilterFeedbackBarItemStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/FilterFeedbackBarStyle.html">FilterFeedbackBarStyle</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Protocols/FilterFormViewStyle.html">FilterFormViewStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Protocols/FioriButtonStyle.html">FioriButtonStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/FioriSliderStyle.html">FioriSliderStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/FirstActionTitleComponent.html">FirstActionTitleComponent</a>
@@ -977,7 +705,7 @@
                   <a href="../Protocols/HeaderActionStyle.html">HeaderActionStyle</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Protocols.html#/s:16FioriSwiftUICore16HeaderChartModelP">HeaderChartModel</a>
+                  <a href="../Protocols/HeaderChartStyle.html">HeaderChartStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/HelperTextStyle.html">HelperTextStyle</a>
@@ -1001,6 +729,9 @@
                   <a href="../Protocols/IllustratedMessageStyle.html">IllustratedMessageStyle</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Protocols/InactiveTrackStyle.html">InactiveTrackStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Protocols/IncrementActionStyle.html">IncrementActionStyle</a>
                 </li>
                 <li class="nav-group-task">
@@ -1013,28 +744,43 @@
                   <a href="../Protocols/InformationViewStyle.html">InformationViewStyle</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Protocols/InnerCircleStyle.html">InnerCircleStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Protocols/JouleWelcomeScreenStyle.html">JouleWelcomeScreenStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/KPIContentStyle.html">KPIContentStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols.html#/s:16FioriSwiftUICore18KPIHeaderItemModelP">KPIHeaderItemModel</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Protocols.html#/s:16FioriSwiftUICore12KPIItemModelP">KPIItemModel</a>
+                  <a href="../Protocols/KPIItemStyle.html">KPIItemStyle</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Protocols.html#/s:16FioriSwiftUICore20KPIProgressItemModelP">KPIProgressItemModel</a>
+                  <a href="../Protocols/KPIProgressItemStyle.html">KPIProgressItemStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/KPIProgressViewStyle.html">KPIProgressViewStyle</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Protocols/KPISubItemModel.html">KPISubItemModel</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/KPISubItemStyle.html">KPISubItemStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Protocols/KeyComponent.html">KeyComponent</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/KeyStyle.html">KeyStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/KeyValueFormViewStyle.html">KeyValueFormViewStyle</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Protocols/KeyValueItemModel.html">KeyValueItemModel</a>
+                  <a href="../Protocols/KeyValueItemStyle.html">KeyValueItemStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/KpiCaptionStyle.html">KpiCaptionStyle</a>
@@ -1052,7 +798,13 @@
                   <a href="../Protocols/LabelItemStyle.html">LabelItemStyle</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Protocols/LeadingAccessoryStyle.html">LeadingAccessoryStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Protocols/LeftIconComponent.html">LeftIconComponent</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/LineStyle.html">LineStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/LinearProgressIndicatorStyle.html">LinearProgressIndicatorStyle</a>
@@ -1079,6 +831,9 @@
                   <a href="../Protocols/LowerBoundTitleComponent.html">LowerBoundTitleComponent</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Protocols/LowerThumbStyle.html">LowerThumbStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Protocols/MandatoryFieldIndicatorStyle.html">MandatoryFieldIndicatorStyle</a>
                 </li>
                 <li class="nav-group-task">
@@ -1100,13 +855,22 @@
                   <a href="../Protocols/MoreActionOverflowStyle.html">MoreActionOverflowStyle</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Protocols/NextActionStyle.html">NextActionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/NodeStyle.html">NodeStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/NotNowActionStyle.html">NotNowActionStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Protocols/NoteFormViewStyle.html">NoteFormViewStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/NowIndicatorNodeStyle.html">NowIndicatorNodeStyle</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Protocols.html#/s:16FioriSwiftUICore17ObjectHeaderModelP">ObjectHeaderModel</a>
+                  <a href="../Protocols/ObjectHeaderStyle.html">ObjectHeaderStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/ObjectItemStyle.html">ObjectItemStyle</a>
@@ -1131,6 +895,9 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/OptionsStyle.html">OptionsStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/OuterCircleStyle.html">OuterCircleStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/OverflowActionStyle.html">OverflowActionStyle</a>
@@ -1163,13 +930,25 @@
                   <a href="../Protocols/ProgressIndicatorStyle.html">ProgressIndicatorStyle</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Protocols/ProgressStyle.html">ProgressStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Protocols/PromptStyle.html">PromptStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/RangeSliderControlStyle.html">RangeSliderControlStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/RatingControlFormViewStyle.html">RatingControlFormViewStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/RatingControlStyle.html">RatingControlStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/ReenterSignatureActionStyle.html">ReenterSignatureActionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/ResetActionStyle.html">ResetActionStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/ReviewCountLabelStyle.html">ReviewCountLabelStyle</a>
@@ -1185,6 +964,9 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/Row3Style.html">Row3Style</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/SaveActionStyle.html">SaveActionStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/SearchListPickerItemModel.html">SearchListPickerItemModel</a>
@@ -1235,10 +1017,10 @@
                   <a href="../Protocols/SideBarStyle.html">SideBarStyle</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Protocols/SignatureCaptureViewModel.html">SignatureCaptureViewModel</a>
+                  <a href="../Protocols/SignatureCaptureViewStyle.html">SignatureCaptureViewStyle</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Protocols/SingleStepModel.html">SingleStepModel</a>
+                  <a href="../Protocols/SingleStepStyle.html">SingleStepStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/SliderPickerComponent.html">SliderPickerComponent</a>
@@ -1247,7 +1029,10 @@
                   <a href="../Protocols.html#/s:16FioriSwiftUICore21SliderPickerItemModelP">SliderPickerItemModel</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Protocols/SortFilterViewModel.html">SortFilterViewModel</a>
+                  <a href="../Protocols/SortFilterViewStyle.html">SortFilterViewStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/StartSignatureActionStyle.html">StartSignatureActionStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/StatusComponent.html">StatusComponent</a>
@@ -1259,7 +1044,7 @@
                   <a href="../Protocols/StepItem.html">StepItem</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Protocols/StepProgressIndicatorModel.html">StepProgressIndicatorModel</a>
+                  <a href="../Protocols/StepProgressIndicatorStyle.html">StepProgressIndicatorStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/StepStyle.html">StepStyle</a>
@@ -1287,9 +1072,6 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/SwitchPickerComponent.html">SwitchPickerComponent</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Protocols.html#/s:16FioriSwiftUICore21SwitchPickerItemModelP">SwitchPickerItemModel</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/SwitchStyle.html">SwitchStyle</a>
@@ -1323,9 +1105,6 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/TextInputFieldStyle.html">TextInputFieldStyle</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Protocols.html#/s:16FioriSwiftUICore14TextInputModelP">TextInputModel</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/TextViewStyle.html">TextViewStyle</a>
@@ -1373,22 +1152,34 @@
                   <a href="../Protocols/TopDividerStyle.html">TopDividerStyle</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Protocols/TrailingAccessoryStyle.html">TrailingAccessoryStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Protocols/TrendComponent.html">TrendComponent</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/TrendImageComponent.html">TrendImageComponent</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Protocols/TrendImageStyle.html">TrendImageStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/TrendStyle.html">TrendStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Protocols/UpperBoundTitleComponent.html">UpperBoundTitleComponent</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Protocols/UserConsentFormModel.html">UserConsentFormModel</a>
+                  <a href="../Protocols/UpperThumbStyle.html">UpperThumbStyle</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Protocols/UserConsentPageModel.html">UserConsentPageModel</a>
+                  <a href="../Protocols/UserConsentFormStyle.html">UserConsentFormStyle</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Protocols/UserConsentViewModel.html">UserConsentViewModel</a>
+                  <a href="../Protocols/UserConsentPageStyle.html">UserConsentPageStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/UserConsentViewStyle.html">UserConsentViewStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/ValueAxisTitleComponent.html">ValueAxisTitleComponent</a>
@@ -1412,13 +1203,58 @@
                   <a href="../Protocols/ViewList.html">ViewList</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Protocols/WatermarkStyle.html">WatermarkStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Protocols/WelcomeScreenModel.html">WelcomeScreenModel</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/XmarkStyle.html">XmarkStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols.html#/s:16FioriSwiftUICore12_ActionModelP">_ActionModel</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Protocols.html#/s:16FioriSwiftUICore18_ActivityItemModelP">_ActivityItemModel</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols.html#/s:16FioriSwiftUICore19_ActivityItemsModelP">_ActivityItemsModel</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/_ContactItemModel.html">_ContactItemModel</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/_EmptyStateViewModel.html">_EmptyStateViewModel</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/_FilterFeedbackBarButtonModel.html">_FilterFeedbackBarButtonModel</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/_FilterFeedbackBarItemModel.html">_FilterFeedbackBarItemModel</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/_FilterFeedbackBarModel.html">_FilterFeedbackBarModel</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/_FilterFeedbackBarStyle.html">_FilterFeedbackBarStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols.html#/s:16FioriSwiftUICore17_HeaderChartModelP">_HeaderChartModel</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols.html#/s:16FioriSwiftUICore13_KPIItemModelP">_KPIItemModel</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols.html#/s:16FioriSwiftUICore21_KPIProgressItemModelP">_KPIProgressItemModel</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/_KeyValueItemModel.html">_KeyValueItemModel</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Protocols/_ListPickerItemModel.html">_ListPickerItemModel</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols.html#/s:16FioriSwiftUICore18_ObjectHeaderModelP">_ObjectHeaderModel</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/_ObjectItemModel.html">_ObjectItemModel</a>
@@ -1434,6 +1270,36 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols.html#/s:16FioriSwiftUICore13_SideBarModelP">_SideBarModel</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/_SignatureCaptureViewModel.html">_SignatureCaptureViewModel</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/_SingleStepModel.html">_SingleStepModel</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols.html#/s:16FioriSwiftUICore22_SliderPickerItemModelP">_SliderPickerItemModel</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/_SortFilterViewModel.html">_SortFilterViewModel</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/_StepProgressIndicatorModel.html">_StepProgressIndicatorModel</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols.html#/s:16FioriSwiftUICore22_SwitchPickerItemModelP">_SwitchPickerItemModel</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols.html#/s:16FioriSwiftUICore15_TextInputModelP">_TextInputModel</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/_UserConsentFormModel.html">_UserConsentFormModel</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/_UserConsentPageModel.html">_UserConsentPageModel</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/_UserConsentViewModel.html">_UserConsentViewModel</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/_ViewEmptyChecking.html">_ViewEmptyChecking</a>
@@ -1480,6 +1346,21 @@
                   <a href="../Structs/ActivationScreen.html">ActivationScreen</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/ActiveTrack.html">ActiveTrack</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ActiveTrackBaseStyle.html">ActiveTrackBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ActiveTrackConfiguration.html">ActiveTrackConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ActiveTrackFioriStyle.html">ActiveTrackFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ActiveTrackStyleModifier.html">ActiveTrackStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/ActivityButtonStyle.html">ActivityButtonStyle</a>
                 </li>
                 <li class="nav-group-task">
@@ -1492,7 +1373,37 @@
                   <a href="../Structs/ActivityItem.html">ActivityItem</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/ActivityItemBaseStyle.html">ActivityItemBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ActivityItemConfiguration.html">ActivityItemConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ActivityItemFioriStyle.html">ActivityItemFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ActivityItemIconStyle.html">ActivityItemIconStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ActivityItemStyleModifier.html">ActivityItemStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ActivityItemSubtitleStyle.html">ActivityItemSubtitleStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/ActivityItems.html">ActivityItems</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ActivityItemsBaseStyle.html">ActivityItemsBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ActivityItemsConfiguration.html">ActivityItemsConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ActivityItemsFioriStyle.html">ActivityItemsFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ActivityItemsStyleModifier.html">ActivityItemsStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/AlertConfiguration.html">AlertConfiguration</a>
@@ -1514,6 +1425,21 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/AllEntriesSectionTitleStyleModifier.html">AllEntriesSectionTitleStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/AllowAction.html">AllowAction</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/AllowActionBaseStyle.html">AllowActionBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/AllowActionConfiguration.html">AllowActionConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/AllowActionFioriStyle.html">AllowActionFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/AllowActionStyleModifier.html">AllowActionStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/AnyFioriButtonStyle.html">AnyFioriButtonStyle</a>
@@ -1661,6 +1587,21 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/BannerMultiMessageSheetTitleStyle.html">BannerMultiMessageSheetTitleStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/BodyText.html">BodyText</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/BodyTextBaseStyle.html">BodyTextBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/BodyTextConfiguration.html">BodyTextConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/BodyTextFioriStyle.html">BodyTextFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/BodyTextStyleModifier.html">BodyTextStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/CancelAction.html">CancelAction</a>
@@ -1966,6 +1907,21 @@
                   <a href="../Structs/CheckoutIndicatorStyleModifier.html">CheckoutIndicatorStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/ClearAction.html">ClearAction</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ClearActionBaseStyle.html">ClearActionBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ClearActionConfiguration.html">ClearActionConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ClearActionFioriStyle.html">ClearActionFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ClearActionStyleModifier.html">ClearActionStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/CloseAction.html">CloseAction</a>
                 </li>
                 <li class="nav-group-task">
@@ -2003,6 +1959,33 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/ContactItem.html">ContactItem</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ContactItemActivityItemsStyle.html">ContactItemActivityItemsStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ContactItemBaseStyle.html">ContactItemBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ContactItemConfiguration.html">ContactItemConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ContactItemDescriptionStyle.html">ContactItemDescriptionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ContactItemDetailImageStyle.html">ContactItemDetailImageStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ContactItemFioriStyle.html">ContactItemFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ContactItemStyleModifier.html">ContactItemStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ContactItemSubtitleStyle.html">ContactItemSubtitleStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ContactItemTitleStyle.html">ContactItemTitleStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/ControlState.html">ControlState</a>
@@ -2104,10 +2087,22 @@
                   <a href="../Structs/DecrementActionStyleModifier.html">DecrementActionStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Structs/DefaultFilterFeedbackBarStyle.html">DefaultFilterFeedbackBarStyle</a>
+                  <a href="../Structs.html#/s:16FioriSwiftUICore28DefaultOptionListPickerStyleV">DefaultOptionListPickerStyle</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Structs.html#/s:16FioriSwiftUICore28DefaultOptionListPickerStyleV">DefaultOptionListPickerStyle</a>
+                  <a href="../Structs/DenyAction.html">DenyAction</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/DenyActionBaseStyle.html">DenyActionBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/DenyActionConfiguration.html">DenyActionConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/DenyActionFioriStyle.html">DenyActionFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/DenyActionStyleModifier.html">DenyActionStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/Description.html">Description</a>
@@ -2125,6 +2120,21 @@
                   <a href="../Structs/DescriptionStyleModifier.html">DescriptionStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/DescriptionText.html">DescriptionText</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/DescriptionTextBaseStyle.html">DescriptionTextBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/DescriptionTextConfiguration.html">DescriptionTextConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/DescriptionTextFioriStyle.html">DescriptionTextFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/DescriptionTextStyleModifier.html">DescriptionTextStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/DeselectAllAction.html">DeselectAllAction</a>
                 </li>
                 <li class="nav-group-task">
@@ -2138,6 +2148,21 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/DeselectAllActionStyleModifier.html">DeselectAllActionStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/DetailContent.html">DetailContent</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/DetailContentBaseStyle.html">DetailContentBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/DetailContentConfiguration.html">DetailContentConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/DetailContentFioriStyle.html">DetailContentFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/DetailContentStyleModifier.html">DetailContentStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/DetailImage.html">DetailImage</a>
@@ -2155,7 +2180,37 @@
                   <a href="../Structs/DetailImageStyleModifier.html">DetailImageStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/DimensionSegment.html">DimensionSegment</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/DimensionSegmentBaseStyle.html">DimensionSegmentBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/DimensionSegmentConfiguration.html">DimensionSegmentConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/DimensionSegmentFioriStyle.html">DimensionSegmentFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/DimensionSegmentStyleModifier.html">DimensionSegmentStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/DimensionSegmentTitleStyle.html">DimensionSegmentTitleStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/DimensionSelector.html">DimensionSelector</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/DimensionSelectorBaseStyle.html">DimensionSelectorBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/DimensionSelectorConfiguration.html">DimensionSelectorConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/DimensionSelectorFioriStyle.html">DimensionSelectorFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/DimensionSelectorStyleModifier.html">DimensionSelectorStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/DocumentScannerView.html">DocumentScannerView</a>
@@ -2168,9 +2223,6 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/EULAView.html">EULAView</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/EmptyStateView.html">EmptyStateView</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/ExpandableList.html">ExpandableList</a>
@@ -2194,16 +2246,106 @@
                   <a href="../Structs/FilterFeedbackBar.html">FilterFeedbackBar</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/FilterFeedbackBarBaseStyle.html">FilterFeedbackBarBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/FilterFeedbackBarButton.html">FilterFeedbackBarButton</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/FilterFeedbackBarButtonBaseStyle.html">FilterFeedbackBarButtonBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/FilterFeedbackBarButtonConfiguration.html">FilterFeedbackBarButtonConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/FilterFeedbackBarButtonFioriStyle.html">FilterFeedbackBarButtonFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/FilterFeedbackBarButtonIconStyle.html">FilterFeedbackBarButtonIconStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/FilterFeedbackBarButtonStyleModifier.html">FilterFeedbackBarButtonStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/FilterFeedbackBarButtonTitleStyle.html">FilterFeedbackBarButtonTitleStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/FilterFeedbackBarConfiguration.html">FilterFeedbackBarConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/FilterFeedbackBarFioriStyle.html">FilterFeedbackBarFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/FilterFeedbackBarFullConfigurationItem.html">FilterFeedbackBarFullConfigurationItem</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/FilterFeedbackBarFullConfigurationItem/Position.html">– Position</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/FilterFeedbackBarFullConfigurationItem/ItemContent.html">– ItemContent</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/FilterFeedbackBarItem.html">FilterFeedbackBarItem</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/FilterFeedbackBarItemAccessoryIconStyle.html">FilterFeedbackBarItemAccessoryIconStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/FilterFeedbackBarItemBaseStyle.html">FilterFeedbackBarItemBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/FilterFeedbackBarItemConfiguration.html">FilterFeedbackBarItemConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/FilterFeedbackBarItemContainer.html">FilterFeedbackBarItemContainer</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/FilterFeedbackBarItemFioriStyle.html">FilterFeedbackBarItemFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/FilterFeedbackBarItemIconStyle.html">FilterFeedbackBarItemIconStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/FilterFeedbackBarItemStyleModifier.html">FilterFeedbackBarItemStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/FilterFeedbackBarItemTitleStyle.html">FilterFeedbackBarItemTitleStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/FilterFeedbackBarResetButtonConfiguration.html">FilterFeedbackBarResetButtonConfiguration</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/FilterFeedbackBarStyleConfiguration.html">FilterFeedbackBarStyleConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/FilterFeedbackBarStyleModifier.html">FilterFeedbackBarStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/FilterFormView.html">FilterFormView</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/FilterFormViewBaseStyle.html">FilterFormViewBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/FilterFormViewConfiguration.html">FilterFormViewConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/FilterFormViewFioriStyle.html">FilterFormViewFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/FilterFormViewFormViewStyle.html">FilterFormViewFormViewStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/FilterFormViewMandatoryFieldIndicatorStyle.html">FilterFormViewMandatoryFieldIndicatorStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/FilterFormViewOptionsStyle.html">FilterFormViewOptionsStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/FilterFormViewStyleModifier.html">FilterFormViewStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/FilterFormViewTitleStyle.html">FilterFormViewTitleStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/FioriButton.html">FioriButton</a>
@@ -2231,6 +2373,60 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/FioriSecondaryButtonStyle.html">FioriSecondaryButtonStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/FioriSlider.html">FioriSlider</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/FioriSliderActiveTrackStyle.html">FioriSliderActiveTrackStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/FioriSliderBaseStyle.html">FioriSliderBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/FioriSliderConfiguration.html">FioriSliderConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/FioriSliderDescriptionStyle.html">FioriSliderDescriptionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/FioriSliderFioriStyle.html">FioriSliderFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/FioriSliderIconStyle.html">FioriSliderIconStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/FioriSliderInactiveTrackStyle.html">FioriSliderInactiveTrackStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/FioriSliderInformationViewStyle.html">FioriSliderInformationViewStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/FioriSliderLeadingAccessoryStyle.html">FioriSliderLeadingAccessoryStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/FioriSliderLowerThumbStyle.html">FioriSliderLowerThumbStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/FioriSliderRangeSliderControlStyle.html">FioriSliderRangeSliderControlStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/FioriSliderStyleModifier.html">FioriSliderStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/FioriSliderTextFieldStyle.html">FioriSliderTextFieldStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/FioriSliderTitleStyle.html">FioriSliderTitleStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/FioriSliderTrailingAccessoryStyle.html">FioriSliderTrailingAccessoryStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/FioriSliderUpperThumbStyle.html">FioriSliderUpperThumbStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/FioriSliderValueLabelStyle.html">FioriSliderValueLabelStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/FioriTertiaryButtonStyle.html">FioriTertiaryButtonStyle</a>
@@ -2356,6 +2552,33 @@
                   <a href="../Structs/HeaderChart.html">HeaderChart</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs.html#/s:16FioriSwiftUICore20HeaderChartBaseStyleV">HeaderChartBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/HeaderChartConfiguration.html">HeaderChartConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/HeaderChartFioriStyle.html">HeaderChartFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/HeaderChartKpiStyle.html">HeaderChartKpiStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/HeaderChartStyleModifier.html">HeaderChartStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/HeaderChartSubtitleStyle.html">HeaderChartSubtitleStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/HeaderChartTitleStyle.html">HeaderChartTitleStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/HeaderChartTrendImageStyle.html">HeaderChartTrendImageStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/HeaderChartTrendStyle.html">HeaderChartTrendStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/HelperText.html">HelperText</a>
                 </li>
                 <li class="nav-group-task">
@@ -2455,6 +2678,21 @@
                   <a href="../Structs/IllustratedMessageVerticalLayoutStyle.html">IllustratedMessageVerticalLayoutStyle</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/InactiveTrack.html">InactiveTrack</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/InactiveTrackBaseStyle.html">InactiveTrackBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/InactiveTrackConfiguration.html">InactiveTrackConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/InactiveTrackFioriStyle.html">InactiveTrackFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/InactiveTrackStyleModifier.html">InactiveTrackStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/IncrementAction.html">IncrementAction</a>
                 </li>
                 <li class="nav-group-task">
@@ -2512,6 +2750,21 @@
                   <a href="../Structs/InformationViewWarningStyle.html">InformationViewWarningStyle</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/InnerCircle.html">InnerCircle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/InnerCircleBaseStyle.html">InnerCircleBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/InnerCircleConfiguration.html">InnerCircleConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/InnerCircleFioriStyle.html">InnerCircleFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/InnerCircleStyleModifier.html">InnerCircleStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/ItemCountPreferenceKey.html">ItemCountPreferenceKey</a>
                 </li>
                 <li class="nav-group-task">
@@ -2545,13 +2798,100 @@
                   <a href="../Structs/JouleWelcomeScreenTitleStyle.html">JouleWelcomeScreenTitleStyle</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/KPIContent.html">KPIContent</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/KPIContentBaseStyle.html">KPIContentBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/KPIContentConfiguration.html">KPIContentConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/KPIContentFioriStyle.html">KPIContentFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/KPIContentStyleModifier.html">KPIContentStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/KPIHeader.html">KPIHeader</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/KPIItem.html">KPIItem</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/KPIItemBaseStyle.html">KPIItemBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/KPIItemConfiguration.html">KPIItemConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/KPIItemFioriStyle.html">KPIItemFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/KPIItemKpiCaptionStyle.html">KPIItemKpiCaptionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/KPIItemStyleModifier.html">KPIItemStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/KPIProgressItem.html">KPIProgressItem</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/KPIProgressItemBaseStyle.html">KPIProgressItemBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/KPIProgressItemConfiguration.html">KPIProgressItemConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/KPIProgressItemFioriStyle.html">KPIProgressItemFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/KPIProgressItemFootnoteStyle.html">KPIProgressItemFootnoteStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/KPIProgressItemInnerCircleStyle.html">KPIProgressItemInnerCircleStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/KPIProgressItemKPIContentStyle.html">KPIProgressItemKPIContentStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/KPIProgressItemKpiCaptionStyle.html">KPIProgressItemKpiCaptionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/KPIProgressItemOuterCircleStyle.html">KPIProgressItemOuterCircleStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/KPIProgressItemStyleModifier.html">KPIProgressItemStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/KPISubItem.html">KPISubItem</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/KPISubItemBaseStyle.html">KPISubItemBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/KPISubItemConfiguration.html">KPISubItemConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/KPISubItemFioriStyle.html">KPISubItemFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/KPISubItemStyleModifier.html">KPISubItemStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/Key.html">Key</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/KeyBaseStyle.html">KeyBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/KeyConfiguration.html">KeyConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/KeyFioriStyle.html">KeyFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/KeyStyleModifier.html">KeyStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/KeyValueFormView.html">KeyValueFormView</a>
@@ -2585,6 +2925,30 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/KeyValueItem.html">KeyValueItem</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/KeyValueItemBaseStyle.html">KeyValueItemBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/KeyValueItemConfiguration.html">KeyValueItemConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/KeyValueItemFioriStyle.html">KeyValueItemFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/KeyValueItemFioriStyle/KeyFioriStyle.html">– KeyFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/KeyValueItemFormViewStyle.html">KeyValueItemFormViewStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/KeyValueItemKeyStyle.html">KeyValueItemKeyStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/KeyValueItemStyleModifier.html">KeyValueItemStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/KeyValueItemValueStyle.html">KeyValueItemValueStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/Kpi.html">Kpi</a>
@@ -2638,7 +3002,37 @@
                   <a href="../Structs/LabelItemTitleStyle.html">LabelItemTitleStyle</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/LeadingAccessory.html">LeadingAccessory</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/LeadingAccessoryBaseStyle.html">LeadingAccessoryBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/LeadingAccessoryConfiguration.html">LeadingAccessoryConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/LeadingAccessoryFioriStyle.html">LeadingAccessoryFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/LeadingAccessoryStyleModifier.html">LeadingAccessoryStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs.html#/s:16FioriSwiftUICore13LightTagStyleV">LightTagStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/Line.html">Line</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/LineBaseStyle.html">LineBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/LineConfiguration.html">LineConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/LineFioriStyle.html">LineFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/LineStyleModifier.html">LineStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/LinearProgressIndicator.html">LinearProgressIndicator</a>
@@ -2669,6 +3063,9 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/LinearProgressIndicatorView.html">LinearProgressIndicatorView</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/LinearProgressIndicatorViewAIStyle.html">LinearProgressIndicatorViewAIStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/LinearProgressIndicatorViewBaseStyle.html">LinearProgressIndicatorViewBaseStyle</a>
@@ -2797,10 +3194,28 @@
                   <a href="../Structs/LoadingIndicatorFioriStyle.html">LoadingIndicatorFioriStyle</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/LoadingIndicatorProgressStyle.html">LoadingIndicatorProgressStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/LoadingIndicatorStyleModifier.html">LoadingIndicatorStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/LoadingIndicatorTitleStyle.html">LoadingIndicatorTitleStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/LowerThumb.html">LowerThumb</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/LowerThumbBaseStyle.html">LowerThumbBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/LowerThumbConfiguration.html">LowerThumbConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/LowerThumbFioriStyle.html">LowerThumbFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/LowerThumbStyleModifier.html">LowerThumbStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/MHStack.html">MHStack</a>
@@ -2920,6 +3335,51 @@
                   <a href="../Structs/MoreActionOverflowStyleModifier.html">MoreActionOverflowStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/NextAction.html">NextAction</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/NextActionBaseStyle.html">NextActionBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/NextActionConfiguration.html">NextActionConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/NextActionFioriStyle.html">NextActionFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/NextActionStyleModifier.html">NextActionStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/Node.html">Node</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/NodeBaseStyle.html">NodeBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/NodeConfiguration.html">NodeConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/NodeFioriStyle.html">NodeFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/NodeStyleModifier.html">NodeStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/NotNowAction.html">NotNowAction</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/NotNowActionBaseStyle.html">NotNowActionBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/NotNowActionConfiguration.html">NotNowActionConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/NotNowActionFioriStyle.html">NotNowActionFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/NotNowActionStyleModifier.html">NotNowActionStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/NoteFormView.html">NoteFormView</a>
                 </li>
                 <li class="nav-group-task">
@@ -2963,6 +3423,48 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/ObjectHeader.html">ObjectHeader</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ObjectHeaderBaseStyle.html">ObjectHeaderBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ObjectHeaderBodyTextStyle.html">ObjectHeaderBodyTextStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ObjectHeaderConfiguration.html">ObjectHeaderConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ObjectHeaderDescriptionTextStyle.html">ObjectHeaderDescriptionTextStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ObjectHeaderDetailContentStyle.html">ObjectHeaderDetailContentStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ObjectHeaderDetailImageStyle.html">ObjectHeaderDetailImageStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ObjectHeaderFioriStyle.html">ObjectHeaderFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ObjectHeaderFootnoteStyle.html">ObjectHeaderFootnoteStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ObjectHeaderStatusStyle.html">ObjectHeaderStatusStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ObjectHeaderStyleModifier.html">ObjectHeaderStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ObjectHeaderSubstatusStyle.html">ObjectHeaderSubstatusStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ObjectHeaderSubtitleStyle.html">ObjectHeaderSubtitleStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ObjectHeaderTagsStyle.html">ObjectHeaderTagsStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ObjectHeaderTitleStyle.html">ObjectHeaderTitleStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/ObjectItem.html">ObjectItem</a>
@@ -3089,6 +3591,21 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/OptionsStyleModifier.html">OptionsStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/OuterCircle.html">OuterCircle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/OuterCircleBaseStyle.html">OuterCircleBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/OuterCircleConfiguration.html">OuterCircleConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/OuterCircleFioriStyle.html">OuterCircleFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/OuterCircleStyleModifier.html">OuterCircleStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/OverflowAction.html">OverflowAction</a>
@@ -3226,6 +3743,18 @@
                   <a href="../Structs/ProfileHeaderTitleStyle.html">ProfileHeaderTitleStyle</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/Progress.html">Progress</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ProgressBaseStyle.html">ProgressBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ProgressConfiguration.html">ProgressConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ProgressFioriStyle.html">ProgressFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/ProgressIndicator.html">ProgressIndicator</a>
                 </li>
                 <li class="nav-group-task">
@@ -3268,6 +3797,9 @@
                   <a href="../Structs/ProgressIndicatorStyleModifier.html">ProgressIndicatorStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/ProgressStyleModifier.html">ProgressStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/Prompt.html">Prompt</a>
                 </li>
                 <li class="nav-group-task">
@@ -3281,6 +3813,33 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/PromptStyleModifier.html">PromptStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/RangeSliderControl.html">RangeSliderControl</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/RangeSliderControlActiveTrackStyle.html">RangeSliderControlActiveTrackStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/RangeSliderControlBaseStyle.html">RangeSliderControlBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/RangeSliderControlConfiguration.html">RangeSliderControlConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/RangeSliderControlFioriStyle.html">RangeSliderControlFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/RangeSliderControlInactiveTrackStyle.html">RangeSliderControlInactiveTrackStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/RangeSliderControlLowerThumbStyle.html">RangeSliderControlLowerThumbStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/RangeSliderControlStyleModifier.html">RangeSliderControlStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/RangeSliderControlUpperThumbStyle.html">RangeSliderControlUpperThumbStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/RatingControl.html">RatingControl</a>
@@ -3355,6 +3914,36 @@
                   <a href="../Structs/RatingControlValueLabelStyle.html">RatingControlValueLabelStyle</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/ReenterSignatureAction.html">ReenterSignatureAction</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ReenterSignatureActionBaseStyle.html">ReenterSignatureActionBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ReenterSignatureActionConfiguration.html">ReenterSignatureActionConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ReenterSignatureActionFioriStyle.html">ReenterSignatureActionFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ReenterSignatureActionStyleModifier.html">ReenterSignatureActionStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ResetAction.html">ResetAction</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ResetActionBaseStyle.html">ResetActionBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ResetActionConfiguration.html">ResetActionConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ResetActionFioriStyle.html">ResetActionFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ResetActionStyleModifier.html">ResetActionStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/ReviewCountLabel.html">ReviewCountLabel</a>
                 </li>
                 <li class="nav-group-task">
@@ -3415,7 +4004,19 @@
                   <a href="../Structs/Row3StyleModifier.html">Row3StyleModifier</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Structs/ScribbleView.html">ScribbleView</a>
+                  <a href="../Structs/SaveAction.html">SaveAction</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SaveActionBaseStyle.html">SaveActionBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SaveActionConfiguration.html">SaveActionConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SaveActionFioriStyle.html">SaveActionFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SaveActionStyleModifier.html">SaveActionStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/SearchListPickerItem.html">SearchListPickerItem</a>
@@ -3610,6 +4211,45 @@
                   <a href="../Structs/SignatureCaptureView.html">SignatureCaptureView</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/SignatureCaptureViewBaseStyle.html">SignatureCaptureViewBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SignatureCaptureViewCancelActionStyle.html">SignatureCaptureViewCancelActionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SignatureCaptureViewClearActionStyle.html">SignatureCaptureViewClearActionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SignatureCaptureViewConfiguration.html">SignatureCaptureViewConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SignatureCaptureViewFioriStyle.html">SignatureCaptureViewFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SignatureCaptureViewMandatoryFieldIndicatorStyle.html">SignatureCaptureViewMandatoryFieldIndicatorStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SignatureCaptureViewReenterSignatureActionStyle.html">SignatureCaptureViewReenterSignatureActionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SignatureCaptureViewSaveActionStyle.html">SignatureCaptureViewSaveActionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SignatureCaptureViewStartSignatureActionStyle.html">SignatureCaptureViewStartSignatureActionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SignatureCaptureViewStyleModifier.html">SignatureCaptureViewStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SignatureCaptureViewTitleStyle.html">SignatureCaptureViewTitleStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SignatureCaptureViewWatermarkStyle.html">SignatureCaptureViewWatermarkStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SignatureCaptureViewXmarkStyle.html">SignatureCaptureViewXmarkStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/Single.html">Single</a>
                 </li>
                 <li class="nav-group-task">
@@ -3619,13 +4259,37 @@
                   <a href="../Structs/SingleStep.html">SingleStep</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs.html#/s:16FioriSwiftUICore19SingleStepBaseStyleV">SingleStepBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SingleStepConfiguration.html">SingleStepConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SingleStepFioriStyle.html">SingleStepFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SingleStepLineStyle.html">SingleStepLineStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SingleStepNodeStyle.html">SingleStepNodeStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SingleStepStyleModifier.html">SingleStepStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SingleStepTitleStyle.html">SingleStepTitleStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/SingleTag.html">SingleTag</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/SingleView.html">SingleView</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Structs/SliderPickerItem.html">SliderPickerItem</a>
+                  <a href="../Structs/SliderValueChangeHandler.html">SliderValueChangeHandler</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SliderValueChangeHandler/SliderInformationType.html">– SliderInformationType</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/SortFilterMenuItemFullConfigurationButton.html">SortFilterMenuItemFullConfigurationButton</a>
@@ -3635,6 +4299,45 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/SortFilterView.html">SortFilterView</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SortFilterViewApplyActionStyle.html">SortFilterViewApplyActionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SortFilterViewBaseStyle.html">SortFilterViewBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SortFilterViewCancelActionStyle.html">SortFilterViewCancelActionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SortFilterViewConfiguration.html">SortFilterViewConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SortFilterViewFioriStyle.html">SortFilterViewFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SortFilterViewResetActionStyle.html">SortFilterViewResetActionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SortFilterViewStyleModifier.html">SortFilterViewStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SortFilterViewTitleStyle.html">SortFilterViewTitleStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/StartSignatureAction.html">StartSignatureAction</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/StartSignatureActionBaseStyle.html">StartSignatureActionBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/StartSignatureActionConfiguration.html">StartSignatureActionConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/StartSignatureActionFioriStyle.html">StartSignatureActionFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/StartSignatureActionStyleModifier.html">StartSignatureActionStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/StatefulButtonStyle.html">StatefulButtonStyle</a>
@@ -3667,7 +4370,28 @@
                   <a href="../Structs/StepProgressIndicator.html">StepProgressIndicator</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/StepProgressIndicatorActionStyle.html">StepProgressIndicatorActionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/StepProgressIndicatorBaseStyle.html">StepProgressIndicatorBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/StepProgressIndicatorCancelActionStyle.html">StepProgressIndicatorCancelActionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/StepProgressIndicatorConfiguration.html">StepProgressIndicatorConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/StepProgressIndicatorFioriStyle.html">StepProgressIndicatorFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/StepProgressIndicatorState.html">StepProgressIndicatorState</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/StepProgressIndicatorStyleModifier.html">StepProgressIndicatorStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/StepProgressIndicatorTitleStyle.html">StepProgressIndicatorTitleStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/StepperField.html">StepperField</a>
@@ -3730,9 +4454,6 @@
                   <a href="../Structs/StepperViewStyleModifier.html">StepperViewStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Structs/StepperViewTextInputFieldStyle.html">StepperViewTextInputFieldStyle</a>
-                </li>
-                <li class="nav-group-task">
                   <a href="../Structs/StepperViewTitleStyle.html">StepperViewTitleStyle</a>
                 </li>
                 <li class="nav-group-task">
@@ -3791,9 +4512,6 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/SwitchFioriStyle.html">SwitchFioriStyle</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/SwitchPickerItem.html">SwitchPickerItem</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/SwitchStyleModifier.html">SwitchStyleModifier</a>
@@ -3898,16 +4616,10 @@
                   <a href="../Structs/TextFieldFormViewStyleModifier.html">TextFieldFormViewStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Structs/TextFieldFormViewTextInputFieldStyle.html">TextFieldFormViewTextInputFieldStyle</a>
-                </li>
-                <li class="nav-group-task">
                   <a href="../Structs/TextFieldFormViewTitleFormViewStyle.html">TextFieldFormViewTitleFormViewStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/TextFieldFormViewTitleStyle.html">TextFieldFormViewTitleStyle</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/TextInput.html">TextInput</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/TextInputField.html">TextInputField</a>
@@ -4156,10 +4868,10 @@
                   <a href="../Structs/TitleFormViewStyleModifier.html">TitleFormViewStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Structs/TitleFormViewTextInputFieldStyle.html">TitleFormViewTextInputFieldStyle</a>
+                  <a href="../Structs/TitleStyleModifier.html">TitleStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Structs/TitleStyleModifier.html">TitleStyleModifier</a>
+                  <a href="../Structs/Toast.html">Toast</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/ToastMessage.html">ToastMessage</a>
@@ -4183,6 +4895,12 @@
                   <a href="../Structs/ToastMessageTitleStyle.html">ToastMessageTitleStyle</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/ToastModifier.html">ToastModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ToastView.html">ToastView</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/TopDivider.html">TopDivider</a>
                 </li>
                 <li class="nav-group-task">
@@ -4198,13 +4916,133 @@
                   <a href="../Structs/TopDividerStyleModifier.html">TopDividerStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/TrailingAccessory.html">TrailingAccessory</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/TrailingAccessoryBaseStyle.html">TrailingAccessoryBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/TrailingAccessoryConfiguration.html">TrailingAccessoryConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/TrailingAccessoryFioriStyle.html">TrailingAccessoryFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/TrailingAccessoryStyleModifier.html">TrailingAccessoryStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/Trend.html">Trend</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/TrendBaseStyle.html">TrendBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/TrendConfiguration.html">TrendConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/TrendFioriStyle.html">TrendFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/TrendImage.html">TrendImage</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/TrendImageBaseStyle.html">TrendImageBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/TrendImageConfiguration.html">TrendImageConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/TrendImageFioriStyle.html">TrendImageFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/TrendImageStyleModifier.html">TrendImageStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/TrendStyleModifier.html">TrendStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/UpperThumb.html">UpperThumb</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/UpperThumbBaseStyle.html">UpperThumbBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/UpperThumbConfiguration.html">UpperThumbConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/UpperThumbFioriStyle.html">UpperThumbFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/UpperThumbStyleModifier.html">UpperThumbStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/UserConsentForm.html">UserConsentForm</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/UserConsentFormAllowActionStyle.html">UserConsentFormAllowActionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/UserConsentFormBaseStyle.html">UserConsentFormBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/UserConsentFormCancelActionStyle.html">UserConsentFormCancelActionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/UserConsentFormConfiguration.html">UserConsentFormConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/UserConsentFormDenyActionStyle.html">UserConsentFormDenyActionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/UserConsentFormFioriStyle.html">UserConsentFormFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/UserConsentFormNextActionStyle.html">UserConsentFormNextActionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/UserConsentFormNotNowActionStyle.html">UserConsentFormNotNowActionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/UserConsentFormStyleModifier.html">UserConsentFormStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/UserConsentPage.html">UserConsentPage</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/UserConsentPageActionStyle.html">UserConsentPageActionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/UserConsentPageBaseStyle.html">UserConsentPageBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/UserConsentPageBodyTextStyle.html">UserConsentPageBodyTextStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/UserConsentPageConfiguration.html">UserConsentPageConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/UserConsentPageFioriStyle.html">UserConsentPageFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/UserConsentPageStyleModifier.html">UserConsentPageStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/UserConsentPageTitleStyle.html">UserConsentPageTitleStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/UserConsentView.html">UserConsentView</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/UserConsentViewBaseStyle.html">UserConsentViewBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/UserConsentViewConfiguration.html">UserConsentViewConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/UserConsentViewFioriStyle.html">UserConsentViewFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/UserConsentViewStyleModifier.html">UserConsentViewStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/Value.html">Value</a>
@@ -4264,13 +5102,49 @@
                   <a href="../Structs/ValueStyleModifier.html">ValueStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/Watermark.html">Watermark</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/WatermarkBaseStyle.html">WatermarkBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/WatermarkConfiguration.html">WatermarkConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/WatermarkFioriStyle.html">WatermarkFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/WatermarkStyleModifier.html">WatermarkStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/WelcomeScreen.html">WelcomeScreen</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/WindowReader.html">WindowReader</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/Xmark.html">Xmark</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/XmarkBaseStyle.html">XmarkBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/XmarkConfiguration.html">XmarkConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/XmarkFioriStyle.html">XmarkFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/XmarkStyleModifier.html">XmarkStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/_Action.html">_Action</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/_ActivityItem.html">_ActivityItem</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/_ActivityItems.html">_ActivityItems</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/_AgreeActionDefault.html">_AgreeActionDefault</a>
@@ -4291,16 +5165,49 @@
                   <a href="../Structs/_ClearActionDefault.html">_ClearActionDefault</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/_ContactItem.html">_ContactItem</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/_DefaultFilterFeedbackBarStyle.html">_DefaultFilterFeedbackBarStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs.html#/s:16FioriSwiftUICore13_DefaultStepsV">_DefaultSteps</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/_DenyActionDefault.html">_DenyActionDefault</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/_DimensionSelector.html">_DimensionSelector</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/_DisagreeActionDefault.html">_DisagreeActionDefault</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/_DoneActionDefault.html">_DoneActionDefault</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/_EmptyStateView.html">_EmptyStateView</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/_FilterFeedbackBar.html">_FilterFeedbackBar</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/_FilterFeedbackBarButton.html">_FilterFeedbackBarButton</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/_FilterFeedbackBarItem.html">_FilterFeedbackBarItem</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/_HeaderChart.html">_HeaderChart</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/_KPIItem.html">_KPIItem</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/_KPIProgressItem.html">_KPIProgressItem</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/_KeyValueItem.html">_KeyValueItem</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/_ListPickerItem.html">_ListPickerItem</a>
@@ -4313,6 +5220,9 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/_NotNowActionDefault.html">_NotNowActionDefault</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/_ObjectHeader.html">_ObjectHeader</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/_ObjectItem.html">_ObjectItem</a>
@@ -4330,6 +5240,9 @@
                   <a href="../Structs/_SaveActionDefault.html">_SaveActionDefault</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/_ScribbleView.html">_ScribbleView</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/_SectionHeader.html">_SectionHeader</a>
                 </li>
                 <li class="nav-group-task">
@@ -4339,22 +5252,52 @@
                   <a href="../Structs/_SideBarListItem.html">_SideBarListItem</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/_SignatureCaptureView.html">_SignatureCaptureView</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/_SingleStep.html">_SingleStep</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/_SliderPickerItem.html">_SliderPickerItem</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/_SortFilterView.html">_SortFilterView</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs.html#/s:16FioriSwiftUICore19_StepItemsContainerV">_StepItemsContainer</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs.html#/s:16FioriSwiftUICore9_StepNodeV">_StepNode</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/_StepProgressIndicator.html">_StepProgressIndicator</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs.html#/s:16FioriSwiftUICore15_StepsContainerV">_StepsContainer</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/_SwitchPickerItem.html">_SwitchPickerItem</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/_TapToSignActionDefault.html">_TapToSignActionDefault</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/_TextInput.html">_TextInput</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/_UserConsentForm.html">_UserConsentForm</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/_UserConsentFormsContainer.html">_UserConsentFormsContainer</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/_UserConsentPage.html">_UserConsentPage</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/_UserConsentPagesContainer.html">_UserConsentPagesContainer</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/_UserConsentView.html">_UserConsentView</a>
                 </li>
               </ul>
             </li>
@@ -4363,7 +5306,7 @@
       </div>
       <div class="footer-wrapper">
         <section id="footer">
-          <p>&copy; 2025 <a class="link" href="https://www.sap.com" target="_blank" rel="external noopener">SAP SE</a>. All rights reserved. (Last updated: 2025-03-05)</p>
+          <p>&copy; 2025 <a class="link" href="https://www.sap.com" target="_blank" rel="external noopener">SAP SE</a>. All rights reserved. (Last updated: 2025-03-07)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </div>
