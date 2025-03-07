@@ -27,7 +27,7 @@ struct MenuSelectionExample: View {
                         }
                     }
                 })
-                .onChange(of: self.isExpanded) { _ in
+                .onChange(of: self.isExpanded) {
                     withAnimation {
                         scrollView.scrollTo("MenuSelection", anchor: .bottom)
                     }

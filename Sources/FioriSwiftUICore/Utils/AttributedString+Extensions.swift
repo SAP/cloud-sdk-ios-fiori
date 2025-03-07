@@ -7,7 +7,7 @@ extension AttributedString {
     ///   - args: The arguments in the format string.
     ///   - attributes: The attributes of the attributed string.
     init(_ formatKey: String, args: any CVarArg..., attributes: AttributeContainer = .init()) {
-        let format = NSLocalizedString(formatKey, comment: "")
+        let format = NSLocalizedString(formatKey, tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
         let str = String(format: format, args)
         self.init(str, attributes: attributes)
     }
