@@ -514,9 +514,13 @@ extension ObjectItemBaseStyle {
     
     @ViewBuilder
     func footnoteIconsView(_ context: Context) -> some View {
-        AvatarsAndTextLayout(textPosition: self.footnoteIconsTextPosition) {
-            context.configuration.footnoteIconsText
-            context.configuration.footnoteIcons
+        if !context.configuration.footnoteIcons.isEmpty || !context.configuration.footnoteIconsText.isEmpty {
+            AvatarsAndTextLayout(textPosition: self.footnoteIconsTextPosition) {
+                context.configuration.footnoteIconsText
+                context.configuration.footnoteIcons
+            }
+        } else {
+            EmptyView()
         }
     }
 }
@@ -772,7 +776,7 @@ public struct ObjectItemBorderedAction: ActionStyle {
 
 struct AvatarsAndTextLayout: Layout {
     let textPosition: AvatarStack.TextPosition
-    let margin = NSDirectionalEdgeInsets(top: 4, leading: 0, bottom: 4, trailing: 0)
+    let margin = NSDirectionalEdgeInsets(top: 4, leading: 0, bottom: 0, trailing: 0)
     let textAndIconsSpacing: CGFloat = 6
     let textMinimumWidth: CGFloat = 60
     
@@ -807,7 +811,7 @@ struct AvatarsAndTextLayout: Layout {
                 let size = CGSize(width: containerWidth, height: maxHeight)
                 return size
             }
-        } else {
+        } else if subviews.count == 1 {
             var maxHeight: CGFloat = 0
             let contentWidth = containerWidth - self.margin.leading - self.margin.trailing
             for subview in subviews {
@@ -815,6 +819,8 @@ struct AvatarsAndTextLayout: Layout {
                 maxHeight = max(maxHeight, height)
             }
             return CGSize(width: containerWidth, height: maxHeight + self.margin.top + self.margin.bottom)
+        } else {
+            return .zero
         }
     }
     
