@@ -96,7 +96,8 @@ public extension Type {
                                     "_SignatureCaptureViewModel",
                                     "_EmptyStateViewModel",
                                     "_KPIItemModel",
-                                    "_SliderPickerItemModel"]
+                                    "_SliderPickerItemModel",
+                                    "_EULAViewModel"]
         
         if deprecatedComponents.contains(name) {
             return name.replacingOccurrences(of: "Model", with: "")
