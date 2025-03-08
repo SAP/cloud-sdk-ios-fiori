@@ -656,8 +656,8 @@ protocol _ToastMessageComponent: _IconComponent, _TitleComponent {
     // sourcery: defaultValue = 0
     /// The amount of spacing to put in between the toast message and the frame of its parent view. This only applies to the `.above` and `.below` positions, and negative values are converted to `0`. The default value is `0`.
     var spacing: CGFloat { get }
-    // sourcery: defaultValue = 6
-    /// A number specifying how rounded the corners of the view should be. The default value is `6`.
+    // sourcery: defaultValue = 14
+    /// A number specifying how rounded the corners of the view should be. The default value is `14`.
     var cornerRadius: CGFloat { get }
     // sourcery: defaultValue = Color.preferredColor(.tertiaryFill)
     /// The background color of the view. The default value is `Color.preferredColor(.tertiaryFill)`.
