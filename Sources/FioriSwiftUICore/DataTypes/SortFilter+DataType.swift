@@ -427,6 +427,9 @@ public extension SortFilterItem {
         var allowsDisplaySelectionCount: Bool = true
         var resetButtonConfiguration: FilterFeedbackBarResetButtonConfiguration = .init()
         
+        var uuidValueOptions: [ValueOptionModel] = []
+        var workingValueSet: Set<UUID> = []
+        
         /// Available OptionListPicker modes. Use this enum to define picker mode  to present.
         public enum DisplayMode {
             /// Decided by options count
@@ -462,6 +465,17 @@ public extension SortFilterItem {
             case disable
         }
         
+        /// Model for valueOptions, add unique identifier and index for valueOptions
+        struct ValueOptionModel: Identifiable, Equatable {
+            let id = UUID()
+            let index: Int
+            let value: String
+            init(index: Int, value: String) {
+                self.index = index
+                self.value = value
+            }
+        }
+        
         /// Create PickerItem for filter feedback.
         /// When `displayMode` is `.filterFormCell`, the styles of options can be customized by some styles of FilterFormView, such as:
         /// filterFormOptionAttributes, filterFormOptionMinHeight, filterFormOptionMinTouchHeight, filterFormOptionCornerRadius, filterFormOptionPadding, filterFormOptionTitleSpacing, filterFormOptionsItemSpacing, filterFormOptionsLineSpacing.
@@ -489,6 +503,20 @@ public extension SortFilterItem {
             self.workingValue = value
             self.originalValue = value
             self.valueOptions = valueOptions
+            self.uuidValueOptions = valueOptions.enumerated().map { index, option in
+                ValueOptionModel(index: index, value: option)
+            }
+            var workingValueSetArray: [UUID] = []
+            for v in self.workingValue {
+                for optionModel in self.uuidValueOptions {
+                    if v == optionModel.index {
+                        workingValueSetArray.append(optionModel.id)
+                        break
+                    }
+                }
+            }
+            self.workingValueSet = Set(workingValueSetArray)
+            
             self.allowsMultipleSelection = allowsMultipleSelection
             self.allowsEmptySelection = allowsEmptySelection
             self.isSearchBarHidden = isSearchBarHidden
@@ -583,6 +611,17 @@ public extension SortFilterItem {
                     self.workingValue.append(i)
                 }
             }
+        }
+        
+        mutating func resetSelections() {
+            let workingValueArray = self.originalValue.flatMap { originalValue in
+                self.uuidValueOptions.filter { $0.index == originalValue }.map(\.id)
+            }
+            self.workingValueSet = Set(workingValueArray)
+        }
+        
+        mutating func clearSelections() {
+            self.workingValueSet.removeAll()
         }
         
         var isChecked: Bool {
