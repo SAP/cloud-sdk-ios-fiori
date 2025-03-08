@@ -96,8 +96,8 @@ struct ToastMessageCustomStyleExample: View {
                               duration: .infinity,
                               position: .center,
                               backgroundColor: .cyan,
-                              borderWidth: 5,
-                              borderColor: .white,
+                              borderWidth: 2,
+                              borderColor: .blue,
                               shadow: FioriShadowStyle.smallElement)
                 .padding(30)
             HStack {}
@@ -115,24 +115,7 @@ struct ToastMessageCustomStyleExample: View {
                               position: .center,
                               cornerRadius: 50,
                               borderWidth: 5,
-                              borderColor: .white,
-                              shadow: FioriShadowStyle.smallElement)
-                .padding(30)
-            HStack {}
-                .frame(maxWidth: 300, maxHeight: 300)
-                .toastMessage(isPresented: .constant(true),
-                              icon: {
-                                  Image(systemName: "info.circle")
-                                      .foregroundStyle(.blue)
-                              },
-                              title: {
-                                  Text("Toast Message Title")
-                                      .foregroundStyle(.blue)
-                              },
-                              duration: .infinity,
-                              position: .center,
-                              cornerRadius: 50,
-                              backgroundColor: .cyan,
+                              borderColor: .blue,
                               shadow: FioriShadowStyle.smallElement)
                 .padding(30)
             HStack {}
@@ -150,8 +133,25 @@ struct ToastMessageCustomStyleExample: View {
                               position: .center,
                               cornerRadius: 50,
                               backgroundColor: .cyan,
-                              borderWidth: 5,
-                              borderColor: .white)
+                              shadow: FioriShadowStyle.smallElement)
+                .padding(30)
+            HStack {}
+                .frame(maxWidth: 300, maxHeight: 300)
+                .toastMessage(isPresented: .constant(true),
+                              icon: {
+                                  Image(systemName: "info.circle")
+                                      .foregroundStyle(.blue)
+                              },
+                              title: {
+                                  Text("Toast Message Title")
+                                      .foregroundStyle(.blue)
+                              },
+                              duration: .infinity,
+                              position: .center,
+                              cornerRadius: 50,
+                              backgroundColor: .cyan,
+                              borderWidth: 2,
+                              borderColor: .blue)
                 .padding(30)
             HStack {}
                 .frame(maxWidth: 300, maxHeight: 300)

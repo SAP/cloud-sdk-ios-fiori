@@ -12,15 +12,15 @@ public struct ToastMessage {
     let position: ToastMessagePosition
     /// The amount of spacing to put in between the toast message and the frame of its parent view. This only applies to the `.above` and `.below` positions, and negative values are converted to `0`. The default value is `0`.
     let spacing: CGFloat
-    /// A number specifying how rounded the corners of the view should be. The default value is `6`.
+    /// A number specifying how rounded the corners of the view should be. The default value is `14`.
     let cornerRadius: CGFloat
-    /// The background color of the view.
+    /// The background color of the view. The default value is `Color.preferredColor(.tertiaryFill)`.
     let backgroundColor: Color
-    /// The width of the border surrounding the toast message.
+    /// The width of the border surrounding the toast message. The default value is `0`.
     let borderWidth: CGFloat
-    /// The color of the border surrounding the toast message.
+    /// The color of the border surrounding the toast message. The default value is `Color.clear`.
     let borderColor: Color
-    /// A shadow to render underneath the view.
+    /// A shadow to render underneath the view. The default value is `FioriShadowStyle.level3`.
     let shadow: FioriShadowStyle?
 
     @Environment(\.toastMessageStyle) var style
@@ -34,7 +34,7 @@ public struct ToastMessage {
                 duration: Double = 1,
                 position: ToastMessagePosition = .center,
                 spacing: CGFloat = 0,
-                cornerRadius: CGFloat = 6,
+                cornerRadius: CGFloat = 14,
                 backgroundColor: Color = Color.preferredColor(.tertiaryFill),
                 borderWidth: CGFloat = 0,
                 borderColor: Color = Color.clear,
@@ -65,7 +65,7 @@ public extension ToastMessage {
          duration: Double = 1,
          position: ToastMessagePosition = .center,
          spacing: CGFloat = 0,
-         cornerRadius: CGFloat = 6,
+         cornerRadius: CGFloat = 14,
          backgroundColor: Color = Color.preferredColor(.tertiaryFill),
          borderWidth: CGFloat = 0,
          borderColor: Color = Color.clear,

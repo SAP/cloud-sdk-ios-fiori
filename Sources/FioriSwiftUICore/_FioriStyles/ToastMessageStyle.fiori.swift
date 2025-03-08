@@ -33,6 +33,7 @@ public struct ToastMessageBaseStyle: ToastMessageStyle {
     func makeMessageBody(configuration: ToastMessageConfiguration, size: CGSize) -> some View {
         HStack(alignment: .center, spacing: 8) {
             configuration.icon
+                .foregroundColor(Color.preferredColor(.primaryLabel))
             configuration.title
                 .font(Font.fiori(forTextStyle: .subheadline))
                 .foregroundColor(Color.preferredColor(.primaryLabel))
@@ -118,7 +119,7 @@ public extension View {
     ///   - duration: The duration in seconds for which the toast message is shown. The default value is `1`.
     ///   - position: The position of the toast message relative to its parent view. `.center` puts the toast message in the center of its parent view, `.above` aligns it above the view, and `.below` aligns it below the view. The default value is `.center`.
     ///   - spacing: The amount of spacing to put in between the toast message and the frame of its parent view. This only applies to the `.above` and `.below` positions, and negative values are converted to `0`. The default value is `0`.
-    ///   - cornerRadius: A number specifying how rounded the corners of the view should be. The default value is `6`.
+    ///   - cornerRadius: A number specifying how rounded the corners of the view should be. The default value is `14`.
     ///   - backgroundColor: The background color of the view. The default value is `Color.preferredColor(.tertiaryFill)`.
     ///   - borderWidth: The width of the border surrounding the toast message. The default value is `0`.
     ///   - borderColor: The color of the border surrounding the toast message. The default value is `Color.clear`.
@@ -130,7 +131,7 @@ public extension View {
                       duration: Double = 1,
                       position: ToastMessagePosition = .center,
                       spacing: CGFloat = 0,
-                      cornerRadius: CGFloat = 6,
+                      cornerRadius: CGFloat = 14,
                       backgroundColor: Color = Color.preferredColor(.tertiaryFill),
                       borderWidth: CGFloat = 0,
                       borderColor: Color = Color.clear,
@@ -157,7 +158,7 @@ public extension View {
     ///   - duration: The duration in seconds for which the toast message is shown. The default value is `1`.
     ///   - position: The position of the toast message relative to its parent view. `.center` puts the toast message in the center of its parent view, `.above` aligns it above the view, and `.below` aligns it below the view. The default value is `.center`.
     ///   - spacing: The amount of spacing to put in between the toast message and the frame of its parent view. This only applies to the `.above` and `.below` positions, and negative values are converted to `0`. The default value is `0`.
-    ///   - cornerRadius: A number specifying how rounded the corners of the view should be. The default value is `6`.
+    ///   - cornerRadius: A number specifying how rounded the corners of the view should be. The default value is `14`.
     ///   - backgroundColor: The background color of the view. The default value is `Color.preferredColor(.tertiaryFill)`.
     ///   - borderWidth: The width of the border surrounding the toast message. The default value is `0`.
     ///   - borderColor: The color of the border surrounding the toast message. The default value is `Color.clear`.
@@ -169,7 +170,7 @@ public extension View {
                       duration: Double = 1,
                       position: ToastMessagePosition = .center,
                       spacing: CGFloat = 0,
-                      cornerRadius: CGFloat = 6,
+                      cornerRadius: CGFloat = 14,
                       backgroundColor: Color = Color.preferredColor(.tertiaryFill),
                       borderWidth: CGFloat = 0,
                       borderColor: Color = Color.clear,
@@ -196,7 +197,7 @@ public extension View {
     ///   - duration: The duration in seconds for which the toast message is shown. The default value is `1`.
     ///   - position: The position of the toast message relative to its parent view. `.center` puts the toast message in the center of its parent view, `.above` aligns it above the view, and `.below` aligns it below the view. The default value is `.center`.
     ///   - spacing: The amount of spacing to put in between the toast message and the frame of its parent view. This only applies to the `.above` and `.below` positions, and negative values are converted to `0`. The default value is `0`.
-    ///   - cornerRadius: A number specifying how rounded the corners of the view should be. The default value is `6`.
+    ///   - cornerRadius: A number specifying how rounded the corners of the view should be. The default value is `14`.
     ///   - backgroundColor: The background color of the view. The default value is `Color.preferredColor(.tertiaryFill)`.
     ///   - borderWidth: The width of the border surrounding the toast message. The default value is `0`.
     ///   - borderColor: The color of the border surrounding the toast message. The default value is `Color.clear`.
@@ -208,7 +209,7 @@ public extension View {
                       duration: Double = 1,
                       position: ToastMessagePosition = .center,
                       spacing: CGFloat = 0,
-                      cornerRadius: CGFloat = 6,
+                      cornerRadius: CGFloat = 14,
                       backgroundColor: Color = Color.preferredColor(.tertiaryFill),
                       borderWidth: CGFloat = 0,
                       borderColor: Color = Color.clear,

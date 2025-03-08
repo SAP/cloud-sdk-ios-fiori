@@ -2,7 +2,7 @@
 // DO NOT EDIT
 import SwiftUI
 
-extension EULAView where BodyAttributedText == EmptyView {
+extension _EULAView where BodyAttributedText == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder action: () -> ActionView,
@@ -25,7 +25,7 @@ extension EULAView where BodyAttributedText == EmptyView {
     }
 }
 
-extension EULAView where ActionView == _Action {
+extension _EULAView where ActionView == _Action {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder bodyAttributedText: () -> BodyAttributedText,
@@ -48,7 +48,7 @@ extension EULAView where ActionView == _Action {
     }
 }
 
-extension EULAView where SecondaryActionView == _Action {
+extension _EULAView where SecondaryActionView == _Action {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder bodyAttributedText: () -> BodyAttributedText,
@@ -71,7 +71,7 @@ extension EULAView where SecondaryActionView == _Action {
     }
 }
 
-extension EULAView where CancelActionView == _Action {
+extension _EULAView where CancelActionView == _Action {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder bodyAttributedText: () -> BodyAttributedText,
@@ -94,7 +94,7 @@ extension EULAView where CancelActionView == _Action {
     }
 }
 
-extension EULAView where BodyAttributedText == EmptyView, ActionView == _Action {
+extension _EULAView where BodyAttributedText == EmptyView, ActionView == _Action {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder secondaryAction: () -> SecondaryActionView,
@@ -116,7 +116,7 @@ extension EULAView where BodyAttributedText == EmptyView, ActionView == _Action 
     }
 }
 
-extension EULAView where BodyAttributedText == EmptyView, SecondaryActionView == _Action {
+extension _EULAView where BodyAttributedText == EmptyView, SecondaryActionView == _Action {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder action: () -> ActionView,
@@ -138,7 +138,7 @@ extension EULAView where BodyAttributedText == EmptyView, SecondaryActionView ==
     }
 }
 
-extension EULAView where BodyAttributedText == EmptyView, CancelActionView == _Action {
+extension _EULAView where BodyAttributedText == EmptyView, CancelActionView == _Action {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder action: () -> ActionView,
@@ -160,7 +160,7 @@ extension EULAView where BodyAttributedText == EmptyView, CancelActionView == _A
     }
 }
 
-extension EULAView where ActionView == _Action, SecondaryActionView == _Action {
+extension _EULAView where ActionView == _Action, SecondaryActionView == _Action {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder bodyAttributedText: () -> BodyAttributedText,
@@ -182,7 +182,7 @@ extension EULAView where ActionView == _Action, SecondaryActionView == _Action {
     }
 }
 
-extension EULAView where ActionView == _Action, CancelActionView == _Action {
+extension _EULAView where ActionView == _Action, CancelActionView == _Action {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder bodyAttributedText: () -> BodyAttributedText,
@@ -204,7 +204,7 @@ extension EULAView where ActionView == _Action, CancelActionView == _Action {
     }
 }
 
-extension EULAView where SecondaryActionView == _Action, CancelActionView == _Action {
+extension _EULAView where SecondaryActionView == _Action, CancelActionView == _Action {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder bodyAttributedText: () -> BodyAttributedText,
@@ -226,7 +226,7 @@ extension EULAView where SecondaryActionView == _Action, CancelActionView == _Ac
     }
 }
 
-extension EULAView where BodyAttributedText == EmptyView, ActionView == _Action, SecondaryActionView == _Action {
+extension _EULAView where BodyAttributedText == EmptyView, ActionView == _Action, SecondaryActionView == _Action {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder cancelAction: () -> CancelActionView,
@@ -247,7 +247,7 @@ extension EULAView where BodyAttributedText == EmptyView, ActionView == _Action,
     }
 }
 
-extension EULAView where BodyAttributedText == EmptyView, ActionView == _Action, CancelActionView == _Action {
+extension _EULAView where BodyAttributedText == EmptyView, ActionView == _Action, CancelActionView == _Action {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder secondaryAction: () -> SecondaryActionView,
@@ -268,7 +268,7 @@ extension EULAView where BodyAttributedText == EmptyView, ActionView == _Action,
     }
 }
 
-extension EULAView where BodyAttributedText == EmptyView, SecondaryActionView == _Action, CancelActionView == _Action {
+extension _EULAView where BodyAttributedText == EmptyView, SecondaryActionView == _Action, CancelActionView == _Action {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder action: () -> ActionView,
@@ -289,7 +289,7 @@ extension EULAView where BodyAttributedText == EmptyView, SecondaryActionView ==
     }
 }
 
-extension EULAView where ActionView == _Action, SecondaryActionView == _Action, CancelActionView == _Action {
+extension _EULAView where ActionView == _Action, SecondaryActionView == _Action, CancelActionView == _Action {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder bodyAttributedText: () -> BodyAttributedText,
@@ -310,7 +310,7 @@ extension EULAView where ActionView == _Action, SecondaryActionView == _Action, 
     }
 }
 
-extension EULAView where BodyAttributedText == EmptyView, ActionView == _Action, SecondaryActionView == _Action, CancelActionView == _Action {
+extension _EULAView where BodyAttributedText == EmptyView, ActionView == _Action, SecondaryActionView == _Action, CancelActionView == _Action {
     public init(
     @ViewBuilder title: () -> Title,
 		didAgree: (() -> Void)? = nil,

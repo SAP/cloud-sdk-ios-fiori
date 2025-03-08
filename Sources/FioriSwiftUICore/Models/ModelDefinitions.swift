@@ -234,7 +234,7 @@ public protocol InfoViewModel: TitleComponent, DescriptionTextComponent {
 // sourcery: generated_component_composite
 // sourcery: virtualPropContentHeight = "@State var contentHeight: CGFloat = .zero"
 // sourcery: add_env_props = ["presentationMode"]
-public protocol EULAViewModel: TitleComponent, BodyAttributedTextComponent {
+public protocol _EULAViewModel: TitleComponent, BodyAttributedTextComponent {
     // sourcery: genericParameter.name = ActionView
     // sourcery: default.value = _AgreeActionDefault()
     var action: _ActionModel? { get }
@@ -259,6 +259,10 @@ public protocol EULAViewModel: TitleComponent, BodyAttributedTextComponent {
     // sourcery: no_view
     var didCancel: (() -> Void)? { get }
 }
+
+/// Deprecated EULAViewModel
+@available(*, deprecated, renamed: "_EULAViewModel", message: "Will be removed in the future release. Please create EULAViewModel with other initializers instead.")
+public protocol EULAViewModel {}
 
 // sourcery: virtualPropFormIndex = "@State var _formIndex = 0"
 // sourcery: virtualPropAllowedFormIndexes = "@State var _allowedFormIndexes: [Int] = []"
