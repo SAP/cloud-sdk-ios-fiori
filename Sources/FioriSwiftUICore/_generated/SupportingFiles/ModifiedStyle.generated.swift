@@ -148,6 +148,34 @@ public extension ActivityItemsStyle {
     }
 }
 
+// MARK: AgreeActionStyle
+
+extension ModifiedStyle: AgreeActionStyle where Style: AgreeActionStyle {
+    public func makeBody(_ configuration: AgreeActionConfiguration) -> some View {
+        AgreeAction(configuration)
+            .agreeActionStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct AgreeActionStyleModifier<Style: AgreeActionStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.agreeActionStyle(self.style)
+    }
+}
+
+public extension AgreeActionStyle {
+    func modifier(_ modifier: some ViewModifier) -> some AgreeActionStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some AgreeActionStyle) -> some AgreeActionStyle {
+        style.modifier(AgreeActionStyleModifier(style: self))
+    }
+}
+
 // MARK: AllEntriesSectionTitleStyle
 
 extension ModifiedStyle: AllEntriesSectionTitleStyle where Style: AllEntriesSectionTitleStyle {
@@ -1097,6 +1125,62 @@ public extension DimensionSelectorStyle {
 
     func concat(_ style: some DimensionSelectorStyle) -> some DimensionSelectorStyle {
         style.modifier(DimensionSelectorStyleModifier(style: self))
+    }
+}
+
+// MARK: DisagreeActionStyle
+
+extension ModifiedStyle: DisagreeActionStyle where Style: DisagreeActionStyle {
+    public func makeBody(_ configuration: DisagreeActionConfiguration) -> some View {
+        DisagreeAction(configuration)
+            .disagreeActionStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct DisagreeActionStyleModifier<Style: DisagreeActionStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.disagreeActionStyle(self.style)
+    }
+}
+
+public extension DisagreeActionStyle {
+    func modifier(_ modifier: some ViewModifier) -> some DisagreeActionStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some DisagreeActionStyle) -> some DisagreeActionStyle {
+        style.modifier(DisagreeActionStyleModifier(style: self))
+    }
+}
+
+// MARK: EULAViewStyle
+
+extension ModifiedStyle: EULAViewStyle where Style: EULAViewStyle {
+    public func makeBody(_ configuration: EULAViewConfiguration) -> some View {
+        EULAView(configuration)
+            .eULAViewStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct EULAViewStyleModifier<Style: EULAViewStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.eULAViewStyle(self.style)
+    }
+}
+
+public extension EULAViewStyle {
+    func modifier(_ modifier: some ViewModifier) -> some EULAViewStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some EULAViewStyle) -> some EULAViewStyle {
+        style.modifier(EULAViewStyleModifier(style: self))
     }
 }
 
