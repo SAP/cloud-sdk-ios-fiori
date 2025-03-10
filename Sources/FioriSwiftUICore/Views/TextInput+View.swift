@@ -6,7 +6,7 @@
 import SwiftUI
 
 extension Fiori {
-    enum TextInput {
+    enum _TextInput {
         typealias TextInputValue = EmptyModifier
         static let textInputValue = TextInputValue()
     }

@@ -2,7 +2,7 @@
 // DO NOT EDIT
 import SwiftUI
 
-extension WelcomeScreen where DescriptionText == EmptyView {
+extension _WelcomeScreen where DescriptionText == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -25,7 +25,7 @@ extension WelcomeScreen where DescriptionText == EmptyView {
     }
 }
 
-extension WelcomeScreen where Subtitle == EmptyView {
+extension _WelcomeScreen where Subtitle == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -48,7 +48,7 @@ extension WelcomeScreen where Subtitle == EmptyView {
     }
 }
 
-extension WelcomeScreen where Footnote == EmptyView {
+extension _WelcomeScreen where Footnote == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -71,7 +71,7 @@ extension WelcomeScreen where Footnote == EmptyView {
     }
 }
 
-extension WelcomeScreen where Icon == EmptyView {
+extension _WelcomeScreen where Icon == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -94,7 +94,7 @@ extension WelcomeScreen where Icon == EmptyView {
     }
 }
 
-extension WelcomeScreen where TextInputView == EmptyView {
+extension _WelcomeScreen where TextInputView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -117,7 +117,7 @@ extension WelcomeScreen where TextInputView == EmptyView {
     }
 }
 
-extension WelcomeScreen where ActionView == EmptyView {
+extension _WelcomeScreen where ActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -140,7 +140,7 @@ extension WelcomeScreen where ActionView == EmptyView {
     }
 }
 
-extension WelcomeScreen where SecondaryActionView == EmptyView {
+extension _WelcomeScreen where SecondaryActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -163,7 +163,7 @@ extension WelcomeScreen where SecondaryActionView == EmptyView {
     }
 }
 
-extension WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyView {
+extension _WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder footnote: () -> Footnote,
@@ -185,7 +185,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyVie
     }
 }
 
-extension WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyView {
+extension _WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -207,7 +207,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyVie
     }
 }
 
-extension WelcomeScreen where DescriptionText == EmptyView, Icon == EmptyView {
+extension _WelcomeScreen where DescriptionText == EmptyView, Icon == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -229,7 +229,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, Icon == EmptyView {
     }
 }
 
-extension WelcomeScreen where DescriptionText == EmptyView, TextInputView == EmptyView {
+extension _WelcomeScreen where DescriptionText == EmptyView, TextInputView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -251,7 +251,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, TextInputView == Emp
     }
 }
 
-extension WelcomeScreen where DescriptionText == EmptyView, ActionView == EmptyView {
+extension _WelcomeScreen where DescriptionText == EmptyView, ActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -273,7 +273,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, ActionView == EmptyV
     }
 }
 
-extension WelcomeScreen where DescriptionText == EmptyView, SecondaryActionView == EmptyView {
+extension _WelcomeScreen where DescriptionText == EmptyView, SecondaryActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -295,7 +295,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, SecondaryActionView 
     }
 }
 
-extension WelcomeScreen where Subtitle == EmptyView, Footnote == EmptyView {
+extension _WelcomeScreen where Subtitle == EmptyView, Footnote == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -317,7 +317,7 @@ extension WelcomeScreen where Subtitle == EmptyView, Footnote == EmptyView {
     }
 }
 
-extension WelcomeScreen where Subtitle == EmptyView, Icon == EmptyView {
+extension _WelcomeScreen where Subtitle == EmptyView, Icon == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -339,7 +339,7 @@ extension WelcomeScreen where Subtitle == EmptyView, Icon == EmptyView {
     }
 }
 
-extension WelcomeScreen where Subtitle == EmptyView, TextInputView == EmptyView {
+extension _WelcomeScreen where Subtitle == EmptyView, TextInputView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -361,7 +361,7 @@ extension WelcomeScreen where Subtitle == EmptyView, TextInputView == EmptyView 
     }
 }
 
-extension WelcomeScreen where Subtitle == EmptyView, ActionView == EmptyView {
+extension _WelcomeScreen where Subtitle == EmptyView, ActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -383,7 +383,7 @@ extension WelcomeScreen where Subtitle == EmptyView, ActionView == EmptyView {
     }
 }
 
-extension WelcomeScreen where Subtitle == EmptyView, SecondaryActionView == EmptyView {
+extension _WelcomeScreen where Subtitle == EmptyView, SecondaryActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -405,7 +405,7 @@ extension WelcomeScreen where Subtitle == EmptyView, SecondaryActionView == Empt
     }
 }
 
-extension WelcomeScreen where Footnote == EmptyView, Icon == EmptyView {
+extension _WelcomeScreen where Footnote == EmptyView, Icon == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -427,7 +427,7 @@ extension WelcomeScreen where Footnote == EmptyView, Icon == EmptyView {
     }
 }
 
-extension WelcomeScreen where Footnote == EmptyView, TextInputView == EmptyView {
+extension _WelcomeScreen where Footnote == EmptyView, TextInputView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -449,7 +449,7 @@ extension WelcomeScreen where Footnote == EmptyView, TextInputView == EmptyView 
     }
 }
 
-extension WelcomeScreen where Footnote == EmptyView, ActionView == EmptyView {
+extension _WelcomeScreen where Footnote == EmptyView, ActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -471,7 +471,7 @@ extension WelcomeScreen where Footnote == EmptyView, ActionView == EmptyView {
     }
 }
 
-extension WelcomeScreen where Footnote == EmptyView, SecondaryActionView == EmptyView {
+extension _WelcomeScreen where Footnote == EmptyView, SecondaryActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -493,7 +493,7 @@ extension WelcomeScreen where Footnote == EmptyView, SecondaryActionView == Empt
     }
 }
 
-extension WelcomeScreen where Icon == EmptyView, TextInputView == EmptyView {
+extension _WelcomeScreen where Icon == EmptyView, TextInputView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -515,7 +515,7 @@ extension WelcomeScreen where Icon == EmptyView, TextInputView == EmptyView {
     }
 }
 
-extension WelcomeScreen where Icon == EmptyView, ActionView == EmptyView {
+extension _WelcomeScreen where Icon == EmptyView, ActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -537,7 +537,7 @@ extension WelcomeScreen where Icon == EmptyView, ActionView == EmptyView {
     }
 }
 
-extension WelcomeScreen where Icon == EmptyView, SecondaryActionView == EmptyView {
+extension _WelcomeScreen where Icon == EmptyView, SecondaryActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -559,7 +559,7 @@ extension WelcomeScreen where Icon == EmptyView, SecondaryActionView == EmptyVie
     }
 }
 
-extension WelcomeScreen where TextInputView == EmptyView, ActionView == EmptyView {
+extension _WelcomeScreen where TextInputView == EmptyView, ActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -581,7 +581,7 @@ extension WelcomeScreen where TextInputView == EmptyView, ActionView == EmptyVie
     }
 }
 
-extension WelcomeScreen where TextInputView == EmptyView, SecondaryActionView == EmptyView {
+extension _WelcomeScreen where TextInputView == EmptyView, SecondaryActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -603,7 +603,7 @@ extension WelcomeScreen where TextInputView == EmptyView, SecondaryActionView ==
     }
 }
 
-extension WelcomeScreen where ActionView == EmptyView, SecondaryActionView == EmptyView {
+extension _WelcomeScreen where ActionView == EmptyView, SecondaryActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -625,7 +625,7 @@ extension WelcomeScreen where ActionView == EmptyView, SecondaryActionView == Em
     }
 }
 
-extension WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyView, Footnote == EmptyView {
+extension _WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyView, Footnote == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder icon: () -> Icon,
@@ -646,7 +646,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyVie
     }
 }
 
-extension WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyView, Icon == EmptyView {
+extension _WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyView, Icon == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder footnote: () -> Footnote,
@@ -667,7 +667,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyVie
     }
 }
 
-extension WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyView, TextInputView == EmptyView {
+extension _WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyView, TextInputView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder footnote: () -> Footnote,
@@ -688,7 +688,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyVie
     }
 }
 
-extension WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyView, ActionView == EmptyView {
+extension _WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyView, ActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder footnote: () -> Footnote,
@@ -709,7 +709,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyVie
     }
 }
 
-extension WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyView, SecondaryActionView == EmptyView {
+extension _WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyView, SecondaryActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder footnote: () -> Footnote,
@@ -730,7 +730,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyVie
     }
 }
 
-extension WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyView, Icon == EmptyView {
+extension _WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyView, Icon == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -751,7 +751,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyVie
     }
 }
 
-extension WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyView, TextInputView == EmptyView {
+extension _WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyView, TextInputView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -772,7 +772,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyVie
     }
 }
 
-extension WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyView, ActionView == EmptyView {
+extension _WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyView, ActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -793,7 +793,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyVie
     }
 }
 
-extension WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyView, SecondaryActionView == EmptyView {
+extension _WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyView, SecondaryActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -814,7 +814,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyVie
     }
 }
 
-extension WelcomeScreen where DescriptionText == EmptyView, Icon == EmptyView, TextInputView == EmptyView {
+extension _WelcomeScreen where DescriptionText == EmptyView, Icon == EmptyView, TextInputView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -835,7 +835,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, Icon == EmptyView, T
     }
 }
 
-extension WelcomeScreen where DescriptionText == EmptyView, Icon == EmptyView, ActionView == EmptyView {
+extension _WelcomeScreen where DescriptionText == EmptyView, Icon == EmptyView, ActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -856,7 +856,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, Icon == EmptyView, A
     }
 }
 
-extension WelcomeScreen where DescriptionText == EmptyView, Icon == EmptyView, SecondaryActionView == EmptyView {
+extension _WelcomeScreen where DescriptionText == EmptyView, Icon == EmptyView, SecondaryActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -877,7 +877,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, Icon == EmptyView, S
     }
 }
 
-extension WelcomeScreen where DescriptionText == EmptyView, TextInputView == EmptyView, ActionView == EmptyView {
+extension _WelcomeScreen where DescriptionText == EmptyView, TextInputView == EmptyView, ActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -898,7 +898,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, TextInputView == Emp
     }
 }
 
-extension WelcomeScreen where DescriptionText == EmptyView, TextInputView == EmptyView, SecondaryActionView == EmptyView {
+extension _WelcomeScreen where DescriptionText == EmptyView, TextInputView == EmptyView, SecondaryActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -919,7 +919,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, TextInputView == Emp
     }
 }
 
-extension WelcomeScreen where DescriptionText == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView {
+extension _WelcomeScreen where DescriptionText == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -940,7 +940,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, ActionView == EmptyV
     }
 }
 
-extension WelcomeScreen where Subtitle == EmptyView, Footnote == EmptyView, Icon == EmptyView {
+extension _WelcomeScreen where Subtitle == EmptyView, Footnote == EmptyView, Icon == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -961,7 +961,7 @@ extension WelcomeScreen where Subtitle == EmptyView, Footnote == EmptyView, Icon
     }
 }
 
-extension WelcomeScreen where Subtitle == EmptyView, Footnote == EmptyView, TextInputView == EmptyView {
+extension _WelcomeScreen where Subtitle == EmptyView, Footnote == EmptyView, TextInputView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -982,7 +982,7 @@ extension WelcomeScreen where Subtitle == EmptyView, Footnote == EmptyView, Text
     }
 }
 
-extension WelcomeScreen where Subtitle == EmptyView, Footnote == EmptyView, ActionView == EmptyView {
+extension _WelcomeScreen where Subtitle == EmptyView, Footnote == EmptyView, ActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -1003,7 +1003,7 @@ extension WelcomeScreen where Subtitle == EmptyView, Footnote == EmptyView, Acti
     }
 }
 
-extension WelcomeScreen where Subtitle == EmptyView, Footnote == EmptyView, SecondaryActionView == EmptyView {
+extension _WelcomeScreen where Subtitle == EmptyView, Footnote == EmptyView, SecondaryActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -1024,7 +1024,7 @@ extension WelcomeScreen where Subtitle == EmptyView, Footnote == EmptyView, Seco
     }
 }
 
-extension WelcomeScreen where Subtitle == EmptyView, Icon == EmptyView, TextInputView == EmptyView {
+extension _WelcomeScreen where Subtitle == EmptyView, Icon == EmptyView, TextInputView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -1045,7 +1045,7 @@ extension WelcomeScreen where Subtitle == EmptyView, Icon == EmptyView, TextInpu
     }
 }
 
-extension WelcomeScreen where Subtitle == EmptyView, Icon == EmptyView, ActionView == EmptyView {
+extension _WelcomeScreen where Subtitle == EmptyView, Icon == EmptyView, ActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -1066,7 +1066,7 @@ extension WelcomeScreen where Subtitle == EmptyView, Icon == EmptyView, ActionVi
     }
 }
 
-extension WelcomeScreen where Subtitle == EmptyView, Icon == EmptyView, SecondaryActionView == EmptyView {
+extension _WelcomeScreen where Subtitle == EmptyView, Icon == EmptyView, SecondaryActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -1087,7 +1087,7 @@ extension WelcomeScreen where Subtitle == EmptyView, Icon == EmptyView, Secondar
     }
 }
 
-extension WelcomeScreen where Subtitle == EmptyView, TextInputView == EmptyView, ActionView == EmptyView {
+extension _WelcomeScreen where Subtitle == EmptyView, TextInputView == EmptyView, ActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -1108,7 +1108,7 @@ extension WelcomeScreen where Subtitle == EmptyView, TextInputView == EmptyView,
     }
 }
 
-extension WelcomeScreen where Subtitle == EmptyView, TextInputView == EmptyView, SecondaryActionView == EmptyView {
+extension _WelcomeScreen where Subtitle == EmptyView, TextInputView == EmptyView, SecondaryActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -1129,7 +1129,7 @@ extension WelcomeScreen where Subtitle == EmptyView, TextInputView == EmptyView,
     }
 }
 
-extension WelcomeScreen where Subtitle == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView {
+extension _WelcomeScreen where Subtitle == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -1150,7 +1150,7 @@ extension WelcomeScreen where Subtitle == EmptyView, ActionView == EmptyView, Se
     }
 }
 
-extension WelcomeScreen where Footnote == EmptyView, Icon == EmptyView, TextInputView == EmptyView {
+extension _WelcomeScreen where Footnote == EmptyView, Icon == EmptyView, TextInputView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -1171,7 +1171,7 @@ extension WelcomeScreen where Footnote == EmptyView, Icon == EmptyView, TextInpu
     }
 }
 
-extension WelcomeScreen where Footnote == EmptyView, Icon == EmptyView, ActionView == EmptyView {
+extension _WelcomeScreen where Footnote == EmptyView, Icon == EmptyView, ActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -1192,7 +1192,7 @@ extension WelcomeScreen where Footnote == EmptyView, Icon == EmptyView, ActionVi
     }
 }
 
-extension WelcomeScreen where Footnote == EmptyView, Icon == EmptyView, SecondaryActionView == EmptyView {
+extension _WelcomeScreen where Footnote == EmptyView, Icon == EmptyView, SecondaryActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -1213,7 +1213,7 @@ extension WelcomeScreen where Footnote == EmptyView, Icon == EmptyView, Secondar
     }
 }
 
-extension WelcomeScreen where Footnote == EmptyView, TextInputView == EmptyView, ActionView == EmptyView {
+extension _WelcomeScreen where Footnote == EmptyView, TextInputView == EmptyView, ActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -1234,7 +1234,7 @@ extension WelcomeScreen where Footnote == EmptyView, TextInputView == EmptyView,
     }
 }
 
-extension WelcomeScreen where Footnote == EmptyView, TextInputView == EmptyView, SecondaryActionView == EmptyView {
+extension _WelcomeScreen where Footnote == EmptyView, TextInputView == EmptyView, SecondaryActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -1255,7 +1255,7 @@ extension WelcomeScreen where Footnote == EmptyView, TextInputView == EmptyView,
     }
 }
 
-extension WelcomeScreen where Footnote == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView {
+extension _WelcomeScreen where Footnote == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -1276,7 +1276,7 @@ extension WelcomeScreen where Footnote == EmptyView, ActionView == EmptyView, Se
     }
 }
 
-extension WelcomeScreen where Icon == EmptyView, TextInputView == EmptyView, ActionView == EmptyView {
+extension _WelcomeScreen where Icon == EmptyView, TextInputView == EmptyView, ActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -1297,7 +1297,7 @@ extension WelcomeScreen where Icon == EmptyView, TextInputView == EmptyView, Act
     }
 }
 
-extension WelcomeScreen where Icon == EmptyView, TextInputView == EmptyView, SecondaryActionView == EmptyView {
+extension _WelcomeScreen where Icon == EmptyView, TextInputView == EmptyView, SecondaryActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -1318,7 +1318,7 @@ extension WelcomeScreen where Icon == EmptyView, TextInputView == EmptyView, Sec
     }
 }
 
-extension WelcomeScreen where Icon == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView {
+extension _WelcomeScreen where Icon == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -1339,7 +1339,7 @@ extension WelcomeScreen where Icon == EmptyView, ActionView == EmptyView, Second
     }
 }
 
-extension WelcomeScreen where TextInputView == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView {
+extension _WelcomeScreen where TextInputView == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -1360,7 +1360,7 @@ extension WelcomeScreen where TextInputView == EmptyView, ActionView == EmptyVie
     }
 }
 
-extension WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyView, Footnote == EmptyView, Icon == EmptyView {
+extension _WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyView, Footnote == EmptyView, Icon == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder textInput: () -> TextInputView,
@@ -1380,7 +1380,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyVie
     }
 }
 
-extension WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyView, Footnote == EmptyView, TextInputView == EmptyView {
+extension _WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyView, Footnote == EmptyView, TextInputView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder icon: () -> Icon,
@@ -1400,7 +1400,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyVie
     }
 }
 
-extension WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyView, Footnote == EmptyView, ActionView == EmptyView {
+extension _WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyView, Footnote == EmptyView, ActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder icon: () -> Icon,
@@ -1420,7 +1420,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyVie
     }
 }
 
-extension WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyView, Footnote == EmptyView, SecondaryActionView == EmptyView {
+extension _WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyView, Footnote == EmptyView, SecondaryActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder icon: () -> Icon,
@@ -1440,7 +1440,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyVie
     }
 }
 
-extension WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyView, Icon == EmptyView, TextInputView == EmptyView {
+extension _WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyView, Icon == EmptyView, TextInputView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder footnote: () -> Footnote,
@@ -1460,7 +1460,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyVie
     }
 }
 
-extension WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyView, Icon == EmptyView, ActionView == EmptyView {
+extension _WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyView, Icon == EmptyView, ActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder footnote: () -> Footnote,
@@ -1480,7 +1480,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyVie
     }
 }
 
-extension WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyView, Icon == EmptyView, SecondaryActionView == EmptyView {
+extension _WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyView, Icon == EmptyView, SecondaryActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder footnote: () -> Footnote,
@@ -1500,7 +1500,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyVie
     }
 }
 
-extension WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyView, TextInputView == EmptyView, ActionView == EmptyView {
+extension _WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyView, TextInputView == EmptyView, ActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder footnote: () -> Footnote,
@@ -1520,7 +1520,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyVie
     }
 }
 
-extension WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyView, TextInputView == EmptyView, SecondaryActionView == EmptyView {
+extension _WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyView, TextInputView == EmptyView, SecondaryActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder footnote: () -> Footnote,
@@ -1540,7 +1540,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyVie
     }
 }
 
-extension WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView {
+extension _WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder footnote: () -> Footnote,
@@ -1560,7 +1560,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyVie
     }
 }
 
-extension WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyView, Icon == EmptyView, TextInputView == EmptyView {
+extension _WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyView, Icon == EmptyView, TextInputView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -1580,7 +1580,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyVie
     }
 }
 
-extension WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyView, Icon == EmptyView, ActionView == EmptyView {
+extension _WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyView, Icon == EmptyView, ActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -1600,7 +1600,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyVie
     }
 }
 
-extension WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyView, Icon == EmptyView, SecondaryActionView == EmptyView {
+extension _WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyView, Icon == EmptyView, SecondaryActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -1620,7 +1620,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyVie
     }
 }
 
-extension WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyView, TextInputView == EmptyView, ActionView == EmptyView {
+extension _WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyView, TextInputView == EmptyView, ActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -1640,7 +1640,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyVie
     }
 }
 
-extension WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyView, TextInputView == EmptyView, SecondaryActionView == EmptyView {
+extension _WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyView, TextInputView == EmptyView, SecondaryActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -1660,7 +1660,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyVie
     }
 }
 
-extension WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView {
+extension _WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -1680,7 +1680,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyVie
     }
 }
 
-extension WelcomeScreen where DescriptionText == EmptyView, Icon == EmptyView, TextInputView == EmptyView, ActionView == EmptyView {
+extension _WelcomeScreen where DescriptionText == EmptyView, Icon == EmptyView, TextInputView == EmptyView, ActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -1700,7 +1700,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, Icon == EmptyView, T
     }
 }
 
-extension WelcomeScreen where DescriptionText == EmptyView, Icon == EmptyView, TextInputView == EmptyView, SecondaryActionView == EmptyView {
+extension _WelcomeScreen where DescriptionText == EmptyView, Icon == EmptyView, TextInputView == EmptyView, SecondaryActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -1720,7 +1720,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, Icon == EmptyView, T
     }
 }
 
-extension WelcomeScreen where DescriptionText == EmptyView, Icon == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView {
+extension _WelcomeScreen where DescriptionText == EmptyView, Icon == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -1740,7 +1740,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, Icon == EmptyView, A
     }
 }
 
-extension WelcomeScreen where DescriptionText == EmptyView, TextInputView == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView {
+extension _WelcomeScreen where DescriptionText == EmptyView, TextInputView == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -1760,7 +1760,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, TextInputView == Emp
     }
 }
 
-extension WelcomeScreen where Subtitle == EmptyView, Footnote == EmptyView, Icon == EmptyView, TextInputView == EmptyView {
+extension _WelcomeScreen where Subtitle == EmptyView, Footnote == EmptyView, Icon == EmptyView, TextInputView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -1780,7 +1780,7 @@ extension WelcomeScreen where Subtitle == EmptyView, Footnote == EmptyView, Icon
     }
 }
 
-extension WelcomeScreen where Subtitle == EmptyView, Footnote == EmptyView, Icon == EmptyView, ActionView == EmptyView {
+extension _WelcomeScreen where Subtitle == EmptyView, Footnote == EmptyView, Icon == EmptyView, ActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -1800,7 +1800,7 @@ extension WelcomeScreen where Subtitle == EmptyView, Footnote == EmptyView, Icon
     }
 }
 
-extension WelcomeScreen where Subtitle == EmptyView, Footnote == EmptyView, Icon == EmptyView, SecondaryActionView == EmptyView {
+extension _WelcomeScreen where Subtitle == EmptyView, Footnote == EmptyView, Icon == EmptyView, SecondaryActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -1820,7 +1820,7 @@ extension WelcomeScreen where Subtitle == EmptyView, Footnote == EmptyView, Icon
     }
 }
 
-extension WelcomeScreen where Subtitle == EmptyView, Footnote == EmptyView, TextInputView == EmptyView, ActionView == EmptyView {
+extension _WelcomeScreen where Subtitle == EmptyView, Footnote == EmptyView, TextInputView == EmptyView, ActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -1840,7 +1840,7 @@ extension WelcomeScreen where Subtitle == EmptyView, Footnote == EmptyView, Text
     }
 }
 
-extension WelcomeScreen where Subtitle == EmptyView, Footnote == EmptyView, TextInputView == EmptyView, SecondaryActionView == EmptyView {
+extension _WelcomeScreen where Subtitle == EmptyView, Footnote == EmptyView, TextInputView == EmptyView, SecondaryActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -1860,7 +1860,7 @@ extension WelcomeScreen where Subtitle == EmptyView, Footnote == EmptyView, Text
     }
 }
 
-extension WelcomeScreen where Subtitle == EmptyView, Footnote == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView {
+extension _WelcomeScreen where Subtitle == EmptyView, Footnote == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -1880,7 +1880,7 @@ extension WelcomeScreen where Subtitle == EmptyView, Footnote == EmptyView, Acti
     }
 }
 
-extension WelcomeScreen where Subtitle == EmptyView, Icon == EmptyView, TextInputView == EmptyView, ActionView == EmptyView {
+extension _WelcomeScreen where Subtitle == EmptyView, Icon == EmptyView, TextInputView == EmptyView, ActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -1900,7 +1900,7 @@ extension WelcomeScreen where Subtitle == EmptyView, Icon == EmptyView, TextInpu
     }
 }
 
-extension WelcomeScreen where Subtitle == EmptyView, Icon == EmptyView, TextInputView == EmptyView, SecondaryActionView == EmptyView {
+extension _WelcomeScreen where Subtitle == EmptyView, Icon == EmptyView, TextInputView == EmptyView, SecondaryActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -1920,7 +1920,7 @@ extension WelcomeScreen where Subtitle == EmptyView, Icon == EmptyView, TextInpu
     }
 }
 
-extension WelcomeScreen where Subtitle == EmptyView, Icon == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView {
+extension _WelcomeScreen where Subtitle == EmptyView, Icon == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -1940,7 +1940,7 @@ extension WelcomeScreen where Subtitle == EmptyView, Icon == EmptyView, ActionVi
     }
 }
 
-extension WelcomeScreen where Subtitle == EmptyView, TextInputView == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView {
+extension _WelcomeScreen where Subtitle == EmptyView, TextInputView == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -1960,7 +1960,7 @@ extension WelcomeScreen where Subtitle == EmptyView, TextInputView == EmptyView,
     }
 }
 
-extension WelcomeScreen where Footnote == EmptyView, Icon == EmptyView, TextInputView == EmptyView, ActionView == EmptyView {
+extension _WelcomeScreen where Footnote == EmptyView, Icon == EmptyView, TextInputView == EmptyView, ActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -1980,7 +1980,7 @@ extension WelcomeScreen where Footnote == EmptyView, Icon == EmptyView, TextInpu
     }
 }
 
-extension WelcomeScreen where Footnote == EmptyView, Icon == EmptyView, TextInputView == EmptyView, SecondaryActionView == EmptyView {
+extension _WelcomeScreen where Footnote == EmptyView, Icon == EmptyView, TextInputView == EmptyView, SecondaryActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -2000,7 +2000,7 @@ extension WelcomeScreen where Footnote == EmptyView, Icon == EmptyView, TextInpu
     }
 }
 
-extension WelcomeScreen where Footnote == EmptyView, Icon == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView {
+extension _WelcomeScreen where Footnote == EmptyView, Icon == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -2020,7 +2020,7 @@ extension WelcomeScreen where Footnote == EmptyView, Icon == EmptyView, ActionVi
     }
 }
 
-extension WelcomeScreen where Footnote == EmptyView, TextInputView == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView {
+extension _WelcomeScreen where Footnote == EmptyView, TextInputView == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -2040,7 +2040,7 @@ extension WelcomeScreen where Footnote == EmptyView, TextInputView == EmptyView,
     }
 }
 
-extension WelcomeScreen where Icon == EmptyView, TextInputView == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView {
+extension _WelcomeScreen where Icon == EmptyView, TextInputView == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -2060,7 +2060,7 @@ extension WelcomeScreen where Icon == EmptyView, TextInputView == EmptyView, Act
     }
 }
 
-extension WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyView, Footnote == EmptyView, Icon == EmptyView, TextInputView == EmptyView {
+extension _WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyView, Footnote == EmptyView, Icon == EmptyView, TextInputView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder action: () -> ActionView,
@@ -2079,7 +2079,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyVie
     }
 }
 
-extension WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyView, Footnote == EmptyView, Icon == EmptyView, ActionView == EmptyView {
+extension _WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyView, Footnote == EmptyView, Icon == EmptyView, ActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder textInput: () -> TextInputView,
@@ -2098,7 +2098,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyVie
     }
 }
 
-extension WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyView, Footnote == EmptyView, Icon == EmptyView, SecondaryActionView == EmptyView {
+extension _WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyView, Footnote == EmptyView, Icon == EmptyView, SecondaryActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder textInput: () -> TextInputView,
@@ -2117,7 +2117,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyVie
     }
 }
 
-extension WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyView, Footnote == EmptyView, TextInputView == EmptyView, ActionView == EmptyView {
+extension _WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyView, Footnote == EmptyView, TextInputView == EmptyView, ActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder icon: () -> Icon,
@@ -2136,7 +2136,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyVie
     }
 }
 
-extension WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyView, Footnote == EmptyView, TextInputView == EmptyView, SecondaryActionView == EmptyView {
+extension _WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyView, Footnote == EmptyView, TextInputView == EmptyView, SecondaryActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder icon: () -> Icon,
@@ -2155,7 +2155,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyVie
     }
 }
 
-extension WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyView, Footnote == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView {
+extension _WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyView, Footnote == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder icon: () -> Icon,
@@ -2174,7 +2174,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyVie
     }
 }
 
-extension WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyView, Icon == EmptyView, TextInputView == EmptyView, ActionView == EmptyView {
+extension _WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyView, Icon == EmptyView, TextInputView == EmptyView, ActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder footnote: () -> Footnote,
@@ -2193,7 +2193,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyVie
     }
 }
 
-extension WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyView, Icon == EmptyView, TextInputView == EmptyView, SecondaryActionView == EmptyView {
+extension _WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyView, Icon == EmptyView, TextInputView == EmptyView, SecondaryActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder footnote: () -> Footnote,
@@ -2212,7 +2212,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyVie
     }
 }
 
-extension WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyView, Icon == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView {
+extension _WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyView, Icon == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder footnote: () -> Footnote,
@@ -2231,7 +2231,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyVie
     }
 }
 
-extension WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyView, TextInputView == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView {
+extension _WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyView, TextInputView == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder footnote: () -> Footnote,
@@ -2250,7 +2250,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyVie
     }
 }
 
-extension WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyView, Icon == EmptyView, TextInputView == EmptyView, ActionView == EmptyView {
+extension _WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyView, Icon == EmptyView, TextInputView == EmptyView, ActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -2269,7 +2269,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyVie
     }
 }
 
-extension WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyView, Icon == EmptyView, TextInputView == EmptyView, SecondaryActionView == EmptyView {
+extension _WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyView, Icon == EmptyView, TextInputView == EmptyView, SecondaryActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -2288,7 +2288,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyVie
     }
 }
 
-extension WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyView, Icon == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView {
+extension _WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyView, Icon == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -2307,7 +2307,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyVie
     }
 }
 
-extension WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyView, TextInputView == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView {
+extension _WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyView, TextInputView == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -2326,7 +2326,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyVie
     }
 }
 
-extension WelcomeScreen where DescriptionText == EmptyView, Icon == EmptyView, TextInputView == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView {
+extension _WelcomeScreen where DescriptionText == EmptyView, Icon == EmptyView, TextInputView == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle,
@@ -2345,7 +2345,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, Icon == EmptyView, T
     }
 }
 
-extension WelcomeScreen where Subtitle == EmptyView, Footnote == EmptyView, Icon == EmptyView, TextInputView == EmptyView, ActionView == EmptyView {
+extension _WelcomeScreen where Subtitle == EmptyView, Footnote == EmptyView, Icon == EmptyView, TextInputView == EmptyView, ActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -2364,7 +2364,7 @@ extension WelcomeScreen where Subtitle == EmptyView, Footnote == EmptyView, Icon
     }
 }
 
-extension WelcomeScreen where Subtitle == EmptyView, Footnote == EmptyView, Icon == EmptyView, TextInputView == EmptyView, SecondaryActionView == EmptyView {
+extension _WelcomeScreen where Subtitle == EmptyView, Footnote == EmptyView, Icon == EmptyView, TextInputView == EmptyView, SecondaryActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -2383,7 +2383,7 @@ extension WelcomeScreen where Subtitle == EmptyView, Footnote == EmptyView, Icon
     }
 }
 
-extension WelcomeScreen where Subtitle == EmptyView, Footnote == EmptyView, Icon == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView {
+extension _WelcomeScreen where Subtitle == EmptyView, Footnote == EmptyView, Icon == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -2402,7 +2402,7 @@ extension WelcomeScreen where Subtitle == EmptyView, Footnote == EmptyView, Icon
     }
 }
 
-extension WelcomeScreen where Subtitle == EmptyView, Footnote == EmptyView, TextInputView == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView {
+extension _WelcomeScreen where Subtitle == EmptyView, Footnote == EmptyView, TextInputView == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -2421,7 +2421,7 @@ extension WelcomeScreen where Subtitle == EmptyView, Footnote == EmptyView, Text
     }
 }
 
-extension WelcomeScreen where Subtitle == EmptyView, Icon == EmptyView, TextInputView == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView {
+extension _WelcomeScreen where Subtitle == EmptyView, Icon == EmptyView, TextInputView == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -2440,7 +2440,7 @@ extension WelcomeScreen where Subtitle == EmptyView, Icon == EmptyView, TextInpu
     }
 }
 
-extension WelcomeScreen where Footnote == EmptyView, Icon == EmptyView, TextInputView == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView {
+extension _WelcomeScreen where Footnote == EmptyView, Icon == EmptyView, TextInputView == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -2459,7 +2459,7 @@ extension WelcomeScreen where Footnote == EmptyView, Icon == EmptyView, TextInpu
     }
 }
 
-extension WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyView, Footnote == EmptyView, Icon == EmptyView, TextInputView == EmptyView, ActionView == EmptyView {
+extension _WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyView, Footnote == EmptyView, Icon == EmptyView, TextInputView == EmptyView, ActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder secondaryAction: () -> SecondaryActionView
@@ -2477,7 +2477,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyVie
     }
 }
 
-extension WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyView, Footnote == EmptyView, Icon == EmptyView, TextInputView == EmptyView, SecondaryActionView == EmptyView {
+extension _WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyView, Footnote == EmptyView, Icon == EmptyView, TextInputView == EmptyView, SecondaryActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder action: () -> ActionView
@@ -2495,7 +2495,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyVie
     }
 }
 
-extension WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyView, Footnote == EmptyView, Icon == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView {
+extension _WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyView, Footnote == EmptyView, Icon == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder textInput: () -> TextInputView
@@ -2513,7 +2513,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyVie
     }
 }
 
-extension WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyView, Footnote == EmptyView, TextInputView == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView {
+extension _WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyView, Footnote == EmptyView, TextInputView == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder icon: () -> Icon
@@ -2531,7 +2531,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyVie
     }
 }
 
-extension WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyView, Icon == EmptyView, TextInputView == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView {
+extension _WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyView, Icon == EmptyView, TextInputView == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder footnote: () -> Footnote
@@ -2549,7 +2549,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyVie
     }
 }
 
-extension WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyView, Icon == EmptyView, TextInputView == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView {
+extension _WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyView, Icon == EmptyView, TextInputView == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder subtitle: () -> Subtitle
@@ -2567,7 +2567,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyVie
     }
 }
 
-extension WelcomeScreen where Subtitle == EmptyView, Footnote == EmptyView, Icon == EmptyView, TextInputView == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView {
+extension _WelcomeScreen where Subtitle == EmptyView, Footnote == EmptyView, Icon == EmptyView, TextInputView == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText
@@ -2585,7 +2585,7 @@ extension WelcomeScreen where Subtitle == EmptyView, Footnote == EmptyView, Icon
     }
 }
 
-extension WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyView, Footnote == EmptyView, Icon == EmptyView, TextInputView == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView {
+extension _WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyView, Footnote == EmptyView, Icon == EmptyView, TextInputView == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title
     ) {

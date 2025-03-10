@@ -1,8 +1,8 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
-//TODO: Copy commented code to new file: `FioriSwiftUICore/Views/WelcomeScreen+View.swift`
+//TODO: Copy commented code to new file: `FioriSwiftUICore/Views/_WelcomeScreen+View.swift`
 //TODO: Implement default Fiori style definitions as `ViewModifier`
-//TODO: Implement WelcomeScreen `View` body
+//TODO: Implement _WelcomeScreen `View` body
 //TODO: Implement LibraryContentProvider
 
 /// - Important: to make `@Environment` properties (e.g. `horizontalSizeClass`), internally accessible
@@ -16,7 +16,7 @@ import SwiftUI
 // FIXME: - Implement Fiori style definitions
 
 extension Fiori {
-    enum WelcomeScreen {
+    enum _WelcomeScreen {
         typealias Title = EmptyModifier
         typealias TitleCumulative = EmptyModifier
 		typealias DescriptionText = EmptyModifier
@@ -65,21 +65,21 @@ extension Fiori {
     }
 }
 
-// FIXME: - Implement WelcomeScreen View body
+// FIXME: - Implement _WelcomeScreen View body
 
-extension WelcomeScreen: View {
+extension _WelcomeScreen: View {
     public var body: some View {
         <# View body #>
     }
 }
 
-// FIXME: - Implement WelcomeScreen specific LibraryContentProvider
+// FIXME: - Implement _WelcomeScreen specific LibraryContentProvider
 
 @available(iOS 14.0, macOS 11.0, *)
-struct WelcomeScreenLibraryContent: LibraryContentProvider {
+struct _WelcomeScreenLibraryContent: LibraryContentProvider {
     @LibraryContentBuilder
     var views: [LibraryItem] {
-        LibraryItem(WelcomeScreen(model: LibraryPreviewData.Person.laurelosborn),
+        LibraryItem(_WelcomeScreen(model: LibraryPreviewData.Person.laurelosborn),
                     category: .control)
     }
 }

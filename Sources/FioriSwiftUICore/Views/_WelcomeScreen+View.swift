@@ -7,7 +7,7 @@ import FioriThemeManager
 import SwiftUI
 
 extension Fiori {
-    enum WelcomeScreen {
+    enum _WelcomeScreen {
         struct Title: ViewModifier {
             func body(content: Content) -> some View {
                 content
@@ -106,7 +106,7 @@ extension Fiori {
     }
 }
 
-extension WelcomeScreen: View {
+extension _WelcomeScreen: View {
     public var body: some View {
         VStack {
             title

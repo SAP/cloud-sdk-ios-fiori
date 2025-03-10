@@ -80,6 +80,7 @@ public extension Type {
                                     "_ActivityItemModel",
                                     "_ActivityItemsModel",
                                     "_ContactItemModel",
+                                    "_WelcomeScreenModel",
                                     "_ProgressIndicatorModel",
                                     "_KPIProgressItemModel",
                                     "_SingleStepModel",
