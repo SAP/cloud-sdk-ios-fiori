@@ -83,6 +83,22 @@ extension ActivityItemsStyle {
     }
 }
 
+// MARK: AgreeActionStyle
+
+struct ResolvedAgreeActionStyle<Style: AgreeActionStyle>: View {
+    let style: Style
+    let configuration: AgreeActionConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension AgreeActionStyle {
+    func resolve(configuration: AgreeActionConfiguration) -> some View {
+        ResolvedAgreeActionStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: AllEntriesSectionTitleStyle
 
 struct ResolvedAllEntriesSectionTitleStyle<Style: AllEntriesSectionTitleStyle>: View {
@@ -624,6 +640,38 @@ struct ResolvedDimensionSelectorStyle<Style: DimensionSelectorStyle>: View {
 extension DimensionSelectorStyle {
     func resolve(configuration: DimensionSelectorConfiguration) -> some View {
         ResolvedDimensionSelectorStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: DisagreeActionStyle
+
+struct ResolvedDisagreeActionStyle<Style: DisagreeActionStyle>: View {
+    let style: Style
+    let configuration: DisagreeActionConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension DisagreeActionStyle {
+    func resolve(configuration: DisagreeActionConfiguration) -> some View {
+        ResolvedDisagreeActionStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: EULAViewStyle
+
+struct ResolvedEULAViewStyle<Style: EULAViewStyle>: View {
+    let style: Style
+    let configuration: EULAViewConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension EULAViewStyle {
+    func resolve(configuration: EULAViewConfiguration) -> some View {
+        ResolvedEULAViewStyle(style: self, configuration: configuration)
     }
 }
 
@@ -1728,6 +1776,22 @@ struct ResolvedProgressIndicatorProtocolStyle<Style: ProgressIndicatorProtocolSt
 extension ProgressIndicatorProtocolStyle {
     func resolve(configuration: ProgressIndicatorProtocolConfiguration) -> some View {
         ResolvedProgressIndicatorProtocolStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: PromptStyle
+
+struct ResolvedPromptStyle<Style: PromptStyle>: View {
+    let style: Style
+    let configuration: PromptConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension PromptStyle {
+    func resolve(configuration: PromptConfiguration) -> some View {
+        ResolvedPromptStyle(style: self, configuration: configuration)
     }
 }
 

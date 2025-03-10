@@ -34,6 +34,12 @@ extension ActivityItems: _ViewEmptyChecking {
     }
 }
 
+extension AgreeAction: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        agreeAction.isEmpty
+    }
+}
+
 extension AllEntriesSectionTitle: _ViewEmptyChecking {
     public var isEmpty: Bool {
         allEntriesSectionTitle.isEmpty
@@ -291,6 +297,22 @@ extension DimensionSegment: _ViewEmptyChecking {
 extension DimensionSelector: _ViewEmptyChecking {
     public var isEmpty: Bool {
         false
+    }
+}
+
+extension DisagreeAction: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        disagreeAction.isEmpty
+    }
+}
+
+extension EULAView: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        title.isEmpty &&
+            bodyText.isEmpty &&
+            agreeAction.isEmpty &&
+            disagreeAction.isEmpty &&
+            cancelAction.isEmpty
     }
 }
 
@@ -566,7 +588,8 @@ extension ListPickerDestination: _ViewEmptyChecking {
             selectAllAction.isEmpty &&
             deselectAllAction.isEmpty &&
             allEntriesSectionTitle.isEmpty &&
-            listPickerContent.isEmpty
+            listPickerContent.isEmpty &&
+            prompt.isEmpty
     }
 }
 
@@ -779,6 +802,12 @@ extension ProgressIndicator: _ViewEmptyChecking {
 extension ProgressIndicatorProtocol: _ViewEmptyChecking {
     public var isEmpty: Bool {
         false
+    }
+}
+
+extension Prompt: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        prompt.isEmpty
     }
 }
 

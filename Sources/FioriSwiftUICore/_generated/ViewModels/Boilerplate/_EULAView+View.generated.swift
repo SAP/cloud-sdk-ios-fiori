@@ -1,8 +1,8 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
-//TODO: Copy commented code to new file: `FioriSwiftUICore/Views/EULAView+View.swift`
+//TODO: Copy commented code to new file: `FioriSwiftUICore/Views/_EULAView+View.swift`
 //TODO: Implement default Fiori style definitions as `ViewModifier`
-//TODO: Implement EULAView `View` body
+//TODO: Implement _EULAView `View` body
 //TODO: Implement LibraryContentProvider
 
 /// - Important: to make `@Environment` properties (e.g. `horizontalSizeClass`), internally accessible
@@ -16,7 +16,7 @@ import SwiftUI
 // FIXME: - Implement Fiori style definitions
 
 extension Fiori {
-    enum EULAView {
+    enum _EULAView {
         typealias Title = EmptyModifier
         typealias TitleCumulative = EmptyModifier
 		typealias BodyAttributedText = EmptyModifier
@@ -53,21 +53,21 @@ extension Fiori {
     }
 }
 
-// FIXME: - Implement EULAView View body
+// FIXME: - Implement _EULAView View body
 
-extension EULAView: View {
+extension _EULAView: View {
     public var body: some View {
         <# View body #>
     }
 }
 
-// FIXME: - Implement EULAView specific LibraryContentProvider
+// FIXME: - Implement _EULAView specific LibraryContentProvider
 
 @available(iOS 14.0, macOS 11.0, *)
-struct EULAViewLibraryContent: LibraryContentProvider {
+struct _EULAViewLibraryContent: LibraryContentProvider {
     @LibraryContentBuilder
     var views: [LibraryItem] {
-        LibraryItem(EULAView(model: LibraryPreviewData.Person.laurelosborn),
+        LibraryItem(_EULAView(model: LibraryPreviewData.Person.laurelosborn),
                     category: .control)
     }
 }

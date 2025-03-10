@@ -115,6 +115,20 @@ public extension ActivityItemsStyle where Self == ActivityItemsFioriStyle {
     }
 }
 
+// MARK: AgreeActionStyle
+
+public extension AgreeActionStyle where Self == AgreeActionBaseStyle {
+    static var base: AgreeActionBaseStyle {
+        AgreeActionBaseStyle()
+    }
+}
+
+public extension AgreeActionStyle where Self == AgreeActionFioriStyle {
+    static var fiori: AgreeActionFioriStyle {
+        AgreeActionFioriStyle()
+    }
+}
+
 // MARK: AllEntriesSectionTitleStyle
 
 public extension AllEntriesSectionTitleStyle where Self == AllEntriesSectionTitleBaseStyle {
@@ -2187,6 +2201,139 @@ public extension DimensionSelectorStyle where Self == DimensionSelectorFioriStyl
     }
 }
 
+// MARK: DisagreeActionStyle
+
+public extension DisagreeActionStyle where Self == DisagreeActionBaseStyle {
+    static var base: DisagreeActionBaseStyle {
+        DisagreeActionBaseStyle()
+    }
+}
+
+public extension DisagreeActionStyle where Self == DisagreeActionFioriStyle {
+    static var fiori: DisagreeActionFioriStyle {
+        DisagreeActionFioriStyle()
+    }
+}
+
+// MARK: EULAViewStyle
+
+public extension EULAViewStyle where Self == EULAViewBaseStyle {
+    static var base: EULAViewBaseStyle {
+        EULAViewBaseStyle()
+    }
+}
+
+public extension EULAViewStyle where Self == EULAViewFioriStyle {
+    static var fiori: EULAViewFioriStyle {
+        EULAViewFioriStyle()
+    }
+}
+
+public struct EULAViewTitleStyle: EULAViewStyle {
+    let style: any TitleStyle
+
+    public func makeBody(_ configuration: EULAViewConfiguration) -> some View {
+        EULAView(configuration)
+            .titleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension EULAViewStyle where Self == EULAViewTitleStyle {
+    static func titleStyle(_ style: some TitleStyle) -> EULAViewTitleStyle {
+        EULAViewTitleStyle(style: style)
+    }
+
+    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> EULAViewTitleStyle {
+        let style = AnyTitleStyle(content)
+        return EULAViewTitleStyle(style: style)
+    }
+}
+
+public struct EULAViewBodyTextStyle: EULAViewStyle {
+    let style: any BodyTextStyle
+
+    public func makeBody(_ configuration: EULAViewConfiguration) -> some View {
+        EULAView(configuration)
+            .bodyTextStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension EULAViewStyle where Self == EULAViewBodyTextStyle {
+    static func bodyTextStyle(_ style: some BodyTextStyle) -> EULAViewBodyTextStyle {
+        EULAViewBodyTextStyle(style: style)
+    }
+
+    static func bodyTextStyle(@ViewBuilder content: @escaping (BodyTextConfiguration) -> some View) -> EULAViewBodyTextStyle {
+        let style = AnyBodyTextStyle(content)
+        return EULAViewBodyTextStyle(style: style)
+    }
+}
+
+public struct EULAViewAgreeActionStyle: EULAViewStyle {
+    let style: any AgreeActionStyle
+
+    public func makeBody(_ configuration: EULAViewConfiguration) -> some View {
+        EULAView(configuration)
+            .agreeActionStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension EULAViewStyle where Self == EULAViewAgreeActionStyle {
+    static func agreeActionStyle(_ style: some AgreeActionStyle) -> EULAViewAgreeActionStyle {
+        EULAViewAgreeActionStyle(style: style)
+    }
+
+    static func agreeActionStyle(@ViewBuilder content: @escaping (AgreeActionConfiguration) -> some View) -> EULAViewAgreeActionStyle {
+        let style = AnyAgreeActionStyle(content)
+        return EULAViewAgreeActionStyle(style: style)
+    }
+}
+
+public struct EULAViewDisagreeActionStyle: EULAViewStyle {
+    let style: any DisagreeActionStyle
+
+    public func makeBody(_ configuration: EULAViewConfiguration) -> some View {
+        EULAView(configuration)
+            .disagreeActionStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension EULAViewStyle where Self == EULAViewDisagreeActionStyle {
+    static func disagreeActionStyle(_ style: some DisagreeActionStyle) -> EULAViewDisagreeActionStyle {
+        EULAViewDisagreeActionStyle(style: style)
+    }
+
+    static func disagreeActionStyle(@ViewBuilder content: @escaping (DisagreeActionConfiguration) -> some View) -> EULAViewDisagreeActionStyle {
+        let style = AnyDisagreeActionStyle(content)
+        return EULAViewDisagreeActionStyle(style: style)
+    }
+}
+
+public struct EULAViewCancelActionStyle: EULAViewStyle {
+    let style: any CancelActionStyle
+
+    public func makeBody(_ configuration: EULAViewConfiguration) -> some View {
+        EULAView(configuration)
+            .cancelActionStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension EULAViewStyle where Self == EULAViewCancelActionStyle {
+    static func cancelActionStyle(_ style: some CancelActionStyle) -> EULAViewCancelActionStyle {
+        EULAViewCancelActionStyle(style: style)
+    }
+
+    static func cancelActionStyle(@ViewBuilder content: @escaping (CancelActionConfiguration) -> some View) -> EULAViewCancelActionStyle {
+        let style = AnyCancelActionStyle(content)
+        return EULAViewCancelActionStyle(style: style)
+    }
+}
+
 // MARK: FilledIconStyle
 
 public extension FilledIconStyle where Self == FilledIconBaseStyle {
@@ -4077,6 +4224,27 @@ public extension ListPickerDestinationStyle where Self == ListPickerDestinationL
     }
 }
 
+public struct ListPickerDestinationPromptStyle: ListPickerDestinationStyle {
+    let style: any PromptStyle
+
+    public func makeBody(_ configuration: ListPickerDestinationConfiguration) -> some View {
+        ListPickerDestination(configuration)
+            .promptStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension ListPickerDestinationStyle where Self == ListPickerDestinationPromptStyle {
+    static func promptStyle(_ style: some PromptStyle) -> ListPickerDestinationPromptStyle {
+        ListPickerDestinationPromptStyle(style: style)
+    }
+
+    static func promptStyle(@ViewBuilder content: @escaping (PromptConfiguration) -> some View) -> ListPickerDestinationPromptStyle {
+        let style = AnyPromptStyle(content)
+        return ListPickerDestinationPromptStyle(style: style)
+    }
+}
+
 // MARK: ListPickerItemStyle
 
 public extension ListPickerItemStyle where Self == ListPickerItemBaseStyle {
@@ -5460,6 +5628,20 @@ public extension ProgressIndicatorProtocolStyle where Self == ProgressIndicatorP
 public extension ProgressIndicatorProtocolStyle where Self == ProgressIndicatorProtocolFioriStyle {
     static var fiori: ProgressIndicatorProtocolFioriStyle {
         ProgressIndicatorProtocolFioriStyle()
+    }
+}
+
+// MARK: PromptStyle
+
+public extension PromptStyle where Self == PromptBaseStyle {
+    static var base: PromptBaseStyle {
+        PromptBaseStyle()
+    }
+}
+
+public extension PromptStyle where Self == PromptFioriStyle {
+    static var fiori: PromptFioriStyle {
+        PromptFioriStyle()
     }
 }
 
