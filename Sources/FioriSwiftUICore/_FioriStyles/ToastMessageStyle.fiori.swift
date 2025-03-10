@@ -249,8 +249,14 @@ struct ToastMessageOverlayModifier: ViewModifier {
                             toast.icon
                         }, title: {
                             toast.title
-                        })
-                        .animation(.easeInOut, value: self.toast != nil)
+                        }, position: toast.position,
+                        spacing: toast.spacing,
+                        cornerRadius: toast.cornerRadius,
+                        backgroundColor: toast.backgroundColor,
+                        borderWidth: toast.borderWidth,
+                        borderColor: toast.borderColor,
+                        shadow: toast.shadow)
+                            .animation(.easeInOut, value: self.toast != nil)
                     }
                 }
             )
