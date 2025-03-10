@@ -392,9 +392,9 @@ struct ItemView: View {
     let rowIndex: Int
     let columnIndex: Int
     @Binding var showBanner: Bool
-    @Binding var toast: Toast?
+    @Binding var toast: ToastMessage?
     
-    init(rowIndex: Int, columnIndex: Int, layoutManager: TableLayoutManager, layoutData: LayoutData, showBanner: Binding<Bool>, showToast: Binding<Toast?>) {
+    init(rowIndex: Int, columnIndex: Int, layoutManager: TableLayoutManager, layoutData: LayoutData, showBanner: Binding<Bool>, showToast: Binding<ToastMessage?>) {
         self.layoutManager = layoutManager
         self.layoutData = layoutData
         self.rowIndex = rowIndex
@@ -451,7 +451,7 @@ struct ItemView: View {
                     
                     if dataItem.isReadonly, dataItem.type != .image {
                         let message = NSLocalizedString("Tapped cell is read-only.", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
-                        self.toast = Toast(message: message)
+                        self.toast = ToastMessage(icon: Image(systemName: "checkmark.circle"), title: AttributedString(message), spacing: 8, cornerRadius: 6, backgroundColor: Color.preferredColor(.header, interface: .elevatedConstant), borderWidth: 0.33, borderColor: Color.preferredColor(.separator))
                         if self.layoutManager.currentCell != nil {
                             self.layoutManager.currentCell = nil
                         }
