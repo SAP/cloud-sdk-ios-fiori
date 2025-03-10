@@ -92,10 +92,7 @@ extension View {
         }
     }
     
-    func handleSelectedFile(url: URL) {
-        // handle selected file content
-//        self.urls.append(url)
-    }
+    func handleSelectedFile(url: URL) {}
 }
 
 public enum AttachmentMenuItems {

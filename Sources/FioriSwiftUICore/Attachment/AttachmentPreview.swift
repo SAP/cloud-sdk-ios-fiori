@@ -77,8 +77,6 @@ public struct AttachmentPreview: UIViewControllerRepresentable {
                     print("Delete \(self.parent.previewURL) in progress...")
                     DispatchQueue.main.async {
                         if let index = self.parent.urls.firstIndex(of: self.parent.previewURL) {
-                            print("index: \(index) ")
-//                            self.parent.context.delete(attachment: self.parent.urls[index])
                             self.parent.onDelete?(self.parent.urls[index])
                             if self.parent.urls.count > 0 {
                                 self.parent.previewURL = self.parent.urls[index > 0 ? index - 1 : 0]
@@ -109,22 +107,3 @@ class AttachmentQLPreviewItem: NSObject, QLPreviewItem {
         self.previewItemURL = url
     }
 }
-
-// struct AttachmentPreviewModifier: ViewModifier {
-//    @Binding var previewUrl: URL?
-//    var urls: [URL]
-//    func body(content: Content) -> some View {
-//        content
-//            .quickLookPreview($previewUrl, in: urls)
-//    }
-// }
-//
-// extension View {
-//    public func preview(_ previewUrl: Binding<URL?>, in urls: [URL]) -> some View {
-//        modifier(AttachmentPreviewModifier(previewUrl: previewUrl, urls: urls))
-//    }
-//
-//    public func preview(with modifier: any ViewModifier) -> some View {
-//        modifier(modifier)
-//    }
-// }
