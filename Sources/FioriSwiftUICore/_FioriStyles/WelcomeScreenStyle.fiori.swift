@@ -24,6 +24,7 @@ public struct WelcomeScreenBaseStyle: WelcomeScreenStyle {
     
     @FocusState var isFocused: Bool
     
+    // swiftlint:disable function_body_length
     public func makeBody(_ configuration: WelcomeScreenConfiguration) -> some View {
         GeometryReader { proxy in
             
@@ -138,7 +139,7 @@ public struct WelcomeScreenBaseStyle: WelcomeScreenStyle {
     func primaryActionDisabled(_ configuration: WelcomeScreenConfiguration) -> Bool {
         var enabled = true
         if configuration.state == .notConfigured, configuration.options == [.discoveryService] {
-            enabled = configuration.inputText.count > 0
+            enabled = !configuration.inputText.isEmpty
         }
         if configuration.isLegalAgreementRequired {
             enabled = enabled && self.isCheckBoxSelected

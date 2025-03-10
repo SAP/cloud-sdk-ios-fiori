@@ -202,6 +202,7 @@ public protocol _WelcomeScreenModel: TitleComponent, DescriptionTextComponent, S
     var secondaryAction: _ActionModel? { get }
 }
 
+/// Deprecated WelcomeScreenModel
 @available(*, unavailable, renamed: "_WelcomeScreenModel", message: "Will be removed in the future release. Please create WelcomeScreen with other initializers instead.")
 public protocol WelcomeScreenModel {}
 
