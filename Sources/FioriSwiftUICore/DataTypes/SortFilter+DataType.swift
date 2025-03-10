@@ -506,15 +506,8 @@ public extension SortFilterItem {
             self.uuidValueOptions = valueOptions.enumerated().map { index, option in
                 ValueOptionModel(index: index, value: option)
             }
-            var workingValueSetArray: [UUID] = []
-            for v in self.workingValue {
-                for optionModel in self.uuidValueOptions {
-                    if v == optionModel.index {
-                        workingValueSetArray.append(optionModel.id)
-                        break
-                    }
-                }
-            }
+            
+            let workingValueSetArray: [UUID] = self.uuidValueOptions.filter { value.contains($0.index) }.map(\.id)
             self.workingValueSet = Set(workingValueSetArray)
             
             self.allowsMultipleSelection = allowsMultipleSelection
@@ -585,10 +578,16 @@ public extension SortFilterItem {
         
         mutating func reset() {
             self.workingValue = self.originalValue.map { $0 }
+            
+            let workingValueArray = self.originalValue.flatMap { originalValue in
+                self.uuidValueOptions.filter { $0.index == originalValue }.map(\.id)
+            }
+            self.workingValueSet = Set(workingValueArray)
         }
         
         mutating func clearAll() {
             self.workingValue.removeAll()
+            self.workingValueSet.removeAll()
         }
         
         mutating func apply() {
@@ -611,17 +610,6 @@ public extension SortFilterItem {
                     self.workingValue.append(i)
                 }
             }
-        }
-        
-        mutating func resetSelections() {
-            let workingValueArray = self.originalValue.flatMap { originalValue in
-                self.uuidValueOptions.filter { $0.index == originalValue }.map(\.id)
-            }
-            self.workingValueSet = Set(workingValueArray)
-        }
-        
-        mutating func clearSelections() {
-            self.workingValueSet.removeAll()
         }
         
         var isChecked: Bool {

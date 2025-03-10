@@ -419,10 +419,8 @@ struct PickerMenuItem: View {
                     } else {
                         _Action(actionText: self.item.resetButtonConfiguration.title, didSelectAction: {
                             if self.item.resetButtonConfiguration.type == .reset {
-                                self.item.resetSelections()
                                 self.item.reset()
                             } else {
-                                self.item.clearSelections()
                                 self.item.clearAll()
                             }
                         })
@@ -464,10 +462,8 @@ struct PickerMenuItem: View {
                     } else {
                         _Action(actionText: self.item.resetButtonConfiguration.title, didSelectAction: {
                             if self.item.resetButtonConfiguration.type == .reset {
-                                self.item.resetSelections()
                                 self.item.reset()
                             } else {
-                                self.item.clearSelections()
                                 self.item.clearAll()
                             }
                         })
