@@ -227,6 +227,73 @@ public extension View {
                                            shadow: shadow,
                                            isPresented: isPresented))
     }
+    
+    /// Show a toast message as an overlay above the view
+    /// - Parameter toast: A binding to an optional ToastMessage value that controls the visibility of the toast
+    /// - Returns: A new view with the toast message overlay
+    func toastMessage(toast: Binding<ToastMessage?>) -> some View {
+        self.modifier(ToastMessageOverlayModifier(toast: toast))
+    }
+}
+
+struct ToastMessageOverlayModifier: ViewModifier {
+    @Binding var toast: ToastMessage?
+    @State private var workItem: DispatchWorkItem?
+    
+    public func body(content: Content) -> some View {
+        content
+            .overlay(
+                ZStack {
+                    if let toast {
+                        ToastMessage(icon: {
+                            toast.icon
+                        }, title: {
+                            toast.title
+                        }, position: toast.position,
+                        spacing: toast.spacing,
+                        cornerRadius: toast.cornerRadius,
+                        backgroundColor: toast.backgroundColor,
+                        borderWidth: toast.borderWidth,
+                        borderColor: toast.borderColor,
+                        shadow: toast.shadow)
+                            .animation(.easeInOut, value: self.toast != nil)
+                    }
+                }
+            )
+            .setOnChange(of: self.toast == nil) {
+                self.showToast()
+            }
+    }
+    
+    private func showToast() {
+        guard let toast else { return }
+        
+        if toast.duration > 0 {
+            self.workItem?.cancel()
+            
+            let task = DispatchWorkItem {
+                self.dismissToast()
+            }
+         
+            if UIAccessibility.isVoiceOverRunning, !toast.title.isEmpty {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                    UIAccessibility.post(notification: .announcement, argument: toast.title)
+                }
+            }
+            
+            self.workItem = task
+            DispatchQueue.main.asyncAfter(deadline: .now() + toast.duration, execute: task)
+        }
+    }
+    
+    private func dismissToast() {
+        withAnimation(.easeInOut) {
+            self.toast = nil
+        }
+        
+        self.workItem?.cancel()
+        self.workItem = nil
+    }
 }
 
 struct ToastMessageModifier: ViewModifier {
