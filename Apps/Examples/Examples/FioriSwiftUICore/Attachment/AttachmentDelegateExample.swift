@@ -1,19 +1,19 @@
 import FioriSwiftUICore
 import SwiftUI
 
-struct AttachmentProcessorExample: View {
+struct AttachmentDelegateExample: View {
     @State var groupOneAttachments: [URL]
     @State var groupTwoAttachments: [URL]
     @State var groupThreeAttachments: [URL]
 
-    let groupOneProeceeor: BaseAttachmentProcessor
-    let groupTwoProeceeor: BaseAttachmentProcessor
-    let groupThreeProeceeor: MyAttachmentProcessor
+    let groupOneProeceeor: BasicAttachmentDelegate
+    let groupTwoProeceeor: BasicAttachmentDelegate
+    let groupThreeProeceeor: MyAttachmentDelegate
 
     init() {
         var g1Attachments: [URL] = []
-        self.groupOneProeceeor = BaseAttachmentProcessor(localFolderName: "groupOneAttachments") { folder in
-            g1Attachments = BaseAttachmentProcessor.copy(
+        self.groupOneProeceeor = BasicAttachmentDelegate(localFolderName: "groupOneAttachments") { folder in
+            g1Attachments = BasicAttachmentDelegate.copy(
                 attachments: [
                     Bundle.main.url(forResource: "PDF advances in foundation - Landscape", withExtension: "pdf"),
                     Bundle.main.url(forResource: "HTML File Example", withExtension: "html"),
@@ -25,8 +25,8 @@ struct AttachmentProcessorExample: View {
         self.groupOneAttachments = g1Attachments
         
         var g2Attachments: [URL] = []
-        self.groupTwoProeceeor = BaseAttachmentProcessor(localFolderName: "groupTwoAttachments") { folder in
-            g2Attachments = BaseAttachmentProcessor.copy(
+        self.groupTwoProeceeor = BasicAttachmentDelegate(localFolderName: "groupTwoAttachments") { folder in
+            g2Attachments = BasicAttachmentDelegate.copy(
                 attachments: [
                     Bundle.main.url(forResource: "Word File Example", withExtension: "docx"),
                     Bundle.main.url(forResource: "Excel File Example", withExtension: "xlsx")
@@ -38,7 +38,7 @@ struct AttachmentProcessorExample: View {
         self.groupTwoAttachments = g2Attachments
         
         self.groupThreeAttachments = []
-        self.groupThreeProeceeor = MyAttachmentProcessor()
+        self.groupThreeProeceeor = MyAttachmentDelegate()
     }
 
     var body: some View {
@@ -47,7 +47,7 @@ struct AttachmentProcessorExample: View {
                 AttachmentGroup(
                     title: { Text("Finished/Readonly Attachments \(self.groupOneAttachments.count)") },
                     attachments: self.$groupOneAttachments,
-                    processor: self.groupOneProeceeor,
+                    delegate: self.groupOneProeceeor,
                     controlState: .readOnly
                 )
                 
@@ -55,7 +55,7 @@ struct AttachmentProcessorExample: View {
                     title: { Text("WiP Attachments \(self.groupTwoAttachments.count) of 5") },
                     attachments: self.$groupTwoAttachments,
                     maxCount: 5,
-                    processor: self.groupTwoProeceeor,
+                    delegate: self.groupTwoProeceeor,
                     operations: {
                         AttachmentButtonImage()
                             .operationsMenu {
@@ -69,7 +69,7 @@ struct AttachmentProcessorExample: View {
                     title: { Text("Attachments w/ Custom Processor") },
                     attachments: self.$groupThreeAttachments,
                     maxCount: 5,
-                    processor: self.groupThreeProeceeor,
+                    delegate: self.groupThreeProeceeor,
                     operations: {
                         AttachmentButtonImage()
                             .operationsMenu {
@@ -83,7 +83,7 @@ struct AttachmentProcessorExample: View {
     }
 }
 
-extension BaseAttachmentProcessor {
+extension BasicAttachmentDelegate {
     static func copy(attachments: [URL], to folder: URL) -> [URL] {
         do {
             let mgr = FileManager.default
@@ -108,7 +108,7 @@ extension BaseAttachmentProcessor {
     }
 }
 
-public class MyAttachmentProcessor: BaseAttachmentProcessor {
+public class MyAttachmentDelegate: BasicAttachmentDelegate {
     public init() {
         super.init(localFolderName: "groupThreeAttachments")
     }

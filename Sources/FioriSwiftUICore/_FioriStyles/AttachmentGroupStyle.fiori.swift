@@ -85,7 +85,7 @@ public struct AttachmentGroupBaseStyle: AttachmentGroupStyle {
             }
             .onDrop(of: [.item], isTargeted: nil) { providers, _ in
                 for provider in providers {
-                    self.context.processor.upload(contentFrom: provider) { url, error in
+                    self.context.delegate.upload(contentFrom: provider) { url, error in
                         if let error {
                             print("Error uploading: \(error)")
                             configuration.errorMessage = AttributedString(
@@ -126,7 +126,7 @@ public struct AttachmentGroupBaseStyle: AttachmentGroupStyle {
         .padding(.vertical, AttachmentConstants.verticalPadding)
         .environment(
             {
-                self.context.processor = configuration.processor
+                self.context.delegate = configuration.delegate
                 self.context.configuration = configuration
                 return self.context
             }()

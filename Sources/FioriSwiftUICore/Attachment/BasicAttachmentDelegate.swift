@@ -1,13 +1,13 @@
 import Foundation
 import UniformTypeIdentifiers
 
-open class BaseAttachmentProcessor: AttachmentProcessor {
+open class BasicAttachmentDelegate: AttachmentDelegate {
     public static let demoFolderName = "AttachmentDemoFolder"
     
     public let localFolder: URL
     
     public init(localFolderName: String? = nil, onPrepared: ((URL) -> Void)? = nil) {
-        let folderName = localFolderName ?? BaseAttachmentProcessor.demoFolderName
+        let folderName = localFolderName ?? BasicAttachmentDelegate.demoFolderName
         let mgr = FileManager.default
         let folder = mgr.temporaryDirectory.appendingPathComponent(folderName, isDirectory: true)
         if !mgr.fileExists(atPath: folder.path) {

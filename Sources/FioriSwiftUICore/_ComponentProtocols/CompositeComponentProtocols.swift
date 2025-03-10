@@ -1113,32 +1113,32 @@ protocol _StepProgressIndicatorComponent: _TitleComponent, _ActionComponent, _Ca
 /// ```swift
 /// Attachment {
 ///   QuickLookThumbnail(physicalUrl: fileURL)
-/// } title: {
+/// } attachmentTitle: {
 ///   Text("Leaf")
-/// } subtitle: {
+/// } attachmentSubtitle: {
 ///   Text("15MB")
-/// } timestamp: {
+/// } attachmentFootnote: {
 ///   Text("Aug 15, 2024")
 /// }
 ///
 /// Attachment {
 ///   QuickLookThumbnail(thumbnailImage: : Image(systemName: "leaf"))
-/// } title: {
+/// } attachmentTitle: {
 ///   Text("Leaf")
-/// } subtitle: {
+/// } attachmentSubtitle: {
 ///   Text("15MB")
-/// } timestamp: {
+/// } attachmentFootnote: {
 ///   Text("Aug 15, 2024")
 /// }
 ///
 /// Attachment {
 ///   Image(systemName: "leaf")
 ///     .resizable()
-/// } title: {
+/// } attachmentTitle: {
 ///   Text("Leaf")
-/// } subtitle: {
+/// } attachmentSubtitle: {
 ///   Text("15MB")
-/// } timestamp: {
+/// } attachmentFootnote: {
 ///   Text("Aug 15, 2024")
 /// }
 /// ```
@@ -1181,9 +1181,9 @@ protocol _AttachmentGroupComponent: _TitleComponent {
     /// The maximium number of attachments
     var maxCount: Int? { get }
 
-    // sourcery: defaultValue = "BaseAttachmentProcessor()"
+    // sourcery: defaultValue = "BasicAttachmentDelegate()"
     /// App specific attachemnt processing logics for adding or deleting attachments.
-    var processor: AttachmentProcessor { get }
+    var delegate: AttachmentDelegate { get }
 
     // sourcery: defaultValue = .normal
     /// The state of attachement group component

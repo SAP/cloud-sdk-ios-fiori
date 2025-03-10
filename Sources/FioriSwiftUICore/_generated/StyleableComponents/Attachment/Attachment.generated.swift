@@ -9,32 +9,32 @@ import SwiftUI
 /// ```swift
 /// Attachment {
 ///   QuickLookThumbnail(physicalUrl: fileURL)
-/// } title: {
+/// } attachmentTitle: {
 ///   Text("Leaf")
-/// } subtitle: {
+/// } attachmentSubtitle: {
 ///   Text("15MB")
-/// } timestamp: {
+/// } attachmentFootnote: {
 ///   Text("Aug 15, 2024")
 /// }
 ///
 /// Attachment {
 ///   QuickLookThumbnail(thumbnailImage: : Image(systemName: "leaf"))
-/// } title: {
+/// } attachmentTitle: {
 ///   Text("Leaf")
-/// } subtitle: {
+/// } attachmentSubtitle: {
 ///   Text("15MB")
-/// } timestamp: {
+/// } attachmentFootnote: {
 ///   Text("Aug 15, 2024")
 /// }
 ///
 /// Attachment {
 ///   Image(systemName: "leaf")
 ///     .resizable()
-/// } title: {
+/// } attachmentTitle: {
 ///   Text("Leaf")
-/// } subtitle: {
+/// } attachmentSubtitle: {
 ///   Text("15MB")
-/// } timestamp: {
+/// } attachmentFootnote: {
 ///   Text("Aug 15, 2024")
 /// }
 /// ```

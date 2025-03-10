@@ -10,7 +10,7 @@ public class AttachmentContext {
     var photoSelectionFilter: [PHPickerFilter] = []
     var fileSelectionFilter: [UTType] = []
     
-    var processor: AttachmentProcessor = BaseAttachmentProcessor()
+    var delegate: AttachmentDelegate = BasicAttachmentDelegate()
     var configuration: AttachmentGroupConfiguration?
     
     func upload(contentFrom provider: NSItemProvider) {
@@ -18,7 +18,7 @@ public class AttachmentContext {
             print("AttachmentConfiguration is not initialized, yet. Please check code/usage.")
             return
         }
-        self.processor.upload(contentFrom: provider) { url, error in
+        self.delegate.upload(contentFrom: provider) { url, error in
             if let error {
                 configuration.errorMessage = AttributedString(
                     error is AttachmentError ? error.localizedDescription : "Upload failed due to, \(error.localizedDescription)"
@@ -56,7 +56,7 @@ public class AttachmentContext {
     }
     
     func delete(attachment: URL) {
-        self.processor.delete(url: attachment) { url, error in
+        self.delegate.delete(url: attachment) { url, error in
             if let error {
                 self.configuration?.errorMessage = AttributedString(error.localizedDescription)
                 return

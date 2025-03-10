@@ -26,7 +26,7 @@ public struct AttachmentGroupConfiguration {
     public let title: Title
     @Binding public var attachments: [URL]
     public let maxCount: Int?
-    public let processor: AttachmentProcessor
+    public let delegate: AttachmentDelegate
     public let controlState: ControlState
     @Binding public var errorMessage: AttributedString?
     public let operations: Operations

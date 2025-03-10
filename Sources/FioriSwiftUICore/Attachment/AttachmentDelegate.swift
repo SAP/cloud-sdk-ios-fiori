@@ -1,6 +1,6 @@
 import Foundation
 
-public protocol AttachmentProcessor {
+public protocol AttachmentDelegate {
     func delete(url: URL, onCompletion: @escaping (URL, Error?) -> Void) -> Void
     func upload(contentFrom provider: NSItemProvider, onCompletion: @escaping (URL?, Error?) -> Void)
 }

@@ -29,9 +29,9 @@ struct CoreContentView: View {
                 )
 
                 NavigationLink(
-                    destination: AttachmentProcessorExample(),
+                    destination: AttachmentDelegateExample(),
                     label: {
-                        Text("Attachment Processor Example")
+                        Text("Attachment Delegate Example")
                     }
                 )
 

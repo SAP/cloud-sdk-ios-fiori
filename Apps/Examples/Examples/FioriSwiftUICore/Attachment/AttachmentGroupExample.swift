@@ -118,7 +118,7 @@ struct AttachmentGroupExample: View {
         .onAppear {
             do {
                 let mgr = FileManager.default
-                let folder = mgr.temporaryDirectory.appendingPathComponent(BaseAttachmentProcessor.demoFolderName, isDirectory: true)
+                let folder = mgr.temporaryDirectory.appendingPathComponent(BasicAttachmentDelegate.demoFolderName, isDirectory: true)
                 try mgr.removeItem(at: folder)
                 
                 if !mgr.fileExists(atPath: folder.path) {
@@ -143,7 +143,7 @@ struct AttachmentGroupExample: View {
         .onDisappear {
             do {
                 let mgr = FileManager.default
-                let folder = mgr.temporaryDirectory.appendingPathComponent(BaseAttachmentProcessor.demoFolderName, isDirectory: true)
+                let folder = mgr.temporaryDirectory.appendingPathComponent(BasicAttachmentDelegate.demoFolderName, isDirectory: true)
                 try mgr.removeItem(at: folder)
                 
             } catch {
