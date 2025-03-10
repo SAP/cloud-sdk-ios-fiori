@@ -1,12 +1,15 @@
 import Foundation
 import UniformTypeIdentifiers
 
+/// Basic implementation for demostrating AttachmentDelegate protocol. This is a local folder based implementation.
 open class BasicAttachmentDelegate: AttachmentDelegate {
+    /// Default folder
     public static let demoFolderName = "AttachmentDemoFolder"
-    
+
+    /// Convince property for Apps to get local folder
     public let localFolder: URL
     
-    public init(localFolderName: String? = nil, onPrepared: ((URL) -> Void)? = nil) {
+    public init(localFolderName: String? = nil, onPrepare: ((URL) -> Void)? = nil) {
         let folderName = localFolderName ?? BasicAttachmentDelegate.demoFolderName
         let mgr = FileManager.default
         let folder = mgr.temporaryDirectory.appendingPathComponent(folderName, isDirectory: true)
@@ -14,9 +17,10 @@ open class BasicAttachmentDelegate: AttachmentDelegate {
             try! mgr.createDirectory(atPath: folder.path, withIntermediateDirectories: true, attributes: nil)
         }
         self.localFolder = folder
-        onPrepared?(folder)
+        onPrepare?(folder)
     }
     
+    /// delete
     open func delete(url: URL, onCompletion: @escaping (URL, (any Error)?) -> Void) {
         do {
             try FileManager.default.removeItem(at: url)
@@ -30,7 +34,7 @@ open class BasicAttachmentDelegate: AttachmentDelegate {
         }
     }
     
-    // app specific
+    /// upload
     open func upload(contentFrom provider: NSItemProvider, onCompletion: @escaping (URL?, Error?) -> Void) {
         if let identifier = provider.registeredTypeIdentifiers.first {
             provider.loadFileRepresentation(forTypeIdentifier: identifier) { url, _ in
@@ -45,6 +49,7 @@ open class BasicAttachmentDelegate: AttachmentDelegate {
         }
     }
     
+    /// save to local folder
     open func saveLocally(url: URL, identifier: String, onCompletion: @escaping (URL?, Error?) -> Void) {
         do {
             let copy = try self.getAttachmentNameAndExt(from: url, utTypeidentifier: identifier)
@@ -59,7 +64,7 @@ open class BasicAttachmentDelegate: AttachmentDelegate {
         }
     }
     
-    // app specific
+    /// get targert file name
     open func getAttachmentNameAndExt(from url: URL, utTypeidentifier identifier: String) throws -> URL {
         var ext = url.pathExtension
         let name = url.deletingPathExtension().lastPathComponent
@@ -78,7 +83,7 @@ open class BasicAttachmentDelegate: AttachmentDelegate {
         }
     }
     
-    // app specific
+    /// infer attachment name
     open func getOrInferExt(extension ext: String, utTypeidentifier identifier: String) -> String {
         ext.isEmpty ? (UTType(identifier)?.preferredFilenameExtension ?? "") : ext
     }

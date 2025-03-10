@@ -1,10 +1,16 @@
 import PhotosUI
 import SwiftUI
 
+/// Attachment Context facilites hierarchical components, i.e. AttachmentGroup and Attachment work together
 @Observable
 public class AttachmentContext {
+    /// For toggle PhotosPicker
     public var showPhotosPicker: Bool = false
+    
+    /// For toggle FileImporter
     public var showFilesPicker: Bool = false
+    
+    /// For toggle Camera
     public var showCamera: Bool = false
     
     var photoSelectionFilter: [PHPickerFilter] = []
@@ -20,14 +26,21 @@ public class AttachmentContext {
         }
         self.delegate.upload(contentFrom: provider) { url, error in
             if let error {
-                configuration.errorMessage = AttributedString(
-                    error is AttachmentError ? error.localizedDescription : "Upload failed due to, \(error.localizedDescription)"
-                )
-                return
+                if let attachmentError = error as? AttachmentError {
+                    switch attachmentError {
+                    case .failedToUploadAttachment(let errorMessage):
+                        configuration.errorMessage = AttributedString(errorMessage)
+                    default:
+                        break
+                    }
+                } else {
+                    configuration.errorMessage = AttributedString("Upload failed due to, \(error.localizedDescription)")
+                }
+            } else {
+                guard let url else { return }
+                configuration.attachments.append(url)
+                configuration.errorMessage = nil
             }
-            guard let url else { return }
-            configuration.attachments.append(url)
-            configuration.errorMessage = nil
         }
     }
     
@@ -48,6 +61,7 @@ public class AttachmentContext {
                         self.upload(contentFrom: provider)
                     }
                 case .failure(let error):
+                    self.configuration?.errorMessage = AttributedString(error.localizedDescription)
                     print("Error loading item: \(error.localizedDescription)")
                     return
                 }
@@ -56,10 +70,24 @@ public class AttachmentContext {
     }
     
     func delete(attachment: URL) {
+        guard let configuration else {
+            print("AttachmentConfiguration is not initialized, yet. Please check code/usage.")
+            return
+        }
+        
         self.delegate.delete(url: attachment) { url, error in
             if let error {
-                self.configuration?.errorMessage = AttributedString(error.localizedDescription)
-                return
+                if let attachmentError = error as? AttachmentError {
+                    switch attachmentError {
+                    case .failedToDeleteAttachment(let errorMessage):
+                        configuration.errorMessage = AttributedString(errorMessage)
+                    default:
+                        break
+                    }
+                } else {
+                    configuration.errorMessage = AttributedString(error.localizedDescription)
+                    return
+                }
             }
             self.configuration?.attachments.removeAll(where: { $0 == url })
         }

@@ -5,6 +5,10 @@ struct AttachmentDelegateExample: View {
     @State var groupOneAttachments: [URL]
     @State var groupTwoAttachments: [URL]
     @State var groupThreeAttachments: [URL]
+    
+    @State var groupOneError: AttributedString?
+    @State var groupTwoError: AttributedString?
+    @State var groupThreeError: AttributedString?
 
     let groupOneProeceeor: BasicAttachmentDelegate
     let groupTwoProeceeor: BasicAttachmentDelegate
@@ -23,7 +27,8 @@ struct AttachmentDelegateExample: View {
             )
         }
         self.groupOneAttachments = g1Attachments
-        
+        self.groupOneError = nil
+
         var g2Attachments: [URL] = []
         self.groupTwoProeceeor = BasicAttachmentDelegate(localFolderName: "groupTwoAttachments") { folder in
             g2Attachments = BasicAttachmentDelegate.copy(
@@ -36,9 +41,11 @@ struct AttachmentDelegateExample: View {
         }
             
         self.groupTwoAttachments = g2Attachments
-        
+        self.groupTwoError = nil
+
         self.groupThreeAttachments = []
         self.groupThreeProeceeor = MyAttachmentDelegate()
+        self.groupThreeError = nil
     }
 
     var body: some View {
@@ -48,7 +55,8 @@ struct AttachmentDelegateExample: View {
                     title: { Text("Finished/Readonly Attachments \(self.groupOneAttachments.count)") },
                     attachments: self.$groupOneAttachments,
                     delegate: self.groupOneProeceeor,
-                    controlState: .readOnly
+                    controlState: .readOnly,
+                    errorMessage: self.$groupOneError
                 )
                 
                 AttachmentGroup(
@@ -56,6 +64,7 @@ struct AttachmentDelegateExample: View {
                     attachments: self.$groupTwoAttachments,
                     maxCount: 5,
                     delegate: self.groupTwoProeceeor,
+                    errorMessage: self.$groupTwoError,
                     operations: {
                         AttachmentButtonImage()
                             .operationsMenu {
@@ -70,6 +79,7 @@ struct AttachmentDelegateExample: View {
                     attachments: self.$groupThreeAttachments,
                     maxCount: 5,
                     delegate: self.groupThreeProeceeor,
+                    errorMessage: self.$groupThreeError,
                     operations: {
                         AttachmentButtonImage()
                             .operationsMenu {
@@ -110,7 +120,10 @@ extension BasicAttachmentDelegate {
 
 public class MyAttachmentDelegate: BasicAttachmentDelegate {
     public init() {
-        super.init(localFolderName: "groupThreeAttachments")
+        super.init(localFolderName: "groupThreeAttachments") { folder in
+            // you can play with commenting following code, which performs cleanup. Then, the second upload of the same file will cause an error.
+            let _ = BasicAttachmentDelegate.copy(attachments: [], to: folder)
+        }
     }
     
     override public func getAttachmentNameAndExt(from url: URL, utTypeidentifier identifier: String) throws -> URL {
