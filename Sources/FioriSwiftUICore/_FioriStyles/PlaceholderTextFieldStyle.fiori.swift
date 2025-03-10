@@ -11,7 +11,7 @@ public struct PlaceholderTextFieldBaseStyle: PlaceholderTextFieldStyle {
             ZStack(alignment: .center) {
                 configuration._textInputField.body
                     .focused(self.$isFocused)
-                if configuration.text.isEmpty, !self.isFocused, !configuration.placeholder.isEmpty {
+                if configuration.text.isEmpty, !configuration.placeholder.isEmpty {
                     HStack {
                         configuration.placeholder.body
                             .onTapGesture {

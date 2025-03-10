@@ -88,6 +88,23 @@ public extension View {
     }
 }
 
+// MARK: AgreeActionStyle
+
+public extension View {
+    func agreeActionStyle(_ style: some AgreeActionStyle) -> some View {
+        self.transformEnvironment(\.agreeActionStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func agreeActionStyle(@ViewBuilder content: @escaping (AgreeActionConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.agreeActionStyleStack) { stack in
+            let style = AnyAgreeActionStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: AllEntriesSectionTitleStyle
 
 public extension View {
@@ -780,6 +797,40 @@ public extension View {
     func dimensionSelectorStyle(@ViewBuilder content: @escaping (DimensionSelectorConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.dimensionSelectorStyleStack) { stack in
             let style = AnyDimensionSelectorStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: DisagreeActionStyle
+
+public extension View {
+    func disagreeActionStyle(_ style: some DisagreeActionStyle) -> some View {
+        self.transformEnvironment(\.disagreeActionStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func disagreeActionStyle(@ViewBuilder content: @escaping (DisagreeActionConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.disagreeActionStyleStack) { stack in
+            let style = AnyDisagreeActionStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: EULAViewStyle
+
+public extension View {
+    func eULAViewStyle(_ style: some EULAViewStyle) -> some View {
+        self.transformEnvironment(\.eULAViewStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func eULAViewStyle(@ViewBuilder content: @escaping (EULAViewConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.eULAViewStyleStack) { stack in
+            let style = AnyEULAViewStyle(content)
             stack.append(style)
         }
     }

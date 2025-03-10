@@ -2,7 +2,7 @@
 // DO NOT EDIT
 import SwiftUI
 
-public extension EULAViewModel {
+public extension _EULAViewModel {
     var action: _ActionModel? {
         return _AgreeActionDefault()
     }

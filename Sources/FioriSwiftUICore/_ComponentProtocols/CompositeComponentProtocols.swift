@@ -648,8 +648,29 @@ protocol _ListPickerDestinationComponent: _CancelActionComponent, _ApplyActionCo
 // sourcery: CompositeComponent
 protocol _ToastMessageComponent: _IconComponent, _TitleComponent {
     // sourcery: defaultValue = 1
-    /// The duration in seconds for which the toast message is shown. The default is `1`.
+    /// The duration in seconds for which the toast message is shown. The default value is `1`.
     var duration: Double { get }
+    // sourcery: defaultValue = .center
+    /// The position of the toast message relative to its parent view. `.center` puts the toast message in the center of its parent view, `.above` aligns it above the view, and `.below` aligns it below the view. The default value is `.center`.
+    var position: ToastMessagePosition { get }
+    // sourcery: defaultValue = 0
+    /// The amount of spacing to put in between the toast message and the frame of its parent view. This only applies to the `.above` and `.below` positions, and negative values are converted to `0`. The default value is `0`.
+    var spacing: CGFloat { get }
+    // sourcery: defaultValue = 14
+    /// A number specifying how rounded the corners of the view should be. The default value is `14`.
+    var cornerRadius: CGFloat { get }
+    // sourcery: defaultValue = Color.preferredColor(.tertiaryFill)
+    /// The background color of the view. The default value is `Color.preferredColor(.tertiaryFill)`.
+    var backgroundColor: Color { get }
+    // sourcery: defaultValue = 0
+    /// The width of the border surrounding the toast message. The default value is `0`.
+    var borderWidth: CGFloat { get }
+    // sourcery: defaultValue = Color.clear
+    /// The color of the border surrounding the toast message. The default value is `Color.clear`.
+    var borderColor: Color { get }
+    // sourcery: defaultValue = FioriShadowStyle.level3
+    /// A shadow to render underneath the view. The default value is `FioriShadowStyle.level3`.
+    var shadow: FioriShadowStyle? { get }
 }
 
 // sourcery: CompositeComponent
@@ -1696,3 +1717,33 @@ protocol _UserConsentFormComponent: _NextActionComponent, _CancelActionComponent
 
 // sourcery: CompositeComponent
 protocol _UserConsentPageComponent: _TitleComponent, _BodyTextComponent, _ActionComponent {}
+
+/// `EULAView` is used to display the End User License Agreement, EULA.
+/// ## Usage
+/// ```swift
+///        EULAView(title: "EULA",
+///                 bodyText: "BodyText",
+///                 didAgree: {
+///            print("EULAView - didAgree")
+///        },
+///                 didDisagree: {
+///            print("EULAView - didDisagree")
+///        },
+///                 didCancel: {
+///            presentationMode.wrappedValue.dismiss()
+///        })
+/// ```
+// sourcery: CompositeComponent
+protocol _EULAViewComponent: _TitleComponent, _BodyTextComponent, _AgreeActionComponent, _DisagreeActionComponent, _CancelActionComponent {
+    // sourcery: default.value = nil
+    // sourcery: no_view
+    var didAgree: (() -> Void)? { get }
+    
+    // sourcery: default.value = nil
+    // sourcery: no_view
+    var didDisagree: (() -> Void)? { get }
+    
+    // sourcery: default.value = nil
+    // sourcery: no_view
+    var didCancel: (() -> Void)? { get }
+}

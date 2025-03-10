@@ -108,6 +108,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: AgreeActionStyle
+
+struct AgreeActionStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any AgreeActionStyle] = []
+}
+
+extension EnvironmentValues {
+    var agreeActionStyle: any AgreeActionStyle {
+        self.agreeActionStyleStack.last ?? .base
+    }
+
+    var agreeActionStyleStack: [any AgreeActionStyle] {
+        get {
+            self[AgreeActionStyleStackKey.self]
+        }
+        set {
+            self[AgreeActionStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: AllEntriesSectionTitleStyle
 
 struct AllEntriesSectionTitleStyleStackKey: EnvironmentKey {
@@ -965,6 +986,48 @@ extension EnvironmentValues {
         }
         set {
             self[DimensionSelectorStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: DisagreeActionStyle
+
+struct DisagreeActionStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any DisagreeActionStyle] = []
+}
+
+extension EnvironmentValues {
+    var disagreeActionStyle: any DisagreeActionStyle {
+        self.disagreeActionStyleStack.last ?? .base
+    }
+
+    var disagreeActionStyleStack: [any DisagreeActionStyle] {
+        get {
+            self[DisagreeActionStyleStackKey.self]
+        }
+        set {
+            self[DisagreeActionStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: EULAViewStyle
+
+struct EULAViewStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any EULAViewStyle] = []
+}
+
+extension EnvironmentValues {
+    var eULAViewStyle: any EULAViewStyle {
+        self.eULAViewStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var eULAViewStyleStack: [any EULAViewStyle] {
+        get {
+            self[EULAViewStyleStackKey.self]
+        }
+        set {
+            self[EULAViewStyleStackKey.self] = newValue
         }
     }
 }

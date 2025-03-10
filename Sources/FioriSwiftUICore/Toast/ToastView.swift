@@ -133,21 +133,3 @@ public extension View {
         self.modifier(ToastModifier(toast: toast))
     }
 }
-
-#Preview {
-    ToastView(message: "Tapped cell is read-only.")
-}
-
-#Preview {
-    HStack {}
-        .background(Color.green)
-        .frame(maxWidth: /*@START_MENU_TOKEN@*/ .infinity/*@END_MENU_TOKEN@*/, maxHeight: .infinity)
-        .toast(toast: .constant(Toast(message: "Tapped cell is read-only.")))
-}
-
-#Preview {
-    HStack {}
-        .background(Color.green)
-        .frame(maxWidth: /*@START_MENU_TOKEN@*/ .infinity/*@END_MENU_TOKEN@*/, maxHeight: .infinity)
-        .toast(toast: .constant(Toast(message: "Tapped cell is read-only. Tapped cell is read-only. Tapped cell is read-only.", image: Image(systemName: "info.circle.fill"))))
-}
