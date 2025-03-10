@@ -4040,6 +4040,34 @@ public extension TextFieldFormViewStyle {
     }
 }
 
+// MARK: TextInputStyle
+
+extension ModifiedStyle: TextInputStyle where Style: TextInputStyle {
+    public func makeBody(_ configuration: TextInputConfiguration) -> some View {
+        TextInput(configuration)
+            .textInputStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct TextInputStyleModifier<Style: TextInputStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.textInputStyle(self.style)
+    }
+}
+
+public extension TextInputStyle {
+    func modifier(_ modifier: some ViewModifier) -> some TextInputStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some TextInputStyle) -> some TextInputStyle {
+        style.modifier(TextInputStyleModifier(style: self))
+    }
+}
+
 // MARK: TextInputFieldStyle
 
 extension ModifiedStyle: TextInputFieldStyle where Style: TextInputFieldStyle {
@@ -4737,6 +4765,34 @@ public extension WatermarkStyle {
 
     func concat(_ style: some WatermarkStyle) -> some WatermarkStyle {
         style.modifier(WatermarkStyleModifier(style: self))
+    }
+}
+
+// MARK: WelcomeScreenStyle
+
+extension ModifiedStyle: WelcomeScreenStyle where Style: WelcomeScreenStyle {
+    public func makeBody(_ configuration: WelcomeScreenConfiguration) -> some View {
+        WelcomeScreen(configuration)
+            .welcomeScreenStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct WelcomeScreenStyleModifier<Style: WelcomeScreenStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.welcomeScreenStyle(self.style)
+    }
+}
+
+public extension WelcomeScreenStyle {
+    func modifier(_ modifier: some ViewModifier) -> some WelcomeScreenStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some WelcomeScreenStyle) -> some WelcomeScreenStyle {
+        style.modifier(WelcomeScreenStyleModifier(style: self))
     }
 }
 

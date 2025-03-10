@@ -1,10 +1,12 @@
 import SwiftUI
 
 struct OnboardingExamples: View {
+    var _isNewObjectItem: Bool = false
+    
     var body: some View {
         List {
             NavigationLink(
-                destination: WelcomeExamples())
+                destination: WelcomeExamples(_isNewObjectItem: self._isNewObjectItem))
             {
                 Text("WelcomeScreen Examples")
             }
@@ -39,23 +41,40 @@ struct OnboardingExamples: View {
 }
 
 struct WelcomeExamples: View {
+    var _isNewObjectItem: Bool = false
     var body: some View {
         List {
-            NavigationLink(
-                destination: WelcomeScreenSample())
-            {
-                Text("WelcomeScreen")
+            if self._isNewObjectItem {
+                Section {
+                    NavigationLink {
+                        OnBoardingWelcomeScreenExamples()
+                    } label: {
+                        Text("OnBoarding - WelcomeScreen")
+                    }
+                } header: {
+                    Text("Extra Examples")
+                        .textCase(.none)
+                }
+            } else {
+                Section {
+                    NavigationLink(
+                        destination: WelcomeScreenSample())
+                    {
+                        Text("WelcomeScreen")
+                    }
+                    NavigationLink(
+                        destination: WelcomeScreenCustomized())
+                    {
+                        Text("WelcomeScreen customized")
+                    }
+                    NavigationLink(
+                        destination: WelcomeScreenDiscoveryService())
+                    {
+                        Text("WelcomeScreen with Discovery Service")
+                    }
+                }
             }
-            NavigationLink(
-                destination: WelcomeScreenCustomized())
-            {
-                Text("WelcomeScreen customized")
-            }
-            NavigationLink(
-                destination: WelcomeScreenDiscoveryService())
-            {
-                Text("WelcomeScreen with Discovery Service")
-            }
+            
         }.navigationBarTitle("Welcome Examples", displayMode: .inline)
     }
 }

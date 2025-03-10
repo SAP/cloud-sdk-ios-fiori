@@ -3027,6 +3027,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: TextInputStyle
+
+struct TextInputStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any TextInputStyle] = []
+}
+
+extension EnvironmentValues {
+    var textInputStyle: any TextInputStyle {
+        self.textInputStyleStack.last ?? .base
+    }
+
+    var textInputStyleStack: [any TextInputStyle] {
+        get {
+            self[TextInputStyleStackKey.self]
+        }
+        set {
+            self[TextInputStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: TextInputFieldStyle
 
 struct TextInputFieldStyleStackKey: EnvironmentKey {
@@ -3548,6 +3569,27 @@ extension EnvironmentValues {
         }
         set {
             self[WatermarkStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: WelcomeScreenStyle
+
+struct WelcomeScreenStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any WelcomeScreenStyle] = []
+}
+
+extension EnvironmentValues {
+    var welcomeScreenStyle: any WelcomeScreenStyle {
+        self.welcomeScreenStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var welcomeScreenStyleStack: [any WelcomeScreenStyle] {
+        get {
+            self[WelcomeScreenStyleStackKey.self]
+        }
+        set {
+            self[WelcomeScreenStyleStackKey.self] = newValue
         }
     }
 }

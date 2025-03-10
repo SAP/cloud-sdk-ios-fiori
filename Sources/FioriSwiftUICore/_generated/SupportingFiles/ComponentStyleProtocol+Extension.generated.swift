@@ -7290,6 +7290,20 @@ public extension TextFieldFormViewStyle where Self == TextFieldFormViewTitleForm
     }
 }
 
+// MARK: TextInputStyle
+
+public extension TextInputStyle where Self == TextInputBaseStyle {
+    static var base: TextInputBaseStyle {
+        TextInputBaseStyle()
+    }
+}
+
+public extension TextInputStyle where Self == TextInputFioriStyle {
+    static var fiori: TextInputFioriStyle {
+        TextInputFioriStyle()
+    }
+}
+
 // MARK: TextInputFieldStyle
 
 public extension TextInputFieldStyle where Self == TextInputFieldBaseStyle {
@@ -8540,6 +8554,146 @@ public extension WatermarkStyle where Self == WatermarkBaseStyle {
 public extension WatermarkStyle where Self == WatermarkFioriStyle {
     static var fiori: WatermarkFioriStyle {
         WatermarkFioriStyle()
+    }
+}
+
+// MARK: WelcomeScreenStyle
+
+public extension WelcomeScreenStyle where Self == WelcomeScreenBaseStyle {
+    static var base: WelcomeScreenBaseStyle {
+        WelcomeScreenBaseStyle()
+    }
+}
+
+public extension WelcomeScreenStyle where Self == WelcomeScreenFioriStyle {
+    static var fiori: WelcomeScreenFioriStyle {
+        WelcomeScreenFioriStyle()
+    }
+}
+
+public struct WelcomeScreenTitleStyle: WelcomeScreenStyle {
+    let style: any TitleStyle
+
+    public func makeBody(_ configuration: WelcomeScreenConfiguration) -> some View {
+        WelcomeScreen(configuration)
+            .titleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension WelcomeScreenStyle where Self == WelcomeScreenTitleStyle {
+    static func titleStyle(_ style: some TitleStyle) -> WelcomeScreenTitleStyle {
+        WelcomeScreenTitleStyle(style: style)
+    }
+
+    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> WelcomeScreenTitleStyle {
+        let style = AnyTitleStyle(content)
+        return WelcomeScreenTitleStyle(style: style)
+    }
+}
+
+public struct WelcomeScreenDescriptionStyle: WelcomeScreenStyle {
+    let style: any DescriptionStyle
+
+    public func makeBody(_ configuration: WelcomeScreenConfiguration) -> some View {
+        WelcomeScreen(configuration)
+            .descriptionStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension WelcomeScreenStyle where Self == WelcomeScreenDescriptionStyle {
+    static func descriptionStyle(_ style: some DescriptionStyle) -> WelcomeScreenDescriptionStyle {
+        WelcomeScreenDescriptionStyle(style: style)
+    }
+
+    static func descriptionStyle(@ViewBuilder content: @escaping (DescriptionConfiguration) -> some View) -> WelcomeScreenDescriptionStyle {
+        let style = AnyDescriptionStyle(content)
+        return WelcomeScreenDescriptionStyle(style: style)
+    }
+}
+
+public struct WelcomeScreenIconStyle: WelcomeScreenStyle {
+    let style: any IconStyle
+
+    public func makeBody(_ configuration: WelcomeScreenConfiguration) -> some View {
+        WelcomeScreen(configuration)
+            .iconStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension WelcomeScreenStyle where Self == WelcomeScreenIconStyle {
+    static func iconStyle(_ style: some IconStyle) -> WelcomeScreenIconStyle {
+        WelcomeScreenIconStyle(style: style)
+    }
+
+    static func iconStyle(@ViewBuilder content: @escaping (IconConfiguration) -> some View) -> WelcomeScreenIconStyle {
+        let style = AnyIconStyle(content)
+        return WelcomeScreenIconStyle(style: style)
+    }
+}
+
+public struct WelcomeScreenFootnoteStyle: WelcomeScreenStyle {
+    let style: any FootnoteStyle
+
+    public func makeBody(_ configuration: WelcomeScreenConfiguration) -> some View {
+        WelcomeScreen(configuration)
+            .footnoteStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension WelcomeScreenStyle where Self == WelcomeScreenFootnoteStyle {
+    static func footnoteStyle(_ style: some FootnoteStyle) -> WelcomeScreenFootnoteStyle {
+        WelcomeScreenFootnoteStyle(style: style)
+    }
+
+    static func footnoteStyle(@ViewBuilder content: @escaping (FootnoteConfiguration) -> some View) -> WelcomeScreenFootnoteStyle {
+        let style = AnyFootnoteStyle(content)
+        return WelcomeScreenFootnoteStyle(style: style)
+    }
+}
+
+public struct WelcomeScreenActionStyle: WelcomeScreenStyle {
+    let style: any ActionStyle
+
+    public func makeBody(_ configuration: WelcomeScreenConfiguration) -> some View {
+        WelcomeScreen(configuration)
+            .actionStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension WelcomeScreenStyle where Self == WelcomeScreenActionStyle {
+    static func actionStyle(_ style: some ActionStyle) -> WelcomeScreenActionStyle {
+        WelcomeScreenActionStyle(style: style)
+    }
+
+    static func actionStyle(@ViewBuilder content: @escaping (ActionConfiguration) -> some View) -> WelcomeScreenActionStyle {
+        let style = AnyActionStyle(content)
+        return WelcomeScreenActionStyle(style: style)
+    }
+}
+
+public struct WelcomeScreenSecondaryActionStyle: WelcomeScreenStyle {
+    let style: any SecondaryActionStyle
+
+    public func makeBody(_ configuration: WelcomeScreenConfiguration) -> some View {
+        WelcomeScreen(configuration)
+            .secondaryActionStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension WelcomeScreenStyle where Self == WelcomeScreenSecondaryActionStyle {
+    static func secondaryActionStyle(_ style: some SecondaryActionStyle) -> WelcomeScreenSecondaryActionStyle {
+        WelcomeScreenSecondaryActionStyle(style: style)
+    }
+
+    static func secondaryActionStyle(@ViewBuilder content: @escaping (SecondaryActionConfiguration) -> some View) -> WelcomeScreenSecondaryActionStyle {
+        let style = AnySecondaryActionStyle(content)
+        return WelcomeScreenSecondaryActionStyle(style: style)
     }
 }
 
