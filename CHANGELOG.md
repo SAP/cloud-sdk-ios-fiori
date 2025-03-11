@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.3.5](https://github.com/SAP/cloud-sdk-ios-fiori/compare/4.3.4...4.3.5) (2025-03-08)
+
+
+### Bug Fixes
+
+* 🐛 [IOSSDKBUG-589] background color for destination row ([#1007](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1007)) ([8ddd486](https://github.com/SAP/cloud-sdk-ios-fiori/commit/8ddd4862f37f9f928af5e1be994ceeb9f6acad8d))
+* 🐛 [IOSSDKBUG-592] remove extra vertical spacing in object item ([#1013](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1013)) ([2cfd9cc](https://github.com/SAP/cloud-sdk-ios-fiori/commit/2cfd9ccc281cb45b5e6d2063e9fb90a41d31af3e))
+
 ### [4.3.4](https://github.com/SAP/cloud-sdk-ios-fiori/compare/4.3.3...4.3.4) (2025-03-05)
 
 
