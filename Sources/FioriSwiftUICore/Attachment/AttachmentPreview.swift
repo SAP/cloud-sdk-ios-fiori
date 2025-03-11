@@ -78,11 +78,11 @@ public struct AttachmentPreview: UIViewControllerRepresentable {
                     DispatchQueue.main.async {
                         if let index = self.parent.urls.firstIndex(of: self.parent.previewURL) {
                             self.parent.onDelete?(self.parent.urls[index])
-                            if self.parent.urls.count > 0 {
+                            if self.parent.urls.isEmpty {
+                                self.parent.onDismiss?()
+                            } else {
                                 self.parent.previewURL = self.parent.urls[index > 0 ? index - 1 : 0]
                                 self.viewController?.reloadData()
-                            } else {
-                                self.parent.onDismiss?()
                             }
                         }
                     }

@@ -2,6 +2,7 @@ import Foundation
 import PhotosUI
 import SwiftUI
 
+/// View modifier to apply attachment operations to operation button, i.e. + button
 public struct DefaultOperationsModifier: ViewModifier {
     @Environment(AttachmentContext.self) var context
 
@@ -97,6 +98,7 @@ public struct DefaultOperationsModifier: ViewModifier {
 }
 
 public extension View {
+    /// Apply default operations, PhotosPicker, FilesPicker, and Camera operations to a view.
     func defaultOperations() -> some View {
         modifier(DefaultOperationsModifier())
     }

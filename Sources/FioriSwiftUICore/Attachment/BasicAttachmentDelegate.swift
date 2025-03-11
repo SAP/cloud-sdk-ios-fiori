@@ -14,7 +14,7 @@ open class BasicAttachmentDelegate: AttachmentDelegate {
         let mgr = FileManager.default
         let folder = mgr.temporaryDirectory.appendingPathComponent(folderName, isDirectory: true)
         if !mgr.fileExists(atPath: folder.path) {
-            try! mgr.createDirectory(atPath: folder.path, withIntermediateDirectories: true, attributes: nil)
+            try? mgr.createDirectory(atPath: folder.path, withIntermediateDirectories: true, attributes: nil)
         }
         self.localFolder = folder
         onPrepare?(folder)

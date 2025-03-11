@@ -16,7 +16,7 @@ public class AttachmentContext {
     var photoSelectionFilter: [PHPickerFilter] = []
     var fileSelectionFilter: [UTType] = []
     
-    var delegate: AttachmentDelegate = BasicAttachmentDelegate()
+    weak var delegate: AttachmentDelegate? = BasicAttachmentDelegate()
     var configuration: AttachmentGroupConfiguration?
     
     func upload(contentFrom provider: NSItemProvider) {
@@ -24,7 +24,7 @@ public class AttachmentContext {
             print("AttachmentConfiguration is not initialized, yet. Please check code/usage.")
             return
         }
-        self.delegate.upload(contentFrom: provider) { url, error in
+        self.delegate?.upload(contentFrom: provider) { url, error in
             if let error {
                 if let attachmentError = error as? AttachmentError {
                     switch attachmentError {
@@ -75,7 +75,7 @@ public class AttachmentContext {
             return
         }
         
-        self.delegate.delete(url: attachment) { url, error in
+        self.delegate?.delete(url: attachment) { url, error in
             if let error {
                 if let attachmentError = error as? AttachmentError {
                     switch attachmentError {

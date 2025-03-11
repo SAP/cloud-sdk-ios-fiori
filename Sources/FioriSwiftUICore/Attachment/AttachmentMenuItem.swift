@@ -1,6 +1,7 @@
 import PhotosUI
 import SwiftUI
 
+/// PhotosPicker menu item
 public struct PhotosPickerMenuItem: View {
     @Environment(AttachmentContext.self) var context
     
@@ -22,6 +23,7 @@ public struct PhotosPickerMenuItem: View {
     }
 }
 
+/// FilesPicker menu item
 public struct FilesPickerMenuItem: View {
     @Environment(AttachmentContext.self) var context
 
@@ -43,6 +45,7 @@ public struct FilesPickerMenuItem: View {
     }
 }
 
+/// Camera menu item
 public struct CameraMenuItem: View {
     @Environment(AttachmentContext.self) var context
     
@@ -95,18 +98,32 @@ extension View {
     func handleSelectedFile(url: URL) {}
 }
 
+/// Convenient operation menu items definitions, to be merged into PhotosPickerMenuItem, FilesPickerMenuItem, and CameraMenuItem together with localiztion
 public enum AttachmentMenuItems {
+    /// PhotosPicker menu item with title and icon
     public static let photos = PhotosPickerMenuItem(title: "Pick Photos", icon: "photo")
+    
+    /// PhotosPicker menu item with icon only
     public static let photosImageOnlyNoTitle = PhotosPickerMenuItem(icon: "photo")
+    
+    /// File importer menu item with title and icon
     public static let files = FilesPickerMenuItem(title: "Pick Files", icon: "folder")
+    
+    /// File importer menu item with icon only
     public static let filesImageOnlyNoTitle = FilesPickerMenuItem(icon: "folder")
+    
+    /// Camera menu item with title and icon
     public static let camera = CameraMenuItem(title: "Take a Photo", icon: "camera")
+    
+    /// Camera menu item with icon only
     public static let cameraImageOnlyNoTitle = CameraMenuItem(icon: "camera")
     
+    /// PhotosPicker menu item with title, icon, and filter
     public static func photos(title: String? = nil, icon: String? = nil, filter: [PHPickerFilter] = []) -> PhotosPickerMenuItem {
         PhotosPickerMenuItem(title: title ?? "Pick Photos", icon: icon ?? "photo", filter: filter)
     }
     
+    /// FileImporter menu item with title, icon, and filter
     public static func files(title: String? = nil, icon: String? = nil, filter: [UTType] = []) -> FilesPickerMenuItem {
         FilesPickerMenuItem(title: title ?? "Pick Files", icon: icon ?? "folder", filter: filter)
     }

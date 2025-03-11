@@ -1,6 +1,7 @@
 import PhotosUI
 import SwiftUI
 
+/// View modifier to add operation (confirmation) dialog.
 struct OperationDialogModifier<V: View>: ViewModifier {
     private let menuItemContents: V
     
@@ -23,6 +24,7 @@ struct OperationDialogModifier<V: View>: ViewModifier {
 }
 
 public extension View {
+    /// Applies operation dialog to an anchor view.
     func operationsDialog(@ViewBuilder content: @escaping () -> some View) -> some View {
         modifier(OperationDialogModifier(menuItemContents: content))
     }

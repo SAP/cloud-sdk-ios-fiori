@@ -1,5 +1,6 @@
 import SwiftUI
 
+/// View modifier to apply menu items as an overlay to an anchor view
 public struct OperationOverlayModifier<V: View>: ViewModifier where V: View {
     @State private var showSubViews: Bool = false
 
@@ -34,6 +35,7 @@ public struct OperationOverlayModifier<V: View>: ViewModifier where V: View {
 }
 
 public extension View {
+    /// Applies items overlay to an anchor view.
     func operationsOverlay(@ViewBuilder content: @escaping () -> some View) -> some View {
         modifier(OperationOverlayModifier(menuItemContents: content))
     }

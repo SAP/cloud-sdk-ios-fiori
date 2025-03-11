@@ -1,6 +1,7 @@
 import PhotosUI
 import SwiftUI
 
+/// View modifier to apply menu items to a anchor view
 public struct OperationMenuModifier<V: View>: ViewModifier where V: View {
     private let menuItemContents: V
     
@@ -19,6 +20,7 @@ public struct OperationMenuModifier<V: View>: ViewModifier where V: View {
 }
 
 public extension View {
+    /// Applies menu items to an anchor view.
     func operationsMenu(@ViewBuilder content: @escaping () -> some View) -> some View {
         modifier(OperationMenuModifier(menuItemContents: content))
     }
