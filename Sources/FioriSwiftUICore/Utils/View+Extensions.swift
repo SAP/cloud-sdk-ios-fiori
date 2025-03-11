@@ -90,6 +90,7 @@ extension View {
     }
 }
 
+/// Inline view modifier
 public struct InlineModifier<R: View>: ViewModifier {
     private let block: (Content) -> R
     
@@ -103,6 +104,7 @@ public struct InlineModifier<R: View>: ViewModifier {
 }
 
 public extension View {
+    /// Apply InlineModifier.
     func modifier<T: View>(@ViewBuilder _ block: @escaping (AnyView) -> T) -> some View {
         self.modifier(InlineModifier<T>({ (content: InlineModifier<T>.Content) in
             block(AnyView(content))
