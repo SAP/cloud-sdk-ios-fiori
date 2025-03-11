@@ -1,4 +1,3 @@
-// import FioriSwiftUICore
 import SwiftUI
 
 extension View {
