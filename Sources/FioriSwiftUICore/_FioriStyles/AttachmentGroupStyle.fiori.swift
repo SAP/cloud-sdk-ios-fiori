@@ -83,28 +83,6 @@ public struct AttachmentGroupBaseStyle: AttachmentGroupStyle {
                         }
                 }
             }
-            .onDrop(of: [.item], isTargeted: nil) { providers, _ in
-                for provider in providers {
-                    self.context.delegate?.upload(contentFrom: provider) { url, error in
-                        if let error {
-                            print("Error uploading: \(error)")
-                            configuration.errorMessage = AttributedString(
-                                error is AttachmentError ?
-                                    error.localizedDescription : "Failed to upload attachment due to error: \(error.localizedDescription)."
-                            )
-                            return // stop processing further if error occurs to keep error showing.
-                        } else {
-                            if let url {
-                                configuration.attachments.append(url)
-                            } else {
-                                print("Unhandled use case, no url returned, no error.")
-                            }
-                            configuration.errorMessage = nil
-                        }
-                    }
-                }
-                return true
-            }
         }
         .quickLookPreview(self.$previewURL, in: configuration.attachments)
         .alert("Delete Attachment?", isPresented: self.$showingConfirmation) {
