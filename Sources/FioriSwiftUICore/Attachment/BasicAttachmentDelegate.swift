@@ -9,7 +9,7 @@ open class BasicAttachmentDelegate: AttachmentDelegate {
     /// Convince property for Apps to get local folder
     public let localFolder: URL
     
-    public init(localFolderName: String? = nil, onPrepare: ((URL) -> Void)? = nil) {
+    public init(localFolderName: String? = nil, onPreparation: ((URL) -> Void)? = nil) {
         let folderName = localFolderName ?? BasicAttachmentDelegate.demoFolderName
         let mgr = FileManager.default
         let folder = mgr.temporaryDirectory.appendingPathComponent(folderName, isDirectory: true)
@@ -17,7 +17,7 @@ open class BasicAttachmentDelegate: AttachmentDelegate {
             try? mgr.createDirectory(atPath: folder.path, withIntermediateDirectories: true, attributes: nil)
         }
         self.localFolder = folder
-        onPrepare?(folder)
+        onPreparation?(folder)
     }
     
     /// delete

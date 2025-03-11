@@ -16,7 +16,7 @@ public class AttachmentContext {
     var photoSelectionFilter: [PHPickerFilter] = []
     var fileSelectionFilter: [UTType] = []
     
-    weak var delegate: AttachmentDelegate? = BasicAttachmentDelegate()
+    weak var delegate: AttachmentDelegate?
     var configuration: AttachmentGroupConfiguration?
     
     func upload(contentFrom provider: NSItemProvider) {
