@@ -363,7 +363,7 @@ public struct BannerMultiMessageSheetBaseStyle: BannerMultiMessageSheetStyle {
             })
             
             // workaround for forcing list refresh when second layer array modified in bannerMultiMessage.
-            Text("\(self.refreshFlag)")
+            Text("\(self.refreshFlag ? "true" : "false")")
                 .frame(height: 0.01)
                 .opacity(0)
         })
