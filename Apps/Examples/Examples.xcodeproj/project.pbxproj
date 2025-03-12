@@ -198,6 +198,7 @@
 		C150CCCC2B86B78E00118DF7 /* ChromeEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = C150CCCB2B86B78E00118DF7 /* ChromeEffect.swift */; };
 		C167183C2B477A81005E2629 /* SearchDemos.swift in Sources */ = {isa = PBXBuildFile; fileRef = C167183B2B477A81005E2629 /* SearchDemos.swift */; };
 		C180F3092D7A3F4700991974 /* AttachmentDelegateExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = C180F3082D7A3F3200991974 /* AttachmentDelegateExample.swift */; };
+		C180F30D2D820E5000991974 /* AttachmentExamples.swift in Sources */ = {isa = PBXBuildFile; fileRef = C180F30C2D820E4200991974 /* AttachmentExamples.swift */; };
 		C1865D9D2D6D31BF00C42A98 /* FileFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1865D9C2D6D31B600C42A98 /* FileFilter.swift */; };
 		C1865D9F2D6D31C800C42A98 /* PhotoFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1865D9E2D6D31C400C42A98 /* PhotoFilter.swift */; };
 		C1865DA12D6D323100C42A98 /* FilterCFG.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1865DA02D6D322600C42A98 /* FilterCFG.swift */; };
@@ -462,6 +463,7 @@
 		C150CCCB2B86B78E00118DF7 /* ChromeEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChromeEffect.swift; sourceTree = "<group>"; };
 		C167183B2B477A81005E2629 /* SearchDemos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDemos.swift; sourceTree = "<group>"; };
 		C180F3082D7A3F3200991974 /* AttachmentDelegateExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentDelegateExample.swift; sourceTree = "<group>"; };
+		C180F30C2D820E4200991974 /* AttachmentExamples.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentExamples.swift; sourceTree = "<group>"; };
 		C1865D9C2D6D31B600C42A98 /* FileFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileFilter.swift; sourceTree = "<group>"; };
 		C1865D9E2D6D31C400C42A98 /* PhotoFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoFilter.swift; sourceTree = "<group>"; };
 		C1865DA02D6D322600C42A98 /* FilterCFG.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCFG.swift; sourceTree = "<group>"; };
@@ -1116,6 +1118,7 @@
 		C1ECE3272D2C8F27003ACD24 /* Attachment */ = {
 			isa = PBXGroup;
 			children = (
+				C180F30C2D820E4200991974 /* AttachmentExamples.swift */,
 				C180F3082D7A3F3200991974 /* AttachmentDelegateExample.swift */,
 				C1865DA02D6D322600C42A98 /* FilterCFG.swift */,
 				C1865D9E2D6D31C400C42A98 /* PhotoFilter.swift */,
@@ -1345,6 +1348,7 @@
 				6DEC31F42C463ED50084DD20 /* FioriButtonTestsExample.swift in Sources */,
 				8A6DE30B28DD27F9003222E3 /* Colors.swift in Sources */,
 				876964222D6B7D0C005AB5B2 /* KPIViewExample.swift in Sources */,
+				C180F30D2D820E5000991974 /* AttachmentExamples.swift in Sources */,
 				8AD9DFB225D49967007448EC /* StylingModifierExample.swift in Sources */,
 				9D0B260A2B9BA5C0004278A5 /* NoteFormViewExample.swift in Sources */,
 				B1A78D982C88388B00432B0D /* ShadowEffectExample.swift in Sources */,
