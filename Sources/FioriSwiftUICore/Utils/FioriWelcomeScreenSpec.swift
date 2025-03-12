@@ -35,10 +35,10 @@ class FioriWelcomeScreenSpec_Medium: FioriWelcomeScreenSpec {
     
     var headlineImageTopPadding: CGFloat { 42 }
     var headlineLabelTopPadding: CGFloat { 14 }
-    var detailLabelTopPadding: CGFloat { 40.0 }
+    var detailLabelTopPadding: CGFloat { 8.0 }
     
     var tryDemoTopPadding: CGFloat { 8 }
-    var logoTopPadding: CGFloat { 24 }
+    var logoTopPadding: CGFloat { 8 }
     var logoBottomPadding: CGFloat { 32 }
 }
 

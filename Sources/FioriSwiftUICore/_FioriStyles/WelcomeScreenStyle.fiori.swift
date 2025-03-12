@@ -123,10 +123,10 @@ public struct WelcomeScreenBaseStyle: WelcomeScreenStyle {
                 
                 configuration.icon
                     .padding(.top, welcomeScreenSpec.logoTopPadding)
-                    .padding(.bottom, welcomeScreenSpec.logoBottomPadding)
+                    .padding(.bottom, welcomeScreenSpec.logoBottomPadding * (configuration.footerText.isEmpty ? 2 : 1))
                 
                 configuration.footerText
-                    .padding(.bottom, 8)
+                    .padding(.bottom, 16)
             }
             .padding(.leading, welcomeScreenSpec.leftPadding)
             .padding(.trailing, welcomeScreenSpec.rightPadding)
