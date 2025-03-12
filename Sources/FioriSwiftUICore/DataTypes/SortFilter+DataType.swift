@@ -18,6 +18,8 @@ public enum SortFilterItem: Identifiable, Hashable {
             return item.id
         case .stepper(let item, _):
             return item.id
+        case .title(let item, _):
+            return item.id
         }
     }
     
@@ -67,6 +69,13 @@ public enum SortFilterItem: Identifiable, Hashable {
     /// 2. A section of view containing a SwiftUI Stepper with Fiori style
     case stepper(item: StepperItem, showsOnFilterFeedbackBar: Bool)
         
+    /// The type of UI control is used to build:
+    ///
+    /// 1. Sort & Filter's menu item associated with a popover containing a SwiftUI TitleFormView with Fiori style
+    ///
+    /// 2. A section of view containing a SwiftUI TitleFormView with Fiori style
+    case title(item: TitleItem, showsOnFilterFeedbackBar: Bool)
+
     public var showsOnFilterFeedbackBar: Bool {
         switch self {
         case .picker(_, let showsOnFilterFeedbackBar):
@@ -80,6 +89,8 @@ public enum SortFilterItem: Identifiable, Hashable {
         case .datetime(_, let showsOnFilterFeedbackBar):
             return showsOnFilterFeedbackBar
         case .stepper(_, let showsOnFilterFeedbackBar):
+            return showsOnFilterFeedbackBar
+        case .title(_, let showsOnFilterFeedbackBar):
             return showsOnFilterFeedbackBar
         }
     }
@@ -117,6 +128,11 @@ public enum SortFilterItem: Identifiable, Hashable {
             hasher.combine(item.originalValue)
             hasher.combine(item.workingValue)
             hasher.combine(item.value)
+        case .title(let item, _):
+            hasher.combine(item.id)
+            hasher.combine(item.originalText)
+            hasher.combine(item.workingText)
+            hasher.combine(item.text)
         }
     }
 }
@@ -242,6 +258,26 @@ extension SortFilterItem {
         }
     }
     
+    var title: TitleItem {
+        get {
+            switch self {
+            case .title(let item, _):
+                return item
+            default:
+                fatalError("Unexpected value \(self)")
+            }
+        }
+        
+        set {
+            switch self {
+            case .title(_, let showsOnFilterFeedbackBar):
+                self = .title(item: newValue, showsOnFilterFeedbackBar: showsOnFilterFeedbackBar)
+            default:
+                fatalError("Unexpected value \(self)")
+            }
+        }
+    }
+    
     var isChanged: Bool {
         switch self {
         case .picker(let item, _):
@@ -255,6 +291,8 @@ extension SortFilterItem {
         case .slider(let item, _):
             return item.isChanged
         case .stepper(let item, _):
+            return item.isChanged
+        case .title(let item, _):
             return item.isChanged
         }
     }
@@ -272,6 +310,8 @@ extension SortFilterItem {
         case .slider(let item, _):
             return item.isOriginal
         case .stepper(let item, _):
+            return item.isOriginal
+        case .title(let item, _):
             return item.isOriginal
         }
     }
@@ -296,6 +336,8 @@ extension SortFilterItem {
         case .stepper(var item, _):
             item.cancel()
             self.stepper = item
+        case .title(var item, _):
+            item.cancel()
         }
     }
     
@@ -319,6 +361,8 @@ extension SortFilterItem {
         case .stepper(var item, _):
             item.reset()
             self.stepper = item
+        case .title(var item, _):
+            item.reset()
         }
     }
     
@@ -342,6 +386,8 @@ extension SortFilterItem {
         case .stepper(var item, _):
             item.apply()
             self.stepper = item
+        case .title(var item, _):
+            item.apply()
         }
     }
 }
@@ -1010,6 +1056,80 @@ public extension SortFilterItem {
         
         var isOriginal: Bool {
             self.workingValue == self.originalValue
+        }
+    }
+    
+    /// Data structure for boolean type
+    struct TitleItem: Identifiable, Equatable {
+        public var id: String
+        public var name: String
+        public let icon: String?
+        
+        public var text: String
+        var workingText: String
+        let originalText: String
+        public var isSecureEnabled: Bool? = false
+        public var placeholder: String?
+        public var controlState: ControlState = .normal
+        public var errorMessage: String?
+        public var maxTextLength: Int?
+        public let hintText: String?
+        public let hidesReadOnlyHint: Bool
+        public let isCharCountEnabled: Bool
+        public let allowsBeyondLimit: Bool
+        public let charCountReachLimitMessage: String?
+        public let charCountBeyondLimitMsg: String?
+        
+        public init(id: String = UUID().uuidString, name: String, text: String, isSecureEnabled: Bool? = false, placeholder: String? = nil, controlState: ControlState = .normal, errorMessage: String? = nil, maxTextLength: Int? = nil, hidesReadOnlyHint: Bool = false, isCharCountEnabled: Bool = false, allowsBeyondLimit: Bool = false, charCountReachLimitMessage: String? = nil, charCountBeyondLimitMsg: String? = nil, icon: String? = nil, hintText: String? = nil) {
+            self.id = id
+            self.name = name
+            self.text = text
+            self.workingText = text
+            self.originalText = text
+            self.icon = icon
+            self.isSecureEnabled = isSecureEnabled
+            self.placeholder = placeholder
+            self.controlState = controlState
+            self.errorMessage = errorMessage
+            self.maxTextLength = maxTextLength
+            self.hidesReadOnlyHint = hidesReadOnlyHint
+            self.isCharCountEnabled = isCharCountEnabled
+            self.allowsBeyondLimit = allowsBeyondLimit
+            self.charCountReachLimitMessage = charCountReachLimitMessage
+            self.charCountBeyondLimitMsg = charCountBeyondLimitMsg
+            self.hintText = hintText
+        }
+        
+        mutating func reset() {
+            self.workingText = self.originalText
+        }
+        
+        mutating func cancel() {
+            self.workingText = self.text
+        }
+        
+        mutating func apply() {
+            self.text = self.workingText
+        }
+        
+        var isChecked: Bool {
+            !self.text.isEmpty
+        }
+        
+        var isChanged: Bool {
+            self.text != self.workingText
+        }
+        
+        var isOriginal: Bool {
+            self.workingText == self.originalText
+        }
+        
+        var label: String {
+            "\(self.name): \(String(describing: self.text))"
+        }
+        
+        mutating func setValue(newValue: TitleItem) {
+            self.text = newValue.text
         }
     }
 }

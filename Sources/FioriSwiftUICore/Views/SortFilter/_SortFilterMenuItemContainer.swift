@@ -68,6 +68,8 @@ extension _SortFilterMenuItemContainer: View {
                                     .accessibilityLabel(self._items[r][c].stepper.label)
                                     .accessibilityIdentifier(self._items[r][c].stepper.name)
                                     .accessibility(addTraits: .isButton)
+                            default:
+                                EmptyView()
                             }
                         }
                     }

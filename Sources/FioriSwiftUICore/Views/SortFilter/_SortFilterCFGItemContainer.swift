@@ -244,6 +244,9 @@ extension _SortFilterCFGItemContainer: View {
         case .stepper:
             self.stepper(row: r, column: c)
                 .padding([.top, .bottom], 12)
+        case .title:
+            self.titleForm(row: r, column: c)
+                .padding([.top, .bottom], 12)
         }
     }
     
@@ -567,6 +570,31 @@ extension _SortFilterCFGItemContainer: View {
             .sizeReader { s in
                 self.stepperViewHeight = max(self.stepperViewHeight, s.height)
             }
+        }
+    }
+    
+    private func titleForm(row r: Int, column c: Int) -> some View {
+        VStack {
+            HStack {
+                Text(self._items[r][c].title.name)
+                    .font(.fiori(forTextStyle: .subheadline, weight: .bold, isItalic: false, isCondensed: false))
+                    .foregroundColor(Color.preferredColor(.primaryLabel))
+                Spacer()
+            }
+            .padding([.leading, .trailing], UIDevice.current.userInterfaceIdiom != .phone ? 0 : 16)
+            
+            TitleFormView(text: Binding<String>(get: { self._items[r][c].title.workingText }, set: { self._items[r][c].title.workingText = $0 }),
+                          isSecureEnabled: self._items[r][c].title.isSecureEnabled,
+                          placeholder: self._items[r][c].title.placeholder?.attributedString,
+                          controlState: self._items[r][c].title.controlState,
+                          errorMessage: self._items[r][c].title.errorMessage?.attributedString,
+                          maxTextLength: self._items[r][c].title.maxTextLength,
+                          hintText: self._items[r][c].title.hintText?.attributedString,
+                          hidesReadOnlyHint: self._items[r][c].title.hidesReadOnlyHint,
+                          isCharCountEnabled: self._items[r][c].title.isCharCountEnabled,
+                          allowsBeyondLimit: self._items[r][c].title.allowsBeyondLimit,
+                          charCountReachLimitMessage: self._items[r][c].title.charCountReachLimitMessage,
+                          charCountBeyondLimitMsg: self._items[r][c].title.charCountBeyondLimitMsg)
         }
     }
     
