@@ -163,9 +163,6 @@ public struct BannerMultiMessageSheetBaseStyle: BannerMultiMessageSheetStyle {
                 }
                 if configuration.bannerMultiMessages[i].items.isEmpty {
                     self.handleRemoveCategory(configuration, category: category)
-                } else {
-                    configuration.bannerMultiMessages.remove(at: i)
-                    configuration.bannerMultiMessages.insert(element, at: i)
                 }
                 break
             }
@@ -183,10 +180,8 @@ public struct BannerMultiMessageSheetBaseStyle: BannerMultiMessageSheetStyle {
             var element = configuration.bannerMultiMessages[i]
             if element.category == category {
                 if let aiNoticeItem = element.items.first(where: { $0.messageType == .aiNotice }), isFromClear {
-                    element.items.removeAll()
-                    element.items.append(aiNoticeItem)
-                    configuration.bannerMultiMessages.remove(at: i)
-                    configuration.bannerMultiMessages.insert(element, at: i)
+                    configuration.bannerMultiMessages[i].items.removeAll()
+                    configuration.bannerMultiMessages[i].items.append(aiNoticeItem)
                 } else {
                     configuration.bannerMultiMessages.remove(at: i)
                 }
