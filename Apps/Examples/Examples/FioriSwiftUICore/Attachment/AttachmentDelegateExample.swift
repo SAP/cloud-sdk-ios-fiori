@@ -52,7 +52,7 @@ struct AttachmentDelegateExample: View {
         ScrollView {
             VStack {
                 AttachmentGroup(
-                    title: { Text("Finished/Readonly Attachments \(self.groupOneAttachments.count)") },
+                    title: { Text("Finished/Readonly Attachments (\(self.groupOneAttachments.count))") },
                     attachments: self.$groupOneAttachments,
                     delegate: self.groupOneProeceeor,
                     controlState: .readOnly,
@@ -75,7 +75,7 @@ struct AttachmentDelegateExample: View {
                 )
                 
                 AttachmentGroup(
-                    title: { Text("Attachments w/ Custom Processor") },
+                    title: { Text("Attachments w/ Custom Delegate") },
                     attachments: self.$groupThreeAttachments,
                     maxCount: 5,
                     delegate: self.groupThreeProeceeor,

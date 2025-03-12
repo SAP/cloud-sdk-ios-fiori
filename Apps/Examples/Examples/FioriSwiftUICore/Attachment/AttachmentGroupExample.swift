@@ -155,7 +155,7 @@ struct AttachmentGroupExample: View {
     @ViewBuilder
     func attachments() -> some View {
         AttachmentGroup(
-            title: { Text("Attachments \(self.urls.count)") },
+            title: { Text("Attachments (\(self.urls.count))") },
             attachments: self.$urls,
             maxCount: self.maxCount,
             controlState: self.state,
