@@ -295,9 +295,9 @@ struct BannerMultiMessageExample: View {
             let tips = "First name correct."
             self.firstNameErrorMessage = AttributedString()
             informationMessages.append(BannerMessageItemModel(id: self.firstNameId, icon: EmptyView(), title: tips + " Developer custom icon.", messageType: .positive, showDetailLink: false, showCloseAction: false))
-            informationMessages.append(BannerMessageItemModel(id: self.firstNameId, icon: Image(fioriName: "fiori.home"), title: tips + " Developer custom icon.", messageType: .positive, showDetailLink: false, showCloseAction: false))
-            informationMessages.append(BannerMessageItemModel(id: self.firstNameId, icon: Image(fioriName: "fiori.home"), title: tips + " Developer custom icon.", messageType: .positive, showDetailLink: false))
-            informationMessages.append(BannerMessageItemModel(id: self.firstNameId, icon: Image(fioriName: "fiori.home"), title: tips + " Developer custom icon.", messageType: .positive))
+            informationMessages.append(BannerMessageItemModel(id: UUID(), icon: Image(fioriName: "fiori.home"), title: tips + " Developer custom icon.", messageType: .positive, showDetailLink: false, showCloseAction: false))
+            informationMessages.append(BannerMessageItemModel(id: UUID(), icon: Image(fioriName: "fiori.home"), title: tips + " Developer custom icon.", messageType: .positive, showDetailLink: false))
+            informationMessages.append(BannerMessageItemModel(id: UUID(), icon: Image(fioriName: "fiori.home"), title: tips + " Developer custom icon.", messageType: .positive))
             informationMessages.append(BannerMessageItemModel(id: UUID(), icon: EmptyView(), title: tips + " Empty icon.", messageType: .positive))
             informationMessages.append(BannerMessageItemModel(id: UUID(), icon: nil, title: tips + " SDK default icon.", messageType: .positive))
         }

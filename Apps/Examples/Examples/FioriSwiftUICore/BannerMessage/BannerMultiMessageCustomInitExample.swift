@@ -59,6 +59,9 @@ struct BannerMultiMessageCustomInitExample: View {
     @State private var lastNameErrorMessage = AttributedString()
     @State private var emailAddressErrorMessage = AttributedString()
     
+    // workaround for forcing list refresh when second layer array modified in bannerMultiMessage.
+    @State private var refreshFlag = false
+    
     var customizeNoticeMsg: AttributedString {
         var msgText = AttributedString("Customized AI Notice. ")
         msgText.font = .footnote.italic()
@@ -104,7 +107,14 @@ struct BannerMultiMessageCustomInitExample: View {
                 Section {
                     HStack {
                         Spacer()
-                        Text("Check Result")
+                        ZStack {
+                            Text("Check Result")
+                            
+                            // workaround for forcing list refresh when second layer array modified in bannerMultiMessage.
+                            Text("\(self.refreshFlag ? "true" : "false")")
+                                .frame(height: 0.01)
+                                .opacity(0)
+                        }
                         Spacer()
                     }
                     .popover(isPresented: self.$showingMessageDetail) {
@@ -121,6 +131,7 @@ struct BannerMultiMessageCustomInitExample: View {
                             self.showingMessageDetail = false
                         }, removeAction: { category, _ in
                             self.removeCategory(category: category)
+                            self.refreshFlag.toggle()
                         }, turnOnSectionHeader: self.turnOnSectionHeader, messageItemView: { id in
                             if let (message, category) = getItemData(with: id) {
                                 BannerMessage(icon: {
@@ -340,14 +351,13 @@ struct BannerMultiMessageCustomInitExample: View {
             let item = self.bannerMultiMessages[i]
             if item.category == category {
                 if let id {
-                    var messages = self.bannerMultiMessages[i].items
+                    let messages = item.items
                     for index in 0 ..< messages.count where messages[index].id == id {
-                        messages.remove(at: index)
+                        self.bannerMultiMessages[i].items.remove(at: index)
+                        refreshFlag.toggle()
                         break
                     }
-                    self.bannerMultiMessages[i].items = messages
-                    
-                    if messages.isEmpty {
+                    if self.bannerMultiMessages[i].items.isEmpty {
                         self.removeCategory(category: category)
                     }
                 } else {

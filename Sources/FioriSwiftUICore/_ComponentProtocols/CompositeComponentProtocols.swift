@@ -1589,7 +1589,7 @@ protocol _UserConsentFormComponent: _NextActionComponent, _CancelActionComponent
 // sourcery: CompositeComponent
 protocol _UserConsentPageComponent: _TitleComponent, _BodyTextComponent, _ActionComponent {}
 
-/// `AINotice` is a SwiftUI view that indicates when a form cell's content is AI-supported or AI-generated. It features an icon, a description, and an action label for accessing more details. If the icon or description is not set, a default value will be used.
+/// `AINotice` is a SwiftUI view indicating if content is AI-supported or AI-generated. It can include an icon, a description, and an action label for accessing more details. If the icon or description is not set, a default value will be used. Action label has no default value and has to be set to be used.
 /// ## Usage
 /// ```swift
 ///  @State var showsAction = false

@@ -61,7 +61,7 @@ class CategorySelect: ObservableObject {
     }
 }
 
-public struct BannerMessageListModel: Identifiable, Equatable {
+public class BannerMessageListModel: Identifiable, Equatable, ObservableObject {
     public static func == (lhs: BannerMessageListModel, rhs: BannerMessageListModel) -> Bool {
         lhs.id == rhs.id
     }
@@ -69,7 +69,7 @@ public struct BannerMessageListModel: Identifiable, Equatable {
     public var id: UUID
     // customized category, like "Errors", "Warnings", "Information", etc
     public let category: String
-    public var items: [BannerMessageItemModel]
+    @Published public var items: [BannerMessageItemModel]
     
     /// Public initializer for BannerMessageListModel
     /// - Parameters:
@@ -103,6 +103,8 @@ public struct BannerMultiMessageSheetBaseStyle: BannerMultiMessageSheetStyle {
     @State private var dimensionSelectorHeight: CGFloat = 0
     @State private var messageCountHeight: CGFloat = 65
     
+    // workaround for forcing list refresh when second layer array modified in bannerMultiMessage.
+    @State private var refreshFlag = false
     private let viewDetailOpenUrlStr = "MultiMessageViewDetail"
     
     private var popoverHeight: CGFloat? {
@@ -152,19 +154,18 @@ public struct BannerMultiMessageSheetBaseStyle: BannerMultiMessageSheetStyle {
     
     private func removeItem(_ configuration: BannerMultiMessageSheetConfiguration, category: String, at id: UUID) {
         for i in 0 ..< configuration.bannerMultiMessages.count {
-            var element = configuration.bannerMultiMessages[i]
+            let element = configuration.bannerMultiMessages[i]
             if element.category == category {
                 for index in 0 ..< element.items.count where element.items[index].id == id {
-                    element.items.remove(at: index)
+                    configuration.bannerMultiMessages[i].items.remove(at: index)
+                    refreshFlag.toggle()
                     break
                 }
-                if element.items.isEmpty {
+                if configuration.bannerMultiMessages[i].items.isEmpty {
                     self.handleRemoveCategory(configuration, category: category)
                 } else {
                     configuration.bannerMultiMessages.remove(at: i)
-                    withAnimation {
-                        configuration.bannerMultiMessages.insert(element, at: i)
-                    }
+                    configuration.bannerMultiMessages.insert(element, at: i)
                 }
                 break
             }
@@ -189,6 +190,7 @@ public struct BannerMultiMessageSheetBaseStyle: BannerMultiMessageSheetStyle {
                 } else {
                     configuration.bannerMultiMessages.remove(at: i)
                 }
+                self.refreshFlag.toggle()
                 break
             }
         }
@@ -303,8 +305,7 @@ public struct BannerMultiMessageSheetBaseStyle: BannerMultiMessageSheetStyle {
                             .padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
                         }
                         
-                        ForEach(0 ..< element.items.count, id: \.self) { index in
-                            let message = element.items[index]
+                        ForEach(element.items, id: \.id) { message in
                             
                             if !configuration.messageItemView(message.id).isEmpty {
                                 AnyView(configuration.messageItemView(message.id))
@@ -372,6 +373,10 @@ public struct BannerMultiMessageSheetBaseStyle: BannerMultiMessageSheetStyle {
                     }
                 }
             })
+            // workaround for forcing list refresh when second layer array modified in bannerMultiMessage.
+            Text("\(self.refreshFlag ? "true" : "false")")
+                .frame(height: 0.01)
+                .opacity(0)
         })
         .background(Color.preferredColor(.chrome))
         .onDisappear(perform: {
