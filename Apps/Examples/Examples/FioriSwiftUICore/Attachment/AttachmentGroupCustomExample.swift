@@ -48,7 +48,7 @@ struct AttachmentGroupCustomExample: View {
                         files.forEach { file in
                             let gotAccess = file.startAccessingSecurityScopedResource()
                             if !gotAccess { return }
-                            // handleSelectedFile(url: file)
+                            // app's logic goes here
                             file.stopAccessingSecurityScopedResource()
                         }
                     case .failure(let error):
@@ -66,9 +66,8 @@ struct AttachmentGroupCustomExample: View {
                     .photosPickerStyle(.inline)
                 }
                 .onChange(of: self.selectedPhotos) { _, _ in
-                    //                convertDataToImage()
+                    // app's logic goes here
                 }
-                .padding()
             }
         }
     }

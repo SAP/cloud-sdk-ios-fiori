@@ -204,23 +204,15 @@ struct AttachmentGroupExample: View {
         )
         .ifApply(!self.defaultPreview) {
             $0.fullScreenCover(isPresented: self.shouldShowPreview) {
-                if self.state == .normal {
-                    AttachmentPreview(
-                        urls: self.$urls,
-                        previewURL: Binding<URL>(get: { self.previewURL ?? URL(fileURLWithPath: "/dev/null") }, set: { self.previewURL = $0 })
-                    ) { url in
-                        print("Delete atttachment \(url)")
-                        self.urls.removeAll { $0 == url }
-                    } onDismiss: {
-                        self.previewURL = nil
-                    }
-                } else {
-                    AttachmentPreview(
-                        urls: self.$urls,
-                        previewURL: Binding<URL>(get: { self.previewURL ?? URL(fileURLWithPath: "/dev/null") }, set: { self.previewURL = $0 }), onDismiss: {
-                            self.previewURL = nil
-                        }
-                    )
+                AttachmentPreview(
+                    urls: self.$urls,
+                    previewURL: Binding<URL>(get: { self.previewURL ?? URL(fileURLWithPath: "/dev/null") }, set: { self.previewURL = $0 }),
+                    controlState: self.$state
+                ) { url in
+                    print("Delete atttachment \(url)")
+                    self.urls.removeAll { $0 == url }
+                } onDismiss: {
+                    self.previewURL = nil
                 }
             }
         }

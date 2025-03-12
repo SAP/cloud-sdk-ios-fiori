@@ -9,7 +9,7 @@ public struct AttachmentPreview: UIViewControllerRepresentable {
     let onDelete: ((URL) -> Void)?
     let onDismiss: (() -> Void)?
     
-    public init(urls: Binding<[URL]>, previewURL: Binding<URL>, controlState: Binding<ControlState> = .constant(.normal), onDelete: ((URL) -> Void)? = nil, onDismiss: (() -> Void)? = nil) {
+    public init(urls: Binding<[URL]>, previewURL: Binding<URL>, controlState: Binding<ControlState>, onDelete: ((URL) -> Void)? = nil, onDismiss: (() -> Void)? = nil) {
         self._urls = urls
         self._previewURL = previewURL
         self.onDelete = onDelete
@@ -23,7 +23,7 @@ public struct AttachmentPreview: UIViewControllerRepresentable {
         let coordinator = context.coordinator
         controller.dataSource = coordinator
         
-        if self.controlState != .readOnly || self.controlState != .readOnly {
+        if self.controlState == .normal {
             controller.navigationItem.rightBarButtonItems = [
                 UIBarButtonItem(barButtonSystemItem: .done, target: context.coordinator, action: #selector(coordinator.dismiss)),
                 UIBarButtonItem(barButtonSystemItem: .trash, target: context.coordinator, action: #selector(coordinator.delete(sender:)))
