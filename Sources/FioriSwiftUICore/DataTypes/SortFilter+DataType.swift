@@ -473,6 +473,9 @@ public extension SortFilterItem {
         var allowsDisplaySelectionCount: Bool = true
         var resetButtonConfiguration: FilterFeedbackBarResetButtonConfiguration = .init()
         
+        var uuidValueOptions: [ValueOptionModel] = []
+        var workingValueSet: Set<UUID> = []
+        
         /// Available OptionListPicker modes. Use this enum to define picker mode  to present.
         public enum DisplayMode {
             /// Decided by options count
@@ -508,6 +511,17 @@ public extension SortFilterItem {
             case disable
         }
         
+        /// Model for valueOptions, add unique identifier and index for valueOptions
+        struct ValueOptionModel: Identifiable, Equatable {
+            let id = UUID()
+            let index: Int
+            let value: String
+            init(index: Int, value: String) {
+                self.index = index
+                self.value = value
+            }
+        }
+        
         /// Create PickerItem for filter feedback.
         /// When `displayMode` is `.filterFormCell`, the styles of options can be customized by some styles of FilterFormView, such as:
         /// filterFormOptionAttributes, filterFormOptionMinHeight, filterFormOptionMinTouchHeight, filterFormOptionCornerRadius, filterFormOptionPadding, filterFormOptionTitleSpacing, filterFormOptionsItemSpacing, filterFormOptionsLineSpacing.
@@ -535,6 +549,13 @@ public extension SortFilterItem {
             self.workingValue = value
             self.originalValue = value
             self.valueOptions = valueOptions
+            self.uuidValueOptions = valueOptions.enumerated().map { index, option in
+                ValueOptionModel(index: index, value: option)
+            }
+            
+            let workingValueSetArray: [UUID] = self.uuidValueOptions.filter { value.contains($0.index) }.map(\.id)
+            self.workingValueSet = Set(workingValueSetArray)
+            
             self.allowsMultipleSelection = allowsMultipleSelection
             self.allowsEmptySelection = allowsEmptySelection
             self.isSearchBarHidden = isSearchBarHidden
@@ -603,10 +624,16 @@ public extension SortFilterItem {
         
         mutating func reset() {
             self.workingValue = self.originalValue.map { $0 }
+            
+            let workingValueArray = self.originalValue.flatMap { originalValue in
+                self.uuidValueOptions.filter { $0.index == originalValue }.map(\.id)
+            }
+            self.workingValueSet = Set(workingValueArray)
         }
         
         mutating func clearAll() {
             self.workingValue.removeAll()
+            self.workingValueSet.removeAll()
         }
         
         mutating func apply() {
@@ -1059,7 +1086,7 @@ public extension SortFilterItem {
         }
     }
     
-    /// Data structure for boolean type
+    /// Data structure for title type
     struct TitleItem: Identifiable, Equatable {
         public var id: String
         public var name: String
@@ -1080,6 +1107,23 @@ public extension SortFilterItem {
         public let charCountReachLimitMessage: String?
         public let charCountBeyondLimitMsg: String?
         
+        /// Create a textfiled.
+        /// - Parameters:
+        ///   - id: The unique identifier for TitleItem.
+        ///   - name: Item name.
+        ///   - text: The text in textfield.
+        ///   - isSecureEnabled: A boolean value to indicate to whether the textfield is secure textfield.
+        ///   - placeholder: A text for placeholder of textfield.
+        ///   - controlState: A state for textfield.
+        ///   - errorMessage: A text when the text of textfield not satisfy conditions.
+        ///   - maxTextLength: A maximum value for text length.
+        ///   - hidesReadOnlyHint: A boolean value to indicate to hide read only hint or not.
+        ///   - isCharCountEnabled: A boolean value to indicate to display char count or not.
+        ///   - allowsBeyondLimit: A boolean value to indicate to allows inputting text beyond maximum char count limit or not.
+        ///   - charCountReachLimitMessage: A text for char count reach maximum limit.
+        ///   - charCountBeyondLimitMsg: A text for char beyond maximum limit.
+        ///   - icon: The icon image in the item bar.
+        ///   - hintText: The hint text of the textfiled.
         public init(id: String = UUID().uuidString, name: String, text: String, isSecureEnabled: Bool? = false, placeholder: String? = nil, controlState: ControlState = .normal, errorMessage: String? = nil, maxTextLength: Int? = nil, hidesReadOnlyHint: Bool = false, isCharCountEnabled: Bool = false, allowsBeyondLimit: Bool = false, charCountReachLimitMessage: String? = nil, charCountBeyondLimitMsg: String? = nil, icon: String? = nil, hintText: String? = nil) {
             self.id = id
             self.name = name

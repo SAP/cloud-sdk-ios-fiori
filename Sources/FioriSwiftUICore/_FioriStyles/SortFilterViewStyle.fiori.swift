@@ -63,7 +63,7 @@ public struct SortFilterViewBaseStyle: SortFilterViewStyle {
     }
     
     func additionHeight() -> CGFloat {
-        self.context.isPickerListShown ? (self.context.isSearchBarHidden ? 68 : 120) : 120
+        self.context.isPickerListShown ? (self.context.isSearchBarHidden ? 68 : (self.context.isKeyboardShown ? 100 : 120)) : 120
     }
 }
 
