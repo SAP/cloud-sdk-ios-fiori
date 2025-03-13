@@ -3,6 +3,23 @@
 import Foundation
 import SwiftUI
 
+/// `AINotice` is a SwiftUI view indicating if content is AI-supported or AI-generated. It can include an icon, a description, and an action label for accessing more details. If the icon or description is not set, a default value will be used. Action label has no default value and has to be set to be used.
+/// ## Usage
+/// ```swift
+///  @State var showsAction = false
+///  KeyValueItem {
+///     Text("Marital Status Since*")
+///   } value: {
+///     Text(self.maritalStatusSince)
+///   }
+///   .id(self.maritalStatusSinceId)
+///   .aiNoticeView(isPresented: self.$showAINotice, icon: Image(fioriName: "fiori.ai"), description: "AI Notice with icon. ", actionLabel: "View more details", viewMoreAction: self.toggleShowSheet)
+///   .sheet(isPresented: self.$showBottomSheet) {
+///      Text("detail information")
+///         .presentationDetents([.height(250), .medium])
+///         .presentationDragIndicator(.visible)
+///    }
+/// ```
 public struct AINotice {
     let icon: any View
     ///  An `AttributedString` representing the AI notice message.

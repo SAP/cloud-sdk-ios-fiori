@@ -1712,6 +1712,7 @@ protocol _AINoticeComponent: _IconComponent {
     /// The`HorizontalAlignment` of the AINotice view. The default value is `leading`.
     // sourcery: defaultValue = .leading
     var viewAlignment: HorizontalAlignment { get }
+}
 
 /// `EULAView` is used to display the End User License Agreement, EULA.
 /// ## Usage

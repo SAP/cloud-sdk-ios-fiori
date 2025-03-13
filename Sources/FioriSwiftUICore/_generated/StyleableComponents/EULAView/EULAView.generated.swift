@@ -3,6 +3,21 @@
 import Foundation
 import SwiftUI
 
+/// `EULAView` is used to display the End User License Agreement, EULA.
+/// ## Usage
+/// ```swift
+///        EULAView(title: "EULA",
+///                 bodyText: "BodyText",
+///                 didAgree: {
+///            print("EULAView - didAgree")
+///        },
+///                 didDisagree: {
+///            print("EULAView - didDisagree")
+///        },
+///                 didCancel: {
+///            presentationMode.wrappedValue.dismiss()
+///        })
+/// ```
 public struct EULAView {
     let title: any View
     let bodyText: any View
