@@ -1,8 +1,8 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
-//TODO: Copy commented code to new file: `FioriSwiftUICore/Views/EULAView+View.swift`
+//TODO: Copy commented code to new file: `FioriSwiftUICore/Views/_WelcomeScreen+View.swift`
 //TODO: Implement default Fiori style definitions as `ViewModifier`
-//TODO: Implement EULAView `View` body
+//TODO: Implement _WelcomeScreen `View` body
 //TODO: Implement LibraryContentProvider
 
 /// - Important: to make `@Environment` properties (e.g. `horizontalSizeClass`), internally accessible
@@ -16,17 +16,23 @@ import SwiftUI
 // FIXME: - Implement Fiori style definitions
 
 extension Fiori {
-    enum EULAView {
+    enum _WelcomeScreen {
         typealias Title = EmptyModifier
         typealias TitleCumulative = EmptyModifier
-		typealias BodyAttributedText = EmptyModifier
-        typealias BodyAttributedTextCumulative = EmptyModifier
+		typealias DescriptionText = EmptyModifier
+        typealias DescriptionTextCumulative = EmptyModifier
+		typealias Subtitle = EmptyModifier
+        typealias SubtitleCumulative = EmptyModifier
+		typealias Footnote = EmptyModifier
+        typealias FootnoteCumulative = EmptyModifier
+		typealias Icon = EmptyModifier
+        typealias IconCumulative = EmptyModifier
+		typealias TextInput = EmptyModifier
+        typealias TextInputCumulative = EmptyModifier
 		typealias Action = EmptyModifier
         typealias ActionCumulative = EmptyModifier
 		typealias SecondaryAction = EmptyModifier
         typealias SecondaryActionCumulative = EmptyModifier
-		typealias CancelAction = EmptyModifier
-        typealias CancelActionCumulative = EmptyModifier
 
         // TODO: - substitute type-specific ViewModifier for EmptyModifier
         /*
@@ -41,33 +47,39 @@ extension Fiori {
             }
         */
         static let title = Title()
-		static let bodyAttributedText = BodyAttributedText()
+		static let descriptionText = DescriptionText()
+		static let subtitle = Subtitle()
+		static let footnote = Footnote()
+		static let icon = Icon()
+		static let textInput = TextInput()
 		static let action = Action()
 		static let secondaryAction = SecondaryAction()
-		static let cancelAction = CancelAction()
         static let titleCumulative = TitleCumulative()
-		static let bodyAttributedTextCumulative = BodyAttributedTextCumulative()
+		static let descriptionTextCumulative = DescriptionTextCumulative()
+		static let subtitleCumulative = SubtitleCumulative()
+		static let footnoteCumulative = FootnoteCumulative()
+		static let iconCumulative = IconCumulative()
+		static let textInputCumulative = TextInputCumulative()
 		static let actionCumulative = ActionCumulative()
 		static let secondaryActionCumulative = SecondaryActionCumulative()
-		static let cancelActionCumulative = CancelActionCumulative()
     }
 }
 
-// FIXME: - Implement EULAView View body
+// FIXME: - Implement _WelcomeScreen View body
 
-extension EULAView: View {
+extension _WelcomeScreen: View {
     public var body: some View {
         <# View body #>
     }
 }
 
-// FIXME: - Implement EULAView specific LibraryContentProvider
+// FIXME: - Implement _WelcomeScreen specific LibraryContentProvider
 
 @available(iOS 14.0, macOS 11.0, *)
-struct EULAViewLibraryContent: LibraryContentProvider {
+struct _WelcomeScreenLibraryContent: LibraryContentProvider {
     @LibraryContentBuilder
     var views: [LibraryItem] {
-        LibraryItem(EULAView(model: LibraryPreviewData.Person.laurelosborn),
+        LibraryItem(_WelcomeScreen(model: LibraryPreviewData.Person.laurelosborn),
                     category: .control)
     }
 }

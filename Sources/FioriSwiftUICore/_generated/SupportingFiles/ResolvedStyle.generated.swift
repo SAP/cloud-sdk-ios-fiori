@@ -99,6 +99,22 @@ extension ActivityItemsStyle {
     }
 }
 
+// MARK: AgreeActionStyle
+
+struct ResolvedAgreeActionStyle<Style: AgreeActionStyle>: View {
+    let style: Style
+    let configuration: AgreeActionConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension AgreeActionStyle {
+    func resolve(configuration: AgreeActionConfiguration) -> some View {
+        ResolvedAgreeActionStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: AllEntriesSectionTitleStyle
 
 struct ResolvedAllEntriesSectionTitleStyle<Style: AllEntriesSectionTitleStyle>: View {
@@ -640,6 +656,38 @@ struct ResolvedDimensionSelectorStyle<Style: DimensionSelectorStyle>: View {
 extension DimensionSelectorStyle {
     func resolve(configuration: DimensionSelectorConfiguration) -> some View {
         ResolvedDimensionSelectorStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: DisagreeActionStyle
+
+struct ResolvedDisagreeActionStyle<Style: DisagreeActionStyle>: View {
+    let style: Style
+    let configuration: DisagreeActionConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension DisagreeActionStyle {
+    func resolve(configuration: DisagreeActionConfiguration) -> some View {
+        ResolvedDisagreeActionStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: EULAViewStyle
+
+struct ResolvedEULAViewStyle<Style: EULAViewStyle>: View {
+    let style: Style
+    let configuration: EULAViewConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension EULAViewStyle {
+    func resolve(configuration: EULAViewConfiguration) -> some View {
+        ResolvedEULAViewStyle(style: self, configuration: configuration)
     }
 }
 
@@ -2339,6 +2387,22 @@ extension TextFieldFormViewStyle {
     }
 }
 
+// MARK: TextInputStyle
+
+struct ResolvedTextInputStyle<Style: TextInputStyle>: View {
+    let style: Style
+    let configuration: TextInputConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension TextInputStyle {
+    func resolve(configuration: TextInputConfiguration) -> some View {
+        ResolvedTextInputStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: TextInputFieldStyle
 
 struct ResolvedTextInputFieldStyle<Style: TextInputFieldStyle>: View {
@@ -2736,6 +2800,22 @@ struct ResolvedWatermarkStyle<Style: WatermarkStyle>: View {
 extension WatermarkStyle {
     func resolve(configuration: WatermarkConfiguration) -> some View {
         ResolvedWatermarkStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: WelcomeScreenStyle
+
+struct ResolvedWelcomeScreenStyle<Style: WelcomeScreenStyle>: View {
+    let style: Style
+    let configuration: WelcomeScreenConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension WelcomeScreenStyle {
+    func resolve(configuration: WelcomeScreenConfiguration) -> some View {
+        ResolvedWelcomeScreenStyle(style: self, configuration: configuration)
     }
 }
 

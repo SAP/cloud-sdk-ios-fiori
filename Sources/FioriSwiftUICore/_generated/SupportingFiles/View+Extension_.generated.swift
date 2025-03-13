@@ -105,6 +105,23 @@ public extension View {
     }
 }
 
+// MARK: AgreeActionStyle
+
+public extension View {
+    func agreeActionStyle(_ style: some AgreeActionStyle) -> some View {
+        self.transformEnvironment(\.agreeActionStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func agreeActionStyle(@ViewBuilder content: @escaping (AgreeActionConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.agreeActionStyleStack) { stack in
+            let style = AnyAgreeActionStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: AllEntriesSectionTitleStyle
 
 public extension View {
@@ -678,6 +695,40 @@ public extension View {
     func dimensionSelectorStyle(@ViewBuilder content: @escaping (DimensionSelectorConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.dimensionSelectorStyleStack) { stack in
             let style = AnyDimensionSelectorStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: DisagreeActionStyle
+
+public extension View {
+    func disagreeActionStyle(_ style: some DisagreeActionStyle) -> some View {
+        self.transformEnvironment(\.disagreeActionStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func disagreeActionStyle(@ViewBuilder content: @escaping (DisagreeActionConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.disagreeActionStyleStack) { stack in
+            let style = AnyDisagreeActionStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: EULAViewStyle
+
+public extension View {
+    func eULAViewStyle(_ style: some EULAViewStyle) -> some View {
+        self.transformEnvironment(\.eULAViewStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func eULAViewStyle(@ViewBuilder content: @escaping (EULAViewConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.eULAViewStyleStack) { stack in
+            let style = AnyEULAViewStyle(content)
             stack.append(style)
         }
     }
@@ -2485,6 +2536,23 @@ public extension View {
     }
 }
 
+// MARK: TextInputStyle
+
+public extension View {
+    func textInputStyle(_ style: some TextInputStyle) -> some View {
+        self.transformEnvironment(\.textInputStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func textInputStyle(@ViewBuilder content: @escaping (TextInputConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.textInputStyleStack) { stack in
+            let style = AnyTextInputStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: TextInputFieldStyle
 
 public extension View {
@@ -2905,6 +2973,23 @@ public extension View {
     func watermarkStyle(@ViewBuilder content: @escaping (WatermarkConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.watermarkStyleStack) { stack in
             let style = AnyWatermarkStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: WelcomeScreenStyle
+
+public extension View {
+    func welcomeScreenStyle(_ style: some WelcomeScreenStyle) -> some View {
+        self.transformEnvironment(\.welcomeScreenStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func welcomeScreenStyle(@ViewBuilder content: @escaping (WelcomeScreenConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.welcomeScreenStyleStack) { stack in
+            let style = AnyWelcomeScreenStyle(content)
             stack.append(style)
         }
     }

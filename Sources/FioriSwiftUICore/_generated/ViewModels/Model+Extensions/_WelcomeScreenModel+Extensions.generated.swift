@@ -2,7 +2,7 @@
 // DO NOT EDIT
 import SwiftUI
 
-public extension WelcomeScreenModel {
+public extension _WelcomeScreenModel {
     var textInput: _TextInputModel? {
         return nil
     }

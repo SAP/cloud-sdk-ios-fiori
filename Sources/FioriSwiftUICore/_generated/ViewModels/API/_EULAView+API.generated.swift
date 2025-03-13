@@ -2,7 +2,7 @@
 // DO NOT EDIT
 import SwiftUI
 
-public struct EULAView<Title: View, BodyAttributedText: View, ActionView: View, SecondaryActionView: View, CancelActionView: View> {
+public struct _EULAView<Title: View, BodyAttributedText: View, ActionView: View, SecondaryActionView: View, CancelActionView: View> {
     @Environment(\.titleModifier) private var titleModifier
 	@Environment(\.bodyAttributedTextModifier) private var bodyAttributedTextModifier
 	@Environment(\.actionModifier) private var actionModifier
@@ -51,37 +51,37 @@ public struct EULAView<Title: View, BodyAttributedText: View, ActionView: View, 
 
     @ViewBuilder var title: some View {
         if isModelInit {
-            _title.modifier(titleModifier.concat(Fiori.EULAView.title).concat(Fiori.EULAView.titleCumulative))
+            _title.modifier(titleModifier.concat(Fiori._EULAView.title).concat(Fiori._EULAView.titleCumulative))
         } else {
-            _title.modifier(titleModifier.concat(Fiori.EULAView.title))
+            _title.modifier(titleModifier.concat(Fiori._EULAView.title))
         }
     }
 	@ViewBuilder var bodyAttributedText: some View {
         if isModelInit {
-            _bodyAttributedText.modifier(bodyAttributedTextModifier.concat(Fiori.EULAView.bodyAttributedText).concat(Fiori.EULAView.bodyAttributedTextCumulative))
+            _bodyAttributedText.modifier(bodyAttributedTextModifier.concat(Fiori._EULAView.bodyAttributedText).concat(Fiori._EULAView.bodyAttributedTextCumulative))
         } else {
-            _bodyAttributedText.modifier(bodyAttributedTextModifier.concat(Fiori.EULAView.bodyAttributedText))
+            _bodyAttributedText.modifier(bodyAttributedTextModifier.concat(Fiori._EULAView.bodyAttributedText))
         }
     }
 	@ViewBuilder var action: some View {
         if isModelInit {
-            _action.modifier(actionModifier.concat(Fiori.EULAView.action).concat(Fiori.EULAView.actionCumulative))
+            _action.modifier(actionModifier.concat(Fiori._EULAView.action).concat(Fiori._EULAView.actionCumulative))
         } else {
-            _action.modifier(actionModifier.concat(Fiori.EULAView.action))
+            _action.modifier(actionModifier.concat(Fiori._EULAView.action))
         }
     }
 	@ViewBuilder var secondaryAction: some View {
         if isModelInit {
-            _secondaryAction.modifier(secondaryActionModifier.concat(Fiori.EULAView.secondaryAction).concat(Fiori.EULAView.secondaryActionCumulative))
+            _secondaryAction.modifier(secondaryActionModifier.concat(Fiori._EULAView.secondaryAction).concat(Fiori._EULAView.secondaryActionCumulative))
         } else {
-            _secondaryAction.modifier(secondaryActionModifier.concat(Fiori.EULAView.secondaryAction))
+            _secondaryAction.modifier(secondaryActionModifier.concat(Fiori._EULAView.secondaryAction))
         }
     }
 	@ViewBuilder var cancelAction: some View {
         if isModelInit {
-            _cancelAction.modifier(cancelActionModifier.concat(Fiori.EULAView.cancelAction).concat(Fiori.EULAView.cancelActionCumulative))
+            _cancelAction.modifier(cancelActionModifier.concat(Fiori._EULAView.cancelAction).concat(Fiori._EULAView.cancelActionCumulative))
         } else {
-            _cancelAction.modifier(cancelActionModifier.concat(Fiori.EULAView.cancelAction))
+            _cancelAction.modifier(cancelActionModifier.concat(Fiori._EULAView.cancelAction))
         }
     }
     
@@ -102,13 +102,13 @@ public struct EULAView<Title: View, BodyAttributedText: View, ActionView: View, 
     }
 }
 
-extension EULAView where Title == Text,
+extension _EULAView where Title == Text,
 		BodyAttributedText == _ConditionalContent<AttributedText, EmptyView>,
 		ActionView == _ConditionalContent<_Action, EmptyView>,
 		SecondaryActionView == _ConditionalContent<_Action, EmptyView>,
 		CancelActionView == _ConditionalContent<_Action, EmptyView> {
 
-    public init(model: EULAViewModel) {
+    public init(model: _EULAViewModel) {
         self.init(title: model.title, bodyAttributedText: model.bodyAttributedText, action: model.action != nil ? _Action(model: model.action!) : nil, secondaryAction: model.secondaryAction != nil ? _Action(model: model.secondaryAction!) : nil, cancelAction: model.cancelAction != nil ? _Action(model: model.cancelAction!) : nil, didAgree: model.didAgree, didDisagree: model.didDisagree, didCancel: model.didCancel)
     }
 

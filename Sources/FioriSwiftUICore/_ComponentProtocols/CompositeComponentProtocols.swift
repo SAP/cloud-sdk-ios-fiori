@@ -648,8 +648,29 @@ protocol _ListPickerDestinationComponent: _CancelActionComponent, _ApplyActionCo
 // sourcery: CompositeComponent
 protocol _ToastMessageComponent: _IconComponent, _TitleComponent {
     // sourcery: defaultValue = 1
-    /// The duration in seconds for which the toast message is shown. The default is `1`.
+    /// The duration in seconds for which the toast message is shown. The default value is `1`.
     var duration: Double { get }
+    // sourcery: defaultValue = .center
+    /// The position of the toast message relative to its parent view. `.center` puts the toast message in the center of its parent view, `.above` aligns it above the view, and `.below` aligns it below the view. The default value is `.center`.
+    var position: ToastMessagePosition { get }
+    // sourcery: defaultValue = 0
+    /// The amount of spacing to put in between the toast message and the frame of its parent view. This only applies to the `.above` and `.below` positions, and negative values are converted to `0`. The default value is `0`.
+    var spacing: CGFloat { get }
+    // sourcery: defaultValue = 14
+    /// A number specifying how rounded the corners of the view should be. The default value is `14`.
+    var cornerRadius: CGFloat { get }
+    // sourcery: defaultValue = Color.preferredColor(.tertiaryFill)
+    /// The background color of the view. The default value is `Color.preferredColor(.tertiaryFill)`.
+    var backgroundColor: Color { get }
+    // sourcery: defaultValue = 0
+    /// The width of the border surrounding the toast message. The default value is `0`.
+    var borderWidth: CGFloat { get }
+    // sourcery: defaultValue = Color.clear
+    /// The color of the border surrounding the toast message. The default value is `Color.clear`.
+    var borderColor: Color { get }
+    // sourcery: defaultValue = FioriShadowStyle.level3
+    /// A shadow to render underneath the view. The default value is `FioriShadowStyle.level3`.
+    var shadow: FioriShadowStyle? { get }
 }
 
 // sourcery: CompositeComponent
@@ -845,6 +866,77 @@ protocol _ActivityItemComponent: _IconComponent, _SubtitleComponent {
 /// ```
 // sourcery: CompositeComponent
 protocol _ContactItemComponent: _TitleComponent, _SubtitleComponent, _DescriptionComponent, _DetailImageComponent, _ActivityItemsComponent {}
+
+/// `WelcomeScreen` is used to display a welcome/launch screen to the application for onboarding.  The screen mainly displays the application name, instructions on how to start the activation process and an option to trigger the demo mode of the application.
+/// ## Usage
+/// ```
+/// WelcomeScreen(title: {
+///     Text(titleStr)
+/// }, description: {
+///     Text(descriptionStr)
+/// }, icon: {
+///     Image("oski")
+/// }, footnote: {
+///     Text("Want to explore?")
+/// }, action: {
+///     FioriButton { _ in
+///         //
+///     } label: { _ in
+///         Text(primaryButtonTitleStr)
+///             .multilineTextAlignment(.center)
+///     }
+/// }, secondaryAction: {
+///     //
+/// }, illustratedMessage: {
+///     //
+/// }, headlineImage: {
+///     Image("SAPLogo")
+/// }, inputText: self.$email, legalText: {
+///     Text("legal text")
+/// }, isLegalAgreementRequired: isLegalAgreementRequired, showsIllustratedMessage: self.showsIllustratedMessage, state: state, options: options, isDemoAvailable: isDemoAvailable, footerText: {
+///    if showTermsOfService, type != .link, type != .customLogo {
+///        Text("footer text")
+///    }
+/// })
+/// ```
+// sourcery: CompositeComponent
+protocol _WelcomeScreenComponent: _TitleComponent, _DescriptionComponent, _IconComponent, _FootnoteComponent, _ActionComponent, _SecondaryActionComponent {
+    // sourcery: @ViewBuilder
+    var illustratedMessage: IllustratedMessage? { get }
+    
+    @ViewBuilder
+    ///  This image view is to be displayed on the top center of the welcome screen and is typically the company logo image.
+    var headlineImage: (() -> any View)? { get }
+    // sourcery: @Binding
+    // sourcery: defaultValue = ".constant("")"
+    var inputText: String { get }
+    // sourcery: @ViewBuilder
+    var legalText: AttributedString? { get }
+    // sourcery: defaultValue = false
+    /// A flag indicating whether the user must agree to a legal agreement before proceeding. Default is false.
+    /// When set to `true`, a checkbox with user-defined text in `legalTextView` will be displayed. The `primaryActionButton` will remain disabled until the checkbox is selected. Otherwise, both the `legalCheckbox` and `legalTextView` will be hidden.
+    var isLegalAgreementRequired: Bool { get }
+    // sourcery: defaultValue = false
+    /// A flag determines whether the illustration message is displayed. Default is false. When `showsIllustratedMessage` is set to `true`, the `illustratedMessage` will be shown and the `description` will be hidden. Conversely, when `showsIllustratedMessage` is set to `false`, the `description` will be displayed and the `illustratedMessage` will be hidden.
+    var showsIllustratedMessage: Bool { get }
+    
+    // sourcery: defaultValue = .notConfigured
+    /// A property to indicate the state in the onboarding process. The default is `.notConfigured`, to indicate the application has not been configured and additionally setting `options` to allow end-users to provide configuration settings during onboarding.  An `.isConfigured` state indicates that the application contains the necessary configurations to connect to mobile services and should prompt the user to Start.
+    /// - See `FUIWelcomeControllerConfigurationOption` for possible configuration options when `state` is `.notConfigured`
+    var state: WelcomeScreenState { get }
+    
+    // sourcery: defaultValue = Set<WelcomeScreenOption>()
+    /// A property to indicate the configuration option(s) in the onboarding process when `state` is `.notConfigured`.  Default sets no configuration options.
+    var options: Set<WelcomeScreenOption> { get }
+    
+    // sourcery: defaultValue = true
+    /// A flag to indicate demo availability.  Default is true.  Only when it's true, display `Want to explore` label and `Try the Demo` button.  Corresponding `delegate` function is `didSelectDemoMode(_:)` if the property is true.
+    var isDemoAvailable: Bool { get }
+    
+    // sourcery: @ViewBuilder
+    /// Designated for displaying text on the footer of the Welcome screen, such as terms of service.
+    var footerText: AttributedString? { get }
+}
 
 // sourcery: CompositeComponent
 protocol _RangeSliderControlComponent: _LowerThumbComponent, _UpperThumbComponent, _ActiveTrackComponent, _InactiveTrackComponent {
@@ -1620,4 +1712,33 @@ protocol _AINoticeComponent: _IconComponent {
     /// The`HorizontalAlignment` of the AINotice view. The default value is `leading`.
     // sourcery: defaultValue = .leading
     var viewAlignment: HorizontalAlignment { get }
+
+/// `EULAView` is used to display the End User License Agreement, EULA.
+/// ## Usage
+/// ```swift
+///        EULAView(title: "EULA",
+///                 bodyText: "BodyText",
+///                 didAgree: {
+///            print("EULAView - didAgree")
+///        },
+///                 didDisagree: {
+///            print("EULAView - didDisagree")
+///        },
+///                 didCancel: {
+///            presentationMode.wrappedValue.dismiss()
+///        })
+/// ```
+// sourcery: CompositeComponent
+protocol _EULAViewComponent: _TitleComponent, _BodyTextComponent, _AgreeActionComponent, _DisagreeActionComponent, _CancelActionComponent {
+    // sourcery: default.value = nil
+    // sourcery: no_view
+    var didAgree: (() -> Void)? { get }
+    
+    // sourcery: default.value = nil
+    // sourcery: no_view
+    var didDisagree: (() -> Void)? { get }
+    
+    // sourcery: default.value = nil
+    // sourcery: no_view
+    var didCancel: (() -> Void)? { get }
 }

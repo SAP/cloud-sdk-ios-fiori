@@ -80,6 +80,7 @@ public extension Type {
                                     "_ActivityItemModel",
                                     "_ActivityItemsModel",
                                     "_ContactItemModel",
+                                    "_WelcomeScreenModel",
                                     "_ProgressIndicatorModel",
                                     "_KPIProgressItemModel",
                                     "_SingleStepModel",
@@ -95,7 +96,9 @@ public extension Type {
                                     "_SortFilterViewModel",
                                     "_SignatureCaptureViewModel",
                                     "_EmptyStateViewModel",
-                                    "_KPIItemModel"]
+                                    "_KPIItemModel",
+                                    "_SliderPickerItemModel",
+                                    "_EULAViewModel"]
         
         if deprecatedComponents.contains(name) {
             return name.replacingOccurrences(of: "Model", with: "")

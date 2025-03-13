@@ -6,7 +6,7 @@
 import SwiftUI
 
 extension Fiori {
-    enum EULAView {
+    enum _EULAView {
         struct Title: ViewModifier {
             func body(content: Content) -> some View {
                 content
@@ -53,7 +53,7 @@ extension Fiori {
     }
 }
 
-extension EULAView: View {
+extension _EULAView: View {
     public var body: some View {
         VStack {
             self.makeBody()
@@ -103,7 +103,7 @@ extension EULAView: View {
 struct EULAViewLibraryContent: LibraryContentProvider {
     @LibraryContentBuilder
     var views: [LibraryItem] {
-        LibraryItem(EULAView(title: "EULA", bodyAttributedText: NSAttributedString(string: "http://www.sap.com\nThis is a legally binding agreement")),
+        LibraryItem(_EULAView(title: "EULA", bodyAttributedText: NSAttributedString(string: "http://www.sap.com\nThis is a legally binding agreement")),
                     category: .control)
     }
 }

@@ -40,6 +40,12 @@ extension ActivityItems: _ViewEmptyChecking {
     }
 }
 
+extension AgreeAction: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        agreeAction.isEmpty
+    }
+}
+
 extension AllEntriesSectionTitle: _ViewEmptyChecking {
     public var isEmpty: Bool {
         allEntriesSectionTitle.isEmpty
@@ -297,6 +303,22 @@ extension DimensionSegment: _ViewEmptyChecking {
 extension DimensionSelector: _ViewEmptyChecking {
     public var isEmpty: Bool {
         false
+    }
+}
+
+extension DisagreeAction: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        disagreeAction.isEmpty
+    }
+}
+
+extension EULAView: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        title.isEmpty &&
+            bodyText.isEmpty &&
+            agreeAction.isEmpty &&
+            disagreeAction.isEmpty &&
+            cancelAction.isEmpty
     }
 }
 
@@ -1055,6 +1077,12 @@ extension TextFieldFormView: _ViewEmptyChecking {
     }
 }
 
+extension TextInput: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        false
+    }
+}
+
 extension TextInputField: _ViewEmptyChecking {
     public var isEmpty: Bool {
         false
@@ -1231,6 +1259,21 @@ extension ValuePicker: _ViewEmptyChecking {
 extension Watermark: _ViewEmptyChecking {
     public var isEmpty: Bool {
         watermark.isEmpty
+    }
+}
+
+extension WelcomeScreen: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        title.isEmpty &&
+            description.isEmpty &&
+            icon.isEmpty &&
+            footnote.isEmpty &&
+            action.isEmpty &&
+            secondaryAction.isEmpty &&
+            illustratedMessage.isEmpty &&
+            headlineImage.isEmpty &&
+            legalText.isEmpty &&
+            footerText.isEmpty
     }
 }
 
