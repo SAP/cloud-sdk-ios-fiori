@@ -24,7 +24,7 @@ public struct BannerMessageBaseStyle: BannerMessageStyle {
         VStack(spacing: 0) {
             configuration.topDivider.frame(height: 4)
             HStack {
-                HStack(spacing: 6, content: {
+                HStack(alignment: .firstTextBaseline, spacing: 6, content: {
                     switch configuration.alignment {
                     case .leading:
                         configuration.icon
