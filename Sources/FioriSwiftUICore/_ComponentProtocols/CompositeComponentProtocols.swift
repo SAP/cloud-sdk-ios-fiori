@@ -1681,6 +1681,39 @@ protocol _UserConsentFormComponent: _NextActionComponent, _CancelActionComponent
 // sourcery: CompositeComponent
 protocol _UserConsentPageComponent: _TitleComponent, _BodyTextComponent, _ActionComponent {}
 
+/// `AINotice` is a SwiftUI view indicating if content is AI-supported or AI-generated. It can include an icon, a description, and an action label for accessing more details. If the icon or description is not set, a default value will be used. Action label has no default value and has to be set to be used.
+/// ## Usage
+/// ```swift
+///  @State var showsAction = false
+///  KeyValueItem {
+///     Text("Marital Status Since*")
+///   } value: {
+///     Text(self.maritalStatusSince)
+///   }
+///   .id(self.maritalStatusSinceId)
+///   .aiNoticeView(isPresented: self.$showAINotice, icon: Image(fioriName: "fiori.ai"), description: "AI Notice with icon. ", actionLabel: "View more details", viewMoreAction: self.toggleShowSheet)
+///   .sheet(isPresented: self.$showBottomSheet) {
+///      Text("detail information")
+///         .presentationDetents([.height(250), .medium])
+///         .presentationDragIndicator(.visible)
+///    }
+/// ```
+// sourcery: CompositeComponent
+protocol _AINoticeComponent: _IconComponent {
+    ///  An `AttributedString` representing the AI notice message.
+    var description: AttributedString? { get }
+    
+    /// An `AttributedString` that triggers an action to view more details.
+    var actionLabel: AttributedString? { get }
+    
+    /// A callback triggered when the actionLabel is clicked to display more message details.
+    var viewMoreAction: (() -> Void)? { get }
+    
+    /// The`HorizontalAlignment` of the AINotice view. The default value is `leading`.
+    // sourcery: defaultValue = .leading
+    var viewAlignment: HorizontalAlignment { get }
+}
+
 /// `EULAView` is used to display the End User License Agreement, EULA.
 /// ## Usage
 /// ```swift

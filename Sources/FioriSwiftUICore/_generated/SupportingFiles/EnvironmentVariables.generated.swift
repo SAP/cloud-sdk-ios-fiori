@@ -3,6 +3,27 @@
 import Foundation
 import SwiftUI
 
+// MARK: AINoticeStyle
+
+struct AINoticeStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any AINoticeStyle] = []
+}
+
+extension EnvironmentValues {
+    var aINoticeStyle: any AINoticeStyle {
+        self.aINoticeStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var aINoticeStyleStack: [any AINoticeStyle] {
+        get {
+            self[AINoticeStyleStackKey.self]
+        }
+        set {
+            self[AINoticeStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: AccessoryIconStyle
 
 struct AccessoryIconStyleStackKey: EnvironmentKey {

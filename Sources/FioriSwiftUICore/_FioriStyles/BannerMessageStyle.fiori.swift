@@ -8,6 +8,8 @@ public enum BannerMultiMessageType: Int {
     case neutral
     // Use this variant when informative message is provided. For example, the status of a user action.
     case informative
+    // Use this variant for AI notice message.
+    case aiNotice
     // Use this variant when a positive message is provided. For example, a confirmation for a successful user action.
     case positive
     // Use this variant when a critical message is provided. For example, an alert.
@@ -42,15 +44,15 @@ public struct BannerMessageBaseStyle: BannerMessageStyle {
                             .padding([.top, .bottom], 13)
                     }
                 })
-                .padding(.leading, configuration.alignment == .center ? 44 : 16)
+                .padding(.leading, self.getLeadingPadding(configuration: configuration))
                 .padding(.trailing, configuration.alignment == .center ? 0 : 16)
                 .onTapGesture {
                     configuration.bannerTapAction?()
                 }
-                
                 Spacer()
-                
-                configuration.closeAction.padding(.trailing)
+                if configuration.messageType != .aiNotice {
+                    configuration.closeAction.padding(.trailing)
+                }
             }
             .frame(minHeight: 39)
             if !configuration.hideSeparator {
@@ -59,6 +61,14 @@ public struct BannerMessageBaseStyle: BannerMessageStyle {
         }
         .drawingGroup()
         .background(Color.preferredColor(.tertiaryBackground))
+    }
+    
+    func getLeadingPadding(configuration: BannerMessageConfiguration) -> CGFloat {
+        if configuration.alignment == .center {
+            return configuration.messageType == .aiNotice ? 0 : 44
+        } else {
+            return 16
+        }
     }
 }
 
@@ -133,6 +143,8 @@ extension BannerMessageFioriStyle {
             Color.preferredColor(.positiveLabel)
         case .informative:
             Color.preferredColor(.informativeLabel)
+        case .aiNotice:
+            Color.preferredColor(.neutralLabel)
         }
     }
     
@@ -193,7 +205,8 @@ public extension View {
                            @ViewBuilder icon: () -> any View = { EmptyView() },
                            title: AttributedString,
                            bannerTapped: (() -> Void)? = nil,
-                           alignment: HorizontalAlignment? = nil) -> some View
+                           alignment: HorizontalAlignment? = nil,
+                           messageType: BannerMultiMessageType? = .negative) -> some View
     {
         self.modifier(BannerMessageModifier(icon: icon(),
                                             title: Text(title),
@@ -202,7 +215,7 @@ public extension View {
                                             bannerTapped: bannerTapped,
                                             alignment: alignment ?? .center,
                                             hideSeparator: false,
-                                            messageType: .negative,
+                                            messageType: messageType ?? .negative,
                                             turnOnSectionHeader: true,
                                             showDetailLink: false,
                                             bannerMultiMessages: Binding<[BannerMessageListModel]>.constant([])))
@@ -220,7 +233,8 @@ public extension View {
                            @ViewBuilder icon: () -> any View = { EmptyView() },
                            title: String,
                            bannerTapped: (() -> Void)? = nil,
-                           alignment: HorizontalAlignment? = nil) -> some View
+                           alignment: HorizontalAlignment? = nil,
+                           messageType: BannerMultiMessageType? = .negative) -> some View
     {
         self.modifier(BannerMessageModifier(icon: icon(),
                                             title: Text(title),
@@ -229,7 +243,7 @@ public extension View {
                                             bannerTapped: bannerTapped,
                                             alignment: alignment ?? .center,
                                             hideSeparator: false,
-                                            messageType: .negative,
+                                            messageType: messageType ?? .negative,
                                             turnOnSectionHeader: true,
                                             showDetailLink: false,
                                             bannerMultiMessages: Binding<[BannerMessageListModel]>.constant([])))
@@ -249,7 +263,8 @@ public extension View {
                            @ViewBuilder icon: () -> any View = { EmptyView() },
                            @ViewBuilder title: () -> any View,
                            bannerTapped: (() -> Void)? = nil,
-                           alignment: HorizontalAlignment? = nil) -> some View
+                           alignment: HorizontalAlignment? = nil,
+                           messageType: BannerMultiMessageType? = .negative) -> some View
     {
         self.modifier(BannerMessageModifier(icon: icon(),
                                             title: title(),
@@ -258,7 +273,7 @@ public extension View {
                                             bannerTapped: bannerTapped,
                                             alignment: alignment ?? .center,
                                             hideSeparator: false,
-                                            messageType: .negative,
+                                            messageType: messageType ?? .negative,
                                             turnOnSectionHeader: true,
                                             showDetailLink: false,
                                             bannerMultiMessages: Binding<[BannerMessageListModel]>.constant([])))
@@ -285,7 +300,7 @@ public extension View {
                            viewDetailAction: ((UUID) -> Void)? = nil,
                            alignment: HorizontalAlignment = .center,
                            hideSeparator: Bool = false,
-                           messageType: BannerMultiMessageType = .negative,
+                           messageType: BannerMultiMessageType? = .negative,
                            turnOnSectionHeader: Bool = true,
                            showDetailLink: Bool = false,
                            bannerMultiMessages: Binding<[BannerMessageListModel]> = Binding<[BannerMessageListModel]>.constant([])) -> some View
@@ -293,12 +308,12 @@ public extension View {
         var finalMessageType = messageType
         
         if !bannerMultiMessages.isEmpty {
-            /// .neutral has the lowest priority, finalMessageType will be figured out from bannerMultiMessages
+            /// .neutral has the lowest prio.nerity, finalMessageType will be figured out from bannerMultiMessages
             finalMessageType = .neutral
         }
         
         for bannerMessageListModel in bannerMultiMessages {
-            for singleMessageModel in bannerMessageListModel.wrappedValue.items where singleMessageModel.messageType.rawValue > finalMessageType.rawValue {
+            for singleMessageModel in bannerMessageListModel.wrappedValue.items where singleMessageModel.messageType.rawValue > finalMessageType?.rawValue ?? 0 {
                 finalMessageType = singleMessageModel.messageType
             }
         }
@@ -309,7 +324,7 @@ public extension View {
                                                    viewDetailAction: viewDetailAction,
                                                    alignment: alignment,
                                                    hideSeparator: hideSeparator,
-                                                   messageType: finalMessageType,
+                                                   messageType: finalMessageType ?? .negative,
                                                    turnOnSectionHeader: turnOnSectionHeader,
                                                    showDetailLink: showDetailLink,
                                                    bannerMultiMessages: bannerMultiMessages))
@@ -410,6 +425,8 @@ struct BannerMessageModifier: ViewModifier {
             key = "warning"
         case .negative:
             key = "error"
+        case .aiNotice:
+            key = "information"
         }
         return NSLocalizedString(key + (count > 1 ? "s" : ""), tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
     }
@@ -426,6 +443,8 @@ struct BannerMessageModifier: ViewModifier {
             Image(fioriName: "fiori.warning2")
         case .negative:
             Image(fioriName: "fiori.notification.3")
+        case .aiNotice:
+            Image(fioriName: "fiori.ai")
         }
     }
     
