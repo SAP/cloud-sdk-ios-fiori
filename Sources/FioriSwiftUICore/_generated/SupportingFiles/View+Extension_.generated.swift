@@ -173,6 +173,125 @@ public extension View {
     }
 }
 
+// MARK: AttachmentButtonImageStyle
+
+public extension View {
+    func attachmentButtonImageStyle(_ style: some AttachmentButtonImageStyle) -> some View {
+        self.transformEnvironment(\.attachmentButtonImageStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func attachmentButtonImageStyle(@ViewBuilder content: @escaping (AttachmentButtonImageConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.attachmentButtonImageStyleStack) { stack in
+            let style = AnyAttachmentButtonImageStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: AttachmentStyle
+
+public extension View {
+    func attachmentStyle(_ style: some AttachmentStyle) -> some View {
+        self.transformEnvironment(\.attachmentStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func attachmentStyle(@ViewBuilder content: @escaping (AttachmentConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.attachmentStyleStack) { stack in
+            let style = AnyAttachmentStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: AttachmentFootnoteStyle
+
+public extension View {
+    func attachmentFootnoteStyle(_ style: some AttachmentFootnoteStyle) -> some View {
+        self.transformEnvironment(\.attachmentFootnoteStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func attachmentFootnoteStyle(@ViewBuilder content: @escaping (AttachmentFootnoteConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.attachmentFootnoteStyleStack) { stack in
+            let style = AnyAttachmentFootnoteStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: AttachmentGroupStyle
+
+public extension View {
+    func attachmentGroupStyle(_ style: some AttachmentGroupStyle) -> some View {
+        self.transformEnvironment(\.attachmentGroupStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func attachmentGroupStyle(@ViewBuilder content: @escaping (AttachmentGroupConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.attachmentGroupStyleStack) { stack in
+            let style = AnyAttachmentGroupStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: AttachmentSubtitleStyle
+
+public extension View {
+    func attachmentSubtitleStyle(_ style: some AttachmentSubtitleStyle) -> some View {
+        self.transformEnvironment(\.attachmentSubtitleStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func attachmentSubtitleStyle(@ViewBuilder content: @escaping (AttachmentSubtitleConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.attachmentSubtitleStyleStack) { stack in
+            let style = AnyAttachmentSubtitleStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: AttachmentThumbnailStyle
+
+public extension View {
+    func attachmentThumbnailStyle(_ style: some AttachmentThumbnailStyle) -> some View {
+        self.transformEnvironment(\.attachmentThumbnailStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func attachmentThumbnailStyle(@ViewBuilder content: @escaping (AttachmentThumbnailConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.attachmentThumbnailStyleStack) { stack in
+            let style = AnyAttachmentThumbnailStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: AttachmentTitleStyle
+
+public extension View {
+    func attachmentTitleStyle(_ style: some AttachmentTitleStyle) -> some View {
+        self.transformEnvironment(\.attachmentTitleStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func attachmentTitleStyle(@ViewBuilder content: @escaping (AttachmentTitleConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.attachmentTitleStyleStack) { stack in
+            let style = AnyAttachmentTitleStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: AttributeStyle
 
 public extension View {

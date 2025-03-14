@@ -64,6 +64,51 @@ extension ApplyAction: _ViewEmptyChecking {
     }
 }
 
+extension AttachmentButtonImage: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        addButtonImage.isEmpty
+    }
+}
+
+extension Attachment: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        attachmentTitle.isEmpty &&
+            attachmentSubtitle.isEmpty &&
+            attachmentFootnote.isEmpty
+    }
+}
+
+extension AttachmentFootnote: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        attachmentFootnote.isEmpty
+    }
+}
+
+extension AttachmentGroup: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        title.isEmpty &&
+            operations.isEmpty
+    }
+}
+
+extension AttachmentSubtitle: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        attachmentSubtitle.isEmpty
+    }
+}
+
+extension AttachmentThumbnail: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        false
+    }
+}
+
+extension AttachmentTitle: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        attachmentTitle.isEmpty
+    }
+}
+
 extension Attribute: _ViewEmptyChecking {
     public var isEmpty: Bool {
         attribute.isEmpty

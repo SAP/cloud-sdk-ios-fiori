@@ -1199,6 +1199,114 @@ protocol _StepProgressIndicatorComponent: _TitleComponent, _ActionComponent, _Ca
     var steps: [StepItem] { get }
 }
 
+/// `Attachment` provides thumbnail and information about an attachment.
+///
+/// ## Usage
+/// ```swift
+/// Attachment {
+///   QuickLookThumbnail(physicalUrl: fileURL)
+/// } attachmentTitle: {
+///   Text("Leaf")
+/// } attachmentSubtitle: {
+///   Text("15MB")
+/// } attachmentFootnote: {
+///   Text("Aug 15, 2024")
+/// }
+///
+/// Attachment {
+///   QuickLookThumbnail(thumbnailImage: : Image(systemName: "leaf"))
+/// } attachmentTitle: {
+///   Text("Leaf")
+/// } attachmentSubtitle: {
+///   Text("15MB")
+/// } attachmentFootnote: {
+///   Text("Aug 15, 2024")
+/// }
+///
+/// Attachment {
+///   Image(systemName: "leaf")
+///     .resizable()
+/// } attachmentTitle: {
+///   Text("Leaf")
+/// } attachmentSubtitle: {
+///   Text("15MB")
+/// } attachmentFootnote: {
+///   Text("Aug 15, 2024")
+/// }
+/// ```
+// sourcery: CompositeComponent
+protocol _AttachmentComponent: _AttachmentTitleComponent, _AttachmentSubtitleComponent, _AttachmentFootnoteComponent {
+    /// The collection of local attachment URLs, which are prepared by Apps.
+    var url: URL { get }
+    
+    // sourcery: defaultValue = .normal
+    /// The state of attachement group component
+    var controlState: ControlState { get }
+}
+
+// sourcery: CompositeComponent
+// sourcery: importFrameworks = ["FioriThemeManager"]
+protocol _AttachmentButtonImageComponent {
+    //// The image to be used for "Add" menu or dialog for operations, such as poping up image picker or file picker.
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "FioriIcon.actions.add.renderingMode(.template).resizable()"
+    var addButtonImage: Image { get }
+
+    // sourcery: defaultValue = .normal
+    /// The state of attachement group component
+    var controlState: ControlState { get }
+}
+
+/// `AttachmentGroup` provides thubnail and information about an attachment.
+///
+/// ## Usage
+/// ```swift
+///  todo: code here
+/// ```
+// sourcery: CompositeComponent
+protocol _AttachmentGroupComponent: _TitleComponent {
+    // sourcery: @Binding
+    /// The collection of local attachment URLs, which are prepared by Apps.
+    var attachments: [URL] { get }
+    
+    // sourcery: defaultValue = "nil"
+    /// The maximium number of attachments
+    var maxCount: Int? { get }
+
+    // sourcery: defaultValue = "BasicAttachmentDelegate()"
+    /// App specific attachemnt processing logics for adding or deleting attachments.
+    var delegate: AttachmentDelegate { get }
+
+    // sourcery: defaultValue = .normal
+    /// The state of attachement group component
+    var controlState: ControlState { get }
+    
+    // sourcery: @Binding
+    // sourcery: defaultValue = ".constant(nil)"
+    /// The error message of the form view.
+    var errorMessage: AttributedString? { get }
+
+    // sourcery: defaultValue = "{ EmptyView() }"
+    /// For adding App specific operations, such as picking photos and files.
+    @ViewBuilder
+    var operations: (() -> any View)? { get }
+    
+    // sourcery: defaultValue = "nil"
+    /// Triggering App specific preview, otherwise using default preview.
+    var onPreview: ((URL) -> Void)? { get }
+}
+
+// sourcery: CompositeComponent
+// sourcery: importFrameworks = ["FioriThemeManager"]
+protocol _AttachmentThumbnailComponent {
+    ////  URL of document for rendering thumbnail
+    var url: URL { get }
+    
+    // sourcery: defaultValue = .normal
+    /// The state of attachement group component
+    var controlState: ControlState { get }
+}
+
 // sourcery: CompositeComponent
 protocol _SectionHeaderComponent: _TitleComponent, _AttributeComponent {
     /// Style determines fonts and colors. Default is `.title` style.

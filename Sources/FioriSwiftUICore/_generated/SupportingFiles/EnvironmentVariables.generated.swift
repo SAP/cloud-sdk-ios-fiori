@@ -213,6 +213,153 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: AttachmentButtonImageStyle
+
+struct AttachmentButtonImageStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any AttachmentButtonImageStyle] = []
+}
+
+extension EnvironmentValues {
+    var attachmentButtonImageStyle: any AttachmentButtonImageStyle {
+        self.attachmentButtonImageStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var attachmentButtonImageStyleStack: [any AttachmentButtonImageStyle] {
+        get {
+            self[AttachmentButtonImageStyleStackKey.self]
+        }
+        set {
+            self[AttachmentButtonImageStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: AttachmentStyle
+
+struct AttachmentStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any AttachmentStyle] = []
+}
+
+extension EnvironmentValues {
+    var attachmentStyle: any AttachmentStyle {
+        self.attachmentStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var attachmentStyleStack: [any AttachmentStyle] {
+        get {
+            self[AttachmentStyleStackKey.self]
+        }
+        set {
+            self[AttachmentStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: AttachmentFootnoteStyle
+
+struct AttachmentFootnoteStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any AttachmentFootnoteStyle] = []
+}
+
+extension EnvironmentValues {
+    var attachmentFootnoteStyle: any AttachmentFootnoteStyle {
+        self.attachmentFootnoteStyleStack.last ?? .base
+    }
+
+    var attachmentFootnoteStyleStack: [any AttachmentFootnoteStyle] {
+        get {
+            self[AttachmentFootnoteStyleStackKey.self]
+        }
+        set {
+            self[AttachmentFootnoteStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: AttachmentGroupStyle
+
+struct AttachmentGroupStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any AttachmentGroupStyle] = []
+}
+
+extension EnvironmentValues {
+    var attachmentGroupStyle: any AttachmentGroupStyle {
+        self.attachmentGroupStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var attachmentGroupStyleStack: [any AttachmentGroupStyle] {
+        get {
+            self[AttachmentGroupStyleStackKey.self]
+        }
+        set {
+            self[AttachmentGroupStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: AttachmentSubtitleStyle
+
+struct AttachmentSubtitleStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any AttachmentSubtitleStyle] = []
+}
+
+extension EnvironmentValues {
+    var attachmentSubtitleStyle: any AttachmentSubtitleStyle {
+        self.attachmentSubtitleStyleStack.last ?? .base
+    }
+
+    var attachmentSubtitleStyleStack: [any AttachmentSubtitleStyle] {
+        get {
+            self[AttachmentSubtitleStyleStackKey.self]
+        }
+        set {
+            self[AttachmentSubtitleStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: AttachmentThumbnailStyle
+
+struct AttachmentThumbnailStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any AttachmentThumbnailStyle] = []
+}
+
+extension EnvironmentValues {
+    var attachmentThumbnailStyle: any AttachmentThumbnailStyle {
+        self.attachmentThumbnailStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var attachmentThumbnailStyleStack: [any AttachmentThumbnailStyle] {
+        get {
+            self[AttachmentThumbnailStyleStackKey.self]
+        }
+        set {
+            self[AttachmentThumbnailStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: AttachmentTitleStyle
+
+struct AttachmentTitleStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any AttachmentTitleStyle] = []
+}
+
+extension EnvironmentValues {
+    var attachmentTitleStyle: any AttachmentTitleStyle {
+        self.attachmentTitleStyleStack.last ?? .base
+    }
+
+    var attachmentTitleStyleStack: [any AttachmentTitleStyle] {
+        get {
+            self[AttachmentTitleStyleStackKey.self]
+        }
+        set {
+            self[AttachmentTitleStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: AttributeStyle
 
 struct AttributeStyleStackKey: EnvironmentKey {
