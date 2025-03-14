@@ -2,7 +2,7 @@ import Combine
 import FioriSwiftUICore
 import SwiftUI
 
-class WelcomeScreenDataModel: WelcomeScreenModel, ObservableObject {
+class WelcomeScreenDataModel: _WelcomeScreenModel, ObservableObject {
     // Changes in nested observable object will not trigger refresh. Need to send notification by explicitly calling `send()`
     @Published var textInput: _TextInputModel?
     lazy var action: _ActionModel? = ActionDataModel { [unowned self] in
@@ -61,7 +61,7 @@ struct WelcomeScreenSample: View {
     
     var body: some View {
         VStack {
-            WelcomeScreen(model: self.model)
+            _WelcomeScreen(model: self.model)
         }
     }
 }
@@ -72,7 +72,7 @@ struct WelcomeScreenCustomized: View {
     
     var body: some View {
         VStack {
-            WelcomeScreen(model: self.model)
+            _WelcomeScreen(model: self.model)
                 .footnoteModifier { $0.font(.fiori(forTextStyle: .headline)).foregroundColor(.green) }
                 .actionTextModifier { $0.background(LinearGradient(gradient: Gradient(colors: [Color.red, Color.orange]), startPoint: .leading, endPoint: .trailing)) }
         }
@@ -85,7 +85,7 @@ struct WelcomeScreenDiscoveryService: View {
     
     var body: some View {
         VStack {
-            WelcomeScreen(model: self.model)
+            _WelcomeScreen(model: self.model)
                 .footnoteModifier { $0.font(.fiori(forTextStyle: .headline)).foregroundColor(.green) }
                 .actionTextModifier { content in
                     content.background(LinearGradient(gradient: Gradient(colors: [Color.red, Color.orange]), startPoint: .leading, endPoint: .trailing))

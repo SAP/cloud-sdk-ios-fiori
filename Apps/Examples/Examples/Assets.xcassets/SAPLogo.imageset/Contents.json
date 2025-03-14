@@ -1,15 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "SAP_grad_C_min_1x.png",
+      "filename" : "SAP_R_grad_scrn S.svg",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "SAP_R_grad_scrn M.svg",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "SAP_R_grad_scrn L.svg",
       "idiom" : "universal",
       "scale" : "3x"
     }

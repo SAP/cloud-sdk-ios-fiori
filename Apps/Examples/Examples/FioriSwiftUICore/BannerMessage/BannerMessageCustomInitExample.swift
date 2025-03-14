@@ -10,15 +10,24 @@ struct BannerMessageCustomInitExample: View {
     @State var show: Bool = true
     @State var isCustomStyle: Bool = false
     @State var headerSelection: BannerHeader = .object
-    
+    @State var showAINotice: Bool = false
+       
     let customColor = Color.preferredColor(.blue7)
     
     var bannerView: some View {
-        BannerMessage {
-            Image(systemName: "info.circle")
-        } title: {
-            Text("This is a banner message")
-        } closeAction: {
+        BannerMessage(icon: {
+            if self.showAINotice {
+                Image(fioriName: "fiori.ai")
+            } else {
+                Image(systemName: "info.circle")
+            }
+        }, title: {
+            if self.showAINotice {
+                Text("Powered by AI")
+            } else {
+                Text("This is a banner message")
+            }
+        }, closeAction: {
             Button(action: {
                 withAnimation {
                     self.show.toggle()
@@ -26,21 +35,21 @@ struct BannerMessageCustomInitExample: View {
             }, label: {
                 Image(systemName: "xmark")
             })
-        }
-        .ifApply(self.isCustomStyle, content: { v in
-            v.topDividerStyle { c in
-                c.topDivider.background(self.customColor)
-            }
-            .iconStyle { c in
-                c.icon.foregroundStyle(self.customColor)
-            }
-            .titleStyle { c in
-                c.title.foregroundStyle(self.customColor)
-            }
-            .closeActionStyle { c in
-                c.closeAction.foregroundStyle(self.customColor)
-            }
-        })
+        }, messageType: self.showAINotice ? .aiNotice : .negative)
+            .ifApply(self.isCustomStyle, content: { v in
+                v.topDividerStyle { c in
+                    c.topDivider.background(self.customColor)
+                }
+                .iconStyle { c in
+                    c.icon.foregroundStyle(self.customColor)
+                }
+                .titleStyle { c in
+                    c.title.foregroundStyle(self.customColor)
+                }
+                .closeActionStyle { c in
+                    c.closeAction.foregroundStyle(self.customColor)
+                }
+            })
     }
     
     var body: some View {
@@ -71,6 +80,8 @@ struct BannerMessageCustomInitExample: View {
                     Text("Object Header").tag(BannerHeader.object)
                     Text("KPI Header").tag(BannerHeader.kpi)
                 }
+                
+                Toggle("AI Notice", isOn: self.$showAINotice)
             } header: {}
         }.listStyle(.plain)
             .navigationTitle("Custom Creation")

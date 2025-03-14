@@ -257,9 +257,14 @@ struct CoreContentView: View {
             
             Section(header: Text("Onboarding")) {
                 NavigationLink(
-                    destination: OnboardingExamples())
+                    destination: OnboardingExamples(_isNewObjectItem: true))
                 {
                     Text("Onboarding")
+                }
+                NavigationLink(
+                    destination: OnboardingExamples())
+                {
+                    Text("_Onboarding: deprecated")
                 }
             }
             

@@ -867,6 +867,77 @@ protocol _ActivityItemComponent: _IconComponent, _SubtitleComponent {
 // sourcery: CompositeComponent
 protocol _ContactItemComponent: _TitleComponent, _SubtitleComponent, _DescriptionComponent, _DetailImageComponent, _ActivityItemsComponent {}
 
+/// `WelcomeScreen` is used to display a welcome/launch screen to the application for onboarding.  The screen mainly displays the application name, instructions on how to start the activation process and an option to trigger the demo mode of the application.
+/// ## Usage
+/// ```
+/// WelcomeScreen(title: {
+///     Text(titleStr)
+/// }, description: {
+///     Text(descriptionStr)
+/// }, icon: {
+///     Image("oski")
+/// }, footnote: {
+///     Text("Want to explore?")
+/// }, action: {
+///     FioriButton { _ in
+///         //
+///     } label: { _ in
+///         Text(primaryButtonTitleStr)
+///             .multilineTextAlignment(.center)
+///     }
+/// }, secondaryAction: {
+///     //
+/// }, illustratedMessage: {
+///     //
+/// }, headlineImage: {
+///     Image("SAPLogo")
+/// }, inputText: self.$email, legalText: {
+///     Text("legal text")
+/// }, isLegalAgreementRequired: isLegalAgreementRequired, showsIllustratedMessage: self.showsIllustratedMessage, state: state, options: options, isDemoAvailable: isDemoAvailable, footerText: {
+///    if showTermsOfService, type != .link, type != .customLogo {
+///        Text("footer text")
+///    }
+/// })
+/// ```
+// sourcery: CompositeComponent
+protocol _WelcomeScreenComponent: _TitleComponent, _DescriptionComponent, _IconComponent, _FootnoteComponent, _ActionComponent, _SecondaryActionComponent {
+    // sourcery: @ViewBuilder
+    var illustratedMessage: IllustratedMessage? { get }
+    
+    @ViewBuilder
+    ///  This image view is to be displayed on the top center of the welcome screen and is typically the company logo image.
+    var headlineImage: (() -> any View)? { get }
+    // sourcery: @Binding
+    // sourcery: defaultValue = ".constant("")"
+    var inputText: String { get }
+    // sourcery: @ViewBuilder
+    var legalText: AttributedString? { get }
+    // sourcery: defaultValue = false
+    /// A flag indicating whether the user must agree to a legal agreement before proceeding. Default is false.
+    /// When set to `true`, a checkbox with user-defined text in `legalTextView` will be displayed. The `primaryActionButton` will remain disabled until the checkbox is selected. Otherwise, both the `legalCheckbox` and `legalTextView` will be hidden.
+    var isLegalAgreementRequired: Bool { get }
+    // sourcery: defaultValue = false
+    /// A flag determines whether the illustration message is displayed. Default is false. When `showsIllustratedMessage` is set to `true`, the `illustratedMessage` will be shown and the `description` will be hidden. Conversely, when `showsIllustratedMessage` is set to `false`, the `description` will be displayed and the `illustratedMessage` will be hidden.
+    var showsIllustratedMessage: Bool { get }
+    
+    // sourcery: defaultValue = .notConfigured
+    /// A property to indicate the state in the onboarding process. The default is `.notConfigured`, to indicate the application has not been configured and additionally setting `options` to allow end-users to provide configuration settings during onboarding.  An `.isConfigured` state indicates that the application contains the necessary configurations to connect to mobile services and should prompt the user to Start.
+    /// - See `FUIWelcomeControllerConfigurationOption` for possible configuration options when `state` is `.notConfigured`
+    var state: WelcomeScreenState { get }
+    
+    // sourcery: defaultValue = Set<WelcomeScreenOption>()
+    /// A property to indicate the configuration option(s) in the onboarding process when `state` is `.notConfigured`.  Default sets no configuration options.
+    var options: Set<WelcomeScreenOption> { get }
+    
+    // sourcery: defaultValue = true
+    /// A flag to indicate demo availability.  Default is true.  Only when it's true, display `Want to explore` label and `Try the Demo` button.  Corresponding `delegate` function is `didSelectDemoMode(_:)` if the property is true.
+    var isDemoAvailable: Bool { get }
+    
+    // sourcery: @ViewBuilder
+    /// Designated for displaying text on the footer of the Welcome screen, such as terms of service.
+    var footerText: AttributedString? { get }
+}
+
 // sourcery: CompositeComponent
 protocol _RangeSliderControlComponent: _LowerThumbComponent, _UpperThumbComponent, _ActiveTrackComponent, _InactiveTrackComponent {
     // sourcery: @Binding
@@ -1717,6 +1788,39 @@ protocol _UserConsentFormComponent: _NextActionComponent, _CancelActionComponent
 
 // sourcery: CompositeComponent
 protocol _UserConsentPageComponent: _TitleComponent, _BodyTextComponent, _ActionComponent {}
+
+/// `AINotice` is a SwiftUI view indicating if content is AI-supported or AI-generated. It can include an icon, a description, and an action label for accessing more details. If the icon or description is not set, a default value will be used. Action label has no default value and has to be set to be used.
+/// ## Usage
+/// ```swift
+///  @State var showsAction = false
+///  KeyValueItem {
+///     Text("Marital Status Since*")
+///   } value: {
+///     Text(self.maritalStatusSince)
+///   }
+///   .id(self.maritalStatusSinceId)
+///   .aiNoticeView(isPresented: self.$showAINotice, icon: Image(fioriName: "fiori.ai"), description: "AI Notice with icon. ", actionLabel: "View more details", viewMoreAction: self.toggleShowSheet)
+///   .sheet(isPresented: self.$showBottomSheet) {
+///      Text("detail information")
+///         .presentationDetents([.height(250), .medium])
+///         .presentationDragIndicator(.visible)
+///    }
+/// ```
+// sourcery: CompositeComponent
+protocol _AINoticeComponent: _IconComponent {
+    ///  An `AttributedString` representing the AI notice message.
+    var description: AttributedString? { get }
+    
+    /// An `AttributedString` that triggers an action to view more details.
+    var actionLabel: AttributedString? { get }
+    
+    /// A callback triggered when the actionLabel is clicked to display more message details.
+    var viewMoreAction: (() -> Void)? { get }
+    
+    /// The`HorizontalAlignment` of the AINotice view. The default value is `leading`.
+    // sourcery: defaultValue = .leading
+    var viewAlignment: HorizontalAlignment { get }
+}
 
 /// `EULAView` is used to display the End User License Agreement, EULA.
 /// ## Usage

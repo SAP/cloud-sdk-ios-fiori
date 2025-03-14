@@ -23,7 +23,6 @@ extension InformationViewFioriStyle {
             InformationView(configuration)
                 .foregroundColor(.preferredColor(self.isEnabled ? .tertiaryLabel : .separator))
                 .padding(.top, 4)
-                .padding(.bottom, 11)
         }
     }
     
