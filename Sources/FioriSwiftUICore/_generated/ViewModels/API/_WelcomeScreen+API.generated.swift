@@ -2,7 +2,7 @@
 // DO NOT EDIT
 import SwiftUI
 
-public struct WelcomeScreen<Title: View, DescriptionText: View, Subtitle: View, Footnote: View, Icon: View, TextInputView: View, ActionView: View, SecondaryActionView: View> {
+public struct _WelcomeScreen<Title: View, DescriptionText: View, Subtitle: View, Footnote: View, Icon: View, TextInputView: View, ActionView: View, SecondaryActionView: View> {
     @Environment(\.titleModifier) private var titleModifier
 	@Environment(\.descriptionTextModifier) private var descriptionTextModifier
 	@Environment(\.subtitleModifier) private var subtitleModifier
@@ -54,58 +54,58 @@ public struct WelcomeScreen<Title: View, DescriptionText: View, Subtitle: View, 
 
     @ViewBuilder var title: some View {
         if isModelInit {
-            _title.modifier(titleModifier.concat(Fiori.WelcomeScreen.title).concat(Fiori.WelcomeScreen.titleCumulative))
+            _title.modifier(titleModifier.concat(Fiori._WelcomeScreen.title).concat(Fiori._WelcomeScreen.titleCumulative))
         } else {
-            _title.modifier(titleModifier.concat(Fiori.WelcomeScreen.title))
+            _title.modifier(titleModifier.concat(Fiori._WelcomeScreen.title))
         }
     }
 	@ViewBuilder var descriptionText: some View {
         if isModelInit {
-            _descriptionText.modifier(descriptionTextModifier.concat(Fiori.WelcomeScreen.descriptionText).concat(Fiori.WelcomeScreen.descriptionTextCumulative))
+            _descriptionText.modifier(descriptionTextModifier.concat(Fiori._WelcomeScreen.descriptionText).concat(Fiori._WelcomeScreen.descriptionTextCumulative))
         } else {
-            _descriptionText.modifier(descriptionTextModifier.concat(Fiori.WelcomeScreen.descriptionText))
+            _descriptionText.modifier(descriptionTextModifier.concat(Fiori._WelcomeScreen.descriptionText))
         }
     }
 	@ViewBuilder var subtitle: some View {
         if isModelInit {
-            _subtitle.modifier(subtitleModifier.concat(Fiori.WelcomeScreen.subtitle).concat(Fiori.WelcomeScreen.subtitleCumulative))
+            _subtitle.modifier(subtitleModifier.concat(Fiori._WelcomeScreen.subtitle).concat(Fiori._WelcomeScreen.subtitleCumulative))
         } else {
-            _subtitle.modifier(subtitleModifier.concat(Fiori.WelcomeScreen.subtitle))
+            _subtitle.modifier(subtitleModifier.concat(Fiori._WelcomeScreen.subtitle))
         }
     }
 	@ViewBuilder var footnote: some View {
         if isModelInit {
-            _footnote.modifier(footnoteModifier.concat(Fiori.WelcomeScreen.footnote).concat(Fiori.WelcomeScreen.footnoteCumulative))
+            _footnote.modifier(footnoteModifier.concat(Fiori._WelcomeScreen.footnote).concat(Fiori._WelcomeScreen.footnoteCumulative))
         } else {
-            _footnote.modifier(footnoteModifier.concat(Fiori.WelcomeScreen.footnote))
+            _footnote.modifier(footnoteModifier.concat(Fiori._WelcomeScreen.footnote))
         }
     }
 	@ViewBuilder var icon: some View {
         if isModelInit {
-            _icon.modifier(iconModifier.concat(Fiori.WelcomeScreen.icon).concat(Fiori.WelcomeScreen.iconCumulative))
+            _icon.modifier(iconModifier.concat(Fiori._WelcomeScreen.icon).concat(Fiori._WelcomeScreen.iconCumulative))
         } else {
-            _icon.modifier(iconModifier.concat(Fiori.WelcomeScreen.icon))
+            _icon.modifier(iconModifier.concat(Fiori._WelcomeScreen.icon))
         }
     }
 	@ViewBuilder var textInput: some View {
         if isModelInit {
-            _textInput.modifier(textInputModifier.concat(Fiori.WelcomeScreen.textInput).concat(Fiori.WelcomeScreen.textInputCumulative))
+            _textInput.modifier(textInputModifier.concat(Fiori._WelcomeScreen.textInput).concat(Fiori._WelcomeScreen.textInputCumulative))
         } else {
-            _textInput.modifier(textInputModifier.concat(Fiori.WelcomeScreen.textInput))
+            _textInput.modifier(textInputModifier.concat(Fiori._WelcomeScreen.textInput))
         }
     }
 	@ViewBuilder var action: some View {
         if isModelInit {
-            _action.modifier(actionModifier.concat(Fiori.WelcomeScreen.action).concat(Fiori.WelcomeScreen.actionCumulative))
+            _action.modifier(actionModifier.concat(Fiori._WelcomeScreen.action).concat(Fiori._WelcomeScreen.actionCumulative))
         } else {
-            _action.modifier(actionModifier.concat(Fiori.WelcomeScreen.action))
+            _action.modifier(actionModifier.concat(Fiori._WelcomeScreen.action))
         }
     }
 	@ViewBuilder var secondaryAction: some View {
         if isModelInit {
-            _secondaryAction.modifier(secondaryActionModifier.concat(Fiori.WelcomeScreen.secondaryAction).concat(Fiori.WelcomeScreen.secondaryActionCumulative))
+            _secondaryAction.modifier(secondaryActionModifier.concat(Fiori._WelcomeScreen.secondaryAction).concat(Fiori._WelcomeScreen.secondaryActionCumulative))
         } else {
-            _secondaryAction.modifier(secondaryActionModifier.concat(Fiori.WelcomeScreen.secondaryAction))
+            _secondaryAction.modifier(secondaryActionModifier.concat(Fiori._WelcomeScreen.secondaryAction))
         }
     }
     
@@ -138,7 +138,7 @@ public struct WelcomeScreen<Title: View, DescriptionText: View, Subtitle: View, 
     }
 }
 
-extension WelcomeScreen where Title == Text,
+extension _WelcomeScreen where Title == Text,
 		DescriptionText == _ConditionalContent<Text, EmptyView>,
 		Subtitle == _ConditionalContent<Text, EmptyView>,
 		Footnote == _ConditionalContent<Text, EmptyView>,
@@ -147,7 +147,7 @@ extension WelcomeScreen where Title == Text,
 		ActionView == _ConditionalContent<_Action, EmptyView>,
 		SecondaryActionView == _ConditionalContent<_Action, EmptyView> {
 
-    public init(model: WelcomeScreenModel) {
+    public init(model: _WelcomeScreenModel) {
         self.init(title: model.title, descriptionText: model.descriptionText, subtitle: model.subtitle, footnote: model.footnote, icon: model.icon, textInput: model.textInput != nil ? _TextInput(model: model.textInput!) : nil, action: model.action != nil ? _Action(model: model.action!) : nil, secondaryAction: model.secondaryAction != nil ? _Action(model: model.secondaryAction!) : nil)
     }
 
