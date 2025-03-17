@@ -28,7 +28,6 @@ struct BannerMessageModifierExample: View {
                 Text("\(text) with [link](https://www.sap.com)")
             } else if self.withAttachedAction {
                 HStack {
-                    Spacer()
                     Text("\(text)")
                     Button(action: {
                         print("Custom button tapped in title")

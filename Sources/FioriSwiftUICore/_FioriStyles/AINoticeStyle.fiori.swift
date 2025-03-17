@@ -6,7 +6,7 @@ import SwiftUI
 public struct AINoticeBaseStyle: AINoticeStyle {
     @Environment(\.isEnabled) var isEnabled
     public func makeBody(_ configuration: AINoticeConfiguration) -> some View {
-        HStack(spacing: 8) {
+        HStack(alignment: .firstTextBaseline, spacing: 8) {
             if configuration.viewAlignment == .center {
                 Spacer()
             }
