@@ -963,15 +963,15 @@ struct TitleMenuItem: View {
                     .buttonStyle(ResetButtonStyle())
                     .disabled(self.item.isOriginal)
                 } applyAction: {
-                    _Action(actionText: NSLocalizedString("Apply", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
+                    _Action(actionText: NSLocalizedString("Apply", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: { [self] in
+                        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                         self.item.apply()
                         self.onUpdate()
                         self.isSheetVisible.toggle()
                     })
                     .buttonStyle(ApplyButtonStyle())
-
                 } components: {
-                    TitleFormView(text: Binding<String>(get: { self.item.workingText }, set: { self.item.workingText = $0 }),
+                    TitleFormView(text: self.$item.workingText,
                                   isSecureEnabled: self.item.isSecureEnabled,
                                   placeholder: self.item.placeholder?.attributedString,
                                   controlState: self.item.controlState,

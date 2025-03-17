@@ -1,17 +1,11 @@
 import FioriThemeManager
-
-//  _SortFilterMenuItemContainer.swift
-//
-//
-//  Created by Xu, Charles on 9/25/23.
-//
 import SwiftUI
 
 /// :nodoc:
-public struct _SortFilterCFGItemContainer {
+public struct SortFilterCFGItemContainer {
     @EnvironmentObject var context: SortFilterContext
     
-    @Binding var _items: [[_SortFilterItem]]
+    @Binding var _items: [[SortFilterItem]]
     @State var height = 88.0
     /// The frame of the view toggle to show this view.
     var btnFrame: CGRect = .zero
@@ -31,13 +25,13 @@ public struct _SortFilterCFGItemContainer {
     /// - Parameters:
     ///   - items: Option views in the list.
     ///   - btnFrame: The frame of the view toggle to show this view.
-    public init(items: Binding<[[_SortFilterItem]]>, btnFrame: CGRect = .zero) {
+    public init(items: Binding<[[SortFilterItem]]>, btnFrame: CGRect = .zero) {
         self.__items = items
         self.btnFrame = btnFrame
     }
 }
 
-extension _SortFilterCFGItemContainer: View {
+extension SortFilterCFGItemContainer: View {
     /// :nodoc:
     public var body: some View {
         List {
@@ -105,7 +99,7 @@ extension _SortFilterCFGItemContainer: View {
                         for c in 0 ..< self._items[r].count {
                             switch self._items[r][c] {
                             case .picker:
-                                var pickerItem: _SortFilterItem.PickerItem = self._items[r][c].picker
+                                var pickerItem: SortFilterItem.PickerItem = self._items[r][c].picker
                                 if pickerItem.resetButtonConfiguration.type == .reset {
                                     pickerItem.reset()
                                 } else {
@@ -255,6 +249,9 @@ extension _SortFilterCFGItemContainer: View {
         case .stepper:
             self.stepper(row: r, column: c)
                 .padding([.top, .bottom], 12)
+        case .title:
+            self.titleForm(row: r, column: c)
+                .padding([.top, .bottom], 12)
         }
     }
     
@@ -293,7 +290,7 @@ extension _SortFilterCFGItemContainer: View {
     }
     
     func listPickerDestination(row r: Int, column c: Int) -> some View {
-        let filter: ((_SortFilterItem.PickerItem.ValueOptionModel, String) -> Bool) = { f, s in
+        let filter: ((SortFilterItem.PickerItem.ValueOptionModel, String) -> Bool) = { f, s in
             if !s.isEmpty {
                 return f.value.localizedCaseInsensitiveContains(s)
             } else {
@@ -631,6 +628,31 @@ extension _SortFilterCFGItemContainer: View {
         }
     }
     
+    private func titleForm(row r: Int, column c: Int) -> some View {
+        VStack {
+            HStack {
+                Text(self._items[r][c].title.name)
+                    .font(.fiori(forTextStyle: .subheadline, weight: .bold, isItalic: false, isCondensed: false))
+                    .foregroundColor(Color.preferredColor(.primaryLabel))
+                Spacer()
+            }
+            .padding([.leading, .trailing], UIDevice.current.userInterfaceIdiom != .phone ? 0 : 16)
+            
+            TitleFormView(text: Binding<String>(get: { self._items[r][c].title.workingText }, set: { self._items[r][c].title.workingText = $0 }),
+                          isSecureEnabled: self._items[r][c].title.isSecureEnabled,
+                          placeholder: self._items[r][c].title.placeholder?.attributedString,
+                          controlState: self._items[r][c].title.controlState,
+                          errorMessage: self._items[r][c].title.errorMessage?.attributedString,
+                          maxTextLength: self._items[r][c].title.maxTextLength,
+                          hintText: self._items[r][c].title.hintText?.attributedString,
+                          hidesReadOnlyHint: self._items[r][c].title.hidesReadOnlyHint,
+                          isCharCountEnabled: self._items[r][c].title.isCharCountEnabled,
+                          allowsBeyondLimit: self._items[r][c].title.allowsBeyondLimit,
+                          charCountReachLimitMessage: self._items[r][c].title.charCountReachLimitMessage,
+                          charCountBeyondLimitMsg: self._items[r][c].title.charCountBeyondLimitMsg)
+        }
+    }
+    
     private func icon(name: String?, isVisible: Bool) -> Image? {
         if isVisible {
             if let name {
@@ -651,7 +673,7 @@ extension _SortFilterCFGItemContainer: View {
         return keyWindow.safeAreaInsets
     }
     
-    private func lowerTextFieldBorderColor(item: _SortFilterItem.SliderItem) -> Color? {
+    private func lowerTextFieldBorderColor(item: SortFilterItem.SliderItem) -> Color? {
         let workingLowerValue = item.workingLowerValue ?? item.minimumValue
         let workingUpperValue = item.workingUpperValue ?? item.maximumValue
         if !(item.range ~= workingLowerValue) || workingLowerValue > workingUpperValue {
@@ -660,7 +682,7 @@ extension _SortFilterCFGItemContainer: View {
         return nil
     }
     
-    private func upperTextFieldBorderColor(item: _SortFilterItem.SliderItem) -> Color? {
+    private func upperTextFieldBorderColor(item: SortFilterItem.SliderItem) -> Color? {
         let workingLowerValue = item.workingLowerValue ?? item.minimumValue
         let workingUpperValue = item.workingUpperValue ?? item.maximumValue
         if !(item.range ~= workingUpperValue) || workingLowerValue > workingUpperValue {
