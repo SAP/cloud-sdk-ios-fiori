@@ -543,7 +543,7 @@ public protocol StepProgressIndicatorModel {}
 public protocol _FilterFeedbackBarModel: AnyObject {
     // sourcery: bindingProperty
     // sourcery: backingComponent=_SortFilterMenuItemContainer
-    var items: [[SortFilterItem]] { get set }
+    var items: [[_SortFilterItem]] { get set }
     
     // sourcery: default.value = nil
     // sourcery: no_view
@@ -561,7 +561,7 @@ public protocol FilterFeedbackBarModel {}
 public protocol _SortFilterViewModel: AnyObject, TitleComponent {
     // sourcery: bindingProperty
     // sourcery: backingComponent=_SortFilterCFGItemContainer
-    var items: [[SortFilterItem]] { get set }
+    var items: [[_SortFilterItem]] { get set }
     
     // sourcery: genericParameter.name = CancelActionView
     // sourcery: default.value = _CancelActionDefault()

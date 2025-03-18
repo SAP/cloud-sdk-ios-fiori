@@ -925,6 +925,103 @@ struct StepperMenuItem: View {
     }
 }
 
+struct TitleMenuItem: View {
+    @Binding var item: SortFilterItem.TitleItem
+
+    @State var isSheetVisible = false
+
+    @State var detentHeight: CGFloat = 0
+    @State var barItemFrame: CGRect = .zero
+
+    var onUpdate: () -> Void
+    
+    let popoverWidth = 393.0
+    
+    public init(item: Binding<SortFilterItem.TitleItem>, onUpdate: @escaping () -> Void) {
+        self._item = item
+        self.onUpdate = onUpdate
+    }
+    
+    var body: some View {
+        FilterFeedbackBarItem(icon: icon(name: self.item.icon, isVisible: true), title: AttributedString(self.item.label), accessoryIcon: Image(systemName: "chevron.down"), isSelected: self.item.isChecked)
+            .onTapGesture {
+                self.isSheetVisible.toggle()
+            }
+            .popover(isPresented: self.$isSheetVisible, arrowEdge: self.barItemFrame.arrowDirection()) {
+                CancellableResettableDialogNavigationForm {
+                    SortFilterItemTitle(title: self.item.name)
+                } cancelAction: {
+                    _Action(actionText: NSLocalizedString("Cancel", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
+                        self.item.cancel()
+                        self.isSheetVisible.toggle()
+                    })
+                    .buttonStyle(CancelButtonStyle())
+                } resetAction: {
+                    _Action(actionText: NSLocalizedString("Reset", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
+                        self.item.reset()
+                    })
+                    .buttonStyle(ResetButtonStyle())
+                    .disabled(self.item.isOriginal)
+                } applyAction: {
+                    _Action(actionText: NSLocalizedString("Apply", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: { [self] in
+                        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                        self.item.apply()
+                        self.onUpdate()
+                        self.isSheetVisible.toggle()
+                    })
+                    .buttonStyle(ApplyButtonStyle())
+                } components: {
+                    TitleFormView(text: self.$item.workingText,
+                                  isSecureEnabled: self.item.isSecureEnabled,
+                                  placeholder: self.item.placeholder?.attributedString,
+                                  controlState: self.item.controlState,
+                                  errorMessage: self.item.errorMessage?.attributedString,
+                                  maxTextLength: self.item.maxTextLength,
+                                  hintText: self.item.hintText?.attributedString,
+                                  hidesReadOnlyHint: self.item.hidesReadOnlyHint,
+                                  isCharCountEnabled: self.item.isCharCountEnabled,
+                                  allowsBeyondLimit: self.item.allowsBeyondLimit,
+                                  charCountReachLimitMessage: self.item.charCountReachLimitMessage,
+                                  charCountBeyondLimitMsg: self.item.charCountBeyondLimitMsg)
+                        .padding([.leading, .trailing], 16)
+                        .padding(.bottom, 8)
+                        .background(GeometryReader { geometry in
+                            Color.clear
+                                .onAppear {
+                                    let isNotIphone = UIDevice.current.userInterfaceIdiom != .phone
+                                    var calculateHeight = geometry.size.height
+                                    calculateHeight += isNotIphone ? 13 : 16
+                                    calculateHeight += isNotIphone ? 50 : 56
+                                    if !isNotIphone {
+                                        calculateHeight += UIEdgeInsets.getSafeAreaInsets().bottom
+                                    }
+                                    calculateHeight += UIDevice.current.userInterfaceIdiom != .phone ? 55 : 0
+                                    self.detentHeight = calculateHeight
+                                }
+                        })
+                }
+                .ifApply(UIDevice.current.userInterfaceIdiom != .phone, content: { v in
+                    v.frame(width: self.popoverWidth)
+                })
+                .frame(minHeight: self.detentHeight)
+                .presentationDetents([.height(self.detentHeight)])
+            }
+            .ifApply(UIDevice.current.userInterfaceIdiom != .phone, content: { v in
+                v.background(GeometryReader { geometry in
+                    Color.clear
+                        .onAppear {
+                            self.barItemFrame = geometry.frame(in: .global)
+                        }
+                        .setOnChange(of: geometry.frame(in: .global), action1: { newValue in
+                            self.barItemFrame = newValue
+                        }) { _, newValue in
+                            self.barItemFrame = newValue
+                        }
+                })
+            })
+    }
+}
+
 struct FullCFGMenuItem: View {
     @Environment(\.filterFeedbackBarFullConfigurationItem) var fullCFGButton
     

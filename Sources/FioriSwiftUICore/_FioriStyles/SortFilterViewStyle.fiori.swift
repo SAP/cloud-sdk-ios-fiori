@@ -44,7 +44,7 @@ public struct SortFilterViewBaseStyle: SortFilterViewStyle {
                     self.dismiss()
                 }
         } components: {
-            _SortFilterCFGItemContainer(items: configuration.$items, btnFrame: self.sortFilterBarItemFrame)
+            SortFilterCFGItemContainer(items: configuration.$items, btnFrame: self.sortFilterBarItemFrame)
                 .sizeReader(size: { s in
                     if self.size != s {
                         self.size = s

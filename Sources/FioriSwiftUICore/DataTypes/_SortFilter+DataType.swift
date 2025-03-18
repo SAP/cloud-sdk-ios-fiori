@@ -2,7 +2,7 @@ import SwiftUI
 import UIKit
 
 /// UI control types supporeted by Sort and Filter configuration
-public enum SortFilterItem: Identifiable, Hashable {
+public enum _SortFilterItem: Identifiable, Hashable {
     /// :nodoc:
     public var id: String {
         switch self {
@@ -17,8 +17,6 @@ public enum SortFilterItem: Identifiable, Hashable {
         case .datetime(let item, _):
             return item.id
         case .stepper(let item, _):
-            return item.id
-        case .title(let item, _):
             return item.id
         }
     }
@@ -69,13 +67,6 @@ public enum SortFilterItem: Identifiable, Hashable {
     /// 2. A section of view containing a SwiftUI Stepper with Fiori style
     case stepper(item: StepperItem, showsOnFilterFeedbackBar: Bool)
         
-    /// The type of UI control is used to build:
-    ///
-    /// 1. Sort & Filter's menu item associated with a popover containing a SwiftUI TitleFormView with Fiori style
-    ///
-    /// 2. A section of view containing a SwiftUI TitleFormView with Fiori style
-    case title(item: TitleItem, showsOnFilterFeedbackBar: Bool)
-
     public var showsOnFilterFeedbackBar: Bool {
         switch self {
         case .picker(_, let showsOnFilterFeedbackBar):
@@ -89,8 +80,6 @@ public enum SortFilterItem: Identifiable, Hashable {
         case .datetime(_, let showsOnFilterFeedbackBar):
             return showsOnFilterFeedbackBar
         case .stepper(_, let showsOnFilterFeedbackBar):
-            return showsOnFilterFeedbackBar
-        case .title(_, let showsOnFilterFeedbackBar):
             return showsOnFilterFeedbackBar
         }
     }
@@ -128,16 +117,11 @@ public enum SortFilterItem: Identifiable, Hashable {
             hasher.combine(item.originalValue)
             hasher.combine(item.workingValue)
             hasher.combine(item.value)
-        case .title(let item, _):
-            hasher.combine(item.id)
-            hasher.combine(item.originalText)
-            hasher.combine(item.workingText)
-            hasher.combine(item.text)
         }
     }
 }
 
-extension SortFilterItem {
+extension _SortFilterItem {
     var picker: PickerItem {
         get {
             switch self {
@@ -258,26 +242,6 @@ extension SortFilterItem {
         }
     }
     
-    var title: TitleItem {
-        get {
-            switch self {
-            case .title(let item, _):
-                return item
-            default:
-                fatalError("Unexpected value \(self)")
-            }
-        }
-        
-        set {
-            switch self {
-            case .title(_, let showsOnFilterFeedbackBar):
-                self = .title(item: newValue, showsOnFilterFeedbackBar: showsOnFilterFeedbackBar)
-            default:
-                fatalError("Unexpected value \(self)")
-            }
-        }
-    }
-    
     var isChanged: Bool {
         switch self {
         case .picker(let item, _):
@@ -291,8 +255,6 @@ extension SortFilterItem {
         case .slider(let item, _):
             return item.isChanged
         case .stepper(let item, _):
-            return item.isChanged
-        case .title(let item, _):
             return item.isChanged
         }
     }
@@ -310,8 +272,6 @@ extension SortFilterItem {
         case .slider(let item, _):
             return item.isOriginal
         case .stepper(let item, _):
-            return item.isOriginal
-        case .title(let item, _):
             return item.isOriginal
         }
     }
@@ -336,9 +296,6 @@ extension SortFilterItem {
         case .stepper(var item, _):
             item.cancel()
             self.stepper = item
-        case .title(var item, _):
-            item.cancel()
-            self.title = item
         }
     }
     
@@ -362,9 +319,6 @@ extension SortFilterItem {
         case .stepper(var item, _):
             item.reset()
             self.stepper = item
-        case .title(var item, _):
-            item.reset()
-            self.title = item
         }
     }
     
@@ -388,71 +342,11 @@ extension SortFilterItem {
         case .stepper(var item, _):
             item.apply()
             self.stepper = item
-        case .title(var item, _):
-            item.apply()
-            self.title = item
         }
     }
 }
 
-/// FilterFeedbackBar ResetButton Configuration
-public struct FilterFeedbackBarResetButtonConfiguration: Equatable {
-    var type: FilterFeedbackBarResetButtonType
-    var title: String
-    var isHidden: Bool
-    
-    init(type: FilterFeedbackBarResetButtonType = .reset, title: String, isHidden: Bool = false) {
-        self.type = type
-        self.title = title
-        self.isHidden = isHidden
-    }
-    
-    /// Default FilterFeedbackBarResetButtonConfiguration
-    public init() {
-        self.init(type: .reset, title: NSLocalizedString("Reset", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), isHidden: false)
-    }
-    
-    /// Customize FilterFeedbackBarResetButtonConfiguration
-    /// - Parameters:
-    ///   - type: Reset button type
-    ///   - title: Reset button title
-    ///   - isHidden: A Boolean value that determines whether reset button is hidden.
-    public init(with type: FilterFeedbackBarResetButtonType = .reset, title: String = "", isHidden: Bool = false) {
-        self.init(type: type, title: title == "" ? NSLocalizedString("Reset", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "") : title, isHidden: isHidden)
-    }
-    
-    /// :nodoc:
-    public static func == (lhs: FilterFeedbackBarResetButtonConfiguration, rhs: FilterFeedbackBarResetButtonConfiguration) -> Bool {
-        lhs.type == rhs.type && lhs.title == rhs.title && lhs.isHidden == rhs.isHidden
-    }
-}
-
-/// FilterFeedbackBar slider item value change handler
-public struct SliderValueChangeHandler: Equatable {
-    /// Slider description style type
-    public enum SliderInformationType {
-        case fiori
-        case error
-        case warning
-        case informational
-        case success
-    }
-    
-    public var onValueChange: (Double, Double) -> (SliderInformationType, String)
-    
-    /// Create init a SliderValueChangeHandler object.
-    /// - Parameter onValueChange: Call back for value changing.
-    public init(onValueChange: @escaping (Double, Double) -> (SliderInformationType, String)) {
-        self.onValueChange = onValueChange
-    }
-    
-    /// :nodoc:
-    public static func == (lhs: SliderValueChangeHandler, rhs: SliderValueChangeHandler) -> Bool {
-        true
-    }
-}
-
-public extension SortFilterItem {
+public extension _SortFilterItem {
     ///  Data structure for filter feedback, option list picker,
     struct PickerItem: Identifiable, Equatable {
         public let id: String
@@ -1086,93 +980,6 @@ public extension SortFilterItem {
         
         var isOriginal: Bool {
             self.workingValue == self.originalValue
-        }
-    }
-    
-    /// Data structure for title type
-    struct TitleItem: Identifiable, Equatable {
-        public var id: String
-        public var name: String
-        public let icon: String?
-        
-        public var text: String
-        var workingText: String
-        let originalText: String
-        public var isSecureEnabled: Bool? = false
-        public var placeholder: String?
-        public var controlState: ControlState = .normal
-        public var errorMessage: String?
-        public var maxTextLength: Int?
-        public let hintText: String?
-        public let hidesReadOnlyHint: Bool
-        public let isCharCountEnabled: Bool
-        public let allowsBeyondLimit: Bool
-        public let charCountReachLimitMessage: String?
-        public let charCountBeyondLimitMsg: String?
-        
-        /// Create a textfiled.
-        /// - Parameters:
-        ///   - id: The unique identifier for TitleItem.
-        ///   - name: Item name.
-        ///   - text: The text in textfield.
-        ///   - isSecureEnabled: A boolean value to indicate to whether the textfield is secure textfield.
-        ///   - placeholder: A text for placeholder of textfield.
-        ///   - controlState: A state for textfield.
-        ///   - errorMessage: A text when the text of textfield not satisfy conditions.
-        ///   - maxTextLength: A maximum value for text length.
-        ///   - hidesReadOnlyHint: A boolean value to indicate to hide read only hint or not.
-        ///   - isCharCountEnabled: A boolean value to indicate to display char count or not.
-        ///   - allowsBeyondLimit: A boolean value to indicate to allows inputting text beyond maximum char count limit or not.
-        ///   - charCountReachLimitMessage: A text for char count reach maximum limit.
-        ///   - charCountBeyondLimitMsg: A text for char beyond maximum limit.
-        ///   - icon: The icon image in the item bar.
-        ///   - hintText: The hint text of the textfiled.
-        public init(id: String = UUID().uuidString, name: String, text: String, isSecureEnabled: Bool? = false, placeholder: String? = nil, controlState: ControlState = .normal, errorMessage: String? = nil, maxTextLength: Int? = nil, hidesReadOnlyHint: Bool = false, isCharCountEnabled: Bool = false, allowsBeyondLimit: Bool = false, charCountReachLimitMessage: String? = nil, charCountBeyondLimitMsg: String? = nil, icon: String? = nil, hintText: String? = nil) {
-            self.id = id
-            self.name = name
-            self.text = text
-            self.workingText = text
-            self.originalText = text
-            self.icon = icon
-            self.isSecureEnabled = isSecureEnabled
-            self.placeholder = placeholder
-            self.controlState = controlState
-            self.errorMessage = errorMessage
-            self.maxTextLength = maxTextLength
-            self.hidesReadOnlyHint = hidesReadOnlyHint
-            self.isCharCountEnabled = isCharCountEnabled
-            self.allowsBeyondLimit = allowsBeyondLimit
-            self.charCountReachLimitMessage = charCountReachLimitMessage
-            self.charCountBeyondLimitMsg = charCountBeyondLimitMsg
-            self.hintText = hintText
-        }
-        
-        mutating func reset() {
-            self.workingText = self.originalText
-        }
-        
-        mutating func cancel() {
-            self.workingText = self.text
-        }
-        
-        mutating func apply() {
-            self.text = self.workingText
-        }
-        
-        var isChecked: Bool {
-            !self.text.isEmpty
-        }
-        
-        var isChanged: Bool {
-            self.text != self.workingText
-        }
-        
-        var isOriginal: Bool {
-            self.workingText == self.originalText
-        }
-        
-        var label: String {
-            "\(self.name): \(self.text)"
         }
     }
 }
