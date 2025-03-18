@@ -11,9 +11,9 @@ public struct _SortFilterMenuItemContainer {
     @Environment(\.onModelUpdateAppCallback) var onUpdate: () -> Void
 //    @Environment(\.cancelActionView) var _cancelAction
     @Environment(\.sortFilterMenuItemFullConfigurationButton) var fullCFGButton
-    @Binding var _items: [[SortFilterItem]]
+    @Binding var _items: [[_SortFilterItem]]
 
-    public init(items: Binding<[[SortFilterItem]]>) {
+    public init(items: Binding<[[_SortFilterItem]]>) {
         self.__items = items
     }
 }
@@ -34,36 +34,36 @@ extension _SortFilterMenuItemContainer: View {
                         if self._items[r][c].showsOnFilterFeedbackBar {
                             switch self._items[r][c] {
                             case .picker:
-                                _PickerMenuItem(item: Binding<SortFilterItem.PickerItem>(get: { self._items[r][c].picker }, set: { self._items[r][c].picker = $0 }), onUpdate: self.onUpdate)
+                                _PickerMenuItem(item: Binding<_SortFilterItem.PickerItem>(get: { self._items[r][c].picker }, set: { self._items[r][c].picker = $0 }), onUpdate: self.onUpdate)
                                     .accessibilityElement()
                                     .accessibilityLabel(self._items[r][c].picker.label)
                                     .accessibilityIdentifier(self._items[r][c].picker.name)
                                     .accessibility(addTraits: .isButton)
                             case .filterfeedback:
-                                _FilterFeedbackMenuItem(item: Binding<SortFilterItem.PickerItem>(get: { self._items[r][c].filterfeedback }, set: { self._items[r][c].filterfeedback = $0 }), onUpdate: self.onUpdate)
+                                _FilterFeedbackMenuItem(item: Binding<_SortFilterItem.PickerItem>(get: { self._items[r][c].filterfeedback }, set: { self._items[r][c].filterfeedback = $0 }), onUpdate: self.onUpdate)
                                     .accessibilityElement()
                                     .accessibilityLabel(self._items[r][c].filterfeedback.label)
                                     .accessibilityIdentifier(self._items[r][c].filterfeedback.name)
                                     .accessibility(addTraits: .isButton)
                             case .switch:
-                                _SwitchMenuItem(item: Binding<SortFilterItem.SwitchItem>(get: { self._items[r][c].switch }, set: { self._items[r][c].switch = $0 }), onUpdate: self.onUpdate)
+                                _SwitchMenuItem(item: Binding<_SortFilterItem.SwitchItem>(get: { self._items[r][c].switch }, set: { self._items[r][c].switch = $0 }), onUpdate: self.onUpdate)
                                     .accessibilityElement()
                                     .accessibilityLabel(self.switchItemAccessibilityLabel(switchItem: self._items[r][c].switch))
                                     .accessibilityIdentifier(self._items[r][c].switch.name)
                                     .accessibility(addTraits: .isButton)
                             case .slider:
-                                _SliderMenuItem(item: Binding<SortFilterItem.SliderItem>(get: { self._items[r][c].slider }, set: { self._items[r][c].slider = $0 }), onUpdate: self.onUpdate)
+                                _SliderMenuItem(item: Binding<_SortFilterItem.SliderItem>(get: { self._items[r][c].slider }, set: { self._items[r][c].slider = $0 }), onUpdate: self.onUpdate)
                                     .accessibilityElement()
                                     .accessibilityLabel(self._items[r][c].slider.label)
                                     .accessibilityIdentifier(self._items[r][c].slider.name)
                                     .accessibility(addTraits: .isButton)
                             case .datetime:
-                                _DateTimeMenuItem(item: Binding<SortFilterItem.DateTimeItem>(get: { self._items[r][c].datetime }, set: { self._items[r][c].datetime = $0 }), onUpdate: self.onUpdate)
+                                _DateTimeMenuItem(item: Binding<_SortFilterItem.DateTimeItem>(get: { self._items[r][c].datetime }, set: { self._items[r][c].datetime = $0 }), onUpdate: self.onUpdate)
                                     .accessibilityElement()
                                     .accessibilityLabel(self._items[r][c].datetime.label)
                                     .accessibilityIdentifier(self._items[r][c].datetime.name)
                             case .stepper:
-                                _StepperMenuItem(item: Binding<SortFilterItem.StepperItem>(get: { self._items[r][c].stepper }, set: { self._items[r][c].stepper = $0 }), onUpdate: self.onUpdate)
+                                _StepperMenuItem(item: Binding<_SortFilterItem.StepperItem>(get: { self._items[r][c].stepper }, set: { self._items[r][c].stepper = $0 }), onUpdate: self.onUpdate)
                                     .accessibilityElement()
                                     .accessibilityLabel(self._items[r][c].stepper.label)
                                     .accessibilityIdentifier(self._items[r][c].stepper.name)
@@ -84,7 +84,7 @@ extension _SortFilterMenuItemContainer: View {
         .frame(minHeight: 44)
     }
     
-    private func switchItemAccessibilityLabel(switchItem: SortFilterItem.SwitchItem) -> String {
+    private func switchItemAccessibilityLabel(switchItem: _SortFilterItem.SwitchItem) -> String {
         var accessibilityLabel = switchItem.name
         if let value = switchItem.value {
             accessibilityLabel += "\(value ? 1 : 0)"

@@ -276,7 +276,7 @@ public struct IllustratedMessageFixedWidthButtonStyle: IllustratedMessageStyle {
 /// Vertical layout style of the Illustrated Message. All content is displayed in one column. This is the default layout style
 public extension IllustratedMessageStyle where Self == IllustratedMessageVerticalLayoutStyle {
     static var vertical: some IllustratedMessageStyle {
-        IllustratedMessageVerticalLayoutStyle().concat(.fiori)
+        IllustratedMessageVerticalLayoutStyle()
     }
 }
 
@@ -299,7 +299,7 @@ public extension IllustratedMessageStyle where Self == IllustratedMessageMixedLa
 public extension IllustratedMessageStyle where Self == IllustratedMessageFlexibleButtonStyle {
     /// Flexible action button style of the Illustrated Message. The width of the primary action button is hugged and the secondary action button will take the rest of the container width.
     static var flexibleButton: some IllustratedMessageStyle {
-        IllustratedMessageFlexibleButtonStyle().concat(.fiori)
+        IllustratedMessageFlexibleButtonStyle()
     }
 }
 
@@ -307,7 +307,7 @@ public extension IllustratedMessageStyle where Self == IllustratedMessageFlexibl
 public extension IllustratedMessageStyle where Self == IllustratedMessageFullWidthButtonStyle {
     /// Full width action button style of the Illustrated Message. The width of both action buttons will take the width of the container.
     static var fullWidthButton: some IllustratedMessageStyle {
-        IllustratedMessageFullWidthButtonStyle().concat(.fiori)
+        IllustratedMessageFullWidthButtonStyle()
     }
 }
 
@@ -315,7 +315,7 @@ public extension IllustratedMessageStyle where Self == IllustratedMessageFullWid
 public extension IllustratedMessageStyle where Self == IllustratedMessageFixedWidthButtonStyle {
     /// Full width action button style of the Illustrated Message. The width of both action buttons is fixed
     static var fixedWidthButton: some IllustratedMessageStyle {
-        IllustratedMessageFixedWidthButtonStyle().concat(.fiori)
+        IllustratedMessageFixedWidthButtonStyle()
     }
 }
 

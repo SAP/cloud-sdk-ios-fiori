@@ -44,10 +44,10 @@ public enum FilterFeedbackBarResetButtonType {
 }
 
 struct _FilterFeedbackMenuItem: View {
-    @Binding var item: SortFilterItem.PickerItem
+    @Binding var item: _SortFilterItem.PickerItem
     var onUpdate: () -> Void
     
-    public init(item: Binding<SortFilterItem.PickerItem>, onUpdate: @escaping () -> Void) {
+    public init(item: Binding<_SortFilterItem.PickerItem>, onUpdate: @escaping () -> Void) {
         self._item = item
         self.onUpdate = onUpdate
     }
@@ -67,7 +67,7 @@ struct _FilterFeedbackMenuItem: View {
 }
 
 struct _SliderMenuItem: View {
-    @Binding var item: SortFilterItem.SliderItem
+    @Binding var item: _SortFilterItem.SliderItem
 
     @State var isSheetVisible = false
 
@@ -81,7 +81,7 @@ struct _SliderMenuItem: View {
     
     var onUpdate: () -> Void
 
-    public init(item: Binding<SortFilterItem.SliderItem>, onUpdate: @escaping () -> Void) {
+    public init(item: Binding<_SortFilterItem.SliderItem>, onUpdate: @escaping () -> Void) {
         self._item = item
         self.onUpdate = onUpdate
     }
@@ -285,7 +285,7 @@ extension String? {
 }
 
 struct _PickerMenuItem: View {
-    @Binding var item: SortFilterItem.PickerItem
+    @Binding var item: _SortFilterItem.PickerItem
     var onUpdate: () -> Void
     
     @State var isSheetVisible = false
@@ -295,7 +295,7 @@ struct _PickerMenuItem: View {
     @State var _keyboardHeight = 0.0
     @State var barItemFrame: CGRect = .zero
         
-    public init(item: Binding<SortFilterItem.PickerItem>, onUpdate: @escaping () -> Void) {
+    public init(item: Binding<_SortFilterItem.PickerItem>, onUpdate: @escaping () -> Void) {
         self._item = item
         self.onUpdate = onUpdate
     }
@@ -634,7 +634,7 @@ private struct ReadHeightModifier: ViewModifier {
 }
 
 struct _DateTimeMenuItem: View {
-    @Binding private var item: SortFilterItem.DateTimeItem
+    @Binding private var item: _SortFilterItem.DateTimeItem
     
     @State private var isSheetVisible: Bool = false
 
@@ -649,7 +649,7 @@ struct _DateTimeMenuItem: View {
         let popoverWidth = 480.0
     #endif
     
-    public init(item: Binding<SortFilterItem.DateTimeItem>, onUpdate: @escaping () -> Void) {
+    public init(item: Binding<_SortFilterItem.DateTimeItem>, onUpdate: @escaping () -> Void) {
         self._item = item
         self.onUpdate = onUpdate
     }
@@ -748,14 +748,14 @@ struct _DateTimeMenuItem: View {
 }
 
 struct _SwitchMenuItem: View {
-    @Binding private var item: SortFilterItem.SwitchItem
+    @Binding private var item: _SortFilterItem.SwitchItem
     
 //    @State var detentHeight: CGFloat = 0
     
 //    @State private var isSheetVisible: Bool = false
     var onUpdate: () -> Void
 
-    public init(item: Binding<SortFilterItem.SwitchItem>, onUpdate: @escaping () -> Void) {
+    public init(item: Binding<_SortFilterItem.SwitchItem>, onUpdate: @escaping () -> Void) {
         self._item = item
         self.onUpdate = onUpdate
     }
@@ -803,7 +803,7 @@ struct _SwitchMenuItem: View {
 }
 
 struct _StepperMenuItem: View {
-    @Binding var item: SortFilterItem.StepperItem
+    @Binding var item: _SortFilterItem.StepperItem
 
     @State var isSheetVisible = false
 
@@ -817,7 +817,7 @@ struct _StepperMenuItem: View {
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
     @State private var geometrySizeHeight: CGFloat = 0
     
-    public init(item: Binding<SortFilterItem.StepperItem>, onUpdate: @escaping () -> Void) {
+    public init(item: Binding<_SortFilterItem.StepperItem>, onUpdate: @escaping () -> Void) {
         self._item = item
         self.onUpdate = onUpdate
     }
@@ -966,7 +966,7 @@ struct _StepperMenuItem: View {
 struct _FullCFGMenuItem: View {
     @Environment(\.sortFilterMenuItemFullConfigurationButton) var fullCFGButton
     
-    @Binding var items: [[SortFilterItem]]
+    @Binding var items: [[_SortFilterItem]]
 
     @State var isSheetVisible = false
     @State var barItemFrame: CGRect = .zero
@@ -977,7 +977,7 @@ struct _FullCFGMenuItem: View {
     
     var resetButtonType = FilterFeedbackBarResetButtonType.reset
 
-    public init(items: Binding<[[SortFilterItem]]>, onUpdate: @escaping () -> Void) {
+    public init(items: Binding<[[_SortFilterItem]]>, onUpdate: @escaping () -> Void) {
         self._items = items
         self.onUpdate = onUpdate
     }

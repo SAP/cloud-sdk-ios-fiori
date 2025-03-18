@@ -16,6 +16,8 @@ extension View {
             return self.json(item: v)
         case .stepper(let v, _):
             return self.json(item: v)
+        case .title(let v, _):
+            return self.json(item: v)
         }
     }
     
@@ -37,5 +39,9 @@ extension View {
     
     func json(item: SortFilterItem.StepperItem) -> String {
         "{name: \(item.name), value: \(String(describing: item.value))}"
+    }
+    
+    func json(item: SortFilterItem.TitleItem) -> String {
+        "{name: \(item.name), value: \(item.text)}"
     }
 }
