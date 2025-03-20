@@ -9,7 +9,6 @@ struct AttachmentGroupExample: View {
     @State private var showOperations: Bool
     @State var images: [UIImage]
     @State var selectedPhotos: [PhotosPickerItem]
-    @State var showScanAndUploadView: Bool
     @State var showWriteAndUploadView: Bool
     @State private var opsAsMenu = true
     @State private var showConfiguraton = false
@@ -39,7 +38,6 @@ struct AttachmentGroupExample: View {
         self.showOperations = false
         self.images = []
         self.selectedPhotos = []
-        self.showScanAndUploadView = false
         self.showWriteAndUploadView = false
         self.showConfiguraton = false
         self.previewURL = nil
@@ -56,12 +54,6 @@ struct AttachmentGroupExample: View {
             VStack {
                 self.attachments()
                     .border(.red)
-            }
-            .sheet(isPresented: self.$showScanAndUploadView) {
-                ScanUploadView { attachmentName, attachmentContent in
-                    print("Upload scaned attachment: \(attachmentName), \(attachmentContent)")
-                    self.showScanAndUploadView.toggle()
-                }
             }
             .sheet(isPresented: self.$showWriteAndUploadView) {
                 WriteAndUploadView { attachmentName, attachmentContent in
@@ -171,7 +163,7 @@ struct AttachmentGroupExample: View {
                             Button {
                                 self.showWriteAndUploadView.toggle()
                             } label: {
-                                Label("Compose and Upload", systemImage: "square.and.pencil")
+                                Label("Compose", systemImage: "square.and.pencil")
                             }
                         }
                     }
@@ -184,7 +176,7 @@ struct AttachmentGroupExample: View {
                             Button {
                                 self.showWriteAndUploadView.toggle()
                             } label: {
-                                Label("Compose and Upload", systemImage: "square.and.pencil")
+                                Label("Compose", systemImage: "square.and.pencil")
                             }
                         }
                     }
@@ -232,31 +224,6 @@ struct MyAttachmentStyle: AttachmentStyle {
                 .font(.caption)
                 .foregroundStyle(.red)
         }
-    }
-}
-
-struct ScanUploadView: View {
-    let doneAction: (String, Data) -> Void
-    @State private var attachmentName: String = "MyScannedDoc.pdf"
-    @State private var content: Data?
-    var body: some View {
-        VStack(alignment: .leading) {
-            Text("Scan Upload")
-                .font(.title)
-                .foregroundStyle(.blue)
-            TextField("Attachment name", text: self.$attachmentName)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-            Image(systemName: "qrcode")
-                .resizable()
-                .frame(width: 200, height: 200)
-                .foregroundColor(.blue)
-            Button("Upload") {
-                self.doneAction(self.attachmentName, self.content ?? Data())
-            }
-            .disabled(self.attachmentName.isEmpty) // || content == nil
-            Spacer()
-        }
-        .padding()
     }
 }
 
