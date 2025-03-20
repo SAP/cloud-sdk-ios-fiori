@@ -1,3 +1,4 @@
+import PDFKit
 import PhotosUI
 import SwiftUI
 
@@ -10,8 +11,14 @@ public class AttachmentContext {
     /// For toggle FileImporter
     public var showFilesPicker: Bool = false
     
-    /// For toggle Camera
+    /// For toggle camera
     public var showCamera: Bool = false
+    
+    /// For toggle Camera for PDF scanning
+    public var showPdfScanner: Bool = false
+
+    /// For toggle Camera for Images scanning
+    public var showImageScanner: Bool = false
     
     var photoSelectionFilter: [PHPickerFilter] = []
     var fileSelectionFilter: [UTType] = []
@@ -66,6 +73,55 @@ public class AttachmentContext {
                     return
                 }
             }
+        }
+    }
+    
+    func upload(images: [UIImage?]) {
+        for item in images {
+            guard let item else {
+                self.configuration?.errorMessage = AttributedString("No image data available.")
+                return
+            }
+            
+            if let data = item.jpegData(compressionQuality: 1.0) {
+                let provider = NSItemProvider()
+                // first supported uttype identifier
+                provider.registerDataRepresentation(forTypeIdentifier: UTType.jpeg.identifier, visibility: .ownProcess) { completionHandler in
+                    completionHandler(data, nil)
+                    return Foundation.Progress()
+                }
+                self.upload(contentFrom: provider)
+            }
+        }
+    }
+    
+    func upload(pdfDocument: PDFDocument) {
+        if let data = pdfDocument.dataRepresentation() {
+            let provider = NSItemProvider()
+            // first supported uttype identifier
+            provider.registerDataRepresentation(forTypeIdentifier: UTType.pdf.identifier, visibility: .ownProcess) { completionHandler in
+                completionHandler(data, nil)
+                return Foundation.Progress()
+            }
+            self.upload(contentFrom: provider)
+        }
+    }
+
+    func upload(movieUrl: URL?) {
+        guard let movieUrl else {
+            self.configuration?.errorMessage = AttributedString("Video file not available.")
+            return
+        }
+        do {
+            let data = try Data(contentsOf: movieUrl)
+            let provider = NSItemProvider()
+            provider.registerDataRepresentation(forTypeIdentifier: UTType.mpeg4Movie.identifier, visibility: .ownProcess) { completionHandler in
+                completionHandler(data, nil)
+                return Foundation.Progress()
+            }
+            self.upload(contentFrom: provider)
+        } catch {
+            self.configuration?.errorMessage = AttributedString(error.localizedDescription)
         }
     }
     

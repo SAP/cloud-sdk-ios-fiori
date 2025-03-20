@@ -167,11 +167,7 @@ struct AttachmentGroupExample: View {
                             AttachmentMenuItems.photos(filter: self.photoFilters)
                             AttachmentMenuItems.files(filter: self.fileFilters)
                             AttachmentMenuItems.camera
-                            Button {
-                                self.showScanAndUploadView.toggle()
-                            } label: {
-                                Label("Scan & Upload", systemImage: "doc.viewfinder")
-                            }
+                            AttachmentMenuItems.pdfScanner
                             Button {
                                 self.showWriteAndUploadView.toggle()
                             } label: {
@@ -184,11 +180,7 @@ struct AttachmentGroupExample: View {
                             AttachmentMenuItems.photos(filter: self.photoFilters)
                             AttachmentMenuItems.files(filter: self.fileFilters)
                             AttachmentMenuItems.camera
-                            Button {
-                                self.showScanAndUploadView.toggle()
-                            } label: {
-                                Label("Scan & Upload", systemImage: "doc.viewfinder")
-                            }
+                            AttachmentMenuItems.pdfScanner
                             Button {
                                 self.showWriteAndUploadView.toggle()
                             } label: {
