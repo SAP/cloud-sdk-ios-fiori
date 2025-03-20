@@ -1,12 +1,12 @@
 import SwiftUI
 
 struct IconHorizontalAlignment: EnvironmentKey {
-    // The default is `.leading`. `.center` and `.trailing` means `.trailing`.
+    /// The default is `.leading`. `.center` and `.trailing` means `.trailing`.
     public static let defaultValue: HorizontalAlignment = .leading
 }
 
 public extension EnvironmentValues {
-    // Determine the relative positioning of an icon within the `TextOrIcon` when both a text and an icon are present. . The default is `.leading`. `.center` and `.trailing` means `.trailing`.
+    /// Determine the relative positioning of an icon within the `TextOrIcon` when both a text and an icon are present. . The default is `.leading`. `.center` and `.trailing` means `.trailing`.
     var iconHorizontalAlignment: HorizontalAlignment {
         get {
             self[IconHorizontalAlignment.self]

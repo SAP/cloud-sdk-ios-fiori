@@ -27,7 +27,7 @@ public struct StatusFioriStyle: StatusStyle {
     }
 }
 
-// A convenient `StatusStyle` to set a foreground color for `Status`
+/// A convenient `StatusStyle` to set a foreground color for `Status`
 public struct StatusColorStyleStyle: StatusStyle {
     let style: ColorStyle
     public func makeBody(_ configuration: StatusConfiguration) -> some View {
@@ -38,22 +38,22 @@ public struct StatusColorStyleStyle: StatusStyle {
 }
 
 public extension StatusStyle where Self == StatusColorStyleStyle {
-    // `.negativeLabel` color style for `Status`
+    /// `.negativeLabel` color style for `Status`
     static var negativeLabel: Self {
         StatusColorStyleStyle(style: .negativeLabel)
     }
     
-    // `.positiveLabel` color style for `Status`
+    /// `.positiveLabel` color style for `Status`
     static var positiveLabel: Self {
         StatusColorStyleStyle(style: .positiveLabel)
     }
     
-    // `.criticalLabel` color style for `Status`
+    /// `.criticalLabel` color style for `Status`
     static var criticalLabel: Self {
         StatusColorStyleStyle(style: .criticalLabel)
     }
     
-    // `.informativeLabel` color style for `Status`
+    /// `.informativeLabel` color style for `Status`
     static var informativeLabel: Self {
         StatusColorStyleStyle(style: .informativeLabel)
     }

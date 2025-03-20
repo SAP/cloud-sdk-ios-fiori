@@ -27,7 +27,7 @@ public struct SubstatusFioriStyle: SubstatusStyle {
     }
 }
 
-// A convenient `SubstatusStyle` to set a foreground color for `Substatus`
+/// A convenient `SubstatusStyle` to set a foreground color for `Substatus`
 public struct SubstatusColorStyle: SubstatusStyle {
     let style: ColorStyle
     public func makeBody(_ configuration: SubstatusConfiguration) -> some View {
@@ -38,22 +38,22 @@ public struct SubstatusColorStyle: SubstatusStyle {
 }
 
 public extension SubstatusStyle where Self == SubstatusColorStyle {
-    // `.negativeLabel` color style for `Substatus`
+    /// `.negativeLabel` color style for `Substatus`
     static var negativeLabel: Self {
         SubstatusColorStyle(style: .negativeLabel)
     }
     
-    // `.positiveLabel` color style for `Substatus`
+    /// `.positiveLabel` color style for `Substatus`
     static var positiveLabel: Self {
         SubstatusColorStyle(style: .positiveLabel)
     }
     
-    // `.criticalLabel` color style for `Substatus`
+    /// `.criticalLabel` color style for `Substatus`
     static var criticalLabel: Self {
         SubstatusColorStyle(style: .criticalLabel)
     }
     
-    // `.informativeLabel` color style for `Substatus`
+    /// `.informativeLabel` color style for `Substatus`
     static var informativeLabel: Self {
         SubstatusColorStyle(style: .informativeLabel)
     }
