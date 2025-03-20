@@ -26,6 +26,8 @@ extension IconStack: ViewList {
                 Text(txt)
             case .icon(let icon):
                 icon
+            case .both(let txt, let icon):
+                Text(txt)
             }
         }
     }
@@ -41,6 +43,8 @@ extension IconStack: ViewList {
             return true
         case .icon:
             return false
+        case .both:
+            return true
         }
     }
     
