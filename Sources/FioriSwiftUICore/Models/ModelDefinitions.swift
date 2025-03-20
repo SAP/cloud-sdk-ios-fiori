@@ -191,7 +191,7 @@ public protocol ContactItemModel {}
 
 // sourcery: add_env_props = ["horizontalSizeClass"]
 // sourcery: generated_component_composite
-public protocol WelcomeScreenModel: TitleComponent, DescriptionTextComponent, SubtitleComponent, FootnoteComponent, IconComponent {
+public protocol _WelcomeScreenModel: TitleComponent, DescriptionTextComponent, SubtitleComponent, FootnoteComponent, IconComponent {
     // sourcery: genericParameter.name = TextInputView
     var textInput: _TextInputModel? { get }
     
@@ -201,6 +201,10 @@ public protocol WelcomeScreenModel: TitleComponent, DescriptionTextComponent, Su
     // sourcery: genericParameter.name = SecondaryActionView
     var secondaryAction: _ActionModel? { get }
 }
+
+/// Deprecated WelcomeScreenModel
+@available(*, unavailable, renamed: "_WelcomeScreenModel", message: "Will be removed in the future release. Please create WelcomeScreen with other initializers instead.")
+public protocol WelcomeScreenModel {}
 
 // sourcery: generated_component_composite
 public protocol ActivationScreenModel: TitleComponent, DescriptionTextComponent, FootnoteComponent {
@@ -539,7 +543,7 @@ public protocol StepProgressIndicatorModel {}
 public protocol _FilterFeedbackBarModel: AnyObject {
     // sourcery: bindingProperty
     // sourcery: backingComponent=_SortFilterMenuItemContainer
-    var items: [[SortFilterItem]] { get set }
+    var items: [[_SortFilterItem]] { get set }
     
     // sourcery: default.value = nil
     // sourcery: no_view
@@ -557,7 +561,7 @@ public protocol FilterFeedbackBarModel {}
 public protocol _SortFilterViewModel: AnyObject, TitleComponent {
     // sourcery: bindingProperty
     // sourcery: backingComponent=_SortFilterCFGItemContainer
-    var items: [[SortFilterItem]] { get set }
+    var items: [[_SortFilterItem]] { get set }
     
     // sourcery: genericParameter.name = CancelActionView
     // sourcery: default.value = _CancelActionDefault()

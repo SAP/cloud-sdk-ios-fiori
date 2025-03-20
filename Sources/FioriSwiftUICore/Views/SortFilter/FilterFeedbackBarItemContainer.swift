@@ -63,6 +63,11 @@ extension FilterFeedbackBarItemContainer: View {
                                     .accessibilityLabel(self._items[r][c].stepper.label)
                                     .accessibilityIdentifier(self._items[r][c].stepper.name)
                                     .accessibility(addTraits: .isButton)
+                            case .title:
+                                TitleMenuItem(item: Binding<SortFilterItem.TitleItem>(get: { self._items[r][c].title }, set: { self._items[r][c].title = $0 }), onUpdate: self.onUpdate)
+                                    .accessibilityElement()
+                                    .accessibilityLabel(self._items[r][c].title.label)
+                                    .accessibilityIdentifier(self._items[r][c].title.name)
                             }
                         }
                     }

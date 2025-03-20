@@ -25,6 +25,12 @@ struct BannerMultiMessageCustomInitExample: View {
     @State var hidesReadonlyHint = true
     @State var showsAction = true
     
+    @State var showAINotice: Bool = false
+    @State var showAINoticeOnBanner: Bool = false
+    @State var showBottomSheet: Bool = false
+    @State var isOptionPresented: Bool = false
+    @State var messageType: BannerMultiMessageType = .negative
+    
     @State private var firstName: String = "Com"
     @State private var middleName: String = ""
     @State private var lastName: String = ""
@@ -47,18 +53,68 @@ struct BannerMultiMessageCustomInitExample: View {
     private var maritalStatusId = UUID()
     private var maritalStatusSinceId = UUID()
     private var nativePreferredLanguageId = UUID()
+    private var aiNoticeId = UUID()
     
     @State private var firstNameErrorMessage = AttributedString()
     @State private var lastNameErrorMessage = AttributedString()
     @State private var emailAddressErrorMessage = AttributedString()
     
+    // workaround for forcing list refresh when second layer array modified in bannerMultiMessage.
+    @State private var refreshFlag = false
+    
+    var customizeNoticeMsg: AttributedString {
+        var msgText = AttributedString("Customized AI Notice. ")
+        msgText.font = .footnote.italic()
+        msgText.foregroundColor = .purple
+        return msgText
+    }
+
+    var customizeNoticeActionLabel: AttributedString {
+        var msgText = AttributedString(" View Details ")
+        msgText.font = .footnote.bold()
+        msgText.foregroundColor = .purple
+        return msgText
+    }
+    
     var body: some View {
         ScrollViewReader { proxy in
             List {
                 Section {
+                    if self.showAINotice, self.showAINoticeOnBanner {
+                        BannerMessage(icon: {
+                            Image(fioriName: "fiori.ai")
+                        }, title: {
+                            self.noticeTitleView
+                        }, bannerTapAction: {
+                            self.toggleShowSheet()
+                        }, messageType: self.showAINotice ? .aiNotice : .negative)
+                            .topDividerStyle { c in
+                                c.topDivider.background(.purple)
+                            }
+                            .iconStyle { c in
+                                c.icon.foregroundStyle(.purple)
+                            }
+                            .titleStyle { c in
+                                c.title.foregroundStyle(.purple)
+                            }
+                            .closeActionStyle { c in
+                                c.closeAction.foregroundStyle(.purple)
+                            }
+                            .padding(.horizontal, -16)
+                    }
+                }
+                .listRowSeparator(.hidden)
+                Section {
                     HStack {
                         Spacer()
-                        Text("Check Result")
+                        ZStack {
+                            Text("Check Result")
+                            
+                            // workaround for forcing list refresh when second layer array modified in bannerMultiMessage.
+                            Text("\(self.refreshFlag ? "true" : "false")")
+                                .frame(height: 0.01)
+                                .opacity(0)
+                        }
                         Spacer()
                     }
                     .popover(isPresented: self.$showingMessageDetail) {
@@ -75,6 +131,7 @@ struct BannerMultiMessageCustomInitExample: View {
                             self.showingMessageDetail = false
                         }, removeAction: { category, _ in
                             self.removeCategory(category: category)
+                            self.refreshFlag.toggle()
                         }, turnOnSectionHeader: self.turnOnSectionHeader, messageItemView: { id in
                             if let (message, category) = getItemData(with: id) {
                                 BannerMessage(icon: {
@@ -143,18 +200,31 @@ struct BannerMultiMessageCustomInitExample: View {
                 Section {
                     TextFieldFormView(title: "First Name", text: self.$firstName, placeholder: "Placeholder", errorMessage: self.firstNameErrorMessage, maxTextLength: 20, hintText: nil, isCharCountEnabled: self.showsCharCount, allowsBeyondLimit: self.allowsBeyondLimit, isRequired: true, actionIcon: nil, action: nil)
                         .id(self.firstNameId)
+                        .aiNoticeView(isPresented: self.$showAINotice)
                     
                     TextFieldFormView(title: "Middle Name", text: self.$middleName, placeholder: "Placeholder", errorMessage: AttributedString(""), maxTextLength: 20, hintText: nil, isCharCountEnabled: self.showsCharCount, allowsBeyondLimit: self.allowsBeyondLimit, isRequired: false, actionIcon: nil, action: nil)
                         .id(self.middleNameId)
+                        .aiNoticeView(isPresented: self.$showAINotice, description: self.customizeNoticeMsg)
                     
                     TextFieldFormView(title: "Last Name", text: self.$lastName, placeholder: "Placeholder", errorMessage: self.lastNameErrorMessage, maxTextLength: 20, hintText: nil, isCharCountEnabled: self.showsCharCount, allowsBeyondLimit: self.allowsBeyondLimit, isRequired: true, actionIcon: nil, action: nil)
                         .id(self.lastNameId)
+                        .aiNoticeView(isPresented: self.$showAINotice, icon: Image(fioriName: "fiori.ai"), description: "AI Notice with link. ", actionLabel: self.customizeNoticeActionLabel, viewMoreAction: self.openURL)
+                        .iconStyle(content: { config in
+                            config.icon.foregroundStyle(Color.purple)
+                        })
                     
                     TextFieldFormView(title: "Preferred Name", text: self.$preferredName, placeholder: "Placeholder", errorMessage: AttributedString(""), maxTextLength: 20, hintText: AttributedString("Starting 2025, preferred name is a required field."), isCharCountEnabled: self.showsCharCount, allowsBeyondLimit: self.allowsBeyondLimit, isRequired: false, actionIcon: nil, action: nil)
                         .id(self.preferredNameId)
+                        .aiNoticeView(isPresented: self.$showAINotice, icon: Image(systemName: "wand.and.sparkles"), description: "AI Notice with icon, long long long long long long message. ", actionLabel: "View more link", viewMoreAction: self.openURL)
                     
                     TextFieldFormView(title: "Partner Name Prefix", text: self.$partnerNamePrefix, placeholder: "Placeholder", errorMessage: AttributedString(""), maxTextLength: 20, hintText: nil, isCharCountEnabled: self.showsCharCount, allowsBeyondLimit: self.allowsBeyondLimit, isRequired: false, actionIcon: nil, action: nil)
                         .id(self.partnerNamePrefixId)
+                        .aiNoticeView(isPresented: self.$showAINotice, icon: Image(fioriName: "fiori.ai"), description: "AI Notice with icon. ", actionLabel: "View more details", viewMoreAction: self.toggleShowSheet)
+                        .sheet(isPresented: self.$showBottomSheet) {
+                            Text("detail information")
+                                .presentationDetents([.height(250), .medium])
+                                .presentationDragIndicator(.visible)
+                        }
                     
                     Rectangle().fill(Color.preferredColor(.primaryGroupedBackground))
                         .frame(height: 30)
@@ -179,10 +249,19 @@ struct BannerMultiMessageCustomInitExample: View {
                     }
                     .pickerStyle(.navigationLink)
                     .id(self.genderId)
+                    .aiNoticeView(isPresented: self.$showAINotice, description: "AI Notice")
                     
                     TextFieldFormView(title: "Email Address", text: self.$emailAddress, placeholder: "Placeholder", errorMessage: self.emailAddressErrorMessage, maxTextLength: 100, hintText: nil, isCharCountEnabled: self.showsCharCount, allowsBeyondLimit: self.allowsBeyondLimit, isRequired: true, actionIcon: nil, action: nil)
                         .listRowSeparator(.hidden, edges: .bottom)
                         .id(self.emailAddressId)
+                        .aiNoticeView(isPresented: self.$showAINotice, icon: Image(fioriName: "fiori.ai"), description: "AI Notice with icon. ", actionLabel: "View more details", viewMoreAction: self.toggleShowSheet)
+                        .sheet(isPresented: self.$showBottomSheet) {
+                            Text("detail information")
+                                .font(.fiori(forTextStyle: .footnote, weight: .semibold))
+                                .foregroundStyle(Color.preferredColor(.tintColor))
+                                .presentationDetents([.height(250), .medium])
+                                .presentationDragIndicator(.visible)
+                        }
                     
                     Picker(selection: self.$maritalStatus) {
                         Text("Married").tag("Married")
@@ -194,6 +273,7 @@ struct BannerMultiMessageCustomInitExample: View {
                     }
                     .pickerStyle(.navigationLink)
                     .id(self.maritalStatusId)
+                    .aiNoticeView(isPresented: self.$showAINotice, description: self.customizeNoticeMsg)
                     
                     KeyValueItem {
                         Text("Marital Status Since*")
@@ -201,6 +281,7 @@ struct BannerMultiMessageCustomInitExample: View {
                         Text(self.maritalStatusSince)
                     }
                     .id(self.maritalStatusSinceId)
+                    .aiNoticeView(isPresented: self.$showAINotice, description: self.customizeNoticeMsg)
                     
                     Picker(selection: self.$nativePreferredLanguage) {
                         Text("English").tag("English")
@@ -230,8 +311,14 @@ struct BannerMultiMessageCustomInitExample: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button(NSLocalizedString("Save", comment: "")) {
-                        self.validateUploadData()
+                    HStack {
+                        Button(NSLocalizedString("Save", comment: "")) {
+                            self.validateUploadData()
+                        }
+                        .padding(.trailing, 16)
+                        Button(NSLocalizedString("Options", comment: "")) {
+                            self.isOptionPresented = true
+                        }
                     }
                 }
             }
@@ -244,6 +331,18 @@ struct BannerMultiMessageCustomInitExample: View {
             .onChange(of: self.emailAddress) {
                 self.validateUploadData()
             }
+            .sheet(isPresented: self.$isOptionPresented, content: {
+                VStack {
+                    Toggle("Show AI Notice", isOn: self.$showAINotice)
+                        .padding(.leading, 16)
+                        .padding(.trailing, 16)
+                    Toggle("Show AI Notice on Banner", isOn: self.$showAINoticeOnBanner)
+                        .padding(.leading, 16)
+                        .padding(.trailing, 16)
+                }
+                .padding()
+                .presentationDetents([.medium])
+            })
         }
     }
     
@@ -252,14 +351,13 @@ struct BannerMultiMessageCustomInitExample: View {
             let item = self.bannerMultiMessages[i]
             if item.category == category {
                 if let id {
-                    var messages = self.bannerMultiMessages[i].items
+                    let messages = item.items
                     for index in 0 ..< messages.count where messages[index].id == id {
-                        messages.remove(at: index)
+                        self.bannerMultiMessages[i].items.remove(at: index)
+                        refreshFlag.toggle()
                         break
                     }
-                    self.bannerMultiMessages[i].items = messages
-                    
-                    if messages.isEmpty {
+                    if self.bannerMultiMessages[i].items.isEmpty {
                         self.removeCategory(category: category)
                     }
                 } else {
@@ -369,6 +467,10 @@ struct BannerMultiMessageCustomInitExample: View {
             informationMessages.append(BannerMessageItemModel(id: self.emailAddressId, icon: Image(fioriName: "fiori.hint"), title: tips, messageType: .positive))
         }
         
+        if self.showAINotice {
+            informationMessages.append(BannerMessageItemModel(id: self.aiNoticeId, icon: Image(fioriName: "fiori.ai"), title: "Powered by AI.", messageType: .aiNotice, showDetailLink: false, showCloseAction: false))
+        }
+        
         var result: [BannerMessageListModel] = []
         if !errorMessages.isEmpty {
             result.append(BannerMessageListModel(category: "Errors", items: errorMessages))
@@ -399,6 +501,25 @@ struct BannerMultiMessageCustomInitExample: View {
             return false
         }
         return true
+    }
+    
+    var noticeTitleView: some View {
+        Text("Supported by AI. ")
+            .foregroundStyle(.purple)
+            .font(Font.fiori(forTextStyle: .footnote))
+            +
+            Text("View more")
+            .foregroundStyle(.blue)
+            .font(Font.fiori(forTextStyle: .footnote))
+    }
+    
+    func openURL() {
+        let url = URL(string: "https://sap.com")!
+        UIApplication.shared.open(url)
+    }
+    
+    func toggleShowSheet() {
+        self.showBottomSheet.toggle()
     }
 }
 
