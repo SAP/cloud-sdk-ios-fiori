@@ -1,0 +1,4 @@
+QuickLook Editing Tools
+iOS 13 brings users a cool new feature: simple editing support for images, PDFs and videos via QuickLook. This lets users preview and edit files from the QLPreviewController. The tools are the same ones you use when previewing a file in Files or editing an attachment in Mail.
+
+QLPreviewController also provides simple support for trimming and rotating videos. This is quite handy when you need to take some notes on a PDF tutorial, for example.

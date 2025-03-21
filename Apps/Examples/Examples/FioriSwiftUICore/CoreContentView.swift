@@ -8,6 +8,13 @@ struct CoreContentView: View {
         List {
             Section(header: Text("Views")) {
                 NavigationLink(
+                    destination: AttachmentExamples(),
+                    label: {
+                        Text("Attachments")
+                    }
+                )
+
+                NavigationLink(
                     destination: AvatarStackExample(),
                     label: {
                         Text("AvatarStack")
