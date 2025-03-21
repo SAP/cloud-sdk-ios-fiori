@@ -18,6 +18,8 @@ extension View {
             return self.json(item: v)
         case .title(let v, _):
             return self.json(item: v)
+        case .note(let v, _):
+            return self.json(item: v)
         }
     }
     
@@ -42,6 +44,10 @@ extension View {
     }
     
     func json(item: SortFilterItem.TitleItem) -> String {
+        "{name: \(item.name), value: \(item.text)}"
+    }
+    
+    func json(item: SortFilterItem.NoteItem) -> String {
         "{name: \(item.name), value: \(item.text)}"
     }
 }
