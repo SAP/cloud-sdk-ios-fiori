@@ -44,12 +44,10 @@ extension _SortFilterCFGItemContainer: View {
             ForEach(0 ..< self._items.count, id: \.self) { r in
                 Section {
                     ForEach(0 ..< self._items[r].count, id: \.self) { c in
-                        if self._items[r][c].showsOnFilterFeedbackBar {
-                            self.rowView(row: r, column: c)
-                                .listRowSeparator(c == self._items[r].count - 1 ? .hidden : .visible, edges: .all)
-                                .padding([.leading, .trailing], UIDevice.current.userInterfaceIdiom != .phone ? 13 : 16)
-                                .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? self.popoverWidth : nil)
-                        }
+                        self.rowView(row: r, column: c)
+                            .listRowSeparator(c == self._items[r].count - 1 ? .hidden : .visible, edges: .all)
+                            .padding([.leading, .trailing], UIDevice.current.userInterfaceIdiom != .phone ? 13 : 16)
+                            .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? self.popoverWidth : nil)
                     }
                     #if !os(visionOS)
                         Rectangle().fill(Color.preferredColor(.primaryGroupedBackground))

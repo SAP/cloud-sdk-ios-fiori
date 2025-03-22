@@ -38,12 +38,10 @@ extension SortFilterCFGItemContainer: View {
             ForEach(0 ..< self._items.count, id: \.self) { r in
                 Section {
                     ForEach(0 ..< self._items[r].count, id: \.self) { c in
-                        if self._items[r][c].showsOnFilterFeedbackBar {
-                            self.rowView(row: r, column: c)
-                                .listRowSeparator(c == self._items[r].count - 1 ? .hidden : .visible, edges: .all)
-                                .padding([.leading, .trailing], UIDevice.current.userInterfaceIdiom != .phone ? 13 : 16)
-                                .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? self.popoverWidth : nil)
-                        }
+                        self.rowView(row: r, column: c)
+                            .listRowSeparator(c == self._items[r].count - 1 ? .hidden : .visible, edges: .all)
+                            .padding([.leading, .trailing], UIDevice.current.userInterfaceIdiom != .phone ? 13 : 16)
+                            .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? self.popoverWidth : nil)
                     }
                     #if !os(visionOS)
                         Rectangle().fill(Color.preferredColor(.primaryGroupedBackground))
@@ -79,13 +77,22 @@ extension SortFilterCFGItemContainer: View {
                     }
                 }
             })
+            .onReceive(NotificationCenter.default.publisher(for: UIApplication.keyboardDidShowNotification)) { notif in
+                self.context.isKeyboardShown = true
+                let rect = (notif.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect) ?? .zero
+                self._keyboardHeight = rect.height
+            }
+            .onReceive(NotificationCenter.default.publisher(for: UIApplication.keyboardDidHideNotification)) { _ in
+                self.context.isKeyboardShown = false
+                self._keyboardHeight = 0
+            }
             .setOnChange(of: self._items) {
                 self.checkUpdateButtonState()
             }
             .onAppear {
                 self.context.isPickerListShown = false
                 self.context.isSearchBarHidden = true
-                
+            
                 self.context.handleCancel = {
                     for r in 0 ..< self._items.count {
                         for c in 0 ..< self._items[r].count {
@@ -93,7 +100,7 @@ extension SortFilterCFGItemContainer: View {
                         }
                     }
                 }
-    
+
                 self.context.handleReset = {
                     for r in 0 ..< self._items.count {
                         for c in 0 ..< self._items[r].count {
@@ -111,7 +118,7 @@ extension SortFilterCFGItemContainer: View {
                         }
                     }
                 }
-    
+
                 self.context.handleApply = {
                     for r in 0 ..< self._items.count {
                         for c in 0 ..< self._items[r].count {
@@ -119,7 +126,7 @@ extension SortFilterCFGItemContainer: View {
                         }
                     }
                 }
-            
+
                 self.checkUpdateButtonState()
             }
     }
@@ -199,7 +206,7 @@ extension SortFilterCFGItemContainer: View {
                     }
                 }
             } else {
-                maxScrollViewHeight -= (50 + 60)
+                maxScrollViewHeight -= (50 + 60) + self._keyboardHeight
             }
         } else if self.btnFrame.arrowDirection() == .bottom {
             maxScrollViewHeight = self.btnFrame.minY - 30 - safeAreaInset.top
@@ -251,6 +258,9 @@ extension SortFilterCFGItemContainer: View {
                 .padding([.top, .bottom], 12)
         case .title:
             self.titleForm(row: r, column: c)
+                .padding([.top, .bottom], 12)
+        case .note:
+            self.noteForm(row: r, column: c)
                 .padding([.top, .bottom], 12)
         }
     }
@@ -636,7 +646,6 @@ extension SortFilterCFGItemContainer: View {
                     .foregroundColor(Color.preferredColor(.primaryLabel))
                 Spacer()
             }
-            .padding([.leading, .trailing], UIDevice.current.userInterfaceIdiom != .phone ? 0 : 16)
             
             TitleFormView(text: Binding<String>(get: { self._items[r][c].title.workingText }, set: { self._items[r][c].title.workingText = $0 }),
                           isSecureEnabled: self._items[r][c].title.isSecureEnabled,
@@ -650,6 +659,31 @@ extension SortFilterCFGItemContainer: View {
                           allowsBeyondLimit: self._items[r][c].title.allowsBeyondLimit,
                           charCountReachLimitMessage: self._items[r][c].title.charCountReachLimitMessage,
                           charCountBeyondLimitMsg: self._items[r][c].title.charCountBeyondLimitMsg)
+        }
+    }
+    
+    private func noteForm(row r: Int, column c: Int) -> some View {
+        VStack {
+            HStack {
+                Text(self._items[r][c].note.name)
+                    .font(.fiori(forTextStyle: .subheadline, weight: .bold, isItalic: false, isCondensed: false))
+                    .foregroundColor(Color.preferredColor(.primaryLabel))
+                Spacer()
+            }
+            
+            NoteFormView(text: Binding<String>(get: { self._items[r][c].note.workingText }, set: { self._items[r][c].note.workingText = $0 }),
+                         placeholder: self._items[r][c].note.placeholder?.attributedString,
+                         controlState: self._items[r][c].note.controlState,
+                         errorMessage: self._items[r][c].note.errorMessage?.attributedString,
+                         minTextEditorHeight: self._items[r][c].note.minTextEditorHeight,
+                         maxTextEditorHeight: self._items[r][c].note.maxTextEditorHeight,
+                         maxTextLength: self._items[r][c].note.maxTextLength,
+                         hintText: self._items[r][c].note.hintText?.attributedString,
+                         hidesReadOnlyHint: self._items[r][c].note.hidesReadOnlyHint,
+                         isCharCountEnabled: self._items[r][c].note.isCharCountEnabled,
+                         allowsBeyondLimit: self._items[r][c].note.allowsBeyondLimit,
+                         charCountReachLimitMessage: self._items[r][c].note.charCountReachLimitMessage,
+                         charCountBeyondLimitMsg: self._items[r][c].note.charCountBeyondLimitMsg)
         }
     }
     
