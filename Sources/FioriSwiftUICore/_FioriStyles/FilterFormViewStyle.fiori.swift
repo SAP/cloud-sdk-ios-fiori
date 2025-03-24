@@ -244,7 +244,7 @@ extension FilterFormViewFioriStyle {
         func makeBody(_ configuration: TitleConfiguration) -> some View {
             Title(configuration)
                 .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
-                .foregroundStyle(Color.preferredColor(self.filterFormViewConfiguration.isEnabled ? .primaryLabel : .separator))
+                .foregroundStyle(Color.preferredColor(self.filterFormViewConfiguration.isEnabled ? .primaryLabel : .quaternaryLabel))
         }
     }
 
@@ -254,7 +254,7 @@ extension FilterFormViewFioriStyle {
         func makeBody(_ configuration: MandatoryFieldIndicatorConfiguration) -> some View {
             MandatoryFieldIndicator(configuration)
                 .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
-                .foregroundStyle(Color.preferredColor(self.filterFormViewConfiguration.isEnabled ? .primaryLabel : .separator))
+                .foregroundStyle(Color.preferredColor(self.filterFormViewConfiguration.isEnabled ? .primaryLabel : .quaternaryLabel))
         }
     }
 
