@@ -20,6 +20,8 @@ public enum SortFilterItem: Identifiable, Hashable {
             return item.id
         case .title(let item, _):
             return item.id
+        case .note(let item, _):
+            return item.id
         }
     }
     
@@ -75,6 +77,14 @@ public enum SortFilterItem: Identifiable, Hashable {
     ///
     /// 2. A section of view containing a SwiftUI TitleFormView with Fiori style
     case title(item: TitleItem, showsOnFilterFeedbackBar: Bool)
+    
+    /// The type of UI control is used to build:
+    /// Typically not used in FilterFeedbackBar.
+    ///
+    /// 1. Sort & Filter's menu item associated with a popover containing a SwiftUI NoteFormView with Fiori style
+    ///
+    /// 2. A section of view containing a SwiftUI NoteFormView with Fiori style
+    case note(item: NoteItem, showsOnFilterFeedbackBar: Bool)
 
     public var showsOnFilterFeedbackBar: Bool {
         switch self {
@@ -91,6 +101,8 @@ public enum SortFilterItem: Identifiable, Hashable {
         case .stepper(_, let showsOnFilterFeedbackBar):
             return showsOnFilterFeedbackBar
         case .title(_, let showsOnFilterFeedbackBar):
+            return showsOnFilterFeedbackBar
+        case .note(_, let showsOnFilterFeedbackBar):
             return showsOnFilterFeedbackBar
         }
     }
@@ -129,6 +141,11 @@ public enum SortFilterItem: Identifiable, Hashable {
             hasher.combine(item.workingValue)
             hasher.combine(item.value)
         case .title(let item, _):
+            hasher.combine(item.id)
+            hasher.combine(item.originalText)
+            hasher.combine(item.workingText)
+            hasher.combine(item.text)
+        case .note(let item, _):
             hasher.combine(item.id)
             hasher.combine(item.originalText)
             hasher.combine(item.workingText)
@@ -278,6 +295,26 @@ extension SortFilterItem {
         }
     }
     
+    var note: NoteItem {
+        get {
+            switch self {
+            case .note(let item, _):
+                return item
+            default:
+                fatalError("Unexpected value \(self)")
+            }
+        }
+        
+        set {
+            switch self {
+            case .note(_, let showsOnFilterFeedbackBar):
+                self = .note(item: newValue, showsOnFilterFeedbackBar: showsOnFilterFeedbackBar)
+            default:
+                fatalError("Unexpected value \(self)")
+            }
+        }
+    }
+    
     var isChanged: Bool {
         switch self {
         case .picker(let item, _):
@@ -293,6 +330,8 @@ extension SortFilterItem {
         case .stepper(let item, _):
             return item.isChanged
         case .title(let item, _):
+            return item.isChanged
+        case .note(let item, _):
             return item.isChanged
         }
     }
@@ -312,6 +351,8 @@ extension SortFilterItem {
         case .stepper(let item, _):
             return item.isOriginal
         case .title(let item, _):
+            return item.isOriginal
+        case .note(let item, _):
             return item.isOriginal
         }
     }
@@ -339,6 +380,9 @@ extension SortFilterItem {
         case .title(var item, _):
             item.cancel()
             self.title = item
+        case .note(var item, _):
+            item.cancel()
+            self.note = item
         }
     }
     
@@ -365,6 +409,9 @@ extension SortFilterItem {
         case .title(var item, _):
             item.reset()
             self.title = item
+        case .note(var item, _):
+            item.reset()
+            self.note = item
         }
     }
     
@@ -391,6 +438,9 @@ extension SortFilterItem {
         case .title(var item, _):
             item.apply()
             self.title = item
+        case .note(var item, _):
+            item.apply()
+            self.note = item
         }
     }
 }
@@ -1137,6 +1187,96 @@ public extension SortFilterItem {
             self.isSecureEnabled = isSecureEnabled
             self.placeholder = placeholder
             self.controlState = controlState
+            self.errorMessage = errorMessage
+            self.maxTextLength = maxTextLength
+            self.hidesReadOnlyHint = hidesReadOnlyHint
+            self.isCharCountEnabled = isCharCountEnabled
+            self.allowsBeyondLimit = allowsBeyondLimit
+            self.charCountReachLimitMessage = charCountReachLimitMessage
+            self.charCountBeyondLimitMsg = charCountBeyondLimitMsg
+            self.hintText = hintText
+        }
+        
+        mutating func reset() {
+            self.workingText = self.originalText
+        }
+        
+        mutating func cancel() {
+            self.workingText = self.text
+        }
+        
+        mutating func apply() {
+            self.text = self.workingText
+        }
+        
+        var isChecked: Bool {
+            !self.text.isEmpty
+        }
+        
+        var isChanged: Bool {
+            self.text != self.workingText
+        }
+        
+        var isOriginal: Bool {
+            self.workingText == self.originalText
+        }
+        
+        var label: String {
+            "\(self.name): \(self.text)"
+        }
+    }
+    
+    /// Data structure for note type
+    struct NoteItem: Identifiable, Equatable {
+        public var id: String
+        public var name: String
+        public let icon: String?
+        
+        public var text: String
+        var workingText: String
+        let originalText: String
+        public var placeholder: String?
+        public var controlState: ControlState = .normal
+        public var errorMessage: String?
+        public var maxTextLength: Int?
+        public let hintText: String?
+        public let hidesReadOnlyHint: Bool
+        public let isCharCountEnabled: Bool
+        public let allowsBeyondLimit: Bool
+        public let charCountReachLimitMessage: String?
+        public let charCountBeyondLimitMsg: String?
+        public let minTextEditorHeight: CGFloat?
+        public let maxTextEditorHeight: CGFloat?
+        
+        /// Create a textfiled.
+        /// - Parameters:
+        ///   - id: The unique identifier for TitleItem.
+        ///   - name: Item name.
+        ///   - text: The text in textfield.
+        ///   - placeholder: A text for placeholder of textfield.
+        ///   - controlState: A state for textfield.
+        ///   - errorMessage: A text when the text of textfield not satisfy conditions.
+        ///   - minTextEditorHeight: The minimum height of the TextEditor. It needs to be greater than 44. Otherwise, it is ignored.
+        ///   - maxTextEditorHeight The maximum height of the TextEditor.
+        ///   - maxTextLength: A maximum value for text length.
+        ///   - hidesReadOnlyHint: A boolean value to indicate to hide read only hint or not.
+        ///   - isCharCountEnabled: A boolean value to indicate to display char count or not.
+        ///   - allowsBeyondLimit: A boolean value to indicate to allows inputting text beyond maximum char count limit or not.
+        ///   - charCountReachLimitMessage: A text for char count reach maximum limit.
+        ///   - charCountBeyondLimitMsg: A text for char beyond maximum limit.
+        ///   - icon: The icon image in the item bar.
+        ///   - hintText: The hint text of the textfiled.
+        public init(id: String = UUID().uuidString, name: String, text: String, isSecureEnabled: Bool? = false, placeholder: String? = nil, controlState: ControlState = .normal, errorMessage: String? = nil, minTextEditorHeight: CGFloat? = nil, maxTextEditorHeight: CGFloat? = nil, maxTextLength: Int? = nil, hidesReadOnlyHint: Bool = false, isCharCountEnabled: Bool = false, allowsBeyondLimit: Bool = false, charCountReachLimitMessage: String? = nil, charCountBeyondLimitMsg: String? = nil, icon: String? = nil, hintText: String? = nil) {
+            self.id = id
+            self.name = name
+            self.text = text
+            self.workingText = text
+            self.originalText = text
+            self.icon = icon
+            self.placeholder = placeholder
+            self.controlState = controlState
+            self.minTextEditorHeight = minTextEditorHeight
+            self.maxTextEditorHeight = maxTextEditorHeight
             self.errorMessage = errorMessage
             self.maxTextLength = maxTextLength
             self.hidesReadOnlyHint = hidesReadOnlyHint
