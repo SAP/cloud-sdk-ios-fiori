@@ -56,7 +56,7 @@ public struct BannerMessageBaseStyle: BannerMessageStyle {
             }
             .frame(minHeight: 39)
             if !configuration.hideSeparator {
-                Color.preferredColor(.separator).frame(height: 1)
+                Color.preferredColor(.separator).frame(height: 0.33)
             }
         }
         .drawingGroup()
