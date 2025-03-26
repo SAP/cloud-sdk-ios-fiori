@@ -2432,6 +2432,20 @@ public extension DisagreeActionStyle where Self == DisagreeActionFioriStyle {
     }
 }
 
+// MARK: DurationPickerStyle
+
+public extension DurationPickerStyle where Self == DurationPickerBaseStyle {
+    static var base: DurationPickerBaseStyle {
+        DurationPickerBaseStyle()
+    }
+}
+
+public extension DurationPickerStyle where Self == DurationPickerFioriStyle {
+    static var fiori: DurationPickerFioriStyle {
+        DurationPickerFioriStyle()
+    }
+}
+
 // MARK: EULAViewStyle
 
 public extension EULAViewStyle where Self == EULAViewBaseStyle {

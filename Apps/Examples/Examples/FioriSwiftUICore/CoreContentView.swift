@@ -231,6 +231,12 @@ struct CoreContentView: View {
                 }
                 
                 NavigationLink(
+                    destination: _DurationPickerExample())
+                {
+                    Text("_DurationPicker")
+                }
+                
+                NavigationLink(
                     destination: DurationPickerExample())
                 {
                     Text("DurationPicker")

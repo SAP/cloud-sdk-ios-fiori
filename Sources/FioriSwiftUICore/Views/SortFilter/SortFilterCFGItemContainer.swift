@@ -262,6 +262,9 @@ extension SortFilterCFGItemContainer: View {
         case .note:
             self.noteForm(row: r, column: c)
                 .padding([.top, .bottom], 12)
+        case .durationPicker:
+            self.durationPicker(row: r, column: c)
+                .padding([.top, .bottom], 12)
         }
     }
     
@@ -684,6 +687,20 @@ extension SortFilterCFGItemContainer: View {
                          allowsBeyondLimit: self._items[r][c].note.allowsBeyondLimit,
                          charCountReachLimitMessage: self._items[r][c].note.charCountReachLimitMessage,
                          charCountBeyondLimitMsg: self._items[r][c].note.charCountBeyondLimitMsg)
+        }
+    }
+    
+    private func durationPicker(row r: Int, column c: Int) -> some View {
+        VStack {
+            HStack {
+                Text(self._items[r][c].durationPicker.name)
+                    .font(.fiori(forTextStyle: .subheadline, weight: .bold, isItalic: false, isCondensed: false))
+                    .foregroundColor(Color.preferredColor(.primaryLabel))
+                Spacer()
+            }
+            
+            DurationPicker(selection: self.$_items[r][c].durationPicker.workingValue, maximumMinutes: self._items[r][c].durationPicker.maximumMinutes, minimumMinutes: self._items[r][c].durationPicker.minimumMinutes, minuteInterval: self._items[r][c].durationPicker.minuteInterval)
+                .measurementFormatter(self._items[r][c].durationPicker.measurementFormatter)
         }
     }
     
