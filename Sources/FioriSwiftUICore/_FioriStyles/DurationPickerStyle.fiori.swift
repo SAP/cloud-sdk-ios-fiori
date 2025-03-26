@@ -42,6 +42,7 @@ struct MeasurementFormatterKey: EnvironmentKey {
 }
 
 public extension EnvironmentValues {
+    /// The formatter for duration picker.
     var measurementFormatter: MeasurementFormatter {
         get {
             self[MeasurementFormatterKey.self]

@@ -32,20 +32,18 @@ struct DurationPickerViewWrapper: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: UIViewType, context: Context) {
-        for subView in uiView.subviews {
-            if subView is UIPickerView {
-                if let pickerView: UIPickerView = subView as? UIPickerView {
-                    let hour = self.selection / 60
-                    let minute = self.selection % 60
-                    
-                    if let hourIndex = hours.firstIndex(of: hour) {
-                        pickerView.selectRow(hourIndex, inComponent: 0, animated: true)
-                        if let minuteIndex = minutesForHour(hourIndex).firstIndex(of: minute) {
-                            pickerView.selectRow(minuteIndex, inComponent: 1, animated: true)
-                        }
+        for subView in uiView.subviews where subView is UIPickerView {
+            if let pickerView = subView as? UIPickerView {
+                let hour = self.selection / 60
+                let minute = self.selection % 60
+
+                if let hourIndex = hours.firstIndex(of: hour) {
+                    pickerView.selectRow(hourIndex, inComponent: 0, animated: true)
+                    if let minuteIndex = minutesForHour(hourIndex).firstIndex(of: minute) {
+                        pickerView.selectRow(minuteIndex, inComponent: 1, animated: true)
                     }
-                    break
                 }
+                break
             }
         }
     }
