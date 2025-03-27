@@ -740,6 +740,24 @@ protocol _FilterFormViewComponent: _TitleComponent, _MandatoryField, _OptionsCom
     var onValueChange: (([Int]) -> Void)? { get }
 }
 
+/// `TitleWithOptionalMandatoryField` provides a title and an optional mandatory field. The mandatory field will follow the title's last character.
+/// ## Usage
+/// ```swift
+/// TitleWithOptionalMandatoryField(title: "Normal title, Customized Mandatory", isRequired: true, mandatoryField: .text("#"))
+///    .titleWithOptionalMandatoryFieldStyle { conf in
+///        TitleWithOptionalMandatoryField(conf)
+///            .foregroundStyle(self.isEnabled ? Color.blue : Color.preferredColor(.quaternaryLabel))
+///    }
+/// ```
+// sourcery: CompositeComponent
+protocol _TitleWithOptionalMandatoryFieldComponent {
+    var title: AttributedString { get }
+    // sourcery: defaultValue = false
+    var isRequired: Bool { get }
+    // sourcery: defaultValue = .text("*")
+    var mandatoryField: TextOrIcon? { get }
+}
+
 // sourcery: CompositeComponent
 protocol _LoadingIndicatorComponent: _TitleComponent, _ProgressComponent {
     // sourcery: defaultValue = 0
