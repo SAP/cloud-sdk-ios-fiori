@@ -8480,6 +8480,20 @@ public extension TitleFormViewStyle where Self == TitleFormViewFormViewStyle {
     }
 }
 
+// MARK: TitleWithOptionalMandatoryFieldStyle
+
+public extension TitleWithOptionalMandatoryFieldStyle where Self == TitleWithOptionalMandatoryFieldBaseStyle {
+    static var base: TitleWithOptionalMandatoryFieldBaseStyle {
+        TitleWithOptionalMandatoryFieldBaseStyle()
+    }
+}
+
+public extension TitleWithOptionalMandatoryFieldStyle where Self == TitleWithOptionalMandatoryFieldFioriStyle {
+    static var fiori: TitleWithOptionalMandatoryFieldFioriStyle {
+        TitleWithOptionalMandatoryFieldFioriStyle()
+    }
+}
+
 // MARK: ToastMessageStyle
 
 public extension ToastMessageStyle where Self == ToastMessageBaseStyle {

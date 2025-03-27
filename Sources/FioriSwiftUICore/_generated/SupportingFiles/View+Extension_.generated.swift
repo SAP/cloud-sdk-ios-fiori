@@ -2876,6 +2876,23 @@ public extension View {
     }
 }
 
+// MARK: TitleWithOptionalMandatoryFieldStyle
+
+public extension View {
+    func titleWithOptionalMandatoryFieldStyle(_ style: some TitleWithOptionalMandatoryFieldStyle) -> some View {
+        self.transformEnvironment(\.titleWithOptionalMandatoryFieldStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func titleWithOptionalMandatoryFieldStyle(@ViewBuilder content: @escaping (TitleWithOptionalMandatoryFieldConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.titleWithOptionalMandatoryFieldStyleStack) { stack in
+            let style = AnyTitleWithOptionalMandatoryFieldStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: ToastMessageStyle
 
 public extension View {

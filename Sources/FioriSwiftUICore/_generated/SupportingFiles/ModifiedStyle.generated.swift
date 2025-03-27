@@ -4740,6 +4740,34 @@ public extension TitleFormViewStyle {
     }
 }
 
+// MARK: TitleWithOptionalMandatoryFieldStyle
+
+extension ModifiedStyle: TitleWithOptionalMandatoryFieldStyle where Style: TitleWithOptionalMandatoryFieldStyle {
+    public func makeBody(_ configuration: TitleWithOptionalMandatoryFieldConfiguration) -> some View {
+        TitleWithOptionalMandatoryField(configuration)
+            .titleWithOptionalMandatoryFieldStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct TitleWithOptionalMandatoryFieldStyleModifier<Style: TitleWithOptionalMandatoryFieldStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.titleWithOptionalMandatoryFieldStyle(self.style)
+    }
+}
+
+public extension TitleWithOptionalMandatoryFieldStyle {
+    func modifier(_ modifier: some ViewModifier) -> some TitleWithOptionalMandatoryFieldStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some TitleWithOptionalMandatoryFieldStyle) -> some TitleWithOptionalMandatoryFieldStyle {
+        style.modifier(TitleWithOptionalMandatoryFieldStyleModifier(style: self))
+    }
+}
+
 // MARK: ToastMessageStyle
 
 extension ModifiedStyle: ToastMessageStyle where Style: ToastMessageStyle {

@@ -2707,6 +2707,22 @@ extension TitleFormViewStyle {
     }
 }
 
+// MARK: TitleWithOptionalMandatoryFieldStyle
+
+struct ResolvedTitleWithOptionalMandatoryFieldStyle<Style: TitleWithOptionalMandatoryFieldStyle>: View {
+    let style: Style
+    let configuration: TitleWithOptionalMandatoryFieldConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension TitleWithOptionalMandatoryFieldStyle {
+    func resolve(configuration: TitleWithOptionalMandatoryFieldConfiguration) -> some View {
+        ResolvedTitleWithOptionalMandatoryFieldStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: ToastMessageStyle
 
 struct ResolvedToastMessageStyle<Style: ToastMessageStyle>: View {

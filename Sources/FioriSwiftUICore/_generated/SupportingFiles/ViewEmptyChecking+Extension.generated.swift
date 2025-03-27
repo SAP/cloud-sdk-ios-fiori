@@ -1219,6 +1219,12 @@ extension TitleFormView: _ViewEmptyChecking {
     }
 }
 
+extension TitleWithOptionalMandatoryField: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        false
+    }
+}
+
 extension ToastMessage: _ViewEmptyChecking {
     public var isEmpty: Bool {
         icon.isEmpty &&

@@ -3552,6 +3552,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: TitleWithOptionalMandatoryFieldStyle
+
+struct TitleWithOptionalMandatoryFieldStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any TitleWithOptionalMandatoryFieldStyle] = []
+}
+
+extension EnvironmentValues {
+    var titleWithOptionalMandatoryFieldStyle: any TitleWithOptionalMandatoryFieldStyle {
+        self.titleWithOptionalMandatoryFieldStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var titleWithOptionalMandatoryFieldStyleStack: [any TitleWithOptionalMandatoryFieldStyle] {
+        get {
+            self[TitleWithOptionalMandatoryFieldStyleStackKey.self]
+        }
+        set {
+            self[TitleWithOptionalMandatoryFieldStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: ToastMessageStyle
 
 struct ToastMessageStyleStackKey: EnvironmentKey {
