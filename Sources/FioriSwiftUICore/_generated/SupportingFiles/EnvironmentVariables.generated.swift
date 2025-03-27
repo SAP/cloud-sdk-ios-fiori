@@ -1032,6 +1032,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: DurationPickerStyle
+
+struct DurationPickerStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any DurationPickerStyle] = []
+}
+
+extension EnvironmentValues {
+    var durationPickerStyle: any DurationPickerStyle {
+        self.durationPickerStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var durationPickerStyleStack: [any DurationPickerStyle] {
+        get {
+            self[DurationPickerStyleStackKey.self]
+        }
+        set {
+            self[DurationPickerStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: EULAViewStyle
 
 struct EULAViewStyleStackKey: EnvironmentKey {

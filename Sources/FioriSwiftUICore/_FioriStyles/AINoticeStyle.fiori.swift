@@ -35,7 +35,7 @@ public struct AINoticeBaseStyle: AINoticeStyle {
                 .font(.fiori(forTextStyle: .footnote))
                 .foregroundStyle(Color.preferredColor(self.isEnabled ? .tertiaryLabel : .quaternaryLabel))
                 + Text(configuration.actionLabel ?? "")
-                .font(.fiori(forTextStyle: .footnote))
+                .font(.fiori(forTextStyle: .footnote, weight: .semibold))
                 .foregroundStyle(Color.preferredColor(self.isEnabled ? .tintColor : .quaternaryLabel))
         } else {
             return Text(message)

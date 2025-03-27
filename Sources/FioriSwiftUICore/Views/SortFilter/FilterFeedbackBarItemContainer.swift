@@ -73,6 +73,11 @@ extension FilterFeedbackBarItemContainer: View {
                                     .accessibilityElement()
                                     .accessibilityLabel(self._items[r][c].note.label)
                                     .accessibilityIdentifier(self._items[r][c].note.name)
+                            case .durationPicker:
+                                DurationPickerMenuItem(item: Binding<SortFilterItem.DurationPickerItem>(get: { self._items[r][c].durationPicker }, set: { self._items[r][c].durationPicker = $0 }), onUpdate: self.onUpdate)
+                                    .accessibilityElement()
+                                    .accessibilityLabel(self._items[r][c].durationPicker.label)
+                                    .accessibilityIdentifier(self._items[r][c].durationPicker.name)
                             }
                         }
                     }

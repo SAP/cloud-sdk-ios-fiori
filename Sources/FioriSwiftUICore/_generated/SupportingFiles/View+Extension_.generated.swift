@@ -836,6 +836,23 @@ public extension View {
     }
 }
 
+// MARK: DurationPickerStyle
+
+public extension View {
+    func durationPickerStyle(_ style: some DurationPickerStyle) -> some View {
+        self.transformEnvironment(\.durationPickerStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func durationPickerStyle(@ViewBuilder content: @escaping (DurationPickerConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.durationPickerStyleStack) { stack in
+            let style = AnyDurationPickerStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: EULAViewStyle
 
 public extension View {

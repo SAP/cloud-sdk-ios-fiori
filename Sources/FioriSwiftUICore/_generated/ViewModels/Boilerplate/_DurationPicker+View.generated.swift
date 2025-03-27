@@ -1,7 +1,7 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
-//TODO: Copy commented code to new file: `FioriSwiftUICore/Views/DurationPicker+View.swift`
-//TODO: Implement DurationPicker `View` body
+//TODO: Copy commented code to new file: `FioriSwiftUICore/Views/_DurationPicker+View.swift`
+//TODO: Implement _DurationPicker `View` body
 
 /// - Important: to make `@Environment` properties (e.g. `horizontalSizeClass`), internally accessible
 /// to extensions, add as sourcery annotation in `FioriSwiftUICore/Models/ModelDefinitions.swift`
@@ -13,21 +13,21 @@ import SwiftUI
 
 // FIXME: - Implement Fiori style definitions
 
-// FIXME: - Implement DurationPicker View body
+// FIXME: - Implement _DurationPicker View body
 
-extension DurationPicker: View {
+extension _DurationPicker: View {
     public var body: some View {
         <# View body #>
     }
 }
 
-// FIXME: - Implement DurationPicker specific LibraryContentProvider
+// FIXME: - Implement _DurationPicker specific LibraryContentProvider
 
 @available(iOS 14.0, macOS 11.0, *)
-struct DurationPickerLibraryContent: LibraryContentProvider {
+struct _DurationPickerLibraryContent: LibraryContentProvider {
     @LibraryContentBuilder
     var views: [LibraryItem] {
-        LibraryItem(DurationPicker(model: LibraryPreviewData.Person.laurelosborn),
+        LibraryItem(_DurationPicker(model: LibraryPreviewData.Person.laurelosborn),
                     category: .control)
     }
 }

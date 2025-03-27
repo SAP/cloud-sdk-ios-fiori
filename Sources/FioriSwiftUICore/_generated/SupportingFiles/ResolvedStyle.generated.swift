@@ -787,6 +787,22 @@ extension DisagreeActionStyle {
     }
 }
 
+// MARK: DurationPickerStyle
+
+struct ResolvedDurationPickerStyle<Style: DurationPickerStyle>: View {
+    let style: Style
+    let configuration: DurationPickerConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension DurationPickerStyle {
+    func resolve(configuration: DurationPickerConfiguration) -> some View {
+        ResolvedDurationPickerStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: EULAViewStyle
 
 struct ResolvedEULAViewStyle<Style: EULAViewStyle>: View {

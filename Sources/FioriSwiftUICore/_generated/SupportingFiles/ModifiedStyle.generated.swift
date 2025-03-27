@@ -1380,6 +1380,34 @@ public extension DisagreeActionStyle {
     }
 }
 
+// MARK: DurationPickerStyle
+
+extension ModifiedStyle: DurationPickerStyle where Style: DurationPickerStyle {
+    public func makeBody(_ configuration: DurationPickerConfiguration) -> some View {
+        DurationPicker(configuration)
+            .durationPickerStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct DurationPickerStyleModifier<Style: DurationPickerStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.durationPickerStyle(self.style)
+    }
+}
+
+public extension DurationPickerStyle {
+    func modifier(_ modifier: some ViewModifier) -> some DurationPickerStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some DurationPickerStyle) -> some DurationPickerStyle {
+        style.modifier(DurationPickerStyleModifier(style: self))
+    }
+}
+
 // MARK: EULAViewStyle
 
 extension ModifiedStyle: EULAViewStyle where Style: EULAViewStyle {

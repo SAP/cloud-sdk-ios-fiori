@@ -1869,3 +1869,36 @@ protocol _EULAViewComponent: _TitleComponent, _BodyTextComponent, _AgreeActionCo
     // sourcery: no_view
     var didCancel: (() -> Void)? { get }
 }
+
+/// `DurationPicker` provides a wheel style `Picker` with Fiori styling to select a duration.
+/// ## Usage
+/// ```swift
+/// @State var selection: Int = 0
+/// var formatter: MeasurementFormatter {
+/// let formatter = MeasurementFormatter()
+///     formatter.locale = Locale(identifier: "zh-CN")
+///     formatter.unitStyle = .long
+///     formatter.unitOptions = .providedUnit
+///     return formatter
+/// }
+/// DurationPicker(selection: self.$selection, maximumMinutes: 124, minimumMinutes: 60, minuteInterval: 2)
+///     .measurementFormatter(self.formatter)
+/// ```
+// sourcery: CompositeComponent
+protocol _DurationPickerComponent {
+    // sourcery: @Binding
+    // sourcery: no_view
+    var selection: Int { get set }
+    // sourcery: default.value=1439
+    // sourcery: no_view
+    var maximumMinutes: Int { get set }
+    // sourcery: default.value=0
+    // sourcery: no_view
+    var minimumMinutes: Int { get set }
+    // sourcery: default.value
+    // sourcery: no_view
+    var minuteInterval: Int { get set }
+    // sourcery: default.value=MeasurementFormatter()
+    // sourcery: no_view
+    var measurementFormatter: MeasurementFormatter { get set }
+}
