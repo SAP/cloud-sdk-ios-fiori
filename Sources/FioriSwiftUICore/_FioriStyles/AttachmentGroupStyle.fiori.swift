@@ -1,5 +1,6 @@
 import FioriThemeManager
 import Foundation
+import os.log
 import SwiftUI
 
 // Base Layout style
@@ -29,6 +30,26 @@ public struct AttachmentGroupBaseStyle: AttachmentGroupStyle {
                 url: fileURL,
                 controlState: configuration.controlState
             )
+            .ifApply(configuration.controlState == .normal) {
+                $0.contextMenu {
+                    Button {
+                        if let showPreview = configuration.onPreview {
+                            showPreview(configuration.attachments[index])
+                        } else {
+                            self.previewURL = configuration.attachments[index]
+                        }
+                    } label: {
+                        Label(NSLocalizedString("Preview", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Preview"), systemImage: "viewfinder")
+                    }
+                    
+                    Button(role: .destructive) {
+                        self.deleteIndex = index
+                        self.showingConfirmation.toggle()
+                    } label: {
+                        Label(NSLocalizedString("Delete", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Delete"), systemImage: "delete.left")
+                    }
+                }
+            }
         } else {
             EmptyView()
         }
@@ -37,23 +58,32 @@ public struct AttachmentGroupBaseStyle: AttachmentGroupStyle {
     public func makeBody(_ configuration: AttachmentGroupConfiguration) -> some View {
         VStack(alignment: .leading, spacing: AttachmentConstants.cellVerticalSpacing) {
             configuration.title
+                .accessibilityIdentifier("Attachment:Title-\(configuration.title)-\(UUID().uuidString)")
+                .accessibilitySortPriority(Double(configuration.attachments.count + 2))
                 .padding(.bottom, AttachmentConstants.extraTitleBottomPadding)
             
-            LazyVGrid(columns: Array(repeating: GridItem(.adaptive(minimum: AttachmentConstants.cellWidth), alignment: .top), count: 1), spacing: AttachmentConstants.cellVerticalSpacing) {
+            LazyVGrid(columns: Array(repeating: GridItem(.adaptive(minimum: AttachmentConstants.thumbnailWidth), alignment: .top), count: 1), spacing: AttachmentConstants.cellVerticalSpacing) {
                 if configuration.controlState != .readOnly {
                     if let maxCount = configuration.maxCount {
                         if maxCount > configuration.attachments.count {
                             configuration.operations
+                                .accessibilityIdentifier("Attachment:AddButton-\(UUID().uuidString)")
+                                .accessibilitySortPriority(Double(configuration.attachments.count + 1))
                                 .environment(self.context)
                         }
                     } else {
                         configuration.operations
+                            .accessibilityIdentifier("Attachment:AddButton-\(UUID().uuidString)")
+                            .accessibilitySortPriority(Double(configuration.attachments.count + 1))
                             .environment(self.context)
                     }
                 }
                 
                 ForEach(0 ..< configuration.attachments.count, id: \.self) { index in
                     self.makeAttachemnt(of: configuration, at: index)
+                        .accessibilityIdentifier("Attachment:Thumbnail\(configuration.attachments[index].absoluteString)")
+                        .accessibilitySortPriority(Double(configuration.attachments.count - index + 1))
+                        .accessibilityElement(children: .combine)
                         .onTapGesture {
                             if let showPreview = configuration.onPreview {
                                 showPreview(configuration.attachments[index])
@@ -61,39 +91,34 @@ public struct AttachmentGroupBaseStyle: AttachmentGroupStyle {
                                 self.previewURL = configuration.attachments[index]
                             }
                         }
+                        .ifApply(configuration.controlState == .readOnly) {
+                            $0.accessibilityAction(named: NSLocalizedString("Preview", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Preview")) {
+                                self.preivew(configuration: configuration, index: index)
+                            }
+                        }
                         .ifApply(configuration.controlState == .normal) {
-                            $0.contextMenu {
-                                Button {
-                                    if let showPreview = configuration.onPreview {
-                                        showPreview(configuration.attachments[index])
-                                    } else {
-                                        self.previewURL = configuration.attachments[index]
-                                    }
-                                } label: {
-                                    Label("Preview", systemImage: "viewfinder")
-                                }
-                                
-                                Button(role: .destructive) {
-                                    self.deleteIndex = index
-                                    self.showingConfirmation.toggle()
-                                } label: {
-                                    Label("Delete", systemImage: "delete.left")
-                                }
+                            $0.accessibilityAction(named: NSLocalizedString("Preview", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Preview")) {
+                                self.preivew(configuration: configuration, index: index)
+                            }
+                            .accessibilityAction(named: NSLocalizedString("Delete", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Delete")) {
+                                self.context.delete(attachment: configuration.attachments[index])
                             }
                         }
                 }
             }
+            .accessibilityElement(children: .contain)
         }
+        .accessibilityElement(children: .contain)
         .quickLookPreview(self.$previewURL, in: configuration.attachments)
-        .alert("Delete Attachment?", isPresented: self.$showingConfirmation) {
-            Button("Cancel", role: .cancel) {}
-            Button("Delete", role: .destructive) {
+        .alert(NSLocalizedString("Delete Attachment?", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Delete Attachment?"), isPresented: self.$showingConfirmation) {
+            Button(NSLocalizedString("Cancel", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Cancel"), role: .cancel) {}
+            Button(NSLocalizedString("Delete", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Delete"), role: .destructive) {
                 if let index = deleteIndex {
                     self.context.delete(attachment: configuration.attachments[index])
-                    print("Attachment at \(index) deleted")
+                    os_log("Attachment at %@ deleted", log: OSLog.coreLogger, type: .info, index)
                     self.deleteIndex = nil
                 } else {
-                    print("No attchement found for deletion")
+                    os_log("No attchement found for deletion", log: OSLog.coreLogger, type: .info)
                 }
             }
         }
@@ -109,6 +134,14 @@ public struct AttachmentGroupBaseStyle: AttachmentGroupStyle {
                 return self.context
             }()
         )
+    }
+    
+    func preivew(configuration: AttachmentGroupConfiguration, index: Int) {
+        if let showPreview = configuration.onPreview {
+            showPreview(configuration.attachments[index])
+        } else {
+            self.previewURL = configuration.attachments[index]
+        }
     }
 }
 

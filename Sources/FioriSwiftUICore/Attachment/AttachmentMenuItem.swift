@@ -9,7 +9,7 @@ public struct PhotosPickerMenuItem: View {
     let icon: String?
     let filter: [PHPickerFilter]
     
-    public init(title: String? = "Photos", icon: String? = "image", filter: [PHPickerFilter] = []) {
+    public init(title: String? = NSLocalizedString("Photos", tableName: "FioriSwiftUICore", comment: "Photos"), icon: String? = "photo", filter: [PHPickerFilter] = []) {
         self.title = title
         self.icon = icon
         self.filter = filter
@@ -31,7 +31,7 @@ public struct FilesPickerMenuItem: View {
     let icon: String?
     let filter: [UTType]
     
-    public init(title: String? = "Files", icon: String? = "doc.text", filter: [UTType] = []) {
+    public init(title: String? = NSLocalizedString("Files", tableName: "FioriSwiftUICore", comment: "Files"), icon: String? = "doc.text", filter: [UTType] = []) {
         self.title = title
         self.icon = icon
         self.filter = filter
@@ -52,7 +52,7 @@ public struct PdfScannerMenuItem: View {
     let title: String?
     let icon: String?
     
-    public init(title: String? = "Scan", icon: String? = "scanner") {
+    public init(title: String? = NSLocalizedString("Scan", tableName: "FioriSwiftUICore", comment: "Scan"), icon: String? = "scanner") {
         self.title = title
         self.icon = icon
     }
@@ -71,7 +71,7 @@ public struct CameraMenuItem: View {
     let title: String?
     let icon: String?
     
-    public init(title: String? = "Camera", icon: String? = "camera") {
+    public init(title: String? = NSLocalizedString("Camera", tableName: "FioriSwiftUICore", comment: "Camera"), icon: String? = "camera") {
         self.title = title
         self.icon = icon
     }
@@ -113,57 +113,4 @@ extension View {
             }
         }
     }
-}
-
-/// Convenient operation menu items definitions, to be merged into PhotosPickerMenuItem, FilesPickerMenuItem, and CameraMenuItem together with localiztion
-public enum AttachmentMenuItems {
-    /// PhotosPicker menu item with title and icon
-    public static let photos = PhotosPickerMenuItem(title: "Photos", icon: "photo")
-    
-    /// PhotosPicker menu item with icon only
-    public static let photosImageOnlyNoTitle = PhotosPickerMenuItem(icon: "photo")
-    
-    /// File importer menu item with title and icon
-    public static let files = FilesPickerMenuItem(title: "Files", icon: "folder")
-    
-    /// File importer menu item with icon only
-    public static let filesImageOnlyNoTitle = FilesPickerMenuItem(icon: "folder")
-    
-    /// Camera menu item with title and icon
-    public static let camera = CameraMenuItem(title: "Camera", icon: "camera")
-    
-    /// Camera menu item with icon only
-    public static let cameraImageOnlyNoTitle = CameraMenuItem(icon: "camera")
-    
-    /// PDF scanner menu item
-    public static let pdfScanner = PdfScannerMenuItem()
-    
-    /// PhotosPicker menu item with title, icon, and filter
-    public static func photos(title: String? = nil, icon: String? = nil, filter: [PHPickerFilter] = []) -> PhotosPickerMenuItem {
-        PhotosPickerMenuItem(title: title ?? "Photos", icon: icon ?? "photo", filter: filter)
-    }
-    
-    /// FileImporter menu item with title, icon, and filter
-    public static func files(title: String? = nil, icon: String? = nil, filter: [UTType] = []) -> FilesPickerMenuItem {
-        FilesPickerMenuItem(title: title ?? "Files", icon: icon ?? "folder", filter: filter)
-    }
-}
-
-#Preview {
-    VStack {
-        AttachmentMenuItems.photos
-        PhotosPickerMenuItem(title: "Photos", icon: nil)
-        PhotosPickerMenuItem(title: "Photos", icon: "photo")
-        AttachmentMenuItems.photosImageOnlyNoTitle
-        AttachmentMenuItems.files
-        FilesPickerMenuItem(title: "Files", icon: nil)
-        FilesPickerMenuItem(title: "Files", icon: "folder")
-        AttachmentMenuItems.filesImageOnlyNoTitle
-        AttachmentMenuItems.camera
-        CameraMenuItem(title: "Camera", icon: nil)
-        CameraMenuItem(title: "Camera", icon: "camera")
-        AttachmentMenuItems.cameraImageOnlyNoTitle
-        AttachmentMenuItems.pdfScanner
-    }
-    .environment(AttachmentContext())
 }

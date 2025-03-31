@@ -1,3 +1,4 @@
+import OSLog
 import PDFKit
 import PhotosUI
 import SwiftUI
@@ -28,7 +29,7 @@ public class AttachmentContext {
     
     func upload(contentFrom provider: NSItemProvider) {
         guard let configuration else {
-            print("AttachmentConfiguration is not initialized, yet. Please check code/usage.")
+            os_log("AttachmentConfiguration is not initialized, yet. Please check code/usage.", log: OSLog.coreLogger, type: .debug)
             return
         }
         self.delegate?.upload(contentFrom: provider) { url, error in
@@ -53,8 +54,8 @@ public class AttachmentContext {
     
     func upload(photoPickerItems: [PhotosPickerItem]) {
         for item in photoPickerItems {
-            print("identifier: \(item.itemIdentifier ?? "N/A")")
-            print(item.supportedContentTypes)
+            os_log("Upload item identifier: %@", log: OSLog.coreLogger, type: .debug, "\(item.itemIdentifier ?? "N/A")")
+            os_log("Item content types: %@", log: OSLog.coreLogger, type: .debug, "\(item.supportedContentTypes)")
             item.loadTransferable(type: Data.self) { result in
                 switch result {
                 case .success(let data):
@@ -69,7 +70,7 @@ public class AttachmentContext {
                     }
                 case .failure(let error):
                     self.configuration?.errorMessage = AttributedString(error.localizedDescription)
-                    print("Error loading item: \(error.localizedDescription)")
+                    os_log("Error loading item: %@", log: OSLog.coreLogger, type: .error, "\(error)")
                     return
                 }
             }
@@ -127,7 +128,7 @@ public class AttachmentContext {
     
     func delete(attachment: URL) {
         guard let configuration else {
-            print("AttachmentConfiguration is not initialized, yet. Please check code/usage.")
+            os_log("AttachmentConfiguration is not initialized, yet. Please check code/usage.", log: OSLog.coreLogger, type: .debug)
             return
         }
         

@@ -1,3 +1,8 @@
+🌱 Cloning SwiftFormat 0.53.4
+🌱 Resolving package
+🌱 Building product swiftformat
+🌱 Installed SwiftFormat 0.53.4
+🌱 Running swiftformat 0.53.4...
 import FioriSwiftUICore
 import SwiftUI
 
@@ -68,8 +73,8 @@ struct AttachmentDelegateExample: View {
                     operations: {
                         AttachmentButtonImage()
                             .operationsMenu {
-                                AttachmentMenuItems.photos(filter: [.images])
-                                AttachmentMenuItems.files(filter: [.pdf, .presentation])
+                                PhotosPickerMenuItem(filter: [.images])
+                                FilesPickerMenuItem(filter: [.pdf, .presentation])
                             }
                     }
                 )
@@ -83,8 +88,8 @@ struct AttachmentDelegateExample: View {
                     operations: {
                         AttachmentButtonImage()
                             .operationsMenu {
-                                AttachmentMenuItems.photos(filter: [.images])
-                                AttachmentMenuItems.files(filter: [.pdf, .presentation])
+                                PhotosPickerMenuItem(filter: [.images])
+                                FilesPickerMenuItem(filter: [.pdf, .presentation])
                             }
                     }
                 )
