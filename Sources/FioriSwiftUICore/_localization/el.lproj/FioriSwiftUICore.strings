@@ -316,3 +316,69 @@
 /* Progress Indicator accessibility label: progress halted with indicator progress */
 "Progress halted, %.0f" = "Η εξέλιξη διακόπηκε, %.0f";
 
+/* XACT: Slider accessibility label */
+"This is %@ slider whose maximum value is %@ and minimum value is %@" = "Αυτό είναι ρυθμιστικό %@ η μέγιστη τιμή του οποίου η μέγιστη τιμή είναι %@ και η ελάχιστη %@";
+
+/* XACT: Slider accessibility value */
+"Current value is %@" = "Τρέχουσα τιμή είναι %@";
+
+/* XACT: Range Slider lower thumb accessibility label */
+"lower range slider thumb, current value is" = "δείκτης κύλισης κατώτερου ρυθμιστικού, η τρέχουσα τιμή είναι";
+
+/* XACT: Range Slider lower thumb accessibility hint */
+"you can swipe up or down to change the lower value" = "μπορείτε να κάνετε σάρωση προς τα πάνω ή προς τα κάτω για να αλλάξετε την κατώτερη τιμή";
+
+/* XACT: Range Slider upper thumb accessibility label */
+"upper range slider thumb, current value is" = "δείκτης κύλισης ανώτερου ρυθμιστικού, η τρέχουσα τιμή είναι";
+
+/* XACT: Range Slider upper thumb accessibility hint */
+"you can swipe up or down to change the upper value" = "μπορείτε να κάνετε σάρωση προς τα πάνω ή προς τα κάτω για να αλλάξετε την ανώτερη τιμή";
+
+/* XACT: Single editable Slider thumb accessibility label */
+"slider thumb, current value is" = "δείκτης κύλισης ρυθμιστικού, η τρέχουσα τιμή είναι";
+
+/* XACT: Single editable Slider thumb accessibility hint */
+"you can swipe up or down to change the value" = "μπορείτε να κάνετε σάρωση προς τα πάνω ή προς τα κάτω για να αλλάξετε την τιμή";
+
+/* XACT: Single Slider accessibility label */
+"This is a slider, the minimum value is %@ and the maximum value is %@" = "Αυτό είναι ένα ρυθμιστικό, η ελάχιστη τιμή είναι %@ και η μέγιστη τιμή είναι %@";
+
+/* XACT: Range Slider accessibility label */
+"This is a range slider, the minimum value is %@ and the maximum value is %@" = "Αυτό είναι ένα ρυθμιστικό, η ελάχιστη τιμή είναι %@ και η μέγιστη τιμή είναι %@";
+
+/* XACT: Single editable Slider accessibility label */
+"This is a slider that is editable, the minimum value is %@ and the maximum value is %@" = "Αυτό είναι ένα επεξεργάσιμο ρυθμιστικό, η ελάχιστη τιμή είναι %@ και η μέγιστη τιμή είναι %@";
+
+/* XACT: Single non-editable Slider accessibility label */
+"This is a slider that can't be edited, the minimum value is %@ and the maximum value is %@" = "Αυτό είναι ένα μη επεξεργάσιμο ρυθμιστικό, η ελάχιστη τιμή είναι  %@ και η μέγιστη τιμή είναι %@";
+
+/* XACT: Range editable Slider accessibility label */
+"This is a range slider that is editable, the minimum value is %@ and the maximum value is %@" = "Αυτό είναι ένα επεξεργάσιμο ρυθμιστικό εύρους, η ελάχιστη τιμή είναι %@ και η μέγιστη τιμή είναι %@";
+
+/* XACT: Range non-editable Slider accessibility label */
+"This is a range slider that can't be edited, the minimum value is %@ and the maximum value is %@" = "Αυτό είναι ένα μη επεξεργάσιμο ρυθμιστικό εύρους, η ελάχιστη τιμή είναι %@ και η μέγιστη τιμή είναι %@";
+
+/* XACT: Single editable Slider Text Field accessibility label */
+"slider value text field" = "πεδίο κειμένου τιμής ρυθμιστικού";
+
+/* XACT: Range editable Slider Lower Value Text Field accessibility label */
+"lower value text field" = "πεδίο κειμένου κατώτερης τιμής";
+
+/* XACT: Range editable Slider Upper Value Text Field accessibility label */
+"upper value text field" = "πεδίο κειμένου ανώτερης τιμής";
+
+/* XACT: Editable Slider Text Field accessibility hint */
+"You can double tap to input a specific value" = "Μπορείτε να αγγίξετε δύο φορές για είσοδο συγκεκριμένης τιμής";
+
+/* XACT: Editable Slider Text Field accessibility value */
+"current value is %@" = "τρέχουσα τιμή είναι %@";
+
+/* XACT: Range Editable Slider accessibility value */
+"current lower value is %@, upper value is %@" = "Η τρέχουσα κατώτερη τιμή είναι %@, η ανώτερη τιμή είναι %@";
+
+/* XTIT: Title of step progress indicator, see https://experience.sap.com/fiori-design-ios/article/step-progress-indicator/#adaptive-design */
+"All Steps" = "Όλα τα βήματα";
+
+/* XMSG: AI Notice message */
+"Suggested by AI. Verify before use. " = "Προτεινόμενο από ΑΙ. Επαλήθευση πριν τη χρήση. ";
+

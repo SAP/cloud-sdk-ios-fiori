@@ -316,3 +316,69 @@
 /* Progress Indicator accessibility label: progress halted with indicator progress */
 "Progress halted, %.0f" = "Tiến trình đã dừng, %.0f";
 
+/* XACT: Slider accessibility label */
+"This is %@ slider whose maximum value is %@ and minimum value is %@" = "Đây là thanh trượt %@ có giá trị lớn nhất là %@ và giá trị nhỏ nhất là %@";
+
+/* XACT: Slider accessibility value */
+"Current value is %@" = "Giá trị hiện tại là %@";
+
+/* XACT: Range Slider lower thumb accessibility label */
+"lower range slider thumb, current value is" = "ngón tay cái thanh trượt phạm vi dưới, giá trị hiện tại là";
+
+/* XACT: Range Slider lower thumb accessibility hint */
+"you can swipe up or down to change the lower value" = "bạn có thể vuốt lên hoặc xuống để thay đổi giá trị dưới";
+
+/* XACT: Range Slider upper thumb accessibility label */
+"upper range slider thumb, current value is" = "ngón tay cái thanh trượt phạm vi trên, giá trị hiện tại là";
+
+/* XACT: Range Slider upper thumb accessibility hint */
+"you can swipe up or down to change the upper value" = "bạn có thể vuốt lên hoặc xuống để thay đổi giá trị trên";
+
+/* XACT: Single editable Slider thumb accessibility label */
+"slider thumb, current value is" = "ngón tay cái thanh trượt, giá trị hiện tại là";
+
+/* XACT: Single editable Slider thumb accessibility hint */
+"you can swipe up or down to change the value" = "bạn có thể vuốt lên hoặc xuống để thay đổi giá trị";
+
+/* XACT: Single Slider accessibility label */
+"This is a slider, the minimum value is %@ and the maximum value is %@" = "Đây là thanh trượt, giá trị tối thiểu là %@ và giá trị tối đa là %@";
+
+/* XACT: Range Slider accessibility label */
+"This is a range slider, the minimum value is %@ and the maximum value is %@" = "Đây là thanh trượt phạm vi, giá trị tối thiểu là %@ và giá trị tối đa là %@";
+
+/* XACT: Single editable Slider accessibility label */
+"This is a slider that is editable, the minimum value is %@ and the maximum value is %@" = "Đây là thanh trượt có thể hiệu chỉnh, giá trị tối thiểu là %@ và giá trị tối đa là %@";
+
+/* XACT: Single non-editable Slider accessibility label */
+"This is a slider that can't be edited, the minimum value is %@ and the maximum value is %@" = "Đây là thanh trượt không thể hiệu chỉnh được, giá trị tối thiểu là %@ và giá trị tối đa là %@";
+
+/* XACT: Range editable Slider accessibility label */
+"This is a range slider that is editable, the minimum value is %@ and the maximum value is %@" = "Đây là thanh trượt phạm vi có thể hiệu chỉnh, giá trị tối thiểu là %@ và giá trị tối đa là %@";
+
+/* XACT: Range non-editable Slider accessibility label */
+"This is a range slider that can't be edited, the minimum value is %@ and the maximum value is %@" = "Đây là thanh trượt phạm vi không thể hiệu chỉnh được, giá trị tối thiểu là %@ và giá trị tối đa là %@";
+
+/* XACT: Single editable Slider Text Field accessibility label */
+"slider value text field" = "trường văn bản giá trị thanh trượt";
+
+/* XACT: Range editable Slider Lower Value Text Field accessibility label */
+"lower value text field" = "trường văn bản giá trị dưới";
+
+/* XACT: Range editable Slider Upper Value Text Field accessibility label */
+"upper value text field" = "trường văn bản giá trị trên";
+
+/* XACT: Editable Slider Text Field accessibility hint */
+"You can double tap to input a specific value" = "Bạn có thể nhấp đúp để nhập giá trị cụ thể";
+
+/* XACT: Editable Slider Text Field accessibility value */
+"current value is %@" = "giá trị hiện tại là %@";
+
+/* XACT: Range Editable Slider accessibility value */
+"current lower value is %@, upper value is %@" = "giá trị dưới hiện tại là %@, giá trị trên là %@";
+
+/* XTIT: Title of step progress indicator, see https://experience.sap.com/fiori-design-ios/article/step-progress-indicator/#adaptive-design */
+"All Steps" = "Tất cả bước";
+
+/* XMSG: AI Notice message */
+"Suggested by AI. Verify before use. " = "Được AI đề xuất. Xác thực trước khi sử dụng. ";
+

@@ -316,3 +316,69 @@
 /* Progress Indicator accessibility label: progress halted with indicator progress */
 "Progress halted, %.0f" = "進度暫停，%.0f";
 
+/* XACT: Slider accessibility label */
+"This is %@ slider whose maximum value is %@ and minimum value is %@" = "此為 %@ 滑動軸，最大值為 %@ 且最小值為 %@";
+
+/* XACT: Slider accessibility value */
+"Current value is %@" = "目前值為 %@";
+
+/* XACT: Range Slider lower thumb accessibility label */
+"lower range slider thumb, current value is" = "下限範圍滑動軸縮圖，目前值為";
+
+/* XACT: Range Slider lower thumb accessibility hint */
+"you can swipe up or down to change the lower value" = "您可上下滑動來更改下限值";
+
+/* XACT: Range Slider upper thumb accessibility label */
+"upper range slider thumb, current value is" = "上限範圍滑動軸縮圖，目前值為";
+
+/* XACT: Range Slider upper thumb accessibility hint */
+"you can swipe up or down to change the upper value" = "您可上下滑動來更改上限值";
+
+/* XACT: Single editable Slider thumb accessibility label */
+"slider thumb, current value is" = "滑動軸縮圖，目前值為";
+
+/* XACT: Single editable Slider thumb accessibility hint */
+"you can swipe up or down to change the value" = "您可上下滑動來更改值";
+
+/* XACT: Single Slider accessibility label */
+"This is a slider, the minimum value is %@ and the maximum value is %@" = "此為滑動軸，最小值為 %@ 而最大值為 %@";
+
+/* XACT: Range Slider accessibility label */
+"This is a range slider, the minimum value is %@ and the maximum value is %@" = "此為範圍滑動軸，最小值為 %@ 而最大值為 %@";
+
+/* XACT: Single editable Slider accessibility label */
+"This is a slider that is editable, the minimum value is %@ and the maximum value is %@" = "此為可編輯的滑動軸，最小值為 %@ 而最大值為 %@";
+
+/* XACT: Single non-editable Slider accessibility label */
+"This is a slider that can't be edited, the minimum value is %@ and the maximum value is %@" = "此為無法編輯的滑動軸，最小值為 %@ 而最大值為 %@";
+
+/* XACT: Range editable Slider accessibility label */
+"This is a range slider that is editable, the minimum value is %@ and the maximum value is %@" = "此為可編輯的範圍滑動軸，最小值為 %@ 而最大值為 %@";
+
+/* XACT: Range non-editable Slider accessibility label */
+"This is a range slider that can't be edited, the minimum value is %@ and the maximum value is %@" = "此為無法編輯的範圍滑動軸，最小值為 %@ 而最大值為 %@";
+
+/* XACT: Single editable Slider Text Field accessibility label */
+"slider value text field" = "滑動軸值內文欄位";
+
+/* XACT: Range editable Slider Lower Value Text Field accessibility label */
+"lower value text field" = "下限值內文欄位";
+
+/* XACT: Range editable Slider Upper Value Text Field accessibility label */
+"upper value text field" = "上限值內文欄位";
+
+/* XACT: Editable Slider Text Field accessibility hint */
+"You can double tap to input a specific value" = "您可點兩下輸入特定值";
+
+/* XACT: Editable Slider Text Field accessibility value */
+"current value is %@" = "目前值為 %@";
+
+/* XACT: Range Editable Slider accessibility value */
+"current lower value is %@, upper value is %@" = "目前下限值為 %@，上限值為 %@";
+
+/* XTIT: Title of step progress indicator, see https://experience.sap.com/fiori-design-ios/article/step-progress-indicator/#adaptive-design */
+"All Steps" = "全部步驟";
+
+/* XMSG: AI Notice message */
+"Suggested by AI. Verify before use. " = "由 AI 所建立，使用前請驗證。 ";
+
