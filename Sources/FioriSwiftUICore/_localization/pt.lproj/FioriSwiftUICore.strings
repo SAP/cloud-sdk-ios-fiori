@@ -316,3 +316,69 @@
 /* Progress Indicator accessibility label: progress halted with indicator progress */
 "Progress halted, %.0f" = "Andamento interrompido, %.0f";
 
+/* XACT: Slider accessibility label */
+"This is %@ slider whose maximum value is %@ and minimum value is %@" = "Este é o controle deslizante %@ cujo valor máximo é %@ e valor mínimo é %@";
+
+/* XACT: Slider accessibility value */
+"Current value is %@" = "O valor atual é %@";
+
+/* XACT: Range Slider lower thumb accessibility label */
+"lower range slider thumb, current value is" = "miniatura do controle deslizante de intervalo inferior, o valor atual é";
+
+/* XACT: Range Slider lower thumb accessibility hint */
+"you can swipe up or down to change the lower value" = "você pode passar o dedo para cima ou para baixo para modificar o valor inferior";
+
+/* XACT: Range Slider upper thumb accessibility label */
+"upper range slider thumb, current value is" = "miniatura do controle deslizante de intervalo superior, o valor atual é";
+
+/* XACT: Range Slider upper thumb accessibility hint */
+"you can swipe up or down to change the upper value" = "você pode passar o dedo para cima ou para baixo para modificar o valor superior";
+
+/* XACT: Single editable Slider thumb accessibility label */
+"slider thumb, current value is" = "miniatura do controle deslizante, o valor atual é";
+
+/* XACT: Single editable Slider thumb accessibility hint */
+"you can swipe up or down to change the value" = "você pode passar o dedo para cima ou para baixo para modificar o valor";
+
+/* XACT: Single Slider accessibility label */
+"This is a slider, the minimum value is %@ and the maximum value is %@" = "Este é um controle deslizante, o valor mínimo é %@ e o valor máximo é %@";
+
+/* XACT: Range Slider accessibility label */
+"This is a range slider, the minimum value is %@ and the maximum value is %@" = "Este é um controle deslizante de intervalo, o valor mínimo é %@ e o valor máximo é %@";
+
+/* XACT: Single editable Slider accessibility label */
+"This is a slider that is editable, the minimum value is %@ and the maximum value is %@" = "Este é um controle deslizante editável, o valor mínimo é %@ e o valor máximo é %@";
+
+/* XACT: Single non-editable Slider accessibility label */
+"This is a slider that can't be edited, the minimum value is %@ and the maximum value is %@" = "Este é um controle deslizante não editável, o valor mínimo é %@ e o valor máximo é %@";
+
+/* XACT: Range editable Slider accessibility label */
+"This is a range slider that is editable, the minimum value is %@ and the maximum value is %@" = "Este é um controle deslizante de intervalo editável, o valor mínimo é %@ e o valor máximo é %@";
+
+/* XACT: Range non-editable Slider accessibility label */
+"This is a range slider that can't be edited, the minimum value is %@ and the maximum value is %@" = "Este é um controle deslizante de intervalo não editável, o valor mínimo é %@ e o valor máximo é %@";
+
+/* XACT: Single editable Slider Text Field accessibility label */
+"slider value text field" = "campo de texto de valor do controle deslizante";
+
+/* XACT: Range editable Slider Lower Value Text Field accessibility label */
+"lower value text field" = "campo de texto de valor inferior";
+
+/* XACT: Range editable Slider Upper Value Text Field accessibility label */
+"upper value text field" = "campo de texto de valor superior";
+
+/* XACT: Editable Slider Text Field accessibility hint */
+"You can double tap to input a specific value" = "Você pode tocar duas vezes para inserir um valor específico";
+
+/* XACT: Editable Slider Text Field accessibility value */
+"current value is %@" = "o valor atual é %@";
+
+/* XACT: Range Editable Slider accessibility value */
+"current lower value is %@, upper value is %@" = "o valor inferior atual é %@, o valor superior é %@";
+
+/* XTIT: Title of step progress indicator, see https://experience.sap.com/fiori-design-ios/article/step-progress-indicator/#adaptive-design */
+"All Steps" = "Todas as etapas";
+
+/* XMSG: AI Notice message */
+"Suggested by AI. Verify before use. " = "Sugerido pela IA. Verifique antes de usar. ";
+

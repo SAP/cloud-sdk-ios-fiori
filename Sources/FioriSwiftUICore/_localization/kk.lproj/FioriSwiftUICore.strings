@@ -1,384 +1,384 @@
 /* XMSG: Placeholder text in chart when there is no data */
-"No Data" = "Nav datu";
+"No Data" = "Дерек жоқ";
 
 /* XBUT: Save action in inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
-"Save" = "Saglabāt";
+"Save" = "Сақтау";
 
 /* XBUT: Re-enter action available in saved state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
-"Re-enter Signature" = "Atkārtoti ievadīt parakstu";
+"Re-enter Signature" = "Қолтаңбаны қайта енгізу";
 
 /* XBUT: Clear action of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
-"Clear" = "Notīrīt";
+"Clear" = "Тазарту";
 
 /* XBUT: Cancel action of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
-"Cancel" = "Atcelt";
+"Cancel" = "Болдырмау";
 
 /* XTIT: Title of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
-"Signature" = "Paraksts";
+"Signature" = "Қолтаңба";
 
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
-"Tap to Sign" = "Pieskarieties, lai parakstītu";
+"Tap to Sign" = "Қол қою үшін түртіңіз";
 
 /* XACT: The accessibility label for the signature area */
-"Signature Area" = "Parakstu apgabals";
+"Signature Area" = "Қолтаңба аймағы";
 
 /* XACT: The accessibility hint for the signature area */
-"Double tap and drag to sign" = "Veiciet dubultskārienu un velciet, lai parakstītu";
+"Double tap and drag to sign" = "Қол қою үшін екі рет түртіп, сүйреп апарыңыз";
 
 /* XACT: The accessibility label for the signature image */
-"Signature Image" = "Paraksta attēls";
+"Signature Image" = "Қолтаңба кескіні";
 
 /* XACT: The accessibility label for the signature line */
-"Signature Line" = "Paraksta līnija";
+"Signature Line" = "Қолтаңба жолы";
 
 /* XACT: The accessibility label for the mandatory field */
-"Required Field" = "Obligātais lauks";
+"Required Field" = "Міндетті өріс";
 
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
-"Canceled" = "Atcelts";
+"Canceled" = "Болдырылмады";
 
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
-"Next" = "Nākamais";
+"Next" = "Келесі";
 
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
-"Ok" = "Labi";
+"Ok" = "OK";
 
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
-"Status" = "Statuss";
+"Status" = "Күйі";
 
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
-"User canceled Onboarding" = "Lietotājs atcēla integrāciju";
+"User canceled Onboarding" = "Пайдаланушы қосылуды болдырмады";
 
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
-"Without consent you will not be able to continue onboarding." = "Bez piekrišanas nevarēsit turpināt integrāciju.";
+"Without consent you will not be able to continue onboarding." = "Келісімсіз қосылуды жалғастыру мүмкін болмайды.";
 
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
-"Give Consent" = "Sniegt piekrišanu";
+"Give Consent" = "Келісім беру";
 
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
-"Quit" = "Iziet";
+"Quit" = "Шығу";
 
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
-"Back" = "Atpakaļ";
+"Back" = "Артқа";
 
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
-"Step" = "Solis";
+"Step" = "Қадам";
 
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
-"of" = "no";
+"of" = "/";
 
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
-"Are you sure you want to quit the onboarding process?" = "Vai tiešām vēlaties beigt integrācijas procesu?";
+"Are you sure you want to quit the onboarding process?" = "Қосылу процесінен шығуға сенімдісіз бе?";
 
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
-"Want Data Privacy?" = "Vai vēlaties datu konfidencialitāti?";
+"Want Data Privacy?" = "Дерек құпиялығы қажет пе?";
 
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
-"Be wise about your data" = "Ar datiem rīkojieties pārdomāti";
+"Be wise about your data" = "Дерегіңізге мұқият болыңыз";
 
 /* XBUT: Not Now action title in UserConsentForm */
-"Not Now" = "Ne tagad";
+"Not Now" = "Қазір емес";
 
 /* XBUT: Allow action title in UserConsentForm */
-"Allow" = "Atļaut";
+"Allow" = "Рұқсат беру";
 
 /* XBUT: Deny action title in UserConsentForm */
-"Deny" = "Noraidīt";
+"Deny" = "Бас тарту";
 
 /* XBUT: Agree action title in EULAView */
-"Agree" = "Piekrist";
+"Agree" = "Келісу";
 
 /* XBUT: Disagree action title in EULAView */
-"Disagree" = "Nepiekrist";
+"Disagree" = "Келіспеу";
 
 /* XMSG: Placeholder text in DataTable for loading state */
-"Loading..." = "Ielāde...";
+"Loading..." = "Жүктелуде...";
 
 /* XMSG: Placeholder text in DataTable when there is no data */
-"There is nothing to display yet" = "Vēl nav nekā, ko parādīt";
+"There is nothing to display yet" = "Көрсететін әлі ешнәрсе жоқ";
 
 /* XBUT: Default duration foramtter in DataTable */
-"%d Hrs %d Min" = "%d h %d min";
+"%d Hrs %d Min" = "%d сағ, %d мин";
 
 /* XBUT: Done action in keyboard toolbar for a Textfield in DataTable */
-"Done" = "Pabeigts";
+"Done" = "Дайын";
 
 /* XBUT: Error messages shown to users in DataTable */
-"There are %d errors in the data table." = "Datu tabulā ir %d kļūda(s).";
+"There are %d errors in the data table." = "Дерек кестесінде %d қате бар.";
 
 /* XBUT: voice over label for row header in DataTable */
-"row header" = "rindas galvene";
+"row header" = "жол тақырыбы";
 
 /* XBUT: voice over label for row %d in DataTable */
-"row %d" = "rinda %d";
+"row %d" = "жол %d";
 
 /* XBUT: voice over label for column %d in DataTable */
-"column %d" = "kolonna %d";
+"column %d" = "баған %d";
 
 /* XBUT: voice over label for cell type of `leading accessory` in DataTable */
-"leading accessory" = "vadošais aksesuārs";
+"leading accessory" = "жетекші керек-жарақ";
 
 /* XBUT: voice over label for cell type of `trailing accessory` in DataTable */
-"trailing accessory" = "noslēdzošais aksesuārs";
+"trailing accessory" = "соңғы керек-жарақ";
 
 /* XBUT: voice over label for cell type of `text` in DataTable */
-"text" = "teksts";
+"text" = "мәтін";
 
 /* XBUT: voice over label for cell type of `image` in DataTable */
-"image" = "attēls";
+"image" = "кескін";
 
 /* XBUT: voice over label for cell type of `date` in DataTable */
-"date" = "datums";
+"date" = "күн";
 
 /* XBUT: voice over label for cell type of `time` in DataTable */
-"time" = "laiks";
+"time" = "уақыт";
 
 /* XBUT: voice over label for cell type of `duration` in DataTable */
-"duration" = "ilgums";
+"duration" = "ұзақтық";
 
 /* XBUT: voice over label for cell type of `list item` in DataTable */
-"list item" = "saraksta elements";
+"list item" = "тізім тармағы";
 
 /* XBUT: voice over label for row selection status in DataTable */
-"selected" = "atlasīts";
+"selected" = "таңдалды";
 
 /* XBUT: voice over label for row selection status in DataTable */
-"not selected" = "nav atlasīts";
+"not selected" = "таңдалмады";
 
 /* Default value for DateTimePicker */
-"No date selected" = "Nav atlasīts neviens datums";
+"No date selected" = "Күн таңдалмады";
 
 /* XBUT: calendar time component label */
-"Time" = "Laiks";
+"Time" = "Уақыт";
 
 /* XBUT: slider default value label formatter for integer */
-"Value: %d" = "Vērtība: %d";
+"Value: %d" = "Мән: %d";
 
 /* XMSG: a toast message for read-only cell in DataTable */
-"Tapped cell is read-only." = "Šūna, kam pieskārāties, ir tikai lasāma.";
+"Tapped cell is read-only." = "Түртілген ұяшық тек оқуға арналған.";
 
 /* Default hint text for Read-only Field for NoteFormView and TextFieldFormView */
-"Read-only field" = "Tikai lasāms lauks";
+"Read-only field" = "Тек оқуға арналған өріс";
 
 /* Default error text for when the character count reaches the maximum limit for NoteFormView and TextFieldFormView */
-"No more characters remaining" = "Vairs nav atlikusi neviena rakstzīme";
+"No more characters remaining" = "Таңбалар қалмады";
 
 /* Default error text for when the character count exceeds the maximum limit for NoteFormView and TextFieldFormView */
-"Reduce the number of characters" = "Samaziniet rakstzīmju skaitu";
+"Reduce the number of characters" = "Таңбалар санын азайтыңыз";
 
 /* XBUT: voice over label for decrement action in stepper */
-"Stepper decrease" = "Stepera samazinājums";
+"Stepper decrease" = "Мән реттегіш арқылы азайту";
 
 /* XBUT: voice over description for decrement action in stepper */
-"Decrease the value by %d" = "Samazināt vērtību par %d";
+"Decrease the value by %d" = "Мәнді келесі мәнге азайту: %d";
 
 /* XBUT: voice over label for increment action in stepper */
-"Stepper increase" = "Stepera palielinājums";
+"Stepper increase" = "Мән реттегіш арқылы арттыру";
 
 /* XBUT: voice over description for increment action in stepper */
-"Increase the value by %d" = "Palielināt vērtību par %d";
+"Increase the value by %d" = "Мәнді  келесі мәнге азайту: %d";
 
 /* XBUT: voice over label for test field in stepper */
-"Select specific value" = "Atlasīt konkrētu vērtību";
+"Select specific value" = "Нақты мән таңдау";
 
 /* XBUT: View all action in MenuSelection */
-"View All (%d)" = "Skatīt visus (%d)";
+"View All (%d)" = "Барлығын көру (%d)";
 
 /* XACT: RatingControl accessibility label */
-"%d out of %d stars" = "%d no %d zvaigznēm";
+"%d out of %d stars" = "%d/%d жұлдыз";
 
 /* XBUT: timeline preview component see all label */
-"See All (%d)" = "Skatīt visus (%d)";
+"See All (%d)" = "Барлығын көру (%d)";
 
 /* XACT: Timeline preview item accessibility label */
-"Item %d of %d" = "%d. elements no %d";
+"Item %d of %d" = "Тармақ: %d / %d";
 
 /* XBUT: timeline preview component timestamp label */
-"Today, %d" = "Šodien, %d";
+"Today, %d" = "Бүгін, %d";
 
 /* XFLD: RatingControl value label format */
-"%d of %d" = "%d no %d";
+"%d of %d" = "%d/%d";
 
 /* XFLD: RatingControl review count format */
-"%d reviews" = "%d novērtējumi";
+"%d reviews" = "%d тексеру";
 
 /* XFLD: RatingControl review count over ceiling format */
-"%d+ reviews" = "%d+ novērtējumi";
+"%d+ reviews" = "%d+ тексеру";
 
 /* XACT: RatingControl accessibility label */
-"Rating Control %d of %d" = "Vērtējuma kontrole, %d no %d";
+"Rating Control %d of %d" = "Рейтингті басқару: %d/%d";
 
 /* XACT: read-only RatingControl accessibility label: rating with review count */
-"Rating Control, rating %d of %d, %d reviews" = "Vērtējuma kontrole, vērtējums %d no %d, %d novērtējumi";
+"Rating Control, rating %d of %d, %d reviews" = "Рейтингті басқару, рейтинг: %d/%d, %d тексеру";
 
 /* XACT: read-only RatingControl accessibility label: average rating only */
-"Rating Control, average rating %.1f of %d" = "Vērtējuma kontrole, vidējais vērtējums %.1f no %d";
+"Rating Control, average rating %.1f of %d" = "Рейтингті басқару, орташа рейтинг: %.1f/%d";
 
 /* XACT: read-only RatingControl accessibility label: average rating with review count */
-"Rating Control, average rating %.1f of %d, %d reviews" = "Vērtējuma kontrole, vidējais vērtējums %.1f no %d, %d novērtējumi";
+"Rating Control, average rating %.1f of %d, %d reviews" = "Рейтингті басқару, орташа рейтинг: %.1f/%d, %d тексеру";
 
 /* XACT: read-only RatingControl accessibility label: average rating with review count over ceiling */
-"Rating Control, average rating %.1f of %d, %d plus reviews" = "Vērtējuma kontrole, vidējais vērtējums %.1f no %d, vairāk par %d novērtējumiem";
+"Rating Control, average rating %.1f of %d, %d plus reviews" = "Рейтингті басқару, орташа рейтинг: %.1f/%d, қосымша %d тексеру";
 
 /* XBUT: View all messages in message banner sheet */
-"All" = "Visi";
+"All" = "Барлығы";
 
 /* XBUT: messages count in the message banner sheet */
-"Messages (%d)" = "Ziņojumi (%d)";
+"Messages (%d)" = "Хабарлар (%d)";
 
 /* XBUT: view details in the message banner */
-"View Details" = "Skatīt detalizētu informāciju";
+"View Details" = "Мәліметтерді көру";
 
 /* XBUT: view different message in the message banner sheet item */
-"View %@" = "Skatīt %@";
+"View %@" = "%@ көру";
 
 /* XBUT: banner message type desc, message */
-"message" = "ziņojums";
+"message" = "хабар";
 
 /* XBUT: banner message type desc, information */
-"information" = "informācija";
+"information" = "ақпарат";
 
 /* XBUT: banner message type desc, confirmation */
-"confirmation" = "apstiprinājums";
+"confirmation" = "растау";
 
 /* XBUT: banner message type desc, warning */
-"warning" = "brīdinājums";
+"warning" = "ескерту";
 
 /* XBUT: banner message type desc, error */
-"error" = "kļūda";
+"error" = "қате";
 
 /* XBUT: banner message type desc in plural form, messages */
-"messages" = "ziņojumi";
+"messages" = "хабарлар";
 
 /* XBUT: banner message type desc in plural form, informations */
-"informations" = "informācijas";
+"informations" = "ақпараттар";
 
 /* XBUT: banner message type desc in plural form, confirmations */
-"confirmations" = "apstiprinājumi";
+"confirmations" = "растаулар";
 
 /* XBUT: banner message type desc in plural form, warnings */
-"warnings" = "brīdinājumi";
+"warnings" = "ескертулер";
 
 /* XBUT: banner message type desc in plural form, errors */
-"errors" = "kļūdas";
+"errors" = "қателер";
 
 /* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
-"Reset" = "Atiestatīt";
+"Reset" = "Бастапқы қалпына келтіру";
 
 /* XBUT: Apply action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
-"Apply" = "Lietot";
+"Apply" = "Қолдану";
 
 /* XTIT: The alert message for `ListPickerDestination` pulldown dismissal */
-"Are you sure you want to discard your selections?" = "Vai tiešām vēlaties atmest veiktās atlases?";
+"Are you sure you want to discard your selections?" = "Таңдаулардан бас тартуға сенімдісіз бе?";
 
 /* XBUT: The alert Discard Changes action title for `ListPickerDestination` pulldown dismissal */
-"Discard Changes" = "Atmest izmaiņas";
+"Discard Changes" = "Өзгерістерден бас тарту";
 
 /* XBUT: The alert Keep Editing action title for `ListPickerDestination` pulldown dismissal */
-"Keep Editing" = "Turpināt rediģēšanu";
+"Keep Editing" = "Өңдеуді жалғастыру";
 
 /* XBUT: The \"Select All\" button title on the List Picker header */
-"Select All" = "Atlasīt visus";
+"Select All" = "Барлығын таңдау";
 
 /* XBUT: The \"Deselect All\" button title on the List Picker header */
-"Deselect All" = "Noņemt atlasi visiem";
+"Deselect All" = "Барлығының таңдауын алу";
 
 /* XBUT: The \"Selected\" title on the List Picker header */
-"Selected" = "Atlasīts";
+"Selected" = "Таңдалған";
 
 /* XACT: The accessibility hint for Text Input Views, editable */
-"Text field, Double tap to edit" = "Teksta lauks, veiciet dubultskārienu, lai rediģētu";
+"Text field, Double tap to edit" = "Мәтін өрісі, өңдеу үшін екі рет түртіңіз";
 
 /* XACT: The accessibility hint for Text Input Views, editing */
-"Text field, is editing" = "Teksta lauks, notiek rediģēšana";
+"Text field, is editing" = "Мәтін өрісі, өңдеуде";
 
 /* XACT: The accessibility hint for Text Input Views, editing, with clear button */
-"Text field, is editing. Double tap to clear text" = "Teksta lauks, notiek rediģēšana. Veiciet dubultskārienu, lai notīrītu tekstu";
+"Text field, is editing. Double tap to clear text" = "Мәтін өрісі, өңдеуде. Мәтінді тазарту үшін екі рет түртіңіз";
 
 /* XACT: The default accessibility label for the custom action in TextFieldFormView if none was specified */
-"Custom Action" = "Pielāgota darbība";
+"Custom Action" = "Теңшелмелі операция";
 
 /* XBUT: Error messages shown to users in DocumentScannerView */
-"Failed to create PDF page from images" = "Neizdevās izveidot PDF lapu no attēliem.";
+"Failed to create PDF page from images" = "Кескіндерден PDF бетін жасау сәтсіз аяқталды.";
 
 /* XBUT: Cancel message shown to users in DocumentScannerView */
-"User cancelled the scan" = "Lietotājs atcēla skenēšanu.";
+"User cancelled the scan" = "Пайдаланушы сканерлеуді болдырмады.";
 
 /* Progress Indicator accessibility label: processing */
-"Processing" = "Notiek apstrāde";
+"Processing" = "Өңделуде";
 
 /* Progress Indicator accessibility label: loading pausable with indicator progress */
-"In progress with option to pause, %.0f" = "Notiek ar iespēju pauzēt, %.0f";
+"In progress with option to pause, %.0f" = "Кідірту опциясымен орындалуда, %.0f";
 
 /* Progress Indicator accessibility label: loading stoppable with indicator progress */
-"In progress with option to stop, %.0f" = "Notiek ar iespēju apturēt, %.0f";
+"In progress with option to stop, %.0f" = "Тоқтату опциясымен орындалуда, %.0f";
 
 /* Progress Indicator accessibility label: progress halted with indicator progress */
-"Progress halted, %.0f" = "Progress aizturēts, %.0f";
+"Progress halted, %.0f" = "Орындалу тоқтатылды, %.0f";
 
 /* XACT: Slider accessibility label */
-"This is %@ slider whose maximum value is %@ and minimum value is %@" = "Šis ir %@ slīdnis, kura maksimālā vērtība ir %@, un minimālā vērtība ir %@";
+"This is %@ slider whose maximum value is %@ and minimum value is %@" = "Бұл — максималды мәні %@ және минималды мәні %@ болатын %@ жүгірткісі";
 
 /* XACT: Slider accessibility value */
-"Current value is %@" = "Pašreizējā vērtība ir %@";
+"Current value is %@" = "Ағымдағы мән — %@";
 
 /* XACT: Range Slider lower thumb accessibility label */
-"lower range slider thumb, current value is" = "apakšējā diapazona slīdņa sīktēls, pašreizējā vērtība ir";
+"lower range slider thumb, current value is" = "төменгі ауқым жүгірткісінің түймесі, ағымдағы мәні:";
 
 /* XACT: Range Slider lower thumb accessibility hint */
-"you can swipe up or down to change the lower value" = "varat vilkt uz augšu vai uz leju, lai mainītu apakšējo vērtību";
+"you can swipe up or down to change the lower value" = "төменгі мәнді өзгерту үшін жоғары немесе төмен сырғытуға болады";
 
 /* XACT: Range Slider upper thumb accessibility label */
-"upper range slider thumb, current value is" = "augšējā diapazona slīdņa sīktēls, pašreizējā vērtība ir";
+"upper range slider thumb, current value is" = "жоғарғы ауқым жүгірткісінің түймесі, ағымдағы мәні:";
 
 /* XACT: Range Slider upper thumb accessibility hint */
-"you can swipe up or down to change the upper value" = "varat vilkt uz augšu vai uz leju, lai mainītu augšējo vērtību";
+"you can swipe up or down to change the upper value" = "жоғарғы мәнді өзгерту үшін жоғары немесе төмен сырғытуға болады";
 
 /* XACT: Single editable Slider thumb accessibility label */
-"slider thumb, current value is" = "slīdņa sīktēls, pašreizējā vērtība ir";
+"slider thumb, current value is" = "жүгірткі түймесі, ағымдағы мәні:";
 
 /* XACT: Single editable Slider thumb accessibility hint */
-"you can swipe up or down to change the value" = "varat vilkt uz augšu vai uz leju, lai mainītu vērtību";
+"you can swipe up or down to change the value" = "мәнді өзгерту үшін жоғары немесе төмен сырғытуға болады";
 
 /* XACT: Single Slider accessibility label */
-"This is a slider, the minimum value is %@ and the maximum value is %@" = "Šis ir slīdnis, minimālā vērtība ir %@, un maksimālā vērtība ir %@";
+"This is a slider, the minimum value is %@ and the maximum value is %@" = "Бұл — жүгірткі, минималды мән — %@ және максималды мән — %@";
 
 /* XACT: Range Slider accessibility label */
-"This is a range slider, the minimum value is %@ and the maximum value is %@" = "Šis ir diapazona slīdnis, minimālā vērtība ir %@, un maksimālā vērtība ir %@";
+"This is a range slider, the minimum value is %@ and the maximum value is %@" = "Бұл — ауқым жүгіркісі, минималды мән — %@ және максималды мән — %@";
 
 /* XACT: Single editable Slider accessibility label */
-"This is a slider that is editable, the minimum value is %@ and the maximum value is %@" = "Šo slīdni var rediģēt, minimālā vērtība ir %@, un maksimālā vērtība ir %@";
+"This is a slider that is editable, the minimum value is %@ and the maximum value is %@" = "Бұл — өңделетін жүгірткі, минималды мән — %@ және максималды мән — %@";
 
 /* XACT: Single non-editable Slider accessibility label */
-"This is a slider that can't be edited, the minimum value is %@ and the maximum value is %@" = "Šo slīdni nevar rediģēt, minimālā vērtība ir %@, un maksimālā vērtība ir %@";
+"This is a slider that can't be edited, the minimum value is %@ and the maximum value is %@" = "Бұл — өңделмейтін жүгірткі, минималды мән — %@ және максималды мән — %@";
 
 /* XACT: Range editable Slider accessibility label */
-"This is a range slider that is editable, the minimum value is %@ and the maximum value is %@" = "Šo diapazona slīdni var rediģēt, minimālā vērtība ir %@, un maksimālā vērtība ir %@";
+"This is a range slider that is editable, the minimum value is %@ and the maximum value is %@" = "Бұл — өңделетін ауқым жүгірткісі, минималды мән — %@ және максималды мән — %@";
 
 /* XACT: Range non-editable Slider accessibility label */
-"This is a range slider that can't be edited, the minimum value is %@ and the maximum value is %@" = "Šo diapazona slīdni nevar rediģēt, minimālā vērtība ir %@, un maksimālā vērtība ir %@";
+"This is a range slider that can't be edited, the minimum value is %@ and the maximum value is %@" = "Бұл — өңделмейтін ауқым жүгірткісі, минималды мән — %@ және максималды мән — %@";
 
 /* XACT: Single editable Slider Text Field accessibility label */
-"slider value text field" = "slīdņa vērtības teksta lauks";
+"slider value text field" = "жүгірткі мәнінің мәтін өрісі";
 
 /* XACT: Range editable Slider Lower Value Text Field accessibility label */
-"lower value text field" = "apakšējās vērtības teksta lauks";
+"lower value text field" = "төменгі мәннің мәтін өрісі";
 
 /* XACT: Range editable Slider Upper Value Text Field accessibility label */
-"upper value text field" = "augšējās vērtības teksta lauks";
+"upper value text field" = "жоғарғы мәннің мәтін өрісі";
 
 /* XACT: Editable Slider Text Field accessibility hint */
-"You can double tap to input a specific value" = "Varat veikt dubultskārienu, lai ievadītu specifisku vērtību";
+"You can double tap to input a specific value" = "Нақты мән енгізу үшін екі рет түртуге болады";
 
 /* XACT: Editable Slider Text Field accessibility value */
-"current value is %@" = "pašreizējā vērtība ir %@";
+"current value is %@" = "ағымдағы мән — %@";
 
 /* XACT: Range Editable Slider accessibility value */
-"current lower value is %@, upper value is %@" = "pašreizējā apakšējā vērtība ir %@, augšējā vērtība ir %@";
+"current lower value is %@, upper value is %@" = "ағымдағы төменгі мән — %@, жоғарғы мән — %@";
 
 /* XTIT: Title of step progress indicator, see https://experience.sap.com/fiori-design-ios/article/step-progress-indicator/#adaptive-design */
-"All Steps" = "Visi soļi";
+"All Steps" = "Барлық қадамдар";
 
 /* XMSG: AI Notice message */
-"Suggested by AI. Verify before use. " = "Ierosināja AI. Pārbaudiet pirms lietošanas. ";
+"Suggested by AI. Verify before use. " = "ЖИ ұсынған. Пайдаланбас бұрын тексеріңіз. ";
 

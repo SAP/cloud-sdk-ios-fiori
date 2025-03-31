@@ -19,7 +19,7 @@ struct BannerMessageModifierExample: View {
             if self.withLink {
                 Text("\(noticeText) with [link](https://www.sap.com)")
             } else if self.withAttachedAction {
-                Text("\(noticeText)") + Text("View more").foregroundStyle(Color.preferredColor(.tintColor)).font(.fiori(forTextStyle: .footnote))
+                Text("\(noticeText)") + Text("View more").foregroundStyle(Color.preferredColor(.tintColor)).font(.fiori(forTextStyle: .footnote, weight: .semibold))
             } else {
                 Text("\(noticeText)")
             }

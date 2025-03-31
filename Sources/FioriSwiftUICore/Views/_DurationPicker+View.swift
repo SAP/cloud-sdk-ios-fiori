@@ -1,7 +1,7 @@
 import FioriThemeManager
 import SwiftUI
 
-extension DurationPicker: View {
+extension _DurationPicker: View {
     public var body: some View {
         DurationPickerViewWrapper(selection: _selection, maximumMinutes: _maximumMinutes, minimumMinutes: _minimumMinutes, minuteInterval: _minuteInterval, measurementFormatter: _measurementFormatter)
             .frame(width: 232, height: 204)
@@ -26,7 +26,7 @@ extension DurationPicker: View {
 struct DurationPickerLibraryContent: LibraryContentProvider {
     @LibraryContentBuilder
     var views: [LibraryItem] {
-        LibraryItem(DurationPicker(selection: .constant(0)),
+        LibraryItem(_DurationPicker(selection: .constant(0)),
                     category: .control)
     }
 }

@@ -2,7 +2,7 @@
 // DO NOT EDIT
 import SwiftUI
 
-public struct DurationPicker {
+public struct _DurationPicker {
     
 
     var _selection: Binding<Int>
@@ -11,7 +11,7 @@ public struct DurationPicker {
 	var _minuteInterval: Int
 	var _measurementFormatter: MeasurementFormatter
 	
-    public init(model: DurationPickerModel) {
+    public init(model: _DurationPickerModel) {
         self.init(selection: Binding<Int>(get: { model.selection }, set: { model.selection = $0 }), maximumMinutes: model.maximumMinutes, minimumMinutes: model.minimumMinutes, minuteInterval: model.minuteInterval, measurementFormatter: model.measurementFormatter)
     }
 

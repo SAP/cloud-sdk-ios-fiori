@@ -452,6 +452,9 @@ public protocol _EmptyStateViewModel: TitleComponent, DescriptionTextComponent, 
 public protocol EmptyStateViewModel {}
 
 // sourcery: generated_component_not_configurable
+public protocol _DurationPickerModel: DurationPickerComponent {}
+
+@available(*, unavailable, renamed: "_DurationPickerModel", message: "Will be removed in the future release. Please create DurationPicker with other initializers instead.")
 public protocol DurationPickerModel: DurationPickerComponent {}
 
 // sourcery: availableAttributeContent = "iOS 15.0, macOS 12.0, *"
