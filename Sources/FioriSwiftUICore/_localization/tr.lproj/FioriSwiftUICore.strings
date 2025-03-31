@@ -316,3 +316,69 @@
 /* Progress Indicator accessibility label: progress halted with indicator progress */
 "Progress halted, %.0f" = "İlerleme duraklatıldı, %.0f";
 
+/* XACT: Slider accessibility label */
+"This is %@ slider whose maximum value is %@ and minimum value is %@" = "Bu, azami değeri %@ ve asgari değeri %@ olan %@ kaydırıcısıdır";
+
+/* XACT: Slider accessibility value */
+"Current value is %@" = "Geçerli değer %@";
+
+/* XACT: Range Slider lower thumb accessibility label */
+"lower range slider thumb, current value is" = "alt aralık kaydırıcı kutusu, geçerli değer";
+
+/* XACT: Range Slider lower thumb accessibility hint */
+"you can swipe up or down to change the lower value" = "alt değeri değiştirmek için yukarı veya aşağı kaydırabilirsiniz";
+
+/* XACT: Range Slider upper thumb accessibility label */
+"upper range slider thumb, current value is" = "üst aralık kaydırıcı kutusu, geçerli değer";
+
+/* XACT: Range Slider upper thumb accessibility hint */
+"you can swipe up or down to change the upper value" = "üst değeri değiştirmek için yukarı veya aşağı kaydırabilirsiniz";
+
+/* XACT: Single editable Slider thumb accessibility label */
+"slider thumb, current value is" = "kaydırıcı kutusu, geçerli değer";
+
+/* XACT: Single editable Slider thumb accessibility hint */
+"you can swipe up or down to change the value" = "değeri değiştirmek için yukarı veya aşağı kaydırabilirsiniz";
+
+/* XACT: Single Slider accessibility label */
+"This is a slider, the minimum value is %@ and the maximum value is %@" = "Bu bir kaydırıcı; asgari değer %@ ve azami değer %@";
+
+/* XACT: Range Slider accessibility label */
+"This is a range slider, the minimum value is %@ and the maximum value is %@" = "Bu bir aralık kaydırıcısı; asgari değer %@ ve azami değer %@";
+
+/* XACT: Single editable Slider accessibility label */
+"This is a slider that is editable, the minimum value is %@ and the maximum value is %@" = "Bu, düzenlenebilir bir kaydırıcı; asgari değer %@ ve azami değer %@";
+
+/* XACT: Single non-editable Slider accessibility label */
+"This is a slider that can't be edited, the minimum value is %@ and the maximum value is %@" = "Bu, düzenlenemeyen bir kaydırıcı; asgari değer %@ ve azami değer %@";
+
+/* XACT: Range editable Slider accessibility label */
+"This is a range slider that is editable, the minimum value is %@ and the maximum value is %@" = "Bu, düzenlenebilir bir aralık kaydırıcısı; asgari değer %@ ve azami değer %@";
+
+/* XACT: Range non-editable Slider accessibility label */
+"This is a range slider that can't be edited, the minimum value is %@ and the maximum value is %@" = "Bu, düzenlenemeyen bir aralık kaydırıcısı; asgari değer %@ ve azami değer %@";
+
+/* XACT: Single editable Slider Text Field accessibility label */
+"slider value text field" = "kaydırıcı değeri metin alanı";
+
+/* XACT: Range editable Slider Lower Value Text Field accessibility label */
+"lower value text field" = "alt değer metin alanı";
+
+/* XACT: Range editable Slider Upper Value Text Field accessibility label */
+"upper value text field" = "üst değer metin alanı";
+
+/* XACT: Editable Slider Text Field accessibility hint */
+"You can double tap to input a specific value" = "Belirli bir değer girmek için iki kere dokunabilirsiniz";
+
+/* XACT: Editable Slider Text Field accessibility value */
+"current value is %@" = "geçerli değer %@";
+
+/* XACT: Range Editable Slider accessibility value */
+"current lower value is %@, upper value is %@" = "geçerli alt değer %@, üst değer %@";
+
+/* XTIT: Title of step progress indicator, see https://experience.sap.com/fiori-design-ios/article/step-progress-indicator/#adaptive-design */
+"All Steps" = "Tüm Adımlar";
+
+/* XMSG: AI Notice message */
+"Suggested by AI. Verify before use. " = "Yapay zeka tarafından önerildi. Kullanmadan önce doğrulayın. ";
+
