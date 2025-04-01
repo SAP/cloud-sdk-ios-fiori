@@ -38,10 +38,13 @@ extension SegmentedControlPickerFioriStyle {
             appearance.setTitleTextAttributes([.foregroundColor: Color.preferredColor(.primaryLabel).uiColor(), .font: UIFont.preferredFioriFont(forTextStyle: .footnote)], for: .normal)
             
             return SegmentedControlPicker(configuration)
+                .background(Color.preferredColor(.primaryBackground))
                 .overlay(
                     RoundedRectangle(cornerRadius: 9)
                         .stroke(Color.preferredColor(.separatorOpaque), lineWidth: 0.33)
                 )
+                .clipShape(RoundedRectangle(cornerRadius: 9))
+                .shadow(.mediumElement)
                 .padding()
         }
     }
