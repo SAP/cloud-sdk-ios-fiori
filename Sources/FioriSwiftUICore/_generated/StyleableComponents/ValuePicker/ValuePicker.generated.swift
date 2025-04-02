@@ -16,8 +16,6 @@ import SwiftUI
 public struct ValuePicker {
     let title: any View
     let valueLabel: any View
-    let mandatoryFieldIndicator: any View
-    let isRequired: Bool
     let options: [AttributedString]
     /// The index for the selected value in the valueOptions.
     @Binding var selectedIndex: Int
@@ -36,8 +34,6 @@ public struct ValuePicker {
 
     public init(@ViewBuilder title: () -> any View,
                 @ViewBuilder valueLabel: () -> any View = { EmptyView() },
-                @ViewBuilder mandatoryFieldIndicator: () -> any View = { Text("*") },
-                isRequired: Bool = false,
                 options: [AttributedString] = [],
                 selectedIndex: Binding<Int>,
                 isTrackingLiveChanges: Bool = true,
@@ -47,8 +43,6 @@ public struct ValuePicker {
     {
         self.title = Title(title: title, componentIdentifier: componentIdentifier)
         self.valueLabel = ValueLabel(valueLabel: valueLabel, componentIdentifier: componentIdentifier)
-        self.mandatoryFieldIndicator = MandatoryFieldIndicator(mandatoryFieldIndicator: mandatoryFieldIndicator, componentIdentifier: componentIdentifier)
-        self.isRequired = isRequired
         self.options = options
         self._selectedIndex = selectedIndex
         self.isTrackingLiveChanges = isTrackingLiveChanges
@@ -73,7 +67,22 @@ public extension ValuePicker {
          alwaysShowPicker: Bool = false,
          controlState: ControlState = .normal)
     {
-        self.init(title: { Text(title) }, valueLabel: { OptionalText(valueLabel) }, mandatoryFieldIndicator: { TextOrIconView(mandatoryFieldIndicator) }, isRequired: isRequired, options: options, selectedIndex: selectedIndex, isTrackingLiveChanges: isTrackingLiveChanges, alwaysShowPicker: alwaysShowPicker, controlState: controlState)
+        self.init(title: {
+            Group {
+                if let mandatoryFieldIndicator, isRequired {
+                    switch mandatoryFieldIndicator {
+                    case .text(let attributedString):
+                        Text(title) + Text(attributedString).accessibilityLabel(NSLocalizedString("Required Field", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Required Field"))
+                    case .icon(let image):
+                        Text(title) + Text(image).accessibilityLabel(NSLocalizedString("Required Field", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Required Field"))
+                    case .both(let attributedString, let image):
+                        Text(title) + Text(attributedString).accessibilityLabel(NSLocalizedString("Required Field", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Required Field")) + Text(image).accessibilityLabel("")
+                    }
+                } else {
+                    Text(title)
+                }
+            }.typeErased
+        }, valueLabel: { OptionalText(valueLabel) }, options: options, selectedIndex: selectedIndex, isTrackingLiveChanges: isTrackingLiveChanges, alwaysShowPicker: alwaysShowPicker, controlState: controlState)
     }
 }
 
@@ -85,8 +94,6 @@ public extension ValuePicker {
     internal init(_ configuration: ValuePickerConfiguration, shouldApplyDefaultStyle: Bool) {
         self.title = configuration.title
         self.valueLabel = configuration.valueLabel
-        self.mandatoryFieldIndicator = configuration.mandatoryFieldIndicator
-        self.isRequired = configuration.isRequired
         self.options = configuration.options
         self._selectedIndex = configuration.$selectedIndex
         self.isTrackingLiveChanges = configuration.isTrackingLiveChanges
@@ -102,7 +109,7 @@ extension ValuePicker: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, title: .init(self.title), valueLabel: .init(self.valueLabel), mandatoryFieldIndicator: .init(self.mandatoryFieldIndicator), isRequired: self.isRequired, options: self.options, selectedIndex: self.$selectedIndex, isTrackingLiveChanges: self.isTrackingLiveChanges, alwaysShowPicker: self.alwaysShowPicker, controlState: self.controlState)).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, title: .init(self.title), valueLabel: .init(self.valueLabel), options: self.options, selectedIndex: self.$selectedIndex, isTrackingLiveChanges: self.isTrackingLiveChanges, alwaysShowPicker: self.alwaysShowPicker, controlState: self.controlState)).typeErased
                 .transformEnvironment(\.valuePickerStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -120,7 +127,7 @@ private extension ValuePicker {
     }
 
     func defaultStyle() -> some View {
-        ValuePicker(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), valueLabel: .init(self.valueLabel), mandatoryFieldIndicator: .init(self.mandatoryFieldIndicator), isRequired: self.isRequired, options: self.options, selectedIndex: self.$selectedIndex, isTrackingLiveChanges: self.isTrackingLiveChanges, alwaysShowPicker: self.alwaysShowPicker, controlState: self.controlState))
+        ValuePicker(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), valueLabel: .init(self.valueLabel), options: self.options, selectedIndex: self.$selectedIndex, isTrackingLiveChanges: self.isTrackingLiveChanges, alwaysShowPicker: self.alwaysShowPicker, controlState: self.controlState))
             .shouldApplyDefaultStyle(false)
             .valuePickerStyle(ValuePickerFioriStyle.ContentFioriStyle())
             .typeErased

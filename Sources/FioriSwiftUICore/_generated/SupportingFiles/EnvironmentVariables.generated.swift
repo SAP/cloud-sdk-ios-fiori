@@ -1956,27 +1956,6 @@ extension EnvironmentValues {
     }
 }
 
-// MARK: MandatoryFieldIndicatorStyle
-
-struct MandatoryFieldIndicatorStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any MandatoryFieldIndicatorStyle] = []
-}
-
-extension EnvironmentValues {
-    var mandatoryFieldIndicatorStyle: any MandatoryFieldIndicatorStyle {
-        self.mandatoryFieldIndicatorStyleStack.last ?? .base
-    }
-
-    var mandatoryFieldIndicatorStyleStack: [any MandatoryFieldIndicatorStyle] {
-        get {
-            self[MandatoryFieldIndicatorStyleStackKey.self]
-        }
-        set {
-            self[MandatoryFieldIndicatorStyleStackKey.self] = newValue
-        }
-    }
-}
-
 // MARK: MediaImageStyle
 
 struct MediaImageStyleStackKey: EnvironmentKey {
@@ -3569,27 +3548,6 @@ extension EnvironmentValues {
         }
         set {
             self[TitleFormViewStyleStackKey.self] = newValue
-        }
-    }
-}
-
-// MARK: TitleWithOptionalMandatoryFieldStyle
-
-struct TitleWithOptionalMandatoryFieldStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any TitleWithOptionalMandatoryFieldStyle] = []
-}
-
-extension EnvironmentValues {
-    var titleWithOptionalMandatoryFieldStyle: any TitleWithOptionalMandatoryFieldStyle {
-        self.titleWithOptionalMandatoryFieldStyleStack.last ?? .base.concat(.fiori)
-    }
-
-    var titleWithOptionalMandatoryFieldStyleStack: [any TitleWithOptionalMandatoryFieldStyle] {
-        get {
-            self[TitleWithOptionalMandatoryFieldStyleStackKey.self]
-        }
-        set {
-            self[TitleWithOptionalMandatoryFieldStyleStackKey.self] = newValue
         }
     }
 }

@@ -36,15 +36,12 @@ public struct TextFieldFormViewConfiguration {
     public let allowsBeyondLimit: Bool
     public let charCountReachLimitMessage: String?
     public let charCountBeyondLimitMsg: String?
-    public let mandatoryFieldIndicator: MandatoryFieldIndicator
-    public let isRequired: Bool
     public let actionIcon: Image?
     public let action: (() -> Void)?
     public let actionIconAccessibilityLabel: String?
 
     public typealias Title = ConfigurationViewWrapper
     public typealias Placeholder = ConfigurationViewWrapper
-    public typealias MandatoryFieldIndicator = ConfigurationViewWrapper
 }
 
 extension TextFieldFormViewConfiguration {
@@ -58,7 +55,6 @@ public struct TextFieldFormViewFioriStyle: TextFieldFormViewStyle {
         TextFieldFormView(configuration)
             .titleStyle(TitleFioriStyle(textFieldFormViewConfiguration: configuration))
             .placeholderStyle(PlaceholderFioriStyle(textFieldFormViewConfiguration: configuration))
-            .mandatoryFieldIndicatorStyle(MandatoryFieldIndicatorFioriStyle(textFieldFormViewConfiguration: configuration))
             .titleFormViewStyle(TitleFormViewFioriStyle(textFieldFormViewConfiguration: configuration))
     }
 }

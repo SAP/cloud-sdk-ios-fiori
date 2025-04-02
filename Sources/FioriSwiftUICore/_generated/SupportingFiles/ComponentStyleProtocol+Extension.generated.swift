@@ -2110,27 +2110,6 @@ public extension DateTimePickerStyle where Self == DateTimePickerValueLabelStyle
     }
 }
 
-public struct DateTimePickerMandatoryFieldIndicatorStyle: DateTimePickerStyle {
-    let style: any MandatoryFieldIndicatorStyle
-
-    public func makeBody(_ configuration: DateTimePickerConfiguration) -> some View {
-        DateTimePicker(configuration)
-            .mandatoryFieldIndicatorStyle(self.style)
-            .typeErased
-    }
-}
-
-public extension DateTimePickerStyle where Self == DateTimePickerMandatoryFieldIndicatorStyle {
-    static func mandatoryFieldIndicatorStyle(_ style: some MandatoryFieldIndicatorStyle) -> DateTimePickerMandatoryFieldIndicatorStyle {
-        DateTimePickerMandatoryFieldIndicatorStyle(style: style)
-    }
-
-    static func mandatoryFieldIndicatorStyle(@ViewBuilder content: @escaping (MandatoryFieldIndicatorConfiguration) -> some View) -> DateTimePickerMandatoryFieldIndicatorStyle {
-        let style = AnyMandatoryFieldIndicatorStyle(content)
-        return DateTimePickerMandatoryFieldIndicatorStyle(style: style)
-    }
-}
-
 public struct DateTimePickerFormViewStyle: DateTimePickerStyle {
     let style: any FormViewStyle
 
@@ -2758,27 +2737,6 @@ public extension FilterFormViewStyle where Self == FilterFormViewTitleStyle {
     static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> FilterFormViewTitleStyle {
         let style = AnyTitleStyle(content)
         return FilterFormViewTitleStyle(style: style)
-    }
-}
-
-public struct FilterFormViewMandatoryFieldIndicatorStyle: FilterFormViewStyle {
-    let style: any MandatoryFieldIndicatorStyle
-
-    public func makeBody(_ configuration: FilterFormViewConfiguration) -> some View {
-        FilterFormView(configuration)
-            .mandatoryFieldIndicatorStyle(self.style)
-            .typeErased
-    }
-}
-
-public extension FilterFormViewStyle where Self == FilterFormViewMandatoryFieldIndicatorStyle {
-    static func mandatoryFieldIndicatorStyle(_ style: some MandatoryFieldIndicatorStyle) -> FilterFormViewMandatoryFieldIndicatorStyle {
-        FilterFormViewMandatoryFieldIndicatorStyle(style: style)
-    }
-
-    static func mandatoryFieldIndicatorStyle(@ViewBuilder content: @escaping (MandatoryFieldIndicatorConfiguration) -> some View) -> FilterFormViewMandatoryFieldIndicatorStyle {
-        let style = AnyMandatoryFieldIndicatorStyle(content)
-        return FilterFormViewMandatoryFieldIndicatorStyle(style: style)
     }
 }
 
@@ -3958,27 +3916,6 @@ public extension KeyValueFormViewStyle where Self == KeyValueFormViewPlaceholder
     }
 }
 
-public struct KeyValueFormViewMandatoryFieldIndicatorStyle: KeyValueFormViewStyle {
-    let style: any MandatoryFieldIndicatorStyle
-
-    public func makeBody(_ configuration: KeyValueFormViewConfiguration) -> some View {
-        KeyValueFormView(configuration)
-            .mandatoryFieldIndicatorStyle(self.style)
-            .typeErased
-    }
-}
-
-public extension KeyValueFormViewStyle where Self == KeyValueFormViewMandatoryFieldIndicatorStyle {
-    static func mandatoryFieldIndicatorStyle(_ style: some MandatoryFieldIndicatorStyle) -> KeyValueFormViewMandatoryFieldIndicatorStyle {
-        KeyValueFormViewMandatoryFieldIndicatorStyle(style: style)
-    }
-
-    static func mandatoryFieldIndicatorStyle(@ViewBuilder content: @escaping (MandatoryFieldIndicatorConfiguration) -> some View) -> KeyValueFormViewMandatoryFieldIndicatorStyle {
-        let style = AnyMandatoryFieldIndicatorStyle(content)
-        return KeyValueFormViewMandatoryFieldIndicatorStyle(style: style)
-    }
-}
-
 public struct KeyValueFormViewNoteFormViewStyle: KeyValueFormViewStyle {
     let style: any NoteFormViewStyle
 
@@ -4532,27 +4469,6 @@ public extension ListPickerItemStyle where Self == ListPickerItemValueStyle {
     }
 }
 
-public struct ListPickerItemMandatoryFieldIndicatorStyle: ListPickerItemStyle {
-    let style: any MandatoryFieldIndicatorStyle
-
-    public func makeBody(_ configuration: ListPickerItemConfiguration) -> some View {
-        ListPickerItem(configuration)
-            .mandatoryFieldIndicatorStyle(self.style)
-            .typeErased
-    }
-}
-
-public extension ListPickerItemStyle where Self == ListPickerItemMandatoryFieldIndicatorStyle {
-    static func mandatoryFieldIndicatorStyle(_ style: some MandatoryFieldIndicatorStyle) -> ListPickerItemMandatoryFieldIndicatorStyle {
-        ListPickerItemMandatoryFieldIndicatorStyle(style: style)
-    }
-
-    static func mandatoryFieldIndicatorStyle(@ViewBuilder content: @escaping (MandatoryFieldIndicatorConfiguration) -> some View) -> ListPickerItemMandatoryFieldIndicatorStyle {
-        let style = AnyMandatoryFieldIndicatorStyle(content)
-        return ListPickerItemMandatoryFieldIndicatorStyle(style: style)
-    }
-}
-
 public struct ListPickerItemFormViewStyle: ListPickerItemStyle {
     let style: any FormViewStyle
 
@@ -4641,20 +4557,6 @@ public extension LowerThumbStyle where Self == LowerThumbBaseStyle {
 public extension LowerThumbStyle where Self == LowerThumbFioriStyle {
     static var fiori: LowerThumbFioriStyle {
         LowerThumbFioriStyle()
-    }
-}
-
-// MARK: MandatoryFieldIndicatorStyle
-
-public extension MandatoryFieldIndicatorStyle where Self == MandatoryFieldIndicatorBaseStyle {
-    static var base: MandatoryFieldIndicatorBaseStyle {
-        MandatoryFieldIndicatorBaseStyle()
-    }
-}
-
-public extension MandatoryFieldIndicatorStyle where Self == MandatoryFieldIndicatorFioriStyle {
-    static var fiori: MandatoryFieldIndicatorFioriStyle {
-        MandatoryFieldIndicatorFioriStyle()
     }
 }
 
@@ -6765,27 +6667,6 @@ public extension SignatureCaptureViewStyle where Self == SignatureCaptureViewTit
     }
 }
 
-public struct SignatureCaptureViewMandatoryFieldIndicatorStyle: SignatureCaptureViewStyle {
-    let style: any MandatoryFieldIndicatorStyle
-
-    public func makeBody(_ configuration: SignatureCaptureViewConfiguration) -> some View {
-        SignatureCaptureView(configuration)
-            .mandatoryFieldIndicatorStyle(self.style)
-            .typeErased
-    }
-}
-
-public extension SignatureCaptureViewStyle where Self == SignatureCaptureViewMandatoryFieldIndicatorStyle {
-    static func mandatoryFieldIndicatorStyle(_ style: some MandatoryFieldIndicatorStyle) -> SignatureCaptureViewMandatoryFieldIndicatorStyle {
-        SignatureCaptureViewMandatoryFieldIndicatorStyle(style: style)
-    }
-
-    static func mandatoryFieldIndicatorStyle(@ViewBuilder content: @escaping (MandatoryFieldIndicatorConfiguration) -> some View) -> SignatureCaptureViewMandatoryFieldIndicatorStyle {
-        let style = AnyMandatoryFieldIndicatorStyle(content)
-        return SignatureCaptureViewMandatoryFieldIndicatorStyle(style: style)
-    }
-}
-
 public struct SignatureCaptureViewStartSignatureActionStyle: SignatureCaptureViewStyle {
     let style: any StartSignatureActionStyle
 
@@ -7661,27 +7542,6 @@ public extension TextFieldFormViewStyle where Self == TextFieldFormViewPlacehold
     }
 }
 
-public struct TextFieldFormViewMandatoryFieldIndicatorStyle: TextFieldFormViewStyle {
-    let style: any MandatoryFieldIndicatorStyle
-
-    public func makeBody(_ configuration: TextFieldFormViewConfiguration) -> some View {
-        TextFieldFormView(configuration)
-            .mandatoryFieldIndicatorStyle(self.style)
-            .typeErased
-    }
-}
-
-public extension TextFieldFormViewStyle where Self == TextFieldFormViewMandatoryFieldIndicatorStyle {
-    static func mandatoryFieldIndicatorStyle(_ style: some MandatoryFieldIndicatorStyle) -> TextFieldFormViewMandatoryFieldIndicatorStyle {
-        TextFieldFormViewMandatoryFieldIndicatorStyle(style: style)
-    }
-
-    static func mandatoryFieldIndicatorStyle(@ViewBuilder content: @escaping (MandatoryFieldIndicatorConfiguration) -> some View) -> TextFieldFormViewMandatoryFieldIndicatorStyle {
-        let style = AnyMandatoryFieldIndicatorStyle(content)
-        return TextFieldFormViewMandatoryFieldIndicatorStyle(style: style)
-    }
-}
-
 public struct TextFieldFormViewTitleFormViewStyle: TextFieldFormViewStyle {
     let style: any TitleFormViewStyle
 
@@ -8494,20 +8354,6 @@ public extension TitleFormViewStyle where Self == TitleFormViewFormViewStyle {
     }
 }
 
-// MARK: TitleWithOptionalMandatoryFieldStyle
-
-public extension TitleWithOptionalMandatoryFieldStyle where Self == TitleWithOptionalMandatoryFieldBaseStyle {
-    static var base: TitleWithOptionalMandatoryFieldBaseStyle {
-        TitleWithOptionalMandatoryFieldBaseStyle()
-    }
-}
-
-public extension TitleWithOptionalMandatoryFieldStyle where Self == TitleWithOptionalMandatoryFieldFioriStyle {
-    static var fiori: TitleWithOptionalMandatoryFieldFioriStyle {
-        TitleWithOptionalMandatoryFieldFioriStyle()
-    }
-}
-
 // MARK: ToastMessageStyle
 
 public extension ToastMessageStyle where Self == ToastMessageBaseStyle {
@@ -8925,27 +8771,6 @@ public extension ValuePickerStyle where Self == ValuePickerValueLabelStyle {
     static func valueLabelStyle(@ViewBuilder content: @escaping (ValueLabelConfiguration) -> some View) -> ValuePickerValueLabelStyle {
         let style = AnyValueLabelStyle(content)
         return ValuePickerValueLabelStyle(style: style)
-    }
-}
-
-public struct ValuePickerMandatoryFieldIndicatorStyle: ValuePickerStyle {
-    let style: any MandatoryFieldIndicatorStyle
-
-    public func makeBody(_ configuration: ValuePickerConfiguration) -> some View {
-        ValuePicker(configuration)
-            .mandatoryFieldIndicatorStyle(self.style)
-            .typeErased
-    }
-}
-
-public extension ValuePickerStyle where Self == ValuePickerMandatoryFieldIndicatorStyle {
-    static func mandatoryFieldIndicatorStyle(_ style: some MandatoryFieldIndicatorStyle) -> ValuePickerMandatoryFieldIndicatorStyle {
-        ValuePickerMandatoryFieldIndicatorStyle(style: style)
-    }
-
-    static func mandatoryFieldIndicatorStyle(@ViewBuilder content: @escaping (MandatoryFieldIndicatorConfiguration) -> some View) -> ValuePickerMandatoryFieldIndicatorStyle {
-        let style = AnyMandatoryFieldIndicatorStyle(content)
-        return ValuePickerMandatoryFieldIndicatorStyle(style: style)
     }
 }
 
