@@ -322,9 +322,7 @@ struct PickerMenuItem: View {
                             } else {
                                 EmptyView()
                             }
-                        }, mandatoryFieldIndicator: {
-                            EmptyView()
-                        }, isRequired: false, options: self.item.valueOptions.map { AttributedString($0) }, isEnabled: true, allowsMultipleSelection: self.item.allowsMultipleSelection, allowsEmptySelection: self.item.allowsEmptySelection, value: self.$item.workingValue, buttonSize: self.item.itemLayout == .flexible ? .flexible : .fixed, isSingleLine: false) { _ in
+                        }, options: self.item.valueOptions.map { AttributedString($0) }, isEnabled: true, allowsMultipleSelection: self.item.allowsMultipleSelection, allowsEmptySelection: self.item.allowsEmptySelection, value: self.$item.workingValue, buttonSize: self.item.itemLayout == .flexible ? .flexible : .fixed, isSingleLine: false) { _ in
                         }
                         .filterFormOptionsLineSpacing(10)
                         .background(

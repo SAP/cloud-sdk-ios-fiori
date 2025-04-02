@@ -11,6 +11,8 @@ struct ValuePickerExample: View {
     @State var selectedIndex4: Int = 4
 
     @State var isRequired = false
+    @State var customizedMandatoryIndicator = false
+    @State var isEnabled = true
     @State var isTrackingLiveChanges = true
     @State var stateIndex: Int = 0
     @State var stateArray: [ControlState] = [.normal, .disabled, .readOnly]
@@ -19,6 +21,18 @@ struct ValuePickerExample: View {
     @State var showAINotice: Bool = false
     @State var showBottomSheet: Bool = false
 
+    func mandatoryField() -> TextOrIcon? {
+        var indicator = AttributedString("*")
+        if self.customizedMandatoryIndicator {
+            indicator = AttributedString("##")
+            indicator.foregroundColor = self.isEnabled ? Color.green : .preferredColor(.quaternaryLabel)
+        } else {
+            indicator.foregroundColor = .preferredColor(self.isEnabled ? .primaryLabel : .quinaryLabel)
+        }
+        indicator.font = .headline
+        return .text(indicator)
+    }
+    
     struct CustomValuePickerStyle: ValuePickerStyle {
         func makeBody(_ configuration: ValuePickerConfiguration) -> some View {
             ValuePicker(configuration)
@@ -34,11 +48,6 @@ struct ValuePickerExample: View {
                         .font(.fiori(forTextStyle: .title3))
                         .foregroundStyle(Color.preferredColor(.indigo7))
                         .background(Color.preferredColor(.grey2))
-                }
-                .mandatoryFieldIndicatorStyle { c in
-                    c.mandatoryFieldIndicator
-                        .font(.fiori(forTextStyle: .largeTitle))
-                        .foregroundStyle(Color.preferredColor(.red8))
                 }
         }
     }
@@ -61,6 +70,8 @@ struct ValuePickerExample: View {
         List {
             Section {
                 Toggle("Mandatory", isOn: self.$isRequired)
+                Toggle("Customized Mandatory Indicator", isOn: self.$customizedMandatoryIndicator)
+                Toggle("Enabled", isOn: self.$isEnabled)
                 Toggle("Is Tracking Live Changes", isOn: self.$isTrackingLiveChanges)
                 Picker("Control State", selection: self.$stateIndex) {
                     ForEach(0 ..< self.stateArray.count, id: \.self) { index in
@@ -73,19 +84,22 @@ struct ValuePickerExample: View {
                 Toggle("AI Notice", isOn: self.$showAINotice)
             }
             Section {
-                ValuePicker(title: "Picker Title(Default Style)", isRequired: self.isRequired, options: self.valueOptions, selectedIndex: self.$negativeIndex, isTrackingLiveChanges: self.isTrackingLiveChanges, controlState: self.stateArray[self.stateIndex])
+                ValuePicker(title: "Picker Title(Default Style)", mandatoryFieldIndicator: self.mandatoryField(), isRequired: self.isRequired, options: self.valueOptions, selectedIndex: self.$negativeIndex, isTrackingLiveChanges: self.isTrackingLiveChanges, controlState: self.stateArray[self.stateIndex])
                     .aiNoticeView(isPresented: self.$showAINotice)
+                    .disabled(!self.isEnabled)
                 
-                ValuePicker(title: "Picker Title (Long String) Long long long long long long long long long long long long long long long long long long title", isRequired: self.isRequired,
+                ValuePicker(title: "Picker Title (Long String) Long long long long long long long long long long long long long long long long long long title", mandatoryFieldIndicator: self.mandatoryField(), isRequired: self.isRequired,
                             options: self.valueOptions, selectedIndex: self.$selectedIndex2, isTrackingLiveChanges: self.isTrackingLiveChanges, controlState: self.stateArray[self.stateIndex])
                     .informationView(isPresented: self.$showsErrorMessage, description: AttributedString("Please choose one available data")).informationViewStyle(.error)
                     .aiNoticeView(isPresented: self.$showAINotice, description: "AI Notice")
+                    .disabled(!self.isEnabled)
                 
-                ValuePicker(title: "Picker Always Expanded", isRequired: self.isRequired, options: self.valueOptions, selectedIndex: self.$selectedIndex4, isTrackingLiveChanges: self.isTrackingLiveChanges, alwaysShowPicker: true, controlState: self.stateArray[self.stateIndex]).informationView(isPresented: self.$showsErrorMessage, description: AttributedString("Please choose one available data"))
+                ValuePicker(title: "Picker Always Expanded", mandatoryFieldIndicator: self.mandatoryField(), isRequired: self.isRequired, options: self.valueOptions, selectedIndex: self.$selectedIndex4, isTrackingLiveChanges: self.isTrackingLiveChanges, alwaysShowPicker: true, controlState: self.stateArray[self.stateIndex]).informationView(isPresented: self.$showsErrorMessage, description: AttributedString("Please choose one available data"))
                     .informationViewStyle(.informational)
                     .aiNoticeView(isPresented: self.$showAINotice, icon: Image(fioriName: "fiori.ai"), description: "AI Notice with icon, long long long long long long message. ", actionLabel: "View more link", viewMoreAction: self.openURL)
+                    .disabled(!self.isEnabled)
                 
-                ValuePicker(title: "Picker Title 2 lines (Custom Style: First line Second line)", isRequired: self.isRequired,
+                ValuePicker(title: "Picker Title 2 lines (Custom Style: First line Second line)", mandatoryFieldIndicator: self.mandatoryField(), isRequired: self.isRequired,
                             options: self.valueOptions, selectedIndex: self.$selectedIndex0, isTrackingLiveChanges: self.isTrackingLiveChanges, controlState: self.stateArray[self.stateIndex])
                     .valuePickerStyle(CustomValuePickerStyle())
                     .aiNoticeView(isPresented: self.$showAINotice, icon: Image(fioriName: "fiori.ai"), description: "AI Notice with icon. ", actionLabel: "View more details", viewMoreAction: self.toggleShowSheet)
@@ -94,20 +108,22 @@ struct ValuePickerExample: View {
                             .presentationDetents([.height(250), .medium])
                             .presentationDragIndicator(.visible)
                     }
+                    .disabled(!self.isEnabled)
                 
-                ValuePicker(title: "Picker Title", isRequired: self.isRequired,
+                ValuePicker(title: "Picker Title", mandatoryFieldIndicator: self.mandatoryField(), isRequired: self.isRequired,
                             options: self.valueOptions, selectedIndex: self.$selectedIndex2, isTrackingLiveChanges: self.isTrackingLiveChanges, controlState: self.stateArray[self.stateIndex])
                     .informationView(isPresented: self.$showsErrorMessage, description: AttributedString("Please choose one available data")).informationViewStyle(.error)
                     .aiNoticeView(isPresented: self.$showAINotice, icon: Image(systemName: "wand.and.sparkles"), description: self.customizeNoticeMsg, actionLabel: self.customizeNoticeActionLabel, viewMoreAction: self.openURL)
                     .iconStyle(content: { config in
                         config.icon.foregroundStyle(Color.purple)
                     })
+                    .disabled(!self.isEnabled)
                 
-                ValuePicker(title: "Picker Title Disabled", isRequired: self.isRequired,
+                ValuePicker(title: "Picker Title Disabled", mandatoryFieldIndicator: self.mandatoryField(), isRequired: self.isRequired,
                             options: self.valueOptions, selectedIndex: self.$selectedIndex2, isTrackingLiveChanges: self.isTrackingLiveChanges, controlState: self.stateArray[self.stateIndex])
                     .informationView(isPresented: self.$showsErrorMessage, description: AttributedString("Please choose one available data")).informationViewStyle(.error)
                     .aiNoticeView(isPresented: self.$showAINotice, icon: Image(fioriName: "fiori.ai"), description: "AI Notice message. ", actionLabel: "View more link", viewMoreAction: self.openURL)
-                    .disabled(true)
+                    .disabled(!self.isEnabled)
             }
         }.navigationTitle("Value Picker")
             .ifApply(self.isCustomTheming) {

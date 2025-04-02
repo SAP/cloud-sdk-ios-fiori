@@ -92,9 +92,6 @@ public struct FilterFormViewBaseStyle: FilterFormViewStyle {
     func TitleContainerView(_ configuration: FilterFormViewConfiguration) -> some View {
         HStack(spacing: 0, content: {
             configuration.title
-            if configuration.isRequired {
-                configuration.mandatoryFieldIndicator
-            }
         })
         .sizeReader { size in
             self.titleWidth = size.width
@@ -248,16 +245,6 @@ extension FilterFormViewFioriStyle {
         }
     }
 
-    struct MandatoryFieldIndicatorFioriStyle: MandatoryFieldIndicatorStyle {
-        let filterFormViewConfiguration: FilterFormViewConfiguration
-
-        func makeBody(_ configuration: MandatoryFieldIndicatorConfiguration) -> some View {
-            MandatoryFieldIndicator(configuration)
-                .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
-                .foregroundStyle(Color.preferredColor(self.filterFormViewConfiguration.isEnabled ? .primaryLabel : .quaternaryLabel))
-        }
-    }
-
     struct OptionsFioriStyle: OptionsStyle {
         let filterFormViewConfiguration: FilterFormViewConfiguration
 
@@ -381,5 +368,39 @@ private struct FilterFormViewLayout: Layout {
             let pt = CGPoint(x: itemRect.origin.x + bounds.origin.x, y: itemRect.origin.y + bounds.origin.y)
             subview.place(at: pt, proposal: ProposedViewSize(itemRect.size))
         }
+    }
+}
+
+public extension FilterFormView {
+    init(title: AttributedString,
+         mandatoryFieldIndicator: TextOrIcon? = .text("*"),
+         isRequired: Bool = false,
+         options: [AttributedString] = [],
+         controlState: ControlState = .normal,
+         errorMessage: AttributedString? = nil,
+         isEnabled: Bool,
+         allowsMultipleSelection: Bool = true,
+         allowsEmptySelection: Bool = false,
+         value: Binding<[Int]>,
+         buttonSize: FilterButtonSize = .fixed,
+         isSingleLine: Bool = true,
+         onValueChange: (([Int]) -> Void)? = nil)
+    {
+        self.init(title: {
+            Group {
+                if let mandatoryField = mandatoryFieldIndicator, isRequired {
+                    switch mandatoryField {
+                    case .text(let attributedString):
+                        Text(title) + Text(attributedString).accessibilityLabel(NSLocalizedString("Required Field", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Required Field"))
+                    case .icon(let image):
+                        Text(title) + Text(image).accessibilityLabel(NSLocalizedString("Required Field", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Required Field"))
+                    case .both(let attributedString, let image):
+                        Text(title) + Text(attributedString) + Text(image).accessibilityLabel(NSLocalizedString("Required Field", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Required Field"))
+                    }
+                } else {
+                    Text(title)
+                }
+            }.typeErased
+        }, options: options, controlState: controlState, errorMessage: errorMessage, isEnabled: isEnabled, allowsMultipleSelection: allowsMultipleSelection, allowsEmptySelection: allowsEmptySelection, value: value, buttonSize: buttonSize, isSingleLine: isSingleLine, onValueChange: onValueChange)
     }
 }

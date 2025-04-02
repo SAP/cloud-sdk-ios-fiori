@@ -20,19 +20,6 @@ protocol _SubtitleComponent {
 }
 
 // sourcery: BaseComponent
-protocol _MandatoryFieldIndicatorComponent {
-    // sourcery: resultBuilder.name = @ViewBuilder, resultBuilder.backingComponent = TextOrIconView
-    // sourcery: defaultValue = .text("*")
-    // sourcery: resultBuilder.defaultValue = "{ Text("*") }"
-    var mandatoryFieldIndicator: TextOrIcon? { get }
-}
- 
-protocol _MandatoryField: _MandatoryFieldIndicatorComponent {
-    // sourcery: defaultValue = false
-    var isRequired: Bool { get }
-}
-
-// sourcery: BaseComponent
 protocol _TagsComponent {
     // sourcery: resultBuilder.name = @TagBuilder, resultBuilder.backingComponent = TagStack
     var tags: [AttributedString] { get }

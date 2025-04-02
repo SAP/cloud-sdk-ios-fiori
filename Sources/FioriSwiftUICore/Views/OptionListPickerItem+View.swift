@@ -54,9 +54,7 @@ extension OptionListPickerItem: View {
                 } else {
                     EmptyView()
                 }
-            }, mandatoryFieldIndicator: {
-                EmptyView()
-            }, isRequired: false, options: _valueOptions.map { AttributedString($0) }, isEnabled: true, allowsMultipleSelection: _allowsMultipleSelection, allowsEmptySelection: _allowsEmptySelection, value: _value, buttonSize: _itemLayout == .flexible ? .flexible : .fixed, isSingleLine: false) { _ in
+            }, options: _valueOptions.map { AttributedString($0) }, isEnabled: true, allowsMultipleSelection: _allowsMultipleSelection, allowsEmptySelection: _allowsEmptySelection, value: _value, buttonSize: _itemLayout == .flexible ? .flexible : .fixed, isSingleLine: false) { _ in
             }
             .padding([.leading, .trailing], 16)
             .filterFormOptionsLineSpacing(10)

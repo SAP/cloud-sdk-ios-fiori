@@ -8,9 +8,6 @@ public struct KeyValueFormViewBaseStyle: KeyValueFormViewStyle {
         VStack(alignment: .leading) {
             HStack(spacing: 0) {
                 configuration.title
-                if configuration.isRequired {
-                    configuration.mandatoryFieldIndicator
-                }
                 Spacer()
             }
             configuration._noteFormView
@@ -28,11 +25,6 @@ extension KeyValueFormViewFioriStyle {
                 .titleStyle { titleConf in
                     Title(titleConf)
                         .foregroundStyle(self.getTitleColor(configuration))
-                        .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
-                }
-                .mandatoryFieldIndicatorStyle { indicatorConf in
-                    MandatoryFieldIndicator(indicatorConf)
-                        .foregroundStyle(self.getMandatoryIndicatorColor(configuration))
                         .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
                 }
                 .focused(self.$isFocused)
@@ -94,16 +86,41 @@ extension KeyValueFormViewFioriStyle {
             NoteFormView(configuration)
         }
     }
-    
-    struct MandatoryFieldIndicatorFioriStyle: MandatoryFieldIndicatorStyle {
-        let keyValueFormViewConfiguration: KeyValueFormViewConfiguration
-        
-        func makeBody(_ configuration: MandatoryFieldIndicatorConfiguration) -> some View {
-            MandatoryFieldIndicator(configuration)
-                .foregroundStyle(Color.preferredColor(self.keyValueFormViewConfiguration.controlState == .disabled ? .quaternaryLabel : .primaryLabel))
-                .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
-                .padding(.bottom, -4)
-                .padding(.top, 11)
-        }
+}
+
+public extension KeyValueFormView {
+    init(title: AttributedString,
+         text: Binding<String>,
+         placeholder: AttributedString? = nil,
+         controlState: ControlState = .normal,
+         errorMessage: AttributedString? = nil,
+         minTextEditorHeight: CGFloat? = nil,
+         maxTextEditorHeight: CGFloat? = nil,
+         maxTextLength: Int? = nil,
+         hintText: AttributedString? = nil,
+         hidesReadOnlyHint: Bool = false,
+         isCharCountEnabled: Bool = false,
+         allowsBeyondLimit: Bool = false,
+         charCountReachLimitMessage: String? = nil,
+         charCountBeyondLimitMsg: String? = nil,
+         mandatoryFieldIndicator: TextOrIcon? = .text("*"),
+         isRequired: Bool = false)
+    {
+        self.init(title: {
+            Group {
+                if let mandatoryField = mandatoryFieldIndicator, isRequired {
+                    switch mandatoryField {
+                    case .text(let attributedString):
+                        Text(title) + Text(attributedString).accessibilityLabel(NSLocalizedString("Required Field", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Required Field"))
+                    case .icon(let image):
+                        Text(title) + Text(image).accessibilityLabel(NSLocalizedString("Required Field", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Required Field"))
+                    case .both(let attributedString, let image):
+                        Text(title) + Text(attributedString) + Text(image).accessibilityLabel(NSLocalizedString("Required Field", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Required Field"))
+                    }
+                } else {
+                    Text(title)
+                }
+            }.typeErased
+        }, text: text, placeholder: { OptionalText(placeholder) }, controlState: controlState, errorMessage: errorMessage, minTextEditorHeight: minTextEditorHeight, maxTextEditorHeight: maxTextEditorHeight, maxTextLength: maxTextLength, hintText: hintText, hidesReadOnlyHint: hidesReadOnlyHint, isCharCountEnabled: isCharCountEnabled, allowsBeyondLimit: allowsBeyondLimit, charCountReachLimitMessage: charCountReachLimitMessage, charCountBeyondLimitMsg: charCountBeyondLimitMsg)
     }
 }

@@ -33,9 +33,6 @@ public struct ValuePickerBaseStyle: ValuePickerStyle {
         return mainStack {
             HStack(spacing: 0) {
                 configuration.title
-                if configuration.isRequired {
-                    configuration.mandatoryFieldIndicator
-                }
             }
             if !isVertical {
                 Spacer()
@@ -123,15 +120,6 @@ extension ValuePickerFioriStyle {
                 .lineLimit(1)
         }
     }
-    
-    struct MandatoryFieldIndicatorFioriStyle: MandatoryFieldIndicatorStyle {
-        let valuePickerConfiguration: ValuePickerConfiguration
-
-        func makeBody(_ configuration: MandatoryFieldIndicatorConfiguration) -> some View {
-            MandatoryFieldIndicator(configuration)
-                .foregroundStyle(Color.preferredColor(self.valuePickerConfiguration.controlState == .disabled ? .quaternaryLabel : .primaryLabel))
-        }
-    }
 
     struct OptionsFioriStyle: OptionsStyle {
         let valuePickerConfiguration: ValuePickerConfiguration
@@ -139,5 +127,35 @@ extension ValuePickerFioriStyle {
         func makeBody(_ configuration: OptionsConfiguration) -> some View {
             Options(configuration)
         }
+    }
+}
+
+public extension ValuePicker {
+    init(title: AttributedString,
+         valueLabel: AttributedString? = nil,
+         mandatoryFieldIndicator: TextOrIcon? = .text("*"),
+         isRequired: Bool = false,
+         options: [AttributedString] = [],
+         selectedIndex: Binding<Int>,
+         isTrackingLiveChanges: Bool = true,
+         alwaysShowPicker: Bool = false,
+         controlState: ControlState = .normal)
+    {
+        self.init(title: {
+            Group {
+                if let mandatoryField = mandatoryFieldIndicator, isRequired {
+                    switch mandatoryField {
+                    case .text(let attributedString):
+                        Text(title) + Text(attributedString).accessibilityLabel(NSLocalizedString("Required Field", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Required Field"))
+                    case .icon(let image):
+                        Text(title) + Text(image).accessibilityLabel(NSLocalizedString("Required Field", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Required Field"))
+                    case .both(let attributedString, let image):
+                        Text(title) + Text(attributedString) + Text(image).accessibilityLabel(NSLocalizedString("Required Field", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Required Field"))
+                    }
+                } else {
+                    Text(title)
+                }
+            }.typeErased
+        }, valueLabel: { OptionalText(valueLabel) }, options: options, selectedIndex: selectedIndex, isTrackingLiveChanges: isTrackingLiveChanges, alwaysShowPicker: alwaysShowPicker, controlState: controlState)
     }
 }

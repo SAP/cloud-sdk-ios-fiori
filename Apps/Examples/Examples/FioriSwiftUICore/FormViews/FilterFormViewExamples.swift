@@ -29,11 +29,15 @@ struct FilterFormViewExamples: View {
     @State private var sortFilterEmptyTitleSelectionValue: [Int] = [0]
     
     func mandatoryField() -> TextOrIcon? {
+        var indicator = AttributedString("*")
         if self.customizedMandatoryIndicator {
-            return .text("#")
+            indicator = AttributedString("##")
+            indicator.foregroundColor = self.isEnabled ? Color.green : .preferredColor(.quaternaryLabel)
         } else {
-            return .text("*")
+            indicator.foregroundColor = .preferredColor(self.isEnabled ? .primaryLabel : .quinaryLabel)
         }
+        indicator.font = .headline
+        return .text(indicator)
     }
     
     var body: some View {
@@ -60,47 +64,21 @@ struct FilterFormViewExamples: View {
             FilterFormView(title: "MultiSelection, EmptySelection", mandatoryFieldIndicator: self.mandatoryField(), isRequired: self.showMandatoryField, options: self.valueOptions, errorMessage: "Validation Message", isEnabled: self.isEnabled, allowsMultipleSelection: true, allowsEmptySelection: true, value: self.$multiSelectionEmptySelectionValue, buttonSize: .fixed, onValueChange: { value in
                 print("MultiSelection, EmptySelection value change: \(value)")
             })
-            .mandatoryFieldIndicatorStyle { conf in
-                conf.mandatoryFieldIndicator
-                    .foregroundStyle(self.mandatoryFieldIndicatorColor())
-            }
             .informationViewStyle(.success)
             
             FilterFormView(title: "MultiSelection, Non-EmptySelection", mandatoryFieldIndicator: self.mandatoryField(), isRequired: self.showMandatoryField, options: self.valueOptions, errorMessage: "Validation Message", isEnabled: self.isEnabled, allowsMultipleSelection: true, allowsEmptySelection: false, value: self.$multiSelectionNonEmptySelectionValue, buttonSize: .fixed)
-                .mandatoryFieldIndicatorStyle { conf in
-                    conf.mandatoryFieldIndicator
-                        .foregroundStyle(self.mandatoryFieldIndicatorColor())
-                }
             
             FilterFormView(title: "SingleSelection, EmptySelection", mandatoryFieldIndicator: self.mandatoryField(), isRequired: self.showMandatoryField, options: self.valueOptions, errorMessage: "Validation Message", isEnabled: self.isEnabled, allowsMultipleSelection: false, allowsEmptySelection: true, value: self.$singleSelectionEmptySelectionValue, buttonSize: .fixed)
-                .mandatoryFieldIndicatorStyle { conf in
-                    conf.mandatoryFieldIndicator
-                        .foregroundStyle(self.mandatoryFieldIndicatorColor())
-                }
             
             FilterFormView(title: "SingleSelection, Non-EmptySelection", mandatoryFieldIndicator: self.mandatoryField(), isRequired: self.showMandatoryField, options: self.valueOptions, errorMessage: "Validation Message", isEnabled: self.isEnabled, allowsMultipleSelection: false, allowsEmptySelection: false, value: self.$singleSelectionNonEmptySelectionValue, buttonSize: .fixed)
-                .mandatoryFieldIndicatorStyle { conf in
-                    conf.mandatoryFieldIndicator
-                        .foregroundStyle(self.mandatoryFieldIndicatorColor())
-                }
             
             FilterFormView(title: "SingleSelection, Non-EmptySelection, Disabled", mandatoryFieldIndicator: self.mandatoryField(), isRequired: self.showMandatoryField, options: self.valueOptions, errorMessage: "Validation Message", isEnabled: false, allowsMultipleSelection: false, allowsEmptySelection: false, value: self.$singleSelectionNonEmptySelectionDisabledValue, buttonSize: .fixed)
-                .mandatoryFieldIndicatorStyle { conf in
-                    conf.mandatoryFieldIndicator
-                        .foregroundStyle(self.mandatoryFieldIndicatorColor())
-                }
             
-            FilterFormView(title: {
-                Text("SingleSelection, Non-EmptySelection, Customized Color, Font")
-                    .foregroundStyle(self.isEnabled ? Color.red : .yellow)
-            }, mandatoryFieldIndicator: {
-                TextOrIconView(self.mandatoryField())
-                    .foregroundStyle(self.isEnabled ? Color.green : .preferredColor(.quaternaryLabel))
-            }, isRequired: self.showMandatoryField, options: self.valueOptions, errorMessage: nil, isEnabled: self.isEnabled, allowsMultipleSelection: false, allowsEmptySelection: false, value: self.$singleSelectionNonEmptySelectionCustomizedColorValue, buttonSize: .fixed)
-                .mandatoryFieldIndicatorStyle { conf in
-                    conf.mandatoryFieldIndicator
-                        .foregroundStyle(self.mandatoryFieldIndicatorColor())
-                }
+            FilterFormView(title:
+                AttributedString("SingleSelection, Non-EmptySelection, Customized Color, Font"),
+                mandatoryFieldIndicator:
+                self.mandatoryField(),
+                isRequired: self.showMandatoryField, options: self.valueOptions, errorMessage: nil, isEnabled: self.isEnabled, allowsMultipleSelection: false, allowsEmptySelection: false, value: self.$singleSelectionNonEmptySelectionCustomizedColorValue, buttonSize: .fixed)
                 .filterFormOptionAttributes([
                     .enabledUnselected: [
                         .foregroundColor: Color.green,
@@ -115,34 +93,14 @@ struct FilterFormViewExamples: View {
                 ])
             
             FilterFormView(title: "Priority", mandatoryFieldIndicator: self.mandatoryField(), isRequired: self.showMandatoryField, options: self.priorityOptions, errorMessage: nil, isEnabled: self.isEnabled, allowsMultipleSelection: true, allowsEmptySelection: true, value: self.$prioritySelectionValue, buttonSize: .flexibleByMaxChip)
-                .mandatoryFieldIndicatorStyle { conf in
-                    conf.mandatoryFieldIndicator
-                        .foregroundStyle(self.mandatoryFieldIndicatorColor())
-                }
             
             FilterFormView(title: "Number", mandatoryFieldIndicator: self.mandatoryField(), isRequired: self.showMandatoryField, options: self.numberOptions, errorMessage: nil, isEnabled: self.isEnabled, allowsMultipleSelection: true, allowsEmptySelection: true, value: self.$numberSelectionValue, buttonSize: .flexibleByMaxChip)
-                .mandatoryFieldIndicatorStyle { conf in
-                    conf.mandatoryFieldIndicator
-                        .foregroundStyle(self.mandatoryFieldIndicatorColor())
-                }
             
             FilterFormView(title: "SingleSelection, Non-EmptySelection, flexible, same size", mandatoryFieldIndicator: self.mandatoryField(), isRequired: self.showMandatoryField, options: self.valueOptions, errorMessage: nil, isEnabled: self.isEnabled, allowsMultipleSelection: true, allowsEmptySelection: true, value: self.$trySixSelectionValue, buttonSize: .flexibleByMaxChip)
-                .mandatoryFieldIndicatorStyle { conf in
-                    conf.mandatoryFieldIndicator
-                        .foregroundStyle(self.mandatoryFieldIndicatorColor())
-                }
             
             FilterFormView(title: "SingleSelection, Non-EmptySelection, flexible", mandatoryFieldIndicator: self.mandatoryField(), isRequired: self.showMandatoryField, options: self.valueOptions, errorMessage: nil, isEnabled: self.isEnabled, allowsMultipleSelection: true, allowsEmptySelection: true, value: self.$trySevenSelectionValue, buttonSize: .flexible)
-                .mandatoryFieldIndicatorStyle { conf in
-                    conf.mandatoryFieldIndicator
-                        .foregroundStyle(self.mandatoryFieldIndicatorColor())
-                }
             
             FilterFormView(title: "Sort Filter, MultiSelection, EmptySelection, flexible, no mandatory", mandatoryFieldIndicator: self.mandatoryField(), isRequired: false, options: self.sortValueOptions, errorMessage: nil, isEnabled: self.isEnabled, allowsMultipleSelection: true, allowsEmptySelection: true, value: self.$sortFilterSelectionValue, buttonSize: .flexible)
-                .mandatoryFieldIndicatorStyle { conf in
-                    conf.mandatoryFieldIndicator
-                        .foregroundStyle(self.mandatoryFieldIndicatorColor())
-                }
                 .filterFormOptionMinTouchHeight(50)
                 .filterFormOptionCornerRadius(16)
                 .filterFormOptionTitleSpacing(4)
@@ -165,10 +123,6 @@ struct FilterFormViewExamples: View {
                 ])
             
             FilterFormView(title: "Sort Filter, MultiSelection, EmptySelection, fixed, no mandatory", mandatoryFieldIndicator: self.mandatoryField(), isRequired: false, options: self.sortValueOptions, errorMessage: nil, isEnabled: self.isEnabled, allowsMultipleSelection: true, allowsEmptySelection: true, value: self.$sortFilterFixedSelectionValue, buttonSize: .fixed)
-                .mandatoryFieldIndicatorStyle { conf in
-                    conf.mandatoryFieldIndicator
-                        .foregroundStyle(self.mandatoryFieldIndicatorColor())
-                }
                 .filterFormOptionMinTouchHeight(50)
                 .filterFormOptionCornerRadius(16)
                 .filterFormOptionTitleSpacing(4)
@@ -193,11 +147,8 @@ struct FilterFormViewExamples: View {
                 ])
             
             // Empty title and mandatory
-            FilterFormView(title: {
-                EmptyView()
-            }, mandatoryFieldIndicator: {
-                EmptyView()
-            }, isRequired: false, options: self.sortValueOptions, isEnabled: self.isEnabled, allowsMultipleSelection: true, allowsEmptySelection: true, value: self.$sortFilterEmptyTitleSelectionValue, buttonSize: .flexible)
+            FilterFormView(title: AttributedString(""), mandatoryFieldIndicator:
+                nil, isRequired: false, options: self.sortValueOptions, isEnabled: self.isEnabled, allowsMultipleSelection: true, allowsEmptySelection: true, value: self.$sortFilterEmptyTitleSelectionValue, buttonSize: .flexible)
                 .filterFormOptionMinTouchHeight(50)
                 .filterFormOptionCornerRadius(16)
                 .filterFormOptionTitleSpacing(4)
@@ -220,14 +171,6 @@ struct FilterFormViewExamples: View {
                 ])
         }
         .listStyle(.plain)
-    }
-    
-    func mandatoryFieldIndicatorColor() -> Color {
-        if !self.isEnabled {
-            return .preferredColor(.quaternaryLabel)
-        } else {
-            return self.customizedMandatoryIndicator ? Color.red : Color.preferredColor(.primaryLabel)
-        }
     }
 }
 

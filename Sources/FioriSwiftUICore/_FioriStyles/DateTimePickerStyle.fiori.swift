@@ -31,9 +31,6 @@ public struct DateTimePickerBaseStyle: DateTimePickerStyle {
         return mainStack {
             HStack(spacing: 0) {
                 configuration.title
-                if configuration.isRequired {
-                    configuration.mandatoryFieldIndicator
-                }
             }
             if !isVertical {
                 Spacer()
@@ -117,20 +114,43 @@ extension DateTimePickerFioriStyle {
         }
     }
     
-    struct MandatoryFieldIndicatorFioriStyle: MandatoryFieldIndicatorStyle {
-        let dateTimePickerConfiguration: DateTimePickerConfiguration
-        
-        func makeBody(_ configuration: MandatoryFieldIndicatorConfiguration) -> some View {
-            MandatoryFieldIndicator(configuration)
-                .foregroundStyle(Color.preferredColor(self.dateTimePickerConfiguration.controlState == .disabled ? .quaternaryLabel : .primaryLabel))
-        }
-    }
-    
     struct FormViewFioriStyle: FormViewStyle {
         let dateTimePickerConfiguration: DateTimePickerConfiguration
         
         func makeBody(_ configuration: FormViewConfiguration) -> some View {
             FormView(configuration)
         }
+    }
+}
+
+public extension DateTimePicker {
+    init(title: AttributedString,
+         valueLabel: AttributedString? = nil,
+         mandatoryFieldIndicator: TextOrIcon? = .text("*"),
+         isRequired: Bool = false,
+         controlState: ControlState = .normal,
+         errorMessage: AttributedString? = nil,
+         selectedDate: Binding<Date>,
+         pickerComponents: DatePicker.Components = [.date, .hourAndMinute],
+         dateStyle: Date.FormatStyle.DateStyle = .abbreviated,
+         timeStyle: Date.FormatStyle.TimeStyle = .shortened,
+         noDateSelectedString: String? = nil)
+    {
+        self.init(title: {
+            Group {
+                if let mandatoryField = mandatoryFieldIndicator, isRequired {
+                    switch mandatoryField {
+                    case .text(let attributedString):
+                        Text(title) + Text(attributedString).accessibilityLabel(NSLocalizedString("Required Field", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Required Field"))
+                    case .icon(let image):
+                        Text(title) + Text(image).accessibilityLabel(NSLocalizedString("Required Field", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Required Field"))
+                    case .both(let attributedString, let image):
+                        Text(title) + Text(attributedString) + Text(image).accessibilityLabel(NSLocalizedString("Required Field", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Required Field"))
+                    }
+                } else {
+                    Text(title)
+                }
+            }.typeErased
+        }, valueLabel: { OptionalText(valueLabel) }, controlState: controlState, errorMessage: errorMessage, selectedDate: selectedDate, pickerComponents: pickerComponents, dateStyle: dateStyle, timeStyle: timeStyle, noDateSelectedString: noDateSelectedString)
     }
 }

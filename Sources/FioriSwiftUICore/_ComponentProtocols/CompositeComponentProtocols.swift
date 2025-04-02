@@ -105,7 +105,7 @@ protocol _NoteFormViewComponent: _PlaceholderTextEditorComponent, _FormViewCompo
 }
 
 // sourcery: CompositeComponent
-protocol _KeyValueFormViewComponent: _TitleComponent, _NoteFormViewComponent, _MandatoryField {}
+protocol _KeyValueFormViewComponent: _TitleComponent, _NoteFormViewComponent {}
 
 // sourcery: CompositeComponent
 protocol _PlaceholderTextFieldComponent: _TextInputFieldComponent, _PlaceholderComponent {}
@@ -132,7 +132,7 @@ protocol _TitleFormViewComponent: _PlaceholderTextFieldComponent, _FormViewCompo
 }
 
 // sourcery: CompositeComponent
-protocol _TextFieldFormViewComponent: _TitleComponent, _TitleFormViewComponent, _MandatoryField {
+protocol _TextFieldFormViewComponent: _TitleComponent, _TitleFormViewComponent {
     /// The icon for the action button.
     var actionIcon: Image? { get }
     /// The action to be performed when the action button is tapped.
@@ -567,7 +567,7 @@ protocol _SwitchViewComponent: _TitleComponent, _SwitchComponent {}
 ///    .informationViewStyle(.informational)
 /// ```
 // sourcery: CompositeComponent
-protocol _DateTimePickerComponent: _TitleComponent, _ValueLabelComponent, _MandatoryField, _FormViewComponent {
+protocol _DateTimePickerComponent: _TitleComponent, _ValueLabelComponent, _FormViewComponent {
     // sourcery: @Binding
     var selectedDate: Date { get }
     
@@ -632,7 +632,7 @@ protocol _AvatarStackComponent: _AvatarsComponent, _AvatarsTitleComponent {}
 /// }
 /// ```
 // sourcery: CompositeComponent
-protocol _ListPickerItemComponent: _TitleComponent, _ValueComponent, _MandatoryField, _FormViewComponent {
+protocol _ListPickerItemComponent: _TitleComponent, _ValueComponent, _FormViewComponent {
     // sourcery: defaultValue = .horizontal
     var axis: Axis { get }
     
@@ -720,7 +720,7 @@ protocol _BannerMultiMessageSheet: _TitleComponent, _CloseActionComponent {
 ///    ```
 
 // sourcery: CompositeComponent
-protocol _FilterFormViewComponent: _TitleComponent, _MandatoryField, _OptionsComponent, _FormViewComponent {
+protocol _FilterFormViewComponent: _TitleComponent, _OptionsComponent, _FormViewComponent {
     var isEnabled: Bool { get }
     // sourcery: defaultValue = true
     /// Indicates whether the user may select multiple values. The default is `true`
@@ -765,7 +765,7 @@ protocol _LoadingIndicatorComponent: _TitleComponent, _ProgressComponent {
 //  ValuePicker(title: "Picker Title(Default Style)", isRequired: self.isRequired, options: self.valueOptions, selectedIndex: self.$selectedIndex, isTrackingLiveChanges: self.isTrackingLiveChanges).informationView(isPresented: self.$showsErrorMessage, description: AttributedString("Please choose one available data")).informationViewStyle(.informational)
 /// ```
 // sourcery: CompositeComponent
-protocol _ValuePickerComponent: _TitleComponent, _ValueLabelComponent, _MandatoryField, _OptionsComponent {
+protocol _ValuePickerComponent: _TitleComponent, _ValueLabelComponent, _OptionsComponent {
     // sourcery: @Binding
     /// The index for the selected value in the valueOptions.
     var selectedIndex: Int { get }
@@ -1575,7 +1575,7 @@ protocol _SortFilterViewComponent: _TitleComponent, _CancelActionComponent, _App
 /// ```
 // sourcery: CompositeComponent
 // sourcery: importFrameworks = ["FioriThemeManager"]
-protocol _SignatureCaptureViewComponent: _TitleComponent, _MandatoryField, _StartSignatureActionComponent, _ReenterSignatureActionComponent, _CancelActionComponent, _ClearActionComponent, _SaveActionComponent, _XmarkComponent, _WatermarkComponent {
+protocol _SignatureCaptureViewComponent: _TitleComponent, _StartSignatureActionComponent, _ReenterSignatureActionComponent, _CancelActionComponent, _ClearActionComponent, _SaveActionComponent, _XmarkComponent, _WatermarkComponent {
     /// An optional image for default signature.
     var signatureImage: UIImage? { get }
     

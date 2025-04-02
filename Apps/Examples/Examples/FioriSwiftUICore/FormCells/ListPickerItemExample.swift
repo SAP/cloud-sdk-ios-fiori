@@ -42,6 +42,7 @@ struct ListPickerItemExample: View {
     @State var autoDismissDestination: Bool = false
     
     @State var isRequired = false
+    @State var customizedMandatoryIndicator = false
     @State var state: ControlState = .normal
     @State var showsErrorMessage = false
     @State var showsPrompt = false
@@ -51,17 +52,15 @@ struct ListPickerItemExample: View {
             Group {
                 if self.dataType == .frameworks || self.dataType == .text {
                     // Use default Value
-                    ListPickerItem(title: {
-                        Text("Title")
-                    }, isRequired: self.isRequired, controlState: self.state, axis: self.axis,
-                    destination: {
-                        self.destinationViewGroup()
-                    })
-                } else {
+                    ListPickerItem(title: AttributedString("Title"), mandatoryFieldIndicator: self.mandatoryField(), isRequired: self.isRequired, controlState: self.state, axis: self.axis,
+                                   destination: {
+                                       self.destinationViewGroup()
+                                   })
+                } else { /// QQQQ
                     // Use custom Value
-                    ListPickerItem(title: { Text("Title") }, value: { self.valueView }, isRequired: self.isRequired, controlState: self.state, axis: self.axis, destination: {
-                        self.destinationViewGroup()
-                    })
+//                    ListPickerItem(title: AttributedString("Title"), value: { self.valueView }, isRequired: self.isRequired, controlState: self.state, axis: self.axis, destination: {
+//                        self.destinationViewGroup()
+//                    })
                 }
             }
             .onChange(of: self.dataType) {
@@ -112,6 +111,7 @@ struct ListPickerItemExample: View {
                 Toggle("Auto Dismiss Destination(Only for Single Selection and isTrackingLiveChanges is true)", isOn: self.$autoDismissDestination)
                 
                 Toggle("Mandatory Field", isOn: self.$isRequired)
+                Toggle("Customized Mandatory Indicator", isOn: self.$customizedMandatoryIndicator)
                 
                 Toggle("Shows Error Message", isOn: self.$showsErrorMessage)
                 
@@ -125,6 +125,18 @@ struct ListPickerItemExample: View {
             }
         }
         .navigationTitle("List Picker Item")
+    }
+    
+    func mandatoryField() -> TextOrIcon? {
+        var indicator = AttributedString("*")
+        if self.customizedMandatoryIndicator {
+            indicator = AttributedString("##")
+            indicator.foregroundColor = self.state == .normal ? Color.green : .preferredColor(.quaternaryLabel)
+        } else {
+            indicator.foregroundColor = .preferredColor(self.state == .normal ? .primaryLabel : .quinaryLabel)
+        }
+        indicator.font = .headline
+        return .text(indicator)
     }
     
     func destinationViewGroup() -> some View {

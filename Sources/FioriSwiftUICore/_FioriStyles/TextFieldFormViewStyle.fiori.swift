@@ -8,9 +8,6 @@ public struct TextFieldFormViewBaseStyle: TextFieldFormViewStyle {
         VStack(alignment: .leading, spacing: 4) {
             HStack(spacing: 0) {
                 configuration.title
-                if configuration.isRequired {
-                    configuration.mandatoryFieldIndicator
-                }
                 Spacer()
             }
             configuration._titleFormView
@@ -35,11 +32,6 @@ extension TextFieldFormViewFioriStyle {
                 .titleStyle { titleConf in
                     Title(titleConf)
                         .foregroundStyle(self.getTitleColor(configuration))
-                        .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
-                }
-                .mandatoryFieldIndicatorStyle { indicatorConf in
-                    MandatoryFieldIndicator(indicatorConf)
-                        .foregroundStyle(self.getMandatoryIndicatorColor(configuration))
                         .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
                 }
                 .placeholderTextFieldStyle { config in
@@ -195,15 +187,6 @@ extension TextFieldFormViewFioriStyle {
             TitleFormView(configuration)
         }
     }
-    
-    struct MandatoryFieldIndicatorFioriStyle: MandatoryFieldIndicatorStyle {
-        let textFieldFormViewConfiguration: TextFieldFormViewConfiguration
-        
-        func makeBody(_ configuration: MandatoryFieldIndicatorConfiguration) -> some View {
-            MandatoryFieldIndicator(configuration)
-                .foregroundStyle(Color.preferredColor(self.textFieldFormViewConfiguration.controlState == .disabled ? .quaternaryLabel : .primaryLabel))
-        }
-    }
 }
 
 extension View {
@@ -236,5 +219,44 @@ extension View {
         } else {
             self
         }
+    }
+}
+
+public extension TextFieldFormView {
+    init(title: AttributedString,
+         text: Binding<String>,
+         isSecureEnabled: Bool? = false,
+         placeholder: AttributedString? = nil,
+         controlState: ControlState = .normal,
+         errorMessage: AttributedString? = nil,
+         maxTextLength: Int? = nil,
+         hintText: AttributedString? = nil,
+         hidesReadOnlyHint: Bool = false,
+         isCharCountEnabled: Bool = false,
+         allowsBeyondLimit: Bool = false,
+         charCountReachLimitMessage: String? = nil,
+         charCountBeyondLimitMsg: String? = nil,
+         mandatoryFieldIndicator: TextOrIcon? = .text("*"),
+         isRequired: Bool = false,
+         actionIcon: Image? = nil,
+         action: (() -> Void)? = nil,
+         actionIconAccessibilityLabel: String? = nil)
+    {
+        self.init(title: {
+            Group {
+                if let mandatoryField = mandatoryFieldIndicator, isRequired {
+                    switch mandatoryField {
+                    case .text(let attributedString):
+                        Text(title) + Text(attributedString).accessibilityLabel(NSLocalizedString("Required Field", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Required Field"))
+                    case .icon(let image):
+                        Text(title) + Text(image).accessibilityLabel(NSLocalizedString("Required Field", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Required Field"))
+                    case .both(let attributedString, let image):
+                        Text(title) + Text(attributedString) + Text(image).accessibilityLabel(NSLocalizedString("Required Field", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Required Field"))
+                    }
+                } else {
+                    Text(title)
+                }
+            }.typeErased
+        }, text: text, isSecureEnabled: isSecureEnabled, placeholder: { OptionalText(placeholder) }, controlState: controlState, errorMessage: errorMessage, maxTextLength: maxTextLength, hintText: hintText, hidesReadOnlyHint: hidesReadOnlyHint, isCharCountEnabled: isCharCountEnabled, allowsBeyondLimit: allowsBeyondLimit, charCountReachLimitMessage: charCountReachLimitMessage, charCountBeyondLimitMsg: charCountBeyondLimitMsg, actionIcon: actionIcon, action: action, actionIconAccessibilityLabel: actionIconAccessibilityLabel)
     }
 }

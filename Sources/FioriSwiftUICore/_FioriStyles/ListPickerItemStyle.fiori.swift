@@ -13,9 +13,6 @@ public struct ListPickerItemBaseStyle: ListPickerItemStyle {
             case .horizontal:
                 HStack(spacing: 0) {
                     configuration.title
-                    if configuration.isRequired {
-                        configuration.mandatoryFieldIndicator
-                    }
                     Spacer()
                     configuration.value
                 }
@@ -23,9 +20,6 @@ public struct ListPickerItemBaseStyle: ListPickerItemStyle {
                 CompactVStack(alignment: .leading) {
                     HStack(spacing: 0) {
                         configuration.title
-                        if configuration.isRequired {
-                            configuration.mandatoryFieldIndicator
-                        }
                     }
                     configuration.value
                 }
@@ -48,15 +42,6 @@ extension ListPickerItemFioriStyle {
 
         func makeBody(_ configuration: TitleConfiguration) -> some View {
             Title(configuration)
-                .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
-                .foregroundStyle(Color.preferredColor(self.listPickerItemConfiguration.controlState == .disabled ? .quaternaryLabel : .primaryLabel))
-        }
-    }
-    
-    struct MandatoryFieldIndicatorFioriStyle: MandatoryFieldIndicatorStyle {
-        let listPickerItemConfiguration: ListPickerItemConfiguration
-        func makeBody(_ configuration: MandatoryFieldIndicatorConfiguration) -> some View {
-            MandatoryFieldIndicator(configuration)
                 .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
                 .foregroundStyle(Color.preferredColor(self.listPickerItemConfiguration.controlState == .disabled ? .quaternaryLabel : .primaryLabel))
         }
@@ -91,5 +76,35 @@ extension ListPickerItemFioriStyle {
         func makeBody(_ configuration: FormViewConfiguration) -> some View {
             FormView(configuration)
         }
+    }
+}
+
+public extension ListPickerItem {
+    init(title: AttributedString,
+         value: AttributedString? = nil,
+         mandatoryFieldIndicator: TextOrIcon? = .text("*"),
+         isRequired: Bool = false,
+         controlState: ControlState = .normal,
+         errorMessage: AttributedString? = nil,
+         axis: Axis = .horizontal,
+         @ViewBuilder destination: () -> any View = { EmptyView() })
+    {
+        self.init(title: {
+            Group {
+                if let mandatoryField = mandatoryFieldIndicator, isRequired {
+                    switch mandatoryField {
+                    case .text(let attributedString):
+                        Text(title) + Text(attributedString).accessibilityLabel(NSLocalizedString("Required Field", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Required Field"))
+                    case .icon(let image):
+                        Text(title) + Text(image).accessibilityLabel(NSLocalizedString("Required Field", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Required Field"))
+                    case .both(let attributedString, let image):
+                        Text(title) + Text(attributedString) + Text(image).accessibilityLabel(NSLocalizedString("Required Field", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Required Field"))
+                    }
+                } else {
+                    Text(title)
+                }
+            }.typeErased
+            
+        }, value: { OptionalText(value) }, controlState: controlState, errorMessage: errorMessage, axis: axis, destination: destination)
     }
 }

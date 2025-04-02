@@ -25,8 +25,6 @@ public struct ListPickerItemConfiguration {
     public var componentIdentifier: String = "fiori_listpickeritem_component"
     public let title: Title
     public let value: Value
-    public let mandatoryFieldIndicator: MandatoryFieldIndicator
-    public let isRequired: Bool
     public let controlState: ControlState
     public let errorMessage: AttributedString?
     public let axis: Axis
@@ -34,7 +32,6 @@ public struct ListPickerItemConfiguration {
 
     public typealias Title = ConfigurationViewWrapper
     public typealias Value = ConfigurationViewWrapper
-    public typealias MandatoryFieldIndicator = ConfigurationViewWrapper
     public typealias Destination = ConfigurationViewWrapper
 }
 
@@ -49,7 +46,6 @@ public struct ListPickerItemFioriStyle: ListPickerItemStyle {
         ListPickerItem(configuration)
             .titleStyle(TitleFioriStyle(listPickerItemConfiguration: configuration))
             .valueStyle(ValueFioriStyle(listPickerItemConfiguration: configuration))
-            .mandatoryFieldIndicatorStyle(MandatoryFieldIndicatorFioriStyle(listPickerItemConfiguration: configuration))
             .formViewStyle(FormViewFioriStyle(listPickerItemConfiguration: configuration))
     }
 }
