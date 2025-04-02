@@ -102,6 +102,12 @@ public struct AttachmentGroupBaseStyle: AttachmentGroupStyle {
                         }
                 }
             }
+            .ifApply(configuration.maxCount == nil) {
+                $0.onDrop(of: [.item], isTargeted: nil, perform: { providers, _ in
+                    providers.forEach { self.context.upload(contentFrom: $0) }
+                    return true
+                })
+            }
             .accessibilityElement(children: .contain)
         }
         .accessibilityElement(children: .contain)
