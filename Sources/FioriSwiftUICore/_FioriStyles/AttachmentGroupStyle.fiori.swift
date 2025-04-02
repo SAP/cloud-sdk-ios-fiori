@@ -59,7 +59,6 @@ public struct AttachmentGroupBaseStyle: AttachmentGroupStyle {
         VStack(alignment: .leading, spacing: AttachmentConstants.cellVerticalSpacing) {
             configuration.title
                 .accessibilityIdentifier("Attachment:Title-\(configuration.title)-\(UUID().uuidString)")
-                .accessibilitySortPriority(Double(configuration.attachments.count + 2))
                 .padding(.bottom, AttachmentConstants.extraTitleBottomPadding)
             
             LazyVGrid(columns: Array(repeating: GridItem(.adaptive(minimum: AttachmentConstants.thumbnailWidth), alignment: .top), count: 1), spacing: AttachmentConstants.cellVerticalSpacing) {
@@ -68,13 +67,11 @@ public struct AttachmentGroupBaseStyle: AttachmentGroupStyle {
                         if maxCount > configuration.attachments.count {
                             configuration.operations
                                 .accessibilityIdentifier("Attachment:AddButton-\(UUID().uuidString)")
-                                .accessibilitySortPriority(Double(configuration.attachments.count + 1))
                                 .environment(self.context)
                         }
                     } else {
                         configuration.operations
                             .accessibilityIdentifier("Attachment:AddButton-\(UUID().uuidString)")
-                            .accessibilitySortPriority(Double(configuration.attachments.count + 1))
                             .environment(self.context)
                     }
                 }
@@ -82,7 +79,6 @@ public struct AttachmentGroupBaseStyle: AttachmentGroupStyle {
                 ForEach(0 ..< configuration.attachments.count, id: \.self) { index in
                     self.makeAttachemnt(of: configuration, at: index)
                         .accessibilityIdentifier("Attachment:Thumbnail\(configuration.attachments[index].absoluteString)")
-                        .accessibilitySortPriority(Double(configuration.attachments.count - index + 1))
                         .accessibilityElement(children: .combine)
                         .onTapGesture {
                             if let showPreview = configuration.onPreview {
