@@ -7,8 +7,7 @@ struct Sandbox: View {
     @State var fileFilters: [UTType] = []
 
     var body: some View {
-        FilterCFG(photoFilters: self.$photoFilters, fileFilters: self.$fileFilters)
-            .border(Color.blue)
+        Text("Hello, World!")
     }
 }
 

@@ -163,7 +163,7 @@ struct AttachmentGroupExample: View {
                             Button {
                                 self.showWriteAndUploadView.toggle()
                             } label: {
-                                Label("Compose", systemImage: "square.and.pencil")
+                                Label("Custom:Compose", systemImage: "square.and.pencil")
                             }
                         }
                     }
@@ -176,7 +176,7 @@ struct AttachmentGroupExample: View {
                             Button {
                                 self.showWriteAndUploadView.toggle()
                             } label: {
-                                Label("Compose", systemImage: "square.and.pencil")
+                                Label("Custom:Compose", systemImage: "square.and.pencil")
                             }
                         }
                     }
