@@ -56,31 +56,36 @@ public extension SignatureCaptureView {
          componentIdentifier: String? = SignatureCaptureView.identifier)
     {
         self.init(title: {
-            Text(NSLocalizedString("Signature", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""))
-        }, mandatoryFieldIndicator: mandatoryFieldIndicator,
-        isRequired: isRequired,
-        startSignatureAction: startSignatureAction,
-        reenterSignatureAction: reenterSignatureAction,
-        cancelAction: cancelAction,
-        clearAction: clearAction,
-        saveAction: saveAction,
-        xmark: xmark,
-        watermark: watermark,
-        signatureImage: signatureImage,
-        drawingViewMaxHeight: drawingViewMaxHeight,
-        drawingViewBackgroundColor: drawingViewBackgroundColor,
-        strokeWidth: strokeWidth,
-        appliesTintColorToImage: appliesTintColorToImage,
-        strokeColor: strokeColor,
-        signatureLineColor: signatureLineColor,
-        hidesSignatureLine: hidesSignatureLine,
-        watermarkAlignment: watermarkAlignment,
-        addsTimestampInImage: addsTimestampInImage,
-        timestampFormatter: timestampFormatter,
-        cropsImage: cropsImage,
-        onSave: onSave,
-        onDelete: onDelete,
-        componentIdentifier: componentIdentifier)
+                      HStack(spacing: 0) {
+                          Text(NSLocalizedString("Signature", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""))
+                          if isRequired {
+                              mandatoryFieldIndicator().typeErased
+                          }
+                          Spacer()
+                      }
+                  },
+                  startSignatureAction: startSignatureAction,
+                  reenterSignatureAction: reenterSignatureAction,
+                  cancelAction: cancelAction,
+                  clearAction: clearAction,
+                  saveAction: saveAction,
+                  xmark: xmark,
+                  watermark: watermark,
+                  signatureImage: signatureImage,
+                  drawingViewMaxHeight: drawingViewMaxHeight,
+                  drawingViewBackgroundColor: drawingViewBackgroundColor,
+                  strokeWidth: strokeWidth,
+                  appliesTintColorToImage: appliesTintColorToImage,
+                  strokeColor: strokeColor,
+                  signatureLineColor: signatureLineColor,
+                  hidesSignatureLine: hidesSignatureLine,
+                  watermarkAlignment: watermarkAlignment,
+                  addsTimestampInImage: addsTimestampInImage,
+                  timestampFormatter: timestampFormatter,
+                  cropsImage: cropsImage,
+                  onSave: onSave,
+                  onDelete: onDelete,
+                  componentIdentifier: componentIdentifier)
     }
 }
 
@@ -103,11 +108,6 @@ public struct SignatureCaptureViewBaseStyle: SignatureCaptureViewStyle {
             HStack {
                 Group {
                     configuration.title
-                    if configuration.isRequired, !configuration.mandatoryFieldIndicator.isEmpty {
-                        let requiredText = NSLocalizedString("Required Field", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Required Field")
-                        configuration.mandatoryFieldIndicator
-                            .accessibilityLabel(requiredText)
-                    }
                     Spacer()
                 }
                 .padding(.vertical, 11)
@@ -332,16 +332,6 @@ extension SignatureCaptureViewFioriStyle {
         
         func makeBody(_ configuration: TitleConfiguration) -> some View {
             Title(configuration)
-                .font(.fiori(forTextStyle: .subheadline).weight(.semibold))
-                .foregroundStyle(Color.preferredColor(.primaryLabel))
-        }
-    }
-    
-    struct MandatoryFieldIndicatorFioriStyle: MandatoryFieldIndicatorStyle {
-        let signatureCaptureViewConfiguration: SignatureCaptureViewConfiguration
-        
-        func makeBody(_ configuration: MandatoryFieldIndicatorConfiguration) -> some View {
-            MandatoryFieldIndicator(configuration)
                 .font(.fiori(forTextStyle: .subheadline).weight(.semibold))
                 .foregroundStyle(Color.preferredColor(.primaryLabel))
         }

@@ -13,20 +13,12 @@ public struct ListPickerItemBaseStyle: ListPickerItemStyle {
             case .horizontal:
                 HStack(spacing: 0) {
                     configuration.title
-                    if configuration.isRequired {
-                        configuration.mandatoryFieldIndicator
-                    }
                     Spacer()
                     configuration.value
                 }
             case .vertical:
                 CompactVStack(alignment: .leading) {
-                    HStack(spacing: 0) {
-                        configuration.title
-                        if configuration.isRequired {
-                            configuration.mandatoryFieldIndicator
-                        }
-                    }
+                    configuration.title
                     configuration.value
                 }
             }
@@ -48,15 +40,6 @@ extension ListPickerItemFioriStyle {
 
         func makeBody(_ configuration: TitleConfiguration) -> some View {
             Title(configuration)
-                .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
-                .foregroundStyle(Color.preferredColor(self.listPickerItemConfiguration.controlState == .disabled ? .quaternaryLabel : .primaryLabel))
-        }
-    }
-    
-    struct MandatoryFieldIndicatorFioriStyle: MandatoryFieldIndicatorStyle {
-        let listPickerItemConfiguration: ListPickerItemConfiguration
-        func makeBody(_ configuration: MandatoryFieldIndicatorConfiguration) -> some View {
-            MandatoryFieldIndicator(configuration)
                 .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
                 .foregroundStyle(Color.preferredColor(self.listPickerItemConfiguration.controlState == .disabled ? .quaternaryLabel : .primaryLabel))
         }

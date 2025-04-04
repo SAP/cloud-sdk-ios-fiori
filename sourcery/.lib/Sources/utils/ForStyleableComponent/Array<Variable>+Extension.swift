@@ -8,7 +8,10 @@ extension [Variable] {
     /// @Binding var textInput: String
     /// ```
     var propertyListDecl: String {
-        map { variable in
+        filter { variable in
+            variable.name != "mandatoryFieldIndicatorFlag"
+        }
+        .map { variable in
             var varDecl = variable.documentation.isEmpty ? "" : variable.docText + "\n"
             if let (_, returnType, _, _) = variable.resultBuilderAttrs,
                variable.closureParameters.isEmpty
@@ -32,7 +35,10 @@ extension [Variable] {
     }
     
     var viewBuilderInitParams: String {
-        map { variable in
+        filter { variable in
+            variable.name != "mandatoryFieldIndicatorFlag"
+        }
+        .map { variable in
             if let (name, returnType, defaultValue, _) = variable.resultBuilderAttrs {
                 if variable.closureParameters.isEmpty {
                     return "\(name) \(variable.name): () -> \(returnType)\(defaultValue.prependAssignmentIfNeeded())"
@@ -58,7 +64,10 @@ extension [Variable] {
     }
     
     func viewBuilderInitBody(isBaseComponent: Bool) -> String {
-        map { variable in
+        filter { variable in
+            variable.name != "mandatoryFieldIndicatorFlag"
+        }
+        .map { variable in
             let name = variable.name
             if variable.isResultBuilder {
                 if !variable.closureParameters.isEmpty {
@@ -90,6 +99,10 @@ extension [Variable] {
                 return "\(variable.name): Binding<\(variable.typeName)>"
             } else if variable.hasResultBuilderAttribute {
                 return variable.resultBuilderInitParamDecl
+            } else if variable.name == "mandatoryFieldIndicatorFlag" {
+                let mandatoryField = "mandatoryFieldIndicator: TextOrIcon? = .text(\"*\")"
+                let isRequired = "isRequired: Bool = false"
+                return "\(mandatoryField),\n\(isRequired)"
             } else {
                 return variable.regular_initParamDecl
             }
@@ -98,24 +111,58 @@ extension [Variable] {
     }
     
     var dataInitBody: String {
-        let initArgs = map { variable in
-            let name = variable.name
-            if let (_, _, _, backingComponent) = variable.resultBuilderAttrs,
-               variable.closureParameters.isEmpty
-            {
-                let arg = backingComponent.isEmpty ? "\(name)" : "\(backingComponent)(\(name))"
-                return "\(name): { \(arg) }"
-            } else {
-                return "\(name): \(name)"
+        var hasmandatoryFieldIndicatorFlag = false
+
+        let initArgs =
+            filter { variable in
+                if variable.name == "mandatoryFieldIndicatorFlag" {
+                    hasmandatoryFieldIndicatorFlag = true
+                }
+                return variable.name != "mandatoryFieldIndicatorFlag"
             }
-        }
-        .joined(separator: ", ")
+            .map { variable in
+                let name = variable.name
+                if let (_, _, _, backingComponent) = variable.resultBuilderAttrs,
+                   variable.closureParameters.isEmpty
+                {
+                    var arg = backingComponent.isEmpty ? "\(name)" : "\(backingComponent)(\(name))"
+
+                    if hasmandatoryFieldIndicatorFlag, backingComponent == "Text", name == "title" {
+                        arg = """
+
+                        Group {
+                                    if let mandatoryFieldIndicator, isRequired {
+                                        switch mandatoryFieldIndicator {
+                                        case .text(let attributedString):
+                                            Text(title) + Text(attributedString).accessibilityLabel(NSLocalizedString("Required Field", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Required Field"))
+                                        case .icon(let image):
+                                            Text(title) + Text(image).accessibilityLabel(NSLocalizedString("Required Field", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Required Field"))
+                                        case .both(let attributedString, let image):
+                                            Text(title) + Text(attributedString).accessibilityLabel(NSLocalizedString("Required Field", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Required Field")) + Text(image).accessibilityLabel("")
+                                        }
+                                    } else {
+                                        Text(title)
+                                    }
+                                }.typeErased
+
+                        """
+                    }
+
+                    return "\(name): { \(arg) }"
+                } else {
+                    return "\(name): \(name)"
+                }
+            }
+            .joined(separator: ", ")
         
         return "self.init(\(initArgs))"
     }
     
     var configurationInitBody: String {
-        map { variable in
+        filter { variable in
+            variable.name != "mandatoryFieldIndicatorFlag"
+        }
+        .map { variable in
             let name = variable.name
             if variable.isBinding {
                 return "self._\(name) = configuration.$\(name)"
@@ -127,7 +174,10 @@ extension [Variable] {
     }
     
     var configurationInitArgs: String {
-        map { variable in
+        filter { variable in
+            variable.name != "mandatoryFieldIndicatorFlag"
+        }
+        .map { variable in
             let name = variable.name
             if variable.isResultBuilder,
                variable.annotations.resultBuilderReturnType == nil,
@@ -168,6 +218,10 @@ extension [Variable] {
         var `typealias`: [String] = []
         for variable in self {
             let name = variable.name
+            if name == "mandatoryFieldIndicatorFlag" {
+                continue
+            }
+
             if variable.isResultBuilder,
                variable.closureParameters.isEmpty
             {

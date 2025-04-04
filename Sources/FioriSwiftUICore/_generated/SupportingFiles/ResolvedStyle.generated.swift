@@ -1491,22 +1491,6 @@ extension LowerThumbStyle {
     }
 }
 
-// MARK: MandatoryFieldIndicatorStyle
-
-struct ResolvedMandatoryFieldIndicatorStyle<Style: MandatoryFieldIndicatorStyle>: View {
-    let style: Style
-    let configuration: MandatoryFieldIndicatorConfiguration
-    var body: some View {
-        self.style.makeBody(self.configuration)
-    }
-}
-
-extension MandatoryFieldIndicatorStyle {
-    func resolve(configuration: MandatoryFieldIndicatorConfiguration) -> some View {
-        ResolvedMandatoryFieldIndicatorStyle(style: self, configuration: configuration)
-    }
-}
-
 // MARK: MediaImageStyle
 
 struct ResolvedMediaImageStyle<Style: MediaImageStyle>: View {

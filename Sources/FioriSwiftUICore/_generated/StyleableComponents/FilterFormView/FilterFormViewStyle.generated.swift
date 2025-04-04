@@ -24,8 +24,6 @@ struct AnyFilterFormViewStyle: FilterFormViewStyle {
 public struct FilterFormViewConfiguration {
     public var componentIdentifier: String = "fiori_filterformview_component"
     public let title: Title
-    public let mandatoryFieldIndicator: MandatoryFieldIndicator
-    public let isRequired: Bool
     public let options: [AttributedString]
     public let controlState: ControlState
     public let errorMessage: AttributedString?
@@ -38,7 +36,6 @@ public struct FilterFormViewConfiguration {
     public let onValueChange: (([Int]) -> Void)?
 
     public typealias Title = ConfigurationViewWrapper
-    public typealias MandatoryFieldIndicator = ConfigurationViewWrapper
 }
 
 extension FilterFormViewConfiguration {
@@ -51,7 +48,6 @@ public struct FilterFormViewFioriStyle: FilterFormViewStyle {
     public func makeBody(_ configuration: FilterFormViewConfiguration) -> some View {
         FilterFormView(configuration)
             .titleStyle(TitleFioriStyle(filterFormViewConfiguration: configuration))
-            .mandatoryFieldIndicatorStyle(MandatoryFieldIndicatorFioriStyle(filterFormViewConfiguration: configuration))
             .optionsStyle(OptionsFioriStyle(filterFormViewConfiguration: configuration))
             .formViewStyle(FormViewFioriStyle(filterFormViewConfiguration: configuration))
     }
