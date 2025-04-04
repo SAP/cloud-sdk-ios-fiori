@@ -4,13 +4,13 @@ import UniformTypeIdentifiers
 /// Constants for AttachmentGroup and Attachment component implementations. Also available to App so that App specific customization fits into SAP design and implementation.
 public enum AttachmentConstants {
     /// Thumbnail width
-    public static let cellWidth: CGFloat = 109
+    public static let thumbnailWidth: CGFloat = 109
     
     /// Thumbnail height
-    public static let cellHeight: CGFloat = 109
+    public static let thumbnailHeight: CGFloat = 109
 
     /// Thumbnail corner radius
-    public static let cellCornerRadius: CGFloat = 16
+    public static let thumbnailCornerRadius: CGFloat = 16
     
     /// Vertical spacing between thumbnail and (title, subtitle, and footnote)
     public static let cellVerticalSpacing: CGFloat = 10
@@ -35,9 +35,6 @@ public enum AttachmentConstants {
     
     /// Bottom padding for error message
     public static let errorMessageBottomPadding: CGFloat = 11
-    
-    /// Left and right padding
-    public static let leftAndRightPadding: CGFloat = 16
     
     /// Thumbnail border width
     public static let thumbnailBorderLineWidth: CGFloat = 1.5

@@ -68,8 +68,8 @@ struct AttachmentDelegateExample: View {
                     operations: {
                         AttachmentButtonImage()
                             .operationsMenu {
-                                AttachmentMenuItems.photos(filter: [.images])
-                                AttachmentMenuItems.files(filter: [.pdf, .presentation])
+                                PhotosPickerMenuItem(filter: [.images])
+                                FilesPickerMenuItem(filter: [.pdf, .presentation])
                             }
                     }
                 )
@@ -83,8 +83,8 @@ struct AttachmentDelegateExample: View {
                     operations: {
                         AttachmentButtonImage()
                             .operationsMenu {
-                                AttachmentMenuItems.photos(filter: [.images])
-                                AttachmentMenuItems.files(filter: [.pdf, .presentation])
+                                PhotosPickerMenuItem(filter: [.images])
+                                FilesPickerMenuItem(filter: [.pdf, .presentation])
                             }
                     }
                 )

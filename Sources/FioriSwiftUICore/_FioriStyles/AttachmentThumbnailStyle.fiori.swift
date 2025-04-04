@@ -12,9 +12,9 @@ public struct AttachmentThumbnailBaseStyle: AttachmentThumbnailStyle {
             image
                 .foregroundStyle(Color.preferredColor(.tertiaryLabel))
                 .frame(width: AttachmentConstants.iconWidth, height: AttachmentConstants.iconHeight)
-                .frame(width: AttachmentConstants.cellWidth, height: AttachmentConstants.cellHeight)
+                .frame(width: AttachmentConstants.thumbnailWidth, height: AttachmentConstants.thumbnailHeight)
                 .clipShape(
-                    RoundedRectangle(cornerRadius: AttachmentConstants.cellCornerRadius)
+                    RoundedRectangle(cornerRadius: AttachmentConstants.thumbnailCornerRadius)
                 )
         } else {
             Self.getDefaultThumbnail(url: configuration.url)
@@ -23,9 +23,9 @@ public struct AttachmentThumbnailBaseStyle: AttachmentThumbnailStyle {
                 .foregroundStyle(Color.preferredColor(.tertiaryLabel))
                 .foregroundStyle(Color.preferredColor(.tertiaryLabel))
                 .frame(width: AttachmentConstants.iconWidth, height: AttachmentConstants.iconHeight)
-                .frame(width: AttachmentConstants.cellWidth, height: AttachmentConstants.cellHeight)
+                .frame(width: AttachmentConstants.thumbnailWidth, height: AttachmentConstants.thumbnailHeight)
                 .overlay(
-                    RoundedRectangle(cornerRadius: AttachmentConstants.cellCornerRadius)
+                    RoundedRectangle(cornerRadius: AttachmentConstants.thumbnailCornerRadius)
                         .stroke(Color.preferredColor(.separator), lineWidth: AttachmentConstants.thumbnailBorderLineWidth)
                 )
                 .onAppear {
