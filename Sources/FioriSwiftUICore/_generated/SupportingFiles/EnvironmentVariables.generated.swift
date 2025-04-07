@@ -3363,6 +3363,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: TextWithMandatoryFieldIndicatorStyle
+
+struct TextWithMandatoryFieldIndicatorStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any TextWithMandatoryFieldIndicatorStyle] = []
+}
+
+extension EnvironmentValues {
+    var textWithMandatoryFieldIndicatorStyle: any TextWithMandatoryFieldIndicatorStyle {
+        self.textWithMandatoryFieldIndicatorStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var textWithMandatoryFieldIndicatorStyleStack: [any TextWithMandatoryFieldIndicatorStyle] {
+        get {
+            self[TextWithMandatoryFieldIndicatorStyleStackKey.self]
+        }
+        set {
+            self[TextWithMandatoryFieldIndicatorStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: TimelineStyle
 
 struct TimelineStyleStackKey: EnvironmentKey {

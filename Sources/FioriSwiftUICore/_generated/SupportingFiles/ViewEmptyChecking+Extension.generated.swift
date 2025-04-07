@@ -1142,6 +1142,12 @@ extension TextView: _ViewEmptyChecking {
     }
 }
 
+extension TextWithMandatoryFieldIndicator: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        false
+    }
+}
+
 extension Timeline: _ViewEmptyChecking {
     public var isEmpty: Bool {
         timestamp.isEmpty &&

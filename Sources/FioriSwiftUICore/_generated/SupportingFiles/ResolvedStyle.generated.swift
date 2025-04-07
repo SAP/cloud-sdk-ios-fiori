@@ -2563,6 +2563,22 @@ extension TextViewStyle {
     }
 }
 
+// MARK: TextWithMandatoryFieldIndicatorStyle
+
+struct ResolvedTextWithMandatoryFieldIndicatorStyle<Style: TextWithMandatoryFieldIndicatorStyle>: View {
+    let style: Style
+    let configuration: TextWithMandatoryFieldIndicatorConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension TextWithMandatoryFieldIndicatorStyle {
+    func resolve(configuration: TextWithMandatoryFieldIndicatorConfiguration) -> some View {
+        ResolvedTextWithMandatoryFieldIndicatorStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: TimelineStyle
 
 struct ResolvedTimelineStyle<Style: TimelineStyle>: View {

@@ -163,20 +163,7 @@ public extension SignatureCaptureView {
          onDelete: (() -> Void)? = nil)
     {
         self.init(title: {
-            Group {
-                if let mandatoryFieldIndicator, isRequired {
-                    switch mandatoryFieldIndicator {
-                    case .text(let attributedString):
-                        Text(title) + Text(attributedString).accessibilityLabel(NSLocalizedString("Required Field", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Required Field"))
-                    case .icon(let image):
-                        Text(title) + Text(image).accessibilityLabel(NSLocalizedString("Required Field", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Required Field"))
-                    case .both(let attributedString, let image):
-                        Text(title) + Text(attributedString).accessibilityLabel(NSLocalizedString("Required Field", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Required Field")) + Text(image).accessibilityLabel("")
-                    }
-                } else {
-                    Text(title)
-                }
-            }.typeErased
+            TextWithMandatoryFieldIndicator(text: title, isRequired: isRequired, mandatoryFieldIndicator: mandatoryFieldIndicator)
         }, startSignatureAction: { startSignatureAction }, reenterSignatureAction: { reenterSignatureAction }, cancelAction: { cancelAction }, clearAction: { clearAction }, saveAction: { saveAction }, xmark: { xmark }, watermark: { OptionalText(watermark) }, signatureImage: signatureImage, drawingViewMaxHeight: drawingViewMaxHeight, drawingViewBackgroundColor: drawingViewBackgroundColor, strokeWidth: strokeWidth, appliesTintColorToImage: appliesTintColorToImage, strokeColor: strokeColor, signatureLineColor: signatureLineColor, hidesSignatureLine: hidesSignatureLine, watermarkAlignment: watermarkAlignment, addsTimestampInImage: addsTimestampInImage, timestampFormatter: timestampFormatter, cropsImage: cropsImage, onSave: onSave, onDelete: onDelete)
     }
 }

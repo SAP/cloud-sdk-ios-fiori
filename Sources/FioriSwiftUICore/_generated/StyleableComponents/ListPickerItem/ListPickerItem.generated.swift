@@ -93,20 +93,7 @@ public extension ListPickerItem {
          @ViewBuilder destination: () -> any View = { EmptyView() })
     {
         self.init(title: {
-            Group {
-                if let mandatoryFieldIndicator, isRequired {
-                    switch mandatoryFieldIndicator {
-                    case .text(let attributedString):
-                        Text(title) + Text(attributedString).accessibilityLabel(NSLocalizedString("Required Field", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Required Field"))
-                    case .icon(let image):
-                        Text(title) + Text(image).accessibilityLabel(NSLocalizedString("Required Field", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Required Field"))
-                    case .both(let attributedString, let image):
-                        Text(title) + Text(attributedString).accessibilityLabel(NSLocalizedString("Required Field", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Required Field")) + Text(image).accessibilityLabel("")
-                    }
-                } else {
-                    Text(title)
-                }
-            }.typeErased
+            TextWithMandatoryFieldIndicator(text: title, isRequired: isRequired, mandatoryFieldIndicator: mandatoryFieldIndicator)
         }, value: { OptionalText(value) }, controlState: controlState, errorMessage: errorMessage, axis: axis, destination: destination)
     }
 }
