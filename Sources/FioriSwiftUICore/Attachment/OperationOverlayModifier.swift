@@ -13,6 +13,11 @@ public struct OperationOverlayModifier<V: View>: ViewModifier where V: View {
     public func body(content: Content) -> some View {
         content
             .defaultOperations()
+            .accessibilityElement(children: .ignore)
+            .accessibilityIdentifier("Attachment:AddAttachmentButton")
+            .accessibilityAddTraits(.isButton)
+            .accessibilityLabel(NSLocalizedString("Add attachment", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Add attachment"))
+            .accessibilityHint(NSLocalizedString("Double tap to add attachment", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Double tap to add attachment"))
             .onTapGesture {
                 self.showSubViews.toggle()
             }

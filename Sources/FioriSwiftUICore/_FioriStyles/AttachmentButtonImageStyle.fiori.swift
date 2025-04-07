@@ -18,9 +18,9 @@ extension AttachmentButtonImageFioriStyle {
             AttachmentButtonImage(configuration)
                 .frame(width: AttachmentConstants.iconWidth, height: AttachmentConstants.iconHeight)
                 .foregroundStyle(configuration.controlState == .disabled ? Color.preferredColor(.quaternaryLabel) : Color.preferredColor(.primaryLabel))
-                .frame(width: AttachmentConstants.cellWidth, height: AttachmentConstants.cellHeight)
+                .frame(width: AttachmentConstants.thumbnailWidth, height: AttachmentConstants.thumbnailHeight)
                 .background(configuration.controlState == .disabled ? Color.preferredColor(.tertiaryFill) : Color.preferredColor(.quaternaryFill))
-                .clipShape(RoundedRectangle(cornerRadius: AttachmentConstants.cellCornerRadius))
+                .clipShape(RoundedRectangle(cornerRadius: AttachmentConstants.thumbnailCornerRadius))
         }
     }
 }

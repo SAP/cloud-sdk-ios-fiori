@@ -1,3 +1,4 @@
+import OSLog
 import QuickLook
 import SwiftUI
 
@@ -39,7 +40,7 @@ extension AttachmentThumbnailStyle {
 
 extension AttachmentThumbnailBaseStyle {
     func generateThumbnail(url: URL) {
-        let size = CGSize(width: AttachmentConstants.cellWidth, height: AttachmentConstants.cellHeight)
+        let size = CGSize(width: AttachmentConstants.thumbnailWidth, height: AttachmentConstants.thumbnailHeight)
         let scale = UIScreen.main.scale
         let request = QLThumbnailGenerator.Request(
             fileAt: url,
@@ -52,7 +53,7 @@ extension AttachmentThumbnailBaseStyle {
         generator.generateBestRepresentation(for: request) { thumbnail, error in
             DispatchQueue.main.async {
                 if let error {
-                    print(error)
+                    os_log("Error generating thumbnail: %@", log: OSLog.coreLogger, type: .debug, "\(error)")
                     return
                 }
                 if let thumbnailUiImage = thumbnail?.uiImage {

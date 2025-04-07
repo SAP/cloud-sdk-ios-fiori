@@ -15,28 +15,35 @@ struct AttachmentExamples: View {
                 NavigationLink(
                     destination: AttachmentGroupExample(),
                     label: {
-                        Text("AttachmentGroup")
+                        Text("Attachment")
                     }
                 )
 
                 NavigationLink(
                     destination: AttachmentGroupCustomExample(),
                     label: {
-                        Text("AttachmentGroup -- Custom")
+                        Text("Attachment -- Custom")
                     }
                 )
 
                 NavigationLink(
                     destination: AttachmentDelegateExample(),
                     label: {
-                        Text("Attachment Delegate Example")
+                        Text("Attachment Delegate")
+                    }
+                )
+                
+                NavigationLink(
+                    destination: MandatoryAttachmentExample(),
+                    label: {
+                        Text("Mandatory Attachment")
                     }
                 )
 
                 NavigationLink(
                     destination: AttachmentPreviewExample(),
                     label: {
-                        Text("Preview Examples")
+                        Text("Previews")
                     }
                 )
             }
@@ -47,5 +54,5 @@ struct AttachmentExamples: View {
 }
 
 #Preview {
-    SimpleTimelineExample()
+    AttachmentExamples()
 }
