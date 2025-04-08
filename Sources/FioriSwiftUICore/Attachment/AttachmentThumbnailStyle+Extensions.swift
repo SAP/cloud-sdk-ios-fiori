@@ -41,7 +41,11 @@ extension AttachmentThumbnailStyle {
 extension AttachmentThumbnailBaseStyle {
     func generateThumbnail(url: URL) {
         let size = CGSize(width: AttachmentConstants.thumbnailWidth, height: AttachmentConstants.thumbnailHeight)
-        let scale = UIScreen.main.scale
+        #if os(visionOS)
+            let scale = 1.0
+        #else
+            let scale = UIScreen.main.scale
+        #endif
         let request = QLThumbnailGenerator.Request(
             fileAt: url,
             size: size,

@@ -195,22 +195,13 @@
 		C106AD462B338D1300FE8B35 /* SearchWithToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = C106AD452B338D1300FE8B35 /* SearchWithToken.swift */; };
 		C106AD482B33940600FE8B35 /* SearchWithBookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = C106AD472B33940600FE8B35 /* SearchWithBookmark.swift */; };
 		C106AD4A2B33970500FE8B35 /* SearchPromptFontAndColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C106AD492B33970500FE8B35 /* SearchPromptFontAndColor.swift */; };
-		C12EDC562D5A8D00006CF674 /* Sandbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12EDC552D5A8CF5006CF674 /* Sandbox.swift */; };
-		C12EDF692D5EB2CE006CF674 /* AttachmentPreviewExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12EDF682D5EB2BA006CF674 /* AttachmentPreviewExample.swift */; };
 		C12EDF6B2D5EB98F006CF674 /* Square Image.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = C12EDF6A2D5EB98F006CF674 /* Square Image.jpeg */; };
 		C150CCCC2B86B78E00118DF7 /* ChromeEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = C150CCCB2B86B78E00118DF7 /* ChromeEffect.swift */; };
 		C167183C2B477A81005E2629 /* SearchDemos.swift in Sources */ = {isa = PBXBuildFile; fileRef = C167183B2B477A81005E2629 /* SearchDemos.swift */; };
-		C180F3092D7A3F4700991974 /* AttachmentDelegateExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = C180F3082D7A3F3200991974 /* AttachmentDelegateExample.swift */; };
-		C180F30D2D820E5000991974 /* AttachmentExamples.swift in Sources */ = {isa = PBXBuildFile; fileRef = C180F30C2D820E4200991974 /* AttachmentExamples.swift */; };
-		C1865D9D2D6D31BF00C42A98 /* FileFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1865D9C2D6D31B600C42A98 /* FileFilter.swift */; };
-		C1865D9F2D6D31C800C42A98 /* PhotoFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1865D9E2D6D31C400C42A98 /* PhotoFilter.swift */; };
-		C1865DA12D6D323100C42A98 /* FilterCFG.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1865DA02D6D322600C42A98 /* FilterCFG.swift */; };
 		C18868D12B32535100F865F7 /* SearchFontAndColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18868D02B32535100F865F7 /* SearchFontAndColor.swift */; };
 		C18868D32B32580800F865F7 /* ColorEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18868D22B32580800F865F7 /* ColorEntity.swift */; };
-		C19CAF852D41B6E30052FF2D /* AttachmentGroupExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19CAF842D41B6C90052FF2D /* AttachmentGroupExample.swift */; };
 		C1A0FDB32AD893FA0001738E /* SortFilterView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A0FDB22AD893FA0001738E /* SortFilterView+Extensions.swift */; };
 		C1C764882A818BEC00BCB0F7 /* SortFilterExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C764872A818BEC00BCB0F7 /* SortFilterExample.swift */; };
-		C1ECE3292D2C8F27003ACD24 /* AttachmentGroupCustomExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1ECE3242D2C8F27003ACD24 /* AttachmentGroupCustomExample.swift */; };
 		C1ECE33D2D2C8F68003ACD24 /* SVG File Example.svg in Resources */ = {isa = PBXBuildFile; fileRef = C1ECE3382D2C8F68003ACD24 /* SVG File Example.svg */; };
 		C1ECE33E2D2C8F68003ACD24 /* Text File Example.txt in Resources */ = {isa = PBXBuildFile; fileRef = C1ECE3392D2C8F68003ACD24 /* Text File Example.txt */; };
 		C1ECE33F2D2C8F68003ACD24 /* Burr Oaked Redux - Portrait.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C1ECE32F2D2C8F68003ACD24 /* Burr Oaked Redux - Portrait.jpg */; };
@@ -463,22 +454,13 @@
 		C106AD452B338D1300FE8B35 /* SearchWithToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchWithToken.swift; sourceTree = "<group>"; };
 		C106AD472B33940600FE8B35 /* SearchWithBookmark.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchWithBookmark.swift; sourceTree = "<group>"; };
 		C106AD492B33970500FE8B35 /* SearchPromptFontAndColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchPromptFontAndColor.swift; sourceTree = "<group>"; };
-		C12EDC552D5A8CF5006CF674 /* Sandbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sandbox.swift; sourceTree = "<group>"; };
-		C12EDF682D5EB2BA006CF674 /* AttachmentPreviewExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentPreviewExample.swift; sourceTree = "<group>"; };
 		C12EDF6A2D5EB98F006CF674 /* Square Image.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Square Image.jpeg"; sourceTree = "<group>"; };
 		C150CCCB2B86B78E00118DF7 /* ChromeEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChromeEffect.swift; sourceTree = "<group>"; };
 		C167183B2B477A81005E2629 /* SearchDemos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDemos.swift; sourceTree = "<group>"; };
-		C180F3082D7A3F3200991974 /* AttachmentDelegateExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentDelegateExample.swift; sourceTree = "<group>"; };
-		C180F30C2D820E4200991974 /* AttachmentExamples.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentExamples.swift; sourceTree = "<group>"; };
-		C1865D9C2D6D31B600C42A98 /* FileFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileFilter.swift; sourceTree = "<group>"; };
-		C1865D9E2D6D31C400C42A98 /* PhotoFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoFilter.swift; sourceTree = "<group>"; };
-		C1865DA02D6D322600C42A98 /* FilterCFG.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCFG.swift; sourceTree = "<group>"; };
 		C18868D02B32535100F865F7 /* SearchFontAndColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFontAndColor.swift; sourceTree = "<group>"; };
 		C18868D22B32580800F865F7 /* ColorEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorEntity.swift; sourceTree = "<group>"; };
-		C19CAF842D41B6C90052FF2D /* AttachmentGroupExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentGroupExample.swift; sourceTree = "<group>"; };
 		C1A0FDB22AD893FA0001738E /* SortFilterView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SortFilterView+Extensions.swift"; sourceTree = "<group>"; };
 		C1C764872A818BEC00BCB0F7 /* SortFilterExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortFilterExample.swift; sourceTree = "<group>"; };
-		C1ECE3242D2C8F27003ACD24 /* AttachmentGroupCustomExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentGroupCustomExample.swift; sourceTree = "<group>"; };
 		C1ECE32D2D2C8F68003ACD24 /* Big Tree with spring picnic - Landscape.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Big Tree with spring picnic - Landscape.jpg"; sourceTree = "<group>"; };
 		C1ECE32E2D2C8F68003ACD24 /* Blocks and Tables.dwf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Blocks and Tables.dwf"; sourceTree = "<group>"; };
 		C1ECE32F2D2C8F68003ACD24 /* Burr Oaked Redux - Portrait.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Burr Oaked Redux - Portrait.jpg"; sourceTree = "<group>"; };
@@ -500,6 +482,7 @@
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		3B660C982D156B7000E92505 /* Slider */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Slider; sourceTree = "<group>"; };
+		564CC0272DA46C4100A419A7 /* Attachment */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Attachment; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -812,7 +795,7 @@
 		8A5579C824C1293C0098003A /* FioriSwiftUICore */ = {
 			isa = PBXGroup;
 			children = (
-				C1ECE3272D2C8F27003ACD24 /* Attachment */,
+				564CC0272DA46C4100A419A7 /* Attachment */,
 				6D66D7F02D02FC7B00F7A97D /* ActivityItem */,
 				87F14B192CD86F65004A69A0 /* DocumentScannerView */,
 				3CD71F272CDB625000B037EB /* CheckoutIndicator */,
@@ -1132,22 +1115,6 @@
 			path = SortFilter;
 			sourceTree = "<group>";
 		};
-		C1ECE3272D2C8F27003ACD24 /* Attachment */ = {
-			isa = PBXGroup;
-			children = (
-				C180F30C2D820E4200991974 /* AttachmentExamples.swift */,
-				C180F3082D7A3F3200991974 /* AttachmentDelegateExample.swift */,
-				C1865DA02D6D322600C42A98 /* FilterCFG.swift */,
-				C1865D9E2D6D31C400C42A98 /* PhotoFilter.swift */,
-				C1865D9C2D6D31B600C42A98 /* FileFilter.swift */,
-				C12EDF682D5EB2BA006CF674 /* AttachmentPreviewExample.swift */,
-				C12EDC552D5A8CF5006CF674 /* Sandbox.swift */,
-				C19CAF842D41B6C90052FF2D /* AttachmentGroupExample.swift */,
-				C1ECE3242D2C8F27003ACD24 /* AttachmentGroupCustomExample.swift */,
-			);
-			path = Attachment;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1189,6 +1156,7 @@
 			);
 			fileSystemSynchronizedGroups = (
 				3B660C982D156B7000E92505 /* Slider */,
+				564CC0272DA46C4100A419A7 /* Attachment */,
 			);
 			name = Examples;
 			packageProductDependencies = (
@@ -1306,7 +1274,6 @@
 				B18D2E9F2988B07B000A1821 /* KPIHeaderExample.swift in Sources */,
 				9DEC27992C3C5C620070B571 /* RatingControlExample.swift in Sources */,
 				8AB6C01428DF6583002F32BE /* LazyView.swift in Sources */,
-				C180F3092D7A3F4700991974 /* AttachmentDelegateExample.swift in Sources */,
 				6D6E86672C50FDBE00EDB6F4 /* FioriButtonInCollectionExample.swift in Sources */,
 				691DE21925F2A30B00094D4A /* KPIItemExample.swift in Sources */,
 				AB988B102631270300483D87 /* DataTableExample.swift in Sources */,
@@ -1333,7 +1300,6 @@
 				9D0B26082B9BA5C0004278A5 /* FormViewExamples.swift in Sources */,
 				B13408922B01FA0700600331 /* NavigationBarExample.swift in Sources */,
 				B84D24F22652F343007F2373 /* ObjectHeaderDeveloperExample.swift in Sources */,
-				C1865D9D2D6D31BF00C42A98 /* FileFilter.swift in Sources */,
 				64905D092C7693970062AAD4 /* DateTimePickerExample.swift in Sources */,
 				B80DA9C2260D04FB00C0B2E9 /* SingleActionLongFollowButton.swift in Sources */,
 				8A6D64BA25AE714100D2D76C /* ExampleHighlightingStyle.swift in Sources */,
@@ -1365,7 +1331,6 @@
 				6DEC31F42C463ED50084DD20 /* FioriButtonTestsExample.swift in Sources */,
 				8A6DE30B28DD27F9003222E3 /* Colors.swift in Sources */,
 				876964222D6B7D0C005AB5B2 /* KPIViewExample.swift in Sources */,
-				C180F30D2D820E5000991974 /* AttachmentExamples.swift in Sources */,
 				8AD9DFB225D49967007448EC /* StylingModifierExample.swift in Sources */,
 				9D0B260A2B9BA5C0004278A5 /* NoteFormViewExample.swift in Sources */,
 				B1A78D982C88388B00432B0D /* ShadowEffectExample.swift in Sources */,
@@ -1400,7 +1365,6 @@
 				6D14F05E2C9290F20053BA98 /* BannerMultiMessageCustomInitExample.swift in Sources */,
 				6D66D7F12D02FC7B00F7A97D /* ActivityItemExample.swift in Sources */,
 				6DEC32042C4E49C70084DD20 /* CardFixedWidthButtonsExample.swift in Sources */,
-				C1865DA12D6D323100C42A98 /* FilterCFG.swift in Sources */,
 				B1C7DC8129FBB13F00DC5EEB /* SPIModelExample.swift in Sources */,
 				6D6E25672D364F78009A62CA /* OnBoardingWelcomeScreenExamples.swift in Sources */,
 				C106AD462B338D1300FE8B35 /* SearchWithToken.swift in Sources */,
@@ -1417,7 +1381,6 @@
 				B846F94826815DE50085044B /* ContactItemRegularExamples.swift in Sources */,
 				64A3FF012D12527F00992B24 /* DimensionSelectorExample.swift in Sources */,
 				9D00866A2BA8F6820004BE15 /* TextFieldFormViewExample.swift in Sources */,
-				C19CAF852D41B6E30052FF2D /* AttachmentGroupExample.swift in Sources */,
 				878219C42BEE128E002FDFBC /* StepperViewExample.swift in Sources */,
 				3CDD6ECD2CE4277300DDAE7D /* CheckoutIndicatorModalExample.swift in Sources */,
 				3C180C282B858CF6007CE79A /* IllustratedMessageExample.swift in Sources */,
@@ -1439,7 +1402,6 @@
 				B80DA9C72612A54E00C0B2E9 /* WelcomeScreenSample.swift in Sources */,
 				8A5579D724C1293C0098003A /* SettingsCategoryAxis.swift in Sources */,
 				9D0086692BA8F6820004BE15 /* TitleFormViewExample.swift in Sources */,
-				C12EDF692D5EB2CE006CF674 /* AttachmentPreviewExample.swift in Sources */,
 				6DEC31F82C47B7850084DD20 /* FioriButtonStyleToggleExample.swift in Sources */,
 				B141D6BB29261F9E008A8BD6 /* SearchableListViewExample.swift in Sources */,
 				6D6E256D2D378025009A62CA /* FilterFormViewExamples.swift in Sources */,
@@ -1455,14 +1417,12 @@
 				692F338B26556A6A009B98DA /* SideBarExample.swift in Sources */,
 				8A5579D324C1293C0098003A /* SettingsPoint.swift in Sources */,
 				B80DA9BA260BBF8600C0B2E9 /* SingleActionProfiles.swift in Sources */,
-				C1ECE3292D2C8F27003ACD24 /* AttachmentGroupCustomExample.swift in Sources */,
 				87F492352C73ADAA002B8703 /* TimelinePreviewExample.swift in Sources */,
 				87FF0C282D08A9DC00E55EB5 /* _KPIProgressViewExample.swift in Sources */,
 				B18D593C2B0C52C700ABB1AD /* TabViewExample.swift in Sources */,
 				8A5579D424C1293C0098003A /* SettingsBaseline.swift in Sources */,
 				87F492312C73AD99002B8703 /* CustomTimelinePreviewExample.swift in Sources */,
 				1F90888C261A59820015A84D /* FioriButtonExample.swift in Sources */,
-				C12EDC562D5A8D00006CF674 /* Sandbox.swift in Sources */,
 				5590847D2D6D94210007EAAC /* _EmptyStateViewExample.swift in Sources */,
 				3CD71F292CDB627300B037EB /* CheckoutIndicatorExample.swift in Sources */,
 				6D6E86252C50D42000EDB6F4 /* FioriButtonInListExample.swift in Sources */,
@@ -1481,7 +1441,6 @@
 				64905D072C6D13E20062AAD4 /* SwitchExample.swift in Sources */,
 				B1F6FC302B22BDDA005190F9 /* ToolbarView.swift in Sources */,
 				B84D24EF2652F343007F2373 /* ObjectHeaderTestApp.swift in Sources */,
-				C1865D9F2D6D31C800C42A98 /* PhotoFilter.swift in Sources */,
 				B84D24EC2652F343007F2373 /* ObjectHeaderSpecCompact.swift in Sources */,
 				8A5579CD24C1293C0098003A /* SettingsLabel.swift in Sources */,
 			);
