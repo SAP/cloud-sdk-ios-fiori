@@ -366,11 +366,15 @@ extension FioriSliderFioriStyle {
         func makeBody(_ configuration: RangeSliderControlConfiguration) -> some View {
             guard self.fioriSliderConfiguration.isRangeSlider else {
                 return AnyView(RangeSliderControl(configuration))
+                    .shadow(.smallElement)
+                    .typeErased
             }
             
             let isEditableSlider = self.fioriSliderConfiguration.leadingAccessory.isEmpty && self.fioriSliderConfiguration.trailingAccessory.isEmpty
             return AnyView(RangeSliderControl(configuration)
                 .accessibilityAdjustments(self.getAccessibility(self.fioriSliderConfiguration, isEditableSlider)))
+                .shadow(.smallElement)
+                .typeErased
         }
         
         func getAccessibility(_ configuration: FioriSliderConfiguration, _ isEditableSlider: Bool) -> RangeSliderAccessibilityModel {

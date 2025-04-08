@@ -316,3 +316,69 @@
 /* Progress Indicator accessibility label: progress halted with indicator progress */
 "Progress halted, %.0f" = "Процес виконання призупинено, %.0f";
 
+/* XACT: Slider accessibility label */
+"This is %@ slider whose maximum value is %@ and minimum value is %@" = "Це повзунок %@, максимальне значення якого дорівнює %@, а мінімальне значення дорівнює %@";
+
+/* XACT: Slider accessibility value */
+"Current value is %@" = "Поточне значення - %@";
+
+/* XACT: Range Slider lower thumb accessibility label */
+"lower range slider thumb, current value is" = "нижній бігунок повзунка діапазону, поточне значення -";
+
+/* XACT: Range Slider lower thumb accessibility hint */
+"you can swipe up or down to change the lower value" = "ви можете провести пальцем уверх або вниз, щоб змінити нижнє значення";
+
+/* XACT: Range Slider upper thumb accessibility label */
+"upper range slider thumb, current value is" = "верхній бігунок повзунка діапазону, поточне значення -";
+
+/* XACT: Range Slider upper thumb accessibility hint */
+"you can swipe up or down to change the upper value" = "ви можете провести пальцем вгору або вниз, щоб змінити верхнє значення";
+
+/* XACT: Single editable Slider thumb accessibility label */
+"slider thumb, current value is" = "бігунок повзунка, поточне значення -";
+
+/* XACT: Single editable Slider thumb accessibility hint */
+"you can swipe up or down to change the value" = "ви можете провести пальцем уверх або вниз, щоб змінити значення";
+
+/* XACT: Single Slider accessibility label */
+"This is a slider, the minimum value is %@ and the maximum value is %@" = "Це повзунок, мінімальне значення - %@, і максимальне - %@";
+
+/* XACT: Range Slider accessibility label */
+"This is a range slider, the minimum value is %@ and the maximum value is %@" = "Це повзунок діапазону, мінімальне значення - %@, і максимальне - %@";
+
+/* XACT: Single editable Slider accessibility label */
+"This is a slider that is editable, the minimum value is %@ and the maximum value is %@" = "Це повзунок, який можна редагувати, мінімальне значення - %@, і максимальне - %@";
+
+/* XACT: Single non-editable Slider accessibility label */
+"This is a slider that can't be edited, the minimum value is %@ and the maximum value is %@" = "Це повзунок, який не можна редагувати, мінімальне значення - %@, і максимальне - %@";
+
+/* XACT: Range editable Slider accessibility label */
+"This is a range slider that is editable, the minimum value is %@ and the maximum value is %@" = "Це повзунок діапазону, який можна редагувати, мінімальне значення - %@, і максимальне - %@";
+
+/* XACT: Range non-editable Slider accessibility label */
+"This is a range slider that can't be edited, the minimum value is %@ and the maximum value is %@" = "Це повзунок діапазону, який не можна редагувати, мінімальне значення - %@, і максимальне - %@";
+
+/* XACT: Single editable Slider Text Field accessibility label */
+"slider value text field" = "текстове поле значення повзунка";
+
+/* XACT: Range editable Slider Lower Value Text Field accessibility label */
+"lower value text field" = "текстове поле нижнього значення";
+
+/* XACT: Range editable Slider Upper Value Text Field accessibility label */
+"upper value text field" = "текстове поле верхнього значення";
+
+/* XACT: Editable Slider Text Field accessibility hint */
+"You can double tap to input a specific value" = "Ви можете двічі торкнутися, щоб ввести конкретне значення";
+
+/* XACT: Editable Slider Text Field accessibility value */
+"current value is %@" = "поточне значення - %@";
+
+/* XACT: Range Editable Slider accessibility value */
+"current lower value is %@, upper value is %@" = "поточне нижнє значення - %@, верхнє значення - %@";
+
+/* XTIT: Title of step progress indicator, see https://experience.sap.com/fiori-design-ios/article/step-progress-indicator/#adaptive-design */
+"All Steps" = "Усі кроки";
+
+/* XMSG: AI Notice message */
+"Suggested by AI. Verify before use. " = "Запропоновано ШІ. Перевірте перед використанням. ";
+

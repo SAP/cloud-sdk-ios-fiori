@@ -385,7 +385,7 @@ public struct CardCardStyle: CardStyle {
                     .stroke(Color.preferredColor(.tertiaryLabel).opacity(0.24), lineWidth: 0.3)
             )
             .clipShape(RoundedRectangle(cornerRadius: 16))
-            .shadow(color: Color.preferredColor(.cardShadow).opacity(0.92), radius: 8, x: 0, y: 2)
+            .shadow(.level2)
     }
 }
 

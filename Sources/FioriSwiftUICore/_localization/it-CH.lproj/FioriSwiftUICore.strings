@@ -316,3 +316,69 @@
 /* Progress Indicator accessibility label: progress halted with indicator progress */
 "Progress halted, %.0f" = "Avanzamento arrestato, %.0f";
 
+/* XACT: Slider accessibility label */
+"This is %@ slider whose maximum value is %@ and minimum value is %@" = "Questo è lo slider %@ con valore massimo %@ e valore minimo %@";
+
+/* XACT: Slider accessibility value */
+"Current value is %@" = "Il valore corrente è %@";
+
+/* XACT: Range Slider lower thumb accessibility label */
+"lower range slider thumb, current value is" = "cursore dello slider intervallo inferiore, il valore corrente è";
+
+/* XACT: Range Slider lower thumb accessibility hint */
+"you can swipe up or down to change the lower value" = "è possibile scorrere con il dito in alto o in basso per modificare il valore inferiore";
+
+/* XACT: Range Slider upper thumb accessibility label */
+"upper range slider thumb, current value is" = "cursore dello slider intervallo superiore, il valore corrente è";
+
+/* XACT: Range Slider upper thumb accessibility hint */
+"you can swipe up or down to change the upper value" = "è possibile scorrere con il dito in alto o in basso per modificare il valore superiore";
+
+/* XACT: Single editable Slider thumb accessibility label */
+"slider thumb, current value is" = "cursore dello slider, il valore corrente è";
+
+/* XACT: Single editable Slider thumb accessibility hint */
+"you can swipe up or down to change the value" = "è possibile scorrere con il dito in alto o in basso per modificare il valore";
+
+/* XACT: Single Slider accessibility label */
+"This is a slider, the minimum value is %@ and the maximum value is %@" = "Questo è uno slider, il valore minimo è %@ e il valore massimo è %@";
+
+/* XACT: Range Slider accessibility label */
+"This is a range slider, the minimum value is %@ and the maximum value is %@" = "Questo è uno slider di intervallo, il valore minimo è %@ e il valore massimo è %@";
+
+/* XACT: Single editable Slider accessibility label */
+"This is a slider that is editable, the minimum value is %@ and the maximum value is %@" = "Questo è uno slider modificabile, il valore minimo è %@ e il valore massimo è %@";
+
+/* XACT: Single non-editable Slider accessibility label */
+"This is a slider that can't be edited, the minimum value is %@ and the maximum value is %@" = "Questo è uno slider non modificabile, il valore minimo è %@ e il valore massimo è %@";
+
+/* XACT: Range editable Slider accessibility label */
+"This is a range slider that is editable, the minimum value is %@ and the maximum value is %@" = "Questo è uno slider intervallo modificabile, il valore minimo è %@ e il valore massimo è %@";
+
+/* XACT: Range non-editable Slider accessibility label */
+"This is a range slider that can't be edited, the minimum value is %@ and the maximum value is %@" = "Questo è uno slider intervallo non modificabile, il valore minimo è %@ e il valore massimo è %@";
+
+/* XACT: Single editable Slider Text Field accessibility label */
+"slider value text field" = "campo di testo valore slider";
+
+/* XACT: Range editable Slider Lower Value Text Field accessibility label */
+"lower value text field" = "campo di testo valore inferiore";
+
+/* XACT: Range editable Slider Upper Value Text Field accessibility label */
+"upper value text field" = "campo di testo valore superiore";
+
+/* XACT: Editable Slider Text Field accessibility hint */
+"You can double tap to input a specific value" = "È possibile toccare due volte per inserire un determinato valore";
+
+/* XACT: Editable Slider Text Field accessibility value */
+"current value is %@" = "il valore corrente è %@";
+
+/* XACT: Range Editable Slider accessibility value */
+"current lower value is %@, upper value is %@" = "il valore inferiore corrente è %@, il valore superiore è %@";
+
+/* XTIT: Title of step progress indicator, see https://experience.sap.com/fiori-design-ios/article/step-progress-indicator/#adaptive-design */
+"All Steps" = "Tutte le fasi";
+
+/* XMSG: AI Notice message */
+"Suggested by AI. Verify before use. " = "Suggerito dall'IA. Verifica prima dell'utilizzo. ";
+

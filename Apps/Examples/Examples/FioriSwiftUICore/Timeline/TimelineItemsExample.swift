@@ -21,14 +21,12 @@ struct TimelineItemsExample: View {
                     })
             }
             Section(header: Text("Timeline")) {
-                Timeline(timestamp: "06/21/24", secondaryTimestamp: .icon(Image(systemName: "sun.max")), timelineNode: .complete, title: "Complete", subtitle: "abc", attribute: "attr", status: .text("Info"), substatus: .icon(Image(systemName: "exclamationmark.circle")), subAttribute: "subAttr", isPast: true)
+                Timeline(timestamp: "06/21/24", secondaryTimestamp: .icon(Image(systemName: "sun.max")), timelineNode: .complete, title: "Complete", subtitle: "abc", attribute: "attr", status: .text("Info"), substatus: .both("substatus", Image(systemName: "exclamationmark.circle")), subAttribute: "subAttr", isPast: true)
                     .modifier(CustomListRowModifier())
                     .secondaryTimestampStyle(content: { config in
                         config.secondaryTimestamp.foregroundColor(.yellow)
                     })
-                    .substatusStyle(content: { config in
-                        config.substatus.foregroundColor(.yellow)
-                    })
+                    .substatusStyle(.positiveLabel)
                 Timeline(timestamp: "06/21/24", secondaryTimestamp: .icon(Image(systemName: "sun.max")), timelineNode: .complete, title: "Complete(Disabled)", subtitle: "abc", attribute: "attr", status: .text("Info"), substatus: .icon(Image(systemName: "exclamationmark.circle")), subAttribute: "subAttr", isPast: true)
                     .modifier(CustomListRowModifier())
                     .disabled(/*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/)

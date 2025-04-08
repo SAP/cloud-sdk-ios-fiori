@@ -100,7 +100,7 @@ extension KeyValueFormViewFioriStyle {
         
         func makeBody(_ configuration: MandatoryFieldIndicatorConfiguration) -> some View {
             MandatoryFieldIndicator(configuration)
-                .foregroundStyle(Color.preferredColor(self.keyValueFormViewConfiguration.controlState == .disabled ? .separator : .primaryLabel))
+                .foregroundStyle(Color.preferredColor(self.keyValueFormViewConfiguration.controlState == .disabled ? .quaternaryLabel : .primaryLabel))
                 .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
                 .padding(.bottom, -4)
                 .padding(.top, 11)

@@ -316,3 +316,69 @@
 /* Progress Indicator accessibility label: progress halted with indicator progress */
 "Progress halted, %.0f" = "Behandling stoppet, %.0f";
 
+/* XACT: Slider accessibility label */
+"This is %@ slider whose maximum value is %@ and minimum value is %@" = "Dette er %@-glidebryteren som har maksimumsverdi %@ og minimumsverdi %@";
+
+/* XACT: Slider accessibility value */
+"Current value is %@" = "Aktuell verdi er %@";
+
+/* XACT: Range Slider lower thumb accessibility label */
+"lower range slider thumb, current value is" = "glidebryterposisjon for nedre område, aktuell verdi er";
+
+/* XACT: Range Slider lower thumb accessibility hint */
+"you can swipe up or down to change the lower value" = "du kan dra opp eller ned for å endre nedre verdi";
+
+/* XACT: Range Slider upper thumb accessibility label */
+"upper range slider thumb, current value is" = "glidebryterposisjon for øvre område, aktuell verdi er";
+
+/* XACT: Range Slider upper thumb accessibility hint */
+"you can swipe up or down to change the upper value" = "du kan dra opp eller ned for å endre øvre verdi";
+
+/* XACT: Single editable Slider thumb accessibility label */
+"slider thumb, current value is" = "glidebryterposisjon, aktuell verdi er";
+
+/* XACT: Single editable Slider thumb accessibility hint */
+"you can swipe up or down to change the value" = "du kan dra opp eller ned for å endre verdien";
+
+/* XACT: Single Slider accessibility label */
+"This is a slider, the minimum value is %@ and the maximum value is %@" = "Dette er en glidebryter. Minimumsverdien er %@ og maksimumsverdien er %@.";
+
+/* XACT: Range Slider accessibility label */
+"This is a range slider, the minimum value is %@ and the maximum value is %@" = "Dette er en glidebryter for området. Minimumsverdien er %@ og maksimumsverdien er %@.";
+
+/* XACT: Single editable Slider accessibility label */
+"This is a slider that is editable, the minimum value is %@ and the maximum value is %@" = "Dette er en glidebryter som kan redigeres. Minimumsverdien er %@ og maksimumsverdien er %@.";
+
+/* XACT: Single non-editable Slider accessibility label */
+"This is a slider that can't be edited, the minimum value is %@ and the maximum value is %@" = "Dette er en glidebryter som ikke kan redigeres. Minimumsverdien er %@ og maksimumsverdien er %@.";
+
+/* XACT: Range editable Slider accessibility label */
+"This is a range slider that is editable, the minimum value is %@ and the maximum value is %@" = "Dette er en glidebryter for område som kan redigeres. Minimumsverdien er %@ og maksimumsverdien er %@.";
+
+/* XACT: Range non-editable Slider accessibility label */
+"This is a range slider that can't be edited, the minimum value is %@ and the maximum value is %@" = "Dette er en glidebryter for område som ikke kan redigeres. Minimumsverdien er %@ og maksimumsverdien er %@.";
+
+/* XACT: Single editable Slider Text Field accessibility label */
+"slider value text field" = "tekstfelt for glidebryterverdi";
+
+/* XACT: Range editable Slider Lower Value Text Field accessibility label */
+"lower value text field" = "tekstfelt for nedre verdi";
+
+/* XACT: Range editable Slider Upper Value Text Field accessibility label */
+"upper value text field" = "tekstfelt for øvre verdi";
+
+/* XACT: Editable Slider Text Field accessibility hint */
+"You can double tap to input a specific value" = "Du kan dobbelttrykke for å oppgi en bestemt verdi";
+
+/* XACT: Editable Slider Text Field accessibility value */
+"current value is %@" = "aktuell verdi er %@";
+
+/* XACT: Range Editable Slider accessibility value */
+"current lower value is %@, upper value is %@" = "aktuell nedre verdi er %@, øvre verdi er %@";
+
+/* XTIT: Title of step progress indicator, see https://experience.sap.com/fiori-design-ios/article/step-progress-indicator/#adaptive-design */
+"All Steps" = "Alle trinn";
+
+/* XMSG: AI Notice message */
+"Suggested by AI. Verify before use. " = "Foreslått av KI. Verifiser før bruk. ";
+

@@ -281,7 +281,7 @@
 "Select All" = "Pilih Semua";
 
 /* XBUT: The \"Deselect All\" button title on the List Picker header */
-"Deselect All" = "Batalkan Semua Pilihan";
+"Deselect All" = "Batal Pilih Semua";
 
 /* XBUT: The \"Selected\" title on the List Picker header */
 "Selected" = "Dipilih";
@@ -315,4 +315,70 @@
 
 /* Progress Indicator accessibility label: progress halted with indicator progress */
 "Progress halted, %.0f" = "Progres terhenti, %.0f";
+
+/* XACT: Slider accessibility label */
+"This is %@ slider whose maximum value is %@ and minimum value is %@" = "Ini adalah %@ penggeser yang nilai maksimumnya adalah %@ dan nilai minimumnya adalah %@";
+
+/* XACT: Slider accessibility value */
+"Current value is %@" = "Nilai saat ini adalah %@";
+
+/* XACT: Range Slider lower thumb accessibility label */
+"lower range slider thumb, current value is" = "thumb penggeser rentang yang lebih rendah, nilai saat ini adalah";
+
+/* XACT: Range Slider lower thumb accessibility hint */
+"you can swipe up or down to change the lower value" = "Anda dapat mengusap ke atas atau bawah untuk mengubah nilai yang lebih rendah";
+
+/* XACT: Range Slider upper thumb accessibility label */
+"upper range slider thumb, current value is" = "thumb penggeser rentang yang lebih tinggi, nilai saat ini adalah";
+
+/* XACT: Range Slider upper thumb accessibility hint */
+"you can swipe up or down to change the upper value" = "Anda dapat mengusap ke atas atau bawah untuk mengubah nilai yang lebih tinggi";
+
+/* XACT: Single editable Slider thumb accessibility label */
+"slider thumb, current value is" = "thumb penggeser, nilai saat ini adalah";
+
+/* XACT: Single editable Slider thumb accessibility hint */
+"you can swipe up or down to change the value" = "Anda dapat mengusap ke atas atau bawah untuk mengubah nilainya";
+
+/* XACT: Single Slider accessibility label */
+"This is a slider, the minimum value is %@ and the maximum value is %@" = "Ini adalah penggeser, nilai minimumnya adalah %@ dan nilai maksimumnya adalah %@";
+
+/* XACT: Range Slider accessibility label */
+"This is a range slider, the minimum value is %@ and the maximum value is %@" = "Ini adalah penggeser rentang, nilai minimumnya adalah %@ dan nilai maksimumnya adalah %@";
+
+/* XACT: Single editable Slider accessibility label */
+"This is a slider that is editable, the minimum value is %@ and the maximum value is %@" = "Ini adalah penggeser yang dapat diedit, nilai minimumnya adalah %@ dan nilai maksimumnya adalah %@";
+
+/* XACT: Single non-editable Slider accessibility label */
+"This is a slider that can't be edited, the minimum value is %@ and the maximum value is %@" = "Ini adalah penggeser yang tidak dapat diedit, nilai minimumnya adalah %@ dan nilai maksimumnya adalah %@";
+
+/* XACT: Range editable Slider accessibility label */
+"This is a range slider that is editable, the minimum value is %@ and the maximum value is %@" = "Ini adalah penggeser rentang yang dapat diedit, nilai minimumnya adalah %@ dan nilai maksimumnya adalah %@";
+
+/* XACT: Range non-editable Slider accessibility label */
+"This is a range slider that can't be edited, the minimum value is %@ and the maximum value is %@" = "Ini adalah penggeser rentang yang tidak dapat diedit, nilai minimumnya adalah %@ dan nilai maksimumnya adalah %@";
+
+/* XACT: Single editable Slider Text Field accessibility label */
+"slider value text field" = "bidang teks nilai penggeser";
+
+/* XACT: Range editable Slider Lower Value Text Field accessibility label */
+"lower value text field" = "bidang teks nilai yang lebih rendah";
+
+/* XACT: Range editable Slider Upper Value Text Field accessibility label */
+"upper value text field" = "bidang teks nilai yang lebih tinggi";
+
+/* XACT: Editable Slider Text Field accessibility hint */
+"You can double tap to input a specific value" = "Anda dapat mengetuk dua kali untuk memasukkan nilai tertentu";
+
+/* XACT: Editable Slider Text Field accessibility value */
+"current value is %@" = "nilai saat ini adalah %@";
+
+/* XACT: Range Editable Slider accessibility value */
+"current lower value is %@, upper value is %@" = "nilai yang lebih rendah saat ini adalah %@, nilai yang lebih tinggi adalah %@";
+
+/* XTIT: Title of step progress indicator, see https://experience.sap.com/fiori-design-ios/article/step-progress-indicator/#adaptive-design */
+"All Steps" = "Semua Langkah";
+
+/* XMSG: AI Notice message */
+"Suggested by AI. Verify before use. " = "Disarankan berdasarkan AI. Verifikasi sebelum digunakan. ";
 

@@ -316,3 +316,69 @@
 /* Progress Indicator accessibility label: progress halted with indicator progress */
 "Progress halted, %.0f" = "Zpracování zastaveno, %.0f";
 
+/* XACT: Slider accessibility label */
+"This is %@ slider whose maximum value is %@ and minimum value is %@" = "Toto je posuvník %@, jehož maximální hodnota je %@ a minimální hodnota je %@";
+
+/* XACT: Slider accessibility value */
+"Current value is %@" = "Aktuální hodnota je %@";
+
+/* XACT: Range Slider lower thumb accessibility label */
+"lower range slider thumb, current value is" = "dolní úchyt posuvníku oblasti, aktuální hodnota je";
+
+/* XACT: Range Slider lower thumb accessibility hint */
+"you can swipe up or down to change the lower value" = "dolní hodnotu můžete změnit přejetím nahoru nebo dolů";
+
+/* XACT: Range Slider upper thumb accessibility label */
+"upper range slider thumb, current value is" = "horní úchyt posuvníku oblasti, aktuální hodnota je";
+
+/* XACT: Range Slider upper thumb accessibility hint */
+"you can swipe up or down to change the upper value" = "horní hodnotu můžete změnit přejetím nahoru nebo dolů";
+
+/* XACT: Single editable Slider thumb accessibility label */
+"slider thumb, current value is" = "úchyt posuvníku, aktuální hodnota je";
+
+/* XACT: Single editable Slider thumb accessibility hint */
+"you can swipe up or down to change the value" = "hodnotu můžete změnit přejetím nahoru nebo dolů";
+
+/* XACT: Single Slider accessibility label */
+"This is a slider, the minimum value is %@ and the maximum value is %@" = "Toto je posuvník, minimální hodnota je %@ a maximální hodnota je %@";
+
+/* XACT: Range Slider accessibility label */
+"This is a range slider, the minimum value is %@ and the maximum value is %@" = "Toto je posuvník oblasti, minimální hodnota je %@ a maximální hodnota je %@";
+
+/* XACT: Single editable Slider accessibility label */
+"This is a slider that is editable, the minimum value is %@ and the maximum value is %@" = "Tento posuvník lze upravit, minimální hodnota je %@ a maximální hodnota je %@";
+
+/* XACT: Single non-editable Slider accessibility label */
+"This is a slider that can't be edited, the minimum value is %@ and the maximum value is %@" = "Tento posuvník nelze upravit, minimální hodnota je %@ a maximální hodnota je %@";
+
+/* XACT: Range editable Slider accessibility label */
+"This is a range slider that is editable, the minimum value is %@ and the maximum value is %@" = "Tento posuvník oblasti ze upravit, minimální hodnota je %@ a maximální hodnota je %@";
+
+/* XACT: Range non-editable Slider accessibility label */
+"This is a range slider that can't be edited, the minimum value is %@ and the maximum value is %@" = "Tento posuvník oblasti nelze upravit, minimální hodnota je %@ a maximální hodnota je %@";
+
+/* XACT: Single editable Slider Text Field accessibility label */
+"slider value text field" = "textové pole hodnoty posuvníku";
+
+/* XACT: Range editable Slider Lower Value Text Field accessibility label */
+"lower value text field" = "textové pole dolní hodnoty";
+
+/* XACT: Range editable Slider Upper Value Text Field accessibility label */
+"upper value text field" = "textové pole horní hodnoty";
+
+/* XACT: Editable Slider Text Field accessibility hint */
+"You can double tap to input a specific value" = "Poklepáním můžete zadat přímou hodnotu";
+
+/* XACT: Editable Slider Text Field accessibility value */
+"current value is %@" = "aktuální hodnota je %@";
+
+/* XACT: Range Editable Slider accessibility value */
+"current lower value is %@, upper value is %@" = "aktuální dolní hodnota je %@, horní hodnota je %@";
+
+/* XTIT: Title of step progress indicator, see https://experience.sap.com/fiori-design-ios/article/step-progress-indicator/#adaptive-design */
+"All Steps" = "Všechny kroky";
+
+/* XMSG: AI Notice message */
+"Suggested by AI. Verify before use. " = "Navrženo umělou inteligencí. Před použitím ověřte. ";
+

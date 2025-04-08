@@ -316,3 +316,69 @@
 /* Progress Indicator accessibility label: progress halted with indicator progress */
 "Progress halted, %.0f" = "प्रगति रोक दी गई है, %.0f";
 
+/* XACT: Slider accessibility label */
+"This is %@ slider whose maximum value is %@ and minimum value is %@" = "यह स्लाइडर %@ है जिसका अधिकतम मान %@ है और न्यूनतम मान %@ है";
+
+/* XACT: Slider accessibility value */
+"Current value is %@" = "वर्तमान मान %@ है";
+
+/* XACT: Range Slider lower thumb accessibility label */
+"lower range slider thumb, current value is" = "निम्न श्रेणी स्लाइडर थंब, वर्तमान मूल्य है";
+
+/* XACT: Range Slider lower thumb accessibility hint */
+"you can swipe up or down to change the lower value" = "आप निम्न मान परिवर्तन के लिए ऊपर और नीचे स्वाइप कर सकते हैं";
+
+/* XACT: Range Slider upper thumb accessibility label */
+"upper range slider thumb, current value is" = "ऊपरी श्रेणी स्लाइडर थंब, वर्तमान मूल्य है";
+
+/* XACT: Range Slider upper thumb accessibility hint */
+"you can swipe up or down to change the upper value" = "आप ऊपरी मान परिवर्तन के लिए ऊपर और नीचे स्वाइप कर सकते हैं";
+
+/* XACT: Single editable Slider thumb accessibility label */
+"slider thumb, current value is" = "स्लाइडर थंब, वर्तमान मूल्य है";
+
+/* XACT: Single editable Slider thumb accessibility hint */
+"you can swipe up or down to change the value" = "आप मान परिवर्तन के लिए ऊपर और नीचे स्वाइप कर सकते हैं";
+
+/* XACT: Single Slider accessibility label */
+"This is a slider, the minimum value is %@ and the maximum value is %@" = "यह एक स्लाइडर है जिसका न्यूनतम मान %@ है और अधिकतम मान %@ है";
+
+/* XACT: Range Slider accessibility label */
+"This is a range slider, the minimum value is %@ and the maximum value is %@" = "यह एक रेंज स्लाइडर है जिसका न्यूनतम मान %@ है और अधिकतम मान %@ है";
+
+/* XACT: Single editable Slider accessibility label */
+"This is a slider that is editable, the minimum value is %@ and the maximum value is %@" = "यह एक स्लाइडर है जो संपादन योग्य है, न्यूनतम मान %@ है और अधिकतम मान %@ है";
+
+/* XACT: Single non-editable Slider accessibility label */
+"This is a slider that can't be edited, the minimum value is %@ and the maximum value is %@" = "यह एक स्लाइडर है जिसे संपादित नहीं किया जा सकता है, न्यूनतम मान %@ है और अधिकतम मान %@ है";
+
+/* XACT: Range editable Slider accessibility label */
+"This is a range slider that is editable, the minimum value is %@ and the maximum value is %@" = "यह एक स्लाइडर है जो संपादन योग्य है, न्यूनतम मान %@ है और अधिकतम मान %@ है";
+
+/* XACT: Range non-editable Slider accessibility label */
+"This is a range slider that can't be edited, the minimum value is %@ and the maximum value is %@" = "यह एक स्लाइडर है जिसे संपादित नहीं किया जा सकता है, न्यूनतम मान %@ है और अधिकतम मान %@ है";
+
+/* XACT: Single editable Slider Text Field accessibility label */
+"slider value text field" = "स्लाइ़़डर मान टेक्स्ट फ़ील्ड";
+
+/* XACT: Range editable Slider Lower Value Text Field accessibility label */
+"lower value text field" = "निम्न मान टेक्स्ट फ़ील्ड";
+
+/* XACT: Range editable Slider Upper Value Text Field accessibility label */
+"upper value text field" = "उच्च मान टेक्स्ट फ़ील्ड";
+
+/* XACT: Editable Slider Text Field accessibility hint */
+"You can double tap to input a specific value" = "आप विशिष्ट मूल्य इनपुट के लिए डबल टैप कर सकते हैं";
+
+/* XACT: Editable Slider Text Field accessibility value */
+"current value is %@" = "वर्तमान मान %@ है";
+
+/* XACT: Range Editable Slider accessibility value */
+"current lower value is %@, upper value is %@" = "वर्तमान निम्न मान %@ है, ऊपरी मान %@ है";
+
+/* XTIT: Title of step progress indicator, see https://experience.sap.com/fiori-design-ios/article/step-progress-indicator/#adaptive-design */
+"All Steps" = "सभी चरण";
+
+/* XMSG: AI Notice message */
+"Suggested by AI. Verify before use. " = "AI द्वारा सुझाया गया. उपयोग करने से पहले सत्यापित करें. ";
+

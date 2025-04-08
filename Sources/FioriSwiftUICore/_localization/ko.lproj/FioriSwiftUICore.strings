@@ -316,3 +316,69 @@
 /* Progress Indicator accessibility label: progress halted with indicator progress */
 "Progress halted, %.0f" = "진행 중단됨, %.0f";
 
+/* XACT: Slider accessibility label */
+"This is %@ slider whose maximum value is %@ and minimum value is %@" = "최대값이 %@이고 최소값이 %@인 %@ 슬라이더입니다.";
+
+/* XACT: Slider accessibility value */
+"Current value is %@" = "현재 값은 %@입니다.";
+
+/* XACT: Range Slider lower thumb accessibility label */
+"lower range slider thumb, current value is" = "하한 슬라이더 썸, 현재 값:";
+
+/* XACT: Range Slider lower thumb accessibility hint */
+"you can swipe up or down to change the lower value" = "위쪽이나 아래쪽으로 쓸어넘겨서 하한 값을 변경할 수 있습니다.";
+
+/* XACT: Range Slider upper thumb accessibility label */
+"upper range slider thumb, current value is" = "상한 슬라이더 썸, 현재 값:";
+
+/* XACT: Range Slider upper thumb accessibility hint */
+"you can swipe up or down to change the upper value" = "위쪽이나 아래쪽으로 쓸어넘겨서 상한 값을 변경할 수 있습니다.";
+
+/* XACT: Single editable Slider thumb accessibility label */
+"slider thumb, current value is" = "슬라이더 썸, 현재 값:";
+
+/* XACT: Single editable Slider thumb accessibility hint */
+"you can swipe up or down to change the value" = "위쪽이나 아래쪽으로 쓸어넘겨서 값을 변경할 수 있습니다.";
+
+/* XACT: Single Slider accessibility label */
+"This is a slider, the minimum value is %@ and the maximum value is %@" = "최소값이 %@이고 최대값이 %@인 슬라이더입니다.";
+
+/* XACT: Range Slider accessibility label */
+"This is a range slider, the minimum value is %@ and the maximum value is %@" = "최소값이 %@이고 최대값이 %@인 범위 슬라이더입니다.";
+
+/* XACT: Single editable Slider accessibility label */
+"This is a slider that is editable, the minimum value is %@ and the maximum value is %@" = "편집할 수 있는 슬라이더입니다. 최소값은 %@이고 최대값은 %@입니다.";
+
+/* XACT: Single non-editable Slider accessibility label */
+"This is a slider that can't be edited, the minimum value is %@ and the maximum value is %@" = "편집할 수 없는 슬라이더입니다. 최소값은 %@이고 최대값은 %@입니다.";
+
+/* XACT: Range editable Slider accessibility label */
+"This is a range slider that is editable, the minimum value is %@ and the maximum value is %@" = "편집할 수 있는 범위 슬라이더입니다. 최소값은 %@이고 최대값은 %@입니다.";
+
+/* XACT: Range non-editable Slider accessibility label */
+"This is a range slider that can't be edited, the minimum value is %@ and the maximum value is %@" = "편집할 수 없는 범위 슬라이더입니다. 최소값은 %@이고 최대값은 %@입니다.";
+
+/* XACT: Single editable Slider Text Field accessibility label */
+"slider value text field" = "슬라이더 값 텍스트 필드";
+
+/* XACT: Range editable Slider Lower Value Text Field accessibility label */
+"lower value text field" = "하한 값 텍스트 필드";
+
+/* XACT: Range editable Slider Upper Value Text Field accessibility label */
+"upper value text field" = "상한 값 텍스트 필드";
+
+/* XACT: Editable Slider Text Field accessibility hint */
+"You can double tap to input a specific value" = "두 번 눌러서 특정 값을 입력할 수 있습니다.";
+
+/* XACT: Editable Slider Text Field accessibility value */
+"current value is %@" = "현재 값은 %@입니다.";
+
+/* XACT: Range Editable Slider accessibility value */
+"current lower value is %@, upper value is %@" = "현재 하한 값은 %@이고, 상한 값은 %@입니다.";
+
+/* XTIT: Title of step progress indicator, see https://experience.sap.com/fiori-design-ios/article/step-progress-indicator/#adaptive-design */
+"All Steps" = "모든 단계";
+
+/* XMSG: AI Notice message */
+"Suggested by AI. Verify before use. " = "AI에 의해 제안되었습니다. 사용하기 전에 확인하십시오. ";
+

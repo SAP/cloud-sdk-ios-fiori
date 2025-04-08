@@ -561,6 +561,24 @@ protocol _LineComponent {
 }
 
 // sourcery: BaseComponent
+protocol _AttachmentTitleComponent {
+    // sourcery: @ViewBuilder
+    var attachmentTitle: AttributedString { get }
+}
+
+// sourcery: BaseComponent
+protocol _AttachmentSubtitleComponent {
+    // sourcery: @ViewBuilder
+    var attachmentSubtitle: AttributedString { get }
+}
+
+// sourcery: BaseComponent
+protocol _AttachmentFootnoteComponent {
+    // sourcery: @ViewBuilder
+    var attachmentFootnote: AttributedString { get }
+}
+
+// sourcery: BaseComponent
 protocol _BodyTextComponent {
     // sourcery: @ViewBuilder
     var bodyText: AttributedString? { get }

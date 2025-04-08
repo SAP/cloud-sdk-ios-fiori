@@ -49,7 +49,7 @@ extension ListPickerItemFioriStyle {
         func makeBody(_ configuration: TitleConfiguration) -> some View {
             Title(configuration)
                 .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
-                .foregroundStyle(Color.preferredColor(self.listPickerItemConfiguration.controlState == .disabled ? .separator : .primaryLabel))
+                .foregroundStyle(Color.preferredColor(self.listPickerItemConfiguration.controlState == .disabled ? .quaternaryLabel : .primaryLabel))
         }
     }
     
@@ -58,7 +58,7 @@ extension ListPickerItemFioriStyle {
         func makeBody(_ configuration: MandatoryFieldIndicatorConfiguration) -> some View {
             MandatoryFieldIndicator(configuration)
                 .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
-                .foregroundStyle(Color.preferredColor(self.listPickerItemConfiguration.controlState == .disabled ? .separator : .primaryLabel))
+                .foregroundStyle(Color.preferredColor(self.listPickerItemConfiguration.controlState == .disabled ? .quaternaryLabel : .primaryLabel))
         }
     }
 
@@ -81,7 +81,7 @@ extension ListPickerItemFioriStyle {
                 }
             }
             .font(.fiori(forTextStyle: .body, weight: .regular))
-            .foregroundStyle(Color.preferredColor(self.listPickerItemConfiguration.controlState == .disabled ? .separator : .primaryLabel))
+            .foregroundStyle(Color.preferredColor(self.listPickerItemConfiguration.controlState == .disabled ? .quaternaryLabel : .primaryLabel))
         }
     }
     

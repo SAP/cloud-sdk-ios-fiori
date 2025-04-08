@@ -104,7 +104,7 @@ extension DateTimePickerFioriStyle {
 
         func makeBody(_ configuration: TitleConfiguration) -> some View {
             Title(configuration)
-                .foregroundStyle(Color.preferredColor(self.dateTimePickerConfiguration.controlState == .disabled ? .separator : .primaryLabel))
+                .foregroundStyle(Color.preferredColor(self.dateTimePickerConfiguration.controlState == .disabled ? .quaternaryLabel : .primaryLabel))
                 .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
         }
     }
@@ -122,7 +122,7 @@ extension DateTimePickerFioriStyle {
         
         func makeBody(_ configuration: MandatoryFieldIndicatorConfiguration) -> some View {
             MandatoryFieldIndicator(configuration)
-                .foregroundStyle(Color.preferredColor(self.dateTimePickerConfiguration.controlState == .disabled ? .separator : .primaryLabel))
+                .foregroundStyle(Color.preferredColor(self.dateTimePickerConfiguration.controlState == .disabled ? .quaternaryLabel : .primaryLabel))
         }
     }
     

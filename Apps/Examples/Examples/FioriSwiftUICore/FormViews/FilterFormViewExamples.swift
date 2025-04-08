@@ -95,7 +95,7 @@ struct FilterFormViewExamples: View {
                     .foregroundStyle(self.isEnabled ? Color.red : .yellow)
             }, mandatoryFieldIndicator: {
                 TextOrIconView(self.mandatoryField())
-                    .foregroundStyle(self.isEnabled ? Color.green : .preferredColor(.separator))
+                    .foregroundStyle(self.isEnabled ? Color.green : .preferredColor(.quaternaryLabel))
             }, isRequired: self.showMandatoryField, options: self.valueOptions, errorMessage: nil, isEnabled: self.isEnabled, allowsMultipleSelection: false, allowsEmptySelection: false, value: self.$singleSelectionNonEmptySelectionCustomizedColorValue, buttonSize: .fixed)
                 .mandatoryFieldIndicatorStyle { conf in
                     conf.mandatoryFieldIndicator
@@ -224,7 +224,7 @@ struct FilterFormViewExamples: View {
     
     func mandatoryFieldIndicatorColor() -> Color {
         if !self.isEnabled {
-            return .preferredColor(.separator)
+            return .preferredColor(.quaternaryLabel)
         } else {
             return self.customizedMandatoryIndicator ? Color.red : Color.preferredColor(.primaryLabel)
         }

@@ -1,5 +1,5 @@
 /* XMSG: Placeholder text in chart when there is no data */
-"No Data" = "Nema podataka";
+"No Data" = "Nema podataka  ";
 
 /* XBUT: Save action in inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
 "Save" = "Spremi";
@@ -315,4 +315,70 @@
 
 /* Progress Indicator accessibility label: progress halted with indicator progress */
 "Progress halted, %.0f" = "Tijek zaustavljen. %.0f";
+
+/* XACT: Slider accessibility label */
+"This is %@ slider whose maximum value is %@ and minimum value is %@" = "Ovo je klizač %@ čija je maksimalna vrijednost %@, a minimalna vrijednost %@";
+
+/* XACT: Slider accessibility value */
+"Current value is %@" = "Trenutačna vrijednost %@";
+
+/* XACT: Range Slider lower thumb accessibility label */
+"lower range slider thumb, current value is" = "palčani klizač donjeg raspona, trenutačna vrijednost je";
+
+/* XACT: Range Slider lower thumb accessibility hint */
+"you can swipe up or down to change the lower value" = "možete prijeći prstom gore ili dolje da biste promijenili donju vrijednost";
+
+/* XACT: Range Slider upper thumb accessibility label */
+"upper range slider thumb, current value is" = "palčani klizač gornjeg raspona, trenutačna vrijednost je";
+
+/* XACT: Range Slider upper thumb accessibility hint */
+"you can swipe up or down to change the upper value" = "možete prijeći prstom gore ili dolje da biste promijenili gornju vrijednost";
+
+/* XACT: Single editable Slider thumb accessibility label */
+"slider thumb, current value is" = "palčani klizač, trenutačna vrijednost je";
+
+/* XACT: Single editable Slider thumb accessibility hint */
+"you can swipe up or down to change the value" = "možete prijeći prstom gore ili dolje da biste promijenili vrijednost";
+
+/* XACT: Single Slider accessibility label */
+"This is a slider, the minimum value is %@ and the maximum value is %@" = "Ovo je klizač, minimalna vrijednost je %@, a maksimalna vrijednost je %@";
+
+/* XACT: Range Slider accessibility label */
+"This is a range slider, the minimum value is %@ and the maximum value is %@" = "Ovo je klizač raspona, minimalna vrijednost je %@, a maksimalna vrijednost je %@";
+
+/* XACT: Single editable Slider accessibility label */
+"This is a slider that is editable, the minimum value is %@ and the maximum value is %@" = "Ovo je klizač raspona koji se može uređivati, minimalna vrijednost je %@, a maksimalna vrijednost je %@";
+
+/* XACT: Single non-editable Slider accessibility label */
+"This is a slider that can't be edited, the minimum value is %@ and the maximum value is %@" = "Ovo je klizač koji se ne može uređivati, minimalna vrijednost je %@, a maksimalna vrijednost je %@";
+
+/* XACT: Range editable Slider accessibility label */
+"This is a range slider that is editable, the minimum value is %@ and the maximum value is %@" = "Ovo je klizač raspona koji se može uređivati, minimalna vrijednost je %@, a maksimalna vrijednost je %@";
+
+/* XACT: Range non-editable Slider accessibility label */
+"This is a range slider that can't be edited, the minimum value is %@ and the maximum value is %@" = "Ovo je klizač raspona koji se ne može uređivati, minimalna vrijednost je %@, a maksimalna vrijednost je %@";
+
+/* XACT: Single editable Slider Text Field accessibility label */
+"slider value text field" = "polje teksta vrijednosti klizača";
+
+/* XACT: Range editable Slider Lower Value Text Field accessibility label */
+"lower value text field" = "polje teksta donje vrijednosti";
+
+/* XACT: Range editable Slider Upper Value Text Field accessibility label */
+"upper value text field" = "polje teksta gornje vrijednosti";
+
+/* XACT: Editable Slider Text Field accessibility hint */
+"You can double tap to input a specific value" = "Možete dvaput dodirnuti za unos specifične vrijednosti";
+
+/* XACT: Editable Slider Text Field accessibility value */
+"current value is %@" = "trenutačna vrijednost je %@";
+
+/* XACT: Range Editable Slider accessibility value */
+"current lower value is %@, upper value is %@" = "trenutačna donja vrijednost je %@, gornja vrijednost je %@";
+
+/* XTIT: Title of step progress indicator, see https://experience.sap.com/fiori-design-ios/article/step-progress-indicator/#adaptive-design */
+"All Steps" = "Svi koraci";
+
+/* XMSG: AI Notice message */
+"Suggested by AI. Verify before use. " = "Predlaže umjetna inteligencija. Verificirajte prije upotrebe. ";
 

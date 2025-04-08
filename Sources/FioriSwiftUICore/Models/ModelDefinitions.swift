@@ -452,6 +452,9 @@ public protocol _EmptyStateViewModel: TitleComponent, DescriptionTextComponent, 
 public protocol EmptyStateViewModel {}
 
 // sourcery: generated_component_not_configurable
+public protocol _DurationPickerModel: DurationPickerComponent {}
+
+@available(*, unavailable, renamed: "_DurationPickerModel", message: "Will be removed in the future release. Please create DurationPicker with other initializers instead.")
 public protocol DurationPickerModel: DurationPickerComponent {}
 
 // sourcery: availableAttributeContent = "iOS 15.0, macOS 12.0, *"
@@ -543,7 +546,7 @@ public protocol StepProgressIndicatorModel {}
 public protocol _FilterFeedbackBarModel: AnyObject {
     // sourcery: bindingProperty
     // sourcery: backingComponent=_SortFilterMenuItemContainer
-    var items: [[SortFilterItem]] { get set }
+    var items: [[_SortFilterItem]] { get set }
     
     // sourcery: default.value = nil
     // sourcery: no_view
@@ -561,7 +564,7 @@ public protocol FilterFeedbackBarModel {}
 public protocol _SortFilterViewModel: AnyObject, TitleComponent {
     // sourcery: bindingProperty
     // sourcery: backingComponent=_SortFilterCFGItemContainer
-    var items: [[SortFilterItem]] { get set }
+    var items: [[_SortFilterItem]] { get set }
     
     // sourcery: genericParameter.name = CancelActionView
     // sourcery: default.value = _CancelActionDefault()

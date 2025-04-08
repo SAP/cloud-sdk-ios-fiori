@@ -11,7 +11,7 @@ import SwiftUI
 public struct _SortFilterCFGItemContainer {
     @EnvironmentObject var context: SortFilterContext
     
-    @Binding var _items: [[SortFilterItem]]
+    @Binding var _items: [[_SortFilterItem]]
     @State var height = 88.0
     /// The frame of the view toggle to show this view.
     var btnFrame: CGRect = .zero
@@ -31,7 +31,7 @@ public struct _SortFilterCFGItemContainer {
     /// - Parameters:
     ///   - items: Option views in the list.
     ///   - btnFrame: The frame of the view toggle to show this view.
-    public init(items: Binding<[[SortFilterItem]]>, btnFrame: CGRect = .zero) {
+    public init(items: Binding<[[_SortFilterItem]]>, btnFrame: CGRect = .zero) {
         self.__items = items
         self.btnFrame = btnFrame
     }
@@ -44,12 +44,10 @@ extension _SortFilterCFGItemContainer: View {
             ForEach(0 ..< self._items.count, id: \.self) { r in
                 Section {
                     ForEach(0 ..< self._items[r].count, id: \.self) { c in
-                        if self._items[r][c].showsOnFilterFeedbackBar {
-                            self.rowView(row: r, column: c)
-                                .listRowSeparator(c == self._items[r].count - 1 ? .hidden : .visible, edges: .all)
-                                .padding([.leading, .trailing], UIDevice.current.userInterfaceIdiom != .phone ? 13 : 16)
-                                .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? self.popoverWidth : nil)
-                        }
+                        self.rowView(row: r, column: c)
+                            .listRowSeparator(c == self._items[r].count - 1 ? .hidden : .visible, edges: .all)
+                            .padding([.leading, .trailing], UIDevice.current.userInterfaceIdiom != .phone ? 13 : 16)
+                            .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? self.popoverWidth : nil)
                     }
                     #if !os(visionOS)
                         Rectangle().fill(Color.preferredColor(.primaryGroupedBackground))
@@ -105,7 +103,7 @@ extension _SortFilterCFGItemContainer: View {
                         for c in 0 ..< self._items[r].count {
                             switch self._items[r][c] {
                             case .picker:
-                                var pickerItem: SortFilterItem.PickerItem = self._items[r][c].picker
+                                var pickerItem: _SortFilterItem.PickerItem = self._items[r][c].picker
                                 if pickerItem.resetButtonConfiguration.type == .reset {
                                     pickerItem.reset()
                                 } else {
@@ -293,7 +291,7 @@ extension _SortFilterCFGItemContainer: View {
     }
     
     func listPickerDestination(row r: Int, column c: Int) -> some View {
-        let filter: ((SortFilterItem.PickerItem.ValueOptionModel, String) -> Bool) = { f, s in
+        let filter: ((_SortFilterItem.PickerItem.ValueOptionModel, String) -> Bool) = { f, s in
             if !s.isEmpty {
                 return f.value.localizedCaseInsensitiveContains(s)
             } else {
@@ -651,7 +649,7 @@ extension _SortFilterCFGItemContainer: View {
         return keyWindow.safeAreaInsets
     }
     
-    private func lowerTextFieldBorderColor(item: SortFilterItem.SliderItem) -> Color? {
+    private func lowerTextFieldBorderColor(item: _SortFilterItem.SliderItem) -> Color? {
         let workingLowerValue = item.workingLowerValue ?? item.minimumValue
         let workingUpperValue = item.workingUpperValue ?? item.maximumValue
         if !(item.range ~= workingLowerValue) || workingLowerValue > workingUpperValue {
@@ -660,7 +658,7 @@ extension _SortFilterCFGItemContainer: View {
         return nil
     }
     
-    private func upperTextFieldBorderColor(item: SortFilterItem.SliderItem) -> Color? {
+    private func upperTextFieldBorderColor(item: _SortFilterItem.SliderItem) -> Color? {
         let workingLowerValue = item.workingLowerValue ?? item.minimumValue
         let workingUpperValue = item.workingUpperValue ?? item.maximumValue
         if !(item.range ~= workingUpperValue) || workingLowerValue > workingUpperValue {

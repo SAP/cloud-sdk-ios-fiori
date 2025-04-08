@@ -5,10 +5,10 @@
 "Save" = "Sačuvaj";
 
 /* XBUT: Re-enter action available in saved state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
-"Re-enter Signature" = "Ponovo unesite potpis";
+"Re-enter Signature" = "Ponovo unesi potpis";
 
 /* XBUT: Clear action of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
-"Clear" = "Izbriši";
+"Clear" = "Poništi";
 
 /* XBUT: Cancel action of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
 "Cancel" = "Odustani";
@@ -41,7 +41,7 @@
 "Next" = "Sljedeće";
 
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
-"Ok" = "Ok";
+"Ok" = "OK";
 
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
 "Status" = "Status";
@@ -86,10 +86,10 @@
 "Deny" = "Odbij";
 
 /* XBUT: Agree action title in EULAView */
-"Agree" = "Saglasan sam";
+"Agree" = "Saglašavam se";
 
 /* XBUT: Disagree action title in EULAView */
-"Disagree" = "Nijesam saglasan";
+"Disagree" = "Ne saglašavam se";
 
 /* XMSG: Placeholder text in DataTable for loading state */
 "Loading..." = "Učitavanje...";
@@ -218,7 +218,7 @@
 "Rating Control, average rating %.1f of %d, %d reviews" = "Kontrola vrednovanja, prosječno vrednovanje %.1f od %d, %d pregleda";
 
 /* XACT: read-only RatingControl accessibility label: average rating with review count over ceiling */
-"Rating Control, average rating %.1f of %d, %d plus reviews" = "Kontrola vrednovanja, prosječno vrednovanje %.1f od %d, %d plus pregleda";
+"Rating Control, average rating %.1f of %d, %d plus reviews" = "Kontrola vrednovanja, prosječno vrednovanje %.1f od %d, %d plus pregledi";
 
 /* XBUT: View all messages in message banner sheet */
 "All" = "Sve";
@@ -236,7 +236,7 @@
 "message" = "poruku";
 
 /* XBUT: banner message type desc, information */
-"information" = "informacije";
+"information" = "informaciju";
 
 /* XBUT: banner message type desc, confirmation */
 "confirmation" = "potvrdu";
@@ -248,28 +248,28 @@
 "error" = "grešku";
 
 /* XBUT: banner message type desc in plural form, messages */
-"messages" = "poruke";
+"messages" = "poruka";
 
 /* XBUT: banner message type desc in plural form, informations */
 "informations" = "informacije";
 
 /* XBUT: banner message type desc in plural form, confirmations */
-"confirmations" = "potvrde";
+"confirmations" = "potvrda";
 
 /* XBUT: banner message type desc in plural form, warnings */
 "warnings" = "upozorenja";
 
 /* XBUT: banner message type desc in plural form, errors */
-"errors" = "greške";
+"errors" = "grešaka";
 
 /* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
-"Reset" = "Ponovo postavi";
+"Reset" = "Poništi";
 
 /* XBUT: Apply action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
 "Apply" = "Primijeni";
 
 /* XTIT: The alert message for `ListPickerDestination` pulldown dismissal */
-"Are you sure you want to discard your selections?" = "Da li sigurno želite da odbacite odabire?";
+"Are you sure you want to discard your selections?" = "Da li zaista želite da odbacite odabire?";
 
 /* XBUT: The alert Discard Changes action title for `ListPickerDestination` pulldown dismissal */
 "Discard Changes" = "Odbaci promjene";
@@ -290,10 +290,10 @@
 "Text field, Double tap to edit" = "Polje teksta, dodirnite dvaput za uređivanje";
 
 /* XACT: The accessibility hint for Text Input Views, editing */
-"Text field, is editing" = "Polje teksta, uređuje";
+"Text field, is editing" = "Polje teksta, uređuje se";
 
 /* XACT: The accessibility hint for Text Input Views, editing, with clear button */
-"Text field, is editing. Double tap to clear text" = "Polje teksta, uređuje. Dodirnite dvaput za brisanje teksta";
+"Text field, is editing. Double tap to clear text" = "Polje teksta, uređuje se. Dodirnite dvaput za brisanje teksta";
 
 /* XACT: The default accessibility label for the custom action in TextFieldFormView if none was specified */
 "Custom Action" = "Korisnički definisana radnja";
@@ -315,4 +315,70 @@
 
 /* Progress Indicator accessibility label: progress halted with indicator progress */
 "Progress halted, %.0f" = "Napredak zaustavljen, %.0f";
+
+/* XACT: Slider accessibility label */
+"This is %@ slider whose maximum value is %@ and minimum value is %@" = "Ovo je %@ klizač čija je maksimalna vrijednost %@, a minimalna vrijednost je %@";
+
+/* XACT: Slider accessibility value */
+"Current value is %@" = "Trenutna vrijednost je %@";
+
+/* XACT: Range Slider lower thumb accessibility label */
+"lower range slider thumb, current value is" = "klizač na kliznom pokazivaču nižeg raspona, trenutna vrijednost je";
+
+/* XACT: Range Slider lower thumb accessibility hint */
+"you can swipe up or down to change the lower value" = "možete da prevučete gore ili dolje da biste promijenili nižu vrijednost";
+
+/* XACT: Range Slider upper thumb accessibility label */
+"upper range slider thumb, current value is" = "klizač na kliznom pokazivaču gornjeg raspona, trenutna vrijednost je";
+
+/* XACT: Range Slider upper thumb accessibility hint */
+"you can swipe up or down to change the upper value" = "možete da prevučete gore ili dolje da biste promijenili višu vrijednost";
+
+/* XACT: Single editable Slider thumb accessibility label */
+"slider thumb, current value is" = "klizač na kliznom pokazivaču, trenutna vrijednost je";
+
+/* XACT: Single editable Slider thumb accessibility hint */
+"you can swipe up or down to change the value" = "možete da prevučete gore ili dolje da biste promijenili vrijednost";
+
+/* XACT: Single Slider accessibility label */
+"This is a slider, the minimum value is %@ and the maximum value is %@" = "Ovo je klizač, minimalna vrijednost je %@, a maksimalna vrijednost je %@";
+
+/* XACT: Range Slider accessibility label */
+"This is a range slider, the minimum value is %@ and the maximum value is %@" = "Ovo je klizač raspona, minimalna vrijednost je %@, a maksimalna vrijednost je %@";
+
+/* XACT: Single editable Slider accessibility label */
+"This is a slider that is editable, the minimum value is %@ and the maximum value is %@" = "Ovo je klizač koji se može uređivati; minimalna vrijednost je %@, a maksimalna vrijednost je %@";
+
+/* XACT: Single non-editable Slider accessibility label */
+"This is a slider that can't be edited, the minimum value is %@ and the maximum value is %@" = "Ovo je klizač koji se ne može uređivati; minimalna vrijednost je %@, a maksimalna vrijednost je %@";
+
+/* XACT: Range editable Slider accessibility label */
+"This is a range slider that is editable, the minimum value is %@ and the maximum value is %@" = "Ovo je klizač raspona koji se može uređivati; minimalna vrijednost je %@, a maksimalna vrijednost je %@";
+
+/* XACT: Range non-editable Slider accessibility label */
+"This is a range slider that can't be edited, the minimum value is %@ and the maximum value is %@" = "Ovo je klizač raspona koji se ne može uređivati; minimalna vrijednost je %@, a maksimalna vrijednost je %@";
+
+/* XACT: Single editable Slider Text Field accessibility label */
+"slider value text field" = "polje teksta vrijednosti klizača";
+
+/* XACT: Range editable Slider Lower Value Text Field accessibility label */
+"lower value text field" = "polje teksta niže vrijednosti";
+
+/* XACT: Range editable Slider Upper Value Text Field accessibility label */
+"upper value text field" = "polje teksta više vrijednosti";
+
+/* XACT: Editable Slider Text Field accessibility hint */
+"You can double tap to input a specific value" = "Možete dodirnuti dvaput da biste unijeli specifičnu vrijednost";
+
+/* XACT: Editable Slider Text Field accessibility value */
+"current value is %@" = "trenutna vrijednost je %@";
+
+/* XACT: Range Editable Slider accessibility value */
+"current lower value is %@, upper value is %@" = "trenutna niža vrijednost je %@, viša vrijednost je %@";
+
+/* XTIT: Title of step progress indicator, see https://experience.sap.com/fiori-design-ios/article/step-progress-indicator/#adaptive-design */
+"All Steps" = "Svi koraci";
+
+/* XMSG: AI Notice message */
+"Suggested by AI. Verify before use. " = "Prijedlog vještačke inteligencije. Potvrdite prije upotrebe.  ";
 

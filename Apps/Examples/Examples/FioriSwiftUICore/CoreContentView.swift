@@ -8,6 +8,13 @@ struct CoreContentView: View {
         List {
             Section(header: Text("Views")) {
                 NavigationLink(
+                    destination: AttachmentExamples(),
+                    label: {
+                        Text("Attachments")
+                    }
+                )
+
+                NavigationLink(
                     destination: AvatarStackExample(),
                     label: {
                         Text("AvatarStack")
@@ -221,6 +228,12 @@ struct CoreContentView: View {
                     destination: ListPickerItemExample())
                 {
                     Text("ListPickerItem")
+                }
+                
+                NavigationLink(
+                    destination: _DurationPickerExample())
+                {
+                    Text("_DurationPicker")
                 }
                 
                 NavigationLink(

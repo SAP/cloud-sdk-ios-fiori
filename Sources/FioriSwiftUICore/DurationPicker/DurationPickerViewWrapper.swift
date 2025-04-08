@@ -31,7 +31,22 @@ struct DurationPickerViewWrapper: UIViewRepresentable {
         self.measurementFormatter = measurementFormatter
     }
     
-    func updateUIView(_ uiView: UIViewType, context: Context) {}
+    func updateUIView(_ uiView: UIViewType, context: Context) {
+        for subView in uiView.subviews where subView is UIPickerView {
+            if let pickerView = subView as? UIPickerView {
+                let hour = self.selection / 60
+                let minute = self.selection % 60
+
+                if let hourIndex = hours.firstIndex(of: hour) {
+                    pickerView.selectRow(hourIndex, inComponent: 0, animated: true)
+                    if let minuteIndex = minutesForHour(hourIndex).firstIndex(of: minute) {
+                        pickerView.selectRow(minuteIndex, inComponent: 1, animated: true)
+                    }
+                }
+                break
+            }
+        }
+    }
     
     func makeUIView(context: Context) -> some UIView {
         let container = UIView()
@@ -109,7 +124,11 @@ struct DurationPickerViewWrapper: UIViewRepresentable {
                 return self.parent.hours[row].description
             case 1:
                 let hourIndex = pickerView.selectedRow(inComponent: 0)
-                return self.parent.minutesForHour(hourIndex)[row].description
+                if self.parent.minutesForHour(hourIndex).count > row {
+                    return self.parent.minutesForHour(hourIndex)[row].description
+                } else {
+                    return ""
+                }
             default:
                 return ""
             }
@@ -147,7 +166,9 @@ struct DurationPickerViewWrapper: UIViewRepresentable {
             } else {
                 let view = self.setupMinuteView(label, forComponent: component)
                 let hourIndex = pickerView.selectedRow(inComponent: 0)
-                view.accessibilityLabel = self.parent.minutesForHour(hourIndex)[row].description + self.parent.minuteText
+                if self.parent.minutesForHour(hourIndex).count > row {
+                    view.accessibilityLabel = self.parent.minutesForHour(hourIndex)[row].description + self.parent.minuteText
+                }
                 return view
             }
         }

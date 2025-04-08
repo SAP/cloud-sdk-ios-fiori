@@ -6,13 +6,13 @@ import SwiftUI
 public struct AINoticeBaseStyle: AINoticeStyle {
     @Environment(\.isEnabled) var isEnabled
     public func makeBody(_ configuration: AINoticeConfiguration) -> some View {
-        HStack(spacing: 8) {
+        HStack(alignment: .firstTextBaseline, spacing: 8) {
             if configuration.viewAlignment == .center {
                 Spacer()
             }
             if configuration.icon.isEmpty {
                 Image(fioriName: "fiori.ai")
-                    .foregroundStyle(Color.preferredColor(self.isEnabled ? .tertiaryLabel : .separator))
+                    .foregroundStyle(Color.preferredColor(self.isEnabled ? .tertiaryLabel : .quaternaryLabel))
                     .font(.fiori(forTextStyle: .footnote))
             } else {
                 configuration.icon
@@ -33,14 +33,14 @@ public struct AINoticeBaseStyle: AINoticeStyle {
         if configuration.actionLabel != nil, self.isEnabled {
             return Text(message)
                 .font(.fiori(forTextStyle: .footnote))
-                .foregroundStyle(Color.preferredColor(self.isEnabled ? .tertiaryLabel : .separator))
+                .foregroundStyle(Color.preferredColor(self.isEnabled ? .tertiaryLabel : .quaternaryLabel))
                 + Text(configuration.actionLabel ?? "")
-                .font(.fiori(forTextStyle: .footnote))
-                .foregroundStyle(Color.preferredColor(self.isEnabled ? .tintColor : .separator))
+                .font(.fiori(forTextStyle: .footnote, weight: .semibold))
+                .foregroundStyle(Color.preferredColor(self.isEnabled ? .tintColor : .quaternaryLabel))
         } else {
             return Text(message)
                 .font(.fiori(forTextStyle: .footnote))
-                .foregroundStyle(Color.preferredColor(self.isEnabled ? .tertiaryLabel : .separator))
+                .foregroundStyle(Color.preferredColor(self.isEnabled ? .tertiaryLabel : .quaternaryLabel))
         }
     }
 }
@@ -59,7 +59,7 @@ extension AINoticeFioriStyle {
         
         func makeBody(_ configuration: IconConfiguration) -> some View {
             Icon(configuration)
-                .foregroundStyle(Color.preferredColor(self.isEnabled ? .tertiaryLabel : .separator))
+                .foregroundStyle(Color.preferredColor(self.isEnabled ? .tertiaryLabel : .quaternaryLabel))
                 .font(.fiori(forTextStyle: .footnote))
         }
     }

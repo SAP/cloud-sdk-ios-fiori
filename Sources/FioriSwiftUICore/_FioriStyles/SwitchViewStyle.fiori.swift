@@ -56,6 +56,8 @@ extension SwitchViewFioriStyle {
                     RoundedRectangle(cornerRadius: 16)
                         .stroke(Color.preferredColor(configuration.isOn ? .separatorOpaque : .separator), lineWidth: 0.5)
                 )
+                .clipShape(RoundedRectangle(cornerRadius: 16))
+                .shadow(.smallElement)
         }
     }
 }

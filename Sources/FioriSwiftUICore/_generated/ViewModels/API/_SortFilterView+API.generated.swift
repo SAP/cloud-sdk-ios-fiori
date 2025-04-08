@@ -98,10 +98,10 @@ extension _SortFilterView where Title == Text,
 		ApplyActionView == _ConditionalContent<_Action, EmptyView> {
 
     public init(model: _SortFilterViewModel) {
-        self.init(title: model.title, items: Binding<[[SortFilterItem]]>(get: { model.items }, set: { model.items = $0 }), cancelAction: model.cancelAction != nil ? _Action(model: model.cancelAction!) : nil, resetAction: model.resetAction != nil ? _Action(model: model.resetAction!) : nil, applyAction: model.applyAction != nil ? _Action(model: model.applyAction!) : nil, onUpdate: model.onUpdate)
+        self.init(title: model.title, items: Binding<[[_SortFilterItem]]>(get: { model.items }, set: { model.items = $0 }), cancelAction: model.cancelAction != nil ? _Action(model: model.cancelAction!) : nil, resetAction: model.resetAction != nil ? _Action(model: model.resetAction!) : nil, applyAction: model.applyAction != nil ? _Action(model: model.applyAction!) : nil, onUpdate: model.onUpdate)
     }
 
-    public init(title: String, items: Binding<[[SortFilterItem]]>, cancelAction: _Action? = _Action(model: _CancelActionDefault()), resetAction: _Action? = _Action(model: _ResetActionDefault()), applyAction: _Action? = _Action(model: _ApplyActionDefault()), onUpdate: (() -> Void)? = nil) {
+    public init(title: String, items: Binding<[[_SortFilterItem]]>, cancelAction: _Action? = _Action(model: _CancelActionDefault()), resetAction: _Action? = _Action(model: _ResetActionDefault()), applyAction: _Action? = _Action(model: _ApplyActionDefault()), onUpdate: (() -> Void)? = nil) {
         self._title = Text(title)
 		self._items = _SortFilterCFGItemContainer(items: items)
 		self._cancelAction = cancelAction != nil ? ViewBuilder.buildEither(first: cancelAction!) : ViewBuilder.buildEither(second: EmptyView())

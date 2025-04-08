@@ -64,12 +64,13 @@ struct ObjectCell_Spec_Jan2018: ObjectItemListDataProtocol {
                 oi = ObjectItem(title: "Lorem ipseum dolor",
                                 footnote: "Words\nSeparated\nNewLineChars and this is Just some really long text that is here dont worry about it too much",
                                 description: "Some description",
-                                status: TextOrIcon.text("Some status"),
+                                status: .both("Some status", Image(systemName: "paperplane")),
                                 substatus: TextOrIcon.text("some substatus"))
                     .footnoteStyle {
                         Footnote($0)
                             .lineLimit(4)
                     }
+                    .statusStyle(.positiveLabel)
             } else {
                 oi = _ObjectItem(title: "Lorem ipseum dolor",
                                  footnote: "Words\nSeparated\nNewLineChars and this is Just some really long text that is here dont worry about it too much",

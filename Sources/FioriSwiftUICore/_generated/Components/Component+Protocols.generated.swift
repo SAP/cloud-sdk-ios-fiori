@@ -173,24 +173,6 @@ public protocol ActionItemsComponent {
     var didSelectActivityItem: ((ActivityItemDataType) -> Void)? { get }
 }
 
-public protocol DurationPickerComponent : AnyObject {
-	// sourcery: bindingProperty
-	// sourcery: no_view
-    var selection: Int { get set }
-	// sourcery: default.value=1439
-	// sourcery: no_view
-    var maximumMinutes: Int { get set }
-	// sourcery: default.value=0
-	// sourcery: no_view
-    var minimumMinutes: Int { get set }
-	// sourcery: default.value
-	// sourcery: no_view
-    var minuteInterval: Int { get set }
-	// sourcery: default.value=MeasurementFormatter()
-	// sourcery: no_view
-    var measurementFormatter: MeasurementFormatter { get set }
-}
-
 public protocol KpiProgressComponent : KpiComponent {
 	// sourcery: no_view
     var fraction: Double? { get }
@@ -241,6 +223,24 @@ public protocol ActionComponent {
     var actionText: String? { get }
 	// sourcery: no_view
     var didSelectAction: (() -> Void)? { get }
+}
+
+public protocol DurationPickerComponent : AnyObject {
+	// sourcery: bindingProperty
+	// sourcery: no_view
+    var selection: Int { get set }
+	// sourcery: default.value=1439
+	// sourcery: no_view
+    var maximumMinutes: Int { get set }
+	// sourcery: default.value=0
+	// sourcery: no_view
+    var minimumMinutes: Int { get set }
+	// sourcery: default.value
+	// sourcery: no_view
+    var minuteInterval: Int { get set }
+	// sourcery: default.value=MeasurementFormatter()
+	// sourcery: no_view
+    var measurementFormatter: MeasurementFormatter { get set }
 }
 
 public protocol ProgressIndicatorComponent {

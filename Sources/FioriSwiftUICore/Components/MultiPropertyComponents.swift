@@ -32,7 +32,7 @@ protocol __ProgressIndicator: _ComponentMultiPropGenerating {
     var progressIndicatorText_: String? { get }
 }
 
-protocol _DurationPicker: _ComponentMultiPropGenerating, AnyObject {
+protocol __DurationPicker: _ComponentMultiPropGenerating, AnyObject {
     // sourcery: bindingProperty
     // sourcery: no_view
     var selection: Int { get set }
