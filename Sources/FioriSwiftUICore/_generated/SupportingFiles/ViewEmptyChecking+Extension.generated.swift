@@ -357,6 +357,12 @@ extension DisagreeAction: _ViewEmptyChecking {
     }
 }
 
+extension DurationPicker: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        false
+    }
+}
+
 extension EULAView: _ViewEmptyChecking {
     public var isEmpty: Bool {
         title.isEmpty &&

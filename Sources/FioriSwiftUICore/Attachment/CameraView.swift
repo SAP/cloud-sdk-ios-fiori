@@ -8,7 +8,9 @@ public struct CameraView: UIViewControllerRepresentable {
 
     public func makeUIViewController(context: Context) -> UIImagePickerController {
         let camera = UIImagePickerController()
-        camera.sourceType = .camera
+        #if os(iOS)
+            camera.sourceType = .camera
+        #endif
         camera.mediaTypes = [UTType.image.identifier, UTType.movie.identifier]
         camera.allowsEditing = false
         camera.delegate = context.coordinator

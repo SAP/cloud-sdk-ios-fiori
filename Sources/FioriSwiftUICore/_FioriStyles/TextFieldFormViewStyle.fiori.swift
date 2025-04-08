@@ -201,7 +201,7 @@ extension TextFieldFormViewFioriStyle {
         
         func makeBody(_ configuration: MandatoryFieldIndicatorConfiguration) -> some View {
             MandatoryFieldIndicator(configuration)
-                .foregroundStyle(Color.preferredColor(self.textFieldFormViewConfiguration.controlState == .disabled ? .separator : .primaryLabel))
+                .foregroundStyle(Color.preferredColor(self.textFieldFormViewConfiguration.controlState == .disabled ? .quaternaryLabel : .primaryLabel))
         }
     }
 }

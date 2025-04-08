@@ -20,6 +20,10 @@ public enum SortFilterItem: Identifiable, Hashable {
             return item.id
         case .title(let item, _):
             return item.id
+        case .note(let item, _):
+            return item.id
+        case .durationPicker(let item, _):
+            return item.id
         }
     }
     
@@ -75,6 +79,21 @@ public enum SortFilterItem: Identifiable, Hashable {
     ///
     /// 2. A section of view containing a SwiftUI TitleFormView with Fiori style
     case title(item: TitleItem, showsOnFilterFeedbackBar: Bool)
+    
+    /// The type of UI control is used to build:
+    /// Typically not used in FilterFeedbackBar.
+    ///
+    /// 1. Sort & Filter's menu item associated with a popover containing a SwiftUI NoteFormView with Fiori style
+    ///
+    /// 2. A section of view containing a SwiftUI NoteFormView with Fiori style
+    case note(item: NoteItem, showsOnFilterFeedbackBar: Bool)
+    
+    /// The type of UI control is used to build:
+    ///
+    /// 1. Sort & Filter's menu item associated with a popover containing a SwiftUI DurationPicker with Fiori style
+    ///
+    /// 2. A section of view containing a SwiftUI DurationPicker with Fiori style
+    case durationPicker(item: DurationPickerItem, showsOnFilterFeedbackBar: Bool)
 
     public var showsOnFilterFeedbackBar: Bool {
         switch self {
@@ -91,6 +110,10 @@ public enum SortFilterItem: Identifiable, Hashable {
         case .stepper(_, let showsOnFilterFeedbackBar):
             return showsOnFilterFeedbackBar
         case .title(_, let showsOnFilterFeedbackBar):
+            return showsOnFilterFeedbackBar
+        case .note(_, let showsOnFilterFeedbackBar):
+            return showsOnFilterFeedbackBar
+        case .durationPicker(_, let showsOnFilterFeedbackBar):
             return showsOnFilterFeedbackBar
         }
     }
@@ -133,6 +156,16 @@ public enum SortFilterItem: Identifiable, Hashable {
             hasher.combine(item.originalText)
             hasher.combine(item.workingText)
             hasher.combine(item.text)
+        case .note(let item, _):
+            hasher.combine(item.id)
+            hasher.combine(item.originalText)
+            hasher.combine(item.workingText)
+            hasher.combine(item.text)
+        case .durationPicker(let item, _):
+            hasher.combine(item.id)
+            hasher.combine(item.originalValue)
+            hasher.combine(item.workingValue)
+            hasher.combine(item.value)
         }
     }
 }
@@ -278,6 +311,46 @@ extension SortFilterItem {
         }
     }
     
+    var note: NoteItem {
+        get {
+            switch self {
+            case .note(let item, _):
+                return item
+            default:
+                fatalError("Unexpected value \(self)")
+            }
+        }
+        
+        set {
+            switch self {
+            case .note(_, let showsOnFilterFeedbackBar):
+                self = .note(item: newValue, showsOnFilterFeedbackBar: showsOnFilterFeedbackBar)
+            default:
+                fatalError("Unexpected value \(self)")
+            }
+        }
+    }
+    
+    var durationPicker: DurationPickerItem {
+        get {
+            switch self {
+            case .durationPicker(let item, _):
+                return item
+            default:
+                fatalError("Unexpected value \(self)")
+            }
+        }
+        
+        set {
+            switch self {
+            case .durationPicker(_, let showsOnFilterFeedbackBar):
+                self = .durationPicker(item: newValue, showsOnFilterFeedbackBar: showsOnFilterFeedbackBar)
+            default:
+                fatalError("Unexpected value \(self)")
+            }
+        }
+    }
+    
     var isChanged: Bool {
         switch self {
         case .picker(let item, _):
@@ -293,6 +366,10 @@ extension SortFilterItem {
         case .stepper(let item, _):
             return item.isChanged
         case .title(let item, _):
+            return item.isChanged
+        case .note(let item, _):
+            return item.isChanged
+        case .durationPicker(let item, _):
             return item.isChanged
         }
     }
@@ -312,6 +389,10 @@ extension SortFilterItem {
         case .stepper(let item, _):
             return item.isOriginal
         case .title(let item, _):
+            return item.isOriginal
+        case .note(let item, _):
+            return item.isOriginal
+        case .durationPicker(let item, _):
             return item.isOriginal
         }
     }
@@ -339,6 +420,12 @@ extension SortFilterItem {
         case .title(var item, _):
             item.cancel()
             self.title = item
+        case .note(var item, _):
+            item.cancel()
+            self.note = item
+        case .durationPicker(var item, _):
+            item.cancel()
+            self.durationPicker = item
         }
     }
     
@@ -365,6 +452,12 @@ extension SortFilterItem {
         case .title(var item, _):
             item.reset()
             self.title = item
+        case .note(var item, _):
+            item.reset()
+            self.note = item
+        case .durationPicker(var item, _):
+            item.reset()
+            self.durationPicker = item
         }
     }
     
@@ -391,6 +484,12 @@ extension SortFilterItem {
         case .title(var item, _):
             item.apply()
             self.title = item
+        case .note(var item, _):
+            item.apply()
+            self.note = item
+        case .durationPicker(var item, _):
+            item.apply()
+            self.durationPicker = item
         }
     }
 }
@@ -1173,6 +1272,173 @@ public extension SortFilterItem {
         
         var label: String {
             "\(self.name): \(self.text)"
+        }
+    }
+    
+    /// Data structure for note type
+    struct NoteItem: Identifiable, Equatable {
+        public var id: String
+        public var name: String
+        public let icon: String?
+        
+        public var text: String
+        var workingText: String
+        let originalText: String
+        public var placeholder: String?
+        public var controlState: ControlState = .normal
+        public var errorMessage: String?
+        public var maxTextLength: Int?
+        public let hintText: String?
+        public let hidesReadOnlyHint: Bool
+        public let isCharCountEnabled: Bool
+        public let allowsBeyondLimit: Bool
+        public let charCountReachLimitMessage: String?
+        public let charCountBeyondLimitMsg: String?
+        public let minTextEditorHeight: CGFloat?
+        public let maxTextEditorHeight: CGFloat?
+        
+        /// Create a textfiled.
+        /// - Parameters:
+        ///   - id: The unique identifier for TitleItem.
+        ///   - name: Item name.
+        ///   - text: The text in textfield.
+        ///   - placeholder: A text for placeholder of textfield.
+        ///   - controlState: A state for textfield.
+        ///   - errorMessage: A text when the text of textfield not satisfy conditions.
+        ///   - minTextEditorHeight: The minimum height of the TextEditor. It needs to be greater than 44. Otherwise, it is ignored.
+        ///   - maxTextEditorHeight The maximum height of the TextEditor.
+        ///   - maxTextLength: A maximum value for text length.
+        ///   - hidesReadOnlyHint: A boolean value to indicate to hide read only hint or not.
+        ///   - isCharCountEnabled: A boolean value to indicate to display char count or not.
+        ///   - allowsBeyondLimit: A boolean value to indicate to allows inputting text beyond maximum char count limit or not.
+        ///   - charCountReachLimitMessage: A text for char count reach maximum limit.
+        ///   - charCountBeyondLimitMsg: A text for char beyond maximum limit.
+        ///   - icon: The icon image in the item bar.
+        ///   - hintText: The hint text of the textfiled.
+        public init(id: String = UUID().uuidString, name: String, text: String, isSecureEnabled: Bool? = false, placeholder: String? = nil, controlState: ControlState = .normal, errorMessage: String? = nil, minTextEditorHeight: CGFloat? = nil, maxTextEditorHeight: CGFloat? = nil, maxTextLength: Int? = nil, hidesReadOnlyHint: Bool = false, isCharCountEnabled: Bool = false, allowsBeyondLimit: Bool = false, charCountReachLimitMessage: String? = nil, charCountBeyondLimitMsg: String? = nil, icon: String? = nil, hintText: String? = nil) {
+            self.id = id
+            self.name = name
+            self.text = text
+            self.workingText = text
+            self.originalText = text
+            self.icon = icon
+            self.placeholder = placeholder
+            self.controlState = controlState
+            self.minTextEditorHeight = minTextEditorHeight
+            self.maxTextEditorHeight = maxTextEditorHeight
+            self.errorMessage = errorMessage
+            self.maxTextLength = maxTextLength
+            self.hidesReadOnlyHint = hidesReadOnlyHint
+            self.isCharCountEnabled = isCharCountEnabled
+            self.allowsBeyondLimit = allowsBeyondLimit
+            self.charCountReachLimitMessage = charCountReachLimitMessage
+            self.charCountBeyondLimitMsg = charCountBeyondLimitMsg
+            self.hintText = hintText
+        }
+        
+        mutating func reset() {
+            self.workingText = self.originalText
+        }
+        
+        mutating func cancel() {
+            self.workingText = self.text
+        }
+        
+        mutating func apply() {
+            self.text = self.workingText
+        }
+        
+        var isChecked: Bool {
+            !self.text.isEmpty
+        }
+        
+        var isChanged: Bool {
+            self.text != self.workingText
+        }
+        
+        var isOriginal: Bool {
+            self.workingText == self.originalText
+        }
+        
+        var label: String {
+            "\(self.name): \(self.text)"
+        }
+    }
+    
+    ///  Data structure for integer type durantion picker
+    struct DurationPickerItem: Identifiable, Equatable {
+        public let id: String
+        public var name: String
+        public var value: Int
+        var workingValue: Int
+        let originalValue: Int
+        public let icon: String?
+        
+        public let maximumMinutes: Int
+        public let minimumMinutes: Int
+        public let minuteInterval: Int
+        public let measurementFormatter: MeasurementFormatter
+        public init(id: String = UUID().uuidString, name: String, value: Int, maximumMinutes: Int = 1439, minimumMinutes: Int = 0, minuteInterval: Int = 1, measurementFormatter: MeasurementFormatter = MeasurementFormatter(), icon: String? = nil) {
+            self.id = id
+            self.name = name
+            self.value = value
+            self.workingValue = value
+            self.originalValue = value
+            self.maximumMinutes = maximumMinutes
+            self.minimumMinutes = minimumMinutes
+            self.minuteInterval = minuteInterval
+            self.measurementFormatter = measurementFormatter
+            self.icon = icon
+        }
+        
+        mutating func reset() {
+            self.workingValue = self.originalValue
+        }
+        
+        mutating func cancel() {
+            self.workingValue = self.value
+        }
+        
+        mutating func apply() {
+            self.value = self.workingValue
+        }
+        
+        var isChecked: Bool {
+            true
+        }
+
+        var label: String {
+            let hour = self.value / 60
+            let min = self.value % 60
+            var durationString = ""
+            
+            if self.value == 0 {
+                durationString = "0" + " " + self.measurementFormatter.string(from: UnitDuration.minutes)
+            } else {
+                if hour > 0 {
+                    durationString = "\(hour)" + " " + self.measurementFormatter.string(from: UnitDuration.hours)
+                }
+                if !durationString.isEmpty {
+                    durationString += " "
+                }
+                if min > 0 {
+                    durationString += "\(min)" + " " + self.measurementFormatter.string(from: UnitDuration.minutes)
+                }
+            }
+            
+            return "\(self.name): \(durationString)"
+        }
+        
+        mutating func setValue(newValue: DurationPickerItem) {
+            self.value = newValue.value
+        }
+        
+        var isChanged: Bool {
+            self.value != self.workingValue
+        }
+        
+        var isOriginal: Bool {
+            self.workingValue == self.originalValue
         }
     }
 }
