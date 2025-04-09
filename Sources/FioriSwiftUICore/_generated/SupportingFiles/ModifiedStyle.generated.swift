@@ -4488,34 +4488,6 @@ public extension TextViewStyle {
     }
 }
 
-// MARK: TextWithMandatoryFieldIndicatorStyle
-
-extension ModifiedStyle: TextWithMandatoryFieldIndicatorStyle where Style: TextWithMandatoryFieldIndicatorStyle {
-    public func makeBody(_ configuration: TextWithMandatoryFieldIndicatorConfiguration) -> some View {
-        TextWithMandatoryFieldIndicator(configuration)
-            .textWithMandatoryFieldIndicatorStyle(self.style)
-            .modifier(self.modifier)
-    }
-}
-
-public struct TextWithMandatoryFieldIndicatorStyleModifier<Style: TextWithMandatoryFieldIndicatorStyle>: ViewModifier {
-    let style: Style
-
-    public func body(content: Content) -> some View {
-        content.textWithMandatoryFieldIndicatorStyle(self.style)
-    }
-}
-
-public extension TextWithMandatoryFieldIndicatorStyle {
-    func modifier(_ modifier: some ViewModifier) -> some TextWithMandatoryFieldIndicatorStyle {
-        ModifiedStyle(style: self, modifier: modifier)
-    }
-
-    func concat(_ style: some TextWithMandatoryFieldIndicatorStyle) -> some TextWithMandatoryFieldIndicatorStyle {
-        style.modifier(TextWithMandatoryFieldIndicatorStyleModifier(style: self))
-    }
-}
-
 // MARK: TimelineStyle
 
 extension ModifiedStyle: TimelineStyle where Style: TimelineStyle {

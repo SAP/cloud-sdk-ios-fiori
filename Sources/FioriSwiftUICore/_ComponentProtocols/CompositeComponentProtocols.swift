@@ -739,24 +739,6 @@ protocol _FilterFormViewComponent: _TitleComponent, _MandatoryField, _OptionsCom
 /// This is just a mandatoryFieldIndicator flag protocol. With this protocol, the extension init api will append two more parameters: `isRequired` with false default value and `mandatoryFieldIndicator` with .text("*") default value. If `isRequired` is true, the `mandatoryFieldIndicator` will follow the last character of the title and be a part of title View.
 protocol _MandatoryField {}
 
-/// `TextWithMandatoryFieldIndicator` provides a text and an optional mandatory field. The mandatory field will follow the text's last character.
-/// ## Usage
-/// ```swift
-/// TextWithMandatoryFieldIndicator(text: "Normal text, Customized Mandatory", isRequired: true, mandatoryFieldIndicator: .text("#"))
-///    .textWithMandatoryFieldIndicatorStyle { conf in
-///        TextWithMandatoryFieldIndicator(conf)
-///            .foregroundStyle(self.isEnabled ? Color.blue : Color.preferredColor(.quaternaryLabel))
-///    }
-/// ```
-// sourcery: CompositeComponent
-protocol _TextWithMandatoryFieldIndicatorComponent {
-    var text: AttributedString { get }
-    // sourcery: defaultValue = false
-    var isRequired: Bool { get }
-    // sourcery: defaultValue = .text("*")
-    var mandatoryFieldIndicator: TextOrIcon? { get }
-}
-
 // sourcery: CompositeComponent
 protocol _LoadingIndicatorComponent: _TitleComponent, _ProgressComponent {
     // sourcery: defaultValue = 0

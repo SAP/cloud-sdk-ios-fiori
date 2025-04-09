@@ -2723,23 +2723,6 @@ public extension View {
     }
 }
 
-// MARK: TextWithMandatoryFieldIndicatorStyle
-
-public extension View {
-    func textWithMandatoryFieldIndicatorStyle(_ style: some TextWithMandatoryFieldIndicatorStyle) -> some View {
-        self.transformEnvironment(\.textWithMandatoryFieldIndicatorStyleStack) { stack in
-            stack.append(style)
-        }
-    }
-
-    func textWithMandatoryFieldIndicatorStyle(@ViewBuilder content: @escaping (TextWithMandatoryFieldIndicatorConfiguration) -> some View) -> some View {
-        self.transformEnvironment(\.textWithMandatoryFieldIndicatorStyleStack) { stack in
-            let style = AnyTextWithMandatoryFieldIndicatorStyle(content)
-            stack.append(style)
-        }
-    }
-}
-
 // MARK: TimelineStyle
 
 public extension View {

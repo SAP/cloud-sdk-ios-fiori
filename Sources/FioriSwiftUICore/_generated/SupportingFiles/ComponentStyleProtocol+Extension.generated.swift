@@ -7703,20 +7703,6 @@ public extension TextViewStyle where Self == TextViewFioriStyle {
     }
 }
 
-// MARK: TextWithMandatoryFieldIndicatorStyle
-
-public extension TextWithMandatoryFieldIndicatorStyle where Self == TextWithMandatoryFieldIndicatorBaseStyle {
-    static var base: TextWithMandatoryFieldIndicatorBaseStyle {
-        TextWithMandatoryFieldIndicatorBaseStyle()
-    }
-}
-
-public extension TextWithMandatoryFieldIndicatorStyle where Self == TextWithMandatoryFieldIndicatorFioriStyle {
-    static var fiori: TextWithMandatoryFieldIndicatorFioriStyle {
-        TextWithMandatoryFieldIndicatorFioriStyle()
-    }
-}
-
 // MARK: TimelineStyle
 
 public extension TimelineStyle where Self == TimelineBaseStyle {
