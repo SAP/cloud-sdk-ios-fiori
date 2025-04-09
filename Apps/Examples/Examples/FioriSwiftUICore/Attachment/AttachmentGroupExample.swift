@@ -94,7 +94,9 @@ struct AttachmentGroupExample: View {
                         
                         Toggle(self.opsAsMenu ? "Operation Menu" : "Operation Dialog", isOn: self.$opsAsMenu)
                         
-                        Toggle(self.defaultPreview ? "SwiftUI QuickLookPreview" : "Custom Preview", isOn: self.$defaultPreview)
+                        #if os(iOS)
+                            Toggle(self.defaultPreview ? "SwiftUI QuickLookPreview" : "Custom Preview", isOn: self.$defaultPreview)
+                        #endif
                         
                         Toggle(self.defaultThumbnail ? "Use Default Thumbnail & Info" : "Use My Own Thumbnail & Info", isOn: self.$defaultThumbnail)
                         
@@ -158,26 +160,30 @@ struct AttachmentGroupExample: View {
                         $0.operationsMenu {
                             PhotosPickerMenuItem(filter: self.photoFilters)
                             FilesPickerMenuItem(filter: self.fileFilters)
-                            CameraMenuItem()
-                            PdfScannerMenuItem()
-                            Button {
-                                self.showWriteAndUploadView.toggle()
-                            } label: {
-                                Label("Custom:Compose", systemImage: "square.and.pencil")
-                            }
+                            #if os(iOS)
+                                CameraMenuItem()
+                                PdfScannerMenuItem()
+                                Button {
+                                    self.showWriteAndUploadView.toggle()
+                                } label: {
+                                    Label("Custom:Compose", systemImage: "square.and.pencil")
+                                }
+                            #endif
                         }
                     }
                     .ifApply(!self.opsAsMenu) {
                         $0.operationsDialog {
                             PhotosPickerMenuItem(filter: self.photoFilters)
                             FilesPickerMenuItem(filter: self.fileFilters)
-                            CameraMenuItem()
-                            PdfScannerMenuItem()
-                            Button {
-                                self.showWriteAndUploadView.toggle()
-                            } label: {
-                                Label("Custom:Compose", systemImage: "square.and.pencil")
-                            }
+                            #if os(iOS)
+                                CameraMenuItem()
+                                PdfScannerMenuItem()
+                                Button {
+                                    self.showWriteAndUploadView.toggle()
+                                } label: {
+                                    Label("Custom:Compose", systemImage: "square.and.pencil")
+                                }
+                            #endif
                         }
                     }
             },
@@ -186,6 +192,7 @@ struct AttachmentGroupExample: View {
                 self.previewURL = newValue
             }
         )
+        #if os(iOS)
         .ifApply(!self.defaultPreview) {
             $0.fullScreenCover(isPresented: self.shouldShowPreview) {
                 AttachmentPreview(
@@ -200,6 +207,7 @@ struct AttachmentGroupExample: View {
                 }
             }
         }
+        #endif
         .ifApply(!self.defaultThumbnail) {
             $0.attachmentStyle(MyAttachmentStyle())
         }

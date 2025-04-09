@@ -1198,22 +1198,12 @@ protocol _StepProgressIndicatorComponent: _TitleComponent, _ActionComponent, _Ca
     var steps: [StepItem] { get }
 }
 
-/// `Attachment` provides thumbnail and information about an attachment.
+/// `Attachment` is the UI component to be used by `AttachmentGroup` along with `AttachmentButtonImage` to support users' operation, such as adding a photo or a file and to render attachment list.
 ///
 /// ## Usage
 /// ```swift
 /// Attachment {
-///   QuickLookThumbnail(physicalUrl: fileURL)
-/// } attachmentTitle: {
-///   Text("Leaf")
-/// } attachmentSubtitle: {
-///   Text("15MB")
-/// } attachmentFootnote: {
-///   Text("Aug 15, 2024")
-/// }
-///
-/// Attachment {
-///   QuickLookThumbnail(thumbnailImage: : Image(systemName: "leaf"))
+///   AttachmentThumbnail(url: fileURL)
 /// } attachmentTitle: {
 ///   Text("Leaf")
 /// } attachmentSubtitle: {
@@ -1243,6 +1233,29 @@ protocol _AttachmentComponent: _AttachmentTitleComponent, _AttachmentSubtitleCom
     var controlState: ControlState { get }
 }
 
+/// `AttachmentButtonImage` provides the default `Add` button following visual design.
+///
+/// ## Usage
+/// ```swift
+/// @State var attachments: [URL]
+/// @State var attachmentError: AttributedString?
+/// let delegate: AttachmentDelegate
+///
+/// AttachmentGroup(
+///   title: { Text("Attachements") },
+///   attachments: self.$attachments,
+///   maxCount: 5,
+///   delegate: self.delegate,
+///   errorMessage: self.$attachmentError,
+///   operations: {
+///       AttachmentButtonImage()
+///           .operationsMenu {
+///               PhotosPickerMenuItem(filter: [.images])
+///               FilesPickerMenuItem(filter: [.pdf, .presentation])
+///           }
+///       }
+///  )
+/// ```
 // sourcery: CompositeComponent
 // sourcery: importFrameworks = ["FioriThemeManager"]
 protocol _AttachmentButtonImageComponent {
@@ -1256,11 +1269,24 @@ protocol _AttachmentButtonImageComponent {
     var controlState: ControlState { get }
 }
 
-/// `AttachmentGroup` provides thubnail and information about an attachment.
+/// `AttachmentGroup` is the UI component for adding, removing, and rendering thumbnails and previews.
 ///
 /// ## Usage
 /// ```swift
-///  todo: code here
+/// AttachmentGroup(
+///   title: { Text("Attachements") },
+///   attachments: self.$attachments,
+///   maxCount: 5,
+///   delegate: self.delegate,
+///   errorMessage: self.$attachmentError,
+///   operations: {
+///       AttachmentButtonImage()
+///           .operationsMenu {
+///               PhotosPickerMenuItem(filter: [.images])
+///               FilesPickerMenuItem(filter: [.pdf, .presentation])
+///           }
+///       }
+///  )
 /// ```
 // sourcery: CompositeComponent
 protocol _AttachmentGroupComponent: _TitleComponent {
@@ -1295,6 +1321,19 @@ protocol _AttachmentGroupComponent: _TitleComponent {
     var onPreview: ((URL) -> Void)? { get }
 }
 
+/// `AttachmentThumbnail` is the UI component for rendering attachment file thumbnails asynchronously starting with static icons.
+///
+/// ## Usage
+/// ```swift
+/// Attachment {
+///   AttachmentThumbnail(url: fileURL)
+/// } attachmentTitle: {
+///   Text("Leaf")
+/// } attachmentSubtitle: {
+///   Text("15MB")
+/// } attachmentFootnote: {
+///   Text("Aug 15, 2024")
+/// }
 // sourcery: CompositeComponent
 // sourcery: importFrameworks = ["FioriThemeManager"]
 protocol _AttachmentThumbnailComponent {

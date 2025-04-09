@@ -1,6 +1,8 @@
 import Photos
 import SwiftUI
 
+@available(watchOS, unavailable)
+@available(visionOS, unavailable)
 public struct CameraView: UIViewControllerRepresentable {
     @Environment(\.presentationMode) private var presentationMode
     var onSaveImage: (UIImage?) -> Void
@@ -8,9 +10,7 @@ public struct CameraView: UIViewControllerRepresentable {
 
     public func makeUIViewController(context: Context) -> UIImagePickerController {
         let camera = UIImagePickerController()
-        #if os(iOS)
-            camera.sourceType = .camera
-        #endif
+        camera.sourceType = .camera
         camera.mediaTypes = [UTType.image.identifier, UTType.movie.identifier]
         camera.allowsEditing = false
         camera.delegate = context.coordinator

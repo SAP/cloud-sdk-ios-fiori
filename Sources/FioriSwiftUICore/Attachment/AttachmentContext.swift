@@ -3,7 +3,8 @@ import PDFKit
 import PhotosUI
 import SwiftUI
 
-/// Attachment Context facilites hierarchical components, i.e. AttachmentGroup and Attachment work together
+/// Attachment Context facilites hierarchical components, i.e. AttachmentGroup and Attachment work together, for example
+///  setting and displaying error message and showing and dissmissing file picker.
 @Observable
 public class AttachmentContext {
     /// For toggle PhotosPicker
