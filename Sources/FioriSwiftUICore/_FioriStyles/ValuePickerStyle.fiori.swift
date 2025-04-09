@@ -31,12 +31,7 @@ public struct ValuePickerBaseStyle: ValuePickerStyle {
     func configureMainStack(_ configuration: ValuePickerConfiguration, isVertical: Bool) -> some View {
         let mainStack = isVertical ? AnyLayout(VStackLayout(alignment: .leading, spacing: 3)) : AnyLayout(HStackLayout())
         return mainStack {
-            HStack(spacing: 0) {
-                configuration.title
-                if configuration.isRequired {
-                    configuration.mandatoryFieldIndicator
-                }
-            }
+            configuration.title
             if !isVertical {
                 Spacer()
             } else {
@@ -121,15 +116,6 @@ extension ValuePickerFioriStyle {
             ValueLabel(configuration)
                 .font(.fiori(forTextStyle: .body))
                 .lineLimit(1)
-        }
-    }
-    
-    struct MandatoryFieldIndicatorFioriStyle: MandatoryFieldIndicatorStyle {
-        let valuePickerConfiguration: ValuePickerConfiguration
-
-        func makeBody(_ configuration: MandatoryFieldIndicatorConfiguration) -> some View {
-            MandatoryFieldIndicator(configuration)
-                .foregroundStyle(Color.preferredColor(self.valuePickerConfiguration.controlState == .disabled ? .quaternaryLabel : .primaryLabel))
         }
     }
 
