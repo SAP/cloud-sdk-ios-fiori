@@ -650,6 +650,13 @@
 			path = SideBar;
 			sourceTree = "<group>";
 		};
+		6D52CC5B2DA60562003491ED /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
 		6D66D7F02D02FC7B00F7A97D /* ActivityItem */ = {
 			isa = PBXGroup;
 			children = (
@@ -712,6 +719,7 @@
 				1F60179529A8439A00DBDCDE /* WatchExamples Watch App */,
 				8A55795424C1286E0098003A /* Products */,
 				8A557A1224C129900098003A /* Frameworks */,
+				6D52CC5B2DA60562003491ED /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -925,6 +933,14 @@
 				B1A78D972C88388B00432B0D /* ShadowEffectExample.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		A6DFDEBB2DA6750900666A51 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				C15005172DA44C3600BB0EA8 /* MandatoryAttachmentExample.swift */,
+			);
+			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 		AB988B11263128C400483D87 /* DataTable */ = {

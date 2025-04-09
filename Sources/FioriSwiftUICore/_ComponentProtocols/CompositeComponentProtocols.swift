@@ -698,10 +698,6 @@ protocol _BannerMultiMessageSheet: _TitleComponent, _CloseActionComponent {
 /// ##Usage
 /// ```swift
 /// FilterFormView(title: "Sort Filter, MultiSelection, EmptySelection, fixed", mandatoryFieldIndicator: self.mandatoryField(), isRequired: false, options: self.sortValueOptions, errorMessage: nil, isEnabled: self.isEnabled, allowsMultipleSelection: true, allowsEmptySelection: true, value: self.$sortFilterFixedSelectionValue, buttonSize: .fixed)
-///    .mandatoryFieldIndicatorStyle { conf in
-///        conf.mandatoryFieldIndicator
-///            .foregroundStyle(self.mandatoryFieldIndicatorColor())
-///    }
 ///    .filterFormOptionMinTouchHeight(50)
 ///    .filterFormOptionCornerRadius(16)
 ///    .filterFormOptionTitleSpacing(4)
@@ -739,6 +735,9 @@ protocol _FilterFormViewComponent: _TitleComponent, _MandatoryField, _OptionsCom
     /// Implementation of value change callback.  Is invoked on changes to the `value` property.
     var onValueChange: (([Int]) -> Void)? { get }
 }
+
+/// This is just a mandatoryFieldIndicator flag protocol. With this protocol, the extension init api will append two more parameters: `isRequired` with false default value and `mandatoryFieldIndicator` with .text("*") default value. If `isRequired` is true, the `mandatoryFieldIndicator` will follow the last character of the title and be a part of title View.
+protocol _MandatoryField {}
 
 // sourcery: CompositeComponent
 protocol _LoadingIndicatorComponent: _TitleComponent, _ProgressComponent {
@@ -1578,11 +1577,7 @@ protocol _SortFilterViewComponent: _TitleComponent, _CancelActionComponent, _App
 /// `SignatureCaptureView` allows user to sign above  the signature line.
 /// ## Usage
 /// ```swift
-/// SignatureCaptureView(title: {
-///    Text("Signature Title")
-/// }, mandatoryFieldIndicator: {
-///    Text("*")
-/// }, isRequired: true, startSignatureAction: {
+/// SignatureCaptureView(title: "Signature Title", isRequired: true, startSignatureAction: {
 ///    Button(action: {}, label: { Text("start") })
 /// }, reenterSignatureAction: {
 ///    Button(action: {}, label: { Text("restart") })

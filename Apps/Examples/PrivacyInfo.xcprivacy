@@ -21,7 +21,16 @@
     </array>
     <key>NSPrivacyAccessedAPITypes</key>
     <array>
-        <dict/>
+        <dict>
+            <key>NSPrivacyAccessedAPIType</key>
+            <string>NSPrivacyAccessedAPICategoryFileTimestamp</string>
+            <key>NSPrivacyAccessedAPITypeReasons</key>
+            <array>
+                <string>C617.1</string>
+                <string>0A2A.1</string>
+                <string>DDA9.1</string>
+            </array>
+        </dict>
     </array>
 </dict>
 </plist>
