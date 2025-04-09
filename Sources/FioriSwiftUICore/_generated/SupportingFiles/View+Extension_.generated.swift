@@ -1584,23 +1584,6 @@ public extension View {
     }
 }
 
-// MARK: MandatoryFieldIndicatorStyle
-
-public extension View {
-    func mandatoryFieldIndicatorStyle(_ style: some MandatoryFieldIndicatorStyle) -> some View {
-        self.transformEnvironment(\.mandatoryFieldIndicatorStyleStack) { stack in
-            stack.append(style)
-        }
-    }
-
-    func mandatoryFieldIndicatorStyle(@ViewBuilder content: @escaping (MandatoryFieldIndicatorConfiguration) -> some View) -> some View {
-        self.transformEnvironment(\.mandatoryFieldIndicatorStyleStack) { stack in
-            let style = AnyMandatoryFieldIndicatorStyle(content)
-            stack.append(style)
-        }
-    }
-}
-
 // MARK: MediaImageStyle
 
 public extension View {

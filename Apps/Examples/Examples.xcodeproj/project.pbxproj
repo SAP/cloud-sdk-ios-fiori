@@ -453,7 +453,6 @@
 		C106AD472B33940600FE8B35 /* SearchWithBookmark.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchWithBookmark.swift; sourceTree = "<group>"; };
 		C106AD492B33970500FE8B35 /* SearchPromptFontAndColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchPromptFontAndColor.swift; sourceTree = "<group>"; };
 		C12EDF6A2D5EB98F006CF674 /* Square Image.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Square Image.jpeg"; sourceTree = "<group>"; };
-		C15005172DA44C3600BB0EA8 /* MandatoryAttachmentExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MandatoryAttachmentExample.swift; sourceTree = "<group>"; };
 		C150CCCB2B86B78E00118DF7 /* ChromeEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChromeEffect.swift; sourceTree = "<group>"; };
 		C167183B2B477A81005E2629 /* SearchDemos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDemos.swift; sourceTree = "<group>"; };
 		C18868D02B32535100F865F7 /* SearchFontAndColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFontAndColor.swift; sourceTree = "<group>"; };
@@ -651,6 +650,13 @@
 			path = SideBar;
 			sourceTree = "<group>";
 		};
+		6D52CC5B2DA60562003491ED /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
 		6D66D7F02D02FC7B00F7A97D /* ActivityItem */ = {
 			isa = PBXGroup;
 			children = (
@@ -713,7 +719,7 @@
 				1F60179529A8439A00DBDCDE /* WatchExamples Watch App */,
 				8A55795424C1286E0098003A /* Products */,
 				8A557A1224C129900098003A /* Frameworks */,
-				A6DFDEBB2DA6750900666A51 /* Recovered References */,
+				6D52CC5B2DA60562003491ED /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
