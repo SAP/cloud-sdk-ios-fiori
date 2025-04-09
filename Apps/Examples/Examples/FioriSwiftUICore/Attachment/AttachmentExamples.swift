@@ -6,13 +6,6 @@ struct AttachmentExamples: View {
         List {
             Section(header: Text("Attachment")) {
                 NavigationLink(
-                    destination: Sandbox(),
-                    label: {
-                        Text("Playground")
-                    }
-                )
-
-                NavigationLink(
                     destination: AttachmentGroupExample(),
                     label: {
                         Text("Attachment")
