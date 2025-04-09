@@ -163,12 +163,12 @@ struct AttachmentGroupExample: View {
                             #if os(iOS)
                                 CameraMenuItem()
                                 PdfScannerMenuItem()
+                                Button {
+                                    self.showWriteAndUploadView.toggle()
+                                } label: {
+                                    Label("Custom:Compose", systemImage: "square.and.pencil")
+                                }
                             #endif
-                            Button {
-                                self.showWriteAndUploadView.toggle()
-                            } label: {
-                                Label("Custom:Compose", systemImage: "square.and.pencil")
-                            }
                         }
                     }
                     .ifApply(!self.opsAsMenu) {
@@ -178,12 +178,12 @@ struct AttachmentGroupExample: View {
                             #if os(iOS)
                                 CameraMenuItem()
                                 PdfScannerMenuItem()
+                                Button {
+                                    self.showWriteAndUploadView.toggle()
+                                } label: {
+                                    Label("Custom:Compose", systemImage: "square.and.pencil")
+                                }
                             #endif
-                            Button {
-                                self.showWriteAndUploadView.toggle()
-                            } label: {
-                                Label("Custom:Compose", systemImage: "square.and.pencil")
-                            }
                         }
                     }
             },

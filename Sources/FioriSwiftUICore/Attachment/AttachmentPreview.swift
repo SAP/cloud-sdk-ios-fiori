@@ -3,6 +3,7 @@ import QuickLook
 import SwiftUI
 
 @available(watchOS, unavailable)
+@available(visionOS, unavailable)
 public struct AttachmentPreview: UIViewControllerRepresentable {
     @Binding var urls: [URL]
     @Binding var previewURL: URL
