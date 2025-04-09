@@ -1918,3 +1918,55 @@ protocol _DurationPickerComponent {
     // sourcery: no_view
     var measurementFormatter: MeasurementFormatter { get set }
 }
+
+/// `Authentication` is used to display a login screen with customizable detail image, title, subtitle, input fields and sign-in action.
+/// ## Usage
+/// ```swift
+/// // Basic usage
+/// @State var password: String = ""
+/// @State var name: String = ""
+///
+/// Authentication(detailImage: {
+///     Image(.illustration).resizable().aspectRatio(contentMode: .fit)
+/// }, title: {
+///     Text("Authentication")
+/// }, subtitle: {
+///     Text("Please provide your username and password to authenticate.")
+/// }, authInput: {
+///     VStack(spacing: 16) {
+///         TextFieldFormView(title: "", text: self.$name, placeholder: "Enter your name")
+///         TextFieldFormView(title: "", text: self.$password, isSecureEnabled: true, placeholder: "Enter your password")
+///     }
+/// }, isDisabled: password.isEmpty || name.isEmpty) {
+///     print("sign in ......")
+/// }
+///
+/// // With banner message and custom style
+/// Authentication(detailImage: {
+///     Image(.illustration).resizable().aspectRatio(contentMode: .fit)
+/// }, title: {
+///     Text("Authentication")
+/// }, subtitle: {
+///     Text("Please provide your username and password.")
+/// }, isDisabled: password.isEmpty || name.isEmpty) {
+///     // Handle sign in action
+/// }
+/// .authenticationStyle(BasicAuthenticationStyle(password: self.$password, name: self.$name))
+/// .bannerMessageView(isPresented: self.$isPresentedBanner,
+///                   pushContentDown: .constant(false),
+///                   icon: { EmptyView() },
+///                   title: "Verifying...",
+///                   messageType: .neutral)
+/// ```
+// sourcery: CompositeComponent
+protocol _AuthenticationComponent: _DetailImageComponent, _TitleComponent, _SubtitleComponent, _AuthInputComponent, _SignInActionComponent {
+    // sourcery: @binding
+    /// Whether the sign-in button is disabled. Typically controlled by the validation state of the input fields.
+    var isDisabled: Bool { get }
+    
+    // sourcery: default.value = nil
+    // sourcery: no_view
+    /// Callback triggered when the sign-in action is performed. This is called when the user taps the sign-in button
+    /// and the `isDisabled` property is false.
+    var didSignIn: (() -> Void)? { get }
+}
