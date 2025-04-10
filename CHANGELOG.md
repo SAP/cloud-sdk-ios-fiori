@@ -2,6 +2,58 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [25.4.0](https://github.com/SAP/cloud-sdk-ios-fiori/compare/4.4.0-20250407...25.4.0) (2025-04-10)
+
+
+### ⚠ BREAKING CHANGES
+
+* 🧨 0
+
+✅ Closes: 1
+
+* fix: 🐛 remove camera support from visionOS and watchOS
+
+remove camera support from visionOS and watchOS
+* 🧨 0
+
+✅ Closes: 0
+* 🧨 0
+
+✅ Closes: 0
+
+* fix: 🐛 remove Apps/Examples/Examples/PrivacyInfo.xcprivacy
+
+remove extra Apps/Examples/Examples/PrivacyInfo.xcprivacy manifest
+* 🧨 0
+
+✅ Closes: 0
+
+* fix: 🐛 add license comment
+
+add license comment and remove duplicate privacyinfo.xcprivacy
+* 🧨 0
+
+✅ Closes: 0
+
+* fix: 🐛 update license comment
+
+update license comment
+* 🧨 0
+
+✅ Closes: 0
+
+* fix: Update PrivacyInfo.xcprivacy
+
+### Features
+
+* 🎸 HCPSDKFIORIUIKIT-2235 Attachment part 4 doc updates ([#1039](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1039)) ([081d794](https://github.com/SAP/cloud-sdk-ios-fiori/commit/081d7941354690b8a7320ec3eddbf7961cd731fe))
+
+
+### Bug Fixes
+
+* 🐛 MandatoryAttachmentExample file path error ([#1038](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1038)) ([7e0a593](https://github.com/SAP/cloud-sdk-ios-fiori/commit/7e0a593adcbf2e30e1e2339da63b925257916da2))
+* 🐛 privacy manifest format ([#1036](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1036)) ([5439f4c](https://github.com/SAP/cloud-sdk-ios-fiori/commit/5439f4cfb7db8acf0a655098bab032cb8839b7f8))
+
 ## [4.4.0-20250407](https://github.com/SAP/cloud-sdk-ios-fiori/compare/4.4.0-20250308...4.4.0-20250407) (2025-04-07)
 
 
