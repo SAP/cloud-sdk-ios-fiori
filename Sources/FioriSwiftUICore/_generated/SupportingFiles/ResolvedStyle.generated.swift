@@ -291,6 +291,38 @@ extension AttributeStyle {
     }
 }
 
+// MARK: AuthInputStyle
+
+struct ResolvedAuthInputStyle<Style: AuthInputStyle>: View {
+    let style: Style
+    let configuration: AuthInputConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension AuthInputStyle {
+    func resolve(configuration: AuthInputConfiguration) -> some View {
+        ResolvedAuthInputStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: AuthenticationStyle
+
+struct ResolvedAuthenticationStyle<Style: AuthenticationStyle>: View {
+    let style: Style
+    let configuration: AuthenticationConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension AuthenticationStyle {
+    func resolve(configuration: AuthenticationConfiguration) -> some View {
+        ResolvedAuthenticationStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: AvatarStackStyle
 
 struct ResolvedAvatarStackStyle<Style: AvatarStackStyle>: View {
@@ -2224,6 +2256,22 @@ struct ResolvedSideBarListItemStyle<Style: SideBarListItemStyle>: View {
 extension SideBarListItemStyle {
     func resolve(configuration: SideBarListItemConfiguration) -> some View {
         ResolvedSideBarListItemStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: SignInActionStyle
+
+struct ResolvedSignInActionStyle<Style: SignInActionStyle>: View {
+    let style: Style
+    let configuration: SignInActionConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension SignInActionStyle {
+    func resolve(configuration: SignInActionConfiguration) -> some View {
+        ResolvedSignInActionStyle(style: self, configuration: configuration)
     }
 }
 

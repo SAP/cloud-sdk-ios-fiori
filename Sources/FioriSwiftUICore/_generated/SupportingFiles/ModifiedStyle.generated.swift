@@ -512,6 +512,62 @@ public extension AttributeStyle {
     }
 }
 
+// MARK: AuthInputStyle
+
+extension ModifiedStyle: AuthInputStyle where Style: AuthInputStyle {
+    public func makeBody(_ configuration: AuthInputConfiguration) -> some View {
+        AuthInput(configuration)
+            .authInputStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct AuthInputStyleModifier<Style: AuthInputStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.authInputStyle(self.style)
+    }
+}
+
+public extension AuthInputStyle {
+    func modifier(_ modifier: some ViewModifier) -> some AuthInputStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some AuthInputStyle) -> some AuthInputStyle {
+        style.modifier(AuthInputStyleModifier(style: self))
+    }
+}
+
+// MARK: AuthenticationStyle
+
+extension ModifiedStyle: AuthenticationStyle where Style: AuthenticationStyle {
+    public func makeBody(_ configuration: AuthenticationConfiguration) -> some View {
+        Authentication(configuration)
+            .authenticationStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct AuthenticationStyleModifier<Style: AuthenticationStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.authenticationStyle(self.style)
+    }
+}
+
+public extension AuthenticationStyle {
+    func modifier(_ modifier: some ViewModifier) -> some AuthenticationStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some AuthenticationStyle) -> some AuthenticationStyle {
+        style.modifier(AuthenticationStyleModifier(style: self))
+    }
+}
+
 // MARK: AvatarStackStyle
 
 extension ModifiedStyle: AvatarStackStyle where Style: AvatarStackStyle {
@@ -3897,6 +3953,34 @@ public extension SideBarListItemStyle {
 
     func concat(_ style: some SideBarListItemStyle) -> some SideBarListItemStyle {
         style.modifier(SideBarListItemStyleModifier(style: self))
+    }
+}
+
+// MARK: SignInActionStyle
+
+extension ModifiedStyle: SignInActionStyle where Style: SignInActionStyle {
+    public func makeBody(_ configuration: SignInActionConfiguration) -> some View {
+        SignInAction(configuration)
+            .signInActionStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct SignInActionStyleModifier<Style: SignInActionStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.signInActionStyle(self.style)
+    }
+}
+
+public extension SignInActionStyle {
+    func modifier(_ modifier: some ViewModifier) -> some SignInActionStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some SignInActionStyle) -> some SignInActionStyle {
+        style.modifier(SignInActionStyleModifier(style: self))
     }
 }
 

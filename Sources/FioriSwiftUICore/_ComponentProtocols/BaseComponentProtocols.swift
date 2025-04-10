@@ -718,3 +718,17 @@ protocol _DisagreeActionComponent {
     // sourcery: resultBuilder.defaultValue = "{ FioriButton { _ in Text("Disagree".localizedFioriString()) } }"
     var disagreeAction: FioriButton? { get }
 }
+
+// sourcery: BaseComponent
+protocol _AuthInputComponent {
+    @ViewBuilder
+    var authInput: (() -> any View)? { get }
+}
+
+// sourcery: BaseComponent
+protocol _SignInActionComponent {
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "FioriButton { _ in Text("Sign In".localizedFioriString()) }"
+    // sourcery: resultBuilder.defaultValue = "{ FioriButton { _ in Text("Sign In".localizedFioriString()) } }"
+    var signInAction: FioriButton? { get }
+}
