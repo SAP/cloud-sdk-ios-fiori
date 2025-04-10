@@ -1823,6 +1823,46 @@ protocol _UserConsentFormComponent: _NextActionComponent, _CancelActionComponent
 // sourcery: CompositeComponent
 protocol _UserConsentPageComponent: _TitleComponent, _BodyTextComponent, _ActionComponent {}
 
+// sourcery: CompositeComponent
+protocol _WhatsNewPageViewComponent {
+    // sourcery: no_style
+    // sourcery: resultBuilder.name = @IndexedViewBuilder
+    // sourcery: resultBuilder.backingComponent = _WhatsNewPagesContainer
+    // sourcery: resultBuilder.returnType = any IndexedViewContainer
+    var whatsNewPages: [WhatsNewPage] { get }
+    
+    // sourcery: default.value = nil
+    // sourcery: no_view
+    var didClose: (() -> Void)? { get }
+    
+    // sourcery: default.value = nil
+    // sourcery: no_view
+    var didFinish: (() -> Void)? { get }
+}
+
+// sourcery: CompositeComponent
+protocol _WhatsNewListViewComponent {
+    // sourcery: no_style
+    // sourcery: resultBuilder.name = @IndexedViewBuilder
+    // sourcery: resultBuilder.backingComponent = _WhatsNewListItemsContainer
+    // sourcery: resultBuilder.returnType = any IndexedViewContainer
+    var whatsNewListItems: [WhatsNewListItem] { get }
+        
+    // sourcery: default.value = nil
+    // sourcery: no_view
+    var didClose: (() -> Void)? { get }
+    
+    // sourcery: default.value = nil
+    // sourcery: no_view
+    var didFinish: (() -> Void)? { get }
+}
+
+// sourcery: CompositeComponent
+protocol _WhatsNewPageComponent: _DetailImageComponent, _TitleComponent, _DescriptionComponent {}
+
+// sourcery: CompositeComponent
+protocol _WhatsNewListItemComponent: _DetailImageComponent, _TitleComponent, _SubtitleComponent {}
+
 /// `AINotice` is a SwiftUI view indicating if content is AI-supported or AI-generated. It can include an icon, a description, and an action label for accessing more details. If the icon or description is not set, a default value will be used. Action label has no default value and has to be set to be used.
 /// ## Usage
 /// ```swift
