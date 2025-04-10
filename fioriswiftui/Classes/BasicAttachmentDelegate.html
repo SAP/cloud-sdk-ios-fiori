@@ -49,7 +49,7 @@
 
                   </div>
                 </div>
-              <p>Basic implementation for demostrating AttachmentDelegate protocol. This is a local folder based implementation.</p>
+              <p>Basic implementation of AttachmentDelegate protocol. This is a local folder based implementation. The implementation allows Apps to store attachment locally along with the Apps, The implementation also allows Apps to further customize uploading behavoirs by overriding functions.</p>
 
             </section>
             <section class="section task-group-section">
@@ -149,7 +149,7 @@
                       <section class="section">
                         <div class="pointer"></div>
                         <div class="abstract">
-                          <p>delete</p>
+                          <p>Delete attachment identified by an URL asynchronously.</p>
 
                         </div>
                         <div class="declaration">
@@ -176,7 +176,7 @@
                       <section class="section">
                         <div class="pointer"></div>
                         <div class="abstract">
-                          <p>upload</p>
+                          <p>Upload an attachment, content of which is provided by an NSItemProvider asynchronously.</p>
 
                         </div>
                         <div class="declaration">
@@ -203,7 +203,7 @@
                       <section class="section">
                         <div class="pointer"></div>
                         <div class="abstract">
-                          <p>save to local folder</p>
+                          <p>Save an attachment to local folder asynchronously. The local copy is identifed by the URL.</p>
 
                         </div>
                         <div class="declaration">
@@ -230,7 +230,7 @@
                       <section class="section">
                         <div class="pointer"></div>
                         <div class="abstract">
-                          <p>get targert file name</p>
+                          <p>Get targert file name in local folder for avoiding conflicts by appending random UUID to file name when conflicts are detected.</p>
 
                         </div>
                         <div class="declaration">
@@ -257,7 +257,7 @@
                       <section class="section">
                         <div class="pointer"></div>
                         <div class="abstract">
-                          <p>infer attachment name</p>
+                          <p>infer attachment file name from URL components.</p>
 
                         </div>
                         <div class="declaration">
@@ -949,9 +949,6 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/LowerThumbStyle.html">LowerThumbStyle</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Protocols/MandatoryFieldIndicatorStyle.html">MandatoryFieldIndicatorStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/MediaImageStyle.html">MediaImageStyle</a>
@@ -2345,9 +2342,6 @@
                   <a href="../Structs/DateTimePickerFormViewStyle.html">DateTimePickerFormViewStyle</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Structs/DateTimePickerMandatoryFieldIndicatorStyle.html">DateTimePickerMandatoryFieldIndicatorStyle</a>
-                </li>
-                <li class="nav-group-task">
                   <a href="../Structs/DateTimePickerStyleModifier.html">DateTimePickerStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
@@ -2685,9 +2679,6 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/FilterFormViewFormViewStyle.html">FilterFormViewFormViewStyle</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/FilterFormViewMandatoryFieldIndicatorStyle.html">FilterFormViewMandatoryFieldIndicatorStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/FilterFormViewOptionsStyle.html">FilterFormViewOptionsStyle</a>
@@ -3260,9 +3251,6 @@
                   <a href="../Structs/KeyValueFormViewFioriStyle.html">KeyValueFormViewFioriStyle</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Structs/KeyValueFormViewMandatoryFieldIndicatorStyle.html">KeyValueFormViewMandatoryFieldIndicatorStyle</a>
-                </li>
-                <li class="nav-group-task">
                   <a href="../Structs/KeyValueFormViewNoteFormViewStyle.html">KeyValueFormViewNoteFormViewStyle</a>
                 </li>
                 <li class="nav-group-task">
@@ -3524,9 +3512,6 @@
                   <a href="../Structs/ListPickerItemFormViewStyle.html">ListPickerItemFormViewStyle</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Structs/ListPickerItemMandatoryFieldIndicatorStyle.html">ListPickerItemMandatoryFieldIndicatorStyle</a>
-                </li>
-                <li class="nav-group-task">
                   <a href="../Structs/ListPickerItemStyleModifier.html">ListPickerItemStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
@@ -3573,21 +3558,6 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/MHStack.html">MHStack</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/MandatoryFieldIndicator.html">MandatoryFieldIndicator</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/MandatoryFieldIndicatorBaseStyle.html">MandatoryFieldIndicatorBaseStyle</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/MandatoryFieldIndicatorConfiguration.html">MandatoryFieldIndicatorConfiguration</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/MandatoryFieldIndicatorFioriStyle.html">MandatoryFieldIndicatorFioriStyle</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/MandatoryFieldIndicatorStyleModifier.html">MandatoryFieldIndicatorStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/MasonryLayout.html">MasonryLayout</a>
@@ -4592,9 +4562,6 @@
                   <a href="../Structs/SignatureCaptureViewFioriStyle.html">SignatureCaptureViewFioriStyle</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Structs/SignatureCaptureViewMandatoryFieldIndicatorStyle.html">SignatureCaptureViewMandatoryFieldIndicatorStyle</a>
-                </li>
-                <li class="nav-group-task">
                   <a href="../Structs/SignatureCaptureViewReenterSignatureActionStyle.html">SignatureCaptureViewReenterSignatureActionStyle</a>
                 </li>
                 <li class="nav-group-task">
@@ -4977,9 +4944,6 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/TextFieldFormViewFioriStyle.html">TextFieldFormViewFioriStyle</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/TextFieldFormViewMandatoryFieldIndicatorStyle.html">TextFieldFormViewMandatoryFieldIndicatorStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/TextFieldFormViewPlaceholderStyle.html">TextFieldFormViewPlaceholderStyle</a>
@@ -5471,9 +5435,6 @@
                   <a href="../Structs/ValuePickerFioriStyle.html">ValuePickerFioriStyle</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Structs/ValuePickerMandatoryFieldIndicatorStyle.html">ValuePickerMandatoryFieldIndicatorStyle</a>
-                </li>
-                <li class="nav-group-task">
                   <a href="../Structs/ValuePickerOptionsStyle.html">ValuePickerOptionsStyle</a>
                 </li>
                 <li class="nav-group-task">
@@ -5732,7 +5693,7 @@
       </div>
       <div class="footer-wrapper">
         <section id="footer">
-          <p>&copy; 2025 <a class="link" href="https://www.sap.com" target="_blank" rel="external noopener">SAP SE</a>. All rights reserved. (Last updated: 2025-04-07)</p>
+          <p>&copy; 2025 <a class="link" href="https://www.sap.com" target="_blank" rel="external noopener">SAP SE</a>. All rights reserved. (Last updated: 2025-04-10)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </div>
