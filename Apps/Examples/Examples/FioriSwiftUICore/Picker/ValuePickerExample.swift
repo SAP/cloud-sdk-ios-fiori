@@ -35,11 +35,6 @@ struct ValuePickerExample: View {
                         .foregroundStyle(Color.preferredColor(.indigo7))
                         .background(Color.preferredColor(.grey2))
                 }
-                .mandatoryFieldIndicatorStyle { c in
-                    c.mandatoryFieldIndicator
-                        .font(.fiori(forTextStyle: .largeTitle))
-                        .foregroundStyle(Color.preferredColor(.red8))
-                }
         }
     }
 

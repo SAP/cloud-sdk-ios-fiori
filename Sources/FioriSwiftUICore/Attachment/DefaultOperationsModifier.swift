@@ -65,6 +65,7 @@ public struct DefaultOperationsModifier: ViewModifier {
                 self.context.upload(photoPickerItems: self.selectedPhotos)
                 self.selectedPhotos.removeAll()
             }
+        #if os(iOS)
             .sheet(isPresented: self.showCamera) {
                 CameraView { uiImage in
                     self.context.upload(images: [uiImage])
@@ -75,6 +76,7 @@ public struct DefaultOperationsModifier: ViewModifier {
             .sheet(isPresented: self.showPdfScanner) {
                 self.pdfScanner
             }
+        #endif
             .onChange(of: self.pdfDocument) { _, _ in
                 if let pdfDocument = self.pdfDocument {
                     self.context.upload(pdfDocument: pdfDocument)

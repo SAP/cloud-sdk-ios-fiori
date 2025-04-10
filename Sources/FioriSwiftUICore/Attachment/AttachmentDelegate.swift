@@ -1,6 +1,6 @@
 import Foundation
 
-/// Delegate protocl defines how to process attachments
+/// Delegate protocl defines how to upload and remove attachments.
 public protocol AttachmentDelegate: AnyObject {
     /// delete attachment
     func delete(url: URL, onCompletion: @escaping (URL, Error?) -> Void)

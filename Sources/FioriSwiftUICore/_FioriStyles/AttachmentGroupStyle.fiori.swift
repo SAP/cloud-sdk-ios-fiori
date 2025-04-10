@@ -117,7 +117,7 @@ public struct AttachmentGroupBaseStyle: AttachmentGroupStyle {
             Button(NSLocalizedString("Delete", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Delete"), role: .destructive) {
                 if let index = deleteIndex {
                     self.context.delete(attachment: configuration.attachments[index])
-                    os_log("Attachment at %@ deleted", log: OSLog.coreLogger, type: .info, index)
+                    // os_log("Attachment at %@ deleted", log: OSLog.coreLogger, type: .info, index)
                     self.deleteIndex = nil
                 } else {
                     os_log("No attchement found for deletion", log: OSLog.coreLogger, type: .info)

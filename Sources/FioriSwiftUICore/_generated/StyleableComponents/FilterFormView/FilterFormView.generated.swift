@@ -5,8 +5,6 @@ import SwiftUI
 
 public struct FilterFormView {
     let title: any View
-    let mandatoryFieldIndicator: any View
-    let isRequired: Bool
     let options: [AttributedString]
     /// The `ControlState` of the form view. The default is `normal`
     let controlState: ControlState
@@ -32,8 +30,6 @@ public struct FilterFormView {
     fileprivate var _shouldApplyDefaultStyle = true
 
     public init(@ViewBuilder title: () -> any View,
-                @ViewBuilder mandatoryFieldIndicator: () -> any View = { Text("*") },
-                isRequired: Bool = false,
                 options: [AttributedString] = [],
                 controlState: ControlState = .normal,
                 errorMessage: AttributedString? = nil,
@@ -47,8 +43,6 @@ public struct FilterFormView {
                 componentIdentifier: String? = FilterFormView.identifier)
     {
         self.title = Title(title: title, componentIdentifier: componentIdentifier)
-        self.mandatoryFieldIndicator = MandatoryFieldIndicator(mandatoryFieldIndicator: mandatoryFieldIndicator, componentIdentifier: componentIdentifier)
-        self.isRequired = isRequired
         self.options = options
         self.controlState = controlState
         self.errorMessage = errorMessage
@@ -82,7 +76,9 @@ public extension FilterFormView {
          isSingleLine: Bool = true,
          onValueChange: (([Int]) -> Void)? = nil)
     {
-        self.init(title: { Text(title) }, mandatoryFieldIndicator: { TextOrIconView(mandatoryFieldIndicator) }, isRequired: isRequired, options: options, controlState: controlState, errorMessage: errorMessage, isEnabled: isEnabled, allowsMultipleSelection: allowsMultipleSelection, allowsEmptySelection: allowsEmptySelection, value: value, buttonSize: buttonSize, isSingleLine: isSingleLine, onValueChange: onValueChange)
+        self.init(title: {
+            TextWithMandatoryFieldIndicator(text: title, isRequired: isRequired, mandatoryFieldIndicator: mandatoryFieldIndicator)
+        }, options: options, controlState: controlState, errorMessage: errorMessage, isEnabled: isEnabled, allowsMultipleSelection: allowsMultipleSelection, allowsEmptySelection: allowsEmptySelection, value: value, buttonSize: buttonSize, isSingleLine: isSingleLine, onValueChange: onValueChange)
     }
 }
 
@@ -93,8 +89,6 @@ public extension FilterFormView {
 
     internal init(_ configuration: FilterFormViewConfiguration, shouldApplyDefaultStyle: Bool) {
         self.title = configuration.title
-        self.mandatoryFieldIndicator = configuration.mandatoryFieldIndicator
-        self.isRequired = configuration.isRequired
         self.options = configuration.options
         self.controlState = configuration.controlState
         self.errorMessage = configuration.errorMessage
@@ -115,7 +109,7 @@ extension FilterFormView: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, title: .init(self.title), mandatoryFieldIndicator: .init(self.mandatoryFieldIndicator), isRequired: self.isRequired, options: self.options, controlState: self.controlState, errorMessage: self.errorMessage, isEnabled: self.isEnabled, allowsMultipleSelection: self.allowsMultipleSelection, allowsEmptySelection: self.allowsEmptySelection, value: self.$value, buttonSize: self.buttonSize, isSingleLine: self.isSingleLine, onValueChange: self.onValueChange)).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, title: .init(self.title), options: self.options, controlState: self.controlState, errorMessage: self.errorMessage, isEnabled: self.isEnabled, allowsMultipleSelection: self.allowsMultipleSelection, allowsEmptySelection: self.allowsEmptySelection, value: self.$value, buttonSize: self.buttonSize, isSingleLine: self.isSingleLine, onValueChange: self.onValueChange)).typeErased
                 .transformEnvironment(\.filterFormViewStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -133,7 +127,7 @@ private extension FilterFormView {
     }
 
     func defaultStyle() -> some View {
-        FilterFormView(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), mandatoryFieldIndicator: .init(self.mandatoryFieldIndicator), isRequired: self.isRequired, options: self.options, controlState: self.controlState, errorMessage: self.errorMessage, isEnabled: self.isEnabled, allowsMultipleSelection: self.allowsMultipleSelection, allowsEmptySelection: self.allowsEmptySelection, value: self.$value, buttonSize: self.buttonSize, isSingleLine: self.isSingleLine, onValueChange: self.onValueChange))
+        FilterFormView(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), options: self.options, controlState: self.controlState, errorMessage: self.errorMessage, isEnabled: self.isEnabled, allowsMultipleSelection: self.allowsMultipleSelection, allowsEmptySelection: self.allowsEmptySelection, value: self.$value, buttonSize: self.buttonSize, isSingleLine: self.isSingleLine, onValueChange: self.onValueChange))
             .shouldApplyDefaultStyle(false)
             .filterFormViewStyle(FilterFormViewFioriStyle.ContentFioriStyle())
             .typeErased

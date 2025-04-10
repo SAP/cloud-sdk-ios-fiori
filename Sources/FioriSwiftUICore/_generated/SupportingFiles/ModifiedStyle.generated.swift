@@ -2612,34 +2612,6 @@ public extension LowerThumbStyle {
     }
 }
 
-// MARK: MandatoryFieldIndicatorStyle
-
-extension ModifiedStyle: MandatoryFieldIndicatorStyle where Style: MandatoryFieldIndicatorStyle {
-    public func makeBody(_ configuration: MandatoryFieldIndicatorConfiguration) -> some View {
-        MandatoryFieldIndicator(configuration)
-            .mandatoryFieldIndicatorStyle(self.style)
-            .modifier(self.modifier)
-    }
-}
-
-public struct MandatoryFieldIndicatorStyleModifier<Style: MandatoryFieldIndicatorStyle>: ViewModifier {
-    let style: Style
-
-    public func body(content: Content) -> some View {
-        content.mandatoryFieldIndicatorStyle(self.style)
-    }
-}
-
-public extension MandatoryFieldIndicatorStyle {
-    func modifier(_ modifier: some ViewModifier) -> some MandatoryFieldIndicatorStyle {
-        ModifiedStyle(style: self, modifier: modifier)
-    }
-
-    func concat(_ style: some MandatoryFieldIndicatorStyle) -> some MandatoryFieldIndicatorStyle {
-        style.modifier(MandatoryFieldIndicatorStyleModifier(style: self))
-    }
-}
-
 // MARK: MediaImageStyle
 
 extension ModifiedStyle: MediaImageStyle where Style: MediaImageStyle {

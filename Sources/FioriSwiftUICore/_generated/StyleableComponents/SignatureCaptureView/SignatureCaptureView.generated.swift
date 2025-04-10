@@ -8,11 +8,7 @@ import FioriThemeManager
 /// `SignatureCaptureView` allows user to sign above  the signature line.
 /// ## Usage
 /// ```swift
-/// SignatureCaptureView(title: {
-///    Text("Signature Title")
-/// }, mandatoryFieldIndicator: {
-///    Text("*")
-/// }, isRequired: true, startSignatureAction: {
+/// SignatureCaptureView(title: "Signature Title", isRequired: true, startSignatureAction: {
 ///    Button(action: {}, label: { Text("start") })
 /// }, reenterSignatureAction: {
 ///    Button(action: {}, label: { Text("restart") })
@@ -44,8 +40,6 @@ import FioriThemeManager
 /// ```
 public struct SignatureCaptureView {
     let title: any View
-    let mandatoryFieldIndicator: any View
-    let isRequired: Bool
     let startSignatureAction: any View
     let reenterSignatureAction: any View
     let cancelAction: any View
@@ -89,8 +83,6 @@ public struct SignatureCaptureView {
     fileprivate var _shouldApplyDefaultStyle = true
 
     public init(@ViewBuilder title: () -> any View,
-                @ViewBuilder mandatoryFieldIndicator: () -> any View = { Text("*") },
-                isRequired: Bool = false,
                 @ViewBuilder startSignatureAction: () -> any View = { FioriButton { _ in Text("Tap to Sign".localizedFioriString()) } },
                 @ViewBuilder reenterSignatureAction: () -> any View = { FioriButton { _ in Text("Re-enter Signature".localizedFioriString()) } },
                 @ViewBuilder cancelAction: () -> any View = { FioriButton { _ in Text("Cancel".localizedFioriString()) } },
@@ -115,8 +107,6 @@ public struct SignatureCaptureView {
                 componentIdentifier: String? = SignatureCaptureView.identifier)
     {
         self.title = Title(title: title, componentIdentifier: componentIdentifier)
-        self.mandatoryFieldIndicator = MandatoryFieldIndicator(mandatoryFieldIndicator: mandatoryFieldIndicator, componentIdentifier: componentIdentifier)
-        self.isRequired = isRequired
         self.startSignatureAction = StartSignatureAction(startSignatureAction: startSignatureAction, componentIdentifier: componentIdentifier)
         self.reenterSignatureAction = ReenterSignatureAction(reenterSignatureAction: reenterSignatureAction, componentIdentifier: componentIdentifier)
         self.cancelAction = CancelAction(cancelAction: cancelAction, componentIdentifier: componentIdentifier)
@@ -172,7 +162,9 @@ public extension SignatureCaptureView {
          onSave: ((UIImage) -> Void)? = nil,
          onDelete: (() -> Void)? = nil)
     {
-        self.init(title: { Text(title) }, mandatoryFieldIndicator: { TextOrIconView(mandatoryFieldIndicator) }, isRequired: isRequired, startSignatureAction: { startSignatureAction }, reenterSignatureAction: { reenterSignatureAction }, cancelAction: { cancelAction }, clearAction: { clearAction }, saveAction: { saveAction }, xmark: { xmark }, watermark: { OptionalText(watermark) }, signatureImage: signatureImage, drawingViewMaxHeight: drawingViewMaxHeight, drawingViewBackgroundColor: drawingViewBackgroundColor, strokeWidth: strokeWidth, appliesTintColorToImage: appliesTintColorToImage, strokeColor: strokeColor, signatureLineColor: signatureLineColor, hidesSignatureLine: hidesSignatureLine, watermarkAlignment: watermarkAlignment, addsTimestampInImage: addsTimestampInImage, timestampFormatter: timestampFormatter, cropsImage: cropsImage, onSave: onSave, onDelete: onDelete)
+        self.init(title: {
+            TextWithMandatoryFieldIndicator(text: title, isRequired: isRequired, mandatoryFieldIndicator: mandatoryFieldIndicator)
+        }, startSignatureAction: { startSignatureAction }, reenterSignatureAction: { reenterSignatureAction }, cancelAction: { cancelAction }, clearAction: { clearAction }, saveAction: { saveAction }, xmark: { xmark }, watermark: { OptionalText(watermark) }, signatureImage: signatureImage, drawingViewMaxHeight: drawingViewMaxHeight, drawingViewBackgroundColor: drawingViewBackgroundColor, strokeWidth: strokeWidth, appliesTintColorToImage: appliesTintColorToImage, strokeColor: strokeColor, signatureLineColor: signatureLineColor, hidesSignatureLine: hidesSignatureLine, watermarkAlignment: watermarkAlignment, addsTimestampInImage: addsTimestampInImage, timestampFormatter: timestampFormatter, cropsImage: cropsImage, onSave: onSave, onDelete: onDelete)
     }
 }
 
@@ -183,8 +175,6 @@ public extension SignatureCaptureView {
 
     internal init(_ configuration: SignatureCaptureViewConfiguration, shouldApplyDefaultStyle: Bool) {
         self.title = configuration.title
-        self.mandatoryFieldIndicator = configuration.mandatoryFieldIndicator
-        self.isRequired = configuration.isRequired
         self.startSignatureAction = configuration.startSignatureAction
         self.reenterSignatureAction = configuration.reenterSignatureAction
         self.cancelAction = configuration.cancelAction
@@ -216,7 +206,7 @@ extension SignatureCaptureView: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, title: .init(self.title), mandatoryFieldIndicator: .init(self.mandatoryFieldIndicator), isRequired: self.isRequired, startSignatureAction: .init(self.startSignatureAction), reenterSignatureAction: .init(self.reenterSignatureAction), cancelAction: .init(self.cancelAction), clearAction: .init(self.clearAction), saveAction: .init(self.saveAction), xmark: .init(self.xmark), watermark: .init(self.watermark), signatureImage: self.signatureImage, drawingViewMaxHeight: self.drawingViewMaxHeight, drawingViewBackgroundColor: self.drawingViewBackgroundColor, strokeWidth: self.strokeWidth, appliesTintColorToImage: self.appliesTintColorToImage, strokeColor: self.strokeColor, signatureLineColor: self.signatureLineColor, hidesSignatureLine: self.hidesSignatureLine, watermarkAlignment: self.watermarkAlignment, addsTimestampInImage: self.addsTimestampInImage, timestampFormatter: self.timestampFormatter, cropsImage: self.cropsImage, onSave: self.onSave, onDelete: self.onDelete)).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, title: .init(self.title), startSignatureAction: .init(self.startSignatureAction), reenterSignatureAction: .init(self.reenterSignatureAction), cancelAction: .init(self.cancelAction), clearAction: .init(self.clearAction), saveAction: .init(self.saveAction), xmark: .init(self.xmark), watermark: .init(self.watermark), signatureImage: self.signatureImage, drawingViewMaxHeight: self.drawingViewMaxHeight, drawingViewBackgroundColor: self.drawingViewBackgroundColor, strokeWidth: self.strokeWidth, appliesTintColorToImage: self.appliesTintColorToImage, strokeColor: self.strokeColor, signatureLineColor: self.signatureLineColor, hidesSignatureLine: self.hidesSignatureLine, watermarkAlignment: self.watermarkAlignment, addsTimestampInImage: self.addsTimestampInImage, timestampFormatter: self.timestampFormatter, cropsImage: self.cropsImage, onSave: self.onSave, onDelete: self.onDelete)).typeErased
                 .transformEnvironment(\.signatureCaptureViewStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -234,7 +224,7 @@ private extension SignatureCaptureView {
     }
 
     func defaultStyle() -> some View {
-        SignatureCaptureView(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), mandatoryFieldIndicator: .init(self.mandatoryFieldIndicator), isRequired: self.isRequired, startSignatureAction: .init(self.startSignatureAction), reenterSignatureAction: .init(self.reenterSignatureAction), cancelAction: .init(self.cancelAction), clearAction: .init(self.clearAction), saveAction: .init(self.saveAction), xmark: .init(self.xmark), watermark: .init(self.watermark), signatureImage: self.signatureImage, drawingViewMaxHeight: self.drawingViewMaxHeight, drawingViewBackgroundColor: self.drawingViewBackgroundColor, strokeWidth: self.strokeWidth, appliesTintColorToImage: self.appliesTintColorToImage, strokeColor: self.strokeColor, signatureLineColor: self.signatureLineColor, hidesSignatureLine: self.hidesSignatureLine, watermarkAlignment: self.watermarkAlignment, addsTimestampInImage: self.addsTimestampInImage, timestampFormatter: self.timestampFormatter, cropsImage: self.cropsImage, onSave: self.onSave, onDelete: self.onDelete))
+        SignatureCaptureView(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), startSignatureAction: .init(self.startSignatureAction), reenterSignatureAction: .init(self.reenterSignatureAction), cancelAction: .init(self.cancelAction), clearAction: .init(self.clearAction), saveAction: .init(self.saveAction), xmark: .init(self.xmark), watermark: .init(self.watermark), signatureImage: self.signatureImage, drawingViewMaxHeight: self.drawingViewMaxHeight, drawingViewBackgroundColor: self.drawingViewBackgroundColor, strokeWidth: self.strokeWidth, appliesTintColorToImage: self.appliesTintColorToImage, strokeColor: self.strokeColor, signatureLineColor: self.signatureLineColor, hidesSignatureLine: self.hidesSignatureLine, watermarkAlignment: self.watermarkAlignment, addsTimestampInImage: self.addsTimestampInImage, timestampFormatter: self.timestampFormatter, cropsImage: self.cropsImage, onSave: self.onSave, onDelete: self.onDelete))
             .shouldApplyDefaultStyle(false)
             .signatureCaptureViewStyle(SignatureCaptureViewFioriStyle.ContentFioriStyle())
             .typeErased

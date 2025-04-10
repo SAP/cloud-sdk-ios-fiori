@@ -46,6 +46,7 @@ public struct FilesPickerMenuItem: View {
 }
 
 /// Camera menu item
+@available(watchOS, unavailable)
 public struct PdfScannerMenuItem: View {
     @Environment(AttachmentContext.self) var context
     
@@ -65,6 +66,7 @@ public struct PdfScannerMenuItem: View {
 }
 
 /// Camera menu item
+@available(watchOS, unavailable)
 public struct CameraMenuItem: View {
     @Environment(AttachmentContext.self) var context
     

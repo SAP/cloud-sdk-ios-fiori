@@ -283,8 +283,7 @@ extension Counter: _ViewEmptyChecking {
 extension DateTimePicker: _ViewEmptyChecking {
     public var isEmpty: Bool {
         title.isEmpty &&
-            valueLabel.isEmpty &&
-            mandatoryFieldIndicator.isEmpty
+            valueLabel.isEmpty
     }
 }
 
@@ -402,8 +401,7 @@ extension FilterFeedbackBarItem: _ViewEmptyChecking {
 
 extension FilterFormView: _ViewEmptyChecking {
     public var isEmpty: Bool {
-        title.isEmpty &&
-            mandatoryFieldIndicator.isEmpty
+        title.isEmpty
     }
 }
 
@@ -575,8 +573,7 @@ extension Key: _ViewEmptyChecking {
 extension KeyValueFormView: _ViewEmptyChecking {
     public var isEmpty: Bool {
         title.isEmpty &&
-            placeholder.isEmpty &&
-            mandatoryFieldIndicator.isEmpty
+            placeholder.isEmpty
     }
 }
 
@@ -654,7 +651,6 @@ extension ListPickerItem: _ViewEmptyChecking {
     public var isEmpty: Bool {
         title.isEmpty &&
             value.isEmpty &&
-            mandatoryFieldIndicator.isEmpty &&
             destination.isEmpty
     }
 }
@@ -669,12 +665,6 @@ extension LoadingIndicator: _ViewEmptyChecking {
 extension LowerThumb: _ViewEmptyChecking {
     public var isEmpty: Bool {
         lowerThumb.isEmpty
-    }
-}
-
-extension MandatoryFieldIndicator: _ViewEmptyChecking {
-    public var isEmpty: Bool {
-        mandatoryFieldIndicator.isEmpty
     }
 }
 
@@ -1005,7 +995,6 @@ extension SideBarListItem: _ViewEmptyChecking {
 extension SignatureCaptureView: _ViewEmptyChecking {
     public var isEmpty: Bool {
         title.isEmpty &&
-            mandatoryFieldIndicator.isEmpty &&
             startSignatureAction.isEmpty &&
             reenterSignatureAction.isEmpty &&
             cancelAction.isEmpty &&
@@ -1123,8 +1112,7 @@ extension TertiaryAction: _ViewEmptyChecking {
 extension TextFieldFormView: _ViewEmptyChecking {
     public var isEmpty: Bool {
         title.isEmpty &&
-            placeholder.isEmpty &&
-            mandatoryFieldIndicator.isEmpty
+            placeholder.isEmpty
     }
 }
 
@@ -1302,8 +1290,7 @@ extension ValueLabel: _ViewEmptyChecking {
 extension ValuePicker: _ViewEmptyChecking {
     public var isEmpty: Bool {
         title.isEmpty &&
-            valueLabel.isEmpty &&
-            mandatoryFieldIndicator.isEmpty
+            valueLabel.isEmpty
     }
 }
 
