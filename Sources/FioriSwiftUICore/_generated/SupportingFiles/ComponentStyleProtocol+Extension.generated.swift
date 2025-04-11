@@ -3,6 +3,41 @@
 import Foundation
 import SwiftUI
 
+// MARK: AINoticeStyle
+
+public extension AINoticeStyle where Self == AINoticeBaseStyle {
+    static var base: AINoticeBaseStyle {
+        AINoticeBaseStyle()
+    }
+}
+
+public extension AINoticeStyle where Self == AINoticeFioriStyle {
+    static var fiori: AINoticeFioriStyle {
+        AINoticeFioriStyle()
+    }
+}
+
+public struct AINoticeIconStyle: AINoticeStyle {
+    let style: any IconStyle
+
+    public func makeBody(_ configuration: AINoticeConfiguration) -> some View {
+        AINotice(configuration)
+            .iconStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension AINoticeStyle where Self == AINoticeIconStyle {
+    static func iconStyle(_ style: some IconStyle) -> AINoticeIconStyle {
+        AINoticeIconStyle(style: style)
+    }
+
+    static func iconStyle(@ViewBuilder content: @escaping (IconConfiguration) -> some View) -> AINoticeIconStyle {
+        let style = AnyIconStyle(content)
+        return AINoticeIconStyle(style: style)
+    }
+}
+
 // MARK: AccessoryIconStyle
 
 public extension AccessoryIconStyle where Self == AccessoryIconBaseStyle {
@@ -115,6 +150,20 @@ public extension ActivityItemsStyle where Self == ActivityItemsFioriStyle {
     }
 }
 
+// MARK: AgreeActionStyle
+
+public extension AgreeActionStyle where Self == AgreeActionBaseStyle {
+    static var base: AgreeActionBaseStyle {
+        AgreeActionBaseStyle()
+    }
+}
+
+public extension AgreeActionStyle where Self == AgreeActionFioriStyle {
+    static var fiori: AgreeActionFioriStyle {
+        AgreeActionFioriStyle()
+    }
+}
+
 // MARK: AllEntriesSectionTitleStyle
 
 public extension AllEntriesSectionTitleStyle where Self == AllEntriesSectionTitleBaseStyle {
@@ -154,6 +203,188 @@ public extension ApplyActionStyle where Self == ApplyActionBaseStyle {
 public extension ApplyActionStyle where Self == ApplyActionFioriStyle {
     static var fiori: ApplyActionFioriStyle {
         ApplyActionFioriStyle()
+    }
+}
+
+// MARK: AttachmentButtonImageStyle
+
+public extension AttachmentButtonImageStyle where Self == AttachmentButtonImageBaseStyle {
+    static var base: AttachmentButtonImageBaseStyle {
+        AttachmentButtonImageBaseStyle()
+    }
+}
+
+public extension AttachmentButtonImageStyle where Self == AttachmentButtonImageFioriStyle {
+    static var fiori: AttachmentButtonImageFioriStyle {
+        AttachmentButtonImageFioriStyle()
+    }
+}
+
+// MARK: AttachmentStyle
+
+public extension AttachmentStyle where Self == AttachmentBaseStyle {
+    static var base: AttachmentBaseStyle {
+        AttachmentBaseStyle()
+    }
+}
+
+public extension AttachmentStyle where Self == AttachmentFioriStyle {
+    static var fiori: AttachmentFioriStyle {
+        AttachmentFioriStyle()
+    }
+}
+
+public struct AttachmentAttachmentTitleStyle: AttachmentStyle {
+    let style: any AttachmentTitleStyle
+
+    public func makeBody(_ configuration: AttachmentConfiguration) -> some View {
+        Attachment(configuration)
+            .attachmentTitleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension AttachmentStyle where Self == AttachmentAttachmentTitleStyle {
+    static func attachmentTitleStyle(_ style: some AttachmentTitleStyle) -> AttachmentAttachmentTitleStyle {
+        AttachmentAttachmentTitleStyle(style: style)
+    }
+
+    static func attachmentTitleStyle(@ViewBuilder content: @escaping (AttachmentTitleConfiguration) -> some View) -> AttachmentAttachmentTitleStyle {
+        let style = AnyAttachmentTitleStyle(content)
+        return AttachmentAttachmentTitleStyle(style: style)
+    }
+}
+
+public struct AttachmentAttachmentSubtitleStyle: AttachmentStyle {
+    let style: any AttachmentSubtitleStyle
+
+    public func makeBody(_ configuration: AttachmentConfiguration) -> some View {
+        Attachment(configuration)
+            .attachmentSubtitleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension AttachmentStyle where Self == AttachmentAttachmentSubtitleStyle {
+    static func attachmentSubtitleStyle(_ style: some AttachmentSubtitleStyle) -> AttachmentAttachmentSubtitleStyle {
+        AttachmentAttachmentSubtitleStyle(style: style)
+    }
+
+    static func attachmentSubtitleStyle(@ViewBuilder content: @escaping (AttachmentSubtitleConfiguration) -> some View) -> AttachmentAttachmentSubtitleStyle {
+        let style = AnyAttachmentSubtitleStyle(content)
+        return AttachmentAttachmentSubtitleStyle(style: style)
+    }
+}
+
+public struct AttachmentAttachmentFootnoteStyle: AttachmentStyle {
+    let style: any AttachmentFootnoteStyle
+
+    public func makeBody(_ configuration: AttachmentConfiguration) -> some View {
+        Attachment(configuration)
+            .attachmentFootnoteStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension AttachmentStyle where Self == AttachmentAttachmentFootnoteStyle {
+    static func attachmentFootnoteStyle(_ style: some AttachmentFootnoteStyle) -> AttachmentAttachmentFootnoteStyle {
+        AttachmentAttachmentFootnoteStyle(style: style)
+    }
+
+    static func attachmentFootnoteStyle(@ViewBuilder content: @escaping (AttachmentFootnoteConfiguration) -> some View) -> AttachmentAttachmentFootnoteStyle {
+        let style = AnyAttachmentFootnoteStyle(content)
+        return AttachmentAttachmentFootnoteStyle(style: style)
+    }
+}
+
+// MARK: AttachmentFootnoteStyle
+
+public extension AttachmentFootnoteStyle where Self == AttachmentFootnoteBaseStyle {
+    static var base: AttachmentFootnoteBaseStyle {
+        AttachmentFootnoteBaseStyle()
+    }
+}
+
+public extension AttachmentFootnoteStyle where Self == AttachmentFootnoteFioriStyle {
+    static var fiori: AttachmentFootnoteFioriStyle {
+        AttachmentFootnoteFioriStyle()
+    }
+}
+
+// MARK: AttachmentGroupStyle
+
+public extension AttachmentGroupStyle where Self == AttachmentGroupBaseStyle {
+    static var base: AttachmentGroupBaseStyle {
+        AttachmentGroupBaseStyle()
+    }
+}
+
+public extension AttachmentGroupStyle where Self == AttachmentGroupFioriStyle {
+    static var fiori: AttachmentGroupFioriStyle {
+        AttachmentGroupFioriStyle()
+    }
+}
+
+public struct AttachmentGroupTitleStyle: AttachmentGroupStyle {
+    let style: any TitleStyle
+
+    public func makeBody(_ configuration: AttachmentGroupConfiguration) -> some View {
+        AttachmentGroup(configuration)
+            .titleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension AttachmentGroupStyle where Self == AttachmentGroupTitleStyle {
+    static func titleStyle(_ style: some TitleStyle) -> AttachmentGroupTitleStyle {
+        AttachmentGroupTitleStyle(style: style)
+    }
+
+    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> AttachmentGroupTitleStyle {
+        let style = AnyTitleStyle(content)
+        return AttachmentGroupTitleStyle(style: style)
+    }
+}
+
+// MARK: AttachmentSubtitleStyle
+
+public extension AttachmentSubtitleStyle where Self == AttachmentSubtitleBaseStyle {
+    static var base: AttachmentSubtitleBaseStyle {
+        AttachmentSubtitleBaseStyle()
+    }
+}
+
+public extension AttachmentSubtitleStyle where Self == AttachmentSubtitleFioriStyle {
+    static var fiori: AttachmentSubtitleFioriStyle {
+        AttachmentSubtitleFioriStyle()
+    }
+}
+
+// MARK: AttachmentThumbnailStyle
+
+public extension AttachmentThumbnailStyle where Self == AttachmentThumbnailBaseStyle {
+    static var base: AttachmentThumbnailBaseStyle {
+        AttachmentThumbnailBaseStyle()
+    }
+}
+
+public extension AttachmentThumbnailStyle where Self == AttachmentThumbnailFioriStyle {
+    static var fiori: AttachmentThumbnailFioriStyle {
+        AttachmentThumbnailFioriStyle()
+    }
+}
+
+// MARK: AttachmentTitleStyle
+
+public extension AttachmentTitleStyle where Self == AttachmentTitleBaseStyle {
+    static var base: AttachmentTitleBaseStyle {
+        AttachmentTitleBaseStyle()
+    }
+}
+
+public extension AttachmentTitleStyle where Self == AttachmentTitleFioriStyle {
+    static var fiori: AttachmentTitleFioriStyle {
+        AttachmentTitleFioriStyle()
     }
 }
 
@@ -1879,27 +2110,6 @@ public extension DateTimePickerStyle where Self == DateTimePickerValueLabelStyle
     }
 }
 
-public struct DateTimePickerMandatoryFieldIndicatorStyle: DateTimePickerStyle {
-    let style: any MandatoryFieldIndicatorStyle
-
-    public func makeBody(_ configuration: DateTimePickerConfiguration) -> some View {
-        DateTimePicker(configuration)
-            .mandatoryFieldIndicatorStyle(self.style)
-            .typeErased
-    }
-}
-
-public extension DateTimePickerStyle where Self == DateTimePickerMandatoryFieldIndicatorStyle {
-    static func mandatoryFieldIndicatorStyle(_ style: some MandatoryFieldIndicatorStyle) -> DateTimePickerMandatoryFieldIndicatorStyle {
-        DateTimePickerMandatoryFieldIndicatorStyle(style: style)
-    }
-
-    static func mandatoryFieldIndicatorStyle(@ViewBuilder content: @escaping (MandatoryFieldIndicatorConfiguration) -> some View) -> DateTimePickerMandatoryFieldIndicatorStyle {
-        let style = AnyMandatoryFieldIndicatorStyle(content)
-        return DateTimePickerMandatoryFieldIndicatorStyle(style: style)
-    }
-}
-
 public struct DateTimePickerFormViewStyle: DateTimePickerStyle {
     let style: any FormViewStyle
 
@@ -2187,6 +2397,153 @@ public extension DimensionSelectorStyle where Self == DimensionSelectorFioriStyl
     }
 }
 
+// MARK: DisagreeActionStyle
+
+public extension DisagreeActionStyle where Self == DisagreeActionBaseStyle {
+    static var base: DisagreeActionBaseStyle {
+        DisagreeActionBaseStyle()
+    }
+}
+
+public extension DisagreeActionStyle where Self == DisagreeActionFioriStyle {
+    static var fiori: DisagreeActionFioriStyle {
+        DisagreeActionFioriStyle()
+    }
+}
+
+// MARK: DurationPickerStyle
+
+public extension DurationPickerStyle where Self == DurationPickerBaseStyle {
+    static var base: DurationPickerBaseStyle {
+        DurationPickerBaseStyle()
+    }
+}
+
+public extension DurationPickerStyle where Self == DurationPickerFioriStyle {
+    static var fiori: DurationPickerFioriStyle {
+        DurationPickerFioriStyle()
+    }
+}
+
+// MARK: EULAViewStyle
+
+public extension EULAViewStyle where Self == EULAViewBaseStyle {
+    static var base: EULAViewBaseStyle {
+        EULAViewBaseStyle()
+    }
+}
+
+public extension EULAViewStyle where Self == EULAViewFioriStyle {
+    static var fiori: EULAViewFioriStyle {
+        EULAViewFioriStyle()
+    }
+}
+
+public struct EULAViewTitleStyle: EULAViewStyle {
+    let style: any TitleStyle
+
+    public func makeBody(_ configuration: EULAViewConfiguration) -> some View {
+        EULAView(configuration)
+            .titleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension EULAViewStyle where Self == EULAViewTitleStyle {
+    static func titleStyle(_ style: some TitleStyle) -> EULAViewTitleStyle {
+        EULAViewTitleStyle(style: style)
+    }
+
+    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> EULAViewTitleStyle {
+        let style = AnyTitleStyle(content)
+        return EULAViewTitleStyle(style: style)
+    }
+}
+
+public struct EULAViewBodyTextStyle: EULAViewStyle {
+    let style: any BodyTextStyle
+
+    public func makeBody(_ configuration: EULAViewConfiguration) -> some View {
+        EULAView(configuration)
+            .bodyTextStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension EULAViewStyle where Self == EULAViewBodyTextStyle {
+    static func bodyTextStyle(_ style: some BodyTextStyle) -> EULAViewBodyTextStyle {
+        EULAViewBodyTextStyle(style: style)
+    }
+
+    static func bodyTextStyle(@ViewBuilder content: @escaping (BodyTextConfiguration) -> some View) -> EULAViewBodyTextStyle {
+        let style = AnyBodyTextStyle(content)
+        return EULAViewBodyTextStyle(style: style)
+    }
+}
+
+public struct EULAViewAgreeActionStyle: EULAViewStyle {
+    let style: any AgreeActionStyle
+
+    public func makeBody(_ configuration: EULAViewConfiguration) -> some View {
+        EULAView(configuration)
+            .agreeActionStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension EULAViewStyle where Self == EULAViewAgreeActionStyle {
+    static func agreeActionStyle(_ style: some AgreeActionStyle) -> EULAViewAgreeActionStyle {
+        EULAViewAgreeActionStyle(style: style)
+    }
+
+    static func agreeActionStyle(@ViewBuilder content: @escaping (AgreeActionConfiguration) -> some View) -> EULAViewAgreeActionStyle {
+        let style = AnyAgreeActionStyle(content)
+        return EULAViewAgreeActionStyle(style: style)
+    }
+}
+
+public struct EULAViewDisagreeActionStyle: EULAViewStyle {
+    let style: any DisagreeActionStyle
+
+    public func makeBody(_ configuration: EULAViewConfiguration) -> some View {
+        EULAView(configuration)
+            .disagreeActionStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension EULAViewStyle where Self == EULAViewDisagreeActionStyle {
+    static func disagreeActionStyle(_ style: some DisagreeActionStyle) -> EULAViewDisagreeActionStyle {
+        EULAViewDisagreeActionStyle(style: style)
+    }
+
+    static func disagreeActionStyle(@ViewBuilder content: @escaping (DisagreeActionConfiguration) -> some View) -> EULAViewDisagreeActionStyle {
+        let style = AnyDisagreeActionStyle(content)
+        return EULAViewDisagreeActionStyle(style: style)
+    }
+}
+
+public struct EULAViewCancelActionStyle: EULAViewStyle {
+    let style: any CancelActionStyle
+
+    public func makeBody(_ configuration: EULAViewConfiguration) -> some View {
+        EULAView(configuration)
+            .cancelActionStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension EULAViewStyle where Self == EULAViewCancelActionStyle {
+    static func cancelActionStyle(_ style: some CancelActionStyle) -> EULAViewCancelActionStyle {
+        EULAViewCancelActionStyle(style: style)
+    }
+
+    static func cancelActionStyle(@ViewBuilder content: @escaping (CancelActionConfiguration) -> some View) -> EULAViewCancelActionStyle {
+        let style = AnyCancelActionStyle(content)
+        return EULAViewCancelActionStyle(style: style)
+    }
+}
+
 // MARK: FilledIconStyle
 
 public extension FilledIconStyle where Self == FilledIconBaseStyle {
@@ -2380,27 +2737,6 @@ public extension FilterFormViewStyle where Self == FilterFormViewTitleStyle {
     static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> FilterFormViewTitleStyle {
         let style = AnyTitleStyle(content)
         return FilterFormViewTitleStyle(style: style)
-    }
-}
-
-public struct FilterFormViewMandatoryFieldIndicatorStyle: FilterFormViewStyle {
-    let style: any MandatoryFieldIndicatorStyle
-
-    public func makeBody(_ configuration: FilterFormViewConfiguration) -> some View {
-        FilterFormView(configuration)
-            .mandatoryFieldIndicatorStyle(self.style)
-            .typeErased
-    }
-}
-
-public extension FilterFormViewStyle where Self == FilterFormViewMandatoryFieldIndicatorStyle {
-    static func mandatoryFieldIndicatorStyle(_ style: some MandatoryFieldIndicatorStyle) -> FilterFormViewMandatoryFieldIndicatorStyle {
-        FilterFormViewMandatoryFieldIndicatorStyle(style: style)
-    }
-
-    static func mandatoryFieldIndicatorStyle(@ViewBuilder content: @escaping (MandatoryFieldIndicatorConfiguration) -> some View) -> FilterFormViewMandatoryFieldIndicatorStyle {
-        let style = AnyMandatoryFieldIndicatorStyle(content)
-        return FilterFormViewMandatoryFieldIndicatorStyle(style: style)
     }
 }
 
@@ -3580,27 +3916,6 @@ public extension KeyValueFormViewStyle where Self == KeyValueFormViewPlaceholder
     }
 }
 
-public struct KeyValueFormViewMandatoryFieldIndicatorStyle: KeyValueFormViewStyle {
-    let style: any MandatoryFieldIndicatorStyle
-
-    public func makeBody(_ configuration: KeyValueFormViewConfiguration) -> some View {
-        KeyValueFormView(configuration)
-            .mandatoryFieldIndicatorStyle(self.style)
-            .typeErased
-    }
-}
-
-public extension KeyValueFormViewStyle where Self == KeyValueFormViewMandatoryFieldIndicatorStyle {
-    static func mandatoryFieldIndicatorStyle(_ style: some MandatoryFieldIndicatorStyle) -> KeyValueFormViewMandatoryFieldIndicatorStyle {
-        KeyValueFormViewMandatoryFieldIndicatorStyle(style: style)
-    }
-
-    static func mandatoryFieldIndicatorStyle(@ViewBuilder content: @escaping (MandatoryFieldIndicatorConfiguration) -> some View) -> KeyValueFormViewMandatoryFieldIndicatorStyle {
-        let style = AnyMandatoryFieldIndicatorStyle(content)
-        return KeyValueFormViewMandatoryFieldIndicatorStyle(style: style)
-    }
-}
-
 public struct KeyValueFormViewNoteFormViewStyle: KeyValueFormViewStyle {
     let style: any NoteFormViewStyle
 
@@ -4154,27 +4469,6 @@ public extension ListPickerItemStyle where Self == ListPickerItemValueStyle {
     }
 }
 
-public struct ListPickerItemMandatoryFieldIndicatorStyle: ListPickerItemStyle {
-    let style: any MandatoryFieldIndicatorStyle
-
-    public func makeBody(_ configuration: ListPickerItemConfiguration) -> some View {
-        ListPickerItem(configuration)
-            .mandatoryFieldIndicatorStyle(self.style)
-            .typeErased
-    }
-}
-
-public extension ListPickerItemStyle where Self == ListPickerItemMandatoryFieldIndicatorStyle {
-    static func mandatoryFieldIndicatorStyle(_ style: some MandatoryFieldIndicatorStyle) -> ListPickerItemMandatoryFieldIndicatorStyle {
-        ListPickerItemMandatoryFieldIndicatorStyle(style: style)
-    }
-
-    static func mandatoryFieldIndicatorStyle(@ViewBuilder content: @escaping (MandatoryFieldIndicatorConfiguration) -> some View) -> ListPickerItemMandatoryFieldIndicatorStyle {
-        let style = AnyMandatoryFieldIndicatorStyle(content)
-        return ListPickerItemMandatoryFieldIndicatorStyle(style: style)
-    }
-}
-
 public struct ListPickerItemFormViewStyle: ListPickerItemStyle {
     let style: any FormViewStyle
 
@@ -4263,20 +4557,6 @@ public extension LowerThumbStyle where Self == LowerThumbBaseStyle {
 public extension LowerThumbStyle where Self == LowerThumbFioriStyle {
     static var fiori: LowerThumbFioriStyle {
         LowerThumbFioriStyle()
-    }
-}
-
-// MARK: MandatoryFieldIndicatorStyle
-
-public extension MandatoryFieldIndicatorStyle where Self == MandatoryFieldIndicatorBaseStyle {
-    static var base: MandatoryFieldIndicatorBaseStyle {
-        MandatoryFieldIndicatorBaseStyle()
-    }
-}
-
-public extension MandatoryFieldIndicatorStyle where Self == MandatoryFieldIndicatorFioriStyle {
-    static var fiori: MandatoryFieldIndicatorFioriStyle {
-        MandatoryFieldIndicatorFioriStyle()
     }
 }
 
@@ -6387,27 +6667,6 @@ public extension SignatureCaptureViewStyle where Self == SignatureCaptureViewTit
     }
 }
 
-public struct SignatureCaptureViewMandatoryFieldIndicatorStyle: SignatureCaptureViewStyle {
-    let style: any MandatoryFieldIndicatorStyle
-
-    public func makeBody(_ configuration: SignatureCaptureViewConfiguration) -> some View {
-        SignatureCaptureView(configuration)
-            .mandatoryFieldIndicatorStyle(self.style)
-            .typeErased
-    }
-}
-
-public extension SignatureCaptureViewStyle where Self == SignatureCaptureViewMandatoryFieldIndicatorStyle {
-    static func mandatoryFieldIndicatorStyle(_ style: some MandatoryFieldIndicatorStyle) -> SignatureCaptureViewMandatoryFieldIndicatorStyle {
-        SignatureCaptureViewMandatoryFieldIndicatorStyle(style: style)
-    }
-
-    static func mandatoryFieldIndicatorStyle(@ViewBuilder content: @escaping (MandatoryFieldIndicatorConfiguration) -> some View) -> SignatureCaptureViewMandatoryFieldIndicatorStyle {
-        let style = AnyMandatoryFieldIndicatorStyle(content)
-        return SignatureCaptureViewMandatoryFieldIndicatorStyle(style: style)
-    }
-}
-
 public struct SignatureCaptureViewStartSignatureActionStyle: SignatureCaptureViewStyle {
     let style: any StartSignatureActionStyle
 
@@ -7283,27 +7542,6 @@ public extension TextFieldFormViewStyle where Self == TextFieldFormViewPlacehold
     }
 }
 
-public struct TextFieldFormViewMandatoryFieldIndicatorStyle: TextFieldFormViewStyle {
-    let style: any MandatoryFieldIndicatorStyle
-
-    public func makeBody(_ configuration: TextFieldFormViewConfiguration) -> some View {
-        TextFieldFormView(configuration)
-            .mandatoryFieldIndicatorStyle(self.style)
-            .typeErased
-    }
-}
-
-public extension TextFieldFormViewStyle where Self == TextFieldFormViewMandatoryFieldIndicatorStyle {
-    static func mandatoryFieldIndicatorStyle(_ style: some MandatoryFieldIndicatorStyle) -> TextFieldFormViewMandatoryFieldIndicatorStyle {
-        TextFieldFormViewMandatoryFieldIndicatorStyle(style: style)
-    }
-
-    static func mandatoryFieldIndicatorStyle(@ViewBuilder content: @escaping (MandatoryFieldIndicatorConfiguration) -> some View) -> TextFieldFormViewMandatoryFieldIndicatorStyle {
-        let style = AnyMandatoryFieldIndicatorStyle(content)
-        return TextFieldFormViewMandatoryFieldIndicatorStyle(style: style)
-    }
-}
-
 public struct TextFieldFormViewTitleFormViewStyle: TextFieldFormViewStyle {
     let style: any TitleFormViewStyle
 
@@ -7322,6 +7560,20 @@ public extension TextFieldFormViewStyle where Self == TextFieldFormViewTitleForm
     static func titleFormViewStyle(@ViewBuilder content: @escaping (TitleFormViewConfiguration) -> some View) -> TextFieldFormViewTitleFormViewStyle {
         let style = AnyTitleFormViewStyle(content)
         return TextFieldFormViewTitleFormViewStyle(style: style)
+    }
+}
+
+// MARK: TextInputStyle
+
+public extension TextInputStyle where Self == TextInputBaseStyle {
+    static var base: TextInputBaseStyle {
+        TextInputBaseStyle()
+    }
+}
+
+public extension TextInputStyle where Self == TextInputFioriStyle {
+    static var fiori: TextInputFioriStyle {
+        TextInputFioriStyle()
     }
 }
 
@@ -8522,27 +8774,6 @@ public extension ValuePickerStyle where Self == ValuePickerValueLabelStyle {
     }
 }
 
-public struct ValuePickerMandatoryFieldIndicatorStyle: ValuePickerStyle {
-    let style: any MandatoryFieldIndicatorStyle
-
-    public func makeBody(_ configuration: ValuePickerConfiguration) -> some View {
-        ValuePicker(configuration)
-            .mandatoryFieldIndicatorStyle(self.style)
-            .typeErased
-    }
-}
-
-public extension ValuePickerStyle where Self == ValuePickerMandatoryFieldIndicatorStyle {
-    static func mandatoryFieldIndicatorStyle(_ style: some MandatoryFieldIndicatorStyle) -> ValuePickerMandatoryFieldIndicatorStyle {
-        ValuePickerMandatoryFieldIndicatorStyle(style: style)
-    }
-
-    static func mandatoryFieldIndicatorStyle(@ViewBuilder content: @escaping (MandatoryFieldIndicatorConfiguration) -> some View) -> ValuePickerMandatoryFieldIndicatorStyle {
-        let style = AnyMandatoryFieldIndicatorStyle(content)
-        return ValuePickerMandatoryFieldIndicatorStyle(style: style)
-    }
-}
-
 public struct ValuePickerOptionsStyle: ValuePickerStyle {
     let style: any OptionsStyle
 
@@ -8575,6 +8806,146 @@ public extension WatermarkStyle where Self == WatermarkBaseStyle {
 public extension WatermarkStyle where Self == WatermarkFioriStyle {
     static var fiori: WatermarkFioriStyle {
         WatermarkFioriStyle()
+    }
+}
+
+// MARK: WelcomeScreenStyle
+
+public extension WelcomeScreenStyle where Self == WelcomeScreenBaseStyle {
+    static var base: WelcomeScreenBaseStyle {
+        WelcomeScreenBaseStyle()
+    }
+}
+
+public extension WelcomeScreenStyle where Self == WelcomeScreenFioriStyle {
+    static var fiori: WelcomeScreenFioriStyle {
+        WelcomeScreenFioriStyle()
+    }
+}
+
+public struct WelcomeScreenTitleStyle: WelcomeScreenStyle {
+    let style: any TitleStyle
+
+    public func makeBody(_ configuration: WelcomeScreenConfiguration) -> some View {
+        WelcomeScreen(configuration)
+            .titleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension WelcomeScreenStyle where Self == WelcomeScreenTitleStyle {
+    static func titleStyle(_ style: some TitleStyle) -> WelcomeScreenTitleStyle {
+        WelcomeScreenTitleStyle(style: style)
+    }
+
+    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> WelcomeScreenTitleStyle {
+        let style = AnyTitleStyle(content)
+        return WelcomeScreenTitleStyle(style: style)
+    }
+}
+
+public struct WelcomeScreenDescriptionStyle: WelcomeScreenStyle {
+    let style: any DescriptionStyle
+
+    public func makeBody(_ configuration: WelcomeScreenConfiguration) -> some View {
+        WelcomeScreen(configuration)
+            .descriptionStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension WelcomeScreenStyle where Self == WelcomeScreenDescriptionStyle {
+    static func descriptionStyle(_ style: some DescriptionStyle) -> WelcomeScreenDescriptionStyle {
+        WelcomeScreenDescriptionStyle(style: style)
+    }
+
+    static func descriptionStyle(@ViewBuilder content: @escaping (DescriptionConfiguration) -> some View) -> WelcomeScreenDescriptionStyle {
+        let style = AnyDescriptionStyle(content)
+        return WelcomeScreenDescriptionStyle(style: style)
+    }
+}
+
+public struct WelcomeScreenIconStyle: WelcomeScreenStyle {
+    let style: any IconStyle
+
+    public func makeBody(_ configuration: WelcomeScreenConfiguration) -> some View {
+        WelcomeScreen(configuration)
+            .iconStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension WelcomeScreenStyle where Self == WelcomeScreenIconStyle {
+    static func iconStyle(_ style: some IconStyle) -> WelcomeScreenIconStyle {
+        WelcomeScreenIconStyle(style: style)
+    }
+
+    static func iconStyle(@ViewBuilder content: @escaping (IconConfiguration) -> some View) -> WelcomeScreenIconStyle {
+        let style = AnyIconStyle(content)
+        return WelcomeScreenIconStyle(style: style)
+    }
+}
+
+public struct WelcomeScreenFootnoteStyle: WelcomeScreenStyle {
+    let style: any FootnoteStyle
+
+    public func makeBody(_ configuration: WelcomeScreenConfiguration) -> some View {
+        WelcomeScreen(configuration)
+            .footnoteStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension WelcomeScreenStyle where Self == WelcomeScreenFootnoteStyle {
+    static func footnoteStyle(_ style: some FootnoteStyle) -> WelcomeScreenFootnoteStyle {
+        WelcomeScreenFootnoteStyle(style: style)
+    }
+
+    static func footnoteStyle(@ViewBuilder content: @escaping (FootnoteConfiguration) -> some View) -> WelcomeScreenFootnoteStyle {
+        let style = AnyFootnoteStyle(content)
+        return WelcomeScreenFootnoteStyle(style: style)
+    }
+}
+
+public struct WelcomeScreenActionStyle: WelcomeScreenStyle {
+    let style: any ActionStyle
+
+    public func makeBody(_ configuration: WelcomeScreenConfiguration) -> some View {
+        WelcomeScreen(configuration)
+            .actionStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension WelcomeScreenStyle where Self == WelcomeScreenActionStyle {
+    static func actionStyle(_ style: some ActionStyle) -> WelcomeScreenActionStyle {
+        WelcomeScreenActionStyle(style: style)
+    }
+
+    static func actionStyle(@ViewBuilder content: @escaping (ActionConfiguration) -> some View) -> WelcomeScreenActionStyle {
+        let style = AnyActionStyle(content)
+        return WelcomeScreenActionStyle(style: style)
+    }
+}
+
+public struct WelcomeScreenSecondaryActionStyle: WelcomeScreenStyle {
+    let style: any SecondaryActionStyle
+
+    public func makeBody(_ configuration: WelcomeScreenConfiguration) -> some View {
+        WelcomeScreen(configuration)
+            .secondaryActionStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension WelcomeScreenStyle where Self == WelcomeScreenSecondaryActionStyle {
+    static func secondaryActionStyle(_ style: some SecondaryActionStyle) -> WelcomeScreenSecondaryActionStyle {
+        WelcomeScreenSecondaryActionStyle(style: style)
+    }
+
+    static func secondaryActionStyle(@ViewBuilder content: @escaping (SecondaryActionConfiguration) -> some View) -> WelcomeScreenSecondaryActionStyle {
+        let style = AnySecondaryActionStyle(content)
+        return WelcomeScreenSecondaryActionStyle(style: style)
     }
 }
 

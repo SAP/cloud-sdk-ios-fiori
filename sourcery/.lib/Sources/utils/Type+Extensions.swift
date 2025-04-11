@@ -9,6 +9,11 @@ public extension Type {
         for superType in type.inheritedTypes {
             if let type = ProcessInfo.processInfo.context.type[superType] {
                 ret.append(contentsOf: self.getAllStoredVariables(for: type))
+                if superType == "_MandatoryField" {
+                    // The _MandatoryField protocol is empty, here add a flag variable with Bool type for [Variable] extension to handle.
+                    let mandatoryFieldIndicatorFlag = Variable(name: "mandatoryFieldIndicatorFlag", typeName: TypeName(name: "Bool"))
+                    ret.append(mandatoryFieldIndicatorFlag)
+                }
             }
         }
         
@@ -80,6 +85,7 @@ public extension Type {
                                     "_ActivityItemModel",
                                     "_ActivityItemsModel",
                                     "_ContactItemModel",
+                                    "_WelcomeScreenModel",
                                     "_ProgressIndicatorModel",
                                     "_KPIProgressItemModel",
                                     "_SingleStepModel",
@@ -95,7 +101,10 @@ public extension Type {
                                     "_SortFilterViewModel",
                                     "_SignatureCaptureViewModel",
                                     "_EmptyStateViewModel",
-                                    "_KPIItemModel"]
+                                    "_KPIItemModel",
+                                    "_SliderPickerItemModel",
+                                    "_EULAViewModel",
+                                    "_DurationPickerModel"]
         
         if deprecatedComponents.contains(name) {
             return name.replacingOccurrences(of: "Model", with: "")

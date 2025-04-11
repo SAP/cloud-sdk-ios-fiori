@@ -538,6 +538,7 @@ struct ListPickerDestinationContent<Data: RandomAccessCollection, ID: Hashable, 
     @Environment(\.listPickerDestinationConfiguration) var destinationConfiguration
     @Environment(\.disableEntriesSection) var disableEntriesSection
     @Environment(\.autoDismissDestination) var autoDismissDestination
+    @Environment(\.isFilterFeedbackBarListPickerStyle) var isFilterFeedbackBarListPickerStyle
     
     @Binding private var selections: Set<ID>
     private var isSingleSelection: Bool
@@ -623,10 +624,19 @@ struct ListPickerDestinationContent<Data: RandomAccessCollection, ID: Hashable, 
     var body: some View {
         Group {
             if self.searchFilter != nil {
-                self.listContent()
-                    .searchable(text: self.$searchText, placement: .navigationBarDrawer)
+                if self.isFilterFeedbackBarListPickerStyle {
+                    self.listContentForFilterFeedbackBarListPicker()
+                        .searchable(text: self.$searchText, placement: .navigationBarDrawer(displayMode: .always))
+                } else {
+                    self.listContent()
+                        .searchable(text: self.$searchText, placement: .navigationBarDrawer)
+                }
             } else {
-                self.listContent()
+                if self.isFilterFeedbackBarListPickerStyle {
+                    self.listContentForFilterFeedbackBarListPicker()
+                } else {
+                    self.listContent()
+                }
             }
         }
         .setOnChange(of: self.selections) {
@@ -759,6 +769,93 @@ struct ListPickerDestinationContent<Data: RandomAccessCollection, ID: Hashable, 
             }
         }
     }
+    
+    @ViewBuilder func listContentForFilterFeedbackBarListPicker() -> some View {
+        List {
+            if self.isTopLevel, !self.disableEntriesSection, !self.isSingleSelection, self.destinationConfiguration != nil {
+                Section {
+                    if !self.selectedEntriesSectionHeaderIsEmpty(), self.selectionsCount() > 0 {
+                        HStack {
+                            self.destinationConfiguration?.selectedEntriesSectionTitle
+                            Spacer()
+                            self.destinationConfiguration?.deselectAllAction
+                                .onSimultaneousTapGesture {
+                                    self.deselectAll()
+                                }
+                        }
+                        .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
+                        .alignmentGuide(.listRowSeparatorLeading) { dimensions in
+                            dimensions[.leading] - 16
+                        }
+                        
+                        self.selectedSection()
+                            .listRowInsets(EdgeInsets(top: 11, leading: 16, bottom: 11, trailing: 16))
+                        
+                        #if !os(visionOS)
+                            Rectangle().fill(Color.preferredColor(.primaryGroupedBackground))
+                                .frame(height: 30)
+                                .listRowInsets(EdgeInsets())
+                                .alignmentGuide(.listRowSeparatorLeading) { dimensions in
+                                    dimensions[.leading] - 16
+                                }
+                        #endif
+                    }
+                }.textCase(.none)
+            }
+            
+            let filteredData = self.filteredSectionDataOnPage()
+            
+            if !(self.data.first?.title.isEmpty ?? true) {
+                // grouped sections, no sdk header support
+                ForEach(0 ..< filteredData.count, id: \.self) { index in
+                    Section {
+                        Text(filteredData[index].0)
+                            .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
+                            .alignmentGuide(.listRowSeparatorLeading) { dimensions in
+                                dimensions[.leading] - 16
+                            }
+                        
+                        self.generateSection(by: filteredData[index].1)
+                            .listRowInsets(EdgeInsets(top: 11, leading: 16, bottom: 11, trailing: 16))
+                    }.textCase(.none)
+                }
+            } else {
+                // single section
+                if let items = filteredData.first?.1 {
+                    Section {
+                        if !self.allEntriesHeaderIsEmpty(), !self.isSingleSelection {
+                            HStack {
+                                self.destinationConfiguration?.allEntriesSectionTitle
+                                Spacer()
+                                let selectionsCount = self.isTrackingLiveChanges ? self.selections.count : self.selectionsPool.count
+                                if self.flattenData(data: self.data).count == selectionsCount {
+                                    self.destinationConfiguration?.deselectAllAction
+                                        .onSimultaneousTapGesture {
+                                            self.deselectAll()
+                                        }
+                                } else {
+                                    self.destinationConfiguration?.selectAllAction
+                                        .onSimultaneousTapGesture {
+                                            self.selectAll()
+                                        }
+                                }
+                            }
+                            .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
+                            .alignmentGuide(.listRowSeparatorLeading) { dimensions in
+                                dimensions[.leading] - 16
+                            }
+                        }
+                        
+                        self.generateSection(by: items)
+                            .listRowInsets(EdgeInsets(top: 11, leading: 16, bottom: 11, trailing: 16))
+
+                    }.textCase(.none)
+                } else {
+                    EmptyView()
+                }
+            }
+        }
+    }
         
     @ViewBuilder func generateSection(by serialData: [Data.Element]) -> some View {
         ForEach(serialData, id: self.id) { element in
@@ -797,18 +894,12 @@ struct ListPickerDestinationContent<Data: RandomAccessCollection, ID: Hashable, 
         let selectedData = selectedData()
         ForEach(selectedData, id: self.id) { element in
             let id_value = element[keyPath: id]
-            HStack {
-                self.rowContent(element)
-                Spacer().frame(minWidth: 0)
-                if self.isItemSelected(id_value) {
-                    Image(systemName: "checkmark")
-                        .foregroundColor(.preferredColor(.tintColor))
+            ListPickerDestinationRow(content: self.rowContent(element),
+                                     isSelected: self.isItemSelected(id_value))
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    self.handleSelections(id_value)
                 }
-            }
-            .contentShape(Rectangle())
-            .onTapGesture {
-                self.handleSelections(id_value)
-            }
         }
     }
     
@@ -1068,6 +1159,10 @@ struct AutoDismissDestinationEnvironment: EnvironmentKey {
     static let defaultValue: Bool = false
 }
 
+struct IsFilterFeedbackBarListPickerStyleEnvironment: EnvironmentKey {
+    static let defaultValue: Bool = false
+}
+
 struct DestinationRowBackgroundPreferenceKey: PreferenceKey {
     static var defaultValue: Color? = nil
 
@@ -1086,6 +1181,11 @@ extension EnvironmentValues {
         get { self[AutoDismissDestinationEnvironment.self] }
         set { self[AutoDismissDestinationEnvironment.self] = newValue }
     }
+    
+    var isFilterFeedbackBarListPickerStyle: Bool {
+        get { self[IsFilterFeedbackBarListPickerStyleEnvironment.self] }
+        set { self[IsFilterFeedbackBarListPickerStyleEnvironment.self] = newValue }
+    }
 }
 
 public extension View {
@@ -1103,6 +1203,13 @@ public extension View {
         self.environment(\.autoDismissDestination, dismiss)
     }
     
+    /// Customize the list style used in the list picker of filter feedbar bar.
+    /// - Parameter value: A Boolean value that determines whether customize the list style.
+    /// - Returns: A view that customized by filter feedback bar list picker style.
+    func isFilterFeedbackBarListPickerStyle(_ value: Bool = false) -> some View {
+        self.environment(\.isFilterFeedbackBarListPickerStyle, value)
+    }
+
     /// Background color customization for rows in `ListPickerDestination`
     /// - Parameter color: Background color for rows.
     /// - Returns: A view with custom background color.

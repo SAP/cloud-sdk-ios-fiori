@@ -8,6 +8,13 @@ struct CoreContentView: View {
         List {
             Section(header: Text("Views")) {
                 NavigationLink(
+                    destination: AttachmentExamples(),
+                    label: {
+                        Text("Attachments")
+                    }
+                )
+
+                NavigationLink(
                     destination: AvatarStackExample(),
                     label: {
                         Text("AvatarStack")
@@ -224,6 +231,12 @@ struct CoreContentView: View {
                 }
                 
                 NavigationLink(
+                    destination: _DurationPickerExample())
+                {
+                    Text("_DurationPicker")
+                }
+                
+                NavigationLink(
                     destination: DurationPickerExample())
                 {
                     Text("DurationPicker")
@@ -250,9 +263,14 @@ struct CoreContentView: View {
             
             Section(header: Text("Onboarding")) {
                 NavigationLink(
-                    destination: OnboardingExamples())
+                    destination: OnboardingExamples(_isNewObjectItem: true))
                 {
                     Text("Onboarding")
+                }
+                NavigationLink(
+                    destination: OnboardingExamples())
+                {
+                    Text("_Onboarding: deprecated")
                 }
             }
             

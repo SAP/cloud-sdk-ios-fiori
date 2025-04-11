@@ -29,12 +29,7 @@ public struct DateTimePickerBaseStyle: DateTimePickerStyle {
     func configureMainStack(_ configuration: DateTimePickerConfiguration, isVertical: Bool) -> some View {
         let mainStack = isVertical ? AnyLayout(VStackLayout(alignment: .leading, spacing: 3)) : AnyLayout(HStackLayout())
         return mainStack {
-            HStack(spacing: 0) {
-                configuration.title
-                if configuration.isRequired {
-                    configuration.mandatoryFieldIndicator
-                }
-            }
+            configuration.title
             if !isVertical {
                 Spacer()
             } else {
@@ -104,7 +99,7 @@ extension DateTimePickerFioriStyle {
 
         func makeBody(_ configuration: TitleConfiguration) -> some View {
             Title(configuration)
-                .foregroundStyle(Color.preferredColor(self.dateTimePickerConfiguration.controlState == .disabled ? .separator : .primaryLabel))
+                .foregroundStyle(Color.preferredColor(self.dateTimePickerConfiguration.controlState == .disabled ? .quaternaryLabel : .primaryLabel))
                 .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
         }
     }
@@ -114,15 +109,6 @@ extension DateTimePickerFioriStyle {
     
         func makeBody(_ configuration: ValueLabelConfiguration) -> some View {
             ValueLabel(configuration)
-        }
-    }
-    
-    struct MandatoryFieldIndicatorFioriStyle: MandatoryFieldIndicatorStyle {
-        let dateTimePickerConfiguration: DateTimePickerConfiguration
-        
-        func makeBody(_ configuration: MandatoryFieldIndicatorConfiguration) -> some View {
-            MandatoryFieldIndicator(configuration)
-                .foregroundStyle(Color.preferredColor(self.dateTimePickerConfiguration.controlState == .disabled ? .separator : .primaryLabel))
         }
     }
     

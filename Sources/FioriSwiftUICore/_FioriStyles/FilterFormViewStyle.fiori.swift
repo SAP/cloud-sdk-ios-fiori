@@ -90,15 +90,10 @@ public struct FilterFormViewBaseStyle: FilterFormViewStyle {
     
     @ViewBuilder
     func TitleContainerView(_ configuration: FilterFormViewConfiguration) -> some View {
-        HStack(spacing: 0, content: {
-            configuration.title
-            if configuration.isRequired {
-                configuration.mandatoryFieldIndicator
+        configuration.title
+            .sizeReader { size in
+                self.titleWidth = size.width
             }
-        })
-        .sizeReader { size in
-            self.titleWidth = size.width
-        }
     }
     
     @ViewBuilder
@@ -244,17 +239,7 @@ extension FilterFormViewFioriStyle {
         func makeBody(_ configuration: TitleConfiguration) -> some View {
             Title(configuration)
                 .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
-                .foregroundStyle(Color.preferredColor(self.filterFormViewConfiguration.isEnabled ? .primaryLabel : .separator))
-        }
-    }
-
-    struct MandatoryFieldIndicatorFioriStyle: MandatoryFieldIndicatorStyle {
-        let filterFormViewConfiguration: FilterFormViewConfiguration
-
-        func makeBody(_ configuration: MandatoryFieldIndicatorConfiguration) -> some View {
-            MandatoryFieldIndicator(configuration)
-                .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
-                .foregroundStyle(Color.preferredColor(self.filterFormViewConfiguration.isEnabled ? .primaryLabel : .separator))
+                .foregroundStyle(Color.preferredColor(self.filterFormViewConfiguration.isEnabled ? .primaryLabel : .quaternaryLabel))
         }
     }
 

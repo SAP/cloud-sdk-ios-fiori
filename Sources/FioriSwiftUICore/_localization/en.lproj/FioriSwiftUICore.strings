@@ -364,3 +364,39 @@
 
 /* XTIT: Title of step progress indicator, see https://experience.sap.com/fiori-design-ios/article/step-progress-indicator/#adaptive-design */
 "All Steps" = "All Steps";
+
+/* XMSG: AI Notice message */
+"Suggested by AI. Verify before use. " = "Suggested by AI. Verify before use. ";
+
+/* XBUT: Attachment operation menu item - Photos, which stands for Photo Library */
+"Photos" = "Photos";
+
+/* XBUT: Attachment operation menu item - Files, which stands for documents available for upload residing in Files */
+"Files" = "Files";
+
+/* XBUT: Attachment operation menu item - Camera, which can be used for taking photos and movies */
+"Camera" = "Camera";
+
+/* XBUT: Attachment operation menu item - Scan. Use camera as scanner and generate PDF files */
+"Scan" = "Scan";
+
+/* XACT: The accessibility preview action for the attachment */
+"Preview" = "Preview";
+
+/* XTIT: Attachment title of deletion confirmation */
+"Delete Attachment?" = "Delete Attachment?";
+
+/* XBUT: Attachment deletion confirmation button */
+"Delete" = "Delete";
+
+/* XBUT: Attachment Deletion cancel button */
+"Cancel" = "Cancel";
+
+/* XBUT: Attachment add button */
+"Add attachment" = "Add attachment";
+
+/* XACT: The accessibility hint for add button */
+"Double tap to add attachment" = "Double tap to add attachment";
+
+/* XMSG: Attachment thumbnail */
+"Thumbnail" = "Thumbnail";

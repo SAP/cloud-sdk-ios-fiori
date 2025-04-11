@@ -191,7 +191,7 @@ public protocol ContactItemModel {}
 
 // sourcery: add_env_props = ["horizontalSizeClass"]
 // sourcery: generated_component_composite
-public protocol WelcomeScreenModel: TitleComponent, DescriptionTextComponent, SubtitleComponent, FootnoteComponent, IconComponent {
+public protocol _WelcomeScreenModel: TitleComponent, DescriptionTextComponent, SubtitleComponent, FootnoteComponent, IconComponent {
     // sourcery: genericParameter.name = TextInputView
     var textInput: _TextInputModel? { get }
     
@@ -201,6 +201,10 @@ public protocol WelcomeScreenModel: TitleComponent, DescriptionTextComponent, Su
     // sourcery: genericParameter.name = SecondaryActionView
     var secondaryAction: _ActionModel? { get }
 }
+
+/// Deprecated WelcomeScreenModel
+@available(*, unavailable, renamed: "_WelcomeScreenModel", message: "Will be removed in the future release. Please create WelcomeScreen with other initializers instead.")
+public protocol WelcomeScreenModel {}
 
 // sourcery: generated_component_composite
 public protocol ActivationScreenModel: TitleComponent, DescriptionTextComponent, FootnoteComponent {
@@ -234,7 +238,7 @@ public protocol InfoViewModel: TitleComponent, DescriptionTextComponent {
 // sourcery: generated_component_composite
 // sourcery: virtualPropContentHeight = "@State var contentHeight: CGFloat = .zero"
 // sourcery: add_env_props = ["presentationMode"]
-public protocol EULAViewModel: TitleComponent, BodyAttributedTextComponent {
+public protocol _EULAViewModel: TitleComponent, BodyAttributedTextComponent {
     // sourcery: genericParameter.name = ActionView
     // sourcery: default.value = _AgreeActionDefault()
     var action: _ActionModel? { get }
@@ -259,6 +263,10 @@ public protocol EULAViewModel: TitleComponent, BodyAttributedTextComponent {
     // sourcery: no_view
     var didCancel: (() -> Void)? { get }
 }
+
+/// Deprecated EULAViewModel
+@available(*, deprecated, renamed: "_EULAViewModel", message: "Will be removed in the future release. Please create EULAViewModel with other initializers instead.")
+public protocol EULAViewModel {}
 
 // sourcery: virtualPropFormIndex = "@State var _formIndex = 0"
 // sourcery: virtualPropAllowedFormIndexes = "@State var _allowedFormIndexes: [Int] = []"
@@ -444,6 +452,9 @@ public protocol _EmptyStateViewModel: TitleComponent, DescriptionTextComponent, 
 public protocol EmptyStateViewModel {}
 
 // sourcery: generated_component_not_configurable
+public protocol _DurationPickerModel: DurationPickerComponent {}
+
+@available(*, unavailable, renamed: "_DurationPickerModel", message: "Will be removed in the future release. Please create DurationPicker with other initializers instead.")
 public protocol DurationPickerModel: DurationPickerComponent {}
 
 // sourcery: availableAttributeContent = "iOS 15.0, macOS 12.0, *"
@@ -535,7 +546,7 @@ public protocol StepProgressIndicatorModel {}
 public protocol _FilterFeedbackBarModel: AnyObject {
     // sourcery: bindingProperty
     // sourcery: backingComponent=_SortFilterMenuItemContainer
-    var items: [[SortFilterItem]] { get set }
+    var items: [[_SortFilterItem]] { get set }
     
     // sourcery: default.value = nil
     // sourcery: no_view
@@ -553,7 +564,7 @@ public protocol FilterFeedbackBarModel {}
 public protocol _SortFilterViewModel: AnyObject, TitleComponent {
     // sourcery: bindingProperty
     // sourcery: backingComponent=_SortFilterCFGItemContainer
-    var items: [[SortFilterItem]] { get set }
+    var items: [[_SortFilterItem]] { get set }
     
     // sourcery: genericParameter.name = CancelActionView
     // sourcery: default.value = _CancelActionDefault()
@@ -655,4 +666,8 @@ public protocol SwitchPickerItemModel {}
 
 // sourcery: add_env_props = "_filterFeedbackBarStyle"
 // sourcery: generated_component_not_configurable
-public protocol SliderPickerItemModel: SliderPickerComponent {}
+public protocol _SliderPickerItemModel: SliderPickerComponent {}
+
+/// Deprecated SliderPickerItemModel
+@available(*, deprecated, renamed: "_SliderPickerItemModel", message: "Will be removed in the future release. Please create FioriSlider with other initializers instead.")
+public protocol SliderPickerItemModel {}

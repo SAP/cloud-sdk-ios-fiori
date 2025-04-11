@@ -3,6 +3,12 @@
 import Foundation
 import SwiftUI
 
+extension AINotice: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        icon.isEmpty
+    }
+}
+
 extension AccessoryIcon: _ViewEmptyChecking {
     public var isEmpty: Bool {
         accessoryIcon.isEmpty
@@ -34,6 +40,12 @@ extension ActivityItems: _ViewEmptyChecking {
     }
 }
 
+extension AgreeAction: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        agreeAction.isEmpty
+    }
+}
+
 extension AllEntriesSectionTitle: _ViewEmptyChecking {
     public var isEmpty: Bool {
         allEntriesSectionTitle.isEmpty
@@ -49,6 +61,51 @@ extension AllowAction: _ViewEmptyChecking {
 extension ApplyAction: _ViewEmptyChecking {
     public var isEmpty: Bool {
         applyAction.isEmpty
+    }
+}
+
+extension AttachmentButtonImage: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        addButtonImage.isEmpty
+    }
+}
+
+extension Attachment: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        attachmentTitle.isEmpty &&
+            attachmentSubtitle.isEmpty &&
+            attachmentFootnote.isEmpty
+    }
+}
+
+extension AttachmentFootnote: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        attachmentFootnote.isEmpty
+    }
+}
+
+extension AttachmentGroup: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        title.isEmpty &&
+            operations.isEmpty
+    }
+}
+
+extension AttachmentSubtitle: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        attachmentSubtitle.isEmpty
+    }
+}
+
+extension AttachmentThumbnail: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        false
+    }
+}
+
+extension AttachmentTitle: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        attachmentTitle.isEmpty
     }
 }
 
@@ -226,8 +283,7 @@ extension Counter: _ViewEmptyChecking {
 extension DateTimePicker: _ViewEmptyChecking {
     public var isEmpty: Bool {
         title.isEmpty &&
-            valueLabel.isEmpty &&
-            mandatoryFieldIndicator.isEmpty
+            valueLabel.isEmpty
     }
 }
 
@@ -294,6 +350,28 @@ extension DimensionSelector: _ViewEmptyChecking {
     }
 }
 
+extension DisagreeAction: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        disagreeAction.isEmpty
+    }
+}
+
+extension DurationPicker: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        false
+    }
+}
+
+extension EULAView: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        title.isEmpty &&
+            bodyText.isEmpty &&
+            agreeAction.isEmpty &&
+            disagreeAction.isEmpty &&
+            cancelAction.isEmpty
+    }
+}
+
 extension FilledIcon: _ViewEmptyChecking {
     public var isEmpty: Bool {
         filledIcon.isEmpty
@@ -323,8 +401,7 @@ extension FilterFeedbackBarItem: _ViewEmptyChecking {
 
 extension FilterFormView: _ViewEmptyChecking {
     public var isEmpty: Bool {
-        title.isEmpty &&
-            mandatoryFieldIndicator.isEmpty
+        title.isEmpty
     }
 }
 
@@ -496,8 +573,7 @@ extension Key: _ViewEmptyChecking {
 extension KeyValueFormView: _ViewEmptyChecking {
     public var isEmpty: Bool {
         title.isEmpty &&
-            placeholder.isEmpty &&
-            mandatoryFieldIndicator.isEmpty
+            placeholder.isEmpty
     }
 }
 
@@ -575,7 +651,6 @@ extension ListPickerItem: _ViewEmptyChecking {
     public var isEmpty: Bool {
         title.isEmpty &&
             value.isEmpty &&
-            mandatoryFieldIndicator.isEmpty &&
             destination.isEmpty
     }
 }
@@ -590,12 +665,6 @@ extension LoadingIndicator: _ViewEmptyChecking {
 extension LowerThumb: _ViewEmptyChecking {
     public var isEmpty: Bool {
         lowerThumb.isEmpty
-    }
-}
-
-extension MandatoryFieldIndicator: _ViewEmptyChecking {
-    public var isEmpty: Bool {
-        mandatoryFieldIndicator.isEmpty
     }
 }
 
@@ -926,7 +995,6 @@ extension SideBarListItem: _ViewEmptyChecking {
 extension SignatureCaptureView: _ViewEmptyChecking {
     public var isEmpty: Bool {
         title.isEmpty &&
-            mandatoryFieldIndicator.isEmpty &&
             startSignatureAction.isEmpty &&
             reenterSignatureAction.isEmpty &&
             cancelAction.isEmpty &&
@@ -1044,8 +1112,13 @@ extension TertiaryAction: _ViewEmptyChecking {
 extension TextFieldFormView: _ViewEmptyChecking {
     public var isEmpty: Bool {
         title.isEmpty &&
-            placeholder.isEmpty &&
-            mandatoryFieldIndicator.isEmpty
+            placeholder.isEmpty
+    }
+}
+
+extension TextInput: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        false
     }
 }
 
@@ -1217,14 +1290,28 @@ extension ValueLabel: _ViewEmptyChecking {
 extension ValuePicker: _ViewEmptyChecking {
     public var isEmpty: Bool {
         title.isEmpty &&
-            valueLabel.isEmpty &&
-            mandatoryFieldIndicator.isEmpty
+            valueLabel.isEmpty
     }
 }
 
 extension Watermark: _ViewEmptyChecking {
     public var isEmpty: Bool {
         watermark.isEmpty
+    }
+}
+
+extension WelcomeScreen: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        title.isEmpty &&
+            description.isEmpty &&
+            icon.isEmpty &&
+            footnote.isEmpty &&
+            action.isEmpty &&
+            secondaryAction.isEmpty &&
+            illustratedMessage.isEmpty &&
+            headlineImage.isEmpty &&
+            legalText.isEmpty &&
+            footerText.isEmpty
     }
 }
 

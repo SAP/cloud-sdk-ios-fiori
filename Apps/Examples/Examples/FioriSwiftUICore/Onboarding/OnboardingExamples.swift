@@ -1,10 +1,12 @@
 import SwiftUI
 
 struct OnboardingExamples: View {
+    var _isNewObjectItem: Bool = false
+    
     var body: some View {
         List {
             NavigationLink(
-                destination: WelcomeExamples())
+                destination: WelcomeExamples(_isNewObjectItem: self._isNewObjectItem))
             {
                 Text("WelcomeScreen Examples")
             }
@@ -25,6 +27,12 @@ struct OnboardingExamples: View {
             NavigationLink(
                 destination: EULAExamples())
             {
+                Text("_EULA Examples")
+            }
+            
+            NavigationLink(
+                destination: EULAExamples(isNewEULAView: true))
+            {
                 Text("EULA Examples")
             }
             
@@ -39,23 +47,40 @@ struct OnboardingExamples: View {
 }
 
 struct WelcomeExamples: View {
+    var _isNewObjectItem: Bool = false
     var body: some View {
         List {
-            NavigationLink(
-                destination: WelcomeScreenSample())
-            {
-                Text("WelcomeScreen")
+            if self._isNewObjectItem {
+                Section {
+                    NavigationLink {
+                        OnBoardingWelcomeScreenExamples()
+                    } label: {
+                        Text("OnBoarding - WelcomeScreen")
+                    }
+                } header: {
+                    Text("Extra Examples")
+                        .textCase(.none)
+                }
+            } else {
+                Section {
+                    NavigationLink(
+                        destination: WelcomeScreenSample())
+                    {
+                        Text("WelcomeScreen")
+                    }
+                    NavigationLink(
+                        destination: WelcomeScreenCustomized())
+                    {
+                        Text("WelcomeScreen customized")
+                    }
+                    NavigationLink(
+                        destination: WelcomeScreenDiscoveryService())
+                    {
+                        Text("WelcomeScreen with Discovery Service")
+                    }
+                }
             }
-            NavigationLink(
-                destination: WelcomeScreenCustomized())
-            {
-                Text("WelcomeScreen customized")
-            }
-            NavigationLink(
-                destination: WelcomeScreenDiscoveryService())
-            {
-                Text("WelcomeScreen with Discovery Service")
-            }
+            
         }.navigationBarTitle("Welcome Examples", displayMode: .inline)
     }
 }
@@ -103,47 +128,76 @@ struct InfoViewExamples: View {
 }
 
 struct EULAExamples: View {
+    var isNewEULAView = false
     var body: some View {
         List {
-            NavigationLink(
-                destination: EULAViewSample())
-            {
+            NavigationLink {
+                if self.isNewEULAView {
+                    EULAViewSample()
+                } else {
+                    _EULAViewSample()
+                }
+            } label: {
                 Text("EULA Example")
             }
             
-            NavigationLink(
-                destination: EULALongHtmlSample())
-            {
+            NavigationLink {
+                if self.isNewEULAView {
+                    EULALongHtmlSample()
+                } else {
+                    _EULALongHtmlSample()
+                }
+            } label: {
                 Text("Long HTML")
             }
             
-            NavigationLink(
-                destination: EULAShortHtmlSample())
-            {
+            NavigationLink {
+                if self.isNewEULAView {
+                    EULAShortHtmlSample()
+                } else {
+                    _EULAShortHtmlSample()
+                }
+            } label: {
                 Text("Short HTML")
             }
             
-            NavigationLink(
-                destination: EULAConcatSample())
-            {
+            NavigationLink {
+                if self.isNewEULAView {
+                    EULAConcatSample()
+                } else {
+                    _EULAConcatSample()
+                }
+            } label: {
                 Text("Concat Attributed Strings")
             }
             
-            NavigationLink(
-                destination: EULAWithLinkSample())
-            {
+            NavigationLink {
+                if self.isNewEULAView {
+                    EULAWithLinkSample()
+                } else {
+                    _EULAWithLinkSample()
+                }
+            } label: {
                 Text("Short HTML with Link")
             }
             
-            NavigationLink(
-                destination: EULAShortWithLinkSample())
-            {
+            NavigationLink {
+                if self.isNewEULAView {
+                    EULAShortWithLinkSample()
+                } else {
+                    _EULAShortWithLinkSample()
+                }
+            } label: {
                 Text("Short Attributed Strings with Link")
             }
             
-            NavigationLink(
-                destination: EULAViewCustomized())
-            {
+            NavigationLink {
+                if self.isNewEULAView {
+                    EULAViewCustomized()
+                } else {
+                    _EULAViewCustomized()
+                }
+            } label: {
                 Text("Customized EULA Example")
             }
             
