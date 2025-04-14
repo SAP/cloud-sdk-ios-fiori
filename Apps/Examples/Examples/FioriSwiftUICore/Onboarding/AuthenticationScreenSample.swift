@@ -91,6 +91,7 @@ struct DynamicAuthenticationExample: View {
     @State private var test2: String = ""
     @State private var test3: String = ""
     var showsIllustratedMessage: Bool
+    @FocusState private var testFocused: Bool
     
     var body: some View {
         Authentication(detailImage: {
@@ -113,6 +114,7 @@ struct DynamicAuthenticationExample: View {
                     .textFieldFormViewStyle(AuthTextFieldStyle())
                 TextFieldFormView(title: "", text: self.$test1, isSecureEnabled: false, placeholder: "Test 1")
                     .textFieldFormViewStyle(AuthTextFieldStyle())
+                    .focused(self.$testFocused)
                 TextFieldFormView(title: "", text: self.$test2, isSecureEnabled: false, placeholder: "Test 2")
                     .textFieldFormViewStyle(AuthTextFieldStyle())
                 TextFieldFormView(title: "", text: self.$test3, isSecureEnabled: false, placeholder: "Test 3")
@@ -122,6 +124,11 @@ struct DynamicAuthenticationExample: View {
             EmptyView()
         }, isDisabled: self.password.isEmpty || self.name.isEmpty || self.url.isEmpty || self.email.isEmpty || self.test1.isEmpty || self.test2.isEmpty || self.test3.isEmpty) {
             print("sign in ......")
+        }
+        .onAppear {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+                self.testFocused = true
+            }
         }
         .navigationBarItems(
             leading: Button("Cancel") {
@@ -143,6 +150,7 @@ struct AuthenticationExample: View {
     @State var isPresentedBanner: Bool = false
     @State private var messageType: BannerMultiMessageType = .neutral
     @State private var verifyMessage: String = "Verifying Information..."
+    @FocusState private var nameFocused: Bool
     
     var body: some View {
         Authentication(detailImage: {
@@ -157,6 +165,7 @@ struct AuthenticationExample: View {
             VStack(spacing: 16) {
                 TextFieldFormView(title: "", text: self.$name, placeholder: "Enter your name")
                     .textFieldFormViewStyle(AuthTextFieldStyle())
+                    .focused(self.$nameFocused)
                 TextFieldFormView(title: "", text: self.$password, isSecureEnabled: true, placeholder: "Enter your password")
                     .textFieldFormViewStyle(AuthTextFieldStyle())
             }
@@ -173,6 +182,11 @@ struct AuthenticationExample: View {
                 self.messageType = .neutral
                 self.verifyMessage = "Verifying Information..."
                 self.password = ""
+            }
+        }
+        .onAppear {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+                self.nameFocused = true
             }
         }
         .bannerMessageView(isPresented: self.$isPresentedBanner,

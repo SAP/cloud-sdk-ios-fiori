@@ -1,18 +1,8 @@
-import FioriThemeManager
-
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriThemeManager
 import Foundation
 import SwiftUI
-
-/**
- This file provides default fiori style for the component.
-
- 1. Uncomment fhe following code.
- 2. Implement layout and style in corresponding places.
- 3. Delete `.generated` from file name.
- 4. Move this file to `_FioriStyles` folder under `FioriSwiftUICore`.
- */
 
 // Base Layout style
 public struct AuthenticationBaseStyle: AuthenticationStyle {
@@ -180,13 +170,20 @@ public struct BasicAuthenticationStyle: AuthenticationStyle {
 struct AuthInputFieldStyle: AuthInputStyle {
     @Binding var password: String
     @Binding var name: String
+    @FocusState private var nameFocused: Bool
     
     func makeBody(_ configuration: AuthInputConfiguration) -> some View {
         VStack(spacing: 16) {
             TextFieldFormView(title: "", text: self.$name, placeholder: AttributedString("username".localizedFioriString()))
                 .textFieldFormViewStyle(AuthTextFieldStyle())
+                .focused(self.$nameFocused)
             TextFieldFormView(title: "", text: self.$password, isSecureEnabled: true, placeholder: AttributedString("password".localizedFioriString()))
                 .textFieldFormViewStyle(AuthTextFieldStyle())
+        }
+        .onAppear {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+                self.nameFocused = true
+            }
         }
     }
 }
