@@ -1,4 +1,4 @@
-// Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 2.2.6 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import Foundation
 import SwiftUI
@@ -2928,6 +2928,70 @@ struct ResolvedWelcomeScreenStyle<Style: WelcomeScreenStyle>: View {
 extension WelcomeScreenStyle {
     func resolve(configuration: WelcomeScreenConfiguration) -> some View {
         ResolvedWelcomeScreenStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: WhatsNewListItemStyle
+
+struct ResolvedWhatsNewListItemStyle<Style: WhatsNewListItemStyle>: View {
+    let style: Style
+    let configuration: WhatsNewListItemConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension WhatsNewListItemStyle {
+    func resolve(configuration: WhatsNewListItemConfiguration) -> some View {
+        ResolvedWhatsNewListItemStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: WhatsNewListViewStyle
+
+struct ResolvedWhatsNewListViewStyle<Style: WhatsNewListViewStyle>: View {
+    let style: Style
+    let configuration: WhatsNewListViewConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension WhatsNewListViewStyle {
+    func resolve(configuration: WhatsNewListViewConfiguration) -> some View {
+        ResolvedWhatsNewListViewStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: WhatsNewPageStyle
+
+struct ResolvedWhatsNewPageStyle<Style: WhatsNewPageStyle>: View {
+    let style: Style
+    let configuration: WhatsNewPageConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension WhatsNewPageStyle {
+    func resolve(configuration: WhatsNewPageConfiguration) -> some View {
+        ResolvedWhatsNewPageStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: WhatsNewPageViewStyle
+
+struct ResolvedWhatsNewPageViewStyle<Style: WhatsNewPageViewStyle>: View {
+    let style: Style
+    let configuration: WhatsNewPageViewConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension WhatsNewPageViewStyle {
+    func resolve(configuration: WhatsNewPageViewConfiguration) -> some View {
+        ResolvedWhatsNewPageViewStyle(style: self, configuration: configuration)
     }
 }
 

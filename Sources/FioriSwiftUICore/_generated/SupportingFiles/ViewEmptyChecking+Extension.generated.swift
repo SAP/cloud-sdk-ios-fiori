@@ -1,4 +1,4 @@
-// Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 2.2.6 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import Foundation
 import SwiftUI
@@ -1312,6 +1312,34 @@ extension WelcomeScreen: _ViewEmptyChecking {
             headlineImage.isEmpty &&
             legalText.isEmpty &&
             footerText.isEmpty
+    }
+}
+
+extension WhatsNewListItem: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        detailImage.isEmpty &&
+            title.isEmpty &&
+            subtitle.isEmpty
+    }
+}
+
+extension WhatsNewListView: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        whatsNewListItems.isEmpty
+    }
+}
+
+extension WhatsNewPage: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        detailImage.isEmpty &&
+            title.isEmpty &&
+            description.isEmpty
+    }
+}
+
+extension WhatsNewPageView: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        whatsNewPages.isEmpty
     }
 }
 
