@@ -12,7 +12,7 @@ protocol _ObjectItemComponent: _TitleComponent, _SubtitleComponent, _FootnoteCom
     
     // sourcery: defaultValue = false
     /// Indicate whether the description is shown in compact mode. Default value is `false`.
-    var showDescriptionInCompact: Bool { get }
+    var showsDescriptionInCompact: Bool { get }
 }
 
 // sourcery: CompositeComponent, InternalComponent

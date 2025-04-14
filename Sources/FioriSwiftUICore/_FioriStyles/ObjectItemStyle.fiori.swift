@@ -285,7 +285,7 @@ extension ObjectItemBaseStyle {
                             context.configuration.footnote
                             context.configuration.tags
                             self.footnoteIconsView(context)
-                            if context.configuration.showDescriptionInCompact {
+                            if context.configuration.showsDescriptionInCompact {
                                 context.configuration.description
                             }
                         }
@@ -324,7 +324,7 @@ extension ObjectItemBaseStyle {
                     context.configuration.footnote
                     context.configuration.tags
                     self.footnoteIconsView(context)
-                    if context.configuration.showDescriptionInCompact {
+                    if context.configuration.showsDescriptionInCompact {
                         context.configuration.description
                     }
                 }
