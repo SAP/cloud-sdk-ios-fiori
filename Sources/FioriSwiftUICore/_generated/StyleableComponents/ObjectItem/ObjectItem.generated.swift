@@ -19,6 +19,8 @@ public struct ObjectItem {
     let tags: any View
     let action: any View
     let objectItemButton: any View
+    /// Indicate whether the description is shown in compact mode. Default value is `false`.
+    let showDescriptionInCompact: Bool
 
     @Environment(\.objectItemStyle) var style
 
@@ -37,7 +39,8 @@ public struct ObjectItem {
                 @ViewBuilder footnoteIconsText: () -> any View = { EmptyView() },
                 @TagBuilder tags: () -> any View = { EmptyView() },
                 @ViewBuilder action: () -> any View = { EmptyView() },
-                @ViewBuilder objectItemButton: () -> any View = { EmptyView() })
+                @ViewBuilder objectItemButton: () -> any View = { EmptyView() },
+                showDescriptionInCompact: Bool = false)
     {
         self.title = Title(title: title)
         self.subtitle = Subtitle(subtitle: subtitle)
@@ -53,6 +56,7 @@ public struct ObjectItem {
         self.tags = Tags(tags: tags)
         self.action = Action(action: action)
         self.objectItemButton = objectItemButton()
+        self.showDescriptionInCompact = showDescriptionInCompact
     }
 }
 
@@ -70,9 +74,10 @@ public extension ObjectItem {
          footnoteIconsText: AttributedString? = nil,
          tags: [AttributedString] = [],
          action: FioriButton? = nil,
-         objectItemButton: FioriButton? = nil)
+         objectItemButton: FioriButton? = nil,
+         showDescriptionInCompact: Bool = false)
     {
-        self.init(title: { Text(title) }, subtitle: { OptionalText(subtitle) }, footnote: { OptionalText(footnote) }, description: { OptionalText(description) }, status: { TextOrIconView(status) }, substatus: { TextOrIconView(substatus) }, detailImage: { detailImage }, icons: { IconStack(icons) }, avatars: { AvatarsListStack(avatars) }, footnoteIcons: { FootnoteIconStack(footnoteIcons) }, footnoteIconsText: { OptionalText(footnoteIconsText) }, tags: { TagStack(tags) }, action: { action }, objectItemButton: { objectItemButton })
+        self.init(title: { Text(title) }, subtitle: { OptionalText(subtitle) }, footnote: { OptionalText(footnote) }, description: { OptionalText(description) }, status: { TextOrIconView(status) }, substatus: { TextOrIconView(substatus) }, detailImage: { detailImage }, icons: { IconStack(icons) }, avatars: { AvatarsListStack(avatars) }, footnoteIcons: { FootnoteIconStack(footnoteIcons) }, footnoteIconsText: { OptionalText(footnoteIconsText) }, tags: { TagStack(tags) }, action: { action }, objectItemButton: { objectItemButton }, showDescriptionInCompact: showDescriptionInCompact)
     }
 }
 
@@ -96,6 +101,7 @@ public extension ObjectItem {
         self.tags = configuration.tags
         self.action = configuration.action
         self.objectItemButton = configuration.objectItemButton
+        self.showDescriptionInCompact = configuration.showDescriptionInCompact
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
     }
 }
@@ -105,7 +111,7 @@ extension ObjectItem: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(title: .init(self.title), subtitle: .init(self.subtitle), footnote: .init(self.footnote), description: .init(self.description), status: .init(self.status), substatus: .init(self.substatus), detailImage: .init(self.detailImage), icons: .init(self.icons), avatars: .init(self.avatars), footnoteIcons: .init(self.footnoteIcons), footnoteIconsText: .init(self.footnoteIconsText), tags: .init(self.tags), action: .init(self.action), objectItemButton: .init(self.objectItemButton))).typeErased
+            self.style.resolve(configuration: .init(title: .init(self.title), subtitle: .init(self.subtitle), footnote: .init(self.footnote), description: .init(self.description), status: .init(self.status), substatus: .init(self.substatus), detailImage: .init(self.detailImage), icons: .init(self.icons), avatars: .init(self.avatars), footnoteIcons: .init(self.footnoteIcons), footnoteIconsText: .init(self.footnoteIconsText), tags: .init(self.tags), action: .init(self.action), objectItemButton: .init(self.objectItemButton), showDescriptionInCompact: self.showDescriptionInCompact)).typeErased
                 .transformEnvironment(\.objectItemStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -123,7 +129,7 @@ private extension ObjectItem {
     }
 
     func defaultStyle() -> some View {
-        ObjectItem(.init(title: .init(self.title), subtitle: .init(self.subtitle), footnote: .init(self.footnote), description: .init(self.description), status: .init(self.status), substatus: .init(self.substatus), detailImage: .init(self.detailImage), icons: .init(self.icons), avatars: .init(self.avatars), footnoteIcons: .init(self.footnoteIcons), footnoteIconsText: .init(self.footnoteIconsText), tags: .init(self.tags), action: .init(self.action), objectItemButton: .init(self.objectItemButton)))
+        ObjectItem(.init(title: .init(self.title), subtitle: .init(self.subtitle), footnote: .init(self.footnote), description: .init(self.description), status: .init(self.status), substatus: .init(self.substatus), detailImage: .init(self.detailImage), icons: .init(self.icons), avatars: .init(self.avatars), footnoteIcons: .init(self.footnoteIcons), footnoteIconsText: .init(self.footnoteIconsText), tags: .init(self.tags), action: .init(self.action), objectItemButton: .init(self.objectItemButton), showDescriptionInCompact: self.showDescriptionInCompact))
             .shouldApplyDefaultStyle(false)
             .objectItemStyle(ObjectItemFioriStyle.ContentFioriStyle())
             .typeErased
