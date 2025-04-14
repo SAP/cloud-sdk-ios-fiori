@@ -37,6 +37,7 @@ public struct ObjectItemConfiguration {
     public let tags: Tags
     public let action: Action
     public let objectItemButton: ObjectItemButton
+    public let showDescriptionInCompact: Bool
 
     public typealias Title = ConfigurationViewWrapper
     public typealias Subtitle = ConfigurationViewWrapper
