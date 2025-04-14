@@ -1293,7 +1293,7 @@ protocol _AttachmentButtonImageComponent {
 ///  )
 /// ```
 // sourcery: CompositeComponent
-protocol _AttachmentGroupComponent: _TitleComponent {
+protocol _AttachmentGroupComponent: _TitleComponent, _MandatoryField {
     // sourcery: @Binding
     /// The collection of local attachment URLs, which are prepared by Apps.
     var attachments: [URL] { get }

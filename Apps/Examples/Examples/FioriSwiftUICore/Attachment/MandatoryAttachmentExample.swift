@@ -6,6 +6,9 @@ struct MandatoryAttachmentExample: View {
     @State var attachmentError: AttributedString?
     @State var mandatoryIndicator: Bool
     
+    @State var defaultMandatoryFieldIndicator = false
+    @State var isLongTitle = false
+    
     let delegate: BasicAttachmentDelegate
     
     init() {
@@ -24,24 +27,51 @@ struct MandatoryAttachmentExample: View {
     
     var body: some View {
         ScrollView {
-            Toggle(self.mandatoryIndicator ? "Use *" : "Use icon", isOn: self.$mandatoryIndicator)
+            Toggle("Default Mandatory Field Indicator", isOn: self.$defaultMandatoryFieldIndicator)
                 .pickerStyle(.segmented)
                 .padding(.horizontal)
+            if !self.defaultMandatoryFieldIndicator {
+                Toggle(self.mandatoryIndicator ? "Use *" : "Use icon", isOn: self.$mandatoryIndicator)
+                    .pickerStyle(.segmented)
+                    .padding(.horizontal)
+            }
+            Toggle("Long title", isOn: self.$isLongTitle)
+                .pickerStyle(.segmented)
+                .padding(.horizontal)
+            
             VStack {
-                AttachmentGroup(
-                    title: { self.title },
-                    attachments: self.$attachments,
-                    maxCount: 5,
-                    delegate: self.delegate,
-                    errorMessage: self.$attachmentError,
-                    operations: {
-                        AttachmentButtonImage()
-                            .operationsMenu {
-                                PhotosPickerMenuItem(filter: [.images])
-                                FilesPickerMenuItem(filter: [.pdf, .presentation])
-                            }
-                    }
-                )
+                if self.defaultMandatoryFieldIndicator {
+                    AttachmentGroup(
+                        title: AttributedString("\(self.longTitleStr) (\(self.attachments.count))"),
+                        isRequired: self.defaultMandatoryFieldIndicator,
+                        attachments: self.$attachments,
+                        maxCount: 5,
+                        delegate: self.delegate,
+                        errorMessage: self.$attachmentError,
+                        operations: {
+                            AttachmentButtonImage()
+                                .operationsMenu {
+                                    PhotosPickerMenuItem(filter: [.images])
+                                    FilesPickerMenuItem(filter: [.pdf, .presentation])
+                                }
+                        }
+                    )
+                } else {
+                    AttachmentGroup(
+                        title: { self.title },
+                        attachments: self.$attachments,
+                        maxCount: 5,
+                        delegate: self.delegate,
+                        errorMessage: self.$attachmentError,
+                        operations: {
+                            AttachmentButtonImage()
+                                .operationsMenu {
+                                    PhotosPickerMenuItem(filter: [.images])
+                                    FilesPickerMenuItem(filter: [.pdf, .presentation])
+                                }
+                        }
+                    )
+                }
             }
         }
     }
@@ -49,24 +79,28 @@ struct MandatoryAttachmentExample: View {
     var title: some View {
         HStack {
             if self.mandatoryIndicator {
-                Text("Attachments") +
+                Text(self.longTitleStr) +
                     Text("*")
-                    .foregroundStyle(.red)
-                Text("(\(self.attachments.count))")
+                    .foregroundStyle(.red) +
+                    Text("(\(self.attachments.count))")
                 
             } else {
-                Text("Attachments")
-                Image(systemName: "exclamationmark.triangle.fill")
+                Text(self.longTitleStr) +
+                    Text(Image(systemName: "exclamationmark.triangle.fill"))
                     .foregroundColor(.red)
-                    .accessibilityLabel(Text(", mandatory field"))
-                Text("(\(self.attachments.count))")
+                    .accessibilityLabel(Text(", mandatory field")) +
+                    Text("(\(self.attachments.count))")
             }
         }
         .accessibilityElement(children: .ignore)
-        .accessibilityLabel("Attachments, mandatory field, \(self.numberOfAttachments).")
+        .accessibilityLabel("\(self.longTitleStr), mandatory field, \(self.numberOfAttachments).")
     }
     
     var numberOfAttachments: String {
         self.attachments.count > 1 ? " \(self.attachments.count) files uploaded" : " \(self.attachments.count) file uploaded"
+    }
+    
+    var longTitleStr: String {
+        self.isLongTitle ? "Attachments long long long long long long long long long long title" : "Attachments"
     }
 }

@@ -3,22 +3,12 @@
 import Foundation
 import SwiftUI
 
-/// `Attachment` provides thumbnail and information about an attachment.
+/// `Attachment` is the UI component to be used by `AttachmentGroup` along with `AttachmentButtonImage` to support users' operation, such as adding a photo or a file and to render attachment list.
 ///
 /// ## Usage
 /// ```swift
 /// Attachment {
-///   QuickLookThumbnail(physicalUrl: fileURL)
-/// } attachmentTitle: {
-///   Text("Leaf")
-/// } attachmentSubtitle: {
-///   Text("15MB")
-/// } attachmentFootnote: {
-///   Text("Aug 15, 2024")
-/// }
-///
-/// Attachment {
-///   QuickLookThumbnail(thumbnailImage: : Image(systemName: "leaf"))
+///   AttachmentThumbnail(url: fileURL)
 /// } attachmentTitle: {
 ///   Text("Leaf")
 /// } attachmentSubtitle: {
