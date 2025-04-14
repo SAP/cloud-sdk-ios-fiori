@@ -38,8 +38,12 @@ public struct ObjectItemBaseStyle: ObjectItemStyle {
             }
         }
         
+        var isCompact: Bool {
+            self.horizontalSizeClass == nil || self.horizontalSizeClass == .some(.compact)
+        }
+        
         var isCenterAligned: Bool {
-            configuration.subtitle.isEmpty && configuration.footnote.isEmpty && configuration.tags.isEmpty
+            configuration.subtitle.isEmpty && configuration.footnote.isEmpty && configuration.tags.isEmpty && (configuration.description.isEmpty || !isCompact)
         }
         
         let context = Context(configuration: configuration, shouldShowAvatar: shouldShowAvatar, avatarView: avatarView)
@@ -53,7 +57,7 @@ public struct ObjectItemBaseStyle: ObjectItemStyle {
                 } else {
                     self.makeRegularSingleActionView(context)
                 }
-            } else if self.horizontalSizeClass == nil || self.horizontalSizeClass == .some(.compact) || self.splitPercent == nil {
+            } else if isCompact || self.splitPercent == nil {
                 // When only the headline label is used, everything in the cell is center aligned. Only 1 status can be used.
                 if isCenterAligned {
                     self.makeCompactOneLineView(context)
@@ -281,6 +285,9 @@ extension ObjectItemBaseStyle {
                             context.configuration.footnote
                             context.configuration.tags
                             self.footnoteIconsView(context)
+                            if context.configuration.showDescriptionInCompact {
+                                context.configuration.description
+                            }
                         }
                         Spacer(minLength: 0)
                     }
@@ -317,6 +324,9 @@ extension ObjectItemBaseStyle {
                     context.configuration.footnote
                     context.configuration.tags
                     self.footnoteIconsView(context)
+                    if context.configuration.showDescriptionInCompact {
+                        context.configuration.description
+                    }
                 }
                 
                 Spacer(minLength: 8)

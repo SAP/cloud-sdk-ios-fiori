@@ -77,7 +77,7 @@ struct ObjectItemInitExamples: ObjectItemListDataProtocol {
                 Text("1")
                 Image(systemName: "circle.fill").foregroundColor(.blue)
                 Image(systemName: "paperclip").frame(width: 16, height: 16)
-            })
+            }, showDescriptionInCompact: true)
             return AnyView(oi)
             
         case (0, 1):
