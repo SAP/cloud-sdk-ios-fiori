@@ -148,17 +148,7 @@ public struct BasicAuthenticationStyle: AuthenticationStyle {
     }
     
     public func makeBody(_ configuration: AuthenticationConfiguration) -> some View {
-        Authentication(detailImage: {
-            configuration.detailImage
-        }, title: {
-            configuration
-                .title
-                .titleStyle(AuthenticationFioriStyle.TitleFioriStyle(authenticationConfiguration: configuration))
-        }, subtitle: {
-            configuration
-                .subtitle
-                .subtitleStyle(AuthenticationFioriStyle.SubtitleFioriStyle(authenticationConfiguration: configuration))
-        }, isDisabled: configuration.isDisabled, didSignIn: configuration.didSignIn)
+        Authentication(configuration)
             .authInputStyle(AuthInputFieldStyle(password: self.$password, name: self.$name))
     }
 }
