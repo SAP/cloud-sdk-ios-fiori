@@ -104,12 +104,19 @@ struct DynamicAuthenticationExample: View {
         }, authInput: {
             VStack(spacing: 16) {
                 TextFieldFormView(title: "", text: self.$password, placeholder: "Enter your name")
+                    .textFieldFormViewStyle(AuthTextFieldStyle())
                 TextFieldFormView(title: "", text: self.$name, isSecureEnabled: true, placeholder: "Enter your password")
+                    .textFieldFormViewStyle(AuthTextFieldStyle())
                 TextFieldFormView(title: "", text: self.$url, isSecureEnabled: false, placeholder: "URL")
+                    .textFieldFormViewStyle(AuthTextFieldStyle())
                 TextFieldFormView(title: "", text: self.$email, isSecureEnabled: false, placeholder: "Email")
+                    .textFieldFormViewStyle(AuthTextFieldStyle())
                 TextFieldFormView(title: "", text: self.$test1, isSecureEnabled: false, placeholder: "Test 1")
+                    .textFieldFormViewStyle(AuthTextFieldStyle())
                 TextFieldFormView(title: "", text: self.$test2, isSecureEnabled: false, placeholder: "Test 2")
+                    .textFieldFormViewStyle(AuthTextFieldStyle())
                 TextFieldFormView(title: "", text: self.$test3, isSecureEnabled: false, placeholder: "Test 3")
+                    .textFieldFormViewStyle(AuthTextFieldStyle())
             }
         }, signInAction: {
             EmptyView()
@@ -149,7 +156,9 @@ struct AuthenticationExample: View {
         }, authInput: {
             VStack(spacing: 16) {
                 TextFieldFormView(title: "", text: self.$name, placeholder: "Enter your name")
+                    .textFieldFormViewStyle(AuthTextFieldStyle())
                 TextFieldFormView(title: "", text: self.$password, isSecureEnabled: true, placeholder: "Enter your password")
+                    .textFieldFormViewStyle(AuthTextFieldStyle())
             }
         }, isDisabled: self.password.isEmpty || self.name.isEmpty) {
             print("sign in ......")

@@ -184,8 +184,167 @@ struct AuthInputFieldStyle: AuthInputStyle {
     func makeBody(_ configuration: AuthInputConfiguration) -> some View {
         VStack(spacing: 16) {
             TextFieldFormView(title: "", text: self.$name, placeholder: AttributedString("username".localizedFioriString()))
+                .textFieldFormViewStyle(AuthTextFieldStyle())
             TextFieldFormView(title: "", text: self.$password, isSecureEnabled: true, placeholder: AttributedString("password".localizedFioriString()))
+                .textFieldFormViewStyle(AuthTextFieldStyle())
         }
+    }
+}
+
+// MARK: - Auth Text Field Style
+
+/// Style for authentication Text fields
+/// Provides a standard layout for username and password Text fields
+public struct AuthTextFieldStyle: TextFieldFormViewStyle {
+    @FocusState private var isFocused: Bool
+    @State private var isEditing: Bool = false
+    @State private var isSecure: Bool = false
+    
+    public init() {}
+    
+    public func makeBody(_ configuration: TextFieldFormViewConfiguration) -> some View {
+        TextFieldFormView(configuration)
+            .titleStyle { titleConf in
+                Title(titleConf)
+                    .foregroundStyle(self.getTitleColor(configuration))
+                    .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
+            }
+            .placeholderTextFieldStyle { config in
+                HStack {
+                    PlaceholderTextField(config)
+                        .foregroundStyle(self.getTextColor(configuration))
+                        .font(.fiori(forTextStyle: .body))
+                        .accentColor(self.getCursorColor(configuration))
+                        .focused(self.$isFocused)
+                        .setOnChange(of: configuration.text, action1: { s in
+                            self.checkCharCount(configuration, textString: s)
+                        }) { _, s in
+                            self.checkCharCount(configuration, textString: s)
+                        }
+                        .frame(minHeight: 44)
+                        
+                    if !(configuration.isSecureEnabled ?? false) {
+                        if self.showsActionButton(configuration), let action = getAction(configuration), let actionIcon = self.getActionIcon(configuration) {
+                            actionIcon
+                                .frame(minHeight: 44)
+                                .padding(.trailing, 8)
+                                .onTapGesture {
+                                    action()
+                                }
+                        }
+                    }
+                }
+                .background(RoundedRectangle(cornerRadius: 8).stroke(self.getBorderColor(configuration), lineWidth: self.isFocused ? 4 : 1).background(self.getBackgroundColor(configuration)))
+                .cornerRadius(8)
+            }
+            .textInputFieldStyle(content: { _ in
+                if configuration.isSecureEnabled ?? false {
+                    HStack {
+                        if self.isSecure {
+                            TextField("", text: configuration.$text)
+                        } else {
+                            SecureField("", text: configuration.$text)
+                        }
+                    }
+                    .overlay(alignment: .trailing) {
+                        Image(systemName: self.isSecure ? "eye" : "eye.slash")
+                            .font(.callout)
+                            .foregroundStyle(Color.preferredColor(.tertiaryLabel))
+                            .onTapGesture {
+                                self.isSecure.toggle()
+                            }
+                    }
+                } else {
+                    TextField("", text: configuration.$text)
+                }
+            })
+            .textInputInfoViewStyle { config in
+                let isError = self.isErrorStyle(configuration)
+                let style: any TextInputInfoViewStyle = isError ? .error : .fiori
+                TextInputInfoView(config)
+                    .textInputInfoViewStyle(style)
+                    .typeErased
+                    .padding(.top, -3)
+            }
+            .accessibilityElement(children: .combine)
+            .setCustomAction(self.showsActionButton(configuration), configuration: configuration, isFocused: self.$isFocused, isEditing: self.$isEditing, actionIconAccessibilityLabel: self.getActionAccessibilityLabel(configuration))
+            .setGestureOnTextFieldView(self.$isFocused, isEditing: self.$isEditing)
+    }
+    
+    func isDisabled(_ configuration: TextFieldFormViewConfiguration) -> Bool {
+        configuration.controlState == .disabled
+    }
+
+    func getTitleColor(_ configuration: TextFieldFormViewConfiguration) -> Color {
+        TextInputFormViewConfiguration(configuration, isFocused: self.isFocused).getTitleColor()
+    }
+
+    func getMandatoryIndicatorColor(_ configuration: TextFieldFormViewConfiguration) -> Color {
+        TextInputFormViewConfiguration(configuration, isFocused: false).getTitleColor()
+    }
+
+    func getTextColor(_ configuration: TextFieldFormViewConfiguration) -> Color {
+        TextInputFormViewConfiguration(configuration, isFocused: self.isFocused).getTextColor()
+    }
+
+    func getCursorColor(_ configuration: TextFieldFormViewConfiguration) -> Color {
+        TextInputFormViewConfiguration(configuration, isFocused: self.isFocused).getCursorColor()
+    }
+
+    func getBackgroundColor(_ configuration: TextFieldFormViewConfiguration) -> Color {
+        TextInputFormViewConfiguration(configuration, isFocused: self.isFocused).getBackgroundColor()
+    }
+
+    func getBorderColor(_ configuration: TextFieldFormViewConfiguration) -> Color {
+        TextInputFormViewConfiguration(configuration, isFocused: self.isFocused).getBorderColor()
+    }
+
+    func isErrorStyle(_ configuration: TextFieldFormViewConfiguration) -> Bool {
+        TextInputFormViewConfiguration(configuration, isFocused: self.isFocused).isErrorStyle()
+    }
+
+    func isInfoViewNeeded(_ configuration: TextFieldFormViewConfiguration) -> Bool {
+        TextInputFormViewConfiguration(configuration, isFocused: self.isFocused).isInfoViewNeeded()
+    }
+
+    func checkCharCount(_ configuration: TextFieldFormViewConfiguration, textString: String) {
+        guard let maxTextLength = configuration.maxTextLength, maxTextLength > 0 else {
+            return
+        }
+        if !(configuration.allowsBeyondLimit == true), textString.count > maxTextLength {
+            configuration.text = String(textString.prefix(maxTextLength))
+        }
+    }
+
+    func showsActionButton(_ configuration: TextFieldFormViewConfiguration) -> Bool {
+        guard configuration.controlState == .normal, !self.isFocused, !self.isEditing else {
+            return false
+        }
+        guard configuration.actionIcon != nil, configuration.action != nil else {
+            return false
+        }
+        return true
+    }
+
+    func getAction(_ configuration: TextFieldFormViewConfiguration) -> (() -> Void)? {
+        guard configuration.controlState == .normal, !self.isFocused else {
+            return nil
+        }
+        return configuration.action
+    }
+
+    func getActionIcon(_ configuration: TextFieldFormViewConfiguration) -> Image? {
+        guard configuration.controlState == .normal, !self.isFocused else {
+            return nil
+        }
+        return configuration.actionIcon
+    }
+
+    func getActionAccessibilityLabel(_ configuration: TextFieldFormViewConfiguration) -> String {
+        if let actionAccessibilityLabel = configuration.actionIconAccessibilityLabel {
+            return actionAccessibilityLabel
+        }
+        return NSLocalizedString("Custom Action", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Custom Action")
     }
 }
 
