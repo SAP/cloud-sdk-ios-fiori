@@ -5,6 +5,29 @@ import SwiftUI
 
 import FioriThemeManager
 
+/// `AttachmentButtonImage` provides the default `Add` button following visual design.
+///
+/// ## Usage
+/// ```swift
+/// @State var attachments: [URL]
+/// @State var attachmentError: AttributedString?
+/// let delegate: AttachmentDelegate
+///
+/// AttachmentGroup(
+///   title: { Text("Attachements") },
+///   attachments: self.$attachments,
+///   maxCount: 5,
+///   delegate: self.delegate,
+///   errorMessage: self.$attachmentError,
+///   operations: {
+///       AttachmentButtonImage()
+///           .operationsMenu {
+///               PhotosPickerMenuItem(filter: [.images])
+///               FilesPickerMenuItem(filter: [.pdf, .presentation])
+///           }
+///       }
+///  )
+/// ```
 public struct AttachmentButtonImage {
     /// / The image to be used for "Add" menu or dialog for operations, such as poping up image picker or file picker.
     let addButtonImage: any View
