@@ -316,3 +316,69 @@
 /* Progress Indicator accessibility label: progress halted with indicator progress */
 "Progress halted, %.0f" = "Datblygiad ar stop, %.0f";
 
+/* XACT: Slider accessibility label */
+"This is %@ slider whose maximum value is %@ and minimum value is %@" = "Dyma lithrydd %@ a'i werth uchaf yw %@ a'i werth isaf yw %@";
+
+/* XACT: Slider accessibility value */
+"Current value is %@" = "Y gwerth presennol yw %@";
+
+/* XACT: Range Slider lower thumb accessibility label */
+"lower range slider thumb, current value is" = "bawd lithrydd ystod isaf, y gwerth presennol yw";
+
+/* XACT: Range Slider lower thumb accessibility hint */
+"you can swipe up or down to change the lower value" = "gallwch symud i fyny neu i lawr i newid y gwerth isaf";
+
+/* XACT: Range Slider upper thumb accessibility label */
+"upper range slider thumb, current value is" = "bawd lithrydd ystod uchaf, y gwerth presennol yw";
+
+/* XACT: Range Slider upper thumb accessibility hint */
+"you can swipe up or down to change the upper value" = "gallwch symud i fyny neu i lawr i newid y gwerth uchaf";
+
+/* XACT: Single editable Slider thumb accessibility label */
+"slider thumb, current value is" = "bawd llithrydd, y gwerth presennol yw";
+
+/* XACT: Single editable Slider thumb accessibility hint */
+"you can swipe up or down to change the value" = "gallwch symud i fyny neu i lawr i newid y gwerth";
+
+/* XACT: Single Slider accessibility label */
+"This is a slider, the minimum value is %@ and the maximum value is %@" = "Llithrydd yw hwn, y gwerth isaf yw %@ a'r gwerth uchaf yw %@";
+
+/* XACT: Range Slider accessibility label */
+"This is a range slider, the minimum value is %@ and the maximum value is %@" = "Llithrydd ystod yw hwn, y gwerth isaf yw %@ a'r gwerth uchaf yw %@";
+
+/* XACT: Single editable Slider accessibility label */
+"This is a slider that is editable, the minimum value is %@ and the maximum value is %@" = "Llithrydd yw hwn y mae modd ei olygu, y gwerth isaf yw %@ a'r gwerth uchaf yw %@";
+
+/* XACT: Single non-editable Slider accessibility label */
+"This is a slider that can't be edited, the minimum value is %@ and the maximum value is %@" = "Llithrydd yw hwn nad oes modd ei olygu, y gwerth isaf yw %@ a'r gwerth uchaf yw %@";
+
+/* XACT: Range editable Slider accessibility label */
+"This is a range slider that is editable, the minimum value is %@ and the maximum value is %@" = "Llithrydd ystod yw hwn y mae modd ei olygu, y gwerth isaf yw %@ a'r gwerth uchaf yw %@";
+
+/* XACT: Range non-editable Slider accessibility label */
+"This is a range slider that can't be edited, the minimum value is %@ and the maximum value is %@" = "Llithrydd ystod yw hwn nad oes modd ei olygu, y gwerth isaf yw %@ a'r gwerth uchaf yw %@";
+
+/* XACT: Single editable Slider Text Field accessibility label */
+"slider value text field" = "maes testun gwerth llithrydd";
+
+/* XACT: Range editable Slider Lower Value Text Field accessibility label */
+"lower value text field" = "maes testun gwerth isaf";
+
+/* XACT: Range editable Slider Upper Value Text Field accessibility label */
+"upper value text field" = "maes testun gwerth uchaf";
+
+/* XACT: Editable Slider Text Field accessibility hint */
+"You can double tap to input a specific value" = "Tapiwch ddwywaith er mwyn mewnbynnu gwerth penodol";
+
+/* XACT: Editable Slider Text Field accessibility value */
+"current value is %@" = "y gwerth presennol yw %@";
+
+/* XACT: Range Editable Slider accessibility value */
+"current lower value is %@, upper value is %@" = "y gwerth isaf presennol yw %@, y gwerth uchaf yw %@";
+
+/* XTIT: Title of step progress indicator, see https://experience.sap.com/fiori-design-ios/article/step-progress-indicator/#adaptive-design */
+"All Steps" = "Pob cam";
+
+/* XMSG: AI Notice message */
+"Suggested by AI. Verify before use. " = "Awgrymwyd gan AI. Dilysu cyn defnyddio. ";
+

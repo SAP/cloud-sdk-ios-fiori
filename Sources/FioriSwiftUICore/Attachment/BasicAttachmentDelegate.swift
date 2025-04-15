@@ -1,7 +1,7 @@
 import Foundation
 import UniformTypeIdentifiers
 
-/// Basic implementation for demostrating AttachmentDelegate protocol. This is a local folder based implementation.
+/// Basic implementation of AttachmentDelegate protocol. This is a local folder based implementation. The implementation allows Apps to store attachment locally along with the Apps, The implementation also allows Apps to further customize uploading behavoirs by overriding functions.
 open class BasicAttachmentDelegate: AttachmentDelegate {
     /// Default folder
     public static let demoFolderName = "AttachmentDemoFolder"
@@ -20,7 +20,7 @@ open class BasicAttachmentDelegate: AttachmentDelegate {
         onPreparation?(folder)
     }
     
-    /// delete
+    /// Delete attachment identified by an URL asynchronously.
     open func delete(url: URL, onCompletion: @escaping (URL, (any Error)?) -> Void) {
         do {
             try FileManager.default.removeItem(at: url)
@@ -34,7 +34,7 @@ open class BasicAttachmentDelegate: AttachmentDelegate {
         }
     }
     
-    /// upload
+    /// Upload an attachment, content of which is provided by an NSItemProvider asynchronously.
     open func upload(contentFrom provider: NSItemProvider, onCompletion: @escaping (URL?, Error?) -> Void) {
         if let identifier = provider.registeredTypeIdentifiers.first {
             provider.loadFileRepresentation(forTypeIdentifier: identifier) { url, _ in
@@ -49,7 +49,7 @@ open class BasicAttachmentDelegate: AttachmentDelegate {
         }
     }
     
-    /// save to local folder
+    /// Save an attachment to local folder asynchronously. The local copy is identifed by the URL.
     open func saveLocally(url: URL, identifier: String, onCompletion: @escaping (URL?, Error?) -> Void) {
         do {
             let copy = try self.getAttachmentNameAndExt(from: url, utTypeidentifier: identifier)
@@ -64,7 +64,7 @@ open class BasicAttachmentDelegate: AttachmentDelegate {
         }
     }
     
-    /// get targert file name
+    /// Get targert file name in local folder for avoiding conflicts by appending random UUID to file name when conflicts are detected.
     open func getAttachmentNameAndExt(from url: URL, utTypeidentifier identifier: String) throws -> URL {
         var ext = url.pathExtension
         let name = url.deletingPathExtension().lastPathComponent
@@ -83,7 +83,7 @@ open class BasicAttachmentDelegate: AttachmentDelegate {
         }
     }
     
-    /// infer attachment name
+    /// infer attachment file name from URL components.
     open func getOrInferExt(extension ext: String, utTypeidentifier identifier: String) -> String {
         ext.isEmpty ? (UTType(identifier)?.preferredFilenameExtension ?? "") : ext
     }

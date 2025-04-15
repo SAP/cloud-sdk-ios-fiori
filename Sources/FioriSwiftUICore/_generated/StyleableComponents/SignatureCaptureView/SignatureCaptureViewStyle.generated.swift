@@ -24,8 +24,6 @@ struct AnySignatureCaptureViewStyle: SignatureCaptureViewStyle {
 public struct SignatureCaptureViewConfiguration {
     public var componentIdentifier: String = "fiori_signaturecaptureview_component"
     public let title: Title
-    public let mandatoryFieldIndicator: MandatoryFieldIndicator
-    public let isRequired: Bool
     public let startSignatureAction: StartSignatureAction
     public let reenterSignatureAction: ReenterSignatureAction
     public let cancelAction: CancelAction
@@ -49,7 +47,6 @@ public struct SignatureCaptureViewConfiguration {
     public let onDelete: (() -> Void)?
 
     public typealias Title = ConfigurationViewWrapper
-    public typealias MandatoryFieldIndicator = ConfigurationViewWrapper
     public typealias StartSignatureAction = ConfigurationViewWrapper
     public typealias ReenterSignatureAction = ConfigurationViewWrapper
     public typealias CancelAction = ConfigurationViewWrapper
@@ -69,7 +66,6 @@ public struct SignatureCaptureViewFioriStyle: SignatureCaptureViewStyle {
     public func makeBody(_ configuration: SignatureCaptureViewConfiguration) -> some View {
         SignatureCaptureView(configuration)
             .titleStyle(TitleFioriStyle(signatureCaptureViewConfiguration: configuration))
-            .mandatoryFieldIndicatorStyle(MandatoryFieldIndicatorFioriStyle(signatureCaptureViewConfiguration: configuration))
             .startSignatureActionStyle(StartSignatureActionFioriStyle(signatureCaptureViewConfiguration: configuration))
             .reenterSignatureActionStyle(ReenterSignatureActionFioriStyle(signatureCaptureViewConfiguration: configuration))
             .cancelActionStyle(CancelActionFioriStyle(signatureCaptureViewConfiguration: configuration))

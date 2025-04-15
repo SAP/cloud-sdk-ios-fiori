@@ -15,6 +15,12 @@ public struct OperationMenuModifier<V: View>: ViewModifier where V: View {
         } label: {
             content
                 .defaultOperations()
+                .accessibilityRemoveTraits(.isButton)
+                .accessibilityIdentifier("Attachment:AddAttachmentButton")
+                .accessibilityElement(children: .ignore)
+                .accessibilityAddTraits(.isButton)
+                .accessibilityLabel(NSLocalizedString("Add attachment", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Add attachment"))
+                .accessibilityHint(NSLocalizedString("Double tap to add attachment", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Double tap to add attachment"))
         }
     }
 }
@@ -39,9 +45,9 @@ public extension View {
                     .foregroundColor(.blue)
             )
             .operationsMenu {
-                AttachmentMenuItems.photos
-                AttachmentMenuItems.files
-                AttachmentMenuItems.camera
+                PhotosPickerMenuItem()
+                FilesPickerMenuItem()
+                CameraMenuItem()
                 PhotosPickerMenuItem(title: "Pick Photos")
                 PhotosPickerMenuItem(title: "Pick Photos", icon: "photo")
                 FilesPickerMenuItem(title: "Pick Files")

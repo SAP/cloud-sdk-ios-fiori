@@ -435,9 +435,7 @@ extension _SortFilterCFGItemContainer: View {
             
             FilterFormView(title: {
                 EmptyView()
-            }, mandatoryFieldIndicator: {
-                EmptyView()
-            }, isRequired: false, options: self._items[r][c].filterfeedback.valueOptions.map { AttributedString($0) }, isEnabled: true, allowsMultipleSelection: self._items[r][c].filterfeedback.allowsMultipleSelection, allowsEmptySelection: self._items[r][c].filterfeedback.allowsEmptySelection, value: Binding<[Int]>(get: { self._items[r][c].filterfeedback.workingValue }, set: { self._items[r][c].filterfeedback.workingValue = $0 }), buttonSize: self._items[r][c].filterfeedback.itemLayout == .flexible ? .flexible : .fixed, isSingleLine: false) { _ in
+            }, options: self._items[r][c].filterfeedback.valueOptions.map { AttributedString($0) }, isEnabled: true, allowsMultipleSelection: self._items[r][c].filterfeedback.allowsMultipleSelection, allowsEmptySelection: self._items[r][c].filterfeedback.allowsEmptySelection, value: Binding<[Int]>(get: { self._items[r][c].filterfeedback.workingValue }, set: { self._items[r][c].filterfeedback.workingValue = $0 }), buttonSize: self._items[r][c].filterfeedback.itemLayout == .flexible ? .flexible : .fixed, isSingleLine: false) { _ in
             }
             .filterFormOptionsLineSpacing(10)
             .padding(.top, 8)
@@ -545,9 +543,7 @@ extension _SortFilterCFGItemContainer: View {
     private func filterFormCell(row r: Int, column c: Int) -> some View {
         FilterFormView(title: {
             EmptyView()
-        }, mandatoryFieldIndicator: {
-            EmptyView()
-        }, isRequired: false, options: self._items[r][c].picker.valueOptions.map { AttributedString($0) }, isEnabled: true, allowsMultipleSelection: self._items[r][c].picker.allowsMultipleSelection, allowsEmptySelection: self._items[r][c].picker.allowsEmptySelection, value: Binding<[Int]>(get: { self._items[r][c].picker.workingValue }, set: { self._items[r][c].picker.workingValue = $0 }), buttonSize: self._items[r][c].picker.itemLayout == .flexible ? .flexible : .fixed, isSingleLine: false) { _ in
+        }, options: self._items[r][c].picker.valueOptions.map { AttributedString($0) }, isEnabled: true, allowsMultipleSelection: self._items[r][c].picker.allowsMultipleSelection, allowsEmptySelection: self._items[r][c].picker.allowsEmptySelection, value: Binding<[Int]>(get: { self._items[r][c].picker.workingValue }, set: { self._items[r][c].picker.workingValue = $0 }), buttonSize: self._items[r][c].picker.itemLayout == .flexible ? .flexible : .fixed, isSingleLine: false) { _ in
         }
         .filterFormOptionsLineSpacing(10)
         .padding(.top, 8)

@@ -569,7 +569,6 @@ struct InternalGridTableView: View {
                         .frame(width: rect.size.width, height: self.layoutManager.model.rowDividerHeight)
                         .position(x: rect.size.width / 2,
                                   y: y + layoutData.rowHeights[rowIndex] * tmpScaleY / 2)
-                        .dropShadow(isVertical: false, show: rowIndex == 0 && self.isDropHorizontalShadow(size))
                 }
             }
             
@@ -582,7 +581,6 @@ struct InternalGridTableView: View {
                     .fill(self.layoutManager.model.columnDividerColor)
                     .frame(width: self.layoutManager.model.columnDividerWidth, height: height)
                     .position(x: x, y: height / 2)
-                    .dropShadow(isVertical: true, show: self.isDropVerticalShadow(size))
             }
         }
         .frame(width: size.width, height: size.height)
