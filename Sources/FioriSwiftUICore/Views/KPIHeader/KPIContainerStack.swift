@@ -51,8 +51,9 @@ struct KPIContainerStack: View {
     func reArrangeItems(isItemOrderForced: Bool) -> [any KPIHeaderItemModel] {
         let filteredItems = self.items.filter { item in
             if item is KPIProgressItem {
-                let pgrsItem: KPIProgressItem = item as! KPIProgressItem
-                return pgrsItem.chartSize != .small
+                if let pgrsItem: KPIProgressItem = item as? KPIProgressItem {
+                    return pgrsItem.chartSize != .small
+                }
             }
             return true
         }
@@ -226,6 +227,7 @@ struct KPIHeaderInterItemSpacingKey: EnvironmentKey {
 }
 
 public extension EnvironmentValues {
+    /// Whether the order of items in `KPIHeader` is forced or not.
     var isItemOrderForced: Bool {
         get {
             self[KPIHeaderIsItemOrderForcedKey.self]
@@ -235,6 +237,7 @@ public extension EnvironmentValues {
         }
     }
     
+    /// The value for the inter item spacing of items in `KPIHeader`.
     var interItemSpacing: CGFloat? {
         get {
             self[KPIHeaderInterItemSpacingKey.self]

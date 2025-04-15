@@ -475,6 +475,7 @@ public protocol SearchableListViewModel {
     var doneAction: _ActionModel? { get }
 }
 
+/// :nodoc:
 public protocol _KPIHeaderItemModel {}
 
 // sourcery: add_env_props = "stepLineModifier"
