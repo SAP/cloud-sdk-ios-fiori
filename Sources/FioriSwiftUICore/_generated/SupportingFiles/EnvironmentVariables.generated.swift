@@ -381,6 +381,48 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: AuthInputStyle
+
+struct AuthInputStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any AuthInputStyle] = []
+}
+
+extension EnvironmentValues {
+    var authInputStyle: any AuthInputStyle {
+        self.authInputStyleStack.last ?? .base
+    }
+
+    var authInputStyleStack: [any AuthInputStyle] {
+        get {
+            self[AuthInputStyleStackKey.self]
+        }
+        set {
+            self[AuthInputStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: AuthenticationStyle
+
+struct AuthenticationStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any AuthenticationStyle] = []
+}
+
+extension EnvironmentValues {
+    var authenticationStyle: any AuthenticationStyle {
+        self.authenticationStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var authenticationStyleStack: [any AuthenticationStyle] {
+        get {
+            self[AuthenticationStyleStackKey.self]
+        }
+        set {
+            self[AuthenticationStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: AvatarStackStyle
 
 struct AvatarStackStyleStackKey: EnvironmentKey {
@@ -2918,6 +2960,27 @@ extension EnvironmentValues {
         }
         set {
             self[SideBarListItemStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: SignInActionStyle
+
+struct SignInActionStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any SignInActionStyle] = []
+}
+
+extension EnvironmentValues {
+    var signInActionStyle: any SignInActionStyle {
+        self.signInActionStyleStack.last ?? .base
+    }
+
+    var signInActionStyleStack: [any SignInActionStyle] {
+        get {
+            self[SignInActionStyleStackKey.self]
+        }
+        set {
+            self[SignInActionStyleStackKey.self] = newValue
         }
     }
 }

@@ -42,6 +42,12 @@ struct OnboardingExamples: View {
                 Text("User Consent Form Examples")
             }
             
+            NavigationLink(
+                destination: AuthenticationExamples())
+            {
+                Text("AuthenticationScreen Examples")
+            }
+            
         }.navigationBarTitle("Onboarding")
     }
 }

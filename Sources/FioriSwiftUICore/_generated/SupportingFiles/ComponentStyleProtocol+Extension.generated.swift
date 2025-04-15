@@ -402,6 +402,139 @@ public extension AttributeStyle where Self == AttributeFioriStyle {
     }
 }
 
+// MARK: AuthInputStyle
+
+public extension AuthInputStyle where Self == AuthInputBaseStyle {
+    static var base: AuthInputBaseStyle {
+        AuthInputBaseStyle()
+    }
+}
+
+public extension AuthInputStyle where Self == AuthInputFioriStyle {
+    static var fiori: AuthInputFioriStyle {
+        AuthInputFioriStyle()
+    }
+}
+
+// MARK: AuthenticationStyle
+
+public extension AuthenticationStyle where Self == AuthenticationBaseStyle {
+    static var base: AuthenticationBaseStyle {
+        AuthenticationBaseStyle()
+    }
+}
+
+public extension AuthenticationStyle where Self == AuthenticationFioriStyle {
+    static var fiori: AuthenticationFioriStyle {
+        AuthenticationFioriStyle()
+    }
+}
+
+public struct AuthenticationDetailImageStyle: AuthenticationStyle {
+    let style: any DetailImageStyle
+
+    public func makeBody(_ configuration: AuthenticationConfiguration) -> some View {
+        Authentication(configuration)
+            .detailImageStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension AuthenticationStyle where Self == AuthenticationDetailImageStyle {
+    static func detailImageStyle(_ style: some DetailImageStyle) -> AuthenticationDetailImageStyle {
+        AuthenticationDetailImageStyle(style: style)
+    }
+
+    static func detailImageStyle(@ViewBuilder content: @escaping (DetailImageConfiguration) -> some View) -> AuthenticationDetailImageStyle {
+        let style = AnyDetailImageStyle(content)
+        return AuthenticationDetailImageStyle(style: style)
+    }
+}
+
+public struct AuthenticationTitleStyle: AuthenticationStyle {
+    let style: any TitleStyle
+
+    public func makeBody(_ configuration: AuthenticationConfiguration) -> some View {
+        Authentication(configuration)
+            .titleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension AuthenticationStyle where Self == AuthenticationTitleStyle {
+    static func titleStyle(_ style: some TitleStyle) -> AuthenticationTitleStyle {
+        AuthenticationTitleStyle(style: style)
+    }
+
+    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> AuthenticationTitleStyle {
+        let style = AnyTitleStyle(content)
+        return AuthenticationTitleStyle(style: style)
+    }
+}
+
+public struct AuthenticationSubtitleStyle: AuthenticationStyle {
+    let style: any SubtitleStyle
+
+    public func makeBody(_ configuration: AuthenticationConfiguration) -> some View {
+        Authentication(configuration)
+            .subtitleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension AuthenticationStyle where Self == AuthenticationSubtitleStyle {
+    static func subtitleStyle(_ style: some SubtitleStyle) -> AuthenticationSubtitleStyle {
+        AuthenticationSubtitleStyle(style: style)
+    }
+
+    static func subtitleStyle(@ViewBuilder content: @escaping (SubtitleConfiguration) -> some View) -> AuthenticationSubtitleStyle {
+        let style = AnySubtitleStyle(content)
+        return AuthenticationSubtitleStyle(style: style)
+    }
+}
+
+public struct AuthenticationAuthInputStyle: AuthenticationStyle {
+    let style: any AuthInputStyle
+
+    public func makeBody(_ configuration: AuthenticationConfiguration) -> some View {
+        Authentication(configuration)
+            .authInputStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension AuthenticationStyle where Self == AuthenticationAuthInputStyle {
+    static func authInputStyle(_ style: some AuthInputStyle) -> AuthenticationAuthInputStyle {
+        AuthenticationAuthInputStyle(style: style)
+    }
+
+    static func authInputStyle(@ViewBuilder content: @escaping (AuthInputConfiguration) -> some View) -> AuthenticationAuthInputStyle {
+        let style = AnyAuthInputStyle(content)
+        return AuthenticationAuthInputStyle(style: style)
+    }
+}
+
+public struct AuthenticationSignInActionStyle: AuthenticationStyle {
+    let style: any SignInActionStyle
+
+    public func makeBody(_ configuration: AuthenticationConfiguration) -> some View {
+        Authentication(configuration)
+            .signInActionStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension AuthenticationStyle where Self == AuthenticationSignInActionStyle {
+    static func signInActionStyle(_ style: some SignInActionStyle) -> AuthenticationSignInActionStyle {
+        AuthenticationSignInActionStyle(style: style)
+    }
+
+    static func signInActionStyle(@ViewBuilder content: @escaping (SignInActionConfiguration) -> some View) -> AuthenticationSignInActionStyle {
+        let style = AnySignInActionStyle(content)
+        return AuthenticationSignInActionStyle(style: style)
+    }
+}
+
 // MARK: AvatarStackStyle
 
 public extension AvatarStackStyle where Self == AvatarStackBaseStyle {
@@ -6629,6 +6762,20 @@ public extension SideBarListItemStyle where Self == SideBarListItemSwitchStyle {
     static func switchStyle(@ViewBuilder content: @escaping (SwitchConfiguration) -> some View) -> SideBarListItemSwitchStyle {
         let style = AnySwitchStyle(content)
         return SideBarListItemSwitchStyle(style: style)
+    }
+}
+
+// MARK: SignInActionStyle
+
+public extension SignInActionStyle where Self == SignInActionBaseStyle {
+    static var base: SignInActionBaseStyle {
+        SignInActionBaseStyle()
+    }
+}
+
+public extension SignInActionStyle where Self == SignInActionFioriStyle {
+    static var fiori: SignInActionFioriStyle {
+        SignInActionFioriStyle()
     }
 }
 
