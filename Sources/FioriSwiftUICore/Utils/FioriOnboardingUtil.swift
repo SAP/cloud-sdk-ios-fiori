@@ -67,7 +67,7 @@ enum FioriOnboardingUtil {
         case 1024 ... 1210:
             return .extraLarge
         case 1366...:
-            return .extraLarge
+            return .extraExtraLarge
         default:
             return .medium
         }

@@ -368,6 +368,7 @@
 /* XMSG: AI Notice message */
 "Suggested by AI. Verify before use. " = "Suggested by AI. Verify before use. ";
 
+<<<<<<< HEAD
 /* XBUT: Attachment operation menu item - Photos, which stands for Photo Library */
 "Photos" = "Photos";
 
@@ -400,3 +401,13 @@
 
 /* XMSG: Attachment thumbnail */
 "Thumbnail" = "Thumbnail";
+
+/* XBUT: Sign In Action in the Authentication */
+"Sign In" = "Sign In";
+
+/* XMSG: Placeholder text for inputView in the Authentication */
+"username" = "username";
+
+/* XMSG: Placeholder text for inputView in the Authentication */
+"password" = "password";
+
