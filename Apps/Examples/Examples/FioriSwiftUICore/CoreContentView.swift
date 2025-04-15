@@ -122,6 +122,12 @@ struct CoreContentView: View {
                 }
                 
                 NavigationLink(
+                    destination: _KPIHeaderExample())
+                {
+                    Text("_KPIHeader")
+                }
+                
+                NavigationLink(
                     destination: KPIHeaderExample())
                 {
                     Text("KPIHeader")

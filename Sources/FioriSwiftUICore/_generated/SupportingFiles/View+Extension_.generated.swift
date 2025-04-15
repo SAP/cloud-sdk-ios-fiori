@@ -1278,6 +1278,23 @@ public extension View {
     }
 }
 
+// MARK: KPIHeaderStyle
+
+public extension View {
+    func kPIHeaderStyle(_ style: some KPIHeaderStyle) -> some View {
+        self.transformEnvironment(\.kPIHeaderStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func kPIHeaderStyle(@ViewBuilder content: @escaping (KPIHeaderConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.kPIHeaderStyleStack) { stack in
+            let style = AnyKPIHeaderStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: KPIItemStyle
 
 public extension View {

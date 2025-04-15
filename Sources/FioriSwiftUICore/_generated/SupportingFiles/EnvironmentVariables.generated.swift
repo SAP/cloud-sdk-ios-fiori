@@ -1578,6 +1578,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: KPIHeaderStyle
+
+struct KPIHeaderStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any KPIHeaderStyle] = []
+}
+
+extension EnvironmentValues {
+    var kPIHeaderStyle: any KPIHeaderStyle {
+        self.kPIHeaderStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var kPIHeaderStyleStack: [any KPIHeaderStyle] {
+        get {
+            self[KPIHeaderStyleStackKey.self]
+        }
+        set {
+            self[KPIHeaderStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: KPIItemStyle
 
 struct KPIItemStyleStackKey: EnvironmentKey {
