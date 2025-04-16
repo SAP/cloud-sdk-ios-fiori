@@ -9,6 +9,10 @@ protocol _ObjectItemComponent: _TitleComponent, _SubtitleComponent, _FootnoteCom
     // sourcery: @ViewBuilder
     /// For accessory enhancement
     var objectItemButton: FioriButton? { get }
+    
+    // sourcery: defaultValue = false
+    /// Indicate whether the description is shown in compact mode. Default value is `false`.
+    var showsDescriptionInCompact: Bool { get }
 }
 
 // sourcery: CompositeComponent, InternalComponent
