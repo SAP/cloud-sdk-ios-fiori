@@ -26,6 +26,7 @@ public struct StepperFieldBaseStyle: StepperFieldStyle {
                     self.adjustValue(by: -configuration.step, configuration: configuration)
                 }
             configuration._textInputField
+                .multilineTextAlignment(.center)
                 .textInputFieldStyle(.number)
                 .setOnChange(of: self.isFocused, action1: { newValue in
                     if !newValue {
