@@ -3790,6 +3790,20 @@ public extension KPIContentStyle where Self == KPIContentFioriStyle {
     }
 }
 
+// MARK: KPIHeaderStyle
+
+public extension KPIHeaderStyle where Self == KPIHeaderBaseStyle {
+    static var base: KPIHeaderBaseStyle {
+        KPIHeaderBaseStyle()
+    }
+}
+
+public extension KPIHeaderStyle where Self == KPIHeaderFioriStyle {
+    static var fiori: KPIHeaderFioriStyle {
+        KPIHeaderFioriStyle()
+    }
+}
+
 // MARK: KPIItemStyle
 
 public extension KPIItemStyle where Self == KPIItemBaseStyle {

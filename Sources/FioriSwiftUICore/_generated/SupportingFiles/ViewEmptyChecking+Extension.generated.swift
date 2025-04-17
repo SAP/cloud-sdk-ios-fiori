@@ -558,6 +558,13 @@ extension KPIContent: _ViewEmptyChecking {
     }
 }
 
+extension KPIHeader: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        items.isEmpty &&
+            bannerMessage.isEmpty
+    }
+}
+
 extension KPIItem: _ViewEmptyChecking {
     public var isEmpty: Bool {
         kpiCaption.isEmpty

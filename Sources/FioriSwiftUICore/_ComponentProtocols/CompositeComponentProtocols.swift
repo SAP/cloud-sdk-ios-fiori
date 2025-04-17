@@ -1923,6 +1923,35 @@ protocol _DurationPickerComponent {
     var measurementFormatter: MeasurementFormatter { get set }
 }
 
+/// `KPIHeader` is used to display KPIItem and KPIProgressItem.
+///  The maximum number of items that can be displayed in the header is 4. If more than 4 items are provided, then only first 4 items are displayed and the rest will be ignored.
+///  If the item is KPIProgressItem and the value of its property `chartSize` is `.small`, it will not be displayed, too.
+/// ## Usage
+/// ```swift
+/// var data: [KPIHeaderItemModel] = [
+///     KPIItem(kpiCaption: "small", items: [KPISubItemModelImpl(kPISubItemValue: .text("123"), kPISubItemType: .metric)], proposedViewSize: .small, alignment: .center),
+///     KPIProgressItem(kpiCaption: "Downloading", data: .constant(KPIItemData.percent(0.65))),
+///     KPIItem(kpiCaption: "Big caption and long text", items: [KPISubItemModelImpl(kPISubItemValue: .text("321"), kPISubItemType: .metric)], proposedViewSize: .large, alignment: .center),
+///     KPIProgressItem(kpiCaption: "Completed", data: .constant(KPIItemData.percent(1.0)), chartSize: .small)]
+/// KPIHeader(items: data, isItemOrderForced: false)
+/// ```
+// sourcery: CompositeComponent
+protocol _KPIHeaderComponent {
+    // sourcery: resultBuilder.backingComponent = KPIContainerStack
+    // sourcery: resultBuilder.name = @ViewBuilder
+    var items: [any KPIHeaderItemModel] { get }
+    
+    // sourcery: @ViewBuilder
+    var bannerMessage: BannerMessage? { get }
+    
+    // sourcery: default.value=false
+    // sourcery: no_view
+    var isItemOrderForced: Bool { get }
+    
+    // sourcery: no_view
+    var interItemSpacing: CGFloat? { get }
+}
+
 /// `Authentication` is used to display a login screen with customizable detail image, title, subtitle, input fields and sign-in action.
 /// ## Usage
 /// ```swift

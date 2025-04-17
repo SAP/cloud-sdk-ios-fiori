@@ -1235,6 +1235,22 @@ extension KPIContentStyle {
     }
 }
 
+// MARK: KPIHeaderStyle
+
+struct ResolvedKPIHeaderStyle<Style: KPIHeaderStyle>: View {
+    let style: Style
+    let configuration: KPIHeaderConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension KPIHeaderStyle {
+    func resolve(configuration: KPIHeaderConfiguration) -> some View {
+        ResolvedKPIHeaderStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: KPIItemStyle
 
 struct ResolvedKPIItemStyle<Style: KPIItemStyle>: View {

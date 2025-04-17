@@ -2164,6 +2164,34 @@ public extension KPIContentStyle {
     }
 }
 
+// MARK: KPIHeaderStyle
+
+extension ModifiedStyle: KPIHeaderStyle where Style: KPIHeaderStyle {
+    public func makeBody(_ configuration: KPIHeaderConfiguration) -> some View {
+        KPIHeader(configuration)
+            .kPIHeaderStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct KPIHeaderStyleModifier<Style: KPIHeaderStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.kPIHeaderStyle(self.style)
+    }
+}
+
+public extension KPIHeaderStyle {
+    func modifier(_ modifier: some ViewModifier) -> some KPIHeaderStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some KPIHeaderStyle) -> some KPIHeaderStyle {
+        style.modifier(KPIHeaderStyleModifier(style: self))
+    }
+}
+
 // MARK: KPIItemStyle
 
 extension ModifiedStyle: KPIItemStyle where Style: KPIItemStyle {
