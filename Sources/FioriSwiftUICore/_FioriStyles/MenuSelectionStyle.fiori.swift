@@ -18,6 +18,7 @@ import SwiftUI
 public struct MenuSelectionBaseStyle: MenuSelectionStyle {
     @Environment(\.maxNumberOfItems) var maxNumberOfItems
     @State private var itemCount = 0
+    @Environment(\.locale) var locale
     
     public func makeBody(_ configuration: MenuSelectionConfiguration) -> some View {
         VStack(alignment: .leading) {
@@ -49,7 +50,7 @@ public struct MenuSelectionBaseStyle: MenuSelectionStyle {
     }
     
     private var defaultAction: some View {
-        FioriButton(title: .init("View All (%d)", args: self.itemCount))
+        FioriButton(title: .init("View All (%d)", args: self.itemCount, locale: self.locale))
             .fioriButtonStyle(FioriSecondaryButtonStyle(colorStyle: .normal))
             .environment(\.isEnabled, true)
             .accessibilityIdentifier("FioriSwiftUICore.MenuSelection.ViewAllButton")
@@ -106,7 +107,7 @@ private struct MockModel: MenuSelectionItemProtocol {
 private let models = [
     MockModel(icon: FioriIcon.calendars.calendar, title: "One"),
     MockModel(icon: FioriIcon.calendars.calendar, title: "Two"),
-    MockModel(icon: FioriIcon.calendars.calendar, title: "Three"),
+    MockModel(icon: FioriIcon.calendars.calendar, title: "ThreNSLocalizedStringNSLocalizedStringNSLocalizedStringNSLocalizedStringe"),
     MockModel(icon: FioriIcon.calendars.calendar, title: "Four"),
     MockModel(icon: FioriIcon.calendars.calendar, title: "Five")
 ]

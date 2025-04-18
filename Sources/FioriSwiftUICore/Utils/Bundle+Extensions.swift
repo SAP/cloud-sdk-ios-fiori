@@ -5,17 +5,6 @@ private class CurrentBundleFinder {}
 extension Bundle {
     static var accessor: Bundle {
         #if SWIFT_PACKAGE
-        
-            // patch for SwiftPM: ensure that bundle is found when accessed from a package that relies on FioriSwiftUI
-            if ProcessInfo.processInfo.processName == "xctest" {
-                // two names are evaluated because this source file is shared between FioriThemeManager & FioriSwiftUICore modules
-                for bundleName in ["FioriSwiftUI_FioriThemeManager", "FioriSwiftUI_FioriSwiftUICore"] {
-                    if let bundle = patchToFindBundle(with: bundleName) {
-                        return bundle
-                    }
-                }
-            }
-        
             return Bundle.module
         #else
             return Bundle(for: CurrentBundleFinder.self)
