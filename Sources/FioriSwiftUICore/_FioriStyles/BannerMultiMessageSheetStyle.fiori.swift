@@ -177,7 +177,7 @@ public struct BannerMultiMessageSheetBaseStyle: BannerMultiMessageSheetStyle {
     
     private func handleRemoveCategory(_ configuration: BannerMultiMessageSheetConfiguration, category: String, isFromClear: Bool = false) {
         for i in 0 ..< configuration.bannerMultiMessages.count {
-            var element = configuration.bannerMultiMessages[i]
+            let element = configuration.bannerMultiMessages[i]
             if element.category == category {
                 if let aiNoticeItem = element.items.first(where: { $0.messageType == .aiNotice }), isFromClear {
                     configuration.bannerMultiMessages[i].items.removeAll()

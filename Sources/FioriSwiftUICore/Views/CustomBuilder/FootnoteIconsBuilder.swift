@@ -242,7 +242,7 @@ extension FootnoteIconStack: FootnoteIconList {
                 Text(txt)
             case .icon(let icon):
                 icon
-            case .both(let txt, let icon):
+            case .both(let txt, _):
                 Text(txt)
             }
         }
