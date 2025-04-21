@@ -3,6 +3,8 @@
 import Foundation
 import SwiftUI
 
+import FioriThemeManager
+
 public struct ToastMessage {
     let icon: any View
     let title: any View
