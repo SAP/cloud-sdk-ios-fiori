@@ -7,7 +7,7 @@ public struct StepperViewBaseStyle: StepperViewStyle {
     public func makeBody(_ configuration: StepperViewConfiguration) -> some View {
         @State var showDescription = !configuration.description.isEmpty
         return VStack(spacing: 0) {
-            ViewThatFits {
+            ViewThatFits(in: .horizontal) {
                 HStack(spacing: 0) {
                     configuration.title
                     Spacer().layoutPriority(1)
@@ -16,7 +16,7 @@ public struct StepperViewBaseStyle: StepperViewStyle {
                 VStack(alignment: .leading, spacing: 0) {
                     configuration.title
                     HStack {
-                        Spacer()
+                        Spacer().layoutPriority(1)
                         configuration._stepperField
                     }
                 }

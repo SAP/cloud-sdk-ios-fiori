@@ -1,7 +1,7 @@
 import Combine
 import SwiftUI
 
-public struct KPIHeader<Content: View>: View {
+public struct _KPIHeader<Content: View>: View {
     private let content: Content
     
     public init(@KPIHeaderBuilder content: @escaping () -> Content) {
@@ -13,13 +13,13 @@ public struct KPIHeader<Content: View>: View {
     }
 }
 
-public extension KPIHeader {
+public extension _KPIHeader {
     /// KPIHeader initialization by data
-    /// - Parameter data: An collection by `KPIHeaderItemModel`, maximum 4 items can be rendered.
+    /// - Parameter data: An collection by `_KPIHeaderItemModel`, maximum 4 items can be rendered.
     init<Data: RandomAccessCollection>(_ data: Data)
-        where Content == AnyView, Data.Element == KPIHeaderItemModel, Data.Index == Int
+        where Content == AnyView, Data.Element == _KPIHeaderItemModel, Data.Index == Int
     {
-        func makeItem(_ item: KPIHeaderItemModel) -> some View {
+        func makeItem(_ item: _KPIHeaderItemModel) -> some View {
             Group {
                 if let model = item as? _KPIItemModel {
                     _KPIItem(model: model)

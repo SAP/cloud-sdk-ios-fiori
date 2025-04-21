@@ -78,7 +78,7 @@ public protocol SectionHeaderModel {}
 
 // sourcery: generated_component
 // sourcery: virtualPropAction = "var action: (() -> Void)? = nil"
-public protocol _KPIItemModel: KpiComponent, SubtitleComponent, KPIHeaderItemModel {}
+public protocol _KPIItemModel: KpiComponent, SubtitleComponent, _KPIHeaderItemModel {}
 
 @available(*, unavailable, renamed: "_KPIItemModel", message: "Will be removed in the future release. Please create KPIItem with other initializers instead.")
 public protocol KPIItemModel {}
@@ -88,7 +88,7 @@ public protocol KPIItemModel {}
 // sourcery: add_env_props = "kpiProgressViewStyle"
 // sourcery: add_env_props = "isEnabled"
 // sourcery: generated_component
-public protocol _KPIProgressItemModel: KpiProgressComponent, SubtitleComponent, FootnoteComponent, KPIHeaderItemModel {}
+public protocol _KPIProgressItemModel: KpiProgressComponent, SubtitleComponent, FootnoteComponent, _KPIHeaderItemModel {}
 
 @available(*, unavailable, renamed: "_KPIProgressItemModel", message: "Will be removed in the future release. Please create KPIProgressItem with other initializers instead.")
 public protocol KPIProgressItemModel {}
@@ -475,7 +475,8 @@ public protocol SearchableListViewModel {
     var doneAction: _ActionModel? { get }
 }
 
-public protocol KPIHeaderItemModel {}
+/// :nodoc:
+public protocol _KPIHeaderItemModel {}
 
 // sourcery: add_env_props = "stepLineModifier"
 // sourcery: add_env_props = "stepAxis"

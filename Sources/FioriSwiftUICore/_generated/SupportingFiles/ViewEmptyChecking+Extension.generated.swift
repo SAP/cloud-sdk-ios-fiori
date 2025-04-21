@@ -115,6 +115,22 @@ extension Attribute: _ViewEmptyChecking {
     }
 }
 
+extension AuthInput: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        authInput.isEmpty
+    }
+}
+
+extension Authentication: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        detailImage.isEmpty &&
+            title.isEmpty &&
+            subtitle.isEmpty &&
+            authInput.isEmpty &&
+            signInAction.isEmpty
+    }
+}
+
 extension AvatarStack: _ViewEmptyChecking {
     public var isEmpty: Bool {
         avatars.isEmpty &&
@@ -539,6 +555,13 @@ extension JouleWelcomeScreen: _ViewEmptyChecking {
 extension KPIContent: _ViewEmptyChecking {
     public var isEmpty: Bool {
         kPIContent.isEmpty
+    }
+}
+
+extension KPIHeader: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        items.isEmpty &&
+            bannerMessage.isEmpty
     }
 }
 
@@ -989,6 +1012,12 @@ extension SideBarListItem: _ViewEmptyChecking {
             title.isEmpty &&
             subtitle.isEmpty &&
             accessoryIcon.isEmpty
+    }
+}
+
+extension SignInAction: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        signInAction.isEmpty
     }
 }
 

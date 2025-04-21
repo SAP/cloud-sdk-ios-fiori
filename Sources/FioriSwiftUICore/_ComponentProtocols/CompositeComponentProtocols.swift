@@ -9,6 +9,10 @@ protocol _ObjectItemComponent: _TitleComponent, _SubtitleComponent, _FootnoteCom
     // sourcery: @ViewBuilder
     /// For accessory enhancement
     var objectItemButton: FioriButton? { get }
+    
+    // sourcery: defaultValue = false
+    /// Indicate whether the description is shown in compact mode. Default value is `false`.
+    var showsDescriptionInCompact: Bool { get }
 }
 
 // sourcery: CompositeComponent, InternalComponent
@@ -646,6 +650,7 @@ protocol _ListPickerItemComponent: _TitleComponent, _ValueComponent, _MandatoryF
 protocol _ListPickerDestinationComponent: _CancelActionComponent, _ApplyActionComponent, _SelectedEntriesSectionTitleComponent, _SelectAllActionComponent, _DeselectAllActionComponent, _AllEntriesSectionTitleComponent, _ListPickerContentComponent, _PromptComponent {}
 
 // sourcery: CompositeComponent
+// sourcery: importFrameworks = ["FioriThemeManager"]
 protocol _ToastMessageComponent: _IconComponent, _TitleComponent {
     // sourcery: defaultValue = 1
     /// The duration in seconds for which the toast message is shown. The default value is `1`.
@@ -1289,7 +1294,7 @@ protocol _AttachmentButtonImageComponent {
 ///  )
 /// ```
 // sourcery: CompositeComponent
-protocol _AttachmentGroupComponent: _TitleComponent {
+protocol _AttachmentGroupComponent: _TitleComponent, _MandatoryField {
     // sourcery: @Binding
     /// The collection of local attachment URLs, which are prepared by Apps.
     var attachments: [URL] { get }
@@ -1917,4 +1922,85 @@ protocol _DurationPickerComponent {
     // sourcery: default.value=MeasurementFormatter()
     // sourcery: no_view
     var measurementFormatter: MeasurementFormatter { get set }
+}
+
+/// `KPIHeader` is used to display KPIItem and KPIProgressItem.
+///  The maximum number of items that can be displayed in the header is 4. If more than 4 items are provided, then only first 4 items are displayed and the rest will be ignored.
+///  If the item is KPIProgressItem and the value of its property `chartSize` is `.small`, it will not be displayed, too.
+/// ## Usage
+/// ```swift
+/// var data: [KPIHeaderItemModel] = [
+///     KPIItem(kpiCaption: "small", items: [KPISubItemModelImpl(kPISubItemValue: .text("123"), kPISubItemType: .metric)], proposedViewSize: .small, alignment: .center),
+///     KPIProgressItem(kpiCaption: "Downloading", data: .constant(KPIItemData.percent(0.65))),
+///     KPIItem(kpiCaption: "Big caption and long text", items: [KPISubItemModelImpl(kPISubItemValue: .text("321"), kPISubItemType: .metric)], proposedViewSize: .large, alignment: .center),
+///     KPIProgressItem(kpiCaption: "Completed", data: .constant(KPIItemData.percent(1.0)), chartSize: .small)]
+/// KPIHeader(items: data, isItemOrderForced: false)
+/// ```
+// sourcery: CompositeComponent
+protocol _KPIHeaderComponent {
+    // sourcery: resultBuilder.backingComponent = KPIContainerStack
+    // sourcery: resultBuilder.name = @ViewBuilder
+    var items: [any KPIHeaderItemModel] { get }
+    
+    // sourcery: @ViewBuilder
+    var bannerMessage: BannerMessage? { get }
+    
+    // sourcery: default.value=false
+    // sourcery: no_view
+    var isItemOrderForced: Bool { get }
+    
+    // sourcery: no_view
+    var interItemSpacing: CGFloat? { get }
+}
+
+/// `Authentication` is used to display a login screen with customizable detail image, title, subtitle, input fields and sign-in action.
+/// ## Usage
+/// ```swift
+/// // Basic usage
+/// @State var password: String = ""
+/// @State var name: String = ""
+///
+/// Authentication(detailImage: {
+///     Image(.illustration).resizable().aspectRatio(contentMode: .fit)
+/// }, title: {
+///     Text("Authentication")
+/// }, subtitle: {
+///     Text("Please provide your username and password to authenticate.")
+/// }, authInput: {
+///     VStack(spacing: 16) {
+///         TextFieldFormView(title: "", text: self.$name, placeholder: "Enter your name")
+///         TextFieldFormView(title: "", text: self.$password, isSecureEnabled: true, placeholder: "Enter your password")
+///     }
+/// }, isDisabled: password.isEmpty || name.isEmpty) {
+///     print("sign in ......")
+/// }
+///
+/// // With banner message and custom style
+/// Authentication(detailImage: {
+///     Image(.illustration).resizable().aspectRatio(contentMode: .fit)
+/// }, title: {
+///     Text("Authentication")
+/// }, subtitle: {
+///     Text("Please provide your username and password.")
+/// }, isDisabled: password.isEmpty || name.isEmpty) {
+///     // Handle sign in action
+/// }
+/// .authenticationStyle(BasicAuthenticationStyle(password: self.$password, name: self.$name))
+/// .bannerMessageView(isPresented: self.$isPresentedBanner,
+///                   pushContentDown: .constant(false),
+///                   icon: { EmptyView() },
+///                   title: "Verifying...",
+///                   messageType: .neutral)
+/// ```
+// sourcery: CompositeComponent
+protocol _AuthenticationComponent: _DetailImageComponent, _TitleComponent, _SubtitleComponent, _AuthInputComponent, _SignInActionComponent {
+    // sourcery: @binding
+    /// Whether the sign-in button is disabled. Typically controlled by the validation state of the input fields.
+    var isDisabled: Bool { get }
+    
+    // sourcery: default.value = nil
+    // sourcery: no_view
+    /// Callback triggered when the sign-in action is performed. This is called when the user taps the sign-in button
+    /// and the `isDisabled` property is false.
+    var didSignIn: (() -> Void)? { get }
 }

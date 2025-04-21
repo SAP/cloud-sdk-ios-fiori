@@ -3,11 +3,24 @@
 import Foundation
 import SwiftUI
 
-/// `AttachmentGroup` provides thubnail and information about an attachment.
+/// `AttachmentGroup` is the UI component for adding, removing, and rendering thumbnails and previews.
 ///
 /// ## Usage
 /// ```swift
-///  todo: code here
+/// AttachmentGroup(
+///   title: { Text("Attachements") },
+///   attachments: self.$attachments,
+///   maxCount: 5,
+///   delegate: self.delegate,
+///   errorMessage: self.$attachmentError,
+///   operations: {
+///       AttachmentButtonImage()
+///           .operationsMenu {
+///               PhotosPickerMenuItem(filter: [.images])
+///               FilesPickerMenuItem(filter: [.pdf, .presentation])
+///           }
+///       }
+///  )
 /// ```
 public struct AttachmentGroup {
     let title: any View
@@ -60,6 +73,8 @@ public extension AttachmentGroup {
 
 public extension AttachmentGroup {
     init(title: AttributedString,
+         mandatoryFieldIndicator: TextOrIcon? = .text("*"),
+         isRequired: Bool = false,
          attachments: Binding<[URL]>,
          maxCount: Int? = nil,
          delegate: AttachmentDelegate = BasicAttachmentDelegate(),
@@ -68,7 +83,9 @@ public extension AttachmentGroup {
          @ViewBuilder operations: () -> any View = { EmptyView() },
          onPreview: ((URL) -> Void)? = nil)
     {
-        self.init(title: { Text(title) }, attachments: attachments, maxCount: maxCount, delegate: delegate, controlState: controlState, errorMessage: errorMessage, operations: operations, onPreview: onPreview)
+        self.init(title: {
+            TextWithMandatoryFieldIndicator(text: title, isRequired: isRequired, mandatoryFieldIndicator: mandatoryFieldIndicator)
+        }, attachments: attachments, maxCount: maxCount, delegate: delegate, controlState: controlState, errorMessage: errorMessage, operations: operations, onPreview: onPreview)
     }
 }
 

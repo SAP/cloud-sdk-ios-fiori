@@ -14,7 +14,7 @@ public struct ValuePickerBaseStyle: ValuePickerStyle {
             if self.dynamicTypeSize >= .accessibility3 {
                 self.configureMainStack(configuration, isVertical: true)
             } else {
-                ViewThatFits {
+                ViewThatFits(in: .horizontal) {
                     self.configureMainStack(configuration, isVertical: false)
                     self.configureMainStack(configuration, isVertical: true)
                 }

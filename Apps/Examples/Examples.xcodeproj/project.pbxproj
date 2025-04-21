@@ -32,6 +32,7 @@
 		55598FAD2CDDB4F6007CFFBB /* ValuePickerExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55598FAC2CDDB4F6007CFFBB /* ValuePickerExample.swift */; };
 		5590847D2D6D94210007EAAC /* _EmptyStateViewExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5590847C2D6D94210007EAAC /* _EmptyStateViewExample.swift */; };
 		5A91FABE2D923BF80024F316 /* _DurationPickerExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A91FABD2D923BF70024F316 /* _DurationPickerExample.swift */; };
+		5A91FAC42D951CAB0024F316 /* KPIHeaderExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A91FAC32D951CA70024F316 /* KPIHeaderExample.swift */; };
 		5ABFB34B2D27D73B0054C1F3 /* SectionHeaderFooterExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ABFB34A2D27D7310054C1F3 /* SectionHeaderFooterExample.swift */; };
 		6432FFA02C5164F8008ECE89 /* SegmentedControlExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6432FF9F2C5164F8008ECE89 /* SegmentedControlExample.swift */; };
 		6439F5142CEE892200EF1B42 /* ProcessingIndicatorExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6439F5132CEE892200EF1B42 /* ProcessingIndicatorExample.swift */; };
@@ -138,12 +139,13 @@
 		9DEC27B52C3F3DB30070B571 /* KeyValueItemExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DEC27B42C3F3DB30070B571 /* KeyValueItemExample.swift */; };
 		9DEC27B72C3F3DE70070B571 /* OtherViewExamples.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DEC27B62C3F3DE70070B571 /* OtherViewExamples.swift */; };
 		A65036942CC6365C0093086A /* LoadingIndicatorExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = A65036932CC6365C0093086A /* LoadingIndicatorExample.swift */; };
+		A6DFDE582D9BE0B300666A51 /* AuthenticationScreenSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6DFDE572D9BE0B300666A51 /* AuthenticationScreenSample.swift */; };
 		AB988B102631270300483D87 /* DataTableExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB988B0F2631270300483D87 /* DataTableExample.swift */; };
 		B100639329C0624D00AF0CA2 /* StepProgressIndicatorExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B100639229C0624D00AF0CA2 /* StepProgressIndicatorExample.swift */; };
 		B13408922B01FA0700600331 /* NavigationBarExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B13408912B01FA0700600331 /* NavigationBarExample.swift */; };
 		B141D6BB29261F9E008A8BD6 /* SearchableListViewExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B141D6BA29261F9E008A8BD6 /* SearchableListViewExample.swift */; };
 		B153E88E2CAA8EEA0017EB84 /* ListPickerItemExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B153E88D2CAA8EE30017EB84 /* ListPickerItemExample.swift */; };
-		B18D2E9F2988B07B000A1821 /* KPIHeaderExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18D2E9E2988B07B000A1821 /* KPIHeaderExample.swift */; };
+		B18D2E9F2988B07B000A1821 /* _KPIHeaderExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18D2E9E2988B07B000A1821 /* _KPIHeaderExample.swift */; };
 		B18D593C2B0C52C700ABB1AD /* TabViewExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18D593B2B0C52C700ABB1AD /* TabViewExample.swift */; };
 		B190065A2C201BBE000C8B10 /* ProfileHeaderExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19006592C201BBE000C8B10 /* ProfileHeaderExample.swift */; };
 		B1A78D982C88388B00432B0D /* ShadowEffectExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A78D972C88388B00432B0D /* ShadowEffectExample.swift */; };
@@ -289,6 +291,7 @@
 		55598FAC2CDDB4F6007CFFBB /* ValuePickerExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValuePickerExample.swift; sourceTree = "<group>"; };
 		5590847C2D6D94210007EAAC /* _EmptyStateViewExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _EmptyStateViewExample.swift; sourceTree = "<group>"; };
 		5A91FABD2D923BF70024F316 /* _DurationPickerExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _DurationPickerExample.swift; sourceTree = "<group>"; };
+		5A91FAC32D951CA70024F316 /* KPIHeaderExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KPIHeaderExample.swift; sourceTree = "<group>"; };
 		5ABFB34A2D27D7310054C1F3 /* SectionHeaderFooterExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderFooterExample.swift; sourceTree = "<group>"; };
 		6432FF9F2C5164F8008ECE89 /* SegmentedControlExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedControlExample.swift; sourceTree = "<group>"; };
 		6439F5132CEE892200EF1B42 /* ProcessingIndicatorExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessingIndicatorExample.swift; sourceTree = "<group>"; };
@@ -396,12 +399,13 @@
 		9DEC27B42C3F3DB30070B571 /* KeyValueItemExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyValueItemExample.swift; sourceTree = "<group>"; };
 		9DEC27B62C3F3DE70070B571 /* OtherViewExamples.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherViewExamples.swift; sourceTree = "<group>"; };
 		A65036932CC6365C0093086A /* LoadingIndicatorExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingIndicatorExample.swift; sourceTree = "<group>"; };
+		A6DFDE572D9BE0B300666A51 /* AuthenticationScreenSample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationScreenSample.swift; sourceTree = "<group>"; };
 		AB988B0F2631270300483D87 /* DataTableExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTableExample.swift; sourceTree = "<group>"; };
 		B100639229C0624D00AF0CA2 /* StepProgressIndicatorExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepProgressIndicatorExample.swift; sourceTree = "<group>"; };
 		B13408912B01FA0700600331 /* NavigationBarExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarExample.swift; sourceTree = "<group>"; };
 		B141D6BA29261F9E008A8BD6 /* SearchableListViewExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchableListViewExample.swift; sourceTree = "<group>"; };
 		B153E88D2CAA8EE30017EB84 /* ListPickerItemExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListPickerItemExample.swift; sourceTree = "<group>"; };
-		B18D2E9E2988B07B000A1821 /* KPIHeaderExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KPIHeaderExample.swift; sourceTree = "<group>"; };
+		B18D2E9E2988B07B000A1821 /* _KPIHeaderExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _KPIHeaderExample.swift; sourceTree = "<group>"; };
 		B18D593B2B0C52C700ABB1AD /* TabViewExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabViewExample.swift; sourceTree = "<group>"; };
 		B19006592C201BBE000C8B10 /* ProfileHeaderExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderExample.swift; sourceTree = "<group>"; };
 		B1A78D972C88388B00432B0D /* ShadowEffectExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowEffectExample.swift; sourceTree = "<group>"; };
@@ -636,7 +640,8 @@
 				87FF0C1D2D08A9C700E55EB5 /* KPIProgressItem */,
 				691DE21825F2A30B00094D4A /* KPIItemExample.swift */,
 				69B2B5D8268A333C009AC6B3 /* KPIProgressViewExample.swift */,
-				B18D2E9E2988B07B000A1821 /* KPIHeaderExample.swift */,
+				B18D2E9E2988B07B000A1821 /* _KPIHeaderExample.swift */,
+				5A91FAC32D951CA70024F316 /* KPIHeaderExample.swift */,
 			);
 			path = KPI;
 			sourceTree = "<group>";
@@ -1041,6 +1046,7 @@
 				993A122D26A726AC0018028B /* PrivacyText.rtf */,
 				9996CCFD262EB4E7001B99AE /* EULAText.html */,
 				99942D562616980A001912C5 /* OnboardingExamples.swift */,
+				A6DFDE572D9BE0B300666A51 /* AuthenticationScreenSample.swift */,
 				9996CCFE262EB4E7001B99AE /* EULAViewSample.swift */,
 				99942D58261698FC001912C5 /* InfoViewSample.swift */,
 				B80DA9C42612A54E00C0B2E9 /* ActivationScreenSample.swift */,
@@ -1284,7 +1290,7 @@
 				C106AD4A2B33970500FE8B35 /* SearchPromptFontAndColor.swift in Sources */,
 				6DEC32022C4A4DC70084DD20 /* CardFullWidthSingleButtonExample.swift in Sources */,
 				B1BA1F972B2167DC00E6C052 /* ToolbarExample.swift in Sources */,
-				B18D2E9F2988B07B000A1821 /* KPIHeaderExample.swift in Sources */,
+				B18D2E9F2988B07B000A1821 /* _KPIHeaderExample.swift in Sources */,
 				9DEC27992C3C5C620070B571 /* RatingControlExample.swift in Sources */,
 				8AB6C01428DF6583002F32BE /* LazyView.swift in Sources */,
 				6D6E86672C50FDBE00EDB6F4 /* FioriButtonInCollectionExample.swift in Sources */,
@@ -1356,6 +1362,7 @@
 				5ABFB34B2D27D73B0054C1F3 /* SectionHeaderFooterExample.swift in Sources */,
 				B1A98FF52C12E9A000FC9998 /* BannerMessageModifierExample.swift in Sources */,
 				B1BA1F922B19AAEE00E6C052 /* TabViewDetailView.swift in Sources */,
+				5A91FAC42D951CAB0024F316 /* KPIHeaderExample.swift in Sources */,
 				B1DD864F2B07441C00D7EDFD /* UIFont+Fiori.swift in Sources */,
 				6D6E86712C53A0D500EDB6F4 /* CardViewWithTwoButtonsExample.swift in Sources */,
 				B8D4376F25F980340024EE7D /* ObjectCell_Spec_Jan2018.swift in Sources */,
@@ -1447,6 +1454,7 @@
 				8A5579D224C1293C0098003A /* Color+Extensions.swift in Sources */,
 				6D6E866F2C539CDE00EDB6F4 /* InPlaceLoadingFlexibleButtonExample.swift in Sources */,
 				B1F384322C815A540090A858 /* AvatarStackExample.swift in Sources */,
+				A6DFDE582D9BE0B300666A51 /* AuthenticationScreenSample.swift in Sources */,
 				B1BCB6E12C2EB362008AC070 /* ProfileHeaderStaticExample.swift in Sources */,
 				6439F5142CEE892200EF1B42 /* ProcessingIndicatorExample.swift in Sources */,
 				C1C764882A818BEC00BCB0F7 /* SortFilterExample.swift in Sources */,

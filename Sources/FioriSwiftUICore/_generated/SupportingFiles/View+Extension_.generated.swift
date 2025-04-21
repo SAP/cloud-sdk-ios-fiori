@@ -309,6 +309,40 @@ public extension View {
     }
 }
 
+// MARK: AuthInputStyle
+
+public extension View {
+    func authInputStyle(_ style: some AuthInputStyle) -> some View {
+        self.transformEnvironment(\.authInputStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func authInputStyle(@ViewBuilder content: @escaping (AuthInputConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.authInputStyleStack) { stack in
+            let style = AnyAuthInputStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: AuthenticationStyle
+
+public extension View {
+    func authenticationStyle(_ style: some AuthenticationStyle) -> some View {
+        self.transformEnvironment(\.authenticationStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func authenticationStyle(@ViewBuilder content: @escaping (AuthenticationConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.authenticationStyleStack) { stack in
+            let style = AnyAuthenticationStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: AvatarStackStyle
 
 public extension View {
@@ -1273,6 +1307,23 @@ public extension View {
     func kPIContentStyle(@ViewBuilder content: @escaping (KPIContentConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.kPIContentStyleStack) { stack in
             let style = AnyKPIContentStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: KPIHeaderStyle
+
+public extension View {
+    func kPIHeaderStyle(_ style: some KPIHeaderStyle) -> some View {
+        self.transformEnvironment(\.kPIHeaderStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func kPIHeaderStyle(@ViewBuilder content: @escaping (KPIHeaderConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.kPIHeaderStyleStack) { stack in
+            let style = AnyKPIHeaderStyle(content)
             stack.append(style)
         }
     }
@@ -2361,6 +2412,23 @@ public extension View {
     func sideBarListItemStyle(@ViewBuilder content: @escaping (SideBarListItemConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.sideBarListItemStyleStack) { stack in
             let style = AnySideBarListItemStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: SignInActionStyle
+
+public extension View {
+    func signInActionStyle(_ style: some SignInActionStyle) -> some View {
+        self.transformEnvironment(\.signInActionStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func signInActionStyle(@ViewBuilder content: @escaping (SignInActionConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.signInActionStyleStack) { stack in
+            let style = AnySignInActionStyle(content)
             stack.append(style)
         }
     }
