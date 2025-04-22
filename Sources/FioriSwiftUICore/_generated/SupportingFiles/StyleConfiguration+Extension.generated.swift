@@ -49,6 +49,14 @@ extension DemoViewConfiguration {
     }
 }
 
+// MARK: DurationPickerConfiguration
+
+extension DurationPickerConfiguration {
+    var _formView: FormView {
+        FormView(.init(controlState: self.controlState, errorMessage: self.errorMessage), shouldApplyDefaultStyle: true)
+    }
+}
+
 // MARK: FilterFormViewConfiguration
 
 extension FilterFormViewConfiguration {
