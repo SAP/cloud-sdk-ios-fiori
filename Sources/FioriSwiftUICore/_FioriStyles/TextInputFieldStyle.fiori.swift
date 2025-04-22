@@ -37,7 +37,7 @@ extension TextInputFieldFioriStyle {
     }
 }
 
-/// Number style
+/// Decimal style
 public struct TextInputFieldDecimalStyle: TextInputFieldStyle {
     public func makeBody(_ configuration: TextInputFieldConfiguration) -> some View {
         TextInputField(configuration)
