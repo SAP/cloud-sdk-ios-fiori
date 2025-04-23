@@ -2558,6 +2558,69 @@ public extension DurationPickerStyle where Self == DurationPickerFioriStyle {
     }
 }
 
+public struct DurationPickerTitleStyle: DurationPickerStyle {
+    let style: any TitleStyle
+
+    public func makeBody(_ configuration: DurationPickerConfiguration) -> some View {
+        DurationPicker(configuration)
+            .titleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension DurationPickerStyle where Self == DurationPickerTitleStyle {
+    static func titleStyle(_ style: some TitleStyle) -> DurationPickerTitleStyle {
+        DurationPickerTitleStyle(style: style)
+    }
+
+    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> DurationPickerTitleStyle {
+        let style = AnyTitleStyle(content)
+        return DurationPickerTitleStyle(style: style)
+    }
+}
+
+public struct DurationPickerValueLabelStyle: DurationPickerStyle {
+    let style: any ValueLabelStyle
+
+    public func makeBody(_ configuration: DurationPickerConfiguration) -> some View {
+        DurationPicker(configuration)
+            .valueLabelStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension DurationPickerStyle where Self == DurationPickerValueLabelStyle {
+    static func valueLabelStyle(_ style: some ValueLabelStyle) -> DurationPickerValueLabelStyle {
+        DurationPickerValueLabelStyle(style: style)
+    }
+
+    static func valueLabelStyle(@ViewBuilder content: @escaping (ValueLabelConfiguration) -> some View) -> DurationPickerValueLabelStyle {
+        let style = AnyValueLabelStyle(content)
+        return DurationPickerValueLabelStyle(style: style)
+    }
+}
+
+public struct DurationPickerFormViewStyle: DurationPickerStyle {
+    let style: any FormViewStyle
+
+    public func makeBody(_ configuration: DurationPickerConfiguration) -> some View {
+        DurationPicker(configuration)
+            .formViewStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension DurationPickerStyle where Self == DurationPickerFormViewStyle {
+    static func formViewStyle(_ style: some FormViewStyle) -> DurationPickerFormViewStyle {
+        DurationPickerFormViewStyle(style: style)
+    }
+
+    static func formViewStyle(@ViewBuilder content: @escaping (FormViewConfiguration) -> some View) -> DurationPickerFormViewStyle {
+        let style = AnyFormViewStyle(content)
+        return DurationPickerFormViewStyle(style: style)
+    }
+}
+
 // MARK: EULAViewStyle
 
 public extension EULAViewStyle where Self == EULAViewBaseStyle {
