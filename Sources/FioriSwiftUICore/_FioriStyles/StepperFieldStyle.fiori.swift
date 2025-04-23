@@ -44,6 +44,7 @@ public struct StepperFieldBaseStyle: StepperFieldStyle {
                 }
                 .onSubmit {
                     self.isFocused = false
+                    self.updateText(for: inputFieldValue, configuration: configuration)
                 }
             configuration.incrementAction
                 .onSimultaneousTapGesture {
