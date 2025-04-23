@@ -23,25 +23,24 @@ struct OnboardingExamples: View {
                     Text("InfoView Examples")
                 }
             )
-            
-            NavigationLink(
-                destination: EULAExamples())
-            {
-                Text("_EULA Examples")
+            if self._isNewObjectItem {
+                NavigationLink(
+                    destination: EULAExamples(isNewEULAView: true))
+                {
+                    Text("EULA Examples")
+                }
+                NavigationLink(
+                    destination: UserConsentExamples())
+                {
+                    Text("User Consent Form Examples")
+                }
+            } else {
+                NavigationLink(
+                    destination: EULAExamples())
+                {
+                    Text("_EULA Examples")
+                }
             }
-            
-            NavigationLink(
-                destination: EULAExamples(isNewEULAView: true))
-            {
-                Text("EULA Examples")
-            }
-            
-            NavigationLink(
-                destination: UserConsentExamples())
-            {
-                Text("User Consent Form Examples")
-            }
-            
         }.navigationBarTitle("Onboarding")
     }
 }
