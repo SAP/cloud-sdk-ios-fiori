@@ -695,8 +695,10 @@ extension SortFilterCFGItemContainer: View {
                 Spacer()
             }
             
-            DurationPicker(selection: self.$_items[r][c].durationPicker.workingValue, maximumMinutes: self._items[r][c].durationPicker.maximumMinutes, minimumMinutes: self._items[r][c].durationPicker.minimumMinutes, minuteInterval: self._items[r][c].durationPicker.minuteInterval)
-                .measurementFormatter(self._items[r][c].durationPicker.measurementFormatter)
+            DurationPickerViewWrapper(selection: self.$_items[r][c].durationPicker.workingValue, maximumMinutes: self._items[r][c].durationPicker.maximumMinutes, minimumMinutes: self._items[r][c].durationPicker.minimumMinutes, minuteInterval: self._items[r][c].durationPicker.minuteInterval, measurementFormatter: self._items[r][c].durationPicker.measurementFormatter)
+                .frame(width: 232, height: 204)
+                .background(Color.preferredColor(.primaryBackground))
+                .foregroundColor(Color.preferredColor(.primaryLabel))
         }
     }
     
