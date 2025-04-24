@@ -26,3 +26,15 @@ extension KPIHeaderFioriStyle {
         }
     }
 }
+
+/// Style for KPI header
+/// Provides a standard hairline for header
+public struct KPIHeaderSeparatorStyle: KPIHeaderStyle {
+    public init() {}
+    public func makeBody(_ configuration: KPIHeaderConfiguration) -> some View {
+        VStack {
+            KPIHeader(configuration)
+            Color.preferredColor(.separator).frame(height: 0.33)
+        }
+    }
+}
