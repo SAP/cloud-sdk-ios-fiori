@@ -222,8 +222,14 @@ struct FocusedEditingView: View {
                     .shadow(color: Color.black.opacity(0.15), radius: 20)
                 
             case .duration:
-                DurationPicker(selection: self.$editingDuration)
-
+                DurationPickerViewWrapper(selection: self.$editingDuration, maximumMinutes: 1439, minimumMinutes: 0, minuteInterval: 1, measurementFormatter: MeasurementFormatter())
+                    .frame(width: 232, height: 204)
+                    .background(Color.preferredColor(.primaryBackground))
+                    .foregroundColor(Color.preferredColor(.primaryLabel))
+                    .cornerRadius(18)
+                    .shadow(color: Color.preferredColor(.cardShadow), radius: 5)
+                    .shadow(color: Color.preferredColor(.cardShadow), radius: 20)
+                
             default:
                 EmptyView()
             }

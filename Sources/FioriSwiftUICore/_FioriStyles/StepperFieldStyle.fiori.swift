@@ -27,7 +27,12 @@ public struct StepperFieldBaseStyle: StepperFieldStyle {
                 }
             configuration._textInputField
                 .multilineTextAlignment(.center)
-                .textInputFieldStyle(.number)
+                .ifApply(configuration.isDecimalSupported) {
+                    $0.textInputFieldStyle(.decimal)
+                }
+                .ifApply(!configuration.isDecimalSupported) {
+                    $0.textInputFieldStyle(.number)
+                }
                 .setOnChange(of: self.isFocused, action1: { newValue in
                     if !newValue {
                         self.updateText(for: inputFieldValue, configuration: configuration)
