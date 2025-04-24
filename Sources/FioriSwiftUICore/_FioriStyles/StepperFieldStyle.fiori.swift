@@ -18,9 +18,9 @@ import SwiftUI
 public struct StepperFieldBaseStyle: StepperFieldStyle {
     @State private var previousValue: String = ""
     @FocusState private var isFocused: Bool
+    
     public func makeBody(_ configuration: StepperFieldConfiguration) -> some View {
-        @State var inputFieldValue = configuration.text
-        return HStack(spacing: 0) {
+        HStack(spacing: 0) {
             configuration.decrementAction
                 .onSimultaneousTapGesture {
                     self.adjustValue(by: -configuration.step, configuration: configuration)
@@ -33,13 +33,22 @@ public struct StepperFieldBaseStyle: StepperFieldStyle {
                 .ifApply(!configuration.isDecimalSupported) {
                     $0.textInputFieldStyle(.number)
                 }
-                .setOnChange(of: self.isFocused, action1: { newValue in
+                .focused(self.$isFocused)
+                .onChange(of: configuration.text) { _, newValue in
+                    self.validateAndUpdateText(for: newValue, configuration: configuration, enforceMinimum: false)
+                }
+                .onChange(of: self.isFocused) { _, newValue in
                     if !newValue {
-                        self.updateText(for: inputFieldValue, configuration: configuration)
-                    }
-                }) { _, newValue in
-                    if !newValue {
-                        self.updateText(for: inputFieldValue, configuration: configuration)
+                        if configuration.text.isEmpty {
+                            configuration.text = self.formatValue(
+                                Decimal(configuration.stepRange.lowerBound),
+                                isDecimalSupported: configuration.isDecimalSupported,
+                                step: configuration.step
+                            )
+                            self.previousValue = configuration.text
+                        } else {
+                            self.validateAndUpdateText(for: configuration.text, configuration: configuration, enforceMinimum: true)
+                        }
                     }
                 }
                 .onSubmit {
@@ -53,39 +62,110 @@ public struct StepperFieldBaseStyle: StepperFieldStyle {
     }
     
     private func adjustValue(by step: Double, configuration: StepperFieldConfiguration) {
+        if configuration.text.isEmpty {
+            configuration.text = self.formatValue(
+                Decimal(configuration.stepRange.lowerBound),
+                isDecimalSupported: configuration.isDecimalSupported,
+                step: configuration.step
+            )
+            self.previousValue = configuration.text
+        } else {
+            self.validateAndUpdateText(for: configuration.text, configuration: configuration, enforceMinimum: true)
+        }
+        
         if let currentValue = Decimal(string: configuration.text) {
             let newValue = currentValue + Decimal(step)
             let clampedValue = self.clampValue(newValue, configuration: configuration)
-            if configuration.isDecimalSupported {
-                configuration.text = "\(clampedValue)"
-            } else {
-                configuration.text = String(NSDecimalNumber(decimal: clampedValue).intValue)
-            }
+            configuration.text = self.formatValue(
+                clampedValue,
+                isDecimalSupported: configuration.isDecimalSupported,
+                step: configuration.step
+            )
         } else {
-            configuration.text = configuration.text
+            configuration.text = self.formatValue(
+                Decimal(configuration.stepRange.lowerBound),
+                isDecimalSupported: configuration.isDecimalSupported,
+                step: configuration.step
+            )
         }
         self.previousValue = configuration.text
     }
     
-    private func updateText(for text: String, configuration: StepperFieldConfiguration) {
+    private func validateAndUpdateText(for text: String, configuration: StepperFieldConfiguration, enforceMinimum: Bool) {
+        if text.isEmpty {
+            configuration.text = text
+            return
+        }
+        
+        let filteredText: String
         if configuration.isDecimalSupported {
-            if let decimalValue = Decimal(string: text) {
-                let clampedValue = self.clampValue(decimalValue, configuration: configuration)
-                configuration.text = "\(clampedValue)"
+            var result = ""
+            var hasDecimalPoint = false
+            for char in text {
+                if char.isNumber {
+                    result.append(char)
+                } else if char == ".", !hasDecimalPoint {
+                    result.append(char)
+                    hasDecimalPoint = true
+                }
+            }
+            filteredText = result
+            
+            if filteredText.contains("."), filteredText.hasSuffix(".") || filteredText.split(separator: ".").last?.allSatisfy(\.isNumber) ?? false {
+                configuration.text = filteredText
+                return
             }
         } else {
-            if text.contains(".") || text.isEmpty {
-                configuration.text = self.previousValue
-            } else if let decimalValue = Decimal(string: text) {
-                let clampedValue = self.clampValue(decimalValue, configuration: configuration)
-                configuration.text = String(NSDecimalNumber(decimal: clampedValue).intValue)
+            filteredText = text.filter(\.isNumber)
+        }
+        
+        if filteredText.isEmpty {
+            configuration.text = filteredText
+            return
+        }
+        
+        if let decimalValue = Decimal(string: filteredText) {
+            let clampedValue: Decimal
+            if enforceMinimum {
+                clampedValue = self.clampValue(decimalValue, configuration: configuration)
+                configuration.text = self.formatValue(clampedValue, isDecimalSupported: configuration.isDecimalSupported, step: configuration.step)
+            } else {
+                if decimalValue > Decimal(configuration.stepRange.upperBound) {
+                    clampedValue = Decimal(configuration.stepRange.upperBound)
+                    configuration.text = self.formatValue(clampedValue, isDecimalSupported: configuration.isDecimalSupported, step: configuration.step)
+                } else {
+                    configuration.text = filteredText
+                }
             }
+        } else {
+            configuration.text = self.previousValue.isEmpty ?
+                self.formatValue(
+                    Decimal(configuration.stepRange.lowerBound),
+                    isDecimalSupported: configuration.isDecimalSupported,
+                    step: configuration.step
+                ) :
+                self.previousValue
         }
         self.previousValue = configuration.text
     }
     
     private func clampValue(_ value: Decimal, configuration: StepperFieldConfiguration) -> Decimal {
         min(max(value, Decimal(configuration.stepRange.lowerBound)), Decimal(configuration.stepRange.upperBound))
+    }
+    
+    private func formatValue(_ value: Decimal, isDecimalSupported: Bool, step: Double) -> String {
+        if isDecimalSupported {
+            let stepString = String(step)
+            let decimalPlaces = stepString.contains(".") ? stepString.split(separator: ".").last?.count ?? 0 : 0
+            let maximumFractionDigits = max(1, decimalPlaces)
+            
+            let formatter = NumberFormatter()
+            formatter.minimumFractionDigits = 0
+            formatter.maximumFractionDigits = maximumFractionDigits
+            return formatter.string(from: NSDecimalNumber(decimal: value)) ?? String(describing: value)
+        } else {
+            return String(NSDecimalNumber(decimal: value).intValue)
+        }
     }
 }
 

@@ -43,26 +43,6 @@ public struct TextInputFieldDecimalStyle: TextInputFieldStyle {
         TextInputField(configuration)
             .frame(minHeight: 44)
             .keyboardType(.decimalPad)
-            .setOnChange(of: configuration.text, action1: { newValue in
-                self.updateText(value: newValue, configuration: configuration)
-            }) { _, newValue in
-                self.updateText(value: newValue, configuration: configuration)
-            }
-    }
-    
-    private func updateText(value: String, configuration: TextInputFieldConfiguration) {
-        var result = ""
-        var hasDecimalPoint = false
-        
-        for char in value {
-            if char.isNumber {
-                result.append(char)
-            } else if char == ".", !hasDecimalPoint {
-                result.append(char)
-                hasDecimalPoint = true
-            }
-        }
-        configuration.text = result
     }
 }
 
@@ -72,17 +52,6 @@ public struct TextInputFieldNumberStyle: TextInputFieldStyle {
         TextInputField(configuration)
             .frame(minHeight: 44)
             .keyboardType(.numberPad)
-            .setOnChange(of: configuration.text, action1: { newValue in
-                let filtered = newValue.filter(\.isNumber)
-                if filtered != newValue {
-                    configuration.text = filtered
-                }
-            }) { _, newValue in
-                let filtered = newValue.filter(\.isNumber)
-                if filtered != newValue {
-                    configuration.text = filtered
-                }
-            }
     }
 }
 
