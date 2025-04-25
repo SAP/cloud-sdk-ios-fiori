@@ -37,6 +37,7 @@ struct ProfileHeaderStaticExample: View {
         }) {
             self.detailContent
         }
+        .profileHeaderStyle(ProfileHeaderSeparatorStyle())
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 Menu {

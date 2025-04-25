@@ -44,6 +44,7 @@ struct ObjectHeaderTestApp: View {
                                  titlesForCategory: [["Jan", nil, nil, nil, nil, nil, "Jul"]]))
                 .frame(width: 312, height: 75)
         })
+        .objectHeaderStyle(ObjectHeaderSeparatorStyle())
         
         return List {
             Section(header: header) {}
