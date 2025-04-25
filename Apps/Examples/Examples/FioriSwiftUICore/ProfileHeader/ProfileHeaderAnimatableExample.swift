@@ -25,6 +25,7 @@ struct ProfileHeaderAnimatableExample: View {
                 })
             }
         }
+        .profileHeaderStyle(ProfileHeaderSeparatorStyle())
     }
     
     var body: some View {
