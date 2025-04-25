@@ -2798,9 +2798,99 @@ Note that VisionKit doesn&rsquo;t currently provide a public API to customize th
                   <li class="item">
                     <div>
                       <code>
-                      <a name="/s:16FioriSwiftUICore9KPIHeaderV"></a>
-                      <a name="//apple_ref/swift/Struct/KPIHeader" class="dashAnchor"></a>
-                      <a class="token" href="#/s:16FioriSwiftUICore9KPIHeaderV">KPIHeader</a>
+                      <a name="/s:16FioriSwiftUICore7KPIItemV"></a>
+                      <a name="//apple_ref/swift/Struct/KPIItem" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore7KPIItemV">KPIItem</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p><code>KPIItem</code> enables a developer to present &ldquo;KPI&rdquo; information in a formatted manner consistent with the Fiori Design Language.</p>
+<h2 id='usage' class='heading'>Usage</h2>
+<pre class="highlight swift"><code><span class="kd">struct</span> <span class="kt">KPISubItemModelImplementation</span><span class="p">:</span> <span class="kt">KPISubItemModel</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">UUID</span>
+    <span class="k">let</span> <span class="nv">kPISubItemValue</span><span class="p">:</span> <span class="kt">TextOrIcon</span>
+    <span class="k">let</span> <span class="nv">kPISubItemType</span><span class="p">:</span> <span class="kt">KPISubitemType</span>
+
+    <span class="nf">init</span><span class="p">(</span><span class="nv">id</span><span class="p">:</span> <span class="kt">UUID</span> <span class="o">=</span> <span class="kt">UUID</span><span class="p">(),</span> <span class="nv">kPISubItemValue</span><span class="p">:</span> <span class="kt">TextOrIcon</span><span class="p">,</span> <span class="nv">kPISubItemType</span><span class="p">:</span> <span class="kt">KPISubitemType</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">self</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="n">id</span>
+        <span class="k">self</span><span class="o">.</span><span class="n">kPISubItemValue</span> <span class="o">=</span> <span class="n">kPISubItemValue</span>
+        <span class="k">self</span><span class="o">.</span><span class="n">kPISubItemType</span> <span class="o">=</span> <span class="n">kPISubItemType</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">private</span> <span class="k">var</span> <span class="nv">item</span><span class="p">:</span> <span class="p">[</span><span class="kt">KPISubItemModelImplementation</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="kt">KPISubItemModelImplementation</span><span class="p">(</span><span class="nv">kPISubItemValue</span><span class="p">:</span> <span class="o">.</span><span class="nf">icon</span><span class="p">(</span><span class="kt">Image</span><span class="p">(</span><span class="nv">systemName</span><span class="p">:</span> <span class="s">"triangleshape.fill"</span><span class="p">)),</span> <span class="nv">kPISubItemType</span><span class="p">:</span> <span class="kt">KPISubitemType</span><span class="o">.</span><span class="n">icon</span><span class="p">),</span>
+    <span class="kt">KPISubItemModelImplementation</span><span class="p">(</span><span class="nv">kPISubItemValue</span><span class="p">:</span> <span class="o">.</span><span class="nf">text</span><span class="p">(</span><span class="s">"123"</span><span class="p">),</span> <span class="nv">kPISubItemType</span><span class="p">:</span> <span class="kt">KPISubitemType</span><span class="o">.</span><span class="n">metric</span><span class="p">),</span>
+    <span class="kt">KPISubItemModelImplementation</span><span class="p">(</span><span class="nv">kPISubItemValue</span><span class="p">:</span> <span class="o">.</span><span class="nf">text</span><span class="p">(</span><span class="s">"USD"</span><span class="p">),</span> <span class="nv">kPISubItemType</span><span class="p">:</span> <span class="kt">KPISubitemType</span><span class="o">.</span><span class="n">unit</span><span class="p">)</span>
+<span class="p">]</span>
+
+<span class="kt">KPIItem</span><span class="p">(</span><span class="nv">kpiCaption</span><span class="p">:</span> <span class="s">"abc"</span><span class="p">,</span> <span class="nv">items</span><span class="p">:</span> <span class="n">item</span><span class="p">,</span> <span class="nv">proposedViewSize</span><span class="p">:</span> <span class="o">.</span><span class="n">small</span><span class="p">,</span> <span class="nv">alignment</span><span class="p">:</span> <span class="o">.</span><span class="n">leading</span><span class="p">)</span>
+</code></pre>
+
+                          <a href="Structs/KPIItem.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">KPIItem</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">KPIItem</span><span class="p">:</span> <span class="kt"><a href="Protocols.html#/s:16FioriSwiftUICore18KPIHeaderItemModelP">KPIHeaderItemModel</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">KPIItem</span><span class="p">:</span> <span class="kt">View</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">KPIItem</span><span class="p">:</span> <span class="n"><a href="Protocols/_ViewEmptyChecking.html">_ViewEmptyChecking</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore15KPIProgressItemV"></a>
+                      <a name="//apple_ref/swift/Struct/KPIProgressItem" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore15KPIProgressItemV">KPIProgressItem</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p><code>KPIProgressItem</code> enables a developer to present &ldquo;KPI&rdquo; information in a formatted manner consistent with the Fiori Design Language</p>
+<h2 id='usage' class='heading'>Usage</h2>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">percentData</span> <span class="o">=</span> <span class="kt">KPIItemData</span><span class="o">.</span><span class="nf">percent</span><span class="p">(</span><span class="mf">0.65</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">fractionData</span> <span class="o">=</span> <span class="kt">KPIItemData</span><span class="o">.</span><span class="nf">fraction</span><span class="p">(</span><span class="mi">76</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="n">numberFormatterProvider</span><span class="o">.</span><span class="n">numberFormatter</span><span class="p">)</span>
+
+<span class="kt">KPIProgressItem</span><span class="p">(</span><span class="nv">kpiCaption</span><span class="p">:</span> <span class="s">"Completed"</span><span class="p">,</span> <span class="nv">data</span><span class="p">:</span> <span class="o">.</span><span class="nf">constant</span><span class="p">(</span><span class="n">percentData</span><span class="p">))</span>
+<span class="kt">KPIProgressItem</span><span class="p">(</span><span class="nv">kpiCaption</span><span class="p">:</span> <span class="s">"In progress"</span><span class="p">,</span> <span class="nv">data</span><span class="p">:</span> <span class="o">.</span><span class="nf">constant</span><span class="p">(</span><span class="n">fractionData</span><span class="p">),</span> <span class="nv">chartSize</span><span class="p">:</span> <span class="o">.</span><span class="n">small</span><span class="p">)</span>
+</code></pre>
+
+                          <a href="Structs/KPIProgressItem.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">KPIProgressItem</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">KPIProgressItem</span><span class="p">:</span> <span class="kt"><a href="Protocols.html#/s:16FioriSwiftUICore18KPIHeaderItemModelP">KPIHeaderItemModel</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">KPIProgressItem</span><span class="p">:</span> <span class="kt">View</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">KPIProgressItem</span><span class="p">:</span> <span class="n"><a href="Protocols/_ViewEmptyChecking.html">_ViewEmptyChecking</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore10_KPIHeaderV"></a>
+                      <a name="//apple_ref/swift/Struct/_KPIHeader" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore10_KPIHeaderV">_KPIHeader</a>
                       </code>
                     </div>
                     <div class="height-container">
@@ -2810,13 +2900,13 @@ Note that VisionKit doesn&rsquo;t currently provide a public API to customize th
                         <div class="abstract">
                           <p>Undocumented</p>
 
-                          <a href="Structs/KPIHeader.html" class="slightly-smaller">See more</a>
+                          <a href="Structs/_KPIHeader.html" class="slightly-smaller">See more</a>
                         </div>
                         <div class="declaration">
                           <h4>Declaration</h4>
                           <div class="language">
                             <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">KPIHeader</span><span class="o">&lt;</span><span class="kt">Content</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt">View</span> <span class="k">where</span> <span class="kt">Content</span> <span class="p">:</span> <span class="kt">View</span></code></pre>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="n">_KPIHeader</span><span class="o">&lt;</span><span class="kt">Content</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt">View</span> <span class="k">where</span> <span class="kt">Content</span> <span class="p">:</span> <span class="kt">View</span></code></pre>
 
                           </div>
                         </div>
@@ -5531,6 +5621,174 @@ Note that VisionKit doesn&rsquo;t currently provide a public API to customize th
                   <li class="item">
                     <div>
                       <code>
+                      <a name="/s:16FioriSwiftUICore18AuthInputBaseStyleV"></a>
+                      <a name="//apple_ref/swift/Struct/AuthInputBaseStyle" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore18AuthInputBaseStyleV">AuthInputBaseStyle</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/AuthInputBaseStyle.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">AuthInputBaseStyle</span> <span class="p">:</span> <span class="kt"><a href="Protocols/AuthInputStyle.html">AuthInputStyle</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore09AuthInputA5StyleV"></a>
+                      <a name="//apple_ref/swift/Struct/AuthInputFioriStyle" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore09AuthInputA5StyleV">AuthInputFioriStyle</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/AuthInputFioriStyle.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">AuthInputFioriStyle</span> <span class="p">:</span> <span class="kt"><a href="Protocols/AuthInputStyle.html">AuthInputStyle</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore23AuthenticationBaseStyleV"></a>
+                      <a name="//apple_ref/swift/Struct/AuthenticationBaseStyle" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore23AuthenticationBaseStyleV">AuthenticationBaseStyle</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/AuthenticationBaseStyle.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">AuthenticationBaseStyle</span> <span class="p">:</span> <span class="kt"><a href="Protocols/AuthenticationStyle.html">AuthenticationStyle</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="task-group">
+                <div class="task-name-container">
+                  <a name="/Basic%20Authentication%20Style"></a>
+                  <a name="//apple_ref/swift/Section/Basic Authentication Style" class="dashAnchor"></a>
+                  <div class="section-name-container">
+                    <a class="section-name-link" href="#/Basic%20Authentication%20Style"></a>
+                    <h3 class="section-name"><span>Basic Authentication Style</span>
+</h3>
+                  </div>
+                </div>
+                <ul>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore24BasicAuthenticationStyleV"></a>
+                      <a name="//apple_ref/swift/Struct/BasicAuthenticationStyle" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore24BasicAuthenticationStyleV">BasicAuthenticationStyle</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Custom style implementation for basic authentication screen
+Provides a simplified version of the authentication screen with username and password fields</p>
+
+                          <a href="Structs/BasicAuthenticationStyle.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">BasicAuthenticationStyle</span> <span class="p">:</span> <span class="kt"><a href="Protocols/AuthenticationStyle.html">AuthenticationStyle</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="task-group">
+                <div class="task-name-container">
+                  <a name="/Auth%20Text%20Field%20Style"></a>
+                  <a name="//apple_ref/swift/Section/Auth Text Field Style" class="dashAnchor"></a>
+                  <div class="section-name-container">
+                    <a class="section-name-link" href="#/Auth%20Text%20Field%20Style"></a>
+                    <h3 class="section-name"><span>Auth Text Field Style</span>
+</h3>
+                  </div>
+                </div>
+                <ul>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore18AuthTextFieldStyleV"></a>
+                      <a name="//apple_ref/swift/Struct/AuthTextFieldStyle" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore18AuthTextFieldStyleV">AuthTextFieldStyle</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Style for authentication Text fields
+Provides a standard layout for username and password Text fields</p>
+
+                          <a href="Structs/AuthTextFieldStyle.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">AuthTextFieldStyle</span> <span class="p">:</span> <span class="kt"><a href="Protocols/TextFieldFormViewStyle.html">TextFieldFormViewStyle</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
                       <a name="/s:16FioriSwiftUICore20AvatarStackBaseStyleV"></a>
                       <a name="//apple_ref/swift/Struct/AvatarStackBaseStyle" class="dashAnchor"></a>
                       <a class="token" href="#/s:16FioriSwiftUICore20AvatarStackBaseStyleV">AvatarStackBaseStyle</a>
@@ -7864,6 +8122,35 @@ Note that VisionKit doesn&rsquo;t currently provide a public API to customize th
                   <li class="item">
                     <div>
                       <code>
+                      <a name="/s:16FioriSwiftUICore25HeaderChartSeparatorStyleV"></a>
+                      <a name="//apple_ref/swift/Struct/HeaderChartSeparatorStyle" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore25HeaderChartSeparatorStyleV">HeaderChartSeparatorStyle</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Style for chart header
+Provides a standard hairline for header</p>
+
+                          <a href="Structs/HeaderChartSeparatorStyle.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">HeaderChartSeparatorStyle</span> <span class="p">:</span> <span class="kt"><a href="Protocols/HeaderChartStyle.html">HeaderChartStyle</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
                       <a name="/s:16FioriSwiftUICore19HelperTextBaseStyleV"></a>
                       <a name="//apple_ref/swift/Struct/HelperTextBaseStyle" class="dashAnchor"></a>
                       <a class="token" href="#/s:16FioriSwiftUICore19HelperTextBaseStyleV">HelperTextBaseStyle</a>
@@ -8732,6 +9019,63 @@ Note that VisionKit doesn&rsquo;t currently provide a public API to customize th
                           <div class="language">
                             <p class="aside-title">Swift</p>
                             <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">KPIContentFioriStyle</span> <span class="p">:</span> <span class="kt"><a href="Protocols/KPIContentStyle.html">KPIContentStyle</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore18KPIHeaderBaseStyleV"></a>
+                      <a name="//apple_ref/swift/Struct/KPIHeaderBaseStyle" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore18KPIHeaderBaseStyleV">KPIHeaderBaseStyle</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/KPIHeaderBaseStyle.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">KPIHeaderBaseStyle</span> <span class="p">:</span> <span class="kt"><a href="Protocols/KPIHeaderStyle.html">KPIHeaderStyle</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore23KPIHeaderSeparatorStyleV"></a>
+                      <a name="//apple_ref/swift/Struct/KPIHeaderSeparatorStyle" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore23KPIHeaderSeparatorStyleV">KPIHeaderSeparatorStyle</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Style for KPI header
+Provides a standard hairline for header</p>
+
+                          <a href="Structs/KPIHeaderSeparatorStyle.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">KPIHeaderSeparatorStyle</span> <span class="p">:</span> <span class="kt"><a href="Protocols/KPIHeaderStyle.html">KPIHeaderStyle</a></span></code></pre>
 
                           </div>
                         </div>
@@ -10411,6 +10755,35 @@ Note that VisionKit doesn&rsquo;t currently provide a public API to customize th
                   <li class="item">
                     <div>
                       <code>
+                      <a name="/s:16FioriSwiftUICore26ObjectHeaderSeparatorStyleV"></a>
+                      <a name="//apple_ref/swift/Struct/ObjectHeaderSeparatorStyle" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore26ObjectHeaderSeparatorStyleV">ObjectHeaderSeparatorStyle</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Style for object header
+Provides a standard hairline for header</p>
+
+                          <a href="Structs/ObjectHeaderSeparatorStyle.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">ObjectHeaderSeparatorStyle</span> <span class="p">:</span> <span class="kt"><a href="Protocols/ObjectHeaderStyle.html">ObjectHeaderStyle</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
                       <a name="/s:16FioriSwiftUICore19ObjectItemBaseStyleV"></a>
                       <a name="//apple_ref/swift/Struct/ObjectItemBaseStyle" class="dashAnchor"></a>
                       <a class="token" href="#/s:16FioriSwiftUICore19ObjectItemBaseStyleV">ObjectItemBaseStyle</a>
@@ -11010,6 +11383,35 @@ Note that VisionKit doesn&rsquo;t currently provide a public API to customize th
                           <div class="language">
                             <p class="aside-title">Swift</p>
                             <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">ProfileHeaderBaseStyle</span> <span class="p">:</span> <span class="kt"><a href="Protocols/ProfileHeaderStyle.html">ProfileHeaderStyle</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore27ProfileHeaderSeparatorStyleV"></a>
+                      <a name="//apple_ref/swift/Struct/ProfileHeaderSeparatorStyle" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore27ProfileHeaderSeparatorStyleV">ProfileHeaderSeparatorStyle</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Style for profile header
+Provides a standard hairline for header</p>
+
+                          <a href="Structs/ProfileHeaderSeparatorStyle.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">ProfileHeaderSeparatorStyle</span> <span class="p">:</span> <span class="kt"><a href="Protocols/ProfileHeaderStyle.html">ProfileHeaderStyle</a></span></code></pre>
 
                           </div>
                         </div>
@@ -12299,6 +12701,62 @@ Note that VisionKit doesn&rsquo;t currently provide a public API to customize th
                   <li class="item">
                     <div>
                       <code>
+                      <a name="/s:16FioriSwiftUICore21SignInActionBaseStyleV"></a>
+                      <a name="//apple_ref/swift/Struct/SignInActionBaseStyle" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore21SignInActionBaseStyleV">SignInActionBaseStyle</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/SignInActionBaseStyle.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">SignInActionBaseStyle</span> <span class="p">:</span> <span class="kt"><a href="Protocols/SignInActionStyle.html">SignInActionStyle</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore012SignInActionA5StyleV"></a>
+                      <a name="//apple_ref/swift/Struct/SignInActionFioriStyle" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore012SignInActionA5StyleV">SignInActionFioriStyle</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/SignInActionFioriStyle.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">SignInActionFioriStyle</span> <span class="p">:</span> <span class="kt"><a href="Protocols/SignInActionStyle.html">SignInActionStyle</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
                       <a name="/s:16FioriSwiftUICore20SignatureCaptureViewV"></a>
                       <a name="//apple_ref/swift/Struct/SignatureCaptureView" class="dashAnchor"></a>
                       <a class="token" href="#/s:16FioriSwiftUICore20SignatureCaptureViewV">SignatureCaptureView</a>
@@ -12646,6 +13104,35 @@ Note that VisionKit doesn&rsquo;t currently provide a public API to customize th
                           <div class="language">
                             <p class="aside-title">Swift</p>
                             <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">StepProgressIndicatorBaseStyle</span> <span class="p">:</span> <span class="kt"><a href="Protocols/StepProgressIndicatorStyle.html">StepProgressIndicatorStyle</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore35StepProgressIndicatorSeparatorStyleV"></a>
+                      <a name="//apple_ref/swift/Struct/StepProgressIndicatorSeparatorStyle" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore35StepProgressIndicatorSeparatorStyleV">StepProgressIndicatorSeparatorStyle</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Style for step progress indicator
+Provides a standard hairline</p>
+
+                          <a href="Structs/StepProgressIndicatorSeparatorStyle.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">StepProgressIndicatorSeparatorStyle</span> <span class="p">:</span> <span class="kt"><a href="Protocols/StepProgressIndicatorStyle.html">StepProgressIndicatorStyle</a></span></code></pre>
 
                           </div>
                         </div>
@@ -13410,6 +13897,34 @@ Note that VisionKit doesn&rsquo;t currently provide a public API to customize th
                   <li class="item">
                     <div>
                       <code>
+                      <a name="/s:16FioriSwiftUICore26TextInputFieldDecimalStyleV"></a>
+                      <a name="//apple_ref/swift/Struct/TextInputFieldDecimalStyle" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore26TextInputFieldDecimalStyleV">TextInputFieldDecimalStyle</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Decimal style</p>
+
+                          <a href="Structs/TextInputFieldDecimalStyle.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">TextInputFieldDecimalStyle</span> <span class="p">:</span> <span class="kt"><a href="Protocols/TextInputFieldStyle.html">TextInputFieldStyle</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
                       <a name="/s:16FioriSwiftUICore25TextInputFieldNumberStyleV"></a>
                       <a name="//apple_ref/swift/Struct/TextInputFieldNumberStyle" class="dashAnchor"></a>
                       <a class="token" href="#/s:16FioriSwiftUICore25TextInputFieldNumberStyleV">TextInputFieldNumberStyle</a>
@@ -13420,7 +13935,7 @@ Note that VisionKit doesn&rsquo;t currently provide a public API to customize th
                       <section class="section">
                         <div class="pointer"></div>
                         <div class="abstract">
-                          <p>Number style</p>
+                          <p>Integer number style</p>
 
                           <a href="Structs/TextInputFieldNumberStyle.html" class="slightly-smaller">See more</a>
                         </div>
@@ -13716,6 +14231,35 @@ Note that VisionKit doesn&rsquo;t currently provide a public API to customize th
                           <div class="language">
                             <p class="aside-title">Swift</p>
                             <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">TimelinePreviewBaseStyle</span> <span class="p">:</span> <span class="kt"><a href="Protocols/TimelinePreviewStyle.html">TimelinePreviewStyle</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore29TimelinePreviewSeparatorStyleV"></a>
+                      <a name="//apple_ref/swift/Struct/TimelinePreviewSeparatorStyle" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore29TimelinePreviewSeparatorStyleV">TimelinePreviewSeparatorStyle</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Style for timeline preview
+Provides a standard hairline for timeline preview</p>
+
+                          <a href="Structs/TimelinePreviewSeparatorStyle.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">TimelinePreviewSeparatorStyle</span> <span class="p">:</span> <span class="kt"><a href="Protocols/TimelinePreviewStyle.html">TimelinePreviewStyle</a></span></code></pre>
 
                           </div>
                         </div>
@@ -15257,20 +15801,10 @@ Note that VisionKit doesn&rsquo;t currently provide a public API to customize th
                       <section class="section">
                         <div class="pointer"></div>
                         <div class="abstract">
-                          <p><code>Attachment</code> provides thumbnail and information about an attachment.</p>
+                          <p><code>Attachment</code> is the UI component to be used by <code><a href="Structs/AttachmentGroup.html">AttachmentGroup</a></code> along with <code><a href="Structs/AttachmentButtonImage.html">AttachmentButtonImage</a></code> to support users&rsquo; operation, such as adding a photo or a file and to render attachment list.</p>
 <h2 id='usage' class='heading'>Usage</h2>
 <pre class="highlight swift"><code><span class="kt">Attachment</span> <span class="p">{</span>
-  <span class="kt">QuickLookThumbnail</span><span class="p">(</span><span class="nv">physicalUrl</span><span class="p">:</span> <span class="n">fileURL</span><span class="p">)</span>
-<span class="p">}</span> <span class="nv">attachmentTitle</span><span class="p">:</span> <span class="p">{</span>
-  <span class="kt">Text</span><span class="p">(</span><span class="s">"Leaf"</span><span class="p">)</span>
-<span class="p">}</span> <span class="nv">attachmentSubtitle</span><span class="p">:</span> <span class="p">{</span>
-  <span class="kt">Text</span><span class="p">(</span><span class="s">"15MB"</span><span class="p">)</span>
-<span class="p">}</span> <span class="nv">attachmentFootnote</span><span class="p">:</span> <span class="p">{</span>
-  <span class="kt">Text</span><span class="p">(</span><span class="s">"Aug 15, 2024"</span><span class="p">)</span>
-<span class="p">}</span>
-
-<span class="kt">Attachment</span> <span class="p">{</span>
-  <span class="kt">QuickLookThumbnail</span><span class="p">(</span><span class="nv">thumbnailImage</span><span class="p">:</span> <span class="p">:</span> <span class="kt">Image</span><span class="p">(</span><span class="nv">systemName</span><span class="p">:</span> <span class="s">"leaf"</span><span class="p">))</span>
+  <span class="kt">AttachmentThumbnail</span><span class="p">(</span><span class="nv">url</span><span class="p">:</span> <span class="n">fileURL</span><span class="p">)</span>
 <span class="p">}</span> <span class="nv">attachmentTitle</span><span class="p">:</span> <span class="p">{</span>
   <span class="kt">Text</span><span class="p">(</span><span class="s">"Leaf"</span><span class="p">)</span>
 <span class="p">}</span> <span class="nv">attachmentSubtitle</span><span class="p">:</span> <span class="p">{</span>
@@ -15375,7 +15909,27 @@ Note that VisionKit doesn&rsquo;t currently provide a public API to customize th
                       <section class="section">
                         <div class="pointer"></div>
                         <div class="abstract">
-                          <p>Undocumented</p>
+                          <p><code>AttachmentButtonImage</code> provides the default <code>Add</code> button following visual design.</p>
+<h2 id='usage' class='heading'>Usage</h2>
+<pre class="highlight swift"><code><span class="kd">@State</span> <span class="k">var</span> <span class="nv">attachments</span><span class="p">:</span> <span class="p">[</span><span class="kt">URL</span><span class="p">]</span>
+<span class="kd">@State</span> <span class="k">var</span> <span class="nv">attachmentError</span><span class="p">:</span> <span class="kt">AttributedString</span><span class="p">?</span>
+<span class="k">let</span> <span class="nv">delegate</span><span class="p">:</span> <span class="kt">AttachmentDelegate</span>
+
+<span class="kt">AttachmentGroup</span><span class="p">(</span>
+  <span class="nv">title</span><span class="p">:</span> <span class="p">{</span> <span class="kt">Text</span><span class="p">(</span><span class="s">"Attachements"</span><span class="p">)</span> <span class="p">},</span>
+  <span class="nv">attachments</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="err">$</span><span class="n">attachments</span><span class="p">,</span>
+  <span class="nv">maxCount</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+  <span class="nv">delegate</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="n">delegate</span><span class="p">,</span>
+  <span class="nv">errorMessage</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="err">$</span><span class="n">attachmentError</span><span class="p">,</span>
+  <span class="nv">operations</span><span class="p">:</span> <span class="p">{</span>
+      <span class="kt">AttachmentButtonImage</span><span class="p">()</span>
+          <span class="o">.</span><span class="n">operationsMenu</span> <span class="p">{</span>
+              <span class="kt">PhotosPickerMenuItem</span><span class="p">(</span><span class="nv">filter</span><span class="p">:</span> <span class="p">[</span><span class="o">.</span><span class="n">images</span><span class="p">])</span>
+              <span class="kt">FilesPickerMenuItem</span><span class="p">(</span><span class="nv">filter</span><span class="p">:</span> <span class="p">[</span><span class="o">.</span><span class="n">pdf</span><span class="p">,</span> <span class="o">.</span><span class="n">presentation</span><span class="p">])</span>
+          <span class="p">}</span>
+      <span class="p">}</span>
+ <span class="p">)</span>
+</code></pre>
 
                           <a href="Structs/AttachmentButtonImage.html" class="slightly-smaller">See more</a>
                         </div>
@@ -15519,9 +16073,22 @@ Note that VisionKit doesn&rsquo;t currently provide a public API to customize th
                       <section class="section">
                         <div class="pointer"></div>
                         <div class="abstract">
-                          <p><code>AttachmentGroup</code> provides thubnail and information about an attachment.</p>
+                          <p><code>AttachmentGroup</code> is the UI component for adding, removing, and rendering thumbnails and previews.</p>
 <h2 id='usage' class='heading'>Usage</h2>
-<pre class="highlight swift"><code> <span class="nv">todo</span><span class="p">:</span> <span class="n">code</span> <span class="n">here</span>
+<pre class="highlight swift"><code><span class="kt">AttachmentGroup</span><span class="p">(</span>
+  <span class="nv">title</span><span class="p">:</span> <span class="p">{</span> <span class="kt">Text</span><span class="p">(</span><span class="s">"Attachements"</span><span class="p">)</span> <span class="p">},</span>
+  <span class="nv">attachments</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="err">$</span><span class="n">attachments</span><span class="p">,</span>
+  <span class="nv">maxCount</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+  <span class="nv">delegate</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="n">delegate</span><span class="p">,</span>
+  <span class="nv">errorMessage</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="err">$</span><span class="n">attachmentError</span><span class="p">,</span>
+  <span class="nv">operations</span><span class="p">:</span> <span class="p">{</span>
+      <span class="kt">AttachmentButtonImage</span><span class="p">()</span>
+          <span class="o">.</span><span class="n">operationsMenu</span> <span class="p">{</span>
+              <span class="kt">PhotosPickerMenuItem</span><span class="p">(</span><span class="nv">filter</span><span class="p">:</span> <span class="p">[</span><span class="o">.</span><span class="n">images</span><span class="p">])</span>
+              <span class="kt">FilesPickerMenuItem</span><span class="p">(</span><span class="nv">filter</span><span class="p">:</span> <span class="p">[</span><span class="o">.</span><span class="n">pdf</span><span class="p">,</span> <span class="o">.</span><span class="n">presentation</span><span class="p">])</span>
+          <span class="p">}</span>
+      <span class="p">}</span>
+ <span class="p">)</span>
 </code></pre>
 
                           <a href="Structs/AttachmentGroup.html" class="slightly-smaller">See more</a>
@@ -15666,7 +16233,18 @@ Note that VisionKit doesn&rsquo;t currently provide a public API to customize th
                       <section class="section">
                         <div class="pointer"></div>
                         <div class="abstract">
-                          <p>Undocumented</p>
+                          <p><code>AttachmentThumbnail</code> is the UI component for rendering attachment file thumbnails asynchronously starting with static icons.</p>
+<h2 id='usage' class='heading'>Usage</h2>
+<pre class="highlight swift"><code><span class="kt">Attachment</span> <span class="p">{</span>
+  <span class="kt">AttachmentThumbnail</span><span class="p">(</span><span class="nv">url</span><span class="p">:</span> <span class="n">fileURL</span><span class="p">)</span>
+<span class="p">}</span> <span class="nv">attachmentTitle</span><span class="p">:</span> <span class="p">{</span>
+  <span class="kt">Text</span><span class="p">(</span><span class="s">"Leaf"</span><span class="p">)</span>
+<span class="p">}</span> <span class="nv">attachmentSubtitle</span><span class="p">:</span> <span class="p">{</span>
+  <span class="kt">Text</span><span class="p">(</span><span class="s">"15MB"</span><span class="p">)</span>
+<span class="p">}</span> <span class="nv">attachmentFootnote</span><span class="p">:</span> <span class="p">{</span>
+  <span class="kt">Text</span><span class="p">(</span><span class="s">"Aug 15, 2024"</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre>
 
                           <a href="Structs/AttachmentThumbnail.html" class="slightly-smaller">See more</a>
                         </div>
@@ -15849,6 +16427,187 @@ Note that VisionKit doesn&rsquo;t currently provide a public API to customize th
                           <div class="language">
                             <p class="aside-title">Swift</p>
                             <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">AttributeConfiguration</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore9AuthInputV"></a>
+                      <a name="//apple_ref/swift/Struct/AuthInput" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore9AuthInputV">AuthInput</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/AuthInput.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">AuthInput</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">AuthInput</span><span class="p">:</span> <span class="kt">View</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">AuthInput</span><span class="p">:</span> <span class="n"><a href="Protocols/_ViewEmptyChecking.html">_ViewEmptyChecking</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore22AuthInputConfigurationV"></a>
+                      <a name="//apple_ref/swift/Struct/AuthInputConfiguration" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore22AuthInputConfigurationV">AuthInputConfiguration</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/AuthInputConfiguration.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">AuthInputConfiguration</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore14AuthenticationV"></a>
+                      <a name="//apple_ref/swift/Struct/Authentication" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore14AuthenticationV">Authentication</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p><code>Authentication</code> is used to display a login screen with customizable detail image, title, subtitle, input fields and sign-in action.</p>
+<h2 id='usage' class='heading'>Usage</h2>
+<pre class="highlight swift"><code><span class="c1">// Basic usage</span>
+<span class="kd">@State</span> <span class="k">var</span> <span class="nv">password</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">""</span>
+<span class="kd">@State</span> <span class="k">var</span> <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">""</span>
+
+<span class="kt">Authentication</span><span class="p">(</span><span class="nv">detailImage</span><span class="p">:</span> <span class="p">{</span>
+    <span class="kt">Image</span><span class="p">(</span><span class="o">.</span><span class="n">illustration</span><span class="p">)</span><span class="o">.</span><span class="nf">resizable</span><span class="p">()</span><span class="o">.</span><span class="nf">aspectRatio</span><span class="p">(</span><span class="nv">contentMode</span><span class="p">:</span> <span class="o">.</span><span class="n">fit</span><span class="p">)</span>
+<span class="p">},</span> <span class="nv">title</span><span class="p">:</span> <span class="p">{</span>
+    <span class="kt">Text</span><span class="p">(</span><span class="s">"Authentication"</span><span class="p">)</span>
+<span class="p">},</span> <span class="nv">subtitle</span><span class="p">:</span> <span class="p">{</span>
+    <span class="kt">Text</span><span class="p">(</span><span class="s">"Please provide your username and password to authenticate."</span><span class="p">)</span>
+<span class="p">},</span> <span class="nv">authInput</span><span class="p">:</span> <span class="p">{</span>
+    <span class="kt">VStack</span><span class="p">(</span><span class="nv">spacing</span><span class="p">:</span> <span class="mi">16</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">TextFieldFormView</span><span class="p">(</span><span class="nv">title</span><span class="p">:</span> <span class="s">""</span><span class="p">,</span> <span class="nv">text</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="err">$</span><span class="n">name</span><span class="p">,</span> <span class="nv">placeholder</span><span class="p">:</span> <span class="s">"Enter your name"</span><span class="p">)</span>
+        <span class="kt">TextFieldFormView</span><span class="p">(</span><span class="nv">title</span><span class="p">:</span> <span class="s">""</span><span class="p">,</span> <span class="nv">text</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="err">$</span><span class="n">password</span><span class="p">,</span> <span class="nv">isSecureEnabled</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nv">placeholder</span><span class="p">:</span> <span class="s">"Enter your password"</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">},</span> <span class="nv">isDisabled</span><span class="p">:</span> <span class="n">password</span><span class="o">.</span><span class="n">isEmpty</span> <span class="o">||</span> <span class="n">name</span><span class="o">.</span><span class="n">isEmpty</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nf">print</span><span class="p">(</span><span class="s">"sign in ......"</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1">// With banner message and custom style</span>
+<span class="kt">Authentication</span><span class="p">(</span><span class="nv">detailImage</span><span class="p">:</span> <span class="p">{</span>
+    <span class="kt">Image</span><span class="p">(</span><span class="o">.</span><span class="n">illustration</span><span class="p">)</span><span class="o">.</span><span class="nf">resizable</span><span class="p">()</span><span class="o">.</span><span class="nf">aspectRatio</span><span class="p">(</span><span class="nv">contentMode</span><span class="p">:</span> <span class="o">.</span><span class="n">fit</span><span class="p">)</span>
+<span class="p">},</span> <span class="nv">title</span><span class="p">:</span> <span class="p">{</span>
+    <span class="kt">Text</span><span class="p">(</span><span class="s">"Authentication"</span><span class="p">)</span>
+<span class="p">},</span> <span class="nv">subtitle</span><span class="p">:</span> <span class="p">{</span>
+    <span class="kt">Text</span><span class="p">(</span><span class="s">"Please provide your username and password."</span><span class="p">)</span>
+<span class="p">},</span> <span class="nv">isDisabled</span><span class="p">:</span> <span class="n">password</span><span class="o">.</span><span class="n">isEmpty</span> <span class="o">||</span> <span class="n">name</span><span class="o">.</span><span class="n">isEmpty</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Handle sign in action</span>
+<span class="p">}</span>
+<span class="o">.</span><span class="nf">authenticationStyle</span><span class="p">(</span><span class="kt">BasicAuthenticationStyle</span><span class="p">(</span><span class="nv">password</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="err">$</span><span class="n">password</span><span class="p">,</span> <span class="nv">name</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="err">$</span><span class="n">name</span><span class="p">))</span>
+<span class="o">.</span><span class="nf">bannerMessageView</span><span class="p">(</span><span class="nv">isPresented</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="err">$</span><span class="n">isPresentedBanner</span><span class="p">,</span>
+                  <span class="nv">pushContentDown</span><span class="p">:</span> <span class="o">.</span><span class="nf">constant</span><span class="p">(</span><span class="kc">false</span><span class="p">),</span>
+                  <span class="nv">icon</span><span class="p">:</span> <span class="p">{</span> <span class="kt">EmptyView</span><span class="p">()</span> <span class="p">},</span>
+                  <span class="nv">title</span><span class="p">:</span> <span class="s">"Verifying..."</span><span class="p">,</span>
+                  <span class="nv">messageType</span><span class="p">:</span> <span class="o">.</span><span class="n">neutral</span><span class="p">)</span>
+</code></pre>
+
+                          <a href="Structs/Authentication.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Authentication</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Authentication</span><span class="p">:</span> <span class="kt">View</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Authentication</span><span class="p">:</span> <span class="n"><a href="Protocols/_ViewEmptyChecking.html">_ViewEmptyChecking</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore27AuthenticationConfigurationV"></a>
+                      <a name="//apple_ref/swift/Struct/AuthenticationConfiguration" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore27AuthenticationConfigurationV">AuthenticationConfiguration</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/AuthenticationConfiguration.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">AuthenticationConfiguration</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore014AuthenticationA5StyleV"></a>
+                      <a name="//apple_ref/swift/Struct/AuthenticationFioriStyle" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore014AuthenticationA5StyleV">AuthenticationFioriStyle</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/AuthenticationFioriStyle.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">AuthenticationFioriStyle</span> <span class="p">:</span> <span class="kt"><a href="Protocols/AuthenticationStyle.html">AuthenticationStyle</a></span></code></pre>
 
                           </div>
                         </div>
@@ -18030,8 +18789,8 @@ Note that VisionKit doesn&rsquo;t currently provide a public API to customize th
     <span class="n">formatter</span><span class="o">.</span><span class="n">unitOptions</span> <span class="o">=</span> <span class="o">.</span><span class="n">providedUnit</span>
     <span class="k">return</span> <span class="n">formatter</span>
 <span class="p">}</span>
-<span class="kt">DurationPicker</span><span class="p">(</span><span class="nv">selection</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="err">$</span><span class="n">selection</span><span class="p">,</span> <span class="nv">maximumMinutes</span><span class="p">:</span> <span class="mi">124</span><span class="p">,</span> <span class="nv">minimumMinutes</span><span class="p">:</span> <span class="mi">60</span><span class="p">,</span> <span class="nv">minuteInterval</span><span class="p">:</span> <span class="mi">2</span><span class="p">)</span>
-    <span class="o">.</span><span class="nf">measurementFormatter</span><span class="p">(</span><span class="k">self</span><span class="o">.</span><span class="n">formatter</span><span class="p">)</span>
+<span class="kt">DurationPicker</span><span class="p">(</span><span class="nv">title</span><span class="p">:</span> <span class="s">"Measurement Formatter"</span><span class="p">,</span> <span class="nv">selection</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="err">$</span><span class="n">selection3</span><span class="p">,</span> <span class="nv">maximumMinutes</span><span class="p">:</span> <span class="mi">124</span><span class="p">,</span> <span class="nv">minimumMinutes</span><span class="p">:</span> <span class="mi">60</span><span class="p">,</span> <span class="nv">minuteInterval</span><span class="p">:</span> <span class="mi">2</span><span class="p">)</span>
+   <span class="o">.</span><span class="nf">measurementFormatter</span><span class="p">(</span><span class="k">self</span><span class="o">.</span><span class="n">formatter</span><span class="p">)</span>
 </code></pre>
 
                           <a href="Structs/DurationPicker.html" class="slightly-smaller">See more</a>
@@ -19824,9 +20583,9 @@ Typically not used by application developer.</p>
                   <li class="item">
                     <div>
                       <code>
-                      <a name="/s:16FioriSwiftUICore7KPIItemV"></a>
-                      <a name="//apple_ref/swift/Struct/KPIItem" class="dashAnchor"></a>
-                      <a class="token" href="#/s:16FioriSwiftUICore7KPIItemV">KPIItem</a>
+                      <a name="/s:16FioriSwiftUICore9KPIHeaderV"></a>
+                      <a name="//apple_ref/swift/Struct/KPIHeader" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore9KPIHeaderV">KPIHeader</a>
                       </code>
                     </div>
                     <div class="height-container">
@@ -19834,38 +20593,83 @@ Typically not used by application developer.</p>
                       <section class="section">
                         <div class="pointer"></div>
                         <div class="abstract">
-                          <p><code>KPIItem</code> enables a developer to present &ldquo;KPI&rdquo; information in a formatted manner consistent with the Fiori Design Language.</p>
+                          <p><code>KPIHeader</code> is used to display KPIItem and KPIProgressItem.
+ The maximum number of items that can be displayed in the header is 4. If more than 4 items are provided, then only first 4 items are displayed and the rest will be ignored.
+ If the item is KPIProgressItem and the value of its property <code>chartSize</code> is <code>.small</code>, it will not be displayed, too.</p>
 <h2 id='usage' class='heading'>Usage</h2>
-<pre class="highlight swift"><code><span class="kd">struct</span> <span class="kt">KPISubItemModelImplementation</span><span class="p">:</span> <span class="kt">KPISubItemModel</span> <span class="p">{</span>
-    <span class="k">let</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">UUID</span>
-    <span class="k">let</span> <span class="nv">kPISubItemValue</span><span class="p">:</span> <span class="kt">TextOrIcon</span>
-    <span class="k">let</span> <span class="nv">kPISubItemType</span><span class="p">:</span> <span class="kt">KPISubitemType</span>
-
-    <span class="nf">init</span><span class="p">(</span><span class="nv">id</span><span class="p">:</span> <span class="kt">UUID</span> <span class="o">=</span> <span class="kt">UUID</span><span class="p">(),</span> <span class="nv">kPISubItemValue</span><span class="p">:</span> <span class="kt">TextOrIcon</span><span class="p">,</span> <span class="nv">kPISubItemType</span><span class="p">:</span> <span class="kt">KPISubitemType</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">self</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="n">id</span>
-        <span class="k">self</span><span class="o">.</span><span class="n">kPISubItemValue</span> <span class="o">=</span> <span class="n">kPISubItemValue</span>
-        <span class="k">self</span><span class="o">.</span><span class="n">kPISubItemType</span> <span class="o">=</span> <span class="n">kPISubItemType</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="kd">private</span> <span class="k">var</span> <span class="nv">item</span><span class="p">:</span> <span class="p">[</span><span class="kt">KPISubItemModelImplementation</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="kt">KPISubItemModelImplementation</span><span class="p">(</span><span class="nv">kPISubItemValue</span><span class="p">:</span> <span class="o">.</span><span class="nf">icon</span><span class="p">(</span><span class="kt">Image</span><span class="p">(</span><span class="nv">systemName</span><span class="p">:</span> <span class="s">"triangleshape.fill"</span><span class="p">)),</span> <span class="nv">kPISubItemType</span><span class="p">:</span> <span class="kt">KPISubitemType</span><span class="o">.</span><span class="n">icon</span><span class="p">),</span>
-    <span class="kt">KPISubItemModelImplementation</span><span class="p">(</span><span class="nv">kPISubItemValue</span><span class="p">:</span> <span class="o">.</span><span class="nf">text</span><span class="p">(</span><span class="s">"123"</span><span class="p">),</span> <span class="nv">kPISubItemType</span><span class="p">:</span> <span class="kt">KPISubitemType</span><span class="o">.</span><span class="n">metric</span><span class="p">),</span>
-    <span class="kt">KPISubItemModelImplementation</span><span class="p">(</span><span class="nv">kPISubItemValue</span><span class="p">:</span> <span class="o">.</span><span class="nf">text</span><span class="p">(</span><span class="s">"USD"</span><span class="p">),</span> <span class="nv">kPISubItemType</span><span class="p">:</span> <span class="kt">KPISubitemType</span><span class="o">.</span><span class="n">unit</span><span class="p">)</span>
-<span class="p">]</span>
-
-<span class="kt">KPIItem</span><span class="p">(</span><span class="nv">kpiCaption</span><span class="p">:</span> <span class="s">"abc"</span><span class="p">,</span> <span class="nv">items</span><span class="p">:</span> <span class="n">item</span><span class="p">,</span> <span class="nv">proposedViewSize</span><span class="p">:</span> <span class="o">.</span><span class="n">small</span><span class="p">,</span> <span class="nv">alignment</span><span class="p">:</span> <span class="o">.</span><span class="n">leading</span><span class="p">)</span>
+<pre class="highlight swift"><code><span class="k">var</span> <span class="nv">data</span><span class="p">:</span> <span class="p">[</span><span class="kt">KPIHeaderItemModel</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="kt">KPIItem</span><span class="p">(</span><span class="nv">kpiCaption</span><span class="p">:</span> <span class="s">"small"</span><span class="p">,</span> <span class="nv">items</span><span class="p">:</span> <span class="p">[</span><span class="kt">KPISubItemModelImpl</span><span class="p">(</span><span class="nv">kPISubItemValue</span><span class="p">:</span> <span class="o">.</span><span class="nf">text</span><span class="p">(</span><span class="s">"123"</span><span class="p">),</span> <span class="nv">kPISubItemType</span><span class="p">:</span> <span class="o">.</span><span class="n">metric</span><span class="p">)],</span> <span class="nv">proposedViewSize</span><span class="p">:</span> <span class="o">.</span><span class="n">small</span><span class="p">,</span> <span class="nv">alignment</span><span class="p">:</span> <span class="o">.</span><span class="n">center</span><span class="p">),</span>
+    <span class="kt">KPIProgressItem</span><span class="p">(</span><span class="nv">kpiCaption</span><span class="p">:</span> <span class="s">"Downloading"</span><span class="p">,</span> <span class="nv">data</span><span class="p">:</span> <span class="o">.</span><span class="nf">constant</span><span class="p">(</span><span class="kt">KPIItemData</span><span class="o">.</span><span class="nf">percent</span><span class="p">(</span><span class="mf">0.65</span><span class="p">))),</span>
+    <span class="kt">KPIItem</span><span class="p">(</span><span class="nv">kpiCaption</span><span class="p">:</span> <span class="s">"Big caption and long text"</span><span class="p">,</span> <span class="nv">items</span><span class="p">:</span> <span class="p">[</span><span class="kt">KPISubItemModelImpl</span><span class="p">(</span><span class="nv">kPISubItemValue</span><span class="p">:</span> <span class="o">.</span><span class="nf">text</span><span class="p">(</span><span class="s">"321"</span><span class="p">),</span> <span class="nv">kPISubItemType</span><span class="p">:</span> <span class="o">.</span><span class="n">metric</span><span class="p">)],</span> <span class="nv">proposedViewSize</span><span class="p">:</span> <span class="o">.</span><span class="n">large</span><span class="p">,</span> <span class="nv">alignment</span><span class="p">:</span> <span class="o">.</span><span class="n">center</span><span class="p">),</span>
+    <span class="kt">KPIProgressItem</span><span class="p">(</span><span class="nv">kpiCaption</span><span class="p">:</span> <span class="s">"Completed"</span><span class="p">,</span> <span class="nv">data</span><span class="p">:</span> <span class="o">.</span><span class="nf">constant</span><span class="p">(</span><span class="kt">KPIItemData</span><span class="o">.</span><span class="nf">percent</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)),</span> <span class="nv">chartSize</span><span class="p">:</span> <span class="o">.</span><span class="n">small</span><span class="p">)]</span>
+<span class="kt">KPIHeader</span><span class="p">(</span><span class="nv">items</span><span class="p">:</span> <span class="n">data</span><span class="p">,</span> <span class="nv">isItemOrderForced</span><span class="p">:</span> <span class="kc">false</span><span class="p">)</span>
 </code></pre>
 
-                          <a href="Structs/KPIItem.html" class="slightly-smaller">See more</a>
+                          <a href="Structs/KPIHeader.html" class="slightly-smaller">See more</a>
                         </div>
                         <div class="declaration">
                           <h4>Declaration</h4>
                           <div class="language">
                             <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">KPIItem</span></code></pre>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">KPIItem</span><span class="p">:</span> <span class="kt">View</span></code></pre>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">KPIItem</span><span class="p">:</span> <span class="n"><a href="Protocols/_ViewEmptyChecking.html">_ViewEmptyChecking</a></span></code></pre>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">KPIHeader</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">KPIHeader</span><span class="p">:</span> <span class="kt">View</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">KPIHeader</span><span class="p">:</span> <span class="n"><a href="Protocols/_ViewEmptyChecking.html">_ViewEmptyChecking</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore22KPIHeaderConfigurationV"></a>
+                      <a name="//apple_ref/swift/Struct/KPIHeaderConfiguration" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore22KPIHeaderConfigurationV">KPIHeaderConfiguration</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/KPIHeaderConfiguration.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">KPIHeaderConfiguration</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore09KPIHeaderA5StyleV"></a>
+                      <a name="//apple_ref/swift/Struct/KPIHeaderFioriStyle" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore09KPIHeaderA5StyleV">KPIHeaderFioriStyle</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/KPIHeaderFioriStyle.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">KPIHeaderFioriStyle</span> <span class="p">:</span> <span class="kt"><a href="Protocols/KPIHeaderStyle.html">KPIHeaderStyle</a></span></code></pre>
 
                           </div>
                         </div>
@@ -19922,43 +20726,6 @@ Typically not used by application developer.</p>
                           <div class="language">
                             <p class="aside-title">Swift</p>
                             <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">KPIItemFioriStyle</span> <span class="p">:</span> <span class="kt"><a href="Protocols/KPIItemStyle.html">KPIItemStyle</a></span></code></pre>
-
-                          </div>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/s:16FioriSwiftUICore15KPIProgressItemV"></a>
-                      <a name="//apple_ref/swift/Struct/KPIProgressItem" class="dashAnchor"></a>
-                      <a class="token" href="#/s:16FioriSwiftUICore15KPIProgressItemV">KPIProgressItem</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p><code>KPIProgressItem</code> enables a developer to present &ldquo;KPI&rdquo; information in a formatted manner consistent with the Fiori Design Language</p>
-<h2 id='usage' class='heading'>Usage</h2>
-<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">percentData</span> <span class="o">=</span> <span class="kt">KPIItemData</span><span class="o">.</span><span class="nf">percent</span><span class="p">(</span><span class="mf">0.65</span><span class="p">)</span>
-<span class="k">let</span> <span class="nv">fractionData</span> <span class="o">=</span> <span class="kt">KPIItemData</span><span class="o">.</span><span class="nf">fraction</span><span class="p">(</span><span class="mi">76</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="n">numberFormatterProvider</span><span class="o">.</span><span class="n">numberFormatter</span><span class="p">)</span>
-
-<span class="kt">KPIProgressItem</span><span class="p">(</span><span class="nv">kpiCaption</span><span class="p">:</span> <span class="s">"Completed"</span><span class="p">,</span> <span class="nv">data</span><span class="p">:</span> <span class="o">.</span><span class="nf">constant</span><span class="p">(</span><span class="n">percentData</span><span class="p">))</span>
-<span class="kt">KPIProgressItem</span><span class="p">(</span><span class="nv">kpiCaption</span><span class="p">:</span> <span class="s">"In progress"</span><span class="p">,</span> <span class="nv">data</span><span class="p">:</span> <span class="o">.</span><span class="nf">constant</span><span class="p">(</span><span class="n">fractionData</span><span class="p">),</span> <span class="nv">chartSize</span><span class="p">:</span> <span class="o">.</span><span class="n">small</span><span class="p">)</span>
-</code></pre>
-
-                          <a href="Structs/KPIProgressItem.html" class="slightly-smaller">See more</a>
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">KPIProgressItem</span></code></pre>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">KPIProgressItem</span><span class="p">:</span> <span class="kt">View</span></code></pre>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">KPIProgressItem</span><span class="p">:</span> <span class="n"><a href="Protocols/_ViewEmptyChecking.html">_ViewEmptyChecking</a></span></code></pre>
 
                           </div>
                         </div>
@@ -24304,6 +25071,64 @@ Typically not used by application developer.</p>
                   <li class="item">
                     <div>
                       <code>
+                      <a name="/s:16FioriSwiftUICore12SignInActionV"></a>
+                      <a name="//apple_ref/swift/Struct/SignInAction" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore12SignInActionV">SignInAction</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/SignInAction.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">SignInAction</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">SignInAction</span><span class="p">:</span> <span class="kt">View</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">SignInAction</span><span class="p">:</span> <span class="n"><a href="Protocols/_ViewEmptyChecking.html">_ViewEmptyChecking</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore25SignInActionConfigurationV"></a>
+                      <a name="//apple_ref/swift/Struct/SignInActionConfiguration" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore25SignInActionConfigurationV">SignInActionConfiguration</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/SignInActionConfiguration.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">SignInActionConfiguration</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
                       <a name="/s:16FioriSwiftUICore33SignatureCaptureViewConfigurationV"></a>
                       <a name="//apple_ref/swift/Struct/SignatureCaptureViewConfiguration" class="dashAnchor"></a>
                       <a class="token" href="#/s:16FioriSwiftUICore33SignatureCaptureViewConfigurationV">SignatureCaptureViewConfiguration</a>
@@ -27748,6 +28573,159 @@ It uses a node view and  horizontal line to present now indicator.</p>
               </div>
               <div class="task-group">
                 <div class="task-name-container">
+                  <a name="/AuthenticationStyle"></a>
+                  <a name="//apple_ref/swift/Section/AuthenticationStyle" class="dashAnchor"></a>
+                  <div class="section-name-container">
+                    <a class="section-name-link" href="#/AuthenticationStyle"></a>
+                    <h3 class="section-name"><span>AuthenticationStyle</span>
+</h3>
+                  </div>
+                </div>
+                <ul>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore30AuthenticationDetailImageStyleV"></a>
+                      <a name="//apple_ref/swift/Struct/AuthenticationDetailImageStyle" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore30AuthenticationDetailImageStyleV">AuthenticationDetailImageStyle</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/AuthenticationDetailImageStyle.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">AuthenticationDetailImageStyle</span> <span class="p">:</span> <span class="kt"><a href="Protocols/AuthenticationStyle.html">AuthenticationStyle</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore24AuthenticationTitleStyleV"></a>
+                      <a name="//apple_ref/swift/Struct/AuthenticationTitleStyle" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore24AuthenticationTitleStyleV">AuthenticationTitleStyle</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/AuthenticationTitleStyle.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">AuthenticationTitleStyle</span> <span class="p">:</span> <span class="kt"><a href="Protocols/AuthenticationStyle.html">AuthenticationStyle</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore27AuthenticationSubtitleStyleV"></a>
+                      <a name="//apple_ref/swift/Struct/AuthenticationSubtitleStyle" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore27AuthenticationSubtitleStyleV">AuthenticationSubtitleStyle</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/AuthenticationSubtitleStyle.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">AuthenticationSubtitleStyle</span> <span class="p">:</span> <span class="kt"><a href="Protocols/AuthenticationStyle.html">AuthenticationStyle</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore28AuthenticationAuthInputStyleV"></a>
+                      <a name="//apple_ref/swift/Struct/AuthenticationAuthInputStyle" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore28AuthenticationAuthInputStyleV">AuthenticationAuthInputStyle</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/AuthenticationAuthInputStyle.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">AuthenticationAuthInputStyle</span> <span class="p">:</span> <span class="kt"><a href="Protocols/AuthenticationStyle.html">AuthenticationStyle</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore31AuthenticationSignInActionStyleV"></a>
+                      <a name="//apple_ref/swift/Struct/AuthenticationSignInActionStyle" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore31AuthenticationSignInActionStyleV">AuthenticationSignInActionStyle</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/AuthenticationSignInActionStyle.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">AuthenticationSignInActionStyle</span> <span class="p">:</span> <span class="kt"><a href="Protocols/AuthenticationStyle.html">AuthenticationStyle</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="task-group">
+                <div class="task-name-container">
                   <a name="/AvatarStackStyle"></a>
                   <a name="//apple_ref/swift/Section/AvatarStackStyle" class="dashAnchor"></a>
                   <div class="section-name-container">
@@ -29854,6 +30832,103 @@ It uses a node view and  horizontal line to present now indicator.</p>
                           <div class="language">
                             <p class="aside-title">Swift</p>
                             <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">DimensionSegmentTitleStyle</span> <span class="p">:</span> <span class="kt"><a href="Protocols/DimensionSegmentStyle.html">DimensionSegmentStyle</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="task-group">
+                <div class="task-name-container">
+                  <a name="/DurationPickerStyle"></a>
+                  <a name="//apple_ref/swift/Section/DurationPickerStyle" class="dashAnchor"></a>
+                  <div class="section-name-container">
+                    <a class="section-name-link" href="#/DurationPickerStyle"></a>
+                    <h3 class="section-name"><span>DurationPickerStyle</span>
+</h3>
+                  </div>
+                </div>
+                <ul>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore24DurationPickerTitleStyleV"></a>
+                      <a name="//apple_ref/swift/Struct/DurationPickerTitleStyle" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore24DurationPickerTitleStyleV">DurationPickerTitleStyle</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/DurationPickerTitleStyle.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">DurationPickerTitleStyle</span> <span class="p">:</span> <span class="kt"><a href="Protocols/DurationPickerStyle.html">DurationPickerStyle</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore29DurationPickerValueLabelStyleV"></a>
+                      <a name="//apple_ref/swift/Struct/DurationPickerValueLabelStyle" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore29DurationPickerValueLabelStyleV">DurationPickerValueLabelStyle</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/DurationPickerValueLabelStyle.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">DurationPickerValueLabelStyle</span> <span class="p">:</span> <span class="kt"><a href="Protocols/DurationPickerStyle.html">DurationPickerStyle</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore27DurationPickerFormViewStyleV"></a>
+                      <a name="//apple_ref/swift/Struct/DurationPickerFormViewStyle" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore27DurationPickerFormViewStyleV">DurationPickerFormViewStyle</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/DurationPickerFormViewStyle.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">DurationPickerFormViewStyle</span> <span class="p">:</span> <span class="kt"><a href="Protocols/DurationPickerStyle.html">DurationPickerStyle</a></span></code></pre>
 
                           </div>
                         </div>
@@ -36706,6 +37781,8 @@ It uses a node view and  horizontal line to present now indicator.</p>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ModifiedStyle</span><span class="p">:</span> <span class="kt"><a href="Protocols/AttachmentThumbnailStyle.html">AttachmentThumbnailStyle</a></span> <span class="k">where</span> <span class="kt">Style</span><span class="p">:</span> <span class="kt"><a href="Protocols/AttachmentThumbnailStyle.html">AttachmentThumbnailStyle</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ModifiedStyle</span><span class="p">:</span> <span class="kt"><a href="Protocols/AttachmentTitleStyle.html">AttachmentTitleStyle</a></span> <span class="k">where</span> <span class="kt">Style</span><span class="p">:</span> <span class="kt"><a href="Protocols/AttachmentTitleStyle.html">AttachmentTitleStyle</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ModifiedStyle</span><span class="p">:</span> <span class="kt"><a href="Protocols/AttributeStyle.html">AttributeStyle</a></span> <span class="k">where</span> <span class="kt">Style</span><span class="p">:</span> <span class="kt"><a href="Protocols/AttributeStyle.html">AttributeStyle</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ModifiedStyle</span><span class="p">:</span> <span class="kt"><a href="Protocols/AuthInputStyle.html">AuthInputStyle</a></span> <span class="k">where</span> <span class="kt">Style</span><span class="p">:</span> <span class="kt"><a href="Protocols/AuthInputStyle.html">AuthInputStyle</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ModifiedStyle</span><span class="p">:</span> <span class="kt"><a href="Protocols/AuthenticationStyle.html">AuthenticationStyle</a></span> <span class="k">where</span> <span class="kt">Style</span><span class="p">:</span> <span class="kt"><a href="Protocols/AuthenticationStyle.html">AuthenticationStyle</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ModifiedStyle</span><span class="p">:</span> <span class="kt"><a href="Protocols/AvatarStackStyle.html">AvatarStackStyle</a></span> <span class="k">where</span> <span class="kt">Style</span><span class="p">:</span> <span class="kt"><a href="Protocols/AvatarStackStyle.html">AvatarStackStyle</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ModifiedStyle</span><span class="p">:</span> <span class="kt"><a href="Protocols/AvatarsStyle.html">AvatarsStyle</a></span> <span class="k">where</span> <span class="kt">Style</span><span class="p">:</span> <span class="kt"><a href="Protocols/AvatarsStyle.html">AvatarsStyle</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ModifiedStyle</span><span class="p">:</span> <span class="kt"><a href="Protocols/AvatarsTitleStyle.html">AvatarsTitleStyle</a></span> <span class="k">where</span> <span class="kt">Style</span><span class="p">:</span> <span class="kt"><a href="Protocols/AvatarsTitleStyle.html">AvatarsTitleStyle</a></span></code></pre>
@@ -36762,6 +37839,7 @@ It uses a node view and  horizontal line to present now indicator.</p>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ModifiedStyle</span><span class="p">:</span> <span class="kt"><a href="Protocols/InnerCircleStyle.html">InnerCircleStyle</a></span> <span class="k">where</span> <span class="kt">Style</span><span class="p">:</span> <span class="kt"><a href="Protocols/InnerCircleStyle.html">InnerCircleStyle</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ModifiedStyle</span><span class="p">:</span> <span class="kt"><a href="Protocols/JouleWelcomeScreenStyle.html">JouleWelcomeScreenStyle</a></span> <span class="k">where</span> <span class="kt">Style</span><span class="p">:</span> <span class="kt"><a href="Protocols/JouleWelcomeScreenStyle.html">JouleWelcomeScreenStyle</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ModifiedStyle</span><span class="p">:</span> <span class="kt"><a href="Protocols/KPIContentStyle.html">KPIContentStyle</a></span> <span class="k">where</span> <span class="kt">Style</span><span class="p">:</span> <span class="kt"><a href="Protocols/KPIContentStyle.html">KPIContentStyle</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ModifiedStyle</span><span class="p">:</span> <span class="kt"><a href="Protocols/KPIHeaderStyle.html">KPIHeaderStyle</a></span> <span class="k">where</span> <span class="kt">Style</span><span class="p">:</span> <span class="kt"><a href="Protocols/KPIHeaderStyle.html">KPIHeaderStyle</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ModifiedStyle</span><span class="p">:</span> <span class="kt"><a href="Protocols/KPIItemStyle.html">KPIItemStyle</a></span> <span class="k">where</span> <span class="kt">Style</span><span class="p">:</span> <span class="kt"><a href="Protocols/KPIItemStyle.html">KPIItemStyle</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ModifiedStyle</span><span class="p">:</span> <span class="kt"><a href="Protocols/KPIProgressItemStyle.html">KPIProgressItemStyle</a></span> <span class="k">where</span> <span class="kt">Style</span><span class="p">:</span> <span class="kt"><a href="Protocols/KPIProgressItemStyle.html">KPIProgressItemStyle</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ModifiedStyle</span><span class="p">:</span> <span class="kt"><a href="Protocols/KPISubItemStyle.html">KPISubItemStyle</a></span> <span class="k">where</span> <span class="kt">Style</span><span class="p">:</span> <span class="kt"><a href="Protocols/KPISubItemStyle.html">KPISubItemStyle</a></span></code></pre>
@@ -36826,6 +37904,7 @@ It uses a node view and  horizontal line to present now indicator.</p>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ModifiedStyle</span><span class="p">:</span> <span class="kt"><a href="Protocols/SelectedEntriesSectionTitleStyle.html">SelectedEntriesSectionTitleStyle</a></span> <span class="k">where</span> <span class="kt">Style</span><span class="p">:</span> <span class="kt"><a href="Protocols/SelectedEntriesSectionTitleStyle.html">SelectedEntriesSectionTitleStyle</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ModifiedStyle</span><span class="p">:</span> <span class="kt"><a href="Protocols/SideBarStyle.html">SideBarStyle</a></span> <span class="k">where</span> <span class="kt">Style</span><span class="p">:</span> <span class="kt"><a href="Protocols/SideBarStyle.html">SideBarStyle</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ModifiedStyle</span><span class="p">:</span> <span class="kt"><a href="Protocols/SideBarListItemStyle.html">SideBarListItemStyle</a></span> <span class="k">where</span> <span class="kt">Style</span><span class="p">:</span> <span class="kt"><a href="Protocols/SideBarListItemStyle.html">SideBarListItemStyle</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ModifiedStyle</span><span class="p">:</span> <span class="kt"><a href="Protocols/SignInActionStyle.html">SignInActionStyle</a></span> <span class="k">where</span> <span class="kt">Style</span><span class="p">:</span> <span class="kt"><a href="Protocols/SignInActionStyle.html">SignInActionStyle</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ModifiedStyle</span><span class="p">:</span> <span class="kt"><a href="Protocols/SignatureCaptureViewStyle.html">SignatureCaptureViewStyle</a></span> <span class="k">where</span> <span class="kt">Style</span><span class="p">:</span> <span class="kt"><a href="Protocols/SignatureCaptureViewStyle.html">SignatureCaptureViewStyle</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ModifiedStyle</span><span class="p">:</span> <span class="kt"><a href="Protocols/SingleStepStyle.html">SingleStepStyle</a></span> <span class="k">where</span> <span class="kt">Style</span><span class="p">:</span> <span class="kt"><a href="Protocols/SingleStepStyle.html">SingleStepStyle</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ModifiedStyle</span><span class="p">:</span> <span class="kt"><a href="Protocols/SortFilterViewStyle.html">SortFilterViewStyle</a></span> <span class="k">where</span> <span class="kt">Style</span><span class="p">:</span> <span class="kt"><a href="Protocols/SortFilterViewStyle.html">SortFilterViewStyle</a></span></code></pre>
@@ -37608,6 +38687,88 @@ It uses a node view and  horizontal line to present now indicator.</p>
                           <div class="language">
                             <p class="aside-title">Swift</p>
                             <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">AttributeStyleModifier</span><span class="o">&lt;</span><span class="kt">Style</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt">ViewModifier</span> <span class="k">where</span> <span class="kt">Style</span> <span class="p">:</span> <span class="kt"><a href="Protocols/AttributeStyle.html">AttributeStyle</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="task-group">
+                <div class="task-name-container">
+                  <a name="/AuthInputStyle"></a>
+                  <a name="//apple_ref/swift/Section/AuthInputStyle" class="dashAnchor"></a>
+                  <div class="section-name-container">
+                    <a class="section-name-link" href="#/AuthInputStyle"></a>
+                    <h3 class="section-name"><span>AuthInputStyle</span>
+</h3>
+                  </div>
+                </div>
+                <ul>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore22AuthInputStyleModifierV"></a>
+                      <a name="//apple_ref/swift/Struct/AuthInputStyleModifier" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore22AuthInputStyleModifierV">AuthInputStyleModifier</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/AuthInputStyleModifier.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">AuthInputStyleModifier</span><span class="o">&lt;</span><span class="kt">Style</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt">ViewModifier</span> <span class="k">where</span> <span class="kt">Style</span> <span class="p">:</span> <span class="kt"><a href="Protocols/AuthInputStyle.html">AuthInputStyle</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="task-group">
+                <div class="task-name-container">
+                  <a name="/AuthenticationStyle2"></a>
+                  <a name="//apple_ref/swift/Section/AuthenticationStyle" class="dashAnchor"></a>
+                  <div class="section-name-container">
+                    <a class="section-name-link" href="#/AuthenticationStyle2"></a>
+                    <h3 class="section-name"><span>AuthenticationStyle</span>
+</h3>
+                  </div>
+                </div>
+                <ul>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore27AuthenticationStyleModifierV"></a>
+                      <a name="//apple_ref/swift/Struct/AuthenticationStyleModifier" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore27AuthenticationStyleModifierV">AuthenticationStyleModifier</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/AuthenticationStyleModifier.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">AuthenticationStyleModifier</span><span class="o">&lt;</span><span class="kt">Style</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt">ViewModifier</span> <span class="k">where</span> <span class="kt">Style</span> <span class="p">:</span> <span class="kt"><a href="Protocols/AuthenticationStyle.html">AuthenticationStyle</a></span></code></pre>
 
                           </div>
                         </div>
@@ -38848,10 +40009,10 @@ It uses a node view and  horizontal line to present now indicator.</p>
               </div>
               <div class="task-group">
                 <div class="task-name-container">
-                  <a name="/DurationPickerStyle"></a>
+                  <a name="/DurationPickerStyle2"></a>
                   <a name="//apple_ref/swift/Section/DurationPickerStyle" class="dashAnchor"></a>
                   <div class="section-name-container">
-                    <a class="section-name-link" href="#/DurationPickerStyle"></a>
+                    <a class="section-name-link" href="#/DurationPickerStyle2"></a>
                     <h3 class="section-name"><span>DurationPickerStyle</span>
 </h3>
                   </div>
@@ -39904,6 +41065,47 @@ It uses a node view and  horizontal line to present now indicator.</p>
                           <div class="language">
                             <p class="aside-title">Swift</p>
                             <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">KPIContentStyleModifier</span><span class="o">&lt;</span><span class="kt">Style</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt">ViewModifier</span> <span class="k">where</span> <span class="kt">Style</span> <span class="p">:</span> <span class="kt"><a href="Protocols/KPIContentStyle.html">KPIContentStyle</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="task-group">
+                <div class="task-name-container">
+                  <a name="/KPIHeaderStyle"></a>
+                  <a name="//apple_ref/swift/Section/KPIHeaderStyle" class="dashAnchor"></a>
+                  <div class="section-name-container">
+                    <a class="section-name-link" href="#/KPIHeaderStyle"></a>
+                    <h3 class="section-name"><span>KPIHeaderStyle</span>
+</h3>
+                  </div>
+                </div>
+                <ul>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore22KPIHeaderStyleModifierV"></a>
+                      <a name="//apple_ref/swift/Struct/KPIHeaderStyleModifier" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore22KPIHeaderStyleModifierV">KPIHeaderStyleModifier</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/KPIHeaderStyleModifier.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">KPIHeaderStyleModifier</span><span class="o">&lt;</span><span class="kt">Style</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt">ViewModifier</span> <span class="k">where</span> <span class="kt">Style</span> <span class="p">:</span> <span class="kt"><a href="Protocols/KPIHeaderStyle.html">KPIHeaderStyle</a></span></code></pre>
 
                           </div>
                         </div>
@@ -42538,6 +43740,47 @@ It uses a node view and  horizontal line to present now indicator.</p>
               </div>
               <div class="task-group">
                 <div class="task-name-container">
+                  <a name="/SignInActionStyle"></a>
+                  <a name="//apple_ref/swift/Section/SignInActionStyle" class="dashAnchor"></a>
+                  <div class="section-name-container">
+                    <a class="section-name-link" href="#/SignInActionStyle"></a>
+                    <h3 class="section-name"><span>SignInActionStyle</span>
+</h3>
+                  </div>
+                </div>
+                <ul>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore25SignInActionStyleModifierV"></a>
+                      <a name="//apple_ref/swift/Struct/SignInActionStyleModifier" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore25SignInActionStyleModifierV">SignInActionStyleModifier</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/SignInActionStyleModifier.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">SignInActionStyleModifier</span><span class="o">&lt;</span><span class="kt">Style</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt">ViewModifier</span> <span class="k">where</span> <span class="kt">Style</span> <span class="p">:</span> <span class="kt"><a href="Protocols/SignInActionStyle.html">SignInActionStyle</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="task-group">
+                <div class="task-name-container">
                   <a name="/SignatureCaptureViewStyle2"></a>
                   <a name="//apple_ref/swift/Section/SignatureCaptureViewStyle" class="dashAnchor"></a>
                   <div class="section-name-container">
@@ -44700,6 +45943,12 @@ It uses a node view and  horizontal line to present now indicator.</p>
                   <a href="Protocols/AttributeStyle.html">AttributeStyle</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="Protocols/AuthInputStyle.html">AuthInputStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Protocols/AuthenticationStyle.html">AuthenticationStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="Protocols.html#/s:16FioriSwiftUICore16AvatarStackModelP">AvatarStackModel</a>
                 </li>
                 <li class="nav-group-task">
@@ -44938,6 +46187,9 @@ It uses a node view and  horizontal line to present now indicator.</p>
                 </li>
                 <li class="nav-group-task">
                   <a href="Protocols.html#/s:16FioriSwiftUICore18KPIHeaderItemModelP">KPIHeaderItemModel</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Protocols/KPIHeaderStyle.html">KPIHeaderStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="Protocols/KPIItemStyle.html">KPIItemStyle</a>
@@ -45196,6 +46448,9 @@ It uses a node view and  horizontal line to present now indicator.</p>
                 </li>
                 <li class="nav-group-task">
                   <a href="Protocols/SideBarStyle.html">SideBarStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Protocols/SignInActionStyle.html">SignInActionStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="Protocols/SignatureCaptureViewStyle.html">SignatureCaptureViewStyle</a>
@@ -45833,6 +47088,54 @@ It uses a node view and  horizontal line to present now indicator.</p>
                   <a href="Structs/AttributedText.html">AttributedText</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="Structs/AuthInput.html">AuthInput</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/AuthInputBaseStyle.html">AuthInputBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/AuthInputConfiguration.html">AuthInputConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/AuthInputFioriStyle.html">AuthInputFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/AuthInputStyleModifier.html">AuthInputStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/AuthTextFieldStyle.html">AuthTextFieldStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/Authentication.html">Authentication</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/AuthenticationAuthInputStyle.html">AuthenticationAuthInputStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/AuthenticationBaseStyle.html">AuthenticationBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/AuthenticationConfiguration.html">AuthenticationConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/AuthenticationDetailImageStyle.html">AuthenticationDetailImageStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/AuthenticationFioriStyle.html">AuthenticationFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/AuthenticationSignInActionStyle.html">AuthenticationSignInActionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/AuthenticationStyleModifier.html">AuthenticationStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/AuthenticationSubtitleStyle.html">AuthenticationSubtitleStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/AuthenticationTitleStyle.html">AuthenticationTitleStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="Structs/AvatarStack.html">AvatarStack</a>
                 </li>
                 <li class="nav-group-task">
@@ -45933,6 +47236,9 @@ It uses a node view and  horizontal line to present now indicator.</p>
                 </li>
                 <li class="nav-group-task">
                   <a href="Structs/BannerMultiMessageSheetTitleStyle.html">BannerMultiMessageSheetTitleStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/BasicAuthenticationStyle.html">BasicAuthenticationStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="Structs/BodyText.html">BodyText</a>
@@ -46601,7 +47907,16 @@ It uses a node view and  horizontal line to present now indicator.</p>
                   <a href="Structs/DurationPickerFioriStyle.html">DurationPickerFioriStyle</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="Structs/DurationPickerFormViewStyle.html">DurationPickerFormViewStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="Structs/DurationPickerStyleModifier.html">DurationPickerStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/DurationPickerTitleStyle.html">DurationPickerTitleStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/DurationPickerValueLabelStyle.html">DurationPickerValueLabelStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="Structs/EULAView.html">EULAView</a>
@@ -46973,6 +48288,9 @@ It uses a node view and  horizontal line to present now indicator.</p>
                   <a href="Structs/HeaderChartKpiStyle.html">HeaderChartKpiStyle</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="Structs/HeaderChartSeparatorStyle.html">HeaderChartSeparatorStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="Structs/HeaderChartStyleModifier.html">HeaderChartStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
@@ -47226,6 +48544,21 @@ It uses a node view and  horizontal line to present now indicator.</p>
                 </li>
                 <li class="nav-group-task">
                   <a href="Structs/KPIHeader.html">KPIHeader</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/KPIHeaderBaseStyle.html">KPIHeaderBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/KPIHeaderConfiguration.html">KPIHeaderConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/KPIHeaderFioriStyle.html">KPIHeaderFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/KPIHeaderSeparatorStyle.html">KPIHeaderSeparatorStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/KPIHeaderStyleModifier.html">KPIHeaderStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="Structs/KPIItem.html">KPIItem</a>
@@ -47840,6 +49173,9 @@ It uses a node view and  horizontal line to present now indicator.</p>
                   <a href="Structs/ObjectHeaderFootnoteStyle.html">ObjectHeaderFootnoteStyle</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="Structs/ObjectHeaderSeparatorStyle.html">ObjectHeaderSeparatorStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="Structs/ObjectHeaderStatusStyle.html">ObjectHeaderStatusStyle</a>
                 </li>
                 <li class="nav-group-task">
@@ -48135,6 +49471,9 @@ It uses a node view and  horizontal line to present now indicator.</p>
                 </li>
                 <li class="nav-group-task">
                   <a href="Structs/ProfileHeaderFioriStyle.html">ProfileHeaderFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/ProfileHeaderSeparatorStyle.html">ProfileHeaderSeparatorStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="Structs/ProfileHeaderStyleModifier.html">ProfileHeaderStyleModifier</a>
@@ -48611,6 +49950,21 @@ It uses a node view and  horizontal line to present now indicator.</p>
                   <a href="Structs/SideBarStyleModifier.html">SideBarStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="Structs/SignInAction.html">SignInAction</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/SignInActionBaseStyle.html">SignInActionBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/SignInActionConfiguration.html">SignInActionConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/SignInActionFioriStyle.html">SignInActionFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/SignInActionStyleModifier.html">SignInActionStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="Structs/SignatureCaptureView.html">SignatureCaptureView</a>
                 </li>
                 <li class="nav-group-task">
@@ -48786,6 +50140,9 @@ It uses a node view and  horizontal line to present now indicator.</p>
                 </li>
                 <li class="nav-group-task">
                   <a href="Structs/StepProgressIndicatorFioriStyle.html">StepProgressIndicatorFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/StepProgressIndicatorSeparatorStyle.html">StepProgressIndicatorSeparatorStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="Structs/StepProgressIndicatorState.html">StepProgressIndicatorState</a>
@@ -49043,6 +50400,9 @@ It uses a node view and  horizontal line to present now indicator.</p>
                   <a href="Structs/TextInputFieldConfiguration.html">TextInputFieldConfiguration</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="Structs/TextInputFieldDecimalStyle.html">TextInputFieldDecimalStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="Structs/TextInputFieldFioriStyle.html">TextInputFieldFioriStyle</a>
                 </li>
                 <li class="nav-group-task">
@@ -49203,6 +50563,9 @@ It uses a node view and  horizontal line to present now indicator.</p>
                 </li>
                 <li class="nav-group-task">
                   <a href="Structs/TimelinePreviewOptionalTitleStyle.html">TimelinePreviewOptionalTitleStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/TimelinePreviewSeparatorStyle.html">TimelinePreviewSeparatorStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="Structs/TimelinePreviewStyleModifier.html">TimelinePreviewStyleModifier</a>
@@ -49652,6 +51015,9 @@ It uses a node view and  horizontal line to present now indicator.</p>
                   <a href="Structs/_HeaderChart.html">_HeaderChart</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="Structs/_KPIHeader.html">_KPIHeader</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="Structs/_KPIItem.html">_KPIItem</a>
                 </li>
                 <li class="nav-group-task">
@@ -49760,7 +51126,7 @@ It uses a node view and  horizontal line to present now indicator.</p>
       </div>
       <div class="footer-wrapper">
         <section id="footer">
-          <p>&copy; 2025 <a class="link" href="https://www.sap.com" target="_blank" rel="external noopener">SAP SE</a>. All rights reserved. (Last updated: 2025-04-10)</p>
+          <p>&copy; 2025 <a class="link" href="https://www.sap.com" target="_blank" rel="external noopener">SAP SE</a>. All rights reserved. (Last updated: 2025-04-25)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </div>
