@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [25.4.1](https://github.com/SAP/cloud-sdk-ios-fiori/compare/25.4.1-20250425...25.4.1) (2025-04-25)
+
 ## [25.4.0](https://github.com/SAP/cloud-sdk-ios-fiori/compare/4.4.0-20250407...25.4.0) (2025-04-10)
 
 
