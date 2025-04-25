@@ -51,22 +51,9 @@
 
                   </div>
                 </div>
-              <p><code>AttachmentGroup</code> is the UI component for adding, removing, and rendering thumbnails and previews.</p>
+              <p><code>AttachmentGroup</code> provides thubnail and information about an attachment.</p>
 <h2 id='usage' class='heading'>Usage</h2>
-<pre class="highlight swift"><code><span class="kt">AttachmentGroup</span><span class="p">(</span>
-  <span class="nv">title</span><span class="p">:</span> <span class="p">{</span> <span class="kt">Text</span><span class="p">(</span><span class="s">"Attachements"</span><span class="p">)</span> <span class="p">},</span>
-  <span class="nv">attachments</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="err">$</span><span class="n">attachments</span><span class="p">,</span>
-  <span class="nv">maxCount</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
-  <span class="nv">delegate</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="n">delegate</span><span class="p">,</span>
-  <span class="nv">errorMessage</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="err">$</span><span class="n">attachmentError</span><span class="p">,</span>
-  <span class="nv">operations</span><span class="p">:</span> <span class="p">{</span>
-      <span class="kt">AttachmentButtonImage</span><span class="p">()</span>
-          <span class="o">.</span><span class="n">operationsMenu</span> <span class="p">{</span>
-              <span class="kt">PhotosPickerMenuItem</span><span class="p">(</span><span class="nv">filter</span><span class="p">:</span> <span class="p">[</span><span class="o">.</span><span class="n">images</span><span class="p">])</span>
-              <span class="kt">FilesPickerMenuItem</span><span class="p">(</span><span class="nv">filter</span><span class="p">:</span> <span class="p">[</span><span class="o">.</span><span class="n">pdf</span><span class="p">,</span> <span class="o">.</span><span class="n">presentation</span><span class="p">])</span>
-          <span class="p">}</span>
-      <span class="p">}</span>
- <span class="p">)</span>
+<pre class="highlight swift"><code> <span class="nv">todo</span><span class="p">:</span> <span class="n">code</span> <span class="n">here</span>
 </code></pre>
 
             </section>
@@ -138,9 +125,9 @@
                   <li class="item">
                     <div>
                       <code>
-                      <a name="/s:16FioriSwiftUICore15AttachmentGroupV5title23mandatoryFieldIndicator10isRequired11attachments8maxCount8delegate12controlState12errorMessage10operations9onPreviewAC10Foundation16AttributedStringV_AA10TextOrIconOSgSb0B2UI7BindingVySayAN3URLVGGSiSgAA0D8Delegate_pAA07ControlQ0VAVyAPSgGAT4View_pyXEyAXcSgtcfc"></a>
-                      <a name="//apple_ref/swift/Method/init(title:mandatoryFieldIndicator:isRequired:attachments:maxCount:delegate:controlState:errorMessage:operations:onPreview:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:16FioriSwiftUICore15AttachmentGroupV5title23mandatoryFieldIndicator10isRequired11attachments8maxCount8delegate12controlState12errorMessage10operations9onPreviewAC10Foundation16AttributedStringV_AA10TextOrIconOSgSb0B2UI7BindingVySayAN3URLVGGSiSgAA0D8Delegate_pAA07ControlQ0VAVyAPSgGAT4View_pyXEyAXcSgtcfc">init(title:<wbr>mandatoryFieldIndicator:<wbr>isRequired:<wbr>attachments:<wbr>maxCount:<wbr>delegate:<wbr>controlState:<wbr>errorMessage:<wbr>operations:<wbr>onPreview:<wbr>)</a>
+                      <a name="/s:16FioriSwiftUICore15AttachmentGroupV5title11attachments8maxCount8delegate12controlState12errorMessage10operations9onPreviewAC10Foundation16AttributedStringV_0B2UI7BindingVySayAL3URLVGGSiSgAA0D8Delegate_pAA07ControlL0VAQyANSgGAO4View_pyXEyAScSgtcfc"></a>
+                      <a name="//apple_ref/swift/Method/init(title:attachments:maxCount:delegate:controlState:errorMessage:operations:onPreview:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore15AttachmentGroupV5title11attachments8maxCount8delegate12controlState12errorMessage10operations9onPreviewAC10Foundation16AttributedStringV_0B2UI7BindingVySayAL3URLVGGSiSgAA0D8Delegate_pAA07ControlL0VAQyANSgGAO4View_pyXEyAScSgtcfc">init(title:<wbr>attachments:<wbr>maxCount:<wbr>delegate:<wbr>controlState:<wbr>errorMessage:<wbr>operations:<wbr>onPreview:<wbr>)</a>
                       </code>
                     </div>
                     <div class="height-container">
@@ -156,8 +143,6 @@
                           <div class="language">
                             <p class="aside-title">Swift</p>
                             <pre class="highlight swift"><code><span class="nf">init</span><span class="p">(</span><span class="nv">title</span><span class="p">:</span> <span class="kt">AttributedString</span><span class="p">,</span>
-     <span class="nv">mandatoryFieldIndicator</span><span class="p">:</span> <span class="kt"><a href="../Enums/TextOrIcon.html">TextOrIcon</a></span><span class="p">?</span> <span class="o">=</span> <span class="o">.</span><span class="nf">text</span><span class="p">(</span><span class="s">"*"</span><span class="p">),</span>
-     <span class="nv">isRequired</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
      <span class="nv">attachments</span><span class="p">:</span> <span class="kt">Binding</span><span class="o">&lt;</span><span class="p">[</span><span class="kt">URL</span><span class="p">]</span><span class="o">&gt;</span><span class="p">,</span>
      <span class="nv">maxCount</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
      <span class="nv">delegate</span><span class="p">:</span> <span class="kt"><a href="../Protocols/AttachmentDelegate.html">AttachmentDelegate</a></span> <span class="o">=</span> <span class="kt"><a href="../Classes/BasicAttachmentDelegate.html">BasicAttachmentDelegate</a></span><span class="p">(),</span>
@@ -613,12 +598,6 @@
                   <a href="../Protocols/AttributeStyle.html">AttributeStyle</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Protocols/AuthInputStyle.html">AuthInputStyle</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Protocols/AuthenticationStyle.html">AuthenticationStyle</a>
-                </li>
-                <li class="nav-group-task">
                   <a href="../Protocols.html#/s:16FioriSwiftUICore16AvatarStackModelP">AvatarStackModel</a>
                 </li>
                 <li class="nav-group-task">
@@ -857,9 +836,6 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols.html#/s:16FioriSwiftUICore18KPIHeaderItemModelP">KPIHeaderItemModel</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Protocols/KPIHeaderStyle.html">KPIHeaderStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/KPIItemStyle.html">KPIItemStyle</a>
@@ -1118,9 +1094,6 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/SideBarStyle.html">SideBarStyle</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Protocols/SignInActionStyle.html">SignInActionStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/SignatureCaptureViewStyle.html">SignatureCaptureViewStyle</a>
@@ -1758,54 +1731,6 @@
                   <a href="../Structs/AttributedText.html">AttributedText</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Structs/AuthInput.html">AuthInput</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/AuthInputBaseStyle.html">AuthInputBaseStyle</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/AuthInputConfiguration.html">AuthInputConfiguration</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/AuthInputFioriStyle.html">AuthInputFioriStyle</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/AuthInputStyleModifier.html">AuthInputStyleModifier</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/AuthTextFieldStyle.html">AuthTextFieldStyle</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/Authentication.html">Authentication</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/AuthenticationAuthInputStyle.html">AuthenticationAuthInputStyle</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/AuthenticationBaseStyle.html">AuthenticationBaseStyle</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/AuthenticationConfiguration.html">AuthenticationConfiguration</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/AuthenticationDetailImageStyle.html">AuthenticationDetailImageStyle</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/AuthenticationFioriStyle.html">AuthenticationFioriStyle</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/AuthenticationSignInActionStyle.html">AuthenticationSignInActionStyle</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/AuthenticationStyleModifier.html">AuthenticationStyleModifier</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/AuthenticationSubtitleStyle.html">AuthenticationSubtitleStyle</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/AuthenticationTitleStyle.html">AuthenticationTitleStyle</a>
-                </li>
-                <li class="nav-group-task">
                   <a href="../Structs/AvatarStack.html">AvatarStack</a>
                 </li>
                 <li class="nav-group-task">
@@ -1906,9 +1831,6 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/BannerMultiMessageSheetTitleStyle.html">BannerMultiMessageSheetTitleStyle</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/BasicAuthenticationStyle.html">BasicAuthenticationStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/BodyText.html">BodyText</a>
@@ -2577,16 +2499,7 @@
                   <a href="../Structs/DurationPickerFioriStyle.html">DurationPickerFioriStyle</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Structs/DurationPickerFormViewStyle.html">DurationPickerFormViewStyle</a>
-                </li>
-                <li class="nav-group-task">
                   <a href="../Structs/DurationPickerStyleModifier.html">DurationPickerStyleModifier</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/DurationPickerTitleStyle.html">DurationPickerTitleStyle</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/DurationPickerValueLabelStyle.html">DurationPickerValueLabelStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/EULAView.html">EULAView</a>
@@ -2958,9 +2871,6 @@
                   <a href="../Structs/HeaderChartKpiStyle.html">HeaderChartKpiStyle</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Structs/HeaderChartSeparatorStyle.html">HeaderChartSeparatorStyle</a>
-                </li>
-                <li class="nav-group-task">
                   <a href="../Structs/HeaderChartStyleModifier.html">HeaderChartStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
@@ -3214,21 +3124,6 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/KPIHeader.html">KPIHeader</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/KPIHeaderBaseStyle.html">KPIHeaderBaseStyle</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/KPIHeaderConfiguration.html">KPIHeaderConfiguration</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/KPIHeaderFioriStyle.html">KPIHeaderFioriStyle</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/KPIHeaderSeparatorStyle.html">KPIHeaderSeparatorStyle</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/KPIHeaderStyleModifier.html">KPIHeaderStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/KPIItem.html">KPIItem</a>
@@ -3843,9 +3738,6 @@
                   <a href="../Structs/ObjectHeaderFootnoteStyle.html">ObjectHeaderFootnoteStyle</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Structs/ObjectHeaderSeparatorStyle.html">ObjectHeaderSeparatorStyle</a>
-                </li>
-                <li class="nav-group-task">
                   <a href="../Structs/ObjectHeaderStatusStyle.html">ObjectHeaderStatusStyle</a>
                 </li>
                 <li class="nav-group-task">
@@ -4141,9 +4033,6 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/ProfileHeaderFioriStyle.html">ProfileHeaderFioriStyle</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/ProfileHeaderSeparatorStyle.html">ProfileHeaderSeparatorStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/ProfileHeaderStyleModifier.html">ProfileHeaderStyleModifier</a>
@@ -4620,21 +4509,6 @@
                   <a href="../Structs/SideBarStyleModifier.html">SideBarStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Structs/SignInAction.html">SignInAction</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/SignInActionBaseStyle.html">SignInActionBaseStyle</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/SignInActionConfiguration.html">SignInActionConfiguration</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/SignInActionFioriStyle.html">SignInActionFioriStyle</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/SignInActionStyleModifier.html">SignInActionStyleModifier</a>
-                </li>
-                <li class="nav-group-task">
                   <a href="../Structs/SignatureCaptureView.html">SignatureCaptureView</a>
                 </li>
                 <li class="nav-group-task">
@@ -4810,9 +4684,6 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/StepProgressIndicatorFioriStyle.html">StepProgressIndicatorFioriStyle</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/StepProgressIndicatorSeparatorStyle.html">StepProgressIndicatorSeparatorStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/StepProgressIndicatorState.html">StepProgressIndicatorState</a>
@@ -5070,9 +4941,6 @@
                   <a href="../Structs/TextInputFieldConfiguration.html">TextInputFieldConfiguration</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Structs/TextInputFieldDecimalStyle.html">TextInputFieldDecimalStyle</a>
-                </li>
-                <li class="nav-group-task">
                   <a href="../Structs/TextInputFieldFioriStyle.html">TextInputFieldFioriStyle</a>
                 </li>
                 <li class="nav-group-task">
@@ -5233,9 +5101,6 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/TimelinePreviewOptionalTitleStyle.html">TimelinePreviewOptionalTitleStyle</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/TimelinePreviewSeparatorStyle.html">TimelinePreviewSeparatorStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/TimelinePreviewStyleModifier.html">TimelinePreviewStyleModifier</a>
@@ -5683,9 +5548,6 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/_HeaderChart.html">_HeaderChart</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/_KPIHeader.html">_KPIHeader</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/_KPIItem.html">_KPIItem</a>
