@@ -26,13 +26,12 @@ struct SegmentedControlExample: View {
     var body: some View {
         VStack {
             Toggle("Custom style", isOn: self.$_isCustomStyle).padding()
-            Spacer()
+            
             if self._isCustomStyle {
                 SegmentedControlPicker(options: self.segments, selectedIndex: self.$selectedIndex).segmentedControlPickerStyle(CustomStyle())
             } else {
                 SegmentedControlPicker(options: self.segments, selectedIndex: self.$selectedIndex)
             }
-            Spacer()
         }
     }
 }
