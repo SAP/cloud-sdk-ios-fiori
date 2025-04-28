@@ -473,3 +473,15 @@ extension ObjectHeaderFioriStyle {
         }
     }
 }
+
+/// Style for object header
+/// Provides a standard hairline for header
+public struct ObjectHeaderSeparatorStyle: ObjectHeaderStyle {
+    public init() {}
+    public func makeBody(_ configuration: ObjectHeaderConfiguration) -> some View {
+        VStack {
+            ObjectHeader(configuration)
+            Color.preferredColor(.separator).frame(height: 0.33)
+        }
+    }
+}

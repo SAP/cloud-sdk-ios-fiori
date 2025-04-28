@@ -218,3 +218,18 @@ extension ProfileHeaderFioriStyle {
         }
     }
 }
+
+/// Style for profile header
+/// Provides a standard hairline for header
+public struct ProfileHeaderSeparatorStyle: ProfileHeaderStyle {
+    public init() {}
+    public func makeBody(_ configuration: ProfileHeaderConfiguration) -> some View {
+        VStack {
+            ProfileHeader(configuration)
+                .padding(.bottom)
+            Color
+                .preferredColor(.separator)
+                .frame(height: 0.33)
+        }
+    }
+}

@@ -215,3 +215,15 @@ extension StepProgressIndicatorFioriStyle {
         }
     }
 }
+
+/// Style for step progress indicator
+/// Provides a standard hairline
+public struct StepProgressIndicatorSeparatorStyle: StepProgressIndicatorStyle {
+    public init() {}
+    public func makeBody(_ configuration: StepProgressIndicatorConfiguration) -> some View {
+        VStack {
+            StepProgressIndicator(configuration)
+            Color.preferredColor(.separator).frame(height: 0.53)
+        }
+    }
+}
