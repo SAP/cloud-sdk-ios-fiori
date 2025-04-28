@@ -530,6 +530,15 @@ extension IncrementAction: _ViewEmptyChecking {
     }
 }
 
+extension InfoView: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        title.isEmpty &&
+            descriptionText.isEmpty &&
+            action.isEmpty &&
+            secondaryAction.isEmpty
+    }
+}
+
 extension InformationView: _ViewEmptyChecking {
     public var isEmpty: Bool {
         icon.isEmpty &&

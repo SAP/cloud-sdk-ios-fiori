@@ -2052,6 +2052,34 @@ public extension IncrementActionStyle {
     }
 }
 
+// MARK: InfoViewStyle
+
+extension ModifiedStyle: InfoViewStyle where Style: InfoViewStyle {
+    public func makeBody(_ configuration: InfoViewConfiguration) -> some View {
+        InfoView(configuration)
+            .infoViewStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct InfoViewStyleModifier<Style: InfoViewStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.infoViewStyle(self.style)
+    }
+}
+
+public extension InfoViewStyle {
+    func modifier(_ modifier: some ViewModifier) -> some InfoViewStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some InfoViewStyle) -> some InfoViewStyle {
+        style.modifier(InfoViewStyleModifier(style: self))
+    }
+}
+
 // MARK: InformationViewStyle
 
 extension ModifiedStyle: InformationViewStyle where Style: InformationViewStyle {

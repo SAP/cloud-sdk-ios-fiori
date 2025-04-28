@@ -2004,3 +2004,21 @@ protocol _AuthenticationComponent: _DetailImageComponent, _TitleComponent, _Subt
     /// and the `isDisabled` property is false.
     var didSignIn: (() -> Void)? { get }
 }
+
+/// `InfoView` Multifunctional view for displaying Information or Splash screen.
+/// The UI elements can be hidden or showed depending on functionality.
+/// The text properties must be set before displaying the view.
+/// ## Usage
+/// ```swift
+///         let loadingIndicator = LoadingIndicator(title: "", isPresented: .constant(true))
+///
+///         InfoView.init(title: "Title", descriptionText: "Description", action: FioriButton(title: "Next", action: { _ in
+///             print("InfoView Primary button clicked")
+///         }), secondaryAction: FioriButton(title: "Start Tutorial", action: { _ in
+///             print("InfoView secondary button clicked")
+///         }), loadingIndicator: loadingIndicator)
+/// ```
+// sourcery: CompositeComponent
+protocol _InfoViewComponent: _TitleComponent, _DescriptionTextComponent, _ActionComponent, _SecondaryActionComponent {
+    var loadingIndicator: LoadingIndicator? { get set }
+}

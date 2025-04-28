@@ -2,7 +2,7 @@
 // DO NOT EDIT
 import SwiftUI
 
-extension InfoView where DescriptionText == EmptyView {
+extension _InfoView where DescriptionText == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		showLoadingIndicator: Bool? = nil,
@@ -21,7 +21,7 @@ extension InfoView where DescriptionText == EmptyView {
     }
 }
 
-extension InfoView where ActionView == EmptyView {
+extension _InfoView where ActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -40,7 +40,7 @@ extension InfoView where ActionView == EmptyView {
     }
 }
 
-extension InfoView where SecondaryActionView == EmptyView {
+extension _InfoView where SecondaryActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -59,7 +59,7 @@ extension InfoView where SecondaryActionView == EmptyView {
     }
 }
 
-extension InfoView where DescriptionText == EmptyView, ActionView == EmptyView {
+extension _InfoView where DescriptionText == EmptyView, ActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		showLoadingIndicator: Bool? = nil,
@@ -77,7 +77,7 @@ extension InfoView where DescriptionText == EmptyView, ActionView == EmptyView {
     }
 }
 
-extension InfoView where DescriptionText == EmptyView, SecondaryActionView == EmptyView {
+extension _InfoView where DescriptionText == EmptyView, SecondaryActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		showLoadingIndicator: Bool? = nil,
@@ -95,7 +95,7 @@ extension InfoView where DescriptionText == EmptyView, SecondaryActionView == Em
     }
 }
 
-extension InfoView where ActionView == EmptyView, SecondaryActionView == EmptyView {
+extension _InfoView where ActionView == EmptyView, SecondaryActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -113,7 +113,7 @@ extension InfoView where ActionView == EmptyView, SecondaryActionView == EmptyVi
     }
 }
 
-extension InfoView where DescriptionText == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView {
+extension _InfoView where DescriptionText == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		showLoadingIndicator: Bool? = nil,

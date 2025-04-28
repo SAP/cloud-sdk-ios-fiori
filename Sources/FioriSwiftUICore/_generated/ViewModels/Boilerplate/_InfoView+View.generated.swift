@@ -1,8 +1,8 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
-//TODO: Copy commented code to new file: `FioriSwiftUICore/Views/InfoView+View.swift`
+//TODO: Copy commented code to new file: `FioriSwiftUICore/Views/_InfoView+View.swift`
 //TODO: Implement default Fiori style definitions as `ViewModifier`
-//TODO: Implement InfoView `View` body
+//TODO: Implement _InfoView `View` body
 //TODO: Implement LibraryContentProvider
 
 /// - Important: to make `@Environment` properties (e.g. `horizontalSizeClass`), internally accessible
@@ -16,7 +16,7 @@ import SwiftUI
 // FIXME: - Implement Fiori style definitions
 
 extension Fiori {
-    enum InfoView {
+    enum _InfoView {
         typealias Title = EmptyModifier
         typealias TitleCumulative = EmptyModifier
 		typealias DescriptionText = EmptyModifier
@@ -49,21 +49,21 @@ extension Fiori {
     }
 }
 
-// FIXME: - Implement InfoView View body
+// FIXME: - Implement _InfoView View body
 
-extension InfoView: View {
+extension _InfoView: View {
     public var body: some View {
         <# View body #>
     }
 }
 
-// FIXME: - Implement InfoView specific LibraryContentProvider
+// FIXME: - Implement _InfoView specific LibraryContentProvider
 
 @available(iOS 14.0, macOS 11.0, *)
-struct InfoViewLibraryContent: LibraryContentProvider {
+struct _InfoViewLibraryContent: LibraryContentProvider {
     @LibraryContentBuilder
     var views: [LibraryItem] {
-        LibraryItem(InfoView(model: LibraryPreviewData.Person.laurelosborn),
+        LibraryItem(_InfoView(model: LibraryPreviewData.Person.laurelosborn),
                     category: .control)
     }
 }

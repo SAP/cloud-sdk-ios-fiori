@@ -104,7 +104,8 @@ public extension Type {
                                     "_KPIItemModel",
                                     "_SliderPickerItemModel",
                                     "_EULAViewModel",
-                                    "_DurationPickerModel"]
+                                    "_DurationPickerModel",
+                                    "_InfoViewModel"]
         
         if deprecatedComponents.contains(name) {
             return name.replacingOccurrences(of: "Model", with: "")
