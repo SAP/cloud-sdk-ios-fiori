@@ -33,6 +33,7 @@ struct KPIHeaderExample: View {
         ScrollView {
             VStack {
                 KPIHeader(items: self.data, isItemOrderForced: false)
+                    .kPIHeaderStyle(KPIHeaderSeparatorStyle())
                 
                 Text("BannerMessage is displayed")
                 KPIHeader(items: self.data, bannerMessage: BannerMessage(icon: {

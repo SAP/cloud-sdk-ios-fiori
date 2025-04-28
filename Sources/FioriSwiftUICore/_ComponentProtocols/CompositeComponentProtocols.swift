@@ -1902,11 +1902,11 @@ protocol _EULAViewComponent: _TitleComponent, _BodyTextComponent, _AgreeActionCo
 ///     formatter.unitOptions = .providedUnit
 ///     return formatter
 /// }
-/// DurationPicker(selection: self.$selection, maximumMinutes: 124, minimumMinutes: 60, minuteInterval: 2)
-///     .measurementFormatter(self.formatter)
+/// DurationPicker(title: "Measurement Formatter", selection: self.$selection3, maximumMinutes: 124, minimumMinutes: 60, minuteInterval: 2)
+///    .measurementFormatter(self.formatter)
 /// ```
 // sourcery: CompositeComponent
-protocol _DurationPickerComponent {
+protocol _DurationPickerComponent: _TitleComponent, _ValueLabelComponent, _MandatoryField, _FormViewComponent {
     // sourcery: @Binding
     // sourcery: no_view
     var selection: Int { get set }

@@ -172,3 +172,15 @@ extension HeaderChartFioriStyle {
         }
     }
 }
+
+/// Style for chart header
+/// Provides a standard hairline for header
+public struct HeaderChartSeparatorStyle: HeaderChartStyle {
+    public init() {}
+    public func makeBody(_ configuration: HeaderChartConfiguration) -> some View {
+        VStack {
+            HeaderChart(configuration)
+            Color.preferredColor(.separator).frame(height: 0.33)
+        }
+    }
+}
