@@ -39,7 +39,6 @@ extension InfoViewDataModel {
 }
 
 struct InfoViewSample: View {
-    @Environment(\.presentationMode) var presentationMode
     private var model = InfoViewDataModel()
     
     public init() {}
@@ -50,7 +49,6 @@ struct InfoViewSample: View {
             
             InfoView(title: AttributedString(self.model.title), descriptionText: AttributedString(self.model.descriptionText ?? ""), action: FioriButton(title: "Next", action: { _ in
                 print("InfoView Primary button clicked")
-                self.presentationMode.wrappedValue.dismiss()
             }), secondaryAction: FioriButton(title: "Start Tutorial", action: { _ in
                 print("InfoView secondary button clicked")
             }), loadingIndicator: loadingIndicator)
@@ -59,7 +57,6 @@ struct InfoViewSample: View {
 }
 
 struct InfoViewWithLoadingLabel: View {
-    @Environment(\.presentationMode) var presentationMode
     @State var showLoadingView: Bool = true
     private var model = InfoViewDataModel()
     
@@ -76,7 +73,6 @@ struct InfoViewWithLoadingLabel: View {
             
             InfoView(title: AttributedString(self.model.title), descriptionText: AttributedString(self.model.descriptionText ?? ""), action: FioriButton(title: "Next", action: { _ in
                 print("InfoView Primary button clicked")
-                self.presentationMode.wrappedValue.dismiss()
             }), secondaryAction: FioriButton(title: "Start Tutorial", action: { _ in
                 print("InfoView secondary button clicked")
             }), loadingIndicator: loadingIndicator)
@@ -85,7 +81,6 @@ struct InfoViewWithLoadingLabel: View {
 }
 
 struct InfoViewCustomized: View {
-    @Environment(\.presentationMode) var presentationMode
     private var model = InfoViewDataModel()
     
     public init() {}
@@ -99,7 +94,6 @@ struct InfoViewCustomized: View {
                      action: {
                          FioriButton(title: "Next") { _ in
                              print("InfoView Primary button clicked")
-                             self.presentationMode.wrappedValue.dismiss()
                          }
                      },
                      secondaryAction: {
