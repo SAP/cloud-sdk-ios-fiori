@@ -23,11 +23,18 @@ struct AnyDurationPickerStyle: DurationPickerStyle {
 
 public struct DurationPickerConfiguration {
     public var componentIdentifier: String = "fiori_durationpicker_component"
+    public let title: Title
+    public let valueLabel: ValueLabel
+    public let controlState: ControlState
+    public let errorMessage: AttributedString?
     @Binding public var selection: Int
     public let maximumMinutes: Int
     public let minimumMinutes: Int
     public let minuteInterval: Int
     public let measurementFormatter: MeasurementFormatter
+
+    public typealias Title = ConfigurationViewWrapper
+    public typealias ValueLabel = ConfigurationViewWrapper
 }
 
 extension DurationPickerConfiguration {
@@ -39,5 +46,8 @@ extension DurationPickerConfiguration {
 public struct DurationPickerFioriStyle: DurationPickerStyle {
     public func makeBody(_ configuration: DurationPickerConfiguration) -> some View {
         DurationPicker(configuration)
+            .titleStyle(TitleFioriStyle(durationPickerConfiguration: configuration))
+            .valueLabelStyle(ValueLabelFioriStyle(durationPickerConfiguration: configuration))
+            .formViewStyle(FormViewFioriStyle(durationPickerConfiguration: configuration))
     }
 }

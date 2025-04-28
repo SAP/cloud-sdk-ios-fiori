@@ -92,7 +92,7 @@ struct SliderMenuItem: View {
                 .ifApply(UIDevice.current.userInterfaceIdiom != .phone, content: { v in
                     v.frame(width: self.popoverWidth)
                 })
-                .frame(minHeight: self.detentHeight)
+                .frame(idealHeight: self.detentHeight)
                 .presentationDetents([.height(self.detentHeight)])
             }
             .ifApply(UIDevice.current.userInterfaceIdiom != .phone, content: { v in
@@ -641,6 +641,59 @@ struct DateTimeMenuItem: View {
     }
         
     var body: some View {
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            self.phoneView()
+        } else {
+            self.padView()
+        }
+    }
+    
+    private func datePickerView() -> some View {
+        VStack {
+            HStack {
+                Text(NSLocalizedString("Time", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""))
+                    .font(.fiori(forTextStyle: .headline, weight: .bold, isItalic: false, isCondensed: false))
+                    .foregroundColor(Color.preferredColor(.primaryLabel))
+                Spacer()
+                DatePicker(
+                    "",
+                    selection: Binding<Date>(get: { self.item.workingValue ?? Date() }, set: { self.item.workingValue = $0 }),
+                    displayedComponents: [.hourAndMinute]
+                )
+                .labelsHidden()
+            }
+            .padding([.leading, .trailing], 16)
+            .frame(minHeight: 40)
+
+            DatePicker(
+                self.item.label,
+                selection: Binding<Date>(get: { self.item.workingValue ?? Date() }, set: { self.item.workingValue = $0 }),
+                displayedComponents: [.date]
+            )
+            .datePickerStyle(.graphical)
+            .labelsHidden()
+            .frame(minHeight: 320)
+            .clipped()
+        }
+        .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? self.popoverWidth : Screen.bounds.size.width)
+        .frame(minHeight: 440)
+        .background(GeometryReader { geometry in
+            Color.clear
+                .onAppear {
+                    let isNotIphone = UIDevice.current.userInterfaceIdiom != .phone
+                    var calculateHeight = geometry.size.height
+                    calculateHeight += isNotIphone ? 13 : 16
+                    calculateHeight += isNotIphone ? 50 : 56
+                    if !isNotIphone {
+                        calculateHeight += UIEdgeInsets.getSafeAreaInsets().bottom
+                    }
+                    calculateHeight += UIDevice.current.userInterfaceIdiom != .phone ? 55 : 0
+                    self.detentHeight = calculateHeight
+                }
+        })
+    }
+    
+    private func phoneView() -> some View {
         FilterFeedbackBarItem(icon: icon(name: self.item.icon, isVisible: true), title: AttributedString(self.item.label), accessoryIcon: Image(systemName: "chevron.down"), isSelected: self.item.isChecked)
             .onTapGesture {
                 self.isSheetVisible.toggle()
@@ -668,55 +721,59 @@ struct DateTimeMenuItem: View {
                     })
                     .buttonStyle(ApplyButtonStyle())
                 } components: {
-                    VStack {
-                        HStack {
-                            Text(NSLocalizedString("Time", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""))
-                                .font(.fiori(forTextStyle: .headline, weight: .bold, isItalic: false, isCondensed: false))
-                                .foregroundColor(Color.preferredColor(.primaryLabel))
-                            Spacer()
-                            DatePicker(
-                                "",
-                                selection: Binding<Date>(get: { self.item.workingValue ?? Date() }, set: { self.item.workingValue = $0 }),
-                                displayedComponents: [.hourAndMinute]
-                            )
-                            .labelsHidden()
-                        }
-                        .padding([.leading, .trailing], 16)
-                        .frame(minHeight: 40)
-
-                        DatePicker(
-                            self.item.label,
-                            selection: Binding<Date>(get: { self.item.workingValue ?? Date() }, set: { self.item.workingValue = $0 }),
-                            displayedComponents: [.date]
-                        )
-                        .datePickerStyle(.graphical)
-                        .labelsHidden()
-                        .frame(minHeight: 320)
-                        .clipped()
-                    }
-                    .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? self.popoverWidth : Screen.bounds.size.width)
-                    .frame(minHeight: 440)
-                    .background(GeometryReader { geometry in
-                        Color.clear
-                            .onAppear {
-                                let isNotIphone = UIDevice.current.userInterfaceIdiom != .phone
-                                var calculateHeight = geometry.size.height
-                                calculateHeight += isNotIphone ? 13 : 16
-                                calculateHeight += isNotIphone ? 50 : 56
-                                if !isNotIphone {
-                                    calculateHeight += UIEdgeInsets.getSafeAreaInsets().bottom
-                                }
-                                calculateHeight += UIDevice.current.userInterfaceIdiom != .phone ? 55 : 0
-                                self.detentHeight = calculateHeight
-                            }
-                    })
+                    self.datePickerView()
+                        .presentationDetents([.height(self.detentHeight)])
                 }
-                .ifApply(UIDevice.current.userInterfaceIdiom != .phone, content: { v in
-                    v.frame(width: self.popoverWidth)
-                })
-                .frame(minHeight: self.detentHeight)
-                .presentationDetents([.height(self.detentHeight)])
+                .frame(idealHeight: self.detentHeight)
             }
+            .ifApply(UIDevice.current.userInterfaceIdiom != .phone, content: { v in
+                v.background(GeometryReader { geometry in
+                    Color.clear
+                        .onAppear {
+                            self.barItemFrame = geometry.frame(in: .global)
+                        }
+                        .setOnChange(of: geometry.frame(in: .global), action1: { newValue in
+                            self.barItemFrame = newValue
+                        }) { _, newValue in
+                            self.barItemFrame = newValue
+                        }
+                })
+            })
+    }
+    
+    private func padView() -> some View {
+        FilterFeedbackBarItem(icon: icon(name: self.item.icon, isVisible: true), title: AttributedString(self.item.label), accessoryIcon: Image(systemName: "chevron.down"), isSelected: self.item.isChecked)
+            .onTapGesture {
+                self.isSheetVisible.toggle()
+            }
+            .modifier(PopoverSizeModifier(isPresented: self.$isSheetVisible, arrowEdge: self.barItemFrame.arrowDirection(), popoverSize: CGSize(width: self.popoverWidth, height: self.detentHeight), popoverContent: {
+                CancellableResettableDialogNavigationForm {
+                    SortFilterItemTitle(title: self.item.name)
+                } cancelAction: {
+                    _Action(actionText: NSLocalizedString("Cancel", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
+                        self.item.cancel()
+                        self.isSheetVisible.toggle()
+                    })
+                    .buttonStyle(CancelButtonStyle())
+                } resetAction: {
+                    _Action(actionText: NSLocalizedString("Reset", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
+                        self.item.reset()
+                    })
+                    .buttonStyle(ResetButtonStyle())
+                    .disabled(self.item.isOriginal)
+                } applyAction: {
+                    _Action(actionText: NSLocalizedString("Apply", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
+                        self.item.apply()
+                        self.onUpdate()
+                        self.isSheetVisible.toggle()
+                    })
+                    .buttonStyle(ApplyButtonStyle())
+                } components: {
+                    self.datePickerView()
+                }
+                .frame(width: self.popoverWidth)
+                .frame(idealHeight: self.detentHeight)
+            }))
             .ifApply(UIDevice.current.userInterfaceIdiom != .phone, content: { v in
                 v.background(GeometryReader { geometry in
                     Color.clear
@@ -864,7 +921,7 @@ struct StepperMenuItem: View {
                 .ifApply(UIDevice.current.userInterfaceIdiom != .phone, content: { v in
                     v.frame(width: self.popoverWidth)
                 })
-                .frame(minHeight: self.detentHeight)
+                .frame(idealHeight: self.detentHeight)
                 .presentationDetents([.height(self.detentHeight)])
             }
             .ifApply(UIDevice.current.userInterfaceIdiom != .phone, content: { v in
@@ -1001,7 +1058,7 @@ struct TitleMenuItem: View {
                 .ifApply(UIDevice.current.userInterfaceIdiom != .phone, content: { v in
                     v.frame(width: self.popoverWidth)
                 })
-                .frame(minHeight: self.detentHeight)
+                .frame(idealHeight: self.detentHeight)
                 .presentationDetents([.height(self.detentHeight)])
             }
             .ifApply(UIDevice.current.userInterfaceIdiom != .phone, content: { v in
@@ -1048,7 +1105,7 @@ struct NoteMenuItem: View {
                 v.modifier(PopoverSizeModifier(isPresented: self.$isSheetVisible, arrowEdge: self.barItemFrame.arrowDirection(), popoverSize: CGSize(width: self.popoverWidth, height: self.detentHeight), popoverContent: {
                     self.popoverContent
                         .frame(width: self.popoverWidth)
-                        .frame(minHeight: self.detentHeight)
+                        .frame(idealHeight: self.detentHeight)
                         .presentationDetents([.height(self.detentHeight)])
                 }))
                 .background(GeometryReader { geometry in
@@ -1217,8 +1274,10 @@ struct DurationPickerMenuItem: View {
                     })
                     .buttonStyle(ApplyButtonStyle())
                 } components: {
-                    DurationPicker(selection: self.$item.workingValue, maximumMinutes: self.item.maximumMinutes, minimumMinutes: self.item.minimumMinutes, minuteInterval: self.item.minuteInterval)
-                        .measurementFormatter(self.item.measurementFormatter)
+                    DurationPickerViewWrapper(selection: self.$item.workingValue, maximumMinutes: self.item.maximumMinutes, minimumMinutes: self.item.minimumMinutes, minuteInterval: self.item.minuteInterval, measurementFormatter: self.item.measurementFormatter)
+                        .frame(width: 232, height: 204)
+                        .background(Color.preferredColor(.primaryBackground))
+                        .foregroundColor(Color.preferredColor(.primaryLabel))
                         .padding([.leading, .trailing], 16)
                         .padding(.bottom, 8)
                         .background(GeometryReader { geometry in
@@ -1242,7 +1301,7 @@ struct DurationPickerMenuItem: View {
                 .ifApply(UIDevice.current.userInterfaceIdiom != .phone, content: { v in
                     v.frame(width: self.popoverWidth)
                 })
-                .frame(minHeight: self.detentHeight)
+                .frame(idealHeight: self.detentHeight)
                 .presentationDetents([.height(self.detentHeight)])
             }
             .ifApply(UIDevice.current.userInterfaceIdiom != .phone, content: { v in

@@ -358,7 +358,8 @@ extension DisagreeAction: _ViewEmptyChecking {
 
 extension DurationPicker: _ViewEmptyChecking {
     public var isEmpty: Bool {
-        false
+        title.isEmpty &&
+            valueLabel.isEmpty
     }
 }
 
