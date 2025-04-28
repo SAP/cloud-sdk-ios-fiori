@@ -2,7 +2,7 @@
 // DO NOT EDIT
 import SwiftUI
 
-extension ActivationScreen where DescriptionText == EmptyView {
+extension _ActivationScreen where DescriptionText == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder footnote: () -> Footnote,
@@ -21,7 +21,7 @@ extension ActivationScreen where DescriptionText == EmptyView {
     }
 }
 
-extension ActivationScreen where Footnote == EmptyView {
+extension _ActivationScreen where Footnote == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -40,7 +40,7 @@ extension ActivationScreen where Footnote == EmptyView {
     }
 }
 
-extension ActivationScreen where ActionView == EmptyView {
+extension _ActivationScreen where ActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -59,7 +59,7 @@ extension ActivationScreen where ActionView == EmptyView {
     }
 }
 
-extension ActivationScreen where SecondaryActionView == EmptyView {
+extension _ActivationScreen where SecondaryActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -78,7 +78,7 @@ extension ActivationScreen where SecondaryActionView == EmptyView {
     }
 }
 
-extension ActivationScreen where TextInputView == EmptyView {
+extension _ActivationScreen where TextInputView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -97,7 +97,7 @@ extension ActivationScreen where TextInputView == EmptyView {
     }
 }
 
-extension ActivationScreen where DescriptionText == EmptyView, Footnote == EmptyView {
+extension _ActivationScreen where DescriptionText == EmptyView, Footnote == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder action: () -> ActionView,
@@ -115,7 +115,7 @@ extension ActivationScreen where DescriptionText == EmptyView, Footnote == Empty
     }
 }
 
-extension ActivationScreen where DescriptionText == EmptyView, ActionView == EmptyView {
+extension _ActivationScreen where DescriptionText == EmptyView, ActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder footnote: () -> Footnote,
@@ -133,7 +133,7 @@ extension ActivationScreen where DescriptionText == EmptyView, ActionView == Emp
     }
 }
 
-extension ActivationScreen where DescriptionText == EmptyView, SecondaryActionView == EmptyView {
+extension _ActivationScreen where DescriptionText == EmptyView, SecondaryActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder footnote: () -> Footnote,
@@ -151,7 +151,7 @@ extension ActivationScreen where DescriptionText == EmptyView, SecondaryActionVi
     }
 }
 
-extension ActivationScreen where DescriptionText == EmptyView, TextInputView == EmptyView {
+extension _ActivationScreen where DescriptionText == EmptyView, TextInputView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder footnote: () -> Footnote,
@@ -169,7 +169,7 @@ extension ActivationScreen where DescriptionText == EmptyView, TextInputView == 
     }
 }
 
-extension ActivationScreen where Footnote == EmptyView, ActionView == EmptyView {
+extension _ActivationScreen where Footnote == EmptyView, ActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -187,7 +187,7 @@ extension ActivationScreen where Footnote == EmptyView, ActionView == EmptyView 
     }
 }
 
-extension ActivationScreen where Footnote == EmptyView, SecondaryActionView == EmptyView {
+extension _ActivationScreen where Footnote == EmptyView, SecondaryActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -205,7 +205,7 @@ extension ActivationScreen where Footnote == EmptyView, SecondaryActionView == E
     }
 }
 
-extension ActivationScreen where Footnote == EmptyView, TextInputView == EmptyView {
+extension _ActivationScreen where Footnote == EmptyView, TextInputView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -223,7 +223,7 @@ extension ActivationScreen where Footnote == EmptyView, TextInputView == EmptyVi
     }
 }
 
-extension ActivationScreen where ActionView == EmptyView, SecondaryActionView == EmptyView {
+extension _ActivationScreen where ActionView == EmptyView, SecondaryActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -241,7 +241,7 @@ extension ActivationScreen where ActionView == EmptyView, SecondaryActionView ==
     }
 }
 
-extension ActivationScreen where ActionView == EmptyView, TextInputView == EmptyView {
+extension _ActivationScreen where ActionView == EmptyView, TextInputView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -259,7 +259,7 @@ extension ActivationScreen where ActionView == EmptyView, TextInputView == Empty
     }
 }
 
-extension ActivationScreen where SecondaryActionView == EmptyView, TextInputView == EmptyView {
+extension _ActivationScreen where SecondaryActionView == EmptyView, TextInputView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -277,7 +277,7 @@ extension ActivationScreen where SecondaryActionView == EmptyView, TextInputView
     }
 }
 
-extension ActivationScreen where DescriptionText == EmptyView, Footnote == EmptyView, ActionView == EmptyView {
+extension _ActivationScreen where DescriptionText == EmptyView, Footnote == EmptyView, ActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder secondaryAction: () -> SecondaryActionView,
@@ -294,7 +294,7 @@ extension ActivationScreen where DescriptionText == EmptyView, Footnote == Empty
     }
 }
 
-extension ActivationScreen where DescriptionText == EmptyView, Footnote == EmptyView, SecondaryActionView == EmptyView {
+extension _ActivationScreen where DescriptionText == EmptyView, Footnote == EmptyView, SecondaryActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder action: () -> ActionView,
@@ -311,7 +311,7 @@ extension ActivationScreen where DescriptionText == EmptyView, Footnote == Empty
     }
 }
 
-extension ActivationScreen where DescriptionText == EmptyView, Footnote == EmptyView, TextInputView == EmptyView {
+extension _ActivationScreen where DescriptionText == EmptyView, Footnote == EmptyView, TextInputView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder action: () -> ActionView,
@@ -328,7 +328,7 @@ extension ActivationScreen where DescriptionText == EmptyView, Footnote == Empty
     }
 }
 
-extension ActivationScreen where DescriptionText == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView {
+extension _ActivationScreen where DescriptionText == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder footnote: () -> Footnote,
@@ -345,7 +345,7 @@ extension ActivationScreen where DescriptionText == EmptyView, ActionView == Emp
     }
 }
 
-extension ActivationScreen where DescriptionText == EmptyView, ActionView == EmptyView, TextInputView == EmptyView {
+extension _ActivationScreen where DescriptionText == EmptyView, ActionView == EmptyView, TextInputView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder footnote: () -> Footnote,
@@ -362,7 +362,7 @@ extension ActivationScreen where DescriptionText == EmptyView, ActionView == Emp
     }
 }
 
-extension ActivationScreen where DescriptionText == EmptyView, SecondaryActionView == EmptyView, TextInputView == EmptyView {
+extension _ActivationScreen where DescriptionText == EmptyView, SecondaryActionView == EmptyView, TextInputView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder footnote: () -> Footnote,
@@ -379,7 +379,7 @@ extension ActivationScreen where DescriptionText == EmptyView, SecondaryActionVi
     }
 }
 
-extension ActivationScreen where Footnote == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView {
+extension _ActivationScreen where Footnote == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -396,7 +396,7 @@ extension ActivationScreen where Footnote == EmptyView, ActionView == EmptyView,
     }
 }
 
-extension ActivationScreen where Footnote == EmptyView, ActionView == EmptyView, TextInputView == EmptyView {
+extension _ActivationScreen where Footnote == EmptyView, ActionView == EmptyView, TextInputView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -413,7 +413,7 @@ extension ActivationScreen where Footnote == EmptyView, ActionView == EmptyView,
     }
 }
 
-extension ActivationScreen where Footnote == EmptyView, SecondaryActionView == EmptyView, TextInputView == EmptyView {
+extension _ActivationScreen where Footnote == EmptyView, SecondaryActionView == EmptyView, TextInputView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -430,7 +430,7 @@ extension ActivationScreen where Footnote == EmptyView, SecondaryActionView == E
     }
 }
 
-extension ActivationScreen where ActionView == EmptyView, SecondaryActionView == EmptyView, TextInputView == EmptyView {
+extension _ActivationScreen where ActionView == EmptyView, SecondaryActionView == EmptyView, TextInputView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
@@ -447,7 +447,7 @@ extension ActivationScreen where ActionView == EmptyView, SecondaryActionView ==
     }
 }
 
-extension ActivationScreen where DescriptionText == EmptyView, Footnote == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView {
+extension _ActivationScreen where DescriptionText == EmptyView, Footnote == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder textInput: () -> TextInputView
@@ -463,7 +463,7 @@ extension ActivationScreen where DescriptionText == EmptyView, Footnote == Empty
     }
 }
 
-extension ActivationScreen where DescriptionText == EmptyView, Footnote == EmptyView, ActionView == EmptyView, TextInputView == EmptyView {
+extension _ActivationScreen where DescriptionText == EmptyView, Footnote == EmptyView, ActionView == EmptyView, TextInputView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder secondaryAction: () -> SecondaryActionView
@@ -479,7 +479,7 @@ extension ActivationScreen where DescriptionText == EmptyView, Footnote == Empty
     }
 }
 
-extension ActivationScreen where DescriptionText == EmptyView, Footnote == EmptyView, SecondaryActionView == EmptyView, TextInputView == EmptyView {
+extension _ActivationScreen where DescriptionText == EmptyView, Footnote == EmptyView, SecondaryActionView == EmptyView, TextInputView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder action: () -> ActionView
@@ -495,7 +495,7 @@ extension ActivationScreen where DescriptionText == EmptyView, Footnote == Empty
     }
 }
 
-extension ActivationScreen where DescriptionText == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView, TextInputView == EmptyView {
+extension _ActivationScreen where DescriptionText == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView, TextInputView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder footnote: () -> Footnote
@@ -511,7 +511,7 @@ extension ActivationScreen where DescriptionText == EmptyView, ActionView == Emp
     }
 }
 
-extension ActivationScreen where Footnote == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView, TextInputView == EmptyView {
+extension _ActivationScreen where Footnote == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView, TextInputView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText
@@ -527,7 +527,7 @@ extension ActivationScreen where Footnote == EmptyView, ActionView == EmptyView,
     }
 }
 
-extension ActivationScreen where DescriptionText == EmptyView, Footnote == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView, TextInputView == EmptyView {
+extension _ActivationScreen where DescriptionText == EmptyView, Footnote == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView, TextInputView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title
     ) {

@@ -6,7 +6,7 @@
 import SwiftUI
 
 extension Fiori {
-    enum ActivationScreen {
+    enum _ActivationScreen {
         struct Title: ViewModifier {
             func body(content: Content) -> some View {
                 content
@@ -82,7 +82,7 @@ extension Fiori {
     }
 }
 
-extension ActivationScreen: View {
+extension _ActivationScreen: View {
     public var body: some View {
         VStack {
             title
@@ -113,7 +113,7 @@ extension ActivationScreen: View {
 struct ActivationScreenLibraryContent: LibraryContentProvider {
     @LibraryContentBuilder
     var views: [LibraryItem] {
-        LibraryItem(ActivationScreen(title: "Activation", descriptionText: "If you received a welcome email, follow the activation link in the email.Otherwise, enter your email address or scan the QR code to start onboarding. ", footnote: "Or", action: _Action(actionText: "Next"), secondaryAction: _Action(actionText: "Scan")),
+        LibraryItem(_ActivationScreen(title: "Activation", descriptionText: "If you received a welcome email, follow the activation link in the email.Otherwise, enter your email address or scan the QR code to start onboarding. ", footnote: "Or", action: _Action(actionText: "Next"), secondaryAction: _Action(actionText: "Scan")),
                     category: .control)
     }
 }
