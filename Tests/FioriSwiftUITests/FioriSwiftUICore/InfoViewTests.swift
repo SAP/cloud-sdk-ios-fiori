@@ -1,6 +1,5 @@
 @testable import FioriSwiftUICore
 import SwiftUI
-import SwiftUICore
 import XCTest
 
 final class InfoViewTests: XCTestCase {
