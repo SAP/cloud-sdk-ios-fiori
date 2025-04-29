@@ -207,7 +207,7 @@ public protocol _WelcomeScreenModel: TitleComponent, DescriptionTextComponent, S
 public protocol WelcomeScreenModel {}
 
 // sourcery: generated_component_composite
-public protocol ActivationScreenModel: TitleComponent, DescriptionTextComponent, FootnoteComponent {
+public protocol _ActivationScreenModel: TitleComponent, DescriptionTextComponent, FootnoteComponent {
     // sourcery: genericParameter.name = ActionView
     var action: _ActionModel? { get }
     
@@ -217,6 +217,10 @@ public protocol ActivationScreenModel: TitleComponent, DescriptionTextComponent,
     // sourcery: genericParameter.name = TextInputView
     var textInput: _TextInputModel? { get }
 }
+
+/// Deprecated ActivationScreenModel
+@available(*, unavailable, renamed: "_ActivationScreenModel", message: "Will be removed in the future release. Please create ActivationScreen with other initializers instead.")
+public protocol ActivationScreenModel {}
 
 // sourcery: generated_component_composite
 public protocol InfoViewModel: TitleComponent, DescriptionTextComponent {

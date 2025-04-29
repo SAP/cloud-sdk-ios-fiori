@@ -2,7 +2,7 @@
 // DO NOT EDIT
 import SwiftUI
 
-public struct ActivationScreen<Title: View, DescriptionText: View, Footnote: View, ActionView: View, SecondaryActionView: View, TextInputView: View> {
+public struct _ActivationScreen<Title: View, DescriptionText: View, Footnote: View, ActionView: View, SecondaryActionView: View, TextInputView: View> {
     @Environment(\.titleModifier) private var titleModifier
 	@Environment(\.descriptionTextModifier) private var descriptionTextModifier
 	@Environment(\.footnoteModifier) private var footnoteModifier
@@ -43,44 +43,44 @@ public struct ActivationScreen<Title: View, DescriptionText: View, Footnote: Vie
 
     @ViewBuilder var title: some View {
         if isModelInit {
-            _title.modifier(titleModifier.concat(Fiori.ActivationScreen.title).concat(Fiori.ActivationScreen.titleCumulative))
+            _title.modifier(titleModifier.concat(Fiori._ActivationScreen.title).concat(Fiori._ActivationScreen.titleCumulative))
         } else {
-            _title.modifier(titleModifier.concat(Fiori.ActivationScreen.title))
+            _title.modifier(titleModifier.concat(Fiori._ActivationScreen.title))
         }
     }
 	@ViewBuilder var descriptionText: some View {
         if isModelInit {
-            _descriptionText.modifier(descriptionTextModifier.concat(Fiori.ActivationScreen.descriptionText).concat(Fiori.ActivationScreen.descriptionTextCumulative))
+            _descriptionText.modifier(descriptionTextModifier.concat(Fiori._ActivationScreen.descriptionText).concat(Fiori._ActivationScreen.descriptionTextCumulative))
         } else {
-            _descriptionText.modifier(descriptionTextModifier.concat(Fiori.ActivationScreen.descriptionText))
+            _descriptionText.modifier(descriptionTextModifier.concat(Fiori._ActivationScreen.descriptionText))
         }
     }
 	@ViewBuilder var footnote: some View {
         if isModelInit {
-            _footnote.modifier(footnoteModifier.concat(Fiori.ActivationScreen.footnote).concat(Fiori.ActivationScreen.footnoteCumulative))
+            _footnote.modifier(footnoteModifier.concat(Fiori._ActivationScreen.footnote).concat(Fiori._ActivationScreen.footnoteCumulative))
         } else {
-            _footnote.modifier(footnoteModifier.concat(Fiori.ActivationScreen.footnote))
+            _footnote.modifier(footnoteModifier.concat(Fiori._ActivationScreen.footnote))
         }
     }
 	@ViewBuilder var action: some View {
         if isModelInit {
-            _action.modifier(actionModifier.concat(Fiori.ActivationScreen.action).concat(Fiori.ActivationScreen.actionCumulative))
+            _action.modifier(actionModifier.concat(Fiori._ActivationScreen.action).concat(Fiori._ActivationScreen.actionCumulative))
         } else {
-            _action.modifier(actionModifier.concat(Fiori.ActivationScreen.action))
+            _action.modifier(actionModifier.concat(Fiori._ActivationScreen.action))
         }
     }
 	@ViewBuilder var secondaryAction: some View {
         if isModelInit {
-            _secondaryAction.modifier(secondaryActionModifier.concat(Fiori.ActivationScreen.secondaryAction).concat(Fiori.ActivationScreen.secondaryActionCumulative))
+            _secondaryAction.modifier(secondaryActionModifier.concat(Fiori._ActivationScreen.secondaryAction).concat(Fiori._ActivationScreen.secondaryActionCumulative))
         } else {
-            _secondaryAction.modifier(secondaryActionModifier.concat(Fiori.ActivationScreen.secondaryAction))
+            _secondaryAction.modifier(secondaryActionModifier.concat(Fiori._ActivationScreen.secondaryAction))
         }
     }
 	@ViewBuilder var textInput: some View {
         if isModelInit {
-            _textInput.modifier(textInputModifier.concat(Fiori.ActivationScreen.textInput).concat(Fiori.ActivationScreen.textInputCumulative))
+            _textInput.modifier(textInputModifier.concat(Fiori._ActivationScreen.textInput).concat(Fiori._ActivationScreen.textInputCumulative))
         } else {
-            _textInput.modifier(textInputModifier.concat(Fiori.ActivationScreen.textInput))
+            _textInput.modifier(textInputModifier.concat(Fiori._ActivationScreen.textInput))
         }
     }
     
@@ -105,14 +105,14 @@ public struct ActivationScreen<Title: View, DescriptionText: View, Footnote: Vie
     }
 }
 
-extension ActivationScreen where Title == Text,
+extension _ActivationScreen where Title == Text,
 		DescriptionText == _ConditionalContent<Text, EmptyView>,
 		Footnote == _ConditionalContent<Text, EmptyView>,
 		ActionView == _ConditionalContent<_Action, EmptyView>,
 		SecondaryActionView == _ConditionalContent<_Action, EmptyView>,
 		TextInputView == _ConditionalContent<_TextInput, EmptyView> {
 
-    public init(model: ActivationScreenModel) {
+    public init(model: _ActivationScreenModel) {
         self.init(title: model.title, descriptionText: model.descriptionText, footnote: model.footnote, action: model.action != nil ? _Action(model: model.action!) : nil, secondaryAction: model.secondaryAction != nil ? _Action(model: model.secondaryAction!) : nil, textInput: model.textInput != nil ? _TextInput(model: model.textInput!) : nil)
     }
 

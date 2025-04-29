@@ -66,6 +66,125 @@ public extension ActionStyle where Self == ActionFioriStyle {
     }
 }
 
+// MARK: ActivationScreenStyle
+
+public extension ActivationScreenStyle where Self == ActivationScreenBaseStyle {
+    static var base: ActivationScreenBaseStyle {
+        ActivationScreenBaseStyle()
+    }
+}
+
+public extension ActivationScreenStyle where Self == ActivationScreenFioriStyle {
+    static var fiori: ActivationScreenFioriStyle {
+        ActivationScreenFioriStyle()
+    }
+}
+
+public struct ActivationScreenTitleStyle: ActivationScreenStyle {
+    let style: any TitleStyle
+
+    public func makeBody(_ configuration: ActivationScreenConfiguration) -> some View {
+        ActivationScreen(configuration)
+            .titleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension ActivationScreenStyle where Self == ActivationScreenTitleStyle {
+    static func titleStyle(_ style: some TitleStyle) -> ActivationScreenTitleStyle {
+        ActivationScreenTitleStyle(style: style)
+    }
+
+    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> ActivationScreenTitleStyle {
+        let style = AnyTitleStyle(content)
+        return ActivationScreenTitleStyle(style: style)
+    }
+}
+
+public struct ActivationScreenDescriptionTextStyle: ActivationScreenStyle {
+    let style: any DescriptionTextStyle
+
+    public func makeBody(_ configuration: ActivationScreenConfiguration) -> some View {
+        ActivationScreen(configuration)
+            .descriptionTextStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension ActivationScreenStyle where Self == ActivationScreenDescriptionTextStyle {
+    static func descriptionTextStyle(_ style: some DescriptionTextStyle) -> ActivationScreenDescriptionTextStyle {
+        ActivationScreenDescriptionTextStyle(style: style)
+    }
+
+    static func descriptionTextStyle(@ViewBuilder content: @escaping (DescriptionTextConfiguration) -> some View) -> ActivationScreenDescriptionTextStyle {
+        let style = AnyDescriptionTextStyle(content)
+        return ActivationScreenDescriptionTextStyle(style: style)
+    }
+}
+
+public struct ActivationScreenFootnoteStyle: ActivationScreenStyle {
+    let style: any FootnoteStyle
+
+    public func makeBody(_ configuration: ActivationScreenConfiguration) -> some View {
+        ActivationScreen(configuration)
+            .footnoteStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension ActivationScreenStyle where Self == ActivationScreenFootnoteStyle {
+    static func footnoteStyle(_ style: some FootnoteStyle) -> ActivationScreenFootnoteStyle {
+        ActivationScreenFootnoteStyle(style: style)
+    }
+
+    static func footnoteStyle(@ViewBuilder content: @escaping (FootnoteConfiguration) -> some View) -> ActivationScreenFootnoteStyle {
+        let style = AnyFootnoteStyle(content)
+        return ActivationScreenFootnoteStyle(style: style)
+    }
+}
+
+public struct ActivationScreenActionStyle: ActivationScreenStyle {
+    let style: any ActionStyle
+
+    public func makeBody(_ configuration: ActivationScreenConfiguration) -> some View {
+        ActivationScreen(configuration)
+            .actionStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension ActivationScreenStyle where Self == ActivationScreenActionStyle {
+    static func actionStyle(_ style: some ActionStyle) -> ActivationScreenActionStyle {
+        ActivationScreenActionStyle(style: style)
+    }
+
+    static func actionStyle(@ViewBuilder content: @escaping (ActionConfiguration) -> some View) -> ActivationScreenActionStyle {
+        let style = AnyActionStyle(content)
+        return ActivationScreenActionStyle(style: style)
+    }
+}
+
+public struct ActivationScreenSecondaryActionStyle: ActivationScreenStyle {
+    let style: any SecondaryActionStyle
+
+    public func makeBody(_ configuration: ActivationScreenConfiguration) -> some View {
+        ActivationScreen(configuration)
+            .secondaryActionStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension ActivationScreenStyle where Self == ActivationScreenSecondaryActionStyle {
+    static func secondaryActionStyle(_ style: some SecondaryActionStyle) -> ActivationScreenSecondaryActionStyle {
+        ActivationScreenSecondaryActionStyle(style: style)
+    }
+
+    static func secondaryActionStyle(@ViewBuilder content: @escaping (SecondaryActionConfiguration) -> some View) -> ActivationScreenSecondaryActionStyle {
+        let style = AnySecondaryActionStyle(content)
+        return ActivationScreenSecondaryActionStyle(style: style)
+    }
+}
+
 // MARK: ActiveTrackStyle
 
 public extension ActiveTrackStyle where Self == ActiveTrackBaseStyle {

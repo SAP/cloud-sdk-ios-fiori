@@ -1,8 +1,8 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
-//TODO: Copy commented code to new file: `FioriSwiftUICore/Views/ActivationScreen+View.swift`
+//TODO: Copy commented code to new file: `FioriSwiftUICore/Views/_ActivationScreen+View.swift`
 //TODO: Implement default Fiori style definitions as `ViewModifier`
-//TODO: Implement ActivationScreen `View` body
+//TODO: Implement _ActivationScreen `View` body
 //TODO: Implement LibraryContentProvider
 
 /// - Important: to make `@Environment` properties (e.g. `horizontalSizeClass`), internally accessible
@@ -16,7 +16,7 @@ import SwiftUI
 // FIXME: - Implement Fiori style definitions
 
 extension Fiori {
-    enum ActivationScreen {
+    enum _ActivationScreen {
         typealias Title = EmptyModifier
         typealias TitleCumulative = EmptyModifier
 		typealias DescriptionText = EmptyModifier
@@ -57,21 +57,21 @@ extension Fiori {
     }
 }
 
-// FIXME: - Implement ActivationScreen View body
+// FIXME: - Implement _ActivationScreen View body
 
-extension ActivationScreen: View {
+extension _ActivationScreen: View {
     public var body: some View {
         <# View body #>
     }
 }
 
-// FIXME: - Implement ActivationScreen specific LibraryContentProvider
+// FIXME: - Implement _ActivationScreen specific LibraryContentProvider
 
 @available(iOS 14.0, macOS 11.0, *)
-struct ActivationScreenLibraryContent: LibraryContentProvider {
+struct _ActivationScreenLibraryContent: LibraryContentProvider {
     @LibraryContentBuilder
     var views: [LibraryItem] {
-        LibraryItem(ActivationScreen(model: LibraryPreviewData.Person.laurelosborn),
+        LibraryItem(_ActivationScreen(model: LibraryPreviewData.Person.laurelosborn),
                     category: .control)
     }
 }
