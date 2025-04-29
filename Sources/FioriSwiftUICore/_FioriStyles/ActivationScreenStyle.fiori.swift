@@ -113,7 +113,7 @@ extension ActivationScreenFioriStyle {
                     }
                 )
                 .foregroundStyle(Color.preferredColor(.primaryLabel))
-                .font(Font.fiori(fixedSize: self.isTruncated ? 24 : 22, weight: .bold))
+                .font(Font.fiori(fixedSize: self.isTruncated ? getActivationScreenSpec(height: Screen.bounds.size.height).activationHeadlineLabelWrappedTextFont : getActivationScreenSpec(height: Screen.bounds.size.height).activationHeadlineLabelFont, weight: .bold))
                 .multilineTextAlignment(.center)
         }
     }

@@ -56,12 +56,13 @@ struct ActivationScreenSample: View {
     @ObservedObject var model = ActivationScreenDataModel()
     var isNewActivationScreen = false
     @State var inputText: String = ""
-    @State private var showsIllustratedMessage = false
+    var showsIllustratedMessage = false
 
     public init() {}
     
-    public init(isNewActivationScreen: Bool = false) {
+    public init(isNewActivationScreen: Bool = false, showsIllustratedMessage: Bool = false) {
         self.isNewActivationScreen = isNewActivationScreen
+        self.showsIllustratedMessage = showsIllustratedMessage
     }
     
     var body: some View {
@@ -74,7 +75,7 @@ struct ActivationScreenSample: View {
                 ActivationScreen(title: "Activation",
                                  descriptionText: "If you received a welcome email, follow the activation link in the email.Otherwise, enter your email address or scan the QR code to start onboarding.",
                                  footnote: "Or",
-                                 action: FioriButton(title: "Next", action: { _ in
+                                 action: FioriButton(title: "Use your email", action: { _ in
                                      print("ActivationScreen Primary button clicked, email: \(self.inputText)")
                                  }),
                                  secondaryAction: FioriButton(title: "Scan", action: { _ in
@@ -90,10 +91,6 @@ struct ActivationScreenSample: View {
                                  }, detailImageSize: .large),
                                  inputText: self.$inputText,
                                  showsIllustratedMessage: self.showsIllustratedMessage)
-                
-                Toggle("Show Illustration Message", isOn: self.$showsIllustratedMessage)
-                    .padding([.leading, .trailing], 20)
-                    .tint(Color.preferredColor(.tintColor))
             }
         }
     }
@@ -103,11 +100,13 @@ struct ActivationScreenCustomizedSample: View {
     @ObservedObject var model = ActivationScreenDataModel()
     var isNewActivationScreen = false
     @State var inputText: String = ""
+    var showsIllustratedMessage = false
 
     public init() {}
     
-    public init(isNewActivationScreen: Bool = false) {
+    public init(isNewActivationScreen: Bool = false, showsIllustratedMessage: Bool = false) {
         self.isNewActivationScreen = isNewActivationScreen
+        self.showsIllustratedMessage = showsIllustratedMessage
     }
     
     var body: some View {
@@ -138,13 +137,23 @@ struct ActivationScreenCustomizedSample: View {
                 }, secondaryAction: {
                     Image(systemName: "qrcode.viewfinder")
                         .font(.largeTitle)
-                        .foregroundStyle(.black)
+                        .foregroundStyle(Color.preferredColor(.secondaryLabel))
                         .padding(6)
                         .onTapGesture {
                             print("Camera is tapped")
                         }
+                }, illustratedMessage: {
+                    IllustratedMessage(detailImage: {
+                        Image("IllustrationImage").resizable(resizingMode: .stretch)
+                    }, title: {
+                        Text("Activation")
+                    }, description: {
+                        Text("If you received a welcome email, follow the activation link in the email.Otherwise, enter your email address or scan the QR code to start onboarding.")
+                            .padding(EdgeInsets(top: 10, leading: 0, bottom: 0, trailing: 0))
+                    }, detailImageSize: .large)
                 },
-                inputText: self.$inputText)
+                inputText: self.$inputText,
+                showsIllustratedMessage: self.showsIllustratedMessage)
             }
         }
     }
