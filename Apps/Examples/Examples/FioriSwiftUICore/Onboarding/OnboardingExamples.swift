@@ -14,6 +14,12 @@ struct OnboardingExamples: View {
             NavigationLink(
                 destination: ActivationScreenExamples())
             {
+                Text("_ActivationScreen")
+            }
+            
+            NavigationLink(
+                destination: ActivationScreenExamples(isNewActivationScreen: true))
+            {
                 Text("ActivationScreen")
             }
             
@@ -90,19 +96,25 @@ struct WelcomeExamples: View {
 }
 
 struct ActivationScreenExamples: View {
+    var isNewActivationScreen = false
+    @State private var showsIllustratedMessage = false
+
     var body: some View {
         List {
             NavigationLink(
-                destination: ActivationScreenSample())
+                destination: ActivationScreenSample(isNewActivationScreen: self.isNewActivationScreen, showsIllustratedMessage: self.showsIllustratedMessage))
             {
                 Text("ActivationScreen")
             }
             
             NavigationLink(
-                destination: ActivationScreenCustomizedSample())
+                destination: ActivationScreenCustomizedSample(isNewActivationScreen: self.isNewActivationScreen, showsIllustratedMessage: self.showsIllustratedMessage))
             {
                 Text("Customized")
             }
+            
+            Toggle("Use Illustration Message", isOn: self.$showsIllustratedMessage)
+                .tint(Color.preferredColor(.tintColor))
         }.navigationBarTitle("Onboarding", displayMode: .inline)
     }
 }

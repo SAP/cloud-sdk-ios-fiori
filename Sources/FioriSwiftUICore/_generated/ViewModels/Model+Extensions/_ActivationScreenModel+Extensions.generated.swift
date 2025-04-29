@@ -2,7 +2,7 @@
 // DO NOT EDIT
 import SwiftUI
 
-public extension ActivationScreenModel {
+public extension _ActivationScreenModel {
     var action: _ActionModel? {
         return nil
     }

@@ -51,6 +51,22 @@ extension ActionStyle {
     }
 }
 
+// MARK: ActivationScreenStyle
+
+struct ResolvedActivationScreenStyle<Style: ActivationScreenStyle>: View {
+    let style: Style
+    let configuration: ActivationScreenConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension ActivationScreenStyle {
+    func resolve(configuration: ActivationScreenConfiguration) -> some View {
+        ResolvedActivationScreenStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: ActiveTrackStyle
 
 struct ResolvedActiveTrackStyle<Style: ActiveTrackStyle>: View {
