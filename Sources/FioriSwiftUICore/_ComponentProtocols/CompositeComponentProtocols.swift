@@ -2005,20 +2005,73 @@ protocol _AuthenticationComponent: _DetailImageComponent, _TitleComponent, _Subt
     var didSignIn: (() -> Void)? { get }
 }
 
-/// `InfoView` Multifunctional view for displaying Information or Splash screen.
-/// The UI elements can be hidden or showed depending on functionality.
+/// `InfoView` is a multifunctional view for displaying Information or Splash screen.
+/// The UI elements can be displayed or hidden depending on functionality.
 /// The text properties must be set before displaying the view.
-/// ## Usage
-/// ```swift
-///         let loadingIndicator = LoadingIndicator(title: "", isPresented: .constant(true))
 ///
-///         InfoView.init(title: "Title", descriptionText: "Description", action: FioriButton(title: "Next", action: { _ in
-///             print("InfoView Primary button clicked")
-///         }), secondaryAction: FioriButton(title: "Start Tutorial", action: { _ in
+/// ## Initialization Parameters
+/// - Required:
+///   - title: The primary heading text (AttributedString or ViewBuilder)
+/// - Optional:
+///   - descriptionText: Supplemental information text
+///   - action: Primary action control
+///   - secondaryAction: Secondary action control
+///   - loadingIndicator: Loading state visualization
+///
+/// ## Usage
+/// ## AttributedString Shortcut (Quick Setup)
+/// ```
+/// InfoView(
+///     title: AttributedString("Title"),
+///     descriptionText: AttributedString("Description Text"),
+///     action: FioriButton(title: "Update Now") {
+///         startUpdate()
+///     },
+///     secondaryAction: FioriButton(title: "Remind Later") {
+///         scheduleReminder()
+///     }
+/// )
+/// ```
+///
+/// ## ViewBuilder Approach (Fully Customizable)
+/// ```
+/// // Custom loading indicator with red circular style
+/// let loadingIndicator = LoadingIndicator(
+///     title: { Text("") },
+///     progress: {
+///         ProgressView()
+///             .progressViewStyle(CircularProgressViewStyle(tint: .red))
+///     },
+///     isPresented: .constant(true)
+/// )
+///
+/// InfoView(
+///     title: {
+///         HStack(spacing: 8) {
+///             Image(systemName: "exclamationmark.triangle.fill")
+///                 .foregroundColor(.yellow)
+///             Text("Title")
+///                 .font(.headline)
+///         }
+///     },
+///     descriptionText: {
+///         Text(AttributedString(self.model.descriptionText ?? "")) // Dynamic title from model
+///             .foregroundColor(.blue)  // Custom text color
+///     },
+///     action: {
+///         Toggle("Trust Device", isOn: $trustDevice)
+///             .toggleStyle(.switch)
+///     },
+///     secondaryAction: {
+///         Button("Start Tutorial") {
 ///             print("InfoView secondary button clicked")
-///         }), loadingIndicator: loadingIndicator)
+///         }
+///     },
+///     loadingIndicator: { loadingIndicator }  // Customized indicator
+/// )
 /// ```
 // sourcery: CompositeComponent
 protocol _InfoViewComponent: _TitleComponent, _DescriptionTextComponent, _ActionComponent, _SecondaryActionComponent {
+    // sourcery: @ViewBuilder
     var loadingIndicator: LoadingIndicator? { get set }
 }

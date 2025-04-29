@@ -535,7 +535,8 @@ extension InfoView: _ViewEmptyChecking {
         title.isEmpty &&
             descriptionText.isEmpty &&
             action.isEmpty &&
-            secondaryAction.isEmpty
+            secondaryAction.isEmpty &&
+            loadingIndicator.isEmpty
     }
 }
 

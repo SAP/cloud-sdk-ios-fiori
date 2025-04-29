@@ -101,7 +101,7 @@ struct InfoViewCustomized: View {
                              print("InfoView secondary button clicked")
                          }
                      },
-                     loadingIndicator: loadingIndicator)
+                     loadingIndicator: { loadingIndicator })
         }
     }
 }

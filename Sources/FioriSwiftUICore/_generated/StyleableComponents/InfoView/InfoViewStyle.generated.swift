@@ -27,12 +27,13 @@ public struct InfoViewConfiguration {
     public let descriptionText: DescriptionText
     public let action: Action
     public let secondaryAction: SecondaryAction
-    public let loadingIndicator: LoadingIndicator?
+    public let loadingIndicator: LoadingIndicator
 
     public typealias Title = ConfigurationViewWrapper
     public typealias DescriptionText = ConfigurationViewWrapper
     public typealias Action = ConfigurationViewWrapper
     public typealias SecondaryAction = ConfigurationViewWrapper
+    public typealias LoadingIndicator = ConfigurationViewWrapper
 }
 
 extension InfoViewConfiguration {

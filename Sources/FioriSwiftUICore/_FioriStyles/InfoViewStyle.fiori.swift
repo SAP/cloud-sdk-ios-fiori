@@ -10,20 +10,27 @@ public struct InfoViewBaseStyle: InfoViewStyle {
                 ScrollView(.vertical) {
                     VStack {
                         configuration.title
-                            .padding(.top, 16)
+                        #if os(visionOS)
+                            .padding(.bottom, -16)
+                        #endif
                         configuration.descriptionText
                             .padding(.top, 16)
+                        #if !os(visionOS)
                             .padding(.bottom, 250)
+                        #else
+                            .padding(.bottom, 16)
+                        #endif
                         configuration.action
+                        #if os(visionOS)
+                            .padding(.bottom, 16)
+                        #endif
                         configuration.secondaryAction
-                            .padding(.top, 16)
-                            .padding(.bottom, 300)
                     }
                 }
                 .padding(.top, 2)
                 .padding(.bottom, 2)
-                .padding(.leading, 32)
-                .padding(.trailing, 32)
+                .padding(.leading, getInfoViewLeftPadding())
+                .padding(.trailing, getInfoViewLeftPadding())
                 .scrollIndicators(.hidden)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -80,7 +87,16 @@ extension InfoViewFioriStyle {
         let infoViewConfiguration: InfoViewConfiguration
         
         func makeBody(_ configuration: ActionConfiguration) -> some View {
-            Action(configuration)
+            #if !os(visionOS)
+                Action(configuration)
+                    .frame(minWidth: 201, minHeight: 44)
+                    .padding(EdgeInsets(top: 9, leading: 16, bottom: 9, trailing: 16))
+                    .font(.fiori(forTextStyle: .body))
+            #else
+                Action(configuration)
+                    .frame(minWidth: 280, minHeight: 52)
+                    .clipShape(Capsule())
+            #endif
         }
     }
     
@@ -88,8 +104,35 @@ extension InfoViewFioriStyle {
         let infoViewConfiguration: InfoViewConfiguration
         
         func makeBody(_ configuration: SecondaryActionConfiguration) -> some View {
-            SecondaryAction(configuration)
-                .fioriButtonStyle(FioriPlainButtonStyle())
+            #if !os(visionOS)
+                SecondaryAction(configuration)
+                    .fioriButtonStyle(FioriPlainButtonStyle())
+                    .frame(minWidth: 201, minHeight: 44)
+                    .padding(EdgeInsets(top: 9, leading: 16, bottom: 9, trailing: 16))
+                    .font(.fiori(forTextStyle: .body))
+            #else
+                SecondaryAction(configuration)
+                    .fioriButtonStyle(FioriPlainButtonStyle())
+                    .frame(minWidth: 280, minHeight: 52)
+                    .clipShape(Capsule())
+            #endif
         }
     }
+}
+
+func getInfoViewLeftPadding() -> CGFloat {
+    var margin: CGFloat = 35
+    #if !os(visionOS)
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            if UIDevice.current.orientation.isPortrait {
+                margin = 157
+            } else {
+                margin = 296
+            }
+        }
+    #else
+        margin = 40
+        return margin
+    #endif
+    return margin
 }

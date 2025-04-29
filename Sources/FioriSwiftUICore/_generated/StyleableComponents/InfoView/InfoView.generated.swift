@@ -3,25 +3,77 @@
 import Foundation
 import SwiftUI
 
-/// `InfoView` Multifunctional view for displaying Information or Splash screen.
-/// The UI elements can be hidden or showed depending on functionality.
+/// `InfoView` is a multifunctional view for displaying Information or Splash screen.
+/// The UI elements can be displayed or hidden depending on functionality.
 /// The text properties must be set before displaying the view.
-/// ## Usage
-/// ```swift
-///         let loadingIndicator = LoadingIndicator(title: "", isPresented: .constant(true))
 ///
-///         InfoView.init(title: "Title", descriptionText: "Description", action: FioriButton(title: "Next", action: { _ in
-///             print("InfoView Primary button clicked")
-///         }), secondaryAction: FioriButton(title: "Start Tutorial", action: { _ in
+/// ## Initialization Parameters
+/// - Required:
+///   - title: The primary heading text (AttributedString or ViewBuilder)
+/// - Optional:
+///   - descriptionText: Supplemental information text
+///   - action: Primary action control
+///   - secondaryAction: Secondary action control
+///   - loadingIndicator: Loading state visualization
+///
+/// ## Usage
+/// ## AttributedString Shortcut (Quick Setup)
+/// ```
+/// InfoView(
+///     title: AttributedString("Title"),
+///     descriptionText: AttributedString("Description Text"),
+///     action: FioriButton(title: "Update Now") {
+///         startUpdate()
+///     },
+///     secondaryAction: FioriButton(title: "Remind Later") {
+///         scheduleReminder()
+///     }
+/// )
+/// ```
+///
+/// ## ViewBuilder Approach (Fully Customizable)
+/// ```
+/// // Custom loading indicator with red circular style
+/// let loadingIndicator = LoadingIndicator(
+///     title: { Text("") },
+///     progress: {
+///         ProgressView()
+///             .progressViewStyle(CircularProgressViewStyle(tint: .red))
+///     },
+///     isPresented: .constant(true)
+/// )
+///
+/// InfoView(
+///     title: {
+///         HStack(spacing: 8) {
+///             Image(systemName: "exclamationmark.triangle.fill")
+///                 .foregroundColor(.yellow)
+///             Text("Title")
+///                 .font(.headline)
+///         }
+///     },
+///     descriptionText: {
+///         Text(AttributedString(self.model.descriptionText ?? "")) // Dynamic title from model
+///             .foregroundColor(.blue)  // Custom text color
+///     },
+///     action: {
+///         Toggle("Trust Device", isOn: $trustDevice)
+///             .toggleStyle(.switch)
+///     },
+///     secondaryAction: {
+///         Button("Start Tutorial") {
 ///             print("InfoView secondary button clicked")
-///         }), loadingIndicator: loadingIndicator)
+///         }
+///     },
+///     loadingIndicator: { loadingIndicator }  // Customized indicator
+/// )
 /// ```
 public struct InfoView {
     let title: any View
     let descriptionText: any View
     let action: any View
     let secondaryAction: any View
-    var loadingIndicator: LoadingIndicator?
+    let loadingIndicator: any View
 
     @Environment(\.infoViewStyle) var style
 
@@ -33,14 +85,14 @@ public struct InfoView {
                 @ViewBuilder descriptionText: () -> any View = { EmptyView() },
                 @ViewBuilder action: () -> any View = { EmptyView() },
                 @ViewBuilder secondaryAction: () -> any View = { EmptyView() },
-                loadingIndicator: LoadingIndicator? = nil,
+                @ViewBuilder loadingIndicator: () -> any View = { EmptyView() },
                 componentIdentifier: String? = InfoView.identifier)
     {
         self.title = Title(title: title, componentIdentifier: componentIdentifier)
         self.descriptionText = DescriptionText(descriptionText: descriptionText, componentIdentifier: componentIdentifier)
         self.action = Action(action: action, componentIdentifier: componentIdentifier)
         self.secondaryAction = SecondaryAction(secondaryAction: secondaryAction, componentIdentifier: componentIdentifier)
-        self.loadingIndicator = loadingIndicator
+        self.loadingIndicator = loadingIndicator()
         self.componentIdentifier = componentIdentifier ?? InfoView.identifier
     }
 }
@@ -56,7 +108,7 @@ public extension InfoView {
          secondaryAction: FioriButton? = nil,
          loadingIndicator: LoadingIndicator? = nil)
     {
-        self.init(title: { Text(title) }, descriptionText: { OptionalText(descriptionText) }, action: { action }, secondaryAction: { secondaryAction }, loadingIndicator: loadingIndicator)
+        self.init(title: { Text(title) }, descriptionText: { OptionalText(descriptionText) }, action: { action }, secondaryAction: { secondaryAction }, loadingIndicator: { loadingIndicator })
     }
 }
 
@@ -81,7 +133,7 @@ extension InfoView: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, title: .init(self.title), descriptionText: .init(self.descriptionText), action: .init(self.action), secondaryAction: .init(self.secondaryAction), loadingIndicator: self.loadingIndicator)).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, title: .init(self.title), descriptionText: .init(self.descriptionText), action: .init(self.action), secondaryAction: .init(self.secondaryAction), loadingIndicator: .init(self.loadingIndicator))).typeErased
                 .transformEnvironment(\.infoViewStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -99,7 +151,7 @@ private extension InfoView {
     }
 
     func defaultStyle() -> some View {
-        InfoView(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), descriptionText: .init(self.descriptionText), action: .init(self.action), secondaryAction: .init(self.secondaryAction), loadingIndicator: self.loadingIndicator))
+        InfoView(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), descriptionText: .init(self.descriptionText), action: .init(self.action), secondaryAction: .init(self.secondaryAction), loadingIndicator: .init(self.loadingIndicator)))
             .shouldApplyDefaultStyle(false)
             .infoViewStyle(InfoViewFioriStyle.ContentFioriStyle())
             .typeErased
