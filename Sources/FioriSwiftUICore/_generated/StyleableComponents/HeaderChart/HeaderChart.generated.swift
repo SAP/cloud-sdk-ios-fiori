@@ -26,6 +26,9 @@ public struct HeaderChart {
     let trend: any View
     let trendImage: any View
     let kpi: any View
+    let separator: any View
+    /// Provides a standard hairline for header chart or not. The default value is `false`.
+    let isSeparatorHidden: Bool
     let chart: any View
 
     @Environment(\.headerChartStyle) var style
@@ -39,6 +42,8 @@ public struct HeaderChart {
                 @ViewBuilder trend: () -> any View = { EmptyView() },
                 @ViewBuilder trendImage: () -> any View = { EmptyView() },
                 @ViewBuilder kpi: () -> any View = { EmptyView() },
+                @ViewBuilder separator: () -> any View = { Color.preferredColor(.separator) },
+                isSeparatorHidden: Bool = false,
                 @ViewBuilder chart: () -> any View = { EmptyView() },
                 componentIdentifier: String? = HeaderChart.identifier)
     {
@@ -47,6 +52,8 @@ public struct HeaderChart {
         self.trend = Trend(trend: trend, componentIdentifier: componentIdentifier)
         self.trendImage = TrendImage(trendImage: trendImage, componentIdentifier: componentIdentifier)
         self.kpi = Kpi(kpi: kpi, componentIdentifier: componentIdentifier)
+        self.separator = Separator(separator: separator, componentIdentifier: componentIdentifier)
+        self.isSeparatorHidden = isSeparatorHidden
         self.chart = chart()
         self.componentIdentifier = componentIdentifier ?? HeaderChart.identifier
     }
@@ -62,9 +69,11 @@ public extension HeaderChart {
          trend: AttributedString? = nil,
          trendImage: Image? = nil,
          kpi: KPIItemData? = nil,
+         separator: Color? = Color.preferredColor(.separator),
+         isSeparatorHidden: Bool = false,
          @ViewBuilder chart: () -> any View = { EmptyView() })
     {
-        self.init(title: { Text(title) }, subtitle: { OptionalText(subtitle) }, trend: { OptionalText(trend) }, trendImage: { trendImage }, kpi: { OptionalKPIItem(kpi) }, chart: chart)
+        self.init(title: { Text(title) }, subtitle: { OptionalText(subtitle) }, trend: { OptionalText(trend) }, trendImage: { trendImage }, kpi: { OptionalKPIItem(kpi) }, separator: { separator }, isSeparatorHidden: isSeparatorHidden, chart: chart)
     }
 }
 
@@ -79,6 +88,8 @@ public extension HeaderChart {
         self.trend = configuration.trend
         self.trendImage = configuration.trendImage
         self.kpi = configuration.kpi
+        self.separator = configuration.separator
+        self.isSeparatorHidden = configuration.isSeparatorHidden
         self.chart = configuration.chart
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
         self.componentIdentifier = configuration.componentIdentifier
@@ -90,7 +101,7 @@ extension HeaderChart: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, title: .init(self.title), subtitle: .init(self.subtitle), trend: .init(self.trend), trendImage: .init(self.trendImage), kpi: .init(self.kpi), chart: .init(self.chart))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, title: .init(self.title), subtitle: .init(self.subtitle), trend: .init(self.trend), trendImage: .init(self.trendImage), kpi: .init(self.kpi), separator: .init(self.separator), isSeparatorHidden: self.isSeparatorHidden, chart: .init(self.chart))).typeErased
                 .transformEnvironment(\.headerChartStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -108,7 +119,7 @@ private extension HeaderChart {
     }
 
     func defaultStyle() -> some View {
-        HeaderChart(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), subtitle: .init(self.subtitle), trend: .init(self.trend), trendImage: .init(self.trendImage), kpi: .init(self.kpi), chart: .init(self.chart)))
+        HeaderChart(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), subtitle: .init(self.subtitle), trend: .init(self.trend), trendImage: .init(self.trendImage), kpi: .init(self.kpi), separator: .init(self.separator), isSeparatorHidden: self.isSeparatorHidden, chart: .init(self.chart)))
             .shouldApplyDefaultStyle(false)
             .headerChartStyle(HeaderChartFioriStyle.ContentFioriStyle())
             .typeErased

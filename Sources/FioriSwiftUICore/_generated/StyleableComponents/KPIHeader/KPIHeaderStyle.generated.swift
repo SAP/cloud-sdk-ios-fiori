@@ -23,11 +23,15 @@ struct AnyKPIHeaderStyle: KPIHeaderStyle {
 
 public struct KPIHeaderConfiguration {
     public var componentIdentifier: String = "fiori_kpiheader_component"
+    public let separator: Separator
     public let items: Items
     public let bannerMessage: BannerMessage
     public let isItemOrderForced: Bool
     public let interItemSpacing: CGFloat?
+    @Binding public var isPresented: Bool
+    public let isSeparatorHidden: Bool
 
+    public typealias Separator = ConfigurationViewWrapper
     public typealias Items = ConfigurationViewWrapper
     public typealias BannerMessage = ConfigurationViewWrapper
 }
@@ -41,5 +45,6 @@ extension KPIHeaderConfiguration {
 public struct KPIHeaderFioriStyle: KPIHeaderStyle {
     public func makeBody(_ configuration: KPIHeaderConfiguration) -> some View {
         KPIHeader(configuration)
+            .separatorStyle(SeparatorFioriStyle(kPIHeaderConfiguration: configuration))
     }
 }

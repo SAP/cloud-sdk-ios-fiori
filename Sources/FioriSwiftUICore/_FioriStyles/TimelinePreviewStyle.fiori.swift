@@ -14,7 +14,14 @@ public struct TimelinePreviewBaseStyle: TimelinePreviewStyle {
                 BuildHeader(configuration: configuration, itemCount: configuration.items.count)
             }
             BuildTimelinePreviewItem(configuration: configuration, displayItems: self.getDisplayItemCount(VSWidth: self.VSize.width))
-        }.readSize { newSize in
+        }
+        .ifApply(!configuration.isSeparatorHidden, content: { content in
+            VStack(spacing: 16) {
+                content
+                configuration.separator
+            }
+        })
+        .readSize { newSize in
             self.VSize = newSize
         }
     }
@@ -121,6 +128,17 @@ extension TimelinePreviewFioriStyle {
                 .fioriButtonStyle(FioriPlainButtonStyle())
         }
     }
+    
+    struct SeparatorFioriStyle: SeparatorStyle {
+        let timelinePreviewConfiguration: TimelinePreviewConfiguration
+    
+        func makeBody(_ configuration: SeparatorConfiguration) -> some View {
+            Separator(configuration)
+            // Add default style for Separator
+            // .foregroundStyle(Color.preferredColor(<#fiori color#>))
+            // .font(.fiori(forTextStyle: <#fiori font#>))
+        }
+    }
 }
 
 struct SeeAllActionLabelStyle: LabelStyle {
@@ -173,18 +191,5 @@ extension View {
             }
         )
         .onPreferenceChange(SizePreferenceKey.self, perform: onChange)
-    }
-}
-
-/// Style for timeline preview
-/// Provides a standard hairline for timeline preview
-public struct TimelinePreviewSeparatorStyle: TimelinePreviewStyle {
-    public init() {}
-    public func makeBody(_ configuration: TimelinePreviewConfiguration) -> some View {
-        VStack {
-            TimelinePreview(configuration)
-                .padding(.bottom)
-            Color.preferredColor(.separator).frame(height: 0.33)
-        }
     }
 }

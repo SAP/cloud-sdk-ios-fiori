@@ -7,12 +7,21 @@ import SwiftUI
 public struct KPIHeaderBaseStyle: KPIHeaderStyle {
     public func makeBody(_ configuration: KPIHeaderConfiguration) -> some View {
         // Add default layout here
-        VStack(spacing: 0, content: {
-            configuration.items
-            configuration.bannerMessage
-        })
-        .interItemSpacing(configuration.interItemSpacing)
-        .isItemOrderForced(configuration.isItemOrderForced)
+        configuration.items
+            .ifApply(configuration.isPresented) { content in
+                VStack {
+                    content
+                    configuration.bannerMessage
+                }
+            }
+            .ifApply(!configuration.isSeparatorHidden && !configuration.isPresented, content: { content in
+                VStack {
+                    content
+                    configuration.separator
+                }
+            })
+            .interItemSpacing(configuration.interItemSpacing)
+            .isItemOrderForced(configuration.isItemOrderForced)
     }
 }
 
@@ -25,16 +34,15 @@ extension KPIHeaderFioriStyle {
             // .background()
         }
     }
-}
-
-/// Style for KPI header
-/// Provides a standard hairline for header
-public struct KPIHeaderSeparatorStyle: KPIHeaderStyle {
-    public init() {}
-    public func makeBody(_ configuration: KPIHeaderConfiguration) -> some View {
-        VStack {
-            KPIHeader(configuration)
-            Color.preferredColor(.separator).frame(height: 0.33)
+    
+    struct SeparatorFioriStyle: SeparatorStyle {
+        let kPIHeaderConfiguration: KPIHeaderConfiguration
+    
+        func makeBody(_ configuration: SeparatorConfiguration) -> some View {
+            Separator(configuration)
+            // Add default style for Separator
+            // .foregroundStyle(Color.preferredColor(<#fiori color#>))
+            // .font(.fiori(forTextStyle: <#fiori font#>))
         }
     }
 }

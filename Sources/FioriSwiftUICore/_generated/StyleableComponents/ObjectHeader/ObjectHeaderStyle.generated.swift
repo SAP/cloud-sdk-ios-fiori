@@ -33,6 +33,8 @@ public struct ObjectHeaderConfiguration {
     public let substatus: Substatus
     public let detailImage: DetailImage
     public let detailContent: DetailContent
+    public let separator: Separator
+    public let isSeparatorHidden: Bool
 
     public typealias Title = ConfigurationViewWrapper
     public typealias Subtitle = ConfigurationViewWrapper
@@ -44,6 +46,7 @@ public struct ObjectHeaderConfiguration {
     public typealias Substatus = ConfigurationViewWrapper
     public typealias DetailImage = ConfigurationViewWrapper
     public typealias DetailContent = ConfigurationViewWrapper
+    public typealias Separator = ConfigurationViewWrapper
 }
 
 extension ObjectHeaderConfiguration {
@@ -65,5 +68,6 @@ public struct ObjectHeaderFioriStyle: ObjectHeaderStyle {
             .substatusStyle(SubstatusFioriStyle(objectHeaderConfiguration: configuration))
             .detailImageStyle(DetailImageFioriStyle(objectHeaderConfiguration: configuration))
             .detailContentStyle(DetailContentFioriStyle(objectHeaderConfiguration: configuration))
+            .separatorStyle(SeparatorFioriStyle(objectHeaderConfiguration: configuration))
     }
 }

@@ -44,8 +44,11 @@ import SwiftUI
 public struct TimelinePreview {
     let optionalTitle: any View
     let action: any View
+    let separator: any View
     /// The data for all timelinePreviewItems
     @Binding var items: [any TimelinePreviewItemModel]
+    /// Provides a standard hairline for timeline preview or not. The default value is `false`.
+    let isSeparatorHidden: Bool
 
     @Environment(\.timelinePreviewStyle) var style
 
@@ -55,12 +58,16 @@ public struct TimelinePreview {
 
     public init(@ViewBuilder optionalTitle: () -> any View = { EmptyView() },
                 @ViewBuilder action: () -> any View = { EmptyView() },
+                @ViewBuilder separator: () -> any View = { Color.preferredColor(.separator) },
                 items: Binding<[any TimelinePreviewItemModel]>,
+                isSeparatorHidden: Bool = false,
                 componentIdentifier: String? = TimelinePreview.identifier)
     {
         self.optionalTitle = OptionalTitle(optionalTitle: optionalTitle, componentIdentifier: componentIdentifier)
         self.action = Action(action: action, componentIdentifier: componentIdentifier)
+        self.separator = Separator(separator: separator, componentIdentifier: componentIdentifier)
         self._items = items
+        self.isSeparatorHidden = isSeparatorHidden
         self.componentIdentifier = componentIdentifier ?? TimelinePreview.identifier
     }
 }
@@ -72,9 +79,11 @@ public extension TimelinePreview {
 public extension TimelinePreview {
     init(optionalTitle: AttributedString?,
          action: FioriButton? = nil,
-         items: Binding<[any TimelinePreviewItemModel]>)
+         separator: Color? = Color.preferredColor(.separator),
+         items: Binding<[any TimelinePreviewItemModel]>,
+         isSeparatorHidden: Bool = false)
     {
-        self.init(optionalTitle: { OptionalText(optionalTitle) }, action: { action }, items: items)
+        self.init(optionalTitle: { OptionalText(optionalTitle) }, action: { action }, separator: { separator }, items: items, isSeparatorHidden: isSeparatorHidden)
     }
 }
 
@@ -86,7 +95,9 @@ public extension TimelinePreview {
     internal init(_ configuration: TimelinePreviewConfiguration, shouldApplyDefaultStyle: Bool) {
         self.optionalTitle = configuration.optionalTitle
         self.action = configuration.action
+        self.separator = configuration.separator
         self._items = configuration.$items
+        self.isSeparatorHidden = configuration.isSeparatorHidden
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
         self.componentIdentifier = configuration.componentIdentifier
     }
@@ -97,7 +108,7 @@ extension TimelinePreview: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, optionalTitle: .init(self.optionalTitle), action: .init(self.action), items: self.$items)).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, optionalTitle: .init(self.optionalTitle), action: .init(self.action), separator: .init(self.separator), items: self.$items, isSeparatorHidden: self.isSeparatorHidden)).typeErased
                 .transformEnvironment(\.timelinePreviewStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -115,7 +126,7 @@ private extension TimelinePreview {
     }
 
     func defaultStyle() -> some View {
-        TimelinePreview(.init(componentIdentifier: self.componentIdentifier, optionalTitle: .init(self.optionalTitle), action: .init(self.action), items: self.$items))
+        TimelinePreview(.init(componentIdentifier: self.componentIdentifier, optionalTitle: .init(self.optionalTitle), action: .init(self.action), separator: .init(self.separator), items: self.$items, isSeparatorHidden: self.isSeparatorHidden))
             .shouldApplyDefaultStyle(false)
             .timelinePreviewStyle(TimelinePreviewFioriStyle.ContentFioriStyle())
             .typeErased

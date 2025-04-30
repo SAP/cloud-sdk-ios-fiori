@@ -2243,6 +2243,22 @@ extension SelectedEntriesSectionTitleStyle {
     }
 }
 
+// MARK: SeparatorStyle
+
+struct ResolvedSeparatorStyle<Style: SeparatorStyle>: View {
+    let style: Style
+    let configuration: SeparatorConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension SeparatorStyle {
+    func resolve(configuration: SeparatorConfiguration) -> some View {
+        ResolvedSeparatorStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: SideBarStyle
 
 struct ResolvedSideBarStyle<Style: SideBarStyle>: View {

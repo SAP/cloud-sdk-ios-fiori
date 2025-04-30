@@ -85,6 +85,12 @@ public struct StepProgressIndicatorBaseStyle: StepProgressIndicatorStyle {
             self.stepsHeader(configuration)
             self.stepsContainer(configuration, axis: .horizontal)
         }
+        .ifApply(!configuration.isSeparatorHidden, content: { content in
+            VStack(spacing: 10) {
+                content
+                configuration.separator
+            }
+        })
     }
     
     @ViewBuilder func stepsHeader(_ configuration: StepProgressIndicatorConfiguration) -> some View {
@@ -214,16 +220,15 @@ extension StepProgressIndicatorFioriStyle {
                 .fioriButtonStyle(FioriPlainButtonStyle())
         }
     }
-}
-
-/// Style for step progress indicator
-/// Provides a standard hairline
-public struct StepProgressIndicatorSeparatorStyle: StepProgressIndicatorStyle {
-    public init() {}
-    public func makeBody(_ configuration: StepProgressIndicatorConfiguration) -> some View {
-        VStack {
-            StepProgressIndicator(configuration)
-            Color.preferredColor(.separator).frame(height: 0.53)
+    
+    struct SeparatorFioriStyle: SeparatorStyle {
+        let stepProgressIndicatorConfiguration: StepProgressIndicatorConfiguration
+    
+        func makeBody(_ configuration: SeparatorConfiguration) -> some View {
+            Separator(configuration)
+            // Add default style for Separator
+            // .foregroundStyle(Color.preferredColor(<#fiori color#>))
+            // .font(.fiori(forTextStyle: <#fiori font#>))
         }
     }
 }

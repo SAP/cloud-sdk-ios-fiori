@@ -68,6 +68,12 @@ public struct HeaderChartBaseStyle: HeaderChartStyle {
                 self.makeRegularView(configuration)
             }
         }
+        .ifApply(!configuration.isSeparatorHidden, content: { content in
+            VStack(spacing: 16) {
+                content
+                configuration.separator
+            }
+        })
         .sizeReader { size in
             DispatchQueue.main.async {
                 self.mainViewSize = size
@@ -171,16 +177,15 @@ extension HeaderChartFioriStyle {
             Kpi(configuration)
         }
     }
-}
-
-/// Style for chart header
-/// Provides a standard hairline for header
-public struct HeaderChartSeparatorStyle: HeaderChartStyle {
-    public init() {}
-    public func makeBody(_ configuration: HeaderChartConfiguration) -> some View {
-        VStack {
-            HeaderChart(configuration)
-            Color.preferredColor(.separator).frame(height: 0.33)
+    
+    struct SeparatorFioriStyle: SeparatorStyle {
+        let headerChartConfiguration: HeaderChartConfiguration
+    
+        func makeBody(_ configuration: SeparatorConfiguration) -> some View {
+            Separator(configuration)
+            // Add default style for Separator
+            // .foregroundStyle(Color.preferredColor(<#fiori color#>))
+            // .font(.fiori(forTextStyle: <#fiori font#>))
         }
     }
 }

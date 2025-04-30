@@ -467,10 +467,14 @@ protocol _RatingControlFormViewComponent: _TitleComponent, _RatingControlCompone
 }
 
 // sourcery: CompositeComponent
-protocol _ProfileHeaderComponent: _DetailImageComponent, _TitleComponent, _SubtitleComponent, _DescriptionComponent {
+protocol _ProfileHeaderComponent: _DetailImageComponent, _TitleComponent, _SubtitleComponent, _DescriptionComponent, _SeparatorComponent {
     // sourcery: defaultValue = "false"
     /// Indicate whether the profile header was animatable in scroll view. The default was false.
     var animatable: Bool { get }
+    
+    // sourcery: defaultValue = false
+    /// Provides a standard hairline for profile header or not. The default value is `false`.
+    var isSeparatorHidden: Bool { get }
     
     @ViewBuilder
     /// The detail content for the profile header.
@@ -541,10 +545,14 @@ protocol _TimelinePreviewItemComponent: _TitleComponent, _IconComponent, _Timeli
 /// TimelinePreview(optionalTitle: { Text("Timeline") }, data: .constant(items.map { $0 as any TimelinePreviewItemModel }))
 /// ```
 // sourcery: CompositeComponent
-protocol _TimelinePreviewComponent: _OptionalTitleComponent, _ActionComponent {
+protocol _TimelinePreviewComponent: _OptionalTitleComponent, _ActionComponent, _SeparatorComponent {
     // sourcery: @Binding
     /// The data for all timelinePreviewItems
     var items: [any TimelinePreviewItemModel] { get }
+    
+    // sourcery: defaultValue = false
+    /// Provides a standard hairline for timeline preview or not. The default value is `false`.
+    var isSeparatorHidden: Bool { get }
 }
 
 /// `SwitchView`provides a Fiori style title and`Toggle`.
@@ -1193,7 +1201,7 @@ protocol _SingleStepComponent: _TitleComponent, _NodeComponent, _LineComponent {
 /// You can also update step style for different states, if you created `StepProgressIndicator` by `[StepItem]`.
 /// `func stepStyle(_ style: @escaping ((_ id: String) -> (some StepStyle)?)) -> some View`
 // sourcery: CompositeComponent
-protocol _StepProgressIndicatorComponent: _TitleComponent, _ActionComponent, _CancelActionComponent {
+protocol _StepProgressIndicatorComponent: _TitleComponent, _ActionComponent, _CancelActionComponent, _SeparatorComponent {
     // sourcery: @Binding
     var selection: String { get }
 
@@ -1201,6 +1209,10 @@ protocol _StepProgressIndicatorComponent: _TitleComponent, _ActionComponent, _Ca
     // sourcery: resultBuilder.name = @IndexedViewBuilder
     // sourcery: resultBuilder.returnType = any IndexedViewContainer
     var steps: [StepItem] { get }
+    
+    // sourcery: defaultValue = false
+    /// Provides a standard hairline for step progress indicator or not. The default value is `false`.
+    var isSeparatorHidden: Bool { get }
 }
 
 /// `Attachment` is the UI component to be used by `AttachmentGroup` along with `AttachmentButtonImage` to support users' operation, such as adding a photo or a file and to render attachment list.
@@ -1396,7 +1408,11 @@ protocol _SectionFooterComponent: _TitleComponent, _AttributeComponent {
 /// }
 /// ```
 // sourcery: CompositeComponent
-protocol _ObjectHeaderComponent: _TitleComponent, _SubtitleComponent, _TagsComponent, _BodyTextComponent, _FootnoteComponent, _DescriptionTextComponent, _StatusComponent, _SubstatusComponent, _DetailImageComponent, _DetailContentComponent {}
+protocol _ObjectHeaderComponent: _TitleComponent, _SubtitleComponent, _TagsComponent, _BodyTextComponent, _FootnoteComponent, _DescriptionTextComponent, _StatusComponent, _SubstatusComponent, _DetailImageComponent, _DetailContentComponent, _SeparatorComponent {
+    // sourcery: defaultValue = false
+    /// Provides a standard hairline for object header or not. The default value is `false`.
+    var isSeparatorHidden: Bool { get }
+}
 
 /// `HeaderChart` is a view that displays an object's title, subtitle, trend, trend image and kpi.
 /// ## Usage
@@ -1416,7 +1432,11 @@ protocol _ObjectHeaderComponent: _TitleComponent, _SubtitleComponent, _TagsCompo
 /// }
 /// ```
 // sourcery: CompositeComponent
-protocol _HeaderChartComponent: _TitleComponent, _SubtitleComponent, _TrendComponent, _TrendImageComponent, _KpiComponent {
+protocol _HeaderChartComponent: _TitleComponent, _SubtitleComponent, _TrendComponent, _TrendImageComponent, _KpiComponent, _SeparatorComponent {
+    // sourcery: defaultValue = false
+    /// Provides a standard hairline for header chart or not. The default value is `false`.
+    var isSeparatorHidden: Bool { get }
+    
     @ViewBuilder
     var chart: (() -> any View)? { get }
 }
@@ -1937,7 +1957,7 @@ protocol _DurationPickerComponent: _TitleComponent, _ValueLabelComponent, _Manda
 /// KPIHeader(items: data, isItemOrderForced: false)
 /// ```
 // sourcery: CompositeComponent
-protocol _KPIHeaderComponent {
+protocol _KPIHeaderComponent: _SeparatorComponent {
     // sourcery: resultBuilder.backingComponent = KPIContainerStack
     // sourcery: resultBuilder.name = @ViewBuilder
     var items: [any KPIHeaderItemModel] { get }
@@ -1951,6 +1971,13 @@ protocol _KPIHeaderComponent {
     
     // sourcery: no_view
     var interItemSpacing: CGFloat? { get }
+    
+    // sourcery: @Binding
+    var isPresented: Bool { get }
+    
+    // sourcery: defaultValue = false
+    /// Provides a standard hairline for kpi header or not. The default value is `false`.
+    var isSeparatorHidden: Bool { get }
 }
 
 /// `Authentication` is used to display a login screen with customizable detail image, title, subtitle, input fields and sign-in action.

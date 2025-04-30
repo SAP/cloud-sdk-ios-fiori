@@ -2943,6 +2943,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: SeparatorStyle
+
+struct SeparatorStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any SeparatorStyle] = []
+}
+
+extension EnvironmentValues {
+    var separatorStyle: any SeparatorStyle {
+        self.separatorStyleStack.last ?? .base
+    }
+
+    var separatorStyleStack: [any SeparatorStyle] {
+        get {
+            self[SeparatorStyleStackKey.self]
+        }
+        set {
+            self[SeparatorStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: SideBarStyle
 
 struct SideBarStyleStackKey: EnvironmentKey {

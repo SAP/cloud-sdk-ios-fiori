@@ -84,8 +84,20 @@ public struct ProfileHeaderBaseStyle: ProfileHeaderStyle {
             switch self.horizontalSizeClass {
             case .regular:
                 self.regularView(configuration)
+                    .ifApply(!configuration.isSeparatorHidden) { content in
+                        VStack(spacing: 16) {
+                            content
+                            configuration.separator
+                        }
+                    }
             case .compact, .none, .some:
                 self.compactView(configuration)
+                    .ifApply(!configuration.isSeparatorHidden) { content in
+                        VStack(spacing: 16) {
+                            content
+                            configuration.separator
+                        }
+                    }
             }
         }.modifier(FioriIntrospectModifier<UIScrollView>(introspection: { scrollView in
             DispatchQueue.main.async {
@@ -217,19 +229,15 @@ extension ProfileHeaderFioriStyle {
             Description(configuration)
         }
     }
-}
-
-/// Style for profile header
-/// Provides a standard hairline for header
-public struct ProfileHeaderSeparatorStyle: ProfileHeaderStyle {
-    public init() {}
-    public func makeBody(_ configuration: ProfileHeaderConfiguration) -> some View {
-        VStack {
-            ProfileHeader(configuration)
-                .padding(.bottom)
-            Color
-                .preferredColor(.separator)
-                .frame(height: 0.33)
+    
+    struct SeparatorFioriStyle: SeparatorStyle {
+        let profileHeaderConfiguration: ProfileHeaderConfiguration
+    
+        func makeBody(_ configuration: SeparatorConfiguration) -> some View {
+            Separator(configuration)
+            // Add default style for Separator
+            // .foregroundStyle(Color.preferredColor(<#fiori color#>))
+            // .font(.fiori(forTextStyle: <#fiori font#>))
         }
     }
 }

@@ -11,7 +11,7 @@ struct ProfileHeaderAnimatableExample: View {
             Text("This is a subtitle.")
         }, description: {
             Text("This is a description.")
-        }, animatable: true) {
+        }, animatable: true, isSeparatorHidden: true) {
             HStack(spacing: 30) {
                 Button(action: {}, label: {
                     Image(systemName: "mail")
@@ -25,7 +25,6 @@ struct ProfileHeaderAnimatableExample: View {
                 })
             }
         }
-        .profileHeaderStyle(ProfileHeaderSeparatorStyle())
     }
     
     var body: some View {

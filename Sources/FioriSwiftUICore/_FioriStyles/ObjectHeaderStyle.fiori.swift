@@ -18,8 +18,20 @@ public struct ObjectHeaderBaseStyle: ObjectHeaderStyle {
         Group {
             if self.horizontalSizeClass == .compact {
                 self.compactView(configuration)
+                    .ifApply(!configuration.isSeparatorHidden, content: { content in
+                        VStack(spacing: 16) {
+                            content
+                            configuration.separator
+                        }
+                    })
             } else {
                 self.regularView(configuration)
+                    .ifApply(!configuration.isSeparatorHidden, content: { content in
+                        VStack(spacing: 16) {
+                            content
+                            configuration.separator
+                        }
+                    })
                     .padding(.vertical, 18)
             }
         }
@@ -472,16 +484,15 @@ extension ObjectHeaderFioriStyle {
             DetailContent(configuration)
         }
     }
-}
-
-/// Style for object header
-/// Provides a standard hairline for header
-public struct ObjectHeaderSeparatorStyle: ObjectHeaderStyle {
-    public init() {}
-    public func makeBody(_ configuration: ObjectHeaderConfiguration) -> some View {
-        VStack {
-            ObjectHeader(configuration)
-            Color.preferredColor(.separator).frame(height: 0.33)
+    
+    struct SeparatorFioriStyle: SeparatorStyle {
+        let objectHeaderConfiguration: ObjectHeaderConfiguration
+    
+        func makeBody(_ configuration: SeparatorConfiguration) -> some View {
+            Separator(configuration)
+            // Add default style for Separator
+            // .foregroundStyle(Color.preferredColor(<#fiori color#>))
+            // .font(.fiori(forTextStyle: <#fiori font#>))
         }
     }
 }
