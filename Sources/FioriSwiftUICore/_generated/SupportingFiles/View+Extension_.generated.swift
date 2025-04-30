@@ -54,6 +54,23 @@ public extension View {
     }
 }
 
+// MARK: ActivationScreenStyle
+
+public extension View {
+    func activationScreenStyle(_ style: some ActivationScreenStyle) -> some View {
+        self.transformEnvironment(\.activationScreenStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func activationScreenStyle(@ViewBuilder content: @escaping (ActivationScreenConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.activationScreenStyleStack) { stack in
+            let style = AnyActivationScreenStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: ActiveTrackStyle
 
 public extension View {

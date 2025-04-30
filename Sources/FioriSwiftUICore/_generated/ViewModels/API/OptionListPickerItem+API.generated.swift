@@ -13,6 +13,10 @@ public struct OptionListPickerItem {
 	var _allowsMultipleSelection: Bool
 	var _allowsEmptySelection: Bool
 	var _onTap: ((_ index: Int) -> Void)? = nil
+<<<<<<< HEAD
+=======
+	@State var _height: CGFloat = 0
+>>>>>>> main
 	var updateSearchListPickerHeight: ((CGFloat) -> ())? = nil
 	var barItemFrame: CGRect = .zero
 	@State var _height: CGFloat = 0

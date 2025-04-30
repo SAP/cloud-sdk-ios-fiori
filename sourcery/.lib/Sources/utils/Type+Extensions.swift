@@ -105,7 +105,8 @@ public extension Type {
                                     "_SliderPickerItemModel",
                                     "_EULAViewModel",
                                     "_DurationPickerModel",
-                                    "_InfoViewModel"]
+                                    "_InfoViewModel",
+                                    "_ActivationScreenModel"]
         
         if deprecatedComponents.contains(name) {
             return name.replacingOccurrences(of: "Model", with: "")

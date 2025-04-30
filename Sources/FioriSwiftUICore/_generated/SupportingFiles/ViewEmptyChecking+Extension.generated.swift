@@ -21,6 +21,17 @@ extension Action: _ViewEmptyChecking {
     }
 }
 
+extension ActivationScreen: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        title.isEmpty &&
+            descriptionText.isEmpty &&
+            footnote.isEmpty &&
+            action.isEmpty &&
+            secondaryAction.isEmpty &&
+            illustratedMessage.isEmpty
+    }
+}
+
 extension ActiveTrack: _ViewEmptyChecking {
     public var isEmpty: Bool {
         activeTrack.isEmpty

@@ -224,11 +224,6 @@ extension EnvironmentValues {
         set { self[SecondaryActionModifierKey.self] = newValue }
     }
 
-    public var textInputModifier: AnyViewModifier {
-        get { return self[TextInputModifierKey.self] }
-        set { self[TextInputModifierKey.self] = newValue }
-    }
-
     public var cancelActionModifier: AnyViewModifier {
         get { return self[CancelActionModifierKey.self] }
         set { self[CancelActionModifierKey.self] = newValue }
@@ -237,6 +232,11 @@ extension EnvironmentValues {
     public var doneActionModifier: AnyViewModifier {
         get { return self[DoneActionModifierKey.self] }
         set { self[DoneActionModifierKey.self] = newValue }
+    }
+
+    public var textInputModifier: AnyViewModifier {
+        get { return self[TextInputModifierKey.self] }
+        set { self[TextInputModifierKey.self] = newValue }
     }
 
     public var itemsModifier: AnyViewModifier {
@@ -524,11 +524,6 @@ public extension View {
     }
 
     @ViewBuilder
-    func textInputModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
-        self.environment(\.textInputModifier, AnyViewModifier(transform))
-    }
-
-    @ViewBuilder
     func cancelActionModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
         self.environment(\.cancelActionModifier, AnyViewModifier(transform))
     }
@@ -536,6 +531,11 @@ public extension View {
     @ViewBuilder
     func doneActionModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
         self.environment(\.doneActionModifier, AnyViewModifier(transform))
+    }
+
+    @ViewBuilder
+    func textInputModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
+        self.environment(\.textInputModifier, AnyViewModifier(transform))
     }
 
     @ViewBuilder

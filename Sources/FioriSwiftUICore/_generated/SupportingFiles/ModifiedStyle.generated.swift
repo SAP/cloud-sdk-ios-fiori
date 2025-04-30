@@ -92,6 +92,34 @@ public extension ActionStyle {
     }
 }
 
+// MARK: ActivationScreenStyle
+
+extension ModifiedStyle: ActivationScreenStyle where Style: ActivationScreenStyle {
+    public func makeBody(_ configuration: ActivationScreenConfiguration) -> some View {
+        ActivationScreen(configuration)
+            .activationScreenStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct ActivationScreenStyleModifier<Style: ActivationScreenStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.activationScreenStyle(self.style)
+    }
+}
+
+public extension ActivationScreenStyle {
+    func modifier(_ modifier: some ViewModifier) -> some ActivationScreenStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some ActivationScreenStyle) -> some ActivationScreenStyle {
+        style.modifier(ActivationScreenStyleModifier(style: self))
+    }
+}
+
 // MARK: ActiveTrackStyle
 
 extension ModifiedStyle: ActiveTrackStyle where Style: ActiveTrackStyle {

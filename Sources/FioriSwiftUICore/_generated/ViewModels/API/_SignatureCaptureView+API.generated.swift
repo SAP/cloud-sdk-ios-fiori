@@ -20,6 +20,7 @@ public struct _SignatureCaptureView<StartActionView: View, RestartActionView: Vi
 	let _signatureImage: UIImage?
 	let _onSave: ((UIImage) -> Void)?
 	let _onDelete: (() -> Void)?
+<<<<<<< HEAD
 	var timestampFormatter: DateFormatter?
 	var titleColor = Color.preferredColor(.primaryLabel)
 	var drawingViewBackgroundColor = Color.preferredColor(.primaryBackground)
@@ -48,6 +49,36 @@ public struct _SignatureCaptureView<StartActionView: View, RestartActionView: Vi
 	let _drawingViewMinHeight: CGFloat = 256
 	var appliesTintColorToImage = true
 	var _drawingViewMaxHeight: CGFloat?
+=======
+	let _drawingViewMinHeight: CGFloat = 256
+	var watermarkText: String?
+	var cropsImage = false
+	var hidesXmark = false
+	var strokeColor = Color.preferredColor(.primaryLabel)
+	@State var drawings = [Drawing]()
+	var indicatorColor = Color.preferredColor(.primaryLabel)
+	var drawingViewBackgroundColor = Color.preferredColor(.primaryBackground)
+	@State var isSaved = false
+	var isRequired = false
+	var watermarkTextColor: Color = .preferredColor(.tertiaryLabel)
+	var xmarkColor = Color.preferredColor(.quaternaryLabel)
+	@State var fullSignatureImage: UIImage?
+	var watermarkTextAlignment: NSTextAlignment = .natural
+	var timestampFormatter: DateFormatter?
+	var appliesTintColorToImage = true
+	var titleFont = Font.fiori(forTextStyle: .subheadline).weight(.semibold)
+	var signatureLineColor = Color.preferredColor(.quaternaryLabel)
+	var _drawingViewMaxHeight: CGFloat?
+	var titleColor = Color.preferredColor(.primaryLabel)
+	public private(set) var _heightDidChangePublisher = CurrentValueSubject<CGFloat, Never>(0)
+	@State var isEditing = false
+	@State var currentDrawing = Drawing()
+	var watermarkTextFont: UIFont = .preferredFont(forTextStyle: .caption1)
+	var hidesSignatureLine = false
+	var strokeWidth: CGFloat = 3.0
+	@State var isReenterTapped = false
+	var indicatorFont = Font.fiori(forTextStyle: .subheadline).weight(.semibold)
+>>>>>>> main
 	var addsTimestampInImage: Bool = false
 
     private var isModelInit: Bool = false
