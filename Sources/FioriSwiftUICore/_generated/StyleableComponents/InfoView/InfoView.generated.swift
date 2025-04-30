@@ -65,7 +65,7 @@ import SwiftUI
 ///             print("InfoView secondary button clicked")
 ///         }
 ///     },
-///     loadingIndicator: { loadingIndicator }  // Customized indicator
+///     loadingIndicator: { loadingIndicator }
 /// )
 /// ```
 public struct InfoView {

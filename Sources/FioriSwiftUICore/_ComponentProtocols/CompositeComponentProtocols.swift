@@ -2067,7 +2067,7 @@ protocol _AuthenticationComponent: _DetailImageComponent, _TitleComponent, _Subt
 ///             print("InfoView secondary button clicked")
 ///         }
 ///     },
-///     loadingIndicator: { loadingIndicator }  // Customized indicator
+///     loadingIndicator: { loadingIndicator }
 /// )
 /// ```
 // sourcery: CompositeComponent
