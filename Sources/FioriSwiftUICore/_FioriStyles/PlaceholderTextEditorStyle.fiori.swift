@@ -23,6 +23,7 @@ public struct PlaceholderTextEditorBaseStyle: PlaceholderTextEditorStyle {
                 }
             if configuration.text.isEmpty, !self.isFocused, !configuration.placeholder.isEmpty {
                 configuration.placeholder.body
+                    .zIndex(1)
                     .onTapGesture {
                         DispatchQueue.main.async {
                             self.isFocused = true
