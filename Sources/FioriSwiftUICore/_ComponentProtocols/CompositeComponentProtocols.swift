@@ -2031,3 +2031,20 @@ protocol _AuthenticationComponent: _DetailImageComponent, _TitleComponent, _Subt
     /// and the `isDisabled` property is false.
     var didSignIn: (() -> Void)? { get }
 }
+
+/// The Activation Screen is displayed after the Welcome Screen with title, description text, email input text field, action button and secondary action.
+// sourcery: CompositeComponent
+protocol _ActivationScreenComponent: _TitleComponent, _DescriptionTextComponent, _FootnoteComponent, _ActionComponent, _SecondaryActionComponent {
+    // sourcery: @ViewBuilder
+    var illustratedMessage: IllustratedMessage? { get }
+    
+    // sourcery: @Binding
+    // sourcery: defaultValue = ".constant("")"
+    var inputText: String { get }
+    
+    // sourcery: defaultValue = false
+    /// A boolean flag, `showsIllustratedMessage`, determines whether the illustration message is displayed.
+    /// When `showsIllustratedMessage` is set to `true`, the `illustratedMessage` will be shown, and the `title` and `description` will be hidden. Conversely, when `showsIllustratedMessage` is set to `false`, the `title` and `description` will be displayed, and the `illustratedMessage` will be hidden.
+    /// The default setting for `showsIllustratedMessage` is `false`.
+    var showsIllustratedMessage: Bool { get }
+}

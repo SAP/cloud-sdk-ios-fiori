@@ -66,6 +66,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: ActivationScreenStyle
+
+struct ActivationScreenStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any ActivationScreenStyle] = []
+}
+
+extension EnvironmentValues {
+    var activationScreenStyle: any ActivationScreenStyle {
+        self.activationScreenStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var activationScreenStyleStack: [any ActivationScreenStyle] {
+        get {
+            self[ActivationScreenStyleStackKey.self]
+        }
+        set {
+            self[ActivationScreenStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: ActiveTrackStyle
 
 struct ActiveTrackStyleStackKey: EnvironmentKey {
