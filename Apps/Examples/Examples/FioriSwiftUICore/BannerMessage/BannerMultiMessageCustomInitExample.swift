@@ -121,12 +121,7 @@ struct BannerMultiMessageCustomInitExample: View {
                         BannerMultiMessageSheet(title: {
                             Text("CustomMessagesCount")
                         }, closeAction: {
-                            FioriButton(isSelectionPersistent: false, action: { _ in
-                                self.showingMessageDetail = false
-                            }, image: { _ in
-                                FioriIcon.tables.circleTaskFill
-                            })
-                            .fioriButtonStyle(FioriTertiaryButtonStyle(colorStyle: .normal))
+                            FioriIcon.tables.circleTaskFill
                         }, dismissAction: {
                             self.showingMessageDetail = false
                         }, removeAction: { category, _ in
