@@ -260,19 +260,10 @@ public struct BannerMultiMessageSheetBaseStyle: BannerMultiMessageSheetStyle {
                 if self.isPhone {
                     Spacer()
                     
-                    if !configuration.closeAction.isEmpty {
-                        configuration.closeAction
-                            .onSimultaneousTapGesture {
-                                self.dismiss(configuration)
-                            }
-                    } else {
-                        FioriIcon.status.error
-                            .font(.fiori(forTextStyle: .body, weight: .semibold))
-                            .foregroundStyle(Color.preferredColor(.primaryLabel))
-                            .onSimultaneousTapGesture {
-                                self.dismiss(configuration)
-                            }
-                    }
+                    configuration.closeAction
+                        .onSimultaneousTapGesture {
+                            self.dismiss(configuration)
+                        }
                 }
             }
             .padding(.leading, self.isPhone ? 16 : 0)
@@ -426,17 +417,6 @@ extension BannerMultiMessageSheetFioriStyle {
         func makeBody(_ configuration: TitleConfiguration) -> some View {
             Title(configuration)
             // Add default style for Title
-            // .foregroundStyle(Color.preferredColor(<#fiori color#>))
-            // .font(.fiori(forTextStyle: <#fiori font#>))
-        }
-    }
-
-    struct CloseActionFioriStyle: CloseActionStyle {
-        let bannerMultiMessageSheetConfiguration: BannerMultiMessageSheetConfiguration
-
-        func makeBody(_ configuration: CloseActionConfiguration) -> some View {
-            CloseAction(configuration)
-            // Add default style for CloseAction
             // .foregroundStyle(Color.preferredColor(<#fiori color#>))
             // .font(.fiori(forTextStyle: <#fiori font#>))
         }
