@@ -14,6 +14,8 @@ struct FilterFormViewExamples: View {
     @State private var isEnabled = true
     
     @State private var multiSelectionEmptySelectionValue: [Int] = [1, 2]
+    @State private var multiSelectionEmptySelectionNoCheckmarkValue: [Int] = [1, 2]
+    @State private var multiSelectionEmptySelectionCustomCheckmarkValue: [Int] = [1, 2]
     @State private var multiSelectionNonEmptySelectionValue: [Int] = [1, 2]
     @State private var singleSelectionEmptySelectionValue: [Int] = []
     @State private var singleSelectionNonEmptySelectionValue: [Int] = []
@@ -63,6 +65,20 @@ struct FilterFormViewExamples: View {
             
             FilterFormView(title: "MultiSelection, EmptySelection", mandatoryFieldIndicator: self.mandatoryField(), isRequired: self.showMandatoryField, options: self.valueOptions, errorMessage: "Validation Message", isEnabled: self.isEnabled, allowsMultipleSelection: true, allowsEmptySelection: true, value: self.$multiSelectionEmptySelectionValue, buttonSize: .fixed, onValueChange: { value in
                 print("MultiSelection, EmptySelection value change: \(value)")
+            })
+            .informationViewStyle(.success)
+            
+            FilterFormView(title: "MultiSelection, EmptySelection, No checkmark", mandatoryFieldIndicator: self.mandatoryField(), isRequired: self.showMandatoryField, options: self.valueOptions, errorMessage: "Validation Message", isEnabled: self.isEnabled, allowsMultipleSelection: true, allowsEmptySelection: true, value: self.$multiSelectionEmptySelectionNoCheckmarkValue, buttonSize: .fixed, onValueChange: { value in
+                print("MultiSelection, EmptySelection value change: \(value)")
+            }, checkmarkImage: {
+                EmptyView()
+            })
+            .informationViewStyle(.success)
+            
+            FilterFormView(title: "MultiSelection, EmptySelection, Custom checkmark", mandatoryFieldIndicator: self.mandatoryField(), isRequired: self.showMandatoryField, options: self.valueOptions, errorMessage: "Validation Message", isEnabled: self.isEnabled, allowsMultipleSelection: true, allowsEmptySelection: true, value: self.$multiSelectionEmptySelectionCustomCheckmarkValue, buttonSize: .fixed, onValueChange: { value in
+                print("MultiSelection, EmptySelection value change: \(value)")
+            }, checkmarkImage: {
+                Image(systemName: "star.fill")
             })
             .informationViewStyle(.success)
             
