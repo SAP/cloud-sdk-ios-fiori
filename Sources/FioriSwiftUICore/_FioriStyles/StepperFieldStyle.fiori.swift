@@ -36,7 +36,8 @@ public struct StepperFieldBaseStyle: StepperFieldStyle {
                 }
                 .focused(self.$isFocused)
                 .onChange(of: configuration.text) { _, newValue in
-                    let validatedText = self.validateAndUpdateText(for: newValue, configuration: configuration, enforceMinimum: false)
+                    let filteredValue = configuration.isDecimalSupported ? self.filterDecimalInput(newValue) : newValue
+                    let validatedText = self.validateAndUpdateText(for: filteredValue, configuration: configuration, enforceMinimum: false)
                     self.pendingText = validatedText
                     DispatchQueue.main.async {
                         configuration.text = self.pendingText
@@ -120,6 +121,21 @@ public struct StepperFieldBaseStyle: StepperFieldStyle {
         }
     }
     
+    private func filterDecimalInput(_ value: String) -> String {
+        var result = ""
+        var hasDecimalPoint = false
+        
+        for char in value {
+            if char.isNumber {
+                result.append(char)
+            } else if char == ".", !hasDecimalPoint {
+                result.append(char)
+                hasDecimalPoint = true
+            }
+        }
+        return result
+    }
+
     private func validateAndUpdateText(for text: String, configuration: StepperFieldConfiguration, enforceMinimum: Bool) -> String {
         if text.isEmpty {
             return text
@@ -142,7 +158,11 @@ public struct StepperFieldBaseStyle: StepperFieldStyle {
                     step: configuration.step
                 )
             } else {
-                if text.contains("."), text.hasSuffix(".") || text.split(separator: ".").last?.allSatisfy(\.isNumber) ?? false {
+                let decimalParts = text.components(separatedBy: ".")
+                if decimalParts.count <= 2,
+                   decimalParts[0].isEmpty || decimalParts[0].allSatisfy(\.isNumber),
+                   decimalParts.count == 1 || decimalParts[1].isEmpty || decimalParts[1].allSatisfy(\.isNumber)
+                {
                     return text
                 }
                 return self.previousValue.isEmpty ?
