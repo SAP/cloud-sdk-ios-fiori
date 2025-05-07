@@ -289,7 +289,6 @@ public struct Carousel<Content>: View where Content: View {
                     }
             )
         }
-        .clipped()
         .modifier(CarouselSizeModifier())
         .onPreferenceChange(CarouselSizePreferenceKey.self) { size in
             DispatchQueue.main.async {
