@@ -34,8 +34,10 @@ public struct FilterFormViewConfiguration {
     public let buttonSize: FilterButtonSize
     public let isSingleLine: Bool
     public let onValueChange: (([Int]) -> Void)?
+    public let checkmarkImage: CheckmarkImage
 
     public typealias Title = ConfigurationViewWrapper
+    public typealias CheckmarkImage = ConfigurationViewWrapper
 }
 
 extension FilterFormViewConfiguration {
