@@ -5,6 +5,7 @@ import SwiftUI
 // Base Layout style
 public struct TimelinePreviewBaseStyle: TimelinePreviewStyle {
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    @Environment(\.headerSeparator) private var separatorConfiguration
     @State private var itemCount = 0
     @State private var VSize: CGSize = .zero
     
@@ -15,12 +16,13 @@ public struct TimelinePreviewBaseStyle: TimelinePreviewStyle {
             }
             BuildTimelinePreviewItem(configuration: configuration, displayItems: self.getDisplayItemCount(VSWidth: self.VSize.width))
         }
-        .ifApply(!configuration.isSeparatorHidden, content: { content in
+        .ifApply(self.separatorConfiguration.showSeparator) { content in
             VStack(spacing: 16) {
                 content
-                configuration.separator
+                self.separatorConfiguration.color
+                    .frame(height: self.separatorConfiguration.lineWidth)
             }
-        })
+        }
         .readSize { newSize in
             self.VSize = newSize
         }
@@ -126,17 +128,6 @@ extension TimelinePreviewFioriStyle {
             Action(configuration)
                 .font(.fiori(forTextStyle: .subheadline))
                 .fioriButtonStyle(FioriPlainButtonStyle())
-        }
-    }
-    
-    struct SeparatorFioriStyle: SeparatorStyle {
-        let timelinePreviewConfiguration: TimelinePreviewConfiguration
-    
-        func makeBody(_ configuration: SeparatorConfiguration) -> some View {
-            Separator(configuration)
-            // Add default style for Separator
-            // .foregroundStyle(Color.preferredColor(<#fiori color#>))
-            // .font(.fiori(forTextStyle: <#fiori font#>))
         }
     }
 }

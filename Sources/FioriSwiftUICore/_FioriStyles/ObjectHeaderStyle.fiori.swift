@@ -6,6 +6,7 @@ import SwiftUI
 public struct ObjectHeaderBaseStyle: ObjectHeaderStyle {
     @Environment(\.sizeCategory) var sizeCategory
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    @Environment(\.headerSeparator) private var separatorConfiguration
 
     @State var rightViewSize: CGSize = .init(width: 120, height: 0)
     @State var currentTabIndex: Int = 0
@@ -18,20 +19,22 @@ public struct ObjectHeaderBaseStyle: ObjectHeaderStyle {
         Group {
             if self.horizontalSizeClass == .compact {
                 self.compactView(configuration)
-                    .ifApply(!configuration.isSeparatorHidden, content: { content in
+                    .ifApply(self.separatorConfiguration.showSeparator) { content in
                         VStack(spacing: 16) {
                             content
-                            configuration.separator
+                            self.separatorConfiguration.color
+                                .frame(height: self.separatorConfiguration.lineWidth)
                         }
-                    })
+                    }
             } else {
                 self.regularView(configuration)
-                    .ifApply(!configuration.isSeparatorHidden, content: { content in
+                    .ifApply(self.separatorConfiguration.showSeparator) { content in
                         VStack(spacing: 16) {
                             content
-                            configuration.separator
+                            self.separatorConfiguration.color
+                                .frame(height: self.separatorConfiguration.lineWidth)
                         }
-                    })
+                    }
                     .padding(.vertical, 18)
             }
         }
@@ -482,17 +485,6 @@ extension ObjectHeaderFioriStyle {
         
         func makeBody(_ configuration: DetailContentConfiguration) -> some View {
             DetailContent(configuration)
-        }
-    }
-    
-    struct SeparatorFioriStyle: SeparatorStyle {
-        let objectHeaderConfiguration: ObjectHeaderConfiguration
-    
-        func makeBody(_ configuration: SeparatorConfiguration) -> some View {
-            Separator(configuration)
-            // Add default style for Separator
-            // .foregroundStyle(Color.preferredColor(<#fiori color#>))
-            // .font(.fiori(forTextStyle: <#fiori font#>))
         }
     }
 }

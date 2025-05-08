@@ -28,8 +28,6 @@ public struct HeaderChartConfiguration {
     public let trend: Trend
     public let trendImage: TrendImage
     public let kpi: Kpi
-    public let separator: Separator
-    public let isSeparatorHidden: Bool
     public let chart: Chart
 
     public typealias Title = ConfigurationViewWrapper
@@ -37,7 +35,6 @@ public struct HeaderChartConfiguration {
     public typealias Trend = ConfigurationViewWrapper
     public typealias TrendImage = ConfigurationViewWrapper
     public typealias Kpi = ConfigurationViewWrapper
-    public typealias Separator = ConfigurationViewWrapper
     public typealias Chart = ConfigurationViewWrapper
 }
 
@@ -55,6 +52,5 @@ public struct HeaderChartFioriStyle: HeaderChartStyle {
             .trendStyle(TrendFioriStyle(headerChartConfiguration: configuration))
             .trendImageStyle(TrendImageFioriStyle(headerChartConfiguration: configuration))
             .kpiStyle(KpiFioriStyle(headerChartConfiguration: configuration))
-            .separatorStyle(SeparatorFioriStyle(headerChartConfiguration: configuration))
     }
 }

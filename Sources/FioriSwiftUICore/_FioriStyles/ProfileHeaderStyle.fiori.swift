@@ -50,6 +50,7 @@ import SwiftUI
 // Base Layout style
 public struct ProfileHeaderBaseStyle: ProfileHeaderStyle {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    @Environment(\.headerSeparator) private var separatorConfiguration
     
     @StateObject var viewModel = ProfileHeaderViewModel()
     @State var subtitleSize: CGSize = .zero
@@ -84,18 +85,20 @@ public struct ProfileHeaderBaseStyle: ProfileHeaderStyle {
             switch self.horizontalSizeClass {
             case .regular:
                 self.regularView(configuration)
-                    .ifApply(!configuration.isSeparatorHidden) { content in
+                    .ifApply(self.separatorConfiguration.showSeparator) { content in
                         VStack(spacing: 16) {
                             content
-                            configuration.separator
+                            self.separatorConfiguration.color
+                                .frame(height: self.separatorConfiguration.lineWidth)
                         }
                     }
             case .compact, .none, .some:
                 self.compactView(configuration)
-                    .ifApply(!configuration.isSeparatorHidden) { content in
+                    .ifApply(self.separatorConfiguration.showSeparator) { content in
                         VStack(spacing: 16) {
                             content
-                            configuration.separator
+                            self.separatorConfiguration.color
+                                .frame(height: self.separatorConfiguration.lineWidth)
                         }
                     }
             }
@@ -227,17 +230,6 @@ extension ProfileHeaderFioriStyle {
         
         func makeBody(_ configuration: DescriptionConfiguration) -> some View {
             Description(configuration)
-        }
-    }
-    
-    struct SeparatorFioriStyle: SeparatorStyle {
-        let profileHeaderConfiguration: ProfileHeaderConfiguration
-    
-        func makeBody(_ configuration: SeparatorConfiguration) -> some View {
-            Separator(configuration)
-            // Add default style for Separator
-            // .foregroundStyle(Color.preferredColor(<#fiori color#>))
-            // .font(.fiori(forTextStyle: <#fiori font#>))
         }
     }
 }

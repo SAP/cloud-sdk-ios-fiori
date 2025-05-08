@@ -74,6 +74,7 @@ public extension StepProgressIndicator {
 
 // Base Layout style
 public struct StepProgressIndicatorBaseStyle: StepProgressIndicatorStyle {
+    @Environment(\.headerSeparator) private var separatorConfiguration
     @State var isPresented: Bool = false
     @State var stepFrames: [String: CGRect] = [:]
     @State var scrollBounds: CGRect = .zero
@@ -85,12 +86,13 @@ public struct StepProgressIndicatorBaseStyle: StepProgressIndicatorStyle {
             self.stepsHeader(configuration)
             self.stepsContainer(configuration, axis: .horizontal)
         }
-        .ifApply(!configuration.isSeparatorHidden, content: { content in
+        .ifApply(self.separatorConfiguration.showSeparator) { content in
             VStack(spacing: 10) {
                 content
-                configuration.separator
+                self.separatorConfiguration.color
+                    .frame(height: self.separatorConfiguration.lineWidth)
             }
-        })
+        }
     }
     
     @ViewBuilder func stepsHeader(_ configuration: StepProgressIndicatorConfiguration) -> some View {
@@ -218,17 +220,6 @@ extension StepProgressIndicatorFioriStyle {
         func makeBody(_ configuration: CancelActionConfiguration) -> some View {
             CancelAction(configuration)
                 .fioriButtonStyle(FioriPlainButtonStyle())
-        }
-    }
-    
-    struct SeparatorFioriStyle: SeparatorStyle {
-        let stepProgressIndicatorConfiguration: StepProgressIndicatorConfiguration
-    
-        func makeBody(_ configuration: SeparatorConfiguration) -> some View {
-            Separator(configuration)
-            // Add default style for Separator
-            // .foregroundStyle(Color.preferredColor(<#fiori color#>))
-            // .font(.fiori(forTextStyle: <#fiori font#>))
         }
     }
 }

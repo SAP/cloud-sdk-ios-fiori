@@ -497,7 +497,6 @@ extension HeaderChart: _ViewEmptyChecking {
             trend.isEmpty &&
             trendImage.isEmpty &&
             kpi.isEmpty &&
-            separator.isEmpty &&
             chart.isEmpty
     }
 }
@@ -573,8 +572,7 @@ extension KPIContent: _ViewEmptyChecking {
 
 extension KPIHeader: _ViewEmptyChecking {
     public var isEmpty: Bool {
-        separator.isEmpty &&
-            items.isEmpty &&
+        items.isEmpty &&
             bannerMessage.isEmpty
     }
 }
@@ -778,8 +776,7 @@ extension ObjectHeader: _ViewEmptyChecking {
             status.isEmpty &&
             substatus.isEmpty &&
             detailImage.isEmpty &&
-            detailContent.isEmpty &&
-            separator.isEmpty
+            detailContent.isEmpty
     }
 }
 
@@ -868,7 +865,6 @@ extension ProfileHeader: _ViewEmptyChecking {
             title.isEmpty &&
             subtitle.isEmpty &&
             description.isEmpty &&
-            separator.isEmpty &&
             detailContent.isEmpty
     }
 }
@@ -1014,12 +1010,6 @@ extension SelectedEntriesSectionTitle: _ViewEmptyChecking {
     }
 }
 
-extension Separator: _ViewEmptyChecking {
-    public var isEmpty: Bool {
-        separator.isEmpty
-    }
-}
-
 extension SideBar: _ViewEmptyChecking {
     public var isEmpty: Bool {
         footer.isEmpty &&
@@ -1091,7 +1081,6 @@ extension StepProgressIndicator: _ViewEmptyChecking {
         title.isEmpty &&
             action.isEmpty &&
             cancelAction.isEmpty &&
-            separator.isEmpty &&
             steps.isEmpty
     }
 }
@@ -1234,8 +1223,7 @@ extension TimelineNowIndicator: _ViewEmptyChecking {
 extension TimelinePreview: _ViewEmptyChecking {
     public var isEmpty: Bool {
         optionalTitle.isEmpty &&
-            action.isEmpty &&
-            separator.isEmpty
+            action.isEmpty
     }
 }
 

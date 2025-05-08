@@ -732,12 +732,3 @@ protocol _SignInActionComponent {
     // sourcery: resultBuilder.defaultValue = "{ FioriButton { _ in Text("Sign In".localizedFioriString()) } }"
     var signInAction: FioriButton? { get }
 }
-
-// sourcery: BaseComponent
-// sourcery: importFrameworks = ["FioriThemeManager"]
-protocol _SeparatorComponent {
-    // sourcery: @ViewBuilder
-    // sourcery: defaultValue = "Color.preferredColor(.separator)"
-    // sourcery: resultBuilder.defaultValue = "{ Color.preferredColor(.separator) }"
-    var separator: Color? { get }
-}

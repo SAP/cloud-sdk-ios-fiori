@@ -26,15 +26,12 @@ public struct StepProgressIndicatorConfiguration {
     public let title: Title
     public let action: Action
     public let cancelAction: CancelAction
-    public let separator: Separator
     @Binding public var selection: String
     public let steps: Steps
-    public let isSeparatorHidden: Bool
 
     public typealias Title = ConfigurationViewWrapper
     public typealias Action = ConfigurationViewWrapper
     public typealias CancelAction = ConfigurationViewWrapper
-    public typealias Separator = ConfigurationViewWrapper
     public typealias Steps = any IndexedViewContainer
 }
 
@@ -50,6 +47,5 @@ public struct StepProgressIndicatorFioriStyle: StepProgressIndicatorStyle {
             .titleStyle(TitleFioriStyle(stepProgressIndicatorConfiguration: configuration))
             .actionStyle(ActionFioriStyle(stepProgressIndicatorConfiguration: configuration))
             .cancelActionStyle(CancelActionFioriStyle(stepProgressIndicatorConfiguration: configuration))
-            .separatorStyle(SeparatorFioriStyle(stepProgressIndicatorConfiguration: configuration))
     }
 }

@@ -46,6 +46,7 @@ public extension HeaderChart {
 
 // Base Layout style
 public struct HeaderChartBaseStyle: HeaderChartStyle {
+    @Environment(\.headerSeparator) private var separatorConfiguration
     @State var mainViewSize: CGSize = .init(width: 312, height: 0)
     
     /// :nodoc:
@@ -68,12 +69,13 @@ public struct HeaderChartBaseStyle: HeaderChartStyle {
                 self.makeRegularView(configuration)
             }
         }
-        .ifApply(!configuration.isSeparatorHidden, content: { content in
+        .ifApply(self.separatorConfiguration.showSeparator) { content in
             VStack(spacing: 16) {
                 content
-                configuration.separator
+                self.separatorConfiguration.color
+                    .frame(height: self.separatorConfiguration.lineWidth)
             }
-        })
+        }
         .sizeReader { size in
             DispatchQueue.main.async {
                 self.mainViewSize = size
@@ -175,17 +177,6 @@ extension HeaderChartFioriStyle {
         
         func makeBody(_ configuration: KpiConfiguration) -> some View {
             Kpi(configuration)
-        }
-    }
-    
-    struct SeparatorFioriStyle: SeparatorStyle {
-        let headerChartConfiguration: HeaderChartConfiguration
-    
-        func makeBody(_ configuration: SeparatorConfiguration) -> some View {
-            Separator(configuration)
-            // Add default style for Separator
-            // .foregroundStyle(Color.preferredColor(<#fiori color#>))
-            // .font(.fiori(forTextStyle: <#fiori font#>))
         }
     }
 }

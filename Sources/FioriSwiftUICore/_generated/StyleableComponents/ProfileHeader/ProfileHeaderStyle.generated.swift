@@ -27,16 +27,13 @@ public struct ProfileHeaderConfiguration {
     public let title: Title
     public let subtitle: Subtitle
     public let description: Description
-    public let separator: Separator
     public let animatable: Bool
-    public let isSeparatorHidden: Bool
     public let detailContent: DetailContent
 
     public typealias DetailImage = ConfigurationViewWrapper
     public typealias Title = ConfigurationViewWrapper
     public typealias Subtitle = ConfigurationViewWrapper
     public typealias Description = ConfigurationViewWrapper
-    public typealias Separator = ConfigurationViewWrapper
     public typealias DetailContent = ConfigurationViewWrapper
 }
 
@@ -53,6 +50,5 @@ public struct ProfileHeaderFioriStyle: ProfileHeaderStyle {
             .titleStyle(TitleFioriStyle(profileHeaderConfiguration: configuration))
             .subtitleStyle(SubtitleFioriStyle(profileHeaderConfiguration: configuration))
             .descriptionStyle(DescriptionFioriStyle(profileHeaderConfiguration: configuration))
-            .separatorStyle(SeparatorFioriStyle(profileHeaderConfiguration: configuration))
     }
 }

@@ -25,13 +25,10 @@ public struct TimelinePreviewConfiguration {
     public var componentIdentifier: String = "fiori_timelinepreview_component"
     public let optionalTitle: OptionalTitle
     public let action: Action
-    public let separator: Separator
     @Binding public var items: [any TimelinePreviewItemModel]
-    public let isSeparatorHidden: Bool
 
     public typealias OptionalTitle = ConfigurationViewWrapper
     public typealias Action = ConfigurationViewWrapper
-    public typealias Separator = ConfigurationViewWrapper
 }
 
 extension TimelinePreviewConfiguration {
@@ -45,6 +42,5 @@ public struct TimelinePreviewFioriStyle: TimelinePreviewStyle {
         TimelinePreview(configuration)
             .optionalTitleStyle(OptionalTitleFioriStyle(timelinePreviewConfiguration: configuration))
             .actionStyle(ActionFioriStyle(timelinePreviewConfiguration: configuration))
-            .separatorStyle(SeparatorFioriStyle(timelinePreviewConfiguration: configuration))
     }
 }

@@ -3956,34 +3956,6 @@ public extension SelectedEntriesSectionTitleStyle {
     }
 }
 
-// MARK: SeparatorStyle
-
-extension ModifiedStyle: SeparatorStyle where Style: SeparatorStyle {
-    public func makeBody(_ configuration: SeparatorConfiguration) -> some View {
-        Separator(configuration)
-            .separatorStyle(self.style)
-            .modifier(self.modifier)
-    }
-}
-
-public struct SeparatorStyleModifier<Style: SeparatorStyle>: ViewModifier {
-    let style: Style
-
-    public func body(content: Content) -> some View {
-        content.separatorStyle(self.style)
-    }
-}
-
-public extension SeparatorStyle {
-    func modifier(_ modifier: some ViewModifier) -> some SeparatorStyle {
-        ModifiedStyle(style: self, modifier: modifier)
-    }
-
-    func concat(_ style: some SeparatorStyle) -> some SeparatorStyle {
-        style.modifier(SeparatorStyleModifier(style: self))
-    }
-}
-
 // MARK: SideBarStyle
 
 extension ModifiedStyle: SideBarStyle where Style: SideBarStyle {

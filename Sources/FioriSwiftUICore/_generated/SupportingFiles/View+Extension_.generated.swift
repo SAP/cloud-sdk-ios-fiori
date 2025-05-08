@@ -2400,23 +2400,6 @@ public extension View {
     }
 }
 
-// MARK: SeparatorStyle
-
-public extension View {
-    func separatorStyle(_ style: some SeparatorStyle) -> some View {
-        self.transformEnvironment(\.separatorStyleStack) { stack in
-            stack.append(style)
-        }
-    }
-
-    func separatorStyle(@ViewBuilder content: @escaping (SeparatorConfiguration) -> some View) -> some View {
-        self.transformEnvironment(\.separatorStyleStack) { stack in
-            let style = AnySeparatorStyle(content)
-            stack.append(style)
-        }
-    }
-}
-
 // MARK: SideBarStyle
 
 public extension View {

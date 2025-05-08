@@ -16,14 +16,11 @@ import SwiftUI
 /// KPIHeader(items: data, isItemOrderForced: false)
 /// ```
 public struct KPIHeader {
-    let separator: any View
     let items: any View
     let bannerMessage: any View
     let isItemOrderForced: Bool
     let interItemSpacing: CGFloat?
     @Binding var isPresented: Bool
-    /// Provides a standard hairline for kpi header or not. The default value is `false`.
-    let isSeparatorHidden: Bool
 
     @Environment(\.kPIHeaderStyle) var style
 
@@ -31,22 +28,18 @@ public struct KPIHeader {
 
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder separator: () -> any View = { Color.preferredColor(.separator) },
-                @ViewBuilder items: () -> any View = { EmptyView() },
+    public init(@ViewBuilder items: () -> any View = { EmptyView() },
                 @ViewBuilder bannerMessage: () -> any View = { EmptyView() },
                 isItemOrderForced: Bool = false,
                 interItemSpacing: CGFloat? = nil,
                 isPresented: Binding<Bool>,
-                isSeparatorHidden: Bool = false,
                 componentIdentifier: String? = KPIHeader.identifier)
     {
-        self.separator = Separator(separator: separator, componentIdentifier: componentIdentifier)
         self.items = items()
         self.bannerMessage = bannerMessage()
         self.isItemOrderForced = isItemOrderForced
         self.interItemSpacing = interItemSpacing
         self._isPresented = isPresented
-        self.isSeparatorHidden = isSeparatorHidden
         self.componentIdentifier = componentIdentifier ?? KPIHeader.identifier
     }
 }
@@ -56,15 +49,13 @@ public extension KPIHeader {
 }
 
 public extension KPIHeader {
-    init(separator: Color? = Color.preferredColor(.separator),
-         items: [any KPIHeaderItemModel] = [],
+    init(items: [any KPIHeaderItemModel] = [],
          bannerMessage: BannerMessage? = nil,
          isItemOrderForced: Bool = false,
          interItemSpacing: CGFloat? = nil,
-         isPresented: Binding<Bool>,
-         isSeparatorHidden: Bool = false)
+         isPresented: Binding<Bool>)
     {
-        self.init(separator: { separator }, items: { KPIContainerStack(items) }, bannerMessage: { bannerMessage }, isItemOrderForced: isItemOrderForced, interItemSpacing: interItemSpacing, isPresented: isPresented, isSeparatorHidden: isSeparatorHidden)
+        self.init(items: { KPIContainerStack(items) }, bannerMessage: { bannerMessage }, isItemOrderForced: isItemOrderForced, interItemSpacing: interItemSpacing, isPresented: isPresented)
     }
 }
 
@@ -74,13 +65,11 @@ public extension KPIHeader {
     }
 
     internal init(_ configuration: KPIHeaderConfiguration, shouldApplyDefaultStyle: Bool) {
-        self.separator = configuration.separator
         self.items = configuration.items
         self.bannerMessage = configuration.bannerMessage
         self.isItemOrderForced = configuration.isItemOrderForced
         self.interItemSpacing = configuration.interItemSpacing
         self._isPresented = configuration.$isPresented
-        self.isSeparatorHidden = configuration.isSeparatorHidden
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
         self.componentIdentifier = configuration.componentIdentifier
     }
@@ -91,7 +80,7 @@ extension KPIHeader: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, separator: .init(self.separator), items: .init(self.items), bannerMessage: .init(self.bannerMessage), isItemOrderForced: self.isItemOrderForced, interItemSpacing: self.interItemSpacing, isPresented: self.$isPresented, isSeparatorHidden: self.isSeparatorHidden)).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, items: .init(self.items), bannerMessage: .init(self.bannerMessage), isItemOrderForced: self.isItemOrderForced, interItemSpacing: self.interItemSpacing, isPresented: self.$isPresented)).typeErased
                 .transformEnvironment(\.kPIHeaderStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -109,7 +98,7 @@ private extension KPIHeader {
     }
 
     func defaultStyle() -> some View {
-        KPIHeader(.init(componentIdentifier: self.componentIdentifier, separator: .init(self.separator), items: .init(self.items), bannerMessage: .init(self.bannerMessage), isItemOrderForced: self.isItemOrderForced, interItemSpacing: self.interItemSpacing, isPresented: self.$isPresented, isSeparatorHidden: self.isSeparatorHidden))
+        KPIHeader(.init(componentIdentifier: self.componentIdentifier, items: .init(self.items), bannerMessage: .init(self.bannerMessage), isItemOrderForced: self.isItemOrderForced, interItemSpacing: self.interItemSpacing, isPresented: self.$isPresented))
             .shouldApplyDefaultStyle(false)
             .kPIHeaderStyle(KPIHeaderFioriStyle.ContentFioriStyle())
             .typeErased

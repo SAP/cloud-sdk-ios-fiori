@@ -466,15 +466,20 @@ protocol _RatingControlFormViewComponent: _TitleComponent, _RatingControlCompone
     var axis: Axis { get }
 }
 
+/// Sets the separator for profile header components
+/// Example usage:
+/// ```swift
+/// ProfileHeader(...)
+///     .headerSeparator(true) // Show separator with default style
+///     .headerSeparator(true, color: .red) // Show red separator
+///     .headerSeparator(true, color: .blue, lineWidth: 1.0) // Show thick blue separator
+///     .headerSeparator(false) // Hide separator
+/// ```
 // sourcery: CompositeComponent
-protocol _ProfileHeaderComponent: _DetailImageComponent, _TitleComponent, _SubtitleComponent, _DescriptionComponent, _SeparatorComponent {
+protocol _ProfileHeaderComponent: _DetailImageComponent, _TitleComponent, _SubtitleComponent, _DescriptionComponent {
     // sourcery: defaultValue = "false"
     /// Indicate whether the profile header was animatable in scroll view. The default was false.
     var animatable: Bool { get }
-    
-    // sourcery: defaultValue = false
-    /// Provides a standard hairline for profile header or not. The default value is `false`.
-    var isSeparatorHidden: Bool { get }
     
     @ViewBuilder
     /// The detail content for the profile header.
@@ -544,15 +549,20 @@ protocol _TimelinePreviewItemComponent: _TitleComponent, _IconComponent, _Timeli
 ///  Create TimelinePreview with the array
 /// TimelinePreview(optionalTitle: { Text("Timeline") }, data: .constant(items.map { $0 as any TimelinePreviewItemModel }))
 /// ```
+/// Sets the separator for timeline preview components
+/// Example usage:
+/// ```swift
+/// TimelinePreview(...)
+///     .headerSeparator(true) // Show separator with default style
+///     .headerSeparator(true, color: .red) // Show red separator
+///     .headerSeparator(true, color: .blue, lineWidth: 1.0) // Show thick blue separator
+///     .headerSeparator(false) // Hide separator
+/// ```
 // sourcery: CompositeComponent
-protocol _TimelinePreviewComponent: _OptionalTitleComponent, _ActionComponent, _SeparatorComponent {
+protocol _TimelinePreviewComponent: _OptionalTitleComponent, _ActionComponent {
     // sourcery: @Binding
     /// The data for all timelinePreviewItems
     var items: [any TimelinePreviewItemModel] { get }
-    
-    // sourcery: defaultValue = false
-    /// Provides a standard hairline for timeline preview or not. The default value is `false`.
-    var isSeparatorHidden: Bool { get }
 }
 
 /// `SwitchView`provides a Fiori style title and`Toggle`.
@@ -1200,8 +1210,18 @@ protocol _SingleStepComponent: _TitleComponent, _NodeComponent, _LineComponent {
 /// ```
 /// You can also update step style for different states, if you created `StepProgressIndicator` by `[StepItem]`.
 /// `func stepStyle(_ style: @escaping ((_ id: String) -> (some StepStyle)?)) -> some View`
+///
+/// Sets the separator for step progress indicator components
+/// Example usage:
+/// ```swift
+/// StepProgressIndicator(...)
+///     .headerSeparator(true) // Show separator with default style
+///     .headerSeparator(true, color: .red) // Show red separator
+///     .headerSeparator(true, color: .blue, lineWidth: 1.0) // Show thick blue separator
+///     .headerSeparator(false) // Hide separator
+/// ```
 // sourcery: CompositeComponent
-protocol _StepProgressIndicatorComponent: _TitleComponent, _ActionComponent, _CancelActionComponent, _SeparatorComponent {
+protocol _StepProgressIndicatorComponent: _TitleComponent, _ActionComponent, _CancelActionComponent {
     // sourcery: @Binding
     var selection: String { get }
 
@@ -1209,10 +1229,6 @@ protocol _StepProgressIndicatorComponent: _TitleComponent, _ActionComponent, _Ca
     // sourcery: resultBuilder.name = @IndexedViewBuilder
     // sourcery: resultBuilder.returnType = any IndexedViewContainer
     var steps: [StepItem] { get }
-    
-    // sourcery: defaultValue = false
-    /// Provides a standard hairline for step progress indicator or not. The default value is `false`.
-    var isSeparatorHidden: Bool { get }
 }
 
 /// `Attachment` is the UI component to be used by `AttachmentGroup` along with `AttachmentButtonImage` to support users' operation, such as adding a photo or a file and to render attachment list.
@@ -1407,12 +1423,17 @@ protocol _SectionFooterComponent: _TitleComponent, _AttributeComponent {
 ///     Text("detail content")
 /// }
 /// ```
+/// Sets the separator for object header components
+/// Example usage:
+/// ```swift
+/// ObjectHeader(...)
+///     .headerSeparator(true) // Show separator with default style
+///     .headerSeparator(true, color: .red) // Show red separator
+///     .headerSeparator(true, color: .blue, lineWidth: 1.0) // Show thick blue separator
+///     .headerSeparator(false) // Hide separator
+/// ```
 // sourcery: CompositeComponent
-protocol _ObjectHeaderComponent: _TitleComponent, _SubtitleComponent, _TagsComponent, _BodyTextComponent, _FootnoteComponent, _DescriptionTextComponent, _StatusComponent, _SubstatusComponent, _DetailImageComponent, _DetailContentComponent, _SeparatorComponent {
-    // sourcery: defaultValue = false
-    /// Provides a standard hairline for object header or not. The default value is `false`.
-    var isSeparatorHidden: Bool { get }
-}
+protocol _ObjectHeaderComponent: _TitleComponent, _SubtitleComponent, _TagsComponent, _BodyTextComponent, _FootnoteComponent, _DescriptionTextComponent, _StatusComponent, _SubstatusComponent, _DetailImageComponent, _DetailContentComponent {}
 
 /// `HeaderChart` is a view that displays an object's title, subtitle, trend, trend image and kpi.
 /// ## Usage
@@ -1431,12 +1452,17 @@ protocol _ObjectHeaderComponent: _TitleComponent, _SubtitleComponent, _TagsCompo
 ///     Text("Chart View")
 /// }
 /// ```
+/// Sets the separator for chart header components
+/// Example usage:
+/// ```swift
+/// HeaderChart(...)
+///     .headerSeparator(true) // Show separator with default style
+///     .headerSeparator(true, color: .red) // Show red separator
+///     .headerSeparator(true, color: .blue, lineWidth: 1.0) // Show thick blue separator
+///     .headerSeparator(false) // Hide separator
+/// ```
 // sourcery: CompositeComponent
-protocol _HeaderChartComponent: _TitleComponent, _SubtitleComponent, _TrendComponent, _TrendImageComponent, _KpiComponent, _SeparatorComponent {
-    // sourcery: defaultValue = false
-    /// Provides a standard hairline for header chart or not. The default value is `false`.
-    var isSeparatorHidden: Bool { get }
-    
+protocol _HeaderChartComponent: _TitleComponent, _SubtitleComponent, _TrendComponent, _TrendImageComponent, _KpiComponent {
     @ViewBuilder
     var chart: (() -> any View)? { get }
 }
@@ -1956,8 +1982,17 @@ protocol _DurationPickerComponent: _TitleComponent, _ValueLabelComponent, _Manda
 ///     KPIProgressItem(kpiCaption: "Completed", data: .constant(KPIItemData.percent(1.0)), chartSize: .small)]
 /// KPIHeader(items: data, isItemOrderForced: false)
 /// ```
+/// Sets the separator for kpi header components
+/// Example usage:
+/// ```swift
+/// KPIHeader(...)
+///     .headerSeparator(true) // Show separator with default style
+///     .headerSeparator(true, color: .red) // Show red separator
+///     .headerSeparator(true, color: .blue, lineWidth: 1.0) // Show thick blue separator
+///     .headerSeparator(false) // Hide separator
+/// ```
 // sourcery: CompositeComponent
-protocol _KPIHeaderComponent: _SeparatorComponent {
+protocol _KPIHeaderComponent {
     // sourcery: resultBuilder.backingComponent = KPIContainerStack
     // sourcery: resultBuilder.name = @ViewBuilder
     var items: [any KPIHeaderItemModel] { get }
@@ -1974,10 +2009,6 @@ protocol _KPIHeaderComponent: _SeparatorComponent {
     
     // sourcery: @Binding
     var isPresented: Bool { get }
-    
-    // sourcery: defaultValue = false
-    /// Provides a standard hairline for kpi header or not. The default value is `false`.
-    var isSeparatorHidden: Bool { get }
 }
 
 /// `Authentication` is used to display a login screen with customizable detail image, title, subtitle, input fields and sign-in action.

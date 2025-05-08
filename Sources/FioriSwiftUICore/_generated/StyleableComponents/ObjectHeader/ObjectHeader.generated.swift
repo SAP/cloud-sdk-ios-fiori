@@ -39,9 +39,6 @@ public struct ObjectHeader {
     let substatus: any View
     let detailImage: any View
     let detailContent: any View
-    let separator: any View
-    /// Provides a standard hairline for object header or not. The default value is `false`.
-    let isSeparatorHidden: Bool
 
     @Environment(\.objectHeaderStyle) var style
 
@@ -59,8 +56,6 @@ public struct ObjectHeader {
                 @ViewBuilder substatus: () -> any View = { EmptyView() },
                 @ViewBuilder detailImage: () -> any View = { EmptyView() },
                 @ViewBuilder detailContent: () -> any View = { EmptyView() },
-                @ViewBuilder separator: () -> any View = { Color.preferredColor(.separator) },
-                isSeparatorHidden: Bool = false,
                 componentIdentifier: String? = ObjectHeader.identifier)
     {
         self.title = Title(title: title, componentIdentifier: componentIdentifier)
@@ -73,8 +68,6 @@ public struct ObjectHeader {
         self.substatus = Substatus(substatus: substatus, componentIdentifier: componentIdentifier)
         self.detailImage = DetailImage(detailImage: detailImage, componentIdentifier: componentIdentifier)
         self.detailContent = DetailContent(detailContent: detailContent, componentIdentifier: componentIdentifier)
-        self.separator = Separator(separator: separator, componentIdentifier: componentIdentifier)
-        self.isSeparatorHidden = isSeparatorHidden
         self.componentIdentifier = componentIdentifier ?? ObjectHeader.identifier
     }
 }
@@ -93,11 +86,9 @@ public extension ObjectHeader {
          status: TextOrIcon? = nil,
          substatus: TextOrIcon? = nil,
          detailImage: Image? = nil,
-         @ViewBuilder detailContent: () -> any View = { EmptyView() },
-         separator: Color? = Color.preferredColor(.separator),
-         isSeparatorHidden: Bool = false)
+         @ViewBuilder detailContent: () -> any View = { EmptyView() })
     {
-        self.init(title: { Text(title) }, subtitle: { OptionalText(subtitle) }, tags: { TagStack(tags) }, bodyText: { OptionalText(bodyText) }, footnote: { OptionalText(footnote) }, descriptionText: { OptionalText(descriptionText) }, status: { TextOrIconView(status) }, substatus: { TextOrIconView(substatus) }, detailImage: { detailImage }, detailContent: detailContent, separator: { separator }, isSeparatorHidden: isSeparatorHidden)
+        self.init(title: { Text(title) }, subtitle: { OptionalText(subtitle) }, tags: { TagStack(tags) }, bodyText: { OptionalText(bodyText) }, footnote: { OptionalText(footnote) }, descriptionText: { OptionalText(descriptionText) }, status: { TextOrIconView(status) }, substatus: { TextOrIconView(substatus) }, detailImage: { detailImage }, detailContent: detailContent)
     }
 }
 
@@ -117,8 +108,6 @@ public extension ObjectHeader {
         self.substatus = configuration.substatus
         self.detailImage = configuration.detailImage
         self.detailContent = configuration.detailContent
-        self.separator = configuration.separator
-        self.isSeparatorHidden = configuration.isSeparatorHidden
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
         self.componentIdentifier = configuration.componentIdentifier
     }
@@ -129,7 +118,7 @@ extension ObjectHeader: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, title: .init(self.title), subtitle: .init(self.subtitle), tags: .init(self.tags), bodyText: .init(self.bodyText), footnote: .init(self.footnote), descriptionText: .init(self.descriptionText), status: .init(self.status), substatus: .init(self.substatus), detailImage: .init(self.detailImage), detailContent: .init(self.detailContent), separator: .init(self.separator), isSeparatorHidden: self.isSeparatorHidden)).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, title: .init(self.title), subtitle: .init(self.subtitle), tags: .init(self.tags), bodyText: .init(self.bodyText), footnote: .init(self.footnote), descriptionText: .init(self.descriptionText), status: .init(self.status), substatus: .init(self.substatus), detailImage: .init(self.detailImage), detailContent: .init(self.detailContent))).typeErased
                 .transformEnvironment(\.objectHeaderStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -147,7 +136,7 @@ private extension ObjectHeader {
     }
 
     func defaultStyle() -> some View {
-        ObjectHeader(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), subtitle: .init(self.subtitle), tags: .init(self.tags), bodyText: .init(self.bodyText), footnote: .init(self.footnote), descriptionText: .init(self.descriptionText), status: .init(self.status), substatus: .init(self.substatus), detailImage: .init(self.detailImage), detailContent: .init(self.detailContent), separator: .init(self.separator), isSeparatorHidden: self.isSeparatorHidden))
+        ObjectHeader(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), subtitle: .init(self.subtitle), tags: .init(self.tags), bodyText: .init(self.bodyText), footnote: .init(self.footnote), descriptionText: .init(self.descriptionText), status: .init(self.status), substatus: .init(self.substatus), detailImage: .init(self.detailImage), detailContent: .init(self.detailContent)))
             .shouldApplyDefaultStyle(false)
             .objectHeaderStyle(ObjectHeaderFioriStyle.ContentFioriStyle())
             .typeErased

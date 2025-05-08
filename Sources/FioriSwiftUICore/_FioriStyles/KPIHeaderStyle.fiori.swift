@@ -5,6 +5,8 @@ import SwiftUI
 
 // Base Layout style
 public struct KPIHeaderBaseStyle: KPIHeaderStyle {
+    @Environment(\.headerSeparator) private var separatorConfiguration
+    
     public func makeBody(_ configuration: KPIHeaderConfiguration) -> some View {
         // Add default layout here
         configuration.items
@@ -14,12 +16,13 @@ public struct KPIHeaderBaseStyle: KPIHeaderStyle {
                     configuration.bannerMessage
                 }
             }
-            .ifApply(!configuration.isSeparatorHidden && !configuration.isPresented, content: { content in
+            .ifApply(self.separatorConfiguration.showSeparator) { content in
                 VStack {
                     content
-                    configuration.separator
+                    self.separatorConfiguration.color
+                        .frame(height: self.separatorConfiguration.lineWidth)
                 }
-            })
+            }
             .interItemSpacing(configuration.interItemSpacing)
             .isItemOrderForced(configuration.isItemOrderForced)
     }
@@ -32,17 +35,6 @@ extension KPIHeaderFioriStyle {
             KPIHeader(configuration)
             // Add default style for its content
             // .background()
-        }
-    }
-    
-    struct SeparatorFioriStyle: SeparatorStyle {
-        let kPIHeaderConfiguration: KPIHeaderConfiguration
-    
-        func makeBody(_ configuration: SeparatorConfiguration) -> some View {
-            Separator(configuration)
-            // Add default style for Separator
-            // .foregroundStyle(Color.preferredColor(<#fiori color#>))
-            // .font(.fiori(forTextStyle: <#fiori font#>))
         }
     }
 }

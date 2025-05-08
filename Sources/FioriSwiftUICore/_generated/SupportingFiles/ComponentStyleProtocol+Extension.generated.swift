@@ -3580,27 +3580,6 @@ public extension HeaderChartStyle where Self == HeaderChartKpiStyle {
     }
 }
 
-public struct HeaderChartSeparatorStyle: HeaderChartStyle {
-    let style: any SeparatorStyle
-
-    public func makeBody(_ configuration: HeaderChartConfiguration) -> some View {
-        HeaderChart(configuration)
-            .separatorStyle(self.style)
-            .typeErased
-    }
-}
-
-public extension HeaderChartStyle where Self == HeaderChartSeparatorStyle {
-    static func separatorStyle(_ style: some SeparatorStyle) -> HeaderChartSeparatorStyle {
-        HeaderChartSeparatorStyle(style: style)
-    }
-
-    static func separatorStyle(@ViewBuilder content: @escaping (SeparatorConfiguration) -> some View) -> HeaderChartSeparatorStyle {
-        let style = AnySeparatorStyle(content)
-        return HeaderChartSeparatorStyle(style: style)
-    }
-}
-
 // MARK: HelperTextStyle
 
 public extension HelperTextStyle where Self == HelperTextBaseStyle {
@@ -4004,27 +3983,6 @@ public extension KPIHeaderStyle where Self == KPIHeaderBaseStyle {
 public extension KPIHeaderStyle where Self == KPIHeaderFioriStyle {
     static var fiori: KPIHeaderFioriStyle {
         KPIHeaderFioriStyle()
-    }
-}
-
-public struct KPIHeaderSeparatorStyle: KPIHeaderStyle {
-    let style: any SeparatorStyle
-
-    public func makeBody(_ configuration: KPIHeaderConfiguration) -> some View {
-        KPIHeader(configuration)
-            .separatorStyle(self.style)
-            .typeErased
-    }
-}
-
-public extension KPIHeaderStyle where Self == KPIHeaderSeparatorStyle {
-    static func separatorStyle(_ style: some SeparatorStyle) -> KPIHeaderSeparatorStyle {
-        KPIHeaderSeparatorStyle(style: style)
-    }
-
-    static func separatorStyle(@ViewBuilder content: @escaping (SeparatorConfiguration) -> some View) -> KPIHeaderSeparatorStyle {
-        let style = AnySeparatorStyle(content)
-        return KPIHeaderSeparatorStyle(style: style)
     }
 }
 
@@ -5442,27 +5400,6 @@ public extension ObjectHeaderStyle where Self == ObjectHeaderDetailContentStyle 
     }
 }
 
-public struct ObjectHeaderSeparatorStyle: ObjectHeaderStyle {
-    let style: any SeparatorStyle
-
-    public func makeBody(_ configuration: ObjectHeaderConfiguration) -> some View {
-        ObjectHeader(configuration)
-            .separatorStyle(self.style)
-            .typeErased
-    }
-}
-
-public extension ObjectHeaderStyle where Self == ObjectHeaderSeparatorStyle {
-    static func separatorStyle(_ style: some SeparatorStyle) -> ObjectHeaderSeparatorStyle {
-        ObjectHeaderSeparatorStyle(style: style)
-    }
-
-    static func separatorStyle(@ViewBuilder content: @escaping (SeparatorConfiguration) -> some View) -> ObjectHeaderSeparatorStyle {
-        let style = AnySeparatorStyle(content)
-        return ObjectHeaderSeparatorStyle(style: style)
-    }
-}
-
 // MARK: ObjectItemStyle
 
 public extension ObjectItemStyle where Self == ObjectItemBaseStyle {
@@ -6090,27 +6027,6 @@ public extension ProfileHeaderStyle where Self == ProfileHeaderDescriptionStyle 
     static func descriptionStyle(@ViewBuilder content: @escaping (DescriptionConfiguration) -> some View) -> ProfileHeaderDescriptionStyle {
         let style = AnyDescriptionStyle(content)
         return ProfileHeaderDescriptionStyle(style: style)
-    }
-}
-
-public struct ProfileHeaderSeparatorStyle: ProfileHeaderStyle {
-    let style: any SeparatorStyle
-
-    public func makeBody(_ configuration: ProfileHeaderConfiguration) -> some View {
-        ProfileHeader(configuration)
-            .separatorStyle(self.style)
-            .typeErased
-    }
-}
-
-public extension ProfileHeaderStyle where Self == ProfileHeaderSeparatorStyle {
-    static func separatorStyle(_ style: some SeparatorStyle) -> ProfileHeaderSeparatorStyle {
-        ProfileHeaderSeparatorStyle(style: style)
-    }
-
-    static func separatorStyle(@ViewBuilder content: @escaping (SeparatorConfiguration) -> some View) -> ProfileHeaderSeparatorStyle {
-        let style = AnySeparatorStyle(content)
-        return ProfileHeaderSeparatorStyle(style: style)
     }
 }
 
@@ -6891,20 +6807,6 @@ public extension SelectedEntriesSectionTitleStyle where Self == SelectedEntriesS
     }
 }
 
-// MARK: SeparatorStyle
-
-public extension SeparatorStyle where Self == SeparatorBaseStyle {
-    static var base: SeparatorBaseStyle {
-        SeparatorBaseStyle()
-    }
-}
-
-public extension SeparatorStyle where Self == SeparatorFioriStyle {
-    static var fiori: SeparatorFioriStyle {
-        SeparatorFioriStyle()
-    }
-}
-
 // MARK: SideBarStyle
 
 public extension SideBarStyle where Self == SideBarBaseStyle {
@@ -7532,27 +7434,6 @@ public extension StepProgressIndicatorStyle where Self == StepProgressIndicatorC
     static func cancelActionStyle(@ViewBuilder content: @escaping (CancelActionConfiguration) -> some View) -> StepProgressIndicatorCancelActionStyle {
         let style = AnyCancelActionStyle(content)
         return StepProgressIndicatorCancelActionStyle(style: style)
-    }
-}
-
-public struct StepProgressIndicatorSeparatorStyle: StepProgressIndicatorStyle {
-    let style: any SeparatorStyle
-
-    public func makeBody(_ configuration: StepProgressIndicatorConfiguration) -> some View {
-        StepProgressIndicator(configuration)
-            .separatorStyle(self.style)
-            .typeErased
-    }
-}
-
-public extension StepProgressIndicatorStyle where Self == StepProgressIndicatorSeparatorStyle {
-    static func separatorStyle(_ style: some SeparatorStyle) -> StepProgressIndicatorSeparatorStyle {
-        StepProgressIndicatorSeparatorStyle(style: style)
-    }
-
-    static func separatorStyle(@ViewBuilder content: @escaping (SeparatorConfiguration) -> some View) -> StepProgressIndicatorSeparatorStyle {
-        let style = AnySeparatorStyle(content)
-        return StepProgressIndicatorSeparatorStyle(style: style)
     }
 }
 
@@ -8610,27 +8491,6 @@ public extension TimelinePreviewStyle where Self == TimelinePreviewActionStyle {
     static func actionStyle(@ViewBuilder content: @escaping (ActionConfiguration) -> some View) -> TimelinePreviewActionStyle {
         let style = AnyActionStyle(content)
         return TimelinePreviewActionStyle(style: style)
-    }
-}
-
-public struct TimelinePreviewSeparatorStyle: TimelinePreviewStyle {
-    let style: any SeparatorStyle
-
-    public func makeBody(_ configuration: TimelinePreviewConfiguration) -> some View {
-        TimelinePreview(configuration)
-            .separatorStyle(self.style)
-            .typeErased
-    }
-}
-
-public extension TimelinePreviewStyle where Self == TimelinePreviewSeparatorStyle {
-    static func separatorStyle(_ style: some SeparatorStyle) -> TimelinePreviewSeparatorStyle {
-        TimelinePreviewSeparatorStyle(style: style)
-    }
-
-    static func separatorStyle(@ViewBuilder content: @escaping (SeparatorConfiguration) -> some View) -> TimelinePreviewSeparatorStyle {
-        let style = AnySeparatorStyle(content)
-        return TimelinePreviewSeparatorStyle(style: style)
     }
 }
 
