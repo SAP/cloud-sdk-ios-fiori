@@ -106,15 +106,14 @@ extension NoteFormViewFioriStyle {
         }
 
         func getMinHeight(_ configuration: NoteFormViewConfiguration) -> CGFloat {
-            // TextEditor will add some other views that the minHeight is 16pt higher than the specified. Use this to adjust.
-            let minHeightAdjustment = 16.0
             guard let minHeight = configuration.minTextEditorHeight else {
-                return 88 - minHeightAdjustment
+                return 88
             }
             guard minHeight > 44 else {
-                return 88 - minHeightAdjustment
+                return 88
             }
-            return minHeight - minHeightAdjustment
+            return minHeight
+            // The min or max height is just for editor but not the form view, there are extra vertical padding or message view added.
         }
 
         func getMaxHeight(_ configuration: NoteFormViewConfiguration) -> CGFloat {
