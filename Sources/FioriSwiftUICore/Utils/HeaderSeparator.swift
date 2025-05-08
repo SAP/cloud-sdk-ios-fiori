@@ -1,6 +1,6 @@
 import FioriThemeManager
 import Foundation
-import SwiftUICore
+import SwiftUI
 
 /// Environment key for providing a standard hairline separator for header components
 /// Default value is set to show separator with system default color and 0.45 line width
