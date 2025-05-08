@@ -402,7 +402,8 @@ extension FilterFeedbackBarItem: _ViewEmptyChecking {
 
 extension FilterFormView: _ViewEmptyChecking {
     public var isEmpty: Bool {
-        title.isEmpty
+        title.isEmpty &&
+            checkmarkImage.isEmpty
     }
 }
 
