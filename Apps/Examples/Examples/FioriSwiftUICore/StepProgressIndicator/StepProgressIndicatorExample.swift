@@ -322,7 +322,6 @@ struct SPIExampleWithHeader: View {
                         }
                     }
                 }
-                .stepProgressIndicatorStyle(StepProgressIndicatorSeparatorStyle())
             }
             Spacer().padding(20)
             Button {

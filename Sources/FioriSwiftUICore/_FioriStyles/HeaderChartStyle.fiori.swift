@@ -46,6 +46,7 @@ public extension HeaderChart {
 
 // Base Layout style
 public struct HeaderChartBaseStyle: HeaderChartStyle {
+    @Environment(\.headerSeparator) private var separatorConfiguration
     @State var mainViewSize: CGSize = .init(width: 312, height: 0)
     
     /// :nodoc:
@@ -66,6 +67,13 @@ public struct HeaderChartBaseStyle: HeaderChartStyle {
                 self.makeTrendAndChartView(configuration)
             } else {
                 self.makeRegularView(configuration)
+            }
+        }
+        .ifApply(self.separatorConfiguration.showSeparator) { content in
+            VStack(spacing: 16) {
+                content
+                self.separatorConfiguration.color
+                    .frame(height: self.separatorConfiguration.lineWidth)
             }
         }
         .sizeReader { size in
@@ -169,18 +177,6 @@ extension HeaderChartFioriStyle {
         
         func makeBody(_ configuration: KpiConfiguration) -> some View {
             Kpi(configuration)
-        }
-    }
-}
-
-/// Style for chart header
-/// Provides a standard hairline for header
-public struct HeaderChartSeparatorStyle: HeaderChartStyle {
-    public init() {}
-    public func makeBody(_ configuration: HeaderChartConfiguration) -> some View {
-        VStack {
-            HeaderChart(configuration)
-            Color.preferredColor(.separator).frame(height: 0.33)
         }
     }
 }

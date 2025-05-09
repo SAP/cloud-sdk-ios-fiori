@@ -5,14 +5,26 @@ import SwiftUI
 
 // Base Layout style
 public struct KPIHeaderBaseStyle: KPIHeaderStyle {
+    @Environment(\.headerSeparator) private var separatorConfiguration
+    
     public func makeBody(_ configuration: KPIHeaderConfiguration) -> some View {
         // Add default layout here
-        VStack(spacing: 0, content: {
-            configuration.items
-            configuration.bannerMessage
-        })
-        .interItemSpacing(configuration.interItemSpacing)
-        .isItemOrderForced(configuration.isItemOrderForced)
+        configuration.items
+            .ifApply(configuration.isPresented) { content in
+                VStack {
+                    content
+                    configuration.bannerMessage
+                }
+            }
+            .ifApply(self.separatorConfiguration.showSeparator) { content in
+                VStack {
+                    content
+                    self.separatorConfiguration.color
+                        .frame(height: self.separatorConfiguration.lineWidth)
+                }
+            }
+            .interItemSpacing(configuration.interItemSpacing)
+            .isItemOrderForced(configuration.isItemOrderForced)
     }
 }
 
@@ -23,18 +35,6 @@ extension KPIHeaderFioriStyle {
             KPIHeader(configuration)
             // Add default style for its content
             // .background()
-        }
-    }
-}
-
-/// Style for KPI header
-/// Provides a standard hairline for header
-public struct KPIHeaderSeparatorStyle: KPIHeaderStyle {
-    public init() {}
-    public func makeBody(_ configuration: KPIHeaderConfiguration) -> some View {
-        VStack {
-            KPIHeader(configuration)
-            Color.preferredColor(.separator).frame(height: 0.33)
         }
     }
 }

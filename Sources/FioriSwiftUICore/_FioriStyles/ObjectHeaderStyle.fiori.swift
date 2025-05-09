@@ -6,6 +6,7 @@ import SwiftUI
 public struct ObjectHeaderBaseStyle: ObjectHeaderStyle {
     @Environment(\.sizeCategory) var sizeCategory
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    @Environment(\.headerSeparator) private var separatorConfiguration
 
     @State var rightViewSize: CGSize = .init(width: 120, height: 0)
     @State var currentTabIndex: Int = 0
@@ -18,8 +19,22 @@ public struct ObjectHeaderBaseStyle: ObjectHeaderStyle {
         Group {
             if self.horizontalSizeClass == .compact {
                 self.compactView(configuration)
+                    .ifApply(self.separatorConfiguration.showSeparator) { content in
+                        VStack(spacing: 16) {
+                            content
+                            self.separatorConfiguration.color
+                                .frame(height: self.separatorConfiguration.lineWidth)
+                        }
+                    }
             } else {
                 self.regularView(configuration)
+                    .ifApply(self.separatorConfiguration.showSeparator) { content in
+                        VStack(spacing: 16) {
+                            content
+                            self.separatorConfiguration.color
+                                .frame(height: self.separatorConfiguration.lineWidth)
+                        }
+                    }
                     .padding(.vertical, 18)
             }
         }
@@ -470,18 +485,6 @@ extension ObjectHeaderFioriStyle {
         
         func makeBody(_ configuration: DetailContentConfiguration) -> some View {
             DetailContent(configuration)
-        }
-    }
-}
-
-/// Style for object header
-/// Provides a standard hairline for header
-public struct ObjectHeaderSeparatorStyle: ObjectHeaderStyle {
-    public init() {}
-    public func makeBody(_ configuration: ObjectHeaderConfiguration) -> some View {
-        VStack {
-            ObjectHeader(configuration)
-            Color.preferredColor(.separator).frame(height: 0.33)
         }
     }
 }
