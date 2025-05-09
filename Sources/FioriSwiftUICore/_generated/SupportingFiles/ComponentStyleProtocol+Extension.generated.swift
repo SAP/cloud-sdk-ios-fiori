@@ -3748,6 +3748,104 @@ public extension IncrementActionStyle where Self == IncrementActionFioriStyle {
     }
 }
 
+// MARK: InfoViewStyle
+
+public extension InfoViewStyle where Self == InfoViewBaseStyle {
+    static var base: InfoViewBaseStyle {
+        InfoViewBaseStyle()
+    }
+}
+
+public extension InfoViewStyle where Self == InfoViewFioriStyle {
+    static var fiori: InfoViewFioriStyle {
+        InfoViewFioriStyle()
+    }
+}
+
+public struct InfoViewTitleStyle: InfoViewStyle {
+    let style: any TitleStyle
+
+    public func makeBody(_ configuration: InfoViewConfiguration) -> some View {
+        InfoView(configuration)
+            .titleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension InfoViewStyle where Self == InfoViewTitleStyle {
+    static func titleStyle(_ style: some TitleStyle) -> InfoViewTitleStyle {
+        InfoViewTitleStyle(style: style)
+    }
+
+    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> InfoViewTitleStyle {
+        let style = AnyTitleStyle(content)
+        return InfoViewTitleStyle(style: style)
+    }
+}
+
+public struct InfoViewDescriptionTextStyle: InfoViewStyle {
+    let style: any DescriptionTextStyle
+
+    public func makeBody(_ configuration: InfoViewConfiguration) -> some View {
+        InfoView(configuration)
+            .descriptionTextStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension InfoViewStyle where Self == InfoViewDescriptionTextStyle {
+    static func descriptionTextStyle(_ style: some DescriptionTextStyle) -> InfoViewDescriptionTextStyle {
+        InfoViewDescriptionTextStyle(style: style)
+    }
+
+    static func descriptionTextStyle(@ViewBuilder content: @escaping (DescriptionTextConfiguration) -> some View) -> InfoViewDescriptionTextStyle {
+        let style = AnyDescriptionTextStyle(content)
+        return InfoViewDescriptionTextStyle(style: style)
+    }
+}
+
+public struct InfoViewActionStyle: InfoViewStyle {
+    let style: any ActionStyle
+
+    public func makeBody(_ configuration: InfoViewConfiguration) -> some View {
+        InfoView(configuration)
+            .actionStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension InfoViewStyle where Self == InfoViewActionStyle {
+    static func actionStyle(_ style: some ActionStyle) -> InfoViewActionStyle {
+        InfoViewActionStyle(style: style)
+    }
+
+    static func actionStyle(@ViewBuilder content: @escaping (ActionConfiguration) -> some View) -> InfoViewActionStyle {
+        let style = AnyActionStyle(content)
+        return InfoViewActionStyle(style: style)
+    }
+}
+
+public struct InfoViewSecondaryActionStyle: InfoViewStyle {
+    let style: any SecondaryActionStyle
+
+    public func makeBody(_ configuration: InfoViewConfiguration) -> some View {
+        InfoView(configuration)
+            .secondaryActionStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension InfoViewStyle where Self == InfoViewSecondaryActionStyle {
+    static func secondaryActionStyle(_ style: some SecondaryActionStyle) -> InfoViewSecondaryActionStyle {
+        InfoViewSecondaryActionStyle(style: style)
+    }
+
+    static func secondaryActionStyle(@ViewBuilder content: @escaping (SecondaryActionConfiguration) -> some View) -> InfoViewSecondaryActionStyle {
+        let style = AnySecondaryActionStyle(content)
+        return InfoViewSecondaryActionStyle(style: style)
+    }
+}
+
 // MARK: InformationViewStyle
 
 public extension InformationViewStyle where Self == InformationViewBaseStyle {
