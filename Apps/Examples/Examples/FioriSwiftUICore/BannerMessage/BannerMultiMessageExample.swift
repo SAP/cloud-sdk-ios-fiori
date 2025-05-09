@@ -306,6 +306,8 @@ struct BannerMultiMessageExample: View {
             let tips = "Last name is required."
             self.lastNameErrorMessage = AttributedString(tips)
             warningMessages.append(BannerMessageItemModel(id: self.lastNameId, icon: Image(fioriName: "fiori.warning2"), title: tips, messageType: .critical))
+            warningMessages.append(BannerMessageItemModel(id: UUID(), icon: Image(fioriName: "fiori.warning2"), title: tips + " Developer custom icon. No close action.", messageType: .positive, showDetailLink: false, showCloseAction: false, showSwipeDeleteAction: true))
+            warningMessages.append(BannerMessageItemModel(id: UUID(), icon: Image(fioriName: "fiori.warning2"), title: tips + " Developer custom icon. No close action. No swipe delete action", messageType: .positive, showDetailLink: false, showCloseAction: false, showSwipeDeleteAction: false))
         } else if self.lastName.count > 20 {
             let tips = "Last name is too long."
             self.lastNameErrorMessage = AttributedString(tips)
@@ -339,7 +341,8 @@ struct BannerMultiMessageExample: View {
             result.append(BannerMessageListModel(category: "Errors", items: errorMessages))
         }
         if !warningMessages.isEmpty {
-            result.append(BannerMessageListModel(category: "Warnings", items: warningMessages))
+            // No clear action
+            result.append(BannerMessageListModel(category: "Warnings", items: warningMessages, showClearAction: false))
         }
         if !informationMessages.isEmpty {
             result.append(BannerMessageListModel(category: "Information", items: informationMessages))
