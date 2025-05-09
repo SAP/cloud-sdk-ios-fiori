@@ -23,13 +23,12 @@ struct OnboardingExamples: View {
                 Text("ActivationScreen")
             }
             
-            NavigationLink(
-                destination: InfoViewExamples(),
-                label: {
+            if self._isNewObjectItem {
+                NavigationLink(
+                    destination: InfoViewExamples(isNewInfoView: true))
+                {
                     Text("InfoView Examples")
                 }
-            )
-            if self._isNewObjectItem {
                 NavigationLink(
                     destination: EULAExamples(isNewEULAView: true))
                 {
@@ -46,6 +45,11 @@ struct OnboardingExamples: View {
                     Text("AuthenticationScreen Examples")
                 }
             } else {
+                NavigationLink(
+                    destination: InfoViewExamples())
+                {
+                    Text("_InfoView Examples")
+                }
                 NavigationLink(
                     destination: EULAExamples())
                 {
@@ -120,23 +124,35 @@ struct ActivationScreenExamples: View {
 }
 
 struct InfoViewExamples: View {
+    var isNewInfoView = false
     var body: some View {
         List {
-            NavigationLink(
-                destination: InfoViewSample(),
-                label: {
-                    Text("InfoView")
+            NavigationLink {
+                if self.isNewInfoView {
+                    InfoViewSample()
+                } else {
+                    _InfoViewSample()
                 }
-            )
-            NavigationLink(
-                destination: InfoViewWithLoadingLabel())
-            {
+            } label: {
+                Text("InfoView")
+            }
+            NavigationLink {
+                if self.isNewInfoView {
+                    InfoViewWithLoadingLabel()
+                } else {
+                    _InfoViewWithLoadingLabel()
+                }
+            } label: {
                 Text("InfoView With Loading Label")
             }
             
-            NavigationLink(
-                destination: InfoViewCustomized())
-            {
+            NavigationLink {
+                if self.isNewInfoView {
+                    InfoViewCustomized()
+                } else {
+                    _InfoViewCustomized()
+                }
+            } label: {
                 Text("InfoView Customized")
             }
         }.navigationBarTitle("InfoView Examples", displayMode: .inline)

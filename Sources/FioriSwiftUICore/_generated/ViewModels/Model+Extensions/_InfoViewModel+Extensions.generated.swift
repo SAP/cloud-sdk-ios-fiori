@@ -2,7 +2,7 @@
 // DO NOT EDIT
 import SwiftUI
 
-public extension InfoViewModel {
+public extension _InfoViewModel {
     var showLoadingIndicator: Bool? {
         return nil
     }

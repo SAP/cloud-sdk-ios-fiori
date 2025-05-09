@@ -214,16 +214,6 @@ extension EnvironmentValues {
         set { self[TextInputValueModifierKey.self] = newValue }
     }
 
-    public var actionModifier: AnyViewModifier {
-        get { return self[ActionModifierKey.self] }
-        set { self[ActionModifierKey.self] = newValue }
-    }
-
-    public var secondaryActionModifier: AnyViewModifier {
-        get { return self[SecondaryActionModifierKey.self] }
-        set { self[SecondaryActionModifierKey.self] = newValue }
-    }
-
     public var cancelActionModifier: AnyViewModifier {
         get { return self[CancelActionModifierKey.self] }
         set { self[CancelActionModifierKey.self] = newValue }
@@ -232,6 +222,16 @@ extension EnvironmentValues {
     public var doneActionModifier: AnyViewModifier {
         get { return self[DoneActionModifierKey.self] }
         set { self[DoneActionModifierKey.self] = newValue }
+    }
+
+    public var actionModifier: AnyViewModifier {
+        get { return self[ActionModifierKey.self] }
+        set { self[ActionModifierKey.self] = newValue }
+    }
+
+    public var secondaryActionModifier: AnyViewModifier {
+        get { return self[SecondaryActionModifierKey.self] }
+        set { self[SecondaryActionModifierKey.self] = newValue }
     }
 
     public var textInputModifier: AnyViewModifier {
@@ -514,16 +514,6 @@ public extension View {
     }
 
     @ViewBuilder
-    func actionModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
-        self.environment(\.actionModifier, AnyViewModifier(transform))
-    }
-
-    @ViewBuilder
-    func secondaryActionModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
-        self.environment(\.secondaryActionModifier, AnyViewModifier(transform))
-    }
-
-    @ViewBuilder
     func cancelActionModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
         self.environment(\.cancelActionModifier, AnyViewModifier(transform))
     }
@@ -531,6 +521,16 @@ public extension View {
     @ViewBuilder
     func doneActionModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
         self.environment(\.doneActionModifier, AnyViewModifier(transform))
+    }
+
+    @ViewBuilder
+    func actionModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
+        self.environment(\.actionModifier, AnyViewModifier(transform))
+    }
+
+    @ViewBuilder
+    func secondaryActionModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
+        self.environment(\.secondaryActionModifier, AnyViewModifier(transform))
     }
 
     @ViewBuilder

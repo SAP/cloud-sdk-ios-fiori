@@ -1187,6 +1187,22 @@ extension IncrementActionStyle {
     }
 }
 
+// MARK: InfoViewStyle
+
+struct ResolvedInfoViewStyle<Style: InfoViewStyle>: View {
+    let style: Style
+    let configuration: InfoViewConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension InfoViewStyle {
+    func resolve(configuration: InfoViewConfiguration) -> some View {
+        ResolvedInfoViewStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: InformationViewStyle
 
 struct ResolvedInformationViewStyle<Style: InformationViewStyle>: View {

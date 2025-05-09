@@ -223,7 +223,7 @@ public protocol _ActivationScreenModel: TitleComponent, DescriptionTextComponent
 public protocol ActivationScreenModel {}
 
 // sourcery: generated_component_composite
-public protocol InfoViewModel: TitleComponent, DescriptionTextComponent {
+public protocol _InfoViewModel: TitleComponent, DescriptionTextComponent {
     // sourcery: default.value = nil
     // sourcery: no_view
     var showLoadingIndicator: Bool? { get }
@@ -238,6 +238,10 @@ public protocol InfoViewModel: TitleComponent, DescriptionTextComponent {
     // sourcery: genericParameter.name = SecondaryActionView
     var secondaryAction: _ActionModel? { get }
 }
+
+/// Deprecated InfoViewModel
+@available(*, deprecated, renamed: "_InfoViewModel", message: "Will be removed in the future release. Please create InfoViewModel with other initializers instead.")
+public protocol InfoViewModel {}
 
 // sourcery: generated_component_composite
 // sourcery: virtualPropContentHeight = "@State var contentHeight: CGFloat = .zero"
