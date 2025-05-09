@@ -871,27 +871,6 @@ public extension BannerMultiMessageSheetStyle where Self == BannerMultiMessageSh
     }
 }
 
-public struct BannerMultiMessageSheetCloseActionStyle: BannerMultiMessageSheetStyle {
-    let style: any CloseActionStyle
-
-    public func makeBody(_ configuration: BannerMultiMessageSheetConfiguration) -> some View {
-        BannerMultiMessageSheet(configuration)
-            .closeActionStyle(self.style)
-            .typeErased
-    }
-}
-
-public extension BannerMultiMessageSheetStyle where Self == BannerMultiMessageSheetCloseActionStyle {
-    static func closeActionStyle(_ style: some CloseActionStyle) -> BannerMultiMessageSheetCloseActionStyle {
-        BannerMultiMessageSheetCloseActionStyle(style: style)
-    }
-
-    static func closeActionStyle(@ViewBuilder content: @escaping (CloseActionConfiguration) -> some View) -> BannerMultiMessageSheetCloseActionStyle {
-        let style = AnyCloseActionStyle(content)
-        return BannerMultiMessageSheetCloseActionStyle(style: style)
-    }
-}
-
 // MARK: BodyTextStyle
 
 public extension BodyTextStyle where Self == BodyTextBaseStyle {

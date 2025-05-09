@@ -697,7 +697,12 @@ protocol _ToastMessageComponent: _IconComponent, _TitleComponent {
 }
 
 // sourcery: CompositeComponent
-protocol _BannerMultiMessageSheet: _TitleComponent, _CloseActionComponent {
+// sourcery: importFrameworks = ["FioriThemeManager"]
+protocol _BannerMultiMessageSheet: _TitleComponent {
+    @ViewBuilder
+    // sourcery: defaultValue = "{ FioriIcon.status.error }"
+    // sourcery: resultBuilder.defaultValue = "{ FioriIcon.status.error }"
+    var closeAction: (() -> any View)? { get }
     /// callback when this component want to dismiss itself
     var dismissAction: (() -> Void)? { get }
     /// callback when category or single item is removed
