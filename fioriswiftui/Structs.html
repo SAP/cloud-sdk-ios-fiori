@@ -18030,8 +18030,8 @@ Note that VisionKit doesn&rsquo;t currently provide a public API to customize th
     <span class="n">formatter</span><span class="o">.</span><span class="n">unitOptions</span> <span class="o">=</span> <span class="o">.</span><span class="n">providedUnit</span>
     <span class="k">return</span> <span class="n">formatter</span>
 <span class="p">}</span>
-<span class="kt">DurationPicker</span><span class="p">(</span><span class="nv">selection</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="err">$</span><span class="n">selection</span><span class="p">,</span> <span class="nv">maximumMinutes</span><span class="p">:</span> <span class="mi">124</span><span class="p">,</span> <span class="nv">minimumMinutes</span><span class="p">:</span> <span class="mi">60</span><span class="p">,</span> <span class="nv">minuteInterval</span><span class="p">:</span> <span class="mi">2</span><span class="p">)</span>
-    <span class="o">.</span><span class="nf">measurementFormatter</span><span class="p">(</span><span class="k">self</span><span class="o">.</span><span class="n">formatter</span><span class="p">)</span>
+<span class="kt">DurationPicker</span><span class="p">(</span><span class="nv">title</span><span class="p">:</span> <span class="s">"Measurement Formatter"</span><span class="p">,</span> <span class="nv">selection</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="err">$</span><span class="n">selection3</span><span class="p">,</span> <span class="nv">maximumMinutes</span><span class="p">:</span> <span class="mi">124</span><span class="p">,</span> <span class="nv">minimumMinutes</span><span class="p">:</span> <span class="mi">60</span><span class="p">,</span> <span class="nv">minuteInterval</span><span class="p">:</span> <span class="mi">2</span><span class="p">)</span>
+   <span class="o">.</span><span class="nf">measurementFormatter</span><span class="p">(</span><span class="k">self</span><span class="o">.</span><span class="n">formatter</span><span class="p">)</span>
 </code></pre>
 
                           <a href="Structs/DurationPicker.html" class="slightly-smaller">See more</a>
@@ -27979,34 +27979,6 @@ It uses a node view and  horizontal line to present now indicator.</p>
                       </section>
                     </div>
                   </li>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/s:16FioriSwiftUICore39BannerMultiMessageSheetCloseActionStyleV"></a>
-                      <a name="//apple_ref/swift/Struct/BannerMultiMessageSheetCloseActionStyle" class="dashAnchor"></a>
-                      <a class="token" href="#/s:16FioriSwiftUICore39BannerMultiMessageSheetCloseActionStyleV">BannerMultiMessageSheetCloseActionStyle</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>Undocumented</p>
-
-                          <a href="Structs/BannerMultiMessageSheetCloseActionStyle.html" class="slightly-smaller">See more</a>
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">BannerMultiMessageSheetCloseActionStyle</span> <span class="p">:</span> <span class="kt"><a href="Protocols/BannerMultiMessageSheetStyle.html">BannerMultiMessageSheetStyle</a></span></code></pre>
-
-                          </div>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
                 </ul>
               </div>
               <div class="task-group">
@@ -29854,6 +29826,103 @@ It uses a node view and  horizontal line to present now indicator.</p>
                           <div class="language">
                             <p class="aside-title">Swift</p>
                             <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">DimensionSegmentTitleStyle</span> <span class="p">:</span> <span class="kt"><a href="Protocols/DimensionSegmentStyle.html">DimensionSegmentStyle</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="task-group">
+                <div class="task-name-container">
+                  <a name="/DurationPickerStyle"></a>
+                  <a name="//apple_ref/swift/Section/DurationPickerStyle" class="dashAnchor"></a>
+                  <div class="section-name-container">
+                    <a class="section-name-link" href="#/DurationPickerStyle"></a>
+                    <h3 class="section-name"><span>DurationPickerStyle</span>
+</h3>
+                  </div>
+                </div>
+                <ul>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore24DurationPickerTitleStyleV"></a>
+                      <a name="//apple_ref/swift/Struct/DurationPickerTitleStyle" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore24DurationPickerTitleStyleV">DurationPickerTitleStyle</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/DurationPickerTitleStyle.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">DurationPickerTitleStyle</span> <span class="p">:</span> <span class="kt"><a href="Protocols/DurationPickerStyle.html">DurationPickerStyle</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore29DurationPickerValueLabelStyleV"></a>
+                      <a name="//apple_ref/swift/Struct/DurationPickerValueLabelStyle" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore29DurationPickerValueLabelStyleV">DurationPickerValueLabelStyle</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/DurationPickerValueLabelStyle.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">DurationPickerValueLabelStyle</span> <span class="p">:</span> <span class="kt"><a href="Protocols/DurationPickerStyle.html">DurationPickerStyle</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore27DurationPickerFormViewStyleV"></a>
+                      <a name="//apple_ref/swift/Struct/DurationPickerFormViewStyle" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore27DurationPickerFormViewStyleV">DurationPickerFormViewStyle</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/DurationPickerFormViewStyle.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">DurationPickerFormViewStyle</span> <span class="p">:</span> <span class="kt"><a href="Protocols/DurationPickerStyle.html">DurationPickerStyle</a></span></code></pre>
 
                           </div>
                         </div>
@@ -38848,10 +38917,10 @@ It uses a node view and  horizontal line to present now indicator.</p>
               </div>
               <div class="task-group">
                 <div class="task-name-container">
-                  <a name="/DurationPickerStyle"></a>
+                  <a name="/DurationPickerStyle2"></a>
                   <a name="//apple_ref/swift/Section/DurationPickerStyle" class="dashAnchor"></a>
                   <div class="section-name-container">
-                    <a class="section-name-link" href="#/DurationPickerStyle"></a>
+                    <a class="section-name-link" href="#/DurationPickerStyle2"></a>
                     <h3 class="section-name"><span>DurationPickerStyle</span>
 </h3>
                   </div>
@@ -45920,9 +45989,6 @@ It uses a node view and  horizontal line to present now indicator.</p>
                   <a href="Structs/BannerMultiMessageSheetBaseStyle.html">BannerMultiMessageSheetBaseStyle</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="Structs/BannerMultiMessageSheetCloseActionStyle.html">BannerMultiMessageSheetCloseActionStyle</a>
-                </li>
-                <li class="nav-group-task">
                   <a href="Structs/BannerMultiMessageSheetConfiguration.html">BannerMultiMessageSheetConfiguration</a>
                 </li>
                 <li class="nav-group-task">
@@ -46601,7 +46667,16 @@ It uses a node view and  horizontal line to present now indicator.</p>
                   <a href="Structs/DurationPickerFioriStyle.html">DurationPickerFioriStyle</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="Structs/DurationPickerFormViewStyle.html">DurationPickerFormViewStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="Structs/DurationPickerStyleModifier.html">DurationPickerStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/DurationPickerTitleStyle.html">DurationPickerTitleStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/DurationPickerValueLabelStyle.html">DurationPickerValueLabelStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="Structs/EULAView.html">EULAView</a>
@@ -49760,7 +49835,7 @@ It uses a node view and  horizontal line to present now indicator.</p>
       </div>
       <div class="footer-wrapper">
         <section id="footer">
-          <p>&copy; 2025 <a class="link" href="https://www.sap.com" target="_blank" rel="external noopener">SAP SE</a>. All rights reserved. (Last updated: 2025-04-25)</p>
+          <p>&copy; 2025 <a class="link" href="https://www.sap.com" target="_blank" rel="external noopener">SAP SE</a>. All rights reserved. (Last updated: 2025-05-09)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </div>
