@@ -2,7 +2,7 @@
 // DO NOT EDIT
 import SwiftUI
 
-public struct InfoView<Title: View, DescriptionText: View, ActionView: View, SecondaryActionView: View> {
+public struct _InfoView<Title: View, DescriptionText: View, ActionView: View, SecondaryActionView: View> {
     @Environment(\.titleModifier) private var titleModifier
 	@Environment(\.descriptionTextModifier) private var descriptionTextModifier
 	@Environment(\.actionModifier) private var actionModifier
@@ -41,30 +41,30 @@ public struct InfoView<Title: View, DescriptionText: View, ActionView: View, Sec
 
     @ViewBuilder var title: some View {
         if isModelInit {
-            _title.modifier(titleModifier.concat(Fiori.InfoView.title).concat(Fiori.InfoView.titleCumulative))
+            _title.modifier(titleModifier.concat(Fiori._InfoView.title).concat(Fiori._InfoView.titleCumulative))
         } else {
-            _title.modifier(titleModifier.concat(Fiori.InfoView.title))
+            _title.modifier(titleModifier.concat(Fiori._InfoView.title))
         }
     }
 	@ViewBuilder var descriptionText: some View {
         if isModelInit {
-            _descriptionText.modifier(descriptionTextModifier.concat(Fiori.InfoView.descriptionText).concat(Fiori.InfoView.descriptionTextCumulative))
+            _descriptionText.modifier(descriptionTextModifier.concat(Fiori._InfoView.descriptionText).concat(Fiori._InfoView.descriptionTextCumulative))
         } else {
-            _descriptionText.modifier(descriptionTextModifier.concat(Fiori.InfoView.descriptionText))
+            _descriptionText.modifier(descriptionTextModifier.concat(Fiori._InfoView.descriptionText))
         }
     }
 	@ViewBuilder var action: some View {
         if isModelInit {
-            _action.modifier(actionModifier.concat(Fiori.InfoView.action).concat(Fiori.InfoView.actionCumulative))
+            _action.modifier(actionModifier.concat(Fiori._InfoView.action).concat(Fiori._InfoView.actionCumulative))
         } else {
-            _action.modifier(actionModifier.concat(Fiori.InfoView.action))
+            _action.modifier(actionModifier.concat(Fiori._InfoView.action))
         }
     }
 	@ViewBuilder var secondaryAction: some View {
         if isModelInit {
-            _secondaryAction.modifier(secondaryActionModifier.concat(Fiori.InfoView.secondaryAction).concat(Fiori.InfoView.secondaryActionCumulative))
+            _secondaryAction.modifier(secondaryActionModifier.concat(Fiori._InfoView.secondaryAction).concat(Fiori._InfoView.secondaryActionCumulative))
         } else {
-            _secondaryAction.modifier(secondaryActionModifier.concat(Fiori.InfoView.secondaryAction))
+            _secondaryAction.modifier(secondaryActionModifier.concat(Fiori._InfoView.secondaryAction))
         }
     }
     
@@ -81,12 +81,12 @@ public struct InfoView<Title: View, DescriptionText: View, ActionView: View, Sec
     }
 }
 
-extension InfoView where Title == Text,
+extension _InfoView where Title == Text,
 		DescriptionText == _ConditionalContent<Text, EmptyView>,
 		ActionView == _ConditionalContent<_Action, EmptyView>,
 		SecondaryActionView == _ConditionalContent<_Action, EmptyView> {
 
-    public init(model: InfoViewModel) {
+    public init(model: _InfoViewModel) {
         self.init(title: model.title, descriptionText: model.descriptionText, showLoadingIndicator: model.showLoadingIndicator, loadingIndicatorText: model.loadingIndicatorText, action: model.action != nil ? _Action(model: model.action!) : nil, secondaryAction: model.secondaryAction != nil ? _Action(model: model.secondaryAction!) : nil)
     }
 

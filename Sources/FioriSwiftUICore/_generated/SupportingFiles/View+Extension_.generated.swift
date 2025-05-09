@@ -1261,6 +1261,23 @@ public extension View {
     }
 }
 
+// MARK: InfoViewStyle
+
+public extension View {
+    func infoViewStyle(_ style: some InfoViewStyle) -> some View {
+        self.transformEnvironment(\.infoViewStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func infoViewStyle(@ViewBuilder content: @escaping (InfoViewConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.infoViewStyleStack) { stack in
+            let style = AnyInfoViewStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: InformationViewStyle
 
 public extension View {

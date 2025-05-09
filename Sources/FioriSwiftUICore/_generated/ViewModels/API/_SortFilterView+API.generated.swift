@@ -17,8 +17,8 @@ public struct _SortFilterView<Title: View, Items: View, CancelActionView: View, 
 	let _applyAction: ApplyActionView
 	let _onUpdate: (() -> Void)?
 	@State var size: CGSize = .zero
-	let popoverWidth = 393.0
 	@StateObject var context: SortFilterContext = SortFilterContext()
+	let popoverWidth = 393.0
 
     private var isModelInit: Bool = false
 	private var isCancelActionNil: Bool = false

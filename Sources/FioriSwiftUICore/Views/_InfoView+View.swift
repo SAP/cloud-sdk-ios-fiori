@@ -6,7 +6,7 @@
 import SwiftUI
 
 extension Fiori {
-    enum InfoView {
+    enum _InfoView {
         struct Title: ViewModifier {
             func body(content: Content) -> some View {
                 content
@@ -60,7 +60,7 @@ extension Fiori {
     }
 }
 
-extension InfoView: View {
+extension _InfoView: View {
     public var body: some View {
         @State var isPresented: Bool = _showLoadingIndicator ?? false
         return VStack {
@@ -86,6 +86,6 @@ extension InfoView: View {
 struct InfoViewLibraryContent: LibraryContentProvider {
     @LibraryContentBuilder
     var views: [LibraryItem] {
-        LibraryItem(InfoView(title: "SAP BTP SDK for iOS", descriptionText: "SAP BTP SDK for iOS enables you to quickly develop your own native apps, with Swift. The SDK extends the standard Swift Apple iOS frameworks with the reusable UI components from the SAP Fiori for iOS Design Language, and provides APIs which seamlessly integrate apps with SAP BTP services.", showLoadingIndicator: false, loadingIndicatorText: "", action: _Action(actionText: "Primary Button"), secondaryAction: _Action(actionText: "Secondary Button")))
+        LibraryItem(_InfoView(title: "SAP BTP SDK for iOS", descriptionText: "SAP BTP SDK for iOS enables you to quickly develop your own native apps, with Swift. The SDK extends the standard Swift Apple iOS frameworks with the reusable UI components from the SAP Fiori for iOS Design Language, and provides APIs which seamlessly integrate apps with SAP BTP services.", showLoadingIndicator: false, loadingIndicatorText: "", action: _Action(actionText: "Primary Button"), secondaryAction: _Action(actionText: "Secondary Button")))
     }
 }

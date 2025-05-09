@@ -1557,6 +1557,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: InfoViewStyle
+
+struct InfoViewStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any InfoViewStyle] = []
+}
+
+extension EnvironmentValues {
+    var infoViewStyle: any InfoViewStyle {
+        self.infoViewStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var infoViewStyleStack: [any InfoViewStyle] {
+        get {
+            self[InfoViewStyleStackKey.self]
+        }
+        set {
+            self[InfoViewStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: InformationViewStyle
 
 struct InformationViewStyleStackKey: EnvironmentKey {
