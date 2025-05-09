@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [25.4.2](https://github.com/SAP/cloud-sdk-ios-fiori/compare/25.4.1...25.4.2) (2025-05-09)
+
+
+### Features
+
+* 🎸 [JIRA:0] FilterFormView enhancement; cherrypick ([#1078](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1078)) ([fa3e2ac](https://github.com/SAP/cloud-sdk-ios-fiori/commit/fa3e2acdd786e855d0aee3f361bc1ca6d5e0e502))
+* 🎸 add fiori.thumb.down.fill and down.fill; cherrypick ([#1077](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1077)) ([0f2ee2b](https://github.com/SAP/cloud-sdk-ios-fiori/commit/0f2ee2bc9be2489a3669ec68c49a57e5038c9b62))
+
+
+### Bug Fixes
+
+* 🐛 [IOSSDKBUG-703] placeholder is not visible sometimes ([#1066](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1066)) ([48a3966](https://github.com/SAP/cloud-sdk-ios-fiori/commit/48a39660f5bb277d6b37d29514d1b3673d24fdf8))
+* 🐛 [IOSSDKBUG-704] remove unnecessary offset for NoteForm ([#1076](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1076)) ([44dc906](https://github.com/SAP/cloud-sdk-ios-fiori/commit/44dc9063081a9c614aa35ac518cad0f8edaff039))
+* 🐛 [IOSSDKBUG-708] BannerMultiMessage enhancement(cherrypick 1069) ([#1079](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1079)) ([c8d2891](https://github.com/SAP/cloud-sdk-ios-fiori/commit/c8d289129f448f256636359128a050760f53a8f2))
+* 🐛 remove clipped() in Carousel [jira: 701] cherrypick ([#1073](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1073)) ([421b5d1](https://github.com/SAP/cloud-sdk-ios-fiori/commit/421b5d16524bebfda8d0512dcd33057d98fa2e89))
+
 ### [25.4.1](https://github.com/SAP/cloud-sdk-ios-fiori/compare/25.4.1-20250425...25.4.1) (2025-04-25)
 
 ## [25.4.0](https://github.com/SAP/cloud-sdk-ios-fiori/compare/4.4.0-20250407...25.4.0) (2025-04-10)
