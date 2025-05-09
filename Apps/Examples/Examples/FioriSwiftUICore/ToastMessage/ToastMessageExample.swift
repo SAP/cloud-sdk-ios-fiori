@@ -44,19 +44,20 @@ struct ToastMessageBasicExample: View {
 struct ToastMessagePositionExample: View {
     @State var selectedPosition: ToastMessagePosition = .above
     @State var spacing: CGFloat = 0
+    @State var parentViewHeight: CGFloat = 100
     @State var showIcon = false
 
     var body: some View {
         VStack {
             HStack {}
-                .frame(maxWidth: 300, maxHeight: 300)
+                .frame(maxWidth: 300, maxHeight: self.parentViewHeight)
                 .border(.blue, width: 1)
                 .toastMessage(isPresented: .constant(true),
                               icon: {
                                   self.showIcon ? Image(systemName: "info.circle") : nil
                               },
                               title: {
-                                  Text("Toast Message Title")
+                                  Text("Unable to submit request. Please try again later.")
                               },
                               duration: .infinity,
                               position: self.selectedPosition,
@@ -65,12 +66,13 @@ struct ToastMessagePositionExample: View {
             VStack {
                 Picker("Position", selection: self.$selectedPosition) {
                     ForEach(ToastMessagePosition.allCases) { position in
-
                         Text(position.rawValue)
                     }
                 }
                 Text("Spacing: \(self.spacing)")
                 Slider(value: self.$spacing, in: -50.0 ... 50.0, step: 5)
+                Text("Parent View Height: \(self.parentViewHeight)")
+                Slider(value: self.$parentViewHeight, in: 5 ... 300.0, step: 5)
                 Toggle("Show Icon", isOn: self.$showIcon)
             }
             .frame(maxWidth: 300)
@@ -170,12 +172,5 @@ struct ToastMessageCustomStyleExample: View {
                 .padding(30)
         }
         .navigationTitle("Toast Message")
-    }
-}
-
-struct DetailView_Previews1: PreviewProvider {
-    static var previews: some View {
-        ToastMessagePositionExample()
-            .environment(\.locale, .init(identifier: "ar"))
     }
 }
