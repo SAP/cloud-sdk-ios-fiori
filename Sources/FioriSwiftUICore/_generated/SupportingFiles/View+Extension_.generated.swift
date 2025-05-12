@@ -3,6 +3,23 @@
 import Foundation
 import SwiftUI
 
+// MARK: AINoticeStyle
+
+public extension View {
+    func aINoticeStyle(_ style: some AINoticeStyle) -> some View {
+        self.transformEnvironment(\.aINoticeStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func aINoticeStyle(@ViewBuilder content: @escaping (AINoticeConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.aINoticeStyleStack) { stack in
+            let style = AnyAINoticeStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: AccessoryIconStyle
 
 public extension View {
@@ -32,6 +49,23 @@ public extension View {
     func actionStyle(@ViewBuilder content: @escaping (ActionConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.actionStyleStack) { stack in
             let style = AnyActionStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: ActivationScreenStyle
+
+public extension View {
+    func activationScreenStyle(_ style: some ActivationScreenStyle) -> some View {
+        self.transformEnvironment(\.activationScreenStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func activationScreenStyle(@ViewBuilder content: @escaping (ActivationScreenConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.activationScreenStyleStack) { stack in
+            let style = AnyActivationScreenStyle(content)
             stack.append(style)
         }
     }
@@ -88,6 +122,23 @@ public extension View {
     }
 }
 
+// MARK: AgreeActionStyle
+
+public extension View {
+    func agreeActionStyle(_ style: some AgreeActionStyle) -> some View {
+        self.transformEnvironment(\.agreeActionStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func agreeActionStyle(@ViewBuilder content: @escaping (AgreeActionConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.agreeActionStyleStack) { stack in
+            let style = AnyAgreeActionStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: AllEntriesSectionTitleStyle
 
 public extension View {
@@ -139,6 +190,125 @@ public extension View {
     }
 }
 
+// MARK: AttachmentButtonImageStyle
+
+public extension View {
+    func attachmentButtonImageStyle(_ style: some AttachmentButtonImageStyle) -> some View {
+        self.transformEnvironment(\.attachmentButtonImageStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func attachmentButtonImageStyle(@ViewBuilder content: @escaping (AttachmentButtonImageConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.attachmentButtonImageStyleStack) { stack in
+            let style = AnyAttachmentButtonImageStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: AttachmentStyle
+
+public extension View {
+    func attachmentStyle(_ style: some AttachmentStyle) -> some View {
+        self.transformEnvironment(\.attachmentStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func attachmentStyle(@ViewBuilder content: @escaping (AttachmentConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.attachmentStyleStack) { stack in
+            let style = AnyAttachmentStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: AttachmentFootnoteStyle
+
+public extension View {
+    func attachmentFootnoteStyle(_ style: some AttachmentFootnoteStyle) -> some View {
+        self.transformEnvironment(\.attachmentFootnoteStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func attachmentFootnoteStyle(@ViewBuilder content: @escaping (AttachmentFootnoteConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.attachmentFootnoteStyleStack) { stack in
+            let style = AnyAttachmentFootnoteStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: AttachmentGroupStyle
+
+public extension View {
+    func attachmentGroupStyle(_ style: some AttachmentGroupStyle) -> some View {
+        self.transformEnvironment(\.attachmentGroupStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func attachmentGroupStyle(@ViewBuilder content: @escaping (AttachmentGroupConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.attachmentGroupStyleStack) { stack in
+            let style = AnyAttachmentGroupStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: AttachmentSubtitleStyle
+
+public extension View {
+    func attachmentSubtitleStyle(_ style: some AttachmentSubtitleStyle) -> some View {
+        self.transformEnvironment(\.attachmentSubtitleStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func attachmentSubtitleStyle(@ViewBuilder content: @escaping (AttachmentSubtitleConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.attachmentSubtitleStyleStack) { stack in
+            let style = AnyAttachmentSubtitleStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: AttachmentThumbnailStyle
+
+public extension View {
+    func attachmentThumbnailStyle(_ style: some AttachmentThumbnailStyle) -> some View {
+        self.transformEnvironment(\.attachmentThumbnailStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func attachmentThumbnailStyle(@ViewBuilder content: @escaping (AttachmentThumbnailConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.attachmentThumbnailStyleStack) { stack in
+            let style = AnyAttachmentThumbnailStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: AttachmentTitleStyle
+
+public extension View {
+    func attachmentTitleStyle(_ style: some AttachmentTitleStyle) -> some View {
+        self.transformEnvironment(\.attachmentTitleStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func attachmentTitleStyle(@ViewBuilder content: @escaping (AttachmentTitleConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.attachmentTitleStyleStack) { stack in
+            let style = AnyAttachmentTitleStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: AttributeStyle
 
 public extension View {
@@ -151,6 +321,40 @@ public extension View {
     func attributeStyle(@ViewBuilder content: @escaping (AttributeConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.attributeStyleStack) { stack in
             let style = AnyAttributeStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: AuthInputStyle
+
+public extension View {
+    func authInputStyle(_ style: some AuthInputStyle) -> some View {
+        self.transformEnvironment(\.authInputStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func authInputStyle(@ViewBuilder content: @escaping (AuthInputConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.authInputStyleStack) { stack in
+            let style = AnyAuthInputStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: AuthenticationStyle
+
+public extension View {
+    func authenticationStyle(_ style: some AuthenticationStyle) -> some View {
+        self.transformEnvironment(\.authenticationStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func authenticationStyle(@ViewBuilder content: @escaping (AuthenticationConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.authenticationStyleStack) { stack in
+            let style = AnyAuthenticationStyle(content)
             stack.append(style)
         }
     }
@@ -666,6 +870,57 @@ public extension View {
     }
 }
 
+// MARK: DisagreeActionStyle
+
+public extension View {
+    func disagreeActionStyle(_ style: some DisagreeActionStyle) -> some View {
+        self.transformEnvironment(\.disagreeActionStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func disagreeActionStyle(@ViewBuilder content: @escaping (DisagreeActionConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.disagreeActionStyleStack) { stack in
+            let style = AnyDisagreeActionStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: DurationPickerStyle
+
+public extension View {
+    func durationPickerStyle(_ style: some DurationPickerStyle) -> some View {
+        self.transformEnvironment(\.durationPickerStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func durationPickerStyle(@ViewBuilder content: @escaping (DurationPickerConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.durationPickerStyleStack) { stack in
+            let style = AnyDurationPickerStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: EULAViewStyle
+
+public extension View {
+    func eULAViewStyle(_ style: some EULAViewStyle) -> some View {
+        self.transformEnvironment(\.eULAViewStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func eULAViewStyle(@ViewBuilder content: @escaping (EULAViewConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.eULAViewStyleStack) { stack in
+            let style = AnyEULAViewStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: FilledIconStyle
 
 public extension View {
@@ -1006,6 +1261,23 @@ public extension View {
     }
 }
 
+// MARK: InfoViewStyle
+
+public extension View {
+    func infoViewStyle(_ style: some InfoViewStyle) -> some View {
+        self.transformEnvironment(\.infoViewStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func infoViewStyle(@ViewBuilder content: @escaping (InfoViewConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.infoViewStyleStack) { stack in
+            let style = AnyInfoViewStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: InformationViewStyle
 
 public extension View {
@@ -1069,6 +1341,23 @@ public extension View {
     func kPIContentStyle(@ViewBuilder content: @escaping (KPIContentConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.kPIContentStyleStack) { stack in
             let style = AnyKPIContentStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: KPIHeaderStyle
+
+public extension View {
+    func kPIHeaderStyle(_ style: some KPIHeaderStyle) -> some View {
+        self.transformEnvironment(\.kPIHeaderStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func kPIHeaderStyle(@ViewBuilder content: @escaping (KPIHeaderConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.kPIHeaderStyleStack) { stack in
+            let style = AnyKPIHeaderStyle(content)
             stack.append(style)
         }
     }
@@ -1375,23 +1664,6 @@ public extension View {
     func lowerThumbStyle(@ViewBuilder content: @escaping (LowerThumbConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.lowerThumbStyleStack) { stack in
             let style = AnyLowerThumbStyle(content)
-            stack.append(style)
-        }
-    }
-}
-
-// MARK: MandatoryFieldIndicatorStyle
-
-public extension View {
-    func mandatoryFieldIndicatorStyle(_ style: some MandatoryFieldIndicatorStyle) -> some View {
-        self.transformEnvironment(\.mandatoryFieldIndicatorStyleStack) { stack in
-            stack.append(style)
-        }
-    }
-
-    func mandatoryFieldIndicatorStyle(@ViewBuilder content: @escaping (MandatoryFieldIndicatorConfiguration) -> some View) -> some View {
-        self.transformEnvironment(\.mandatoryFieldIndicatorStyleStack) { stack in
-            let style = AnyMandatoryFieldIndicatorStyle(content)
             stack.append(style)
         }
     }
@@ -1839,6 +2111,23 @@ public extension View {
     }
 }
 
+// MARK: PromptStyle
+
+public extension View {
+    func promptStyle(_ style: some PromptStyle) -> some View {
+        self.transformEnvironment(\.promptStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func promptStyle(@ViewBuilder content: @escaping (PromptConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.promptStyleStack) { stack in
+            let style = AnyPromptStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: RangeSliderControlStyle
 
 public extension View {
@@ -2162,6 +2451,23 @@ public extension View {
     }
 }
 
+// MARK: SignInActionStyle
+
+public extension View {
+    func signInActionStyle(_ style: some SignInActionStyle) -> some View {
+        self.transformEnvironment(\.signInActionStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func signInActionStyle(@ViewBuilder content: @escaping (SignInActionConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.signInActionStyleStack) { stack in
+            let style = AnySignInActionStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: SignatureCaptureViewStyle
 
 public extension View {
@@ -2446,6 +2752,23 @@ public extension View {
     func textFieldFormViewStyle(@ViewBuilder content: @escaping (TextFieldFormViewConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.textFieldFormViewStyleStack) { stack in
             let style = AnyTextFieldFormViewStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: TextInputStyle
+
+public extension View {
+    func textInputStyle(_ style: some TextInputStyle) -> some View {
+        self.transformEnvironment(\.textInputStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func textInputStyle(@ViewBuilder content: @escaping (TextInputConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.textInputStyleStack) { stack in
+            let style = AnyTextInputStyle(content)
             stack.append(style)
         }
     }
@@ -2871,6 +3194,23 @@ public extension View {
     func watermarkStyle(@ViewBuilder content: @escaping (WatermarkConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.watermarkStyleStack) { stack in
             let style = AnyWatermarkStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: WelcomeScreenStyle
+
+public extension View {
+    func welcomeScreenStyle(_ style: some WelcomeScreenStyle) -> some View {
+        self.transformEnvironment(\.welcomeScreenStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func welcomeScreenStyle(@ViewBuilder content: @escaping (WelcomeScreenConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.welcomeScreenStyleStack) { stack in
+            let style = AnyWelcomeScreenStyle(content)
             stack.append(style)
         }
     }

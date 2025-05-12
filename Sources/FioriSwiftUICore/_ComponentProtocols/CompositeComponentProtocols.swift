@@ -9,6 +9,10 @@ protocol _ObjectItemComponent: _TitleComponent, _SubtitleComponent, _FootnoteCom
     // sourcery: @ViewBuilder
     /// For accessory enhancement
     var objectItemButton: FioriButton? { get }
+    
+    // sourcery: defaultValue = false
+    /// Indicate whether the description is shown in compact mode. Default value is `false`.
+    var showsDescriptionInCompact: Bool { get }
 }
 
 // sourcery: CompositeComponent, InternalComponent
@@ -643,17 +647,44 @@ protocol _ListPickerItemComponent: _TitleComponent, _ValueComponent, _MandatoryF
 /// `ListPickerDestination` is a view that provides a customizable list for `ListPickerItem` with selection, search filter and  rows.
 ///
 // sourcery: CompositeComponent
-protocol _ListPickerDestinationComponent: _CancelActionComponent, _ApplyActionComponent, _SelectedEntriesSectionTitleComponent, _SelectAllActionComponent, _DeselectAllActionComponent, _AllEntriesSectionTitleComponent, _ListPickerContentComponent {}
+protocol _ListPickerDestinationComponent: _CancelActionComponent, _ApplyActionComponent, _SelectedEntriesSectionTitleComponent, _SelectAllActionComponent, _DeselectAllActionComponent, _AllEntriesSectionTitleComponent, _ListPickerContentComponent, _PromptComponent {}
 
 // sourcery: CompositeComponent
+// sourcery: importFrameworks = ["FioriThemeManager"]
 protocol _ToastMessageComponent: _IconComponent, _TitleComponent {
     // sourcery: defaultValue = 1
-    /// The duration in seconds for which the toast message is shown. The default is `1`.
+    /// The duration in seconds for which the toast message is shown. The default value is `1`.
     var duration: Double { get }
+    // sourcery: defaultValue = .center
+    /// The position of the toast message relative to its parent view. `.center` puts the toast message in the center of its parent view, `.above` aligns it above the view, and `.below` aligns it below the view. The default value is `.center`.
+    var position: ToastMessagePosition { get }
+    // sourcery: defaultValue = 0
+    /// The amount of spacing to put in between the toast message and the frame of its parent view. This only applies to the `.above` and `.below` positions, and negative values are converted to `0`. The default value is `0`.
+    var spacing: CGFloat { get }
+    // sourcery: defaultValue = 14
+    /// A number specifying how rounded the corners of the view should be. The default value is `14`.
+    var cornerRadius: CGFloat { get }
+    // sourcery: defaultValue = Color.preferredColor(.tertiaryFill)
+    /// The background color of the view. The default value is `Color.preferredColor(.tertiaryFill)`.
+    var backgroundColor: Color { get }
+    // sourcery: defaultValue = 0
+    /// The width of the border surrounding the toast message. The default value is `0`.
+    var borderWidth: CGFloat { get }
+    // sourcery: defaultValue = Color.clear
+    /// The color of the border surrounding the toast message. The default value is `Color.clear`.
+    var borderColor: Color { get }
+    // sourcery: defaultValue = FioriShadowStyle.level3
+    /// A shadow to render underneath the view. The default value is `FioriShadowStyle.level3`.
+    var shadow: FioriShadowStyle? { get }
 }
 
 // sourcery: CompositeComponent
-protocol _BannerMultiMessageSheet: _TitleComponent, _CloseActionComponent {
+// sourcery: importFrameworks = ["FioriThemeManager"]
+protocol _BannerMultiMessageSheet: _TitleComponent {
+    @ViewBuilder
+    // sourcery: defaultValue = "{ FioriIcon.status.error }"
+    // sourcery: resultBuilder.defaultValue = "{ FioriIcon.status.error }"
+    var closeAction: (() -> any View)? { get }
     /// callback when this component want to dismiss itself
     var dismissAction: (() -> Void)? { get }
     /// callback when category or single item is removed
@@ -677,10 +708,6 @@ protocol _BannerMultiMessageSheet: _TitleComponent, _CloseActionComponent {
 /// ##Usage
 /// ```swift
 /// FilterFormView(title: "Sort Filter, MultiSelection, EmptySelection, fixed", mandatoryFieldIndicator: self.mandatoryField(), isRequired: false, options: self.sortValueOptions, errorMessage: nil, isEnabled: self.isEnabled, allowsMultipleSelection: true, allowsEmptySelection: true, value: self.$sortFilterFixedSelectionValue, buttonSize: .fixed)
-///    .mandatoryFieldIndicatorStyle { conf in
-///        conf.mandatoryFieldIndicator
-///            .foregroundStyle(self.mandatoryFieldIndicatorColor())
-///    }
 ///    .filterFormOptionMinTouchHeight(50)
 ///    .filterFormOptionCornerRadius(16)
 ///    .filterFormOptionTitleSpacing(4)
@@ -717,7 +744,15 @@ protocol _FilterFormViewComponent: _TitleComponent, _MandatoryField, _OptionsCom
     var isSingleLine: Bool { get }
     /// Implementation of value change callback.  Is invoked on changes to the `value` property.
     var onValueChange: (([Int]) -> Void)? { get }
+    
+    @ViewBuilder
+    // sourcery: defaultValue = "{ Image(systemName: "checkmark") }"
+    ///  This image view is to be displayed on selected item.
+    var checkmarkImage: (() -> any View)? { get }
 }
+
+/// This is just a mandatoryFieldIndicator flag protocol. With this protocol, the extension init api will append two more parameters: `isRequired` with false default value and `mandatoryFieldIndicator` with .text("*") default value. If `isRequired` is true, the `mandatoryFieldIndicator` will follow the last character of the title and be a part of title View.
+protocol _MandatoryField {}
 
 // sourcery: CompositeComponent
 protocol _LoadingIndicatorComponent: _TitleComponent, _ProgressComponent {
@@ -845,6 +880,77 @@ protocol _ActivityItemComponent: _IconComponent, _SubtitleComponent {
 /// ```
 // sourcery: CompositeComponent
 protocol _ContactItemComponent: _TitleComponent, _SubtitleComponent, _DescriptionComponent, _DetailImageComponent, _ActivityItemsComponent {}
+
+/// `WelcomeScreen` is used to display a welcome/launch screen to the application for onboarding.  The screen mainly displays the application name, instructions on how to start the activation process and an option to trigger the demo mode of the application.
+/// ## Usage
+/// ```
+/// WelcomeScreen(title: {
+///     Text(titleStr)
+/// }, description: {
+///     Text(descriptionStr)
+/// }, icon: {
+///     Image("oski")
+/// }, footnote: {
+///     Text("Want to explore?")
+/// }, action: {
+///     FioriButton { _ in
+///         //
+///     } label: { _ in
+///         Text(primaryButtonTitleStr)
+///             .multilineTextAlignment(.center)
+///     }
+/// }, secondaryAction: {
+///     //
+/// }, illustratedMessage: {
+///     //
+/// }, headlineImage: {
+///     Image("SAPLogo")
+/// }, inputText: self.$email, legalText: {
+///     Text("legal text")
+/// }, isLegalAgreementRequired: isLegalAgreementRequired, showsIllustratedMessage: self.showsIllustratedMessage, state: state, options: options, isDemoAvailable: isDemoAvailable, footerText: {
+///    if showTermsOfService, type != .link, type != .customLogo {
+///        Text("footer text")
+///    }
+/// })
+/// ```
+// sourcery: CompositeComponent
+protocol _WelcomeScreenComponent: _TitleComponent, _DescriptionComponent, _IconComponent, _FootnoteComponent, _ActionComponent, _SecondaryActionComponent {
+    // sourcery: @ViewBuilder
+    var illustratedMessage: IllustratedMessage? { get }
+    
+    @ViewBuilder
+    ///  This image view is to be displayed on the top center of the welcome screen and is typically the company logo image.
+    var headlineImage: (() -> any View)? { get }
+    // sourcery: @Binding
+    // sourcery: defaultValue = ".constant("")"
+    var inputText: String { get }
+    // sourcery: @ViewBuilder
+    var legalText: AttributedString? { get }
+    // sourcery: defaultValue = false
+    /// A flag indicating whether the user must agree to a legal agreement before proceeding. Default is false.
+    /// When set to `true`, a checkbox with user-defined text in `legalTextView` will be displayed. The `primaryActionButton` will remain disabled until the checkbox is selected. Otherwise, both the `legalCheckbox` and `legalTextView` will be hidden.
+    var isLegalAgreementRequired: Bool { get }
+    // sourcery: defaultValue = false
+    /// A flag determines whether the illustration message is displayed. Default is false. When `showsIllustratedMessage` is set to `true`, the `illustratedMessage` will be shown and the `description` will be hidden. Conversely, when `showsIllustratedMessage` is set to `false`, the `description` will be displayed and the `illustratedMessage` will be hidden.
+    var showsIllustratedMessage: Bool { get }
+    
+    // sourcery: defaultValue = .notConfigured
+    /// A property to indicate the state in the onboarding process. The default is `.notConfigured`, to indicate the application has not been configured and additionally setting `options` to allow end-users to provide configuration settings during onboarding.  An `.isConfigured` state indicates that the application contains the necessary configurations to connect to mobile services and should prompt the user to Start.
+    /// - See `FUIWelcomeControllerConfigurationOption` for possible configuration options when `state` is `.notConfigured`
+    var state: WelcomeScreenState { get }
+    
+    // sourcery: defaultValue = Set<WelcomeScreenOption>()
+    /// A property to indicate the configuration option(s) in the onboarding process when `state` is `.notConfigured`.  Default sets no configuration options.
+    var options: Set<WelcomeScreenOption> { get }
+    
+    // sourcery: defaultValue = true
+    /// A flag to indicate demo availability.  Default is true.  Only when it's true, display `Want to explore` label and `Try the Demo` button.  Corresponding `delegate` function is `didSelectDemoMode(_:)` if the property is true.
+    var isDemoAvailable: Bool { get }
+    
+    // sourcery: @ViewBuilder
+    /// Designated for displaying text on the footer of the Welcome screen, such as terms of service.
+    var footerText: AttributedString? { get }
+}
 
 // sourcery: CompositeComponent
 protocol _RangeSliderControlComponent: _LowerThumbComponent, _UpperThumbComponent, _ActiveTrackComponent, _InactiveTrackComponent {
@@ -1107,6 +1213,153 @@ protocol _StepProgressIndicatorComponent: _TitleComponent, _ActionComponent, _Ca
     var steps: [StepItem] { get }
 }
 
+/// `Attachment` is the UI component to be used by `AttachmentGroup` along with `AttachmentButtonImage` to support users' operation, such as adding a photo or a file and to render attachment list.
+///
+/// ## Usage
+/// ```swift
+/// Attachment {
+///   AttachmentThumbnail(url: fileURL)
+/// } attachmentTitle: {
+///   Text("Leaf")
+/// } attachmentSubtitle: {
+///   Text("15MB")
+/// } attachmentFootnote: {
+///   Text("Aug 15, 2024")
+/// }
+///
+/// Attachment {
+///   Image(systemName: "leaf")
+///     .resizable()
+/// } attachmentTitle: {
+///   Text("Leaf")
+/// } attachmentSubtitle: {
+///   Text("15MB")
+/// } attachmentFootnote: {
+///   Text("Aug 15, 2024")
+/// }
+/// ```
+// sourcery: CompositeComponent
+protocol _AttachmentComponent: _AttachmentTitleComponent, _AttachmentSubtitleComponent, _AttachmentFootnoteComponent {
+    /// The collection of local attachment URLs, which are prepared by Apps.
+    var url: URL { get }
+    
+    // sourcery: defaultValue = .normal
+    /// The state of attachement group component
+    var controlState: ControlState { get }
+}
+
+/// `AttachmentButtonImage` provides the default `Add` button following visual design.
+///
+/// ## Usage
+/// ```swift
+/// @State var attachments: [URL]
+/// @State var attachmentError: AttributedString?
+/// let delegate: AttachmentDelegate
+///
+/// AttachmentGroup(
+///   title: { Text("Attachements") },
+///   attachments: self.$attachments,
+///   maxCount: 5,
+///   delegate: self.delegate,
+///   errorMessage: self.$attachmentError,
+///   operations: {
+///       AttachmentButtonImage()
+///           .operationsMenu {
+///               PhotosPickerMenuItem(filter: [.images])
+///               FilesPickerMenuItem(filter: [.pdf, .presentation])
+///           }
+///       }
+///  )
+/// ```
+// sourcery: CompositeComponent
+// sourcery: importFrameworks = ["FioriThemeManager"]
+protocol _AttachmentButtonImageComponent {
+    //// The image to be used for "Add" menu or dialog for operations, such as poping up image picker or file picker.
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "FioriIcon.actions.add.renderingMode(.template).resizable()"
+    var addButtonImage: Image { get }
+
+    // sourcery: defaultValue = .normal
+    /// The state of attachement group component
+    var controlState: ControlState { get }
+}
+
+/// `AttachmentGroup` is the UI component for adding, removing, and rendering thumbnails and previews.
+///
+/// ## Usage
+/// ```swift
+/// AttachmentGroup(
+///   title: { Text("Attachements") },
+///   attachments: self.$attachments,
+///   maxCount: 5,
+///   delegate: self.delegate,
+///   errorMessage: self.$attachmentError,
+///   operations: {
+///       AttachmentButtonImage()
+///           .operationsMenu {
+///               PhotosPickerMenuItem(filter: [.images])
+///               FilesPickerMenuItem(filter: [.pdf, .presentation])
+///           }
+///       }
+///  )
+/// ```
+// sourcery: CompositeComponent
+protocol _AttachmentGroupComponent: _TitleComponent, _MandatoryField {
+    // sourcery: @Binding
+    /// The collection of local attachment URLs, which are prepared by Apps.
+    var attachments: [URL] { get }
+    
+    // sourcery: defaultValue = "nil"
+    /// The maximium number of attachments
+    var maxCount: Int? { get }
+
+    // sourcery: defaultValue = "BasicAttachmentDelegate()"
+    /// App specific attachemnt processing logics for adding or deleting attachments.
+    var delegate: AttachmentDelegate { get }
+
+    // sourcery: defaultValue = .normal
+    /// The state of attachement group component
+    var controlState: ControlState { get }
+    
+    // sourcery: @Binding
+    // sourcery: defaultValue = ".constant(nil)"
+    /// The error message of the form view.
+    var errorMessage: AttributedString? { get }
+
+    // sourcery: defaultValue = "{ EmptyView() }"
+    /// For adding App specific operations, such as picking photos and files.
+    @ViewBuilder
+    var operations: (() -> any View)? { get }
+    
+    // sourcery: defaultValue = "nil"
+    /// Triggering App specific preview, otherwise using default preview.
+    var onPreview: ((URL) -> Void)? { get }
+}
+
+/// `AttachmentThumbnail` is the UI component for rendering attachment file thumbnails asynchronously starting with static icons.
+///
+/// ## Usage
+/// ```swift
+/// Attachment {
+///   AttachmentThumbnail(url: fileURL)
+/// } attachmentTitle: {
+///   Text("Leaf")
+/// } attachmentSubtitle: {
+///   Text("15MB")
+/// } attachmentFootnote: {
+///   Text("Aug 15, 2024")
+/// }
+// sourcery: CompositeComponent
+// sourcery: importFrameworks = ["FioriThemeManager"]
+protocol _AttachmentThumbnailComponent {
+    ////  URL of document for rendering thumbnail
+    var url: URL { get }
+    
+    // sourcery: defaultValue = .normal
+    /// The state of attachement group component
+    var controlState: ControlState { get }
+}
+
 // sourcery: CompositeComponent
 protocol _SectionHeaderComponent: _TitleComponent, _AttributeComponent {
     /// Style determines fonts and colors. Default is `.title` style.
@@ -1339,11 +1592,7 @@ protocol _SortFilterViewComponent: _TitleComponent, _CancelActionComponent, _App
 /// `SignatureCaptureView` allows user to sign above  the signature line.
 /// ## Usage
 /// ```swift
-/// SignatureCaptureView(title: {
-///    Text("Signature Title")
-/// }, mandatoryFieldIndicator: {
-///    Text("*")
-/// }, isRequired: true, startSignatureAction: {
+/// SignatureCaptureView(title: "Signature Title", isRequired: true, startSignatureAction: {
 ///    Button(action: {}, label: { Text("start") })
 /// }, reenterSignatureAction: {
 ///    Button(action: {}, label: { Text("restart") })
@@ -1588,3 +1837,268 @@ protocol _UserConsentFormComponent: _NextActionComponent, _CancelActionComponent
 
 // sourcery: CompositeComponent
 protocol _UserConsentPageComponent: _TitleComponent, _BodyTextComponent, _ActionComponent {}
+
+/// `AINotice` is a SwiftUI view indicating if content is AI-supported or AI-generated. It can include an icon, a description, and an action label for accessing more details. If the icon or description is not set, a default value will be used. Action label has no default value and has to be set to be used.
+/// ## Usage
+/// ```swift
+///  @State var showsAction = false
+///  KeyValueItem {
+///     Text("Marital Status Since*")
+///   } value: {
+///     Text(self.maritalStatusSince)
+///   }
+///   .id(self.maritalStatusSinceId)
+///   .aiNoticeView(isPresented: self.$showAINotice, icon: Image(fioriName: "fiori.ai"), description: "AI Notice with icon. ", actionLabel: "View more details", viewMoreAction: self.toggleShowSheet)
+///   .sheet(isPresented: self.$showBottomSheet) {
+///      Text("detail information")
+///         .presentationDetents([.height(250), .medium])
+///         .presentationDragIndicator(.visible)
+///    }
+/// ```
+// sourcery: CompositeComponent
+protocol _AINoticeComponent: _IconComponent {
+    ///  An `AttributedString` representing the AI notice message.
+    var description: AttributedString? { get }
+    
+    /// An `AttributedString` that triggers an action to view more details.
+    var actionLabel: AttributedString? { get }
+    
+    /// A callback triggered when the actionLabel is clicked to display more message details.
+    var viewMoreAction: (() -> Void)? { get }
+    
+    /// The`HorizontalAlignment` of the AINotice view. The default value is `leading`.
+    // sourcery: defaultValue = .leading
+    var viewAlignment: HorizontalAlignment { get }
+}
+
+/// `EULAView` is used to display the End User License Agreement, EULA.
+/// ## Usage
+/// ```swift
+///        EULAView(title: "EULA",
+///                 bodyText: "BodyText",
+///                 didAgree: {
+///            print("EULAView - didAgree")
+///        },
+///                 didDisagree: {
+///            print("EULAView - didDisagree")
+///        },
+///                 didCancel: {
+///            presentationMode.wrappedValue.dismiss()
+///        })
+/// ```
+// sourcery: CompositeComponent
+protocol _EULAViewComponent: _TitleComponent, _BodyTextComponent, _AgreeActionComponent, _DisagreeActionComponent, _CancelActionComponent {
+    // sourcery: default.value = nil
+    // sourcery: no_view
+    var didAgree: (() -> Void)? { get }
+    
+    // sourcery: default.value = nil
+    // sourcery: no_view
+    var didDisagree: (() -> Void)? { get }
+    
+    // sourcery: default.value = nil
+    // sourcery: no_view
+    var didCancel: (() -> Void)? { get }
+}
+
+/// `DurationPicker` provides a wheel style `Picker` with Fiori styling to select a duration.
+/// ## Usage
+/// ```swift
+/// @State var selection: Int = 0
+/// var formatter: MeasurementFormatter {
+/// let formatter = MeasurementFormatter()
+///     formatter.locale = Locale(identifier: "zh-CN")
+///     formatter.unitStyle = .long
+///     formatter.unitOptions = .providedUnit
+///     return formatter
+/// }
+/// DurationPicker(title: "Measurement Formatter", selection: self.$selection3, maximumMinutes: 124, minimumMinutes: 60, minuteInterval: 2)
+///    .measurementFormatter(self.formatter)
+/// ```
+// sourcery: CompositeComponent
+protocol _DurationPickerComponent: _TitleComponent, _ValueLabelComponent, _MandatoryField, _FormViewComponent {
+    // sourcery: @Binding
+    // sourcery: no_view
+    var selection: Int { get set }
+    // sourcery: default.value=1439
+    // sourcery: no_view
+    var maximumMinutes: Int { get set }
+    // sourcery: default.value=0
+    // sourcery: no_view
+    var minimumMinutes: Int { get set }
+    // sourcery: default.value
+    // sourcery: no_view
+    var minuteInterval: Int { get set }
+    // sourcery: default.value=MeasurementFormatter()
+    // sourcery: no_view
+    var measurementFormatter: MeasurementFormatter { get set }
+}
+
+/// `KPIHeader` is used to display KPIItem and KPIProgressItem.
+///  The maximum number of items that can be displayed in the header is 4. If more than 4 items are provided, then only first 4 items are displayed and the rest will be ignored.
+///  If the item is KPIProgressItem and the value of its property `chartSize` is `.small`, it will not be displayed, too.
+/// ## Usage
+/// ```swift
+/// var data: [KPIHeaderItemModel] = [
+///     KPIItem(kpiCaption: "small", items: [KPISubItemModelImpl(kPISubItemValue: .text("123"), kPISubItemType: .metric)], proposedViewSize: .small, alignment: .center),
+///     KPIProgressItem(kpiCaption: "Downloading", data: .constant(KPIItemData.percent(0.65))),
+///     KPIItem(kpiCaption: "Big caption and long text", items: [KPISubItemModelImpl(kPISubItemValue: .text("321"), kPISubItemType: .metric)], proposedViewSize: .large, alignment: .center),
+///     KPIProgressItem(kpiCaption: "Completed", data: .constant(KPIItemData.percent(1.0)), chartSize: .small)]
+/// KPIHeader(items: data, isItemOrderForced: false)
+/// ```
+// sourcery: CompositeComponent
+protocol _KPIHeaderComponent {
+    // sourcery: resultBuilder.backingComponent = KPIContainerStack
+    // sourcery: resultBuilder.name = @ViewBuilder
+    var items: [any KPIHeaderItemModel] { get }
+    
+    // sourcery: @ViewBuilder
+    var bannerMessage: BannerMessage? { get }
+    
+    // sourcery: default.value=false
+    // sourcery: no_view
+    var isItemOrderForced: Bool { get }
+    
+    // sourcery: no_view
+    var interItemSpacing: CGFloat? { get }
+}
+
+/// `Authentication` is used to display a login screen with customizable detail image, title, subtitle, input fields and sign-in action.
+/// ## Usage
+/// ```swift
+/// // Basic usage
+/// @State var password: String = ""
+/// @State var name: String = ""
+///
+/// Authentication(detailImage: {
+///     Image(.illustration).resizable().aspectRatio(contentMode: .fit)
+/// }, title: {
+///     Text("Authentication")
+/// }, subtitle: {
+///     Text("Please provide your username and password to authenticate.")
+/// }, authInput: {
+///     VStack(spacing: 16) {
+///         TextFieldFormView(title: "", text: self.$name, placeholder: "Enter your name")
+///         TextFieldFormView(title: "", text: self.$password, isSecureEnabled: true, placeholder: "Enter your password")
+///     }
+/// }, isDisabled: password.isEmpty || name.isEmpty) {
+///     print("sign in ......")
+/// }
+///
+/// // With banner message and custom style
+/// Authentication(detailImage: {
+///     Image(.illustration).resizable().aspectRatio(contentMode: .fit)
+/// }, title: {
+///     Text("Authentication")
+/// }, subtitle: {
+///     Text("Please provide your username and password.")
+/// }, isDisabled: password.isEmpty || name.isEmpty) {
+///     // Handle sign in action
+/// }
+/// .authenticationStyle(BasicAuthenticationStyle(password: self.$password, name: self.$name))
+/// .bannerMessageView(isPresented: self.$isPresentedBanner,
+///                   pushContentDown: .constant(false),
+///                   icon: { EmptyView() },
+///                   title: "Verifying...",
+///                   messageType: .neutral)
+/// ```
+// sourcery: CompositeComponent
+protocol _AuthenticationComponent: _DetailImageComponent, _TitleComponent, _SubtitleComponent, _AuthInputComponent, _SignInActionComponent {
+    // sourcery: @binding
+    /// Whether the sign-in button is disabled. Typically controlled by the validation state of the input fields.
+    var isDisabled: Bool { get }
+    
+    // sourcery: default.value = nil
+    // sourcery: no_view
+    /// Callback triggered when the sign-in action is performed. This is called when the user taps the sign-in button
+    /// and the `isDisabled` property is false.
+    var didSignIn: (() -> Void)? { get }
+}
+
+/// `InfoView` is a multifunctional view for displaying Information or Splash screen.
+/// The UI elements can be displayed or hidden depending on functionality.
+/// The text properties must be set before displaying the view.
+///
+/// ## Initialization Parameters
+/// - Required:
+///   - title: The primary heading text (AttributedString or ViewBuilder)
+/// - Optional:
+///   - descriptionText: Supplemental information text
+///   - action: Primary action control
+///   - secondaryAction: Secondary action control
+///   - loadingIndicator: Loading state visualization
+///
+/// ## Usage
+/// ## AttributedString Shortcut (Quick Setup)
+/// ```
+/// InfoView(
+///     title: AttributedString("Title"),
+///     descriptionText: AttributedString("Description Text"),
+///     action: FioriButton(title: "Update Now") {
+///         startUpdate()
+///     },
+///     secondaryAction: FioriButton(title: "Remind Later") {
+///         scheduleReminder()
+///     }
+/// )
+/// ```
+///
+/// ## ViewBuilder Approach (Fully Customizable)
+/// ```
+/// // Custom loading indicator with red circular style
+/// let loadingIndicator = LoadingIndicator(
+///     title: { Text("") },
+///     progress: {
+///         ProgressView()
+///             .progressViewStyle(CircularProgressViewStyle(tint: .red))
+///     },
+///     isPresented: .constant(true)
+/// )
+///
+/// InfoView(
+///     title: {
+///         HStack(spacing: 8) {
+///             Image(systemName: "exclamationmark.triangle.fill")
+///                 .foregroundColor(.yellow)
+///             Text("Title")
+///                 .font(.headline)
+///         }
+///     },
+///     descriptionText: {
+///         Text(AttributedString(self.model.descriptionText ?? "")) // Dynamic title from model
+///             .foregroundColor(.blue)  // Custom text color
+///     },
+///     action: {
+///         Toggle("Trust Device", isOn: $trustDevice)
+///             .toggleStyle(.switch)
+///     },
+///     secondaryAction: {
+///         Button("Start Tutorial") {
+///             print("InfoView secondary button clicked")
+///         }
+///     },
+///     loadingIndicator: { loadingIndicator }
+/// )
+/// ```
+// sourcery: CompositeComponent
+protocol _InfoViewComponent: _TitleComponent, _DescriptionTextComponent, _ActionComponent, _SecondaryActionComponent {
+    // sourcery: @ViewBuilder
+    var loadingIndicator: LoadingIndicator? { get set }
+}
+
+/// The Activation Screen is displayed after the Welcome Screen with title, description text, email input text field, action button and secondary action.
+// sourcery: CompositeComponent
+protocol _ActivationScreenComponent: _TitleComponent, _DescriptionTextComponent, _FootnoteComponent, _ActionComponent, _SecondaryActionComponent {
+    // sourcery: @ViewBuilder
+    var illustratedMessage: IllustratedMessage? { get }
+    
+    // sourcery: @Binding
+    // sourcery: defaultValue = ".constant("")"
+    var inputText: String { get }
+    
+    // sourcery: defaultValue = false
+    /// A boolean flag, `showsIllustratedMessage`, determines whether the illustration message is displayed.
+    /// When `showsIllustratedMessage` is set to `true`, the `illustratedMessage` will be shown, and the `title` and `description` will be hidden. Conversely, when `showsIllustratedMessage` is set to `false`, the `title` and `description` will be displayed, and the `illustratedMessage` will be hidden.
+    /// The default setting for `showsIllustratedMessage` is `false`.
+    var showsIllustratedMessage: Bool { get }
+}

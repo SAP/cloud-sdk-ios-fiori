@@ -21,9 +21,8 @@ extension InformationViewFioriStyle {
         @Environment(\.isEnabled) var isEnabled
         func makeBody(_ configuration: InformationViewConfiguration) -> some View {
             InformationView(configuration)
-                .foregroundColor(.preferredColor(self.isEnabled ? .tertiaryLabel : .separator))
+                .foregroundColor(.preferredColor(self.isEnabled ? .tertiaryLabel : .quaternaryLabel))
                 .padding(.top, 4)
-                .padding(.bottom, 11)
         }
     }
     
@@ -33,7 +32,7 @@ extension InformationViewFioriStyle {
         
         func makeBody(_ configuration: IconConfiguration) -> some View {
             Icon(configuration)
-                .foregroundStyle(Color.preferredColor(self.isEnabled ? .tertiaryLabel : .separator))
+                .foregroundStyle(Color.preferredColor(self.isEnabled ? .tertiaryLabel : .quaternaryLabel))
                 .font(.fiori(forTextStyle: .footnote))
         }
     }
@@ -44,7 +43,7 @@ extension InformationViewFioriStyle {
         
         func makeBody(_ configuration: DescriptionConfiguration) -> some View {
             Description(configuration)
-                .foregroundColor(.preferredColor(self.isEnabled ? .tertiaryLabel : .separator))
+                .foregroundColor(.preferredColor(self.isEnabled ? .tertiaryLabel : .quaternaryLabel))
                 .font(.fiori(forTextStyle: .footnote))
         }
     }
@@ -80,15 +79,15 @@ public struct InformationViewErrorStyle: InformationViewStyle {
             .iconStyle(content: { IconConfiguration in
                 if IconConfiguration.icon.isEmpty {
                     Image(systemName: "exclamationmark.circle")
-                        .foregroundStyle(Color.preferredColor(self.isEnabled ? .negativeLabel : .separator))
+                        .foregroundStyle(Color.preferredColor(self.isEnabled ? .negativeLabel : .quaternaryLabel))
                 } else {
                     IconConfiguration.icon
-                        .foregroundStyle(Color.preferredColor(self.isEnabled ? .negativeLabel : .separator))
+                        .foregroundStyle(Color.preferredColor(self.isEnabled ? .negativeLabel : .quaternaryLabel))
                 }
             })
             .descriptionStyle(content: { descriptionConfiguration in
                 descriptionConfiguration.description
-                    .foregroundStyle(Color.preferredColor(self.isEnabled ? .negativeLabel : .separator))
+                    .foregroundStyle(Color.preferredColor(self.isEnabled ? .negativeLabel : .quaternaryLabel))
             })
     }
 }
@@ -100,15 +99,15 @@ public struct InformationViewWarningStyle: InformationViewStyle {
             .iconStyle(content: { IconConfiguration in
                 if IconConfiguration.icon.isEmpty {
                     Image(systemName: "exclamationmark.triangle")
-                        .foregroundStyle(Color.preferredColor(self.isEnabled ? .criticalLabel : .separator))
+                        .foregroundStyle(Color.preferredColor(self.isEnabled ? .criticalLabel : .quaternaryLabel))
                 } else {
                     IconConfiguration.icon
-                        .foregroundStyle(Color.preferredColor(self.isEnabled ? .criticalLabel : .separator))
+                        .foregroundStyle(Color.preferredColor(self.isEnabled ? .criticalLabel : .quaternaryLabel))
                 }
             })
             .descriptionStyle(content: { descriptionConfiguration in
                 descriptionConfiguration.description
-                    .foregroundStyle(Color.preferredColor(self.isEnabled ? .criticalLabel : .separator))
+                    .foregroundStyle(Color.preferredColor(self.isEnabled ? .criticalLabel : .quaternaryLabel))
             })
     }
 }
@@ -120,15 +119,15 @@ public struct InformationViewInformationalStyle: InformationViewStyle {
             .iconStyle(content: { IconConfiguration in
                 if IconConfiguration.icon.isEmpty {
                     Image(systemName: "info.circle")
-                        .foregroundStyle(Color.preferredColor(self.isEnabled ? .primaryLabel : .separator))
+                        .foregroundStyle(Color.preferredColor(self.isEnabled ? .primaryLabel : .quaternaryLabel))
                 } else {
                     IconConfiguration.icon
-                        .foregroundStyle(Color.preferredColor(self.isEnabled ? .primaryLabel : .separator))
+                        .foregroundStyle(Color.preferredColor(self.isEnabled ? .primaryLabel : .quaternaryLabel))
                 }
             })
             .descriptionStyle(content: { descriptionConfiguration in
                 descriptionConfiguration.description
-                    .foregroundStyle(Color.preferredColor(self.isEnabled ? .primaryLabel : .separator))
+                    .foregroundStyle(Color.preferredColor(self.isEnabled ? .primaryLabel : .quaternaryLabel))
             })
     }
 }
@@ -140,15 +139,15 @@ public struct InformationViewSuccessStyle: InformationViewStyle {
             .iconStyle(content: { IconConfiguration in
                 if IconConfiguration.icon.isEmpty {
                     Image(systemName: "checkmark.circle")
-                        .foregroundStyle(Color.preferredColor(self.isEnabled ? .positiveLabel : .separator))
+                        .foregroundStyle(Color.preferredColor(self.isEnabled ? .positiveLabel : .quaternaryLabel))
                 } else {
                     IconConfiguration.icon
-                        .foregroundStyle(Color.preferredColor(self.isEnabled ? .positiveLabel : .separator))
+                        .foregroundStyle(Color.preferredColor(self.isEnabled ? .positiveLabel : .quaternaryLabel))
                 }
             })
             .descriptionStyle(content: { descriptionConfiguration in
                 descriptionConfiguration.description
-                    .foregroundStyle(Color.preferredColor(self.isEnabled ? .positiveLabel : .separator))
+                    .foregroundStyle(Color.preferredColor(self.isEnabled ? .positiveLabel : .quaternaryLabel))
             })
     }
 }

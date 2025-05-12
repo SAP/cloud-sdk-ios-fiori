@@ -38,8 +38,12 @@ public struct ObjectItemBaseStyle: ObjectItemStyle {
             }
         }
         
+        var isCompact: Bool {
+            self.horizontalSizeClass == nil || self.horizontalSizeClass == .some(.compact)
+        }
+        
         var isCenterAligned: Bool {
-            configuration.subtitle.isEmpty && configuration.footnote.isEmpty && configuration.tags.isEmpty
+            configuration.subtitle.isEmpty && configuration.footnote.isEmpty && configuration.tags.isEmpty && (configuration.description.isEmpty || !isCompact)
         }
         
         let context = Context(configuration: configuration, shouldShowAvatar: shouldShowAvatar, avatarView: avatarView)
@@ -53,7 +57,7 @@ public struct ObjectItemBaseStyle: ObjectItemStyle {
                 } else {
                     self.makeRegularSingleActionView(context)
                 }
-            } else if self.horizontalSizeClass == nil || self.horizontalSizeClass == .some(.compact) || self.splitPercent == nil {
+            } else if isCompact || self.splitPercent == nil {
                 // When only the headline label is used, everything in the cell is center aligned. Only 1 status can be used.
                 if isCenterAligned {
                     self.makeCompactOneLineView(context)
@@ -281,6 +285,9 @@ extension ObjectItemBaseStyle {
                             context.configuration.footnote
                             context.configuration.tags
                             self.footnoteIconsView(context)
+                            if context.configuration.showsDescriptionInCompact {
+                                context.configuration.description
+                            }
                         }
                         Spacer(minLength: 0)
                     }
@@ -317,6 +324,9 @@ extension ObjectItemBaseStyle {
                     context.configuration.footnote
                     context.configuration.tags
                     self.footnoteIconsView(context)
+                    if context.configuration.showsDescriptionInCompact {
+                        context.configuration.description
+                    }
                 }
                 
                 Spacer(minLength: 8)
@@ -514,9 +524,13 @@ extension ObjectItemBaseStyle {
     
     @ViewBuilder
     func footnoteIconsView(_ context: Context) -> some View {
-        AvatarsAndTextLayout(textPosition: self.footnoteIconsTextPosition) {
-            context.configuration.footnoteIconsText
-            context.configuration.footnoteIcons
+        if !context.configuration.footnoteIcons.isEmpty || !context.configuration.footnoteIconsText.isEmpty {
+            AvatarsAndTextLayout(textPosition: self.footnoteIconsTextPosition) {
+                context.configuration.footnoteIconsText
+                context.configuration.footnoteIcons
+            }
+        } else {
+            EmptyView()
         }
     }
 }
@@ -772,7 +786,7 @@ public struct ObjectItemBorderedAction: ActionStyle {
 
 struct AvatarsAndTextLayout: Layout {
     let textPosition: AvatarStack.TextPosition
-    let margin = NSDirectionalEdgeInsets(top: 4, leading: 0, bottom: 4, trailing: 0)
+    let margin = NSDirectionalEdgeInsets(top: 4, leading: 0, bottom: 0, trailing: 0)
     let textAndIconsSpacing: CGFloat = 6
     let textMinimumWidth: CGFloat = 60
     
@@ -807,7 +821,7 @@ struct AvatarsAndTextLayout: Layout {
                 let size = CGSize(width: containerWidth, height: maxHeight)
                 return size
             }
-        } else {
+        } else if subviews.count == 1 {
             var maxHeight: CGFloat = 0
             let contentWidth = containerWidth - self.margin.leading - self.margin.trailing
             for subview in subviews {
@@ -815,6 +829,8 @@ struct AvatarsAndTextLayout: Layout {
                 maxHeight = max(maxHeight, height)
             }
             return CGSize(width: containerWidth, height: maxHeight + self.margin.top + self.margin.bottom)
+        } else {
+            return .zero
         }
     }
     

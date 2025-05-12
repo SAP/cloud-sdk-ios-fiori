@@ -34,10 +34,10 @@ public struct _FilterFeedbackBar<Items: View> {
 extension _FilterFeedbackBar where Items == _SortFilterMenuItemContainer {
 
     public init(model: _FilterFeedbackBarModel) {
-        self.init(items: Binding<[[SortFilterItem]]>(get: { model.items }, set: { model.items = $0 }), onUpdate: model.onUpdate)
+        self.init(items: Binding<[[_SortFilterItem]]>(get: { model.items }, set: { model.items = $0 }), onUpdate: model.onUpdate)
     }
 
-    public init(items: Binding<[[SortFilterItem]]>, onUpdate: (() -> Void)? = nil) {
+    public init(items: Binding<[[_SortFilterItem]]>, onUpdate: (() -> Void)? = nil) {
         self._items = _SortFilterMenuItemContainer(items: items)
 		self._onUpdate = onUpdate
 

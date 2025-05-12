@@ -44,26 +44,34 @@ struct ListPickerItemExample: View {
     @State var isRequired = false
     @State var state: ControlState = .normal
     @State var showsErrorMessage = false
+    @State var showsPrompt = false
+    @State var showAINotice: Bool = false
     
     var body: some View {
         List {
             Group {
                 if self.dataType == .frameworks || self.dataType == .text {
                     // Use default Value
-                    ListPickerItem(title: {
-                        Text("Title")
-                    }, isRequired: self.isRequired, controlState: self.state, axis: self.axis,
-                    destination: {
-                        self.destinationViewGroup()
-                    })
+                    ListPickerItem(title: "Title", isRequired: self.isRequired, controlState: self.state, axis: self.axis,
+                                   destination: {
+                                       self.destinationViewGroup()
+                                   })
                 } else {
                     // Use custom Value
-                    ListPickerItem(title: { Text("Title") }, value: { self.valueView }, isRequired: self.isRequired, controlState: self.state, axis: self.axis, destination: {
+                    ListPickerItem(title: {
+                        HStack(spacing: 0) {
+                            Text("Title")
+                            if self.isRequired {
+                                TextOrIconView(.text("*"))
+                            }
+                            Spacer()
+                        }
+                    }, value: { self.valueView }, controlState: self.state, axis: self.axis, destination: {
                         self.destinationViewGroup()
                     })
                 }
             }
-            .onChange(of: self.dataType) { _ in
+            .onChange(of: self.dataType) {
                 self.selections.removeAll()
                 self.uuidSelections.removeAll()
                 self.selection = nil
@@ -81,6 +89,7 @@ struct ListPickerItemExample: View {
             }
             .informationView(isPresented: self.$showsErrorMessage, description: "Validation message")
             .informationViewStyle(.informational)
+            .aiNoticeView(isPresented: self.$showAINotice)
             .disabled(self.state == .disabled)
             
             Section("Pannel") {
@@ -114,11 +123,15 @@ struct ListPickerItemExample: View {
                 
                 Toggle("Shows Error Message", isOn: self.$showsErrorMessage)
                 
+                Toggle("Shows Prompt", isOn: self.$showsPrompt)
+                
                 Picker("State", selection: self.$state) {
                     Text("Normal").tag(ControlState.normal)
                     Text("Disabled").tag(ControlState.disabled)
                     Text("Readonly").tag(ControlState.readOnly)
                 }
+                
+                Toggle("AI Notice", isOn: self.$showAINotice)
             }
         }
         .navigationTitle("List Picker Item")
@@ -156,8 +169,15 @@ struct ListPickerItemExample: View {
                 .deselectAllActionStyle { _ in
                     FioriButton(title: "Deselect All Action") { _ in }
                 }
+                .promptStyle { c in
+                    c.prompt.foregroundStyle(Color.red)
+                }
                 .listStyle(.plain)
             }
+    }
+    
+    var promptValue: AttributedString? {
+        self.showsPrompt ? "This is prompt text." : nil
     }
     
     @ViewBuilder var valueView: some View {
@@ -208,9 +228,10 @@ struct ListPickerItemExample: View {
                                       selections: self.$selections,
                                       allowEmpty: self.allowEmpty,
                                       isTrackingLiveChanges: self.isTrackingLiveChanges,
+                                      prompt: self.promptValue,
                                       searchFilter: self.allowSearch ? filter : nil)
                 { e in
-                    Text(e)
+                    self.rowContent(e)
                 }
             } else {
                 if self.allowEmpty {
@@ -218,18 +239,20 @@ struct ListPickerItemExample: View {
                                           id: \.self,
                                           selection: self.$selection,
                                           isTrackingLiveChanges: self.isTrackingLiveChanges,
+                                          prompt: self.promptValue,
                                           searchFilter: self.allowSearch ? filter : nil)
                     { e in
-                        Text(e)
+                        self.rowContent(e)
                     }
                 } else {
                     ListPickerDestination(self.stringsModel,
                                           id: \.self,
                                           selection: self.$noneEmptySelection,
                                           isTrackingLiveChanges: self.isTrackingLiveChanges,
+                                          prompt: self.promptValue,
                                           searchFilter: self.allowSearch ? filter : nil)
                     { e in
-                        Text(e)
+                        self.rowContent(e)
                     }
                 }
             }
@@ -249,9 +272,10 @@ struct ListPickerItemExample: View {
                                       selections: self.$selections,
                                       allowEmpty: self.allowEmpty,
                                       isTrackingLiveChanges: self.isTrackingLiveChanges,
+                                      prompt: self.promptValue,
                                       searchFilter: self.allowSearch ? filter : nil)
                 { e in
-                    Text(e.name)
+                    self.rowContent(e.name)
                 }
             } else {
                 if self.allowEmpty {
@@ -260,9 +284,10 @@ struct ListPickerItemExample: View {
                                           children: \.children,
                                           selection: self.$selection,
                                           isTrackingLiveChanges: self.isTrackingLiveChanges,
+                                          prompt: self.promptValue,
                                           searchFilter: self.allowSearch ? filter : nil)
                     { e in
-                        Text(e.name)
+                        self.rowContent(e.name)
                     }
                 } else {
                     ListPickerDestination(self.model,
@@ -270,9 +295,10 @@ struct ListPickerItemExample: View {
                                           children: \.children,
                                           selection: self.$noneEmptySelection,
                                           isTrackingLiveChanges: self.isTrackingLiveChanges,
+                                          prompt: self.promptValue,
                                           searchFilter: self.allowSearch ? filter : nil)
                     { e in
-                        Text(e.name)
+                        self.rowContent(e.name)
                     }
                 }
             }
@@ -292,17 +318,10 @@ struct ListPickerItemExample: View {
                                       selections: self.$uuidSelections,
                                       allowEmpty: self.allowEmpty,
                                       isTrackingLiveChanges: self.isTrackingLiveChanges,
+                                      prompt: self.promptValue,
                                       searchFilter: self.allowSearch ? filter : nil)
                 { framework in
-                    ObjectItem {
-                        Text(framework.name)
-                    } description: {
-                        Text("description")
-                    } status: {
-                        Image(systemName: "sun.min")
-                    } detailImage: {
-                        Image(systemName: "mail")
-                    }
+                    self.rowContent(framework.name, isObject: true)
                 }
             } else {
                 if self.allowEmpty {
@@ -311,17 +330,10 @@ struct ListPickerItemExample: View {
                                           children: \.children,
                                           selection: self.$uuidSelection,
                                           isTrackingLiveChanges: self.isTrackingLiveChanges,
+                                          prompt: self.promptValue,
                                           searchFilter: self.allowSearch ? filter : nil)
                     { framework in
-                        ObjectItem {
-                            Text(framework.name)
-                        } description: {
-                            Text("description")
-                        } status: {
-                            Image(systemName: "sun.min")
-                        } detailImage: {
-                            Image(systemName: "mail")
-                        }
+                        self.rowContent(framework.name, isObject: true)
                     }
                 } else {
                     ListPickerDestination(self.model,
@@ -329,17 +341,10 @@ struct ListPickerItemExample: View {
                                           children: \.children,
                                           selection: self.$uuidNoneEmptySelection,
                                           isTrackingLiveChanges: self.isTrackingLiveChanges,
+                                          prompt: self.promptValue,
                                           searchFilter: self.allowSearch ? filter : nil)
                     { framework in
-                        ObjectItem {
-                            Text(framework.name)
-                        } description: {
-                            Text("description")
-                        } status: {
-                            Image(systemName: "sun.min")
-                        } detailImage: {
-                            Image(systemName: "mail")
-                        }
+                        self.rowContent(framework.name, isObject: true)
                     }
                 }
             }
@@ -351,9 +356,10 @@ struct ListPickerItemExample: View {
                                       selections: self.$selections,
                                       allowEmpty: self.allowEmpty,
                                       isTrackingLiveChanges: self.isTrackingLiveChanges,
+                                      prompt: self.promptValue,
                                       searchFilter: self.allowSearch ? filter : nil)
                 { e in
-                    Text(e)
+                    self.rowContent(e)
                 }
             } else {
                 if self.allowEmpty {
@@ -361,21 +367,45 @@ struct ListPickerItemExample: View {
                                           id: \.self,
                                           selection: self.$selection,
                                           isTrackingLiveChanges: self.isTrackingLiveChanges,
+                                          prompt: self.promptValue,
                                           searchFilter: self.allowSearch ? filter : nil)
                     { e in
-                        Text(e)
+                        self.rowContent(e)
                     }
                 } else {
                     ListPickerDestination(self.groupedModel,
                                           id: \.self,
                                           selection: self.$noneEmptySelection,
                                           isTrackingLiveChanges: self.isTrackingLiveChanges,
+                                          prompt: self.promptValue,
                                           searchFilter: self.allowSearch ? filter : nil)
                     { e in
-                        Text(e)
+                        self.rowContent(e)
                     }
                 }
             }
+        }
+    }
+    
+    @ViewBuilder func rowContent(_ s: String, isObject: Bool = false) -> some View {
+        if isObject {
+            ObjectItem {
+                Text(s)
+            } description: {
+                Text("description")
+            } status: {
+                Image(systemName: "sun.min")
+            } detailImage: {
+                Image(systemName: "mail")
+            }
+            .ifApply(self.customDestination) {
+                $0.destinationRowBackgroundColor(s == "CloudKit" ? Color.indigo : Color.blue)
+            }
+        } else {
+            Text(s)
+                .ifApply(self.customDestination) {
+                    $0.destinationRowBackgroundColor(s == "First" ? Color.indigo : Color.blue)
+                }
         }
     }
 }

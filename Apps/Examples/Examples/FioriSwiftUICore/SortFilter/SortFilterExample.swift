@@ -37,7 +37,12 @@ struct SortFilterExample: View {
         ],
         [
             .datetime(item: .init(name: "Completion Date", value: nil), showsOnFilterFeedbackBar: true)
-        ]
+        ],
+        [
+            .title(item: .init(name: "Title", text: "This is default text.", placeholder: "Please input", maxTextLength: 20, isCharCountEnabled: true, charCountBeyondLimitMsg: "Char count beyond limit"), showsOnFilterFeedbackBar: true),
+            .note(item: .init(name: "Note", text: "This is default text.", placeholder: "Please input", maxTextLength: 200, isCharCountEnabled: true, charCountBeyondLimitMsg: "Char count beyond limit"), showsOnFilterFeedbackBar: false)
+        ],
+        [.durationPicker(item: .init(name: "Duration", value: 0, maximumMinutes: 505, minimumMinutes: 0, minuteInterval: 1), showsOnFilterFeedbackBar: true)]
     ]
     
     @State private var isShowingFullCFG: Bool = false

@@ -15,7 +15,7 @@ public struct KPIItemBaseStyle: KPIItemStyle {
         .environment(\.isPressed, self.isPressed)
         .frame(maxWidth: 216, alignment: configuration.alignment)
         .contentShape(.rect)
-        .gesture(self.createGesture())
+        .simultaneousGesture(self.createGesture())
     }
     
     private func createGesture() -> some Gesture {

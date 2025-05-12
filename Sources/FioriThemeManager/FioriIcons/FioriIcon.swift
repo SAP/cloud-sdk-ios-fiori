@@ -480,7 +480,11 @@ public enum FioriIcon {
         ///
         public static let thumbDown = Image(fioriName: "fiori.thumb.down")
         ///
+        public static let thumbDownFill = Image(fioriName: "fiori.thumb.down.fill")
+        ///
         public static let thumbUp = Image(fioriName: "fiori.thumb.up")
+        ///
+        public static let thumbUpFill = Image(fioriName: "fiori.thumb.up.fill")
         ///
         public static let toasterDown = Image(fioriName: "fiori.toaster.down")
         ///

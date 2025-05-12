@@ -1,10 +1,12 @@
 import SwiftUI
 
 struct OnboardingExamples: View {
+    var _isNewObjectItem: Bool = false
+    
     var body: some View {
         List {
             NavigationLink(
-                destination: WelcomeExamples())
+                destination: WelcomeExamples(_isNewObjectItem: self._isNewObjectItem))
             {
                 Text("WelcomeScreen Examples")
             }
@@ -12,90 +14,145 @@ struct OnboardingExamples: View {
             NavigationLink(
                 destination: ActivationScreenExamples())
             {
+                Text("_ActivationScreen")
+            }
+            
+            NavigationLink(
+                destination: ActivationScreenExamples(isNewActivationScreen: true))
+            {
                 Text("ActivationScreen")
             }
             
-            NavigationLink(
-                destination: InfoViewExamples(),
-                label: {
+            if self._isNewObjectItem {
+                NavigationLink(
+                    destination: InfoViewExamples(isNewInfoView: true))
+                {
                     Text("InfoView Examples")
                 }
-            )
-            
-            NavigationLink(
-                destination: EULAExamples())
-            {
-                Text("EULA Examples")
+                NavigationLink(
+                    destination: EULAExamples(isNewEULAView: true))
+                {
+                    Text("EULA Examples")
+                }
+                NavigationLink(
+                    destination: UserConsentExamples())
+                {
+                    Text("User Consent Form Examples")
+                }
+                NavigationLink(
+                    destination: AuthenticationExamples())
+                {
+                    Text("AuthenticationScreen Examples")
+                }
+            } else {
+                NavigationLink(
+                    destination: InfoViewExamples())
+                {
+                    Text("_InfoView Examples")
+                }
+                NavigationLink(
+                    destination: EULAExamples())
+                {
+                    Text("_EULA Examples")
+                }
             }
-            
-            NavigationLink(
-                destination: UserConsentExamples())
-            {
-                Text("User Consent Form Examples")
-            }
-            
         }.navigationBarTitle("Onboarding")
     }
 }
 
 struct WelcomeExamples: View {
+    var _isNewObjectItem: Bool = false
     var body: some View {
         List {
-            NavigationLink(
-                destination: WelcomeScreenSample())
-            {
-                Text("WelcomeScreen")
+            if self._isNewObjectItem {
+                Section {
+                    NavigationLink {
+                        OnBoardingWelcomeScreenExamples()
+                    } label: {
+                        Text("OnBoarding - WelcomeScreen")
+                    }
+                } header: {
+                    Text("Extra Examples")
+                        .textCase(.none)
+                }
+            } else {
+                Section {
+                    NavigationLink(
+                        destination: WelcomeScreenSample())
+                    {
+                        Text("WelcomeScreen")
+                    }
+                    NavigationLink(
+                        destination: WelcomeScreenCustomized())
+                    {
+                        Text("WelcomeScreen customized")
+                    }
+                    NavigationLink(
+                        destination: WelcomeScreenDiscoveryService())
+                    {
+                        Text("WelcomeScreen with Discovery Service")
+                    }
+                }
             }
-            NavigationLink(
-                destination: WelcomeScreenCustomized())
-            {
-                Text("WelcomeScreen customized")
-            }
-            NavigationLink(
-                destination: WelcomeScreenDiscoveryService())
-            {
-                Text("WelcomeScreen with Discovery Service")
-            }
+            
         }.navigationBarTitle("Welcome Examples", displayMode: .inline)
     }
 }
 
 struct ActivationScreenExamples: View {
+    var isNewActivationScreen = false
+    @State private var showsIllustratedMessage = false
+
     var body: some View {
         List {
             NavigationLink(
-                destination: ActivationScreenSample())
+                destination: ActivationScreenSample(isNewActivationScreen: self.isNewActivationScreen, showsIllustratedMessage: self.showsIllustratedMessage))
             {
                 Text("ActivationScreen")
             }
             
             NavigationLink(
-                destination: ActivationScreenCustomizedSample())
+                destination: ActivationScreenCustomizedSample(isNewActivationScreen: self.isNewActivationScreen, showsIllustratedMessage: self.showsIllustratedMessage))
             {
                 Text("Customized")
             }
+            
+            Toggle("Use Illustration Message", isOn: self.$showsIllustratedMessage)
+                .tint(Color.preferredColor(.tintColor))
         }.navigationBarTitle("Onboarding", displayMode: .inline)
     }
 }
 
 struct InfoViewExamples: View {
+    var isNewInfoView = false
     var body: some View {
         List {
-            NavigationLink(
-                destination: InfoViewSample(),
-                label: {
-                    Text("InfoView")
+            NavigationLink {
+                if self.isNewInfoView {
+                    InfoViewSample()
+                } else {
+                    _InfoViewSample()
                 }
-            )
-            NavigationLink(
-                destination: InfoViewWithLoadingLabel())
-            {
+            } label: {
+                Text("InfoView")
+            }
+            NavigationLink {
+                if self.isNewInfoView {
+                    InfoViewWithLoadingLabel()
+                } else {
+                    _InfoViewWithLoadingLabel()
+                }
+            } label: {
                 Text("InfoView With Loading Label")
             }
             
-            NavigationLink(
-                destination: InfoViewCustomized())
-            {
+            NavigationLink {
+                if self.isNewInfoView {
+                    InfoViewCustomized()
+                } else {
+                    _InfoViewCustomized()
+                }
+            } label: {
                 Text("InfoView Customized")
             }
         }.navigationBarTitle("InfoView Examples", displayMode: .inline)
@@ -103,47 +160,76 @@ struct InfoViewExamples: View {
 }
 
 struct EULAExamples: View {
+    var isNewEULAView = false
     var body: some View {
         List {
-            NavigationLink(
-                destination: EULAViewSample())
-            {
+            NavigationLink {
+                if self.isNewEULAView {
+                    EULAViewSample()
+                } else {
+                    _EULAViewSample()
+                }
+            } label: {
                 Text("EULA Example")
             }
             
-            NavigationLink(
-                destination: EULALongHtmlSample())
-            {
+            NavigationLink {
+                if self.isNewEULAView {
+                    EULALongHtmlSample()
+                } else {
+                    _EULALongHtmlSample()
+                }
+            } label: {
                 Text("Long HTML")
             }
             
-            NavigationLink(
-                destination: EULAShortHtmlSample())
-            {
+            NavigationLink {
+                if self.isNewEULAView {
+                    EULAShortHtmlSample()
+                } else {
+                    _EULAShortHtmlSample()
+                }
+            } label: {
                 Text("Short HTML")
             }
             
-            NavigationLink(
-                destination: EULAConcatSample())
-            {
+            NavigationLink {
+                if self.isNewEULAView {
+                    EULAConcatSample()
+                } else {
+                    _EULAConcatSample()
+                }
+            } label: {
                 Text("Concat Attributed Strings")
             }
             
-            NavigationLink(
-                destination: EULAWithLinkSample())
-            {
+            NavigationLink {
+                if self.isNewEULAView {
+                    EULAWithLinkSample()
+                } else {
+                    _EULAWithLinkSample()
+                }
+            } label: {
                 Text("Short HTML with Link")
             }
             
-            NavigationLink(
-                destination: EULAShortWithLinkSample())
-            {
+            NavigationLink {
+                if self.isNewEULAView {
+                    EULAShortWithLinkSample()
+                } else {
+                    _EULAShortWithLinkSample()
+                }
+            } label: {
                 Text("Short Attributed Strings with Link")
             }
             
-            NavigationLink(
-                destination: EULAViewCustomized())
-            {
+            NavigationLink {
+                if self.isNewEULAView {
+                    EULAViewCustomized()
+                } else {
+                    _EULAViewCustomized()
+                }
+            } label: {
                 Text("Customized EULA Example")
             }
             

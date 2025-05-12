@@ -400,7 +400,7 @@ struct InternalGridTableView: View {
     /// observe this to make DataListItem refresh to show/hide the chevron icon when it enters in/out of the inline edit mode
     @ObservedObject var model: TableModel
     @State var showBanner: Bool = true
-    @State var toast: Toast? = nil
+    @State var toast: ToastMessage? = nil
     
     init(layoutManager: TableLayoutManager) {
         self.layoutManager = layoutManager
@@ -421,7 +421,7 @@ struct InternalGridTableView: View {
                 ZStack(alignment: .top) {
                     self.makeBody(size)
                         .banner(isPresented: self.$showBanner, data: BannerData(title: self.layoutManager.isValid.1 ?? ""))
-                        .toast(toast: self.$toast)
+                        .toastMessage(toast: self.$toast)
                     
                     // show the focused textfield or other type of inline editing view
                     if let cellIndex = layoutManager.currentCell, let ld = layoutManager.layoutData, layoutManager.model.editMode == .inline, !ld.allDataItems[cellIndex.0][cellIndex.1].isReadonly {
@@ -569,7 +569,6 @@ struct InternalGridTableView: View {
                         .frame(width: rect.size.width, height: self.layoutManager.model.rowDividerHeight)
                         .position(x: rect.size.width / 2,
                                   y: y + layoutData.rowHeights[rowIndex] * tmpScaleY / 2)
-                        .dropShadow(isVertical: false, show: rowIndex == 0 && self.isDropHorizontalShadow(size))
                 }
             }
             
@@ -582,7 +581,6 @@ struct InternalGridTableView: View {
                     .fill(self.layoutManager.model.columnDividerColor)
                     .frame(width: self.layoutManager.model.columnDividerWidth, height: height)
                     .position(x: x, y: height / 2)
-                    .dropShadow(isVertical: true, show: self.isDropVerticalShadow(size))
             }
         }
         .frame(width: size.width, height: size.height)

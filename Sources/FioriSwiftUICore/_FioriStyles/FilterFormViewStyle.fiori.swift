@@ -72,7 +72,7 @@ public struct FilterFormViewBaseStyle: FilterFormViewStyle {
                     self.FilterFormViewLayoutView(configuration, dynamicTypeSize: self.dynamicTypeSize, horizontalSizeClass: self.horizontalSizeClass)
                 }
             } else {
-                VStack(alignment: .leading) {
+                VStack(alignment: .leading, spacing: configuration.title.isEmpty ? 0 : 8) {
                     HStack {
                         self.TitleContainerView(configuration)
                         Spacer()
@@ -90,15 +90,10 @@ public struct FilterFormViewBaseStyle: FilterFormViewStyle {
     
     @ViewBuilder
     func TitleContainerView(_ configuration: FilterFormViewConfiguration) -> some View {
-        HStack(spacing: 0, content: {
-            configuration.title
-            if configuration.isRequired {
-                configuration.mandatoryFieldIndicator
+        configuration.title
+            .sizeReader { size in
+                self.titleWidth = size.width
             }
-        })
-        .sizeReader { size in
-            self.titleWidth = size.width
-        }
     }
     
     @ViewBuilder
@@ -110,15 +105,17 @@ public struct FilterFormViewBaseStyle: FilterFormViewStyle {
                 ZStack {
                     // This stack is used to calculate the container's size with checkmark image
                     HStack(alignment: .center, spacing: self.filterFormOptionTitleSpacing, content: {
-                        Image(systemName: "checkmark")
+                        if !configuration.checkmarkImage.isEmpty {
+                            configuration.checkmarkImage
+                        }
                         Text(configuration.options[index])
                             .lineLimit(1)
                     })
                     .opacity(0)
                     
                     HStack(alignment: .center, spacing: self.filterFormOptionTitleSpacing, content: {
-                        if isSelected {
-                            Image(systemName: "checkmark")
+                        if isSelected, !configuration.checkmarkImage.isEmpty {
+                            configuration.checkmarkImage
                         }
                         Text(configuration.options[index])
                             .lineLimit(1)
@@ -244,17 +241,7 @@ extension FilterFormViewFioriStyle {
         func makeBody(_ configuration: TitleConfiguration) -> some View {
             Title(configuration)
                 .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
-                .foregroundStyle(Color.preferredColor(self.filterFormViewConfiguration.isEnabled ? .primaryLabel : .separator))
-        }
-    }
-
-    struct MandatoryFieldIndicatorFioriStyle: MandatoryFieldIndicatorStyle {
-        let filterFormViewConfiguration: FilterFormViewConfiguration
-
-        func makeBody(_ configuration: MandatoryFieldIndicatorConfiguration) -> some View {
-            MandatoryFieldIndicator(configuration)
-                .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
-                .foregroundStyle(Color.preferredColor(self.filterFormViewConfiguration.isEnabled ? .primaryLabel : .separator))
+                .foregroundStyle(Color.preferredColor(self.filterFormViewConfiguration.isEnabled ? .primaryLabel : .quaternaryLabel))
         }
     }
 

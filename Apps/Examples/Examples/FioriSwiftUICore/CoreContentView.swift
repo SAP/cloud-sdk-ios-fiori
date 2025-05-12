@@ -3,375 +3,187 @@ import FioriSwiftUI
 import FioriSwiftUICore
 import SwiftUI
 
-struct CoreContentView: View {
-    var body: some View {
-        List {
-            Section(header: Text("Views")) {
-                NavigationLink(
-                    destination: AvatarStackExample(),
-                    label: {
-                        Text("AvatarStack")
-                    }
-                )
-                
-                NavigationLink(
-                    destination: FioriButtonContentView(),
-                    label: {
-                        Text("FioriButton")
-                    }
-                )
-                
-                NavigationLink(destination: MobileCardExample()) {
-                    Text("Cards and Layouts")
-                }
-                
-                NavigationLink(destination: ContactItemExample(isNewObjectItem: true)) {
-                    Text("ContactItem")
-                }
-                
-                NavigationLink(destination: ContactItemExample()) {
-                    Text("_ContactItem: deprecated")
-                }
-                
-                NavigationLink(
-                    destination: _EmptyStateViewExample())
-                {
-                    Text("_EmptyStateViewExample")
-                }
-                
-                NavigationLink(
-                    destination: FormViewExamples(),
-                    label: {
-                        Text("FormView")
-                    }
-                )
-                
-                NavigationLink(
-                    destination: IllustratedMessageExample())
-                {
-                    Text("IllustratedMessage")
-                }
-               
-                NavigationLink(
-                    destination: InformationViewExample(),
-                    label: {
-                        Text("InformationViewExample")
-                    }
-                )
-                
-                NavigationLink(
-                    destination: ObjectItemExample(_isNewObjectItem: true),
-                    label: {
-                        Text("ObjectItem")
-                    }
-                )
-                
-                NavigationLink(
-                    destination: ObjectItemExample(),
-                    label: {
-                        Text("_ObjectItem: deprecated")
-                    }
-                )
-                
-                NavigationLink(
-                    destination: OtherViewExamples())
-                {
-                    Text("Other View Examples")
-                }
-                
-                NavigationLink(
-                    destination: SignatureCaptureViewExample())
-                {
-                    Text("Signature Inline View")
-                }
-                
-                NavigationLink(
-                    destination: SignatureCaptureViewExample2())
-                {
-                    Text("(Deprecated)Customized Signature Inline View")
-                }
-                
-                NavigationLink(
-                    destination: DocumentScannerViewExample())
-                {
-                    Text("Document Scanner View")
-                }
-            }
-            
-            Section(header: Text("Timeline")) {
-                NavigationLink(
-                    destination: TimelineExample(),
-                    label: {
-                        Text("Timeline")
-                    }
-                )
-            }
-            
-            Section(header: Text("Headers")) {
-                NavigationLink(
-                    destination: ProfileHeaderExample())
-                {
-                    Text("Profile Header")
-                }
-                
-                NavigationLink(
-                    destination: KPIHeaderExample())
-                {
-                    Text("KPIHeader")
-                }
-                
-                NavigationLink(
-                    destination: ObjectHeaderExample(),
-                    label: {
-                        Text("ObjectHeader")
-                    }
-                )
-                
-                NavigationLink(
-                    destination: SectionHeaderFooterExample())
-                {
-                    Text("SectionHeader/Footer Example")
-                }
-            }
-            
-            Section(header: Text("Controls")) {
-                NavigationLink(
-                    destination: TabViewExample())
-                {
-                    Text("Customized TabView")
-                }
-                
-                NavigationLink(
-                    destination: ToolbarExample())
-                {
-                    Text("Customized Toolbar")
-                }
-                
-                NavigationLink(
-                    destination: DimensionSelectorExample())
-                {
-                    Text("Dimension Selector")
-                }
-                
-                NavigationLink(
-                    destination: DimensionSelector_Chart())
-                {
-                    Text("_Dimension Selector")
-                }
-                
-                NavigationLink(
-                    destination: MenuSelectionExample())
-                {
-                    Text("Menu Selection")
-                }
-                
-                NavigationLink(
-                    destination: RatingControlExample(),
-                    label: {
-                        Text("RatingControl")
-                    }
-                )
-                
-                NavigationLink(
-                    destination: SideBarExample(),
-                    label: {
-                        Text("Side Bar Example")
-                    }
-                )
-                
-                NavigationLink(destination: SortFilterExample()) {
-                    Text("SortFilterExample")
-                }
-                
-                NavigationLink(
-                    destination: StepperViewExample(),
-                    label: {
-                        Text("Stepper")
-                    }
-                )
-                
-                NavigationLink(
-                    destination: SwitchExample(),
-                    label: {
-                        Text("Switch")
-                    }
-                )
-                
-                NavigationLink(
-                    destination: StepProgressIndicatorExample())
-                {
-                    Text("Step Progress Indicator")
-                }
-                
-                NavigationLink(
-                    destination: SliderExample())
-                {
-                    Text("Slider")
-                }
-            }
-            
-            Section(header: Text("Pickers")) {
-                NavigationLink(
-                    destination: _ListPickerItemExample())
-                {
-                    Text("_ListPickerItem")
-                }
-                
-                NavigationLink(
-                    destination: ListPickerItemExample())
-                {
-                    Text("ListPickerItem")
-                }
-                
-                NavigationLink(
-                    destination: DurationPickerExample())
-                {
-                    Text("DurationPicker")
-                }
-                
-                NavigationLink(
-                    destination: SegmentedControlExample())
-                {
-                    Text("SegmentedControlPicker")
-                }
-                
-                NavigationLink(
-                    destination: DateTimePickerExample())
-                {
-                    Text("DateTimePicker")
-                }
-                
-                NavigationLink(
-                    destination: ValuePickerExample())
-                {
-                    Text("ValuePicker")
-                }
-            }
-            
-            Section(header: Text("Onboarding")) {
-                NavigationLink(
-                    destination: OnboardingExamples())
-                {
-                    Text("Onboarding")
-                }
-            }
-            
-            Section(header: Text("Banner Message")) {
-                NavigationLink(
-                    destination: BannerMessageExample())
-                {
-                    Text("Banner Message")
-                }
-            }
-            
-            Section(header: Text("Feedback Indicators")) {
-                NavigationLink(
-                    destination: ToastMessageExample())
-                {
-                    Text("Toast Message")
-                }
-                
-                NavigationLink(
-                    destination: LinearProgressIndicatorExample(),
-                    label: {
-                        Text("Linear Progress Indicator")
-                    }
-                )
-                
-                NavigationLink(destination: LoadingIndicatorExample()) {
-                    Text("Loading Indicator")
-                }
+struct MenuItem: Identifiable {
+    let id = UUID()
+    let title: String
+    let section: String
+    let destination: AnyView
+    
+    init(title: String, section: String, destination: some View) {
+        self.title = title
+        self.section = section
+        self.destination = AnyView(destination)
+    }
+}
 
-                NavigationLink(
-                    destination: CheckoutIndicatorExample())
-                {
-                    Text("Checkout Indicator")
+struct CoreContentView: View {
+    @State private var searchText = ""
+    @State private var isSearching = false
+    
+    private var allMenuItems: [MenuItem] {
+        [
+            // Views
+            MenuItem(title: "Attachments", section: "Views", destination: AttachmentExamples()),
+            MenuItem(title: "AvatarStack", section: "Views", destination: AvatarStackExample()),
+            MenuItem(title: "FioriButton", section: "Views", destination: FioriButtonContentView()),
+            MenuItem(title: "Cards and Layouts", section: "Views", destination: MobileCardExample()),
+            MenuItem(title: "ContactItem", section: "Views", destination: ContactItemExample(isNewObjectItem: true)),
+            MenuItem(title: "_ContactItem: deprecated", section: "Views", destination: ContactItemExample()),
+            MenuItem(title: "_EmptyStateViewExample", section: "Views", destination: _EmptyStateViewExample()),
+            MenuItem(title: "FormView", section: "Views", destination: FormViewExamples()),
+            MenuItem(title: "IllustratedMessage", section: "Views", destination: IllustratedMessageExample()),
+            MenuItem(title: "InformationViewExample", section: "Views", destination: InformationViewExample()),
+            MenuItem(title: "ObjectItem", section: "Views", destination: ObjectItemExample(_isNewObjectItem: true)),
+            MenuItem(title: "_ObjectItem: deprecated", section: "Views", destination: ObjectItemExample()),
+            MenuItem(title: "Other View Examples", section: "Views", destination: OtherViewExamples()),
+            MenuItem(title: "Signature Inline View", section: "Views", destination: SignatureCaptureViewExample()),
+            MenuItem(title: "(Deprecated)Customized Signature Inline View", section: "Views", destination: SignatureCaptureViewExample2()),
+            MenuItem(title: "Document Scanner View", section: "Views", destination: DocumentScannerViewExample()),
+            
+            // Timeline
+            MenuItem(title: "Timeline", section: "Timeline", destination: TimelineExample()),
+            
+            // Headers
+            MenuItem(title: "Profile Header", section: "Headers", destination: ProfileHeaderExample()),
+            MenuItem(title: "_KPIHeader", section: "Headers", destination: _KPIHeaderExample()),
+            MenuItem(title: "KPIHeader", section: "Headers", destination: KPIHeaderExample()),
+            MenuItem(title: "ObjectHeader", section: "Headers", destination: ObjectHeaderExample()),
+            MenuItem(title: "SectionHeader/Footer Example", section: "Headers", destination: SectionHeaderFooterExample()),
+            
+            // Controls
+            MenuItem(title: "Customized TabView", section: "Controls", destination: TabViewExample()),
+            MenuItem(title: "Customized Toolbar", section: "Controls", destination: ToolbarExample()),
+            MenuItem(title: "Dimension Selector", section: "Controls", destination: DimensionSelectorExample()),
+            MenuItem(title: "_Dimension Selector", section: "Controls", destination: DimensionSelector_Chart()),
+            MenuItem(title: "Menu Selection", section: "Controls", destination: MenuSelectionExample()),
+            MenuItem(title: "RatingControl", section: "Controls", destination: RatingControlExample()),
+            MenuItem(title: "Side Bar Example", section: "Controls", destination: SideBarExample()),
+            MenuItem(title: "SortFilterExample", section: "Controls", destination: SortFilterExample()),
+            MenuItem(title: "Stepper", section: "Controls", destination: StepperViewExample()),
+            MenuItem(title: "Switch", section: "Controls", destination: SwitchExample()),
+            MenuItem(title: "Step Progress Indicator", section: "Controls", destination: StepProgressIndicatorExample()),
+            MenuItem(title: "Slider", section: "Controls", destination: SliderExample()),
+            
+            // Pickers
+            MenuItem(title: "_ListPickerItem", section: "Pickers", destination: _ListPickerItemExample()),
+            MenuItem(title: "ListPickerItem", section: "Pickers", destination: ListPickerItemExample()),
+            MenuItem(title: "_DurationPicker", section: "Pickers", destination: _DurationPickerExample()),
+            MenuItem(title: "DurationPicker", section: "Pickers", destination: DurationPickerExample()),
+            MenuItem(title: "SegmentedControlPicker", section: "Pickers", destination: SegmentedControlExample()),
+            MenuItem(title: "DateTimePicker", section: "Pickers", destination: DateTimePickerExample()),
+            MenuItem(title: "ValuePicker", section: "Pickers", destination: ValuePickerExample()),
+            
+            // Onboarding
+            MenuItem(title: "Onboarding", section: "Onboarding", destination: OnboardingExamples(_isNewObjectItem: true)),
+            MenuItem(title: "_Onboarding: deprecated", section: "Onboarding", destination: OnboardingExamples()),
+            
+            // Banner Message
+            MenuItem(title: "Banner Message", section: "Banner Message", destination: BannerMessageExample()),
+            
+            // Feedback Indicators
+            MenuItem(title: "Toast Message", section: "Feedback Indicators", destination: ToastMessageExample()),
+            MenuItem(title: "Linear Progress Indicator", section: "Feedback Indicators", destination: LinearProgressIndicatorExample()),
+            MenuItem(title: "Loading Indicator", section: "Feedback Indicators", destination: LoadingIndicatorExample()),
+            MenuItem(title: "Checkout Indicator", section: "Feedback Indicators", destination: CheckoutIndicatorExample()),
+            MenuItem(title: "Checkout Indicator Modal", section: "Feedback Indicators", destination: CheckoutIndicatorModalExample()),
+            MenuItem(title: "Progress Indicator", section: "Feedback Indicators", destination: ProgressIndicatorExample()),
+            MenuItem(title: "Processing Indicator", section: "Feedback Indicators", destination: ProcessingIndicatorExample()),
+            
+            // Navigation Bar
+            MenuItem(title: "Customized NavigationBar", section: "Navigation Bar", destination: NavigationBarExample()),
+            
+            // KPI
+            MenuItem(title: "KPI", section: "KPI", destination: KPIExample()),
+            MenuItem(title: "KPIItem", section: "KPI", destination: KPIItemExample()),
+            MenuItem(title: "_KPIProgressItem", section: "KPI", destination: _KPIProgressExample()),
+            MenuItem(title: "KPIProgressItem", section: "KPI", destination: KPIProgressExample()),
+            
+            // Search
+            MenuItem(title: "Search Demos", section: "Search", destination: SearchDemos()),
+            
+            // Data Table
+            MenuItem(title: "Data Table", section: "Data Table", destination: DataTableExample()),
+            
+            // Utilities
+            MenuItem(title: "Shadow Effect", section: "Utilities", destination: ShadowEffectExample()),
+            
+            // Experimental
+            MenuItem(title: "🚧 Experimental 🚧", section: "ExperimentalContentView", destination: ExperimentalContentView())
+        ]
+    }
+    
+    private var filteredItems: [MenuItem] {
+        if self.searchText.isEmpty {
+            return self.allMenuItems
+        } else {
+            return self.allMenuItems.filter { item in
+                item.title.lowercased().contains(self.searchText.lowercased()) ||
+                    item.section.lowercased().contains(self.searchText.lowercased())
+            }
+        }
+    }
+    
+    private var groupedItems: [String: [MenuItem]] {
+        Dictionary(grouping: self.filteredItems) { $0.section }
+    }
+    
+    var body: some View {
+        VStack {
+            // Search bar
+            HStack {
+                HStack {
+                    Image(systemName: "magnifyingglass")
+                        .foregroundColor(.gray)
+                    
+                    TextField("Search Test Case...", text: self.$searchText)
+                        .foregroundColor(.primary)
+                    
+                    if !self.searchText.isEmpty {
+                        Button(action: {
+                            self.searchText = ""
+                        }) {
+                            Image(systemName: "xmark.circle.fill")
+                                .foregroundColor(.gray)
+                        }
+                    }
                 }
-              
-                NavigationLink(
-                    destination: CheckoutIndicatorModalExample())
-                {
-                    Text("Checkout Indicator Modal")
+                .padding(8)
+                .background(Color(.systemGray6))
+                .cornerRadius(10)
+                .padding(.horizontal)
+                .onTapGesture {
+                    self.isSearching = true
                 }
                 
-                NavigationLink(
-                    destination: ProgressIndicatorExample())
-                {
-                    Text("Progress Indicator")
-                }
-                
-                NavigationLink(
-                    destination: ProcessingIndicatorExample())
-                {
-                    Text("Processing Indicator")
-                }
-            }
-            
-            Section(header: Text("Navigation Bar")) {
-                NavigationLink(
-                    destination: NavigationBarExample())
-                {
-                    Text("Customized NavigationBar")
+                if self.isSearching {
+                    Button("Cancel") {
+                        self.searchText = ""
+                        self.isSearching = false
+                        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                    }
+                    .padding(.trailing)
+                    .transition(.move(edge: .trailing))
+                    .animation(.default, value: self.isSearching)
                 }
             }
             
-            Section(header: Text("KPI")) {
-                NavigationLink(
-                    destination: KPIExample())
-                {
-                    Text("KPI")
-                }
-                
-                NavigationLink(
-                    destination: KPIItemExample())
-                {
-                    Text("KPIItem")
-                }
-                
-                NavigationLink(
-                    destination: _KPIProgressExample())
-                {
-                    Text("_KPIProgressItem")
-                }
-                
-                NavigationLink(
-                    destination: KPIProgressExample())
-                {
-                    Text("KPIProgressItem")
+            // List content
+            List {
+                ForEach(self.groupedItems.keys.sorted(), id: \.self) { section in
+                    if let items = groupedItems[section] {
+                        Section(header: Text(section)) {
+                            ForEach(items) { item in
+                                NavigationLink(destination: item.destination) {
+                                    Text(item.title)
+                                }
+                            }
+                        }
+                    }
                 }
             }
-            
-            Section(header: Text("Search")) {
-                NavigationLink(destination: SearchDemos()) {
-                    Text("Search Demos")
-                }
-            }
-            
-            Section(header: Text("Data Table")) {
-                NavigationLink(
-                    destination: DataTableExample())
-                {
-                    Text("Data Table")
-                }
-            }
-            
-            Section(header: Text("Utilities")) {
-                NavigationLink(
-                    destination: ShadowEffectExample())
-                {
-                    Text("Shadow Effect")
-                }
-            }
-            
-            Section(header: Text("ExperimentalContentView")) {
-                NavigationLink(
-                    destination: ExperimentalContentView())
-                {
-                    Text("🚧 Experimental 🚧")
-                }
-            }
-            
-        }.navigationBarTitle("FioriSwiftUICore")
+            .listStyle(GroupedListStyle())
+            .navigationBarTitle("FioriSwiftUICore")
+        }
     }
 }
 

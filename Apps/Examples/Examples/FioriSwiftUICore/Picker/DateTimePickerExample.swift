@@ -12,18 +12,11 @@ struct DateTimePickerExample: View {
     @State var s7: Date = .now
     @State var isRequired = false
     @State var showsErrorMessage = false
+    @State var showAINotice: Bool = false
     
     struct CustomTitleStyle: TitleStyle {
         func makeBody(_ configuration: TitleConfiguration) -> some View {
             Title(configuration)
-                .font(.fiori(forTextStyle: .title3))
-                .foregroundStyle(Color.preferredColor(.indigo7))
-        }
-    }
-    
-    struct CustomIndicatorStyle: MandatoryFieldIndicatorStyle {
-        func makeBody(_ configuration: MandatoryFieldIndicatorConfiguration) -> some View {
-            MandatoryFieldIndicator(configuration)
                 .font(.fiori(forTextStyle: .title3))
                 .foregroundStyle(Color.preferredColor(.indigo7))
         }
@@ -37,23 +30,37 @@ struct DateTimePickerExample: View {
         }
     }
     
+    func mandatoryFieldIndicator() -> TextOrIcon {
+        var indicator = AttributedString("*")
+        indicator.font = .fiori(forTextStyle: .title3)
+        indicator.foregroundColor = Color.preferredColor(.indigo7)
+        return .text(indicator)
+    }
+    
     var body: some View {
         List {
             Toggle("Mandatory Field", isOn: self.$isRequired)
             Toggle("Show Error/Hint message", isOn: self.$showsErrorMessage)
+            Toggle("AI Notice", isOn: self.$showAINotice)
             Section(header: Text("")) {
-                DateTimePicker(title: "Default", isRequired: self.isRequired, selectedDate: self.$s1)
+                DateTimePicker(title: "Default", mandatoryFieldIndicator: self.mandatoryFieldIndicator(), isRequired: self.isRequired, selectedDate: self.$s1)
                     .informationView(isPresented: self.$showsErrorMessage, description: AttributedString("The Date should be before December."))
                     .informationViewStyle(.informational)
-                DateTimePicker(title: "Date only", isRequired: self.isRequired, selectedDate: self.$s2, pickerComponents: [.date])
+                    .aiNoticeView(isPresented: self.$showAINotice, description: "AI Notice")
+                DateTimePicker(title: "Date only", mandatoryFieldIndicator: self.mandatoryFieldIndicator(), isRequired: self.isRequired, selectedDate: self.$s2, pickerComponents: [.date])
                     .informationView(isPresented: self.$showsErrorMessage, description: AttributedString("The Date should be before December."))
                     .informationViewStyle(.error)
-                DateTimePicker(title: "Time only", isRequired: self.isRequired, selectedDate: self.$s3, pickerComponents: [.hourAndMinute])
-                DateTimePicker(title: "Numeric Date Style", isRequired: self.isRequired, selectedDate: self.$s4, pickerComponents: [.date], dateStyle: .numeric)
-                DateTimePicker(title: "Long long long long long long label", isRequired: self.isRequired, selectedDate: self.$s5)
-                DateTimePicker(title: "Custom Style", isRequired: self.isRequired, selectedDate: self.$s6)
+                    .aiNoticeView(isPresented: self.$showAINotice, description: "AI Notice")
+                DateTimePicker(title: "Time only", mandatoryFieldIndicator: self.mandatoryFieldIndicator(), isRequired: self.isRequired, selectedDate: self.$s3, pickerComponents: [.hourAndMinute])
+                    .aiNoticeView(isPresented: self.$showAINotice, description: "AI Notice")
+                DateTimePicker(title: "Numeric Date Style", mandatoryFieldIndicator: self.mandatoryFieldIndicator(), isRequired: self.isRequired, selectedDate: self.$s4, pickerComponents: [.date], dateStyle: .numeric)
+                    .aiNoticeView(isPresented: self.$showAINotice, description: "AI Notice")
+                DateTimePicker(title: "Long long long long long long label", mandatoryFieldIndicator: self.mandatoryFieldIndicator(), isRequired: self.isRequired, selectedDate: self.$s5)
+                    .informationView(isPresented: self.$showsErrorMessage, description: AttributedString("The Date should be before December."))
+                    .informationViewStyle(.error)
+                    .aiNoticeView(isPresented: self.$showAINotice, description: "AI Notice")
+                DateTimePicker(title: "Custom Style", mandatoryFieldIndicator: self.mandatoryFieldIndicator(), isRequired: self.isRequired, selectedDate: self.$s6)
                     .titleStyle(CustomTitleStyle())
-                    .mandatoryFieldIndicatorStyle(CustomIndicatorStyle())
                     .valueLabelStyle(CustomValueLabelStyle())
             }
             Section(header: Text("Disabled")) {

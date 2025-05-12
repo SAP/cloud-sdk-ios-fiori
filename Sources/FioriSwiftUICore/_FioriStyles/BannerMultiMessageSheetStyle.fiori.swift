@@ -25,6 +25,8 @@ public struct BannerMessageItemModel: Identifiable {
     public var showDetailLink: Bool
     /// Show close action or not, default is true
     public var showCloseAction: Bool
+    /// Show swipe delete action or not, default is true
+    public var showSwipeDeleteAction: Bool
     
     public var typeDesc: String {
         switch self.messageType {
@@ -38,16 +40,19 @@ public struct BannerMessageItemModel: Identifiable {
             NSLocalizedString("warning", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
         case .negative:
             NSLocalizedString("error", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
+        case .aiNotice:
+            NSLocalizedString("information", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
         }
     }
     
-    public init(id: UUID = UUID(), icon: (any View)?, title: String, messageType: BannerMultiMessageType, showDetailLink: Bool = true, showCloseAction: Bool = true) {
+    public init(id: UUID = UUID(), icon: (any View)?, title: String, messageType: BannerMultiMessageType, showDetailLink: Bool = true, showCloseAction: Bool = true, showSwipeDeleteAction: Bool = true) {
         self.id = id
         self.icon = icon
         self.title = title
         self.messageType = messageType
         self.showDetailLink = showDetailLink
         self.showCloseAction = showCloseAction
+        self.showSwipeDeleteAction = showSwipeDeleteAction
     }
 }
 
@@ -59,25 +64,30 @@ class CategorySelect: ObservableObject {
     }
 }
 
-public struct BannerMessageListModel: Identifiable, Equatable {
+public class BannerMessageListModel: Identifiable, Equatable, ObservableObject {
     public static func == (lhs: BannerMessageListModel, rhs: BannerMessageListModel) -> Bool {
         lhs.id == rhs.id
     }
     
     public var id: UUID
-    // customized category, like "Errors", "Warnings", "Information", etc
+    /// customized category, like "Errors", "Warnings", "Information", etc
     public let category: String
-    public var items: [BannerMessageItemModel]
+    /// Show clear action or not, default is true
+    public let showClearAction: Bool
+    
+    @Published public var items: [BannerMessageItemModel]
     
     /// Public initializer for BannerMessageListModel
     /// - Parameters:
     ///   - id: the identification for the category
     ///   - category: category name
     ///   - items: the list under the category
-    public init(id: UUID = UUID(), category: String, items: [BannerMessageItemModel]) {
+    ///   - showClearAction: show clear action or not, default is true
+    public init(id: UUID = UUID(), category: String, items: [BannerMessageItemModel], showClearAction: Bool = true) {
         self.id = id
         self.category = category
         self.items = items
+        self.showClearAction = showClearAction
     }
 }
 
@@ -101,6 +111,8 @@ public struct BannerMultiMessageSheetBaseStyle: BannerMultiMessageSheetStyle {
     @State private var dimensionSelectorHeight: CGFloat = 0
     @State private var messageCountHeight: CGFloat = 65
     
+    // workaround for forcing list refresh when second layer array modified in bannerMultiMessage.
+    @State private var refreshFlag = false
     private let viewDetailOpenUrlStr = "MultiMessageViewDetail"
     
     private var popoverHeight: CGFloat? {
@@ -150,16 +162,14 @@ public struct BannerMultiMessageSheetBaseStyle: BannerMultiMessageSheetStyle {
     
     private func removeItem(_ configuration: BannerMultiMessageSheetConfiguration, category: String, at id: UUID) {
         for i in 0 ..< configuration.bannerMultiMessages.count {
-            var element = configuration.bannerMultiMessages[i]
+            let element = configuration.bannerMultiMessages[i]
             if element.category == category {
                 for index in 0 ..< element.items.count where element.items[index].id == id {
-                    element.items.remove(at: index)
+                    configuration.bannerMultiMessages[i].items.remove(at: index)
+                    refreshFlag.toggle()
                     break
                 }
-                configuration.bannerMultiMessages.remove(at: i)
-                configuration.bannerMultiMessages.insert(element, at: i)
-                
-                if element.items.isEmpty {
+                if configuration.bannerMultiMessages[i].items.isEmpty {
                     self.handleRemoveCategory(configuration, category: category)
                 }
                 break
@@ -169,15 +179,21 @@ public struct BannerMultiMessageSheetBaseStyle: BannerMultiMessageSheetStyle {
     }
     
     private func removeCategoryAction(_ configuration: BannerMultiMessageSheetConfiguration, category: String) {
-        self.handleRemoveCategory(configuration, category: category)
+        self.handleRemoveCategory(configuration, category: category, isFromClear: true)
         configuration.removeAction?(category, nil)
     }
     
-    private func handleRemoveCategory(_ configuration: BannerMultiMessageSheetConfiguration, category: String) {
+    private func handleRemoveCategory(_ configuration: BannerMultiMessageSheetConfiguration, category: String, isFromClear: Bool = false) {
         for i in 0 ..< configuration.bannerMultiMessages.count {
             let element = configuration.bannerMultiMessages[i]
             if element.category == category {
-                configuration.bannerMultiMessages.remove(at: i)
+                if let aiNoticeItem = element.items.first(where: { $0.messageType == .aiNotice }), isFromClear {
+                    configuration.bannerMultiMessages[i].items.removeAll()
+                    configuration.bannerMultiMessages[i].items.append(aiNoticeItem)
+                } else {
+                    configuration.bannerMultiMessages.remove(at: i)
+                }
+                self.refreshFlag.toggle()
                 break
             }
         }
@@ -207,6 +223,8 @@ public struct BannerMultiMessageSheetBaseStyle: BannerMultiMessageSheetStyle {
             return BannerMessagePositiveStyle()
         case .informative:
             return BannerMessageInformativeStyle()
+        case .aiNotice:
+            return BannerMessageNeutralStyle()
         }
     }
     
@@ -222,6 +240,8 @@ public struct BannerMultiMessageSheetBaseStyle: BannerMultiMessageSheetStyle {
             Image(fioriName: "fiori.warning2")
         case .negative:
             Image(fioriName: "fiori.notification.3")
+        case .aiNotice:
+            Image(fioriName: "fiori.ai")
         }
     }
     
@@ -240,19 +260,14 @@ public struct BannerMultiMessageSheetBaseStyle: BannerMultiMessageSheetStyle {
                 if self.isPhone {
                     Spacer()
                     
-                    if !configuration.closeAction.isEmpty {
-                        configuration.closeAction
-                    } else {
-                        FioriButton(isSelectionPersistent: false, action: { _ in
+                    configuration.closeAction
+                        .onSimultaneousTapGesture {
                             self.dismiss(configuration)
-                        }, image: { _ in
-                            Image(fioriName: "fiori.error")
-                        })
-                        .fioriButtonStyle(FioriTertiaryButtonStyle(colorStyle: .normal))
-                    }
+                        }
                 }
             }
             .padding(.leading, self.isPhone ? 16 : 0)
+            .padding(.trailing, self.isPhone ? 18 : 0)
             .padding(.top, 27)
             .padding(.bottom, 16)
             .sizeReader { size in
@@ -274,21 +289,23 @@ public struct BannerMultiMessageSheetBaseStyle: BannerMultiMessageSheetStyle {
                                     .font(.fiori(forTextStyle: .subheadline))
                                     .foregroundStyle(Color.preferredColor(.secondaryLabel))
                                 Spacer()
-                                
-                                Button {
-                                    self.removeCategoryAction(configuration, category: element.category)
-                                } label: {
-                                    Text(_ClearActionDefault().actionText ?? "")
+                                if element.items.count > 1 || (element.items.count == 1 && element.items.first(where: { $0.messageType == .aiNotice }) == nil) {
+                                    if element.showClearAction {
+                                        Button {
+                                            self.removeCategoryAction(configuration, category: element.category)
+                                        } label: {
+                                            Text(_ClearActionDefault().actionText ?? "")
+                                        }
+                                        .buttonStyle(PlainButtonStyle())
+                                        .font(.fiori(forTextStyle: .subheadline))
+                                        .foregroundStyle(Color.preferredColor(.tintColor))
+                                    }
                                 }
-                                .buttonStyle(PlainButtonStyle())
-                                .font(.fiori(forTextStyle: .subheadline))
-                                .foregroundStyle(Color.preferredColor(.tintColor))
                             }
                             .padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
                         }
                         
-                        ForEach(0 ..< element.items.count, id: \.self) { index in
-                            let message = element.items[index]
+                        ForEach(element.items, id: \.id) { message in
                             
                             if !configuration.messageItemView(message.id).isEmpty {
                                 AnyView(configuration.messageItemView(message.id))
@@ -320,11 +337,13 @@ public struct BannerMultiMessageSheetBaseStyle: BannerMultiMessageSheetStyle {
                                 }, bannerTapAction: nil, alignment: .leading, hideSeparator: true, messageType: message.messageType)
                                     .bannerMessageStyle(self.bannerMessageStyle(message.messageType))
                                     .typeErased
-                                    .swipeActions(edge: .trailing, allowsFullSwipe: true) {
-                                        Button(role: .destructive) {
-                                            self.removeItem(configuration, category: element.category, at: message.id)
-                                        } label: {
-                                            Image(fioriName: "fiori.delete")
+                                    .ifApply(message.messageType != .aiNotice && message.showSwipeDeleteAction) {
+                                        $0.swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                                            Button(role: .destructive) {
+                                                self.removeItem(configuration, category: element.category, at: message.id)
+                                            } label: {
+                                                Image(fioriName: "fiori.delete")
+                                            }
                                         }
                                     }
                             }
@@ -354,6 +373,10 @@ public struct BannerMultiMessageSheetBaseStyle: BannerMultiMessageSheetStyle {
                     }
                 }
             })
+            // workaround for forcing list refresh when second layer array modified in bannerMultiMessage.
+            Text("\(self.refreshFlag ? "true" : "false")")
+                .frame(height: 0.01)
+                .opacity(0)
         })
         .background(Color.preferredColor(.chrome))
         .onDisappear(perform: {
@@ -394,17 +417,6 @@ extension BannerMultiMessageSheetFioriStyle {
         func makeBody(_ configuration: TitleConfiguration) -> some View {
             Title(configuration)
             // Add default style for Title
-            // .foregroundStyle(Color.preferredColor(<#fiori color#>))
-            // .font(.fiori(forTextStyle: <#fiori font#>))
-        }
-    }
-
-    struct CloseActionFioriStyle: CloseActionStyle {
-        let bannerMultiMessageSheetConfiguration: BannerMultiMessageSheetConfiguration
-
-        func makeBody(_ configuration: CloseActionConfiguration) -> some View {
-            CloseAction(configuration)
-            // Add default style for CloseAction
             // .foregroundStyle(Color.preferredColor(<#fiori color#>))
             // .font(.fiori(forTextStyle: <#fiori font#>))
         }

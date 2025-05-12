@@ -46,6 +46,5 @@ public struct BannerMultiMessageSheetFioriStyle: BannerMultiMessageSheetStyle {
     public func makeBody(_ configuration: BannerMultiMessageSheetConfiguration) -> some View {
         BannerMultiMessageSheet(configuration)
             .titleStyle(TitleFioriStyle(bannerMultiMessageSheetConfiguration: configuration))
-            .closeActionStyle(CloseActionFioriStyle(bannerMultiMessageSheetConfiguration: configuration))
     }
 }
