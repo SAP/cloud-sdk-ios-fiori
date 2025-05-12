@@ -2102,3 +2102,63 @@ protocol _ActivationScreenComponent: _TitleComponent, _DescriptionTextComponent,
     /// The default setting for `showsIllustratedMessage` is `false`.
     var showsIllustratedMessage: Bool { get }
 }
+
+// sourcery: CompositeComponent
+protocol _SortCriterionComponent: _CheckmarkComponent, _TitleComponent, _SubtitleComponent, _AccessoryIconComponent {
+    // sourcery: @Binding
+    /// The data of the Order Picker Item
+    var data: OrderPickerItemModel { get }
+}
+
+/// OrderPicker: SwiftUI View
+///
+/// The `OrderPicker` SwiftUI view presents a list of items using the `SortCriterion` SwiftUI view. The `OrderPicker` is used in the advanced sort pattern when there are multiple sort criteria involved. The component allows users to adjust priority of sort criteria and switch order direction flexibly.
+///
+/// ## Usage
+///
+///  ### Initialization:
+///
+///  Construct the data, array of `OrderPickerItemModel`, for the list that will be displayed in order picker.
+///
+///  ```swift
+///      @State var items: [OrderPickerItemModel] = [
+///         OrderPickerItemModel(criterion: "Priority", isSelected: false, isAscending: true, ascendingText: "Lowest first", descendingText: "Highest first"),
+///         OrderPickerItemModel(criterion: "Status", isSelected: true, isAscending: false, ascendingText: "Ascending", descendingText: "Descending"),
+///         OrderPickerItemModel(criterion: "Due Date", isSelected: true, isAscending: false, ascendingText: "Earliest first", descendingText: "Latest first"),
+///         OrderPickerItemModel(criterion: "Really long criterion text that requires wrapping", isSelected: true, isAscending: false, ascendingText: "Really long sort direction text up", descendingText: "Really long sort direction down")
+///      ]
+///  ```
+///  Initialize a `Order Picker` with an optional title, data and a change handler function
+///
+/// ```swift
+///
+///  OrderPicker(
+///      data: self.$items,
+///      onChangeHandler: { change, newModel in
+///          print(change)
+///          print("The value:")
+///          if newModel.count > 0 {
+///              for item in newModel {
+///                  print(item)
+///              }
+///          }
+///      }
+///  )
+
+// sourcery: CompositeComponent
+protocol _OrderPickerComponent: _OptionalTitleComponent {
+    // sourcery: @Binding
+    /// The data for the list that will be displayed in order picker
+    var data: [OrderPickerItemModel] { get }
+    
+    /// Whether At least one sort criterion should be selected
+    // sourcery: defaultValue = true
+    var isAtLeastOneSelected: Bool { get }
+    
+    /// Optional handler, be performed when the selected value changes.
+    var onChangeHandler: ((OrderPickerItemModel.Change, [OrderPickerItemModel]) -> Void)? { get }
+    
+    // sourcery: defaultValue = .normal
+    /// The `ControlState` of the  view. Currently, `.disabled`, `.normal` and `.readOnly` are supported. The default is `normal`.
+    var controlState: ControlState { get }
+}
