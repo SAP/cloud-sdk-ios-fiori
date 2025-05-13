@@ -28,22 +28,31 @@ struct KPIHeaderExample: View {
         TestView(width: 400),
         TestView(width: 200)
     ]
-
+    
+    @State var isPresentedBanner: Bool = true
+    
     var body: some View {
         ScrollView {
             VStack {
-                KPIHeader(items: self.data, isItemOrderForced: false)
-                    .kPIHeaderStyle(KPIHeaderSeparatorStyle())
+                KPIHeader(items: self.data, isItemOrderForced: false, isPresented: .constant(false))
                 
                 Text("BannerMessage is displayed")
                 KPIHeader(items: self.data, bannerMessage: BannerMessage(icon: {
                     Image(systemName: "info.circle")
                 }, title: {
                     Text("This is a banner message")
-                }), isItemOrderForced: true)
+                }, closeAction: {
+                    FioriButton { state in
+                        if state == .normal {
+                            self.isPresentedBanner.toggle()
+                        }
+                    } label: { _ in
+                        Image(fioriName: "fiori.decline")
+                    }
+                }), isItemOrderForced: true, isPresented: self.$isPresentedBanner)
 
                 Text("Init with custom views")
-                KPIHeader(items: self.customViewData)
+                KPIHeader(items: self.customViewData, isPresented: .constant(false))
                 Spacer()
             }
         }
