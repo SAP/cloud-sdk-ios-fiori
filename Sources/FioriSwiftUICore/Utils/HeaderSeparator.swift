@@ -2,40 +2,35 @@ import FioriThemeManager
 import Foundation
 import SwiftUI
 
-/// Environment key for providing a standard hairline separator for header components
-/// Default value is set to show separator with system default color and 0.45 line width
-public struct HeaderSeparatorKey: EnvironmentKey {
-    /// Default configuration: shows separator with system default color and 0.45 line width
-    public static let defaultValue = HeaderSeparatorConfiguration(showSeparator: true, color: Color.preferredColor(.separator), lineWidth: 0.45)
+// Environment key for providing a standard hairline separator for header components
+// Default value is set to show separator with system default color and 0.45 line width
+struct HeaderSeparatorKey: EnvironmentKey {
+    // Default configuration: shows separator with system default color and 0.45 line width
+    static let defaultValue = HeaderSeparatorConfiguration(showSeparator: true, color: Color.preferredColor(.separator), lineWidth: 0.45)
 }
 
-public extension EnvironmentValues {
-    /// Gets or sets the separator configuration for header components
-    /// Propagates separator configuration through the view hierarchy using environment values
+extension EnvironmentValues {
+    // Gets or sets the separator configuration for header components
+    // Propagates separator configuration through the view hierarchy using environment values
     var headerSeparator: HeaderSeparatorConfiguration {
         get { self[HeaderSeparatorKey.self] }
         set { self[HeaderSeparatorKey.self] = newValue }
     }
 }
 
-/// Configuration for header component's separator
-/// Contains visibility state, color, and line width of the separator
-public struct HeaderSeparatorConfiguration {
-    /// Whether to show the separator
-    public let showSeparator: Bool
+// Configuration for header component's separator
+// Contains visibility state, color, and line width of the separator
+struct HeaderSeparatorConfiguration {
+    // Whether to show the separator
+    let showSeparator: Bool
     
-    /// Color of the separator
-    public let color: Color
+    // Color of the separator
+    let color: Color
     
-    /// Width of the separator line
-    public let lineWidth: CGFloat
+    // Width of the separator line
+    let lineWidth: CGFloat
     
-    /// Creates a separator configuration
-    /// - Parameters:
-    ///   - showSeparator: Whether to show the separator
-    ///   - color: Color of the separator
-    ///   - lineWidth: Width of the separator line
-    public init(showSeparator: Bool, color: Color, lineWidth: CGFloat) {
+    init(showSeparator: Bool, color: Color, lineWidth: CGFloat) {
         self.showSeparator = showSeparator
         self.color = color
         self.lineWidth = lineWidth
