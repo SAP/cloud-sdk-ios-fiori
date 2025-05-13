@@ -35,8 +35,8 @@ public struct ToastMessageBaseStyle: ToastMessageStyle {
             configuration.icon
                 .foregroundColor(Color.preferredColor(.primaryLabel))
             configuration.title
-                .font(Font.fiori(forTextStyle: .subheadline))
                 .foregroundColor(Color.preferredColor(.primaryLabel))
+                .fixedSize(horizontal: false, vertical: true)
         }
         .padding(20)
         .frame(width: size.width * (self.horizontalSizeClass == .compact ? 0.8 : 0.6))
@@ -103,9 +103,7 @@ extension ToastMessageFioriStyle {
 
         func makeBody(_ configuration: TitleConfiguration) -> some View {
             Title(configuration)
-            // Add default style for Title
-            // .foregroundStyle(Color.preferredColor(<#fiori color#>))
-            // .font(.fiori(forTextStyle: <#fiori font#>))
+                .font(Font.fiori(forTextStyle: .subheadline))
         }
     }
 }
