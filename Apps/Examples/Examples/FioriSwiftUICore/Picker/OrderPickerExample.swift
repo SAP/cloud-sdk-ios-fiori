@@ -95,7 +95,7 @@ struct OrderPickerExample: View {
                     }
                 },
                 controlState: self.stateArray[self.stateIndex]
-            )
+            ).padding(.bottom, 32)
             
             OrderPicker(
                 optionalTitle: "Information",
@@ -115,6 +115,8 @@ struct OrderPickerExample: View {
                 controlState: self.stateArray[self.stateIndex]
             )
             .orderPickerStyle(CustomOrderPickerStyle())
+            
+            Spacer()
         }.navigationTitle("Order Picker")
     }
     

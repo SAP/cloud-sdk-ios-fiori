@@ -45,13 +45,13 @@ public struct SortCriterionBaseStyle: SortCriterionStyle {
                     let trueCount = self.modelObject.items.filter(\.isSelected).count
                     if !configuration.data.isSelected || trueCount > (self.modelObject.configuration.isAtLeastOneSelected ? 1 : 0) {
                         configuration.data.isSelected.toggle()
-                        let index = self.modelObject.items.firstIndex(where: { $0.id == configuration.data.id })
-                        self.dataChangeHandler(OrderPickerItemModel.Change.selected(index: index!, isSelected: configuration.data.isSelected))
+                        if let index = self.modelObject.items.firstIndex(where: { $0.id == configuration.data.id }) {
+                            self.dataChangeHandler(OrderPickerItemModel.Change.selected(index: index, isSelected: configuration.data.isSelected))
+                        }
                     }
                     self.modelObject.highlightedItemID = nil
                 }
             Divider().padding(.leading, self.getWidth(compactWidth: 16))
-//            Divider().padding(EdgeInsets(top: 4, leading: getWidth(compactWidth: 16), bottom: 4, trailing: 0))
         }
     }
     
@@ -85,12 +85,14 @@ public struct SortCriterionBaseStyle: SortCriterionStyle {
             .onTapGesture {
                 if configuration.data.isSelected {
                     configuration.data.isAscending.toggle()
-                    let index = self.modelObject.items.firstIndex(where: { $0.id == configuration.data.id })
-                    self.dataChangeHandler(OrderPickerItemModel.Change.ascending(index: index!, isAscending: configuration.data.isAscending))
+                    if let index = self.modelObject.items.firstIndex(where: { $0.id == configuration.data.id }) {
+                        self.dataChangeHandler(OrderPickerItemModel.Change.ascending(index: index, isAscending: configuration.data.isAscending))
+                    }
                 } else {
                     configuration.data.isSelected.toggle()
-                    let index = self.modelObject.items.firstIndex(where: { $0.id == configuration.data.id })
-                    self.dataChangeHandler(OrderPickerItemModel.Change.selected(index: index!, isSelected: configuration.data.isSelected))
+                    if let index = self.modelObject.items.firstIndex(where: { $0.id == configuration.data.id }) {
+                        self.dataChangeHandler(OrderPickerItemModel.Change.selected(index: index, isSelected: configuration.data.isSelected))
+                    }
                 }
                 self.modelObject.highlightedItemID = nil
             }
@@ -134,11 +136,14 @@ public struct SortCriterionBaseStyle: SortCriterionStyle {
                         .sequenced(before: DragGesture())
                         .onChanged { sequence in
                             switch sequence {
-                            case .first: break
+                            case .first:
+                                break
                             case .second(_, let dragValue):
                                 if let dragValue {
                                     self.handleDrag(dragValue.translation)
                                 }
+                            @unknown default:
+                                break
                             }
                         }
                 )
@@ -147,10 +152,8 @@ public struct SortCriterionBaseStyle: SortCriterionStyle {
                         .onEnded { _ in
                             if self.modelObject.isDragging {
                                 withAnimation(.spring()) {
-                                    if self.hasDragged, self.modelObject.draggingItem != nil, self.sortCriterionBaseStyle.originalModelObject != self.modelObject.items {
-                                        let sourceIndex = self.sortCriterionBaseStyle.originalModelObject.firstIndex(where: { $0.id == self.modelObject.draggingItem?.id })
-                                        let destinationIndex = self.modelObject.items.firstIndex(where: { $0.id == self.modelObject.draggingItem?.id })
-                                        self.sortCriterionBaseStyle.dataChangeHandler(OrderPickerItemModel.Change.order(sourceIndex: sourceIndex!, destinationIndex: destinationIndex!))
+                                    if self.hasDragged, self.modelObject.draggingItem != nil, self.sortCriterionBaseStyle.originalModelObject != self.modelObject.items, let sourceIndex = self.sortCriterionBaseStyle.originalModelObject.firstIndex(where: { $0.id == self.modelObject.draggingItem?.id }), let destinationIndex = self.modelObject.items.firstIndex(where: { $0.id == self.modelObject.draggingItem?.id }) {
+                                        self.sortCriterionBaseStyle.dataChangeHandler(OrderPickerItemModel.Change.order(sourceIndex: sourceIndex, destinationIndex: destinationIndex))
                                     }
                                     self.modelObject.isDragging = false
                                     self.modelObject.draggingItem = nil

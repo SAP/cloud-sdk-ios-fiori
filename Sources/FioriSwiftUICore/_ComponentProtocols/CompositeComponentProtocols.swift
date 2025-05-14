@@ -2168,15 +2168,13 @@ protocol _SortCriterionComponent: _CheckmarkComponent, _TitleComponent, _Subtitl
     var data: OrderPickerItemModel { get }
 }
 
-/// OrderPicker: SwiftUI View
-///
-/// The `OrderPicker` SwiftUI view presents a list of items using the `SortCriterion` SwiftUI view. The `OrderPicker` is used in the advanced sort pattern when there are multiple sort criteria involved. The component allows users to adjust priority of sort criteria and switch order direction flexibly.
+/// The `OrderPicker` view presents a list of items. Each item is a `SortCriterion` view. The `OrderPicker` is used in the advanced sort pattern when there are multiple sort criteria involved. The component allows users to adjust priority of sort criteria and switch order direction flexibly.
 ///
 /// ## Usage
 ///
 ///  ### Initialization:
 ///
-///  Construct the data, array of `OrderPickerItemModel`, for the list that will be displayed in order picker.
+///  Construct the data, an array of `OrderPickerItemModel`, for the list that will be displayed in OrderPicker.
 ///
 ///  ```swift
 ///      @State var items: [OrderPickerItemModel] = [
@@ -2186,7 +2184,7 @@ protocol _SortCriterionComponent: _CheckmarkComponent, _TitleComponent, _Subtitl
 ///         OrderPickerItemModel(criterion: "Really long criterion text that requires wrapping", isSelected: true, isAscending: false, ascendingText: "Really long sort direction text up", descendingText: "Really long sort direction down")
 ///      ]
 ///  ```
-///  Initialize a `Order Picker` with an optional title, data and a change handler function
+///  Initialize a `OrderPicker` with an optional title, data and a change handler function
 ///
 /// ```swift
 ///

@@ -942,6 +942,14 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+        A6DFDEBB2DA6750900666A51 /* Recovered References */ = {
+            isa = PBXGroup;
+            children = (
+                C15005172DA44C3600BB0EA8 /* MandatoryAttachmentExample.swift */,
+            );
+            name = "Recovered References";
+            sourceTree = "<group>";
+        };
 		AB988B11263128C400483D87 /* DataTable */ = {
 			isa = PBXGroup;
 			children = (

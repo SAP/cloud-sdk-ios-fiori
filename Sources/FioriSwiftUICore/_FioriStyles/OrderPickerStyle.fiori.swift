@@ -8,7 +8,7 @@ public struct OrderPickerBaseStyle: OrderPickerStyle {
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
         
     public func makeBody(_ configuration: OrderPickerConfiguration) -> some View {
-        NavigationStack {
+        VStack {
             HStack {
                 if configuration.optionalTitle.isEmpty {
                     OptionalTitle(optionalTitle: AttributedString(NSLocalizedString("Sort by", comment: "")))
@@ -19,11 +19,10 @@ public struct OrderPickerBaseStyle: OrderPickerStyle {
             
             Divider()
             
-            ScrollView(.vertical, content: {
-                LazyVStack(spacing: 0) {
-                    self.buildOrderPickerList(configuration)
-                }
-            })
+            VStack(spacing: 0) {
+                self.buildOrderPickerList(configuration)
+            }
+            .fixedSize(horizontal: false, vertical: true)
         }
     }
     
