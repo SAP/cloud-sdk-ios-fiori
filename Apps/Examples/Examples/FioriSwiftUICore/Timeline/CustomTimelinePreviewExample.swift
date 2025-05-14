@@ -36,7 +36,6 @@ struct CustomTimelinePreviewExample: View {
             .optionalTitleStyle(content: { config in
                 config.optionalTitle.foregroundColor(.purple)
             })
-            .timelinePreviewStyle(TimelinePreviewSeparatorStyle())
             Spacer()
         }
     }

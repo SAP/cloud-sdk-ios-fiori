@@ -27,6 +27,7 @@ public struct KPIHeaderConfiguration {
     public let bannerMessage: BannerMessage
     public let isItemOrderForced: Bool
     public let interItemSpacing: CGFloat?
+    @Binding public var isPresented: Bool
 
     public typealias Items = ConfigurationViewWrapper
     public typealias BannerMessage = ConfigurationViewWrapper
