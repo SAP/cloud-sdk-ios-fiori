@@ -2110,6 +2110,20 @@ public extension CardMediaStyle where Self == CardMediaDescriptionStyle {
     }
 }
 
+// MARK: CheckmarkStyle
+
+public extension CheckmarkStyle where Self == CheckmarkBaseStyle {
+    static var base: CheckmarkBaseStyle {
+        CheckmarkBaseStyle()
+    }
+}
+
+public extension CheckmarkStyle where Self == CheckmarkFioriStyle {
+    static var fiori: CheckmarkFioriStyle {
+        CheckmarkFioriStyle()
+    }
+}
+
 // MARK: CheckoutIndicatorStyle
 
 public extension CheckoutIndicatorStyle where Self == CheckoutIndicatorBaseStyle {
@@ -5820,6 +5834,41 @@ public extension OptionsStyle where Self == OptionsFioriStyle {
     }
 }
 
+// MARK: OrderPickerStyle
+
+public extension OrderPickerStyle where Self == OrderPickerBaseStyle {
+    static var base: OrderPickerBaseStyle {
+        OrderPickerBaseStyle()
+    }
+}
+
+public extension OrderPickerStyle where Self == OrderPickerFioriStyle {
+    static var fiori: OrderPickerFioriStyle {
+        OrderPickerFioriStyle()
+    }
+}
+
+public struct OrderPickerOptionalTitleStyle: OrderPickerStyle {
+    let style: any OptionalTitleStyle
+
+    public func makeBody(_ configuration: OrderPickerConfiguration) -> some View {
+        OrderPicker(configuration)
+            .optionalTitleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension OrderPickerStyle where Self == OrderPickerOptionalTitleStyle {
+    static func optionalTitleStyle(_ style: some OptionalTitleStyle) -> OrderPickerOptionalTitleStyle {
+        OrderPickerOptionalTitleStyle(style: style)
+    }
+
+    static func optionalTitleStyle(@ViewBuilder content: @escaping (OptionalTitleConfiguration) -> some View) -> OrderPickerOptionalTitleStyle {
+        let style = AnyOptionalTitleStyle(content)
+        return OrderPickerOptionalTitleStyle(style: style)
+    }
+}
+
 // MARK: OuterCircleStyle
 
 public extension OuterCircleStyle where Self == OuterCircleBaseStyle {
@@ -7308,6 +7357,104 @@ public extension SingleStepStyle where Self == SingleStepLineStyle {
     static func lineStyle(@ViewBuilder content: @escaping (LineConfiguration) -> some View) -> SingleStepLineStyle {
         let style = AnyLineStyle(content)
         return SingleStepLineStyle(style: style)
+    }
+}
+
+// MARK: SortCriterionStyle
+
+public extension SortCriterionStyle where Self == SortCriterionBaseStyle {
+    static var base: SortCriterionBaseStyle {
+        SortCriterionBaseStyle()
+    }
+}
+
+public extension SortCriterionStyle where Self == SortCriterionFioriStyle {
+    static var fiori: SortCriterionFioriStyle {
+        SortCriterionFioriStyle()
+    }
+}
+
+public struct SortCriterionCheckmarkStyle: SortCriterionStyle {
+    let style: any CheckmarkStyle
+
+    public func makeBody(_ configuration: SortCriterionConfiguration) -> some View {
+        SortCriterion(configuration)
+            .checkmarkStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension SortCriterionStyle where Self == SortCriterionCheckmarkStyle {
+    static func checkmarkStyle(_ style: some CheckmarkStyle) -> SortCriterionCheckmarkStyle {
+        SortCriterionCheckmarkStyle(style: style)
+    }
+
+    static func checkmarkStyle(@ViewBuilder content: @escaping (CheckmarkConfiguration) -> some View) -> SortCriterionCheckmarkStyle {
+        let style = AnyCheckmarkStyle(content)
+        return SortCriterionCheckmarkStyle(style: style)
+    }
+}
+
+public struct SortCriterionTitleStyle: SortCriterionStyle {
+    let style: any TitleStyle
+
+    public func makeBody(_ configuration: SortCriterionConfiguration) -> some View {
+        SortCriterion(configuration)
+            .titleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension SortCriterionStyle where Self == SortCriterionTitleStyle {
+    static func titleStyle(_ style: some TitleStyle) -> SortCriterionTitleStyle {
+        SortCriterionTitleStyle(style: style)
+    }
+
+    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> SortCriterionTitleStyle {
+        let style = AnyTitleStyle(content)
+        return SortCriterionTitleStyle(style: style)
+    }
+}
+
+public struct SortCriterionSubtitleStyle: SortCriterionStyle {
+    let style: any SubtitleStyle
+
+    public func makeBody(_ configuration: SortCriterionConfiguration) -> some View {
+        SortCriterion(configuration)
+            .subtitleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension SortCriterionStyle where Self == SortCriterionSubtitleStyle {
+    static func subtitleStyle(_ style: some SubtitleStyle) -> SortCriterionSubtitleStyle {
+        SortCriterionSubtitleStyle(style: style)
+    }
+
+    static func subtitleStyle(@ViewBuilder content: @escaping (SubtitleConfiguration) -> some View) -> SortCriterionSubtitleStyle {
+        let style = AnySubtitleStyle(content)
+        return SortCriterionSubtitleStyle(style: style)
+    }
+}
+
+public struct SortCriterionAccessoryIconStyle: SortCriterionStyle {
+    let style: any AccessoryIconStyle
+
+    public func makeBody(_ configuration: SortCriterionConfiguration) -> some View {
+        SortCriterion(configuration)
+            .accessoryIconStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension SortCriterionStyle where Self == SortCriterionAccessoryIconStyle {
+    static func accessoryIconStyle(_ style: some AccessoryIconStyle) -> SortCriterionAccessoryIconStyle {
+        SortCriterionAccessoryIconStyle(style: style)
+    }
+
+    static func accessoryIconStyle(@ViewBuilder content: @escaping (AccessoryIconConfiguration) -> some View) -> SortCriterionAccessoryIconStyle {
+        let style = AnyAccessoryIconStyle(content)
+        return SortCriterionAccessoryIconStyle(style: style)
     }
 }
 

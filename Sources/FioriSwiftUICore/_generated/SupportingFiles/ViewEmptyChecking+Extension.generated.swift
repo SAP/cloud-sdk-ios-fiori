@@ -273,6 +273,12 @@ extension CardMedia: _ViewEmptyChecking {
     }
 }
 
+extension Checkmark: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        checkmark.isEmpty
+    }
+}
+
 extension CheckoutIndicator: _ViewEmptyChecking {
     public var isEmpty: Bool {
         false
@@ -834,6 +840,12 @@ extension Options: _ViewEmptyChecking {
     }
 }
 
+extension OrderPicker: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        optionalTitle.isEmpty
+    }
+}
+
 extension OuterCircle: _ViewEmptyChecking {
     public var isEmpty: Bool {
         outerCircle.isEmpty
@@ -1063,6 +1075,15 @@ extension SingleStep: _ViewEmptyChecking {
             node.isEmpty &&
             line.isEmpty &&
             substeps.isEmpty
+    }
+}
+
+extension SortCriterion: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        checkmark.isEmpty &&
+            title.isEmpty &&
+            subtitle.isEmpty &&
+            accessoryIcon.isEmpty
     }
 }
 
