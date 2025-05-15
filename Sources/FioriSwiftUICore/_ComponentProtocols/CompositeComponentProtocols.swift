@@ -607,6 +607,10 @@ protocol _DateTimePickerComponent: _TitleComponent, _ValueLabelComponent, _Manda
     
     /// The text to be displayed when no date is selected. If this property is `nil`, the localized string “No date selected” will be used.
     var noDateSelectedString: String? { get }
+    
+    // sourcery: @Binding
+    /// This property indicates whether the picker is to be displayed.
+    var pickerVisible: Bool { get set }
 }
 
 // sourcery: CompositeComponent
@@ -813,6 +817,10 @@ protocol _ValuePickerComponent: _TitleComponent, _ValueLabelComponent, _Mandator
     // sourcery: defaultValue = .normal
     /// The `ControlState` of the  view. Currently, `.disabled`, `.normal` and `.readOnly` are supported. The default is `normal`.
     var controlState: ControlState { get }
+    
+    // sourcery: @Binding
+    /// This property indicates whether the picker is to be displayed.
+    var pickerVisible: Bool { get set }
 }
 
 /// `ProgressIndicator` provides a circular progress indicator with custom styles for processing, pausable, and stoppable indicators.
@@ -1978,6 +1986,8 @@ protocol _DurationPickerComponent: _TitleComponent, _ValueLabelComponent, _Manda
     // sourcery: default.value=MeasurementFormatter()
     // sourcery: no_view
     var measurementFormatter: MeasurementFormatter { get set }
+    // sourcery: @Binding
+    var pickerVisible: Bool { get set }
 }
 
 /// `KPIHeader` is used to display KPIItem and KPIProgressItem.

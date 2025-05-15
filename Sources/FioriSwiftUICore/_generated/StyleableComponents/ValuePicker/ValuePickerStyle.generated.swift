@@ -30,6 +30,7 @@ public struct ValuePickerConfiguration {
     public let isTrackingLiveChanges: Bool
     public let alwaysShowPicker: Bool
     public let controlState: ControlState
+    @Binding public var pickerVisible: Bool
 
     public typealias Title = ConfigurationViewWrapper
     public typealias ValueLabel = ConfigurationViewWrapper
