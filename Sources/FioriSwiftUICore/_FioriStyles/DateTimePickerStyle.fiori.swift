@@ -4,7 +4,6 @@ import SwiftUI
 
 // Base Layout style
 public struct DateTimePickerBaseStyle: DateTimePickerStyle {
-    @State var pickerVisible: Bool = false
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
    
     public func makeBody(_ configuration: DateTimePickerConfiguration) -> some View {
@@ -17,7 +16,7 @@ public struct DateTimePickerBaseStyle: DateTimePickerStyle {
                     self.configureMainStack(configuration, isVertical: true)
                 }
             }
-            if self.pickerVisible {
+            if configuration.pickerVisible {
                 Divider()
                     .frame(height: 0.33)
                     .foregroundStyle(Color.preferredColor(.separatorOpaque))
@@ -47,7 +46,7 @@ public struct DateTimePickerBaseStyle: DateTimePickerStyle {
                 if configuration.selectedDate == Date(timeIntervalSince1970: 0.0) {
                     configuration.selectedDate = Date()
                 }
-                self.pickerVisible.toggle()
+                configuration.pickerVisible.toggle()
             })
         }
     }
@@ -70,7 +69,7 @@ public struct DateTimePickerBaseStyle: DateTimePickerStyle {
     func getFontColor(_ configuration: DateTimePickerConfiguration) -> Color {
         if configuration.controlState == .disabled {
             return .preferredColor(.separator)
-        } else if self.pickerVisible {
+        } else if configuration.pickerVisible {
             return .preferredColor(.tintColor)
         } else {
             return .preferredColor(.primaryLabel)
