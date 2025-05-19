@@ -485,6 +485,7 @@
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		3B660C982D156B7000E92505 /* Slider */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Slider; sourceTree = "<group>"; };
 		564CC0272DA46C4100A419A7 /* Attachment */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Attachment; sourceTree = "<group>"; };
+		87F70A662DDB9EC700B683B4 /* BarcodeScanner */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = BarcodeScanner; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -806,6 +807,7 @@
 		8A5579C824C1293C0098003A /* FioriSwiftUICore */ = {
 			isa = PBXGroup;
 			children = (
+				87F70A662DDB9EC700B683B4 /* BarcodeScanner */,
 				564CC0272DA46C4100A419A7 /* Attachment */,
 				6D66D7F02D02FC7B00F7A97D /* ActivityItem */,
 				87F14B192CD86F65004A69A0 /* DocumentScannerView */,
@@ -938,14 +940,6 @@
 				B1A78D972C88388B00432B0D /* ShadowEffectExample.swift */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		A6DFDEBB2DA6750900666A51 /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-				C15005172DA44C3600BB0EA8 /* MandatoryAttachmentExample.swift */,
-			);
-			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 		AB988B11263128C400483D87 /* DataTable */ = {
@@ -1176,6 +1170,7 @@
 			fileSystemSynchronizedGroups = (
 				3B660C982D156B7000E92505 /* Slider */,
 				564CC0272DA46C4100A419A7 /* Attachment */,
+				87F70A662DDB9EC700B683B4 /* BarcodeScanner */,
 			);
 			name = Examples;
 			packageProductDependencies = (
