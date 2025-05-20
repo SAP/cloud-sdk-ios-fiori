@@ -1,5 +1,5 @@
 import Combine
-import os.log
+import OSLog
 import SwiftUI
 import VisionKit
 #if canImport(ConnectSDK)
@@ -108,7 +108,7 @@ public final class BarcodeScannerManager: ObservableObject {
         private let ipcMobileScanner: IPCMobileScanner
     #endif
     
-    private static let logger = Logger(subsystem: Bundle.main.bundleIdentifier ?? "cloud.sdk.ios.fiori.barcodescanner", category: "BarcodeScannerManager")
+    private let logger = Logger(subsystem: Bundle.main.bundleIdentifier ?? "cloud.sdk.ios.fiori.barcodescanner", category: "BarcodeScannerManager")
 
     /// Initializes a new `BarcodeScannerManager`.
     ///
@@ -125,22 +125,22 @@ public final class BarcodeScannerManager: ObservableObject {
         recognizesMultipleItems: Bool = false,
         serviceUUID: String? = nil
     ) {
-        Self.logger.info("Initializing with VisionKit params: recognizedDataTypes=\(recognizedDataTypes), recognizesMultipleItems=\(recognizesMultipleItems). IPCMobile serviceUUID: \(serviceUUID ?? "Default")")
+        self.logger.info("Initializing with VisionKit params: recognizedDataTypes=\(recognizedDataTypes), recognizesMultipleItems=\(recognizesMultipleItems). IPCMobile serviceUUID: \(serviceUUID ?? "Default")")
         self.visionKitScanner = VisionKitScanner(
             recognizedDataTypes: recognizedDataTypes,
             recognizesMultipleItems: recognizesMultipleItems
         )
         #if canImport(ConnectSDK)
             self.proGloveScanner = ProGloveScanner()
-            Self.logger.info("ProGloveScanner instance created.")
+            self.logger.info("ProGloveScanner instance created.")
         #else
-            Self.logger.warning("ConnectSDK for ProGlove not imported. ProGloveScanner will be a non-functional stub.")
+            self.logger.warning("ConnectSDK for ProGlove not imported. ProGloveScanner will be a non-functional stub.")
         #endif
         #if canImport(RapidScanCompanion)
             self.ipcMobileScanner = IPCMobileScanner(serviceUUID: serviceUUID)
-            Self.logger.info("IPCMobileScanner instance created.")
+            self.logger.info("IPCMobileScanner instance created.")
         #else
-            Self.logger.warning("RapidScanCompanion for IPCMobile not imported. IPCMobileScanner will be a non-functional stub.")
+            self.logger.warning("RapidScanCompanion for IPCMobile not imported. IPCMobileScanner will be a non-functional stub.")
         #endif
     }
 
@@ -155,11 +155,11 @@ public final class BarcodeScannerManager: ObservableObject {
     /// - Parameter type: The `ScannerType` to activate. Pass `nil` to deactivate all scanners.
     /// - Throws: A `ScannerError` if the selected scanner type is not available or if its `startMonitoring()` method fails.
     public func setActiveScanner(_ type: ScannerType?) async throws {
-        Self.logger.info("Attempting to set active scanner to: \(type?.description ?? "None")")
+        self.logger.info("Attempting to set active scanner to: \(type?.description ?? "None")")
         
         // Stop and clear previous scanner
         if let currentActive = activeScanner {
-            Self.logger.info("Stopping previously active scanner: \(currentActive.type.description)")
+            self.logger.info("Stopping previously active scanner: \(currentActive.type.description)")
             currentActive.stopMonitoring()
             currentActive.delegate = nil
         }
@@ -169,14 +169,15 @@ public final class BarcodeScannerManager: ObservableObject {
         
         // If type is nil, we are just deactivating. Set status to idle.
         guard let newType = type else {
-            Self.logger.info("Active scanner cleared.")
+            self.logger.info("Active scanner cleared.")
             self.status = .idle
+            self.isScanning = false
             self.onStatusChanged?(self.status) // Explicitly call onStatusChanged after clearing
             return
         }
 
         guard let scannerInstance = getScannerInstance(for: newType) else {
-            Self.logger.error("Scanner instance for type \(newType.description) not available (SDK likely not imported).")
+            self.logger.error("Scanner instance for type \(newType.description) not available (SDK likely not imported).")
             self.status = .error(.notAvailable)
             throw ScannerError.notAvailable
         }
@@ -185,24 +186,25 @@ public final class BarcodeScannerManager: ObservableObject {
         self.activeScannerType = newType
         scannerInstance.delegate = self
         
-        Self.logger.info("Attempting to start monitoring for \(newType.description).")
+        self.logger.info("Attempting to start monitoring for \(newType.description).")
         do {
             try await scannerInstance.startMonitoring()
-            // After startMonitoring, the scanner instance should update its own currentStatus,
-            // which then calls barcodeScannerDidUpdateStatus, updating the manager's status.
-            // If startMonitoring throws, the catch block handles it.
-            // If it succeeds, the manager's status will be updated via the delegate callback.
-            Self.logger.info("Successfully called startMonitoring for \(newType.description). Current manager status: \(self.status.description)")
+            self.status = scannerInstance.currentStatus
+            self.isScanning = self.status == .scanning
+            self.onStatusChanged?(self.status)
+            self.logger.info("Successfully called startMonitoring for \(newType.description). Current manager status: \(self.status.description)")
         } catch let error as ScannerError {
-            Self.logger.error("Failed to start monitoring for \(newType.description): \(error.localizedDescription)")
+            logger.error("Failed to start monitoring for \(newType.description): \(error.localizedDescription)")
             self.status = .error(error)
+            self.isScanning = false
             self.activeScanner = nil
             self.activeScannerType = nil
             throw error
         } catch {
-            Self.logger.error("Unexpected error during startMonitoring for \(newType.description): \(error.localizedDescription)")
+            self.logger.error("Unexpected error during startMonitoring for \(newType.description): \(error.localizedDescription)")
             let unknownError = ScannerError(code: "start_monitoring_failed", message: error.localizedDescription)
             self.status = .error(unknownError)
+            self.isScanning = false
             self.activeScanner = nil
             self.activeScannerType = nil
             throw unknownError
@@ -211,26 +213,26 @@ public final class BarcodeScannerManager: ObservableObject {
 
     /// Starts monitoring on the currently active scanner.
     public func startMonitoring() async throws {
-        Self.logger.info("Explicit startMonitoring called on BarcodeScannerManager.")
+        self.logger.info("Explicit startMonitoring called on BarcodeScannerManager.")
         guard let scanner = activeScanner else {
-            Self.logger.warning("No active scanner to start monitoring.")
+            self.logger.warning("No active scanner to start monitoring.")
             self.status = .error(.notAvailable)
             throw ScannerError.notAvailable
         }
-        Self.logger.info("Forwarding startMonitoring to active scanner: \(scanner.type.description)")
+        self.logger.info("Forwarding startMonitoring to active scanner: \(scanner.type.description)")
         try await scanner.startMonitoring()
     }
 
     /// Stops monitoring on the currently active scanner.
     public func stopMonitoring() {
-        Self.logger.info("Explicit stopMonitoring called on BarcodeScannerManager.")
+        self.logger.info("Explicit stopMonitoring called on BarcodeScannerManager.")
         guard let scanner = activeScanner else {
-            Self.logger.info("No active scanner to stop.")
+            self.logger.info("No active scanner to stop.")
             if self.status != .idle { self.status = .idle }
             self.isScanning = false
             return
         }
-        Self.logger.info("Forwarding stopMonitoring to active scanner: \(scanner.type.description)")
+        self.logger.info("Forwarding stopMonitoring to active scanner: \(scanner.type.description)")
         scanner.stopMonitoring()
         self.status = scanner.currentStatus
         self.isScanning = (self.status == .scanning)
@@ -244,13 +246,13 @@ public final class BarcodeScannerManager: ObservableObject {
     /// - Hardware scanners (ProGlove, IPCMobile): Typically hardware-triggered.
     /// - Throws: `ScannerError.notAvailable` if no scanner is active, or a `ScannerError` from the active scanner's `triggerScan()`.
     public func triggerScan() async throws {
-        Self.logger.info("Explicit triggerScan called on BarcodeScannerManager.")
+        self.logger.info("Explicit triggerScan called on BarcodeScannerManager.")
         guard let scanner = activeScanner else {
-            Self.logger.warning("No active scanner to trigger scan.")
+            self.logger.warning("No active scanner to trigger scan.")
             self.status = .error(.notAvailable)
             throw ScannerError.notAvailable
         }
-        Self.logger.info("Forwarding triggerScan to active scanner: \(scanner.type.description)")
+        self.logger.info("Forwarding triggerScan to active scanner: \(scanner.type.description)")
         try await scanner.triggerScan()
     }
 
@@ -258,30 +260,26 @@ public final class BarcodeScannerManager: ObservableObject {
     /// The `pairingImage` published property is updated with the result.
     /// - Returns: A SwiftUI `Image` for pairing, or `nil` if not supported or generation fails.
     public func getPairingQRCode() -> Image? {
-        Self.logger.info("getPairingQRCode called on BarcodeScannerManager.")
+        self.logger.info("getPairingQRCode called on BarcodeScannerManager.")
         guard let scanner = activeScanner else {
-            Self.logger.warning("No active scanner for getPairingQRCode.")
+            self.logger.warning("No active scanner for getPairingQRCode.")
             self.pairingImage = nil
-            // Optionally set status to an error if pairing was expected but no scanner active.
-            // status = .error(.notAvailable)
             return nil
         }
-        Self.logger.info("Forwarding getPairingQRCode to active scanner: \(scanner.type.description)")
+        self.logger.info("Forwarding getPairingQRCode to active scanner: \(scanner.type.description)")
         let qrCode = scanner.getPairingQRCode()
         self.pairingImage = qrCode // Update published property
         if qrCode == nil, scanner.type != .visionKit { // VisionKit doesn't use QR pairing
-            // If QR code is nil and it's a pairable scanner, its status should reflect an error.
-            // The scanner instance is responsible for updating its status, which then propagates here.
-            Self.logger.warning("getPairingQRCode from \(scanner.type.description) returned nil. Expecting scanner to update its status if it's an error.")
+            self.logger.warning("getPairingQRCode from \(scanner.type.description) returned nil. Expecting scanner to update its status if it's an error.")
         }
         return qrCode
     }
 
     /// Resets the currently active scanner to its initial state.
     public func resetActiveScanner() {
-        Self.logger.info("resetActiveScanner called.")
+        self.logger.info("resetActiveScanner called.")
         if let scanner = activeScanner {
-            Self.logger.info("Resetting active scanner: \(scanner.type.description)")
+            self.logger.info("Resetting active scanner: \(scanner.type.description)")
             scanner.reset()
             scanner.delegate = nil
         }
@@ -296,9 +294,9 @@ public final class BarcodeScannerManager: ObservableObject {
     /// Sends display data to the active scanner, if it supports screen updates.
     /// - Parameter data: The `ScannerDisplayData` to send (e.g., `.proGlove(...)`, `.ipcMobile(...)`).
     public func updateScannerDisplay(data: ScannerDisplayData) {
-        Self.logger.info("updateScannerDisplay called on manager with data for \(self.activeScanner?.type.description ?? "No active scanner").")
+        self.logger.info("updateScannerDisplay called on manager with data for \(self.activeScanner?.type.description ?? "No active scanner").")
         guard let scanner = activeScanner else {
-            Self.logger.warning("No active scanner to update display.")
+            self.logger.warning("No active scanner to update display.")
             return
         }
         scanner.updateScannerDisplay(data: data)
@@ -307,7 +305,7 @@ public final class BarcodeScannerManager: ObservableObject {
     /// Retrieves the `UIViewController` for the active scanner's UI, if applicable (primarily for VisionKit).
     /// - Returns: The scanner's `UIViewController`, or `nil`.
     public func getScannerView() -> UIViewController? {
-        Self.logger.info("getScannerView called on manager for \(self.activeScanner?.type.description ?? "No active scanner").")
+        self.logger.info("getScannerView called on manager for \(self.activeScanner?.type.description ?? "No active scanner").")
         return self.activeScanner?.getScannerView()
     }
 
@@ -315,7 +313,7 @@ public final class BarcodeScannerManager: ObservableObject {
     /// - Returns: The `VisionKitScanner` instance, or `nil` if VisionKit is not active or not the current scanner type.
     public func getVisionKitScanner() -> VisionKitScanner? {
         guard self.activeScannerType == .visionKit, let scanner = activeScanner as? VisionKitScanner else {
-            Self.logger.debug("getVisionKitScanner: VisionKit is not the active scanner or type mismatch.")
+            self.logger.debug("getVisionKitScanner: VisionKit is not the active scanner or type mismatch.")
             return nil
         }
         return scanner
@@ -328,7 +326,7 @@ public final class BarcodeScannerManager: ObservableObject {
             let instanceAvailable = self.getScannerInstance(for: type)?.isAvailable() ?? false
             return instanceAvailable
         }
-        Self.logger.info("Available scanner types: \(availableTypes.map(\.description))")
+        self.logger.info("Available scanner types: \(availableTypes.map(\.description))")
         return availableTypes
     }
 
@@ -343,14 +341,14 @@ public final class BarcodeScannerManager: ObservableObject {
             #if canImport(ConnectSDK)
                 return self.proGloveScanner
             #else
-                Self.logger.warning("Attempted to get ProGlove scanner instance, but ConnectSDK not imported.")
+                self.logger.warning("Attempted to get ProGlove scanner instance, but ConnectSDK not imported.")
                 return nil
             #endif
         case .ipcMobile:
             #if canImport(RapidScanCompanion)
                 return self.ipcMobileScanner
             #else
-                Self.logger.warning("Attempted to get IPCMobile scanner instance, but RapidScanCompanion not imported.")
+                self.logger.warning("Attempted to get IPCMobile scanner instance, but RapidScanCompanion not imported.")
                 return nil
             #endif
         }
@@ -382,9 +380,11 @@ extension BarcodeScannerManager: BarcodeScannerDelegate {
     /// Called by the active scanner when its status changes.
     public func barcodeScannerDidUpdateStatus(_ newStatus: ScannerStatus, for scanner: any BarcodeScanner) {
         guard scanner === self.activeScanner else { return }
-        self.status = self.status
+        self.status = newStatus
         self.isScanning = self.status == .scanning
-        self.pairingImage = nil
+        if case .error = self.status {
+            self.pairingImage = nil
+        }
         self.onStatusChanged?(self.status)
     }
 
@@ -392,10 +392,10 @@ extension BarcodeScannerManager: BarcodeScannerDelegate {
     /// Invokes the manager's `onBarcodeScanned` callback with the barcode data.
     public func barcodeScannerDidReceiveBarcode(_ barcode: String, from scanner: any BarcodeScanner) {
         guard scanner.type == self.activeScanner?.type else {
-            Self.logger.info("Barcode received from a non-active or outdated scanner instance (\(scanner.type.description)). Ignoring.")
+            self.logger.info("Barcode received from a non-active or outdated scanner instance (\(scanner.type.description)). Ignoring.")
             return
         }
-        Self.logger.info("Manager received barcode from \(scanner.type.description): \(barcode)")
+        self.logger.info("Manager received barcode from \(scanner.type.description): \(barcode)")
         self.onBarcodeScanned?(barcode)
     }
 }

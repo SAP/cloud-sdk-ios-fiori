@@ -1,5 +1,5 @@
 import CoreBluetooth
-import os.log
+import OSLog
 import SwiftUI
 #if canImport(RapidScanCompanion)
     import RapidScanCompanion
@@ -18,14 +18,14 @@ import SwiftUI
         public private(set) var currentStatus: ScannerStatus = .idle {
             didSet {
                 if oldValue != self.currentStatus {
-                    Self.logger.info("Status changed from \(oldValue.description) to \(self.currentStatus.description)")
+                    self.logger.info("Status changed from \(oldValue.description) to \(self.currentStatus.description)")
                     self.delegate?.barcodeScannerDidUpdateStatus(self.currentStatus, for: self)
                 }
             }
         }
 
         /// Logger for this class.
-        private static let logger = Logger(subsystem: Bundle.main.bundleIdentifier ?? "cloud.sdk.ios.fiori.barcodescanner", category: "IPCMobileScanner")
+        private let logger = Logger(subsystem: Bundle.main.bundleIdentifier ?? "cloud.sdk.ios.fiori.barcodescanner", category: "IPCMobileScanner")
 
         /// The RapidScanCompanion SDK's main interaction object.
         private var companion: RSCompanion?
@@ -44,7 +44,7 @@ import SwiftUI
         public init(serviceUUID: String? = nil) {
             self.serviceUUID = serviceUUID
             super.init()
-            Self.logger.info("Initializing IPCMobileScanner. Custom Service UUID: \(serviceUUID ?? "Default")")
+            self.logger.info("Initializing IPCMobileScanner. Custom Service UUID: \(serviceUUID ?? "Default")")
             self.setupCompanion()
         }
 
@@ -54,14 +54,14 @@ import SwiftUI
         /// by Halo scanners for pairing. It updates the internal status accordingly.
         /// - Throws: A `ScannerError` if the `RSCompanion` instance is not available.
         public func startMonitoring() async throws {
-            Self.logger.info("Start Monitoring called.")
+            self.logger.info("Start Monitoring called.")
             guard let companion else {
-                Self.logger.error("RSCompanion not initialized. Cannot start monitoring.")
+                self.logger.error("RSCompanion not initialized. Cannot start monitoring.")
                 let error = ScannerError.notAvailable
                 self.currentStatus = .error(error)
                 throw error
             }
-            Self.logger.info("Starting advertising.")
+            self.logger.info("Starting advertising.")
             companion.startAdvertising()
             await self.updateInternalStatus()
         }
@@ -70,7 +70,7 @@ import SwiftUI
         ///
         /// Also calls `reset()` to clear connected devices and internal states.
         public func stopMonitoring() {
-            Self.logger.info("Stop Monitoring called.")
+            self.logger.info("Stop Monitoring called.")
             self.companion?.stopAdvertising()
             self.reset()
         }
@@ -80,13 +80,13 @@ import SwiftUI
         /// This disconnects all Halo devices, stops advertising, and clears internal connection states.
         /// The status is updated to reflect the reset state (typically `.idle`).
         public func reset() {
-            Self.logger.info("Reset called.")
+            self.logger.info("Reset called.")
             Task {
                 await self.haloManager.removeAll()
                 self.hasConnectedHalos = false
                 self.isCompanionReadyForAdvertising = false
                 self.companion?.stopAdvertising()
-                Self.logger.info("All HaloRings removed and advertising stopped.")
+                self.logger.info("All HaloRings removed and advertising stopped.")
                 await self.updateInternalStatus()
             }
         }
@@ -97,14 +97,14 @@ import SwiftUI
         /// - Returns: A SwiftUI `Image` containing the pairing QR code, or `nil` if generation fails.
         ///            If `nil` is returned, `currentStatus` will be updated to an error state.
         public func getPairingQRCode() -> Image? {
-            Self.logger.info("getPairingQRCode called.")
+            self.logger.info("getPairingQRCode called.")
             guard let companion, let uiImage = companion.generatePairingQRCodeImage() else {
-                Self.logger.error("Failed to generate pairing QR code. RSCompanion available: \(self.companion != nil).")
+                self.logger.error("Failed to generate pairing QR code. RSCompanion available: \(self.companion != nil).")
                 let error = ScannerError(code: "qr_failed", message: "Failed to generate QR code for IPCMobile.")
                 self.currentStatus = .error(error)
                 return nil
             }
-            Self.logger.info("Pairing QR code generated. Ensuring advertising is active.")
+            self.logger.info("Pairing QR code generated. Ensuring advertising is active.")
             companion.startAdvertising()
         
             // Update status after starting advertising, typically to .idle if no devices connected.
@@ -117,19 +117,19 @@ import SwiftUI
         /// Updates the display of connected IPCMobile Halo scanners that support screen features.
         /// - Parameter data: The `ScannerDisplayData` containing IPCMobile-specific screen data (`.ipcMobile(cards: [IPCMobileDisplayCardConfig])`).
         public func updateScannerDisplay(data: ScannerDisplayData) {
-            Self.logger.info("updateScannerDisplay called.")
+            self.logger.info("updateScannerDisplay called.")
             Task {
                 let halos = await haloManager.all()
                 guard self.isCompanionReadyForAdvertising, self.hasConnectedHalos, !halos.isEmpty else {
-                    Self.logger.warning("Cannot update display: No connected RapidScan scanner or companion not ready. CompanionReady: \(self.isCompanionReadyForAdvertising), HasHalos: \(self.hasConnectedHalos), Halos empty: \(halos.isEmpty)")
+                    self.logger.warning("Cannot update display: No connected RapidScan scanner or companion not ready. CompanionReady: \(self.isCompanionReadyForAdvertising), HasHalos: \(self.hasConnectedHalos), Halos empty: \(halos.isEmpty)")
                     return
                 }
                 switch data {
                 case .ipcMobile(let cardConfigs):
-                    Self.logger.info("Processing \(cardConfigs.count) display card configurations.")
+                    self.logger.info("Processing \(cardConfigs.count) display card configurations.")
                     let rislCards = cardConfigs.compactMap { config -> RSRislCard? in
                         guard config.width > 0, config.height > 0, !config.message.isEmpty else {
-                            Self.logger.warning("Invalid card configuration skipped: \(config.message) (width/height must be >0, message not empty)")
+                            self.logger.warning("Invalid card configuration skipped: \(config.message) (width/height must be >0, message not empty)")
                             return nil
                         }
                         let card = RSRislCard(width: config.width, height: config.height)
@@ -148,13 +148,13 @@ import SwiftUI
                         return card
                     }
                     if !rislCards.isEmpty {
-                        Self.logger.info("Sending \(rislCards.count) RislCards to \(halos.count) halos.")
+                        self.logger.info("Sending \(rislCards.count) RislCards to \(halos.count) halos.")
                         self.companion?.sendRislCards(rislCards, toHalos: halos)
                     } else {
-                        Self.logger.info("No valid RislCards to send.")
+                        self.logger.info("No valid RislCards to send.")
                     }
                 default:
-                    Self.logger.warning("Unsupported display data type for IPCMobileScanner.")
+                    self.logger.warning("Unsupported display data type for IPCMobileScanner.")
                 }
             }
         }
@@ -167,19 +167,19 @@ import SwiftUI
         public func isAvailable() -> Bool {
             // For IPCMobile, "available" often means a HaloRing is connected and the companion is ready.
             let available = self.companion != nil && self.isCompanionReadyForAdvertising && self.hasConnectedHalos && self.currentStatus == .ready
-            Self.logger.info("isAvailable check: \(available). Companion: \(self.companion != nil), CompanionReady: \(self.isCompanionReadyForAdvertising), HasHalos: \(self.hasConnectedHalos), Status: \(self.currentStatus.description)")
+            self.logger.info("isAvailable check: \(available). Companion: \(self.companion != nil), CompanionReady: \(self.isCompanionReadyForAdvertising), HasHalos: \(self.hasConnectedHalos), Status: \(self.currentStatus.description)")
             return available
         }
 
         /// Sets up the `RSCompanion` instance and its delegate.
         private func setupCompanion() {
-            Self.logger.info("Setting up RSCompanion.")
+            self.logger.info("Setting up RSCompanion.")
             if let uuidString = serviceUUID, !uuidString.isEmpty {
                 self.companion = RSCompanion(serviceUUID: CBUUID(string: uuidString))
-                Self.logger.info("RSCompanion initialized with custom service UUID: \(uuidString)")
+                self.logger.info("RSCompanion initialized with custom service UUID: \(uuidString)")
             } else {
                 self.companion = RSCompanion()
-                Self.logger.info("RSCompanion initialized with default service UUID.")
+                self.logger.info("RSCompanion initialized with default service UUID.")
             }
             self.companion?.delegate = self
             Task {
@@ -202,7 +202,7 @@ import SwiftUI
             }
         
             if oldStatus.description != self.currentStatus.description { // Log if description changed
-                Self.logger.info("Internal status updated. Old: \(oldStatus.description), New: \(self.currentStatus.description)")
+                self.logger.info("Internal status updated. Old: \(oldStatus.description), New: \(self.currentStatus.description)")
             }
         }
     }
@@ -211,31 +211,31 @@ import SwiftUI
     extension IPCMobileScanner: RSCompanionDelegate {
         /// Called when the `RSCompanion`'s state changes.
         public func rsCompanionState(_ state: RSCompanionState, uuid: String) {
-            Self.logger.info("RSCompanionState changed: \(state.rawValue), for UUID: \(uuid)")
+            self.logger.info("RSCompanionState changed: \(state.rawValue), for UUID: \(uuid)")
             Task {
                 switch state {
                 case .ready:
                     // SDK is ready to start advertising (e.g. Bluetooth is on)
                     self.isCompanionReadyForAdvertising = true
-                    Self.logger.info("RSCompanion is ready. Starting advertising.")
+                    self.logger.info("RSCompanion is ready. Starting advertising.")
                     self.companion?.startAdvertising()
                 case .connected:
-                    Self.logger.info("Halo device connected: \(uuid)")
+                    self.logger.info("Halo device connected: \(uuid)")
                     await self.haloManager.add(uuid)
                     self.hasConnectedHalos = true
                 case .disconnected:
-                    Self.logger.info("Halo device disconnected: \(uuid)")
+                    self.logger.info("Halo device disconnected: \(uuid)")
                     await self.haloManager.remove(uuid)
                     let isHaloListEmpty = await self.haloManager.isEmpty()
                     self.hasConnectedHalos = !isHaloListEmpty
                     if isHaloListEmpty {
-                        Self.logger.info("All Halos disconnected.")
+                        self.logger.info("All Halos disconnected.")
                     }
                 case .advertising:
-                    Self.logger.info("RSCompanion is advertising.")
+                    self.logger.info("RSCompanion is advertising.")
                     self.isCompanionReadyForAdvertising = true
                 default:
-                    Self.logger.warning("RSCompanion entered unhandled state: \(state.rawValue)")
+                    self.logger.warning("RSCompanion entered unhandled state: \(state.rawValue)")
                     self.isCompanionReadyForAdvertising = false
                 }
                 await self.updateInternalStatus()
@@ -245,13 +245,13 @@ import SwiftUI
         /// Called when a barcode is received from a connected Halo device.
         public func rsCompanionDidReceiveBarcode(_ barcode: String, symbology: String, serial: String, verb: String, uuid: String) {
             let scanResult = barcode
-            Self.logger.info("Barcode received from Halo \(uuid): \(scanResult)")
+            self.logger.info("Barcode received from Halo \(uuid): \(scanResult)")
             self.delegate?.barcodeScannerDidReceiveBarcode(scanResult, from: self)
         }
 
         /// Called when an image is received from a connected Halo device (if applicable).
         public func rsCompanionDidReceiveImage(_ image: UIImage) {
-            Self.logger.info("Image received from Halo device.")
+            self.logger.info("Image received from Halo device.")
             // Handle image data if your application uses this feature.
         }
 
@@ -260,17 +260,17 @@ import SwiftUI
 
         /// Called when a button press is received from a Halo device.
         public func rsCompanionDidReceiveButtonPress(_ button: RSButton, serial: String, uuid: String) {
-            Self.logger.info("Button press: \(button.description) received from Halo \(uuid).")
+            self.logger.info("Button press: \(button.description) received from Halo \(uuid).")
         }
 
         /// Called when a RISL (RapidScan Interactive Scripting Language) button press is received.
         public func rsCompanionDidReceiveRislButtonPress(_ button: String, serial: String, uuid: String) {
-            Self.logger.info("RISL button press: '\(button)' received from Halo \(uuid).")
+            self.logger.info("RISL button press: '\(button)' received from Halo \(uuid).")
         }
 
         /// Called when a verb selection is received from a Halo device.
         public func rsCompanionDidReceiveVerbSelection(_ verb: String, serial: String, uuid: String) {
-            Self.logger.info("Verb selection: '\(verb)' received from Halo \(uuid).")
+            self.logger.info("Verb selection: '\(verb)' received from Halo \(uuid).")
         }
     }
 

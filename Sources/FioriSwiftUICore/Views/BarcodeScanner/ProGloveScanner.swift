@@ -1,4 +1,4 @@
-import os.log
+import OSLog
 import SwiftUI
 #if canImport(ConnectSDK)
     import ConnectSDK
@@ -18,7 +18,7 @@ import SwiftUI
         public weak var delegate: BarcodeScannerDelegate?
 
         /// Logger for this class.
-        private static let logger = Logger(subsystem: Bundle.main.bundleIdentifier ?? "cloud.sdk.ios.fiori.barcodescanner", category: "ProGloveScanner")
+        private let logger = Logger(subsystem: Bundle.main.bundleIdentifier ?? "cloud.sdk.ios.fiori.barcodescanner", category: "ProGloveScanner")
 
         /// The current status of the ProGlove scanner.
         ///
@@ -26,7 +26,7 @@ import SwiftUI
         public private(set) var currentStatus: ScannerStatus = .idle {
             didSet {
                 if oldValue != self.currentStatus {
-                    Self.logger.info("Status changed from \(oldValue.description) to \(self.currentStatus.description)")
+                    self.logger.info("Status changed from \(oldValue.description) to \(self.currentStatus.description)")
                     self.delegate?.barcodeScannerDidUpdateStatus(self.currentStatus, for: self)
                 }
             }
@@ -50,10 +50,10 @@ import SwiftUI
         /// Sets up the `PGCentralManager` and initializes the scanner's state.
         override public init() {
             super.init()
-            Self.logger.info("Initializing ProGloveScanner.")
+            self.logger.info("Initializing ProGloveScanner.")
             self.central = PGCentralManager(delegate: self, enableRestoration: false)
             self.sdkState = self.central?.state ?? .unknown
-            Self.logger.info("Initial SDK State: \(self.sdkState.rawValue)")
+            self.logger.info("Initial SDK State: \(self.sdkState.rawValue)")
             self.updateInternalStatus()
         }
     
@@ -64,36 +64,36 @@ import SwiftUI
         ///
         /// - Throws: A `ScannerError` if monitoring cannot be started (e.g., initialization failure, Bluetooth off, permission denied).
         public func startMonitoring() async throws {
-            Self.logger.info("Start Monitoring called.")
+            self.logger.info("Start Monitoring called.")
             if central == nil {
-                Self.logger.warning("PGCentralManager was nil. Re-initializing.")
+                self.logger.warning("PGCentralManager was nil. Re-initializing.")
                 central = PGCentralManager(delegate: self, enableRestoration: false)
             }
             guard let central else {
-                Self.logger.error("PGCentralManager is still nil after attempted initialization.")
+                self.logger.error("PGCentralManager is still nil after attempted initialization.")
                 let error = ScannerError.initializationFailed
                 self.currentStatus = .error(error)
                 throw error
             }
 
             self.sdkState = central.state
-            Self.logger.info("SDK State at startMonitoring: \(self.sdkState.rawValue)")
+            self.logger.info("SDK State at startMonitoring: \(self.sdkState.rawValue)")
             self.updateInternalStatus()
 
             if case .error(let currentError) = currentStatus {
-                Self.logger.error("Start monitoring resulted in error status: \(currentError.localizedDescription)")
+                self.logger.error("Start monitoring resulted in error status: \(currentError.localizedDescription)")
                 throw currentError
             }
-            Self.logger.info("Start Monitoring completed. Current status: \(self.currentStatus.description)")
+            self.logger.info("Start Monitoring completed. Current status: \(self.currentStatus.description)")
         }
 
         /// Stops monitoring for ProGlove scanners and disconnects any active scanner.
         ///
         /// Resets connection-related states and sets the status, typically to `.idle` if Bluetooth is still powered on.
         public func stopMonitoring() {
-            Self.logger.info("Stop Monitoring called.")
+            self.logger.info("Stop Monitoring called.")
             if let scanner = displayedScanner, central?.state == .poweredOn {
-                Self.logger.info("Cancelling connection to scanner: \(scanner.identifier).")
+                self.logger.info("Cancelling connection to scanner: \(scanner.identifier).")
                 self.central?.cancelScannerConnection(scanner)
             }
             self.displayedScanner = nil
@@ -106,7 +106,7 @@ import SwiftUI
             } else {
                 self.updateInternalStatus()
             }
-            Self.logger.info("Stop Monitoring finished. Current status: \(self.currentStatus.description)")
+            self.logger.info("Stop Monitoring finished. Current status: \(self.currentStatus.description)")
         }
     
         /// Attempts to trigger a scan on the ProGlove device.
@@ -117,7 +117,7 @@ import SwiftUI
         ///
         /// - Throws: A `ScannerError` if the scanner is not ready or if the operation is not supported.
         public func triggerScan() async throws {
-            Self.logger.info("TriggerScan called, but ProGlove is typically hardware-triggered.")
+            self.logger.info("TriggerScan called, but ProGlove is typically hardware-triggered.")
             guard self.currentStatus == .ready || self.currentStatus == .scanning else {
                 throw ScannerError(code: "not_ready", message: "ProGlove scanner not ready to be triggered.")
             }
@@ -129,10 +129,10 @@ import SwiftUI
         /// - Returns: A SwiftUI `Image` containing the pairing QR code, or `nil` if generation fails (e.g., Bluetooth not powered on).
         ///            If `nil` is returned, `currentStatus` will be updated to an error state.
         public func getPairingQRCode() -> Image? {
-            Self.logger.info("getPairingQRCode called. Current sdkState: \(self.sdkState.rawValue), central exists: \(self.central != nil)")
+            self.logger.info("getPairingQRCode called. Current sdkState: \(self.sdkState.rawValue), central exists: \(self.central != nil)")
             guard let central, sdkState == .poweredOn else {
                 let errorDetail = "SDK State: \(sdkState.rawValue), PGCentralManager valid: \(self.central != nil)"
-                Self.logger.error("Cannot generate pairing QR code: Bluetooth not ready. Details: \(errorDetail)")
+                self.logger.error("Cannot generate pairing QR code: Bluetooth not ready. Details: \(errorDetail)")
                 self.lastError = ScannerError(code: "bluetooth_not_ready", message: "Cannot pair: Bluetooth not ready.")
                 self.updateInternalStatus()
                 return nil
@@ -141,34 +141,34 @@ import SwiftUI
             self.lastError = nil
             if !self.isScannerConnected { self.currentStatus = .idle }
 
-            Self.logger.info("Attempting to initiate scanner connection with QR code image.")
+            self.logger.info("Attempting to initiate scanner connection with QR code image.")
             let uiImage = central.initiateScannerConnection(withImageSize: CGSize(width: 200, height: 200))
         
-            Self.logger.info("QR code image obtained from SDK.")
+            self.logger.info("QR code image obtained from SDK.")
             return Image(uiImage: uiImage)
         }
 
         /// Updates the display of a connected ProGlove scanner that supports screen features.
         /// - Parameter data: The `ScannerDisplayData` containing ProGlove-specific screen data (`.proGlove(PGScreenData)`).
         public func updateScannerDisplay(data: ScannerDisplayData) {
-            Self.logger.info("updateScannerDisplay called.")
-            guard let _ = displayedScanner, isScannerConnected, currentStatus == .ready || currentStatus == .scanning else {
-                Self.logger.warning("Cannot update display: No scanner connected or not in ready/scanning state. Current status: \(self.currentStatus.description)")
+            self.logger.info("updateScannerDisplay called.")
+            guard self.displayedScanner != nil, self.isScannerConnected, self.currentStatus == .ready || self.currentStatus == .scanning else {
+                self.logger.warning("Cannot update display: No scanner connected or not in ready/scanning state. Current status: \(self.currentStatus.description)")
                 return
             }
             switch data {
             case .proGlove(let screenData):
                 let command = PGCommand(screenDataRequest: screenData)
-                Self.logger.info("Setting screen with templateId: \(screenData.templateId)")
+                self.logger.info("Setting screen with templateId: \(screenData.templateId)")
                 self.central?.displayManager?.setScreen(command, completionHandler: { error in
                     if let error {
-                        Self.logger.error("Failed to set screen: \(error.localizedDescription)")
+                        self.logger.error("Failed to set screen: \(error.localizedDescription)")
                     } else {
-                        Self.logger.info("Screen update command sent successfully.")
+                        self.logger.info("Screen update command sent successfully.")
                     }
                 })
             default:
-                Self.logger.warning("Unsupported display data type for ProGloveScanner.")
+                self.logger.warning("Unsupported display data type for ProGloveScanner.")
             }
         }
     
@@ -177,7 +177,7 @@ import SwiftUI
         /// This involves stopping any current monitoring or connection and resetting internal states
         /// to allow for a fresh connection attempt. The `PGCentralManager` instance is kept alive.
         public func reset() {
-            Self.logger.info("Reset requested.")
+            self.logger.info("Reset requested.")
             self.stopMonitoring()
         
             if self.sdkState == .poweredOn {
@@ -185,7 +185,7 @@ import SwiftUI
             } else {
                 self.updateInternalStatus()
             }
-            Self.logger.info("Reset finished. Current status: \(self.currentStatus.description)")
+            self.logger.info("Reset finished. Current status: \(self.currentStatus.description)")
         }
 
         /// Checks if the ProGlove scanner functionality is available.
@@ -196,7 +196,7 @@ import SwiftUI
         /// - Returns: `true` if ProGlove scanning can be attempted, `false` otherwise.
         public func isAvailable() -> Bool {
             let available = (sdkState == .poweredOn || self.sdkState == .poweredOff || self.sdkState == .unknown || self.sdkState == .resetting) && self.central != nil
-            Self.logger.info("isAvailable check: \(available). SDK State: \(self.sdkState.rawValue)")
+            self.logger.info("isAvailable check: \(available). SDK State: \(self.sdkState.rawValue)")
             return available
         }
 
@@ -204,14 +204,14 @@ import SwiftUI
 
         /// Called when the ProGlove SDK's manager state changes (e.g., Bluetooth powered on/off).
         public func managerDidUpdateState(_ manager: PGManager) {
-            Self.logger.info("PGCentralManager didUpdateState: \(manager.state.rawValue)")
+            self.logger.info("PGCentralManager didUpdateState: \(manager.state.rawValue)")
             self.sdkState = manager.state
             if self.sdkState != .poweredOn {
                 self.isScannerConnected = false
                 if self.displayedScanner != nil {
                     self.displayedScanner?.delegate = nil
                     self.displayedScanner = nil
-                    Self.logger.info("Cleared displayedScanner due to SDK state change to not poweredOn.")
+                    self.logger.info("Cleared displayedScanner due to SDK state change to not poweredOn.")
                 }
                 self.isReconnecting = false
             }
@@ -221,7 +221,7 @@ import SwiftUI
 
         /// Called when a ProGlove scanner has successfully connected and is ready for operations.
         public func centralManager(_ centralManager: PGCentralManager, scannerDidBecomeReady scanner: PGPeripheral) {
-            Self.logger.info("Scanner Ready: \(scanner.identifier)")
+            self.logger.info("Scanner Ready: \(scanner.identifier)")
             self.displayedScanner = scanner
             scanner.delegate = self
             self.isScannerConnected = true
@@ -233,7 +233,7 @@ import SwiftUI
         /// Called when a connection attempt to a ProGlove scanner fails.
         public func centralManager(_ centralManager: PGCentralManager, didFailToConnectToScanner scanner: PGPeripheral, error: Error?) {
             let errorDescription = error?.localizedDescription ?? "Unknown error"
-            Self.logger.error("Failed to connect to scanner \(scanner.identifier): \(errorDescription)")
+            self.logger.error("Failed to connect to scanner \(scanner.identifier): \(errorDescription)")
             if self.displayedScanner?.identifier == scanner.identifier {
                 self.displayedScanner = nil
             }
@@ -246,7 +246,7 @@ import SwiftUI
         /// Called when a connected ProGlove scanner disconnects.
         public func centralManager(_ centralManager: PGCentralManager, didDisconnectFromScanner scanner: PGPeripheral, error: Error?) {
             let errorDescription = error?.localizedDescription ?? "Graceful disconnect"
-            Self.logger.info("Disconnected from scanner \(scanner.identifier): \(errorDescription)")
+            self.logger.info("Disconnected from scanner \(scanner.identifier): \(errorDescription)")
             if self.displayedScanner?.identifier == scanner.identifier {
                 self.isScannerConnected = false
                 scanner.delegate = nil
@@ -254,7 +254,7 @@ import SwiftUI
             
                 // Check if the disconnection was due to a timeout, which might imply a reconnect attempt
                 if let nsError = error as NSError? {
-                    Self.logger.info("Connection lost (timeout), SDK might attempt reconnect for scanner \(scanner.identifier).")
+                    self.logger.info("Connection lost (timeout), SDK might attempt reconnect for scanner \(scanner.identifier).")
                     self.isReconnecting = true
                     self.lastError = ScannerError(code: "reconnecting", message: "Connection lost, reconnecting...")
                 } else if error != nil {
@@ -270,7 +270,7 @@ import SwiftUI
     
         /// Called when the connection to a scanner is lost and the SDK is attempting to reconnect.
         public func centralManager(_ centralManager: PGCentralManager, didLostConnectionAndReconnectingToScanner scanner: PGPeripheral) {
-            Self.logger.info("Lost connection, SDK is attempting to reconnect to scanner \(scanner.identifier).")
+            self.logger.info("Lost connection, SDK is attempting to reconnect to scanner \(scanner.identifier).")
             if self.displayedScanner?.identifier == scanner.identifier || self.displayedScanner == nil {
                 self.isScannerConnected = false
                 self.isReconnecting = true
@@ -281,25 +281,25 @@ import SwiftUI
     
         /// Called when the SDK starts searching for a scanner based on an indicator (e.g., from a pairing QR code).
         public func centralManager(_ centralManager: PGCentralManager, didStartSearchingForIndicator indicator: String?) {
-            Self.logger.info("Started searching for indicator: \(indicator ?? "nil")")
+            self.logger.info("Started searching for indicator: \(indicator ?? "nil")")
             self.currentStatus = .idle
         }
 
         /// Called when the SDK is in the process of connecting to a specific scanner.
         public func centralManager(_ centralManager: PGCentralManager, connectingToScanner scanner: PGPeripheral) {
-            Self.logger.info("Connecting to scanner \(scanner.identifier)...")
+            self.logger.info("Connecting to scanner \(scanner.identifier)...")
             self.displayedScanner = scanner
         }
 
         /// Called when a scanner has physically connected (BLE connection established), but may not yet be ready for full operation.
         public func centralManager(_ centralManager: PGCentralManager, scannerDidConnect scanner: PGPeripheral) {
-            Self.logger.info("Scanner \(scanner.identifier) PHYSICALLY connected (BLE), waiting for services to become ready...")
+            self.logger.info("Scanner \(scanner.identifier) PHYSICALLY connected (BLE), waiting for services to become ready...")
         }
 
         /// Called if the SDK fails to initiate a connection (e.g., during the pairing QR code process).
         public func centralManager(_ centralManager: PGCentralManager, didFailToInitiateConnection error: Error?) {
             let errorDescription = error?.localizedDescription ?? "Unknown error"
-            Self.logger.error("Failed to initiate connection (e.g. pairing process): \(errorDescription)")
+            self.logger.error("Failed to initiate connection (e.g. pairing process): \(errorDescription)")
             self.lastError = ScannerError(code: "pairing_init_failed", message: "Pairing initiation failed: \(errorDescription)")
             self.updateInternalStatus()
         }
@@ -308,7 +308,7 @@ import SwiftUI
 
         /// Called when the connected ProGlove peripheral successfully scans a barcode.
         public func peripheral(_ peripheral: PGPeripheral, didScanBarcodeWith data: PGScannedBarcodeResult) {
-            Self.logger.info("Barcode received from \(peripheral.identifier): \(data.barcodeContent)")
+            self.logger.info("Barcode received from \(peripheral.identifier): \(data.barcodeContent)")
             self.delegate?.barcodeScannerDidReceiveBarcode(data.barcodeContent, from: self)
         }
     
@@ -341,12 +341,12 @@ import SwiftUI
                 case .unknown:
                     self.currentStatus = .idle
                 @unknown default:
-                    Self.logger.warning("Unknown SDK State encountered: \(self.sdkState.rawValue)")
+                    self.logger.warning("Unknown SDK State encountered: \(self.sdkState.rawValue)")
                     self.currentStatus = .idle
                 }
             }
             if oldStatus.description != self.currentStatus.description {
-                Self.logger.info("Internal status updated. Old: \(oldStatus.description), New: \(self.currentStatus.description)")
+                self.logger.info("Internal status updated. Old: \(oldStatus.description), New: \(self.currentStatus.description)")
             }
         }
     }

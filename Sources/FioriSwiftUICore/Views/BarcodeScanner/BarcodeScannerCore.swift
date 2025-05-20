@@ -27,10 +27,14 @@ public enum ScannerStatus: Equatable {
     /// A readable description of the status.
     public var description: String {
         switch self {
-        case .idle: return "Idle"
-        case .ready: return "Ready"
-        case .scanning: return "Scanning"
-        case .error(let error): return "Error: \(error.localizedDescription)"
+        case .idle:
+            return "Idle"
+        case .ready:
+            return "Ready"
+        case .scanning:
+            return "Scanning"
+        case .error(let error):
+            return "Error: \(error.localizedDescription)"
         }
     }
 }
@@ -61,6 +65,8 @@ public struct ScannerError: Error, Equatable {
     public static let permissionDenied = ScannerError(code: "permission_denied", message: "Permission denied")
     /// Error indicating that the scanner failed to initialize, possibly due to an SDK issue or hardware malfunction.
     public static let initializationFailed = ScannerError(code: "init_failed", message: "Failed to initialize scanner")
+    /// Error indicating the operation is not supported on the current device.
+    public static let notSupported = ScannerError(code: "not_supported", message: "Operation not supported")
 }
 
 /// Enumerates the types of barcode scanners supported.
@@ -89,23 +95,23 @@ public enum ScannerType: Equatable, CaseIterable {
 public struct IPCMobileDisplayCardConfig: Equatable {
     /// The primary message text to be displayed on the card. Defaults to "Message" if an empty string is provided.
     public let message: String
-    /// The width of the display card in device-specific units. Must be greater than 0. Defaults to a minimum of 1.
+    /// The width of the display card in device-specific units. Must be greater than 0. Default is 1.
     public let width: Int
-    /// The height of the display card in device-specific units. Must be greater than 0. Defaults to a minimum of 1.
+    /// The height of the display card in device-specific units. Must be greater than 0. Default is 1.
     public let height: Int
     /// The background color of the card, specified as a hex string (e.g., "#004F94" for blue, "#FFFFFF" for white).
     /// Defaults to "#004F94" if an empty string is provided.
     public let backgroundColor: String
-    /// The font size for the message text. Must be greater than 0. Defaults to a minimum of 1.
+    /// The font size for the message text. Must be greater than 0. Default is 1.
     public let fontSize: Int
     /// The font color for the message text, specified as a hex string (e.g., "#FFFFFF" for white, "#000000" for black).
-    /// Defaults to "#FFFFFF" if an empty string is provided.
+    /// Default is "#FFFFFF" if an empty string is provided.
     public let fontColor: String
     /// A Boolean value indicating whether the message text should be rendered in a bold font style.
     public let isBold: Bool
     /// A Boolean value indicating whether the message text should be underlined.
     public let isUnderline: Bool
-    /// The Y-axis position (vertical offset) for the text on the card. Must be 0 or greater. Defaults to a minimum of 0.
+    /// The Y-axis position (vertical offset) for the text on the card. Must be 0 or greater. Default is 0.
     public let textYPosition: Int
     /// A Boolean value indicating whether the device should play a "good scan" sound when this card is displayed.
     public let playGoodSound: Bool
@@ -181,22 +187,22 @@ public protocol BarcodeScanner: AnyObject {
     var delegate: (any BarcodeScannerDelegate)? { get set }
 
     /// Prepares the scanner for operation.
-    /// For camera scanners, this might involve checking permissions and initializing the camera session.
-    /// For hardware scanners, this might involve powering on Bluetooth or connecting to a previously paired device.
+    /// For camera scanner, this might involve checking permissions and initializing the camera session.
+    /// For hardware scanner, this might involve powering on Bluetooth or connecting to a previously paired device.
     /// This method should bring the scanner to a `.ready` state if successful.
     /// - Throws: A `ScannerError` if monitoring cannot be started (e.g., permissions denied, Bluetooth off).
     func startMonitoring() async throws
     
     /// Stops the scanner's operation.
-    /// For camera scanners, this releases the camera.
-    /// For hardware scanners, this may disconnect the device or put it into a low-power state.
+    /// For camera scanner, this releases the camera.
+    /// For hardware scanner, this may disconnect the device or put it into a low-power state.
     /// The scanner should ideally transition to an `.idle` or appropriate error state.
     func stopMonitoring()
     
     /// Initiates a scan attempt.
-    /// For camera scanners like VisionKit, this typically means starting the `DataScannerViewController`'s scan.
-    /// For hardware scanners that require a software trigger (if any), this would send the trigger command.
-    /// For hardware scanners that are trigger-based (e.g., ProGlove button press), this method might do nothing or throw `not_supported`.
+    /// For camera scanner using VisionKit, this typically means starting the `DataScannerViewController`'s scan.
+    /// For hardware scanner that requires a software trigger (if any), this would send the trigger command.
+    /// For hardware scanner that is trigger-based (e.g., ProGlove button press), this method might do nothing or throw `not_supported`.
     /// - Throws: A `ScannerError` if the scan cannot be triggered (e.g., not ready, not supported).
     func triggerScan() async throws
     
@@ -240,7 +246,6 @@ public extension BarcodeScanner {
     /// Does nothing by default.
     func updateScannerDisplay(data: ScannerDisplayData) {
         // Default: Do nothing.
-        print("\(type.description) does not support custom display updates or data type \(data) is not applicable.")
     }
     
     /// Default implementation for `getPairingQRCode`. Only relevant for pairable hardware scanners.
