@@ -31,6 +31,7 @@
 		554307FB2D5F6A91005AFA6D /* _KeyValueItemExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554307FA2D5F6A91005AFA6D /* _KeyValueItemExample.swift */; };
 		55598FAD2CDDB4F6007CFFBB /* ValuePickerExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55598FAC2CDDB4F6007CFFBB /* ValuePickerExample.swift */; };
 		5590847D2D6D94210007EAAC /* _EmptyStateViewExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5590847C2D6D94210007EAAC /* _EmptyStateViewExample.swift */; };
+		55DA195D2DD2216100C1391B /* OrderPickerExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DA195C2DD2216100C1391B /* OrderPickerExample.swift */; };
 		5A91FABE2D923BF80024F316 /* _DurationPickerExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A91FABD2D923BF70024F316 /* _DurationPickerExample.swift */; };
 		5A91FAC42D951CAB0024F316 /* KPIHeaderExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A91FAC32D951CA70024F316 /* KPIHeaderExample.swift */; };
 		5ABFB34B2D27D73B0054C1F3 /* SectionHeaderFooterExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ABFB34A2D27D7310054C1F3 /* SectionHeaderFooterExample.swift */; };
@@ -290,6 +291,7 @@
 		554307FA2D5F6A91005AFA6D /* _KeyValueItemExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _KeyValueItemExample.swift; sourceTree = "<group>"; };
 		55598FAC2CDDB4F6007CFFBB /* ValuePickerExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValuePickerExample.swift; sourceTree = "<group>"; };
 		5590847C2D6D94210007EAAC /* _EmptyStateViewExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _EmptyStateViewExample.swift; sourceTree = "<group>"; };
+		55DA195C2DD2216100C1391B /* OrderPickerExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderPickerExample.swift; sourceTree = "<group>"; };
 		5A91FABD2D923BF70024F316 /* _DurationPickerExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _DurationPickerExample.swift; sourceTree = "<group>"; };
 		5A91FAC32D951CA70024F316 /* KPIHeaderExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KPIHeaderExample.swift; sourceTree = "<group>"; };
 		5ABFB34A2D27D7310054C1F3 /* SectionHeaderFooterExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderFooterExample.swift; sourceTree = "<group>"; };
@@ -942,6 +944,14 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+    A6DFDEBB2DA6750900666A51 /* Recovered References */ = {
+            isa = PBXGroup;
+            children = (
+                C15005172DA44C3600BB0EA8 /* MandatoryAttachmentExample.swift */,
+            );
+            name = "Recovered References";
+            sourceTree = "<group>";
+        };
 		AB988B11263128C400483D87 /* DataTable */ = {
 			isa = PBXGroup;
 			children = (
@@ -1015,6 +1025,7 @@
 		B1D41B1E291A2D2E004E64A5 /* Picker */ = {
 			isa = PBXGroup;
 			children = (
+				55DA195C2DD2216100C1391B /* OrderPickerExample.swift */,
 				55598FAC2CDDB4F6007CFFBB /* ValuePickerExample.swift */,
 				B1D41B1F291A2D97004E64A5 /* DurationPickerExample.swift */,
 				5A91FABD2D923BF70024F316 /* _DurationPickerExample.swift */,
@@ -1407,6 +1418,7 @@
 				87FF0C222D08A9C700E55EB5 /* PercentageCaptionOutside.swift in Sources */,
 				87FF0C232D08A9C700E55EB5 /* Customization.swift in Sources */,
 				87FF0C242D08A9C700E55EB5 /* FractionDisabled.swift in Sources */,
+				55DA195D2DD2216100C1391B /* OrderPickerExample.swift in Sources */,
 				87FF0C252D08A9C700E55EB5 /* FractionCaptionOutside.swift in Sources */,
 				87FF0C262D08A9C700E55EB5 /* FractionCaptionInside.swift in Sources */,
 				B8D4376D25F97F140024EE7D /* ObjectItemExample.swift in Sources */,

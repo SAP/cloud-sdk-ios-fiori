@@ -79,6 +79,7 @@ struct CoreContentView: View {
             MenuItem(title: "SegmentedControlPicker", section: "Pickers", destination: SegmentedControlExample()),
             MenuItem(title: "DateTimePicker", section: "Pickers", destination: DateTimePickerExample()),
             MenuItem(title: "ValuePicker", section: "Pickers", destination: ValuePickerExample()),
+            MenuItem(title: "OrderPicker", section: "Pickers", destination: OrderPickerExample()),
             
             // Onboarding
             MenuItem(title: "Onboarding", section: "Onboarding", destination: OnboardingExamples(_isNewObjectItem: true)),

@@ -738,6 +738,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: CheckmarkStyle
+
+struct CheckmarkStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any CheckmarkStyle] = []
+}
+
+extension EnvironmentValues {
+    var checkmarkStyle: any CheckmarkStyle {
+        self.checkmarkStyleStack.last ?? .base
+    }
+
+    var checkmarkStyleStack: [any CheckmarkStyle] {
+        get {
+            self[CheckmarkStyleStackKey.self]
+        }
+        set {
+            self[CheckmarkStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: CheckoutIndicatorStyle
 
 struct CheckoutIndicatorStyleStackKey: EnvironmentKey {
@@ -2397,6 +2418,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: OrderPickerStyle
+
+struct OrderPickerStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any OrderPickerStyle] = []
+}
+
+extension EnvironmentValues {
+    var orderPickerStyle: any OrderPickerStyle {
+        self.orderPickerStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var orderPickerStyleStack: [any OrderPickerStyle] {
+        get {
+            self[OrderPickerStyleStackKey.self]
+        }
+        set {
+            self[OrderPickerStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: OuterCircleStyle
 
 struct OuterCircleStyleStackKey: EnvironmentKey {
@@ -3086,6 +3128,27 @@ extension EnvironmentValues {
         }
         set {
             self[SingleStepStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: SortCriterionStyle
+
+struct SortCriterionStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any SortCriterionStyle] = []
+}
+
+extension EnvironmentValues {
+    var sortCriterionStyle: any SortCriterionStyle {
+        self.sortCriterionStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var sortCriterionStyleStack: [any SortCriterionStyle] {
+        get {
+            self[SortCriterionStyleStackKey.self]
+        }
+        set {
+            self[SortCriterionStyleStackKey.self] = newValue
         }
     }
 }
