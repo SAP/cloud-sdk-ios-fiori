@@ -11,6 +11,7 @@ struct VisionKitScannerExample: View {
     @State private var customBarcode: String = ""
     @State private var searchResult: String = ""
     @State private var isPresentingCamera = false
+    @State private var isTorchOn: Bool = false
     @State private var errorMessage: String?
     @State private var currentScannerSessionIsMultiScan: Bool = false
 
@@ -51,7 +52,22 @@ struct VisionKitScannerExample: View {
                             .disabled(true)
                         Button(action: {
                             self.logger.info("Barcode scan button tapped")
-                            Task { await self.checkCameraPermissionsAndPresent() }
+                            Task {
+                                if let scanner = scannerManager.getVisionKitScanner() {
+                                    switch await scanner.checkPermissionsAndPrepareForPresentation(manager: self.scannerManager) {
+                                    case .success:
+                                        self.errorMessage = nil
+                                        self.isPresentingCamera = true
+                                    case .failure(let error):
+                                        self.errorMessage = error.message
+                                        self.isPresentingCamera = false
+                                    }
+                                } else {
+                                    self.logger.error("VisionKit scanner not available.")
+                                    self.errorMessage = "VisionKit scanner not available."
+                                    self.isPresentingCamera = false
+                                }
+                            }
                         }) {
                             Image(systemName: "barcode.viewfinder")
                                 .font(.title2)
@@ -83,43 +99,41 @@ struct VisionKitScannerExample: View {
         .fullScreenCover(isPresented: self.$isPresentingCamera) {
             if let visionKitScanner = scannerManager.getVisionKitScanner() {
                 ZStack(alignment: .topTrailing) {
-                    VisionKitScannerRepresentable(scanner: visionKitScanner)
-                        .ignoresSafeArea(.all)
-                        .onAppear {
-                            self.logger.info("Camera view (fullScreenCover content) appeared.")
-                            self.currentScannerSessionIsMultiScan = visionKitScanner.recognizesMultipleItems
-                            self.logger.info("Camera session multi-scan mode: \(self.currentScannerSessionIsMultiScan)")
+                    VisionKitScannerRepresentable(
+                        scanner: visionKitScanner,
+                        onCancelTapped: {
+                            self.isPresentingCamera = false
+                        },
+                        isTorchOn: self.$isTorchOn
+                    )
+                    .ignoresSafeArea(.all)
+                    .onAppear {
+                        self.logger.info("Camera view (fullScreenCover content) appeared.")
+                        self.currentScannerSessionIsMultiScan = visionKitScanner.recognizesMultipleItems
+                        self.logger.info("Camera session multi-scan mode: \(self.currentScannerSessionIsMultiScan)")
+                        self.isTorchOn = visionKitScanner.isTorchOn
 
-                            Task {
-                                do {
-                                    // Ensure the scanner is active and ready for this session
-                                    if self.scannerManager.activeScannerType != .visionKit {
-                                        self.logger.info("Activating VisionKit scanner in onAppear of camera view")
-                                        try await self.scannerManager.setActiveScanner(.visionKit)
-                                    }
-                                    // Start monitoring (prepares scanner, sets to .ready)
-                                    self.logger.info("Starting monitoring in onAppear of camera view")
-                                    try await self.scannerManager.startMonitoring()
-
-                                    // Explicitly trigger the scan
-                                    self.logger.info("Triggering scan in onAppear of camera view")
-                                    try await self.scannerManager.triggerScan()
-                                    self.errorMessage = nil // Clear previous errors
-                                } catch let anError as ScannerError {
-                                    logger.error("Camera onAppear: Failed to start/trigger: \(anError.localizedDescription)")
-                                    errorMessage = "Scanner Error: \(anError.message)"
-                                    isPresentingCamera = false // Close if setup fails
-                                } catch {
-                                    self.logger.error("Camera onAppear: Unexpected error: \(error.localizedDescription)")
-                                    self.errorMessage = "Failed to start scanner: \(error.localizedDescription)"
-                                    self.isPresentingCamera = false // Close if setup fails
-                                }
+                        Task {
+                            do {
+                                // Explicitly trigger the scan
+                                self.logger.info("Triggering scan in onAppear of camera view")
+                                try await self.scannerManager.triggerScan()
+                                self.errorMessage = nil
+                            } catch let error as ScannerError {
+                                logger.error("Camera onAppear: Failed to trigger scan: \(error.localizedDescription)")
+                                self.errorMessage = "Scanner Error: \(error.message)"
+                                self.isPresentingCamera = false
+                            } catch {
+                                self.logger.error("Camera onAppear: Unexpected error: \(error.localizedDescription)")
+//                                    self.errorMessage = "Failed to start scanner.")
+                                self.isPresentingCamera = false
                             }
                         }
-                        .onDisappear {
-                            self.logger.info("Camera view (fullScreenCover content) disappeared.")
-                            self.scannerManager.stopMonitoring()
-                        }
+                    }
+                    .onDisappear {
+                        self.logger.info("Camera view (fullScreenCover content) disappeared.")
+                        self.scannerManager.stopMonitoring()
+                    }
 
                     // Add Close button IF the current camera session is in multi-scan mode
                     if self.currentScannerSessionIsMultiScan {
@@ -216,43 +230,6 @@ struct VisionKitScannerExample: View {
         } catch {
             self.logger.error("Unexpected error during scanner setup: \(error.localizedDescription)")
             self.errorMessage = "An unexpected error occurred during scanner setup."
-        }
-    }
-
-    private func checkCameraPermissionsAndPresent() async {
-        self.logger.info("Checking camera permissions before presenting camera view.")
-        if self.scannerManager.activeScannerType != .visionKit || self.scannerManager.status == .error(.notAvailable) {
-            self.logger.info("Scanner not active or not available. Running setupScanner.")
-            await self.setupScanner()
-            if case .error = self.scannerManager.status {
-                self.logger.error("SetupScanner failed or did not resolve error. Cannot present camera. Error: \(self.errorMessage ?? "Unknown setup error")")
-                return
-            }
-        }
-        
-        let authStatus = AVCaptureDevice.authorizationStatus(for: .video)
-        var hasPermission = authStatus == .authorized
-
-        if authStatus == .notDetermined {
-            self.logger.info("Camera permission not determined by AVFoundation, requesting access.")
-            hasPermission = await AVCaptureDevice.requestAccess(for: .video)
-            self.logger.info("AVFoundation permission request result: \(hasPermission)")
-            if hasPermission {
-                try? await self.scannerManager.setActiveScanner(.visionKit)
-            }
-        }
-
-        if hasPermission {
-            self.logger.info("Camera permissions are granted. Presenting camera.")
-            self.errorMessage = nil
-            self.isPresentingCamera = true
-        } else {
-            self.logger.error("Camera permissions were denied or restricted.")
-            self.errorMessage = "Camera access is required. Please enable it in Settings."
-            if self.scannerManager.status != .error(.permissionDenied) {
-                self.scannerManager.onStatusChanged?(.error(.permissionDenied))
-            }
-            self.isPresentingCamera = false
         }
     }
 }

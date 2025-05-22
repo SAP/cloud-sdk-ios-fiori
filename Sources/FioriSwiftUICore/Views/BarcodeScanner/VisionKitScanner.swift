@@ -54,6 +54,14 @@ public final class VisionKitScanner: NSObject, BarcodeScanner, DataScannerViewCo
     private var isSupportedOnDevice: Bool { DataScannerViewController.isSupported }
     /// A cached value for camera permission status. Updated by `checkPermissionsAndUpdateStatus`.
     private var hasCameraPermission: Bool = false
+    /// Whether to show the Cancel button in the scanning view. Defaults to true.
+    public var showCancelButton: Bool = true
+    /// Whether to show the flash button in the scanning view. Defaults to true.
+    public var showFlashButton: Bool = true
+    /// Closure called when the Cancel button is tapped.
+    public var onCancelTapped: (() -> Void)?
+    /// Tracks the torch state internally.
+    public var isTorchOn: Bool = false
 
     /// Initializes a new `VisionKitScanner`.
     /// - Parameters:
@@ -120,6 +128,7 @@ public final class VisionKitScanner: NSObject, BarcodeScanner, DataScannerViewCo
             self.updateInternalStatus()
         }
         self.logger.info("Monitoring stopped, status set to \(self.currentStatus.description).")
+        self.isTorchOn = false
     }
 
     /// Starts the actual scanning process using the `DataScannerViewController`.
@@ -206,6 +215,42 @@ public final class VisionKitScanner: NSObject, BarcodeScanner, DataScannerViewCo
         let available = self.isSupportedOnDevice && self.hasCameraPermission
         self.logger.info("isAvailable check: \(available) (Supported: \(self.isSupportedOnDevice), Permission: \(self.hasCameraPermission))")
         return available
+    }
+    
+    // Torch Control
+    public func toggleTorch() -> Bool {
+        guard self.isTorchAvailable else {
+            self.logger.warning("Torch is not available on this device.")
+            return false
+        }
+        do {
+            let device = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back)
+            guard let device else {
+                self.logger.warning("No back camera available.")
+                return false
+            }
+            try device.lockForConfiguration()
+            self.isTorchOn = !self.isTorchOn
+            device.torchMode = self.isTorchOn ? .on : .off
+            device.unlockForConfiguration()
+            self.logger.info("Torch toggled to: \(self.isTorchOn ? "On" : "Off")")
+            return true
+        } catch {
+            self.logger.error("Failed to toggle torch: \(error.localizedDescription)")
+            return false
+        }
+    }
+    
+    public var isTorchAvailable: Bool {
+        guard let device = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back) else {
+            return false
+        }
+        return device.hasTorch && device.isTorchAvailable
+    }
+    
+    // Provide SwiftUI button view
+    public func makeControlButtonsView(isTorchOn: Binding<Bool>, onCancelTapped: @escaping () -> Void) -> some View {
+        ScannerControlButtons(scanner: self, isTorchOn: isTorchOn, onCancelTapped: onCancelTapped)
     }
 
     // MARK: - DataScannerViewControllerDelegate Callbacks
@@ -367,6 +412,63 @@ public final class VisionKitScanner: NSObject, BarcodeScanner, DataScannerViewCo
             self.logger.error("Unknown camera permission status: \(status.rawValue)")
             self.currentStatus = .error(ScannerError(code: "perm_unknown", message: "Unknown permission status."))
             return false
+        }
+    }
+    
+    /// Checks camera permissions and prepares the scanner for presentation.
+    /// - Parameter manager: The `BarcodeScannerManager` managing this scanner.
+    /// - Returns: A `Result` indicating success (scanner is ready to present) or failure (with a `ScannerError`).
+    public func checkPermissionsAndPrepareForPresentation(manager: BarcodeScannerManager) async -> Result<Void, ScannerError> {
+        self.logger.info("Checking camera permissions and preparing for presentation.")
+
+        // Ensure this scanner is active in the manager
+        if manager.activeScannerType != .visionKit || manager.status == .error(.notAvailable) {
+            self.logger.info("Scanner not active or not available. Activating VisionKit scanner.")
+            do {
+                try await manager.setActiveScanner(.visionKit)
+                if case .error(let error) = manager.status {
+                    self.logger.error("Failed to activate scanner: \(error.localizedDescription)")
+                    return .failure(error)
+                }
+            } catch let error as ScannerError {
+                logger.error("Failed to activate scanner: \(error.localizedDescription)")
+                return .failure(error)
+            } catch {
+                let unknownError = ScannerError(code: "setup_failed", message: "Unexpected error: \(error.localizedDescription)")
+                self.logger.error("Unexpected error during scanner activation: \(error.localizedDescription)")
+                return .failure(unknownError)
+            }
+        }
+
+        // Check camera permissions
+        let hasPermission = await checkPermissionsAndUpdateStatus()
+        if hasPermission {
+            self.logger.info("Camera permissions granted. Scanner is ready for presentation.")
+            // Ensure scanner is in a ready state
+            if self.currentStatus != .ready, self.currentStatus != .scanning {
+                do {
+                    try await self.startMonitoring()
+                    if case .error(let error) = currentStatus {
+                        self.logger.error("Failed to start monitoring: \(error.localizedDescription)")
+                        return .failure(error)
+                    }
+                } catch let error as ScannerError {
+                    logger.error("Failed to start monitoring: \(error.localizedDescription)")
+                    return .failure(error)
+                } catch {
+                    let unknownError = ScannerError(code: "start_monitoring_failed", message: "Unexpected error: \(error.localizedDescription)")
+                    self.logger.error("Unexpected error during startMonitoring: \(error.localizedDescription)")
+                    return .failure(unknownError)
+                }
+            }
+            return .success(())
+        } else {
+            self.logger.error("Camera permissions denied or restricted.")
+            let error = ScannerError.permissionDenied
+            if self.currentStatus != .error(.permissionDenied) {
+                self.currentStatus = .error(error)
+            }
+            return .failure(error)
         }
     }
     
