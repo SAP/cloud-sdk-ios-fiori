@@ -2387,3 +2387,13 @@ protocol _OnboardingScanViewComponent {
     // sourcery: no_view
     var didTapContinue: (() -> Void)? { get }
 }
+
+// sourcery: CompositeComponent
+// sourcery: importFrameworks = ["FioriThemeManager"]
+protocol _WritingAssistantFormComponent: _CancelActionComponent, _DoneActionComponent, _CloseActionComponent, _BackActionComponent, _UndoActionComponent, _RedoActionComponent, _UpVoteActionComponent, _DownVoteActionComponent, _FootnoteComponent {
+    // sourcery: @Binding
+    // sourcery: no_view
+    var text: String { get }
+    
+    var menus: [[WAMenu]] { get }
+}

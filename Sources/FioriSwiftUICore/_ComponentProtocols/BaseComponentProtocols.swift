@@ -749,7 +749,7 @@ protocol _UpVoteActionComponent {
     // sourcery: resultBuilder.defaultValue = "{ FioriButton { _ in FioriIcon.actions.thumbUp } }"
     var upVoteAction: FioriButton? { get }
 }
- 
+
 // sourcery: BaseComponent
 // sourcery: importFrameworks = ["FioriThemeManager"]
 protocol _DownVoteActionComponent {
@@ -763,4 +763,49 @@ protocol _DownVoteActionComponent {
 protocol _SubmitActionComponent {
     // sourcery: @ViewBuilder
     var submitAction: FioriButton? { get }
+}
+
+// sourcery: BaseComponent
+// sourcery: importFrameworks = ["FioriThemeManager"]
+protocol _UndoActionComponent {
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "FioriButton._undoButton"
+    // sourcery: resultBuilder.defaultValue = "{ FioriButton._undoButton }"
+    var undoAction: FioriButton? { get }
+}
+
+// sourcery: BaseComponent
+// sourcery: importFrameworks = ["FioriThemeManager"]
+protocol _RedoActionComponent {
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "FioriButton._redoButton"
+    // sourcery: resultBuilder.defaultValue = "{ FioriButton._redoButton }"
+    var redoAction: FioriButton? { get }
+}
+
+// sourcery: BaseComponent
+// sourcery: importFrameworks = ["FioriThemeManager"]
+protocol _DoneActionComponent {
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "FioriButton { _ in Text("Done".localizedFioriString()) }"
+    // sourcery: resultBuilder.defaultValue = "{ FioriButton { _ in Text("Done".localizedFioriString()) } }"
+    var doneAction: FioriButton? { get }
+}
+
+// sourcery: BaseComponent
+// sourcery: importFrameworks = ["FioriThemeManager"]
+protocol _WritingAssistantActionComponent {
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "FioriButton._writingAssistantButton"
+    // sourcery: resultBuilder.defaultValue = "{ FioriButton._writingAssistantButton }"
+    var writingAssistantAction: FioriButton? { get }
+}
+
+// sourcery: BaseComponent
+// sourcery: importFrameworks = ["FioriThemeManager"]
+protocol _BackActionComponent {
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "FioriButton._backButton"
+    // sourcery: resultBuilder.defaultValue = "{ FioriButton._backButton }"
+    var backAction: FioriButton? { get }
 }
