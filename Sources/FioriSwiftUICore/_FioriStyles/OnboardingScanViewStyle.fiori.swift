@@ -38,21 +38,8 @@ public struct OnboardingScanViewBaseStyle: OnboardingScanViewStyle {
                     VStack(spacing: 0) {
                         Spacer()
                         
-                        FioriButton { _ in
-                            if self.isPhotoLibraryAvailable {
-                                withAnimation {
-                                    self.isQuickPickerPresented.toggle()
-                                }
-                            } else {
-                                self.isAlertPhotoLibraryNotAvailablePresented.toggle()
-                            }
-                        } label: { _ in
-                            Image(systemName: self.isQuickPickerPresented ? "chevron.down" : "chevron.up")
-                                .font(.title)
-                        }
-                        .accessibilityLabel(self.isQuickPickerPresented ? "down arrow" : "up arrow")
-                        .fioriButtonStyle(OnboardingGrayButtonStyle())
-                        .frame(width: 44.0, height: UIDevice.current.userInterfaceIdiom == .phone ? 36.0 : 52.0)
+                        self.chevronView()
+                        
                         #if !os(visionOS)
                             if self.isQuickPickerPresented {
                                 OnboardingPhotoPickerView { image in
@@ -60,24 +47,7 @@ public struct OnboardingScanViewBaseStyle: OnboardingScanViewStyle {
                                 }
                             }
                         
-                            FioriButton { _ in
-                                if !self.isPhotoLibraryLimited {
-                                    if self.isPhotoLibraryAvailable {
-                                        withAnimation {
-                                            self.isPhotoPickerPresented.toggle()
-                                        }
-                                    } else {
-                                        self.isAlertPhotoLibraryNotAvailablePresented.toggle()
-                                    }
-                                }
-                            } label: { _ in
-                                Image(systemName: "photo")
-                                    .font(.title)
-                                    .foregroundStyle(Color.preferredColor(.secondaryLabel))
-                            }
-                            .fioriButtonStyle(OnboardingGrayButtonStyle())
-                            .photosPicker(isPresented: self.$isPhotoPickerPresented, selection: self.$helper.photoPickerSelection, matching: .images, preferredItemEncoding: .automatic)
-                            .frame(width: 44.0, height: UIDevice.current.userInterfaceIdiom == .phone ? 47.0 : 63.0)
+                            self.photoLibraryButton()
                         #endif
                     }
                     .frame(maxWidth: .infinity)
@@ -277,6 +247,45 @@ public struct OnboardingScanViewBaseStyle: OnboardingScanViewStyle {
                 }
             }
         #endif
+    }
+    
+    func chevronView() -> some View {
+        FioriButton { _ in
+            if self.isPhotoLibraryAvailable {
+                withAnimation {
+                    self.isQuickPickerPresented.toggle()
+                }
+            } else {
+                self.isAlertPhotoLibraryNotAvailablePresented.toggle()
+            }
+        } label: { _ in
+            Image(systemName: self.isQuickPickerPresented ? "chevron.down" : "chevron.up")
+                .font(.title)
+        }
+        .accessibilityLabel(self.isQuickPickerPresented ? "down arrow" : "up arrow")
+        .fioriButtonStyle(OnboardingGrayButtonStyle())
+        .frame(width: 44.0, height: UIDevice.current.userInterfaceIdiom == .phone ? 36.0 : 52.0)
+    }
+    
+    func photoLibraryButton() -> some View {
+        FioriButton { _ in
+            if !self.isPhotoLibraryLimited {
+                if self.isPhotoLibraryAvailable {
+                    withAnimation {
+                        self.isPhotoPickerPresented.toggle()
+                    }
+                } else {
+                    self.isAlertPhotoLibraryNotAvailablePresented.toggle()
+                }
+            }
+        } label: { _ in
+            Image(systemName: "photo")
+                .font(.title)
+                .foregroundStyle(Color.preferredColor(.secondaryLabel))
+        }
+        .fioriButtonStyle(OnboardingGrayButtonStyle())
+        .photosPicker(isPresented: self.$isPhotoPickerPresented, selection: self.$helper.photoPickerSelection, matching: .images, preferredItemEncoding: .automatic)
+        .frame(width: 44.0, height: UIDevice.current.userInterfaceIdiom == .phone ? 47.0 : 63.0)
     }
 }
 

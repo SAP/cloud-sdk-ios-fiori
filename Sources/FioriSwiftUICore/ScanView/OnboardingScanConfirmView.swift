@@ -2,6 +2,7 @@ import SwiftUI
 
 /// strings configuration in OnboardingScanConfirmView
 public class OnboardingScanConfirmViewContext {
+    /// :nodoc:
     public init() {}
     
     /**
@@ -169,9 +170,11 @@ public struct OnboardingScanConfirmView: View {
     
     func setContinueButtonWidth(stringWidth: CGFloat) {
         var cbWidth = self.sizeCategory >= .accessibilityExtraLarge ? (stringWidth + 32.0) : (self.isPhone ? 201 : 343)
-        if self.context.continueButtonWidth != nil {
-            cbWidth = max(self.context.continueButtonWidth!, stringWidth)
+        guard let continueButtonWidth = self.context.continueButtonWidth else {
+            self.continueButtonWidth = cbWidth
+            return
         }
+        cbWidth = max(continueButtonWidth, stringWidth)
         self.continueButtonWidth = cbWidth
     }
 }

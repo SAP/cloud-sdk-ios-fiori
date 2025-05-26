@@ -4,6 +4,7 @@ import SwiftUI
 
 /// strings configuration in OnboardingScanView
 public class OnboardingScanViewContext {
+    /// :nodoc:
     public init() {}
     
     /**
