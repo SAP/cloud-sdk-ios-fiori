@@ -988,6 +988,34 @@ public extension CardMediaStyle {
     }
 }
 
+// MARK: CheckmarkStyle
+
+extension ModifiedStyle: CheckmarkStyle where Style: CheckmarkStyle {
+    public func makeBody(_ configuration: CheckmarkConfiguration) -> some View {
+        Checkmark(configuration)
+            .checkmarkStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct CheckmarkStyleModifier<Style: CheckmarkStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.checkmarkStyle(self.style)
+    }
+}
+
+public extension CheckmarkStyle {
+    func modifier(_ modifier: some ViewModifier) -> some CheckmarkStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some CheckmarkStyle) -> some CheckmarkStyle {
+        style.modifier(CheckmarkStyleModifier(style: self))
+    }
+}
+
 // MARK: CheckoutIndicatorStyle
 
 extension ModifiedStyle: CheckoutIndicatorStyle where Style: CheckoutIndicatorStyle {
@@ -2077,6 +2105,34 @@ public extension IncrementActionStyle {
 
     func concat(_ style: some IncrementActionStyle) -> some IncrementActionStyle {
         style.modifier(IncrementActionStyleModifier(style: self))
+    }
+}
+
+// MARK: InfoViewStyle
+
+extension ModifiedStyle: InfoViewStyle where Style: InfoViewStyle {
+    public func makeBody(_ configuration: InfoViewConfiguration) -> some View {
+        InfoView(configuration)
+            .infoViewStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct InfoViewStyleModifier<Style: InfoViewStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.infoViewStyle(self.style)
+    }
+}
+
+public extension InfoViewStyle {
+    func modifier(_ modifier: some ViewModifier) -> some InfoViewStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some InfoViewStyle) -> some InfoViewStyle {
+        style.modifier(InfoViewStyleModifier(style: self))
     }
 }
 
@@ -3172,6 +3228,34 @@ public extension OptionsStyle {
     }
 }
 
+// MARK: OrderPickerStyle
+
+extension ModifiedStyle: OrderPickerStyle where Style: OrderPickerStyle {
+    public func makeBody(_ configuration: OrderPickerConfiguration) -> some View {
+        OrderPicker(configuration)
+            .orderPickerStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct OrderPickerStyleModifier<Style: OrderPickerStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.orderPickerStyle(self.style)
+    }
+}
+
+public extension OrderPickerStyle {
+    func modifier(_ modifier: some ViewModifier) -> some OrderPickerStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some OrderPickerStyle) -> some OrderPickerStyle {
+        style.modifier(OrderPickerStyleModifier(style: self))
+    }
+}
+
 // MARK: OuterCircleStyle
 
 extension ModifiedStyle: OuterCircleStyle where Style: OuterCircleStyle {
@@ -4093,6 +4177,34 @@ public extension SingleStepStyle {
 
     func concat(_ style: some SingleStepStyle) -> some SingleStepStyle {
         style.modifier(SingleStepStyleModifier(style: self))
+    }
+}
+
+// MARK: SortCriterionStyle
+
+extension ModifiedStyle: SortCriterionStyle where Style: SortCriterionStyle {
+    public func makeBody(_ configuration: SortCriterionConfiguration) -> some View {
+        SortCriterion(configuration)
+            .sortCriterionStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct SortCriterionStyleModifier<Style: SortCriterionStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.sortCriterionStyle(self.style)
+    }
+}
+
+public extension SortCriterionStyle {
+    func modifier(_ modifier: some ViewModifier) -> some SortCriterionStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some SortCriterionStyle) -> some SortCriterionStyle {
+        style.modifier(SortCriterionStyleModifier(style: self))
     }
 }
 

@@ -598,6 +598,23 @@ public extension View {
     }
 }
 
+// MARK: CheckmarkStyle
+
+public extension View {
+    func checkmarkStyle(_ style: some CheckmarkStyle) -> some View {
+        self.transformEnvironment(\.checkmarkStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func checkmarkStyle(@ViewBuilder content: @escaping (CheckmarkConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.checkmarkStyleStack) { stack in
+            let style = AnyCheckmarkStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: CheckoutIndicatorStyle
 
 public extension View {
@@ -1256,6 +1273,23 @@ public extension View {
     func incrementActionStyle(@ViewBuilder content: @escaping (IncrementActionConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.incrementActionStyleStack) { stack in
             let style = AnyIncrementActionStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: InfoViewStyle
+
+public extension View {
+    func infoViewStyle(_ style: some InfoViewStyle) -> some View {
+        self.transformEnvironment(\.infoViewStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func infoViewStyle(@ViewBuilder content: @escaping (InfoViewConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.infoViewStyleStack) { stack in
+            let style = AnyInfoViewStyle(content)
             stack.append(style)
         }
     }
@@ -1924,6 +1958,23 @@ public extension View {
     }
 }
 
+// MARK: OrderPickerStyle
+
+public extension View {
+    func orderPickerStyle(_ style: some OrderPickerStyle) -> some View {
+        self.transformEnvironment(\.orderPickerStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func orderPickerStyle(@ViewBuilder content: @escaping (OrderPickerConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.orderPickerStyleStack) { stack in
+            let style = AnyOrderPickerStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: OuterCircleStyle
 
 public extension View {
@@ -2480,6 +2531,23 @@ public extension View {
     func singleStepStyle(@ViewBuilder content: @escaping (SingleStepConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.singleStepStyleStack) { stack in
             let style = AnySingleStepStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: SortCriterionStyle
+
+public extension View {
+    func sortCriterionStyle(_ style: some SortCriterionStyle) -> some View {
+        self.transformEnvironment(\.sortCriterionStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func sortCriterionStyle(@ViewBuilder content: @escaping (SortCriterionConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.sortCriterionStyleStack) { stack in
+            let style = AnySortCriterionStyle(content)
             stack.append(style)
         }
     }

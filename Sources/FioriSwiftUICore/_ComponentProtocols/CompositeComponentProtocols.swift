@@ -466,6 +466,15 @@ protocol _RatingControlFormViewComponent: _TitleComponent, _RatingControlCompone
     var axis: Axis { get }
 }
 
+/// Sets the separator for profile header components
+/// Example usage:
+/// ```swift
+/// ProfileHeader(...)
+///     .headerSeparator(true) // Show separator with default style
+///     .headerSeparator(true, color: .red) // Show red separator
+///     .headerSeparator(true, color: .blue, lineWidth: 1.0) // Show thick blue separator
+///     .headerSeparator(false) // Hide separator
+/// ```
 // sourcery: CompositeComponent
 protocol _ProfileHeaderComponent: _DetailImageComponent, _TitleComponent, _SubtitleComponent, _DescriptionComponent {
     // sourcery: defaultValue = "false"
@@ -540,6 +549,15 @@ protocol _TimelinePreviewItemComponent: _TitleComponent, _IconComponent, _Timeli
 ///  Create TimelinePreview with the array
 /// TimelinePreview(optionalTitle: { Text("Timeline") }, data: .constant(items.map { $0 as any TimelinePreviewItemModel }))
 /// ```
+/// Sets the separator for timeline preview components
+/// Example usage:
+/// ```swift
+/// TimelinePreview(...)
+///     .headerSeparator(true) // Show separator with default style
+///     .headerSeparator(true, color: .red) // Show red separator
+///     .headerSeparator(true, color: .blue, lineWidth: 1.0) // Show thick blue separator
+///     .headerSeparator(false) // Hide separator
+/// ```
 // sourcery: CompositeComponent
 protocol _TimelinePreviewComponent: _OptionalTitleComponent, _ActionComponent {
     // sourcery: @Binding
@@ -589,6 +607,10 @@ protocol _DateTimePickerComponent: _TitleComponent, _ValueLabelComponent, _Manda
     
     /// The text to be displayed when no date is selected. If this property is `nil`, the localized string “No date selected” will be used.
     var noDateSelectedString: String? { get }
+    
+    // sourcery: @Binding
+    /// This property indicates whether the picker is to be displayed.
+    var pickerVisible: Bool { get set }
 }
 
 // sourcery: CompositeComponent
@@ -679,7 +701,12 @@ protocol _ToastMessageComponent: _IconComponent, _TitleComponent {
 }
 
 // sourcery: CompositeComponent
-protocol _BannerMultiMessageSheet: _TitleComponent, _CloseActionComponent {
+// sourcery: importFrameworks = ["FioriThemeManager"]
+protocol _BannerMultiMessageSheet: _TitleComponent {
+    @ViewBuilder
+    // sourcery: defaultValue = "{ FioriIcon.status.error }"
+    // sourcery: resultBuilder.defaultValue = "{ FioriIcon.status.error }"
+    var closeAction: (() -> any View)? { get }
     /// callback when this component want to dismiss itself
     var dismissAction: (() -> Void)? { get }
     /// callback when category or single item is removed
@@ -739,6 +766,11 @@ protocol _FilterFormViewComponent: _TitleComponent, _MandatoryField, _OptionsCom
     var isSingleLine: Bool { get }
     /// Implementation of value change callback.  Is invoked on changes to the `value` property.
     var onValueChange: (([Int]) -> Void)? { get }
+    
+    @ViewBuilder
+    // sourcery: defaultValue = "{ Image(systemName: "checkmark") }"
+    ///  This image view is to be displayed on selected item.
+    var checkmarkImage: (() -> any View)? { get }
 }
 
 /// This is just a mandatoryFieldIndicator flag protocol. With this protocol, the extension init api will append two more parameters: `isRequired` with false default value and `mandatoryFieldIndicator` with .text("*") default value. If `isRequired` is true, the `mandatoryFieldIndicator` will follow the last character of the title and be a part of title View.
@@ -785,6 +817,10 @@ protocol _ValuePickerComponent: _TitleComponent, _ValueLabelComponent, _Mandator
     // sourcery: defaultValue = .normal
     /// The `ControlState` of the  view. Currently, `.disabled`, `.normal` and `.readOnly` are supported. The default is `normal`.
     var controlState: ControlState { get }
+    
+    // sourcery: @Binding
+    /// This property indicates whether the picker is to be displayed.
+    var pickerVisible: Bool { get set }
 }
 
 /// `ProgressIndicator` provides a circular progress indicator with custom styles for processing, pausable, and stoppable indicators.
@@ -1192,6 +1228,16 @@ protocol _SingleStepComponent: _TitleComponent, _NodeComponent, _LineComponent {
 /// ```
 /// You can also update step style for different states, if you created `StepProgressIndicator` by `[StepItem]`.
 /// `func stepStyle(_ style: @escaping ((_ id: String) -> (some StepStyle)?)) -> some View`
+///
+/// Sets the separator for step progress indicator components
+/// Example usage:
+/// ```swift
+/// StepProgressIndicator(...)
+///     .headerSeparator(true) // Show separator with default style
+///     .headerSeparator(true, color: .red) // Show red separator
+///     .headerSeparator(true, color: .blue, lineWidth: 1.0) // Show thick blue separator
+///     .headerSeparator(false) // Hide separator
+/// ```
 // sourcery: CompositeComponent
 protocol _StepProgressIndicatorComponent: _TitleComponent, _ActionComponent, _CancelActionComponent {
     // sourcery: @Binding
@@ -1395,6 +1441,15 @@ protocol _SectionFooterComponent: _TitleComponent, _AttributeComponent {
 ///     Text("detail content")
 /// }
 /// ```
+/// Sets the separator for object header components
+/// Example usage:
+/// ```swift
+/// ObjectHeader(...)
+///     .headerSeparator(true) // Show separator with default style
+///     .headerSeparator(true, color: .red) // Show red separator
+///     .headerSeparator(true, color: .blue, lineWidth: 1.0) // Show thick blue separator
+///     .headerSeparator(false) // Hide separator
+/// ```
 // sourcery: CompositeComponent
 protocol _ObjectHeaderComponent: _TitleComponent, _SubtitleComponent, _TagsComponent, _BodyTextComponent, _FootnoteComponent, _DescriptionTextComponent, _StatusComponent, _SubstatusComponent, _DetailImageComponent, _DetailContentComponent {}
 
@@ -1414,6 +1469,15 @@ protocol _ObjectHeaderComponent: _TitleComponent, _SubtitleComponent, _TagsCompo
 /// } chart: {
 ///     Text("Chart View")
 /// }
+/// ```
+/// Sets the separator for chart header components
+/// Example usage:
+/// ```swift
+/// HeaderChart(...)
+///     .headerSeparator(true) // Show separator with default style
+///     .headerSeparator(true, color: .red) // Show red separator
+///     .headerSeparator(true, color: .blue, lineWidth: 1.0) // Show thick blue separator
+///     .headerSeparator(false) // Hide separator
 /// ```
 // sourcery: CompositeComponent
 protocol _HeaderChartComponent: _TitleComponent, _SubtitleComponent, _TrendComponent, _TrendImageComponent, _KpiComponent {
@@ -1922,6 +1986,8 @@ protocol _DurationPickerComponent: _TitleComponent, _ValueLabelComponent, _Manda
     // sourcery: default.value=MeasurementFormatter()
     // sourcery: no_view
     var measurementFormatter: MeasurementFormatter { get set }
+    // sourcery: @Binding
+    var pickerVisible: Bool { get set }
 }
 
 /// `KPIHeader` is used to display KPIItem and KPIProgressItem.
@@ -1935,6 +2001,15 @@ protocol _DurationPickerComponent: _TitleComponent, _ValueLabelComponent, _Manda
 ///     KPIItem(kpiCaption: "Big caption and long text", items: [KPISubItemModelImpl(kPISubItemValue: .text("321"), kPISubItemType: .metric)], proposedViewSize: .large, alignment: .center),
 ///     KPIProgressItem(kpiCaption: "Completed", data: .constant(KPIItemData.percent(1.0)), chartSize: .small)]
 /// KPIHeader(items: data, isItemOrderForced: false)
+/// ```
+/// Sets the separator for kpi header components
+/// Example usage:
+/// ```swift
+/// KPIHeader(...)
+///     .headerSeparator(true) // Show separator with default style
+///     .headerSeparator(true, color: .red) // Show red separator
+///     .headerSeparator(true, color: .blue, lineWidth: 1.0) // Show thick blue separator
+///     .headerSeparator(false) // Hide separator
 /// ```
 // sourcery: CompositeComponent
 protocol _KPIHeaderComponent {
@@ -1951,6 +2026,9 @@ protocol _KPIHeaderComponent {
     
     // sourcery: no_view
     var interItemSpacing: CGFloat? { get }
+    
+    // sourcery: @Binding
+    var isPresented: Bool { get }
 }
 
 /// `Authentication` is used to display a login screen with customizable detail image, title, subtitle, input fields and sign-in action.
@@ -2005,6 +2083,77 @@ protocol _AuthenticationComponent: _DetailImageComponent, _TitleComponent, _Subt
     var didSignIn: (() -> Void)? { get }
 }
 
+/// `InfoView` is a multifunctional view for displaying Information or Splash screen.
+/// The UI elements can be displayed or hidden depending on functionality.
+/// The text properties must be set before displaying the view.
+///
+/// ## Initialization Parameters
+/// - Required:
+///   - title: The primary heading text (AttributedString or ViewBuilder)
+/// - Optional:
+///   - descriptionText: Supplemental information text
+///   - action: Primary action control
+///   - secondaryAction: Secondary action control
+///   - loadingIndicator: Loading state visualization
+///
+/// ## Usage
+/// ## AttributedString Shortcut (Quick Setup)
+/// ```
+/// InfoView(
+///     title: AttributedString("Title"),
+///     descriptionText: AttributedString("Description Text"),
+///     action: FioriButton(title: "Update Now") {
+///         startUpdate()
+///     },
+///     secondaryAction: FioriButton(title: "Remind Later") {
+///         scheduleReminder()
+///     }
+/// )
+/// ```
+///
+/// ## ViewBuilder Approach (Fully Customizable)
+/// ```
+/// // Custom loading indicator with red circular style
+/// let loadingIndicator = LoadingIndicator(
+///     title: { Text("") },
+///     progress: {
+///         ProgressView()
+///             .progressViewStyle(CircularProgressViewStyle(tint: .red))
+///     },
+///     isPresented: .constant(true)
+/// )
+///
+/// InfoView(
+///     title: {
+///         HStack(spacing: 8) {
+///             Image(systemName: "exclamationmark.triangle.fill")
+///                 .foregroundColor(.yellow)
+///             Text("Title")
+///                 .font(.headline)
+///         }
+///     },
+///     descriptionText: {
+///         Text(AttributedString(self.model.descriptionText ?? "")) // Dynamic title from model
+///             .foregroundColor(.blue)  // Custom text color
+///     },
+///     action: {
+///         Toggle("Trust Device", isOn: $trustDevice)
+///             .toggleStyle(.switch)
+///     },
+///     secondaryAction: {
+///         Button("Start Tutorial") {
+///             print("InfoView secondary button clicked")
+///         }
+///     },
+///     loadingIndicator: { loadingIndicator }
+/// )
+/// ```
+// sourcery: CompositeComponent
+protocol _InfoViewComponent: _TitleComponent, _DescriptionTextComponent, _ActionComponent, _SecondaryActionComponent {
+    // sourcery: @ViewBuilder
+    var loadingIndicator: LoadingIndicator? { get set }
+}
+
 /// The Activation Screen is displayed after the Welcome Screen with title, description text, email input text field, action button and secondary action.
 // sourcery: CompositeComponent
 protocol _ActivationScreenComponent: _TitleComponent, _DescriptionTextComponent, _FootnoteComponent, _ActionComponent, _SecondaryActionComponent {
@@ -2020,4 +2169,62 @@ protocol _ActivationScreenComponent: _TitleComponent, _DescriptionTextComponent,
     /// When `showsIllustratedMessage` is set to `true`, the `illustratedMessage` will be shown, and the `title` and `description` will be hidden. Conversely, when `showsIllustratedMessage` is set to `false`, the `title` and `description` will be displayed, and the `illustratedMessage` will be hidden.
     /// The default setting for `showsIllustratedMessage` is `false`.
     var showsIllustratedMessage: Bool { get }
+}
+
+// sourcery: CompositeComponent
+protocol _SortCriterionComponent: _CheckmarkComponent, _TitleComponent, _SubtitleComponent, _AccessoryIconComponent {
+    // sourcery: @Binding
+    /// The data of the Order Picker Item
+    var data: OrderPickerItemModel { get }
+}
+
+/// The `OrderPicker` view presents a list of items. Each item is a `SortCriterion` view. The `OrderPicker` is used in the advanced sort pattern when there are multiple sort criteria involved. The component allows users to adjust priority of sort criteria and switch order direction flexibly.
+///
+/// ## Usage
+///
+///  ### Initialization:
+///
+///  Construct the data, an array of `OrderPickerItemModel`, for the list that will be displayed in OrderPicker.
+///
+///  ```swift
+///      @State var items: [OrderPickerItemModel] = [
+///         OrderPickerItemModel(criterion: "Priority", isSelected: false, isAscending: true, ascendingText: "Lowest first", descendingText: "Highest first"),
+///         OrderPickerItemModel(criterion: "Status", isSelected: true, isAscending: false, ascendingText: "Ascending", descendingText: "Descending"),
+///         OrderPickerItemModel(criterion: "Due Date", isSelected: true, isAscending: false, ascendingText: "Earliest first", descendingText: "Latest first"),
+///         OrderPickerItemModel(criterion: "Really long criterion text that requires wrapping", isSelected: true, isAscending: false, ascendingText: "Really long sort direction text up", descendingText: "Really long sort direction down")
+///      ]
+///  ```
+///  Initialize a `OrderPicker` with an optional title, data and a change handler function
+///
+/// ```swift
+///
+///  OrderPicker(
+///      data: self.$items,
+///      onChangeHandler: { change, newModel in
+///          print(change)
+///          print("The value:")
+///          if newModel.count > 0 {
+///              for item in newModel {
+///                  print(item)
+///              }
+///          }
+///      }
+///  )
+
+// sourcery: CompositeComponent
+protocol _OrderPickerComponent: _OptionalTitleComponent {
+    // sourcery: @Binding
+    /// The data for the list that will be displayed in order picker
+    var data: [OrderPickerItemModel] { get }
+    
+    /// Whether At least one sort criterion should be selected
+    // sourcery: defaultValue = true
+    var isAtLeastOneSelected: Bool { get }
+    
+    /// Optional handler, be performed when the selected value changes.
+    var onChangeHandler: ((OrderPickerItemModel.Change, [OrderPickerItemModel]) -> Void)? { get }
+    
+    // sourcery: defaultValue = .normal
+    /// The `ControlState` of the  view. Currently, `.disabled`, `.normal` and `.readOnly` are supported. The default is `normal`.
+    var controlState: ControlState { get }
 }

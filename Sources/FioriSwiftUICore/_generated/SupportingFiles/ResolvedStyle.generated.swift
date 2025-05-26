@@ -563,6 +563,22 @@ extension CardMediaStyle {
     }
 }
 
+// MARK: CheckmarkStyle
+
+struct ResolvedCheckmarkStyle<Style: CheckmarkStyle>: View {
+    let style: Style
+    let configuration: CheckmarkConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension CheckmarkStyle {
+    func resolve(configuration: CheckmarkConfiguration) -> some View {
+        ResolvedCheckmarkStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: CheckoutIndicatorStyle
 
 struct ResolvedCheckoutIndicatorStyle<Style: CheckoutIndicatorStyle>: View {
@@ -1184,6 +1200,22 @@ struct ResolvedIncrementActionStyle<Style: IncrementActionStyle>: View {
 extension IncrementActionStyle {
     func resolve(configuration: IncrementActionConfiguration) -> some View {
         ResolvedIncrementActionStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: InfoViewStyle
+
+struct ResolvedInfoViewStyle<Style: InfoViewStyle>: View {
+    let style: Style
+    let configuration: InfoViewConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension InfoViewStyle {
+    func resolve(configuration: InfoViewConfiguration) -> some View {
+        ResolvedInfoViewStyle(style: self, configuration: configuration)
     }
 }
 
@@ -1811,6 +1843,22 @@ extension OptionsStyle {
     }
 }
 
+// MARK: OrderPickerStyle
+
+struct ResolvedOrderPickerStyle<Style: OrderPickerStyle>: View {
+    let style: Style
+    let configuration: OrderPickerConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension OrderPickerStyle {
+    func resolve(configuration: OrderPickerConfiguration) -> some View {
+        ResolvedOrderPickerStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: OuterCircleStyle
 
 struct ResolvedOuterCircleStyle<Style: OuterCircleStyle>: View {
@@ -2336,6 +2384,22 @@ struct ResolvedSingleStepStyle<Style: SingleStepStyle>: View {
 extension SingleStepStyle {
     func resolve(configuration: SingleStepConfiguration) -> some View {
         ResolvedSingleStepStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: SortCriterionStyle
+
+struct ResolvedSortCriterionStyle<Style: SortCriterionStyle>: View {
+    let style: Style
+    let configuration: SortCriterionConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension SortCriterionStyle {
+    func resolve(configuration: SortCriterionConfiguration) -> some View {
+        ResolvedSortCriterionStyle(style: self, configuration: configuration)
     }
 }
 

@@ -50,6 +50,7 @@ import SwiftUI
 // Base Layout style
 public struct ProfileHeaderBaseStyle: ProfileHeaderStyle {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    @Environment(\.headerSeparator) private var separatorConfiguration
     
     @StateObject var viewModel = ProfileHeaderViewModel()
     @State var subtitleSize: CGSize = .zero
@@ -84,8 +85,22 @@ public struct ProfileHeaderBaseStyle: ProfileHeaderStyle {
             switch self.horizontalSizeClass {
             case .regular:
                 self.regularView(configuration)
+                    .ifApply(self.separatorConfiguration.showSeparator) { content in
+                        VStack(spacing: 16) {
+                            content
+                            self.separatorConfiguration.color
+                                .frame(height: self.separatorConfiguration.lineWidth)
+                        }
+                    }
             case .compact, .none, .some:
                 self.compactView(configuration)
+                    .ifApply(self.separatorConfiguration.showSeparator) { content in
+                        VStack(spacing: 16) {
+                            content
+                            self.separatorConfiguration.color
+                                .frame(height: self.separatorConfiguration.lineWidth)
+                        }
+                    }
             }
         }.modifier(FioriIntrospectModifier<UIScrollView>(introspection: { scrollView in
             DispatchQueue.main.async {
@@ -215,21 +230,6 @@ extension ProfileHeaderFioriStyle {
         
         func makeBody(_ configuration: DescriptionConfiguration) -> some View {
             Description(configuration)
-        }
-    }
-}
-
-/// Style for profile header
-/// Provides a standard hairline for header
-public struct ProfileHeaderSeparatorStyle: ProfileHeaderStyle {
-    public init() {}
-    public func makeBody(_ configuration: ProfileHeaderConfiguration) -> some View {
-        VStack {
-            ProfileHeader(configuration)
-                .padding(.bottom)
-            Color
-                .preferredColor(.separator)
-                .frame(height: 0.33)
         }
     }
 }
