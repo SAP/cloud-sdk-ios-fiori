@@ -1,5 +1,5 @@
 import Foundation
-import SwiftUICore
+import SwiftUI
 
 struct CurrencyFieldKey: EnvironmentKey {
     static let defaultValue = CurrencyFieldConfiguration(isCurrencyField: false, formatter: NumberFormatter.currencyDefault)
