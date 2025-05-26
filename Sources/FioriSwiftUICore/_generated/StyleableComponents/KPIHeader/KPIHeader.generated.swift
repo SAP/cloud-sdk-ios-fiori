@@ -15,6 +15,15 @@ import SwiftUI
 ///     KPIProgressItem(kpiCaption: "Completed", data: .constant(KPIItemData.percent(1.0)), chartSize: .small)]
 /// KPIHeader(items: data, isItemOrderForced: false)
 /// ```
+/// Sets the separator for kpi header components
+/// Example usage:
+/// ```swift
+/// KPIHeader(...)
+///     .headerSeparator(true) // Show separator with default style
+///     .headerSeparator(true, color: .red) // Show red separator
+///     .headerSeparator(true, color: .blue, lineWidth: 1.0) // Show thick blue separator
+///     .headerSeparator(false) // Hide separator
+/// ```
 public struct KPIHeader {
     let items: any View
     let bannerMessage: any View

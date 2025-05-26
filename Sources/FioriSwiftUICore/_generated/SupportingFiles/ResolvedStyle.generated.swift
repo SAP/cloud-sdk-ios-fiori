@@ -1811,6 +1811,22 @@ extension OnStarImageStyle {
     }
 }
 
+// MARK: OnboardingScanViewStyle
+
+struct ResolvedOnboardingScanViewStyle<Style: OnboardingScanViewStyle>: View {
+    let style: Style
+    let configuration: OnboardingScanViewConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension OnboardingScanViewStyle {
+    func resolve(configuration: OnboardingScanViewConfiguration) -> some View {
+        ResolvedOnboardingScanViewStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: OptionalTitleStyle
 
 struct ResolvedOptionalTitleStyle<Style: OptionalTitleStyle>: View {
