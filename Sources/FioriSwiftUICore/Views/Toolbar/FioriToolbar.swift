@@ -281,7 +281,7 @@ class FioriToolbarHandler: ObservableObject {
                                 if let dynamicTypeSize {
                                     if dynamicTypeSize > .large {
                                         itemWidth = item.value.width * 1.2
-                                        padding = padding * 1.2
+                                        padding *= 1.2
                                     } else {
                                         itemWidth = item.value.width
                                     }
