@@ -1,7 +1,5 @@
-import Combine
 @testable import FioriSwiftUICore
 import SwiftUI
-import Testing
 import XCTest
 
 final class ToolbarTests: XCTestCase {
