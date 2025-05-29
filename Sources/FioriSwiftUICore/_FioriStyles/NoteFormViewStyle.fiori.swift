@@ -61,7 +61,6 @@ extension NoteFormViewFioriStyle {
                             RoundedRectangle(cornerRadius: 8)
                                 .stroke(self.getBorderColor(configuration), lineWidth: self.getBorderWidth(configuration))
                         )
-                        .cornerRadius(8)
                         .setOnChange(of: configuration.text, action1: { s in
                             self.checkCharCount(configuration, textString: s)
                         }) { _, s in
