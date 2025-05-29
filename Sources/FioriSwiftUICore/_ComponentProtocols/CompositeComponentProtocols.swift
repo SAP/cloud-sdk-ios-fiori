@@ -2289,11 +2289,11 @@ protocol _OnboardingScanViewComponent {
     var usesCameraOnly: Bool { get }
     
     /// The view to be displayed on top of the scan view when a QR code is validated.
-    /// If user not provide this view, a default OnboardingScanConfirmView will be provided as a default view.
+    /// If the application does not provide this view, a default OnboardingScanConfirmView will be provided as a default view.
     // sourcery: @ViewBuilder
     var scanConfirmationView: OnboardingScanConfirmView? { get }
     
-    /// The action to be performed when the continue button is tapped in default OnboardingScanConfirmView.
+    /// The action to be performed when the continue button is tapped in the default OnboardingScanConfirmView.
     // sourcery: default.value = nil
     // sourcery: no_view
     var didTapContinue: (() -> Void)? { get }
