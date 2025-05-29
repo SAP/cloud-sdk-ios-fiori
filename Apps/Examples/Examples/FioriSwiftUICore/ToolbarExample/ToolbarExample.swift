@@ -24,9 +24,14 @@ struct ToolbarExample: View {
             .onTapGesture {
                 self.isPresented.toggle()
             }
-            .sheet(isPresented: self.$isPresented) {
+            .fullScreenCover(isPresented: self.$isPresented) {
                 NavigationStack {
                     ToolbarView(numberOfButtons: self.$numberOfButtons, useFioriToolbar: self.$useFioriToolbar, helperText: self.$helperText, customHelperText: self.$customHelperText, moreActionOverflowIcon: self.$customOverflowIcon, primaryButtonText: self.$primaryButton, secondaryButtonText: self.$secondaryButton, thirdButtonText: self.$thirdButton, buttonType: self.$buttonType)
+                        .toolbar {
+                            ToolbarItem(placement: .navigationBarTrailing) {
+                                Button("Close") { self.isPresented = false }
+                            }
+                        }
                 }
             }
             
@@ -60,18 +65,21 @@ struct ToolbarExample: View {
             
             Picker("Primary Button", selection: self.$primaryButton) {
                 Text("None").tag("")
+                Text("Short Primary Button").tag("Start")
                 Text("Long Primary Button").tag("Long Long Primary Button Title")
                 Text("Extra Long Primary Button").tag("Extra Long Long Long Long Long Long Long Long Long Long Long Long Primary Button Title")
             }
             
             Picker("Secondary Button", selection: self.$secondaryButton) {
                 Text("None").tag("")
+                Text("Short Secondary Button").tag("Save")
                 Text("Long Secondary Button").tag("Long Secondary Button Title")
                 Text("Extra Long Secondary Button").tag("Extra Long Long Long Long Long Long Long LongLong Long Secondary Button Title")
             }
             
             Picker("3rd Button", selection: self.$thirdButton) {
                 Text("None").tag("")
+                Text("Short 3rd Button").tag("3rd")
                 Text("Long 3rd Button").tag("Long Long Long Button Title")
                 Text("Extra Long 3rd Button").tag("Extra Long Long Long Long Long Long Long LongLong Long Long Button Title")
             }
