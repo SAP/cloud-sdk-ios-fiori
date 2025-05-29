@@ -16,7 +16,7 @@ struct FioriToolbar<Items: IndexedViewContainer>: ViewModifier {
     init(@ViewBuilder helperText: () -> any View = { EmptyView() },
          moreActionOverflow: () -> any View = { EmptyView() },
          @IndexedViewBuilder items: () -> Items,
-         defaultDisplayItemsCount: Int = 2)
+         numOfDisplayItems: Int = 2)
     {
         self.helperText = HelperText { helperText().typeErased }
         self.moreActionOverflow = MoreActionOverflow {
@@ -27,28 +27,28 @@ struct FioriToolbar<Items: IndexedViewContainer>: ViewModifier {
             }
         }
         self.items = items()
-        self.sizeHandler.defaultFixedItems = defaultDisplayItemsCount
+        self.sizeHandler.numOfDisplayItems = numOfDisplayItems
     }
     
     init(helperText: String,
          @ViewBuilder moreActionOverflow: () -> any View = { EmptyView() },
          @IndexedViewBuilder items: () -> Items,
-         defaultDisplayItemsCount: Int = 2)
+         numOfDisplayItems: Int = 2)
     {
         self.init(helperText: { HelperText { helperText.isEmpty ? nil : Text(helperText) } },
                   moreActionOverflow: moreActionOverflow,
                   items: items,
-                  defaultDisplayItemsCount: defaultDisplayItemsCount)
+                  numOfDisplayItems: numOfDisplayItems)
     }
     
     init(@ViewBuilder moreActionOverflow: () -> any View = { EmptyView() },
          @IndexedViewBuilder items: () -> Items,
-         defaultDisplayItemsCount: Int = 2)
+         numOfDisplayItems: Int = 2)
     {
         self.init(helperText: { EmptyView() },
                   moreActionOverflow: moreActionOverflow,
                   items: items,
-                  defaultDisplayItemsCount: defaultDisplayItemsCount)
+                  numOfDisplayItems: numOfDisplayItems)
     }
     
     func body(content: Content) -> some View {
@@ -65,8 +65,8 @@ struct FioriToolbar<Items: IndexedViewContainer>: ViewModifier {
                             if itemIndex >= 0 {
                                 self.items.view(at: itemIndex)
                                     .frame(width: itemWidth)
-                                    .onChange(of: self.dynamicTypeSize) { old, new in
-                                        self.sizeHandler.calculateItemsSize(self.dynamicTypeSize, enlarge: new > old)
+                                    .onChange(of: self.dynamicTypeSize) { _, _ in
+                                        self.sizeHandler.calculateItemsSize(self.dynamicTypeSize)
                                     }
                             } else {
                                 if itemIndex == -1 {
@@ -86,7 +86,7 @@ struct FioriToolbar<Items: IndexedViewContainer>: ViewModifier {
                             }
                         }
                     }
-                    .frame(minWidth: 0, maxWidth: self.sizeHandler.currentWidth)
+                    .frame(minWidth: 0, maxWidth: self.sizeHandler.itemsCurrentWidth)
                 } else {
                     LazyHStack(spacing: self.sizeHandler.defaultFixedPadding) {
                         self.helperTextView()
@@ -197,15 +197,15 @@ class FioriToolbarHandler: ObservableObject {
     var useFixedPadding: Bool = true
     var rtlMargin: CGFloat = 40
     let defaultFixedPadding: CGFloat = 8
-    // Default item count: -1 = dynamic (content-based), >0 = fixed (limits item count)
-    @Published var defaultFixedItems: Int = -1
+    // Display item count: -1 = dynamic (content-based), >0 = fixed (limits item count)
+    @Published var numOfDisplayItems: Int = -1
     private let minHelperTextWidth: CGFloat = 64
     // [index: width] when index is -1, helper text, -2 is overflow action
     var itemsWidth: [(Int, CGFloat?)] = []
-    var currentWidth: CGFloat = UIScreen.main.bounds.width
+    var itemsCurrentWidth: CGFloat = UIScreen.main.bounds.width
     
     // swiftlint:disable:next cyclomatic_complexity function_body_length
-    func calculateItemsSize(_ dynamicTypeSize: DynamicTypeSize? = nil, enlarge: Bool = false) {
+    func calculateItemsSize(_ dynamicTypeSize: DynamicTypeSize? = nil) {
         guard self.totalItemsCount == self.itemsSize.count, self.containerSize.width > 0 else { return }
         self.moreActionsIndex.removeAll()
         self.itemsWidth.removeAll()
@@ -248,50 +248,48 @@ class FioriToolbarHandler: ObservableObject {
             
             var hasMoreItems = allWidth > availableItemWidth
 
-            if self.defaultFixedItems > 0 {
-                let itmesPadding = CGFloat(defaultFixedItems - 1) * self.defaultFixedPadding
-                availableItemWidth -= itmesPadding
-                hasMoreItems = self.itemsSize.count > self.defaultFixedItems
+            if self.numOfDisplayItems > 0 {
+                let itemsPadding = CGFloat(numOfDisplayItems - 1) * self.defaultFixedPadding
+                availableItemWidth -= itemsPadding
+                currentWidth += itemsPadding
+                hasMoreItems = self.itemsSize.count > self.numOfDisplayItems
             }
             
             if hasMoreItems {
                 var fixedItemWidth = 0.0
 
                 self.itemsWidth.append((-2, self.moreActionWidth))
-                availableItemWidth -= self.moreActionWidth - self.defaultFixedPadding
-                currentWidth += (self.moreActionWidth + self.defaultFixedPadding)
+                if self.moreActionWidth > 0 {
+                    availableItemWidth -= self.moreActionWidth + self.defaultFixedPadding
+                }
+                currentWidth += self.moreActionWidth
+                currentWidth += self.moreActionWidth > 0 ? self.defaultFixedPadding : 0
                 
-                if self.defaultFixedItems > 0 {
-                    fixedItemWidth = availableItemWidth / CGFloat(self.defaultFixedItems)
+                if self.numOfDisplayItems > 0 {
+                    fixedItemWidth = availableItemWidth / CGFloat(self.numOfDisplayItems)
                 }
 
                 var noItemForAvailableWidth = true
                 for (index, item) in self.itemsSize.sorted(by: { $0.key < $1.key }).enumerated() {
-                    if self.defaultFixedItems > 0 {
-                        if (index + 1) > self.defaultFixedItems {
+                    if self.numOfDisplayItems > 0 {
+                        noItemForAvailableWidth = false
+                        if (index + 1) > self.numOfDisplayItems {
                             self.moreActionsIndex.append(item.key)
                         } else {
                             if UIDevice.current.userInterfaceIdiom != .pad {
                                 self.itemsWidth.append((item.key, fixedItemWidth))
                                 currentWidth += fixedItemWidth
-                                noItemForAvailableWidth = false
                             } else {
                                 var itemWidth = 0.0
-                                var padding = self.defaultFixedPadding
                                 if let dynamicTypeSize {
-                                    if dynamicTypeSize > .large {
-                                        itemWidth = item.value.width * 1.2
-                                        padding *= 1.2
-                                    } else {
-                                        itemWidth = item.value.width
-                                    }
+                                    itemWidth = dynamicTypeSize > .large ? item.value.width * 1.2 : item.value.width
                                 } else {
                                     itemWidth = item.value.width
                                 }
-                                currentWidth += itemWidth
+                                let maxItemWidth = availableItemWidth / CGFloat(self.numOfDisplayItems)
+                                itemWidth = min(itemWidth, maxItemWidth)
                                 self.itemsWidth.append((item.key, itemWidth))
-                                currentWidth += padding
-                                noItemForAvailableWidth = currentWidth > availableItemWidth
+                                currentWidth += itemWidth
                             }
                         }
                     } else {
@@ -315,13 +313,25 @@ class FioriToolbarHandler: ObservableObject {
                 } else {
                     textWidth = self.containerSize.width - self.rtlMargin - currentWidth + self.defaultFixedPadding
                 }
-                self.currentWidth = currentWidth
+                self.itemsCurrentWidth = currentWidth
             } else {
-                if self.defaultFixedItems > 0, UIDevice.current.userInterfaceIdiom != .pad {
-                    let fixedItemWidth = availableItemWidth / min(CGFloat(self.itemsSize.count), CGFloat(self.defaultFixedItems))
+                if self.numOfDisplayItems > 0, UIDevice.current.userInterfaceIdiom != .pad {
+                    let fixedItemWidth = availableItemWidth / min(CGFloat(self.itemsSize.count), CGFloat(self.numOfDisplayItems))
                     self.itemsWidth = self.itemsSize.sorted(by: { $0.key < $1.key }).map { ($0.key, fixedItemWidth) }
                 } else {
-                    self.itemsWidth = self.itemsSize.sorted(by: { $0.key < $1.key }).map { ($0.key, $0.value.width) }
+                    self.itemsWidth = self.itemsSize.sorted(by: { $0.key < $1.key }).map { item in
+                        var itemWidth: CGFloat
+                        if let dynamicTypeSize {
+                            itemWidth = dynamicTypeSize > .large ? item.value.width * 1.2 : item.value.width
+                        } else {
+                            itemWidth = item.value.width
+                        }
+                        let maxItemWidth = availableItemWidth / CGFloat(self.numOfDisplayItems)
+                        itemWidth = min(itemWidth, maxItemWidth)
+                        currentWidth += itemWidth
+                        return (item.key, itemWidth)
+                    }
+                    self.itemsCurrentWidth = currentWidth
                 }
                 textWidth = self.containerSize.width - self.rtlMargin - allWidth - (self.helperTextWidth > 0 ? self.defaultFixedPadding : 0)
                 self.useFixedPadding = false

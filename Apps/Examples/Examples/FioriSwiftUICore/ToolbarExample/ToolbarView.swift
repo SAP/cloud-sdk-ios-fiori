@@ -84,14 +84,14 @@ struct ToolbarView: View {
                 case 1:
                     Color.preferredColor(.grey7)
                         .fioriToolbar(helperText: self.helperText,
-                                      defaultDisplayItemsCount: self.displayItemsCount)
+                                      numOfDisplayItems: self.displayItemsCount)
                     {
                         self.createButton(at: 0)
                     }
                 case 2:
                     Color.preferredColor(.grey7)
                         .fioriToolbar(helperText: self.helperText,
-                                      defaultDisplayItemsCount: self.displayItemsCount)
+                                      numOfDisplayItems: self.displayItemsCount)
                     {
                         self.createButton(at: 0)
                         self.createButton(at: 1)
@@ -99,7 +99,7 @@ struct ToolbarView: View {
                 case 3:
                     Color.preferredColor(.grey7)
                         .fioriToolbar(helperText: self.helperText,
-                                      defaultDisplayItemsCount: self.displayItemsCount)
+                                      numOfDisplayItems: self.displayItemsCount)
                     {
                         self.createButton(at: 0)
                         self.createButton(at: 1)
@@ -108,7 +108,7 @@ struct ToolbarView: View {
                 case 4:
                     Color.preferredColor(.grey7)
                         .fioriToolbar(helperText: self.helperText,
-                                      defaultDisplayItemsCount: self.displayItemsCount)
+                                      numOfDisplayItems: self.displayItemsCount)
                     {
                         self.createButton(at: 0)
                         self.createButton(at: 1)
@@ -118,7 +118,7 @@ struct ToolbarView: View {
                 case 5:
                     Color.preferredColor(.grey7)
                         .fioriToolbar(helperText: self.helperText,
-                                      defaultDisplayItemsCount: self.displayItemsCount)
+                                      numOfDisplayItems: self.displayItemsCount)
                     {
                         self.createButton(at: 0)
                         self.createButton(at: 1)
@@ -130,7 +130,7 @@ struct ToolbarView: View {
                     Color.preferredColor(.grey7)
                         .fioriToolbar(
                             helperText: self.helperText,
-                            defaultDisplayItemsCount: self.displayItemsCount
+                            numOfDisplayItems: self.displayItemsCount
                         ) {
                             self.createButton(at: 0)
                             self.createButton(at: 1)
@@ -142,7 +142,7 @@ struct ToolbarView: View {
                 case 7:
                     Color.preferredColor(.grey7)
                         .fioriToolbar(helperText: self.helperText,
-                                      defaultDisplayItemsCount: self.displayItemsCount)
+                                      numOfDisplayItems: self.displayItemsCount)
                     {
                         self.createButton(at: 0)
                         self.createButton(at: 1)
@@ -155,7 +155,7 @@ struct ToolbarView: View {
                 case 8:
                     Color.preferredColor(.grey7)
                         .fioriToolbar(helperText: self.helperText,
-                                      defaultDisplayItemsCount: self.displayItemsCount)
+                                      numOfDisplayItems: self.displayItemsCount)
                     {
                         self.createButton(at: 0)
                         self.createButton(at: 1)
