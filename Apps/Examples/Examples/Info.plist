@@ -28,6 +28,8 @@
 	<string>Our application needs permission to access microphone for video and speech recording.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>Our application needs permission to write photos...</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Our application needs permission to access photo library</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>SAP-icons.ttf</string>

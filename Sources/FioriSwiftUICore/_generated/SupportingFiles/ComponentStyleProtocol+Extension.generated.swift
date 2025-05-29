@@ -5806,6 +5806,20 @@ public extension OnStarImageStyle where Self == OnStarImageFioriStyle {
     }
 }
 
+// MARK: OnboardingScanViewStyle
+
+public extension OnboardingScanViewStyle where Self == OnboardingScanViewBaseStyle {
+    static var base: OnboardingScanViewBaseStyle {
+        OnboardingScanViewBaseStyle()
+    }
+}
+
+public extension OnboardingScanViewStyle where Self == OnboardingScanViewFioriStyle {
+    static var fiori: OnboardingScanViewFioriStyle {
+        OnboardingScanViewFioriStyle()
+    }
+}
+
 // MARK: OptionalTitleStyle
 
 public extension OptionalTitleStyle where Self == OptionalTitleBaseStyle {

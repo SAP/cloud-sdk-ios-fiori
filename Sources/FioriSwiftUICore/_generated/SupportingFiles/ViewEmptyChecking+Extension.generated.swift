@@ -828,6 +828,12 @@ extension OnStarImage: _ViewEmptyChecking {
     }
 }
 
+extension OnboardingScanView: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        scanConfirmationView.isEmpty
+    }
+}
+
 extension OptionalTitle: _ViewEmptyChecking {
     public var isEmpty: Bool {
         optionalTitle.isEmpty
