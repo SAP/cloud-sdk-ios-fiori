@@ -28,6 +28,15 @@ import SwiftUI
 ///     Text("detail content")
 /// }
 /// ```
+/// Sets the separator for object header components
+/// Example usage:
+/// ```swift
+/// ObjectHeader(...)
+///     .headerSeparator(true) // Show separator with default style
+///     .headerSeparator(true, color: .red) // Show red separator
+///     .headerSeparator(true, color: .blue, lineWidth: 1.0) // Show thick blue separator
+///     .headerSeparator(false) // Hide separator
+/// ```
 public struct ObjectHeader {
     let title: any View
     let subtitle: any View
