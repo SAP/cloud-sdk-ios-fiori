@@ -20,6 +20,15 @@ import SwiftUI
 ///     Text("Chart View")
 /// }
 /// ```
+/// Sets the separator for chart header components
+/// Example usage:
+/// ```swift
+/// HeaderChart(...)
+///     .headerSeparator(true) // Show separator with default style
+///     .headerSeparator(true, color: .red) // Show red separator
+///     .headerSeparator(true, color: .blue, lineWidth: 1.0) // Show thick blue separator
+///     .headerSeparator(false) // Hide separator
+/// ```
 public struct HeaderChart {
     let title: any View
     let subtitle: any View
