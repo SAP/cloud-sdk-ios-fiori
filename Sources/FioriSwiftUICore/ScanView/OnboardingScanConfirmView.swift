@@ -43,7 +43,9 @@ public struct OnboardingScanConfirmView: View {
     @State var continueButtonTopPadding: CGFloat = 92.0
     @State var continueButtonWidth: CGFloat = 201.0
     @Environment(\.sizeCategory) private var sizeCategory
-
+    @State var availableWidth = 0.0
+    @State var availableHeight = 0.0
+    
     var didTapContinue: (() -> Void)?
     
     /// Create `OnboardingScanConfirmView`
@@ -60,112 +62,90 @@ public struct OnboardingScanConfirmView: View {
     }
     
     public var body: some View {
-        GeometryReader { proxy in
-            let availableHeight = proxy.size.height + proxy.safeAreaInsets.top + proxy.safeAreaInsets.bottom
-            let availableWidth = proxy.size.width + proxy.safeAreaInsets.leading + proxy.safeAreaInsets.trailing
-            VStack {
-                Text(self.context.titleString)
-                    .foregroundStyle(Color.preferredColor(.secondaryGroupedBackground, background: .lightConstant))
-                    .font(.fiori(forTextStyle: .title1, weight: .black))
-                    .multilineTextAlignment(.center)
-                    .lineLimit(2)
-                    .frame(width: getTitleWidth(width: availableWidth, height: availableHeight))
-                    .padding(.top, self.titleTopPadding)
+        VStack {
+            Text(self.context.titleString)
+                .foregroundStyle(Color.preferredColor(.secondaryGroupedBackground, background: .lightConstant))
+                .font(.fiori(forTextStyle: .title1, weight: .black))
+                .multilineTextAlignment(.center)
+                .lineLimit(2)
+                .frame(width: getTitleWidth(width: self.availableWidth, height: self.availableHeight))
+                .padding(.top, self.titleTopPadding)
 
-                Image(systemName: "checkmark.circle.fill")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .background(Color.preferredColor(.secondaryGroupedBackground, background: .lightConstant))
-                    .foregroundStyle(.green)
-                    .frame(width: self.isPhone ? 54 : 64, height: self.isPhone ? 54 : 64)
-                    .clipShape(Circle())
-                    .padding(.top, 32)
+            Image(systemName: "checkmark.circle.fill")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .background(Color.preferredColor(.secondaryGroupedBackground, background: .lightConstant))
+                .foregroundStyle(.green)
+                .frame(width: self.isPhone ? 54 : 64, height: self.isPhone ? 54 : 64)
+                .clipShape(Circle())
+                .padding(.top, 32)
                 
-                Text(self.context.messageString)
-                    .foregroundStyle(Color.preferredColor(.secondaryGroupedBackground, background: .lightConstant))
-                    .font(.fiori(forTextStyle: .body))
-                    .multilineTextAlignment(.center)
-                    .lineLimit(3)
-                    .frame(width: getSuccessMessageWidth(width: availableWidth, height: availableHeight))
-                    .padding(.top, 32)
+            Text(self.context.messageString)
+                .foregroundStyle(Color.preferredColor(.secondaryGroupedBackground, background: .lightConstant))
+                .font(.fiori(forTextStyle: .body))
+                .multilineTextAlignment(.center)
+                .lineLimit(3)
+                .frame(width: getSuccessMessageWidth(width: self.availableWidth, height: self.availableHeight))
+                .padding(.top, 32)
 
-                Text(self.hcpServer)
-                    .foregroundStyle(Color.preferredColor(.secondaryGroupedBackground, background: .lightConstant))
-                    .font(.fiori(forTextStyle: .body, weight: .semibold))
-                    .lineLimit(3)
-                    .frame(width: getHcpServerWidth(width: availableWidth, height: availableHeight))
-                    .padding(.top, 12)
+            Text(self.hcpServer)
+                .foregroundStyle(Color.preferredColor(.secondaryGroupedBackground, background: .lightConstant))
+                .font(.fiori(forTextStyle: .body, weight: .semibold))
+                .lineLimit(3)
+                .frame(width: getHcpServerWidth(width: self.availableWidth, height: self.availableHeight))
+                .padding(.top, 12)
                 
-                FioriButton { _ in
-                    self.didTapContinue?()
-                } label: { _ in
-                    Text(self.context.continueButtonTitleString)
+            FioriButton { _ in
+                self.didTapContinue?()
+            } label: { _ in
+                Text(self.context.continueButtonTitleString)
+            }
+            .fioriButtonStyle(FioriPrimaryButtonStyle(self.continueButtonWidth, minHeight: 40))
+            .padding(.top, self.continueButtonTopPadding)
+                
+            Spacer(minLength: 16)
+        }
+        .frame(maxWidth: .infinity)
+        .background(GeometryReader { geometry in
+            Color.clear
+                .onAppear {
+                    self.availableWidth = geometry.size.width
+                    self.availableHeight = geometry.size.height
                 }
-                .fioriButtonStyle(FioriPrimaryButtonStyle(self.continueButtonWidth, minHeight: 40))
-                .padding(.top, self.continueButtonTopPadding)
-                
-                Spacer(minLength: 16)
-            }
-            .frame(maxWidth: .infinity)
-            .padding(.top, isPadAndPortrait(width: availableWidth, height: availableHeight) ? proxy.safeAreaInsets.top + 20 : proxy.safeAreaInsets.top + 16)
-            .padding([.leading, .trailing, .bottom], 16)
-            .onAppear {
-                let titleLines = numberOfLines(string: context.titleString, with: UIFont.preferredFioriFont(forTextStyle: .title1, weight: .black), width: getTitleWidth(width: availableWidth, height: availableHeight))
-                let successMessageLines = numberOfLines(string: context.messageString, with: UIFont.preferredFioriFont(forTextStyle: .body, weight: .semibold), width: getHcpServerWidth(width: availableWidth, height: availableHeight))
+        })
+        .padding(.top, isPadAndPortrait(width: self.availableWidth, height: self.availableHeight) ? UIEdgeInsets.getSafeAreaInsets().top + 20 : UIEdgeInsets.getSafeAreaInsets().top + 16)
+        .padding([.leading, .trailing, .bottom], 16)
+        .onAppear {
+            let titleLines = numberOfLines(string: context.titleString, with: UIFont.preferredFioriFont(forTextStyle: .title1, weight: .black), width: getTitleWidth(width: self.availableWidth, height: self.availableHeight))
+            let successMessageLines = numberOfLines(string: context.messageString, with: UIFont.preferredFioriFont(forTextStyle: .body, weight: .semibold), width: getHcpServerWidth(width: self.availableWidth, height: self.availableHeight))
 
-                self.adjustLayout(width: availableWidth, height: availableHeight, titleLines: titleLines, successMessageLines: successMessageLines)
-                self.setContinueButtonWidth(stringWidth: self.context.continueButtonTitleString.boundingBoxSize(with: UIFont.preferredFioriFont(forTextStyle: .body, weight: .semibold)).width)
-            }
+            self.adjustLayout(width: self.availableWidth, height: self.availableHeight, titleLines: titleLines, successMessageLines: successMessageLines)
+            self.setContinueButtonWidth(stringWidth: self.context.continueButtonTitleString.boundingBoxSize(with: UIFont.preferredFioriFont(forTextStyle: .body, weight: .semibold)).width)
         }
         .background(Color.preferredColor(.primaryLabel).opacity(0.9))
     }
     
     func adjustLayout(width: CGFloat, height: CGFloat, titleLines: Int, successMessageLines: Int) {
-        if isIphoneSE(width: width, height: height) {
-            if titleLines == 2, successMessageLines == 2 {
-                self.titleTopPadding = 16
-                self.continueButtonTopPadding = 76
-            } else if titleLines == 2, successMessageLines == 3 {
-                self.titleTopPadding = 16
-                self.continueButtonTopPadding = 56
-            } else {
-                self.titleTopPadding = 34
-                self.continueButtonTopPadding = 92
-            }
-        } else if isIphoneExceptIphoneSE(width: width, height: height) {
-            if titleLines == 2, successMessageLines == 2 {
-                self.titleTopPadding = 38
-                self.continueButtonTopPadding = 76
-            } else if titleLines == 2, successMessageLines == 3 {
-                self.titleTopPadding = 38
-                self.continueButtonTopPadding = 56
-            } else {
-                self.titleTopPadding = 54
-                self.continueButtonTopPadding = 94
-            }
-        } else if isPadAndPortrait(width: width, height: height) {
-            if titleLines == 2, successMessageLines == 2 {
-                self.titleTopPadding = 194
-                self.continueButtonTopPadding = 76
-            } else if titleLines == 2, successMessageLines == 3 {
-                self.titleTopPadding = 194
-                self.continueButtonTopPadding = 56
-            } else {
-                self.titleTopPadding = 210
-                self.continueButtonTopPadding = 114
-            }
-        } else if !isPadAndPortrait(width: width, height: height) {
-            if titleLines == 2, successMessageLines == 2 {
-                self.titleTopPadding = 60
-                self.continueButtonTopPadding = 95
-            } else if titleLines == 2, successMessageLines == 3 {
-                self.titleTopPadding = 60
-                self.continueButtonTopPadding = 50
-            } else {
-                self.titleTopPadding = 80
-                self.continueButtonTopPadding = 100
-            }
+        let isIphoneSE = self.isIphoneSE(width: width, height: height)
+        let isIphone = self.isIphoneExceptIphoneSE(width: width, height: height)
+        let isPadPortrait = self.isPadAndPortrait(width: width, height: height)
+        let paddingValues: (titleTop: CGFloat, continueButtonTop: CGFloat)
+        switch (titleLines, successMessageLines) {
+        case (2, 2):
+            paddingValues = isIphoneSE ? (16, 76) :
+                isIphone ? (38, 76) :
+                isPadPortrait ? (194, 76) : (60, 95)
+        case (2, 3):
+            paddingValues = isIphoneSE ? (16, 56) :
+                isIphone ? (38, 56) :
+                isPadPortrait ? (194, 56) : (60, 50)
+        default:
+            paddingValues = isIphoneSE ? (34, 92) :
+                isIphone ? (54, 94) :
+                isPadPortrait ? (131, 114) : (80, 100)
         }
+        self.titleTopPadding = paddingValues.titleTop
+        self.continueButtonTopPadding = paddingValues.continueButtonTop
     }
     
     func setContinueButtonWidth(stringWidth: CGFloat) {
