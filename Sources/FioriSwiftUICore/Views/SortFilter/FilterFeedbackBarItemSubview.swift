@@ -226,6 +226,39 @@ struct SliderMenuItem: View {
     }
 }
 
+private extension Binding where Value == Set<UUID> {
+    func asSingleSelection() -> Binding<UUID?> {
+        Binding<UUID?>(
+            get: { self.wrappedValue.first },
+            set: { newValue in
+                self.wrappedValue = newValue.map { Set([$0]) } ?? []
+            }
+        )
+    }
+    
+    func asRequiredSingleSelection(defaultValue: UUID) -> Binding<UUID> {
+        Binding<UUID>(
+            get: { self.wrappedValue.first ?? defaultValue },
+            set: { newValue in
+                self.wrappedValue = Set([newValue])
+            }
+        )
+    }
+}
+
+private extension Binding {
+    func toOptionalBinding() -> Binding<Value?> {
+        Binding<Value?>(
+            get: { self.wrappedValue },
+            set: { newValue in
+                if let newValue {
+                    self.wrappedValue = newValue
+                }
+            }
+        )
+    }
+}
+
 struct PickerMenuItem: View {
     @Binding var item: SortFilterItem.PickerItem
     var onUpdate: () -> Void
@@ -543,61 +576,78 @@ struct PickerMenuItem: View {
                 return true
             }
         }
-        
-        return ListPickerDestination(self.item.uuidValueOptions,
-                                     id: \.id,
-                                     selections: Binding<Set<UUID>>(get: { self.item.workingValueSet }, set: { self.item.workingValueSet = $0 }),
-                                     allowEmpty: self.item.allowsEmptySelection,
-                                     isTrackingLiveChanges: true,
-                                     searchFilter: self.item.isSearchBarHidden == false ? filter : nil)
+
+        let defaultSingleSelection = self.item.workingValueSet.first ?? self.item.uuidValueOptions.first?.id ?? UUID()
+        var selectionBinding: Binding<UUID?> {
+            self.item.allowsEmptySelection ?
+                self.$item.workingValueSet.asSingleSelection() :
+                self.$item.workingValueSet.asRequiredSingleSelection(defaultValue: defaultSingleSelection).toOptionalBinding()
+        }
+
+        let listPickerDestination = self.item.allowsMultipleSelection ?
+            ListPickerDestination(self.item.uuidValueOptions,
+                                  id: \.id,
+                                  selections: self.$item.workingValueSet,
+                                  allowEmpty: self.item.allowsEmptySelection,
+                                  isTrackingLiveChanges: true,
+                                  searchFilter: self.item.isSearchBarHidden == false ? filter : nil)
+        { e in
+            Text(e.value)
+        } :
+            ListPickerDestination(self.item.uuidValueOptions,
+                                  id: \.id,
+                                  selection: selectionBinding,
+                                  isTrackingLiveChanges: true,
+                                  searchFilter: self.item.isSearchBarHidden == false ? filter : nil)
         { e in
             Text(e.value)
         }
-        .disableEntriesSection(self.item.disableListEntriesSection)
-        .listStyle(.plain)
-        .frame(minWidth: UIDevice.current.userInterfaceIdiom != .phone ? self.popoverWidth : nil)
-        .scrollContentBackground(.hidden)
-        .environment(\.defaultMinListRowHeight, 0)
-        .environment(\.defaultMinListHeaderHeight, 0)
-        .isFilterFeedbackBarListPickerStyle(true)
-        .onChange(of: self.item.workingValueSet) {
-            self.item.workingValue = self.item.workingValueSet.flatMap { selectedId in
-                self.item.uuidValueOptions.filter { $0.id == selectedId }.map(\.index)
-            }
-        }
-        .modifier(FioriIntrospectModifier<UIScrollView> { scrollView in
-            DispatchQueue.main.async {
-                let calculateHeight = max(calculateDetentHeight(scrollViewContentHeight: scrollView.contentSize.height), 88)
-                if self.detentHeight != calculateHeight {
-                    self.detentHeight = calculateHeight
+        return listPickerDestination
+            .disableEntriesSection(self.item.disableListEntriesSection)
+            .listStyle(.plain)
+            .frame(minWidth: UIDevice.current.userInterfaceIdiom != .phone ? self.popoverWidth : nil)
+            .scrollContentBackground(.hidden)
+            .environment(\.defaultMinListRowHeight, 0)
+            .environment(\.defaultMinListHeaderHeight, 0)
+            .isFilterFeedbackBarListPickerStyle(true)
+            .onChange(of: self.item.workingValueSet) {
+                self.item.workingValue = self.item.workingValueSet.flatMap { selectedId in
+                    self.item.uuidValueOptions.filter { $0.id == selectedId }.map(\.index)
                 }
             }
-        })
-        .selectedEntriesSectionTitleStyle { _ in
-            if self.item.allowsDisplaySelectionCount {
-                Text(NSLocalizedString("Selected", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "") + " " + "(\(self.item.workingValue.count))")
+            .modifier(FioriIntrospectModifier<UIScrollView> { scrollView in
+                DispatchQueue.main.async {
+                    let calculateHeight = max(calculateDetentHeight(scrollViewContentHeight: scrollView.contentSize.height), 88)
+                    if self.detentHeight != calculateHeight {
+                        self.detentHeight = calculateHeight
+                    }
+                }
+            })
+            .selectedEntriesSectionTitleStyle { _ in
+                if self.item.allowsDisplaySelectionCount {
+                    Text(NSLocalizedString("Selected", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "") + " " + "(\(self.item.workingValue.count))")
+                        .foregroundStyle(Color.preferredColor(.secondaryLabel))
+                        .font(.fiori(forTextStyle: .subheadline, weight: .regular))
+                } else {
+                    Text(NSLocalizedString("Selected", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""))
+                        .foregroundStyle(Color.preferredColor(.secondaryLabel))
+                        .font(.fiori(forTextStyle: .subheadline, weight: .regular))
+                }
+            }
+            .allEntriesSectionTitleStyle { _ in
+                Text(NSLocalizedString("All", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""))
                     .foregroundStyle(Color.preferredColor(.secondaryLabel))
                     .font(.fiori(forTextStyle: .subheadline, weight: .regular))
-            } else {
-                Text(NSLocalizedString("Selected", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""))
-                    .foregroundStyle(Color.preferredColor(.secondaryLabel))
-                    .font(.fiori(forTextStyle: .subheadline, weight: .regular))
             }
-        }
-        .allEntriesSectionTitleStyle { _ in
-            Text(NSLocalizedString("All", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""))
-                .foregroundStyle(Color.preferredColor(.secondaryLabel))
-                .font(.fiori(forTextStyle: .subheadline, weight: .regular))
-        }
-        .ifApply(!self.item.isSearchBarHidden, content: { v in
-            v.onReceive(NotificationCenter.default.publisher(for: UIApplication.keyboardDidShowNotification)) { notif in
-                let rect = (notif.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect) ?? .zero
-                self._keyboardHeight = rect.height
-            }
-            .onReceive(NotificationCenter.default.publisher(for: UIApplication.keyboardDidHideNotification)) { _ in
-                self._keyboardHeight = 0
-            }
-        })
+            .ifApply(!self.item.isSearchBarHidden, content: { v in
+                v.onReceive(NotificationCenter.default.publisher(for: UIApplication.keyboardDidShowNotification)) { notif in
+                    let rect = (notif.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect) ?? .zero
+                    self._keyboardHeight = rect.height
+                }
+                .onReceive(NotificationCenter.default.publisher(for: UIApplication.keyboardDidHideNotification)) { _ in
+                    self._keyboardHeight = 0
+                }
+            })
     }
 }
 

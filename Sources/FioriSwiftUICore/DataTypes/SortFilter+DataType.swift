@@ -633,6 +633,60 @@ public extension SortFilterItem {
         ///   - title: Title label of the options.
         ///   - value: Item selected value.
         ///   - valueOptions: Item options.
+        ///   - allowsEmptySelection: A boolean value to indicate to allow empty selections or not.
+        ///   - barItemDisplayMode: Name display mode for the bar.
+        ///   - isSearchBarHidden: A boolean value to indicate to search bar hidden or not.
+        ///   - icon: Icon at the leading side of the item.
+        ///   - itemLayout: Options layout type when `displayMode` is  `.filterFormCell`.
+        ///   - displayMode: Options display mode.
+        ///   - listEntriesSectionMode: List entries section mode when `displayMode` is  `.list`.
+        ///   - allowsDisplaySelectionCount: A boolean value to indicate to allow display selection count or not.
+        ///   - resetButtonConfiguration: A configuration to customize the reset button.
+        public init(id: String = UUID().uuidString, name: String, title: String? = nil, value: Int, valueOptions: [String], allowsEmptySelection: Bool, barItemDisplayMode: BarItemDisplayMode = .name, isSearchBarHidden: Bool = false, icon: String? = nil, itemLayout: OptionListPickerItemLayoutType = .fixed, displayMode: DisplayMode = .automatic, listEntriesSectionMode: ListEntriesSectionMode = .default, allowsDisplaySelectionCount: Bool = true, resetButtonConfiguration: FilterFeedbackBarResetButtonConfiguration = FilterFeedbackBarResetButtonConfiguration()) {
+            self.id = id
+            self.name = name
+            self.title = title
+            self.value = [value]
+            self.workingValue = [value]
+            self.originalValue = [value]
+            self.valueOptions = valueOptions
+            self.uuidValueOptions = valueOptions.enumerated().map { index, option in
+                ValueOptionModel(index: index, value: option)
+            }
+            
+            let workingValueSetArray: [UUID] = self.uuidValueOptions.filter { [value].contains($0.index) }.map(\.id)
+            self.workingValueSet = Set(workingValueSetArray)
+            
+            self.allowsMultipleSelection = false
+            self.allowsEmptySelection = allowsEmptySelection
+            self.isSearchBarHidden = isSearchBarHidden
+            self.barItemDisplayMode = barItemDisplayMode
+            self.icon = icon
+            self.itemLayout = itemLayout
+            self.displayMode = displayMode
+            
+            switch listEntriesSectionMode {
+            case .default:
+                self.disableListEntriesSection = true
+            case .disable:
+                self.disableListEntriesSection = true
+            case .enable:
+                self.disableListEntriesSection = false
+            }
+            
+            self.allowsDisplaySelectionCount = allowsDisplaySelectionCount
+            self.resetButtonConfiguration = resetButtonConfiguration
+        }
+        
+        /// Create PickerItem for filter feedback.
+        /// When `displayMode` is `.filterFormCell`, the styles of options can be customized by some styles of FilterFormView, such as:
+        /// filterFormOptionAttributes, filterFormOptionMinHeight, filterFormOptionMinTouchHeight, filterFormOptionCornerRadius, filterFormOptionPadding, filterFormOptionTitleSpacing, filterFormOptionsItemSpacing, filterFormOptionsLineSpacing.
+        /// - Parameters:
+        ///   - id: The unique identifier for PickerItem.
+        ///   - name: Item name.
+        ///   - title: Title label of the options.
+        ///   - value: Item selected value.
+        ///   - valueOptions: Item options.
         ///   - allowsMultipleSelection: A boolean value to indicate to allow multiple selections or not.
         ///   - allowsEmptySelection: A boolean value to indicate to allow empty selections or not.
         ///   - barItemDisplayMode: Name display mode for the bar.
