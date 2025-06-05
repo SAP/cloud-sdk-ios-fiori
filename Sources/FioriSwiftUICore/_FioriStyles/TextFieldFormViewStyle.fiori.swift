@@ -258,7 +258,7 @@ extension TextFieldFormViewFioriStyle {
                 
                 // Then convert to number and let NumberFormatter handle the decimal places
                 if let number = Double(cleanInput.replacingOccurrences(of: decimalSeparator, with: ".")) {
-                    let newFormattedText = self.currencyFieldConfiguration.formatter.string(from: NSNumber(value: number)) ?? cleanInput
+                    let newFormattedText = self.currencyFieldConfiguration.formatter.format(Decimal(number)) ?? cleanInput
                     
                     // Always update when losing focus to ensure formatting is applied
                     self.formattedText = newFormattedText

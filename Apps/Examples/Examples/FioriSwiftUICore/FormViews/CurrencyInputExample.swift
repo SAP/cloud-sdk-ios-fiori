@@ -11,6 +11,7 @@ struct CurrencyInputExampleView: View {
     @State private var cnyAmount: String = ""
     @State private var deEurAmount: String = ""
     @State private var inrAmount: String = ""
+    @State private var ilsAmount: String = ""
     @State private var isRequired: Bool = true
     @State private var isoCode: String = "USD"
     
@@ -66,7 +67,7 @@ struct CurrencyInputExampleView: View {
                             placeholder: "Enter amount",
                             isRequired: self.isRequired
                         )
-                        .currencyField(formatter: NumberFormatter(localeIdentifier: self.currencyToLocale[self.isoCode]!, maxFractionDigits: 2))
+                        .currencyField(formatter: .numberFormat(NumberFormatter(localeIdentifier: self.currencyToLocale[self.isoCode]!, maxFractionDigits: 2)))
                         .onChange(of: self.isoCode) {
                             self.usdAmount = ""
                         }
@@ -89,7 +90,7 @@ struct CurrencyInputExampleView: View {
                             placeholder: "Enter amount",
                             maxTextLength: 15
                         )
-                        .currencyField(formatter: NumberFormatter(localeIdentifier: "hu_HU", maxFractionDigits: 2))
+                        .currencyField(formatter: .numberFormat(NumberFormatter(localeIdentifier: "hu_HU", maxFractionDigits: 2)))
                         
                         Text("Support separators and decimal points for specific regions")
                             .font(.headline)
@@ -99,7 +100,7 @@ struct CurrencyInputExampleView: View {
                             text: self.$cnyAmount,
                             placeholder: "Enter amount"
                         )
-                        .currencyField(formatter: self.customizeFormatter1())
+                        .currencyField(formatter: .numberFormat(self.customizeFormatter1()))
                         
                         Text("Customize NumberFormatter")
                             .font(.headline)
@@ -109,7 +110,21 @@ struct CurrencyInputExampleView: View {
                             text: self.$inrAmount,
                             placeholder: "Enter amount"
                         )
-                        .currencyField(formatter: self.customizeFormatter())
+                        .currencyField(formatter: .numberFormat(self.customizeFormatter()))
+                        
+                        Text("FormatStyle")
+                            .font(.headline)
+                        // ILS input - ILS
+                        TextFieldFormView(
+                            title: "Price(ILS)",
+                            text: self.$ilsAmount,
+                            placeholder: "Enter amount"
+                        )
+                        .currencyField(formatter: .formatStyle(Decimal.FormatStyle.Currency(code: "ILS")
+                                .precision(.fractionLength(2))
+                                .decimalSeparator(strategy: .automatic)
+                                .grouping(.automatic)
+                                .presentation(.standard)))
                     }
                 }
             }
