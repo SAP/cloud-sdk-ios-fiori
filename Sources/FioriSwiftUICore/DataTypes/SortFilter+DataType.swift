@@ -643,39 +643,7 @@ public extension SortFilterItem {
         ///   - allowsDisplaySelectionCount: A boolean value to indicate to allow display selection count or not.
         ///   - resetButtonConfiguration: A configuration to customize the reset button.
         public init(id: String = UUID().uuidString, name: String, title: String? = nil, value: Int, valueOptions: [String], allowsEmptySelection: Bool, barItemDisplayMode: BarItemDisplayMode = .name, isSearchBarHidden: Bool = false, icon: String? = nil, itemLayout: OptionListPickerItemLayoutType = .fixed, displayMode: DisplayMode = .automatic, listEntriesSectionMode: ListEntriesSectionMode = .default, allowsDisplaySelectionCount: Bool = true, resetButtonConfiguration: FilterFeedbackBarResetButtonConfiguration = FilterFeedbackBarResetButtonConfiguration()) {
-            self.id = id
-            self.name = name
-            self.title = title
-            self.value = [value]
-            self.workingValue = [value]
-            self.originalValue = [value]
-            self.valueOptions = valueOptions
-            self.uuidValueOptions = valueOptions.enumerated().map { index, option in
-                ValueOptionModel(index: index, value: option)
-            }
-            
-            let workingValueSetArray: [UUID] = self.uuidValueOptions.filter { [value].contains($0.index) }.map(\.id)
-            self.workingValueSet = Set(workingValueSetArray)
-            
-            self.allowsMultipleSelection = false
-            self.allowsEmptySelection = allowsEmptySelection
-            self.isSearchBarHidden = isSearchBarHidden
-            self.barItemDisplayMode = barItemDisplayMode
-            self.icon = icon
-            self.itemLayout = itemLayout
-            self.displayMode = displayMode
-            
-            switch listEntriesSectionMode {
-            case .default:
-                self.disableListEntriesSection = true
-            case .disable:
-                self.disableListEntriesSection = true
-            case .enable:
-                self.disableListEntriesSection = false
-            }
-            
-            self.allowsDisplaySelectionCount = allowsDisplaySelectionCount
-            self.resetButtonConfiguration = resetButtonConfiguration
+            self.init(id: id, name: name, title: title, value: [value], valueOptions: valueOptions, allowsMultipleSelection: false, allowsEmptySelection: allowsEmptySelection, barItemDisplayMode: barItemDisplayMode, isSearchBarHidden: isSearchBarHidden, icon: icon, itemLayout: itemLayout, displayMode: displayMode, listEntriesSectionMode: listEntriesSectionMode, allowsDisplaySelectionCount: allowsDisplaySelectionCount, resetButtonConfiguration: resetButtonConfiguration)
         }
         
         /// Create PickerItem for filter feedback.
