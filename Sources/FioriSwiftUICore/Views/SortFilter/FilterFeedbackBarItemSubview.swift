@@ -583,25 +583,27 @@ struct PickerMenuItem: View {
                 self.$item.workingValueSet.asSingleSelection() :
                 self.$item.workingValueSet.asRequiredSingleSelection(defaultValue: defaultSingleSelection).toOptionalBinding()
         }
-
+        
         let listPickerDestination = self.item.allowsMultipleSelection ?
-            ListPickerDestination(self.item.uuidValueOptions,
-                                  id: \.id,
-                                  selections: self.$item.workingValueSet,
-                                  allowEmpty: self.item.allowsEmptySelection,
-                                  isTrackingLiveChanges: true,
-                                  searchFilter: self.item.isSearchBarHidden == false ? filter : nil)
-        { e in
-            Text(e.value)
-        } :
-            ListPickerDestination(self.item.uuidValueOptions,
-                                  id: \.id,
-                                  selection: selectionBinding,
-                                  isTrackingLiveChanges: true,
-                                  searchFilter: self.item.isSearchBarHidden == false ? filter : nil)
-        { e in
-            Text(e.value)
-        }
+            ListPickerDestination(
+                self.item.uuidValueOptions,
+                id: \.id,
+                selections: self.$item.workingValueSet,
+                allowEmpty: self.item.allowsEmptySelection,
+                isTrackingLiveChanges: true,
+                searchFilter: self.item.isSearchBarHidden == false ? filter : nil
+            ) { e in
+                Text(e.value)
+            } :
+            ListPickerDestination(
+                self.item.uuidValueOptions,
+                id: \.id,
+                selection: selectionBinding,
+                isTrackingLiveChanges: true,
+                searchFilter: self.item.isSearchBarHidden == false ? filter : nil
+            ) { e in
+                Text(e.value)
+            }
         return listPickerDestination
             .disableEntriesSection(self.item.disableListEntriesSection)
             .listStyle(.plain)
