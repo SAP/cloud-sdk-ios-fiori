@@ -33,6 +33,11 @@ struct FormViewExamples: View {
             } label: {
                 Text("FilterFormView Example")
             }
+            NavigationLink {
+                CurrencyInputExampleView()
+            } label: {
+                Text("CurrencyInput Example")
+            }
         }
     }
 }
