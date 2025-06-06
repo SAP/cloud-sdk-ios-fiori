@@ -227,7 +227,7 @@ struct SliderMenuItem: View {
 }
 
 private extension Binding where Value == Set<UUID> {
-    func asSingleSelection() -> Binding<UUID?> {
+    func asOptionalSelection() -> Binding<UUID?> {
         Binding<UUID?>(
             get: { self.wrappedValue.first },
             set: { newValue in
@@ -236,7 +236,7 @@ private extension Binding where Value == Set<UUID> {
         )
     }
     
-    func asRequiredSingleSelection(defaultValue: UUID) -> Binding<UUID> {
+    func asRequiredSelection(defaultValue: UUID) -> Binding<UUID> {
         Binding<UUID>(
             get: { self.wrappedValue.first ?? defaultValue },
             set: { newValue in
@@ -580,8 +580,8 @@ struct PickerMenuItem: View {
         let defaultSingleSelection = self.item.workingValueSet.first ?? self.item.uuidValueOptions.first?.id ?? UUID()
         var selectionBinding: Binding<UUID?> {
             self.item.allowsEmptySelection ?
-                self.$item.workingValueSet.asSingleSelection() :
-                self.$item.workingValueSet.asRequiredSingleSelection(defaultValue: defaultSingleSelection).toOptionalBinding()
+                self.$item.workingValueSet.asOptionalSelection() :
+                self.$item.workingValueSet.asRequiredSelection(defaultValue: defaultSingleSelection).toOptionalBinding()
         }
         
         let listPickerDestination = self.item.allowsMultipleSelection ?
