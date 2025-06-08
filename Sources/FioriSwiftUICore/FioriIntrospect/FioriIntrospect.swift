@@ -14,6 +14,7 @@
     import UIKit
 
     extension View {
+        @MainActor
         func introspect<PlatformSpecificEntity: PlatformEntity>(customize: @escaping (PlatformSpecificEntity) -> Void) -> some View {
             self.modifier(FioriIntrospectModifier(customize: customize))
         }
