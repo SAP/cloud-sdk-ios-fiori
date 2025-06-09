@@ -37,7 +37,7 @@ struct NavigationBarExample: View {
             NavigationLink {
                 NavigationBarSegmentedControl()
             } label: {
-                Text("Custom Nav Bar with custom buttons (expanded touch area and highlighted state)")
+                Text("Custom Nav Bar with large title support and segmented control")
             }
         }
         .navigationTitle("NavigationBar Test")
