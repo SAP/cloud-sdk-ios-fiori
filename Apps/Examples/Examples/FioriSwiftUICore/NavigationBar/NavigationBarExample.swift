@@ -33,6 +33,12 @@ struct NavigationBarExample: View {
             } label: {
                 Text("Custom Nav Bar with custom buttons (expanded touch area and highlighted state)")
             }
+            
+            NavigationLink {
+                NavigationBarSegmentedControl()
+            } label: {
+                Text("Custom Nav Bar with custom buttons (expanded touch area and highlighted state)")
+            }
         }
         .navigationTitle("NavigationBar Test")
     }
