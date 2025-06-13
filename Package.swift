@@ -25,6 +25,9 @@ let package = Package(
             targets: ["FioriThemeManager"]
         )
     ],
+    dependencies: [
+        .package(url: "https://github.com/siteline/swiftui-introspect.git", .upToNextMajor(from: "1.0.0"))
+    ],
     targets: [
         .target(
             name: "FioriSwiftUI",
@@ -39,7 +42,8 @@ let package = Package(
             name: "FioriSwiftUICore",
             dependencies: [
                 .target(name: "FioriThemeManager", condition: .when(platforms: [.iOS, .macCatalyst, .visionOS])),
-                .target(name: "FioriCharts", condition: .when(platforms: [.iOS, .macCatalyst, .visionOS]))
+                .target(name: "FioriCharts", condition: .when(platforms: [.iOS, .macCatalyst, .visionOS])),
+                .product(name: "SwiftUIIntrospect", package: "swiftui-introspect")
             ],
             resources: [.process("_localization")]
         ),

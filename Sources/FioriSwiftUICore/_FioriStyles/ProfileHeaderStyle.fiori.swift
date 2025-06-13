@@ -102,7 +102,7 @@ public struct ProfileHeaderBaseStyle: ProfileHeaderStyle {
                         }
                     }
             }
-        }.modifier(FioriIntrospectModifier<UIScrollView>(introspection: { scrollView in
+        }.modifier(FioriIntrospectModifier<UIScrollView>(scope: .ancestor) { scrollView in
             DispatchQueue.main.async {
                 self.viewModel.adjustedContentInsetTop = scrollView.adjustedContentInset.top
             }
@@ -115,7 +115,7 @@ public struct ProfileHeaderBaseStyle: ProfileHeaderStyle {
                         }
                     }
             }
-        }))
+        })
     }
     
     @ViewBuilder
