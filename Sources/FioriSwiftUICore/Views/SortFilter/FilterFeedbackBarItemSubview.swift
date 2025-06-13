@@ -421,7 +421,7 @@ struct PickerMenuItem: View {
         }
     }
     
-    @ViewBuilder
+    @ViewBuilder @MainActor
     var list: some View {
         if UIDevice.current.userInterfaceIdiom == .phone {
             self.phoneView()
@@ -430,7 +430,7 @@ struct PickerMenuItem: View {
         }
     }
     
-    private func phoneView() -> some View {
+    @MainActor private func phoneView() -> some View {
         FilterFeedbackBarItem(icon: icon(name: self.item.icon, isVisible: true), title: AttributedString(self.item.label), accessoryIcon: Image(systemName: "chevron.down"), isSelected: self.item.isChecked)
             .onTapGesture {
                 self.isSheetVisible.toggle()
@@ -472,7 +472,7 @@ struct PickerMenuItem: View {
             }
     }
     
-    private func padView() -> some View {
+    @MainActor private func padView() -> some View {
         FilterFeedbackBarItem(icon: icon(name: self.item.icon, isVisible: true), title: AttributedString(self.item.label), accessoryIcon: Image(systemName: "chevron.down"), isSelected: self.item.isChecked)
             .contentShape(Rectangle())
             .onTapGesture {
@@ -568,7 +568,7 @@ struct PickerMenuItem: View {
         return min(maxPopoverViewHeight, calaulatePopoverViewHeight)
     }
     
-    private func configListPickerDestination() -> some View {
+    @MainActor private func configListPickerDestination() -> some View {
         let filter: ((SortFilterItem.PickerItem.ValueOptionModel, String) -> Bool) = { f, s in
             if !s.isEmpty {
                 return f.value.localizedCaseInsensitiveContains(s)
