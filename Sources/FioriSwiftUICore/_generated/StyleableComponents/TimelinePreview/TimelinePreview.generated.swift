@@ -41,6 +41,15 @@ import SwiftUI
 ///  Create TimelinePreview with the array
 /// TimelinePreview(optionalTitle: { Text("Timeline") }, data: .constant(items.map { $0 as any TimelinePreviewItemModel }))
 /// ```
+/// Sets the separator for timeline preview components
+/// Example usage:
+/// ```swift
+/// TimelinePreview(...)
+///     .headerSeparator(true) // Show separator with default style
+///     .headerSeparator(true, color: .red) // Show red separator
+///     .headerSeparator(true, color: .blue, lineWidth: 1.0) // Show thick blue separator
+///     .headerSeparator(false) // Hide separator
+/// ```
 public struct TimelinePreview {
     let optionalTitle: any View
     let action: any View

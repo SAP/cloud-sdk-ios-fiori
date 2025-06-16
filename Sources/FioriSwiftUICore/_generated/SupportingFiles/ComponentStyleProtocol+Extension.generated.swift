@@ -38,6 +38,188 @@ public extension AINoticeStyle where Self == AINoticeIconStyle {
     }
 }
 
+// MARK: AIUserFeedbackStyle
+
+public extension AIUserFeedbackStyle where Self == AIUserFeedbackBaseStyle {
+    static var base: AIUserFeedbackBaseStyle {
+        AIUserFeedbackBaseStyle()
+    }
+}
+
+public extension AIUserFeedbackStyle where Self == AIUserFeedbackFioriStyle {
+    static var fiori: AIUserFeedbackFioriStyle {
+        AIUserFeedbackFioriStyle()
+    }
+}
+
+public struct AIUserFeedbackDetailImageStyle: AIUserFeedbackStyle {
+    let style: any DetailImageStyle
+
+    public func makeBody(_ configuration: AIUserFeedbackConfiguration) -> some View {
+        AIUserFeedback(configuration)
+            .detailImageStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension AIUserFeedbackStyle where Self == AIUserFeedbackDetailImageStyle {
+    static func detailImageStyle(_ style: some DetailImageStyle) -> AIUserFeedbackDetailImageStyle {
+        AIUserFeedbackDetailImageStyle(style: style)
+    }
+
+    static func detailImageStyle(@ViewBuilder content: @escaping (DetailImageConfiguration) -> some View) -> AIUserFeedbackDetailImageStyle {
+        let style = AnyDetailImageStyle(content)
+        return AIUserFeedbackDetailImageStyle(style: style)
+    }
+}
+
+public struct AIUserFeedbackTitleStyle: AIUserFeedbackStyle {
+    let style: any TitleStyle
+
+    public func makeBody(_ configuration: AIUserFeedbackConfiguration) -> some View {
+        AIUserFeedback(configuration)
+            .titleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension AIUserFeedbackStyle where Self == AIUserFeedbackTitleStyle {
+    static func titleStyle(_ style: some TitleStyle) -> AIUserFeedbackTitleStyle {
+        AIUserFeedbackTitleStyle(style: style)
+    }
+
+    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> AIUserFeedbackTitleStyle {
+        let style = AnyTitleStyle(content)
+        return AIUserFeedbackTitleStyle(style: style)
+    }
+}
+
+public struct AIUserFeedbackDescriptionStyle: AIUserFeedbackStyle {
+    let style: any DescriptionStyle
+
+    public func makeBody(_ configuration: AIUserFeedbackConfiguration) -> some View {
+        AIUserFeedback(configuration)
+            .descriptionStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension AIUserFeedbackStyle where Self == AIUserFeedbackDescriptionStyle {
+    static func descriptionStyle(_ style: some DescriptionStyle) -> AIUserFeedbackDescriptionStyle {
+        AIUserFeedbackDescriptionStyle(style: style)
+    }
+
+    static func descriptionStyle(@ViewBuilder content: @escaping (DescriptionConfiguration) -> some View) -> AIUserFeedbackDescriptionStyle {
+        let style = AnyDescriptionStyle(content)
+        return AIUserFeedbackDescriptionStyle(style: style)
+    }
+}
+
+public struct AIUserFeedbackActionStyle: AIUserFeedbackStyle {
+    let style: any ActionStyle
+
+    public func makeBody(_ configuration: AIUserFeedbackConfiguration) -> some View {
+        AIUserFeedback(configuration)
+            .actionStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension AIUserFeedbackStyle where Self == AIUserFeedbackActionStyle {
+    static func actionStyle(_ style: some ActionStyle) -> AIUserFeedbackActionStyle {
+        AIUserFeedbackActionStyle(style: style)
+    }
+
+    static func actionStyle(@ViewBuilder content: @escaping (ActionConfiguration) -> some View) -> AIUserFeedbackActionStyle {
+        let style = AnyActionStyle(content)
+        return AIUserFeedbackActionStyle(style: style)
+    }
+}
+
+public struct AIUserFeedbackSecondaryActionStyle: AIUserFeedbackStyle {
+    let style: any SecondaryActionStyle
+
+    public func makeBody(_ configuration: AIUserFeedbackConfiguration) -> some View {
+        AIUserFeedback(configuration)
+            .secondaryActionStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension AIUserFeedbackStyle where Self == AIUserFeedbackSecondaryActionStyle {
+    static func secondaryActionStyle(_ style: some SecondaryActionStyle) -> AIUserFeedbackSecondaryActionStyle {
+        AIUserFeedbackSecondaryActionStyle(style: style)
+    }
+
+    static func secondaryActionStyle(@ViewBuilder content: @escaping (SecondaryActionConfiguration) -> some View) -> AIUserFeedbackSecondaryActionStyle {
+        let style = AnySecondaryActionStyle(content)
+        return AIUserFeedbackSecondaryActionStyle(style: style)
+    }
+}
+
+public struct AIUserFeedbackSubmitActionStyle: AIUserFeedbackStyle {
+    let style: any SubmitActionStyle
+
+    public func makeBody(_ configuration: AIUserFeedbackConfiguration) -> some View {
+        AIUserFeedback(configuration)
+            .submitActionStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension AIUserFeedbackStyle where Self == AIUserFeedbackSubmitActionStyle {
+    static func submitActionStyle(_ style: some SubmitActionStyle) -> AIUserFeedbackSubmitActionStyle {
+        AIUserFeedbackSubmitActionStyle(style: style)
+    }
+
+    static func submitActionStyle(@ViewBuilder content: @escaping (SubmitActionConfiguration) -> some View) -> AIUserFeedbackSubmitActionStyle {
+        let style = AnySubmitActionStyle(content)
+        return AIUserFeedbackSubmitActionStyle(style: style)
+    }
+}
+
+public struct AIUserFeedbackCancelActionStyle: AIUserFeedbackStyle {
+    let style: any CancelActionStyle
+
+    public func makeBody(_ configuration: AIUserFeedbackConfiguration) -> some View {
+        AIUserFeedback(configuration)
+            .cancelActionStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension AIUserFeedbackStyle where Self == AIUserFeedbackCancelActionStyle {
+    static func cancelActionStyle(_ style: some CancelActionStyle) -> AIUserFeedbackCancelActionStyle {
+        AIUserFeedbackCancelActionStyle(style: style)
+    }
+
+    static func cancelActionStyle(@ViewBuilder content: @escaping (CancelActionConfiguration) -> some View) -> AIUserFeedbackCancelActionStyle {
+        let style = AnyCancelActionStyle(content)
+        return AIUserFeedbackCancelActionStyle(style: style)
+    }
+}
+
+public struct AIUserFeedbackIllustratedMessageStyle: AIUserFeedbackStyle {
+    let style: any IllustratedMessageStyle
+
+    public func makeBody(_ configuration: AIUserFeedbackConfiguration) -> some View {
+        AIUserFeedback(configuration)
+            .illustratedMessageStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension AIUserFeedbackStyle where Self == AIUserFeedbackIllustratedMessageStyle {
+    static func illustratedMessageStyle(_ style: some IllustratedMessageStyle) -> AIUserFeedbackIllustratedMessageStyle {
+        AIUserFeedbackIllustratedMessageStyle(style: style)
+    }
+
+    static func illustratedMessageStyle(@ViewBuilder content: @escaping (IllustratedMessageConfiguration) -> some View) -> AIUserFeedbackIllustratedMessageStyle {
+        let style = AnyIllustratedMessageStyle(content)
+        return AIUserFeedbackIllustratedMessageStyle(style: style)
+    }
+}
+
 // MARK: AccessoryIconStyle
 
 public extension AccessoryIconStyle where Self == AccessoryIconBaseStyle {
@@ -2653,6 +2835,20 @@ public extension DisagreeActionStyle where Self == DisagreeActionBaseStyle {
 public extension DisagreeActionStyle where Self == DisagreeActionFioriStyle {
     static var fiori: DisagreeActionFioriStyle {
         DisagreeActionFioriStyle()
+    }
+}
+
+// MARK: DownVoteActionStyle
+
+public extension DownVoteActionStyle where Self == DownVoteActionBaseStyle {
+    static var base: DownVoteActionBaseStyle {
+        DownVoteActionBaseStyle()
+    }
+}
+
+public extension DownVoteActionStyle where Self == DownVoteActionFioriStyle {
+    static var fiori: DownVoteActionFioriStyle {
+        DownVoteActionFioriStyle()
     }
 }
 
@@ -7913,6 +8109,20 @@ public extension SubAttributeStyle where Self == SubAttributeFioriStyle {
     }
 }
 
+// MARK: SubmitActionStyle
+
+public extension SubmitActionStyle where Self == SubmitActionBaseStyle {
+    static var base: SubmitActionBaseStyle {
+        SubmitActionBaseStyle()
+    }
+}
+
+public extension SubmitActionStyle where Self == SubmitActionFioriStyle {
+    static var fiori: SubmitActionFioriStyle {
+        SubmitActionFioriStyle()
+    }
+}
+
 // MARK: SubstatusStyle
 
 public extension SubstatusStyle where Self == SubstatusBaseStyle {
@@ -9030,6 +9240,20 @@ public extension TrendImageStyle where Self == TrendImageBaseStyle {
 public extension TrendImageStyle where Self == TrendImageFioriStyle {
     static var fiori: TrendImageFioriStyle {
         TrendImageFioriStyle()
+    }
+}
+
+// MARK: UpVoteActionStyle
+
+public extension UpVoteActionStyle where Self == UpVoteActionBaseStyle {
+    static var base: UpVoteActionBaseStyle {
+        UpVoteActionBaseStyle()
+    }
+}
+
+public extension UpVoteActionStyle where Self == UpVoteActionFioriStyle {
+    static var fiori: UpVoteActionFioriStyle {
+        UpVoteActionFioriStyle()
     }
 }
 

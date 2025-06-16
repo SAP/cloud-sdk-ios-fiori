@@ -24,6 +24,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: AIUserFeedbackStyle
+
+struct AIUserFeedbackStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any AIUserFeedbackStyle] = []
+}
+
+extension EnvironmentValues {
+    var aIUserFeedbackStyle: any AIUserFeedbackStyle {
+        self.aIUserFeedbackStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var aIUserFeedbackStyleStack: [any AIUserFeedbackStyle] {
+        get {
+            self[AIUserFeedbackStyleStackKey.self]
+        }
+        set {
+            self[AIUserFeedbackStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: AccessoryIconStyle
 
 struct AccessoryIconStyleStackKey: EnvironmentKey {
@@ -1112,6 +1133,27 @@ extension EnvironmentValues {
         }
         set {
             self[DisagreeActionStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: DownVoteActionStyle
+
+struct DownVoteActionStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any DownVoteActionStyle] = []
+}
+
+extension EnvironmentValues {
+    var downVoteActionStyle: any DownVoteActionStyle {
+        self.downVoteActionStyleStack.last ?? .base
+    }
+
+    var downVoteActionStyleStack: [any DownVoteActionStyle] {
+        get {
+            self[DownVoteActionStyleStackKey.self]
+        }
+        set {
+            self[DownVoteActionStyleStackKey.self] = newValue
         }
     }
 }
@@ -3300,6 +3342,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: SubmitActionStyle
+
+struct SubmitActionStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any SubmitActionStyle] = []
+}
+
+extension EnvironmentValues {
+    var submitActionStyle: any SubmitActionStyle {
+        self.submitActionStyleStack.last ?? .base
+    }
+
+    var submitActionStyleStack: [any SubmitActionStyle] {
+        get {
+            self[SubmitActionStyleStackKey.self]
+        }
+        set {
+            self[SubmitActionStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: SubstatusStyle
 
 struct SubstatusStyleStackKey: EnvironmentKey {
@@ -3842,6 +3905,27 @@ extension EnvironmentValues {
         }
         set {
             self[TrendImageStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: UpVoteActionStyle
+
+struct UpVoteActionStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any UpVoteActionStyle] = []
+}
+
+extension EnvironmentValues {
+    var upVoteActionStyle: any UpVoteActionStyle {
+        self.upVoteActionStyleStack.last ?? .base
+    }
+
+    var upVoteActionStyleStack: [any UpVoteActionStyle] {
+        get {
+            self[UpVoteActionStyleStackKey.self]
+        }
+        set {
+            self[UpVoteActionStyleStackKey.self] = newValue
         }
     }
 }

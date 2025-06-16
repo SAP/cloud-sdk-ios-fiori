@@ -20,6 +20,23 @@ public extension View {
     }
 }
 
+// MARK: AIUserFeedbackStyle
+
+public extension View {
+    func aIUserFeedbackStyle(_ style: some AIUserFeedbackStyle) -> some View {
+        self.transformEnvironment(\.aIUserFeedbackStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func aIUserFeedbackStyle(@ViewBuilder content: @escaping (AIUserFeedbackConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.aIUserFeedbackStyleStack) { stack in
+            let style = AnyAIUserFeedbackStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: AccessoryIconStyle
 
 public extension View {
@@ -899,6 +916,23 @@ public extension View {
     func disagreeActionStyle(@ViewBuilder content: @escaping (DisagreeActionConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.disagreeActionStyleStack) { stack in
             let style = AnyDisagreeActionStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: DownVoteActionStyle
+
+public extension View {
+    func downVoteActionStyle(_ style: some DownVoteActionStyle) -> some View {
+        self.transformEnvironment(\.downVoteActionStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func downVoteActionStyle(@ViewBuilder content: @escaping (DownVoteActionConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.downVoteActionStyleStack) { stack in
+            let style = AnyDownVoteActionStyle(content)
             stack.append(style)
         }
     }
@@ -2672,6 +2706,23 @@ public extension View {
     }
 }
 
+// MARK: SubmitActionStyle
+
+public extension View {
+    func submitActionStyle(_ style: some SubmitActionStyle) -> some View {
+        self.transformEnvironment(\.submitActionStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func submitActionStyle(@ViewBuilder content: @escaping (SubmitActionConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.submitActionStyleStack) { stack in
+            let style = AnySubmitActionStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: SubstatusStyle
 
 public extension View {
@@ -3109,6 +3160,23 @@ public extension View {
     func trendImageStyle(@ViewBuilder content: @escaping (TrendImageConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.trendImageStyleStack) { stack in
             let style = AnyTrendImageStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: UpVoteActionStyle
+
+public extension View {
+    func upVoteActionStyle(_ style: some UpVoteActionStyle) -> some View {
+        self.transformEnvironment(\.upVoteActionStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func upVoteActionStyle(@ViewBuilder content: @escaping (UpVoteActionConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.upVoteActionStyleStack) { stack in
+            let style = AnyUpVoteActionStyle(content)
             stack.append(style)
         }
     }

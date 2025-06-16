@@ -740,3 +740,27 @@ protocol _CheckmarkComponent {
     // sourcery: resultBuilder.defaultValue = "{ Image(systemName: "checkmark") }"
     var checkmark: Image? { get }
 }
+
+// sourcery: BaseComponent
+// sourcery: importFrameworks = ["FioriThemeManager"]
+protocol _UpVoteActionComponent {
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "FioriButton { _ in FioriIcon.actions.thumbUp }"
+    // sourcery: resultBuilder.defaultValue = "{ FioriButton { _ in FioriIcon.actions.thumbUp } }"
+    var upVoteAction: FioriButton? { get }
+}
+ 
+// sourcery: BaseComponent
+// sourcery: importFrameworks = ["FioriThemeManager"]
+protocol _DownVoteActionComponent {
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "FioriButton { _ in FioriIcon.actions.thumbDown }"
+    // sourcery: resultBuilder.defaultValue = "{ FioriButton { _ in FioriIcon.actions.thumbDown } }"
+    var downVoteAction: FioriButton? { get }
+}
+
+// sourcery: BaseComponent
+protocol _SubmitActionComponent {
+    // sourcery: @ViewBuilder
+    var submitAction: FioriButton? { get }
+}
