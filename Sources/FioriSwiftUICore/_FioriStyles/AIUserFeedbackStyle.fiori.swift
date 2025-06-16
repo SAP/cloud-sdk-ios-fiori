@@ -125,13 +125,7 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
                             self.illustratedMessage(configuration)
                             
                             if self.isDownVoted {
-                                if configuration.filterFormView != nil {
-                                    configuration.filterFormView
-                                        .padding(.bottom, 15)
-                                }
-                                if configuration.keyValueFormView != nil {
-                                    configuration.keyValueFormView
-                                }
+                                self.feedbackDetailView(configuration)
                             }
                             
                             if self.isShowSubmitButton {
@@ -203,6 +197,17 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
             })
             .fixedSize(horizontal: false, vertical: true)
             .padding(.bottom, 11)
+    }
+    
+    @ViewBuilder
+    func feedbackDetailView(_ configuration: AIUserFeedbackConfiguration) -> some View {
+        if configuration.filterFormView != nil {
+            configuration.filterFormView
+                .padding(.bottom, 15)
+        }
+        if configuration.keyValueFormView != nil {
+            configuration.keyValueFormView
+        }
     }
     
     @ViewBuilder
