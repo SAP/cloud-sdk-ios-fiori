@@ -27,6 +27,9 @@ public struct SortCriterionBaseStyle: SortCriterionStyle {
                         }
                     }
                 }
+                .accessibilityElement(children: .contain)
+                .accessibilityLabel(configuration.data.description)
+                .accessibilityAddTraits(.isButton)
                 .frame(minHeight: 44)
                 .contentShape(Rectangle())
                 .background(self.modelObject.highlightedItemID == configuration.data.id ? Color.preferredColor(.quaternaryFill) : Color.clear)

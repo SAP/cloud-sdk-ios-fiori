@@ -1958,6 +1958,23 @@ public extension View {
     }
 }
 
+// MARK: OnboardingScanViewStyle
+
+public extension View {
+    func onboardingScanViewStyle(_ style: some OnboardingScanViewStyle) -> some View {
+        self.transformEnvironment(\.onboardingScanViewStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func onboardingScanViewStyle(@ViewBuilder content: @escaping (OnboardingScanViewConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.onboardingScanViewStyleStack) { stack in
+            let style = AnyOnboardingScanViewStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: OptionalTitleStyle
 
 public extension View {

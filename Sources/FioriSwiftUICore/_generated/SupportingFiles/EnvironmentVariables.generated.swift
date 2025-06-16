@@ -2418,6 +2418,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: OnboardingScanViewStyle
+
+struct OnboardingScanViewStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any OnboardingScanViewStyle] = []
+}
+
+extension EnvironmentValues {
+    var onboardingScanViewStyle: any OnboardingScanViewStyle {
+        self.onboardingScanViewStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var onboardingScanViewStyleStack: [any OnboardingScanViewStyle] {
+        get {
+            self[OnboardingScanViewStyleStackKey.self]
+        }
+        set {
+            self[OnboardingScanViewStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: OptionalTitleStyle
 
 struct OptionalTitleStyleStackKey: EnvironmentKey {

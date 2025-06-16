@@ -2317,3 +2317,73 @@ protocol _AIUserFeedbackComponent: _IllustratedMessageComponent, _SubmitActionCo
     // sourcery: defaultValue = .notDetermined
     var voteState: AIUserFeedbackVoteState { get }
 }
+
+/// `OnboardingScanView` is used to display a scanner view to scan a QR code for app activation.
+/// It is also displaying the image thumbnails from camera roll and a button to start photo picker
+/// that user may choose the QR code image directly.
+/// Typically it is used in ActivationScreen and WelcomeScreen
+/// ## Usage
+/// ```swift
+/// @State var isScanPresented = false
+/// ActivationScreen(title: "Activation",
+///     descriptionText: "If you received a welcome email, follow the activation link in the email.Otherwise, enter your email address or scan the QR code to start onboarding.",
+///     footnote: "Or",
+///     action: FioriButton(title: "Use your email", action: { _ in
+///         print("ActivationScreen Primary button clicked, email: \(self.inputText)")
+///     }),
+///     secondaryAction: FioriButton(title: "Scan", action: { _ in
+///         self.isScanPresented.toggle()
+///     }),
+///    illustratedMessage: IllustratedMessage(detailImage: {
+///    Image("IllustrationImage").resizable(resizingMode: .stretch)
+/// }, title: {
+///    Text("Activation")
+/// }, description: {
+///    Text("If you received a welcome email, follow the activation link in the email.Otherwise, enter your email address or scan the QR code to start onboarding.")
+///        .padding(EdgeInsets(top: 10, leading: 0, bottom: 0, trailing: 0))
+/// }, detailImageSize: .large),
+///   inputText: self.$inputText,
+///   showsIllustratedMessage: self.showsIllustratedMessage)
+///   .sheet(isPresented: $isScanPresented) {
+///         OnboardingScanView(shouldValidateScanResult: { scanResult in
+///             return scanResult == "success"
+///         }, didCancel: {
+///             self.isScanPresented.toggle()
+///         }, usesCameraOnly: false,
+///            didTapContinue: {
+///             self.isScanPresented.toggle()
+///         })
+/// }
+/// ```
+// sourcery: CompositeComponent
+protocol _OnboardingScanViewComponent {
+    /// The alert messages configuration of OnboardingScanView.
+    // sourcery: defaultValue = OnboardingScanViewContext()
+    var scanViewContext: OnboardingScanViewContext { get }
+    
+    /// The callback event when a QR code has been successfully scanned. The callback should validate this QR code and return the value whether the QR code is validated successfully.
+    // sourcery: default.value = nil
+    // sourcery: no_view
+    var shouldValidateScanResult: ((String) -> Bool)? { get }
+    
+    /// The action to be performed when the cancel button is tapped.
+    // sourcery: default.value = nil
+    // sourcery: no_view
+    var didCancel: (() -> Void)? { get }
+    
+    /// Indicate whether to use camera only to scan.
+    /// If it is `true`, user can not choose an image from the photo library.
+    /// Default value is `false`.
+    // sourcery: default.value = false
+    var usesCameraOnly: Bool { get }
+    
+    /// The view to be displayed on top of the scan view when a QR code is validated.
+    /// If the application does not provide this view, a default OnboardingScanConfirmView will be provided as a default view.
+    // sourcery: @ViewBuilder
+    var scanConfirmationView: OnboardingScanConfirmView? { get }
+    
+    /// The action to be performed when the continue button is tapped in the default OnboardingScanConfirmView.
+    // sourcery: default.value = nil
+    // sourcery: no_view
+    var didTapContinue: (() -> Void)? { get }
+}

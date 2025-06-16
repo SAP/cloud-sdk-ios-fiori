@@ -57,6 +57,7 @@ struct ActivationScreenSample: View {
     var isNewActivationScreen = false
     @State var inputText: String = ""
     var showsIllustratedMessage = false
+    @State var isScanPresented = false
 
     public init() {}
     
@@ -80,6 +81,7 @@ struct ActivationScreenSample: View {
                                  }),
                                  secondaryAction: FioriButton(title: "Scan", action: { _ in
                                      print("call barcode scanner")
+                                     self.isScanPresented.toggle()
                                  }),
                                  illustratedMessage: IllustratedMessage(detailImage: {
                                      Image("IllustrationImage").resizable(resizingMode: .stretch)
@@ -91,6 +93,16 @@ struct ActivationScreenSample: View {
                                  }, detailImageSize: .large),
                                  inputText: self.$inputText,
                                  showsIllustratedMessage: self.showsIllustratedMessage)
+                    .sheet(isPresented: self.$isScanPresented) {
+                        OnboardingScanView(shouldValidateScanResult: { scanResult in
+                            scanResult == "success"
+                        }, didCancel: {
+                            self.isScanPresented.toggle()
+                        }, usesCameraOnly: false,
+                        didTapContinue: {
+                            self.isScanPresented.toggle()
+                        })
+                    }
             }
         }
     }
