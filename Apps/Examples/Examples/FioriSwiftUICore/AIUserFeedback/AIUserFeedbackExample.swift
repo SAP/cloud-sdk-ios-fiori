@@ -183,6 +183,15 @@ struct AIUserFeedbackExample: View {
             .toolbarBackground(.visible, for: .navigationBar)
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle(String("Push Example"))
+            .toolbar(content: {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button {
+                        self.isNavigationPresented.toggle()
+                    } label: {
+                        Text("Cancel")
+                    }
+                }
+            })
             .navigationDestination(isPresented: self.$isFeedbackPushed) {
                 self.showFeedback(mode: .push)
             }
