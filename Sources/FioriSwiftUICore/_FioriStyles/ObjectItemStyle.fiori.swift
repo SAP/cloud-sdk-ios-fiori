@@ -552,7 +552,6 @@ extension ObjectItemFioriStyle {
         func makeBody(_ configuration: TitleConfiguration) -> some View {
             Title(configuration)
                 .font(.fiori(forTextStyle: .headline, weight: .semibold))
-                .foregroundStyle(Color.preferredColor(.baseBlack))
         }
     }
 
