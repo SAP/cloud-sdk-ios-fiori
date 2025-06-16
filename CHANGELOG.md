@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [25.4.3](https://github.com/SAP/cloud-sdk-ios-fiori/compare/25.4.3-20250513...25.4.3) (2025-06-16)
+
+
+### ⚠ BREAKING CHANGES
+
+* 🧨 collapsing picker components
+
+### Bug Fixes
+
+* 🐛 [IOSSDKBUG-706] Request to expose functionality for prog ([#1084](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1084)) ([6db4c71](https://github.com/SAP/cloud-sdk-ios-fiori/commit/6db4c71f20a55f9be16d900aa7cf70d3394a3443))
+* 🐛 [IOSSDKBUG-730] SwiftUI SortFilterFeedbackBar ([#1095](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1095)) ([3242342](https://github.com/SAP/cloud-sdk-ios-fiori/commit/32423424dec4af55bd60b0d42223e456f016eb7d))
+* 🐛 Carousel Empty Space Shown After Removing Last (jira:752 ([#1099](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1099)) ([d922f30](https://github.com/SAP/cloud-sdk-ios-fiori/commit/d922f30562f86aa7d9ade00b21d6e45da996200a))
+* 🐛 fix a DataTable refresh bug; cherrypick from main ([#1101](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1101)) ([5bc8969](https://github.com/SAP/cloud-sdk-ios-fiori/commit/5bc89699fdd8239ae97abe90e064b40e11c3a441))
+* 🐛 object item title style to primary label ([#1107](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1107)) ([15cfdac](https://github.com/SAP/cloud-sdk-ios-fiori/commit/15cfdacb53bd21481b6aed51a74252ad6e21ef33))
+
 ### [25.4.2](https://github.com/SAP/cloud-sdk-ios-fiori/compare/25.4.1...25.4.2) (2025-05-09)
 
 
