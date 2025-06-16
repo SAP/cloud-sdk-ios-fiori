@@ -35,7 +35,7 @@ import SwiftUI
 public struct DataTable: View {
     /// Data table's data model
     @ObservedObject public var model: TableModel
-    @ObservedObject var layoutManager: TableLayoutManager
+    @StateObject var layoutManager: TableLayoutManager
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
@@ -45,9 +45,10 @@ public struct DataTable: View {
         self.model = model
         
         if let lm = model.layoutManager {
-            self.layoutManager = lm
+            self._layoutManager = StateObject(wrappedValue: lm)
+        
         } else {
-            self.layoutManager = TableLayoutManager(model: model)
+            self._layoutManager = StateObject(wrappedValue: TableLayoutManager(model: model))
         }
     }
     

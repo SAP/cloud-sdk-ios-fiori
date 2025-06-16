@@ -3228,6 +3228,34 @@ public extension OnStarImageStyle {
     }
 }
 
+// MARK: OnboardingScanViewStyle
+
+extension ModifiedStyle: OnboardingScanViewStyle where Style: OnboardingScanViewStyle {
+    public func makeBody(_ configuration: OnboardingScanViewConfiguration) -> some View {
+        OnboardingScanView(configuration)
+            .onboardingScanViewStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct OnboardingScanViewStyleModifier<Style: OnboardingScanViewStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.onboardingScanViewStyle(self.style)
+    }
+}
+
+public extension OnboardingScanViewStyle {
+    func modifier(_ modifier: some ViewModifier) -> some OnboardingScanViewStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some OnboardingScanViewStyle) -> some OnboardingScanViewStyle {
+        style.modifier(OnboardingScanViewStyleModifier(style: self))
+    }
+}
+
 // MARK: OptionalTitleStyle
 
 extension ModifiedStyle: OptionalTitleStyle where Style: OptionalTitleStyle {

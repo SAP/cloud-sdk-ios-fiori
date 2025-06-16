@@ -33,6 +33,7 @@ public struct PlaceholderTextFieldBaseStyle: PlaceholderTextFieldStyle {
                         .foregroundColor(.preferredColor(.tertiaryLabel))
                         .padding(.trailing, 1)
                 }
+                .buttonStyle(.plain)
             }
         }
     }
