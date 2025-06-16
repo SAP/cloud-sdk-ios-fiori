@@ -122,20 +122,7 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
                 } else {
                     VStack {
                         VStack {
-                            configuration._illustratedMessage
-                                .detailImageStyle(content: { _ in
-                                    EmptyView()
-                                })
-                                .actionStyle(content: { _ in
-                                    self.actionView(configuration)
-                                        .fioriButtonStyle(FioriTertiaryButtonStyle())
-                                })
-                                .secondaryActionStyle(content: { _ in
-                                    self.secondaryActionView(configuration)
-                                        .fioriButtonStyle(FioriTertiaryButtonStyle())
-                                })
-                                .fixedSize(horizontal: false, vertical: true)
-                                .padding(.bottom, 11)
+                            self.illustratedMessage(configuration)
                             
                             if self.isDownVoted {
                                 if configuration.filterFormView != nil {
@@ -150,9 +137,7 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
                             if self.isShowSubmitButton {
                                 self.submitButton(configuration)
                                     .onSimultaneousTapGesture {
-                                        configuration.onSubmit?(self.voteState, self.getSelectedOptions(configuration), configuration.keyValueFormView?.text ?? "", { submitStateValue in
-                                            self.submitState = submitStateValue
-                                        })
+                                        self.onSubmitAction(configuration)
                                     }
                                     .disabled(self.submitState == .inProgress)
                             }
@@ -203,6 +188,24 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
     }
     
     @ViewBuilder
+    func illustratedMessage(_ configuration: AIUserFeedbackConfiguration) -> some View {
+        configuration._illustratedMessage
+            .detailImageStyle(content: { _ in
+                EmptyView()
+            })
+            .actionStyle(content: { _ in
+                self.actionView(configuration)
+                    .fioriButtonStyle(FioriTertiaryButtonStyle())
+            })
+            .secondaryActionStyle(content: { _ in
+                self.secondaryActionView(configuration)
+                    .fioriButtonStyle(FioriTertiaryButtonStyle())
+            })
+            .fixedSize(horizontal: false, vertical: true)
+            .padding(.bottom, 11)
+    }
+    
+    @ViewBuilder
     func actionView(_ configuration: AIUserFeedbackConfiguration) -> some View {
         if configuration.action.isEmpty {
             DownVoteAction()
@@ -230,11 +233,9 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
                 .upVoteActionStyle(UpVoteButtonSelectedStyle(isSelected: self.isUpVoted))
                 .onSimultaneousTapGesture {
                     self.voteState = .upVote
+                    configuration.onUpVote?()
                     if self.isShowSubmitButton == false {
-                        configuration.onUpVote?()
-                        configuration.onSubmit?(self.voteState, self.getSelectedOptions(configuration), configuration.keyValueFormView?.text ?? "", { submitStateValue in
-                            self.submitState = submitStateValue
-                        })
+                        self.onSubmitAction(configuration)
                     }
                 }
                 .accessibilityLabel(self.accessibilityLabel(label: "Positive feedback".localizedFioriString(), selected: self.isUpVoted))
@@ -242,9 +243,7 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
             configuration.secondaryAction
                 .onSimultaneousTapGesture {
                     self.voteState = .upVote
-                    if self.isShowSubmitButton == false {
-                        configuration.onUpVote?()
-                    }
+                    configuration.onUpVote?()
                 }
         }
     }
@@ -317,9 +316,7 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
                         .fioriButtonStyle(FioriSecondaryButtonStyle(maxWidth: .infinity, loadingState: .processing).eraseToAnyFioriButtonStyle())
                 } else {
                     FioriButton { _ in
-                        configuration.onSubmit?(self.voteState, self.getSelectedOptions(configuration), configuration.keyValueFormView?.text ?? "", { submitStateValue in
-                            self.submitState = submitStateValue
-                        })
+                        self.onSubmitAction(configuration)
                     } label: { _ in
                         Text("Retry".localizedFioriString())
                     }
@@ -376,6 +373,12 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
         var accLabel = selected ? "selected".localizedFioriString() : "enabled".localizedFioriString()
         accLabel += ", " + label
         return accLabel
+    }
+    
+    private func onSubmitAction(_ configuration: AIUserFeedbackConfiguration) {
+        configuration.onSubmit?(self.voteState, self.getSelectedOptions(configuration), configuration.keyValueFormView?.text ?? "", { submitStateValue in
+            self.submitState = submitStateValue
+        })
     }
 }
 
