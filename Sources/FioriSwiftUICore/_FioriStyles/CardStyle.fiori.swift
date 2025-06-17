@@ -376,6 +376,7 @@ extension CardFioriStyle {
 }
 
 public struct CardCardStyle: CardStyle {
+    @Environment(\.shadowEffect) private var shadowEffectConfiguration
     public func makeBody(_ configuration: CardConfiguration) -> some View {
         Card(configuration)
             .background(Color.preferredColor(.secondaryGroupedBackground))
@@ -385,7 +386,9 @@ public struct CardCardStyle: CardStyle {
                     .stroke(Color.preferredColor(.tertiaryLabel).opacity(0.24), lineWidth: 0.3)
             )
             .clipShape(RoundedRectangle(cornerRadius: 16))
-            .shadow(.level2)
+            .ifApply(self.shadowEffectConfiguration.showShadow) { content in
+                content.shadow(self.shadowEffectConfiguration.style ?? .level2)
+            }
     }
 }
 
