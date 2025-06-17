@@ -133,6 +133,7 @@ public struct FilterFormViewBaseStyle: FilterFormViewStyle {
                         .stroke(self.optionsAttributesColor(isSelected, isEnabled: configuration.isEnabled, key: .strokeColor), lineWidth: self.optionsStrokeWidth(isSelected, isEnabled: configuration.isEnabled))
                 }
                 .frame(minHeight: self.filterFormOptionMinTouchHeight)
+                .contentShape(Rectangle())
                 .onTapGesture {
                     self.handleItemClick(configuration, index: index)
                 }
