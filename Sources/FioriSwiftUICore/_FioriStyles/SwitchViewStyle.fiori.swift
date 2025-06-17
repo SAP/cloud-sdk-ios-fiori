@@ -46,6 +46,7 @@ extension SwitchViewFioriStyle {
     struct SwitchFioriStyle: SwitchStyle {
         let switchViewConfiguration: SwitchViewConfiguration
         @Environment(\.isEnabled) var isEnabled
+        @Environment(\.shadowEffect) private var shadowEffectConfiguration
         
         func makeBody(_ configuration: SwitchConfiguration) -> some View {
             Switch(configuration)
@@ -57,7 +58,9 @@ extension SwitchViewFioriStyle {
                         .stroke(Color.preferredColor(configuration.isOn ? .separatorOpaque : .separator), lineWidth: 0.5)
                 )
                 .clipShape(RoundedRectangle(cornerRadius: 16))
-                .shadow(.smallElement)
+                .ifApply(self.shadowEffectConfiguration.showShadow) { content in
+                    content.shadow(self.shadowEffectConfiguration.style ?? .smallElement)
+                }
         }
     }
 }

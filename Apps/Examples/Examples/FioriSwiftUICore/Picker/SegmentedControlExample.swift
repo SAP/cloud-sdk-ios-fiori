@@ -29,6 +29,7 @@ struct SegmentedControlExample: View {
             
             if self._isCustomStyle {
                 SegmentedControlPicker(options: self.segments, selectedIndex: self.$selectedIndex).segmentedControlPickerStyle(CustomStyle())
+                    .shadow(visibility: false)
                     .onDisappear {
                         // Reset the appearance when it disappears. Otherwise, the style will affect other views using UISegmentedControl
                         let appearance = UISegmentedControl.appearance()
