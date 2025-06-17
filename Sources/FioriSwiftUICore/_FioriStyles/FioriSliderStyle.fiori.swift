@@ -362,18 +362,23 @@ extension FioriSliderFioriStyle {
         let fioriSliderConfiguration: FioriSliderConfiguration
         @Environment(\.isEnabled) var isEnabled
         @Environment(\.roundValueFormat) var roundValueFormat
+        @Environment(\.shadowEffect) private var shadowEffectConfiguration
         
         func makeBody(_ configuration: RangeSliderControlConfiguration) -> some View {
             guard self.fioriSliderConfiguration.isRangeSlider else {
                 return AnyView(RangeSliderControl(configuration))
-                    .shadow(.smallElement)
+                    .ifApply(self.shadowEffectConfiguration.showShadow) { content in
+                        content.shadow(self.shadowEffectConfiguration.style ?? .smallElement)
+                    }
                     .typeErased
             }
             
             let isEditableSlider = self.fioriSliderConfiguration.leadingAccessory.isEmpty && self.fioriSliderConfiguration.trailingAccessory.isEmpty
             return AnyView(RangeSliderControl(configuration)
                 .accessibilityAdjustments(self.getAccessibility(self.fioriSliderConfiguration, isEditableSlider)))
-                .shadow(.smallElement)
+                .ifApply(self.shadowEffectConfiguration.showShadow) { content in
+                    content.shadow(self.shadowEffectConfiguration.style ?? .smallElement)
+                }
                 .typeErased
         }
         
