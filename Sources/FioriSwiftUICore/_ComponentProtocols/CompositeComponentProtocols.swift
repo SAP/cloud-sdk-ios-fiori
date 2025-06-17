@@ -2230,7 +2230,7 @@ protocol _OrderPickerComponent: _OptionalTitleComponent {
 }
 
 /// `AIUserFeedback` is used to display a feedback page with customizable title, description, navigation title, filter form view and key value form view.
-/// `AIUserFeedback` is always poped up as a sheet. It also can be pushed in from `AI writing assistant` component.
+/// `AIUserFeedback` can be presented modally using .sheet, or pushed onto a navigation stack.
 /// ## Usage
 /// ```swift
 /// @State var filterFormViewSelectionValue: [Int] = [0]
@@ -2279,12 +2279,12 @@ protocol _AIUserFeedbackComponent: _IllustratedMessageComponent, _SubmitActionCo
     /// The view for inputting additional reason for negative feedback.
     var keyValueFormView: KeyValueFormView? { get }
     
-    /// Indicate whether the AIUserFeedback is pushed in or poped up or as an inspector. Default value is `.sheet`.
+    /// Indicate whether the AIUserFeedback is pushed in, poped up or as an inspector. Default value is `.sheet`.
     /// When it is pushed in, the height of sheet is fixed. The drag indicator is hidden, sheet can not be dragged.
     // sourcery: defaultValue = .sheet
     var displayMode: AIUserFeedbackDisplayMode { get }
     
-    /// Whether people can interact with the view behind a presentation.
+    /// Whether the user can interact with the background when AIUserFeedback is presented as a modal..
     // sourcery: defaultValue = false
     var isBackgroundInteractionEnabled: Bool { get }
     
