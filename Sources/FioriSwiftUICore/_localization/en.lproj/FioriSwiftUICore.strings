@@ -410,6 +410,27 @@
 /* XMSG: Placeholder text for inputView in the Authentication */
 "password" = "password";
 
+/* XBUT: Submit action title in AI User Feedback */
+"Submit" = "Submit";
+
+/* XMSG: Submission failed title in AI User Feedback */
+"Submission failed" = "Submission failed";
+
+/* XMSG: Submission failed description in AI User Feedback */
+"Your feedback was not submitted due to a connection error. Please try again." = "Your feedback was not submitted due to a connection error. Please try again.";
+
+/* XBUT: Retry action title in AI User Feedback */
+"Retry" = "Retry";
+
+/* XACT: The accessibility label for the like button in AI User Feedback */
+"Positive feedback" = "Positive feedback";
+
+/* XACT: The accessibility label for the dislike button in AI User Feedback */
+"Negative feedback" = "Negative feedback";
+
+/* XACT: The accessibility label for the vote buttons in AI User Feedback */
+"enabled" = "enabled";
+
 /* XMSG: Onboarding scan view title for scan unsuccessful */
 "Scan Unsuccessful" = "Scan Unsuccessful";
 
