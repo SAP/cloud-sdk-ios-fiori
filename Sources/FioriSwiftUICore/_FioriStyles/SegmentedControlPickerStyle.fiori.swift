@@ -30,6 +30,7 @@ public struct SegmentedControlPickerBaseStyle: SegmentedControlPickerStyle {
 // Default fiori styles
 extension SegmentedControlPickerFioriStyle {
     struct ContentFioriStyle: SegmentedControlPickerStyle {
+        @Environment(\.shadowEffect) private var shadowEffectConfiguration
         func makeBody(_ configuration: SegmentedControlPickerConfiguration) -> some View {
             let appearance = UISegmentedControl.appearance()
             appearance.selectedSegmentTintColor = Color.preferredColor(.primaryBackground).uiColor()
@@ -44,7 +45,9 @@ extension SegmentedControlPickerFioriStyle {
                         .stroke(Color.preferredColor(.separatorOpaque), lineWidth: 0.33)
                 )
                 .clipShape(RoundedRectangle(cornerRadius: 9))
-                .shadow(.mediumElement)
+                .ifApply(self.shadowEffectConfiguration.showShadow) { content in
+                    content.shadow(self.shadowEffectConfiguration.style ?? .mediumElement)
+                }
                 .padding()
         }
     }
