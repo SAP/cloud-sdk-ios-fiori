@@ -265,6 +265,9 @@ extension SortFilterCFGItemContainer: View {
         case .durationPicker:
             self.durationPicker(row: r, column: c)
                 .padding([.top, .bottom], 12)
+        case .orderPicker:
+            self.orderPicker(row: r, column: c)
+                .padding([.top, .bottom], 12)
         }
     }
     
@@ -699,6 +702,29 @@ extension SortFilterCFGItemContainer: View {
                 .frame(width: 232, height: 204)
                 .background(Color.preferredColor(.primaryBackground))
                 .foregroundColor(Color.preferredColor(.primaryLabel))
+        }
+    }
+    
+    private func orderPicker(row r: Int, column c: Int) -> some View {
+        VStack {
+            HStack {
+                Text(self._items[r][c].orderPicker.name)
+                    .font(.fiori(forTextStyle: .subheadline, weight: .bold, isItalic: false, isCondensed: false))
+                    .foregroundColor(Color.preferredColor(.primaryLabel))
+                Spacer()
+            }
+            
+            OrderPicker(
+                optionalTitle: "Information",
+                data: self.$_items[r][c].orderPicker.workingValue,
+                isAtLeastOneSelected: self._items[r][c].orderPicker.isAtLeastOneSelected,
+                onChangeHandler: { _, newModel in
+                    self._items[r][c].orderPicker.workingValue = newModel
+                },
+                controlState: self._items[r][c].orderPicker.controlState
+            )
+            .background(Color.preferredColor(.primaryBackground))
+            .foregroundColor(Color.preferredColor(.primaryLabel))
         }
     }
     

@@ -22,6 +22,8 @@ extension View {
             return self.json(item: v)
         case .durationPicker(let v, _):
             return self.json(item: v)
+        case .orderPicker(let v, _):
+            return self.json(item: v)
         }
     }
     
@@ -55,5 +57,15 @@ extension View {
     
     func json(item: SortFilterItem.DurationPickerItem) -> String {
         "{name: \(item.name), value: \(String(describing: item.value))}"
+    }
+    
+    func json(item: SortFilterItem.OrderPickerItem) -> String {
+        var string = ""
+        for value in item.value {
+            string += String(value.criterion.characters)
+            string += ","
+        }
+        string.removeLast()
+        return "{name: \(item.name), value: \(string)}"
     }
 }
