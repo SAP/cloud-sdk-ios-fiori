@@ -1427,22 +1427,15 @@ struct OrderPickerMenuItem: View {
                         },
                         controlState: self.item.controlState
                     )
-                    .background(Color.preferredColor(.primaryBackground))
-                    .foregroundColor(Color.preferredColor(.primaryLabel))
                     .padding([.leading, .trailing], 16)
                     .padding(.bottom, 8)
                     .background(GeometryReader { geometry in
                         Color.clear
                             .onAppear {
-                                let isNotIphone = UIDevice.current.userInterfaceIdiom != .phone
-                                var calculateHeight = geometry.size.height
-                                calculateHeight += isNotIphone ? 13 : 16
-                                calculateHeight += isNotIphone ? 50 : 56
-                                if !isNotIphone {
-                                    calculateHeight += UIEdgeInsets.getSafeAreaInsets().bottom
-                                }
-                                calculateHeight += UIDevice.current.userInterfaceIdiom != .phone ? 55 : 0
-                                self.detentHeight = calculateHeight
+                                self.calculateDetentHeight(geometrySizeHeight: geometry.size.height)
+                            }
+                            .onChange(of: geometry.size.height) {
+                                self.calculateDetentHeight(geometrySizeHeight: geometry.size.height)
                             }
                     })
                     .onAppear {
@@ -1468,6 +1461,18 @@ struct OrderPickerMenuItem: View {
                         }
                 })
             })
+    }
+    
+    private func calculateDetentHeight(geometrySizeHeight: CGFloat) {
+        let isNotIphone = UIDevice.current.userInterfaceIdiom != .phone
+        var calculateHeight = geometrySizeHeight
+        calculateHeight += isNotIphone ? 13 : 16
+        calculateHeight += isNotIphone ? 50 : 56
+        if !isNotIphone {
+            calculateHeight += UIEdgeInsets.getSafeAreaInsets().bottom
+        }
+        calculateHeight += UIDevice.current.userInterfaceIdiom != .phone ? 55 : 0
+        self.detentHeight = calculateHeight
     }
 }
 
