@@ -5,6 +5,14 @@ import SwiftUI
 
 // This file provides APIs for easy component construction which can be used when implementing the base layout.
 
+// MARK: AIUserFeedbackConfiguration
+
+extension AIUserFeedbackConfiguration {
+    var _illustratedMessage: IllustratedMessage {
+        IllustratedMessage(.init(detailImage: .init(self.detailImage), title: .init(self.title), description: .init(self.description), action: .init(self.action), secondaryAction: .init(self.secondaryAction), detailImageSize: self.detailImageSize, isActionVerticallyAligned: self.isActionVerticallyAligned, contentAlignment: self.contentAlignment), shouldApplyDefaultStyle: true)
+    }
+}
+
 // MARK: CardConfiguration
 
 extension CardConfiguration {
