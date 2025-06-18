@@ -137,6 +137,7 @@ public extension Font {
         case callout
         case footnote
         case caption1, caption2
+        case extraLargeTitle, extraLargeTitle2
         case KPI, largeKPI
     
         var textStyle: TextStyle {
@@ -175,13 +176,17 @@ public extension Font {
                 } else {
                     return .caption
                 }
-            case .KPI, .largeKPI:
+            case .KPI, .largeKPI, .extraLargeTitle, .extraLargeTitle2:
                 return .largeTitle
             }
         }
         
         var size: CGFloat {
             switch self {
+            case .extraLargeTitle:
+                return 52
+            case .extraLargeTitle2:
+                return 48
             case .largeTitle:
                 return 34
             case .title1:
@@ -242,6 +247,10 @@ extension Font.FioriTextStyle: CustomStringConvertible {
             return "KPI"
         case .largeKPI:
             return "largeKPI"
+        case .extraLargeTitle:
+            return "extraLargeTitle"
+        case .extraLargeTitle2:
+            return "extraLargeTitle2"
         }
     }
 }
