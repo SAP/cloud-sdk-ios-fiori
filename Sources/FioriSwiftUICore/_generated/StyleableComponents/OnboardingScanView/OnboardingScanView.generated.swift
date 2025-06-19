@@ -52,9 +52,9 @@ public struct OnboardingScanView {
     /// Default value is `false`.
     let usesCameraOnly: Bool
     /// The view to be displayed on top of the scan view when a QR code is validated.
-    /// If user not provide this view, a default OnboardingScanConfirmView will be provided as a default view.
+    /// If the application does not provide this view, a default OnboardingScanConfirmView will be provided as a default view.
     let scanConfirmationView: any View
-    /// The action to be performed when the continue button is tapped in default OnboardingScanConfirmView.
+    /// The action to be performed when the continue button is tapped in the default OnboardingScanConfirmView.
     let didTapContinue: (() -> Void)?
 
     @Environment(\.onboardingScanViewStyle) var style
