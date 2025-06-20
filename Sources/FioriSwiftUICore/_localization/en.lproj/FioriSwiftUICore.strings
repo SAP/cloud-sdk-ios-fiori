@@ -478,3 +478,24 @@
 
 /* XBUT: Onboarding confirm view action title for continue button */
 "Continue" = "Continue";
+
+/* XTIT: Title for writing assistant */
+"Writing Assistant" = "Writing Assistant";
+
+/* XMSG: Writing assistant version control */
+"Version %d/%d" = "Version %d/%d";
+
+/* XBUT: Writing assistant undo action title */
+"Undo" = "Undo";
+
+/* XBUT: Writing assistant redo action title */
+"Redo" = "Redo";
+
+/* XTXT: Writing assistant cancel alert title */
+"Close Writing Assistant without saving changes?" = "Close Writing Assistant without saving changes?"
+
+/* XBUT: Writing assistant cancel alert action title for keep working */
+"Keep Working" = "Keep Working"
+
+/* XBUT: Writing assistant cancel alert action title for close */
+"Close" = "Close"
