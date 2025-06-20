@@ -24,6 +24,8 @@ public enum SortFilterItem: Identifiable, Hashable {
             return item.id
         case .durationPicker(let item, _):
             return item.id
+        case .orderPicker(let item, _):
+            return item.id
         }
     }
     
@@ -94,6 +96,13 @@ public enum SortFilterItem: Identifiable, Hashable {
     ///
     /// 2. A section of view containing a SwiftUI DurationPicker with Fiori style
     case durationPicker(item: DurationPickerItem, showsOnFilterFeedbackBar: Bool)
+    
+    /// The type of UI control is used to build:
+    ///
+    /// 1. Sort & Filter's menu item associated with a popover containing a SwiftUI OrderPicker with Fiori style
+    ///
+    /// 2. A section of view containing a SwiftUI OrderPicker with Fiori style
+    case orderPicker(item: OrderPickerItem, showsOnFilterFeedbackBar: Bool)
 
     public var showsOnFilterFeedbackBar: Bool {
         switch self {
@@ -114,6 +123,8 @@ public enum SortFilterItem: Identifiable, Hashable {
         case .note(_, let showsOnFilterFeedbackBar):
             return showsOnFilterFeedbackBar
         case .durationPicker(_, let showsOnFilterFeedbackBar):
+            return showsOnFilterFeedbackBar
+        case .orderPicker(_, let showsOnFilterFeedbackBar):
             return showsOnFilterFeedbackBar
         }
     }
@@ -162,6 +173,11 @@ public enum SortFilterItem: Identifiable, Hashable {
             hasher.combine(item.workingText)
             hasher.combine(item.text)
         case .durationPicker(let item, _):
+            hasher.combine(item.id)
+            hasher.combine(item.originalValue)
+            hasher.combine(item.workingValue)
+            hasher.combine(item.value)
+        case .orderPicker(let item, _):
             hasher.combine(item.id)
             hasher.combine(item.originalValue)
             hasher.combine(item.workingValue)
@@ -351,6 +367,26 @@ extension SortFilterItem {
         }
     }
     
+    var orderPicker: OrderPickerItem {
+        get {
+            switch self {
+            case .orderPicker(let item, _):
+                return item
+            default:
+                fatalError("Unexpected value \(self)")
+            }
+        }
+        
+        set {
+            switch self {
+            case .orderPicker(_, let showsOnFilterFeedbackBar):
+                self = .orderPicker(item: newValue, showsOnFilterFeedbackBar: showsOnFilterFeedbackBar)
+            default:
+                fatalError("Unexpected value \(self)")
+            }
+        }
+    }
+    
     var isChanged: Bool {
         switch self {
         case .picker(let item, _):
@@ -370,6 +406,8 @@ extension SortFilterItem {
         case .note(let item, _):
             return item.isChanged
         case .durationPicker(let item, _):
+            return item.isChanged
+        case .orderPicker(let item, _):
             return item.isChanged
         }
     }
@@ -393,6 +431,8 @@ extension SortFilterItem {
         case .note(let item, _):
             return item.isOriginal
         case .durationPicker(let item, _):
+            return item.isOriginal
+        case .orderPicker(let item, _):
             return item.isOriginal
         }
     }
@@ -426,6 +466,9 @@ extension SortFilterItem {
         case .durationPicker(var item, _):
             item.cancel()
             self.durationPicker = item
+        case .orderPicker(var item, _):
+            item.cancel()
+            self.orderPicker = item
         }
     }
     
@@ -458,6 +501,9 @@ extension SortFilterItem {
         case .durationPicker(var item, _):
             item.reset()
             self.durationPicker = item
+        case .orderPicker(var item, _):
+            item.reset()
+            self.orderPicker = item
         }
     }
     
@@ -490,6 +536,9 @@ extension SortFilterItem {
         case .durationPicker(var item, _):
             item.apply()
             self.durationPicker = item
+        case .orderPicker(var item, _):
+            item.apply()
+            self.orderPicker = item
         }
     }
 }
@@ -1452,6 +1501,73 @@ public extension SortFilterItem {
         }
         
         mutating func setValue(newValue: DurationPickerItem) {
+            self.value = newValue.value
+        }
+        
+        var isChanged: Bool {
+            self.value != self.workingValue
+        }
+        
+        var isOriginal: Bool {
+            self.workingValue == self.originalValue
+        }
+    }
+    
+    ///  Data structure for integer type order picker
+    struct OrderPickerItem: Identifiable, Equatable {
+        public let id: String
+        public var name: String
+        public var title: AttributedString?
+        public var value: [OrderPickerItemModel]
+        var workingValue: [OrderPickerItemModel]
+        let originalValue: [OrderPickerItemModel]
+        public let icon: String?
+        
+        public let isAtLeastOneSelected: Bool
+        public let controlState: ControlState
+        
+        /// Create a order picker item.
+        /// - Parameters:
+        ///   - id: Item id.
+        ///   - name: Item name for item.
+        ///   - title: The title for order picker.
+        ///   - value: The value for order picker.
+        ///   - isAtLeastOneSelected: Whether At least one sort criterion should be selected. The default is `true`.
+        ///   - controlState: The `ControlState` of the  view. Currently, `.disabled`, `.normal` and `.readOnly` are supported. The default is `normal`.
+        ///   - icon: The icon image in the item bar.
+        public init(id: String = UUID().uuidString, name: String, title: AttributedString? = nil, value: [OrderPickerItemModel], isAtLeastOneSelected: Bool = true, controlState: ControlState = .normal, icon: String? = nil) {
+            self.id = id
+            self.name = name
+            self.title = title
+            self.value = value
+            self.workingValue = value
+            self.originalValue = value
+            self.icon = icon
+            self.isAtLeastOneSelected = isAtLeastOneSelected
+            self.controlState = controlState
+        }
+        
+        mutating func reset() {
+            self.workingValue = self.originalValue
+        }
+        
+        mutating func cancel() {
+            self.workingValue = self.value
+        }
+        
+        mutating func apply() {
+            self.value = self.workingValue
+        }
+        
+        var isChecked: Bool {
+            true
+        }
+
+        var label: String {
+            self.name
+        }
+        
+        mutating func setValue(newValue: OrderPickerItem) {
             self.value = newValue.value
         }
         
