@@ -4,7 +4,7 @@ import Foundation
 import SwiftUI
 
 /// `AIUserFeedback` is used to display a feedback page with customizable title, description, navigation title, filter form view and key value form view.
-/// `AIUserFeedback` is always poped up as a sheet. It also can be pushed in from `AI writing assistant` component.
+/// `AIUserFeedback` can be presented modally using .sheet, or pushed onto a navigation stack.
 /// ## Usage
 /// ```swift
 /// @State var filterFormViewSelectionValue: [Int] = [0]
@@ -62,10 +62,10 @@ public struct AIUserFeedback {
     let filterFormView: FilterFormView?
     /// The view for inputting additional reason for negative feedback.
     let keyValueFormView: KeyValueFormView?
-    /// Indicate whether the AIUserFeedback is pushed in or poped up or as an inspector. Default value is `.sheet`.
+    /// Indicate whether the AIUserFeedback is pushed in, poped up or as an inspector. Default value is `.sheet`.
     /// When it is pushed in, the height of sheet is fixed. The drag indicator is hidden, sheet can not be dragged.
     let displayMode: AIUserFeedbackDisplayMode
-    /// Whether people can interact with the view behind a presentation.
+    /// Whether the user can interact with the background when AIUserFeedback is presented as a modal..
     let isBackgroundInteractionEnabled: Bool
     /// The custom error view when an error occurs when submitting.
     let errorView: any View
