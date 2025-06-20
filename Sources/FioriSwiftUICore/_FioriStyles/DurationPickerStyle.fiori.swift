@@ -77,8 +77,7 @@ public struct DurationPickerBaseStyle: DurationPickerStyle {
     
     func showPicker(_ configuration: DurationPickerConfiguration) -> some View {
         DurationPickerViewWrapper(selection: configuration.$selection, maximumMinutes: configuration.maximumMinutes, minimumMinutes: configuration.minimumMinutes, minuteInterval: configuration.minuteInterval, measurementFormatter: configuration.measurementFormatter)
-            .frame(width: 232, height: 204)
-            .background(Color.preferredColor(.primaryBackground))
+            .frame(height: 204)
             .foregroundColor(Color.preferredColor(.primaryLabel))
             .setOnChange(of: configuration.selection) {
                 _ = self.getValueLabel(configuration)
