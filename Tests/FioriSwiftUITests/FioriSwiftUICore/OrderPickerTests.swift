@@ -34,10 +34,6 @@ final class OrderPickerTests: XCTestCase {
                     c.subtitle
                         .lineLimit(1)
                 }
-                .accessoryIconStyle { c in
-                    c.accessoryIcon
-                        .foregroundStyle(Color.preferredColor(.baseBlack))
-                }
         }
     }
     
@@ -110,7 +106,6 @@ final class OrderPickerTests: XCTestCase {
         XCTAssertTrue(type(of: sortCriterionView.checkmark) == FioriSwiftUICore.Checkmark.self, "type error")
         XCTAssertTrue(type(of: sortCriterionView.title) == FioriSwiftUICore.Title.self, "type error")
         XCTAssertTrue(type(of: sortCriterionView.subtitle) == FioriSwiftUICore.Subtitle.self, "type error")
-        XCTAssertTrue(type(of: sortCriterionView.accessoryIcon) == FioriSwiftUICore.AccessoryIcon.self, "type error")
         XCTAssertFalse(sortCriterionView.checkmark.isEmpty)
         
         XCTAssertEqual(sortCriterionView.data.criterion, orderPickerItemModel.criterion)
@@ -119,13 +114,12 @@ final class OrderPickerTests: XCTestCase {
         XCTAssertEqual(sortCriterionView.data.ascendingText, orderPickerItemModel.ascendingText)
         XCTAssertEqual(sortCriterionView.data.descendingText, orderPickerItemModel.descendingText)
         XCTAssertEqual(sortCriterionView.data.selectedIcon, orderPickerItemModel.selectedIcon)
-        XCTAssertEqual(sortCriterionView.data.accessoryIcon, orderPickerItemModel.accessoryIcon)
 
         XCTAssertTrue(self.compareData(sortCriterionView.title, orderPickerItemModel.criterion))
     }
     
     func testSortCriterion() throws {
-        let orderPickerItemModel = OrderPickerItemModel(selectedIcon: Image(systemName: "checkmark.circle.fill"), criterion: "Price 1", accessoryIcon: Image(systemName: "checkmark.circle.fill"), isSelected: true, isAscending: false, ascendingText: "asc", descendingText: "des", customStyle: CustomSortCriterionStyle())
+        let orderPickerItemModel = OrderPickerItemModel(selectedIcon: Image(systemName: "checkmark.circle.fill"), criterion: "Price 1", isSelected: true, isAscending: false, ascendingText: "asc", descendingText: "des", customStyle: CustomSortCriterionStyle())
         
         let sortCriterionView = SortCriterion(title: orderPickerItemModel.criterion, data: .constant(orderPickerItemModel))
         
@@ -136,7 +130,6 @@ final class OrderPickerTests: XCTestCase {
         XCTAssertEqual(sortCriterionView.data.descendingText, orderPickerItemModel.descendingText)
         
         XCTAssertEqual(sortCriterionView.data.selectedIcon, orderPickerItemModel.selectedIcon)
-        XCTAssertEqual(sortCriterionView.data.accessoryIcon, orderPickerItemModel.accessoryIcon)
         
         XCTAssertTrue(self.compareData(sortCriterionView.title, orderPickerItemModel.criterion))
     }

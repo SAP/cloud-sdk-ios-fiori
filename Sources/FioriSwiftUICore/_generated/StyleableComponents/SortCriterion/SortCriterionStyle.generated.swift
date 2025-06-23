@@ -26,13 +26,11 @@ public struct SortCriterionConfiguration {
     public let checkmark: Checkmark
     public let title: Title
     public let subtitle: Subtitle
-    public let accessoryIcon: AccessoryIcon
     @Binding public var data: OrderPickerItemModel
 
     public typealias Checkmark = ConfigurationViewWrapper
     public typealias Title = ConfigurationViewWrapper
     public typealias Subtitle = ConfigurationViewWrapper
-    public typealias AccessoryIcon = ConfigurationViewWrapper
 }
 
 extension SortCriterionConfiguration {
@@ -47,6 +45,5 @@ public struct SortCriterionFioriStyle: SortCriterionStyle {
             .checkmarkStyle(CheckmarkFioriStyle(sortCriterionConfiguration: configuration))
             .titleStyle(TitleFioriStyle(sortCriterionConfiguration: configuration))
             .subtitleStyle(SubtitleFioriStyle(sortCriterionConfiguration: configuration))
-            .accessoryIconStyle(AccessoryIconFioriStyle(sortCriterionConfiguration: configuration))
     }
 }
