@@ -931,7 +931,9 @@ struct AvatarsAndTextLayout: Layout {
     }
 }
 
+/// `ObjectItemSkeletonLoadingPattern` provides a set of predefined skeleton loading patterns for ObjectItem.
 public enum ObjectItemSkeletonLoadingPattern {
+    /// Predefined skeleton loading patterns for ObjectItem with one line.
     public static let oneLine = ObjectItem(title: {
         Text("Object Item Title")
     }, status: {
@@ -940,6 +942,7 @@ public enum ObjectItemSkeletonLoadingPattern {
         Image("rw").resizable().frame(width: 45, height: 45).clipShape(Circle())
     })
     
+    /// Predefined skeleton loading patterns for ObjectItem with two lines.
     public static let twoLines = ObjectItem(title: {
         Text("Object Item title text")
     }, subtitle: {
@@ -950,6 +953,7 @@ public enum ObjectItemSkeletonLoadingPattern {
         Image("rw").resizable().frame(width: 45, height: 45).clipShape(Circle())
     })
     
+    /// Predefined skeleton loading patterns for ObjectItem with multiple lines.
     public static let multiLines = ObjectItem(title: {
         Text("Object Item Title")
     }, subtitle: {
@@ -966,6 +970,7 @@ public enum ObjectItemSkeletonLoadingPattern {
         Image("rw").resizable().frame(width: 45, height: 45)
     })
     
+    /// Predefined skeleton loading patterns for ObjectItem with generic content.
     public static let generic = ObjectItem(title: {
         Text("Object Item Title")
     }, subtitle: {

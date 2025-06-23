@@ -1088,7 +1088,11 @@ public enum CardTests {
     static let previewCardSamples = [sampleCard1, sampleCard2, sampleCard3, sampleCard4, sampleCard5, sampleCard6, sampleCard7, sampleCard8, sampleCard9, sampleCard10, sampleCard11, vbCard, fullCard, headerOnly, titleOnly, noHeader]
 }
 
+/// Provides reusable skeleton loading patterns for `Card` components.
+/// These static properties offer placeholder card layouts to display while content is loading,
+/// ensuring a consistent and visually appealing loading state across the UI.
 public enum CardSkeletonLoadingPattern {
+    /// Provides a header-only card skeleton with a title.
     public static let oneLineCard = Card {
         Text("Title text for loading")
     } detailImage: {
@@ -1097,6 +1101,7 @@ public enum CardSkeletonLoadingPattern {
         FioriButton(title: "header")
     }
 
+    /// Provides a two-line card skeleton with a title, subtitle, and detail image.
     public static let twoLineCard = Card {
         Text("Title text")
     } subtitle: {
@@ -1107,6 +1112,7 @@ public enum CardSkeletonLoadingPattern {
         FioriButton(title: "header")
     }
     
+    /// Provides a three-line card skeleton with a title, subtitle, detail image, and actions.
     public static let multipleLineCard = Card {
         Text("Title text for loading")
     } subtitle: {
@@ -1121,16 +1127,11 @@ public enum CardSkeletonLoadingPattern {
         FioriButton(title: "Secondary")
     }
 
-    public static let listCard = List {
-        oneLineCard
-        multipleLineCard
-    }
-
+    /// Provides a generic card skeleton with a title, subtitle, icons, header action, and overflow action.
     public static let genericCard = Card(title: "Title",
                                          subtitle: "Subtitle that goes to multiple lines before truncating just like that",
                                          icons: [TextOrIcon.icon(Image(systemName: "circle.fill")), TextOrIcon.icon(Image(systemName: "paperclip")), TextOrIcon.text("1")],
                                          headerAction: FioriButton(title: "..."),
-//                                   counter: "1 of 3",
                                          tertiaryAction: FioriButton(title: "Tertiary"),
                                          overflowAction: FioriButton(title: "Overflow"))
 }

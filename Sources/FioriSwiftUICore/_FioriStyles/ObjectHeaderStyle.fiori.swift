@@ -505,7 +505,9 @@ extension ObjectHeaderFioriStyle {
     }
 }
 
+/// ObjectHeaderSkeletonLoadingPattern provides predefined patterns for ObjectHeader skeleton loading.
 public enum ObjectHeaderSkeletonLoadingPattern {
+    /// Provides a pattern with all fields populated.
     public static let allField = ObjectHeader(title: {
         Text("Object Header Title")
     }, subtitle: {
@@ -526,6 +528,7 @@ public enum ObjectHeaderSkeletonLoadingPattern {
         Image("rw").resizable()
     })
     
+    /// Provides a pattern without detail image.
     public static let noDetailImage = ObjectHeader(title: {
         Text("Object Header Title")
     }, subtitle: {
@@ -544,6 +547,7 @@ public enum ObjectHeaderSkeletonLoadingPattern {
         Text("substatus")
     })
     
+    /// Provides a pattern without tags.
     public static let noTag = ObjectHeader(title: {
         Text("Object Header Title")
     }, subtitle: {

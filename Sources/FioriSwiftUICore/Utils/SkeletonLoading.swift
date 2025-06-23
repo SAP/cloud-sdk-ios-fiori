@@ -45,6 +45,7 @@ struct ShimmerViewModifier: ViewModifier {
     }
 }
 
+/// A view modifier that applies a shimmer effect to the view, indicating a loading state.
 public extension View {
     func skeletonLoading(isTintColor: Bool = false) -> some View {
         self.modifier(ShimmerViewModifier(isTintColor: isTintColor))
@@ -52,6 +53,7 @@ public extension View {
     }
 }
 
+/// A view modifier that applies a shimmer effect to the view, indicating a loading state.
 public extension View {
     func loadingStyle() -> some View {
         self.foregroundColor(Color.preferredColor(.separator))
@@ -60,6 +62,7 @@ public extension View {
     }
 }
 
+/// A container view that applies a skeleton loading style to its content when `isLoading` is true.
 public struct SkeletonLoadingContainer<Content: View>: View {
     var isLoading: Bool = false
     var isTintColor: Bool = false
