@@ -1372,6 +1372,110 @@ struct DurationPickerMenuItem: View {
     }
 }
 
+struct OrderPickerMenuItem: View {
+    @Binding var item: SortFilterItem.OrderPickerItem
+
+    @State var isSheetVisible = false
+
+    @State var detentHeight: CGFloat = 0
+    @State var barItemFrame: CGRect = .zero
+
+    var onUpdate: () -> Void
+    
+    let popoverWidth = 393.0
+    
+    public init(item: Binding<SortFilterItem.OrderPickerItem>, onUpdate: @escaping () -> Void) {
+        self._item = item
+        self.onUpdate = onUpdate
+    }
+    
+    var body: some View {
+        FilterFeedbackBarItem(icon: icon(name: self.item.icon, isVisible: true), title: AttributedString(self.item.label), accessoryIcon: Image(systemName: "chevron.down"), isSelected: self.item.isChecked)
+            .onTapGesture {
+                self.isSheetVisible.toggle()
+            }
+            .popover(isPresented: self.$isSheetVisible, arrowEdge: self.barItemFrame.arrowDirection()) {
+                CancellableResettableDialogNavigationForm {
+                    SortFilterItemTitle(title: self.item.name)
+                } cancelAction: {
+                    _Action(actionText: NSLocalizedString("Cancel", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
+                        self.item.cancel()
+                        self.isSheetVisible.toggle()
+                    })
+                    .buttonStyle(CancelButtonStyle())
+                } resetAction: {
+                    _Action(actionText: NSLocalizedString("Reset", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
+                        self.item.reset()
+                    })
+                    .buttonStyle(ResetButtonStyle())
+                    .disabled(self.item.isOriginal)
+                } applyAction: {
+                    _Action(actionText: NSLocalizedString("Apply", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: { [self] in
+                        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                        self.item.apply()
+                        self.onUpdate()
+                        self.isSheetVisible.toggle()
+                    })
+                    .buttonStyle(ApplyButtonStyle())
+                } components: {
+                    OrderPicker(
+                        optionalTitle: self.item.title,
+                        data: self.$item.workingValue,
+                        isAtLeastOneSelected: self.item.isAtLeastOneSelected,
+                        onChangeHandler: { _, newModel in
+                            self.item.workingValue = newModel
+                        },
+                        controlState: self.item.controlState
+                    )
+                    .padding([.leading, .trailing], 16)
+                    .padding(.bottom, 8)
+                    .background(GeometryReader { geometry in
+                        Color.clear
+                            .onAppear {
+                                self.calculateDetentHeight(geometrySizeHeight: geometry.size.height)
+                            }
+                            .onChange(of: geometry.size.height) {
+                                self.calculateDetentHeight(geometrySizeHeight: geometry.size.height)
+                            }
+                    })
+                    .onAppear {
+                        self.item.workingValue = self.item.value
+                    }
+                }
+                .ifApply(UIDevice.current.userInterfaceIdiom != .phone, content: { v in
+                    v.frame(width: self.popoverWidth)
+                })
+                .frame(idealHeight: self.detentHeight)
+                .presentationDetents([.height(self.detentHeight)])
+            }
+            .ifApply(UIDevice.current.userInterfaceIdiom != .phone, content: { v in
+                v.background(GeometryReader { geometry in
+                    Color.clear
+                        .onAppear {
+                            self.barItemFrame = geometry.frame(in: .global)
+                        }
+                        .setOnChange(of: geometry.frame(in: .global), action1: { newValue in
+                            self.barItemFrame = newValue
+                        }) { _, newValue in
+                            self.barItemFrame = newValue
+                        }
+                })
+            })
+    }
+    
+    private func calculateDetentHeight(geometrySizeHeight: CGFloat) {
+        let isNotIphone = UIDevice.current.userInterfaceIdiom != .phone
+        var calculateHeight = geometrySizeHeight
+        calculateHeight += isNotIphone ? 13 : 16
+        calculateHeight += isNotIphone ? 50 : 56
+        if !isNotIphone {
+            calculateHeight += UIEdgeInsets.getSafeAreaInsets().bottom
+        }
+        calculateHeight += UIDevice.current.userInterfaceIdiom != .phone ? 55 : 0
+        self.detentHeight = calculateHeight
+    }
+}
+
 struct FullCFGMenuItem: View {
     @Environment(\.filterFeedbackBarFullConfigurationItem) var fullCFGButton
     

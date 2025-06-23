@@ -1114,8 +1114,7 @@ extension SortCriterion: _ViewEmptyChecking {
     public var isEmpty: Bool {
         checkmark.isEmpty &&
             title.isEmpty &&
-            subtitle.isEmpty &&
-            accessoryIcon.isEmpty
+            subtitle.isEmpty
     }
 }
 

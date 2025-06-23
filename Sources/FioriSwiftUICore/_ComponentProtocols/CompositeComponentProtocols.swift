@@ -2181,7 +2181,7 @@ protocol _ActivationScreenComponent: _TitleComponent, _DescriptionTextComponent,
 }
 
 // sourcery: CompositeComponent
-protocol _SortCriterionComponent: _CheckmarkComponent, _TitleComponent, _SubtitleComponent, _AccessoryIconComponent {
+protocol _SortCriterionComponent: _CheckmarkComponent, _TitleComponent, _SubtitleComponent {
     // sourcery: @Binding
     /// The data of the Order Picker Item
     var data: OrderPickerItemModel { get }

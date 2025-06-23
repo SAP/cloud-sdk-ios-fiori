@@ -42,7 +42,13 @@ struct SortFilterExample: View {
             .title(item: .init(name: "Title", text: "This is default text.", placeholder: "Please input", maxTextLength: 20, isCharCountEnabled: true, charCountBeyondLimitMsg: "Char count beyond limit"), showsOnFilterFeedbackBar: true),
             .note(item: .init(name: "Note", text: "This is default text.", placeholder: "Please input", maxTextLength: 200, isCharCountEnabled: true, charCountBeyondLimitMsg: "Char count beyond limit"), showsOnFilterFeedbackBar: false)
         ],
-        [.durationPicker(item: .init(name: "Duration", value: 0, maximumMinutes: 505, minimumMinutes: 0, minuteInterval: 1), showsOnFilterFeedbackBar: true)]
+        [.durationPicker(item: .init(name: "Duration", value: 0, maximumMinutes: 505, minimumMinutes: 0, minuteInterval: 1), showsOnFilterFeedbackBar: true)],
+        [.orderPicker(item: .init(name: "OrderPicker", title: nil, value: [
+            OrderPickerItemModel(criterion: "Priority", isSelected: false, isAscending: true, ascendingText: "Lowest first", descendingText: "Highest first"),
+            OrderPickerItemModel(criterion: "Status", isSelected: true, isAscending: false, ascendingText: "Ascending", descendingText: "Descending"),
+            OrderPickerItemModel(criterion: "Due Date", isSelected: true, isAscending: false, ascendingText: "Earliest first", descendingText: "L"),
+            OrderPickerItemModel(criterion: "Really long criterion text that requires wrapping", isSelected: true, isAscending: false, ascendingText: "Really long sort direction text up", descendingText: "Really long sort direction down")
+        ], isAtLeastOneSelected: true, controlState: .normal), showsOnFilterFeedbackBar: true)]
     ]
     
     @State private var isShowingFullCFG: Bool = false
