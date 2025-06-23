@@ -8,37 +8,48 @@ public struct OrderPickerBaseStyle: OrderPickerStyle {
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
         
     public func makeBody(_ configuration: OrderPickerConfiguration) -> some View {
-        VStack {
-            HStack {
-                if configuration.optionalTitle.isEmpty {
-                    OptionalTitle(optionalTitle: AttributedString(NSLocalizedString("Sort by", comment: "")))
-                } else {
-                    configuration.optionalTitle
-                }
-            }.padding(.leading, self.horizontalSizeClass == .regular ? 20 : 16)
-            
-            Divider()
-            
-            VStack(spacing: 0) {
-                self.buildOrderPickerList(configuration)
+        List {
+            Section(header: self.getOrderPickerTitle(configuration)) {
+                ForEach(self.$modelObject.items) { item in
+                    VStack(spacing: 0) {
+                        SortCriterion(title: item.wrappedValue.criterion, data: item)
+                            .typeErased
+                            .contentShape(Rectangle())
+                            .ifApply(item.wrappedValue.customStyle != nil) {
+                                $0.sortCriterionStyle(AnySortCriterionStyle(customStyle: item.wrappedValue.customStyle))
+                            }
+                    }
+                    .accessibilityElement(children: .combine)
+                    .accessibilityLabel(item.wrappedValue.description)
+                    .accessibilityAddTraits(.isButton)
+                }.onMove(perform: self.moveItems)
             }
-            .fixedSize(horizontal: false, vertical: true)
+        }
+        .listStyle(.plain)
+        .environment(\.editMode, .constant(.active))
+    }
+    
+    func getOrderPickerTitle(_ configuration: OrderPickerConfiguration) -> some View {
+        HStack {
+            if configuration.optionalTitle.isEmpty {
+                OptionalTitle(optionalTitle: AttributedString(NSLocalizedString("Sort by", comment: "")))
+            } else {
+                configuration.optionalTitle
+            }
         }
     }
     
-    func buildOrderPickerList(_ configuration: OrderPickerConfiguration) -> some View {
-        ForEach(self.$modelObject.items) { item in
-            VStack(spacing: 0) {
-                SortCriterion(title: item.wrappedValue.criterion, data: item)
-                    .typeErased
-                    .contentShape(Rectangle())
-                    .ifApply(item.wrappedValue.customStyle != nil) {
-                        $0.sortCriterionStyle(AnySortCriterionStyle(customStyle: item.wrappedValue.customStyle))
-                    }
+    private func moveItems(from source: IndexSet, to destination: Int) {
+        self.modelObject.items.move(fromOffsets: source, toOffset: destination)
+
+        if let onChanged = self.modelObject.configuration.onChangeHandler, let sourceIndex = source.first {
+            var destinationIndex = destination - 1
+            if sourceIndex > destinationIndex || destinationIndex < 1 {
+                destinationIndex = destination
             }
-            .scaleEffect((self.modelObject.isDragging && self.modelObject.draggingItem?.id == item.id) ? 1.08 : 1)
-            .shadow(color: self.modelObject.isDragging ? .black.opacity(0.3) : Color.clear, radius: self.modelObject.isDragging ? 8 : 0, y: self.modelObject.isDragging ? 2 : 0)
-            .animation(.spring(), value: self.modelObject.isDragging)
+            if sourceIndex != destinationIndex {
+                onChanged(OrderPickerItemModel.Change.order(sourceIndex: sourceIndex, destinationIndex: destinationIndex), self.modelObject.items)
+            }
         }
     }
 }
@@ -49,7 +60,7 @@ extension OrderPickerFioriStyle {
         func makeBody(_ configuration: OrderPickerConfiguration) -> some View {
             OrderPicker(configuration)
                 .disabled((configuration.controlState == .disabled || configuration.controlState == .readOnly) ? true : false)
-                .environmentObject(OrderPickerModelObject(items: configuration.data, configuration: configuration))
+                .environmentObject(OrderPickerModelObject(items: configuration.$data, configuration: configuration))
         }
     }
 
@@ -89,8 +100,6 @@ public struct OrderPickerItemModel: Identifiable, Hashable, Equatable, CustomStr
     public var selectedIcon: Image?
     /// A `String` representing the criterion of the order picker item.
     public var criterion: AttributedString
-    /// An optional `Image` that represents an drop/drag icon for the order picker item.
-    public var accessoryIcon: Image?
     
     /// A boolean value that determines the selected state of the criterion.
     public var isSelected: Bool = false
@@ -108,17 +117,15 @@ public struct OrderPickerItemModel: Identifiable, Hashable, Equatable, CustomStr
     /// - Parameters:
     ///   - selectedIcon: An optional `Image` that represents a icon of the order picker item when it was selected.
     ///   - criterion: A `String` representing the criterion of the order picker item.
-    ///   - accessoryIcon: An optional `Image` that represents an drop/drag icon for the order picker item.
     ///   - isSelected: A boolean value that determines the selected state of the criterion.
     ///   - isAscending: A boolean value that determines the order direction of the criterion.
     ///   - ascendingText: The text displayed when the criterion is ascending, such as "Ascending".
     ///   - descendingText: The text displayed when the criterion is descending, such as "Descending"
     ///   - customStyle: An optional `customStyle`
 
-    public init(id: UUID = UUID(), selectedIcon: Image? = nil, criterion: AttributedString, accessoryIcon: Image? = nil, isSelected: Bool = false, isAscending: Bool = true, ascendingText: AttributedString, descendingText: AttributedString, customStyle: (any SortCriterionStyle)? = nil) {
+    public init(id: UUID = UUID(), selectedIcon: Image? = nil, criterion: AttributedString, isSelected: Bool = false, isAscending: Bool = true, ascendingText: AttributedString, descendingText: AttributedString, customStyle: (any SortCriterionStyle)? = nil) {
         self.selectedIcon = selectedIcon
         self.criterion = criterion
-        self.accessoryIcon = accessoryIcon
         self.isSelected = isSelected
         self.isAscending = isAscending
         self.ascendingText = ascendingText
@@ -169,21 +176,19 @@ public struct OrderPickerItemModel: Identifiable, Hashable, Equatable, CustomStr
         hasher.combine(self.criterion)
     }
     
-    /// An equality operator method that compares two `OrderPickerItemModel` instances based on their `id` property.
+    /// An equality operator method that compares two `OrderPickerItemModel` instances based on their `id`, `isSelected`' and `isAscending` properties.
     public static func == (lhs: OrderPickerItemModel, rhs: OrderPickerItemModel) -> Bool {
-        lhs.id == rhs.id
+        lhs.id == rhs.id && lhs.isSelected == rhs.isSelected && lhs.isAscending == rhs.isAscending
     }
 }
 
 class OrderPickerModelObject: ObservableObject {
-    @Published var items: [OrderPickerItemModel] = []
-    @Published var isDragging = false
+    @Binding var items: [OrderPickerItemModel]
     @Published var highlightedItemID: UUID?
-    var draggingItem: OrderPickerItemModel?
     var configuration: OrderPickerConfiguration
     
-    public init(items: [OrderPickerItemModel], configuration: OrderPickerConfiguration) {
+    public init(items: Binding<[OrderPickerItemModel]>, configuration: OrderPickerConfiguration) {
         self.configuration = configuration
-        self.items = items
+        self._items = items
     }
 }
