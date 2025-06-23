@@ -40,7 +40,16 @@ protocol _CardFooterComponent: _ActionComponent, _SecondaryActionComponent, _Ter
 protocol _CardHeaderComponent: _CardMediaComponent, _CardMainHeaderComponent, _CardExtHeaderComponent {}
 
 // sourcery: CompositeComponent
-protocol _CardComponent: _CardHeaderComponent, _CardBodyComponent, _CardFooterComponent {}
+protocol _CardLeftBodyComponent {
+    // sourcery: @ViewBuilder, resultBuilder.backingComponent = OptionalImage
+    var mediaLeftImage: Image? { get }
+    
+    // sourcery: defaultValue = false
+    var isIncludeFooter: Bool { get }
+}
+
+// sourcery: CompositeComponent
+protocol _CardComponent: _CardHeaderComponent, _CardBodyComponent, _CardFooterComponent, _CardLeftBodyComponent {}
 
 // sourcery: CompositeComponent
 protocol _IllustratedMessageComponent: _DetailImageComponent, _TitleComponent, _DescriptionComponent, _ActionComponent, _SecondaryActionComponent {

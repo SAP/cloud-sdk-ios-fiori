@@ -23,6 +23,10 @@ extension CardConfiguration {
     var _cardFooter: CardFooter {
         CardFooter(.init(action: .init(self.action), secondaryAction: .init(self.secondaryAction), tertiaryAction: .init(self.tertiaryAction), overflowAction: .init(self.overflowAction)), shouldApplyDefaultStyle: true)
     }
+
+    var _cardLeftBody: CardLeftBody {
+        CardLeftBody(.init(mediaLeftImage: .init(self.mediaLeftImage), isIncludeFooter: self.isIncludeFooter), shouldApplyDefaultStyle: true)
+    }
 }
 
 // MARK: CardHeaderConfiguration

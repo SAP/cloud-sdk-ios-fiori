@@ -581,6 +581,23 @@ public extension View {
     }
 }
 
+// MARK: CardLeftBodyStyle
+
+public extension View {
+    func cardLeftBodyStyle(_ style: some CardLeftBodyStyle) -> some View {
+        self.transformEnvironment(\.cardLeftBodyStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func cardLeftBodyStyle(@ViewBuilder content: @escaping (CardLeftBodyConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.cardLeftBodyStyleStack) { stack in
+            let style = AnyCardLeftBodyStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: CardMainHeaderStyle
 
 public extension View {

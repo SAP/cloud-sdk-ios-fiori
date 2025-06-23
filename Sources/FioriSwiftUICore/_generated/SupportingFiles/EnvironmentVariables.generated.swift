@@ -717,6 +717,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: CardLeftBodyStyle
+
+struct CardLeftBodyStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any CardLeftBodyStyle] = []
+}
+
+extension EnvironmentValues {
+    var cardLeftBodyStyle: any CardLeftBodyStyle {
+        self.cardLeftBodyStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var cardLeftBodyStyleStack: [any CardLeftBodyStyle] {
+        get {
+            self[CardLeftBodyStyleStackKey.self]
+        }
+        set {
+            self[CardLeftBodyStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: CardMainHeaderStyle
 
 struct CardMainHeaderStyleStackKey: EnvironmentKey {
