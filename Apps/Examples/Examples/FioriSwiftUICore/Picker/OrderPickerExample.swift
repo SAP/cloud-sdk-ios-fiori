@@ -48,10 +48,6 @@ struct OrderPickerExample: View {
                     c.subtitle
                         .lineLimit(1)
                 }
-                .accessoryIconStyle { c in
-                    c.accessoryIcon
-                        .foregroundStyle(Color.preferredColor(.baseBlack))
-                }
         }
     }
     

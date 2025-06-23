@@ -7647,27 +7647,6 @@ public extension SortCriterionStyle where Self == SortCriterionSubtitleStyle {
     }
 }
 
-public struct SortCriterionAccessoryIconStyle: SortCriterionStyle {
-    let style: any AccessoryIconStyle
-
-    public func makeBody(_ configuration: SortCriterionConfiguration) -> some View {
-        SortCriterion(configuration)
-            .accessoryIconStyle(self.style)
-            .typeErased
-    }
-}
-
-public extension SortCriterionStyle where Self == SortCriterionAccessoryIconStyle {
-    static func accessoryIconStyle(_ style: some AccessoryIconStyle) -> SortCriterionAccessoryIconStyle {
-        SortCriterionAccessoryIconStyle(style: style)
-    }
-
-    static func accessoryIconStyle(@ViewBuilder content: @escaping (AccessoryIconConfiguration) -> some View) -> SortCriterionAccessoryIconStyle {
-        let style = AnyAccessoryIconStyle(content)
-        return SortCriterionAccessoryIconStyle(style: style)
-    }
-}
-
 // MARK: SortFilterViewStyle
 
 public extension SortFilterViewStyle where Self == SortFilterViewBaseStyle {
