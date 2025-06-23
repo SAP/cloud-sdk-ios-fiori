@@ -17,36 +17,38 @@ public struct CardBaseStyle: CardStyle {
     /// It means a Card's height use the proposal's height over its intrinsic height if it is true.
     /// `CarouselLayout` with `isSameHeight` `true` requires `useProposedHeight` to be `true`.
     let useProposedHeight: Bool
-    
+    @Environment(\.isLoading) var isLoading
     init(useProposedHeight: Bool = true) {
         self.useProposedHeight = useProposedHeight
     }
     
     public func makeBody(_ configuration: CardConfiguration) -> some View {
         // Add default layout here
-        CardLayout(lineSpacing: 0, useProposedHeight: self.useProposedHeight) {
-            if !configuration._cardHeader.isEmpty {
-                configuration._cardHeader
-                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 6, trailing: 0))
-            } else {
-                Spacer().frame(width: 1, height: 10)
+        SkeletonLoadingContainer(isLoading: self.isLoading) {
+            CardLayout(lineSpacing: 0, useProposedHeight: self.useProposedHeight) {
+                if !configuration._cardHeader.isEmpty {
+                    configuration._cardHeader
+                        .padding(EdgeInsets(top: 0, leading: 0, bottom: 6, trailing: 0))
+                } else {
+                    Spacer().frame(width: 1, height: 10)
+                }
+                
+                if !configuration.cardBody.isEmpty {
+                    configuration.cardBody
+                        .padding(EdgeInsets(top: 6, leading: 16, bottom: 6, trailing: 16))
+                }
+                
+                if !(configuration._cardFooter.action.isEmpty && configuration._cardFooter.secondaryAction.isEmpty &&
+                    configuration._cardFooter.tertiaryAction.isEmpty)
+                {
+                    configuration._cardFooter
+                        .padding(EdgeInsets(top: 6, leading: 16, bottom: 6, trailing: 16))
+                        .layoutPriority(3) // Mark this as the footer in CardLayout
+                }
             }
-            
-            if !configuration.cardBody.isEmpty {
-                configuration.cardBody
-                    .padding(EdgeInsets(top: 6, leading: 16, bottom: 6, trailing: 16))
-            }
-            
-            if !(configuration._cardFooter.action.isEmpty && configuration._cardFooter.secondaryAction.isEmpty &&
-                configuration._cardFooter.tertiaryAction.isEmpty)
-            {
-                configuration._cardFooter
-                    .padding(EdgeInsets(top: 6, leading: 16, bottom: 6, trailing: 16))
-                    .layoutPriority(3) // Mark this as the footer in CardLayout
-            }
+            .clipped()
+            .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
         }
-        .clipped()
-        .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
     }
 }
 
@@ -514,6 +516,7 @@ public enum CardTests {
                                        readableScaleEnabled: false,
                                        categoryAxis: ChartCategoryAxisAttributes(gridlines: gridLine, formatter: nil, abbreviatedFormatter: nil, labelLayoutStyle: .range),
                                        numericAxis: ChartNumericAxisAttributes(baseline: baseLine, formatter: nil, abbreviatedFormatter: nil))
+    static var isLoading: Bool = false
     
     static let sampleCard1 = Card {
         Image("card_image")
@@ -1083,6 +1086,53 @@ public enum CardTests {
     public static let cardSamples = [sampleCard1, sampleCard13, sampleCard2, sampleCard3, sampleCard4, sampleCard5, sampleCard6, sampleCard7, sampleCard9, sampleCard10, vbCard, sampleCard11, sampleCard8, fullCard]
     public static let cardFooterSamples = [sampleCard6, sampleCard16, sampleCard17, sampleCard12, sampleCard13, sampleCard14, sampleCard15, sampleCard20]
     static let previewCardSamples = [sampleCard1, sampleCard2, sampleCard3, sampleCard4, sampleCard5, sampleCard6, sampleCard7, sampleCard8, sampleCard9, sampleCard10, sampleCard11, vbCard, fullCard, headerOnly, titleOnly, noHeader]
+}
+
+public enum CardSkeletonLoadingPattern {
+    public static let oneLineCard = Card {
+        Text("Title text for loading")
+    } detailImage: {
+        Image("ProfilePic")
+    } headerAction: {
+        FioriButton(title: "header")
+    }
+
+    public static let twoLineCard = Card {
+        Text("Title text")
+    } subtitle: {
+        Text("Subtitle text that goes to multiple lines")
+    } detailImage: {
+        Image("ProfilePic")
+    } headerAction: {
+        FioriButton(title: "header")
+    }
+    
+    public static let multipleLineCard = Card {
+        Text("Title text for loading")
+    } subtitle: {
+        Text("Subtitle text that goes to multiple lines")
+    } detailImage: {
+        Image("ProfilePic")
+    } headerAction: {
+        FioriButton(title: "header")
+    } action: {
+        FioriButton(title: "Primary")
+    } secondaryAction: {
+        FioriButton(title: "Secondary")
+    }
+
+    public static let listCard = List {
+        oneLineCard
+        multipleLineCard
+    }
+
+    public static let genericCard = Card(title: "Title",
+                                         subtitle: "Subtitle that goes to multiple lines before truncating just like that",
+                                         icons: [TextOrIcon.icon(Image(systemName: "circle.fill")), TextOrIcon.icon(Image(systemName: "paperclip")), TextOrIcon.text("1")],
+                                         headerAction: FioriButton(title: "..."),
+//                                   counter: "1 of 3",
+                                         tertiaryAction: FioriButton(title: "Tertiary"),
+                                         overflowAction: FioriButton(title: "Overflow"))
 }
 
 #Preview {

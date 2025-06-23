@@ -19,7 +19,7 @@ public struct ObjectItemBaseStyle: ObjectItemStyle {
     @Environment(\.splitPercent) var splitPercent
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
     @Environment(\.footnoteIconsTextPosition) var footnoteIconsTextPosition
-
+    @Environment(\.isLoading) var isLoading
     @State var mainViewSize: CGSize = .zero
     
     public func makeBody(_ configuration: ObjectItemConfiguration) -> some View {
@@ -48,32 +48,34 @@ public struct ObjectItemBaseStyle: ObjectItemStyle {
         
         let context = Context(configuration: configuration, shouldShowAvatar: shouldShowAvatar, avatarView: avatarView)
         
-        return Group {
-            if !configuration.action.isEmpty {
-                // When only the headline label is used, everything in the cell is center aligned. Only 1 status can be used.
-                if isCenterAligned {
-                    self.makeOneLineSingleActionView(context)
-                } else {
-                    self.makeRegularSingleActionView(context)
-                }
-            } else if isCompact || self.splitPercent == nil {
-                // When only the headline label is used, everything in the cell is center aligned. Only 1 status can be used.
-                if isCenterAligned {
-                    self.makeCompactOneLineView(context)
-                }
-                // If only 1 status is being used with either a chevron or with no accessory view, the body and subhead labels in the main content area should extend to the full width of the cell below the status.
-                // The headline must maintain the 8 px padding with the status.
-                else if configuration.substatus.isEmpty {
-                    self.makeCompactOneStatusView(context)
-                } else {
-                    self.makeCompactGeneralView(context)
-                }
-            } else { // horizontalSizeClass is Regular
-                // When only the headline label is used, everything in the cell is center aligned. Only 1 status can be used.
-                if isCenterAligned {
-                    self.makeRegularCenterView(context)
-                } else {
-                    self.makeRegularGeneralView(context)
+        return SkeletonLoadingContainer(isLoading: self.isLoading) {
+            Group {
+                if !configuration.action.isEmpty {
+                    // When only the headline label is used, everything in the cell is center aligned. Only 1 status can be used.
+                    if isCenterAligned {
+                        self.makeOneLineSingleActionView(context)
+                    } else {
+                        self.makeRegularSingleActionView(context)
+                    }
+                } else if isCompact || self.splitPercent == nil {
+                    // When only the headline label is used, everything in the cell is center aligned. Only 1 status can be used.
+                    if isCenterAligned {
+                        self.makeCompactOneLineView(context)
+                    }
+                    // If only 1 status is being used with either a chevron or with no accessory view, the body and subhead labels in the main content area should extend to the full width of the cell below the status.
+                    // The headline must maintain the 8 px padding with the status.
+                    else if configuration.substatus.isEmpty {
+                        self.makeCompactOneStatusView(context)
+                    } else {
+                        self.makeCompactGeneralView(context)
+                    }
+                } else { // horizontalSizeClass is Regular
+                    // When only the headline label is used, everything in the cell is center aligned. Only 1 status can be used.
+                    if isCenterAligned {
+                        self.makeRegularCenterView(context)
+                    } else {
+                        self.makeRegularGeneralView(context)
+                    }
                 }
             }
         }
@@ -550,129 +552,153 @@ extension ObjectItemFioriStyle {
     
     struct TitleFioriStyle: TitleStyle {
         let objectItemConfiguration: ObjectItemConfiguration
-        
+        @Environment(\.isLoading) var isLoading
         func makeBody(_ configuration: TitleConfiguration) -> some View {
             Title(configuration)
                 .font(.fiori(forTextStyle: .headline, weight: .semibold))
+                .foregroundStyle(Color.preferredColor(self.isLoading ? .separator : .baseBlack))
         }
     }
 
     struct SubtitleFioriStyle: SubtitleStyle {
         let objectItemConfiguration: ObjectItemConfiguration
-        
+        @Environment(\.isLoading) var isLoading
         func makeBody(_ configuration: SubtitleConfiguration) -> some View {
             Subtitle(configuration)
-                .foregroundStyle(Color.preferredColor(.secondaryLabel))
+                .foregroundStyle(Color.preferredColor(self.isLoading ? .separator : .secondaryLabel))
                 .lineLimit(1)
         }
     }
 
     struct FootnoteFioriStyle: FootnoteStyle {
         let objectItemConfiguration: ObjectItemConfiguration
-        
+        @Environment(\.isLoading) var isLoading
         func makeBody(_ configuration: FootnoteConfiguration) -> some View {
             Footnote(configuration)
-                // Add default style here
+                .ifApply(self.isLoading) {
+                    $0.foregroundStyle(Color.preferredColor(.separator))
+                }
                 .lineLimit(1)
         }
     }
 
     struct DescriptionFioriStyle: DescriptionStyle {
         let objectItemConfiguration: ObjectItemConfiguration
-        
+        @Environment(\.isLoading) var isLoading
         func makeBody(_ configuration: DescriptionConfiguration) -> some View {
             Description(configuration)
+                .ifApply(self.isLoading) {
+                    $0.foregroundStyle(Color.preferredColor(.separator))
+                }
             // Add default style here
         }
     }
 
     struct StatusFioriStyle: StatusStyle {
         let objectItemConfiguration: ObjectItemConfiguration
-        
+        @Environment(\.isLoading) var isLoading
         func makeBody(_ configuration: StatusConfiguration) -> some View {
             Status(configuration)
                 .font(.fiori(forTextStyle: .subheadline))
                 .lineLimit(1)
+                .ifApply(self.isLoading) {
+                    $0.foregroundStyle(Color.preferredColor(.separator))
+                }
         }
     }
 
     struct SubstatusFioriStyle: SubstatusStyle {
         let objectItemConfiguration: ObjectItemConfiguration
-        
+        @Environment(\.isLoading) var isLoading
         func makeBody(_ configuration: SubstatusConfiguration) -> some View {
             Substatus(configuration)
                 .font(.fiori(forTextStyle: .subheadline))
                 .lineLimit(1)
+                .ifApply(self.isLoading) {
+                    $0.foregroundStyle(Color.preferredColor(.separator))
+                }
         }
     }
 
     struct DetailImageFioriStyle: DetailImageStyle {
         let objectItemConfiguration: ObjectItemConfiguration
-        
+        @Environment(\.isLoading) var isLoading
         func makeBody(_ configuration: DetailImageConfiguration) -> some View {
             DetailImage(configuration)
                 // Add default style here
                 .clipShape(RoundedRectangle(cornerRadius: 4))
                 .clipped()
+                .ifApply(self.isLoading) {
+                    $0.foregroundStyle(Color.preferredColor(.separator))
+                }
         }
     }
 
     struct IconsFioriStyle: IconsStyle {
         let objectItemConfiguration: ObjectItemConfiguration
-        
+        @Environment(\.isLoading) var isLoading
         func makeBody(_ configuration: IconsConfiguration) -> some View {
             Icons(configuration)
-                .foregroundStyle(Color.preferredColor(.tertiaryLabel))
+                .foregroundStyle(Color.preferredColor(self.isLoading ? .separator : .tertiaryLabel))
         }
     }
 
     struct AvatarsFioriStyle: AvatarsStyle {
         let objectItemConfiguration: ObjectItemConfiguration
-        
+        @Environment(\.isLoading) var isLoading
         func makeBody(_ configuration: AvatarsConfiguration) -> some View {
             Avatars(configuration)
-                // Add default style here
                 .clipped()
+                .ifApply(self.isLoading) {
+                    $0.foregroundStyle(Color.preferredColor(.separator))
+                }
         }
     }
 
     struct FootnoteIconsFioriStyle: FootnoteIconsStyle {
         let objectItemConfiguration: ObjectItemConfiguration
-        
+        @Environment(\.isLoading) var isLoading
         func makeBody(_ configuration: FootnoteIconsConfiguration) -> some View {
             FootnoteIcons(configuration)
-            // Add default style here
+                .ifApply(self.isLoading) {
+                    $0.foregroundStyle(Color.preferredColor(.separator))
+                }
         }
     }
     
     struct FootnoteIconsTextFioriStyle: FootnoteIconsTextStyle {
         let objectItemConfiguration: ObjectItemConfiguration
-
+        @Environment(\.isLoading) var isLoading
         func makeBody(_ configuration: FootnoteIconsTextConfiguration) -> some View {
             FootnoteIconsText(configuration)
                 .font(.fiori(forTextStyle: .subheadline))
-                .foregroundStyle(Color.preferredColor(.secondaryLabel))
+                .foregroundStyle(Color.preferredColor(self.isLoading ? .separator : .secondaryLabel))
                 .lineLimit(1)
         }
     }
 
     struct TagsFioriStyle: TagsStyle {
         let objectItemConfiguration: ObjectItemConfiguration
-        
+        @Environment(\.isLoading) var isLoading
         func makeBody(_ configuration: TagsConfiguration) -> some View {
             Tags(configuration)
-            // Add default style here
+                .ifApply(self.isLoading) {
+                    $0.foregroundStyle(Color.preferredColor(.separator))
+                }
         }
     }
 
     struct ActionFioriStyle: ActionStyle {
         let objectItemConfiguration: ObjectItemConfiguration
-        
+        @Environment(\.isLoading) var isLoading
         func makeBody(_ configuration: ActionConfiguration) -> some View {
             Action(configuration)
                 // Add default style here
                 .fioriButtonStyle(FioriPlainButtonStyle())
                 .lineLimit(2)
+                .ifApply(self.isLoading) {
+                    $0.foregroundStyle(Color.preferredColor(.separator))
+                }
         }
     }
 }
@@ -903,4 +929,52 @@ struct AvatarsAndTextLayout: Layout {
             }
         }
     }
+}
+
+public enum ObjectItemSkeletonLoadingPattern {
+    public static let oneLine = ObjectItem(title: {
+        Text("Object Item Title")
+    }, status: {
+        Text("Status Text")
+    }, detailImage: {
+        Image("rw").resizable().frame(width: 45, height: 45).clipShape(Circle())
+    })
+    
+    public static let twoLines = ObjectItem(title: {
+        Text("Object Item title text")
+    }, subtitle: {
+        Text("Object Item subtitle text")
+    }, status: {
+        Text("Status Text")
+    }, detailImage: {
+        Image("rw").resizable().frame(width: 45, height: 45).clipShape(Circle())
+    })
+    
+    public static let multiLines = ObjectItem(title: {
+        Text("Object Item Title")
+    }, subtitle: {
+        Text("Object Item subtitle text")
+    }, footnote: {
+        Text("Object Item footnote text")
+    }, description: {
+        Text("Object Item description text that goes to multiple lines. It is a long text that should be truncated if it is too long to fit in the available space.")
+    }, status: {
+        Text("Status Text")
+    }, substatus: {
+        Text("substatus Text")
+    }, detailImage: {
+        Image("rw").resizable().frame(width: 45, height: 45)
+    })
+    
+    public static let generic = ObjectItem(title: {
+        Text("Object Item Title")
+    }, subtitle: {
+        Text("Object Item subtitle text")
+    }, footnote: {
+        Text("Object Item footnote text")
+    }, description: {
+        Text("Object Item description text that goes to multiple lines. It is a long text that should be truncated if it is too long to fit in the available space.")
+    }, status: {
+        Text("Status Text")
+    })
 }
