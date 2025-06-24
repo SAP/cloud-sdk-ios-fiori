@@ -2253,8 +2253,8 @@ protocol _OrderPickerComponent: _OptionalTitleComponent {
 ///
 ///             }, onDownVote: {
 ///
-///             }, onSubmit: { voteState, feedbacks, additional, submitStateUpdate in
-///                 submitStateUpdate(.success)
+///             }, onSubmit: { voteState, feedbacks, additional, submitResult in
+///                 submitResult(true)
 ///             }, voteState: .notDetermined)
 /// ```
 ///  ### Toggle:
@@ -2308,10 +2308,10 @@ protocol _AIUserFeedbackComponent: _IllustratedMessageComponent, _SubmitActionCo
     var onDownVote: (() -> Void)? { get }
     
     /// The action to be performed when the submit button is tapped.
-    /// Application can get the user feedback values, can tell the component the submition state with the `submitStateUpdate` call back.
+    /// Application can get the user feedback values, can tell the component the submition result with the `submitResult` call back.
     // sourcery: default.value = nil
     // sourcery: no_view
-    var onSubmit: ((_ voteState: AIUserFeedbackVoteState, _ feedbacks: [String], _ additional: String, _ submitStateUpdate: @escaping (AIUserFeedbackSubmitState) -> Void) -> Void)? { get }
+    var onSubmit: ((_ voteState: AIUserFeedbackVoteState, _ feedbacks: [String], _ additional: String, _ submitResult: @escaping (Bool) -> Void) -> Void)? { get }
     
     /// The state of vote. Default is `notDetermined`.
     // sourcery: defaultValue = .notDetermined

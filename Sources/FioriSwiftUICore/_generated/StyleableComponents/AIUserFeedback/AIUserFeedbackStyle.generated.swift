@@ -42,7 +42,7 @@ public struct AIUserFeedbackConfiguration {
     public let onCancel: (() -> Void)?
     public let onUpVote: (() -> Void)?
     public let onDownVote: (() -> Void)?
-    public let onSubmit: ((_ voteState: AIUserFeedbackVoteState, _ feedbacks: [String], _ additional: String, _ submitStateUpdate: @escaping (AIUserFeedbackSubmitState) -> Void) -> Void)?
+    public let onSubmit: ((_ voteState: AIUserFeedbackVoteState, _ feedbacks: [String], _ additional: String, _ submitResult: @escaping (Bool) -> Void) -> Void)?
     public let voteState: AIUserFeedbackVoteState
 
     public typealias DetailImage = ConfigurationViewWrapper
