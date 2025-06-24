@@ -40,7 +40,7 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
     @State var voteState: AIUserFeedbackVoteState = .notDetermined
     @State var isUpVoted = false
     @State var isDownVoted = false
-    @State var isSubmitRequestFailed = false
+    @Environment(\.isSubmitRequestFailed) var isSubmitRequestFailed
     
     /// Indicates if the submit button has been shown.
     /// If the init voteState is `.notDetermined`, the submit button is hidden. When the down vote button is triggered, the submit button is shown.
@@ -104,7 +104,7 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
     func contentView(_ configuration: AIUserFeedbackConfiguration) -> some View {
         ZStack {
             ScrollView {
-                if self.isSubmitRequestFailed {
+                if self.isSubmitRequestFailed.wrappedValue {
                     self.defaultErrorView(configuration)
                         .padding(.top, 20)
                         .padding(.bottom, 16)
@@ -274,7 +274,7 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
     
     @ToolbarContentBuilder
     func toolBarContent(_ configuration: AIUserFeedbackConfiguration) -> some ToolbarContent {
-        if configuration.displayMode == .push || self.isSubmitRequestFailed {
+        if configuration.displayMode == .push || self.isSubmitRequestFailed.wrappedValue {
             ToolbarItem(placement: .topBarLeading) {
                 FioriButton { _ in
                     HStack {
@@ -285,8 +285,8 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
                 }
                 .fioriButtonStyle(AIUserFeedbackToolbarItemStyle())
                 .onSimultaneousTapGesture {
-                    if self.isSubmitRequestFailed {
-                        self.isSubmitRequestFailed = false
+                    if self.isSubmitRequestFailed.wrappedValue {
+                        self.isSubmitRequestFailed.wrappedValue = false
                         self.submitState = .normal
                     } else {
                         configuration.onCancel?()
@@ -326,7 +326,7 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
                         .fioriButtonStyle(FioriSecondaryButtonStyle(maxWidth: .infinity, loadingState: .processing).eraseToAnyFioriButtonStyle())
                 } else {
                     FioriButton { _ in
-                        self.isSubmitRequestFailed = false
+                        self.isSubmitRequestFailed.wrappedValue = false
                         self.onSubmitAction(configuration)
                     } label: { _ in
                         Text("Retry".localizedFioriString())
@@ -392,10 +392,10 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
         configuration.onSubmit?(self.voteState, self.getSelectedOptions(configuration), configuration.keyValueFormView?.text ?? "", { submitResult in
             self.submitState = .normal
             if submitResult {
-                self.isSubmitRequestFailed = false
+                self.isSubmitRequestFailed.wrappedValue = false
                 self.dismiss()
             } else {
-                self.isSubmitRequestFailed = true
+                self.isSubmitRequestFailed.wrappedValue = true
             }
         })
     }
@@ -502,10 +502,13 @@ private struct AIUserFeedbackToolbarItemStyle: FioriButtonStyle {
     }
 }
 
-// private extension View {
-//    func onSimultaneousTapGesture(perform action: @escaping () -> Void) -> some View {
-//        simultaneousGesture(TapGesture(count: 1).onEnded {
-//            action()
-//        }, including: .all)
-//    }
-// }
+struct AIUserFeedbackIsSubmitRequestFailedKey: EnvironmentKey {
+    static let defaultValue: Binding<Bool> = .constant(false)
+}
+
+extension EnvironmentValues {
+    var isSubmitRequestFailed: Binding<Bool> {
+        get { self[AIUserFeedbackIsSubmitRequestFailedKey.self] }
+        set { self[AIUserFeedbackIsSubmitRequestFailedKey.self] = newValue }
+    }
+}
