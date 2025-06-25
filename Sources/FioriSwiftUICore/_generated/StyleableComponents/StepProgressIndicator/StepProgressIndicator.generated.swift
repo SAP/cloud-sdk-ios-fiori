@@ -15,6 +15,16 @@ import SwiftUI
 /// ```
 /// You can also update step style for different states, if you created `StepProgressIndicator` by `[StepItem]`.
 /// `func stepStyle(_ style: @escaping ((_ id: String) -> (some StepStyle)?)) -> some View`
+///
+/// Sets the separator for step progress indicator components
+/// Example usage:
+/// ```swift
+/// StepProgressIndicator(...)
+///     .headerSeparator(true) // Show separator with default style
+///     .headerSeparator(true, color: .red) // Show red separator
+///     .headerSeparator(true, color: .blue, lineWidth: 1.0) // Show thick blue separator
+///     .headerSeparator(false) // Hide separator
+/// ```
 public struct StepProgressIndicator {
     let title: any View
     let action: any View

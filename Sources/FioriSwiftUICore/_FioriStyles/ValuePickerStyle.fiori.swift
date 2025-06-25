@@ -6,7 +6,6 @@ import SwiftUI
 public struct ValuePickerBaseStyle: ValuePickerStyle {
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
     @State var valueString: AttributedString = .init("")
-    @State var valuePickerVisible: Bool = false
     @FocusState var isFocused: Bool
 
     public func makeBody(_ configuration: ValuePickerConfiguration) -> some View {
@@ -14,12 +13,12 @@ public struct ValuePickerBaseStyle: ValuePickerStyle {
             if self.dynamicTypeSize >= .accessibility3 {
                 self.configureMainStack(configuration, isVertical: true)
             } else {
-                ViewThatFits {
+                ViewThatFits(in: .horizontal) {
                     self.configureMainStack(configuration, isVertical: false)
                     self.configureMainStack(configuration, isVertical: true)
                 }
             }
-            if self.valuePickerVisible || configuration.alwaysShowPicker {
+            if configuration.pickerVisible || configuration.alwaysShowPicker {
                 Divider()
                     .frame(height: 0.3)
                     .foregroundStyle(Color.preferredColor(.separatorOpaque))
@@ -43,8 +42,8 @@ public struct ValuePickerBaseStyle: ValuePickerStyle {
         .contentShape(Rectangle())
         .ifApply(configuration.controlState != .disabled && configuration.controlState != .readOnly) {
             $0.onTapGesture(perform: {
-                self.valuePickerVisible.toggle()
-                if self.valuePickerVisible {
+                configuration.pickerVisible.toggle()
+                if configuration.pickerVisible {
                     let oIndex = configuration.selectedIndex
                     if oIndex >= 0, oIndex <= configuration.options.count {
                         self.valueString = configuration.options[oIndex]
@@ -58,7 +57,7 @@ public struct ValuePickerBaseStyle: ValuePickerStyle {
         let oIndex = configuration.selectedIndex
         var value = self.valueString
 
-        let isTrackingLive = configuration.isTrackingLiveChanges || configuration.alwaysShowPicker || (!configuration.alwaysShowPicker && !self.valuePickerVisible)
+        let isTrackingLive = configuration.isTrackingLiveChanges || configuration.alwaysShowPicker || (!configuration.alwaysShowPicker && !configuration.pickerVisible)
         if isTrackingLive, oIndex >= 0, oIndex <= configuration.options.count {
             value = configuration.options[oIndex]
         }
@@ -68,7 +67,7 @@ public struct ValuePickerBaseStyle: ValuePickerStyle {
     func getValueLabelFontColor(_ configuration: ValuePickerConfiguration) -> Color {
         if configuration.controlState == .disabled {
             return .preferredColor(.quaternaryLabel)
-        } else if self.valuePickerVisible, !configuration.alwaysShowPicker {
+        } else if configuration.pickerVisible, !configuration.alwaysShowPicker {
             return .preferredColor(.tintColor)
         } else {
             return .preferredColor(.primaryLabel)

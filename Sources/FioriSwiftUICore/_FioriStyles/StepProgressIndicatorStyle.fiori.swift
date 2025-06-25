@@ -74,6 +74,7 @@ public extension StepProgressIndicator {
 
 // Base Layout style
 public struct StepProgressIndicatorBaseStyle: StepProgressIndicatorStyle {
+    @Environment(\.headerSeparator) private var separatorConfiguration
     @State var isPresented: Bool = false
     @State var stepFrames: [String: CGRect] = [:]
     @State var scrollBounds: CGRect = .zero
@@ -84,6 +85,13 @@ public struct StepProgressIndicatorBaseStyle: StepProgressIndicatorStyle {
         VStack(spacing: 0) {
             self.stepsHeader(configuration)
             self.stepsContainer(configuration, axis: .horizontal)
+        }
+        .ifApply(self.separatorConfiguration.showSeparator) { content in
+            VStack(spacing: 10) {
+                content
+                self.separatorConfiguration.color
+                    .frame(height: self.separatorConfiguration.lineWidth)
+            }
         }
     }
     

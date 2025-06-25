@@ -38,14 +38,17 @@ public struct ObjectItemBaseStyle: ObjectItemStyle {
             }
         }
         
+        var isCompact: Bool {
+            self.horizontalSizeClass == nil || self.horizontalSizeClass == .some(.compact)
+        }
+        
         var isCenterAligned: Bool {
-            configuration.subtitle.isEmpty && configuration.footnote.isEmpty && configuration.tags.isEmpty
+            configuration.subtitle.isEmpty && configuration.footnote.isEmpty && configuration.tags.isEmpty && (configuration.description.isEmpty || !isCompact || !configuration.showsDescriptionInCompact)
         }
         
         let context = Context(configuration: configuration, shouldShowAvatar: shouldShowAvatar, avatarView: avatarView)
         
-        // FIXME: check if VStack causes any problem.
-        return VStack {
+        return Group {
             if !configuration.action.isEmpty {
                 // When only the headline label is used, everything in the cell is center aligned. Only 1 status can be used.
                 if isCenterAligned {
@@ -53,7 +56,7 @@ public struct ObjectItemBaseStyle: ObjectItemStyle {
                 } else {
                     self.makeRegularSingleActionView(context)
                 }
-            } else if self.horizontalSizeClass == nil || self.horizontalSizeClass == .some(.compact) || self.splitPercent == nil {
+            } else if isCompact || self.splitPercent == nil {
                 // When only the headline label is used, everything in the cell is center aligned. Only 1 status can be used.
                 if isCenterAligned {
                     self.makeCompactOneLineView(context)
@@ -281,6 +284,9 @@ extension ObjectItemBaseStyle {
                             context.configuration.footnote
                             context.configuration.tags
                             self.footnoteIconsView(context)
+                            if context.configuration.showsDescriptionInCompact {
+                                context.configuration.description
+                            }
                         }
                         Spacer(minLength: 0)
                     }
@@ -311,12 +317,18 @@ extension ObjectItemBaseStyle {
                     Spacer().frame(width: 12)
                 }
                 
-                VStack(alignment: .leading, spacing: 3) {
-                    context.configuration.title.lineLimit(2)
-                    context.configuration.subtitle
-                    context.configuration.footnote
-                    context.configuration.tags
-                    self.footnoteIconsView(context)
+                VStack(alignment: .leading, spacing: 8) {
+                    VStack(alignment: .leading, spacing: 3) {
+                        context.configuration.title.lineLimit(2)
+                        context.configuration.subtitle
+                        context.configuration.footnote
+                        context.configuration.tags
+                        self.footnoteIconsView(context)
+                    }
+                    
+                    if context.configuration.showsDescriptionInCompact {
+                        context.configuration.description
+                    }
                 }
                 
                 Spacer(minLength: 8)
@@ -542,7 +554,6 @@ extension ObjectItemFioriStyle {
         func makeBody(_ configuration: TitleConfiguration) -> some View {
             Title(configuration)
                 .font(.fiori(forTextStyle: .headline, weight: .semibold))
-                .foregroundStyle(Color.preferredColor(.baseBlack))
         }
     }
 

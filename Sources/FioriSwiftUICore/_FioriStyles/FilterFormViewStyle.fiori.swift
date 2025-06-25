@@ -72,7 +72,7 @@ public struct FilterFormViewBaseStyle: FilterFormViewStyle {
                     self.FilterFormViewLayoutView(configuration, dynamicTypeSize: self.dynamicTypeSize, horizontalSizeClass: self.horizontalSizeClass)
                 }
             } else {
-                VStack(alignment: .leading) {
+                VStack(alignment: .leading, spacing: configuration.title.isEmpty ? 0 : 8) {
                     HStack {
                         self.TitleContainerView(configuration)
                         Spacer()
@@ -101,21 +101,24 @@ public struct FilterFormViewBaseStyle: FilterFormViewStyle {
         FilterFormViewLayout(buttonSize: configuration.buttonSize, dynamicTypeSize: dynamicTypeSize, horizontalSizeClass: horizontalSizeClass, filterFormOptionsItemSpacing: self.filterFormOptionsItemSpacing, filterFormOptionsLineSpacing: self.filterFormOptionsLineSpacing) {
             ForEach(configuration.options.indices, id: \.self) { index in
                 let isSelected = configuration.value.contains(index)
+                let option = configuration.options[index]
                 
                 ZStack {
                     // This stack is used to calculate the container's size with checkmark image
                     HStack(alignment: .center, spacing: self.filterFormOptionTitleSpacing, content: {
-                        Image(systemName: "checkmark")
-                        Text(configuration.options[index])
+                        if !configuration.checkmarkImage.isEmpty {
+                            configuration.checkmarkImage
+                        }
+                        Text(option)
                             .lineLimit(1)
                     })
                     .opacity(0)
                     
                     HStack(alignment: .center, spacing: self.filterFormOptionTitleSpacing, content: {
-                        if isSelected {
-                            Image(systemName: "checkmark")
+                        if isSelected, !configuration.checkmarkImage.isEmpty {
+                            configuration.checkmarkImage
                         }
-                        Text(configuration.options[index])
+                        Text(option)
                             .lineLimit(1)
                     })
                 }
@@ -131,9 +134,14 @@ public struct FilterFormViewBaseStyle: FilterFormViewStyle {
                         .stroke(self.optionsAttributesColor(isSelected, isEnabled: configuration.isEnabled, key: .strokeColor), lineWidth: self.optionsStrokeWidth(isSelected, isEnabled: configuration.isEnabled))
                 }
                 .frame(minHeight: self.filterFormOptionMinTouchHeight)
+                .contentShape(Rectangle())
                 .onTapGesture {
                     self.handleItemClick(configuration, index: index)
                 }
+                .accessibilityElement(children: .ignore)
+                .accessibilityLabel(
+                    Text("\(option), \((isSelected ? "selected" : "not selected").localizedFioriString())")
+                )
             }
         }
         .sizeReader { size in

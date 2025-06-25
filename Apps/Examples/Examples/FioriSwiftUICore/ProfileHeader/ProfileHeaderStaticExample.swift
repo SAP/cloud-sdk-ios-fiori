@@ -34,9 +34,9 @@ struct ProfileHeaderStaticExample: View {
             Text("This is a subtitle.")
         }, description: {
             Text("This is a description.")
-        }) {
+        }, detailContent: {
             self.detailContent
-        }
+        })
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 Menu {

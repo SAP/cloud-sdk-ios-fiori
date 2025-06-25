@@ -3,6 +3,15 @@
 import Foundation
 import SwiftUI
 
+/// Sets the separator for profile header components
+/// Example usage:
+/// ```swift
+/// ProfileHeader(...)
+///     .headerSeparator(true) // Show separator with default style
+///     .headerSeparator(true, color: .red) // Show red separator
+///     .headerSeparator(true, color: .blue, lineWidth: 1.0) // Show thick blue separator
+///     .headerSeparator(false) // Hide separator
+/// ```
 public struct ProfileHeader {
     let detailImage: any View
     let title: any View

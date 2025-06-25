@@ -46,6 +46,7 @@ public extension HeaderChart {
 
 // Base Layout style
 public struct HeaderChartBaseStyle: HeaderChartStyle {
+    @Environment(\.headerSeparator) private var separatorConfiguration
     @State var mainViewSize: CGSize = .init(width: 312, height: 0)
     
     /// :nodoc:
@@ -66,6 +67,13 @@ public struct HeaderChartBaseStyle: HeaderChartStyle {
                 self.makeTrendAndChartView(configuration)
             } else {
                 self.makeRegularView(configuration)
+            }
+        }
+        .ifApply(self.separatorConfiguration.showSeparator) { content in
+            VStack(spacing: 16) {
+                content
+                self.separatorConfiguration.color
+                    .frame(height: self.separatorConfiguration.lineWidth)
             }
         }
         .sizeReader { size in
