@@ -20,6 +20,7 @@ public struct SortFilterCFGItemContainer {
     @State var _keyboardHeight: CGFloat = 0.0
     @State private var onErrorMessage = ""
     @State private var sliderDescType: SliderValueChangeHandler.SliderInformationType = .fiori
+    @State var orderPickerHeight: CGFloat = 0.0
 
     /// Create a SortFilterCFGItemContainer view.
     /// - Parameters:
@@ -722,6 +723,14 @@ extension SortFilterCFGItemContainer: View {
                 },
                 controlState: self._items[r][c].orderPicker.controlState
             )
+            .modifier(FioriIntrospectModifier<UIScrollView> { scrollView in
+                DispatchQueue.main.async {
+                    if self.orderPickerHeight != scrollView.contentSize.height {
+                        self.orderPickerHeight = scrollView.contentSize.height
+                    }
+                }
+            })
+            .frame(minHeight: self.orderPickerHeight > 0 ? self.orderPickerHeight : 88.0)
             .background(Color.preferredColor(.primaryBackground))
             .foregroundColor(Color.preferredColor(.primaryLabel))
         }
