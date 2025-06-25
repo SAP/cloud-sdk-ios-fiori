@@ -1327,8 +1327,7 @@ struct DurationPickerMenuItem: View {
                     .buttonStyle(ApplyButtonStyle())
                 } components: {
                     DurationPickerViewWrapper(selection: self.$item.workingValue, maximumMinutes: self.item.maximumMinutes, minimumMinutes: self.item.minimumMinutes, minuteInterval: self.item.minuteInterval, measurementFormatter: self.item.measurementFormatter)
-                        .frame(width: 232, height: 204)
-                        .background(Color.preferredColor(.primaryBackground))
+                        .frame(height: 204)
                         .foregroundColor(Color.preferredColor(.primaryLabel))
                         .padding([.leading, .trailing], 16)
                         .padding(.bottom, 8)
