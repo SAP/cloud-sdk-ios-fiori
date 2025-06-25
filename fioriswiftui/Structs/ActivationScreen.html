@@ -45,12 +45,13 @@
                 <div class="declaration">
                   <div class="language">
                     
-                    <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">ActivationScreen</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/Title.html">Title</a></span><span class="p">,</span> <span class="kt"><a href="../Structs/DescriptionText.html">DescriptionText</a></span><span class="p">,</span> <span class="kt"><a href="../Structs/Footnote.html">Footnote</a></span><span class="p">,</span> <span class="kt">ActionView</span><span class="p">,</span> <span class="kt">SecondaryActionView</span><span class="p">,</span> <span class="kt">TextInputView</span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt"><a href="../Structs/Title.html">Title</a></span> <span class="p">:</span> <span class="kt">View</span><span class="p">,</span> <span class="kt"><a href="../Structs/DescriptionText.html">DescriptionText</a></span> <span class="p">:</span> <span class="kt">View</span><span class="p">,</span> <span class="kt"><a href="../Structs/Footnote.html">Footnote</a></span> <span class="p">:</span> <span class="kt">View</span><span class="p">,</span> <span class="kt">ActionView</span> <span class="p">:</span> <span class="kt">View</span><span class="p">,</span> <span class="kt">SecondaryActionView</span> <span class="p">:</span> <span class="kt">View</span><span class="p">,</span> <span class="kt">TextInputView</span> <span class="p">:</span> <span class="kt">View</span></code></pre>
+                    <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">ActivationScreen</span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ActivationScreen</span><span class="p">:</span> <span class="kt">View</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ActivationScreen</span><span class="p">:</span> <span class="n"><a href="../Protocols/_ViewEmptyChecking.html">_ViewEmptyChecking</a></span></code></pre>
 
                   </div>
                 </div>
-              <p>Undocumented</p>
+              <p>The Activation Screen is displayed after the Welcome Screen with title, description text, email input text field, action button and secondary action.</p>
 
             </section>
             <section class="section task-group-section">
@@ -59,9 +60,9 @@
                   <li class="item">
                     <div>
                       <code>
-                      <a name="/s:16FioriSwiftUICore16ActivationScreenV5title15descriptionText8footnote6action15secondaryAction9textInputACyxq_q0_q1_q2_q3_GxyXE_q_yXEq0_yXEq1_yXEq2_yXEq3_yXEtcfc"></a>
-                      <a name="//apple_ref/swift/Method/init(title:descriptionText:footnote:action:secondaryAction:textInput:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:16FioriSwiftUICore16ActivationScreenV5title15descriptionText8footnote6action15secondaryAction9textInputACyxq_q0_q1_q2_q3_GxyXE_q_yXEq0_yXEq1_yXEq2_yXEq3_yXEtcfc">init(title:<wbr>descriptionText:<wbr>footnote:<wbr>action:<wbr>secondaryAction:<wbr>textInput:<wbr>)</a>
+                      <a name="/s:16FioriSwiftUICore16ActivationScreenV5title15descriptionText8footnote6action15secondaryAction18illustratedMessage05inputH0016showsIllustratedN019componentIdentifierAC0B2UI4View_pyXE_AmN_pyXEAmN_pyXEAmN_pyXEAmN_pyXEAmN_pyXEAM7BindingVySSGSbSSSgtcfc"></a>
+                      <a name="//apple_ref/swift/Method/init(title:descriptionText:footnote:action:secondaryAction:illustratedMessage:inputText:showsIllustratedMessage:componentIdentifier:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore16ActivationScreenV5title15descriptionText8footnote6action15secondaryAction18illustratedMessage05inputH0016showsIllustratedN019componentIdentifierAC0B2UI4View_pyXE_AmN_pyXEAmN_pyXEAmN_pyXEAmN_pyXEAmN_pyXEAM7BindingVySSGSbSSSgtcfc">init(title:<wbr>descriptionText:<wbr>footnote:<wbr>action:<wbr>secondaryAction:<wbr>illustratedMessage:<wbr>inputText:<wbr>showsIllustratedMessage:<wbr>componentIdentifier:<wbr>)</a>
                       </code>
                     </div>
                     <div class="height-container">
@@ -76,14 +77,103 @@
                           <h4>Declaration</h4>
                           <div class="language">
                             <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
-      <span class="kd">@ViewBuilder</span> <span class="nv">title</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Title.html">Title</a></span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">descriptionText</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/DescriptionText.html">DescriptionText</a></span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">footnote</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Footnote.html">Footnote</a></span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">action</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">ActionView</span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">secondaryAction</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">SecondaryActionView</span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">textInput</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">TextInputView</span>
-      <span class="p">)</span></code></pre>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="kd">@ViewBuilder</span> <span class="nv">title</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="n">any</span> <span class="kt">View</span><span class="p">,</span>
+            <span class="kd">@ViewBuilder</span> <span class="nv">descriptionText</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="n">any</span> <span class="kt">View</span> <span class="o">=</span> <span class="p">{</span> <span class="kt">EmptyView</span><span class="p">()</span> <span class="p">},</span>
+            <span class="kd">@ViewBuilder</span> <span class="nv">footnote</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="n">any</span> <span class="kt">View</span> <span class="o">=</span> <span class="p">{</span> <span class="kt">EmptyView</span><span class="p">()</span> <span class="p">},</span>
+            <span class="kd">@ViewBuilder</span> <span class="nv">action</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="n">any</span> <span class="kt">View</span> <span class="o">=</span> <span class="p">{</span> <span class="kt">EmptyView</span><span class="p">()</span> <span class="p">},</span>
+            <span class="kd">@ViewBuilder</span> <span class="nv">secondaryAction</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="n">any</span> <span class="kt">View</span> <span class="o">=</span> <span class="p">{</span> <span class="kt">EmptyView</span><span class="p">()</span> <span class="p">},</span>
+            <span class="kd">@ViewBuilder</span> <span class="nv">illustratedMessage</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="n">any</span> <span class="kt">View</span> <span class="o">=</span> <span class="p">{</span> <span class="kt">EmptyView</span><span class="p">()</span> <span class="p">},</span>
+            <span class="nv">inputText</span><span class="p">:</span> <span class="kt">Binding</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span> <span class="o">=</span> <span class="o">.</span><span class="nf">constant</span><span class="p">(</span><span class="s">""</span><span class="p">),</span>
+            <span class="nv">showsIllustratedMessage</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
+            <span class="nv">componentIdentifier</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kt">ActivationScreen</span><span class="o">.</span><span class="n"><a href="../Structs/ActivationScreen.html#/s:16FioriSwiftUICore16ActivationScreenV10identifierSSvpZ">identifier</a></span><span class="p">)</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore16ActivationScreenV10identifierSSvpZ"></a>
+                      <a name="//apple_ref/swift/Variable/identifier" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore16ActivationScreenV10identifierSSvpZ">identifier</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">static</span> <span class="k">let</span> <span class="nv">identifier</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore16ActivationScreenV5title15descriptionText8footnote6action15secondaryAction18illustratedMessage05inputH0016showsIllustratedN0AC10Foundation16AttributedStringV_ANSgAoA0A6ButtonVSgArA0qN0VSg0B2UI7BindingVySSGSbtcfc"></a>
+                      <a name="//apple_ref/swift/Method/init(title:descriptionText:footnote:action:secondaryAction:illustratedMessage:inputText:showsIllustratedMessage:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore16ActivationScreenV5title15descriptionText8footnote6action15secondaryAction18illustratedMessage05inputH0016showsIllustratedN0AC10Foundation16AttributedStringV_ANSgAoA0A6ButtonVSgArA0qN0VSg0B2UI7BindingVySSGSbtcfc">init(title:<wbr>descriptionText:<wbr>footnote:<wbr>action:<wbr>secondaryAction:<wbr>illustratedMessage:<wbr>inputText:<wbr>showsIllustratedMessage:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="nf">init</span><span class="p">(</span><span class="nv">title</span><span class="p">:</span> <span class="kt">AttributedString</span><span class="p">,</span>
+     <span class="nv">descriptionText</span><span class="p">:</span> <span class="kt">AttributedString</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+     <span class="nv">footnote</span><span class="p">:</span> <span class="kt">AttributedString</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+     <span class="nv">action</span><span class="p">:</span> <span class="kt"><a href="../Structs/FioriButton.html">FioriButton</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+     <span class="nv">secondaryAction</span><span class="p">:</span> <span class="kt"><a href="../Structs/FioriButton.html">FioriButton</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+     <span class="nv">illustratedMessage</span><span class="p">:</span> <span class="kt"><a href="../Structs/IllustratedMessage.html">IllustratedMessage</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+     <span class="nv">inputText</span><span class="p">:</span> <span class="kt">Binding</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span><span class="p">,</span>
+     <span class="nv">showsIllustratedMessage</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span><span class="p">)</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore16ActivationScreenVyAcA0dE13ConfigurationVcfc"></a>
+                      <a name="//apple_ref/swift/Method/init(_:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore16ActivationScreenVyAcA0dE13ConfigurationVcfc">init(_:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="nf">init</span><span class="p">(</span><span class="n">_</span> <span class="nv">configuration</span><span class="p">:</span> <span class="kt"><a href="../Structs/ActivationScreenConfiguration.html">ActivationScreenConfiguration</a></span><span class="p">)</span></code></pre>
 
                           </div>
                         </div>
@@ -116,25 +206,12 @@
                       </section>
                     </div>
                   </li>
-                </ul>
-              </div>
-              <div class="task-group">
-                <div class="task-name-container">
-                  <a name="/Available%20where%20%60Title%60%20%3D%3D%20%60Text%60%2C%20%60DescriptionText%60%20%3D%3D%20%60_ConditionalContent%3CText%60%2C%20%60EmptyView%60%3E%2C%20%60Footnote%60%20%3D%3D%20%60_ConditionalContent%3CText%60%2C%20%60EmptyView%60%3E%2C%20%60ActionView%60%20%3D%3D%20%60_ConditionalContent%3C_Action%60%2C%20%60EmptyView%60%3E%2C%20%60SecondaryActionView%60%20%3D%3D%20%60_ConditionalContent%3C_Action%60%2C%20%60EmptyView%60%3E%2C%20%60TextInputView%60%20%3D%3D%20%60_ConditionalContent%3C_TextInput%60%2C%20%60EmptyView%60%3E"></a>
-                  <a name="//apple_ref/swift/Section/Available where `Title` == `Text`, `DescriptionText` == `_ConditionalContent&lt;Text`, `EmptyView`&gt;, `Footnote` == `_ConditionalContent&lt;Text`, `EmptyView`&gt;, `ActionView` == `_ConditionalContent&lt;_Action`, `EmptyView`&gt;, `SecondaryActionView` == `_ConditionalContent&lt;_Action`, `EmptyView`&gt;, `TextInputView` == `_ConditionalContent&lt;_TextInput`, `EmptyView`&gt;" class="dashAnchor"></a>
-                  <div class="section-name-container">
-                    <a class="section-name-link" href="#/Available%20where%20%60Title%60%20%3D%3D%20%60Text%60%2C%20%60DescriptionText%60%20%3D%3D%20%60_ConditionalContent%3CText%60%2C%20%60EmptyView%60%3E%2C%20%60Footnote%60%20%3D%3D%20%60_ConditionalContent%3CText%60%2C%20%60EmptyView%60%3E%2C%20%60ActionView%60%20%3D%3D%20%60_ConditionalContent%3C_Action%60%2C%20%60EmptyView%60%3E%2C%20%60SecondaryActionView%60%20%3D%3D%20%60_ConditionalContent%3C_Action%60%2C%20%60EmptyView%60%3E%2C%20%60TextInputView%60%20%3D%3D%20%60_ConditionalContent%3C_TextInput%60%2C%20%60EmptyView%60%3E"></a>
-                    <h3 class="section-name"><span>Available where <code><a href="../Structs/Title.html">Title</a></code> == <code>Text</code>, <code><a href="../Structs/DescriptionText.html">DescriptionText</a></code> == <code>_ConditionalContent&lt;Text</code>, <code>EmptyView</code>&gt;, <code><a href="../Structs/Footnote.html">Footnote</a></code> == <code>_ConditionalContent&lt;Text</code>, <code>EmptyView</code>&gt;, <code>ActionView</code> == <code>_ConditionalContent&lt;_Action</code>, <code>EmptyView</code>&gt;, <code>SecondaryActionView</code> == <code>_ConditionalContent&lt;_Action</code>, <code>EmptyView</code>&gt;, <code>TextInputView</code> == <code>_ConditionalContent&lt;_TextInput</code>, <code>EmptyView</code>&gt;</span>
-</h3>
-                  </div>
-                </div>
-                <ul>
                   <li class="item">
                     <div>
                       <code>
-                      <a name="/s:16FioriSwiftUICore16ActivationScreenVAA0B2UI4TextVRszAD19_ConditionalContentVyAfD9EmptyViewVGRs_AKRs0_AHyAA7_ActionVAJGRs1_ANRs2_AHyAA01_G5InputVAJGRs3_rlE5modelACyAf2k2nQGAA0dE5Model_p_tcfc"></a>
-                      <a name="//apple_ref/swift/Method/init(model:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:16FioriSwiftUICore16ActivationScreenVAA0B2UI4TextVRszAD19_ConditionalContentVyAfD9EmptyViewVGRs_AKRs0_AHyAA7_ActionVAJGRs1_ANRs2_AHyAA01_G5InputVAJGRs3_rlE5modelACyAf2k2nQGAA0dE5Model_p_tcfc">init(model:<wbr>)</a>
+                      <a name="/s:16FioriSwiftUICore16ActivationScreenV7isEmptySbvp"></a>
+                      <a name="//apple_ref/swift/Property/isEmpty" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore16ActivationScreenV7isEmptySbvp">isEmpty</a>
                       </code>
                     </div>
                     <div class="height-container">
@@ -149,1411 +226,7 @@
                           <h4>Declaration</h4>
                           <div class="language">
                             <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">model</span><span class="p">:</span> <span class="kt"><a href="../Protocols/ActivationScreenModel.html">ActivationScreenModel</a></span><span class="p">)</span></code></pre>
-
-                          </div>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/s:16FioriSwiftUICore16ActivationScreenVAA0B2UI4TextVRszAD19_ConditionalContentVyAfD9EmptyViewVGRs_AKRs0_AHyAA7_ActionVAJGRs1_ANRs2_AHyAA01_G5InputVAJGRs3_rlE5title011descriptionG08footnote6action09secondaryL004textM0ACyAf2k2nQGSS_SSSgAyMSgAzPSgtcfc"></a>
-                      <a name="//apple_ref/swift/Method/init(title:descriptionText:footnote:action:secondaryAction:textInput:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:16FioriSwiftUICore16ActivationScreenVAA0B2UI4TextVRszAD19_ConditionalContentVyAfD9EmptyViewVGRs_AKRs0_AHyAA7_ActionVAJGRs1_ANRs2_AHyAA01_G5InputVAJGRs3_rlE5title011descriptionG08footnote6action09secondaryL004textM0ACyAf2k2nQGSS_SSSgAyMSgAzPSgtcfc">init(title:<wbr>descriptionText:<wbr>footnote:<wbr>action:<wbr>secondaryAction:<wbr>textInput:<wbr>)</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>Undocumented</p>
-
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">title</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">descriptionText</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">footnote</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">action</span><span class="p">:</span> <span class="n"><a href="../Structs/_Action.html">_Action</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">secondaryAction</span><span class="p">:</span> <span class="n"><a href="../Structs/_Action.html">_Action</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">textInput</span><span class="p">:</span> <span class="n"><a href="../Structs/_TextInput.html">_TextInput</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span></code></pre>
-
-                          </div>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-              <div class="task-group">
-                <div class="task-name-container">
-                  <a name="/Available%20where%20%60DescriptionText%60%20%3D%3D%20%60EmptyView%60"></a>
-                  <a name="//apple_ref/swift/Section/Available where `DescriptionText` == `EmptyView`" class="dashAnchor"></a>
-                  <div class="section-name-container">
-                    <a class="section-name-link" href="#/Available%20where%20%60DescriptionText%60%20%3D%3D%20%60EmptyView%60"></a>
-                    <h3 class="section-name"><span>Available where <code><a href="../Structs/DescriptionText.html">DescriptionText</a></code> == <code>EmptyView</code></span>
-</h3>
-                  </div>
-                </div>
-                <ul>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/s:16FioriSwiftUICore16ActivationScreenVAA0B2UI9EmptyViewVRs_rlE5title8footnote6action15secondaryAction9textInputACyxAFq0_q1_q2_q3_GxyXE_q0_yXEq1_yXEq2_yXEq3_yXEtcfc"></a>
-                      <a name="//apple_ref/swift/Method/init(title:footnote:action:secondaryAction:textInput:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:16FioriSwiftUICore16ActivationScreenVAA0B2UI9EmptyViewVRs_rlE5title8footnote6action15secondaryAction9textInputACyxAFq0_q1_q2_q3_GxyXE_q0_yXEq1_yXEq2_yXEq3_yXEtcfc">init(title:<wbr>footnote:<wbr>action:<wbr>secondaryAction:<wbr>textInput:<wbr>)</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>Undocumented</p>
-
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
-  <span class="kd">@ViewBuilder</span> <span class="nv">title</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Title.html">Title</a></span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">footnote</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Footnote.html">Footnote</a></span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">action</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">ActionView</span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">secondaryAction</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">SecondaryActionView</span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">textInput</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">TextInputView</span>
-  <span class="p">)</span></code></pre>
-
-                          </div>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-              <div class="task-group">
-                <div class="task-name-container">
-                  <a name="/Available%20where%20%60Footnote%60%20%3D%3D%20%60EmptyView%60"></a>
-                  <a name="//apple_ref/swift/Section/Available where `Footnote` == `EmptyView`" class="dashAnchor"></a>
-                  <div class="section-name-container">
-                    <a class="section-name-link" href="#/Available%20where%20%60Footnote%60%20%3D%3D%20%60EmptyView%60"></a>
-                    <h3 class="section-name"><span>Available where <code><a href="../Structs/Footnote.html">Footnote</a></code> == <code>EmptyView</code></span>
-</h3>
-                  </div>
-                </div>
-                <ul>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/s:16FioriSwiftUICore16ActivationScreenVAA0B2UI9EmptyViewVRs0_rlE5title15descriptionText6action15secondaryAction9textInputACyxq_AFq1_q2_q3_GxyXE_q_yXEq1_yXEq2_yXEq3_yXEtcfc"></a>
-                      <a name="//apple_ref/swift/Method/init(title:descriptionText:action:secondaryAction:textInput:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:16FioriSwiftUICore16ActivationScreenVAA0B2UI9EmptyViewVRs0_rlE5title15descriptionText6action15secondaryAction9textInputACyxq_AFq1_q2_q3_GxyXE_q_yXEq1_yXEq2_yXEq3_yXEtcfc">init(title:<wbr>descriptionText:<wbr>action:<wbr>secondaryAction:<wbr>textInput:<wbr>)</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>Undocumented</p>
-
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
-  <span class="kd">@ViewBuilder</span> <span class="nv">title</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Title.html">Title</a></span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">descriptionText</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/DescriptionText.html">DescriptionText</a></span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">action</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">ActionView</span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">secondaryAction</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">SecondaryActionView</span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">textInput</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">TextInputView</span>
-  <span class="p">)</span></code></pre>
-
-                          </div>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-              <div class="task-group">
-                <div class="task-name-container">
-                  <a name="/Available%20where%20%60ActionView%60%20%3D%3D%20%60EmptyView%60"></a>
-                  <a name="//apple_ref/swift/Section/Available where `ActionView` == `EmptyView`" class="dashAnchor"></a>
-                  <div class="section-name-container">
-                    <a class="section-name-link" href="#/Available%20where%20%60ActionView%60%20%3D%3D%20%60EmptyView%60"></a>
-                    <h3 class="section-name"><span>Available where <code>ActionView</code> == <code>EmptyView</code></span>
-</h3>
-                  </div>
-                </div>
-                <ul>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/s:16FioriSwiftUICore16ActivationScreenVAA0B2UI9EmptyViewVRs1_rlE5title15descriptionText8footnote15secondaryAction9textInputACyxq_q0_AFq2_q3_GxyXE_q_yXEq0_yXEq2_yXEq3_yXEtcfc"></a>
-                      <a name="//apple_ref/swift/Method/init(title:descriptionText:footnote:secondaryAction:textInput:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:16FioriSwiftUICore16ActivationScreenVAA0B2UI9EmptyViewVRs1_rlE5title15descriptionText8footnote15secondaryAction9textInputACyxq_q0_AFq2_q3_GxyXE_q_yXEq0_yXEq2_yXEq3_yXEtcfc">init(title:<wbr>descriptionText:<wbr>footnote:<wbr>secondaryAction:<wbr>textInput:<wbr>)</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>Undocumented</p>
-
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
-  <span class="kd">@ViewBuilder</span> <span class="nv">title</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Title.html">Title</a></span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">descriptionText</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/DescriptionText.html">DescriptionText</a></span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">footnote</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Footnote.html">Footnote</a></span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">secondaryAction</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">SecondaryActionView</span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">textInput</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">TextInputView</span>
-  <span class="p">)</span></code></pre>
-
-                          </div>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-              <div class="task-group">
-                <div class="task-name-container">
-                  <a name="/Available%20where%20%60SecondaryActionView%60%20%3D%3D%20%60EmptyView%60"></a>
-                  <a name="//apple_ref/swift/Section/Available where `SecondaryActionView` == `EmptyView`" class="dashAnchor"></a>
-                  <div class="section-name-container">
-                    <a class="section-name-link" href="#/Available%20where%20%60SecondaryActionView%60%20%3D%3D%20%60EmptyView%60"></a>
-                    <h3 class="section-name"><span>Available where <code>SecondaryActionView</code> == <code>EmptyView</code></span>
-</h3>
-                  </div>
-                </div>
-                <ul>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/s:16FioriSwiftUICore16ActivationScreenVAA0B2UI9EmptyViewVRs2_rlE5title15descriptionText8footnote6action9textInputACyxq_q0_q1_AFq3_GxyXE_q_yXEq0_yXEq1_yXEq3_yXEtcfc"></a>
-                      <a name="//apple_ref/swift/Method/init(title:descriptionText:footnote:action:textInput:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:16FioriSwiftUICore16ActivationScreenVAA0B2UI9EmptyViewVRs2_rlE5title15descriptionText8footnote6action9textInputACyxq_q0_q1_AFq3_GxyXE_q_yXEq0_yXEq1_yXEq3_yXEtcfc">init(title:<wbr>descriptionText:<wbr>footnote:<wbr>action:<wbr>textInput:<wbr>)</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>Undocumented</p>
-
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
-  <span class="kd">@ViewBuilder</span> <span class="nv">title</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Title.html">Title</a></span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">descriptionText</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/DescriptionText.html">DescriptionText</a></span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">footnote</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Footnote.html">Footnote</a></span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">action</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">ActionView</span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">textInput</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">TextInputView</span>
-  <span class="p">)</span></code></pre>
-
-                          </div>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-              <div class="task-group">
-                <div class="task-name-container">
-                  <a name="/Available%20where%20%60TextInputView%60%20%3D%3D%20%60EmptyView%60"></a>
-                  <a name="//apple_ref/swift/Section/Available where `TextInputView` == `EmptyView`" class="dashAnchor"></a>
-                  <div class="section-name-container">
-                    <a class="section-name-link" href="#/Available%20where%20%60TextInputView%60%20%3D%3D%20%60EmptyView%60"></a>
-                    <h3 class="section-name"><span>Available where <code>TextInputView</code> == <code>EmptyView</code></span>
-</h3>
-                  </div>
-                </div>
-                <ul>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/s:16FioriSwiftUICore16ActivationScreenVAA0B2UI9EmptyViewVRs3_rlE5title15descriptionText8footnote6action15secondaryActionACyxq_q0_q1_q2_AFGxyXE_q_yXEq0_yXEq1_yXEq2_yXEtcfc"></a>
-                      <a name="//apple_ref/swift/Method/init(title:descriptionText:footnote:action:secondaryAction:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:16FioriSwiftUICore16ActivationScreenVAA0B2UI9EmptyViewVRs3_rlE5title15descriptionText8footnote6action15secondaryActionACyxq_q0_q1_q2_AFGxyXE_q_yXEq0_yXEq1_yXEq2_yXEtcfc">init(title:<wbr>descriptionText:<wbr>footnote:<wbr>action:<wbr>secondaryAction:<wbr>)</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>Undocumented</p>
-
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
-  <span class="kd">@ViewBuilder</span> <span class="nv">title</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Title.html">Title</a></span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">descriptionText</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/DescriptionText.html">DescriptionText</a></span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">footnote</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Footnote.html">Footnote</a></span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">action</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">ActionView</span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">secondaryAction</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">SecondaryActionView</span>
-  <span class="p">)</span></code></pre>
-
-                          </div>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-              <div class="task-group">
-                <div class="task-name-container">
-                  <a name="/Available%20where%20%60DescriptionText%60%20%3D%3D%20%60EmptyView%60%2C%20%60Footnote%60%20%3D%3D%20%60EmptyView%60"></a>
-                  <a name="//apple_ref/swift/Section/Available where `DescriptionText` == `EmptyView`, `Footnote` == `EmptyView`" class="dashAnchor"></a>
-                  <div class="section-name-container">
-                    <a class="section-name-link" href="#/Available%20where%20%60DescriptionText%60%20%3D%3D%20%60EmptyView%60%2C%20%60Footnote%60%20%3D%3D%20%60EmptyView%60"></a>
-                    <h3 class="section-name"><span>Available where <code><a href="../Structs/DescriptionText.html">DescriptionText</a></code> == <code>EmptyView</code>, <code><a href="../Structs/Footnote.html">Footnote</a></code> == <code>EmptyView</code></span>
-</h3>
-                  </div>
-                </div>
-                <ul>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/s:16FioriSwiftUICore16ActivationScreenVAA0B2UI9EmptyViewVRs_AFRs0_rlE5title6action15secondaryAction9textInputACyxA2Fq1_q2_q3_GxyXE_q1_yXEq2_yXEq3_yXEtcfc"></a>
-                      <a name="//apple_ref/swift/Method/init(title:action:secondaryAction:textInput:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:16FioriSwiftUICore16ActivationScreenVAA0B2UI9EmptyViewVRs_AFRs0_rlE5title6action15secondaryAction9textInputACyxA2Fq1_q2_q3_GxyXE_q1_yXEq2_yXEq3_yXEtcfc">init(title:<wbr>action:<wbr>secondaryAction:<wbr>textInput:<wbr>)</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>Undocumented</p>
-
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
-  <span class="kd">@ViewBuilder</span> <span class="nv">title</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Title.html">Title</a></span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">action</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">ActionView</span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">secondaryAction</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">SecondaryActionView</span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">textInput</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">TextInputView</span>
-  <span class="p">)</span></code></pre>
-
-                          </div>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-              <div class="task-group">
-                <div class="task-name-container">
-                  <a name="/Available%20where%20%60DescriptionText%60%20%3D%3D%20%60EmptyView%60%2C%20%60ActionView%60%20%3D%3D%20%60EmptyView%60"></a>
-                  <a name="//apple_ref/swift/Section/Available where `DescriptionText` == `EmptyView`, `ActionView` == `EmptyView`" class="dashAnchor"></a>
-                  <div class="section-name-container">
-                    <a class="section-name-link" href="#/Available%20where%20%60DescriptionText%60%20%3D%3D%20%60EmptyView%60%2C%20%60ActionView%60%20%3D%3D%20%60EmptyView%60"></a>
-                    <h3 class="section-name"><span>Available where <code><a href="../Structs/DescriptionText.html">DescriptionText</a></code> == <code>EmptyView</code>, <code>ActionView</code> == <code>EmptyView</code></span>
-</h3>
-                  </div>
-                </div>
-                <ul>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/s:16FioriSwiftUICore16ActivationScreenVAA0B2UI9EmptyViewVRs_AFRs1_rlE5title8footnote15secondaryAction9textInputACyxAFq0_AFq2_q3_GxyXE_q0_yXEq2_yXEq3_yXEtcfc"></a>
-                      <a name="//apple_ref/swift/Method/init(title:footnote:secondaryAction:textInput:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:16FioriSwiftUICore16ActivationScreenVAA0B2UI9EmptyViewVRs_AFRs1_rlE5title8footnote15secondaryAction9textInputACyxAFq0_AFq2_q3_GxyXE_q0_yXEq2_yXEq3_yXEtcfc">init(title:<wbr>footnote:<wbr>secondaryAction:<wbr>textInput:<wbr>)</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>Undocumented</p>
-
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
-  <span class="kd">@ViewBuilder</span> <span class="nv">title</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Title.html">Title</a></span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">footnote</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Footnote.html">Footnote</a></span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">secondaryAction</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">SecondaryActionView</span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">textInput</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">TextInputView</span>
-  <span class="p">)</span></code></pre>
-
-                          </div>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-              <div class="task-group">
-                <div class="task-name-container">
-                  <a name="/Available%20where%20%60DescriptionText%60%20%3D%3D%20%60EmptyView%60%2C%20%60SecondaryActionView%60%20%3D%3D%20%60EmptyView%60"></a>
-                  <a name="//apple_ref/swift/Section/Available where `DescriptionText` == `EmptyView`, `SecondaryActionView` == `EmptyView`" class="dashAnchor"></a>
-                  <div class="section-name-container">
-                    <a class="section-name-link" href="#/Available%20where%20%60DescriptionText%60%20%3D%3D%20%60EmptyView%60%2C%20%60SecondaryActionView%60%20%3D%3D%20%60EmptyView%60"></a>
-                    <h3 class="section-name"><span>Available where <code><a href="../Structs/DescriptionText.html">DescriptionText</a></code> == <code>EmptyView</code>, <code>SecondaryActionView</code> == <code>EmptyView</code></span>
-</h3>
-                  </div>
-                </div>
-                <ul>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/s:16FioriSwiftUICore16ActivationScreenVAA0B2UI9EmptyViewVRs_AFRs2_rlE5title8footnote6action9textInputACyxAFq0_q1_AFq3_GxyXE_q0_yXEq1_yXEq3_yXEtcfc"></a>
-                      <a name="//apple_ref/swift/Method/init(title:footnote:action:textInput:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:16FioriSwiftUICore16ActivationScreenVAA0B2UI9EmptyViewVRs_AFRs2_rlE5title8footnote6action9textInputACyxAFq0_q1_AFq3_GxyXE_q0_yXEq1_yXEq3_yXEtcfc">init(title:<wbr>footnote:<wbr>action:<wbr>textInput:<wbr>)</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>Undocumented</p>
-
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
-  <span class="kd">@ViewBuilder</span> <span class="nv">title</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Title.html">Title</a></span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">footnote</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Footnote.html">Footnote</a></span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">action</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">ActionView</span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">textInput</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">TextInputView</span>
-  <span class="p">)</span></code></pre>
-
-                          </div>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-              <div class="task-group">
-                <div class="task-name-container">
-                  <a name="/Available%20where%20%60DescriptionText%60%20%3D%3D%20%60EmptyView%60%2C%20%60TextInputView%60%20%3D%3D%20%60EmptyView%60"></a>
-                  <a name="//apple_ref/swift/Section/Available where `DescriptionText` == `EmptyView`, `TextInputView` == `EmptyView`" class="dashAnchor"></a>
-                  <div class="section-name-container">
-                    <a class="section-name-link" href="#/Available%20where%20%60DescriptionText%60%20%3D%3D%20%60EmptyView%60%2C%20%60TextInputView%60%20%3D%3D%20%60EmptyView%60"></a>
-                    <h3 class="section-name"><span>Available where <code><a href="../Structs/DescriptionText.html">DescriptionText</a></code> == <code>EmptyView</code>, <code>TextInputView</code> == <code>EmptyView</code></span>
-</h3>
-                  </div>
-                </div>
-                <ul>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/s:16FioriSwiftUICore16ActivationScreenVAA0B2UI9EmptyViewVRs_AFRs3_rlE5title8footnote6action15secondaryActionACyxAFq0_q1_q2_AFGxyXE_q0_yXEq1_yXEq2_yXEtcfc"></a>
-                      <a name="//apple_ref/swift/Method/init(title:footnote:action:secondaryAction:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:16FioriSwiftUICore16ActivationScreenVAA0B2UI9EmptyViewVRs_AFRs3_rlE5title8footnote6action15secondaryActionACyxAFq0_q1_q2_AFGxyXE_q0_yXEq1_yXEq2_yXEtcfc">init(title:<wbr>footnote:<wbr>action:<wbr>secondaryAction:<wbr>)</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>Undocumented</p>
-
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
-  <span class="kd">@ViewBuilder</span> <span class="nv">title</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Title.html">Title</a></span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">footnote</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Footnote.html">Footnote</a></span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">action</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">ActionView</span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">secondaryAction</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">SecondaryActionView</span>
-  <span class="p">)</span></code></pre>
-
-                          </div>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-              <div class="task-group">
-                <div class="task-name-container">
-                  <a name="/Available%20where%20%60Footnote%60%20%3D%3D%20%60EmptyView%60%2C%20%60ActionView%60%20%3D%3D%20%60EmptyView%60"></a>
-                  <a name="//apple_ref/swift/Section/Available where `Footnote` == `EmptyView`, `ActionView` == `EmptyView`" class="dashAnchor"></a>
-                  <div class="section-name-container">
-                    <a class="section-name-link" href="#/Available%20where%20%60Footnote%60%20%3D%3D%20%60EmptyView%60%2C%20%60ActionView%60%20%3D%3D%20%60EmptyView%60"></a>
-                    <h3 class="section-name"><span>Available where <code><a href="../Structs/Footnote.html">Footnote</a></code> == <code>EmptyView</code>, <code>ActionView</code> == <code>EmptyView</code></span>
-</h3>
-                  </div>
-                </div>
-                <ul>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/s:16FioriSwiftUICore16ActivationScreenVAA0B2UI9EmptyViewVRs0_AFRs1_rlE5title15descriptionText15secondaryAction9textInputACyxq_A2Fq2_q3_GxyXE_q_yXEq2_yXEq3_yXEtcfc"></a>
-                      <a name="//apple_ref/swift/Method/init(title:descriptionText:secondaryAction:textInput:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:16FioriSwiftUICore16ActivationScreenVAA0B2UI9EmptyViewVRs0_AFRs1_rlE5title15descriptionText15secondaryAction9textInputACyxq_A2Fq2_q3_GxyXE_q_yXEq2_yXEq3_yXEtcfc">init(title:<wbr>descriptionText:<wbr>secondaryAction:<wbr>textInput:<wbr>)</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>Undocumented</p>
-
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
-  <span class="kd">@ViewBuilder</span> <span class="nv">title</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Title.html">Title</a></span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">descriptionText</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/DescriptionText.html">DescriptionText</a></span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">secondaryAction</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">SecondaryActionView</span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">textInput</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">TextInputView</span>
-  <span class="p">)</span></code></pre>
-
-                          </div>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-              <div class="task-group">
-                <div class="task-name-container">
-                  <a name="/Available%20where%20%60Footnote%60%20%3D%3D%20%60EmptyView%60%2C%20%60SecondaryActionView%60%20%3D%3D%20%60EmptyView%60"></a>
-                  <a name="//apple_ref/swift/Section/Available where `Footnote` == `EmptyView`, `SecondaryActionView` == `EmptyView`" class="dashAnchor"></a>
-                  <div class="section-name-container">
-                    <a class="section-name-link" href="#/Available%20where%20%60Footnote%60%20%3D%3D%20%60EmptyView%60%2C%20%60SecondaryActionView%60%20%3D%3D%20%60EmptyView%60"></a>
-                    <h3 class="section-name"><span>Available where <code><a href="../Structs/Footnote.html">Footnote</a></code> == <code>EmptyView</code>, <code>SecondaryActionView</code> == <code>EmptyView</code></span>
-</h3>
-                  </div>
-                </div>
-                <ul>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/s:16FioriSwiftUICore16ActivationScreenVAA0B2UI9EmptyViewVRs0_AFRs2_rlE5title15descriptionText6action9textInputACyxq_AFq1_AFq3_GxyXE_q_yXEq1_yXEq3_yXEtcfc"></a>
-                      <a name="//apple_ref/swift/Method/init(title:descriptionText:action:textInput:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:16FioriSwiftUICore16ActivationScreenVAA0B2UI9EmptyViewVRs0_AFRs2_rlE5title15descriptionText6action9textInputACyxq_AFq1_AFq3_GxyXE_q_yXEq1_yXEq3_yXEtcfc">init(title:<wbr>descriptionText:<wbr>action:<wbr>textInput:<wbr>)</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>Undocumented</p>
-
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
-  <span class="kd">@ViewBuilder</span> <span class="nv">title</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Title.html">Title</a></span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">descriptionText</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/DescriptionText.html">DescriptionText</a></span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">action</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">ActionView</span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">textInput</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">TextInputView</span>
-  <span class="p">)</span></code></pre>
-
-                          </div>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-              <div class="task-group">
-                <div class="task-name-container">
-                  <a name="/Available%20where%20%60Footnote%60%20%3D%3D%20%60EmptyView%60%2C%20%60TextInputView%60%20%3D%3D%20%60EmptyView%60"></a>
-                  <a name="//apple_ref/swift/Section/Available where `Footnote` == `EmptyView`, `TextInputView` == `EmptyView`" class="dashAnchor"></a>
-                  <div class="section-name-container">
-                    <a class="section-name-link" href="#/Available%20where%20%60Footnote%60%20%3D%3D%20%60EmptyView%60%2C%20%60TextInputView%60%20%3D%3D%20%60EmptyView%60"></a>
-                    <h3 class="section-name"><span>Available where <code><a href="../Structs/Footnote.html">Footnote</a></code> == <code>EmptyView</code>, <code>TextInputView</code> == <code>EmptyView</code></span>
-</h3>
-                  </div>
-                </div>
-                <ul>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/s:16FioriSwiftUICore16ActivationScreenVAA0B2UI9EmptyViewVRs0_AFRs3_rlE5title15descriptionText6action15secondaryActionACyxq_AFq1_q2_AFGxyXE_q_yXEq1_yXEq2_yXEtcfc"></a>
-                      <a name="//apple_ref/swift/Method/init(title:descriptionText:action:secondaryAction:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:16FioriSwiftUICore16ActivationScreenVAA0B2UI9EmptyViewVRs0_AFRs3_rlE5title15descriptionText6action15secondaryActionACyxq_AFq1_q2_AFGxyXE_q_yXEq1_yXEq2_yXEtcfc">init(title:<wbr>descriptionText:<wbr>action:<wbr>secondaryAction:<wbr>)</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>Undocumented</p>
-
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
-  <span class="kd">@ViewBuilder</span> <span class="nv">title</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Title.html">Title</a></span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">descriptionText</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/DescriptionText.html">DescriptionText</a></span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">action</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">ActionView</span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">secondaryAction</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">SecondaryActionView</span>
-  <span class="p">)</span></code></pre>
-
-                          </div>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-              <div class="task-group">
-                <div class="task-name-container">
-                  <a name="/Available%20where%20%60ActionView%60%20%3D%3D%20%60EmptyView%60%2C%20%60SecondaryActionView%60%20%3D%3D%20%60EmptyView%60"></a>
-                  <a name="//apple_ref/swift/Section/Available where `ActionView` == `EmptyView`, `SecondaryActionView` == `EmptyView`" class="dashAnchor"></a>
-                  <div class="section-name-container">
-                    <a class="section-name-link" href="#/Available%20where%20%60ActionView%60%20%3D%3D%20%60EmptyView%60%2C%20%60SecondaryActionView%60%20%3D%3D%20%60EmptyView%60"></a>
-                    <h3 class="section-name"><span>Available where <code>ActionView</code> == <code>EmptyView</code>, <code>SecondaryActionView</code> == <code>EmptyView</code></span>
-</h3>
-                  </div>
-                </div>
-                <ul>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/s:16FioriSwiftUICore16ActivationScreenVAA0B2UI9EmptyViewVRs1_AFRs2_rlE5title15descriptionText8footnote9textInputACyxq_q0_A2Fq3_GxyXE_q_yXEq0_yXEq3_yXEtcfc"></a>
-                      <a name="//apple_ref/swift/Method/init(title:descriptionText:footnote:textInput:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:16FioriSwiftUICore16ActivationScreenVAA0B2UI9EmptyViewVRs1_AFRs2_rlE5title15descriptionText8footnote9textInputACyxq_q0_A2Fq3_GxyXE_q_yXEq0_yXEq3_yXEtcfc">init(title:<wbr>descriptionText:<wbr>footnote:<wbr>textInput:<wbr>)</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>Undocumented</p>
-
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
-  <span class="kd">@ViewBuilder</span> <span class="nv">title</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Title.html">Title</a></span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">descriptionText</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/DescriptionText.html">DescriptionText</a></span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">footnote</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Footnote.html">Footnote</a></span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">textInput</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">TextInputView</span>
-  <span class="p">)</span></code></pre>
-
-                          </div>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-              <div class="task-group">
-                <div class="task-name-container">
-                  <a name="/Available%20where%20%60ActionView%60%20%3D%3D%20%60EmptyView%60%2C%20%60TextInputView%60%20%3D%3D%20%60EmptyView%60"></a>
-                  <a name="//apple_ref/swift/Section/Available where `ActionView` == `EmptyView`, `TextInputView` == `EmptyView`" class="dashAnchor"></a>
-                  <div class="section-name-container">
-                    <a class="section-name-link" href="#/Available%20where%20%60ActionView%60%20%3D%3D%20%60EmptyView%60%2C%20%60TextInputView%60%20%3D%3D%20%60EmptyView%60"></a>
-                    <h3 class="section-name"><span>Available where <code>ActionView</code> == <code>EmptyView</code>, <code>TextInputView</code> == <code>EmptyView</code></span>
-</h3>
-                  </div>
-                </div>
-                <ul>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/s:16FioriSwiftUICore16ActivationScreenVAA0B2UI9EmptyViewVRs1_AFRs3_rlE5title15descriptionText8footnote15secondaryActionACyxq_q0_AFq2_AFGxyXE_q_yXEq0_yXEq2_yXEtcfc"></a>
-                      <a name="//apple_ref/swift/Method/init(title:descriptionText:footnote:secondaryAction:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:16FioriSwiftUICore16ActivationScreenVAA0B2UI9EmptyViewVRs1_AFRs3_rlE5title15descriptionText8footnote15secondaryActionACyxq_q0_AFq2_AFGxyXE_q_yXEq0_yXEq2_yXEtcfc">init(title:<wbr>descriptionText:<wbr>footnote:<wbr>secondaryAction:<wbr>)</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>Undocumented</p>
-
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
-  <span class="kd">@ViewBuilder</span> <span class="nv">title</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Title.html">Title</a></span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">descriptionText</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/DescriptionText.html">DescriptionText</a></span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">footnote</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Footnote.html">Footnote</a></span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">secondaryAction</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">SecondaryActionView</span>
-  <span class="p">)</span></code></pre>
-
-                          </div>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-              <div class="task-group">
-                <div class="task-name-container">
-                  <a name="/Available%20where%20%60SecondaryActionView%60%20%3D%3D%20%60EmptyView%60%2C%20%60TextInputView%60%20%3D%3D%20%60EmptyView%60"></a>
-                  <a name="//apple_ref/swift/Section/Available where `SecondaryActionView` == `EmptyView`, `TextInputView` == `EmptyView`" class="dashAnchor"></a>
-                  <div class="section-name-container">
-                    <a class="section-name-link" href="#/Available%20where%20%60SecondaryActionView%60%20%3D%3D%20%60EmptyView%60%2C%20%60TextInputView%60%20%3D%3D%20%60EmptyView%60"></a>
-                    <h3 class="section-name"><span>Available where <code>SecondaryActionView</code> == <code>EmptyView</code>, <code>TextInputView</code> == <code>EmptyView</code></span>
-</h3>
-                  </div>
-                </div>
-                <ul>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/s:16FioriSwiftUICore16ActivationScreenVAA0B2UI9EmptyViewVRs2_AFRs3_rlE5title15descriptionText8footnote6actionACyxq_q0_q1_A2FGxyXE_q_yXEq0_yXEq1_yXEtcfc"></a>
-                      <a name="//apple_ref/swift/Method/init(title:descriptionText:footnote:action:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:16FioriSwiftUICore16ActivationScreenVAA0B2UI9EmptyViewVRs2_AFRs3_rlE5title15descriptionText8footnote6actionACyxq_q0_q1_A2FGxyXE_q_yXEq0_yXEq1_yXEtcfc">init(title:<wbr>descriptionText:<wbr>footnote:<wbr>action:<wbr>)</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>Undocumented</p>
-
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
-  <span class="kd">@ViewBuilder</span> <span class="nv">title</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Title.html">Title</a></span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">descriptionText</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/DescriptionText.html">DescriptionText</a></span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">footnote</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Footnote.html">Footnote</a></span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">action</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">ActionView</span>
-  <span class="p">)</span></code></pre>
-
-                          </div>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-              <div class="task-group">
-                <div class="task-name-container">
-                  <a name="/Available%20where%20%60DescriptionText%60%20%3D%3D%20%60EmptyView%60%2C%20%60Footnote%60%20%3D%3D%20%60EmptyView%60%2C%20%60ActionView%60%20%3D%3D%20%60EmptyView%60"></a>
-                  <a name="//apple_ref/swift/Section/Available where `DescriptionText` == `EmptyView`, `Footnote` == `EmptyView`, `ActionView` == `EmptyView`" class="dashAnchor"></a>
-                  <div class="section-name-container">
-                    <a class="section-name-link" href="#/Available%20where%20%60DescriptionText%60%20%3D%3D%20%60EmptyView%60%2C%20%60Footnote%60%20%3D%3D%20%60EmptyView%60%2C%20%60ActionView%60%20%3D%3D%20%60EmptyView%60"></a>
-                    <h3 class="section-name"><span>Available where <code><a href="../Structs/DescriptionText.html">DescriptionText</a></code> == <code>EmptyView</code>, <code><a href="../Structs/Footnote.html">Footnote</a></code> == <code>EmptyView</code>, <code>ActionView</code> == <code>EmptyView</code></span>
-</h3>
-                  </div>
-                </div>
-                <ul>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/s:16FioriSwiftUICore16ActivationScreenVAA0B2UI9EmptyViewVRs_AFRs0_AFRs1_rlE5title15secondaryAction9textInputACyxA3Fq2_q3_GxyXE_q2_yXEq3_yXEtcfc"></a>
-                      <a name="//apple_ref/swift/Method/init(title:secondaryAction:textInput:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:16FioriSwiftUICore16ActivationScreenVAA0B2UI9EmptyViewVRs_AFRs0_AFRs1_rlE5title15secondaryAction9textInputACyxA3Fq2_q3_GxyXE_q2_yXEq3_yXEtcfc">init(title:<wbr>secondaryAction:<wbr>textInput:<wbr>)</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>Undocumented</p>
-
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
-  <span class="kd">@ViewBuilder</span> <span class="nv">title</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Title.html">Title</a></span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">secondaryAction</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">SecondaryActionView</span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">textInput</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">TextInputView</span>
-  <span class="p">)</span></code></pre>
-
-                          </div>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-              <div class="task-group">
-                <div class="task-name-container">
-                  <a name="/Available%20where%20%60DescriptionText%60%20%3D%3D%20%60EmptyView%60%2C%20%60Footnote%60%20%3D%3D%20%60EmptyView%60%2C%20%60SecondaryActionView%60%20%3D%3D%20%60EmptyView%60"></a>
-                  <a name="//apple_ref/swift/Section/Available where `DescriptionText` == `EmptyView`, `Footnote` == `EmptyView`, `SecondaryActionView` == `EmptyView`" class="dashAnchor"></a>
-                  <div class="section-name-container">
-                    <a class="section-name-link" href="#/Available%20where%20%60DescriptionText%60%20%3D%3D%20%60EmptyView%60%2C%20%60Footnote%60%20%3D%3D%20%60EmptyView%60%2C%20%60SecondaryActionView%60%20%3D%3D%20%60EmptyView%60"></a>
-                    <h3 class="section-name"><span>Available where <code><a href="../Structs/DescriptionText.html">DescriptionText</a></code> == <code>EmptyView</code>, <code><a href="../Structs/Footnote.html">Footnote</a></code> == <code>EmptyView</code>, <code>SecondaryActionView</code> == <code>EmptyView</code></span>
-</h3>
-                  </div>
-                </div>
-                <ul>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/s:16FioriSwiftUICore16ActivationScreenVAA0B2UI9EmptyViewVRs_AFRs0_AFRs2_rlE5title6action9textInputACyxA2Fq1_AFq3_GxyXE_q1_yXEq3_yXEtcfc"></a>
-                      <a name="//apple_ref/swift/Method/init(title:action:textInput:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:16FioriSwiftUICore16ActivationScreenVAA0B2UI9EmptyViewVRs_AFRs0_AFRs2_rlE5title6action9textInputACyxA2Fq1_AFq3_GxyXE_q1_yXEq3_yXEtcfc">init(title:<wbr>action:<wbr>textInput:<wbr>)</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>Undocumented</p>
-
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
-  <span class="kd">@ViewBuilder</span> <span class="nv">title</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Title.html">Title</a></span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">action</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">ActionView</span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">textInput</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">TextInputView</span>
-  <span class="p">)</span></code></pre>
-
-                          </div>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-              <div class="task-group">
-                <div class="task-name-container">
-                  <a name="/Available%20where%20%60DescriptionText%60%20%3D%3D%20%60EmptyView%60%2C%20%60Footnote%60%20%3D%3D%20%60EmptyView%60%2C%20%60TextInputView%60%20%3D%3D%20%60EmptyView%60"></a>
-                  <a name="//apple_ref/swift/Section/Available where `DescriptionText` == `EmptyView`, `Footnote` == `EmptyView`, `TextInputView` == `EmptyView`" class="dashAnchor"></a>
-                  <div class="section-name-container">
-                    <a class="section-name-link" href="#/Available%20where%20%60DescriptionText%60%20%3D%3D%20%60EmptyView%60%2C%20%60Footnote%60%20%3D%3D%20%60EmptyView%60%2C%20%60TextInputView%60%20%3D%3D%20%60EmptyView%60"></a>
-                    <h3 class="section-name"><span>Available where <code><a href="../Structs/DescriptionText.html">DescriptionText</a></code> == <code>EmptyView</code>, <code><a href="../Structs/Footnote.html">Footnote</a></code> == <code>EmptyView</code>, <code>TextInputView</code> == <code>EmptyView</code></span>
-</h3>
-                  </div>
-                </div>
-                <ul>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/s:16FioriSwiftUICore16ActivationScreenVAA0B2UI9EmptyViewVRs_AFRs0_AFRs3_rlE5title6action15secondaryActionACyxA2Fq1_q2_AFGxyXE_q1_yXEq2_yXEtcfc"></a>
-                      <a name="//apple_ref/swift/Method/init(title:action:secondaryAction:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:16FioriSwiftUICore16ActivationScreenVAA0B2UI9EmptyViewVRs_AFRs0_AFRs3_rlE5title6action15secondaryActionACyxA2Fq1_q2_AFGxyXE_q1_yXEq2_yXEtcfc">init(title:<wbr>action:<wbr>secondaryAction:<wbr>)</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>Undocumented</p>
-
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
-  <span class="kd">@ViewBuilder</span> <span class="nv">title</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Title.html">Title</a></span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">action</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">ActionView</span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">secondaryAction</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">SecondaryActionView</span>
-  <span class="p">)</span></code></pre>
-
-                          </div>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-              <div class="task-group">
-                <div class="task-name-container">
-                  <a name="/Available%20where%20%60DescriptionText%60%20%3D%3D%20%60EmptyView%60%2C%20%60ActionView%60%20%3D%3D%20%60EmptyView%60%2C%20%60SecondaryActionView%60%20%3D%3D%20%60EmptyView%60"></a>
-                  <a name="//apple_ref/swift/Section/Available where `DescriptionText` == `EmptyView`, `ActionView` == `EmptyView`, `SecondaryActionView` == `EmptyView`" class="dashAnchor"></a>
-                  <div class="section-name-container">
-                    <a class="section-name-link" href="#/Available%20where%20%60DescriptionText%60%20%3D%3D%20%60EmptyView%60%2C%20%60ActionView%60%20%3D%3D%20%60EmptyView%60%2C%20%60SecondaryActionView%60%20%3D%3D%20%60EmptyView%60"></a>
-                    <h3 class="section-name"><span>Available where <code><a href="../Structs/DescriptionText.html">DescriptionText</a></code> == <code>EmptyView</code>, <code>ActionView</code> == <code>EmptyView</code>, <code>SecondaryActionView</code> == <code>EmptyView</code></span>
-</h3>
-                  </div>
-                </div>
-                <ul>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/s:16FioriSwiftUICore16ActivationScreenVAA0B2UI9EmptyViewVRs_AFRs1_AFRs2_rlE5title8footnote9textInputACyxAFq0_A2Fq3_GxyXE_q0_yXEq3_yXEtcfc"></a>
-                      <a name="//apple_ref/swift/Method/init(title:footnote:textInput:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:16FioriSwiftUICore16ActivationScreenVAA0B2UI9EmptyViewVRs_AFRs1_AFRs2_rlE5title8footnote9textInputACyxAFq0_A2Fq3_GxyXE_q0_yXEq3_yXEtcfc">init(title:<wbr>footnote:<wbr>textInput:<wbr>)</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>Undocumented</p>
-
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
-  <span class="kd">@ViewBuilder</span> <span class="nv">title</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Title.html">Title</a></span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">footnote</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Footnote.html">Footnote</a></span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">textInput</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">TextInputView</span>
-  <span class="p">)</span></code></pre>
-
-                          </div>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-              <div class="task-group">
-                <div class="task-name-container">
-                  <a name="/Available%20where%20%60DescriptionText%60%20%3D%3D%20%60EmptyView%60%2C%20%60ActionView%60%20%3D%3D%20%60EmptyView%60%2C%20%60TextInputView%60%20%3D%3D%20%60EmptyView%60"></a>
-                  <a name="//apple_ref/swift/Section/Available where `DescriptionText` == `EmptyView`, `ActionView` == `EmptyView`, `TextInputView` == `EmptyView`" class="dashAnchor"></a>
-                  <div class="section-name-container">
-                    <a class="section-name-link" href="#/Available%20where%20%60DescriptionText%60%20%3D%3D%20%60EmptyView%60%2C%20%60ActionView%60%20%3D%3D%20%60EmptyView%60%2C%20%60TextInputView%60%20%3D%3D%20%60EmptyView%60"></a>
-                    <h3 class="section-name"><span>Available where <code><a href="../Structs/DescriptionText.html">DescriptionText</a></code> == <code>EmptyView</code>, <code>ActionView</code> == <code>EmptyView</code>, <code>TextInputView</code> == <code>EmptyView</code></span>
-</h3>
-                  </div>
-                </div>
-                <ul>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/s:16FioriSwiftUICore16ActivationScreenVAA0B2UI9EmptyViewVRs_AFRs1_AFRs3_rlE5title8footnote15secondaryActionACyxAFq0_AFq2_AFGxyXE_q0_yXEq2_yXEtcfc"></a>
-                      <a name="//apple_ref/swift/Method/init(title:footnote:secondaryAction:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:16FioriSwiftUICore16ActivationScreenVAA0B2UI9EmptyViewVRs_AFRs1_AFRs3_rlE5title8footnote15secondaryActionACyxAFq0_AFq2_AFGxyXE_q0_yXEq2_yXEtcfc">init(title:<wbr>footnote:<wbr>secondaryAction:<wbr>)</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>Undocumented</p>
-
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
-  <span class="kd">@ViewBuilder</span> <span class="nv">title</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Title.html">Title</a></span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">footnote</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Footnote.html">Footnote</a></span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">secondaryAction</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">SecondaryActionView</span>
-  <span class="p">)</span></code></pre>
-
-                          </div>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-              <div class="task-group">
-                <div class="task-name-container">
-                  <a name="/Available%20where%20%60DescriptionText%60%20%3D%3D%20%60EmptyView%60%2C%20%60SecondaryActionView%60%20%3D%3D%20%60EmptyView%60%2C%20%60TextInputView%60%20%3D%3D%20%60EmptyView%60"></a>
-                  <a name="//apple_ref/swift/Section/Available where `DescriptionText` == `EmptyView`, `SecondaryActionView` == `EmptyView`, `TextInputView` == `EmptyView`" class="dashAnchor"></a>
-                  <div class="section-name-container">
-                    <a class="section-name-link" href="#/Available%20where%20%60DescriptionText%60%20%3D%3D%20%60EmptyView%60%2C%20%60SecondaryActionView%60%20%3D%3D%20%60EmptyView%60%2C%20%60TextInputView%60%20%3D%3D%20%60EmptyView%60"></a>
-                    <h3 class="section-name"><span>Available where <code><a href="../Structs/DescriptionText.html">DescriptionText</a></code> == <code>EmptyView</code>, <code>SecondaryActionView</code> == <code>EmptyView</code>, <code>TextInputView</code> == <code>EmptyView</code></span>
-</h3>
-                  </div>
-                </div>
-                <ul>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/s:16FioriSwiftUICore16ActivationScreenVAA0B2UI9EmptyViewVRs_AFRs2_AFRs3_rlE5title8footnote6actionACyxAFq0_q1_A2FGxyXE_q0_yXEq1_yXEtcfc"></a>
-                      <a name="//apple_ref/swift/Method/init(title:footnote:action:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:16FioriSwiftUICore16ActivationScreenVAA0B2UI9EmptyViewVRs_AFRs2_AFRs3_rlE5title8footnote6actionACyxAFq0_q1_A2FGxyXE_q0_yXEq1_yXEtcfc">init(title:<wbr>footnote:<wbr>action:<wbr>)</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>Undocumented</p>
-
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
-  <span class="kd">@ViewBuilder</span> <span class="nv">title</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Title.html">Title</a></span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">footnote</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Footnote.html">Footnote</a></span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">action</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">ActionView</span>
-  <span class="p">)</span></code></pre>
-
-                          </div>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-              <div class="task-group">
-                <div class="task-name-container">
-                  <a name="/Available%20where%20%60Footnote%60%20%3D%3D%20%60EmptyView%60%2C%20%60ActionView%60%20%3D%3D%20%60EmptyView%60%2C%20%60SecondaryActionView%60%20%3D%3D%20%60EmptyView%60"></a>
-                  <a name="//apple_ref/swift/Section/Available where `Footnote` == `EmptyView`, `ActionView` == `EmptyView`, `SecondaryActionView` == `EmptyView`" class="dashAnchor"></a>
-                  <div class="section-name-container">
-                    <a class="section-name-link" href="#/Available%20where%20%60Footnote%60%20%3D%3D%20%60EmptyView%60%2C%20%60ActionView%60%20%3D%3D%20%60EmptyView%60%2C%20%60SecondaryActionView%60%20%3D%3D%20%60EmptyView%60"></a>
-                    <h3 class="section-name"><span>Available where <code><a href="../Structs/Footnote.html">Footnote</a></code> == <code>EmptyView</code>, <code>ActionView</code> == <code>EmptyView</code>, <code>SecondaryActionView</code> == <code>EmptyView</code></span>
-</h3>
-                  </div>
-                </div>
-                <ul>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/s:16FioriSwiftUICore16ActivationScreenVAA0B2UI9EmptyViewVRs0_AFRs1_AFRs2_rlE5title15descriptionText9textInputACyxq_A3Fq3_GxyXE_q_yXEq3_yXEtcfc"></a>
-                      <a name="//apple_ref/swift/Method/init(title:descriptionText:textInput:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:16FioriSwiftUICore16ActivationScreenVAA0B2UI9EmptyViewVRs0_AFRs1_AFRs2_rlE5title15descriptionText9textInputACyxq_A3Fq3_GxyXE_q_yXEq3_yXEtcfc">init(title:<wbr>descriptionText:<wbr>textInput:<wbr>)</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>Undocumented</p>
-
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
-  <span class="kd">@ViewBuilder</span> <span class="nv">title</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Title.html">Title</a></span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">descriptionText</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/DescriptionText.html">DescriptionText</a></span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">textInput</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">TextInputView</span>
-  <span class="p">)</span></code></pre>
-
-                          </div>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-              <div class="task-group">
-                <div class="task-name-container">
-                  <a name="/Available%20where%20%60Footnote%60%20%3D%3D%20%60EmptyView%60%2C%20%60ActionView%60%20%3D%3D%20%60EmptyView%60%2C%20%60TextInputView%60%20%3D%3D%20%60EmptyView%60"></a>
-                  <a name="//apple_ref/swift/Section/Available where `Footnote` == `EmptyView`, `ActionView` == `EmptyView`, `TextInputView` == `EmptyView`" class="dashAnchor"></a>
-                  <div class="section-name-container">
-                    <a class="section-name-link" href="#/Available%20where%20%60Footnote%60%20%3D%3D%20%60EmptyView%60%2C%20%60ActionView%60%20%3D%3D%20%60EmptyView%60%2C%20%60TextInputView%60%20%3D%3D%20%60EmptyView%60"></a>
-                    <h3 class="section-name"><span>Available where <code><a href="../Structs/Footnote.html">Footnote</a></code> == <code>EmptyView</code>, <code>ActionView</code> == <code>EmptyView</code>, <code>TextInputView</code> == <code>EmptyView</code></span>
-</h3>
-                  </div>
-                </div>
-                <ul>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/s:16FioriSwiftUICore16ActivationScreenVAA0B2UI9EmptyViewVRs0_AFRs1_AFRs3_rlE5title15descriptionText15secondaryActionACyxq_A2Fq2_AFGxyXE_q_yXEq2_yXEtcfc"></a>
-                      <a name="//apple_ref/swift/Method/init(title:descriptionText:secondaryAction:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:16FioriSwiftUICore16ActivationScreenVAA0B2UI9EmptyViewVRs0_AFRs1_AFRs3_rlE5title15descriptionText15secondaryActionACyxq_A2Fq2_AFGxyXE_q_yXEq2_yXEtcfc">init(title:<wbr>descriptionText:<wbr>secondaryAction:<wbr>)</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>Undocumented</p>
-
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
-  <span class="kd">@ViewBuilder</span> <span class="nv">title</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Title.html">Title</a></span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">descriptionText</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/DescriptionText.html">DescriptionText</a></span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">secondaryAction</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">SecondaryActionView</span>
-  <span class="p">)</span></code></pre>
-
-                          </div>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-              <div class="task-group">
-                <div class="task-name-container">
-                  <a name="/Available%20where%20%60Footnote%60%20%3D%3D%20%60EmptyView%60%2C%20%60SecondaryActionView%60%20%3D%3D%20%60EmptyView%60%2C%20%60TextInputView%60%20%3D%3D%20%60EmptyView%60"></a>
-                  <a name="//apple_ref/swift/Section/Available where `Footnote` == `EmptyView`, `SecondaryActionView` == `EmptyView`, `TextInputView` == `EmptyView`" class="dashAnchor"></a>
-                  <div class="section-name-container">
-                    <a class="section-name-link" href="#/Available%20where%20%60Footnote%60%20%3D%3D%20%60EmptyView%60%2C%20%60SecondaryActionView%60%20%3D%3D%20%60EmptyView%60%2C%20%60TextInputView%60%20%3D%3D%20%60EmptyView%60"></a>
-                    <h3 class="section-name"><span>Available where <code><a href="../Structs/Footnote.html">Footnote</a></code> == <code>EmptyView</code>, <code>SecondaryActionView</code> == <code>EmptyView</code>, <code>TextInputView</code> == <code>EmptyView</code></span>
-</h3>
-                  </div>
-                </div>
-                <ul>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/s:16FioriSwiftUICore16ActivationScreenVAA0B2UI9EmptyViewVRs0_AFRs2_AFRs3_rlE5title15descriptionText6actionACyxq_AFq1_A2FGxyXE_q_yXEq1_yXEtcfc"></a>
-                      <a name="//apple_ref/swift/Method/init(title:descriptionText:action:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:16FioriSwiftUICore16ActivationScreenVAA0B2UI9EmptyViewVRs0_AFRs2_AFRs3_rlE5title15descriptionText6actionACyxq_AFq1_A2FGxyXE_q_yXEq1_yXEtcfc">init(title:<wbr>descriptionText:<wbr>action:<wbr>)</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>Undocumented</p>
-
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
-  <span class="kd">@ViewBuilder</span> <span class="nv">title</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Title.html">Title</a></span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">descriptionText</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/DescriptionText.html">DescriptionText</a></span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">action</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">ActionView</span>
-  <span class="p">)</span></code></pre>
-
-                          </div>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-              <div class="task-group">
-                <div class="task-name-container">
-                  <a name="/Available%20where%20%60ActionView%60%20%3D%3D%20%60EmptyView%60%2C%20%60SecondaryActionView%60%20%3D%3D%20%60EmptyView%60%2C%20%60TextInputView%60%20%3D%3D%20%60EmptyView%60"></a>
-                  <a name="//apple_ref/swift/Section/Available where `ActionView` == `EmptyView`, `SecondaryActionView` == `EmptyView`, `TextInputView` == `EmptyView`" class="dashAnchor"></a>
-                  <div class="section-name-container">
-                    <a class="section-name-link" href="#/Available%20where%20%60ActionView%60%20%3D%3D%20%60EmptyView%60%2C%20%60SecondaryActionView%60%20%3D%3D%20%60EmptyView%60%2C%20%60TextInputView%60%20%3D%3D%20%60EmptyView%60"></a>
-                    <h3 class="section-name"><span>Available where <code>ActionView</code> == <code>EmptyView</code>, <code>SecondaryActionView</code> == <code>EmptyView</code>, <code>TextInputView</code> == <code>EmptyView</code></span>
-</h3>
-                  </div>
-                </div>
-                <ul>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/s:16FioriSwiftUICore16ActivationScreenVAA0B2UI9EmptyViewVRs1_AFRs2_AFRs3_rlE5title15descriptionText8footnoteACyxq_q0_A3FGxyXE_q_yXEq0_yXEtcfc"></a>
-                      <a name="//apple_ref/swift/Method/init(title:descriptionText:footnote:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:16FioriSwiftUICore16ActivationScreenVAA0B2UI9EmptyViewVRs1_AFRs2_AFRs3_rlE5title15descriptionText8footnoteACyxq_q0_A3FGxyXE_q_yXEq0_yXEtcfc">init(title:<wbr>descriptionText:<wbr>footnote:<wbr>)</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>Undocumented</p>
-
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
-  <span class="kd">@ViewBuilder</span> <span class="nv">title</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Title.html">Title</a></span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">descriptionText</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/DescriptionText.html">DescriptionText</a></span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">footnote</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Footnote.html">Footnote</a></span>
-  <span class="p">)</span></code></pre>
-
-                          </div>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-              <div class="task-group">
-                <div class="task-name-container">
-                  <a name="/Available%20where%20%60DescriptionText%60%20%3D%3D%20%60EmptyView%60%2C%20%60Footnote%60%20%3D%3D%20%60EmptyView%60%2C%20%60ActionView%60%20%3D%3D%20%60EmptyView%60%2C%20%60SecondaryActionView%60%20%3D%3D%20%60EmptyView%60"></a>
-                  <a name="//apple_ref/swift/Section/Available where `DescriptionText` == `EmptyView`, `Footnote` == `EmptyView`, `ActionView` == `EmptyView`, `SecondaryActionView` == `EmptyView`" class="dashAnchor"></a>
-                  <div class="section-name-container">
-                    <a class="section-name-link" href="#/Available%20where%20%60DescriptionText%60%20%3D%3D%20%60EmptyView%60%2C%20%60Footnote%60%20%3D%3D%20%60EmptyView%60%2C%20%60ActionView%60%20%3D%3D%20%60EmptyView%60%2C%20%60SecondaryActionView%60%20%3D%3D%20%60EmptyView%60"></a>
-                    <h3 class="section-name"><span>Available where <code><a href="../Structs/DescriptionText.html">DescriptionText</a></code> == <code>EmptyView</code>, <code><a href="../Structs/Footnote.html">Footnote</a></code> == <code>EmptyView</code>, <code>ActionView</code> == <code>EmptyView</code>, <code>SecondaryActionView</code> == <code>EmptyView</code></span>
-</h3>
-                  </div>
-                </div>
-                <ul>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/s:16FioriSwiftUICore16ActivationScreenVAA0B2UI9EmptyViewVRs_AFRs0_AFRs1_AFRs2_rlE5title9textInputACyxA4Fq3_GxyXE_q3_yXEtcfc"></a>
-                      <a name="//apple_ref/swift/Method/init(title:textInput:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:16FioriSwiftUICore16ActivationScreenVAA0B2UI9EmptyViewVRs_AFRs0_AFRs1_AFRs2_rlE5title9textInputACyxA4Fq3_GxyXE_q3_yXEtcfc">init(title:<wbr>textInput:<wbr>)</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>Undocumented</p>
-
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
-  <span class="kd">@ViewBuilder</span> <span class="nv">title</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Title.html">Title</a></span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">textInput</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">TextInputView</span>
-  <span class="p">)</span></code></pre>
-
-                          </div>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-              <div class="task-group">
-                <div class="task-name-container">
-                  <a name="/Available%20where%20%60DescriptionText%60%20%3D%3D%20%60EmptyView%60%2C%20%60Footnote%60%20%3D%3D%20%60EmptyView%60%2C%20%60ActionView%60%20%3D%3D%20%60EmptyView%60%2C%20%60TextInputView%60%20%3D%3D%20%60EmptyView%60"></a>
-                  <a name="//apple_ref/swift/Section/Available where `DescriptionText` == `EmptyView`, `Footnote` == `EmptyView`, `ActionView` == `EmptyView`, `TextInputView` == `EmptyView`" class="dashAnchor"></a>
-                  <div class="section-name-container">
-                    <a class="section-name-link" href="#/Available%20where%20%60DescriptionText%60%20%3D%3D%20%60EmptyView%60%2C%20%60Footnote%60%20%3D%3D%20%60EmptyView%60%2C%20%60ActionView%60%20%3D%3D%20%60EmptyView%60%2C%20%60TextInputView%60%20%3D%3D%20%60EmptyView%60"></a>
-                    <h3 class="section-name"><span>Available where <code><a href="../Structs/DescriptionText.html">DescriptionText</a></code> == <code>EmptyView</code>, <code><a href="../Structs/Footnote.html">Footnote</a></code> == <code>EmptyView</code>, <code>ActionView</code> == <code>EmptyView</code>, <code>TextInputView</code> == <code>EmptyView</code></span>
-</h3>
-                  </div>
-                </div>
-                <ul>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/s:16FioriSwiftUICore16ActivationScreenVAA0B2UI9EmptyViewVRs_AFRs0_AFRs1_AFRs3_rlE5title15secondaryActionACyxA3Fq2_AFGxyXE_q2_yXEtcfc"></a>
-                      <a name="//apple_ref/swift/Method/init(title:secondaryAction:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:16FioriSwiftUICore16ActivationScreenVAA0B2UI9EmptyViewVRs_AFRs0_AFRs1_AFRs3_rlE5title15secondaryActionACyxA3Fq2_AFGxyXE_q2_yXEtcfc">init(title:<wbr>secondaryAction:<wbr>)</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>Undocumented</p>
-
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
-  <span class="kd">@ViewBuilder</span> <span class="nv">title</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Title.html">Title</a></span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">secondaryAction</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">SecondaryActionView</span>
-  <span class="p">)</span></code></pre>
-
-                          </div>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-              <div class="task-group">
-                <div class="task-name-container">
-                  <a name="/Available%20where%20%60DescriptionText%60%20%3D%3D%20%60EmptyView%60%2C%20%60Footnote%60%20%3D%3D%20%60EmptyView%60%2C%20%60SecondaryActionView%60%20%3D%3D%20%60EmptyView%60%2C%20%60TextInputView%60%20%3D%3D%20%60EmptyView%60"></a>
-                  <a name="//apple_ref/swift/Section/Available where `DescriptionText` == `EmptyView`, `Footnote` == `EmptyView`, `SecondaryActionView` == `EmptyView`, `TextInputView` == `EmptyView`" class="dashAnchor"></a>
-                  <div class="section-name-container">
-                    <a class="section-name-link" href="#/Available%20where%20%60DescriptionText%60%20%3D%3D%20%60EmptyView%60%2C%20%60Footnote%60%20%3D%3D%20%60EmptyView%60%2C%20%60SecondaryActionView%60%20%3D%3D%20%60EmptyView%60%2C%20%60TextInputView%60%20%3D%3D%20%60EmptyView%60"></a>
-                    <h3 class="section-name"><span>Available where <code><a href="../Structs/DescriptionText.html">DescriptionText</a></code> == <code>EmptyView</code>, <code><a href="../Structs/Footnote.html">Footnote</a></code> == <code>EmptyView</code>, <code>SecondaryActionView</code> == <code>EmptyView</code>, <code>TextInputView</code> == <code>EmptyView</code></span>
-</h3>
-                  </div>
-                </div>
-                <ul>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/s:16FioriSwiftUICore16ActivationScreenVAA0B2UI9EmptyViewVRs_AFRs0_AFRs2_AFRs3_rlE5title6actionACyxA2Fq1_A2FGxyXE_q1_yXEtcfc"></a>
-                      <a name="//apple_ref/swift/Method/init(title:action:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:16FioriSwiftUICore16ActivationScreenVAA0B2UI9EmptyViewVRs_AFRs0_AFRs2_AFRs3_rlE5title6actionACyxA2Fq1_A2FGxyXE_q1_yXEtcfc">init(title:<wbr>action:<wbr>)</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>Undocumented</p>
-
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
-  <span class="kd">@ViewBuilder</span> <span class="nv">title</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Title.html">Title</a></span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">action</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">ActionView</span>
-  <span class="p">)</span></code></pre>
-
-                          </div>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-              <div class="task-group">
-                <div class="task-name-container">
-                  <a name="/Available%20where%20%60DescriptionText%60%20%3D%3D%20%60EmptyView%60%2C%20%60ActionView%60%20%3D%3D%20%60EmptyView%60%2C%20%60SecondaryActionView%60%20%3D%3D%20%60EmptyView%60%2C%20%60TextInputView%60%20%3D%3D%20%60EmptyView%60"></a>
-                  <a name="//apple_ref/swift/Section/Available where `DescriptionText` == `EmptyView`, `ActionView` == `EmptyView`, `SecondaryActionView` == `EmptyView`, `TextInputView` == `EmptyView`" class="dashAnchor"></a>
-                  <div class="section-name-container">
-                    <a class="section-name-link" href="#/Available%20where%20%60DescriptionText%60%20%3D%3D%20%60EmptyView%60%2C%20%60ActionView%60%20%3D%3D%20%60EmptyView%60%2C%20%60SecondaryActionView%60%20%3D%3D%20%60EmptyView%60%2C%20%60TextInputView%60%20%3D%3D%20%60EmptyView%60"></a>
-                    <h3 class="section-name"><span>Available where <code><a href="../Structs/DescriptionText.html">DescriptionText</a></code> == <code>EmptyView</code>, <code>ActionView</code> == <code>EmptyView</code>, <code>SecondaryActionView</code> == <code>EmptyView</code>, <code>TextInputView</code> == <code>EmptyView</code></span>
-</h3>
-                  </div>
-                </div>
-                <ul>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/s:16FioriSwiftUICore16ActivationScreenVAA0B2UI9EmptyViewVRs_AFRs1_AFRs2_AFRs3_rlE5title8footnoteACyxAFq0_A3FGxyXE_q0_yXEtcfc"></a>
-                      <a name="//apple_ref/swift/Method/init(title:footnote:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:16FioriSwiftUICore16ActivationScreenVAA0B2UI9EmptyViewVRs_AFRs1_AFRs2_AFRs3_rlE5title8footnoteACyxAFq0_A3FGxyXE_q0_yXEtcfc">init(title:<wbr>footnote:<wbr>)</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>Undocumented</p>
-
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
-  <span class="kd">@ViewBuilder</span> <span class="nv">title</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Title.html">Title</a></span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">footnote</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Footnote.html">Footnote</a></span>
-  <span class="p">)</span></code></pre>
-
-                          </div>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-              <div class="task-group">
-                <div class="task-name-container">
-                  <a name="/Available%20where%20%60Footnote%60%20%3D%3D%20%60EmptyView%60%2C%20%60ActionView%60%20%3D%3D%20%60EmptyView%60%2C%20%60SecondaryActionView%60%20%3D%3D%20%60EmptyView%60%2C%20%60TextInputView%60%20%3D%3D%20%60EmptyView%60"></a>
-                  <a name="//apple_ref/swift/Section/Available where `Footnote` == `EmptyView`, `ActionView` == `EmptyView`, `SecondaryActionView` == `EmptyView`, `TextInputView` == `EmptyView`" class="dashAnchor"></a>
-                  <div class="section-name-container">
-                    <a class="section-name-link" href="#/Available%20where%20%60Footnote%60%20%3D%3D%20%60EmptyView%60%2C%20%60ActionView%60%20%3D%3D%20%60EmptyView%60%2C%20%60SecondaryActionView%60%20%3D%3D%20%60EmptyView%60%2C%20%60TextInputView%60%20%3D%3D%20%60EmptyView%60"></a>
-                    <h3 class="section-name"><span>Available where <code><a href="../Structs/Footnote.html">Footnote</a></code> == <code>EmptyView</code>, <code>ActionView</code> == <code>EmptyView</code>, <code>SecondaryActionView</code> == <code>EmptyView</code>, <code>TextInputView</code> == <code>EmptyView</code></span>
-</h3>
-                  </div>
-                </div>
-                <ul>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/s:16FioriSwiftUICore16ActivationScreenVAA0B2UI9EmptyViewVRs0_AFRs1_AFRs2_AFRs3_rlE5title15descriptionTextACyxq_A4FGxyXE_q_yXEtcfc"></a>
-                      <a name="//apple_ref/swift/Method/init(title:descriptionText:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:16FioriSwiftUICore16ActivationScreenVAA0B2UI9EmptyViewVRs0_AFRs1_AFRs2_AFRs3_rlE5title15descriptionTextACyxq_A4FGxyXE_q_yXEtcfc">init(title:<wbr>descriptionText:<wbr>)</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>Undocumented</p>
-
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
-  <span class="kd">@ViewBuilder</span> <span class="nv">title</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Title.html">Title</a></span><span class="p">,</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">descriptionText</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/DescriptionText.html">DescriptionText</a></span>
-  <span class="p">)</span></code></pre>
-
-                          </div>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-              <div class="task-group">
-                <div class="task-name-container">
-                  <a name="/Available%20where%20%60DescriptionText%60%20%3D%3D%20%60EmptyView%60%2C%20%60Footnote%60%20%3D%3D%20%60EmptyView%60%2C%20%60ActionView%60%20%3D%3D%20%60EmptyView%60%2C%20%60SecondaryActionView%60%20%3D%3D%20%60EmptyView%60%2C%20%60TextInputView%60%20%3D%3D%20%60EmptyView%60"></a>
-                  <a name="//apple_ref/swift/Section/Available where `DescriptionText` == `EmptyView`, `Footnote` == `EmptyView`, `ActionView` == `EmptyView`, `SecondaryActionView` == `EmptyView`, `TextInputView` == `EmptyView`" class="dashAnchor"></a>
-                  <div class="section-name-container">
-                    <a class="section-name-link" href="#/Available%20where%20%60DescriptionText%60%20%3D%3D%20%60EmptyView%60%2C%20%60Footnote%60%20%3D%3D%20%60EmptyView%60%2C%20%60ActionView%60%20%3D%3D%20%60EmptyView%60%2C%20%60SecondaryActionView%60%20%3D%3D%20%60EmptyView%60%2C%20%60TextInputView%60%20%3D%3D%20%60EmptyView%60"></a>
-                    <h3 class="section-name"><span>Available where <code><a href="../Structs/DescriptionText.html">DescriptionText</a></code> == <code>EmptyView</code>, <code><a href="../Structs/Footnote.html">Footnote</a></code> == <code>EmptyView</code>, <code>ActionView</code> == <code>EmptyView</code>, <code>SecondaryActionView</code> == <code>EmptyView</code>, <code>TextInputView</code> == <code>EmptyView</code></span>
-</h3>
-                  </div>
-                </div>
-                <ul>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/s:16FioriSwiftUICore16ActivationScreenVAA0B2UI9EmptyViewVRs_AFRs0_AFRs1_AFRs2_AFRs3_rlE5titleACyxA5FGxyXE_tcfc"></a>
-                      <a name="//apple_ref/swift/Method/init(title:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:16FioriSwiftUICore16ActivationScreenVAA0B2UI9EmptyViewVRs_AFRs0_AFRs1_AFRs2_AFRs3_rlE5titleACyxA5FGxyXE_tcfc">init(title:<wbr>)</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>Undocumented</p>
-
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
-<span class="kd">@ViewBuilder</span> <span class="nv">title</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Title.html">Title</a></span>
-<span class="p">)</span></code></pre>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">isEmpty</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                           </div>
                         </div>
@@ -1579,7 +252,28 @@
                   <a href="../Classes/BannerMessageListModel.html">BannerMessageListModel</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Classes/BarcodeScannerManager.html">BarcodeScannerManager</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Classes/BasicAttachmentDelegate.html">BasicAttachmentDelegate</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Classes/IPCMobileScanner.html">IPCMobileScanner</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Classes/IPCMobileScanner.html">IPCMobileScanner</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Classes/OnboardingScanConfirmViewContext.html">OnboardingScanConfirmViewContext</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Classes/OnboardingScanViewContext.html">OnboardingScanViewContext</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Classes/ProGloveScanner.html">ProGloveScanner</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Classes/ProGloveScanner.html">ProGloveScanner</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Classes/StyleCache.html">StyleCache</a>
@@ -1589,6 +283,9 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Classes/TableModel/EditMode.html">– EditMode</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Classes/VisionKitScanner.html">VisionKitScanner</a>
                 </li>
               </ul>
             </li>
@@ -1621,6 +318,12 @@
             <li class="nav-group-name">
               <a href="../Enums.html">Enumerations</a>
               <ul class="nav-group-tasks">
+                <li class="nav-group-task">
+                  <a href="../Enums/AIUserFeedbackDisplayMode.html">AIUserFeedbackDisplayMode</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/AIUserFeedbackVoteState.html">AIUserFeedbackVoteState</a>
+                </li>
                 <li class="nav-group-task">
                   <a href="../Enums/AccessoryItem.html">AccessoryItem</a>
                 </li>
@@ -1736,6 +439,15 @@
                   <a href="../Enums/ScanOutputFormat.html">ScanOutputFormat</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Enums/ScannerDisplayData.html">ScannerDisplayData</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/ScannerStatus.html">ScannerStatus</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/ScannerType.html">ScannerType</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Enums/SectionHeaderFooterStyle.html">SectionHeaderFooterStyle</a>
                 </li>
                 <li class="nav-group-task">
@@ -1767,6 +479,9 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Enums/SortFilterItem/DurationPickerItem.html">– DurationPickerItem</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/SortFilterItem/OrderPickerItem.html">– OrderPickerItem</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Enums/TagBuilder.html">TagBuilder</a>
@@ -1810,6 +525,9 @@
                 <li class="nav-group-task">
                   <a href="../Enums/_SortFilterItem/StepperItem.html">– StepperItem</a>
                 </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/formatType.html">formatType</a>
+                </li>
               </ul>
             </li>
             <li class="nav-group-name">
@@ -1820,6 +538,9 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Extensions/EnvironmentValues.html">EnvironmentValues</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Extensions/NumberFormatter.html">NumberFormatter</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Extensions/Optional.html">Optional</a>
@@ -1850,6 +571,9 @@
                   <a href="../Protocols/AINoticeStyle.html">AINoticeStyle</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Protocols/AIUserFeedbackStyle.html">AIUserFeedbackStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Protocols/AccessoryIconComponent.html">AccessoryIconComponent</a>
                 </li>
                 <li class="nav-group-task">
@@ -1868,7 +592,7 @@
                   <a href="../Protocols/ActionTitleComponent.html">ActionTitleComponent</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Protocols/ActivationScreenModel.html">ActivationScreenModel</a>
+                  <a href="../Protocols/ActivationScreenStyle.html">ActivationScreenStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/ActiveTrackStyle.html">ActiveTrackStyle</a>
@@ -1922,6 +646,12 @@
                   <a href="../Protocols/AttributeStyle.html">AttributeStyle</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Protocols/AuthInputStyle.html">AuthInputStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/AuthenticationStyle.html">AuthenticationStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Protocols.html#/s:16FioriSwiftUICore16AvatarStackModelP">AvatarStackModel</a>
                 </li>
                 <li class="nav-group-task">
@@ -1941,6 +671,12 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/BannerMultiMessageSheetStyle.html">BannerMultiMessageSheetStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/BarcodeScanner.html">BarcodeScanner</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/BarcodeScannerDelegate.html">BarcodeScannerDelegate</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/BodyAttributedTextComponent.html">BodyAttributedTextComponent</a>
@@ -1977,6 +713,9 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/CategoryAxisTitleComponent.html">CategoryAxisTitleComponent</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/CheckmarkStyle.html">CheckmarkStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/CheckoutIndicatorStyle.html">CheckoutIndicatorStyle</a>
@@ -2034,6 +773,9 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/DisagreeActionStyle.html">DisagreeActionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/DownVoteActionStyle.html">DownVoteActionStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/DurationPickerComponent.html">DurationPickerComponent</a>
@@ -2144,7 +886,10 @@
                   <a href="../Protocols/IndexedViewContainer.html">IndexedViewContainer</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Protocols/InfoViewModel.html">InfoViewModel</a>
+                  <a href="../Protocols.html#/s:16FioriSwiftUICore13InfoViewModelP">InfoViewModel</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/InfoViewStyle.html">InfoViewStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/InformationViewStyle.html">InformationViewStyle</a>
@@ -2160,6 +905,9 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols.html#/s:16FioriSwiftUICore18KPIHeaderItemModelP">KPIHeaderItemModel</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/KPIHeaderStyle.html">KPIHeaderStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/KPIItemStyle.html">KPIItemStyle</a>
@@ -2285,6 +1033,9 @@
                   <a href="../Protocols/OnStarImageStyle.html">OnStarImageStyle</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Protocols/OnboardingScanViewStyle.html">OnboardingScanViewStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Protocols/OptionListPickerComponent.html">OptionListPickerComponent</a>
                 </li>
                 <li class="nav-group-task">
@@ -2298,6 +1049,9 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/OptionsStyle.html">OptionsStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/OrderPickerStyle.html">OrderPickerStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/OuterCircleStyle.html">OuterCircleStyle</a>
@@ -2420,6 +1174,9 @@
                   <a href="../Protocols/SideBarStyle.html">SideBarStyle</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Protocols/SignInActionStyle.html">SignInActionStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Protocols/SignatureCaptureViewStyle.html">SignatureCaptureViewStyle</a>
                 </li>
                 <li class="nav-group-task">
@@ -2430,6 +1187,9 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols.html#/s:16FioriSwiftUICore21SliderPickerItemModelP">SliderPickerItemModel</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/SortCriterionStyle.html">SortCriterionStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/SortFilterViewStyle.html">SortFilterViewStyle</a>
@@ -2460,6 +1220,9 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/SubAttributeStyle.html">SubAttributeStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/SubmitActionStyle.html">SubmitActionStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/SubstatusComponent.html">SubstatusComponent</a>
@@ -2573,6 +1336,9 @@
                   <a href="../Protocols/TrendStyle.html">TrendStyle</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Protocols/UpVoteActionStyle.html">UpVoteActionStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Protocols/UpperBoundTitleComponent.html">UpperBoundTitleComponent</a>
                 </li>
                 <li class="nav-group-task">
@@ -2621,6 +1387,9 @@
                   <a href="../Protocols.html#/s:16FioriSwiftUICore12_ActionModelP">_ActionModel</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Protocols/_ActivationScreenModel.html">_ActivationScreenModel</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Protocols.html#/s:16FioriSwiftUICore18_ActivityItemModelP">_ActivityItemModel</a>
                 </li>
                 <li class="nav-group-task">
@@ -2652,6 +1421,9 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols.html#/s:16FioriSwiftUICore17_HeaderChartModelP">_HeaderChartModel</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/_InfoViewModel.html">_InfoViewModel</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols.html#/s:16FioriSwiftUICore13_KPIItemModelP">_KPIItemModel</a>
@@ -2719,6 +1491,9 @@
                 <li class="nav-group-task">
                   <a href="../Protocols/_WelcomeScreenModel.html">_WelcomeScreenModel</a>
                 </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/currencyFormatting.html">currencyFormatting</a>
+                </li>
               </ul>
             </li>
             <li class="nav-group-name">
@@ -2741,6 +1516,45 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/AINoticeStyleModifier.html">AINoticeStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/AIUserFeedback.html">AIUserFeedback</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/AIUserFeedbackActionStyle.html">AIUserFeedbackActionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/AIUserFeedbackBaseStyle.html">AIUserFeedbackBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/AIUserFeedbackCancelActionStyle.html">AIUserFeedbackCancelActionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/AIUserFeedbackConfiguration.html">AIUserFeedbackConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/AIUserFeedbackDescriptionStyle.html">AIUserFeedbackDescriptionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/AIUserFeedbackDetailImageStyle.html">AIUserFeedbackDetailImageStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/AIUserFeedbackFioriStyle.html">AIUserFeedbackFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/AIUserFeedbackIllustratedMessageStyle.html">AIUserFeedbackIllustratedMessageStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/AIUserFeedbackSecondaryActionStyle.html">AIUserFeedbackSecondaryActionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/AIUserFeedbackStyleModifier.html">AIUserFeedbackStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/AIUserFeedbackSubmitActionStyle.html">AIUserFeedbackSubmitActionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/AIUserFeedbackTitleStyle.html">AIUserFeedbackTitleStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/AccessoryButton.html">AccessoryButton</a>
@@ -2777,6 +1591,33 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/ActivationScreen.html">ActivationScreen</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ActivationScreenActionStyle.html">ActivationScreenActionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ActivationScreenBaseStyle.html">ActivationScreenBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ActivationScreenConfiguration.html">ActivationScreenConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ActivationScreenDescriptionTextStyle.html">ActivationScreenDescriptionTextStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ActivationScreenFioriStyle.html">ActivationScreenFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ActivationScreenFootnoteStyle.html">ActivationScreenFootnoteStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ActivationScreenSecondaryActionStyle.html">ActivationScreenSecondaryActionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ActivationScreenStyleModifier.html">ActivationScreenStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ActivationScreenTitleStyle.html">ActivationScreenTitleStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/ActiveTrack.html">ActiveTrack</a>
@@ -3055,6 +1896,54 @@
                   <a href="../Structs/AttributedText.html">AttributedText</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/AuthInput.html">AuthInput</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/AuthInputBaseStyle.html">AuthInputBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/AuthInputConfiguration.html">AuthInputConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/AuthInputFioriStyle.html">AuthInputFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/AuthInputStyleModifier.html">AuthInputStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/AuthTextFieldStyle.html">AuthTextFieldStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/Authentication.html">Authentication</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/AuthenticationAuthInputStyle.html">AuthenticationAuthInputStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/AuthenticationBaseStyle.html">AuthenticationBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/AuthenticationConfiguration.html">AuthenticationConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/AuthenticationDetailImageStyle.html">AuthenticationDetailImageStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/AuthenticationFioriStyle.html">AuthenticationFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/AuthenticationSignInActionStyle.html">AuthenticationSignInActionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/AuthenticationStyleModifier.html">AuthenticationStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/AuthenticationSubtitleStyle.html">AuthenticationSubtitleStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/AuthenticationTitleStyle.html">AuthenticationTitleStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/AvatarStack.html">AvatarStack</a>
                 </li>
                 <li class="nav-group-task">
@@ -3152,6 +2041,9 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/BannerMultiMessageSheetTitleStyle.html">BannerMultiMessageSheetTitleStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/BasicAuthenticationStyle.html">BasicAuthenticationStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/BodyText.html">BodyText</a>
@@ -3464,6 +2356,21 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/Carousel.html">Carousel</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/Checkmark.html">Checkmark</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/CheckmarkBaseStyle.html">CheckmarkBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/CheckmarkConfiguration.html">CheckmarkConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/CheckmarkFioriStyle.html">CheckmarkFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/CheckmarkStyleModifier.html">CheckmarkStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/CheckoutIndicator.html">CheckoutIndicator</a>
@@ -3806,6 +2713,24 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/DocumentScannerView/Coordinator.html">– Coordinator</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/DownVoteAction.html">DownVoteAction</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/DownVoteActionBaseStyle.html">DownVoteActionBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/DownVoteActionConfiguration.html">DownVoteActionConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/DownVoteActionFioriStyle.html">DownVoteActionFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/DownVoteActionStyleModifier.html">DownVoteActionStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/DownVoteButtonSelectedStyle.html">DownVoteButtonSelectedStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/DurationPicker.html">DurationPicker</a>
@@ -4231,6 +3156,9 @@
                   <a href="../Structs/HelperTextStyleModifier.html">HelperTextStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/IPCMobileDisplayCardConfig.html">IPCMobileDisplayCardConfig</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/Icon.html">Icon</a>
                 </li>
                 <li class="nav-group-task">
@@ -4354,6 +3282,30 @@
                   <a href="../Structs/InfoView.html">InfoView</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/InfoViewActionStyle.html">InfoViewActionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/InfoViewBaseStyle.html">InfoViewBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/InfoViewConfiguration.html">InfoViewConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/InfoViewDescriptionTextStyle.html">InfoViewDescriptionTextStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/InfoViewFioriStyle.html">InfoViewFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/InfoViewSecondaryActionStyle.html">InfoViewSecondaryActionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/InfoViewStyleModifier.html">InfoViewStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/InfoViewTitleStyle.html">InfoViewTitleStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/InformationView.html">InformationView</a>
                 </li>
                 <li class="nav-group-task">
@@ -4454,6 +3406,18 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/KPIHeader.html">KPIHeader</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/KPIHeaderBaseStyle.html">KPIHeaderBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/KPIHeaderConfiguration.html">KPIHeaderConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/KPIHeaderFioriStyle.html">KPIHeaderFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/KPIHeaderStyleModifier.html">KPIHeaderStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/KPIItem.html">KPIItem</a>
@@ -5176,6 +4140,24 @@
                   <a href="../Structs/OnStarImageStyleModifier.html">OnStarImageStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/OnboardingScanConfirmView.html">OnboardingScanConfirmView</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/OnboardingScanView.html">OnboardingScanView</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/OnboardingScanViewBaseStyle.html">OnboardingScanViewBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/OnboardingScanViewConfiguration.html">OnboardingScanViewConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/OnboardingScanViewFioriStyle.html">OnboardingScanViewFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/OnboardingScanViewStyleModifier.html">OnboardingScanViewStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/OperationMenuModifier.html">OperationMenuModifier</a>
                 </li>
                 <li class="nav-group-task">
@@ -5216,6 +4198,30 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/OptionsStyleModifier.html">OptionsStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/OrderPicker.html">OrderPicker</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/OrderPickerBaseStyle.html">OrderPickerBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/OrderPickerConfiguration.html">OrderPickerConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/OrderPickerFioriStyle.html">OrderPickerFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/OrderPickerItemModel.html">OrderPickerItemModel</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/OrderPickerItemModel/Change.html">– Change</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/OrderPickerOptionalTitleStyle.html">OrderPickerOptionalTitleStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/OrderPickerStyleModifier.html">OrderPickerStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/OuterCircle.html">OuterCircle</a>
@@ -5650,6 +4656,9 @@
                   <a href="../Structs/SaveActionStyleModifier.html">SaveActionStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/ScannerError.html">ScannerError</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/SearchListPickerItem.html">SearchListPickerItem</a>
                 </li>
                 <li class="nav-group-task">
@@ -5839,6 +4848,21 @@
                   <a href="../Structs/SideBarStyleModifier.html">SideBarStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/SignInAction.html">SignInAction</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SignInActionBaseStyle.html">SignInActionBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SignInActionConfiguration.html">SignInActionConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SignInActionFioriStyle.html">SignInActionFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SignInActionStyleModifier.html">SignInActionStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/SignatureCaptureView.html">SignatureCaptureView</a>
                 </li>
                 <li class="nav-group-task">
@@ -5918,6 +4942,30 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/SliderValueChangeHandler/SliderInformationType.html">– SliderInformationType</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SortCriterion.html">SortCriterion</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SortCriterionBaseStyle.html">SortCriterionBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SortCriterionCheckmarkStyle.html">SortCriterionCheckmarkStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SortCriterionConfiguration.html">SortCriterionConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SortCriterionFioriStyle.html">SortCriterionFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SortCriterionStyleModifier.html">SortCriterionStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SortCriterionSubtitleStyle.html">SortCriterionSubtitleStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SortCriterionTitleStyle.html">SortCriterionTitleStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/SortFilterMenuItemFullConfigurationButton.html">SortFilterMenuItemFullConfigurationButton</a>
@@ -6103,6 +5151,21 @@
                   <a href="../Structs/SubAttributeStyleModifier.html">SubAttributeStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/SubmitAction.html">SubmitAction</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SubmitActionBaseStyle.html">SubmitActionBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SubmitActionConfiguration.html">SubmitActionConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SubmitActionFioriStyle.html">SubmitActionFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SubmitActionStyleModifier.html">SubmitActionStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/Substatus.html">Substatus</a>
                 </li>
                 <li class="nav-group-task">
@@ -6269,6 +5332,9 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/TextInputFieldConfiguration.html">TextInputFieldConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/TextInputFieldDecimalStyle.html">TextInputFieldDecimalStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/TextInputFieldFioriStyle.html">TextInputFieldFioriStyle</a>
@@ -6607,6 +5673,24 @@
                   <a href="../Structs/TrendStyleModifier.html">TrendStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/UpVoteAction.html">UpVoteAction</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/UpVoteActionBaseStyle.html">UpVoteActionBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/UpVoteActionConfiguration.html">UpVoteActionConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/UpVoteActionFioriStyle.html">UpVoteActionFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/UpVoteActionStyleModifier.html">UpVoteActionStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/UpVoteButtonSelectedStyle.html">UpVoteButtonSelectedStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/UpperThumb.html">UpperThumb</a>
                 </li>
                 <li class="nav-group-task">
@@ -6745,6 +5829,9 @@
                   <a href="../Structs/ValueStyleModifier.html">ValueStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/VisionKitScannerRepresentable.html">VisionKitScannerRepresentable</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/Watermark.html">Watermark</a>
                 </li>
                 <li class="nav-group-task">
@@ -6814,6 +5901,9 @@
                   <a href="../Structs/_Action.html">_Action</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/_ActivationScreen.html">_ActivationScreen</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/_ActivityItem.html">_ActivityItem</a>
                 </li>
                 <li class="nav-group-task">
@@ -6878,6 +5968,12 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/_HeaderChart.html">_HeaderChart</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/_InfoView.html">_InfoView</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/_KPIHeader.html">_KPIHeader</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/_KPIItem.html">_KPIItem</a>
@@ -6988,7 +6084,7 @@
       </div>
       <div class="footer-wrapper">
         <section id="footer">
-          <p>&copy; 2025 <a class="link" href="https://www.sap.com" target="_blank" rel="external noopener">SAP SE</a>. All rights reserved. (Last updated: 2025-06-16)</p>
+          <p>&copy; 2025 <a class="link" href="https://www.sap.com" target="_blank" rel="external noopener">SAP SE</a>. All rights reserved. (Last updated: 2025-06-25)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </div>
