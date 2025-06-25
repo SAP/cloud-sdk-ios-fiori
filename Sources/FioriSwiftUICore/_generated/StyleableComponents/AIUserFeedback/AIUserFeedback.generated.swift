@@ -27,8 +27,8 @@ import SwiftUI
 ///
 ///             }, onDownVote: {
 ///
-///             }, onSubmit: { voteState, feedbacks, additional, submitStateUpdate in
-///                 submitStateUpdate(.success)
+///             }, onSubmit: { voteState, feedbacks, additional, submitResult in
+///                 submitResult(true)
 ///             }, voteState: .notDetermined)
 /// ```
 ///  ### Toggle:
@@ -76,8 +76,8 @@ public struct AIUserFeedback {
     /// The action to be performed when the down vote button is tapped.
     let onDownVote: (() -> Void)?
     /// The action to be performed when the submit button is tapped.
-    /// Application can get the user feedback values, can tell the component the submition state with the `submitStateUpdate` call back.
-    let onSubmit: ((_ voteState: AIUserFeedbackVoteState, _ feedbacks: [String], _ additional: String, _ submitStateUpdate: @escaping (AIUserFeedbackSubmitState) -> Void) -> Void)?
+    /// Application can get the user feedback values, can tell the component the submition result with the `submitResult` call back.
+    let onSubmit: ((_ voteState: AIUserFeedbackVoteState, _ feedbacks: [String], _ additional: String, _ submitResult: @escaping (Bool) -> Void) -> Void)?
     /// The state of vote. Default is `notDetermined`.
     let voteState: AIUserFeedbackVoteState
 
@@ -106,7 +106,7 @@ public struct AIUserFeedback {
                 onCancel: (() -> Void)? = nil,
                 onUpVote: (() -> Void)? = nil,
                 onDownVote: (() -> Void)? = nil,
-                onSubmit: ((_ voteState: AIUserFeedbackVoteState, _ feedbacks: [String], _ additional: String, _ submitStateUpdate: @escaping (AIUserFeedbackSubmitState) -> Void) -> Void)? = nil,
+                onSubmit: ((_ voteState: AIUserFeedbackVoteState, _ feedbacks: [String], _ additional: String, _ submitResult: @escaping (Bool) -> Void) -> Void)? = nil,
                 voteState: AIUserFeedbackVoteState = .notDetermined,
                 componentIdentifier: String? = AIUserFeedback.identifier)
     {
@@ -159,7 +159,7 @@ public extension AIUserFeedback {
          onCancel: (() -> Void)? = nil,
          onUpVote: (() -> Void)? = nil,
          onDownVote: (() -> Void)? = nil,
-         onSubmit: ((_ voteState: AIUserFeedbackVoteState, _ feedbacks: [String], _ additional: String, _ submitStateUpdate: @escaping (AIUserFeedbackSubmitState) -> Void) -> Void)? = nil,
+         onSubmit: ((_ voteState: AIUserFeedbackVoteState, _ feedbacks: [String], _ additional: String, _ submitResult: @escaping (Bool) -> Void) -> Void)? = nil,
          voteState: AIUserFeedbackVoteState = .notDetermined)
     {
         self.init(detailImage: { detailImage }, title: { Text(title) }, description: { OptionalText(description) }, action: { action }, secondaryAction: { secondaryAction }, detailImageSize: detailImageSize, isActionVerticallyAligned: isActionVerticallyAligned, contentAlignment: contentAlignment, submitAction: { submitAction }, cancelAction: { cancelAction }, navigationTitle: navigationTitle, filterFormView: filterFormView, keyValueFormView: keyValueFormView, displayMode: displayMode, isBackgroundInteractionEnabled: isBackgroundInteractionEnabled, errorView: { errorView }, onCancel: onCancel, onUpVote: onUpVote, onDownVote: onDownVote, onSubmit: onSubmit, voteState: voteState)
