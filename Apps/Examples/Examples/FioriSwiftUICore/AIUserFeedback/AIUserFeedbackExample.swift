@@ -19,16 +19,13 @@ struct AIUserFeedbackExample: View {
     var voteState: AIUserFeedbackVoteState = .notDetermined
     @State var voteStateIndex: Int = 0
     
-    let submitStates: [AIUserFeedbackSubmitState] = [.normal, .success, .inProgress, .failed]
-    var submitState: AIUserFeedbackSubmitState = .normal
-    @State var submitStateIndex: Int = 0
-    
     @State var isBackgroundInteractionEnabled = false
     @State var customizedVoteButton = false
     @State var displayFilterForm = true
     @State var displayKeyValueForm = true
     @State var displayContentError = false
     @State var customizedErrorView = false
+    @State var isSubmitResultSuccess = true
     
     var body: some View {
         List {
@@ -62,18 +59,12 @@ struct AIUserFeedbackExample: View {
             Toggle("Display Key Value Form View", isOn: self.$displayKeyValueForm)
             Toggle("Display Content Error", isOn: self.$displayContentError)
             Toggle("Customized Error View", isOn: self.$customizedErrorView)
-            
+            Toggle("Mock Submit Result(On: Success, Off: Fail)", isOn: self.$isSubmitResultSuccess)
+
             Picker("Vote State(Not work for push)", selection: self.$voteStateIndex) {
                 ForEach(0 ..< self.voteStates.count, id: \.self) { index in
                     let state = self.voteStates[index]
                     Text(self.valueForVoteState(state: state))
-                }
-            }
-            
-            Picker("Mock submit response state", selection: self.$submitStateIndex) {
-                ForEach(0 ..< self.submitStates.count, id: \.self) { index in
-                    let state = self.submitStates[index]
-                    Text(self.valueForSubmitState(state: state))
                 }
             }
         }
@@ -89,21 +80,6 @@ struct AIUserFeedbackExample: View {
             stateString = "Up Vote"
         case .downVote:
             stateString = "Down Vote"
-        }
-        return stateString
-    }
-    
-    func valueForSubmitState(state: AIUserFeedbackSubmitState) -> String {
-        var stateString = ""
-        switch state {
-        case .normal:
-            stateString = "Normal"
-        case .success:
-            stateString = "Success"
-        case .inProgress:
-            stateString = "In Progress"
-        case .failed:
-            stateString = "Failed"
         }
         return stateString
     }
@@ -134,10 +110,8 @@ struct AIUserFeedbackExample: View {
                                   print("up vote call back")
                               }, onDownVote: {
                                   print("down vote call back")
-                              }, onSubmit: { _, _, _, submitStateUpdate in
-                                  if self.submitStates[self.submitStateIndex] == .success {
-                                      submitStateUpdate(.inProgress)
-                
+                              }, onSubmit: { _, _, _, submitResult in
+                                  if self.isSubmitResultSuccess {
                                       DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                                           switch mode {
                                           case .push:
@@ -149,11 +123,9 @@ struct AIUserFeedbackExample: View {
                                           }
                                           self.isToastPresented.toggle()
                                       }
-                                  } else if self.submitStates[self.submitStateIndex] == .failed {
-                                      submitStateUpdate(.inProgress)
-                
+                                  } else {
                                       DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                          submitStateUpdate(self.submitStates[self.submitStateIndex])
+                                          submitResult(false)
                                       }
                                   }
                               }, voteState: mode == .push ? .downVote : self.voteStates[self.voteStateIndex])

@@ -73,20 +73,17 @@ struct DurationPickerViewWrapper: UIViewRepresentable {
                 pickerView.selectRow(minuteIndex, inComponent: 1, animated: false)
             }
         }
-        let padding: CGFloat = 4
+
         let hourLabel = context.coordinator.hourLabel
         hourLabel.centerYAnchor.constraint(equalTo: pickerView.centerYAnchor).isActive = true
         hourLabel.heightAnchor.constraint(equalToConstant: context.coordinator.hourSize.height).isActive = true
         hourLabel.widthAnchor.constraint(equalToConstant: context.coordinator.hourSize.width).isActive = true
-        let constant = context.coordinator.hourSize.width + context.coordinator.hourTrailingOffset() + padding
-        hourLabel.trailingAnchor.constraint(equalTo: pickerView.centerXAnchor, constant: constant).isActive = true
-        
+        hourLabel.trailingAnchor.constraint(equalTo: pickerView.centerXAnchor, constant: self.layoutDirection == .leftToRight ? -12 : 0).isActive = true
         let minuteLabel = context.coordinator.minuteLabel
         minuteLabel.centerYAnchor.constraint(equalTo: pickerView.centerYAnchor).isActive = true
         minuteLabel.heightAnchor.constraint(equalToConstant: context.coordinator.minuteSize.height).isActive = true
         minuteLabel.widthAnchor.constraint(equalToConstant: context.coordinator.minuteSize.width).isActive = true
-        let offset: CGFloat = self.layoutDirection == .leftToRight ? 0 : 8
-        minuteLabel.leadingAnchor.constraint(equalTo: pickerView.centerXAnchor, constant: context.coordinator.componentValueWidth + padding + 8 + offset).isActive = true
+        minuteLabel.leadingAnchor.constraint(equalTo: pickerView.centerXAnchor, constant: context.coordinator.componentValueWidth + 8 + (self.layoutDirection == .leftToRight ? 12 : 8)).isActive = true
         return container
     }
     
@@ -148,6 +145,12 @@ struct DurationPickerViewWrapper: UIViewRepresentable {
             }
         }
         
+        func pickerView(_ pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {
+            let hourComponentWidth = self.componentValueWidth + self.hourSize.width + (self.parent.layoutDirection == .leftToRight ? 12 : 3) + 8
+            let minComponentwidth = self.componentValueWidth + self.minuteSize.width + (self.parent.layoutDirection == .leftToRight ? 20 : 34)
+            return max(hourComponentWidth, minComponentwidth)
+        }
+        
         func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
             36
         }
@@ -179,7 +182,7 @@ struct DurationPickerViewWrapper: UIViewRepresentable {
             label.translatesAutoresizingMaskIntoConstraints = false
             let labelSize = label.sizeThatFits(.zero)
             label.heightAnchor.constraint(equalToConstant: labelSize.height).isActive = true
-            label.widthAnchor.constraint(equalToConstant: labelSize.width).isActive = true
+            label.widthAnchor.constraint(equalToConstant: self.componentValueWidth).isActive = true
             label.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
             label.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: self.hourTrailingOffset()).isActive = true
             view.heightAnchor.constraint(greaterThanOrEqualToConstant: labelSize.height).isActive = true
@@ -195,7 +198,7 @@ struct DurationPickerViewWrapper: UIViewRepresentable {
             label.heightAnchor.constraint(equalToConstant: labelSize.height).isActive = true
             label.widthAnchor.constraint(equalToConstant: self.componentValueWidth).isActive = true
             label.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-            label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 4).isActive = true
+            label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 9).isActive = true
             view.heightAnchor.constraint(greaterThanOrEqualToConstant: labelSize.height).isActive = true
             view.widthAnchor.constraint(greaterThanOrEqualToConstant: labelSize.width).isActive = true
             return view
