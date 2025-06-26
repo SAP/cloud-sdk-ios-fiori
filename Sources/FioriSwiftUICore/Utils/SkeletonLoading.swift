@@ -92,6 +92,7 @@ public extension View {
 
 /// A view modifier that applies a shimmer effect to the view, indicating a loading state.
 public extension View {
+    /// Applies a shimmer loading effect to the view.
     func loadingStyle() -> some View {
         self.foregroundColor(Color.preferredColor(.separator))
             .redacted(reason: .placeholder)
@@ -142,6 +143,7 @@ struct IsLoadingKey: EnvironmentKey {
 
 /// A custom environment key to manage loading state across views.
 public extension EnvironmentValues {
+    /// A Boolean value indicating whether content is currently loading. It can be used to show the shimmer effect.
     var isLoading: Bool {
         get { self[IsLoadingKey.self] }
         set { self[IsLoadingKey.self] = newValue }
@@ -154,6 +156,7 @@ struct IsAILoadingKey: EnvironmentKey {
 
 /// A custom environment key to manage AI loading state across views.
 public extension EnvironmentValues {
+    /// A Boolean value indicating whether AI content is currently loading. It can be used to show the tint color for shimmer effect.
     var isAILoading: Bool {
         get { self[IsAILoadingKey.self] }
         set { self[IsAILoadingKey.self] = newValue }
