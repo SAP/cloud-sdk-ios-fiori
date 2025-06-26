@@ -10,6 +10,7 @@ struct DateTimePickerExample: View {
     @State var s5: Date = .now
     @State var s6: Date = .now
     @State var s7: Date = .now
+    @State var limitedDate: Date = .now
     @State var isRequired = false
     @State var showsErrorMessage = false
     @State var showAINotice: Bool = false
@@ -19,6 +20,10 @@ struct DateTimePickerExample: View {
     @State var pickerVisible3 = false
     @State var pickerVisible4 = false
     @State var pickerVisible5 = false
+    @State var limitedDatePickerVisible = false
+    
+    // Limit the selectable dates from last seven days to next seven days
+    var limitDateRange: ClosedRange<Date> = Date(timeIntervalSinceNow: -60 * 60 * 24 * 7) ... Date(timeIntervalSinceNow: 60 * 60 * 24 * 7)
     
     struct CustomTitleStyle: TitleStyle {
         func makeBody(_ configuration: TitleConfiguration) -> some View {
@@ -89,6 +94,12 @@ struct DateTimePickerExample: View {
             }
             Section(header: Text("Read Only")) {
                 DateTimePicker(title: "In Read-Only Mode", controlState: .readOnly, selectedDate: self.$s7, pickerComponents: [.date], pickerVisible: self.$pickerVisible)
+            }
+            Section {
+                DateTimePicker(title: "Limit Selectable Dates", range: self.limitDateRange, selectedDate: self.$limitedDate, pickerVisible: self.$limitedDatePickerVisible)
+            } header: {
+                Text("Range")
+                    .textCase(.none)
             }
         }
     }
