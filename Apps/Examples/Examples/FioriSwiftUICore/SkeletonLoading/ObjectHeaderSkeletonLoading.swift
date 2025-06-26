@@ -25,42 +25,55 @@ struct ObjectHeaderSkeletonLoading: View {
             Image("attachment009").resizable()
         })
         .frame(minHeight: 180)
+        .padding(.horizontal)
         .background(Color.preferredColor(.secondaryGroupedBackground))
     }
     
     var skeletonHeader1: some View {
-        ObjectHeaderSkeletonLoadingPattern.allField
-            .frame(minHeight: 180)
-            .background(Color.preferredColor(.secondaryGroupedBackground))
+        VStack {
+            ObjectHeaderSkeletonLoadingPattern.allField
+                .frame(maxWidth: .infinity, minHeight: 180)
+                .padding(.horizontal)
+                .background(Color.preferredColor(.secondaryGroupedBackground))
+        }
     }
-    
+
     var skeletonHeader2: some View {
-        ObjectHeaderSkeletonLoadingPattern.noDetailImage
-            .frame(minHeight: 180)
-            .background(Color.preferredColor(.secondaryGroupedBackground))
+        VStack {
+            ObjectHeaderSkeletonLoadingPattern.noDetailImage
+                .frame(maxWidth: .infinity, minHeight: 180)
+                .padding(.horizontal)
+                .background(Color.preferredColor(.secondaryGroupedBackground))
+        }
     }
-    
+
     var skeletonHeader3: some View {
-        ObjectHeaderSkeletonLoadingPattern.noTag
-            .frame(minHeight: 180)
-            .background(Color.preferredColor(.secondaryGroupedBackground))
+        VStack {
+            ObjectHeaderSkeletonLoadingPattern.noTag
+                .frame(maxWidth: .infinity, minHeight: 180)
+                .padding(.horizontal)
+                .background(Color.preferredColor(.secondaryGroupedBackground))
+        }
     }
     
     var body: some View {
         List {
             Toggle("Skeleton Loading", isOn: self.$isLoading)
+            
             Section(header: self.isLoading ? self.skeletonHeader1.typeErased : self.header.typeErased) {}
-                .listRowBackground(Color.preferredColor(.primaryGroupedBackground))
-                .environment(\.isLoading, self.isLoading)
-                
+                .id(self.isLoading)
+                .textCase(nil)
+            
             Section(header: self.isLoading ? self.skeletonHeader2.typeErased : self.header.typeErased) {}
-                .listRowBackground(Color.preferredColor(.primaryGroupedBackground))
-                .environment(\.isLoading, self.isLoading)
+                .id(self.isLoading)
+                .textCase(nil)
             
             Section(header: self.isLoading ? self.skeletonHeader3.typeErased : self.header.typeErased) {}
-                .listRowBackground(Color.preferredColor(.primaryGroupedBackground))
-                .environment(\.isLoading, self.isLoading)
+                .id(self.isLoading)
+                .textCase(nil)
         }
+        .listRowBackground(Color.preferredColor(.secondaryGroupedBackground))
+        .environment(\.isLoading, self.isLoading)
         .navigationBarTitle("Object Header", displayMode: .inline)
     }
 }

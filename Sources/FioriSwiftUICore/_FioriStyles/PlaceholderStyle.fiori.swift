@@ -21,10 +21,11 @@ public struct PlaceholderBaseStyle: PlaceholderStyle {
 
 // Default fiori styles
 public struct PlaceholderFioriStyle: PlaceholderStyle {
+    @Environment(\.isLoading) var isLoading
     @ViewBuilder
     public func makeBody(_ configuration: PlaceholderConfiguration) -> some View {
         Placeholder(configuration)
-            .foregroundStyle(Color.preferredColor(.tertiaryLabel))
+            .foregroundStyle(Color.preferredColor(self.isLoading ? .separator : .tertiaryLabel))
             .font(.fiori(forTextStyle: .body).italic())
     }
 }

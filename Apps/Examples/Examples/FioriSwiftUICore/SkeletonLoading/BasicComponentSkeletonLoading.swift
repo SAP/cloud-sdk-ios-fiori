@@ -32,47 +32,49 @@ struct BasicComponentSkeletonLoading: View {
                 .italic()
             NoteFormView(text: self.$valueText2, placeholder: "Skeleton loading text plceholder", controlState: .normal)
                 .environment(\.isLoading, self.isLoading)
+                .environment(\.isAILoading, self.isLoading)
             NoteFormView(text: self.$valueText1, placeholder: "", controlState: .normal)
                 .environment(\.isLoading, self.isLoading)
-                .environment(\.isAILoading, true)
+                .environment(\.isAILoading, self.isLoading)
             
             Text("Image")
                 .italic()
+            
             HStack {
                 Image(fioriName: "fiori.person.placeholder")
                     .resizable()
-                    .foregroundStyle(Color.preferredColor(self.isLoading ? .separator : .primaryLabel))
-                    .frame(width: 20, height: 20)
+                    .foregroundStyle(Color.preferredColor(.separator))
+                    .frame(width: 40, height: 40)
+                    .padding(16)
+                    .overlay(
+                        Circle()
+                            .fill(Color.preferredColor(.tertiaryFill))
+                            .frame(width: 80, height: 80)
+                    )
+                    .ifApply(self.isLoading) {
+                        $0.skeletonLoading()
+                    }
+               
+                Image(fioriName: "fiori.person.placeholder")
+                    .resizable()
+                    .foregroundStyle(Color.preferredColor(.separator))
+                    .frame(width: 30, height: 30)
+                    .padding(16)
+                    .overlay(
+                        Rectangle()
+                            .fill(Color.preferredColor(.tertiaryFill))
+                            .frame(width: 60, height: 60)
+                    )
                     .ifApply(self.isLoading) {
                         $0.skeletonLoading()
                     }
                 
-                Image(fioriName: "fiori.person.placeholder")
+                Image("flower")
                     .resizable()
-                    .foregroundStyle(Color.preferredColor(self.isLoading ? .separator : .primaryLabel))
-                    .frame(width: 30, height: 30)
-                    .clipShape(Circle())
-                    .ifApply(self.isLoading) {
-                        $0.skeletonLoading()
-                    }
-
-                Image(fioriName: "fiori.person.placeholder")
-                    .resizable()
-                    .frame(width: 40, height: 40)
-                    .foregroundStyle(Color.preferredColor(self.isLoading ? .separator : .primaryLabel))
-                    .ifApply(self.isLoading) {
-                        $0.skeletonLoading()
-                    }
-
-                Image(fioriName: "fiori.person.placeholder")
-                    .resizable()
-                    .frame(width: 50, height: 50)
-                    .clipShape(Circle())
-                    .foregroundStyle(Color.preferredColor(self.isLoading ? .separator : .primaryLabel))
-                    .clipShape(Circle())
-                    .ifApply(self.isLoading) {
-                        $0.skeletonLoading()
-                    }
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 60, height: 60)
+                    .imageSkeletonLoading(isLoading: self.isLoading, frame: CGSize(width: 60, height: 60))
+                    .padding(16)
             }
             Text("Button")
                 .italic()

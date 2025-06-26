@@ -9,9 +9,13 @@ struct ObjectCellSkeletonLoading: View {
             Toggle("Skeleton Loading", isOn: self.$isLoading)
             if self.isLoading {
                 ObjectItemSkeletonLoadingPattern.oneLine.id(self.isLoading)
+                    .splitPercent(0.33)
                 ObjectItemSkeletonLoadingPattern.twoLines.id(self.isLoading)
+                    .splitPercent(0.33)
                 ObjectItemSkeletonLoadingPattern.multiLines.id(self.isLoading)
+                    .splitPercent(0.33)
                 ObjectItemSkeletonLoadingPattern.generic.id(self.isLoading)
+                    .splitPercent(0.33)
             } else {
                 ObjectItem(title: {
                     Text("Rouja Pakiman")
@@ -48,6 +52,7 @@ struct ObjectCellSkeletonLoading: View {
                 }, detailImage: {
                     Image("attachment009").resizable().frame(width: 45, height: 45)
                 })
+                .splitPercent(0.33)
                 
                 ObjectItem(title: {
                     Text("Transformer Overheating")
@@ -60,6 +65,7 @@ struct ObjectCellSkeletonLoading: View {
                 }, status: {
                     Text("Medium")
                 })
+                .splitPercent(0.33)
             }
         }
         .environment(\.isLoading, self.isLoading)

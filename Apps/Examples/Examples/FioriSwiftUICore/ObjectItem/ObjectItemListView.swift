@@ -12,6 +12,7 @@ struct ObjectItemListView<T: ListDataProtocol>: View {
     
     @State var cellTapped = false
     @State var singleSelection: Int?
+    @State var isLoading: Bool = true
     
     init(title: String, listDataType: T.Type, changeLeftMargin: Bool = true, showEditButton: Bool = true) {
         self.title = title
@@ -33,6 +34,8 @@ struct ObjectItemListView<T: ListDataProtocol>: View {
         let listData = self.createInstance(typeThing: self.listDataType)
         
         return List {
+            Toggle("Skeleton Loading", isOn: self.$isLoading)
+            
             ForEach(0 ..< listData.numberOfSections(), id: \.self) { sectionIndex in
                 Section(header: Text(listData.titleForHeaderInSection(sectionIndex)).textCase(.none)) {
                     ForEach(0 ..< listData.numberOfRowsInSection(sectionIndex), id: \.self) { index in
@@ -49,6 +52,7 @@ struct ObjectItemListView<T: ListDataProtocol>: View {
                     }
                 }
             }
+            .environment(\.isLoading, self.isLoading)
             .listRowBackground(Color.preferredColor(.secondaryGroupedBackground))
             .ifApply(self.horizontalSizeClass == .some(.compact) && self.changeLeftMargin) {
                 $0.listRowInsets(EdgeInsets(top: 0, leading: 32, bottom: 0, trailing: 32))
