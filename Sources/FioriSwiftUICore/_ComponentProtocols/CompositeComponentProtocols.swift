@@ -590,6 +590,8 @@ protocol _SwitchViewComponent: _TitleComponent, _SwitchComponent {}
 /// ```
 // sourcery: CompositeComponent
 protocol _DateTimePickerComponent: _TitleComponent, _ValueLabelComponent, _MandatoryField, _FormViewComponent {
+    // The inclusive range of selectable dates.
+    var range: ClosedRange<Date>? { get }
     // sourcery: @Binding
     var selectedDate: Date { get }
     
