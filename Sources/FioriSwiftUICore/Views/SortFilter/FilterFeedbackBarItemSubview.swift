@@ -594,6 +594,7 @@ struct PickerMenuItem: View {
                 searchFilter: self.item.isSearchBarHidden == false ? filter : nil
             ) { e in
                 Text(e.value)
+                    .destinationRowBackgroundColor(.clear)
             } :
             ListPickerDestination(
                 self.item.uuidValueOptions,
@@ -603,6 +604,7 @@ struct PickerMenuItem: View {
                 searchFilter: self.item.isSearchBarHidden == false ? filter : nil
             ) { e in
                 Text(e.value)
+                    .destinationRowBackgroundColor(.clear)
             }
         return listPickerDestination
             .disableEntriesSection(self.item.disableListEntriesSection)
