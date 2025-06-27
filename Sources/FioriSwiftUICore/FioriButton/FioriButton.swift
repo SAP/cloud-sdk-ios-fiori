@@ -150,24 +150,24 @@ public struct FioriButton: View {
     /// The content of the button.
     public var body: some View {
         SkeletonLoadingContainer(isLoading: self.isLoading) {
-            // For menu use case, fioriButton should be based on Button
-            Button {
-                // This will be called when tapped for use case in Menu component
-                self.action?(.normal)
-            } label: {
-                EmptyView()
-            }
-            .buttonStyle(_ButtonStyleImpl(fioriButtonStyle: self.fioriButtonStyle, label: self.label, image: self.image, imagePosition: self.imagePosition, imageTitleSpacing: self.imageTitleSpacing, isEnabled: self.isEnabled, state: self.state))
-            .overlay(GeometryReader { proxy in
-                Color.clear.contentShape(Rectangle()).gesture(self.createGesture(proxy.size))
-            })
-            .setOnChange(of: self.isSelectionPersistent) {
-                self._state = .normal
-            }
-            .ifApply(self.isLoading) { view in
-                view.opacity(0.25)
-            }
-        }
+          // For menu use case, fioriButton should be based on Button
+          Button {
+              // This will be called when tapped for use case in Menu component
+              self.action?(.normal)
+          } label: {
+              EmptyView()
+          }
+          .buttonStyle(_ButtonStyleImpl(fioriButtonStyle: self.fioriButtonStyle, label: self.label, image: self.image, imagePosition: self.imagePosition, imageTitleSpacing: self.imageTitleSpacing, isEnabled: self.isEnabled, state: self.state))
+          .overlay(GeometryReader { proxy in
+              Color.clear.contentShape(Rectangle()).simultaneousGesture(self.createGesture(proxy.size))
+          })
+          .setOnChange(of: self.isSelectionPersistent) {
+              self._state = .normal
+          }
+          .ifApply(self.isLoading) { view in
+              view.opacity(0.25)
+          }
+       }
     }
     
     // only handle once when gesture onChanged
@@ -202,7 +202,11 @@ public struct FioriButton: View {
                     return
                 }
                 
-                self._state = self.state == .normal ? .selected : .normal
+                if self.isSelectionPersistent {
+                    self._state = self.state == .normal ? .selected : .normal
+                } else {
+                    self._state = .normal
+                }
                 self.action?(self.state)
             }
     }
