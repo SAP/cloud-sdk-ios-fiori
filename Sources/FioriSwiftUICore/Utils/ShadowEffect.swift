@@ -72,3 +72,46 @@ struct FioriShadowModifier: ViewModifier {
         }
     }
 }
+
+// Environment key for shadow effect configuration.
+struct ShadowEffectKey: EnvironmentKey {
+    // Default value for the shadow effect configuration.
+    static let defaultValue = ShadowEffectConfiguration(showShadow: true)
+}
+
+// Extension to access shadow effect configuration from the environment.
+extension EnvironmentValues {
+    // Property to get or set the shadow effect configuration in the environment.
+    var shadowEffect: ShadowEffectConfiguration {
+        get { self[ShadowEffectKey.self] }
+        set { self[ShadowEffectKey.self] = newValue }
+    }
+}
+
+// Configuration for shadow effect, including visibility and style.
+struct ShadowEffectConfiguration {
+    // Whether to show the shadow
+    let showShadow: Bool
+    
+    // Style of the shadow
+    let style: FioriShadowStyle?
+    
+    // Initialize with visibility and optional style.
+    init(showShadow: Bool, style: FioriShadowStyle? = nil) {
+        self.showShadow = showShadow
+        self.style = style
+    }
+}
+
+public extension View {
+    /// Set the shadow visibility and style for the view using environment values.
+    /// - Parameters:
+    ///   - visibility: Whether to show the shadow.
+    ///   - shadowStyle: Optional style of the shadow.
+    /// - Returns: A view with the specified shadow effect configuration in the environment.
+    func shadow(visibility: Bool,
+                shadowStyle: FioriShadowStyle? = nil) -> some View
+    {
+        self.environment(\.shadowEffect, ShadowEffectConfiguration(showShadow: visibility, style: shadowStyle))
+    }
+}
