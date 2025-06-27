@@ -15,11 +15,21 @@ import SwiftUI
 ///     KPIProgressItem(kpiCaption: "Completed", data: .constant(KPIItemData.percent(1.0)), chartSize: .small)]
 /// KPIHeader(items: data, isItemOrderForced: false)
 /// ```
+/// Sets the separator for kpi header components
+/// Example usage:
+/// ```swift
+/// KPIHeader(...)
+///     .headerSeparator(true) // Show separator with default style
+///     .headerSeparator(true, color: .red) // Show red separator
+///     .headerSeparator(true, color: .blue, lineWidth: 1.0) // Show thick blue separator
+///     .headerSeparator(false) // Hide separator
+/// ```
 public struct KPIHeader {
     let items: any View
     let bannerMessage: any View
     let isItemOrderForced: Bool
     let interItemSpacing: CGFloat?
+    @Binding var isPresented: Bool
 
     @Environment(\.kPIHeaderStyle) var style
 
@@ -31,12 +41,14 @@ public struct KPIHeader {
                 @ViewBuilder bannerMessage: () -> any View = { EmptyView() },
                 isItemOrderForced: Bool = false,
                 interItemSpacing: CGFloat? = nil,
+                isPresented: Binding<Bool>,
                 componentIdentifier: String? = KPIHeader.identifier)
     {
         self.items = items()
         self.bannerMessage = bannerMessage()
         self.isItemOrderForced = isItemOrderForced
         self.interItemSpacing = interItemSpacing
+        self._isPresented = isPresented
         self.componentIdentifier = componentIdentifier ?? KPIHeader.identifier
     }
 }
@@ -49,9 +61,10 @@ public extension KPIHeader {
     init(items: [any KPIHeaderItemModel] = [],
          bannerMessage: BannerMessage? = nil,
          isItemOrderForced: Bool = false,
-         interItemSpacing: CGFloat? = nil)
+         interItemSpacing: CGFloat? = nil,
+         isPresented: Binding<Bool>)
     {
-        self.init(items: { KPIContainerStack(items) }, bannerMessage: { bannerMessage }, isItemOrderForced: isItemOrderForced, interItemSpacing: interItemSpacing)
+        self.init(items: { KPIContainerStack(items) }, bannerMessage: { bannerMessage }, isItemOrderForced: isItemOrderForced, interItemSpacing: interItemSpacing, isPresented: isPresented)
     }
 }
 
@@ -65,6 +78,7 @@ public extension KPIHeader {
         self.bannerMessage = configuration.bannerMessage
         self.isItemOrderForced = configuration.isItemOrderForced
         self.interItemSpacing = configuration.interItemSpacing
+        self._isPresented = configuration.$isPresented
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
         self.componentIdentifier = configuration.componentIdentifier
     }
@@ -75,7 +89,7 @@ extension KPIHeader: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, items: .init(self.items), bannerMessage: .init(self.bannerMessage), isItemOrderForced: self.isItemOrderForced, interItemSpacing: self.interItemSpacing)).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, items: .init(self.items), bannerMessage: .init(self.bannerMessage), isItemOrderForced: self.isItemOrderForced, interItemSpacing: self.interItemSpacing, isPresented: self.$isPresented)).typeErased
                 .transformEnvironment(\.kPIHeaderStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -93,7 +107,7 @@ private extension KPIHeader {
     }
 
     func defaultStyle() -> some View {
-        KPIHeader(.init(componentIdentifier: self.componentIdentifier, items: .init(self.items), bannerMessage: .init(self.bannerMessage), isItemOrderForced: self.isItemOrderForced, interItemSpacing: self.interItemSpacing))
+        KPIHeader(.init(componentIdentifier: self.componentIdentifier, items: .init(self.items), bannerMessage: .init(self.bannerMessage), isItemOrderForced: self.isItemOrderForced, interItemSpacing: self.interItemSpacing, isPresented: self.$isPresented))
             .shouldApplyDefaultStyle(false)
             .kPIHeaderStyle(KPIHeaderFioriStyle.ContentFioriStyle())
             .typeErased

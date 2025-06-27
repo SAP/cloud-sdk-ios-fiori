@@ -331,7 +331,9 @@ struct CarouselTestView: View {
                 
                 Carousel(numberOfColumns: Int(self.numberOfColumns), contentInsets: EdgeInsets(top: 0, leading: self.padding, bottom: 0, trailing: self.padding), spacing: self.spacing, alignment: self.alignment == 0 ? .top : (self.alignment == 1 ? .center : .bottom), isSnapping: self.isSnapping, isSameHeight: self.isSameHeight) {
                     ForEach(0 ..< min(8, CardTests.cardSamples.count), id: \.self) { i in
-                        NavigationLink(destination: Text("Detail View")) {
+                        NavigationLink {
+                            CardTests.cardSamples[i]
+                        } label: {
                             CardTests.cardSamples[i]
                         }
                     }

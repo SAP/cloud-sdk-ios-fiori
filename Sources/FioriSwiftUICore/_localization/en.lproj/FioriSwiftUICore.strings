@@ -410,3 +410,71 @@
 /* XMSG: Placeholder text for inputView in the Authentication */
 "password" = "password";
 
+/* XBUT: Submit action title in AI User Feedback */
+"Submit" = "Submit";
+
+/* XMSG: Submission failed title in AI User Feedback */
+"Submission failed" = "Submission failed";
+
+/* XMSG: Submission failed description in AI User Feedback */
+"Your feedback was not submitted due to a connection error. Please try again." = "Your feedback was not submitted due to a connection error. Please try again.";
+
+/* XBUT: Retry action title in AI User Feedback */
+"Retry" = "Retry";
+
+/* XACT: The accessibility label for the like button in AI User Feedback */
+"Positive feedback" = "Positive feedback";
+
+/* XACT: The accessibility label for the dislike button in AI User Feedback */
+"Negative feedback" = "Negative feedback";
+
+/* XACT: The accessibility label for the vote buttons in AI User Feedback */
+"enabled" = "enabled";
+
+/* XMSG: Onboarding scan view title for scan unsuccessful */
+"Scan Unsuccessful" = "Scan Unsuccessful";
+
+/* XMSG: Onboarding scan view hint for scan unsuccessful */
+"Please select a QR code image." = "Please select a QR code image.";
+
+/* XMSG: Onboarding scan view title for invalid QR code */
+"Invalid QR Code" = "Invalid QR Code";
+
+/* XMSG: Onboarding scan view hint for invalid QR code */
+"The QR code was not recognized." = "The QR code was not recognized.";
+
+/* XTIT: Onboarding scan view title for request access to photos library */
+"Allow Access to Photos" = "Allow Access to Photos";
+
+/* XMSG: Onboarding scan view hint for request access to photos library */
+"To choose a QR code image, please give access to your photos in your device's privacy settings." = "To choose a QR code image, please give access to your photos in your device's privacy settings.";
+
+/* XTIT: Onboarding scan view title for request access to camera */
+"Allow Access to Camera" = "Allow Access to Camera";
+
+/* XMSG: Onboarding scan view hint for request access to camera */
+"To scan using the camera, please give access to your camera in your device's privacy settings." = "To scan using the camera, please give access to your camera in your device's privacy settings.";
+
+/* XBUT: Onboarding scan view action title for the alert when the permission to access camera or photo library was not granted */
+"Settings" = "Settings";
+
+/* XACT: The accessibility hint for arrow button in onboarding scan view */
+"down arrow" = "down arrow";
+
+/* XACT: The accessibility hint for arrow button in onboarding scan view */
+"up arrow" = "up arrow";
+
+/* XACT: The accessibility hint for flash in onboarding scan view */
+"flash deactivated" = "flash deactivated";
+
+/* XACT: The accessibility hint for flash in onboarding scan view */
+"flash activated" = "flash activated";
+
+/* XACT: The accessibility hint for photos in onboarding photo picker view */
+"Photo %d" = "Photo %d";
+
+/* XMSG: Onboarding confirm view success message */
+"Scan succeeded. You will be connected to:" = "Scan succeeded. You will be connected to:";
+
+/* XBUT: Onboarding confirm view action title for continue button */
+"Continue" = "Continue";

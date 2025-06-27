@@ -226,6 +226,39 @@ struct SliderMenuItem: View {
     }
 }
 
+private extension Binding where Value == Set<UUID> {
+    func asOptionalSelection() -> Binding<UUID?> {
+        Binding<UUID?>(
+            get: { self.wrappedValue.first },
+            set: { newValue in
+                self.wrappedValue = newValue.map { Set([$0]) } ?? []
+            }
+        )
+    }
+    
+    func asRequiredSelection(defaultValue: UUID) -> Binding<UUID> {
+        Binding<UUID>(
+            get: { self.wrappedValue.first ?? defaultValue },
+            set: { newValue in
+                self.wrappedValue = Set([newValue])
+            }
+        )
+    }
+}
+
+private extension Binding {
+    func toOptionalBinding() -> Binding<Value?> {
+        Binding<Value?>(
+            get: { self.wrappedValue },
+            set: { newValue in
+                if let newValue {
+                    self.wrappedValue = newValue
+                }
+            }
+        )
+    }
+}
+
 struct PickerMenuItem: View {
     @Binding var item: SortFilterItem.PickerItem
     var onUpdate: () -> Void
@@ -388,7 +421,7 @@ struct PickerMenuItem: View {
         }
     }
     
-    @ViewBuilder
+    @ViewBuilder @MainActor
     var list: some View {
         if UIDevice.current.userInterfaceIdiom == .phone {
             self.phoneView()
@@ -397,7 +430,7 @@ struct PickerMenuItem: View {
         }
     }
     
-    private func phoneView() -> some View {
+    @MainActor private func phoneView() -> some View {
         FilterFeedbackBarItem(icon: icon(name: self.item.icon, isVisible: true), title: AttributedString(self.item.label), accessoryIcon: Image(systemName: "chevron.down"), isSelected: self.item.isChecked)
             .onTapGesture {
                 self.isSheetVisible.toggle()
@@ -439,7 +472,7 @@ struct PickerMenuItem: View {
             }
     }
     
-    private func padView() -> some View {
+    @MainActor private func padView() -> some View {
         FilterFeedbackBarItem(icon: icon(name: self.item.icon, isVisible: true), title: AttributedString(self.item.label), accessoryIcon: Image(systemName: "chevron.down"), isSelected: self.item.isChecked)
             .contentShape(Rectangle())
             .onTapGesture {
@@ -535,7 +568,7 @@ struct PickerMenuItem: View {
         return min(maxPopoverViewHeight, calaulatePopoverViewHeight)
     }
     
-    private func configListPickerDestination() -> some View {
+    @MainActor private func configListPickerDestination() -> some View {
         let filter: ((SortFilterItem.PickerItem.ValueOptionModel, String) -> Bool) = { f, s in
             if !s.isEmpty {
                 return f.value.localizedCaseInsensitiveContains(s)
@@ -543,61 +576,80 @@ struct PickerMenuItem: View {
                 return true
             }
         }
+
+        let defaultSingleSelection = self.item.workingValueSet.first ?? self.item.uuidValueOptions.first?.id ?? UUID()
+        var selectionBinding: Binding<UUID?> {
+            self.item.allowsEmptySelection ?
+                self.$item.workingValueSet.asOptionalSelection() :
+                self.$item.workingValueSet.asRequiredSelection(defaultValue: defaultSingleSelection).toOptionalBinding()
+        }
         
-        return ListPickerDestination(self.item.uuidValueOptions,
-                                     id: \.id,
-                                     selections: Binding<Set<UUID>>(get: { self.item.workingValueSet }, set: { self.item.workingValueSet = $0 }),
-                                     allowEmpty: self.item.allowsEmptySelection,
-                                     isTrackingLiveChanges: true,
-                                     searchFilter: self.item.isSearchBarHidden == false ? filter : nil)
-        { e in
-            Text(e.value)
-        }
-        .disableEntriesSection(self.item.disableListEntriesSection)
-        .listStyle(.plain)
-        .frame(minWidth: UIDevice.current.userInterfaceIdiom != .phone ? self.popoverWidth : nil)
-        .scrollContentBackground(.hidden)
-        .environment(\.defaultMinListRowHeight, 0)
-        .environment(\.defaultMinListHeaderHeight, 0)
-        .isFilterFeedbackBarListPickerStyle(true)
-        .onChange(of: self.item.workingValueSet) {
-            self.item.workingValue = self.item.workingValueSet.flatMap { selectedId in
-                self.item.uuidValueOptions.filter { $0.id == selectedId }.map(\.index)
+        let listPickerDestination = self.item.allowsMultipleSelection ?
+            ListPickerDestination(
+                self.item.uuidValueOptions,
+                id: \.id,
+                selections: self.$item.workingValueSet,
+                allowEmpty: self.item.allowsEmptySelection,
+                isTrackingLiveChanges: true,
+                searchFilter: self.item.isSearchBarHidden == false ? filter : nil
+            ) { e in
+                Text(e.value)
+            } :
+            ListPickerDestination(
+                self.item.uuidValueOptions,
+                id: \.id,
+                selection: selectionBinding,
+                isTrackingLiveChanges: true,
+                searchFilter: self.item.isSearchBarHidden == false ? filter : nil
+            ) { e in
+                Text(e.value)
             }
-        }
-        .modifier(FioriIntrospectModifier<UIScrollView> { scrollView in
-            DispatchQueue.main.async {
-                let calculateHeight = max(calculateDetentHeight(scrollViewContentHeight: scrollView.contentSize.height), 88)
-                if self.detentHeight != calculateHeight {
-                    self.detentHeight = calculateHeight
+        return listPickerDestination
+            .disableEntriesSection(self.item.disableListEntriesSection)
+            .listStyle(.plain)
+            .frame(minWidth: UIDevice.current.userInterfaceIdiom != .phone ? self.popoverWidth : nil)
+            .scrollContentBackground(.hidden)
+            .environment(\.defaultMinListRowHeight, 0)
+            .environment(\.defaultMinListHeaderHeight, 0)
+            .isFilterFeedbackBarListPickerStyle(true)
+            .onChange(of: self.item.workingValueSet) {
+                self.item.workingValue = self.item.workingValueSet.flatMap { selectedId in
+                    self.item.uuidValueOptions.filter { $0.id == selectedId }.map(\.index)
                 }
             }
-        })
-        .selectedEntriesSectionTitleStyle { _ in
-            if self.item.allowsDisplaySelectionCount {
-                Text(NSLocalizedString("Selected", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "") + " " + "(\(self.item.workingValue.count))")
+            .modifier(FioriIntrospectModifier<UIScrollView> { scrollView in
+                DispatchQueue.main.async {
+                    let calculateHeight = max(calculateDetentHeight(scrollViewContentHeight: scrollView.contentSize.height), 88)
+                    if self.detentHeight != calculateHeight {
+                        self.detentHeight = calculateHeight
+                    }
+                }
+            })
+            .selectedEntriesSectionTitleStyle { _ in
+                if self.item.allowsDisplaySelectionCount {
+                    Text(NSLocalizedString("Selected", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "") + " " + "(\(self.item.workingValue.count))")
+                        .foregroundStyle(Color.preferredColor(.secondaryLabel))
+                        .font(.fiori(forTextStyle: .subheadline, weight: .regular))
+                } else {
+                    Text(NSLocalizedString("Selected", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""))
+                        .foregroundStyle(Color.preferredColor(.secondaryLabel))
+                        .font(.fiori(forTextStyle: .subheadline, weight: .regular))
+                }
+            }
+            .allEntriesSectionTitleStyle { _ in
+                Text(NSLocalizedString("All", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""))
                     .foregroundStyle(Color.preferredColor(.secondaryLabel))
                     .font(.fiori(forTextStyle: .subheadline, weight: .regular))
-            } else {
-                Text(NSLocalizedString("Selected", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""))
-                    .foregroundStyle(Color.preferredColor(.secondaryLabel))
-                    .font(.fiori(forTextStyle: .subheadline, weight: .regular))
             }
-        }
-        .allEntriesSectionTitleStyle { _ in
-            Text(NSLocalizedString("All", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""))
-                .foregroundStyle(Color.preferredColor(.secondaryLabel))
-                .font(.fiori(forTextStyle: .subheadline, weight: .regular))
-        }
-        .ifApply(!self.item.isSearchBarHidden, content: { v in
-            v.onReceive(NotificationCenter.default.publisher(for: UIApplication.keyboardDidShowNotification)) { notif in
-                let rect = (notif.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect) ?? .zero
-                self._keyboardHeight = rect.height
-            }
-            .onReceive(NotificationCenter.default.publisher(for: UIApplication.keyboardDidHideNotification)) { _ in
-                self._keyboardHeight = 0
-            }
-        })
+            .ifApply(!self.item.isSearchBarHidden, content: { v in
+                v.onReceive(NotificationCenter.default.publisher(for: UIApplication.keyboardDidShowNotification)) { notif in
+                    let rect = (notif.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect) ?? .zero
+                    self._keyboardHeight = rect.height
+                }
+                .onReceive(NotificationCenter.default.publisher(for: UIApplication.keyboardDidHideNotification)) { _ in
+                    self._keyboardHeight = 0
+                }
+            })
     }
 }
 
@@ -1317,6 +1369,110 @@ struct DurationPickerMenuItem: View {
                         }
                 })
             })
+    }
+}
+
+struct OrderPickerMenuItem: View {
+    @Binding var item: SortFilterItem.OrderPickerItem
+
+    @State var isSheetVisible = false
+
+    @State var detentHeight: CGFloat = 0
+    @State var barItemFrame: CGRect = .zero
+
+    var onUpdate: () -> Void
+    
+    let popoverWidth = 393.0
+    
+    public init(item: Binding<SortFilterItem.OrderPickerItem>, onUpdate: @escaping () -> Void) {
+        self._item = item
+        self.onUpdate = onUpdate
+    }
+    
+    var body: some View {
+        FilterFeedbackBarItem(icon: icon(name: self.item.icon, isVisible: true), title: AttributedString(self.item.label), accessoryIcon: Image(systemName: "chevron.down"), isSelected: self.item.isChecked)
+            .onTapGesture {
+                self.isSheetVisible.toggle()
+            }
+            .popover(isPresented: self.$isSheetVisible, arrowEdge: self.barItemFrame.arrowDirection()) {
+                CancellableResettableDialogNavigationForm {
+                    SortFilterItemTitle(title: self.item.name)
+                } cancelAction: {
+                    _Action(actionText: NSLocalizedString("Cancel", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
+                        self.item.cancel()
+                        self.isSheetVisible.toggle()
+                    })
+                    .buttonStyle(CancelButtonStyle())
+                } resetAction: {
+                    _Action(actionText: NSLocalizedString("Reset", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
+                        self.item.reset()
+                    })
+                    .buttonStyle(ResetButtonStyle())
+                    .disabled(self.item.isOriginal)
+                } applyAction: {
+                    _Action(actionText: NSLocalizedString("Apply", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: { [self] in
+                        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                        self.item.apply()
+                        self.onUpdate()
+                        self.isSheetVisible.toggle()
+                    })
+                    .buttonStyle(ApplyButtonStyle())
+                } components: {
+                    OrderPicker(
+                        optionalTitle: self.item.title,
+                        data: self.$item.workingValue,
+                        isAtLeastOneSelected: self.item.isAtLeastOneSelected,
+                        onChangeHandler: { _, newModel in
+                            self.item.workingValue = newModel
+                        },
+                        controlState: self.item.controlState
+                    )
+                    .padding([.leading, .trailing], 16)
+                    .padding(.bottom, 8)
+                    .background(GeometryReader { geometry in
+                        Color.clear
+                            .onAppear {
+                                self.calculateDetentHeight(geometrySizeHeight: geometry.size.height)
+                            }
+                            .onChange(of: geometry.size.height) {
+                                self.calculateDetentHeight(geometrySizeHeight: geometry.size.height)
+                            }
+                    })
+                    .onAppear {
+                        self.item.workingValue = self.item.value
+                    }
+                }
+                .ifApply(UIDevice.current.userInterfaceIdiom != .phone, content: { v in
+                    v.frame(width: self.popoverWidth)
+                })
+                .frame(idealHeight: self.detentHeight)
+                .presentationDetents([.height(self.detentHeight)])
+            }
+            .ifApply(UIDevice.current.userInterfaceIdiom != .phone, content: { v in
+                v.background(GeometryReader { geometry in
+                    Color.clear
+                        .onAppear {
+                            self.barItemFrame = geometry.frame(in: .global)
+                        }
+                        .setOnChange(of: geometry.frame(in: .global), action1: { newValue in
+                            self.barItemFrame = newValue
+                        }) { _, newValue in
+                            self.barItemFrame = newValue
+                        }
+                })
+            })
+    }
+    
+    private func calculateDetentHeight(geometrySizeHeight: CGFloat) {
+        let isNotIphone = UIDevice.current.userInterfaceIdiom != .phone
+        var calculateHeight = geometrySizeHeight
+        calculateHeight += isNotIphone ? 13 : 16
+        calculateHeight += isNotIphone ? 50 : 56
+        if !isNotIphone {
+            calculateHeight += UIEdgeInsets.getSafeAreaInsets().bottom
+        }
+        calculateHeight += UIDevice.current.userInterfaceIdiom != .phone ? 55 : 0
+        self.detentHeight = calculateHeight
     }
 }
 

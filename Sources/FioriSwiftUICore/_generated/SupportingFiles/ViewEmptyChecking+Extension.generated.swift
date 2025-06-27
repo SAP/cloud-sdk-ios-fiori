@@ -9,6 +9,19 @@ extension AINotice: _ViewEmptyChecking {
     }
 }
 
+extension AIUserFeedback: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        detailImage.isEmpty &&
+            title.isEmpty &&
+            description.isEmpty &&
+            action.isEmpty &&
+            secondaryAction.isEmpty &&
+            submitAction.isEmpty &&
+            cancelAction.isEmpty &&
+            errorView.isEmpty
+    }
+}
+
 extension AccessoryIcon: _ViewEmptyChecking {
     public var isEmpty: Bool {
         accessoryIcon.isEmpty
@@ -273,6 +286,12 @@ extension CardMedia: _ViewEmptyChecking {
     }
 }
 
+extension Checkmark: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        checkmark.isEmpty
+    }
+}
+
 extension CheckoutIndicator: _ViewEmptyChecking {
     public var isEmpty: Bool {
         false
@@ -380,6 +399,12 @@ extension DimensionSelector: _ViewEmptyChecking {
 extension DisagreeAction: _ViewEmptyChecking {
     public var isEmpty: Bool {
         disagreeAction.isEmpty
+    }
+}
+
+extension DownVoteAction: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        downVoteAction.isEmpty
     }
 }
 
@@ -822,6 +847,12 @@ extension OnStarImage: _ViewEmptyChecking {
     }
 }
 
+extension OnboardingScanView: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        scanConfirmationView.isEmpty
+    }
+}
+
 extension OptionalTitle: _ViewEmptyChecking {
     public var isEmpty: Bool {
         optionalTitle.isEmpty
@@ -831,6 +862,12 @@ extension OptionalTitle: _ViewEmptyChecking {
 extension Options: _ViewEmptyChecking {
     public var isEmpty: Bool {
         false
+    }
+}
+
+extension OrderPicker: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        optionalTitle.isEmpty
     }
 }
 
@@ -1066,6 +1103,14 @@ extension SingleStep: _ViewEmptyChecking {
     }
 }
 
+extension SortCriterion: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        checkmark.isEmpty &&
+            title.isEmpty &&
+            subtitle.isEmpty
+    }
+}
+
 extension SortFilterView: _ViewEmptyChecking {
     public var isEmpty: Bool {
         title.isEmpty &&
@@ -1116,6 +1161,12 @@ extension StepperView: _ViewEmptyChecking {
 extension SubAttribute: _ViewEmptyChecking {
     public var isEmpty: Bool {
         subAttribute.isEmpty
+    }
+}
+
+extension SubmitAction: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        submitAction.isEmpty
     }
 }
 
@@ -1293,6 +1344,12 @@ extension Trend: _ViewEmptyChecking {
 extension TrendImage: _ViewEmptyChecking {
     public var isEmpty: Bool {
         trendImage.isEmpty
+    }
+}
+
+extension UpVoteAction: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        upVoteAction.isEmpty
     }
 }
 

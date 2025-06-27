@@ -25,6 +25,8 @@ public struct ValuePicker {
     var alwaysShowPicker: Bool
     /// The `ControlState` of the  view. Currently, `.disabled`, `.normal` and `.readOnly` are supported. The default is `normal`.
     let controlState: ControlState
+    /// This property indicates whether the picker is to be displayed.
+    @Binding var pickerVisible: Bool
 
     @Environment(\.valuePickerStyle) var style
 
@@ -39,6 +41,7 @@ public struct ValuePicker {
                 isTrackingLiveChanges: Bool = true,
                 alwaysShowPicker: Bool = false,
                 controlState: ControlState = .normal,
+                pickerVisible: Binding<Bool>,
                 componentIdentifier: String? = ValuePicker.identifier)
     {
         self.title = Title(title: title, componentIdentifier: componentIdentifier)
@@ -48,6 +51,7 @@ public struct ValuePicker {
         self.isTrackingLiveChanges = isTrackingLiveChanges
         self.alwaysShowPicker = alwaysShowPicker
         self.controlState = controlState
+        self._pickerVisible = pickerVisible
         self.componentIdentifier = componentIdentifier ?? ValuePicker.identifier
     }
 }
@@ -65,11 +69,12 @@ public extension ValuePicker {
          selectedIndex: Binding<Int>,
          isTrackingLiveChanges: Bool = true,
          alwaysShowPicker: Bool = false,
-         controlState: ControlState = .normal)
+         controlState: ControlState = .normal,
+         pickerVisible: Binding<Bool>)
     {
         self.init(title: {
             TextWithMandatoryFieldIndicator(text: title, isRequired: isRequired, mandatoryFieldIndicator: mandatoryFieldIndicator)
-        }, valueLabel: { OptionalText(valueLabel) }, options: options, selectedIndex: selectedIndex, isTrackingLiveChanges: isTrackingLiveChanges, alwaysShowPicker: alwaysShowPicker, controlState: controlState)
+        }, valueLabel: { OptionalText(valueLabel) }, options: options, selectedIndex: selectedIndex, isTrackingLiveChanges: isTrackingLiveChanges, alwaysShowPicker: alwaysShowPicker, controlState: controlState, pickerVisible: pickerVisible)
     }
 }
 
@@ -86,6 +91,7 @@ public extension ValuePicker {
         self.isTrackingLiveChanges = configuration.isTrackingLiveChanges
         self.alwaysShowPicker = configuration.alwaysShowPicker
         self.controlState = configuration.controlState
+        self._pickerVisible = configuration.$pickerVisible
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
         self.componentIdentifier = configuration.componentIdentifier
     }
@@ -96,7 +102,7 @@ extension ValuePicker: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, title: .init(self.title), valueLabel: .init(self.valueLabel), options: self.options, selectedIndex: self.$selectedIndex, isTrackingLiveChanges: self.isTrackingLiveChanges, alwaysShowPicker: self.alwaysShowPicker, controlState: self.controlState)).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, title: .init(self.title), valueLabel: .init(self.valueLabel), options: self.options, selectedIndex: self.$selectedIndex, isTrackingLiveChanges: self.isTrackingLiveChanges, alwaysShowPicker: self.alwaysShowPicker, controlState: self.controlState, pickerVisible: self.$pickerVisible)).typeErased
                 .transformEnvironment(\.valuePickerStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -114,7 +120,7 @@ private extension ValuePicker {
     }
 
     func defaultStyle() -> some View {
-        ValuePicker(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), valueLabel: .init(self.valueLabel), options: self.options, selectedIndex: self.$selectedIndex, isTrackingLiveChanges: self.isTrackingLiveChanges, alwaysShowPicker: self.alwaysShowPicker, controlState: self.controlState))
+        ValuePicker(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), valueLabel: .init(self.valueLabel), options: self.options, selectedIndex: self.$selectedIndex, isTrackingLiveChanges: self.isTrackingLiveChanges, alwaysShowPicker: self.alwaysShowPicker, controlState: self.controlState, pickerVisible: self.$pickerVisible))
             .shouldApplyDefaultStyle(false)
             .valuePickerStyle(ValuePickerFioriStyle.ContentFioriStyle())
             .typeErased

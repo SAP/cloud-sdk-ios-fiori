@@ -19,6 +19,7 @@ struct MenuItem: Identifiable {
 struct CoreContentView: View {
     @State private var searchText = ""
     @State private var isSearching = false
+    @StateObject private var scannerManager = BarcodeScannerManager.shared
     
     private var allMenuItems: [MenuItem] {
         [
@@ -38,7 +39,14 @@ struct CoreContentView: View {
             MenuItem(title: "Other View Examples", section: "Views", destination: OtherViewExamples()),
             MenuItem(title: "Signature Inline View", section: "Views", destination: SignatureCaptureViewExample()),
             MenuItem(title: "(Deprecated)Customized Signature Inline View", section: "Views", destination: SignatureCaptureViewExample2()),
-            MenuItem(title: "Document Scanner View", section: "Views", destination: DocumentScannerViewExample()),
+            MenuItem(title: "AI User Feedback", section: "Views", destination: AIUserFeedbackExample()),
+            
+            // Scanners
+            MenuItem(title: "Document Scanner View", section: "Scanners", destination: DocumentScannerViewExample()),
+            MenuItem(title: "Start New Connection", section: "Scanners", destination: StartNewConnectionExample(scannerManager: self.scannerManager)),
+            MenuItem(title: "ProGlove Scanner", section: "Scanners", destination: ProGloveScannerExample(scannerManager: self.scannerManager)),
+            MenuItem(title: "IPCMobile Scanner", section: "Scanners", destination: IPCMobileScannerExample(scannerManager: self.scannerManager)),
+            MenuItem(title: "VisionKit Scanner", section: "Scanners", destination: VisionKitScannerExample(scannerManager: self.scannerManager)),
             
             // Timeline
             MenuItem(title: "Timeline", section: "Timeline", destination: TimelineExample()),
@@ -72,6 +80,7 @@ struct CoreContentView: View {
             MenuItem(title: "SegmentedControlPicker", section: "Pickers", destination: SegmentedControlExample()),
             MenuItem(title: "DateTimePicker", section: "Pickers", destination: DateTimePickerExample()),
             MenuItem(title: "ValuePicker", section: "Pickers", destination: ValuePickerExample()),
+            MenuItem(title: "OrderPicker", section: "Pickers", destination: OrderPickerExample()),
             
             // Onboarding
             MenuItem(title: "Onboarding", section: "Onboarding", destination: OnboardingExamples(_isNewObjectItem: true)),
