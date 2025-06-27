@@ -673,6 +673,12 @@ protocol _ToastMessageComponent: _IconComponent, _TitleComponent {
     // sourcery: defaultValue = Color.clear
     /// The color of the border surrounding the toast message. The default value is `Color.clear`.
     var borderColor: Color { get }
+    // sourcery: defaultValue = 1
+    /// The width of the border surrounding the toast message when Increase Contrast is enabled. The default value is `1`.
+    var borderWidthIC: CGFloat { get }
+    // sourcery: defaultValue = Color.preferredColor(.tertiaryLabel)
+    /// The color of the border surrounding the toast message when Increase Contrast is enabled. The default value is `Color.preferredColor(.tertiaryLabel)`.
+    var borderColorIC: Color { get }
     // sourcery: defaultValue = FioriShadowStyle.level3
     /// A shadow to render underneath the view. The default value is `FioriShadowStyle.level3`.
     var shadow: FioriShadowStyle? { get }
