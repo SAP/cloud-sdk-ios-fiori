@@ -116,6 +116,13 @@ struct CoreContentView: View {
             // Utilities
             MenuItem(title: "Shadow Effect", section: "Utilities", destination: ShadowEffectExample()),
             
+            // Skeleton Loading
+            MenuItem(title: "Basic Component Skeleton Loading", section: "Skeleton Loading", destination: BasicComponentSkeletonLoading()),
+            MenuItem(title: "Object Header Skeleton Loading", section: "Skeleton Loading", destination: ObjectHeaderSkeletonLoading()),
+            MenuItem(title: "Object Cell Skeleton Loading", section: "Skeleton Loading", destination: ObjectCellSkeletonLoading()),
+            MenuItem(title: "Card Skeleton Loading", section: "Skeleton Loading", destination: CardSkeletonLoading()),
+            MenuItem(title: "Profile Header Skeleton Loading", section: "Skeleton Loading", destination: ProfileHeaderSkeletonLoading()),
+            
             // Experimental
             MenuItem(title: "🚧 Experimental 🚧", section: "ExperimentalContentView", destination: ExperimentalContentView())
         ]

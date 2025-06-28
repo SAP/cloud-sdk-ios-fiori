@@ -20,9 +20,10 @@ public struct SubtitleBaseStyle: SubtitleStyle {
 
 // Default fiori styles
 public struct SubtitleFioriStyle: SubtitleStyle {
+    @Environment(\.isLoading) var isLoading
     public func makeBody(_ configuration: SubtitleConfiguration) -> some View {
         Subtitle(configuration)
-            .foregroundStyle(Color.preferredColor(.primaryLabel))
+            .foregroundStyle(Color.preferredColor(self.isLoading ? .separator : .primaryLabel))
             .font(.fiori(forTextStyle: .body))
     }
 }

@@ -4,12 +4,23 @@ import SwiftUI
 
 /// The base layout style for `KeyValueFormView`.
 public struct KeyValueFormViewBaseStyle: KeyValueFormViewStyle {
+    @Environment(\.isLoading) var isLoading
     public func makeBody(_ configuration: KeyValueFormViewConfiguration) -> some View {
-        VStack(alignment: .leading) {
-            configuration.title
-            configuration._noteFormView
+        SkeletonLoadingContainer(isLoading: self.isLoading) {
+            VStack(alignment: .leading) {
+                self.getTitle(configuration)
+                configuration._noteFormView
+            }
+            .accessibilityElement(children: .combine)
         }
-        .accessibilityElement(children: .combine)
+    }
+    
+    func getTitle(_ configuration: KeyValueFormViewConfiguration) -> some View {
+        if self.isLoading {
+            return Text("KeyValueFormView title").typeErased
+        } else {
+            return configuration.title.typeErased
+        }
     }
 }
     

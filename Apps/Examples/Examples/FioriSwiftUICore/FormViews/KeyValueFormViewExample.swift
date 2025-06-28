@@ -44,37 +44,42 @@ struct KeyValueFormViewExample: View {
     @State var hidesReadonlyHint = false
     @State var isRequired = false
     @State var showList = true
+    @State var isLoading: Bool = false
     
     var body: some View {
         VStack {
             if !self.showList {
-                KeyValueFormView(title: "KeyValueFormView", text: self.$valueText1, placeholder: "KeyValueFormView", errorMessage: "", hintText: self.getHintText(), isCharCountEnabled: self.showsCharCount, allowsBeyondLimit: self.allowsBeyondLimit, isRequired: self.isRequired)
+                KeyValueFormView(title: "KeyValueFormView", text: self.isLoading ? self.$valueText3 : self.$valueText1, placeholder: "KeyValueFormView", errorMessage: "", hintText: self.getHintText(), isCharCountEnabled: self.showsCharCount, allowsBeyondLimit: self.allowsBeyondLimit, isRequired: self.isRequired)
                     .padding(.horizontal, 10)
             } else {
                 Text("KeyValueFormViewExample")
                 List {
                     Text("Default KeyValueForm")
-                    KeyValueFormView(title: self.key1, text: self.$valueText1, placeholder: "KeyValueFormView", errorMessage: self.getErrorMessage(), maxTextLength: self.getMaxTextLength(), hintText: self.getHintText(), isCharCountEnabled: self.showsCharCount, allowsBeyondLimit: self.allowsBeyondLimit, isRequired: self.isRequired)
+                    KeyValueFormView(title: self.key1, text: self.isLoading ? self.$valueText3 : self.$valueText1, placeholder: "KeyValueFormView", errorMessage: self.getErrorMessage(), maxTextLength: self.getMaxTextLength(), hintText: self.getHintText(), isCharCountEnabled: self.showsCharCount, allowsBeyondLimit: self.allowsBeyondLimit, isRequired: self.isRequired)
                     
                     Text("Existing Text")
                         .italic()
-                    KeyValueFormView(title: self.key2, text: self.$valueText2, placeholder: "KeyValueFormView", errorMessage: self.getErrorMessage(), maxTextLength: self.getMaxTextLength(), hintText: self.getHintText(), isCharCountEnabled: self.showsCharCount, allowsBeyondLimit: self.allowsBeyondLimit, isRequired: self.isRequired)
+                    KeyValueFormView(title: self.key2, text: self.isLoading ? self.$valueText3 : self.$valueText2, placeholder: "KeyValueFormView", errorMessage: self.getErrorMessage(), maxTextLength: self.getMaxTextLength(), hintText: self.getHintText(), isCharCountEnabled: self.showsCharCount, allowsBeyondLimit: self.allowsBeyondLimit, isRequired: self.isRequired)
                     
                     Text("minHeight 50, maxHeight 200")
                         .italic()
                     KeyValueFormView(title: self.key3, text: self.$valueText3, placeholder: "Please enter something", errorMessage: self.getErrorMessage(), minTextEditorHeight: 50, maxTextEditorHeight: 200, hintText: self.getHintText(), allowsBeyondLimit: self.allowsBeyondLimit, isRequired: self.isRequired)
                     
                     Text("Disabled")
-                    KeyValueFormView(title: "Disabled", text: self.$disabledText, placeholder: "Disabled", controlState: .disabled, minTextEditorHeight: 50, maxTextEditorHeight: 200, isRequired: self.isRequired)
+                    KeyValueFormView(title: "Disabled", text: self.isLoading ? self.$valueText3 : self.$disabledText, placeholder: "Disabled", controlState: .disabled, minTextEditorHeight: 50, maxTextEditorHeight: 200, isRequired: self.isRequired)
                     
                     Text("Read-Only")
-                    KeyValueFormView(title: "Read-Only", text: self.$readOnlyText, placeholder: "Read-Only", controlState: .readOnly, minTextEditorHeight: 50, maxTextLength: 200, hidesReadOnlyHint: self.hidesReadonlyHint, isRequired: self.isRequired)
+                    KeyValueFormView(title: "Read-Only", text: self.isLoading ? self.$valueText3 : self.$readOnlyText, placeholder: "Read-Only", controlState: .readOnly, minTextEditorHeight: 50, maxTextLength: 200, hidesReadOnlyHint: self.hidesReadonlyHint, isRequired: self.isRequired)
+                    
+                    Text("Skeleton Loading")
+                    KeyValueFormView(title: "", text: self.$valueText3, placeholder: "Skeleton Loading")
                 }
                 #if !os(visionOS)
                 .scrollDismissesKeyboard(.immediately)
                 #endif
             }
         }
+        .environment(\.isLoading, self.isLoading)
         .sheet(isPresented: self.$isPresented, content: {
             VStack {
                 Toggle("Shows Hint Text", isOn: self.$showsHintText)
@@ -96,6 +101,9 @@ struct KeyValueFormViewExample: View {
                     .padding(.leading, 16)
                     .padding(.trailing, 16)
                 Toggle("Show on List", isOn: self.$showList)
+                    .padding(.leading, 16)
+                    .padding(.trailing, 16)
+                Toggle("Show SkeletonLoading", isOn: self.$isLoading)
                     .padding(.leading, 16)
                     .padding(.trailing, 16)
                 Button("Dismiss Keyboard") {

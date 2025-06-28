@@ -2,7 +2,10 @@ import Foundation
 import SwiftUI
 
 enum FioriButtonStyleProvider {
-    static func getPlainButtonStyle(state: UIControl.State) -> FioriButtonConfiguration {
+    static func getPlainButtonStyle(state: UIControl.State, isLoading: Bool = false) -> FioriButtonConfiguration {
+        if isLoading {
+            return FioriButtonConfiguration(foregroundColor: .preferredColor(.secondaryBackground), backgroundColor: .preferredColor(.secondaryBackground), font: .fiori(forTextStyle: .callout), padding: EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+        }
         let backgroundColor: Color = .preferredColor(.primaryBackground)
         let foregroundColor: Color
         switch state {
@@ -17,7 +20,10 @@ enum FioriButtonStyleProvider {
         return FioriButtonConfiguration(foregroundColor: foregroundColor, backgroundColor: backgroundColor, font: .fiori(forTextStyle: .callout), padding: EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
     }
     
-    static func getPrimaryButtonStyle(state: UIControl.State, loadingState: FioriButtonLoadingState = .unspecified) -> FioriButtonConfiguration {
+    static func getPrimaryButtonStyle(state: UIControl.State, loadingState: FioriButtonLoadingState = .unspecified, isLoading: Bool = false) -> FioriButtonConfiguration {
+        if isLoading {
+            return FioriButtonConfiguration(foregroundColor: .preferredColor(.separator), backgroundColor: .preferredColor(.separator))
+        }
         let backgroundColor: Color
         let foregroundColor: Color
         
@@ -42,7 +48,10 @@ enum FioriButtonStyleProvider {
         return FioriButtonConfiguration(foregroundColor: foregroundColor, backgroundColor: backgroundColor)
     }
     
-    static func getSecondaryButtonStyle(colorStyle: FioriButtonColorStyle, for state: UIControl.State, loadingState: FioriButtonLoadingState = .unspecified) -> FioriButtonConfiguration {
+    static func getSecondaryButtonStyle(colorStyle: FioriButtonColorStyle, for state: UIControl.State, loadingState: FioriButtonLoadingState = .unspecified, isLoading: Bool = false) -> FioriButtonConfiguration {
+        if isLoading {
+            return FioriButtonConfiguration(foregroundColor: .preferredColor(.separator), backgroundColor: .preferredColor(.separator))
+        }
         let backgroundColor: Color
         let foregroundColor: Color
         switch colorStyle {
@@ -105,7 +114,10 @@ enum FioriButtonStyleProvider {
         return FioriButtonConfiguration(foregroundColor: foregroundColor, backgroundColor: backgroundColor)
     }
     
-    static func getTertiaryButtonStyle(colorStyle: FioriButtonColorStyle, for state: UIControl.State, loadingState: FioriButtonLoadingState = .unspecified) -> FioriButtonConfiguration {
+    static func getTertiaryButtonStyle(colorStyle: FioriButtonColorStyle, for state: UIControl.State, loadingState: FioriButtonLoadingState = .unspecified, isLoading: Bool = false) -> FioriButtonConfiguration {
+        if isLoading {
+            return FioriButtonConfiguration(foregroundColor: .preferredColor(.separator), backgroundColor: .clear)
+        }
         let backgroundColor: Color
         let foregroundColor: Color
         switch colorStyle {

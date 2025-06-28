@@ -68,9 +68,12 @@ extension CardExtHeaderFioriStyle {
     
     struct Row1FioriStyle: Row1Style {
         let cardExtHeaderConfiguration: CardExtHeaderConfiguration
-        
+        @Environment(\.isLoading) var isLoading
         func makeBody(_ configuration: Row1Configuration) -> some View {
             Row1(configuration)
+                .ifApply(self.isLoading) {
+                    $0.foregroundStyle(Color.preferredColor(.separator))
+                }
             // Add default style for Row1
             // .foregroundStyle(Color.preferredColor(<#fiori color#>))
             // .font(.fiori(forTextStyle: <#fiori font#>))
@@ -79,9 +82,12 @@ extension CardExtHeaderFioriStyle {
     
     struct Row2FioriStyle: Row2Style {
         let cardExtHeaderConfiguration: CardExtHeaderConfiguration
-        
+        @Environment(\.isLoading) var isLoading
         func makeBody(_ configuration: Row2Configuration) -> some View {
             Row2(configuration)
+                .ifApply(self.isLoading) {
+                    $0.foregroundStyle(Color.preferredColor(.separator))
+                }
             // Add default style for Row2
             // .foregroundStyle(Color.preferredColor(<#fiori color#>))
             // .font(.fiori(forTextStyle: <#fiori font#>))
@@ -90,9 +96,12 @@ extension CardExtHeaderFioriStyle {
     
     struct Row3FioriStyle: Row3Style {
         let cardExtHeaderConfiguration: CardExtHeaderConfiguration
-        
+        @Environment(\.isLoading) var isLoading
         func makeBody(_ configuration: Row3Configuration) -> some View {
             Row3(configuration)
+                .ifApply(self.isLoading) {
+                    $0.foregroundStyle(Color.preferredColor(.separator))
+                }
             // Add default style for Row3
             // .foregroundStyle(Color.preferredColor(<#fiori color#>))
             // .font(.fiori(forTextStyle: <#fiori font#>))
@@ -101,9 +110,12 @@ extension CardExtHeaderFioriStyle {
     
     struct KpiFioriStyle: KpiStyle {
         let cardExtHeaderConfiguration: CardExtHeaderConfiguration
-        
+        @Environment(\.isLoading) var isLoading
         func makeBody(_ configuration: KpiConfiguration) -> some View {
             Kpi(configuration)
+                .ifApply(self.isLoading) {
+                    $0.foregroundStyle(Color.preferredColor(.separator))
+                }
             // Add default style for Kpi
             // .foregroundStyle(Color.preferredColor(<#fiori color#>))
             // .font(.fiori(forTextStyle: <#fiori font#>))
@@ -112,11 +124,11 @@ extension CardExtHeaderFioriStyle {
     
     struct KpiCaptionFioriStyle: KpiCaptionStyle {
         let cardExtHeaderConfiguration: CardExtHeaderConfiguration
-        
+        @Environment(\.isLoading) var isLoading
         func makeBody(_ configuration: KpiCaptionConfiguration) -> some View {
             KpiCaption(configuration)
                 // Add default style for KpiCaption
-                .foregroundStyle(Color.preferredColor(.secondaryLabel))
+                .foregroundStyle(Color.preferredColor(self.isLoading ? .separator : .secondaryLabel))
                 .font(.fiori(forTextStyle: .caption2))
                 .lineLimit(1)
         }

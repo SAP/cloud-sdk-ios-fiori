@@ -20,9 +20,10 @@ public struct DescriptionBaseStyle: DescriptionStyle {
 
 // Default fiori styles
 public struct DescriptionFioriStyle: DescriptionStyle {
+    @Environment(\.isLoading) var isLoading
     public func makeBody(_ configuration: DescriptionConfiguration) -> some View {
         Description(configuration)
-            .foregroundStyle(Color.preferredColor(.tertiaryLabel))
+            .foregroundStyle(Color.preferredColor(self.isLoading ? .separator : .tertiaryLabel))
             .font(.fiori(forTextStyle: .subheadline))
     }
 }

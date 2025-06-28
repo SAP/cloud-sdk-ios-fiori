@@ -257,37 +257,37 @@ extension CardFooterFioriStyle {
     
     struct ActionFioriStyle: ActionStyle {
         let cardFooterConfiguration: CardFooterConfiguration
-        
+        @Environment(\.isLoading) var isLoading
         func makeBody(_ configuration: ActionConfiguration) -> some View {
             Action(configuration)
-                .fioriButtonStyle(FioriPrimaryButtonStyle(.infinity))
+                .fioriButtonStyle(FioriPrimaryButtonStyle(.infinity, isLoading: self.isLoading))
         }
     }
     
     struct SecondaryActionFioriStyle: SecondaryActionStyle {
         let cardFooterConfiguration: CardFooterConfiguration
-        
+        @Environment(\.isLoading) var isLoading
         func makeBody(_ configuration: SecondaryActionConfiguration) -> some View {
             SecondaryAction(configuration)
-                .fioriButtonStyle(FioriSecondaryButtonStyle(colorStyle: .normal, maxWidth: .infinity))
+                .fioriButtonStyle(FioriSecondaryButtonStyle(colorStyle: .normal, maxWidth: .infinity, isLoading: self.isLoading))
         }
     }
     
     struct TertiaryActionFioriStyle: TertiaryActionStyle {
         let cardFooterConfiguration: CardFooterConfiguration
-        
+        @Environment(\.isLoading) var isLoading
         func makeBody(_ configuration: TertiaryActionConfiguration) -> some View {
             TertiaryAction(configuration)
-                .fioriButtonStyle(FioriTertiaryButtonStyle(maxWidth: .infinity))
+                .fioriButtonStyle(FioriTertiaryButtonStyle(maxWidth: .infinity, isLoading: self.isLoading))
         }
     }
     
     struct OverflowActionFioriStyle: OverflowActionStyle {
         let cardFooterConfiguration: CardFooterConfiguration
-        
+        @Environment(\.isLoading) var isLoading
         func makeBody(_ configuration: OverflowActionConfiguration) -> some View {
             OverflowAction(configuration)
-                .fioriButtonStyle(FioriSecondaryButtonStyle(colorStyle: .normal))
+                .fioriButtonStyle(FioriSecondaryButtonStyle(colorStyle: .normal, isLoading: self.isLoading))
         }
     }
 }

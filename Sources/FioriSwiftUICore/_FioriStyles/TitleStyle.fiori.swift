@@ -20,9 +20,10 @@ public struct TitleBaseStyle: TitleStyle {
 
 // Default fiori styles
 public struct TitleFioriStyle: TitleStyle {
+    @Environment(\.isLoading) var isLoading
     public func makeBody(_ configuration: TitleConfiguration) -> some View {
         Title(configuration)
-            .foregroundStyle(Color.preferredColor(.primaryLabel))
+            .foregroundStyle(Color.preferredColor(self.isLoading ? .separator : .primaryLabel))
             .font(.fiori(forTextStyle: .headline))
     }
 }
