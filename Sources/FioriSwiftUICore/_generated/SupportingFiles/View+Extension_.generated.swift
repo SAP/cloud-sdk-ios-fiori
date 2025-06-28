@@ -428,6 +428,23 @@ public extension View {
     }
 }
 
+// MARK: BackActionStyle
+
+public extension View {
+    func backActionStyle(_ style: some BackActionStyle) -> some View {
+        self.transformEnvironment(\.backActionStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func backActionStyle(@ViewBuilder content: @escaping (BackActionConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.backActionStyleStack) { stack in
+            let style = AnyBackActionStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: BannerMessageStyle
 
 public extension View {
@@ -916,6 +933,23 @@ public extension View {
     func disagreeActionStyle(@ViewBuilder content: @escaping (DisagreeActionConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.disagreeActionStyleStack) { stack in
             let style = AnyDisagreeActionStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: DoneActionStyle
+
+public extension View {
+    func doneActionStyle(_ style: some DoneActionStyle) -> some View {
+        self.transformEnvironment(\.doneActionStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func doneActionStyle(@ViewBuilder content: @escaping (DoneActionConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.doneActionStyleStack) { stack in
+            let style = AnyDoneActionStyle(content)
             stack.append(style)
         }
     }
@@ -2264,6 +2298,23 @@ public extension View {
     }
 }
 
+// MARK: RedoActionStyle
+
+public extension View {
+    func redoActionStyle(_ style: some RedoActionStyle) -> some View {
+        self.transformEnvironment(\.redoActionStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func redoActionStyle(@ViewBuilder content: @escaping (RedoActionConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.redoActionStyleStack) { stack in
+            let style = AnyRedoActionStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: ReenterSignatureActionStyle
 
 public extension View {
@@ -3182,6 +3233,23 @@ public extension View {
     }
 }
 
+// MARK: UndoActionStyle
+
+public extension View {
+    func undoActionStyle(_ style: some UndoActionStyle) -> some View {
+        self.transformEnvironment(\.undoActionStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func undoActionStyle(@ViewBuilder content: @escaping (UndoActionConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.undoActionStyleStack) { stack in
+            let style = AnyUndoActionStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: UpVoteActionStyle
 
 public extension View {
@@ -3347,6 +3415,40 @@ public extension View {
     func welcomeScreenStyle(@ViewBuilder content: @escaping (WelcomeScreenConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.welcomeScreenStyleStack) { stack in
             let style = AnyWelcomeScreenStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: WritingAssistantActionStyle
+
+public extension View {
+    func writingAssistantActionStyle(_ style: some WritingAssistantActionStyle) -> some View {
+        self.transformEnvironment(\.writingAssistantActionStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func writingAssistantActionStyle(@ViewBuilder content: @escaping (WritingAssistantActionConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.writingAssistantActionStyleStack) { stack in
+            let style = AnyWritingAssistantActionStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: WritingAssistantFormStyle
+
+public extension View {
+    func writingAssistantFormStyle(_ style: some WritingAssistantFormStyle) -> some View {
+        self.transformEnvironment(\.writingAssistantFormStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func writingAssistantFormStyle(@ViewBuilder content: @escaping (WritingAssistantFormConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.writingAssistantFormStyleStack) { stack in
+            let style = AnyWritingAssistantFormStyle(content)
             stack.append(style)
         }
     }

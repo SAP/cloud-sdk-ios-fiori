@@ -24,6 +24,7 @@ struct CoreContentView: View {
     private var allMenuItems: [MenuItem] {
         [
             // Views
+            MenuItem(title: "AI Writing Assistant", section: "Views", destination: WritingAssistantExample()),
             MenuItem(title: "Attachments", section: "Views", destination: AttachmentExamples()),
             MenuItem(title: "AvatarStack", section: "Views", destination: AvatarStackExample()),
             MenuItem(title: "FioriButton", section: "Views", destination: FioriButtonContentView()),

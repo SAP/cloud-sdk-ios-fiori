@@ -528,6 +528,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: BackActionStyle
+
+struct BackActionStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any BackActionStyle] = []
+}
+
+extension EnvironmentValues {
+    var backActionStyle: any BackActionStyle {
+        self.backActionStyleStack.last ?? .base
+    }
+
+    var backActionStyleStack: [any BackActionStyle] {
+        get {
+            self[BackActionStyleStackKey.self]
+        }
+        set {
+            self[BackActionStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: BannerMessageStyle
 
 struct BannerMessageStyleStackKey: EnvironmentKey {
@@ -1133,6 +1154,27 @@ extension EnvironmentValues {
         }
         set {
             self[DisagreeActionStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: DoneActionStyle
+
+struct DoneActionStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any DoneActionStyle] = []
+}
+
+extension EnvironmentValues {
+    var doneActionStyle: any DoneActionStyle {
+        self.doneActionStyleStack.last ?? .base
+    }
+
+    var doneActionStyleStack: [any DoneActionStyle] {
+        get {
+            self[DoneActionStyleStackKey.self]
+        }
+        set {
+            self[DoneActionStyleStackKey.self] = newValue
         }
     }
 }
@@ -2796,6 +2838,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: RedoActionStyle
+
+struct RedoActionStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any RedoActionStyle] = []
+}
+
+extension EnvironmentValues {
+    var redoActionStyle: any RedoActionStyle {
+        self.redoActionStyleStack.last ?? .base
+    }
+
+    var redoActionStyleStack: [any RedoActionStyle] {
+        get {
+            self[RedoActionStyleStackKey.self]
+        }
+        set {
+            self[RedoActionStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: ReenterSignatureActionStyle
 
 struct ReenterSignatureActionStyleStackKey: EnvironmentKey {
@@ -3930,6 +3993,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: UndoActionStyle
+
+struct UndoActionStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any UndoActionStyle] = []
+}
+
+extension EnvironmentValues {
+    var undoActionStyle: any UndoActionStyle {
+        self.undoActionStyleStack.last ?? .base
+    }
+
+    var undoActionStyleStack: [any UndoActionStyle] {
+        get {
+            self[UndoActionStyleStackKey.self]
+        }
+        set {
+            self[UndoActionStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: UpVoteActionStyle
 
 struct UpVoteActionStyleStackKey: EnvironmentKey {
@@ -4136,6 +4220,48 @@ extension EnvironmentValues {
         }
         set {
             self[WelcomeScreenStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: WritingAssistantActionStyle
+
+struct WritingAssistantActionStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any WritingAssistantActionStyle] = []
+}
+
+extension EnvironmentValues {
+    var writingAssistantActionStyle: any WritingAssistantActionStyle {
+        self.writingAssistantActionStyleStack.last ?? .base
+    }
+
+    var writingAssistantActionStyleStack: [any WritingAssistantActionStyle] {
+        get {
+            self[WritingAssistantActionStyleStackKey.self]
+        }
+        set {
+            self[WritingAssistantActionStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: WritingAssistantFormStyle
+
+struct WritingAssistantFormStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any WritingAssistantFormStyle] = []
+}
+
+extension EnvironmentValues {
+    var writingAssistantFormStyle: any WritingAssistantFormStyle {
+        self.writingAssistantFormStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var writingAssistantFormStyleStack: [any WritingAssistantFormStyle] {
+        get {
+            self[WritingAssistantFormStyleStackKey.self]
+        }
+        set {
+            self[WritingAssistantFormStyleStackKey.self] = newValue
         }
     }
 }
