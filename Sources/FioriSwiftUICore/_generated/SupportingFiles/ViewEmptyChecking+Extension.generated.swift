@@ -227,7 +227,8 @@ extension Card: _ViewEmptyChecking {
             action.isEmpty &&
             secondaryAction.isEmpty &&
             tertiaryAction.isEmpty &&
-            overflowAction.isEmpty
+            overflowAction.isEmpty &&
+            mediaLeftImage.isEmpty
     }
 }
 
@@ -265,6 +266,12 @@ extension CardHeader: _ViewEmptyChecking {
             row3.isEmpty &&
             kpi.isEmpty &&
             kpiCaption.isEmpty
+    }
+}
+
+extension CardLeftBody: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        mediaLeftImage.isEmpty
     }
 }
 
