@@ -20,6 +20,7 @@ public struct SortFilterCFGItemContainer {
     @State var _keyboardHeight: CGFloat = 0.0
     @State private var onErrorMessage = ""
     @State private var sliderDescType: SliderValueChangeHandler.SliderInformationType = .fiori
+    @State var orderPickerHeight: CGFloat = 0.0
 
     /// Create a SortFilterCFGItemContainer view.
     /// - Parameters:
@@ -699,8 +700,7 @@ extension SortFilterCFGItemContainer: View {
             }
             
             DurationPickerViewWrapper(selection: self.$_items[r][c].durationPicker.workingValue, maximumMinutes: self._items[r][c].durationPicker.maximumMinutes, minimumMinutes: self._items[r][c].durationPicker.minimumMinutes, minuteInterval: self._items[r][c].durationPicker.minuteInterval, measurementFormatter: self._items[r][c].durationPicker.measurementFormatter)
-                .frame(width: 232, height: 204)
-                .background(Color.preferredColor(.primaryBackground))
+                .frame(height: 204)
                 .foregroundColor(Color.preferredColor(.primaryLabel))
         }
     }
@@ -723,6 +723,14 @@ extension SortFilterCFGItemContainer: View {
                 },
                 controlState: self._items[r][c].orderPicker.controlState
             )
+            .modifier(FioriIntrospectModifier<UIScrollView> { scrollView in
+                DispatchQueue.main.async {
+                    if self.orderPickerHeight != scrollView.contentSize.height {
+                        self.orderPickerHeight = scrollView.contentSize.height
+                    }
+                }
+            })
+            .frame(minHeight: self.orderPickerHeight > 0 ? self.orderPickerHeight : 88.0)
             .background(Color.preferredColor(.primaryBackground))
             .foregroundColor(Color.preferredColor(.primaryLabel))
         }

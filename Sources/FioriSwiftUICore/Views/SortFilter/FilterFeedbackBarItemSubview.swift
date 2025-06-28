@@ -594,6 +594,7 @@ struct PickerMenuItem: View {
                 searchFilter: self.item.isSearchBarHidden == false ? filter : nil
             ) { e in
                 Text(e.value)
+                    .destinationRowBackgroundColor(.clear)
             } :
             ListPickerDestination(
                 self.item.uuidValueOptions,
@@ -603,6 +604,7 @@ struct PickerMenuItem: View {
                 searchFilter: self.item.isSearchBarHidden == false ? filter : nil
             ) { e in
                 Text(e.value)
+                    .destinationRowBackgroundColor(.clear)
             }
         return listPickerDestination
             .disableEntriesSection(self.item.disableListEntriesSection)
@@ -1327,8 +1329,7 @@ struct DurationPickerMenuItem: View {
                     .buttonStyle(ApplyButtonStyle())
                 } components: {
                     DurationPickerViewWrapper(selection: self.$item.workingValue, maximumMinutes: self.item.maximumMinutes, minimumMinutes: self.item.minimumMinutes, minuteInterval: self.item.minuteInterval, measurementFormatter: self.item.measurementFormatter)
-                        .frame(width: 232, height: 204)
-                        .background(Color.preferredColor(.primaryBackground))
+                        .frame(height: 204)
                         .foregroundColor(Color.preferredColor(.primaryLabel))
                         .padding([.leading, .trailing], 16)
                         .padding(.bottom, 8)
@@ -1427,16 +1428,14 @@ struct OrderPickerMenuItem: View {
                         },
                         controlState: self.item.controlState
                     )
-                    .padding([.leading, .trailing], 16)
                     .padding(.bottom, 8)
-                    .background(GeometryReader { geometry in
-                        Color.clear
-                            .onAppear {
-                                self.calculateDetentHeight(geometrySizeHeight: geometry.size.height)
+                    .modifier(FioriIntrospectModifier<UIScrollView> { scrollView in
+                        DispatchQueue.main.async {
+                            let calculateHeight = self.calculateDetentHeight(scrollViewContentHeight: scrollView.contentSize.height)
+                            if self.detentHeight != calculateHeight {
+                                self.detentHeight = calculateHeight
                             }
-                            .onChange(of: geometry.size.height) {
-                                self.calculateDetentHeight(geometrySizeHeight: geometry.size.height)
-                            }
+                        }
                     })
                     .onAppear {
                         self.item.workingValue = self.item.value
@@ -1463,16 +1462,27 @@ struct OrderPickerMenuItem: View {
             })
     }
     
-    private func calculateDetentHeight(geometrySizeHeight: CGFloat) {
-        let isNotIphone = UIDevice.current.userInterfaceIdiom != .phone
-        var calculateHeight = geometrySizeHeight
-        calculateHeight += isNotIphone ? 13 : 16
-        calculateHeight += isNotIphone ? 50 : 56
-        if !isNotIphone {
-            calculateHeight += UIEdgeInsets.getSafeAreaInsets().bottom
+    private func calculateDetentHeight(scrollViewContentHeight: CGFloat) -> CGFloat {
+        let screenHeight = Screen.bounds.size.height
+        let safeAreaInset = UIEdgeInsets.getSafeAreaInsets()
+        var maxPopoverViewHeight = 0.0
+        var calaulatePopoverViewHeight = scrollViewContentHeight
+        if UIDevice.current.userInterfaceIdiom != .phone {
+            if self.barItemFrame.arrowDirection() == .top {
+                maxPopoverViewHeight = screenHeight - self.barItemFrame.maxY - safeAreaInset.bottom - 30
+            } else if self.barItemFrame.arrowDirection() == .bottom {
+                maxPopoverViewHeight = screenHeight - (screenHeight - self.barItemFrame.minY) + safeAreaInset.top
+            }
+            calaulatePopoverViewHeight += 50 + 70
+        } else {
+            maxPopoverViewHeight = screenHeight - safeAreaInset.top - 30
+            calaulatePopoverViewHeight += 56 + 20 + safeAreaInset.bottom
+            if calaulatePopoverViewHeight > screenHeight - safeAreaInset.top - 60 {
+                return screenHeight / 2
+            }
         }
-        calculateHeight += UIDevice.current.userInterfaceIdiom != .phone ? 55 : 0
-        self.detentHeight = calculateHeight
+
+        return min(maxPopoverViewHeight, calaulatePopoverViewHeight)
     }
 }
 
