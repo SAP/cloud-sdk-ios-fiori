@@ -87,10 +87,19 @@ struct WAHelperActionKey: EnvironmentKey {
     static let defaultValue: Binding<WAHelperAction> = .constant(.none)
 }
 
+struct WASheetHeightUpdatedKey: EnvironmentKey {
+    static let defaultValue: ((CGFloat) -> Void)? = nil
+}
+
 extension EnvironmentValues {
     var waHelperAction: Binding<WAHelperAction> {
         get { self[WAHelperActionKey.self] }
         set { self[WAHelperActionKey.self] = newValue }
+    }
+    
+    var waSheetHeightUpdated: ((CGFloat) -> Void)? {
+        get { self[WASheetHeightUpdatedKey.self] }
+        set { self[WASheetHeightUpdatedKey.self] = newValue }
     }
 }
 
@@ -100,5 +109,12 @@ public extension View {
     /// - Returns: A view with the writing assistant action environment value set.
     func waHelperAction(_ waHelperAction: Binding<WAHelperAction>) -> some View {
         self.environment(\.waHelperAction, waHelperAction)
+    }
+    
+    /// Call back for writing assistant sheet height updated.
+    /// - Parameter height: A block that will be called when the sheet height is updated.
+    /// - Returns: A view with the writing assistant sheet height updated environment value set.
+    func waSheetHeightUpdated(_ block: ((CGFloat) -> Void)?) -> some View {
+        self.environment(\.waSheetHeightUpdated, block)
     }
 }

@@ -26,9 +26,10 @@ struct WACustomDestination: View {
 
 struct WritingAssistantExample: View {
     @State private var text: String = "Improve efficiency and work-life balance"
-    @State private var text2: String = "Text Field 2"
+    @State private var text2: String = "Another text view."
     @State var helperAction = WAHelperAction.none
     @State var errorOccurred = false
+    @State var waSheetHeight: CGFloat = 0
     
     @ViewBuilder
     var customDestination: some View {
@@ -74,7 +75,6 @@ struct WritingAssistantExample: View {
             Toggle("Show Error", isOn: self.$errorOccurred)
             
             NoteFormView(text: self.$text, placeholder: "NoteFormView", errorMessage: "", hintText: AttributedString("Hint Text"), isCharCountEnabled: true, allowsBeyondLimit: false)
-                .foregroundStyle(Color.red)
                 .waTextInput(self.$text, menus: WAMenu.availableMenus, menuHandler: { menu, value in
                     await self.fetchData(for: menu, value: value)
                 }, feedbackOptions: self.feedbackOptions, feedbackHandler: { state, values in
@@ -83,13 +83,14 @@ struct WritingAssistantExample: View {
                 .waHelperAction(self.$helperAction)
                 .frame(height: 100)
             
-            TextInputField(text: self.$text2)
-                .foregroundStyle(Color.blue)
-                .border(Color.black)
-                .waTextInput(self.$text2, menus: WAMenu.availableMenus, menuHandler: { menu, value in
+            NoteFormView(text: self.$text2, placeholder: "NoteFormView", allowsBeyondLimit: false)
+                .waTextInput(self.$text, menus: WAMenu.availableMenus, menuHandler: { menu, value in
                     await self.fetchData(for: menu, value: value)
-                }, feedbackOptions: self.feedbackOptions, feedbackHandler: nil)
-                .frame(height: 60)
+                }, feedbackOptions: self.feedbackOptions, feedbackHandler: { state, values in
+                    await self.submitFeedback(state: state, values: values)
+                })
+                .waHelperAction(self.$helperAction)
+                .frame(height: 100)
             Spacer()
         }
         .padding()

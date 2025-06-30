@@ -47,7 +47,6 @@ class WritingAssistantContext: NSObject, ObservableObject {
     
     @Published var inProgress: Bool = false
     @Published var isPresented: Bool = false
-    @Published var isFocused: Bool = false
     @Published var showCancelAlert: Bool = false
     @Published var showFeedbackSuccessToast: Bool = false
     @Published var customDestination: CustomDestination? = nil
@@ -128,7 +127,7 @@ class WritingAssistantContext: NSObject, ObservableObject {
         }
     }
     
-    func startFeedbackTask(voteState: AIUserFeedbackVoteState, options: [String]) {
+    func startFeedbackTask(voteState: AIUserFeedbackVoteState, options: [String], inMenuView: Bool = true) {
         if let feedbackHandler {
             self.errorModel.error = nil
             self.lastFeedbackInformation = (voteState, options)
@@ -136,7 +135,7 @@ class WritingAssistantContext: NSObject, ObservableObject {
             self.task = Task {
                 let result = await feedbackHandler(voteState, options)
                 await MainActor.run {
-                    self.updateFeedbackResult(result, voteState: voteState)
+                    self.updateFeedbackResult(result, voteState: voteState, inMenuView: inMenuView)
                 }
             }
         }
@@ -147,7 +146,7 @@ class WritingAssistantContext: NSObject, ObservableObject {
         self.startFeedbackTask(voteState: lastFeedbackInformation.voteState, options: lastFeedbackInformation.options)
     }
     
-    @MainActor func updateFeedbackResult(_ result: WAFeedbackResult, voteState: AIUserFeedbackVoteState) {
+    @MainActor func updateFeedbackResult(_ result: WAFeedbackResult, voteState: AIUserFeedbackVoteState, inMenuView: Bool) {
         self.inProgress = false
         switch result {
         case .success:
@@ -158,7 +157,7 @@ class WritingAssistantContext: NSObject, ObservableObject {
             }
             self.showFeedbackSuccessToast.toggle()
         case .failure(let error):
-            self.setError(error, isFeedbackError: true, isInMenuView: voteState == .upVote)
+            self.setError(error, isFeedbackError: true, isInMenuView: inMenuView)
         }
     }
     
@@ -223,7 +222,7 @@ class WritingAssistantContext: NSObject, ObservableObject {
         }
     }
     
-    private var usedSelectedRange: NSRange {
+    var usedSelectedRange: NSRange {
         let r: NSRange
         if let range = selectedRange, range.length > 0 {
             r = range

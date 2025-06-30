@@ -3,7 +3,7 @@ import FioriThemeManager
 import SwiftUI
 
 public extension View {
-    /// This modifier will support writing assistant in your text input e.g. `TextEditor` or `TextField`.
+    /// This modifier will support writing assistant in your `TextEditor`.
     ///
     /// ## Usage:
     ///
@@ -71,9 +71,10 @@ struct WATextInputModifier: ViewModifier {
     @Binding var text: String
     
     @StateObject var context: WritingAssistantContext
-    @Environment(\.verticalSizeClass) var verticalSizeClass
-    @FocusState private var isTextViewFocused: Bool
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    @FocusState private var isTextInputFocused: Bool
     @Environment(\.waHelperAction) private var waHelperAction
+    @Environment(\.waSheetHeightUpdated) private var waSheetHeightUpdated
 
     var formView: WritingAssistantForm
     let waAction = WritingAssistantAction()
@@ -93,13 +94,13 @@ struct WATextInputModifier: ViewModifier {
                                                                           feedbackHandler: feedbackHandler))
     }
     
-    // swiftlint:disable function_body_length
+    // swiftlint:disable function_body_length cyclomatic_complexity
     func body(content: Content) -> some View {
         content
-            .focused(self.$isTextViewFocused)
+            .focused(self.$isTextInputFocused)
             .toolbar {
                 ToolbarItemGroup(placement: .keyboard) {
-                    if !self.context.isPresented, self.isTextViewFocused {
+                    if !self.context.isPresented, self.isTextInputFocused {
                         HStack {
                             Spacer()
                             self.waAction
@@ -111,8 +112,8 @@ struct WATextInputModifier: ViewModifier {
                     }
                 }
             }
-            .onChange(of: self.isTextViewFocused) { _, newValue in
-                if !newValue {
+            .onChange(of: self.isTextInputFocused) { _, newValue in
+                if !newValue, UIDevice.isIPhone {
                     if self.context.showCancelAlert {
                         // show alert will lost the focus, we need restore the selected range manually.
                         self.restoreSelectedRange()
@@ -123,6 +124,11 @@ struct WATextInputModifier: ViewModifier {
                             self.context.isPresented = false
                         }
                     }
+                } else if !newValue, UIDevice.isIPad {
+                    if self.context.isPresented {
+                        self.restoreSelectedRange()
+                        self.isTextInputFocused = true
+                    }
                 }
             }
             .modifier(
@@ -132,13 +138,13 @@ struct WATextInputModifier: ViewModifier {
                     textView.delegate = self.context
                 }
             )
-            .modifier(
-                FioriIntrospectModifier<UITextField> { textField in
-                    self.context.textField = textField
-                    self.context.textView = nil
-                    textField.delegate = self.context
-                }
-            )
+//            .modifier(
+//                FioriIntrospectModifier<UITextField> { textField in
+//                    self.context.textField = textField
+//                    self.context.textView = nil
+//                    textField.delegate = self.context
+//                }
+//            )
             .onChange(of: self.context.selection) { _, menu in
                 if let menu {
                     self.context.startMenuTask(menu: menu)
@@ -178,7 +184,7 @@ struct WATextInputModifier: ViewModifier {
             .onChange(of: self.context.selectedRange) { _, newValue in
                 if let range = newValue,
                    self.context.rangeChangedShouldBeMonitored,
-                   self.isTextViewFocused
+                   self.isTextInputFocused
                 {
                     self.restoreSelectedRange(by: range)
                 }
@@ -188,27 +194,40 @@ struct WATextInputModifier: ViewModifier {
                     .frame(idealWidth: 400, idealHeight: 400)
                     .environmentObject(self.context)
                     .presentationCompactAdaptation(.sheet)
-                    .presentationDetents([.medium, .fraction(0.5)])
-                    .presentationBackgroundInteraction(.enabled(upThrough: .medium))
+                    .presentationDetents([.fraction(0.5)])
                     .interactiveDismissDisabled()
                     .presentationDragIndicator(.hidden)
                     .disabled(self.context.inProgress)
                     .toastMessage(isPresented: self.$context.showFeedbackSuccessToast, title: "Thank you for your feedback", duration: 3)
+                    .ifApply(UIDevice.isIPhone) {
+                        $0.presentationBackgroundInteraction(.enabled(upThrough: .fraction(0.5)))
+                    }
+                    .background(
+                        GeometryReader { proxy in
+                            Color.clear
+                                .task {
+                                    if self.horizontalSizeClass == .compact {
+                                        self.waSheetHeightUpdated?(proxy.size.height)
+                                    }
+                                }
+                        }
+                    )
+                    .onDisappear {
+                        self.waSheetHeightUpdated?(0)
+                    }
             }
     }
     
     @MainActor func restoreSelectedRange(by range: NSRange? = nil) {
-        if let textView = self.context.textView,
-           let selectedRange = range ?? self.context.selectedRange
-        {
+        if let textView = self.context.textView {
+            let selectedRange = range ?? self.context.usedSelectedRange
             DispatchQueue.main.async {
                 self.context.canResetSelectedRange = false
                 textView.select(textView)
                 textView.selectedRange = selectedRange
             }
-        } else if let textField = self.context.textField,
-                  let selectedRange = range ?? self.context.selectedRange
-        {
+        } else if let textField = self.context.textField {
+            let selectedRange = range ?? self.context.usedSelectedRange
             DispatchQueue.main.async {
                 self.context.canResetSelectedRange = false
                 textField.select(textField)
@@ -219,7 +238,7 @@ struct WATextInputModifier: ViewModifier {
     
     @MainActor func switchKeyboard(useWAPanel: Bool) {
         if let textView = self.context.textView {
-            if !self.isTextViewFocused {
+            if !self.isTextInputFocused {
                 textView.inputView = nil
                 textView.isEditable = true
                 textView.resignFirstResponder()
@@ -229,15 +248,18 @@ struct WATextInputModifier: ViewModifier {
                 textView.resignFirstResponder()
                 textView.inputView = UIView()
                 textView.isEditable = false
+                textView.isSelectable = true
                 textView.becomeFirstResponder()
             } else {
+                self.waSheetHeightUpdated?(0)
                 textView.resignFirstResponder()
                 textView.inputView = nil
                 textView.isEditable = true
+                textView.isSelectable = true
                 textView.becomeFirstResponder()
             }
         } else if let textField = self.context.textField {
-            if !self.isTextViewFocused {
+            if !self.isTextInputFocused {
                 textField.inputView = nil
                 textField.resignFirstResponder()
                 return
@@ -248,6 +270,7 @@ struct WATextInputModifier: ViewModifier {
                 textField.inputView = UIView()
                 textField.becomeFirstResponder()
             } else {
+                self.waSheetHeightUpdated?(0)
                 textField.resignFirstResponder()
                 textField.inputView = nil
                 textField.becomeFirstResponder()

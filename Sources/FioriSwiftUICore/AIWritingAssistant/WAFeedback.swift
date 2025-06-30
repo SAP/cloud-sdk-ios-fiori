@@ -5,14 +5,14 @@ struct WAFeedback: View {
     @EnvironmentObject var context: WritingAssistantContext
     @Environment(\.dismiss) private var dismiss
     @State var showError = false
+    @State var voteState: AIUserFeedbackVoteState = .downVote
     
     var options: [AttributedString] {
         self.context.feedbackOptions.map { AttributedString($0) }
     }
 
     var body: some View {
-        AIUserFeedback(detailImage: { Image(systemName: "gearshape") },
-                       title: { Title(title: "What didn’t you like about this version?") },
+        AIUserFeedback(title: { Title(title: "What didn’t you like about this version?") },
                        description: { Text("Please rate your experience to help us improve.") },
                        navigationTitle: "Feedback",
                        filterFormView: self.filterFormView,
@@ -21,8 +21,8 @@ struct WAFeedback: View {
                        isBackgroundInteractionEnabled: true,
                        errorView: { WAErrorIllustratedMessage() },
                        onSubmit: { state, feedbacks, _, _ in
-                           self.context.startFeedbackTask(voteState: state, options: feedbacks)
-                       }, voteState: .downVote)
+                           self.context.startFeedbackTask(voteState: state, options: feedbacks, inMenuView: false)
+                       }, voteState: self.voteState)
             .environment(\.isSubmitRequestFailed, self.$showError)
             .onChange(of: self.context.showErrorInFeedbackView) {
                 self.showError = self.context.showErrorInFeedbackView
@@ -32,10 +32,15 @@ struct WAFeedback: View {
                     self.dismiss()
                 }
             }
+            .onChange(of: self.context.feedbackUpvoted) {
+                if self.context.feedbackUpvoted {
+                    self.dismiss()
+                }
+            }
     }
     
     var filterFormView: FilterFormView {
-        FilterFormView(title: "", isRequired: true, options: self.options, errorMessage: nil, isEnabled: true, allowsMultipleSelection: true, allowsEmptySelection: false, value: self.$feedbackSelection, buttonSize: .fixed, onValueChange: nil)
+        FilterFormView(title: "", isRequired: false, options: self.options, errorMessage: nil, isEnabled: true, allowsMultipleSelection: true, allowsEmptySelection: false, value: self.$feedbackSelection, buttonSize: .fixed, onValueChange: nil)
     }
 }
 
