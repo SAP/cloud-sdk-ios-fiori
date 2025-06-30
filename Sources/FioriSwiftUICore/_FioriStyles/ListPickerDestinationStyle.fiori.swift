@@ -783,10 +783,12 @@ struct ListPickerDestinationContent<Data: RandomAccessCollection, ID: Hashable, 
                                     self.deselectAll()
                                 }
                         }
-                        .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
+                        .padding([.leading, .trailing], 16)
+                        .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
                         .alignmentGuide(.listRowSeparatorLeading) { dimensions in
                             dimensions[.leading] - 16
                         }
+                        .background(Color.preferredColor(.secondaryGroupedBackground))
                         
                         self.selectedSection()
                             .listRowInsets(EdgeInsets(top: 11, leading: 16, bottom: 11, trailing: 16))
@@ -810,10 +812,12 @@ struct ListPickerDestinationContent<Data: RandomAccessCollection, ID: Hashable, 
                 ForEach(0 ..< filteredData.count, id: \.self) { index in
                     Section {
                         Text(filteredData[index].0)
-                            .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
+                            .padding([.leading, .trailing], 16)
+                            .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
                             .alignmentGuide(.listRowSeparatorLeading) { dimensions in
                                 dimensions[.leading] - 16
                             }
+                            .background(Color.preferredColor(.secondaryGroupedBackground))
                         
                         self.generateSection(by: filteredData[index].1)
                             .listRowInsets(EdgeInsets(top: 11, leading: 16, bottom: 11, trailing: 16))
@@ -840,10 +844,12 @@ struct ListPickerDestinationContent<Data: RandomAccessCollection, ID: Hashable, 
                                         }
                                 }
                             }
-                            .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
+                            .padding([.leading, .trailing], 16)
+                            .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
                             .alignmentGuide(.listRowSeparatorLeading) { dimensions in
                                 dimensions[.leading] - 16
                             }
+                            .background(Color.preferredColor(.secondaryGroupedBackground))
                         }
                         
                         self.generateSection(by: items)

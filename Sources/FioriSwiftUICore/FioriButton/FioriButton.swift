@@ -157,7 +157,7 @@ public struct FioriButton: View {
         }
         .buttonStyle(_ButtonStyleImpl(fioriButtonStyle: self.fioriButtonStyle, label: self.label, image: self.image, imagePosition: self.imagePosition, imageTitleSpacing: self.imageTitleSpacing, isEnabled: self.isEnabled, state: self.state))
         .overlay(GeometryReader { proxy in
-            Color.clear.contentShape(Rectangle()).gesture(self.createGesture(proxy.size))
+            Color.clear.contentShape(Rectangle()).simultaneousGesture(self.createGesture(proxy.size))
         })
         .setOnChange(of: self.isSelectionPersistent) {
             self._state = .normal
@@ -196,7 +196,11 @@ public struct FioriButton: View {
                     return
                 }
                 
-                self._state = self.state == .normal ? .selected : .normal
+                if self.isSelectionPersistent {
+                    self._state = self.state == .normal ? .selected : .normal
+                } else {
+                    self._state = .normal
+                }
                 self.action?(self.state)
             }
     }
