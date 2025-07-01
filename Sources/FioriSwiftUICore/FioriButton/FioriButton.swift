@@ -64,6 +64,7 @@ public struct FioriButton: View {
     let imageTitleSpacing: CGFloat
     private let touchAreaInset: CGFloat = 3
     
+    @Environment(\.isLoading) var isLoading
     @Environment(\.isEnabled) private var isEnabled
     @Environment(\.fioriButtonStyle) private var fioriButtonStyle
     @State private var _state: UIControl.State = .normal
@@ -148,19 +149,24 @@ public struct FioriButton: View {
 
     /// The content of the button.
     public var body: some View {
-        // For menu use case, fioriButton should be based on Button
-        Button {
-            // This will be called when tapped for use case in Menu component
-            self.action?(.normal)
-        } label: {
-            EmptyView()
-        }
-        .buttonStyle(_ButtonStyleImpl(fioriButtonStyle: self.fioriButtonStyle, label: self.label, image: self.image, imagePosition: self.imagePosition, imageTitleSpacing: self.imageTitleSpacing, isEnabled: self.isEnabled, state: self.state))
-        .overlay(GeometryReader { proxy in
-            Color.clear.contentShape(Rectangle()).simultaneousGesture(self.createGesture(proxy.size))
-        })
-        .setOnChange(of: self.isSelectionPersistent) {
-            self._state = .normal
+        SkeletonLoadingContainer(isLoading: self.isLoading) {
+            // For menu use case, fioriButton should be based on Button
+            Button {
+                // This will be called when tapped for use case in Menu component
+                self.action?(.normal)
+            } label: {
+                EmptyView()
+            }
+            .buttonStyle(_ButtonStyleImpl(fioriButtonStyle: self.fioriButtonStyle, label: self.label, image: self.image, imagePosition: self.imagePosition, imageTitleSpacing: self.imageTitleSpacing, isEnabled: self.isEnabled, state: self.state))
+            .overlay(GeometryReader { proxy in
+                Color.clear.contentShape(Rectangle()).simultaneousGesture(self.createGesture(proxy.size))
+            })
+            .setOnChange(of: self.isSelectionPersistent) {
+                self._state = .normal
+            }
+            .ifApply(self.isLoading) { view in
+                view.opacity(0.25)
+            }
         }
     }
     
