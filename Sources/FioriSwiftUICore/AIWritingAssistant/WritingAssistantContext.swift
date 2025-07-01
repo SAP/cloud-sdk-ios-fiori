@@ -68,7 +68,7 @@ class WritingAssistantContext: NSObject, ObservableObject {
     
     var indexOfCurrentValue: Int
     var rangeChangedShouldBeMonitored: Bool = true
-    var lastFeedbackInformation: (voteState: AIUserFeedbackVoteState, options: [String])? = nil
+    var lastFeedbackInformation: (voteState: AIUserFeedbackVoteState, options: [String], inMenuView: Bool)? = nil
     
     let menus: [[WAMenu]]
     let menuHandler: (WAMenu, String) async -> WAResult
@@ -130,7 +130,7 @@ class WritingAssistantContext: NSObject, ObservableObject {
     func startFeedbackTask(voteState: AIUserFeedbackVoteState, options: [String], inMenuView: Bool = true) {
         if let feedbackHandler {
             self.errorModel.error = nil
-            self.lastFeedbackInformation = (voteState, options)
+            self.lastFeedbackInformation = (voteState, options, inMenuView)
             self.inProgress = true
             self.task = Task {
                 let result = await feedbackHandler(voteState, options)
@@ -143,7 +143,9 @@ class WritingAssistantContext: NSObject, ObservableObject {
     
     func retryFeedbackTask() {
         guard let lastFeedbackInformation = self.lastFeedbackInformation else { return }
-        self.startFeedbackTask(voteState: lastFeedbackInformation.voteState, options: lastFeedbackInformation.options)
+        self.startFeedbackTask(voteState: lastFeedbackInformation.voteState,
+                               options: lastFeedbackInformation.options,
+                               inMenuView: lastFeedbackInformation.inMenuView)
     }
     
     @MainActor func updateFeedbackResult(_ result: WAFeedbackResult, voteState: AIUserFeedbackVoteState, inMenuView: Bool) {
