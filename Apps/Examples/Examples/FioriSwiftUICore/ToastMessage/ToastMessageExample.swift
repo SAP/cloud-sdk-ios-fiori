@@ -89,6 +89,20 @@ struct ToastMessageCustomStyleExample: View {
                 .toastMessage(isPresented: .constant(true),
                               icon: {
                                   Image(systemName: "info.circle")
+                              },
+                              title: {
+                                  Text("Toast Message Title")
+                              },
+                              duration: .infinity,
+                              position: .center,
+                              borderWidthIC: 4,
+                              borderColorIC: .pink)
+                .padding(30)
+            HStack {}
+                .frame(maxWidth: 300, maxHeight: 300)
+                .toastMessage(isPresented: .constant(true),
+                              icon: {
+                                  Image(systemName: "info.circle")
                                       .foregroundStyle(.blue)
                               },
                               title: {
@@ -100,6 +114,8 @@ struct ToastMessageCustomStyleExample: View {
                               backgroundColor: .cyan,
                               borderWidth: 2,
                               borderColor: .blue,
+                              borderWidthIC: 4,
+                              borderColorIC: .pink,
                               shadow: FioriShadowStyle.smallElement)
                 .padding(30)
             HStack {}

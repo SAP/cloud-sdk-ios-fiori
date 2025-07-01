@@ -37,6 +37,12 @@ struct ObjectItemExample: View {
             } label: {
                 Text("Object Cell Enhancement for Button")
             }
+            
+            NavigationLink {
+                ObjectItemCustomSeparatorExample()
+            } label: {
+                Text("Object Item Custom Separator")
+            }
 
         }.navigationBarTitle(self._isNewObjectItem ? "ObjectItem" : "_ObjectItem", displayMode: .inline)
     }
