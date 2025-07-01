@@ -1,7 +1,10 @@
 import Combine
 import OSLog
 import SwiftUI
-import VisionKit
+#if canImport(VisionKit) && os(iOS) && !targetEnvironment(macCatalyst)
+    import Vision
+    import VisionKit
+#endif
 #if canImport(ConnectSDK)
     import ConnectSDK
 #endif
@@ -72,7 +75,24 @@ import VisionKit
 ///     }
 /// }
 /// ```
-///
+
+/// A platform-agnostic enum to represent data types for scanners, replacing VisionKit's RecognizedDataType.
+public enum BarcodeDataType: Hashable {
+    case barcode(symbologies: [VNBarcodeSymbology] = [])
+    case text
+
+    #if canImport(VisionKit) && os(iOS) && !targetEnvironment(macCatalyst)
+        func toVisionKitType() -> DataScannerViewController.RecognizedDataType {
+            switch self {
+            case .barcode(let symbologies):
+                return .barcode(symbologies: symbologies)
+            case .text:
+                return .text()
+            }
+        }
+    #endif
+}
+
 @MainActor
 public final class BarcodeScannerManager: ObservableObject {
     /// A shared singleton instance of the `BarcodeScannerManager` for convenient global access.
@@ -96,8 +116,12 @@ public final class BarcodeScannerManager: ObservableObject {
 
     /// The currently active `BarcodeScanner` instance. Internal use.
     private var activeScanner: (any BarcodeScanner)?
-    /// The instance of the VisionKit (camera-based) scanner.
-    private var visionKitScanner: VisionKitScanner
+    #if canImport(VisionKit) && os(iOS) && !targetEnvironment(macCatalyst)
+        /// The instance of the VisionKit (camera-based) scanner.
+        private var visionKitScanner: VisionKitScanner
+    #else
+        private var visionKitScanner: VisionKitScanner?
+    #endif
     
     #if canImport(ConnectSDK)
         /// The instance of the ProGlove hardware scanner.
@@ -121,15 +145,19 @@ public final class BarcodeScannerManager: ObservableObject {
     ///   - serviceUUID: Optional: For `IPCMobileScanner`, a custom Bluetooth service UUID string.
     ///                  If `nil`, the IPCMobile SDK's default service UUID will be used.
     public init(
-        recognizedDataTypes: Set<DataScannerViewController.RecognizedDataType> = [.barcode()],
+        recognizedDataTypes: Set<BarcodeDataType> = [.barcode()],
         recognizesMultipleItems: Bool = false,
         serviceUUID: String? = nil
     ) {
         self.logger.info("Initializing with VisionKit params: recognizedDataTypes=\(recognizedDataTypes), recognizesMultipleItems=\(recognizesMultipleItems). IPCMobile serviceUUID: \(serviceUUID ?? "Default")")
-        self.visionKitScanner = VisionKitScanner(
-            recognizedDataTypes: recognizedDataTypes,
-            recognizesMultipleItems: recognizesMultipleItems
-        )
+        #if canImport(VisionKit) && os(iOS) && !targetEnvironment(macCatalyst)
+            self.visionKitScanner = VisionKitScanner(
+                recognizedDataTypes: recognizedDataTypes,
+                recognizesMultipleItems: recognizesMultipleItems
+            )
+        #else
+            self.logger.warning("VisionKit not imported or not supported on this platform (e.g., Mac Catalyst). VisionKitScanner will not be available.")
+        #endif
         #if canImport(ConnectSDK)
             self.proGloveScanner = ProGloveScanner()
             self.logger.info("ProGloveScanner instance created.")
@@ -312,11 +340,16 @@ public final class BarcodeScannerManager: ObservableObject {
     /// Specifically retrieves the `VisionKitScanner` instance if it is the active scanner.
     /// - Returns: The `VisionKitScanner` instance, or `nil` if VisionKit is not active or not the current scanner type.
     public func getVisionKitScanner() -> VisionKitScanner? {
-        guard self.activeScannerType == .visionKit, let scanner = activeScanner as? VisionKitScanner else {
-            self.logger.debug("getVisionKitScanner: VisionKit is not the active scanner or type mismatch.")
+        #if canImport(VisionKit) && os(iOS) && !targetEnvironment(macCatalyst)
+            guard self.activeScannerType == .visionKit, let scanner = activeScanner as? VisionKitScanner else {
+                self.logger.debug("getVisionKitScanner: VisionKit is not the active scanner or type mismatch.")
+                return nil
+            }
+            return scanner
+        #else
+            self.logger.debug("getVisionKitScanner: VisionKit not supported on this platform (e.g., Mac Catalyst).")
             return nil
-        }
-        return scanner
+        #endif
     }
     
     /// Returns an array of `ScannerType`s that are considered available on the device.
@@ -336,7 +369,12 @@ public final class BarcodeScannerManager: ObservableObject {
     private func getScannerInstance(for type: ScannerType) -> (any BarcodeScanner)? {
         switch type {
         case .visionKit:
-            return self.visionKitScanner
+            #if canImport(VisionKit) && os(iOS) && !targetEnvironment(macCatalyst)
+                return self.visionKitScanner
+            #else
+                self.logger.warning("Attempted to get VisionKit scanner instance, but VisionKit not supported on this platform (e.g., Mac Catalyst).")
+                return nil
+            #endif
         case .proGlove:
             #if canImport(ConnectSDK)
                 return self.proGloveScanner
@@ -364,8 +402,13 @@ public final class BarcodeScannerManager: ObservableObject {
             self.ipcMobileScanner.reset()
             self.ipcMobileScanner.delegate = nil
         #endif
-        self.visionKitScanner.reset()
-        self.visionKitScanner.delegate = nil
+        #if canImport(VisionKit) && os(iOS) && !targetEnvironment(macCatalyst)
+            self.visionKitScanner.reset()
+            self.visionKitScanner.delegate = nil
+        #else
+            self.visionKitScanner?.reset()
+            self.visionKitScanner?.delegate = nil
+        #endif
         self.activeScanner = nil
         self.activeScannerType = nil
         self.status = .idle
@@ -397,5 +440,16 @@ extension BarcodeScannerManager: BarcodeScannerDelegate {
         }
         self.logger.info("Manager received barcode from \(scanner.type.description): \(barcode)")
         self.onBarcodeScanned?(barcode)
+    }
+}
+
+extension BarcodeDataType: CustomStringConvertible {
+    public var description: String {
+        switch self {
+        case .barcode(let symbologies):
+            return "barcode(symbologies: \(symbologies.map(\.rawValue)))"
+        case .text:
+            return "text"
+        }
     }
 }

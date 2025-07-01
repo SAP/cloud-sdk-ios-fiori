@@ -100,11 +100,11 @@ struct VisionKitScannerExample: View {
             if let visionKitScanner = scannerManager.getVisionKitScanner() {
                 ZStack(alignment: .topTrailing) {
                     VisionKitScannerRepresentable(
-                        scanner: visionKitScanner,
+                        scannerManager: self.scannerManager,
+                        isTorchOn: self.$isTorchOn,
                         onCancelTapped: {
                             self.isPresentingCamera = false
-                        },
-                        isTorchOn: self.$isTorchOn
+                        }
                     )
                     .ignoresSafeArea(.all)
                     .onAppear {
