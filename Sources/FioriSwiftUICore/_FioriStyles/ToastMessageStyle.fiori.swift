@@ -74,6 +74,9 @@ private func getPositionOffset(position: ToastMessagePosition, spacing: CGFloat,
         viewCoordinates.y = parentViewSize.height + viewSize.height / 2 + correctedSpacing
     }
 
+    viewCoordinates.x = round(viewCoordinates.x * 10) / 10
+    viewCoordinates.y = round(viewCoordinates.y * 10) / 10
+    
     return viewCoordinates
 }
 
