@@ -113,7 +113,7 @@ public struct OrderPickerItemModel: Identifiable, Hashable, Equatable, CustomStr
     
     /// An optional `customStyle`
     public var customStyle: (any SortCriterionStyle)?
-    /// An optional color that determins the background color of the custom list row.
+    /// An optional color that determines the background color of the custom list row.
     public var customListRowBackground: Color?
     
     /// Public initializer for OrderPickerItemModel.
@@ -125,7 +125,7 @@ public struct OrderPickerItemModel: Identifiable, Hashable, Equatable, CustomStr
     ///   - ascendingText: The text displayed when the criterion is ascending, such as "Ascending".
     ///   - descendingText: The text displayed when the criterion is descending, such as "Descending"
     ///   - customStyle: An optional `customStyle`
-    ///   - customListRowBackground: An optional color that determins the background color of the custom list row.
+    ///   - customListRowBackground: An optional color that determines the background color of the custom list row.
 
     public init(id: UUID = UUID(), selectedIcon: Image? = nil, criterion: AttributedString, isSelected: Bool = false, isAscending: Bool = true, ascendingText: AttributedString, descendingText: AttributedString, customStyle: (any SortCriterionStyle)? = nil, customListRowBackground: Color? = nil) {
         self.selectedIcon = selectedIcon
