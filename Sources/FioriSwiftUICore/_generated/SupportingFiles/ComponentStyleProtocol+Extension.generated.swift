@@ -1529,6 +1529,27 @@ public extension CardStyle where Self == CardCardFooterStyle {
     }
 }
 
+public struct CardCardLeftBodyStyle: CardStyle {
+    let style: any CardLeftBodyStyle
+
+    public func makeBody(_ configuration: CardConfiguration) -> some View {
+        Card(configuration)
+            .cardLeftBodyStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension CardStyle where Self == CardCardLeftBodyStyle {
+    static func cardLeftBodyStyle(_ style: some CardLeftBodyStyle) -> CardCardLeftBodyStyle {
+        CardCardLeftBodyStyle(style: style)
+    }
+
+    static func cardLeftBodyStyle(@ViewBuilder content: @escaping (CardLeftBodyConfiguration) -> some View) -> CardCardLeftBodyStyle {
+        let style = AnyCardLeftBodyStyle(content)
+        return CardCardLeftBodyStyle(style: style)
+    }
+}
+
 // MARK: CardExtHeaderStyle
 
 public extension CardExtHeaderStyle where Self == CardExtHeaderBaseStyle {
@@ -2093,6 +2114,20 @@ public extension CardHeaderStyle where Self == CardHeaderCardExtHeaderStyle {
     static func cardExtHeaderStyle(@ViewBuilder content: @escaping (CardExtHeaderConfiguration) -> some View) -> CardHeaderCardExtHeaderStyle {
         let style = AnyCardExtHeaderStyle(content)
         return CardHeaderCardExtHeaderStyle(style: style)
+    }
+}
+
+// MARK: CardLeftBodyStyle
+
+public extension CardLeftBodyStyle where Self == CardLeftBodyBaseStyle {
+    static var base: CardLeftBodyBaseStyle {
+        CardLeftBodyBaseStyle()
+    }
+}
+
+public extension CardLeftBodyStyle where Self == CardLeftBodyFioriStyle {
+    static var fiori: CardLeftBodyFioriStyle {
+        CardLeftBodyFioriStyle()
     }
 }
 

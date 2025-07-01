@@ -960,6 +960,34 @@ public extension CardHeaderStyle {
     }
 }
 
+// MARK: CardLeftBodyStyle
+
+extension ModifiedStyle: CardLeftBodyStyle where Style: CardLeftBodyStyle {
+    public func makeBody(_ configuration: CardLeftBodyConfiguration) -> some View {
+        CardLeftBody(configuration)
+            .cardLeftBodyStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct CardLeftBodyStyleModifier<Style: CardLeftBodyStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.cardLeftBodyStyle(self.style)
+    }
+}
+
+public extension CardLeftBodyStyle {
+    func modifier(_ modifier: some ViewModifier) -> some CardLeftBodyStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some CardLeftBodyStyle) -> some CardLeftBodyStyle {
+        style.modifier(CardLeftBodyStyleModifier(style: self))
+    }
+}
+
 // MARK: CardMainHeaderStyle
 
 extension ModifiedStyle: CardMainHeaderStyle where Style: CardMainHeaderStyle {

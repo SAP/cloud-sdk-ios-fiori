@@ -547,6 +547,22 @@ extension CardHeaderStyle {
     }
 }
 
+// MARK: CardLeftBodyStyle
+
+struct ResolvedCardLeftBodyStyle<Style: CardLeftBodyStyle>: View {
+    let style: Style
+    let configuration: CardLeftBodyConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension CardLeftBodyStyle {
+    func resolve(configuration: CardLeftBodyConfiguration) -> some View {
+        ResolvedCardLeftBodyStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: CardMainHeaderStyle
 
 struct ResolvedCardMainHeaderStyle<Style: CardMainHeaderStyle>: View {

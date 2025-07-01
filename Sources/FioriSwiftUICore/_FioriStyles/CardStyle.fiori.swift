@@ -24,6 +24,14 @@ public struct CardBaseStyle: CardStyle {
     
     public func makeBody(_ configuration: CardConfiguration) -> some View {
         // Add default layout here
+        HStack {
+            configuration._cardLeftBody
+            self.card(configuration: configuration)
+                .layoutPriority(999)
+        }
+    }
+    
+    func card(configuration: CardConfiguration) -> some View {
         CardLayout(lineSpacing: 0, useProposedHeight: self.useProposedHeight) {
             if !configuration._cardHeader.isEmpty {
                 configuration._cardHeader
@@ -45,8 +53,6 @@ public struct CardBaseStyle: CardStyle {
                     .layoutPriority(3) // Mark this as the footer in CardLayout
             }
         }
-        .clipped()
-        .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
     }
 }
 
@@ -373,6 +379,17 @@ extension CardFioriStyle {
             // .font(.fiori(forTextStyle: <#fiori font#>))
         }
     }
+    
+    struct CardLeftBodyFioriStyle: CardLeftBodyStyle {
+        let cardConfiguration: CardConfiguration
+    
+        func makeBody(_ configuration: CardLeftBodyConfiguration) -> some View {
+            CardLeftBody(configuration)
+            // Add default style for CardLeftBody
+            // .foregroundStyle(Color.preferredColor(<#fiori color#>))
+            // .font(.fiori(forTextStyle: <#fiori font#>))
+        }
+    }
 }
 
 public struct CardCardStyle: CardStyle {
@@ -537,6 +554,9 @@ public enum CardTests {
             Circle().frame(width: 2).foregroundColor(Color.preferredColor(.tertiaryLabel).opacity(0.9))
             LabelItem(icon: Image(systemName: "calendar"), title: "1 Oct 2023 - 31 Oct 2023", alignment: .leading)
         }
+    } mediaLeftImage: {
+        Image("card_image")
+            .resizable()
     }
     
     static let sampleCard2 = Card {
@@ -569,6 +589,9 @@ public enum CardTests {
         FioriButton(title: "Reserve")
     } secondaryAction: {
         FioriButton(title: "Save for Later")
+    } mediaLeftImage: {
+        Image("card_image")
+            .resizable()
     }
     
     static let sampleCard3 = Card {
@@ -603,6 +626,9 @@ public enum CardTests {
                 Spacer()
             }
         }.fixedSize(horizontal: false, vertical: true)
+    } mediaLeftImage: {
+        Image("card_image")
+            .resizable()
     }
     
     static let sampleCard4 = Card {
@@ -636,6 +662,9 @@ public enum CardTests {
             .frame(minWidth: 44, maxWidth: .infinity, minHeight: 44)
             .background(RoundedRectangle(cornerRadius: 5).fill(Color.preferredColor(.negativeBackground)))
             .contentShape(Rectangle())
+    } mediaLeftImage: {
+        Image("card_image")
+            .resizable()
     }
     
     static let sampleCard5 = Card {
@@ -662,6 +691,9 @@ public enum CardTests {
         FioriButton(title: "Primary")
     } secondaryAction: {
         FioriButton(title: "Secondary")
+    } mediaLeftImage: {
+        Image("card_image")
+            .resizable()
     }
     
     static let sampleCard6 = Card(title: "Title", subtitle: "Subtitle that goes to multiple lines before truncating just like that", headerAction: FioriButton(title: "..."), counter: "1 of 3", action: FioriButton(title: "Primary"))
@@ -869,6 +901,9 @@ public enum CardTests {
         }
     } action: {
         FioriButton(title: "Approve")
+    } mediaLeftImage: {
+        Image("card_image")
+            .resizable()
     }
     
     static let vbCard = Card {
