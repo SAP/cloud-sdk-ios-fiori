@@ -22,6 +22,7 @@ public struct DateTimePicker {
     let controlState: ControlState
     /// The error message of the form view.
     let errorMessage: AttributedString?
+    let range: ClosedRange<Date>?
     @Binding var selectedDate: Date
     /// The components shown in the date picker, default value shows date and time.
     let pickerComponents: DatePicker.Components
@@ -31,6 +32,8 @@ public struct DateTimePicker {
     let timeStyle: Date.FormatStyle.TimeStyle
     /// The text to be displayed when no date is selected. If this property is `nil`, the localized string “No date selected” will be used.
     let noDateSelectedString: String?
+    /// This property indicates whether the picker is to be displayed.
+    @Binding var pickerVisible: Bool
 
     @Environment(\.dateTimePickerStyle) var style
 
@@ -42,22 +45,26 @@ public struct DateTimePicker {
                 @ViewBuilder valueLabel: () -> any View = { EmptyView() },
                 controlState: ControlState = .normal,
                 errorMessage: AttributedString? = nil,
+                range: ClosedRange<Date>? = nil,
                 selectedDate: Binding<Date>,
                 pickerComponents: DatePicker.Components = [.date, .hourAndMinute],
                 dateStyle: Date.FormatStyle.DateStyle = .abbreviated,
                 timeStyle: Date.FormatStyle.TimeStyle = .shortened,
                 noDateSelectedString: String? = nil,
+                pickerVisible: Binding<Bool>,
                 componentIdentifier: String? = DateTimePicker.identifier)
     {
         self.title = Title(title: title, componentIdentifier: componentIdentifier)
         self.valueLabel = ValueLabel(valueLabel: valueLabel, componentIdentifier: componentIdentifier)
         self.controlState = controlState
         self.errorMessage = errorMessage
+        self.range = range
         self._selectedDate = selectedDate
         self.pickerComponents = pickerComponents
         self.dateStyle = dateStyle
         self.timeStyle = timeStyle
         self.noDateSelectedString = noDateSelectedString
+        self._pickerVisible = pickerVisible
         self.componentIdentifier = componentIdentifier ?? DateTimePicker.identifier
     }
 }
@@ -73,15 +80,17 @@ public extension DateTimePicker {
          isRequired: Bool = false,
          controlState: ControlState = .normal,
          errorMessage: AttributedString? = nil,
+         range: ClosedRange<Date>? = nil,
          selectedDate: Binding<Date>,
          pickerComponents: DatePicker.Components = [.date, .hourAndMinute],
          dateStyle: Date.FormatStyle.DateStyle = .abbreviated,
          timeStyle: Date.FormatStyle.TimeStyle = .shortened,
-         noDateSelectedString: String? = nil)
+         noDateSelectedString: String? = nil,
+         pickerVisible: Binding<Bool>)
     {
         self.init(title: {
             TextWithMandatoryFieldIndicator(text: title, isRequired: isRequired, mandatoryFieldIndicator: mandatoryFieldIndicator)
-        }, valueLabel: { OptionalText(valueLabel) }, controlState: controlState, errorMessage: errorMessage, selectedDate: selectedDate, pickerComponents: pickerComponents, dateStyle: dateStyle, timeStyle: timeStyle, noDateSelectedString: noDateSelectedString)
+        }, valueLabel: { OptionalText(valueLabel) }, controlState: controlState, errorMessage: errorMessage, range: range, selectedDate: selectedDate, pickerComponents: pickerComponents, dateStyle: dateStyle, timeStyle: timeStyle, noDateSelectedString: noDateSelectedString, pickerVisible: pickerVisible)
     }
 }
 
@@ -95,11 +104,13 @@ public extension DateTimePicker {
         self.valueLabel = configuration.valueLabel
         self.controlState = configuration.controlState
         self.errorMessage = configuration.errorMessage
+        self.range = configuration.range
         self._selectedDate = configuration.$selectedDate
         self.pickerComponents = configuration.pickerComponents
         self.dateStyle = configuration.dateStyle
         self.timeStyle = configuration.timeStyle
         self.noDateSelectedString = configuration.noDateSelectedString
+        self._pickerVisible = configuration.$pickerVisible
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
         self.componentIdentifier = configuration.componentIdentifier
     }
@@ -110,7 +121,7 @@ extension DateTimePicker: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, title: .init(self.title), valueLabel: .init(self.valueLabel), controlState: self.controlState, errorMessage: self.errorMessage, selectedDate: self.$selectedDate, pickerComponents: self.pickerComponents, dateStyle: self.dateStyle, timeStyle: self.timeStyle, noDateSelectedString: self.noDateSelectedString)).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, title: .init(self.title), valueLabel: .init(self.valueLabel), controlState: self.controlState, errorMessage: self.errorMessage, range: self.range, selectedDate: self.$selectedDate, pickerComponents: self.pickerComponents, dateStyle: self.dateStyle, timeStyle: self.timeStyle, noDateSelectedString: self.noDateSelectedString, pickerVisible: self.$pickerVisible)).typeErased
                 .transformEnvironment(\.dateTimePickerStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -128,7 +139,7 @@ private extension DateTimePicker {
     }
 
     func defaultStyle() -> some View {
-        DateTimePicker(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), valueLabel: .init(self.valueLabel), controlState: self.controlState, errorMessage: self.errorMessage, selectedDate: self.$selectedDate, pickerComponents: self.pickerComponents, dateStyle: self.dateStyle, timeStyle: self.timeStyle, noDateSelectedString: self.noDateSelectedString))
+        DateTimePicker(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), valueLabel: .init(self.valueLabel), controlState: self.controlState, errorMessage: self.errorMessage, range: self.range, selectedDate: self.$selectedDate, pickerComponents: self.pickerComponents, dateStyle: self.dateStyle, timeStyle: self.timeStyle, noDateSelectedString: self.noDateSelectedString, pickerVisible: self.$pickerVisible))
             .shouldApplyDefaultStyle(false)
             .dateTimePickerStyle(DateTimePickerFioriStyle.ContentFioriStyle())
             .typeErased

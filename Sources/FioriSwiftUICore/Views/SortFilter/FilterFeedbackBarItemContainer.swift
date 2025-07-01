@@ -78,6 +78,11 @@ extension FilterFeedbackBarItemContainer: View {
                                     .accessibilityElement()
                                     .accessibilityLabel(self._items[r][c].durationPicker.label)
                                     .accessibilityIdentifier(self._items[r][c].durationPicker.name)
+                            case .orderPicker:
+                                OrderPickerMenuItem(item: Binding<SortFilterItem.OrderPickerItem>(get: { self._items[r][c].orderPicker }, set: { self._items[r][c].orderPicker = $0 }), onUpdate: self.onUpdate)
+                                    .accessibilityElement()
+                                    .accessibilityLabel(self._items[r][c].orderPicker.label)
+                                    .accessibilityIdentifier(self._items[r][c].orderPicker.name)
                             }
                         }
                     }

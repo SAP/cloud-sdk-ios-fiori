@@ -4,26 +4,35 @@ import SwiftUI
 
 // Base Layout style
 public struct DateTimePickerBaseStyle: DateTimePickerStyle {
-    @State var pickerVisible: Bool = false
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
    
     public func makeBody(_ configuration: DateTimePickerConfiguration) -> some View {
-        VStack {
-            if self.dynamicTypeSize >= .accessibility3 {
-                self.configureMainStack(configuration, isVertical: true)
-            } else {
-                ViewThatFits(in: .horizontal) {
-                    self.configureMainStack(configuration, isVertical: false)
+        VStack(spacing: 0) {
+            Group {
+                if self.dynamicTypeSize >= .accessibility3 {
                     self.configureMainStack(configuration, isVertical: true)
+                } else {
+                    ViewThatFits(in: .horizontal) {
+                        self.configureMainStack(configuration, isVertical: false)
+                        self.configureMainStack(configuration, isVertical: true)
+                    }
                 }
             }
-            if self.pickerVisible {
-                Divider()
-                    .frame(height: 0.33)
-                    .foregroundStyle(Color.preferredColor(.separatorOpaque))
-                self.showPicker(configuration)
+            .animation(nil, value: configuration.pickerVisible)
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+            .padding(.top, 8)
+            
+            if configuration.pickerVisible {
+                LazyVStack {
+                    Divider()
+                        .frame(height: 0.33)
+                        .foregroundStyle(Color.preferredColor(.separatorOpaque))
+                    self.showPicker(configuration)
+                }
+                .transition(.opacity.combined(with: .scale(scale: 1.0, anchor: .top)))
             }
         }
+        .animation(.easeInOut(duration: 0.3), value: configuration.pickerVisible)
     }
     
     func configureMainStack(_ configuration: DateTimePickerConfiguration, isVertical: Bool) -> some View {
@@ -47,7 +56,7 @@ public struct DateTimePickerBaseStyle: DateTimePickerStyle {
                 if configuration.selectedDate == Date(timeIntervalSince1970: 0.0) {
                     configuration.selectedDate = Date()
                 }
-                self.pickerVisible.toggle()
+                configuration.pickerVisible.toggle()
             })
         }
     }
@@ -70,7 +79,7 @@ public struct DateTimePickerBaseStyle: DateTimePickerStyle {
     func getFontColor(_ configuration: DateTimePickerConfiguration) -> Color {
         if configuration.controlState == .disabled {
             return .preferredColor(.separator)
-        } else if self.pickerVisible {
+        } else if configuration.pickerVisible {
             return .preferredColor(.tintColor)
         } else {
             return .preferredColor(.primaryLabel)
@@ -78,11 +87,19 @@ public struct DateTimePickerBaseStyle: DateTimePickerStyle {
     }
     
     func showPicker(_ configuration: DateTimePickerConfiguration) -> some View {
-        DatePicker("", selection: configuration.$selectedDate, displayedComponents: configuration.pickerComponents)
-            .datePickerStyle(.graphical)
-            .setOnChange(of: configuration.selectedDate) {
-                _ = self.getValueLabel(configuration)
-            }
+        if let range = configuration.range {
+            DatePicker("", selection: configuration.$selectedDate, in: range, displayedComponents: configuration.pickerComponents)
+                .datePickerStyle(.graphical)
+                .setOnChange(of: configuration.selectedDate) {
+                    _ = self.getValueLabel(configuration)
+                }
+        } else {
+            DatePicker("", selection: configuration.$selectedDate, displayedComponents: configuration.pickerComponents)
+                .datePickerStyle(.graphical)
+                .setOnChange(of: configuration.selectedDate) {
+                    _ = self.getValueLabel(configuration)
+                }
+        }
     }
 }
 

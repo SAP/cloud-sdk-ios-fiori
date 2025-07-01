@@ -81,7 +81,7 @@ struct CancellableResettableDialogNavigationForm<Title: View, CancelAction: View
         let isNotIphone = UIDevice.current.userInterfaceIdiom != .phone
         NavigationStack {
             ZStack {
-                Color.preferredColor(.chromeSecondary)
+                Color.preferredColor(.secondaryGroupedBackground)
                     .ignoresSafeArea()
                 VStack(spacing: 0) {
                     self.components
@@ -111,7 +111,7 @@ struct CancellableResettableDialogNavigationForm<Title: View, CancelAction: View
             }
         }
         #if !os(visionOS)
-        .listRowBackground(Color.preferredColor(.chromeSecondary))
+        .listRowBackground(Color.preferredColor(.secondaryGroupedBackground))
         #else
         .listRowBackground(Color.clear)
         #endif

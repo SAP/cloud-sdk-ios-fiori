@@ -20,6 +20,7 @@ public struct SortFilterCFGItemContainer {
     @State var _keyboardHeight: CGFloat = 0.0
     @State private var onErrorMessage = ""
     @State private var sliderDescType: SliderValueChangeHandler.SliderInformationType = .fiori
+    @State var orderPickerHeight: CGFloat = 0.0
 
     /// Create a SortFilterCFGItemContainer view.
     /// - Parameters:
@@ -264,6 +265,9 @@ extension SortFilterCFGItemContainer: View {
                 .padding([.top, .bottom], 12)
         case .durationPicker:
             self.durationPicker(row: r, column: c)
+                .padding([.top, .bottom], 12)
+        case .orderPicker:
+            self.orderPicker(row: r, column: c)
                 .padding([.top, .bottom], 12)
         }
     }
@@ -696,9 +700,39 @@ extension SortFilterCFGItemContainer: View {
             }
             
             DurationPickerViewWrapper(selection: self.$_items[r][c].durationPicker.workingValue, maximumMinutes: self._items[r][c].durationPicker.maximumMinutes, minimumMinutes: self._items[r][c].durationPicker.minimumMinutes, minuteInterval: self._items[r][c].durationPicker.minuteInterval, measurementFormatter: self._items[r][c].durationPicker.measurementFormatter)
-                .frame(width: 232, height: 204)
-                .background(Color.preferredColor(.primaryBackground))
+                .frame(height: 204)
                 .foregroundColor(Color.preferredColor(.primaryLabel))
+        }
+    }
+    
+    private func orderPicker(row r: Int, column c: Int) -> some View {
+        VStack {
+            HStack {
+                Text(self._items[r][c].orderPicker.name)
+                    .font(.fiori(forTextStyle: .subheadline, weight: .bold, isItalic: false, isCondensed: false))
+                    .foregroundColor(Color.preferredColor(.primaryLabel))
+                Spacer()
+            }
+            
+            OrderPicker(
+                optionalTitle: "Information",
+                data: self.$_items[r][c].orderPicker.workingValue,
+                isAtLeastOneSelected: self._items[r][c].orderPicker.isAtLeastOneSelected,
+                onChangeHandler: { _, newModel in
+                    self._items[r][c].orderPicker.workingValue = newModel
+                },
+                controlState: self._items[r][c].orderPicker.controlState
+            )
+            .modifier(FioriIntrospectModifier<UIScrollView> { scrollView in
+                DispatchQueue.main.async {
+                    if self.orderPickerHeight != scrollView.contentSize.height {
+                        self.orderPickerHeight = scrollView.contentSize.height
+                    }
+                }
+            })
+            .frame(minHeight: self.orderPickerHeight > 0 ? self.orderPickerHeight : 88.0)
+            .background(Color.preferredColor(.primaryBackground))
+            .foregroundColor(Color.preferredColor(.primaryLabel))
         }
     }
     

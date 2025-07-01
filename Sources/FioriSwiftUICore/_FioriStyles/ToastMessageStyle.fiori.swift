@@ -21,6 +21,8 @@ public enum ToastMessagePosition: String, CaseIterable, Identifiable {
 // Base Layout style
 public struct ToastMessageBaseStyle: ToastMessageStyle {
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    @Environment(\.colorSchemeContrast) private var colorSchemeContrast
+
     @State private var size: CGSize = .zero
 
     public func makeBody(_ configuration: ToastMessageConfiguration) -> some View {
@@ -45,7 +47,8 @@ public struct ToastMessageBaseStyle: ToastMessageStyle {
         .cornerRadius(configuration.cornerRadius)
         .overlay(
             RoundedRectangle(cornerRadius: configuration.cornerRadius)
-                .stroke(configuration.borderColor, lineWidth: configuration.borderWidth)
+                .stroke(self.colorSchemeContrast == .increased ? configuration.borderColorIC : configuration.borderColor,
+                        lineWidth: self.colorSchemeContrast == .increased ? configuration.borderWidthIC : configuration.borderWidth)
         )
         .sizeReader { size in
             self.size = size
@@ -124,6 +127,8 @@ public extension View {
     ///   - backgroundColor: The background color of the view. The default value is `Color.preferredColor(.tertiaryFill)`.
     ///   - borderWidth: The width of the border surrounding the toast message. The default value is `0`.
     ///   - borderColor: The color of the border surrounding the toast message. The default value is `Color.clear`.
+    ///   - borderWidthIC: The width of the border surrounding the toast message when Increase Contrast is enabled. The default value is `1`.
+    ///   - borderColorIC: The color of the border surrounding the toast message when Increase Contrast is enabled. The default value is `Color.preferredColor(.tertiaryLabel)`.
     ///   - shadow: A shadow to render underneath the view. The default value is `FioriShadowStyle.level3`.
     /// - Returns: A new `View` with the toast message.
     func toastMessage(isPresented: Binding<Bool>,
@@ -136,6 +141,8 @@ public extension View {
                       backgroundColor: Color = Color.preferredColor(.tertiaryFill),
                       borderWidth: CGFloat = 0,
                       borderColor: Color = Color.clear,
+                      borderWidthIC: CGFloat = 1,
+                      borderColorIC: Color = Color.preferredColor(.tertiaryLabel),
                       shadow: FioriShadowStyle? = FioriShadowStyle.level3) -> some View
     {
         self.modifier(ToastMessageModifier(icon: icon(),
@@ -147,6 +154,8 @@ public extension View {
                                            backgroundColor: backgroundColor,
                                            borderWidth: borderWidth,
                                            borderColor: borderColor,
+                                           borderWidthIC: borderWidthIC,
+                                           borderColorIC: borderColorIC,
                                            shadow: shadow,
                                            isPresented: isPresented))
     }
@@ -163,6 +172,8 @@ public extension View {
     ///   - backgroundColor: The background color of the view. The default value is `Color.preferredColor(.tertiaryFill)`.
     ///   - borderWidth: The width of the border surrounding the toast message. The default value is `0`.
     ///   - borderColor: The color of the border surrounding the toast message. The default value is `Color.clear`.
+    ///   - borderWidthIC: The width of the border surrounding the toast message when Increase Contrast is enabled. The default value is `1`.
+    ///   - borderColorIC: The color of the border surrounding the toast message when Increase Contrast is enabled. The default value is `Color.preferredColor(.tertiaryLabel)`.
     ///   - shadow: A shadow to render underneath the view. The default value is `FioriShadowStyle.level3`.
     /// - Returns: A new `View` with the toast message.
     func toastMessage(isPresented: Binding<Bool>,
@@ -175,6 +186,8 @@ public extension View {
                       backgroundColor: Color = Color.preferredColor(.tertiaryFill),
                       borderWidth: CGFloat = 0,
                       borderColor: Color = Color.clear,
+                      borderWidthIC: CGFloat = 1,
+                      borderColorIC: Color = Color.preferredColor(.tertiaryLabel),
                       shadow: FioriShadowStyle? = FioriShadowStyle.level3) -> some View
     {
         self.modifier(ToastMessageModifier(icon: icon(),
@@ -186,6 +199,8 @@ public extension View {
                                            backgroundColor: backgroundColor,
                                            borderWidth: borderWidth,
                                            borderColor: borderColor,
+                                           borderWidthIC: borderWidthIC,
+                                           borderColorIC: borderColorIC,
                                            shadow: shadow,
                                            isPresented: isPresented))
     }
@@ -202,6 +217,8 @@ public extension View {
     ///   - backgroundColor: The background color of the view. The default value is `Color.preferredColor(.tertiaryFill)`.
     ///   - borderWidth: The width of the border surrounding the toast message. The default value is `0`.
     ///   - borderColor: The color of the border surrounding the toast message. The default value is `Color.clear`.
+    ///   - borderWidthIC: The width of the border surrounding the toast message when Increase Contrast is enabled. The default value is `1`.
+    ///   - borderColorIC: The color of the border surrounding the toast message when Increase Contrast is enabled. The default value is `Color.preferredColor(.tertiaryLabel)`.
     ///   - shadow: A shadow to render underneath the view. The default value is `FioriShadowStyle.level3`.
     /// - Returns: A new `View` with the toast message.
     func toastMessage(isPresented: Binding<Bool>,
@@ -214,6 +231,8 @@ public extension View {
                       backgroundColor: Color = Color.preferredColor(.tertiaryFill),
                       borderWidth: CGFloat = 0,
                       borderColor: Color = Color.clear,
+                      borderWidthIC: CGFloat = 1,
+                      borderColorIC: Color = Color.preferredColor(.tertiaryLabel),
                       shadow: FioriShadowStyle? = FioriShadowStyle.level3) -> some View
     {
         self.modifier(ToastMessageModifier(icon: icon(),
@@ -225,6 +244,8 @@ public extension View {
                                            backgroundColor: backgroundColor,
                                            borderWidth: borderWidth,
                                            borderColor: borderColor,
+                                           borderWidthIC: borderWidthIC,
+                                           borderColorIC: borderColorIC,
                                            shadow: shadow,
                                            isPresented: isPresented))
     }
@@ -256,6 +277,8 @@ struct ToastMessageOverlayModifier: ViewModifier {
                         backgroundColor: toast.backgroundColor,
                         borderWidth: toast.borderWidth,
                         borderColor: toast.borderColor,
+                        borderWidthIC: toast.borderWidthIC,
+                        borderColorIC: toast.borderColorIC,
                         shadow: toast.shadow)
                             .animation(.easeInOut, value: self.toast != nil)
                     }
@@ -307,6 +330,8 @@ struct ToastMessageModifier: ViewModifier {
     var backgroundColor: Color
     var borderWidth: CGFloat
     var borderColor: Color
+    var borderWidthIC: CGFloat
+    var borderColorIC: Color
     var shadow: FioriShadowStyle?
 
     @Binding var isPresented: Bool
@@ -326,6 +351,8 @@ struct ToastMessageModifier: ViewModifier {
                     backgroundColor: self.backgroundColor,
                     borderWidth: self.borderWidth,
                     borderColor: self.borderColor,
+                    borderWidthIC: self.borderWidthIC,
+                    borderColorIC: self.borderColorIC,
                     shadow: self.shadow)
                 }
             })

@@ -13,7 +13,6 @@ import SwiftUI
 
 // Base Layout style
 public struct DurationPickerBaseStyle: DurationPickerStyle {
-    @State var pickerVisible: Bool = false
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
     
     public func makeBody(_ configuration: DurationPickerConfiguration) -> some View {
@@ -26,7 +25,7 @@ public struct DurationPickerBaseStyle: DurationPickerStyle {
                     self.configureMainStack(configuration, isVertical: true)
                 }
             }
-            if self.pickerVisible {
+            if configuration.pickerVisible {
                 Divider()
                     .frame(height: 0.33)
                     .foregroundStyle(Color.preferredColor(.separatorOpaque))
@@ -53,7 +52,7 @@ public struct DurationPickerBaseStyle: DurationPickerStyle {
         .contentShape(Rectangle())
         .ifApply(configuration.controlState != .disabled && configuration.controlState != .readOnly) {
             $0.onTapGesture(perform: {
-                self.pickerVisible.toggle()
+                configuration.pickerVisible.toggle()
             })
         }
     }
@@ -69,7 +68,7 @@ public struct DurationPickerBaseStyle: DurationPickerStyle {
     func getFontColor(_ configuration: DurationPickerConfiguration) -> Color {
         if configuration.controlState == .disabled {
             return .preferredColor(.separator)
-        } else if self.pickerVisible {
+        } else if configuration.pickerVisible {
             return .preferredColor(.tintColor)
         } else {
             return .preferredColor(.primaryLabel)
@@ -78,8 +77,7 @@ public struct DurationPickerBaseStyle: DurationPickerStyle {
     
     func showPicker(_ configuration: DurationPickerConfiguration) -> some View {
         DurationPickerViewWrapper(selection: configuration.$selection, maximumMinutes: configuration.maximumMinutes, minimumMinutes: configuration.minimumMinutes, minuteInterval: configuration.minuteInterval, measurementFormatter: configuration.measurementFormatter)
-            .frame(width: 232, height: 204)
-            .background(Color.preferredColor(.primaryBackground))
+            .frame(height: 204)
             .foregroundColor(Color.preferredColor(.primaryLabel))
             .setOnChange(of: configuration.selection) {
                 _ = self.getValueLabel(configuration)

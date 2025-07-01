@@ -32,6 +32,7 @@ public struct DurationPickerConfiguration {
     public let minimumMinutes: Int
     public let minuteInterval: Int
     public let measurementFormatter: MeasurementFormatter
+    @Binding public var pickerVisible: Bool
 
     public typealias Title = ConfigurationViewWrapper
     public typealias ValueLabel = ConfigurationViewWrapper

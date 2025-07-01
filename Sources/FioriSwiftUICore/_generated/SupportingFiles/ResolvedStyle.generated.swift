@@ -19,6 +19,22 @@ extension AINoticeStyle {
     }
 }
 
+// MARK: AIUserFeedbackStyle
+
+struct ResolvedAIUserFeedbackStyle<Style: AIUserFeedbackStyle>: View {
+    let style: Style
+    let configuration: AIUserFeedbackConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension AIUserFeedbackStyle {
+    func resolve(configuration: AIUserFeedbackConfiguration) -> some View {
+        ResolvedAIUserFeedbackStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: AccessoryIconStyle
 
 struct ResolvedAccessoryIconStyle<Style: AccessoryIconStyle>: View {
@@ -563,6 +579,22 @@ extension CardMediaStyle {
     }
 }
 
+// MARK: CheckmarkStyle
+
+struct ResolvedCheckmarkStyle<Style: CheckmarkStyle>: View {
+    let style: Style
+    let configuration: CheckmarkConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension CheckmarkStyle {
+    func resolve(configuration: CheckmarkConfiguration) -> some View {
+        ResolvedCheckmarkStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: CheckoutIndicatorStyle
 
 struct ResolvedCheckoutIndicatorStyle<Style: CheckoutIndicatorStyle>: View {
@@ -832,6 +864,22 @@ struct ResolvedDisagreeActionStyle<Style: DisagreeActionStyle>: View {
 extension DisagreeActionStyle {
     func resolve(configuration: DisagreeActionConfiguration) -> some View {
         ResolvedDisagreeActionStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: DownVoteActionStyle
+
+struct ResolvedDownVoteActionStyle<Style: DownVoteActionStyle>: View {
+    let style: Style
+    let configuration: DownVoteActionConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension DownVoteActionStyle {
+    func resolve(configuration: DownVoteActionConfiguration) -> some View {
+        ResolvedDownVoteActionStyle(style: self, configuration: configuration)
     }
 }
 
@@ -1795,6 +1843,22 @@ extension OnStarImageStyle {
     }
 }
 
+// MARK: OnboardingScanViewStyle
+
+struct ResolvedOnboardingScanViewStyle<Style: OnboardingScanViewStyle>: View {
+    let style: Style
+    let configuration: OnboardingScanViewConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension OnboardingScanViewStyle {
+    func resolve(configuration: OnboardingScanViewConfiguration) -> some View {
+        ResolvedOnboardingScanViewStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: OptionalTitleStyle
 
 struct ResolvedOptionalTitleStyle<Style: OptionalTitleStyle>: View {
@@ -1824,6 +1888,22 @@ struct ResolvedOptionsStyle<Style: OptionsStyle>: View {
 extension OptionsStyle {
     func resolve(configuration: OptionsConfiguration) -> some View {
         ResolvedOptionsStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: OrderPickerStyle
+
+struct ResolvedOrderPickerStyle<Style: OrderPickerStyle>: View {
+    let style: Style
+    let configuration: OrderPickerConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension OrderPickerStyle {
+    func resolve(configuration: OrderPickerConfiguration) -> some View {
+        ResolvedOrderPickerStyle(style: self, configuration: configuration)
     }
 }
 
@@ -2355,6 +2435,22 @@ extension SingleStepStyle {
     }
 }
 
+// MARK: SortCriterionStyle
+
+struct ResolvedSortCriterionStyle<Style: SortCriterionStyle>: View {
+    let style: Style
+    let configuration: SortCriterionConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension SortCriterionStyle {
+    func resolve(configuration: SortCriterionConfiguration) -> some View {
+        ResolvedSortCriterionStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: SortFilterViewStyle
 
 struct ResolvedSortFilterViewStyle<Style: SortFilterViewStyle>: View {
@@ -2464,6 +2560,22 @@ struct ResolvedSubAttributeStyle<Style: SubAttributeStyle>: View {
 extension SubAttributeStyle {
     func resolve(configuration: SubAttributeConfiguration) -> some View {
         ResolvedSubAttributeStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: SubmitActionStyle
+
+struct ResolvedSubmitActionStyle<Style: SubmitActionStyle>: View {
+    let style: Style
+    let configuration: SubmitActionConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension SubmitActionStyle {
+    func resolve(configuration: SubmitActionConfiguration) -> some View {
+        ResolvedSubmitActionStyle(style: self, configuration: configuration)
     }
 }
 
@@ -2880,6 +2992,22 @@ struct ResolvedTrendImageStyle<Style: TrendImageStyle>: View {
 extension TrendImageStyle {
     func resolve(configuration: TrendImageConfiguration) -> some View {
         ResolvedTrendImageStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: UpVoteActionStyle
+
+struct ResolvedUpVoteActionStyle<Style: UpVoteActionStyle>: View {
+    let style: Style
+    let configuration: UpVoteActionConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension UpVoteActionStyle {
+    func resolve(configuration: UpVoteActionConfiguration) -> some View {
+        ResolvedUpVoteActionStyle(style: self, configuration: configuration)
     }
 }
 

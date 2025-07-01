@@ -43,13 +43,12 @@ public struct ObjectItemBaseStyle: ObjectItemStyle {
         }
         
         var isCenterAligned: Bool {
-            configuration.subtitle.isEmpty && configuration.footnote.isEmpty && configuration.tags.isEmpty && (configuration.description.isEmpty || !isCompact)
+            configuration.subtitle.isEmpty && configuration.footnote.isEmpty && configuration.tags.isEmpty && (configuration.description.isEmpty || !isCompact || !configuration.showsDescriptionInCompact)
         }
         
         let context = Context(configuration: configuration, shouldShowAvatar: shouldShowAvatar, avatarView: avatarView)
         
-        // FIXME: check if VStack causes any problem.
-        return VStack {
+        return Group {
             if !configuration.action.isEmpty {
                 // When only the headline label is used, everything in the cell is center aligned. Only 1 status can be used.
                 if isCenterAligned {
@@ -78,6 +77,9 @@ public struct ObjectItemBaseStyle: ObjectItemStyle {
                 }
             }
         }
+        .alignmentGuide(.listRowSeparatorLeading) { dimensions in
+            dimensions[.leading]
+        }
     }
 }
 
@@ -96,7 +98,6 @@ extension ObjectItemBaseStyle {
                 // only one icon is allowed to be displayed
                 context.configuration.icons
                     .environment(\.numberOfLines, 1)
-                    .offset(x: -22, y: 0)
             }
             
             HStack {
@@ -140,6 +141,7 @@ extension ObjectItemBaseStyle {
                 
                 context.configuration.action
             }
+            .modifier(ObjectItemContentLeadingPadding(isIconsEmpty: context.configuration.icons.isEmpty))
         }
     }
     
@@ -148,7 +150,6 @@ extension ObjectItemBaseStyle {
             if !context.configuration.icons.isEmpty {
                 context.configuration.icons
                     .environment(\.numberOfLines, self.numberOfLinesAllowedToShow(context))
-                    .offset(x: -22, y: 0)
             }
             
             if self.horizontalSizeClass == .some(.compact) || self.splitPercent == nil {
@@ -172,6 +173,7 @@ extension ObjectItemBaseStyle {
                     
                     context.configuration.action
                 }
+                .modifier(ObjectItemContentLeadingPadding(isIconsEmpty: context.configuration.icons.isEmpty))
             } else {
                 HStack(alignment: .center) {
                     HStack(alignment: .iconStackAlignmentGuide) {
@@ -227,6 +229,7 @@ extension ObjectItemBaseStyle {
                     
                     context.configuration.action
                 }
+                .modifier(ObjectItemContentLeadingPadding(isIconsEmpty: context.configuration.icons.isEmpty))
             }
         }
     }
@@ -237,7 +240,6 @@ extension ObjectItemBaseStyle {
                 // only one icon is allowed to be displayed
                 context.configuration.icons
                     .environment(\.numberOfLines, 1)
-                    .offset(x: -22, y: 0)
             }
             
             HStack {
@@ -252,6 +254,7 @@ extension ObjectItemBaseStyle {
                 
                 context.configuration.status
             }
+            .modifier(ObjectItemContentLeadingPadding(isIconsEmpty: context.configuration.icons.isEmpty))
         }
     }
     
@@ -260,7 +263,6 @@ extension ObjectItemBaseStyle {
             if !context.configuration.icons.isEmpty {
                 context.configuration.icons
                     .environment(\.numberOfLines, self.numberOfLinesAllowedToShow(context))
-                    .offset(x: -22, y: 0)
             }
             
             HStack(alignment: .top) {
@@ -301,6 +303,7 @@ extension ObjectItemBaseStyle {
                     }
                 }
             }
+            .modifier(ObjectItemContentLeadingPadding(isIconsEmpty: context.configuration.icons.isEmpty))
         }
     }
     
@@ -309,7 +312,6 @@ extension ObjectItemBaseStyle {
             if !context.configuration.icons.isEmpty {
                 context.configuration.icons
                     .environment(\.numberOfLines, self.numberOfLinesAllowedToShow(context))
-                    .offset(x: -22, y: 0)
             }
             
             HStack(alignment: .top) {
@@ -318,12 +320,15 @@ extension ObjectItemBaseStyle {
                     Spacer().frame(width: 12)
                 }
                 
-                VStack(alignment: .leading, spacing: 3) {
-                    context.configuration.title.lineLimit(2)
-                    context.configuration.subtitle
-                    context.configuration.footnote
-                    context.configuration.tags
-                    self.footnoteIconsView(context)
+                VStack(alignment: .leading, spacing: 8) {
+                    VStack(alignment: .leading, spacing: 3) {
+                        context.configuration.title.lineLimit(2)
+                        context.configuration.subtitle
+                        context.configuration.footnote
+                        context.configuration.tags
+                        self.footnoteIconsView(context)
+                    }
+                    
                     if context.configuration.showsDescriptionInCompact {
                         context.configuration.description
                     }
@@ -337,6 +342,7 @@ extension ObjectItemBaseStyle {
                     context.configuration.objectItemButton
                 }
             }
+            .modifier(ObjectItemContentLeadingPadding(isIconsEmpty: context.configuration.icons.isEmpty))
         }
     }
     
@@ -346,7 +352,6 @@ extension ObjectItemBaseStyle {
                 // only one icon is allowed to be displayed
                 context.configuration.icons
                     .environment(\.numberOfLines, 1)
-                    .offset(x: -22, y: 0)
             }
             
             HStack(alignment: .center, spacing: 0) {
@@ -377,6 +382,7 @@ extension ObjectItemBaseStyle {
                 }
                 .frame(width: self.doesShowDescriptionOrStatus(context) ? self.mainViewSize.width * (1 - self.splitPercent!) : 0)
             }
+            .modifier(ObjectItemContentLeadingPadding(isIconsEmpty: context.configuration.icons.isEmpty))
             .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
             .background(GeometrySizeView(size: self.$mainViewSize))
         }
@@ -387,7 +393,6 @@ extension ObjectItemBaseStyle {
             if !context.configuration.icons.isEmpty {
                 context.configuration.icons
                     .environment(\.numberOfLines, self.numberOfLinesAllowedToShow(context))
-                    .offset(x: -22, y: 0)
             }
             
             HStack(alignment: .iconStackAlignmentGuide) {
@@ -441,6 +446,7 @@ extension ObjectItemBaseStyle {
                 }
                 .frame(width: self.doesShowDescriptionOrStatus(context) ? self.mainViewSize.width * (1 - self.splitPercent!) : 0)
             }
+            .modifier(ObjectItemContentLeadingPadding(isIconsEmpty: context.configuration.icons.isEmpty))
             .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
             .background(GeometrySizeView(size: self.$mainViewSize))
             .overlayPreferenceValue(MyViewPreferenceKey.self) { preferences in
@@ -535,6 +541,14 @@ extension ObjectItemBaseStyle {
     }
 }
 
+private struct ObjectItemContentLeadingPadding: ViewModifier {
+    var isIconsEmpty: Bool
+    public func body(content: Content) -> some View {
+        content
+            .padding(.leading, self.isIconsEmpty ? 0 : 22)
+    }
+}
+
 // Default fiori styles
 extension ObjectItemFioriStyle {
     struct ContentFioriStyle: ObjectItemStyle {
@@ -552,7 +566,6 @@ extension ObjectItemFioriStyle {
         func makeBody(_ configuration: TitleConfiguration) -> some View {
             Title(configuration)
                 .font(.fiori(forTextStyle: .headline, weight: .semibold))
-                .foregroundStyle(Color.preferredColor(.baseBlack))
         }
     }
 

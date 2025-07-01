@@ -101,6 +101,7 @@ public struct FilterFormViewBaseStyle: FilterFormViewStyle {
         FilterFormViewLayout(buttonSize: configuration.buttonSize, dynamicTypeSize: dynamicTypeSize, horizontalSizeClass: horizontalSizeClass, filterFormOptionsItemSpacing: self.filterFormOptionsItemSpacing, filterFormOptionsLineSpacing: self.filterFormOptionsLineSpacing) {
             ForEach(configuration.options.indices, id: \.self) { index in
                 let isSelected = configuration.value.contains(index)
+                let option = configuration.options[index]
                 
                 ZStack {
                     // This stack is used to calculate the container's size with checkmark image
@@ -108,7 +109,7 @@ public struct FilterFormViewBaseStyle: FilterFormViewStyle {
                         if !configuration.checkmarkImage.isEmpty {
                             configuration.checkmarkImage
                         }
-                        Text(configuration.options[index])
+                        Text(option)
                             .lineLimit(1)
                     })
                     .opacity(0)
@@ -117,7 +118,7 @@ public struct FilterFormViewBaseStyle: FilterFormViewStyle {
                         if isSelected, !configuration.checkmarkImage.isEmpty {
                             configuration.checkmarkImage
                         }
-                        Text(configuration.options[index])
+                        Text(option)
                             .lineLimit(1)
                     })
                 }
@@ -133,9 +134,14 @@ public struct FilterFormViewBaseStyle: FilterFormViewStyle {
                         .stroke(self.optionsAttributesColor(isSelected, isEnabled: configuration.isEnabled, key: .strokeColor), lineWidth: self.optionsStrokeWidth(isSelected, isEnabled: configuration.isEnabled))
                 }
                 .frame(minHeight: self.filterFormOptionMinTouchHeight)
+                .contentShape(Rectangle())
                 .onTapGesture {
                     self.handleItemClick(configuration, index: index)
                 }
+                .accessibilityElement(children: .ignore)
+                .accessibilityLabel(
+                    Text("\(option), \((isSelected ? "selected" : "not selected").localizedFioriString())")
+                )
             }
         }
         .sizeReader { size in

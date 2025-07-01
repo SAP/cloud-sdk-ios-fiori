@@ -57,16 +57,16 @@ struct TimelinePreviewExample: View {
     
     var body: some View {
         List {
-            Text("TimelinePreview: Future")
-            TimelinePreview(optionalTitle: { Text("Timeline") }, items: .constant(self.items0.map { $0 as any TimelinePreviewItemModel }))
-            Text("TimelinePreview: Present")
-            TimelinePreview(optionalTitle: { Text("Timeline") }, items: .constant(self.items1.map { $0 as any TimelinePreviewItemModel }))
-            Text("TimelinePreview: Past")
-            TimelinePreview(optionalTitle: { Text("Timeline") }, items: .constant(self.items2.map { $0 as any TimelinePreviewItemModel }))
-            Text("TimelinePreview: No Header")
-            TimelinePreview(items: .constant(self.items2.map { $0 as any TimelinePreviewItemModel }))
-            Text("TimelinePreview: End")
-            TimelinePreview(optionalTitle: { Text("Timeline") }, items: .constant(self.items3.map { $0 as any TimelinePreviewItemModel }))
+            Text("TimelinePreview: Future").listRowSeparator(.hidden)
+            TimelinePreview(optionalTitle: { Text("Timeline") }, items: .constant(self.items0.map { $0 as any TimelinePreviewItemModel })).listRowSeparator(.hidden)
+            Text("TimelinePreview: Present").listRowSeparator(.hidden)
+            TimelinePreview(optionalTitle: { Text("Timeline") }, items: .constant(self.items1.map { $0 as any TimelinePreviewItemModel })).listRowSeparator(.hidden)
+            Text("TimelinePreview: Past").listRowSeparator(.hidden)
+            TimelinePreview(optionalTitle: { Text("Timeline") }, items: .constant(self.items2.map { $0 as any TimelinePreviewItemModel })).listRowSeparator(.hidden)
+            Text("TimelinePreview: No Header").listRowSeparator(.hidden)
+            TimelinePreview(items: .constant(self.items2.map { $0 as any TimelinePreviewItemModel })).listRowSeparator(.hidden)
+            Text("TimelinePreview: End").listRowSeparator(.hidden)
+            TimelinePreview(optionalTitle: { Text("Timeline") }, items: .constant(self.items3.map { $0 as any TimelinePreviewItemModel })).listRowSeparator(.hidden)
         }
         .listStyle(.plain)
     }

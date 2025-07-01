@@ -24,6 +24,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: AIUserFeedbackStyle
+
+struct AIUserFeedbackStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any AIUserFeedbackStyle] = []
+}
+
+extension EnvironmentValues {
+    var aIUserFeedbackStyle: any AIUserFeedbackStyle {
+        self.aIUserFeedbackStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var aIUserFeedbackStyleStack: [any AIUserFeedbackStyle] {
+        get {
+            self[AIUserFeedbackStyleStackKey.self]
+        }
+        set {
+            self[AIUserFeedbackStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: AccessoryIconStyle
 
 struct AccessoryIconStyleStackKey: EnvironmentKey {
@@ -738,6 +759,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: CheckmarkStyle
+
+struct CheckmarkStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any CheckmarkStyle] = []
+}
+
+extension EnvironmentValues {
+    var checkmarkStyle: any CheckmarkStyle {
+        self.checkmarkStyleStack.last ?? .base
+    }
+
+    var checkmarkStyleStack: [any CheckmarkStyle] {
+        get {
+            self[CheckmarkStyleStackKey.self]
+        }
+        set {
+            self[CheckmarkStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: CheckoutIndicatorStyle
 
 struct CheckoutIndicatorStyleStackKey: EnvironmentKey {
@@ -1091,6 +1133,27 @@ extension EnvironmentValues {
         }
         set {
             self[DisagreeActionStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: DownVoteActionStyle
+
+struct DownVoteActionStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any DownVoteActionStyle] = []
+}
+
+extension EnvironmentValues {
+    var downVoteActionStyle: any DownVoteActionStyle {
+        self.downVoteActionStyleStack.last ?? .base
+    }
+
+    var downVoteActionStyleStack: [any DownVoteActionStyle] {
+        get {
+            self[DownVoteActionStyleStackKey.self]
+        }
+        set {
+            self[DownVoteActionStyleStackKey.self] = newValue
         }
     }
 }
@@ -2355,6 +2418,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: OnboardingScanViewStyle
+
+struct OnboardingScanViewStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any OnboardingScanViewStyle] = []
+}
+
+extension EnvironmentValues {
+    var onboardingScanViewStyle: any OnboardingScanViewStyle {
+        self.onboardingScanViewStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var onboardingScanViewStyleStack: [any OnboardingScanViewStyle] {
+        get {
+            self[OnboardingScanViewStyleStackKey.self]
+        }
+        set {
+            self[OnboardingScanViewStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: OptionalTitleStyle
 
 struct OptionalTitleStyleStackKey: EnvironmentKey {
@@ -2393,6 +2477,27 @@ extension EnvironmentValues {
         }
         set {
             self[OptionsStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: OrderPickerStyle
+
+struct OrderPickerStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any OrderPickerStyle] = []
+}
+
+extension EnvironmentValues {
+    var orderPickerStyle: any OrderPickerStyle {
+        self.orderPickerStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var orderPickerStyleStack: [any OrderPickerStyle] {
+        get {
+            self[OrderPickerStyleStackKey.self]
+        }
+        set {
+            self[OrderPickerStyleStackKey.self] = newValue
         }
     }
 }
@@ -3090,6 +3195,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: SortCriterionStyle
+
+struct SortCriterionStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any SortCriterionStyle] = []
+}
+
+extension EnvironmentValues {
+    var sortCriterionStyle: any SortCriterionStyle {
+        self.sortCriterionStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var sortCriterionStyleStack: [any SortCriterionStyle] {
+        get {
+            self[SortCriterionStyleStackKey.self]
+        }
+        set {
+            self[SortCriterionStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: SortFilterViewStyle
 
 struct SortFilterViewStyleStackKey: EnvironmentKey {
@@ -3233,6 +3359,27 @@ extension EnvironmentValues {
         }
         set {
             self[SubAttributeStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: SubmitActionStyle
+
+struct SubmitActionStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any SubmitActionStyle] = []
+}
+
+extension EnvironmentValues {
+    var submitActionStyle: any SubmitActionStyle {
+        self.submitActionStyleStack.last ?? .base
+    }
+
+    var submitActionStyleStack: [any SubmitActionStyle] {
+        get {
+            self[SubmitActionStyleStackKey.self]
+        }
+        set {
+            self[SubmitActionStyleStackKey.self] = newValue
         }
     }
 }
@@ -3779,6 +3926,27 @@ extension EnvironmentValues {
         }
         set {
             self[TrendImageStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: UpVoteActionStyle
+
+struct UpVoteActionStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any UpVoteActionStyle] = []
+}
+
+extension EnvironmentValues {
+    var upVoteActionStyle: any UpVoteActionStyle {
+        self.upVoteActionStyleStack.last ?? .base
+    }
+
+    var upVoteActionStyleStack: [any UpVoteActionStyle] {
+        get {
+            self[UpVoteActionStyleStackKey.self]
+        }
+        set {
+            self[UpVoteActionStyleStackKey.self] = newValue
         }
     }
 }
