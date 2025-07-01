@@ -5,21 +5,37 @@ import SwiftUI
 /// The base layout style for `TextFieldFormView`.
 public struct TextFieldFormViewBaseStyle: TextFieldFormViewStyle {
     @Environment(\.isLoading) var isLoading
+    @Environment(\.isAILoading) var isAILoading
     public func makeBody(_ configuration: TextFieldFormViewConfiguration) -> some View {
-        SkeletonLoadingContainer(isLoading: self.isLoading) {
-            VStack(alignment: .leading, spacing: 4) {
-                self.getTitle(configuration)
-                self.getTextInput(configuration)
-            }
-            .padding(.top, -1)
-            .padding(.bottom, self.isInfoViewNeeded(configuration) ? 0 : 1)
+        if self.isLoading, self.isAILoading {
+            return AnyView(
+                VStack(alignment: .leading, spacing: 4) {
+                    self.getTitle(configuration)
+                    SkeletonLoadingContainer(isLoading: self.isLoading, isTintColor: self.isAILoading) {
+                        self.getTextInput(configuration)
+                        //                        .skeletonLoading(isTintColor: true)
+                    }
+                }
+                .padding(.top, -1)
+                .padding(.bottom, self.isInfoViewNeeded(configuration) ? 0 : 1)
+            )
+        } else {
+            return AnyView(
+                SkeletonLoadingContainer(isLoading: self.isLoading, isTintColor: self.isAILoading) {
+                    VStack(alignment: .leading, spacing: 4) {
+                        self.getTitle(configuration)
+                        self.getTextInput(configuration)
+                    }
+                    .padding(.top, -1)
+                    .padding(.bottom, self.isInfoViewNeeded(configuration) ? 0 : 1)
+                }
+            )
         }
     }
     
     func getTitle(_ configuration: TextFieldFormViewConfiguration) -> some View {
-        if self.isLoading {
+        if self.isLoading, !self.isAILoading {
             return Text("TextFieldFormView title")
-                .foregroundStyle(Color.preferredColor(.separator))
                 .typeErased
         } else {
             return configuration.title.typeErased
@@ -27,7 +43,7 @@ public struct TextFieldFormViewBaseStyle: TextFieldFormViewStyle {
     }
     
     func getTextInput(_ configuration: TextFieldFormViewConfiguration) -> some View {
-        if self.isLoading {
+        if self.isLoading, !self.isAILoading {
             return TitleFormView(.init(text: .constant("TextFieldFormView text input value in multiple lines"), isSecureEnabled: false, placeholder: .init(configuration.placeholder), controlState: .normal, errorMessage: nil, maxTextLength: 20, hintText: nil, hidesReadOnlyHint: false, isCharCountEnabled: false, allowsBeyondLimit: false, charCountReachLimitMessage: "", charCountBeyondLimitMsg: ""))
                 .typeErased
         } else {
@@ -49,18 +65,19 @@ extension TextFieldFormViewFioriStyle {
         @State private var formattedText: String = ""
         @State private var rawInput: String = ""
         @Environment(\.isLoading) var isLoading
-
+        @Environment(\.isAILoading) var isAILoading
+        
         func makeBody(_ configuration: TextFieldFormViewConfiguration) -> some View {
             TextFieldFormView(configuration)
                 .titleStyle { titleConf in
                     Title(titleConf)
-                        .foregroundStyle(self.isLoading ? .preferredColor(.separator) : self.getTitleColor(configuration))
+                        .foregroundStyle((self.isLoading && !self.isAILoading) ? .preferredColor(.separator) : self.getTitleColor(configuration))
                         .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
                 }
                 .placeholderTextFieldStyle { config in
                     HStack {
                         PlaceholderTextField(config)
-                            .foregroundStyle(self.isLoading ? .preferredColor(.separator) : self.getTextColor(configuration))
+                            .foregroundStyle((self.isLoading && !self.isAILoading) ? .preferredColor(.separator) : self.getTextColor(configuration))
                             .font(.fiori(forTextStyle: .body))
                             .accentColor(self.getCursorColor(configuration))
                             .focused(self.$isFocused)

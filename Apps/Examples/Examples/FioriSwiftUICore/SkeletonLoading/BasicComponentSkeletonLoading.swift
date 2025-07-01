@@ -2,7 +2,8 @@ import FioriSwiftUICore
 import SwiftUI
 
 struct BasicComponentSkeletonLoading: View {
-    @State var text: String = "TextView Text Loaded"
+    @State var text: String = "TextView Text content for one line."
+    @State var text2: String = ""
     @State var isLoading: Bool = true
     @State var valueText1: String = "NoteFormView text content in two lines. This is the first line.\nThis is the second line."
     @State var valueText2: String = ""
@@ -20,17 +21,28 @@ struct BasicComponentSkeletonLoading: View {
             
             Text("TextFieldFormView")
                 .italic()
-            TextFieldFormView(title: self.isLoading ? "" : "TextFieldFormView title", text: self.isLoading ? self.$text : .constant("TextFieldFormView Text for one line"), placeholder: "", controlState: .normal)
+            TextFieldFormView(title: self.isLoading ? "" : "TextFieldFormView title", text: self.isLoading ? self.$text2 : .constant("TextFieldFormView Text for one line"), placeholder: "TextFieldFormView Text plceholder for one line", controlState: .normal)
                 .environment(\.isLoading, self.isLoading)
+            
+            Text("TextFieldFormView AI loading")
+                .italic()
+            TextFieldFormView(title: "TextFieldFormView title", text: self.isLoading ? self.$text2 : .constant("TextFieldFormView Text for one line"), placeholder: "TextFieldFormView Text plceholder for one line", controlState: .normal)
+                .environment(\.isLoading, self.isLoading)
+                .environment(\.isAILoading, self.isLoading)
             
             Text("NoteFormView")
                 .italic()
             NoteFormView(text: self.$valueText2, placeholder: "Skeleton loading text plceholder", controlState: .normal)
                 .environment(\.isLoading, self.isLoading)
+            NoteFormView(text: self.$valueText1, placeholder: "", controlState: .normal)
+                .environment(\.isLoading, self.isLoading)
             
             Text("NoteFormView AI loading")
                 .italic()
             NoteFormView(text: self.$valueText2, placeholder: "Skeleton loading text plceholder", controlState: .normal)
+                .environment(\.isLoading, self.isLoading)
+                .environment(\.isAILoading, self.isLoading)
+            NoteFormView(text: self.$valueText2, placeholder: "Skeleton loading text plceholder for multiple lines. Skeleton loading text plceholder for multiple lines. Skeleton loading text plceholder for multiple lines. Skeleton loading text plceholder for multiple lines. ", controlState: .normal)
                 .environment(\.isLoading, self.isLoading)
                 .environment(\.isAILoading, self.isLoading)
             NoteFormView(text: self.$valueText1, placeholder: "", controlState: .normal)

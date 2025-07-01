@@ -1,5 +1,129 @@
 import SwiftUI
 
+/**
+ # Skeleton Loading API
+
+ Skeleton loading utilities for SwiftUI views, providing shimmer and placeholder effects to indicate loading states.
+
+ ## ShimmerViewModifier
+
+ A `ViewModifier` that applies a shimmer animation and placeholder effect to any SwiftUI view.
+
+ **Parameters:**
+ - `isTintColor`: `Bool` — Use tint color for shimmer effect. Default: `false`.
+
+ ## SkeletonImageModifier
+
+ A `ViewModifier` that applies a skeleton loading style to an image when loading.
+
+ **Parameters:**
+ - `isLoading`: `Bool` — Whether the image is loading.
+ - `skeletonImage`: `Image` — Image to display as skeleton. Default: system photo icon.
+ - `frame`: `CGSize?` — Optional frame for the image.
+
+ ## View Extensions
+
+ ### skeletonLoading(isTintColor:)
+
+ Applies a shimmer loading effect to the view.
+
+ ```swift
+ func skeletonLoading(isTintColor: Bool = false) -> some View
+ ```
+ 
+ ### loadingStyle()
+
+ Applies a default skeleton loading style (placeholder and shimmer) to the view.
+
+ ```swift
+ func loadingStyle() -> some View
+ ```
+
+ ### imageSkeletonLoading(isLoading:skeletonImage:frame:)
+
+ Applies a skeleton loading style to an image when `isLoading` is true.
+
+ ```swift
+ func imageSkeletonLoading(
+     isLoading: Bool,
+     skeletonImage: Image = Image(systemName: "photo"),
+     frame: CGSize? = nil
+ ) -> some View
+ ```
+
+ ## SkeletonLoadingContainer
+
+ A container view that applies a skeleton loading style to its content when `isLoading` is true.
+
+ ```swift
+ public struct SkeletonLoadingContainer<Content: View>: View
+ ```
+
+ **Parameters:**
+ - `isLoading`: `Bool` — Whether to show the skeleton loading effect.
+ - `isTintColor`: `Bool` — Use tint color for shimmer effect.
+ - `content`: Closure returning the content view.
+
+ ## Environment Keys
+
+ ### isLoading
+
+ A custom environment value indicating whether content is currently loading.
+
+ ```swift
+ .environment(\.isLoading, true)
+ ```
+
+ ### isAILoading
+
+ A custom environment value indicating whether AI content is currently loading (for tint shimmer).
+
+ ```swift
+ .environment(\.isAILoading, true)
+ ```
+
+ ## Examples
+
+ ### Basic Skeleton Loading on Text
+
+ ```swift
+
+ Text("Loading...").loadingStyle()
+ ```
+
+ ### Skeleton Loading on Image
+
+ ```swift
+ Image(systemName: "person.crop.circle")
+     .imageSkeletonLoading(isLoading: true, frame: CGSize(width: 60, height: 60))
+ ```
+
+ ### Using SkeletonLoadingContainer
+
+ ```swift
+ SkeletonLoadingContainer(isLoading: true) {
+     VStack {
+         Text("Title")
+         Text("Subtitle")
+     }
+ }
+ ```
+
+ ### Using Environment Keys
+
+ ```swift
+ struct ContentView: View {
+     @Environment(\.isLoading) var isLoading
+     var body: some View {
+         Text(isLoading ? "Loading..." : "Loaded")
+            .ifApply(self.isLoading) {
+                $0.skeletonLoading()
+            }
+     }
+ }
+ ```
+ */
+                        
 struct ShimmerViewModifier: ViewModifier {
     @State private var phase: CGFloat = -1
     @State var isTintColor: Bool = false
@@ -29,6 +153,7 @@ struct ShimmerViewModifier: ViewModifier {
                     self.phase = 1
                 }
             }
+            .allowsHitTesting(false)
     }
         
     func getLinearGradient(_ isTintColor: Bool) -> LinearGradient {

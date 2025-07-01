@@ -8,16 +8,16 @@ public struct NoteFormViewBaseStyle: NoteFormViewStyle {
     @Environment(\.isLoading) var isLoading
     @Environment(\.isAILoading) var isAILoading
     public func makeBody(_ configuration: NoteFormViewConfiguration) -> some View {
-        SkeletonLoadingContainer(isLoading: self.isLoading, isTintColor: self.isAILoading) {
-            VStack(alignment: .leading) {
+        VStack(alignment: .leading) {
+            SkeletonLoadingContainer(isLoading: self.isLoading, isTintColor: self.isAILoading) {
                 self.getPlaceholderTextEditor(configuration)
                     .focused(self.$isFocused)
                     .disabled(self.getDisabled(configuration))
             }
-            .textInputInfoView(isPresented: Binding(get: { self.isInfoViewNeeded(configuration) }, set: { _ in }), description: self.getInfoString(configuration), counter: self.getCounterString(configuration))
-            .accessibilityElement(children: .combine)
-            .accessibilityHint(configuration.controlState == .normal ? (self.isFocused ? NSLocalizedString("Text field, is editing", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Text field, is editing") : NSLocalizedString("Text field, Double tap to edit", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Text field, Double tap to edit")) : "")
         }
+        .textInputInfoView(isPresented: Binding(get: { self.isInfoViewNeeded(configuration) }, set: { _ in }), description: self.getInfoString(configuration), counter: self.getCounterString(configuration))
+        .accessibilityElement(children: .combine)
+        .accessibilityHint(configuration.controlState == .normal ? (self.isFocused ? NSLocalizedString("Text field, is editing", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Text field, is editing") : NSLocalizedString("Text field, Double tap to edit", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Text field, Double tap to edit")) : "")
     }
 
     func getPlaceholderTextEditor(_ configuration: NoteFormViewConfiguration) -> some View {
