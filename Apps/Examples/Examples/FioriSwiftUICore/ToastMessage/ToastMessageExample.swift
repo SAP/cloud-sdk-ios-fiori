@@ -2,6 +2,8 @@ import FioriSwiftUICore
 import SwiftUI
 
 struct ToastMessageExample: View {
+    @State private var showSheetView = false
+
     var body: some View {
         List {
             NavigationLink("Basic Example",
@@ -10,6 +12,13 @@ struct ToastMessageExample: View {
                            destination: ToastMessagePositionExample())
             NavigationLink("Custom Style",
                            destination: ToastMessageCustomStyleExample())
+            Button("Sheet View UI Hang") {
+                self.showSheetView.toggle()
+            }
+            .sheet(isPresented: self.$showSheetView) {
+                ToastMessageSheetViewExample()
+                    .presentationDetents([.medium, .large])
+            }
         }
         .navigationTitle("Toast Message")
     }
@@ -89,6 +98,20 @@ struct ToastMessageCustomStyleExample: View {
                 .toastMessage(isPresented: .constant(true),
                               icon: {
                                   Image(systemName: "info.circle")
+                              },
+                              title: {
+                                  Text("Toast Message Title")
+                              },
+                              duration: .infinity,
+                              position: .center,
+                              borderWidthIC: 4,
+                              borderColorIC: .pink)
+                .padding(30)
+            HStack {}
+                .frame(maxWidth: 300, maxHeight: 300)
+                .toastMessage(isPresented: .constant(true),
+                              icon: {
+                                  Image(systemName: "info.circle")
                                       .foregroundStyle(.blue)
                               },
                               title: {
@@ -100,6 +123,8 @@ struct ToastMessageCustomStyleExample: View {
                               backgroundColor: .cyan,
                               borderWidth: 2,
                               borderColor: .blue,
+                              borderWidthIC: 4,
+                              borderColorIC: .pink,
                               shadow: FioriShadowStyle.smallElement)
                 .padding(30)
             HStack {}
@@ -172,5 +197,16 @@ struct ToastMessageCustomStyleExample: View {
                 .padding(30)
         }
         .navigationTitle("Toast Message")
+    }
+}
+
+struct ToastMessageSheetViewExample: View {
+    var body: some View {
+        VStack(spacing: 0) {
+            Text("Sample text")
+                .frame(width: 200, height: 200)
+                .border(Color.blue, width: 1)
+        }
+        .toastMessage(isPresented: .constant(true), icon: {}, title: "Unable to send message", duration: 6, position: .above, spacing: 0, cornerRadius: 14, backgroundColor: .preferredColor(.tertiaryFill))
     }
 }
