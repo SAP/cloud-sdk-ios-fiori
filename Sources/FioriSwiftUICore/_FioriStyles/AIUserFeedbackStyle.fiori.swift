@@ -60,6 +60,7 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
         self.mainView(configuration)
             .onAppear {
                 self.shouldShowFeedbackDetail = configuration.voteState == .downVote
+                self.isShowSubmitButton = configuration.voteState == .downVote
             }
             .onChange(of: configuration.voteState) {
                 if configuration.voteState == .downVote {
