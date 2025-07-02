@@ -394,7 +394,6 @@ public final class VisionKitScanner: NSObject, BarcodeScanner {
 
     /// Stops the `DataScannerViewController`'s scanning process and updates internal state.
     private func stopScanningInternal() {
-        self.logger.info("stopScanningInternal called. Current VC scan state: \(self.visionScannerVC?.isScanning ?? false), Our isAttemptingScanStart: \(self.isAttemptingScanStart)")
         #if canImport(VisionKit) && os(iOS) && !targetEnvironment(macCatalyst)
             self.logger.info("stopScanningInternal called. Current VC scan state: \(self.visionScannerVC?.isScanning ?? false), Our isAttemptingScanStart: \(self.isAttemptingScanStart)")
             guard let vc = visionScannerVC, vc.isScanning || isAttemptingScanStart else {
