@@ -417,7 +417,7 @@
 "Submission failed" = "Submission failed";
 
 /* XMSG: Submission failed description in AI User Feedback */
-"Your feedback was not submitted due to a connection error. Please try again." = "Your feedback was not submitted due to a connection error. Please try again.";
+"An error has occurred. Please try again later." = "An error has occurred. Please try again later.";
 
 /* XBUT: Retry action title in AI User Feedback */
 "Retry" = "Retry";
