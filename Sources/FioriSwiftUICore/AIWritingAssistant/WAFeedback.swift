@@ -28,16 +28,30 @@ struct WAFeedback: View {
             .onChange(of: self.context.showErrorInFeedbackView) {
                 self.showError = self.context.showErrorInFeedbackView
             }
-            .onChange(of: self.context.feedbackDownvoted) {
-                if self.context.feedbackDownvoted {
-                    self.dismiss()
+            .onChange(of: self.context.inProgress) {
+                if self.context.inProgress {
+                    self.context.feedbackSubmitButtonState = .inProgress
+                } else {
+                    self.updateSubmitButtonState()
+                    if !self.showError {
+                        self.dismiss()
+                    }
                 }
             }
-            .onChange(of: self.context.feedbackUpvoted) {
-                if self.context.feedbackUpvoted {
-                    self.dismiss()
-                }
+            .onChange(of: self.feedbackSelection) {
+                self.updateSubmitButtonState()
             }
+            .onAppear {
+                self.updateSubmitButtonState()
+            }
+    }
+    
+    func updateSubmitButtonState() {
+        if self.feedbackSelection.isEmpty, !self.options.isEmpty {
+            self.context.feedbackSubmitButtonState = .disabled
+        } else {
+            self.context.feedbackSubmitButtonState = .normal
+        }
     }
     
     var filterFormView: FilterFormView {

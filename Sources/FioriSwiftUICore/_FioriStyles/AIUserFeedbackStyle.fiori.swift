@@ -19,8 +19,8 @@ public enum AIUserFeedbackSubmitButtonState {
     case normal
     /// Indicates that the submission is in progress.
     case inProgress
-    /// Indicates that the submit button is in disable state.
-    case disable
+    /// Indicates that the submit button is in disabled state.
+    case disabled
 }
 
 /// AIUserFeedback vote state
@@ -131,7 +131,7 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
                                     .onSimultaneousTapGesture {
                                         self.onSubmitAction(configuration)
                                     }
-                                    .disabled(configuration.submitButtonState == .disable)
+                                    .disabled(configuration.submitButtonState == .disabled)
                             }
                         }
                         .background(GeometryReader { geometry in
