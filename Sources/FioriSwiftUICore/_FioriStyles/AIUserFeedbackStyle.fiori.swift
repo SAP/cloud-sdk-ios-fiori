@@ -14,11 +14,13 @@ public enum AIUserFeedbackDisplayMode {
 }
 
 /// AIUserFeedback submit button state
-enum AIUserFeedbackSubmitButtonState {
+public enum AIUserFeedbackSubmitButtonState {
     /// Indicates that the submit button is in normal state.
     case normal
     /// Indicates that the submission is in progress.
     case inProgress
+    /// Indicates that the submit button is in disable state.
+    case disable
 }
 
 /// AIUserFeedback vote state
@@ -36,10 +38,7 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @Environment(\.dismiss) private var dismiss
     
-    @State var submitState: AIUserFeedbackSubmitButtonState = .normal
-    @State var voteState: AIUserFeedbackVoteState = .notDetermined
-    @State var isUpVoted = false
-    @State var isDownVoted = false
+    @State var shouldShowFeedbackDetail = false
     @State var submitRequestFailed = false
     @Environment(\.isSubmitRequestFailed) var isSubmitRequestFailed
     
@@ -60,13 +59,11 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
         // Add default layout here
         self.mainView(configuration)
             .onAppear {
-                self.submitState = .normal
-                self.voteState = configuration.voteState
+                self.shouldShowFeedbackDetail = configuration.voteState == .downVote
+                self.isShowSubmitButton = configuration.voteState == .downVote
             }
-            .onChange(of: self.voteState) {
-                self.isUpVoted = self.voteState == .upVote
-                self.isDownVoted = self.voteState == .downVote
-                if self.isDownVoted {
+            .onChange(of: configuration.voteState) {
+                if configuration.voteState == .downVote {
                     self.isShowSubmitButton = true
                 }
                 self.shouldApplyDetentHeight = true
@@ -125,7 +122,7 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
                         VStack {
                             self.illustratedMessage(configuration)
                             
-                            if self.isDownVoted {
+                            if self.shouldShowFeedbackDetail {
                                 self.feedbackDetailView(configuration)
                             }
                             
@@ -134,7 +131,7 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
                                     .onSimultaneousTapGesture {
                                         self.onSubmitAction(configuration)
                                     }
-                                    .disabled(self.submitState == .inProgress)
+                                    .disabled(configuration.submitButtonState == .disable)
                             }
                         }
                         .background(GeometryReader { geometry in
@@ -219,17 +216,19 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
     func actionView(_ configuration: AIUserFeedbackConfiguration) -> some View {
         if configuration.action.isEmpty {
             DownVoteAction()
-                .downVoteActionStyle(DownVoteButtonSelectedStyle(isSelected: self.isDownVoted))
+                .downVoteActionStyle(DownVoteButtonSelectedStyle(isSelected: configuration.voteState == .downVote))
                 .onSimultaneousTapGesture {
-                    self.voteState = .downVote
+                    configuration.voteState = .downVote
+                    self.shouldShowFeedbackDetail = true
                     self.isShowSubmitButton = true
                     configuration.onDownVote?()
                 }
-                .accessibilityLabel(self.accessibilityLabel(label: "Negative feedback".localizedFioriString(), selected: self.isDownVoted))
+                .accessibilityLabel(self.accessibilityLabel(label: "Negative feedback".localizedFioriString(), selected: configuration.voteState == .downVote))
         } else {
             configuration.action
                 .onSimultaneousTapGesture {
-                    self.voteState = .downVote
+                    configuration.voteState = .downVote
+                    self.shouldShowFeedbackDetail = true
                     self.isShowSubmitButton = true
                     configuration.onDownVote?()
                 }
@@ -240,19 +239,17 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
     func secondaryActionView(_ configuration: AIUserFeedbackConfiguration) -> some View {
         if configuration.secondaryAction.isEmpty {
             UpVoteAction()
-                .upVoteActionStyle(UpVoteButtonSelectedStyle(isSelected: self.isUpVoted))
+                .upVoteActionStyle(UpVoteButtonSelectedStyle(isSelected: configuration.voteState == .upVote))
                 .onSimultaneousTapGesture {
-                    self.voteState = .upVote
+                    configuration.voteState = .upVote
                     configuration.onUpVote?()
-                    if self.isShowSubmitButton == false {
-                        self.onSubmitAction(configuration)
-                    }
+                    self.onSubmitAction(configuration)
                 }
-                .accessibilityLabel(self.accessibilityLabel(label: "Positive feedback".localizedFioriString(), selected: self.isUpVoted))
+                .accessibilityLabel(self.accessibilityLabel(label: "Positive feedback".localizedFioriString(), selected: configuration.voteState == .upVote))
         } else {
             configuration.secondaryAction
                 .onSimultaneousTapGesture {
-                    self.voteState = .upVote
+                    configuration.voteState = .upVote
                     configuration.onUpVote?()
                 }
         }
@@ -261,7 +258,7 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
     @ViewBuilder
     func submitButton(_ configuration: AIUserFeedbackConfiguration) -> some View {
         if configuration.submitAction.isEmpty {
-            if self.submitState == .inProgress {
+            if configuration.submitButtonState == .inProgress {
                 FioriButton { _ in Text("Loading...".localizedFioriString()) }
                     .fioriButtonStyle(FioriSecondaryButtonStyle(maxWidth: .infinity, loadingState: .processing))
             } else {
@@ -275,7 +272,7 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
     
     @ToolbarContentBuilder
     func toolBarContent(_ configuration: AIUserFeedbackConfiguration) -> some ToolbarContent {
-        if configuration.displayMode == .push || self.isShowFailedView() {
+        if configuration.displayMode == .push, !self.isShowFailedView() {
             ToolbarItem(placement: .topBarLeading) {
                 FioriButton { _ in
                     HStack {
@@ -286,14 +283,8 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
                 }
                 .fioriButtonStyle(AIUserFeedbackToolbarItemStyle())
                 .onSimultaneousTapGesture {
-                    if self.isShowFailedView() {
-                        self.isSubmitRequestFailed?.wrappedValue = false
-                        self.submitRequestFailed = false
-                        self.submitState = .normal
-                    } else {
-                        configuration.onCancel?()
-                        self.dismiss()
-                    }
+                    configuration.onCancel?()
+                    self.dismiss()
                 }
             }
         } else {
@@ -319,31 +310,9 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
             }, title: {
                 Text("Submission failed".localizedFioriString())
             }, description: {
-                Text("Your feedback was not submitted due to a connection error. Please try again.".localizedFioriString())
+                Text("An error has occurred. Please try again later.".localizedFioriString())
                     .foregroundStyle(Color.preferredColor(.secondaryLabel))
                     .font(.fiori(forTextStyle: .subheadline))
-            }, action: {
-                if self.submitState == .inProgress {
-                    FioriButton { _ in Text("Loading...".localizedFioriString()) }
-                        .fioriButtonStyle(FioriSecondaryButtonStyle(maxWidth: .infinity, loadingState: .processing).eraseToAnyFioriButtonStyle())
-                } else {
-                    FioriButton { _ in
-                        self.isSubmitRequestFailed?.wrappedValue = false
-                        self.submitRequestFailed = false
-                        self.onSubmitAction(configuration)
-                    } label: { _ in
-                        Text("Retry".localizedFioriString())
-                    }
-                    .fioriButtonStyle(FioriPrimaryButtonStyle(.infinity, minHeight: 44, loadingState: .unspecified).eraseToAnyFioriButtonStyle())
-                }
-            }, secondaryAction: {
-                FioriButton { _ in
-                    configuration.onCancel?()
-                    self.dismiss()
-                } label: { _ in
-                    Text("Cancel".localizedFioriString())
-                }
-                .fioriButtonStyle(FioriSecondaryButtonStyle(colorStyle: .negative, maxWidth: .infinity, minHeight: 44).eraseToAnyFioriButtonStyle())
             }, isActionVerticallyAligned: false,
             contentAlignment: .leading)
                 .titleStyle(content: { titleConfig in
@@ -391,9 +360,7 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
     }
     
     private func onSubmitAction(_ configuration: AIUserFeedbackConfiguration) {
-        self.submitState = .inProgress
-        configuration.onSubmit?(self.voteState, self.getSelectedOptions(configuration), configuration.keyValueFormView?.text ?? "", { submitResult in
-            self.submitState = .normal
+        configuration.onSubmit?(configuration.voteState, self.getSelectedOptions(configuration), configuration.keyValueFormView?.text ?? "", { submitResult in
             if submitResult {
                 self.isSubmitRequestFailed?.wrappedValue = false
                 self.submitRequestFailed = false

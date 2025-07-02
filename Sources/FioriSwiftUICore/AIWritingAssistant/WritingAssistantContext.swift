@@ -76,6 +76,7 @@ class WritingAssistantContext: NSObject, ObservableObject {
     let feedbackHandler: ((AIUserFeedbackVoteState, [String]) async -> WAFeedbackResult)?
     var feedbackUpvoted: Bool = false
     var feedbackDownvoted: Bool = false
+    @Published var feedbackSubmitButtonState: AIUserFeedbackSubmitButtonState = .normal
     
     @State private var task: Task<Void, Never>? = nil
     

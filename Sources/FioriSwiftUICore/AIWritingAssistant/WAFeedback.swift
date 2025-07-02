@@ -22,7 +22,8 @@ struct WAFeedback: View {
                        errorView: { WAErrorIllustratedMessage() },
                        onSubmit: { state, feedbacks, _, _ in
                            self.context.startFeedbackTask(voteState: state, options: feedbacks, inMenuView: false)
-                       }, voteState: self.voteState)
+                       }, voteState: self.$voteState,
+                       submitButtonState: self.$context.feedbackSubmitButtonState)
             .environment(\.isSubmitRequestFailed, self.$showError)
             .onChange(of: self.context.showErrorInFeedbackView) {
                 self.showError = self.context.showErrorInFeedbackView
