@@ -1,8 +1,8 @@
 import Combine
 import OSLog
 import SwiftUI
+import Vision
 #if canImport(VisionKit) && os(iOS) && !targetEnvironment(macCatalyst)
-    import Vision
     import VisionKit
 #endif
 #if canImport(ConnectSDK)

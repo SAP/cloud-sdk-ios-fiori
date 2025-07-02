@@ -55,7 +55,7 @@ public final class VisionKitScanner: NSObject, BarcodeScanner {
     #if canImport(VisionKit) && os(iOS) && !targetEnvironment(macCatalyst)
         private let recognizedDataTypes: Set<DataScannerViewController.RecognizedDataType>
     #else
-        private let recognizedDataTypes: Set<ScannerDataType>
+        private let recognizedDataTypes: Set<BarcodeDataType>
     #endif
     /// A Boolean value indicating whether the scanner should continue scanning after finding an item,
     /// or stop after the first successful scan. This is passed to the `DataScannerViewController`.
@@ -396,6 +396,7 @@ public final class VisionKitScanner: NSObject, BarcodeScanner {
     private func stopScanningInternal() {
         self.logger.info("stopScanningInternal called. Current VC scan state: \(self.visionScannerVC?.isScanning ?? false), Our isAttemptingScanStart: \(self.isAttemptingScanStart)")
         #if canImport(VisionKit) && os(iOS) && !targetEnvironment(macCatalyst)
+            self.logger.info("stopScanningInternal called. Current VC scan state: \(self.visionScannerVC?.isScanning ?? false), Our isAttemptingScanStart: \(self.isAttemptingScanStart)")
             guard let vc = visionScannerVC, vc.isScanning || isAttemptingScanStart else {
                 if self.isAttemptingScanStart {
                     self.isAttemptingScanStart = false
