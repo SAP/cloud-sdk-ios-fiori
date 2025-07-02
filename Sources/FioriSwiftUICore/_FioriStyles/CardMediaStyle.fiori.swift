@@ -37,20 +37,23 @@ extension CardMediaFioriStyle {
     
     struct MediaImageFioriStyle: MediaImageStyle {
         let cardMediaConfiguration: CardMediaConfiguration
-        
+        @Environment(\.isLoading) var isLoading
         func makeBody(_ configuration: MediaImageConfiguration) -> some View {
             MediaImage(configuration)
+                .ifApply(self.isLoading) {
+                    $0.foregroundStyle(Color.preferredColor(.separator))
+                }
         }
     }
     
     struct DescriptionFioriStyle: DescriptionStyle {
         let cardMediaConfiguration: CardMediaConfiguration
-        
+        @Environment(\.isLoading) var isLoading
         func makeBody(_ configuration: DescriptionConfiguration) -> some View {
             Description(configuration)
                 // Add default style for Description
                 .font(.fiori(forTextStyle: .title1, weight: .bold))
-                .foregroundColor(.preferredColor(.primaryLabel, background: .darkConstant))
+                .foregroundColor(.preferredColor(self.isLoading ? .separator : .primaryLabel, background: .darkConstant))
                 .lineLimit(3)
         }
     }

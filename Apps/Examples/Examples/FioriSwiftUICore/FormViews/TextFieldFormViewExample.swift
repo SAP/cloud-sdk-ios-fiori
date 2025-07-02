@@ -39,6 +39,7 @@ struct TextFieldFormViewExample: View {
     @State var isSecureEnabled = false
     @State var showAINotice: Bool = false
     @State var showBottomSheet: Bool = false
+    @State var isLoading: Bool = false
 
     @State var text = ""
     
@@ -87,6 +88,9 @@ struct TextFieldFormViewExample: View {
                 Toggle("AI Notice", isOn: self.$showAINotice)
                     .padding(.leading, 16)
                     .padding(.trailing, 16)
+                Toggle("Show SkeletonLoading", isOn: self.$isLoading)
+                    .padding(.leading, 16)
+                    .padding(.trailing, 16)
                 Button("Dismiss Keyboard") {
                     hideKeyboard()
                 }
@@ -124,9 +128,12 @@ struct TextFieldFormViewExample: View {
                     .iconStyle(content: { config in
                         config.icon.foregroundStyle(Color.purple)
                     })
+                
+                TextFieldFormView(title: "", text: self.$valueText3, isSecureEnabled: self.isSecureEnabled, placeholder: "", controlState: .normal, hidesReadOnlyHint: self.hidesReadonlyHint, isRequired: self.isRequired, actionIcon: self.getActionIcon(), action: self.getAction4())
             }
+            .environment(\.isLoading, self.isLoading)
             #if !os(visionOS)
-            .scrollDismissesKeyboard(.immediately)
+                .scrollDismissesKeyboard(.immediately)
             #endif
         }
     }

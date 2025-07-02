@@ -2,6 +2,8 @@ import FioriSwiftUICore
 import SwiftUI
 
 struct ToastMessageExample: View {
+    @State private var showSheetView = false
+
     var body: some View {
         List {
             NavigationLink("Basic Example",
@@ -10,6 +12,13 @@ struct ToastMessageExample: View {
                            destination: ToastMessagePositionExample())
             NavigationLink("Custom Style",
                            destination: ToastMessageCustomStyleExample())
+            Button("Sheet View UI Hang") {
+                self.showSheetView.toggle()
+            }
+            .sheet(isPresented: self.$showSheetView) {
+                ToastMessageSheetViewExample()
+                    .presentationDetents([.medium, .large])
+            }
         }
         .navigationTitle("Toast Message")
     }
@@ -188,5 +197,16 @@ struct ToastMessageCustomStyleExample: View {
                 .padding(30)
         }
         .navigationTitle("Toast Message")
+    }
+}
+
+struct ToastMessageSheetViewExample: View {
+    var body: some View {
+        VStack(spacing: 0) {
+            Text("Sample text")
+                .frame(width: 200, height: 200)
+                .border(Color.blue, width: 1)
+        }
+        .toastMessage(isPresented: .constant(true), icon: {}, title: "Unable to send message", duration: 6, position: .above, spacing: 0, cornerRadius: 14, backgroundColor: .preferredColor(.tertiaryFill))
     }
 }
