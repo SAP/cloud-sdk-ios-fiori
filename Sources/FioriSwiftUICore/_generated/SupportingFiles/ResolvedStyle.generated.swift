@@ -403,6 +403,22 @@ extension AvatarsTitleStyle {
     }
 }
 
+// MARK: BackActionStyle
+
+struct ResolvedBackActionStyle<Style: BackActionStyle>: View {
+    let style: Style
+    let configuration: BackActionConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension BackActionStyle {
+    func resolve(configuration: BackActionConfiguration) -> some View {
+        ResolvedBackActionStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: BannerMessageStyle
 
 struct ResolvedBannerMessageStyle<Style: BannerMessageStyle>: View {
@@ -864,6 +880,22 @@ struct ResolvedDisagreeActionStyle<Style: DisagreeActionStyle>: View {
 extension DisagreeActionStyle {
     func resolve(configuration: DisagreeActionConfiguration) -> some View {
         ResolvedDisagreeActionStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: DoneActionStyle
+
+struct ResolvedDoneActionStyle<Style: DoneActionStyle>: View {
+    let style: Style
+    let configuration: DoneActionConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension DoneActionStyle {
+    func resolve(configuration: DoneActionConfiguration) -> some View {
+        ResolvedDoneActionStyle(style: self, configuration: configuration)
     }
 }
 
@@ -2131,6 +2163,22 @@ extension RatingControlFormViewStyle {
     }
 }
 
+// MARK: RedoActionStyle
+
+struct ResolvedRedoActionStyle<Style: RedoActionStyle>: View {
+    let style: Style
+    let configuration: RedoActionConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension RedoActionStyle {
+    func resolve(configuration: RedoActionConfiguration) -> some View {
+        ResolvedRedoActionStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: ReenterSignatureActionStyle
 
 struct ResolvedReenterSignatureActionStyle<Style: ReenterSignatureActionStyle>: View {
@@ -2995,6 +3043,22 @@ extension TrendImageStyle {
     }
 }
 
+// MARK: UndoActionStyle
+
+struct ResolvedUndoActionStyle<Style: UndoActionStyle>: View {
+    let style: Style
+    let configuration: UndoActionConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension UndoActionStyle {
+    func resolve(configuration: UndoActionConfiguration) -> some View {
+        ResolvedUndoActionStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: UpVoteActionStyle
 
 struct ResolvedUpVoteActionStyle<Style: UpVoteActionStyle>: View {
@@ -3152,6 +3216,38 @@ struct ResolvedWelcomeScreenStyle<Style: WelcomeScreenStyle>: View {
 extension WelcomeScreenStyle {
     func resolve(configuration: WelcomeScreenConfiguration) -> some View {
         ResolvedWelcomeScreenStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: WritingAssistantActionStyle
+
+struct ResolvedWritingAssistantActionStyle<Style: WritingAssistantActionStyle>: View {
+    let style: Style
+    let configuration: WritingAssistantActionConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension WritingAssistantActionStyle {
+    func resolve(configuration: WritingAssistantActionConfiguration) -> some View {
+        ResolvedWritingAssistantActionStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: WritingAssistantFormStyle
+
+struct ResolvedWritingAssistantFormStyle<Style: WritingAssistantFormStyle>: View {
+    let style: Style
+    let configuration: WritingAssistantFormConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension WritingAssistantFormStyle {
+    func resolve(configuration: WritingAssistantFormConfiguration) -> some View {
+        ResolvedWritingAssistantFormStyle(style: self, configuration: configuration)
     }
 }
 

@@ -87,11 +87,19 @@ public struct DateTimePickerBaseStyle: DateTimePickerStyle {
     }
     
     func showPicker(_ configuration: DateTimePickerConfiguration) -> some View {
-        DatePicker("", selection: configuration.$selectedDate, displayedComponents: configuration.pickerComponents)
-            .datePickerStyle(.graphical)
-            .setOnChange(of: configuration.selectedDate) {
-                _ = self.getValueLabel(configuration)
-            }
+        if let range = configuration.range {
+            DatePicker("", selection: configuration.$selectedDate, in: range, displayedComponents: configuration.pickerComponents)
+                .datePickerStyle(.graphical)
+                .setOnChange(of: configuration.selectedDate) {
+                    _ = self.getValueLabel(configuration)
+                }
+        } else {
+            DatePicker("", selection: configuration.$selectedDate, displayedComponents: configuration.pickerComponents)
+                .datePickerStyle(.graphical)
+                .setOnChange(of: configuration.selectedDate) {
+                    _ = self.getValueLabel(configuration)
+                }
+        }
     }
 }
 

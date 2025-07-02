@@ -4,13 +4,51 @@ import SwiftUI
 
 /// The base layout style for `TextFieldFormView`.
 public struct TextFieldFormViewBaseStyle: TextFieldFormViewStyle {
+    @Environment(\.isLoading) var isLoading
+    @Environment(\.isAILoading) var isAILoading
     public func makeBody(_ configuration: TextFieldFormViewConfiguration) -> some View {
-        VStack(alignment: .leading, spacing: 4) {
-            configuration.title
-            configuration._titleFormView
+        if self.isLoading, self.isAILoading {
+            return AnyView(
+                VStack(alignment: .leading, spacing: 4) {
+                    self.getTitle(configuration)
+                    SkeletonLoadingContainer(isLoading: self.isLoading, isTintColor: self.isAILoading) {
+                        self.getTextInput(configuration)
+                        //                        .skeletonLoading(isTintColor: true)
+                    }
+                }
+                .padding(.top, -1)
+                .padding(.bottom, self.isInfoViewNeeded(configuration) ? 0 : 1)
+            )
+        } else {
+            return AnyView(
+                SkeletonLoadingContainer(isLoading: self.isLoading, isTintColor: self.isAILoading) {
+                    VStack(alignment: .leading, spacing: 4) {
+                        self.getTitle(configuration)
+                        self.getTextInput(configuration)
+                    }
+                    .padding(.top, -1)
+                    .padding(.bottom, self.isInfoViewNeeded(configuration) ? 0 : 1)
+                }
+            )
         }
-        .padding(.top, -1)
-        .padding(.bottom, self.isInfoViewNeeded(configuration) ? 0 : 1)
+    }
+    
+    func getTitle(_ configuration: TextFieldFormViewConfiguration) -> some View {
+        if self.isLoading, !self.isAILoading {
+            return Text("TextFieldFormView title")
+                .typeErased
+        } else {
+            return configuration.title.typeErased
+        }
+    }
+    
+    func getTextInput(_ configuration: TextFieldFormViewConfiguration) -> some View {
+        if self.isLoading, !self.isAILoading {
+            return TitleFormView(.init(text: .constant("TextFieldFormView text input value in multiple lines"), isSecureEnabled: false, placeholder: .init(configuration.placeholder), controlState: .normal, errorMessage: nil, maxTextLength: 20, hintText: nil, hidesReadOnlyHint: false, isCharCountEnabled: false, allowsBeyondLimit: false, charCountReachLimitMessage: "", charCountBeyondLimitMsg: ""))
+                .typeErased
+        } else {
+            return configuration._titleFormView.typeErased
+        }
     }
 
     func isInfoViewNeeded(_ configuration: TextFieldFormViewConfiguration) -> Bool {
@@ -26,18 +64,20 @@ extension TextFieldFormViewFioriStyle {
         @State var isEditing: Bool = false
         @State private var formattedText: String = ""
         @State private var rawInput: String = ""
-
+        @Environment(\.isLoading) var isLoading
+        @Environment(\.isAILoading) var isAILoading
+        
         func makeBody(_ configuration: TextFieldFormViewConfiguration) -> some View {
             TextFieldFormView(configuration)
                 .titleStyle { titleConf in
                     Title(titleConf)
-                        .foregroundStyle(self.getTitleColor(configuration))
+                        .foregroundStyle((self.isLoading && !self.isAILoading) ? .preferredColor(.separator) : self.getTitleColor(configuration))
                         .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
                 }
                 .placeholderTextFieldStyle { config in
                     HStack {
                         PlaceholderTextField(config)
-                            .foregroundStyle(self.getTextColor(configuration))
+                            .foregroundStyle((self.isLoading && !self.isAILoading) ? .preferredColor(.separator) : self.getTextColor(configuration))
                             .font(.fiori(forTextStyle: .body))
                             .accentColor(self.getCursorColor(configuration))
                             .focused(self.$isFocused)
@@ -100,7 +140,7 @@ extension TextFieldFormViewFioriStyle {
                             }
                         }
                     }
-                    .background(RoundedRectangle(cornerRadius: 8).stroke(self.getBorderColor(configuration), lineWidth: self.getBorderWidth(configuration)).background(self.getBackgroundColor(configuration)))
+                    .background(RoundedRectangle(cornerRadius: 8).stroke(self.getBorderColor(configuration), lineWidth: self.getBorderWidth(configuration)).background(self.isLoading ? .clear : self.getBackgroundColor(configuration)))
                     .cornerRadius(8)
                 }
                 .textInputInfoViewStyle { config in
