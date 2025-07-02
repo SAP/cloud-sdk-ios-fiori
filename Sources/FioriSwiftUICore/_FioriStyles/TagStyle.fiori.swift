@@ -15,7 +15,7 @@ public struct TagBaseStyle: TagStyle {
 public struct TagFioriStyle: TagStyle {
     @Environment(\.tagLimit) var tagLimit
     @Environment(\.colorScheme) var colorScheme
-    
+    @Environment(\.isLoading) var isLoading
     @ViewBuilder
     public func makeBody(_ configuration: TagConfiguration) -> some View {
         let isLight = self.colorScheme == .light
@@ -23,9 +23,21 @@ public struct TagFioriStyle: TagStyle {
         
         Tag(configuration)
             .font(.fiori(forTextStyle: .footnote))
-            .foregroundStyle(isLight ? Color.preferredColor(.secondaryLabel) : Color.preferredColor(.primaryLabel, background: .darkConstant))
+            .foregroundStyle(self.getTextColor(configuration: configuration))
             .lineLimit(self.tagLimit)
             .background(background)
+            .ifApply(self.isLoading) {
+                $0.foregroundStyle(Color.preferredColor(.separator))
+            }
+    }
+    
+    func getTextColor(configuration: TagConfiguration) -> Color {
+        let isLight = self.colorScheme == .light
+        if self.isLoading {
+            return Color.preferredColor(.separator)
+        } else {
+            return isLight ? Color.preferredColor(.secondaryLabel) : Color.preferredColor(.primaryLabel, background: .darkConstant)
+        }
     }
 }
 
