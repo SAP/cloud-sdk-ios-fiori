@@ -7,6 +7,8 @@ import SwiftUI
 /// `AIUserFeedback` can be presented modally using .sheet, or pushed onto a navigation stack.
 /// ## Usage
 /// ```swift
+/// @State var voteState: AIUserFeedbackVoteState = .notDetermined
+/// @State var submitButtonState: AIUserFeedbackSubmitButtonState = .normal
 /// @State var filterFormViewSelectionValue: [Int] = [0]
 /// @State var valueText: String = ""
 /// let valueOptions: [AttributedString] = ["Inaccuraies", "Inappropriate Content", "Security Risks", "Slow Response", "Repetitive or Wordy", "Others"]
@@ -29,7 +31,8 @@ import SwiftUI
 ///
 ///             }, onSubmit: { voteState, feedbacks, additional, submitResult in
 ///                 submitResult(true)
-///             }, voteState: .notDetermined)
+///             }, voteState: $voteState,
+///             submitButtonState: $submitButtonState)
 /// ```
 ///  ### Toggle:
 /// ```swift
@@ -78,8 +81,8 @@ public struct AIUserFeedback {
     /// The action to be performed when the submit button is tapped.
     /// Application can get the user feedback values, can tell the component the submition result with the `submitResult` call back.
     let onSubmit: ((_ voteState: AIUserFeedbackVoteState, _ feedbacks: [String], _ additional: String, _ submitResult: @escaping (Bool) -> Void) -> Void)?
-    /// The state of vote. Default is `notDetermined`.
-    let voteState: AIUserFeedbackVoteState
+    @Binding var voteState: AIUserFeedbackVoteState
+    @Binding var submitButtonState: AIUserFeedbackSubmitButtonState
 
     @Environment(\.aIUserFeedbackStyle) var style
 
@@ -107,7 +110,8 @@ public struct AIUserFeedback {
                 onUpVote: (() -> Void)? = nil,
                 onDownVote: (() -> Void)? = nil,
                 onSubmit: ((_ voteState: AIUserFeedbackVoteState, _ feedbacks: [String], _ additional: String, _ submitResult: @escaping (Bool) -> Void) -> Void)? = nil,
-                voteState: AIUserFeedbackVoteState = .notDetermined,
+                voteState: Binding<AIUserFeedbackVoteState>,
+                submitButtonState: Binding<AIUserFeedbackSubmitButtonState>,
                 componentIdentifier: String? = AIUserFeedback.identifier)
     {
         self.detailImage = DetailImage(detailImage: detailImage, componentIdentifier: componentIdentifier)
@@ -130,7 +134,8 @@ public struct AIUserFeedback {
         self.onUpVote = onUpVote
         self.onDownVote = onDownVote
         self.onSubmit = onSubmit
-        self.voteState = voteState
+        self._voteState = voteState
+        self._submitButtonState = submitButtonState
         self.componentIdentifier = componentIdentifier ?? AIUserFeedback.identifier
     }
 }
@@ -160,9 +165,10 @@ public extension AIUserFeedback {
          onUpVote: (() -> Void)? = nil,
          onDownVote: (() -> Void)? = nil,
          onSubmit: ((_ voteState: AIUserFeedbackVoteState, _ feedbacks: [String], _ additional: String, _ submitResult: @escaping (Bool) -> Void) -> Void)? = nil,
-         voteState: AIUserFeedbackVoteState = .notDetermined)
+         voteState: Binding<AIUserFeedbackVoteState>,
+         submitButtonState: Binding<AIUserFeedbackSubmitButtonState>)
     {
-        self.init(detailImage: { detailImage }, title: { Text(title) }, description: { OptionalText(description) }, action: { action }, secondaryAction: { secondaryAction }, detailImageSize: detailImageSize, isActionVerticallyAligned: isActionVerticallyAligned, contentAlignment: contentAlignment, submitAction: { submitAction }, cancelAction: { cancelAction }, navigationTitle: navigationTitle, filterFormView: filterFormView, keyValueFormView: keyValueFormView, displayMode: displayMode, isBackgroundInteractionEnabled: isBackgroundInteractionEnabled, errorView: { errorView }, onCancel: onCancel, onUpVote: onUpVote, onDownVote: onDownVote, onSubmit: onSubmit, voteState: voteState)
+        self.init(detailImage: { detailImage }, title: { Text(title) }, description: { OptionalText(description) }, action: { action }, secondaryAction: { secondaryAction }, detailImageSize: detailImageSize, isActionVerticallyAligned: isActionVerticallyAligned, contentAlignment: contentAlignment, submitAction: { submitAction }, cancelAction: { cancelAction }, navigationTitle: navigationTitle, filterFormView: filterFormView, keyValueFormView: keyValueFormView, displayMode: displayMode, isBackgroundInteractionEnabled: isBackgroundInteractionEnabled, errorView: { errorView }, onCancel: onCancel, onUpVote: onUpVote, onDownVote: onDownVote, onSubmit: onSubmit, voteState: voteState, submitButtonState: submitButtonState)
     }
 }
 
@@ -192,7 +198,8 @@ public extension AIUserFeedback {
         self.onUpVote = configuration.onUpVote
         self.onDownVote = configuration.onDownVote
         self.onSubmit = configuration.onSubmit
-        self.voteState = configuration.voteState
+        self._voteState = configuration.$voteState
+        self._submitButtonState = configuration.$submitButtonState
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
         self.componentIdentifier = configuration.componentIdentifier
     }
@@ -203,7 +210,7 @@ extension AIUserFeedback: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, detailImage: .init(self.detailImage), title: .init(self.title), description: .init(self.description), action: .init(self.action), secondaryAction: .init(self.secondaryAction), detailImageSize: self.detailImageSize, isActionVerticallyAligned: self.isActionVerticallyAligned, contentAlignment: self.contentAlignment, submitAction: .init(self.submitAction), cancelAction: .init(self.cancelAction), navigationTitle: self.navigationTitle, filterFormView: self.filterFormView, keyValueFormView: self.keyValueFormView, displayMode: self.displayMode, isBackgroundInteractionEnabled: self.isBackgroundInteractionEnabled, errorView: .init(self.errorView), onCancel: self.onCancel, onUpVote: self.onUpVote, onDownVote: self.onDownVote, onSubmit: self.onSubmit, voteState: self.voteState)).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, detailImage: .init(self.detailImage), title: .init(self.title), description: .init(self.description), action: .init(self.action), secondaryAction: .init(self.secondaryAction), detailImageSize: self.detailImageSize, isActionVerticallyAligned: self.isActionVerticallyAligned, contentAlignment: self.contentAlignment, submitAction: .init(self.submitAction), cancelAction: .init(self.cancelAction), navigationTitle: self.navigationTitle, filterFormView: self.filterFormView, keyValueFormView: self.keyValueFormView, displayMode: self.displayMode, isBackgroundInteractionEnabled: self.isBackgroundInteractionEnabled, errorView: .init(self.errorView), onCancel: self.onCancel, onUpVote: self.onUpVote, onDownVote: self.onDownVote, onSubmit: self.onSubmit, voteState: self.$voteState, submitButtonState: self.$submitButtonState)).typeErased
                 .transformEnvironment(\.aIUserFeedbackStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -221,7 +228,7 @@ private extension AIUserFeedback {
     }
 
     func defaultStyle() -> some View {
-        AIUserFeedback(.init(componentIdentifier: self.componentIdentifier, detailImage: .init(self.detailImage), title: .init(self.title), description: .init(self.description), action: .init(self.action), secondaryAction: .init(self.secondaryAction), detailImageSize: self.detailImageSize, isActionVerticallyAligned: self.isActionVerticallyAligned, contentAlignment: self.contentAlignment, submitAction: .init(self.submitAction), cancelAction: .init(self.cancelAction), navigationTitle: self.navigationTitle, filterFormView: self.filterFormView, keyValueFormView: self.keyValueFormView, displayMode: self.displayMode, isBackgroundInteractionEnabled: self.isBackgroundInteractionEnabled, errorView: .init(self.errorView), onCancel: self.onCancel, onUpVote: self.onUpVote, onDownVote: self.onDownVote, onSubmit: self.onSubmit, voteState: self.voteState))
+        AIUserFeedback(.init(componentIdentifier: self.componentIdentifier, detailImage: .init(self.detailImage), title: .init(self.title), description: .init(self.description), action: .init(self.action), secondaryAction: .init(self.secondaryAction), detailImageSize: self.detailImageSize, isActionVerticallyAligned: self.isActionVerticallyAligned, contentAlignment: self.contentAlignment, submitAction: .init(self.submitAction), cancelAction: .init(self.cancelAction), navigationTitle: self.navigationTitle, filterFormView: self.filterFormView, keyValueFormView: self.keyValueFormView, displayMode: self.displayMode, isBackgroundInteractionEnabled: self.isBackgroundInteractionEnabled, errorView: .init(self.errorView), onCancel: self.onCancel, onUpVote: self.onUpVote, onDownVote: self.onDownVote, onSubmit: self.onSubmit, voteState: self.$voteState, submitButtonState: self.$submitButtonState))
             .shouldApplyDefaultStyle(false)
             .aIUserFeedbackStyle(AIUserFeedbackFioriStyle.ContentFioriStyle())
             .typeErased

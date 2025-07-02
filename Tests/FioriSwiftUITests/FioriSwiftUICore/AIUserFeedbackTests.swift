@@ -24,7 +24,8 @@ final class AIUserFeedbackTests: XCTestCase {
                                             displayMode: .sheet,
                                             onCancel: {}, onUpVote: {}, onDownVote: {}, onSubmit: { _, _, _, _ in
                         
-                                            }, voteState: .downVote)
+                                            }, voteState: .constant(.downVote),
+                                            submitButtonState: .constant(.normal))
         XCTAssertNotNil(aiUserFeedback.title)
         XCTAssertNotNil(aiUserFeedback.description)
         XCTAssertEqual(aiUserFeedback.displayMode, .sheet)
