@@ -366,10 +366,10 @@ public struct BannerMultiMessageSheetBaseStyle: BannerMultiMessageSheetStyle {
             .listStyle(.plain)
             .environment(\.defaultMinListRowHeight, 0)
             .environment(\.defaultMinListHeaderHeight, 0)
-            .modifier(FioriIntrospectModifier<UICollectionView> { collectionView in
+            .modifier(FioriIntrospectModifier<UIScrollView> { scrollView in
                 DispatchQueue.main.async {
-                    if collectionView.contentSize.height != self.scrollContentHeight, !self.isPhone {
-                        self.scrollContentHeight = collectionView.contentSize.height
+                    if scrollView.contentSize.height != self.scrollContentHeight, !self.isPhone {
+                        self.scrollContentHeight = scrollView.contentSize.height
                     }
                 }
             })
