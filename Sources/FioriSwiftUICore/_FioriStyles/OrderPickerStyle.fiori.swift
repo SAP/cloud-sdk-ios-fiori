@@ -22,6 +22,7 @@ public struct OrderPickerBaseStyle: OrderPickerStyle {
                     .accessibilityElement(children: .combine)
                     .accessibilityLabel(item.wrappedValue.description)
                     .accessibilityAddTraits(.isButton)
+                    .listRowBackground(item.wrappedValue.customListRowBackground ?? Color.clear)
                 }.onMove(perform: self.moveItems)
             }
         }
@@ -112,6 +113,8 @@ public struct OrderPickerItemModel: Identifiable, Hashable, Equatable, CustomStr
     
     /// An optional `customStyle`
     public var customStyle: (any SortCriterionStyle)?
+    /// An optional color that determines the background color of the custom list row.
+    public var customListRowBackground: Color?
     
     /// Public initializer for OrderPickerItemModel.
     /// - Parameters:
@@ -122,8 +125,9 @@ public struct OrderPickerItemModel: Identifiable, Hashable, Equatable, CustomStr
     ///   - ascendingText: The text displayed when the criterion is ascending, such as "Ascending".
     ///   - descendingText: The text displayed when the criterion is descending, such as "Descending"
     ///   - customStyle: An optional `customStyle`
+    ///   - customListRowBackground: An optional color that determines the background color of the custom list row.
 
-    public init(id: UUID = UUID(), selectedIcon: Image? = nil, criterion: AttributedString, isSelected: Bool = false, isAscending: Bool = true, ascendingText: AttributedString, descendingText: AttributedString, customStyle: (any SortCriterionStyle)? = nil) {
+    public init(id: UUID = UUID(), selectedIcon: Image? = nil, criterion: AttributedString, isSelected: Bool = false, isAscending: Bool = true, ascendingText: AttributedString, descendingText: AttributedString, customStyle: (any SortCriterionStyle)? = nil, customListRowBackground: Color? = nil) {
         self.selectedIcon = selectedIcon
         self.criterion = criterion
         self.isSelected = isSelected
@@ -131,6 +135,7 @@ public struct OrderPickerItemModel: Identifiable, Hashable, Equatable, CustomStr
         self.ascendingText = ascendingText
         self.descendingText = descendingText
         self.customStyle = customStyle
+        self.customListRowBackground = customListRowBackground
     }
     
     public var description: String {

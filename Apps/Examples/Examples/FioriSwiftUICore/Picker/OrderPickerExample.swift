@@ -27,7 +27,7 @@ struct OrderPickerExample: View {
         
         return [
             OrderPickerItemModel(criterion: "Priority", isSelected: false, isAscending: true, ascendingText: "Lowest first", descendingText: "Highest first"),
-            OrderPickerItemModel(selectedIcon: customSelectedIcon, criterion: "Order Picker sort criterion 2 lines (Custom Style: First line Second line)", isSelected: true, isAscending: false, ascendingText: customAsc, descendingText: customDesc, customStyle: CustomSortCriterionStyle()),
+            OrderPickerItemModel(selectedIcon: customSelectedIcon, criterion: "Order Picker sort criterion 2 lines (Custom Style: First line Second line)", isSelected: true, isAscending: false, ascendingText: customAsc, descendingText: customDesc, customStyle: CustomSortCriterionStyle(), customListRowBackground: Color.indigo),
             OrderPickerItemModel(criterion: "Name", isSelected: false, isAscending: true, ascendingText: "Ascending", descendingText: "Descending")
         ]
     }()
@@ -60,6 +60,7 @@ struct OrderPickerExample: View {
                         .font(.fiori(forTextStyle: .largeTitle))
                         .foregroundStyle(Color.preferredColor(.red6))
                 }
+                .background(.gray)
         }
     }
 
