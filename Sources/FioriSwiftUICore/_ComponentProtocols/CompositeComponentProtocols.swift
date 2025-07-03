@@ -615,6 +615,39 @@ protocol _DateTimePickerComponent: _TitleComponent, _ValueLabelComponent, _Manda
     var pickerVisible: Bool { get set }
 }
 
+/// `DateRangePicker`  provides a title and value label with Fiori styling and a `MultiDatePicker`.
+/// ## Usage
+/// ```swift
+/// @State var isRequired = false
+/// @State var selectedRange1: ClosedRange<Date>? = Date.now...Date.init(timeIntervalSinceNow: 24 * 60 * 60 * 2)
+/// @State var pickerVisible1 = false
+/// @State var showsErrorMessage = false
+/// @State var showAINotice: Bool = false
+/// DateRangePicker(title: "Range Selection1", isRequired: isRequired, selectedRange: $selectedRange1, pickerVisible: $pickerVisible1)
+///     .informationView(isPresented: self.$showsErrorMessage, description: AttributedString("This is information hint message."))
+///     .informationViewStyle(.informational)
+///     .aiNoticeView(isPresented: self.$showAINotice, description: "AI Notice")
+/// ```
+// sourcery: CompositeComponent
+protocol _DateRangePickerComponent: _TitleComponent, _ValueLabelComponent, _MandatoryField, _FormViewComponent {
+    /// The inclusive range of selectable dates.
+    var range: Range<Date>? { get }
+    // sourcery: @Binding
+    // sourcery: defaultValue = ".constant(nil)"
+    /// The range of selected dates. Default is nil. It's continuous in ascending order.
+    var selectedRange: ClosedRange<Date>? { get }
+    
+    /// Range date formatter. The default date formatter conforms system setting, it uses short date type in compact screen and uses long date type in regular screen.
+    var rangeFormatter: DateFormatter? { get }
+    
+    /// The text to be displayed when no range is selected. If this property is `nil`, the localized string “No range selected” will be used.
+    var noRangeSelectedString: String? { get }
+    
+    // sourcery: @Binding
+    /// This property indicates whether the picker is to be displayed or not.
+    var pickerVisible: Bool { get set }
+}
+
 // sourcery: CompositeComponent
 protocol _AvatarStackComponent: _AvatarsComponent, _AvatarsTitleComponent {}
 

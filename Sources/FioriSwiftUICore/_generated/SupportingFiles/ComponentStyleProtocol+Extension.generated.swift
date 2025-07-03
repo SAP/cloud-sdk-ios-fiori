@@ -2481,6 +2481,83 @@ public extension CounterStyle where Self == CounterFioriStyle {
     }
 }
 
+// MARK: DateRangePickerStyle
+
+public extension DateRangePickerStyle where Self == DateRangePickerBaseStyle {
+    static var base: DateRangePickerBaseStyle {
+        DateRangePickerBaseStyle()
+    }
+}
+
+public extension DateRangePickerStyle where Self == DateRangePickerFioriStyle {
+    static var fiori: DateRangePickerFioriStyle {
+        DateRangePickerFioriStyle()
+    }
+}
+
+public struct DateRangePickerTitleStyle: DateRangePickerStyle {
+    let style: any TitleStyle
+
+    public func makeBody(_ configuration: DateRangePickerConfiguration) -> some View {
+        DateRangePicker(configuration)
+            .titleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension DateRangePickerStyle where Self == DateRangePickerTitleStyle {
+    static func titleStyle(_ style: some TitleStyle) -> DateRangePickerTitleStyle {
+        DateRangePickerTitleStyle(style: style)
+    }
+
+    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> DateRangePickerTitleStyle {
+        let style = AnyTitleStyle(content)
+        return DateRangePickerTitleStyle(style: style)
+    }
+}
+
+public struct DateRangePickerValueLabelStyle: DateRangePickerStyle {
+    let style: any ValueLabelStyle
+
+    public func makeBody(_ configuration: DateRangePickerConfiguration) -> some View {
+        DateRangePicker(configuration)
+            .valueLabelStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension DateRangePickerStyle where Self == DateRangePickerValueLabelStyle {
+    static func valueLabelStyle(_ style: some ValueLabelStyle) -> DateRangePickerValueLabelStyle {
+        DateRangePickerValueLabelStyle(style: style)
+    }
+
+    static func valueLabelStyle(@ViewBuilder content: @escaping (ValueLabelConfiguration) -> some View) -> DateRangePickerValueLabelStyle {
+        let style = AnyValueLabelStyle(content)
+        return DateRangePickerValueLabelStyle(style: style)
+    }
+}
+
+public struct DateRangePickerFormViewStyle: DateRangePickerStyle {
+    let style: any FormViewStyle
+
+    public func makeBody(_ configuration: DateRangePickerConfiguration) -> some View {
+        DateRangePicker(configuration)
+            .formViewStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension DateRangePickerStyle where Self == DateRangePickerFormViewStyle {
+    static func formViewStyle(_ style: some FormViewStyle) -> DateRangePickerFormViewStyle {
+        DateRangePickerFormViewStyle(style: style)
+    }
+
+    static func formViewStyle(@ViewBuilder content: @escaping (FormViewConfiguration) -> some View) -> DateRangePickerFormViewStyle {
+        let style = AnyFormViewStyle(content)
+        return DateRangePickerFormViewStyle(style: style)
+    }
+}
+
 // MARK: DateTimePickerStyle
 
 public extension DateTimePickerStyle where Self == DateTimePickerBaseStyle {

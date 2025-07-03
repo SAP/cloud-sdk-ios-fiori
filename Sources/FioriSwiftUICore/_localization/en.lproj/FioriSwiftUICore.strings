@@ -148,6 +148,9 @@
 /* Default value for DateTimePicker */
 "No date selected" = "No date selected";
 
+/* Default value for DateRangePicker */
+"No range selected" = "No range selected";
+
 /* XBUT: calendar time component label */
 "Time" = "Time";
 
