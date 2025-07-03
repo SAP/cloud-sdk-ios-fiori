@@ -2241,6 +2241,8 @@ protocol _OrderPickerComponent: _OptionalTitleComponent {
 /// `AIUserFeedback` can be presented modally using .sheet, or pushed onto a navigation stack.
 /// ## Usage
 /// ```swift
+/// @State var voteState: AIUserFeedbackVoteState = .notDetermined
+/// @State var submitButtonState: AIUserFeedbackSubmitButtonState = .normal
 /// @State var filterFormViewSelectionValue: [Int] = [0]
 /// @State var valueText: String = ""
 /// let valueOptions: [AttributedString] = ["Inaccuraies", "Inappropriate Content", "Security Risks", "Slow Response", "Repetitive or Wordy", "Others"]
@@ -2263,7 +2265,8 @@ protocol _OrderPickerComponent: _OptionalTitleComponent {
 ///
 ///             }, onSubmit: { voteState, feedbacks, additional, submitResult in
 ///                 submitResult(true)
-///             }, voteState: .notDetermined)
+///             }, voteState: $voteState,
+///             submitButtonState: $submitButtonState)
 /// ```
 ///  ### Toggle:
 /// ```swift
@@ -2321,9 +2324,11 @@ protocol _AIUserFeedbackComponent: _IllustratedMessageComponent, _SubmitActionCo
     // sourcery: no_view
     var onSubmit: ((_ voteState: AIUserFeedbackVoteState, _ feedbacks: [String], _ additional: String, _ submitResult: @escaping (Bool) -> Void) -> Void)? { get }
     
-    /// The state of vote. Default is `notDetermined`.
-    // sourcery: defaultValue = .notDetermined
+    // sourcery: @Binding
     var voteState: AIUserFeedbackVoteState { get }
+    
+    // sourcery: @Binding
+    var submitButtonState: AIUserFeedbackSubmitButtonState { get }
 }
 
 /// `OnboardingScanView` is used to display a scanner view to scan a QR code for app activation.

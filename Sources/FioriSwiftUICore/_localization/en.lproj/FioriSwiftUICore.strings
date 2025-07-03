@@ -417,7 +417,7 @@
 "Submission failed" = "Submission failed";
 
 /* XMSG: Submission failed description in AI User Feedback */
-"Your feedback was not submitted due to a connection error. Please try again." = "Your feedback was not submitted due to a connection error. Please try again.";
+"An error has occurred. Please try again later." = "An error has occurred. Please try again later.";
 
 /* XBUT: Retry action title in AI User Feedback */
 "Retry" = "Retry";
@@ -492,25 +492,25 @@
 "Redo" = "Redo";
 
 /* XTIT: Writing assistant cancel alert title */
-"Close Writing Assistant without saving changes?" = "Close Writing Assistant without saving changes?"
+"Close Writing Assistant without saving changes?" = "Close Writing Assistant without saving changes?";
 
 /* XBUT: Writing assistant cancel alert action title for keep working */
-"Keep Working" = "Keep Working"
+"Keep Working" = "Keep Working";
 
 /* XBUT: Writing assistant cancel alert action title for close */
-"Close" = "Close"
+"Close" = "Close";
 
 /* XMSG: A success toast message for feedback flow in writing assistant */
-"Thank you for your feedback" = "Thank you for your feedback"
+"Thank you for your feedback" = "Thank you for your feedback";
 
 /* XTIT: Title for feedback downvote flow in writing assistant */
-"What didn’t you like about this version?" = "What didn’t you like about this version?"
+"What didn’t you like about this version?" = "What didn’t you like about this version?";
 
 /* XTIT: Subtitle for feedback downvote flow in writing assistant */
-"Please rate your experience to help us improve." = "Please rate your experience to help us improve."
+"Please rate your experience to help us improve." = "Please rate your experience to help us improve.";
 
 /* XTIT: Navigation bar title for feedback flow */
-"Feedback" = "Feedback"
+"Feedback" = "Feedback";
 
 /* XTIT: Footnote text for feedback in writing assistant */
-"How was this response?" = "How was this response?"
+"How was this response?" = "How was this response?";

@@ -13,10 +13,11 @@ struct AIUserFeedbackExample: View {
 
     @State var filterFormViewSelectionValue: [Int] = [0]
     @State var valueText: String = ""
+    @State var submitButtonState: AIUserFeedbackSubmitButtonState = .normal
     
     // Customize
     let voteStates: [AIUserFeedbackVoteState] = [.notDetermined, .upVote, .downVote]
-    var voteState: AIUserFeedbackVoteState = .notDetermined
+    @State var voteState: AIUserFeedbackVoteState = .notDetermined
     @State var voteStateIndex: Int = 0
     
     @State var isBackgroundInteractionEnabled = false
@@ -30,6 +31,7 @@ struct AIUserFeedbackExample: View {
     var body: some View {
         List {
             Button {
+                self.voteState = .notDetermined
                 self.isFeedbackPresented.toggle()
             } label: {
                 Text("Present AI User Feedback")
@@ -51,6 +53,9 @@ struct AIUserFeedbackExample: View {
                 InspectorNavigationStack(isInspectorPresented: self.$isInspectorPresented) {
                     self.showFeedback(mode: .inspector)
                 }
+                .onAppear {
+                    self.voteState = .notDetermined
+                }
             }
             
             Toggle("Is Background Interaction Enabled", isOn: self.$isBackgroundInteractionEnabled)
@@ -66,6 +71,9 @@ struct AIUserFeedbackExample: View {
                     let state = self.voteStates[index]
                     Text(self.valueForVoteState(state: state))
                 }
+            }
+            .onChange(of: self.voteStateIndex) {
+                self.voteState = self.voteStates[self.voteStateIndex]
             }
         }
         .toastMessage(isPresented: self.$isToastPresented, title: "Thank you for your feedback", duration: 3)
@@ -85,6 +93,7 @@ struct AIUserFeedbackExample: View {
     }
     
     func showFeedback(mode: AIUserFeedbackDisplayMode) -> some View {
+        self.submitButtonState = .normal
         let valueOptions: [AttributedString] = ["Inaccuraies", "Inappropriate Content", "Security Risks", "Slow Response", "Repetitive or Wordy", "Others"]
         let filterFormView = FilterFormView(title: "Select all that apply", isRequired: true, options: valueOptions, errorMessage: displayContentError ? "Missing required field" : nil, isEnabled: true, allowsMultipleSelection: true, allowsEmptySelection: false, value: self.$filterFormViewSelectionValue, buttonSize: .fixed, onValueChange: { value in
             print("FilterFormView value change: \(value)")
@@ -106,13 +115,16 @@ struct AIUserFeedbackExample: View {
                                   if mode == .inspector {
                                       self.isInspectorPresented.toggle()
                                   }
+                                  self.submitButtonState = .normal
                               }, onUpVote: {
                                   print("up vote call back")
                               }, onDownVote: {
                                   print("down vote call back")
                               }, onSubmit: { _, _, _, submitResult in
+                                  self.submitButtonState = .inProgress
                                   if self.isSubmitResultSuccess {
                                       DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                          self.submitButtonState = .normal
                                           switch mode {
                                           case .push:
                                               self.isFeedbackPushed.toggle()
@@ -128,7 +140,8 @@ struct AIUserFeedbackExample: View {
                                           submitResult(false)
                                       }
                                   }
-                              }, voteState: mode == .push ? .downVote : self.voteStates[self.voteStateIndex])
+                              }, voteState: self.$voteState,
+                              submitButtonState: self.$submitButtonState)
     }
     
     @ViewBuilder
@@ -145,6 +158,7 @@ struct AIUserFeedbackExample: View {
                     }
                     
                     Button {
+                        self.voteState = .downVote
                         self.isFeedbackPushed.toggle()
                     } label: {
                         Image(systemName: "hand.thumbsdown")
@@ -202,6 +216,18 @@ struct InspectorNavigationStack<Content: View>: View {
     let inspectorView: () -> Content
     
     var body: some View {
+        #if os(iOS) || os(macOS)
+            self.navigationStack
+                .inspector(isPresented: self.$isInspectorPresented) {
+                    self.inspectorView()
+                }
+                .inspectorColumnWidth(375)
+        #else
+            self.navigationStack
+        #endif
+    }
+    
+    var navigationStack: some View {
         NavigationStack {
             Button {
                 self.isInspectorPresented.toggle()
@@ -209,13 +235,8 @@ struct InspectorNavigationStack<Content: View>: View {
                 Text("Display as inspector")
             }
             .toolbarBackground(.visible, for: .navigationBar)
-//                .toolbarBackground(.teal, for: .navigationBar)
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle(String("Inspector Example"))
         }
-        .inspector(isPresented: self.$isInspectorPresented) {
-            self.inspectorView()
-        }
-        .inspectorColumnWidth(375)
     }
 }
