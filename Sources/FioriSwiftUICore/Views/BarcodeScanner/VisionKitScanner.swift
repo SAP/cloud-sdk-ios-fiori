@@ -219,33 +219,41 @@ public final class VisionKitScanner: NSObject, BarcodeScanner, DataScannerViewCo
     
     // Torch Control
     public func toggleTorch() -> Bool {
-        guard self.isTorchAvailable else {
-            self.logger.warning("Torch is not available on this device.")
-            return false
-        }
-        do {
-            let device = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back)
-            guard let device else {
-                self.logger.warning("No back camera available.")
+        #if !os(visionOS) && !os(watchOS)
+            guard self.isTorchAvailable else {
+                self.logger.warning("Torch is not available on this device.")
                 return false
             }
-            try device.lockForConfiguration()
-            self.isTorchOn = !self.isTorchOn
-            device.torchMode = self.isTorchOn ? .on : .off
-            device.unlockForConfiguration()
-            self.logger.info("Torch toggled to: \(self.isTorchOn ? "On" : "Off")")
-            return true
-        } catch {
-            self.logger.error("Failed to toggle torch: \(error.localizedDescription)")
+            do {
+                let device = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back)
+                guard let device else {
+                    self.logger.warning("No back camera available.")
+                    return false
+                }
+                try device.lockForConfiguration()
+                self.isTorchOn = !self.isTorchOn
+                device.torchMode = self.isTorchOn ? .on : .off
+                device.unlockForConfiguration()
+                self.logger.info("Torch toggled to: \(self.isTorchOn ? "On" : "Off")")
+                return true
+            } catch {
+                self.logger.error("Failed to toggle torch: \(error.localizedDescription)")
+                return false
+            }
+        #else
             return false
-        }
+        #endif
     }
     
     public var isTorchAvailable: Bool {
-        guard let device = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back) else {
+        #if !os(visionOS) && !os(watchOS)
+            guard let device = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back) else {
+                return false
+            }
+            return device.hasTorch && device.isTorchAvailable
+        #else
             return false
-        }
-        return device.hasTorch && device.isTorchAvailable
+        #endif
     }
     
     // Provide SwiftUI button view
