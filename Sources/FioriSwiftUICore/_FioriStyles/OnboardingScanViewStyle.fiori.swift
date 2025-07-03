@@ -29,7 +29,7 @@ public struct OnboardingScanViewBaseStyle: OnboardingScanViewStyle {
                     .ignoresSafeArea()
                 #if !os(visionOS)
                     if self.scannerManager.status == ScannerStatus.ready || self.scannerManager.status == ScannerStatus.scanning, let visionKitScanner = scannerManager.getVisionKitScanner() {
-                        VisionKitScannerRepresentable(scanner: visionKitScanner, onCancelTapped: {}, isTorchOn: self.$isTorchOn)
+                        VisionKitScannerRepresentable(scannerManager: self.scannerManager, isTorchOn: self.$isTorchOn, onCancelTapped: {})
                             .ignoresSafeArea(.all)
                     }
                 #endif
