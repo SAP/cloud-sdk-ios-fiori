@@ -43,7 +43,7 @@ let package = Package(
             dependencies: [
                 .target(name: "FioriThemeManager", condition: .when(platforms: [.iOS, .macCatalyst, .visionOS])),
                 .target(name: "FioriCharts", condition: .when(platforms: [.iOS, .macCatalyst, .visionOS])),
-                .product(name: "SwiftUIIntrospect", package: "swiftui-introspect")
+                .product(name: "SwiftUIIntrospect", package: "swiftui-introspect", condition: .when(platforms: [.iOS, .macCatalyst]))
             ],
             resources: [.process("_localization")]
         ),
