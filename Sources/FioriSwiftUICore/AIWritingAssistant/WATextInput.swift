@@ -99,18 +99,20 @@ struct WATextInputModifier: ViewModifier {
         content
             .focused(self.$isTextInputFocused)
             .toolbar {
-                ToolbarItemGroup(placement: .keyboard) {
-                    if !self.context.isPresented, self.isTextInputFocused {
-                        HStack {
-                            Spacer()
-                            self.waAction
-                                .onSimultaneousTapGesture {
-                                    self.context.updateOriginalSelectedRange()
-                                    self.context.isPresented = true
-                                }
+                #if !os(visionOS)
+                    ToolbarItemGroup(placement: .keyboard) {
+                        if !self.context.isPresented, self.isTextInputFocused {
+                            HStack {
+                                Spacer()
+                                self.waAction
+                                    .onSimultaneousTapGesture {
+                                        self.context.updateOriginalSelectedRange()
+                                        self.context.isPresented = true
+                                    }
+                            }
                         }
                     }
-                }
+                #endif
             }
             .onChange(of: self.isTextInputFocused) { _, newValue in
                 if !newValue, UIDevice.isIPhone {

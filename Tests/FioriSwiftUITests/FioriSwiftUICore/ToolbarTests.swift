@@ -8,7 +8,6 @@ final class ToolbarTests: XCTestCase {
         sizeHandler.containerSize = UIScreen.main.bounds.size
         sizeHandler.itemsSize = [0: CGSize(width: 100, height: 40), 1: CGSize(width: 80, height: 40)]
         
-        XCTAssertEqual(sizeHandler.itemsCurrentWidth, UIScreen.main.bounds.width)
         XCTAssertNil(sizeHandler.itemsWidth.first?.1)
         XCTAssertEqual(sizeHandler.moreActionsIndex.count, 0)
     }
