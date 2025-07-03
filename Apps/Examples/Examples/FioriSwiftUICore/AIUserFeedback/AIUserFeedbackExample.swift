@@ -216,6 +216,18 @@ struct InspectorNavigationStack<Content: View>: View {
     let inspectorView: () -> Content
     
     var body: some View {
+        #if os(iOS) || os(macOS)
+            self.navigationStack
+                .inspector(isPresented: self.$isInspectorPresented) {
+                    self.inspectorView()
+                }
+                .inspectorColumnWidth(375)
+        #else
+            self.navigationStack
+        #endif
+    }
+    
+    var navigationStack: some View {
         NavigationStack {
             Button {
                 self.isInspectorPresented.toggle()
@@ -223,13 +235,8 @@ struct InspectorNavigationStack<Content: View>: View {
                 Text("Display as inspector")
             }
             .toolbarBackground(.visible, for: .navigationBar)
-//                .toolbarBackground(.teal, for: .navigationBar)
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle(String("Inspector Example"))
         }
-        .inspector(isPresented: self.$isInspectorPresented) {
-            self.inspectorView()
-        }
-        .inspectorColumnWidth(375)
     }
 }

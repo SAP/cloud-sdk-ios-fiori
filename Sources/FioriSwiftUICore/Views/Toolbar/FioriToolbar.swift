@@ -202,7 +202,7 @@ class FioriToolbarHandler: ObservableObject {
     private let minHelperTextWidth: CGFloat = 64
     // [index: width] when index is -1, helper text, -2 is overflow action
     var itemsWidth: [(Int, CGFloat?)] = []
-    var itemsCurrentWidth: CGFloat = UIScreen.main.bounds.width
+    var itemsCurrentWidth: CGFloat? = nil
     
     // swiftlint:disable:next cyclomatic_complexity function_body_length
     func calculateItemsSize(_ dynamicTypeSize: DynamicTypeSize? = nil) {
