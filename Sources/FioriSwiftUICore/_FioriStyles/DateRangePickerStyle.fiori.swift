@@ -70,7 +70,7 @@ public struct DateRangePickerBaseStyle: DateRangePickerStyle {
             }
             
             ValueLabel(valueLabel: AttributedString(self.getValueLabel(configuration)))
-                .accessibilityLabel(self.getValueLabel(configuration))
+                .accessibilityLabel(self.getValueAccessibilityLabelString(configuration))
         }
         .accessibilityElement(children: .combine)
         .contentShape(Rectangle())
@@ -79,6 +79,16 @@ public struct DateRangePickerBaseStyle: DateRangePickerStyle {
                 configuration.pickerVisible.toggle()
             })
         }
+    }
+    
+    private func getValueAccessibilityLabelString(_ configuration: DateRangePickerConfiguration) -> String {
+        var valueStr = self.getValueLabel(configuration)
+        
+        if configuration.selectedRange == nil {
+            let dateRangeSetTips = NSLocalizedString("PressSpaceToSelectRangeKey", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
+            valueStr += ", \(dateRangeSetTips)"
+        }
+        return valueStr
     }
     
     private func getValueLabel(_ configuration: DateRangePickerConfiguration) -> String {
