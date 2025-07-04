@@ -16,14 +16,14 @@
         func body(content: Content) -> some View {
             content
         }
-    
-        struct FioriIntrospectionScope: OptionSet, Sendable {
-            static let receiver = Self(rawValue: 1 << 0)
-            static let ancestor = Self(rawValue: 1 << 1)
-            let rawValue: UInt
-            init(rawValue: UInt) {
-                self.rawValue = rawValue
-            }
+    }
+
+    struct FioriIntrospectionScope: OptionSet, Sendable {
+        static let receiver = Self(rawValue: 1 << 0)
+        static let ancestor = Self(rawValue: 1 << 1)
+        let rawValue: UInt
+        init(rawValue: UInt) {
+            self.rawValue = rawValue
         }
     }
 #else
