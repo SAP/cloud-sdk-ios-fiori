@@ -87,6 +87,7 @@ targets:
 
   # -----------
   # FioriSwiftUICore
+  # -----------
 
   FioriSwiftUICore:
     name: FioriSwiftUICore
